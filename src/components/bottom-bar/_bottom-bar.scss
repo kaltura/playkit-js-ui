@@ -1,0 +1,44 @@
+.player .bottom-bar {
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%);
+    padding: 6px 16px;
+    color: #fff;
+    opacity: 0;
+    transition: 100ms opacity;
+
+    .left-controls {
+        float: left;
+        text-align: left;
+    }
+    .right-controls {
+        float: right;
+        text-align: left;
+
+        .control-button-container {
+            margin: 0 6px;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+}
+
+.player:hover .bottom-bar,
+.player.hover .bottom-bar,
+.player.state-paused .bottom-bar,
+.player.menu-active .bottom-bar {
+    opacity: 1;
+}
+
+.player-gui.overlay-active .bottom-bar {
+  opacity: 0;
+}
+
+@media screen and (max-width: 480px) {
+  .player .bottom-bar {
+    padding: 6px 8px;
+  }
+}

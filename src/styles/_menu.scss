@@ -1,0 +1,55 @@
+.menu {
+  background-color: #222222;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.3);
+  border-radius: 4px;
+  position: absolute;
+  right: 0px;
+  min-width: 193px;
+  font-size: 15px;
+  z-index: 5;
+  display: none;
+
+  &.top {
+    bottom: 100%;
+    margin-bottom: 6px;
+
+    // protection for seekbar hover
+    &:before {
+      display: block;
+      content: ' ';
+      position: absolute;
+      bottom: -6px; left: 0;
+      width: 100%; height: 6px;
+    }
+  }
+  &.bottom {
+    top: 100%;
+    margin-top: 6px;
+  }
+  &.right { left: 0px; }
+  &.left { right: 0px; }
+
+  &.active {
+    display: block;
+  }
+
+  .menu-item {
+    margin: 16px;
+    color: rgba(244,244,244,0.8);
+
+    &:after {
+      display: block;
+      content: ' ';
+      clear: both;
+    }
+
+    &.select-menu-item {
+      label {
+        float: left;
+      }
+      .dropdown {
+        float: right;
+      }
+    }
+  }
+}

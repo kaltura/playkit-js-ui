@@ -1,0 +1,34 @@
+.player .control-button {
+  width: 32px; height: 32px;
+  background: transparent;
+  display: inline-block;
+  opacity: 0.8;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  fill: #fff;
+
+  svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &.control-button-rounded {
+    width: 36px; height: 36px;
+    padding: 2px;
+
+    &:hover {
+      background-color: rgba(0,0,0,0.4);
+      border-radius: 18px;
+    }
+  }
+}
+.player .control-button-container {
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+}
