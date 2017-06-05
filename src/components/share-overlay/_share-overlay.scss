@@ -1,0 +1,32 @@
+.overlay.share-overlay {
+  .share-icons {
+    margin: 60px 0;
+  }
+  .share-btn {
+    height: 36px;	width: 36px;
+    border-radius: 18px;
+    background-color: rgba(0,0,0,0.4);
+    display: inline-block;
+    margin: 0 8px;
+    transition: transform 100ms;
+    will-change: transform;
+    padding: 2px;
+
+    &:hover {
+      transform: scale(1.1667);
+    }
+
+    &.facebook-share-btn {
+      background-color: #3B5998;
+    }
+    &.twitter-share-btn {
+      background-color: #1DA1F2;
+    }
+    &.google-plus-share-btn {
+      background-color: #DD4B39;
+    }
+    &.linkedin-share-btn {
+      background-color: #00A0DC;
+    }
+  }
+}

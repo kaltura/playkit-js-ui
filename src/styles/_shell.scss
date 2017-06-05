@@ -1,0 +1,52 @@
+.player {
+    position: relative;
+    max-width: 854px; width: 100%;
+    background-color: #000;
+    overflow: hidden;
+    user-select: none;
+    min-height: 400px;
+
+    &:-webkit-full-screen {
+      width: 100%; height: 100%;
+      max-width: none;
+    }
+    * {
+        box-sizing: border-box;
+        outline: none;
+    }
+    ::selection {
+      background-color: rgba(0,0,0,0.1);
+    }
+    video {
+        width: 100%;
+    }
+    .player-gui {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        opacity: 0;
+        overflow: hidden;
+        font-size: 0;
+        font-family: $font-family;
+
+        input, textarea {
+          font-family: $font-family;
+        }
+    }
+    &.metadata-loaded .player-gui,
+    &.state-paused .player-gui,
+    &.menu-active .player-gui {
+      opacity: 1;
+    }
+}
+
+video {
+    &::-webkit-media-controls {
+        display:none !important;
+    }
+
+    &::-webkit-media-controls-start-playback-button {
+        display: none!important;
+        -webkit-appearance: none;
+    }
+}

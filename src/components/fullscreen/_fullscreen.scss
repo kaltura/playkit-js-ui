@@ -1,0 +1,23 @@
+.control-button-container.control-fullscreen {
+  .control-button {
+    transition: 100ms transform;
+    transform: scale(1);
+
+    .icon-minimize {
+      display: none;
+    }
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &.is-fullscreen {
+      .icon-maximize {
+        display: none;
+      }
+      .icon-minimize {
+        display: block;
+      }
+    }
+  }
+}

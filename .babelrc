@@ -1,0 +1,17 @@
+{
+  "presets": ["es2015"],
+  "plugins": [
+    "transform-flow-strip-types",
+    "transform-class-properties",
+    "transform-decorators-legacy",
+    "transform-object-rest-spread",
+    ["transform-react-jsx", { "pragma":"h" }]
+  ],
+  "env": {
+    "test": {
+      "plugins": [
+        "istanbul"
+      ]
+    }
+  }
+}
