@@ -60,7 +60,7 @@
   "keywords": [],
   "license": "AGPL-3.0",
   "dependencies": {
-    "playkit-js": "https://github.com/kaltura/playkit-js.git#develop",
+    "playkit-js": "git+https://github.com/kaltura/playkit-js.git#develop",
     "preact": "^8.1.0",
     "preact-redux": "^2.0.1",
     "redux": "^3.6.0"

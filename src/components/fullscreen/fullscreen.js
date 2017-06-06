@@ -2,8 +2,8 @@
 import { h } from 'preact';
 import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
-import reduce from '../../reducers';
-import * as actions from '../../actions';
+import reduce from '../../reducers/fullscreen';
+import { actions } from '../../reducers/fullscreen';
 import store from '../../store';
 import BaseComponent from '../base';
 
@@ -18,7 +18,7 @@ class FullscreenControl extends BaseComponent {
   componentDidMount() {
     this._playerElement = document.getElementsByClassName('player')[0];
     store.subscribe(() => {
-      this.setState({ fullscreen: store.getState().fullscreen })
+      this.setState({ fullscreen: store.getState().fullscreen.fullscreen })
     })
   }
 
@@ -28,7 +28,6 @@ class FullscreenControl extends BaseComponent {
 
   toggleFullscreen() {
     this.logger.debug(`Toggle fullscreen`);
-    // this._fullscreenControlButtonElement.classList.add('is-fullscreen');
     this.props.updateFullscreen(true);
     this.enterFullscreen();
   }

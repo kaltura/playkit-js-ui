@@ -2,8 +2,8 @@
 import { h } from 'preact';
 import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
-import reduce from '../../reducers';
-import * as actions from '../../actions';
+import reduce from '../../reducers/seekbar';
+import { actions } from '../../reducers/seekbar';
 import store from '../../store';
 import BaseComponent from '../base';
 import { toHHMMSS } from '../../utils/time-format';
@@ -21,12 +21,12 @@ class SeekBarControl extends BaseComponent {
   }
 
   componentDidMount() {
-    this.connectPlayerEventsToStore();
+    // this.connectPlayerEventsToStore();
     store.subscribe(() => {
       this.setState({
-        virtualProgress: store.getState().seekBar.virtualTime,
-        currentTime: store.getState().currentTime,
-        isDraggingActive: store.getState().seekBar.isDraggingActive
+        virtualProgress: store.getState().seekbar.virtualTime,
+        currentTime: store.getState().engine.currentTime,
+        isDraggingActive: store.getState().seekbar.isDraggingActive
       });
     });
 
@@ -40,31 +40,31 @@ class SeekBarControl extends BaseComponent {
     });
   }
 
-  connectPlayerEventsToStore() {
-    this.player.addEventListener(this.player.Event.PLAYER_STATE_CHANGED, (e) => {
-      this.props.updatePlayerState({previousState: e.payload.oldState.type, currentState: e.payload.newState.type});
-    });
+  // connectPlayerEventsToStore() {
+  //   this.player.addEventListener(this.player.Event.PLAYER_STATE_CHANGED, (e) => {
+  //     this.props.updatePlayerState({previousState: e.payload.oldState.type, currentState: e.payload.newState.type});
+  //   });
 
-    this.player.addEventListener(this.player.Event.TIME_UPDATE, () => {
-      this.props.updateCurrentTime(this.player.currentTime);
-    });
+  //   this.player.addEventListener(this.player.Event.TIME_UPDATE, () => {
+  //     this.props.updateCurrentTime(this.player.currentTime);
+  //   });
 
-    this.player.addEventListener(this.player.Event.LOADED_METADATA, () => {
-      this.props.updateDuration(this.player.duration);
-    });
+  //   this.player.addEventListener(this.player.Event.LOADED_METADATA, () => {
+  //     this.props.updateDuration(this.player.duration);
+  //   });
 
-    this.player.addEventListener(this.player.Event.VOLUME_CHANGE, () => {
-      this.props.updateVolume(this.player.volume);
-    });
+  //   this.player.addEventListener(this.player.Event.VOLUME_CHANGE, () => {
+  //     this.props.updateVolume(this.player.volume);
+  //   });
 
-    this.player.addEventListener(this.player.Event.PLAY, () => {
-      this.props.updateIsPlaying(true);
-    });
+  //   this.player.addEventListener(this.player.Event.PLAY, () => {
+  //     this.props.updateIsPlaying(true);
+  //   });
 
-    this.player.addEventListener(this.player.Event.PAUSE, () => {
-      this.props.updateIsPlaying(false);
-    });
-  }
+  //   this.player.addEventListener(this.player.Event.PAUSE, () => {
+  //     this.props.updateIsPlaying(false);
+  //   });
+  // }
 
   onSeekbarClick = e => {
     let time = this.getTime(e);
