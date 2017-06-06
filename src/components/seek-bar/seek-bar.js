@@ -21,7 +21,6 @@ class SeekBarControl extends BaseComponent {
   }
 
   componentDidMount() {
-    // this.connectPlayerEventsToStore();
     store.subscribe(() => {
       this.setState({
         virtualProgress: store.getState().seekbar.virtualTime,
@@ -39,32 +38,6 @@ class SeekBarControl extends BaseComponent {
       this.updateSeekBarProgress(this.player.currentTime, this.player.duration);
     });
   }
-
-  // connectPlayerEventsToStore() {
-  //   this.player.addEventListener(this.player.Event.PLAYER_STATE_CHANGED, (e) => {
-  //     this.props.updatePlayerState({previousState: e.payload.oldState.type, currentState: e.payload.newState.type});
-  //   });
-
-  //   this.player.addEventListener(this.player.Event.TIME_UPDATE, () => {
-  //     this.props.updateCurrentTime(this.player.currentTime);
-  //   });
-
-  //   this.player.addEventListener(this.player.Event.LOADED_METADATA, () => {
-  //     this.props.updateDuration(this.player.duration);
-  //   });
-
-  //   this.player.addEventListener(this.player.Event.VOLUME_CHANGE, () => {
-  //     this.props.updateVolume(this.player.volume);
-  //   });
-
-  //   this.player.addEventListener(this.player.Event.PLAY, () => {
-  //     this.props.updateIsPlaying(true);
-  //   });
-
-  //   this.player.addEventListener(this.player.Event.PAUSE, () => {
-  //     this.props.updateIsPlaying(false);
-  //   });
-  // }
 
   onSeekbarClick = e => {
     let time = this.getTime(e);
