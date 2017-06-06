@@ -1,13 +1,13 @@
 //@flow
 import { h } from 'preact';
-import { connect } from 'preact-redux';
-import { bindActions } from '../../utils/bind-actions';
-import reduce from '../../reducers';
-import * as actions from '../../actions';
+// import { connect } from 'preact-redux';
+// import { bindActions } from '../../utils/bind-actions';
+// import reduce from '../../reducers';
+// import * as actions from '../../actions';
 import store from '../../store';
 import BaseComponent from '../base';
 
-@connect(reduce, bindActions(actions))
+// @connect(reduce, bindActions(actions))
 class PlayPauseControl extends BaseComponent {
 
   constructor(obj: IControlParams) {
@@ -36,7 +36,7 @@ class PlayPauseControl extends BaseComponent {
 
   componentDidMount() {
     store.subscribe(() => {
-      this.setState({ isPlaying: store.getState().isPlaying });
+      this.setState({ isPlaying: store.getState().engine.isPlaying });
     });
   }
 }

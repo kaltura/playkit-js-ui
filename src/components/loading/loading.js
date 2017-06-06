@@ -2,8 +2,8 @@
 import { h } from 'preact';
 import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
-import reduce from '../../reducers';
-import * as actions from '../../actions';
+import reduce from '../../reducers/loading';
+import actions from '../../reducers/loading';
 import store from '../../store';
 import BaseComponent from '../base';
 
@@ -15,7 +15,7 @@ class LoadingSpinner extends BaseComponent {
 
   render() {
     return (
-      <div className={this.state.showLoadingSpinner ? 'loading-backdrop show' : 'loading-backdrop'}>
+      <div className={this.state.show ? 'loading-backdrop show' : 'loading-backdrop'}>
         <div className='spinner-container'>
           <div className='spinner'>
             {[...Array(8)].map(() => <span />)}
@@ -27,7 +27,7 @@ class LoadingSpinner extends BaseComponent {
 
   componentDidMount() {
     store.subscribe(() => {
-      this.setState({showLoadingSpinner: store.getState().showLoadingSpinner});
+      this.setState({show: store.getState().loading.show});
     })
 
     this.player.addEventListener(this.player.Event.LOADED_METADATA, () => {

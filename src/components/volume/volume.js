@@ -2,8 +2,8 @@
 import { h } from 'preact';
 import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
-import reduce from '../../reducers';
-import * as actions from '../../actions';
+import reduce from '../../reducers/volume';
+import { actions } from '../../reducers/volume';
 import store from '../../store';
 import BaseComponent from '../base';
 
@@ -27,7 +27,7 @@ class VolumeControl extends BaseComponent {
     this._volumeProgressElement = this._volumeControlElement.getElementsByClassName('progress')[0];
 
     store.subscribe(() => {
-      this.setState({ isDraggingActive: store.getState().volumeControl.isDraggingActive });
+      this.setState({ isDraggingActive: store.getState().volume.isDraggingActive });
     })
 
     this.player.addEventListener(this.player.Event.LOADED_METADATA, () => {
@@ -55,8 +55,8 @@ class VolumeControl extends BaseComponent {
     this._playerElement.addEventListener('mouseup', (e) => {
       if (this.state.isDraggingActive) {
         this.changeVolume(e);
+        this.props.updateVolumeDraggingStatus(false);
       }
-      this.props.updateVolumeDraggingStatus(false);
     });
   }
 

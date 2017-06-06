@@ -21,8 +21,8 @@ class TimeDisplayControl extends BaseComponent {
 
   componentDidMount() {
     store.subscribe(() => {
-      this.setState({currentTime: toHHMMSS(store.getState().currentTime)});
-      this.setState({duration: toHHMMSS(store.getState().duration)});
+      this.setState({currentTime: toHHMMSS(store.getState().engine.currentTime)});
+      this.setState({duration: toHHMMSS(store.getState().engine.duration)});
     })
   }
 }
