@@ -2,19 +2,15 @@
 import { h } from 'preact';
 import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
-import reduce from '../../reducers/seekbar';
-import { actions } from '../../reducers/seekbar';
+import { default as reduce, actions } from '../../reducers/seekbar';
 import store from '../../store';
 import BaseComponent from '../base';
 import { toHHMMSS } from '../../utils/time-format';
 
 @connect(reduce, bindActions(actions))
 class SeekBarControl extends BaseComponent {
-  _framePreviewElement: HTMLElement;
   _seekBarElement: HTMLElement;
   _playerElement: HTMLElement;
-  _draggingActive: boolean;
-  progressElementWidth: string;
 
   constructor(obj: IControlParams) {
     super({name: 'SeekBar', player: obj.player});
@@ -25,17 +21,18 @@ class SeekBarControl extends BaseComponent {
       this.setState({
         virtualProgress: store.getState().seekbar.virtualTime,
         currentTime: store.getState().engine.currentTime,
+        duration: store.getState().engine.duration,
         isDraggingActive: store.getState().seekbar.isDraggingActive
       });
     });
 
     this._playerElement = document.getElementsByClassName('player')[0];
-    this._framePreviewElement = document.getElementsByClassName('frame-preview-img')[0];
     this._seekBarElement = document.getElementsByClassName('seek-bar')[0];
 
     this.player.addEventListener(this.player.Event.TIME_UPDATE, () => {
       if (this.state.isDraggingActive) return;
-      this.updateSeekBarProgress(this.player.currentTime, this.player.duration);
+      this.props.updateCurrentTime(this.player.currentTime);
+      this.updateSeekBarProgress(this.state.currentTime, this.player.duration);
     });
   }
 
@@ -50,7 +47,6 @@ class SeekBarControl extends BaseComponent {
     if (this.state.isDraggingActive) {
       let time = this.getTime(e);
       this.updateSeekBarProgress(time, this.player.duration);
-      this.updateSeekBarProgress(time, this.player.duration, true);
     }
   }
 
@@ -59,11 +55,6 @@ class SeekBarControl extends BaseComponent {
       let time = this.getTime(e);
       this.updateSeekBarProgress(time, this.player.duration, true);
     }
-    this.updateFramePreview(e);
-  }
-
-  onSeekbarMouseOut = () => {
-    this.updateSeekBarProgress(0, this.player.duration, true);
   }
 
   updateSeekBarProgress(currentTime: number, duration: number, virtual: boolean = false) {
@@ -78,13 +69,6 @@ class SeekBarControl extends BaseComponent {
         currentTime: toHHMMSS(currentTime)
       });
     }
-  }
-
-  updateFramePreview(e: Event) {
-    let time = this.player.duration * ((e.clientX - this._seekBarElement.offsetLeft - this._playerElement.offsetLeft) / this._seekBarElement.clientWidth);
-    time = parseInt(time);
-    let backgroundPositionX = `-${time * 160}px`;
-    this._framePreviewElement.style.backgroundPositionX = backgroundPositionX;
   }
 
   getTime(e: Event): Number {
@@ -102,7 +86,7 @@ class SeekBarControl extends BaseComponent {
           <div className='progress' style={{width: this.state.progress}}>
             <a className='scrubber' />
           </div>
-          <div className='virtual-progress' style={{width: (this.state.virtualProgress / this.player.duration * 100) + '%'}}>
+          <div className='virtual-progress' style={{width: (this.state.virtualProgress / this.state.duration * 100) + '%'}}>
             <div className='frame-preview'>
               <div className='frame-preview-img' style='background-image: url(https://fanart.tv/fanart/movies/10193/moviebackground/toy-story-3-54bab125af0f8.jpg)' />
             </div>

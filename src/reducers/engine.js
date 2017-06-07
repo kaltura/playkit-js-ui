@@ -67,5 +67,7 @@ export const actions = {
   updatePlayerState: (prevoiusState: string, currentState: string) => ({ type: types.UPDATE_PLAYER_STATE, obj: {prevoiusState, currentState} }),
   updateIsPlaying: (isPlaying: boolean) => ({ type: types.UPDATE_IS_PLAYING, isPlaying }),
   updateCurrentTime: (currentTime: number) => ({ type: types.UPDATE_CURRENT_TIME, currentTime }),
-  updateDuration: (duration: number) => ({ type: types.UPDATE_DURATION, duration })
+  updateDuration: (duration: number) => ({ type: types.UPDATE_DURATION, duration }),
+  updateVolume: (volume: number) => ({ type: types.UPDATE_VOLUME, volume }),
+  updateMuted: (muted: boolean) => ({ type: types.UPDATE_MUTED, muted })
 }

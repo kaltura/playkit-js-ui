@@ -2,8 +2,7 @@
 import { h } from 'preact';
 import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
-import reduce from '../../reducers/play-pause';
-import { actions } from '../../reducers/play-pause';
+import { default as reduce, actions } from '../../reducers/play-pause';
 import store from '../../store';
 import BaseComponent from '../base';
 
