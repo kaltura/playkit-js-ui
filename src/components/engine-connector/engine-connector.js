@@ -14,7 +14,7 @@ class EngineConnector extends BaseComponent {
 
   componentDidMount() {
     this.player.addEventListener(this.player.Event.PLAYER_STATE_CHANGED, (e) => {
-      this.props.updatePlayerState({previousState: e.payload.oldState.type, currentState: e.payload.newState.type});
+      this.props.updatePlayerState(e.payload.oldState.type, e.payload.newState.type);
     });
 
     this.player.addEventListener(this.player.Event.TIME_UPDATE, () => {
@@ -23,6 +23,7 @@ class EngineConnector extends BaseComponent {
 
     this.player.addEventListener(this.player.Event.LOADED_METADATA, () => {
       this.props.updateDuration(this.player.duration);
+      this.props.updateMetadataLoadingStatus(true);
     });
 
     this.player.addEventListener(this.player.Event.VOLUME_CHANGE, () => {

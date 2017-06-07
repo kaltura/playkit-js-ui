@@ -81,7 +81,7 @@ class SeekBarControl extends BaseComponent {
 
   render() {
     return (
-      <div className='seek-bar' onClick={e => this.onSeekbarClick(e)} onMouseMove={e => this.onSeekbarMouseMove(e)} onMouseDown={e => this.onSeekbarMouseDown(e)} onMouseOut={() => this.onSeekbarMouseOut()}>
+      <div className='seek-bar' onClick={e => this.onSeekbarClick(e)} onMouseMove={e => this.onSeekbarMouseMove(e)} onMouseDown={e => this.onSeekbarMouseDown(e)}>
         <div className='progress-bar'>
           <div className='progress' style={{width: this.state.progress}}>
             <a className='scrubber' />

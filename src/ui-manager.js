@@ -3,6 +3,7 @@ import {h, render} from 'preact';
 import {Provider} from 'preact-redux';
 import store from './store';
 
+import Shell from './components/shell/shell';
 import LoadingSpinner from './components/loading/loading';
 import PlayPauseControl from './components/play-pause/play-pause';
 import SeekBarControl from './components/seekbar/seekbar';
@@ -28,7 +29,7 @@ class UIManager {
   buildDefaultUI(): void {
     let template = (
       <Provider store={store}>
-        <div className='player metadata-loaded skin-default'>
+        <Shell>
           <EngineConnector player={this.player} />
           <LoadingSpinner player={this.player} />
           <div id='player-holder' />
@@ -54,7 +55,7 @@ class UIManager {
               </div>
             </BottomBar>
           </div>
-        </div>
+        </Shell>
       </Provider>
     );
     this._buildUI(template);
