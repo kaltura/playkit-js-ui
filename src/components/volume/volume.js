@@ -77,8 +77,9 @@ class VolumeControl extends BaseComponent {
     volume = parseFloat(volume.toFixed(2));
     this.logger.debug(`Change volume from ${this.player.volume} => ${volume}`);
     this.player.volume = volume;
-    if (this.player.muted) {
+    if (this.state.muted) {
       this.player.muted = false;
+      this.props.updateMuted(false);
     }
   }
 
