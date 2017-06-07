@@ -5,11 +5,13 @@ export const types = {
   UPDATE_CURRENT_TIME: 'engine/UPDATE_CURRENT_TIME',
   UPDATE_DURATION: 'engine/UPDATE_DURATION',
   UPDATE_VOLUME: 'engine/UPDATE_VOLUME',
-  UPDATE_MUTED: 'engine/UPDATE_MUTED'
+  UPDATE_MUTED: 'engine/UPDATE_MUTED',
+  UPDATE_METADATA_LOADING_STATUS: 'engine/UPDATE_METADATA_LOADING_STATUS',
 }
 
 export const initialState = {
 	isPlaying: false,
+  metadataLoaded: false,
   playerState: {
     previousState: '',
     currentState: ''
@@ -58,16 +60,23 @@ export default (state = initialState, action) => {
         muted: action.muted
       }
 
+    case types.UPDATE_METADATA_LOADING_STATUS:
+      return {
+        ...state,
+        metadataLoaded: action.metadataLoaded
+      }
+
     default:
       return state;
   }
 }
 
 export const actions = {
-  updatePlayerState: (prevoiusState: string, currentState: string) => ({ type: types.UPDATE_PLAYER_STATE, obj: {prevoiusState, currentState} }),
+  updatePlayerState: (prevoiusState: string, currentState: string) => ({ type: types.UPDATE_PLAYER_STATE, playerState: {prevoiusState, currentState} }),
   updateIsPlaying: (isPlaying: boolean) => ({ type: types.UPDATE_IS_PLAYING, isPlaying }),
   updateCurrentTime: (currentTime: number) => ({ type: types.UPDATE_CURRENT_TIME, currentTime }),
   updateDuration: (duration: number) => ({ type: types.UPDATE_DURATION, duration }),
   updateVolume: (volume: number) => ({ type: types.UPDATE_VOLUME, volume }),
-  updateMuted: (muted: boolean) => ({ type: types.UPDATE_MUTED, muted })
+  updateMuted: (muted: boolean) => ({ type: types.UPDATE_MUTED, muted }),
+  updateMetadataLoadingStatus: (metadataLoaded: boolean) => ({ type: types.UPDATE_METADATA_LOADING_STATUS, metadataLoaded })
 }
