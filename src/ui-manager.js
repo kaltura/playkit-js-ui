@@ -29,6 +29,7 @@ class UIManager {
     let template = (
       <Provider store={store}>
         <div className='player metadata-loaded skin-default'>
+          <EngineConnector player={this.player} />
           <LoadingSpinner player={this.player} />
           <div id='player-holder' />
           <div className='player-gui'>
@@ -54,7 +55,6 @@ class UIManager {
             </BottomBar>
           </div>
         </div>
-        <EngineConnector player={this.player} />
       </Provider>
     );
     this._buildUI(template);

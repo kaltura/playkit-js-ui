@@ -1,13 +1,13 @@
 //@flow
 import { h } from 'preact';
-// import { connect } from 'preact-redux';
-// import { bindActions } from '../../utils/bind-actions';
-// import reduce from '../../reducers';
-// import * as actions from '../../actions';
+import { connect } from 'preact-redux';
+import { bindActions } from '../../utils/bind-actions';
+import reduce from '../../reducers/play-pause';
+import { actions } from '../../reducers/play-pause';
 import store from '../../store';
 import BaseComponent from '../base';
 
-// @connect(reduce, bindActions(actions))
+@connect(reduce, bindActions(actions))
 class PlayPauseControl extends BaseComponent {
 
   constructor(obj: IControlParams) {
@@ -16,7 +16,14 @@ class PlayPauseControl extends BaseComponent {
 
   togglePlayPause() {
     this.logger.debug('Toggle play');
-    this.player.paused ? this.player.play() : this.player.pause();
+    if (this.player.paused) {
+      this.player.play();
+      this.props.toggleIsPlaying(true);
+    }
+    else {
+      this.player.pause();
+      this.props.toggleIsPlaying(false);
+    }
   }
 
   render() {
@@ -36,7 +43,7 @@ class PlayPauseControl extends BaseComponent {
 
   componentDidMount() {
     store.subscribe(() => {
-      this.setState({ isPlaying: store.getState().engine.isPlaying });
+      this.setState({ isPlaying: store.getState().playPause.isPlaying });
     });
   }
 }
