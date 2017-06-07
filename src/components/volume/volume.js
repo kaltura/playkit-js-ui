@@ -2,11 +2,18 @@
 import { h } from 'preact';
 import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
-import { default as reduce, actions } from '../../reducers/volume';
-import store from '../../store';
+import { actions } from '../../reducers/volume';
 import BaseComponent from '../base';
 
-@connect(reduce, bindActions(actions))
+function mapStateToProps(state) {
+  return {
+    isDraggingActive: state.volume.isDraggingActive,
+    volume: state.volume.volume,
+    muted: state.volume.muted
+  };
+}
+
+@connect(mapStateToProps, bindActions(actions))
 class VolumeControl extends BaseComponent {
   _volumeControlElement: HTMLElement;
   _volumeProgressBarElement: HTMLElement;
@@ -21,14 +28,6 @@ class VolumeControl extends BaseComponent {
     this._volumeControlElement = document.getElementsByClassName('volume-control')[0];
     this._volumeProgressBarElement = this._volumeControlElement.getElementsByClassName('bar')[0];
 
-    store.subscribe(() => {
-      this.setState({
-        isDraggingActive: store.getState().volume.isDraggingActive,
-        volume: store.getState().volume.volume,
-        muted: store.getState().volume.muted
-      });
-    })
-
     this.player.addEventListener(this.player.Event.LOADED_METADATA, () => {
       this.props.updateVolume(this.player.volume);
     })
@@ -38,13 +37,13 @@ class VolumeControl extends BaseComponent {
     });
 
     this._playerElement.addEventListener('mousemove', (e) => {
-      if (this.state.isDraggingActive) {
+      if (this.props.isDraggingActive) {
         this.changeVolume(e);
       }
     });
 
     this._playerElement.addEventListener('mouseup', (e) => {
-      if (this.state.isDraggingActive) {
+      if (this.props.isDraggingActive) {
         this.changeVolume(e);
         this.props.updateVolumeDraggingStatus(false);
       }
@@ -52,7 +51,7 @@ class VolumeControl extends BaseComponent {
   }
 
   getVolumeProgessHeight(): string {
-    return store.getState().volume.muted ? '0%' : Math.round(store.getState().volume.volume * 100) + '%';
+    return this.props.muted ? '0%' : Math.round(this.props.volume * 100) + '%';
   }
 
   onVolumeProgressBarMouseDown() {
@@ -65,7 +64,7 @@ class VolumeControl extends BaseComponent {
 
   onVolumeControlButtonClick() {
     this.logger.debug(`Toggle mute. ${this.player.muted} => ${!this.player.muted}`);
-    this.props.updateMuted(!store.getState().volume.muted);
+    this.props.updateMuted(!this.props.muted);
     this.player.muted = !this.player.muted;
   }
 
@@ -77,7 +76,7 @@ class VolumeControl extends BaseComponent {
     volume = parseFloat(volume.toFixed(2));
     this.logger.debug(`Change volume from ${this.player.volume} => ${volume}`);
     this.player.volume = volume;
-    if (this.state.muted) {
+    if (this.props.muted) {
       this.player.muted = false;
       this.props.updateMuted(false);
     }
@@ -94,8 +93,8 @@ class VolumeControl extends BaseComponent {
 
   render() {
       var controlButtonClass = 'control-button-container volume-control';
-      if (this.state.isDraggingActive) controlButtonClass += ' dragging-active';
-      if (this.state.muted || this.state.volume === 0) controlButtonClass += ' is-muted';
+      if (this.props.isDraggingActive) controlButtonClass += ' dragging-active';
+      if (this.props.muted || this.props.volume === 0) controlButtonClass += ' is-muted';
 
       return (
         <div className={controlButtonClass}>
