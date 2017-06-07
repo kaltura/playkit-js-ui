@@ -39,6 +39,8 @@ class EngineConnector extends BaseComponent {
     });
   }
 
+  shouldComponentUpdate() { return false; }
+
   render() {
     return <span />
   }
