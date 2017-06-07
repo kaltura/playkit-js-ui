@@ -1,9 +1,17 @@
 //@flow
 import { h } from 'preact';
+import { connect } from 'preact-redux';
 import BaseComponent from '../base';
-import store from '../../store';
 import { toHHMMSS } from '../../utils/time-format';
 
+function mapStateToProps(state) {
+  return {
+    currentTime: state.seekbar.currentTime,
+    duration: state.engine.duration
+  };
+}
+
+@connect(mapStateToProps)
 class TimeDisplayControl extends BaseComponent {
   constructor(obj: IControlParams) {
     super({name: 'TimeDisplay', player: obj.player, config: obj.config});
@@ -12,18 +20,11 @@ class TimeDisplayControl extends BaseComponent {
   render() {
     return (
       <div className='time-display'>
-        <span className='time-current'>{ this.state.currentTime }</span>
+        <span className='time-current'>{ toHHMMSS(this.props.currentTime) }</span>
         <span className='time-separator'> / </span>
-        <span className='time-duration'>{ this.state.duration }</span>
+        <span className='time-duration'>{ toHHMMSS(this.props.duration) }</span>
       </div>
     )
-  }
-
-  componentDidMount() {
-    store.subscribe(() => {
-      this.setState({currentTime: toHHMMSS(store.getState().seekbar.currentTime)});
-      this.setState({duration: toHHMMSS(store.getState().engine.duration)});
-    })
   }
 }
 

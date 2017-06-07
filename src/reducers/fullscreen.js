@@ -1,5 +1,4 @@
 //@flow
-
 export const types = {
   UPDATE_FULLSCREEN: 'fullscreen/UPDATE_FULLSCREEN'
 }

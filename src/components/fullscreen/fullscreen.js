@@ -2,11 +2,16 @@
 import { h } from 'preact';
 import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
-import { default as reduce, actions } from '../../reducers/fullscreen';
-import store from '../../store';
+import { actions } from '../../reducers/fullscreen';
 import BaseComponent from '../base';
 
-@connect(reduce, bindActions(actions))
+function mapStateToProps(state) {
+  return {
+    fullscreen: state.fullscreen.fullscreen
+  };
+}
+
+@connect(mapStateToProps, bindActions(actions))
 class FullscreenControl extends BaseComponent {
   _playerElement: HTMLElement;
 
@@ -16,9 +21,6 @@ class FullscreenControl extends BaseComponent {
 
   componentDidMount() {
     this._playerElement = document.getElementsByClassName('player')[0];
-    store.subscribe(() => {
-      this.setState({ fullscreen: store.getState().fullscreen.fullscreen })
-    })
   }
 
   enterFullscreen() {
@@ -34,7 +36,7 @@ class FullscreenControl extends BaseComponent {
   render() {
     return (
       <div className='control-button-container control-fullscreen'>
-        <button className={this.state.fullscreen ? 'control-button is-fullscreen' : 'control-button'} aria-label='Fullscreen' onClick={() => this.toggleFullscreen()}>
+        <button className={this.props.fullscreen ? 'control-button is-fullscreen' : 'control-button'} aria-label='Fullscreen' onClick={() => this.toggleFullscreen()}>
           <svg className='icon-maximize' viewBox='0 0 1024 1024'>
             <path d='M800 269.255v114.745c0 17.673 14.327 32 32 32s32-14.327 32-32v-192c0-17.673-14.327-32-32-32h-192c-17.673 0-32 14.327-32 32s14.327 32 32 32h114.745l-137.373 137.373c-12.497 12.497-12.497 32.758 0 45.255s32.758 12.497 45.255 0l137.373-137.373z' />
             <path d='M224 754.745v-114.745c0-17.673-14.327-32-32-32s-32 14.327-32 32v192c0 17.673 14.327 32 32 32h192c17.673 0 32-14.327 32-32s-14.327-32-32-32h-114.745l137.373-137.373c12.497-12.497 12.497-32.758 0-45.255s-32.758-12.497-45.255 0l-137.373 137.373z' />
