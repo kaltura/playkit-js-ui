@@ -5,7 +5,7 @@ import store from './store';
 
 import LoadingSpinner from './components/loading/loading';
 import PlayPauseControl from './components/play-pause/play-pause';
-import SeekBarControl from './components/seek-bar/seek-bar';
+import SeekBarControl from './components/seekbar/seekbar';
 import VolumeControl from './components/volume/volume';
 import ShareControl from './components/share/share'
 import SettingsControl from './components/settings/settings';

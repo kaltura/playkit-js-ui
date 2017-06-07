@@ -2,8 +2,7 @@
 import { h } from 'preact';
 import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
-import reduce from '../../reducers/engine';
-import { actions } from '../../reducers/engine';
+import { default as reduce, actions } from '../../reducers/engine';
 import BaseComponent from '../base';
 
 @connect(reduce, bindActions(actions))

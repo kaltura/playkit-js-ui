@@ -2,8 +2,7 @@
 import { h } from 'preact';
 import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
-import reduce from '../../reducers/fullscreen';
-import { actions } from '../../reducers/fullscreen';
+import { default as reduce, actions } from '../../reducers/fullscreen';
 import store from '../../store';
 import BaseComponent from '../base';
 
