@@ -1,3 +1,5 @@
+// @flow
+
 import {playkit} from 'playkit-js';
 import sourcesConfig from '../test/src/configs/sources.json'
 
