@@ -8,8 +8,7 @@
           .scrubber {
               transform: scale(1);
           }
-          .virtual-progress .frame-preview,
-          .virtual-progress .time-preview {
+          .virtual-progress {
             display: block;
           }
         }
@@ -29,6 +28,9 @@
             border-radius: $progress-bar-border-radius 0 0 $progress-bar-border-radius;
             background-color: $brand-color;
         }
+        .virtual-progress {
+          display: none;
+        }
         .buffered, .virtual-progress {
             position: absolute;
             top: 0; left: 0;
@@ -43,7 +45,6 @@
               position: relative;
             }
             .frame-preview {
-              display: none;
               position: absolute;
               bottom: $progress-bar-height + 12px; right: 0;
               transform: translateX(50%);
@@ -52,7 +53,6 @@
               border-radius: 4px;
             }
             .time-preview {
-              display: none;
               position: absolute;
               bottom: $progress-bar-height + 18px; right: 0;
               transform: translateX(50%);

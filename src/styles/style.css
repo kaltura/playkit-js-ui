@@ -525,9 +525,7 @@ video::-webkit-media-controls-start-playback-button {
     -webkit-transform: scale(1);
         -ms-transform: scale(1);
             transform: scale(1); }
-  .player .seek-bar:hover .progress-bar .virtual-progress .frame-preview,
-  .player .seek-bar:hover .progress-bar .virtual-progress .time-preview, .player .seek-bar.dragging-active .progress-bar .virtual-progress .frame-preview,
-  .player .seek-bar.dragging-active .progress-bar .virtual-progress .time-preview {
+  .player .seek-bar:hover .progress-bar .virtual-progress, .player .seek-bar.dragging-active .progress-bar .virtual-progress {
     display: block; }
   .player .seek-bar .progress-bar {
     height: 4px;
@@ -542,6 +540,8 @@ video::-webkit-media-controls-start-playback-button {
       z-index: 2;
       border-radius: 2px 0 0 2px;
       background-color: #01ACCD; }
+    .player .seek-bar .progress-bar .virtual-progress {
+      display: none; }
     .player .seek-bar .progress-bar .buffered, .player .seek-bar .progress-bar .virtual-progress {
       position: absolute;
       top: 0;
@@ -556,7 +556,6 @@ video::-webkit-media-controls-start-playback-button {
         height: 100%;
         position: relative; }
       .player .seek-bar .progress-bar .buffered .frame-preview, .player .seek-bar .progress-bar .virtual-progress .frame-preview {
-        display: none;
         position: absolute;
         bottom: 16px;
         right: 0;
@@ -568,7 +567,6 @@ video::-webkit-media-controls-start-playback-button {
         border: 2px solid rgba(255, 255, 255, 0.2);
         border-radius: 4px; }
       .player .seek-bar .progress-bar .buffered .time-preview, .player .seek-bar .progress-bar .virtual-progress .time-preview {
-        display: none;
         position: absolute;
         bottom: 22px;
         right: 0;

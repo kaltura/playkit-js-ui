@@ -26,6 +26,10 @@ class UIManager {
     this.player = player;
   }
 
+  buildCustomUI(template): void {
+    this._buildUI(template);
+  }
+
   buildDefaultUI(): void {
     let template = (
       <Provider store={store}>
@@ -71,7 +75,6 @@ class UIManager {
   }
 
   release(): void { }
-
 
 }
 
