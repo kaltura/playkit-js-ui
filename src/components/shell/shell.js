@@ -22,7 +22,9 @@ class Shell extends BaseComponent {
     if (this.props.metadataLoaded) playerClasses += ` state-${this.props.currentState}`;
 
     return (
-      <div className={playerClasses}>{ props.children }</div>
+      <div className={playerClasses}>
+        { props.children }
+      </div>
     )
   }
 }

@@ -15,9 +15,7 @@ import TimeDisplayControl from './components/time-display/time-display';
 import TopBar from './components/top-bar/top-bar';
 import BottomBar from './components/bottom-bar/bottom-bar';
 import EngineConnector from './components/engine-connector/engine-connector';
-
 // import KeyboardControl from './components/keyboard'
-// import StateChange from './components/state-change'
 
 class UIManager {
   player: any;
