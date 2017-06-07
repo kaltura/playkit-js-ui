@@ -2,12 +2,20 @@
 import { h } from 'preact';
 import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
-import { default as reduce, actions } from '../../reducers/seekbar';
-import store from '../../store';
+import { actions } from '../../reducers/seekbar';
 import BaseComponent from '../base';
 import { toHHMMSS } from '../../utils/time-format';
 
-@connect(reduce, bindActions(actions))
+function mapStateToProps(state) {
+  return {
+    virtualProgress: state.seekbar.virtualTime,
+    currentTime: state.engine.currentTime,
+    duration: state.engine.duration,
+    isDraggingActive: state.seekbar.isDraggingActive
+  };
+}
+
+@connect(mapStateToProps, bindActions(actions))
 class SeekBarControl extends BaseComponent {
   _seekBarElement: HTMLElement;
   _playerElement: HTMLElement;
@@ -17,22 +25,13 @@ class SeekBarControl extends BaseComponent {
   }
 
   componentDidMount() {
-    store.subscribe(() => {
-      this.setState({
-        virtualProgress: store.getState().seekbar.virtualTime,
-        currentTime: store.getState().engine.currentTime,
-        duration: store.getState().engine.duration,
-        isDraggingActive: store.getState().seekbar.isDraggingActive
-      });
-    });
-
     this._playerElement = document.getElementsByClassName('player')[0];
     this._seekBarElement = document.getElementsByClassName('seek-bar')[0];
 
     this.player.addEventListener(this.player.Event.TIME_UPDATE, () => {
-      if (this.state.isDraggingActive) return;
+      if (this.props.isDraggingActive) return;
       this.props.updateCurrentTime(this.player.currentTime);
-      this.updateSeekBarProgress(this.state.currentTime, this.player.duration);
+      this.updateSeekBarProgress(this.props.currentTime, this.player.duration);
     });
   }
 
@@ -44,7 +43,7 @@ class SeekBarControl extends BaseComponent {
   }
 
   onSeekbarMouseDown = e => {
-    if (this.state.isDraggingActive) {
+    if (this.props.isDraggingActive) {
       let time = this.getTime(e);
       this.updateSeekBarProgress(time, this.player.duration);
     }
@@ -58,16 +57,8 @@ class SeekBarControl extends BaseComponent {
   }
 
   updateSeekBarProgress(currentTime: number, duration: number, virtual: boolean = false) {
-    let width = currentTime / duration * 100;
-
     if (virtual) {
       this.props.updateVirtualTime(currentTime);
-    }
-    else {
-      this.setState({
-        progress: `${width}%`,
-        currentTime: toHHMMSS(currentTime)
-      });
     }
   }
 
@@ -80,17 +71,20 @@ class SeekBarControl extends BaseComponent {
   }
 
   render() {
+    var virtualProgressWidth = `${this.props.virtualProgress / this.props.duration * 100}%`;
+    var progressWidth = `${this.props.currentTime / this.props.duration * 100}%`;
+
     return (
       <div className='seek-bar' onClick={e => this.onSeekbarClick(e)} onMouseMove={e => this.onSeekbarMouseMove(e)} onMouseDown={e => this.onSeekbarMouseDown(e)}>
         <div className='progress-bar'>
-          <div className='progress' style={{width: this.state.progress}}>
+          <div className='progress' style={{width: progressWidth}}>
             <a className='scrubber' />
           </div>
-          <div className='virtual-progress' style={{width: (this.state.virtualProgress / this.state.duration * 100) + '%'}}>
+          <div className='virtual-progress' style={{width: virtualProgressWidth}}>
             <div className='frame-preview'>
               <div className='frame-preview-img' style='background-image: url(https://fanart.tv/fanart/movies/10193/moviebackground/toy-story-3-54bab125af0f8.jpg)' />
             </div>
-            <div className='time-preview'>{ toHHMMSS(this.state.virtualProgress)}</div>
+            <div className='time-preview'>{ toHHMMSS(this.props.virtualProgress)}</div>
           </div>
           <div className='buffered' style='width: 60%;' />
         </div>
