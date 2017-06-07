@@ -8,7 +8,7 @@ import { toHHMMSS } from '../../utils/time-format';
 
 const mapStateToProps = state => ({
   virtualProgress: state.seekbar.virtualTime,
-  currentTime: state.engine.currentTime,
+  currentTime: state.seekbar.currentTime,
   duration: state.engine.duration,
   isDraggingActive: state.seekbar.isDraggingActive
 });
@@ -27,9 +27,7 @@ class SeekBarControl extends BaseComponent {
     this._seekBarElement = document.getElementsByClassName('seek-bar')[0];
 
     this.player.addEventListener(this.player.Event.TIME_UPDATE, () => {
-      if (this.props.isDraggingActive) return;
       this.props.updateCurrentTime(this.player.currentTime);
-      this.updateSeekBarProgress(this.props.currentTime, this.player.duration);
     });
   }
 
@@ -57,6 +55,9 @@ class SeekBarControl extends BaseComponent {
   updateSeekBarProgress(currentTime: number, duration: number, virtual: boolean = false) {
     if (virtual) {
       this.props.updateVirtualTime(currentTime);
+    }
+    else {
+      this.props.updateCurrentTime(currentTime);
     }
   }
 
