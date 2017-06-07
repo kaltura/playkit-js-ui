@@ -6,14 +6,12 @@ import { actions } from '../../reducers/seekbar';
 import BaseComponent from '../base';
 import { toHHMMSS } from '../../utils/time-format';
 
-function mapStateToProps(state) {
-  return {
-    virtualProgress: state.seekbar.virtualTime,
-    currentTime: state.engine.currentTime,
-    duration: state.engine.duration,
-    isDraggingActive: state.seekbar.isDraggingActive
-  };
-}
+const mapStateToProps = state => ({
+  virtualProgress: state.seekbar.virtualTime,
+  currentTime: state.engine.currentTime,
+  duration: state.engine.duration,
+  isDraggingActive: state.seekbar.isDraggingActive
+});
 
 @connect(mapStateToProps, bindActions(actions))
 class SeekBarControl extends BaseComponent {

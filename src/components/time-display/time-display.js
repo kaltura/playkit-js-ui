@@ -4,12 +4,10 @@ import { connect } from 'preact-redux';
 import BaseComponent from '../base';
 import { toHHMMSS } from '../../utils/time-format';
 
-function mapStateToProps(state) {
-  return {
-    currentTime: state.seekbar.currentTime,
-    duration: state.engine.duration
-  };
-}
+const mapStateToProps = state => ({
+  currentTime: state.seekbar.currentTime,
+  duration: state.engine.duration
+});
 
 @connect(mapStateToProps)
 class TimeDisplayControl extends BaseComponent {
