@@ -4,6 +4,8 @@ export const types = {
   UPDATE_IS_PLAYING: 'engine/UPDATE_IS_PLAYING',
   UPDATE_CURRENT_TIME: 'engine/UPDATE_CURRENT_TIME',
   UPDATE_DURATION: 'engine/UPDATE_DURATION',
+  UPDATE_VOLUME: 'engine/UPDATE_VOLUME',
+  UPDATE_MUTED: 'engine/UPDATE_MUTED'
 }
 
 export const initialState = {

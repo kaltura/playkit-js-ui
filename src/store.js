@@ -2,6 +2,7 @@
 import { createStore, combineReducers } from 'redux';
 import engine from './reducers/engine';
 import shell from './reducers/shell';
+import playPause from './reducers/play-pause';
 import seekbar from './reducers/seekbar';
 import volume from './reducers/volume';
 import fullscreen from './reducers/fullscreen';
@@ -13,7 +14,8 @@ const reducer = combineReducers({
   seekbar,
   volume,
   fullscreen,
-  loading
+  loading,
+  playPause
 });
 
 

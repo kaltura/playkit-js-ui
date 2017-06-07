@@ -10,9 +10,7 @@ import BaseComponent from '../base';
 @connect(reduce, bindActions(actions))
 class VolumeControl extends BaseComponent {
   _volumeControlElement: HTMLElement;
-  _volumeControlButtonElement: HTMLElement;
   _volumeProgressBarElement: HTMLElement;
-  _volumeProgressElement: HTMLElement;
   _playerElement: HTMLElement;
 
   constructor(obj: IControlParams) {
@@ -22,28 +20,22 @@ class VolumeControl extends BaseComponent {
   componentDidMount() {
     this._playerElement = document.getElementsByClassName('player')[0];
     this._volumeControlElement = document.getElementsByClassName('volume-control')[0];
-    this._volumeControlButtonElement = this._volumeControlElement.getElementsByClassName('control-button')[0];
     this._volumeProgressBarElement = this._volumeControlElement.getElementsByClassName('bar')[0];
-    this._volumeProgressElement = this._volumeControlElement.getElementsByClassName('progress')[0];
 
     store.subscribe(() => {
-      this.setState({ isDraggingActive: store.getState().volume.isDraggingActive });
+      this.setState({
+        isDraggingActive: store.getState().volume.isDraggingActive,
+        volume: store.getState().volume.volume,
+        muted: store.getState().volume.muted
+      });
     })
 
     this.player.addEventListener(this.player.Event.LOADED_METADATA, () => {
-      this._volumeProgressElement.style.height = `${Math.round(this.player.volume * 100)}%`;
+      this.props.updateVolume(this.player.volume);
     })
 
     this.player.addEventListener(this.player.Event.VOLUME_CHANGE, () => {
-      this._volumeProgressElement.style.height = `${Math.round(this.player.volume * 100)}%`;
-
-      if(this.player.muted || this.player.volume === 0) {
-        this._volumeControlElement.classList.add('is-muted');
-        this._volumeProgressElement.style.height = '0%';
-      }
-      else {
-        this._volumeControlElement.classList.remove('is-muted');
-      }
+      this.props.updateVolume(this.player.volume);
     });
 
     this._playerElement.addEventListener('mousemove', (e) => {
@@ -61,7 +53,7 @@ class VolumeControl extends BaseComponent {
   }
 
   getVolumeProgessHeight(): string {
-    return Math.round(store.getState().volume * 100) + '%';
+    return store.getState().volume.muted ? '0%' : Math.round(store.getState().volume.volume * 100) + '%';
   }
 
   onVolumeProgressBarMouseDown() {
@@ -74,6 +66,7 @@ class VolumeControl extends BaseComponent {
 
   onVolumeControlButtonClick() {
     this.logger.debug(`Toggle mute. ${this.player.muted} => ${!this.player.muted}`);
+    this.props.updateMuted(!store.getState().volume.muted);
     this.player.muted = !this.player.muted;
   }
 
@@ -99,10 +92,13 @@ class VolumeControl extends BaseComponent {
     }
   }
 
-  render({ volumeControl }) {
+  render() {
+      var controlButtonClass = 'control-button-container volume-control';
+      if (this.state.isDraggingActive) controlButtonClass += ' dragging-active';
+      if (this.state.muted || this.state.volume === 0) controlButtonClass += ' is-muted';
+
       return (
-        <div className={this.state.isDraggingActive ? 'control-button-container volume-control dragging-active' : 'control-button-container volume-control'}>
-          {volumeControl}
+        <div className={controlButtonClass}>
           <button className='control-button' onClick={() => this.onVolumeControlButtonClick()} aria-label='Volume'>
             <svg viewBox='0 0 1024 1024'>
               <path d='M224 352l234.504-156.336c29.545-19.697 53.496-7.194 53.496 28.053v576.566c0 35.19-24.059 47.677-53.496 28.053l-234.504-156.336h-127.906c-17.725 0-32.094-14.581-32.094-31.853v-256.295c0-17.592 14.012-31.853 32.094-31.853h127.906zM288 637.748l160 106.667v-464.83l-160 106.667v251.496zM128 416v192h96v-192h-96z' />
