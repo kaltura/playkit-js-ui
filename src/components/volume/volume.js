@@ -5,13 +5,11 @@ import { bindActions } from '../../utils/bind-actions';
 import { actions } from '../../reducers/volume';
 import BaseComponent from '../base';
 
-function mapStateToProps(state) {
-  return {
-    isDraggingActive: state.volume.isDraggingActive,
-    volume: state.volume.volume,
-    muted: state.volume.muted
-  };
-}
+const mapStateToProps = state => ({
+  isDraggingActive: state.volume.isDraggingActive,
+  volume: state.volume.volume,
+  muted: state.volume.muted
+});
 
 @connect(mapStateToProps, bindActions(actions))
 class VolumeControl extends BaseComponent {

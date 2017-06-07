@@ -5,11 +5,9 @@ import { bindActions } from '../../utils/bind-actions';
 import { actions } from '../../reducers/fullscreen';
 import BaseComponent from '../base';
 
-function mapStateToProps(state) {
-  return {
-    fullscreen: state.fullscreen.fullscreen
-  };
-}
+const mapStateToProps = state => ({
+  fullscreen: state.fullscreen.fullscreen
+});
 
 @connect(mapStateToProps, bindActions(actions))
 class FullscreenControl extends BaseComponent {

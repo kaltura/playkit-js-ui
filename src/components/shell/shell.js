@@ -3,12 +3,10 @@ import { h } from 'preact';
 import BaseComponent from '../base';
 import { connect } from 'preact-redux';
 
-function mapStateToProps(state) {
-  return {
-    metadataLoaded: state.engine.metadataLoaded,
-    currentState: state.engine.playerState.currentState
-  };
-}
+const mapStateToProps = state => ({
+  metadataLoaded: state.engine.metadataLoaded,
+  currentState: state.engine.playerState.currentState
+});
 
 @connect(mapStateToProps)
 class Shell extends BaseComponent {

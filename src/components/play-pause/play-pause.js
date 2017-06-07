@@ -5,11 +5,9 @@ import { bindActions } from '../../utils/bind-actions';
 import { actions } from '../../reducers/play-pause';
 import BaseComponent from '../base';
 
-function mapStateToProps(state) {
-  return {
-    isPlaying: state.playPause.isPlaying
-  };
-}
+const mapStateToProps = state => ({
+  isPlaying: state.playPause.isPlaying
+});
 
 @connect(mapStateToProps, bindActions(actions))
 class PlayPauseControl extends BaseComponent {
