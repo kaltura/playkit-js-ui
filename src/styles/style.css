@@ -134,7 +134,11 @@ textarea.form-control {
     position: absolute;
     top: 48px;
     right: 48px;
-    z-index: 5; }
+    z-index: 5;
+    fill: #fff; }
+    .overlay .close-overlay .icon-close {
+      width: 24px;
+      height: 24px; }
   .overlay a {
     color: #01ACCD;
     text-decoration: underline;
