@@ -6,7 +6,6 @@ import LoggerFactory from '../utils/logger';
 class BaseComponent extends Component {
   player: Player;
   name: string;
-  template: string;
   config: Object;
   logger: any;
 
@@ -15,7 +14,6 @@ class BaseComponent extends Component {
 
     this.name = obj.name;
     this.player = obj.player;
-    this.template = obj.template;
     this.config = obj.config;
     this.logger = LoggerFactory.getLogger(`UI ${this.name}`);
     this.logger.debug(`Initialized`);
