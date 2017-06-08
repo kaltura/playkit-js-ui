@@ -149,6 +149,23 @@ textarea.form-control {
     .overlay a:active {
       opacity: 0.7; }
 
+@media screen and (max-width: 768px) {
+  .overlay {
+    padding: 36px 20px 0; }
+    .overlay .close-overlay {
+      top: 38px; }
+    .overlay .title {
+      margin-bottom: 24px; } }
+@media screen and (max-width: 480px) {
+  .overlay {
+    padding: 16px 24px 0; }
+    .overlay .close-overlay {
+      top: 15px;
+      right: 24px; }
+    .overlay .title {
+      font-size: 16px;
+      line-height: 19px;
+      margin-bottom: 36px; } }
 .menu {
   background-color: #222222;
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.3);
@@ -289,6 +306,12 @@ video::-webkit-media-controls-start-playback-button {
   .overlay.share-overlay .share-btn.linkedin-share-btn {
     background-color: #00A0DC; }
 
+@media screen and (max-width: 768px) {
+  .overlay.share-overlay .share-icons {
+    margin: 40px 0; } }
+@media screen and (max-width: 480px) {
+  .overlay.share-overlay .share-icons {
+    margin: 20px 0; } }
 @-webkit-keyframes kaltura-spinner {
   0% {
     -webkit-transform: rotate(0deg) scale(0.7);
@@ -310,7 +333,6 @@ video::-webkit-media-controls-start-playback-button {
     -webkit-transform: rotate(360deg) scale(0.7);
             transform: rotate(360deg) scale(0.7);
     opacity: 1; } }
-
 @keyframes kaltura-spinner {
   0% {
     -webkit-transform: rotate(0deg) scale(0.7);

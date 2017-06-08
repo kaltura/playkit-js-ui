@@ -47,3 +47,31 @@
     }
   }
 }
+
+@media screen and (max-width: 768px) {
+  .overlay {
+    padding: 36px 20px 0;
+
+    .close-overlay {
+      top: 38px;
+    }
+    .title {
+      margin-bottom: 24px;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .overlay {
+    padding: 16px 24px 0;
+
+    .close-overlay {
+      top: 15px; right: 24px;
+    }
+    .title {
+      font-size: 16px;
+      line-height: 19px;
+      margin-bottom: 36px;
+    }
+  }
+}
