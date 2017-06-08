@@ -26,6 +26,8 @@ class SeekBarControl extends BaseComponent {
     this._playerElement = document.getElementsByClassName('player')[0];
     this._seekBarElement = document.getElementsByClassName('seek-bar')[0];
 
+    this.setState({virtualTime: 0});
+
     this.player.addEventListener(this.player.Event.TIME_UPDATE, () => {
       this.props.updateCurrentTime(this.player.currentTime);
     });

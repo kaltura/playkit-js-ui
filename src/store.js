@@ -7,6 +7,7 @@ import seekbar from './reducers/seekbar';
 import volume from './reducers/volume';
 import fullscreen from './reducers/fullscreen';
 import loading from './reducers/loading';
+import share from './reducers/share';
 
 const reducer = combineReducers({
   engine,
@@ -15,19 +16,9 @@ const reducer = combineReducers({
   volume,
   fullscreen,
   loading,
-  playPause
+  playPause,
+  share
 });
-
-
-// let storeStructure: {
-//   engine: engineReducer,
-//   shell: shellReducer,
-//   playPause: playPause,
-//   seekBar: seekBar,
-//   volume: volume,
-//   fullscreen: fullscreen,
-//   plugins: pluginsReducers
-// }
 
 const store = createStore(reducer, window.devToolsExtension && window.devToolsExtension());
 

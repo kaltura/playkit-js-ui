@@ -3,6 +3,7 @@ import {h, render} from 'preact';
 import {Provider} from 'preact-redux';
 import store from './store';
 
+import EngineConnector from './components/engine-connector/engine-connector';
 import Shell from './components/shell/shell';
 import LoadingSpinner from './components/loading/loading';
 import PlayPauseControl from './components/play-pause/play-pause';
@@ -14,7 +15,7 @@ import FullscreenControl from './components/fullscreen/fullscreen';
 import TimeDisplayControl from './components/time-display/time-display';
 import TopBar from './components/top-bar/top-bar';
 import BottomBar from './components/bottom-bar/bottom-bar';
-import EngineConnector from './components/engine-connector/engine-connector';
+import ShareOverlay from './components/share-overlay/share-overlay';
 // import KeyboardControl from './components/keyboard'
 
 class UIManager {
@@ -56,6 +57,7 @@ class UIManager {
                 <FullscreenControl player={this.player} />
               </div>
             </BottomBar>
+            <ShareOverlay />
           </div>
         </Shell>
       </Provider>
