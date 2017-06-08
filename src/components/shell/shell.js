@@ -5,7 +5,8 @@ import { connect } from 'preact-redux';
 
 const mapStateToProps = state => ({
   metadataLoaded: state.engine.metadataLoaded,
-  currentState: state.engine.playerState.currentState
+  currentState: state.engine.playerState.currentState,
+  playerClasses: state.shell.playerClasses
 });
 
 @connect(mapStateToProps)
@@ -16,6 +17,8 @@ class Shell extends BaseComponent {
 
   render(props) {
     var playerClasses = 'player skin-default';
+    playerClasses += ` ${props.playerClasses.join(' ')}`;
+
     if (this.props.metadataLoaded) playerClasses += ` metadata-loaded`;
     if (this.props.metadataLoaded) playerClasses += ` state-${this.props.currentState}`;
 
