@@ -255,7 +255,7 @@ textarea.form-control {
     font-family: "Lato", sans-serif; }
     .player .player-gui input, .player .player-gui textarea {
       font-family: "Lato", sans-serif; }
-  .player.metadata-loaded .player-gui, .player.state-paused .player-gui, .player.menu-active .player-gui {
+  .player.metadata-loaded .player-gui, .player.state-paused .player-gui, .player.overlay-active .player-gui, .player.menu-active .player-gui {
     opacity: 1; }
 
 video::-webkit-media-controls {
@@ -654,7 +654,7 @@ video::-webkit-media-controls-start-playback-button {
 .player.menu-active .bottom-bar {
   opacity: 1; }
 
-.player-gui.overlay-active .bottom-bar {
+.player.overlay-active .bottom-bar {
   opacity: 0; }
 
 @media screen and (max-width: 480px) {
@@ -689,7 +689,7 @@ video::-webkit-media-controls-start-playback-button {
 .player.menu-active .top-bar {
   opacity: 1; }
 
-.player-gui.overlay-active .top-bar {
+.player.overlay-active .top-bar {
   opacity: 0; }
 
 @media screen and (max-width: 480px) {

@@ -14,7 +14,7 @@ export default (state = initialState, action) => {
     case types.ADD_PLAYER_CLASS:
       return {
         ...state,
-        playerClasses: state.playerClasses.push(action.className)
+        playerClasses: [...state.playerClasses, action.className]
       }
 
     case types.REMOVE_PLAYER_CLASS:
