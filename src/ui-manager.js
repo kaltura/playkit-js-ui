@@ -46,7 +46,7 @@ class UIManager {
               </div>
             </TopBar>
             <BottomBar>
-              <SeekBarControl player={this.player} />
+              <SeekBarControl showFramePreview={true} showTimeBubble={true} player={this.player} />
               <div className='left-controls'>
                 <PlayPauseControl player={this.player} />
                 <TimeDisplayControl player={this.player} />

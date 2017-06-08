@@ -71,9 +71,9 @@ class SeekBarControl extends BaseComponent {
     return time;
   }
 
-  render() {
-    var virtualProgressWidth = `${this.state.virtualTime / this.props.duration * 100}%`;
-    var progressWidth = `${this.props.currentTime / this.props.duration * 100}%`;
+  render(props) {
+    var virtualProgressWidth = `${this.state.virtualTime / props.duration * 100}%`;
+    var progressWidth = `${props.currentTime / props.duration * 100}%`;
 
     return (
       <div className='seek-bar' onClick={e => this.onSeekbarClick(e)} onMouseMove={e => this.onSeekbarMouseMove(e)} onMouseDown={e => this.onSeekbarMouseDown(e)}>
@@ -82,10 +82,13 @@ class SeekBarControl extends BaseComponent {
             <a className='scrubber' />
           </div>
           <div className='virtual-progress' style={{width: virtualProgressWidth}}>
-            <div className='frame-preview'>
-              <div className='frame-preview-img' style='background-image: url(https://fanart.tv/fanart/movies/10193/moviebackground/toy-story-3-54bab125af0f8.jpg)' />
-            </div>
-            <div className='time-preview'>{ toHHMMSS(this.state.virtualTime)}</div>
+            {
+              props.showFramePreview ?
+                (<div className='frame-preview'>
+                  <div className='frame-preview-img' style='background-image: url(https://fanart.tv/fanart/movies/10193/moviebackground/toy-story-3-54bab125af0f8.jpg)' />
+                </div>) : ''
+            }
+            { this.props.showTimeBubble ? <div className='time-preview'>{ toHHMMSS(this.state.virtualTime)}</div> : '' }
           </div>
           <div className='buffered' style='width: 60%;' />
         </div>
