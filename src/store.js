@@ -8,6 +8,7 @@ import volume from './reducers/volume';
 import fullscreen from './reducers/fullscreen';
 import loading from './reducers/loading';
 import share from './reducers/share';
+import settings from './reducers/settings';
 
 const reducer = combineReducers({
   engine,
@@ -17,7 +18,8 @@ const reducer = combineReducers({
   fullscreen,
   loading,
   playPause,
-  share
+  share,
+  settings
 });
 
 const store = createStore(reducer, window.devToolsExtension && window.devToolsExtension());
