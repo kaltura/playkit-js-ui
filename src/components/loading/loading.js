@@ -15,9 +15,9 @@ class LoadingSpinner extends BaseComponent {
     super({name: 'Loading', player: obj.player});
   }
 
-  render() {
+  render(props) {
     return (
-      <div className={this.props.show ? 'loading-backdrop show' : 'loading-backdrop'}>
+      <div className={props.show ? 'loading-backdrop show' : 'loading-backdrop'}>
         <div className='spinner-container'>
           <div className='spinner'>
             {[...Array(8)].map(() => <span />)}

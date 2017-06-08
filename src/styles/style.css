@@ -90,7 +90,9 @@ textarea.form-control {
       .dropdown .dropdown-menu .dropdown-menu-item .check-icon {
         display: inline-block;
         margin-left: 16px;
-        vertical-align: middle; }
+        vertical-align: middle;
+        width: 24px;
+        height: 24px; }
       .dropdown .dropdown-menu .dropdown-menu-item span {
         vertical-align: middle;
         line-height: 26px; }
