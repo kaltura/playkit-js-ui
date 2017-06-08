@@ -54,7 +54,7 @@ class SeekBarControl extends BaseComponent {
 
   updateSeekBarProgress(currentTime: number, duration: number, virtual: boolean = false) {
     if (virtual) {
-      this.props.updateVirtualTime(currentTime);
+      this.setState({virtualTime: currentTime});
     }
     else {
       this.props.updateCurrentTime(currentTime);
@@ -70,7 +70,7 @@ class SeekBarControl extends BaseComponent {
   }
 
   render() {
-    var virtualProgressWidth = `${this.props.virtualProgress / this.props.duration * 100}%`;
+    var virtualProgressWidth = `${this.state.virtualTime / this.props.duration * 100}%`;
     var progressWidth = `${this.props.currentTime / this.props.duration * 100}%`;
 
     return (
@@ -83,7 +83,7 @@ class SeekBarControl extends BaseComponent {
             <div className='frame-preview'>
               <div className='frame-preview-img' style='background-image: url(https://fanart.tv/fanart/movies/10193/moviebackground/toy-story-3-54bab125af0f8.jpg)' />
             </div>
-            <div className='time-preview'>{ toHHMMSS(this.props.virtualProgress)}</div>
+            <div className='time-preview'>{ toHHMMSS(this.state.virtualTime)}</div>
           </div>
           <div className='buffered' style='width: 60%;' />
         </div>
