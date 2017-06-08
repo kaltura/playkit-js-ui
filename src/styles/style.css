@@ -228,8 +228,7 @@ textarea.form-control {
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
-          user-select: none;
-  min-height: 400px; }
+          user-select: none; }
   .player:-webkit-full-screen {
     width: 100%;
     height: 100%;
