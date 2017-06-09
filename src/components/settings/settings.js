@@ -1,6 +1,7 @@
 //@flow
 import { h } from 'preact';
 import BaseComponent from '../base';
+import SmartContainer from '../smart-container/smart-container';
 import Icon from '../icon/icon';
 
 class SettingsControl extends BaseComponent {
@@ -48,37 +49,7 @@ class SettingsControl extends BaseComponent {
         <button className='control-button' aria-label='Settings'>
           <Icon type='settings' />
         </button>
-        <div className='menu top left'>
-          <div className='menu-item select-menu-item'>
-            <label htmlFor='quality'>Quality</label>
-            <div className='dropdown top left'>
-              <div className='dropdown-button'>Auto</div>
-              <div className='dropdown-menu'>
-                <div className='dropdown-menu-item active'>Auto</div>
-                <div className='dropdown-menu-item'>720p</div>
-                <div className='dropdown-menu-item'>480p</div>
-              </div>
-            </div>
-          </div>
-          <div className='menu-item select-menu-item'>
-            <label htmlFor='speed'>Speed</label>
-            <div className='dropdown top left'>
-              <div className='dropdown-button'>Normal</div>
-              <div className='dropdown-menu'>
-                <div className='dropdown-menu-item active'>
-                  <span>Normal</span>
-                  <Icon type='check' />
-                </div>
-                <div className='dropdown-menu-item'>
-                  <span>x1.5</span>
-                </div>
-                <div className='dropdown-menu-item'>
-                  <span>x2</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <SmartContainer />
       </div>
     )
   }

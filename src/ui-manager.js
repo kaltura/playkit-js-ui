@@ -11,6 +11,7 @@ import SeekBarControl from './components/seekbar/seekbar';
 import VolumeControl from './components/volume/volume';
 import ShareControl from './components/share/share'
 import SettingsControl from './components/settings/settings';
+import LanguageControl from './components/language/language';
 import FullscreenControl from './components/fullscreen/fullscreen';
 import TimeDisplayControl from './components/time-display/time-display';
 import TopBar from './components/top-bar/top-bar';
@@ -46,13 +47,14 @@ class UIManager {
               </div>
             </TopBar>
             <BottomBar>
-              <SeekBarControl showFramePreview={true} showTimeBubble={true} player={this.player} />
+              <SeekBarControl showFramePreview showTimeBubble player={this.player} />
               <div className='left-controls'>
                 <PlayPauseControl player={this.player} />
                 <TimeDisplayControl player={this.player} />
               </div>
               <div className='right-controls'>
                 <VolumeControl player={this.player} />
+                <LanguageControl player={this.player} />
                 <SettingsControl player={this.player} />
                 <FullscreenControl player={this.player} />
               </div>

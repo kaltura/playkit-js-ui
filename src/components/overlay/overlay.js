@@ -1,4 +1,5 @@
 //@flow
+/* eslint-disable react/prop-types */
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
