@@ -14,7 +14,7 @@ const mapStateToProps = state => ({
 class PlayPauseControl extends BaseComponent {
 
   constructor(obj: IControlParams) {
-    super({name: 'PlayPause', player: obj.player, config: obj.config});
+    super({name: 'PlayPause', player: obj.player});
   }
 
   togglePlayPause() {
