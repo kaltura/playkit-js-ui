@@ -89,7 +89,7 @@ class SeekBarControl extends BaseComponent {
             {
               props.showFramePreview ?
                 (<div className='frame-preview'>
-                  <div className='frame-preview-img' style='background-image: url(https://fanart.tv/fanart/movies/10193/moviebackground/toy-story-3-54bab125af0f8.jpg)' />
+                  <div className='frame-preview-img' style='background-image: url(https://img.youtube.com/vi/FG0fTKAqZ5g/maxresdefault.jpg)' />
                 </div>) : ''
             }
             { this.props.showTimeBubble ? <div className='time-preview'>{ toHHMMSS(this.state.virtualTime)}</div> : '' }
