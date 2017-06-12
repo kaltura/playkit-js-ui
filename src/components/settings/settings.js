@@ -2,54 +2,51 @@
 import { h } from 'preact';
 import BaseComponent from '../base';
 import SmartContainer from '../smart-container/smart-container';
+import SmartContainerItem from '../smart-container/smart-container-item';
 import Icon from '../icon/icon';
 
 class SettingsControl extends BaseComponent {
-  _playerElement: HTMLElement;
-  _settingsControlElement: HTMLElement;
-  _settingsControlButtonElement: HTMLElement;
-  _settingsMenuElement: HTMLElement;
-  _menuState: boolean;
 
   constructor(obj: IControlParams) {
     super({name: 'Settings', player: obj.player});
   }
 
   componentDidMount() {
-    this._playerElement = document.getElementsByClassName('player')[0];
-    this._settingsControlElement = document.getElementsByClassName('control-settings')[0];
-    this._settingsControlButtonElement = this._settingsControlElement.getElementsByClassName('control-button')[0];
-    this._settingsMenuElement = this._settingsControlElement.getElementsByClassName('menu')[0];
-    this._menuState = false;
+    this.setState({smartContainerOpen: false});
+  }
 
-    this._settingsControlButtonElement.addEventListener('click', () => {
-      this._menuState = !this._menuState;
-      if (this._menuState) {
-        this._playerElement.classList.add('menu-active');
-        this._settingsMenuElement.classList.add('active');
-      } else {
-        this._playerElement.classList.remove('menu-active');
-        this._settingsMenuElement.classList.remove('active');
-      }
-    });
+  onControlButtonClick() {
+    this.setState({smartContainerOpen: !this.state.smartContainerOpen});
+  }
 
-    document.getElementsByClassName('dropdown-button')[1].addEventListener('click', () => {
-      if (document.getElementsByClassName('dropdown')[1].classList.contains('active')) {
-        document.getElementsByClassName('dropdown')[1].classList.remove('active');
-      }
-      else {
-        document.getElementsByClassName('dropdown')[1].classList.add('active');
-      }
-    })
+  onSpeedChange(o) {
+    alert(o.id)
+  }
+
+  onQualityChange(o) {
+    alert(o.id)
   }
 
   render() {
+    var qualityOptions = [
+      { id: 1, label: 'Auto' },
+      { id: 2, label: 'Not Auto' }
+    ]
+    var speedOptions = [
+      { id: 1, label: 'Normal' },
+      { id: 2, label: 'Fast' }
+    ]
     return (
       <div className='control-button-container control-settings'>
-        <button className='control-button' aria-label='Settings'>
+        <button className='control-button' onClick={() => this.onControlButtonClick()} aria-label='Settings'>
           <Icon type='settings' />
         </button>
-        <SmartContainer />
+        { !this.state.smartContainerOpen ? '' :
+        <SmartContainer>
+          <SmartContainerItem label='Quality' options={qualityOptions} onSelect={(o) => this.onQualityChange(o)} />
+          <SmartContainerItem label='Speed' options={speedOptions} onSelect={(o) => this.onSpeedChange(o)} />
+        </SmartContainer>
+        }
       </div>
     )
   }
