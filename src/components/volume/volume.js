@@ -87,7 +87,7 @@ class VolumeControl extends BaseComponent {
             <Icon type='volume-waves' />
             <Icon type='volume-mute' />
           </button>
-          <div className='volume-control-bar' role='slider' draggable='true'
+          <div className='volume-control-bar' role='slider'
             aria-valuemin='0' aria-valuemaz='100' aria-valuenow={this.player.volume * 100}
             aria-valuetext={`${this.player.volume * 100}% volume ${this.player.muted ? 'muted' : ''}`}>
             <div className='bar' onMouseDown={() => this.onVolumeProgressBarMouseDown()} onClick={e => this.onVolumeProgressBarClick(e)}>
