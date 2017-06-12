@@ -26,7 +26,7 @@ class DropDownMenu extends Component {
               props.options.map(o => (
                 <div className='dropdown-menu-item' onClick={() => props.onSelect(o)}>
                   <span>{o.label}</span>
-                  { this.state.selected === o ? <Icon type='check' /> : '' }
+                  { this.state.selected.value === o.value ? <Icon type='check' /> : '' }
                 </div>
               ))
             }

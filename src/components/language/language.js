@@ -24,12 +24,12 @@ class LanguageControl extends BaseComponent {
 
   render() {
     var audioOptions = [
-      { id: 1, label: 'English' },
-      { id: 2, label: 'Hebrew' }
+      { value: 1, label: 'English' },
+      { value: 2, label: 'Hebrew' }
     ]
     var captionsOptions = [
-      { id: 1, label: 'Enable' },
-      { id: 2, label: 'Disable' }
+      { value: 1, label: 'Enable' },
+      { value: 2, label: 'Disable' }
     ]
     return (
       <div className='control-button-container control-language'>

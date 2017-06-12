@@ -6,8 +6,8 @@ export const types = {
 }
 
 export const initialState = {
-  quality: 'auto',
-  speed: 'normal'
+  quality: 1,
+  speed: 2
 };
 
 export default (state = initialState, action) => {
