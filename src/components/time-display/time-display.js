@@ -10,20 +10,31 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps)
-class TimeDisplayControl extends BaseComponent {
+class TimeDisplay extends BaseComponent {
   constructor(obj: IControlParams) {
     super({name: 'TimeDisplay', player: obj.player, config: obj.config});
+  }
+
+  getTimeDisplay(): string {
+    var result = this.props.format ? this.props.format : 'current / total',
+        current = toHHMMSS(this.props.currentTime),
+        total = toHHMMSS(this.props.duration),
+        left = toHHMMSS(this.props.duration - this.props.currentTime);
+
+    result = result.replace(/current/g, current);
+    result = result.replace(/total/g, total);
+    result = result.replace(/left/g, left);
+
+    return result;
   }
 
   render() {
     return (
       <div className='time-display'>
-        <span className='time-current'>{ toHHMMSS(this.props.currentTime) }</span>
-        <span className='time-separator'> / </span>
-        <span className='time-duration'>{ toHHMMSS(this.props.duration) }</span>
+        <span>{this.getTimeDisplay()}</span>
       </div>
     )
   }
 }
 
-export default TimeDisplayControl;
+export default TimeDisplay;

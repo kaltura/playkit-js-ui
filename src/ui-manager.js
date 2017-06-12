@@ -16,7 +16,7 @@ import ShareControl from './components/share/share'
 import SettingsControl from './components/settings/settings';
 import LanguageControl from './components/language/language';
 import FullscreenControl from './components/fullscreen/fullscreen';
-import TimeDisplayControl from './components/time-display/time-display';
+import TimeDisplay from './components/time-display/time-display';
 import TopBar from './components/top-bar/top-bar';
 import BottomBar from './components/bottom-bar/bottom-bar';
 import ShareOverlay from './components/share-overlay/share-overlay';
@@ -58,7 +58,7 @@ class UIManager {
                 <SeekBarControl showFramePreview showTimeBubble player={this.player} />
                 <div className='left-controls'>
                   <PlayPauseControl player={this.player} />
-                  <TimeDisplayControl player={this.player} />
+                  <TimeDisplay format='current / total' player={this.player} />
                 </div>
                 <div className='right-controls'>
                   <VolumeControl player={this.player} />
