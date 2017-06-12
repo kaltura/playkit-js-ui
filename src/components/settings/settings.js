@@ -1,10 +1,18 @@
 //@flow
 import { h } from 'preact';
+import { connect } from 'preact-redux';
+import { bindActions } from '../../utils/bind-actions';
+import { actions } from '../../reducers/settings';
 import BaseComponent from '../base';
 import SmartContainer from '../smart-container/smart-container';
 import SmartContainerItem from '../smart-container/smart-container-item';
 import Icon from '../icon/icon';
 
+const mapStateToProps = state => ({
+  ...state
+});
+
+@connect(mapStateToProps, bindActions(actions))
 class SettingsControl extends BaseComponent {
 
   constructor(obj: IControlParams) {
@@ -20,21 +28,21 @@ class SettingsControl extends BaseComponent {
   }
 
   onSpeedChange(o) {
-    alert(o.id)
+    this.props.updateSpeed(o.label);
   }
 
   onQualityChange(o) {
-    alert(o.id)
+    this.props.updateQuality(o.label);
   }
 
   render() {
     var qualityOptions = [
-      { id: 1, label: 'Auto' },
-      { id: 2, label: 'Not Auto' }
+      { value: 1, label: 'Auto' },
+      { value: 2, label: 'Not Auto' }
     ]
     var speedOptions = [
-      { id: 1, label: 'Normal' },
-      { id: 2, label: 'Fast' }
+      { value: 1, label: 'Normal' },
+      { value: 2, label: 'Fast' }
     ]
     return (
       <div className='control-button-container control-settings'>
