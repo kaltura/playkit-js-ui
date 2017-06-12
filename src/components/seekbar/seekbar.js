@@ -76,14 +76,14 @@ class SeekBarControl extends BaseComponent {
     var progressWidth = `${props.currentTime / props.duration * 100}%`;
 
     return (
-      <div className='seek-bar' role='slider' draggable='true'
+      <div className='seek-bar' role='slider'
         aria-label='Seek slider'
         aria-valuemin='0' aria-valuemax={Math.round(this.player.duration)} aria-valuenow={Math.round(this.player.currentTime)}
         aria-valuetext={`${toHHMMSS(this.player.currentTime)} of ${toHHMMSS(this.player.duration)}`}
         onClick={e => this.onSeekbarClick(e)} onMouseMove={e => this.onSeekbarMouseMove(e)} onMouseDown={e => this.onSeekbarMouseDown(e)}>
         <div className='progress-bar'>
           <div className='progress' style={{width: progressWidth}}>
-            <a className='scrubber' />
+            <a className='scrubber'/>
           </div>
           <div className='virtual-progress' style={{width: virtualProgressWidth}}>
             {
