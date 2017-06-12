@@ -1,5 +1,6 @@
 //@flow
 import { h } from 'preact';
+import { Localizer, Text } from 'preact-i18n';
 import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
 import { actions } from '../../reducers/fullscreen';
@@ -41,10 +42,12 @@ class FullscreenControl extends BaseComponent {
   render() {
     return (
       <div className='control-button-container control-fullscreen'>
-        <button className={this.props.fullscreen ? 'control-button is-fullscreen' : 'control-button'} aria-label='Fullscreen' onClick={() => this.toggleFullscreen()}>
-          <Icon type='maximize' />
-          <Icon type='minimize' />
-        </button>
+        <Localizer>
+          <button aria-label={<Text id="controls.fullscreen" />} className={this.props.fullscreen ? 'control-button is-fullscreen' : 'control-button'} onClick={() => this.toggleFullscreen()}>
+            <Icon type='maximize' />
+            <Icon type='minimize' />
+          </button>
+        </Localizer>
       </div>
     )
   }

@@ -1,5 +1,6 @@
 //@flow
 import { h } from 'preact';
+import { Localizer, Text } from 'preact-i18n';
 import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
 import { actions } from '../../reducers/settings';
@@ -28,31 +29,40 @@ class SettingsControl extends BaseComponent {
   }
 
   onSpeedChange(o) {
-    this.props.updateSpeed(o.label);
+    this.props.updateSpeed(o.value);
   }
 
   onQualityChange(o) {
-    this.props.updateQuality(o.label);
+    this.props.updateQuality(o.value);
   }
 
   render() {
     var qualityOptions = [
       { value: 1, label: 'Auto' },
-      { value: 2, label: 'Not Auto' }
+      { value: 2, label: '1024p' },
+      { value: 3, label: '720p' },
+      { value: 4, label: '480p' }
     ]
     var speedOptions = [
-      { value: 1, label: 'Normal' },
-      { value: 2, label: 'Fast' }
+      { value: 1, label: 'Auto (360)' },
+      { value: 2, label: '240' },
+      { value: 3, label: '144' }
     ]
     return (
       <div className='control-button-container control-settings'>
-        <button className='control-button' onClick={() => this.onControlButtonClick()} aria-label='Settings'>
-          <Icon type='settings' />
-        </button>
+        <Localizer>
+          <button aria-label={<Text id="controls.settings" />} className={this.state.smartContainerOpen ? 'control-button active' : 'control-button'} onClick={() => this.onControlButtonClick()}>
+            <Icon type='settings' />
+          </button>
+        </Localizer>
         { !this.state.smartContainerOpen ? '' :
         <SmartContainer>
-          <SmartContainerItem label='Quality' options={qualityOptions} onSelect={(o) => this.onQualityChange(o)} />
-          <SmartContainerItem label='Speed' options={speedOptions} onSelect={(o) => this.onSpeedChange(o)} />
+          <Localizer>
+            <SmartContainerItem label={<Text id='settings.quality' />} options={qualityOptions} onSelect={(o) => this.onQualityChange(o)} />
+          </Localizer>
+          <Localizer>
+            <SmartContainerItem label={<Text id='settings.speed' />} options={speedOptions} onSelect={(o) => this.onSpeedChange(o)} />
+          </Localizer>
         </SmartContainer>
         }
       </div>

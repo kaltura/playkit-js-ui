@@ -13,6 +13,15 @@ class DropDownMenu extends Component {
     }
   }
 
+  isSelected(o): boolean {
+    return this.state.selected.value === o.value;
+  }
+
+  onSelect(o) {
+    this.props.onSelect(o);
+    this.setState({dropMenuActive: false});
+  }
+
   render(props) {
     return (
       <div className='dropdown top left'>
@@ -24,9 +33,9 @@ class DropDownMenu extends Component {
           <div className='dropdown-menu'>
             {
               props.options.map(o => (
-                <div className='dropdown-menu-item' onClick={() => props.onSelect(o)}>
+                <div className={this.isSelected(o) ? 'dropdown-menu-item active' : 'dropdown-menu-item'} onClick={() => this.onSelect(o)}>
                   <span>{o.label}</span>
-                  { this.state.selected.value === o.value ? <Icon type='check' /> : '' }
+                  { this.isSelected(o) ? <Icon type='check' /> : '' }
                 </div>
               ))
             }

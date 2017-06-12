@@ -1,5 +1,6 @@
 //@flow
 import { h } from 'preact';
+import { Localizer, Text } from 'preact-i18n';
 import BaseComponent from '../base';
 import SmartContainer from '../smart-container/smart-container';
 import SmartContainerItem from '../smart-container/smart-container-item';
@@ -19,7 +20,11 @@ class LanguageControl extends BaseComponent {
   }
 
   onAudioChange(o) {
-    alert(o);
+    console.log(o);
+  }
+
+  onCaptionsChange(o) {
+    console.log(o);
   }
 
   render() {
@@ -28,20 +33,27 @@ class LanguageControl extends BaseComponent {
       { value: 2, label: 'Hebrew' }
     ]
     var captionsOptions = [
-      { value: 1, label: 'Enable' },
-      { value: 2, label: 'Disable' }
+      { value: 1, label: 'Disable' },
+      { value: 2, label: 'English' },
+      { value: 2, label: 'Spanish' }
     ]
     return (
       <div className='control-button-container control-language'>
-        <button className='control-button' onClick={() => this.onControlButtonClick()}>
-          <Icon type='language' />
-        </button>
+        <Localizer>
+          <button aria-label={<Text id="controls.language" />} className={this.state.smartContainerOpen ? 'control-button active' : 'control-button'} onClick={() => this.onControlButtonClick()}>
+            <Icon type='language' />
+          </button>
+        </Localizer>
         { !this.state.smartContainerOpen ? '' :
         <SmartContainer>
-          <SmartContainerItem label='Audio' options={audioOptions} onSelect={(o) => this.onAudioChange(o)} />
-          <SmartContainerItem label='Captions' options={captionsOptions} onSelect={(o) => this.onCaptionsChange(o)} />
+          <Localizer>
+            <SmartContainerItem label={<Text id="language.audio" />} options={audioOptions} onSelect={(o) => this.onAudioChange(o)} />
+          </Localizer>
+          <Localizer>
+            <SmartContainerItem label={<Text id="language.captions" />} options={captionsOptions} onSelect={(o) => this.onCaptionsChange(o)} />
+          </Localizer>
           <div className='smart-container-item'>
-            <a href='#'>Advanced captions settings</a>
+            <a href='#'><Text id='language.advanced_captions_settings'>Advanced captions settings</Text></a>
           </div>
         </SmartContainer>
         }
