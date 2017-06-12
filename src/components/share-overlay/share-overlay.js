@@ -1,5 +1,6 @@
 //@flow
 import { h } from 'preact';
+import { Localizer, Text } from 'preact-i18n';
 import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
 import { actions } from '../../reducers/share';
@@ -19,7 +20,9 @@ class ShareOverlay extends BaseComponent {
   render(props) {
     return !props.open ? '' : (
       <Overlay open={props.open} onClose={() => props.toggleShareOverlay(false)} type='share'>
-        <div className='title'>Share</div>
+        <div className='title'>
+          <Text id='share.share_title' />
+        </div>
         <div className='share-icons'>
           <a className='share-btn facebook-share-btn'>
             <svg style='width:32px;height:32px' viewBox='0 0 1024 1024'>
@@ -60,7 +63,7 @@ class ShareOverlay extends BaseComponent {
             </svg>
           </div>
         </div>
-        <a>Link options</a>
+        <a><Text id='share.link_options' /></a>
       </Overlay>
     )
   }
