@@ -48,7 +48,7 @@ class UIManager {
               <OverlayPlay player={this.player} />
               <TopBar>
                 <div className='left-controls'>
-                  <div className='video-playing-title'>The Lumineers Festival 2013</div>
+                  <div className='video-playing-title'>Earth</div>
                 </div>
                 <div className='right-controls'>
                   <ShareControl player={this.player} />
