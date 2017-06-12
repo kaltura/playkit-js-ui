@@ -32,6 +32,7 @@
   .smart-container-item {
     margin: 16px;
     color: rgba(244,244,244,0.8);
+    white-space: nowrap;
 
     &:after {
       display: block;
