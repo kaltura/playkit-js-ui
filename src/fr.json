@@ -1,0 +1,27 @@
+{
+    "core": {
+      "disable": "Désactiver",
+      "auto": "Automatiquement"
+    },
+    "controls": {
+      "play": "jouer",
+      "pause": "pause",
+      "share": "partager",
+      "language": "la langue",
+      "settings": "paramètres",
+      "fullscreen": "plein écran"
+    },
+    "settings": {
+      "quality": "qualité",
+      "speed": "la vitesse"
+    },
+    "language": {
+      "audio": "l'audio",
+      "captions": "Légendes",
+      "advanced_captions_settings": "Paramètres avancés des légendes"
+    },
+    "share": {
+      "share_title": "Partager",
+      "link_options": "Options de lien"
+    }
+}

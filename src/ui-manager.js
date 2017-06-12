@@ -3,7 +3,7 @@ import {h, render} from 'preact';
 import {Provider} from 'preact-redux';
 import {IntlProvider} from 'preact-i18n';
 import store from './store';
-import definition from './he.json';
+import definition from './fr.json';
 
 import EngineConnector from './components/engine-connector/engine-connector';
 import Shell from './components/shell/shell';
