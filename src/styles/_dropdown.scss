@@ -31,8 +31,8 @@
     cursor: pointer;
   }
   .dropdown-menu {
-    display: none;
-    opacity: 0;
+    display: block;
+    opacity: 1;
     position: absolute;
     background-color: #333333;
     box-shadow: 0 2px 8px 0 rgba(0,0,0,0.3);
