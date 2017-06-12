@@ -1,10 +1,6 @@
-import { h } from 'preact';
-import BaseComponent from '../base';
+import { h, Component } from 'preact';
 
-class TopBar extends BaseComponent {
-  constructor() {
-    super({name: 'TopBar'});
-  }
+class TopBar extends Component {
   render(props) {
     return (
       <div className='top-bar'>{ props.children }</div>

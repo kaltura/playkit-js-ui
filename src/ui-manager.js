@@ -17,7 +17,7 @@ import TimeDisplayControl from './components/time-display/time-display';
 import TopBar from './components/top-bar/top-bar';
 import BottomBar from './components/bottom-bar/bottom-bar';
 import ShareOverlay from './components/share-overlay/share-overlay';
-// import KeyboardControl from './components/keyboard'
+import KeyboardControl from './components/keyboard';
 
 class UIManager {
   player: any;
@@ -35,6 +35,7 @@ class UIManager {
       <Provider store={store}>
         <Shell>
           <EngineConnector player={this.player} />
+          <KeyboardControl player={this.player} />
           <LoadingSpinner player={this.player} />
           <div id='player-holder' />
           <div className='player-gui'>

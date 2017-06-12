@@ -24,7 +24,8 @@
   "rules": {
     "mocha-no-only/mocha-no-only": [
       "error"
-    ]
+    ],
+    "react/prop-types": [0]
     // "require-jsdoc": [
     //   "error"
     // ],

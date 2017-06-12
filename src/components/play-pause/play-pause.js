@@ -7,7 +7,7 @@ import BaseComponent from '../base';
 import Icon from '../icon/icon';
 
 const mapStateToProps = state => ({
-  isPlaying: state.playPause.isPlaying
+  isPlaying: state.engine.isPlaying
 });
 
 @connect(mapStateToProps, bindActions(actions))
@@ -21,11 +21,9 @@ class PlayPauseControl extends BaseComponent {
     this.logger.debug('Toggle play');
     if (this.player.paused) {
       this.player.play();
-      this.props.toggleIsPlaying(true);
     }
     else {
       this.player.pause();
-      this.props.toggleIsPlaying(false);
     }
   }
 

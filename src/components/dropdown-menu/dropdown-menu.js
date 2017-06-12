@@ -4,15 +4,20 @@ import Icon from '../icon/icon';
 
 class DropDownMenu extends Component {
 
-  componentDidMount() {
+  componentWillMount() {
     this.setState({dropMenuActive: false});
+    if (!this.props.selected) {
+      this.setState({selected: this.props.options[0]});
+    } else {
+      this.setState({selected: this.props.selected});
+    }
   }
 
   render(props) {
     return (
       <div className='dropdown top left'>
         <div className='dropdown-button' onClick={() => this.setState({dropMenuActive: !this.state.dropMenuActive})}>
-          {props.selected ? props.selected.label : props.options[0].label}
+          {this.state.selected.label}
         </div>
         {
           !this.state.dropMenuActive ? '' :
@@ -20,7 +25,8 @@ class DropDownMenu extends Component {
             {
               props.options.map(o => (
                 <div className='dropdown-menu-item' onClick={() => props.onSelect(o)}>
-                  <span>{o.label}</span> <Icon type='check' />
+                  <span>{o.label}</span>
+                  { this.state.selected === o ? <Icon type='check' /> : '' }
                 </div>
               ))
             }

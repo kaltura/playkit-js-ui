@@ -2,12 +2,12 @@
 import BaseComponent from './base';
 
 class KeyboardControl extends BaseComponent {
-  _playerElement: HTMLElement;
+  // _playerElement: HTMLElement;
 
   constructor(obj: IControlParams) {
     super({name: 'Keyboard', player: obj.player});
 
-    this._playerElement = document.getElementsByClassName('player')[0];
+    // this._playerElement = document.getElementsByClassName('player')[0];
 
     document.body.onkeydown = (e) => {
       let time, newVolume;
@@ -15,7 +15,6 @@ class KeyboardControl extends BaseComponent {
         case 32: // space
         this.logger.debug("Keydown space");
         this.player.paused ? this.player.play() : this.player.pause();
-        this.showPlayerGUI(4000);
         break;
 
         case 38: // up
@@ -26,7 +25,6 @@ class KeyboardControl extends BaseComponent {
           this.player.muted = false;
         }
         this.player.volume = newVolume / 100;
-        this.showPlayerGUI(4000);
         break;
 
         case 40: // down
@@ -38,21 +36,18 @@ class KeyboardControl extends BaseComponent {
         }
         this.logger.debug(`Changing volume. ${this.player.volume} => ${newVolume}`);
         this.player.volume = newVolume / 100;
-        this.showPlayerGUI(4000);
         break;
 
         case 37: // left
         this.logger.debug("Keydown left");
         time = (this.player.currentTime - 5) > 0 ? this.player.currentTime - 5 : 0;
         this.player.currentTime = time;
-        this.showPlayerGUI(4000);
         break;
 
         case 39: // right
         this.logger.debug("Keydown right");
         time = (this.player.currentTime + 5) > this.player.duration ? this.player.duration : this.player.currentTime + 5;
         this.player.currentTime = time;
-        this.showPlayerGUI(4000);
         break;
 
         default: return;
@@ -60,13 +55,6 @@ class KeyboardControl extends BaseComponent {
     }
 
     this.disableKeyboardCommandsOnControls();
-  }
-
-  showPlayerGUI(timeout: number) {
-    if (!this._playerElement.classList.contains('hover')) {
-      this._playerElement.classList.add('hover');
-      setTimeout(() => this._playerElement.classList.remove('hover'), timeout);
-    }
   }
 
   disableKeyboardCommandsOnControls() {

@@ -2,6 +2,7 @@
 import { h } from 'preact';
 import BaseComponent from '../base';
 import SmartContainer from '../smart-container/smart-container';
+import SmartContainerItem from '../smart-container/smart-container-item';
 import Icon from '../icon/icon';
 
 class LanguageControl extends BaseComponent {
@@ -17,13 +18,33 @@ class LanguageControl extends BaseComponent {
     this.setState({smartContainerOpen: !this.state.smartContainerOpen});
   }
 
+  onAudioChange(o) {
+    alert(o);
+  }
+
   render() {
+    var audioOptions = [
+      { id: 1, label: 'English' },
+      { id: 2, label: 'Hebrew' }
+    ]
+    var captionsOptions = [
+      { id: 1, label: 'Enable' },
+      { id: 2, label: 'Disable' }
+    ]
     return (
       <div className='control-button-container control-language'>
         <button className='control-button' onClick={() => this.onControlButtonClick()}>
           <Icon type='language' />
         </button>
-        { this.state.smartContainerOpen ? (<SmartContainer />) : false }
+        { !this.state.smartContainerOpen ? '' :
+        <SmartContainer>
+          <SmartContainerItem label='Audio' options={audioOptions} onSelect={(o) => this.onAudioChange(o)} />
+          <SmartContainerItem label='Captions' options={captionsOptions} onSelect={(o) => this.onCaptionsChange(o)} />
+          <div className='smart-container-item'>
+            <a href='#'>Advanced captions settings</a>
+          </div>
+        </SmartContainer>
+        }
       </div>
     )
   }
