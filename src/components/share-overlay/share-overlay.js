@@ -1,6 +1,6 @@
 //@flow
 import { h } from 'preact';
-import { Localizer, Text } from 'preact-i18n';
+import { Text } from 'preact-i18n';
 import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
 import { actions } from '../../reducers/share';

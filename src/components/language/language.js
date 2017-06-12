@@ -19,12 +19,12 @@ class LanguageControl extends BaseComponent {
     this.setState({smartContainerOpen: !this.state.smartContainerOpen});
   }
 
-  onAudioChange(o) {
-    console.log(o);
+  onAudioChange() {
+    // change audio
   }
 
-  onCaptionsChange(o) {
-    console.log(o);
+  onCaptionsChange() {
+    // change captions
   }
 
   render() {
@@ -40,17 +40,17 @@ class LanguageControl extends BaseComponent {
     return (
       <div className='control-button-container control-language'>
         <Localizer>
-          <button aria-label={<Text id="controls.language" />} className={this.state.smartContainerOpen ? 'control-button active' : 'control-button'} onClick={() => this.onControlButtonClick()}>
+          <button aria-label={<Text id='controls.language' />} className={this.state.smartContainerOpen ? 'control-button active' : 'control-button'} onClick={() => this.onControlButtonClick()}>
             <Icon type='language' />
           </button>
         </Localizer>
         { !this.state.smartContainerOpen ? '' :
         <SmartContainer>
           <Localizer>
-            <SmartContainerItem label={<Text id="language.audio" />} options={audioOptions} onSelect={(o) => this.onAudioChange(o)} />
+            <SmartContainerItem label={<Text id='language.audio' />} options={audioOptions} onSelect={(o) => this.onAudioChange(o)} />
           </Localizer>
           <Localizer>
-            <SmartContainerItem label={<Text id="language.captions" />} options={captionsOptions} onSelect={(o) => this.onCaptionsChange(o)} />
+            <SmartContainerItem label={<Text id='language.captions' />} options={captionsOptions} onSelect={(o) => this.onCaptionsChange(o)} />
           </Localizer>
           <div className='smart-container-item'>
             <a href='#'><Text id='language.advanced_captions_settings'>Advanced captions settings</Text></a>
