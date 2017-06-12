@@ -34,7 +34,7 @@ class PlayPauseControl extends BaseComponent {
     return (
       <div className='control-button-container control-play-pause'>
         <Localizer>
-          <button aria-label={<Text id={this.props.isPlaying ? "controls.pause" : "controls.play"} />} className={controlButtonClass} onClick={() => this.togglePlayPause()}>
+          <button aria-label={<Text id={this.props.isPlaying ? 'controls.pause' : 'controls.play'} />} className={controlButtonClass} onClick={() => this.togglePlayPause()}>
             <Icon type='play' />
             <Icon type='pause' />
           </button>

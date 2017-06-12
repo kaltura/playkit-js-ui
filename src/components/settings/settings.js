@@ -51,7 +51,7 @@ class SettingsControl extends BaseComponent {
     return (
       <div className='control-button-container control-settings'>
         <Localizer>
-          <button aria-label={<Text id="controls.settings" />} className={this.state.smartContainerOpen ? 'control-button active' : 'control-button'} onClick={() => this.onControlButtonClick()}>
+          <button aria-label={<Text id='controls.settings' />} className={this.state.smartContainerOpen ? 'control-button active' : 'control-button'} onClick={() => this.onControlButtonClick()}>
             <Icon type='settings' />
           </button>
         </Localizer>
