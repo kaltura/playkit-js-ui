@@ -8,7 +8,7 @@ import definition from './fr.json';
 import EngineConnector from './components/engine-connector/engine-connector';
 import Shell from './components/shell/shell';
 import OverlayPlay from './components/overlay-play/overlay-play';
-import LoadingSpinner from './components/loading/loading';
+import Loading from './components/loading/loading';
 import PlayPauseControl from './components/play-pause/play-pause';
 import SeekBarControl from './components/seekbar/seekbar';
 import VolumeControl from './components/volume/volume';
@@ -43,7 +43,7 @@ class UIManager {
             <div id='player-holder' />
             <EngineConnector player={this.player} />
             <KeyboardControl player={this.player} />
-            <LoadingSpinner player={this.player} />
+            <Loading player={this.player} />
             <div className='player-gui'>
               <OverlayPlay player={this.player} />
               <TopBar>

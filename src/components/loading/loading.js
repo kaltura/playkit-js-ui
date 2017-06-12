@@ -10,7 +10,7 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps, bindActions(actions))
-class LoadingSpinner extends BaseComponent {
+class Loading extends BaseComponent {
   constructor(obj: IControlParams) {
     super({name: 'Loading', player: obj.player});
   }
@@ -40,4 +40,4 @@ class LoadingSpinner extends BaseComponent {
 
 }
 
-export default LoadingSpinner;
+export default Loading;
