@@ -1,3 +1,8 @@
+@keyframes openOverlay {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 .overlay {
   position: absolute;
   display: none;
@@ -9,7 +14,7 @@
   text-align: center;
   color: #fff;
   padding: 80px 20px 0;
-  transition: 200ms opacity;
+  animation: openOverlay 100ms ease-in-out forwards;
 
   &.active {
     display: block;

@@ -1,7 +1,9 @@
 //@flow
 import {h, render} from 'preact';
 import {Provider} from 'preact-redux';
+import {IntlProvider} from 'preact-i18n';
 import store from './store';
+import definition from './he.json';
 
 import EngineConnector from './components/engine-connector/engine-connector';
 import Shell from './components/shell/shell';
@@ -33,36 +35,38 @@ class UIManager {
   buildDefaultUI(): void {
     let template = (
       <Provider store={store}>
-        <Shell>
-          <EngineConnector player={this.player} />
-          <KeyboardControl player={this.player} />
-          <LoadingSpinner player={this.player} />
-          <div id='player-holder' />
-          <div className='player-gui'>
-            <TopBar>
-              <div className='left-controls'>
-                <div className='video-playing-title'>The Lumineers Festival 2013</div>
-              </div>
-              <div className='right-controls'>
-                <ShareControl player={this.player} />
-              </div>
-            </TopBar>
-            <BottomBar>
-              <SeekBarControl showFramePreview showTimeBubble player={this.player} />
-              <div className='left-controls'>
-                <PlayPauseControl player={this.player} />
-                <TimeDisplayControl player={this.player} />
-              </div>
-              <div className='right-controls'>
-                <VolumeControl player={this.player} />
-                <LanguageControl player={this.player} />
-                <SettingsControl player={this.player} />
-                <FullscreenControl player={this.player} />
-              </div>
-            </BottomBar>
-            <ShareOverlay />
-          </div>
-        </Shell>
+        <IntlProvider definition={definition}>
+          <Shell>
+            <EngineConnector player={this.player} />
+            <KeyboardControl player={this.player} />
+            <LoadingSpinner player={this.player} />
+            <div id='player-holder' />
+            <div className='player-gui'>
+              <TopBar>
+                <div className='left-controls'>
+                  <div className='video-playing-title'>The Lumineers Festival 2013</div>
+                </div>
+                <div className='right-controls'>
+                  <ShareControl player={this.player} />
+                </div>
+              </TopBar>
+              <BottomBar>
+                <SeekBarControl showFramePreview showTimeBubble player={this.player} />
+                <div className='left-controls'>
+                  <PlayPauseControl player={this.player} />
+                  <TimeDisplayControl player={this.player} />
+                </div>
+                <div className='right-controls'>
+                  <VolumeControl player={this.player} />
+                  <LanguageControl player={this.player} />
+                  <SettingsControl player={this.player} />
+                  <FullscreenControl player={this.player} />
+                </div>
+              </BottomBar>
+              <ShareOverlay />
+            </div>
+          </Shell>
+        </IntlProvider>
       </Provider>
     );
     this._buildUI(template);

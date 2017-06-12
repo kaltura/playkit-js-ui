@@ -13,7 +13,8 @@
     height: 32px;
   }
 
-  &:hover {
+  &:hover,
+  &.active {
     opacity: 1;
   }
 

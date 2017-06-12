@@ -1,5 +1,6 @@
 //@flow
 import { h } from 'preact';
+import { Localizer, Text } from 'preact-i18n';
 import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
 import { actions } from '../../reducers/play-pause';
@@ -32,10 +33,12 @@ class PlayPauseControl extends BaseComponent {
 
     return (
       <div className='control-button-container control-play-pause'>
-        <button className={controlButtonClass} onClick={() => this.togglePlayPause()}>
-          <Icon type='play' />
-          <Icon type='pause' />
-        </button>
+        <Localizer>
+          <button aria-label={<Text id={this.props.isPlaying ? "controls.pause" : "controls.play"} />} className={controlButtonClass} onClick={() => this.togglePlayPause()}>
+            <Icon type='play' />
+            <Icon type='pause' />
+          </button>
+        </Localizer>
       </div>
     )
   }
