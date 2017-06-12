@@ -7,6 +7,7 @@ import definition from './fr.json';
 
 import EngineConnector from './components/engine-connector/engine-connector';
 import Shell from './components/shell/shell';
+import OverlayPlay from './components/overlay-play/overlay-play';
 import LoadingSpinner from './components/loading/loading';
 import PlayPauseControl from './components/play-pause/play-pause';
 import SeekBarControl from './components/seekbar/seekbar';
@@ -20,6 +21,8 @@ import TopBar from './components/top-bar/top-bar';
 import BottomBar from './components/bottom-bar/bottom-bar';
 import ShareOverlay from './components/share-overlay/share-overlay';
 import KeyboardControl from './components/keyboard';
+
+import Overlay from './components/overlay/overlay';
 
 class UIManager {
   player: any;
@@ -37,11 +40,12 @@ class UIManager {
       <Provider store={store}>
         <IntlProvider definition={definition}>
           <Shell>
+            <div id='player-holder' />
             <EngineConnector player={this.player} />
             <KeyboardControl player={this.player} />
             <LoadingSpinner player={this.player} />
-            <div id='player-holder' />
             <div className='player-gui'>
+              <OverlayPlay player={this.player} />
               <TopBar>
                 <div className='left-controls'>
                   <div className='video-playing-title'>The Lumineers Festival 2013</div>
@@ -64,6 +68,14 @@ class UIManager {
                 </div>
               </BottomBar>
               <ShareOverlay />
+              <Overlay type='cvaa'>
+                <div className='title'>
+                  Advanced captions settings
+                </div>
+                <div className='sample'>Sample</div>
+                <div className='sample black-bg'>Sample</div>
+                <div className='sample yellow-text'>Sample</div>
+              </Overlay>
             </div>
           </Shell>
         </IntlProvider>
