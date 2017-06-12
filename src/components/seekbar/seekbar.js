@@ -83,7 +83,7 @@ class SeekBarControl extends BaseComponent {
         onClick={e => this.onSeekbarClick(e)} onMouseMove={e => this.onSeekbarMouseMove(e)} onMouseDown={e => this.onSeekbarMouseDown(e)}>
         <div className='progress-bar'>
           <div className='progress' style={{width: progressWidth}}>
-            <a className='scrubber'/>
+            <a className='scrubber' />
           </div>
           <div className='virtual-progress' style={{width: virtualProgressWidth}}>
             {
