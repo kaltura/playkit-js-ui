@@ -1,5 +1,6 @@
 //@flow
 import { h, Component } from 'preact';
+import { Localizer, Text } from 'preact-i18n';
 import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
 import { actions } from '../../reducers/shell';
@@ -18,10 +19,10 @@ class Overlay extends Component {
     if (props.open) overlayClass += ' active'
 
     return (
-      <div className={overlayClass}>
-        <a onClick={() => props.onClose()} className='close-overlay'>
-          <Icon type='close' />
-        </a>
+      <div className={overlayClass} role='dialog'>
+        <Localizer>
+          <a onClick={() => props.onClose()} aria-label={<Text id='core.close' />} className='close-overlay'><Icon type='close' /></a>
+        </Localizer>
         { props.children }
       </div>
     )

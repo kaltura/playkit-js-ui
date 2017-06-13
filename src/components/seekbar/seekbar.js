@@ -44,6 +44,7 @@ class SeekBarControl extends BaseComponent {
   onSeekbarMouseUp = e => {
     let time = this.getTime(e);
     this.player.currentTime = time;
+    this.updateSeekBarProgress(time, this.player.duration);
     this.props.updateSeekbarDraggingStatus(false);
     this.logger.debug(`Seek to ${time}s`);
   }
