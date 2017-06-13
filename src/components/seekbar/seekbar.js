@@ -10,7 +10,7 @@ const mapStateToProps = state => ({
   virtualProgress: state.seekbar.virtualTime,
   currentTime: state.seekbar.currentTime,
   duration: state.engine.duration,
-  isDraggingActive: state.seekbar.isDraggingActive
+  isDraggingActive: state.seekbar.draggingActive
 });
 
 @connect(mapStateToProps, bindActions(actions))
@@ -33,24 +33,27 @@ class SeekBarControl extends BaseComponent {
     });
   }
 
-  onSeekbarClick = e => {
-    let time = this.getTime(e);
-    this.player.currentTime = time;
-    this.updateSeekBarProgress(time, this.player.duration);
-    this.logger.debug(`Seek to ${time}s`);
-  }
-
   onSeekbarMouseDown = e => {
+    this.props.updateSeekbarDraggingStatus(true);
     if (this.props.isDraggingActive) {
       let time = this.getTime(e);
       this.updateSeekBarProgress(time, this.player.duration);
     }
   }
 
+  onSeekbarMouseUp = e => {
+    let time = this.getTime(e);
+    this.player.currentTime = time;
+    this.props.updateSeekbarDraggingStatus(false);
+    this.logger.debug(`Seek to ${time}s`);
+  }
+
   onSeekbarMouseMove = e => {
-    if (!this.state.isDraggingActive) {
-      let time = this.getTime(e);
-      this.updateSeekBarProgress(time, this.player.duration, true);
+    let time = this.getTime(e);
+    this.updateSeekBarProgress(time, this.player.duration, true);
+
+    if (this.props.isDraggingActive) {
+      this.updateSeekBarProgress(time, this.player.duration);
     }
   }
 
@@ -77,10 +80,9 @@ class SeekBarControl extends BaseComponent {
 
     return (
       <div className='seek-bar' role='slider'
-        aria-label='Seek slider'
-        aria-valuemin='0' aria-valuemax={Math.round(this.player.duration)} aria-valuenow={Math.round(this.player.currentTime)}
+        aria-label='Seek slider' aria-valuemin='0' aria-valuemax={Math.round(this.player.duration)} aria-valuenow={Math.round(this.player.currentTime)}
         aria-valuetext={`${toHHMMSS(this.player.currentTime)} of ${toHHMMSS(this.player.duration)}`}
-        onClick={e => this.onSeekbarClick(e)} onMouseMove={e => this.onSeekbarMouseMove(e)} onMouseDown={e => this.onSeekbarMouseDown(e)}>
+        onMouseMove={e => this.onSeekbarMouseMove(e)} onMouseDown={e => this.onSeekbarMouseDown(e)} onMouseUp={e => this.onSeekbarMouseUp(e)}>
         <div className='progress-bar'>
           <div className='progress' style={{width: progressWidth}}>
             <a className='scrubber' />
