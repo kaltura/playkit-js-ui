@@ -1,7 +1,8 @@
 {
     "core": {
       "disable": "Désactiver",
-      "auto": "Automatiquement"
+      "auto": "Automatiquement",
+      "close": "Fermer"
     },
     "controls": {
       "play": "jouer",

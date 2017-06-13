@@ -78,6 +78,11 @@
             box-shadow: 0 0 31px 0 rgba(0,0,0,0.3);
             transform: scale(0);
             transition: 100ms transform;
+
+            &:active {
+              opacity: 1;
+              cursor: grabbing;
+            }
         }
     }
 }
