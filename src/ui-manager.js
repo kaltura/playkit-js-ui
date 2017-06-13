@@ -2,6 +2,7 @@
 import {h, render} from 'preact';
 import {Provider} from 'preact-redux';
 import {IntlProvider} from 'preact-i18n';
+
 import store from './store';
 import definition from './fr.json';
 
@@ -21,7 +22,6 @@ import TopBar from './components/top-bar/top-bar';
 import BottomBar from './components/bottom-bar/bottom-bar';
 import ShareOverlay from './components/share-overlay/share-overlay';
 import KeyboardControl from './components/keyboard';
-
 import Overlay from './components/overlay/overlay';
 
 class UIManager {
@@ -48,7 +48,7 @@ class UIManager {
               <OverlayPlay player={this.player} />
               <TopBar>
                 <div className='left-controls'>
-                  <div className='video-playing-title'>Earth</div>
+                  <div className='video-playing-title'>L21 Earth Time Lapse View from Space, ISS</div>
                 </div>
                 <div className='right-controls'>
                   <ShareControl player={this.player} />
