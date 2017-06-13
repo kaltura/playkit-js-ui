@@ -75,9 +75,15 @@ class SeekBarControl extends BaseComponent {
     return time;
   }
 
+  getThumbSpriteOffset() {
+    return - (Math.ceil(100 * this.state.virtualTime / this.player.duration) * 160) + 'px 0px';
+  }
+
   render(props) {
     var virtualProgressWidth = `${this.state.virtualTime / props.duration * 100}%`;
     var progressWidth = `${props.currentTime / props.duration * 100}%`;
+    var framePreviewStyle = 'background-image: url(http://cfvod.kaltura.com/p/1914121/sp/191412100/thumbnail/entry_id/1_fet8ffop/version/100001/width/160/vid_slices/100); ';
+    framePreviewStyle += `background-position: ${this.getThumbSpriteOffset()}`
 
     return (
       <div className='seek-bar' role='slider'
@@ -92,7 +98,7 @@ class SeekBarControl extends BaseComponent {
             {
               props.showFramePreview ?
                 (<div className='frame-preview'>
-                  <div className='frame-preview-img' style='background-image: url(https://img.youtube.com/vi/FG0fTKAqZ5g/maxresdefault.jpg)' />
+                  <div className='frame-preview-img' style={framePreviewStyle} />
                 </div>) : ''
             }
             { this.props.showTimeBubble ? <div className='time-preview'>{ toHHMMSS(this.state.virtualTime)}</div> : '' }

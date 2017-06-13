@@ -6,7 +6,7 @@ import { bindActions } from '../../utils/bind-actions';
 import { actions } from '../../reducers/shell';
 import Icon from '../icon/icon';
 
-@connect(() => {}, bindActions(actions))
+@connect(null, bindActions(actions))
 class Overlay extends Component {
 
   componentDidUpdate() {
