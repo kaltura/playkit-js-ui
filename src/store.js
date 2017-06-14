@@ -8,6 +8,7 @@ import volume from './reducers/volume';
 import fullscreen from './reducers/fullscreen';
 import loading from './reducers/loading';
 import share from './reducers/share';
+import cvaa from './reducers/cvaa';
 import settings from './reducers/settings';
 
 const reducer = combineReducers({
@@ -19,6 +20,7 @@ const reducer = combineReducers({
   loading,
   playPause,
   share,
+  cvaa,
   settings
 });
 
