@@ -21,8 +21,8 @@ import TimeDisplay from './components/time-display/time-display';
 import TopBar from './components/top-bar/top-bar';
 import BottomBar from './components/bottom-bar/bottom-bar';
 import ShareOverlay from './components/share-overlay/share-overlay';
+import CVAAOverlay from './components/cvaa-overlay/cvaa-overlay';
 import KeyboardControl from './components/keyboard';
-import Overlay from './components/overlay/overlay';
 
 class UIManager {
   player: any;
@@ -68,14 +68,7 @@ class UIManager {
                 </div>
               </BottomBar>
               <ShareOverlay />
-              <Overlay type='cvaa'>
-                <div className='title'>
-                  Advanced captions settings
-                </div>
-                <div className='sample'>Sample</div>
-                <div className='sample black-bg'>Sample</div>
-                <div className='sample yellow-text'>Sample</div>
-              </Overlay>
+              <CVAAOverlay />
             </div>
           </Shell>
         </IntlProvider>
