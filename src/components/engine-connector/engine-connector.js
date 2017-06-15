@@ -24,6 +24,14 @@ class EngineConnector extends BaseComponent {
     this.player.addEventListener(this.player.Event.LOADED_METADATA, () => {
       this.props.updateDuration(this.player.duration);
       this.props.updateMetadataLoadingStatus(true);
+
+      const TrackType = this.player.Track;
+      let audioTracks = this.player.getTracks(TrackType.AUDIO);
+      let videoTracks = this.player.getTracks(TrackType. VIDEO);
+      let textTracks = this.player.getTracks(TrackType.TEXT);
+      this.props.updateAudioTracks(audioTracks);
+      this.props.updateVideoTracks(videoTracks);
+      this.props.updateTextTracks(textTracks);
     });
 
     this.player.addEventListener(this.player.Event.VOLUME_CHANGE, () => {

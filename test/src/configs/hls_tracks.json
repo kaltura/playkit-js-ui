@@ -1,0 +1,171 @@
+{
+  "audioTracks": [
+    {
+      "groupId": "aac",
+      "name": "English",
+      "type": "AUDIO",
+      "default": true,
+      "autoselect": true,
+      "forced": false,
+      "url": "https://wowzaec2demo.streamlock.net/vod-multitrack/_definst_/smil:Elephants…en_t64RW5nbGlzaA==_cfRWxlcGhhbnRzRHJlYW0vRWxlcGhhbnRzRHJlYW0udHRtbA==.m3u8",
+      "lang": "en",
+      "id": 0
+    },
+    {
+      "groupId": "aac",
+      "name": "Spanish",
+      "type": "AUDIO",
+      "default": false,
+      "autoselect": true,
+      "forced": false,
+      "url": "https://wowzaec2demo.streamlock.net/vod-multitrack/_definst_/smil:Elephants…es_t64U3BhbmlzaA==_cfRWxlcGhhbnRzRHJlYW0vRWxlcGhhbnRzRHJlYW0udHRtbA==.m3u8",
+      "lang": "es",
+      "id": 1
+    },
+    {
+      "groupId": "aac",
+      "name": "Commentary (eng)",
+      "type": "AUDIO",
+      "default": false,
+      "autoselect": false,
+      "forced": false,
+      "url": "https://wowzaec2demo.streamlock.net/vod-multitrack/_definst_/smil:Elephants…VudGFyeSAoZW5nKQ==_cfRWxlcGhhbnRzRHJlYW0vRWxlcGhhbnRzRHJlYW0udHRtbA==.m3u8",
+      "lang": "en",
+      "id": 2
+    }
+  ],
+  "levels": [
+    {
+      "attrs": {
+        "BANDWIDTH": "2962000",
+        "NAME": "Main",
+        "CODECS": "avc1.66.30",
+        "RESOLUTION": "1280x720",
+        "AUDIO": "aac",
+        "SUBTITLES": "subs"
+      },
+      "url": [
+        "https://wowzaec2demo.streamlock.net/vod-multitrack/_definst_/smil:Elephants…o_slen_t64TWFpbg==_cfRWxlcGhhbnRzRHJlYW0vRWxlcGhhbnRzRHJlYW0udHRtbA==.m3u8"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bitrate": 2962000,
+      "name": "Main",
+      "videoCodec": "avc1.42001e",
+      "urlId": 0,
+      "loadError": 0,
+      "level": 3
+    },
+    {
+      "attrs": {
+        "BANDWIDTH": "1427000",
+        "NAME": "Main",
+        "CODECS": "avc1.66.30",
+        "RESOLUTION": "768x432",
+        "AUDIO": "aac",
+        "SUBTITLES": "subs"
+      },
+      "url": [
+        "https://wowzaec2demo.streamlock.net/vod-multitrack/_definst_/smil:Elephants…o_slen_t64TWFpbg==_cfRWxlcGhhbnRzRHJlYW0vRWxlcGhhbnRzRHJlYW0udHRtbA==.m3u8"
+      ],
+      "width": 768,
+      "height": 432,
+      "bitrate": 1427000,
+      "name": "Main",
+      "videoCodec": "avc1.42001e",
+      "urlId": 0,
+      "loadError": 0
+    },
+    {
+      "attrs": {
+        "BANDWIDTH": "688000",
+        "NAME": "Main",
+        "CODECS": "avc1.66.30",
+        "RESOLUTION": "448x252",
+        "AUDIO": "aac",
+        "SUBTITLES": "subs"
+      },
+      "url": [
+        "https://wowzaec2demo.streamlock.net/vod-multitrack/_definst_/smil:Elephants…o_slen_t64TWFpbg==_cfRWxlcGhhbnRzRHJlYW0vRWxlcGhhbnRzRHJlYW0udHRtbA==.m3u8"
+      ],
+      "width": 448,
+      "height": 252,
+      "bitrate": 688000,
+      "name": "Main",
+      "videoCodec": "avc1.42001e",
+      "urlId": 0,
+      "loadError": 0
+    },
+    {
+      "attrs": {
+        "BANDWIDTH": "331000",
+        "NAME": "Main",
+        "CODECS": "avc1.66.30",
+        "RESOLUTION": "284x160",
+        "AUDIO": "aac",
+        "SUBTITLES": "subs"
+      },
+      "url": [
+        "https://wowzaec2demo.streamlock.net/vod-multitrack/_definst_/smil:Elephants…o_slen_t64TWFpbg==_cfRWxlcGhhbnRzRHJlYW0vRWxlcGhhbnRzRHJlYW0udHRtbA==.m3u8"
+      ],
+      "width": 284,
+      "height": 160,
+      "bitrate": 331000,
+      "name": "Main",
+      "videoCodec": "avc1.42001e",
+      "urlId": 0,
+      "loadError": 0
+    }
+  ],
+  "subtitles": [
+    {
+      "id": "",
+      "kind": "metadata",
+      "label": "id3",
+      "language": "",
+      "mode": "hidden"
+    },
+    {
+      "id": "",
+      "kind": "subtitles",
+      "label": "Chinese",
+      "language": "zho",
+      "mode": "hidden"
+    },
+    {
+      "id": "",
+      "kind": "subtitles",
+      "label": "Chinese",
+      "language": "zho",
+      "mode": "hidden"
+    },
+    {
+      "id": "",
+      "kind": "subtitles",
+      "label": "French",
+      "language": "fra",
+      "mode": "showing"
+    },
+    {
+      "id": "",
+      "kind": "subtitles",
+      "label": "German",
+      "language": "deu",
+      "mode": "hidden"
+    },
+    {
+      "id": "",
+      "kind": "subtitles",
+      "label": "Portuguese",
+      "language": "por",
+      "mode": "hidden"
+    },
+    {
+      "id": "",
+      "kind": "subtitles",
+      "label": "Spanish; Castilian",
+      "language": "spa",
+      "mode": "hidden"
+    }
+  ]
+}

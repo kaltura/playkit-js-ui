@@ -1,7 +1,8 @@
 // @flow
 
 import {playkit} from 'playkit-js';
-import sourcesConfig from '../test/src/configs/sources.json'
+import 'playkit-js-hls';
+import sourcesConfig from '../test/src/configs/sources.json';
 
 let config = sourcesConfig.mp4_none_hls_dash;
 config.target = "video-element";
