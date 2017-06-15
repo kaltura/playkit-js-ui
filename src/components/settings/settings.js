@@ -10,7 +10,7 @@ import SmartContainerItem from '../smart-container/smart-container-item';
 import Icon from '../icon/icon';
 
 const mapStateToProps = state => ({
-  ...state
+  videoTracks: state.engine.videoTracks
 });
 
 @connect(mapStateToProps, bindActions(actions))
@@ -36,7 +36,7 @@ class SettingsControl extends BaseComponent {
     this.props.updateQuality(o.value);
   }
 
-  render() {
+  render(props) {
     var qualityOptions = [
       { value: 1, label: 'Auto' },
       { value: 2, label: '1024p' },
@@ -57,9 +57,12 @@ class SettingsControl extends BaseComponent {
         </Localizer>
         { !this.state.smartContainerOpen ? '' :
         <SmartContainer>
-          <Localizer>
-            <SmartContainerItem label={<Text id='settings.quality' />} options={qualityOptions} onSelect={(o) => this.onQualityChange(o)} />
-          </Localizer>
+          {
+            props.videoTracks.length <= 0 ? '' :
+            <Localizer>
+              <SmartContainerItem label={<Text id='settings.quality' />} options={qualityOptions} onSelect={(o) => this.onQualityChange(o)} />
+            </Localizer>
+          }
           <Localizer>
             <SmartContainerItem label={<Text id='settings.speed' />} options={speedOptions} onSelect={(o) => this.onSpeedChange(o)} />
           </Localizer>

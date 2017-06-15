@@ -7,6 +7,9 @@ export const types = {
   UPDATE_VOLUME: 'engine/UPDATE_VOLUME',
   UPDATE_MUTED: 'engine/UPDATE_MUTED',
   UPDATE_METADATA_LOADING_STATUS: 'engine/UPDATE_METADATA_LOADING_STATUS',
+  UPDATE_AUDIO_TRACKS: 'engine/UPDATE_AUDIO_TRACKS',
+  UPDATE_VIDEO_TRACKS: 'engine/UPDATE_VIDEO_TRACKS',
+  UPDATE_TEXT_TRACKS: 'engine/UPDATE_TEXT_TRACKS'
 }
 
 export const initialState = {
@@ -19,7 +22,10 @@ export const initialState = {
   currentTime: 0,
   duration: 0,
   volume: 1,
-  muted: false
+  muted: false,
+  videoTracks: [],
+  audioTracks: [],
+  textTracks: []
 }
 
 export default (state = initialState, action) => {
@@ -66,6 +72,24 @@ export default (state = initialState, action) => {
         metadataLoaded: action.metadataLoaded
       }
 
+    case types.UPDATE_AUDIO_TRACKS:
+      return {
+        ...state,
+        audioTracks: action.tracks
+      }
+
+    case types.UPDATE_VIDEO_TRACKS:
+      return {
+        ...state,
+        videoTracks: action.tracks
+      }
+
+    case types.UPDATE_TEXT_TRACKS:
+      return {
+        ...state,
+        textTracks: action.tracks
+      }
+
     default:
       return state;
   }
@@ -78,5 +102,8 @@ export const actions = {
   updateDuration: (duration: number) => ({ type: types.UPDATE_DURATION, duration }),
   updateVolume: (volume: number) => ({ type: types.UPDATE_VOLUME, volume }),
   updateMuted: (muted: boolean) => ({ type: types.UPDATE_MUTED, muted }),
-  updateMetadataLoadingStatus: (metadataLoaded: boolean) => ({ type: types.UPDATE_METADATA_LOADING_STATUS, metadataLoaded })
+  updateMetadataLoadingStatus: (metadataLoaded: boolean) => ({ type: types.UPDATE_METADATA_LOADING_STATUS, metadataLoaded }),
+  updateAudioTracks: (tracks) => ({ type: types.UPDATE_AUDIO_TRACKS, tracks }),
+  updateVideoTracks: (tracks) => ({ type: types.UPDATE_VIDEO_TRACKS, tracks }),
+  updateTextTracks: (tracks) => ({ type: types.UPDATE_TEXT_TRACKS, tracks })
 }
