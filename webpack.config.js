@@ -1,58 +1,53 @@
 'use strict';
 
-const webpack = require( "webpack" );
-const path = require( "path" );
+const webpack = require("webpack");
+const path = require("path");
 const PROD = (process.env.NODE_ENV === 'production');
-
-let plugins = PROD ? [new webpack.optimize.UglifyJsPlugin({sourceMap: true})] : [];
-let externals = PROD ? {
-  "playkit-js": {
-    commonjs: "playkit-js",
-    commonjs2: "playkit-js",
-    amd: "playkit-js",
-    root: "Playkit"
-  }
-} : {}
 
 module.exports = {
   context: __dirname + "/src",
-  entry: {
-    "playkit-js-ui": "ui-manager.js"
-  },
+  entry: PROD ? {"playkit-ui.min": "ui-manager.js"} : {"playkit-ui": "ui-manager.js"},
   output: {
     path: __dirname + "/dist",
     filename: '[name].js',
-    library: "PlaykitUI",
-    libraryTarget: "umd"
+    library: "PlaykitJsUi",
+    libraryTarget: "umd",
+    devtoolModuleFilenameTemplate: "webpack:///ui/[resource-path]",
   },
   devtool: 'source-map',
-  plugins: plugins,
+  plugins: PROD ? [new webpack.optimize.UglifyJsPlugin({sourceMap: true})] : [],
   module: {
-    rules: [ {
+    rules: [{
       test: /\.js$/,
-      use: [ {
+      use: [{
         loader: "babel-loader"
-      } ],
-      exclude: [ /node_modules/ ]
+      }],
+      exclude: [
+        /node_modules/
+      ]
     }, {
       test: /\.js$/,
-      exclude: [/node_modules/, "/Users/OrenMe/repos/playkit-js/dist/playkit.js","/Users/OrenMe/repos/playkit-js-hls/dist/playkit-js-hls.js"],
+      exclude: [
+        /node_modules/
+      ],
       enforce: 'pre',
-      // use: [ {
+      // use: [{
       //   loader: 'eslint-loader',
       //   options: {
       //     rules: {
       //       semi: 0
       //     }
       //   }
-      // } ]
-    } ]
+      // }],
+    }]
   },
   devServer: {
     contentBase: __dirname + "/src"
   },
   resolve: {
-    modules: [ path.resolve( __dirname, "src" ), "node_modules" ]
-  },
-  externals: externals
+    modules: [
+      path.resolve(__dirname, "src"),
+      "node_modules"
+    ]
+  }
 };

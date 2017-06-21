@@ -39,6 +39,4 @@ jspm_packages
 #VSCode configuration
 .vscode
 
-dist/
-.idea/
-flow-typed/
+.idea
