@@ -37,6 +37,9 @@ class LanguageControl extends BaseComponent {
   }
 
   render(props) {
+    var audioOptions = props.audioTracks.map(t => ({ label: t.label || t.language, active: t.active, value: t }));
+    var textOptions = props.textTracks.map(t => ({ label: t.label || t.language, active: t.active, value: t }));
+
     return props.audioTracks.length === 0 && props.audioTracks.length === 0 ? false : (
       <div className='control-button-container control-language'>
         <Localizer>
@@ -49,13 +52,13 @@ class LanguageControl extends BaseComponent {
           {
             props.audioTracks.length <= 0 ? '' :
             <Localizer>
-              <SmartContainerItem label={<Text id='language.audio' />} options={props.audioTracks} onSelect={audioTrack => this.onAudioChange(audioTrack)} />
+              <SmartContainerItem label={<Text id='language.audio' />} options={audioOptions} onSelect={audioTrack => this.onAudioChange(audioTrack)} />
             </Localizer>
           }
           {
             props.textTracks.length <= 0 ? '' :
             <Localizer>
-              <SmartContainerItem label={<Text id='language.captions' />} options={props.textTracks} onSelect={textTrack => this.onCaptionsChange(textTrack)} />
+              <SmartContainerItem label={<Text id='language.captions' />} options={textOptions} onSelect={textTrack => this.onCaptionsChange(textTrack)} />
             </Localizer>
           }
           {

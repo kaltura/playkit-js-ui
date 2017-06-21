@@ -81,8 +81,6 @@ class VolumeControl extends BaseComponent {
       if (this.props.isDraggingActive) controlButtonClass += ' dragging-active';
       if (this.props.muted || this.props.volume === 0) controlButtonClass += ' is-muted';
 
-      if (!this.props.isMobile) return false;
-
       return (
         <div className={controlButtonClass}>
           <button className='control-button' onClick={() => this.onVolumeControlButtonClick()} aria-label='Volume'>

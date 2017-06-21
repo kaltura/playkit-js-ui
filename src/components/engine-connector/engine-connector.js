@@ -26,9 +26,11 @@ class EngineConnector extends BaseComponent {
       this.props.updateMetadataLoadingStatus(true);
 
       const TrackType = this.player.Track;
-      let audioTracks = this.player.getTracks(TrackType.AUDIO);
-      let videoTracks = this.player.getTracks(TrackType.VIDEO);
-      let textTracks = this.player.getTracks(TrackType.TEXT);
+      var tracks = this.player.getTracks();
+      let audioTracks = tracks.filter(t => t.constructor.name === 'AudioTrack');
+      let videoTracks = tracks.filter(t => t.constructor.name === 'VideoTrack');
+      let textTracks = tracks.filter(t => t.constructor.name === 'TextTrack');
+
       this.props.updateAudioTracks(audioTracks);
       this.props.updateVideoTracks(videoTracks);
       this.props.updateTextTracks(textTracks);
