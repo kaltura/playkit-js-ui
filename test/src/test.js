@@ -1,4 +1,3 @@
-//@flow
 import playkit from 'playkit-js';
 import UIManager from '../../src/ui-manager';
 import sourcesConfig from './configs/sources.json'
