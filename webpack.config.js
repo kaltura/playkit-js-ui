@@ -49,5 +49,13 @@ module.exports = {
       path.resolve(__dirname, "src"),
       "node_modules"
     ]
+  },
+  externals: {
+    "playkit-js": {
+      commonjs: "playkit-js",
+      commonjs2: "playkit-js",
+      amd: "playkit-js",
+      root: "Playkit"
+    }
   }
 };
