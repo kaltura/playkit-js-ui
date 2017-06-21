@@ -15,6 +15,17 @@ class Loading extends BaseComponent {
     super({name: 'Loading', player: obj.player});
   }
 
+  componentDidMount() {
+    this.player.addEventListener(this.player.Event.PLAYER_STATE_CHANGED, e => {
+      if (e.payload.newState.type === 'idle' || e.payload.newState.type === 'playing' || e.payload.newState.type === 'paused') {
+        this.props.updateLoadingSpinnerState(false);
+      }
+      else {
+        this.props.updateLoadingSpinnerState(true);
+      }
+    });
+  }
+
   render(props) {
     return (
       <div className={props.show ? 'loading-backdrop show' : 'loading-backdrop'}>
@@ -25,17 +36,6 @@ class Loading extends BaseComponent {
         </div>
       </div>
     )
-  }
-
-  componentDidMount() {
-    this.player.addEventListener(this.player.Event.PLAYER_STATE_CHANGED, e => {
-      if (e.payload.newState.type === 'idle' || e.payload.newState.type === 'playing' || e.payload.newState.type === 'paused') {
-        this.props.updateLoadingSpinnerState(false);
-      }
-      else {
-        this.props.updateLoadingSpinnerState(true);
-      }
-    });
   }
 
 }

@@ -45,6 +45,8 @@
     padding: 6px 0;
     z-index: 5;
     animation: openDropmenu 100ms ease-out forwards;
+    max-height: 173px;
+    overflow-y: auto;
 
     .dropdown-menu-item {
       padding: 2px 10px 2px 16px;

@@ -2,8 +2,9 @@
 import {h, render} from 'preact';
 import {Provider} from 'preact-redux';
 import {IntlProvider} from 'preact-i18n';
+import { createStore } from 'redux';
 
-import store from './store';
+import reducer from './store';
 import definition from './fr.json';
 
 import EngineConnector from './components/engine-connector/engine-connector';
@@ -26,9 +27,26 @@ import KeyboardControl from './components/keyboard';
 
 class UIManager {
   player: any;
+  config: any;
 
-  constructor(player) {
+  constructor(player, config) {
     this.player = player;
+    this.config = config;
+    this.config.ui = {
+      "translations": {
+        "controls": {
+          "language": "שפה"
+        }
+      },
+      "components": {
+        "Loading": {
+          "enabled": true
+        },
+        "OverlayPlay": {
+          "enabled": true
+        }
+      }
+    }
   }
 
   buildCustomUI(template): void {
@@ -36,11 +54,13 @@ class UIManager {
   }
 
   buildDefaultUI(): void {
+    const store = createStore(reducer, window.devToolsExtension && window.devToolsExtension({ name: `playkit #${this.config.target}`, instanceId: this.config.target }));
+
     let template = (
       <Provider store={store}>
         <IntlProvider definition={definition}>
           <Shell>
-            <div id='player-holder' />
+            <div className='player-holder' />
             <EngineConnector player={this.player} />
             <KeyboardControl player={this.player} />
             <Loading player={this.player} />
@@ -80,10 +100,14 @@ class UIManager {
   _buildUI(template) {
     if (!this.player) return;
 
-    render(template, document.getElementById('root'));
-    let playerElement = document.getElementsByTagName('video')[0];
+    let playerWrapper = document.createElement('div');
+    document.body.appendChild(playerWrapper);
+    render(template, playerWrapper);
+
+    let playerElement = document.getElementsByTagName('video')[this.config.target === 'player1' ? 0 : 1];
+    // let playerElement = document.getElementById(this.config.target); // the right way
     playerElement.removeAttribute('style');
-    document.getElementById('player-holder').appendChild(playerElement);
+    playerWrapper.getElementsByClassName('player-holder')[0].appendChild(playerElement);
   }
 
   release(): void { }

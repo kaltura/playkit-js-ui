@@ -1,25 +1,25 @@
 {
     "core": {
-      "disable": "Désactiver",
-      "auto": "Automatiquement",
-      "close": "Fermer"
+      "disable": "Disable",
+      "auto": "Auto",
+      "close": "Close"
     },
     "controls": {
-      "play": "jouer",
-      "pause": "pause",
-      "share": "partager",
-      "language": "la langue",
-      "settings": "paramètres",
-      "fullscreen": "plein écran"
+      "play": "Play",
+      "pause": "Pause",
+      "share": "Share",
+      "language": "Language",
+      "settings": "Settings",
+      "fullscreen": "Fullscreen"
     },
     "settings": {
-      "quality": "qualité",
-      "speed": "la vitesse"
+      "quality": "Quality",
+      "speed": "Speed"
     },
     "language": {
-      "audio": "l'audio",
-      "captions": "Légendes",
-      "advanced_captions_settings": "Paramètres avancés des légendes"
+      "audio": "Audio",
+      "captions": "Captions",
+      "advanced_captions_settings": "Advanced captions settings"
     },
     "share": {
       "share_title": "Partager",
