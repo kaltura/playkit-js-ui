@@ -9,7 +9,8 @@ import Icon from '../icon/icon';
 const mapStateToProps = state => ({
   isDraggingActive: state.volume.isDraggingActive,
   volume: state.volume.volume,
-  muted: state.volume.muted
+  muted: state.volume.muted,
+  isMobile: state.shell.isMobile
 });
 
 @connect(mapStateToProps, bindActions(actions))
@@ -79,6 +80,8 @@ class VolumeControl extends BaseComponent {
       var controlButtonClass = 'control-button-container volume-control';
       if (this.props.isDraggingActive) controlButtonClass += ' dragging-active';
       if (this.props.muted || this.props.volume === 0) controlButtonClass += ' is-muted';
+
+      if (!this.props.isMobile) return false;
 
       return (
         <div className={controlButtonClass}>

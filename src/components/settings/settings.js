@@ -37,14 +37,8 @@ class SettingsControl extends BaseComponent {
   }
 
   render(props) {
-    var qualityOptions = [
-      { value: 1, label: 'Auto' },
-      { value: 2, label: '1024p' },
-      { value: 3, label: '720p' },
-      { value: 4, label: '480p' }
-    ]
     var speedOptions = [
-      { value: 1, label: 'Auto (360)' },
+      { value: 1, label: 'Auto (360)', active: true },
       { value: 2, label: '240' },
       { value: 3, label: '144' }
     ]

@@ -6,15 +6,10 @@ class DropDownMenu extends Component {
 
   componentWillMount() {
     this.setState({dropMenuActive: false});
-    if (!this.props.selected) {
-      this.setState({selected: this.props.options[0]});
-    } else {
-      this.setState({selected: this.props.selected});
-    }
   }
 
   isSelected(o): boolean {
-    return this.state.selected.value === o.value;
+    return o.active;
   }
 
   onSelect(o) {
@@ -26,7 +21,7 @@ class DropDownMenu extends Component {
     return (
       <div className='dropdown top left'>
         <div className='dropdown-button' onClick={() => this.setState({dropMenuActive: !this.state.dropMenuActive})}>
-          {this.state.selected.label}
+          {props.options.filter(t => t.active).length > 0 ? props.options.filter(t => t.active)[0].label : ''}
         </div>
         {
           !this.state.dropMenuActive ? '' :

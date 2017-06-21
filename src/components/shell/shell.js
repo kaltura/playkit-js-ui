@@ -2,17 +2,25 @@
 import { h } from 'preact';
 import BaseComponent from '../base';
 import { connect } from 'preact-redux';
+import { bindActions } from '../../utils/bind-actions';
+import { actions } from '../../reducers/shell';
+import { isMobile } from '../../utils/is-mobile';
 
 const mapStateToProps = state => ({
   metadataLoaded: state.engine.metadataLoaded,
   currentState: state.engine.playerState.currentState,
-  playerClasses: state.shell.playerClasses
+  playerClasses: state.shell.playerClasses,
+  isMobile: state.shell.isMobile
 });
 
-@connect(mapStateToProps)
+@connect(mapStateToProps, bindActions(actions))
 class Shell extends BaseComponent {
   constructor() {
     super({name: 'Shell'});
+  }
+
+  componentDidMount() {
+    this.props.updateIsMobile(isMobile());
   }
 
   render(props) {

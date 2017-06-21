@@ -2,7 +2,8 @@
 
 export const types = {
   ADD_PLAYER_CLASS: 'shell/ADD_PLAYER_CLASS',
-  REMOVE_PLAYER_CLASS: 'shell/REMOVE_PLAYER_CLASS'
+  REMOVE_PLAYER_CLASS: 'shell/REMOVE_PLAYER_CLASS',
+  UPDATE_IS_MOBILE: 'shell/UPDATE_IS_MOBILE'
 }
 
 export const initialState = {
@@ -22,6 +23,13 @@ export default (state = initialState, action) => {
         ...state,
         playerClasses: state.playerClasses.filter(c => c !== action.className)
       }
+
+    case types.UPDATE_IS_MOBILE:
+      return {
+        ...state,
+        isMobile: action.isMobile
+      }
+
     default:
       return state;
   }
@@ -29,5 +37,6 @@ export default (state = initialState, action) => {
 
 export const actions = {
   addPlayerClass: (className: string) => ({ type: types.ADD_PLAYER_CLASS, className }),
-  removePlayerClass: (className: string) => ({ type: types.REMOVE_PLAYER_CLASS, className })
+  removePlayerClass: (className: string) => ({ type: types.REMOVE_PLAYER_CLASS, className }),
+  updateIsMobile: (isMobile: boolean) => ({ type: types.UPDATE_IS_MOBILE, isMobile })
 }
