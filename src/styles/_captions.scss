@@ -1,0 +1,13 @@
+video::cue {
+  background-color: transparent;
+}
+.player.captions-yellow-text {
+  video::cue {
+    color: #FAFF00;
+  }
+}
+.player.captions-black-bg {
+  video::cue {
+    background-color: #000;
+  }
+}

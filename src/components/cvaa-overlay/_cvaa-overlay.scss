@@ -6,7 +6,7 @@
     font-weight: bold;
     line-height: 36px;
     text-align: center;
-    padding: 0 28px;
+    padding: 0 31px;
     display: inline-block;
     margin: 0 12px;
     cursor: pointer;
@@ -19,12 +19,17 @@
     }
   }
   .button-save-cvaa {
+    margin-top: 50px;
     height: 40px; width: 400px;
     border: 2px solid rgba(255,255,255,0.2);
     border-radius: 4px;
     font-size: 16px;
     font-weight: bold;
-    line-height: 19px;
+    line-height: 38px;
     text-align: center;
+    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
   }
 }
