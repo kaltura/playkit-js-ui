@@ -25,12 +25,16 @@
     "mocha-no-only/mocha-no-only": [
       "error"
     ],
-    "react/prop-types": [0]
-    // "require-jsdoc": [
-    //   "error"
-    // ],
-    // "valid-jsdoc": [
-    //   "error"
-    // ]
+    "react/prop-types": [
+      0
+    ]
+    /*
+    "require-jsdoc": [
+      "error"
+    ],
+    "valid-jsdoc": [
+      "error"
+    ]
+    */
   }
 }
