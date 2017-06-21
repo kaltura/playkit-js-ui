@@ -41,7 +41,9 @@ class SettingsControl extends BaseComponent {
       { value: 1, label: 'Auto (360)', active: true },
       { value: 2, label: '240' },
       { value: 3, label: '144' }
-    ]
+    ];
+    var qualityOptions = props.videoTracks.map(t => ({ label: t.label || t.language, active: t.active, value: t }));
+
     return (
       <div className='control-button-container control-settings'>
         <Localizer>

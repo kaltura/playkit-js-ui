@@ -13,15 +13,20 @@ class DropDownMenu extends Component {
   }
 
   onSelect(o) {
-    this.props.onSelect(o);
+    this.props.onSelect(o.value);
     this.setState({dropMenuActive: false});
+  }
+
+  getActiveOptionLabel(): string {
+    let activeOptions = this.props.options.filter(t => t.active);
+    return activeOptions.length > 0 ? activeOptions[0].label : this.props.options[0].label;
   }
 
   render(props) {
     return (
       <div className='dropdown top left'>
         <div className='dropdown-button' onClick={() => this.setState({dropMenuActive: !this.state.dropMenuActive})}>
-          {props.options.filter(t => t.active).length > 0 ? props.options.filter(t => t.active)[0].label : ''}
+          {this.getActiveOptionLabel()}
         </div>
         {
           !this.state.dropMenuActive ? '' :
