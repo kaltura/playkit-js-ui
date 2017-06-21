@@ -2,6 +2,8 @@
 import { h } from 'preact';
 import { Localizer, Text } from 'preact-i18n';
 import { connect } from 'preact-redux';
+import { bindActions } from '../../utils/bind-actions';
+import { actions } from '../../reducers/cvaa';
 import BaseComponent from '../base';
 import SmartContainer from '../smart-container/smart-container';
 import SmartContainerItem from '../smart-container/smart-container-item';
@@ -9,10 +11,11 @@ import Icon from '../icon/icon';
 
 const mapStateToProps = state => ({
   audioTracks: state.engine.audioTracks,
-  textTracks: state.engine.textTracks
+  textTracks: state.engine.textTracks,
+  overlayOpen: state.cvaa.overlayOpen
 });
 
-@connect(mapStateToProps)
+@connect(mapStateToProps, bindActions(actions))
 class LanguageControl extends BaseComponent {
   constructor(obj: IControlParams) {
     super({name: 'LanguageControl', player: obj.player});
@@ -64,7 +67,7 @@ class LanguageControl extends BaseComponent {
           {
             props.textTracks.length <= 0 ? '' :
             <div className='smart-container-item'>
-              <a href='#'><Text id='language.advanced_captions_settings'>Advanced captions settings</Text></a>
+              <a onClick={() => props.toggleCVAAOverlay(!props.overlayOpen)}><Text id='language.advanced_captions_settings'>Advanced captions settings</Text></a>
             </div>
           }
         </SmartContainer>
