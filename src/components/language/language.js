@@ -30,18 +30,16 @@ class LanguageControl extends BaseComponent {
   }
 
   onAudioChange(audioTrack) {
-    // this.player.selectTrack(audioTrack);
-    this.player._engine.selectTextTrack(audioTrack); // workaround untill bug fixed in playkit-js
+    this.player.selectTrack(audioTrack);
   }
 
   onCaptionsChange(textTrack) {
-    // this.player.selectTrack(textTrack);
-    this.player._engine.selectTextTrack(textTrack); // workaround untill bug fixed in playkit-js
+    this.player.selectTrack(textTrack);
   }
 
   render(props) {
     var audioOptions = props.audioTracks.map(t => ({ label: t.label || t.language, active: t.active, value: t }));
-    var textOptions = props.textTracks.map(t => ({ label: t.label || t.language, active: t.active, value: t }));
+    var textOptions = props.textTracks.filter(t => t.kind === 'subtitles').map(t => ({ label: t.label || t.language, active: t.active, value: t }));
 
     return props.audioTracks.length === 0 && props.audioTracks.length === 0 ? false : (
       <div className='control-button-container control-language'>
