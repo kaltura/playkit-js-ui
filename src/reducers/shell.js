@@ -13,6 +13,7 @@ export const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case types.ADD_PLAYER_CLASS:
+      if (state.playerClasses.includes(action.className)) return state;
       return {
         ...state,
         playerClasses: [...state.playerClasses, action.className]
