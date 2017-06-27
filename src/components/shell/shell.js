@@ -19,6 +19,14 @@ class Shell extends BaseComponent {
     super({name: 'Shell'});
   }
 
+  onMouseOver() {
+    this.props.addPlayerClass('hover');
+  }
+
+  onMouseLeave() {
+    this.props.removePlayerClass('hover');
+  }
+
   componentDidMount() {
     this.props.updateIsMobile(isMobile());
   }
@@ -31,7 +39,7 @@ class Shell extends BaseComponent {
     if (this.props.metadataLoaded) playerClasses += ` state-${this.props.currentState}`;
 
     return (
-      <div className={playerClasses}>
+      <div className={playerClasses} onMouseOver={() => this.onMouseOver()} onMouseLeave={() => this.onMouseLeave()}>
         { props.children }
       </div>
     )

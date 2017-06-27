@@ -1846,7 +1846,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__bindActionCreators__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__applyMiddleware__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__compose__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_warning__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_warning__ = __webpack_require__(8);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "createStore", function() { return __WEBPACK_IMPORTED_MODULE_0__createStore__["b"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "combineReducers", function() { return __WEBPACK_IMPORTED_MODULE_1__combineReducers__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "bindActionCreators", function() { return __WEBPACK_IMPORTED_MODULE_2__bindActionCreators__["a"]; });
@@ -1874,34 +1874,6 @@ if (process.env.NODE_ENV !== 'production' && typeof isCrushed.name === 'string' 
 
 /***/ }),
 /* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = warning;
-/**
- * Prints a warning in the console if it exists.
- *
- * @param {String} message The warning message.
- * @returns {void}
- */
-function warning(message) {
-  /* eslint-disable no-console */
-  if (typeof console !== 'undefined' && typeof console.error === 'function') {
-    console.error(message);
-  }
-  /* eslint-enable no-console */
-  try {
-    // This error was thrown as a convenience so that if you enable
-    // "break on all exceptions" in your console,
-    // it would pause the execution at this line.
-    throw new Error(message);
-    /* eslint-disable no-empty */
-  } catch (e) {}
-  /* eslint-enable no-empty */
-}
-
-/***/ }),
-/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1931,6 +1903,7 @@ exports.default = function () {
 
   switch (action.type) {
     case types.ADD_PLAYER_CLASS:
+      if (state.playerClasses.includes(action.className)) return state;
       return _extends({}, state, {
         playerClasses: [].concat(_toConsumableArray(state.playerClasses), [action.className])
       });
@@ -1963,6 +1936,34 @@ var actions = exports.actions = {
     return { type: types.UPDATE_IS_MOBILE, isMobile: isMobile };
   }
 };
+
+/***/ }),
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = warning;
+/**
+ * Prints a warning in the console if it exists.
+ *
+ * @param {String} message The warning message.
+ * @returns {void}
+ */
+function warning(message) {
+  /* eslint-disable no-console */
+  if (typeof console !== 'undefined' && typeof console.error === 'function') {
+    console.error(message);
+  }
+  /* eslint-enable no-console */
+  try {
+    // This error was thrown as a convenience so that if you enable
+    // "break on all exceptions" in your console,
+    // it would pause the execution at this line.
+    throw new Error(message);
+    /* eslint-disable no-empty */
+  } catch (e) {}
+  /* eslint-enable no-empty */
+}
 
 /***/ }),
 /* 9 */
@@ -2062,11 +2063,13 @@ Object.defineProperty(exports, "__esModule", {
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var types = exports.types = {
-  TOGGLE_CVAA_OVERLAY: 'share/TOGGLE_CVAA_OVERLAY'
+  TOGGLE_CVAA_OVERLAY: 'cvaa/TOGGLE_CVAA_OVERLAY',
+  UPDATE_CAPTIONS_STYLE: 'cvaa/UPDATE_CAPTIONS_STYLE'
 };
 
 var initialState = exports.initialState = {
-  overlayOpen: false
+  overlayOpen: false,
+  style: 'default'
 };
 
 exports.default = function () {
@@ -2079,6 +2082,11 @@ exports.default = function () {
         overlayOpen: action.show
       });
 
+    case types.UPDATE_CAPTIONS_STYLE:
+      return _extends({}, state, {
+        style: action.style
+      });
+
     default:
       return state;
   }
@@ -2087,6 +2095,9 @@ exports.default = function () {
 var actions = exports.actions = {
   toggleCVAAOverlay: function toggleCVAAOverlay(show) {
     return { type: types.TOGGLE_CVAA_OVERLAY, show: show };
+  },
+  updateCaptionsStyle: function updateCaptionsStyle(style) {
+    return { type: types.UPDATE_CAPTIONS_STYLE, style: style };
   }
 };
 
@@ -3244,7 +3255,7 @@ var _preactRedux = __webpack_require__(1);
 
 var _bindActions = __webpack_require__(3);
 
-var _shell = __webpack_require__(8);
+var _shell = __webpack_require__(7);
 
 var _icon = __webpack_require__(4);
 
@@ -3512,7 +3523,7 @@ var UIManager = function () {
       document.body.appendChild(playerWrapper);
       (0, _preact.render)(template, playerWrapper);
 
-      var playerElement = document.getElementsByTagName('video')[this.config.target === 'player1' ? 0 : 1];
+      var playerElement = document.getElementsByTagName('video')[this.config.target === 'root' ? 0 : 1];
       // let playerElement = document.getElementById(this.config.target); // the right way
       playerElement.removeAttribute('style');
       playerWrapper.getElementsByClassName('player-holder')[0].appendChild(playerElement);
@@ -3857,7 +3868,7 @@ function symbolObservablePonyfill(root) {
 /* WEBPACK VAR INJECTION */(function(process) {/* harmony export (immutable) */ __webpack_exports__["a"] = combineReducers;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_es_isPlainObject__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_warning__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_warning__ = __webpack_require__(8);
 
 
 
@@ -3996,7 +4007,7 @@ function combineReducers(reducers) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = bindActionCreators;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_warning__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_warning__ = __webpack_require__(8);
 
 
 function bindActionCreator(actionCreator, dispatch) {
@@ -4128,7 +4139,7 @@ var _engine = __webpack_require__(18);
 
 var _engine2 = _interopRequireDefault(_engine);
 
-var _shell = __webpack_require__(8);
+var _shell = __webpack_require__(7);
 
 var _shell2 = _interopRequireDefault(_shell);
 
@@ -4675,7 +4686,7 @@ var _preactRedux = __webpack_require__(1);
 
 var _bindActions = __webpack_require__(3);
 
-var _shell = __webpack_require__(8);
+var _shell = __webpack_require__(7);
 
 var _isMobile = __webpack_require__(52);
 
@@ -4706,6 +4717,16 @@ var Shell = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.
   }
 
   _createClass(Shell, [{
+    key: 'onMouseOver',
+    value: function onMouseOver() {
+      this.props.addPlayerClass('hover');
+    }
+  }, {
+    key: 'onMouseLeave',
+    value: function onMouseLeave() {
+      this.props.removePlayerClass('hover');
+    }
+  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.props.updateIsMobile((0, _isMobile.isMobile)());
@@ -4713,6 +4734,8 @@ var Shell = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.
   }, {
     key: 'render',
     value: function render(props) {
+      var _this2 = this;
+
       var playerClasses = 'player skin-default';
       playerClasses += ' ' + props.playerClasses.join(' ');
 
@@ -4721,7 +4744,11 @@ var Shell = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.
 
       return (0, _preact.h)(
         'div',
-        { className: playerClasses },
+        { className: playerClasses, onMouseOver: function onMouseOver() {
+            return _this2.onMouseOver();
+          }, onMouseLeave: function onMouseLeave() {
+            return _this2.onMouseLeave();
+          } },
         props.children
       );
     }
@@ -5527,9 +5554,8 @@ var SettingsControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
 
       var speedOptions = [{ value: 1, label: 'Auto (360)', active: true }, { value: 2, label: '240' }, { value: 3, label: '144' }];
       var qualityOptions = props.videoTracks.map(function (t) {
-        return { label: t.label || t.language, active: t.active, value: t };
+        return { label: t.label || t.language || t.bandwidth, active: t.active, value: t };
       });
-
       return (0, _preact.h)(
         'div',
         { className: 'control-button-container control-settings' },
@@ -6279,6 +6305,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _dec, _class;
 
 var _preact = __webpack_require__(0);
@@ -6288,6 +6316,8 @@ var _preactRedux = __webpack_require__(1);
 var _bindActions = __webpack_require__(3);
 
 var _cvaa = __webpack_require__(11);
+
+var _shell = __webpack_require__(7);
 
 var _base = __webpack_require__(2);
 
@@ -6307,11 +6337,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    open: state.cvaa.overlayOpen
+    open: state.cvaa.overlayOpen,
+    style: state.cvaa.style
   };
 };
 
-var CVAAOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.bindActions)(_cvaa.actions)), _dec(_class = function (_BaseComponent) {
+var CVAAOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.bindActions)(_extends({}, _cvaa.actions, _shell.actions))), _dec(_class = function (_BaseComponent) {
   _inherits(CVAAOverlay, _BaseComponent);
 
   function CVAAOverlay() {
@@ -6321,8 +6352,18 @@ var CVAAOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAc
   }
 
   _createClass(CVAAOverlay, [{
+    key: 'changeCaptionsStyle',
+    value: function changeCaptionsStyle(style) {
+      this.props.removePlayerClass('captions-' + this.props.style);
+      this.props.addPlayerClass('captions-' + style);
+      this.props.updateCaptionsStyle(style);
+      this.props.toggleCVAAOverlay(false);
+    }
+  }, {
     key: 'render',
     value: function render(props) {
+      var _this2 = this;
+
       return !props.open ? '' : (0, _preact.h)(
         _overlay2.default,
         { open: props.open, onClose: function onClose() {
@@ -6338,17 +6379,23 @@ var CVAAOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAc
           null,
           (0, _preact.h)(
             'div',
-            { className: 'sample' },
+            { className: 'sample', onClick: function onClick() {
+                return _this2.changeCaptionsStyle('default');
+              } },
             'Sample'
           ),
           (0, _preact.h)(
             'div',
-            { className: 'sample black-bg' },
+            { className: 'sample black-bg', onClick: function onClick() {
+                return _this2.changeCaptionsStyle('black-bg');
+              } },
             'Sample'
           ),
           (0, _preact.h)(
             'div',
-            { className: 'sample yellow-text' },
+            { className: 'sample yellow-text', onClick: function onClick() {
+                return _this2.changeCaptionsStyle('yellow-text');
+              } },
             'Sample'
           )
         ),
