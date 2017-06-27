@@ -13,6 +13,8 @@ class EngineConnector extends BaseComponent {
   }
 
   componentDidMount() {
+    const TrackType = this.player.Track;
+
     this.player.addEventListener(this.player.Event.PLAYER_STATE_CHANGED, (e) => {
       this.props.updatePlayerState(e.payload.oldState.type, e.payload.newState.type);
     });
@@ -24,16 +26,6 @@ class EngineConnector extends BaseComponent {
     this.player.addEventListener(this.player.Event.LOADED_METADATA, () => {
       this.props.updateDuration(this.player.duration);
       this.props.updateMetadataLoadingStatus(true);
-
-      const TrackType = this.player.Track;
-      var tracks = this.player.getTracks();
-      let audioTracks = tracks.filter(t => t.constructor.name === 'AudioTrack');
-      let videoTracks = tracks.filter(t => t.constructor.name === 'VideoTrack');
-      let textTracks = tracks.filter(t => t.constructor.name === 'TextTrack');
-
-      this.props.updateAudioTracks(audioTracks);
-      this.props.updateVideoTracks(videoTracks);
-      this.props.updateTextTracks(textTracks);
     });
 
     this.player.addEventListener(this.player.Event.VOLUME_CHANGE, () => {
@@ -46,6 +38,32 @@ class EngineConnector extends BaseComponent {
 
     this.player.addEventListener(this.player.Event.PAUSE, () => {
       this.props.updateIsPlaying(false);
+    });
+
+    this.player.addEventListener(this.player.Event.TRACKS_CHANGED, () => {
+      let audioTracks = this.player.getTracks(TrackType.AUDIO);
+      let videoTracks = this.player.getTracks(TrackType.VIDEO);
+      let textTracks = this.player.getTracks(TrackType.TEXT);
+
+      this.props.updateAudioTracks(audioTracks);
+      this.props.updateVideoTracks(videoTracks);
+      this.props.updateTextTracks(textTracks);
+    });
+
+
+    this.player.addEventListener(this.player.Event.TEXT_TRACK_CHANGED, () => {
+      let tracks = this.player.getTracks(TrackType.TEXT);
+      this.props.updateTextTracks(tracks);
+    });
+
+    this.player.addEventListener(this.player.Event.AUDIO_TRACK_CHANGED, () => {
+      let tracks = this.player.getTracks(TrackType.AUDIO);
+      this.props.updateAudioTracks(tracks);
+    });
+
+    this.player.addEventListener(this.player.Event.VIDEO_TRACK_CHANGED, () => {
+      let tracks = this.player.getTracks(TrackType.VIDEO);
+      this.props.updateVideoTracks(tracks);
     });
   }
 

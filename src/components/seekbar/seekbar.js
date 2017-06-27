@@ -82,7 +82,7 @@ class SeekBarControl extends BaseComponent {
   render(props) {
     var virtualProgressWidth = `${this.state.virtualTime / props.duration * 100}%`;
     var progressWidth = `${props.currentTime / props.duration * 100}%`;
-    var framePreviewStyle = 'background-image: url(http://cfvod.kaltura.com/p/1914121/sp/191412100/thumbnail/entry_id/1_fet8ffop/version/100001/width/160/vid_slices/100); ';
+    var framePreviewStyle = 'background-image: url(http://cfvod.kaltura.com/p/1914121/sp/191412100/thumbnail/entry_id/1_umer46fd/version/100001/width/160/vid_slices/100); ';
     framePreviewStyle += `background-position: ${this.getThumbSpriteOffset()}`
 
     return (

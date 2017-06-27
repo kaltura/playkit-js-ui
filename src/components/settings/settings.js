@@ -32,8 +32,8 @@ class SettingsControl extends BaseComponent {
     this.props.updateSpeed(o.value);
   }
 
-  onQualityChange(o) {
-    this.props.updateQuality(o.value);
+  onQualityChange(videoTrack) {
+    this.player.selectTrack(videoTrack);
   }
 
   render(props) {
