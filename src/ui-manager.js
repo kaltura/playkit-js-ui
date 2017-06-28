@@ -100,14 +100,15 @@ class UIManager {
   _buildUI(template) {
     if (!this.player) return;
 
+    let container = document.getElementById(this.config.targetId)
     let playerWrapper = document.createElement('div');
-    document.body.appendChild(playerWrapper);
+    container.appendChild(playerWrapper);
     render(template, playerWrapper);
 
-    let playerElement = document.getElementsByTagName('video')[this.config.target === 'root' ? 0 : 1];
+    let playerElement = container.getElementsByTagName('video')[0];
     // let playerElement = document.getElementById(this.config.target); // the right way
     playerElement.removeAttribute('style');
-    playerWrapper.getElementsByClassName('player-holder')[0].appendChild(playerElement);
+    // playerWrapper.getElementsByClassName('player-holder')[0].appendChild(playerElement);
   }
 
   release(): void { }

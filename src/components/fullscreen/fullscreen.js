@@ -20,7 +20,7 @@ class FullscreenControl extends BaseComponent {
   }
 
   componentDidMount() {
-    this._playerElement = document.getElementsByClassName('player')[0];
+    this._playerElement = document.getElementById('playerPlaceHolder');
 
     document.addEventListener('webkitfullscreenchange', () => {
       this.props.updateFullscreen(document.webkitIsFullScreen);
