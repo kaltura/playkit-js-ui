@@ -26,7 +26,7 @@ class SeekBarControl extends BaseComponent {
   }
 
   componentDidMount() {
-    this._playerElement = document.getElementById('playerPlaceHolder');
+    this._playerElement = document.getElementById('player-placeholder');
 
     this.setState({virtualTime: 0});
 

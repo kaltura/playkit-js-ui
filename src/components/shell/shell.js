@@ -15,23 +15,23 @@ const mapStateToProps = state => ({
 
 @connect(mapStateToProps, bindActions(actions))
 class Shell extends BaseComponent {
+
   constructor() {
     super({name: 'Shell'});
   }
 
   onMouseOver() {
-    this.props.addPlayerClass('hover');
-    this.setState({hover: true});
-
-    setTimeout(() => {
-      this.setState({hover: false});
-      this.props.removePlayerClass('hover')
-    }, 2000);
+    if (!this.state.hover) {
+      this.props.addPlayerClass('hover');
+      this.setState({hover: true});
+    }
   }
 
   onMouseLeave() {
-    this.setState({hover: false});
-    this.props.removePlayerClass('hover');
+    if (this.state.hover) {
+      this.setState({hover: false});
+      this.props.removePlayerClass('hover');
+    }
   }
 
   onMouseMove() {
