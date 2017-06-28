@@ -3245,11 +3245,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _dec, _class;
+
 var _preact = __webpack_require__(0);
 
 var _icon = __webpack_require__(4);
 
 var _icon2 = _interopRequireDefault(_icon);
+
+var _preactRedux = __webpack_require__(1);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3259,7 +3263,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var DropDownMenu = function (_Component) {
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    isMobile: state.shell.isMobile
+  };
+};
+
+var DropDownMenu = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = function (_Component) {
   _inherits(DropDownMenu, _Component);
 
   function DropDownMenu() {
@@ -3293,17 +3303,36 @@ var DropDownMenu = function (_Component) {
       return activeOptions.length > 0 ? activeOptions[0].label : this.props.options[0].label;
     }
   }, {
-    key: 'render',
-    value: function render(props) {
+    key: 'renderNativeSelect',
+    value: function renderNativeSelect() {
       var _this2 = this;
 
       return (0, _preact.h)(
+        'select',
+        { onChange: function onChange(e) {
+            return _this2.onSelect(_this2.props.options[e.target.value]);
+          } },
+        this.props.options.map(function (o, index) {
+          return (0, _preact.h)(
+            'option',
+            { selected: _this2.isSelected(o), value: index },
+            o.label
+          );
+        })
+      );
+    }
+  }, {
+    key: 'render',
+    value: function render(props) {
+      var _this3 = this;
+
+      return props.isMobile ? this.renderNativeSelect() : (0, _preact.h)(
         'div',
         { className: 'dropdown top left' },
         (0, _preact.h)(
           'div',
           { className: 'dropdown-button', onClick: function onClick() {
-              return _this2.setState({ dropMenuActive: !_this2.state.dropMenuActive });
+              return _this3.setState({ dropMenuActive: !_this3.state.dropMenuActive });
             } },
           this.getActiveOptionLabel()
         ),
@@ -3313,15 +3342,15 @@ var DropDownMenu = function (_Component) {
           props.options.map(function (o) {
             return (0, _preact.h)(
               'div',
-              { className: _this2.isSelected(o) ? 'dropdown-menu-item active' : 'dropdown-menu-item', onClick: function onClick() {
-                  return _this2.onSelect(o);
+              { className: _this3.isSelected(o) ? 'dropdown-menu-item active' : 'dropdown-menu-item', onClick: function onClick() {
+                  return _this3.onSelect(o);
                 } },
               (0, _preact.h)(
                 'span',
                 null,
                 o.label
               ),
-              _this2.isSelected(o) ? (0, _preact.h)(_icon2.default, { type: 'check' }) : ''
+              _this3.isSelected(o) ? (0, _preact.h)(_icon2.default, { type: 'check' }) : ''
             );
           })
         )
@@ -3330,8 +3359,7 @@ var DropDownMenu = function (_Component) {
   }]);
 
   return DropDownMenu;
-}(_preact.Component);
-
+}(_preact.Component)) || _class);
 exports.default = DropDownMenu;
 
 /***/ }),
@@ -3629,6 +3657,7 @@ var UIManager = function () {
       var playerElement = container.getElementsByTagName('video')[0];
       // let playerElement = document.getElementById(this.config.target); // the right way
       playerElement.removeAttribute('style');
+      playerElement.removeAttribute("controls");
       // playerWrapper.getElementsByClassName('player-holder')[0].appendChild(playerElement);
     }
   }, {
@@ -4833,22 +4862,42 @@ var Shell = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.
   _createClass(Shell, [{
     key: 'onMouseOver',
     value: function onMouseOver() {
+      var _this2 = this;
+
       this.props.addPlayerClass('hover');
+      this.setState({ hover: true });
+
+      setTimeout(function () {
+        _this2.setState({ hover: false });
+        _this2.props.removePlayerClass('hover');
+      }, 2000);
     }
   }, {
     key: 'onMouseLeave',
     value: function onMouseLeave() {
+      this.setState({ hover: false });
       this.props.removePlayerClass('hover');
+    }
+  }, {
+    key: 'onMouseMove',
+    value: function onMouseMove() {
+      if (!this.state.hover) {
+        this.setState({ hover: true });
+        this.props.addPlayerClass('hover');
+      }
     }
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.props.updateIsMobile((0, _isMobile.isMobile)());
+      if ((0, _isMobile.isMobile)()) {
+        this.props.addPlayerClass('touch');
+      }
     }
   }, {
     key: 'render',
     value: function render(props) {
-      var _this2 = this;
+      var _this3 = this;
 
       var playerClasses = 'player skin-default';
       playerClasses += ' ' + props.playerClasses.join(' ');
@@ -4858,11 +4907,18 @@ var Shell = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.
 
       return (0, _preact.h)(
         'div',
-        { className: playerClasses, onMouseOver: function onMouseOver() {
-            return _this2.onMouseOver();
-          }, onMouseLeave: function onMouseLeave() {
-            return _this2.onMouseLeave();
-          } },
+        {
+          className: playerClasses,
+          onMouseOver: function onMouseOver() {
+            return _this3.onMouseOver();
+          },
+          onMouseMove: function onMouseMove() {
+            return _this3.onMouseMove();
+          },
+          onMouseLeave: function onMouseLeave() {
+            return _this3.onMouseLeave();
+          }
+        },
         props.children
       );
     }
@@ -5242,6 +5298,32 @@ var SeekBarControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bin
       }
     };
 
+    _this.onSeekbarTouchStart = function (e) {
+      _this.props.updateSeekbarDraggingStatus(true);
+      if (_this.props.isDraggingActive) {
+        var time = _this.getTime(e);
+        _this.updateSeekBarProgress(time, _this.player.duration);
+      }
+    };
+
+    _this.onSeekbarTouchMove = function (e) {
+      var time = _this.getTime(e);
+      _this._movex = time;
+      _this.updateSeekBarProgress(time, _this.player.duration, true);
+
+      if (_this.props.isDraggingActive) {
+        _this.updateSeekBarProgress(time, _this.player.duration);
+      }
+    };
+
+    _this.onSeekbarTouchEnd = function (e) {
+      var time = _this._movex;
+      _this.player.currentTime = time;
+      _this.updateSeekBarProgress(time, _this.player.duration);
+      _this.props.updateSeekbarDraggingStatus(false);
+      _this.logger.debug('Seek to ' + time + 's');
+    };
+
     return _this;
   }
 
@@ -5255,7 +5337,9 @@ var SeekBarControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bin
       this.setState({ virtualTime: 0 });
 
       this.player.addEventListener(this.player.Event.TIME_UPDATE, function () {
-        _this2.props.updateCurrentTime(_this2.player.currentTime);
+        if (!_this2.props.isDraggingActive) {
+          _this2.props.updateCurrentTime(_this2.player.currentTime);
+        }
       });
     }
   }, {
@@ -5272,7 +5356,8 @@ var SeekBarControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bin
   }, {
     key: 'getTime',
     value: function getTime(e) {
-      var time = this.player.duration * ((e.clientX - this._seekBarElement.offsetLeft - this._playerElement.offsetLeft) / this._seekBarElement.clientWidth);
+      var xPosition = e instanceof TouchEvent ? e.touches[0].clientX : e.clientX;
+      var time = this.player.duration * ((xPosition - this._seekBarElement.offsetLeft - this._playerElement.offsetLeft) / this._seekBarElement.clientWidth);
       time = parseFloat(time.toFixed(2));
       if (time < 0) return 0;
       if (time > this.player.duration) return this.player.duration;
@@ -5365,6 +5450,15 @@ var SeekBarControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bin
           },
           onMouseUp: function onMouseUp(e) {
             return _this5.onSeekbarMouseUp(e);
+          },
+          onTouchStart: function onTouchStart(e) {
+            return _this5.onSeekbarTouchStart(e);
+          },
+          onTouchMove: function onTouchMove(e) {
+            return _this5.onSeekbarTouchMove(e);
+          },
+          onTouchEnd: function onTouchEnd(e) {
+            return _this5.onSeekbarTouchEnd(e);
           }
         },
         (0, _preact.h)(

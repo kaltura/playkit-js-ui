@@ -43,6 +43,7 @@
 video {
     &::-webkit-media-controls {
         display:none !important;
+        -webkit-appearance: none;
     }
 
     &::-webkit-media-controls-start-playback-button {

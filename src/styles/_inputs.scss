@@ -58,3 +58,12 @@
 textarea.form-control {
   min-height: 72px;
 }
+
+select {
+  font-size: 15px;
+  font-family: $font-family;
+  color: #fff;
+  -webkit-appearance: none;
+  background: none;
+  border: 0;
+}

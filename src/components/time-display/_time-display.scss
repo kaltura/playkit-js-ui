@@ -7,6 +7,10 @@
     font-weight: bold;
 }
 
+.touch .time-display {
+  padding-left: 0;
+}
+
 @media screen and (max-width: 480px) {
   .player .time-display {
     padding: 0 12px 0 0;

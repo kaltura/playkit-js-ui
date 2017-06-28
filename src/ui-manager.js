@@ -108,6 +108,7 @@ class UIManager {
     let playerElement = container.getElementsByTagName('video')[0];
     // let playerElement = document.getElementById(this.config.target); // the right way
     playerElement.removeAttribute('style');
+    playerElement.removeAttribute("controls");
     // playerWrapper.getElementsByClassName('player-holder')[0].appendChild(playerElement);
   }
 

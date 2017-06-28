@@ -71,6 +71,12 @@
     }
 }
 
+.touch {
+  .control-button-container.volume-control {
+    display: none;
+  }
+}
+
 @media screen and (max-width: 480px) {
   .control-button-container.volume-control {
     display: none;
