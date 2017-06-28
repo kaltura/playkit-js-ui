@@ -3650,15 +3650,7 @@ var UIManager = function () {
       if (!this.player) return;
 
       var container = document.getElementById(this.config.targetId);
-      var playerWrapper = document.createElement('div');
-      container.appendChild(playerWrapper);
-      (0, _preact.render)(template, playerWrapper);
-
-      var playerElement = container.getElementsByTagName('video')[0];
-      // let playerElement = document.getElementById(this.config.target); // the right way
-      playerElement.removeAttribute('style');
-      playerElement.removeAttribute("controls");
-      // playerWrapper.getElementsByClassName('player-holder')[0].appendChild(playerElement);
+      (0, _preact.render)(template, container);
     }
   }, {
     key: 'release',
@@ -4862,21 +4854,18 @@ var Shell = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.
   _createClass(Shell, [{
     key: 'onMouseOver',
     value: function onMouseOver() {
-      var _this2 = this;
-
-      this.props.addPlayerClass('hover');
-      this.setState({ hover: true });
-
-      setTimeout(function () {
-        _this2.setState({ hover: false });
-        _this2.props.removePlayerClass('hover');
-      }, 2000);
+      if (!this.state.hover) {
+        this.props.addPlayerClass('hover');
+        this.setState({ hover: true });
+      }
     }
   }, {
     key: 'onMouseLeave',
     value: function onMouseLeave() {
-      this.setState({ hover: false });
-      this.props.removePlayerClass('hover');
+      if (this.state.hover) {
+        this.setState({ hover: false });
+        this.props.removePlayerClass('hover');
+      }
     }
   }, {
     key: 'onMouseMove',
@@ -4897,7 +4886,7 @@ var Shell = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.
   }, {
     key: 'render',
     value: function render(props) {
-      var _this3 = this;
+      var _this2 = this;
 
       var playerClasses = 'player skin-default';
       playerClasses += ' ' + props.playerClasses.join(' ');
@@ -4910,13 +4899,13 @@ var Shell = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.
         {
           className: playerClasses,
           onMouseOver: function onMouseOver() {
-            return _this3.onMouseOver();
+            return _this2.onMouseOver();
           },
           onMouseMove: function onMouseMove() {
-            return _this3.onMouseMove();
+            return _this2.onMouseMove();
           },
           onMouseLeave: function onMouseLeave() {
-            return _this3.onMouseLeave();
+            return _this2.onMouseLeave();
           }
         },
         props.children
@@ -5332,7 +5321,7 @@ var SeekBarControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bin
     value: function componentDidMount() {
       var _this2 = this;
 
-      this._playerElement = document.getElementById('playerPlaceHolder');
+      this._playerElement = document.getElementById('player-placeholder');
 
       this.setState({ virtualTime: 0 });
 
