@@ -50,8 +50,11 @@
       label {
         float: left;
       }
-      .dropdown {
+      .dropdown, select {
         float: right;
+      }
+      select {
+        text-align-last: right;
       }
     }
   }

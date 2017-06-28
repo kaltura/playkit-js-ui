@@ -1,7 +1,13 @@
 //@flow
 import { h, Component } from 'preact';
 import Icon from '../icon/icon';
+import { connect } from 'preact-redux';
 
+const mapStateToProps = state => ({
+  isMobile: state.shell.isMobile
+});
+
+@connect(mapStateToProps)
 class DropDownMenu extends Component {
 
   componentWillMount() {
@@ -22,8 +28,17 @@ class DropDownMenu extends Component {
     return activeOptions.length > 0 ? activeOptions[0].label : this.props.options[0].label;
   }
 
-  render(props) {
+  renderNativeSelect() {
     return (
+      <select onChange={(e) => this.onSelect(this.props.options[e.target.value])}>
+        {this.props.options.map((o, index) => <option selected={this.isSelected(o)} value={index}>{o.label}</option>)}
+      </select>
+    )
+  }
+
+  render(props) {
+    return props.isMobile ? this.renderNativeSelect() :
+    (
       <div className='dropdown top left'>
         <div className='dropdown-button' onClick={() => this.setState({dropMenuActive: !this.state.dropMenuActive})}>
           {this.getActiveOptionLabel()}

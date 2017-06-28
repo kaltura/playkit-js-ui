@@ -97,8 +97,14 @@
     }
 }
 
+.touch {
+  .virtual-progress, .time-preview, .frame-preview {
+    display: none !important;
+  }
+}
+
 @media screen and (max-width: 480px) {
-  .virtual-progress {
+  .virtual-progress, .time-preview, .frame-preview {
     display: none;
   }
 }

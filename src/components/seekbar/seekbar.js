@@ -19,6 +19,7 @@ class SeekBarControl extends BaseComponent {
   _playerElement: HTMLElement;
   _framePreviewElement: HTMLElement;
   _timeBubbleElement: HTMLElement;
+  _movex: number;
 
   constructor(obj: IControlParams) {
     super({name: 'SeekBar', player: obj.player});
@@ -30,7 +31,9 @@ class SeekBarControl extends BaseComponent {
     this.setState({virtualTime: 0});
 
     this.player.addEventListener(this.player.Event.TIME_UPDATE, () => {
-      this.props.updateCurrentTime(this.player.currentTime);
+      if (!this.props.isDraggingActive) {
+        this.props.updateCurrentTime(this.player.currentTime);
+      }
     });
   }
 
@@ -59,6 +62,32 @@ class SeekBarControl extends BaseComponent {
     }
   }
 
+  onSeekbarTouchStart = e => {
+    this.props.updateSeekbarDraggingStatus(true);
+    if (this.props.isDraggingActive) {
+      let time = this.getTime(e);
+      this.updateSeekBarProgress(time, this.player.duration);
+    }
+  }
+
+  onSeekbarTouchMove = e => {
+    let time = this.getTime(e);
+    this._movex = time;
+    this.updateSeekBarProgress(time, this.player.duration, true);
+
+    if (this.props.isDraggingActive) {
+      this.updateSeekBarProgress(time, this.player.duration);
+    }
+  }
+
+  onSeekbarTouchEnd = e => {
+    let time = this._movex;
+    this.player.currentTime = time;
+    this.updateSeekBarProgress(time, this.player.duration);
+    this.props.updateSeekbarDraggingStatus(false);
+    this.logger.debug(`Seek to ${time}s`);
+  }
+
   updateSeekBarProgress(currentTime: number, duration: number, virtual: boolean = false) {
     if (virtual) {
       this.setState({virtualTime: currentTime});
@@ -69,7 +98,8 @@ class SeekBarControl extends BaseComponent {
   }
 
   getTime(e: Event): Number {
-    let time = this.player.duration * ((e.clientX - this._seekBarElement.offsetLeft - this._playerElement.offsetLeft) / this._seekBarElement.clientWidth);
+    let xPosition = e instanceof TouchEvent ? e.touches[0].clientX : e.clientX;
+    let time = this.player.duration * ((xPosition - this._seekBarElement.offsetLeft - this._playerElement.offsetLeft) / this._seekBarElement.clientWidth);
     time = parseFloat(time.toFixed(2));
     if (time < 0) return 0;
     if (time > this.player.duration) return this.player.duration;
@@ -137,6 +167,9 @@ class SeekBarControl extends BaseComponent {
         onMouseMove={e => this.onSeekbarMouseMove(e)}
         onMouseDown={e => this.onSeekbarMouseDown(e)}
         onMouseUp={e => this.onSeekbarMouseUp(e)}
+        onTouchStart={e => this.onSeekbarTouchStart(e)}
+        onTouchMove={e => this.onSeekbarTouchMove(e)}
+        onTouchEnd={e => this.onSeekbarTouchEnd(e)}
       >
         <div className='progress-bar'>
           <div className='progress' style={{width: progressWidth}}>

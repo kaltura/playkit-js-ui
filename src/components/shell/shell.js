@@ -21,14 +21,31 @@ class Shell extends BaseComponent {
 
   onMouseOver() {
     this.props.addPlayerClass('hover');
+    this.setState({hover: true});
+
+    setTimeout(() => {
+      this.setState({hover: false});
+      this.props.removePlayerClass('hover')
+    }, 2000);
   }
 
   onMouseLeave() {
+    this.setState({hover: false});
     this.props.removePlayerClass('hover');
+  }
+
+  onMouseMove() {
+    if (!this.state.hover) {
+      this.setState({hover: true});
+      this.props.addPlayerClass('hover');
+    }
   }
 
   componentDidMount() {
     this.props.updateIsMobile(isMobile());
+    if (isMobile()) {
+      this.props.addPlayerClass('touch');
+    }
   }
 
   render(props) {
@@ -39,7 +56,12 @@ class Shell extends BaseComponent {
     if (this.props.metadataLoaded) playerClasses += ` state-${this.props.currentState}`;
 
     return (
-      <div className={playerClasses} onMouseOver={() => this.onMouseOver()} onMouseLeave={() => this.onMouseLeave()}>
+      <div
+        className={playerClasses}
+        onMouseOver={() => this.onMouseOver()}
+        onMouseMove={() => this.onMouseMove()}
+        onMouseLeave={() => this.onMouseLeave()}
+      >
         { props.children }
       </div>
     )
