@@ -15,6 +15,7 @@ const mapStateToProps = state => ({
 
 @connect(mapStateToProps, bindActions(actions))
 class SettingsControl extends BaseComponent {
+  _controlSettingsElement: HTMLElement;
 
   constructor(obj: IControlParams) {
     super({name: 'Settings', player: obj.player});
@@ -22,6 +23,22 @@ class SettingsControl extends BaseComponent {
 
   componentDidMount() {
     this.setState({smartContainerOpen: false});
+  }
+
+  componentDidMount() {
+    document.addEventListener('click', this.handleClickOutside.bind(this), false);
+  }
+
+  componentWillUnMount() {
+    document.removeEventListener('click', this.handleClickOutside.bind(this), false);
+  }
+
+  handleClickOutside() {
+    const domNode = this._controlSettingsElement;
+
+    if ((!domNode || !domNode.contains(event.target))) {
+      this.setState({smartContainerOpen: false});
+    }
   }
 
   onControlButtonClick() {
@@ -44,7 +61,10 @@ class SettingsControl extends BaseComponent {
     ];
     var qualityOptions = props.videoTracks.map(t => ({ label: t.label || t.language || t.bandwidth, active: t.active, value: t }));
     return (
-      <div className='control-button-container control-settings'>
+      <div
+        ref={c => this._controlSettingsElement=c}
+        className='control-button-container control-settings'
+      >
         <Localizer>
           <button aria-label={<Text id='controls.settings' />} className={this.state.smartContainerOpen ? 'control-button active' : 'control-button'} onClick={() => this.onControlButtonClick()}>
             <Icon type='settings' />

@@ -17,14 +17,15 @@ const mapStateToProps = state => ({
 class SeekBarControl extends BaseComponent {
   _seekBarElement: HTMLElement;
   _playerElement: HTMLElement;
+  _framePreviewElement: HTMLElement;
+  _timeBubbleElement: HTMLElement;
 
   constructor(obj: IControlParams) {
     super({name: 'SeekBar', player: obj.player});
   }
 
   componentDidMount() {
-    this._playerElement = document.getElementsByClassName('player')[0];
-    this._seekBarElement = document.getElementsByClassName('seek-bar')[0];
+    this._playerElement = document.getElementById('playerPlaceHolder');
 
     this.setState({virtualTime: 0});
 
@@ -79,30 +80,71 @@ class SeekBarControl extends BaseComponent {
     return - (Math.ceil(100 * this.state.virtualTime / this.player.duration) * 160) + 'px 0px';
   }
 
+  getFramePreviewOffset() {
+    if (this._seekBarElement) {
+      let leftOffset = (this.state.virtualTime / this.props.duration * this._seekBarElement.clientWidth) - (this._framePreviewElement.clientWidth / 2);
+      if (leftOffset < 0) return 0;
+      else if (leftOffset > this._seekBarElement.clientWidth - this._framePreviewElement.clientWidth) return (this._seekBarElement.clientWidth - this._framePreviewElement.clientWidth);
+      else return leftOffset;
+    }
+  }
+
+  getTimeBubbleOffset() {
+    if (this._timeBubbleElement) {
+      let leftOffset = (this.state.virtualTime / this.props.duration * this._seekBarElement.clientWidth) - (this._timeBubbleElement.clientWidth / 2);
+      if (leftOffset < 0) return 0;
+      else if (leftOffset > this._seekBarElement.clientWidth - this._timeBubbleElement.clientWidth) return (this._seekBarElement.clientWidth - this._timeBubbleElement.clientWidth);
+      else return leftOffset;
+    }
+  }
+
+  renderFramePreview() {
+    if (!this.props.showFramePreview) return undefined;
+    var framePreviewStyle = `left: ${this.getFramePreviewOffset()}px`;
+    var framePreviewImgStyle = 'background-image: url(http://cfvod.kaltura.com/p/1914121/sp/191412100/thumbnail/entry_id/1_umer46fd/version/100001/width/160/vid_slices/100); ';
+    framePreviewImgStyle += `background-position: ${this.getThumbSpriteOffset()}`
+
+    return (
+      <div
+        className='frame-preview'
+        style={framePreviewStyle}
+        ref={c => this._framePreviewElement=c}
+      >
+        <div className='frame-preview-img' style={framePreviewImgStyle} />
+      </div>)
+  }
+
+  renderTimeBubble() {
+    if (!this.props.showTimeBubble) return undefined;
+    var timeBubbleStyle = `left: ${this.getTimeBubbleOffset()}px`;
+    return <div className='time-preview' style={timeBubbleStyle} ref={c => this._timeBubbleElement=c}>{ toHHMMSS(this.state.virtualTime)}</div>
+  }
+
   render(props) {
     var virtualProgressWidth = `${this.state.virtualTime / props.duration * 100}%`;
     var progressWidth = `${props.currentTime / props.duration * 100}%`;
-    var framePreviewStyle = 'background-image: url(http://cfvod.kaltura.com/p/1914121/sp/191412100/thumbnail/entry_id/1_umer46fd/version/100001/width/160/vid_slices/100); ';
-    framePreviewStyle += `background-position: ${this.getThumbSpriteOffset()}`
 
     return (
-      <div className='seek-bar' role='slider'
-        aria-label='Seek slider' aria-valuemin='0' aria-valuemax={Math.round(this.player.duration)} aria-valuenow={Math.round(this.player.currentTime)}
+      <div
+        className='seek-bar'
+        ref={c => this._seekBarElement=c}
+        role='slider'
+        aria-label='Seek slider'
+        aria-valuemin='0'
+        aria-valuemax={Math.round(this.player.duration)}
+        aria-valuenow={Math.round(this.player.currentTime)}
         aria-valuetext={`${toHHMMSS(this.player.currentTime)} of ${toHHMMSS(this.player.duration)}`}
-        onMouseMove={e => this.onSeekbarMouseMove(e)} onMouseDown={e => this.onSeekbarMouseDown(e)} onMouseUp={e => this.onSeekbarMouseUp(e)}>
+        onMouseMove={e => this.onSeekbarMouseMove(e)}
+        onMouseDown={e => this.onSeekbarMouseDown(e)}
+        onMouseUp={e => this.onSeekbarMouseUp(e)}
+      >
         <div className='progress-bar'>
           <div className='progress' style={{width: progressWidth}}>
             <a className='scrubber' />
           </div>
-          <div className='virtual-progress' style={{width: virtualProgressWidth}}>
-            {
-              props.showFramePreview ?
-                (<div className='frame-preview'>
-                  <div className='frame-preview-img' style={framePreviewStyle} />
-                </div>) : ''
-            }
-            { this.props.showTimeBubble ? <div className='time-preview'>{ toHHMMSS(this.state.virtualTime)}</div> : '' }
-          </div>
+          <div className='virtual-progress' style={{width: virtualProgressWidth}} />
+          {this.renderTimeBubble()}
+          {this.renderFramePreview()}
           <div className='buffered' style='width: 60%;' />
         </div>
       </div>

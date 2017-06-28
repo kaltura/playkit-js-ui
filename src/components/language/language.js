@@ -17,12 +17,30 @@ const mapStateToProps = state => ({
 
 @connect(mapStateToProps, bindActions(actions))
 class LanguageControl extends BaseComponent {
+  _controlLanguageElement: HTMLElement;
+
   constructor(obj: IControlParams) {
     super({name: 'LanguageControl', player: obj.player});
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.setState({smartContainerOpen: false});
+  }
+
+  componentDidMount() {
+    document.addEventListener('click', this.handleClickOutside.bind(this), false);
+  }
+
+  componentWillUnMount() {
+    document.removeEventListener('click', this.handleClickOutside.bind(this), false);
+  }
+
+  handleClickOutside() {
+    const domNode = this._controlLanguageElement;
+
+    if ((!domNode || !domNode.contains(event.target))) {
+      this.setState({smartContainerOpen: false});
+    }
   }
 
   onControlButtonClick() {
@@ -42,7 +60,10 @@ class LanguageControl extends BaseComponent {
     var textOptions = props.textTracks.filter(t => t.kind === 'subtitles').map(t => ({ label: t.label || t.language, active: t.active, value: t }));
 
     return props.audioTracks.length === 0 && props.audioTracks.length === 0 ? false : (
-      <div className='control-button-container control-language'>
+      <div
+        ref={c => this._controlLanguageElement=c}
+        className='control-button-container control-language'
+      >
         <Localizer>
           <button aria-label={<Text id='controls.language' />} className={this.state.smartContainerOpen ? 'control-button active' : 'control-button'} onClick={() => this.onControlButtonClick()}>
             <Icon type='language' />

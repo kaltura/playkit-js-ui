@@ -4,6 +4,10 @@
 
     &:hover,
     &.dragging-active {
+        .time-preview,
+        .frame-preview {
+          display: block;
+        }
         .progress-bar {
           .scrubber {
               transform: scale(1);
@@ -38,34 +42,6 @@
             z-index: 1;
             border-radius: $progress-bar-border-radius 0 0 $progress-bar-border-radius;
             background-color: rgba(255,255,255,0.3);
-
-            .frame-preview-img {
-              background-size: auto 100%;
-              width: 100%; height: 100%;
-              position: relative;
-            }
-            .frame-preview {
-              position: absolute;
-              bottom: $progress-bar-height + 12px; right: 0;
-              transform: translateX(50%);
-              height: 94px;	width: 164px;
-              border: 2px solid rgba(255,255,255,0.2);
-              border-radius: 4px;
-            }
-            .time-preview {
-              position: absolute;
-              bottom: $progress-bar-height + 18px; right: 0;
-              transform: translateX(50%);
-              height: 22px;	min-width: 48px;
-              padding: 0 3px;
-              text-align: center;
-              border-radius: 3px;
-              background-color: rgba(0,0,0,0.7);
-              font-size: 13px;
-              font-weight: bold;
-              line-height: 22px;
-              color: #fff;
-            }
         }
         .scrubber {
             position: absolute; z-index: 3;
@@ -84,6 +60,40 @@
               cursor: grabbing;
             }
         }
+    }
+
+    .frame-preview {
+      position: absolute;
+      bottom: $progress-bar-height + 12px; left: 0;
+      height: 94px;	width: 164px;
+      border: 2px solid rgba(255,255,255,0.2);
+      border-radius: 4px;
+
+      .frame-preview-img {
+        background-size: auto 100%;
+        width: 100%; height: 100%;
+        position: relative;
+      }
+    }
+
+    .time-preview {
+      position: absolute;
+      bottom: $progress-bar-height + 18px; left: 0;
+      z-index: 10;
+      height: 22px;	min-width: 48px;
+      padding: 0 3px;
+      text-align: center;
+      border-radius: 3px;
+      background-color: rgba(0,0,0,0.7);
+      font-size: 13px;
+      font-weight: bold;
+      line-height: 22px;
+      color: #fff;
+    }
+
+    .time-preview,
+    .frame-preview {
+      display: none;
     }
 }
 

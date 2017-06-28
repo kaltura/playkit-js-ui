@@ -3621,14 +3621,15 @@ var UIManager = function () {
     value: function _buildUI(template) {
       if (!this.player) return;
 
+      var container = document.getElementById(this.config.targetId);
       var playerWrapper = document.createElement('div');
-      document.body.appendChild(playerWrapper);
+      container.appendChild(playerWrapper);
       (0, _preact.render)(template, playerWrapper);
 
-      var playerElement = document.getElementsByTagName('video')[this.config.target === 'root' ? 0 : 1];
+      var playerElement = container.getElementsByTagName('video')[0];
       // let playerElement = document.getElementById(this.config.target); // the right way
       playerElement.removeAttribute('style');
-      playerWrapper.getElementsByClassName('player-holder')[0].appendChild(playerElement);
+      // playerWrapper.getElementsByClassName('player-holder')[0].appendChild(playerElement);
     }
   }, {
     key: 'release',
@@ -5249,8 +5250,7 @@ var SeekBarControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bin
     value: function componentDidMount() {
       var _this2 = this;
 
-      this._playerElement = document.getElementsByClassName('player')[0];
-      this._seekBarElement = document.getElementsByClassName('seek-bar')[0];
+      this._playerElement = document.getElementById('playerPlaceHolder');
 
       this.setState({ virtualTime: 0 });
 
@@ -5284,27 +5284,89 @@ var SeekBarControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bin
       return -(Math.ceil(100 * this.state.virtualTime / this.player.duration) * 160) + 'px 0px';
     }
   }, {
-    key: 'render',
-    value: function render(props) {
+    key: 'getFramePreviewOffset',
+    value: function getFramePreviewOffset() {
+      if (this._seekBarElement) {
+        var leftOffset = this.state.virtualTime / this.props.duration * this._seekBarElement.clientWidth - this._framePreviewElement.clientWidth / 2;
+        if (leftOffset < 0) return 0;else if (leftOffset > this._seekBarElement.clientWidth - this._framePreviewElement.clientWidth) return this._seekBarElement.clientWidth - this._framePreviewElement.clientWidth;else return leftOffset;
+      }
+    }
+  }, {
+    key: 'getTimeBubbleOffset',
+    value: function getTimeBubbleOffset() {
+      if (this._timeBubbleElement) {
+        var leftOffset = this.state.virtualTime / this.props.duration * this._seekBarElement.clientWidth - this._timeBubbleElement.clientWidth / 2;
+        if (leftOffset < 0) return 0;else if (leftOffset > this._seekBarElement.clientWidth - this._timeBubbleElement.clientWidth) return this._seekBarElement.clientWidth - this._timeBubbleElement.clientWidth;else return leftOffset;
+      }
+    }
+  }, {
+    key: 'renderFramePreview',
+    value: function renderFramePreview() {
       var _this3 = this;
 
-      var virtualProgressWidth = this.state.virtualTime / props.duration * 100 + '%';
-      var progressWidth = props.currentTime / props.duration * 100 + '%';
-      var framePreviewStyle = 'background-image: url(http://cfvod.kaltura.com/p/1914121/sp/191412100/thumbnail/entry_id/1_umer46fd/version/100001/width/160/vid_slices/100); ';
-      framePreviewStyle += 'background-position: ' + this.getThumbSpriteOffset();
+      if (!this.props.showFramePreview) return undefined;
+      var framePreviewStyle = 'left: ' + this.getFramePreviewOffset() + 'px';
+      var framePreviewImgStyle = 'background-image: url(http://cfvod.kaltura.com/p/1914121/sp/191412100/thumbnail/entry_id/1_umer46fd/version/100001/width/160/vid_slices/100); ';
+      framePreviewImgStyle += 'background-position: ' + this.getThumbSpriteOffset();
 
       return (0, _preact.h)(
         'div',
-        { className: 'seek-bar', role: 'slider',
-          'aria-label': 'Seek slider', 'aria-valuemin': '0', 'aria-valuemax': Math.round(this.player.duration), 'aria-valuenow': Math.round(this.player.currentTime),
+        {
+          className: 'frame-preview',
+          style: framePreviewStyle,
+          ref: function ref(c) {
+            return _this3._framePreviewElement = c;
+          }
+        },
+        (0, _preact.h)('div', { className: 'frame-preview-img', style: framePreviewImgStyle })
+      );
+    }
+  }, {
+    key: 'renderTimeBubble',
+    value: function renderTimeBubble() {
+      var _this4 = this;
+
+      if (!this.props.showTimeBubble) return undefined;
+      var timeBubbleStyle = 'left: ' + this.getTimeBubbleOffset() + 'px';
+      return (0, _preact.h)(
+        'div',
+        { className: 'time-preview', style: timeBubbleStyle, ref: function ref(c) {
+            return _this4._timeBubbleElement = c;
+          } },
+        (0, _timeFormat.toHHMMSS)(this.state.virtualTime)
+      );
+    }
+  }, {
+    key: 'render',
+    value: function render(props) {
+      var _this5 = this;
+
+      var virtualProgressWidth = this.state.virtualTime / props.duration * 100 + '%';
+      var progressWidth = props.currentTime / props.duration * 100 + '%';
+
+      return (0, _preact.h)(
+        'div',
+        {
+          className: 'seek-bar',
+          ref: function ref(c) {
+            return _this5._seekBarElement = c;
+          },
+          role: 'slider',
+          'aria-label': 'Seek slider',
+          'aria-valuemin': '0',
+          'aria-valuemax': Math.round(this.player.duration),
+          'aria-valuenow': Math.round(this.player.currentTime),
           'aria-valuetext': (0, _timeFormat.toHHMMSS)(this.player.currentTime) + ' of ' + (0, _timeFormat.toHHMMSS)(this.player.duration),
           onMouseMove: function onMouseMove(e) {
-            return _this3.onSeekbarMouseMove(e);
-          }, onMouseDown: function onMouseDown(e) {
-            return _this3.onSeekbarMouseDown(e);
-          }, onMouseUp: function onMouseUp(e) {
-            return _this3.onSeekbarMouseUp(e);
-          } },
+            return _this5.onSeekbarMouseMove(e);
+          },
+          onMouseDown: function onMouseDown(e) {
+            return _this5.onSeekbarMouseDown(e);
+          },
+          onMouseUp: function onMouseUp(e) {
+            return _this5.onSeekbarMouseUp(e);
+          }
+        },
         (0, _preact.h)(
           'div',
           { className: 'progress-bar' },
@@ -5313,20 +5375,9 @@ var SeekBarControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bin
             { className: 'progress', style: { width: progressWidth } },
             (0, _preact.h)('a', { className: 'scrubber' })
           ),
-          (0, _preact.h)(
-            'div',
-            { className: 'virtual-progress', style: { width: virtualProgressWidth } },
-            props.showFramePreview ? (0, _preact.h)(
-              'div',
-              { className: 'frame-preview' },
-              (0, _preact.h)('div', { className: 'frame-preview-img', style: framePreviewStyle })
-            ) : '',
-            this.props.showTimeBubble ? (0, _preact.h)(
-              'div',
-              { className: 'time-preview' },
-              (0, _timeFormat.toHHMMSS)(this.state.virtualTime)
-            ) : ''
-          ),
+          (0, _preact.h)('div', { className: 'virtual-progress', style: { width: virtualProgressWidth } }),
+          this.renderTimeBubble(),
+          this.renderFramePreview(),
           (0, _preact.h)('div', { className: 'buffered', style: 'width: 60%;' })
         )
       );
@@ -5646,6 +5697,25 @@ var SettingsControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
       this.setState({ smartContainerOpen: false });
     }
   }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      document.addEventListener('click', this.handleClickOutside.bind(this), false);
+    }
+  }, {
+    key: 'componentWillUnMount',
+    value: function componentWillUnMount() {
+      document.removeEventListener('click', this.handleClickOutside.bind(this), false);
+    }
+  }, {
+    key: 'handleClickOutside',
+    value: function handleClickOutside() {
+      var domNode = this._controlSettingsElement;
+
+      if (!domNode || !domNode.contains(event.target)) {
+        this.setState({ smartContainerOpen: false });
+      }
+    }
+  }, {
     key: 'onControlButtonClick',
     value: function onControlButtonClick() {
       this.setState({ smartContainerOpen: !this.state.smartContainerOpen });
@@ -5671,7 +5741,12 @@ var SettingsControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
       });
       return (0, _preact.h)(
         'div',
-        { className: 'control-button-container control-settings' },
+        {
+          ref: function ref(c) {
+            return _this2._controlSettingsElement = c;
+          },
+          className: 'control-button-container control-settings'
+        },
         (0, _preact.h)(
           _preactI18n.Localizer,
           null,
@@ -5776,9 +5851,28 @@ var LanguageControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
   }
 
   _createClass(LanguageControl, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.setState({ smartContainerOpen: false });
+    }
+  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.setState({ smartContainerOpen: false });
+      document.addEventListener('click', this.handleClickOutside.bind(this), false);
+    }
+  }, {
+    key: 'componentWillUnMount',
+    value: function componentWillUnMount() {
+      document.removeEventListener('click', this.handleClickOutside.bind(this), false);
+    }
+  }, {
+    key: 'handleClickOutside',
+    value: function handleClickOutside() {
+      var domNode = this._controlLanguageElement;
+
+      if (!domNode || !domNode.contains(event.target)) {
+        this.setState({ smartContainerOpen: false });
+      }
     }
   }, {
     key: 'onControlButtonClick',
@@ -5811,7 +5905,12 @@ var LanguageControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
 
       return props.audioTracks.length === 0 && props.audioTracks.length === 0 ? false : (0, _preact.h)(
         'div',
-        { className: 'control-button-container control-language' },
+        {
+          ref: function ref(c) {
+            return _this2._controlLanguageElement = c;
+          },
+          className: 'control-button-container control-language'
+        },
         (0, _preact.h)(
           _preactI18n.Localizer,
           null,
@@ -5925,7 +6024,7 @@ var FullscreenControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _
     value: function componentDidMount() {
       var _this2 = this;
 
-      this._playerElement = document.getElementsByClassName('player')[0];
+      this._playerElement = document.getElementById('playerPlaceHolder');
 
       document.addEventListener('webkitfullscreenchange', function () {
         _this2.props.updateFullscreen(document.webkitIsFullScreen);
