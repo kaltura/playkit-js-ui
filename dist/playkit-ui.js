@@ -1890,11 +1890,13 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 var types = exports.types = {
   ADD_PLAYER_CLASS: 'shell/ADD_PLAYER_CLASS',
   REMOVE_PLAYER_CLASS: 'shell/REMOVE_PLAYER_CLASS',
-  UPDATE_IS_MOBILE: 'shell/UPDATE_IS_MOBILE'
+  UPDATE_IS_MOBILE: 'shell/UPDATE_IS_MOBILE',
+  UPDATE_PRE_PLAYBACK: 'shell/UPDATE_PRE_PLAYBACK'
 };
 
 var initialState = exports.initialState = {
-  playerClasses: []
+  playerClasses: [],
+  prePlayback: true
 };
 
 exports.default = function () {
@@ -1920,6 +1922,11 @@ exports.default = function () {
         isMobile: action.isMobile
       });
 
+    case types.UPDATE_PRE_PLAYBACK:
+      return _extends({}, state, {
+        prePlayback: action.prePlayback
+      });
+
     default:
       return state;
   }
@@ -1934,6 +1941,9 @@ var actions = exports.actions = {
   },
   updateIsMobile: function updateIsMobile(isMobile) {
     return { type: types.UPDATE_IS_MOBILE, isMobile: isMobile };
+  },
+  updatePrePlayback: function updatePrePlayback(prePlayback) {
+    return { type: types.UPDATE_PRE_PLAYBACK, prePlayback: prePlayback };
   }
 };
 
@@ -3489,6 +3499,10 @@ var _overlayPlay = __webpack_require__(54);
 
 var _overlayPlay2 = _interopRequireDefault(_overlayPlay);
 
+var _prePlaybackPlayOverlay = __webpack_require__(69);
+
+var _prePlaybackPlayOverlay2 = _interopRequireDefault(_prePlaybackPlayOverlay);
+
 var _loading = __webpack_require__(55);
 
 var _loading2 = _interopRequireDefault(_loading);
@@ -3638,7 +3652,8 @@ var UIManager = function () {
               ),
               (0, _preact.h)(_shareOverlay2.default, null),
               (0, _preact.h)(_cvaaOverlay2.default, null)
-            )
+            ),
+            (0, _preact.h)(_prePlaybackPlayOverlay2.default, { player: this.player })
           )
         )
       );
@@ -6719,6 +6734,103 @@ var KeyboardControl = function (_BaseComponent) {
 }(_base2.default);
 
 exports.default = KeyboardControl;
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _dec, _class;
+
+var _preact = __webpack_require__(0);
+
+var _preactRedux = __webpack_require__(1);
+
+var _bindActions = __webpack_require__(3);
+
+var _shell = __webpack_require__(7);
+
+var _base = __webpack_require__(2);
+
+var _base2 = _interopRequireDefault(_base);
+
+var _icon = __webpack_require__(4);
+
+var _icon2 = _interopRequireDefault(_icon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    prePlayback: state.shell.prePlayback
+  };
+};
+
+var PrePlaybackPlayOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.bindActions)(_shell.actions)), _dec(_class = function (_BaseComponent) {
+  _inherits(PrePlaybackPlayOverlay, _BaseComponent);
+
+  function PrePlaybackPlayOverlay(obj) {
+    _classCallCheck(this, PrePlaybackPlayOverlay);
+
+    var _this = _possibleConstructorReturn(this, (PrePlaybackPlayOverlay.__proto__ || Object.getPrototypeOf(PrePlaybackPlayOverlay)).call(this, { name: 'PrePlaybackPlayOverlay', player: obj.player }));
+
+    _this.player.addEventListener(_this.player.Event.PLAY, function () {
+      if (_this.props.prePlayback) {
+        _this.props.updatePrePlayback(false);
+        _this.props.removePlayerClass('pre-playback');
+      }
+    });
+    return _this;
+  }
+
+  _createClass(PrePlaybackPlayOverlay, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.props.addPlayerClass('pre-playback');
+    }
+  }, {
+    key: 'handleClick',
+    value: function handleClick() {
+      this.player.play();
+    }
+  }, {
+    key: 'render',
+    value: function render(props) {
+      var _this2 = this;
+
+      if (!props.prePlayback) return undefined;
+
+      return (0, _preact.h)(
+        'div',
+        { className: 'pre-playback-play-overlay', onClick: function onClick() {
+            return _this2.handleClick();
+          } },
+        (0, _preact.h)(
+          'a',
+          { className: 'pre-playback-play-button' },
+          (0, _preact.h)(_icon2.default, { type: 'play' })
+        )
+      );
+    }
+  }]);
+
+  return PrePlaybackPlayOverlay;
+}(_base2.default)) || _class);
+exports.default = PrePlaybackPlayOverlay;
 
 /***/ })
 /******/ ]);

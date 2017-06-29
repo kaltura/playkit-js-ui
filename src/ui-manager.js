@@ -10,6 +10,7 @@ import definition from './fr.json';
 import EngineConnector from './components/engine-connector/engine-connector';
 import Shell from './components/shell/shell';
 import OverlayPlay from './components/overlay-play/overlay-play';
+import PrePlaybackPlayOverlay from './components/pre-playback-play-overlay/pre-playback-play-overlay';
 import Loading from './components/loading/loading';
 import PlayPauseControl from './components/play-pause/play-pause';
 import SeekBarControl from './components/seekbar/seekbar';
@@ -90,6 +91,7 @@ class UIManager {
               <ShareOverlay />
               <CVAAOverlay />
             </div>
+            <PrePlaybackPlayOverlay player={this.player} />
           </Shell>
         </IntlProvider>
       </Provider>
