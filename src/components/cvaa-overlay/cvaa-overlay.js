@@ -6,7 +6,7 @@ import {actions as cvaaActions } from '../../reducers/cvaa';
 import { actions as shellActions } from '../../reducers/shell';
 import BaseComponent from '../base';
 import Overlay from '../overlay/overlay';
-import DropDownMenu from '../dropdown-menu/dropdown-menu';
+// import DropDownMenu from '../dropdown-menu/dropdown-menu';
 
 const mapStateToProps = state => ({
   open: state.cvaa.overlayOpen,
@@ -27,11 +27,11 @@ class CVAAOverlay extends BaseComponent {
   }
 
   render(props) {
-    var speedOptions = [
-      { value: 1, label: 'Auto (360)', active: true },
-      { value: 2, label: '240' },
-      { value: 3, label: '144' }
-    ];
+    // var speedOptions = [
+    //   { value: 1, label: 'Auto (360)', active: true },
+    //   { value: 2, label: '240' },
+    //   { value: 3, label: '144' }
+    // ];
     return !props.open ? '' : (
       <Overlay open={props.open} onClose={() => props.toggleCVAAOverlay(false)} type='cvaa'>
         <div className='title'>

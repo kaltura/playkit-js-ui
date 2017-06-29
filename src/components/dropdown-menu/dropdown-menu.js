@@ -31,7 +31,7 @@ class DropDownMenu extends Component {
   renderNativeSelect() {
     return (
       <select onChange={(e) => this.onSelect(this.props.options[e.target.value])}>
-        {this.props.options.map((o, index) => <option selected={this.isSelected(o)} value={index}>{o.label}</option>)}
+        {this.props.options.map((o, index) => <option selected={this.isSelected(o)} value={index} key={index}>{o.label}</option>)}
       </select>
     )
   }
@@ -47,8 +47,8 @@ class DropDownMenu extends Component {
           !this.state.dropMenuActive ? '' :
           <div className='dropdown-menu'>
             {
-              props.options.map(o => (
-                <div className={this.isSelected(o) ? 'dropdown-menu-item active' : 'dropdown-menu-item'} onClick={() => this.onSelect(o)}>
+              props.options.map((o, index) => (
+                <div key={index} className={this.isSelected(o) ? 'dropdown-menu-item active' : 'dropdown-menu-item'} onClick={() => this.onSelect(o)}>
                   <span>{o.label}</span>
                   { this.isSelected(o) ? <Icon type='check' /> : '' }
                 </div>
