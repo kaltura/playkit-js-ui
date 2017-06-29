@@ -56,7 +56,8 @@
     "eslint-plugin-flowtype": "^2.30.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-mocha-no-only": "^0.0.5",
-    "eslint-plugin-react": "^7.0.1",
+    "eslint-plugin-node": "^5.1.0",
+    "eslint-plugin-react": "^7.1.0",
     "flow-bin": "latest",
     "istanbul": "^0.4.5",
     "karma": "^1.5.0",
@@ -72,14 +73,13 @@
     "karma-webpack": "^2.0.2",
     "mocha": "^3.2.0",
     "mocha-cli": "^1.0.1",
+    "playkit-js": "https://github.com/kaltura/playkit-js.git#develop",
     "pre-push": "^0.1.1",
     "sinon": "^2.0.0",
     "sinon-chai": "^2.8.0",
     "standard-version": "^4.0.0",
     "uglifyjs-webpack-plugin": "^0.4.3",
-    "webpack": "latest",
-    "webpack-dev-server": "latest",
-    "playkit-js": "https://github.com/kaltura/playkit-js.git#develop"
+    "webpack": "latest"
   },
   "dependencies": {
     "js-logger": "^1.3.0",
@@ -87,9 +87,6 @@
     "preact-i18n": "^1.0.0",
     "preact-redux": "^2.0.1",
     "redux": "^3.6.0"
-  },
-  "peerDependencies": {
-    "playkit-js": "https://github.com/kaltura/playkit-js.git#develop"
   },
   "keywords": [],
   "license": "AGPL-3.0",
