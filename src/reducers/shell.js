@@ -3,11 +3,13 @@
 export const types = {
   ADD_PLAYER_CLASS: 'shell/ADD_PLAYER_CLASS',
   REMOVE_PLAYER_CLASS: 'shell/REMOVE_PLAYER_CLASS',
-  UPDATE_IS_MOBILE: 'shell/UPDATE_IS_MOBILE'
+  UPDATE_IS_MOBILE: 'shell/UPDATE_IS_MOBILE',
+  UPDATE_PRE_PLAYBACK: 'shell/UPDATE_PRE_PLAYBACK'
 }
 
 export const initialState = {
-  playerClasses: []
+  playerClasses: [],
+  prePlayback: true
 };
 
 export default (state = initialState, action) => {
@@ -31,6 +33,12 @@ export default (state = initialState, action) => {
         isMobile: action.isMobile
       }
 
+    case types.UPDATE_PRE_PLAYBACK:
+      return {
+        ...state,
+        prePlayback: action.prePlayback
+      }
+
     default:
       return state;
   }
@@ -39,5 +47,6 @@ export default (state = initialState, action) => {
 export const actions = {
   addPlayerClass: (className: string) => ({ type: types.ADD_PLAYER_CLASS, className }),
   removePlayerClass: (className: string) => ({ type: types.REMOVE_PLAYER_CLASS, className }),
-  updateIsMobile: (isMobile: boolean) => ({ type: types.UPDATE_IS_MOBILE, isMobile })
+  updateIsMobile: (isMobile: boolean) => ({ type: types.UPDATE_IS_MOBILE, isMobile }),
+  updatePrePlayback: (prePlayback: boolean) => ({ type: types.UPDATE_PRE_PLAYBACK, prePlayback })
 }
