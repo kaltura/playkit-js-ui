@@ -23,9 +23,6 @@ class SettingsControl extends BaseComponent {
 
   componentDidMount() {
     this.setState({smartContainerOpen: false});
-  }
-
-  componentDidMount() {
     document.addEventListener('click', this.handleClickOutside.bind(this), false);
   }
 

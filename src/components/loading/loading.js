@@ -31,7 +31,7 @@ class Loading extends BaseComponent {
       <div className={props.show ? 'loading-backdrop show' : 'loading-backdrop'}>
         <div className='spinner-container'>
           <div className='spinner'>
-            {[...Array(8)].map(() => <span />)}
+            {[...Array(8)].map((i) => <span key={i} />)}
           </div>
         </div>
       </div>

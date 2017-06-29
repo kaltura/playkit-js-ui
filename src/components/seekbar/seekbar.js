@@ -37,7 +37,7 @@ class SeekBarControl extends BaseComponent {
     });
   }
 
-  onSeekbarMouseDown = e => {
+  onSeekbarMouseDown(e) {
     this.props.updateSeekbarDraggingStatus(true);
     if (this.props.isDraggingActive) {
       let time = this.getTime(e);
@@ -45,7 +45,7 @@ class SeekBarControl extends BaseComponent {
     }
   }
 
-  onSeekbarMouseUp = e => {
+  onSeekbarMouseUp(e) {
     let time = this.getTime(e);
     this.player.currentTime = time;
     this.updateSeekBarProgress(time, this.player.duration);
@@ -53,7 +53,7 @@ class SeekBarControl extends BaseComponent {
     this.logger.debug(`Seek to ${time}s`);
   }
 
-  onSeekbarMouseMove = e => {
+  onSeekbarMouseMove(e) {
     let time = this.getTime(e);
     this.updateSeekBarProgress(time, this.player.duration, true);
 
@@ -62,7 +62,7 @@ class SeekBarControl extends BaseComponent {
     }
   }
 
-  onSeekbarTouchStart = e => {
+  onSeekbarTouchStart(e) {
     this.props.updateSeekbarDraggingStatus(true);
     if (this.props.isDraggingActive) {
       let time = this.getTime(e);
@@ -70,7 +70,7 @@ class SeekBarControl extends BaseComponent {
     }
   }
 
-  onSeekbarTouchMove = e => {
+  onSeekbarTouchMove(e) {
     let time = this.getTime(e);
     this._movex = time;
     this.updateSeekBarProgress(time, this.player.duration, true);
@@ -80,7 +80,7 @@ class SeekBarControl extends BaseComponent {
     }
   }
 
-  onSeekbarTouchEnd = e => {
+  onSeekbarTouchEnd() {
     let time = this._movex;
     this.player.currentTime = time;
     this.updateSeekBarProgress(time, this.player.duration);
