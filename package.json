@@ -82,6 +82,7 @@
     "webpack": "latest"
   },
   "dependencies": {
+    "eslint": "^4.1.1",
     "js-logger": "^1.3.0",
     "preact": "^8.1.0",
     "preact-i18n": "^1.0.0",

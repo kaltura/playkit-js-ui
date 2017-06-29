@@ -72,12 +72,7 @@
     "mocha-no-only/mocha-no-only": [
       "error"
     ],
-    "require-jsdoc": [
-      "error"
-    ],
-    "valid-jsdoc": [
-      "error"
-    ],
-    "flowtype/define-flow-type": 2
+    "flowtype/define-flow-type": 2,
+    "react/prop-types": 0
   }
 }
