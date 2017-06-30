@@ -12,7 +12,7 @@ export const initialState = {
   muted: false
 }
 
-export default (state = initialState, action) => {
+export default (state: Object = initialState, action: Object) => {
   switch (action.type) {
     case types.UPDATE_VOLUME:
       return {

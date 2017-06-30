@@ -10,7 +10,7 @@ export const initialState = {
   speed: 2
 };
 
-export default (state = initialState, action) => {
+export default (state: Object = initialState, action: Object) => {
   switch (action.type) {
     case types.UPDATE_QUALITY:
       return {

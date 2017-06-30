@@ -9,16 +9,17 @@ const mapStateToProps = state => ({
 
 @connect(mapStateToProps)
 class DropDownMenu extends Component {
+  state: Object;
 
   componentWillMount() {
     this.setState({dropMenuActive: false});
   }
 
-  isSelected(o): boolean {
+  isSelected(o: Object): boolean {
     return o.active;
   }
 
-  onSelect(o) {
+  onSelect(o: Object) {
     this.props.onSelect(o.value);
     this.setState({dropMenuActive: false});
   }
@@ -36,7 +37,7 @@ class DropDownMenu extends Component {
     )
   }
 
-  render(props) {
+  render(props: any) {
     return props.isMobile ? this.renderNativeSelect() :
     (
       <div className='dropdown top left'>

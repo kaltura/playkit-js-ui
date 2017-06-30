@@ -30,7 +30,7 @@ class UIManager {
   player: any;
   config: any;
 
-  constructor(player, config) {
+  constructor(player: any, config: Object) {
     this.player = player;
     this.config = config;
     this.config.ui = {
@@ -50,7 +50,7 @@ class UIManager {
     }
   }
 
-  buildCustomUI(template): void {
+  buildCustomUI(template: any): void {
     this._buildUI(template);
   }
 
@@ -99,7 +99,7 @@ class UIManager {
     this._buildUI(template);
   }
 
-  _buildUI(template) {
+  _buildUI(template: any) {
     if (!this.player) return;
 
     let container = document.getElementById(this.config.targetId);

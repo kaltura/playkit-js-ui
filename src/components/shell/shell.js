@@ -15,6 +15,7 @@ const mapStateToProps = state => ({
 
 @connect(mapStateToProps, bindActions(actions))
 class Shell extends BaseComponent {
+  state: Object;
 
   constructor() {
     super({name: 'Shell'});
@@ -48,7 +49,7 @@ class Shell extends BaseComponent {
     }
   }
 
-  render(props) {
+  render(props: any) {
     var playerClasses = 'player skin-default';
     playerClasses += ` ${props.playerClasses.join(' ')}`;
 

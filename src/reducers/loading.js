@@ -8,7 +8,7 @@ export const initialState = {
   showLoadingSpinner: false
 };
 
-export default (state = initialState, action) => {
+export default (state: Object = initialState, action: Object) => {
   switch (action.type) {
     case types.UPDATE_LOADING_SPINNER_STATE:
       return {

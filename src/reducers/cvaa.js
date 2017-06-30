@@ -10,7 +10,7 @@ export const initialState = {
   style: 'default'
 };
 
-export default (state = initialState, action) => {
+export default (state: Object = initialState, action: Object) => {
   switch (action.type) {
     case types.TOGGLE_CVAA_OVERLAY:
       return {

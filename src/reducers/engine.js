@@ -28,7 +28,7 @@ export const initialState = {
   textTracks: []
 }
 
-export default (state = initialState, action) => {
+export default (state: Object = initialState, action: Object) => {
   switch (action.type) {
     case types.UPDATE_PLAYER_STATE:
       return {
@@ -103,7 +103,7 @@ export const actions = {
   updateVolume: (volume: number) => ({ type: types.UPDATE_VOLUME, volume }),
   updateMuted: (muted: boolean) => ({ type: types.UPDATE_MUTED, muted }),
   updateMetadataLoadingStatus: (metadataLoaded: boolean) => ({ type: types.UPDATE_METADATA_LOADING_STATUS, metadataLoaded }),
-  updateAudioTracks: (tracks) => ({ type: types.UPDATE_AUDIO_TRACKS, tracks }),
-  updateVideoTracks: (tracks) => ({ type: types.UPDATE_VIDEO_TRACKS, tracks }),
-  updateTextTracks: (tracks) => ({ type: types.UPDATE_TEXT_TRACKS, tracks })
+  updateAudioTracks: (tracks: Array<any>) => ({ type: types.UPDATE_AUDIO_TRACKS, tracks }),
+  updateVideoTracks: (tracks: Array<any>) => ({ type: types.UPDATE_VIDEO_TRACKS, tracks }),
+  updateTextTracks: (tracks: Array<any>) => ({ type: types.UPDATE_TEXT_TRACKS, tracks })
 }
