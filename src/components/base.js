@@ -4,12 +4,13 @@ import Player from 'playkit-js';
 import LoggerFactory from '../utils/logger';
 
 class BaseComponent extends Component {
+  state: Object;
   player: Player;
   name: string;
   config: Object;
   logger: any;
 
-  constructor(obj?: IControlParams = { config: {} }) {
+  constructor(obj?: Object = { config: {} }) {
     super();
 
     this.name = obj.name;
@@ -26,7 +27,7 @@ class BaseComponent extends Component {
     return this.config;
   }
 
-  get defaultConfig() {
+  get defaultConfig(): Object {
     return {}
   }
 }

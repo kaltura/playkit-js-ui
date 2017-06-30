@@ -8,7 +8,7 @@ export const initialState = {
   isPlaying: false
 };
 
-export default (state = initialState, action) => {
+export default (state: Object = initialState, action: Object) => {
   switch (action.type) {
     case types.TOGGLE_PLAY:
       return {

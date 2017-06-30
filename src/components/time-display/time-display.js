@@ -11,7 +11,7 @@ const mapStateToProps = state => ({
 
 @connect(mapStateToProps)
 class TimeDisplay extends BaseComponent {
-  constructor(obj: IControlParams) {
+  constructor(obj: Object) {
     super({name: 'TimeDisplay', player: obj.player, config: obj.config});
   }
 

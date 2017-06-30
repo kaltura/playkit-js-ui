@@ -8,7 +8,7 @@ import BaseComponent from '../base';
 @connect(reduce, bindActions(actions))
 class EngineConnector extends BaseComponent {
 
-  constructor(obj: IControlParams) {
+  constructor(obj: Object) {
     super({name: 'EngineConnector', player: obj.player});
   }
 

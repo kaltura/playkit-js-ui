@@ -1,6 +1,6 @@
 //@flow
 
-function toHHMMSS(input) {
+function toHHMMSS(input: number) {
   var sec_num = parseInt(input, 10);
   var hours   = Math.floor(sec_num / 3600);
   var minutes = Math.floor((sec_num - (hours * 3600)) / 60);

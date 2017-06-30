@@ -12,7 +12,7 @@ export const initialState = {
   prePlayback: true
 };
 
-export default (state = initialState, action) => {
+export default (state: Object = initialState, action: Object) => {
   switch (action.type) {
     case types.ADD_PLAYER_CLASS:
       if (state.playerClasses.includes(action.className)) return state;

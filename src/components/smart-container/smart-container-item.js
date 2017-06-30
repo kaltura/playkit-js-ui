@@ -3,7 +3,7 @@ import { h, Component } from 'preact';
 import DropDownMenu from '../dropdown-menu/dropdown-menu';
 
 class SmartContainer extends Component {
-  render(props) {
+  render(props: any) {
     return (
       <div className='smart-container-item select-menu-item'>
         <label htmlFor='quality'>{props.label}</label>

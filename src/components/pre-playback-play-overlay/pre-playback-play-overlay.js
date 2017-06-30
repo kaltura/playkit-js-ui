@@ -13,7 +13,7 @@ const mapStateToProps = state => ({
 @connect(mapStateToProps, bindActions(actions))
 class PrePlaybackPlayOverlay extends BaseComponent {
 
-  constructor(obj: IControlParams) {
+  constructor(obj: Object) {
     super({name: 'PrePlaybackPlayOverlay', player: obj.player});
 
     this.player.addEventListener(this.player.Event.PLAY, () => {
@@ -32,7 +32,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
     this.player.play();
   }
 
-  render(props) {
+  render(props: any) {
     if (!props.prePlayback) return undefined;
 
     return (

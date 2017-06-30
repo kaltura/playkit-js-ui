@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 
 class TopBar extends Component {
-  render(props) {
+  render(props: any) {
     return (
       <div className='top-bar'>{ props.children }</div>
     )
