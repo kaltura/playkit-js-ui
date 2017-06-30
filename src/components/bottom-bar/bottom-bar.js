@@ -1,3 +1,4 @@
+//@flow
 import { h, Component } from 'preact';
 
 class BottomBar extends Component {

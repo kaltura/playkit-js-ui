@@ -172,7 +172,7 @@ class SeekBarControl extends BaseComponent {
         onMouseUp={e => this.onSeekbarMouseUp(e)}
         onTouchStart={e => this.onSeekbarTouchStart(e)}
         onTouchMove={e => this.onSeekbarTouchMove(e)}
-        onTouchEnd={e => this.onSeekbarTouchEnd()}
+        onTouchEnd={() => this.onSeekbarTouchEnd()}
       >
         <div className='progress-bar'>
           <div className='progress' style={{width: progressWidth}}>
