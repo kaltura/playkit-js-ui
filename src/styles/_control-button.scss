@@ -33,3 +33,12 @@
   position: relative;
   vertical-align: top;
 }
+
+@media screen and (max-width: 480px) {
+  .player .control-button-container {
+    position: static;
+  }
+  .control-button {
+    position: relative;
+  }
+}

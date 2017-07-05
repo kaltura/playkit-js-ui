@@ -65,7 +65,7 @@ class UIManager {
             <EngineConnector player={this.player} />
             <KeyboardControl player={this.player} />
             <Loading player={this.player} />
-            <div className='player-gui'>
+            <div className='player-gui' id='player-gui'>
               <OverlayPlay player={this.player} />
               <TopBar>
                 <div className='left-controls'>
