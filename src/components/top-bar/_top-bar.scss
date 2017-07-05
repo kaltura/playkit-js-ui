@@ -4,13 +4,14 @@
     color: #fff;
     opacity: 0;
     transition: 100ms opacity;
+    display: flex;
+    justify-content: space-between;
 
     .left-controls {
-        float: left;
         text-align: left;
+        min-width: 0;
     }
     .right-controls {
-        float: right;
         text-align: left;
 
         .control-button-container {

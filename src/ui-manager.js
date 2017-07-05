@@ -24,6 +24,7 @@ import TopBar from './components/top-bar/top-bar';
 import BottomBar from './components/bottom-bar/bottom-bar';
 import ShareOverlay from './components/share-overlay/share-overlay';
 import CVAAOverlay from './components/cvaa-overlay/cvaa-overlay';
+import OverlayPortal from './components/overlay-portal/overlay-portal';
 import KeyboardControl from './components/keyboard';
 
 class UIManager {
@@ -66,6 +67,7 @@ class UIManager {
             <KeyboardControl player={this.player} />
             <Loading player={this.player} />
             <div className='player-gui' id='player-gui'>
+              <OverlayPortal />
               <OverlayPlay player={this.player} />
               <TopBar>
                 <div className='left-controls'>

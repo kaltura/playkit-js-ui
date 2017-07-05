@@ -8,7 +8,7 @@ class SmartContainer extends Component {
 
   render(props: any) {
     return isMobile() ? (
-      <Portal into="#player-gui">
+      <Portal into="#overlay-portal">
         <Overlay open onClose={() => props.onClose()}>
           <div className='title'>{props.title}</div>
           {props.children}

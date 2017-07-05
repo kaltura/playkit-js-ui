@@ -2186,6 +2186,18 @@ var Overlay = (_dec = (0, _preactRedux.connect)(null, (0, _bindActions.bindActio
   }
 
   _createClass(Overlay, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      console.log('componentWillMount');
+      this.props.addPlayerClass('overlay-active');
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      console.log('componentWillUnmount');
+      this.props.removePlayerClass('overlay-active');
+    }
+  }, {
     key: 'render',
     value: function render(props) {
       var overlayClass = 'overlay';
@@ -3304,7 +3316,7 @@ var SmartContainer = function (_Component) {
     value: function render(props) {
       return (0, _isMobile.isMobile)() ? (0, _preact.h)(
         _preactPortal2.default,
-        { into: '#player-gui' },
+        { into: '#overlay-portal' },
         (0, _preact.h)(
           _overlay2.default,
           { open: true, onClose: function onClose() {
@@ -3495,6 +3507,10 @@ var _cvaaOverlay = __webpack_require__(69);
 
 var _cvaaOverlay2 = _interopRequireDefault(_cvaaOverlay);
 
+var _overlayPortal = __webpack_require__(71);
+
+var _overlayPortal2 = _interopRequireDefault(_overlayPortal);
+
 var _keyboard = __webpack_require__(70);
 
 var _keyboard2 = _interopRequireDefault(_keyboard);
@@ -3552,6 +3568,7 @@ var UIManager = function () {
             (0, _preact.h)(
               'div',
               { className: 'player-gui', id: 'player-gui' },
+              (0, _preact.h)(_overlayPortal2.default, null),
               (0, _preact.h)(_overlayPlay2.default, { player: this.player }),
               (0, _preact.h)(
                 _topBar2.default,
@@ -6994,6 +7011,57 @@ var KeyboardControl = function (_BaseComponent) {
 }(_base2.default);
 
 exports.default = KeyboardControl;
+
+/***/ }),
+/* 71 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _preact = __webpack_require__(0);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var OverlayPortal = function (_Component) {
+  _inherits(OverlayPortal, _Component);
+
+  function OverlayPortal() {
+    _classCallCheck(this, OverlayPortal);
+
+    return _possibleConstructorReturn(this, (OverlayPortal.__proto__ || Object.getPrototypeOf(OverlayPortal)).apply(this, arguments));
+  }
+
+  _createClass(OverlayPortal, [{
+    key: 'shouldComponentUpdate',
+    value: function shouldComponentUpdate() {
+      return false;
+    }
+  }, {
+    key: 'render',
+    value: function render(props) {
+      return (0, _preact.h)(
+        'div',
+        { id: 'overlay-portal' },
+        props.children
+      );
+    }
+  }]);
+
+  return OverlayPortal;
+}(_preact.Component);
+
+exports.default = OverlayPortal;
 
 /***/ })
 /******/ ]);

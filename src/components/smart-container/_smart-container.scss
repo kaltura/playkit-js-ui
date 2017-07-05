@@ -50,6 +50,10 @@
       &.select-menu-item {
         label {
           float: left;
+
+          .label-icon {
+            display: none;
+          }
         }
         .dropdown, select {
           float: right;
