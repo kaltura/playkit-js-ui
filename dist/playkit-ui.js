@@ -5591,9 +5591,6 @@ var VolumeControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bind
     value: function componentDidMount() {
       var _this2 = this;
 
-      this._volumeControlElement = document.getElementsByClassName('volume-control')[0];
-      this._volumeProgressBarElement = this._volumeControlElement.getElementsByClassName('bar')[0];
-
       this.player.addEventListener(this.player.Event.LOADED_METADATA, function () {
         _this2.props.updateVolume(_this2.player.volume);
       });
@@ -5660,7 +5657,9 @@ var VolumeControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bind
 
       return (0, _preact.h)(
         'div',
-        { className: controlButtonClass },
+        { ref: function ref(c) {
+            return _this3._volumeControlElement = c;
+          }, className: controlButtonClass },
         (0, _preact.h)(
           'button',
           { className: 'control-button', onClick: function onClick() {
@@ -5677,11 +5676,18 @@ var VolumeControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bind
             'aria-valuetext': this.player.volume * 100 + '% volume ' + (this.player.muted ? 'muted' : '') },
           (0, _preact.h)(
             'div',
-            { className: 'bar', onMouseDown: function onMouseDown() {
+            {
+              className: 'bar',
+              ref: function ref(c) {
+                return _this3._volumeProgressBarElement = c;
+              },
+              onMouseDown: function onMouseDown() {
                 return _this3.onVolumeProgressBarMouseDown();
-              }, onClick: function onClick(e) {
+              },
+              onClick: function onClick(e) {
                 return _this3.onVolumeProgressBarClick(e);
-              } },
+              }
+            },
             (0, _preact.h)('div', { className: 'progress', style: { height: this.getVolumeProgessHeight() } })
           )
         )
@@ -6104,6 +6110,16 @@ var DropDownMenu = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_cla
     value: function onSelect(o) {
       this.props.onSelect(o.value);
       this.setState({ dropMenuActive: false });
+
+      // Instant select
+      this.props.options.filter(function (t) {
+        return t.active;
+      }).forEach(function (option) {
+        option.active = false;
+      });
+      this.props.options.filter(function (t) {
+        return t.value === o.value;
+      })[0].active = true;
     }
   }, {
     key: 'getActiveOptionLabel',
