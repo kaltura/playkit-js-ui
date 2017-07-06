@@ -2188,13 +2188,11 @@ var Overlay = (_dec = (0, _preactRedux.connect)(null, (0, _bindActions.bindActio
   _createClass(Overlay, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
-      console.log('componentWillMount');
       this.props.addPlayerClass('overlay-active');
     }
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
-      console.log('componentWillUnmount');
       this.props.removePlayerClass('overlay-active');
     }
   }, {
@@ -6401,18 +6399,16 @@ var mapStateToProps = function mapStateToProps(state) {
 var FullscreenControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.bindActions)(_fullscreen.actions)), _dec(_class = function (_BaseComponent) {
   _inherits(FullscreenControl, _BaseComponent);
 
-  function FullscreenControl() {
+  function FullscreenControl(obj) {
     _classCallCheck(this, FullscreenControl);
 
-    return _possibleConstructorReturn(this, (FullscreenControl.__proto__ || Object.getPrototypeOf(FullscreenControl)).call(this, { name: 'Fullscreen' }));
+    return _possibleConstructorReturn(this, (FullscreenControl.__proto__ || Object.getPrototypeOf(FullscreenControl)).call(this, { name: 'Fullscreen', player: obj.player }));
   }
 
   _createClass(FullscreenControl, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
       var _this2 = this;
-
-      this._playerElement = document.getElementById('playerPlaceHolder');
 
       document.addEventListener('webkitfullscreenchange', function () {
         _this2.props.updateFullscreen(document.webkitIsFullScreen);
@@ -6421,9 +6417,7 @@ var FullscreenControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _
   }, {
     key: 'enterFullscreen',
     value: function enterFullscreen() {
-      if (this._playerElement) {
-        this._playerElement.webkitRequestFullscreen();
-      }
+      this.player._el.parentElement.webkitRequestFullscreen();
     }
   }, {
     key: 'exitFullscreen',

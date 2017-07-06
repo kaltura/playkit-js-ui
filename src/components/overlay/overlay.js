@@ -10,12 +10,10 @@ import Icon from '../icon/icon';
 class Overlay extends Component {
 
   componentWillMount() {
-    console.log('componentWillMount');
     this.props.addPlayerClass('overlay-active');
   }
 
   componentWillUnmount() {
-    console.log('componentWillUnmount');
     this.props.removePlayerClass('overlay-active');
   }
 
