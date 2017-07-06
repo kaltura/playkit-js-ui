@@ -1,8 +1,9 @@
+//@flow
 import { h, Component } from 'preact';
 
 class Icon extends Component {
 
-  render(props) {
+  render(props: any) {
     switch (props.type) {
       case 'maximize':
         return (

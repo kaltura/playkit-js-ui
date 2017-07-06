@@ -11,7 +11,7 @@ const mapStateToProps = state => ({
 
 @connect(mapStateToProps, bindActions(actions))
 class Loading extends BaseComponent {
-  constructor(obj: IControlParams) {
+  constructor(obj: Object) {
     super({name: 'Loading', player: obj.player});
   }
 
@@ -26,12 +26,12 @@ class Loading extends BaseComponent {
     });
   }
 
-  render(props) {
+  render(props: any) {
     return (
       <div className={props.show ? 'loading-backdrop show' : 'loading-backdrop'}>
         <div className='spinner-container'>
           <div className='spinner'>
-            {[...Array(8)].map(() => <span />)}
+            {[...Array(8)].map((i) => <span key={i} />)}
           </div>
         </div>
       </div>

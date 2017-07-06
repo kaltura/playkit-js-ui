@@ -13,11 +13,11 @@ const mapStateToProps = state => ({
 @connect(mapStateToProps, bindActions(actions))
 class ShareControl extends BaseComponent {
 
-  constructor(obj: IControlParams) {
+  constructor(obj: Object) {
     super({name: 'Share', player: obj.player});
   }
 
-  render(props) {
+  render(props: any) {
     return (
       <div className='control-button-container control-share'>
         <button className='control-button control-button-rounded' onClick={() => props.toggleShareOverlay(!props.overlayOpen)} aria-label='Share'>

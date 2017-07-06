@@ -10,6 +10,7 @@ import definition from './fr.json';
 import EngineConnector from './components/engine-connector/engine-connector';
 import Shell from './components/shell/shell';
 import OverlayPlay from './components/overlay-play/overlay-play';
+import PrePlaybackPlayOverlay from './components/pre-playback-play-overlay/pre-playback-play-overlay';
 import Loading from './components/loading/loading';
 import PlayPauseControl from './components/play-pause/play-pause';
 import SeekBarControl from './components/seekbar/seekbar';
@@ -29,7 +30,7 @@ class UIManager {
   player: any;
   config: any;
 
-  constructor(player, config) {
+  constructor(player: any, config: Object) {
     this.player = player;
     this.config = config;
     this.config.ui = {
@@ -49,7 +50,7 @@ class UIManager {
     }
   }
 
-  buildCustomUI(template): void {
+  buildCustomUI(template: any): void {
     this._buildUI(template);
   }
 
@@ -90,6 +91,7 @@ class UIManager {
               <ShareOverlay />
               <CVAAOverlay />
             </div>
+            <PrePlaybackPlayOverlay player={this.player} />
           </Shell>
         </IntlProvider>
       </Provider>
@@ -97,7 +99,7 @@ class UIManager {
     this._buildUI(template);
   }
 
-  _buildUI(template) {
+  _buildUI(template: any) {
     if (!this.player) return;
 
     let container = document.getElementById(this.config.targetId);

@@ -12,8 +12,9 @@ const mapStateToProps = state => ({
 
 @connect(mapStateToProps, bindActions(actions))
 class OverlayPlay extends BaseComponent {
+  state: Object;
 
-  constructor(obj: IControlParams) {
+  constructor(obj: Object) {
     super({name: 'OverlayPlay', player: obj.player});
   }
 
@@ -31,7 +32,7 @@ class OverlayPlay extends BaseComponent {
     }
   }
 
-  render(props) {
+  render(props: any) {
     return (
       <div className={`overlay-play ${this.state.animation ? 'in' : ''}`} onClick={() => this.togglePlayPause()}>
         { props.isPlaying ? <Icon type='play' /> : <Icon type='pause' /> }

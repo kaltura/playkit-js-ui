@@ -13,25 +13,27 @@ const mapStateToProps = state => ({
 
 @connect(mapStateToProps, bindActions(actions))
 class FullscreenControl extends BaseComponent {
-  _playerElement: HTMLElement;
+  _playerElement: any;
 
   constructor() {
     super({name: 'Fullscreen'});
   }
 
   componentDidMount() {
-    this._playerElement = document.getElementById('playerPlaceHolder');
+    this._playerElement = (document: any).getElementById('playerPlaceHolder');
 
     document.addEventListener('webkitfullscreenchange', () => {
-      this.props.updateFullscreen(document.webkitIsFullScreen);
+      this.props.updateFullscreen((document: any).webkitIsFullScreen);
     });
   }
 
   enterFullscreen() {
-    this._playerElement.webkitRequestFullscreen();
+    if (this._playerElement) {
+      this._playerElement.webkitRequestFullscreen();
+    }
   }
   exitFullscreen() {
-    document.webkitCancelFullScreen();
+    (document: any).webkitCancelFullScreen();
   }
 
   toggleFullscreen() {

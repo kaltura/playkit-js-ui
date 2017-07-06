@@ -17,7 +17,7 @@ class Overlay extends Component {
     this.props.addPlayerClass('overlay-active');
   }
 
-  render(props) {
+  render(props: any) {
     var overlayClass = 'overlay';
     if (props.type) overlayClass += ` ${props.type}-overlay`;
     if (props.open) overlayClass += ' active'

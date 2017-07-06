@@ -14,7 +14,7 @@ const mapStateToProps = state => ({
 @connect(mapStateToProps, bindActions(actions))
 class PlayPauseControl extends BaseComponent {
 
-  constructor(obj: IControlParams) {
+  constructor(obj: Object) {
     super({name: 'PlayPause', player: obj.player});
   }
 

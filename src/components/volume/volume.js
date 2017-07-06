@@ -18,7 +18,7 @@ class VolumeControl extends BaseComponent {
   _volumeControlElement: HTMLElement;
   _volumeProgressBarElement: HTMLElement;
 
-  constructor(obj: IControlParams) {
+  constructor(obj: Object) {
     super({name: 'Volume', player: obj.player});
   }
 
@@ -56,7 +56,7 @@ class VolumeControl extends BaseComponent {
   changeVolume(e: Event) {
     let barHeight = this._volumeProgressBarElement.clientHeight;
     let topY = this.getCoords(this._volumeProgressBarElement).top;
-    let clickY = e.clientY;
+    let clickY = (e: any).clientY;
     let volume = 1 - ((clickY - topY) / barHeight);
     volume = parseFloat(volume.toFixed(2));
     this.logger.debug(`Change volume from ${this.player.volume} => ${volume}`);
@@ -71,8 +71,8 @@ class VolumeControl extends BaseComponent {
     let box = el.getBoundingClientRect();
 
     return {
-      top: box.top + pageYOffset,
-      left: box.left + pageXOffset
+      top: box.top,
+      left: box.left
     }
   }
 

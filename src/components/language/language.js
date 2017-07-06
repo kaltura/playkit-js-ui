@@ -17,9 +17,10 @@ const mapStateToProps = state => ({
 
 @connect(mapStateToProps, bindActions(actions))
 class LanguageControl extends BaseComponent {
-  _controlLanguageElement: HTMLElement;
+  state: Object;
+  _controlLanguageElement: any;
 
-  constructor(obj: IControlParams) {
+  constructor(obj: Object) {
     super({name: 'LanguageControl', player: obj.player});
   }
 
@@ -47,19 +48,19 @@ class LanguageControl extends BaseComponent {
     this.setState({smartContainerOpen: !this.state.smartContainerOpen});
   }
 
-  onAudioChange(audioTrack) {
+  onAudioChange(audioTrack: Object) {
     this.player.selectTrack(audioTrack);
   }
 
-  onCaptionsChange(textTrack) {
+  onCaptionsChange(textTrack: Object) {
     this.player.selectTrack(textTrack);
   }
 
-  render(props) {
+  render(props: any) {
     var audioOptions = props.audioTracks.map(t => ({ label: t.label || t.language, active: t.active, value: t }));
     var textOptions = props.textTracks.filter(t => t.kind === 'subtitles').map(t => ({ label: t.label || t.language, active: t.active, value: t }));
 
-    return props.audioTracks.length === 0 && props.audioTracks.length === 0 ? false : (
+    return props.audioTracks.length === 0 && props.audioTracks.length === 0 ? undefined : (
       <div
         ref={c => this._controlLanguageElement=c}
         className='control-button-container control-language'

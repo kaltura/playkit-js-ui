@@ -17,8 +17,8 @@ class ShareOverlay extends BaseComponent {
     super({name: 'ShareOverlay'});
   }
 
-  render(props) {
-    return !props.open ? '' : (
+  render(props: any) {
+    return !props.open ? undefined : (
       <Overlay open={props.open} onClose={() => props.toggleShareOverlay(false)} type='share'>
         <div className='title'>
           <Text id='share.share_title' />

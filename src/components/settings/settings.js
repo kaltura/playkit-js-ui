@@ -15,17 +15,15 @@ const mapStateToProps = state => ({
 
 @connect(mapStateToProps, bindActions(actions))
 class SettingsControl extends BaseComponent {
-  _controlSettingsElement: HTMLElement;
+  state: Object;
+  _controlSettingsElement: any;
 
-  constructor(obj: IControlParams) {
+  constructor(obj: Object) {
     super({name: 'Settings', player: obj.player});
   }
 
   componentDidMount() {
     this.setState({smartContainerOpen: false});
-  }
-
-  componentDidMount() {
     document.addEventListener('click', this.handleClickOutside.bind(this), false);
   }
 
@@ -34,9 +32,7 @@ class SettingsControl extends BaseComponent {
   }
 
   handleClickOutside() {
-    const domNode = this._controlSettingsElement;
-
-    if ((!domNode || !domNode.contains(event.target))) {
+    if ((!this._controlSettingsElement || !this._controlSettingsElement.contains(event.target))) {
       this.setState({smartContainerOpen: false});
     }
   }
@@ -45,15 +41,15 @@ class SettingsControl extends BaseComponent {
     this.setState({smartContainerOpen: !this.state.smartContainerOpen});
   }
 
-  onSpeedChange(o) {
+  onSpeedChange(o: Object) {
     this.props.updateSpeed(o.value);
   }
 
-  onQualityChange(videoTrack) {
+  onQualityChange(videoTrack: Object) {
     this.player.selectTrack(videoTrack);
   }
 
-  render(props) {
+  render(props: any) {
     var speedOptions = [
       { value: 1, label: 'Auto (360)', active: true },
       { value: 2, label: '240' },
