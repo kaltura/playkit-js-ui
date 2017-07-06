@@ -6479,7 +6479,9 @@ var FullscreenControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _
       var _this2 = this;
 
       document.addEventListener('webkitfullscreenchange', function () {
-        _this2.props.updateFullscreen(document.webkitIsFullScreen);
+        if (document.webkitIsFullScreen) {
+          _this2.props.updateFullscreen(document.webkitIsFullScreen);
+        }
       });
     }
   }, {
@@ -6490,7 +6492,9 @@ var FullscreenControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _
   }, {
     key: 'exitFullscreen',
     value: function exitFullscreen() {
-      document.webkitCancelFullScreen();
+      if (typeof document.webkitCancelFullScreen === 'function') {
+        document.webkitCancelFullScreen();
+      }
     }
   }, {
     key: 'toggleFullscreen',
@@ -6511,7 +6515,9 @@ var FullscreenControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _
           null,
           (0, _preact.h)(
             'button',
-            { 'aria-label': (0, _preact.h)(_preactI18n.Text, { id: 'controls.fullscreen' }), className: this.props.fullscreen ? 'control-button is-fullscreen' : 'control-button', onClick: function onClick() {
+            { 'aria-label': (0, _preact.h)(_preactI18n.Text, { id: 'controls.fullscreen' }),
+              className: this.props.fullscreen ? 'control-button is-fullscreen' : 'control-button',
+              onClick: function onClick() {
                 return _this3.toggleFullscreen();
               } },
             (0, _preact.h)(_icon2.default, { type: 'maximize' }),
