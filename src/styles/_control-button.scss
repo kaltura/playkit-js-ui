@@ -13,7 +13,6 @@
     height: 32px;
   }
 
-  &:hover,
   &.active {
     opacity: 1;
   }
@@ -21,13 +20,22 @@
   &.control-button-rounded {
     width: 36px; height: 36px;
     padding: 2px;
+  }
+}
 
+.player:not(.touch) {
+  .control-button {
     &:hover {
+      opacity: 1;
+    }
+    &.control-button-rounded:hover {
       background-color: rgba(0,0,0,0.4);
       border-radius: 18px;
     }
   }
 }
+
+
 .player .control-button-container {
   display: inline-block;
   position: relative;

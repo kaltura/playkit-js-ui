@@ -12,10 +12,6 @@
     will-change: transform;
     padding: 2px;
 
-    &:hover {
-      transform: scale(1.1667);
-    }
-
     &.facebook-share-btn {
       background-color: #3B5998;
     }
@@ -29,6 +25,10 @@
       background-color: #00A0DC;
     }
   }
+}
+
+.player:not(.touch) .overlay.share-overlay .share-btn:hover {
+  transform: scale(1.1667);
 }
 
 @media screen and (max-width: 768px) {
