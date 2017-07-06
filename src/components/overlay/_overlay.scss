@@ -13,8 +13,9 @@
   z-index: 4;
   text-align: center;
   color: #fff;
-  padding: 80px 20px 0;
+  padding: 80px 20px;
   animation: openOverlay 100ms ease-in-out forwards;
+  overflow-y: auto;
 
   &.active {
     display: block;
@@ -43,7 +44,7 @@
 
 @media screen and (max-width: 768px) {
   .overlay {
-    padding: 36px 20px 0;
+    padding: 36px 20px;
 
     .close-overlay {
       top: 38px;
@@ -56,7 +57,7 @@
 
 @media screen and (max-width: 480px) {
   .overlay {
-    padding: 16px 24px 0;
+    padding: 16px 24px;
 
     .close-overlay {
       top: 15px; right: 24px;
@@ -64,7 +65,7 @@
     .title {
       font-size: 16px;
       line-height: 19px;
-      margin-bottom: 36px;
+      margin-bottom: 24px;
     }
   }
 }

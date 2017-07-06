@@ -7,7 +7,8 @@ import BaseComponent from '../base';
 import Icon from '../icon/icon';
 
 const mapStateToProps = state => ({
-  prePlayback: state.shell.prePlayback
+  prePlayback: state.shell.prePlayback,
+  metadataLoaded: state.engine.metadataLoaded
 });
 
 @connect(mapStateToProps, bindActions(actions))
@@ -33,7 +34,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
   }
 
   render(props: any) {
-    if (!props.prePlayback) return undefined;
+    if (!props.prePlayback || !props.metadataLoaded) return undefined;
 
     return (
       <div className='pre-playback-play-overlay' onClick={() => this.handleClick()}>

@@ -23,8 +23,6 @@ class VolumeControl extends BaseComponent {
   }
 
   componentDidMount() {
-    this._volumeControlElement = document.getElementsByClassName('volume-control')[0];
-    this._volumeProgressBarElement = this._volumeControlElement.getElementsByClassName('bar')[0];
 
     this.player.addEventListener(this.player.Event.LOADED_METADATA, () => {
       this.props.updateVolume(this.player.volume);
@@ -82,7 +80,7 @@ class VolumeControl extends BaseComponent {
       if (this.props.muted || this.props.volume === 0) controlButtonClass += ' is-muted';
 
       return (
-        <div className={controlButtonClass}>
+        <div ref={c => this._volumeControlElement=c} className={controlButtonClass}>
           <button className='control-button' onClick={() => this.onVolumeControlButtonClick()} aria-label='Volume'>
             <Icon type='volume-base' />
             <Icon type='volume-waves' />
@@ -91,7 +89,12 @@ class VolumeControl extends BaseComponent {
           <div className='volume-control-bar' role='slider'
             aria-valuemin='0' aria-valuemaz='100' aria-valuenow={this.player.volume * 100}
             aria-valuetext={`${this.player.volume * 100}% volume ${this.player.muted ? 'muted' : ''}`}>
-            <div className='bar' onMouseDown={() => this.onVolumeProgressBarMouseDown()} onClick={e => this.onVolumeProgressBarClick(e)}>
+            <div
+              className='bar'
+              ref={c => this._volumeProgressBarElement=c}
+              onMouseDown={() => this.onVolumeProgressBarMouseDown()}
+              onClick={e => this.onVolumeProgressBarClick(e)}
+            >
               <div className='progress' style={{height: this.getVolumeProgessHeight()}} />
             </div>
           </div>

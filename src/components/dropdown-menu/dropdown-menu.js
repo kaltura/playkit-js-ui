@@ -22,6 +22,10 @@ class DropDownMenu extends Component {
   onSelect(o: Object) {
     this.props.onSelect(o.value);
     this.setState({dropMenuActive: false});
+
+    // Instant select
+    this.props.options.filter(t => t.active).forEach(option => { option.active = false });
+    this.props.options.filter(t => t.value === o.value)[0].active = true;
   }
 
   getActiveOptionLabel(): string {

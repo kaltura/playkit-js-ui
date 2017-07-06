@@ -3,7 +3,7 @@
   to { opacity: 1; transform : translateY(0); }
 }
 
-.smart-container {
+.player:not(.touch) .smart-container {
   background-color: #222222;
   box-shadow: 0 2px 8px 0 rgba(0,0,0,0.3);
   border-radius: 4px;
@@ -49,6 +49,50 @@
     &.select-menu-item {
       label {
         float: left;
+
+        .label-icon {
+          display: none;
+        }
+      }
+      .dropdown, select {
+        float: right;
+      }
+      select {
+        text-align-last: right;
+      }
+    }
+  }
+}
+
+.touch {
+  .smart-container-item {
+    width: 300px;
+    max-width: 100%;
+    margin: 16px auto;
+    color: rgba(244,244,244,0.8);
+    white-space: nowrap;
+    text-align: left;
+
+    &:after {
+      display: block;
+      content: ' ';
+      clear: both;
+    }
+
+    &.select-menu-item {
+      label {
+        float: left;
+        font-size: 16px;
+        color: #fff;
+        fill: #fff;
+
+        .label-icon {
+          width: 24px;
+          height: 24px;
+          display: inline-block;
+          vertical-align: middle;
+          margin-right: 16px;
+        }
       }
       .dropdown, select {
         float: right;
