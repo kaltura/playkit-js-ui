@@ -22,8 +22,6 @@ import FullscreenControl from './components/fullscreen/fullscreen';
 import TimeDisplay from './components/time-display/time-display';
 import TopBar from './components/top-bar/top-bar';
 import BottomBar from './components/bottom-bar/bottom-bar';
-import ShareOverlay from './components/share-overlay/share-overlay';
-import CVAAOverlay from './components/cvaa-overlay/cvaa-overlay';
 import OverlayPortal from './components/overlay-portal/overlay-portal';
 import KeyboardControl from './components/keyboard';
 
@@ -34,21 +32,6 @@ class UIManager {
   constructor(player: any, config: Object) {
     this.player = player;
     this.config = config;
-    this.config.ui = {
-      "translations": {
-        "controls": {
-          "language": "שפה"
-        }
-      },
-      "components": {
-        "Loading": {
-          "enabled": true
-        },
-        "OverlayPlay": {
-          "enabled": true
-        }
-      }
-    }
   }
 
   buildCustomUI(template: any): void {
@@ -90,8 +73,6 @@ class UIManager {
                   <FullscreenControl player={this.player} />
                 </div>
               </BottomBar>
-              <ShareOverlay />
-              <CVAAOverlay />
             </div>
             <PrePlaybackPlayOverlay player={this.player} />
           </Shell>

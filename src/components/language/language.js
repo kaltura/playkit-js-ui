@@ -8,6 +8,8 @@ import BaseComponent from '../base';
 import SmartContainer from '../smart-container/smart-container';
 import SmartContainerItem from '../smart-container/smart-container-item';
 import Icon from '../icon/icon';
+import CVAAOverlay from '../cvaa-overlay/cvaa-overlay';
+import Portal from 'preact-portal';
 
 const mapStateToProps = state => ({
   audioTracks: state.engine.audioTracks,
@@ -38,6 +40,10 @@ class LanguageControl extends BaseComponent {
 
   onCaptionsChange(textTrack: Object) {
     this.player.selectTrack(textTrack);
+  }
+
+  toggleCVAAOverlay() {
+    this.setState({ cvaaOverlay: !this.state.cvaaOverlay });
   }
 
   render(props: any) {
@@ -71,11 +77,16 @@ class LanguageControl extends BaseComponent {
           {
             props.textTracks.length <= 0 ? '' :
             <div className='smart-container-item'>
-              <a onClick={() => props.toggleCVAAOverlay(!props.overlayOpen)}><Text id='language.advanced_captions_settings'>Advanced captions settings</Text></a>
+              <a onClick={() => this.toggleCVAAOverlay()}><Text id='language.advanced_captions_settings'>Advanced captions settings</Text></a>
             </div>
           }
         </SmartContainer>
         }
+        { this.state.cvaaOverlay ? (
+          <Portal into="#overlay-portal">
+            <CVAAOverlay onClose={() => this.toggleCVAAOverlay()} />
+          </Portal>
+        ): null }
       </div>
     )
   }

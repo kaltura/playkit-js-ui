@@ -32,8 +32,8 @@ class CVAAOverlay extends BaseComponent {
     //   { value: 2, label: '240' },
     //   { value: 3, label: '144' }
     // ];
-    return !props.open ? undefined : (
-      <Overlay open={props.open} onClose={() => props.toggleCVAAOverlay(false)} type='cvaa'>
+    return (
+      <Overlay open onClose={() => props.onClose()} type='cvaa'>
         <div className='title'>
           Advanced captions settings
         </div>

@@ -40,6 +40,14 @@
       height:24px;
     }
   }
+
+  .overlay-screen {
+    display: none;
+
+    &.active {
+      display: block;
+    }
+  }
 }
 
 @media screen and (max-width: 768px) {
