@@ -22,20 +22,20 @@ class SettingsControl extends BaseComponent {
     super({name: 'Settings', player: obj.player});
   }
 
-  componentDidMount() {
-    this.setState({smartContainerOpen: false});
-    document.addEventListener('click', this.handleClickOutside.bind(this), false);
-  }
+  // componentDidMount() {
+  //   this.setState({smartContainerOpen: false});
+  //   document.addEventListener('click', this.handleClickOutside.bind(this), false);
+  // }
 
-  componentWillUnMount() {
-    document.removeEventListener('click', this.handleClickOutside.bind(this), false);
-  }
+  // componentWillUnMount() {
+  //   document.removeEventListener('click', this.handleClickOutside.bind(this), false);
+  // }
 
-  handleClickOutside() {
-    if ((!this._controlSettingsElement || !this._controlSettingsElement.contains(event.target))) {
-      this.setState({smartContainerOpen: false});
-    }
-  }
+  // handleClickOutside() {
+  //   if ((!this._controlSettingsElement || !this._controlSettingsElement.contains(event.target))) {
+  //     this.setState({smartContainerOpen: false});
+  //   }
+  // }
 
   onControlButtonClick() {
     this.setState({smartContainerOpen: !this.state.smartContainerOpen});
@@ -62,20 +62,24 @@ class SettingsControl extends BaseComponent {
         className='control-button-container control-settings'
       >
         <Localizer>
-          <button aria-label={<Text id='controls.settings' />} className={this.state.smartContainerOpen ? 'control-button active' : 'control-button'} onClick={() => this.onControlButtonClick()}>
+          <button
+            aria-label={<Text id='controls.settings' />}
+            className={this.state.smartContainerOpen ? 'control-button active' : 'control-button'}
+            onClick={() => this.onControlButtonClick()}
+          >
             <Icon type='settings' />
           </button>
         </Localizer>
         { !this.state.smartContainerOpen ? '' :
-        <SmartContainer>
+        <SmartContainer title='Settings' onClose={() => this.onControlButtonClick()}>
           {
             props.videoTracks.length <= 0 ? '' :
             <Localizer>
-              <SmartContainerItem label={<Text id='settings.quality' />} options={qualityOptions} onSelect={(o) => this.onQualityChange(o)} />
+              <SmartContainerItem icon='quality' label={<Text id='settings.quality' />} options={qualityOptions} onSelect={(o) => this.onQualityChange(o)} />
             </Localizer>
           }
           <Localizer>
-            <SmartContainerItem label={<Text id='settings.speed' />} options={speedOptions} onSelect={(o) => this.onSpeedChange(o)} />
+            <SmartContainerItem icon='speed' label={<Text id='settings.speed' />} options={speedOptions} onSelect={(o) => this.onSpeedChange(o)} />
           </Localizer>
         </SmartContainer>
         }

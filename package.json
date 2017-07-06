@@ -50,6 +50,8 @@
     "babel-register": "^6.23.0",
     "chai": "^3.5.0",
     "cross-env": "^3.1.4",
+    "css-loader": "^0.28.4",
+    "eslint": "^4.1.1",
     "eslint-config-standard-preact": "^1.1.1",
     "eslint-loader": "^1.6.1",
     "eslint-plugin-flowtype": "^2.30.0",
@@ -77,14 +79,16 @@
     "sinon": "^2.0.0",
     "sinon-chai": "^2.8.0",
     "standard-version": "^4.0.0",
+    "style-loader": "^0.18.2",
     "uglifyjs-webpack-plugin": "^0.4.3",
     "webpack": "latest",
-    "eslint": "^4.1.1"
+    "webpack-dev-server": "latest"
   },
   "dependencies": {
     "js-logger": "^1.3.0",
     "preact": "^8.1.0",
     "preact-i18n": "^1.0.0",
+    "preact-portal": "^1.1.2",
     "preact-redux": "^2.0.1",
     "redux": "^3.6.0"
   },

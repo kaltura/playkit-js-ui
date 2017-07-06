@@ -7,10 +7,6 @@
       display: none;
     }
 
-    &:hover {
-      transform: scale(1.1);
-    }
-
     &.is-fullscreen {
       .icon-maximize {
         display: none;
@@ -19,5 +15,11 @@
         display: block;
       }
     }
+  }
+}
+
+.player:not(.touch) {
+  .control-button-container.control-fullscreen .control-button:hover {
+    transform: scale(1.1);
   }
 }

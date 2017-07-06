@@ -28,22 +28,6 @@ class LanguageControl extends BaseComponent {
     this.setState({smartContainerOpen: false});
   }
 
-  componentDidMount() {
-    document.addEventListener('click', this.handleClickOutside.bind(this), false);
-  }
-
-  componentWillUnMount() {
-    document.removeEventListener('click', this.handleClickOutside.bind(this), false);
-  }
-
-  handleClickOutside() {
-    const domNode = this._controlLanguageElement;
-
-    if ((!domNode || !domNode.contains(event.target))) {
-      this.setState({smartContainerOpen: false});
-    }
-  }
-
   onControlButtonClick() {
     this.setState({smartContainerOpen: !this.state.smartContainerOpen});
   }
@@ -71,17 +55,17 @@ class LanguageControl extends BaseComponent {
           </button>
         </Localizer>
         { !this.state.smartContainerOpen ? '' :
-        <SmartContainer>
+        <SmartContainer title='Language' onClose={() => this.onControlButtonClick()}>
           {
             props.audioTracks.length <= 0 ? '' :
             <Localizer>
-              <SmartContainerItem label={<Text id='language.audio' />} options={audioOptions} onSelect={audioTrack => this.onAudioChange(audioTrack)} />
+              <SmartContainerItem icon='audio' label={<Text id='language.audio' />} options={audioOptions} onSelect={audioTrack => this.onAudioChange(audioTrack)} />
             </Localizer>
           }
           {
             props.textTracks.length <= 0 ? '' :
             <Localizer>
-              <SmartContainerItem label={<Text id='language.captions' />} options={textOptions} onSelect={textTrack => this.onCaptionsChange(textTrack)} />
+              <SmartContainerItem icon='captions' label={<Text id='language.captions' />} options={textOptions} onSelect={textTrack => this.onCaptionsChange(textTrack)} />
             </Localizer>
           }
           {

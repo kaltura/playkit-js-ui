@@ -20,8 +20,9 @@
         width: 100%;
     }
     .player-gui {
-        position: absolute;
-        top: 0; left: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         width: 100%; height: 100%;
         opacity: 0;
         overflow: hidden;
@@ -31,6 +32,11 @@
         input, textarea {
           font-family: $font-family;
         }
+    }
+    #overlay-portal {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
     }
     &.metadata-loaded .player-gui,
     &.state-paused .player-gui,
