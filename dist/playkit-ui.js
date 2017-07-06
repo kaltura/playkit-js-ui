@@ -5019,7 +5019,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    prePlayback: state.shell.prePlayback
+    prePlayback: state.shell.prePlayback,
+    metadataLoaded: state.engine.metadataLoaded
   };
 };
 
@@ -5055,7 +5056,7 @@ var PrePlaybackPlayOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, 
     value: function render(props) {
       var _this2 = this;
 
-      if (!props.prePlayback) return undefined;
+      if (!props.prePlayback || !props.metadataLoaded) return undefined;
 
       return (0, _preact.h)(
         'div',

@@ -3,64 +3,62 @@
   to { opacity: 1; transform : translateY(0); }
 }
 
-@media screen and (min-width: 481px) {
-  .smart-container {
-    background-color: #222222;
-    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.3);
-    border-radius: 4px;
-    position: absolute;
-    right: 0px;
-    min-width: 193px;
-    font-size: 15px;
-    z-index: 5;
-    display: block;
-    animation: openSmartContainer 100ms ease-out forwards;
+.player:not(.touch) .smart-container {
+  background-color: #222222;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.3);
+  border-radius: 4px;
+  position: absolute;
+  right: 0px;
+  min-width: 193px;
+  font-size: 15px;
+  z-index: 5;
+  display: block;
+  animation: openSmartContainer 100ms ease-out forwards;
 
-    &.top {
-      bottom: 100%;
-      margin-bottom: 6px;
+  &.top {
+    bottom: 100%;
+    margin-bottom: 6px;
 
-      // protection for seekbar hover
-      &:before {
-        display: block;
-        content: ' ';
-        position: absolute;
-        bottom: -6px; left: 0;
-        width: 100%; height: 6px;
-      }
+    // protection for seekbar hover
+    &:before {
+      display: block;
+      content: ' ';
+      position: absolute;
+      bottom: -6px; left: 0;
+      width: 100%; height: 6px;
     }
-    &.bottom {
-      top: 100%;
-      margin-top: 6px;
+  }
+  &.bottom {
+    top: 100%;
+    margin-top: 6px;
+  }
+  &.right { left: 0px; }
+  &.left { right: 0px; }
+
+  .smart-container-item {
+    margin: 16px;
+    color: rgba(244,244,244,0.8);
+    white-space: nowrap;
+
+    &:after {
+      display: block;
+      content: ' ';
+      clear: both;
     }
-    &.right { left: 0px; }
-    &.left { right: 0px; }
 
-    .smart-container-item {
-      margin: 16px;
-      color: rgba(244,244,244,0.8);
-      white-space: nowrap;
+    &.select-menu-item {
+      label {
+        float: left;
 
-      &:after {
-        display: block;
-        content: ' ';
-        clear: both;
+        .label-icon {
+          display: none;
+        }
       }
-
-      &.select-menu-item {
-        label {
-          float: left;
-
-          .label-icon {
-            display: none;
-          }
-        }
-        .dropdown, select {
-          float: right;
-        }
-        select {
-          text-align-last: right;
-        }
+      .dropdown, select {
+        float: right;
+      }
+      select {
+        text-align-last: right;
       }
     }
   }

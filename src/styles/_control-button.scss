@@ -34,7 +34,7 @@
   vertical-align: top;
 }
 
-@media screen and (max-width: 480px) {
+.player.touch {
   .player .control-button-container {
     position: static;
   }
