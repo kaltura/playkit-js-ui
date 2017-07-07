@@ -10,7 +10,8 @@ import SmartContainerItem from '../smart-container/smart-container-item';
 import Icon from '../icon/icon';
 
 const mapStateToProps = state => ({
-  videoTracks: state.engine.videoTracks
+  videoTracks: state.engine.videoTracks,
+  isMobile: state.shell.isMobile
 });
 
 @connect(mapStateToProps, bindActions(actions))
@@ -22,20 +23,24 @@ class SettingsControl extends BaseComponent {
     super({name: 'Settings', player: obj.player});
   }
 
-  // componentDidMount() {
-  //   this.setState({smartContainerOpen: false});
-  //   document.addEventListener('click', this.handleClickOutside.bind(this), false);
-  // }
+  componentWillMount() {
+    this.setState({smartContainerOpen: false});
+  }
 
-  // componentWillUnMount() {
-  //   document.removeEventListener('click', this.handleClickOutside.bind(this), false);
-  // }
+  componentDidMount() {
+    document.addEventListener('click', this.handleClickOutside.bind(this), true);
+  }
 
-  // handleClickOutside() {
-  //   if ((!this._controlSettingsElement || !this._controlSettingsElement.contains(event.target))) {
-  //     this.setState({smartContainerOpen: false});
-  //   }
-  // }
+  componentWillUnMount() {
+    document.removeEventListener('click', this.handleClickOutside.bind(this), true);
+  }
+
+  handleClickOutside(e) {
+    if (!this.props.isMobile && !this._controlSettingsElement.contains(event.target) && this.state.smartContainerOpen) {
+      e.stopPropagation();
+      this.setState({smartContainerOpen: false});
+    }
+  }
 
   onControlButtonClick() {
     this.setState({smartContainerOpen: !this.state.smartContainerOpen});

@@ -20,9 +20,7 @@ class FullscreenControl extends BaseComponent {
 
   componentDidMount() {
     document.addEventListener('webkitfullscreenchange', () => {
-      if (document.webkitIsFullScreen) {
-        this.props.updateFullscreen(document.webkitIsFullScreen);
-      }
+      this.props.updateFullscreen(document.webkitIsFullScreen);
     });
   }
 

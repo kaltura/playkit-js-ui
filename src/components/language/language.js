@@ -14,7 +14,8 @@ import Portal from 'preact-portal';
 const mapStateToProps = state => ({
   audioTracks: state.engine.audioTracks,
   textTracks: state.engine.textTracks,
-  overlayOpen: state.cvaa.overlayOpen
+  overlayOpen: state.cvaa.overlayOpen,
+  isMobile: state.shell.isMobile
 });
 
 @connect(mapStateToProps, bindActions(actions))
@@ -28,6 +29,21 @@ class LanguageControl extends BaseComponent {
 
   componentWillMount() {
     this.setState({smartContainerOpen: false});
+  }
+
+  componentDidMount() {
+    document.addEventListener('click', this.handleClickOutside.bind(this), true);
+  }
+
+  componentWillUnMount() {
+    document.removeEventListener('click', this.handleClickOutside.bind(this), true);
+  }
+
+  handleClickOutside(e) {
+    if (!this.props.isMobile && !this._controlLanguageElement.contains(event.target) && this.state.smartContainerOpen && !this.state.cvaaOverlay) {
+      e.stopPropagation();
+      this.setState({smartContainerOpen: false});
+    }
   }
 
   onControlButtonClick() {

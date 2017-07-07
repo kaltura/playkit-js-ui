@@ -5868,7 +5868,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    videoTracks: state.engine.videoTracks
+    videoTracks: state.engine.videoTracks,
+    isMobile: state.shell.isMobile
   };
 };
 
@@ -5881,22 +5882,30 @@ var SettingsControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
     return _possibleConstructorReturn(this, (SettingsControl.__proto__ || Object.getPrototypeOf(SettingsControl)).call(this, { name: 'Settings', player: obj.player }));
   }
 
-  // componentDidMount() {
-  //   this.setState({smartContainerOpen: false});
-  //   document.addEventListener('click', this.handleClickOutside.bind(this), false);
-  // }
-
-  // componentWillUnMount() {
-  //   document.removeEventListener('click', this.handleClickOutside.bind(this), false);
-  // }
-
-  // handleClickOutside() {
-  //   if ((!this._controlSettingsElement || !this._controlSettingsElement.contains(event.target))) {
-  //     this.setState({smartContainerOpen: false});
-  //   }
-  // }
-
   _createClass(SettingsControl, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.setState({ smartContainerOpen: false });
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      document.addEventListener('click', this.handleClickOutside.bind(this), true);
+    }
+  }, {
+    key: 'componentWillUnMount',
+    value: function componentWillUnMount() {
+      document.removeEventListener('click', this.handleClickOutside.bind(this), true);
+    }
+  }, {
+    key: 'handleClickOutside',
+    value: function handleClickOutside(e) {
+      if (!this.props.isMobile && !this._controlSettingsElement.contains(event.target) && this.state.smartContainerOpen) {
+        e.stopPropagation();
+        this.setState({ smartContainerOpen: false });
+      }
+    }
+  }, {
     key: 'onControlButtonClick',
     value: function onControlButtonClick() {
       this.setState({ smartContainerOpen: !this.state.smartContainerOpen });
@@ -6293,7 +6302,8 @@ var mapStateToProps = function mapStateToProps(state) {
   return {
     audioTracks: state.engine.audioTracks,
     textTracks: state.engine.textTracks,
-    overlayOpen: state.cvaa.overlayOpen
+    overlayOpen: state.cvaa.overlayOpen,
+    isMobile: state.shell.isMobile
   };
 };
 
@@ -6310,6 +6320,24 @@ var LanguageControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
     key: 'componentWillMount',
     value: function componentWillMount() {
       this.setState({ smartContainerOpen: false });
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      document.addEventListener('click', this.handleClickOutside.bind(this), true);
+    }
+  }, {
+    key: 'componentWillUnMount',
+    value: function componentWillUnMount() {
+      document.removeEventListener('click', this.handleClickOutside.bind(this), true);
+    }
+  }, {
+    key: 'handleClickOutside',
+    value: function handleClickOutside(e) {
+      if (!this.props.isMobile && !this._controlLanguageElement.contains(event.target) && this.state.smartContainerOpen && !this.state.cvaaOverlay) {
+        e.stopPropagation();
+        this.setState({ smartContainerOpen: false });
+      }
     }
   }, {
     key: 'onControlButtonClick',
@@ -6476,9 +6504,7 @@ var FullscreenControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _
       var _this2 = this;
 
       document.addEventListener('webkitfullscreenchange', function () {
-        if (document.webkitIsFullScreen) {
-          _this2.props.updateFullscreen(document.webkitIsFullScreen);
-        }
+        _this2.props.updateFullscreen(document.webkitIsFullScreen);
       });
     }
   }, {
@@ -6760,6 +6786,8 @@ var shareOverlayState = {
   EmbedOptions: 'embed-options'
 };
 
+var dummyShareUrl = 'https://cdnapisec.kaltura.com/index.php?assetId=123456';
+
 var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.bindActions)(_share.actions)), _dec(_class = function (_BaseComponent) {
   _inherits(ShareOverlay, _BaseComponent);
 
@@ -6840,7 +6868,7 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
             (0, _preact.h)(
               'div',
               { className: 'form-group has-icon' },
-              (0, _preact.h)('input', { type: 'text', placeholder: 'Share URL', className: 'form-control', value: 'https://cdnapisec.kaltura.com/index.php?assetId=123456', readOnly: true }),
+              (0, _preact.h)('input', { type: 'text', placeholder: 'Share URL', className: 'form-control', value: dummyShareUrl, readOnly: true }),
               (0, _preact.h)(_icon2.default, { type: 'link' })
             )
           ),
@@ -6871,18 +6899,13 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
           (0, _preact.h)(
             'div',
             { className: 'form-group has-icon', style: 'width: 350px;' },
-            (0, _preact.h)('input', { type: 'text', placeholder: 'Share URL', className: 'form-control', value: 'https://cdnapisec.kaltura.com/index.php?assetId=123456', readOnly: true }),
+            (0, _preact.h)('input', { type: 'text', placeholder: 'Share URL', className: 'form-control', value: dummyShareUrl, readOnly: true }),
             (0, _preact.h)(_icon2.default, { type: 'link' })
           ),
           (0, _preact.h)(
             'a',
             { className: 'btn-rounded btn-branded' },
             (0, _preact.h)(_icon2.default, { type: 'copy' })
-          ),
-          (0, _preact.h)(
-            'div',
-            { className: 'form-group' },
-            (0, _preact.h)('input', { type: 'text', className: 'form-control', value: '05:34', style: 'width: 72px;' })
           ),
           (0, _preact.h)(
             'div',
@@ -6893,6 +6916,11 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
               (0, _preact.h)('input', { type: 'checkbox', value: '' }),
               'Start video at'
             )
+          ),
+          (0, _preact.h)(
+            'div',
+            { className: 'form-group' },
+            (0, _preact.h)('input', { type: 'text', className: 'form-control', value: '05:34', style: 'width: 72px;' })
           )
         )
       );
@@ -6982,7 +7010,7 @@ var CVAAOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAc
       this.props.removePlayerClass('captions-' + this.props.style);
       this.props.addPlayerClass('captions-' + style);
       this.props.updateCaptionsStyle(style);
-      this.props.toggleCVAAOverlay(false);
+      this.props.onClose();
     }
   }, {
     key: 'render',

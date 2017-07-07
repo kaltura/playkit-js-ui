@@ -18,6 +18,8 @@ const shareOverlayState: Object = {
   EmbedOptions: 'embed-options'
 };
 
+const dummyShareUrl = 'https://cdnapisec.kaltura.com/index.php?assetId=123456';
+
 @connect(mapStateToProps, bindActions(actions))
 class ShareOverlay extends BaseComponent {
 
@@ -54,7 +56,7 @@ class ShareOverlay extends BaseComponent {
           </div>
           <div>
             <div className='form-group has-icon'>
-              <input type='text' placeholder='Share URL' className='form-control' value='https://cdnapisec.kaltura.com/index.php?assetId=123456' readOnly />
+              <input type='text' placeholder='Share URL' className='form-control' value={dummyShareUrl} readOnly />
               <Icon type='link' />
             </div>
           </div>
@@ -70,17 +72,17 @@ class ShareOverlay extends BaseComponent {
         <div className='title'>Link options</div>
         <div className='link-options-container'>
           <div className='form-group has-icon' style='width: 350px;'>
-            <input type='text' placeholder='Share URL' className='form-control' value='https://cdnapisec.kaltura.com/index.php?assetId=123456' readOnly />
+            <input type='text' placeholder='Share URL' className='form-control' value={dummyShareUrl} readOnly />
             <Icon type='link' />
           </div>
           <a className='btn-rounded btn-branded'>
             <Icon type='copy' />
           </a>
-          <div className='form-group'>
-            <input type='text' className='form-control' value='05:34' style='width: 72px;' />
-          </div>
           <div className="checkbox">
             <label><input type='checkbox' value='' />Start video at</label>
+          </div>
+          <div className='form-group'>
+            <input type='text' className='form-control' value='05:34' style='width: 72px;' />
           </div>
         </div>
       </div>

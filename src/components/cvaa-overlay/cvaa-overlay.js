@@ -23,7 +23,7 @@ class CVAAOverlay extends BaseComponent {
     this.props.removePlayerClass(`captions-${this.props.style}`);
     this.props.addPlayerClass(`captions-${style}`);
     this.props.updateCaptionsStyle(style);
-    this.props.toggleCVAAOverlay(false);
+    this.props.onClose();
   }
 
   render(props: any) {
