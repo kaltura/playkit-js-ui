@@ -6392,7 +6392,7 @@ var LanguageControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
             (0, _preact.h)(_icon2.default, { type: 'language' })
           )
         ),
-        !this.state.smartContainerOpen ? '' : (0, _preact.h)(
+        !this.state.smartContainerOpen || this.state.cvaaOverlay ? undefined : (0, _preact.h)(
           _smartContainer2.default,
           { title: 'Language', onClose: function onClose() {
               return _this2.onControlButtonClick();

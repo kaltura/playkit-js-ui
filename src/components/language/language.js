@@ -76,7 +76,7 @@ class LanguageControl extends BaseComponent {
             <Icon type='language' />
           </button>
         </Localizer>
-        { !this.state.smartContainerOpen ? '' :
+        { !this.state.smartContainerOpen || this.state.cvaaOverlay ? undefined :
         <SmartContainer title='Language' onClose={() => this.onControlButtonClick()}>
           {
             props.audioTracks.length <= 0 ? '' :
