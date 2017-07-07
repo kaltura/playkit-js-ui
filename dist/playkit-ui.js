@@ -1845,6 +1845,62 @@ var Icon = function (_Component) {
             (0, _preact.h)('path', { d: 'M649.718 811.807c-18.614-50.781-3.302-107.782 38.254-142.399s100.384-39.38 146.967-11.898v-457.92l-448 143.68v392.48c-0.085 3.649-0.095 24.821 0 32 0.664 58.81-38.394 110.68-95.098 126.291s-116.807-8.96-146.336-59.823c-29.529-50.864-21.065-115.241 20.608-156.743s106.084-49.702 156.826-19.964v-337.76c-1.127-9.561 2.599-19.053 9.928-25.295s526.392-166.065 526.392-166.065c2.115-0.34 4.26-0.458 6.4-0.352 14.491-0.461 25.845 7.194 30.4 18.912 0.64 1.312 1.28 1.92 1.6 2.752 0.32 1.728 0 3.392 0.32 5.12 0.482 1.607 0.804 3.258 0.96 4.928v608c0 70.692-57.308 128-128 128-54.083 0.439-102.606-33.162-121.221-83.943zM706.939 767.75c0 35.346 28.654 64 64 64s64-28.654 64-64c0-35.346-28.654-64-64-64s-64 28.654-64 64zM194.939 767.75c0 35.346 28.654 64 64 64s64-28.654 64-64c0-35.346-28.654-64-64-64s-64 28.654-64 64z' })
           );
 
+        case 'copy':
+          return (0, _preact.h)(
+            'svg',
+            { className: 'icon copy-icon', viewBox: '0 0 1024 1024' },
+            (0, _preact.h)('path', { d: 'M703.727 320c35.497 0 64.273 28.482 64.273 64.003v351.993c0 35.348-28.862 64.003-64.273 64.003h-191.454c-35.496 0-64.271-28.48-64.273-64.001l255.727 0.001v-352c0 0-28.356 0.147-63.727 0.001v-63.912l63.727-0.088zM256 288.187c0-35.45 28.398-64.187 63.988-64.187h192.025c35.339 0 63.988 28.706 63.988 64.187v319.625c0 35.45-28.398 64.187-63.988 64.187h-192.025c-35.339 0-63.988-28.706-63.988-64.187v-319.625zM320 288v320h192v-320h-192z' })
+          );
+
+        case 'facebook':
+          return (0, _preact.h)(
+            'svg',
+            { className: 'icon facebook-icon', viewBox: '0 0 1024 1024' },
+            (0, _preact.h)('path', { d: 'M432 405.333h-80v106.667h80v320h133.333v-320h97.12l9.547-106.667h-106.667v-44.453c0-25.467 5.12-35.547 29.733-35.547h76.933v-133.333h-101.547c-95.893 0-138.453 42.213-138.453 123.067v90.267z' })
+          );
+
+        case 'twitter':
+          return (0, _preact.h)(
+            'svg',
+            { className: 'icon twitter-icon', viewBox: '0 0 1024 1024' },
+            (0, _preact.h)('path', { d: 'M832 316.614c-23.547 10.29-48.853 17.221-75.413 20.345 27.12-15.987 47.947-41.319 57.733-71.508-25.36 14.806-53.467 25.568-83.387 31.37-23.92-25.122-58.080-40.82-95.84-40.82-84.773 0-147.067 77.861-127.92 158.687-109.093-5.381-205.84-56.833-270.613-135.035-34.4 58.094-17.84 134.090 40.613 172.574-21.493-0.683-41.76-6.484-59.44-16.171-1.44 59.879 42.16 115.898 105.307 128.368-18.48 4.935-38.72 6.090-59.307 2.205 16.693 51.347 65.173 88.702 122.667 89.752-55.2 42.605-124.747 61.637-194.4 53.552 58.107 36.673 127.147 58.067 201.28 58.067 243.787 0 381.52-202.684 373.2-384.473 25.653-18.244 47.92-41.004 65.52-66.914v0z' })
+          );
+
+        case 'google-plus':
+          return (0, _preact.h)(
+            'svg',
+            { className: 'icon google-plus-icon', viewBox: '0 0 1024 1024' },
+            (0, _preact.h)('path', { fill: '#fff', d: 'M352 556.8h127.040c-5.12 32.928-38.4 96.64-127.040 96.64-76.48 0-138.88-63.328-138.88-141.44 0-78.080 62.4-141.44 138.88-141.44 43.52 0 72.64 18.56 89.28 34.56l60.8-58.56c-39.040-36.48-89.6-58.56-150.080-58.56-123.84 0-224 100.16-224 224s100.16 224 224 224c129.28 0 215.072-90.88 215.072-218.88 0-14.72-1.632-25.92-3.552-37.12h-211.52v76.8zM800 544v96h-64v-96h-96v-64h96v-96h64v96h96v64h-96z' })
+          );
+
+        case 'linkedin':
+          return (0, _preact.h)(
+            'svg',
+            { className: 'icon linkedin-icon', viewBox: '0 0 1024 1024' },
+            (0, _preact.h)('path', { d: 'M324.8 290.087c0 36.506-29.6 66.087-66.133 66.087s-66.133-29.581-66.133-66.087c0-36.48 29.6-66.087 66.133-66.087s66.133 29.607 66.133 66.087zM325.333 409.043h-133.333v422.957h133.333v-422.957zM538.187 409.043h-132.48v422.957h132.507v-222.026c0-123.45 160.773-133.549 160.773 0v222.026h133.013v-267.811c0-208.306-237.92-200.719-293.813-98.179v-56.967z' })
+          );
+
+        case 'email':
+          return (0, _preact.h)(
+            'svg',
+            { className: 'icon email-icon', viewBox: '0 0 1024 1024' },
+            (0, _preact.h)('path', { d: 'M256 768c-35.346 0-64-28.654-64-64v-352c0-35.346 28.654-64 64-64h512c35.346 0 64 28.654 64 64v352c0 35.346-28.654 64-64 64h-512zM512 467.488l147.52-115.488h-295.040l147.52 115.488zM748.48 352l-211.2 179.2c-0.713 1.308-1.572 2.532-2.56 3.648-12.707 12.158-32.733 12.158-45.44 0-0.988-1.116-1.847-2.34-2.56-3.648l-211.2-179.2h-19.52v352h512v-352h-19.52z' })
+          );
+
+        case 'embed':
+          return (0, _preact.h)(
+            'svg',
+            { className: 'icon embed-icon', viewBox: '0 0 1024 1024' },
+            (0, _preact.h)('path', { d: 'M377.989 579.335c12.669 12.904 12.669 33.777 0 46.68-12.733 12.969-33.427 12.969-46.16 0l-104.727-106.667c-12.669-12.904-12.669-33.777 0-46.68l104.727-106.667c12.733-12.969 33.427-12.969 46.16 0 12.669 12.904 12.669 33.777 0 46.68l-81.812 83.327 81.812 83.327zM646.011 412.68c-12.669-12.904-12.669-33.777 0-46.68 12.733-12.969 33.427-12.969 46.16 0l104.727 106.667c12.669 12.904 12.669 33.777 0 46.68l-104.727 106.667c-12.733 12.969-33.427 12.969-46.16 0-12.669-12.904-12.669-33.777 0-46.68l81.812-83.327-81.812-83.327zM572.293 250.6c17.455 4.445 28.025 22.388 23.686 40.066l-104.727 426.669c-4.349 17.719-22.048 28.535-39.545 24.079-17.455-4.445-28.025-22.388-23.686-40.066l104.727-426.669c4.349-17.719 22.048-28.535 39.545-24.079z' })
+          );
+
+        case 'link':
+          return (0, _preact.h)(
+            'svg',
+            { className: 'icon link-icon', viewBox: '0 0 1024 1024' },
+            (0, _preact.h)('path', { d: 'M355.028 445.537c12.497 12.497 12.497 32.758 0 45.255s-32.758 12.497-45.255 0l-24.141-24.141c-49.92-49.92-49.832-130.999 0.094-180.925 49.984-49.984 130.995-50.025 180.955-0.064l113.266 113.266c49.964 49.964 49.935 130.955-0.064 180.955-12.497 12.497-32.758 12.497-45.255 0s-12.497-32.758 0-45.255c25.013-25.013 25.027-65.482 0.064-90.445l-113.266-113.266c-24.957-24.957-65.445-24.936-90.445 0.064-24.955 24.955-24.998 65.511-0.094 90.416l24.141 24.141zM668.972 578.463c-12.497-12.497-12.497-32.758 0-45.255s32.758-12.497 45.255 0l24.141 24.141c49.92 49.92 49.832 130.999-0.094 180.925-49.984 49.984-130.995 50.025-180.955 0.064l-113.266-113.266c-49.964-49.964-49.935-130.955 0.064-180.955 12.497-12.497 32.758-12.497 45.255 0s12.497 32.758 0 45.255c-25.013 25.013-25.027 65.482-0.064 90.445l113.266 113.266c24.957 24.957 65.445 24.936 90.445-0.064 24.955-24.955 24.998-65.511 0.094-90.416l-24.141-24.141z' })
+          );
+
         default:
           break;
       }
@@ -5685,15 +5741,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _dec, _class;
-
 var _preact = __webpack_require__(0);
-
-var _preactRedux = __webpack_require__(1);
-
-var _bindActions = __webpack_require__(3);
-
-var _share = __webpack_require__(10);
 
 var _base = __webpack_require__(2);
 
@@ -5719,13 +5767,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var mapStateToProps = function mapStateToProps(state) {
-  return {
-    overlayOpen: state.share.overlayOpen
-  };
-};
-
-var ShareControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.bindActions)(_share.actions)), _dec(_class = function (_BaseComponent) {
+var ShareControl = function (_BaseComponent) {
   _inherits(ShareControl, _BaseComponent);
 
   function ShareControl(obj) {
@@ -5746,7 +5788,7 @@ var ShareControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
     }
   }, {
     key: 'render',
-    value: function render(props) {
+    value: function render() {
       var _this2 = this;
 
       return (0, _preact.h)(
@@ -5771,7 +5813,8 @@ var ShareControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
   }]);
 
   return ShareControl;
-}(_base2.default)) || _class);
+}(_base2.default);
+
 exports.default = ShareControl;
 
 /***/ }),
@@ -6693,6 +6736,10 @@ var _overlay = __webpack_require__(12);
 
 var _overlay2 = _interopRequireDefault(_overlay);
 
+var _icon = __webpack_require__(4);
+
+var _icon2 = _interopRequireDefault(_icon);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -6738,79 +6785,53 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
       this.setState({ state: stateName });
     }
   }, {
-    key: 'render',
-    value: function render(props) {
+    key: 'renderMainState',
+    value: function renderMainState() {
       var _this2 = this;
 
       return (0, _preact.h)(
-        _overlay2.default,
-        { open: true, onClose: function onClose() {
-            return props.onClose();
-          }, type: 'share' },
+        'div',
+        { className: this.state.state === shareOverlayState.Main ? 'overlay-screen active' : 'overlay-screen' },
         (0, _preact.h)(
           'div',
-          { className: this.state.state === shareOverlayState.Main ? 'overlay-screen active' : 'overlay-screen' },
-          (0, _preact.h)(
-            'div',
-            { className: 'title' },
-            (0, _preact.h)(_preactI18n.Text, { id: 'share.share_title' })
-          ),
+          { className: 'title' },
+          (0, _preact.h)(_preactI18n.Text, { id: 'share.share_title' })
+        ),
+        (0, _preact.h)(
+          'div',
+          { className: 'share-main-container' },
           (0, _preact.h)(
             'div',
             { className: 'share-icons' },
             (0, _preact.h)(
               'a',
-              { className: 'share-btn facebook-share-btn' },
-              (0, _preact.h)(
-                'svg',
-                { style: 'width:32px;height:32px', viewBox: '0 0 1024 1024' },
-                (0, _preact.h)('path', { fill: '#fff', d: 'M432 405.333h-80v106.667h80v320h133.333v-320h97.12l9.547-106.667h-106.667v-44.453c0-25.467 5.12-35.547 29.733-35.547h76.933v-133.333h-101.547c-95.893 0-138.453 42.213-138.453 123.067v90.267z' })
-              )
+              { className: 'btn-rounded facebook-share-btn' },
+              (0, _preact.h)(_icon2.default, { type: 'facebook' })
             ),
             (0, _preact.h)(
               'a',
-              { className: 'share-btn twitter-share-btn' },
-              (0, _preact.h)(
-                'svg',
-                { style: 'width:32px;height:32px', viewBox: '0 0 1024 1024' },
-                (0, _preact.h)('path', { fill: '#fff', d: 'M832 316.614c-23.547 10.29-48.853 17.221-75.413 20.345 27.12-15.987 47.947-41.319 57.733-71.508-25.36 14.806-53.467 25.568-83.387 31.37-23.92-25.122-58.080-40.82-95.84-40.82-84.773 0-147.067 77.861-127.92 158.687-109.093-5.381-205.84-56.833-270.613-135.035-34.4 58.094-17.84 134.090 40.613 172.574-21.493-0.683-41.76-6.484-59.44-16.171-1.44 59.879 42.16 115.898 105.307 128.368-18.48 4.935-38.72 6.090-59.307 2.205 16.693 51.347 65.173 88.702 122.667 89.752-55.2 42.605-124.747 61.637-194.4 53.552 58.107 36.673 127.147 58.067 201.28 58.067 243.787 0 381.52-202.684 373.2-384.473 25.653-18.244 47.92-41.004 65.52-66.914v0z' })
-              )
+              { className: 'btn-rounded twitter-share-btn' },
+              (0, _preact.h)(_icon2.default, { type: 'twitter' })
             ),
             (0, _preact.h)(
               'a',
-              { className: 'share-btn google-plus-share-btn' },
-              (0, _preact.h)(
-                'svg',
-                { style: 'width:32px;height:32px', viewBox: '0 0 1024 1024' },
-                (0, _preact.h)('path', { fill: '#fff', d: 'M352 556.8h127.040c-5.12 32.928-38.4 96.64-127.040 96.64-76.48 0-138.88-63.328-138.88-141.44 0-78.080 62.4-141.44 138.88-141.44 43.52 0 72.64 18.56 89.28 34.56l60.8-58.56c-39.040-36.48-89.6-58.56-150.080-58.56-123.84 0-224 100.16-224 224s100.16 224 224 224c129.28 0 215.072-90.88 215.072-218.88 0-14.72-1.632-25.92-3.552-37.12h-211.52v76.8zM800 544v96h-64v-96h-96v-64h96v-96h64v96h96v64h-96z' })
-              )
+              { className: 'btn-rounded google-plus-share-btn' },
+              (0, _preact.h)(_icon2.default, { type: 'google-plus' })
             ),
             (0, _preact.h)(
               'a',
-              { className: 'share-btn linkedin-share-btn' },
-              (0, _preact.h)(
-                'svg',
-                { style: 'width:32px;height:32px', viewBox: '0 0 1024 1024' },
-                (0, _preact.h)('path', { fill: '#fff', d: 'M324.8 290.087c0 36.506-29.6 66.087-66.133 66.087s-66.133-29.581-66.133-66.087c0-36.48 29.6-66.087 66.133-66.087s66.133 29.607 66.133 66.087zM325.333 409.043h-133.333v422.957h133.333v-422.957zM538.187 409.043h-132.48v422.957h132.507v-222.026c0-123.45 160.773-133.549 160.773 0v222.026h133.013v-267.811c0-208.306-237.92-200.719-293.813-98.179v-56.967z' })
-              )
+              { className: 'btn-rounded linkedin-share-btn' },
+              (0, _preact.h)(_icon2.default, { type: 'linkedin' })
             ),
             (0, _preact.h)(
               'a',
-              { className: 'share-btn email-share-btn' },
-              (0, _preact.h)(
-                'svg',
-                { style: 'width:32px;height:32px', viewBox: '0 0 1024 1024' },
-                (0, _preact.h)('path', { fill: '#fff', d: 'M256 768c-35.346 0-64-28.654-64-64v-352c0-35.346 28.654-64 64-64h512c35.346 0 64 28.654 64 64v352c0 35.346-28.654 64-64 64h-512zM512 467.488l147.52-115.488h-295.040l147.52 115.488zM748.48 352l-211.2 179.2c-0.713 1.308-1.572 2.532-2.56 3.648-12.707 12.158-32.733 12.158-45.44 0-0.988-1.116-1.847-2.34-2.56-3.648l-211.2-179.2h-19.52v352h512v-352h-19.52z' })
-              )
+              { className: 'btn-rounded email-share-btn' },
+              (0, _preact.h)(_icon2.default, { type: 'email' })
             ),
             (0, _preact.h)(
               'a',
-              { className: 'share-btn embed-share-btn' },
-              (0, _preact.h)(
-                'svg',
-                { style: 'width:32px;height:32px', viewBox: '0 0 1024 1024' },
-                (0, _preact.h)('path', { fill: '#fff', d: 'M377.989 579.335c12.669 12.904 12.669 33.777 0 46.68-12.733 12.969-33.427 12.969-46.16 0l-104.727-106.667c-12.669-12.904-12.669-33.777 0-46.68l104.727-106.667c12.733-12.969 33.427-12.969 46.16 0 12.669 12.904 12.669 33.777 0 46.68l-81.812 83.327 81.812 83.327zM646.011 412.68c-12.669-12.904-12.669-33.777 0-46.68 12.733-12.969 33.427-12.969 46.16 0l104.727 106.667c12.669 12.904 12.669 33.777 0 46.68l-104.727 106.667c-12.733 12.969-33.427 12.969-46.16 0-12.669-12.904-12.669-33.777 0-46.68l81.812-83.327-81.812-83.327zM572.293 250.6c17.455 4.445 28.025 22.388 23.686 40.066l-104.727 426.669c-4.349 17.719-22.048 28.535-39.545 24.079-17.455-4.445-28.025-22.388-23.686-40.066l104.727-426.669c4.349-17.719 22.048-28.535 39.545-24.079z' })
-              )
+              { className: 'btn-rounded embed-share-btn' },
+              (0, _preact.h)(_icon2.default, { type: 'embed' })
             )
           ),
           (0, _preact.h)(
@@ -6818,13 +6839,9 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
             null,
             (0, _preact.h)(
               'div',
-              { className: 'form-group has-icon', style: 'width: 300px;' },
+              { className: 'form-group has-icon' },
               (0, _preact.h)('input', { type: 'text', placeholder: 'Share URL', className: 'form-control', value: 'https://cdnapisec.kaltura.com/index.php?assetId=123456', readOnly: true }),
-              (0, _preact.h)(
-                'svg',
-                { className: 'icon', style: 'width:32px;height:32px;', viewBox: '0 0 1024 1024' },
-                (0, _preact.h)('path', { d: 'M355.028 445.537c12.497 12.497 12.497 32.758 0 45.255s-32.758 12.497-45.255 0l-24.141-24.141c-49.92-49.92-49.832-130.999 0.094-180.925 49.984-49.984 130.995-50.025 180.955-0.064l113.266 113.266c49.964 49.964 49.935 130.955-0.064 180.955-12.497 12.497-32.758 12.497-45.255 0s-12.497-32.758 0-45.255c25.013-25.013 25.027-65.482 0.064-90.445l-113.266-113.266c-24.957-24.957-65.445-24.936-90.445 0.064-24.955 24.955-24.998 65.511-0.094 90.416l24.141 24.141zM668.972 578.463c-12.497-12.497-12.497-32.758 0-45.255s32.758-12.497 45.255 0l24.141 24.141c49.92 49.92 49.832 130.999-0.094 180.925-49.984 49.984-130.995 50.025-180.955 0.064l-113.266-113.266c-49.964-49.964-49.935-130.955 0.064-180.955 12.497-12.497 32.758-12.497 45.255 0s12.497 32.758 0 45.255c-25.013 25.013-25.027 65.482-0.064 90.445l113.266 113.266c24.957 24.957 65.445 24.936 90.445-0.064 24.955-24.955 24.998-65.511 0.094-90.416l-24.141-24.141z' })
-              )
+              (0, _preact.h)(_icon2.default, { type: 'link' })
             )
           ),
           (0, _preact.h)(
@@ -6834,16 +6851,62 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
               } },
             (0, _preact.h)(_preactI18n.Text, { id: 'share.link_options' })
           )
+        )
+      );
+    }
+  }, {
+    key: 'renderLinkOptionsState',
+    value: function renderLinkOptionsState() {
+      return (0, _preact.h)(
+        'div',
+        { className: this.state.state === shareOverlayState.LinkOptions ? 'overlay-screen active' : 'overlay-screen' },
+        (0, _preact.h)(
+          'div',
+          { className: 'title' },
+          'Link options'
         ),
         (0, _preact.h)(
           'div',
-          { className: this.state.state === shareOverlayState.LinkOptions ? 'overlay-screen active' : 'overlay-screen' },
+          { className: 'link-options-container' },
           (0, _preact.h)(
             'div',
-            { className: 'title' },
-            'Link options'
+            { className: 'form-group has-icon', style: 'width: 350px;' },
+            (0, _preact.h)('input', { type: 'text', placeholder: 'Share URL', className: 'form-control', value: 'https://cdnapisec.kaltura.com/index.php?assetId=123456', readOnly: true }),
+            (0, _preact.h)(_icon2.default, { type: 'link' })
+          ),
+          (0, _preact.h)(
+            'a',
+            { className: 'btn-rounded btn-branded' },
+            (0, _preact.h)(_icon2.default, { type: 'copy' })
+          ),
+          (0, _preact.h)(
+            'div',
+            { className: 'form-group' },
+            (0, _preact.h)('input', { type: 'text', className: 'form-control', value: '05:34', style: 'width: 72px;' })
+          ),
+          (0, _preact.h)(
+            'div',
+            { className: 'checkbox' },
+            (0, _preact.h)(
+              'label',
+              null,
+              (0, _preact.h)('input', { type: 'checkbox', value: '' }),
+              'Start video at'
+            )
           )
         )
+      );
+    }
+  }, {
+    key: 'render',
+    value: function render(props) {
+      return (0, _preact.h)(
+        _overlay2.default,
+        { open: true, onClose: function onClose() {
+            return props.onClose();
+          }, type: 'share' },
+        this.renderMainState(),
+        this.renderLinkOptionsState()
       );
     }
   }]);

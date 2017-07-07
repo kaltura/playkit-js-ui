@@ -2,7 +2,7 @@
   .share-icons {
     margin: 60px 0;
   }
-  .share-btn {
+  .btn-rounded {
     height: 36px;	width: 36px;
     border-radius: 18px;
     background-color: rgba(0,0,0,0.4);
@@ -11,6 +11,14 @@
     transition: transform 100ms;
     will-change: transform;
     padding: 2px;
+    fill: #fff;
+
+    &:first-child { margin-left: 0; }
+    &:last-child { margin-right: 0; }
+
+    &.btn-branded {
+      background-color: $brand-color;
+    }
 
     &.facebook-share-btn {
       background-color: #3B5998;
@@ -27,7 +35,19 @@
   }
 }
 
-.player:not(.touch) .overlay.share-overlay .share-btn:hover {
+.share-main-container {
+  width: 300px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.link-options-container {
+  width: 400px;
+  text-align: left;
+  margin: 0 auto;
+}
+
+.player:not(.touch) .overlay.share-overlay .btn-rounded:hover {
   transform: scale(1.1667);
 }
 
