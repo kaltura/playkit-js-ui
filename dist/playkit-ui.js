@@ -6145,9 +6145,19 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
       this.setState({ state: stateName });
     }
   }, {
+    key: 'copyUrl',
+    value: function copyUrl() {
+      var _this2 = this;
+
+      this.setState({ copySuccess: true });
+      setTimeout(function () {
+        _this2.setState({ copySuccess: false });
+      }, 2000);
+    }
+  }, {
     key: 'renderMainState',
     value: function renderMainState() {
-      var _this2 = this;
+      var _this3 = this;
 
       return (0, _preact.h)(
         'div',
@@ -6207,7 +6217,7 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
           (0, _preact.h)(
             'a',
             { onClick: function onClick() {
-                return _this2.setState({ state: shareOverlayState.LinkOptions });
+                return _this3.setState({ state: shareOverlayState.LinkOptions });
               } },
             (0, _preact.h)(_preactI18n.Text, { id: 'share.link_options' })
           )
@@ -6217,6 +6227,11 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
   }, {
     key: 'renderLinkOptionsState',
     value: function renderLinkOptionsState() {
+      var _this4 = this;
+
+      var copyUrlClasses = 'btn-rounded btn-branded btn-copy-url';
+      copyUrlClasses += this.state.copySuccess ? ' copied' : '';
+
       return (0, _preact.h)(
         'div',
         { className: this.state.state === shareOverlayState.LinkOptions ? 'overlay-screen active' : 'overlay-screen' },
@@ -6239,8 +6254,13 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
             ),
             (0, _preact.h)(
               'a',
-              { className: 'btn-rounded btn-branded btn-copy-url' },
-              (0, _preact.h)(_icon2.default, { type: 'copy' })
+              {
+                className: copyUrlClasses,
+                onClick: function onClick() {
+                  return _this4.copyUrl();
+                } },
+              (0, _preact.h)(_icon2.default, { type: 'copy' }),
+              (0, _preact.h)(_icon2.default, { type: 'check' })
             )
           ),
           (0, _preact.h)(

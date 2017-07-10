@@ -56,7 +56,34 @@
     display: flex;
 
     .input-copy-url { margin: 0; }
-    .btn-copy-url { margin-left: 16px; }
+    .btn-copy-url {
+      margin-left: 16px;
+
+      .icon {
+        will-change: transform;
+        transition: 100ms transform;
+        position: absolute;
+        width: 32px;
+      }
+      .check-icon {
+        transform: scale(0);
+        opacity: 0;
+
+      }
+
+      &.copied {
+        background-color: $success-color;
+
+        .copy-icon {
+          transform: scale(0);
+          opacity: 0;
+        }
+        .check-icon {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+    }
   }
   .video-start-options-row {
     margin-top: 24px;

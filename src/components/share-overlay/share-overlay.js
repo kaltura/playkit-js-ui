@@ -39,6 +39,13 @@ class ShareOverlay extends BaseComponent {
     this.setState({state: stateName});
   }
 
+  copyUrl() {
+    this.setState({copySuccess: true});
+    setTimeout(() => {
+      this.setState({copySuccess: false});
+    }, 2000);
+  }
+
   renderMainState() {
     return (
       <div className={this.state.state === shareOverlayState.Main ? 'overlay-screen active' : 'overlay-screen'}>
@@ -67,6 +74,9 @@ class ShareOverlay extends BaseComponent {
   }
 
   renderLinkOptionsState() {
+    var copyUrlClasses = 'btn-rounded btn-branded btn-copy-url';
+    copyUrlClasses += this.state.copySuccess ? ' copied' : '';
+
     return (
       <div className={this.state.state === shareOverlayState.LinkOptions ? 'overlay-screen active' : 'overlay-screen'}>
         <div className='title'>Link options</div>
@@ -76,8 +86,11 @@ class ShareOverlay extends BaseComponent {
               <input type='text' placeholder='Share URL' className='form-control' value={dummyShareUrl} readOnly />
               <Icon type='link' />
             </div>
-            <a className='btn-rounded btn-branded btn-copy-url'>
+            <a
+              className={copyUrlClasses}
+              onClick={() => this.copyUrl()}>
               <Icon type='copy' />
+              <Icon type='check' />
             </a>
           </div>
           <div className='video-start-options-row'>
