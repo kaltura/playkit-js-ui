@@ -7,12 +7,15 @@ import {createStore} from 'redux';
 import reducer from './store';
 import definition from './fr.json';
 
+// core components for the UI
 import EngineConnector from './components/engine-connector/engine-connector';
 import Shell from './components/shell/shell';
 import PlayerGUI from './player-gui';
 
-import adsUI from './ads-ui';
-import playbackUI from './playback-ui';
+// ui presets
+import adsUI from './ui-presets/ads';
+import playbackUI from './ui-presets/playback';
+import fullscreenUI from './ui-presets/fullscreen';
 
 class UIManager {
   player: any;
@@ -31,20 +34,15 @@ class UIManager {
     const store = createStore(reducer, window.devToolsExtension && window.devToolsExtension({ name: `playkit #${this.config.target}`, instanceId: this.config.target }));
 
     const uis = [
-      {
-        template: props => adsUI(props),
-        condition: state => state.shell.isAd
-      },
-      {
-        template: props => playbackUI(props),
-        condition: state => !state.shell.isAd
-      }
-    ]
+      { template: props => fullscreenUI(props), condition: state => state.fullscreen.fullscreen },
+      { template: props => adsUI(props), condition: state => state.shell.isAd },
+      { template: props => playbackUI(props), condition: state => !state.shell.isAd }
+    ];
 
     let template = (
       <Provider store={store}>
         <IntlProvider definition={definition}>
-          <Shell>
+          <Shell player={this.player}>
             <EngineConnector player={this.player} />
             <PlayerGUI uis={uis} player={this.player} />
           </Shell>
@@ -60,8 +58,6 @@ class UIManager {
     let container = document.getElementById(this.config.targetId);
     render(template, container);
   }
-
-  release(): void { }
 
 }
 

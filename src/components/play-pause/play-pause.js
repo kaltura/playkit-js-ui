@@ -18,6 +18,10 @@ class PlayPauseControl extends BaseComponent {
     super({name: 'PlayPause', player: obj.player});
   }
 
+  componentDidUpdate() {
+    console.log('update');
+  }
+
   togglePlayPause() {
     this.logger.debug('Toggle play');
     if (this.player.paused) {

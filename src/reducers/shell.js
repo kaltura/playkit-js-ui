@@ -5,7 +5,9 @@ export const types = {
   REMOVE_PLAYER_CLASS: 'shell/REMOVE_PLAYER_CLASS',
   UPDATE_IS_MOBILE: 'shell/UPDATE_IS_MOBILE',
   UPDATE_PRE_PLAYBACK: 'shell/UPDATE_PRE_PLAYBACK',
-  UPDATE_IS_AD: 'shell/UPDATE_IS_AD'
+  UPDATE_IS_AD: 'shell/UPDATE_IS_AD',
+  UPDATE_PLAYER_WIDTH: 'shell/UPDATE_PLAYER_WIDTH',
+  UPDATE_DOCUMENT_WIDTH: 'shell/UPDATE_DOCUMENT_WIDTH'
 }
 
 export const initialState = {
@@ -47,6 +49,18 @@ export default (state: Object = initialState, action: Object) => {
         isAd: action.isAd
       }
 
+    case types.UPDATE_PLAYER_WIDTH:
+      return {
+        ...state,
+        playerWidth: action.playerWidth
+      }
+
+    case types.UPDATE_DOCUMENT_WIDTH:
+      return {
+        ...state,
+        documentWidth: action.documentWidth
+      }
+
     default:
       return state;
   }
@@ -57,5 +71,7 @@ export const actions = {
   removePlayerClass: (className: string) => ({ type: types.REMOVE_PLAYER_CLASS, className }),
   updateIsMobile: (isMobile: boolean) => ({ type: types.UPDATE_IS_MOBILE, isMobile }),
   updatePrePlayback: (prePlayback: boolean) => ({ type: types.UPDATE_PRE_PLAYBACK, prePlayback }),
-  updateIsAd: (isAd: boolean) => ({ type: types.UPDATE_IS_AD, isAd })
+  updateIsAd: (isAd: boolean) => ({ type: types.UPDATE_IS_AD, isAd }),
+  updatePlayerWidth: (playerWidth: number) => ({ type: types.UPDATE_PLAYER_WIDTH, playerWidth }),
+  updateDocumentWidth: (documentWidth: number) => ({ type: types.UPDATE_DOCUMENT_WIDTH, documentWidth }),
 }

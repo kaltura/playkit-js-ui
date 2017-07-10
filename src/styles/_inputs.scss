@@ -71,4 +71,21 @@ select {
 
 .checkbox {
   font-size: 15px;
+  position: relative;
+
+  input { display: none; }
+  label:before {
+    height: 16px; width: 16px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 4px;
+    background-color: rgba(0,0,0,0.4);
+    margin-right: 8px;
+    display: inline-block;
+    content: '';
+    vertical-align: middle;
+  }
+  input:checked + label:before {
+    border: 1px solid #fff;
+    background: #fff;
+  }
 }

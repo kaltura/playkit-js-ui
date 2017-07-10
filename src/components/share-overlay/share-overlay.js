@@ -112,7 +112,8 @@ class ShareOverlay extends BaseComponent {
           </div>
           <div className='video-start-options-row'>
             <div className="checkbox d-inline-block">
-              <label><input type='checkbox' value='' />Start video at</label>
+              <input id="test1" type='checkbox' value='' />
+              <label for="test1">Start video at</label>
             </div>
             <div className='form-group d-inline-block'>
               <input

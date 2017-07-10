@@ -4,11 +4,10 @@ import { connect } from 'preact-redux';
 
 const mapStateToProps = state => ({
   state: {
-    shell: state.shell
+    shell: state.shell,
+    fullscreen: state.fullscreen
   }
 });
-
-
 
 @connect(mapStateToProps)
 class PlayerGUI extends Component {
@@ -16,9 +15,14 @@ class PlayerGUI extends Component {
   render(props: any) {
     let uiToRender;
 
-    this.props.uis.forEach(ui => {
-      if (ui.condition(props.state)) uiToRender = ui;
-    });
+    if (this.props.uis.length > 0) {
+      for (let ui of this.props.uis) {
+        if (ui.condition(props.state)) {
+          uiToRender = ui;
+          break;
+        };
+      }
+    }
 
     return uiToRender.template(props);
   }

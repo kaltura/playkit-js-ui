@@ -1946,7 +1946,9 @@ var types = exports.types = {
   REMOVE_PLAYER_CLASS: 'shell/REMOVE_PLAYER_CLASS',
   UPDATE_IS_MOBILE: 'shell/UPDATE_IS_MOBILE',
   UPDATE_PRE_PLAYBACK: 'shell/UPDATE_PRE_PLAYBACK',
-  UPDATE_IS_AD: 'shell/UPDATE_IS_AD'
+  UPDATE_IS_AD: 'shell/UPDATE_IS_AD',
+  UPDATE_PLAYER_WIDTH: 'shell/UPDATE_PLAYER_WIDTH',
+  UPDATE_DOCUMENT_WIDTH: 'shell/UPDATE_DOCUMENT_WIDTH'
 };
 
 var initialState = exports.initialState = {
@@ -1988,6 +1990,16 @@ exports.default = function () {
         isAd: action.isAd
       });
 
+    case types.UPDATE_PLAYER_WIDTH:
+      return _extends({}, state, {
+        playerWidth: action.playerWidth
+      });
+
+    case types.UPDATE_DOCUMENT_WIDTH:
+      return _extends({}, state, {
+        documentWidth: action.documentWidth
+      });
+
     default:
       return state;
   }
@@ -2008,6 +2020,12 @@ var actions = exports.actions = {
   },
   updateIsAd: function updateIsAd(isAd) {
     return { type: types.UPDATE_IS_AD, isAd: isAd };
+  },
+  updatePlayerWidth: function updatePlayerWidth(playerWidth) {
+    return { type: types.UPDATE_PLAYER_WIDTH, playerWidth: playerWidth };
+  },
+  updateDocumentWidth: function updateDocumentWidth(documentWidth) {
+    return { type: types.UPDATE_DOCUMENT_WIDTH, documentWidth: documentWidth };
   }
 };
 
@@ -3738,6 +3756,12 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+// core components for the UI
+
+
+// ui presets
+
+
 var _preact = __webpack_require__(0);
 
 var _preactRedux = __webpack_require__(1);
@@ -3766,13 +3790,17 @@ var _playerGui = __webpack_require__(73);
 
 var _playerGui2 = _interopRequireDefault(_playerGui);
 
-var _adsUi = __webpack_require__(75);
+var _ads = __webpack_require__(76);
 
-var _adsUi2 = _interopRequireDefault(_adsUi);
+var _ads2 = _interopRequireDefault(_ads);
 
-var _playbackUi = __webpack_require__(74);
+var _playback = __webpack_require__(78);
 
-var _playbackUi2 = _interopRequireDefault(_playbackUi);
+var _playback2 = _interopRequireDefault(_playback);
+
+var _fullscreen = __webpack_require__(77);
+
+var _fullscreen2 = _interopRequireDefault(_fullscreen);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3796,21 +3824,19 @@ var UIManager = function () {
     value: function buildDefaultUI() {
       var store = (0, _redux.createStore)(_store2.default, window.devToolsExtension && window.devToolsExtension({ name: 'playkit #' + this.config.target, instanceId: this.config.target }));
 
-      var uis = [{
-        template: function template(props) {
-          return (0, _adsUi2.default)(props);
-        },
-        condition: function condition(state) {
+      var uis = [{ template: function template(props) {
+          return (0, _fullscreen2.default)(props);
+        }, condition: function condition(state) {
+          return state.fullscreen.fullscreen;
+        } }, { template: function template(props) {
+          return (0, _ads2.default)(props);
+        }, condition: function condition(state) {
           return state.shell.isAd;
-        }
-      }, {
-        template: function template(props) {
-          return (0, _playbackUi2.default)(props);
-        },
-        condition: function condition(state) {
+        } }, { template: function template(props) {
+          return (0, _playback2.default)(props);
+        }, condition: function condition(state) {
           return !state.shell.isAd;
-        }
-      }];
+        } }];
 
       var template = (0, _preact.h)(
         _preactRedux.Provider,
@@ -3820,7 +3846,7 @@ var UIManager = function () {
           { definition: _fr2.default },
           (0, _preact.h)(
             _shell2.default,
-            null,
+            { player: this.player },
             (0, _preact.h)(_engineConnector2.default, { player: this.player }),
             (0, _preact.h)(_playerGui2.default, { uis: uis, player: this.player })
           )
@@ -3836,9 +3862,6 @@ var UIManager = function () {
       var container = document.getElementById(this.config.targetId);
       (0, _preact.render)(template, container);
     }
-  }, {
-    key: 'release',
-    value: function release() {}
   }]);
 
   return UIManager;
@@ -5023,17 +5046,19 @@ var mapStateToProps = function mapStateToProps(state) {
     currentState: state.engine.playerState.currentState,
     playerClasses: state.shell.playerClasses,
     isMobile: state.shell.isMobile,
-    isAd: state.shell.isAd
+    isAd: state.shell.isAd,
+    playerWidth: state.shell.playerWidth,
+    playerHeight: state.shell.playerHeight
   };
 };
 
 var Shell = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.bindActions)(_shell.actions)), _dec(_class = function (_BaseComponent) {
   _inherits(Shell, _BaseComponent);
 
-  function Shell() {
+  function Shell(obj) {
     _classCallCheck(this, Shell);
 
-    return _possibleConstructorReturn(this, (Shell.__proto__ || Object.getPrototypeOf(Shell)).call(this, { name: 'Shell' }));
+    return _possibleConstructorReturn(this, (Shell.__proto__ || Object.getPrototypeOf(Shell)).call(this, { name: 'Shell', player: obj.player }));
   }
 
   _createClass(Shell, [{
@@ -5063,7 +5088,17 @@ var Shell = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
+      var _this2 = this;
+
       this.props.updateIsMobile((0, _isMobile.isMobile)());
+      this.props.updateDocumentWidth(document.body.clientWidth);
+      this.player.addEventListener(this.player.Event.LOADED_METADATA, function () {
+        _this2.props.updatePlayerWidth(_this2.player._el.parentElement.clientWidth);
+      });
+      window.addEventListener('resize', function () {
+        _this2.props.updatePlayerWidth(_this2.player._el.parentElement.clientWidth);
+        _this2.props.updateDocumentWidth(document.body.clientWidth);
+      });
       if ((0, _isMobile.isMobile)()) {
         this.props.addPlayerClass('touch');
       }
@@ -5071,7 +5106,7 @@ var Shell = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.
   }, {
     key: 'render',
     value: function render(props) {
-      var _this2 = this;
+      var _this3 = this;
 
       var playerClasses = 'player skin-default';
       playerClasses += ' ' + props.playerClasses.join(' ');
@@ -5084,13 +5119,13 @@ var Shell = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.
         {
           className: playerClasses,
           onMouseOver: function onMouseOver() {
-            return _this2.onMouseOver();
+            return _this3.onMouseOver();
           },
           onMouseMove: function onMouseMove() {
-            return _this2.onMouseMove();
+            return _this3.onMouseMove();
           },
           onMouseLeave: function onMouseLeave() {
-            return _this2.onMouseLeave();
+            return _this3.onMouseLeave();
           }
         },
         props.children
@@ -5440,6 +5475,11 @@ var PlayPauseControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _b
   }
 
   _createClass(PlayPauseControl, [{
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate() {
+      console.log('update');
+    }
+  }, {
     key: 'togglePlayPause',
     value: function togglePlayPause() {
       this.logger.debug('Toggle play');
@@ -7436,7 +7476,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var mapStateToProps = function mapStateToProps(state) {
   return {
     state: {
-      shell: state.shell
+      shell: state.shell,
+      fullscreen: state.fullscreen
     }
   };
 };
@@ -7455,9 +7496,35 @@ var PlayerGUI = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class 
     value: function render(props) {
       var uiToRender = void 0;
 
-      this.props.uis.forEach(function (ui) {
-        if (ui.condition(props.state)) uiToRender = ui;
-      });
+      if (this.props.uis.length > 0) {
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          for (var _iterator = this.props.uis[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var ui = _step.value;
+
+            if (ui.condition(props.state)) {
+              uiToRender = ui;
+              break;
+            };
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator.return) {
+              _iterator.return();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
+      }
 
       return uiToRender.template(props);
     }
@@ -7468,7 +7535,214 @@ var PlayerGUI = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class 
 exports.default = PlayerGUI;
 
 /***/ }),
-/* 74 */
+/* 74 */,
+/* 75 */,
+/* 76 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (props) {
+  return (0, _preact.h)(
+    'div',
+    { className: 'ad-gui-wrapper', style: 'height: 100%' },
+    (0, _preact.h)(_keyboard2.default, { player: props.player }),
+    (0, _preact.h)(_loading2.default, { player: props.player }),
+    (0, _preact.h)(
+      'div',
+      { className: 'player-gui', id: 'player-gui' },
+      (0, _preact.h)(_overlayPlay2.default, { player: props.player }),
+      (0, _preact.h)(
+        _bottomBar2.default,
+        null,
+        (0, _preact.h)(_seekbar2.default, { showFramePreview: true, showTimeBubble: true, player: props.player }),
+        (0, _preact.h)(
+          'div',
+          { className: 'left-controls' },
+          (0, _preact.h)(_timeDisplay2.default, { format: '-left', player: props.player })
+        ),
+        (0, _preact.h)(
+          'div',
+          { className: 'right-controls' },
+          (0, _preact.h)(_volume2.default, { player: props.player }),
+          (0, _preact.h)(_fullscreen2.default, { player: props.player })
+        )
+      )
+    )
+  );
+};
+
+var _preact = __webpack_require__(0);
+
+var _overlayPlay = __webpack_require__(55);
+
+var _overlayPlay2 = _interopRequireDefault(_overlayPlay);
+
+var _loading = __webpack_require__(57);
+
+var _loading2 = _interopRequireDefault(_loading);
+
+var _seekbar = __webpack_require__(59);
+
+var _seekbar2 = _interopRequireDefault(_seekbar);
+
+var _volume = __webpack_require__(60);
+
+var _volume2 = _interopRequireDefault(_volume);
+
+var _fullscreen = __webpack_require__(67);
+
+var _fullscreen2 = _interopRequireDefault(_fullscreen);
+
+var _timeDisplay = __webpack_require__(68);
+
+var _timeDisplay2 = _interopRequireDefault(_timeDisplay);
+
+var _bottomBar = __webpack_require__(70);
+
+var _bottomBar2 = _interopRequireDefault(_bottomBar);
+
+var _keyboard = __webpack_require__(72);
+
+var _keyboard2 = _interopRequireDefault(_keyboard);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+/* 77 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (props) {
+  return (0, _preact.h)(
+    'div',
+    { className: 'fullscreen-gui-wrapper', style: 'height: 100%' },
+    (0, _preact.h)(_keyboard2.default, { player: props.player }),
+    (0, _preact.h)(_loading2.default, { player: props.player }),
+    (0, _preact.h)(
+      'div',
+      { className: 'player-gui', id: 'player-gui' },
+      (0, _preact.h)(_overlayPortal2.default, null),
+      (0, _preact.h)(_overlayPlay2.default, { player: props.player }),
+      (0, _preact.h)(
+        _topBar2.default,
+        null,
+        (0, _preact.h)(
+          'div',
+          { className: 'left-controls' },
+          (0, _preact.h)(
+            'div',
+            { className: 'video-playing-title' },
+            'Fullscreen ui preset'
+          )
+        ),
+        (0, _preact.h)(
+          'div',
+          { className: 'right-controls' },
+          (0, _preact.h)(_share2.default, { player: props.player })
+        )
+      ),
+      (0, _preact.h)(
+        _bottomBar2.default,
+        null,
+        (0, _preact.h)(_seekbar2.default, { showFramePreview: true, showTimeBubble: true, player: props.player }),
+        (0, _preact.h)(
+          'div',
+          { className: 'left-controls' },
+          (0, _preact.h)(_playPause2.default, { player: props.player }),
+          (0, _preact.h)(_timeDisplay2.default, { format: 'current / total', player: props.player })
+        ),
+        (0, _preact.h)(
+          'div',
+          { className: 'right-controls' },
+          (0, _preact.h)(_volume2.default, { player: props.player }),
+          (0, _preact.h)(_language2.default, { player: props.player }),
+          (0, _preact.h)(_settings2.default, { player: props.player }),
+          (0, _preact.h)(_fullscreen2.default, { player: props.player })
+        )
+      )
+    ),
+    (0, _preact.h)(_prePlaybackPlayOverlay2.default, { player: props.player })
+  );
+};
+
+var _preact = __webpack_require__(0);
+
+var _overlayPlay = __webpack_require__(55);
+
+var _overlayPlay2 = _interopRequireDefault(_overlayPlay);
+
+var _prePlaybackPlayOverlay = __webpack_require__(56);
+
+var _prePlaybackPlayOverlay2 = _interopRequireDefault(_prePlaybackPlayOverlay);
+
+var _loading = __webpack_require__(57);
+
+var _loading2 = _interopRequireDefault(_loading);
+
+var _playPause = __webpack_require__(58);
+
+var _playPause2 = _interopRequireDefault(_playPause);
+
+var _seekbar = __webpack_require__(59);
+
+var _seekbar2 = _interopRequireDefault(_seekbar);
+
+var _volume = __webpack_require__(60);
+
+var _volume2 = _interopRequireDefault(_volume);
+
+var _share = __webpack_require__(61);
+
+var _share2 = _interopRequireDefault(_share);
+
+var _settings = __webpack_require__(63);
+
+var _settings2 = _interopRequireDefault(_settings);
+
+var _language = __webpack_require__(65);
+
+var _language2 = _interopRequireDefault(_language);
+
+var _fullscreen = __webpack_require__(67);
+
+var _fullscreen2 = _interopRequireDefault(_fullscreen);
+
+var _timeDisplay = __webpack_require__(68);
+
+var _timeDisplay2 = _interopRequireDefault(_timeDisplay);
+
+var _topBar = __webpack_require__(69);
+
+var _topBar2 = _interopRequireDefault(_topBar);
+
+var _bottomBar = __webpack_require__(70);
+
+var _bottomBar2 = _interopRequireDefault(_bottomBar);
+
+var _overlayPortal = __webpack_require__(71);
+
+var _overlayPortal2 = _interopRequireDefault(_overlayPortal);
+
+var _keyboard = __webpack_require__(72);
+
+var _keyboard2 = _interopRequireDefault(_keyboard);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7588,83 +7862,6 @@ var _bottomBar2 = _interopRequireDefault(_bottomBar);
 var _overlayPortal = __webpack_require__(71);
 
 var _overlayPortal2 = _interopRequireDefault(_overlayPortal);
-
-var _keyboard = __webpack_require__(72);
-
-var _keyboard2 = _interopRequireDefault(_keyboard);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ }),
-/* 75 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-exports.default = function (props) {
-  return (0, _preact.h)(
-    'div',
-    { className: 'ad-gui-wrapper', style: 'height: 100%' },
-    (0, _preact.h)(_keyboard2.default, { player: props.player }),
-    (0, _preact.h)(_loading2.default, { player: props.player }),
-    (0, _preact.h)(
-      'div',
-      { className: 'player-gui', id: 'player-gui' },
-      (0, _preact.h)(_overlayPlay2.default, { player: props.player }),
-      (0, _preact.h)(
-        _bottomBar2.default,
-        null,
-        (0, _preact.h)(_seekbar2.default, { showFramePreview: true, showTimeBubble: true, player: props.player }),
-        (0, _preact.h)(
-          'div',
-          { className: 'left-controls' },
-          (0, _preact.h)(_timeDisplay2.default, { format: '-left', player: props.player })
-        ),
-        (0, _preact.h)(
-          'div',
-          { className: 'right-controls' },
-          (0, _preact.h)(_volume2.default, { player: props.player }),
-          (0, _preact.h)(_fullscreen2.default, { player: props.player })
-        )
-      )
-    )
-  );
-};
-
-var _preact = __webpack_require__(0);
-
-var _overlayPlay = __webpack_require__(55);
-
-var _overlayPlay2 = _interopRequireDefault(_overlayPlay);
-
-var _loading = __webpack_require__(57);
-
-var _loading2 = _interopRequireDefault(_loading);
-
-var _seekbar = __webpack_require__(59);
-
-var _seekbar2 = _interopRequireDefault(_seekbar);
-
-var _volume = __webpack_require__(60);
-
-var _volume2 = _interopRequireDefault(_volume);
-
-var _fullscreen = __webpack_require__(67);
-
-var _fullscreen2 = _interopRequireDefault(_fullscreen);
-
-var _timeDisplay = __webpack_require__(68);
-
-var _timeDisplay2 = _interopRequireDefault(_timeDisplay);
-
-var _bottomBar = __webpack_require__(70);
-
-var _bottomBar2 = _interopRequireDefault(_bottomBar);
 
 var _keyboard = __webpack_require__(72);
 
