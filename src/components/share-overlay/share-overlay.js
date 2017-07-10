@@ -71,18 +71,22 @@ class ShareOverlay extends BaseComponent {
       <div className={this.state.state === shareOverlayState.LinkOptions ? 'overlay-screen active' : 'overlay-screen'}>
         <div className='title'>Link options</div>
         <div className='link-options-container'>
-          <div className='form-group has-icon' style='width: 350px;'>
-            <input type='text' placeholder='Share URL' className='form-control' value={dummyShareUrl} readOnly />
-            <Icon type='link' />
+          <div className='copy-url-row'>
+            <div className='form-group has-icon input-copy-url' style='width: 350px;'>
+              <input type='text' placeholder='Share URL' className='form-control' value={dummyShareUrl} readOnly />
+              <Icon type='link' />
+            </div>
+            <a className='btn-rounded btn-branded btn-copy-url'>
+              <Icon type='copy' />
+            </a>
           </div>
-          <a className='btn-rounded btn-branded'>
-            <Icon type='copy' />
-          </a>
-          <div className="checkbox">
-            <label><input type='checkbox' value='' />Start video at</label>
-          </div>
-          <div className='form-group'>
-            <input type='text' className='form-control' value='05:34' style='width: 72px;' />
+          <div className='video-start-options-row'>
+            <div className="checkbox d-inline-block">
+              <label><input type='checkbox' value='' />Start video at</label>
+            </div>
+            <div className='form-group d-inline-block'>
+              <input type='text' className='form-control' value='05:34' style='width: 72px;' />
+            </div>
           </div>
         </div>
       </div>

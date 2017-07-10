@@ -6230,29 +6230,37 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
           { className: 'link-options-container' },
           (0, _preact.h)(
             'div',
-            { className: 'form-group has-icon', style: 'width: 350px;' },
-            (0, _preact.h)('input', { type: 'text', placeholder: 'Share URL', className: 'form-control', value: dummyShareUrl, readOnly: true }),
-            (0, _preact.h)(_icon2.default, { type: 'link' })
-          ),
-          (0, _preact.h)(
-            'a',
-            { className: 'btn-rounded btn-branded' },
-            (0, _preact.h)(_icon2.default, { type: 'copy' })
-          ),
-          (0, _preact.h)(
-            'div',
-            { className: 'checkbox' },
+            { className: 'copy-url-row' },
             (0, _preact.h)(
-              'label',
-              null,
-              (0, _preact.h)('input', { type: 'checkbox', value: '' }),
-              'Start video at'
+              'div',
+              { className: 'form-group has-icon input-copy-url', style: 'width: 350px;' },
+              (0, _preact.h)('input', { type: 'text', placeholder: 'Share URL', className: 'form-control', value: dummyShareUrl, readOnly: true }),
+              (0, _preact.h)(_icon2.default, { type: 'link' })
+            ),
+            (0, _preact.h)(
+              'a',
+              { className: 'btn-rounded btn-branded btn-copy-url' },
+              (0, _preact.h)(_icon2.default, { type: 'copy' })
             )
           ),
           (0, _preact.h)(
             'div',
-            { className: 'form-group' },
-            (0, _preact.h)('input', { type: 'text', className: 'form-control', value: '05:34', style: 'width: 72px;' })
+            { className: 'video-start-options-row' },
+            (0, _preact.h)(
+              'div',
+              { className: 'checkbox d-inline-block' },
+              (0, _preact.h)(
+                'label',
+                null,
+                (0, _preact.h)('input', { type: 'checkbox', value: '' }),
+                'Start video at'
+              )
+            ),
+            (0, _preact.h)(
+              'div',
+              { className: 'form-group d-inline-block' },
+              (0, _preact.h)('input', { type: 'text', className: 'form-control', value: '05:34', style: 'width: 72px;' })
+            )
           )
         )
       );
