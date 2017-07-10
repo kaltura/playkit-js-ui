@@ -12,6 +12,9 @@
       display: block;
       opacity: 1;
     }
+    .dropdown-button .icon {
+      transform: rotate(180deg);
+    }
   }
 
   .dropdown-button {
@@ -19,7 +22,17 @@
     line-height: 18px;
     color: #fff;
     cursor: pointer;
+
+    .icon {
+      width: 16px;
+      fill: #fff;
+      vertical-align: middle;
+      margin-left: 6px;
+      transition: 150ms transform;
+      will-change: transform;
+    }
   }
+
 }
 .dropdown-menu {
   display: block;

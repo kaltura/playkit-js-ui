@@ -10,7 +10,8 @@ const mapStateToProps = state => ({
   metadataLoaded: state.engine.metadataLoaded,
   currentState: state.engine.playerState.currentState,
   playerClasses: state.shell.playerClasses,
-  isMobile: state.shell.isMobile
+  isMobile: state.shell.isMobile,
+  isAd: state.shell.isAd
 });
 
 @connect(mapStateToProps, bindActions(actions))

@@ -36,7 +36,7 @@ class LanguageControl extends BaseComponent {
     document.addEventListener('click', this.handleClickOutside.bind(this), true);
   }
 
-  componentWillUnMount() {
+  componentWillUnmount() {
     document.removeEventListener('click', this.handleClickOutside.bind(this), true);
   }
 

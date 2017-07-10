@@ -18,10 +18,10 @@ const shareOverlayState: Object = {
   EmbedOptions: 'embed-options'
 };
 
-const dummyShareUrl = 'https://cdnapisec.kaltura.com/index.php?assetId=123456';
-
 @connect(mapStateToProps, bindActions(actions))
 class ShareOverlay extends BaseComponent {
+
+  _shareUrlInput: HTMLInputElement;
 
   constructor() {
     super({name: 'ShareOverlay'});
@@ -32,7 +32,10 @@ class ShareOverlay extends BaseComponent {
   }
 
   componentWillMount() {
-    this.setState({state: shareOverlayState.Main});
+    this.setState({
+      state: shareOverlayState.Main,
+      shareUrl: 'https://cdnapisec.kaltura.com/index.php?assetId=123456'
+    });
   }
 
   transitionToState(stateName: string) {
@@ -40,10 +43,17 @@ class ShareOverlay extends BaseComponent {
   }
 
   copyUrl() {
-    this.setState({copySuccess: true});
-    setTimeout(() => {
-      this.setState({copySuccess: false});
-    }, 2000);
+    try {
+      this._shareUrlInput.select();
+      document.execCommand('copy');
+      this._shareUrlInput.blur();
+
+      this.setState({copySuccess: true});
+      setTimeout(() => this.setState({copySuccess: false}) , 2000);
+
+    } catch(e) {
+
+    }
   }
 
   renderMainState() {
@@ -63,7 +73,7 @@ class ShareOverlay extends BaseComponent {
           </div>
           <div>
             <div className='form-group has-icon'>
-              <input type='text' placeholder='Share URL' className='form-control' value={dummyShareUrl} readOnly />
+              <input type='text' placeholder='Share URL' className='form-control' value={this.state.shareUrl} readOnly />
               <Icon type='link' />
             </div>
           </div>
@@ -83,7 +93,14 @@ class ShareOverlay extends BaseComponent {
         <div className='link-options-container'>
           <div className='copy-url-row'>
             <div className='form-group has-icon input-copy-url' style='width: 350px;'>
-              <input type='text' placeholder='Share URL' className='form-control' value={dummyShareUrl} readOnly />
+              <input
+                type='text'
+                ref={c => this._shareUrlInput=c}
+                placeholder='Share URL'
+                className='form-control'
+                value={this.state.shareUrl}
+                readOnly
+              />
               <Icon type='link' />
             </div>
             <a
@@ -98,7 +115,12 @@ class ShareOverlay extends BaseComponent {
               <label><input type='checkbox' value='' />Start video at</label>
             </div>
             <div className='form-group d-inline-block'>
-              <input type='text' className='form-control' value='05:34' style='width: 72px;' />
+              <input
+                type='text'
+                className='form-control'
+                value='05:34'
+                style='width: 72px;'
+              />
             </div>
           </div>
         </div>

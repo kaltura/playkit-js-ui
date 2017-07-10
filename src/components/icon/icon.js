@@ -174,6 +174,13 @@ class Icon extends Component {
           </svg>
         )
 
+      case 'arrow-down':
+        return (
+          <svg className='icon arrow-down-icon' viewBox='0 0 1024 1024'>
+            <path d="M301.255 338.745c-24.994-24.994-65.516-24.994-90.51 0s-24.994 65.516 0 90.51l256 256c24.994 24.994 65.516 24.994 90.51 0l256-256c24.994-24.994 24.994-65.516 0-90.51s-65.516-24.994-90.51 0l-210.745 210.745-210.745-210.745z"></path>
+          </svg>
+        )
+
       default:
         break;
     }

@@ -31,12 +31,12 @@ class SettingsControl extends BaseComponent {
     document.addEventListener('click', this.handleClickOutside.bind(this), true);
   }
 
-  componentWillUnMount() {
-    document.removeEventListener('click', this.handleClickOutside.bind(this), true);
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleClickOutside.bind(this));
   }
 
   handleClickOutside(e: Event) {
-    if (!this.props.isMobile && !this._controlSettingsElement.contains(event.target) && this.state.smartContainerOpen) {
+    if (!this.props.isMobile && !!this._controlSettingsElement && !this._controlSettingsElement.contains(event.target) && this.state.smartContainerOpen) {
       e.stopPropagation();
       this.setState({smartContainerOpen: false});
     }
