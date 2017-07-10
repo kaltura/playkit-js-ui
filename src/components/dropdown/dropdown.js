@@ -1,6 +1,5 @@
 //@flow
 import { h, Component } from 'preact';
-import Icon from '../icon/icon';
 import Menu from '../menu/menu';
 import { connect } from 'preact-redux';
 

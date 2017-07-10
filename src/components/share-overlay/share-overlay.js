@@ -35,7 +35,7 @@ class ShareOverlay extends BaseComponent {
     this.setState({state: shareOverlayState.Main});
   }
 
-  transitionToState(stateName) {
+  transitionToState(stateName: string) {
     this.setState({state: stateName});
   }
 

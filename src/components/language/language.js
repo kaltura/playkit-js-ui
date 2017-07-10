@@ -40,7 +40,7 @@ class LanguageControl extends BaseComponent {
     document.removeEventListener('click', this.handleClickOutside.bind(this), true);
   }
 
-  handleClickOutside(e) {
+  handleClickOutside(e: Event) {
     if (this._controlLanguageElement && !this.props.isMobile && !this._controlLanguageElement.contains(event.target) && this.state.smartContainerOpen && !this.state.cvaaOverlay) {
       e.stopPropagation();
       this.setState({smartContainerOpen: false});
@@ -63,7 +63,7 @@ class LanguageControl extends BaseComponent {
     this.setState({ cvaaOverlay: !this.state.cvaaOverlay });
   }
 
-  renderAudioSettingsOnly(audioOptions) {
+  renderAudioSettingsOnly(audioOptions: Array<Object>) {
     return (
       <div className='control-button-container control-audio'>
         <button
@@ -79,7 +79,7 @@ class LanguageControl extends BaseComponent {
     )
   }
 
-  renderTextSettingsOnly(textOptions) {
+  renderTextSettingsOnly(textOptions: Array<Object>) {
     return (
       <div className='control-button-container control-audio'>
         <button
@@ -95,7 +95,7 @@ class LanguageControl extends BaseComponent {
     )
   }
 
-  renderAll(audioOptions, textOptions) {
+  renderAll(audioOptions: Array<Object>, textOptions: Array<Object>) {
     return (
       <div
         ref={c => this._controlLanguageElement=c}

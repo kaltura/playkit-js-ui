@@ -35,7 +35,7 @@ class SettingsControl extends BaseComponent {
     document.removeEventListener('click', this.handleClickOutside.bind(this), true);
   }
 
-  handleClickOutside(e) {
+  handleClickOutside(e: Event) {
     if (!this.props.isMobile && !this._controlSettingsElement.contains(event.target) && this.state.smartContainerOpen) {
       e.stopPropagation();
       this.setState({smartContainerOpen: false});
