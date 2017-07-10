@@ -2,7 +2,7 @@
 import {h, render} from 'preact';
 import {Provider} from 'preact-redux';
 import {IntlProvider} from 'preact-i18n';
-import { createStore } from 'redux';
+import {createStore} from 'redux';
 
 import reducer from './store';
 import definition from './fr.json';
@@ -10,6 +10,9 @@ import definition from './fr.json';
 import EngineConnector from './components/engine-connector/engine-connector';
 import Shell from './components/shell/shell';
 import PlayerGUI from './player-gui';
+
+import adsUI from './ads-ui';
+import playbackUI from './playback-ui';
 
 class UIManager {
   player: any;
@@ -27,13 +30,23 @@ class UIManager {
   buildDefaultUI(): void {
     const store = createStore(reducer, window.devToolsExtension && window.devToolsExtension({ name: `playkit #${this.config.target}`, instanceId: this.config.target }));
 
+    const uis = [
+      {
+        template: props => adsUI(props),
+        condition: state => state.shell.isAd
+      },
+      {
+        template: props => playbackUI(props),
+        condition: state => !state.shell.isAd
+      }
+    ]
+
     let template = (
       <Provider store={store}>
         <IntlProvider definition={definition}>
           <Shell>
-            <div className='player-holder' />
             <EngineConnector player={this.player} />
-            <PlayerGUI player={this.player} />
+            <PlayerGUI uis={uis} player={this.player} />
           </Shell>
         </IntlProvider>
       </Provider>

@@ -1951,7 +1951,8 @@ var types = exports.types = {
 
 var initialState = exports.initialState = {
   playerClasses: [],
-  prePlayback: true
+  prePlayback: true,
+  is_ad: true
 };
 
 exports.default = function () {
@@ -3765,6 +3766,14 @@ var _playerGui = __webpack_require__(73);
 
 var _playerGui2 = _interopRequireDefault(_playerGui);
 
+var _adsUi = __webpack_require__(75);
+
+var _adsUi2 = _interopRequireDefault(_adsUi);
+
+var _playbackUi = __webpack_require__(74);
+
+var _playbackUi2 = _interopRequireDefault(_playbackUi);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -3787,6 +3796,22 @@ var UIManager = function () {
     value: function buildDefaultUI() {
       var store = (0, _redux.createStore)(_store2.default, window.devToolsExtension && window.devToolsExtension({ name: 'playkit #' + this.config.target, instanceId: this.config.target }));
 
+      var uis = [{
+        template: function template(props) {
+          return (0, _adsUi2.default)(props);
+        },
+        condition: function condition(state) {
+          return state.shell.isAd;
+        }
+      }, {
+        template: function template(props) {
+          return (0, _playbackUi2.default)(props);
+        },
+        condition: function condition(state) {
+          return !state.shell.isAd;
+        }
+      }];
+
       var template = (0, _preact.h)(
         _preactRedux.Provider,
         { store: store },
@@ -3796,9 +3821,8 @@ var UIManager = function () {
           (0, _preact.h)(
             _shell2.default,
             null,
-            (0, _preact.h)('div', { className: 'player-holder' }),
             (0, _preact.h)(_engineConnector2.default, { player: this.player }),
-            (0, _preact.h)(_playerGui2.default, { player: this.player })
+            (0, _preact.h)(_playerGui2.default, { uis: uis, player: this.player })
           )
         )
       );
@@ -6205,10 +6229,10 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
             (0, _preact.h)(
               'div',
               { className: 'checkbox d-inline-block' },
+              (0, _preact.h)('input', { id: 'test1', type: 'checkbox', value: '' }),
               (0, _preact.h)(
                 'label',
-                null,
-                (0, _preact.h)('input', { type: 'checkbox', value: '' }),
+                { 'for': 'test1' },
                 'Start video at'
               )
             ),
@@ -7403,6 +7427,112 @@ var _preact = __webpack_require__(0);
 
 var _preactRedux = __webpack_require__(1);
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    state: {
+      shell: state.shell
+    }
+  };
+};
+
+var PlayerGUI = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = function (_Component) {
+  _inherits(PlayerGUI, _Component);
+
+  function PlayerGUI() {
+    _classCallCheck(this, PlayerGUI);
+
+    return _possibleConstructorReturn(this, (PlayerGUI.__proto__ || Object.getPrototypeOf(PlayerGUI)).apply(this, arguments));
+  }
+
+  _createClass(PlayerGUI, [{
+    key: 'render',
+    value: function render(props) {
+      var uiToRender = void 0;
+
+      this.props.uis.forEach(function (ui) {
+        if (ui.condition(props.state)) uiToRender = ui;
+      });
+
+      return uiToRender.template(props);
+    }
+  }]);
+
+  return PlayerGUI;
+}(_preact.Component)) || _class);
+exports.default = PlayerGUI;
+
+/***/ }),
+/* 74 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (props) {
+  return (0, _preact.h)(
+    'div',
+    { className: 'playback-gui-wrapper', style: 'height: 100%' },
+    (0, _preact.h)(_keyboard2.default, { player: props.player }),
+    (0, _preact.h)(_loading2.default, { player: props.player }),
+    (0, _preact.h)(
+      'div',
+      { className: 'player-gui', id: 'player-gui' },
+      (0, _preact.h)(_overlayPortal2.default, null),
+      (0, _preact.h)(_overlayPlay2.default, { player: props.player }),
+      (0, _preact.h)(
+        _topBar2.default,
+        null,
+        (0, _preact.h)(
+          'div',
+          { className: 'left-controls' },
+          (0, _preact.h)(
+            'div',
+            { className: 'video-playing-title' },
+            'L21 Earth Time Lapse View from Space, ISS'
+          )
+        ),
+        (0, _preact.h)(
+          'div',
+          { className: 'right-controls' },
+          (0, _preact.h)(_share2.default, { player: props.player })
+        )
+      ),
+      (0, _preact.h)(
+        _bottomBar2.default,
+        null,
+        (0, _preact.h)(_seekbar2.default, { showFramePreview: true, showTimeBubble: true, player: props.player }),
+        (0, _preact.h)(
+          'div',
+          { className: 'left-controls' },
+          (0, _preact.h)(_playPause2.default, { player: props.player }),
+          (0, _preact.h)(_timeDisplay2.default, { format: 'current / total', player: props.player })
+        ),
+        (0, _preact.h)(
+          'div',
+          { className: 'right-controls' },
+          (0, _preact.h)(_volume2.default, { player: props.player }),
+          (0, _preact.h)(_language2.default, { player: props.player }),
+          (0, _preact.h)(_settings2.default, { player: props.player }),
+          (0, _preact.h)(_fullscreen2.default, { player: props.player })
+        )
+      )
+    ),
+    (0, _preact.h)(_prePlaybackPlayOverlay2.default, { player: props.player })
+  );
+};
+
+var _preact = __webpack_require__(0);
+
 var _overlayPlay = __webpack_require__(55);
 
 var _overlayPlay2 = _interopRequireDefault(_overlayPlay);
@@ -7465,123 +7595,82 @@ var _keyboard2 = _interopRequireDefault(_keyboard);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+/***/ }),
+/* 75 */
+/***/ (function(module, exports, __webpack_require__) {
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+"use strict";
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var mapStateToProps = function mapStateToProps(state) {
-  return {
-    isAd: state.shell.isAd
-  };
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (props) {
+  return (0, _preact.h)(
+    'div',
+    { className: 'ad-gui-wrapper', style: 'height: 100%' },
+    (0, _preact.h)(_keyboard2.default, { player: props.player }),
+    (0, _preact.h)(_loading2.default, { player: props.player }),
+    (0, _preact.h)(
+      'div',
+      { className: 'player-gui', id: 'player-gui' },
+      (0, _preact.h)(_overlayPlay2.default, { player: props.player }),
+      (0, _preact.h)(
+        _bottomBar2.default,
+        null,
+        (0, _preact.h)(_seekbar2.default, { showFramePreview: true, showTimeBubble: true, player: props.player }),
+        (0, _preact.h)(
+          'div',
+          { className: 'left-controls' },
+          (0, _preact.h)(_timeDisplay2.default, { format: '-left', player: props.player })
+        ),
+        (0, _preact.h)(
+          'div',
+          { className: 'right-controls' },
+          (0, _preact.h)(_volume2.default, { player: props.player }),
+          (0, _preact.h)(_fullscreen2.default, { player: props.player })
+        )
+      )
+    )
+  );
 };
 
-var PlayerGUI = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = function (_Component) {
-  _inherits(PlayerGUI, _Component);
+var _preact = __webpack_require__(0);
 
-  function PlayerGUI() {
-    _classCallCheck(this, PlayerGUI);
+var _overlayPlay = __webpack_require__(55);
 
-    return _possibleConstructorReturn(this, (PlayerGUI.__proto__ || Object.getPrototypeOf(PlayerGUI)).apply(this, arguments));
-  }
+var _overlayPlay2 = _interopRequireDefault(_overlayPlay);
 
-  _createClass(PlayerGUI, [{
-    key: 'renderPlaybackUI',
-    value: function renderPlaybackUI(props) {
-      return (0, _preact.h)(
-        'div',
-        { className: 'playback-gui-wrapper', style: 'height: 100%' },
-        (0, _preact.h)(_keyboard2.default, { player: props.player }),
-        (0, _preact.h)(_loading2.default, { player: props.player }),
-        (0, _preact.h)(
-          'div',
-          { className: 'player-gui', id: 'player-gui' },
-          (0, _preact.h)(_overlayPortal2.default, null),
-          (0, _preact.h)(_overlayPlay2.default, { player: props.player }),
-          (0, _preact.h)(
-            _topBar2.default,
-            null,
-            (0, _preact.h)(
-              'div',
-              { className: 'left-controls' },
-              (0, _preact.h)(
-                'div',
-                { className: 'video-playing-title' },
-                'L21 Earth Time Lapse View from Space, ISS'
-              )
-            ),
-            (0, _preact.h)(
-              'div',
-              { className: 'right-controls' },
-              (0, _preact.h)(_share2.default, { player: props.player })
-            )
-          ),
-          (0, _preact.h)(
-            _bottomBar2.default,
-            null,
-            (0, _preact.h)(_seekbar2.default, { showFramePreview: true, showTimeBubble: true, player: props.player }),
-            (0, _preact.h)(
-              'div',
-              { className: 'left-controls' },
-              (0, _preact.h)(_playPause2.default, { player: props.player }),
-              (0, _preact.h)(_timeDisplay2.default, { format: 'current / total', player: props.player })
-            ),
-            (0, _preact.h)(
-              'div',
-              { className: 'right-controls' },
-              (0, _preact.h)(_volume2.default, { player: props.player }),
-              (0, _preact.h)(_language2.default, { player: props.player }),
-              (0, _preact.h)(_settings2.default, { player: props.player }),
-              (0, _preact.h)(_fullscreen2.default, { player: props.player })
-            )
-          )
-        ),
-        (0, _preact.h)(_prePlaybackPlayOverlay2.default, { player: props.player })
-      );
-    }
-  }, {
-    key: 'renderAdsUI',
-    value: function renderAdsUI(props) {
-      return (0, _preact.h)(
-        'div',
-        { className: 'ad-gui-wrapper', style: 'height: 100%' },
-        (0, _preact.h)(_keyboard2.default, { player: props.player }),
-        (0, _preact.h)(_loading2.default, { player: props.player }),
-        (0, _preact.h)(
-          'div',
-          { className: 'player-gui', id: 'player-gui' },
-          (0, _preact.h)(_overlayPortal2.default, null),
-          (0, _preact.h)(_overlayPlay2.default, { player: props.player }),
-          (0, _preact.h)(
-            _bottomBar2.default,
-            null,
-            (0, _preact.h)(_seekbar2.default, { showFramePreview: true, showTimeBubble: true, player: props.player }),
-            (0, _preact.h)(
-              'div',
-              { className: 'left-controls' },
-              (0, _preact.h)(_timeDisplay2.default, { format: '-left', player: props.player })
-            ),
-            (0, _preact.h)(
-              'div',
-              { className: 'right-controls' },
-              (0, _preact.h)(_volume2.default, { player: props.player }),
-              (0, _preact.h)(_fullscreen2.default, { player: props.player })
-            )
-          )
-        )
-      );
-    }
-  }, {
-    key: 'render',
-    value: function render(props) {
-      return this.props.isAd ? this.renderAdsUI(props) : this.renderPlaybackUI(props);
-    }
-  }]);
+var _loading = __webpack_require__(57);
 
-  return PlayerGUI;
-}(_preact.Component)) || _class);
-exports.default = PlayerGUI;
+var _loading2 = _interopRequireDefault(_loading);
+
+var _seekbar = __webpack_require__(59);
+
+var _seekbar2 = _interopRequireDefault(_seekbar);
+
+var _volume = __webpack_require__(60);
+
+var _volume2 = _interopRequireDefault(_volume);
+
+var _fullscreen = __webpack_require__(67);
+
+var _fullscreen2 = _interopRequireDefault(_fullscreen);
+
+var _timeDisplay = __webpack_require__(68);
+
+var _timeDisplay2 = _interopRequireDefault(_timeDisplay);
+
+var _bottomBar = __webpack_require__(70);
+
+var _bottomBar2 = _interopRequireDefault(_bottomBar);
+
+var _keyboard = __webpack_require__(72);
+
+var _keyboard2 = _interopRequireDefault(_keyboard);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ })
 /******/ ]);

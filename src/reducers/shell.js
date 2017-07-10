@@ -10,7 +10,8 @@ export const types = {
 
 export const initialState = {
   playerClasses: [],
-  prePlayback: true
+  prePlayback: true,
+  is_ad: true
 };
 
 export default (state: Object = initialState, action: Object) => {
