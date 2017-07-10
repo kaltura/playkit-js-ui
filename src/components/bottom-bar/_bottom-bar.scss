@@ -5,10 +5,15 @@
     opacity: 0;
     transition: 100ms opacity;
     width: 100%;
+    margin-top: auto;
 
     .left-controls {
         float: left;
         text-align: left;
+
+        &:first-child {
+          margin-left: 0px;
+        }
     }
     .right-controls {
         float: right;

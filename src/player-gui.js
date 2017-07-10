@@ -26,7 +26,7 @@ const mapStateToProps = state => ({
 class PlayerGUI extends Component {
   renderPlaybackUI(props: any) {
     return (
-      <div style='height: 100%'>
+      <div className='playback-gui-wrapper' style='height: 100%'>
         <KeyboardControl player={props.player} />
         <Loading player={props.player} />
         <div className='player-gui' id='player-gui'>
@@ -60,7 +60,7 @@ class PlayerGUI extends Component {
   }
   renderAdsUI(props: any) {
     return (
-      <div style='height: 100%'>
+      <div className='ad-gui-wrapper' style='height: 100%'>
         <KeyboardControl player={props.player} />
         <Loading player={props.player} />
         <div className='player-gui' id='player-gui'>

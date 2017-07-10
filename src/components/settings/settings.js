@@ -60,7 +60,11 @@ class SettingsControl extends BaseComponent {
       { value: 2, label: '240' },
       { value: 3, label: '144' }
     ];
-    var qualityOptions = props.videoTracks.map(t => ({ label: t.label || t.language || t.bandwidth, active: t.active, value: t }));
+    var qualityOptions = props.videoTracks.map(t => ({
+      label: t.label || (t.bandwidth / 1000).toFixed(0) + 'p',
+      active: t.active,
+      value: t
+    }));
     return (
       <div
         ref={c => this._controlSettingsElement=c}
