@@ -9,6 +9,7 @@ import SmartContainer from '../smart-container/smart-container';
 import SmartContainerItem from '../smart-container/smart-container-item';
 import Icon from '../icon/icon';
 import CVAAOverlay from '../cvaa-overlay/cvaa-overlay';
+import Menu from '../menu/menu';
 import Portal from 'preact-portal';
 
 const mapStateToProps = state => ({
@@ -40,7 +41,7 @@ class LanguageControl extends BaseComponent {
   }
 
   handleClickOutside(e) {
-    if (!this.props.isMobile && !this._controlLanguageElement.contains(event.target) && this.state.smartContainerOpen && !this.state.cvaaOverlay) {
+    if (this._controlLanguageElement && !this.props.isMobile && !this._controlLanguageElement.contains(event.target) && this.state.smartContainerOpen && !this.state.cvaaOverlay) {
       e.stopPropagation();
       this.setState({smartContainerOpen: false});
     }
@@ -62,40 +63,76 @@ class LanguageControl extends BaseComponent {
     this.setState({ cvaaOverlay: !this.state.cvaaOverlay });
   }
 
-  render(props: any) {
-    var audioOptions = props.audioTracks.map(t => ({ label: t.label || t.language, active: t.active, value: t }));
-    var textOptions = props.textTracks.filter(t => t.kind === 'subtitles').map(t => ({ label: t.label || t.language, active: t.active, value: t }));
+  renderAudioSettingsOnly(audioOptions) {
+    return (
+      <div className='control-button-container control-audio'>
+        <button
+          className={this.state.smartContainerOpen ? 'control-button active' : 'control-button'}
+          onClick={() => this.onControlButtonClick()}
+        >
+          <Icon type='audio' />
+        </button>
+        { !this.state.smartContainerOpen? undefined :
+        <Menu options={audioOptions} onSelect={(o) => this.onAudioChange(o)} />
+        }
+      </div>
+    )
+  }
 
-    return props.audioTracks.length === 0 && props.audioTracks.length === 0 ? undefined : (
+  renderTextSettingsOnly(textOptions) {
+    return (
+      <div className='control-button-container control-audio'>
+        <button
+          className={this.state.smartContainerOpen ? 'control-button active' : 'control-button'}
+          onClick={() => this.onControlButtonClick()}
+        >
+          <Icon type='captions' />
+        </button>
+        { !this.state.smartContainerOpen ? undefined :
+        <Menu options={textOptions} onSelect={(o) => this.onCaptionsChange(o)} />
+        }
+      </div>
+    )
+  }
+
+  renderAll(audioOptions, textOptions) {
+    return (
       <div
         ref={c => this._controlLanguageElement=c}
         className='control-button-container control-language'
       >
         <Localizer>
-          <button aria-label={<Text id='controls.language' />} className={this.state.smartContainerOpen ? 'control-button active' : 'control-button'} onClick={() => this.onControlButtonClick()}>
+          <button
+            aria-label={<Text id='controls.language' />}
+            className={this.state.smartContainerOpen ? 'control-button active' : 'control-button'}
+            onClick={() => this.onControlButtonClick()}
+          >
             <Icon type='language' />
           </button>
         </Localizer>
         { !this.state.smartContainerOpen || this.state.cvaaOverlay ? undefined :
         <SmartContainer title='Language' onClose={() => this.onControlButtonClick()}>
-          {
-            props.audioTracks.length <= 0 ? '' :
-            <Localizer>
-              <SmartContainerItem icon='audio' label={<Text id='language.audio' />} options={audioOptions} onSelect={audioTrack => this.onAudioChange(audioTrack)} />
-            </Localizer>
-          }
-          {
-            props.textTracks.length <= 0 ? '' :
-            <Localizer>
-              <SmartContainerItem icon='captions' label={<Text id='language.captions' />} options={textOptions} onSelect={textTrack => this.onCaptionsChange(textTrack)} />
-            </Localizer>
-          }
-          {
-            props.textTracks.length <= 0 ? '' :
-            <div className='smart-container-item'>
-              <a onClick={() => this.toggleCVAAOverlay()}><Text id='language.advanced_captions_settings'>Advanced captions settings</Text></a>
-            </div>
-          }
+          <Localizer>
+            <SmartContainerItem
+              icon='audio'
+              label={<Text id='language.audio' />}
+              options={audioOptions}
+              onSelect={audioTrack => this.onAudioChange(audioTrack)}
+            />
+          </Localizer>
+          <Localizer>
+            <SmartContainerItem
+              icon='captions'
+              label={<Text id='language.captions' />}
+              options={textOptions}
+              onSelect={textTrack => this.onCaptionsChange(textTrack)}
+            />
+          </Localizer>
+          <div className='smart-container-item'>
+            <a onClick={() => this.toggleCVAAOverlay()}>
+              <Text id='language.advanced_captions_settings' />
+            </a>
+          </div>
         </SmartContainer>
         }
         { this.state.cvaaOverlay ? (
@@ -105,6 +142,24 @@ class LanguageControl extends BaseComponent {
         ): null }
       </div>
     )
+  }
+
+  render(props: any) {
+    var audioOptions = props.audioTracks.map(t => ({ label: t.label || t.language, active: t.active, value: t }));
+    var textOptions = props.textTracks.filter(t => t.kind === 'subtitles').map(t => ({ label: t.label || t.language, active: t.active, value: t }));
+
+    if (audioOptions.length > 0 && textOptions.length > 0) {
+      return this.renderAll(audioOptions, textOptions);
+    }
+    else if (audioOptions.length > 0 && textOptions.length === 0) {
+      return this.renderAudioSettingsOnly(audioOptions);
+    }
+    else if (audioOptions.length === 0 && textOptions.length > 0) {
+      return this.renderTextSettingsOnly(textOptions);
+    }
+    else {
+      return undefined;
+    }
   }
 }
 

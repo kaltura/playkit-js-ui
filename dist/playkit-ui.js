@@ -3287,7 +3287,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 function isMobile() {
-  return typeof window.orientation !== "undefined" || navigator.userAgent.indexOf("IEMobile") !== -1;
+  return true;
+  // return typeof window.orientation !== "undefined" || navigator.userAgent.indexOf("IEMobile") !== -1;
 }
 
 exports.isMobile = isMobile;
@@ -3411,9 +3412,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _preact = __webpack_require__(0);
 
-var _dropdownMenu = __webpack_require__(62);
+var _dropdown = __webpack_require__(72);
 
-var _dropdownMenu2 = _interopRequireDefault(_dropdownMenu);
+var _dropdown2 = _interopRequireDefault(_dropdown);
 
 var _icon = __webpack_require__(4);
 
@@ -3452,7 +3453,7 @@ var SmartContainer = function (_Component) {
           ) : undefined,
           props.label
         ),
-        (0, _preact.h)(_dropdownMenu2.default, { onSelect: function onSelect(o) {
+        (0, _preact.h)(_dropdown2.default, { onSelect: function onSelect(o) {
             return props.onSelect(o);
           }, options: props.options })
       );
@@ -6102,146 +6103,7 @@ return Portal;
 
 
 /***/ }),
-/* 62 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _dec, _class;
-
-var _preact = __webpack_require__(0);
-
-var _icon = __webpack_require__(4);
-
-var _icon2 = _interopRequireDefault(_icon);
-
-var _preactRedux = __webpack_require__(1);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var mapStateToProps = function mapStateToProps(state) {
-  return {
-    isMobile: state.shell.isMobile
-  };
-};
-
-var DropDownMenu = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = function (_Component) {
-  _inherits(DropDownMenu, _Component);
-
-  function DropDownMenu() {
-    _classCallCheck(this, DropDownMenu);
-
-    return _possibleConstructorReturn(this, (DropDownMenu.__proto__ || Object.getPrototypeOf(DropDownMenu)).apply(this, arguments));
-  }
-
-  _createClass(DropDownMenu, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
-      this.setState({ dropMenuActive: false });
-    }
-  }, {
-    key: 'isSelected',
-    value: function isSelected(o) {
-      return o.active;
-    }
-  }, {
-    key: 'onSelect',
-    value: function onSelect(o) {
-      this.props.onSelect(o.value);
-      this.setState({ dropMenuActive: false });
-
-      // Instant select
-      this.props.options.filter(function (t) {
-        return t.active;
-      }).forEach(function (option) {
-        option.active = false;
-      });
-      this.props.options.filter(function (t) {
-        return t.value === o.value;
-      })[0].active = true;
-    }
-  }, {
-    key: 'getActiveOptionLabel',
-    value: function getActiveOptionLabel() {
-      var activeOptions = this.props.options.filter(function (t) {
-        return t.active;
-      });
-      return activeOptions.length > 0 ? activeOptions[0].label : this.props.options[0].label;
-    }
-  }, {
-    key: 'renderNativeSelect',
-    value: function renderNativeSelect() {
-      var _this2 = this;
-
-      return (0, _preact.h)(
-        'select',
-        { onChange: function onChange(e) {
-            return _this2.onSelect(_this2.props.options[e.target.value]);
-          } },
-        this.props.options.map(function (o, index) {
-          return (0, _preact.h)(
-            'option',
-            { selected: _this2.isSelected(o), value: index, key: index },
-            o.label
-          );
-        })
-      );
-    }
-  }, {
-    key: 'render',
-    value: function render(props) {
-      var _this3 = this;
-
-      return props.isMobile ? this.renderNativeSelect() : (0, _preact.h)(
-        'div',
-        { className: 'dropdown top left' },
-        (0, _preact.h)(
-          'div',
-          { className: 'dropdown-button', onClick: function onClick() {
-              return _this3.setState({ dropMenuActive: !_this3.state.dropMenuActive });
-            } },
-          this.getActiveOptionLabel()
-        ),
-        !this.state.dropMenuActive ? '' : (0, _preact.h)(
-          'div',
-          { className: 'dropdown-menu' },
-          props.options.map(function (o, index) {
-            return (0, _preact.h)(
-              'div',
-              { key: index, className: _this3.isSelected(o) ? 'dropdown-menu-item active' : 'dropdown-menu-item', onClick: function onClick() {
-                  return _this3.onSelect(o);
-                } },
-              (0, _preact.h)(
-                'span',
-                null,
-                o.label
-              ),
-              _this3.isSelected(o) ? (0, _preact.h)(_icon2.default, { type: 'check' }) : ''
-            );
-          })
-        )
-      );
-    }
-  }]);
-
-  return DropDownMenu;
-}(_preact.Component)) || _class);
-exports.default = DropDownMenu;
-
-/***/ }),
+/* 62 */,
 /* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6285,6 +6147,10 @@ var _icon2 = _interopRequireDefault(_icon);
 var _cvaaOverlay = __webpack_require__(69);
 
 var _cvaaOverlay2 = _interopRequireDefault(_cvaaOverlay);
+
+var _menu = __webpack_require__(73);
+
+var _menu2 = _interopRequireDefault(_menu);
 
 var _preactPortal = __webpack_require__(61);
 
@@ -6334,7 +6200,7 @@ var LanguageControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
   }, {
     key: 'handleClickOutside',
     value: function handleClickOutside(e) {
-      if (!this.props.isMobile && !this._controlLanguageElement.contains(event.target) && this.state.smartContainerOpen && !this.state.cvaaOverlay) {
+      if (this._controlLanguageElement && !this.props.isMobile && !this._controlLanguageElement.contains(event.target) && this.state.smartContainerOpen && !this.state.cvaaOverlay) {
         e.stopPropagation();
         this.setState({ smartContainerOpen: false });
       }
@@ -6360,10 +6226,132 @@ var LanguageControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
       this.setState({ cvaaOverlay: !this.state.cvaaOverlay });
     }
   }, {
-    key: 'render',
-    value: function render(props) {
+    key: 'renderAudioSettingsOnly',
+    value: function renderAudioSettingsOnly(audioOptions) {
       var _this2 = this;
 
+      return (0, _preact.h)(
+        'div',
+        { className: 'control-button-container control-audio' },
+        (0, _preact.h)(
+          'button',
+          {
+            className: this.state.smartContainerOpen ? 'control-button active' : 'control-button',
+            onClick: function onClick() {
+              return _this2.onControlButtonClick();
+            }
+          },
+          (0, _preact.h)(_icon2.default, { type: 'audio' })
+        ),
+        !this.state.smartContainerOpen ? undefined : (0, _preact.h)(_menu2.default, { options: audioOptions, onSelect: function onSelect(o) {
+            return _this2.onAudioChange(o);
+          } })
+      );
+    }
+  }, {
+    key: 'renderTextSettingsOnly',
+    value: function renderTextSettingsOnly(textOptions) {
+      var _this3 = this;
+
+      return (0, _preact.h)(
+        'div',
+        { className: 'control-button-container control-audio' },
+        (0, _preact.h)(
+          'button',
+          {
+            className: this.state.smartContainerOpen ? 'control-button active' : 'control-button',
+            onClick: function onClick() {
+              return _this3.onControlButtonClick();
+            }
+          },
+          (0, _preact.h)(_icon2.default, { type: 'captions' })
+        ),
+        !this.state.smartContainerOpen ? undefined : (0, _preact.h)(_menu2.default, { options: textOptions, onSelect: function onSelect(o) {
+            return _this3.onCaptionsChange(o);
+          } })
+      );
+    }
+  }, {
+    key: 'renderAll',
+    value: function renderAll(audioOptions, textOptions) {
+      var _this4 = this;
+
+      return (0, _preact.h)(
+        'div',
+        {
+          ref: function ref(c) {
+            return _this4._controlLanguageElement = c;
+          },
+          className: 'control-button-container control-language'
+        },
+        (0, _preact.h)(
+          _preactI18n.Localizer,
+          null,
+          (0, _preact.h)(
+            'button',
+            {
+              'aria-label': (0, _preact.h)(_preactI18n.Text, { id: 'controls.language' }),
+              className: this.state.smartContainerOpen ? 'control-button active' : 'control-button',
+              onClick: function onClick() {
+                return _this4.onControlButtonClick();
+              }
+            },
+            (0, _preact.h)(_icon2.default, { type: 'language' })
+          )
+        ),
+        !this.state.smartContainerOpen || this.state.cvaaOverlay ? undefined : (0, _preact.h)(
+          _smartContainer2.default,
+          { title: 'Language', onClose: function onClose() {
+              return _this4.onControlButtonClick();
+            } },
+          (0, _preact.h)(
+            _preactI18n.Localizer,
+            null,
+            (0, _preact.h)(_smartContainerItem2.default, {
+              icon: 'audio',
+              label: (0, _preact.h)(_preactI18n.Text, { id: 'language.audio' }),
+              options: audioOptions,
+              onSelect: function onSelect(audioTrack) {
+                return _this4.onAudioChange(audioTrack);
+              }
+            })
+          ),
+          (0, _preact.h)(
+            _preactI18n.Localizer,
+            null,
+            (0, _preact.h)(_smartContainerItem2.default, {
+              icon: 'captions',
+              label: (0, _preact.h)(_preactI18n.Text, { id: 'language.captions' }),
+              options: textOptions,
+              onSelect: function onSelect(textTrack) {
+                return _this4.onCaptionsChange(textTrack);
+              }
+            })
+          ),
+          (0, _preact.h)(
+            'div',
+            { className: 'smart-container-item' },
+            (0, _preact.h)(
+              'a',
+              { onClick: function onClick() {
+                  return _this4.toggleCVAAOverlay();
+                } },
+              (0, _preact.h)(_preactI18n.Text, { id: 'language.advanced_captions_settings' })
+            )
+          )
+        ),
+        this.state.cvaaOverlay ? (0, _preact.h)(
+          _preactPortal2.default,
+          { into: '#overlay-portal' },
+          (0, _preact.h)(_cvaaOverlay2.default, { onClose: function onClose() {
+              return _this4.toggleCVAAOverlay();
+            } })
+        ) : null
+      );
+    }
+  }, {
+    key: 'render',
+    value: function render(props) {
       var audioOptions = props.audioTracks.map(function (t) {
         return { label: t.label || t.language, active: t.active, value: t };
       });
@@ -6373,68 +6361,17 @@ var LanguageControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
         return { label: t.label || t.language, active: t.active, value: t };
       });
 
-      return props.audioTracks.length === 0 && props.audioTracks.length === 0 ? undefined : (0, _preact.h)(
-        'div',
-        {
-          ref: function ref(c) {
-            return _this2._controlLanguageElement = c;
-          },
-          className: 'control-button-container control-language'
-        },
-        (0, _preact.h)(
-          _preactI18n.Localizer,
-          null,
-          (0, _preact.h)(
-            'button',
-            { 'aria-label': (0, _preact.h)(_preactI18n.Text, { id: 'controls.language' }), className: this.state.smartContainerOpen ? 'control-button active' : 'control-button', onClick: function onClick() {
-                return _this2.onControlButtonClick();
-              } },
-            (0, _preact.h)(_icon2.default, { type: 'language' })
-          )
-        ),
-        !this.state.smartContainerOpen || this.state.cvaaOverlay ? undefined : (0, _preact.h)(
-          _smartContainer2.default,
-          { title: 'Language', onClose: function onClose() {
-              return _this2.onControlButtonClick();
-            } },
-          props.audioTracks.length <= 0 ? '' : (0, _preact.h)(
-            _preactI18n.Localizer,
-            null,
-            (0, _preact.h)(_smartContainerItem2.default, { icon: 'audio', label: (0, _preact.h)(_preactI18n.Text, { id: 'language.audio' }), options: audioOptions, onSelect: function onSelect(audioTrack) {
-                return _this2.onAudioChange(audioTrack);
-              } })
-          ),
-          props.textTracks.length <= 0 ? '' : (0, _preact.h)(
-            _preactI18n.Localizer,
-            null,
-            (0, _preact.h)(_smartContainerItem2.default, { icon: 'captions', label: (0, _preact.h)(_preactI18n.Text, { id: 'language.captions' }), options: textOptions, onSelect: function onSelect(textTrack) {
-                return _this2.onCaptionsChange(textTrack);
-              } })
-          ),
-          props.textTracks.length <= 0 ? '' : (0, _preact.h)(
-            'div',
-            { className: 'smart-container-item' },
-            (0, _preact.h)(
-              'a',
-              { onClick: function onClick() {
-                  return _this2.toggleCVAAOverlay();
-                } },
-              (0, _preact.h)(
-                _preactI18n.Text,
-                { id: 'language.advanced_captions_settings' },
-                'Advanced captions settings'
-              )
-            )
-          )
-        ),
-        this.state.cvaaOverlay ? (0, _preact.h)(
-          _preactPortal2.default,
-          { into: '#overlay-portal' },
-          (0, _preact.h)(_cvaaOverlay2.default, { onClose: function onClose() {
-              return _this2.toggleCVAAOverlay();
-            } })
-        ) : null
-      );
+      textOptions = [];
+
+      if (audioOptions.length > 0 && textOptions.length > 0) {
+        return this.renderAll(audioOptions, textOptions);
+      } else if (audioOptions.length > 0 && textOptions.length === 0) {
+        return this.renderAudioSettingsOnly(audioOptions);
+      } else if (audioOptions.length === 0 && textOptions.length > 0) {
+        return this.renderTextSettingsOnly(textOptions);
+      } else {
+        return undefined;
+      }
     }
   }]);
 
@@ -6986,7 +6923,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-// import DropDownMenu from '../dropdown-menu/dropdown-menu';
+// import DropDown from '../dropdown/dropdown';
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
@@ -7230,6 +7167,252 @@ var KeyboardControl = function (_BaseComponent) {
 }(_base2.default);
 
 exports.default = KeyboardControl;
+
+/***/ }),
+/* 72 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _dec, _class;
+
+var _preact = __webpack_require__(0);
+
+var _icon = __webpack_require__(4);
+
+var _icon2 = _interopRequireDefault(_icon);
+
+var _menu = __webpack_require__(73);
+
+var _menu2 = _interopRequireDefault(_menu);
+
+var _preactRedux = __webpack_require__(1);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    isMobile: state.shell.isMobile
+  };
+};
+
+var DropDown = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = function (_Component) {
+  _inherits(DropDown, _Component);
+
+  function DropDown() {
+    _classCallCheck(this, DropDown);
+
+    return _possibleConstructorReturn(this, (DropDown.__proto__ || Object.getPrototypeOf(DropDown)).apply(this, arguments));
+  }
+
+  _createClass(DropDown, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.setState({ dropMenuActive: false });
+    }
+  }, {
+    key: 'isSelected',
+    value: function isSelected(o) {
+      return o.active;
+    }
+  }, {
+    key: 'onSelect',
+    value: function onSelect(option) {
+      this.props.onSelect(option);
+      this.setState({ dropMenuActive: false });
+    }
+  }, {
+    key: 'getActiveOptionLabel',
+    value: function getActiveOptionLabel() {
+      var activeOptions = this.props.options.filter(function (t) {
+        return t.active;
+      });
+      try {
+        return activeOptions[0].label;
+      } catch (e) {
+        return this.props.options[0].label || 'Unlabled';
+      }
+    }
+  }, {
+    key: 'renderNativeSelect',
+    value: function renderNativeSelect() {
+      var _this2 = this;
+
+      return (0, _preact.h)(
+        'select',
+        { onChange: function onChange(e) {
+            return _this2.onSelect(_this2.props.options[e.target.value]);
+          } },
+        this.props.options.map(function (o, index) {
+          return (0, _preact.h)(
+            'option',
+            { selected: _this2.isSelected(o), value: index, key: index },
+            o.label
+          );
+        })
+      );
+    }
+  }, {
+    key: 'render',
+    value: function render(props) {
+      var _this3 = this;
+
+      return props.isMobile ? this.renderNativeSelect() : (0, _preact.h)(
+        'div',
+        { className: 'dropdown' },
+        (0, _preact.h)(
+          'div',
+          { className: 'dropdown-button', onClick: function onClick() {
+              return _this3.setState({ dropMenuActive: !_this3.state.dropMenuActive });
+            } },
+          this.getActiveOptionLabel()
+        ),
+        !this.state.dropMenuActive ? undefined : (0, _preact.h)(_menu2.default, { options: props.options, onSelect: function onSelect(o) {
+            return _this3.onSelect(o);
+          } })
+      );
+    }
+  }]);
+
+  return DropDown;
+}(_preact.Component)) || _class);
+exports.default = DropDown;
+
+/***/ }),
+/* 73 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _dec, _class;
+
+var _preact = __webpack_require__(0);
+
+var _icon = __webpack_require__(4);
+
+var _icon2 = _interopRequireDefault(_icon);
+
+var _preactRedux = __webpack_require__(1);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    isMobile: state.shell.isMobile
+  };
+};
+
+var Menu = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = function (_Component) {
+  _inherits(Menu, _Component);
+
+  function Menu() {
+    _classCallCheck(this, Menu);
+
+    return _possibleConstructorReturn(this, (Menu.__proto__ || Object.getPrototypeOf(Menu)).apply(this, arguments));
+  }
+
+  _createClass(Menu, [{
+    key: 'isSelected',
+    value: function isSelected(o) {
+      return o.active;
+    }
+  }, {
+    key: 'onSelect',
+    value: function onSelect(o) {
+      this.props.onSelect(o.value);
+
+      // Instant select
+      this.props.options.filter(function (t) {
+        return t.active;
+      }).forEach(function (option) {
+        option.active = false;
+      });
+      this.props.options.filter(function (t) {
+        return t.value === o.value;
+      })[0].active = true;
+    }
+  }, {
+    key: 'getActiveOptionLabel',
+    value: function getActiveOptionLabel() {
+      var activeOptions = this.props.options.filter(function (t) {
+        return t.active;
+      });
+      return activeOptions.length > 0 ? activeOptions[0].label : this.props.options[0].label;
+    }
+  }, {
+    key: 'renderNativeSelect',
+    value: function renderNativeSelect() {
+      var _this2 = this;
+
+      return (0, _preact.h)(
+        'select',
+        { onChange: function onChange(e) {
+            return _this2.onSelect(_this2.props.options[e.target.value]);
+          } },
+        this.props.options.map(function (o, index) {
+          return (0, _preact.h)(
+            'option',
+            { selected: _this2.isSelected(o), value: index, key: index },
+            o.label
+          );
+        })
+      );
+    }
+  }, {
+    key: 'render',
+    value: function render(props) {
+      var _this3 = this;
+
+      return props.isMobile ? this.renderNativeSelect() : (0, _preact.h)(
+        'div',
+        { className: 'dropdown-menu top left' },
+        props.options.map(function (o, index) {
+          return (0, _preact.h)(
+            'div',
+            { key: index, className: _this3.isSelected(o) ? 'dropdown-menu-item active' : 'dropdown-menu-item', onClick: function onClick() {
+                return _this3.onSelect(o);
+              } },
+            (0, _preact.h)(
+              'span',
+              null,
+              o.label
+            ),
+            _this3.isSelected(o) ? (0, _preact.h)(_icon2.default, { type: 'check' }) : ''
+          );
+        })
+      );
+    }
+  }]);
+
+  return Menu;
+}(_preact.Component)) || _class);
+exports.default = Menu;
 
 /***/ })
 /******/ ]);

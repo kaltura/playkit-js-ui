@@ -6,7 +6,7 @@ import {actions as cvaaActions } from '../../reducers/cvaa';
 import { actions as shellActions } from '../../reducers/shell';
 import BaseComponent from '../base';
 import Overlay from '../overlay/overlay';
-// import DropDownMenu from '../dropdown-menu/dropdown-menu';
+// import DropDown from '../dropdown/dropdown';
 
 const mapStateToProps = state => ({
   open: state.cvaa.overlayOpen,
@@ -46,7 +46,7 @@ class CVAAOverlay extends BaseComponent {
         {/*<div className='custom-caption-form'>
           <div className='row'>
             <label>Size</label>
-            <DropDownMenu options={speedOptions} />
+            <DropDown options={speedOptions} />
           </div>
         </div>*/}
       </Overlay>

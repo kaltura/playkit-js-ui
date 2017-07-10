@@ -1,6 +1,7 @@
 //@flow
 import { h, Component } from 'preact';
 import Icon from '../icon/icon';
+import Menu from '../menu/menu';
 import { connect } from 'preact-redux';
 
 const mapStateToProps = state => ({
@@ -8,7 +9,7 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps)
-class DropDownMenu extends Component {
+class DropDown extends Component {
   state: Object;
 
   componentWillMount() {
@@ -19,18 +20,18 @@ class DropDownMenu extends Component {
     return o.active;
   }
 
-  onSelect(o: Object) {
-    this.props.onSelect(o.value);
+  onSelect(option: Object) {
+    this.props.onSelect(option);
     this.setState({dropMenuActive: false});
-
-    // Instant select
-    this.props.options.filter(t => t.active).forEach(option => { option.active = false });
-    this.props.options.filter(t => t.value === o.value)[0].active = true;
   }
 
   getActiveOptionLabel(): string {
     let activeOptions = this.props.options.filter(t => t.active);
-    return activeOptions.length > 0 ? activeOptions[0].label : this.props.options[0].label;
+    try {
+      return activeOptions[0].label
+    } catch (e) {
+      return this.props.options[0].label || 'Unlabled';
+    }
   }
 
   renderNativeSelect() {
@@ -44,26 +45,16 @@ class DropDownMenu extends Component {
   render(props: any) {
     return props.isMobile ? this.renderNativeSelect() :
     (
-      <div className='dropdown top left'>
+      <div className='dropdown'>
         <div className='dropdown-button' onClick={() => this.setState({dropMenuActive: !this.state.dropMenuActive})}>
           {this.getActiveOptionLabel()}
         </div>
         {
-          !this.state.dropMenuActive ? '' :
-          <div className='dropdown-menu'>
-            {
-              props.options.map((o, index) => (
-                <div key={index} className={this.isSelected(o) ? 'dropdown-menu-item active' : 'dropdown-menu-item'} onClick={() => this.onSelect(o)}>
-                  <span>{o.label}</span>
-                  { this.isSelected(o) ? <Icon type='check' /> : '' }
-                </div>
-              ))
-            }
-          </div>
+          !this.state.dropMenuActive ? undefined : <Menu options={props.options} onSelect={(o) => this.onSelect(o)} />
         }
       </div>
     )
   }
 }
 
-export default DropDownMenu;
+export default DropDown;

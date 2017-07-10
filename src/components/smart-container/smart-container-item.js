@@ -1,6 +1,6 @@
 //@flow
 import { h, Component } from 'preact';
-import DropDownMenu from '../dropdown-menu/dropdown-menu';
+import DropDown from '../dropdown/dropdown';
 import Icon from '../icon/icon';
 
 class SmartContainer extends Component {
@@ -11,7 +11,7 @@ class SmartContainer extends Component {
           {props.icon ? <div className='label-icon'><Icon type={props.icon} /></div> : undefined}
           {props.label}
         </label>
-        <DropDownMenu onSelect={o => props.onSelect(o)} options={props.options} />
+        <DropDown onSelect={o => props.onSelect(o)} options={props.options} />
       </div>
     )
   }

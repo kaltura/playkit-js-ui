@@ -1,37 +1,40 @@
 .overlay.share-overlay {
   .share-icons {
     margin: 60px 0;
+
+    .btn-rounded {
+      margin: 0 8px;
+      transition: transform 100ms;
+      will-change: transform;
+
+      &:first-child { margin-left: 0; }
+      &:last-child { margin-right: 0; }
+
+      &.facebook-share-btn {
+        background-color: #3B5998;
+      }
+      &.twitter-share-btn {
+        background-color: #1DA1F2;
+      }
+      &.google-plus-share-btn {
+        background-color: #DD4B39;
+      }
+      &.linkedin-share-btn {
+        background-color: #00A0DC;
+      }
+    }
   }
-  .btn-rounded {
-    height: 36px;	width: 36px;
-    border-radius: 18px;
-    background-color: rgba(0,0,0,0.4);
-    display: inline-block;
-    margin: 0 8px;
-    transition: transform 100ms;
-    will-change: transform;
-    padding: 2px;
-    fill: #fff;
+}
+.btn-rounded {
+  height: 36px;	width: 36px;
+  border-radius: 18px;
+  background-color: rgba(0,0,0,0.4);
+  display: inline-block;
+  padding: 2px;
+  fill: #fff;
 
-    &:first-child { margin-left: 0; }
-    &:last-child { margin-right: 0; }
-
-    &.btn-branded {
-      background-color: $brand-color;
-    }
-
-    &.facebook-share-btn {
-      background-color: #3B5998;
-    }
-    &.twitter-share-btn {
-      background-color: #1DA1F2;
-    }
-    &.google-plus-share-btn {
-      background-color: #DD4B39;
-    }
-    &.linkedin-share-btn {
-      background-color: #00A0DC;
-    }
+  &.btn-branded {
+    background-color: $brand-color;
   }
 }
 
@@ -47,7 +50,7 @@
   margin: 0 auto;
 }
 
-.player:not(.touch) .overlay.share-overlay .btn-rounded:hover {
+.player:not(.touch) .overlay.share-overlay .share-icons .btn-rounded:hover {
   transform: scale(1.1667);
 }
 
