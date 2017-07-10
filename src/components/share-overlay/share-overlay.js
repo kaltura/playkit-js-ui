@@ -52,7 +52,7 @@ class ShareOverlay extends BaseComponent {
       setTimeout(() => this.setState({copySuccess: false}) , 2000);
 
     } catch(e) {
-
+      this.setState({copySuccess: false});
     }
   }
 
@@ -113,7 +113,7 @@ class ShareOverlay extends BaseComponent {
           <div className='video-start-options-row'>
             <div className="checkbox d-inline-block">
               <input id="test1" type='checkbox' value='' />
-              <label for="test1">Start video at</label>
+              <label htmlFor="test1">Start video at</label>
             </div>
             <div className='form-group d-inline-block'>
               <input

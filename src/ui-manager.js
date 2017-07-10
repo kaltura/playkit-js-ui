@@ -26,20 +26,28 @@ class UIManager {
     this.config = config;
   }
 
-  buildCustomUI(template: any): void {
-    this._buildUI(template);
+  buildCustomUI(uis: Array<any>): void {
+    this._buildUI(uis);
   }
 
   buildDefaultUI(): void {
-    const store = createStore(reducer, window.devToolsExtension && window.devToolsExtension({ name: `playkit #${this.config.target}`, instanceId: this.config.target }));
-
     const uis = [
       { template: props => fullscreenUI(props), condition: state => state.fullscreen.fullscreen },
       { template: props => adsUI(props), condition: state => state.shell.isAd },
       { template: props => playbackUI(props), condition: state => !state.shell.isAd }
     ];
+    this._buildUI(uis);
+  }
 
-    let template = (
+  _buildUI(uis?: Array<any>) {
+    // no player - no game
+    if (!this.player) return;
+
+    // define the store and devtools for redux
+    const store = createStore(reducer, window.devToolsExtension && window.devToolsExtension({ name: `playkit #${this.config.target}`, instanceId: this.config.target }));
+
+    // i18n, redux and initial player-to-store connector setup
+    const template = (
       <Provider store={store}>
         <IntlProvider definition={definition}>
           <Shell player={this.player}>
@@ -49,13 +57,9 @@ class UIManager {
         </IntlProvider>
       </Provider>
     );
-    this._buildUI(template);
-  }
 
-  _buildUI(template: any) {
-    if (!this.player) return;
-
-    let container = document.getElementById(this.config.targetId);
+    // render the player
+    const container = document.getElementById(this.config.targetId);
     render(template, container);
   }
 

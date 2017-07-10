@@ -16,7 +16,7 @@ import BottomBar from '../components/bottom-bar/bottom-bar';
 import OverlayPortal from '../components/overlay-portal/overlay-portal';
 import KeyboardControl from '../components/keyboard';
 
-export default function(props) {
+export default function fullscreenUI(props) {
   return (
     <div className='fullscreen-gui-wrapper' style='height: 100%'>
       <KeyboardControl player={props.player} />

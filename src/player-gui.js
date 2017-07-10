@@ -1,5 +1,5 @@
 //@flow
-import { h, Component } from 'preact';
+import { Component } from 'preact';
 import { connect } from 'preact-redux';
 
 const mapStateToProps = state => ({
@@ -20,7 +20,7 @@ class PlayerGUI extends Component {
         if (ui.condition(props.state)) {
           uiToRender = ui;
           break;
-        };
+        }
       }
     }
 
