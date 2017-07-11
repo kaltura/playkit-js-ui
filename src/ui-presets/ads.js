@@ -9,7 +9,7 @@ import TimeDisplay from '../components/time-display/time-display';
 import BottomBar from '../components/bottom-bar/bottom-bar';
 import KeyboardControl from '../components/keyboard';
 
-export default function adsUI(props) {
+export default function adsUI(props: Object) {
   return (
     <div className='ad-gui-wrapper' style='height: 100%'>
       <KeyboardControl player={props.player} />

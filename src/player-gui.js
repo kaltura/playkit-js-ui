@@ -12,19 +12,26 @@ const mapStateToProps = state => ({
 @connect(mapStateToProps)
 class PlayerGUI extends Component {
 
+  getMatchedUI(uis: Array<UIPreset>, state: Object): UIPreset {
+    let matchedUI;
+    for (let ui of uis) {
+      if (ui.condition(state)) {
+        matchedUI = ui;
+        break;
+      }
+    }
+    return matchedUI;
+  }
+
   render(props: any) {
     let uiToRender;
 
     if (this.props.uis.length > 0) {
-      for (let ui of this.props.uis) {
-        if (ui.condition(props.state)) {
-          uiToRender = ui;
-          break;
-        }
-      }
+      uiToRender = this.getMatchedUI(props.uis, props.state);
+      return uiToRender ? uiToRender.template(props) : this.props.uis[0].template(props);
     }
+    else { return undefined; }
 
-    return uiToRender.template(props);
   }
 }
 

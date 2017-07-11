@@ -7,6 +7,8 @@ import {createStore} from 'redux';
 import reducer from './store';
 import definition from './fr.json';
 
+import {Player} from 'playkit-js';
+
 // core components for the UI
 import EngineConnector from './components/engine-connector/engine-connector';
 import Shell from './components/shell/shell';
@@ -17,17 +19,18 @@ import adsUI from './ui-presets/ads';
 import playbackUI from './ui-presets/playback';
 import fullscreenUI from './ui-presets/fullscreen';
 
-class UIManager {
-  player: any;
-  config: any;
+type UIPreset = {
+  template: (props: Object) => any;
+  condition?: (state: Object) => boolean;
+}
 
-  constructor(player: any, config: Object) {
+class UIManager {
+  player: Player;
+  config: Object;
+
+  constructor(player: Player, config: Object) {
     this.player = player;
     this.config = config;
-  }
-
-  buildCustomUI(uis: Array<any>): void {
-    this._buildUI(uis);
   }
 
   buildDefaultUI(): void {
@@ -39,8 +42,17 @@ class UIManager {
     this._buildUI(uis);
   }
 
-  _buildUI(uis?: Array<any>) {
-    // no player - no game
+  buildCustomUI(uis: Array<UIPreset>): void {
+    if (uis.length > 0) {
+      this._buildUI(uis);
+    }
+    else {
+      let fallbackUIs = [{ template: props => playbackUI(props) }];
+      this._buildUI(fallbackUIs);
+    }
+  }
+
+  _buildUI(uis?: Array<UIPreset>) {
     if (!this.player) return;
 
     // define the store and devtools for redux

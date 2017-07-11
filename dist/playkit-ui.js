@@ -5007,7 +5007,7 @@ var types = exports.types = {
 var initialState = exports.initialState = {
   draggingActive: false,
   volume: 1,
-  muted: false
+  muted: 2
 };
 
 exports.default = function () {
@@ -6023,6 +6023,8 @@ var _fr = __webpack_require__(68);
 
 var _fr2 = _interopRequireDefault(_fr);
 
+var _playkitJs = __webpack_require__(70);
+
 var _engineConnector = __webpack_require__(69);
 
 var _engineConnector2 = _interopRequireDefault(_engineConnector);
@@ -6060,11 +6062,6 @@ var UIManager = function () {
   }
 
   _createClass(UIManager, [{
-    key: 'buildCustomUI',
-    value: function buildCustomUI(uis) {
-      this._buildUI(uis);
-    }
-  }, {
     key: 'buildDefaultUI',
     value: function buildDefaultUI() {
       var uis = [{ template: function template(props) {
@@ -6083,9 +6080,20 @@ var UIManager = function () {
       this._buildUI(uis);
     }
   }, {
+    key: 'buildCustomUI',
+    value: function buildCustomUI(uis) {
+      if (uis.length > 0) {
+        this._buildUI(uis);
+      } else {
+        var fallbackUIs = [{ template: function template(props) {
+            return (0, _playback2.default)(props);
+          } }];
+        this._buildUI(fallbackUIs);
+      }
+    }
+  }, {
     key: '_buildUI',
     value: function _buildUI(uis) {
-      // no player - no game
       if (!this.player) return;
 
       // define the store and devtools for redux
@@ -7430,41 +7438,50 @@ var PlayerGUI = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class 
   }
 
   _createClass(PlayerGUI, [{
+    key: 'getMatchedUI',
+    value: function getMatchedUI(uis, state) {
+      var matchedUI = void 0;
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = uis[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var ui = _step.value;
+
+          if (ui.condition(state)) {
+            matchedUI = ui;
+            break;
+          }
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
+      return matchedUI;
+    }
+  }, {
     key: 'render',
     value: function render(props) {
       var uiToRender = void 0;
 
       if (this.props.uis.length > 0) {
-        var _iteratorNormalCompletion = true;
-        var _didIteratorError = false;
-        var _iteratorError = undefined;
-
-        try {
-          for (var _iterator = this.props.uis[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-            var ui = _step.value;
-
-            if (ui.condition(props.state)) {
-              uiToRender = ui;
-              break;
-            }
-          }
-        } catch (err) {
-          _didIteratorError = true;
-          _iteratorError = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion && _iterator.return) {
-              _iterator.return();
-            }
-          } finally {
-            if (_didIteratorError) {
-              throw _iteratorError;
-            }
-          }
-        }
+        uiToRender = this.getMatchedUI(props.uis, props.state);
+        return uiToRender ? uiToRender.template(props) : this.props.uis[0].template(props);
+      } else {
+        return undefined;
       }
-
-      return uiToRender.template(props);
     }
   }]);
 

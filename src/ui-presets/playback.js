@@ -16,7 +16,7 @@ import BottomBar from '../components/bottom-bar/bottom-bar';
 import OverlayPortal from '../components/overlay-portal/overlay-portal';
 import KeyboardControl from '../components/keyboard';
 
-export default function playbackUI(props) {
+export default function playbackUI(props: Object) {
   return (
     <div className='playback-gui-wrapper' style='height: 100%'>
       <KeyboardControl player={props.player} />
