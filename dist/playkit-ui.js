@@ -3744,8 +3744,9 @@ var SettingsControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
     }
   }, {
     key: 'onSpeedChange',
-    value: function onSpeedChange(o) {
-      this.props.updateSpeed(o.value);
+    value: function onSpeedChange(playbackRate) {
+      this.props.updateSpeed(playbackRate);
+      this.player._engine.playbackRate = playbackRate;
     }
   }, {
     key: 'onQualityChange',
@@ -3757,7 +3758,7 @@ var SettingsControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
     value: function render(props) {
       var _this2 = this;
 
-      var speedOptions = [{ value: 1, label: 'Auto (360)', active: true }, { value: 2, label: '240' }, { value: 3, label: '144' }];
+      var speedOptions = [{ value: 1.5, label: '1.5' }, { value: 1.25, label: '1.25' }, { value: 1, label: 'Normal', active: true }, { value: 0.75, label: '0.75' }, { value: 0.5, label: '0.5' }];
       var qualityOptions = props.videoTracks.map(function (t) {
         return {
           label: t.label || (t.bandwidth / 1000).toFixed(0) + 'p',

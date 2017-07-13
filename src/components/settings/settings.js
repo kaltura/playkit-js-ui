@@ -46,8 +46,9 @@ class SettingsControl extends BaseComponent {
     this.setState({smartContainerOpen: !this.state.smartContainerOpen});
   }
 
-  onSpeedChange(o: Object) {
-    this.props.updateSpeed(o.value);
+  onSpeedChange(playbackRate: number) {
+    this.props.updateSpeed(playbackRate);
+    this.player._engine.playbackRate = playbackRate;
   }
 
   onQualityChange(videoTrack: Object) {
@@ -56,9 +57,11 @@ class SettingsControl extends BaseComponent {
 
   render(props: any) {
     var speedOptions = [
-      { value: 1, label: 'Auto (360)', active: true },
-      { value: 2, label: '240' },
-      { value: 3, label: '144' }
+      { value: 1.5, label: '1.5' },
+      { value: 1.25, label: '1.25' },
+      { value: 1, label: 'Normal', active: true },
+      { value: 0.75, label: '0.75' },
+      { value: 0.5, label: '0.5' }
     ];
     var qualityOptions = props.videoTracks.map(t => ({
       label: t.label || (t.bandwidth / 1000).toFixed(0) + 'p',
