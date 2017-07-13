@@ -7631,6 +7631,12 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
       this.setState({ startFromValue: (0, _timeFormat.toSecondsFromHHMMSS)(e.target.value) });
     }
   }, {
+    key: 'share',
+    value: function share(href) {
+      window.open(href, '_blank', 'width=580,height=580');
+      return false;
+    }
+  }, {
     key: 'renderMainState',
     value: function renderMainState() {
       var _this3 = this;
@@ -7651,22 +7657,50 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
             { className: 'share-icons' },
             (0, _preact.h)(
               'a',
-              { className: 'btn-rounded facebook-share-btn' },
+              {
+                href: 'https://player.kaltura.com/video/220277207/share/facebook', target: '_blank',
+                title: 'Share on Facebook', role: 'button', 'aria-label': 'Share on Facebook',
+                className: 'btn-rounded facebook-share-btn',
+                onClick: function onClick() {
+                  return _this3.share('https://player.kaltura.com/video/220277207/share/facebook');
+                }
+              },
               (0, _preact.h)(_icon2.default, { type: 'facebook' })
             ),
             (0, _preact.h)(
               'a',
-              { className: 'btn-rounded twitter-share-btn' },
+              {
+                href: 'https://player.kaltura.com/video/220277207/share/twitter', target: '_blank',
+                title: 'Share on Twitter', role: 'button', 'aria-label': 'Share on Twitter',
+                className: 'btn-rounded twitter-share-btn',
+                onClick: function onClick() {
+                  return _this3.share('https://player.kaltura.com/video/220277207/share/twitter');
+                }
+              },
               (0, _preact.h)(_icon2.default, { type: 'twitter' })
             ),
             (0, _preact.h)(
               'a',
-              { className: 'btn-rounded google-plus-share-btn' },
+              {
+                href: 'https://player.kaltura.com/video/220277207/share/google-plus', target: '_blank',
+                title: 'Share on Google Plus', role: 'button', 'aria-label': 'Share on Google Plus',
+                className: 'btn-rounded google-plus-share-btn',
+                onClick: function onClick() {
+                  return _this3.share('https://player.kaltura.com/video/220277207/share/google');
+                }
+              },
               (0, _preact.h)(_icon2.default, { type: 'google-plus' })
             ),
             (0, _preact.h)(
               'a',
-              { className: 'btn-rounded linkedin-share-btn' },
+              {
+                href: 'https://player.kaltura.com/video/220277207/share/linkedin', target: '_blank',
+                title: 'Share on Linkedin', role: 'button', 'aria-label': 'Share on Linkedin',
+                className: 'btn-rounded linkedin-share-btn',
+                onClick: function onClick() {
+                  return _this3.share('https://player.kaltura.com/video/220277207/share/linkedin');
+                }
+              },
               (0, _preact.h)(_icon2.default, { type: 'linkedin' })
             ),
             (0, _preact.h)(

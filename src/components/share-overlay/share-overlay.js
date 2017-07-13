@@ -77,6 +77,11 @@ class ShareOverlay extends BaseComponent {
     this.setState({startFromValue: toSecondsFromHHMMSS(e.target.value)});
   }
 
+  share(href) {
+    window.open(href,'_blank','width=580,height=580');
+    return false;
+  }
+
   renderMainState() {
     return (
       <div className={this.state.state === shareOverlayState.Main ? 'overlay-screen active' : 'overlay-screen'}>
@@ -85,10 +90,38 @@ class ShareOverlay extends BaseComponent {
         </div>
         <div className="share-main-container">
           <div className='share-icons'>
-            <a className='btn-rounded facebook-share-btn'><Icon type='facebook' /></a>
-            <a className='btn-rounded twitter-share-btn'><Icon type='twitter' /></a>
-            <a className='btn-rounded google-plus-share-btn'><Icon type='google-plus' /></a>
-            <a className='btn-rounded linkedin-share-btn'><Icon type='linkedin' /></a>
+            <a
+              href='https://player.kaltura.com/video/220277207/share/facebook' target='_blank'
+              title='Share on Facebook' role='button' aria-label='Share on Facebook'
+              className='btn-rounded facebook-share-btn'
+              onClick={() => this.share('https://player.kaltura.com/video/220277207/share/facebook')}
+            >
+              <Icon type='facebook' />
+            </a>
+            <a
+              href='https://player.kaltura.com/video/220277207/share/twitter' target='_blank'
+              title='Share on Twitter' role='button' aria-label='Share on Twitter'
+              className='btn-rounded twitter-share-btn'
+              onClick={() => this.share('https://player.kaltura.com/video/220277207/share/twitter')}
+            >
+              <Icon type='twitter' />
+            </a>
+            <a
+              href='https://player.kaltura.com/video/220277207/share/google-plus' target='_blank'
+              title='Share on Google Plus' role='button' aria-label='Share on Google Plus'
+              className='btn-rounded google-plus-share-btn'
+              onClick={() => this.share('https://player.kaltura.com/video/220277207/share/google')}
+            >
+              <Icon type='google-plus' />
+            </a>
+            <a
+              href='https://player.kaltura.com/video/220277207/share/linkedin' target='_blank'
+              title='Share on Linkedin' role='button' aria-label='Share on Linkedin'
+              className='btn-rounded linkedin-share-btn'
+              onClick={() => this.share('https://player.kaltura.com/video/220277207/share/linkedin')}
+            >
+              <Icon type='linkedin' />
+            </a>
             <a className='btn-rounded email-share-btn'><Icon type='email' /></a>
             <a className='btn-rounded embed-share-btn'><Icon type='embed' /></a>
           </div>
