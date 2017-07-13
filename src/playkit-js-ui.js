@@ -24,4 +24,4 @@ export {BottomBar} from './components/bottom-bar';
 export {OverlayPortal} from './components/overlay-portal';
 export {KeyboardControl} from './components/keyboard';
 
-export default UIManager
+export default UIManager;

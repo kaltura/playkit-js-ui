@@ -6852,7 +6852,7 @@ var SettingsControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
     key: 'onSpeedChange',
     value: function onSpeedChange(playbackRate) {
       this.props.updateSpeed(playbackRate);
-      this.player._engine.playbackRate = playbackRate;
+      this.player.playbackRate = playbackRate;
     }
   }, {
     key: 'onQualityChange',

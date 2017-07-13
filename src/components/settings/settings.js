@@ -48,7 +48,7 @@ class SettingsControl extends BaseComponent {
 
   onSpeedChange(playbackRate: number) {
     this.props.updateSpeed(playbackRate);
-    this.player._engine.playbackRate = playbackRate;
+    this.player.playbackRate = playbackRate;
   }
 
   onQualityChange(videoTrack: Object) {
