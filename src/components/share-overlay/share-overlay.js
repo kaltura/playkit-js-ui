@@ -74,7 +74,11 @@ class ShareOverlay extends BaseComponent {
   }
 
   handleStartFromChange(e) {
-    this.setState({startFromValue: toSecondsFromHHMMSS(e.target.value)});
+    let seconds = toSecondsFromHHMMSS(e.target.value);
+    if (seconds >= this.player.duration) {
+      this.setState({startFromValue: 1});
+    }
+    this.setState({startFromValue: seconds});
   }
 
   share(href) {

@@ -55,19 +55,45 @@ class SettingsControl extends BaseComponent {
     this.player.selectTrack(videoTrack);
   }
 
+  getQualityOptionLabel(t) {
+    let resolution = t.height ? t.height + 'p' : undefined;
+    let mbs = (t.bandwidth/1000000).toPrecision(2) + 'Mbs';
+
+    if (!this.props.qualityType) {
+      return resolution || mbs
+    }
+    else if (this.props.qualityType.toUpperCase() === 'MBS') {
+      return mbs
+    }
+    else if (this.props.qualityType.toUpperCase() === 'RESOLUTION') {
+      return t.height + 'p';
+    }
+    else if (t.label) {
+      return t.label;
+    }
+    else {
+      return 'N/A'
+    }
+  }
+
   render(props: any) {
-    var speedOptions = [
-      { value: 1.5, label: '1.5' },
-      { value: 1.25, label: '1.25' },
-      { value: 1, label: 'Normal', active: true },
-      { value: 0.75, label: '0.75' },
-      { value: 0.5, label: '0.5' }
-    ];
+
+    const defaultSpeeds = [0.5, 1, 2, 4];
+    let defaultSpeed = 1;
+    let speedOptions = defaultSpeeds.reduce((acc, speed, i) => {
+      let speedOption = {value: i + 1, label: speed === 1 ? 'Normal' : speed};
+      if (speed === defaultSpeed){
+        speedOption.active = true;
+      }
+      acc.push(speedOption);
+      return acc;
+    }, []);
     var qualityOptions = props.videoTracks.map(t => ({
-      label: t.label || (t.bandwidth / 1000).toFixed(0) + 'p',
+      label: this.getQualityOptionLabel(t),
       active: t.active,
       value: t
     }));
+
     return (
       <div
         ref={c => this._controlSettingsElement=c}
