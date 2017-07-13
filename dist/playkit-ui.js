@@ -7705,7 +7705,10 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
             ),
             (0, _preact.h)(
               'a',
-              { className: 'btn-rounded email-share-btn' },
+              {
+                className: 'btn-rounded email-share-btn',
+                href: 'mailto:?subject=' + encodeURIComponent('email subject') + '&body=' + encodeURIComponent('email body')
+              },
               (0, _preact.h)(_icon2.default, { type: 'email' })
             ),
             (0, _preact.h)(

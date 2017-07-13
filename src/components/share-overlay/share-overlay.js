@@ -122,7 +122,12 @@ class ShareOverlay extends BaseComponent {
             >
               <Icon type='linkedin' />
             </a>
-            <a className='btn-rounded email-share-btn'><Icon type='email' /></a>
+            <a
+              className='btn-rounded email-share-btn'
+              href={`mailto:?subject=${encodeURIComponent('email subject')}&body=${encodeURIComponent('email body')}`}
+            >
+              <Icon type='email' />
+            </a>
             <a className='btn-rounded embed-share-btn'><Icon type='embed' /></a>
           </div>
           <div>
