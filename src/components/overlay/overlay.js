@@ -24,10 +24,12 @@ class Overlay extends Component {
 
     return (
       <div className={overlayClass} role='dialog'>
+        <div className="overlay-contents">
+          { props.children }
+        </div>
         <Localizer>
           <a onClick={() => props.onClose()} aria-label={<Text id='core.close' />} className='close-overlay'><Icon type='close' /></a>
         </Localizer>
-        { props.children }
       </div>
     )
   }

@@ -4,22 +4,28 @@
 }
 
 .overlay {
-  position: absolute;
+  position: relative;
+  width: 100%; height: 100%;
   display: none;
   opacity: 0;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background-color: rgba(0,0,0,0.42);
-  z-index: 4;
-  text-align: center;
-  color: #fff;
-  padding: 80px 20px;
   animation: openOverlay 100ms ease-in-out forwards;
-  overflow-y: auto;
+  z-index: 4;
 
   &.active {
     display: block;
     opacity: 1;
+  }
+
+  .overlay-contents {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.42);
+    z-index: 4;
+    text-align: center;
+    color: #fff;
+    padding: 80px 20px;
+    overflow-y: auto;
   }
 
   .title {
@@ -52,7 +58,9 @@
 
 @media screen and (max-width: 768px) {
   .overlay {
-    padding: 36px 20px;
+    .overlay-contents {
+      padding: 36px 20px;
+    }
 
     .close-overlay {
       top: 38px;
@@ -65,7 +73,9 @@
 
 @media screen and (max-width: 480px) {
   .overlay {
-    padding: 16px 24px;
+    .overlay-contents {
+      padding: 16px 24px;
+    }
 
     .close-overlay {
       top: 15px; right: 24px;

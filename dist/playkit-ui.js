@@ -3509,6 +3509,11 @@ var Overlay = (_dec = (0, _preactRedux.connect)(null, (0, _bindActions.bindActio
         'div',
         { className: overlayClass, role: 'dialog' },
         (0, _preact.h)(
+          'div',
+          { className: 'overlay-contents' },
+          props.children
+        ),
+        (0, _preact.h)(
           _preactI18n.Localizer,
           null,
           (0, _preact.h)(
@@ -3518,8 +3523,7 @@ var Overlay = (_dec = (0, _preactRedux.connect)(null, (0, _bindActions.bindActio
               }, 'aria-label': (0, _preact.h)(_preactI18n.Text, { id: 'core.close' }), className: 'close-overlay' },
             (0, _preact.h)(_icon2.default, { type: 'close' })
           )
-        ),
-        props.children
+        )
       );
     }
   }]);
