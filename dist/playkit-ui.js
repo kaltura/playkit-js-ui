@@ -5007,7 +5007,7 @@ var types = exports.types = {
 var initialState = exports.initialState = {
   draggingActive: false,
   volume: 1,
-  muted: 2
+  muted: false
 };
 
 exports.default = function () {

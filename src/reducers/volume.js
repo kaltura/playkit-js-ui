@@ -9,7 +9,7 @@ export const types = {
 export const initialState = {
   draggingActive: false,
   volume: 1,
-  muted: 2
+  muted: false
 }
 
 export default (state: Object = initialState, action: Object) => {
