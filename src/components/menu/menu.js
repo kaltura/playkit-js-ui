@@ -1,6 +1,6 @@
 //@flow
 import { h, Component } from 'preact';
-import Icon from '../icon/icon';
+import Icon from '../icon';
 import { connect } from 'preact-redux';
 
 const mapStateToProps = state => ({

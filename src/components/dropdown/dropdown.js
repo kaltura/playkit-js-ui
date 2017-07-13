@@ -1,8 +1,8 @@
 //@flow
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
-import Menu from '../menu/menu';
-import Icon from '../icon/icon';
+import Menu from '../menu';
+import Icon from '../icon';
 
 const mapStateToProps = state => ({
   isMobile: state.shell.isMobile

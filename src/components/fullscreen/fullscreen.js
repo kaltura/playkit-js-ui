@@ -5,7 +5,7 @@ import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/fullscreen';
 import BaseComponent from '../base';
-import Icon from '../icon/icon';
+import Icon from '../icon';
 
 const mapStateToProps = state => ({
   fullscreen: state.fullscreen.fullscreen

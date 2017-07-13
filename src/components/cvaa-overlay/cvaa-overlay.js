@@ -5,8 +5,8 @@ import { bindActions } from '../../utils/bind-actions';
 import {actions as cvaaActions } from '../../reducers/cvaa';
 import { actions as shellActions } from '../../reducers/shell';
 import BaseComponent from '../base';
-import Overlay from '../overlay/overlay';
-import DropDown from '../dropdown/dropdown';
+import Overlay from '../overlay';
+import DropDown from '../dropdown';
 
 const mapStateToProps = state => ({
   open: state.cvaa.overlayOpen,

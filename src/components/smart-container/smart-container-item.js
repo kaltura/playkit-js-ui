@@ -1,7 +1,7 @@
 //@flow
 import { h, Component } from 'preact';
-import DropDown from '../dropdown/dropdown';
-import Icon from '../icon/icon';
+import DropDown from '../dropdown';
+import Icon from '../icon';
 
 class SmartContainer extends Component {
   render(props: any) {

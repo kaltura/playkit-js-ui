@@ -5,11 +5,11 @@ import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
 import { actions } from '../../reducers/cvaa';
 import BaseComponent from '../base';
-import SmartContainer from '../smart-container/smart-container';
+import SmartContainer from '../smart-container';
 import SmartContainerItem from '../smart-container/smart-container-item';
-import Icon from '../icon/icon';
-import CVAAOverlay from '../cvaa-overlay/cvaa-overlay';
-import Menu from '../menu/menu';
+import Icon from '../icon';
+import CVAAOverlay from '../cvaa-overlay';
+import Menu from '../menu';
 import Portal from 'preact-portal';
 
 const mapStateToProps = state => ({

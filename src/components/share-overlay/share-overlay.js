@@ -6,8 +6,8 @@ import { bindActions } from '../../utils/bind-actions';
 import { actions } from '../../reducers/share';
 import { toHHMMSS, toSecondsFromHHMMSS } from '../../utils/time-format';
 import BaseComponent from '../base';
-import Overlay from '../overlay/overlay';
-import Icon from '../icon/icon';
+import Overlay from '../overlay';
+import Icon from '../icon';
 
 const mapStateToProps = state => ({
   open: state.share.overlayOpen

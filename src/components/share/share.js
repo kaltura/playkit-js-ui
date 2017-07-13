@@ -2,7 +2,7 @@
 import { h } from 'preact';
 import BaseComponent from '../base';
 import Icon from '../icon/icon';
-import ShareOverlay from '../share-overlay/share-overlay';
+import ShareOverlay from '../share-overlay';
 import Portal from 'preact-portal';
 
 class ShareControl extends BaseComponent {

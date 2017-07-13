@@ -5,9 +5,9 @@ import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
 import { actions } from '../../reducers/settings';
 import BaseComponent from '../base';
-import SmartContainer from '../smart-container/smart-container';
+import SmartContainer from '../smart-container';
 import SmartContainerItem from '../smart-container/smart-container-item';
-import Icon from '../icon/icon';
+import Icon from '../icon';
 
 const mapStateToProps = state => ({
   videoTracks: state.engine.videoTracks,
