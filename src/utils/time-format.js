@@ -13,4 +13,17 @@ function toHHMMSS(input: number) {
   return `${minutes}:${seconds}`;
 }
 
-export {toHHMMSS};
+function toSecondsFromHHMMSS(input: string) {
+  var parts = input.split(':');
+  var seconds = 0;
+  if (parts.length === 2) {
+    if (parts[0] > 59 || parts[1] > 59) {
+      return 0;
+    }
+    seconds += parseInt(parts[0]) * 60;
+    seconds += parseInt(parts[1]);
+  }
+  return seconds;
+}
+
+export {toHHMMSS, toSecondsFromHHMMSS};

@@ -4,6 +4,7 @@ import { Text } from 'preact-i18n';
 import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
 import { actions } from '../../reducers/share';
+import { toHHMMSS, toSecondsFromHHMMSS } from '../../utils/time-format';
 import BaseComponent from '../base';
 import Overlay from '../overlay/overlay';
 import Icon from '../icon/icon';
@@ -28,13 +29,17 @@ class ShareOverlay extends BaseComponent {
   }
 
   componentWillUnmount() {
-    this.setState({state: shareOverlayState.Main});
+    this.setState({
+      state: shareOverlayState.Main
+    });
   }
 
   componentWillMount() {
     this.setState({
       state: shareOverlayState.Main,
-      shareUrl: 'https://cdnapisec.kaltura.com/index.php?assetId=123456'
+      shareUrl: 'https://cdnapisec.kaltura.com/index.php?assetId=123456',
+      startFrom: false,
+      startFromValue: 0
     });
   }
 
@@ -54,6 +59,22 @@ class ShareOverlay extends BaseComponent {
     } catch(e) {
       this.setState({copySuccess: false});
     }
+  }
+
+  toggleStartFrom() {
+    this.setState({startFrom: !this.state.startFrom});
+  }
+
+  getShareUrl() {
+    let url = this.state.shareUrl;
+    if (this.state.startFrom) {
+      url += `?start=${this.state.startFromValue}`
+    }
+    return url;
+  }
+
+  handleStartFromChange(e) {
+    this.setState({startFromValue: toSecondsFromHHMMSS(e.target.value)});
   }
 
   renderMainState() {
@@ -98,7 +119,7 @@ class ShareOverlay extends BaseComponent {
                 ref={c => this._shareUrlInput=c}
                 placeholder='Share URL'
                 className='form-control'
-                value={this.state.shareUrl}
+                value={this.getShareUrl()}
                 readOnly
               />
               <Icon type='link' />
@@ -112,14 +133,20 @@ class ShareOverlay extends BaseComponent {
           </div>
           <div className='video-start-options-row'>
             <div className="checkbox d-inline-block">
-              <input id="test1" type='checkbox' value='' />
-              <label htmlFor="test1">Start video at</label>
+              <input
+                type='checkbox'
+                id="start-from"
+                checked={this.state.startFrom}
+                onClick={e => this.toggleStartFrom(e)}
+              />
+              <label htmlFor="start-from">Start video at </label>
             </div>
             <div className='form-group d-inline-block'>
               <input
                 type='text'
                 className='form-control'
-                value='05:34'
+                onChange={e => this.handleStartFromChange(e)}
+                value={toHHMMSS(this.state.startFromValue)}
                 style='width: 72px;'
               />
             </div>
