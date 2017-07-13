@@ -98,7 +98,7 @@ class ShareOverlay extends BaseComponent {
               <Icon type='link' />
             </div>
           </div>
-          <a onClick={() => this.setState({state: shareOverlayState.LinkOptions})}><Text id='share.link_options' /></a>
+          <a onClick={() => this.transitionToState(shareOverlayState.LinkOptions)}><Text id='share.link_options' /></a>
         </div>
       </div>
     )

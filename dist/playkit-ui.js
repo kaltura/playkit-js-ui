@@ -7693,7 +7693,7 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
           (0, _preact.h)(
             'a',
             { onClick: function onClick() {
-                return _this3.setState({ state: shareOverlayState.LinkOptions });
+                return _this3.transitionToState(shareOverlayState.LinkOptions);
               } },
             (0, _preact.h)(_preactI18n.Text, { id: 'share.link_options' })
           )
@@ -7962,6 +7962,10 @@ var _overlay = __webpack_require__(22);
 
 var _overlay2 = _interopRequireDefault(_overlay);
 
+var _dropdown = __webpack_require__(76);
+
+var _dropdown2 = _interopRequireDefault(_dropdown);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -7970,13 +7974,16 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-// import DropDown from '../dropdown/dropdown';
-
 var mapStateToProps = function mapStateToProps(state) {
   return {
     open: state.cvaa.overlayOpen,
     style: state.cvaa.style
   };
+};
+
+var cvaaOverlayState = {
+  Main: 'main',
+  CustomCaptions: 'custom-captions'
 };
 
 var CVAAOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.bindActions)(_extends({}, _cvaa.actions, _shell.actions))), _dec(_class = function (_BaseComponent) {
@@ -7989,6 +7996,25 @@ var CVAAOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAc
   }
 
   _createClass(CVAAOverlay, [{
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      this.setState({
+        state: cvaaOverlayState.Main
+      });
+    }
+  }, {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.setState({
+        state: cvaaOverlayState.Main
+      });
+    }
+  }, {
+    key: 'transitionToState',
+    value: function transitionToState(stateName) {
+      this.setState({ state: stateName });
+    }
+  }, {
     key: 'changeCaptionsStyle',
     value: function changeCaptionsStyle(style) {
       this.props.removePlayerClass('captions-' + this.props.style);
@@ -7997,20 +8023,13 @@ var CVAAOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAc
       this.props.onClose();
     }
   }, {
-    key: 'render',
-    value: function render(props) {
+    key: 'renderMainState',
+    value: function renderMainState() {
       var _this2 = this;
 
-      // var speedOptions = [
-      //   { value: 1, label: 'Auto (360)', active: true },
-      //   { value: 2, label: '240' },
-      //   { value: 3, label: '144' }
-      // ];
       return (0, _preact.h)(
-        _overlay2.default,
-        { open: true, onClose: function onClose() {
-            return props.onClose();
-          }, type: 'cvaa' },
+        'div',
+        { className: this.state.state === cvaaOverlayState.Main ? 'overlay-screen active' : 'overlay-screen' },
         (0, _preact.h)(
           'div',
           { className: 'title' },
@@ -8043,9 +8062,116 @@ var CVAAOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAc
         ),
         (0, _preact.h)(
           'a',
-          { className: 'button-save-cvaa' },
+          { className: 'button-save-cvaa', onClick: function onClick() {
+              return _this2.transitionToState(cvaaOverlayState.CustomCaptions);
+            } },
           'Set custom caption'
         )
+      );
+    }
+  }, {
+    key: 'renderCustomCaptionsState',
+    value: function renderCustomCaptionsState() {
+      var speedOptions = [{ value: 1, label: 'Auto (360)', active: true }, { value: 2, label: '240' }, { value: 3, label: '144' }];
+
+      return (0, _preact.h)(
+        'div',
+        { className: this.state.state === cvaaOverlayState.CustomCaptions ? 'overlay-screen active' : 'overlay-screen' },
+        (0, _preact.h)(
+          'form',
+          { className: 'form custom-caption-form' },
+          (0, _preact.h)(
+            'div',
+            { className: 'form-group-row' },
+            (0, _preact.h)(
+              'label',
+              null,
+              'Size'
+            ),
+            (0, _preact.h)(_dropdown2.default, { options: speedOptions })
+          ),
+          (0, _preact.h)(
+            'div',
+            { className: 'form-group-row' },
+            (0, _preact.h)(
+              'label',
+              null,
+              'Font color'
+            ),
+            (0, _preact.h)(_dropdown2.default, { options: speedOptions })
+          ),
+          (0, _preact.h)(
+            'div',
+            { className: 'form-group-row' },
+            (0, _preact.h)(
+              'label',
+              null,
+              'Font opacity'
+            ),
+            (0, _preact.h)(_dropdown2.default, { options: speedOptions })
+          ),
+          (0, _preact.h)(
+            'div',
+            { className: 'form-group-row' },
+            (0, _preact.h)(
+              'label',
+              null,
+              'Font family'
+            ),
+            (0, _preact.h)(_dropdown2.default, { options: speedOptions })
+          ),
+          (0, _preact.h)(
+            'div',
+            { className: 'form-group-row' },
+            (0, _preact.h)(
+              'label',
+              null,
+              'Font style'
+            ),
+            (0, _preact.h)(_dropdown2.default, { options: speedOptions })
+          ),
+          (0, _preact.h)(
+            'div',
+            { className: 'form-group-row' },
+            (0, _preact.h)(
+              'label',
+              null,
+              'Background color'
+            ),
+            (0, _preact.h)(_dropdown2.default, { options: speedOptions })
+          ),
+          (0, _preact.h)(
+            'div',
+            { className: 'form-group-row' },
+            (0, _preact.h)(
+              'label',
+              null,
+              'Background opacity'
+            ),
+            (0, _preact.h)(_dropdown2.default, { options: speedOptions })
+          ),
+          (0, _preact.h)(
+            'div',
+            { className: 'form-group-row' },
+            (0, _preact.h)(
+              'a',
+              { className: 'btn btn-branded btn-block' },
+              'Apply'
+            )
+          )
+        )
+      );
+    }
+  }, {
+    key: 'render',
+    value: function render(props) {
+      return (0, _preact.h)(
+        _overlay2.default,
+        { open: true, onClose: function onClose() {
+            return props.onClose();
+          }, type: 'cvaa' },
+        this.renderMainState(),
+        this.renderCustomCaptionsState()
       );
     }
   }]);

@@ -25,19 +25,6 @@
     }
   }
 }
-.btn-rounded {
-  height: 36px;	width: 36px;
-  min-width: 36px; min-height: 36px;
-  border-radius: 18px;
-  background-color: rgba(0,0,0,0.4);
-  display: inline-block;
-  padding: 2px;
-  fill: #fff;
-
-  &.btn-branded {
-    background-color: $brand-color;
-  }
-}
 
 .share-main-container {
   width: 300px;

@@ -1,0 +1,30 @@
+.btn {
+  text-decoration: none;
+  height: 36px;
+  border-radius: 18px;
+  color: #fff;
+  line-height: 36px;
+  font-weight: bold;
+
+  &.btn-block {
+    display: block;
+  }
+
+  &.btn-branded {
+    background-color: $brand-color;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+}
+
+.btn-rounded {
+  height: 36px;	width: 36px;
+  min-width: 36px; min-height: 36px;
+  border-radius: 18px;
+  background-color: rgba(0,0,0,0.4);
+  display: inline-block;
+  padding: 2px;
+  fill: #fff;
+}

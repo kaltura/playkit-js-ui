@@ -89,3 +89,22 @@ select {
     background: #fff;
   }
 }
+
+.form-group-row {
+  font-size: 15px;
+  margin: 24px 0;
+
+  &:after {
+    clear: both;
+    content: ' ';
+    display: block;
+  }
+
+  label {
+    float: left;
+    color: rgba(244,244,244,0.8);
+  }
+  .dropdown {
+    float: right;
+  }
+}
