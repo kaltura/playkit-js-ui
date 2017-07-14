@@ -72,8 +72,8 @@ class LanguageControl extends BaseComponent {
         >
           <Icon type='audio' />
         </button>
-        { !this.state.smartContainerOpen? undefined :
-        <Menu options={audioOptions} onSelect={(o) => this.onAudioChange(o)} />
+        { !this.state.smartContainerOpen && !this.props.isMobile ? undefined :
+        <Menu hideSelect options={audioOptions} onSelect={(o) => this.onAudioChange(o)} />
         }
       </div>
     )
@@ -88,8 +88,8 @@ class LanguageControl extends BaseComponent {
         >
           <Icon type='captions' />
         </button>
-        { !this.state.smartContainerOpen ? undefined :
-        <Menu options={textOptions} onSelect={(o) => this.onCaptionsChange(o)} />
+        { !this.state.smartContainerOpen && !this.props.isMobile ? undefined :
+        <Menu hideSelect options={textOptions} onSelect={(o) => this.onCaptionsChange(o)} />
         }
       </div>
     )

@@ -29,7 +29,10 @@ class Menu extends Component {
 
   renderNativeSelect() {
     return (
-      <select onChange={(e) => this.onSelect(this.props.options[e.target.value])}>
+      <select
+        className={this.props.hideSelect ? 'mobile-hidden-select' : ''}
+        onChange={e => this.onSelect(this.props.options[e.target.value])}
+      >
         {this.props.options.map((o, index) => <option selected={this.isSelected(o)} value={index} key={index}>{o.label}</option>)}
       </select>
     )

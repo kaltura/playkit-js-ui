@@ -5820,7 +5820,8 @@ var mapStateToProps = function mapStateToProps(state) {
     virtualProgress: state.seekbar.virtualTime,
     currentTime: state.seekbar.currentTime,
     duration: state.engine.duration,
-    isDraggingActive: state.seekbar.draggingActive
+    isDraggingActive: state.seekbar.draggingActive,
+    isMobile: state.shell.isMobile
   };
 };
 
@@ -5952,7 +5953,7 @@ var SeekBarControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bin
     value: function renderFramePreview() {
       var _this3 = this;
 
-      if (!this.props.showFramePreview) return undefined;
+      if (!this.props.showFramePreview || this.props.isMobile) return undefined;
       var framePreviewStyle = 'left: ' + this.getFramePreviewOffset() + 'px';
       var framePreviewImgStyle = 'background-image: url(http://cfvod.kaltura.com/p/1914121/sp/191412100/thumbnail/entry_id/1_umer46fd/version/100001/width/160/vid_slices/100); ';
       framePreviewImgStyle += 'background-position: ' + this.getThumbSpriteOffset();
@@ -5974,7 +5975,7 @@ var SeekBarControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bin
     value: function renderTimeBubble() {
       var _this4 = this;
 
-      if (!this.props.showTimeBubble) return undefined;
+      if (!this.props.showTimeBubble || this.props.isMobile) return undefined;
       var timeBubbleStyle = 'left: ' + this.getTimeBubbleOffset() + 'px';
       return (0, _preact.h)(
         'div',
@@ -6483,7 +6484,7 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
             (0, _preact.h)(
               'a',
               {
-                href: 'https://player.kaltura.com/video/220277207/share/facebook', target: '_blank',
+                href: 'https://player.kaltura.com/video/220277207/share/facebook', target: '_blank', rel: 'noopener noreferrer',
                 title: 'Share on Facebook', role: 'button', 'aria-label': 'Share on Facebook',
                 className: 'btn-rounded facebook-share-btn',
                 onClick: function onClick() {
@@ -6495,7 +6496,7 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
             (0, _preact.h)(
               'a',
               {
-                href: 'https://player.kaltura.com/video/220277207/share/twitter', target: '_blank',
+                href: 'https://player.kaltura.com/video/220277207/share/twitter', target: '_blank', rel: 'noopener noreferrer',
                 title: 'Share on Twitter', role: 'button', 'aria-label': 'Share on Twitter',
                 className: 'btn-rounded twitter-share-btn',
                 onClick: function onClick() {
@@ -6507,7 +6508,7 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
             (0, _preact.h)(
               'a',
               {
-                href: 'https://player.kaltura.com/video/220277207/share/google-plus', target: '_blank',
+                href: 'https://player.kaltura.com/video/220277207/share/google-plus', target: '_blank', rel: 'noopener noreferrer',
                 title: 'Share on Google Plus', role: 'button', 'aria-label': 'Share on Google Plus',
                 className: 'btn-rounded google-plus-share-btn',
                 onClick: function onClick() {
@@ -6519,7 +6520,7 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
             (0, _preact.h)(
               'a',
               {
-                href: 'https://player.kaltura.com/video/220277207/share/linkedin', target: '_blank',
+                href: 'https://player.kaltura.com/video/220277207/share/linkedin', target: '_blank', rel: 'noopener noreferrer',
                 title: 'Share on Linkedin', role: 'button', 'aria-label': 'Share on Linkedin',
                 className: 'btn-rounded linkedin-share-btn',
                 onClick: function onClick() {
@@ -6863,13 +6864,13 @@ var SettingsControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
     key: 'getQualityOptionLabel',
     value: function getQualityOptionLabel(t) {
       var resolution = t.height ? t.height + 'p' : undefined;
-      var mbs = (t.bandwidth / 1000000).toPrecision(2) + 'Mbs';
+      var mbs = t.bandwidth ? (t.bandwidth / 1000000).toPrecision(2) + 'Mbs' : undefined;
 
       if (!this.props.qualityType) {
-        return resolution || mbs;
-      } else if (this.props.qualityType.toUpperCase() === 'MBS') {
+        return resolution || mbs || 'N/A';
+      } else if (this.props.qualityType.toUpperCase() === 'MBS' && mbs) {
         return mbs;
-      } else if (this.props.qualityType.toUpperCase() === 'RESOLUTION') {
+      } else if (this.props.qualityType.toUpperCase() === 'RESOLUTION' && resolution) {
         return t.height + 'p';
       } else if (t.label) {
         return t.label;
@@ -7229,9 +7230,12 @@ var Menu = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = fun
 
       return (0, _preact.h)(
         'select',
-        { onChange: function onChange(e) {
+        {
+          className: this.props.hideSelect ? 'mobile-hidden-select' : '',
+          onChange: function onChange(e) {
             return _this2.onSelect(_this2.props.options[e.target.value]);
-          } },
+          }
+        },
         this.props.options.map(function (o, index) {
           return (0, _preact.h)(
             'option',
@@ -7411,7 +7415,7 @@ var LanguageControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
           },
           (0, _preact.h)(_icon2.default, { type: 'audio' })
         ),
-        !this.state.smartContainerOpen ? undefined : (0, _preact.h)(_menu2.default, { options: audioOptions, onSelect: function onSelect(o) {
+        !this.state.smartContainerOpen && !this.props.isMobile ? undefined : (0, _preact.h)(_menu2.default, { hideSelect: true, options: audioOptions, onSelect: function onSelect(o) {
             return _this2.onAudioChange(o);
           } })
       );
@@ -7434,7 +7438,7 @@ var LanguageControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
           },
           (0, _preact.h)(_icon2.default, { type: 'captions' })
         ),
-        !this.state.smartContainerOpen ? undefined : (0, _preact.h)(_menu2.default, { options: textOptions, onSelect: function onSelect(o) {
+        !this.state.smartContainerOpen && !this.props.isMobile ? undefined : (0, _preact.h)(_menu2.default, { hideSelect: true, options: textOptions, onSelect: function onSelect(o) {
             return _this3.onCaptionsChange(o);
           } })
       );
