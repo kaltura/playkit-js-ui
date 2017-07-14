@@ -27,7 +27,7 @@ class ShareControl extends BaseComponent {
         </button>
         { this.state.overlay ? (
           <Portal into="#overlay-portal">
-            <ShareOverlay onClose={() => this.toggleOverlay()} />
+            <ShareOverlay player={this.player} onClose={() => this.toggleOverlay()} />
           </Portal>
           ) : null }
       </div>

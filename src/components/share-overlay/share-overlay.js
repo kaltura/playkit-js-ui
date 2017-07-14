@@ -24,8 +24,8 @@ class ShareOverlay extends BaseComponent {
 
   _shareUrlInput: HTMLInputElement;
 
-  constructor() {
-    super({name: 'ShareOverlay'});
+  constructor(obj: Object) {
+    super({name: 'ShareOverlay', player: obj.player});
   }
 
   componentWillUnmount() {
@@ -47,11 +47,11 @@ class ShareOverlay extends BaseComponent {
     this.setState({state: stateName});
   }
 
-  copyUrl() {
+  copyUrl(inputElement) {
     try {
-      this._shareUrlInput.select();
+      inputElement.select();
       document.execCommand('copy');
-      this._shareUrlInput.blur();
+      inputElement.blur();
 
       this.setState({copySuccess: true});
       setTimeout(() => this.setState({copySuccess: false}) , 2000);
@@ -71,6 +71,10 @@ class ShareOverlay extends BaseComponent {
       url += `?start=${this.state.startFromValue}`
     }
     return url;
+  }
+
+  getEmbedCode() {
+    return '<iframe src="//cdnapi.kaltura.com/p/243342/sp/24334200/embedIframeJs/uiconf_id/28685261/partner_id/243342?iframeembed=true&playerId=kdp&entry_id=1_sf5ovm7u&flashvars[streamerType]=auto" width="560" height="395" allowfullscreen webkitallowfullscreen mozAllowFullScreen frameborder="0"></iframe>';
   }
 
   handleStartFromChange(e) {
@@ -132,7 +136,12 @@ class ShareOverlay extends BaseComponent {
             >
               <Icon type='email' />
             </a>
-            <a className='btn-rounded embed-share-btn'><Icon type='embed' /></a>
+            <a
+              className='btn-rounded embed-share-btn'
+              onClick={() => this.transitionToState(shareOverlayState.EmbedOptions)}
+            >
+              <Icon type='embed' />
+            </a>
           </div>
           <div>
             <div className='form-group has-icon'>
@@ -168,7 +177,7 @@ class ShareOverlay extends BaseComponent {
             </div>
             <a
               className={copyUrlClasses}
-              onClick={() => this.copyUrl()}>
+              onClick={() => this.copyUrl(this._shareUrlInput)}>
               <Icon type='copy' />
               <Icon type='check' />
             </a>
@@ -198,11 +207,78 @@ class ShareOverlay extends BaseComponent {
     )
   }
 
+  renderEmbedOptionsState() {
+    var copyUrlClasses = 'btn-rounded btn-branded btn-copy-url';
+    copyUrlClasses += this.state.copySuccess ? ' copied' : '';
+
+    return (
+      <div className={this.state.state === shareOverlayState.EmbedOptions ? 'overlay-screen active' : 'overlay-screen'}>
+        <div className='title'>Embed options</div>
+        <div className='link-options-container'>
+          <div className='copy-url-row'>
+            <div className='form-group has-icon input-copy-url' style='width: 350px;'>
+              <input
+                type='text'
+                ref={c => this._embedCodeInput=c}
+                placeholder='Share URL'
+                className='form-control'
+                value={this.getEmbedCode()}
+                readOnly
+              />
+              <Icon type='embed' />
+            </div>
+            <a
+              className={copyUrlClasses}
+              onClick={() => this.copyUrl(this._embedCodeInput)}>
+              <Icon type='copy' />
+              <Icon type='check' />
+            </a>
+          </div>
+          <div className='video-start-options-row'>
+            <div className="checkbox d-inline-block">
+              <input
+                type='checkbox'
+                id="start-from"
+                checked={this.state.startFrom}
+                onClick={e => this.toggleStartFrom(e)}
+              />
+              <label htmlFor="start-from">Start video at </label>
+            </div>
+            <div className='form-group d-inline-block'>
+              <input
+                type='text'
+                className='form-control'
+                onChange={e => this.handleStartFromChange(e)}
+                value={toHHMMSS(this.state.startFromValue)}
+                style='width: 72px;'
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  renderStateContent() {
+    switch (this.state.state) {
+      case shareOverlayState.Main:
+        return this.renderMainState();
+
+      case shareOverlayState.LinkOptions:
+        return this.renderLinkOptionsState();
+
+      case shareOverlayState.EmbedOptions:
+        return this.renderEmbedOptionsState();
+
+      default:
+        return this.renderMainState();
+    }
+  }
+
   render(props: any) {
     return (
       <Overlay open onClose={() => props.onClose()} type='share'>
-        {this.renderMainState()}
-        {this.renderLinkOptionsState()}
+        {this.renderStateContent()}
       </Overlay>
     )
   }

@@ -46,7 +46,7 @@ class Menu extends Component {
           props.options.map((o, index) => (
             <div key={index} className={this.isSelected(o) ? 'dropdown-menu-item active' : 'dropdown-menu-item'} onClick={() => this.onSelect(o)}>
               <span>{o.label}</span>
-              { this.isSelected(o) ? <Icon type='check' /> : '' }
+              <span style={`opacity: ${ this.isSelected(o) ? 1 : 0 }`}><Icon type='check' /></span>
             </div>
           ))
         }

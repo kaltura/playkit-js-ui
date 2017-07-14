@@ -6292,7 +6292,7 @@ var ShareControl = function (_BaseComponent) {
         this.state.overlay ? (0, _preact.h)(
           _preactPortal2.default,
           { into: '#overlay-portal' },
-          (0, _preact.h)(_shareOverlay2.default, { onClose: function onClose() {
+          (0, _preact.h)(_shareOverlay2.default, { player: this.player, onClose: function onClose() {
               return _this2.toggleOverlay();
             } })
         ) : null
@@ -6387,10 +6387,10 @@ var shareOverlayState = {
 var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.bindActions)(_share.actions)), _dec(_class = function (_BaseComponent) {
   _inherits(ShareOverlay, _BaseComponent);
 
-  function ShareOverlay() {
+  function ShareOverlay(obj) {
     _classCallCheck(this, ShareOverlay);
 
-    return _possibleConstructorReturn(this, (ShareOverlay.__proto__ || Object.getPrototypeOf(ShareOverlay)).call(this, { name: 'ShareOverlay' }));
+    return _possibleConstructorReturn(this, (ShareOverlay.__proto__ || Object.getPrototypeOf(ShareOverlay)).call(this, { name: 'ShareOverlay', player: obj.player }));
   }
 
   _createClass(ShareOverlay, [{
@@ -6417,13 +6417,13 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
     }
   }, {
     key: 'copyUrl',
-    value: function copyUrl() {
+    value: function copyUrl(inputElement) {
       var _this2 = this;
 
       try {
-        this._shareUrlInput.select();
+        inputElement.select();
         document.execCommand('copy');
-        this._shareUrlInput.blur();
+        inputElement.blur();
 
         this.setState({ copySuccess: true });
         setTimeout(function () {
@@ -6446,6 +6446,11 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
         url += '?start=' + this.state.startFromValue;
       }
       return url;
+    }
+  }, {
+    key: 'getEmbedCode',
+    value: function getEmbedCode() {
+      return '<iframe src="//cdnapi.kaltura.com/p/243342/sp/24334200/embedIframeJs/uiconf_id/28685261/partner_id/243342?iframeembed=true&playerId=kdp&entry_id=1_sf5ovm7u&flashvars[streamerType]=auto" width="560" height="395" allowfullscreen webkitallowfullscreen mozAllowFullScreen frameborder="0"></iframe>';
     }
   }, {
     key: 'handleStartFromChange',
@@ -6539,7 +6544,12 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
             ),
             (0, _preact.h)(
               'a',
-              { className: 'btn-rounded embed-share-btn' },
+              {
+                className: 'btn-rounded embed-share-btn',
+                onClick: function onClick() {
+                  return _this3.transitionToState(shareOverlayState.EmbedOptions);
+                }
+              },
               (0, _preact.h)(_icon2.default, { type: 'embed' })
             )
           ),
@@ -6605,7 +6615,7 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
               {
                 className: copyUrlClasses,
                 onClick: function onClick() {
-                  return _this4.copyUrl();
+                  return _this4.copyUrl(_this4._shareUrlInput);
                 } },
               (0, _preact.h)(_icon2.default, { type: 'copy' }),
               (0, _preact.h)(_icon2.default, { type: 'check' })
@@ -6649,6 +6659,108 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
       );
     }
   }, {
+    key: 'renderEmbedOptionsState',
+    value: function renderEmbedOptionsState() {
+      var _this5 = this;
+
+      var copyUrlClasses = 'btn-rounded btn-branded btn-copy-url';
+      copyUrlClasses += this.state.copySuccess ? ' copied' : '';
+
+      return (0, _preact.h)(
+        'div',
+        { className: this.state.state === shareOverlayState.EmbedOptions ? 'overlay-screen active' : 'overlay-screen' },
+        (0, _preact.h)(
+          'div',
+          { className: 'title' },
+          'Embed options'
+        ),
+        (0, _preact.h)(
+          'div',
+          { className: 'link-options-container' },
+          (0, _preact.h)(
+            'div',
+            { className: 'copy-url-row' },
+            (0, _preact.h)(
+              'div',
+              { className: 'form-group has-icon input-copy-url', style: 'width: 350px;' },
+              (0, _preact.h)('input', {
+                type: 'text',
+                ref: function ref(c) {
+                  return _this5._embedCodeInput = c;
+                },
+                placeholder: 'Share URL',
+                className: 'form-control',
+                value: this.getEmbedCode(),
+                readOnly: true
+              }),
+              (0, _preact.h)(_icon2.default, { type: 'embed' })
+            ),
+            (0, _preact.h)(
+              'a',
+              {
+                className: copyUrlClasses,
+                onClick: function onClick() {
+                  return _this5.copyUrl(_this5._embedCodeInput);
+                } },
+              (0, _preact.h)(_icon2.default, { type: 'copy' }),
+              (0, _preact.h)(_icon2.default, { type: 'check' })
+            )
+          ),
+          (0, _preact.h)(
+            'div',
+            { className: 'video-start-options-row' },
+            (0, _preact.h)(
+              'div',
+              { className: 'checkbox d-inline-block' },
+              (0, _preact.h)('input', {
+                type: 'checkbox',
+                id: 'start-from',
+                checked: this.state.startFrom,
+                onClick: function onClick(e) {
+                  return _this5.toggleStartFrom(e);
+                }
+              }),
+              (0, _preact.h)(
+                'label',
+                { htmlFor: 'start-from' },
+                'Start video at '
+              )
+            ),
+            (0, _preact.h)(
+              'div',
+              { className: 'form-group d-inline-block' },
+              (0, _preact.h)('input', {
+                type: 'text',
+                className: 'form-control',
+                onChange: function onChange(e) {
+                  return _this5.handleStartFromChange(e);
+                },
+                value: (0, _timeFormat.toHHMMSS)(this.state.startFromValue),
+                style: 'width: 72px;'
+              })
+            )
+          )
+        )
+      );
+    }
+  }, {
+    key: 'renderStateContent',
+    value: function renderStateContent() {
+      switch (this.state.state) {
+        case shareOverlayState.Main:
+          return this.renderMainState();
+
+        case shareOverlayState.LinkOptions:
+          return this.renderLinkOptionsState();
+
+        case shareOverlayState.EmbedOptions:
+          return this.renderEmbedOptionsState();
+
+        default:
+          return this.renderMainState();
+      }
+    }
+  }, {
     key: 'render',
     value: function render(props) {
       return (0, _preact.h)(
@@ -6656,8 +6768,7 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
         { open: true, onClose: function onClose() {
             return props.onClose();
           }, type: 'share' },
-        this.renderMainState(),
-        this.renderLinkOptionsState()
+        this.renderStateContent()
       );
     }
   }]);
@@ -7264,7 +7375,11 @@ var Menu = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = fun
               null,
               o.label
             ),
-            _this3.isSelected(o) ? (0, _preact.h)(_icon2.default, { type: 'check' }) : ''
+            (0, _preact.h)(
+              'span',
+              { style: 'opacity: ' + (_this3.isSelected(o) ? 1 : 0) },
+              (0, _preact.h)(_icon2.default, { type: 'check' })
+            )
           );
         })
       );
