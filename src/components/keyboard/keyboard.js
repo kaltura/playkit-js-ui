@@ -1,5 +1,5 @@
 //@flow
-import BaseComponent from './base';
+import BaseComponent from '../base';
 
 class KeyboardControl extends BaseComponent {
 

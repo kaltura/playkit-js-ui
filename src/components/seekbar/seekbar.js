@@ -100,7 +100,7 @@ class SeekBarControl extends BaseComponent {
   }
 
   getTime(e: any): number {
-    let xPosition = !!e.touches ? e.touches[0].clientX : e.clientX;
+    let xPosition = e.touches ? e.touches[0].clientX : e.clientX;
     let time = this.player.duration * ((xPosition - this._seekBarElement.offsetLeft - this._playerElement.offsetLeft) / this._seekBarElement.clientWidth);
     time = parseFloat(time.toFixed(2));
     if (time < 0) return 0;

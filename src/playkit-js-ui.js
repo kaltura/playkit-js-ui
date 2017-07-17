@@ -3,9 +3,9 @@ import UIManager from './ui-manager';
 export {h} from 'preact';
 
 // ui presets
-export {playbackUI} from './ui-presets/playback';
-export {adsUI} from './ui-presets/ads';
-export {fullscreenUI} from './ui-presets/fullscreen';
+export {default as playbackUI} from './ui-presets/playback';
+export {default as adsUI} from './ui-presets/ads';
+export {default as fullscreenUI} from './ui-presets/fullscreen';
 
 // components
 export {OverlayPlay} from './components/overlay-play';

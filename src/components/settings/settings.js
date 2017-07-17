@@ -55,7 +55,7 @@ class SettingsControl extends BaseComponent {
     this.player.selectTrack(videoTrack);
   }
 
-  getQualityOptionLabel(t) {
+  getQualityOptionLabel(t: Object) {
     let resolution = t.height ? t.height + 'p' : undefined;
     let mbs = t.bandwidth ? (t.bandwidth/1000000).toPrecision(2) + 'Mbs' : undefined;
 
@@ -84,7 +84,8 @@ class SettingsControl extends BaseComponent {
       .reduce((acc, speed, i) => {
         let speedOption = {
           value: i + 1,
-          label: speed === 1 ? 'Normal' : speed
+          label: speed === 1 ? 'Normal' : speed,
+          active: false
         };
         if (speed === defaultSpeed) {
           speedOption.active = true;

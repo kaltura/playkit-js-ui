@@ -2007,109 +2007,9 @@ exports.default = _bottomBar2.default;
 
 /***/ }),
 /* 15 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _base = __webpack_require__(2);
-
-var _base2 = _interopRequireDefault(_base);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var KeyboardControl = function (_BaseComponent) {
-  _inherits(KeyboardControl, _BaseComponent);
-
-  function KeyboardControl(obj) {
-    _classCallCheck(this, KeyboardControl);
-
-    var _this = _possibleConstructorReturn(this, (KeyboardControl.__proto__ || Object.getPrototypeOf(KeyboardControl)).call(this, { name: 'Keyboard', player: obj.player }));
-
-    _this.player._el.parentElement.onkeydown = function (e) {
-      var time = void 0,
-          newVolume = void 0;
-      switch (e.which) {
-        case 32:
-          // space
-          _this.logger.debug("Keydown space");
-          _this.player.paused ? _this.player.play() : _this.player.pause();
-          break;
-
-        case 38:
-          // up
-          _this.logger.debug("Keydown up");
-          newVolume = Math.round(_this.player.volume * 100) + 5;
-          _this.logger.debug('Changing volume. ' + _this.player.volume + ' => ' + newVolume);
-          if (_this.player.muted) {
-            _this.player.muted = false;
-          }
-          _this.player.volume = newVolume / 100;
-          break;
-
-        case 40:
-          // down
-          _this.logger.debug("Keydown down");
-          newVolume = Math.round(_this.player.volume * 100) - 5;
-          if (newVolume < 5) {
-            _this.player.muted = true;
-            return;
-          }
-          _this.logger.debug('Changing volume. ' + _this.player.volume + ' => ' + newVolume);
-          _this.player.volume = newVolume / 100;
-          break;
-
-        case 37:
-          // left
-          _this.logger.debug("Keydown left");
-          time = _this.player.currentTime - 5 > 0 ? _this.player.currentTime - 5 : 0;
-          _this.player.currentTime = time;
-          break;
-
-        case 39:
-          // right
-          _this.logger.debug("Keydown right");
-          time = _this.player.currentTime + 5 > _this.player.duration ? _this.player.duration : _this.player.currentTime + 5;
-          _this.player.currentTime = time;
-          break;
-
-        default:
-          return;
-      }
-    };
-
-    _this.disableKeyboardCommandsOnControls();
-    return _this;
-  }
-
-  _createClass(KeyboardControl, [{
-    key: 'disableKeyboardCommandsOnControls',
-    value: function disableKeyboardCommandsOnControls() {
-      var controlButtonsElements = Array.from(document.getElementsByClassName('control-button'));
-      controlButtonsElements.forEach(function (element) {
-        element.onkeydown = function (e) {
-          return e.preventDefault();
-        };
-      });
-    }
-  }]);
-
-  return KeyboardControl;
-}(_base2.default);
-
-exports.default = KeyboardControl;
+throw new Error("Module build failed: Error: ENOENT: no such file or directory, open '/Users/dvirhazut/sources/playkit-js-ui/src/components/keyboard.js'");
 
 /***/ }),
 /* 16 */
@@ -2237,8 +2137,6 @@ function toHHMMSS(input) {
   var minutes = Math.floor((sec_num - hours * 3600) / 60);
   var seconds = sec_num - hours * 3600 - minutes * 60;
 
-  var result = '';
-
   if (hours < 10) {
     hours = '0' + hours;
   }
@@ -2256,7 +2154,7 @@ function toSecondsFromHHMMSS(input) {
   var parts = input.split(':');
   var seconds = 0;
   if (parts.length === 2) {
-    if (parts[0] > 59 || parts[1] > 59) {
+    if (parseInt(parts[0]) > 59 || parseInt(parts[1]) > 59) {
       return 0;
     }
     seconds += parseInt(parts[0]) * 60;
@@ -4367,7 +4265,7 @@ var _playback = __webpack_require__(29);
 Object.defineProperty(exports, 'playbackUI', {
   enumerable: true,
   get: function get() {
-    return _playback.playbackUI;
+    return _interopRequireDefault(_playback).default;
   }
 });
 
@@ -4376,7 +4274,7 @@ var _ads = __webpack_require__(49);
 Object.defineProperty(exports, 'adsUI', {
   enumerable: true,
   get: function get() {
-    return _ads.adsUI;
+    return _interopRequireDefault(_ads).default;
   }
 });
 
@@ -4385,7 +4283,7 @@ var _fullscreen = __webpack_require__(50);
 Object.defineProperty(exports, 'fullscreenUI', {
   enumerable: true,
   get: function get() {
-    return _fullscreen.fullscreenUI;
+    return _interopRequireDefault(_fullscreen).default;
   }
 });
 
@@ -5582,9 +5480,6 @@ var PrePlaybackPlayOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, 
         _this.props.removePlayerClass('pre-playback');
       }
     });
-    _this.player.addEventListener(_this.player.Event.LOADED_METADATA, function () {
-      _this.props.addPlayerClass('pre-playback');
-    });
     return _this;
   }
 
@@ -5593,6 +5488,11 @@ var PrePlaybackPlayOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, 
     value: function componentWillUnmount() {
       this.props.updatePrePlayback(false);
       this.props.removePlayerClass('pre-playback');
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.addPlayerClass('pre-playback');
     }
   }, {
     key: 'handleClick',
@@ -5962,7 +5862,7 @@ var SeekBarControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bin
   }, {
     key: 'getTime',
     value: function getTime(e) {
-      var xPosition = !!e.touches ? e.touches[0].clientX : e.clientX;
+      var xPosition = e.touches ? e.touches[0].clientX : e.clientX;
       var time = this.player.duration * ((xPosition - this._seekBarElement.offsetLeft - this._playerElement.offsetLeft) / this._seekBarElement.clientWidth);
       time = parseFloat(time.toFixed(2));
       if (time < 0) return 0;
@@ -6673,8 +6573,8 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
                 type: 'checkbox',
                 id: 'start-from',
                 checked: this.state.startFrom,
-                onClick: function onClick(e) {
-                  return _this4.toggleStartFrom(e);
+                onClick: function onClick() {
+                  return _this4.toggleStartFrom();
                 }
               }),
               (0, _preact.h)(
@@ -6758,8 +6658,8 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
                 type: 'checkbox',
                 id: 'start-from',
                 checked: this.state.startFrom,
-                onClick: function onClick(e) {
-                  return _this5.toggleStartFrom(e);
+                onClick: function onClick() {
+                  return _this5.toggleStartFrom();
                 }
               }),
               (0, _preact.h)(
@@ -7041,7 +6941,8 @@ var SettingsControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
       var speedOptions = defaultSpeeds.reduce(function (acc, speed, i) {
         var speedOption = {
           value: i + 1,
-          label: speed === 1 ? 'Normal' : speed
+          label: speed === 1 ? 'Normal' : speed,
+          active: false
         };
         if (speed === defaultSpeed) {
           speedOption.active = true;
@@ -8770,13 +8671,18 @@ var Shell = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.
       var _this2 = this;
 
       this.props.updateIsMobile((0, _isMobile.isMobile)());
-      this.props.updateDocumentWidth(document.body.clientWidth);
+      if (document.body) {
+        this.props.updateDocumentWidth(document.body.clientWidth);
+      }
       this.player.addEventListener(this.player.Event.LOADED_METADATA, function () {
         _this2.props.updatePlayerWidth(_this2.player._el.parentElement.clientWidth);
       });
       window.addEventListener('resize', function () {
         _this2.props.updatePlayerWidth(_this2.player._el.parentElement.clientWidth);
-        _this2.props.updateDocumentWidth(document.body.clientWidth);
+
+        if (document.body) {
+          _this2.props.updateDocumentWidth(document.body.clientWidth);
+        }
       });
       if ((0, _isMobile.isMobile)()) {
         this.props.addPlayerClass('touch');

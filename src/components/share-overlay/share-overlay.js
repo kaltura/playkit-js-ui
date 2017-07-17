@@ -23,6 +23,7 @@ const shareOverlayState: Object = {
 class ShareOverlay extends BaseComponent {
 
   _shareUrlInput: HTMLInputElement;
+  _embedCodeInput: HTMLInputElement;
 
   constructor(obj: Object) {
     super({name: 'ShareOverlay', player: obj.player});
@@ -47,7 +48,7 @@ class ShareOverlay extends BaseComponent {
     this.setState({state: stateName});
   }
 
-  copyUrl(inputElement) {
+  copyUrl(inputElement: HTMLInputElement) {
     try {
       inputElement.select();
       document.execCommand('copy');
@@ -77,7 +78,7 @@ class ShareOverlay extends BaseComponent {
     return '<iframe src="//cdnapi.kaltura.com/p/243342/sp/24334200/embedIframeJs/uiconf_id/28685261/partner_id/243342?iframeembed=true&playerId=kdp&entry_id=1_sf5ovm7u&flashvars[streamerType]=auto" width="560" height="395" allowfullscreen webkitallowfullscreen mozAllowFullScreen frameborder="0"></iframe>';
   }
 
-  handleStartFromChange(e) {
+  handleStartFromChange(e: any) {
     let seconds = toSecondsFromHHMMSS(e.target.value);
     if (seconds >= this.player.duration) {
       this.setState({startFromValue: 1});
@@ -85,7 +86,7 @@ class ShareOverlay extends BaseComponent {
     this.setState({startFromValue: seconds});
   }
 
-  share(href) {
+  share(href: string) {
     window.open(href,'_blank','width=580,height=580');
     return false;
   }
@@ -188,7 +189,7 @@ class ShareOverlay extends BaseComponent {
                 type='checkbox'
                 id="start-from"
                 checked={this.state.startFrom}
-                onClick={e => this.toggleStartFrom(e)}
+                onClick={() => this.toggleStartFrom()}
               />
               <label htmlFor="start-from">Start video at </label>
             </div>
@@ -240,7 +241,7 @@ class ShareOverlay extends BaseComponent {
                 type='checkbox'
                 id="start-from"
                 checked={this.state.startFrom}
-                onClick={e => this.toggleStartFrom(e)}
+                onClick={() => this.toggleStartFrom()}
               />
               <label htmlFor="start-from">Start video at </label>
             </div>

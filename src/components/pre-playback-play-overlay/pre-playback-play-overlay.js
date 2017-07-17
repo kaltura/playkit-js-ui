@@ -23,14 +23,15 @@ class PrePlaybackPlayOverlay extends BaseComponent {
         this.props.removePlayerClass('pre-playback');
       }
     });
-    this.player.addEventListener(this.player.Event.LOADED_METADATA, () => {
-      this.props.addPlayerClass('pre-playback');
-    });
   }
 
   componentWillUnmount() {
     this.props.updatePrePlayback(false);
     this.props.removePlayerClass('pre-playback');
+  }
+
+  componentDidMount() {
+    this.props.addPlayerClass('pre-playback');
   }
 
   handleClick() {

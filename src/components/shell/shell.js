@@ -47,14 +47,19 @@ class Shell extends BaseComponent {
 
   componentDidMount() {
     this.props.updateIsMobile(isMobile());
-    this.props.updateDocumentWidth(document.body.clientWidth);
-    this.player.addEventListener(this.player.Event.LOADED_METADATA, () => {
-      this.props.updatePlayerWidth(this.player._el.parentElement.clientWidth);
-    });
-    window.addEventListener('resize', () => {
-      this.props.updatePlayerWidth(this.player._el.parentElement.clientWidth);
+    if (document.body) {
       this.props.updateDocumentWidth(document.body.clientWidth);
-    });
+    }
+      this.player.addEventListener(this.player.Event.LOADED_METADATA, () => {
+        this.props.updatePlayerWidth(this.player._el.parentElement.clientWidth);
+      });
+      window.addEventListener('resize', () => {
+        this.props.updatePlayerWidth(this.player._el.parentElement.clientWidth);
+
+        if (document.body) {
+          this.props.updateDocumentWidth(document.body.clientWidth);
+        }
+      });
     if (isMobile()) {
       this.props.addPlayerClass('touch');
     }
