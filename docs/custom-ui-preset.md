@@ -29,7 +29,7 @@ export default function fullscreenUI(props: any) {
 
 ```javascript
 //@flow
-import { default as playbackUI, playbackUI } from 'playkit-js-ui';
+import { default as PlaykitUI, playbackUI } from 'playkit-js-ui';
 
 // the new preset we created
 import fullscreenUI from './fullscreen-preset.js';
