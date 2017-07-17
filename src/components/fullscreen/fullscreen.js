@@ -19,18 +19,47 @@ class FullscreenControl extends BaseComponent {
   }
 
   componentDidMount() {
-    document.addEventListener('webkitfullscreenchange', () => {
-      this.props.updateFullscreen((document: any).webkitIsFullScreen);
-    });
+    document.addEventListener('webkitfullscreenchange', () => this.fullscreenChangeHandler());
+    document.addEventListener('mozfullscreenchange', () => this.fullscreenChangeHandler());
+    document.addEventListener('fullscreenchange', () => this.fullscreenChangeHandler());
+    document.addEventListener('MSFullscreenChange', () => this.fullscreenChangeHandler());
+
+  }
+
+  fullscreenChangeHandler() {
+    let isFullscreen = Boolean(document.fullscreenElement) ||
+      Boolean(document.webkitFullscreenElement) ||
+      Boolean(document.mozFullScreenElement) ||
+      Boolean(document.msFullscreenElement);
+
+    this.props.updateFullscreen(isFullscreen);
+  }
+
+  requestFullscreen(element: HTMLElement) {
+    if (typeof element.requestFullscreen === 'function') {
+      element.requestFullscreen();
+    } else if (typeof element.mozRequestFullScreen === 'function') {
+      element.mozRequestFullScreen();
+    } else if (typeof element.webkitRequestFullScreen === 'function') {
+      element.webkitRequestFullScreen();
+    } else if (typeof element.msRequestFullscreen === 'function') {
+      element.msRequestFullscreen();
+    }
   }
 
   enterFullscreen() {
-    this.player._el.parentElement.webkitRequestFullscreen();
+    this.requestFullscreen(this.player._el.parentElement);
   }
 
   exitFullscreen() {
-    if (typeof document.webkitCancelFullScreen === 'function') {
-      document.webkitCancelFullScreen();
+    if (typeof document.exitFullscreen === 'function') {
+      document.exitFullscreen();
+    } else if (typeof document.webkitExitFullscreen === 'function') {
+      document.webkitExitFullscreen();
+    } else if (typeof document.mozCancelFullScreen === 'function') {
+      document.mozCancelFullScreen();
+    } else if (typeof document.msExitFullscreen === 'function') {
+      document.msExitFullscreen();
     }
   }
 

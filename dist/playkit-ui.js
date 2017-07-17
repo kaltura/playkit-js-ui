@@ -2007,9 +2007,23 @@ exports.default = _bottomBar2.default;
 
 /***/ }),
 /* 15 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module build failed: Error: ENOENT: no such file or directory, open '/Users/dvirhazut/sources/playkit-js-ui/src/components/keyboard.js'");
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _keyboard = __webpack_require__(93);
+
+var _keyboard2 = _interopRequireDefault(_keyboard);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _keyboard2.default;
 
 /***/ }),
 /* 16 */
@@ -4422,7 +4436,7 @@ Object.defineProperty(exports, 'KeyboardControl', {
   }
 });
 
-var _uiManager = __webpack_require__(93);
+var _uiManager = __webpack_require__(94);
 
 var _uiManager2 = _interopRequireDefault(_uiManager);
 
@@ -7948,19 +7962,54 @@ var FullscreenControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _
       var _this2 = this;
 
       document.addEventListener('webkitfullscreenchange', function () {
-        _this2.props.updateFullscreen(document.webkitIsFullScreen);
+        return _this2.fullscreenChangeHandler();
       });
+      document.addEventListener('mozfullscreenchange', function () {
+        return _this2.fullscreenChangeHandler();
+      });
+      document.addEventListener('fullscreenchange', function () {
+        return _this2.fullscreenChangeHandler();
+      });
+      document.addEventListener('MSFullscreenChange', function () {
+        return _this2.fullscreenChangeHandler();
+      });
+    }
+  }, {
+    key: 'fullscreenChangeHandler',
+    value: function fullscreenChangeHandler() {
+      var isFullscreen = Boolean(document.fullscreenElement) || Boolean(document.webkitFullscreenElement) || Boolean(document.mozFullScreenElement) || Boolean(document.msFullscreenElement);
+
+      this.props.updateFullscreen(isFullscreen);
+    }
+  }, {
+    key: 'requestFullscreen',
+    value: function requestFullscreen(element) {
+      if (typeof element.requestFullscreen === 'function') {
+        element.requestFullscreen();
+      } else if (typeof element.mozRequestFullScreen === 'function') {
+        element.mozRequestFullScreen();
+      } else if (typeof element.webkitRequestFullScreen === 'function') {
+        element.webkitRequestFullScreen();
+      } else if (typeof element.msRequestFullscreen === 'function') {
+        element.msRequestFullscreen();
+      }
     }
   }, {
     key: 'enterFullscreen',
     value: function enterFullscreen() {
-      this.player._el.parentElement.webkitRequestFullscreen();
+      this.requestFullscreen(this.player._el.parentElement);
     }
   }, {
     key: 'exitFullscreen',
     value: function exitFullscreen() {
-      if (typeof document.webkitCancelFullScreen === 'function') {
-        document.webkitCancelFullScreen();
+      if (typeof document.exitFullscreen === 'function') {
+        document.exitFullscreen();
+      } else if (typeof document.webkitExitFullscreen === 'function') {
+        document.webkitExitFullscreen();
+      } else if (typeof document.mozCancelFullScreen === 'function') {
+        document.mozCancelFullScreen();
+      } else if (typeof document.msExitFullscreen === 'function') {
+        document.msExitFullscreen();
       }
     }
   }, {
@@ -8237,6 +8286,112 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _base = __webpack_require__(2);
+
+var _base2 = _interopRequireDefault(_base);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var KeyboardControl = function (_BaseComponent) {
+  _inherits(KeyboardControl, _BaseComponent);
+
+  function KeyboardControl(obj) {
+    _classCallCheck(this, KeyboardControl);
+
+    var _this = _possibleConstructorReturn(this, (KeyboardControl.__proto__ || Object.getPrototypeOf(KeyboardControl)).call(this, { name: 'Keyboard', player: obj.player }));
+
+    _this.player._el.parentElement.onkeydown = function (e) {
+      var time = void 0,
+          newVolume = void 0;
+      switch (e.which) {
+        case 32:
+          // space
+          _this.logger.debug("Keydown space");
+          _this.player.paused ? _this.player.play() : _this.player.pause();
+          break;
+
+        case 38:
+          // up
+          _this.logger.debug("Keydown up");
+          newVolume = Math.round(_this.player.volume * 100) + 5;
+          _this.logger.debug('Changing volume. ' + _this.player.volume + ' => ' + newVolume);
+          if (_this.player.muted) {
+            _this.player.muted = false;
+          }
+          _this.player.volume = newVolume / 100;
+          break;
+
+        case 40:
+          // down
+          _this.logger.debug("Keydown down");
+          newVolume = Math.round(_this.player.volume * 100) - 5;
+          if (newVolume < 5) {
+            _this.player.muted = true;
+            return;
+          }
+          _this.logger.debug('Changing volume. ' + _this.player.volume + ' => ' + newVolume);
+          _this.player.volume = newVolume / 100;
+          break;
+
+        case 37:
+          // left
+          _this.logger.debug("Keydown left");
+          time = _this.player.currentTime - 5 > 0 ? _this.player.currentTime - 5 : 0;
+          _this.player.currentTime = time;
+          break;
+
+        case 39:
+          // right
+          _this.logger.debug("Keydown right");
+          time = _this.player.currentTime + 5 > _this.player.duration ? _this.player.duration : _this.player.currentTime + 5;
+          _this.player.currentTime = time;
+          break;
+
+        default:
+          return;
+      }
+    };
+
+    _this.disableKeyboardCommandsOnControls();
+    return _this;
+  }
+
+  _createClass(KeyboardControl, [{
+    key: 'disableKeyboardCommandsOnControls',
+    value: function disableKeyboardCommandsOnControls() {
+      var controlButtonsElements = Array.from(document.getElementsByClassName('control-button'));
+      controlButtonsElements.forEach(function (element) {
+        element.onkeydown = function (e) {
+          return e.preventDefault();
+        };
+      });
+    }
+  }]);
+
+  return KeyboardControl;
+}(_base2.default);
+
+exports.default = KeyboardControl;
+
+/***/ }),
+/* 94 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 // core components for the UI
 
 
@@ -8251,25 +8406,25 @@ var _preactI18n = __webpack_require__(5);
 
 var _redux = __webpack_require__(8);
 
-var _store = __webpack_require__(94);
+var _store = __webpack_require__(95);
 
 var _store2 = _interopRequireDefault(_store);
 
-var _fr = __webpack_require__(95);
+var _fr = __webpack_require__(96);
 
 var _fr2 = _interopRequireDefault(_fr);
 
 var _playkitJs = __webpack_require__(36);
 
-var _engineConnector = __webpack_require__(96);
+var _engineConnector = __webpack_require__(97);
 
 var _engineConnector2 = _interopRequireDefault(_engineConnector);
 
-var _shell = __webpack_require__(97);
+var _shell = __webpack_require__(98);
 
 var _shell2 = _interopRequireDefault(_shell);
 
-var _playerGui = __webpack_require__(98);
+var _playerGui = __webpack_require__(99);
 
 var _playerGui2 = _interopRequireDefault(_playerGui);
 
@@ -8363,7 +8518,7 @@ var UIManager = function () {
 exports.default = UIManager;
 
 /***/ }),
-/* 94 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8432,7 +8587,7 @@ var reducer = (0, _redux.combineReducers)({
 exports.default = reducer;
 
 /***/ }),
-/* 95 */
+/* 96 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -8465,7 +8620,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 96 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8584,7 +8739,7 @@ var EngineConnector = (_dec = (0, _preactRedux.connect)(_engine2.default, (0, _b
 exports.default = EngineConnector;
 
 /***/ }),
-/* 97 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8723,7 +8878,7 @@ var Shell = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.
 exports.default = Shell;
 
 /***/ }),
-/* 98 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
