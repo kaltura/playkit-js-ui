@@ -80,19 +80,25 @@ class SettingsControl extends BaseComponent {
 
     const defaultSpeeds = [0.5, 1, 2, 4];
     let defaultSpeed = 1;
-    let speedOptions = defaultSpeeds.reduce((acc, speed, i) => {
-      let speedOption = {value: i + 1, label: speed === 1 ? 'Normal' : speed};
-      if (speed === defaultSpeed){
-        speedOption.active = true;
-      }
-      acc.push(speedOption);
-      return acc;
-    }, []);
-    var qualityOptions = props.videoTracks.map(t => ({
-      label: this.getQualityOptionLabel(t),
-      active: t.active,
-      value: t
-    }));
+    let speedOptions = defaultSpeeds
+      .reduce((acc, speed, i) => {
+        let speedOption = {value: i + 1, label: speed === 1 ? 'Normal' : speed};
+        if (speed === defaultSpeed) {
+          speedOption.active = true;
+        }
+        acc.push(speedOption);
+        return acc;
+      }, []);
+
+    var qualityOptions = props.videoTracks
+      .sort((a, b) => {
+        return a.bandwidth < b.bandwidth
+      })
+      .map(t => ({
+        label: this.getQualityOptionLabel(t),
+        active: t.active,
+        value: t
+      }));
 
     return (
       <div

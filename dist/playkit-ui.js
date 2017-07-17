@@ -7044,7 +7044,10 @@ var SettingsControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
         acc.push(speedOption);
         return acc;
       }, []);
-      var qualityOptions = props.videoTracks.map(function (t) {
+
+      var qualityOptions = props.videoTracks.sort(function (a, b) {
+        return a.bandwidth < b.bandwidth;
+      }).map(function (t) {
         return {
           label: _this2.getQualityOptionLabel(t),
           active: t.active,
