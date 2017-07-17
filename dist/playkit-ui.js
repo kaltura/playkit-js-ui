@@ -7039,7 +7039,10 @@ var SettingsControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
       var defaultSpeeds = [0.5, 1, 2, 4];
       var defaultSpeed = 1;
       var speedOptions = defaultSpeeds.reduce(function (acc, speed, i) {
-        var speedOption = { value: i + 1, label: speed === 1 ? 'Normal' : speed };
+        var speedOption = {
+          value: i + 1,
+          label: speed === 1 ? 'Normal' : speed
+        };
         if (speed === defaultSpeed) {
           speedOption.active = true;
         }

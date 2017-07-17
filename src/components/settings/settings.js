@@ -82,7 +82,10 @@ class SettingsControl extends BaseComponent {
     let defaultSpeed = 1;
     let speedOptions = defaultSpeeds
       .reduce((acc, speed, i) => {
-        let speedOption = {value: i + 1, label: speed === 1 ? 'Normal' : speed};
+        let speedOption = {
+          value: i + 1,
+          label: speed === 1 ? 'Normal' : speed
+        };
         if (speed === defaultSpeed) {
           speedOption.active = true;
         }
@@ -90,7 +93,7 @@ class SettingsControl extends BaseComponent {
         return acc;
       }, []);
 
-    var qualityOptions = props.videoTracks
+    let qualityOptions = props.videoTracks
       .sort((a, b) => {
         return a.bandwidth < b.bandwidth
       })
