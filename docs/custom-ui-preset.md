@@ -41,7 +41,7 @@ function buildUI(player: Player, config: Object): void {
   ];
 
   let playerUIManager = new PlaykitUI(player, config);
-  playerUIManager.buildDefaultUI(uis);
+  playerUIManager.buildCustomUI(uis);
 }
 
 ```
