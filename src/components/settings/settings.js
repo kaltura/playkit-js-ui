@@ -80,7 +80,7 @@ class SettingsControl extends BaseComponent {
 
   render(props: any) {
     let speedOptions = defaultSpeeds
-      .reduce((acc, speed, i) => {
+      .reduce((acc, speed) => {
         let speedOption = {
           value: speed,
           label: speed === 1 ? 'Normal' : speed,
