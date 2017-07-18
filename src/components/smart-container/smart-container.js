@@ -1,8 +1,8 @@
 //@flow
 import { h, Component } from 'preact';
 import { isMobile } from '../../utils/is-mobile';
-import Overlay from '../overlay/overlay';
 import Portal from 'preact-portal';
+import Overlay from '../overlay';
 
 class SmartContainer extends Component {
 

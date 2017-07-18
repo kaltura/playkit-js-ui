@@ -1,6 +1,6 @@
 //@flow
 import { h, Component } from 'preact';
-import Icon from '../icon/icon';
+import Icon from '../icon';
 import { connect } from 'preact-redux';
 
 const mapStateToProps = state => ({
@@ -8,12 +8,7 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps)
-class DropDownMenu extends Component {
-  state: Object;
-
-  componentWillMount() {
-    this.setState({dropMenuActive: false});
-  }
+class Menu extends Component {
 
   isSelected(o: Object): boolean {
     return o.active;
@@ -21,7 +16,6 @@ class DropDownMenu extends Component {
 
   onSelect(o: Object) {
     this.props.onSelect(o.value);
-    this.setState({dropMenuActive: false});
 
     // Instant select
     this.props.options.filter(t => t.active).forEach(option => { option.active = false });
@@ -35,7 +29,10 @@ class DropDownMenu extends Component {
 
   renderNativeSelect() {
     return (
-      <select onChange={(e) => this.onSelect(this.props.options[e.target.value])}>
+      <select
+        className={this.props.hideSelect ? 'mobile-hidden-select' : ''}
+        onChange={e => this.onSelect(this.props.options[e.target.value])}
+      >
         {this.props.options.map((o, index) => <option selected={this.isSelected(o)} value={index} key={index}>{o.label}</option>)}
       </select>
     )
@@ -44,26 +41,18 @@ class DropDownMenu extends Component {
   render(props: any) {
     return props.isMobile ? this.renderNativeSelect() :
     (
-      <div className='dropdown top left'>
-        <div className='dropdown-button' onClick={() => this.setState({dropMenuActive: !this.state.dropMenuActive})}>
-          {this.getActiveOptionLabel()}
-        </div>
+      <div className='dropdown-menu top left'>
         {
-          !this.state.dropMenuActive ? '' :
-          <div className='dropdown-menu'>
-            {
-              props.options.map((o, index) => (
-                <div key={index} className={this.isSelected(o) ? 'dropdown-menu-item active' : 'dropdown-menu-item'} onClick={() => this.onSelect(o)}>
-                  <span>{o.label}</span>
-                  { this.isSelected(o) ? <Icon type='check' /> : '' }
-                </div>
-              ))
-            }
-          </div>
+          props.options.map((o, index) => (
+            <div key={index} className={this.isSelected(o) ? 'dropdown-menu-item active' : 'dropdown-menu-item'} onClick={() => this.onSelect(o)}>
+              <span>{o.label}</span>
+              <span style={`opacity: ${ this.isSelected(o) ? 1 : 0 }`}><Icon type='check' /></span>
+            </div>
+          ))
         }
       </div>
     )
   }
 }
 
-export default DropDownMenu;
+export default Menu;

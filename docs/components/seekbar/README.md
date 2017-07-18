@@ -13,20 +13,16 @@ Component that toggles fullscreen state.
 ## Usage Example
 
 ```html
-import SeekBarControl from './components/seekbar/seekbar';
+//@flow
+import { h, SeekBarControl } from 'playkit-js-ui';
 
-<Provider store={store}>
-  <IntlProvider definition={definition}>
-    <Shell>
-      <div id='player-holder' />
-      <EngineConnector player={this.player} />
+export default function customUIPreset(props: any) {
+  return (
+    // show both frame preview and time bubble
+    <SeekBarControl showFramePreview showTimeBubble player={props.player} />
 
-      // show both frame preview and time bubble
-      <SeekBarControl showFramePreview showTimeBubble player={this.player} />
-
-      // show only time bubble
-      <SeekBarControl showTimeBubble player={this.player} />
-    </Shell>
-  </IntlProvider>
-</Provider>
+    // show only time bubble
+    <SeekBarControl showTimeBubble player={props.player} />
+  )
+}
 ```

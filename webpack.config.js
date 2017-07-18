@@ -6,7 +6,7 @@ const PROD = (process.env.NODE_ENV === 'production');
 
 module.exports = {
   context: __dirname + "/src",
-  entry: PROD ? {"playkit-ui.min": "ui-manager.js"} : {"playkit-ui": "ui-manager.js"},
+  entry: PROD ? {"playkit-ui.min": "playkit-js-ui.js"} : {"playkit-ui": "playkit-js-ui.js"},
   output: {
     path: __dirname + "/dist",
     filename: '[name].js',

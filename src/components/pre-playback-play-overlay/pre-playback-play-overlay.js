@@ -4,7 +4,7 @@ import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
 import { actions } from '../../reducers/shell';
 import BaseComponent from '../base';
-import Icon from '../icon/icon';
+import Icon from '../icon';
 
 const mapStateToProps = state => ({
   prePlayback: state.shell.prePlayback,
@@ -25,7 +25,12 @@ class PrePlaybackPlayOverlay extends BaseComponent {
     });
   }
 
-  componentWillMount() {
+  componentWillUnmount() {
+    this.props.updatePrePlayback(false);
+    this.props.removePlayerClass('pre-playback');
+  }
+
+  componentDidMount() {
     this.props.addPlayerClass('pre-playback');
   }
 

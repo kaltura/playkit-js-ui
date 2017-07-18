@@ -1,6 +1,7 @@
 .player .seek-bar {
     padding: 6px 0;
     cursor: pointer;
+    position: relative;
 
     &:hover,
     &.dragging-active {

@@ -5,13 +5,18 @@ import { bindActions } from '../../utils/bind-actions';
 import {actions as cvaaActions } from '../../reducers/cvaa';
 import { actions as shellActions } from '../../reducers/shell';
 import BaseComponent from '../base';
-import Overlay from '../overlay/overlay';
-// import DropDownMenu from '../dropdown-menu/dropdown-menu';
+import Overlay from '../overlay';
+import DropDown from '../dropdown';
 
 const mapStateToProps = state => ({
   open: state.cvaa.overlayOpen,
   style: state.cvaa.style
 });
+
+const cvaaOverlayState = {
+  Main: 'main',
+  CustomCaptions: 'custom-captions'
+}
 
 @connect(mapStateToProps, bindActions({...cvaaActions, ...shellActions}))
 class CVAAOverlay extends BaseComponent {
@@ -19,21 +24,32 @@ class CVAAOverlay extends BaseComponent {
     super({name: 'CVAAOverlay'});
   }
 
+  componentWillUnmount() {
+    this.setState({
+      state: cvaaOverlayState.Main
+    });
+  }
+
+  componentWillMount() {
+    this.setState({
+      state: cvaaOverlayState.Main
+    });
+  }
+
+  transitionToState(stateName: string) {
+    this.setState({state: stateName});
+  }
+
   changeCaptionsStyle(style: string) {
     this.props.removePlayerClass(`captions-${this.props.style}`);
     this.props.addPlayerClass(`captions-${style}`);
     this.props.updateCaptionsStyle(style);
-    this.props.toggleCVAAOverlay(false);
+    this.props.onClose();
   }
 
-  render(props: any) {
-    // var speedOptions = [
-    //   { value: 1, label: 'Auto (360)', active: true },
-    //   { value: 2, label: '240' },
-    //   { value: 3, label: '144' }
-    // ];
-    return !props.open ? undefined : (
-      <Overlay open={props.open} onClose={() => props.toggleCVAAOverlay(false)} type='cvaa'>
+  renderMainState() {
+    return (
+      <div className={this.state.state === cvaaOverlayState.Main ? 'overlay-screen active' : 'overlay-screen'}>
         <div className='title'>
           Advanced captions settings
         </div>
@@ -42,13 +58,62 @@ class CVAAOverlay extends BaseComponent {
           <div className='sample black-bg' onClick={() => this.changeCaptionsStyle('black-bg')}>Sample</div>
           <div className='sample yellow-text' onClick={() => this.changeCaptionsStyle('yellow-text')}>Sample</div>
         </div>
-        <a className='button-save-cvaa'>Set custom caption</a>
-        {/*<div className='custom-caption-form'>
-          <div className='row'>
+        <a className='button-save-cvaa' onClick={() => this.transitionToState(cvaaOverlayState.CustomCaptions)}>Set custom caption</a>
+      </div>
+    )
+  }
+
+  renderCustomCaptionsState() {
+    var speedOptions = [
+      { value: 1, label: 'Auto (360)', active: true },
+      { value: 2, label: '240' },
+      { value: 3, label: '144' }
+    ];
+
+    return (
+      <div className={this.state.state === cvaaOverlayState.CustomCaptions ? 'overlay-screen active' : 'overlay-screen'}>
+        <form className='form custom-caption-form'>
+          <div className='form-group-row'>
             <label>Size</label>
-            <DropDownMenu options={speedOptions} />
+            <DropDown options={speedOptions} />
           </div>
-        </div>*/}
+          <div className='form-group-row'>
+            <label>Font color</label>
+            <DropDown options={speedOptions} />
+          </div>
+          <div className='form-group-row'>
+            <label>Font opacity</label>
+            <DropDown options={speedOptions} />
+          </div>
+          <div className='form-group-row'>
+            <label>Font family</label>
+            <DropDown options={speedOptions} />
+          </div>
+          <div className='form-group-row'>
+            <label>Font style</label>
+            <DropDown options={speedOptions} />
+          </div>
+          <div className='form-group-row'>
+            <label>Background color</label>
+            <DropDown options={speedOptions} />
+          </div>
+          <div className='form-group-row'>
+            <label>Background opacity</label>
+            <DropDown options={speedOptions} />
+          </div>
+          <div className='form-group-row'>
+            <a className='btn btn-branded btn-block'>Apply</a>
+          </div>
+        </form>
+      </div>
+    )
+  }
+
+  render(props: any) {
+    return (
+      <Overlay open onClose={() => props.onClose()} type='cvaa'>
+        {this.renderMainState()}
+        {this.renderCustomCaptionsState()}
       </Overlay>
     )
   }

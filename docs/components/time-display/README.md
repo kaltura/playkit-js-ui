@@ -12,16 +12,12 @@ Component that display the current time, duration and time left based on format.
 ## Usage Example
 
 ```html
-import TimeDisplay from './components/time-display/time-display';
+//@flow
+import { h, TimeDisplay } from 'playkit-js-ui';
 
-<Provider store={store}>
-  <IntlProvider definition={definition}>
-    <Shell>
-      <div id='player-holder' />
-      <EngineConnector player={this.player} />
-
-      <TimeDisplay format='current / total' player={this.player} />
-    </Shell>
-  </IntlProvider>
-</Provider>
+export default function customUIPreset(props: any) {
+  return (
+    <TimeDisplay format='current / total' player={props.player} />
+  )
+}
 ```

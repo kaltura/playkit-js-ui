@@ -11,16 +11,12 @@ Component that toggles play when clicking on the whole video shell.
 ## Usage Example
 
 ```html
-import OverlayPlay from './components/overlay-play/overlay-play';
+//@flow
+import { h, OverlayPlay } from 'playkit-js-ui';
 
-<Provider store={store}>
-  <IntlProvider definition={definition}>
-    <Shell>
-      <div id='player-holder' />
-      <EngineConnector player={this.player} />
-
-      <OverlayPlay player={this.player} />
-    </Shell>
-  </IntlProvider>
-</Provider>
+export default function customUIPreset(props: any) {
+  return (
+    <OverlayPlay player={props.player} />
+  )
+}
 ```
