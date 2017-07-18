@@ -9,6 +9,8 @@ import SmartContainer from '../smart-container';
 import SmartContainerItem from '../smart-container/smart-container-item';
 import Icon from '../icon';
 
+const defaultSpeeds = [0.5, 1, 2, 4];
+
 const mapStateToProps = state => ({
   videoTracks: state.engine.videoTracks,
   isMobile: state.shell.isMobile
@@ -77,17 +79,14 @@ class SettingsControl extends BaseComponent {
   }
 
   render(props: any) {
-
-    const defaultSpeeds = [0.5, 1, 2, 4];
-    let defaultSpeed = 1;
     let speedOptions = defaultSpeeds
       .reduce((acc, speed, i) => {
         let speedOption = {
-          value: i + 1,
+          value: speed,
           label: speed === 1 ? 'Normal' : speed,
           active: false
         };
-        if (speed === defaultSpeed) {
+        if (speed === this.player.playbackRate) {
           speedOption.active = true;
         }
         acc.push(speedOption);

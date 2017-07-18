@@ -6872,6 +6872,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var defaultSpeeds = [0.5, 1, 2, 4];
+
 var mapStateToProps = function mapStateToProps(state) {
   return {
     videoTracks: state.engine.videoTracks,
@@ -6950,15 +6952,13 @@ var SettingsControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
     value: function render(props) {
       var _this2 = this;
 
-      var defaultSpeeds = [0.5, 1, 2, 4];
-      var defaultSpeed = 1;
       var speedOptions = defaultSpeeds.reduce(function (acc, speed, i) {
         var speedOption = {
-          value: i + 1,
+          value: speed,
           label: speed === 1 ? 'Normal' : speed,
           active: false
         };
-        if (speed === defaultSpeed) {
+        if (speed === _this2.player.playbackRate) {
           speedOption.active = true;
         }
         acc.push(speedOption);
