@@ -10,7 +10,8 @@ const mapStateToProps = state => ({
   virtualProgress: state.seekbar.virtualTime,
   currentTime: state.seekbar.currentTime,
   duration: state.engine.duration,
-  isDraggingActive: state.seekbar.draggingActive
+  isDraggingActive: state.seekbar.draggingActive,
+  isMobile: state.shell.isMobile
 });
 
 @connect(mapStateToProps, bindActions(actions))
@@ -99,7 +100,7 @@ class SeekBarControl extends BaseComponent {
   }
 
   getTime(e: any): number {
-    let xPosition = e instanceof TouchEvent ? e.touches[0].clientX : e.clientX;
+    let xPosition = e.touches ? e.touches[0].clientX : e.clientX;
     let time = this.player.duration * ((xPosition - this._seekBarElement.offsetLeft - this._playerElement.offsetLeft) / this._seekBarElement.clientWidth);
     time = parseFloat(time.toFixed(2));
     if (time < 0) return 0;
@@ -132,7 +133,7 @@ class SeekBarControl extends BaseComponent {
   }
 
   renderFramePreview() {
-    if (!this.props.showFramePreview) return undefined;
+    if (!this.props.showFramePreview || this.props.isMobile) return undefined;
     var framePreviewStyle = `left: ${this.getFramePreviewOffset()}px`;
     var framePreviewImgStyle = 'background-image: url(http://cfvod.kaltura.com/p/1914121/sp/191412100/thumbnail/entry_id/1_umer46fd/version/100001/width/160/vid_slices/100); ';
     framePreviewImgStyle += `background-position: ${this.getThumbSpriteOffset()}`
@@ -148,7 +149,7 @@ class SeekBarControl extends BaseComponent {
   }
 
   renderTimeBubble() {
-    if (!this.props.showTimeBubble) return undefined;
+    if (!this.props.showTimeBubble || this.props.isMobile) return undefined;
     var timeBubbleStyle = `left: ${this.getTimeBubbleOffset()}px`;
     return <div className='time-preview' style={timeBubbleStyle} ref={c => this._timeBubbleElement=c}>{ toHHMMSS(this.state.virtualTime)}</div>
   }

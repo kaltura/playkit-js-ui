@@ -1,5 +1,5 @@
 .form-group {
-  margin: 10px auto;
+  margin: 10px 0;
   position: relative;
   max-width: 100%;
 
@@ -20,6 +20,7 @@
   .icon {
     position: absolute;
     top: 2px; left: 2px;
+    width:32px; height:32px;
     fill: rgba(255,255,255,0.4);
   }
 }
@@ -66,4 +67,44 @@ select {
   -webkit-appearance: none;
   background: none;
   border: 0;
+}
+
+.checkbox {
+  font-size: 15px;
+  position: relative;
+
+  input { display: none; }
+  label:before {
+    height: 16px; width: 16px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 4px;
+    background-color: rgba(0,0,0,0.4);
+    margin-right: 8px;
+    display: inline-block;
+    content: '';
+    vertical-align: middle;
+  }
+  input:checked + label:before {
+    border: 1px solid #fff;
+    background: #fff;
+  }
+}
+
+.form-group-row {
+  font-size: 15px;
+  margin: 24px 0;
+
+  &:after {
+    clear: both;
+    content: ' ';
+    display: block;
+  }
+
+  label {
+    float: left;
+    color: rgba(244,244,244,0.8);
+  }
+  .dropdown {
+    float: right;
+  }
 }

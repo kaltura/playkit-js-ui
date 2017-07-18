@@ -5,12 +5,13 @@ import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
 import { actions } from '../../reducers/settings';
 import BaseComponent from '../base';
-import SmartContainer from '../smart-container/smart-container';
+import SmartContainer from '../smart-container';
 import SmartContainerItem from '../smart-container/smart-container-item';
-import Icon from '../icon/icon';
+import Icon from '../icon';
 
 const mapStateToProps = state => ({
-  videoTracks: state.engine.videoTracks
+  videoTracks: state.engine.videoTracks,
+  isMobile: state.shell.isMobile
 });
 
 @connect(mapStateToProps, bindActions(actions))
@@ -22,40 +23,87 @@ class SettingsControl extends BaseComponent {
     super({name: 'Settings', player: obj.player});
   }
 
-  // componentDidMount() {
-  //   this.setState({smartContainerOpen: false});
-  //   document.addEventListener('click', this.handleClickOutside.bind(this), false);
-  // }
+  componentWillMount() {
+    this.setState({smartContainerOpen: false});
+  }
 
-  // componentWillUnMount() {
-  //   document.removeEventListener('click', this.handleClickOutside.bind(this), false);
-  // }
+  componentDidMount() {
+    document.addEventListener('click', this.handleClickOutside.bind(this), true);
+  }
 
-  // handleClickOutside() {
-  //   if ((!this._controlSettingsElement || !this._controlSettingsElement.contains(event.target))) {
-  //     this.setState({smartContainerOpen: false});
-  //   }
-  // }
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleClickOutside.bind(this));
+  }
+
+  handleClickOutside(e: Event) {
+    if (!this.props.isMobile && !!this._controlSettingsElement && !this._controlSettingsElement.contains(event.target) && this.state.smartContainerOpen) {
+      e.stopPropagation();
+      this.setState({smartContainerOpen: false});
+    }
+  }
 
   onControlButtonClick() {
     this.setState({smartContainerOpen: !this.state.smartContainerOpen});
   }
 
-  onSpeedChange(o: Object) {
-    this.props.updateSpeed(o.value);
+  onSpeedChange(playbackRate: number) {
+    this.props.updateSpeed(playbackRate);
+    this.player.playbackRate = playbackRate;
   }
 
   onQualityChange(videoTrack: Object) {
     this.player.selectTrack(videoTrack);
   }
 
+  getQualityOptionLabel(t: Object) {
+    let resolution = t.height ? t.height + 'p' : undefined;
+    let mbs = t.bandwidth ? (t.bandwidth/1000000).toPrecision(2) + 'Mbs' : undefined;
+
+    if (!this.props.qualityType) {
+      return resolution || mbs || 'N/A';
+    }
+    else if (this.props.qualityType.toUpperCase() === 'MBS' && mbs) {
+      return mbs;
+    }
+    else if (this.props.qualityType.toUpperCase() === 'RESOLUTION' && resolution) {
+      return t.height + 'p';
+    }
+    else if (t.label) {
+      return t.label;
+    }
+    else {
+      return 'N/A'
+    }
+  }
+
   render(props: any) {
-    var speedOptions = [
-      { value: 1, label: 'Auto (360)', active: true },
-      { value: 2, label: '240' },
-      { value: 3, label: '144' }
-    ];
-    var qualityOptions = props.videoTracks.map(t => ({ label: t.label || t.language || t.bandwidth, active: t.active, value: t }));
+
+    const defaultSpeeds = [0.5, 1, 2, 4];
+    let defaultSpeed = 1;
+    let speedOptions = defaultSpeeds
+      .reduce((acc, speed, i) => {
+        let speedOption = {
+          value: i + 1,
+          label: speed === 1 ? 'Normal' : speed,
+          active: false
+        };
+        if (speed === defaultSpeed) {
+          speedOption.active = true;
+        }
+        acc.push(speedOption);
+        return acc;
+      }, []);
+
+    let qualityOptions = props.videoTracks
+      .sort((a, b) => {
+        return a.bandwidth < b.bandwidth
+      })
+      .map(t => ({
+        label: this.getQualityOptionLabel(t),
+        active: t.active,
+        value: t
+      }));
+
     return (
       <div
         ref={c => this._controlSettingsElement=c}

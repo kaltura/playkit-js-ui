@@ -10,15 +10,18 @@ const mapStateToProps = state => ({
   metadataLoaded: state.engine.metadataLoaded,
   currentState: state.engine.playerState.currentState,
   playerClasses: state.shell.playerClasses,
-  isMobile: state.shell.isMobile
+  isMobile: state.shell.isMobile,
+  isAd: state.shell.isAd,
+  playerWidth: state.shell.playerWidth,
+  playerHeight: state.shell.playerHeight
 });
 
 @connect(mapStateToProps, bindActions(actions))
 class Shell extends BaseComponent {
   state: Object;
 
-  constructor() {
-    super({name: 'Shell'});
+  constructor(obj: Object) {
+    super({name: 'Shell', player: obj.player});
   }
 
   onMouseOver() {
@@ -44,6 +47,19 @@ class Shell extends BaseComponent {
 
   componentDidMount() {
     this.props.updateIsMobile(isMobile());
+    if (document.body) {
+      this.props.updateDocumentWidth(document.body.clientWidth);
+    }
+      this.player.addEventListener(this.player.Event.LOADED_METADATA, () => {
+        this.props.updatePlayerWidth(this.player._el.parentElement.clientWidth);
+      });
+      window.addEventListener('resize', () => {
+        this.props.updatePlayerWidth(this.player._el.parentElement.clientWidth);
+
+        if (document.body) {
+          this.props.updateDocumentWidth(document.body.clientWidth);
+        }
+      });
     if (isMobile()) {
       this.props.addPlayerClass('touch');
     }

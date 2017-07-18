@@ -33,6 +33,12 @@
     text-decoration: none;
     cursor: pointer;
   }
+
+  .custom-caption-form {
+    width: 300px;
+    max-width: 100%;
+    margin: 0 auto;
+  }
 }
 
 @media screen and (max-width: 480px) {

@@ -11,16 +11,12 @@ Component that shows black overlay with loading spinner when player is not in `i
 ## Usage Example
 
 ```html
-import Loading from './components/loading/loading';
+//@flow
+import { h, Loading } from 'playkit-js-ui';
 
-<Provider store={store}>
-  <IntlProvider definition={definition}>
-    <Shell>
-      <div id='player-holder' />
-      <EngineConnector player={this.player} />
-
-      <Loading player={this.player} />
-    </Shell>
-  </IntlProvider>
-</Provider>
+export default function customUIPreset(props: any) {
+  return (
+    <Loading player={props.player} />
+  )
+}
 ```
