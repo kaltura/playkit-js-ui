@@ -67,6 +67,7 @@ class LanguageControl extends BaseComponent {
     return (
       <div className='control-button-container control-audio'>
         <button
+          tabIndex='0'
           className={this.state.smartContainerOpen ? 'control-button active' : 'control-button'}
           onClick={() => this.onControlButtonClick()}
         >
@@ -83,6 +84,7 @@ class LanguageControl extends BaseComponent {
     return (
       <div className='control-button-container control-audio'>
         <button
+          tabIndex='0'
           className={this.state.smartContainerOpen ? 'control-button active' : 'control-button'}
           onClick={() => this.onControlButtonClick()}
         >
@@ -103,6 +105,7 @@ class LanguageControl extends BaseComponent {
       >
         <Localizer>
           <button
+            tabIndex='0'
             aria-label={<Text id='controls.language' />}
             className={this.state.smartContainerOpen ? 'control-button active' : 'control-button'}
             onClick={() => this.onControlButtonClick()}

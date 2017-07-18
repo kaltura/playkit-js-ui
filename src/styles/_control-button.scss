@@ -19,6 +19,7 @@
 
   &.control-button-rounded {
     width: 36px; height: 36px;
+    border-radius: 18px;
     padding: 2px;
   }
 }
@@ -28,9 +29,10 @@
     &:hover {
       opacity: 1;
     }
-    &.control-button-rounded:hover {
+    &.control-button-rounded:hover,
+    &.control-button-rounded:focus {
       background-color: rgba(0,0,0,0.4);
-      border-radius: 18px;
+      box-shadow: none;
     }
   }
 }

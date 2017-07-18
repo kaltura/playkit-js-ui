@@ -11,6 +11,10 @@
   animation: openOverlay 100ms ease-in-out forwards;
   z-index: 4;
 
+  &:focus {
+    background: red;
+  }
+
   &.active {
     display: block;
     opacity: 1;
@@ -40,6 +44,10 @@
     z-index: 5;
     fill: #fff;
     cursor: pointer;
+    background-color: transparent;
+    border: none;
+    width: 36px; height: 36px;
+    padding: 0;
 
     .icon-close {
       width:24px;

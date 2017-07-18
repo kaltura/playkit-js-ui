@@ -22,6 +22,5 @@ export {TimeDisplay} from './components/time-display';
 export {TopBar} from './components/top-bar';
 export {BottomBar} from './components/bottom-bar';
 export {OverlayPortal} from './components/overlay-portal';
-export {KeyboardControl} from './components/keyboard';
 
 export default UIManager;

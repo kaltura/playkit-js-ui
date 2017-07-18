@@ -99,50 +99,56 @@ class ShareOverlay extends BaseComponent {
         </div>
         <div className="share-main-container">
           <div className='share-icons'>
-            <a
+            <button
+              tabIndex='0'
               href='https://player.kaltura.com/video/220277207/share/facebook' target='_blank' rel='noopener noreferrer'
-              title='Share on Facebook' role='button' aria-label='Share on Facebook'
+              title='Share on Facebook' aria-label='Share on Facebook'
               className='btn-rounded facebook-share-btn'
               onClick={() => this.share('https://player.kaltura.com/video/220277207/share/facebook')}
             >
               <Icon type='facebook' />
-            </a>
-            <a
+            </button>
+            <button
+              tabIndex='0'
               href='https://player.kaltura.com/video/220277207/share/twitter' target='_blank' rel='noopener noreferrer'
-              title='Share on Twitter' role='button' aria-label='Share on Twitter'
+              title='Share on Twitter' aria-label='Share on Twitter'
               className='btn-rounded twitter-share-btn'
               onClick={() => this.share('https://player.kaltura.com/video/220277207/share/twitter')}
             >
               <Icon type='twitter' />
-            </a>
-            <a
+            </button>
+            <button
+              tabIndex='0'
               href='https://player.kaltura.com/video/220277207/share/google-plus' target='_blank' rel='noopener noreferrer'
-              title='Share on Google Plus' role='button' aria-label='Share on Google Plus'
+              title='Share on Google Plus' aria-label='Share on Google Plus'
               className='btn-rounded google-plus-share-btn'
               onClick={() => this.share('https://player.kaltura.com/video/220277207/share/google')}
             >
               <Icon type='google-plus' />
-            </a>
-            <a
+            </button>
+            <button
+              tabIndex='0'
               href='https://player.kaltura.com/video/220277207/share/linkedin' target='_blank' rel='noopener noreferrer'
-              title='Share on Linkedin' role='button' aria-label='Share on Linkedin'
+              title='Share on Linkedin' aria-label='Share on Linkedin'
               className='btn-rounded linkedin-share-btn'
               onClick={() => this.share('https://player.kaltura.com/video/220277207/share/linkedin')}
             >
               <Icon type='linkedin' />
-            </a>
-            <a
+            </button>
+            <button
+              tabIndex='0' aria-label='Share via email'
               className='btn-rounded email-share-btn'
               href={`mailto:?subject=${encodeURIComponent('email subject')}&body=${encodeURIComponent('email body')}`}
             >
               <Icon type='email' />
-            </a>
-            <a
+            </button>
+            <button
+              tabIndex='0' aria-label='Embed code'
               className='btn-rounded embed-share-btn'
               onClick={() => this.transitionToState(shareOverlayState.EmbedOptions)}
             >
               <Icon type='embed' />
-            </a>
+            </button>
           </div>
           <div>
             <div className='form-group has-icon'>
@@ -150,7 +156,12 @@ class ShareOverlay extends BaseComponent {
               <Icon type='link' />
             </div>
           </div>
-          <a onClick={() => this.transitionToState(shareOverlayState.LinkOptions)}><Text id='share.link_options' /></a>
+          <a
+            tabIndex='0'
+            href='#' role='button'
+            onClick={() => this.transitionToState(shareOverlayState.LinkOptions)}>
+            <Text id='share.link_options' />
+          </a>
         </div>
       </div>
     )
@@ -176,12 +187,13 @@ class ShareOverlay extends BaseComponent {
               />
               <Icon type='link' />
             </div>
-            <a
+            <button
               className={copyUrlClasses}
+              tabIndex='0'
               onClick={() => this.copyUrl(this._shareUrlInput)}>
               <Icon type='copy' />
               <Icon type='check' />
-            </a>
+            </button>
           </div>
           <div className='video-start-options-row'>
             <div className="checkbox d-inline-block">
@@ -228,12 +240,13 @@ class ShareOverlay extends BaseComponent {
               />
               <Icon type='embed' />
             </div>
-            <a
+            <button
+              tabIndex='0'
               className={copyUrlClasses}
               onClick={() => this.copyUrl(this._embedCodeInput)}>
               <Icon type='copy' />
               <Icon type='check' />
-            </a>
+            </button>
           </div>
           <div className='video-start-options-row'>
             <div className="checkbox d-inline-block">

@@ -51,6 +51,14 @@ class VolumeControl extends BaseComponent {
     this.player.muted = !this.player.muted;
   }
 
+  onVolumeControlButtonFocus() {
+    this.setState({focus: true});
+  }
+
+  onVolumeControlButtonBlur() {
+    this.setState({focus: false});
+  }
+
   changeVolume(e: Event) {
     let barHeight = this._volumeProgressBarElement.clientHeight;
     let topY = this.getCoords(this._volumeProgressBarElement).top;
@@ -77,21 +85,36 @@ class VolumeControl extends BaseComponent {
   render() {
       var controlButtonClass = 'control-button-container volume-control';
       if (this.props.isDraggingActive) controlButtonClass += ' dragging-active';
+      if (this.state.focus) controlButtonClass += ' focus';
       if (this.props.muted || this.props.volume === 0) controlButtonClass += ' is-muted';
 
       return (
-        <div ref={c => this._volumeControlElement=c} className={controlButtonClass}>
-          <button className='control-button' onClick={() => this.onVolumeControlButtonClick()} aria-label='Volume'>
+        <div
+          ref={c => this._volumeControlElement=c}
+          className={controlButtonClass}
+        >
+          <button
+            className='control-button'
+            tabIndex='0'
+            aria-label='Volume'
+            onClick={() => this.onVolumeControlButtonClick()}
+            onFocus={() => this.onVolumeControlButtonFocus()}
+            onBlur={() => this.onVolumeControlButtonBlur()}
+          >
             <Icon type='volume-base' />
             <Icon type='volume-waves' />
             <Icon type='volume-mute' />
           </button>
-          <div className='volume-control-bar' role='slider'
+          <div
+            className='volume-control-bar' role='slider'
             aria-valuemin='0' aria-valuemaz='100' aria-valuenow={this.player.volume * 100}
             aria-valuetext={`${this.player.volume * 100}% volume ${this.player.muted ? 'muted' : ''}`}>
             <div
               className='bar'
               ref={c => this._volumeProgressBarElement=c}
+              tabIndex='0'
+              onFocus={() => this.onVolumeControlButtonFocus()}
+              onBlur={() => this.onVolumeControlButtonBlur()}
               onMouseDown={() => this.onVolumeProgressBarMouseDown()}
               onClick={e => this.onVolumeProgressBarClick(e)}
             >

@@ -6,6 +6,7 @@
       margin: 0 8px;
       transition: transform 100ms;
       will-change: transform;
+      border: none;
 
       &:first-child { margin-left: 0; }
       &:last-child { margin-right: 0; }
@@ -45,12 +46,15 @@
     .input-copy-url { margin: 0; }
     .btn-copy-url {
       margin-left: 16px;
+      position: relative;
+      border: none;
 
       .icon {
         will-change: transform;
         transition: 100ms transform;
         position: absolute;
         width: 32px;
+        top: 2px; left: 2px;
       }
       .check-icon {
         transform: scale(0);
@@ -80,8 +84,10 @@
   }
 }
 
-.player:not(.touch) .overlay.share-overlay .share-icons .btn-rounded:hover {
+.player:not(.touch) .overlay.share-overlay .share-icons .btn-rounded:hover,
+.player:not(.touch) .overlay.share-overlay .share-icons .btn-rounded:focus {
   transform: scale(1.1667);
+  box-shadow: none;
 }
 
 @media screen and (max-width: 768px) {

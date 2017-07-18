@@ -13,6 +13,9 @@
         box-sizing: border-box;
         outline: none;
     }
+    *[tabindex='0']:focus {
+      box-shadow: inset 0 0 0 2px rgba(1,172,205,.8);
+    }
     ::selection {
       background-color: rgba(0,0,0,0.1);
     }
@@ -29,7 +32,7 @@
         font-size: 0;
         font-family: $font-family;
 
-        input, textarea {
+        input, textarea, button {
           font-family: $font-family;
         }
     }

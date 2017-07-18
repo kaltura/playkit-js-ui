@@ -46,10 +46,10 @@ class DropDown extends Component {
     return props.isMobile ? this.renderNativeSelect() :
     (
       <div className={this.state.dropMenuActive ? 'dropdown active' : 'dropdown'}>
-        <div className='dropdown-button' onClick={() => this.setState({dropMenuActive: !this.state.dropMenuActive})}>
+        <button tabIndex='0' className='dropdown-button' onClick={() => this.setState({dropMenuActive: !this.state.dropMenuActive})}>
           {this.getActiveOptionLabel()}
           <Icon type='arrow-down' />
-        </div>
+        </button>
         {
           !this.state.dropMenuActive ? undefined : <Menu options={props.options} onSelect={(o) => this.onSelect(o)} />
         }

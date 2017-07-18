@@ -7,12 +7,10 @@ import VolumeControl from '../components/volume';
 import FullscreenControl from '../components/fullscreen';
 import TimeDisplay from '../components/time-display';
 import BottomBar from '../components/bottom-bar';
-import KeyboardControl from '../components/keyboard';
 
 export default function adsUI(props: any) {
   return (
     <div className='ad-gui-wrapper' style='height: 100%'>
-      <KeyboardControl player={props.player} />
       <Loading player={props.player} />
       <div className='player-gui' id='player-gui'>
         <OverlayPlay player={props.player} />

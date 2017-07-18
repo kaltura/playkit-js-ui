@@ -20,8 +20,13 @@
   .dropdown-button {
     font-weight: bold;
     line-height: 18px;
+    font-size: 15px;
+    font-weight: normal;
     color: #fff;
     cursor: pointer;
+    background: transparent;
+    padding: 0;
+    border: none;
 
     .icon {
       width: 16px;
@@ -58,6 +63,7 @@
     white-space: nowrap;
     min-height: 30px;
     cursor: pointer;
+    outline: none;
 
     &:hover {
       color: #fff;

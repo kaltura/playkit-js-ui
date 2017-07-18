@@ -110,6 +110,7 @@ class SettingsControl extends BaseComponent {
       >
         <Localizer>
           <button
+            tabIndex='0'
             aria-label={<Text id='controls.settings' />}
             className={this.state.smartContainerOpen ? 'control-button active' : 'control-button'}
             onClick={() => this.onControlButtonClick()}
