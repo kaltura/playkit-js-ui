@@ -27,6 +27,12 @@ class Menu extends Component {
     return activeOptions.length > 0 ? activeOptions[0].label : this.props.options[0].label;
   }
 
+  onMenuItemKeyDown(e: Event, o: Object) {
+    if (e.which === 32) {
+      this.onSelect(o);
+    }
+  }
+
   renderNativeSelect() {
     return (
       <select
@@ -47,6 +53,7 @@ class Menu extends Component {
             <div
               key={index}
               tabIndex={0}
+              onKeyDown={e => this.onMenuItemKeyDown(e, o)}
               role='menuitem'
               className={this.isSelected(o) ? 'dropdown-menu-item active' : 'dropdown-menu-item'}
               onClick={() => this.onSelect(o)}>

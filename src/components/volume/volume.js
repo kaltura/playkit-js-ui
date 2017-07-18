@@ -59,6 +59,32 @@ class VolumeControl extends BaseComponent {
     this.setState({focus: false});
   }
 
+  onVolumeProgressBarKeyDown(e: Event) {
+    let newVolume;
+    switch(e.which) {
+      case 38: // up
+      this.logger.debug("Keydown up");
+      newVolume = Math.round(this.player.volume * 100) + 5;
+      this.logger.debug(`Changing volume. ${this.player.volume} => ${newVolume}`);
+      if (this.player.muted) {
+        this.player.muted = false;
+      }
+      this.player.volume = newVolume / 100;
+      break;
+
+      case 40: // down
+      this.logger.debug("Keydown down");
+      newVolume = Math.round(this.player.volume * 100) - 5;
+      if (newVolume < 5) {
+        this.player.muted = true;
+        return;
+      }
+      this.logger.debug(`Changing volume. ${this.player.volume} => ${newVolume}`);
+      this.player.volume = newVolume / 100;
+      break;
+    }
+  }
+
   changeVolume(e: Event) {
     let barHeight = this._volumeProgressBarElement.clientHeight;
     let topY = this.getCoords(this._volumeProgressBarElement).top;
@@ -117,6 +143,7 @@ class VolumeControl extends BaseComponent {
               onBlur={() => this.onVolumeControlButtonBlur()}
               onMouseDown={() => this.onVolumeProgressBarMouseDown()}
               onClick={e => this.onVolumeProgressBarClick(e)}
+              onKeyDown={e => this.onVolumeProgressBarKeyDown(e)}
             >
               <div className='progress' style={{height: this.getVolumeProgessHeight()}} />
             </div>

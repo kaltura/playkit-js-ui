@@ -49,6 +49,10 @@
     width: 36px; height: 36px;
     padding: 0;
 
+    &:focus {
+      box-shadow: none;
+    }
+
     .icon-close {
       width:24px;
       height:24px;

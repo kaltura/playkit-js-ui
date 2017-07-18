@@ -49,6 +49,10 @@
       position: relative;
       border: none;
 
+      &:focus {
+        box-shadow: none;
+      }
+
       .icon {
         will-change: transform;
         transition: 100ms transform;

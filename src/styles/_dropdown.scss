@@ -3,7 +3,7 @@
   to { opacity: 1; transform : translateY(0); }
 }
 
-.dropdown {
+.player .dropdown {
   position: relative;
   font-size: 15px;
 
@@ -39,7 +39,7 @@
   }
 
 }
-.dropdown-menu {
+.player .dropdown-menu {
   display: block;
   opacity: 1;
   position: absolute;
@@ -67,6 +67,12 @@
 
     &:hover {
       color: #fff;
+    }
+
+    &:focus {
+      color: #fff;
+      background-color: rgba(255,255,255,0.1);
+      box-shadow: none;
     }
 
     &.active {

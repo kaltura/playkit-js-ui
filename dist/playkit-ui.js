@@ -6114,6 +6114,35 @@ var VolumeControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bind
       this.setState({ focus: false });
     }
   }, {
+    key: 'onVolumeProgressBarKeyDown',
+    value: function onVolumeProgressBarKeyDown(e) {
+      var newVolume = void 0;
+      switch (e.which) {
+        case 38:
+          // up
+          this.logger.debug("Keydown up");
+          newVolume = Math.round(this.player.volume * 100) + 5;
+          this.logger.debug('Changing volume. ' + this.player.volume + ' => ' + newVolume);
+          if (this.player.muted) {
+            this.player.muted = false;
+          }
+          this.player.volume = newVolume / 100;
+          break;
+
+        case 40:
+          // down
+          this.logger.debug("Keydown down");
+          newVolume = Math.round(this.player.volume * 100) - 5;
+          if (newVolume < 5) {
+            this.player.muted = true;
+            return;
+          }
+          this.logger.debug('Changing volume. ' + this.player.volume + ' => ' + newVolume);
+          this.player.volume = newVolume / 100;
+          break;
+      }
+    }
+  }, {
     key: 'changeVolume',
     value: function changeVolume(e) {
       var barHeight = this._volumeProgressBarElement.clientHeight;
@@ -6201,6 +6230,9 @@ var VolumeControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bind
               },
               onClick: function onClick(e) {
                 return _this3.onVolumeProgressBarClick(e);
+              },
+              onKeyDown: function onKeyDown(e) {
+                return _this3.onVolumeProgressBarKeyDown(e);
               }
             },
             (0, _preact.h)('div', { className: 'progress', style: { height: this.getVolumeProgessHeight() } })
@@ -7374,6 +7406,13 @@ var Menu = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = fun
       return activeOptions.length > 0 ? activeOptions[0].label : this.props.options[0].label;
     }
   }, {
+    key: 'onMenuItemKeyDown',
+    value: function onMenuItemKeyDown(e, o) {
+      if (e.which === 32) {
+        this.onSelect(o);
+      }
+    }
+  }, {
     key: 'renderNativeSelect',
     value: function renderNativeSelect() {
       var _this2 = this;
@@ -7409,6 +7448,9 @@ var Menu = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = fun
             {
               key: index,
               tabIndex: 0,
+              onKeyDown: function onKeyDown(e) {
+                return _this3.onMenuItemKeyDown(e, o);
+              },
               role: 'menuitem',
               className: _this3.isSelected(o) ? 'dropdown-menu-item active' : 'dropdown-menu-item',
               onClick: function onClick() {

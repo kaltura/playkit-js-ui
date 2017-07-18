@@ -13,8 +13,10 @@
     height: 32px;
   }
 
-  &.active {
+  &.active,
+  &:focus {
     opacity: 1;
+    box-shadow: none !important;
   }
 
   &.control-button-rounded {
