@@ -10,6 +10,36 @@ const mapStateToProps = state => ({
 @connect(mapStateToProps)
 class Menu extends Component {
 
+  _menuItemElements: Array<HTMLElement> = [];
+
+  componentDidMount() {
+    let index = this.props.options.findIndex(i => i.active) || 0;
+
+    if (this._menuItemElements[index]) {
+      this._menuItemElements[index].focus();
+    }
+  }
+
+  setFocusToNextOption() {
+    let i;
+    if (this.state.focusedIndex + 1 > this._menuItemElements.length - 1) {
+      i = 0;
+    }  else {
+      i = this.state.focusedIndex + 1;
+    }
+    this._menuItemElements[i].focus();
+  }
+
+  setFocusToPreviousOption() {
+    let i;
+    if (this.state.focusedIndex - 1 < 0) {
+      i = this._menuItemElements.length - 1;
+    }  else {
+      i = this.state.focusedIndex - 1;
+    }
+    this._menuItemElements[i].focus();
+  }
+
   isSelected(o: Object): boolean {
     return o.active;
   }
@@ -28,8 +58,16 @@ class Menu extends Component {
   }
 
   onMenuItemKeyDown(e: Event, o: Object) {
-    if (e.which === 32) {
-      this.onSelect(o);
+    switch (e.which) {
+      case 32:
+        this.onSelect(o);
+        break;
+      case 38:
+        this.setFocusToPreviousOption();
+        break;
+      case 40:
+        this.setFocusToNextOption();
+        break;
     }
   }
 
@@ -52,7 +90,9 @@ class Menu extends Component {
           props.options.map((o, index) => (
             <div
               key={index}
-              tabIndex={0}
+              ref={c => this._menuItemElements[index] = c}
+              onFocus={() => this.setState({focusedIndex: index})}
+              tabIndex={-1}
               onKeyDown={e => this.onMenuItemKeyDown(e, o)}
               role='menuitem'
               className={this.isSelected(o) ? 'dropdown-menu-item active' : 'dropdown-menu-item'}

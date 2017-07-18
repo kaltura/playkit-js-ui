@@ -7372,12 +7372,53 @@ var Menu = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = fun
   _inherits(Menu, _Component);
 
   function Menu() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
     _classCallCheck(this, Menu);
 
-    return _possibleConstructorReturn(this, (Menu.__proto__ || Object.getPrototypeOf(Menu)).apply(this, arguments));
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Menu.__proto__ || Object.getPrototypeOf(Menu)).call.apply(_ref, [this].concat(args))), _this), _this._menuItemElements = [], _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(Menu, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var index = this.props.options.findIndex(function (i) {
+        return i.active;
+      }) || 0;
+
+      if (this._menuItemElements[index]) {
+        this._menuItemElements[index].focus();
+      }
+    }
+  }, {
+    key: 'setFocusToNextOption',
+    value: function setFocusToNextOption() {
+      var i = void 0;
+      if (this.state.focusedIndex + 1 > this._menuItemElements.length - 1) {
+        i = 0;
+      } else {
+        i = this.state.focusedIndex + 1;
+      }
+      this._menuItemElements[i].focus();
+    }
+  }, {
+    key: 'setFocusToPreviousOption',
+    value: function setFocusToPreviousOption() {
+      var i = void 0;
+      if (this.state.focusedIndex - 1 < 0) {
+        i = this._menuItemElements.length - 1;
+      } else {
+        i = this.state.focusedIndex - 1;
+      }
+      this._menuItemElements[i].focus();
+    }
+  }, {
     key: 'isSelected',
     value: function isSelected(o) {
       return o.active;
@@ -7408,8 +7449,16 @@ var Menu = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = fun
   }, {
     key: 'onMenuItemKeyDown',
     value: function onMenuItemKeyDown(e, o) {
-      if (e.which === 32) {
-        this.onSelect(o);
+      switch (e.which) {
+        case 32:
+          this.onSelect(o);
+          break;
+        case 38:
+          this.setFocusToPreviousOption();
+          break;
+        case 40:
+          this.setFocusToNextOption();
+          break;
       }
     }
   }, {
@@ -7447,7 +7496,13 @@ var Menu = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = fun
             'div',
             {
               key: index,
-              tabIndex: 0,
+              ref: function ref(c) {
+                return _this3._menuItemElements[index] = c;
+              },
+              onFocus: function onFocus() {
+                return _this3.setState({ focusedIndex: index });
+              },
+              tabIndex: -1,
               onKeyDown: function onKeyDown(e) {
                 return _this3.onMenuItemKeyDown(e, o);
               },
