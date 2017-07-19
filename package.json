@@ -75,14 +75,16 @@
     "karma-webpack": "^2.0.2",
     "mocha": "^3.2.0",
     "mocha-cli": "^1.0.1",
+    "node-sass": "^4.5.3",
     "playkit-js": "https://github.com/kaltura/playkit-js.git#develop",
     "pre-push": "^0.1.1",
+    "sass-loader": "^6.0.6",
     "sinon": "^2.0.0",
     "sinon-chai": "^2.8.0",
     "standard-version": "^4.0.0",
     "style-loader": "^0.18.2",
     "uglifyjs-webpack-plugin": "^0.4.3",
-    "webpack": "latest",
+    "webpack": "^3.3.0",
     "webpack-dev-server": "latest"
   },
   "dependencies": {
