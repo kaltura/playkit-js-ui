@@ -67,7 +67,7 @@ class Shell extends BaseComponent {
       }
     });
 
-    document.addEventListener('click', e => {
+    document.addEventListener('click', () => {
       this.props.removePlayerClass('keyboard-focused');
     });
 
