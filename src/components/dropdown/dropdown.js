@@ -25,6 +25,10 @@ class DropDown extends Component {
     this.setState({dropMenuActive: false});
   }
 
+  onClose() {
+    this.setState({dropMenuActive: false});
+  }
+
   getActiveOptionLabel(): string {
     let activeOptions = this.props.options.filter(t => t.active);
     try {
@@ -51,7 +55,12 @@ class DropDown extends Component {
           <Icon type='arrow-down' />
         </div>
         {
-          !this.state.dropMenuActive ? undefined : <Menu options={props.options} onSelect={(o) => this.onSelect(o)} />
+          !this.state.dropMenuActive ? undefined :
+          <Menu
+            options={props.options}
+            onSelect={(o) => this.onSelect(o)}
+            onClose={() => this.onClose()}
+          />
         }
       </div>
     )
