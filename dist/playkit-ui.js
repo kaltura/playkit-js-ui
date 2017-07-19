@@ -8791,7 +8791,7 @@ var PlayerGUI = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class 
         for (var _iterator = uis[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           var ui = _step.value;
 
-          if (ui.condition(state)) {
+          if (typeof ui.condition === 'undefined' || ui.condition(state)) {
             matchedUI = ui;
             break;
           }

@@ -15,7 +15,7 @@ class PlayerGUI extends Component {
   getMatchedUI(uis: Array<any>, state: Object): any {
     let matchedUI;
     for (let ui of uis) {
-      if (ui.condition(state)) {
+      if (typeof ui.condition === 'undefined' || ui.condition(state)) {
         matchedUI = ui;
         break;
       }
