@@ -10,6 +10,23 @@ const mapStateToProps = state => ({
 @connect(mapStateToProps)
 class Menu extends Component {
 
+  _menuElement: HTMLElement;
+
+  componentDidMount() {
+    document.addEventListener('click', this.handleClickOutside.bind(this), true);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleClickOutside.bind(this));
+  }
+
+  handleClickOutside(e: Event) {
+    if (!this.props.isMobile && this._menuElement && !this._menuElement.contains(event.target)) {
+      e.stopPropagation();
+      this.props.onClose();
+    }
+  }
+
   isSelected(o: Object): boolean {
     return o.active;
   }
@@ -41,7 +58,10 @@ class Menu extends Component {
   render(props: any) {
     return props.isMobile ? this.renderNativeSelect() :
     (
-      <div className='dropdown-menu top left'>
+      <div
+        ref={c => this._menuElement = c}
+        className='dropdown-menu top left'
+      >
         {
           props.options.map((o, index) => (
             <div key={index} className={this.isSelected(o) ? 'dropdown-menu-item active' : 'dropdown-menu-item'} onClick={() => this.onSelect(o)}>
