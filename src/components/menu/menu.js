@@ -10,6 +10,7 @@ const mapStateToProps = state => ({
 @connect(mapStateToProps)
 class Menu extends Component {
 
+  _menuElement: HTMLElement;
   _menuItemElements: Array<HTMLElement> = [];
 
   componentDidMount() {
@@ -18,6 +19,12 @@ class Menu extends Component {
     if (this._menuItemElements[index]) {
       this._menuItemElements[index].focus();
     }
+    
+    document.addEventListener('click', this.handleClickOutside.bind(this), true);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleClickOutside.bind(this));
   }
 
   setFocusToNextOption() {
@@ -38,6 +45,13 @@ class Menu extends Component {
       i = this.state.focusedIndex - 1;
     }
     this._menuItemElements[i].focus();
+  }
+
+  handleClickOutside(e: Event) {
+    if (!this.props.isMobile && this._menuElement && !this._menuElement.contains(event.target)) {
+      e.stopPropagation();
+      this.props.onClose();
+    }
   }
 
   isSelected(o: Object): boolean {
@@ -85,7 +99,11 @@ class Menu extends Component {
   render(props: any) {
     return props.isMobile ? this.renderNativeSelect() :
     (
-      <div className='dropdown-menu top left' role='menu'>
+      <div
+        ref={c => this._menuElement = c}
+        className='dropdown-menu top left'
+        role='menu'
+      >
         {
           props.options.map((o, index) => (
             <div
