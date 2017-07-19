@@ -19,6 +19,8 @@ import adsUI from './ui-presets/ads';
 import playbackUI from './ui-presets/playback';
 import fullscreenUI from './ui-presets/fullscreen';
 
+import './styles/style.scss';
+
 type UIPreset = {
   template: (props: Object) => any;
   condition?: (state: Object) => boolean;
