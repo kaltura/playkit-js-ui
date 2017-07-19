@@ -92,7 +92,7 @@ class Menu extends Component {
               key={index}
               ref={c => this._menuItemElements[index] = c}
               onFocus={() => this.setState({focusedIndex: index})}
-              tabIndex={-1}
+              tabIndex={0}
               onKeyDown={e => this.onMenuItemKeyDown(e, o)}
               role='menuitem'
               className={this.isSelected(o) ? 'dropdown-menu-item active' : 'dropdown-menu-item'}

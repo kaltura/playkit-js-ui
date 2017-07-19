@@ -49,10 +49,6 @@
       position: relative;
       border: none;
 
-      &:focus {
-        box-shadow: none;
-      }
-
       .icon {
         will-change: transform;
         transition: 100ms transform;
@@ -88,8 +84,7 @@
   }
 }
 
-.player:not(.touch) .overlay.share-overlay .share-icons .btn-rounded:hover,
-.player:not(.touch) .overlay.share-overlay .share-icons .btn-rounded:focus {
+.player:not(.touch) .overlay.share-overlay .share-icons .btn-rounded:hover {
   transform: scale(1.1667);
   box-shadow: none;
 }

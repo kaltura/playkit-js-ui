@@ -13,7 +13,7 @@
         box-sizing: border-box;
         outline: none;
     }
-    *[tabindex='0']:focus {
+    &.keyboard-focused [tabindex='0']:focus {
       box-shadow: inset 0 0 0 2px rgba(1,172,205,.8);
     }
     ::selection {

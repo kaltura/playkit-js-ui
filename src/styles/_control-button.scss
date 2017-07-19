@@ -13,10 +13,8 @@
     height: 32px;
   }
 
-  &.active,
-  &:focus {
+  &.active {
     opacity: 1;
-    box-shadow: none !important;
   }
 
   &.control-button-rounded {
@@ -31,10 +29,8 @@
     &:hover {
       opacity: 1;
     }
-    &.control-button-rounded:hover,
-    &.control-button-rounded:focus {
+    &.control-button-rounded:hover {
       background-color: rgba(0,0,0,0.4);
-      box-shadow: none;
     }
   }
 }

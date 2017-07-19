@@ -6608,7 +6608,7 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
             'a',
             {
               tabIndex: '0',
-              href: '#', role: 'button',
+              role: 'button',
               onClick: function onClick() {
                 return _this3.transitionToState(shareOverlayState.LinkOptions);
               } },
@@ -7502,7 +7502,7 @@ var Menu = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = fun
               onFocus: function onFocus() {
                 return _this3.setState({ focusedIndex: index });
               },
-              tabIndex: -1,
+              tabIndex: 0,
               onKeyDown: function onKeyDown(e) {
                 return _this3.onMenuItemKeyDown(e, o);
               },
@@ -8918,6 +8918,17 @@ var Shell = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.
           _this2.props.updateDocumentWidth(document.body.clientWidth);
         }
       });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.keyCode === 9) {
+          _this2.props.addPlayerClass('keyboard-focused');
+        }
+      });
+
+      document.addEventListener('click', function (e) {
+        _this2.props.removePlayerClass('keyboard-focused');
+      });
+
       if ((0, _isMobile.isMobile)()) {
         this.props.addPlayerClass('touch');
       }

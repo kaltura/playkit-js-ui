@@ -69,12 +69,6 @@
       color: #fff;
     }
 
-    &:focus {
-      color: #fff;
-      background-color: rgba(255,255,255,0.1);
-      box-shadow: none;
-    }
-
     &.active {
       color: $brand-color;
       fill: $brand-color;

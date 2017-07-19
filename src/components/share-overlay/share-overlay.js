@@ -158,7 +158,7 @@ class ShareOverlay extends BaseComponent {
           </div>
           <a
             tabIndex='0'
-            href='#' role='button'
+            role='button'
             onClick={() => this.transitionToState(shareOverlayState.LinkOptions)}>
             <Text id='share.link_options' />
           </a>
