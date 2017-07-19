@@ -17,6 +17,8 @@ import PlayerGUI from './player-gui';
 // ui presets
 import playbackUI from './ui-presets/playback';
 
+import './styles/style.scss';
+
 type UIPreset = {
   template: (props: Object) => any;
   condition?: (state: Object) => boolean;
