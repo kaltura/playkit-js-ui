@@ -17,29 +17,42 @@ module.exports = {
   devtool: 'source-map',
   plugins: PROD ? [new webpack.optimize.UglifyJsPlugin({sourceMap: true})] : [],
   module: {
-    rules: [{
-      test: /\.js$/,
-      use: [{
-        loader: "babel-loader"
-      }],
-      exclude: [
-        /node_modules/
-      ]
-    }, {
-      test: /\.js$/,
-      exclude: [
-        /node_modules/
-      ],
-      enforce: 'pre',
-      use: [{
-        loader: 'eslint-loader',
-        options: {
-          rules: {
-            semi: 0
+    rules: [
+      {
+        test: /\.js$/,
+        use: [{
+          loader: "babel-loader"
+        }],
+        exclude: [
+          /node_modules/
+        ]
+      },
+      {
+        test: /\.js$/,
+        exclude: [
+          /node_modules/
+        ],
+        enforce: 'pre',
+        use: [{
+          loader: 'eslint-loader',
+          options: {
+            rules: {
+              semi: 0
+            }
           }
-        }
-      }],
-    }]
+        }],
+      },
+      {
+        test: /\.scss$/,
+        use: [{
+          loader: "style-loader"
+        }, {
+          loader: "css-loader"
+        }, {
+          loader: "sass-loader"
+        }]
+      }
+    ]
   },
   devServer: {
     contentBase: __dirname + "/src"
