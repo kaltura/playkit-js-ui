@@ -6960,19 +6960,15 @@ var DropDown = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class =
     value: function renderNativeSelect() {
       var _this2 = this;
 
-      return (0, _preact.h)(
-        'select',
-        { onChange: function onChange(e) {
-            return _this2.onSelect(_this2.props.options[e.target.value]);
-          } },
-        this.props.options.map(function (o, index) {
-          return (0, _preact.h)(
-            'option',
-            { selected: _this2.isSelected(o), value: index, key: index },
-            o.label
-          );
-        })
-      );
+      return (0, _preact.h)(_menu2.default, {
+        options: this.props.options,
+        onSelect: function onSelect(o) {
+          return _this2.onSelect(o);
+        },
+        onClose: function onClose() {
+          return _this2.onClose();
+        }
+      });
     }
   }, {
     key: 'render',
