@@ -1,6 +1,7 @@
 //@flow
 import { h } from 'preact';
 import { connect } from 'preact-redux';
+import { keyCode } from '../../utils/keycodes';
 import { bindActions } from '../../utils/bind-actions';
 import { actions } from '../../reducers/play-pause';
 import BaseComponent from '../base';
@@ -33,7 +34,7 @@ class OverlayPlay extends BaseComponent {
   }
 
   onKeyDown(e) {
-    if (e.which === 32) {
+    if (e.which === keyCode.SPACE) {
       this.logger.debug("Keydown space");
       this.player.paused ? this.player.play() : this.player.pause();
     }

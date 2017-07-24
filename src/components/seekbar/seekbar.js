@@ -5,6 +5,7 @@ import { bindActions } from '../../utils/bind-actions';
 import { actions } from '../../reducers/seekbar';
 import BaseComponent from '../base';
 import { toHHMMSS } from '../../utils/time-format';
+import { keyCode } from '../../utils/keycodes';
 
 const mapStateToProps = state => ({
   virtualProgress: state.seekbar.virtualTime,
@@ -94,19 +95,19 @@ class SeekBarControl extends BaseComponent {
     let time;
 
     switch(e.which) {
-      case 32: // space
+      case keyCode.SPACE:
       this.logger.debug("Keydown space");
       this.player.paused ? this.player.play() : this.player.pause();
       break;
 
-      case 37: // left
+      case keyCode.LEFT:
       this.logger.debug("Keydown left");
       time = (this.player.currentTime - 5) > 0 ? this.player.currentTime - 5 : 0;
       this.player.currentTime = time;
       this.updateSeekBarProgress(time, this.player.duration);
       break;
 
-      case 39: // right
+      case keyCode.RIGHT:
       this.logger.debug("Keydown right");
       time = (this.player.currentTime + 5) > this.player.duration ? this.player.duration : this.player.currentTime + 5;
       this.player.currentTime = time;

@@ -1,6 +1,7 @@
 //@flow
 import { h, Component } from 'preact';
 import Icon from '../icon';
+import { keyCode } from '../../utils/keycodes';
 import { connect } from 'preact-redux';
 
 const mapStateToProps = state => ({
@@ -19,7 +20,7 @@ class Menu extends Component {
     if (this._menuItemElements[index]) {
       this._menuItemElements[index].focus();
     }
-    
+
     document.addEventListener('click', this.handleClickOutside.bind(this), true);
   }
 
@@ -73,13 +74,13 @@ class Menu extends Component {
 
   onMenuItemKeyDown(e: Event, o: Object) {
     switch (e.which) {
-      case 32:
+      case keyCode.SPACE:
         this.onSelect(o);
         break;
-      case 38:
+      case keyCode.UP:
         this.setFocusToPreviousOption();
         break;
-      case 40:
+      case keyCode.DOWN:
         this.setFocusToNextOption();
         break;
     }

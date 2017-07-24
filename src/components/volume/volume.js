@@ -2,6 +2,7 @@
 import { h } from 'preact';
 import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
+import { keyCode } from '../../utils/keycodes';
 import { actions } from '../../reducers/volume';
 import BaseComponent from '../base';
 import Icon from '../icon';
@@ -62,7 +63,7 @@ class VolumeControl extends BaseComponent {
   onVolumeProgressBarKeyDown(e: Event) {
     let newVolume;
     switch(e.which) {
-      case 38: // up
+      case keyCode.UP:
       this.logger.debug("Keydown up");
       newVolume = Math.round(this.player.volume * 100) + 5;
       this.logger.debug(`Changing volume. ${this.player.volume} => ${newVolume}`);
@@ -72,7 +73,7 @@ class VolumeControl extends BaseComponent {
       this.player.volume = newVolume / 100;
       break;
 
-      case 40: // down
+      case keyCode.DOWN:
       this.logger.debug("Keydown down");
       newVolume = Math.round(this.player.volume * 100) - 5;
       if (newVolume < 5) {
