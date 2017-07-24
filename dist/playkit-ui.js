@@ -3830,6 +3830,10 @@ exports.default = adsUI;
 
 var _preact = __webpack_require__(0);
 
+var _overlayPlay = __webpack_require__(15);
+
+var _overlayPlay2 = _interopRequireDefault(_overlayPlay);
+
 var _loading = __webpack_require__(8);
 
 var _loading2 = _interopRequireDefault(_loading);
@@ -3864,7 +3868,6 @@ var _keyboard2 = _interopRequireDefault(_keyboard);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import OverlayPlay from '../components/overlay-play';
 function adsUI(props) {
   return (0, _preact.h)(
     'div',
@@ -3874,6 +3877,7 @@ function adsUI(props) {
     (0, _preact.h)(
       'div',
       { className: 'player-gui', id: 'player-gui' },
+      (0, _preact.h)(_overlayPlay2.default, { player: props.player }),
       (0, _preact.h)(
         _bottomBar2.default,
         null,
@@ -4316,7 +4320,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var mapStateToProps = function mapStateToProps(state) {
   return {
     isPlaying: state.engine.isPlaying,
-    adBreak: state.engine.adBreak
+    adBreak: state.engine.adBreak,
+    adIsPlaying: state.engine.adIsPlaying
   };
 };
 
@@ -4330,6 +4335,11 @@ var OverlayPlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAc
   }
 
   _createClass(OverlayPlay, [{
+    key: 'isPlayingAdOrPlayback',
+    value: function isPlayingAdOrPlayback() {
+      return this.props.adBreak && this.props.adIsPlaying || !this.props.adBreak && this.props.isPlaying;
+    }
+  }, {
     key: 'togglePlayPause',
     value: function togglePlayPause() {
       var _this2 = this;
@@ -4339,11 +4349,8 @@ var OverlayPlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAc
       setTimeout(function () {
         _this2.setState({ animation: false });
       }, 400);
-      if (this.player.paused) {
-        this.player.play();
-      } else {
-        this.player.pause();
-      }
+
+      this.isPlayingAdOrPlayback() ? this.player.pause() : this.player.play();
     }
   }, {
     key: 'render',
@@ -4355,7 +4362,7 @@ var OverlayPlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAc
         { className: 'overlay-play ' + (this.state.animation ? 'in' : ''), onClick: function onClick() {
             return _this3.togglePlayPause();
           } },
-        props.isPlaying ? (0, _preact.h)(_icon2.default, { type: 'play' }) : (0, _preact.h)(_icon2.default, { type: 'pause' })
+        this.isPlayingAdOrPlayback() ? (0, _preact.h)(_icon2.default, { type: 'play' }) : (0, _preact.h)(_icon2.default, { type: 'pause' })
       );
     }
   }]);

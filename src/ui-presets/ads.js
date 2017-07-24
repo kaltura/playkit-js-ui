@@ -1,6 +1,6 @@
 //@flow
 import { h } from 'preact';
-// import OverlayPlay from '../components/overlay-play';
+import OverlayPlay from '../components/overlay-play';
 import Loading from '../components/loading';
 import PlayPauseControl from '../components/play-pause';
 import SeekBarAdsContainer from '../components/seekbar-ads-container';
@@ -16,7 +16,7 @@ export default function adsUI(props: any) {
       <KeyboardControl player={props.player} />
       <Loading player={props.player} />
       <div className='player-gui' id='player-gui'>
-        {/* <OverlayPlay player={props.player} /> */}
+        <OverlayPlay player={props.player} />
         <BottomBar>
           <SeekBarAdsContainer showFramePreview showTimeBubble player={props.player} />
           <div className='left-controls'>
