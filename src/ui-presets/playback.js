@@ -10,7 +10,7 @@ import ShareControl from '../components/share'
 import SettingsControl from '../components/settings';
 import LanguageControl from '../components/language';
 import FullscreenControl from '../components/fullscreen';
-import TimeDisplay from '../components/time-display';
+import TimeDisplayPlaybackContainer from '../components/time-display-playback-container';
 import TopBar from '../components/top-bar';
 import BottomBar from '../components/bottom-bar';
 import OverlayPortal from '../components/overlay-portal';
@@ -36,7 +36,7 @@ export default function playbackUI(props: any) {
           <SeekBarControl showFramePreview showTimeBubble player={props.player} />
           <div className='left-controls'>
             <PlayPauseControl player={props.player} />
-            <TimeDisplay format='current / total' player={props.player} />
+            <TimeDisplayPlaybackContainer format='current / total' />
           </div>
           <div className='right-controls'>
             <VolumeControl player={props.player} />
@@ -46,7 +46,7 @@ export default function playbackUI(props: any) {
           </div>
         </BottomBar>
       </div>
-      <PrePlaybackPlayOverlay player={props.player} />
+       {/* <PrePlaybackPlayOverlay player={props.player} /> */}
     </div>
   )
 }

@@ -9,7 +9,9 @@ export const types = {
   UPDATE_METADATA_LOADING_STATUS: 'engine/UPDATE_METADATA_LOADING_STATUS',
   UPDATE_AUDIO_TRACKS: 'engine/UPDATE_AUDIO_TRACKS',
   UPDATE_VIDEO_TRACKS: 'engine/UPDATE_VIDEO_TRACKS',
-  UPDATE_TEXT_TRACKS: 'engine/UPDATE_TEXT_TRACKS'
+  UPDATE_TEXT_TRACKS: 'engine/UPDATE_TEXT_TRACKS',
+  UPDATE_AD_BREAK: 'engine/UPDATE_AD_BREAK',
+  UPDATE_AD_BREAK_PROGRESS: 'engine/UPDATE_AD_BREAK_PROGRESS'
 }
 
 export const initialState = {
@@ -25,7 +27,12 @@ export const initialState = {
   muted: false,
   videoTracks: [],
   audioTracks: [],
-  textTracks: []
+  textTracks: [],
+  adBreak: false,
+  adProgress: {
+    currentTime: 0,
+    duration: 0
+  }
 }
 
 export default (state: Object = initialState, action: Object) => {
@@ -90,6 +97,18 @@ export default (state: Object = initialState, action: Object) => {
         textTracks: action.tracks
       }
 
+    case types.UPDATE_AD_BREAK:
+      return {
+        ...state,
+        adBreak: action.adBreak
+      }
+
+    case types.UPDATE_AD_BREAK_PROGRESS:
+      return {
+        ...state,
+        adProgress: action.adProgress
+      }
+
     default:
       return state;
   }
@@ -105,5 +124,7 @@ export const actions = {
   updateMetadataLoadingStatus: (metadataLoaded: boolean) => ({ type: types.UPDATE_METADATA_LOADING_STATUS, metadataLoaded }),
   updateAudioTracks: (tracks: Array<any>) => ({ type: types.UPDATE_AUDIO_TRACKS, tracks }),
   updateVideoTracks: (tracks: Array<any>) => ({ type: types.UPDATE_VIDEO_TRACKS, tracks }),
-  updateTextTracks: (tracks: Array<any>) => ({ type: types.UPDATE_TEXT_TRACKS, tracks })
+  updateTextTracks: (tracks: Array<any>) => ({ type: types.UPDATE_TEXT_TRACKS, tracks }),
+  updateAdBreak: (adBreak: boolean) => ({ type: types.UPDATE_AD_BREAK, adBreak }),
+  updateAdBreakProgress: (currentTime: number, duration: number) => ({ type: types.UPDATE_AD_BREAK_PROGRESS, adProgress: {currentTime, duration} })
 }

@@ -5,7 +5,7 @@ import Loading from '../components/loading';
 import SeekBarControl from '../components/seekbar';
 import VolumeControl from '../components/volume';
 import FullscreenControl from '../components/fullscreen';
-import TimeDisplay from '../components/time-display';
+import TimeDisplayAdsContainer from '../components/time-display-ads-container';
 import BottomBar from '../components/bottom-bar';
 import KeyboardControl from '../components/keyboard';
 
@@ -19,7 +19,7 @@ export default function adsUI(props: any) {
         <BottomBar>
           <SeekBarControl showFramePreview showTimeBubble player={props.player} />
           <div className='left-controls'>
-            <TimeDisplay format='-left' player={props.player} />
+            <TimeDisplayAdsContainer format='Ad (left)' />
           </div>
           <div className='right-controls'>
             <VolumeControl player={props.player} />

@@ -17,7 +17,6 @@ import PlayerGUI from './player-gui';
 // ui presets
 import adsUI from './ui-presets/ads';
 import playbackUI from './ui-presets/playback';
-import fullscreenUI from './ui-presets/fullscreen';
 
 import './styles/style.scss';
 
@@ -37,9 +36,8 @@ class UIManager {
 
   buildDefaultUI(): void {
     const uis = [
-      { template: props => fullscreenUI(props), condition: state => state.fullscreen.fullscreen },
-      { template: props => adsUI(props), condition: state => state.shell.isAd },
-      { template: props => playbackUI(props), condition: state => !state.shell.isAd }
+      { template: props => adsUI(props), condition: state => state.engine.adBreak },
+      { template: props => playbackUI(props) }
     ];
     this._buildUI(uis);
   }

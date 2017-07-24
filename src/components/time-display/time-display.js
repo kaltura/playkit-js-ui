@@ -1,19 +1,8 @@
 //@flow
-import { h } from 'preact';
-import { connect } from 'preact-redux';
-import BaseComponent from '../base';
+import { h, Component } from 'preact';
 import { toHHMMSS } from '../../utils/time-format';
 
-const mapStateToProps = state => ({
-  currentTime: state.seekbar.currentTime,
-  duration: state.engine.duration
-});
-
-@connect(mapStateToProps)
-class TimeDisplay extends BaseComponent {
-  constructor(obj: Object) {
-    super({name: 'TimeDisplay', player: obj.player, config: obj.config});
-  }
+class TimeDisplay extends Component {
 
   getTimeDisplay(): string {
     var result = this.props.format ? this.props.format : 'current / total',

@@ -65,6 +65,23 @@ class EngineConnector extends BaseComponent {
       let tracks = this.player.getTracks(TrackType.VIDEO);
       this.props.updateVideoTracks(tracks);
     });
+
+    this.player.addEventListener(this.player.Event.AD_BREAK_START, () => {
+      this.props.updateAdBreak(true);
+    });
+
+    this.player.addEventListener(this.player.Event.AD_BREAK_END, () => {
+      this.props.updateAdBreak(false);
+    });
+
+    this.player.addEventListener(this.player.Event.AD_PROGRESS, e => {
+      let currentTime = e.payload.adProgress.currentTime;
+      let duration = e.payload.adProgress.duration;
+
+      this.props.updateAdBreakProgress(currentTime, duration);
+    });
+
+
   }
 
   shouldComponentUpdate() { return false; }

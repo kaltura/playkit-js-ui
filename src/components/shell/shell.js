@@ -11,7 +11,6 @@ const mapStateToProps = state => ({
   currentState: state.engine.playerState.currentState,
   playerClasses: state.shell.playerClasses,
   isMobile: state.shell.isMobile,
-  isAd: state.shell.isAd,
   playerWidth: state.shell.playerWidth,
   playerHeight: state.shell.playerHeight
 });
