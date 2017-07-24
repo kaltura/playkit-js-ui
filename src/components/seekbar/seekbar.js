@@ -134,7 +134,7 @@ class SeekBarControl extends Component {
 
     return (
       <div
-        className='seek-bar'
+        className={!props.disabled ? 'seek-bar' : 'seek-bar disabled'}
         ref={c => this._seekBarElement=c}
         role='slider'
         aria-label='Seek slider'
@@ -151,7 +151,10 @@ class SeekBarControl extends Component {
       >
         <div className='progress-bar'>
           <div className='progress' style={{width: progressWidth}}>
-            <a className='scrubber' />
+            {
+              props.disabled ? undefined :
+              <a className='scrubber' />
+            }
           </div>
           <div className='virtual-progress' style={{width: virtualProgressWidth}} />
           {this.renderTimeBubble()}

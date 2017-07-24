@@ -19,6 +19,10 @@
         }
     }
 
+    &.disabled .progress-bar .progress {
+      background-color: $danger-color; // temp
+    }
+
     .progress-bar {
         height: $progress-bar-height;
         background-color: rgba(255,255,255,0.3);

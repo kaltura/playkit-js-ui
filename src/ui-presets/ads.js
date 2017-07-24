@@ -16,9 +16,8 @@ export default function adsUI(props: any) {
       <KeyboardControl player={props.player} />
       <Loading player={props.player} />
       <div className='player-gui' id='player-gui'>
-        <OverlayPlay player={props.player} />
         <BottomBar>
-          <SeekBarAdsContainer showFramePreview showTimeBubble player={props.player} />
+          <SeekBarAdsContainer disabled showFramePreview showTimeBubble player={props.player} />
           <div className='left-controls'>
             <PlayPauseControl player={props.player} />
             <TimeDisplayAdsContainer format='Ad (left)' />
