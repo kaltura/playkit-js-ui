@@ -1,7 +1,7 @@
 //@flow
 import { h } from 'preact';
 import OverlayPlay from '../components/overlay-play';
-// import PrePlaybackPlayOverlay from '../components/pre-playback-play-overlay';
+import PrePlaybackPlayOverlay from '../components/pre-playback-play-overlay';
 import Loading from '../components/loading';
 import PlayPauseControl from '../components/play-pause';
 import SeekBarPlaybackContainer from '../components/seekbar-playback-container';
@@ -46,7 +46,7 @@ export default function playbackUI(props: any) {
           </div>
         </BottomBar>
       </div>
-      {/* <PrePlaybackPlayOverlay player={props.player} /> */}
+       <PrePlaybackPlayOverlay player={props.player} />
     </div>
   )
 }

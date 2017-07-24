@@ -2462,6 +2462,10 @@ var _overlayPlay = __webpack_require__(15);
 
 var _overlayPlay2 = _interopRequireDefault(_overlayPlay);
 
+var _prePlaybackPlayOverlay = __webpack_require__(48);
+
+var _prePlaybackPlayOverlay2 = _interopRequireDefault(_prePlaybackPlayOverlay);
+
 var _loading = __webpack_require__(8);
 
 var _loading2 = _interopRequireDefault(_loading);
@@ -2564,10 +2568,10 @@ function playbackUI(props) {
           (0, _preact.h)(_fullscreen2.default, { player: props.player })
         )
       )
-    )
+    ),
+    (0, _preact.h)(_prePlaybackPlayOverlay2.default, { player: props.player })
   );
 }
-// import PrePlaybackPlayOverlay from '../components/pre-playback-play-overlay';
 
 /***/ }),
 /* 29 */
@@ -8463,15 +8467,7 @@ var PrePlaybackPlayOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, 
   function PrePlaybackPlayOverlay(obj) {
     _classCallCheck(this, PrePlaybackPlayOverlay);
 
-    var _this = _possibleConstructorReturn(this, (PrePlaybackPlayOverlay.__proto__ || Object.getPrototypeOf(PrePlaybackPlayOverlay)).call(this, { name: 'PrePlaybackPlayOverlay', player: obj.player }));
-
-    _this.player.addEventListener(_this.player.Event.PLAY, function () {
-      if (_this.props.prePlayback) {
-        _this.props.updatePrePlayback(false);
-        _this.props.removePlayerClass('pre-playback');
-      }
-    });
-    return _this;
+    return _possibleConstructorReturn(this, (PrePlaybackPlayOverlay.__proto__ || Object.getPrototypeOf(PrePlaybackPlayOverlay)).call(this, { name: 'PrePlaybackPlayOverlay', player: obj.player }));
   }
 
   _createClass(PrePlaybackPlayOverlay, [{
@@ -8481,9 +8477,26 @@ var PrePlaybackPlayOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, 
       this.props.removePlayerClass('pre-playback');
     }
   }, {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.props.addPlayerClass('pre-playback');
+    }
+  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.props.addPlayerClass('pre-playback');
+      var _this2 = this;
+
+      this.player.addEventListener(this.player.Event.PLAY, function () {
+        if (_this2.props.prePlayback) {
+          _this2.props.updatePrePlayback(false);
+          _this2.props.removePlayerClass('pre-playback');
+        }
+      });
+
+      if (!this.player.paused) {
+        this.props.updatePrePlayback(false);
+        this.props.removePlayerClass('pre-playback');
+      }
     }
   }, {
     key: 'handleClick',
@@ -8493,14 +8506,14 @@ var PrePlaybackPlayOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, 
   }, {
     key: 'render',
     value: function render(props) {
-      var _this2 = this;
+      var _this3 = this;
 
       if (!props.prePlayback || !props.metadataLoaded) return undefined;
 
       return (0, _preact.h)(
         'div',
         { className: 'pre-playback-play-overlay', onClick: function onClick() {
-            return _this2.handleClick();
+            return _this3.handleClick();
           } },
         (0, _preact.h)(
           'a',
