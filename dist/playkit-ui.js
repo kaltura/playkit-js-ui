@@ -3834,6 +3834,10 @@ var _loading = __webpack_require__(8);
 
 var _loading2 = _interopRequireDefault(_loading);
 
+var _playPause = __webpack_require__(18);
+
+var _playPause2 = _interopRequireDefault(_playPause);
+
 var _seekbarAdsContainer = __webpack_require__(111);
 
 var _seekbarAdsContainer2 = _interopRequireDefault(_seekbarAdsContainer);
@@ -3860,6 +3864,7 @@ var _keyboard2 = _interopRequireDefault(_keyboard);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// import OverlayPlay from '../components/overlay-play';
 function adsUI(props) {
   return (0, _preact.h)(
     'div',
@@ -3876,6 +3881,7 @@ function adsUI(props) {
         (0, _preact.h)(
           'div',
           { className: 'left-controls' },
+          (0, _preact.h)(_playPause2.default, { player: props.player }),
           (0, _preact.h)(_timeDisplayAdsContainer2.default, { format: 'Ad (left)' })
         ),
         (0, _preact.h)(
@@ -3888,7 +3894,6 @@ function adsUI(props) {
     )
   );
 }
-// import OverlayPlay from '../components/overlay-play';
 
 /***/ }),
 /* 48 */
@@ -3935,7 +3940,8 @@ var types = exports.types = {
   UPDATE_VIDEO_TRACKS: 'engine/UPDATE_VIDEO_TRACKS',
   UPDATE_TEXT_TRACKS: 'engine/UPDATE_TEXT_TRACKS',
   UPDATE_AD_BREAK: 'engine/UPDATE_AD_BREAK',
-  UPDATE_AD_BREAK_PROGRESS: 'engine/UPDATE_AD_BREAK_PROGRESS'
+  UPDATE_AD_BREAK_PROGRESS: 'engine/UPDATE_AD_BREAK_PROGRESS',
+  UPDATE_AD_IS_PLAYING: 'engine/UPDATE_AD_IS_PLAYING'
 };
 
 var initialState = exports.initialState = {
@@ -3953,6 +3959,7 @@ var initialState = exports.initialState = {
   audioTracks: [],
   textTracks: [],
   adBreak: false,
+  adIsPlaying: false,
   adProgress: {
     currentTime: 0,
     duration: 0
@@ -4024,6 +4031,11 @@ exports.default = function () {
         adProgress: action.adProgress
       });
 
+    case types.UPDATE_AD_IS_PLAYING:
+      return _extends({}, state, {
+        adIsPlaying: action.adIsPlaying
+      });
+
     default:
       return state;
   }
@@ -4065,6 +4077,9 @@ var actions = exports.actions = {
   },
   updateAdBreakProgress: function updateAdBreakProgress(currentTime, duration) {
     return { type: types.UPDATE_AD_BREAK_PROGRESS, adProgress: { currentTime: currentTime, duration: duration } };
+  },
+  updateAdIsPlaying: function updateAdIsPlaying(adIsPlaying) {
+    return { type: types.UPDATE_AD_IS_PLAYING, adIsPlaying: adIsPlaying };
   }
 };
 
@@ -5383,7 +5398,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    isPlaying: state.engine.isPlaying
+    isPlaying: state.engine.isPlaying,
+    adBreak: state.engine.adBreak,
+    adIsPlaying: state.engine.adIsPlaying
   };
 };
 
@@ -5400,18 +5417,19 @@ var PlayPauseControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _b
     key: 'togglePlayPause',
     value: function togglePlayPause() {
       this.logger.debug('Toggle play');
-      if (this.player.paused) {
-        this.player.play();
-      } else {
-        this.player.pause();
-      }
+      this.isPlayingAdOrPlayback() ? this.player.pause() : this.player.play();
+    }
+  }, {
+    key: 'isPlayingAdOrPlayback',
+    value: function isPlayingAdOrPlayback() {
+      return this.props.adBreak && this.props.adIsPlaying || !this.props.adBreak && this.props.isPlaying;
     }
   }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
 
-      var controlButtonClass = this.props.isPlaying ? 'control-button is-playing' : 'control-button';
+      var controlButtonClass = this.isPlayingAdOrPlayback() ? 'control-button is-playing' : 'control-button';
 
       return (0, _preact.h)(
         'div',
@@ -5422,7 +5440,7 @@ var PlayPauseControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _b
           (0, _preact.h)(
             'button',
             {
-              'aria-label': (0, _preact.h)(_preactI18n.Text, { id: this.props.isPlaying ? 'controls.pause' : 'controls.play' }),
+              'aria-label': (0, _preact.h)(_preactI18n.Text, { id: this.isPlayingAdOrPlayback() ? 'controls.pause' : 'controls.play' }),
               className: controlButtonClass,
               onClick: function onClick() {
                 return _this2.togglePlayPause();
@@ -7829,7 +7847,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    currentTime: state.seekbar.currentTime,
+    currentTime: state.engine.currentTime,
     duration: state.engine.duration
   };
 };
@@ -8902,6 +8920,22 @@ var EngineConnector = (_dec = (0, _preactRedux.connect)(_engine2.default, (0, _b
 
         _this2.props.updateAdBreakProgress(currentTime, duration);
       });
+
+      this.player.addEventListener(this.player.Event.AD_BREAK_END, function () {
+        _this2.props.updateAdBreak(false);
+      });
+
+      this.player.addEventListener(this.player.Event.AD_STARTED, function () {
+        _this2.props.updateAdIsPlaying(true);
+      });
+
+      this.player.addEventListener(this.player.Event.AD_RESUMED, function () {
+        _this2.props.updateAdIsPlaying(true);
+      });
+
+      this.player.addEventListener(this.player.Event.AD_PAUSED, function () {
+        _this2.props.updateAdIsPlaying(false);
+      });
     }
   }, {
     key: 'shouldComponentUpdate',
@@ -9796,7 +9830,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    currentTime: state.seekbar.currentTime,
+    currentTime: state.engine.currentTime,
     duration: state.engine.duration,
     isDraggingActive: state.seekbar.draggingActive,
     isMobile: state.shell.isMobile

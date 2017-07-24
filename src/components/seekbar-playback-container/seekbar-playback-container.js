@@ -8,7 +8,7 @@ import { toHHMMSS } from '../../utils/time-format';
 import SeekBarControl from '../seekbar';
 
 const mapStateToProps = state => ({
-  currentTime: state.seekbar.currentTime,
+  currentTime: state.engine.currentTime,
   duration: state.engine.duration,
   isDraggingActive: state.seekbar.draggingActive,
   isMobile: state.shell.isMobile

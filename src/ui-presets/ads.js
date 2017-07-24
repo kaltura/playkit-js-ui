@@ -2,6 +2,7 @@
 import { h } from 'preact';
 // import OverlayPlay from '../components/overlay-play';
 import Loading from '../components/loading';
+import PlayPauseControl from '../components/play-pause';
 import SeekBarAdsContainer from '../components/seekbar-ads-container';
 import VolumeControl from '../components/volume';
 import FullscreenControl from '../components/fullscreen';
@@ -19,6 +20,7 @@ export default function adsUI(props: any) {
         <BottomBar>
           <SeekBarAdsContainer showFramePreview showTimeBubble player={props.player} />
           <div className='left-controls'>
+            <PlayPauseControl player={props.player} />
             <TimeDisplayAdsContainer format='Ad (left)' />
           </div>
           <div className='right-controls'>

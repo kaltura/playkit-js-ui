@@ -11,7 +11,8 @@ export const types = {
   UPDATE_VIDEO_TRACKS: 'engine/UPDATE_VIDEO_TRACKS',
   UPDATE_TEXT_TRACKS: 'engine/UPDATE_TEXT_TRACKS',
   UPDATE_AD_BREAK: 'engine/UPDATE_AD_BREAK',
-  UPDATE_AD_BREAK_PROGRESS: 'engine/UPDATE_AD_BREAK_PROGRESS'
+  UPDATE_AD_BREAK_PROGRESS: 'engine/UPDATE_AD_BREAK_PROGRESS',
+  UPDATE_AD_IS_PLAYING: 'engine/UPDATE_AD_IS_PLAYING',
 }
 
 export const initialState = {
@@ -29,6 +30,7 @@ export const initialState = {
   audioTracks: [],
   textTracks: [],
   adBreak: false,
+  adIsPlaying: false,
   adProgress: {
     currentTime: 0,
     duration: 0
@@ -109,6 +111,12 @@ export default (state: Object = initialState, action: Object) => {
         adProgress: action.adProgress
       }
 
+    case types.UPDATE_AD_IS_PLAYING:
+      return {
+        ...state,
+        adIsPlaying: action.adIsPlaying
+      }
+
     default:
       return state;
   }
@@ -126,5 +134,6 @@ export const actions = {
   updateVideoTracks: (tracks: Array<any>) => ({ type: types.UPDATE_VIDEO_TRACKS, tracks }),
   updateTextTracks: (tracks: Array<any>) => ({ type: types.UPDATE_TEXT_TRACKS, tracks }),
   updateAdBreak: (adBreak: boolean) => ({ type: types.UPDATE_AD_BREAK, adBreak }),
-  updateAdBreakProgress: (currentTime: number, duration: number) => ({ type: types.UPDATE_AD_BREAK_PROGRESS, adProgress: {currentTime, duration} })
+  updateAdBreakProgress: (currentTime: number, duration: number) => ({ type: types.UPDATE_AD_BREAK_PROGRESS, adProgress: {currentTime, duration} }),
+  updateAdIsPlaying: (adIsPlaying) => ({ type: types.UPDATE_AD_IS_PLAYING, adIsPlaying })
 }

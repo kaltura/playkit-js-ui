@@ -50,7 +50,6 @@ class EngineConnector extends BaseComponent {
       this.props.updateTextTracks(textTracks);
     });
 
-
     this.player.addEventListener(this.player.Event.TEXT_TRACK_CHANGED, () => {
       let tracks = this.player.getTracks(TrackType.TEXT);
       this.props.updateTextTracks(tracks);
@@ -79,6 +78,22 @@ class EngineConnector extends BaseComponent {
       let duration = e.payload.adProgress.duration;
 
       this.props.updateAdBreakProgress(currentTime, duration);
+    });
+
+    this.player.addEventListener(this.player.Event.AD_BREAK_END, () => {
+      this.props.updateAdBreak(false);
+    });
+
+    this.player.addEventListener(this.player.Event.AD_STARTED, () => {
+      this.props.updateAdIsPlaying(true);
+    });
+
+    this.player.addEventListener(this.player.Event.AD_RESUMED, () => {
+      this.props.updateAdIsPlaying(true);
+    });
+
+    this.player.addEventListener(this.player.Event.AD_PAUSED, () => {
+      this.props.updateAdIsPlaying(false);
     });
 
 

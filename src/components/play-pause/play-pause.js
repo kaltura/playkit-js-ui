@@ -8,7 +8,9 @@ import BaseComponent from '../base';
 import Icon from '../icon';
 
 const mapStateToProps = state => ({
-  isPlaying: state.engine.isPlaying
+  isPlaying: state.engine.isPlaying,
+  adBreak: state.engine.adBreak,
+  adIsPlaying: state.engine.adIsPlaying
 });
 
 @connect(mapStateToProps, bindActions(actions))
@@ -20,22 +22,21 @@ class PlayPauseControl extends BaseComponent {
 
   togglePlayPause() {
     this.logger.debug('Toggle play');
-    if (this.player.paused) {
-      this.player.play();
-    }
-    else {
-      this.player.pause();
-    }
+    this.isPlayingAdOrPlayback() ? this.player.pause() : this.player.play();
+  }
+
+  isPlayingAdOrPlayback() {
+    return (this.props.adBreak && this.props.adIsPlaying) || (!this.props.adBreak && this.props.isPlaying);
   }
 
   render() {
-    var controlButtonClass = this.props.isPlaying ? 'control-button is-playing' : 'control-button';
+    var controlButtonClass = this.isPlayingAdOrPlayback() ? 'control-button is-playing' : 'control-button';
 
     return (
       <div className='control-button-container control-play-pause'>
         <Localizer>
           <button
-            aria-label={<Text id={this.props.isPlaying ? 'controls.pause' : 'controls.play'} />}
+            aria-label={<Text id={this.isPlayingAdOrPlayback() ? 'controls.pause' : 'controls.play'} />}
             className={controlButtonClass}
             onClick={() => this.togglePlayPause()}
           >
