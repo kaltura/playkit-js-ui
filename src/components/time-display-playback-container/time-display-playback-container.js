@@ -11,7 +11,7 @@ const mapStateToProps = state => ({
 
 @connect(mapStateToProps)
 class TimeDisplayPlaybackContainer extends BaseComponent {
-  constructor(obj: Object) {
+  constructor() {
     super({name: 'TimeDisplayPlaybackContainer'});
   }
 

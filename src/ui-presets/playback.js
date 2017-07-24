@@ -1,10 +1,10 @@
 //@flow
 import { h } from 'preact';
 import OverlayPlay from '../components/overlay-play';
-import PrePlaybackPlayOverlay from '../components/pre-playback-play-overlay';
+// import PrePlaybackPlayOverlay from '../components/pre-playback-play-overlay';
 import Loading from '../components/loading';
 import PlayPauseControl from '../components/play-pause';
-import SeekBarControl from '../components/seekbar';
+import SeekBarPlaybackContainer from '../components/seekbar-playback-container';
 import VolumeControl from '../components/volume';
 import ShareControl from '../components/share'
 import SettingsControl from '../components/settings';
@@ -33,7 +33,7 @@ export default function playbackUI(props: any) {
           </div>
         </TopBar>
         <BottomBar>
-          <SeekBarControl showFramePreview showTimeBubble player={props.player} />
+          <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player} />
           <div className='left-controls'>
             <PlayPauseControl player={props.player} />
             <TimeDisplayPlaybackContainer format='current / total' />

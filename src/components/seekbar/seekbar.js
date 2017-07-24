@@ -1,21 +1,8 @@
 //@flow
-import { h } from 'preact';
-import { connect } from 'preact-redux';
-import { bindActions } from '../../utils/bind-actions';
-import { actions } from '../../reducers/seekbar';
-import BaseComponent from '../base';
+import { h, Component } from 'preact';
 import { toHHMMSS } from '../../utils/time-format';
 
-const mapStateToProps = state => ({
-  virtualProgress: state.seekbar.virtualTime,
-  currentTime: state.seekbar.currentTime,
-  duration: state.engine.duration,
-  isDraggingActive: state.seekbar.draggingActive,
-  isMobile: state.shell.isMobile
-});
-
-@connect(mapStateToProps, bindActions(actions))
-class SeekBarControl extends BaseComponent {
+class SeekBarControl extends Component {
   state: Object;
   _seekBarElement: HTMLElement;
   _playerElement: any;
@@ -23,44 +10,32 @@ class SeekBarControl extends BaseComponent {
   _timeBubbleElement: HTMLElement;
   _movex: number;
 
-  constructor(obj: Object) {
-    super({name: 'SeekBar', player: obj.player});
-  }
-
   componentDidMount() {
     this._playerElement = document.getElementById('player-placeholder');
-
     this.setState({virtualTime: 0});
-
-    this.player.addEventListener(this.player.Event.TIME_UPDATE, () => {
-      if (!this.props.isDraggingActive) {
-        this.props.updateCurrentTime(this.player.currentTime);
-      }
-    });
   }
 
   onSeekbarMouseDown(e: Event) {
     this.props.updateSeekbarDraggingStatus(true);
     if (this.props.isDraggingActive) {
       let time = this.getTime(e);
-      this.updateSeekBarProgress(time, this.player.duration);
+      this.updateSeekBarProgress(time, this.props.duration);
     }
   }
 
   onSeekbarMouseUp(e: Event) {
     let time = this.getTime(e);
-    this.player.currentTime = time;
-    this.updateSeekBarProgress(time, this.player.duration);
+    this.props.changeCurrentTime(time);
+    this.updateSeekBarProgress(time, this.props.duration);
     this.props.updateSeekbarDraggingStatus(false);
-    this.logger.debug(`Seek to ${time.toString()}s`);
   }
 
   onSeekbarMouseMove(e: Event) {
     let time = this.getTime(e);
-    this.updateSeekBarProgress(time, this.player.duration, true);
+    this.updateSeekBarProgress(time, this.props.duration, true);
 
     if (this.props.isDraggingActive) {
-      this.updateSeekBarProgress(time, this.player.duration);
+      this.updateSeekBarProgress(time, this.props.duration);
     }
   }
 
@@ -68,26 +43,25 @@ class SeekBarControl extends BaseComponent {
     this.props.updateSeekbarDraggingStatus(true);
     if (this.props.isDraggingActive) {
       let time = this.getTime(e);
-      this.updateSeekBarProgress(time, this.player.duration);
+      this.updateSeekBarProgress(time, this.props.duration);
     }
   }
 
   onSeekbarTouchMove(e: Event) {
     let time = this.getTime(e);
     this._movex = time;
-    this.updateSeekBarProgress(time, this.player.duration, true);
+    this.updateSeekBarProgress(time, this.props.duration, true);
 
     if (this.props.isDraggingActive) {
-      this.updateSeekBarProgress(time, this.player.duration);
+      this.updateSeekBarProgress(time, this.props.duration);
     }
   }
 
   onSeekbarTouchEnd(): void {
     let time = this._movex;
-    this.player.currentTime = time;
-    this.updateSeekBarProgress(time, this.player.duration);
+    this.props.changeCurrentTime(time);
+    this.updateSeekBarProgress(time, this.props.duration);
     this.props.updateSeekbarDraggingStatus(false);
-    this.logger.debug(`Seek to ${time.toString()}s`);
   }
 
   updateSeekBarProgress(currentTime: number, duration: number, virtual: boolean = false) {
@@ -101,15 +75,15 @@ class SeekBarControl extends BaseComponent {
 
   getTime(e: any): number {
     let xPosition = e.touches ? e.touches[0].clientX : e.clientX;
-    let time = this.player.duration * ((xPosition - this._seekBarElement.offsetLeft - this._playerElement.offsetLeft) / this._seekBarElement.clientWidth);
+    let time = this.props.duration * ((xPosition - this._seekBarElement.offsetLeft - this._playerElement.offsetLeft) / this._seekBarElement.clientWidth);
     time = parseFloat(time.toFixed(2));
     if (time < 0) return 0;
-    if (time > this.player.duration) return this.player.duration;
+    if (time > this.props.duration) return this.props.duration;
     return time;
   }
 
   getThumbSpriteOffset(): string {
-    return - (Math.ceil(100 * this.state.virtualTime / this.player.duration) * 160) + 'px 0px';
+    return - (Math.ceil(100 * this.state.virtualTime / this.props.duration) * 160) + 'px 0px';
   }
 
   getFramePreviewOffset(): number {
@@ -165,9 +139,9 @@ class SeekBarControl extends BaseComponent {
         role='slider'
         aria-label='Seek slider'
         aria-valuemin='0'
-        aria-valuemax={Math.round(this.player.duration)}
-        aria-valuenow={Math.round(this.player.currentTime)}
-        aria-valuetext={`${toHHMMSS(this.player.currentTime)} of ${toHHMMSS(this.player.duration)}`}
+        aria-valuemax={Math.round(this.props.duration)}
+        aria-valuenow={Math.round(this.props.currentTime)}
+        aria-valuetext={`${toHHMMSS(this.props.currentTime)} of ${toHHMMSS(this.props.duration)}`}
         onMouseMove={e => this.onSeekbarMouseMove(e)}
         onMouseDown={e => this.onSeekbarMouseDown(e)}
         onMouseUp={e => this.onSeekbarMouseUp(e)}

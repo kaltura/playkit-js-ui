@@ -1,8 +1,8 @@
 //@flow
 import { h } from 'preact';
-import OverlayPlay from '../components/overlay-play';
+// import OverlayPlay from '../components/overlay-play';
 import Loading from '../components/loading';
-import SeekBarControl from '../components/seekbar';
+import SeekBarAdsContainer from '../components/seekbar-ads-container';
 import VolumeControl from '../components/volume';
 import FullscreenControl from '../components/fullscreen';
 import TimeDisplayAdsContainer from '../components/time-display-ads-container';
@@ -15,9 +15,9 @@ export default function adsUI(props: any) {
       <KeyboardControl player={props.player} />
       <Loading player={props.player} />
       <div className='player-gui' id='player-gui'>
-        <OverlayPlay player={props.player} />
+        {/* <OverlayPlay player={props.player} /> */}
         <BottomBar>
-          <SeekBarControl showFramePreview showTimeBubble player={props.player} />
+          <SeekBarAdsContainer showFramePreview showTimeBubble player={props.player} />
           <div className='left-controls'>
             <TimeDisplayAdsContainer format='Ad (left)' />
           </div>

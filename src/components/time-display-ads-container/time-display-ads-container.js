@@ -10,7 +10,7 @@ const mapStateToProps = state => ({
 
 @connect(mapStateToProps)
 class TimeDisplayAdsContainer extends BaseComponent {
-  constructor(obj: Object) {
+  constructor() {
     super({name: 'TimeDisplayAdsContainer'});
   }
 

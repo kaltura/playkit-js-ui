@@ -7,7 +7,8 @@ import BaseComponent from '../base';
 import Icon from '../icon';
 
 const mapStateToProps = state => ({
-  isPlaying: state.engine.isPlaying
+  isPlaying: state.engine.isPlaying,
+  adBreak: state.engine.adBreak
 });
 
 @connect(mapStateToProps, bindActions(actions))
