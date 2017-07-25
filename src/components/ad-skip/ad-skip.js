@@ -17,7 +17,7 @@ class AdSkip extends BaseComponent {
   }
 
   getSkipTimeOffset() {
-    return parseInt(this.props.adSkipTimeOffset - this.props.currentTime);
+    return Math.ceil(this.props.adSkipTimeOffset - this.props.currentTime);
   }
 
   render() {

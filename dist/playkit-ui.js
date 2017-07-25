@@ -10027,7 +10027,7 @@ var AdSkip = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = f
   _createClass(AdSkip, [{
     key: 'getSkipTimeOffset',
     value: function getSkipTimeOffset() {
-      return parseInt(this.props.adSkipTimeOffset - this.props.currentTime);
+      return Math.ceil(this.props.adSkipTimeOffset - this.props.currentTime);
     }
   }, {
     key: 'render',
