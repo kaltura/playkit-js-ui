@@ -19,8 +19,8 @@
         }
     }
 
-    &.disabled .progress-bar .progress {
-      background-color: $danger-color; // temp
+    &.ad-break .progress-bar .progress {
+      background-color: $ads-color;
     }
 
     .progress-bar {

@@ -92,6 +92,10 @@ class EngineConnector extends BaseComponent {
       this.props.updateAdIsPlaying(false);
     });
 
+    this.player.addEventListener(this.player.Event.AD_LOADED, e => {
+      this.props.updateAdSkipTimeOffset(e.payload.ad.getSkipTimeOffset());
+    });
+
 
   }
 

@@ -6,6 +6,8 @@
     transition: 100ms opacity;
     width: 100%;
     margin-top: auto;
+    position: absolute;
+    bottom: 0; left: 0;
 
     .left-controls {
         float: left;

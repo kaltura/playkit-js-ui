@@ -28,7 +28,7 @@ class SeekBarAdsContainer extends BaseComponent {
         updateSeekbarDraggingStatus={data => {}}
         updateCurrentTime={data => {}}
 
-        disabled={props.disabled}
+        adBreak={props.adBreak}
         currentTime={props.currentTime}
         duration={props.duration}
         isDraggingActive={props.isDraggingActive}

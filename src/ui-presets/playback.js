@@ -18,7 +18,7 @@ import KeyboardControl from '../components/keyboard';
 
 export default function playbackUI(props: any) {
   return (
-    <div className='playback-gui-wrapper' style='height: 100%'>
+    <div className='playback-gui-wrapper'>
       <KeyboardControl player={props.player} />
       <Loading player={props.player} />
       <div className='player-gui' id='player-gui'>

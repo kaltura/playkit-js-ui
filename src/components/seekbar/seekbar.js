@@ -134,7 +134,7 @@ class SeekBarControl extends Component {
 
     return (
       <div
-        className={!props.disabled ? 'seek-bar' : 'seek-bar disabled'}
+        className={!props.adBreak ? 'seek-bar' : 'seek-bar ad-break'}
         ref={c => this._seekBarElement=c}
         role='slider'
         aria-label='Seek slider'
@@ -152,7 +152,7 @@ class SeekBarControl extends Component {
         <div className='progress-bar'>
           <div className='progress' style={{width: progressWidth}}>
             {
-              props.disabled ? undefined :
+              props.adBreak ? undefined :
               <a className='scrubber' />
             }
           </div>
