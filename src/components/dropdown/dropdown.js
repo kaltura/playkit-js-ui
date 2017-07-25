@@ -40,9 +40,11 @@ class DropDown extends Component {
 
   renderNativeSelect() {
     return (
-      <select onChange={(e) => this.onSelect(this.props.options[e.target.value])}>
-        {this.props.options.map((o, index) => <option selected={this.isSelected(o)} value={index} key={index}>{o.label}</option>)}
-      </select>
+      <Menu
+        options={this.props.options}
+        onSelect={o => this.onSelect(o)}
+        onClose={() => this.onClose()}
+      />
     )
   }
 
