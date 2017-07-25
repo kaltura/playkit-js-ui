@@ -19,8 +19,12 @@
         }
     }
 
-    &.ad-break .progress-bar .progress {
-      background-color: $ads-color;
+    &.ad-break {
+      cursor: initial;
+
+      .progress-bar .progress {
+        background-color: $ads-color;
+      }
     }
 
     .progress-bar {
