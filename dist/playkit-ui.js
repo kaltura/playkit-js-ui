@@ -5693,7 +5693,7 @@ var Loading = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAction
 
       return (0, _preact.h)(
         'div',
-        { className: 'loading-backdrop' },
+        { className: 'loading-backdrop show' },
         (0, _preact.h)(
           'div',
           { className: 'spinner-container' },
