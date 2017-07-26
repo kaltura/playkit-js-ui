@@ -7,7 +7,7 @@ import BaseComponent from '../base';
 import SeekBarControl from '../seekbar';
 
 const mapStateToProps = state => ({
-  currentTime: state.engine.currentTime,
+  currentTime: state.seekbar.currentTime,
   duration: state.engine.duration,
   isDraggingActive: state.seekbar.draggingActive,
   isMobile: state.shell.isMobile

@@ -9721,7 +9721,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    currentTime: state.engine.currentTime,
+    currentTime: state.seekbar.currentTime,
     duration: state.engine.duration,
     isDraggingActive: state.seekbar.draggingActive,
     isMobile: state.shell.isMobile
