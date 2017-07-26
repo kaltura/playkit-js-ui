@@ -9738,21 +9738,32 @@ var SeekBarPlaybackContainer = (_dec = (0, _preactRedux.connect)(mapStateToProps
   }
 
   _createClass(SeekBarPlaybackContainer, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      this.player.addEventListener(this.player.Event.TIME_UPDATE, function () {
+        if (!_this2.props.isDraggingActive) {
+          _this2.props.updateCurrentTime(_this2.player.currentTime);
+        }
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       return (0, _preact.h)(_seekbar3.default, {
         showFramePreview: this.props.showFramePreview,
         showTimeBubble: this.props.showTimeBubble,
         changeCurrentTime: function changeCurrentTime(time) {
-          return _this2.player.currentTime = time;
+          return _this3.player.currentTime = time;
         },
         updateSeekbarDraggingStatus: function updateSeekbarDraggingStatus(data) {
-          return _this2.props.updateSeekbarDraggingStatus(data);
+          return _this3.props.updateSeekbarDraggingStatus(data);
         },
         updateCurrentTime: function updateCurrentTime(data) {
-          return _this2.props.updateCurrentTime(data);
+          return _this3.props.updateCurrentTime(data);
         },
 
         currentTime: this.props.currentTime,

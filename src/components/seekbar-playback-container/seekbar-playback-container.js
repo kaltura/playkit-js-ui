@@ -20,6 +20,14 @@ class SeekBarPlaybackContainer extends BaseComponent {
     super({name: 'SeekBarPlaybackContainer', player: obj.player});
   }
 
+  componentDidMount() {
+    this.player.addEventListener(this.player.Event.TIME_UPDATE, () => {
+      if (!this.props.isDraggingActive) {
+        this.props.updateCurrentTime(this.player.currentTime);
+      }
+    });
+  }
+
   render() {
     return (
       <SeekBarControl
