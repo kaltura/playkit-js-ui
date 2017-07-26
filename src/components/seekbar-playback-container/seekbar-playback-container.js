@@ -4,7 +4,6 @@ import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
 import { actions } from '../../reducers/seekbar';
 import BaseComponent from '../base';
-import { toHHMMSS } from '../../utils/time-format';
 import SeekBarControl from '../seekbar';
 
 const mapStateToProps = state => ({
@@ -21,7 +20,7 @@ class SeekBarPlaybackContainer extends BaseComponent {
     super({name: 'SeekBarPlaybackContainer', player: obj.player});
   }
 
-  render(props: any) {
+  render() {
     return (
       <SeekBarControl
         showFramePreview={this.props.showFramePreview}

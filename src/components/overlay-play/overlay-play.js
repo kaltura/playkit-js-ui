@@ -34,7 +34,7 @@ class OverlayPlay extends BaseComponent {
     this.isPlayingAdOrPlayback() ? this.player.pause() : this.player.play();
   }
 
-  render(props: any) {
+  render() {
     return (
       <div className={`overlay-play ${this.state.animation ? 'in' : ''}`} onClick={() => this.togglePlayPause()}>
         { this.isPlayingAdOrPlayback() ? <Icon type='play' /> : <Icon type='pause' /> }

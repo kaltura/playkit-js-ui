@@ -4,7 +4,6 @@ import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
 import { actions } from '../../reducers/seekbar';
 import BaseComponent from '../base';
-import { toHHMMSS } from '../../utils/time-format';
 import SeekBarControl from '../seekbar';
 
 const mapStateToProps = state => ({
@@ -24,9 +23,9 @@ class SeekBarAdsContainer extends BaseComponent {
   render(props: any) {
     return (
       <SeekBarControl
-        changeCurrentTime={time => {}}
-        updateSeekbarDraggingStatus={data => {}}
-        updateCurrentTime={data => {}}
+        changeCurrentTime={time => {}} // eslint-disable-line no-unused-vars
+        updateSeekbarDraggingStatus={data => {}} // eslint-disable-line no-unused-vars
+        updateCurrentTime={data => {}} // eslint-disable-line no-unused-vars
 
         adBreak={props.adBreak}
         currentTime={props.currentTime}

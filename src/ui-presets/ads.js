@@ -1,6 +1,5 @@
 //@flow
 import { h } from 'preact';
-import OverlayPlay from '../components/overlay-play';
 import Loading from '../components/loading';
 import PlayPauseControl from '../components/play-pause';
 import SeekBarAdsContainer from '../components/seekbar-ads-container';

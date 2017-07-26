@@ -489,7 +489,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "connectAdvanced", function() { return connectAdvanced; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_preact__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_preact___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_preact__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redux__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redux__ = __webpack_require__(7);
 
 
 
@@ -1677,7 +1677,7 @@ var index = { Provider: Provider, connect: connect, connectAdvanced: connectAdva
 /* harmony default export */ __webpack_exports__["default"] = (index);
 //# sourceMappingURL=preact-redux.esm.js.map
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(18)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(17)))
 
 /***/ }),
 /* 2 */
@@ -1763,7 +1763,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 exports.bindActions = bindActions;
 
-var _redux = __webpack_require__(9);
+var _redux = __webpack_require__(7);
 
 function bindActions(actions) {
 	return function (dispatch) {
@@ -1894,71 +1894,6 @@ var actions = exports.actions = {
 
 /***/ }),
 /* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-function toHHMMSS(input) {
-  var sec_num = parseInt(input, 10);
-  var hours = Math.floor(sec_num / 3600);
-  var minutes = Math.floor((sec_num - hours * 3600) / 60);
-  var seconds = sec_num - hours * 3600 - minutes * 60;
-
-  if (hours < 10) {
-    hours = '0' + hours;
-  }
-  if (minutes < 10) {
-    minutes = '0' + minutes;
-  }
-  if (seconds < 10) {
-    seconds = '0' + seconds;
-  }
-
-  return '' + (hours !== '00' ? hours + ':' : '') + minutes + ':' + seconds;
-}
-
-function toSecondsFromHHMMSS(input) {
-  var parts = input.split(':');
-  var seconds = 0;
-  if (parts.length === 2) {
-    if (parseInt(parts[0]) > 59 || parseInt(parts[1]) > 59) {
-      return 0;
-    }
-    seconds += parseInt(parts[0]) * 60;
-    seconds += parseInt(parts[1]);
-  }
-  return seconds;
-}
-
-exports.toHHMMSS = toHHMMSS;
-exports.toSecondsFromHHMMSS = toSecondsFromHHMMSS;
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = undefined;
-
-var _overlayPlay = __webpack_require__(53);
-
-var _overlayPlay2 = _interopRequireDefault(_overlayPlay);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = _overlayPlay2.default;
-
-/***/ }),
-/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1995,7 +1930,7 @@ if (process.env.NODE_ENV !== 'production' && typeof isCrushed.name === 'string' 
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(31)))
 
 /***/ }),
-/* 10 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2015,7 +1950,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _loading2.default;
 
 /***/ }),
-/* 11 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2035,7 +1970,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _playPause2.default;
 
 /***/ }),
-/* 12 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2055,7 +1990,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _seekbar2.default;
 
 /***/ }),
-/* 13 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2075,7 +2010,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _volume2.default;
 
 /***/ }),
-/* 14 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2095,7 +2030,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _fullscreen2.default;
 
 /***/ }),
-/* 15 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2115,7 +2050,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _topBar2.default;
 
 /***/ }),
-/* 16 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2135,7 +2070,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _bottomBar2.default;
 
 /***/ }),
-/* 17 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2155,7 +2090,27 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _keyboard2.default;
 
 /***/ }),
-/* 18 */
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _overlayPlay = __webpack_require__(53);
+
+var _overlayPlay2 = _interopRequireDefault(_overlayPlay);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _overlayPlay2.default;
+
+/***/ }),
+/* 17 */
 /***/ (function(module, exports) {
 
 var g;
@@ -2182,7 +2137,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2224,7 +2179,7 @@ var actions = exports.actions = {
 };
 
 /***/ }),
-/* 20 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2244,7 +2199,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _prePlaybackPlayOverlay2.default;
 
 /***/ }),
-/* 21 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2304,6 +2259,51 @@ var actions = exports.actions = {
     return { type: types.UPDATE_CURRENT_TIME, currentTime: currentTime };
   }
 };
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+function toHHMMSS(input) {
+  var sec_num = parseInt(input, 10);
+  var hours = Math.floor(sec_num / 3600);
+  var minutes = Math.floor((sec_num - hours * 3600) / 60);
+  var seconds = sec_num - hours * 3600 - minutes * 60;
+
+  if (hours < 10) {
+    hours = '0' + hours;
+  }
+  if (minutes < 10) {
+    minutes = '0' + minutes;
+  }
+  if (seconds < 10) {
+    seconds = '0' + seconds;
+  }
+
+  return '' + (hours !== '00' ? hours + ':' : '') + minutes + ':' + seconds;
+}
+
+function toSecondsFromHHMMSS(input) {
+  var parts = input.split(':');
+  var seconds = 0;
+  if (parts.length === 2) {
+    if (parseInt(parts[0]) > 59 || parseInt(parts[1]) > 59) {
+      return 0;
+    }
+    seconds += parseInt(parts[0]) * 60;
+    seconds += parseInt(parts[1]);
+  }
+  return seconds;
+}
+
+exports.toHHMMSS = toHHMMSS;
+exports.toSecondsFromHHMMSS = toSecondsFromHHMMSS;
 
 /***/ }),
 /* 22 */
@@ -2612,19 +2612,19 @@ exports.default = playbackUI;
 
 var _preact = __webpack_require__(0);
 
-var _overlayPlay = __webpack_require__(8);
+var _overlayPlay = __webpack_require__(16);
 
 var _overlayPlay2 = _interopRequireDefault(_overlayPlay);
 
-var _prePlaybackPlayOverlay = __webpack_require__(20);
+var _prePlaybackPlayOverlay = __webpack_require__(19);
 
 var _prePlaybackPlayOverlay2 = _interopRequireDefault(_prePlaybackPlayOverlay);
 
-var _loading = __webpack_require__(10);
+var _loading = __webpack_require__(8);
 
 var _loading2 = _interopRequireDefault(_loading);
 
-var _playPause = __webpack_require__(11);
+var _playPause = __webpack_require__(9);
 
 var _playPause2 = _interopRequireDefault(_playPause);
 
@@ -2632,7 +2632,7 @@ var _seekbarPlaybackContainer = __webpack_require__(75);
 
 var _seekbarPlaybackContainer2 = _interopRequireDefault(_seekbarPlaybackContainer);
 
-var _volume = __webpack_require__(13);
+var _volume = __webpack_require__(11);
 
 var _volume2 = _interopRequireDefault(_volume);
 
@@ -2648,7 +2648,7 @@ var _language = __webpack_require__(26);
 
 var _language2 = _interopRequireDefault(_language);
 
-var _fullscreen = __webpack_require__(14);
+var _fullscreen = __webpack_require__(12);
 
 var _fullscreen2 = _interopRequireDefault(_fullscreen);
 
@@ -2656,11 +2656,11 @@ var _timeDisplayPlaybackContainer = __webpack_require__(49);
 
 var _timeDisplayPlaybackContainer2 = _interopRequireDefault(_timeDisplayPlaybackContainer);
 
-var _topBar = __webpack_require__(15);
+var _topBar = __webpack_require__(13);
 
 var _topBar2 = _interopRequireDefault(_topBar);
 
-var _bottomBar = __webpack_require__(16);
+var _bottomBar = __webpack_require__(14);
 
 var _bottomBar2 = _interopRequireDefault(_bottomBar);
 
@@ -2668,7 +2668,7 @@ var _overlayPortal = __webpack_require__(29);
 
 var _overlayPortal2 = _interopRequireDefault(_overlayPortal);
 
-var _keyboard = __webpack_require__(17);
+var _keyboard = __webpack_require__(15);
 
 var _keyboard2 = _interopRequireDefault(_keyboard);
 
@@ -4016,15 +4016,11 @@ exports.default = adsUI;
 
 var _preact = __webpack_require__(0);
 
-var _overlayPlay = __webpack_require__(8);
-
-var _overlayPlay2 = _interopRequireDefault(_overlayPlay);
-
-var _loading = __webpack_require__(10);
+var _loading = __webpack_require__(8);
 
 var _loading2 = _interopRequireDefault(_loading);
 
-var _playPause = __webpack_require__(11);
+var _playPause = __webpack_require__(9);
 
 var _playPause2 = _interopRequireDefault(_playPause);
 
@@ -4032,11 +4028,11 @@ var _seekbarAdsContainer = __webpack_require__(97);
 
 var _seekbarAdsContainer2 = _interopRequireDefault(_seekbarAdsContainer);
 
-var _volume = __webpack_require__(13);
+var _volume = __webpack_require__(11);
 
 var _volume2 = _interopRequireDefault(_volume);
 
-var _fullscreen = __webpack_require__(14);
+var _fullscreen = __webpack_require__(12);
 
 var _fullscreen2 = _interopRequireDefault(_fullscreen);
 
@@ -4048,15 +4044,15 @@ var _adSkip = __webpack_require__(99);
 
 var _adSkip2 = _interopRequireDefault(_adSkip);
 
-var _topBar = __webpack_require__(15);
+var _topBar = __webpack_require__(13);
 
 var _topBar2 = _interopRequireDefault(_topBar);
 
-var _bottomBar = __webpack_require__(16);
+var _bottomBar = __webpack_require__(14);
 
 var _bottomBar2 = _interopRequireDefault(_bottomBar);
 
-var _keyboard = __webpack_require__(17);
+var _keyboard = __webpack_require__(15);
 
 var _keyboard2 = _interopRequireDefault(_keyboard);
 
@@ -4342,7 +4338,7 @@ Object.defineProperty(exports, 'fullscreenUI', {
   }
 });
 
-var _overlayPlay = __webpack_require__(8);
+var _overlayPlay = __webpack_require__(16);
 
 Object.defineProperty(exports, 'OverlayPlay', {
   enumerable: true,
@@ -4351,7 +4347,7 @@ Object.defineProperty(exports, 'OverlayPlay', {
   }
 });
 
-var _prePlaybackPlayOverlay = __webpack_require__(20);
+var _prePlaybackPlayOverlay = __webpack_require__(19);
 
 Object.defineProperty(exports, 'PrePlaybackPlayOverlay', {
   enumerable: true,
@@ -4360,7 +4356,7 @@ Object.defineProperty(exports, 'PrePlaybackPlayOverlay', {
   }
 });
 
-var _loading = __webpack_require__(10);
+var _loading = __webpack_require__(8);
 
 Object.defineProperty(exports, 'Loading', {
   enumerable: true,
@@ -4369,7 +4365,7 @@ Object.defineProperty(exports, 'Loading', {
   }
 });
 
-var _playPause = __webpack_require__(11);
+var _playPause = __webpack_require__(9);
 
 Object.defineProperty(exports, 'PlayPauseControl', {
   enumerable: true,
@@ -4378,7 +4374,7 @@ Object.defineProperty(exports, 'PlayPauseControl', {
   }
 });
 
-var _seekbar = __webpack_require__(12);
+var _seekbar = __webpack_require__(10);
 
 Object.defineProperty(exports, 'SeekBarControl', {
   enumerable: true,
@@ -4387,7 +4383,7 @@ Object.defineProperty(exports, 'SeekBarControl', {
   }
 });
 
-var _volume = __webpack_require__(13);
+var _volume = __webpack_require__(11);
 
 Object.defineProperty(exports, 'VolumeControl', {
   enumerable: true,
@@ -4423,7 +4419,7 @@ Object.defineProperty(exports, 'LanguageControl', {
   }
 });
 
-var _fullscreen2 = __webpack_require__(14);
+var _fullscreen2 = __webpack_require__(12);
 
 Object.defineProperty(exports, 'FullscreenControl', {
   enumerable: true,
@@ -4441,7 +4437,7 @@ Object.defineProperty(exports, 'TimeDisplay', {
   }
 });
 
-var _topBar = __webpack_require__(15);
+var _topBar = __webpack_require__(13);
 
 Object.defineProperty(exports, 'TopBar', {
   enumerable: true,
@@ -4450,7 +4446,7 @@ Object.defineProperty(exports, 'TopBar', {
   }
 });
 
-var _bottomBar = __webpack_require__(16);
+var _bottomBar = __webpack_require__(14);
 
 Object.defineProperty(exports, 'BottomBar', {
   enumerable: true,
@@ -4468,7 +4464,7 @@ Object.defineProperty(exports, 'OverlayPortal', {
   }
 });
 
-var _keyboard = __webpack_require__(17);
+var _keyboard = __webpack_require__(15);
 
 Object.defineProperty(exports, 'KeyboardControl', {
   enumerable: true,
@@ -4506,7 +4502,7 @@ var _preactRedux = __webpack_require__(1);
 
 var _bindActions = __webpack_require__(3);
 
-var _playPause = __webpack_require__(19);
+var _playPause = __webpack_require__(18);
 
 var _base = __webpack_require__(2);
 
@@ -4561,7 +4557,7 @@ var OverlayPlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAc
     }
   }, {
     key: 'render',
-    value: function render(props) {
+    value: function render() {
       var _this3 = this;
 
       return (0, _preact.h)(
@@ -4643,7 +4639,7 @@ var freeGlobal = typeof global == 'object' && global && global.Object === Object
 
 /* harmony default export */ __webpack_exports__["a"] = (freeGlobal);
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(18)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(17)))
 
 /***/ }),
 /* 57 */
@@ -4841,7 +4837,7 @@ if (typeof self !== 'undefined') {
 
 var result = (0, _ponyfill2['default'])(root);
 exports['default'] = result;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18), __webpack_require__(64)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17), __webpack_require__(64)(module)))
 
 /***/ }),
 /* 64 */
@@ -5702,7 +5698,7 @@ var _preactRedux = __webpack_require__(1);
 
 var _bindActions = __webpack_require__(3);
 
-var _playPause = __webpack_require__(19);
+var _playPause = __webpack_require__(18);
 
 var _base = __webpack_require__(2);
 
@@ -5829,15 +5825,13 @@ var _preactRedux = __webpack_require__(1);
 
 var _bindActions = __webpack_require__(3);
 
-var _seekbar = __webpack_require__(21);
+var _seekbar = __webpack_require__(20);
 
 var _base = __webpack_require__(2);
 
 var _base2 = _interopRequireDefault(_base);
 
-var _timeFormat = __webpack_require__(7);
-
-var _seekbar2 = __webpack_require__(12);
+var _seekbar2 = __webpack_require__(10);
 
 var _seekbar3 = _interopRequireDefault(_seekbar2);
 
@@ -5869,7 +5863,7 @@ var SeekBarPlaybackContainer = (_dec = (0, _preactRedux.connect)(mapStateToProps
 
   _createClass(SeekBarPlaybackContainer, [{
     key: 'render',
-    value: function render(props) {
+    value: function render() {
       var _this2 = this;
 
       return (0, _preact.h)(_seekbar3.default, {
@@ -5912,7 +5906,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _preact = __webpack_require__(0);
 
-var _timeFormat = __webpack_require__(7);
+var _timeFormat = __webpack_require__(21);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -6435,7 +6429,7 @@ var _bindActions = __webpack_require__(3);
 
 var _share = __webpack_require__(41);
 
-var _timeFormat = __webpack_require__(7);
+var _timeFormat = __webpack_require__(21);
 
 var _base = __webpack_require__(2);
 
@@ -8303,7 +8297,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _preact = __webpack_require__(0);
 
-var _timeFormat = __webpack_require__(7);
+var _timeFormat = __webpack_require__(21);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -8644,15 +8638,13 @@ var _preactRedux = __webpack_require__(1);
 
 var _bindActions = __webpack_require__(3);
 
-var _seekbar = __webpack_require__(21);
+var _seekbar = __webpack_require__(20);
 
 var _base = __webpack_require__(2);
 
 var _base2 = _interopRequireDefault(_base);
 
-var _timeFormat = __webpack_require__(7);
-
-var _seekbar2 = __webpack_require__(12);
+var _seekbar2 = __webpack_require__(10);
 
 var _seekbar3 = _interopRequireDefault(_seekbar2);
 
@@ -8686,11 +8678,11 @@ var SeekBarAdsContainer = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0,
     key: 'render',
     value: function render(props) {
       return (0, _preact.h)(_seekbar3.default, {
-        changeCurrentTime: function changeCurrentTime(time) {},
-        updateSeekbarDraggingStatus: function updateSeekbarDraggingStatus(data) {},
-        updateCurrentTime: function updateCurrentTime(data) {},
+        changeCurrentTime: function changeCurrentTime(time) {} // eslint-disable-line no-unused-vars
+        , updateSeekbarDraggingStatus: function updateSeekbarDraggingStatus(data) {} // eslint-disable-line no-unused-vars
+        , updateCurrentTime: function updateCurrentTime(data) {} // eslint-disable-line no-unused-vars
 
-        adBreak: props.adBreak,
+        , adBreak: props.adBreak,
         currentTime: props.currentTime,
         duration: props.duration,
         isDraggingActive: props.isDraggingActive,
@@ -8812,27 +8804,27 @@ exports.default = playbackUI;
 
 var _preact = __webpack_require__(0);
 
-var _overlayPlay = __webpack_require__(8);
+var _overlayPlay = __webpack_require__(16);
 
 var _overlayPlay2 = _interopRequireDefault(_overlayPlay);
 
-var _prePlaybackPlayOverlay = __webpack_require__(20);
+var _prePlaybackPlayOverlay = __webpack_require__(19);
 
 var _prePlaybackPlayOverlay2 = _interopRequireDefault(_prePlaybackPlayOverlay);
 
-var _loading = __webpack_require__(10);
+var _loading = __webpack_require__(8);
 
 var _loading2 = _interopRequireDefault(_loading);
 
-var _playPause = __webpack_require__(11);
+var _playPause = __webpack_require__(9);
 
 var _playPause2 = _interopRequireDefault(_playPause);
 
-var _seekbar = __webpack_require__(12);
+var _seekbar = __webpack_require__(10);
 
 var _seekbar2 = _interopRequireDefault(_seekbar);
 
-var _volume = __webpack_require__(13);
+var _volume = __webpack_require__(11);
 
 var _volume2 = _interopRequireDefault(_volume);
 
@@ -8848,7 +8840,7 @@ var _language = __webpack_require__(26);
 
 var _language2 = _interopRequireDefault(_language);
 
-var _fullscreen = __webpack_require__(14);
+var _fullscreen = __webpack_require__(12);
 
 var _fullscreen2 = _interopRequireDefault(_fullscreen);
 
@@ -8856,11 +8848,11 @@ var _timeDisplay = __webpack_require__(28);
 
 var _timeDisplay2 = _interopRequireDefault(_timeDisplay);
 
-var _topBar = __webpack_require__(15);
+var _topBar = __webpack_require__(13);
 
 var _topBar2 = _interopRequireDefault(_topBar);
 
-var _bottomBar = __webpack_require__(16);
+var _bottomBar = __webpack_require__(14);
 
 var _bottomBar2 = _interopRequireDefault(_bottomBar);
 
@@ -8868,7 +8860,7 @@ var _overlayPortal = __webpack_require__(29);
 
 var _overlayPortal2 = _interopRequireDefault(_overlayPortal);
 
-var _keyboard = __webpack_require__(17);
+var _keyboard = __webpack_require__(15);
 
 var _keyboard2 = _interopRequireDefault(_keyboard);
 
@@ -8952,7 +8944,7 @@ var _preactRedux = __webpack_require__(1);
 
 var _preactI18n = __webpack_require__(5);
 
-var _redux = __webpack_require__(9);
+var _redux = __webpack_require__(7);
 
 var _store = __webpack_require__(103);
 
@@ -9068,7 +9060,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _redux = __webpack_require__(9);
+var _redux = __webpack_require__(7);
 
 var _engine = __webpack_require__(51);
 
@@ -9078,11 +9070,11 @@ var _shell = __webpack_require__(6);
 
 var _shell2 = _interopRequireDefault(_shell);
 
-var _playPause = __webpack_require__(19);
+var _playPause = __webpack_require__(18);
 
 var _playPause2 = _interopRequireDefault(_playPause);
 
-var _seekbar = __webpack_require__(21);
+var _seekbar = __webpack_require__(20);
 
 var _seekbar2 = _interopRequireDefault(_seekbar);
 
