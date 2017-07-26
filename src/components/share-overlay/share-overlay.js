@@ -7,7 +7,7 @@ import { actions } from '../../reducers/share';
 import { toHHMMSS, toSecondsFromHHMMSS } from '../../utils/time-format';
 import BaseComponent from '../base';
 import Overlay from '../overlay';
-import Icon from '../icon';
+import { default as Icon, IconType } from '../icon';
 
 const mapStateToProps = state => ({
   open: state.share.overlayOpen
@@ -105,7 +105,7 @@ class ShareOverlay extends BaseComponent {
               className='btn-rounded facebook-share-btn'
               onClick={() => this.share('https://player.kaltura.com/video/220277207/share/facebook')}
             >
-              <Icon type='facebook' />
+              <Icon type={IconType.Facebook} />
             </a>
             <a
               href='https://player.kaltura.com/video/220277207/share/twitter' target='_blank' rel='noopener noreferrer'
@@ -113,7 +113,7 @@ class ShareOverlay extends BaseComponent {
               className='btn-rounded twitter-share-btn'
               onClick={() => this.share('https://player.kaltura.com/video/220277207/share/twitter')}
             >
-              <Icon type='twitter' />
+              <Icon type={IconType.Twitter} />
             </a>
             <a
               href='https://player.kaltura.com/video/220277207/share/google-plus' target='_blank' rel='noopener noreferrer'
@@ -121,7 +121,7 @@ class ShareOverlay extends BaseComponent {
               className='btn-rounded google-plus-share-btn'
               onClick={() => this.share('https://player.kaltura.com/video/220277207/share/google')}
             >
-              <Icon type='google-plus' />
+              <Icon type={IconType.GooglePlus} />
             </a>
             <a
               href='https://player.kaltura.com/video/220277207/share/linkedin' target='_blank' rel='noopener noreferrer'
@@ -129,25 +129,25 @@ class ShareOverlay extends BaseComponent {
               className='btn-rounded linkedin-share-btn'
               onClick={() => this.share('https://player.kaltura.com/video/220277207/share/linkedin')}
             >
-              <Icon type='linkedin' />
+              <Icon type={IconType.Linkedin} />
             </a>
             <a
               className='btn-rounded email-share-btn'
               href={`mailto:?subject=${encodeURIComponent('email subject')}&body=${encodeURIComponent('email body')}`}
             >
-              <Icon type='email' />
+              <Icon type={IconType.Email} />
             </a>
             <a
               className='btn-rounded embed-share-btn'
               onClick={() => this.transitionToState(shareOverlayState.EmbedOptions)}
             >
-              <Icon type='embed' />
+              <Icon type={IconType.Embed} />
             </a>
           </div>
           <div>
             <div className='form-group has-icon'>
               <input type='text' placeholder='Share URL' className='form-control' value={this.state.shareUrl} readOnly />
-              <Icon type='link' />
+              <Icon type={IconType.Link} />
             </div>
           </div>
           <a onClick={() => this.transitionToState(shareOverlayState.LinkOptions)}><Text id='share.link_options' /></a>
@@ -174,13 +174,13 @@ class ShareOverlay extends BaseComponent {
                 value={this.getShareUrl()}
                 readOnly
               />
-              <Icon type='link' />
+              <Icon type={IconType.Link} />
             </div>
             <a
               className={copyUrlClasses}
               onClick={() => this.copyUrl(this._shareUrlInput)}>
-              <Icon type='copy' />
-              <Icon type='check' />
+              <Icon type={IconType.Copy} />
+              <Icon type={IconType.Check} />
             </a>
           </div>
           <div className='video-start-options-row'>
@@ -226,13 +226,13 @@ class ShareOverlay extends BaseComponent {
                 value={this.getEmbedCode()}
                 readOnly
               />
-              <Icon type='embed' />
+              <Icon type={IconType.Embed} />
             </div>
             <a
               className={copyUrlClasses}
               onClick={() => this.copyUrl(this._embedCodeInput)}>
-              <Icon type='copy' />
-              <Icon type='check' />
+              <Icon type={IconType.Copy} />
+              <Icon type={IconType.Check} />
             </a>
           </div>
           <div className='video-start-options-row'>

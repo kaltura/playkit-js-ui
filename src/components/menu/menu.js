@@ -1,6 +1,6 @@
 //@flow
 import { h, Component } from 'preact';
-import Icon from '../icon';
+import { default as Icon, IconType } from '../icon';
 import { connect } from 'preact-redux';
 
 const mapStateToProps = state => ({
@@ -66,7 +66,7 @@ class Menu extends Component {
           props.options.map((o, index) => (
             <div key={index} className={this.isSelected(o) ? 'dropdown-menu-item active' : 'dropdown-menu-item'} onClick={() => this.onSelect(o)}>
               <span>{o.label}</span>
-              <span style={`opacity: ${ this.isSelected(o) ? 1 : 0 }`}><Icon type='check' /></span>
+              <span style={`opacity: ${ this.isSelected(o) ? 1 : 0 }`}><Icon type={IconType.Check} /></span>
             </div>
           ))
         }
