@@ -26,6 +26,11 @@
   }
 }
 
-.pre-playback .player-gui {
-  opacity: 0 !important;
+.pre-playback {
+  &:hover .player-gui {
+    opacity: 1 !important;
+  }
+  .player-gui {
+    opacity: 0 !important;
+  }
 }
