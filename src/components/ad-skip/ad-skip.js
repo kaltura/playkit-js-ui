@@ -24,7 +24,7 @@ class AdSkip extends BaseComponent {
     if (this.props.adSkipTimeOffset === -1) return undefined;
 
     return this.getSkipTimeOffset() <= 0 ?  (
-      <a className='btn btn-branded btn-skip-ad' onClick={this.player.skipAd()}>
+      <a className='btn btn-branded btn-skip-ad' onClick={() => this.player.skipAd()}>
         Skip ad
       </a>
     ) : (
