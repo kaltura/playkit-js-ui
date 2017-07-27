@@ -25,7 +25,7 @@ export default function adsUI(props: any) {
             <a href='' className='btn btn-dark-transparent'>Learn more</a>
           </div>
         </TopBar>
-        <AdSkip count='6' player={props.player} />
+        <AdSkip player={props.player} />
         <BottomBar>
           <SeekBarAdsContainer adBreak showFramePreview showTimeBubble player={props.player} />
           <div className='left-controls'>

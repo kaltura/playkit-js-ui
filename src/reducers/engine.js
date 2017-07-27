@@ -13,7 +13,8 @@ export const types = {
   UPDATE_AD_BREAK: 'engine/UPDATE_AD_BREAK',
   UPDATE_AD_BREAK_PROGRESS: 'engine/UPDATE_AD_BREAK_PROGRESS',
   UPDATE_AD_IS_PLAYING: 'engine/UPDATE_AD_IS_PLAYING',
-  UPDATE_AD_SKIP_TIME_OFFSET: 'engine/UPDATE_AD_SKIP_TIME_OFFSET'
+  UPDATE_AD_SKIP_TIME_OFFSET: 'engine/UPDATE_AD_SKIP_TIME_OFFSET',
+  UPDATE_AD_SKIPPABLE_STATE: 'engine/UPDATE_AD_SKIPPABLE_STATE'
 }
 
 export const initialState = {
@@ -33,6 +34,7 @@ export const initialState = {
   adBreak: false,
   adIsPlaying: false,
   adSkipTimeOffset: 0,
+  adSkippableState: false,
   adProgress: {
     currentTime: 0,
     duration: 0
@@ -125,6 +127,12 @@ export default (state: Object = initialState, action: Object) => {
         adSkipTimeOffset: action.adSkipTimeOffset
       }
 
+    case types.UPDATE_AD_SKIPPABLE_STATE:
+      return {
+        ...state,
+        adSkippableState: action.adSkippableState
+      }
+
     default:
       return state;
   }
@@ -145,5 +153,5 @@ export const actions = {
   updateAdBreakProgress: (currentTime: number, duration: number) => ({ type: types.UPDATE_AD_BREAK_PROGRESS, adProgress: {currentTime, duration} }),
   updateAdIsPlaying: (adIsPlaying) => ({ type: types.UPDATE_AD_IS_PLAYING, adIsPlaying }),
   updateAdSkipTimeOffset: (adSkipTimeOffset) => ({ type: types.UPDATE_AD_SKIP_TIME_OFFSET, adSkipTimeOffset }),
-
+  updateAdSkippableState: (adSkippableState) => ({ type: types.UPDATE_AD_SKIPPABLE_STATE, adSkippableState })
 }

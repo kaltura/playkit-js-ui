@@ -3996,7 +3996,7 @@ function adsUI(props) {
           )
         )
       ),
-      (0, _preact.h)(_adSkip2.default, { count: '6', player: props.player }),
+      (0, _preact.h)(_adSkip2.default, { player: props.player }),
       (0, _preact.h)(
         _bottomBar2.default,
         null,
@@ -4174,7 +4174,8 @@ var types = exports.types = {
   UPDATE_AD_BREAK: 'engine/UPDATE_AD_BREAK',
   UPDATE_AD_BREAK_PROGRESS: 'engine/UPDATE_AD_BREAK_PROGRESS',
   UPDATE_AD_IS_PLAYING: 'engine/UPDATE_AD_IS_PLAYING',
-  UPDATE_AD_SKIP_TIME_OFFSET: 'engine/UPDATE_AD_SKIP_TIME_OFFSET'
+  UPDATE_AD_SKIP_TIME_OFFSET: 'engine/UPDATE_AD_SKIP_TIME_OFFSET',
+  UPDATE_AD_SKIPPABLE_STATE: 'engine/UPDATE_AD_SKIPPABLE_STATE'
 };
 
 var initialState = exports.initialState = {
@@ -4194,6 +4195,7 @@ var initialState = exports.initialState = {
   adBreak: false,
   adIsPlaying: false,
   adSkipTimeOffset: 0,
+  adSkippableState: false,
   adProgress: {
     currentTime: 0,
     duration: 0
@@ -4275,6 +4277,11 @@ exports.default = function () {
         adSkipTimeOffset: action.adSkipTimeOffset
       });
 
+    case types.UPDATE_AD_SKIPPABLE_STATE:
+      return _extends({}, state, {
+        adSkippableState: action.adSkippableState
+      });
+
     default:
       return state;
   }
@@ -4322,8 +4329,10 @@ var actions = exports.actions = {
   },
   updateAdSkipTimeOffset: function updateAdSkipTimeOffset(adSkipTimeOffset) {
     return { type: types.UPDATE_AD_SKIP_TIME_OFFSET, adSkipTimeOffset: adSkipTimeOffset };
+  },
+  updateAdSkippableState: function updateAdSkippableState(adSkippableState) {
+    return { type: types.UPDATE_AD_SKIPPABLE_STATE, adSkippableState: adSkippableState };
   }
-
 };
 
 /***/ }),
@@ -8828,6 +8837,7 @@ var EngineConnector = (_dec = (0, _preactRedux.connect)(_engine2.default, (0, _b
 
       this.player.addEventListener(this.player.Event.AD_LOADED, function (e) {
         _this2.props.updateAdSkipTimeOffset(e.payload.ad.getSkipTimeOffset());
+        _this2.props.updateAdSkippableState(e.payload.ad.getAdSkippableState());
       });
     }
   }, {
@@ -10021,7 +10031,8 @@ var mapStateToProps = function mapStateToProps(state) {
   return {
     currentTime: state.engine.adProgress.currentTime,
     duration: state.engine.adProgress.duration,
-    adSkipTimeOffset: state.engine.adSkipTimeOffset
+    adSkipTimeOffset: state.engine.adSkipTimeOffset,
+    adSkippableState: state.engine.adSkippableState
   };
 };
 
@@ -10037,27 +10048,33 @@ var AdSkip = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = f
   _createClass(AdSkip, [{
     key: 'getSkipTimeOffset',
     value: function getSkipTimeOffset() {
-      return Math.ceil(this.props.adSkipTimeOffset - this.props.currentTime);
+      if (this.player.config.plugins.ima.skipSupport) {
+        return Math.ceil(this.player.config.plugins.ima.skipSupport.skipTimeOffset - this.props.currentTime);
+      } else {
+        return Math.ceil(this.props.adSkipTimeOffset - this.props.currentTime);
+      }
     }
   }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
 
-      if (this.props.adSkipTimeOffset === -1) return undefined;
-
-      return this.getSkipTimeOffset() <= 0 ? (0, _preact.h)(
-        'a',
-        { className: 'btn btn-branded btn-skip-ad', onClick: function onClick() {
-            return _this2.player.skipAd();
-          } },
-        'Skip ad'
-      ) : (0, _preact.h)(
-        'span',
-        { className: 'skip-ad' },
-        'Skip in ',
-        this.getSkipTimeOffset()
-      );
+      if (!this.props.adSkippableState && this.player.config.plugins.ima.skipSupport) {
+        return this.getSkipTimeOffset() <= 0 ? (0, _preact.h)(
+          'a',
+          { className: 'btn btn-branded btn-skip-ad', onClick: function onClick() {
+              return _this2.player.skipAd();
+            } },
+          'Skip ad'
+        ) : (0, _preact.h)(
+          'span',
+          { className: 'skip-ad' },
+          'Skip in ',
+          this.getSkipTimeOffset()
+        );
+      } else {
+        return undefined;
+      }
     }
   }]);
 
