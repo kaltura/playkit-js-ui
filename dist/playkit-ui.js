@@ -6050,7 +6050,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    isDraggingActive: state.volume.isDraggingActive,
+    isDraggingActive: state.volume.draggingActive,
     volume: state.volume.volume,
     muted: state.volume.muted,
     isMobile: state.shell.isMobile
@@ -6090,8 +6090,16 @@ var VolumeControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bind
       this.props.updateVolumeDraggingStatus(true);
     }
   }, {
-    key: 'onVolumeProgressBarClick',
-    value: function onVolumeProgressBarClick(e) {
+    key: 'onVolumeProgressBarMouseMove',
+    value: function onVolumeProgressBarMouseMove(e) {
+      if (this.props.isDraggingActive) {
+        this.changeVolume(e);
+      }
+    }
+  }, {
+    key: 'onVolumeProgressBarMouseUp',
+    value: function onVolumeProgressBarMouseUp(e) {
+      this.props.updateVolumeDraggingStatus(false);
       this.changeVolume(e);
     }
   }, {
@@ -6164,8 +6172,11 @@ var VolumeControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bind
               onMouseDown: function onMouseDown() {
                 return _this3.onVolumeProgressBarMouseDown();
               },
-              onClick: function onClick(e) {
-                return _this3.onVolumeProgressBarClick(e);
+              onMouseUp: function onMouseUp(e) {
+                return _this3.onVolumeProgressBarMouseUp(e);
+              },
+              onMouseMove: function onMouseMove(e) {
+                return _this3.onVolumeProgressBarMouseMove(e);
               }
             },
             (0, _preact.h)('div', { className: 'progress', style: { height: this.getVolumeProgessHeight() } })
