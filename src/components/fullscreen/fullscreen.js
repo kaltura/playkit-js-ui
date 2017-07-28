@@ -8,7 +8,8 @@ import BaseComponent from '../base';
 import Icon from '../icon';
 
 const mapStateToProps = state => ({
-  fullscreen: state.fullscreen.fullscreen
+  fullscreen: state.fullscreen.fullscreen,
+  isMobile: state.shell.isMobile
 });
 
 @connect(mapStateToProps, bindActions(actions))
@@ -36,6 +37,11 @@ class FullscreenControl extends BaseComponent {
   }
 
   requestFullscreen(element: HTMLElement) {
+    if (this.props.isMobile) {
+      player.getView().getElementsByTagName('video').webkitEnterFullscreen();
+      return;
+    }
+
     if (typeof element.requestFullscreen === 'function') {
       element.requestFullscreen();
     } else if (typeof element.mozRequestFullScreen === 'function') {
