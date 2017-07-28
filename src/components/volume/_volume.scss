@@ -1,6 +1,6 @@
 .control-button-container.volume-control {
 
-    &:hover {
+    &:hover, &.focus {
         .volume-control-bar {
             display: block !important;
         }

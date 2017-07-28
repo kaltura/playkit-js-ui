@@ -14,12 +14,10 @@ import TimeDisplay from '../components/time-display';
 import TopBar from '../components/top-bar';
 import BottomBar from '../components/bottom-bar';
 import OverlayPortal from '../components/overlay-portal';
-import KeyboardControl from '../components/keyboard';
 
 export default function playbackUI(props: any) {
   return (
     <div className='playback-gui-wrapper' style='height: 100%'>
-      <KeyboardControl player={props.player} />
       <Loading player={props.player} />
       <div className='player-gui' id='player-gui'>
         <OverlayPortal />

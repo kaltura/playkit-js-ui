@@ -1,6 +1,7 @@
 //@flow
 import { h, Component } from 'preact';
 import Icon from '../icon';
+import { keyCode } from '../../utils/keycodes';
 import { connect } from 'preact-redux';
 
 const mapStateToProps = state => ({
@@ -11,13 +12,40 @@ const mapStateToProps = state => ({
 class Menu extends Component {
 
   _menuElement: HTMLElement;
+  _menuItemElements: Array<HTMLElement> = [];
 
   componentDidMount() {
+    let index = this.props.options.findIndex(i => i.active) || 0;
+
+    if (this._menuItemElements[index]) {
+      this._menuItemElements[index].focus();
+    }
+
     document.addEventListener('click', this.handleClickOutside.bind(this), true);
   }
 
   componentWillUnmount() {
     document.removeEventListener('click', this.handleClickOutside.bind(this));
+  }
+
+  setFocusToNextOption() {
+    let i;
+    if (this.state.focusedIndex + 1 > this._menuItemElements.length - 1) {
+      i = 0;
+    }  else {
+      i = this.state.focusedIndex + 1;
+    }
+    this._menuItemElements[i].focus();
+  }
+
+  setFocusToPreviousOption() {
+    let i;
+    if (this.state.focusedIndex - 1 < 0) {
+      i = this._menuItemElements.length - 1;
+    }  else {
+      i = this.state.focusedIndex - 1;
+    }
+    this._menuItemElements[i].focus();
   }
 
   handleClickOutside(e: Event) {
@@ -44,6 +72,20 @@ class Menu extends Component {
     return activeOptions.length > 0 ? activeOptions[0].label : this.props.options[0].label;
   }
 
+  onMenuItemKeyDown(e: Event, o: Object) {
+    switch (e.which) {
+      case keyCode.SPACE:
+        this.onSelect(o);
+        break;
+      case keyCode.UP:
+        this.setFocusToPreviousOption();
+        break;
+      case keyCode.DOWN:
+        this.setFocusToNextOption();
+        break;
+    }
+  }
+
   renderNativeSelect() {
     return (
       <select
@@ -61,10 +103,19 @@ class Menu extends Component {
       <div
         ref={c => this._menuElement = c}
         className='dropdown-menu top left'
+        role='menu'
       >
         {
           props.options.map((o, index) => (
-            <div key={index} className={this.isSelected(o) ? 'dropdown-menu-item active' : 'dropdown-menu-item'} onClick={() => this.onSelect(o)}>
+            <div
+              key={index}
+              ref={c => this._menuItemElements[index] = c}
+              onFocus={() => this.setState({focusedIndex: index})}
+              tabIndex={0}
+              onKeyDown={e => this.onMenuItemKeyDown(e, o)}
+              role='menuitem'
+              className={this.isSelected(o) ? 'dropdown-menu-item active' : 'dropdown-menu-item'}
+              onClick={() => this.onSelect(o)}>
               <span>{o.label}</span>
               <span style={`opacity: ${ this.isSelected(o) ? 1 : 0 }`}><Icon type='check' /></span>
             </div>

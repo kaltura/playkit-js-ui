@@ -45,7 +45,7 @@
   &.left { right: 0px; }
 
   .smart-container-item {
-    margin: 16px;
+    padding: 8px 16px;
     color: rgba(244,244,244,0.8);
     white-space: nowrap;
 
@@ -53,6 +53,14 @@
       display: block;
       content: ' ';
       clear: both;
+    }
+
+    &:first-child {
+      padding-top: 16px;
+    }
+
+    &:last-child {
+      padding-bottom: 16px;
     }
 
     &.select-menu-item {

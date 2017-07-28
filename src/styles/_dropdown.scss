@@ -3,7 +3,7 @@
   to { opacity: 1; transform : translateY(0); }
 }
 
-.dropdown {
+.player .dropdown {
   position: relative;
   font-size: 15px;
 
@@ -20,9 +20,13 @@
   .dropdown-button {
     font-weight: bold;
     line-height: 18px;
+    font-size: 15px;
+    font-weight: normal;
     color: #fff;
     cursor: pointer;
-    padding-left: 20px;
+    background: transparent;
+    padding: 0 0 20px 0;
+    border: none;
 
     .icon {
       width: 16px;
@@ -35,7 +39,7 @@
   }
 
 }
-.dropdown-menu {
+.player .dropdown-menu {
   display: block;
   opacity: 1;
   position: absolute;
@@ -59,6 +63,7 @@
     white-space: nowrap;
     min-height: 30px;
     cursor: pointer;
+    outline: none;
 
     &:hover {
       color: #fff;

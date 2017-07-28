@@ -35,6 +35,7 @@ class PlayPauseControl extends BaseComponent {
       <div className='control-button-container control-play-pause'>
         <Localizer>
           <button
+            tabIndex='0'
             aria-label={<Text id={this.props.isPlaying ? 'controls.pause' : 'controls.play'} />}
             className={controlButtonClass}
             onClick={() => this.togglePlayPause()}

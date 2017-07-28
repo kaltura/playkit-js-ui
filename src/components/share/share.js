@@ -22,7 +22,12 @@ class ShareControl extends BaseComponent {
   render() {
     return (
       <div className='control-button-container control-share'>
-        <button className='control-button control-button-rounded' onClick={() => this.toggleOverlay()} aria-label='Share'>
+        <button
+          tabIndex='0'
+          className='control-button control-button-rounded'
+          onClick={() => this.toggleOverlay()}
+          aria-label='Share'
+        >
           <Icon type='share' />
         </button>
         { this.state.overlay ? (

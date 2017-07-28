@@ -5,6 +5,7 @@ import { bindActions } from '../../utils/bind-actions';
 import { actions } from '../../reducers/seekbar';
 import BaseComponent from '../base';
 import { toHHMMSS } from '../../utils/time-format';
+import { keyCode } from '../../utils/keycodes';
 
 const mapStateToProps = state => ({
   virtualProgress: state.seekbar.virtualTime,
@@ -90,6 +91,33 @@ class SeekBarControl extends BaseComponent {
     this.logger.debug(`Seek to ${time.toString()}s`);
   }
 
+  onSeekbarKeyDown(e): void {
+    let time;
+
+    switch(e.which) {
+      case keyCode.SPACE:
+      this.logger.debug("Keydown space");
+      this.player.paused ? this.player.play() : this.player.pause();
+      break;
+
+      case keyCode.LEFT:
+      this.logger.debug("Keydown left");
+      time = (this.player.currentTime - 5) > 0 ? this.player.currentTime - 5 : 0;
+      this.player.currentTime = time;
+      this.updateSeekBarProgress(time, this.player.duration);
+      break;
+
+      case keyCode.RIGHT:
+      this.logger.debug("Keydown right");
+      time = (this.player.currentTime + 5) > this.player.duration ? this.player.duration : this.player.currentTime + 5;
+      this.player.currentTime = time;
+      this.updateSeekBarProgress(time, this.player.duration);
+      break;
+
+      default: return;
+    }
+  }
+
   updateSeekBarProgress(currentTime: number, duration: number, virtual: boolean = false) {
     if (virtual) {
       this.setState({virtualTime: currentTime});
@@ -163,6 +191,7 @@ class SeekBarControl extends BaseComponent {
         className='seek-bar'
         ref={c => this._seekBarElement=c}
         role='slider'
+        tabIndex='0'
         aria-label='Seek slider'
         aria-valuemin='0'
         aria-valuemax={Math.round(this.player.duration)}
@@ -174,6 +203,7 @@ class SeekBarControl extends BaseComponent {
         onTouchStart={e => this.onSeekbarTouchStart(e)}
         onTouchMove={e => this.onSeekbarTouchMove(e)}
         onTouchEnd={() => this.onSeekbarTouchEnd()}
+        onKeyDown={e => this.onSeekbarKeyDown(e)}
       >
         <div className='progress-bar'>
           <div className='progress' style={{width: progressWidth}}>

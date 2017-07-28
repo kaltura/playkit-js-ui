@@ -50,16 +50,27 @@ class Shell extends BaseComponent {
     if (document.body) {
       this.props.updateDocumentWidth(document.body.clientWidth);
     }
-      this.player.addEventListener(this.player.Event.LOADED_METADATA, () => {
-        this.props.updatePlayerWidth(this.player._el.parentElement.clientWidth);
-      });
-      window.addEventListener('resize', () => {
-        this.props.updatePlayerWidth(this.player._el.parentElement.clientWidth);
+    this.player.addEventListener(this.player.Event.LOADED_METADATA, () => {
+      this.props.updatePlayerWidth(this.player._el.parentElement.clientWidth);
+    });
+    window.addEventListener('resize', () => {
+      this.props.updatePlayerWidth(this.player._el.parentElement.clientWidth);
 
-        if (document.body) {
-          this.props.updateDocumentWidth(document.body.clientWidth);
-        }
-      });
+      if (document.body) {
+        this.props.updateDocumentWidth(document.body.clientWidth);
+      }
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.keyCode === 9) {
+        this.props.addPlayerClass('keyboard-focused');
+      }
+    });
+
+    document.addEventListener('click', () => {
+      this.props.removePlayerClass('keyboard-focused');
+    });
+
     if (isMobile()) {
       this.props.addPlayerClass('touch');
     }
