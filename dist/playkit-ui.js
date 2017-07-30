@@ -3560,7 +3560,7 @@ var SmartContainer = function (_Component) {
         { className: 'smart-container-item select-menu-item' },
         (0, _preact.h)(
           'label',
-          { htmlFor: 'quality' },
+          { htmlFor: _icon.IconType.Quality },
           props.icon ? (0, _preact.h)(
             'div',
             { className: 'label-icon' },
