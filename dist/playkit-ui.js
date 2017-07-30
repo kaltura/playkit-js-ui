@@ -8066,7 +8066,7 @@ var FullscreenControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _
     key: 'requestFullscreen',
     value: function requestFullscreen(element) {
       if (this.props.isMobile) {
-        player.getView().getElementsByTagName('video').webkitEnterFullscreen();
+        this.player.getView().getElementsByTagName('video').webkitEnterFullscreen();
         return;
       }
 

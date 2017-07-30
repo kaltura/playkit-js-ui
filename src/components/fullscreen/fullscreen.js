@@ -38,7 +38,7 @@ class FullscreenControl extends BaseComponent {
 
   requestFullscreen(element: HTMLElement) {
     if (this.props.isMobile) {
-      player.getView().getElementsByTagName('video').webkitEnterFullscreen();
+      this.player.getView().getElementsByTagName('video').webkitEnterFullscreen();
       return;
     }
 
