@@ -19,7 +19,7 @@ class AdSkip extends BaseComponent {
   }
 
   componentDidMount() {
-    this.skipSupport = this.player.config.plugins.ima.getConfig('skipSupport');
+    this.skipSupport = this.player.config.plugins.ima.skipSupport;
   }
 
   getSkipTimeOffset() {

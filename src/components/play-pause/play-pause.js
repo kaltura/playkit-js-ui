@@ -30,7 +30,7 @@ class PlayPauseControl extends BaseComponent {
     return (this.props.adBreak && this.props.adIsPlaying) || (!this.props.adBreak && this.props.isPlaying);
   }
 
-  render() {
+  render(props) {
     var controlButtonClass = this.isPlayingAdOrPlayback() ? 'control-button is-playing' : 'control-button';
 
     return (
