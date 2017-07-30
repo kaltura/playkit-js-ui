@@ -4,8 +4,7 @@ import { connect } from 'preact-redux';
 
 const mapStateToProps = state => ({
   state: {
-    shell: state.shell,
-    fullscreen: state.fullscreen
+    shell: state.shell
   }
 });
 
