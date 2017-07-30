@@ -12,14 +12,19 @@ const mapStateToProps = state => ({
 
 @connect(mapStateToProps)
 class AdSkip extends BaseComponent {
+  skipSupport: any;
 
   constructor(obj: Object) {
     super({name: 'AdSkip', player: obj.player});
   }
 
+  componentDidMount() {
+    this.skipSupport = this.player.config.plugins.ima.getConfig('skipSupport');
+  }
+
   getSkipTimeOffset() {
-    if (this.player.config.plugins.ima.skipSupport) {
-      return Math.ceil(this.player.config.plugins.ima.skipSupport.skipTimeOffset - this.props.currentTime);
+    if (this.skipSupport) {
+      return Math.ceil(this.skipSupport.skipTimeOffset - this.props.currentTime);
     }
     else {
       return Math.ceil(this.props.adSkipTimeOffset - this.props.currentTime);
@@ -27,10 +32,10 @@ class AdSkip extends BaseComponent {
   }
 
   render() {
-    if (!this.props.adSkippableState && this.player.config.plugins.ima.skipSupport) {
+    if (!this.props.adSkippableState && this.skipSupport) {
       return this.getSkipTimeOffset() <= 0 ?  (
         <a className='btn btn-branded btn-skip-ad' onClick={() => this.player.skipAd()}>
-          Skip ad
+          {this.skipSupport.label || 'Skip ad'}
         </a>
       ) : (
         <span className='skip-ad'>Skip in {this.getSkipTimeOffset()}</span>
