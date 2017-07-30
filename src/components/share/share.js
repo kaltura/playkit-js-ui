@@ -1,7 +1,7 @@
 //@flow
 import { h } from 'preact';
 import BaseComponent from '../base';
-import Icon from '../icon/icon';
+import {default as Icon, IconType} from '../icon';
 import ShareOverlay from '../share-overlay';
 import Portal from 'preact-portal';
 
@@ -23,7 +23,7 @@ class ShareControl extends BaseComponent {
     return (
       <div className='control-button-container control-share'>
         <button className='control-button control-button-rounded' onClick={() => this.toggleOverlay()} aria-label='Share'>
-          <Icon type='share' />
+          <Icon type={IconType.Share} />
         </button>
         { this.state.overlay ? (
           <Portal into="#overlay-portal">

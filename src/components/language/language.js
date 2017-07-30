@@ -7,7 +7,7 @@ import { actions } from '../../reducers/cvaa';
 import BaseComponent from '../base';
 import SmartContainer from '../smart-container';
 import SmartContainerItem from '../smart-container/smart-container-item';
-import Icon from '../icon';
+import { default as Icon, IconType } from '../icon';
 import CVAAOverlay from '../cvaa-overlay';
 import Menu from '../menu';
 import Portal from 'preact-portal';
@@ -70,7 +70,7 @@ class LanguageControl extends BaseComponent {
           className={this.state.smartContainerOpen ? 'control-button active' : 'control-button'}
           onClick={() => this.onControlButtonClick()}
         >
-          <Icon type='audio' />
+          <Icon type={IconType.Audio} />
         </button>
         { !this.state.smartContainerOpen && !this.props.isMobile ? undefined :
         <Menu
@@ -91,7 +91,7 @@ class LanguageControl extends BaseComponent {
           className={this.state.smartContainerOpen ? 'control-button active' : 'control-button'}
           onClick={() => this.onControlButtonClick()}
         >
-          <Icon type='captions' />
+          <Icon type={IconType.Captions} />
         </button>
         { !this.state.smartContainerOpen && !this.props.isMobile ? undefined :
         <Menu
@@ -117,7 +117,7 @@ class LanguageControl extends BaseComponent {
             className={this.state.smartContainerOpen ? 'control-button active' : 'control-button'}
             onClick={() => this.onControlButtonClick()}
           >
-            <Icon type='language' />
+            <Icon type={IconType.Language} />
           </button>
         </Localizer>
         { !this.state.smartContainerOpen || this.state.cvaaOverlay ? undefined :

@@ -2,7 +2,7 @@
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 import Menu from '../menu';
-import Icon from '../icon';
+import { default as Icon, IconType } from '../icon';
 
 const mapStateToProps = state => ({
   isMobile: state.shell.isMobile
@@ -54,7 +54,7 @@ class DropDown extends Component {
       <div className={this.state.dropMenuActive ? 'dropdown active' : 'dropdown'}>
         <div className='dropdown-button' onClick={() => this.setState({dropMenuActive: !this.state.dropMenuActive})}>
           {this.getActiveOptionLabel()}
-          <Icon type='arrow-down' />
+          <Icon type={IconType.ArrowDown} />
         </div>
         {
           !this.state.dropMenuActive ? undefined :
