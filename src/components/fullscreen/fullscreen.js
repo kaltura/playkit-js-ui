@@ -5,10 +5,11 @@ import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/fullscreen';
 import BaseComponent from '../base';
-import Icon from '../icon';
+import { default as Icon, IconType } from '../icon';
 
 const mapStateToProps = state => ({
-  fullscreen: state.fullscreen.fullscreen
+  fullscreen: state.fullscreen.fullscreen,
+  isMobile: state.shell.isMobile
 });
 
 @connect(mapStateToProps, bindActions(actions))
@@ -36,6 +37,11 @@ class FullscreenControl extends BaseComponent {
   }
 
   requestFullscreen(element: HTMLElement) {
+    if (this.props.isMobile) {
+      this.player.getView().getElementsByTagName('video').webkitEnterFullscreen();
+      return;
+    }
+
     if (typeof element.requestFullscreen === 'function') {
       element.requestFullscreen();
     } else if (typeof element.mozRequestFullScreen === 'function') {
@@ -75,8 +81,8 @@ class FullscreenControl extends BaseComponent {
           <button aria-label={<Text id='controls.fullscreen'/>}
                   className={this.props.fullscreen ? 'control-button is-fullscreen' : 'control-button'}
                   onClick={() => this.toggleFullscreen()}>
-            <Icon type='maximize'/>
-            <Icon type='minimize'/>
+            <Icon type={IconType.Maximize} />
+            <Icon type={IconType.Minimize} />
           </button>
         </Localizer>
       </div>

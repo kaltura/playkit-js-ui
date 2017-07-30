@@ -2,6 +2,7 @@
 export const types = {
   UPDATE_PLAYER_STATE: 'engine/UPDATE_PLAYER_STATE',
   UPDATE_IS_PLAYING: 'engine/UPDATE_IS_PLAYING',
+  UPDATE_IS_ENDED: 'engine/UPDATE_IS_ENDED',
   UPDATE_CURRENT_TIME: 'engine/UPDATE_CURRENT_TIME',
   UPDATE_DURATION: 'engine/UPDATE_DURATION',
   UPDATE_VOLUME: 'engine/UPDATE_VOLUME',
@@ -18,7 +19,8 @@ export const types = {
 }
 
 export const initialState = {
-	isPlaying: false,
+  isPlaying: false,
+  isEnded: false,
   metadataLoaded: false,
   playerState: {
     previousState: '',
@@ -53,6 +55,12 @@ export default (state: Object = initialState, action: Object) => {
       return {
         ...state,
         isPlaying: action.isPlaying
+      }
+
+    case types.UPDATE_IS_ENDED:
+      return {
+        ...state,
+        isEnded: action.isEnded
       }
 
     case types.UPDATE_CURRENT_TIME:
@@ -141,6 +149,7 @@ export default (state: Object = initialState, action: Object) => {
 export const actions = {
   updatePlayerState: (prevoiusState: string, currentState: string) => ({ type: types.UPDATE_PLAYER_STATE, playerState: {prevoiusState, currentState} }),
   updateIsPlaying: (isPlaying: boolean) => ({ type: types.UPDATE_IS_PLAYING, isPlaying }),
+  updateIsEnded: (isEnded) => ({ type: types.UPDATE_IS_ENDED, isEnded }),
   updateCurrentTime: (currentTime: number) => ({ type: types.UPDATE_CURRENT_TIME, currentTime }),
   updateDuration: (duration: number) => ({ type: types.UPDATE_DURATION, duration }),
   updateVolume: (volume: number) => ({ type: types.UPDATE_VOLUME, volume }),

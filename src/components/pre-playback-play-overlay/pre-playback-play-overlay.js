@@ -4,7 +4,7 @@ import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
 import { actions } from '../../reducers/shell';
 import BaseComponent from '../base';
-import Icon from '../icon';
+import { default as Icon, IconType } from '../icon';
 
 const mapStateToProps = state => ({
   prePlayback: state.shell.prePlayback,
@@ -50,7 +50,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
 
     return (
       <div className='pre-playback-play-overlay' onClick={() => this.handleClick()}>
-        <a className='pre-playback-play-button'><Icon type='play' /></a>
+        <a className='pre-playback-play-button'><Icon type={IconType.Play} /></a>
       </div>
     )
   }

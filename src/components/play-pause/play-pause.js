@@ -5,12 +5,13 @@ import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
 import { actions } from '../../reducers/play-pause';
 import BaseComponent from '../base';
-import Icon from '../icon';
+import { default as Icon, IconType } from '../icon';
 
 const mapStateToProps = state => ({
   isPlaying: state.engine.isPlaying,
   adBreak: state.engine.adBreak,
-  adIsPlaying: state.engine.adIsPlaying
+  adIsPlaying: state.engine.adIsPlaying,
+  isEnded: state.engine.isEnded
 });
 
 @connect(mapStateToProps, bindActions(actions))
@@ -40,8 +41,13 @@ class PlayPauseControl extends BaseComponent {
             className={controlButtonClass}
             onClick={() => this.togglePlayPause()}
           >
-            <Icon type='play' />
-            <Icon type='pause' />
+            {props.isEnded ? <Icon type={IconType.Startover} /> : (
+              <div>
+                <Icon type={IconType.Play} />
+                <Icon type={IconType.Pause} />
+              </div>
+            )}
+
           </button>
         </Localizer>
       </div>

@@ -7,7 +7,7 @@ import { actions } from '../../reducers/settings';
 import BaseComponent from '../base';
 import SmartContainer from '../smart-container';
 import SmartContainerItem from '../smart-container/smart-container-item';
-import Icon from '../icon';
+import { default as Icon, IconType } from '../icon';
 
 const defaultSpeeds = [0.5, 1, 2, 4];
 
@@ -114,7 +114,7 @@ class SettingsControl extends BaseComponent {
             className={this.state.smartContainerOpen ? 'control-button active' : 'control-button'}
             onClick={() => this.onControlButtonClick()}
           >
-            <Icon type='settings' />
+            <Icon type={IconType.Settings} />
           </button>
         </Localizer>
         { !this.state.smartContainerOpen ? '' :

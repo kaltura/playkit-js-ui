@@ -4,7 +4,7 @@ import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
 import { actions } from '../../reducers/play-pause';
 import BaseComponent from '../base';
-import Icon from '../icon';
+import { default as Icon, IconType } from '../icon';
 
 const mapStateToProps = state => ({
   isPlaying: state.engine.isPlaying,
@@ -37,7 +37,7 @@ class OverlayPlay extends BaseComponent {
   render() {
     return (
       <div className={`overlay-play ${this.state.animation ? 'in' : ''}`} onClick={() => this.togglePlayPause()}>
-        { this.isPlayingAdOrPlayback() ? <Icon type='play' /> : <Icon type='pause' /> }
+        { this.isPlayingAdOrPlayback() ? <Icon type={IconType.Play} /> : <Icon type={IconType.Pause} /> }
       </div>
     )
   }

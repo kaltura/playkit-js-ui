@@ -34,10 +34,18 @@ class EngineConnector extends BaseComponent {
 
     this.player.addEventListener(this.player.Event.PLAY, () => {
       this.props.updateIsPlaying(true);
+
+      if (this.props.engine.isEnded) {
+        this.props.updateIsEnded(false);
+      }
     });
 
     this.player.addEventListener(this.player.Event.PAUSE, () => {
       this.props.updateIsPlaying(false);
+    });
+
+    this.player.addEventListener(this.player.Event.ENDED, () => {
+      this.props.updateIsEnded(true);
     });
 
     this.player.addEventListener(this.player.Event.TRACKS_CHANGED, () => {
