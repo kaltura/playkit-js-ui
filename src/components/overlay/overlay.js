@@ -4,7 +4,7 @@ import { Localizer, Text } from 'preact-i18n';
 import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
 import { actions } from '../../reducers/shell';
-import Icon from '../icon';
+import { default as Icon, IconType } from '../icon';
 
 @connect(null, bindActions(actions))
 class Overlay extends Component {
@@ -28,7 +28,7 @@ class Overlay extends Component {
           { props.children }
         </div>
         <Localizer>
-          <a onClick={() => props.onClose()} aria-label={<Text id='core.close' />} className='close-overlay'><Icon type='close' /></a>
+          <a onClick={() => props.onClose()} aria-label={<Text id='core.close' />} className='close-overlay'><Icon type={IconType.Close} /></a>
         </Localizer>
       </div>
     )

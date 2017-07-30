@@ -4,7 +4,7 @@ import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
 import { actions } from '../../reducers/volume';
 import BaseComponent from '../base';
-import Icon from '../icon';
+import { default as Icon, IconType } from '../icon';
 
 const mapStateToProps = state => ({
   isDraggingActive: state.volume.draggingActive,
@@ -89,9 +89,9 @@ class VolumeControl extends BaseComponent {
       return (
         <div ref={c => this._volumeControlElement=c} className={controlButtonClass}>
           <button className='control-button' onClick={() => this.onVolumeControlButtonClick()} aria-label='Volume'>
-            <Icon type='volume-base' />
-            <Icon type='volume-waves' />
-            <Icon type='volume-mute' />
+            <Icon type={IconType.VolumeBase} />
+            <Icon type={IconType.VolumeWaves} />
+            <Icon type={IconType.VolumeMute} />
           </button>
           <div className='volume-control-bar' role='slider'
             aria-valuemin='0' aria-valuemaz='100' aria-valuenow={this.player.volume * 100}
