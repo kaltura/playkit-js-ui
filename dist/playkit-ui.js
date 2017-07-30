@@ -8147,9 +8147,19 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _dec, _class;
+
 var _preact = __webpack_require__(0);
 
+var _preactRedux = __webpack_require__(1);
+
+var _base = __webpack_require__(2);
+
+var _base2 = _interopRequireDefault(_base);
+
 var _timeFormat = __webpack_require__(20);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -8157,13 +8167,20 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var TimeDisplay = function (_Component) {
-  _inherits(TimeDisplay, _Component);
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    currentTime: state.engine.currentTime,
+    duration: state.engine.duration
+  };
+};
 
-  function TimeDisplay() {
+var TimeDisplay = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = function (_BaseComponent) {
+  _inherits(TimeDisplay, _BaseComponent);
+
+  function TimeDisplay(obj) {
     _classCallCheck(this, TimeDisplay);
 
-    return _possibleConstructorReturn(this, (TimeDisplay.__proto__ || Object.getPrototypeOf(TimeDisplay)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (TimeDisplay.__proto__ || Object.getPrototypeOf(TimeDisplay)).call(this, { name: 'TimeDisplay', player: obj.player, config: obj.config }));
   }
 
   _createClass(TimeDisplay, [{
@@ -8196,8 +8213,7 @@ var TimeDisplay = function (_Component) {
   }]);
 
   return TimeDisplay;
-}(_preact.Component);
-
+}(_base2.default)) || _class);
 exports.default = TimeDisplay;
 
 /***/ }),
@@ -8506,10 +8522,6 @@ var _playback = __webpack_require__(29);
 
 var _playback2 = _interopRequireDefault(_playback);
 
-var _fullscreen = __webpack_require__(49);
-
-var _fullscreen2 = _interopRequireDefault(_fullscreen);
-
 __webpack_require__(100);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -8528,10 +8540,6 @@ var UIManager = function () {
     key: 'buildDefaultUI',
     value: function buildDefaultUI() {
       var uis = [{ template: function template(props) {
-          return (0, _fullscreen2.default)(props);
-        }, condition: function condition(state) {
-          return state.fullscreen.fullscreen;
-        } }, { template: function template(props) {
           return (0, _ads2.default)(props);
         }, condition: function condition(state) {
           return state.shell.isAd;
@@ -8984,8 +8992,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var mapStateToProps = function mapStateToProps(state) {
   return {
     state: {
-      shell: state.shell,
-      engine: { adBreak: state.engine.adBreak }
+      shell: state.shell
     }
   };
 };
@@ -9011,7 +9018,7 @@ var PlayerGUI = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class 
         for (var _iterator = uis[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           var ui = _step.value;
 
-          if (typeof ui.condition === 'undefined' || ui.condition(state)) {
+          if (ui.condition(state)) {
             matchedUI = ui;
             break;
           }

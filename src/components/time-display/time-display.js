@@ -5,7 +5,7 @@ import BaseComponent from '../base';
 import { toHHMMSS } from '../../utils/time-format';
 
 const mapStateToProps = state => ({
-  currentTime: state.seekbar.currentTime,
+  currentTime: state.engine.currentTime,
   duration: state.engine.duration
 });
 
