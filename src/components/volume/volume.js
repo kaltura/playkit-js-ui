@@ -7,7 +7,7 @@ import BaseComponent from '../base';
 import { default as Icon, IconType } from '../icon';
 
 const mapStateToProps = state => ({
-  isDraggingActive: state.volume.isDraggingActive,
+  isDraggingActive: state.volume.draggingActive,
   volume: state.volume.volume,
   muted: state.volume.muted,
   isMobile: state.shell.isMobile
@@ -41,7 +41,14 @@ class VolumeControl extends BaseComponent {
     this.props.updateVolumeDraggingStatus(true);
   }
 
-  onVolumeProgressBarClick(e: Event) {
+  onVolumeProgressBarMouseMove(e: Event) {
+    if (this.props.isDraggingActive) {
+      this.changeVolume(e);
+    }
+  }
+
+  onVolumeProgressBarMouseUp(e: Event) {
+    this.props.updateVolumeDraggingStatus(false);
     this.changeVolume(e);
   }
 
@@ -93,7 +100,8 @@ class VolumeControl extends BaseComponent {
               className='bar'
               ref={c => this._volumeProgressBarElement=c}
               onMouseDown={() => this.onVolumeProgressBarMouseDown()}
-              onClick={e => this.onVolumeProgressBarClick(e)}
+              onMouseUp={e => this.onVolumeProgressBarMouseUp(e)}
+              onMouseMove={e => this.onVolumeProgressBarMouseMove(e)}
             >
               <div className='progress' style={{height: this.getVolumeProgessHeight()}} />
             </div>
