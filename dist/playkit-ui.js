@@ -3747,10 +3747,119 @@ exports.default = _timeDisplayPlaybackContainer2.default;
 
 /***/ }),
 /* 49 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-throw new Error("Module build failed: SyntaxError: Unexpected token (14:26)\n\n\u001b[0m \u001b[90m 12 | \u001b[39m\n \u001b[90m 13 | \u001b[39m\u001b[36mexport\u001b[39m \u001b[36mdefault\u001b[39m \u001b[36mfunction\u001b[39m adsUI(props\u001b[33m:\u001b[39m any) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 14 | \u001b[39m  \u001b[36mconst\u001b[39m useStyledLinearAds\u001b[33m;\u001b[39m\n \u001b[90m    | \u001b[39m                          \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 15 | \u001b[39m\n \u001b[90m 16 | \u001b[39m  \u001b[36mtry\u001b[39m {\n \u001b[90m 17 | \u001b[39m    useStyledLinearAds \u001b[33m=\u001b[39m props\u001b[33m.\u001b[39mplayer\u001b[33m.\u001b[39mconfig\u001b[33m.\u001b[39mplugins\u001b[33m.\u001b[39mima\u001b[33m.\u001b[39madsRenderingSettings\u001b[33m.\u001b[39museStyledLinearAds\u001b[33m;\u001b[39m\u001b[0m\n");
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = adsUI;
+
+var _preact = __webpack_require__(0);
+
+var _loading = __webpack_require__(8);
+
+var _loading2 = _interopRequireDefault(_loading);
+
+var _playPause = __webpack_require__(9);
+
+var _playPause2 = _interopRequireDefault(_playPause);
+
+var _seekbarAdsContainer = __webpack_require__(97);
+
+var _seekbarAdsContainer2 = _interopRequireDefault(_seekbarAdsContainer);
+
+var _volume = __webpack_require__(11);
+
+var _volume2 = _interopRequireDefault(_volume);
+
+var _fullscreen = __webpack_require__(12);
+
+var _fullscreen2 = _interopRequireDefault(_fullscreen);
+
+var _timeDisplayPlaybackContainer = __webpack_require__(48);
+
+var _timeDisplayPlaybackContainer2 = _interopRequireDefault(_timeDisplayPlaybackContainer);
+
+var _adSkip = __webpack_require__(99);
+
+var _adSkip2 = _interopRequireDefault(_adSkip);
+
+var _topBar = __webpack_require__(13);
+
+var _topBar2 = _interopRequireDefault(_topBar);
+
+var _bottomBar = __webpack_require__(14);
+
+var _bottomBar2 = _interopRequireDefault(_bottomBar);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function adsUI(props) {
+  var useStyledLinearAds = false;
+
+  try {
+    useStyledLinearAds = props.player.config.plugins.ima.adsRenderingSettings.useStyledLinearAds;
+  } catch (e) {
+    //TODO: add error handling
+  }
+
+  return (0, _preact.h)(
+    'div',
+    { className: 'ad-gui-wrapper' },
+    (0, _preact.h)(_loading2.default, { player: props.player }),
+    (0, _preact.h)(
+      'div',
+      { className: 'player-gui', id: 'player-gui' },
+      useStyledLinearAds ? undefined : (0, _preact.h)(
+        'div',
+        null,
+        (0, _preact.h)(
+          _topBar2.default,
+          null,
+          (0, _preact.h)(
+            'div',
+            { className: 'left-controls' },
+            (0, _preact.h)(
+              'span',
+              { className: 'font-size-base' },
+              'Adverisment'
+            )
+          ),
+          (0, _preact.h)(
+            'div',
+            { className: 'right-controls' },
+            (0, _preact.h)(
+              'a',
+              { href: '', className: 'btn btn-dark-transparent' },
+              'Learn more'
+            )
+          )
+        ),
+        (0, _preact.h)(_adSkip2.default, { player: props.player })
+      ),
+      (0, _preact.h)(
+        _bottomBar2.default,
+        null,
+        (0, _preact.h)(_seekbarAdsContainer2.default, { adBreak: true, showFramePreview: true, showTimeBubble: true, player: props.player }),
+        (0, _preact.h)(
+          'div',
+          { className: 'left-controls' },
+          (0, _preact.h)(_playPause2.default, { player: props.player }),
+          (0, _preact.h)(_timeDisplayPlaybackContainer2.default, null)
+        ),
+        (0, _preact.h)(
+          'div',
+          { className: 'right-controls' },
+          (0, _preact.h)(_volume2.default, { player: props.player }),
+          (0, _preact.h)(_fullscreen2.default, { player: props.player })
+        )
+      )
+    )
+  );
+}
 
 /***/ }),
 /* 50 */
@@ -8557,10 +8666,215 @@ var KeyboardControl = function (_BaseComponent) {
 exports.default = KeyboardControl;
 
 /***/ }),
-/* 97 */,
-/* 98 */,
-/* 99 */,
-/* 100 */,
+/* 97 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _seekbarAdsContainer = __webpack_require__(98);
+
+var _seekbarAdsContainer2 = _interopRequireDefault(_seekbarAdsContainer);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _seekbarAdsContainer2.default;
+
+/***/ }),
+/* 98 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _dec, _class;
+
+var _preact = __webpack_require__(0);
+
+var _preactRedux = __webpack_require__(1);
+
+var _bindActions = __webpack_require__(3);
+
+var _seekbar = __webpack_require__(19);
+
+var _base = __webpack_require__(2);
+
+var _base2 = _interopRequireDefault(_base);
+
+var _seekbar2 = __webpack_require__(10);
+
+var _seekbar3 = _interopRequireDefault(_seekbar2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    currentTime: state.engine.adProgress.currentTime,
+    duration: state.engine.adProgress.duration,
+    isDraggingActive: state.seekbar.draggingActive,
+    isMobile: state.shell.isMobile
+  };
+};
+
+var SeekBarAdsContainer = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.bindActions)(_seekbar.actions)), _dec(_class = function (_BaseComponent) {
+  _inherits(SeekBarAdsContainer, _BaseComponent);
+
+  function SeekBarAdsContainer(obj) {
+    _classCallCheck(this, SeekBarAdsContainer);
+
+    return _possibleConstructorReturn(this, (SeekBarAdsContainer.__proto__ || Object.getPrototypeOf(SeekBarAdsContainer)).call(this, { name: 'SeekBarAdsContainer', player: obj.player }));
+  }
+
+  _createClass(SeekBarAdsContainer, [{
+    key: 'render',
+    value: function render(props) {
+      return (0, _preact.h)(_seekbar3.default, {
+        changeCurrentTime: function changeCurrentTime(time) {} // eslint-disable-line no-unused-vars
+        , updateSeekbarDraggingStatus: function updateSeekbarDraggingStatus(data) {} // eslint-disable-line no-unused-vars
+        , updateCurrentTime: function updateCurrentTime(data) {} // eslint-disable-line no-unused-vars
+
+        , adBreak: props.adBreak,
+        currentTime: props.currentTime,
+        duration: props.duration,
+        isDraggingActive: props.isDraggingActive,
+        isMobile: props.isMobile
+      });
+    }
+  }]);
+
+  return SeekBarAdsContainer;
+}(_base2.default)) || _class);
+exports.default = SeekBarAdsContainer;
+
+/***/ }),
+/* 99 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _adSkip = __webpack_require__(100);
+
+var _adSkip2 = _interopRequireDefault(_adSkip);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _adSkip2.default;
+
+/***/ }),
+/* 100 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _dec, _class;
+
+var _preact = __webpack_require__(0);
+
+var _preactRedux = __webpack_require__(1);
+
+var _base = __webpack_require__(2);
+
+var _base2 = _interopRequireDefault(_base);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    currentTime: state.engine.adProgress.currentTime,
+    duration: state.engine.adProgress.duration,
+    adSkipTimeOffset: state.engine.adSkipTimeOffset,
+    adSkippableState: state.engine.adSkippableState
+  };
+};
+
+var AdSkip = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = function (_BaseComponent) {
+  _inherits(AdSkip, _BaseComponent);
+
+  function AdSkip(obj) {
+    _classCallCheck(this, AdSkip);
+
+    return _possibleConstructorReturn(this, (AdSkip.__proto__ || Object.getPrototypeOf(AdSkip)).call(this, { name: 'AdSkip', player: obj.player }));
+  }
+
+  _createClass(AdSkip, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.skipSupport = this.player.config.plugins.ima.skipSupport;
+    }
+  }, {
+    key: 'getSkipTimeOffset',
+    value: function getSkipTimeOffset() {
+      if (this.skipSupport) {
+        return Math.ceil(this.skipSupport.skipTimeOffset - this.props.currentTime);
+      } else {
+        return Math.ceil(this.props.adSkipTimeOffset - this.props.currentTime);
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      if (!this.props.adSkippableState && this.skipSupport) {
+        return this.getSkipTimeOffset() <= 0 ? (0, _preact.h)(
+          'a',
+          { className: 'btn btn-branded btn-skip-ad', onClick: function onClick() {
+              return _this2.player.skipAd();
+            } },
+          this.skipSupport.label || 'Skip ad'
+        ) : (0, _preact.h)(
+          'span',
+          { className: 'skip-ad' },
+          'Skip in ',
+          this.getSkipTimeOffset()
+        );
+      } else {
+        return undefined;
+      }
+    }
+  }]);
+
+  return AdSkip;
+}(_base2.default)) || _class);
+exports.default = AdSkip;
+
+/***/ }),
 /* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
