@@ -36,8 +36,8 @@ class UIManager {
 
   buildDefaultUI(): void {
     const uis = [
-      { template: props => adsUI(props), condition: state => state.shell.isAd },
-      { template: props => playbackUI(props), condition: state => !state.shell.isAd }
+      { template: props => adsUI(props), condition: state => state.engine.adBreak },
+      { template: props => playbackUI(props) }
     ];
     this._buildUI(uis);
   }

@@ -1,25 +1,45 @@
 //@flow
 import { h } from 'preact';
-import OverlayPlay from '../components/overlay-play';
 import Loading from '../components/loading';
-import SeekBarControl from '../components/seekbar';
+import PlayPauseControl from '../components/play-pause';
+import SeekBarAdsContainer from '../components/seekbar-ads-container';
 import VolumeControl from '../components/volume';
 import FullscreenControl from '../components/fullscreen';
-import TimeDisplay from '../components/time-display';
+import TimeDisplayPlaybackContainer from '../components/time-display-playback-container';
+import AdSkip from '../components/ad-skip';
+import TopBar from '../components/top-bar';
 import BottomBar from '../components/bottom-bar';
-import KeyboardControl from '../components/keyboard';
 
 export default function adsUI(props: any) {
+  var useStyledLinearAds = false;
+
+  try {
+    useStyledLinearAds = props.player.config.plugins.ima.adsRenderingSettings.useStyledLinearAds;
+  } catch (e) {}
+
   return (
-    <div className='ad-gui-wrapper' style='height: 100%'>
-      <KeyboardControl player={props.player} />
+    <div className='ad-gui-wrapper'>
       <Loading player={props.player} />
       <div className='player-gui' id='player-gui'>
-        <OverlayPlay player={props.player} />
+        {
+          useStyledLinearAds ? undefined :
+          <div>
+            <TopBar>
+              <div className='left-controls'>
+                <span className='font-size-base'>Adverisment</span>
+              </div>
+              <div className='right-controls'>
+                <a href='' className='btn btn-dark-transparent'>Learn more</a>
+              </div>
+            </TopBar>
+            <AdSkip player={props.player} />
+          </div>
+        }
         <BottomBar>
-          <SeekBarControl showFramePreview showTimeBubble player={props.player} />
+          <SeekBarAdsContainer adBreak showFramePreview showTimeBubble player={props.player} />
           <div className='left-controls'>
-            <TimeDisplay format='-left' player={props.player} />
+            <PlayPauseControl player={props.player} />
+            <TimeDisplayPlaybackContainer />
           </div>
           <div className='right-controls'>
             <VolumeControl player={props.player} />

@@ -27,8 +27,10 @@ class Loading extends BaseComponent {
   }
 
   render(props: any) {
+    if (!props.show) return undefined;
+
     return (
-      <div className={props.show ? 'loading-backdrop show' : 'loading-backdrop'}>
+      <div className='loading-backdrop show'>
         <div className='spinner-container'>
           <div className='spinner'>
             {[...Array(8)].map((i) => <span key={i} />)}

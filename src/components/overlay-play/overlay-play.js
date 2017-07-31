@@ -7,7 +7,9 @@ import BaseComponent from '../base';
 import { default as Icon, IconType } from '../icon';
 
 const mapStateToProps = state => ({
-  isPlaying: state.engine.isPlaying
+  isPlaying: state.engine.isPlaying,
+  adBreak: state.engine.adBreak,
+  adIsPlaying: state.engine.adIsPlaying
 });
 
 @connect(mapStateToProps, bindActions(actions))
@@ -18,24 +20,24 @@ class OverlayPlay extends BaseComponent {
     super({name: 'OverlayPlay', player: obj.player});
   }
 
+  isPlayingAdOrPlayback() {
+    return (this.props.adBreak && this.props.adIsPlaying) || (!this.props.adBreak && this.props.isPlaying);
+  }
+
   togglePlayPause() {
     this.logger.debug('Toggle play');
     this.setState({animation: true});
     setTimeout(() => {
       this.setState({animation: false});
     }, 400);
-    if (this.player.paused) {
-      this.player.play();
-    }
-    else {
-      this.player.pause();
-    }
+
+    this.isPlayingAdOrPlayback() ? this.player.pause() : this.player.play();
   }
 
-  render(props: any) {
+  render() {
     return (
       <div className={`overlay-play ${this.state.animation ? 'in' : ''}`} onClick={() => this.togglePlayPause()}>
-        { props.isPlaying ? <Icon type={IconType.Play} /> : <Icon type={IconType.Pause} /> }
+        { this.isPlayingAdOrPlayback() ? <Icon type={IconType.Play} /> : <Icon type={IconType.Pause} /> }
       </div>
     )
   }

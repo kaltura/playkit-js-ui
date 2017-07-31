@@ -28,10 +28,10 @@ class FullscreenControl extends BaseComponent {
   }
 
   fullscreenChangeHandler() {
-    let isFullscreen = Boolean(document.fullscreenElement) ||
-      Boolean(document.webkitFullscreenElement) ||
-      Boolean(document.mozFullScreenElement) ||
-      Boolean(document.msFullscreenElement);
+    let isFullscreen = typeof document.fullscreenElement !== 'undefined' && Boolean(document.fullscreenElement) ||
+      typeof document.webkitFullscreenElement !== 'undefined' && Boolean(document.webkitFullscreenElement) ||
+      typeof document.mozFullScreenElement !== 'undefined' && Boolean(document.mozFullScreenElement) ||
+      typeof document.msFullscreenElement !== 'undefined' && Boolean(document.msFullscreenElement);
 
     this.props.updateFullscreen(isFullscreen);
   }

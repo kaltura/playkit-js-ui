@@ -4,13 +4,13 @@ import OverlayPlay from '../components/overlay-play';
 import PrePlaybackPlayOverlay from '../components/pre-playback-play-overlay';
 import Loading from '../components/loading';
 import PlayPauseControl from '../components/play-pause';
-import SeekBarControl from '../components/seekbar';
+import SeekBarPlaybackContainer from '../components/seekbar-playback-container';
 import VolumeControl from '../components/volume';
 import ShareControl from '../components/share'
 import SettingsControl from '../components/settings';
 import LanguageControl from '../components/language';
 import FullscreenControl from '../components/fullscreen';
-import TimeDisplay from '../components/time-display';
+import TimeDisplayPlaybackContainer from '../components/time-display-playback-container';
 import TopBar from '../components/top-bar';
 import BottomBar from '../components/bottom-bar';
 import OverlayPortal from '../components/overlay-portal';
@@ -18,7 +18,7 @@ import KeyboardControl from '../components/keyboard';
 
 export default function playbackUI(props: any) {
   return (
-    <div className='playback-gui-wrapper' style='height: 100%'>
+    <div className='playback-gui-wrapper'>
       <KeyboardControl player={props.player} />
       <Loading player={props.player} />
       <div className='player-gui' id='player-gui'>
@@ -33,10 +33,10 @@ export default function playbackUI(props: any) {
           </div>
         </TopBar>
         <BottomBar>
-          <SeekBarControl showFramePreview showTimeBubble player={props.player} />
+          <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player} />
           <div className='left-controls'>
             <PlayPauseControl player={props.player} />
-            <TimeDisplay format='current / total' player={props.player} />
+            <TimeDisplayPlaybackContainer format='current / total' />
           </div>
           <div className='right-controls'>
             <VolumeControl player={props.player} />
@@ -46,7 +46,7 @@ export default function playbackUI(props: any) {
           </div>
         </BottomBar>
       </div>
-      <PrePlaybackPlayOverlay player={props.player} />
+       <PrePlaybackPlayOverlay player={props.player} />
     </div>
   )
 }

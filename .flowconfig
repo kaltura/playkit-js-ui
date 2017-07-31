@@ -7,3 +7,4 @@ node_modules/playkit-js/flow-typed/
 [options]
 unsafe.enable_getters_and_setters=true
 esproposal.decorators=ignore
+module.name_mapper.extension='scss' -> 'empty/object'

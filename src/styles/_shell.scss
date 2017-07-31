@@ -1,9 +1,7 @@
 .player {
     overflow: hidden;
     user-select: none;
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+    width: 100%;
 
     &:-webkit-full-screen {
       width: 100%; height: 100%;
@@ -20,10 +18,6 @@
         width: 100%;
     }
     .player-gui {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        width: 100%; height: 100%;
         opacity: 0;
         overflow: hidden;
         font-size: 0;

@@ -16,13 +16,6 @@ class PrePlaybackPlayOverlay extends BaseComponent {
 
   constructor(obj: Object) {
     super({name: 'PrePlaybackPlayOverlay', player: obj.player});
-
-    this.player.addEventListener(this.player.Event.PLAY, () => {
-      if (this.props.prePlayback) {
-        this.props.updatePrePlayback(false);
-        this.props.removePlayerClass('pre-playback');
-      }
-    });
   }
 
   componentWillUnmount() {
@@ -30,8 +23,22 @@ class PrePlaybackPlayOverlay extends BaseComponent {
     this.props.removePlayerClass('pre-playback');
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.addPlayerClass('pre-playback');
+  }
+
+  componentDidMount() {
+    this.player.addEventListener(this.player.Event.PLAY, () => {
+      if (this.props.prePlayback) {
+        this.props.updatePrePlayback(false);
+        this.props.removePlayerClass('pre-playback');
+      }
+    });
+
+    if (this.player.paused === false) {
+      this.props.updatePrePlayback(false);
+      this.props.removePlayerClass('pre-playback');
+    }
   }
 
   handleClick() {
