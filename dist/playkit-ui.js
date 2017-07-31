@@ -3795,44 +3795,45 @@ var _bottomBar = __webpack_require__(14);
 
 var _bottomBar2 = _interopRequireDefault(_bottomBar);
 
-var _keyboard = __webpack_require__(15);
-
-var _keyboard2 = _interopRequireDefault(_keyboard);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function adsUI(props) {
+  var useStyledLinearAds = props.player.config.plugins.ima.adsRenderingSettings.useStyledLinearAds;
+
   return (0, _preact.h)(
     'div',
     { className: 'ad-gui-wrapper' },
-    (0, _preact.h)(_keyboard2.default, { player: props.player }),
     (0, _preact.h)(_loading2.default, { player: props.player }),
     (0, _preact.h)(
       'div',
       { className: 'player-gui', id: 'player-gui' },
-      (0, _preact.h)(
-        _topBar2.default,
+      useStyledLinearAds ? undefined : (0, _preact.h)(
+        'div',
         null,
         (0, _preact.h)(
-          'div',
-          { className: 'left-controls' },
+          _topBar2.default,
+          null,
           (0, _preact.h)(
-            'span',
-            { className: 'font-size-base' },
-            'Adverisment'
+            'div',
+            { className: 'left-controls' },
+            (0, _preact.h)(
+              'span',
+              { className: 'font-size-base' },
+              'Adverisment'
+            )
+          ),
+          (0, _preact.h)(
+            'div',
+            { className: 'right-controls' },
+            (0, _preact.h)(
+              'a',
+              { href: '', className: 'btn btn-dark-transparent' },
+              'Learn more'
+            )
           )
         ),
-        (0, _preact.h)(
-          'div',
-          { className: 'right-controls' },
-          (0, _preact.h)(
-            'a',
-            { href: '', className: 'btn btn-dark-transparent' },
-            'Learn more'
-          )
-        )
+        (0, _preact.h)(_adSkip2.default, { player: props.player })
       ),
-      (0, _preact.h)(_adSkip2.default, { player: props.player }),
       (0, _preact.h)(
         _bottomBar2.default,
         null,
