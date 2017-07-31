@@ -35,7 +35,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
       }
     });
 
-    if (!this.player.paused) {
+    if (this.player.paused === false) {
       this.props.updatePrePlayback(false);
       this.props.removePlayerClass('pre-playback');
     }
