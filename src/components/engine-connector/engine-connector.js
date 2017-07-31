@@ -105,7 +105,6 @@ class EngineConnector extends BaseComponent {
       this.props.updateAdSkippableState(e.payload.ad.getAdSkippableState());
     });
 
-
   }
 
   shouldComponentUpdate() { return false; }

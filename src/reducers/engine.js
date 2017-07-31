@@ -140,7 +140,7 @@ export default (state: Object = initialState, action: Object) => {
         ...state,
         adSkippableState: action.adSkippableState
       }
-
+      
     default:
       return state;
   }

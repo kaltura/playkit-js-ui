@@ -1,4 +1,5 @@
 //@flow
+
 import { h, Component } from 'preact';
 import { toHHMMSS } from '../../utils/time-format';
 
