@@ -3360,7 +3360,7 @@ var types = exports.types = {
 };
 
 var initialState = exports.initialState = {
-  showLoadingSpinner: false
+  show: false
 };
 
 exports.default = function () {
@@ -5546,8 +5546,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    prePlayback: state.shell.prePlayback,
-    metadataLoaded: state.engine.metadataLoaded
+    metadataLoaded: state.engine.metadataLoaded,
+    prePlayback: state.shell.prePlayback
   };
 };
 
@@ -5570,6 +5570,11 @@ var PrePlaybackPlayOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, 
     key: 'componentWillMount',
     value: function componentWillMount() {
       this.props.addPlayerClass('pre-playback');
+      try {
+        this.autoplay = this.player.config.playback.autoplay;
+      } catch (error) {
+        this.autoplay = false;
+      }
     }
   }, {
     key: 'componentDidMount',
@@ -5577,10 +5582,8 @@ var PrePlaybackPlayOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, 
       var _this2 = this;
 
       this.player.addEventListener(this.player.Event.PLAY, function () {
-        if (_this2.props.prePlayback) {
-          _this2.props.updatePrePlayback(false);
-          _this2.props.removePlayerClass('pre-playback');
-        }
+        _this2.props.updatePrePlayback(false);
+        _this2.props.removePlayerClass('pre-playback');
       });
 
       if (this.player.paused === false) {
@@ -5598,7 +5601,7 @@ var PrePlaybackPlayOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, 
     value: function render(props) {
       var _this3 = this;
 
-      if (!props.prePlayback || !props.metadataLoaded) return undefined;
+      if (!props.prePlayback || this.autoplay) return undefined;
 
       return (0, _preact.h)(
         'div',
@@ -5671,9 +5674,22 @@ var Loading = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAction
   }
 
   _createClass(Loading, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      try {
+        this.autoplay = this.player.config.playback.autoplay;
+      } catch (error) {
+        this.autoplay = false;
+      }
+    }
+  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
       var _this2 = this;
+
+      if (this.autoplay) {
+        this.props.updateLoadingSpinnerState(true);
+      }
 
       this.player.addEventListener(this.player.Event.PLAYER_STATE_CHANGED, function (e) {
         if (e.payload.newState.type === 'idle' || e.payload.newState.type === 'playing' || e.payload.newState.type === 'paused') {
