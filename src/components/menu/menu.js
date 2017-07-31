@@ -10,7 +10,7 @@ const mapStateToProps = state => ({
 @connect(mapStateToProps)
 class Menu extends Component {
 
-  _menuElement: HTMLElement;
+  _menuElement: any;
 
   componentDidMount() {
     document.addEventListener('click', this.handleClickOutside.bind(this), true);
@@ -20,7 +20,7 @@ class Menu extends Component {
     document.removeEventListener('click', this.handleClickOutside.bind(this));
   }
 
-  handleClickOutside(e: Event) {
+  handleClickOutside(e: any) {
     if (!this.props.isMobile && this._menuElement && !this._menuElement.contains(event.target)) {
       e.stopPropagation();
       this.props.onClose();

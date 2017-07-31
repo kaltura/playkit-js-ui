@@ -140,7 +140,7 @@ export default (state: Object = initialState, action: Object) => {
         ...state,
         adSkippableState: action.adSkippableState
       }
-      
+
     default:
       return state;
   }
@@ -149,7 +149,7 @@ export default (state: Object = initialState, action: Object) => {
 export const actions = {
   updatePlayerState: (prevoiusState: string, currentState: string) => ({ type: types.UPDATE_PLAYER_STATE, playerState: {prevoiusState, currentState} }),
   updateIsPlaying: (isPlaying: boolean) => ({ type: types.UPDATE_IS_PLAYING, isPlaying }),
-  updateIsEnded: (isEnded) => ({ type: types.UPDATE_IS_ENDED, isEnded }),
+  updateIsEnded: (isEnded: boolean) => ({ type: types.UPDATE_IS_ENDED, isEnded }),
   updateCurrentTime: (currentTime: number) => ({ type: types.UPDATE_CURRENT_TIME, currentTime }),
   updateDuration: (duration: number) => ({ type: types.UPDATE_DURATION, duration }),
   updateVolume: (volume: number) => ({ type: types.UPDATE_VOLUME, volume }),
@@ -160,7 +160,7 @@ export const actions = {
   updateTextTracks: (tracks: Array<any>) => ({ type: types.UPDATE_TEXT_TRACKS, tracks }),
   updateAdBreak: (adBreak: boolean) => ({ type: types.UPDATE_AD_BREAK, adBreak }),
   updateAdBreakProgress: (currentTime: number, duration: number) => ({ type: types.UPDATE_AD_BREAK_PROGRESS, adProgress: {currentTime, duration} }),
-  updateAdIsPlaying: (adIsPlaying) => ({ type: types.UPDATE_AD_IS_PLAYING, adIsPlaying }),
-  updateAdSkipTimeOffset: (adSkipTimeOffset) => ({ type: types.UPDATE_AD_SKIP_TIME_OFFSET, adSkipTimeOffset }),
-  updateAdSkippableState: (adSkippableState) => ({ type: types.UPDATE_AD_SKIPPABLE_STATE, adSkippableState })
+  updateAdIsPlaying: (adIsPlaying: boolean) => ({ type: types.UPDATE_AD_IS_PLAYING, adIsPlaying }),
+  updateAdSkipTimeOffset: (adSkipTimeOffset: boolean) => ({ type: types.UPDATE_AD_SKIP_TIME_OFFSET, adSkipTimeOffset }),
+  updateAdSkippableState: (adSkippableState: boolean) => ({ type: types.UPDATE_AD_SKIPPABLE_STATE, adSkippableState })
 }

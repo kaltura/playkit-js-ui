@@ -14,7 +14,7 @@ class TimeDisplayAdsContainer extends BaseComponent {
     super({name: 'TimeDisplayAdsContainer'});
   }
 
-  render(props) {
+  render(props: any) {
     return (
       <TimeDisplay
         currentTime={props.adProgress.currentTime}

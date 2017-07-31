@@ -15,7 +15,7 @@ class TimeDisplayPlaybackContainer extends BaseComponent {
     super({name: 'TimeDisplayPlaybackContainer'});
   }
 
-  render(props) {
+  render(props: any) {
     return (
       <TimeDisplay
         currentTime={props.currentTime}
