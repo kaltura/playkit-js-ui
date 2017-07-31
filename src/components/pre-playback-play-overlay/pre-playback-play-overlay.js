@@ -7,12 +7,13 @@ import BaseComponent from '../base';
 import { default as Icon, IconType } from '../icon';
 
 const mapStateToProps = state => ({
-  prePlayback: state.shell.prePlayback,
-  metadataLoaded: state.engine.metadataLoaded
+  metadataLoaded: state.engine.metadataLoaded,
+  prePlayback: state.shell.prePlayback
 });
 
 @connect(mapStateToProps, bindActions(actions))
 class PrePlaybackPlayOverlay extends BaseComponent {
+  autoplay: boolean;
 
   constructor(obj: Object) {
     super({name: 'PrePlaybackPlayOverlay', player: obj.player});
@@ -25,14 +26,17 @@ class PrePlaybackPlayOverlay extends BaseComponent {
 
   componentWillMount() {
     this.props.addPlayerClass('pre-playback');
+    try {
+      this.autoplay = this.player.config.playback.autoplay;
+    } catch (error) {
+      this.autoplay = false;
+    }
   }
 
   componentDidMount() {
     this.player.addEventListener(this.player.Event.PLAY, () => {
-      if (this.props.prePlayback) {
-        this.props.updatePrePlayback(false);
-        this.props.removePlayerClass('pre-playback');
-      }
+      this.props.updatePrePlayback(false);
+      this.props.removePlayerClass('pre-playback');
     });
 
     if (this.player.paused === false) {
@@ -46,7 +50,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
   }
 
   render(props: any) {
-    if (!props.prePlayback || !props.metadataLoaded) return undefined;
+    if (!props.prePlayback || this.autoplay) return undefined;
 
     return (
       <div className='pre-playback-play-overlay' onClick={() => this.handleClick()}>

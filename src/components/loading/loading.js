@@ -11,11 +11,25 @@ const mapStateToProps = state => ({
 
 @connect(mapStateToProps, bindActions(actions))
 class Loading extends BaseComponent {
+  autoplay: boolean;
+
   constructor(obj: Object) {
     super({name: 'Loading', player: obj.player});
   }
 
+  componentWillMount() {
+    try {
+      this.autoplay = this.player.config.playback.autoplay;
+    } catch (error) {
+      this.autoplay = false;
+    }
+  }
+
   componentDidMount() {
+    if (this.autoplay) {
+      this.props.updateLoadingSpinnerState(true);
+    }
+
     this.player.addEventListener(this.player.Event.PLAYER_STATE_CHANGED, e => {
       if (e.payload.newState.type === 'idle' || e.payload.newState.type === 'playing' || e.payload.newState.type === 'paused') {
         this.props.updateLoadingSpinnerState(false);

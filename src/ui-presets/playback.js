@@ -46,7 +46,7 @@ export default function playbackUI(props: any) {
           </div>
         </BottomBar>
       </div>
-       <PrePlaybackPlayOverlay player={props.player} />
+      <PrePlaybackPlayOverlay player={props.player} />
     </div>
   )
 }
