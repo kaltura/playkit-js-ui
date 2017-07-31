@@ -15,7 +15,9 @@ export default function adsUI(props: any) {
 
   try {
     useStyledLinearAds = props.player.config.plugins.ima.adsRenderingSettings.useStyledLinearAds;
-  } catch (e) {}
+  } catch (e) {
+    //TODO: add error handling
+  }
 
   return (
     <div className='ad-gui-wrapper'>
