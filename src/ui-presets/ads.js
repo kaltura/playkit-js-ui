@@ -11,13 +11,11 @@ import TopBar from '../components/top-bar';
 import BottomBar from '../components/bottom-bar';
 
 export default function adsUI(props: any) {
-  const useStyledLinearAds;
+  var useStyledLinearAds = false;
 
   try {
     useStyledLinearAds = props.player.config.plugins.ima.adsRenderingSettings.useStyledLinearAds;
-  } catch (error) {
-    useStyledLinearAds = false;
-  }
+  } catch (e) {}
 
   return (
     <div className='ad-gui-wrapper'>
