@@ -31,6 +31,7 @@ class SeekBarPlaybackContainer extends BaseComponent {
   render() {
     return (
       <SeekBarControl
+        playerElement={this.player._el.parentElement}
         showFramePreview={this.props.showFramePreview}
         showTimeBubble={this.props.showTimeBubble}
         changeCurrentTime={time => this.player.currentTime = time}
