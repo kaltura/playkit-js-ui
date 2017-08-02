@@ -101,6 +101,7 @@ class EngineConnector extends BaseComponent {
     });
 
     this.player.addEventListener(this.player.Event.AD_LOADED, e => {
+      this.props.updateAdClickUrl(e.payload.ad.g.clickThroughUrl);
       this.props.updateAdSkipTimeOffset(e.payload.ad.getSkipTimeOffset());
       this.props.updateAdSkippableState(e.payload.ad.getAdSkippableState());
     });
