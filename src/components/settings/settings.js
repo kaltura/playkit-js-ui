@@ -53,8 +53,13 @@ class SettingsControl extends BaseComponent {
     this.player.playbackRate = playbackRate;
   }
 
-  onQualityChange(videoTrack: Object) {
-    this.player.selectTrack(videoTrack);
+  onQualityChange(videoTrack: Object | string) {
+    if (videoTrack === 'auto') {
+      player.enableAdaptiveBitrate();
+    }
+    else {
+      this.player.selectTrack(videoTrack);
+    }
   }
 
   getQualityOptionLabel(t: Object) {
@@ -99,9 +104,16 @@ class SettingsControl extends BaseComponent {
       })
       .map(t => ({
         label: this.getQualityOptionLabel(t),
-        active: t.active,
+        active: !this.player.isAdaptiveBitrateEnabled() && t.active,
         value: t
       }));
+
+    qualityOptions
+      .unshift({
+        label: 'Auto',
+        active: this.player.isAdaptiveBitrateEnabled(),
+        value: 'auto'
+      });
 
     return (
       <div
