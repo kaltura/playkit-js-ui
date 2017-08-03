@@ -6,7 +6,7 @@ class KeyboardControl extends BaseComponent {
   constructor(obj: Object) {
     super({name: 'Keyboard', player: obj.player});
 
-    this.player._el.parentElement.onkeydown = (e) => {
+    this.player.getView().parentElement.onkeydown = (e) => {
       let time, newVolume;
       switch(e.which) {
         case 32: // space

@@ -6,16 +6,32 @@ import { actions } from '../../reducers/loading';
 import BaseComponent from '../base';
 
 const mapStateToProps = state => ({
-  show: state.loading.show
+  show: state.loading.show,
+  isMobile: state.shell.isMobile
 });
 
 @connect(mapStateToProps, bindActions(actions))
 class Loading extends BaseComponent {
+  autoplay: boolean;
+  mobileAutoplay: boolean;
+
   constructor(obj: Object) {
     super({name: 'Loading', player: obj.player});
   }
 
+  componentWillMount() {
+    try { this.autoplay = this.player.config.playback.autoplay; }
+    catch (e) { this.autoplay = false; } // eslint-disable-line no-unused-vars
+
+    try { this.mobileAutoplay = this.player.config.playback.mobileAutoplay; }
+    catch (e) { this.mobileAutoplay = false; } // eslint-disable-line no-unused-vars
+  }
+
   componentDidMount() {
+    if (!this.props.isMobile && this.autoplay || this.props.isMobile && this.mobileAutoplay) {
+      this.props.updateLoadingSpinnerState(true);
+    }
+
     this.player.addEventListener(this.player.Event.PLAYER_STATE_CHANGED, e => {
       if (e.payload.newState.type === 'idle' || e.payload.newState.type === 'playing' || e.payload.newState.type === 'paused') {
         this.props.updateLoadingSpinnerState(false);

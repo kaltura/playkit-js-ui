@@ -54,7 +54,7 @@ class FullscreenControl extends BaseComponent {
   }
 
   enterFullscreen() {
-    this.requestFullscreen(this.player._el.parentElement);
+    this.requestFullscreen(this.player.getView().parentElement);
   }
 
   exitFullscreen() {

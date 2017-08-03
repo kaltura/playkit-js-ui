@@ -6,13 +6,11 @@ import { toHHMMSS } from '../../utils/time-format';
 class SeekBarControl extends Component {
   state: Object;
   _seekBarElement: HTMLElement;
-  _playerElement: any;
   _framePreviewElement: HTMLElement;
   _timeBubbleElement: HTMLElement;
   _movex: number;
 
   componentDidMount() {
-    this._playerElement = document.getElementById('player-placeholder');
     this.setState({virtualTime: 0});
   }
 
@@ -74,9 +72,20 @@ class SeekBarControl extends Component {
     }
   }
 
+  getOffset(el: any) {
+    var _x = 0;
+    var _y = 0;
+    while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
+      _x += el.offsetLeft - el.scrollLeft;
+      _y += el.offsetTop - el.scrollTop;
+      el = el.offsetParent;
+    }
+    return { top: _y, left: _x };
+  }
+
   getTime(e: any): number {
     let xPosition = e.touches ? e.touches[0].clientX : e.clientX;
-    let time = this.props.duration * ((xPosition - this._seekBarElement.offsetLeft - this._playerElement.offsetLeft) / this._seekBarElement.clientWidth);
+    let time = this.props.duration * ((xPosition - this._seekBarElement.offsetLeft - this.getOffset(this.props.playerElement).left) / this._seekBarElement.clientWidth);
     time = parseFloat(time.toFixed(2));
     if (time < 0) return 0;
     if (time > this.props.duration) return this.props.duration;

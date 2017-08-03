@@ -5,7 +5,7 @@ export const types = {
 }
 
 export const initialState = {
-  showLoadingSpinner: false
+  show: false
 };
 
 export default (state: Object = initialState, action: Object) => {
