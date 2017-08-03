@@ -55,8 +55,13 @@ class LanguageControl extends BaseComponent {
     this.player.selectTrack(audioTrack);
   }
 
-  onCaptionsChange(textTrack: Object) {
-    this.player.selectTrack(textTrack);
+  onCaptionsChange(textTrack: Object | string) {
+    if (textTrack === 'off') {
+      this.player.hideTextTrack();
+    }
+    else {
+      this.player.selectTrack(textTrack);
+    }
   }
 
   toggleCVAAOverlay() {
@@ -157,6 +162,14 @@ class LanguageControl extends BaseComponent {
   render(props: any) {
     var audioOptions = props.audioTracks.map(t => ({ label: t.label || t.language, active: t.active, value: t }));
     var textOptions = props.textTracks.filter(t => t.kind === 'subtitles').map(t => ({ label: t.label || t.language, active: t.active, value: t }));
+
+    if (textOptions.length > 0) {
+      textOptions.push({
+        label: 'Off',
+        active: props.textTracks.filter(t => t.kind === 'subtitles' && t.active).length === 0,
+        value: 'off'
+      })
+    }
 
     if (audioOptions.length > 0 && textOptions.length > 0) {
       return this.renderAll(audioOptions, textOptions);
