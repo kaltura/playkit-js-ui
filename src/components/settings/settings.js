@@ -55,7 +55,7 @@ class SettingsControl extends BaseComponent {
 
   onQualityChange(videoTrack: Object | string) {
     if (videoTrack === 'auto') {
-      player.enableAdaptiveBitrate();
+      this.player.enableAdaptiveBitrate();
     }
     else {
       this.player.selectTrack(videoTrack);
