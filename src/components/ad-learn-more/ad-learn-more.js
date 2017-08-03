@@ -8,7 +8,7 @@ const mapStateToProps = state => ({
 
 @connect(mapStateToProps)
 class AdLearnMore extends Component {
-  render(props) {
+  render(props: any) {
     return <a href={props.url} target='new' className='btn btn-dark-transparent'>Learn more</a>
   }
 }
