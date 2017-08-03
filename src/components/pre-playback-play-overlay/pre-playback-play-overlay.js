@@ -8,12 +8,14 @@ import { default as Icon, IconType } from '../icon';
 
 const mapStateToProps = state => ({
   metadataLoaded: state.engine.metadataLoaded,
-  prePlayback: state.shell.prePlayback
+  prePlayback: state.shell.prePlayback,
+  isMobile: state.shell.isMobile
 });
 
 @connect(mapStateToProps, bindActions(actions))
 class PrePlaybackPlayOverlay extends BaseComponent {
   autoplay: boolean;
+  mobileAutoplay: boolean;
 
   constructor(obj: Object) {
     super({name: 'PrePlaybackPlayOverlay', player: obj.player});
@@ -26,11 +28,12 @@ class PrePlaybackPlayOverlay extends BaseComponent {
 
   componentWillMount() {
     this.props.addPlayerClass('pre-playback');
-    try {
-      this.autoplay = this.player.config.playback.autoplay;
-    } catch (error) {
-      this.autoplay = false;
-    }
+
+    try { this.autoplay = this.player.config.playback.autoplay; }
+    catch (e) { this.autoplay = false; } // eslint-disable-line no-unused-vars
+
+    try { this.mobileAutoplay = this.player.config.playback.mobileAutoplay; }
+    catch (e) { this.mobileAutoplay = false; } // eslint-disable-line no-unused-vars
   }
 
   componentDidMount() {
@@ -50,7 +53,11 @@ class PrePlaybackPlayOverlay extends BaseComponent {
   }
 
   render(props: any) {
-    if (!props.prePlayback || this.autoplay) return undefined;
+    if (
+      !props.prePlayback ||
+      (!this.props.isMobile && this.autoplay) ||
+      (this.props.isMobile && this.mobileAutoplay)
+    ) return undefined;
 
     return (
       <div className='pre-playback-play-overlay' onClick={() => this.handleClick()}>
