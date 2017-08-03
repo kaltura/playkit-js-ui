@@ -72,7 +72,7 @@ class SeekBarControl extends Component {
     }
   }
 
-  getOffset(el) {
+  getOffset(el: any) {
     var _x = 0;
     var _y = 0;
     while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
