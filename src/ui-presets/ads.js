@@ -7,6 +7,7 @@ import VolumeControl from '../components/volume';
 import FullscreenControl from '../components/fullscreen';
 import TimeDisplayPlaybackContainer from '../components/time-display-playback-container';
 import AdSkip from '../components/ad-skip';
+import AdLearnMore from '../components/ad-learn-more';
 import TopBar from '../components/top-bar';
 import BottomBar from '../components/bottom-bar';
 
@@ -31,7 +32,7 @@ export default function adsUI(props: any) {
                 <span className='font-size-base'>Adverisment</span>
               </div>
               <div className='right-controls'>
-                <a href='' className='btn btn-dark-transparent'>Learn more</a>
+                <AdLearnMore />
               </div>
             </TopBar>
             <AdSkip player={props.player} />
