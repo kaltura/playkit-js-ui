@@ -75,7 +75,7 @@ class LanguageControl extends BaseComponent {
           className={this.state.smartContainerOpen ? 'control-button active' : 'control-button'}
           onClick={() => this.onControlButtonClick()}
         >
-          <Icon type={IconType.Audio} />
+          <Icon type={IconType.Language} />
         </button>
         { !this.state.smartContainerOpen && !this.props.isMobile ? undefined :
         <Menu
@@ -96,7 +96,7 @@ class LanguageControl extends BaseComponent {
           className={this.state.smartContainerOpen ? 'control-button active' : 'control-button'}
           onClick={() => this.onControlButtonClick()}
         >
-          <Icon type={IconType.Captions} />
+          <Icon type={IconType.Language} />
         </button>
         { !this.state.smartContainerOpen && !this.props.isMobile ? undefined :
         <Menu
