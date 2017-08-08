@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.1.1"></a>
+## [0.1.1](https://github.com/kaltura/playkit-js-ui/compare/v0.1.0...v0.1.1) (2017-08-08)
+
+
+### Bug Fixes
+
+* adding captions off option ([#18](https://github.com/kaltura/playkit-js-ui/issues/18)) ([461fea6](https://github.com/kaltura/playkit-js-ui/commit/461fea6))
+* config mute reflection in UI ([#19](https://github.com/kaltura/playkit-js-ui/issues/19)) ([d2bf9ff](https://github.com/kaltura/playkit-js-ui/commit/d2bf9ff))
+* **FEC-6855:** auto video quality option added ([#17](https://github.com/kaltura/playkit-js-ui/issues/17)) ([23989dd](https://github.com/kaltura/playkit-js-ui/commit/23989dd))
+* **FEC-6940:** dropdown icon in ie11 fix ([#22](https://github.com/kaltura/playkit-js-ui/issues/22)) ([6b4fe4b](https://github.com/kaltura/playkit-js-ui/commit/6b4fe4b))
+* **FEC-6961:** learn more button functionality in ads UI ([#16](https://github.com/kaltura/playkit-js-ui/issues/16)) ([e0e21ee](https://github.com/kaltura/playkit-js-ui/commit/e0e21ee))
+* **FEC-6963:** Icon change when only audio or captions available ([#21](https://github.com/kaltura/playkit-js-ui/issues/21)) ([7773404](https://github.com/kaltura/playkit-js-ui/commit/7773404))
+
+
+
 <a name="0.1.0"></a>
 # 0.1.0 (2017-07-31)
 
