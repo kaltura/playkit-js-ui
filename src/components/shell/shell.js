@@ -35,7 +35,7 @@ class Shell extends BaseComponent {
     this.hoverTimeout = setTimeout(() => {
       this.props.removePlayerClass('hover');
       this.setState({hover: false});
-    }, 3000);
+    }, this.props.hoverTimeout || 3000);
   }
 
   onMouseLeave() {
