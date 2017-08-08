@@ -18,7 +18,7 @@ const mapStateToProps = state => ({
 @connect(mapStateToProps, bindActions(actions))
 class Shell extends BaseComponent {
   state: Object;
-  hoverTimeout: any;
+  hoverTimeout: number;
 
   constructor(obj: Object) {
     super({name: 'Shell', player: obj.player});
