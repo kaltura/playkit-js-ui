@@ -2,12 +2,22 @@
   "parser": "babel-eslint",
   "extends": [
     "eslint:recommended",
-    "plugin:flowtype/recommended"
+    "plugin:flowtype/recommended",
+    "plugin:react/recommended"
   ],
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "settings": {
+    "react": {
+      "pragma": "h"
+    }
+  },
   "plugins": [
     "import",
     "flowtype",
-    "mocha-no-only"
+    "mocha-no-only",
+    "react"
   ],
   "env": {
     "browser": true,
@@ -22,9 +32,10 @@
   },
   "rules": {
     "mocha-no-only/mocha-no-only": "off",
-    "require-jsdoc": [
-      "error"
-    ],
+    "flowtype/define-flow-type": 2,
+    "react/prop-types": 0,
+    //TODO: Fix neccesary jsdoc
+    "require-jsdoc": "off",
     "valid-jsdoc": [
       "error"
     ]
