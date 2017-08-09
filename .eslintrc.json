@@ -1,61 +1,13 @@
-// {
-//   "parser": "babel-eslint",
-//   "parserOptions": {
-//     "ecmaVersion": 6,
-//     "sourceType": "module",
-//     "ecmaFeatures": {
-//       "modules": true
-//     }
-//   },
-//   "plugins": ["react", "flowtype", "mocha-no-only"],
-//   "extends": [
-//     "eslint:recommended",
-//     "plugin:react/recommended",
-//     "plugin:flowtype/recommended"
-//   ],
-  // "settings": {
-  //   "react": {
-  //     "pragma": "h"
-  //   }
-  // },
-//   "env": {
-//     "browser": true,
-//     "es6": true,
-//     "mocha": true,
-//     "amd": true,
-//     "commonjs": true
-//   },
-//   "globals": {
-//     "should": true,
-//     "sinon": true
-//   },
-//   "rules": {
-//     "react/prop-types": 0,
-//     "flowtype/define-flow-type": 1,
-//     "mocha-no-only/mocha-no-only": ["error"]
-//   }
-// }
-
 {
   "parser": "babel-eslint",
   "extends": [
     "eslint:recommended",
-    "plugin:flowtype/recommended",
-    "plugin:react/recommended"
+    "plugin:flowtype/recommended"
   ],
-  "parserOptions": {
-    "sourceType": "module"
-  },
-  "settings": {
-    "react": {
-      "pragma": "h"
-    }
-  },
   "plugins": [
     "import",
     "flowtype",
-    "mocha-no-only",
-    "react"
+    "mocha-no-only"
   ],
   "env": {
     "browser": true,
@@ -69,10 +21,12 @@
     "sinon": true
   },
   "rules": {
-    "mocha-no-only/mocha-no-only": [
+    "mocha-no-only/mocha-no-only": "off",
+    "require-jsdoc": [
       "error"
     ],
-    "flowtype/define-flow-type": 2,
-    "react/prop-types": 0
+    "valid-jsdoc": [
+      "error"
+    ]
   }
 }
