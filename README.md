@@ -60,6 +60,10 @@ player.play();
 </script>
 ```
 
+## Extending the UI
+
+For additional info and guides on how to extend the UI see the[docs](https://github.com/kaltura/playkit-js-ui/tree/master/docs)
+
 ## Running the tests
 
 Tests can be run localy via [Karma], which will run on Chrome, Firefox and Safari
