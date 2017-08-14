@@ -16,7 +16,8 @@ export const types = {
   UPDATE_AD_IS_PLAYING: 'engine/UPDATE_AD_IS_PLAYING',
   UPDATE_AD_SKIP_TIME_OFFSET: 'engine/UPDATE_AD_SKIP_TIME_OFFSET',
   UPDATE_AD_SKIPPABLE_STATE: 'engine/UPDATE_AD_SKIPPABLE_STATE',
-  UPDATE_AD_URL: 'engine/UPDATE_AD_URL'
+  UPDATE_AD_URL: 'engine/UPDATE_AD_URL',
+  UPDATE_PLAYER_POSTER: 'engine/UPDATE_PLATER_POSTER'
 }
 
 export const initialState = {
@@ -27,6 +28,7 @@ export const initialState = {
     previousState: '',
     currentState: ''
   },
+  poster: '',
   currentTime: 0,
   duration: 0,
   volume: 1,
@@ -149,6 +151,12 @@ export default (state: Object = initialState, action: Object) => {
         adUrl: action.adUrl
       }
 
+    case types.UPDATE_PLAYER_POSTER:
+      return {
+        ...state,
+        poster: action.poster
+      }
+
     default:
       return state;
   }
@@ -171,5 +179,6 @@ export const actions = {
   updateAdIsPlaying: (adIsPlaying: boolean) => ({ type: types.UPDATE_AD_IS_PLAYING, adIsPlaying }),
   updateAdSkipTimeOffset: (adSkipTimeOffset: boolean) => ({ type: types.UPDATE_AD_SKIP_TIME_OFFSET, adSkipTimeOffset }),
   updateAdSkippableState: (adSkippableState: boolean) => ({ type: types.UPDATE_AD_SKIPPABLE_STATE, adSkippableState }),
-  updateAdClickUrl: (adUrl: string) => ({ type: types.UPDATE_AD_URL, adUrl })
+  updateAdClickUrl: (adUrl: string) => ({ type: types.UPDATE_AD_URL, adUrl }),
+  updatePlayerPoster: (poster: string) => ({ type: types.UPDATE_PLAYER_POSTER, poster })
 }
