@@ -10,7 +10,8 @@ const mapStateToProps = state => ({
   currentTime: state.seekbar.currentTime,
   duration: state.engine.duration,
   isDraggingActive: state.seekbar.draggingActive,
-  isMobile: state.shell.isMobile
+  isMobile: state.shell.isMobile,
+  poster: state.engine.poster
 });
 
 @connect(mapStateToProps, bindActions(actions))
@@ -35,6 +36,7 @@ class SeekBarPlaybackContainer extends BaseComponent {
         showFramePreview={this.props.showFramePreview}
         showTimeBubble={this.props.showTimeBubble}
         changeCurrentTime={time => this.player.currentTime = time}
+        playerPoster={this.props.poster}
         updateSeekbarDraggingStatus={data => this.props.updateSeekbarDraggingStatus(data)}
         updateCurrentTime={data => this.props.updateCurrentTime(data)}
 

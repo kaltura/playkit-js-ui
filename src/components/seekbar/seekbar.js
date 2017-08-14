@@ -9,9 +9,17 @@ class SeekBarControl extends Component {
   _framePreviewElement: HTMLElement;
   _timeBubbleElement: HTMLElement;
   _movex: number;
+  framePreviewImg: string;
 
   componentDidMount() {
     this.setState({virtualTime: 0});
+
+  }
+
+  componentDidUpdate() {
+    if (this.props.playerPoster && !this.framePreviewImg) {
+      this.framePreviewImg = this.getFramePreviewImg();
+    }
   }
 
   onSeekbarMouseDown(e: Event) {
@@ -119,7 +127,7 @@ class SeekBarControl extends Component {
   renderFramePreview() {
     if (!this.props.showFramePreview || this.props.isMobile) return undefined;
     var framePreviewStyle = `left: ${this.getFramePreviewOffset()}px`;
-    var framePreviewImgStyle = 'background-image: url(http://cfvod.kaltura.com/p/1914121/sp/191412100/thumbnail/entry_id/1_umer46fd/version/100001/width/160/vid_slices/100); ';
+    var framePreviewImgStyle = `background-image: url(${this.framePreviewImg}); `;
     framePreviewImgStyle += `background-position: ${this.getThumbSpriteOffset()}`
 
     return (
@@ -130,6 +138,17 @@ class SeekBarControl extends Component {
       >
         <div className='frame-preview-img' style={framePreviewImgStyle} />
       </div>)
+  }
+
+  getFramePreviewImg() {
+    let parts = this.props.playerPoster.split('/');
+    let heightValueIndex = parts.indexOf('height') + 1;
+    let widthValueIndex = parts.indexOf('width') + 1;
+    parts[heightValueIndex] = 90;
+    parts[widthValueIndex] = 160;
+    parts.push('vid_slices/100');
+
+    return parts.join('/');
   }
 
   renderTimeBubble() {
