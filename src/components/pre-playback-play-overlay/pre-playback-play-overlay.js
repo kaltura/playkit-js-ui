@@ -9,7 +9,9 @@ import { default as Icon, IconType } from '../icon';
 const mapStateToProps = state => ({
   metadataLoaded: state.engine.metadataLoaded,
   prePlayback: state.shell.prePlayback,
-  isMobile: state.shell.isMobile
+  poster: state.engine.poster,
+  isMobile: state.shell.isMobile,
+  isEnded: state.engine.isEnded
 });
 
 @connect(mapStateToProps, bindActions(actions))
@@ -54,14 +56,16 @@ class PrePlaybackPlayOverlay extends BaseComponent {
 
   render(props: any) {
     if (
-      !props.prePlayback ||
-      (!this.props.isMobile && this.autoplay) ||
-      (this.props.isMobile && this.mobileAutoplay)
+      (!props.isEnded && !props.prePlayback) ||
+      (!props.isEnded && !props.isMobile && this.autoplay) ||
+      (!props.isEnded && props.isMobile && this.mobileAutoplay)
     ) return undefined;
 
     return (
-      <div className='pre-playback-play-overlay' onClick={() => this.handleClick()}>
-        <a className='pre-playback-play-button'><Icon type={IconType.Play} /></a>
+      <div className='pre-playback-play-overlay' style={{backgroundImage: `url(${props.poster})`}} onClick={() => this.handleClick()}>
+        <a className='pre-playback-play-button'>
+          {props.isEnded ? <Icon type={IconType.Startover} /> : <Icon type={IconType.Play} />}
+        </a>
       </div>
     )
   }
