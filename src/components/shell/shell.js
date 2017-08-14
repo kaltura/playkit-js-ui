@@ -18,6 +18,7 @@ const mapStateToProps = state => ({
 @connect(mapStateToProps, bindActions(actions))
 class Shell extends BaseComponent {
   state: Object;
+  hoverTimeout: number;
 
   constructor(obj: Object) {
     super({name: 'Shell', player: obj.player});
@@ -28,6 +29,13 @@ class Shell extends BaseComponent {
       this.props.addPlayerClass('hover');
       this.setState({hover: true});
     }
+    if (this.hoverTimeout) {
+      clearTimeout(this.hoverTimeout);
+    }
+    this.hoverTimeout = setTimeout(() => {
+      this.props.removePlayerClass('hover');
+      this.setState({hover: false});
+    }, this.props.hoverTimeout || 3000);
   }
 
   onMouseLeave() {
