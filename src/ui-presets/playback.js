@@ -6,12 +6,12 @@ import Loading from '../components/loading';
 import PlayPauseControl from '../components/play-pause';
 import SeekBarPlaybackContainer from '../components/seekbar-playback-container';
 import VolumeControl from '../components/volume';
-import ShareControl from '../components/share'
+// import ShareControl from '../components/share'
 import SettingsControl from '../components/settings';
 import LanguageControl from '../components/language';
 import FullscreenControl from '../components/fullscreen';
 import TimeDisplayPlaybackContainer from '../components/time-display-playback-container';
-import TopBar from '../components/top-bar';
+// import TopBar from '../components/top-bar';
 import BottomBar from '../components/bottom-bar';
 import OverlayPortal from '../components/overlay-portal';
 import KeyboardControl from '../components/keyboard';
@@ -24,14 +24,14 @@ export default function playbackUI(props: any) {
       <div className='player-gui' id='player-gui'>
         <OverlayPortal />
         <OverlayPlay player={props.player} />
-        <TopBar>
+        {/* <TopBar>
           <div className='left-controls'>
             <div className='video-playing-title'>L21 Earth Time Lapse View from Space, ISS</div>
           </div>
           <div className='right-controls'>
             <ShareControl player={props.player} />
           </div>
-        </TopBar>
+        </TopBar> */}
         <BottomBar>
           <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player} />
           <div className='left-controls'>
