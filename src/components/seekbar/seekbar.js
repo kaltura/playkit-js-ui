@@ -160,10 +160,13 @@ class SeekBarControl extends Component {
   render(props: any) {
     var virtualProgressWidth = `${this.state.virtualTime / props.duration * 100}%`;
     var progressWidth = `${props.currentTime / props.duration * 100}%`;
+    var seekbarStyleClass = `seek-bar`;
+    if (props.adBreak) seekbarStyleClass += ' ad-break';
+    if (props.isMobile) seekbarStyleClass += ' hover';
 
     return (
       <div
-        className={!props.adBreak ? 'seek-bar' : 'seek-bar ad-break'}
+        className={seekbarStyleClass}
         ref={c => this._seekBarElement=c}
         role='slider'
         aria-label='Seek slider'
