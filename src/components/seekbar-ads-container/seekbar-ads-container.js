@@ -6,6 +6,11 @@ import { actions } from '../../reducers/seekbar';
 import BaseComponent from '../base';
 import SeekBarControl from '../seekbar';
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 const mapStateToProps = state => ({
   currentTime: state.engine.adProgress.currentTime,
   duration: state.engine.adProgress.duration,
@@ -14,13 +19,31 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps, bindActions(actions))
+/**
+ * SeekBarAdsContainer component
+ *
+ * @class SeekBarAdsContainer
+ * @extends {BaseComponent}
+ */
 class SeekBarAdsContainer extends BaseComponent {
 
+  /**
+   * Creates an instance of SeekBarAdsContainer.
+   * @param {Object} obj - obj
+   * @memberof SeekBarAdsContainer
+   */
   constructor(obj: Object) {
     super({name: 'SeekBarAdsContainer', player: obj.player});
   }
 
-  render(props: any) {
+  /**
+   * render compoent
+   *
+   * @param {*} props - component props
+   * @returns {Element} - component element
+   * @memberof SeekBarAdsContainer
+   */
+  render(props: any): Element {
     return (
       <SeekBarControl
         playerElement={this.player.getView().parentElement}

@@ -12,6 +12,11 @@ import CVAAOverlay from '../cvaa-overlay';
 import Menu from '../menu';
 import Portal from 'preact-portal';
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 const mapStateToProps = state => ({
   audioTracks: state.engine.audioTracks,
   textTracks: state.engine.textTracks,
@@ -20,42 +25,105 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps, bindActions(actions))
+/**
+ * LanguageControl component
+ *
+ * @class LanguageControl
+ * @extends {BaseComponent}
+ */
 class LanguageControl extends BaseComponent {
   state: Object;
   _controlLanguageElement: any;
 
+  /**
+   * Creates an instance of LanguageControl.
+   * @param {Object} obj obj
+   * @memberof LanguageControl
+   */
   constructor(obj: Object) {
     super({name: 'LanguageControl', player: obj.player});
   }
 
+  /**
+   * before component mounted, set initial state
+   *
+   * @returns {void}
+   * @memberof LanguageControl
+   */
   componentWillMount() {
     this.setState({smartContainerOpen: false});
   }
 
+  /**
+   * after component mounted, set event listener to click outside of the component
+   *
+   * @returns {void}
+   * @memberof LanguageControl
+   */
   componentDidMount() {
     document.addEventListener('click', this.handleClickOutside.bind(this), true);
   }
 
+  /**
+   * before component unmounted, remove event listener
+   *
+   * @returns {void}
+   * @memberof LanguageControl
+   */
   componentWillUnmount() {
     document.removeEventListener('click', this.handleClickOutside.bind(this), true);
   }
 
-  handleClickOutside(e: Event) {
-    if (this._controlLanguageElement && !this.props.isMobile && !this._controlLanguageElement.contains(event.target) && this.state.smartContainerOpen && !this.state.cvaaOverlay) {
+  /**
+   * event listener for clicking outside handler.
+   *
+   * @param {Event} e - click event
+   * @returns {void}
+   * @memberof LanguageControl
+   */
+  handleClickOutside(e: Event): void {
+    if (
+      this._controlLanguageElement &&
+      !this.props.isMobile &&
+      !this._controlLanguageElement.contains(event.target) &&
+      this.state.smartContainerOpen &&
+      !this.state.cvaaOverlay
+    ) {
       e.stopPropagation();
       this.setState({smartContainerOpen: false});
     }
   }
 
-  onControlButtonClick() {
+  /**
+   * toggle smart container internal state on control button click
+   *
+   * @returns {void}
+   * @memberof LanguageControl
+   */
+  onControlButtonClick(): void {
     this.setState({smartContainerOpen: !this.state.smartContainerOpen});
   }
 
-  onAudioChange(audioTrack: Object) {
+  /**
+   * call to player selectTrack method and change audio track
+   *
+   * @param {Object} audioTrack - audio track
+   * @returns {void}
+   * @memberof LanguageControl
+   */
+  onAudioChange(audioTrack: Object): void {
     this.player.selectTrack(audioTrack);
   }
 
-  onCaptionsChange(textTrack: Object | string) {
+  /**
+   * check if option is 'off', if it does- hideTextTrack called.
+   * otherwise, selecting the given text track
+   *
+   * @param {(Object | string)} textTrack - text track or 'off' string
+   * @returns {void}
+   * @memberof LanguageControl
+   */
+  onCaptionsChange(textTrack: Object | string): void {
     if (textTrack === 'off') {
       this.player.hideTextTrack();
     }
@@ -64,11 +132,24 @@ class LanguageControl extends BaseComponent {
     }
   }
 
-  toggleCVAAOverlay() {
+  /**
+   * toggle the internal state of cvaa overlay
+   *
+   * @returns {void}
+   * @memberof LanguageControl
+   */
+  toggleCVAAOverlay(): void {
     this.setState({ cvaaOverlay: !this.state.cvaaOverlay });
   }
 
-  renderAudioSettingsOnly(audioOptions: Array<Object>) {
+  /**
+   * render menu with audio settings only
+   *
+   * @param {Array<Object>} audioOptions - audio tracks
+   * @returns {Element} component element
+   * @memberof LanguageControl
+   */
+  renderAudioSettingsOnly(audioOptions: Array<Object>): Element {
     return (
       <div className='control-button-container control-audio'>
         <button
@@ -89,7 +170,14 @@ class LanguageControl extends BaseComponent {
     )
   }
 
-  renderTextSettingsOnly(textOptions: Array<Object>) {
+  /**
+   * render menu with text settings only
+   *
+   * @param {Array<Object>} textOptions - text tracks
+   * @returns {Element} - component element
+   * @memberof LanguageControl
+   */
+  renderTextSettingsOnly(textOptions: Array<Object>): Element {
     return (
       <div className='control-button-container control-audio'>
         <button
@@ -110,7 +198,15 @@ class LanguageControl extends BaseComponent {
     )
   }
 
-  renderAll(audioOptions: Array<Object>, textOptions: Array<Object>) {
+  /**
+   * render smart container with both audio and text options
+   *
+   * @param {Array<Object>} audioOptions - audio tracks
+   * @param {Array<Object>} textOptions - text tracks
+   * @returns {Element} - component
+   * @memberof LanguageControl
+   */
+  renderAll(audioOptions: Array<Object>, textOptions: Array<Object>): Element {
     return (
       <div
         ref={c => this._controlLanguageElement=c}
@@ -159,7 +255,14 @@ class LanguageControl extends BaseComponent {
     )
   }
 
-  render(props: any) {
+  /**
+   * root render function. will decide to render audio only / text only or both based on the available options
+   *
+   * @param {*} props - component props
+   * @returns {Element} - component
+   * @memberof LanguageControl
+   */
+  render(props: any): Element {
     var audioOptions = props.audioTracks.map(t => ({ label: t.label || t.language, active: t.active, value: t }));
     var textOptions = props.textTracks.filter(t => t.kind === 'subtitles').map(t => ({ label: t.label || t.language, active: t.active, value: t }));
 

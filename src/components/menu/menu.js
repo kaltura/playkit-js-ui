@@ -3,48 +3,106 @@ import { h, Component } from 'preact';
 import { default as Icon, IconType } from '../icon';
 import { connect } from 'preact-redux';
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 const mapStateToProps = state => ({
   isMobile: state.shell.isMobile
 });
 
 @connect(mapStateToProps)
+/**
+ * Menu component
+ *
+ * @class Menu
+ * @extends {Component}
+ */
 class Menu extends Component {
 
   _menuElement: any;
 
+  /**
+   * after component mounted, listen to click outside of the component
+   *
+   * @returns {void}
+   * @memberof Menu
+   */
   componentDidMount() {
     document.addEventListener('click', this.handleClickOutside.bind(this), true);
   }
 
+  /**
+   * before component unmount, remove the event listener
+   *
+   * @returns {void}
+   * @memberof Menu
+   */
   componentWillUnmount() {
     document.removeEventListener('click', this.handleClickOutside.bind(this));
   }
 
-  handleClickOutside(e: any) {
+  /**
+   * handler to click outside of the component event listener.
+   * if not mobile device and clicked outside the component, call the onClose callback
+   *
+   * @param {Event} e click event
+   * @returns {void}
+   * @memberof Menu
+   */
+  handleClickOutside(e: Event) {
     if (!this.props.isMobile && this._menuElement && !this._menuElement.contains(event.target)) {
       e.stopPropagation();
       this.props.onClose();
     }
   }
 
-  isSelected(o: Object): boolean {
-    return o.active;
+  /**
+   * indication if option is active or not
+   *
+   * @param {Object} option option object
+   * @returns {boolean} is option active boolean
+   * @memberof Menu
+   */
+  isSelected(option: Object): boolean {
+    return option.active;
   }
 
-  onSelect(o: Object) {
-    this.props.onSelect(o.value);
+  /**
+   * when option selected, change the active prop immediately for instant ui change
+   * and call the onSelect callback with the option value
+   *
+   * @param {Object} option - option object
+   * @returns {void}
+   * @memberof Menu
+   */
+  onSelect(option: Object): void {
+    this.props.onSelect(option.value);
 
     // Instant select
     this.props.options.filter(t => t.active).forEach(option => { option.active = false });
-    this.props.options.filter(t => t.value === o.value)[0].active = true;
+    this.props.options.filter(t => t.value === option.value)[0].active = true;
   }
 
+  /**
+   * get active option label
+   *
+   * @returns {string} active option label
+   * @memberof Menu
+   */
   getActiveOptionLabel(): string {
     let activeOptions = this.props.options.filter(t => t.active);
     return activeOptions.length > 0 ? activeOptions[0].label : this.props.options[0].label;
   }
 
-  renderNativeSelect() {
+  /**
+   * render native select element
+   *
+   * @returns {Element} - component element
+   * @memberof Menu
+   */
+  renderNativeSelect(): Element {
     return (
       <select
         className={this.props.hideSelect ? 'mobile-hidden-select' : ''}
@@ -55,7 +113,15 @@ class Menu extends Component {
     )
   }
 
-  render(props: any) {
+  /**
+   * if mobile device detected, renders the native select element.
+   * otherwise, render the styled menu
+   *
+   * @param {*} props - component props
+   * @returns {Element} - component element
+   * @memberof Menu
+   */
+  render(props: any): Element {
     return props.isMobile ? this.renderNativeSelect() :
     (
       <div

@@ -8,6 +8,11 @@ import BaseComponent from '../base';
 import Overlay from '../overlay';
 import DropDown from '../dropdown';
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 const mapStateToProps = state => ({
   open: state.cvaa.overlayOpen,
   style: state.cvaa.style
@@ -18,36 +23,80 @@ const cvaaOverlayState = {
   CustomCaptions: 'custom-captions'
 }
 
+type CvaaOverlayStateType = cvaaOverlayState.Main | cvaaOverlayState.CustomCaptions;
+
 @connect(mapStateToProps, bindActions({...cvaaActions, ...shellActions}))
+/**
+ * CVAAOverlay component
+ *
+ * @class CVAAOverlay
+ * @extends {BaseComponent}
+ */
 class CVAAOverlay extends BaseComponent {
+  /**
+   * Creates an instance of CVAAOverlay.
+   * @memberof CVAAOverlay
+   */
   constructor() {
     super({name: 'CVAAOverlay'});
   }
 
+  /**
+   * componentWillUnmount
+   *
+   * @returns {void}
+   * @memberof CVAAOverlay
+   */
   componentWillUnmount() {
     this.setState({
       state: cvaaOverlayState.Main
     });
   }
 
+  /**
+   * componentWillMount
+   *
+   * @returns {void}
+   * @memberof CVAAOverlay
+   */
   componentWillMount() {
     this.setState({
       state: cvaaOverlayState.Main
     });
   }
 
-  transitionToState(stateName: string) {
+  /**
+   * changing the overlay state
+   *
+   * @param {CvaaOverlayStateType} stateName - the new state name
+   * @returns {void}
+   * @memberof CVAAOverlay
+   */
+  transitionToState(stateName: CvaaOverlayStateType): void {
     this.setState({state: stateName});
   }
 
-  changeCaptionsStyle(style: string) {
+  /**
+   * changing the captions style
+   *
+   * @param {string} style - style name
+   * @returns {void}
+   * @memberof CVAAOverlay
+   */
+  changeCaptionsStyle(style: string): void {
     this.props.removePlayerClass(`captions-${this.props.style}`);
     this.props.addPlayerClass(`captions-${style}`);
     this.props.updateCaptionsStyle(style);
     this.props.onClose();
   }
 
-  renderMainState() {
+  /**
+   * render main state
+   *
+   * @returns {Element} - main state element
+   * @memberof CVAAOverlay
+   */
+  renderMainState(): Element {
     return (
       <div className={this.state.state === cvaaOverlayState.Main ? 'overlay-screen active' : 'overlay-screen'}>
         <div className='title'>
@@ -63,7 +112,13 @@ class CVAAOverlay extends BaseComponent {
     )
   }
 
-  renderCustomCaptionsState() {
+  /**
+   * render custom captions state
+   *
+   * @returns {Element} - custom captions elements
+   * @memberof CVAAOverlay
+   */
+  renderCustomCaptionsState(): Element {
     var speedOptions = [
       { value: 1, label: 'Auto (360)', active: true },
       { value: 2, label: '240' },
@@ -109,7 +164,14 @@ class CVAAOverlay extends BaseComponent {
     )
   }
 
-  render(props: any) {
+  /**
+   * render component
+   *
+   * @param {*} props - component props
+   * @returns {Element} - component element
+   * @memberof CVAAOverlay
+   */
+  render(props: any): Element {
     return (
       <Overlay open onClose={() => props.onClose()} type='cvaa'>
         {this.renderMainState()}

@@ -7,6 +7,11 @@ import { actions } from '../../reducers/play-pause';
 import BaseComponent from '../base';
 import { default as Icon, IconType } from '../icon';
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 const mapStateToProps = state => ({
   isPlaying: state.engine.isPlaying,
   adBreak: state.engine.adBreak,
@@ -15,22 +20,52 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps, bindActions(actions))
+/**
+ * PlayPauseControl component
+ *
+ * @class PlayPauseControl
+ * @extends {BaseComponent}
+ */
 class PlayPauseControl extends BaseComponent {
 
+  /**
+   * Creates an instance of PlayPauseControl.
+   * @param {Object} obj obj
+   * @memberof PlayPauseControl
+   */
   constructor(obj: Object) {
     super({name: 'PlayPause', player: obj.player});
   }
 
-  togglePlayPause() {
+  /**
+   * toggle play / pause
+   *
+   * @returns {void}
+   * @memberof PlayPauseControl
+   */
+  togglePlayPause(): void {
     this.logger.debug('Toggle play');
     this.isPlayingAdOrPlayback() ? this.player.pause() : this.player.play();
   }
 
-  isPlayingAdOrPlayback() {
+  /**
+   * check if currently playing ad or playback
+   *
+   * @returns {boolean} - if currently playing ad or playback
+   * @memberof PlayPauseControl
+   */
+  isPlayingAdOrPlayback(): boolean {
     return (this.props.adBreak && this.props.adIsPlaying) || (!this.props.adBreak && this.props.isPlaying);
   }
 
-  render(props: any) {
+  /**
+   * render component
+   *
+   * @param {*} props - component props
+   * @returns {Element} - component element
+   * @memberof PlayPauseControl
+   */
+  render(props: any): Element {
     var controlButtonClass = this.isPlayingAdOrPlayback() ? 'control-button is-playing' : 'control-button';
 
     return (

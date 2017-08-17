@@ -3,6 +3,12 @@
 import { h, Component } from 'preact';
 import { toHHMMSS } from '../../utils/time-format';
 
+/**
+ * SeekBarControl component
+ *
+ * @class SeekBarControl
+ * @extends {Component}
+ */
 class SeekBarControl extends Component {
   state: Object;
   _seekBarElement: HTMLElement;
@@ -11,18 +17,38 @@ class SeekBarControl extends Component {
   _movex: number;
   framePreviewImg: string;
 
-  componentDidMount() {
+  /**
+   * before component mounted, set initial state
+   *
+   * @returns {void}
+   * @memberof SeekBarControl
+   */
+  componentWillMount() {
     this.setState({virtualTime: 0});
 
   }
 
+  /**
+   * on component update, check if playerPostaer configured and framePreviewImg not set yet,
+   * if true, update the frame preview image
+   *
+   * @returns {void}
+   * @memberof SeekBarControl
+   */
   componentDidUpdate() {
     if (this.props.playerPoster && !this.framePreviewImg) {
       this.framePreviewImg = this.getFramePreviewImg();
     }
   }
 
-  onSeekbarMouseDown(e: Event) {
+  /**
+   * seekbar mouse down handler
+   *
+   * @param {Event} e - mouse down event
+   * @returns {void}
+   * @memberof SeekBarControl
+   */
+  onSeekbarMouseDown(e: Event): void {
     this.props.updateSeekbarDraggingStatus(true);
     if (this.props.isDraggingActive) {
       let time = this.getTime(e);
@@ -30,14 +56,28 @@ class SeekBarControl extends Component {
     }
   }
 
-  onSeekbarMouseUp(e: Event) {
+  /**
+   * seekbar mouse up handler
+   *
+   * @param {Event} e - mouse up event
+   * @returns {void}
+   * @memberof SeekBarControl
+   */
+  onSeekbarMouseUp(e: Event): void {
     let time = this.getTime(e);
     this.props.changeCurrentTime(time);
     this.updateSeekBarProgress(time, this.props.duration);
     this.props.updateSeekbarDraggingStatus(false);
   }
 
-  onSeekbarMouseMove(e: Event) {
+  /**
+   * seekbar mouse move handler
+   *
+   * @param {Event} e - mouse move event
+   * @returns {void}
+   * @memberof SeekBarControl
+   */
+  onSeekbarMouseMove(e: Event): void {
     let time = this.getTime(e);
     this.updateSeekBarProgress(time, this.props.duration, true);
 
@@ -46,7 +86,14 @@ class SeekBarControl extends Component {
     }
   }
 
-  onSeekbarTouchStart(e: Event) {
+  /**
+   * seekbar touch start handler
+   *
+   * @param {Event} e - touch start event
+   * @returns {void}
+   * @memberof SeekBarControl
+   */
+  onSeekbarTouchStart(e: Event): void {
     this.props.updateSeekbarDraggingStatus(true);
     if (this.props.isDraggingActive) {
       let time = this.getTime(e);
@@ -54,7 +101,14 @@ class SeekBarControl extends Component {
     }
   }
 
-  onSeekbarTouchMove(e: Event) {
+  /**
+   * seekbar touch move handler
+   *
+   * @param {Event} e - touch move event
+   * @returns {void}
+   * @memberof SeekBarControl
+   */
+  onSeekbarTouchMove(e: Event): void {
     let time = this.getTime(e);
     this._movex = time;
     this.updateSeekBarProgress(time, this.props.duration, true);
@@ -64,6 +118,12 @@ class SeekBarControl extends Component {
     }
   }
 
+  /**
+   * seekbar touch end handler
+   *
+   * @returns {void}
+   * @memberof SeekBarControl
+   */
   onSeekbarTouchEnd(): void {
     let time = this._movex;
     this.props.changeCurrentTime(time);
@@ -71,7 +131,16 @@ class SeekBarControl extends Component {
     this.props.updateSeekbarDraggingStatus(false);
   }
 
-  updateSeekBarProgress(currentTime: number, duration: number, virtual: boolean = false) {
+  /**
+   * abstract function to update virtual progress ui using component state or report to upper component of time change
+   *
+   * @param {number} currentTime - current time
+   * @param {number} duration - duration
+   * @param {boolean} [virtual=false] - virtual relates to the hover seekbar position
+   * @returns {void}
+   * @memberof SeekBarControl
+   */
+  updateSeekBarProgress(currentTime: number, duration: number, virtual: boolean = false): void {
     if (virtual) {
       this.setState({virtualTime: currentTime});
     }
@@ -80,17 +149,31 @@ class SeekBarControl extends Component {
     }
   }
 
-  getOffset(el: any) {
+  /**
+   * utility function to get element offset from window
+   *
+   * @param {Element} element - element to get the offset for
+   * @returns {{ y: number, x: number }} - object with offset in both asixs
+   * @memberof SeekBarControl
+   */
+  getOffset(element: Element): { y: number, x: number } {
     var _x = 0;
     var _y = 0;
-    while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
-      _x += el.offsetLeft - el.scrollLeft;
-      _y += el.offsetTop - el.scrollTop;
-      el = el.offsetParent;
+    while( element && !isNaN( element.offsetLeft ) && !isNaN( element.offsetTop ) ) {
+      _x += element.offsetLeft - element.scrollLeft;
+      _y += element.offsetTop - element.scrollTop;
+      element = element.offsetParent;
     }
     return { top: _y, left: _x };
   }
 
+  /**
+   * get current time based on position of the mouseEvent on the seekbar
+   *
+   * @param {*} e - event
+   * @returns {number} - current time in seconds
+   * @memberof SeekBarControl
+   */
   getTime(e: any): number {
     let xPosition = e.touches ? e.touches[0].clientX : e.clientX;
     let time = this.props.duration * ((xPosition - this._seekBarElement.offsetLeft - this.getOffset(this.props.playerElement).left) / this._seekBarElement.clientWidth);
@@ -100,10 +183,22 @@ class SeekBarControl extends Component {
     return time;
   }
 
+  /**
+   * utility function to get the thumb sprite background position
+   *
+   * @returns {string} background-position string value
+   * @memberof SeekBarControl
+   */
   getThumbSpriteOffset(): string {
     return - (Math.ceil(100 * this.state.virtualTime / this.props.duration) * 160) + 'px 0px';
   }
 
+  /**
+   * get the left position the frame preview element should be in
+   *
+   * @returns {number} left position
+   * @memberof SeekBarControl
+   */
   getFramePreviewOffset(): number {
     if (this._seekBarElement) {
       let leftOffset = (this.state.virtualTime / this.props.duration * this._seekBarElement.clientWidth) - (this._framePreviewElement.clientWidth / 2);
@@ -114,6 +209,12 @@ class SeekBarControl extends Component {
     else return 0;
   }
 
+  /**
+   * get the left position to time bubble should be in
+   *
+   * @returns {number} left position
+   * @memberof SeekBarControl
+   */
   getTimeBubbleOffset(): number {
     if (this._timeBubbleElement) {
       let leftOffset = (this.state.virtualTime / this.props.duration * this._seekBarElement.clientWidth) - (this._timeBubbleElement.clientWidth / 2);
@@ -124,7 +225,30 @@ class SeekBarControl extends Component {
     else return 0;
   }
 
-  renderFramePreview() {
+  /**
+   * get the frame preview sprite based on player poster
+   *
+   * @returns {string} image url
+   * @memberof SeekBarControl
+   */
+  getFramePreviewImg(): string {
+    let parts = this.props.playerPoster.split('/');
+    let heightValueIndex = parts.indexOf('height') + 1;
+    let widthValueIndex = parts.indexOf('width') + 1;
+    parts[heightValueIndex] = 90;
+    parts[widthValueIndex] = 160;
+    parts.push('vid_slices/100');
+
+    return parts.join('/');
+  }
+
+  /**
+   * render frame preview
+   *
+   * @returns {Element} - component
+   * @memberof SeekBarControl
+   */
+  renderFramePreview(): Element {
     if (!this.props.showFramePreview || this.props.isMobile) return undefined;
     var framePreviewStyle = `left: ${this.getFramePreviewOffset()}px`;
     var framePreviewImgStyle = `background-image: url(${this.framePreviewImg}); `;
@@ -140,24 +264,26 @@ class SeekBarControl extends Component {
       </div>)
   }
 
-  getFramePreviewImg() {
-    let parts = this.props.playerPoster.split('/');
-    let heightValueIndex = parts.indexOf('height') + 1;
-    let widthValueIndex = parts.indexOf('width') + 1;
-    parts[heightValueIndex] = 90;
-    parts[widthValueIndex] = 160;
-    parts.push('vid_slices/100');
-
-    return parts.join('/');
-  }
-
-  renderTimeBubble() {
+  /**
+   * render time bubble
+   *
+   * @returns {Element} - component
+   * @memberof SeekBarControl
+   */
+  renderTimeBubble(): Element {
     if (!this.props.showTimeBubble || this.props.isMobile) return undefined;
     var timeBubbleStyle = `left: ${this.getTimeBubbleOffset()}px`;
     return <div className='time-preview' style={timeBubbleStyle} ref={c => this._timeBubbleElement=c}>{ toHHMMSS(this.state.virtualTime)}</div>
   }
 
-  render(props: any) {
+  /**
+   * render component
+   *
+   * @param {*} props - component props
+   * @returns {Element} - component
+   * @memberof SeekBarControl
+   */
+  render(props: any): Element {
     var virtualProgressWidth = `${this.state.virtualTime / props.duration * 100}%`;
     var progressWidth = `${props.currentTime / props.duration * 100}%`;
     var seekbarStyleClass = `seek-bar`;

@@ -4,31 +4,75 @@ import { connect } from 'preact-redux';
 import Menu from '../menu';
 import { default as Icon, IconType } from '../icon';
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 const mapStateToProps = state => ({
   isMobile: state.shell.isMobile
 });
 
 @connect(mapStateToProps)
+/**
+ * DropDown component
+ *
+ * @class DropDown
+ * @extends {Component}
+ */
 class DropDown extends Component {
   state: Object;
 
+  /**
+   * before component mounted, set initial internal state
+   *
+   * @returns {void}
+   * @memberof DropDown
+   */
   componentWillMount() {
     this.setState({dropMenuActive: false});
   }
 
-  isSelected(o: Object): boolean {
-    return o.active;
+  /**
+   * is given option selected
+   *
+   * @param {Object} option - option object
+   * @returns {boolean} - is the option selected
+   * @memberof DropDown
+   */
+  isSelected(option: Object): boolean {
+    return option.active;
   }
 
-  onSelect(option: Object) {
+  /**
+   * on option select - pass the selected option to upper component through props and close the menu
+   *
+   * @param {Object} option - option object
+   * @returns {void}
+   * @memberof DropDown
+   */
+  onSelect(option: Object): void {
     this.props.onSelect(option);
     this.setState({dropMenuActive: false});
   }
 
-  onClose() {
+  /**
+   * listener function from Menu component to close the dropdown menu.
+   * set the internal state of dropMenuActive to false.
+   *
+   * @returns {void}
+   * @memberof DropDown
+   */
+  onClose(): void {
     this.setState({dropMenuActive: false});
   }
 
+  /**
+   * get active option label or first option's label
+   *
+   * @returns {string} - active option label
+   * @memberof DropDown
+   */
   getActiveOptionLabel(): string {
     let activeOptions = this.props.options.filter(t => t.active);
     try {
@@ -38,7 +82,13 @@ class DropDown extends Component {
     }
   }
 
-  renderNativeSelect() {
+  /**
+   * render for menu only which will render a native select element in this case (mobile)
+   *
+   * @returns {Element} - component element
+   * @memberof DropDown
+   */
+  renderNativeSelect(): Element {
     return (
       <Menu
         options={this.props.options}
@@ -48,7 +98,14 @@ class DropDown extends Component {
     )
   }
 
-  render(props: any) {
+  /**
+   * render component
+   *
+   * @param {*} props - component props
+   * @returns {Element} - component element
+   * @memberof DropDown
+   */
+  render(props: any): Element {
     return props.isMobile ? this.renderNativeSelect() :
     (
       <div className={this.state.dropMenuActive ? 'dropdown active' : 'dropdown'}>

@@ -5,21 +5,50 @@ import {default as Icon, IconType} from '../icon';
 import ShareOverlay from '../share-overlay';
 import Portal from 'preact-portal';
 
+/**
+ * ShareControl component
+ *
+ * @class ShareControl
+ * @extends {BaseComponent}
+ */
 class ShareControl extends BaseComponent {
 
+  /**
+   * Creates an instance of ShareControl.
+   * @param {Object} obj obj
+   * @memberof ShareControl
+   */
   constructor(obj: Object) {
     super({name: 'Share', player: obj.player});
   }
 
+  /**
+   * before component mounted, set initial state
+   *
+   * @returns {void}
+   * @memberof ShareControl
+   */
   componentWillMount() {
     this.setState({overlay: false});
   }
 
-  toggleOverlay() {
+  /**
+   * toggle overlay internal component state
+   *
+   * @returns {void}
+   * @memberof ShareControl
+   */
+  toggleOverlay(): void {
     this.setState({overlay: !this.state.overlay});
   }
 
-  render() {
+  /**
+   * render element
+   *
+   * @returns {Element} component element
+   * @memberof ShareControl
+   */
+  render(): Element {
     return (
       <div className='control-button-container control-share'>
         <button className='control-button control-button-rounded' onClick={() => this.toggleOverlay()} aria-label='Share'>

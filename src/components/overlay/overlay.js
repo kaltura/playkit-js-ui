@@ -7,17 +7,40 @@ import { actions } from '../../reducers/shell';
 import { default as Icon, IconType } from '../icon';
 
 @connect(null, bindActions(actions))
+/**
+ * Overlay component
+ * @example `<Overlay type='share' onClose={() => this.closeShareOverlay()}>...</Overlay>`
+ */
 class Overlay extends Component {
 
-  componentWillMount() {
+  /**
+   * componentWillMount
+   *
+   * @returns {void}
+   * @memberof Overlay
+   */
+  componentWillMount(): void {
     this.props.addPlayerClass('overlay-active');
   }
 
-  componentWillUnmount() {
+  /**
+   * componentWillUnmount
+   *
+   * @returns {void}
+   * @memberof Overlay
+   */
+  componentWillUnmount(): void {
     this.props.removePlayerClass('overlay-active');
   }
 
-  render(props: any) {
+  /**
+   * render component
+   *
+   * @param {*} props - component props
+   * @returns {Element} - component
+   * @memberof Overlay
+   */
+  render(props: any): Element {
     var overlayClass = 'overlay';
     if (props.type) overlayClass += ` ${props.type}-overlay`;
     if (props.open) overlayClass += ' active'

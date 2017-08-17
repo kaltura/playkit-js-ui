@@ -11,7 +11,14 @@ import AdLearnMore from '../components/ad-learn-more';
 import TopBar from '../components/top-bar';
 import BottomBar from '../components/bottom-bar';
 
-export default function adsUI(props: any) {
+/**
+ * Ads ui interface
+ *
+ * @export
+ * @param {*} props component props
+ * @returns {HTMLElement} player ui tree
+ */
+export default function adsUI(props: any): HTMLElement {
   var useStyledLinearAds = false;
 
   try {

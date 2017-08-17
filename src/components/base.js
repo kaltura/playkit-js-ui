@@ -3,6 +3,12 @@ import { Component } from 'preact';
 import Player from 'playkit-js';
 import LoggerFactory from '../utils/logger';
 
+/**
+ * Base component to be extended by other player UI components
+ *
+ * @class BaseComponent
+ * @extends {Component}
+ */
 class BaseComponent extends Component {
   state: Object;
   player: Player;
@@ -10,6 +16,11 @@ class BaseComponent extends Component {
   config: Object;
   logger: any;
 
+  /**
+   * Creates an instance of BaseComponent.
+   * @param {Object} [obj={ config: {} }] obj
+   * @memberof BaseComponent
+   */
   constructor(obj?: Object = { config: {} }) {
     super();
 
@@ -18,17 +29,6 @@ class BaseComponent extends Component {
     this.config = obj.config;
     this.logger = LoggerFactory.getLogger(`UI ${this.name}`);
     this.logger.debug(`Initialized`);
-  }
-
-  getConfig(attr?: string): any {
-    if (attr) {
-      return this.config[attr];
-    }
-    return this.config;
-  }
-
-  get defaultConfig(): Object {
-    return {}
   }
 }
 

@@ -6,6 +6,11 @@ import { bindActions } from '../../utils/bind-actions';
 import { actions } from '../../reducers/shell';
 import { isMobile } from '../../utils/is-mobile';
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 const mapStateToProps = state => ({
   metadataLoaded: state.engine.metadataLoaded,
   currentState: state.engine.playerState.currentState,
@@ -16,15 +21,32 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps, bindActions(actions))
+/**
+ * Shell component
+ *
+ * @class Shell
+ * @extends {BaseComponent}
+ */
 class Shell extends BaseComponent {
   state: Object;
   hoverTimeout: number;
 
+  /**
+   * Creates an instance of Shell.
+   * @param {Object} obj obj
+   * @memberof Shell
+   */
   constructor(obj: Object) {
     super({name: 'Shell', player: obj.player});
   }
 
-  onMouseOver() {
+  /**
+   * on mouse over, add hover class (shows the player ui) and timeout of 3 seconds bt default or what pass as prop configuration to component
+   *
+   * @returns {void}
+   * @memberof Shell
+   */
+  onMouseOver(): void {
     if (!this.state.hover) {
       this.props.addPlayerClass('hover');
       this.setState({hover: true});
@@ -38,20 +60,40 @@ class Shell extends BaseComponent {
     }, this.props.hoverTimeout || 3000);
   }
 
-  onMouseLeave() {
+  /**
+   * on mouse leave, remove the hover class (hide the player gui)
+   *
+   * @returns {void}
+   * @memberof Shell
+   */
+  onMouseLeave(): void {
     if (this.state.hover) {
       this.setState({hover: false});
       this.props.removePlayerClass('hover');
     }
   }
 
-  onMouseMove() {
+  /**
+   * if ui hidden and mouse move, show the ui by adding the hover class
+   *
+   * @returns {void}
+   * @memberof Shell
+   */
+  onMouseMove(): void {
     if (!this.state.hover) {
       this.setState({hover: true});
       this.props.addPlayerClass('hover');
     }
   }
 
+  /**
+   * after component mounted, update the isMobile indication in the store state,
+   * add event listener to get the player width and update these on resize as well.
+   * also, update document width initially and on resize.
+   *
+   * @returns {void}
+   * @memberof Shell
+   */
   componentDidMount() {
     this.props.updateIsMobile(isMobile());
     if (document.body) {
@@ -72,7 +114,14 @@ class Shell extends BaseComponent {
     }
   }
 
-  render(props: any) {
+  /**
+   * render component
+   *
+   * @param {*} props - component props
+   * @returns {Element} - component element
+   * @memberof Shell
+   */
+  render(props: any): Element {
     var playerClasses = 'player skin-default';
     playerClasses += ` ${props.playerClasses.join(' ')}`;
 

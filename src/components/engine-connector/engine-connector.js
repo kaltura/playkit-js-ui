@@ -6,12 +6,29 @@ import { default as reduce, actions } from '../../reducers/engine';
 import BaseComponent from '../base';
 
 @connect(reduce, bindActions(actions))
+/**
+ * EngineConnector component
+ *
+ * @class EngineConnector
+ * @extends {BaseComponent}
+ */
 class EngineConnector extends BaseComponent {
 
+  /**
+   * Creates an instance of EngineConnector.
+   * @param {Object} obj obj
+   * @memberof EngineConnector
+   */
   constructor(obj: Object) {
     super({name: 'EngineConnector', player: obj.player});
   }
 
+  /**
+   * after component mounted, set event listeners and update redux store
+   *
+   * @returns {void}
+   * @memberof EngineConnector
+   */
   componentDidMount() {
     const TrackType = this.player.Track;
 
@@ -110,9 +127,21 @@ class EngineConnector extends BaseComponent {
 
   }
 
-  shouldComponentUpdate() { return false; }
+  /**
+   * component shouldn't update the dom if props or internal state changed
+   *
+   * @returns {boolean} - should component update on changes or not
+   * @memberof EngineConnector
+   */
+  shouldComponentUpdate(): boolean { return false; }
 
-  render() {
+  /**
+   * render component
+   *
+   * @returns {Element} - component element
+   * @memberof EngineConnector
+   */
+  render(): Element {
     return <span />
   }
 }

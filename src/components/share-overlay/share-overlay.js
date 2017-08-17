@@ -9,6 +9,11 @@ import BaseComponent from '../base';
 import Overlay from '../overlay';
 import { default as Icon, IconType } from '../icon';
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 const mapStateToProps = state => ({
   open: state.share.overlayOpen
 });
@@ -20,21 +25,32 @@ const shareOverlayState: Object = {
 };
 
 @connect(mapStateToProps, bindActions(actions))
+/**
+ * ShareOverlay component
+ *
+ * @class ShareOverlay
+ * @extends {BaseComponent}
+ */
 class ShareOverlay extends BaseComponent {
 
   _shareUrlInput: HTMLInputElement;
   _embedCodeInput: HTMLInputElement;
 
+  /**
+   * Creates an instance of ShareOverlay.
+   * @param {Object} obj obj
+   * @memberof ShareOverlay
+   */
   constructor(obj: Object) {
     super({name: 'ShareOverlay', player: obj.player});
   }
 
-  componentWillUnmount() {
-    this.setState({
-      state: shareOverlayState.Main
-    });
-  }
-
+  /**
+   * before component mount, set initial state
+   *
+   * @returns {void}
+   * @memberof ShareOverlay
+   */
   componentWillMount() {
     this.setState({
       state: shareOverlayState.Main,
@@ -44,10 +60,37 @@ class ShareOverlay extends BaseComponent {
     });
   }
 
-  transitionToState(stateName: string) {
+  /**
+   * before component unmounted, change the overlay state to the initial state
+   *
+   * @returns {void}
+   * @memberof ShareOverlay
+   */
+  componentWillUnmount() {
+    this.setState({
+      state: shareOverlayState.Main
+    });
+  }
+
+  /**
+   * changing the overlay state
+   *
+   * @param {string} stateName state name
+   * @returns {void}
+   * @memberof ShareOverlay
+   */
+  transitionToState(stateName: string): void {
     this.setState({state: stateName});
   }
 
+  /**
+   * copy input text based on input element.
+   * on success, set success internal component state for 2 seconds
+   *
+   * @param {HTMLInputElement} inputElement - start from input element
+   * @returns {void}
+   * @memberof ShareOverlay
+   */
   copyUrl(inputElement: HTMLInputElement) {
     try {
       inputElement.select();
@@ -62,11 +105,23 @@ class ShareOverlay extends BaseComponent {
     }
   }
 
-  toggleStartFrom() {
+  /**
+   * toggle start from option checkbox in the internal component state
+   *
+   * @returns {void}
+   * @memberof ShareOverlay
+   */
+  toggleStartFrom(): void {
     this.setState({startFrom: !this.state.startFrom});
   }
 
-  getShareUrl() {
+  /**
+   * get share url method
+   *
+   * @returns {string} - share url
+   * @memberof ShareOverlay
+   */
+  getShareUrl(): string {
     let url = this.state.shareUrl;
     if (this.state.startFrom) {
       url += `?start=${this.state.startFromValue}`
@@ -74,11 +129,26 @@ class ShareOverlay extends BaseComponent {
     return url;
   }
 
-  getEmbedCode() {
+  /**
+   * get embed code
+   * #TODO: complete logic here
+   *
+   * @returns {string} - embed code
+   * @memberof ShareOverlay
+   */
+  getEmbedCode(): string {
     return '<iframe src="//cdnapi.kaltura.com/p/243342/sp/24334200/embedIframeJs/uiconf_id/28685261/partner_id/243342?iframeembed=true&playerId=kdp&entry_id=1_sf5ovm7u&flashvars[streamerType]=auto" width="560" height="395" allowfullscreen webkitallowfullscreen mozAllowFullScreen frameborder="0"></iframe>';
   }
 
-  handleStartFromChange(e: any) {
+  /**
+   * start from input change handler.
+   * converts to seconds and save the new value in internal component state
+   *
+   * @param {*} e - input change event
+   * @returns {void}
+   * @memberof ShareOverlay
+   */
+  handleStartFromChange(e: any): void {
     let seconds = toSecondsFromHHMMSS(e.target.value);
     if (seconds >= this.player.duration) {
       this.setState({startFromValue: 1});
@@ -86,12 +156,25 @@ class ShareOverlay extends BaseComponent {
     this.setState({startFromValue: seconds});
   }
 
-  share(href: string) {
+  /**
+   * opens new window for share
+   *
+   * @param {string} href - url to open
+   * @returns {void}
+   * @memberof ShareOverlay
+   */
+  share(href: string): void {
     window.open(href,'_blank','width=580,height=580');
     return false;
   }
 
-  renderMainState() {
+  /**
+   * renders main overlay state
+   *
+   * @returns {Element} - main state element
+   * @memberof ShareOverlay
+   */
+  renderMainState(): Element {
     return (
       <div className={this.state.state === shareOverlayState.Main ? 'overlay-screen active' : 'overlay-screen'}>
         <div className='title'>
@@ -156,7 +239,13 @@ class ShareOverlay extends BaseComponent {
     )
   }
 
-  renderLinkOptionsState() {
+  /**
+   * renders link options state
+   *
+   * @returns {Element} - link options element
+   * @memberof ShareOverlay
+   */
+  renderLinkOptionsState(): Element {
     var copyUrlClasses = 'btn-rounded btn-branded btn-copy-url';
     copyUrlClasses += this.state.copySuccess ? ' copied' : '';
 
@@ -208,7 +297,13 @@ class ShareOverlay extends BaseComponent {
     )
   }
 
-  renderEmbedOptionsState() {
+  /**
+   * renders embed options state
+   *
+   * @returns {Element} - embed options element
+   * @memberof ShareOverlay
+   */
+  renderEmbedOptionsState(): Element {
     var copyUrlClasses = 'btn-rounded btn-branded btn-copy-url';
     copyUrlClasses += this.state.copySuccess ? ' copied' : '';
 
@@ -260,7 +355,13 @@ class ShareOverlay extends BaseComponent {
     )
   }
 
-  renderStateContent() {
+  /**
+   * utility function to switch and render the right overlay state element based on the overlay state.
+   *
+   * @returns {Element} - current state element
+   * @memberof ShareOverlay
+   */
+  renderStateContent(): Element {
     switch (this.state.state) {
       case shareOverlayState.Main:
         return this.renderMainState();
@@ -276,7 +377,14 @@ class ShareOverlay extends BaseComponent {
     }
   }
 
-  render(props: any) {
+  /**
+   * render component
+   *
+   * @param {*} props - component props
+   * @returns {Element} - component element
+   * @memberof ShareOverlay
+   */
+  render(props: any): Element {
     return (
       <Overlay open onClose={() => props.onClose()} type='share'>
         {this.renderStateContent()}

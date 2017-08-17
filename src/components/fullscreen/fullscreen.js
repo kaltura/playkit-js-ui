@@ -7,18 +7,40 @@ import {actions} from '../../reducers/fullscreen';
 import BaseComponent from '../base';
 import { default as Icon, IconType } from '../icon';
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 const mapStateToProps = state => ({
   fullscreen: state.fullscreen.fullscreen,
   isMobile: state.shell.isMobile
 });
 
 @connect(mapStateToProps, bindActions(actions))
+/**
+ * FullscreenControl component
+ *
+ * @class FullscreenControl
+ * @extends {BaseComponent}
+ */
 class FullscreenControl extends BaseComponent {
 
+  /**
+   * Creates an instance of FullscreenControl.
+   * @param {Object} obj obj
+   * @memberof FullscreenControl
+   */
   constructor(obj: Object) {
     super({name: 'Fullscreen', player: obj.player});
   }
 
+  /**
+   * after component mounted, set up event listerners to window fullscreen state change
+   *
+   * @returns {void}
+   * @memberof FullscreenControl
+   */
   componentDidMount() {
     document.addEventListener('webkitfullscreenchange', () => this.fullscreenChangeHandler());
     document.addEventListener('mozfullscreenchange', () => this.fullscreenChangeHandler());
@@ -27,7 +49,13 @@ class FullscreenControl extends BaseComponent {
 
   }
 
-  fullscreenChangeHandler() {
+  /**
+   * fullscreen change handler function. updates the store with new value
+   *
+   * @returns {void}
+   * @memberof FullscreenControl
+   */
+  fullscreenChangeHandler(): void {
     let isFullscreen = typeof document.fullscreenElement !== 'undefined' && Boolean(document.fullscreenElement) ||
       typeof document.webkitFullscreenElement !== 'undefined' && Boolean(document.webkitFullscreenElement) ||
       typeof document.mozFullScreenElement !== 'undefined' && Boolean(document.mozFullScreenElement) ||
@@ -36,27 +64,53 @@ class FullscreenControl extends BaseComponent {
     this.props.updateFullscreen(isFullscreen);
   }
 
-  requestFullscreen(element: HTMLElement) {
-    if (this.props.isMobile) {
-      this.player.getView().getElementsByTagName('video')[0].webkitEnterFullscreen();
-      return;
-    }
-
+  /**
+   * request fullscreen function to all browsers
+   *
+   * @param {HTMLElement} element - element to enter fullscreen
+   * @returns {boolean} - boolean success indicator to enter fullscreen or not
+   * @memberof FullscreenControl
+   */
+  requestFullscreen(element: HTMLElement): boolean {
     if (typeof element.requestFullscreen === 'function') {
       element.requestFullscreen();
+      return true;
     } else if (typeof element.mozRequestFullScreen === 'function') {
       element.mozRequestFullScreen();
+      return true;
     } else if (typeof element.webkitRequestFullScreen === 'function') {
       element.webkitRequestFullScreen();
+      return true;
     } else if (typeof element.msRequestFullscreen === 'function') {
       element.msRequestFullscreen();
+      return true;
+    } else {
+      return false;
     }
   }
 
-  enterFullscreen() {
-    this.requestFullscreen(this.player.getView().parentElement);
+  /**
+   * if mobile detected, get the video element and request fullscreen.
+   * otherwise, request fullscreen to the parent plater view than includes the GUI as well
+   *
+   * @returns {void}
+   * @memberof FullscreenControl
+   */
+  enterFullscreen(): void {
+    if (this.props.isMobile) {
+      this.player.getView().getElementsByTagName('video')[0].webkitEnterFullscreen();
+    }
+    else {
+      this.requestFullscreen(this.player.getView().parentElement);
+    }
   }
 
+  /**
+   * exit fullscreen cross platform function
+   *
+   * @returns {void}
+   * @memberof FullscreenControl
+   */
   exitFullscreen() {
     if (typeof document.exitFullscreen === 'function') {
       document.exitFullscreen();
@@ -69,12 +123,24 @@ class FullscreenControl extends BaseComponent {
     }
   }
 
-  toggleFullscreen() {
+  /**
+   * toggle fullscreen based on current fullscreen state in store
+   *
+   * @returns {void}
+   * @memberof FullscreenControl
+   */
+  toggleFullscreen(): void {
     this.logger.debug(`Toggle fullscreen`);
     this.props.fullscreen ? this.exitFullscreen() : this.enterFullscreen();
   }
 
-  render() {
+  /**
+   * render component
+   *
+   * @returns {Element} - component
+   * @memberof FullscreenControl
+   */
+  render(): Element {
     return (
       <div className='control-button-container control-fullscreen'>
         <Localizer>
