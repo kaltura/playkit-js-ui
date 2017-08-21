@@ -10,6 +10,7 @@ import BaseComponent from '../base';
  * EngineConnector component
  *
  * @class EngineConnector
+ * @example <EngineConnector player={this.player} />
  * @extends {BaseComponent}
  */
 class EngineConnector extends BaseComponent {

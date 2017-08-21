@@ -20,6 +20,7 @@ const mapStateToProps = state => ({
  * Loading component
  *
  * @class Loading
+ * @example <Loading />
  * @extends {BaseComponent}
  */
 class Loading extends BaseComponent {

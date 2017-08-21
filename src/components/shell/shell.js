@@ -25,6 +25,7 @@ const mapStateToProps = state => ({
  * Shell component
  *
  * @class Shell
+ * @example <Shell player={this.player}>...</Shell>
  * @extends {BaseComponent}
  */
 class Shell extends BaseComponent {

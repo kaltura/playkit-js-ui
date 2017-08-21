@@ -22,6 +22,7 @@ const mapStateToProps = state => ({
  * FullscreenControl component
  *
  * @class FullscreenControl
+ * @example <FullscreenControl player={this.player} />
  * @extends {BaseComponent}
  */
 class FullscreenControl extends BaseComponent {

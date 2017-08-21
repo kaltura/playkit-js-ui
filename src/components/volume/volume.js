@@ -23,6 +23,7 @@ const mapStateToProps = state => ({
  * VolumeControl component
  *
  * @class VolumeControl
+ * @example <VolumeControl player={this.player} />
  * @extends {BaseComponent}
  */
 class VolumeControl extends BaseComponent {
@@ -31,6 +32,8 @@ class VolumeControl extends BaseComponent {
 
   /**
    * Creates an instance of VolumeControl.
+   *
+   * @constructor
    * @param {Object} obj obj
    * @memberof VolumeControl
    */
@@ -41,6 +44,7 @@ class VolumeControl extends BaseComponent {
   /**
    * after component mounted, update initial volume and muted value and listen to volume change
    *
+   * @method componentDidMount
    * @returns {void}
    * @memberof VolumeControl
    */
@@ -58,6 +62,7 @@ class VolumeControl extends BaseComponent {
   /**
    * get the volume progress bar height percentage string
    *
+   * @method getVolumeProgessHeight
    * @returns {string} - volume progress bar new height based on volume
    * @memberof VolumeControl
    */
@@ -68,6 +73,7 @@ class VolumeControl extends BaseComponent {
   /**
    * on volume progress bar mouse down, update volume dragging status in store state
    *
+   * @method onVolumeProgressBarMouseDown
    * @returns {void}
    * @memberof VolumeControl
    */
@@ -78,6 +84,7 @@ class VolumeControl extends BaseComponent {
   /**
    * on volume progress bar mouse move, update the volume if dragging is active
    *
+   * @method onVolumeProgressBarMouseMove
    * @param {Event} e - mouse move event
    * @returns {void}
    * @memberof VolumeControl
@@ -91,6 +98,7 @@ class VolumeControl extends BaseComponent {
   /**
    * on volume progress bar mouse up, update the volume and change the dragging status to false
    *
+   * @method onVolumeProgressBarMouseUp
    * @param {Event} e - mouse up event
    * @returns {void}
    * @memberof VolumeControl
@@ -103,6 +111,7 @@ class VolumeControl extends BaseComponent {
   /**
    * on colume control button click, toggle mute in player and store state
    *
+   * @method onVolumeControlButtonClick
    * @returns {void}
    * @memberof VolumeControl
    */
@@ -116,6 +125,7 @@ class VolumeControl extends BaseComponent {
    * change volume based on event mouse position compared to volume progress bar element
    * if muted value is true in store state, change it to false both in store state and in player instance.
    *
+   * @method changeVolume
    * @param {Event} e - event to get the position from
    * @returns {void}
    * @memberof VolumeControl
@@ -137,6 +147,7 @@ class VolumeControl extends BaseComponent {
   /**
    * get element cordinates
    *
+   * @method getCoords
    * @param {HTMLElement} el element to inspect
    * @returns {{top: number, left: number}} object with the top and left position
    * @memberof VolumeControl

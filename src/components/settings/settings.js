@@ -26,6 +26,7 @@ const mapStateToProps = state => ({
  * SettingsControl component
  *
  * @class SettingsControl
+ * @example <SettingsControl player={this.player} />
  * @extends {BaseComponent}
  */
 class SettingsControl extends BaseComponent {

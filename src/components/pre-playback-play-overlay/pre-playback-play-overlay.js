@@ -24,6 +24,7 @@ const mapStateToProps = state => ({
  * PrePlaybackPlayOverlay component
  *
  * @class PrePlaybackPlayOverlay
+ * @example <PrePlaybackPlayOverlay player={this.player} />
  * @extends {BaseComponent}
  */
 class PrePlaybackPlayOverlay extends BaseComponent {

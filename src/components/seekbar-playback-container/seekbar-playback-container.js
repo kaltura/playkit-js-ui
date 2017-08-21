@@ -24,6 +24,7 @@ const mapStateToProps = state => ({
  * SeekBarPlaybackContainer component
  *
  * @class SeekBarPlaybackContainer
+ * @example <SeekBarPlaybackContainer player={this.player} />
  * @extends {BaseComponent}
  */
 class SeekBarPlaybackContainer extends BaseComponent {

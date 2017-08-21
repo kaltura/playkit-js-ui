@@ -5,6 +5,7 @@ import { h, Component } from 'preact';
  * BottomBar component
  *
  * @class BottomBar
+ * @example <BottomBar>...</BottomBar>
  * @extends {Component}
  */
 class BottomBar extends Component {

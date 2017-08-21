@@ -29,6 +29,7 @@ const mapStateToProps = state => ({
  * LanguageControl component
  *
  * @class LanguageControl
+ * @example <LanguageControl />
  * @extends {BaseComponent}
  */
 class LanguageControl extends BaseComponent {

@@ -19,6 +19,7 @@ const mapStateToProps = state => ({
  * TimeDisplayPlaybackContainer component
  *
  * @class TimeDisplayPlaybackContainer
+ * @example <TimeDisplayPlaybackContainer format='currentTime / duration' />
  * @extends {BaseComponent}
  */
 class TimeDisplayPlaybackContainer extends BaseComponent {

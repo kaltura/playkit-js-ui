@@ -16,6 +16,7 @@ const mapStateToProps = state => ({
  * AdLearnMore component
  *
  * @class AdLearnMore
+ * @example <AdLearnMore />
  * @extends {Component}
  */
 class AdLearnMore extends Component {

@@ -12,6 +12,7 @@ import { default as Icon, IconType } from '../icon';
 /**
  * mapping state to props
  * @param {*} state - redux store state
+ * @example <ShareOverlay player={this.player} />
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({

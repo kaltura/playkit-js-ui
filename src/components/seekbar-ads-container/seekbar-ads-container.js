@@ -23,6 +23,7 @@ const mapStateToProps = state => ({
  * SeekBarAdsContainer component
  *
  * @class SeekBarAdsContainer
+ * @example <SeekBarAdsContainer player={this.player} />
  * @extends {BaseComponent}
  */
 class SeekBarAdsContainer extends BaseComponent {

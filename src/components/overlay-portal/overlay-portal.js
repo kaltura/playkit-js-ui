@@ -5,6 +5,7 @@ import { h, Component } from 'preact';
  * OverlayPortal component
  *
  * @class OverlayPortal
+ * @example <OverlayPortal>...</OverlayPortal>
  * @extends {Component}
  */
 class OverlayPortal extends Component {

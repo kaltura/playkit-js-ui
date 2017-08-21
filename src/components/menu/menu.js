@@ -17,6 +17,11 @@ const mapStateToProps = state => ({
  * Menu component
  *
  * @class Menu
+ * @example <Menu
+ *  options={this.videoTrackOptions}
+ *  onSelect={track => this.videoTrackChangeHandler(track)}
+ *  onClose={() => this.onClose()}
+ * />
  * @extends {Component}
  */
 class Menu extends Component {
@@ -25,7 +30,6 @@ class Menu extends Component {
 
   /**
    * after component mounted, listen to click outside of the component
-   *
    * @returns {void}
    * @memberof Menu
    */

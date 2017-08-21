@@ -1,4 +1,5 @@
 //@flow
+
 import { h, Component } from 'preact';
 import { toHHMMSS } from '../../utils/time-format';
 
@@ -6,6 +7,11 @@ import { toHHMMSS } from '../../utils/time-format';
  * TimeDisplay component
  *
  * @class TimeDisplay
+ * @example <TimeDisplay
+ *  currentTime={this.player.currentTime}
+ *  duration={this.player.duration}
+ *  format='currentTime / duration'
+ * />
  * @extends {Component}
  */
 class TimeDisplay extends Component {
@@ -13,6 +19,7 @@ class TimeDisplay extends Component {
   /**
    * get formatted time display based on defined format
    *
+   * @method getTimeDisplay
    * @param {number} currentTime current time
    * @param {number} duration duration
    * @param {string} [format] string that can use one or more of: 'current' / 'total' / 'left' and will be replaced with the relevant value
@@ -35,6 +42,7 @@ class TimeDisplay extends Component {
   /**
    * render component
    *
+   * @method render
    * @param {*} props - component props
    * @returns {React$Element} - component
    * @memberof TimeDisplay

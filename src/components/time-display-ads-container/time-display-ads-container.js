@@ -18,6 +18,7 @@ const mapStateToProps = state => ({
  * TimeDisplayAdsContainer component
  *
  * @class TimeDisplayAdsContainer
+ * @example <TimeDisplayAdsContainer format='-left seconds left' />
  * @extends {BaseComponent}
  */
 class TimeDisplayAdsContainer extends BaseComponent {

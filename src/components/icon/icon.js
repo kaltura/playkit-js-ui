@@ -33,6 +33,7 @@ const IconType = {
  * Icon component
  *
  * @class Icon
+ * @example <Icon type={IconType.Play} />
  * @extends {Component}
  */
 class Icon extends Component {

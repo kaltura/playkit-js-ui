@@ -9,7 +9,14 @@ import { default as Icon, IconType } from '../icon';
 @connect(null, bindActions(actions))
 /**
  * Overlay component
- * @example `<Overlay type='share' onClose={() => this.closeShareOverlay()}>...</Overlay>`
+ * @class Overlay
+ * @example <Overlay
+ *  type='share'
+ *  onClose={() => this.closeShareOverlay()}
+ * >
+ *  ...
+ * </Overlay>
+ * @extends {Component}
  */
 class Overlay extends Component {
 

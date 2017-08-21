@@ -24,6 +24,7 @@ const mapStateToProps = state => ({
  * PlayPauseControl component
  *
  * @class PlayPauseControl
+ * @example <PlayPauseControl player={this.player} />
  * @extends {BaseComponent}
  */
 class PlayPauseControl extends BaseComponent {

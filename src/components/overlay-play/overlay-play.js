@@ -22,6 +22,7 @@ const mapStateToProps = state => ({
  * OverlayPlay component
  *
  * @class OverlayPlay
+ * @example <OverlayPlay player={this.player} />
  * @extends {BaseComponent}
  */
 class OverlayPlay extends BaseComponent {

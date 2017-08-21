@@ -18,6 +18,7 @@ const mapStateToProps = state => ({
  * DropDown component
  *
  * @class DropDown
+ * @example <DropDown options={this.videoTrackOptions} />
  * @extends {Component}
  */
 class DropDown extends Component {

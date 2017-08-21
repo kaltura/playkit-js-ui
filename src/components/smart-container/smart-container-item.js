@@ -6,10 +6,10 @@ import { default as Icon, IconType } from '../icon';
 /**
  * SmartContainerItem component
  *
- * @class SmartContainer
+ * @class SmartContainerItem
  * @extends {Component}
  */
-class SmartContainer extends Component {
+class SmartContainerItem extends Component {
 
   /**
    * render component
@@ -31,4 +31,4 @@ class SmartContainer extends Component {
   }
 }
 
-export default SmartContainer;
+export default SmartContainerItem;

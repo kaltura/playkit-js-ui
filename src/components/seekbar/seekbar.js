@@ -7,6 +7,19 @@ import { toHHMMSS } from '../../utils/time-format';
  * SeekBarControl component
  *
  * @class SeekBarControl
+ * @example <SeekBarControl
+ *  playerElement={this.player.getView().parentElement}
+ *  showFramePreview={this.props.showFramePreview}
+ *  showTimeBubble={this.props.showTimeBubble}
+ *  changeCurrentTime={time => this.player.currentTime = time}
+ *  playerPoster={this.props.poster}
+ *  updateSeekbarDraggingStatus={data => this.props.updateSeekbarDraggingStatus(data)}
+ *  updateCurrentTime={data => this.props.updateCurrentTime(data)}
+ *  currentTime={this.props.currentTime}
+ *  duration={this.props.duration}
+ *  isDraggingActive={this.props.isDraggingActive}
+ *  isMobile={this.props.isMobile}
+ * />
  * @extends {Component}
  */
 class SeekBarControl extends Component {

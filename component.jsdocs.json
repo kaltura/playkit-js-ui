@@ -1,0 +1,10 @@
+{
+  "plugins": [
+    "node_modules/jsdoc-babel"
+  ],
+  "recurseDepth": 10,
+  "source": {
+    "include":"./src/components",
+    "includePattern": ".+\\.js(doc|x)?$"
+  }
+}

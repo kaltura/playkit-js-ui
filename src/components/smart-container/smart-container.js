@@ -8,6 +8,15 @@ import Overlay from '../overlay';
  * SmartContainer component
  *
  * @class SmartContainer
+ * @example <SmartContainer title='Language' onClose={() => this.controlButtonClickHandler()}>
+ *   <SmartContainerItem
+ *     icon={IconType.Audio}
+ *     label='Audio'
+ *     options={audioTrackOptions}
+ *     onSelect={audioTrack => this.audioTrackChangeHandler(audioTrack)}
+ *   />
+ *   ...
+ * </SmartContainer>
  * @extends {Component}
  */
 class SmartContainer extends Component {

@@ -20,6 +20,7 @@ const mapStateToProps = state => ({
  * AdSkip component
  *
  * @class AdSkip
+ * @example <AdSkip player={this.player} />
  * @extends {BaseComponent}
  */
 class AdSkip extends BaseComponent {

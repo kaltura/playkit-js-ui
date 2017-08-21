@@ -9,6 +9,7 @@ import Portal from 'preact-portal';
  * ShareControl component
  *
  * @class ShareControl
+ * @example <ShareControl player={this.player} />
  * @extends {BaseComponent}
  */
 class ShareControl extends BaseComponent {
