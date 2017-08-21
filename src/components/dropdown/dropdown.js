@@ -85,10 +85,10 @@ class DropDown extends Component {
   /**
    * render for menu only which will render a native select element in this case (mobile)
    *
-   * @returns {Element} - component element
+   * @returns {React$Element} - component element
    * @memberof DropDown
    */
-  renderNativeSelect(): Element {
+  renderNativeSelect(): React$Element<any> {
     return (
       <Menu
         options={this.props.options}
@@ -102,10 +102,10 @@ class DropDown extends Component {
    * render component
    *
    * @param {*} props - component props
-   * @returns {Element} - component element
+   * @returns {React$Element} - component element
    * @memberof DropDown
    */
-  render(props: any): Element {
+  render(props: any): React$Element<any> {
     return props.isMobile ? this.renderNativeSelect() :
     (
       <div className={this.state.dropMenuActive ? 'dropdown active' : 'dropdown'}>

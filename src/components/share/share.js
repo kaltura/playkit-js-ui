@@ -45,10 +45,10 @@ class ShareControl extends BaseComponent {
   /**
    * render element
    *
-   * @returns {Element} component element
+   * @returns {React$Element} component element
    * @memberof ShareControl
    */
-  render(): Element {
+  render(): React$Element<any> {
     return (
       <div className='control-button-container control-share'>
         <button className='control-button control-button-rounded' onClick={() => this.toggleOverlay()} aria-label='Share'>

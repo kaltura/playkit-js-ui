@@ -55,10 +55,10 @@ class SeekBarPlaybackContainer extends BaseComponent {
   /**
    * render component
    *
-   * @returns {Element} - component element
+   * @returns {React$Element} - component element
    * @memberof SeekBarPlaybackContainer
    */
-  render(): Element {
+  render(): React$Element<any> {
     return (
       <SeekBarControl
         playerElement={this.player.getView().parentElement}

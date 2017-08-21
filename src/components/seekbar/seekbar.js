@@ -152,11 +152,11 @@ class SeekBarControl extends Component {
   /**
    * utility function to get element offset from window
    *
-   * @param {Element} element - element to get the offset for
-   * @returns {{ y: number, x: number }} - object with offset in both asixs
+   * @param {*} element - element to get the offset for
+   * @returns {{ top: number, left: number }} - object with offset in both asixs
    * @memberof SeekBarControl
    */
-  getOffset(element: Element): { y: number, x: number } {
+  getOffset(element: any): { top: number, left: number } {
     var _x = 0;
     var _y = 0;
     while( element && !isNaN( element.offsetLeft ) && !isNaN( element.offsetTop ) ) {
@@ -245,10 +245,10 @@ class SeekBarControl extends Component {
   /**
    * render frame preview
    *
-   * @returns {Element} - component
+   * @returns {React$Element} - component
    * @memberof SeekBarControl
    */
-  renderFramePreview(): Element {
+  renderFramePreview(): React$Element<any> | void {
     if (!this.props.showFramePreview || this.props.isMobile) return undefined;
     var framePreviewStyle = `left: ${this.getFramePreviewOffset()}px`;
     var framePreviewImgStyle = `background-image: url(${this.framePreviewImg}); `;
@@ -267,10 +267,10 @@ class SeekBarControl extends Component {
   /**
    * render time bubble
    *
-   * @returns {Element} - component
+   * @returns {React$Element} - component
    * @memberof SeekBarControl
    */
-  renderTimeBubble(): Element {
+  renderTimeBubble(): React$Element<any> | void {
     if (!this.props.showTimeBubble || this.props.isMobile) return undefined;
     var timeBubbleStyle = `left: ${this.getTimeBubbleOffset()}px`;
     return <div className='time-preview' style={timeBubbleStyle} ref={c => this._timeBubbleElement=c}>{ toHHMMSS(this.state.virtualTime)}</div>
@@ -280,10 +280,10 @@ class SeekBarControl extends Component {
    * render component
    *
    * @param {*} props - component props
-   * @returns {Element} - component
+   * @returns {React$Element} - component
    * @memberof SeekBarControl
    */
-  render(props: any): Element {
+  render(props: any): React$Element<any> {
     var virtualProgressWidth = `${this.state.virtualTime / props.duration * 100}%`;
     var progressWidth = `${props.currentTime / props.duration * 100}%`;
     var seekbarStyleClass = `seek-bar`;

@@ -99,10 +99,10 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    * render component
    *
    * @param {*} props - component props
-   * @returns {Element} - component element
+   * @returns {React$Element} - component element
    * @memberof PrePlaybackPlayOverlay
    */
-  render(props: any): Element {
+  render(props: any): React$Element<any> | void {
     if (
       (!props.isEnded && !props.prePlayback) ||
       (!props.isEnded && !props.isMobile && this.autoplay) ||

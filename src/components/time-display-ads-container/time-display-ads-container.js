@@ -33,10 +33,10 @@ class TimeDisplayAdsContainer extends BaseComponent {
    * render component
    *
    * @param {*} props component props
-   * @returns {Element} - component element
+   * @returns {React$Element} - component element
    * @memberof TimeDisplayAdsContainer
    */
-  render(props: any): Element {
+  render(props: any): React$Element<any> {
     return (
       <TimeDisplay
         currentTime={props.adProgress.currentTime}

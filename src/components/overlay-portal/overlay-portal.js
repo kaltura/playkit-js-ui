@@ -23,10 +23,10 @@ class OverlayPortal extends Component {
    * render component
    *
    * @param {*} props - comonent props
-   * @returns {Element} - component element
+   * @returns {React$Element} - component element
    * @memberof OverlayPortal
    */
-  render(props: any): Element {
+  render(props: any): React$Element<any> {
     return (
       <div id='overlay-portal'>{ props.children }</div>
     )

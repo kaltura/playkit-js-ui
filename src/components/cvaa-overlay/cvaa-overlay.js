@@ -23,7 +23,7 @@ const cvaaOverlayState = {
   CustomCaptions: 'custom-captions'
 }
 
-type CvaaOverlayStateType = cvaaOverlayState.Main | cvaaOverlayState.CustomCaptions;
+type CvaaOverlayStateType = "main" | "custom-captions";
 
 @connect(mapStateToProps, bindActions({...cvaaActions, ...shellActions}))
 /**
@@ -93,10 +93,10 @@ class CVAAOverlay extends BaseComponent {
   /**
    * render main state
    *
-   * @returns {Element} - main state element
+   * @returns {React$Element} - main state element
    * @memberof CVAAOverlay
    */
-  renderMainState(): Element {
+  renderMainState(): React$Element<any> {
     return (
       <div className={this.state.state === cvaaOverlayState.Main ? 'overlay-screen active' : 'overlay-screen'}>
         <div className='title'>
@@ -115,10 +115,10 @@ class CVAAOverlay extends BaseComponent {
   /**
    * render custom captions state
    *
-   * @returns {Element} - custom captions elements
+   * @returns {React$Element} - custom captions elements
    * @memberof CVAAOverlay
    */
-  renderCustomCaptionsState(): Element {
+  renderCustomCaptionsState(): React$Element<any> {
     var speedOptions = [
       { value: 1, label: 'Auto (360)', active: true },
       { value: 2, label: '240' },
@@ -168,10 +168,10 @@ class CVAAOverlay extends BaseComponent {
    * render component
    *
    * @param {*} props - component props
-   * @returns {Element} - component element
+   * @returns {React$Element} - component element
    * @memberof CVAAOverlay
    */
-  render(props: any): Element {
+  render(props: any): React$Element<any> {
     return (
       <Overlay open onClose={() => props.onClose()} type='cvaa'>
         {this.renderMainState()}

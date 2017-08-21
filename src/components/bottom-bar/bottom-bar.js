@@ -12,10 +12,10 @@ class BottomBar extends Component {
    * render component
    *
    * @param {*} props - component props
-   * @returns {Element} - component element
+   * @returns {React$Element} - component element
    * @memberof BottomBar
    */
-  render(props: any): Element {
+  render(props: any): React$Element<any> {
     return (
       <div className='bottom-bar'>{ props.children }</div>
     )

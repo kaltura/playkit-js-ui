@@ -15,10 +15,10 @@ class SmartContainer extends Component {
    * render component
    *
    * @param {*} props - component props
-   * @returns {Element} - component element
+   * @returns {React$Element} - component element
    * @memberof SmartContainer
    */
-  render(props: any): Element {
+  render(props: any): React$Element<any> {
     return (
       <div className='smart-container-item select-menu-item'>
         <label htmlFor={IconType.Quality}>

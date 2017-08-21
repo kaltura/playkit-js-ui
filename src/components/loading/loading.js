@@ -76,10 +76,10 @@ class Loading extends BaseComponent {
    * render component
    *
    * @param {*} props - component props
-   * @returns {Element} - component element
+   * @returns {React$Element} - component element
    * @memberof Loading
    */
-  render(props: any): Element {
+  render(props: any): React$Element<any> | void {
     if (!props.show) return undefined;
 
     return (

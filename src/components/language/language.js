@@ -146,10 +146,10 @@ class LanguageControl extends BaseComponent {
    * render menu with audio settings only
    *
    * @param {Array<Object>} audioOptions - audio tracks
-   * @returns {Element} component element
+   * @returns {React$Element} component element
    * @memberof LanguageControl
    */
-  renderAudioSettingsOnly(audioOptions: Array<Object>): Element {
+  renderAudioSettingsOnly(audioOptions: Array<Object>): React$Element<any> {
     return (
       <div className='control-button-container control-audio'>
         <button
@@ -174,10 +174,10 @@ class LanguageControl extends BaseComponent {
    * render menu with text settings only
    *
    * @param {Array<Object>} textOptions - text tracks
-   * @returns {Element} - component element
+   * @returns {React$Element} - component element
    * @memberof LanguageControl
    */
-  renderTextSettingsOnly(textOptions: Array<Object>): Element {
+  renderTextSettingsOnly(textOptions: Array<Object>): React$Element<any> {
     return (
       <div className='control-button-container control-audio'>
         <button
@@ -203,10 +203,10 @@ class LanguageControl extends BaseComponent {
    *
    * @param {Array<Object>} audioOptions - audio tracks
    * @param {Array<Object>} textOptions - text tracks
-   * @returns {Element} - component
+   * @returns {React$Element} - component
    * @memberof LanguageControl
    */
-  renderAll(audioOptions: Array<Object>, textOptions: Array<Object>): Element {
+  renderAll(audioOptions: Array<Object>, textOptions: Array<Object>): React$Element<any> {
     return (
       <div
         ref={c => this._controlLanguageElement=c}
@@ -259,10 +259,10 @@ class LanguageControl extends BaseComponent {
    * root render function. will decide to render audio only / text only or both based on the available options
    *
    * @param {*} props - component props
-   * @returns {Element} - component
+   * @returns {React$Element} - component
    * @memberof LanguageControl
    */
-  render(props: any): Element {
+  render(props: any): React$Element<any> | void {
     var audioOptions = props.audioTracks.map(t => ({ label: t.label || t.language, active: t.active, value: t }));
     var textOptions = props.textTracks.filter(t => t.kind === 'subtitles').map(t => ({ label: t.label || t.language, active: t.active, value: t }));
 

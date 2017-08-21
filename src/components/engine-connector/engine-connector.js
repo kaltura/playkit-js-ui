@@ -138,10 +138,10 @@ class EngineConnector extends BaseComponent {
   /**
    * render component
    *
-   * @returns {Element} - component element
+   * @returns {React$Element} - component element
    * @memberof EngineConnector
    */
-  render(): Element {
+  render(): React$Element<any> {
     return <span />
   }
 }

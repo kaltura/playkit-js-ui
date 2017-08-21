@@ -160,10 +160,10 @@ class ShareOverlay extends BaseComponent {
    * opens new window for share
    *
    * @param {string} href - url to open
-   * @returns {void}
+   * @returns {boolean} - false
    * @memberof ShareOverlay
    */
-  share(href: string): void {
+  share(href: string): boolean {
     window.open(href,'_blank','width=580,height=580');
     return false;
   }
@@ -171,10 +171,10 @@ class ShareOverlay extends BaseComponent {
   /**
    * renders main overlay state
    *
-   * @returns {Element} - main state element
+   * @returns {React$Element} - main state element
    * @memberof ShareOverlay
    */
-  renderMainState(): Element {
+  renderMainState(): React$Element<any> {
     return (
       <div className={this.state.state === shareOverlayState.Main ? 'overlay-screen active' : 'overlay-screen'}>
         <div className='title'>
@@ -242,10 +242,10 @@ class ShareOverlay extends BaseComponent {
   /**
    * renders link options state
    *
-   * @returns {Element} - link options element
+   * @returns {React$Element} - link options element
    * @memberof ShareOverlay
    */
-  renderLinkOptionsState(): Element {
+  renderLinkOptionsState(): React$Element<any> {
     var copyUrlClasses = 'btn-rounded btn-branded btn-copy-url';
     copyUrlClasses += this.state.copySuccess ? ' copied' : '';
 
@@ -300,10 +300,10 @@ class ShareOverlay extends BaseComponent {
   /**
    * renders embed options state
    *
-   * @returns {Element} - embed options element
+   * @returns {React$Element} - embed options element
    * @memberof ShareOverlay
    */
-  renderEmbedOptionsState(): Element {
+  renderEmbedOptionsState(): React$Element<any> {
     var copyUrlClasses = 'btn-rounded btn-branded btn-copy-url';
     copyUrlClasses += this.state.copySuccess ? ' copied' : '';
 
@@ -358,10 +358,10 @@ class ShareOverlay extends BaseComponent {
   /**
    * utility function to switch and render the right overlay state element based on the overlay state.
    *
-   * @returns {Element} - current state element
+   * @returns {React$Element} - current state element
    * @memberof ShareOverlay
    */
-  renderStateContent(): Element {
+  renderStateContent(): React$Element<any> {
     switch (this.state.state) {
       case shareOverlayState.Main:
         return this.renderMainState();
@@ -381,10 +381,10 @@ class ShareOverlay extends BaseComponent {
    * render component
    *
    * @param {*} props - component props
-   * @returns {Element} - component element
+   * @returns {React$Element} - component element
    * @memberof ShareOverlay
    */
-  render(props: any): Element {
+  render(props: any): React$Element<any> {
     return (
       <Overlay open onClose={() => props.onClose()} type='share'>
         {this.renderStateContent()}

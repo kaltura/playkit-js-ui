@@ -37,10 +37,10 @@ class Overlay extends Component {
    * render component
    *
    * @param {*} props - component props
-   * @returns {Element} - component
+   * @returns {React$Element} - component
    * @memberof Overlay
    */
-  render(props: any): Element {
+  render(props: any): React$Element<any> {
     var overlayClass = 'overlay';
     if (props.type) overlayClass += ` ${props.type}-overlay`;
     if (props.open) overlayClass += ' active'

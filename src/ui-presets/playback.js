@@ -21,7 +21,7 @@ import KeyboardControl from '../components/keyboard';
  * @param {*} props component props
  * @returns {HTMLElement} player ui tree
  */
-export default function playbackUI(props: any): HTMLElement {
+export default function playbackUI(props: any): React$Element<any> {
   return (
     <div className='playback-gui-wrapper'>
       <KeyboardControl player={props.player} />

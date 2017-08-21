@@ -62,10 +62,10 @@ class PlayPauseControl extends BaseComponent {
    * render component
    *
    * @param {*} props - component props
-   * @returns {Element} - component element
+   * @returns {React$Element} - component element
    * @memberof PlayPauseControl
    */
-  render(props: any): Element {
+  render(props: any): React$Element<any> {
     var controlButtonClass = this.isPlayingAdOrPlayback() ? 'control-button is-playing' : 'control-button';
 
     return (

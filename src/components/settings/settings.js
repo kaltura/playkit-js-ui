@@ -155,7 +155,7 @@ class SettingsControl extends BaseComponent {
    * render component
    *
    * @param {*} props - component props
-   * @returns {Element} - component element
+   * @returns {React$Element} - component element
    * @memberof SettingsControl
    */
   render(props: any) {

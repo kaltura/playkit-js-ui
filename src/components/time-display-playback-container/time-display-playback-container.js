@@ -34,10 +34,10 @@ class TimeDisplayPlaybackContainer extends BaseComponent {
    * render component
    *
    * @param {*} props - component props
-   * @returns {Element} - component element
+   * @returns {React$Element} - component element
    * @memberof TimeDisplayPlaybackContainer
    */
-  render(props: any): Element {
+  render(props: any): React$Element<any> {
     return (
       <TimeDisplay
         currentTime={props.currentTime}

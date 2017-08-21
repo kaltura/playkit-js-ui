@@ -40,10 +40,10 @@ class SeekBarAdsContainer extends BaseComponent {
    * render compoent
    *
    * @param {*} props - component props
-   * @returns {Element} - component element
+   * @returns {React$Element} - component element
    * @memberof SeekBarAdsContainer
    */
-  render(props: any): Element {
+  render(props: any): React$Element<any> {
     return (
       <SeekBarControl
         playerElement={this.player.getView().parentElement}

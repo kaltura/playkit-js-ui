@@ -40,10 +40,10 @@ class Icon extends Component {
    * render icon based on props.type
    *
    * @param {*} props - component props
-   * @returns {Element} - component element
+   * @returns {React$Element} - component element
    * @memberof Icon
    */
-  render(props: any): Element {
+  render(props: any): React$Element<any> | void {
     switch (props.type) {
       case IconType.Maximize:
         return (

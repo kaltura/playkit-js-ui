@@ -137,10 +137,10 @@ class FullscreenControl extends BaseComponent {
   /**
    * render component
    *
-   * @returns {Element} - component
+   * @returns {React$Element} - component
    * @memberof FullscreenControl
    */
-  render(): Element {
+  render(): React$Element<any> {
     return (
       <div className='control-button-container control-fullscreen'>
         <Localizer>

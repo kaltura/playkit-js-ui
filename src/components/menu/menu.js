@@ -99,10 +99,10 @@ class Menu extends Component {
   /**
    * render native select element
    *
-   * @returns {Element} - component element
+   * @returns {React$Element} - component element
    * @memberof Menu
    */
-  renderNativeSelect(): Element {
+  renderNativeSelect(): React$Element<any> {
     return (
       <select
         className={this.props.hideSelect ? 'mobile-hidden-select' : ''}
@@ -118,10 +118,10 @@ class Menu extends Component {
    * otherwise, render the styled menu
    *
    * @param {*} props - component props
-   * @returns {Element} - component element
+   * @returns {React$Element} - component element
    * @memberof Menu
    */
-  render(props: any): Element {
+  render(props: any): React$Element<any> {
     return props.isMobile ? this.renderNativeSelect() :
     (
       <div

@@ -18,7 +18,7 @@ import BottomBar from '../components/bottom-bar';
  * @param {*} props component props
  * @returns {HTMLElement} player ui tree
  */
-export default function adsUI(props: any): HTMLElement {
+export default function adsUI(props: any): React$Element<any> {
   var useStyledLinearAds = false;
 
   try {

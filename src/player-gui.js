@@ -46,10 +46,10 @@ class PlayerGUI extends Component {
    * if no matched UI found, it will choose the first UI configured in the UI array
    *
    * @param {*} props - component props
-   * @returns {Element} - component element
+   * @returns {React$Element} - component element
    * @memberof PlayerGUI
    */
-  render(props: any): Element {
+  render(props: any): React$Element<any> | void {
     let uiToRender;
 
     if (this.props.uis.length > 0) {

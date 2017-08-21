@@ -153,10 +153,10 @@ class VolumeControl extends BaseComponent {
   /**
    * render component
    *
-   * @returns {Element} - component element
+   * @returns {React$Element} - component element
    * @memberof VolumeControl
    */
-  render(): Element {
+  render(): React$Element<any> {
       var controlButtonClass = 'control-button-container volume-control';
       if (this.props.isDraggingActive) controlButtonClass += ' dragging-active';
       if (this.props.muted || this.props.volume === 0) controlButtonClass += ' is-muted';

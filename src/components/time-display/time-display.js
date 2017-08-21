@@ -36,10 +36,10 @@ class TimeDisplay extends Component {
    * render component
    *
    * @param {*} props - component props
-   * @returns {Element} - component
+   * @returns {React$Element} - component
    * @memberof TimeDisplay
    */
-  render(props: any): Element {
+  render(props: any): React$Element<any> {
     return (
       <div className='time-display'>
         <span>{this.getTimeDisplay(props.currentTime, props.duration, props.format)}</span>
