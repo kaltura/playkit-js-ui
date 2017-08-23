@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.1.2"></a>
+## [0.1.2](https://github.com/kaltura/playkit-js-ui/compare/v0.1.1...v0.1.2) (2017-08-23)
+
+
+### Bug Fixes
+
+* **FEC-6852:** remove none functional components from ui ([#24](https://github.com/kaltura/playkit-js-ui/issues/24)) ([8139f2c](https://github.com/kaltura/playkit-js-ui/commit/8139f2c))
+* **FEC-6854:** right frame preview in seekbar ([#29](https://github.com/kaltura/playkit-js-ui/issues/29)) ([9b04bb5](https://github.com/kaltura/playkit-js-ui/commit/9b04bb5))
+* **FEC-6873:** replay overlay screen in desktop and mobile. ([#28](https://github.com/kaltura/playkit-js-ui/issues/28)) ([b1158d0](https://github.com/kaltura/playkit-js-ui/commit/b1158d0))
+* **FEC-6889:** adding playhead to mobile seekbar ui ([#30](https://github.com/kaltura/playkit-js-ui/issues/30)) ([4dc1246](https://github.com/kaltura/playkit-js-ui/commit/4dc1246))
+* **FEC-6921:** mobile smart container label style opacity changed to 0.8 ([#31](https://github.com/kaltura/playkit-js-ui/issues/31)) ([82eabdd](https://github.com/kaltura/playkit-js-ui/commit/82eabdd))
+* **FEC-6936:** hover timeout for the player ui. ([#23](https://github.com/kaltura/playkit-js-ui/issues/23)) ([f9de374](https://github.com/kaltura/playkit-js-ui/commit/f9de374))
+* **FEC-7015:** fullscreen in mobile ([#27](https://github.com/kaltura/playkit-js-ui/issues/27)) ([0359775](https://github.com/kaltura/playkit-js-ui/commit/0359775))
+* **FEC-7023:** edge and ie10 fix to hide control bar on pre-playback ([#33](https://github.com/kaltura/playkit-js-ui/issues/33)) ([e9f4088](https://github.com/kaltura/playkit-js-ui/commit/e9f4088))
+
+
+
 <a name="0.1.1"></a>
 ## [0.1.1](https://github.com/kaltura/playkit-js-ui/compare/v0.1.0...v0.1.1) (2017-08-08)
 
