@@ -21,7 +21,8 @@
     "eslint": "eslint . --color",
     "flow": "flow check",
     "eslint:flow:test": "npm run eslint && npm run flow && npm run test",
-    "commit:dist": "git add --force --all dist && (git commit -m 'chore: update dist' || exit 0)"
+    "commit:dist": "git add --force --all dist && (git commit -m 'chore: update dist' || exit 0)",
+    "docs:components": "jsdoc -c component.jsdocs.json -r"
   },
   "standard-version": {
     "scripts": {
@@ -55,6 +56,8 @@
     "eslint-plugin-react": "^7.1.0",
     "flow-bin": "latest",
     "istanbul": "^0.4.5",
+    "jsdoc": "^3.5.4",
+    "jsdoc-babel": "^0.3.0",
     "karma": "^1.5.0",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^2.0.0",

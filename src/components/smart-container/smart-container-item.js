@@ -3,8 +3,22 @@ import { h, Component } from 'preact';
 import DropDown from '../dropdown';
 import { default as Icon, IconType } from '../icon';
 
-class SmartContainer extends Component {
-  render(props: any) {
+/**
+ * SmartContainerItem component
+ *
+ * @class SmartContainerItem
+ * @extends {Component}
+ */
+class SmartContainerItem extends Component {
+
+  /**
+   * render component
+   *
+   * @param {*} props - component props
+   * @returns {React$Element} - component element
+   * @memberof SmartContainer
+   */
+  render(props: any): React$Element<any> {
     return (
       <div className='smart-container-item select-menu-item'>
         <label htmlFor={IconType.Quality}>
@@ -17,4 +31,4 @@ class SmartContainer extends Component {
   }
 }
 
-export default SmartContainer;
+export default SmartContainerItem;

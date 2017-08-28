@@ -6,6 +6,11 @@ import { actions } from '../../reducers/shell';
 import BaseComponent from '../base';
 import { default as Icon, IconType } from '../icon';
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 const mapStateToProps = state => ({
   metadataLoaded: state.engine.metadataLoaded,
   prePlayback: state.shell.prePlayback,
@@ -15,19 +20,33 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps, bindActions(actions))
+/**
+ * PrePlaybackPlayOverlay component
+ *
+ * @class PrePlaybackPlayOverlay
+ * @example <PrePlaybackPlayOverlay player={this.player} />
+ * @extends {BaseComponent}
+ */
 class PrePlaybackPlayOverlay extends BaseComponent {
   autoplay: boolean;
   mobileAutoplay: boolean;
 
+  /**
+   * Creates an instance of PrePlaybackPlayOverlay.
+   * @param {Object} obj obj
+   * @memberof PrePlaybackPlayOverlay
+   */
   constructor(obj: Object) {
     super({name: 'PrePlaybackPlayOverlay', player: obj.player});
   }
 
-  componentWillUnmount() {
-    this.props.updatePrePlayback(false);
-    this.props.removePlayerClass('pre-playback');
-  }
-
+  /**
+   * before component mounted, add 'pre-playback' class to player shell in order to hide the gui
+   * and set the autoplay and mobileAutoplay values from the player config
+   *
+   * @returns {void}
+   * @memberof PrePlaybackPlayOverlay
+   */
   componentWillMount() {
     this.props.addPlayerClass('pre-playback');
 
@@ -38,6 +57,23 @@ class PrePlaybackPlayOverlay extends BaseComponent {
     catch (e) { this.mobileAutoplay = false; } // eslint-disable-line no-unused-vars
   }
 
+  /**
+   * before component unmounted, remove the pre playback flag and class from player shell.
+   *
+   * @returns {void}
+   * @memberof PrePlaybackPlayOverlay
+   */
+  componentWillUnmount() {
+    this.props.updatePrePlayback(false);
+    this.props.removePlayerClass('pre-playback');
+  }
+
+  /**
+   * after component mounted, listen to play event and update the pre plackback flag to false
+   *
+   * @returns {void}
+   * @memberof PrePlaybackPlayOverlay
+   */
   componentDidMount() {
     this.player.addEventListener(this.player.Event.PLAY, () => {
       this.props.updatePrePlayback(false);
@@ -50,11 +86,24 @@ class PrePlaybackPlayOverlay extends BaseComponent {
     }
   }
 
-  handleClick() {
+  /**
+   * play on click
+   *
+   * @returns {void}
+   * @memberof PrePlaybackPlayOverlay
+   */
+  handleClick(): void {
     this.player.play();
   }
 
-  render(props: any) {
+  /**
+   * render component
+   *
+   * @param {*} props - component props
+   * @returns {React$Element} - component element
+   * @memberof PrePlaybackPlayOverlay
+   */
+  render(props: any): React$Element<any> | void {
     if (
       (!props.isEnded && !props.prePlayback) ||
       (!props.isEnded && !props.isMobile && this.autoplay) ||

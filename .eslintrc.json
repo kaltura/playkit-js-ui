@@ -34,8 +34,14 @@
     "mocha-no-only/mocha-no-only": "off",
     "flowtype/define-flow-type": 2,
     "react/prop-types": 0,
-    //TODO: Fix neccesary jsdoc
-    "require-jsdoc": "off",
+    "require-jsdoc": ["error", {
+      "require": {
+        "FunctionDeclaration": true,
+        "MethodDefinition": true,
+        "ClassDeclaration": true,
+        "ArrowFunctionExpression": true
+      }
+    }],
     "valid-jsdoc": [
       "error"
     ]

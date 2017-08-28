@@ -1,6 +1,12 @@
 //@flow
 
-function toHHMMSS(input: number) {
+/**
+ * Formatting seconds input into time format
+ *
+ * @param {number} input number of seconds
+ * @returns {string} formatted time string
+ */
+function toHHMMSS(input: number): string {
   var sec_num = parseInt(input, 10);
   var hours   = Math.floor(sec_num / 3600);
   var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
@@ -13,7 +19,13 @@ function toHHMMSS(input: number) {
   return `${hours !== '00' ? hours + ':' : ''}${minutes}:${seconds}`;
 }
 
-function toSecondsFromHHMMSS(input: string) {
+/**
+ * Converting formatted time into seconds
+ *
+ * @param {string} input formatted time
+ * @returns {number} number of seconds
+ */
+function toSecondsFromHHMMSS(input: string): number {
   var parts = input.split(':');
   var seconds = 0;
   if (parts.length === 2) {
