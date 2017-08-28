@@ -5,7 +5,10 @@ import { connect } from 'preact-redux';
 const mapStateToProps = state => ({
   state: {
     shell: state.shell,
-    engine: { adBreak: state.engine.adBreak }
+    engine: {
+      adBreak: state.engine.adBreak,
+      isLive: state.engine.isLive
+    }
   }
 });
 

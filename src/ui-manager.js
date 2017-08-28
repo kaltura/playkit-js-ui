@@ -17,6 +17,7 @@ import PlayerGUI from './player-gui';
 // ui presets
 import adsUI from './ui-presets/ads';
 import playbackUI from './ui-presets/playback';
+import liveUI from './ui-presets/live';
 
 import './styles/style.scss';
 
@@ -37,6 +38,7 @@ class UIManager {
   buildDefaultUI(): void {
     const uis = [
       { template: props => adsUI(props), condition: state => state.engine.adBreak },
+      { template: props => liveUI(props), condition: state => state.engine.isLive },
       { template: props => playbackUI(props) }
     ];
     this._buildUI(uis);

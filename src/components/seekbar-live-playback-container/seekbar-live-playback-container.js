@@ -1,0 +1,54 @@
+//@flow
+import { h } from 'preact';
+import { connect } from 'preact-redux';
+import { bindActions } from '../../utils/bind-actions';
+import { actions } from '../../reducers/seekbar';
+import BaseComponent from '../base';
+import SeekBarControl from '../seekbar';
+
+const mapStateToProps = state => ({
+  currentTime: state.seekbar.currentTime,
+  duration: state.engine.duration,
+  isDraggingActive: state.seekbar.draggingActive,
+  isMobile: state.shell.isMobile,
+  poster: state.engine.poster,
+  isDvr: state.engine.isDvr
+});
+
+@connect(mapStateToProps, bindActions(actions))
+class SeekBarLivePlaybackContainer extends BaseComponent {
+
+  constructor(obj: Object) {
+    super({name: 'SeekBarLivePlaybackContainer', player: obj.player});
+  }
+
+  componentDidMount() {
+    this.player.addEventListener(this.player.Event.TIME_UPDATE, () => {
+      if (!this.props.isDraggingActive) {
+        this.props.updateCurrentTime(this.player.currentTime);
+      }
+    });
+  }
+
+  render(props) {
+    if (!props.isDvr) return undefined;
+    return (
+      <SeekBarControl
+        playerElement={this.player.getView().parentElement}
+        showTimeBubble={this.props.showTimeBubble}
+        changeCurrentTime={time => this.player.currentTime = time}
+        playerPoster={this.props.poster}
+        updateSeekbarDraggingStatus={data => this.props.updateSeekbarDraggingStatus(data)}
+        updateCurrentTime={data => this.props.updateCurrentTime(data)}
+
+        isDvr={this.props.isDvr}
+        currentTime={this.props.currentTime}
+        duration={this.props.duration}
+        isDraggingActive={this.props.isDraggingActive}
+        isMobile={this.props.isMobile}
+      />
+    )
+  }
+
+}
+export default SeekBarLivePlaybackContainer;

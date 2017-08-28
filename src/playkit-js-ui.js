@@ -5,7 +5,7 @@ export {h} from 'preact';
 // ui presets
 export {default as playbackUI} from './ui-presets/playback';
 export {default as adsUI} from './ui-presets/ads';
-export {default as fullscreenUI} from './ui-presets/fullscreen';
+export {default as liveUI} from './ui-presets/live';
 
 // components
 export {OverlayPlay} from './components/overlay-play';

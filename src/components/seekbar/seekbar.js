@@ -154,7 +154,8 @@ class SeekBarControl extends Component {
   renderTimeBubble() {
     if (!this.props.showTimeBubble || this.props.isMobile) return undefined;
     var timeBubbleStyle = `left: ${this.getTimeBubbleOffset()}px`;
-    return <div className='time-preview' style={timeBubbleStyle} ref={c => this._timeBubbleElement=c}>{ toHHMMSS(this.state.virtualTime)}</div>
+    var timeBubbleValue = this.props.isDvr ? '-' + toHHMMSS(this.props.duration - this.state.virtualTime) : toHHMMSS(this.state.virtualTime);
+    return <div className='time-preview' style={timeBubbleStyle} ref={c => this._timeBubbleElement=c}>{timeBubbleValue}</div>
   }
 
   render(props: any) {
@@ -162,6 +163,7 @@ class SeekBarControl extends Component {
     var progressWidth = `${props.currentTime / props.duration * 100}%`;
     var seekbarStyleClass = `seek-bar`;
     if (props.adBreak) seekbarStyleClass += ' ad-break';
+    if (props.isDvr) seekbarStyleClass += ' live';
     if (props.isMobile) seekbarStyleClass += ' hover';
 
     return (
