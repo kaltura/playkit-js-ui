@@ -22,3 +22,9 @@
     cursor: pointer;
   }
 }
+
+@media screen and (max-width: 480px) {
+  .live-tag {
+    margin-left: 0;
+  }
+}
