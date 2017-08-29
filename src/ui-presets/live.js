@@ -14,7 +14,14 @@ import OverlayPortal from '../components/overlay-portal';
 import KeyboardControl from '../components/keyboard';
 import LiveTag from '../components/live-tag';
 
-export default function liveUI(props: any) {
+/**
+ * Live ui intrface
+ *
+ * @export
+ * @param {*} props component props
+ * @returns {React$Element<any>} player ui tree
+ */
+export default function liveUI(props: any): React$Element<any> {
   return (
     <div className='playback-gui-wrapper'>
       <KeyboardControl player={props.player} />

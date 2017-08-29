@@ -6,6 +6,11 @@ import { actions } from '../../reducers/seekbar';
 import BaseComponent from '../base';
 import SeekBarControl from '../seekbar';
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 const mapStateToProps = state => ({
   currentTime: state.seekbar.currentTime,
   duration: state.engine.duration,
@@ -16,12 +21,31 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps, bindActions(actions))
+/**
+ * SeekBarLivePlaybackContainer component
+ *
+ * @class SeekBarLivePlaybackContainer
+ * @example <SeekBarLivePlaybackContainer player={this.player} />
+ * @extends {BaseComponent}
+ */
 class SeekBarLivePlaybackContainer extends BaseComponent {
 
+  /**
+   * Creates an instance of SeekBarLivePlaybackContainer.
+   * @param {Object} obj obj
+   * @memberof SeekBarLivePlaybackContainer
+   */
   constructor(obj: Object) {
     super({name: 'SeekBarLivePlaybackContainer', player: obj.player});
   }
 
+  /**
+   * after component mounted, listen to time update event and if dragging not active,
+   * update the current time in the store
+   *
+   * @returns {void}
+   * @memberof SeekBarLivePlaybackContainer
+   */
   componentDidMount() {
     this.player.addEventListener(this.player.Event.TIME_UPDATE, () => {
       if (!this.props.isDraggingActive) {
@@ -30,7 +54,14 @@ class SeekBarLivePlaybackContainer extends BaseComponent {
     });
   }
 
-  render(props) {
+  /**
+   * render component
+   *
+   * @param {*} props - component props
+   * @returns {React$Element} - component element
+   * @memberof SeekBarLivePlaybackContainer
+   */
+  render(props: any) {
     if (!props.isDvr) return undefined;
     return (
       <SeekBarControl

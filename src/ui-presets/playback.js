@@ -19,7 +19,7 @@ import KeyboardControl from '../components/keyboard';
  *
  * @export
  * @param {*} props component props
- * @returns {HTMLElement} player ui tree
+ * @returns {React$Element} player ui tree
  */
 export default function playbackUI(props: any): React$Element<any> {
   return (

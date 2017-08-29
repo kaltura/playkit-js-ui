@@ -3,6 +3,11 @@ import { h } from 'preact';
 import { connect } from 'preact-redux';
 import BaseComponent from '../base';
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 const mapStateToProps = state => ({
   isLive: state.engine.isLive,
   isDvr: state.engine.isDvr,
@@ -11,8 +16,20 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps)
+/**
+ * LiveTag component
+ *
+ * @class LiveTag
+ * @example <LiveTag player={this.player} />
+ * @extends {BaseComponent}
+ */
 class LiveTag extends BaseComponent {
 
+  /**
+   * Creates an instance of LiveTag.
+   * @param {Object} obj obj
+   * @memberof LiveTag
+   */
   constructor(obj: Object) {
     super({name: 'LiveTag', player: obj.player});
   }
@@ -43,7 +60,14 @@ class LiveTag extends BaseComponent {
     }
   }
 
-  render(props) {
+  /**
+   * render live tag component
+   *
+   * @param {*} props - component props
+   * @returns {React$Element} component element
+   * @memberof LiveTag
+   */
+  render(props: any): React$Element<any> {
     var tagStyleClass = 'live-tag';
     if (props.isDvr && !this.isOnLiveEdge()) tagStyleClass += ' non-live-playhead';
 
