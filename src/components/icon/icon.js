@@ -29,10 +29,22 @@ const IconType = {
   ArrowDown: 'arrow-down',
   Startover: 'shartover'
 }
-
+/**
+ * Icon component
+ *
+ * @class Icon
+ * @example <Icon type={IconType.Play} />
+ * @extends {Component}
+ */
 class Icon extends Component {
-
-  render(props: any) {
+  /**
+   * render icon based on props.type
+   *
+   * @param {*} props - component props
+   * @returns {React$Element} - component element
+   * @memberof Icon
+   */
+  render(props: any): React$Element<any> | void {
     switch (props.type) {
       case IconType.Maximize:
         return (

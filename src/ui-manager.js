@@ -26,15 +26,32 @@ type UIPreset = {
   condition?: (state: Object) => boolean;
 }
 
+/**
+ * API used for building UIs based on state conditions
+ *
+ * @class UIManager
+ */
 class UIManager {
   player: Player;
   config: Object;
 
+  /**
+   * Creates an instance of UIManager.
+   * @param {Player} player - player instance
+   * @param {Object} config - player config
+   * @memberof UIManager
+   */
   constructor(player: Player, config: Object) {
     this.player = player;
     this.config = config;
   }
 
+  /**
+   * build default UIs
+   *
+   * @returns {void}
+   * @memberof UIManager
+   */
   buildDefaultUI(): void {
     const uis = [
       { template: props => adsUI(props), condition: state => state.engine.adBreak },
@@ -44,6 +61,13 @@ class UIManager {
     this._buildUI(uis);
   }
 
+  /**
+   * build custom UIs
+   *
+   * @param {Array<UIPreset>} uis - UIs array with conditions based on state
+   * @returns {void}
+   * @memberof UIManager
+   */
   buildCustomUI(uis: Array<UIPreset>): void {
     if (uis.length > 0) {
       this._buildUI(uis);
@@ -54,7 +78,14 @@ class UIManager {
     }
   }
 
-  _buildUI(uis?: Array<UIPreset>) {
+  /**
+   * build the UI and render to targetId configured in player config
+   *
+   * @param {Array<UIPreset>} [uis] - UI array with conditions
+   * @returns {void}
+   * @memberof UIManager
+   */
+  _buildUI(uis?: Array<UIPreset>): void {
     if (!this.player) return;
 
     // define the store and devtools for redux
