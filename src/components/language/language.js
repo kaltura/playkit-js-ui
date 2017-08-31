@@ -9,7 +9,6 @@ import SmartContainer from '../smart-container';
 import SmartContainerItem from '../smart-container/smart-container-item';
 import { default as Icon, IconType } from '../icon';
 import CVAAOverlay from '../cvaa-overlay';
-import Menu from '../menu';
 import Portal from 'preact-portal';
 
 /**
