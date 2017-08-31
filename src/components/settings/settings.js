@@ -175,6 +175,9 @@ class SettingsControl extends BaseComponent {
       }, []);
 
     let qualityOptions = props.videoTracks
+      .filter(t => {
+        return t.bandwidth || t.height
+      })
       .sort((a, b) => {
         return a.bandwidth < b.bandwidth
       })
@@ -184,12 +187,14 @@ class SettingsControl extends BaseComponent {
         value: t
       }));
 
-    qualityOptions
-      .unshift({
-        label: 'Auto',
-        active: this.player.isAdaptiveBitrateEnabled(),
-        value: 'auto'
-      });
+    if (qualityOptions.length > 1) {
+      qualityOptions
+        .unshift({
+          label: 'Auto',
+          active: this.player.isAdaptiveBitrateEnabled(),
+          value: 'auto'
+        });
+    }
 
     return (
       <div
@@ -208,7 +213,7 @@ class SettingsControl extends BaseComponent {
         { !this.state.smartContainerOpen ? '' :
         <SmartContainer title='Settings' onClose={() => this.onControlButtonClick()}>
           {
-            props.videoTracks.length <= 0 ? '' :
+            qualityOptions.length === 0 ? '' :
             <Localizer>
               <SmartContainerItem icon='quality' label={<Text id='settings.quality' />} options={qualityOptions} onSelect={(o) => this.onQualityChange(o)} />
             </Localizer>

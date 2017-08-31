@@ -144,63 +144,7 @@ class LanguageControl extends BaseComponent {
   }
 
   /**
-   * render menu with audio settings only
-   *
-   * @param {Array<Object>} audioOptions - audio tracks
-   * @returns {React$Element} component element
-   * @memberof LanguageControl
-   */
-  renderAudioSettingsOnly(audioOptions: Array<Object>): React$Element<any> {
-    return (
-      <div className='control-button-container control-audio'>
-        <button
-          className={this.state.smartContainerOpen ? 'control-button active' : 'control-button'}
-          onClick={() => this.onControlButtonClick()}
-        >
-          <Icon type={IconType.Language} />
-        </button>
-        { !this.state.smartContainerOpen && !this.props.isMobile ? undefined :
-        <Menu
-          hideSelect
-          options={audioOptions}
-          onSelect={(o) => this.onAudioChange(o)}
-          onClose={() => this.setState({smartContainerOpen: false})}
-        />
-        }
-      </div>
-    )
-  }
-
-  /**
-   * render menu with text settings only
-   *
-   * @param {Array<Object>} textOptions - text tracks
-   * @returns {React$Element} - component element
-   * @memberof LanguageControl
-   */
-  renderTextSettingsOnly(textOptions: Array<Object>): React$Element<any> {
-    return (
-      <div className='control-button-container control-audio'>
-        <button
-          className={this.state.smartContainerOpen ? 'control-button active' : 'control-button'}
-          onClick={() => this.onControlButtonClick()}
-        >
-          <Icon type={IconType.Language} />
-        </button>
-        { !this.state.smartContainerOpen && !this.props.isMobile ? undefined :
-        <Menu
-          hideSelect
-          options={textOptions}
-          onSelect={(o) => this.onCaptionsChange(o)}
-          onClose={() => this.setState({smartContainerOpen: false})}
-        />
-        }
-      </div>
-    )
-  }
-
-  /**
-   * render smart container with both audio and text options
+   * render smart container with both audio and text options if exist
    *
    * @param {Array<Object>} audioOptions - audio tracks
    * @param {Array<Object>} textOptions - text tracks
@@ -224,27 +168,33 @@ class LanguageControl extends BaseComponent {
         </Localizer>
         { !this.state.smartContainerOpen || this.state.cvaaOverlay ? undefined :
         <SmartContainer title='Language' onClose={() => this.onControlButtonClick()}>
-          <Localizer>
-            <SmartContainerItem
-              icon='audio'
-              label={<Text id='language.audio' />}
-              options={audioOptions}
-              onSelect={audioTrack => this.onAudioChange(audioTrack)}
-            />
-          </Localizer>
-          <Localizer>
-            <SmartContainerItem
-              icon='captions'
-              label={<Text id='language.captions' />}
-              options={textOptions}
-              onSelect={textTrack => this.onCaptionsChange(textTrack)}
-            />
-          </Localizer>
-          <div className='smart-container-item'>
-            <a onClick={() => this.toggleCVAAOverlay()}>
-              <Text id='language.advanced_captions_settings' />
-            </a>
-          </div>
+          { audioOptions.length === 0 ? undefined :
+            <Localizer>
+              <SmartContainerItem
+                icon='audio'
+                label={<Text id='language.audio' />}
+                options={audioOptions}
+                onSelect={audioTrack => this.onAudioChange(audioTrack)}
+              />
+            </Localizer>
+          }
+          { textOptions.length === 0 ? undefined :
+            <Localizer>
+              <SmartContainerItem
+                icon='captions'
+                label={<Text id='language.captions' />}
+                options={textOptions}
+                onSelect={textTrack => this.onCaptionsChange(textTrack)}
+              />
+            </Localizer>
+          }
+          { textOptions.length === 0 ? undefined :
+            <div className='smart-container-item'>
+              <a onClick={() => this.toggleCVAAOverlay()}>
+                <Text id='language.advanced_captions_settings' />
+              </a>
+            </div>
+          }
         </SmartContainer>
         }
         { this.state.cvaaOverlay ? (
@@ -264,7 +214,9 @@ class LanguageControl extends BaseComponent {
    * @memberof LanguageControl
    */
   render(props: any): React$Element<any> | void {
-    var audioOptions = props.audioTracks.map(t => ({ label: t.label || t.language, active: t.active, value: t }));
+    var audioOptions = props.audioTracks
+      .filter(t => t.label || t.language)
+      .map(t => ({ label: t.label || t.language, active: t.active, value: t }));
     var textOptions = props.textTracks.filter(t => t.kind === 'subtitles').map(t => ({ label: t.label || t.language, active: t.active, value: t }));
 
     if (textOptions.length > 0) {
@@ -275,14 +227,8 @@ class LanguageControl extends BaseComponent {
       })
     }
 
-    if (audioOptions.length > 0 && textOptions.length > 0) {
+    if (audioOptions.length > 0 || textOptions.length > 0) {
       return this.renderAll(audioOptions, textOptions);
-    }
-    else if (audioOptions.length > 0 && textOptions.length === 0) {
-      return this.renderAudioSettingsOnly(audioOptions);
-    }
-    else if (audioOptions.length === 0 && textOptions.length > 0) {
-      return this.renderTextSettingsOnly(textOptions);
     }
     else {
       return undefined;
