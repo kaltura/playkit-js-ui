@@ -7,7 +7,7 @@
 		exports["PlaykitJsUi"] = factory(require("playkit-js"));
 	else
 		root["PlaykitJsUi"] = factory(root["Playkit"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_36__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_34__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -70,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 51);
+/******/ 	return __webpack_require__(__webpack_require__.s = 50);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1677,7 +1677,7 @@ var index = { Provider: Provider, connect: connect, connectAdvanced: connectAdva
 /* harmony default export */ __webpack_exports__["default"] = (index);
 //# sourceMappingURL=preact-redux.esm.js.map
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(15)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(16)))
 
 /***/ }),
 /* 2 */
@@ -1690,15 +1690,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _preact = __webpack_require__(0);
 
-var _playkitJs = __webpack_require__(36);
+var _playkitJs = __webpack_require__(34);
 
 var _playkitJs2 = _interopRequireDefault(_playkitJs);
 
-var _logger = __webpack_require__(68);
+var _logger = __webpack_require__(67);
 
 var _logger2 = _interopRequireDefault(_logger);
 
@@ -1710,9 +1708,20 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * Base component to be extended by other player UI components
+ *
+ * @class BaseComponent
+ * @extends {Component}
+ */
 var BaseComponent = function (_Component) {
   _inherits(BaseComponent, _Component);
 
+  /**
+   * Creates an instance of BaseComponent.
+   * @param {Object} [obj={ config: {} }] obj
+   * @memberof BaseComponent
+   */
   function BaseComponent() {
     var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { config: {} };
 
@@ -1728,21 +1737,6 @@ var BaseComponent = function (_Component) {
     return _this;
   }
 
-  _createClass(BaseComponent, [{
-    key: 'getConfig',
-    value: function getConfig(attr) {
-      if (attr) {
-        return this.config[attr];
-      }
-      return this.config;
-    }
-  }, {
-    key: 'defaultConfig',
-    get: function get() {
-      return {};
-    }
-  }]);
-
   return BaseComponent;
 }(_preact.Component);
 
@@ -1756,7 +1750,7 @@ exports.default = BaseComponent;
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -1765,10 +1759,17 @@ exports.bindActions = bindActions;
 
 var _redux = __webpack_require__(7);
 
+/**
+ * Binding redux actions to props utility
+ *
+ * @export
+ * @param {Array<any>} actions redux actions
+ * @returns {Function} function
+ */
 function bindActions(actions) {
-	return function (dispatch) {
-		return _extends({}, (0, _redux.bindActionCreators)(actions, dispatch));
-	};
+  return function (dispatch) {
+    return _extends({}, (0, _redux.bindActionCreators)(actions, dispatch));
+  };
 }
 
 /***/ }),
@@ -1783,7 +1784,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.IconType = exports.default = undefined;
 
-var _icon = __webpack_require__(70);
+var _icon = __webpack_require__(69);
 
 Object.defineProperty(exports, 'IconType', {
   enumerable: true,
@@ -1802,7 +1803,7 @@ exports.default = _icon2.default;
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-function n(n){return n&&"object"==typeof n&&"default"in n?n.default:n}function t(n){return null!==n&&void 0!==n}function r(n,t){var o=e({},n);for(var i in t)t.hasOwnProperty(i)&&(o[i]=n[i]&&t[i]&&"object"==typeof n[i]&&"object"==typeof t[i]?r(n[i],t[i]):n[i]||t[i]);return o}function e(n,t){for(var r in t)t.hasOwnProperty(r)&&(n[r]=t[r]);return n}function o(n){if(n=n||{},"string"==typeof n&&(n=n.split(",")),"join"in n){for(var t={},r=0;r<n.length;r++){var e=n[r].trim();e&&(t[e.split(".").pop()]=e)}return t}return n}function i(n,t){return v=t||h,n&&n.replace(/\{\{([\w.-]+)\}\}/g,u)}function u(n,t){for(var r=t.split("."),e=v,o=0;o<r.length;o++)if(null==(e=e[r[o]]))return"";return"string"==typeof e&&e.match(/\{\{/)&&(e=i(e,v)),e}function c(n,r,e,o,u,c){r&&(n=r+"."+n);var a=e&&f(e,n);return(u||0===u)&&a&&"object"==typeof a&&(a=a.splice?a[u]||a[0]:0===u&&t(a.none)?a.none:1===u&&t(a.one||a.singular)?a.one||a.singular:a.some||a.many||a.plural||a.other||a),a&&i(a,o)||c||null}function a(n,t,r){var i={};t=t||{},n=o(n);for(var u in n)if(n.hasOwnProperty(u)&&n[u]){var a=n[u];r||"string"!=typeof a?a.nodeName===g&&(a=e({fallback:a.children&&a.children[0]},a.attributes),i[u]=c(a.id,t.scope,t.dictionary,a.fields,a.plural,a.fallback)):i[u]=c(a,t.scope,t.dictionary)}return i}var l=__webpack_require__(0),f=n(__webpack_require__(74)),p=/[?&#]intl=show/,s=function(n){function t(){n.apply(this,arguments)}return n&&(t.__proto__=n),t.prototype=Object.create(n&&n.prototype),t.prototype.constructor=t,t.prototype.getChildContext=function(){var n=this.props,t=n.scope,o=n.definition,i=n.mark,u=e({},this.context.intl||{});return t&&(u.scope=t),o&&(u.dictionary=r(u.dictionary||{},o)),(i||"undefined"!=typeof location&&String(location).match(p))&&(u.mark=!0),{intl:u}},t.prototype.render=function(n){var t=n.children;return t&&t[0]||null},t}(l.Component),d=function(){for(var n=[],t=arguments.length;t--;)n[t]=arguments[t];if(n.length>1){return y(n[0],n[1])}var r=n[0];return function(n){return y(n,r)}},y=function(n,t){return function(r){return l.h(s,t||{},l.h(n,r))}},h={},v,g=function(n,t){var r=n.id,e=n.children,o=n.plural,i=n.fields,u=t.intl,a=e&&e[0],p=c(r,u&&u.scope,u&&u.dictionary,i,o,a);if(u&&u.mark){var s="dictionary"+(u&&u.scope?"."+u.scope:"")+"."+r;return l.h("mark",{style:"background: "+(p?f(u,s)?"rgba(119,231,117,.5)":"rgba(229,226,41,.5)":"rgba(228,147,51,.5)"),title:r},p)}return p},b=function(n,t){var r=n.children,e=t.intl,o=r&&r[0];return o&&l.cloneElement(o,a(o.attributes,e,!0))},m=function(n){return function(t){return function(r,e){var o="function"==typeof n?n(r):n,i=a(o,e.intl);return l.h(t,assign({},r,i))}}};d.intl=d,d.IntlProvider=s,d.Text=g,d.Localizer=b,d.withText=m,module.exports=d;
+function n(n){return n&&"object"==typeof n&&"default"in n?n.default:n}function t(n){return null!==n&&void 0!==n}function r(n,t){var o=e({},n);for(var i in t)t.hasOwnProperty(i)&&(o[i]=n[i]&&t[i]&&"object"==typeof n[i]&&"object"==typeof t[i]?r(n[i],t[i]):n[i]||t[i]);return o}function e(n,t){for(var r in t)t.hasOwnProperty(r)&&(n[r]=t[r]);return n}function o(n){if(n=n||{},"string"==typeof n&&(n=n.split(",")),"join"in n){for(var t={},r=0;r<n.length;r++){var e=n[r].trim();e&&(t[e.split(".").pop()]=e)}return t}return n}function i(n,t){return v=t||h,n&&n.replace(/\{\{([\w.-]+)\}\}/g,u)}function u(n,t){for(var r=t.split("."),e=v,o=0;o<r.length;o++)if(null==(e=e[r[o]]))return"";return"string"==typeof e&&e.match(/\{\{/)&&(e=i(e,v)),e}function c(n,r,e,o,u,c){r&&(n=r+"."+n);var a=e&&f(e,n);return(u||0===u)&&a&&"object"==typeof a&&(a=a.splice?a[u]||a[0]:0===u&&t(a.none)?a.none:1===u&&t(a.one||a.singular)?a.one||a.singular:a.some||a.many||a.plural||a.other||a),a&&i(a,o)||c||null}function a(n,t,r){var i={};t=t||{},n=o(n);for(var u in n)if(n.hasOwnProperty(u)&&n[u]){var a=n[u];r||"string"!=typeof a?a.nodeName===g&&(a=e({fallback:a.children&&a.children[0]},a.attributes),i[u]=c(a.id,t.scope,t.dictionary,a.fields,a.plural,a.fallback)):i[u]=c(a,t.scope,t.dictionary)}return i}var l=__webpack_require__(0),f=n(__webpack_require__(73)),p=/[?&#]intl=show/,s=function(n){function t(){n.apply(this,arguments)}return n&&(t.__proto__=n),t.prototype=Object.create(n&&n.prototype),t.prototype.constructor=t,t.prototype.getChildContext=function(){var n=this.props,t=n.scope,o=n.definition,i=n.mark,u=e({},this.context.intl||{});return t&&(u.scope=t),o&&(u.dictionary=r(u.dictionary||{},o)),(i||"undefined"!=typeof location&&String(location).match(p))&&(u.mark=!0),{intl:u}},t.prototype.render=function(n){var t=n.children;return t&&t[0]||null},t}(l.Component),d=function(){for(var n=[],t=arguments.length;t--;)n[t]=arguments[t];if(n.length>1){return y(n[0],n[1])}var r=n[0];return function(n){return y(n,r)}},y=function(n,t){return function(r){return l.h(s,t||{},l.h(n,r))}},h={},v,g=function(n,t){var r=n.id,e=n.children,o=n.plural,i=n.fields,u=t.intl,a=e&&e[0],p=c(r,u&&u.scope,u&&u.dictionary,i,o,a);if(u&&u.mark){var s="dictionary"+(u&&u.scope?"."+u.scope:"")+"."+r;return l.h("mark",{style:"background: "+(p?f(u,s)?"rgba(119,231,117,.5)":"rgba(229,226,41,.5)":"rgba(228,147,51,.5)"),title:r},p)}return p},b=function(n,t){var r=n.children,e=t.intl,o=r&&r[0];return o&&l.cloneElement(o,a(o.attributes,e,!0))},m=function(n){return function(t){return function(r,e){var o="function"==typeof n?n(r):n,i=a(o,e.intl);return l.h(t,assign({},r,i))}}};d.intl=d,d.IntlProvider=s,d.Text=g,d.Localizer=b,d.withText=m,module.exports=d;
 //# sourceMappingURL=preact-i18n.js.map
 
 /***/ }),
@@ -1905,12 +1906,12 @@ var actions = exports.actions = {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__combineReducers__ = __webpack_require__(65);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__bindActionCreators__ = __webpack_require__(66);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__applyMiddleware__ = __webpack_require__(67);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__compose__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_warning__ = __webpack_require__(34);
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__combineReducers__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__bindActionCreators__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__applyMiddleware__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__compose__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_warning__ = __webpack_require__(32);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "createStore", function() { return __WEBPACK_IMPORTED_MODULE_0__createStore__["b"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "combineReducers", function() { return __WEBPACK_IMPORTED_MODULE_1__combineReducers__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "bindActionCreators", function() { return __WEBPACK_IMPORTED_MODULE_2__bindActionCreators__["a"]; });
@@ -1934,7 +1935,7 @@ if (process.env.NODE_ENV !== 'production' && typeof isCrushed.name === 'string' 
 }
 
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(30)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(28)))
 
 /***/ }),
 /* 8 */
@@ -1948,7 +1949,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _loading = __webpack_require__(72);
+var _loading = __webpack_require__(71);
 
 var _loading2 = _interopRequireDefault(_loading);
 
@@ -1968,7 +1969,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _playPause = __webpack_require__(73);
+var _playPause = __webpack_require__(72);
 
 var _playPause2 = _interopRequireDefault(_playPause);
 
@@ -1978,195 +1979,6 @@ exports.default = _playPause2.default;
 
 /***/ }),
 /* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = undefined;
-
-var _seekbar = __webpack_require__(77);
-
-var _seekbar2 = _interopRequireDefault(_seekbar);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = _seekbar2.default;
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = undefined;
-
-var _volume = __webpack_require__(78);
-
-var _volume2 = _interopRequireDefault(_volume);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = _volume2.default;
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = undefined;
-
-var _fullscreen = __webpack_require__(87);
-
-var _fullscreen2 = _interopRequireDefault(_fullscreen);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = _fullscreen2.default;
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = undefined;
-
-var _bottomBar = __webpack_require__(90);
-
-var _bottomBar2 = _interopRequireDefault(_bottomBar);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = _bottomBar2.default;
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = undefined;
-
-var _overlayPlay = __webpack_require__(52);
-
-var _overlayPlay2 = _interopRequireDefault(_overlayPlay);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = _overlayPlay2.default;
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var types = exports.types = {
-  TOGGLE_PLAY: 'play-pause/TOGGLE_PLAY'
-};
-
-var initialState = exports.initialState = {
-  isPlaying: false
-};
-
-exports.default = function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-  var action = arguments[1];
-
-  switch (action.type) {
-    case types.TOGGLE_PLAY:
-      return _extends({}, state, {
-        isPlaying: action.isPlaying
-      });
-
-    default:
-      return state;
-  }
-};
-
-var actions = exports.actions = {
-  toggleIsPlaying: function toggleIsPlaying(isPlaying) {
-    return { type: types.TOGGLE_PLAY, isPlaying: isPlaying };
-  }
-};
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = undefined;
-
-var _prePlaybackPlayOverlay = __webpack_require__(71);
-
-var _prePlaybackPlayOverlay2 = _interopRequireDefault(_prePlaybackPlayOverlay);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = _prePlaybackPlayOverlay2.default;
-
-/***/ }),
-/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2228,6 +2040,195 @@ var actions = exports.actions = {
 };
 
 /***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _seekbar = __webpack_require__(76);
+
+var _seekbar2 = _interopRequireDefault(_seekbar);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _seekbar2.default;
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _volume = __webpack_require__(77);
+
+var _volume2 = _interopRequireDefault(_volume);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _volume2.default;
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _fullscreen = __webpack_require__(87);
+
+var _fullscreen2 = _interopRequireDefault(_fullscreen);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _fullscreen2.default;
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _bottomBar = __webpack_require__(90);
+
+var _bottomBar2 = _interopRequireDefault(_bottomBar);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _bottomBar2.default;
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _overlayPlay = __webpack_require__(51);
+
+var _overlayPlay2 = _interopRequireDefault(_overlayPlay);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _overlayPlay2.default;
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var types = exports.types = {
+  TOGGLE_PLAY: 'play-pause/TOGGLE_PLAY'
+};
+
+var initialState = exports.initialState = {
+  isPlaying: false
+};
+
+exports.default = function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case types.TOGGLE_PLAY:
+      return _extends({}, state, {
+        isPlaying: action.isPlaying
+      });
+
+    default:
+      return state;
+  }
+};
+
+var actions = exports.actions = {
+  toggleIsPlaying: function toggleIsPlaying(isPlaying) {
+    return { type: types.TOGGLE_PLAY, isPlaying: isPlaying };
+  }
+};
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _prePlaybackPlayOverlay = __webpack_require__(70);
+
+var _prePlaybackPlayOverlay2 = _interopRequireDefault(_prePlaybackPlayOverlay);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _prePlaybackPlayOverlay2.default;
+
+/***/ }),
 /* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2237,6 +2238,14 @@ var actions = exports.actions = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+
+/**
+ * Formatting seconds input into time format
+ *
+ * @param {number} input number of seconds
+ * @returns {string} formatted time string
+ */
 function toHHMMSS(input) {
   var sec_num = parseInt(input, 10);
   var hours = Math.floor(sec_num / 3600);
@@ -2256,6 +2265,12 @@ function toHHMMSS(input) {
   return '' + (hours !== '00' ? hours + ':' : '') + minutes + ':' + seconds;
 }
 
+/**
+ * Converting formatted time into seconds
+ *
+ * @param {string} input formatted time
+ * @returns {number} number of seconds
+ */
 function toSecondsFromHHMMSS(input) {
   var parts = input.split(':');
   var seconds = 0;
@@ -2284,7 +2299,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _settings = __webpack_require__(79);
+var _settings = __webpack_require__(78);
 
 var _settings2 = _interopRequireDefault(_settings);
 
@@ -2425,7 +2440,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _overlay = __webpack_require__(81);
+var _overlay = __webpack_require__(80);
 
 var _overlay2 = _interopRequireDefault(_overlay);
 
@@ -2517,26 +2532,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _timeDisplay = __webpack_require__(89);
-
-var _timeDisplay2 = _interopRequireDefault(_timeDisplay);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = _timeDisplay2.default;
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = undefined;
-
 var _overlayPortal = __webpack_require__(91);
 
 var _overlayPortal2 = _interopRequireDefault(_overlayPortal);
@@ -2546,7 +2541,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _overlayPortal2.default;
 
 /***/ }),
-/* 27 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2566,27 +2561,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _keyboard2.default;
 
 /***/ }),
-/* 28 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = undefined;
-
-var _topBar = __webpack_require__(99);
-
-var _topBar2 = _interopRequireDefault(_topBar);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = _topBar2.default;
-
-/***/ }),
-/* 29 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2599,11 +2574,11 @@ exports.default = playbackUI;
 
 var _preact = __webpack_require__(0);
 
-var _overlayPlay = __webpack_require__(14);
+var _overlayPlay = __webpack_require__(15);
 
 var _overlayPlay2 = _interopRequireDefault(_overlayPlay);
 
-var _prePlaybackPlayOverlay = __webpack_require__(17);
+var _prePlaybackPlayOverlay = __webpack_require__(18);
 
 var _prePlaybackPlayOverlay2 = _interopRequireDefault(_prePlaybackPlayOverlay);
 
@@ -2615,11 +2590,11 @@ var _playPause = __webpack_require__(9);
 
 var _playPause2 = _interopRequireDefault(_playPause);
 
-var _seekbarPlaybackContainer = __webpack_require__(75);
+var _seekbarPlaybackContainer = __webpack_require__(74);
 
 var _seekbarPlaybackContainer2 = _interopRequireDefault(_seekbarPlaybackContainer);
 
-var _volume = __webpack_require__(11);
+var _volume = __webpack_require__(12);
 
 var _volume2 = _interopRequireDefault(_volume);
 
@@ -2631,28 +2606,35 @@ var _language = __webpack_require__(23);
 
 var _language2 = _interopRequireDefault(_language);
 
-var _fullscreen = __webpack_require__(12);
+var _fullscreen = __webpack_require__(13);
 
 var _fullscreen2 = _interopRequireDefault(_fullscreen);
 
-var _timeDisplayPlaybackContainer = __webpack_require__(46);
+var _timeDisplayPlaybackContainer = __webpack_require__(43);
 
 var _timeDisplayPlaybackContainer2 = _interopRequireDefault(_timeDisplayPlaybackContainer);
 
-var _bottomBar = __webpack_require__(13);
+var _bottomBar = __webpack_require__(14);
 
 var _bottomBar2 = _interopRequireDefault(_bottomBar);
 
-var _overlayPortal = __webpack_require__(26);
+var _overlayPortal = __webpack_require__(25);
 
 var _overlayPortal2 = _interopRequireDefault(_overlayPortal);
 
-var _keyboard = __webpack_require__(27);
+var _keyboard = __webpack_require__(26);
 
 var _keyboard2 = _interopRequireDefault(_keyboard);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ * Playback ui interface
+ *
+ * @export
+ * @param {*} props component props
+ * @returns {React$Element} player ui tree
+ */
 function playbackUI(props) {
   return (0, _preact.h)(
     'div',
@@ -2687,12 +2669,9 @@ function playbackUI(props) {
     (0, _preact.h)(_prePlaybackPlayOverlay2.default, { player: props.player })
   );
 }
-// import TopBar from '../components/top-bar';
-
-// import ShareControl from '../components/share'
 
 /***/ }),
-/* 30 */
+/* 28 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -2882,14 +2861,14 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 31 */
+/* 29 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ActionTypes; });
 /* harmony export (immutable) */ __webpack_exports__["b"] = createStore;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_es_isPlainObject__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_symbol_observable__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_es_isPlainObject__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_symbol_observable__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_symbol_observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_symbol_observable__);
 
 
@@ -3141,13 +3120,13 @@ var ActionTypes = {
 }
 
 /***/ }),
-/* 32 */
+/* 30 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseGetTag_js__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getPrototype_js__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__isObjectLike_js__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseGetTag_js__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getPrototype_js__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__isObjectLike_js__ = __webpack_require__(59);
 
 
 
@@ -3213,11 +3192,11 @@ function isPlainObject(value) {
 
 
 /***/ }),
-/* 33 */
+/* 31 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__root_js__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__root_js__ = __webpack_require__(53);
 
 
 /** Built-in value references. */
@@ -3227,7 +3206,7 @@ var Symbol = __WEBPACK_IMPORTED_MODULE_0__root_js__["a" /* default */].Symbol;
 
 
 /***/ }),
-/* 34 */
+/* 32 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3255,7 +3234,7 @@ function warning(message) {
 }
 
 /***/ }),
-/* 35 */
+/* 33 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3294,13 +3273,13 @@ function compose() {
 }
 
 /***/ }),
-/* 36 */
+/* 34 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_36__;
+module.exports = __WEBPACK_EXTERNAL_MODULE_34__;
 
 /***/ }),
-/* 37 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3342,7 +3321,7 @@ var actions = exports.actions = {
 };
 
 /***/ }),
-/* 38 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3404,7 +3383,7 @@ var actions = exports.actions = {
 };
 
 /***/ }),
-/* 39 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3456,7 +3435,7 @@ var actions = exports.actions = {
 };
 
 /***/ }),
-/* 40 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3467,7 +3446,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _smartContainer = __webpack_require__(80);
+var _smartContainer = __webpack_require__(79);
 
 var _smartContainer2 = _interopRequireDefault(_smartContainer);
 
@@ -3476,7 +3455,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _smartContainer2.default;
 
 /***/ }),
-/* 41 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3485,6 +3464,13 @@ exports.default = _smartContainer2.default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+
+/**
+ * Detection of mobile device utility function
+ *
+ * @returns {boolean} Boolean for detecting if device is mobile or not
+ */
 function isMobile() {
   return typeof window.orientation !== "undefined" || navigator.userAgent.indexOf("IEMobile") !== -1;
 }
@@ -3492,7 +3478,7 @@ function isMobile() {
 exports.isMobile = isMobile;
 
 /***/ }),
-/* 42 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3506,7 +3492,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _preact = __webpack_require__(0);
 
-var _dropdown = __webpack_require__(43);
+var _dropdown = __webpack_require__(41);
 
 var _dropdown2 = _interopRequireDefault(_dropdown);
 
@@ -3522,17 +3508,32 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var SmartContainer = function (_Component) {
-  _inherits(SmartContainer, _Component);
+/**
+ * SmartContainerItem component
+ *
+ * @class SmartContainerItem
+ * @extends {Component}
+ */
+var SmartContainerItem = function (_Component) {
+  _inherits(SmartContainerItem, _Component);
 
-  function SmartContainer() {
-    _classCallCheck(this, SmartContainer);
+  function SmartContainerItem() {
+    _classCallCheck(this, SmartContainerItem);
 
-    return _possibleConstructorReturn(this, (SmartContainer.__proto__ || Object.getPrototypeOf(SmartContainer)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (SmartContainerItem.__proto__ || Object.getPrototypeOf(SmartContainerItem)).apply(this, arguments));
   }
 
-  _createClass(SmartContainer, [{
+  _createClass(SmartContainerItem, [{
     key: 'render',
+
+
+    /**
+     * render component
+     *
+     * @param {*} props - component props
+     * @returns {React$Element} - component element
+     * @memberof SmartContainer
+     */
     value: function render(props) {
       return (0, _preact.h)(
         'div',
@@ -3554,13 +3555,13 @@ var SmartContainer = function (_Component) {
     }
   }]);
 
-  return SmartContainer;
+  return SmartContainerItem;
 }(_preact.Component);
 
-exports.default = SmartContainer;
+exports.default = SmartContainerItem;
 
 /***/ }),
-/* 43 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3571,7 +3572,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _dropdown = __webpack_require__(82);
+var _dropdown = __webpack_require__(81);
 
 var _dropdown2 = _interopRequireDefault(_dropdown);
 
@@ -3580,27 +3581,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _dropdown2.default;
 
 /***/ }),
-/* 44 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = undefined;
-
-var _menu = __webpack_require__(83);
-
-var _menu2 = _interopRequireDefault(_menu);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = _menu2.default;
-
-/***/ }),
-/* 45 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3641,7 +3622,7 @@ var actions = exports.actions = {
 };
 
 /***/ }),
-/* 46 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3661,7 +3642,27 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _timeDisplayPlaybackContainer2.default;
 
 /***/ }),
-/* 47 */
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _timeDisplay = __webpack_require__(89);
+
+var _timeDisplay2 = _interopRequireDefault(_timeDisplay);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _timeDisplay2.default;
+
+/***/ }),
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3686,15 +3687,15 @@ var _seekbarAdsContainer = __webpack_require__(93);
 
 var _seekbarAdsContainer2 = _interopRequireDefault(_seekbarAdsContainer);
 
-var _volume = __webpack_require__(11);
+var _volume = __webpack_require__(12);
 
 var _volume2 = _interopRequireDefault(_volume);
 
-var _fullscreen = __webpack_require__(12);
+var _fullscreen = __webpack_require__(13);
 
 var _fullscreen2 = _interopRequireDefault(_fullscreen);
 
-var _timeDisplayPlaybackContainer = __webpack_require__(46);
+var _timeDisplayPlaybackContainer = __webpack_require__(43);
 
 var _timeDisplayPlaybackContainer2 = _interopRequireDefault(_timeDisplayPlaybackContainer);
 
@@ -3706,16 +3707,23 @@ var _adLearnMore = __webpack_require__(97);
 
 var _adLearnMore2 = _interopRequireDefault(_adLearnMore);
 
-var _topBar = __webpack_require__(28);
+var _topBar = __webpack_require__(46);
 
 var _topBar2 = _interopRequireDefault(_topBar);
 
-var _bottomBar = __webpack_require__(13);
+var _bottomBar = __webpack_require__(14);
 
 var _bottomBar2 = _interopRequireDefault(_bottomBar);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ * Ads ui interface
+ *
+ * @export
+ * @param {*} props component props
+ * @returns {HTMLElement} player ui tree
+ */
 function adsUI(props) {
   var useStyledLinearAds = false;
 
@@ -3777,7 +3785,7 @@ function adsUI(props) {
 }
 
 /***/ }),
-/* 48 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3788,16 +3796,126 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _share = __webpack_require__(101);
+var _topBar = __webpack_require__(99);
 
-var _share2 = _interopRequireDefault(_share);
+var _topBar2 = _interopRequireDefault(_topBar);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = _share2.default;
+exports.default = _topBar2.default;
 
 /***/ }),
-/* 49 */
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = liveUI;
+
+var _preact = __webpack_require__(0);
+
+var _overlayPlay = __webpack_require__(15);
+
+var _overlayPlay2 = _interopRequireDefault(_overlayPlay);
+
+var _prePlaybackPlayOverlay = __webpack_require__(18);
+
+var _prePlaybackPlayOverlay2 = _interopRequireDefault(_prePlaybackPlayOverlay);
+
+var _loading = __webpack_require__(8);
+
+var _loading2 = _interopRequireDefault(_loading);
+
+var _playPause = __webpack_require__(9);
+
+var _playPause2 = _interopRequireDefault(_playPause);
+
+var _seekbarLivePlaybackContainer = __webpack_require__(100);
+
+var _seekbarLivePlaybackContainer2 = _interopRequireDefault(_seekbarLivePlaybackContainer);
+
+var _volume = __webpack_require__(12);
+
+var _volume2 = _interopRequireDefault(_volume);
+
+var _settings = __webpack_require__(20);
+
+var _settings2 = _interopRequireDefault(_settings);
+
+var _language = __webpack_require__(23);
+
+var _language2 = _interopRequireDefault(_language);
+
+var _fullscreen = __webpack_require__(13);
+
+var _fullscreen2 = _interopRequireDefault(_fullscreen);
+
+var _bottomBar = __webpack_require__(14);
+
+var _bottomBar2 = _interopRequireDefault(_bottomBar);
+
+var _overlayPortal = __webpack_require__(25);
+
+var _overlayPortal2 = _interopRequireDefault(_overlayPortal);
+
+var _keyboard = __webpack_require__(26);
+
+var _keyboard2 = _interopRequireDefault(_keyboard);
+
+var _liveTag = __webpack_require__(102);
+
+var _liveTag2 = _interopRequireDefault(_liveTag);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Live ui intrface
+ *
+ * @export
+ * @param {*} props component props
+ * @returns {React$Element<any>} player ui tree
+ */
+function liveUI(props) {
+  return (0, _preact.h)(
+    'div',
+    { className: 'playback-gui-wrapper' },
+    (0, _preact.h)(_keyboard2.default, { player: props.player }),
+    (0, _preact.h)(_loading2.default, { player: props.player }),
+    (0, _preact.h)(
+      'div',
+      { className: 'player-gui', id: 'player-gui' },
+      (0, _preact.h)(_overlayPortal2.default, null),
+      (0, _preact.h)(_overlayPlay2.default, { player: props.player }),
+      (0, _preact.h)(
+        _bottomBar2.default,
+        null,
+        (0, _preact.h)(_seekbarLivePlaybackContainer2.default, { showFramePreview: true, showTimeBubble: true, player: props.player }),
+        (0, _preact.h)(
+          'div',
+          { className: 'left-controls' },
+          (0, _preact.h)(_playPause2.default, { player: props.player }),
+          (0, _preact.h)(_liveTag2.default, { player: props.player })
+        ),
+        (0, _preact.h)(
+          'div',
+          { className: 'right-controls' },
+          (0, _preact.h)(_volume2.default, { player: props.player }),
+          (0, _preact.h)(_language2.default, { player: props.player }),
+          (0, _preact.h)(_settings2.default, { player: props.player }),
+          (0, _preact.h)(_fullscreen2.default, { player: props.player })
+        )
+      )
+    ),
+    (0, _preact.h)(_prePlaybackPlayOverlay2.default, { player: props.player })
+  );
+}
+
+/***/ }),
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3839,7 +3957,7 @@ var actions = exports.actions = {
 };
 
 /***/ }),
-/* 50 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3869,7 +3987,9 @@ var types = exports.types = {
   UPDATE_AD_SKIP_TIME_OFFSET: 'engine/UPDATE_AD_SKIP_TIME_OFFSET',
   UPDATE_AD_SKIPPABLE_STATE: 'engine/UPDATE_AD_SKIPPABLE_STATE',
   UPDATE_AD_URL: 'engine/UPDATE_AD_URL',
-  UPDATE_PLAYER_POSTER: 'engine/UPDATE_PLATER_POSTER'
+  UPDATE_PLAYER_POSTER: 'engine/UPDATE_PLATER_POSTER',
+  UPDATE_IS_LIVE: 'engine/UPDATE_IS_LIVE',
+  UPDATE_IS_DVR: 'engine/UPDATE_IS_DVR'
 };
 
 var initialState = exports.initialState = {
@@ -3892,6 +4012,8 @@ var initialState = exports.initialState = {
   adIsPlaying: false,
   adSkipTimeOffset: 0,
   adSkippableState: false,
+  isLive: false,
+  isDvr: false,
   adProgress: {
     currentTime: 0,
     duration: 0
@@ -3994,6 +4116,16 @@ exports.default = function () {
         poster: action.poster
       });
 
+    case types.UPDATE_IS_LIVE:
+      return _extends({}, state, {
+        isLive: action.isLive
+      });
+
+    case types.UPDATE_IS_DVR:
+      return _extends({}, state, {
+        isDvr: action.isDvr
+      });
+
     default:
       return state;
   }
@@ -4053,11 +4185,17 @@ var actions = exports.actions = {
   },
   updatePlayerPoster: function updatePlayerPoster(poster) {
     return { type: types.UPDATE_PLAYER_POSTER, poster: poster };
+  },
+  updateIsLive: function updateIsLive(isLive) {
+    return { type: types.UPDATE_IS_LIVE, isLive: isLive };
+  },
+  updateIsDvr: function updateIsDvr(isDvr) {
+    return { type: types.UPDATE_IS_DVR, isDvr: isDvr };
   }
 };
 
 /***/ }),
-/* 51 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4066,7 +4204,7 @@ var actions = exports.actions = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.KeyboardControl = exports.OverlayPortal = exports.BottomBar = exports.TopBar = exports.TimeDisplay = exports.FullscreenControl = exports.LanguageControl = exports.SettingsControl = exports.ShareControl = exports.VolumeControl = exports.SeekBarControl = exports.PlayPauseControl = exports.Loading = exports.PrePlaybackPlayOverlay = exports.OverlayPlay = exports.fullscreenUI = exports.adsUI = exports.playbackUI = exports.h = undefined;
+exports.KeyboardControl = exports.OverlayPortal = exports.BottomBar = exports.TopBar = exports.TimeDisplay = exports.FullscreenControl = exports.LanguageControl = exports.SettingsControl = exports.ShareControl = exports.VolumeControl = exports.SeekBarControl = exports.PlayPauseControl = exports.Loading = exports.PrePlaybackPlayOverlay = exports.OverlayPlay = exports.liveUI = exports.adsUI = exports.playbackUI = exports.h = undefined;
 
 var _preact = __webpack_require__(0);
 
@@ -4077,7 +4215,7 @@ Object.defineProperty(exports, 'h', {
   }
 });
 
-var _playback = __webpack_require__(29);
+var _playback = __webpack_require__(27);
 
 Object.defineProperty(exports, 'playbackUI', {
   enumerable: true,
@@ -4086,7 +4224,7 @@ Object.defineProperty(exports, 'playbackUI', {
   }
 });
 
-var _ads = __webpack_require__(47);
+var _ads = __webpack_require__(45);
 
 Object.defineProperty(exports, 'adsUI', {
   enumerable: true,
@@ -4095,16 +4233,16 @@ Object.defineProperty(exports, 'adsUI', {
   }
 });
 
-var _fullscreen = __webpack_require__(100);
+var _live = __webpack_require__(47);
 
-Object.defineProperty(exports, 'fullscreenUI', {
+Object.defineProperty(exports, 'liveUI', {
   enumerable: true,
   get: function get() {
-    return _interopRequireDefault(_fullscreen).default;
+    return _interopRequireDefault(_live).default;
   }
 });
 
-var _overlayPlay = __webpack_require__(14);
+var _overlayPlay = __webpack_require__(15);
 
 Object.defineProperty(exports, 'OverlayPlay', {
   enumerable: true,
@@ -4113,7 +4251,7 @@ Object.defineProperty(exports, 'OverlayPlay', {
   }
 });
 
-var _prePlaybackPlayOverlay = __webpack_require__(17);
+var _prePlaybackPlayOverlay = __webpack_require__(18);
 
 Object.defineProperty(exports, 'PrePlaybackPlayOverlay', {
   enumerable: true,
@@ -4140,7 +4278,7 @@ Object.defineProperty(exports, 'PlayPauseControl', {
   }
 });
 
-var _seekbar = __webpack_require__(10);
+var _seekbar = __webpack_require__(11);
 
 Object.defineProperty(exports, 'SeekBarControl', {
   enumerable: true,
@@ -4149,7 +4287,7 @@ Object.defineProperty(exports, 'SeekBarControl', {
   }
 });
 
-var _volume = __webpack_require__(11);
+var _volume = __webpack_require__(12);
 
 Object.defineProperty(exports, 'VolumeControl', {
   enumerable: true,
@@ -4158,7 +4296,7 @@ Object.defineProperty(exports, 'VolumeControl', {
   }
 });
 
-var _share = __webpack_require__(48);
+var _share = __webpack_require__(104);
 
 Object.defineProperty(exports, 'ShareControl', {
   enumerable: true,
@@ -4185,16 +4323,16 @@ Object.defineProperty(exports, 'LanguageControl', {
   }
 });
 
-var _fullscreen2 = __webpack_require__(12);
+var _fullscreen = __webpack_require__(13);
 
 Object.defineProperty(exports, 'FullscreenControl', {
   enumerable: true,
   get: function get() {
-    return _fullscreen2.FullscreenControl;
+    return _fullscreen.FullscreenControl;
   }
 });
 
-var _timeDisplay = __webpack_require__(25);
+var _timeDisplay = __webpack_require__(44);
 
 Object.defineProperty(exports, 'TimeDisplay', {
   enumerable: true,
@@ -4203,7 +4341,7 @@ Object.defineProperty(exports, 'TimeDisplay', {
   }
 });
 
-var _topBar = __webpack_require__(28);
+var _topBar = __webpack_require__(46);
 
 Object.defineProperty(exports, 'TopBar', {
   enumerable: true,
@@ -4212,7 +4350,7 @@ Object.defineProperty(exports, 'TopBar', {
   }
 });
 
-var _bottomBar = __webpack_require__(13);
+var _bottomBar = __webpack_require__(14);
 
 Object.defineProperty(exports, 'BottomBar', {
   enumerable: true,
@@ -4221,7 +4359,7 @@ Object.defineProperty(exports, 'BottomBar', {
   }
 });
 
-var _overlayPortal = __webpack_require__(26);
+var _overlayPortal = __webpack_require__(25);
 
 Object.defineProperty(exports, 'OverlayPortal', {
   enumerable: true,
@@ -4230,7 +4368,7 @@ Object.defineProperty(exports, 'OverlayPortal', {
   }
 });
 
-var _keyboard = __webpack_require__(27);
+var _keyboard = __webpack_require__(26);
 
 Object.defineProperty(exports, 'KeyboardControl', {
   enumerable: true,
@@ -4239,7 +4377,7 @@ Object.defineProperty(exports, 'KeyboardControl', {
   }
 });
 
-var _uiManager = __webpack_require__(104);
+var _uiManager = __webpack_require__(108);
 
 var _uiManager2 = _interopRequireDefault(_uiManager);
 
@@ -4248,7 +4386,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _uiManager2.default;
 
 /***/ }),
-/* 52 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4268,7 +4406,7 @@ var _preactRedux = __webpack_require__(1);
 
 var _bindActions = __webpack_require__(3);
 
-var _playPause = __webpack_require__(16);
+var _playPause = __webpack_require__(17);
 
 var _base = __webpack_require__(2);
 
@@ -4286,6 +4424,11 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 var mapStateToProps = function mapStateToProps(state) {
   return {
     isPlaying: state.engine.isPlaying,
@@ -4294,20 +4437,48 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
+/**
+ * OverlayPlay component
+ *
+ * @class OverlayPlay
+ * @example <OverlayPlay player={this.player} />
+ * @extends {BaseComponent}
+ */
 var OverlayPlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.bindActions)(_playPause.actions)), _dec(_class = function (_BaseComponent) {
   _inherits(OverlayPlay, _BaseComponent);
 
+  /**
+   * Creates an instance of OverlayPlay.
+   * @param {Object} obj obj
+   * @memberof OverlayPlay
+   */
   function OverlayPlay(obj) {
     _classCallCheck(this, OverlayPlay);
 
     return _possibleConstructorReturn(this, (OverlayPlay.__proto__ || Object.getPrototypeOf(OverlayPlay)).call(this, { name: 'OverlayPlay', player: obj.player }));
   }
 
+  /**
+   * check if currently playing ad or playback
+   *
+   * @returns {boolean} - if currently playing ad or playback
+   * @memberof OverlayPlay
+   */
+
+
   _createClass(OverlayPlay, [{
     key: 'isPlayingAdOrPlayback',
     value: function isPlayingAdOrPlayback() {
       return this.props.adBreak && this.props.adIsPlaying || !this.props.adBreak && this.props.isPlaying;
     }
+
+    /**
+     * toggle play pause and set animation to icon change
+     *
+     * @returns {void}
+     * @memberof OverlayPlay
+     */
+
   }, {
     key: 'togglePlayPause',
     value: function togglePlayPause() {
@@ -4321,6 +4492,14 @@ var OverlayPlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAc
 
       this.isPlayingAdOrPlayback() ? this.player.pause() : this.player.play();
     }
+
+    /**
+     * render component
+     *
+     * @returns {React$Element} - component element
+     * @memberof OverlayPlay
+     */
+
   }, {
     key: 'render',
     value: function render() {
@@ -4341,13 +4520,13 @@ var OverlayPlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAc
 exports.default = OverlayPlay;
 
 /***/ }),
-/* 53 */
+/* 52 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Symbol_js__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getRawTag_js__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__objectToString_js__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Symbol_js__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getRawTag_js__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__objectToString_js__ = __webpack_require__(56);
 
 
 
@@ -4379,11 +4558,11 @@ function baseGetTag(value) {
 
 
 /***/ }),
-/* 54 */
+/* 53 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__freeGlobal_js__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__freeGlobal_js__ = __webpack_require__(54);
 
 
 /** Detect free variable `self`. */
@@ -4396,7 +4575,7 @@ var root = __WEBPACK_IMPORTED_MODULE_0__freeGlobal_js__["a" /* default */] || fr
 
 
 /***/ }),
-/* 55 */
+/* 54 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4405,14 +4584,14 @@ var freeGlobal = typeof global == 'object' && global && global.Object === Object
 
 /* harmony default export */ __webpack_exports__["a"] = (freeGlobal);
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(15)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(16)))
 
 /***/ }),
-/* 56 */
+/* 55 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Symbol_js__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Symbol_js__ = __webpack_require__(31);
 
 
 /** Used for built-in method references. */
@@ -4462,7 +4641,7 @@ function getRawTag(value) {
 
 
 /***/ }),
-/* 57 */
+/* 56 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4491,11 +4670,11 @@ function objectToString(value) {
 
 
 /***/ }),
-/* 58 */
+/* 57 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__overArg_js__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__overArg_js__ = __webpack_require__(58);
 
 
 /** Built-in value references. */
@@ -4505,7 +4684,7 @@ var getPrototype = Object(__WEBPACK_IMPORTED_MODULE_0__overArg_js__["a" /* defau
 
 
 /***/ }),
-/* 59 */
+/* 58 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4527,7 +4706,7 @@ function overArg(func, transform) {
 
 
 /***/ }),
-/* 60 */
+/* 59 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4563,14 +4742,14 @@ function isObjectLike(value) {
 
 
 /***/ }),
-/* 61 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(62);
+module.exports = __webpack_require__(61);
 
 
 /***/ }),
-/* 62 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4580,7 +4759,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _ponyfill = __webpack_require__(64);
+var _ponyfill = __webpack_require__(63);
 
 var _ponyfill2 = _interopRequireDefault(_ponyfill);
 
@@ -4603,10 +4782,10 @@ if (typeof self !== 'undefined') {
 
 var result = (0, _ponyfill2['default'])(root);
 exports['default'] = result;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(15), __webpack_require__(63)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16), __webpack_require__(62)(module)))
 
 /***/ }),
-/* 63 */
+/* 62 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -4634,7 +4813,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 64 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4663,14 +4842,14 @@ function symbolObservablePonyfill(root) {
 };
 
 /***/ }),
-/* 65 */
+/* 64 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/* harmony export (immutable) */ __webpack_exports__["a"] = combineReducers;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_es_isPlainObject__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_warning__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_es_isPlainObject__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_warning__ = __webpack_require__(32);
 
 
 
@@ -4801,10 +4980,10 @@ function combineReducers(reducers) {
     return hasChanged ? nextState : state;
   };
 }
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(30)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(28)))
 
 /***/ }),
-/* 66 */
+/* 65 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4858,12 +5037,12 @@ function bindActionCreators(actionCreators, dispatch) {
 }
 
 /***/ }),
-/* 67 */
+/* 66 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = applyMiddleware;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__compose__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__compose__ = __webpack_require__(33);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 
@@ -4914,7 +5093,7 @@ function applyMiddleware() {
 }
 
 /***/ }),
-/* 68 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4927,7 +5106,7 @@ exports.LOG_LEVEL = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _jsLogger = __webpack_require__(69);
+var _jsLogger = __webpack_require__(68);
 
 var JsLogger = _interopRequireWildcard(_jsLogger);
 
@@ -4944,12 +5123,32 @@ var LOG_LEVEL = {
   "OFF": JsLogger.OFF
 };
 
+/**
+ * LoggerFactory
+ *
+ * @class LoggerFactory
+ */
+
 var LoggerFactory = function () {
+  /**
+   * Creates an instance of LoggerFactory.
+   * @param {Object} [options] options
+   * @memberof LoggerFactory
+   */
   function LoggerFactory(options) {
     _classCallCheck(this, LoggerFactory);
 
     JsLogger.useDefaults(options || {});
   }
+
+  /**
+   * getLogger
+   *
+   * @param {string} [name] name
+   * @returns {*} - logger
+   * @memberof LoggerFactory
+   */
+
 
   _createClass(LoggerFactory, [{
     key: "getLogger",
@@ -4970,7 +5169,7 @@ exports.default = lf;
 exports.LOG_LEVEL = LOG_LEVEL;
 
 /***/ }),
-/* 69 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -5237,7 +5436,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 
 /***/ }),
-/* 70 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5285,8 +5484,14 @@ var IconType = {
   Link: 'link',
   ArrowDown: 'arrow-down',
   Startover: 'shartover'
+  /**
+   * Icon component
+   *
+   * @class Icon
+   * @example <Icon type={IconType.Play} />
+   * @extends {Component}
+   */
 };
-
 var Icon = function (_Component) {
   _inherits(Icon, _Component);
 
@@ -5298,6 +5503,14 @@ var Icon = function (_Component) {
 
   _createClass(Icon, [{
     key: 'render',
+
+    /**
+     * render icon based on props.type
+     *
+     * @param {*} props - component props
+     * @returns {React$Element} - component element
+     * @memberof Icon
+     */
     value: function render(props) {
       switch (props.type) {
         case IconType.Maximize:
@@ -5503,7 +5716,7 @@ exports.default = Icon;
 exports.IconType = IconType;
 
 /***/ }),
-/* 71 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5541,6 +5754,11 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 var mapStateToProps = function mapStateToProps(state) {
   return {
     metadataLoaded: state.engine.metadataLoaded,
@@ -5551,22 +5769,37 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
+/**
+ * PrePlaybackPlayOverlay component
+ *
+ * @class PrePlaybackPlayOverlay
+ * @example <PrePlaybackPlayOverlay player={this.player} />
+ * @extends {BaseComponent}
+ */
 var PrePlaybackPlayOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.bindActions)(_shell.actions)), _dec(_class = function (_BaseComponent) {
   _inherits(PrePlaybackPlayOverlay, _BaseComponent);
 
+  /**
+   * Creates an instance of PrePlaybackPlayOverlay.
+   * @param {Object} obj obj
+   * @memberof PrePlaybackPlayOverlay
+   */
   function PrePlaybackPlayOverlay(obj) {
     _classCallCheck(this, PrePlaybackPlayOverlay);
 
     return _possibleConstructorReturn(this, (PrePlaybackPlayOverlay.__proto__ || Object.getPrototypeOf(PrePlaybackPlayOverlay)).call(this, { name: 'PrePlaybackPlayOverlay', player: obj.player }));
   }
 
+  /**
+   * before component mounted, add 'pre-playback' class to player shell in order to hide the gui
+   * and set the autoplay and mobileAutoplay values from the player config
+   *
+   * @returns {void}
+   * @memberof PrePlaybackPlayOverlay
+   */
+
+
   _createClass(PrePlaybackPlayOverlay, [{
-    key: 'componentWillUnmount',
-    value: function componentWillUnmount() {
-      this.props.updatePrePlayback(false);
-      this.props.removePlayerClass('pre-playback');
-    }
-  }, {
     key: 'componentWillMount',
     value: function componentWillMount() {
       this.props.addPlayerClass('pre-playback');
@@ -5583,6 +5816,28 @@ var PrePlaybackPlayOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, 
         this.mobileAutoplay = false;
       } // eslint-disable-line no-unused-vars
     }
+
+    /**
+     * before component unmounted, remove the pre playback flag and class from player shell.
+     *
+     * @returns {void}
+     * @memberof PrePlaybackPlayOverlay
+     */
+
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      this.props.updatePrePlayback(false);
+      this.props.removePlayerClass('pre-playback');
+    }
+
+    /**
+     * after component mounted, listen to play event and update the pre plackback flag to false
+     *
+     * @returns {void}
+     * @memberof PrePlaybackPlayOverlay
+     */
+
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
@@ -5598,11 +5853,33 @@ var PrePlaybackPlayOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, 
         this.props.removePlayerClass('pre-playback');
       }
     }
+
+    /**
+     * play on click
+     *
+     * @returns {void}
+     * @memberof PrePlaybackPlayOverlay
+     */
+
   }, {
     key: 'handleClick',
     value: function handleClick() {
       this.player.play();
+
+      if (this.props.prePlayback) {
+        this.props.updatePrePlayback(false);
+        this.props.removePlayerClass('pre-playback');
+      }
     }
+
+    /**
+     * render component
+     *
+     * @param {*} props - component props
+     * @returns {React$Element} - component element
+     * @memberof PrePlaybackPlayOverlay
+     */
+
   }, {
     key: 'render',
     value: function render(props) {
@@ -5629,7 +5906,7 @@ var PrePlaybackPlayOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, 
 exports.default = PrePlaybackPlayOverlay;
 
 /***/ }),
-/* 72 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5649,7 +5926,7 @@ var _preactRedux = __webpack_require__(1);
 
 var _bindActions = __webpack_require__(3);
 
-var _loading = __webpack_require__(37);
+var _loading = __webpack_require__(35);
 
 var _base = __webpack_require__(2);
 
@@ -5665,6 +5942,11 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 var mapStateToProps = function mapStateToProps(state) {
   return {
     show: state.loading.show,
@@ -5672,14 +5954,34 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
+/**
+ * Loading component
+ *
+ * @class Loading
+ * @example <Loading />
+ * @extends {BaseComponent}
+ */
 var Loading = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.bindActions)(_loading.actions)), _dec(_class = function (_BaseComponent) {
   _inherits(Loading, _BaseComponent);
 
+  /**
+   * Creates an instance of Loading.
+   * @param {Object} obj obj
+   * @memberof Loading
+   */
   function Loading(obj) {
     _classCallCheck(this, Loading);
 
     return _possibleConstructorReturn(this, (Loading.__proto__ || Object.getPrototypeOf(Loading)).call(this, { name: 'Loading', player: obj.player }));
   }
+
+  /**
+   * before component mount, update the autoplay and mobileAutoplay values from player config
+   *
+   * @returns {void}
+   * @memberof Loading
+   */
+
 
   _createClass(Loading, [{
     key: 'componentWillMount',
@@ -5696,6 +5998,16 @@ var Loading = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAction
         this.mobileAutoplay = false;
       } // eslint-disable-line no-unused-vars
     }
+
+    /**
+     * after component mounted, set event listener to player state change and update the state of loading spinner accordingly.
+     * initially, if not mobile and autoplay is on, show the loading spinner without dependency on the player state.
+     * if is mobile and mobile autoplay is on, show the loading spinner without dependency on the player state.
+     *
+     * @returns {void}
+     * @memberof Loading
+     */
+
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
@@ -5713,6 +6025,15 @@ var Loading = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAction
         }
       });
     }
+
+    /**
+     * render component
+     *
+     * @param {*} props - component props
+     * @returns {React$Element} - component element
+     * @memberof Loading
+     */
+
   }, {
     key: 'render',
     value: function render(props) {
@@ -5741,7 +6062,7 @@ var Loading = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAction
 exports.default = Loading;
 
 /***/ }),
-/* 73 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5763,7 +6084,7 @@ var _preactRedux = __webpack_require__(1);
 
 var _bindActions = __webpack_require__(3);
 
-var _playPause = __webpack_require__(16);
+var _playPause = __webpack_require__(17);
 
 var _base = __webpack_require__(2);
 
@@ -5781,6 +6102,11 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 var mapStateToProps = function mapStateToProps(state) {
   return {
     isPlaying: state.engine.isPlaying,
@@ -5790,14 +6116,34 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
+/**
+ * PlayPauseControl component
+ *
+ * @class PlayPauseControl
+ * @example <PlayPauseControl player={this.player} />
+ * @extends {BaseComponent}
+ */
 var PlayPauseControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.bindActions)(_playPause.actions)), _dec(_class = function (_BaseComponent) {
   _inherits(PlayPauseControl, _BaseComponent);
 
+  /**
+   * Creates an instance of PlayPauseControl.
+   * @param {Object} obj obj
+   * @memberof PlayPauseControl
+   */
   function PlayPauseControl(obj) {
     _classCallCheck(this, PlayPauseControl);
 
     return _possibleConstructorReturn(this, (PlayPauseControl.__proto__ || Object.getPrototypeOf(PlayPauseControl)).call(this, { name: 'PlayPause', player: obj.player }));
   }
+
+  /**
+   * toggle play / pause
+   *
+   * @returns {void}
+   * @memberof PlayPauseControl
+   */
+
 
   _createClass(PlayPauseControl, [{
     key: 'togglePlayPause',
@@ -5805,11 +6151,28 @@ var PlayPauseControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _b
       this.logger.debug('Toggle play');
       this.isPlayingAdOrPlayback() ? this.player.pause() : this.player.play();
     }
+
+    /**
+     * check if currently playing ad or playback
+     *
+     * @returns {boolean} - if currently playing ad or playback
+     * @memberof PlayPauseControl
+     */
+
   }, {
     key: 'isPlayingAdOrPlayback',
     value: function isPlayingAdOrPlayback() {
       return this.props.adBreak && this.props.adIsPlaying || !this.props.adBreak && this.props.isPlaying;
     }
+
+    /**
+     * render component
+     *
+     * @param {*} props - component props
+     * @returns {React$Element} - component element
+     * @memberof PlayPauseControl
+     */
+
   }, {
     key: 'render',
     value: function render(props) {
@@ -5849,13 +6212,13 @@ var PlayPauseControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _b
 exports.default = PlayPauseControl;
 
 /***/ }),
-/* 74 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 !function(e,n){ true?module.exports=n():"function"==typeof define&&define.amd?define(n):e.dlv=n()}(this,function(){function e(e,n,t,o){for(o=0,n=n.split?n.split("."):n;e&&o<n.length;)e=e[n[o++]];return void 0===e?t:e}return e});
 
 /***/ }),
-/* 75 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5866,7 +6229,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _seekbarPlaybackContainer = __webpack_require__(76);
+var _seekbarPlaybackContainer = __webpack_require__(75);
 
 var _seekbarPlaybackContainer2 = _interopRequireDefault(_seekbarPlaybackContainer);
 
@@ -5875,7 +6238,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _seekbarPlaybackContainer2.default;
 
 /***/ }),
-/* 76 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5895,13 +6258,13 @@ var _preactRedux = __webpack_require__(1);
 
 var _bindActions = __webpack_require__(3);
 
-var _seekbar = __webpack_require__(18);
+var _seekbar = __webpack_require__(10);
 
 var _base = __webpack_require__(2);
 
 var _base2 = _interopRequireDefault(_base);
 
-var _seekbar2 = __webpack_require__(10);
+var _seekbar2 = __webpack_require__(11);
 
 var _seekbar3 = _interopRequireDefault(_seekbar2);
 
@@ -5913,6 +6276,11 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 var mapStateToProps = function mapStateToProps(state) {
   return {
     currentTime: state.seekbar.currentTime,
@@ -5923,14 +6291,35 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
+/**
+ * SeekBarPlaybackContainer component
+ *
+ * @class SeekBarPlaybackContainer
+ * @example <SeekBarPlaybackContainer player={this.player} />
+ * @extends {BaseComponent}
+ */
 var SeekBarPlaybackContainer = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.bindActions)(_seekbar.actions)), _dec(_class = function (_BaseComponent) {
   _inherits(SeekBarPlaybackContainer, _BaseComponent);
 
+  /**
+   * Creates an instance of SeekBarPlaybackContainer.
+   * @param {Object} obj obj
+   * @memberof SeekBarPlaybackContainer
+   */
   function SeekBarPlaybackContainer(obj) {
     _classCallCheck(this, SeekBarPlaybackContainer);
 
     return _possibleConstructorReturn(this, (SeekBarPlaybackContainer.__proto__ || Object.getPrototypeOf(SeekBarPlaybackContainer)).call(this, { name: 'SeekBarPlaybackContainer', player: obj.player }));
   }
+
+  /**
+   * after component mounted, listen to time update event and if dragging not active,
+   * update the current time in the store
+   *
+   * @returns {void}
+   * @memberof SeekBarPlaybackContainer
+   */
+
 
   _createClass(SeekBarPlaybackContainer, [{
     key: 'componentDidMount',
@@ -5943,6 +6332,14 @@ var SeekBarPlaybackContainer = (_dec = (0, _preactRedux.connect)(mapStateToProps
         }
       });
     }
+
+    /**
+     * render component
+     *
+     * @returns {React$Element} - component element
+     * @memberof SeekBarPlaybackContainer
+     */
+
   }, {
     key: 'render',
     value: function render() {
@@ -5976,7 +6373,7 @@ var SeekBarPlaybackContainer = (_dec = (0, _preactRedux.connect)(mapStateToProps
 exports.default = SeekBarPlaybackContainer;
 
 /***/ }),
-/* 77 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5998,6 +6395,25 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * SeekBarControl component
+ *
+ * @class SeekBarControl
+ * @example <SeekBarControl
+ *  playerElement={this.player.getView().parentElement}
+ *  showFramePreview={this.props.showFramePreview}
+ *  showTimeBubble={this.props.showTimeBubble}
+ *  changeCurrentTime={time => this.player.currentTime = time}
+ *  playerPoster={this.props.poster}
+ *  updateSeekbarDraggingStatus={data => this.props.updateSeekbarDraggingStatus(data)}
+ *  updateCurrentTime={data => this.props.updateCurrentTime(data)}
+ *  currentTime={this.props.currentTime}
+ *  duration={this.props.duration}
+ *  isDraggingActive={this.props.isDraggingActive}
+ *  isMobile={this.props.isMobile}
+ * />
+ * @extends {Component}
+ */
 var SeekBarControl = function (_Component) {
   _inherits(SeekBarControl, _Component);
 
@@ -6008,10 +6424,27 @@ var SeekBarControl = function (_Component) {
   }
 
   _createClass(SeekBarControl, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
+    key: 'componentWillMount',
+
+
+    /**
+     * before component mounted, set initial state
+     *
+     * @returns {void}
+     * @memberof SeekBarControl
+     */
+    value: function componentWillMount() {
       this.setState({ virtualTime: 0 });
     }
+
+    /**
+     * on component update, check if playerPostaer configured and framePreviewImg not set yet,
+     * if true, update the frame preview image
+     *
+     * @returns {void}
+     * @memberof SeekBarControl
+     */
+
   }, {
     key: 'componentDidUpdate',
     value: function componentDidUpdate() {
@@ -6019,6 +6452,15 @@ var SeekBarControl = function (_Component) {
         this.framePreviewImg = this.getFramePreviewImg();
       }
     }
+
+    /**
+     * seekbar mouse down handler
+     *
+     * @param {Event} e - mouse down event
+     * @returns {void}
+     * @memberof SeekBarControl
+     */
+
   }, {
     key: 'onSeekbarMouseDown',
     value: function onSeekbarMouseDown(e) {
@@ -6028,6 +6470,15 @@ var SeekBarControl = function (_Component) {
         this.updateSeekBarProgress(time, this.props.duration);
       }
     }
+
+    /**
+     * seekbar mouse up handler
+     *
+     * @param {Event} e - mouse up event
+     * @returns {void}
+     * @memberof SeekBarControl
+     */
+
   }, {
     key: 'onSeekbarMouseUp',
     value: function onSeekbarMouseUp(e) {
@@ -6036,6 +6487,15 @@ var SeekBarControl = function (_Component) {
       this.updateSeekBarProgress(time, this.props.duration);
       this.props.updateSeekbarDraggingStatus(false);
     }
+
+    /**
+     * seekbar mouse move handler
+     *
+     * @param {Event} e - mouse move event
+     * @returns {void}
+     * @memberof SeekBarControl
+     */
+
   }, {
     key: 'onSeekbarMouseMove',
     value: function onSeekbarMouseMove(e) {
@@ -6046,6 +6506,15 @@ var SeekBarControl = function (_Component) {
         this.updateSeekBarProgress(time, this.props.duration);
       }
     }
+
+    /**
+     * seekbar touch start handler
+     *
+     * @param {Event} e - touch start event
+     * @returns {void}
+     * @memberof SeekBarControl
+     */
+
   }, {
     key: 'onSeekbarTouchStart',
     value: function onSeekbarTouchStart(e) {
@@ -6055,6 +6524,15 @@ var SeekBarControl = function (_Component) {
         this.updateSeekBarProgress(time, this.props.duration);
       }
     }
+
+    /**
+     * seekbar touch move handler
+     *
+     * @param {Event} e - touch move event
+     * @returns {void}
+     * @memberof SeekBarControl
+     */
+
   }, {
     key: 'onSeekbarTouchMove',
     value: function onSeekbarTouchMove(e) {
@@ -6066,6 +6544,14 @@ var SeekBarControl = function (_Component) {
         this.updateSeekBarProgress(time, this.props.duration);
       }
     }
+
+    /**
+     * seekbar touch end handler
+     *
+     * @returns {void}
+     * @memberof SeekBarControl
+     */
+
   }, {
     key: 'onSeekbarTouchEnd',
     value: function onSeekbarTouchEnd() {
@@ -6074,6 +6560,17 @@ var SeekBarControl = function (_Component) {
       this.updateSeekBarProgress(time, this.props.duration);
       this.props.updateSeekbarDraggingStatus(false);
     }
+
+    /**
+     * abstract function to update virtual progress ui using component state or report to upper component of time change
+     *
+     * @param {number} currentTime - current time
+     * @param {number} duration - duration
+     * @param {boolean} [virtual=false] - virtual relates to the hover seekbar position
+     * @returns {void}
+     * @memberof SeekBarControl
+     */
+
   }, {
     key: 'updateSeekBarProgress',
     value: function updateSeekBarProgress(currentTime, duration) {
@@ -6085,18 +6582,36 @@ var SeekBarControl = function (_Component) {
         this.props.updateCurrentTime(currentTime);
       }
     }
+
+    /**
+     * utility function to get element offset from window
+     *
+     * @param {*} element - element to get the offset for
+     * @returns {{ top: number, left: number }} - object with offset in both asixs
+     * @memberof SeekBarControl
+     */
+
   }, {
     key: 'getOffset',
-    value: function getOffset(el) {
+    value: function getOffset(element) {
       var _x = 0;
       var _y = 0;
-      while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
-        _x += el.offsetLeft - el.scrollLeft;
-        _y += el.offsetTop - el.scrollTop;
-        el = el.offsetParent;
+      while (element && !isNaN(element.offsetLeft) && !isNaN(element.offsetTop)) {
+        _x += element.offsetLeft - element.scrollLeft;
+        _y += element.offsetTop - element.scrollTop;
+        element = element.offsetParent;
       }
       return { top: _y, left: _x };
     }
+
+    /**
+     * get current time based on position of the mouseEvent on the seekbar
+     *
+     * @param {*} e - event
+     * @returns {number} - current time in seconds
+     * @memberof SeekBarControl
+     */
+
   }, {
     key: 'getTime',
     value: function getTime(e) {
@@ -6107,11 +6622,27 @@ var SeekBarControl = function (_Component) {
       if (time > this.props.duration) return this.props.duration;
       return time;
     }
+
+    /**
+     * utility function to get the thumb sprite background position
+     *
+     * @returns {string} background-position string value
+     * @memberof SeekBarControl
+     */
+
   }, {
     key: 'getThumbSpriteOffset',
     value: function getThumbSpriteOffset() {
       return -(Math.ceil(100 * this.state.virtualTime / this.props.duration) * 160) + 'px 0px';
     }
+
+    /**
+     * get the left position the frame preview element should be in
+     *
+     * @returns {number} left position
+     * @memberof SeekBarControl
+     */
+
   }, {
     key: 'getFramePreviewOffset',
     value: function getFramePreviewOffset() {
@@ -6120,6 +6651,14 @@ var SeekBarControl = function (_Component) {
         if (leftOffset < 0) return 0;else if (leftOffset > this._seekBarElement.clientWidth - this._framePreviewElement.clientWidth) return this._seekBarElement.clientWidth - this._framePreviewElement.clientWidth;else return leftOffset;
       } else return 0;
     }
+
+    /**
+     * get the left position to time bubble should be in
+     *
+     * @returns {number} left position
+     * @memberof SeekBarControl
+     */
+
   }, {
     key: 'getTimeBubbleOffset',
     value: function getTimeBubbleOffset() {
@@ -6128,6 +6667,34 @@ var SeekBarControl = function (_Component) {
         if (leftOffset < 0) return 0;else if (leftOffset > this._seekBarElement.clientWidth - this._timeBubbleElement.clientWidth) return this._seekBarElement.clientWidth - this._timeBubbleElement.clientWidth;else return leftOffset;
       } else return 0;
     }
+
+    /**
+     * get the frame preview sprite based on player poster
+     *
+     * @returns {string} image url
+     * @memberof SeekBarControl
+     */
+
+  }, {
+    key: 'getFramePreviewImg',
+    value: function getFramePreviewImg() {
+      var parts = this.props.playerPoster.split('/');
+      var heightValueIndex = parts.indexOf('height') + 1;
+      var widthValueIndex = parts.indexOf('width') + 1;
+      parts[heightValueIndex] = 90;
+      parts[widthValueIndex] = 160;
+      parts.push('vid_slices/100');
+
+      return parts.join('/');
+    }
+
+    /**
+     * render frame preview
+     *
+     * @returns {React$Element} - component
+     * @memberof SeekBarControl
+     */
+
   }, {
     key: 'renderFramePreview',
     value: function renderFramePreview() {
@@ -6150,18 +6717,14 @@ var SeekBarControl = function (_Component) {
         (0, _preact.h)('div', { className: 'frame-preview-img', style: framePreviewImgStyle })
       );
     }
-  }, {
-    key: 'getFramePreviewImg',
-    value: function getFramePreviewImg() {
-      var parts = this.props.playerPoster.split('/');
-      var heightValueIndex = parts.indexOf('height') + 1;
-      var widthValueIndex = parts.indexOf('width') + 1;
-      parts[heightValueIndex] = 90;
-      parts[widthValueIndex] = 160;
-      parts.push('vid_slices/100');
 
-      return parts.join('/');
-    }
+    /**
+     * render time bubble
+     *
+     * @returns {React$Element} - component
+     * @memberof SeekBarControl
+     */
+
   }, {
     key: 'renderTimeBubble',
     value: function renderTimeBubble() {
@@ -6169,14 +6732,24 @@ var SeekBarControl = function (_Component) {
 
       if (!this.props.showTimeBubble || this.props.isMobile) return undefined;
       var timeBubbleStyle = 'left: ' + this.getTimeBubbleOffset() + 'px';
+      var timeBubbleValue = this.props.isDvr ? '-' + (0, _timeFormat.toHHMMSS)(this.props.duration - this.state.virtualTime) : (0, _timeFormat.toHHMMSS)(this.state.virtualTime);
       return (0, _preact.h)(
         'div',
         { className: 'time-preview', style: timeBubbleStyle, ref: function ref(c) {
             return _this3._timeBubbleElement = c;
           } },
-        (0, _timeFormat.toHHMMSS)(this.state.virtualTime)
+        timeBubbleValue
       );
     }
+
+    /**
+     * render component
+     *
+     * @param {*} props - component props
+     * @returns {React$Element} - component
+     * @memberof SeekBarControl
+     */
+
   }, {
     key: 'render',
     value: function render(props) {
@@ -6186,6 +6759,7 @@ var SeekBarControl = function (_Component) {
       var progressWidth = props.currentTime / props.duration * 100 + '%';
       var seekbarStyleClass = 'seek-bar';
       if (props.adBreak) seekbarStyleClass += ' ad-break';
+      if (props.isDvr) seekbarStyleClass += ' live';
       if (props.isMobile) seekbarStyleClass += ' hover';
 
       return (0, _preact.h)(
@@ -6243,7 +6817,7 @@ var SeekBarControl = function (_Component) {
 exports.default = SeekBarControl;
 
 /***/ }),
-/* 78 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6263,7 +6837,7 @@ var _preactRedux = __webpack_require__(1);
 
 var _bindActions = __webpack_require__(3);
 
-var _volume = __webpack_require__(38);
+var _volume = __webpack_require__(36);
 
 var _base = __webpack_require__(2);
 
@@ -6281,6 +6855,11 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 var mapStateToProps = function mapStateToProps(state) {
   return {
     isDraggingActive: state.volume.draggingActive,
@@ -6290,14 +6869,37 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
+/**
+ * VolumeControl component
+ *
+ * @class VolumeControl
+ * @example <VolumeControl player={this.player} />
+ * @extends {BaseComponent}
+ */
 var VolumeControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.bindActions)(_volume.actions)), _dec(_class = function (_BaseComponent) {
   _inherits(VolumeControl, _BaseComponent);
 
+  /**
+   * Creates an instance of VolumeControl.
+   *
+   * @constructor
+   * @param {Object} obj obj
+   * @memberof VolumeControl
+   */
   function VolumeControl(obj) {
     _classCallCheck(this, VolumeControl);
 
     return _possibleConstructorReturn(this, (VolumeControl.__proto__ || Object.getPrototypeOf(VolumeControl)).call(this, { name: 'Volume', player: obj.player }));
   }
+
+  /**
+   * after component mounted, update initial volume and muted value and listen to volume change
+   *
+   * @method componentDidMount
+   * @returns {void}
+   * @memberof VolumeControl
+   */
+
 
   _createClass(VolumeControl, [{
     key: 'componentDidMount',
@@ -6313,16 +6915,44 @@ var VolumeControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bind
         _this2.props.updateVolume(_this2.player.volume);
       });
     }
+
+    /**
+     * get the volume progress bar height percentage string
+     *
+     * @method getVolumeProgessHeight
+     * @returns {string} - volume progress bar new height based on volume
+     * @memberof VolumeControl
+     */
+
   }, {
     key: 'getVolumeProgessHeight',
     value: function getVolumeProgessHeight() {
       return this.props.muted ? '0%' : Math.round(this.props.volume * 100) + '%';
     }
+
+    /**
+     * on volume progress bar mouse down, update volume dragging status in store state
+     *
+     * @method onVolumeProgressBarMouseDown
+     * @returns {void}
+     * @memberof VolumeControl
+     */
+
   }, {
     key: 'onVolumeProgressBarMouseDown',
     value: function onVolumeProgressBarMouseDown() {
       this.props.updateVolumeDraggingStatus(true);
     }
+
+    /**
+     * on volume progress bar mouse move, update the volume if dragging is active
+     *
+     * @method onVolumeProgressBarMouseMove
+     * @param {Event} e - mouse move event
+     * @returns {void}
+     * @memberof VolumeControl
+     */
+
   }, {
     key: 'onVolumeProgressBarMouseMove',
     value: function onVolumeProgressBarMouseMove(e) {
@@ -6330,12 +6960,31 @@ var VolumeControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bind
         this.changeVolume(e);
       }
     }
+
+    /**
+     * on volume progress bar mouse up, update the volume and change the dragging status to false
+     *
+     * @method onVolumeProgressBarMouseUp
+     * @param {Event} e - mouse up event
+     * @returns {void}
+     * @memberof VolumeControl
+     */
+
   }, {
     key: 'onVolumeProgressBarMouseUp',
     value: function onVolumeProgressBarMouseUp(e) {
       this.props.updateVolumeDraggingStatus(false);
       this.changeVolume(e);
     }
+
+    /**
+     * on colume control button click, toggle mute in player and store state
+     *
+     * @method onVolumeControlButtonClick
+     * @returns {void}
+     * @memberof VolumeControl
+     */
+
   }, {
     key: 'onVolumeControlButtonClick',
     value: function onVolumeControlButtonClick() {
@@ -6343,6 +6992,17 @@ var VolumeControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bind
       this.props.updateMuted(!this.props.muted);
       this.player.muted = !this.player.muted;
     }
+
+    /**
+     * change volume based on event mouse position compared to volume progress bar element
+     * if muted value is true in store state, change it to false both in store state and in player instance.
+     *
+     * @method changeVolume
+     * @param {Event} e - event to get the position from
+     * @returns {void}
+     * @memberof VolumeControl
+     */
+
   }, {
     key: 'changeVolume',
     value: function changeVolume(e) {
@@ -6358,6 +7018,16 @@ var VolumeControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bind
         this.props.updateMuted(false);
       }
     }
+
+    /**
+     * get element cordinates
+     *
+     * @method getCoords
+     * @param {HTMLElement} el element to inspect
+     * @returns {{top: number, left: number}} object with the top and left position
+     * @memberof VolumeControl
+     */
+
   }, {
     key: 'getCoords',
     value: function getCoords(el) {
@@ -6368,6 +7038,14 @@ var VolumeControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bind
         left: box.left
       };
     }
+
+    /**
+     * render component
+     *
+     * @returns {React$Element} - component element
+     * @memberof VolumeControl
+     */
+
   }, {
     key: 'render',
     value: function render() {
@@ -6425,7 +7103,7 @@ var VolumeControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bind
 exports.default = VolumeControl;
 
 /***/ }),
-/* 79 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6447,17 +7125,17 @@ var _preactRedux = __webpack_require__(1);
 
 var _bindActions = __webpack_require__(3);
 
-var _settings = __webpack_require__(39);
+var _settings = __webpack_require__(37);
 
 var _base = __webpack_require__(2);
 
 var _base2 = _interopRequireDefault(_base);
 
-var _smartContainer = __webpack_require__(40);
+var _smartContainer = __webpack_require__(38);
 
 var _smartContainer2 = _interopRequireDefault(_smartContainer);
 
-var _smartContainerItem = __webpack_require__(42);
+var _smartContainerItem = __webpack_require__(40);
 
 var _smartContainerItem2 = _interopRequireDefault(_smartContainerItem);
 
@@ -6475,6 +7153,11 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var defaultSpeeds = [0.5, 1, 2, 4];
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 var mapStateToProps = function mapStateToProps(state) {
   return {
     videoTracks: state.engine.videoTracks,
@@ -6482,30 +7165,75 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
+/**
+ * SettingsControl component
+ *
+ * @class SettingsControl
+ * @example <SettingsControl player={this.player} />
+ * @extends {BaseComponent}
+ */
 var SettingsControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.bindActions)(_settings.actions)), _dec(_class = function (_BaseComponent) {
   _inherits(SettingsControl, _BaseComponent);
 
+  /**
+   * Creates an instance of SettingsControl.
+   * @param {Object} obj obj
+   * @memberof SettingsControl
+   */
   function SettingsControl(obj) {
     _classCallCheck(this, SettingsControl);
 
     return _possibleConstructorReturn(this, (SettingsControl.__proto__ || Object.getPrototypeOf(SettingsControl)).call(this, { name: 'Settings', player: obj.player }));
   }
 
+  /**
+   * before component mounted, set initial state
+   *
+   * @returns {void}
+   * @memberof SettingsControl
+   */
+
+
   _createClass(SettingsControl, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
       this.setState({ smartContainerOpen: false });
     }
+
+    /**
+     * after component mounted, set event listener to click outside of the component
+     *
+     * @returns {void}
+     * @memberof SettingsControl
+     */
+
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
       document.addEventListener('click', this.handleClickOutside.bind(this), true);
     }
+
+    /**
+     * before component unmounted, remove event listener
+     *
+     * @returns {void}
+     * @memberof SettingsControl
+     */
+
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       document.removeEventListener('click', this.handleClickOutside.bind(this));
     }
+
+    /**
+     * event listener for clicking outside handler.
+     *
+     * @param {Event} e - click event
+     * @returns {void}
+     * @memberof SettingsControl
+     */
+
   }, {
     key: 'handleClickOutside',
     value: function handleClickOutside(e) {
@@ -6514,17 +7242,43 @@ var SettingsControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
         this.setState({ smartContainerOpen: false });
       }
     }
+
+    /**
+     * toggle smart container internal state on control button click
+     *
+     * @returns {void}
+     * @memberof SettingsControl
+     */
+
   }, {
     key: 'onControlButtonClick',
     value: function onControlButtonClick() {
       this.setState({ smartContainerOpen: !this.state.smartContainerOpen });
     }
+
+    /**
+     * change player playback rate and update it in the store state
+     *
+     * @param {number} playbackRate - playback rate value
+     * @returns {void}
+     * @memberof SettingsControl
+     */
+
   }, {
     key: 'onSpeedChange',
     value: function onSpeedChange(playbackRate) {
       this.props.updateSpeed(playbackRate);
       this.player.playbackRate = playbackRate;
     }
+
+    /**
+     * change quality track or if value is 'auto', enable player adaptive bitrate
+     *
+     * @param {(Object | string)} videoTrack - video track
+     * @returns {void}
+     * @memberof SettingsControl
+     */
+
   }, {
     key: 'onQualityChange',
     value: function onQualityChange(videoTrack) {
@@ -6534,6 +7288,15 @@ var SettingsControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
         this.player.selectTrack(videoTrack);
       }
     }
+
+    /**
+     * get the quality option label with fallbacks by optional configuration
+     *
+     * @param {Object} t - video track
+     * @returns {string} - quality option label
+     * @memberof SettingsControl
+     */
+
   }, {
     key: 'getQualityOptionLabel',
     value: function getQualityOptionLabel(t) {
@@ -6552,6 +7315,15 @@ var SettingsControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
         return 'N/A';
       }
     }
+
+    /**
+     * render component
+     *
+     * @param {*} props - component props
+     * @returns {React$Element} - component element
+     * @memberof SettingsControl
+     */
+
   }, {
     key: 'render',
     value: function render(props) {
@@ -6570,7 +7342,9 @@ var SettingsControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
         return acc;
       }, []);
 
-      var qualityOptions = props.videoTracks.sort(function (a, b) {
+      var qualityOptions = props.videoTracks.filter(function (t) {
+        return t.bandwidth || t.height;
+      }).sort(function (a, b) {
         return a.bandwidth < b.bandwidth;
       }).map(function (t) {
         return {
@@ -6580,11 +7354,13 @@ var SettingsControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
         };
       });
 
-      qualityOptions.unshift({
-        label: 'Auto',
-        active: this.player.isAdaptiveBitrateEnabled(),
-        value: 'auto'
-      });
+      if (qualityOptions.length > 1) {
+        qualityOptions.unshift({
+          label: 'Auto',
+          active: this.player.isAdaptiveBitrateEnabled(),
+          value: 'auto'
+        });
+      }
 
       return (0, _preact.h)(
         'div',
@@ -6614,7 +7390,7 @@ var SettingsControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
           { title: 'Settings', onClose: function onClose() {
               return _this2.onControlButtonClick();
             } },
-          props.videoTracks.length <= 0 ? '' : (0, _preact.h)(
+          qualityOptions.length === 0 ? '' : (0, _preact.h)(
             _preactI18n.Localizer,
             null,
             (0, _preact.h)(_smartContainerItem2.default, { icon: 'quality', label: (0, _preact.h)(_preactI18n.Text, { id: 'settings.quality' }), options: qualityOptions, onSelect: function onSelect(o) {
@@ -6638,7 +7414,7 @@ var SettingsControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
 exports.default = SettingsControl;
 
 /***/ }),
-/* 80 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6652,7 +7428,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _preact = __webpack_require__(0);
 
-var _isMobile = __webpack_require__(41);
+var _isMobile = __webpack_require__(39);
 
 var _preactPortal = __webpack_require__(21);
 
@@ -6670,6 +7446,21 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * SmartContainer component
+ *
+ * @class SmartContainer
+ * @example <SmartContainer title='Language' onClose={() => this.controlButtonClickHandler()}>
+ *   <SmartContainerItem
+ *     icon={IconType.Audio}
+ *     label='Audio'
+ *     options={audioTrackOptions}
+ *     onSelect={audioTrack => this.audioTrackChangeHandler(audioTrack)}
+ *   />
+ *   ...
+ * </SmartContainer>
+ * @extends {Component}
+ */
 var SmartContainer = function (_Component) {
   _inherits(SmartContainer, _Component);
 
@@ -6681,6 +7472,16 @@ var SmartContainer = function (_Component) {
 
   _createClass(SmartContainer, [{
     key: 'render',
+
+
+    /**
+     * if mobile detected, smart container representation is an overlay. hence, render overlay with its children.
+     * otherwise, render smart container
+     *
+     * @param {*} props - component props
+     * @returns {React$Element} - component element
+     * @memberof SmartContainer
+     */
     value: function render(props) {
       return (0, _isMobile.isMobile)() ? (0, _preact.h)(
         _preactPortal2.default,
@@ -6711,7 +7512,7 @@ var SmartContainer = function (_Component) {
 exports.default = SmartContainer;
 
 /***/ }),
-/* 81 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6747,6 +7548,17 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * Overlay component
+ * @class Overlay
+ * @example <Overlay
+ *  type='share'
+ *  onClose={() => this.closeShareOverlay()}
+ * >
+ *  ...
+ * </Overlay>
+ * @extends {Component}
+ */
 var Overlay = (_dec = (0, _preactRedux.connect)(null, (0, _bindActions.bindActions)(_shell.actions)), _dec(_class = function (_Component) {
   _inherits(Overlay, _Component);
 
@@ -6758,14 +7570,39 @@ var Overlay = (_dec = (0, _preactRedux.connect)(null, (0, _bindActions.bindActio
 
   _createClass(Overlay, [{
     key: 'componentWillMount',
+
+
+    /**
+     * componentWillMount
+     *
+     * @returns {void}
+     * @memberof Overlay
+     */
     value: function componentWillMount() {
       this.props.addPlayerClass('overlay-active');
     }
+
+    /**
+     * componentWillUnmount
+     *
+     * @returns {void}
+     * @memberof Overlay
+     */
+
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       this.props.removePlayerClass('overlay-active');
     }
+
+    /**
+     * render component
+     *
+     * @param {*} props - component props
+     * @returns {React$Element} - component
+     * @memberof Overlay
+     */
+
   }, {
     key: 'render',
     value: function render(props) {
@@ -6801,7 +7638,7 @@ var Overlay = (_dec = (0, _preactRedux.connect)(null, (0, _bindActions.bindActio
 exports.default = Overlay;
 
 /***/ }),
-/* 82 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6819,7 +7656,7 @@ var _preact = __webpack_require__(0);
 
 var _preactRedux = __webpack_require__(1);
 
-var _menu = __webpack_require__(44);
+var _menu = __webpack_require__(82);
 
 var _menu2 = _interopRequireDefault(_menu);
 
@@ -6835,12 +7672,24 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 var mapStateToProps = function mapStateToProps(state) {
   return {
     isMobile: state.shell.isMobile
   };
 };
 
+/**
+ * DropDown component
+ *
+ * @class DropDown
+ * @example <DropDown options={this.videoTrackOptions} />
+ * @extends {Component}
+ */
 var DropDown = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = function (_Component) {
   _inherits(DropDown, _Component);
 
@@ -6852,25 +7701,68 @@ var DropDown = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class =
 
   _createClass(DropDown, [{
     key: 'componentWillMount',
+
+
+    /**
+     * before component mounted, set initial internal state
+     *
+     * @returns {void}
+     * @memberof DropDown
+     */
     value: function componentWillMount() {
       this.setState({ dropMenuActive: false });
     }
+
+    /**
+     * is given option selected
+     *
+     * @param {Object} option - option object
+     * @returns {boolean} - is the option selected
+     * @memberof DropDown
+     */
+
   }, {
     key: 'isSelected',
-    value: function isSelected(o) {
-      return o.active;
+    value: function isSelected(option) {
+      return option.active;
     }
+
+    /**
+     * on option select - pass the selected option to upper component through props and close the menu
+     *
+     * @param {Object} option - option object
+     * @returns {void}
+     * @memberof DropDown
+     */
+
   }, {
     key: 'onSelect',
     value: function onSelect(option) {
       this.props.onSelect(option);
       this.setState({ dropMenuActive: false });
     }
+
+    /**
+     * listener function from Menu component to close the dropdown menu.
+     * set the internal state of dropMenuActive to false.
+     *
+     * @returns {void}
+     * @memberof DropDown
+     */
+
   }, {
     key: 'onClose',
     value: function onClose() {
       this.setState({ dropMenuActive: false });
     }
+
+    /**
+     * get active option label or first option's label
+     *
+     * @returns {string} - active option label
+     * @memberof DropDown
+     */
+
   }, {
     key: 'getActiveOptionLabel',
     value: function getActiveOptionLabel() {
@@ -6883,6 +7775,14 @@ var DropDown = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class =
         return this.props.options[0].label || 'Unlabled';
       }
     }
+
+    /**
+     * render for menu only which will render a native select element in this case (mobile)
+     *
+     * @returns {React$Element} - component element
+     * @memberof DropDown
+     */
+
   }, {
     key: 'renderNativeSelect',
     value: function renderNativeSelect() {
@@ -6898,6 +7798,15 @@ var DropDown = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class =
         }
       });
     }
+
+    /**
+     * render component
+     *
+     * @param {*} props - component props
+     * @returns {React$Element} - component element
+     * @memberof DropDown
+     */
+
   }, {
     key: 'render',
     value: function render(props) {
@@ -6932,6 +7841,26 @@ var DropDown = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class =
 exports.default = DropDown;
 
 /***/ }),
+/* 82 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _menu = __webpack_require__(83);
+
+var _menu2 = _interopRequireDefault(_menu);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _menu2.default;
+
+/***/ }),
 /* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6962,12 +7891,28 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 var mapStateToProps = function mapStateToProps(state) {
   return {
     isMobile: state.shell.isMobile
   };
 };
 
+/**
+ * Menu component
+ *
+ * @class Menu
+ * @example <Menu
+ *  options={this.videoTrackOptions}
+ *  onSelect={track => this.videoTrackChangeHandler(track)}
+ *  onClose={() => this.onClose()}
+ * />
+ * @extends {Component}
+ */
 var Menu = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = function (_Component) {
   _inherits(Menu, _Component);
 
@@ -6979,14 +7924,39 @@ var Menu = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = fun
 
   _createClass(Menu, [{
     key: 'componentDidMount',
+
+
+    /**
+     * after component mounted, listen to click outside of the component
+     * @returns {void}
+     * @memberof Menu
+     */
     value: function componentDidMount() {
       document.addEventListener('click', this.handleClickOutside.bind(this), true);
     }
+
+    /**
+     * before component unmount, remove the event listener
+     *
+     * @returns {void}
+     * @memberof Menu
+     */
+
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       document.removeEventListener('click', this.handleClickOutside.bind(this));
     }
+
+    /**
+     * handler to click outside of the component event listener.
+     * if not mobile device and clicked outside the component, call the onClose callback
+     *
+     * @param {Event} e click event
+     * @returns {void}
+     * @memberof Menu
+     */
+
   }, {
     key: 'handleClickOutside',
     value: function handleClickOutside(e) {
@@ -6995,15 +7965,34 @@ var Menu = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = fun
         this.props.onClose();
       }
     }
+
+    /**
+     * indication if option is active or not
+     *
+     * @param {Object} option option object
+     * @returns {boolean} is option active boolean
+     * @memberof Menu
+     */
+
   }, {
     key: 'isSelected',
-    value: function isSelected(o) {
-      return o.active;
+    value: function isSelected(option) {
+      return option.active;
     }
+
+    /**
+     * when option selected, change the active prop immediately for instant ui change
+     * and call the onSelect callback with the option value
+     *
+     * @param {Object} option - option object
+     * @returns {void}
+     * @memberof Menu
+     */
+
   }, {
     key: 'onSelect',
-    value: function onSelect(o) {
-      this.props.onSelect(o.value);
+    value: function onSelect(option) {
+      this.props.onSelect(option.value);
 
       // Instant select
       this.props.options.filter(function (t) {
@@ -7012,9 +8001,17 @@ var Menu = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = fun
         option.active = false;
       });
       this.props.options.filter(function (t) {
-        return t.value === o.value;
+        return t.value === option.value;
       })[0].active = true;
     }
+
+    /**
+     * get active option label
+     *
+     * @returns {string} active option label
+     * @memberof Menu
+     */
+
   }, {
     key: 'getActiveOptionLabel',
     value: function getActiveOptionLabel() {
@@ -7023,6 +8020,14 @@ var Menu = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = fun
       });
       return activeOptions.length > 0 ? activeOptions[0].label : this.props.options[0].label;
     }
+
+    /**
+     * render native select element
+     *
+     * @returns {React$Element} - component element
+     * @memberof Menu
+     */
+
   }, {
     key: 'renderNativeSelect',
     value: function renderNativeSelect() {
@@ -7045,6 +8050,16 @@ var Menu = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = fun
         })
       );
     }
+
+    /**
+     * if mobile device detected, renders the native select element.
+     * otherwise, render the styled menu
+     *
+     * @param {*} props - component props
+     * @returns {React$Element} - component element
+     * @memberof Menu
+     */
+
   }, {
     key: 'render',
     value: function render(props) {
@@ -7113,11 +8128,11 @@ var _base = __webpack_require__(2);
 
 var _base2 = _interopRequireDefault(_base);
 
-var _smartContainer = __webpack_require__(40);
+var _smartContainer = __webpack_require__(38);
 
 var _smartContainer2 = _interopRequireDefault(_smartContainer);
 
-var _smartContainerItem = __webpack_require__(42);
+var _smartContainerItem = __webpack_require__(40);
 
 var _smartContainerItem2 = _interopRequireDefault(_smartContainerItem);
 
@@ -7128,10 +8143,6 @@ var _icon2 = _interopRequireDefault(_icon);
 var _cvaaOverlay = __webpack_require__(85);
 
 var _cvaaOverlay2 = _interopRequireDefault(_cvaaOverlay);
-
-var _menu = __webpack_require__(44);
-
-var _menu2 = _interopRequireDefault(_menu);
 
 var _preactPortal = __webpack_require__(21);
 
@@ -7145,6 +8156,11 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 var mapStateToProps = function mapStateToProps(state) {
   return {
     audioTracks: state.engine.audioTracks,
@@ -7154,30 +8170,75 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
+/**
+ * LanguageControl component
+ *
+ * @class LanguageControl
+ * @example <LanguageControl />
+ * @extends {BaseComponent}
+ */
 var LanguageControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.bindActions)(_cvaa.actions)), _dec(_class = function (_BaseComponent) {
   _inherits(LanguageControl, _BaseComponent);
 
+  /**
+   * Creates an instance of LanguageControl.
+   * @param {Object} obj obj
+   * @memberof LanguageControl
+   */
   function LanguageControl(obj) {
     _classCallCheck(this, LanguageControl);
 
     return _possibleConstructorReturn(this, (LanguageControl.__proto__ || Object.getPrototypeOf(LanguageControl)).call(this, { name: 'LanguageControl', player: obj.player }));
   }
 
+  /**
+   * before component mounted, set initial state
+   *
+   * @returns {void}
+   * @memberof LanguageControl
+   */
+
+
   _createClass(LanguageControl, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
       this.setState({ smartContainerOpen: false });
     }
+
+    /**
+     * after component mounted, set event listener to click outside of the component
+     *
+     * @returns {void}
+     * @memberof LanguageControl
+     */
+
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
       document.addEventListener('click', this.handleClickOutside.bind(this), true);
     }
+
+    /**
+     * before component unmounted, remove event listener
+     *
+     * @returns {void}
+     * @memberof LanguageControl
+     */
+
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       document.removeEventListener('click', this.handleClickOutside.bind(this), true);
     }
+
+    /**
+     * event listener for clicking outside handler.
+     *
+     * @param {Event} e - click event
+     * @returns {void}
+     * @memberof LanguageControl
+     */
+
   }, {
     key: 'handleClickOutside',
     value: function handleClickOutside(e) {
@@ -7186,16 +8247,43 @@ var LanguageControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
         this.setState({ smartContainerOpen: false });
       }
     }
+
+    /**
+     * toggle smart container internal state on control button click
+     *
+     * @returns {void}
+     * @memberof LanguageControl
+     */
+
   }, {
     key: 'onControlButtonClick',
     value: function onControlButtonClick() {
       this.setState({ smartContainerOpen: !this.state.smartContainerOpen });
     }
+
+    /**
+     * call to player selectTrack method and change audio track
+     *
+     * @param {Object} audioTrack - audio track
+     * @returns {void}
+     * @memberof LanguageControl
+     */
+
   }, {
     key: 'onAudioChange',
     value: function onAudioChange(audioTrack) {
       this.player.selectTrack(audioTrack);
     }
+
+    /**
+     * check if option is 'off', if it does- hideTextTrack called.
+     * otherwise, selecting the given text track
+     *
+     * @param {(Object | string)} textTrack - text track or 'off' string
+     * @returns {void}
+     * @memberof LanguageControl
+     */
+
   }, {
     key: 'onCaptionsChange',
     value: function onCaptionsChange(textTrack) {
@@ -7205,81 +8293,39 @@ var LanguageControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
         this.player.selectTrack(textTrack);
       }
     }
+
+    /**
+     * toggle the internal state of cvaa overlay
+     *
+     * @returns {void}
+     * @memberof LanguageControl
+     */
+
   }, {
     key: 'toggleCVAAOverlay',
     value: function toggleCVAAOverlay() {
       this.setState({ cvaaOverlay: !this.state.cvaaOverlay });
     }
-  }, {
-    key: 'renderAudioSettingsOnly',
-    value: function renderAudioSettingsOnly(audioOptions) {
-      var _this2 = this;
 
-      return (0, _preact.h)(
-        'div',
-        { className: 'control-button-container control-audio' },
-        (0, _preact.h)(
-          'button',
-          {
-            className: this.state.smartContainerOpen ? 'control-button active' : 'control-button',
-            onClick: function onClick() {
-              return _this2.onControlButtonClick();
-            }
-          },
-          (0, _preact.h)(_icon2.default, { type: _icon.IconType.Language })
-        ),
-        !this.state.smartContainerOpen && !this.props.isMobile ? undefined : (0, _preact.h)(_menu2.default, {
-          hideSelect: true,
-          options: audioOptions,
-          onSelect: function onSelect(o) {
-            return _this2.onAudioChange(o);
-          },
-          onClose: function onClose() {
-            return _this2.setState({ smartContainerOpen: false });
-          }
-        })
-      );
-    }
-  }, {
-    key: 'renderTextSettingsOnly',
-    value: function renderTextSettingsOnly(textOptions) {
-      var _this3 = this;
+    /**
+     * render smart container with both audio and text options if exist
+     *
+     * @param {Array<Object>} audioOptions - audio tracks
+     * @param {Array<Object>} textOptions - text tracks
+     * @returns {React$Element} - component
+     * @memberof LanguageControl
+     */
 
-      return (0, _preact.h)(
-        'div',
-        { className: 'control-button-container control-audio' },
-        (0, _preact.h)(
-          'button',
-          {
-            className: this.state.smartContainerOpen ? 'control-button active' : 'control-button',
-            onClick: function onClick() {
-              return _this3.onControlButtonClick();
-            }
-          },
-          (0, _preact.h)(_icon2.default, { type: _icon.IconType.Language })
-        ),
-        !this.state.smartContainerOpen && !this.props.isMobile ? undefined : (0, _preact.h)(_menu2.default, {
-          hideSelect: true,
-          options: textOptions,
-          onSelect: function onSelect(o) {
-            return _this3.onCaptionsChange(o);
-          },
-          onClose: function onClose() {
-            return _this3.setState({ smartContainerOpen: false });
-          }
-        })
-      );
-    }
   }, {
     key: 'renderAll',
     value: function renderAll(audioOptions, textOptions) {
-      var _this4 = this;
+      var _this2 = this;
 
       return (0, _preact.h)(
         'div',
         {
           ref: function ref(c) {
-            return _this4._controlLanguageElement = c;
+            return _this2._controlLanguageElement = c;
           },
           className: 'control-button-container control-language'
         },
@@ -7292,7 +8338,7 @@ var LanguageControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
               'aria-label': (0, _preact.h)(_preactI18n.Text, { id: 'controls.language' }),
               className: this.state.smartContainerOpen ? 'control-button active' : 'control-button',
               onClick: function onClick() {
-                return _this4.onControlButtonClick();
+                return _this2.onControlButtonClick();
               }
             },
             (0, _preact.h)(_icon2.default, { type: _icon.IconType.Language })
@@ -7301,9 +8347,9 @@ var LanguageControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
         !this.state.smartContainerOpen || this.state.cvaaOverlay ? undefined : (0, _preact.h)(
           _smartContainer2.default,
           { title: 'Language', onClose: function onClose() {
-              return _this4.onControlButtonClick();
+              return _this2.onControlButtonClick();
             } },
-          (0, _preact.h)(
+          audioOptions.length === 0 ? undefined : (0, _preact.h)(
             _preactI18n.Localizer,
             null,
             (0, _preact.h)(_smartContainerItem2.default, {
@@ -7311,11 +8357,11 @@ var LanguageControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
               label: (0, _preact.h)(_preactI18n.Text, { id: 'language.audio' }),
               options: audioOptions,
               onSelect: function onSelect(audioTrack) {
-                return _this4.onAudioChange(audioTrack);
+                return _this2.onAudioChange(audioTrack);
               }
             })
           ),
-          (0, _preact.h)(
+          textOptions.length === 0 ? undefined : (0, _preact.h)(
             _preactI18n.Localizer,
             null,
             (0, _preact.h)(_smartContainerItem2.default, {
@@ -7323,17 +8369,17 @@ var LanguageControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
               label: (0, _preact.h)(_preactI18n.Text, { id: 'language.captions' }),
               options: textOptions,
               onSelect: function onSelect(textTrack) {
-                return _this4.onCaptionsChange(textTrack);
+                return _this2.onCaptionsChange(textTrack);
               }
             })
           ),
-          (0, _preact.h)(
+          textOptions.length === 0 ? undefined : (0, _preact.h)(
             'div',
             { className: 'smart-container-item' },
             (0, _preact.h)(
               'a',
               { onClick: function onClick() {
-                  return _this4.toggleCVAAOverlay();
+                  return _this2.toggleCVAAOverlay();
                 } },
               (0, _preact.h)(_preactI18n.Text, { id: 'language.advanced_captions_settings' })
             )
@@ -7343,15 +8389,26 @@ var LanguageControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
           _preactPortal2.default,
           { into: '#overlay-portal' },
           (0, _preact.h)(_cvaaOverlay2.default, { onClose: function onClose() {
-              return _this4.toggleCVAAOverlay();
+              return _this2.toggleCVAAOverlay();
             } })
         ) : null
       );
     }
+
+    /**
+     * root render function. will decide to render audio only / text only or both based on the available options
+     *
+     * @param {*} props - component props
+     * @returns {React$Element} - component
+     * @memberof LanguageControl
+     */
+
   }, {
     key: 'render',
     value: function render(props) {
-      var audioOptions = props.audioTracks.map(function (t) {
+      var audioOptions = props.audioTracks.filter(function (t) {
+        return t.label || t.language;
+      }).map(function (t) {
         return { label: t.label || t.language, active: t.active, value: t };
       });
       var textOptions = props.textTracks.filter(function (t) {
@@ -7370,12 +8427,8 @@ var LanguageControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
         });
       }
 
-      if (audioOptions.length > 0 && textOptions.length > 0) {
+      if (audioOptions.length > 0 || textOptions.length > 0) {
         return this.renderAll(audioOptions, textOptions);
-      } else if (audioOptions.length > 0 && textOptions.length === 0) {
-        return this.renderAudioSettingsOnly(audioOptions);
-      } else if (audioOptions.length === 0 && textOptions.length > 0) {
-        return this.renderTextSettingsOnly(textOptions);
       } else {
         return undefined;
       }
@@ -7441,7 +8494,7 @@ var _overlay = __webpack_require__(22);
 
 var _overlay2 = _interopRequireDefault(_overlay);
 
-var _dropdown = __webpack_require__(43);
+var _dropdown = __webpack_require__(41);
 
 var _dropdown2 = _interopRequireDefault(_dropdown);
 
@@ -7453,6 +8506,11 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 var mapStateToProps = function mapStateToProps(state) {
   return {
     open: state.cvaa.overlayOpen,
@@ -7465,14 +8523,32 @@ var cvaaOverlayState = {
   CustomCaptions: 'custom-captions'
 };
 
+/**
+ * CVAAOverlay component
+ *
+ * @class CVAAOverlay
+ * @extends {BaseComponent}
+ */
 var CVAAOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.bindActions)(_extends({}, _cvaa.actions, _shell.actions))), _dec(_class = function (_BaseComponent) {
   _inherits(CVAAOverlay, _BaseComponent);
 
+  /**
+   * Creates an instance of CVAAOverlay.
+   * @memberof CVAAOverlay
+   */
   function CVAAOverlay() {
     _classCallCheck(this, CVAAOverlay);
 
     return _possibleConstructorReturn(this, (CVAAOverlay.__proto__ || Object.getPrototypeOf(CVAAOverlay)).call(this, { name: 'CVAAOverlay' }));
   }
+
+  /**
+   * componentWillUnmount
+   *
+   * @returns {void}
+   * @memberof CVAAOverlay
+   */
+
 
   _createClass(CVAAOverlay, [{
     key: 'componentWillUnmount',
@@ -7481,6 +8557,14 @@ var CVAAOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAc
         state: cvaaOverlayState.Main
       });
     }
+
+    /**
+     * componentWillMount
+     *
+     * @returns {void}
+     * @memberof CVAAOverlay
+     */
+
   }, {
     key: 'componentWillMount',
     value: function componentWillMount() {
@@ -7488,11 +8572,29 @@ var CVAAOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAc
         state: cvaaOverlayState.Main
       });
     }
+
+    /**
+     * changing the overlay state
+     *
+     * @param {CvaaOverlayStateType} stateName - the new state name
+     * @returns {void}
+     * @memberof CVAAOverlay
+     */
+
   }, {
     key: 'transitionToState',
     value: function transitionToState(stateName) {
       this.setState({ state: stateName });
     }
+
+    /**
+     * changing the captions style
+     *
+     * @param {string} style - style name
+     * @returns {void}
+     * @memberof CVAAOverlay
+     */
+
   }, {
     key: 'changeCaptionsStyle',
     value: function changeCaptionsStyle(style) {
@@ -7501,6 +8603,14 @@ var CVAAOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAc
       this.props.updateCaptionsStyle(style);
       this.props.onClose();
     }
+
+    /**
+     * render main state
+     *
+     * @returns {React$Element} - main state element
+     * @memberof CVAAOverlay
+     */
+
   }, {
     key: 'renderMainState',
     value: function renderMainState() {
@@ -7548,6 +8658,14 @@ var CVAAOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAc
         )
       );
     }
+
+    /**
+     * render custom captions state
+     *
+     * @returns {React$Element} - custom captions elements
+     * @memberof CVAAOverlay
+     */
+
   }, {
     key: 'renderCustomCaptionsState',
     value: function renderCustomCaptionsState() {
@@ -7641,6 +8759,15 @@ var CVAAOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAc
         )
       );
     }
+
+    /**
+     * render component
+     *
+     * @param {*} props - component props
+     * @returns {React$Element} - component element
+     * @memberof CVAAOverlay
+     */
+
   }, {
     key: 'render',
     value: function render(props) {
@@ -7682,7 +8809,7 @@ var _preactRedux = __webpack_require__(1);
 
 var _bindActions = __webpack_require__(3);
 
-var _fullscreen = __webpack_require__(45);
+var _fullscreen = __webpack_require__(42);
 
 var _base = __webpack_require__(2);
 
@@ -7700,6 +8827,11 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 var mapStateToProps = function mapStateToProps(state) {
   return {
     fullscreen: state.fullscreen.fullscreen,
@@ -7707,14 +8839,34 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
+/**
+ * FullscreenControl component
+ *
+ * @class FullscreenControl
+ * @example <FullscreenControl player={this.player} />
+ * @extends {BaseComponent}
+ */
 var FullscreenControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.bindActions)(_fullscreen.actions)), _dec(_class = function (_BaseComponent) {
   _inherits(FullscreenControl, _BaseComponent);
 
+  /**
+   * Creates an instance of FullscreenControl.
+   * @param {Object} obj obj
+   * @memberof FullscreenControl
+   */
   function FullscreenControl(obj) {
     _classCallCheck(this, FullscreenControl);
 
     return _possibleConstructorReturn(this, (FullscreenControl.__proto__ || Object.getPrototypeOf(FullscreenControl)).call(this, { name: 'Fullscreen', player: obj.player }));
   }
+
+  /**
+   * after component mounted, set up event listerners to window fullscreen state change
+   *
+   * @returns {void}
+   * @memberof FullscreenControl
+   */
+
 
   _createClass(FullscreenControl, [{
     key: 'componentDidMount',
@@ -7734,6 +8886,14 @@ var FullscreenControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _
         return _this2.fullscreenChangeHandler();
       });
     }
+
+    /**
+     * fullscreen change handler function. updates the store with new value
+     *
+     * @returns {void}
+     * @memberof FullscreenControl
+     */
+
   }, {
     key: 'fullscreenChangeHandler',
     value: function fullscreenChangeHandler() {
@@ -7741,29 +8901,60 @@ var FullscreenControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _
 
       this.props.updateFullscreen(isFullscreen);
     }
+
+    /**
+     * request fullscreen function to all browsers
+     *
+     * @param {HTMLElement} element - element to enter fullscreen
+     * @returns {boolean} - boolean success indicator to enter fullscreen or not
+     * @memberof FullscreenControl
+     */
+
   }, {
     key: 'requestFullscreen',
     value: function requestFullscreen(element) {
-      if (this.props.isMobile) {
-        this.player.getView().getElementsByTagName('video')[0].webkitEnterFullscreen();
-        return;
-      }
-
       if (typeof element.requestFullscreen === 'function') {
         element.requestFullscreen();
+        return true;
       } else if (typeof element.mozRequestFullScreen === 'function') {
         element.mozRequestFullScreen();
+        return true;
       } else if (typeof element.webkitRequestFullScreen === 'function') {
         element.webkitRequestFullScreen();
+        return true;
       } else if (typeof element.msRequestFullscreen === 'function') {
         element.msRequestFullscreen();
+        return true;
+      } else {
+        return false;
       }
     }
+
+    /**
+     * if mobile detected, get the video element and request fullscreen.
+     * otherwise, request fullscreen to the parent plater view than includes the GUI as well
+     *
+     * @returns {void}
+     * @memberof FullscreenControl
+     */
+
   }, {
     key: 'enterFullscreen',
     value: function enterFullscreen() {
-      this.requestFullscreen(this.player.getView().parentElement);
+      if (this.props.isMobile) {
+        this.player.getView().getElementsByTagName('video')[0].webkitEnterFullscreen();
+      } else {
+        this.requestFullscreen(this.player.getView().parentElement);
+      }
     }
+
+    /**
+     * exit fullscreen cross platform function
+     *
+     * @returns {void}
+     * @memberof FullscreenControl
+     */
+
   }, {
     key: 'exitFullscreen',
     value: function exitFullscreen() {
@@ -7777,12 +8968,28 @@ var FullscreenControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _
         document.msExitFullscreen();
       }
     }
+
+    /**
+     * toggle fullscreen based on current fullscreen state in store
+     *
+     * @returns {void}
+     * @memberof FullscreenControl
+     */
+
   }, {
     key: 'toggleFullscreen',
     value: function toggleFullscreen() {
       this.logger.debug('Toggle fullscreen');
       this.props.fullscreen ? this.exitFullscreen() : this.enterFullscreen();
     }
+
+    /**
+     * render component
+     *
+     * @returns {React$Element} - component
+     * @memberof FullscreenControl
+     */
+
   }, {
     key: 'render',
     value: function render() {
@@ -7838,7 +9045,7 @@ var _base = __webpack_require__(2);
 
 var _base2 = _interopRequireDefault(_base);
 
-var _timeDisplay = __webpack_require__(25);
+var _timeDisplay = __webpack_require__(44);
 
 var _timeDisplay2 = _interopRequireDefault(_timeDisplay);
 
@@ -7850,6 +9057,11 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 var mapStateToProps = function mapStateToProps(state) {
   return {
     currentTime: state.engine.currentTime,
@@ -7857,14 +9069,34 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
+/**
+ * TimeDisplayPlaybackContainer component
+ *
+ * @class TimeDisplayPlaybackContainer
+ * @example <TimeDisplayPlaybackContainer format='currentTime / duration' />
+ * @extends {BaseComponent}
+ */
 var TimeDisplayPlaybackContainer = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = function (_BaseComponent) {
   _inherits(TimeDisplayPlaybackContainer, _BaseComponent);
 
+  /**
+   * Creates an instance of TimeDisplayPlaybackContainer.
+   * @memberof TimeDisplayPlaybackContainer
+   */
   function TimeDisplayPlaybackContainer() {
     _classCallCheck(this, TimeDisplayPlaybackContainer);
 
     return _possibleConstructorReturn(this, (TimeDisplayPlaybackContainer.__proto__ || Object.getPrototypeOf(TimeDisplayPlaybackContainer)).call(this, { name: 'TimeDisplayPlaybackContainer' }));
   }
+
+  /**
+   * render component
+   *
+   * @param {*} props - component props
+   * @returns {React$Element} - component element
+   * @memberof TimeDisplayPlaybackContainer
+   */
+
 
   _createClass(TimeDisplayPlaybackContainer, [{
     key: 'render',
@@ -7903,6 +9135,17 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * TimeDisplay component
+ *
+ * @class TimeDisplay
+ * @example <TimeDisplay
+ *  currentTime={this.player.currentTime}
+ *  duration={this.player.duration}
+ *  format='currentTime / duration'
+ * />
+ * @extends {Component}
+ */
 var TimeDisplay = function (_Component) {
   _inherits(TimeDisplay, _Component);
 
@@ -7914,11 +9157,23 @@ var TimeDisplay = function (_Component) {
 
   _createClass(TimeDisplay, [{
     key: 'getTimeDisplay',
-    value: function getTimeDisplay() {
-      var result = this.props.format ? this.props.format : 'current / total',
-          current = (0, _timeFormat.toHHMMSS)(this.props.currentTime),
-          total = (0, _timeFormat.toHHMMSS)(this.props.duration),
-          left = (0, _timeFormat.toHHMMSS)(this.props.duration - this.props.currentTime);
+
+
+    /**
+     * get formatted time display based on defined format
+     *
+     * @method getTimeDisplay
+     * @param {number} currentTime current time
+     * @param {number} duration duration
+     * @param {string} [format] string that can use one or more of: 'current' / 'total' / 'left' and will be replaced with the relevant value
+     * @returns {string} formatted time display
+     * @memberof TimeDisplay
+     */
+    value: function getTimeDisplay(currentTime, duration, format) {
+      var result = format ? format : 'current / total',
+          current = (0, _timeFormat.toHHMMSS)(currentTime),
+          total = (0, _timeFormat.toHHMMSS)(duration),
+          left = (0, _timeFormat.toHHMMSS)(duration - currentTime);
 
       result = result.replace(/current/g, current);
       result = result.replace(/total/g, total);
@@ -7926,16 +9181,26 @@ var TimeDisplay = function (_Component) {
 
       return result;
     }
+
+    /**
+     * render component
+     *
+     * @method render
+     * @param {*} props - component props
+     * @returns {React$Element} - component
+     * @memberof TimeDisplay
+     */
+
   }, {
     key: 'render',
-    value: function render() {
+    value: function render(props) {
       return (0, _preact.h)(
         'div',
         { className: 'time-display' },
         (0, _preact.h)(
           'span',
           null,
-          this.getTimeDisplay()
+          this.getTimeDisplay(props.currentTime, props.duration, props.format)
         )
       );
     }
@@ -7967,6 +9232,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * BottomBar component
+ *
+ * @class BottomBar
+ * @example <BottomBar>...</BottomBar>
+ * @extends {Component}
+ */
 var BottomBar = function (_Component) {
   _inherits(BottomBar, _Component);
 
@@ -7978,6 +9250,14 @@ var BottomBar = function (_Component) {
 
   _createClass(BottomBar, [{
     key: 'render',
+
+    /**
+     * render component
+     *
+     * @param {*} props - component props
+     * @returns {React$Element} - component element
+     * @memberof BottomBar
+     */
     value: function render(props) {
       return (0, _preact.h)(
         'div',
@@ -8013,6 +9293,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * OverlayPortal component
+ *
+ * @class OverlayPortal
+ * @example <OverlayPortal>...</OverlayPortal>
+ * @extends {Component}
+ */
 var OverlayPortal = function (_Component) {
   _inherits(OverlayPortal, _Component);
 
@@ -8024,9 +9311,26 @@ var OverlayPortal = function (_Component) {
 
   _createClass(OverlayPortal, [{
     key: 'shouldComponentUpdate',
+
+
+    /**
+     * change in component props or state shouldn't render the component again
+     *
+     * @returns {boolean} shouldComponentUpdate
+     * @memberof OverlayPortal
+     */
     value: function shouldComponentUpdate() {
       return false;
     }
+
+    /**
+     * render component
+     *
+     * @param {*} props - comonent props
+     * @returns {React$Element} - component element
+     * @memberof OverlayPortal
+     */
+
   }, {
     key: 'render',
     value: function render(props) {
@@ -8068,9 +9372,20 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * KeyboardControl component
+ *
+ * @class KeyboardControl
+ * @extends {BaseComponent}
+ */
 var KeyboardControl = function (_BaseComponent) {
   _inherits(KeyboardControl, _BaseComponent);
 
+  /**
+   * Creates an instance of KeyboardControl.
+   * @param {Object} obj obj
+   * @memberof KeyboardControl
+   */
   function KeyboardControl(obj) {
     _classCallCheck(this, KeyboardControl);
 
@@ -8132,6 +9447,15 @@ var KeyboardControl = function (_BaseComponent) {
     return _this;
   }
 
+  /**
+   * disable keyboard commands when control button is on focus to prevent
+   * double function execution.
+   *
+   * @returns {void}
+   * @memberof KeyboardControl
+   */
+
+
   _createClass(KeyboardControl, [{
     key: 'disableKeyboardCommandsOnControls',
     value: function disableKeyboardCommandsOnControls() {
@@ -8190,13 +9514,13 @@ var _preactRedux = __webpack_require__(1);
 
 var _bindActions = __webpack_require__(3);
 
-var _seekbar = __webpack_require__(18);
+var _seekbar = __webpack_require__(10);
 
 var _base = __webpack_require__(2);
 
 var _base2 = _interopRequireDefault(_base);
 
-var _seekbar2 = __webpack_require__(10);
+var _seekbar2 = __webpack_require__(11);
 
 var _seekbar3 = _interopRequireDefault(_seekbar2);
 
@@ -8208,6 +9532,11 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 var mapStateToProps = function mapStateToProps(state) {
   return {
     currentTime: state.engine.adProgress.currentTime,
@@ -8217,14 +9546,35 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
+/**
+ * SeekBarAdsContainer component
+ *
+ * @class SeekBarAdsContainer
+ * @example <SeekBarAdsContainer player={this.player} />
+ * @extends {BaseComponent}
+ */
 var SeekBarAdsContainer = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.bindActions)(_seekbar.actions)), _dec(_class = function (_BaseComponent) {
   _inherits(SeekBarAdsContainer, _BaseComponent);
 
+  /**
+   * Creates an instance of SeekBarAdsContainer.
+   * @param {Object} obj - obj
+   * @memberof SeekBarAdsContainer
+   */
   function SeekBarAdsContainer(obj) {
     _classCallCheck(this, SeekBarAdsContainer);
 
     return _possibleConstructorReturn(this, (SeekBarAdsContainer.__proto__ || Object.getPrototypeOf(SeekBarAdsContainer)).call(this, { name: 'SeekBarAdsContainer', player: obj.player }));
   }
+
+  /**
+   * render compoent
+   *
+   * @param {*} props - component props
+   * @returns {React$Element} - component element
+   * @memberof SeekBarAdsContainer
+   */
+
 
   _createClass(SeekBarAdsContainer, [{
     key: 'render',
@@ -8299,6 +9649,11 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 var mapStateToProps = function mapStateToProps(state) {
   return {
     currentTime: state.engine.adProgress.currentTime,
@@ -8308,20 +9663,48 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
+/**
+ * AdSkip component
+ *
+ * @class AdSkip
+ * @example <AdSkip player={this.player} />
+ * @extends {BaseComponent}
+ */
 var AdSkip = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = function (_BaseComponent) {
   _inherits(AdSkip, _BaseComponent);
 
+  /**
+   * Creates an instance of AdSkip.
+   * @param {Object} obj obj
+   * @memberof AdSkip
+   */
   function AdSkip(obj) {
     _classCallCheck(this, AdSkip);
 
     return _possibleConstructorReturn(this, (AdSkip.__proto__ || Object.getPrototypeOf(AdSkip)).call(this, { name: 'AdSkip', player: obj.player }));
   }
 
+  /**
+   * componentDidMount
+   *
+   * @returns {void}
+   * @memberof AdSkip
+   */
+
+
   _createClass(AdSkip, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.skipSupport = this.player.config.plugins.ima.skipSupport;
     }
+
+    /**
+     * getting the number value of seconds left to be able to skip ad
+     *
+     * @returns {number} - number of seconds left to skip ad
+     * @memberof AdSkip
+     */
+
   }, {
     key: 'getSkipTimeOffset',
     value: function getSkipTimeOffset() {
@@ -8331,6 +9714,14 @@ var AdSkip = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = f
         return Math.ceil(this.props.adSkipTimeOffset - this.props.currentTime);
       }
     }
+
+    /**
+     * render component
+     *
+     * @returns {React$Element}  - component
+     * @memberof AdSkip
+     */
+
   }, {
     key: 'render',
     value: function render() {
@@ -8404,12 +9795,24 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 var mapStateToProps = function mapStateToProps(state) {
   return {
     url: state.engine.adUrl
   };
 };
 
+/**
+ * AdLearnMore component
+ *
+ * @class AdLearnMore
+ * @example <AdLearnMore />
+ * @extends {Component}
+ */
 var AdLearnMore = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = function (_Component) {
   _inherits(AdLearnMore, _Component);
 
@@ -8421,6 +9824,14 @@ var AdLearnMore = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_clas
 
   _createClass(AdLearnMore, [{
     key: 'render',
+
+    /**
+     * render component
+     *
+     * @param {*} props - component props
+     * @returns {React$Element} - component element
+     * @memberof AdLearnMore
+     */
     value: function render(props) {
       return (0, _preact.h)(
         'a',
@@ -8455,6 +9866,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * TopBar component
+ *
+ * @class TopBar
+ * @example <TopBar>...</TopBar>
+ * @extends {Component}
+ */
 var TopBar = function (_Component) {
   _inherits(TopBar, _Component);
 
@@ -8466,6 +9884,14 @@ var TopBar = function (_Component) {
 
   _createClass(TopBar, [{
     key: 'render',
+
+    /**
+     * render component
+     *
+     * @param {*} props - component props
+     * @returns {React$Element} - component element
+     * @memberof TopBar
+     */
     value: function render(props) {
       return (0, _preact.h)(
         'div',
@@ -8490,127 +9916,325 @@ exports.default = TopBar;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = playbackUI;
+exports.default = undefined;
 
-var _preact = __webpack_require__(0);
+var _seekbarLivePlaybackContainer = __webpack_require__(101);
 
-var _overlayPlay = __webpack_require__(14);
-
-var _overlayPlay2 = _interopRequireDefault(_overlayPlay);
-
-var _prePlaybackPlayOverlay = __webpack_require__(17);
-
-var _prePlaybackPlayOverlay2 = _interopRequireDefault(_prePlaybackPlayOverlay);
-
-var _loading = __webpack_require__(8);
-
-var _loading2 = _interopRequireDefault(_loading);
-
-var _playPause = __webpack_require__(9);
-
-var _playPause2 = _interopRequireDefault(_playPause);
-
-var _seekbar = __webpack_require__(10);
-
-var _seekbar2 = _interopRequireDefault(_seekbar);
-
-var _volume = __webpack_require__(11);
-
-var _volume2 = _interopRequireDefault(_volume);
-
-var _share = __webpack_require__(48);
-
-var _share2 = _interopRequireDefault(_share);
-
-var _settings = __webpack_require__(20);
-
-var _settings2 = _interopRequireDefault(_settings);
-
-var _language = __webpack_require__(23);
-
-var _language2 = _interopRequireDefault(_language);
-
-var _fullscreen = __webpack_require__(12);
-
-var _fullscreen2 = _interopRequireDefault(_fullscreen);
-
-var _timeDisplay = __webpack_require__(25);
-
-var _timeDisplay2 = _interopRequireDefault(_timeDisplay);
-
-var _topBar = __webpack_require__(28);
-
-var _topBar2 = _interopRequireDefault(_topBar);
-
-var _bottomBar = __webpack_require__(13);
-
-var _bottomBar2 = _interopRequireDefault(_bottomBar);
-
-var _overlayPortal = __webpack_require__(26);
-
-var _overlayPortal2 = _interopRequireDefault(_overlayPortal);
-
-var _keyboard = __webpack_require__(27);
-
-var _keyboard2 = _interopRequireDefault(_keyboard);
+var _seekbarLivePlaybackContainer2 = _interopRequireDefault(_seekbarLivePlaybackContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function playbackUI(props) {
-  return (0, _preact.h)(
-    'div',
-    { className: 'playback-gui-wrapper', style: 'height: 100%' },
-    (0, _preact.h)(_keyboard2.default, { player: props.player }),
-    (0, _preact.h)(_loading2.default, { player: props.player }),
-    (0, _preact.h)(
-      'div',
-      { className: 'player-gui', id: 'player-gui' },
-      (0, _preact.h)(_overlayPortal2.default, null),
-      (0, _preact.h)(_overlayPlay2.default, { player: props.player }),
-      (0, _preact.h)(
-        _topBar2.default,
-        null,
-        (0, _preact.h)(
-          'div',
-          { className: 'left-controls' },
-          (0, _preact.h)(
-            'div',
-            { className: 'video-playing-title' },
-            'FULLSCREEN UI PRESET'
-          )
-        ),
-        (0, _preact.h)(
-          'div',
-          { className: 'right-controls' },
-          (0, _preact.h)(_share2.default, { player: props.player })
-        )
-      ),
-      (0, _preact.h)(
-        _bottomBar2.default,
-        null,
-        (0, _preact.h)(_seekbar2.default, { showFramePreview: true, showTimeBubble: true, player: props.player }),
-        (0, _preact.h)(
-          'div',
-          { className: 'left-controls' },
-          (0, _preact.h)(_playPause2.default, { player: props.player }),
-          (0, _preact.h)(_timeDisplay2.default, { format: 'current / total', player: props.player })
-        ),
-        (0, _preact.h)(
-          'div',
-          { className: 'right-controls' },
-          (0, _preact.h)(_volume2.default, { player: props.player }),
-          (0, _preact.h)(_language2.default, { player: props.player }),
-          (0, _preact.h)(_settings2.default, { player: props.player }),
-          (0, _preact.h)(_fullscreen2.default, { player: props.player })
-        )
-      )
-    ),
-    (0, _preact.h)(_prePlaybackPlayOverlay2.default, { player: props.player })
-  );
-}
+exports.default = _seekbarLivePlaybackContainer2.default;
 
 /***/ }),
 /* 101 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _dec, _class;
+
+var _preact = __webpack_require__(0);
+
+var _preactRedux = __webpack_require__(1);
+
+var _bindActions = __webpack_require__(3);
+
+var _seekbar = __webpack_require__(10);
+
+var _base = __webpack_require__(2);
+
+var _base2 = _interopRequireDefault(_base);
+
+var _seekbar2 = __webpack_require__(11);
+
+var _seekbar3 = _interopRequireDefault(_seekbar2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    currentTime: state.seekbar.currentTime,
+    duration: state.engine.duration,
+    isDraggingActive: state.seekbar.draggingActive,
+    isMobile: state.shell.isMobile,
+    poster: state.engine.poster,
+    isDvr: state.engine.isDvr
+  };
+};
+
+/**
+ * SeekBarLivePlaybackContainer component
+ *
+ * @class SeekBarLivePlaybackContainer
+ * @example <SeekBarLivePlaybackContainer player={this.player} />
+ * @extends {BaseComponent}
+ */
+var SeekBarLivePlaybackContainer = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.bindActions)(_seekbar.actions)), _dec(_class = function (_BaseComponent) {
+  _inherits(SeekBarLivePlaybackContainer, _BaseComponent);
+
+  /**
+   * Creates an instance of SeekBarLivePlaybackContainer.
+   * @param {Object} obj obj
+   * @memberof SeekBarLivePlaybackContainer
+   */
+  function SeekBarLivePlaybackContainer(obj) {
+    _classCallCheck(this, SeekBarLivePlaybackContainer);
+
+    return _possibleConstructorReturn(this, (SeekBarLivePlaybackContainer.__proto__ || Object.getPrototypeOf(SeekBarLivePlaybackContainer)).call(this, { name: 'SeekBarLivePlaybackContainer', player: obj.player }));
+  }
+
+  /**
+   * after component mounted, listen to time update event and if dragging not active,
+   * update the current time in the store
+   *
+   * @returns {void}
+   * @memberof SeekBarLivePlaybackContainer
+   */
+
+
+  _createClass(SeekBarLivePlaybackContainer, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      this.player.addEventListener(this.player.Event.TIME_UPDATE, function () {
+        if (!_this2.props.isDraggingActive) {
+          _this2.props.updateCurrentTime(_this2.player.currentTime);
+        }
+      });
+    }
+
+    /**
+     * render component
+     *
+     * @param {*} props - component props
+     * @returns {React$Element} - component element
+     * @memberof SeekBarLivePlaybackContainer
+     */
+
+  }, {
+    key: 'render',
+    value: function render(props) {
+      var _this3 = this;
+
+      if (!props.isDvr) return undefined;
+      return (0, _preact.h)(_seekbar3.default, {
+        playerElement: this.player.getView().parentElement,
+        showTimeBubble: this.props.showTimeBubble,
+        changeCurrentTime: function changeCurrentTime(time) {
+          return _this3.player.currentTime = time;
+        },
+        playerPoster: this.props.poster,
+        updateSeekbarDraggingStatus: function updateSeekbarDraggingStatus(data) {
+          return _this3.props.updateSeekbarDraggingStatus(data);
+        },
+        updateCurrentTime: function updateCurrentTime(data) {
+          return _this3.props.updateCurrentTime(data);
+        },
+
+        isDvr: this.props.isDvr,
+        currentTime: this.props.currentTime,
+        duration: this.props.duration,
+        isDraggingActive: this.props.isDraggingActive,
+        isMobile: this.props.isMobile
+      });
+    }
+  }]);
+
+  return SeekBarLivePlaybackContainer;
+}(_base2.default)) || _class);
+exports.default = SeekBarLivePlaybackContainer;
+
+/***/ }),
+/* 102 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _liveTag = __webpack_require__(103);
+
+var _liveTag2 = _interopRequireDefault(_liveTag);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _liveTag2.default;
+
+/***/ }),
+/* 103 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _dec, _class;
+
+var _preact = __webpack_require__(0);
+
+var _preactRedux = __webpack_require__(1);
+
+var _base = __webpack_require__(2);
+
+var _base2 = _interopRequireDefault(_base);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    isLive: state.engine.isLive,
+    isDvr: state.engine.isDvr,
+    currentTime: state.engine.currentTime,
+    duration: state.engine.duration
+  };
+};
+
+/**
+ * LiveTag component
+ *
+ * @class LiveTag
+ * @example <LiveTag player={this.player} />
+ * @extends {BaseComponent}
+ */
+var LiveTag = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = function (_BaseComponent) {
+  _inherits(LiveTag, _BaseComponent);
+
+  /**
+   * Creates an instance of LiveTag.
+   * @param {Object} obj obj
+   * @memberof LiveTag
+   */
+  function LiveTag(obj) {
+    _classCallCheck(this, LiveTag);
+
+    return _possibleConstructorReturn(this, (LiveTag.__proto__ || Object.getPrototypeOf(LiveTag)).call(this, { name: 'LiveTag', player: obj.player }));
+  }
+
+  /**
+   * returns a boolean to detect if player is on live edge with buffer of 1 second
+   *
+   * @returns {boolean} - is player on live edge
+   * @memberof LiveTag
+   */
+
+
+  _createClass(LiveTag, [{
+    key: 'isOnLiveEdge',
+    value: function isOnLiveEdge() {
+      return this.props.currentTime >= this.props.duration - 1;
+    }
+
+    /**
+     * click handler to live tag
+     * if not on live edge, seeking to live edge and if paused, call play method
+     *
+     * @returns {void}
+     * @memberof LiveTag
+     */
+
+  }, {
+    key: 'onClick',
+    value: function onClick() {
+      if (!this.isOnLiveEdge()) {
+        this.player.seekToLiveEdge();
+        if (this.player.paused) {
+          this.player.play();
+        }
+      }
+    }
+
+    /**
+     * render live tag component
+     *
+     * @param {*} props - component props
+     * @returns {React$Element} component element
+     * @memberof LiveTag
+     */
+
+  }, {
+    key: 'render',
+    value: function render(props) {
+      var _this2 = this;
+
+      var tagStyleClass = 'live-tag';
+      if (props.isDvr && !this.isOnLiveEdge()) tagStyleClass += ' non-live-playhead';
+
+      return (0, _preact.h)(
+        'div',
+        { className: tagStyleClass, onClick: function onClick() {
+            return _this2.onClick();
+          } },
+        'Live'
+      );
+    }
+  }]);
+
+  return LiveTag;
+}(_base2.default)) || _class);
+exports.default = LiveTag;
+
+/***/ }),
+/* 104 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _share = __webpack_require__(105);
+
+var _share2 = _interopRequireDefault(_share);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _share2.default;
+
+/***/ }),
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8632,7 +10256,7 @@ var _icon = __webpack_require__(4);
 
 var _icon2 = _interopRequireDefault(_icon);
 
-var _shareOverlay = __webpack_require__(102);
+var _shareOverlay = __webpack_require__(106);
 
 var _shareOverlay2 = _interopRequireDefault(_shareOverlay);
 
@@ -8648,25 +10272,61 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * ShareControl component
+ *
+ * @class ShareControl
+ * @example <ShareControl player={this.player} />
+ * @extends {BaseComponent}
+ */
 var ShareControl = function (_BaseComponent) {
   _inherits(ShareControl, _BaseComponent);
 
+  /**
+   * Creates an instance of ShareControl.
+   * @param {Object} obj obj
+   * @memberof ShareControl
+   */
   function ShareControl(obj) {
     _classCallCheck(this, ShareControl);
 
     return _possibleConstructorReturn(this, (ShareControl.__proto__ || Object.getPrototypeOf(ShareControl)).call(this, { name: 'Share', player: obj.player }));
   }
 
+  /**
+   * before component mounted, set initial state
+   *
+   * @returns {void}
+   * @memberof ShareControl
+   */
+
+
   _createClass(ShareControl, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
       this.setState({ overlay: false });
     }
+
+    /**
+     * toggle overlay internal component state
+     *
+     * @returns {void}
+     * @memberof ShareControl
+     */
+
   }, {
     key: 'toggleOverlay',
     value: function toggleOverlay() {
       this.setState({ overlay: !this.state.overlay });
     }
+
+    /**
+     * render element
+     *
+     * @returns {React$Element} component element
+     * @memberof ShareControl
+     */
+
   }, {
     key: 'render',
     value: function render() {
@@ -8699,7 +10359,7 @@ var ShareControl = function (_BaseComponent) {
 exports.default = ShareControl;
 
 /***/ }),
-/* 102 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8710,7 +10370,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _shareOverlay = __webpack_require__(103);
+var _shareOverlay = __webpack_require__(107);
 
 var _shareOverlay2 = _interopRequireDefault(_shareOverlay);
 
@@ -8719,7 +10379,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _shareOverlay2.default;
 
 /***/ }),
-/* 103 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8741,7 +10401,7 @@ var _preactRedux = __webpack_require__(1);
 
 var _bindActions = __webpack_require__(3);
 
-var _share = __webpack_require__(49);
+var _share = __webpack_require__(48);
 
 var _timeFormat = __webpack_require__(19);
 
@@ -8765,6 +10425,12 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @example <ShareOverlay player={this.player} />
+ * @returns {Object} - mapped state to this component
+ */
 var mapStateToProps = function mapStateToProps(state) {
   return {
     open: state.share.overlayOpen
@@ -8777,23 +10443,35 @@ var shareOverlayState = {
   EmbedOptions: 'embed-options'
 };
 
+/**
+ * ShareOverlay component
+ *
+ * @class ShareOverlay
+ * @extends {BaseComponent}
+ */
 var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.bindActions)(_share.actions)), _dec(_class = function (_BaseComponent) {
   _inherits(ShareOverlay, _BaseComponent);
 
+  /**
+   * Creates an instance of ShareOverlay.
+   * @param {Object} obj obj
+   * @memberof ShareOverlay
+   */
   function ShareOverlay(obj) {
     _classCallCheck(this, ShareOverlay);
 
     return _possibleConstructorReturn(this, (ShareOverlay.__proto__ || Object.getPrototypeOf(ShareOverlay)).call(this, { name: 'ShareOverlay', player: obj.player }));
   }
 
+  /**
+   * before component mount, set initial state
+   *
+   * @returns {void}
+   * @memberof ShareOverlay
+   */
+
+
   _createClass(ShareOverlay, [{
-    key: 'componentWillUnmount',
-    value: function componentWillUnmount() {
-      this.setState({
-        state: shareOverlayState.Main
-      });
-    }
-  }, {
     key: 'componentWillMount',
     value: function componentWillMount() {
       this.setState({
@@ -8803,11 +10481,45 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
         startFromValue: 0
       });
     }
+
+    /**
+     * before component unmounted, change the overlay state to the initial state
+     *
+     * @returns {void}
+     * @memberof ShareOverlay
+     */
+
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      this.setState({
+        state: shareOverlayState.Main
+      });
+    }
+
+    /**
+     * changing the overlay state
+     *
+     * @param {string} stateName state name
+     * @returns {void}
+     * @memberof ShareOverlay
+     */
+
   }, {
     key: 'transitionToState',
     value: function transitionToState(stateName) {
       this.setState({ state: stateName });
     }
+
+    /**
+     * copy input text based on input element.
+     * on success, set success internal component state for 2 seconds
+     *
+     * @param {HTMLInputElement} inputElement - start from input element
+     * @returns {void}
+     * @memberof ShareOverlay
+     */
+
   }, {
     key: 'copyUrl',
     value: function copyUrl(inputElement) {
@@ -8826,11 +10538,27 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
         this.setState({ copySuccess: false });
       }
     }
+
+    /**
+     * toggle start from option checkbox in the internal component state
+     *
+     * @returns {void}
+     * @memberof ShareOverlay
+     */
+
   }, {
     key: 'toggleStartFrom',
     value: function toggleStartFrom() {
       this.setState({ startFrom: !this.state.startFrom });
     }
+
+    /**
+     * get share url method
+     *
+     * @returns {string} - share url
+     * @memberof ShareOverlay
+     */
+
   }, {
     key: 'getShareUrl',
     value: function getShareUrl() {
@@ -8840,11 +10568,30 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
       }
       return url;
     }
+
+    /**
+     * get embed code
+     * #TODO: complete logic here
+     *
+     * @returns {string} - embed code
+     * @memberof ShareOverlay
+     */
+
   }, {
     key: 'getEmbedCode',
     value: function getEmbedCode() {
       return '<iframe src="//cdnapi.kaltura.com/p/243342/sp/24334200/embedIframeJs/uiconf_id/28685261/partner_id/243342?iframeembed=true&playerId=kdp&entry_id=1_sf5ovm7u&flashvars[streamerType]=auto" width="560" height="395" allowfullscreen webkitallowfullscreen mozAllowFullScreen frameborder="0"></iframe>';
     }
+
+    /**
+     * start from input change handler.
+     * converts to seconds and save the new value in internal component state
+     *
+     * @param {*} e - input change event
+     * @returns {void}
+     * @memberof ShareOverlay
+     */
+
   }, {
     key: 'handleStartFromChange',
     value: function handleStartFromChange(e) {
@@ -8854,12 +10601,29 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
       }
       this.setState({ startFromValue: seconds });
     }
+
+    /**
+     * opens new window for share
+     *
+     * @param {string} href - url to open
+     * @returns {boolean} - false
+     * @memberof ShareOverlay
+     */
+
   }, {
     key: 'share',
     value: function share(href) {
       window.open(href, '_blank', 'width=580,height=580');
       return false;
     }
+
+    /**
+     * renders main overlay state
+     *
+     * @returns {React$Element} - main state element
+     * @memberof ShareOverlay
+     */
+
   }, {
     key: 'renderMainState',
     value: function renderMainState() {
@@ -8966,6 +10730,14 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
         )
       );
     }
+
+    /**
+     * renders link options state
+     *
+     * @returns {React$Element} - link options element
+     * @memberof ShareOverlay
+     */
+
   }, {
     key: 'renderLinkOptionsState',
     value: function renderLinkOptionsState() {
@@ -9051,6 +10823,14 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
         )
       );
     }
+
+    /**
+     * renders embed options state
+     *
+     * @returns {React$Element} - embed options element
+     * @memberof ShareOverlay
+     */
+
   }, {
     key: 'renderEmbedOptionsState',
     value: function renderEmbedOptionsState() {
@@ -9136,6 +10916,14 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
         )
       );
     }
+
+    /**
+     * utility function to switch and render the right overlay state element based on the overlay state.
+     *
+     * @returns {React$Element} - current state element
+     * @memberof ShareOverlay
+     */
+
   }, {
     key: 'renderStateContent',
     value: function renderStateContent() {
@@ -9153,6 +10941,15 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
           return this.renderMainState();
       }
     }
+
+    /**
+     * render component
+     *
+     * @param {*} props - component props
+     * @returns {React$Element} - component element
+     * @memberof ShareOverlay
+     */
+
   }, {
     key: 'render',
     value: function render(props) {
@@ -9171,7 +10968,7 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
 exports.default = ShareOverlay;
 
 /***/ }),
-/* 104 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9197,49 +10994,73 @@ var _preactI18n = __webpack_require__(5);
 
 var _redux = __webpack_require__(7);
 
-var _store = __webpack_require__(105);
+var _store = __webpack_require__(109);
 
 var _store2 = _interopRequireDefault(_store);
 
-var _fr = __webpack_require__(106);
+var _fr = __webpack_require__(110);
 
 var _fr2 = _interopRequireDefault(_fr);
 
-var _playkitJs = __webpack_require__(36);
+var _playkitJs = __webpack_require__(34);
 
-var _engineConnector = __webpack_require__(107);
+var _engineConnector = __webpack_require__(111);
 
 var _engineConnector2 = _interopRequireDefault(_engineConnector);
 
-var _shell = __webpack_require__(108);
+var _shell = __webpack_require__(112);
 
 var _shell2 = _interopRequireDefault(_shell);
 
-var _playerGui = __webpack_require__(109);
+var _playerGui = __webpack_require__(113);
 
 var _playerGui2 = _interopRequireDefault(_playerGui);
 
-var _ads = __webpack_require__(47);
+var _ads = __webpack_require__(45);
 
 var _ads2 = _interopRequireDefault(_ads);
 
-var _playback = __webpack_require__(29);
+var _playback = __webpack_require__(27);
 
 var _playback2 = _interopRequireDefault(_playback);
 
-__webpack_require__(110);
+var _live = __webpack_require__(47);
+
+var _live2 = _interopRequireDefault(_live);
+
+__webpack_require__(114);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+/**
+ * API used for building UIs based on state conditions
+ *
+ * @class UIManager
+ */
 var UIManager = function () {
+
+  /**
+   * Creates an instance of UIManager.
+   * @param {Player} player - player instance
+   * @param {Object} config - player config
+   * @memberof UIManager
+   */
   function UIManager(player, config) {
     _classCallCheck(this, UIManager);
 
     this.player = player;
     this.config = config;
   }
+
+  /**
+   * build default UIs
+   *
+   * @returns {void}
+   * @memberof UIManager
+   */
+
 
   _createClass(UIManager, [{
     key: 'buildDefaultUI',
@@ -9249,10 +11070,23 @@ var UIManager = function () {
         }, condition: function condition(state) {
           return state.engine.adBreak;
         } }, { template: function template(props) {
+          return (0, _live2.default)(props);
+        }, condition: function condition(state) {
+          return state.engine.isLive;
+        } }, { template: function template(props) {
           return (0, _playback2.default)(props);
         } }];
       this._buildUI(uis);
     }
+
+    /**
+     * build custom UIs
+     *
+     * @param {Array<UIPreset>} uis - UIs array with conditions based on state
+     * @returns {void}
+     * @memberof UIManager
+     */
+
   }, {
     key: 'buildCustomUI',
     value: function buildCustomUI(uis) {
@@ -9265,6 +11099,15 @@ var UIManager = function () {
         this._buildUI(fallbackUIs);
       }
     }
+
+    /**
+     * build the UI and render to targetId configured in player config
+     *
+     * @param {Array<UIPreset>} [uis] - UI array with conditions
+     * @returns {void}
+     * @memberof UIManager
+     */
+
   }, {
     key: '_buildUI',
     value: function _buildUI(uis) {
@@ -9301,7 +11144,7 @@ var UIManager = function () {
 exports.default = UIManager;
 
 /***/ }),
-/* 105 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9313,7 +11156,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(7);
 
-var _engine = __webpack_require__(50);
+var _engine = __webpack_require__(49);
 
 var _engine2 = _interopRequireDefault(_engine);
 
@@ -9321,27 +11164,27 @@ var _shell = __webpack_require__(6);
 
 var _shell2 = _interopRequireDefault(_shell);
 
-var _playPause = __webpack_require__(16);
+var _playPause = __webpack_require__(17);
 
 var _playPause2 = _interopRequireDefault(_playPause);
 
-var _seekbar = __webpack_require__(18);
+var _seekbar = __webpack_require__(10);
 
 var _seekbar2 = _interopRequireDefault(_seekbar);
 
-var _volume = __webpack_require__(38);
+var _volume = __webpack_require__(36);
 
 var _volume2 = _interopRequireDefault(_volume);
 
-var _fullscreen = __webpack_require__(45);
+var _fullscreen = __webpack_require__(42);
 
 var _fullscreen2 = _interopRequireDefault(_fullscreen);
 
-var _loading = __webpack_require__(37);
+var _loading = __webpack_require__(35);
 
 var _loading2 = _interopRequireDefault(_loading);
 
-var _share = __webpack_require__(49);
+var _share = __webpack_require__(48);
 
 var _share2 = _interopRequireDefault(_share);
 
@@ -9349,7 +11192,7 @@ var _cvaa = __webpack_require__(24);
 
 var _cvaa2 = _interopRequireDefault(_cvaa);
 
-var _settings = __webpack_require__(39);
+var _settings = __webpack_require__(37);
 
 var _settings2 = _interopRequireDefault(_settings);
 
@@ -9370,7 +11213,7 @@ var reducer = (0, _redux.combineReducers)({
 exports.default = reducer;
 
 /***/ }),
-/* 106 */
+/* 110 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -9403,7 +11246,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 107 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9423,7 +11266,7 @@ var _preactRedux = __webpack_require__(1);
 
 var _bindActions = __webpack_require__(3);
 
-var _engine = __webpack_require__(50);
+var _engine = __webpack_require__(49);
 
 var _engine2 = _interopRequireDefault(_engine);
 
@@ -9439,14 +11282,34 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * EngineConnector component
+ *
+ * @class EngineConnector
+ * @example <EngineConnector player={this.player} />
+ * @extends {BaseComponent}
+ */
 var EngineConnector = (_dec = (0, _preactRedux.connect)(_engine2.default, (0, _bindActions.bindActions)(_engine.actions)), _dec(_class = function (_BaseComponent) {
   _inherits(EngineConnector, _BaseComponent);
 
+  /**
+   * Creates an instance of EngineConnector.
+   * @param {Object} obj obj
+   * @memberof EngineConnector
+   */
   function EngineConnector(obj) {
     _classCallCheck(this, EngineConnector);
 
     return _possibleConstructorReturn(this, (EngineConnector.__proto__ || Object.getPrototypeOf(EngineConnector)).call(this, { name: 'EngineConnector', player: obj.player }));
   }
+
+  /**
+   * after component mounted, set event listeners and update redux store
+   *
+   * @returns {void}
+   * @memberof EngineConnector
+   */
+
 
   _createClass(EngineConnector, [{
     key: 'componentDidMount',
@@ -9463,11 +11326,17 @@ var EngineConnector = (_dec = (0, _preactRedux.connect)(_engine2.default, (0, _b
         _this2.props.updateCurrentTime(_this2.player.currentTime);
       });
 
+      this.player.addEventListener(this.player.Event.DURATION_CHANGE, function () {
+        _this2.props.updateDuration(_this2.player.duration);
+      });
+
       this.player.addEventListener(this.player.Event.LOADED_METADATA, function () {
         _this2.props.updateDuration(_this2.player.duration);
         _this2.props.updateMuted(_this2.player.muted);
         _this2.props.updateMetadataLoadingStatus(true);
         _this2.props.updatePlayerPoster(_this2.player.poster);
+        _this2.props.updateIsLive(_this2.player.isLive());
+        _this2.props.updateIsDvr(_this2.player.isDvr());
       });
 
       this.player.addEventListener(this.player.Event.VOLUME_CHANGE, function () {
@@ -9548,11 +11417,27 @@ var EngineConnector = (_dec = (0, _preactRedux.connect)(_engine2.default, (0, _b
         _this2.props.updateAdSkippableState(e.payload.ad.getAdSkippableState());
       });
     }
+
+    /**
+     * component shouldn't update the dom if props or internal state changed
+     *
+     * @returns {boolean} - should component update on changes or not
+     * @memberof EngineConnector
+     */
+
   }, {
     key: 'shouldComponentUpdate',
     value: function shouldComponentUpdate() {
       return false;
     }
+
+    /**
+     * render component
+     *
+     * @returns {React$Element} - component element
+     * @memberof EngineConnector
+     */
+
   }, {
     key: 'render',
     value: function render() {
@@ -9565,7 +11450,7 @@ var EngineConnector = (_dec = (0, _preactRedux.connect)(_engine2.default, (0, _b
 exports.default = EngineConnector;
 
 /***/ }),
-/* 108 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9591,7 +11476,7 @@ var _bindActions = __webpack_require__(3);
 
 var _shell = __webpack_require__(6);
 
-var _isMobile = __webpack_require__(41);
+var _isMobile = __webpack_require__(39);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -9601,6 +11486,11 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 var mapStateToProps = function mapStateToProps(state) {
   return {
     metadataLoaded: state.engine.metadataLoaded,
@@ -9612,14 +11502,34 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
+/**
+ * Shell component
+ *
+ * @class Shell
+ * @example <Shell player={this.player}>...</Shell>
+ * @extends {BaseComponent}
+ */
 var Shell = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.bindActions)(_shell.actions)), _dec(_class = function (_BaseComponent) {
   _inherits(Shell, _BaseComponent);
 
+  /**
+   * Creates an instance of Shell.
+   * @param {Object} obj obj
+   * @memberof Shell
+   */
   function Shell(obj) {
     _classCallCheck(this, Shell);
 
     return _possibleConstructorReturn(this, (Shell.__proto__ || Object.getPrototypeOf(Shell)).call(this, { name: 'Shell', player: obj.player }));
   }
+
+  /**
+   * on mouse over, add hover class (shows the player ui) and timeout of 3 seconds bt default or what pass as prop configuration to component
+   *
+   * @returns {void}
+   * @memberof Shell
+   */
+
 
   _createClass(Shell, [{
     key: 'onMouseOver',
@@ -9638,6 +11548,14 @@ var Shell = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.
         _this2.setState({ hover: false });
       }, this.props.hoverTimeout || 3000);
     }
+
+    /**
+     * on mouse leave, remove the hover class (hide the player gui)
+     *
+     * @returns {void}
+     * @memberof Shell
+     */
+
   }, {
     key: 'onMouseLeave',
     value: function onMouseLeave() {
@@ -9646,6 +11564,14 @@ var Shell = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.
         this.props.removePlayerClass('hover');
       }
     }
+
+    /**
+     * if ui hidden and mouse move, show the ui by adding the hover class
+     *
+     * @returns {void}
+     * @memberof Shell
+     */
+
   }, {
     key: 'onMouseMove',
     value: function onMouseMove() {
@@ -9654,6 +11580,16 @@ var Shell = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.
         this.props.addPlayerClass('hover');
       }
     }
+
+    /**
+     * after component mounted, update the isMobile indication in the store state,
+     * add event listener to get the player width and update these on resize as well.
+     * also, update document width initially and on resize.
+     *
+     * @returns {void}
+     * @memberof Shell
+     */
+
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
@@ -9677,6 +11613,15 @@ var Shell = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.
         this.props.addPlayerClass('touch');
       }
     }
+
+    /**
+     * render component
+     *
+     * @param {*} props - component props
+     * @returns {React$Element} - component element
+     * @memberof Shell
+     */
+
   }, {
     key: 'render',
     value: function render(props) {
@@ -9712,7 +11657,7 @@ var Shell = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.
 exports.default = Shell;
 
 /***/ }),
-/* 109 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9736,15 +11681,29 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 var mapStateToProps = function mapStateToProps(state) {
   return {
     state: {
       shell: state.shell,
-      engine: { adBreak: state.engine.adBreak }
+      engine: {
+        adBreak: state.engine.adBreak,
+        isLive: state.engine.isLive
+      }
     }
   };
 };
 
+/**
+ * Player GUI component
+ *
+ * @class PlayerGUI
+ * @extends {Component}
+ */
 var PlayerGUI = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = function (_Component) {
   _inherits(PlayerGUI, _Component);
 
@@ -9756,6 +11715,15 @@ var PlayerGUI = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class 
 
   _createClass(PlayerGUI, [{
     key: 'getMatchedUI',
+
+    /**
+     * get the single matched UI to render based on the UIs and it's conditions
+     *
+     * @param {Array<any>} uis - UIs array with conditions
+     * @param {Object} state - state to be used in the condition check
+     * @returns {*} - matched UI
+     * @memberof PlayerGUI
+     */
     value: function getMatchedUI(uis, state) {
       var matchedUI = void 0;
       var _iteratorNormalCompletion = true;
@@ -9788,6 +11756,16 @@ var PlayerGUI = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class 
 
       return matchedUI;
     }
+
+    /**
+     * render component based on the matched UI.
+     * if no matched UI found, it will choose the first UI configured in the UI array
+     *
+     * @param {*} props - component props
+     * @returns {React$Element} - component element
+     * @memberof PlayerGUI
+     */
+
   }, {
     key: 'render',
     value: function render(props) {
@@ -9807,13 +11785,13 @@ var PlayerGUI = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class 
 exports.default = PlayerGUI;
 
 /***/ }),
-/* 110 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(111);
+var content = __webpack_require__(115);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -9821,7 +11799,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(113)(content, options);
+var update = __webpack_require__(117)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -9838,21 +11816,21 @@ if(false) {
 }
 
 /***/ }),
-/* 111 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(112)(undefined);
+exports = module.exports = __webpack_require__(116)(undefined);
 // imports
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Lato);", ""]);
 
 // module
-exports.push([module.i, ".row {\n  display: block; }\n  .row:after {\n    content: '';\n    clear: both;\n    display: block; }\n\n.d-inline-block {\n  display: inline-block; }\n\n.mobile-hidden-select {\n  display: block;\n  opacity: 0;\n  position: absolute;\n  top: 0;\n  left: 0px;\n  width: 100%;\n  height: 100%; }\n\n.font-size-base {\n  font-size: 15px; }\n\n.form-group {\n  margin: 10px 0;\n  position: relative;\n  max-width: 100%; }\n  .form-group.has-error .form-control {\n    border-color: #db1f26; }\n    .form-group.has-error .form-control:focus {\n      border-color: #fff; }\n  .form-group.has-icon .form-control {\n    padding-left: 34px; }\n  .form-group .icon {\n    position: absolute;\n    top: 2px;\n    left: 2px;\n    width: 32px;\n    height: 32px;\n    fill: rgba(255, 255, 255, 0.4); }\n\n.form-control {\n  height: 36px;\n  width: 100%;\n  min-width: 72px;\n  border: 2px solid rgba(255, 255, 255, 0.2);\n  border-radius: 4px;\n  background-color: rgba(0, 0, 0, 0.4);\n  font-size: 15px;\n  line-height: 18px;\n  color: #fff;\n  padding: 8px 10px;\n  text-overflow: ellipsis; }\n  .form-control::-webkit-input-placeholder {\n    color: rgba(255, 255, 255, 0.6); }\n  .form-control:focus {\n    background-color: #fff;\n    border-color: #fff;\n    color: #333; }\n    .form-control:focus::-webkit-input-placeholder {\n      color: #ccc; }\n    .form-control:focus + .icon {\n      fill: #999; }\n\ntextarea.form-control {\n  min-height: 72px; }\n\nselect {\n  font-size: 15px;\n  font-family: \"Lato\", sans-serif;\n  color: #fff;\n  -webkit-appearance: none;\n  background: none;\n  border: 0; }\n\n.checkbox {\n  font-size: 15px;\n  position: relative; }\n  .checkbox input {\n    display: none; }\n  .checkbox label:before {\n    height: 16px;\n    width: 16px;\n    border: 1px solid rgba(255, 255, 255, 0.2);\n    border-radius: 4px;\n    background-color: rgba(0, 0, 0, 0.4);\n    margin-right: 8px;\n    display: inline-block;\n    content: '';\n    vertical-align: middle; }\n  .checkbox input:checked + label:before {\n    border: 1px solid #fff;\n    background: #fff; }\n\n.form-group-row {\n  font-size: 15px;\n  margin: 24px 0; }\n  .form-group-row:after {\n    clear: both;\n    content: ' ';\n    display: block; }\n  .form-group-row label {\n    float: left;\n    color: rgba(244, 244, 244, 0.8); }\n  .form-group-row .dropdown {\n    float: right; }\n\n.btn {\n  text-decoration: none;\n  height: 36px;\n  border-radius: 18px;\n  color: #fff;\n  line-height: 36px;\n  font-weight: bold;\n  cursor: pointer;\n  display: inline-block;\n  padding: 0 24px; }\n  .btn.btn-block {\n    display: block; }\n  .btn.btn-dark-transparent {\n    background-color: rgba(0, 0, 0, 0.5);\n    border: 2px solid rgba(255, 255, 255, 0.2);\n    line-height: 32px; }\n    .btn.btn-dark-transparent:hover {\n      color: #fff;\n      border: 2px solid rgba(255, 255, 255, 0.4); }\n  .btn.btn-branded {\n    background-color: #01ACCD; }\n    .btn.btn-branded:hover {\n      color: #fff; }\n\n.btn-rounded {\n  height: 36px;\n  width: 36px;\n  min-width: 36px;\n  min-height: 36px;\n  border-radius: 18px;\n  background-color: rgba(0, 0, 0, 0.4);\n  display: inline-block;\n  padding: 2px;\n  fill: #fff; }\n\n@keyframes openDropmenu {\n  from {\n    opacity: 0;\n    transform: translateY(10px); }\n  to {\n    opacity: 1;\n    transform: translateY(0); } }\n\n.dropdown {\n  position: relative;\n  font-size: 15px; }\n  .dropdown.active .dropdown-menu {\n    display: block;\n    opacity: 1; }\n  .dropdown.active .dropdown-button .icon {\n    transform: rotate(180deg); }\n  .dropdown .dropdown-button {\n    font-weight: bold;\n    line-height: 18px;\n    color: #fff;\n    cursor: pointer;\n    padding-left: 20px; }\n    .dropdown .dropdown-button .icon {\n      width: 16px;\n      height: 16px;\n      fill: #fff;\n      vertical-align: middle;\n      margin-left: 6px;\n      transition: 150ms transform;\n      will-change: transform; }\n\n.dropdown-menu {\n  display: block;\n  opacity: 1;\n  position: absolute;\n  background-color: #333333;\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.3);\n  border-radius: 4px;\n  padding: 6px 0;\n  z-index: 5;\n  animation: openDropmenu 100ms ease-out forwards;\n  max-height: 173px;\n  overflow-y: auto;\n  font-size: 15px; }\n  .dropdown-menu.top {\n    margin-bottom: 10px;\n    bottom: 100%; }\n  .dropdown-menu.bottom {\n    margin-top: 10px;\n    top: 100%; }\n  .dropdown-menu.right {\n    left: 0; }\n  .dropdown-menu.left {\n    right: 0; }\n  .dropdown-menu .dropdown-menu-item {\n    padding: 2px 10px 2px 16px;\n    white-space: nowrap;\n    min-height: 30px;\n    cursor: pointer; }\n    .dropdown-menu .dropdown-menu-item:hover {\n      color: #fff; }\n    .dropdown-menu .dropdown-menu-item.active {\n      color: #01ACCD;\n      fill: #01ACCD; }\n    .dropdown-menu .dropdown-menu-item .check-icon {\n      display: inline-block;\n      margin-left: 16px;\n      vertical-align: middle;\n      width: 24px;\n      height: 24px; }\n    .dropdown-menu .dropdown-menu-item span {\n      vertical-align: middle;\n      line-height: 26px; }\n\n.tooltip {\n  display: inline-block;\n  height: 22px;\n  border-radius: 4px;\n  background-color: #FFFFFF;\n  padding: 3px 13px;\n  color: #333333;\n  font-size: 13px;\n  font-weight: bold;\n  line-height: 16px;\n  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.3); }\n\n.player .control-button {\n  width: 32px;\n  height: 32px;\n  background: transparent;\n  display: inline-block;\n  opacity: 0.8;\n  border: none;\n  padding: 0;\n  cursor: pointer;\n  fill: #fff; }\n  .player .control-button svg {\n    width: 32px;\n    height: 32px; }\n  .player .control-button.active {\n    opacity: 1; }\n  .player .control-button.control-button-rounded {\n    width: 36px;\n    height: 36px;\n    padding: 2px; }\n\n.player:not(.touch) .control-button:hover {\n  opacity: 1; }\n\n.player:not(.touch) .control-button.control-button-rounded:hover {\n  background-color: rgba(0, 0, 0, 0.4);\n  border-radius: 18px; }\n\n.player .control-button-container {\n  display: inline-block;\n  position: relative;\n  vertical-align: top; }\n\n.player.touch .player .control-button-container {\n  position: static; }\n\n.player.touch .control-button {\n  position: relative; }\n\na {\n  color: #01ACCD;\n  text-decoration: underline;\n  font-size: 15px;\n  line-height: 18px; }\n  a:hover {\n    color: #01819a; }\n  a:active {\n    opacity: 0.7; }\n\n.kaltura-player-container {\n  position: absolute !important; }\n\n.player {\n  overflow: hidden;\n  user-select: none;\n  width: 100%; }\n  .player:-webkit-full-screen {\n    width: 100%;\n    height: 100%;\n    max-width: none; }\n  .player * {\n    box-sizing: border-box;\n    outline: none; }\n  .player ::selection {\n    background-color: rgba(0, 0, 0, 0.1); }\n  .player video {\n    width: 100%; }\n  .player .player-gui {\n    opacity: 0;\n    overflow: hidden;\n    font-size: 0;\n    font-family: \"Lato\", sans-serif; }\n    .player .player-gui input, .player .player-gui textarea {\n      font-family: \"Lato\", sans-serif; }\n  .player #overlay-portal {\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%; }\n  .player.metadata-loaded .player-gui,\n  .player.state-paused .player-gui,\n  .player.overlay-active .player-gui,\n  .player.menu-active .player-gui {\n    opacity: 1; }\n\nvideo::-webkit-media-controls {\n  display: none !important;\n  -webkit-appearance: none; }\n\nvideo::-webkit-media-controls-start-playback-button {\n  display: none !important;\n  -webkit-appearance: none; }\n\nvideo::cue {\n  background-color: transparent;\n  font-family: \"Lato\", sans-serif; }\n\n.player.captions-yellow-text video::cue {\n  color: #FAFF00; }\n\n.player.captions-black-bg video::cue {\n  background-color: #000; }\n\n.player video::-webkit-media-text-track-display {\n  transform: translateY(0px);\n  transition: ease-in 100ms; }\n\n.player.state-paused video::-webkit-media-text-track-display,\n.player.hover video::-webkit-media-text-track-display {\n  transform: translateY(-60px);\n  transition: ease-out 100ms; }\n\n@keyframes openOverlay {\n  from {\n    opacity: 0; }\n  to {\n    opacity: 1; } }\n\n.overlay {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  display: none;\n  opacity: 0;\n  animation: openOverlay 100ms ease-in-out forwards;\n  z-index: 4; }\n  .overlay.active {\n    display: block;\n    opacity: 1; }\n  .overlay .overlay-contents {\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, 0.42);\n    z-index: 4;\n    text-align: center;\n    color: #fff;\n    padding: 80px 20px;\n    overflow-y: auto; }\n  .overlay .title {\n    font-size: 24px;\n    font-weight: bold;\n    line-height: 29px;\n    margin-bottom: 60px; }\n  .overlay .close-overlay {\n    position: absolute;\n    top: 48px;\n    right: 48px;\n    z-index: 5;\n    fill: #fff;\n    cursor: pointer; }\n    .overlay .close-overlay .icon-close {\n      width: 24px;\n      height: 24px; }\n  .overlay .overlay-screen {\n    display: none; }\n    .overlay .overlay-screen.active {\n      display: block; }\n\n@media screen and (max-width: 768px) {\n  .overlay .overlay-contents {\n    padding: 36px 20px; }\n  .overlay .close-overlay {\n    top: 38px; }\n  .overlay .title {\n    margin-bottom: 24px; } }\n\n@media screen and (max-width: 480px) {\n  .overlay .overlay-contents {\n    padding: 16px 24px; }\n  .overlay .close-overlay {\n    top: 15px;\n    right: 24px; }\n  .overlay .title {\n    font-size: 16px;\n    line-height: 19px;\n    margin-bottom: 24px; } }\n\n@keyframes openSmartContainer {\n  from {\n    opacity: 0;\n    transform: translateY(10px); }\n  to {\n    opacity: 1;\n    transform: translateY(0); } }\n\n@keyframes closeSmartContainer {\n  from {\n    opacity: 1;\n    transform: translateY(0); }\n  to {\n    opacity: 0;\n    transform: translateY(10px); } }\n\n.player:not(.touch) .smart-container {\n  background-color: #222222;\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.3);\n  border-radius: 4px;\n  position: absolute;\n  right: 0px;\n  min-width: 193px;\n  font-size: 15px;\n  z-index: 5;\n  display: block;\n  animation: openSmartContainer 100ms ease-out forwards; }\n  .player:not(.touch) .smart-container.leaving {\n    animation: closeSmartContainer 100ms ease-out forwards; }\n  .player:not(.touch) .smart-container.top {\n    bottom: 100%;\n    margin-bottom: 6px; }\n    .player:not(.touch) .smart-container.top:before {\n      display: block;\n      content: ' ';\n      position: absolute;\n      bottom: -6px;\n      left: 0;\n      width: 100%;\n      height: 6px; }\n  .player:not(.touch) .smart-container.bottom {\n    top: 100%;\n    margin-top: 6px; }\n  .player:not(.touch) .smart-container.right {\n    left: 0px; }\n  .player:not(.touch) .smart-container.left {\n    right: 0px; }\n  .player:not(.touch) .smart-container .smart-container-item {\n    margin: 16px;\n    color: rgba(244, 244, 244, 0.8);\n    white-space: nowrap; }\n    .player:not(.touch) .smart-container .smart-container-item:after {\n      display: block;\n      content: ' ';\n      clear: both; }\n    .player:not(.touch) .smart-container .smart-container-item.select-menu-item label {\n      float: left; }\n      .player:not(.touch) .smart-container .smart-container-item.select-menu-item label .label-icon {\n        display: none; }\n    .player:not(.touch) .smart-container .smart-container-item.select-menu-item .dropdown, .player:not(.touch) .smart-container .smart-container-item.select-menu-item select {\n      float: right; }\n    .player:not(.touch) .smart-container .smart-container-item.select-menu-item select {\n      text-align-last: right; }\n\n.touch .smart-container-item {\n  width: 300px;\n  max-width: 100%;\n  margin: 16px auto;\n  color: rgba(244, 244, 244, 0.8);\n  white-space: nowrap;\n  text-align: left; }\n  .touch .smart-container-item:after {\n    display: block;\n    content: ' ';\n    clear: both; }\n  .touch .smart-container-item.select-menu-item label {\n    float: left;\n    font-size: 16px;\n    color: rgba(255, 255, 255, 0.8);\n    fill: #fff; }\n    .touch .smart-container-item.select-menu-item label .label-icon {\n      width: 24px;\n      height: 24px;\n      display: inline-block;\n      vertical-align: middle;\n      margin-right: 16px; }\n  .touch .smart-container-item.select-menu-item .dropdown, .touch .smart-container-item.select-menu-item select {\n    float: right; }\n  .touch .smart-container-item.select-menu-item select {\n    text-align-last: right; }\n\n.overlay.share-overlay .share-icons {\n  margin: 60px 0; }\n  .overlay.share-overlay .share-icons .btn-rounded {\n    margin: 0 8px;\n    transition: transform 100ms;\n    will-change: transform; }\n    .overlay.share-overlay .share-icons .btn-rounded:first-child {\n      margin-left: 0; }\n    .overlay.share-overlay .share-icons .btn-rounded:last-child {\n      margin-right: 0; }\n    .overlay.share-overlay .share-icons .btn-rounded.facebook-share-btn {\n      background-color: #3B5998; }\n    .overlay.share-overlay .share-icons .btn-rounded.twitter-share-btn {\n      background-color: #1DA1F2; }\n    .overlay.share-overlay .share-icons .btn-rounded.google-plus-share-btn {\n      background-color: #DD4B39; }\n    .overlay.share-overlay .share-icons .btn-rounded.linkedin-share-btn {\n      background-color: #00A0DC; }\n\n.share-main-container {\n  width: 300px;\n  max-width: 100%;\n  margin: 0 auto;\n  text-align: center; }\n\n.link-options-container {\n  width: 400px;\n  max-width: 100%;\n  text-align: left;\n  margin: 0 auto; }\n  .link-options-container .copy-url-row {\n    display: flex; }\n    .link-options-container .copy-url-row .input-copy-url {\n      margin: 0; }\n    .link-options-container .copy-url-row .btn-copy-url {\n      margin-left: 16px; }\n      .link-options-container .copy-url-row .btn-copy-url .icon {\n        will-change: transform;\n        transition: 100ms transform;\n        position: absolute;\n        width: 32px; }\n      .link-options-container .copy-url-row .btn-copy-url .check-icon {\n        transform: scale(0);\n        opacity: 0; }\n      .link-options-container .copy-url-row .btn-copy-url.copied {\n        background-color: #009444; }\n        .link-options-container .copy-url-row .btn-copy-url.copied .copy-icon {\n          transform: scale(0);\n          opacity: 0; }\n        .link-options-container .copy-url-row .btn-copy-url.copied .check-icon {\n          transform: scale(1);\n          opacity: 1; }\n  .link-options-container .video-start-options-row {\n    margin-top: 24px; }\n    .link-options-container .video-start-options-row .checkbox {\n      margin-right: 15px; }\n    .link-options-container .video-start-options-row .form-group {\n      margin: 0; }\n\n.player:not(.touch) .overlay.share-overlay .share-icons .btn-rounded:hover {\n  transform: scale(1.1667); }\n\n@media screen and (max-width: 768px) {\n  .overlay.share-overlay .share-icons {\n    margin: 40px 0; } }\n\n@media screen and (max-width: 480px) {\n  .overlay.share-overlay .share-icons {\n    margin: 20px 0; } }\n\n.overlay.cvaa-overlay .sample {\n  border: 2px solid rgba(255, 255, 255, 0.2);\n  border-radius: 4px;\n  font-size: 16px;\n  font-weight: bold;\n  line-height: 36px;\n  text-align: center;\n  padding: 0 31px;\n  display: inline-block;\n  margin: 0 12px;\n  cursor: pointer; }\n  .overlay.cvaa-overlay .sample.black-bg {\n    background-color: #000; }\n  .overlay.cvaa-overlay .sample.yellow-text {\n    color: #FAFF00; }\n\n.overlay.cvaa-overlay .button-save-cvaa {\n  margin-top: 50px;\n  height: 40px;\n  width: 400px;\n  max-width: 100%;\n  border: 2px solid rgba(255, 255, 255, 0.2);\n  border-radius: 4px;\n  font-size: 16px;\n  font-weight: bold;\n  line-height: 38px;\n  text-align: center;\n  display: inline-block;\n  color: #fff;\n  text-decoration: none;\n  cursor: pointer; }\n\n.overlay.cvaa-overlay .custom-caption-form {\n  width: 300px;\n  max-width: 100%;\n  margin: 0 auto; }\n\n@media screen and (max-width: 480px) {\n  .overlay.cvaa-overlay .sample {\n    width: 30%;\n    margin: 2.33%;\n    padding: 0; }\n    .overlay.cvaa-overlay .sample:first-child {\n      margin-left: 0; }\n    .overlay.cvaa-overlay .sample:last-child {\n      margin-right: 0; }\n  .overlay.cvaa-overlay .button-save-cvaa {\n    margin-top: 20px; } }\n\n@keyframes kaltura-spinner {\n  0% {\n    transform: rotate(0deg) scale(0.7);\n    opacity: 1; }\n  70% {\n    transform: rotate(360deg) scale(0.7);\n    opacity: 1; }\n  82% {\n    transform: rotate(360deg) scale(0);\n    opacity: 0; }\n  87% {\n    transform: rotate(360deg) scale(0.9);\n    opacity: 1; }\n  100% {\n    transform: rotate(360deg) scale(0.7);\n    opacity: 1; } }\n\n.loading-backdrop {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.3);\n  transition: 100ms opacity;\n  opacity: 0; }\n  .loading-backdrop.show {\n    opacity: 1; }\n    .loading-backdrop.show .spinner-container {\n      display: block; }\n  .loading-backdrop .spinner-container {\n    display: none;\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate3d(-50px, -50px, 0); }\n\n.spinner {\n  width: 100px;\n  height: 100px;\n  position: relative;\n  animation: kaltura-spinner 2.5s infinite; }\n  .spinner span {\n    width: 8px;\n    height: 8px;\n    background-color: #fff;\n    display: block;\n    border-radius: 8px;\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    margin-top: -4px;\n    margin-left: -4px; }\n    .spinner span:nth-child(1) {\n      transform: rotate(45deg) translateX(-25px) translateY(-25px);\n      background-color: #da1f26; }\n    .spinner span:nth-child(2) {\n      transform: rotate(90deg) translateX(-25px) translateY(-25px);\n      background-color: #06a885; }\n    .spinner span:nth-child(3) {\n      transform: rotate(135deg) translateX(-25px) translateY(-25px);\n      background-color: #009344; }\n    .spinner span:nth-child(4) {\n      transform: rotate(180deg) translateX(-25px) translateY(-25px);\n      background-color: #f8a61a; }\n    .spinner span:nth-child(5) {\n      transform: rotate(225deg) translateX(-25px) translateY(-25px);\n      background-color: #1b4a97; }\n    .spinner span:nth-child(6) {\n      transform: rotate(270deg) translateX(-25px) translateY(-25px);\n      background-color: #00abcc; }\n    .spinner span:nth-child(7) {\n      transform: rotate(315deg) translateX(-25px) translateY(-25px);\n      background-color: #b1d238; }\n    .spinner span:nth-child(8) {\n      transform: rotate(360deg) translateX(-25px) translateY(-25px);\n      background-color: #fcd203; }\n\n.control-button-container.control-play-pause .control-button {\n  transition: 400ms transform; }\n  .control-button-container.control-play-pause .control-button .icon-pause {\n    transition: 400ms opacity;\n    opacity: 0;\n    display: none; }\n  .control-button-container.control-play-pause .control-button .icon-play {\n    transition: 400ms opacity;\n    opacity: 1;\n    display: block; }\n  .control-button-container.control-play-pause .control-button.is-playing {\n    transform: rotate(360deg); }\n    .control-button-container.control-play-pause .control-button.is-playing .icon-pause {\n      opacity: 1;\n      display: block; }\n    .control-button-container.control-play-pause .control-button.is-playing .icon-play {\n      opacity: 0;\n      display: none; }\n\n.touch .control-button-container.control-play-pause {\n  display: none; }\n\n@media screen and (max-width: 480px) {\n  .control-button-container.control-play-pause {\n    display: none; } }\n\n.control-button-container.volume-control:hover .volume-control-bar {\n  display: block !important; }\n\n.control-button-container.volume-control.is-muted .volume-waves {\n  opacity: 0;\n  transform: translateX(-5px); }\n\n.control-button-container.volume-control.is-muted .volume-mute {\n  opacity: 1;\n  transform: scale(1); }\n\n.control-button-container.volume-control.dragging-active .volume-control-bar {\n  display: block; }\n\n.control-button-container.volume-control .volume-waves {\n  transform: translateX(0px); }\n\n.control-button-container.volume-control .volume-mute {\n  opacity: 1;\n  transform: scale(0); }\n\n.control-button-container.volume-control .volume-waves, .control-button-container.volume-control .volume-mute {\n  transition: 300ms transform, 300ms opacity; }\n\n.control-button-container.volume-control svg {\n  position: absolute;\n  top: 0;\n  left: 0; }\n\n.volume-control-bar {\n  position: absolute;\n  z-index: 2;\n  bottom: 38px;\n  left: 0px;\n  display: block;\n  height: 112px;\n  width: 34px;\n  border-radius: 4px;\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.3);\n  background-color: #333333;\n  padding: 6px;\n  display: none; }\n  .volume-control-bar:before {\n    position: absolute;\n    width: 34px;\n    height: 14px;\n    bottom: -8px;\n    left: 0;\n    content: ' ';\n    display: block; }\n  .volume-control-bar .bar {\n    background-color: #424242;\n    height: 100%;\n    position: relative;\n    cursor: pointer; }\n  .volume-control-bar .progress {\n    position: absolute;\n    bottom: 0px;\n    left: 0px;\n    width: 100%;\n    border-radius: 0 0 2px 2px;\n    background-color: #01ACCD; }\n\n.touch .control-button-container.volume-control {\n  display: none; }\n\n@media screen and (max-width: 480px) {\n  .control-button-container.volume-control {\n    display: none; } }\n\n.control-button-container.control-fullscreen .control-button {\n  transition: 100ms transform;\n  transform: scale(1); }\n  .control-button-container.control-fullscreen .control-button .icon-minimize {\n    display: none; }\n  .control-button-container.control-fullscreen .control-button.is-fullscreen .icon-maximize {\n    display: none; }\n  .control-button-container.control-fullscreen .control-button.is-fullscreen .icon-minimize {\n    display: block; }\n\n.player:not(.touch) .control-button-container.control-fullscreen .control-button:hover {\n  transform: scale(1.1); }\n\n.player .seek-bar {\n  padding: 6px 0;\n  cursor: pointer;\n  position: relative; }\n  .player .seek-bar:hover .time-preview,\n  .player .seek-bar:hover .frame-preview, .player .seek-bar.hover .time-preview,\n  .player .seek-bar.hover .frame-preview, .player .seek-bar.dragging-active .time-preview,\n  .player .seek-bar.dragging-active .frame-preview {\n    display: block; }\n  .player .seek-bar:hover .progress-bar .scrubber, .player .seek-bar.hover .progress-bar .scrubber, .player .seek-bar.dragging-active .progress-bar .scrubber {\n    transform: scale(1); }\n  .player .seek-bar:hover .progress-bar .virtual-progress, .player .seek-bar.hover .progress-bar .virtual-progress, .player .seek-bar.dragging-active .progress-bar .virtual-progress {\n    display: block; }\n  .player .seek-bar.ad-break {\n    cursor: initial; }\n    .player .seek-bar.ad-break .progress-bar .progress {\n      background-color: #F9A71B; }\n  .player .seek-bar .progress-bar {\n    height: 4px;\n    background-color: rgba(255, 255, 255, 0.3);\n    border-radius: 2px;\n    position: relative; }\n    .player .seek-bar .progress-bar .progress {\n      position: absolute;\n      top: 0;\n      left: 0;\n      height: 100%;\n      z-index: 2;\n      border-radius: 2px 0 0 2px;\n      background-color: #01ACCD; }\n    .player .seek-bar .progress-bar .virtual-progress {\n      display: none; }\n    .player .seek-bar .progress-bar .buffered, .player .seek-bar .progress-bar .virtual-progress {\n      position: absolute;\n      top: 0;\n      left: 0;\n      height: 100%;\n      z-index: 1;\n      border-radius: 2px 0 0 2px;\n      background-color: rgba(255, 255, 255, 0.3); }\n    .player .seek-bar .progress-bar .scrubber {\n      position: absolute;\n      z-index: 3;\n      cursor: pointer;\n      display: block;\n      top: -6px;\n      right: -8px;\n      border-radius: 8px;\n      height: 16px;\n      width: 16px;\n      background-color: #FFFFFF;\n      box-shadow: 0 0 31px 0 rgba(0, 0, 0, 0.3);\n      transform: scale(0);\n      transition: 100ms transform; }\n      .player .seek-bar .progress-bar .scrubber:active {\n        opacity: 1;\n        cursor: grabbing; }\n  .player .seek-bar .frame-preview {\n    position: absolute;\n    bottom: 16px;\n    left: 0;\n    height: 94px;\n    width: 164px;\n    border: 2px solid rgba(255, 255, 255, 0.2);\n    border-radius: 4px; }\n    .player .seek-bar .frame-preview .frame-preview-img {\n      background-size: auto 100%;\n      width: 100%;\n      height: 100%;\n      position: relative; }\n  .player .seek-bar .time-preview {\n    position: absolute;\n    bottom: 22px;\n    left: 0;\n    z-index: 10;\n    height: 22px;\n    min-width: 48px;\n    padding: 0 3px;\n    text-align: center;\n    border-radius: 3px;\n    background-color: rgba(0, 0, 0, 0.7);\n    font-size: 13px;\n    font-weight: bold;\n    line-height: 22px;\n    color: #fff; }\n  .player .seek-bar .time-preview,\n  .player .seek-bar .frame-preview {\n    display: none; }\n\n.touch .virtual-progress, .touch .time-preview, .touch .frame-preview {\n  display: none !important; }\n\n@media screen and (max-width: 480px) {\n  .virtual-progress, .time-preview, .frame-preview {\n    display: none; } }\n\n.player .time-display {\n  display: inline-block;\n  line-height: 32px;\n  vertical-align: top;\n  font-size: 14px;\n  padding: 0 23px;\n  font-weight: bold; }\n\n.touch .time-display {\n  padding-left: 0; }\n\n@media screen and (max-width: 480px) {\n  .player .time-display {\n    padding: 0 12px 0 0; } }\n\n.player .video-playing-title {\n  font-size: 15px;\n  font-weight: bold;\n  line-height: 18px;\n  padding: 6px 0;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap; }\n\n.player .bottom-bar {\n  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.6) 100%);\n  padding: 6px 16px;\n  color: #fff;\n  opacity: 0;\n  transition: 100ms opacity;\n  width: 100%;\n  margin-top: auto;\n  position: absolute;\n  bottom: 0;\n  left: 0; }\n  .player .bottom-bar .left-controls {\n    float: left;\n    text-align: left; }\n    .player .bottom-bar .left-controls:first-child {\n      margin-left: 0px; }\n  .player .bottom-bar .right-controls {\n    float: right;\n    text-align: left; }\n    .player .bottom-bar .right-controls .control-button-container {\n      margin: 0 6px; }\n      .player .bottom-bar .right-controls .control-button-container:last-child {\n        margin-right: 0; }\n\n.player.hover .bottom-bar,\n.player.state-paused .bottom-bar,\n.player.menu-active .bottom-bar {\n  opacity: 1; }\n\n.player.overlay-active .bottom-bar {\n  opacity: 0; }\n\n@media screen and (max-width: 480px) {\n  .player .bottom-bar {\n    padding: 6px 8px; } }\n\n.player .top-bar {\n  background: linear-gradient(0deg, transparent 0%, rgba(0, 0, 0, 0.6) 100%);\n  padding: 14px 16px;\n  color: #fff;\n  opacity: 0;\n  transition: 100ms opacity;\n  display: flex;\n  justify-content: space-between;\n  width: 100%;\n  position: absolute;\n  top: 0;\n  left: 0; }\n  .player .top-bar .left-controls {\n    text-align: left;\n    min-width: 0; }\n  .player .top-bar .right-controls {\n    text-align: left; }\n    .player .top-bar .right-controls .control-button-container {\n      margin: 0 6px; }\n      .player .top-bar .right-controls .control-button-container:last-child {\n        margin-right: 0; }\n\n.player.hover .top-bar,\n.player.state-paused .top-bar,\n.player.menu-active .top-bar {\n  opacity: 1; }\n\n.player.overlay-active .top-bar {\n  opacity: 0; }\n\n@media screen and (max-width: 480px) {\n  .player .top-bar {\n    padding: 8px 8px 20px 8px; } }\n\n@keyframes overlayPlayIconIn {\n  from {\n    opacity: 1;\n    transform: scale(0); }\n  to {\n    opacity: 0;\n    transform: scale(1); } }\n\n.overlay-play {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%; }\n  .overlay-play.in .icon {\n    animation: overlayPlayIconIn 400ms linear forwards; }\n  .overlay-play .icon {\n    width: 144px;\n    height: 144px;\n    fill: #fff;\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    margin: -72px 0 0 -72px;\n    opacity: 0; }\n\n.pre-playback-play-overlay {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 10;\n  background-position: center center;\n  background-size: cover; }\n  .pre-playback-play-overlay .pre-playback-play-button {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    height: 108px;\n    width: 108px;\n    border: 2px solid rgba(255, 255, 255, 0.2);\n    background-color: rgba(0, 0, 0, 0.5);\n    margin: -54px 0 0 -54px;\n    border-radius: 54px;\n    fill: #fff;\n    padding: 20px;\n    cursor: pointer; }\n    .pre-playback-play-overlay .pre-playback-play-button:hover {\n      border: 2px solid rgba(255, 255, 255, 0.4); }\n    .pre-playback-play-overlay .pre-playback-play-button:active {\n      opacity: 0.7;\n      transform: scale(1); }\n\n.pre-playback .player-gui {\n  opacity: 0 !important;\n  display: none; }\n\n.btn-skip-ad {\n  position: absolute;\n  bottom: 60px;\n  right: 16px; }\n\n.skip-ad {\n  color: #fff;\n  font-size: 20px;\n  font-weight: bold;\n  line-height: 24px;\n  text-shadow: 0 0 6px rgba(0, 0, 0, 0.6);\n  position: absolute;\n  bottom: 66px;\n  right: 16px; }\n", ""]);
+exports.push([module.i, ".row {\n  display: block; }\n  .row:after {\n    content: '';\n    clear: both;\n    display: block; }\n\n.d-inline-block {\n  display: inline-block; }\n\n.mobile-hidden-select {\n  display: block;\n  opacity: 0;\n  position: absolute;\n  top: 0;\n  left: 0px;\n  width: 100%;\n  height: 100%; }\n\n.font-size-base {\n  font-size: 15px; }\n\n.form-group {\n  margin: 10px 0;\n  position: relative;\n  max-width: 100%; }\n  .form-group.has-error .form-control {\n    border-color: #db1f26; }\n    .form-group.has-error .form-control:focus {\n      border-color: #fff; }\n  .form-group.has-icon .form-control {\n    padding-left: 34px; }\n  .form-group .icon {\n    position: absolute;\n    top: 2px;\n    left: 2px;\n    width: 32px;\n    height: 32px;\n    fill: rgba(255, 255, 255, 0.4); }\n\n.form-control {\n  height: 36px;\n  width: 100%;\n  min-width: 72px;\n  border: 2px solid rgba(255, 255, 255, 0.2);\n  border-radius: 4px;\n  background-color: rgba(0, 0, 0, 0.4);\n  font-size: 15px;\n  line-height: 18px;\n  color: #fff;\n  padding: 8px 10px;\n  text-overflow: ellipsis; }\n  .form-control::-webkit-input-placeholder {\n    color: rgba(255, 255, 255, 0.6); }\n  .form-control:focus {\n    background-color: #fff;\n    border-color: #fff;\n    color: #333; }\n    .form-control:focus::-webkit-input-placeholder {\n      color: #ccc; }\n    .form-control:focus + .icon {\n      fill: #999; }\n\ntextarea.form-control {\n  min-height: 72px; }\n\nselect {\n  font-size: 15px;\n  font-family: \"Lato\", sans-serif;\n  color: #fff;\n  -webkit-appearance: none;\n  background: none;\n  border: 0; }\n\n.checkbox {\n  font-size: 15px;\n  position: relative; }\n  .checkbox input {\n    display: none; }\n  .checkbox label:before {\n    height: 16px;\n    width: 16px;\n    border: 1px solid rgba(255, 255, 255, 0.2);\n    border-radius: 4px;\n    background-color: rgba(0, 0, 0, 0.4);\n    margin-right: 8px;\n    display: inline-block;\n    content: '';\n    vertical-align: middle; }\n  .checkbox input:checked + label:before {\n    border: 1px solid #fff;\n    background: #fff; }\n\n.form-group-row {\n  font-size: 15px;\n  margin: 24px 0; }\n  .form-group-row:after {\n    clear: both;\n    content: ' ';\n    display: block; }\n  .form-group-row label {\n    float: left;\n    color: rgba(244, 244, 244, 0.8); }\n  .form-group-row .dropdown {\n    float: right; }\n\n.btn {\n  text-decoration: none;\n  height: 36px;\n  border-radius: 18px;\n  color: #fff;\n  line-height: 36px;\n  font-weight: bold;\n  cursor: pointer;\n  display: inline-block;\n  padding: 0 24px; }\n  .btn.btn-block {\n    display: block; }\n  .btn.btn-dark-transparent {\n    background-color: rgba(0, 0, 0, 0.5);\n    border: 2px solid rgba(255, 255, 255, 0.2);\n    line-height: 32px; }\n    .btn.btn-dark-transparent:hover {\n      color: #fff;\n      border: 2px solid rgba(255, 255, 255, 0.4); }\n  .btn.btn-branded {\n    background-color: #01ACCD; }\n    .btn.btn-branded:hover {\n      color: #fff; }\n\n.btn-rounded {\n  height: 36px;\n  width: 36px;\n  min-width: 36px;\n  min-height: 36px;\n  border-radius: 18px;\n  background-color: rgba(0, 0, 0, 0.4);\n  display: inline-block;\n  padding: 2px;\n  fill: #fff; }\n\n@keyframes openDropmenu {\n  from {\n    opacity: 0;\n    transform: translateY(10px); }\n  to {\n    opacity: 1;\n    transform: translateY(0); } }\n\n.dropdown {\n  position: relative;\n  font-size: 15px; }\n  .dropdown.active .dropdown-menu {\n    display: block;\n    opacity: 1; }\n  .dropdown.active .dropdown-button .icon {\n    transform: rotate(180deg); }\n  .dropdown .dropdown-button {\n    font-weight: bold;\n    line-height: 18px;\n    color: #fff;\n    cursor: pointer;\n    padding-left: 20px; }\n    .dropdown .dropdown-button .icon {\n      width: 16px;\n      height: 16px;\n      fill: #fff;\n      vertical-align: middle;\n      margin-left: 6px;\n      transition: 150ms transform;\n      will-change: transform; }\n\n.dropdown-menu {\n  display: block;\n  opacity: 1;\n  position: absolute;\n  background-color: #333333;\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.3);\n  border-radius: 4px;\n  padding: 6px 0;\n  z-index: 5;\n  animation: openDropmenu 100ms ease-out forwards;\n  max-height: 173px;\n  overflow-y: auto;\n  font-size: 15px; }\n  .dropdown-menu.top {\n    margin-bottom: 10px;\n    bottom: 100%; }\n  .dropdown-menu.bottom {\n    margin-top: 10px;\n    top: 100%; }\n  .dropdown-menu.right {\n    left: 0; }\n  .dropdown-menu.left {\n    right: 0; }\n  .dropdown-menu .dropdown-menu-item {\n    padding: 2px 10px 2px 16px;\n    white-space: nowrap;\n    min-height: 30px;\n    cursor: pointer; }\n    .dropdown-menu .dropdown-menu-item:hover {\n      color: #fff; }\n    .dropdown-menu .dropdown-menu-item.active {\n      color: #01ACCD;\n      fill: #01ACCD; }\n    .dropdown-menu .dropdown-menu-item .check-icon {\n      display: inline-block;\n      margin-left: 16px;\n      vertical-align: middle;\n      width: 24px;\n      height: 24px; }\n    .dropdown-menu .dropdown-menu-item span {\n      vertical-align: middle;\n      line-height: 26px; }\n\n.tooltip {\n  display: inline-block;\n  height: 22px;\n  border-radius: 4px;\n  background-color: #FFFFFF;\n  padding: 3px 13px;\n  color: #333333;\n  font-size: 13px;\n  font-weight: bold;\n  line-height: 16px;\n  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.3); }\n\n.player .control-button {\n  width: 32px;\n  height: 32px;\n  background: transparent;\n  display: inline-block;\n  opacity: 0.8;\n  border: none;\n  padding: 0;\n  cursor: pointer;\n  fill: #fff; }\n  .player .control-button svg {\n    width: 32px;\n    height: 32px; }\n  .player .control-button.active {\n    opacity: 1; }\n  .player .control-button.control-button-rounded {\n    width: 36px;\n    height: 36px;\n    padding: 2px; }\n\n.player:not(.touch) .control-button:hover {\n  opacity: 1; }\n\n.player:not(.touch) .control-button.control-button-rounded:hover {\n  background-color: rgba(0, 0, 0, 0.4);\n  border-radius: 18px; }\n\n.player .control-button-container {\n  display: inline-block;\n  position: relative;\n  vertical-align: top; }\n\n.player.touch .player .control-button-container {\n  position: static; }\n\n.player.touch .control-button {\n  position: relative; }\n\na {\n  color: #01ACCD;\n  text-decoration: underline;\n  font-size: 15px;\n  line-height: 18px; }\n  a:hover {\n    color: #01819a; }\n  a:active {\n    opacity: 0.7; }\n\n.kaltura-player-container {\n  position: absolute !important; }\n\n.player {\n  overflow: hidden;\n  user-select: none;\n  width: 100%; }\n  .player:-webkit-full-screen {\n    width: 100%;\n    height: 100%;\n    max-width: none; }\n  .player * {\n    box-sizing: border-box;\n    outline: none; }\n  .player ::selection {\n    background-color: rgba(0, 0, 0, 0.1); }\n  .player video {\n    width: 100%; }\n  .player .player-gui {\n    opacity: 0;\n    overflow: hidden;\n    font-size: 0;\n    font-family: \"Lato\", sans-serif; }\n    .player .player-gui input, .player .player-gui textarea {\n      font-family: \"Lato\", sans-serif; }\n  .player #overlay-portal {\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%; }\n  .player.metadata-loaded .player-gui,\n  .player.state-paused .player-gui,\n  .player.overlay-active .player-gui,\n  .player.menu-active .player-gui {\n    opacity: 1; }\n\nvideo::-webkit-media-controls {\n  display: none !important;\n  -webkit-appearance: none; }\n\nvideo::-webkit-media-controls-start-playback-button {\n  display: none !important;\n  -webkit-appearance: none; }\n\nvideo::cue {\n  background-color: transparent;\n  font-family: \"Lato\", sans-serif; }\n\n.player.captions-yellow-text video::cue {\n  color: #FAFF00; }\n\n.player.captions-black-bg video::cue {\n  background-color: #000; }\n\n.player video::-webkit-media-text-track-display {\n  transform: translateY(0px);\n  transition: ease-in 100ms; }\n\n.player.state-paused video::-webkit-media-text-track-display,\n.player.hover video::-webkit-media-text-track-display {\n  transform: translateY(-60px);\n  transition: ease-out 100ms; }\n\n@keyframes openOverlay {\n  from {\n    opacity: 0; }\n  to {\n    opacity: 1; } }\n\n.overlay {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  display: none;\n  opacity: 0;\n  animation: openOverlay 100ms ease-in-out forwards;\n  z-index: 4; }\n  .overlay.active {\n    display: block;\n    opacity: 1; }\n  .overlay .overlay-contents {\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, 0.42);\n    z-index: 4;\n    text-align: center;\n    color: #fff;\n    padding: 80px 20px;\n    overflow-y: auto; }\n  .overlay .title {\n    font-size: 24px;\n    font-weight: bold;\n    line-height: 29px;\n    margin-bottom: 60px; }\n  .overlay .close-overlay {\n    position: absolute;\n    top: 48px;\n    right: 48px;\n    z-index: 5;\n    fill: #fff;\n    cursor: pointer; }\n    .overlay .close-overlay .icon-close {\n      width: 24px;\n      height: 24px; }\n  .overlay .overlay-screen {\n    display: none; }\n    .overlay .overlay-screen.active {\n      display: block; }\n\n@media screen and (max-width: 768px) {\n  .overlay .overlay-contents {\n    padding: 36px 20px; }\n  .overlay .close-overlay {\n    top: 38px; }\n  .overlay .title {\n    margin-bottom: 24px; } }\n\n@media screen and (max-width: 480px) {\n  .overlay .overlay-contents {\n    padding: 16px 24px; }\n  .overlay .close-overlay {\n    top: 15px;\n    right: 24px; }\n  .overlay .title {\n    font-size: 16px;\n    line-height: 19px;\n    margin-bottom: 24px; } }\n\n@keyframes openSmartContainer {\n  from {\n    opacity: 0;\n    transform: translateY(10px); }\n  to {\n    opacity: 1;\n    transform: translateY(0); } }\n\n@keyframes closeSmartContainer {\n  from {\n    opacity: 1;\n    transform: translateY(0); }\n  to {\n    opacity: 0;\n    transform: translateY(10px); } }\n\n.player:not(.touch) .smart-container {\n  background-color: #222222;\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.3);\n  border-radius: 4px;\n  position: absolute;\n  right: 0px;\n  min-width: 193px;\n  font-size: 15px;\n  z-index: 5;\n  display: block;\n  animation: openSmartContainer 100ms ease-out forwards; }\n  .player:not(.touch) .smart-container.leaving {\n    animation: closeSmartContainer 100ms ease-out forwards; }\n  .player:not(.touch) .smart-container.top {\n    bottom: 100%;\n    margin-bottom: 6px; }\n    .player:not(.touch) .smart-container.top:before {\n      display: block;\n      content: ' ';\n      position: absolute;\n      bottom: -6px;\n      left: 0;\n      width: 100%;\n      height: 6px; }\n  .player:not(.touch) .smart-container.bottom {\n    top: 100%;\n    margin-top: 6px; }\n  .player:not(.touch) .smart-container.right {\n    left: 0px; }\n  .player:not(.touch) .smart-container.left {\n    right: 0px; }\n  .player:not(.touch) .smart-container .smart-container-item {\n    margin: 16px;\n    color: rgba(244, 244, 244, 0.8);\n    white-space: nowrap; }\n    .player:not(.touch) .smart-container .smart-container-item:after {\n      display: block;\n      content: ' ';\n      clear: both; }\n    .player:not(.touch) .smart-container .smart-container-item.select-menu-item label {\n      float: left; }\n      .player:not(.touch) .smart-container .smart-container-item.select-menu-item label .label-icon {\n        display: none; }\n    .player:not(.touch) .smart-container .smart-container-item.select-menu-item .dropdown, .player:not(.touch) .smart-container .smart-container-item.select-menu-item select {\n      float: right; }\n    .player:not(.touch) .smart-container .smart-container-item.select-menu-item select {\n      text-align-last: right; }\n\n.touch .smart-container-item {\n  width: 300px;\n  max-width: 100%;\n  margin: 16px auto;\n  color: rgba(244, 244, 244, 0.8);\n  white-space: nowrap;\n  text-align: left; }\n  .touch .smart-container-item:after {\n    display: block;\n    content: ' ';\n    clear: both; }\n  .touch .smart-container-item.select-menu-item label {\n    float: left;\n    font-size: 16px;\n    color: rgba(255, 255, 255, 0.8);\n    fill: #fff; }\n    .touch .smart-container-item.select-menu-item label .label-icon {\n      width: 24px;\n      height: 24px;\n      display: inline-block;\n      vertical-align: middle;\n      margin-right: 16px; }\n  .touch .smart-container-item.select-menu-item .dropdown, .touch .smart-container-item.select-menu-item select {\n    float: right; }\n  .touch .smart-container-item.select-menu-item select {\n    text-align-last: right; }\n\n.overlay.share-overlay .share-icons {\n  margin: 60px 0; }\n  .overlay.share-overlay .share-icons .btn-rounded {\n    margin: 0 8px;\n    transition: transform 100ms;\n    will-change: transform; }\n    .overlay.share-overlay .share-icons .btn-rounded:first-child {\n      margin-left: 0; }\n    .overlay.share-overlay .share-icons .btn-rounded:last-child {\n      margin-right: 0; }\n    .overlay.share-overlay .share-icons .btn-rounded.facebook-share-btn {\n      background-color: #3B5998; }\n    .overlay.share-overlay .share-icons .btn-rounded.twitter-share-btn {\n      background-color: #1DA1F2; }\n    .overlay.share-overlay .share-icons .btn-rounded.google-plus-share-btn {\n      background-color: #DD4B39; }\n    .overlay.share-overlay .share-icons .btn-rounded.linkedin-share-btn {\n      background-color: #00A0DC; }\n\n.share-main-container {\n  width: 300px;\n  max-width: 100%;\n  margin: 0 auto;\n  text-align: center; }\n\n.link-options-container {\n  width: 400px;\n  max-width: 100%;\n  text-align: left;\n  margin: 0 auto; }\n  .link-options-container .copy-url-row {\n    display: flex; }\n    .link-options-container .copy-url-row .input-copy-url {\n      margin: 0; }\n    .link-options-container .copy-url-row .btn-copy-url {\n      margin-left: 16px; }\n      .link-options-container .copy-url-row .btn-copy-url .icon {\n        will-change: transform;\n        transition: 100ms transform;\n        position: absolute;\n        width: 32px; }\n      .link-options-container .copy-url-row .btn-copy-url .check-icon {\n        transform: scale(0);\n        opacity: 0; }\n      .link-options-container .copy-url-row .btn-copy-url.copied {\n        background-color: #009444; }\n        .link-options-container .copy-url-row .btn-copy-url.copied .copy-icon {\n          transform: scale(0);\n          opacity: 0; }\n        .link-options-container .copy-url-row .btn-copy-url.copied .check-icon {\n          transform: scale(1);\n          opacity: 1; }\n  .link-options-container .video-start-options-row {\n    margin-top: 24px; }\n    .link-options-container .video-start-options-row .checkbox {\n      margin-right: 15px; }\n    .link-options-container .video-start-options-row .form-group {\n      margin: 0; }\n\n.player:not(.touch) .overlay.share-overlay .share-icons .btn-rounded:hover {\n  transform: scale(1.1667); }\n\n@media screen and (max-width: 768px) {\n  .overlay.share-overlay .share-icons {\n    margin: 40px 0; } }\n\n@media screen and (max-width: 480px) {\n  .overlay.share-overlay .share-icons {\n    margin: 20px 0; } }\n\n.overlay.cvaa-overlay .sample {\n  border: 2px solid rgba(255, 255, 255, 0.2);\n  border-radius: 4px;\n  font-size: 16px;\n  font-weight: bold;\n  line-height: 36px;\n  text-align: center;\n  padding: 0 31px;\n  display: inline-block;\n  margin: 0 12px;\n  cursor: pointer; }\n  .overlay.cvaa-overlay .sample.black-bg {\n    background-color: #000; }\n  .overlay.cvaa-overlay .sample.yellow-text {\n    color: #FAFF00; }\n\n.overlay.cvaa-overlay .button-save-cvaa {\n  margin-top: 50px;\n  height: 40px;\n  width: 400px;\n  max-width: 100%;\n  border: 2px solid rgba(255, 255, 255, 0.2);\n  border-radius: 4px;\n  font-size: 16px;\n  font-weight: bold;\n  line-height: 38px;\n  text-align: center;\n  display: inline-block;\n  color: #fff;\n  text-decoration: none;\n  cursor: pointer; }\n\n.overlay.cvaa-overlay .custom-caption-form {\n  width: 300px;\n  max-width: 100%;\n  margin: 0 auto; }\n\n@media screen and (max-width: 480px) {\n  .overlay.cvaa-overlay .sample {\n    width: 30%;\n    margin: 2.33%;\n    padding: 0; }\n    .overlay.cvaa-overlay .sample:first-child {\n      margin-left: 0; }\n    .overlay.cvaa-overlay .sample:last-child {\n      margin-right: 0; }\n  .overlay.cvaa-overlay .button-save-cvaa {\n    margin-top: 20px; } }\n\n@keyframes kaltura-spinner {\n  0% {\n    transform: rotate(0deg) scale(0.7);\n    opacity: 1; }\n  70% {\n    transform: rotate(360deg) scale(0.7);\n    opacity: 1; }\n  82% {\n    transform: rotate(360deg) scale(0);\n    opacity: 0; }\n  87% {\n    transform: rotate(360deg) scale(0.9);\n    opacity: 1; }\n  100% {\n    transform: rotate(360deg) scale(0.7);\n    opacity: 1; } }\n\n.loading-backdrop {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.3);\n  transition: 100ms opacity;\n  opacity: 0; }\n  .loading-backdrop.show {\n    opacity: 1; }\n    .loading-backdrop.show .spinner-container {\n      display: block; }\n  .loading-backdrop .spinner-container {\n    display: none;\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate3d(-50px, -50px, 0); }\n\n.spinner {\n  width: 100px;\n  height: 100px;\n  position: relative;\n  animation: kaltura-spinner 2.5s infinite; }\n  .spinner span {\n    width: 8px;\n    height: 8px;\n    background-color: #fff;\n    display: block;\n    border-radius: 8px;\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    margin-top: -4px;\n    margin-left: -4px; }\n    .spinner span:nth-child(1) {\n      transform: rotate(45deg) translateX(-25px) translateY(-25px);\n      background-color: #da1f26; }\n    .spinner span:nth-child(2) {\n      transform: rotate(90deg) translateX(-25px) translateY(-25px);\n      background-color: #06a885; }\n    .spinner span:nth-child(3) {\n      transform: rotate(135deg) translateX(-25px) translateY(-25px);\n      background-color: #009344; }\n    .spinner span:nth-child(4) {\n      transform: rotate(180deg) translateX(-25px) translateY(-25px);\n      background-color: #f8a61a; }\n    .spinner span:nth-child(5) {\n      transform: rotate(225deg) translateX(-25px) translateY(-25px);\n      background-color: #1b4a97; }\n    .spinner span:nth-child(6) {\n      transform: rotate(270deg) translateX(-25px) translateY(-25px);\n      background-color: #00abcc; }\n    .spinner span:nth-child(7) {\n      transform: rotate(315deg) translateX(-25px) translateY(-25px);\n      background-color: #b1d238; }\n    .spinner span:nth-child(8) {\n      transform: rotate(360deg) translateX(-25px) translateY(-25px);\n      background-color: #fcd203; }\n\n.control-button-container.control-play-pause .control-button {\n  transition: 400ms transform; }\n  .control-button-container.control-play-pause .control-button .icon-pause {\n    transition: 400ms opacity;\n    opacity: 0;\n    display: none; }\n  .control-button-container.control-play-pause .control-button .icon-play {\n    transition: 400ms opacity;\n    opacity: 1;\n    display: block; }\n  .control-button-container.control-play-pause .control-button.is-playing {\n    transform: rotate(360deg); }\n    .control-button-container.control-play-pause .control-button.is-playing .icon-pause {\n      opacity: 1;\n      display: block; }\n    .control-button-container.control-play-pause .control-button.is-playing .icon-play {\n      opacity: 0;\n      display: none; }\n\n.touch .control-button-container.control-play-pause {\n  display: none; }\n\n@media screen and (max-width: 480px) {\n  .control-button-container.control-play-pause {\n    display: none; } }\n\n.control-button-container.volume-control:hover .volume-control-bar {\n  display: block !important; }\n\n.control-button-container.volume-control.is-muted .volume-waves {\n  opacity: 0;\n  transform: translateX(-5px); }\n\n.control-button-container.volume-control.is-muted .volume-mute {\n  opacity: 1;\n  transform: scale(1); }\n\n.control-button-container.volume-control.dragging-active .volume-control-bar {\n  display: block; }\n\n.control-button-container.volume-control .volume-waves {\n  transform: translateX(0px); }\n\n.control-button-container.volume-control .volume-mute {\n  opacity: 1;\n  transform: scale(0); }\n\n.control-button-container.volume-control .volume-waves, .control-button-container.volume-control .volume-mute {\n  transition: 300ms transform, 300ms opacity; }\n\n.control-button-container.volume-control svg {\n  position: absolute;\n  top: 0;\n  left: 0; }\n\n.volume-control-bar {\n  position: absolute;\n  z-index: 2;\n  bottom: 38px;\n  left: 0px;\n  display: block;\n  height: 112px;\n  width: 34px;\n  border-radius: 4px;\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.3);\n  background-color: #333333;\n  padding: 6px;\n  display: none; }\n  .volume-control-bar:before {\n    position: absolute;\n    width: 34px;\n    height: 14px;\n    bottom: -8px;\n    left: 0;\n    content: ' ';\n    display: block; }\n  .volume-control-bar .bar {\n    background-color: #424242;\n    height: 100%;\n    position: relative;\n    cursor: pointer; }\n  .volume-control-bar .progress {\n    position: absolute;\n    bottom: 0px;\n    left: 0px;\n    width: 100%;\n    border-radius: 0 0 2px 2px;\n    background-color: #01ACCD; }\n\n.touch .control-button-container.volume-control {\n  display: none; }\n\n@media screen and (max-width: 480px) {\n  .control-button-container.volume-control {\n    display: none; } }\n\n.control-button-container.control-fullscreen .control-button {\n  transition: 100ms transform;\n  transform: scale(1); }\n  .control-button-container.control-fullscreen .control-button .icon-minimize {\n    display: none; }\n  .control-button-container.control-fullscreen .control-button.is-fullscreen .icon-maximize {\n    display: none; }\n  .control-button-container.control-fullscreen .control-button.is-fullscreen .icon-minimize {\n    display: block; }\n\n.player:not(.touch) .control-button-container.control-fullscreen .control-button:hover {\n  transform: scale(1.1); }\n\n.player .seek-bar {\n  padding: 6px 0;\n  cursor: pointer;\n  position: relative; }\n  .player .seek-bar:hover .time-preview,\n  .player .seek-bar:hover .frame-preview, .player .seek-bar.hover .time-preview,\n  .player .seek-bar.hover .frame-preview, .player .seek-bar.dragging-active .time-preview,\n  .player .seek-bar.dragging-active .frame-preview {\n    display: block; }\n  .player .seek-bar:hover .progress-bar .scrubber, .player .seek-bar.hover .progress-bar .scrubber, .player .seek-bar.dragging-active .progress-bar .scrubber {\n    transform: scale(1); }\n  .player .seek-bar:hover .progress-bar .virtual-progress, .player .seek-bar.hover .progress-bar .virtual-progress, .player .seek-bar.dragging-active .progress-bar .virtual-progress {\n    display: block; }\n  .player .seek-bar.ad-break {\n    cursor: initial; }\n    .player .seek-bar.ad-break .progress-bar .progress {\n      background-color: #F9A71B; }\n  .player .seek-bar.live .progress-bar .progress {\n    background-color: #DA1F26; }\n  .player .seek-bar .progress-bar {\n    height: 4px;\n    background-color: rgba(255, 255, 255, 0.3);\n    border-radius: 2px;\n    position: relative; }\n    .player .seek-bar .progress-bar .progress {\n      position: absolute;\n      top: 0;\n      left: 0;\n      height: 100%;\n      z-index: 2;\n      border-radius: 2px 0 0 2px;\n      background-color: #01ACCD; }\n    .player .seek-bar .progress-bar .virtual-progress {\n      display: none; }\n    .player .seek-bar .progress-bar .buffered, .player .seek-bar .progress-bar .virtual-progress {\n      position: absolute;\n      top: 0;\n      left: 0;\n      height: 100%;\n      z-index: 1;\n      border-radius: 2px 0 0 2px;\n      background-color: rgba(255, 255, 255, 0.3); }\n    .player .seek-bar .progress-bar .scrubber {\n      position: absolute;\n      z-index: 3;\n      cursor: pointer;\n      display: block;\n      top: -6px;\n      right: -8px;\n      border-radius: 8px;\n      height: 16px;\n      width: 16px;\n      background-color: #FFFFFF;\n      box-shadow: 0 0 31px 0 rgba(0, 0, 0, 0.3);\n      transform: scale(0);\n      transition: 100ms transform; }\n      .player .seek-bar .progress-bar .scrubber:active {\n        opacity: 1;\n        cursor: grabbing; }\n  .player .seek-bar .frame-preview {\n    position: absolute;\n    bottom: 16px;\n    left: 0;\n    height: 94px;\n    width: 164px;\n    border: 2px solid rgba(255, 255, 255, 0.2);\n    border-radius: 4px; }\n    .player .seek-bar .frame-preview .frame-preview-img {\n      background-size: auto 100%;\n      width: 100%;\n      height: 100%;\n      position: relative; }\n  .player .seek-bar .time-preview {\n    position: absolute;\n    bottom: 22px;\n    left: 0;\n    z-index: 10;\n    height: 22px;\n    min-width: 48px;\n    padding: 0 3px;\n    text-align: center;\n    border-radius: 3px;\n    background-color: rgba(0, 0, 0, 0.7);\n    font-size: 13px;\n    font-weight: bold;\n    line-height: 22px;\n    color: #fff; }\n  .player .seek-bar .time-preview,\n  .player .seek-bar .frame-preview {\n    display: none; }\n\n.touch .virtual-progress, .touch .time-preview, .touch .frame-preview {\n  display: none !important; }\n\n@media screen and (max-width: 480px) {\n  .virtual-progress, .time-preview, .frame-preview {\n    display: none; } }\n\n.player .time-display {\n  display: inline-block;\n  line-height: 32px;\n  vertical-align: top;\n  font-size: 14px;\n  padding: 0 23px;\n  font-weight: bold; }\n\n.touch .time-display {\n  padding-left: 0; }\n\n@media screen and (max-width: 480px) {\n  .player .time-display {\n    padding: 0 12px 0 0; } }\n\n.player .video-playing-title {\n  font-size: 15px;\n  font-weight: bold;\n  line-height: 18px;\n  padding: 6px 0;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap; }\n\n.player .bottom-bar {\n  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.6) 100%);\n  padding: 6px 16px;\n  color: #fff;\n  opacity: 0;\n  transition: 100ms opacity;\n  width: 100%;\n  margin-top: auto;\n  position: absolute;\n  bottom: 0;\n  left: 0; }\n  .player .bottom-bar .left-controls {\n    float: left;\n    text-align: left; }\n    .player .bottom-bar .left-controls:first-child {\n      margin-left: 0px; }\n  .player .bottom-bar .right-controls {\n    float: right;\n    text-align: left; }\n    .player .bottom-bar .right-controls .control-button-container {\n      margin: 0 6px; }\n      .player .bottom-bar .right-controls .control-button-container:last-child {\n        margin-right: 0; }\n\n.player.hover .bottom-bar,\n.player.state-paused .bottom-bar,\n.player.menu-active .bottom-bar {\n  opacity: 1; }\n\n.player.overlay-active .bottom-bar {\n  opacity: 0; }\n\n@media screen and (max-width: 480px) {\n  .player .bottom-bar {\n    padding: 6px 8px; } }\n\n.player .top-bar {\n  background: linear-gradient(0deg, transparent 0%, rgba(0, 0, 0, 0.6) 100%);\n  padding: 14px 16px;\n  color: #fff;\n  opacity: 0;\n  transition: 100ms opacity;\n  display: flex;\n  justify-content: space-between;\n  width: 100%;\n  position: absolute;\n  top: 0;\n  left: 0; }\n  .player .top-bar .left-controls {\n    text-align: left;\n    min-width: 0; }\n  .player .top-bar .right-controls {\n    text-align: left; }\n    .player .top-bar .right-controls .control-button-container {\n      margin: 0 6px; }\n      .player .top-bar .right-controls .control-button-container:last-child {\n        margin-right: 0; }\n\n.player.hover .top-bar,\n.player.state-paused .top-bar,\n.player.menu-active .top-bar {\n  opacity: 1; }\n\n.player.overlay-active .top-bar {\n  opacity: 0; }\n\n@media screen and (max-width: 480px) {\n  .player .top-bar {\n    padding: 8px 8px 20px 8px; } }\n\n@keyframes overlayPlayIconIn {\n  from {\n    opacity: 1;\n    transform: scale(0); }\n  to {\n    opacity: 0;\n    transform: scale(1); } }\n\n.overlay-play {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%; }\n  .overlay-play.in .icon {\n    animation: overlayPlayIconIn 400ms linear forwards; }\n  .overlay-play .icon {\n    width: 144px;\n    height: 144px;\n    fill: #fff;\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    margin: -72px 0 0 -72px;\n    opacity: 0; }\n\n.pre-playback-play-overlay {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 10;\n  background-position: center center;\n  background-size: cover; }\n  .pre-playback-play-overlay .pre-playback-play-button {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    height: 108px;\n    width: 108px;\n    border: 2px solid rgba(255, 255, 255, 0.2);\n    background-color: rgba(0, 0, 0, 0.5);\n    margin: -54px 0 0 -54px;\n    border-radius: 54px;\n    fill: #fff;\n    padding: 20px;\n    cursor: pointer; }\n    .pre-playback-play-overlay .pre-playback-play-button:hover {\n      border: 2px solid rgba(255, 255, 255, 0.4); }\n    .pre-playback-play-overlay .pre-playback-play-button:active {\n      opacity: 0.7;\n      transform: scale(1); }\n\n.pre-playback .player-gui {\n  opacity: 0 !important;\n  display: none; }\n\n.btn-skip-ad {\n  position: absolute;\n  bottom: 60px;\n  right: 16px; }\n\n.skip-ad {\n  color: #fff;\n  font-size: 20px;\n  font-weight: bold;\n  line-height: 24px;\n  text-shadow: 0 0 6px rgba(0, 0, 0, 0.6);\n  position: absolute;\n  bottom: 66px;\n  right: 16px; }\n\n.live-tag {\n  color: #DA1F26;\n  font-size: 14px;\n  font-weight: bold;\n  letter-spacing: 1px;\n  line-height: 19px;\n  border: 2px solid #DA1F26;\n  border-radius: 4px;\n  text-transform: uppercase;\n  text-align: center;\n  display: inline-block;\n  padding: 0 3px 0 5px;\n  margin: 5px 23px;\n  cursor: default; }\n  .live-tag.non-live-playhead {\n    background-color: rgba(255, 255, 255, 0.2);\n    border: none;\n    color: #fff;\n    line-height: 23px;\n    padding: 0 5px 0 7px;\n    cursor: pointer; }\n\n@media screen and (max-width: 480px) {\n  .live-tag {\n    margin-left: 0; } }\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 112 */
+/* 116 */
 /***/ (function(module, exports) {
 
 /*
@@ -9934,7 +11912,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 113 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -9980,7 +11958,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(114);
+var	fixUrls = __webpack_require__(118);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -10293,7 +12271,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 114 */
+/* 118 */
 /***/ (function(module, exports) {
 
 
