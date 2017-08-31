@@ -41,11 +41,17 @@ class EngineConnector extends BaseComponent {
       this.props.updateCurrentTime(this.player.currentTime);
     });
 
+    this.player.addEventListener(this.player.Event.DURATION_CHANGE, () => {
+      this.props.updateDuration(this.player.duration);
+    });
+
     this.player.addEventListener(this.player.Event.LOADED_METADATA, () => {
       this.props.updateDuration(this.player.duration);
       this.props.updateMuted(this.player.muted);
       this.props.updateMetadataLoadingStatus(true);
       this.props.updatePlayerPoster(this.player.poster);
+      this.props.updateIsLive(this.player.isLive());
+      this.props.updateIsDvr(this.player.isDvr());
     });
 
     this.player.addEventListener(this.player.Event.VOLUME_CHANGE, () => {

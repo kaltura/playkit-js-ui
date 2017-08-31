@@ -17,7 +17,9 @@ export const types = {
   UPDATE_AD_SKIP_TIME_OFFSET: 'engine/UPDATE_AD_SKIP_TIME_OFFSET',
   UPDATE_AD_SKIPPABLE_STATE: 'engine/UPDATE_AD_SKIPPABLE_STATE',
   UPDATE_AD_URL: 'engine/UPDATE_AD_URL',
-  UPDATE_PLAYER_POSTER: 'engine/UPDATE_PLATER_POSTER'
+  UPDATE_PLAYER_POSTER: 'engine/UPDATE_PLATER_POSTER',
+  UPDATE_IS_LIVE: 'engine/UPDATE_IS_LIVE',
+  UPDATE_IS_DVR: 'engine/UPDATE_IS_DVR'
 }
 
 export const initialState = {
@@ -40,6 +42,8 @@ export const initialState = {
   adIsPlaying: false,
   adSkipTimeOffset: 0,
   adSkippableState: false,
+  isLive: false,
+  isDvr: false,
   adProgress: {
     currentTime: 0,
     duration: 0
@@ -157,6 +161,18 @@ export default (state: Object = initialState, action: Object) => {
         poster: action.poster
       }
 
+    case types.UPDATE_IS_LIVE:
+      return {
+        ...state,
+        isLive: action.isLive
+      }
+
+    case types.UPDATE_IS_DVR:
+      return {
+        ...state,
+        isDvr: action.isDvr
+      }
+
     default:
       return state;
   }
@@ -180,5 +196,7 @@ export const actions = {
   updateAdSkipTimeOffset: (adSkipTimeOffset: boolean) => ({ type: types.UPDATE_AD_SKIP_TIME_OFFSET, adSkipTimeOffset }),
   updateAdSkippableState: (adSkippableState: boolean) => ({ type: types.UPDATE_AD_SKIPPABLE_STATE, adSkippableState }),
   updateAdClickUrl: (adUrl: string) => ({ type: types.UPDATE_AD_URL, adUrl }),
-  updatePlayerPoster: (poster: string) => ({ type: types.UPDATE_PLAYER_POSTER, poster })
+  updatePlayerPoster: (poster: string) => ({ type: types.UPDATE_PLAYER_POSTER, poster }),
+  updateIsLive: (isLive: boolean) => ({ type: types.UPDATE_IS_LIVE, isLive }),
+  updateIsDvr: (isDvr: boolean) => ({ type: types.UPDATE_IS_DVR, isDvr })
 }

@@ -4,24 +4,24 @@ import OverlayPlay from '../components/overlay-play';
 import PrePlaybackPlayOverlay from '../components/pre-playback-play-overlay';
 import Loading from '../components/loading';
 import PlayPauseControl from '../components/play-pause';
-import SeekBarPlaybackContainer from '../components/seekbar-playback-container';
+import SeekBarLivePlaybackContainer from '../components/seekbar-live-playback-container';
 import VolumeControl from '../components/volume';
 import SettingsControl from '../components/settings';
 import LanguageControl from '../components/language';
 import FullscreenControl from '../components/fullscreen';
-import TimeDisplayPlaybackContainer from '../components/time-display-playback-container';
 import BottomBar from '../components/bottom-bar';
 import OverlayPortal from '../components/overlay-portal';
 import KeyboardControl from '../components/keyboard';
+import LiveTag from '../components/live-tag';
 
 /**
- * Playback ui interface
+ * Live ui intrface
  *
  * @export
  * @param {*} props component props
- * @returns {React$Element} player ui tree
+ * @returns {React$Element<any>} player ui tree
  */
-export default function playbackUI(props: any): React$Element<any> {
+export default function liveUI(props: any): React$Element<any> {
   return (
     <div className='playback-gui-wrapper'>
       <KeyboardControl player={props.player} />
@@ -30,10 +30,10 @@ export default function playbackUI(props: any): React$Element<any> {
         <OverlayPortal />
         <OverlayPlay player={props.player} />
         <BottomBar>
-          <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player} />
+          <SeekBarLivePlaybackContainer showFramePreview showTimeBubble player={props.player} />
           <div className='left-controls'>
             <PlayPauseControl player={props.player} />
-            <TimeDisplayPlaybackContainer format='current / total' />
+            <LiveTag player={props.player} />
           </div>
           <div className='right-controls'>
             <VolumeControl player={props.player} />

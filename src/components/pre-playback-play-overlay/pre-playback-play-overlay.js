@@ -94,6 +94,11 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    */
   handleClick(): void {
     this.player.play();
+
+    if (this.props.prePlayback) {
+      this.props.updatePrePlayback(false);
+      this.props.removePlayerClass('pre-playback');
+    }
   }
 
   /**

@@ -28,6 +28,12 @@
       }
     }
 
+    &.live {
+      .progress-bar .progress {
+        background-color: $live-color;
+      }
+    }
+
     .progress-bar {
         height: $progress-bar-height;
         background-color: rgba(255,255,255,0.3);
