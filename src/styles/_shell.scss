@@ -44,7 +44,8 @@
 }
 
 video {
-    &::-webkit-media-controls {
+  &::-webkit-media-controls-panel-container,
+  &::-webkit-media-controls {
         display: none !important;
         -webkit-appearance: none;
     }
