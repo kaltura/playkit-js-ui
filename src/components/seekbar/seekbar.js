@@ -62,6 +62,8 @@ class SeekBarControl extends Component {
    * @memberof SeekBarControl
    */
   onSeekbarMouseDown(e: Event): void {
+    if (this.props.isMobile) return;
+
     this.props.updateSeekbarDraggingStatus(true);
     if (this.props.isDraggingActive) {
       let time = this.getTime(e);
@@ -77,6 +79,8 @@ class SeekBarControl extends Component {
    * @memberof SeekBarControl
    */
   onSeekbarMouseUp(e: Event): void {
+    if (this.props.isMobile) return;
+
     let time = this.getTime(e);
     this.props.changeCurrentTime(time);
     this.updateSeekBarProgress(time, this.props.duration);
@@ -91,6 +95,8 @@ class SeekBarControl extends Component {
    * @memberof SeekBarControl
    */
   onSeekbarMouseMove(e: Event): void {
+    if (this.props.isMobile) return;
+
     let time = this.getTime(e);
     this.updateSeekBarProgress(time, this.props.duration, true);
 
@@ -138,9 +144,11 @@ class SeekBarControl extends Component {
    * @memberof SeekBarControl
    */
   onSeekbarTouchEnd(): void {
-    let time = this._movex;
-    this.props.changeCurrentTime(time);
-    this.updateSeekBarProgress(time, this.props.duration);
+    if (this.props.isDraggingActive) {
+      let time = this._movex;
+      this.props.changeCurrentTime(time);
+      this.updateSeekBarProgress(time, this.props.duration);
+    }
     this.props.updateSeekbarDraggingStatus(false);
   }
 
