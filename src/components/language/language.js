@@ -89,7 +89,9 @@ class LanguageControl extends BaseComponent {
       this.state.smartContainerOpen &&
       !this.state.cvaaOverlay
     ) {
-      e.stopPropagation();
+      if (e.target.classList.contains('overlay-play')) {
+        e.stopPropagation();
+      }
       this.setState({smartContainerOpen: false});
     }
   }

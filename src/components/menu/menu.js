@@ -57,7 +57,10 @@ class Menu extends Component {
    */
   handleClickOutside(e: Event) {
     if (!this.props.isMobile && this._menuElement && !this._menuElement.contains(event.target)) {
-      e.stopPropagation();
+
+      if (e.target.classList.contains('overlay-play') || e.target.parentElement.getElementsByClassName('dropdown-menu')[0] === this._menuElement) {
+        e.stopPropagation();
+      }
       this.props.onClose();
     }
   }
