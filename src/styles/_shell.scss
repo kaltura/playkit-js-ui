@@ -46,8 +46,10 @@
 }
 
 video {
-  &::-webkit-media-controls-panel-container,
-  &::-webkit-media-controls {
+  left: 0;
+  
+    &::-webkit-media-controls-panel-container,
+    &::-webkit-media-controls {
         display: none !important;
         -webkit-appearance: none;
     }
