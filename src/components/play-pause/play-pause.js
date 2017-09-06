@@ -77,7 +77,7 @@ class PlayPauseControl extends BaseComponent {
             className={controlButtonClass}
             onClick={() => this.togglePlayPause()}
           >
-            {props.isEnded ? <Icon type={IconType.Startover} /> : (
+            {props.isEnded && !props.adBreak ? <Icon type={IconType.Startover} /> : (
               <div>
                 <Icon type={IconType.Play} />
                 <Icon type={IconType.Pause} />
