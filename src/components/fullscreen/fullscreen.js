@@ -98,10 +98,7 @@ class FullscreenControl extends BaseComponent {
    * @memberof FullscreenControl
    */
   enterFullscreen(): void {
-    var ua = navigator.userAgent.toLowerCase();
-    var isIOS = /ipad|iphone|ipod/.test(ua) && !window.MSStream;
-
-    if (this.props.isMobile && isIOS) {
+    if (this.props.isMobile && this.player.env.os.name === 'iOS') {
       this.player.getView().getElementsByTagName('video')[0].webkitEnterFullscreen();
     }
     else {
