@@ -17,7 +17,8 @@ const mapStateToProps = state => ({
   playerClasses: state.shell.playerClasses,
   isMobile: state.shell.isMobile,
   playerWidth: state.shell.playerWidth,
-  playerHeight: state.shell.playerHeight
+  playerHeight: state.shell.playerHeight,
+  playerHover: state.shell.playerHover
 });
 
 @connect(mapStateToProps, bindActions(actions))
@@ -49,14 +50,14 @@ class Shell extends BaseComponent {
    */
   onMouseOver(): void {
     if (!this.state.hover) {
-      this.props.addPlayerClass('hover');
+      this.props.updatePlayerHoverState(true);
       this.setState({hover: true});
     }
     if (this.hoverTimeout) {
       clearTimeout(this.hoverTimeout);
     }
     this.hoverTimeout = setTimeout(() => {
-      this.props.removePlayerClass('hover');
+      this.props.updatePlayerHoverState(false);
       this.setState({hover: false});
     }, this.props.hoverTimeout || 3000);
   }
@@ -70,7 +71,7 @@ class Shell extends BaseComponent {
   onMouseLeave(): void {
     if (this.state.hover) {
       this.setState({hover: false});
-      this.props.removePlayerClass('hover');
+      this.props.updatePlayerHoverState(false);
     }
   }
 
@@ -83,7 +84,7 @@ class Shell extends BaseComponent {
   onMouseMove(): void {
     if (!this.state.hover) {
       this.setState({hover: true});
-      this.props.addPlayerClass('hover');
+      this.props.updatePlayerHoverState(true);
     }
   }
 
@@ -111,7 +112,7 @@ class Shell extends BaseComponent {
         }
       });
     if (isMobile()) {
-      this.props.addPlayerClass('touch');
+      this.props.updatePlayerHoverState(true);
     }
   }
 
@@ -126,6 +127,7 @@ class Shell extends BaseComponent {
     var playerClasses = 'player skin-default';
     playerClasses += ` ${props.playerClasses.join(' ')}`;
 
+    if (this.props.playerHover) playerClasses += ` hover`;
     if (this.props.metadataLoaded) playerClasses += ` metadata-loaded`;
     if (this.props.metadataLoaded) playerClasses += ` state-${this.props.currentState}`;
 
