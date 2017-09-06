@@ -46,6 +46,8 @@
 }
 
 video {
+    left: 0;
+
     &::-webkit-media-controls {
         display: none !important;
         -webkit-appearance: none;
