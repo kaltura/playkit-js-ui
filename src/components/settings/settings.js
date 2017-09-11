@@ -160,7 +160,7 @@ class SettingsControl extends BaseComponent {
    * @returns {React$Element} - component element
    * @memberof SettingsControl
    */
-  render(props: any) {
+  render(props: any): React$Element<any> | void {
     let speedOptions = defaultSpeeds
       .reduce((acc, speed) => {
         let speedOption = {
@@ -197,7 +197,7 @@ class SettingsControl extends BaseComponent {
         });
     }
 
-    if (props.isLive && qualityOptions.length === 0) return '';
+    if (props.isLive && qualityOptions.length === 0) return undefined;
 
     return (
       <div
