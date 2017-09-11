@@ -77,11 +77,11 @@ class LanguageControl extends BaseComponent {
   /**
    * event listener for clicking outside handler.
    *
-   * @param {Event} e - click event
+   * @param {*} e - click event
    * @returns {void}
    * @memberof LanguageControl
    */
-  handleClickOutside(e: Event): void {
+  handleClickOutside(e: any): void {
     if (
       this._controlLanguageElement &&
       !this.props.isMobile &&

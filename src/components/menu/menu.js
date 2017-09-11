@@ -51,11 +51,11 @@ class Menu extends Component {
    * handler to click outside of the component event listener.
    * if not mobile device and clicked outside the component, call the onClose callback
    *
-   * @param {Event} e click event
+   * @param {*} e click event
    * @returns {void}
    * @memberof Menu
    */
-  handleClickOutside(e: Event) {
+  handleClickOutside(e: any) {
     if (!this.props.isMobile && this._menuElement && !this._menuElement.contains(event.target)) {
 
       if (e.target.classList.contains('overlay-play') || e.target.parentElement.getElementsByClassName('dropdown-menu')[0] === this._menuElement) {
