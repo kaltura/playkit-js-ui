@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.3.1"></a>
+## [0.3.1](https://github.com/kaltura/playkit-js-ui/compare/v0.3.0...v0.3.1) (2017-09-11)
+
+
+### Bug Fixes
+
+* **FEC-6914:** open menu while other menu open ([#44](https://github.com/kaltura/playkit-js-ui/issues/44)) ([56e9d86](https://github.com/kaltura/playkit-js-ui/commit/56e9d86))
+* **FEC-6960:** ads time display fix ([#46](https://github.com/kaltura/playkit-js-ui/issues/46)) ([e2a3c8f](https://github.com/kaltura/playkit-js-ui/commit/e2a3c8f))
+* **FEC-7100:** remove playback rate option in live playback ([#45](https://github.com/kaltura/playkit-js-ui/issues/45)) ([163696d](https://github.com/kaltura/playkit-js-ui/commit/163696d))
+* **FEC-7124:** mobile detection based on player.env object ([#47](https://github.com/kaltura/playkit-js-ui/issues/47)) ([ed7c060](https://github.com/kaltura/playkit-js-ui/commit/ed7c060))
+
+
+
 <a name="0.3.0"></a>
 # [0.3.0](https://github.com/kaltura/playkit-js-ui/compare/v0.1.2...v0.3.0) (2017-09-07)
 
