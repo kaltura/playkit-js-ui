@@ -5,7 +5,7 @@ import PlayPauseControl from '../components/play-pause';
 import SeekBarAdsContainer from '../components/seekbar-ads-container';
 import VolumeControl from '../components/volume';
 import FullscreenControl from '../components/fullscreen';
-import TimeDisplayPlaybackContainer from '../components/time-display-playback-container';
+import TimeDisplayAdsContainer from '../components/time-display-ads-container';
 import AdSkip from '../components/ad-skip';
 import AdLearnMore from '../components/ad-learn-more';
 import TopBar from '../components/top-bar';
@@ -49,7 +49,7 @@ export default function adsUI(props: any): React$Element<any> {
           <SeekBarAdsContainer adBreak showFramePreview showTimeBubble player={props.player} />
           <div className='left-controls'>
             <PlayPauseControl player={props.player} />
-            <TimeDisplayPlaybackContainer />
+            <TimeDisplayAdsContainer />
           </div>
           <div className='right-controls'>
             <VolumeControl player={props.player} />
