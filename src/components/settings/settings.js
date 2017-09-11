@@ -18,7 +18,8 @@ const defaultSpeeds = [0.5, 1, 2, 4];
  */
 const mapStateToProps = state => ({
   videoTracks: state.engine.videoTracks,
-  isMobile: state.shell.isMobile
+  isMobile: state.shell.isMobile,
+  isLive: state.engine.isLive
 });
 
 @connect(mapStateToProps, bindActions(actions))
@@ -161,7 +162,7 @@ class SettingsControl extends BaseComponent {
    * @returns {React$Element} - component element
    * @memberof SettingsControl
    */
-  render(props: any) {
+  render(props: any): React$Element<any> | void {
     let speedOptions = defaultSpeeds
       .reduce((acc, speed) => {
         let speedOption = {
@@ -198,6 +199,8 @@ class SettingsControl extends BaseComponent {
         });
     }
 
+    if (props.isLive && qualityOptions.length === 0) return undefined;
+
     return (
       <div
         ref={c => this._controlSettingsElement=c}
@@ -220,9 +223,12 @@ class SettingsControl extends BaseComponent {
               <SmartContainerItem icon='quality' label={<Text id='settings.quality' />} options={qualityOptions} onSelect={(o) => this.onQualityChange(o)} />
             </Localizer>
           }
-          <Localizer>
-            <SmartContainerItem icon='speed' label={<Text id='settings.speed' />} options={speedOptions} onSelect={(o) => this.onSpeedChange(o)} />
-          </Localizer>
+          {
+            props.isLive ? '' :
+            <Localizer>
+              <SmartContainerItem icon='speed' label={<Text id='settings.speed' />} options={speedOptions} onSelect={(o) => this.onSpeedChange(o)} />
+            </Localizer>
+          }
         </SmartContainer>
         }
       </div>

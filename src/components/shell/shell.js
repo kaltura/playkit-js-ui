@@ -4,7 +4,6 @@ import BaseComponent from '../base';
 import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
 import { actions } from '../../reducers/shell';
-import { isMobile } from '../../utils/is-mobile';
 
 /**
  * mapping state to props
@@ -97,7 +96,7 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   componentDidMount() {
-    this.props.updateIsMobile(isMobile());
+    this.props.updateIsMobile(!!this.player.env.device.type);
     if (document.body) {
       this.props.updateDocumentWidth(document.body.clientWidth);
     }
@@ -111,7 +110,7 @@ class Shell extends BaseComponent {
           this.props.updateDocumentWidth(document.body.clientWidth);
         }
       });
-    if (isMobile()) {
+    if (this.player.env.device.type) {
       this.props.updatePlayerHoverState(true);
     }
   }
@@ -127,6 +126,7 @@ class Shell extends BaseComponent {
     var playerClasses = 'player skin-default';
     playerClasses += ` ${props.playerClasses.join(' ')}`;
 
+    if (this.props.isMobile) playerClasses += ` touch`;
     if (this.props.playerHover) playerClasses += ` hover`;
     if (this.props.metadataLoaded) playerClasses += ` metadata-loaded`;
     if (this.props.metadataLoaded) playerClasses += ` state-${this.props.currentState}`;
