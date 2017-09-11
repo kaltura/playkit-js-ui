@@ -110,7 +110,7 @@ class Shell extends BaseComponent {
           this.props.updateDocumentWidth(document.body.clientWidth);
         }
       });
-    if (!!this.player.env.device.type) {
+    if (this.player.env.device.type) {
       this.props.updatePlayerHoverState(true);
     }
   }
