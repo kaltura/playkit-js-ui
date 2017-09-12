@@ -1,9 +1,19 @@
 //@flow
 import { h, Component } from 'preact';
-import { isMobile } from '../../utils/is-mobile';
+import { connect } from 'preact-redux';
 import Portal from 'preact-portal';
 import Overlay from '../overlay';
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
+const mapStateToProps = state => ({
+  isMobile: state.shell.isMobile
+});
+
+@connect(mapStateToProps)
 /**
  * SmartContainer component
  *
@@ -30,7 +40,7 @@ class SmartContainer extends Component {
    * @memberof SmartContainer
    */
   render(props: any): React$Element<any> {
-    return isMobile() ? (
+    return props.isMobile ? (
       <Portal into="#overlay-portal">
         <Overlay open onClose={() => props.onClose()}>
           <div className='title'>{props.title}</div>

@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.3.1"></a>
+## [0.3.1](https://github.com/kaltura/playkit-js-ui/compare/v0.3.0...v0.3.1) (2017-09-11)
+
+
+### Bug Fixes
+
+* **FEC-6914:** open menu while other menu open ([#44](https://github.com/kaltura/playkit-js-ui/issues/44)) ([56e9d86](https://github.com/kaltura/playkit-js-ui/commit/56e9d86))
+* **FEC-6960:** ads time display fix ([#46](https://github.com/kaltura/playkit-js-ui/issues/46)) ([e2a3c8f](https://github.com/kaltura/playkit-js-ui/commit/e2a3c8f))
+* **FEC-7100:** remove playback rate option in live playback ([#45](https://github.com/kaltura/playkit-js-ui/issues/45)) ([163696d](https://github.com/kaltura/playkit-js-ui/commit/163696d))
+* **FEC-7124:** mobile detection based on player.env object ([#47](https://github.com/kaltura/playkit-js-ui/issues/47)) ([ed7c060](https://github.com/kaltura/playkit-js-ui/commit/ed7c060))
+
+
+
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/kaltura/playkit-js-ui/compare/v0.1.2...v0.3.0) (2017-09-07)
+
+
+### Bug Fixes
+
+* **FEC-6900:** mouse events affected mobile touch behavioral of the ([#41](https://github.com/kaltura/playkit-js-ui/issues/41)) ([03add6a](https://github.com/kaltura/playkit-js-ui/commit/03add6a))
+* **FEC-6922:** added arrow to native select boxes in mobile ([#37](https://github.com/kaltura/playkit-js-ui/issues/37)) ([ed43a4b](https://github.com/kaltura/playkit-js-ui/commit/ed43a4b))
+* **FEC-7058:** android ad video position fix ([#43](https://github.com/kaltura/playkit-js-ui/issues/43)) ([6edb9c4](https://github.com/kaltura/playkit-js-ui/commit/6edb9c4))
+* hide control bar after minimize & pause in ios safari ([#39](https://github.com/kaltura/playkit-js-ui/issues/39)) ([75c9f1c](https://github.com/kaltura/playkit-js-ui/commit/75c9f1c))
+* settings menu simplified ([#35](https://github.com/kaltura/playkit-js-ui/issues/35)) ([7abb9b0](https://github.com/kaltura/playkit-js-ui/commit/7abb9b0))
+* **FEC-7079:** android fullscreen with custom ui ([#42](https://github.com/kaltura/playkit-js-ui/issues/42)) ([5629857](https://github.com/kaltura/playkit-js-ui/commit/5629857))
+* **FEC-7086:** show controls on mobile touch when controls are invisible ([#40](https://github.com/kaltura/playkit-js-ui/issues/40)) ([4b6d609](https://github.com/kaltura/playkit-js-ui/commit/4b6d609))
+* **FEC-7090:** fullscreen in safari mispositioned ([#36](https://github.com/kaltura/playkit-js-ui/issues/36)) ([d427b81](https://github.com/kaltura/playkit-js-ui/commit/d427b81))
+* **FEC-7096:** replay appears during playing post-roll bug fix ([#38](https://github.com/kaltura/playkit-js-ui/issues/38)) ([eff7a71](https://github.com/kaltura/playkit-js-ui/commit/eff7a71))
+
+
+### Features
+
+* **live:** adding live ui preset and functionality ([#34](https://github.com/kaltura/playkit-js-ui/issues/34)) ([81d9919](https://github.com/kaltura/playkit-js-ui/commit/81d9919))
+
+
+
 <a name="0.2.0"></a>
 # [0.2.0](https://github.com/kaltura/playkit-js-ui/compare/v0.1.2...v0.2.0) (2017-08-31)
 

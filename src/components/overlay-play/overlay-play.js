@@ -14,7 +14,9 @@ import { default as Icon, IconType } from '../icon';
 const mapStateToProps = state => ({
   isPlaying: state.engine.isPlaying,
   adBreak: state.engine.adBreak,
-  adIsPlaying: state.engine.adIsPlaying
+  adIsPlaying: state.engine.adIsPlaying,
+  playerHover: state.shell.playerHover,
+  isMobile: state.shell.isMobile
 });
 
 @connect(mapStateToProps, bindActions(actions))
@@ -64,6 +66,18 @@ class OverlayPlay extends BaseComponent {
   }
 
   /**
+   * handler for overlay click
+   *
+   * @returns {void}
+   * @memberof OverlayPlay
+   */
+  onOverlayClick(): void {
+    if (!this.props.isMobile || this.props.isMobile && this.props.playerHover) {
+      this.togglePlayPause();
+    }
+  }
+
+  /**
    * render component
    *
    * @returns {React$Element} - component element
@@ -71,7 +85,7 @@ class OverlayPlay extends BaseComponent {
    */
   render(): React$Element<any> {
     return (
-      <div className={`overlay-play ${this.state.animation ? 'in' : ''}`} onClick={() => this.togglePlayPause()}>
+      <div className={`overlay-play ${this.state.animation ? 'in' : ''}`} onClick={() => this.onOverlayClick()}>
         { this.isPlayingAdOrPlayback() ? <Icon type={IconType.Play} /> : <Icon type={IconType.Pause} /> }
       </div>
     )
