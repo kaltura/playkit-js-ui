@@ -81,7 +81,7 @@ class SettingsControl extends BaseComponent {
    * @memberof SettingsControl
    */
   handleClickOutside(e: any) {
-    if (!this.props.isMobile && !!this._controlSettingsElement && !this._controlSettingsElement.contains(event.target) && this.state.smartContainerOpen) {
+    if (!this.props.isMobile && !!this._controlSettingsElement && !this._controlSettingsElement.contains(e.target) && this.state.smartContainerOpen) {
       if (e.target.classList.contains('overlay-play')) {
         e.stopPropagation();
       }
