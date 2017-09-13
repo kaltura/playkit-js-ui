@@ -4,7 +4,6 @@ import BaseComponent from '../base';
 import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
 import { actions } from '../../reducers/shell';
-import { isMobile } from '../../utils/is-mobile';
 
 /**
  * mapping state to props
@@ -17,7 +16,8 @@ const mapStateToProps = state => ({
   playerClasses: state.shell.playerClasses,
   isMobile: state.shell.isMobile,
   playerWidth: state.shell.playerWidth,
-  playerHeight: state.shell.playerHeight
+  playerHeight: state.shell.playerHeight,
+  playerHover: state.shell.playerHover
 });
 
 @connect(mapStateToProps, bindActions(actions))
@@ -49,14 +49,14 @@ class Shell extends BaseComponent {
    */
   onMouseOver(): void {
     if (!this.state.hover) {
-      this.props.addPlayerClass('hover');
+      this.props.updatePlayerHoverState(true);
       this.setState({hover: true});
     }
     if (this.hoverTimeout) {
       clearTimeout(this.hoverTimeout);
     }
     this.hoverTimeout = setTimeout(() => {
-      this.props.removePlayerClass('hover');
+      this.props.updatePlayerHoverState(false);
       this.setState({hover: false});
     }, this.props.hoverTimeout || 3000);
   }
@@ -70,7 +70,7 @@ class Shell extends BaseComponent {
   onMouseLeave(): void {
     if (this.state.hover) {
       this.setState({hover: false});
-      this.props.removePlayerClass('hover');
+      this.props.updatePlayerHoverState(false);
     }
   }
 
@@ -83,7 +83,7 @@ class Shell extends BaseComponent {
   onMouseMove(): void {
     if (!this.state.hover) {
       this.setState({hover: true});
-      this.props.addPlayerClass('hover');
+      this.props.updatePlayerHoverState(true);
     }
   }
 
@@ -96,7 +96,7 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   componentDidMount() {
-    this.props.updateIsMobile(isMobile());
+    this.props.updateIsMobile(!!this.player.env.device.type);
     if (document.body) {
       this.props.updateDocumentWidth(document.body.clientWidth);
     }
@@ -110,8 +110,8 @@ class Shell extends BaseComponent {
           this.props.updateDocumentWidth(document.body.clientWidth);
         }
       });
-    if (isMobile()) {
-      this.props.addPlayerClass('touch');
+    if (this.player.env.device.type) {
+      this.props.updatePlayerHoverState(true);
     }
   }
 
@@ -126,6 +126,8 @@ class Shell extends BaseComponent {
     var playerClasses = 'player skin-default';
     playerClasses += ` ${props.playerClasses.join(' ')}`;
 
+    if (this.props.isMobile) playerClasses += ` touch`;
+    if (this.props.playerHover) playerClasses += ` hover`;
     if (this.props.metadataLoaded) playerClasses += ` metadata-loaded`;
     if (this.props.metadataLoaded) playerClasses += ` state-${this.props.currentState}`;
 
