@@ -85,7 +85,7 @@ class LanguageControl extends BaseComponent {
     if (
       this._controlLanguageElement &&
       !this.props.isMobile &&
-      !this._controlLanguageElement.contains(event.target) &&
+      !this._controlLanguageElement.contains(e.target) &&
       this.state.smartContainerOpen &&
       !this.state.cvaaOverlay
     ) {
