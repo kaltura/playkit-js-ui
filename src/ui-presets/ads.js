@@ -1,5 +1,5 @@
 //@flow
-import { h } from 'preact';
+import {h} from 'preact';
 import Loading from '../components/loading';
 import PlayPauseControl from '../components/play-pause';
 import SeekBarAdsContainer from '../components/seekbar-ads-container';
@@ -19,44 +19,48 @@ import BottomBar from '../components/bottom-bar';
  * @returns {HTMLElement} player ui tree
  */
 export default function adsUI(props: any): React$Element<any> {
-  var useStyledLinearAds = false;
-
+  let useCustomSkipButton = false;
+  let isMobile = !!props.player.env.device.type;
+  let adsRenderingSettings = props.player.config.plugins.ima.adsRenderingSettings;
+  let useStyledLinearAds = adsRenderingSettings && adsRenderingSettings.useStyledLinearAds;
   try {
-    useStyledLinearAds = props.player.config.plugins.ima.adsRenderingSettings.useStyledLinearAds;
+    if (!useStyledLinearAds && isMobile) {
+      useStyledLinearAds = true;
+    }
   } catch (e) {
     //TODO: add error handling
   }
 
   return (
     <div className='ad-gui-wrapper'>
-      <Loading player={props.player} />
-      <div className='player-gui' id='player-gui'>
-        {
-          useStyledLinearAds ? undefined :
-          <div>
-            <TopBar>
+      <Loading player={props.player}/>
+      {
+        useStyledLinearAds ? undefined :
+          <div className='player-gui' id='player-gui'>
+            <div>
+              <TopBar>
+                <div className='left-controls'>
+                  <span className='font-size-base'>Adverisment</span>
+                </div>
+                <div className='right-controls'>
+                  <AdLearnMore/>
+                </div>
+              </TopBar>
+              {useCustomSkipButton ? <AdSkip player={props.player}/> : undefined}
+            </div>
+            <BottomBar>
+              <SeekBarAdsContainer adBreak showFramePreview showTimeBubble player={props.player}/>
               <div className='left-controls'>
-                <span className='font-size-base'>Adverisment</span>
+                <PlayPauseControl player={props.player}/>
+                <TimeDisplayAdsContainer/>
               </div>
               <div className='right-controls'>
-                <AdLearnMore />
+                <VolumeControl player={props.player}/>
+                <FullscreenControl player={props.player}/>
               </div>
-            </TopBar>
-            <AdSkip player={props.player} />
+            </BottomBar>
           </div>
-        }
-        <BottomBar>
-          <SeekBarAdsContainer adBreak showFramePreview showTimeBubble player={props.player} />
-          <div className='left-controls'>
-            <PlayPauseControl player={props.player} />
-            <TimeDisplayAdsContainer />
-          </div>
-          <div className='right-controls'>
-            <VolumeControl player={props.player} />
-            <FullscreenControl player={props.player} />
-          </div>
-        </BottomBar>
-      </div>
+      }
     </div>
   )
 }
