@@ -17,7 +17,8 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile,
   playerWidth: state.shell.playerWidth,
   playerHeight: state.shell.playerHeight,
-  playerHover: state.shell.playerHover
+  playerHover: state.shell.playerHover,
+  seekbarDraggingActive: state.seekbar.draggingActive
 });
 
 @connect(mapStateToProps, bindActions(actions))
@@ -56,8 +57,10 @@ class Shell extends BaseComponent {
       clearTimeout(this.hoverTimeout);
     }
     this.hoverTimeout = setTimeout(() => {
-      this.props.updatePlayerHoverState(false);
-      this.setState({hover: false});
+      if (!this.props.seekbarDraggingActive) {
+        this.props.updatePlayerHoverState(false);
+        this.setState({hover: false});
+      }
     }, this.props.hoverTimeout || 3000);
   }
 
