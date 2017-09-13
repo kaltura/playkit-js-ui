@@ -12,7 +12,8 @@ import BaseComponent from '../base';
  */
 const mapStateToProps = state => ({
   show: state.loading.show,
-  isMobile: state.shell.isMobile
+  isMobile: state.shell.isMobile,
+  adBreak: state.engine.adBreak
 });
 
 @connect(mapStateToProps, bindActions(actions))
@@ -81,7 +82,7 @@ class Loading extends BaseComponent {
    * @memberof Loading
    */
   render(props: any): React$Element<any> | void {
-    if (!props.show) return undefined;
+    if (!props.show || props.adBreak) return undefined;
 
     return (
       <div className='loading-backdrop show'>
