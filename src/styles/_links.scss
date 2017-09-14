@@ -3,6 +3,7 @@ a {
   text-decoration: underline;
   font-size: 15px;
   line-height: 18px;
+  cursor: pointer;
 
   &:hover {
     color: darken($brand-color, 10%);
