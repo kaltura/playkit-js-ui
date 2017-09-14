@@ -1,18 +1,18 @@
 //@flow
-import { h } from 'preact';
-import { connect } from 'preact-redux';
-import { bindActions } from '../../utils/bind-actions';
-import { default as reduce, actions } from '../../reducers/engine';
+import {h} from 'preact';
+import {connect} from 'preact-redux';
+import {bindActions} from '../../utils/bind-actions';
+import {default as reduce, actions} from '../../reducers/engine';
 import BaseComponent from '../base';
 
 @connect(reduce, bindActions(actions))
-/**
- * EngineConnector component
- *
- * @class EngineConnector
- * @example <EngineConnector player={this.player} />
- * @extends {BaseComponent}
- */
+  /**
+   * EngineConnector component
+   *
+   * @class EngineConnector
+   * @example <EngineConnector player={this.player} />
+   * @extends {BaseComponent}
+   */
 class EngineConnector extends BaseComponent {
 
   /**
@@ -107,6 +107,10 @@ class EngineConnector extends BaseComponent {
       this.props.updateAdBreak(false);
     });
 
+    this.player.addEventListener(this.player.Event.ALL_ADS_COMPLETED, () => {
+      this.props.updateAdBreak(false);
+    });
+
     this.player.addEventListener(this.player.Event.AD_PROGRESS, e => {
       let currentTime = e.payload.adProgress.currentTime;
       let duration = e.payload.adProgress.duration;
@@ -140,7 +144,9 @@ class EngineConnector extends BaseComponent {
    * @returns {boolean} - should component update on changes or not
    * @memberof EngineConnector
    */
-  shouldComponentUpdate(): boolean { return false; }
+  shouldComponentUpdate(): boolean {
+    return false;
+  }
 
   /**
    * render component
@@ -149,7 +155,7 @@ class EngineConnector extends BaseComponent {
    * @memberof EngineConnector
    */
   render(): React$Element<any> {
-    return <span />
+    return <span/>
   }
 }
 
