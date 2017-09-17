@@ -10,8 +10,9 @@ import definition from './fr.json';
 import {Player} from 'playkit-js';
 
 // core components for the UI
-import EngineConnector from './components/engine-connector/engine-connector';
-import Shell from './components/shell/shell';
+import EngineConnector from './components/engine-connector';
+import Shell from './components/shell';
+import VideoPlayer from './components/video-player';
 import PlayerGUI from './player-gui';
 
 // ui presets
@@ -97,6 +98,7 @@ class UIManager {
         <IntlProvider definition={definition}>
           <Shell player={this.player}>
             <EngineConnector player={this.player} />
+            <VideoPlayer player={this.player} />
             <PlayerGUI uis={uis} player={this.player} />
           </Shell>
         </IntlProvider>
