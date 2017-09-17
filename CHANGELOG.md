@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.3.2"></a>
+## [0.3.2](https://github.com/kaltura/playkit-js-ui/compare/v0.3.1...v0.3.2) (2017-09-17)
+
+
+### Bug Fixes
+
+* **FEC-6836:** fix menu close on click other menu in firefox ([#51](https://github.com/kaltura/playkit-js-ui/issues/51)) ([7cc4b55](https://github.com/kaltura/playkit-js-ui/commit/7cc4b55))
+* **FEC-7050:** hide loading on adBreak ([#50](https://github.com/kaltura/playkit-js-ui/issues/50)) ([78afd42](https://github.com/kaltura/playkit-js-ui/commit/78afd42))
+* **FEC-7074:** toggle ads ui rules ([#52](https://github.com/kaltura/playkit-js-ui/issues/52)) ([ce351a1](https://github.com/kaltura/playkit-js-ui/commit/ce351a1))
+* **FEC-7110:** seek bar should not be hidden when scrubbing seek bar ([#49](https://github.com/kaltura/playkit-js-ui/issues/49)) ([8a0fcf9](https://github.com/kaltura/playkit-js-ui/commit/8a0fcf9))
+* **FEC-7156:** links pointer cursor ([#54](https://github.com/kaltura/playkit-js-ui/issues/54)) ([fcbf7b3](https://github.com/kaltura/playkit-js-ui/commit/fcbf7b3))
+
+
+
 <a name="0.3.1"></a>
 ## [0.3.1](https://github.com/kaltura/playkit-js-ui/compare/v0.3.0...v0.3.1) (2017-09-11)
 
