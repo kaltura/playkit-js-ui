@@ -24,7 +24,7 @@ import KeyboardControl from '../components/keyboard';
 export default function playbackUI(props: any): React$Element<any> {
   return (
     <div className='playback-gui-wrapper'>
-      <KeyboardControl player={props.player} />
+      <KeyboardControl player={props.player} config={props.config} />
       <Loading player={props.player} />
       <div className='player-gui' id='player-gui'>
         <OverlayPortal />
