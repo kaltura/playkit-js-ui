@@ -45,9 +45,21 @@
     }
 }
 
+.player:not(.ad-break) #ads-container {
+  z-index: 10;
+  transition: transform 100ms;
+}
+
+.player:not(.ad-break).metadata-loaded {
+  &.hover #ads-container,
+  &.state-paused #ads-container {
+    transform: translateY(-60px);
+  }
+}
+
 video {
   left: 0;
-  
+
     &::-webkit-media-controls-panel-container,
     &::-webkit-media-controls {
         display: none !important;

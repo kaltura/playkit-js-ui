@@ -14,9 +14,14 @@ class KeyboardControl extends BaseComponent {
    * @memberof KeyboardControl
    */
   constructor(obj: Object) {
-    super({name: 'Keyboard', player: obj.player});
+    super({name: 'Keyboard', player: obj.player, config: obj.config});
 
-    this.player.getView().parentElement.onkeydown = (e) => {
+    let playerContainer: HTMLElement | null = document.getElementById(this.config.targetId);
+
+    if (!playerContainer) {
+      return;
+    }
+    playerContainer.onkeydown = (e) => {
       let time, newVolume;
       switch(e.which) {
         case 32: // space

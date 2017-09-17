@@ -60,21 +60,21 @@
             background-color: rgba(255,255,255,0.3);
         }
         .scrubber {
-            position: absolute; z-index: 3;
-            cursor: pointer;
-            display: block;
-            top: -8px + $progress-bar-height / 2; right: -8px;
-            border-radius: 8px;
-            height: 16px; width: 16px;
-            background-color: #FFFFFF;
-            box-shadow: 0 0 31px 0 rgba(0,0,0,0.3);
-            transform: scale(0);
-            transition: 100ms transform;
+          position: absolute; z-index: 3;
+          cursor: pointer;
+          display: block;
+          top: -8px + $progress-bar-height / 2; right: -8px;
+          border-radius: 8px;
+          height: 16px; width: 16px;
+          background-color: #FFFFFF;
+          box-shadow: 0 0 31px 0 rgba(0,0,0,0.3);
+          transform: scale(0);
+          transition: 100ms transform;
 
-            &:active {
-              opacity: 1;
-              cursor: grabbing;
-            }
+          &:active {
+            opacity: 1;
+            cursor: grabbing;
+          }
         }
     }
 
@@ -84,6 +84,7 @@
       height: 94px;	width: 164px;
       border: 2px solid rgba(255,255,255,0.2);
       border-radius: 4px;
+      z-index: 10;
 
       .frame-preview-img {
         background-size: auto 100%;
@@ -95,7 +96,7 @@
     .time-preview {
       position: absolute;
       bottom: $progress-bar-height + 18px; left: 0;
-      z-index: 10;
+      z-index: 11;
       height: 22px;	min-width: 48px;
       padding: 0 3px;
       text-align: center;

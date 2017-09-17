@@ -18,7 +18,8 @@ const mapStateToProps = state => ({
   playerWidth: state.shell.playerWidth,
   playerHeight: state.shell.playerHeight,
   playerHover: state.shell.playerHover,
-  seekbarDraggingActive: state.seekbar.draggingActive
+  seekbarDraggingActive: state.seekbar.draggingActive,
+  adBreak: state.engine.adBreak
 });
 
 @connect(mapStateToProps, bindActions(actions))
@@ -132,6 +133,7 @@ class Shell extends BaseComponent {
     if (this.props.isMobile) playerClasses += ` touch`;
     if (this.props.playerHover) playerClasses += ` hover`;
     if (this.props.metadataLoaded) playerClasses += ` metadata-loaded`;
+    if (this.props.adBreak) playerClasses += ` ad-break`;
     if (this.props.metadataLoaded) playerClasses += ` state-${this.props.currentState}`;
 
     return (
