@@ -40,7 +40,7 @@ class TimeDisplayAdsContainer extends BaseComponent {
   render(props: any): React$Element<any> {
     return (
       <TimeDisplay
-        currentTime={Math.ceil(props.adProgress.currentTime)}
+        currentTime={Math.round(props.adProgress.currentTime)}
         duration={Math.ceil(props.adProgress.duration)}
         {...props}
       />
