@@ -1,6 +1,6 @@
 //@flow
-import { h } from 'preact';
-import { connect } from 'preact-redux';
+import {h} from 'preact';
+import {connect} from 'preact-redux';
 import BaseComponent from '../base';
 import TimeDisplay from '../time-display';
 
@@ -14,13 +14,13 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps)
-/**
- * TimeDisplayAdsContainer component
- *
- * @class TimeDisplayAdsContainer
- * @example <TimeDisplayAdsContainer format='-left seconds left' />
- * @extends {BaseComponent}
- */
+  /**
+   * TimeDisplayAdsContainer component
+   *
+   * @class TimeDisplayAdsContainer
+   * @example <TimeDisplayAdsContainer format='-left seconds left' />
+   * @extends {BaseComponent}
+   */
 class TimeDisplayAdsContainer extends BaseComponent {
   /**
    * Creates an instance of TimeDisplayAdsContainer.
@@ -40,8 +40,8 @@ class TimeDisplayAdsContainer extends BaseComponent {
   render(props: any): React$Element<any> {
     return (
       <TimeDisplay
-        currentTime={props.adProgress.currentTime}
-        duration={props.adProgress.duration}
+        currentTime={Math.ceil(props.adProgress.currentTime)}
+        duration={Math.ceil(props.adProgress.duration)}
         {...props}
       />
     )
