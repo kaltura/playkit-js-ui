@@ -9743,8 +9743,8 @@ var TimeDisplayAdsContainer = (_dec = (0, _preactRedux.connect)(mapStateToProps)
     key: 'render',
     value: function render(props) {
       return (0, _preact.h)(_timeDisplay2.default, _extends({
-        currentTime: props.adProgress.currentTime,
-        duration: props.adProgress.duration
+        currentTime: Math.round(props.adProgress.currentTime),
+        duration: Math.round(props.adProgress.duration)
       }, props));
     }
   }]);
