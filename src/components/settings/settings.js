@@ -190,7 +190,8 @@ class SettingsControl extends BaseComponent {
         value: t
       }));
 
-    if (qualityOptions.length > 1) {
+    //Progressive playback doesn't support auto
+    if ((qualityOptions.length > 1) && (this.player.streamType !== "progressive")) {
       qualityOptions
         .unshift({
           label: 'Auto',
