@@ -57,6 +57,10 @@ class VolumeControl extends BaseComponent {
     this.player.addEventListener(this.player.Event.VOLUME_CHANGE, () => {
       this.props.updateVolume(this.player.volume);
     });
+
+    this.player.addEventListener(this.player.Event.MUTE_CHANGE, () => {
+      this.props.updateMuted(this.player.muted);
+    });
   }
 
   /**
@@ -66,7 +70,7 @@ class VolumeControl extends BaseComponent {
    * @returns {string} - volume progress bar new height based on volume
    * @memberof VolumeControl
    */
-  getVolumeProgessHeight(): string {
+  getVolumeProgressHeight(): string {
     return this.props.muted ? '0%' : Math.round(this.props.volume * 100) + '%';
   }
 
@@ -109,7 +113,7 @@ class VolumeControl extends BaseComponent {
   }
 
   /**
-   * on colume control button click, toggle mute in player and store state
+   * on volume control button click, toggle mute in player and store state
    *
    * @method onVolumeControlButtonClick
    * @returns {void}
@@ -117,7 +121,6 @@ class VolumeControl extends BaseComponent {
    */
   onVolumeControlButtonClick(): void {
     this.logger.debug(`Toggle mute. ${this.player.muted} => ${!this.player.muted}`);
-    this.props.updateMuted(!this.props.muted);
     this.player.muted = !this.player.muted;
   }
 
@@ -140,7 +143,6 @@ class VolumeControl extends BaseComponent {
     this.player.volume = volume;
     if (this.props.muted) {
       this.player.muted = false;
-      this.props.updateMuted(false);
     }
   }
 
@@ -189,7 +191,7 @@ class VolumeControl extends BaseComponent {
               onMouseUp={e => this.onVolumeProgressBarMouseUp(e)}
               onMouseMove={e => this.onVolumeProgressBarMouseMove(e)}
             >
-              <div className='progress' style={{height: this.getVolumeProgessHeight()}} />
+              <div className='progress' style={{height: this.getVolumeProgressHeight()}} />
             </div>
           </div>
         </div>
