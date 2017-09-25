@@ -12,7 +12,7 @@ module.exports = {
     filename: '[name].js',
     library: "PlaykitJsUi",
     libraryTarget: "umd",
-    devtoolModuleFilenameTemplate: "webpack:///ui/[resource-path]",
+    devtoolModuleFilenameTemplate: "./ui/[resource-path]",
   },
   devtool: 'source-map',
   plugins: PROD ? [new webpack.optimize.UglifyJsPlugin({sourceMap: true})] : [],
