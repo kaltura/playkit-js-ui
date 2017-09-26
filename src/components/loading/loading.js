@@ -37,6 +37,7 @@ class Loading extends BaseComponent {
   constructor(obj: Object) {
     super({name: 'Loading', player: obj.player});
     try {
+      // TODO: Change the dependency on ima to our ads plugin when it will be developed.
       if (this.player.config.playback.preload === "auto" && !this.player.config.plugins.ima) {
         this.isPreloading = true;
         this.player.addEventListener(this.player.Event.PLAYER_STATE_CHANGED, (e) => {

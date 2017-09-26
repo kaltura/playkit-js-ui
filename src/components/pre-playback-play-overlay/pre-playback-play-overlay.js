@@ -101,6 +101,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   handleClick(): void {
+    // TODO: The promise handling should be in the play API of the player.
     new Promise((resolve, reject) => {
       try {
         if (this.player.config.playback.preload === "auto" && !this.player.config.plugins.ima) {
