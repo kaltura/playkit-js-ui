@@ -5795,14 +5795,16 @@ var PrePlaybackPlayOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, 
       try {
         this.autoplay = this.player.config.playback.autoplay;
       } catch (e) {
+        // eslint-disable-line no-unused-vars
         this.autoplay = false;
-      } // eslint-disable-line no-unused-vars
+      }
 
       try {
         this.mobileAutoplay = this.player.config.playback.mobileAutoplay;
       } catch (e) {
+        // eslint-disable-line no-unused-vars
         this.mobileAutoplay = false;
-      } // eslint-disable-line no-unused-vars
+      }
     }
 
     /**
@@ -5852,12 +5854,28 @@ var PrePlaybackPlayOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, 
   }, {
     key: 'handleClick',
     value: function handleClick() {
-      this.player.play();
+      var _this3 = this;
 
-      if (this.props.prePlayback) {
-        this.props.updatePrePlayback(false);
-        this.props.removePlayerClass('pre-playback');
-      }
+      // TODO: The promise handling should be in the play API of the player.
+      new Promise(function (resolve, reject) {
+        try {
+          if (_this3.player.config.playback.preload === "auto" && !_this3.player.config.plugins.ima) {
+            _this3.player.ready().then(resolve);
+          } else {
+            resolve();
+          }
+        } catch (e) {
+          reject(e);
+        }
+      }).then(function () {
+        _this3.player.play();
+        if (_this3.props.prePlayback) {
+          _this3.props.updatePrePlayback(false);
+          _this3.props.removePlayerClass('pre-playback');
+        }
+      }).catch(function (e) {
+        _this3.logger.error(e.message);
+      });
     }
 
     /**
@@ -5871,14 +5889,15 @@ var PrePlaybackPlayOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, 
   }, {
     key: 'render',
     value: function render(props) {
-      var _this3 = this;
+      var _this4 = this;
 
       if (!props.isEnded && !props.prePlayback || !props.isEnded && !props.isMobile && this.autoplay || !props.isEnded && props.isMobile && this.mobileAutoplay) return undefined;
 
       return (0, _preact.h)(
         'div',
-        { className: 'pre-playback-play-overlay', style: { backgroundImage: 'url(' + props.poster + ')' }, onClick: function onClick() {
-            return _this3.handleClick();
+        { className: 'pre-playback-play-overlay', style: { backgroundImage: 'url(' + props.poster + ')' },
+          onClick: function onClick() {
+            return _this4.handleClick();
           } },
         (0, _preact.h)(
           'a',
@@ -5961,7 +5980,23 @@ var Loading = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAction
   function Loading(obj) {
     _classCallCheck(this, Loading);
 
-    return _possibleConstructorReturn(this, (Loading.__proto__ || Object.getPrototypeOf(Loading)).call(this, { name: 'Loading', player: obj.player }));
+    var _this = _possibleConstructorReturn(this, (Loading.__proto__ || Object.getPrototypeOf(Loading)).call(this, { name: 'Loading', player: obj.player }));
+
+    try {
+      // TODO: Change the dependency on ima to our ads plugin when it will be developed.
+      if (_this.player.config.playback.preload === "auto" && !_this.player.config.plugins.ima) {
+        _this.isPreloading = true;
+        _this.player.addEventListener(_this.player.Event.PLAYER_STATE_CHANGED, function (e) {
+          if (e.payload.oldState.type === _this.player.State.LOADING) {
+            _this.isPreloading = false;
+          }
+        });
+      }
+    } catch (e) {
+      _this.logger.error(e.message);
+      _this.isPreloading = false;
+    }
+    return _this;
   }
 
   /**
@@ -5978,14 +6013,16 @@ var Loading = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAction
       try {
         this.autoplay = this.player.config.playback.autoplay;
       } catch (e) {
+        // eslint-disable-line no-unused-vars
         this.autoplay = false;
-      } // eslint-disable-line no-unused-vars
+      }
 
       try {
         this.mobileAutoplay = this.player.config.playback.mobileAutoplay;
       } catch (e) {
+        // eslint-disable-line no-unused-vars
         this.mobileAutoplay = false;
-      } // eslint-disable-line no-unused-vars
+      }
     }
 
     /**
@@ -6026,7 +6063,7 @@ var Loading = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAction
   }, {
     key: 'render',
     value: function render(props) {
-      if (!props.show || props.adBreak) return undefined;
+      if (!props.show || props.adBreak || this.isPreloading) return undefined;
 
       return (0, _preact.h)(
         'div',
@@ -6911,6 +6948,10 @@ var VolumeControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bind
       this.player.addEventListener(this.player.Event.VOLUME_CHANGE, function () {
         _this2.props.updateVolume(_this2.player.volume);
       });
+
+      this.player.addEventListener(this.player.Event.MUTE_CHANGE, function () {
+        _this2.props.updateMuted(_this2.player.muted);
+      });
     }
 
     /**
@@ -6922,8 +6963,8 @@ var VolumeControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bind
      */
 
   }, {
-    key: 'getVolumeProgessHeight',
-    value: function getVolumeProgessHeight() {
+    key: 'getVolumeProgressHeight',
+    value: function getVolumeProgressHeight() {
       return this.props.muted ? '0%' : Math.round(this.props.volume * 100) + '%';
     }
 
@@ -6975,7 +7016,7 @@ var VolumeControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bind
     }
 
     /**
-     * on colume control button click, toggle mute in player and store state
+     * on volume control button click, toggle mute in player and store state
      *
      * @method onVolumeControlButtonClick
      * @returns {void}
@@ -6986,7 +7027,6 @@ var VolumeControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bind
     key: 'onVolumeControlButtonClick',
     value: function onVolumeControlButtonClick() {
       this.logger.debug('Toggle mute. ' + this.player.muted + ' => ' + !this.player.muted);
-      this.props.updateMuted(!this.props.muted);
       this.player.muted = !this.player.muted;
     }
 
@@ -7012,7 +7052,6 @@ var VolumeControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bind
       this.player.volume = volume;
       if (this.props.muted) {
         this.player.muted = false;
-        this.props.updateMuted(false);
       }
     }
 
@@ -7088,7 +7127,7 @@ var VolumeControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bind
                 return _this3.onVolumeProgressBarMouseMove(e);
               }
             },
-            (0, _preact.h)('div', { className: 'progress', style: { height: this.getVolumeProgessHeight() } })
+            (0, _preact.h)('div', { className: 'progress', style: { height: this.getVolumeProgressHeight() } })
           )
         )
       );
@@ -7354,7 +7393,8 @@ var SettingsControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
         };
       });
 
-      if (qualityOptions.length > 1) {
+      //Progressive playback doesn't support auto
+      if (qualityOptions.length > 1 && this.player.streamType !== "progressive") {
         qualityOptions.unshift({
           label: 'Auto',
           active: this.player.isAdaptiveBitrateEnabled(),
@@ -11521,6 +11561,10 @@ var EngineConnector = (_dec = (0, _preactRedux.connect)(_engine2.default, (0, _b
 
       this.player.addEventListener(this.player.Event.VOLUME_CHANGE, function () {
         _this2.props.updateVolume(_this2.player.volume);
+      });
+
+      this.player.addEventListener(this.player.Event.MUTE_CHANGE, function () {
+        _this2.props.updateMuted(_this2.player.muted);
       });
 
       this.player.addEventListener(this.player.Event.PLAY, function () {
