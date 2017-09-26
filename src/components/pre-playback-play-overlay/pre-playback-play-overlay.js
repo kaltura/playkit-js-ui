@@ -49,6 +49,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
         });
       }
     } catch (e) {
+      this.isPreloading = false;
     }
   }
 
