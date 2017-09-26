@@ -1,8 +1,8 @@
 //@flow
-import { h } from 'preact';
-import { connect } from 'preact-redux';
-import { bindActions } from '../../utils/bind-actions';
-import { actions } from '../../reducers/loading';
+import {h} from 'preact';
+import {connect} from 'preact-redux';
+import {bindActions} from '../../utils/bind-actions';
+import {actions} from '../../reducers/loading';
 import BaseComponent from '../base';
 
 /**
@@ -17,14 +17,15 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps, bindActions(actions))
-/**
- * Loading component
- *
- * @class Loading
- * @example <Loading />
- * @extends {BaseComponent}
- */
+  /**
+   * Loading component
+   *
+   * @class Loading
+   * @example <Loading />
+   * @extends {BaseComponent}
+   */
 class Loading extends BaseComponent {
+  isPreloading: boolean;
   autoplay: boolean;
   mobileAutoplay: boolean;
 
@@ -35,6 +36,20 @@ class Loading extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'Loading', player: obj.player});
+    try {
+      // TODO: Change the dependency on ima to our ads plugin when it will be developed.
+      if (this.player.config.playback.preload === "auto" && !this.player.config.plugins.ima) {
+        this.isPreloading = true;
+        this.player.addEventListener(this.player.Event.PLAYER_STATE_CHANGED, (e) => {
+          if (e.payload.oldState.type === this.player.State.LOADING) {
+            this.isPreloading = false;
+          }
+        });
+      }
+    } catch (e) {
+      this.logger.error(e.message);
+      this.isPreloading = false;
+    }
   }
 
   /**
@@ -44,11 +59,19 @@ class Loading extends BaseComponent {
    * @memberof Loading
    */
   componentWillMount() {
-    try { this.autoplay = this.player.config.playback.autoplay; }
-    catch (e) { this.autoplay = false; } // eslint-disable-line no-unused-vars
+    try {
+      this.autoplay = this.player.config.playback.autoplay;
+    }
+    catch (e) { // eslint-disable-line no-unused-vars
+      this.autoplay = false;
+    }
 
-    try { this.mobileAutoplay = this.player.config.playback.mobileAutoplay; }
-    catch (e) { this.mobileAutoplay = false; } // eslint-disable-line no-unused-vars
+    try {
+      this.mobileAutoplay = this.player.config.playback.mobileAutoplay;
+    }
+    catch (e) { // eslint-disable-line no-unused-vars
+      this.mobileAutoplay = false;
+    }
   }
 
   /**
@@ -82,13 +105,13 @@ class Loading extends BaseComponent {
    * @memberof Loading
    */
   render(props: any): React$Element<any> | void {
-    if (!props.show || props.adBreak) return undefined;
+    if (!props.show || props.adBreak || this.isPreloading) return undefined;
 
     return (
       <div className='loading-backdrop show'>
         <div className='spinner-container'>
           <div className='spinner'>
-            {[...Array(8)].map((i) => <span key={i} />)}
+            {[...Array(8)].map((i) => <span key={i}/>)}
           </div>
         </div>
       </div>
