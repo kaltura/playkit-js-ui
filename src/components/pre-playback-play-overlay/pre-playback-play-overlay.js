@@ -43,7 +43,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
       if (this.player.config.playback.preload === "auto") {
         this.isPreloading = true;
         this.player.addEventListener(this.player.Event.PLAYER_STATE_CHANGED, (e) => {
-          if (e.payload.oldState.type === 'loading') {
+          if (e.payload.oldState.type === this.player.State.LOADING) {
             this.isPreloading = false;
           }
         });
