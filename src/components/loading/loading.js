@@ -61,16 +61,16 @@ class Loading extends BaseComponent {
     try {
       this.autoplay = this.player.config.playback.autoplay;
     }
-    catch (e) {
+    catch (e) { // eslint-disable-line no-unused-vars
       this.autoplay = false;
-    } // eslint-disable-line no-unused-vars
+    }
 
     try {
       this.mobileAutoplay = this.player.config.playback.mobileAutoplay;
     }
-    catch (e) {
+    catch (e) { // eslint-disable-line no-unused-vars
       this.mobileAutoplay = false;
-    } // eslint-disable-line no-unused-vars
+    }
   }
 
   /**
