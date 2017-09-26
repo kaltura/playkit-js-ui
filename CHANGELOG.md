@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.3.4"></a>
+## [0.3.4](https://github.com/kaltura/playkit-js-ui/compare/v0.3.3...v0.3.4) (2017-09-26)
+
+
+### Bug Fixes
+
+* **FEC-7101:** remove auto bitrate option for progressive playback ([#57](https://github.com/kaltura/playkit-js-ui/issues/57)) ([d2c1612](https://github.com/kaltura/playkit-js-ui/commit/d2c1612))
+* **FEC-7182:** update UI accorindg to mute status change ([#58](https://github.com/kaltura/playkit-js-ui/issues/58)) ([a09ff7b](https://github.com/kaltura/playkit-js-ui/commit/a09ff7b))
+* **pre-playback-state:** hide loading spinner on preloading ([#59](https://github.com/kaltura/playkit-js-ui/issues/59)) ([072cc65](https://github.com/kaltura/playkit-js-ui/commit/072cc65))
+
+
+
 <a name="0.3.3"></a>
 ## [0.3.3](https://github.com/kaltura/playkit-js-ui/compare/v0.3.2...v0.3.3) (2017-09-18)
 
