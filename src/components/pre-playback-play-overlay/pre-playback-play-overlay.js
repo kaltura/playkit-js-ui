@@ -28,7 +28,6 @@ const mapStateToProps = state => ({
    * @extends {BaseComponent}
    */
 class PrePlaybackPlayOverlay extends BaseComponent {
-  isPreloading: boolean;
   autoplay: boolean;
   mobileAutoplay: boolean;
 
@@ -39,18 +38,6 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'PrePlaybackPlayOverlay', player: obj.player});
-    try {
-      if (this.player.config.playback.preload === "auto") {
-        this.isPreloading = true;
-        this.player.addEventListener(this.player.Event.PLAYER_STATE_CHANGED, (e) => {
-          if (e.payload.oldState.type === this.player.State.LOADING) {
-            this.isPreloading = false;
-          }
-        });
-      }
-    } catch (e) {
-      this.isPreloading = false;
-    }
   }
 
   /**
@@ -66,16 +53,16 @@ class PrePlaybackPlayOverlay extends BaseComponent {
     try {
       this.autoplay = this.player.config.playback.autoplay;
     }
-    catch (e) {
+    catch (e) { // eslint-disable-line no-unused-vars
       this.autoplay = false;
-    } // eslint-disable-line no-unused-vars
+    }
 
     try {
       this.mobileAutoplay = this.player.config.playback.mobileAutoplay;
     }
-    catch (e) {
+    catch (e) { // eslint-disable-line no-unused-vars
       this.mobileAutoplay = false;
-    } // eslint-disable-line no-unused-vars
+    }
   }
 
   /**
@@ -114,12 +101,25 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   handleClick(): void {
-    this.player.play();
-
-    if (this.props.prePlayback) {
-      this.props.updatePrePlayback(false);
-      this.props.removePlayerClass('pre-playback');
-    }
+    new Promise((resolve, reject) => {
+      try {
+        if (this.player.config.playback.preload === "auto" && !this.player.config.plugins.ima) {
+          this.player.ready().then(resolve);
+        } else {
+          resolve();
+        }
+      } catch (e) {
+        reject(e);
+      }
+    }).then(() => {
+      this.player.play();
+      if (this.props.prePlayback) {
+        this.props.updatePrePlayback(false);
+        this.props.removePlayerClass('pre-playback');
+      }
+    }).catch((e) => {
+      this.logger.error(e.message);
+    });
   }
 
   /**
@@ -131,7 +131,6 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    */
   render(props: any): React$Element<any> | void {
     if (
-      this.isPreloading ||
       (!props.isEnded && !props.prePlayback) ||
       (!props.isEnded && !props.isMobile && this.autoplay) ||
       (!props.isEnded && props.isMobile && this.mobileAutoplay)
