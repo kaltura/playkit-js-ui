@@ -1,10 +1,10 @@
 //@flow
-import { h } from 'preact';
-import { connect } from 'preact-redux';
-import { bindActions } from '../../utils/bind-actions';
-import { actions } from '../../reducers/shell';
+import {h} from 'preact';
+import {connect} from 'preact-redux';
+import {bindActions} from '../../utils/bind-actions';
+import {actions} from '../../reducers/shell';
 import BaseComponent from '../base';
-import { default as Icon, IconType } from '../icon';
+import {default as Icon, IconType} from '../icon';
 
 /**
  * mapping state to props
@@ -20,14 +20,15 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps, bindActions(actions))
-/**
- * PrePlaybackPlayOverlay component
- *
- * @class PrePlaybackPlayOverlay
- * @example <PrePlaybackPlayOverlay player={this.player} />
- * @extends {BaseComponent}
- */
+  /**
+   * PrePlaybackPlayOverlay component
+   *
+   * @class PrePlaybackPlayOverlay
+   * @example <PrePlaybackPlayOverlay player={this.player} />
+   * @extends {BaseComponent}
+   */
 class PrePlaybackPlayOverlay extends BaseComponent {
+  isPreloading: boolean;
   autoplay: boolean;
   mobileAutoplay: boolean;
 
@@ -38,6 +39,17 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'PrePlaybackPlayOverlay', player: obj.player});
+    try {
+      if (this.player.config.playback.preload === "auto") {
+        this.isPreloading = true;
+        this.player.addEventListener(this.player.Event.PLAYER_STATE_CHANGED, (e) => {
+          if (e.payload.oldState.type === 'loading') {
+            this.isPreloading = false;
+          }
+        });
+      }
+    } catch (e) {
+    }
   }
 
   /**
@@ -50,11 +62,19 @@ class PrePlaybackPlayOverlay extends BaseComponent {
   componentWillMount() {
     this.props.addPlayerClass('pre-playback');
 
-    try { this.autoplay = this.player.config.playback.autoplay; }
-    catch (e) { this.autoplay = false; } // eslint-disable-line no-unused-vars
+    try {
+      this.autoplay = this.player.config.playback.autoplay;
+    }
+    catch (e) {
+      this.autoplay = false;
+    } // eslint-disable-line no-unused-vars
 
-    try { this.mobileAutoplay = this.player.config.playback.mobileAutoplay; }
-    catch (e) { this.mobileAutoplay = false; } // eslint-disable-line no-unused-vars
+    try {
+      this.mobileAutoplay = this.player.config.playback.mobileAutoplay;
+    }
+    catch (e) {
+      this.mobileAutoplay = false;
+    } // eslint-disable-line no-unused-vars
   }
 
   /**
@@ -110,15 +130,17 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    */
   render(props: any): React$Element<any> | void {
     if (
+      this.isPreloading ||
       (!props.isEnded && !props.prePlayback) ||
       (!props.isEnded && !props.isMobile && this.autoplay) ||
       (!props.isEnded && props.isMobile && this.mobileAutoplay)
     ) return undefined;
 
     return (
-      <div className='pre-playback-play-overlay' style={{backgroundImage: `url(${props.poster})`}} onClick={() => this.handleClick()}>
+      <div className='pre-playback-play-overlay' style={{backgroundImage: `url(${props.poster})`}}
+           onClick={() => this.handleClick()}>
         <a className='pre-playback-play-button'>
-          {props.isEnded ? <Icon type={IconType.Startover} /> : <Icon type={IconType.Play} />}
+          {props.isEnded ? <Icon type={IconType.Startover}/> : <Icon type={IconType.Play}/>}
         </a>
       </div>
     )
