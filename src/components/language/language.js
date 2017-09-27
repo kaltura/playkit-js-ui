@@ -118,20 +118,14 @@ class LanguageControl extends BaseComponent {
   }
 
   /**
-   * check if option is 'off', if it does- hideTextTrack called.
-   * otherwise, selecting the given text track
+   * Select the given text track
    *
-   * @param {(Object | string)} textTrack - text track or 'off' string
+   * @param {(Object | string)} textTrack - text track
    * @returns {void}
    * @memberof LanguageControl
    */
   onCaptionsChange(textTrack: Object | string): void {
-    if (textTrack === 'off') {
-      this.player.hideTextTrack();
-    }
-    else {
-      this.player.selectTrack(textTrack);
-    }
+    this.player.selectTrack(textTrack);
   }
 
   /**
@@ -215,18 +209,10 @@ class LanguageControl extends BaseComponent {
    * @memberof LanguageControl
    */
   render(props: any): React$Element<any> | void {
-    var audioOptions = props.audioTracks
+    const audioOptions = props.audioTracks
       .filter(t => t.label || t.language)
       .map(t => ({ label: t.label || t.language, active: t.active, value: t }));
-    var textOptions = props.textTracks.filter(t => t.kind === 'subtitles').map(t => ({ label: t.label || t.language, active: t.active, value: t }));
-
-    if (textOptions.length > 0) {
-      textOptions.push({
-        label: 'Off',
-        active: props.textTracks.filter(t => t.kind === 'subtitles' && t.active).length === 0,
-        value: 'off'
-      })
-    }
+    const textOptions = props.textTracks.filter(t => t.kind === 'subtitles').map(t => ({ label: t.label || t.language, active: t.active, value: t }));
 
     if (audioOptions.length > 0 || textOptions.length > 0) {
       return this.renderAll(audioOptions, textOptions);
