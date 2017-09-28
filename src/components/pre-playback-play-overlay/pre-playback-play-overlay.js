@@ -38,6 +38,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'PrePlaybackPlayOverlay', player: obj.player});
+    this._addBindings();
   }
 
   /**
@@ -52,15 +53,13 @@ class PrePlaybackPlayOverlay extends BaseComponent {
 
     try {
       this.autoplay = this.player.config.playback.autoplay;
-    }
-    catch (e) { // eslint-disable-line no-unused-vars
+    } catch (e) { // eslint-disable-line no-unused-vars
       this.autoplay = false;
     }
 
     try {
       this.mobileAutoplay = this.player.config.playback.mobileAutoplay;
-    }
-    catch (e) { // eslint-disable-line no-unused-vars
+    } catch (e) { // eslint-disable-line no-unused-vars
       this.mobileAutoplay = false;
     }
   }
@@ -72,8 +71,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   componentWillUnmount() {
-    this.props.updatePrePlayback(false);
-    this.props.removePlayerClass('pre-playback');
+    this._hidePrePlayback();
   }
 
   /**
@@ -83,14 +81,10 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   componentDidMount() {
-    this.player.addEventListener(this.player.Event.PLAY, () => {
-      this.props.updatePrePlayback(false);
-      this.props.removePlayerClass('pre-playback');
-    });
+    this.player.addEventListener(this.player.Event.PLAY, this._hidePrePlayback.bind(this));
 
     if (this.player.paused === false) {
-      this.props.updatePrePlayback(false);
-      this.props.removePlayerClass('pre-playback');
+      this._hidePrePlayback();
     }
   }
 
@@ -115,8 +109,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
     }).then(() => {
       this.player.play();
       if (this.props.prePlayback) {
-        this.props.updatePrePlayback(false);
-        this.props.removePlayerClass('pre-playback');
+        this._hidePrePlayback();
       }
     }).catch((e) => {
       this.logger.error(e.message);
@@ -145,6 +138,31 @@ class PrePlaybackPlayOverlay extends BaseComponent {
         </a>
       </div>
     )
+  }
+
+  _addBindings(): void {
+    this.player.addEventListener(this.player.Event.CHANGE_SOURCE_ENDED, this._onChangeSourceEnded.bind(this));
+  }
+
+  _onChangeSourceEnded(): void {
+    try {
+      if (!this.player.config.playback.autoplay) {
+        this.props.updatePrePlayback(true);
+        this.props.addPlayerClass('pre-playback');
+      }
+    } catch (e) {
+      this.logger.error(e.message);
+    }
+  }
+
+  _displayPrePlayback(): void {
+    this.props.updatePrePlayback(true);
+    this.props.addPlayerClass('pre-playback');
+  }
+
+  _hidePrePlayback(): void {
+    this.props.updatePrePlayback(false);
+    this.props.removePlayerClass('pre-playback');
   }
 }
 
