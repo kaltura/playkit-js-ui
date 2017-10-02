@@ -35,7 +35,7 @@ class SeekBarPlaybackContainer extends BaseComponent {
    * @memberof SeekBarPlaybackContainer
    */
   constructor(obj: Object) {
-    super({name: 'SeekBarPlaybackContainer', player: obj.player});
+    super({name: 'SeekBarPlaybackContainer', player: obj.player, config: obj.config});
   }
 
   /**
@@ -62,7 +62,7 @@ class SeekBarPlaybackContainer extends BaseComponent {
   render(): React$Element<any> {
     return (
       <SeekBarControl
-        playerElement={this.player.getView().parentElement}
+        playerElement={document.getElementById(this.config.targetId)}
         showFramePreview={this.props.showFramePreview}
         showTimeBubble={this.props.showTimeBubble}
         changeCurrentTime={time => this.player.currentTime = time}
