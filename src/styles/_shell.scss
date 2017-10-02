@@ -45,14 +45,14 @@
     }
 }
 
-.player:not(.ad-break) #ads-container {
+.player:not(.ad-break) [id^=ads-container] {
   z-index: 10;
   transition: transform 100ms;
 }
 
 .player:not(.ad-break).metadata-loaded {
-  &.hover #ads-container,
-  &.state-paused #ads-container {
+  &.hover [id^=ads-container],
+  &.state-paused [id^=ads-container] {
     transform: translateY(-60px);
   }
 }

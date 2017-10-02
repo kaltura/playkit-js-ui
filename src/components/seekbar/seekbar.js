@@ -55,6 +55,22 @@ class SeekBarControl extends Component {
   }
 
   /**
+   * on component mount, bind mouseup and mousemove events to top player element
+   *
+   * @returns {void}
+   * @memberof SeekBarControl
+   */
+  componentDidMount() {
+    this.props.playerElement.addEventListener('mouseup', e => {
+      this.onPlayerMouseUp(e);
+    });
+
+    this.props.playerElement.addEventListener('mousemove', e => {
+      this.onPlayerMouseMove(e);
+    });
+  }
+
+  /**
    * seekbar mouse down handler
    *
    * @param {Event} e - mouse down event
@@ -88,19 +104,38 @@ class SeekBarControl extends Component {
   }
 
   /**
-   * seekbar mouse up handler
+   * player mouse up handler for seekbar porpuses
    *
    * @param {Event} e - mouse up event
    * @returns {void}
    * @memberof SeekBarControl
    */
-  onSeekbarMouseUp(e: Event): void {
+  onPlayerMouseUp(e: Event): void {
     if (this.props.isMobile) return;
 
-    let time = this.getTime(e);
-    this.props.changeCurrentTime(time);
-    this.updateSeekBarProgress(time, this.props.duration);
-    this.props.updateSeekbarDraggingStatus(false);
+    if(this.props.isDraggingActive) {
+      let time = this.getTime(e);
+      this.props.changeCurrentTime(time);
+      this.updateSeekBarProgress(time, this.props.duration);
+      this.props.updateSeekbarDraggingStatus(false);
+    }
+  }
+
+  /**
+   * player mouse move handler for seekbar porpuses
+   *
+   * @param {Event} e - mouse move event
+   * @returns {void}
+   * @memberof SeekBarControl
+   */
+  onPlayerMouseMove(e: Event): void {
+    if (this.props.isMobile) return;
+
+    if (this.props.isDraggingActive) {
+      let time = this.getTime(e);
+      this.updateSeekBarProgress(time, this.props.duration);
+      this.updateSeekBarProgress(time, this.props.duration, true);
+    }
   }
 
   /**
@@ -115,10 +150,6 @@ class SeekBarControl extends Component {
 
     let time = this.getTime(e);
     this.updateSeekBarProgress(time, this.props.duration, true);
-
-    if (this.props.isDraggingActive) {
-      this.updateSeekBarProgress(time, this.props.duration);
-    }
   }
 
   /**
@@ -328,6 +359,7 @@ class SeekBarControl extends Component {
     if (props.adBreak) seekbarStyleClass += ' ad-break';
     if (props.isDvr) seekbarStyleClass += ' live';
     if (props.isMobile) seekbarStyleClass += ' hover';
+    if (props.isDraggingActive) seekbarStyleClass += ' hover';
 
     return (
       <div
@@ -342,7 +374,6 @@ class SeekBarControl extends Component {
         onClick={e => this.onTap(e)}
         onMouseMove={e => this.onSeekbarMouseMove(e)}
         onMouseDown={e => this.onSeekbarMouseDown(e)}
-        onMouseUp={e => this.onSeekbarMouseUp(e)}
         onTouchStart={e => this.onSeekbarTouchStart(e)}
         onTouchMove={e => this.onSeekbarTouchMove(e)}
         onTouchEnd={() => this.onSeekbarTouchEnd()}
