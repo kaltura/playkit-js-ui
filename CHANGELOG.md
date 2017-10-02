@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.4.0"></a>
+# [0.4.0](https://github.com/kaltura/playkit-js-ui/compare/v0.3.4...v0.4.0) (2017-10-02)
+
+
+### Bug Fixes
+
+* **FEC-6935:** mute option in mobile view ([#64](https://github.com/kaltura/playkit-js-ui/issues/64)) ([635e511](https://github.com/kaltura/playkit-js-ui/commit/635e511))
+* **FEC-7160:** scrubber dragging ability from all player area ([#66](https://github.com/kaltura/playkit-js-ui/issues/66)) ([26d8766](https://github.com/kaltura/playkit-js-ui/commit/26d8766))
+* **FEC-7164:** mobile seekbar on tap event handler ([#65](https://github.com/kaltura/playkit-js-ui/issues/65)) ([cc66178](https://github.com/kaltura/playkit-js-ui/commit/cc66178))
+* **FEC-7180:** fullscreen element change fix ([#63](https://github.com/kaltura/playkit-js-ui/issues/63)) ([aa4e090](https://github.com/kaltura/playkit-js-ui/commit/aa4e090))
+* **FEC-7194:** transition from ads > live error fix ([#68](https://github.com/kaltura/playkit-js-ui/issues/68)) ([97227fe](https://github.com/kaltura/playkit-js-ui/commit/97227fe))
+* **FEC-7219:** inline ads fix ([#67](https://github.com/kaltura/playkit-js-ui/issues/67)) ([e80c8a4](https://github.com/kaltura/playkit-js-ui/commit/e80c8a4))
+
+
+### Features
+
+* use off caption from playkit ([#60](https://github.com/kaltura/playkit-js-ui/issues/60)) ([c8854ec](https://github.com/kaltura/playkit-js-ui/commit/c8854ec))
+
+
+
 <a name="0.3.4"></a>
 ## [0.3.4](https://github.com/kaltura/playkit-js-ui/compare/v0.3.3...v0.3.4) (2017-09-26)
 
