@@ -102,7 +102,11 @@ class FullscreenControl extends BaseComponent {
       this.player.getView().getElementsByTagName('video')[0].webkitEnterFullscreen();
     }
     else {
-      this.requestFullscreen(document.getElementById(this.config.targetId));
+      let elementToFullscreen = document.getElementById(this.config.targetId);
+
+      if (elementToFullscreen) {
+        this.requestFullscreen(elementToFullscreen);
+      }
     }
   }
 
