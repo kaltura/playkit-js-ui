@@ -30,7 +30,7 @@ export default function playbackUI(props: any): React$Element<any> {
         <OverlayPortal />
         <OverlayPlay player={props.player} />
         <BottomBar>
-          <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player} />
+          <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player} config={props.config} />
           <div className='left-controls'>
             <PlayPauseControl player={props.player} />
             <TimeDisplayPlaybackContainer format='current / total' />
@@ -39,7 +39,7 @@ export default function playbackUI(props: any): React$Element<any> {
             <VolumeControl player={props.player} />
             <LanguageControl player={props.player} />
             <SettingsControl player={props.player} />
-            <FullscreenControl player={props.player} />
+            <FullscreenControl player={props.player} config={props.config} />
           </div>
         </BottomBar>
       </div>
