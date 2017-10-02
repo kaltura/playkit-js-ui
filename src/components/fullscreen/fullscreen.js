@@ -33,7 +33,7 @@ class FullscreenControl extends BaseComponent {
    * @memberof FullscreenControl
    */
   constructor(obj: Object) {
-    super({name: 'Fullscreen', player: obj.player});
+    super({name: 'Fullscreen', player: obj.player, config: obj.config});
   }
 
   /**
@@ -102,7 +102,11 @@ class FullscreenControl extends BaseComponent {
       this.player.getView().getElementsByTagName('video')[0].webkitEnterFullscreen();
     }
     else {
-      this.requestFullscreen(this.player.getView().parentElement);
+      let elementToFullscreen = document.getElementById(this.config.targetId);
+
+      if (elementToFullscreen) {
+        this.requestFullscreen(elementToFullscreen);
+      }
     }
   }
 

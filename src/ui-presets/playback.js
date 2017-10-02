@@ -39,7 +39,7 @@ export default function playbackUI(props: any): React$Element<any> {
             <VolumeControl player={props.player} />
             <LanguageControl player={props.player} />
             <SettingsControl player={props.player} />
-            <FullscreenControl player={props.player} />
+            <FullscreenControl player={props.player} config={props.config} />
           </div>
         </BottomBar>
       </div>
