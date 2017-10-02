@@ -71,14 +71,6 @@
     }
 }
 
-.touch {
-  .control-button-container.volume-control {
-    display: none;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .control-button-container.volume-control {
-    display: none;
-  }
+.touch .control-button-container.volume-control:hover .volume-control-bar {
+  display: none !important;
 }
