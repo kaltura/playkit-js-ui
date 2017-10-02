@@ -88,6 +88,22 @@ class SeekBarControl extends Component {
   }
 
   /**
+   * onTap event handler
+   *
+   * @param {Event} e - onClick event
+   * @returns {void}
+   * @memberof SeekBarControl
+   */
+  onTap(e: Event): void {
+    if (!this.props.isMobile) return;
+
+    let time = this.getTime(e);
+    this.props.changeCurrentTime(time);
+    this.updateSeekBarProgress(time, this.props.duration);
+    this.props.updateSeekbarDraggingStatus(false);
+  }
+
+  /**
    * player mouse up handler for seekbar porpuses
    *
    * @param {Event} e - mouse up event
@@ -355,6 +371,7 @@ class SeekBarControl extends Component {
         aria-valuemax={Math.round(this.props.duration)}
         aria-valuenow={Math.round(this.props.currentTime)}
         aria-valuetext={`${toHHMMSS(this.props.currentTime)} of ${toHHMMSS(this.props.duration)}`}
+        onClick={e => this.onTap(e)}
         onMouseMove={e => this.onSeekbarMouseMove(e)}
         onMouseDown={e => this.onSeekbarMouseDown(e)}
         onTouchStart={e => this.onSeekbarTouchStart(e)}
