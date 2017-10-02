@@ -120,11 +120,11 @@ class LanguageControl extends BaseComponent {
   /**
    * Select the given text track
    *
-   * @param {(Object | string)} textTrack - text track
+   * @param {Object} textTrack - text track
    * @returns {void}
    * @memberof LanguageControl
    */
-  onCaptionsChange(textTrack: Object | string): void {
+  onCaptionsChange(textTrack: Object): void {
     this.player.selectTrack(textTrack);
   }
 
