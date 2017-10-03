@@ -13,8 +13,8 @@
         float: left;
         text-align: left;
 
-        &:first-child {
-          margin-left: 0px;
+        div:first-child {
+          padding-left: 0px;
         }
     }
     .right-controls {
