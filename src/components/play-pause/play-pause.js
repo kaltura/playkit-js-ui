@@ -16,8 +16,7 @@ const mapStateToProps = state => ({
   isPlaying: state.engine.isPlaying,
   adBreak: state.engine.adBreak,
   adIsPlaying: state.engine.adIsPlaying,
-  isEnded: state.engine.isEnded,
-  playerWidth: state.shell.playerWidth
+  isEnded: state.engine.isEnded
 });
 
 @connect(mapStateToProps, bindActions(actions))
@@ -69,8 +68,6 @@ class PlayPauseControl extends BaseComponent {
    */
   render(props: any): React$Element<any> | void {
     var controlButtonClass = this.isPlayingAdOrPlayback() ? 'control-button is-playing' : 'control-button';
-
-    if (props.playerWidth < 480) return undefined;
 
     return (
       <div className='control-button-container control-play-pause'>

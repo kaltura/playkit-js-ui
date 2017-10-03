@@ -84,7 +84,7 @@
   transform: scale(1.1667);
 }
 
-@media screen and (max-width: 768px) {
+.player.size-md {
   .overlay.share-overlay {
     .share-icons {
       margin: 40px 0;
@@ -92,7 +92,7 @@
   }
 }
 
-@media screen and (max-width: 480px) {
+.player.size-sm {
   .overlay.share-overlay {
     .share-icons {
       margin: 20px 0;

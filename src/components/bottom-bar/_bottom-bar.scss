@@ -13,8 +13,8 @@
         float: left;
         text-align: left;
 
-        div:first-child {
-          padding-left: 0px;
+        &:first-child {
+          margin-left: 0px;
         }
     }
     .right-controls {
@@ -41,8 +41,12 @@
   opacity: 0;
 }
 
-@media screen and (max-width: 480px) {
-  .player .bottom-bar {
+.player.size-sm {
+  .bottom-bar {
     padding: 6px 8px;
+
+    .time-display {
+      padding-left: 0;
+    }
   }
 }
