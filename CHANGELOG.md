@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.4.1"></a>
+## [0.4.1](https://github.com/kaltura/playkit-js-ui/compare/v0.4.0...v0.4.1) (2017-10-03)
+
+
+### Bug Fixes
+
+* **FEC-7225:** media queries drop in favor of top player size class ([#71](https://github.com/kaltura/playkit-js-ui/issues/71)) ([97fa361](https://github.com/kaltura/playkit-js-ui/commit/97fa361))
+* **FEC-7232:** skip ad not clickable fix ([#70](https://github.com/kaltura/playkit-js-ui/issues/70)) ([413f8f3](https://github.com/kaltura/playkit-js-ui/commit/413f8f3))
+
+
+
 <a name="0.4.0"></a>
 # [0.4.0](https://github.com/kaltura/playkit-js-ui/compare/v0.3.4...v0.4.0) (2017-10-02)
 
