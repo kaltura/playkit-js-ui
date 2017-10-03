@@ -1,6 +1,6 @@
 {
   "name": "playkit-js-ui",
-  "version": "0.3.4",
+  "version": "0.4.0",
   "description": "",
   "main": "dist/playkit-ui.js",
   "scripts": {
@@ -16,6 +16,7 @@
     "test:safari": "NODE_ENV=test karma start --color --browsers Safari",
     "test:watch": "NODE_ENV=test karma start --color --auto-watch",
     "start": "webpack-dev-server",
+    "release:dry-run": "standard-version --dry-run",
     "release": "standard-version",
     "publish": "git push --follow-tags --no-verify origin master",
     "eslint": "eslint . --color",
@@ -72,7 +73,7 @@
     "mocha": "^3.2.0",
     "mocha-cli": "^1.0.1",
     "node-sass": "^4.5.3",
-    "playkit-js": "https://github.com/kaltura/playkit-js.git#0.9.0",
+    "playkit-js": "https://github.com/kaltura/playkit-js.git#0.10.0",
     "pre-push": "^0.1.1",
     "sass-loader": "^6.0.6",
     "sinon": "^2.0.0",

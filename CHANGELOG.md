@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.4.0"></a>
+# [0.4.0](https://github.com/kaltura/playkit-js-ui/compare/v0.3.4...v0.4.0) (2017-10-02)
+
+
+### Bug Fixes
+
+* **FEC-6935:** mute option in mobile view ([#64](https://github.com/kaltura/playkit-js-ui/issues/64)) ([635e511](https://github.com/kaltura/playkit-js-ui/commit/635e511))
+* **FEC-7160:** scrubber dragging ability from all player area ([#66](https://github.com/kaltura/playkit-js-ui/issues/66)) ([26d8766](https://github.com/kaltura/playkit-js-ui/commit/26d8766))
+* **FEC-7164:** mobile seekbar on tap event handler ([#65](https://github.com/kaltura/playkit-js-ui/issues/65)) ([cc66178](https://github.com/kaltura/playkit-js-ui/commit/cc66178))
+* **FEC-7180:** fullscreen element change fix ([#63](https://github.com/kaltura/playkit-js-ui/issues/63)) ([aa4e090](https://github.com/kaltura/playkit-js-ui/commit/aa4e090))
+* **FEC-7194:** transition from ads > live error fix ([#68](https://github.com/kaltura/playkit-js-ui/issues/68)) ([97227fe](https://github.com/kaltura/playkit-js-ui/commit/97227fe))
+* **FEC-7219:** inline ads fix ([#67](https://github.com/kaltura/playkit-js-ui/issues/67)) ([e80c8a4](https://github.com/kaltura/playkit-js-ui/commit/e80c8a4))
+
+
+### Features
+
+* use off caption from playkit ([#60](https://github.com/kaltura/playkit-js-ui/issues/60)) ([c8854ec](https://github.com/kaltura/playkit-js-ui/commit/c8854ec))
+
+
+
 <a name="0.3.4"></a>
 ## [0.3.4](https://github.com/kaltura/playkit-js-ui/compare/v0.3.3...v0.3.4) (2017-09-26)
 
@@ -61,17 +81,10 @@ All notable changes to this project will be documented in this file. See [standa
 * **FEC-6922:** added arrow to native select boxes in mobile ([#37](https://github.com/kaltura/playkit-js-ui/issues/37)) ([ed43a4b](https://github.com/kaltura/playkit-js-ui/commit/ed43a4b))
 * **FEC-7058:** android ad video position fix ([#43](https://github.com/kaltura/playkit-js-ui/issues/43)) ([6edb9c4](https://github.com/kaltura/playkit-js-ui/commit/6edb9c4))
 * hide control bar after minimize & pause in ios safari ([#39](https://github.com/kaltura/playkit-js-ui/issues/39)) ([75c9f1c](https://github.com/kaltura/playkit-js-ui/commit/75c9f1c))
-* settings menu simplified ([#35](https://github.com/kaltura/playkit-js-ui/issues/35)) ([7abb9b0](https://github.com/kaltura/playkit-js-ui/commit/7abb9b0))
 * **FEC-7079:** android fullscreen with custom ui ([#42](https://github.com/kaltura/playkit-js-ui/issues/42)) ([5629857](https://github.com/kaltura/playkit-js-ui/commit/5629857))
 * **FEC-7086:** show controls on mobile touch when controls are invisible ([#40](https://github.com/kaltura/playkit-js-ui/issues/40)) ([4b6d609](https://github.com/kaltura/playkit-js-ui/commit/4b6d609))
 * **FEC-7090:** fullscreen in safari mispositioned ([#36](https://github.com/kaltura/playkit-js-ui/issues/36)) ([d427b81](https://github.com/kaltura/playkit-js-ui/commit/d427b81))
 * **FEC-7096:** replay appears during playing post-roll bug fix ([#38](https://github.com/kaltura/playkit-js-ui/issues/38)) ([eff7a71](https://github.com/kaltura/playkit-js-ui/commit/eff7a71))
-
-
-### Features
-
-* **live:** adding live ui preset and functionality ([#34](https://github.com/kaltura/playkit-js-ui/issues/34)) ([81d9919](https://github.com/kaltura/playkit-js-ui/commit/81d9919))
-
 
 
 <a name="0.2.0"></a>
@@ -118,37 +131,6 @@ All notable changes to this project will be documented in this file. See [standa
 * **FEC-6940:** dropdown icon in ie11 fix ([#22](https://github.com/kaltura/playkit-js-ui/issues/22)) ([6b4fe4b](https://github.com/kaltura/playkit-js-ui/commit/6b4fe4b))
 * **FEC-6961:** learn more button functionality in ads UI ([#16](https://github.com/kaltura/playkit-js-ui/issues/16)) ([e0e21ee](https://github.com/kaltura/playkit-js-ui/commit/e0e21ee))
 * **FEC-6963:** Icon change when only audio or captions available ([#21](https://github.com/kaltura/playkit-js-ui/issues/21)) ([7773404](https://github.com/kaltura/playkit-js-ui/commit/7773404))
-
-
-
-<a name="0.1.0"></a>
-# 0.1.0 (2017-07-31)
-
-
-### Bug Fixes
-
-* **ads ui:** fix eslint ([41e5554](https://github.com/kaltura/playkit-js-ui/commit/41e5554))
-* **FEC-6836:** multiple menus bug fix ([#7](https://github.com/kaltura/playkit-js-ui/issues/7)) ([590bbe7](https://github.com/kaltura/playkit-js-ui/commit/590bbe7))
-* **FEC-6913:** fullscreen in IOS ([e77ddb8](https://github.com/kaltura/playkit-js-ui/commit/e77ddb8))
-* **FEC-6915:** volume changing on dragging ([b8f25d7](https://github.com/kaltura/playkit-js-ui/commit/b8f25d7))
-* **FEC-6920:** volume cursor fix ([7fde589](https://github.com/kaltura/playkit-js-ui/commit/7fde589))
-* **FEC-6923:** cursor fix ([8cf90c9](https://github.com/kaltura/playkit-js-ui/commit/8cf90c9))
-* **FEC-6925:** bigger dropdown clickable option area ([72a6bbf](https://github.com/kaltura/playkit-js-ui/commit/72a6bbf))
-* dropdown in mobile fix ([#10](https://github.com/kaltura/playkit-js-ui/issues/10)) ([0641d1a](https://github.com/kaltura/playkit-js-ui/commit/0641d1a))
-* menu close when only audio / captions available. ([#9](https://github.com/kaltura/playkit-js-ui/issues/9)) ([2a85839](https://github.com/kaltura/playkit-js-ui/commit/2a85839))
-* **FEC-6926:** bottom and top bar areas should not be caught by overlay ([abb38d0](https://github.com/kaltura/playkit-js-ui/commit/abb38d0))
-* **FEC-6945:** pre-playback bottom and top bars hover visibility ([5992b5d](https://github.com/kaltura/playkit-js-ui/commit/5992b5d))
-* **playback rate:** send the right value ([#5](https://github.com/kaltura/playkit-js-ui/issues/5)) ([0c7c409](https://github.com/kaltura/playkit-js-ui/commit/0c7c409))
-* time display fix ([82b6d7d](https://github.com/kaltura/playkit-js-ui/commit/82b6d7d))
-
-
-### Features
-
-* share logic, ui presets infra, playback rate added, responsive design added ([#4](https://github.com/kaltura/playkit-js-ui/issues/4)) ([15ffe2f](https://github.com/kaltura/playkit-js-ui/commit/15ffe2f))
-* **ads:** add ads UI to player ([#11](https://github.com/kaltura/playkit-js-ui/issues/11)) ([ba16f3c](https://github.com/kaltura/playkit-js-ui/commit/ba16f3c))
-* **replay-button:** adding replay button when video play ended ([#13](https://github.com/kaltura/playkit-js-ui/issues/13)) ([da70f1d](https://github.com/kaltura/playkit-js-ui/commit/da70f1d))
-* **webpack:** sass style loader added ([#8](https://github.com/kaltura/playkit-js-ui/issues/8)) ([60ed7f5](https://github.com/kaltura/playkit-js-ui/commit/60ed7f5))
-
 
 
 <a name="0.1.0"></a>
