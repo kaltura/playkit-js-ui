@@ -42,8 +42,12 @@
   opacity: 0;
 }
 
-@media screen and (max-width: 480px) {
-  .player .bottom-bar {
+.player.size-sm {
+  .bottom-bar {
     padding: 6px 8px;
+
+    .time-display {
+      padding-left: 0;
+    }
   }
 }

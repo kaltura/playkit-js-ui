@@ -120,7 +120,7 @@
   }
 }
 
-@media screen and (max-width: 480px) {
+.player.size-sm {
   .virtual-progress, .time-preview, .frame-preview {
     display: none;
   }
