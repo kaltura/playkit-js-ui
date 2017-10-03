@@ -56,7 +56,7 @@
   }
 }
 
-@media screen and (max-width: 768px) {
+.player.size-md {
   .overlay {
     .overlay-contents {
       padding: 36px 20px;
@@ -71,7 +71,7 @@
   }
 }
 
-@media screen and (max-width: 480px) {
+.player.size-sm {
   .overlay {
     .overlay-contents {
       padding: 16px 24px;

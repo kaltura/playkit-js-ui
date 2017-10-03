@@ -8,6 +8,7 @@
     justify-content: space-between;
     width: 100%;
     position: absolute;
+    z-index: 10;
     top: 0; left: 0;
 
     .left-controls {
@@ -37,7 +38,7 @@
   opacity: 0;
 }
 
-@media screen and (max-width: 480px) {
+.player.size-sm {
   .player .top-bar {
     padding: 8px 8px 20px 8px;
   }
