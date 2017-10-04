@@ -117,12 +117,6 @@ class Shell extends BaseComponent {
     if (this.player.env.device.type) {
       this.props.updatePlayerHoverState(true);
     }
-
-    const captionsStyleDefault = Object.assign(new window.KalturaPlayer.Playkit.TextStyle(), {
-      backgroundOpacity: window.KalturaPlayer.Playkit.TextStyle.StandardOpacities.TRANSPARENT
-    });
-
-    this.player.textStyle = captionsStyleDefault;
   }
 
   /**
