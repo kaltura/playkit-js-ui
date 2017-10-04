@@ -33,6 +33,8 @@ type CvaaOverlayStateType = "main" | "custom-captions";
  * @extends {BaseComponent}
  */
 class CVAAOverlay extends BaseComponent {
+  customTextStyle: Object;
+
   /**
    * Creates an instance of CVAAOverlay.
    * @memberof CVAAOverlay
@@ -63,6 +65,8 @@ class CVAAOverlay extends BaseComponent {
     this.setState({
       state: cvaaOverlayState.Main
     });
+
+    this.customTextStyle = new window.KalturaPlayer.Playkit.TextStyle();
   }
 
   /**
@@ -132,10 +136,55 @@ class CVAAOverlay extends BaseComponent {
    * @memberof CVAAOverlay
    */
   renderCustomCaptionsState(): React$Element<any> {
-    var speedOptions = [
-      { value: 1, label: 'Auto (360)', active: true },
-      { value: 2, label: '240' },
-      { value: 3, label: '144' }
+
+    const fontSizeOptions = window.KalturaPlayer.Playkit.TextStyle.FontSizes.map(size => {
+      return {
+        value: size,
+        label: size
+      }
+    });
+
+    const colorOptions = [
+      {
+        value: window.KalturaPlayer.Playkit.TextStyle.StandardColors.WHITE,
+        label: 'White',
+        active: true
+      },
+      {
+        value: window.KalturaPlayer.Playkit.TextStyle.StandardColors.YELLOW,
+        label: 'Yellow'
+      },
+      {
+        value: window.KalturaPlayer.Playkit.TextStyle.StandardColors.BLACK,
+        label: 'Black'
+      },
+      {
+        value: window.KalturaPlayer.Playkit.TextStyle.StandardColors.MAGENTA,
+        label: 'Magenta'
+      },
+      {
+        value: window.KalturaPlayer.Playkit.TextStyle.StandardColors.CYAN,
+        label: 'Cyan'
+      }
+    ];
+
+    const opacityOptions = [
+      {
+        value: window.KalturaPlayer.Playkit.TextStyle.StandardOpacities.OPAQUE,
+        label: '100%'
+      },
+      {
+        value: window.KalturaPlayer.Playkit.TextStyle.StandardOpacities.SEMI_HIGH,
+        label: '75%'
+      },
+      {
+        value: window.KalturaPlayer.Playkit.TextStyle.StandardOpacities.SEMI_LOW,
+        label: '25%'
+      },
+      {
+        value: window.KalturaPlayer.Playkit.TextStyle.StandardOpacities.TRANSPARENT,
+        label: '0%'
+      }
     ];
 
     return (
@@ -143,34 +192,26 @@ class CVAAOverlay extends BaseComponent {
         <form className='form custom-caption-form'>
           <div className='form-group-row'>
             <label>Size</label>
-            <DropDown options={speedOptions} />
+            <DropDown onSelect={fontSize => this.customTextStyle.fontSize = fontSize} options={fontSizeOptions} />
           </div>
           <div className='form-group-row'>
             <label>Font color</label>
-            <DropDown options={speedOptions} />
+            <DropDown onSelect={color => this.customTextStyle.fontColor = color} options={colorOptions} />
           </div>
           <div className='form-group-row'>
             <label>Font opacity</label>
-            <DropDown options={speedOptions} />
-          </div>
-          <div className='form-group-row'>
-            <label>Font family</label>
-            <DropDown options={speedOptions} />
-          </div>
-          <div className='form-group-row'>
-            <label>Font style</label>
-            <DropDown options={speedOptions} />
+            <DropDown onSelect={opacity => this.customTextStyle.fontOpacity = opacity} options={opacityOptions} />
           </div>
           <div className='form-group-row'>
             <label>Background color</label>
-            <DropDown options={speedOptions} />
+            <DropDown onSelect={color => this.customTextStyle.backgroundColor = color} options={colorOptions} />
           </div>
           <div className='form-group-row'>
             <label>Background opacity</label>
-            <DropDown options={speedOptions} />
+            <DropDown onSelect={opacity => this.customTextStyle.backgroundOpacity = opacity} options={opacityOptions} />
           </div>
           <div className='form-group-row'>
-            <a className='btn btn-branded btn-block'>Apply</a>
+            <a onClick={() => this.changeCaptionsStyle(this.customTextStyle)} className='btn btn-branded btn-block'>Apply</a>
           </div>
         </form>
       </div>

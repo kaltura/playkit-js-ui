@@ -18,9 +18,11 @@ video::cue {
     transform: translateY(0px);
     transition: ease-in 100ms;
   }
-  &.state-paused .playkit-subtitles,
-  &.hover .playkit-subtitles {
-    transform: translateY(-60px);
-    transition: ease-out 100ms;
+  &:not(.overlay-active) {
+    &.state-paused .playkit-subtitles,
+    &.hover .playkit-subtitles {
+      transform: translateY(-60px);
+      transition: ease-out 100ms;
+    }
   }
 }
