@@ -96,11 +96,10 @@ class CVAAOverlay extends BaseComponent {
   /**
    * render main state
    *
-   * @param {*} props - component props
    * @returns {React$Element} - main state element
    * @memberof CVAAOverlay
    */
-  renderMainState(props: any): React$Element<any> {
+  renderMainState(): React$Element<any> {
     const captionsStyleDefault = Object.assign(new window.KalturaPlayer.Playkit.TextStyle(), {
       backgroundOpacity: window.KalturaPlayer.Playkit.TextStyle.StandardOpacities.TRANSPARENT
     });
@@ -138,8 +137,6 @@ class CVAAOverlay extends BaseComponent {
    * @memberof CVAAOverlay
    */
   renderCustomCaptionsState(props: any): React$Element<any> {
-
-    console.log(props);
 
     var fontSizeOptions = window.KalturaPlayer.Playkit.TextStyle.FontSizes.map(size => ({
         value: size,
@@ -253,7 +250,7 @@ class CVAAOverlay extends BaseComponent {
   render(props: any): React$Element<any> {
     return (
       <Overlay open onClose={() => props.onClose()} type='cvaa'>
-        {this.renderMainState(props)}
+        {this.renderMainState()}
         {this.renderCustomCaptionsState(props)}
       </Overlay>
     )
