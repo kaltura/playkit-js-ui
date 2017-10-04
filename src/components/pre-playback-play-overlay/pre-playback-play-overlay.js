@@ -147,8 +147,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
   _onChangeSourceEnded(): void {
     try {
       if (!this.player.config.playback.autoplay) {
-        this.props.updatePrePlayback(true);
-        this.props.addPlayerClass('pre-playback');
+        this._displayPrePlayback();
       }
     } catch (e) {
       this.logger.error(e.message);
