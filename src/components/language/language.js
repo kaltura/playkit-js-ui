@@ -194,7 +194,7 @@ class LanguageControl extends BaseComponent {
         }
         { this.state.cvaaOverlay ? (
           <Portal into="#overlay-portal">
-            <CVAAOverlay onClose={() => this.toggleCVAAOverlay()} />
+            <CVAAOverlay player={this.player} onClose={() => {this.toggleCVAAOverlay(); this.onControlButtonClick();}} />
           </Portal>
         ): null }
       </div>

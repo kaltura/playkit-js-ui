@@ -79,14 +79,13 @@ class CVAAOverlay extends BaseComponent {
   /**
    * changing the captions style
    *
-   * @param {string} style - style name
+   * @param {Object} textStyle - TextStyle object
    * @returns {void}
    * @memberof CVAAOverlay
    */
-  changeCaptionsStyle(style: string): void {
-    this.props.removePlayerClass(`captions-${this.props.style}`);
-    this.props.addPlayerClass(`captions-${style}`);
-    this.props.updateCaptionsStyle(style);
+  changeCaptionsStyle(textStyle: Object): void {
+    this.props.updateCaptionsStyle(textStyle);
+    this.props.player.textStyle = textStyle;
     this.props.onClose();
   }
 
@@ -97,15 +96,29 @@ class CVAAOverlay extends BaseComponent {
    * @memberof CVAAOverlay
    */
   renderMainState(): React$Element<any> {
+    const captionsStyleDefault = Object.assign(new window.KalturaPlayer.Playkit.TextStyle(), {
+      backgroundOpacity: window.KalturaPlayer.Playkit.TextStyle.StandardOpacities.TRANSPARENT
+    });
+
+    const captionsStyleYellow = Object.assign(new window.KalturaPlayer.Playkit.TextStyle(), {
+      backgroundOpacity: window.KalturaPlayer.Playkit.TextStyle.StandardOpacities.TRANSPARENT,
+      fontColor: window.KalturaPlayer.Playkit.TextStyle.StandardColors.YELLOW
+    });
+
+    const captionsStyleBlackBG = Object.assign(new window.KalturaPlayer.Playkit.TextStyle(), {
+      backgroundColor: window.KalturaPlayer.Playkit.TextStyle.StandardColors.BLACK,
+      fontColor: window.KalturaPlayer.Playkit.TextStyle.StandardColors.WHITE
+    });
+
     return (
       <div className={this.state.state === cvaaOverlayState.Main ? 'overlay-screen active' : 'overlay-screen'}>
         <div className='title'>
           Advanced captions settings
         </div>
         <div>
-          <div className='sample' onClick={() => this.changeCaptionsStyle('default')}>Sample</div>
-          <div className='sample black-bg' onClick={() => this.changeCaptionsStyle('black-bg')}>Sample</div>
-          <div className='sample yellow-text' onClick={() => this.changeCaptionsStyle('yellow-text')}>Sample</div>
+          <div className='sample' onClick={() => this.changeCaptionsStyle(captionsStyleDefault)}>Sample</div>
+          <div className='sample black-bg' onClick={() => this.changeCaptionsStyle(captionsStyleBlackBG)}>Sample</div>
+          <div className='sample yellow-text' onClick={() => this.changeCaptionsStyle(captionsStyleYellow)}>Sample</div>
         </div>
         <a className='button-save-cvaa' onClick={() => this.transitionToState(cvaaOverlayState.CustomCaptions)}>Set custom caption</a>
       </div>

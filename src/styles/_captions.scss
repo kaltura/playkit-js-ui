@@ -14,12 +14,12 @@ video::cue {
 }
 
 .player {
-  video::-webkit-media-text-track-display {
+  .playkit-subtitles {
     transform: translateY(0px);
     transition: ease-in 100ms;
   }
-  &.state-paused video::-webkit-media-text-track-display,
-  &.hover video::-webkit-media-text-track-display {
+  &.state-paused .playkit-subtitles,
+  &.hover .playkit-subtitles {
     transform: translateY(-60px);
     transition: ease-out 100ms;
   }
