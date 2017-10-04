@@ -96,10 +96,11 @@ class CVAAOverlay extends BaseComponent {
   /**
    * render main state
    *
+   * @param {*} props - component props
    * @returns {React$Element} - main state element
    * @memberof CVAAOverlay
    */
-  renderMainState(): React$Element<any> {
+  renderMainState(props: any): React$Element<any> {
     const captionsStyleDefault = Object.assign(new window.KalturaPlayer.Playkit.TextStyle(), {
       backgroundOpacity: window.KalturaPlayer.Playkit.TextStyle.StandardOpacities.TRANSPARENT
     });
@@ -132,17 +133,20 @@ class CVAAOverlay extends BaseComponent {
   /**
    * render custom captions state
    *
+   * @param {*} props - component props
    * @returns {React$Element} - custom captions elements
    * @memberof CVAAOverlay
    */
-  renderCustomCaptionsState(): React$Element<any> {
+  renderCustomCaptionsState(props: any): React$Element<any> {
 
-    const fontSizeOptions = window.KalturaPlayer.Playkit.TextStyle.FontSizes.map(size => {
-      return {
+    console.log(props);
+
+    var fontSizeOptions = window.KalturaPlayer.Playkit.TextStyle.FontSizes.map(size => ({
         value: size,
-        label: size
-      }
-    });
+        label: size,
+        active: props.player.textStyle.fontSize === size
+      })
+    );
 
     const colorOptions = [
       {
@@ -187,6 +191,27 @@ class CVAAOverlay extends BaseComponent {
       }
     ];
 
+    var fontColorOptions = colorOptions.map(option => ({
+      ...option,
+      active: props.player.textStyle.fontColor === option.value
+    }));
+
+    var backgroundColorOptions = colorOptions.map(option => ({
+      ...option,
+      active: props.player.textStyle.backgroundColor === option.value
+    }));
+
+    var fontOpacityOptions = opacityOptions.map(option => ({
+      ...option,
+      active: props.player.textStyle.fontOpacity === option.value
+    }));
+
+    var backgroundOpacityOptions = opacityOptions.map(option => ({
+      ...option,
+      active: props.player.textStyle.backgroundOpacity === option.value
+    }));
+
+
     return (
       <div className={this.state.state === cvaaOverlayState.CustomCaptions ? 'overlay-screen active' : 'overlay-screen'}>
         <form className='form custom-caption-form'>
@@ -196,19 +221,19 @@ class CVAAOverlay extends BaseComponent {
           </div>
           <div className='form-group-row'>
             <label>Font color</label>
-            <DropDown onSelect={color => this.customTextStyle.fontColor = color} options={colorOptions} />
+            <DropDown onSelect={color => this.customTextStyle.fontColor = color} options={fontColorOptions} />
           </div>
           <div className='form-group-row'>
             <label>Font opacity</label>
-            <DropDown onSelect={opacity => this.customTextStyle.fontOpacity = opacity} options={opacityOptions} />
+            <DropDown onSelect={opacity => this.customTextStyle.fontOpacity = opacity} options={fontOpacityOptions} />
           </div>
           <div className='form-group-row'>
             <label>Background color</label>
-            <DropDown onSelect={color => this.customTextStyle.backgroundColor = color} options={colorOptions} />
+            <DropDown onSelect={color => this.customTextStyle.backgroundColor = color} options={backgroundColorOptions} />
           </div>
           <div className='form-group-row'>
             <label>Background opacity</label>
-            <DropDown onSelect={opacity => this.customTextStyle.backgroundOpacity = opacity} options={opacityOptions} />
+            <DropDown onSelect={opacity => this.customTextStyle.backgroundOpacity = opacity} options={backgroundOpacityOptions} />
           </div>
           <div className='form-group-row'>
             <a onClick={() => this.changeCaptionsStyle(this.customTextStyle)} className='btn btn-branded btn-block'>Apply</a>
@@ -228,8 +253,8 @@ class CVAAOverlay extends BaseComponent {
   render(props: any): React$Element<any> {
     return (
       <Overlay open onClose={() => props.onClose()} type='cvaa'>
-        {this.renderMainState()}
-        {this.renderCustomCaptionsState()}
+        {this.renderMainState(props)}
+        {this.renderCustomCaptionsState(props)}
       </Overlay>
     )
   }
