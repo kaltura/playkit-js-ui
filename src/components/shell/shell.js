@@ -137,6 +137,7 @@ class Shell extends BaseComponent {
     if (this.props.metadataLoaded) playerClasses += ` state-${this.props.currentState}`;
     if (this.props.playerWidth <= 480) playerClasses += ' size-sm';
     else if (this.props.playerWidth <= 768) playerClasses += ' size-md';
+    if (this.props.seekbarDraggingActive) playerClasses += ' hover';
 
     return (
       <div

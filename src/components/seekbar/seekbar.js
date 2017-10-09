@@ -61,11 +61,11 @@ class SeekBarControl extends Component {
    * @memberof SeekBarControl
    */
   componentDidMount() {
-    this.props.playerElement.addEventListener('mouseup', e => {
+    document.addEventListener('mouseup', (e: Event) => {
       this.onPlayerMouseUp(e);
     });
 
-    this.props.playerElement.addEventListener('mousemove', e => {
+    document.addEventListener('mousemove', (e: Event) => {
       this.onPlayerMouseMove(e);
     });
   }
