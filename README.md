@@ -62,7 +62,7 @@ player.play();
 
 ## Extending the UI
 
-For additional info and guides on how to extend the UI see the[docs](https://github.com/kaltura/playkit-js-ui/tree/master/docs)
+For additional info and guides on how to extend the UI see the [docs](https://github.com/kaltura/playkit-js-ui/tree/master/docs)
 
 ## Running the tests
 
