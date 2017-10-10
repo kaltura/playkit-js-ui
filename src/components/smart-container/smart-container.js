@@ -43,12 +43,12 @@ class SmartContainer extends Component {
     return props.isMobile ? (
       <Portal into="#overlay-portal">
         <Overlay open onClose={() => props.onClose()}>
-          <div className='title'>{props.title}</div>
+          <div className='kp-title'>{props.title}</div>
           {props.children}
         </Overlay>
       </Portal>
     ) : (
-      <div className='smart-container top left'>
+      <div className='kp-smart-container kp-top kp-left'>
         {props.children}
       </div>
     )

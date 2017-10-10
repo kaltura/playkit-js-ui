@@ -1,39 +1,39 @@
-.control-button-container.control-play-pause .control-button {
+.kp-control-button-container.kp-control-play-pause .kp-control-button {
     transition: 400ms transform;
 
-    .icon-pause {
+    .kp-icon-pause {
         transition: 400ms opacity;
         opacity: 0;
         display: none;
     }
-    .icon-play {
+    .kp-icon-play {
         transition: 400ms opacity;
         opacity: 1;
         display: block;
     }
 
-    &.is-playing {
+    &.kp-is-playing {
         transform: rotate(360deg);
 
-        .icon-pause {
+        .kp-icon-pause {
             opacity: 1;
             display: block;
         }
-        .icon-play {
+        .kp-icon-play {
             opacity: 0;
             display: none;
         }
     }
 }
 
-.touch {
-  .control-button-container.control-play-pause {
+.kp-touch {
+  .kp-control-button-container.kp-control-play-pause {
     display: none;
   }
 }
 
-.player.size-sm {
-  .control-button-container.control-play-pause {
+.kp-player.kp-size-sm {
+  .kp-control-button-container.kp-control-play-pause {
     display: none;
   }
 }

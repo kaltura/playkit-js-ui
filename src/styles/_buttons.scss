@@ -1,4 +1,4 @@
-.btn {
+.kp-btn {
   text-decoration: none;
   height: 36px;
   border-radius: 18px;
@@ -9,11 +9,11 @@
   display: inline-block;
   padding: 0 24px;
 
-  &.btn-block {
+  &.kp-btn-block {
     display: block;
   }
 
-  &.btn-dark-transparent {
+  &.kp-btn-dark-transparent {
     background-color: rgba(0,0,0,0.5);
     border: 2px solid rgba(255,255,255,0.2);
     line-height: 32px;
@@ -24,7 +24,7 @@
     }
   }
 
-  &.btn-branded {
+  &.kp-btn-branded {
     background-color: $brand-color;
 
     &:hover {
@@ -33,7 +33,7 @@
   }
 }
 
-.btn-rounded {
+.kp-btn-rounded {
   height: 36px;	width: 36px;
   min-width: 36px; min-height: 36px;
   border-radius: 18px;

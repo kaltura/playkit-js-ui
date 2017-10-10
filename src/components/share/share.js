@@ -51,8 +51,8 @@ class ShareControl extends BaseComponent {
    */
   render(): React$Element<any> {
     return (
-      <div className='control-button-container control-share'>
-        <button className='control-button control-button-rounded' onClick={() => this.toggleOverlay()} aria-label='Share'>
+      <div className='kp-control-button-container kp-control-share'>
+        <button className='kp-control-button kp-control-button-rounded' onClick={() => this.toggleOverlay()} aria-label='Share'>
           <Icon type={IconType.Share} />
         </button>
         { this.state.overlay ? (

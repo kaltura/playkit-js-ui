@@ -108,9 +108,9 @@ class Loading extends BaseComponent {
     if (!props.show || props.adBreak || this.isPreloading) return undefined;
 
     return (
-      <div className='loading-backdrop show'>
-        <div className='spinner-container'>
-          <div className='spinner'>
+      <div className='kp-loading-backdrop kp-show'>
+        <div className='kp-spinner-container'>
+          <div className='kp-spinner'>
             {[...Array(8)].map((i) => <span key={i}/>)}
           </div>
         </div>

@@ -324,11 +324,11 @@ class SeekBarControl extends Component {
 
     return (
       <div
-        className='frame-preview'
+        className='kp-frame-preview'
         style={framePreviewStyle}
         ref={c => this._framePreviewElement=c}
       >
-        <div className='frame-preview-img' style={framePreviewImgStyle} />
+        <div className='kp-frame-preview-img' style={framePreviewImgStyle} />
       </div>)
   }
 
@@ -342,7 +342,7 @@ class SeekBarControl extends Component {
     if (!this.props.showTimeBubble || this.props.isMobile) return undefined;
     var timeBubbleStyle = `left: ${this.getTimeBubbleOffset()}px`;
     var timeBubbleValue = this.props.isDvr ? '-' + toHHMMSS(this.props.duration - this.state.virtualTime) : toHHMMSS(this.state.virtualTime);
-    return <div className='time-preview' style={timeBubbleStyle} ref={c => this._timeBubbleElement=c}>{timeBubbleValue}</div>
+    return <div className='kp-time-preview' style={timeBubbleStyle} ref={c => this._timeBubbleElement=c}>{timeBubbleValue}</div>
   }
 
   /**
@@ -355,11 +355,11 @@ class SeekBarControl extends Component {
   render(props: any): React$Element<any> {
     var virtualProgressWidth = `${this.state.virtualTime / props.duration * 100}%`;
     var progressWidth = `${props.currentTime / props.duration * 100}%`;
-    var seekbarStyleClass = `seek-bar`;
-    if (props.adBreak) seekbarStyleClass += ' ad-break';
-    if (props.isDvr) seekbarStyleClass += ' live';
-    if (props.isMobile) seekbarStyleClass += ' hover';
-    if (props.isDraggingActive) seekbarStyleClass += ' hover';
+    var seekbarStyleClass = `kp-seek-bar`;
+    if (props.adBreak) seekbarStyleClass += ' kp-ad-break';
+    if (props.isDvr) seekbarStyleClass += ' kp-live';
+    if (props.isMobile) seekbarStyleClass += ' kp-hover';
+    if (props.isDraggingActive) seekbarStyleClass += ' kp-hover';
 
     return (
       <div
@@ -378,17 +378,17 @@ class SeekBarControl extends Component {
         onTouchMove={e => this.onSeekbarTouchMove(e)}
         onTouchEnd={() => this.onSeekbarTouchEnd()}
       >
-        <div className='progress-bar'>
-          <div className='progress' style={{width: progressWidth}}>
+        <div className='kp-progress-bar'>
+          <div className='kp-progress' style={{width: progressWidth}}>
             {
               props.adBreak ? undefined :
-              <a className='scrubber' />
+              <a className='kp-scrubber' />
             }
           </div>
-          <div className='virtual-progress' style={{width: virtualProgressWidth}} />
+          <div className='kp-virtual-progress' style={{width: virtualProgressWidth}} />
           {this.renderTimeBubble()}
           {this.renderFramePreview()}
-          <div className='buffered' style='width: 60%;' />
+          <div className='kp-buffered' style='width: 60%;' />
         </div>
       </div>
     )

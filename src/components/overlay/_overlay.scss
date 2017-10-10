@@ -3,7 +3,7 @@
   to { opacity: 1; }
 }
 
-.overlay {
+.kp-overlay {
   position: relative;
   width: 100%; height: 100%;
   display: none;
@@ -11,12 +11,12 @@
   animation: openOverlay 100ms ease-in-out forwards;
   z-index: 4;
 
-  &.active {
+  &.kp-active {
     display: block;
     opacity: 1;
   }
 
-  .overlay-contents {
+  .kp-overlay-contents {
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
@@ -28,59 +28,59 @@
     overflow-y: auto;
   }
 
-  .title {
+  .kp-title {
     font-size: 24px;
     font-weight: bold;
     line-height: 29px;
     margin-bottom: 60px;
   }
-  .close-overlay {
+  .kp-close-overlay {
     position: absolute;
     top: 48px; right: 48px;
     z-index: 5;
     fill: #fff;
     cursor: pointer;
 
-    .icon-close {
+    .kp-icon-close {
       width:24px;
       height:24px;
     }
   }
 
-  .overlay-screen {
+  .kp-overlay-screen {
     display: none;
 
-    &.active {
+    &.kp-active {
       display: block;
     }
   }
 }
 
-.player.size-md {
-  .overlay {
-    .overlay-contents {
+.kp-player.kp-size-md {
+  .kp-overlay {
+    .kp-overlay-contents {
       padding: 36px 20px;
     }
 
-    .close-overlay {
+    .kp-close-overlay {
       top: 38px;
     }
-    .title {
+    .kp-title {
       margin-bottom: 24px;
     }
   }
 }
 
-.player.size-sm {
-  .overlay {
-    .overlay-contents {
+.kp-player.kp-size-sm {
+  .kp-overlay {
+    .kp-overlay-contents {
       padding: 16px 24px;
     }
 
-    .close-overlay {
+    .kp-close-overlay {
       top: 15px; right: 24px;
     }
-    .title {
+    .kp-title {
       font-size: 16px;
       line-height: 19px;
       margin-bottom: 24px;

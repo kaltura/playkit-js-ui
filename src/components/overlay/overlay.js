@@ -27,7 +27,7 @@ class Overlay extends Component {
    * @memberof Overlay
    */
   componentWillMount(): void {
-    this.props.addPlayerClass('overlay-active');
+    this.props.addPlayerClass('kp-overlay-active');
   }
 
   /**
@@ -37,7 +37,7 @@ class Overlay extends Component {
    * @memberof Overlay
    */
   componentWillUnmount(): void {
-    this.props.removePlayerClass('overlay-active');
+    this.props.removePlayerClass('kp-overlay-active');
   }
 
   /**
@@ -48,17 +48,17 @@ class Overlay extends Component {
    * @memberof Overlay
    */
   render(props: any): React$Element<any> {
-    var overlayClass = 'overlay';
-    if (props.type) overlayClass += ` ${props.type}-overlay`;
-    if (props.open) overlayClass += ' active'
+    var overlayClass = 'kp-overlay';
+    if (props.type) overlayClass += ` kp-${props.type}-overlay`;
+    if (props.open) overlayClass += ' kp-active'
 
     return (
       <div className={overlayClass} role='dialog'>
-        <div className="overlay-contents">
+        <div className="kp-overlay-contents">
           { props.children }
         </div>
         <Localizer>
-          <a onClick={() => props.onClose()} aria-label={<Text id='core.close' />} className='close-overlay'><Icon type={IconType.Close} /></a>
+          <a onClick={() => props.onClose()} aria-label={<Text id='core.close' />} className='kp-close-overlay'><Icon type={IconType.Close} /></a>
         </Localizer>
       </div>
     )

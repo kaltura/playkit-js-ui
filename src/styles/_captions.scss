@@ -2,24 +2,24 @@ video::cue {
   background-color: transparent;
   font-family: $font-family;
 }
-.player.captions-yellow-text {
+.kp-player.kp-captions-yellow-text {
   video::cue {
     color: #FAFF00;
   }
 }
-.player.captions-black-bg {
+.kp-player.kp-captions-black-bg {
   video::cue {
     background-color: #000;
   }
 }
 
-.player {
+.kp-player {
   video::-webkit-media-text-track-display {
     transform: translateY(0px);
     transition: ease-in 100ms;
   }
-  &.state-paused video::-webkit-media-text-track-display,
-  &.hover video::-webkit-media-text-track-display {
+  &.kp-state-paused video::-webkit-media-text-track-display,
+  &.kp-hover video::-webkit-media-text-track-display {
     transform: translateY(-60px);
     transition: ease-out 100ms;
   }

@@ -67,10 +67,10 @@ class PlayPauseControl extends BaseComponent {
    * @memberof PlayPauseControl
    */
   render(props: any): React$Element<any> | void {
-    var controlButtonClass = this.isPlayingAdOrPlayback() ? 'control-button is-playing' : 'control-button';
+    var controlButtonClass = this.isPlayingAdOrPlayback() ? 'kp-control-button kp-is-playing' : 'kp-control-button';
 
     return (
-      <div className='control-button-container control-play-pause'>
+      <div className='kp-control-button-container kp-control-play-pause'>
         <Localizer>
           <button
             aria-label={<Text id={this.isPlayingAdOrPlayback() ? 'controls.pause' : 'controls.play'} />}

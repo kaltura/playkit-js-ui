@@ -9,16 +9,16 @@
   }
 }
 
-.overlay-play {
+.kp-overlay-play {
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
 
-  &.in .icon {
+  &.kp-in .kp-icon {
     animation: overlayPlayIconIn 400ms linear forwards;
   }
 
-  .icon {
+  .kp-icon {
     width: 144px; height: 144px;
     fill: #fff;
     position: absolute;

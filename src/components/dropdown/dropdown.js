@@ -109,8 +109,8 @@ class DropDown extends Component {
   render(props: any): React$Element<any> {
     return props.isMobile ? this.renderNativeSelect() :
     (
-      <div className={this.state.dropMenuActive ? 'dropdown active' : 'dropdown'}>
-        <div className='dropdown-button' onClick={() => this.setState({dropMenuActive: !this.state.dropMenuActive})}>
+      <div className={this.state.dropMenuActive ? 'kp-dropdown kp-active' : 'kp-dropdown'}>
+        <div className='kp-dropdown-button' onClick={() => this.setState({dropMenuActive: !this.state.dropMenuActive})}>
           {this.getActiveOptionLabel()}
           <Icon type={IconType.ArrowDown} />
         </div>

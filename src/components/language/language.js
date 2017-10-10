@@ -150,12 +150,12 @@ class LanguageControl extends BaseComponent {
     return (
       <div
         ref={c => this._controlLanguageElement=c}
-        className='control-button-container control-language'
+        className='kp-control-button-container kp-control-language'
       >
         <Localizer>
           <button
             aria-label={<Text id='controls.language' />}
-            className={this.state.smartContainerOpen ? 'control-button active' : 'control-button'}
+            className={this.state.smartContainerOpen ? 'kp-control-button kp-active' : 'kp-control-button'}
             onClick={() => this.onControlButtonClick()}
           >
             <Icon type={IconType.Language} />
@@ -184,7 +184,7 @@ class LanguageControl extends BaseComponent {
             </Localizer>
           }
           { textOptions.length === 0 ? undefined :
-            <div className='smart-container-item'>
+            <div className='kp-smart-container-item'>
               <a onClick={() => this.toggleCVAAOverlay()}>
                 <Text id='language.advanced_captions_settings' />
               </a>

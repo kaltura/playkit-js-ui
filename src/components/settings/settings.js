@@ -82,7 +82,7 @@ class SettingsControl extends BaseComponent {
    */
   handleClickOutside(e: any) {
     if (!this.props.isMobile && !!this._controlSettingsElement && !this._controlSettingsElement.contains(e.target) && this.state.smartContainerOpen) {
-      if (e.target.classList.contains('overlay-play')) {
+      if (e.target.classList.contains('kp-overlay-play')) {
         e.stopPropagation();
       }
       this.setState({smartContainerOpen: false});
@@ -205,12 +205,12 @@ class SettingsControl extends BaseComponent {
     return (
       <div
         ref={c => this._controlSettingsElement=c}
-        className='control-button-container control-settings'
+        className='kp-control-button-container kp-control-settings'
       >
         <Localizer>
           <button
             aria-label={<Text id='controls.settings' />}
-            className={this.state.smartContainerOpen ? 'control-button active' : 'control-button'}
+            className={this.state.smartContainerOpen ? 'kp-control-button kp-active' : 'kp-control-button'}
             onClick={() => this.onControlButtonClick()}
           >
             <Icon type={IconType.Settings} />

@@ -1,4 +1,4 @@
-.player .time-display {
+.kp-player .kp-time-display {
     display: inline-block;
     line-height: 32px;
     vertical-align: top;
@@ -7,12 +7,12 @@
     font-weight: bold;
 }
 
-.touch .time-display {
+.kp-touch .kp-time-display {
   padding-left: 0;
 }
 
-.player.size-sm {
-  .player .time-display {
+.kp-player.kp-size-sm {
+  .kp-player .kp-time-display {
     padding: 0 12px 0 0;
   }
 }

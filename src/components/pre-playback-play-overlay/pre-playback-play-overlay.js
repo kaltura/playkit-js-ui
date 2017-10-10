@@ -48,7 +48,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   componentWillMount() {
-    this.props.addPlayerClass('pre-playback');
+    this.props.addPlayerClass('kp-pre-playback');
 
     try {
       this.autoplay = this.player.config.playback.autoplay;
@@ -73,7 +73,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    */
   componentWillUnmount() {
     this.props.updatePrePlayback(false);
-    this.props.removePlayerClass('pre-playback');
+    this.props.removePlayerClass('kp-pre-playback');
   }
 
   /**
@@ -85,12 +85,12 @@ class PrePlaybackPlayOverlay extends BaseComponent {
   componentDidMount() {
     this.player.addEventListener(this.player.Event.PLAY, () => {
       this.props.updatePrePlayback(false);
-      this.props.removePlayerClass('pre-playback');
+      this.props.removePlayerClass('kp-pre-playback');
     });
 
     if (this.player.paused === false) {
       this.props.updatePrePlayback(false);
-      this.props.removePlayerClass('pre-playback');
+      this.props.removePlayerClass('kp-pre-playback');
     }
   }
 
@@ -116,7 +116,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
       this.player.play();
       if (this.props.prePlayback) {
         this.props.updatePrePlayback(false);
-        this.props.removePlayerClass('pre-playback');
+        this.props.removePlayerClass('kp-pre-playback');
       }
     }).catch((e) => {
       this.logger.error(e.message);
@@ -138,9 +138,9 @@ class PrePlaybackPlayOverlay extends BaseComponent {
     ) return undefined;
 
     return (
-      <div className='pre-playback-play-overlay' style={{backgroundImage: `url(${props.poster})`}}
+      <div className='kp-pre-playback-play-overlay' style={{backgroundImage: `url(${props.poster})`}}
            onClick={() => this.handleClick()}>
-        <a className='pre-playback-play-button'>
+        <a className='kp-pre-playback-play-button'>
           {props.isEnded ? <Icon type={IconType.Startover}/> : <Icon type={IconType.Play}/>}
         </a>
       </div>

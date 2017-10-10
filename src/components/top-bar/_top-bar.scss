@@ -1,4 +1,4 @@
-.player .top-bar {
+.kp-player .kp-top-bar {
     background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%);
     padding: 14px 16px;
     color: #fff;
@@ -11,14 +11,14 @@
     z-index: 10;
     top: 0; left: 0;
 
-    .left-controls {
+    .kp-left-controls {
         text-align: left;
         min-width: 0;
     }
-    .right-controls {
+    .kp-right-controls {
         text-align: left;
 
-        .control-button-container {
+        .kp-control-button-container {
             margin: 0 6px;
 
             &:last-child {
@@ -28,18 +28,18 @@
     }
 }
 
-.player.hover .top-bar,
-.player.state-paused .top-bar,
-.player.menu-active .top-bar {
+.kp-player.kp-hover .kp-top-bar,
+.kp-player.kp-state-paused .kp-top-bar,
+.kp-player.kp-menu-active .kp-top-bar {
   opacity: 1;
 }
 
-.player.overlay-active .top-bar {
+.kp-player.kp-overlay-active .kp-top-bar {
   opacity: 0;
 }
 
-.player.size-sm {
-  .player .top-bar {
+.kp-player.kp-size-sm {
+  .kp-player .kp-top-bar {
     padding: 8px 8px 20px 8px;
   }
 }

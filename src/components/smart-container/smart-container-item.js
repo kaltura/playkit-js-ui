@@ -20,9 +20,9 @@ class SmartContainerItem extends Component {
    */
   render(props: any): React$Element<any> {
     return (
-      <div className='smart-container-item select-menu-item'>
+      <div className='kp-smart-container-item kp-select-menu-item'>
         <label htmlFor={IconType.Quality}>
-          {props.icon ? <div className='label-icon'><Icon type={props.icon} /></div> : undefined}
+          {props.icon ? <div className='kp-label-icon'><Icon type={props.icon} /></div> : undefined}
           {props.label}
         </label>
         <DropDown onSelect={o => props.onSelect(o)} options={props.options} />

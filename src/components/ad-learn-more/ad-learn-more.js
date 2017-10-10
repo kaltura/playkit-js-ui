@@ -28,7 +28,7 @@ class AdLearnMore extends Component {
    * @memberof AdLearnMore
    */
   render(props: any): React$Element<any> {
-    return <a href={props.url} target='new' className='btn btn-dark-transparent'>Learn more</a>
+    return <a href={props.url} target='new' className='kp-btn kp-btn-dark-transparent'>Learn more</a>
   }
 }
 

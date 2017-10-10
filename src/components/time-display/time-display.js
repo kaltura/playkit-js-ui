@@ -49,7 +49,7 @@ class TimeDisplay extends Component {
    */
   render(props: any): React$Element<any> {
     return (
-      <div className='time-display'>
+      <div className='kp-time-display'>
         <span>{this.getTimeDisplay(props.currentTime, props.duration, props.format)}</span>
       </div>
     )
