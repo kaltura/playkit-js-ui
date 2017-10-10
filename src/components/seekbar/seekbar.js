@@ -50,7 +50,20 @@ class SeekBarControl extends Component {
    */
   componentDidUpdate() {
     if (this.props.playerPoster && !this.framePreviewImg) {
-      this.framePreviewImg = this.getFramePreviewImg();
+      this.framePreviewImg = this.getFramePreviewImg(this.props.playerPoster);
+    }
+  }
+
+  /**
+   * before component update, check if the player poster changed and create new preview image url.
+   *
+   * @param {any} nextProps
+   * @returns {void}
+   * @memberof SeekBarControl
+   */
+  componentWillUpdate(nextProps: any) {
+    if(this.props.playerPoster !== nextProps.playerPoster) {
+      this.framePreviewImg = this.getFramePreviewImg(nextProps.playerPoster);
     }
   }
 
@@ -296,11 +309,12 @@ class SeekBarControl extends Component {
   /**
    * get the frame preview sprite based on player poster
    *
+   * @param {string} posterUrl poster url
    * @returns {string} image url
    * @memberof SeekBarControl
    */
-  getFramePreviewImg(): string {
-    let parts = this.props.playerPoster.split('/');
+  getFramePreviewImg(posterUrl: string): string {
+    let parts = posterUrl.split('/');
     let heightValueIndex = parts.indexOf('height') + 1;
     let widthValueIndex = parts.indexOf('width') + 1;
     parts[heightValueIndex] = 90;
