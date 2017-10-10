@@ -57,7 +57,7 @@ class SeekBarControl extends Component {
   /**
    * before component update, check if the player poster changed and create new preview image url.
    *
-   * @param {any} nextProps
+   * @param {any} nextProps props for the next component update
    * @returns {void}
    * @memberof SeekBarControl
    */
