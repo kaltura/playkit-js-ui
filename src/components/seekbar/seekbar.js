@@ -317,8 +317,8 @@ class SeekBarControl extends Component {
     let parts = posterUrl.split('/');
     let heightValueIndex = parts.indexOf('height') + 1;
     let widthValueIndex = parts.indexOf('width') + 1;
-    parts[heightValueIndex] = 90;
-    parts[widthValueIndex] = 160;
+    parts[heightValueIndex] = '90';
+    parts[widthValueIndex] = '160';
     parts.push('vid_slices/100');
 
     return parts.join('/');
