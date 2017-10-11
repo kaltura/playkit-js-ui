@@ -29,12 +29,22 @@ class Menu extends Component {
   _menuElement: any;
 
   /**
+   * before component mounted, set initial state of the menu position
+   * @returns {void}
+   * @memberof Menu
+   */
+  componentWillMount() {
+    this.setState({position: 'top left'});
+  }
+
+  /**
    * after component mounted, listen to click outside of the component
    * @returns {void}
    * @memberof Menu
    */
   componentDidMount() {
     document.addEventListener('click', this.handleClickOutside.bind(this), true);
+    this.setState({position: this.getPosition()});
   }
 
   /**
@@ -45,6 +55,22 @@ class Menu extends Component {
    */
   componentWillUnmount() {
     document.removeEventListener('click', this.handleClickOutside.bind(this));
+  }
+
+  /**
+   * get menu position based on document boundaries
+   *
+   * @returns {string} position style classes
+   * @memberof Menu
+   */
+  getPosition(): string {
+    let box = this._menuElement.getBoundingClientRect();
+    if (box.y < 0) {
+      return 'bottom left';
+    }
+    else {
+      return 'top left';
+    }
   }
 
   /**
@@ -133,7 +159,7 @@ class Menu extends Component {
     (
       <div
         ref={c => this._menuElement = c}
-        className='dropdown-menu top left'
+        className={`dropdown-menu ${this.state.position}`}
       >
         {
           props.options.map((o, index) => (
