@@ -33,7 +33,6 @@ type CvaaOverlayStateType = "main" | "custom-captions";
  * @extends {BaseComponent}
  */
 class CVAAOverlay extends BaseComponent {
-  customTextStyle: Object;
 
   /**
    * Creates an instance of CVAAOverlay.
@@ -63,10 +62,9 @@ class CVAAOverlay extends BaseComponent {
    */
   componentWillMount() {
     this.setState({
-      state: cvaaOverlayState.Main
+      state: cvaaOverlayState.Main,
+      customTextStyle: this.props.player.textStyle
     });
-
-    this.customTextStyle = this.props.player.textStyle;
   }
 
   /**
@@ -129,6 +127,10 @@ class CVAAOverlay extends BaseComponent {
     )
   }
 
+  changeCustomStyle(delta) {
+    this.setState({customTextStyle: Object.assign(this.state.customTextStyle, delta)});
+  }
+
   /**
    * render custom captions state
    *
@@ -146,43 +148,43 @@ class CVAAOverlay extends BaseComponent {
     var fontSizeOptions = this.props.player.TextStyle.FontSizes.map(size => ({
       value: size,
       label: size,
-      active: props.player.textStyle.fontSize === size
+      active: this.state.customTextStyle.fontSize === size
     }));
 
     var fontColorOptions = Object.keys(standardColors).map(key => ({
       value: standardColors[key],
       label: key,
-      active:  props.player.textStyle.fontColor == standardColors[key]
+      active:  this.state.customTextStyle.fontColor == standardColors[key]
     }));
 
     var fontFamilyOptions = Object.keys(fontFamily).map(key => ({
       value: fontFamily[key],
       label: fontFamily[key],
-      active: props.player.textStyle.fontFamily == fontFamily[key]
+      active: this.state.customTextStyle.fontFamily == fontFamily[key]
     }));
 
     var fontStyleOptions = Object.keys(edgeStyles).map(key => ({
       value: edgeStyles[key],
       label: key,
-      active: props.player.textStyle.fontEdge == key
+      active: this.state.customTextStyle.fontEdge == key
     }));
 
     var backgroundColorOptions = Object.keys(standardColors).map(key => ({
       value: standardColors[key],
       label: key,
-      active:  props.player.textStyle.backgroundColor == standardColors[key]
+      active:  this.state.customTextStyle.backgroundColor == standardColors[key]
     }));
 
     var fontOpacityOptions = Object.keys(standardOpacities).map(key => ({
       value: standardOpacities[key],
       label: `${standardOpacities[key] * 100}%`,
-      active: props.player.textStyle.fontOpacity == standardOpacities[key]
+      active: this.state.customTextStyle.fontOpacity == standardOpacities[key]
     }));
 
     var backgroundOpacityOptions = Object.keys(standardOpacities).map(key => ({
       value: standardOpacities[key],
       label: `${standardOpacities[key] * 100}%`,
-      active: props.player.textStyle.backgroundOpacity == standardOpacities[key]
+      active: this.state.customTextStyle.backgroundOpacity == standardOpacities[key]
     }));
 
     return (
@@ -190,34 +192,38 @@ class CVAAOverlay extends BaseComponent {
         <form className='form custom-caption-form'>
           <div className='form-group-row'>
             <label>Size</label>
-            <DropDown onSelect={fontSize => this.customTextStyle.fontSize = fontSize} options={fontSizeOptions} />
+            <DropDown onSelect={fontSize => this.changeCustomStyle({fontSize})} options={fontSizeOptions} />
           </div>
           <div className='form-group-row'>
             <label>Font color</label>
-            <DropDown onSelect={color => this.customTextStyle.fontColor = color} options={fontColorOptions} />
+            <DropDown onSelect={fontColor => this.changeCustomStyle({fontColor})} options={fontColorOptions} />
           </div>
           <div className='form-group-row'>
             <label>Font family</label>
-            <DropDown onSelect={fontFamily => this.customTextStyle.fontFamily = fontFamily} options={fontFamilyOptions} />
+            <DropDown onSelect={fontFamily => this.changeCustomStyle({fontFamily})} options={fontFamilyOptions} />
           </div>
           <div className='form-group-row'>
             <label>Font style</label>
-            <DropDown onSelect={fontEdge => this.customTextStyle.fontEdge = fontEdge} options={fontStyleOptions} />
+            <DropDown onSelect={fontEdge => this.changeCustomStyle({fontEdge})} options={fontStyleOptions} />
           </div>
           <div className='form-group-row'>
             <label>Font opacity</label>
-            <DropDown onSelect={opacity => this.customTextStyle.fontOpacity = opacity} options={fontOpacityOptions} />
+            <DropDown onSelect={fontOpacity => this.changeCustomStyle({fontOpacity})} options={fontOpacityOptions} />
           </div>
           <div className='form-group-row'>
             <label>Background color</label>
-            <DropDown onSelect={color => this.customTextStyle.backgroundColor = color} options={backgroundColorOptions} />
+            <DropDown onSelect={backgroundColor => this.changeCustomStyle({backgroundColor})} options={backgroundColorOptions} />
           </div>
           <div className='form-group-row'>
             <label>Background opacity</label>
-            <DropDown onSelect={opacity => this.customTextStyle.backgroundOpacity = opacity} options={backgroundOpacityOptions} />
+            <DropDown onSelect={backgroundOpacity => this.changeCustomStyle({backgroundOpacity})} options={backgroundOpacityOptions} />
           </div>
           <div className='form-group-row'>
-            <a onClick={() => this.changeCaptionsStyle(this.customTextStyle)} className='btn btn-branded btn-block'>Apply</a>
+            <a onClick={() => this.changeCaptionsStyle(this.state.customTextStyle)} className='btn btn-branded btn-block'>Apply</a>
+          </div>
+
+          <div className='kp-preview-container'>
+            <span style={this.state.customTextStyle.toCSS()}>This is your caption preview</span>
           </div>
         </form>
       </div>
