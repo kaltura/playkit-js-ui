@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.5.0"></a>
+# [0.5.0](https://github.com/kaltura/playkit-js-ui/compare/v0.4.1...v0.5.0) (2017-10-10)
+
+
+### Bug Fixes
+
+* **FEC-7160:** seekbar dragging area extended to document level. ([#72](https://github.com/kaltura/playkit-js-ui/issues/72)) ([3eb8e72](https://github.com/kaltura/playkit-js-ui/commit/3eb8e72))
+* generates new preview image on playerPoster change ([#74](https://github.com/kaltura/playkit-js-ui/issues/74)) ([504d341](https://github.com/kaltura/playkit-js-ui/commit/504d341))
+
+
+### Features
+
+* remove call to external google font for better load time ([#69](https://github.com/kaltura/playkit-js-ui/issues/69)) ([c137670](https://github.com/kaltura/playkit-js-ui/commit/c137670))
+
+
+
 <a name="0.4.1"></a>
 ## [0.4.1](https://github.com/kaltura/playkit-js-ui/compare/v0.4.0...v0.4.1) (2017-10-03)
 
