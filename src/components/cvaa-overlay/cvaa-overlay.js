@@ -148,8 +148,7 @@ class CVAAOverlay extends BaseComponent {
     const colorOptions = [
       {
         value: window.KalturaPlayer.Playkit.TextStyle.StandardColors.WHITE,
-        label: 'White',
-        active: true
+        label: 'White'
       },
       {
         value: window.KalturaPlayer.Playkit.TextStyle.StandardColors.YELLOW,
@@ -193,6 +192,13 @@ class CVAAOverlay extends BaseComponent {
       active: props.player.textStyle.fontColor === option.value
     }));
 
+    const fontFamilies = window.KalturaPlayer.Playkit.TextStyle.FontFamily;
+    var fontFamilyOptions = Object.keys(fontFamilies).map(i => ({
+      value: fontFamilies[i],
+      label: fontFamilies[i],
+      active: props.player.textStyle.fontFamily === fontFamilies[i]
+    }))
+
     var backgroundColorOptions = colorOptions.map(option => ({
       ...option,
       active: props.player.textStyle.backgroundColor === option.value
@@ -219,6 +225,10 @@ class CVAAOverlay extends BaseComponent {
           <div className='form-group-row'>
             <label>Font color</label>
             <DropDown onSelect={color => this.customTextStyle.fontColor = color} options={fontColorOptions} />
+          </div>
+          <div className='form-group-row'>
+            <label>Font family</label>
+            <DropDown onSelect={fontFamily => this.customTextStyle.fontFamily = fontFamily} options={fontFamilyOptions} />
           </div>
           <div className='form-group-row'>
             <label>Font opacity</label>
