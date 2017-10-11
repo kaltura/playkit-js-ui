@@ -66,7 +66,7 @@ class CVAAOverlay extends BaseComponent {
       state: cvaaOverlayState.Main
     });
 
-    this.customTextStyle = new this.props.player.TextStyle();
+    this.customTextStyle = this.props.player.textStyle;
   }
 
   /**
@@ -152,37 +152,37 @@ class CVAAOverlay extends BaseComponent {
     var fontColorOptions = Object.keys(standardColors).map(key => ({
       value: standardColors[key],
       label: key,
-      active:  props.player.textStyle.fontColor === standardColors[key]
+      active:  props.player.textStyle.fontColor == standardColors[key]
     }));
 
     var fontFamilyOptions = Object.keys(fontFamily).map(key => ({
       value: fontFamily[key],
       label: fontFamily[key],
-      active: props.player.textStyle.fontFamily === fontFamily[key]
+      active: props.player.textStyle.fontFamily == fontFamily[key]
     }));
 
     var fontStyleOptions = Object.keys(edgeStyles).map(key => ({
       value: edgeStyles[key],
       label: key,
-      active: props.player.textStyle.fontEdge === key
+      active: props.player.textStyle.fontEdge == key
     }));
 
     var backgroundColorOptions = Object.keys(standardColors).map(key => ({
       value: standardColors[key],
       label: key,
-      active:  props.player.textStyle.backgroundColor === standardColors[key]
+      active:  props.player.textStyle.backgroundColor == standardColors[key]
     }));
 
     var fontOpacityOptions = Object.keys(standardOpacities).map(key => ({
       value: standardOpacities[key],
       label: `${standardOpacities[key] * 100}%`,
-      active: props.player.textStyle.fontOpacity === standardOpacities[key]
+      active: props.player.textStyle.fontOpacity == standardOpacities[key]
     }));
 
     var backgroundOpacityOptions = Object.keys(standardOpacities).map(key => ({
       value: standardOpacities[key],
       label: `${standardOpacities[key] * 100}%`,
-      active: props.player.textStyle.backgroundOpacity === standardOpacities[key]
+      active: props.player.textStyle.backgroundOpacity == standardOpacities[key]
     }));
 
     return (
