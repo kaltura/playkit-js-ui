@@ -66,7 +66,7 @@ class CVAAOverlay extends BaseComponent {
       state: cvaaOverlayState.Main
     });
 
-    this.customTextStyle = new window.KalturaPlayer.Playkit.TextStyle();
+    this.customTextStyle = new this.props.player.TextStyle();
   }
 
   /**
@@ -100,18 +100,18 @@ class CVAAOverlay extends BaseComponent {
    * @memberof CVAAOverlay
    */
   renderMainState(): React$Element<any> {
-    const captionsStyleDefault = Object.assign(new window.KalturaPlayer.Playkit.TextStyle(), {
-      backgroundOpacity: window.KalturaPlayer.Playkit.TextStyle.StandardOpacities.TRANSPARENT
+    const captionsStyleDefault = Object.assign(new this.props.player.TextStyle(), {
+      backgroundOpacity: this.props.player.TextStyle.StandardOpacities.TRANSPARENT
     });
 
-    const captionsStyleYellow = Object.assign(new window.KalturaPlayer.Playkit.TextStyle(), {
-      backgroundOpacity: window.KalturaPlayer.Playkit.TextStyle.StandardOpacities.TRANSPARENT,
-      fontColor: window.KalturaPlayer.Playkit.TextStyle.StandardColors.YELLOW
+    const captionsStyleYellow = Object.assign(new this.props.player.TextStyle(), {
+      backgroundOpacity: this.props.player.TextStyle.StandardOpacities.TRANSPARENT,
+      fontColor: this.props.player.TextStyle.StandardColors.YELLOW
     });
 
-    const captionsStyleBlackBG = Object.assign(new window.KalturaPlayer.Playkit.TextStyle(), {
-      backgroundColor: window.KalturaPlayer.Playkit.TextStyle.StandardColors.BLACK,
-      fontColor: window.KalturaPlayer.Playkit.TextStyle.StandardColors.WHITE
+    const captionsStyleBlackBG = Object.assign(new this.props.player.TextStyle(), {
+      backgroundColor: this.props.player.TextStyle.StandardColors.BLACK,
+      fontColor: this.props.player.TextStyle.StandardColors.WHITE
     });
 
     return (
@@ -138,91 +138,52 @@ class CVAAOverlay extends BaseComponent {
    */
   renderCustomCaptionsState(props: any): React$Element<any> {
 
-    var fontSizeOptions = window.KalturaPlayer.Playkit.TextStyle.FontSizes.map(size => ({
-        value: size,
-        label: size,
-        active: props.player.textStyle.fontSize === size
-      })
-    );
+    const fontFamily = this.props.player.TextStyle.FontFamily;
+    const edgeStyles = this.props.player.TextStyle.EdgeStyles;
+    const standardOpacities = props.player.TextStyle.StandardOpacities;
+    const standardColors = props.player.TextStyle.StandardColors;
 
-    const colorOptions = [
-      {
-        value: window.KalturaPlayer.Playkit.TextStyle.StandardColors.WHITE,
-        label: 'White'
-      },
-      {
-        value: window.KalturaPlayer.Playkit.TextStyle.StandardColors.YELLOW,
-        label: 'Yellow'
-      },
-      {
-        value: window.KalturaPlayer.Playkit.TextStyle.StandardColors.BLACK,
-        label: 'Black'
-      },
-      {
-        value: window.KalturaPlayer.Playkit.TextStyle.StandardColors.MAGENTA,
-        label: 'Magenta'
-      },
-      {
-        value: window.KalturaPlayer.Playkit.TextStyle.StandardColors.CYAN,
-        label: 'Cyan'
-      }
-    ];
-
-    const opacityOptions = [
-      {
-        value: window.KalturaPlayer.Playkit.TextStyle.StandardOpacities.OPAQUE,
-        label: '100%'
-      },
-      {
-        value: window.KalturaPlayer.Playkit.TextStyle.StandardOpacities.SEMI_HIGH,
-        label: '75%'
-      },
-      {
-        value: window.KalturaPlayer.Playkit.TextStyle.StandardOpacities.SEMI_LOW,
-        label: '25%'
-      },
-      {
-        value: window.KalturaPlayer.Playkit.TextStyle.StandardOpacities.TRANSPARENT,
-        label: '0%'
-      }
-    ];
-
-    var fontColorOptions = colorOptions.map(option => ({
-      ...option,
-      active: props.player.textStyle.fontColor === option.value
+    var fontSizeOptions = this.props.player.TextStyle.FontSizes.map(size => ({
+      value: size,
+      label: size,
+      active: props.player.textStyle.fontSize === size
     }));
 
-    const fontFamilies = window.KalturaPlayer.Playkit.TextStyle.FontFamily;
-
-    var fontFamilyOptions = Object.keys(fontFamilies).map(i => ({
-      value: fontFamilies[i],
-      label: fontFamilies[i],
-      active: props.player.textStyle.fontFamily === fontFamilies[i]
+    var fontColorOptions = Object.keys(standardColors).map(key => ({
+      value: standardColors[key],
+      label: key,
+      active:  props.player.textStyle.fontColor === standardColors[key]
     }));
 
-    const fontStyles = window.KalturaPlayer.Playkit.TextStyle.EdgeStyles;
-
-    var fontStyleOptions = Object.keys(fontStyles).map(fontStyle => ({
-      value: fontStyles[fontStyle],
-      label: fontStyle,
-      active: props.player.textStyle.fontEdge === fontStyle
+    var fontFamilyOptions = Object.keys(fontFamily).map(key => ({
+      value: fontFamily[key],
+      label: fontFamily[key],
+      active: props.player.textStyle.fontFamily === fontFamily[key]
     }));
 
-    var backgroundColorOptions = colorOptions.map(option => ({
-      ...option,
-      active: props.player.textStyle.backgroundColor === option.value
+    var fontStyleOptions = Object.keys(edgeStyles).map(key => ({
+      value: edgeStyles[key],
+      label: key,
+      active: props.player.textStyle.fontEdge === key
     }));
 
-    var fontOpacityOptions = opacityOptions.map(option => ({
-      ...option,
-      active: props.player.textStyle.fontOpacity === option.value
+    var backgroundColorOptions = Object.keys(standardColors).map(key => ({
+      value: standardColors[key],
+      label: key,
+      active:  props.player.textStyle.backgroundColor === standardColors[key]
     }));
 
-    var backgroundOpacityOptions = opacityOptions.map(option => ({
-      ...option,
-      active: props.player.textStyle.backgroundOpacity === option.value
+    var fontOpacityOptions = Object.keys(standardOpacities).map(key => ({
+      value: standardOpacities[key],
+      label: `${standardOpacities[key] * 100}%`,
+      active: props.player.textStyle.fontOpacity === standardOpacities[key]
     }));
 
+    var backgroundOpacityOptions = Object.keys(standardOpacities).map(key => ({
+      value: standardOpacities[key],
+      label: `${standardOpacities[key] * 100}%`,
+      active: props.player.textStyle.backgroundOpacity === standardOpacities[key]
+    }));
 
     return (
       <div className={this.state.state === cvaaOverlayState.CustomCaptions ? 'overlay-screen active' : 'overlay-screen'}>
