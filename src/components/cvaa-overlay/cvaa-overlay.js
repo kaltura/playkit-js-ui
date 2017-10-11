@@ -127,8 +127,15 @@ class CVAAOverlay extends BaseComponent {
     )
   }
 
-  changeCustomStyle(delta) {
-    this.setState({customTextStyle: Object.assign(this.state.customTextStyle, delta)});
+  /**
+   * change one or more properties in customTextStyle object in the internal state
+   *
+   * @param {Object} styleChanges style changes object
+   * @returns {void}
+   * @memberof CVAAOverlay
+   */
+  changeCustomStyle(styleChanges: Object): void {
+    this.setState({customTextStyle: Object.assign(this.state.customTextStyle, styleChanges)});
   }
 
   /**
