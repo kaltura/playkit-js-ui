@@ -314,6 +314,8 @@ class SeekBarControl extends Component {
    * @memberof SeekBarControl
    */
   getFramePreviewImg(posterUrl: string): string {
+    if (!posterUrl) return '';
+
     let parts = posterUrl.split('/');
     let heightValueIndex = parts.indexOf('height') + 1;
     let widthValueIndex = parts.indexOf('width') + 1;
