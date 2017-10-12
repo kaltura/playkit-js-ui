@@ -1,8 +1,8 @@
-.overlay.share-overlay {
-  .share-icons {
+.kp-overlay.kp-share-overlay {
+  .kp-share-icons {
     margin: 60px 0;
 
-    .btn-rounded {
+    .kp-btn-rounded {
       margin: 0 8px;
       transition: transform 100ms;
       will-change: transform;
@@ -10,91 +10,91 @@
       &:first-child { margin-left: 0; }
       &:last-child { margin-right: 0; }
 
-      &.facebook-share-btn {
+      &.kp-facebook-share-btn {
         background-color: #3B5998;
       }
-      &.twitter-share-btn {
+      &.kp-twitter-share-btn {
         background-color: #1DA1F2;
       }
-      &.google-plus-share-btn {
+      &.kp-google-plus-share-btn {
         background-color: #DD4B39;
       }
-      &.linkedin-share-btn {
+      &.kp-linkedin-share-btn {
         background-color: #00A0DC;
       }
     }
   }
 }
 
-.share-main-container {
+.kp-share-main-container {
   width: 300px;
   max-width: 100%;
   margin: 0 auto;
   text-align: center;
 }
 
-.link-options-container {
+.kp-link-options-container {
   width: 400px;
   max-width: 100%;
   text-align: left;
   margin: 0 auto;
 
-  .copy-url-row {
+  .kp-copy-url-row {
     display: flex;
 
-    .input-copy-url { margin: 0; }
-    .btn-copy-url {
+    .kp-input-copy-url { margin: 0; }
+    .kp-btn-copy-url {
       margin-left: 16px;
 
-      .icon {
+      .kp-icon {
         will-change: transform;
         transition: 100ms transform;
         position: absolute;
         width: 32px;
       }
-      .check-icon {
+      .kp-check-icon {
         transform: scale(0);
         opacity: 0;
 
       }
 
-      &.copied {
+      &.kp-copied {
         background-color: $success-color;
 
-        .copy-icon {
+        .kp-copy-icon {
           transform: scale(0);
           opacity: 0;
         }
-        .check-icon {
+        .kp-check-icon {
           transform: scale(1);
           opacity: 1;
         }
       }
     }
   }
-  .video-start-options-row {
+  .kp-video-start-options-row {
     margin-top: 24px;
 
-    .checkbox { margin-right: 15px; }
-    .form-group { margin: 0; }
+    .kp-checkbox { margin-right: 15px; }
+    .kp-form-group { margin: 0; }
   }
 }
 
-.player:not(.touch) .overlay.share-overlay .share-icons .btn-rounded:hover {
+.kp-player:not(.kp-touch) .kp-overlay.kp-share-overlay .kp-share-icons .kp-btn-rounded:hover {
   transform: scale(1.1667);
 }
 
-.player.size-md {
-  .overlay.share-overlay {
-    .share-icons {
+.kp-player.kp-size-md {
+  .kp-overlay.kp-share-overlay {
+    .kp-share-icons {
       margin: 40px 0;
     }
   }
 }
 
-.player.size-sm {
-  .overlay.share-overlay {
-    .share-icons {
+.kp-player.kp-size-sm {
+  .kp-overlay.kp-share-overlay {
+    .kp-share-icons {
       margin: 20px 0;
     }
   }

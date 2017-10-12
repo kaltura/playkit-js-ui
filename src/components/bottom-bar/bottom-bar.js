@@ -18,7 +18,7 @@ class BottomBar extends Component {
    */
   render(props: any): React$Element<any> {
     return (
-      <div className='bottom-bar'>{ props.children }</div>
+      <div className='kp-bottom-bar'>{ props.children }</div>
     )
   }
 }

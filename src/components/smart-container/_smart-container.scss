@@ -8,7 +8,7 @@
   to { opacity: 0; transform : translateY(10px); }
 }
 
-.player:not(.touch) .smart-container {
+.kp-player:not(.kp-touch) .kp-smart-container {
   background-color: #222222;
   box-shadow: 0 2px 8px 0 rgba(0,0,0,0.3);
   border-radius: 4px;
@@ -20,11 +20,11 @@
   display: block;
   animation: openSmartContainer 100ms ease-out forwards;
 
-  &.leaving {
+  &.kp-leaving {
     animation: closeSmartContainer 100ms ease-out forwards;
   }
 
-  &.top {
+  &.kp-top {
     bottom: 100%;
     margin-bottom: 6px;
 
@@ -37,14 +37,14 @@
       width: 100%; height: 6px;
     }
   }
-  &.bottom {
+  &.kp-bottom {
     top: 100%;
     margin-top: 6px;
   }
-  &.right { left: 0px; }
-  &.left { right: 0px; }
+  &.kp-right { left: 0px; }
+  &.kp-left { right: 0px; }
 
-  .smart-container-item {
+  .kp-smart-container-item {
     margin: 16px;
     color: rgba(244,244,244,0.8);
     white-space: nowrap;
@@ -55,15 +55,15 @@
       clear: both;
     }
 
-    &.select-menu-item {
+    &.kp-select-menu-item {
       label {
         float: left;
 
-        .label-icon {
+        .kp-label-icon {
           display: none;
         }
       }
-      .dropdown, select {
+      .kp-dropdown, select {
         float: right;
       }
       select {
@@ -73,8 +73,8 @@
   }
 }
 
-.touch {
-  .smart-container-item {
+.kp-touch {
+  .kp-smart-container-item {
     width: 300px;
     max-width: 100%;
     margin: 16px auto;
@@ -88,14 +88,14 @@
       clear: both;
     }
 
-    &.select-menu-item {
+    &.kp-select-menu-item {
       label {
         float: left;
         font-size: 16px;
         color: rgba(255,255,255,0.8);
         fill: #fff;
 
-        .label-icon {
+        .kp-label-icon {
           width: 24px;
           height: 24px;
           display: inline-block;
@@ -103,7 +103,7 @@
           margin-right: 16px;
         }
       }
-      .dropdown, select {
+      .kp-dropdown, select {
         float: right;
       }
       select {

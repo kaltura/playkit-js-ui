@@ -1,46 +1,46 @@
-.player .seek-bar {
+.kp-player .kp-seek-bar {
     padding: 6px 0;
     cursor: pointer;
     position: relative;
 
     &:hover,
-    &.hover,
-    &.dragging-active {
-        .time-preview,
-        .frame-preview {
+    &.kp-hover,
+    &.kp-dragging-active {
+        .kp-time-preview,
+        .kp-frame-preview {
           display: block;
         }
-        .progress-bar {
-          .scrubber {
+        .kp-progress-bar {
+          .kp-scrubber {
               transform: scale(1);
           }
-          .virtual-progress {
+          .kp-virtual-progress {
             display: block;
           }
         }
     }
 
-    &.ad-break {
+    &.kp-ad-break {
       cursor: initial;
 
-      .progress-bar .progress {
+      .kp-progress-bar .kp-progress {
         background-color: $ads-color;
       }
     }
 
-    &.live {
-      .progress-bar .progress {
+    &.kp-live {
+      .kp-progress-bar .kp-progress {
         background-color: $live-color;
       }
     }
 
-    .progress-bar {
+    .kp-progress-bar {
         height: $progress-bar-height;
         background-color: rgba(255,255,255,0.3);
         border-radius: $progress-bar-border-radius;
         position: relative;
 
-        .progress {
+        .kp-progress {
             position: absolute;
             top: 0; left: 0;
             height: 100%;
@@ -48,10 +48,10 @@
             border-radius: $progress-bar-border-radius 0 0 $progress-bar-border-radius;
             background-color: $brand-color;
         }
-        .virtual-progress {
+        .kp-virtual-progress {
           display: none;
         }
-        .buffered, .virtual-progress {
+        .kp-buffered, .kp-virtual-progress {
             position: absolute;
             top: 0; left: 0;
             height: 100%;
@@ -59,7 +59,7 @@
             border-radius: $progress-bar-border-radius 0 0 $progress-bar-border-radius;
             background-color: rgba(255,255,255,0.3);
         }
-        .scrubber {
+        .kp-scrubber {
           position: absolute; z-index: 3;
           cursor: pointer;
           display: block;
@@ -78,7 +78,7 @@
         }
     }
 
-    .frame-preview {
+    .kp-frame-preview {
       position: absolute;
       bottom: $progress-bar-height + 12px; left: 0;
       height: 94px;	width: 164px;
@@ -86,14 +86,14 @@
       border-radius: 4px;
       z-index: 10;
 
-      .frame-preview-img {
+      .kp-frame-preview-img {
         background-size: auto 100%;
         width: 100%; height: 100%;
         position: relative;
       }
     }
 
-    .time-preview {
+    .kp-time-preview {
       position: absolute;
       bottom: $progress-bar-height + 18px; left: 0;
       z-index: 11;
@@ -108,20 +108,20 @@
       color: #fff;
     }
 
-    .time-preview,
-    .frame-preview {
+    .kp-time-preview,
+    .kp-frame-preview {
       display: none;
     }
 }
 
-.touch {
-  .virtual-progress, .time-preview, .frame-preview {
+.kp-touch {
+  .kp-virtual-progress, .kp-time-preview, .kp-frame-preview {
     display: none !important;
   }
 }
 
-.player.size-sm {
-  .virtual-progress, .time-preview, .frame-preview {
+.kp-player.kp-size-sm {
+  .kp-virtual-progress, .kp-time-preview, .kp-frame-preview {
     display: none;
   }
 }

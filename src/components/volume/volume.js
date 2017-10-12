@@ -170,28 +170,28 @@ class VolumeControl extends BaseComponent {
    * @memberof VolumeControl
    */
   render(): React$Element<any> {
-      var controlButtonClass = 'control-button-container volume-control';
-      if (this.props.isDraggingActive) controlButtonClass += ' dragging-active';
-      if (this.props.muted || this.props.volume === 0) controlButtonClass += ' is-muted';
+      var controlButtonClass = 'kp-control-button-container kp-volume-control';
+      if (this.props.isDraggingActive) controlButtonClass += ' kp-dragging-active';
+      if (this.props.muted || this.props.volume === 0) controlButtonClass += ' kp-is-muted';
 
       return (
         <div ref={c => this._volumeControlElement=c} className={controlButtonClass}>
-          <button className='control-button' onClick={() => this.onVolumeControlButtonClick()} aria-label='Volume'>
+          <button className='kp-control-button' onClick={() => this.onVolumeControlButtonClick()} aria-label='Volume'>
             <Icon type={IconType.VolumeBase} />
             <Icon type={IconType.VolumeWaves} />
             <Icon type={IconType.VolumeMute} />
           </button>
-          <div className='volume-control-bar' role='slider'
+          <div className='kp-volume-control-bar' role='slider'
             aria-valuemin='0' aria-valuemaz='100' aria-valuenow={this.player.volume * 100}
             aria-valuetext={`${this.player.volume * 100}% volume ${this.player.muted ? 'muted' : ''}`}>
             <div
-              className='bar'
+              className='kp-bar'
               ref={c => this._volumeProgressBarElement=c}
               onMouseDown={() => this.onVolumeProgressBarMouseDown()}
               onMouseUp={e => this.onVolumeProgressBarMouseUp(e)}
               onMouseMove={e => this.onVolumeProgressBarMouseMove(e)}
             >
-              <div className='progress' style={{height: this.getVolumeProgressHeight()}} />
+              <div className='kp-progress' style={{height: this.getVolumeProgressHeight()}} />
             </div>
           </div>
         </div>

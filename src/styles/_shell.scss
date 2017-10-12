@@ -1,9 +1,9 @@
-.kaltura-player-container {
+.kp-kaltura-player-container {
   position: absolute !important;
   top: 0;
   background-color: #000;
 }
-.player {
+.kp-player {
     overflow: hidden;
     user-select: none;
     width: 100%;
@@ -22,7 +22,7 @@
     video {
         width: 100%;
     }
-    .player-gui {
+    .kp-player-gui {
         opacity: 0;
         overflow: hidden;
         font-size: 0;
@@ -37,22 +37,22 @@
       top: 0; left: 0;
       width: 100%; height: 100%;
     }
-    &.metadata-loaded .player-gui,
-    &.state-paused .player-gui,
-    &.overlay-active .player-gui,
-    &.menu-active .player-gui {
+    &.kp-metadata-loaded .kp-player-gui,
+    &.kp-state-paused .kp-player-gui,
+    &.kp-overlay-active .kp-player-gui,
+    &.kp-menu-active .kp-player-gui {
       opacity: 1;
     }
 }
 
-.player [id^=ads-container] {
+.kp-player [id^=ads-container] {
   z-index: 5;
   transition: transform 100ms;
 }
 
-.player:not(.ad-break).metadata-loaded {
-  &.hover [id^=ads-container],
-  &.state-paused [id^=ads-container] {
+.kp-player:not(.kp-ad-break).kp-metadata-loaded {
+  &.kp-hover [id^=ads-container],
+  &.kp-state-paused [id^=ads-container] {
     transform: translateY(-60px);
   }
 }

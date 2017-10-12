@@ -1,4 +1,4 @@
-.player .bottom-bar {
+.kp-player .kp-bottom-bar {
     background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%);
     padding: 6px 16px;
     color: #fff;
@@ -10,7 +10,7 @@
     z-index: 10;
     bottom: 0; left: 0;
 
-    .left-controls {
+    .kp-left-controls {
         float: left;
         text-align: left;
 
@@ -18,11 +18,11 @@
           margin-left: 0px;
         }
     }
-    .right-controls {
+    .kp-right-controls {
         float: right;
         text-align: left;
 
-        .control-button-container {
+        .kp-control-button-container {
             margin: 0 6px;
 
             &:last-child {
@@ -32,21 +32,21 @@
     }
 }
 
-.player.hover .bottom-bar,
-.player.state-paused .bottom-bar,
-.player.menu-active .bottom-bar {
+.kp-player.kp-hover .kp-bottom-bar,
+.kp-player.kp-state-paused .kp-bottom-bar,
+.kp-player.kp-menu-active .kp-bottom-bar {
     opacity: 1;
 }
 
-.player.overlay-active .bottom-bar {
+.kp-player.kp-overlay-active .kp-bottom-bar {
   opacity: 0;
 }
 
-.player.size-sm {
-  .bottom-bar {
+.kp-player.kp-size-sm {
+  .kp-bottom-bar {
     padding: 6px 8px;
 
-    .time-display {
+    .kp-time-display {
       padding-left: 0;
     }
   }

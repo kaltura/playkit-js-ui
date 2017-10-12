@@ -1,36 +1,36 @@
-.control-button-container.volume-control {
+.kp-control-button-container.kp-volume-control {
 
     &:hover {
-        .volume-control-bar {
+        .kp-volume-control-bar {
             display: block !important;
         }
     }
 
-    &.is-muted {
-      .volume-waves {
+    &.kp-is-muted {
+      .kp-volume-waves {
         opacity: 0;
         transform: translateX(-5px);
       }
-      .volume-mute {
+      .kp-volume-mute {
         opacity: 1;
         transform: scale(1);
       }
     }
 
-    &.dragging-active {
-      .volume-control-bar {
+    &.kp-dragging-active {
+      .kp-volume-control-bar {
         display: block;
       }
     }
 
-    .volume-waves {
+    .kp-volume-waves {
       transform: translateX(0px);
     }
-    .volume-mute {
+    .kp-volume-mute {
       opacity: 1;
       transform: scale(0);
     }
-    .volume-waves, .volume-mute {
+    .kp-volume-waves, .kp-volume-mute {
       transition: 300ms transform, 300ms opacity;
     }
     svg {
@@ -38,7 +38,7 @@
       top: 0; left: 0;
     }
 }
-.volume-control-bar {
+.kp-volume-control-bar {
     position: absolute; z-index: 2;
     bottom: 38px; left: 0px;
     display: block;
@@ -56,13 +56,13 @@
       content: ' '; display: block;
     }
 
-    .bar {
+    .kp-bar {
         background-color: #424242;
         height: 100%;
         position: relative;
         cursor: pointer;
     }
-    .progress {
+    .kp-progress {
         position: absolute;
         bottom: 0px; left: 0px;
         width: 100%;
@@ -71,6 +71,6 @@
     }
 }
 
-.touch .control-button-container.volume-control:hover .volume-control-bar {
+.kp-touch .kp-control-button-container.kp-volume-control:hover .kp-volume-control-bar {
   display: none !important;
 }

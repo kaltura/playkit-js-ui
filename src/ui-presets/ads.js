@@ -32,17 +32,17 @@ export default function adsUI(props: any): React$Element<any> {
   }
 
   return (
-    <div className='ad-gui-wrapper'>
+    <div className='kp-ad-gui-wrapper'>
       <Loading player={props.player}/>
       {
         useStyledLinearAds ? undefined :
-          <div className='player-gui' id='player-gui'>
+          <div className='kp-player-gui' id='player-gui'>
             <div>
               <TopBar>
-                <div className='left-controls'>
-                  <span className='font-size-base'>Adverisment</span>
+                <div className='kp-left-controls'>
+                  <span className='kp-font-size-base'>Adverisment</span>
                 </div>
-                <div className='right-controls'>
+                <div className='kp-right-controls'>
                   <AdLearnMore/>
                 </div>
               </TopBar>
@@ -50,11 +50,11 @@ export default function adsUI(props: any): React$Element<any> {
             </div>
             <BottomBar>
               <SeekBarAdsContainer adBreak showFramePreview showTimeBubble player={props.player}/>
-              <div className='left-controls'>
+              <div className='kp-left-controls'>
                 <PlayPauseControl player={props.player}/>
                 <TimeDisplayAdsContainer/>
               </div>
-              <div className='right-controls'>
+              <div className='kp-right-controls'>
                 <VolumeControl player={props.player}/>
                 <FullscreenControl player={props.player} config={props.config}/>
               </div>

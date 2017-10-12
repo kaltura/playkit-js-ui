@@ -69,7 +69,7 @@ class AdSkip extends BaseComponent {
   render(): React$Element<any> | void {
     if (!this.props.adSkippableState && this.skipSupport) {
       return this.getSkipTimeOffset() <= 0 ?  (
-        <a className='btn btn-branded btn-skip-ad' onClick={() => this.player.skipAd()}>
+        <a className='kp-btn kp-btn-branded kp-btn-skip-ad' onClick={() => this.player.skipAd()}>
           {this.skipSupport.label || 'Skip ad'}
         </a>
       ) : (

@@ -1,25 +1,25 @@
-.control-button-container.control-fullscreen {
-  .control-button {
+.kp-control-button-container.kp-control-fullscreen {
+  .kp-control-button {
     transition: 100ms transform;
     transform: scale(1);
 
-    .icon-minimize {
+    .kp-icon-minimize {
       display: none;
     }
 
-    &.is-fullscreen {
-      .icon-maximize {
+    &.kp-is-fullscreen {
+      .kp-icon-maximize {
         display: none;
       }
-      .icon-minimize {
+      .kp-icon-minimize {
         display: block;
       }
     }
   }
 }
 
-.player:not(.touch) {
-  .control-button-container.control-fullscreen .control-button:hover {
+.kp-player:not(.kp-touch) {
+  .kp-control-button-container.kp-control-fullscreen .kp-control-button:hover {
     transform: scale(1.1);
   }
 }

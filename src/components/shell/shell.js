@@ -127,17 +127,17 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   render(props: any): React$Element<any> {
-    var playerClasses = 'player skin-default';
+    var playerClasses = 'kp-player kp-skin-default';
     playerClasses += ` ${props.playerClasses.join(' ')}`;
 
-    if (this.props.isMobile) playerClasses += ` touch`;
-    if (this.props.playerHover) playerClasses += ` hover`;
-    if (this.props.metadataLoaded) playerClasses += ` metadata-loaded`;
-    if (this.props.adBreak) playerClasses += ` ad-break`;
-    if (this.props.metadataLoaded) playerClasses += ` state-${this.props.currentState}`;
-    if (this.props.playerWidth <= 480) playerClasses += ' size-sm';
-    else if (this.props.playerWidth <= 768) playerClasses += ' size-md';
-    if (this.props.seekbarDraggingActive) playerClasses += ' hover';
+    if (this.props.isMobile) playerClasses += ` kp-touch`;
+    if (this.props.playerHover) playerClasses += ` kp-hover`;
+    if (this.props.metadataLoaded) playerClasses += ` kp-metadata-loaded`;
+    if (this.props.adBreak) playerClasses += ` kp-ad-break`;
+    if (this.props.metadataLoaded) playerClasses += ` kp-state-${this.props.currentState}`;
+    if (this.props.playerWidth <= 480) playerClasses += ' kp-size-sm';
+    else if (this.props.playerWidth <= 768) playerClasses += ' kp-size-md';
+    if (this.props.seekbarDraggingActive) playerClasses += ' kp-hover';
 
     return (
       <div

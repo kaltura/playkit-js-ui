@@ -85,7 +85,7 @@ class OverlayPlay extends BaseComponent {
    */
   render(): React$Element<any> {
     return (
-      <div className={`overlay-play ${this.state.animation ? 'in' : ''}`} onClick={() => this.onOverlayClick()}>
+      <div className={`kp-overlay-play ${this.state.animation ? 'kp-in' : ''}`} onClick={() => this.onOverlayClick()}>
         { this.isPlayingAdOrPlayback() ? <Icon type={IconType.Play} /> : <Icon type={IconType.Pause} /> }
       </div>
     )

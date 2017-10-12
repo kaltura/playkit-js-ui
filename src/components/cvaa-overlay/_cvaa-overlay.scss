@@ -1,5 +1,5 @@
-.overlay.cvaa-overlay {
-  .sample {
+.kp-overlay.kp-cvaa-overlay {
+  .kp-sample {
     border: 2px solid rgba(255,255,255,0.2);
     border-radius: 4px;
     font-size: 16px;
@@ -11,14 +11,14 @@
     margin: 0 12px;
     cursor: pointer;
 
-    &.black-bg {
+    &.kp-black-bg {
       background-color: #000;
     }
-    &.yellow-text {
+    &.kp-yellow-text {
       color: #FAFF00;
     }
   }
-  .button-save-cvaa {
+  .kp-button-save-cvaa {
     margin-top: 50px;
     height: 40px; width: 400px;
     max-width: 100%;
@@ -34,16 +34,16 @@
     cursor: pointer;
   }
 
-  .custom-caption-form {
+  .kp-custom-caption-form {
     width: 300px;
     max-width: 100%;
     margin: 0 auto;
   }
 }
 
-.player.size-sm {
-  .overlay.cvaa-overlay {
-    .sample {
+.kp-player.kp-size-sm {
+  .kp-overlay.kp-cvaa-overlay {
+    .kp-sample {
       width: 30%;
       margin: 2.33%;
       padding: 0;
@@ -51,7 +51,7 @@
       &:first-child { margin-left: 0; }
       &:last-child { margin-right: 0; }
     }
-    .button-save-cvaa {
+    .kp-button-save-cvaa {
       margin-top: 20px;
     }
   }

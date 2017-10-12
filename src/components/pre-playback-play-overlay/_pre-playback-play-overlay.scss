@@ -1,4 +1,4 @@
-.pre-playback-play-overlay {
+.kp-pre-playback-play-overlay {
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
@@ -6,7 +6,7 @@
   background-position: center center;
   background-size: cover;
 
-  .pre-playback-play-button {
+  .kp-pre-playback-play-button {
     position: absolute;
     top: 50%; left: 50%;
     height: 108px; width: 108px;
@@ -28,8 +28,8 @@
   }
 }
 
-.pre-playback {
-  .player-gui {
+.kp-pre-playback {
+  .kp-player-gui {
     opacity: 0 !important;
     display: none;
   }

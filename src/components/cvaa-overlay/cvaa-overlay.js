@@ -84,8 +84,8 @@ class CVAAOverlay extends BaseComponent {
    * @memberof CVAAOverlay
    */
   changeCaptionsStyle(style: string): void {
-    this.props.removePlayerClass(`captions-${this.props.style}`);
-    this.props.addPlayerClass(`captions-${style}`);
+    this.props.removePlayerClass(`kp-captions-${this.props.style}`);
+    this.props.addPlayerClass(`kp-captions-${style}`);
     this.props.updateCaptionsStyle(style);
     this.props.onClose();
   }
@@ -98,16 +98,16 @@ class CVAAOverlay extends BaseComponent {
    */
   renderMainState(): React$Element<any> {
     return (
-      <div className={this.state.state === cvaaOverlayState.Main ? 'overlay-screen active' : 'overlay-screen'}>
+      <div className={this.state.state === cvaaOverlayState.Main ? 'kp-overlay-screen kp-active' : 'kp-overlay-screen'}>
         <div className='title'>
           Advanced captions settings
         </div>
         <div>
-          <div className='sample' onClick={() => this.changeCaptionsStyle('default')}>Sample</div>
-          <div className='sample black-bg' onClick={() => this.changeCaptionsStyle('black-bg')}>Sample</div>
-          <div className='sample yellow-text' onClick={() => this.changeCaptionsStyle('yellow-text')}>Sample</div>
+          <div className='kp-sample' onClick={() => this.changeCaptionsStyle('default')}>Sample</div>
+          <div className='kp-sample kp-black-bg' onClick={() => this.changeCaptionsStyle('black-bg')}>Sample</div>
+          <div className='kp-sample kp-yellow-text' onClick={() => this.changeCaptionsStyle('yellow-text')}>Sample</div>
         </div>
-        <a className='button-save-cvaa' onClick={() => this.transitionToState(cvaaOverlayState.CustomCaptions)}>Set custom caption</a>
+        <a className='kp-button-save-cvaa' onClick={() => this.transitionToState(cvaaOverlayState.CustomCaptions)}>Set custom caption</a>
       </div>
     )
   }
@@ -126,38 +126,38 @@ class CVAAOverlay extends BaseComponent {
     ];
 
     return (
-      <div className={this.state.state === cvaaOverlayState.CustomCaptions ? 'overlay-screen active' : 'overlay-screen'}>
-        <form className='form custom-caption-form'>
-          <div className='form-group-row'>
+      <div className={this.state.state === cvaaOverlayState.CustomCaptions ? 'kp-overlay-screen kp-active' : 'kp-overlay-screen'}>
+        <form className='kp-form kp-custom-caption-form'>
+          <div className='kp-form-group-row'>
             <label>Size</label>
             <DropDown options={speedOptions} />
           </div>
-          <div className='form-group-row'>
+          <div className='kp-form-group-row'>
             <label>Font color</label>
             <DropDown options={speedOptions} />
           </div>
-          <div className='form-group-row'>
+          <div className='kp-form-group-row'>
             <label>Font opacity</label>
             <DropDown options={speedOptions} />
           </div>
-          <div className='form-group-row'>
+          <div className='kp-form-group-row'>
             <label>Font family</label>
             <DropDown options={speedOptions} />
           </div>
-          <div className='form-group-row'>
+          <div className='kp-form-group-row'>
             <label>Font style</label>
             <DropDown options={speedOptions} />
           </div>
-          <div className='form-group-row'>
+          <div className='kp-form-group-row'>
             <label>Background color</label>
             <DropDown options={speedOptions} />
           </div>
-          <div className='form-group-row'>
+          <div className='kp-form-group-row'>
             <label>Background opacity</label>
             <DropDown options={speedOptions} />
           </div>
-          <div className='form-group-row'>
-            <a className='btn btn-branded btn-block'>Apply</a>
+          <div className='kp-form-group-row'>
+            <a className='kp-btn kp-btn-branded kp-btn-block'>Apply</a>
           </div>
         </form>
       </div>

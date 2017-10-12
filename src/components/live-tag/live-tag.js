@@ -68,8 +68,8 @@ class LiveTag extends BaseComponent {
    * @memberof LiveTag
    */
   render(props: any): React$Element<any> {
-    var tagStyleClass = 'live-tag';
-    if (props.isDvr && !this.isOnLiveEdge()) tagStyleClass += ' non-live-playhead';
+    var tagStyleClass = 'kp-live-tag';
+    if (props.isDvr && !this.isOnLiveEdge()) tagStyleClass += ' kp-non-live-playhead';
 
     return (
       <div className={tagStyleClass} onClick={() => this.onClick()}>Live</div>

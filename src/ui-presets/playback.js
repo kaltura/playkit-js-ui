@@ -23,19 +23,19 @@ import KeyboardControl from '../components/keyboard';
  */
 export default function playbackUI(props: any): React$Element<any> {
   return (
-    <div className='playback-gui-wrapper'>
+    <div className='kp-playback-gui-wrapper'>
       <KeyboardControl player={props.player} config={props.config} />
       <Loading player={props.player} />
-      <div className='player-gui' id='player-gui'>
+      <div className='kp-player-gui' id='player-gui'>
         <OverlayPortal />
         <OverlayPlay player={props.player} />
         <BottomBar>
           <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player} config={props.config} />
-          <div className='left-controls'>
+          <div className='kp-left-controls'>
             <PlayPauseControl player={props.player} />
             <TimeDisplayPlaybackContainer format='current / total' />
           </div>
-          <div className='right-controls'>
+          <div className='kp-right-controls'>
             <VolumeControl player={props.player} />
             <LanguageControl player={props.player} />
             <SettingsControl player={props.player} />
