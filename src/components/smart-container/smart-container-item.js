@@ -1,4 +1,5 @@
 //@flow
+import style from './_smart-container.scss';
 import { h, Component } from 'preact';
 import DropDown from '../dropdown';
 import { default as Icon, IconType } from '../icon';
@@ -20,9 +21,9 @@ class SmartContainerItem extends Component {
    */
   render(props: any): React$Element<any> {
     return (
-      <div className='smart-container-item select-menu-item'>
+      <div className={[style.smartContainerItem, style.selectMenuItem].join(' ')}>
         <label htmlFor={IconType.Quality}>
-          {props.icon ? <div className='label-icon'><Icon type={props.icon} /></div> : undefined}
+          {props.icon ? <div className={style.labelIcon}><Icon type={props.icon} /></div> : undefined}
           {props.label}
         </label>
         <DropDown onSelect={o => props.onSelect(o)} options={props.options} />

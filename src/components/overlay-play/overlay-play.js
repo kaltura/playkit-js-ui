@@ -1,4 +1,5 @@
 //@flow
+import style from './_overlay-play.scss';
 import { h } from 'preact';
 import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
@@ -85,7 +86,7 @@ class OverlayPlay extends BaseComponent {
    */
   render(): React$Element<any> {
     return (
-      <div className={`overlay-play ${this.state.animation ? 'in' : ''}`} onClick={() => this.onOverlayClick()}>
+      <div className={`${style.overlayPlay} ${this.state.animation ? style.in : ''}`} onClick={() => this.onOverlayClick()}>
         { this.isPlayingAdOrPlayback() ? <Icon type={IconType.Play} /> : <Icon type={IconType.Pause} /> }
       </div>
     )

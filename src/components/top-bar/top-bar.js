@@ -1,4 +1,5 @@
 //@flow
+import style from './_top-bar.scss';
 import { h, Component } from 'preact';
 
 /**
@@ -18,7 +19,7 @@ class TopBar extends Component {
    */
   render(props: any): React$Element<any> {
     return (
-      <div className='top-bar'>{ props.children }</div>
+      <div className={style.topBar}>{ props.children }</div>
     )
   }
 }

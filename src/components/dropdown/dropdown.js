@@ -1,4 +1,5 @@
 //@flow
+import style from '../../styles/style.scss';
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 import Menu from '../menu';
@@ -109,8 +110,8 @@ class DropDown extends Component {
   render(props: any): React$Element<any> {
     return props.isMobile ? this.renderNativeSelect() :
     (
-      <div className={this.state.dropMenuActive ? 'dropdown active' : 'dropdown'}>
-        <div className='dropdown-button' onClick={() => this.setState({dropMenuActive: !this.state.dropMenuActive})}>
+      <div className={this.state.dropMenuActive ? [style.dropdown, style.active].join(' ') : style.dropdown}>
+        <div className={style.dropdownButton} onClick={() => this.setState({dropMenuActive: !this.state.dropMenuActive})}>
           {this.getActiveOptionLabel()}
           <Icon type={IconType.ArrowDown} />
         </div>

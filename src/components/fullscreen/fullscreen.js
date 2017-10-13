@@ -1,4 +1,5 @@
 //@flow
+import style from './_fullscreen.scss';
 import {h} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {connect} from 'preact-redux';
@@ -147,10 +148,10 @@ class FullscreenControl extends BaseComponent {
    */
   render(): React$Element<any> {
     return (
-      <div className='control-button-container control-fullscreen'>
+      <div className={[style.controlButtonContainer, style.controlFullscreen].join(' ')}>
         <Localizer>
           <button aria-label={<Text id='controls.fullscreen'/>}
-                  className={this.props.fullscreen ? 'control-button is-fullscreen' : 'control-button'}
+                  className={this.props.fullscreen ? [style.controlButton, style.isFullscreen].join(' ') : style.controlButton}
                   onClick={() => this.toggleFullscreen()}>
             <Icon type={IconType.Maximize} />
             <Icon type={IconType.Minimize} />

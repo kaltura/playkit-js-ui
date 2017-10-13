@@ -1,4 +1,5 @@
 //@flow
+import style from './_ad-skip.scss';
 import { h } from 'preact';
 import { connect } from 'preact-redux';
 import BaseComponent from '../base';
@@ -69,11 +70,11 @@ class AdSkip extends BaseComponent {
   render(): React$Element<any> | void {
     if (!this.props.adSkippableState && this.skipSupport) {
       return this.getSkipTimeOffset() <= 0 ?  (
-        <a className='btn btn-branded btn-skip-ad' onClick={() => this.player.skipAd()}>
+        <a className={[style.btn, style.btnBranded, style.btnSkipAd].join(' ')} onClick={() => this.player.skipAd()}>
           {this.skipSupport.label || 'Skip ad'}
         </a>
       ) : (
-        <span className='skip-ad'>Skip in {this.getSkipTimeOffset()}</span>
+        <span className={style.skipAd}>Skip in {this.getSkipTimeOffset()}</span>
       );
     }
     else {

@@ -1,4 +1,5 @@
 //@flow
+import style from './_bottom-bar.scss';
 import { h, Component } from 'preact';
 
 /**
@@ -18,7 +19,7 @@ class BottomBar extends Component {
    */
   render(props: any): React$Element<any> {
     return (
-      <div className='bottom-bar'>{ props.children }</div>
+      <div className={style.bottomBar}>{ props.children }</div>
     )
   }
 }

@@ -1,4 +1,5 @@
 //@flow
+import style from '../../styles/style.scss';
 import { h } from 'preact';
 import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
@@ -170,28 +171,28 @@ class VolumeControl extends BaseComponent {
    * @memberof VolumeControl
    */
   render(): React$Element<any> {
-      var controlButtonClass = 'control-button-container volume-control';
-      if (this.props.isDraggingActive) controlButtonClass += ' dragging-active';
-      if (this.props.muted || this.props.volume === 0) controlButtonClass += ' is-muted';
+      var controlButtonClass = [style.controlButtonContainer, style.volumeControl];
+      if (this.props.isDraggingActive) controlButtonClass.push(style.draggingActive);
+      if (this.props.muted || this.props.volume === 0) controlButtonClass.push(style.isMuted);
 
       return (
-        <div ref={c => this._volumeControlElement=c} className={controlButtonClass}>
-          <button className='control-button' onClick={() => this.onVolumeControlButtonClick()} aria-label='Volume'>
+        <div ref={c => this._volumeControlElement=c} className={controlButtonClass.join(' ')}>
+          <button className={style.controlButton} onClick={() => this.onVolumeControlButtonClick()} aria-label='Volume'>
             <Icon type={IconType.VolumeBase} />
             <Icon type={IconType.VolumeWaves} />
             <Icon type={IconType.VolumeMute} />
           </button>
-          <div className='volume-control-bar' role='slider'
+          <div className={style.volumeControlBar} role='slider'
             aria-valuemin='0' aria-valuemaz='100' aria-valuenow={this.player.volume * 100}
             aria-valuetext={`${this.player.volume * 100}% volume ${this.player.muted ? 'muted' : ''}`}>
             <div
-              className='bar'
+              className={style.bar}
               ref={c => this._volumeProgressBarElement=c}
               onMouseDown={() => this.onVolumeProgressBarMouseDown()}
               onMouseUp={e => this.onVolumeProgressBarMouseUp(e)}
               onMouseMove={e => this.onVolumeProgressBarMouseMove(e)}
             >
-              <div className='progress' style={{height: this.getVolumeProgressHeight()}} />
+              <div className={style.progress} style={{height: this.getVolumeProgressHeight()}} />
             </div>
           </div>
         </div>

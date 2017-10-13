@@ -1,4 +1,5 @@
 //@flow
+import style from './_live-tag.scss';
 import { h } from 'preact';
 import { connect } from 'preact-redux';
 import BaseComponent from '../base';
@@ -68,11 +69,11 @@ class LiveTag extends BaseComponent {
    * @memberof LiveTag
    */
   render(props: any): React$Element<any> {
-    var tagStyleClass = 'live-tag';
-    if (props.isDvr && !this.isOnLiveEdge()) tagStyleClass += ' non-live-playhead';
+    var tagStyleClass = [style.liveTag];
+    if (props.isDvr && !this.isOnLiveEdge()) tagStyleClass.push(style.nonLivePlayhead);
 
     return (
-      <div className={tagStyleClass} onClick={() => this.onClick()}>Live</div>
+      <div className={tagStyleClass.join(' ')} onClick={() => this.onClick()}>Live</div>
     )
   }
 }
