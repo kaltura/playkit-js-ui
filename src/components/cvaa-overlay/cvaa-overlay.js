@@ -1,12 +1,14 @@
 //@flow
 import { h } from 'preact';
 import { connect } from 'preact-redux';
+import { isEqual } from 'lodash';
 import { bindActions } from '../../utils/bind-actions';
 import {actions as cvaaActions } from '../../reducers/cvaa';
 import { actions as shellActions } from '../../reducers/shell';
 import BaseComponent from '../base';
 import Overlay from '../overlay';
 import DropDown from '../dropdown';
+import { default as Icon, IconType } from '../icon';
 
 /**
  * mapping state to props
@@ -118,9 +120,15 @@ class CVAAOverlay extends BaseComponent {
           Advanced captions settings
         </div>
         <div>
-          <div className='sample' onClick={() => this.changeCaptionsStyle(captionsStyleDefault)}>Sample</div>
-          <div className='sample black-bg' onClick={() => this.changeCaptionsStyle(captionsStyleBlackBG)}>Sample</div>
-          <div className='sample yellow-text' onClick={() => this.changeCaptionsStyle(captionsStyleYellow)}>Sample</div>
+          <div className='sample' onClick={() => this.changeCaptionsStyle(captionsStyleDefault)}>Sample
+            { isEqual(this.props.player.textStyle, captionsStyleDefault) ? <div className='active-tick'><Icon type={IconType.Check} /></div> : undefined }
+          </div>
+          <div className='sample black-bg' onClick={() => this.changeCaptionsStyle(captionsStyleBlackBG)}>Sample
+            { isEqual(this.props.player.textStyle, captionsStyleBlackBG) ? <div className='active-tick'><Icon type={IconType.Check} /></div> : undefined }
+          </div>
+          <div className='sample yellow-text' onClick={() => this.changeCaptionsStyle(captionsStyleYellow)}>Sample
+            { isEqual(this.props.player.textStyle, captionsStyleYellow) ? <div className='active-tick'><Icon type={IconType.Check} /></div> : undefined }
+          </div>
         </div>
         <a className='button-save-cvaa' onClick={() => this.transitionToState(cvaaOverlayState.CustomCaptions)}>Set custom caption</a>
       </div>

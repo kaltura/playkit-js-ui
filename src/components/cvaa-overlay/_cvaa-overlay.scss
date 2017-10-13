@@ -1,3 +1,5 @@
+@import '~styles/variables';
+
 .overlay.cvaa-overlay {
   .sample {
     border: 2px solid rgba(255,255,255,0.2);
@@ -10,12 +12,26 @@
     display: inline-block;
     margin: 0 12px;
     cursor: pointer;
+    position: relative;
 
     &.black-bg {
       background-color: #000;
     }
     &.yellow-text {
       color: #FAFF00;
+    }
+    .active-tick {
+      height: 16px;
+      width: 16px;
+      border-radius: 8px;
+      background-color: $brand-color;
+      position: absolute;
+      top: -5px; right: -5px;
+
+      .icon {
+        fill: #fff;
+        vertical-align: top;
+      }
     }
   }
   .button-save-cvaa {
