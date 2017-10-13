@@ -1,19 +1,9 @@
-video::cue {
-  background-color: transparent;
-  font-family: $font-family;
-}
-.player.captions-yellow-text {
-  video::cue {
-    color: #FAFF00;
-  }
-}
-.player.captions-black-bg {
-  video::cue {
-    background-color: #000;
-  }
-}
-
 .player {
+  &.overlay-active {
+    .playkit-subtitles {
+      display: none;
+    }
+  }
   .playkit-subtitles {
     transform: translateY(0px);
     transition: ease-in 100ms;
