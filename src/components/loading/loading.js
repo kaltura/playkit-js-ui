@@ -1,4 +1,5 @@
 //@flow
+import style from './_loading.scss';
 import {h} from 'preact';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
@@ -108,9 +109,9 @@ class Loading extends BaseComponent {
     if (!props.show || props.adBreak || this.isPreloading) return undefined;
 
     return (
-      <div className='loading-backdrop show'>
-        <div className='spinner-container'>
-          <div className='spinner'>
+      <div className={[style.loadingBackdrop, style.show].join(' ')}>
+        <div className={style.spinnerContainer}>
+          <div className={style.spinner}>
             {[...Array(8)].map((i) => <span key={i}/>)}
           </div>
         </div>

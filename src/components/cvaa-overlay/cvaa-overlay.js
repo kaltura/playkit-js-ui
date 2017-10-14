@@ -1,4 +1,5 @@
 //@flow
+import style from '../../styles/style.scss';
 import { h } from 'preact';
 import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
@@ -84,8 +85,6 @@ class CVAAOverlay extends BaseComponent {
    * @memberof CVAAOverlay
    */
   changeCaptionsStyle(style: string): void {
-    this.props.removePlayerClass(`captions-${this.props.style}`);
-    this.props.addPlayerClass(`captions-${style}`);
     this.props.updateCaptionsStyle(style);
     this.props.onClose();
   }
@@ -98,16 +97,16 @@ class CVAAOverlay extends BaseComponent {
    */
   renderMainState(): React$Element<any> {
     return (
-      <div className={this.state.state === cvaaOverlayState.Main ? 'overlay-screen active' : 'overlay-screen'}>
-        <div className='title'>
+      <div className={this.state.state === cvaaOverlayState.Main ? [style.overlayScreen, style.active].join(' ') : style.overlayScreen}>
+        <div className={style.title}>
           Advanced captions settings
         </div>
         <div>
-          <div className='sample' onClick={() => this.changeCaptionsStyle('default')}>Sample</div>
-          <div className='sample black-bg' onClick={() => this.changeCaptionsStyle('black-bg')}>Sample</div>
-          <div className='sample yellow-text' onClick={() => this.changeCaptionsStyle('yellow-text')}>Sample</div>
+          <div className={style.sample} onClick={() => this.changeCaptionsStyle(style.default)}>Sample</div>
+          <div className={[style.sample, style.blackBg].join(' ')} onClick={() => this.changeCaptionsStyle(style.blackBg)}>Sample</div>
+          <div className={[style.sample, style.yellowText].join(' ')} onClick={() => this.changeCaptionsStyle(style.yellowText)}>Sample</div>
         </div>
-        <a className='button-save-cvaa' onClick={() => this.transitionToState(cvaaOverlayState.CustomCaptions)}>Set custom caption</a>
+        <a className={style.buttonSaveCvaa} onClick={() => this.transitionToState(cvaaOverlayState.CustomCaptions)}>Set custom caption</a>
       </div>
     )
   }
@@ -126,38 +125,38 @@ class CVAAOverlay extends BaseComponent {
     ];
 
     return (
-      <div className={this.state.state === cvaaOverlayState.CustomCaptions ? 'overlay-screen active' : 'overlay-screen'}>
-        <form className='form custom-caption-form'>
-          <div className='form-group-row'>
+      <div className={this.state.state === cvaaOverlayState.CustomCaptions ? [style.overlayScreen, style.active].join(' ') : style.overlayScreen}>
+        <form className={[style.form, style.customCaptionForm].join(' ')}>
+          <div className={style.formGroupRow}>
             <label>Size</label>
             <DropDown options={speedOptions} />
           </div>
-          <div className='form-group-row'>
+          <div className={style.formGroupRow}>
             <label>Font color</label>
             <DropDown options={speedOptions} />
           </div>
-          <div className='form-group-row'>
+          <div className={style.formGroupRow}>
             <label>Font opacity</label>
             <DropDown options={speedOptions} />
           </div>
-          <div className='form-group-row'>
+          <div className={style.formGroupRow}>
             <label>Font family</label>
             <DropDown options={speedOptions} />
           </div>
-          <div className='form-group-row'>
+          <div className={style.formGroupRow}>
             <label>Font style</label>
             <DropDown options={speedOptions} />
           </div>
-          <div className='form-group-row'>
+          <div className={style.formGroupRow}>
             <label>Background color</label>
             <DropDown options={speedOptions} />
           </div>
-          <div className='form-group-row'>
+          <div className={style.formGroupRow}>
             <label>Background opacity</label>
             <DropDown options={speedOptions} />
           </div>
-          <div className='form-group-row'>
-            <a className='btn btn-branded btn-block'>Apply</a>
+          <div className={style.formGroupRow}>
+            <a className={[style.btn, style.btnBranded, style.btnBlock].join(' ')}>Apply</a>
           </div>
         </form>
       </div>

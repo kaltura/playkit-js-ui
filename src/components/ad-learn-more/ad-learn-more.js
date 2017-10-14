@@ -1,4 +1,5 @@
 //@flow
+import style from './_ad-learn-more.scss';
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 
@@ -28,7 +29,7 @@ class AdLearnMore extends Component {
    * @memberof AdLearnMore
    */
   render(props: any): React$Element<any> {
-    return <a href={props.url} target='new' className='btn btn-dark-transparent'>Learn more</a>
+    return <a href={props.url} target='new' className={[style.btn, style.btnDarkTransparent].join(' ')}>Learn more</a>
   }
 }
 
