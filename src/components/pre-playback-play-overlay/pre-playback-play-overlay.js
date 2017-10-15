@@ -39,6 +39,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'PrePlaybackPlayOverlay', player: obj.player});
+    this.player.addEventListener(this.player.Event.CHANGE_SOURCE_ENDED, () => this._onChangeSourceEnded());
   }
 
   /**
@@ -53,15 +54,13 @@ class PrePlaybackPlayOverlay extends BaseComponent {
 
     try {
       this.autoplay = this.player.config.playback.autoplay;
-    }
-    catch (e) { // eslint-disable-line no-unused-vars
+    } catch (e) { // eslint-disable-line no-unused-vars
       this.autoplay = false;
     }
 
     try {
       this.mobileAutoplay = this.player.config.playback.mobileAutoplay;
-    }
-    catch (e) { // eslint-disable-line no-unused-vars
+    } catch (e) { // eslint-disable-line no-unused-vars
       this.mobileAutoplay = false;
     }
   }
@@ -73,7 +72,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   componentWillUnmount() {
-    this.props.updatePrePlayback(false);
+    this._hidePrePlayback();
     this.props.removePlayerClass(style.prePlayback);
   }
 
@@ -84,14 +83,9 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   componentDidMount() {
-    this.player.addEventListener(this.player.Event.PLAY, () => {
-      this.props.updatePrePlayback(false);
-      this.props.removePlayerClass(style.prePlayback);
-    });
-
+    this.player.addEventListener(this.player.Event.PLAY, () => this._hidePrePlayback());
     if (this.player.paused === false) {
-      this.props.updatePrePlayback(false);
-      this.props.removePlayerClass(style.prePlayback);
+      this._hidePrePlayback();
     }
   }
 
@@ -116,8 +110,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
     }).then(() => {
       this.player.play();
       if (this.props.prePlayback) {
-        this.props.updatePrePlayback(false);
-        this.props.removePlayerClass(style.prePlayback);
+        this._hidePrePlayback();
       }
     }).catch((e) => {
       this.logger.error(e.message);
@@ -146,6 +139,41 @@ class PrePlaybackPlayOverlay extends BaseComponent {
         </a>
       </div>
     )
+  }
+
+  /**
+   * Change source ended event handler.
+   * @private
+   * @returns {void}
+   */
+  _onChangeSourceEnded(): void {
+    try {
+      if (!this.player.config.playback.autoplay) {
+        this._displayPrePlayback();
+      }
+    } catch (e) {
+      this.logger.error(e.message);
+    }
+  }
+
+  /**
+   * Displays the pre playback overlay.
+   * @private
+   * @returns {void}
+   */
+  _displayPrePlayback(): void {
+    this.props.updatePrePlayback(true);
+    this.props.addPlayerClass(style.prePlayback);
+  }
+
+  /**
+   * Hides the pre playback overlay.
+   * @private
+   * @returns {void}
+   */
+  _hidePrePlayback(): void {
+    this.props.updatePrePlayback(false);
+    this.props.removePlayerClass(style.prePlayback);
   }
 }
 
