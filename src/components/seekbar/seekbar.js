@@ -1,5 +1,5 @@
 //@flow
-
+import style from './_seekbar.scss';
 import { h, Component } from 'preact';
 import { toHHMMSS } from '../../utils/time-format';
 
@@ -50,7 +50,20 @@ class SeekBarControl extends Component {
    */
   componentDidUpdate() {
     if (this.props.playerPoster && !this.framePreviewImg) {
-      this.framePreviewImg = this.getFramePreviewImg();
+      this.framePreviewImg = this.getFramePreviewImg(this.props.playerPoster);
+    }
+  }
+
+  /**
+   * before component update, check if the player poster changed and create new preview image url.
+   *
+   * @param {any} nextProps props for the next component update
+   * @returns {void}
+   * @memberof SeekBarControl
+   */
+  componentWillUpdate(nextProps: any) {
+    if(this.props.playerPoster !== nextProps.playerPoster) {
+      this.framePreviewImg = this.getFramePreviewImg(nextProps.playerPoster);
     }
   }
 
@@ -61,11 +74,11 @@ class SeekBarControl extends Component {
    * @memberof SeekBarControl
    */
   componentDidMount() {
-    this.props.playerElement.addEventListener('mouseup', e => {
+    document.addEventListener('mouseup', (e: Event) => {
       this.onPlayerMouseUp(e);
     });
 
-    this.props.playerElement.addEventListener('mousemove', e => {
+    document.addEventListener('mousemove', (e: Event) => {
       this.onPlayerMouseMove(e);
     });
   }
@@ -296,15 +309,18 @@ class SeekBarControl extends Component {
   /**
    * get the frame preview sprite based on player poster
    *
+   * @param {string} posterUrl poster url
    * @returns {string} image url
    * @memberof SeekBarControl
    */
-  getFramePreviewImg(): string {
-    let parts = this.props.playerPoster.split('/');
+  getFramePreviewImg(posterUrl: string): string {
+    if (!posterUrl) return '';
+
+    let parts = posterUrl.split('/');
     let heightValueIndex = parts.indexOf('height') + 1;
     let widthValueIndex = parts.indexOf('width') + 1;
-    parts[heightValueIndex] = 90;
-    parts[widthValueIndex] = 160;
+    parts[heightValueIndex] = '90';
+    parts[widthValueIndex] = '160';
     parts.push('vid_slices/100');
 
     return parts.join('/');
@@ -324,11 +340,11 @@ class SeekBarControl extends Component {
 
     return (
       <div
-        className='frame-preview'
+        className={style.framePreview}
         style={framePreviewStyle}
         ref={c => this._framePreviewElement=c}
       >
-        <div className='frame-preview-img' style={framePreviewImgStyle} />
+        <div className={style.framePreviewImg} style={framePreviewImgStyle} />
       </div>)
   }
 
@@ -342,7 +358,7 @@ class SeekBarControl extends Component {
     if (!this.props.showTimeBubble || this.props.isMobile) return undefined;
     var timeBubbleStyle = `left: ${this.getTimeBubbleOffset()}px`;
     var timeBubbleValue = this.props.isDvr ? '-' + toHHMMSS(this.props.duration - this.state.virtualTime) : toHHMMSS(this.state.virtualTime);
-    return <div className='time-preview' style={timeBubbleStyle} ref={c => this._timeBubbleElement=c}>{timeBubbleValue}</div>
+    return <div className={style.timePreview} style={timeBubbleStyle} ref={c => this._timeBubbleElement=c}>{timeBubbleValue}</div>
   }
 
   /**
@@ -355,11 +371,11 @@ class SeekBarControl extends Component {
   render(props: any): React$Element<any> {
     var virtualProgressWidth = `${this.state.virtualTime / props.duration * 100}%`;
     var progressWidth = `${props.currentTime / props.duration * 100}%`;
-    var seekbarStyleClass = `seek-bar`;
-    if (props.adBreak) seekbarStyleClass += ' ad-break';
-    if (props.isDvr) seekbarStyleClass += ' live';
-    if (props.isMobile) seekbarStyleClass += ' hover';
-    if (props.isDraggingActive) seekbarStyleClass += ' hover';
+    var seekbarStyleClass = style.seekBar;
+    if (props.adBreak) seekbarStyleClass += style.adBreak;
+    if (props.isDvr) seekbarStyleClass += style.live;
+    if (props.isMobile) seekbarStyleClass += style.hover;
+    if (props.isDraggingActive) seekbarStyleClass += style.hover;
 
     return (
       <div
@@ -378,17 +394,17 @@ class SeekBarControl extends Component {
         onTouchMove={e => this.onSeekbarTouchMove(e)}
         onTouchEnd={() => this.onSeekbarTouchEnd()}
       >
-        <div className='progress-bar'>
-          <div className='progress' style={{width: progressWidth}}>
+        <div className={style.progressBar}>
+          <div className={style.progress} style={{width: progressWidth}}>
             {
               props.adBreak ? undefined :
-              <a className='scrubber' />
+              <a className={style.scrubber} />
             }
           </div>
-          <div className='virtual-progress' style={{width: virtualProgressWidth}} />
+          <div className={style.virtualProgress} style={{width: virtualProgressWidth}} />
           {this.renderTimeBubble()}
           {this.renderFramePreview()}
-          <div className='buffered' style='width: 60%;' />
+          <div className={style.buffered} style='width: 60%;' />
         </div>
       </div>
     )

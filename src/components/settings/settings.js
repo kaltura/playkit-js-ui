@@ -1,4 +1,5 @@
 //@flow
+import style from '../../styles/style.scss';
 import { h } from 'preact';
 import { Localizer, Text } from 'preact-i18n';
 import { connect } from 'preact-redux';
@@ -82,7 +83,7 @@ class SettingsControl extends BaseComponent {
    */
   handleClickOutside(e: any) {
     if (!this.props.isMobile && !!this._controlSettingsElement && !this._controlSettingsElement.contains(e.target) && this.state.smartContainerOpen) {
-      if (e.target.classList.contains('overlay-play')) {
+      if (e.target.classList.contains(style.overlayPlay)) {
         e.stopPropagation();
       }
       this.setState({smartContainerOpen: false});
@@ -205,12 +206,12 @@ class SettingsControl extends BaseComponent {
     return (
       <div
         ref={c => this._controlSettingsElement=c}
-        className='control-button-container control-settings'
+        className={[style.controlButtonContainer, style.controlSettings].join(' ')}
       >
         <Localizer>
           <button
             aria-label={<Text id='controls.settings' />}
-            className={this.state.smartContainerOpen ? 'control-button active' : 'control-button'}
+            className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
             onClick={() => this.onControlButtonClick()}
           >
             <Icon type={IconType.Settings} />

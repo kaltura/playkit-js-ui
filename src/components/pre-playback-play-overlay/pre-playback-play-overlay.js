@@ -1,4 +1,5 @@
 //@flow
+import style from './_pre-playback-play-overlay.scss';
 import {h} from 'preact';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
@@ -49,7 +50,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   componentWillMount() {
-    this.props.addPlayerClass('pre-playback');
+    this.props.addPlayerClass(style.prePlayback);
 
     try {
       this.autoplay = this.player.config.playback.autoplay;
@@ -72,6 +73,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    */
   componentWillUnmount() {
     this._hidePrePlayback();
+    this.props.removePlayerClass(style.prePlayback);
   }
 
   /**
@@ -82,7 +84,6 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    */
   componentDidMount() {
     this.player.addEventListener(this.player.Event.PLAY, () => this._hidePrePlayback());
-
     if (this.player.paused === false) {
       this._hidePrePlayback();
     }
@@ -131,9 +132,9 @@ class PrePlaybackPlayOverlay extends BaseComponent {
     ) return undefined;
 
     return (
-      <div className='pre-playback-play-overlay' style={{backgroundImage: `url(${props.poster})`}}
+      <div className={style.prePlaybackPlayOverlay} style={{backgroundImage: `url(${props.poster})`}}
            onClick={() => this.handleClick()}>
-        <a className='pre-playback-play-button'>
+        <a className={style.prePlaybackPlayButton}>
           {props.isEnded ? <Icon type={IconType.Startover}/> : <Icon type={IconType.Play}/>}
         </a>
       </div>
@@ -162,7 +163,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    */
   _displayPrePlayback(): void {
     this.props.updatePrePlayback(true);
-    this.props.addPlayerClass('pre-playback');
+    this.props.addPlayerClass(style.prePlayback);
   }
 
   /**
@@ -172,7 +173,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    */
   _hidePrePlayback(): void {
     this.props.updatePrePlayback(false);
-    this.props.removePlayerClass('pre-playback');
+    this.props.removePlayerClass(style.prePlayback);
   }
 }
 

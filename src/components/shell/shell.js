@@ -1,4 +1,5 @@
 //@flow
+import style from '../../styles/style.scss';
 import { h } from 'preact';
 import BaseComponent from '../base';
 import { connect } from 'preact-redux';
@@ -127,16 +128,19 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   render(props: any): React$Element<any> {
-    var playerClasses = 'player skin-default';
-    playerClasses += ` ${props.playerClasses.join(' ')}`;
+    var playerClasses = [style.player, style.skinDefault];
+    playerClasses.push(props.playerClasses);
 
-    if (this.props.isMobile) playerClasses += ` touch`;
-    if (this.props.playerHover) playerClasses += ` hover`;
-    if (this.props.metadataLoaded) playerClasses += ` metadata-loaded`;
-    if (this.props.adBreak) playerClasses += ` ad-break`;
-    if (this.props.metadataLoaded) playerClasses += ` state-${this.props.currentState}`;
-    if (this.props.playerWidth <= 480) playerClasses += ' size-sm';
-    else if (this.props.playerWidth <= 768) playerClasses += ' size-md';
+    if (this.props.isMobile) playerClasses.push(style.touch);
+    if (this.props.playerHover) playerClasses.push(style.hover);
+    if (this.props.metadataLoaded) playerClasses.push(style.metadataLoaded);
+    if (this.props.adBreak) playerClasses.push(style.adBreak);
+    if (this.props.metadataLoaded) playerClasses.push(style.state + this.props.currentState);
+    if (this.props.playerWidth <= 480) playerClasses.push(style.sizeSm);
+    else if (this.props.playerWidth <= 768) playerClasses.push(style.sizeMd);
+    if (this.props.seekbarDraggingActive) playerClasses.push(style.hover);
+
+    playerClasses = playerClasses.join(' ');
 
     return (
       <div

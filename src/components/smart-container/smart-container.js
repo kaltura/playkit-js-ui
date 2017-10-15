@@ -1,4 +1,5 @@
 //@flow
+import style from './_smart-container.scss';
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 import Portal from 'preact-portal';
@@ -43,12 +44,12 @@ class SmartContainer extends Component {
     return props.isMobile ? (
       <Portal into="#overlay-portal">
         <Overlay open onClose={() => props.onClose()}>
-          <div className='title'>{props.title}</div>
+          <div className={style.title}>{props.title}</div>
           {props.children}
         </Overlay>
       </Portal>
     ) : (
-      <div className='smart-container top left'>
+      <div className={[style.smartContainer, style.top, style.left].join(' ')}>
         {props.children}
       </div>
     )

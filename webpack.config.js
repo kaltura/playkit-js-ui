@@ -47,7 +47,12 @@ module.exports = {
         use: [{
           loader: "style-loader"
         }, {
-          loader: "css-loader"
+          loader: "css-loader",
+          options: {
+            camelCase: true,
+            modules: true,
+            localIdentName: 'kp__[local]'
+          }
         }, {
           loader: "sass-loader"
         }]

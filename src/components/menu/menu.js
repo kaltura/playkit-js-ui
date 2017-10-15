@@ -1,4 +1,5 @@
 //@flow
+import style from '../../styles/style.scss';
 import { h, Component } from 'preact';
 import { default as Icon, IconType } from '../icon';
 import { connect } from 'preact-redux';
@@ -58,7 +59,7 @@ class Menu extends Component {
   handleClickOutside(e: any) {
     if (!this.props.isMobile && this._menuElement && !this._menuElement.contains(e.target)) {
 
-      if (e.target.classList.contains('overlay-play') || e.target.parentElement.getElementsByClassName('dropdown-menu')[0] === this._menuElement) {
+      if (e.target.classList.contains(style.overlayPlay) || e.target.parentElement.getElementsByClassName(style.dropdownMenu)[0] === this._menuElement) {
         e.stopPropagation();
       }
       this.props.onClose();
@@ -112,7 +113,7 @@ class Menu extends Component {
   renderNativeSelect(): React$Element<any> {
     return (
       <select
-        className={this.props.hideSelect ? 'mobile-hidden-select' : ''}
+        className={this.props.hideSelect ? style.mobileHiddenSelect : ''}
         onChange={e => this.onSelect(this.props.options[e.target.value])}
       >
         {this.props.options.map((o, index) => <option selected={this.isSelected(o)} value={index} key={index}>{o.label}</option>)}
@@ -133,11 +134,11 @@ class Menu extends Component {
     (
       <div
         ref={c => this._menuElement = c}
-        className='dropdown-menu top left'
+        className={[style.dropdownMenu, style.top, style.left].join(' ')}
       >
         {
           props.options.map((o, index) => (
-            <div key={index} className={this.isSelected(o) ? 'dropdown-menu-item active' : 'dropdown-menu-item'} onClick={() => this.onSelect(o)}>
+            <div key={index} className={this.isSelected(o) ? [style.dropdownMenuItem, style.active].join(' ') : style.dropdownMenuItem} onClick={() => this.onSelect(o)}>
               <span>{o.label}</span>
               <span style={`opacity: ${ this.isSelected(o) ? 1 : 0 }`}><Icon type={IconType.Check} /></span>
             </div>
