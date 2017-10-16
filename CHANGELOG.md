@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.6.0"></a>
+# [0.6.0](https://github.com/kaltura/playkit-js-ui/compare/v0.5.0...v0.6.0) (2017-10-16)
+
+
+### Bug Fixes
+
+* cvaa overlay responsive fixes ([#81](https://github.com/kaltura/playkit-js-ui/issues/81)) ([207e880](https://github.com/kaltura/playkit-js-ui/commit/207e880))
+* font style active state ([#80](https://github.com/kaltura/playkit-js-ui/issues/80)) ([96c4a82](https://github.com/kaltura/playkit-js-ui/commit/96c4a82))
+* posterUrl empty string protection ([#76](https://github.com/kaltura/playkit-js-ui/issues/76)) ([605ad6b](https://github.com/kaltura/playkit-js-ui/commit/605ad6b))
+* remove unused font family ([#79](https://github.com/kaltura/playkit-js-ui/issues/79)) ([afcc64a](https://github.com/kaltura/playkit-js-ui/commit/afcc64a))
+
+
+### Features
+
+* captions style controls (cvaa) ([#73](https://github.com/kaltura/playkit-js-ui/issues/73)) ([a0fb362](https://github.com/kaltura/playkit-js-ui/commit/a0fb362))
+* change media ([#61](https://github.com/kaltura/playkit-js-ui/issues/61)) ([6c5c2c4](https://github.com/kaltura/playkit-js-ui/commit/6c5c2c4))
+* Implementing css modules ([#77](https://github.com/kaltura/playkit-js-ui/issues/77)) ([491d351](https://github.com/kaltura/playkit-js-ui/commit/491d351))
+
+
+
 <a name="0.5.0"></a>
 # [0.5.0](https://github.com/kaltura/playkit-js-ui/compare/v0.4.1...v0.5.0) (2017-10-10)
 
