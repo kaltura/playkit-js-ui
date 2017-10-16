@@ -7,7 +7,7 @@
 		exports["PlaykitJsUi"] = factory(require("playkit-js"));
 	else
 		root["PlaykitJsUi"] = factory(root["Playkit"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_35__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_38__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -70,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 48);
+/******/ 	return __webpack_require__(__webpack_require__.s = 52);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -489,7 +489,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "connectAdvanced", function() { return connectAdvanced; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_preact__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_preact___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_preact__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redux__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redux__ = __webpack_require__(10);
 
 
 
@@ -1677,7 +1677,7 @@ var index = { Provider: Provider, connect: connect, connectAdvanced: connectAdva
 /* harmony default export */ __webpack_exports__["default"] = (index);
 //# sourceMappingURL=preact-redux.esm.js.map
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(16)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(19)))
 
 /***/ }),
 /* 2 */
@@ -1692,11 +1692,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _preact = __webpack_require__(0);
 
-var _playkitJs = __webpack_require__(35);
+var _playkitJs = __webpack_require__(38);
 
 var _playkitJs2 = _interopRequireDefault(_playkitJs);
 
-var _logger = __webpack_require__(65);
+var _logger = __webpack_require__(73);
 
 var _logger2 = _interopRequireDefault(_logger);
 
@@ -1744,6 +1744,447 @@ exports.default = BaseComponent;
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+
+var stylesInDom = {};
+
+var	memoize = function (fn) {
+	var memo;
+
+	return function () {
+		if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+		return memo;
+	};
+};
+
+var isOldIE = memoize(function () {
+	// Test for IE <= 9 as proposed by Browserhacks
+	// @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
+	// Tests for existence of standard globals is to allow style-loader
+	// to operate correctly into non-standard environments
+	// @see https://github.com/webpack-contrib/style-loader/issues/177
+	return window && document && document.all && !window.atob;
+});
+
+var getElement = (function (fn) {
+	var memo = {};
+
+	return function(selector) {
+		if (typeof memo[selector] === "undefined") {
+			memo[selector] = fn.call(this, selector);
+		}
+
+		return memo[selector]
+	};
+})(function (target) {
+	return document.querySelector(target)
+});
+
+var singleton = null;
+var	singletonCounter = 0;
+var	stylesInsertedAtTop = [];
+
+var	fixUrls = __webpack_require__(54);
+
+module.exports = function(list, options) {
+	if (typeof DEBUG !== "undefined" && DEBUG) {
+		if (typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+	}
+
+	options = options || {};
+
+	options.attrs = typeof options.attrs === "object" ? options.attrs : {};
+
+	// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+	// tags it will allow on a page
+	if (!options.singleton) options.singleton = isOldIE();
+
+	// By default, add <style> tags to the <head> element
+	if (!options.insertInto) options.insertInto = "head";
+
+	// By default, add <style> tags to the bottom of the target
+	if (!options.insertAt) options.insertAt = "bottom";
+
+	var styles = listToStyles(list, options);
+
+	addStylesToDom(styles, options);
+
+	return function update (newList) {
+		var mayRemove = [];
+
+		for (var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+
+			domStyle.refs--;
+			mayRemove.push(domStyle);
+		}
+
+		if(newList) {
+			var newStyles = listToStyles(newList, options);
+			addStylesToDom(newStyles, options);
+		}
+
+		for (var i = 0; i < mayRemove.length; i++) {
+			var domStyle = mayRemove[i];
+
+			if(domStyle.refs === 0) {
+				for (var j = 0; j < domStyle.parts.length; j++) domStyle.parts[j]();
+
+				delete stylesInDom[domStyle.id];
+			}
+		}
+	};
+};
+
+function addStylesToDom (styles, options) {
+	for (var i = 0; i < styles.length; i++) {
+		var item = styles[i];
+		var domStyle = stylesInDom[item.id];
+
+		if(domStyle) {
+			domStyle.refs++;
+
+			for(var j = 0; j < domStyle.parts.length; j++) {
+				domStyle.parts[j](item.parts[j]);
+			}
+
+			for(; j < item.parts.length; j++) {
+				domStyle.parts.push(addStyle(item.parts[j], options));
+			}
+		} else {
+			var parts = [];
+
+			for(var j = 0; j < item.parts.length; j++) {
+				parts.push(addStyle(item.parts[j], options));
+			}
+
+			stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+		}
+	}
+}
+
+function listToStyles (list, options) {
+	var styles = [];
+	var newStyles = {};
+
+	for (var i = 0; i < list.length; i++) {
+		var item = list[i];
+		var id = options.base ? item[0] + options.base : item[0];
+		var css = item[1];
+		var media = item[2];
+		var sourceMap = item[3];
+		var part = {css: css, media: media, sourceMap: sourceMap};
+
+		if(!newStyles[id]) styles.push(newStyles[id] = {id: id, parts: [part]});
+		else newStyles[id].parts.push(part);
+	}
+
+	return styles;
+}
+
+function insertStyleElement (options, style) {
+	var target = getElement(options.insertInto)
+
+	if (!target) {
+		throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
+	}
+
+	var lastStyleElementInsertedAtTop = stylesInsertedAtTop[stylesInsertedAtTop.length - 1];
+
+	if (options.insertAt === "top") {
+		if (!lastStyleElementInsertedAtTop) {
+			target.insertBefore(style, target.firstChild);
+		} else if (lastStyleElementInsertedAtTop.nextSibling) {
+			target.insertBefore(style, lastStyleElementInsertedAtTop.nextSibling);
+		} else {
+			target.appendChild(style);
+		}
+		stylesInsertedAtTop.push(style);
+	} else if (options.insertAt === "bottom") {
+		target.appendChild(style);
+	} else {
+		throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
+	}
+}
+
+function removeStyleElement (style) {
+	if (style.parentNode === null) return false;
+	style.parentNode.removeChild(style);
+
+	var idx = stylesInsertedAtTop.indexOf(style);
+	if(idx >= 0) {
+		stylesInsertedAtTop.splice(idx, 1);
+	}
+}
+
+function createStyleElement (options) {
+	var style = document.createElement("style");
+
+	options.attrs.type = "text/css";
+
+	addAttrs(style, options.attrs);
+	insertStyleElement(options, style);
+
+	return style;
+}
+
+function createLinkElement (options) {
+	var link = document.createElement("link");
+
+	options.attrs.type = "text/css";
+	options.attrs.rel = "stylesheet";
+
+	addAttrs(link, options.attrs);
+	insertStyleElement(options, link);
+
+	return link;
+}
+
+function addAttrs (el, attrs) {
+	Object.keys(attrs).forEach(function (key) {
+		el.setAttribute(key, attrs[key]);
+	});
+}
+
+function addStyle (obj, options) {
+	var style, update, remove, result;
+
+	// If a transform function was defined, run it on the css
+	if (options.transform && obj.css) {
+	    result = options.transform(obj.css);
+
+	    if (result) {
+	    	// If transform returns a value, use that instead of the original css.
+	    	// This allows running runtime transformations on the css.
+	    	obj.css = result;
+	    } else {
+	    	// If the transform function returns a falsy value, don't add this css.
+	    	// This allows conditional loading of css
+	    	return function() {
+	    		// noop
+	    	};
+	    }
+	}
+
+	if (options.singleton) {
+		var styleIndex = singletonCounter++;
+
+		style = singleton || (singleton = createStyleElement(options));
+
+		update = applyToSingletonTag.bind(null, style, styleIndex, false);
+		remove = applyToSingletonTag.bind(null, style, styleIndex, true);
+
+	} else if (
+		obj.sourceMap &&
+		typeof URL === "function" &&
+		typeof URL.createObjectURL === "function" &&
+		typeof URL.revokeObjectURL === "function" &&
+		typeof Blob === "function" &&
+		typeof btoa === "function"
+	) {
+		style = createLinkElement(options);
+		update = updateLink.bind(null, style, options);
+		remove = function () {
+			removeStyleElement(style);
+
+			if(style.href) URL.revokeObjectURL(style.href);
+		};
+	} else {
+		style = createStyleElement(options);
+		update = applyToTag.bind(null, style);
+		remove = function () {
+			removeStyleElement(style);
+		};
+	}
+
+	update(obj);
+
+	return function updateStyle (newObj) {
+		if (newObj) {
+			if (
+				newObj.css === obj.css &&
+				newObj.media === obj.media &&
+				newObj.sourceMap === obj.sourceMap
+			) {
+				return;
+			}
+
+			update(obj = newObj);
+		} else {
+			remove();
+		}
+	};
+}
+
+var replaceText = (function () {
+	var textStore = [];
+
+	return function (index, replacement) {
+		textStore[index] = replacement;
+
+		return textStore.filter(Boolean).join('\n');
+	};
+})();
+
+function applyToSingletonTag (style, index, remove, obj) {
+	var css = remove ? "" : obj.css;
+
+	if (style.styleSheet) {
+		style.styleSheet.cssText = replaceText(index, css);
+	} else {
+		var cssNode = document.createTextNode(css);
+		var childNodes = style.childNodes;
+
+		if (childNodes[index]) style.removeChild(childNodes[index]);
+
+		if (childNodes.length) {
+			style.insertBefore(cssNode, childNodes[index]);
+		} else {
+			style.appendChild(cssNode);
+		}
+	}
+}
+
+function applyToTag (style, obj) {
+	var css = obj.css;
+	var media = obj.media;
+
+	if(media) {
+		style.setAttribute("media", media)
+	}
+
+	if(style.styleSheet) {
+		style.styleSheet.cssText = css;
+	} else {
+		while(style.firstChild) {
+			style.removeChild(style.firstChild);
+		}
+
+		style.appendChild(document.createTextNode(css));
+	}
+}
+
+function updateLink (link, options, obj) {
+	var css = obj.css;
+	var sourceMap = obj.sourceMap;
+
+	/*
+		If convertToAbsoluteUrls isn't defined, but sourcemaps are enabled
+		and there is no publicPath defined then lets turn convertToAbsoluteUrls
+		on by default.  Otherwise default to the convertToAbsoluteUrls option
+		directly
+	*/
+	var autoFixUrls = options.convertToAbsoluteUrls === undefined && sourceMap;
+
+	if (options.convertToAbsoluteUrls || autoFixUrls) {
+		css = fixUrls(css);
+	}
+
+	if (sourceMap) {
+		// http://stackoverflow.com/a/26603875
+		css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+	}
+
+	var blob = new Blob([css], { type: "text/css" });
+
+	var oldSrc = link.href;
+
+	link.href = URL.createObjectURL(blob);
+
+	if(oldSrc) URL.revokeObjectURL(oldSrc);
+}
+
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1757,7 +2198,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 exports.bindActions = bindActions;
 
-var _redux = __webpack_require__(7);
+var _redux = __webpack_require__(10);
 
 /**
  * Binding redux actions to props utility
@@ -1773,7 +2214,7 @@ function bindActions(actions) {
 }
 
 /***/ }),
-/* 4 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1784,7 +2225,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.IconType = exports.default = undefined;
 
-var _icon = __webpack_require__(67);
+var _icon = __webpack_require__(75);
 
 Object.defineProperty(exports, 'IconType', {
   enumerable: true,
@@ -1800,14 +2241,45 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _icon2.default;
 
 /***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
-function n(n){return n&&"object"==typeof n&&"default"in n?n.default:n}function t(n){return null!==n&&void 0!==n}function r(n,t){var o=e({},n);for(var i in t)t.hasOwnProperty(i)&&(o[i]=n[i]&&t[i]&&"object"==typeof n[i]&&"object"==typeof t[i]?r(n[i],t[i]):n[i]||t[i]);return o}function e(n,t){for(var r in t)t.hasOwnProperty(r)&&(n[r]=t[r]);return n}function o(n){if(n=n||{},"string"==typeof n&&(n=n.split(",")),"join"in n){for(var t={},r=0;r<n.length;r++){var e=n[r].trim();e&&(t[e.split(".").pop()]=e)}return t}return n}function i(n,t){return v=t||h,n&&n.replace(/\{\{([\w.-]+)\}\}/g,u)}function u(n,t){for(var r=t.split("."),e=v,o=0;o<r.length;o++)if(null==(e=e[r[o]]))return"";return"string"==typeof e&&e.match(/\{\{/)&&(e=i(e,v)),e}function c(n,r,e,o,u,c){r&&(n=r+"."+n);var a=e&&f(e,n);return(u||0===u)&&a&&"object"==typeof a&&(a=a.splice?a[u]||a[0]:0===u&&t(a.none)?a.none:1===u&&t(a.one||a.singular)?a.one||a.singular:a.some||a.many||a.plural||a.other||a),a&&i(a,o)||c||null}function a(n,t,r){var i={};t=t||{},n=o(n);for(var u in n)if(n.hasOwnProperty(u)&&n[u]){var a=n[u];r||"string"!=typeof a?a.nodeName===g&&(a=e({fallback:a.children&&a.children[0]},a.attributes),i[u]=c(a.id,t.scope,t.dictionary,a.fields,a.plural,a.fallback)):i[u]=c(a,t.scope,t.dictionary)}return i}var l=__webpack_require__(0),f=n(__webpack_require__(71)),p=/[?&#]intl=show/,s=function(n){function t(){n.apply(this,arguments)}return n&&(t.__proto__=n),t.prototype=Object.create(n&&n.prototype),t.prototype.constructor=t,t.prototype.getChildContext=function(){var n=this.props,t=n.scope,o=n.definition,i=n.mark,u=e({},this.context.intl||{});return t&&(u.scope=t),o&&(u.dictionary=r(u.dictionary||{},o)),(i||"undefined"!=typeof location&&String(location).match(p))&&(u.mark=!0),{intl:u}},t.prototype.render=function(n){var t=n.children;return t&&t[0]||null},t}(l.Component),d=function(){for(var n=[],t=arguments.length;t--;)n[t]=arguments[t];if(n.length>1){return y(n[0],n[1])}var r=n[0];return function(n){return y(n,r)}},y=function(n,t){return function(r){return l.h(s,t||{},l.h(n,r))}},h={},v,g=function(n,t){var r=n.id,e=n.children,o=n.plural,i=n.fields,u=t.intl,a=e&&e[0],p=c(r,u&&u.scope,u&&u.dictionary,i,o,a);if(u&&u.mark){var s="dictionary"+(u&&u.scope?"."+u.scope:"")+"."+r;return l.h("mark",{style:"background: "+(p?f(u,s)?"rgba(119,231,117,.5)":"rgba(229,226,41,.5)":"rgba(228,147,51,.5)"),title:r},p)}return p},b=function(n,t){var r=n.children,e=t.intl,o=r&&r[0];return o&&l.cloneElement(o,a(o.attributes,e,!0))},m=function(n){return function(t){return function(r,e){var o="function"==typeof n?n(r):n,i=a(o,e.intl);return l.h(t,assign({},r,i))}}};d.intl=d,d.IntlProvider=s,d.Text=g,d.Localizer=b,d.withText=m,module.exports=d;
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(53);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(4)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../node_modules/css-loader/index.js??ref--2-1!../../node_modules/sass-loader/lib/loader.js!./style.scss", function() {
+			var newContent = require("!!../../node_modules/css-loader/index.js??ref--2-1!../../node_modules/sass-loader/lib/loader.js!./style.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+function n(n){return n&&"object"==typeof n&&"default"in n?n.default:n}function t(n){return null!==n&&void 0!==n}function r(n,t){var o=e({},n);for(var i in t)t.hasOwnProperty(i)&&(o[i]=n[i]&&t[i]&&"object"==typeof n[i]&&"object"==typeof t[i]?r(n[i],t[i]):n[i]||t[i]);return o}function e(n,t){for(var r in t)t.hasOwnProperty(r)&&(n[r]=t[r]);return n}function o(n){if(n=n||{},"string"==typeof n&&(n=n.split(",")),"join"in n){for(var t={},r=0;r<n.length;r++){var e=n[r].trim();e&&(t[e.split(".").pop()]=e)}return t}return n}function i(n,t){return v=t||h,n&&n.replace(/\{\{([\w.-]+)\}\}/g,u)}function u(n,t){for(var r=t.split("."),e=v,o=0;o<r.length;o++)if(null==(e=e[r[o]]))return"";return"string"==typeof e&&e.match(/\{\{/)&&(e=i(e,v)),e}function c(n,r,e,o,u,c){r&&(n=r+"."+n);var a=e&&f(e,n);return(u||0===u)&&a&&"object"==typeof a&&(a=a.splice?a[u]||a[0]:0===u&&t(a.none)?a.none:1===u&&t(a.one||a.singular)?a.one||a.singular:a.some||a.many||a.plural||a.other||a),a&&i(a,o)||c||null}function a(n,t,r){var i={};t=t||{},n=o(n);for(var u in n)if(n.hasOwnProperty(u)&&n[u]){var a=n[u];r||"string"!=typeof a?a.nodeName===g&&(a=e({fallback:a.children&&a.children[0]},a.attributes),i[u]=c(a.id,t.scope,t.dictionary,a.fields,a.plural,a.fallback)):i[u]=c(a,t.scope,t.dictionary)}return i}var l=__webpack_require__(0),f=n(__webpack_require__(85)),p=/[?&#]intl=show/,s=function(n){function t(){n.apply(this,arguments)}return n&&(t.__proto__=n),t.prototype=Object.create(n&&n.prototype),t.prototype.constructor=t,t.prototype.getChildContext=function(){var n=this.props,t=n.scope,o=n.definition,i=n.mark,u=e({},this.context.intl||{});return t&&(u.scope=t),o&&(u.dictionary=r(u.dictionary||{},o)),(i||"undefined"!=typeof location&&String(location).match(p))&&(u.mark=!0),{intl:u}},t.prototype.render=function(n){var t=n.children;return t&&t[0]||null},t}(l.Component),d=function(){for(var n=[],t=arguments.length;t--;)n[t]=arguments[t];if(n.length>1){return y(n[0],n[1])}var r=n[0];return function(n){return y(n,r)}},y=function(n,t){return function(r){return l.h(s,t||{},l.h(n,r))}},h={},v,g=function(n,t){var r=n.id,e=n.children,o=n.plural,i=n.fields,u=t.intl,a=e&&e[0],p=c(r,u&&u.scope,u&&u.dictionary,i,o,a);if(u&&u.mark){var s="dictionary"+(u&&u.scope?"."+u.scope:"")+"."+r;return l.h("mark",{style:"background: "+(p?f(u,s)?"rgba(119,231,117,.5)":"rgba(229,226,41,.5)":"rgba(228,147,51,.5)"),title:r},p)}return p},b=function(n,t){var r=n.children,e=t.intl,o=r&&r[0];return o&&l.cloneElement(o,a(o.attributes,e,!0))},m=function(n){return function(t){return function(r,e){var o="function"==typeof n?n(r):n,i=a(o,e.intl);return l.h(t,assign({},r,i))}}};d.intl=d,d.IntlProvider=s,d.Text=g,d.Localizer=b,d.withText=m,module.exports=d;
 //# sourceMappingURL=preact-i18n.js.map
 
 /***/ }),
-/* 6 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1911,17 +2383,17 @@ var actions = exports.actions = {
 };
 
 /***/ }),
-/* 7 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__combineReducers__ = __webpack_require__(62);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__bindActionCreators__ = __webpack_require__(63);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__applyMiddleware__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__compose__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_warning__ = __webpack_require__(33);
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__combineReducers__ = __webpack_require__(70);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__bindActionCreators__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__applyMiddleware__ = __webpack_require__(72);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__compose__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_warning__ = __webpack_require__(36);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "createStore", function() { return __WEBPACK_IMPORTED_MODULE_0__createStore__["b"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "combineReducers", function() { return __WEBPACK_IMPORTED_MODULE_1__combineReducers__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "bindActionCreators", function() { return __WEBPACK_IMPORTED_MODULE_2__bindActionCreators__["a"]; });
@@ -1945,10 +2417,10 @@ if (process.env.NODE_ENV !== 'production' && typeof isCrushed.name === 'string' 
 }
 
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(29)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(32)))
 
 /***/ }),
-/* 8 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1959,7 +2431,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _loading = __webpack_require__(69);
+var _loading = __webpack_require__(79);
 
 var _loading2 = _interopRequireDefault(_loading);
 
@@ -1968,7 +2440,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _loading2.default;
 
 /***/ }),
-/* 9 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1979,7 +2451,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _playPause = __webpack_require__(70);
+var _playPause = __webpack_require__(82);
 
 var _playPause2 = _interopRequireDefault(_playPause);
 
@@ -1988,7 +2460,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _playPause2.default;
 
 /***/ }),
-/* 10 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2050,66 +2522,6 @@ var actions = exports.actions = {
 };
 
 /***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = undefined;
-
-var _seekbar = __webpack_require__(74);
-
-var _seekbar2 = _interopRequireDefault(_seekbar);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = _seekbar2.default;
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = undefined;
-
-var _volume = __webpack_require__(75);
-
-var _volume2 = _interopRequireDefault(_volume);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = _volume2.default;
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = undefined;
-
-var _fullscreen = __webpack_require__(85);
-
-var _fullscreen2 = _interopRequireDefault(_fullscreen);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = _fullscreen2.default;
-
-/***/ }),
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2121,13 +2533,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _bottomBar = __webpack_require__(89);
+var _seekbar = __webpack_require__(88);
 
-var _bottomBar2 = _interopRequireDefault(_bottomBar);
+var _seekbar2 = _interopRequireDefault(_seekbar);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = _bottomBar2.default;
+exports.default = _seekbar2.default;
 
 /***/ }),
 /* 15 */
@@ -2141,7 +2553,67 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _overlayPlay = __webpack_require__(49);
+var _volume = __webpack_require__(91);
+
+var _volume2 = _interopRequireDefault(_volume);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _volume2.default;
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _fullscreen = __webpack_require__(107);
+
+var _fullscreen2 = _interopRequireDefault(_fullscreen);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _fullscreen2.default;
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _bottomBar = __webpack_require__(115);
+
+var _bottomBar2 = _interopRequireDefault(_bottomBar);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _bottomBar2.default;
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _overlayPlay = __webpack_require__(55);
 
 var _overlayPlay2 = _interopRequireDefault(_overlayPlay);
 
@@ -2150,7 +2622,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _overlayPlay2.default;
 
 /***/ }),
-/* 16 */
+/* 19 */
 /***/ (function(module, exports) {
 
 var g;
@@ -2177,7 +2649,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 17 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2219,7 +2691,7 @@ var actions = exports.actions = {
 };
 
 /***/ }),
-/* 18 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2230,7 +2702,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _prePlaybackPlayOverlay = __webpack_require__(68);
+var _prePlaybackPlayOverlay = __webpack_require__(76);
 
 var _prePlaybackPlayOverlay2 = _interopRequireDefault(_prePlaybackPlayOverlay);
 
@@ -2239,7 +2711,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _prePlaybackPlayOverlay2.default;
 
 /***/ }),
-/* 19 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2298,7 +2770,7 @@ exports.toHHMMSS = toHHMMSS;
 exports.toSecondsFromHHMMSS = toSecondsFromHHMMSS;
 
 /***/ }),
-/* 20 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2309,7 +2781,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _settings = __webpack_require__(76);
+var _settings = __webpack_require__(92);
 
 var _settings2 = _interopRequireDefault(_settings);
 
@@ -2318,7 +2790,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _settings2.default;
 
 /***/ }),
-/* 21 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function (global, factory) {
@@ -2439,7 +2911,7 @@ return Portal;
 
 
 /***/ }),
-/* 22 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2450,7 +2922,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _overlay = __webpack_require__(78);
+var _overlay = __webpack_require__(95);
 
 var _overlay2 = _interopRequireDefault(_overlay);
 
@@ -2459,7 +2931,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _overlay2.default;
 
 /***/ }),
-/* 23 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2470,7 +2942,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _language = __webpack_require__(82);
+var _language = __webpack_require__(99);
 
 var _language2 = _interopRequireDefault(_language);
 
@@ -2479,7 +2951,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _language2.default;
 
 /***/ }),
-/* 24 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2531,7 +3003,7 @@ var actions = exports.actions = {
 };
 
 /***/ }),
-/* 25 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2542,7 +3014,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _timeDisplay = __webpack_require__(88);
+var _timeDisplay = __webpack_require__(112);
 
 var _timeDisplay2 = _interopRequireDefault(_timeDisplay);
 
@@ -2551,7 +3023,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _timeDisplay2.default;
 
 /***/ }),
-/* 26 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2562,7 +3034,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _overlayPortal = __webpack_require__(90);
+var _overlayPortal = __webpack_require__(118);
 
 var _overlayPortal2 = _interopRequireDefault(_overlayPortal);
 
@@ -2571,7 +3043,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _overlayPortal2.default;
 
 /***/ }),
-/* 27 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2582,7 +3054,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _keyboard = __webpack_require__(91);
+var _keyboard = __webpack_require__(119);
 
 var _keyboard2 = _interopRequireDefault(_keyboard);
 
@@ -2591,7 +3063,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _keyboard2.default;
 
 /***/ }),
-/* 28 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2602,57 +3074,61 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = playbackUI;
 
+var _style = __webpack_require__(7);
+
+var _style2 = _interopRequireDefault(_style);
+
 var _preact = __webpack_require__(0);
 
-var _overlayPlay = __webpack_require__(15);
+var _overlayPlay = __webpack_require__(18);
 
 var _overlayPlay2 = _interopRequireDefault(_overlayPlay);
 
-var _prePlaybackPlayOverlay = __webpack_require__(18);
+var _prePlaybackPlayOverlay = __webpack_require__(21);
 
 var _prePlaybackPlayOverlay2 = _interopRequireDefault(_prePlaybackPlayOverlay);
 
-var _loading = __webpack_require__(8);
+var _loading = __webpack_require__(11);
 
 var _loading2 = _interopRequireDefault(_loading);
 
-var _playPause = __webpack_require__(9);
+var _playPause = __webpack_require__(12);
 
 var _playPause2 = _interopRequireDefault(_playPause);
 
-var _seekbarPlaybackContainer = __webpack_require__(72);
+var _seekbarPlaybackContainer = __webpack_require__(86);
 
 var _seekbarPlaybackContainer2 = _interopRequireDefault(_seekbarPlaybackContainer);
 
-var _volume = __webpack_require__(12);
+var _volume = __webpack_require__(15);
 
 var _volume2 = _interopRequireDefault(_volume);
 
-var _settings = __webpack_require__(20);
+var _settings = __webpack_require__(23);
 
 var _settings2 = _interopRequireDefault(_settings);
 
-var _language = __webpack_require__(23);
+var _language = __webpack_require__(26);
 
 var _language2 = _interopRequireDefault(_language);
 
-var _fullscreen = __webpack_require__(13);
+var _fullscreen = __webpack_require__(16);
 
 var _fullscreen2 = _interopRequireDefault(_fullscreen);
 
-var _timeDisplayPlaybackContainer = __webpack_require__(86);
+var _timeDisplayPlaybackContainer = __webpack_require__(110);
 
 var _timeDisplayPlaybackContainer2 = _interopRequireDefault(_timeDisplayPlaybackContainer);
 
-var _bottomBar = __webpack_require__(14);
+var _bottomBar = __webpack_require__(17);
 
 var _bottomBar2 = _interopRequireDefault(_bottomBar);
 
-var _overlayPortal = __webpack_require__(26);
+var _overlayPortal = __webpack_require__(29);
 
 var _overlayPortal2 = _interopRequireDefault(_overlayPortal);
 
-var _keyboard = __webpack_require__(27);
+var _keyboard = __webpack_require__(30);
 
 var _keyboard2 = _interopRequireDefault(_keyboard);
 
@@ -2668,12 +3144,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function playbackUI(props) {
   return (0, _preact.h)(
     'div',
-    { className: 'playback-gui-wrapper' },
+    { className: _style2.default.playbackGuiWWrapper },
     (0, _preact.h)(_keyboard2.default, { player: props.player, config: props.config }),
     (0, _preact.h)(_loading2.default, { player: props.player }),
     (0, _preact.h)(
       'div',
-      { className: 'player-gui', id: 'player-gui' },
+      { className: _style2.default.playerGui, id: 'player-gui' },
       (0, _preact.h)(_overlayPortal2.default, null),
       (0, _preact.h)(_overlayPlay2.default, { player: props.player }),
       (0, _preact.h)(
@@ -2682,13 +3158,13 @@ function playbackUI(props) {
         (0, _preact.h)(_seekbarPlaybackContainer2.default, { showFramePreview: true, showTimeBubble: true, player: props.player, config: props.config }),
         (0, _preact.h)(
           'div',
-          { className: 'left-controls' },
+          { className: _style2.default.leftControls },
           (0, _preact.h)(_playPause2.default, { player: props.player }),
           (0, _preact.h)(_timeDisplayPlaybackContainer2.default, { format: 'current / total' })
         ),
         (0, _preact.h)(
           'div',
-          { className: 'right-controls' },
+          { className: _style2.default.rightControls },
           (0, _preact.h)(_volume2.default, { player: props.player }),
           (0, _preact.h)(_language2.default, { player: props.player }),
           (0, _preact.h)(_settings2.default, { player: props.player }),
@@ -2701,7 +3177,7 @@ function playbackUI(props) {
 }
 
 /***/ }),
-/* 29 */
+/* 32 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -2891,14 +3367,14 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 30 */
+/* 33 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ActionTypes; });
 /* harmony export (immutable) */ __webpack_exports__["b"] = createStore;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_es_isPlainObject__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_symbol_observable__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_es_isPlainObject__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_symbol_observable__ = __webpack_require__(66);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_symbol_observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_symbol_observable__);
 
 
@@ -3150,13 +3626,13 @@ var ActionTypes = {
 }
 
 /***/ }),
-/* 31 */
+/* 34 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseGetTag_js__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getPrototype_js__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__isObjectLike_js__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseGetTag_js__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getPrototype_js__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__isObjectLike_js__ = __webpack_require__(65);
 
 
 
@@ -3222,11 +3698,11 @@ function isPlainObject(value) {
 
 
 /***/ }),
-/* 32 */
+/* 35 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__root_js__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__root_js__ = __webpack_require__(59);
 
 
 /** Built-in value references. */
@@ -3236,7 +3712,7 @@ var Symbol = __WEBPACK_IMPORTED_MODULE_0__root_js__["a" /* default */].Symbol;
 
 
 /***/ }),
-/* 33 */
+/* 36 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3264,7 +3740,7 @@ function warning(message) {
 }
 
 /***/ }),
-/* 34 */
+/* 37 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3303,13 +3779,13 @@ function compose() {
 }
 
 /***/ }),
-/* 35 */
+/* 38 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_35__;
+module.exports = __WEBPACK_EXTERNAL_MODULE_38__;
 
 /***/ }),
-/* 36 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3351,7 +3827,7 @@ var actions = exports.actions = {
 };
 
 /***/ }),
-/* 37 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3413,7 +3889,7 @@ var actions = exports.actions = {
 };
 
 /***/ }),
-/* 38 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3465,7 +3941,7 @@ var actions = exports.actions = {
 };
 
 /***/ }),
-/* 39 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3476,7 +3952,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _smartContainer = __webpack_require__(77);
+var _smartContainer = __webpack_require__(93);
 
 var _smartContainer2 = _interopRequireDefault(_smartContainer);
 
@@ -3485,7 +3961,38 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _smartContainer2.default;
 
 /***/ }),
-/* 40 */
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(94);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(4)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--2-1!../../../node_modules/sass-loader/lib/loader.js!./_smart-container.scss", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js??ref--2-1!../../../node_modules/sass-loader/lib/loader.js!./_smart-container.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3497,13 +4004,17 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _smartContainer = __webpack_require__(43);
+
+var _smartContainer2 = _interopRequireDefault(_smartContainer);
+
 var _preact = __webpack_require__(0);
 
-var _dropdown = __webpack_require__(41);
+var _dropdown = __webpack_require__(45);
 
 var _dropdown2 = _interopRequireDefault(_dropdown);
 
-var _icon = __webpack_require__(4);
+var _icon = __webpack_require__(6);
 
 var _icon2 = _interopRequireDefault(_icon);
 
@@ -3544,13 +4055,13 @@ var SmartContainerItem = function (_Component) {
     value: function render(props) {
       return (0, _preact.h)(
         'div',
-        { className: 'smart-container-item select-menu-item' },
+        { className: [_smartContainer2.default.smartContainerItem, _smartContainer2.default.selectMenuItem].join(' ') },
         (0, _preact.h)(
           'label',
           { htmlFor: _icon.IconType.Quality },
           props.icon ? (0, _preact.h)(
             'div',
-            { className: 'label-icon' },
+            { className: _smartContainer2.default.labelIcon },
             (0, _preact.h)(_icon2.default, { type: props.icon })
           ) : undefined,
           props.label
@@ -3568,7 +4079,7 @@ var SmartContainerItem = function (_Component) {
 exports.default = SmartContainerItem;
 
 /***/ }),
-/* 41 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3579,7 +4090,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _dropdown = __webpack_require__(79);
+var _dropdown = __webpack_require__(96);
 
 var _dropdown2 = _interopRequireDefault(_dropdown);
 
@@ -3588,7 +4099,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _dropdown2.default;
 
 /***/ }),
-/* 42 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3629,7 +4140,7 @@ var actions = exports.actions = {
 };
 
 /***/ }),
-/* 43 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3640,45 +4151,49 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = adsUI;
 
+var _style = __webpack_require__(7);
+
+var _style2 = _interopRequireDefault(_style);
+
 var _preact = __webpack_require__(0);
 
-var _loading = __webpack_require__(8);
+var _loading = __webpack_require__(11);
 
 var _loading2 = _interopRequireDefault(_loading);
 
-var _playPause = __webpack_require__(9);
+var _playPause = __webpack_require__(12);
 
 var _playPause2 = _interopRequireDefault(_playPause);
 
-var _seekbarAdsContainer = __webpack_require__(92);
+var _seekbarAdsContainer = __webpack_require__(120);
 
 var _seekbarAdsContainer2 = _interopRequireDefault(_seekbarAdsContainer);
 
-var _volume = __webpack_require__(12);
+var _volume = __webpack_require__(15);
 
 var _volume2 = _interopRequireDefault(_volume);
 
-var _fullscreen = __webpack_require__(13);
+var _fullscreen = __webpack_require__(16);
 
 var _fullscreen2 = _interopRequireDefault(_fullscreen);
 
-var _timeDisplayAdsContainer = __webpack_require__(94);
+var _timeDisplayAdsContainer = __webpack_require__(122);
 
 var _timeDisplayAdsContainer2 = _interopRequireDefault(_timeDisplayAdsContainer);
 
-var _adSkip = __webpack_require__(96);
+var _adSkip = __webpack_require__(124);
 
 var _adSkip2 = _interopRequireDefault(_adSkip);
 
-var _adLearnMore = __webpack_require__(98);
+var _adLearnMore = __webpack_require__(128);
 
 var _adLearnMore2 = _interopRequireDefault(_adLearnMore);
 
-var _topBar = __webpack_require__(44);
+var _topBar = __webpack_require__(48);
 
 var _topBar2 = _interopRequireDefault(_topBar);
 
-var _bottomBar = __webpack_require__(14);
+var _bottomBar = __webpack_require__(17);
 
 var _bottomBar2 = _interopRequireDefault(_bottomBar);
 
@@ -3706,11 +4221,11 @@ function adsUI(props) {
 
   return (0, _preact.h)(
     'div',
-    { className: 'ad-gui-wrapper' },
+    { className: _style2.default.adGuiWrapper },
     (0, _preact.h)(_loading2.default, { player: props.player }),
     useStyledLinearAds ? undefined : (0, _preact.h)(
       'div',
-      { className: 'player-gui', id: 'player-gui' },
+      { className: _style2.default.playerGui, id: 'player-gui' },
       (0, _preact.h)(
         'div',
         null,
@@ -3719,16 +4234,16 @@ function adsUI(props) {
           null,
           (0, _preact.h)(
             'div',
-            { className: 'left-controls' },
+            { className: _style2.default.leftControls },
             (0, _preact.h)(
               'span',
-              { className: 'font-size-base' },
+              { className: _style2.default.fontSizeBase },
               'Adverisment'
             )
           ),
           (0, _preact.h)(
             'div',
-            { className: 'right-controls' },
+            { className: _style2.default.rightControls },
             (0, _preact.h)(_adLearnMore2.default, null)
           )
         ),
@@ -3740,13 +4255,13 @@ function adsUI(props) {
         (0, _preact.h)(_seekbarAdsContainer2.default, { adBreak: true, showFramePreview: true, showTimeBubble: true, player: props.player }),
         (0, _preact.h)(
           'div',
-          { className: 'left-controls' },
+          { className: _style2.default.leftControls },
           (0, _preact.h)(_playPause2.default, { player: props.player }),
           (0, _preact.h)(_timeDisplayAdsContainer2.default, null)
         ),
         (0, _preact.h)(
           'div',
-          { className: 'right-controls' },
+          { className: _style2.default.rightControls },
           (0, _preact.h)(_volume2.default, { player: props.player }),
           (0, _preact.h)(_fullscreen2.default, { player: props.player, config: props.config })
         )
@@ -3756,7 +4271,7 @@ function adsUI(props) {
 }
 
 /***/ }),
-/* 44 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3767,7 +4282,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _topBar = __webpack_require__(100);
+var _topBar = __webpack_require__(132);
 
 var _topBar2 = _interopRequireDefault(_topBar);
 
@@ -3776,7 +4291,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _topBar2.default;
 
 /***/ }),
-/* 45 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3787,57 +4302,61 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = liveUI;
 
+var _style = __webpack_require__(7);
+
+var _style2 = _interopRequireDefault(_style);
+
 var _preact = __webpack_require__(0);
 
-var _overlayPlay = __webpack_require__(15);
+var _overlayPlay = __webpack_require__(18);
 
 var _overlayPlay2 = _interopRequireDefault(_overlayPlay);
 
-var _prePlaybackPlayOverlay = __webpack_require__(18);
+var _prePlaybackPlayOverlay = __webpack_require__(21);
 
 var _prePlaybackPlayOverlay2 = _interopRequireDefault(_prePlaybackPlayOverlay);
 
-var _loading = __webpack_require__(8);
+var _loading = __webpack_require__(11);
 
 var _loading2 = _interopRequireDefault(_loading);
 
-var _playPause = __webpack_require__(9);
+var _playPause = __webpack_require__(12);
 
 var _playPause2 = _interopRequireDefault(_playPause);
 
-var _seekbarLivePlaybackContainer = __webpack_require__(101);
+var _seekbarLivePlaybackContainer = __webpack_require__(135);
 
 var _seekbarLivePlaybackContainer2 = _interopRequireDefault(_seekbarLivePlaybackContainer);
 
-var _volume = __webpack_require__(12);
+var _volume = __webpack_require__(15);
 
 var _volume2 = _interopRequireDefault(_volume);
 
-var _settings = __webpack_require__(20);
+var _settings = __webpack_require__(23);
 
 var _settings2 = _interopRequireDefault(_settings);
 
-var _language = __webpack_require__(23);
+var _language = __webpack_require__(26);
 
 var _language2 = _interopRequireDefault(_language);
 
-var _fullscreen = __webpack_require__(13);
+var _fullscreen = __webpack_require__(16);
 
 var _fullscreen2 = _interopRequireDefault(_fullscreen);
 
-var _bottomBar = __webpack_require__(14);
+var _bottomBar = __webpack_require__(17);
 
 var _bottomBar2 = _interopRequireDefault(_bottomBar);
 
-var _overlayPortal = __webpack_require__(26);
+var _overlayPortal = __webpack_require__(29);
 
 var _overlayPortal2 = _interopRequireDefault(_overlayPortal);
 
-var _keyboard = __webpack_require__(27);
+var _keyboard = __webpack_require__(30);
 
 var _keyboard2 = _interopRequireDefault(_keyboard);
 
-var _liveTag = __webpack_require__(103);
+var _liveTag = __webpack_require__(137);
 
 var _liveTag2 = _interopRequireDefault(_liveTag);
 
@@ -3853,12 +4372,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function liveUI(props) {
   return (0, _preact.h)(
     'div',
-    { className: 'playback-gui-wrapper' },
+    { className: _style2.default.playbackGuiWWrapper },
     (0, _preact.h)(_keyboard2.default, { player: props.player, config: props.config }),
     (0, _preact.h)(_loading2.default, { player: props.player }),
     (0, _preact.h)(
       'div',
-      { className: 'player-gui', id: 'player-gui' },
+      { className: _style2.default.playerGui, id: 'player-gui' },
       (0, _preact.h)(_overlayPortal2.default, null),
       (0, _preact.h)(_overlayPlay2.default, { player: props.player }),
       (0, _preact.h)(
@@ -3867,13 +4386,13 @@ function liveUI(props) {
         (0, _preact.h)(_seekbarLivePlaybackContainer2.default, { showFramePreview: true, showTimeBubble: true, player: props.player }),
         (0, _preact.h)(
           'div',
-          { className: 'left-controls' },
+          { className: _style2.default.leftControls },
           (0, _preact.h)(_playPause2.default, { player: props.player }),
           (0, _preact.h)(_liveTag2.default, { player: props.player })
         ),
         (0, _preact.h)(
           'div',
-          { className: 'right-controls' },
+          { className: _style2.default.rightControls },
           (0, _preact.h)(_volume2.default, { player: props.player }),
           (0, _preact.h)(_language2.default, { player: props.player }),
           (0, _preact.h)(_settings2.default, { player: props.player }),
@@ -3886,7 +4405,7 @@ function liveUI(props) {
 }
 
 /***/ }),
-/* 46 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3928,7 +4447,7 @@ var actions = exports.actions = {
 };
 
 /***/ }),
-/* 47 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4166,7 +4685,7 @@ var actions = exports.actions = {
 };
 
 /***/ }),
-/* 48 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4186,7 +4705,7 @@ Object.defineProperty(exports, 'h', {
   }
 });
 
-var _playback = __webpack_require__(28);
+var _playback = __webpack_require__(31);
 
 Object.defineProperty(exports, 'playbackUI', {
   enumerable: true,
@@ -4195,7 +4714,7 @@ Object.defineProperty(exports, 'playbackUI', {
   }
 });
 
-var _ads = __webpack_require__(43);
+var _ads = __webpack_require__(47);
 
 Object.defineProperty(exports, 'adsUI', {
   enumerable: true,
@@ -4204,7 +4723,7 @@ Object.defineProperty(exports, 'adsUI', {
   }
 });
 
-var _live = __webpack_require__(45);
+var _live = __webpack_require__(49);
 
 Object.defineProperty(exports, 'liveUI', {
   enumerable: true,
@@ -4213,7 +4732,7 @@ Object.defineProperty(exports, 'liveUI', {
   }
 });
 
-var _overlayPlay = __webpack_require__(15);
+var _overlayPlay = __webpack_require__(18);
 
 Object.defineProperty(exports, 'OverlayPlay', {
   enumerable: true,
@@ -4222,7 +4741,7 @@ Object.defineProperty(exports, 'OverlayPlay', {
   }
 });
 
-var _prePlaybackPlayOverlay = __webpack_require__(18);
+var _prePlaybackPlayOverlay = __webpack_require__(21);
 
 Object.defineProperty(exports, 'PrePlaybackPlayOverlay', {
   enumerable: true,
@@ -4231,7 +4750,7 @@ Object.defineProperty(exports, 'PrePlaybackPlayOverlay', {
   }
 });
 
-var _loading = __webpack_require__(8);
+var _loading = __webpack_require__(11);
 
 Object.defineProperty(exports, 'Loading', {
   enumerable: true,
@@ -4240,7 +4759,7 @@ Object.defineProperty(exports, 'Loading', {
   }
 });
 
-var _playPause = __webpack_require__(9);
+var _playPause = __webpack_require__(12);
 
 Object.defineProperty(exports, 'PlayPauseControl', {
   enumerable: true,
@@ -4249,7 +4768,7 @@ Object.defineProperty(exports, 'PlayPauseControl', {
   }
 });
 
-var _seekbar = __webpack_require__(11);
+var _seekbar = __webpack_require__(14);
 
 Object.defineProperty(exports, 'SeekBarControl', {
   enumerable: true,
@@ -4258,7 +4777,7 @@ Object.defineProperty(exports, 'SeekBarControl', {
   }
 });
 
-var _volume = __webpack_require__(12);
+var _volume = __webpack_require__(15);
 
 Object.defineProperty(exports, 'VolumeControl', {
   enumerable: true,
@@ -4267,7 +4786,7 @@ Object.defineProperty(exports, 'VolumeControl', {
   }
 });
 
-var _share = __webpack_require__(105);
+var _share = __webpack_require__(141);
 
 Object.defineProperty(exports, 'ShareControl', {
   enumerable: true,
@@ -4276,7 +4795,7 @@ Object.defineProperty(exports, 'ShareControl', {
   }
 });
 
-var _settings = __webpack_require__(20);
+var _settings = __webpack_require__(23);
 
 Object.defineProperty(exports, 'SettingsControl', {
   enumerable: true,
@@ -4285,7 +4804,7 @@ Object.defineProperty(exports, 'SettingsControl', {
   }
 });
 
-var _language = __webpack_require__(23);
+var _language = __webpack_require__(26);
 
 Object.defineProperty(exports, 'LanguageControl', {
   enumerable: true,
@@ -4294,7 +4813,7 @@ Object.defineProperty(exports, 'LanguageControl', {
   }
 });
 
-var _fullscreen = __webpack_require__(13);
+var _fullscreen = __webpack_require__(16);
 
 Object.defineProperty(exports, 'FullscreenControl', {
   enumerable: true,
@@ -4303,7 +4822,7 @@ Object.defineProperty(exports, 'FullscreenControl', {
   }
 });
 
-var _timeDisplay = __webpack_require__(25);
+var _timeDisplay = __webpack_require__(28);
 
 Object.defineProperty(exports, 'TimeDisplay', {
   enumerable: true,
@@ -4312,7 +4831,7 @@ Object.defineProperty(exports, 'TimeDisplay', {
   }
 });
 
-var _topBar = __webpack_require__(44);
+var _topBar = __webpack_require__(48);
 
 Object.defineProperty(exports, 'TopBar', {
   enumerable: true,
@@ -4321,7 +4840,7 @@ Object.defineProperty(exports, 'TopBar', {
   }
 });
 
-var _bottomBar = __webpack_require__(14);
+var _bottomBar = __webpack_require__(17);
 
 Object.defineProperty(exports, 'BottomBar', {
   enumerable: true,
@@ -4330,7 +4849,7 @@ Object.defineProperty(exports, 'BottomBar', {
   }
 });
 
-var _overlayPortal = __webpack_require__(26);
+var _overlayPortal = __webpack_require__(29);
 
 Object.defineProperty(exports, 'OverlayPortal', {
   enumerable: true,
@@ -4339,7 +4858,7 @@ Object.defineProperty(exports, 'OverlayPortal', {
   }
 });
 
-var _keyboard = __webpack_require__(27);
+var _keyboard = __webpack_require__(30);
 
 Object.defineProperty(exports, 'KeyboardControl', {
   enumerable: true,
@@ -4348,7 +4867,7 @@ Object.defineProperty(exports, 'KeyboardControl', {
   }
 });
 
-var _uiManager = __webpack_require__(109);
+var _uiManager = __webpack_require__(145);
 
 var _uiManager2 = _interopRequireDefault(_uiManager);
 
@@ -4357,7 +4876,341 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _uiManager2.default;
 
 /***/ }),
-/* 49 */
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".kp__row {\n  display: block; }\n  .kp__row:after {\n    content: '';\n    clear: both;\n    display: block; }\n\n.kp__d-inline-block {\n  display: inline-block; }\n\n.kp__mobile-hidden-select {\n  display: block;\n  opacity: 0;\n  position: absolute;\n  top: 0;\n  left: 0px;\n  width: 100%;\n  height: 100%; }\n\n.kp__font-size-base {\n  font-size: 15px; }\n\n.kp__form-group {\n  margin: 10px 0;\n  position: relative;\n  max-width: 100%; }\n  .kp__form-group.kp__has-error .kp__form-control {\n    border-color: #db1f26; }\n    .kp__form-group.kp__has-error .kp__form-control:focus {\n      border-color: #fff; }\n  .kp__form-group.kp__has-icon .kp__form-control {\n    padding-left: 34px; }\n  .kp__form-group .kp__icon {\n    position: absolute;\n    top: 2px;\n    left: 2px;\n    width: 32px;\n    height: 32px;\n    fill: rgba(255, 255, 255, 0.4); }\n\n.kp__form-control {\n  height: 36px;\n  width: 100%;\n  min-width: 72px;\n  border: 2px solid rgba(255, 255, 255, 0.2);\n  border-radius: 4px;\n  background-color: rgba(0, 0, 0, 0.4);\n  font-size: 15px;\n  line-height: 18px;\n  color: #fff;\n  padding: 8px 10px;\n  text-overflow: ellipsis; }\n  .kp__form-control::-webkit-input-placeholder {\n    color: rgba(255, 255, 255, 0.6); }\n  .kp__form-control:focus {\n    background-color: #fff;\n    border-color: #fff;\n    color: #333; }\n    .kp__form-control:focus::-webkit-input-placeholder {\n      color: #ccc; }\n    .kp__form-control:focus + .kp__icon {\n      fill: #999; }\n\ntextarea.kp__form-control {\n  min-height: 72px; }\n\nselect {\n  font-size: 15px;\n  font-family: sans-serif;\n  color: #fff;\n  -webkit-appearance: none;\n  border: 0;\n  background: url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23FFFFFF' viewBox='0 0 1024 1024'><path d='M301.255 338.745c-24.994-24.994-65.516-24.994-90.51 0s-24.994 65.516 0 90.51l256 256c24.994 24.994 65.516 24.994 90.51 0l256-256c24.994-24.994 24.994-65.516 0-90.51s-65.516-24.994-90.51 0l-210.745 210.745-210.745-210.745z' /></svg>\") no-repeat;\n  background-size: 16px;\n  background-position: 100% center;\n  background-repeat: no-repeat;\n  padding-right: 24px; }\n\n.kp__checkbox {\n  font-size: 15px;\n  position: relative; }\n  .kp__checkbox input {\n    display: none; }\n  .kp__checkbox label:before {\n    height: 16px;\n    width: 16px;\n    border: 1px solid rgba(255, 255, 255, 0.2);\n    border-radius: 4px;\n    background-color: rgba(0, 0, 0, 0.4);\n    margin-right: 8px;\n    display: inline-block;\n    content: '';\n    vertical-align: middle; }\n  .kp__checkbox input:checked + label:before {\n    border: 1px solid #fff;\n    background: #fff; }\n\n.kp__form-group-row {\n  font-size: 15px;\n  margin: 24px 0; }\n  .kp__form-group-row:after {\n    clear: both;\n    content: ' ';\n    display: block; }\n  .kp__form-group-row label {\n    float: left;\n    color: rgba(244, 244, 244, 0.8); }\n  .kp__form-group-row .kp__dropdown {\n    float: right; }\n\n.kp__btn {\n  text-decoration: none;\n  height: 36px;\n  border-radius: 18px;\n  color: #fff;\n  line-height: 36px;\n  font-weight: bold;\n  cursor: pointer;\n  display: inline-block;\n  padding: 0 24px; }\n  .kp__btn.kp__btn-block {\n    display: block; }\n  .kp__btn.kp__btn-dark-transparent {\n    background-color: rgba(0, 0, 0, 0.5);\n    border: 2px solid rgba(255, 255, 255, 0.2);\n    line-height: 32px; }\n    .kp__btn.kp__btn-dark-transparent:hover {\n      color: #fff;\n      border: 2px solid rgba(255, 255, 255, 0.4); }\n  .kp__btn.kp__btn-branded {\n    background-color: #01ACCD; }\n    .kp__btn.kp__btn-branded:hover {\n      color: #fff; }\n\n.kp__btn-rounded {\n  height: 36px;\n  width: 36px;\n  min-width: 36px;\n  min-height: 36px;\n  border-radius: 18px;\n  background-color: rgba(0, 0, 0, 0.4);\n  display: inline-block;\n  padding: 2px;\n  fill: #fff; }\n\n@keyframes kp__openDropmenu {\n  from {\n    opacity: 0;\n    transform: translateY(10px); }\n  to {\n    opacity: 1;\n    transform: translateY(0); } }\n\n.kp__dropdown {\n  position: relative;\n  font-size: 15px; }\n  .kp__dropdown.kp__active .kp__dropdown-menu {\n    display: block;\n    opacity: 1; }\n  .kp__dropdown.kp__active .kp__dropdown-button .kp__icon {\n    transform: rotate(180deg); }\n  .kp__dropdown .kp__dropdown-button {\n    font-weight: bold;\n    line-height: 18px;\n    color: #fff;\n    cursor: pointer;\n    padding-left: 20px; }\n    .kp__dropdown .kp__dropdown-button .kp__icon {\n      width: 16px;\n      height: 16px;\n      fill: #fff;\n      vertical-align: middle;\n      margin-left: 6px;\n      transition: 150ms transform;\n      will-change: transform; }\n\n.kp__dropdown-menu {\n  display: block;\n  opacity: 1;\n  position: absolute;\n  background-color: #333333;\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.3);\n  border-radius: 4px;\n  padding: 6px 0;\n  z-index: 5;\n  animation: kp__openDropmenu 100ms ease-out forwards;\n  max-height: 173px;\n  overflow-y: auto;\n  font-size: 15px;\n  text-align: left; }\n  .kp__dropdown-menu.kp__top {\n    margin-bottom: 10px;\n    bottom: 100%; }\n  .kp__dropdown-menu.kp__bottom {\n    margin-top: 10px;\n    top: 100%; }\n  .kp__dropdown-menu.kp__right {\n    left: 0; }\n  .kp__dropdown-menu.kp__left {\n    right: 0; }\n  .kp__dropdown-menu .kp__dropdown-menu-item {\n    padding: 2px 10px 2px 16px;\n    white-space: nowrap;\n    min-height: 30px;\n    cursor: pointer; }\n    .kp__dropdown-menu .kp__dropdown-menu-item:hover {\n      color: #fff; }\n    .kp__dropdown-menu .kp__dropdown-menu-item.kp__active {\n      color: #01ACCD;\n      fill: #01ACCD; }\n    .kp__dropdown-menu .kp__dropdown-menu-item .kp__check-icon {\n      display: inline-block;\n      margin-left: 16px;\n      vertical-align: middle;\n      width: 24px;\n      height: 24px; }\n    .kp__dropdown-menu .kp__dropdown-menu-item span {\n      vertical-align: middle;\n      line-height: 26px; }\n\n.kp__tooltip {\n  display: inline-block;\n  height: 22px;\n  border-radius: 4px;\n  background-color: #FFFFFF;\n  padding: 3px 13px;\n  color: #333333;\n  font-size: 13px;\n  font-weight: bold;\n  line-height: 16px;\n  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.3); }\n\n.kp__player .kp__control-button {\n  width: 32px;\n  height: 32px;\n  background: transparent;\n  display: inline-block;\n  opacity: 0.8;\n  border: none;\n  padding: 0;\n  cursor: pointer;\n  fill: #fff; }\n  .kp__player .kp__control-button svg {\n    width: 32px;\n    height: 32px; }\n  .kp__player .kp__control-button.kp__active {\n    opacity: 1; }\n  .kp__player .kp__control-button.kp__control-button-rounded {\n    width: 36px;\n    height: 36px;\n    padding: 2px; }\n\n.kp__player:not(.kp__touch) .kp__control-button:hover {\n  opacity: 1; }\n\n.kp__player:not(.kp__touch) .kp__control-button.kp__control-button-rounded:hover {\n  background-color: rgba(0, 0, 0, 0.4);\n  border-radius: 18px; }\n\n.kp__player .kp__control-button-container {\n  display: inline-block;\n  position: relative;\n  vertical-align: top; }\n\n.kp__player.kp__touch .kp__player .kp__control-button-container {\n  position: static; }\n\n.kp__player.kp__touch .kp__control-button {\n  position: relative; }\n\na {\n  color: #01ACCD;\n  text-decoration: underline;\n  font-size: 15px;\n  line-height: 18px;\n  cursor: pointer; }\n  a:hover {\n    color: #01819a; }\n  a:active {\n    opacity: 0.7; }\n\n.kp__kaltura-player-container {\n  position: absolute !important;\n  top: 0;\n  background-color: #000; }\n\n.kp__player {\n  overflow: hidden;\n  user-select: none;\n  width: 100%; }\n  .kp__player:-webkit-full-screen {\n    width: 100%;\n    height: 100%;\n    max-width: none; }\n  .kp__player * {\n    box-sizing: border-box;\n    outline: none; }\n  .kp__player ::selection {\n    background-color: rgba(0, 0, 0, 0.1); }\n  .kp__player video {\n    width: 100%; }\n  .kp__player .kp__player-gui {\n    opacity: 0;\n    overflow: hidden;\n    font-size: 0;\n    font-family: sans-serif; }\n    .kp__player .kp__player-gui input, .kp__player .kp__player-gui textarea {\n      font-family: sans-serif; }\n  .kp__player #overlay-portal {\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%; }\n  .kp__player.kp__metadata-loaded .kp__player-gui,\n  .kp__player.kp__state-paused .kp__player-gui,\n  .kp__player.kp__overlay-active .kp__player-gui,\n  .kp__player.kp__menu-active .kp__player-gui {\n    opacity: 1; }\n\n.kp__player [id^=ads-container] {\n  z-index: 5;\n  transition: transform 100ms; }\n\n.kp__player:not(.kp__ad-break).kp__metadata-loaded.kp__hover [id^=ads-container],\n.kp__player:not(.kp__ad-break).kp__metadata-loaded.kp__state-paused [id^=ads-container] {\n  transform: translateY(-60px); }\n\nvideo {\n  left: 0; }\n  video::-webkit-media-controls-panel-container, video::-webkit-media-controls {\n    display: none !important;\n    -webkit-appearance: none; }\n  video::-webkit-media-controls-start-playback-button {\n    display: none !important;\n    -webkit-appearance: none; }\n\n.kp__player.kp__overlay-active .playkit-subtitles {\n  display: none; }\n\n.kp__player .playkit-subtitles {\n  transform: translateY(0px);\n  transition: ease-in 100ms; }\n\n.kp__player:not(.kp__overlay-active).kp__state-paused .playkit-subtitles,\n.kp__player:not(.kp__overlay-active).kp__hover .playkit-subtitles {\n  transform: translateY(-60px);\n  transition: ease-out 100ms; }\n\n.kp__video-player {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: black; }\n\n@keyframes kp__openOverlay {\n  from {\n    opacity: 0; }\n  to {\n    opacity: 1; } }\n\n.kp__overlay {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  display: none;\n  opacity: 0;\n  animation: kp__openOverlay 100ms ease-in-out forwards;\n  z-index: 11; }\n  .kp__overlay.kp__active {\n    display: block;\n    opacity: 1; }\n  .kp__overlay .kp__overlay-contents {\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, 0.42);\n    z-index: 4;\n    text-align: center;\n    color: #fff;\n    padding: 60px 20px 30px 20px;\n    overflow-y: auto; }\n  .kp__overlay .kp__title {\n    font-size: 24px;\n    font-weight: bold;\n    line-height: 29px;\n    margin-bottom: 60px; }\n  .kp__overlay .kp__close-overlay {\n    position: absolute;\n    top: 48px;\n    right: 48px;\n    z-index: 5;\n    fill: #fff;\n    cursor: pointer; }\n    .kp__overlay .kp__close-overlay .kp__icon-close {\n      width: 24px;\n      height: 24px; }\n  .kp__overlay .kp__overlay-screen {\n    display: none; }\n    .kp__overlay .kp__overlay-screen.kp__active {\n      display: block; }\n\n.kp__player.kp__size-md .kp__overlay .kp__overlay-contents {\n  padding: 36px 20px; }\n\n.kp__player.kp__size-md .kp__overlay .kp__close-overlay {\n  top: 38px; }\n\n.kp__player.kp__size-md .kp__overlay .kp__title {\n  margin-bottom: 24px; }\n\n.kp__player.kp__size-sm .kp__overlay .kp__overlay-contents {\n  padding: 16px 24px; }\n\n.kp__player.kp__size-sm .kp__overlay .kp__close-overlay {\n  top: 15px;\n  right: 24px; }\n\n.kp__player.kp__size-sm .kp__overlay .kp__title {\n  font-size: 16px;\n  line-height: 19px;\n  margin-bottom: 24px; }\n\n@keyframes kp__openSmartContainer {\n  from {\n    opacity: 0;\n    transform: translateY(10px); }\n  to {\n    opacity: 1;\n    transform: translateY(0); } }\n\n@keyframes kp__closeSmartContainer {\n  from {\n    opacity: 1;\n    transform: translateY(0); }\n  to {\n    opacity: 0;\n    transform: translateY(10px); } }\n\n.kp__player:not(.kp__touch) .kp__smart-container {\n  background-color: #222222;\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.3);\n  border-radius: 4px;\n  position: absolute;\n  right: 0px;\n  min-width: 193px;\n  font-size: 15px;\n  z-index: 10;\n  display: block;\n  animation: kp__openSmartContainer 100ms ease-out forwards; }\n  .kp__player:not(.kp__touch) .kp__smart-container.kp__leaving {\n    animation: kp__closeSmartContainer 100ms ease-out forwards; }\n  .kp__player:not(.kp__touch) .kp__smart-container.kp__top {\n    bottom: 100%;\n    margin-bottom: 6px; }\n    .kp__player:not(.kp__touch) .kp__smart-container.kp__top:before {\n      display: block;\n      content: ' ';\n      position: absolute;\n      bottom: -6px;\n      left: 0;\n      width: 100%;\n      height: 6px; }\n  .kp__player:not(.kp__touch) .kp__smart-container.kp__bottom {\n    top: 100%;\n    margin-top: 6px; }\n  .kp__player:not(.kp__touch) .kp__smart-container.kp__right {\n    left: 0px; }\n  .kp__player:not(.kp__touch) .kp__smart-container.kp__left {\n    right: 0px; }\n  .kp__player:not(.kp__touch) .kp__smart-container .kp__smart-container-item {\n    margin: 16px;\n    color: rgba(244, 244, 244, 0.8);\n    white-space: nowrap; }\n    .kp__player:not(.kp__touch) .kp__smart-container .kp__smart-container-item:after {\n      display: block;\n      content: ' ';\n      clear: both; }\n    .kp__player:not(.kp__touch) .kp__smart-container .kp__smart-container-item.kp__select-menu-item label {\n      float: left; }\n      .kp__player:not(.kp__touch) .kp__smart-container .kp__smart-container-item.kp__select-menu-item label .kp__label-icon {\n        display: none; }\n    .kp__player:not(.kp__touch) .kp__smart-container .kp__smart-container-item.kp__select-menu-item .kp__dropdown, .kp__player:not(.kp__touch) .kp__smart-container .kp__smart-container-item.kp__select-menu-item select {\n      float: right; }\n    .kp__player:not(.kp__touch) .kp__smart-container .kp__smart-container-item.kp__select-menu-item select {\n      text-align-last: right; }\n\n.kp__touch .kp__smart-container-item {\n  width: 300px;\n  max-width: 100%;\n  margin: 16px auto;\n  color: rgba(244, 244, 244, 0.8);\n  white-space: nowrap;\n  text-align: left; }\n  .kp__touch .kp__smart-container-item:after {\n    display: block;\n    content: ' ';\n    clear: both; }\n  .kp__touch .kp__smart-container-item.kp__select-menu-item label {\n    float: left;\n    font-size: 16px;\n    color: rgba(255, 255, 255, 0.8);\n    fill: #fff; }\n    .kp__touch .kp__smart-container-item.kp__select-menu-item label .kp__label-icon {\n      width: 24px;\n      height: 24px;\n      display: inline-block;\n      vertical-align: middle;\n      margin-right: 16px; }\n  .kp__touch .kp__smart-container-item.kp__select-menu-item .kp__dropdown, .kp__touch .kp__smart-container-item.kp__select-menu-item select {\n    float: right; }\n  .kp__touch .kp__smart-container-item.kp__select-menu-item select {\n    text-align-last: right; }\n\n.kp__overlay.kp__share-overlay .kp__share-icons {\n  margin: 60px 0; }\n  .kp__overlay.kp__share-overlay .kp__share-icons .kp__btn-rounded {\n    margin: 0 8px;\n    transition: transform 100ms;\n    will-change: transform; }\n    .kp__overlay.kp__share-overlay .kp__share-icons .kp__btn-rounded:first-child {\n      margin-left: 0; }\n    .kp__overlay.kp__share-overlay .kp__share-icons .kp__btn-rounded:last-child {\n      margin-right: 0; }\n    .kp__overlay.kp__share-overlay .kp__share-icons .kp__btn-rounded.kp__facebook-share-btn {\n      background-color: #3B5998; }\n    .kp__overlay.kp__share-overlay .kp__share-icons .kp__btn-rounded.kp__twitter-share-btn {\n      background-color: #1DA1F2; }\n    .kp__overlay.kp__share-overlay .kp__share-icons .kp__btn-rounded.kp__google-plus-share-btn {\n      background-color: #DD4B39; }\n    .kp__overlay.kp__share-overlay .kp__share-icons .kp__btn-rounded.kp__linkedin-share-btn {\n      background-color: #00A0DC; }\n\n.kp__share-main-container {\n  width: 300px;\n  max-width: 100%;\n  margin: 0 auto;\n  text-align: center; }\n\n.kp__link-options-container {\n  width: 400px;\n  max-width: 100%;\n  text-align: left;\n  margin: 0 auto; }\n  .kp__link-options-container .kp__copy-url-row {\n    display: flex; }\n    .kp__link-options-container .kp__copy-url-row .kp__input-copy-url {\n      margin: 0; }\n    .kp__link-options-container .kp__copy-url-row .kp__btn-copy-url {\n      margin-left: 16px; }\n      .kp__link-options-container .kp__copy-url-row .kp__btn-copy-url .kp__icon {\n        will-change: transform;\n        transition: 100ms transform;\n        position: absolute;\n        width: 32px; }\n      .kp__link-options-container .kp__copy-url-row .kp__btn-copy-url .kp__check-icon {\n        transform: scale(0);\n        opacity: 0; }\n      .kp__link-options-container .kp__copy-url-row .kp__btn-copy-url.kp__copied {\n        background-color: #009444; }\n        .kp__link-options-container .kp__copy-url-row .kp__btn-copy-url.kp__copied .kp__copy-icon {\n          transform: scale(0);\n          opacity: 0; }\n        .kp__link-options-container .kp__copy-url-row .kp__btn-copy-url.kp__copied .kp__check-icon {\n          transform: scale(1);\n          opacity: 1; }\n  .kp__link-options-container .kp__video-start-options-row {\n    margin-top: 24px; }\n    .kp__link-options-container .kp__video-start-options-row .kp__checkbox {\n      margin-right: 15px; }\n    .kp__link-options-container .kp__video-start-options-row .kp__form-group {\n      margin: 0; }\n\n.kp__player:not(.kp__touch) .kp__overlay.kp__share-overlay .kp__share-icons .kp__btn-rounded:hover {\n  transform: scale(1.1667); }\n\n.kp__player.kp__size-md .kp__overlay.kp__share-overlay .kp__share-icons {\n  margin: 40px 0; }\n\n.kp__player.kp__size-sm .kp__overlay.kp__share-overlay .kp__share-icons {\n  margin: 20px 0; }\n\n.kp__overlay.kp__cvaa-overlay .kp__sample {\n  border: 2px solid rgba(255, 255, 255, 0.2);\n  border-radius: 4px;\n  font-size: 16px;\n  font-weight: bold;\n  line-height: 36px;\n  text-align: center;\n  padding: 0 31px;\n  display: inline-block;\n  margin: 0 12px;\n  cursor: pointer;\n  position: relative; }\n  .kp__overlay.kp__cvaa-overlay .kp__sample.kp__black-bg {\n    background-color: #000; }\n  .kp__overlay.kp__cvaa-overlay .kp__sample.kp__yellow-text {\n    color: #FAFF00; }\n  .kp__overlay.kp__cvaa-overlay .kp__sample .kp__active-tick {\n    height: 16px;\n    width: 16px;\n    border-radius: 8px;\n    background-color: #01ACCD;\n    position: absolute;\n    top: -5px;\n    right: -5px; }\n    .kp__overlay.kp__cvaa-overlay .kp__sample .kp__active-tick .kp__icon {\n      fill: #fff;\n      vertical-align: top; }\n  .kp__overlay.kp__cvaa-overlay .kp__sample span {\n    font-size: 16px !important;\n    line-height: 1;\n    vertical-align: middle; }\n\n.kp__overlay.kp__cvaa-overlay .kp__button-save-cvaa {\n  margin-top: 50px;\n  height: 40px;\n  width: 400px;\n  max-width: 100%;\n  border: 2px solid rgba(255, 255, 255, 0.2);\n  border-radius: 4px;\n  font-size: 16px;\n  font-weight: bold;\n  line-height: 38px;\n  text-align: center;\n  display: inline-block;\n  color: #fff;\n  text-decoration: none;\n  cursor: pointer; }\n\n.kp__overlay.kp__cvaa-overlay .kp__custom-captions-applied {\n  margin-top: 50px; }\n\n.kp__overlay.kp__cvaa-overlay .kp__custom-caption-form {\n  width: 300px;\n  max-width: 100%;\n  margin: 0 auto; }\n  .kp__overlay.kp__cvaa-overlay .kp__custom-caption-form .kp__slider {\n    float: right;\n    width: 100px;\n    margin-top: 5px; }\n\n.kp__overlay.kp__cvaa-overlay .kp__preview-container {\n  width: 100%;\n  text-align: center;\n  font-size: 16px; }\n\n.kp__player.kp__size-sm .kp__overlay.kp__cvaa-overlay .kp__sample {\n  width: 30%;\n  margin: 2.33%;\n  padding: 0; }\n  .kp__player.kp__size-sm .kp__overlay.kp__cvaa-overlay .kp__sample:first-child {\n    margin-left: 0; }\n  .kp__player.kp__size-sm .kp__overlay.kp__cvaa-overlay .kp__sample:last-child {\n    margin-right: 0; }\n  .kp__player.kp__size-sm .kp__overlay.kp__cvaa-overlay .kp__sample.kp__custom {\n    width: auto;\n    padding: 0 10px; }\n\n.kp__player.kp__size-sm .kp__overlay.kp__cvaa-overlay .kp__button-save-cvaa,\n.kp__player.kp__size-sm .kp__overlay.kp__cvaa-overlay .kp__custom-captions-applied {\n  margin-top: 20px; }\n\n@keyframes kp__kaltura-spinner {\n  0% {\n    transform: rotate(0deg) scale(0.7);\n    opacity: 1; }\n  70% {\n    transform: rotate(360deg) scale(0.7);\n    opacity: 1; }\n  82% {\n    transform: rotate(360deg) scale(0);\n    opacity: 0; }\n  87% {\n    transform: rotate(360deg) scale(0.9);\n    opacity: 1; }\n  100% {\n    transform: rotate(360deg) scale(0.7);\n    opacity: 1; } }\n\n.kp__loading-backdrop {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.3);\n  transition: 100ms opacity;\n  opacity: 0; }\n  .kp__loading-backdrop.kp__show {\n    opacity: 1; }\n    .kp__loading-backdrop.kp__show .kp__spinner-container {\n      display: block; }\n  .kp__loading-backdrop .kp__spinner-container {\n    display: none;\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate3d(-50px, -50px, 0); }\n\n.kp__spinner {\n  width: 100px;\n  height: 100px;\n  position: relative;\n  animation: kp__kaltura-spinner 2.5s infinite; }\n  .kp__spinner span {\n    width: 8px;\n    height: 8px;\n    background-color: #fff;\n    display: block;\n    border-radius: 8px;\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    margin-top: -4px;\n    margin-left: -4px; }\n    .kp__spinner span:nth-child(1) {\n      transform: rotate(45deg) translateX(-25px) translateY(-25px);\n      background-color: #da1f26; }\n    .kp__spinner span:nth-child(2) {\n      transform: rotate(90deg) translateX(-25px) translateY(-25px);\n      background-color: #06a885; }\n    .kp__spinner span:nth-child(3) {\n      transform: rotate(135deg) translateX(-25px) translateY(-25px);\n      background-color: #009344; }\n    .kp__spinner span:nth-child(4) {\n      transform: rotate(180deg) translateX(-25px) translateY(-25px);\n      background-color: #f8a61a; }\n    .kp__spinner span:nth-child(5) {\n      transform: rotate(225deg) translateX(-25px) translateY(-25px);\n      background-color: #1b4a97; }\n    .kp__spinner span:nth-child(6) {\n      transform: rotate(270deg) translateX(-25px) translateY(-25px);\n      background-color: #00abcc; }\n    .kp__spinner span:nth-child(7) {\n      transform: rotate(315deg) translateX(-25px) translateY(-25px);\n      background-color: #b1d238; }\n    .kp__spinner span:nth-child(8) {\n      transform: rotate(360deg) translateX(-25px) translateY(-25px);\n      background-color: #fcd203; }\n\n.kp__control-button-container.kp__control-play-pause .kp__control-button {\n  transition: 400ms transform; }\n  .kp__control-button-container.kp__control-play-pause .kp__control-button .kp__icon-pause {\n    transition: 400ms opacity;\n    opacity: 0;\n    display: none; }\n  .kp__control-button-container.kp__control-play-pause .kp__control-button .kp__icon-play {\n    transition: 400ms opacity;\n    opacity: 1;\n    display: block; }\n  .kp__control-button-container.kp__control-play-pause .kp__control-button.kp__is-playing {\n    transform: rotate(360deg); }\n    .kp__control-button-container.kp__control-play-pause .kp__control-button.kp__is-playing .kp__icon-pause {\n      opacity: 1;\n      display: block; }\n    .kp__control-button-container.kp__control-play-pause .kp__control-button.kp__is-playing .kp__icon-play {\n      opacity: 0;\n      display: none; }\n\n.kp__touch .kp__control-button-container.kp__control-play-pause {\n  display: none; }\n\n.kp__player.kp__size-sm .kp__control-button-container.kp__control-play-pause {\n  display: none; }\n\n.kp__control-button-container.kp__volume-control:hover .kp__volume-control-bar {\n  display: block !important; }\n\n.kp__control-button-container.kp__volume-control.kp__is-muted .kp__volume-waves {\n  opacity: 0;\n  transform: translateX(-5px); }\n\n.kp__control-button-container.kp__volume-control.kp__is-muted .kp__volume-mute {\n  opacity: 1;\n  transform: scale(1); }\n\n.kp__control-button-container.kp__volume-control.kp__dragging-active .kp__volume-control-bar {\n  display: block; }\n\n.kp__control-button-container.kp__volume-control .kp__volume-waves {\n  transform: translateX(0px); }\n\n.kp__control-button-container.kp__volume-control .kp__volume-mute {\n  opacity: 1;\n  transform: scale(0); }\n\n.kp__control-button-container.kp__volume-control .kp__volume-waves, .kp__control-button-container.kp__volume-control .kp__volume-mute {\n  transition: 300ms transform, 300ms opacity; }\n\n.kp__control-button-container.kp__volume-control svg {\n  position: absolute;\n  top: 0;\n  left: 0; }\n\n.kp__volume-control-bar {\n  position: absolute;\n  z-index: 2;\n  bottom: 38px;\n  left: 0px;\n  display: block;\n  height: 112px;\n  width: 34px;\n  border-radius: 4px;\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.3);\n  background-color: #333333;\n  padding: 6px;\n  display: none; }\n  .kp__volume-control-bar:before {\n    position: absolute;\n    width: 34px;\n    height: 14px;\n    bottom: -8px;\n    left: 0;\n    content: ' ';\n    display: block; }\n  .kp__volume-control-bar .kp__bar {\n    background-color: #424242;\n    height: 100%;\n    position: relative;\n    cursor: pointer; }\n  .kp__volume-control-bar .kp__progress {\n    position: absolute;\n    bottom: 0px;\n    left: 0px;\n    width: 100%;\n    border-radius: 0 0 2px 2px;\n    background-color: #01ACCD; }\n\n.kp__touch .kp__control-button-container.kp__volume-control:hover .kp__volume-control-bar {\n  display: none !important; }\n\n.kp__control-button-container.kp__control-fullscreen .kp__control-button {\n  transition: 100ms transform;\n  transform: scale(1); }\n  .kp__control-button-container.kp__control-fullscreen .kp__control-button .kp__icon-minimize {\n    display: none; }\n  .kp__control-button-container.kp__control-fullscreen .kp__control-button.kp__is-fullscreen .kp__icon-maximize {\n    display: none; }\n  .kp__control-button-container.kp__control-fullscreen .kp__control-button.kp__is-fullscreen .kp__icon-minimize {\n    display: block; }\n\n.kp__player:not(.kp__touch) .kp__control-button-container.kp__control-fullscreen .kp__control-button:hover {\n  transform: scale(1.1); }\n\n.kp__player .kp__seek-bar {\n  padding: 6px 0;\n  cursor: pointer;\n  position: relative; }\n  .kp__player .kp__seek-bar:hover .kp__time-preview,\n  .kp__player .kp__seek-bar:hover .kp__frame-preview, .kp__player .kp__seek-bar.kp__hover .kp__time-preview,\n  .kp__player .kp__seek-bar.kp__hover .kp__frame-preview, .kp__player .kp__seek-bar.kp__dragging-active .kp__time-preview,\n  .kp__player .kp__seek-bar.kp__dragging-active .kp__frame-preview {\n    display: block; }\n  .kp__player .kp__seek-bar:hover .kp__progress-bar .kp__scrubber, .kp__player .kp__seek-bar.kp__hover .kp__progress-bar .kp__scrubber, .kp__player .kp__seek-bar.kp__dragging-active .kp__progress-bar .kp__scrubber {\n    transform: scale(1); }\n  .kp__player .kp__seek-bar:hover .kp__progress-bar .kp__virtual-progress, .kp__player .kp__seek-bar.kp__hover .kp__progress-bar .kp__virtual-progress, .kp__player .kp__seek-bar.kp__dragging-active .kp__progress-bar .kp__virtual-progress {\n    display: block; }\n  .kp__player .kp__seek-bar.kp__ad-break {\n    cursor: initial; }\n    .kp__player .kp__seek-bar.kp__ad-break .kp__progress-bar .kp__progress {\n      background-color: #F9A71B; }\n  .kp__player .kp__seek-bar.kp__live .kp__progress-bar .kp__progress {\n    background-color: #DA1F26; }\n  .kp__player .kp__seek-bar .kp__progress-bar {\n    height: 4px;\n    background-color: rgba(255, 255, 255, 0.3);\n    border-radius: 2px;\n    position: relative; }\n    .kp__player .kp__seek-bar .kp__progress-bar .kp__progress {\n      position: absolute;\n      top: 0;\n      left: 0;\n      height: 100%;\n      z-index: 2;\n      border-radius: 2px 0 0 2px;\n      background-color: #01ACCD; }\n    .kp__player .kp__seek-bar .kp__progress-bar .kp__virtual-progress {\n      display: none; }\n    .kp__player .kp__seek-bar .kp__progress-bar .kp__buffered, .kp__player .kp__seek-bar .kp__progress-bar .kp__virtual-progress {\n      position: absolute;\n      top: 0;\n      left: 0;\n      height: 100%;\n      z-index: 1;\n      border-radius: 2px 0 0 2px;\n      background-color: rgba(255, 255, 255, 0.3); }\n    .kp__player .kp__seek-bar .kp__progress-bar .kp__scrubber {\n      position: absolute;\n      z-index: 3;\n      cursor: pointer;\n      display: block;\n      top: -6px;\n      right: -8px;\n      border-radius: 8px;\n      height: 16px;\n      width: 16px;\n      background-color: #FFFFFF;\n      box-shadow: 0 0 31px 0 rgba(0, 0, 0, 0.3);\n      transform: scale(0);\n      transition: 100ms transform; }\n      .kp__player .kp__seek-bar .kp__progress-bar .kp__scrubber:active {\n        opacity: 1;\n        cursor: grabbing; }\n  .kp__player .kp__seek-bar .kp__frame-preview {\n    position: absolute;\n    bottom: 16px;\n    left: 0;\n    height: 94px;\n    width: 164px;\n    border: 2px solid rgba(255, 255, 255, 0.2);\n    border-radius: 4px;\n    z-index: 10; }\n    .kp__player .kp__seek-bar .kp__frame-preview .kp__frame-preview-img {\n      background-size: auto 100%;\n      width: 100%;\n      height: 100%;\n      position: relative; }\n  .kp__player .kp__seek-bar .kp__time-preview {\n    position: absolute;\n    bottom: 22px;\n    left: 0;\n    z-index: 11;\n    height: 22px;\n    min-width: 48px;\n    padding: 0 3px;\n    text-align: center;\n    border-radius: 3px;\n    background-color: rgba(0, 0, 0, 0.7);\n    font-size: 13px;\n    font-weight: bold;\n    line-height: 22px;\n    color: #fff; }\n  .kp__player .kp__seek-bar .kp__time-preview,\n  .kp__player .kp__seek-bar .kp__frame-preview {\n    display: none; }\n\n.kp__touch .kp__virtual-progress, .kp__touch .kp__time-preview, .kp__touch .kp__frame-preview {\n  display: none !important; }\n\n.kp__player.kp__size-sm .kp__virtual-progress, .kp__player.kp__size-sm .kp__time-preview, .kp__player.kp__size-sm .kp__frame-preview {\n  display: none; }\n\n.kp__player .kp__time-display {\n  display: inline-block;\n  line-height: 32px;\n  vertical-align: top;\n  font-size: 14px;\n  padding: 0 23px;\n  font-weight: bold; }\n\n.kp__touch .kp__time-display {\n  padding-left: 0; }\n\n.kp__player.kp__size-sm .kp__player .kp__time-display {\n  padding: 0 12px 0 0; }\n\n.kp__player .kp__video-playing-title {\n  font-size: 15px;\n  font-weight: bold;\n  line-height: 18px;\n  padding: 6px 0;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap; }\n\n.kp__player .kp__bottom-bar {\n  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.6) 100%);\n  padding: 6px 16px;\n  color: #fff;\n  opacity: 0;\n  transition: 100ms opacity;\n  width: 100%;\n  margin-top: auto;\n  position: absolute;\n  z-index: 10;\n  bottom: 0;\n  left: 0; }\n  .kp__player .kp__bottom-bar .kp__left-controls {\n    float: left;\n    text-align: left; }\n    .kp__player .kp__bottom-bar .kp__left-controls:first-child {\n      margin-left: 0px; }\n  .kp__player .kp__bottom-bar .kp__right-controls {\n    float: right;\n    text-align: left; }\n    .kp__player .kp__bottom-bar .kp__right-controls .kp__control-button-container {\n      margin: 0 6px; }\n      .kp__player .kp__bottom-bar .kp__right-controls .kp__control-button-container:last-child {\n        margin-right: 0; }\n\n.kp__player.kp__hover .kp__bottom-bar,\n.kp__player.kp__state-paused .kp__bottom-bar,\n.kp__player.kp__menu-active .kp__bottom-bar {\n  opacity: 1; }\n\n.kp__player.kp__overlay-active .kp__bottom-bar {\n  opacity: 0; }\n\n.kp__player.kp__size-sm .kp__bottom-bar {\n  padding: 6px 8px; }\n  .kp__player.kp__size-sm .kp__bottom-bar .kp__time-display {\n    padding-left: 0; }\n\n.kp__player .kp__top-bar {\n  background: linear-gradient(0deg, transparent 0%, rgba(0, 0, 0, 0.6) 100%);\n  padding: 14px 16px;\n  color: #fff;\n  opacity: 0;\n  transition: 100ms opacity;\n  display: flex;\n  justify-content: space-between;\n  width: 100%;\n  position: absolute;\n  z-index: 10;\n  top: 0;\n  left: 0; }\n  .kp__player .kp__top-bar .kp__left-controls {\n    text-align: left;\n    min-width: 0; }\n  .kp__player .kp__top-bar .kp__right-controls {\n    text-align: left; }\n    .kp__player .kp__top-bar .kp__right-controls .kp__control-button-container {\n      margin: 0 6px; }\n      .kp__player .kp__top-bar .kp__right-controls .kp__control-button-container:last-child {\n        margin-right: 0; }\n\n.kp__player.kp__hover .kp__top-bar,\n.kp__player.kp__state-paused .kp__top-bar,\n.kp__player.kp__menu-active .kp__top-bar {\n  opacity: 1; }\n\n.kp__player.kp__overlay-active .kp__top-bar {\n  opacity: 0; }\n\n.kp__player.kp__size-sm .kp__player .kp__top-bar {\n  padding: 8px 8px 20px 8px; }\n\n@keyframes kp__overlayPlayIconIn {\n  from {\n    opacity: 1;\n    transform: scale(0); }\n  to {\n    opacity: 0;\n    transform: scale(1); } }\n\n.kp__overlay-play {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%; }\n  .kp__overlay-play.kp__in .kp__icon {\n    animation: kp__overlayPlayIconIn 400ms linear forwards; }\n  .kp__overlay-play .kp__icon {\n    width: 144px;\n    height: 144px;\n    fill: #fff;\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    margin: -72px 0 0 -72px;\n    opacity: 0; }\n\n.kp__pre-playback-play-overlay {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 10;\n  background-position: center center;\n  background-size: cover; }\n  .kp__pre-playback-play-overlay .kp__pre-playback-play-button {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    height: 108px;\n    width: 108px;\n    border: 2px solid rgba(255, 255, 255, 0.2);\n    background-color: rgba(0, 0, 0, 0.5);\n    margin: -54px 0 0 -54px;\n    border-radius: 54px;\n    fill: #fff;\n    padding: 20px;\n    cursor: pointer; }\n    .kp__pre-playback-play-overlay .kp__pre-playback-play-button:hover {\n      border: 2px solid rgba(255, 255, 255, 0.4); }\n    .kp__pre-playback-play-overlay .kp__pre-playback-play-button:active {\n      opacity: 0.7;\n      transform: scale(1); }\n\n.kp__pre-playback .kp__player-gui {\n  opacity: 0 !important;\n  display: none; }\n\n.kp__btn-skip-ad {\n  position: absolute;\n  bottom: 60px;\n  right: 16px; }\n\n.kp__skip-ad {\n  color: #fff;\n  font-size: 20px;\n  font-weight: bold;\n  line-height: 24px;\n  text-shadow: 0 0 6px rgba(0, 0, 0, 0.6);\n  position: absolute;\n  bottom: 66px;\n  right: 16px; }\n\n.kp__live-tag {\n  color: #DA1F26;\n  font-size: 14px;\n  font-weight: bold;\n  letter-spacing: 1px;\n  line-height: 19px;\n  border: 2px solid #DA1F26;\n  border-radius: 4px;\n  text-transform: uppercase;\n  text-align: center;\n  display: inline-block;\n  padding: 0 3px 0 5px;\n  margin: 5px 23px;\n  cursor: default; }\n  .kp__live-tag.kp__non-live-playhead {\n    background-color: rgba(255, 255, 255, 0.2);\n    border: none;\n    color: #fff;\n    line-height: 23px;\n    padding: 0 5px 0 7px;\n    cursor: pointer; }\n\n.kp__player.kp__size-sm .kp__live-tag {\n  margin-left: 0; }\n", ""]);
+
+// exports
+exports.locals = {
+	"row": "kp__row",
+	"d-inline-block": "kp__d-inline-block",
+	"dInlineBlock": "kp__d-inline-block",
+	"mobile-hidden-select": "kp__mobile-hidden-select",
+	"mobileHiddenSelect": "kp__mobile-hidden-select",
+	"font-size-base": "kp__font-size-base",
+	"fontSizeBase": "kp__font-size-base",
+	"form-group": "kp__form-group",
+	"formGroup": "kp__form-group",
+	"has-error": "kp__has-error",
+	"hasError": "kp__has-error",
+	"form-control": "kp__form-control",
+	"formControl": "kp__form-control",
+	"has-icon": "kp__has-icon",
+	"hasIcon": "kp__has-icon",
+	"icon": "kp__icon",
+	"checkbox": "kp__checkbox",
+	"form-group-row": "kp__form-group-row",
+	"formGroupRow": "kp__form-group-row",
+	"dropdown": "kp__dropdown",
+	"btn": "kp__btn",
+	"btn-block": "kp__btn-block",
+	"btnBlock": "kp__btn-block",
+	"btn-dark-transparent": "kp__btn-dark-transparent",
+	"btnDarkTransparent": "kp__btn-dark-transparent",
+	"btn-branded": "kp__btn-branded",
+	"btnBranded": "kp__btn-branded",
+	"btn-rounded": "kp__btn-rounded",
+	"btnRounded": "kp__btn-rounded",
+	"active": "kp__active",
+	"dropdown-menu": "kp__dropdown-menu",
+	"dropdownMenu": "kp__dropdown-menu",
+	"dropdown-button": "kp__dropdown-button",
+	"dropdownButton": "kp__dropdown-button",
+	"openDropmenu": "kp__openDropmenu",
+	"top": "kp__top",
+	"bottom": "kp__bottom",
+	"right": "kp__right",
+	"left": "kp__left",
+	"dropdown-menu-item": "kp__dropdown-menu-item",
+	"dropdownMenuItem": "kp__dropdown-menu-item",
+	"check-icon": "kp__check-icon",
+	"checkIcon": "kp__check-icon",
+	"tooltip": "kp__tooltip",
+	"player": "kp__player",
+	"control-button": "kp__control-button",
+	"controlButton": "kp__control-button",
+	"control-button-rounded": "kp__control-button-rounded",
+	"controlButtonRounded": "kp__control-button-rounded",
+	"touch": "kp__touch",
+	"control-button-container": "kp__control-button-container",
+	"controlButtonContainer": "kp__control-button-container",
+	"kaltura-player-container": "kp__kaltura-player-container",
+	"kalturaPlayerContainer": "kp__kaltura-player-container",
+	"player-gui": "kp__player-gui",
+	"playerGui": "kp__player-gui",
+	"metadata-loaded": "kp__metadata-loaded",
+	"metadataLoaded": "kp__metadata-loaded",
+	"state-paused": "kp__state-paused",
+	"statePaused": "kp__state-paused",
+	"overlay-active": "kp__overlay-active",
+	"overlayActive": "kp__overlay-active",
+	"menu-active": "kp__menu-active",
+	"menuActive": "kp__menu-active",
+	"ad-break": "kp__ad-break",
+	"adBreak": "kp__ad-break",
+	"hover": "kp__hover",
+	"video-player": "kp__video-player",
+	"videoPlayer": "kp__video-player",
+	"overlay": "kp__overlay",
+	"openOverlay": "kp__openOverlay",
+	"overlay-contents": "kp__overlay-contents",
+	"overlayContents": "kp__overlay-contents",
+	"title": "kp__title",
+	"close-overlay": "kp__close-overlay",
+	"closeOverlay": "kp__close-overlay",
+	"icon-close": "kp__icon-close",
+	"iconClose": "kp__icon-close",
+	"overlay-screen": "kp__overlay-screen",
+	"overlayScreen": "kp__overlay-screen",
+	"size-md": "kp__size-md",
+	"sizeMd": "kp__size-md",
+	"size-sm": "kp__size-sm",
+	"sizeSm": "kp__size-sm",
+	"smart-container": "kp__smart-container",
+	"smartContainer": "kp__smart-container",
+	"openSmartContainer": "kp__openSmartContainer",
+	"leaving": "kp__leaving",
+	"closeSmartContainer": "kp__closeSmartContainer",
+	"smart-container-item": "kp__smart-container-item",
+	"smartContainerItem": "kp__smart-container-item",
+	"select-menu-item": "kp__select-menu-item",
+	"selectMenuItem": "kp__select-menu-item",
+	"label-icon": "kp__label-icon",
+	"labelIcon": "kp__label-icon",
+	"share-overlay": "kp__share-overlay",
+	"shareOverlay": "kp__share-overlay",
+	"share-icons": "kp__share-icons",
+	"shareIcons": "kp__share-icons",
+	"facebook-share-btn": "kp__facebook-share-btn",
+	"facebookShareBtn": "kp__facebook-share-btn",
+	"twitter-share-btn": "kp__twitter-share-btn",
+	"twitterShareBtn": "kp__twitter-share-btn",
+	"google-plus-share-btn": "kp__google-plus-share-btn",
+	"googlePlusShareBtn": "kp__google-plus-share-btn",
+	"linkedin-share-btn": "kp__linkedin-share-btn",
+	"linkedinShareBtn": "kp__linkedin-share-btn",
+	"share-main-container": "kp__share-main-container",
+	"shareMainContainer": "kp__share-main-container",
+	"link-options-container": "kp__link-options-container",
+	"linkOptionsContainer": "kp__link-options-container",
+	"copy-url-row": "kp__copy-url-row",
+	"copyUrlRow": "kp__copy-url-row",
+	"input-copy-url": "kp__input-copy-url",
+	"inputCopyUrl": "kp__input-copy-url",
+	"btn-copy-url": "kp__btn-copy-url",
+	"btnCopyUrl": "kp__btn-copy-url",
+	"copied": "kp__copied",
+	"copy-icon": "kp__copy-icon",
+	"copyIcon": "kp__copy-icon",
+	"video-start-options-row": "kp__video-start-options-row",
+	"videoStartOptionsRow": "kp__video-start-options-row",
+	"cvaa-overlay": "kp__cvaa-overlay",
+	"cvaaOverlay": "kp__cvaa-overlay",
+	"sample": "kp__sample",
+	"black-bg": "kp__black-bg",
+	"blackBg": "kp__black-bg",
+	"yellow-text": "kp__yellow-text",
+	"yellowText": "kp__yellow-text",
+	"active-tick": "kp__active-tick",
+	"activeTick": "kp__active-tick",
+	"button-save-cvaa": "kp__button-save-cvaa",
+	"buttonSaveCvaa": "kp__button-save-cvaa",
+	"custom-captions-applied": "kp__custom-captions-applied",
+	"customCaptionsApplied": "kp__custom-captions-applied",
+	"custom-caption-form": "kp__custom-caption-form",
+	"customCaptionForm": "kp__custom-caption-form",
+	"slider": "kp__slider",
+	"preview-container": "kp__preview-container",
+	"previewContainer": "kp__preview-container",
+	"custom": "kp__custom",
+	"loading-backdrop": "kp__loading-backdrop",
+	"loadingBackdrop": "kp__loading-backdrop",
+	"show": "kp__show",
+	"spinner-container": "kp__spinner-container",
+	"spinnerContainer": "kp__spinner-container",
+	"spinner": "kp__spinner",
+	"kaltura-spinner": "kp__kaltura-spinner",
+	"kalturaSpinner": "kp__kaltura-spinner",
+	"control-play-pause": "kp__control-play-pause",
+	"controlPlayPause": "kp__control-play-pause",
+	"icon-pause": "kp__icon-pause",
+	"iconPause": "kp__icon-pause",
+	"icon-play": "kp__icon-play",
+	"iconPlay": "kp__icon-play",
+	"is-playing": "kp__is-playing",
+	"isPlaying": "kp__is-playing",
+	"volume-control": "kp__volume-control",
+	"volumeControl": "kp__volume-control",
+	"volume-control-bar": "kp__volume-control-bar",
+	"volumeControlBar": "kp__volume-control-bar",
+	"is-muted": "kp__is-muted",
+	"isMuted": "kp__is-muted",
+	"volume-waves": "kp__volume-waves",
+	"volumeWaves": "kp__volume-waves",
+	"volume-mute": "kp__volume-mute",
+	"volumeMute": "kp__volume-mute",
+	"dragging-active": "kp__dragging-active",
+	"draggingActive": "kp__dragging-active",
+	"bar": "kp__bar",
+	"progress": "kp__progress",
+	"control-fullscreen": "kp__control-fullscreen",
+	"controlFullscreen": "kp__control-fullscreen",
+	"icon-minimize": "kp__icon-minimize",
+	"iconMinimize": "kp__icon-minimize",
+	"is-fullscreen": "kp__is-fullscreen",
+	"isFullscreen": "kp__is-fullscreen",
+	"icon-maximize": "kp__icon-maximize",
+	"iconMaximize": "kp__icon-maximize",
+	"seek-bar": "kp__seek-bar",
+	"seekBar": "kp__seek-bar",
+	"time-preview": "kp__time-preview",
+	"timePreview": "kp__time-preview",
+	"frame-preview": "kp__frame-preview",
+	"framePreview": "kp__frame-preview",
+	"progress-bar": "kp__progress-bar",
+	"progressBar": "kp__progress-bar",
+	"scrubber": "kp__scrubber",
+	"virtual-progress": "kp__virtual-progress",
+	"virtualProgress": "kp__virtual-progress",
+	"live": "kp__live",
+	"buffered": "kp__buffered",
+	"frame-preview-img": "kp__frame-preview-img",
+	"framePreviewImg": "kp__frame-preview-img",
+	"time-display": "kp__time-display",
+	"timeDisplay": "kp__time-display",
+	"video-playing-title": "kp__video-playing-title",
+	"videoPlayingTitle": "kp__video-playing-title",
+	"bottom-bar": "kp__bottom-bar",
+	"bottomBar": "kp__bottom-bar",
+	"left-controls": "kp__left-controls",
+	"leftControls": "kp__left-controls",
+	"right-controls": "kp__right-controls",
+	"rightControls": "kp__right-controls",
+	"top-bar": "kp__top-bar",
+	"topBar": "kp__top-bar",
+	"overlay-play": "kp__overlay-play",
+	"overlayPlay": "kp__overlay-play",
+	"in": "kp__in",
+	"overlayPlayIconIn": "kp__overlayPlayIconIn",
+	"pre-playback-play-overlay": "kp__pre-playback-play-overlay",
+	"prePlaybackPlayOverlay": "kp__pre-playback-play-overlay",
+	"pre-playback-play-button": "kp__pre-playback-play-button",
+	"prePlaybackPlayButton": "kp__pre-playback-play-button",
+	"pre-playback": "kp__pre-playback",
+	"prePlayback": "kp__pre-playback",
+	"btn-skip-ad": "kp__btn-skip-ad",
+	"btnSkipAd": "kp__btn-skip-ad",
+	"skip-ad": "kp__skip-ad",
+	"skipAd": "kp__skip-ad",
+	"live-tag": "kp__live-tag",
+	"liveTag": "kp__live-tag",
+	"non-live-playhead": "kp__non-live-playhead",
+	"nonLivePlayhead": "kp__non-live-playhead"
+};
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports) {
+
+
+/**
+ * When source maps are enabled, `style-loader` uses a link element with a data-uri to
+ * embed the css on the page. This breaks all relative urls because now they are relative to a
+ * bundle instead of the current page.
+ *
+ * One solution is to only use full urls, but that may be impossible.
+ *
+ * Instead, this function "fixes" the relative urls to be absolute according to the current page location.
+ *
+ * A rudimentary test suite is located at `test/fixUrls.js` and can be run via the `npm test` command.
+ *
+ */
+
+module.exports = function (css) {
+  // get current location
+  var location = typeof window !== "undefined" && window.location;
+
+  if (!location) {
+    throw new Error("fixUrls requires window.location");
+  }
+
+	// blank or null?
+	if (!css || typeof css !== "string") {
+	  return css;
+  }
+
+  var baseUrl = location.protocol + "//" + location.host;
+  var currentDir = baseUrl + location.pathname.replace(/\/[^\/]*$/, "/");
+
+	// convert each url(...)
+	/*
+	This regular expression is just a way to recursively match brackets within
+	a string.
+
+	 /url\s*\(  = Match on the word "url" with any whitespace after it and then a parens
+	   (  = Start a capturing group
+	     (?:  = Start a non-capturing group
+	         [^)(]  = Match anything that isn't a parentheses
+	         |  = OR
+	         \(  = Match a start parentheses
+	             (?:  = Start another non-capturing groups
+	                 [^)(]+  = Match anything that isn't a parentheses
+	                 |  = OR
+	                 \(  = Match a start parentheses
+	                     [^)(]*  = Match anything that isn't a parentheses
+	                 \)  = Match a end parentheses
+	             )  = End Group
+              *\) = Match anything and then a close parens
+          )  = Close non-capturing group
+          *  = Match anything
+       )  = Close capturing group
+	 \)  = Match a close parens
+
+	 /gi  = Get all matches, not the first.  Be case insensitive.
+	 */
+	var fixedCss = css.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi, function(fullMatch, origUrl) {
+		// strip quotes (if they exist)
+		var unquotedOrigUrl = origUrl
+			.trim()
+			.replace(/^"(.*)"$/, function(o, $1){ return $1; })
+			.replace(/^'(.*)'$/, function(o, $1){ return $1; });
+
+		// already a full url? no change
+		if (/^(#|data:|http:\/\/|https:\/\/|file:\/\/\/)/i.test(unquotedOrigUrl)) {
+		  return fullMatch;
+		}
+
+		// convert the url to a full url
+		var newUrl;
+
+		if (unquotedOrigUrl.indexOf("//") === 0) {
+		  	//TODO: should we add protocol?
+			newUrl = unquotedOrigUrl;
+		} else if (unquotedOrigUrl.indexOf("/") === 0) {
+			// path should be relative to the base url
+			newUrl = baseUrl + unquotedOrigUrl; // already starts with '/'
+		} else {
+			// path should be relative to current directory
+			newUrl = currentDir + unquotedOrigUrl.replace(/^\.\//, ""); // Strip leading './'
+		}
+
+		// send back the fixed url(...)
+		return "url(" + JSON.stringify(newUrl) + ")";
+	});
+
+	// send back the fixed css
+	return fixedCss;
+};
+
+
+/***/ }),
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4371,19 +5224,23 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _dec, _class;
 
+var _overlayPlay = __webpack_require__(56);
+
+var _overlayPlay2 = _interopRequireDefault(_overlayPlay);
+
 var _preact = __webpack_require__(0);
 
 var _preactRedux = __webpack_require__(1);
 
-var _bindActions = __webpack_require__(3);
+var _bindActions = __webpack_require__(5);
 
-var _playPause = __webpack_require__(17);
+var _playPause = __webpack_require__(20);
 
 var _base = __webpack_require__(2);
 
 var _base2 = _interopRequireDefault(_base);
 
-var _icon = __webpack_require__(4);
+var _icon = __webpack_require__(6);
 
 var _icon2 = _interopRequireDefault(_icon);
 
@@ -4495,7 +5352,7 @@ var OverlayPlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAc
 
       return (0, _preact.h)(
         'div',
-        { className: 'overlay-play ' + (this.state.animation ? 'in' : ''), onClick: function onClick() {
+        { className: _overlayPlay2.default.overlayPlay + ' ' + (this.state.animation ? _overlayPlay2.default.in : ''), onClick: function onClick() {
             return _this3.onOverlayClick();
           } },
         this.isPlayingAdOrPlayback() ? (0, _preact.h)(_icon2.default, { type: _icon.IconType.Play }) : (0, _preact.h)(_icon2.default, { type: _icon.IconType.Pause })
@@ -4508,13 +5365,64 @@ var OverlayPlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAc
 exports.default = OverlayPlay;
 
 /***/ }),
-/* 50 */
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(57);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(4)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--2-1!../../../node_modules/sass-loader/lib/loader.js!./_overlay-play.scss", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js??ref--2-1!../../../node_modules/sass-loader/lib/loader.js!./_overlay-play.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "@keyframes kp__overlayPlayIconIn {\n  from {\n    opacity: 1;\n    transform: scale(0); }\n  to {\n    opacity: 0;\n    transform: scale(1); } }\n\n.kp__overlay-play {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%; }\n  .kp__overlay-play.kp__in .kp__icon {\n    animation: kp__overlayPlayIconIn 400ms linear forwards; }\n  .kp__overlay-play .kp__icon {\n    width: 144px;\n    height: 144px;\n    fill: #fff;\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    margin: -72px 0 0 -72px;\n    opacity: 0; }\n", ""]);
+
+// exports
+exports.locals = {
+	"overlay-play": "kp__overlay-play",
+	"overlayPlay": "kp__overlay-play",
+	"in": "kp__in",
+	"icon": "kp__icon",
+	"overlayPlayIconIn": "kp__overlayPlayIconIn"
+};
+
+/***/ }),
+/* 58 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Symbol_js__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getRawTag_js__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__objectToString_js__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Symbol_js__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getRawTag_js__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__objectToString_js__ = __webpack_require__(62);
 
 
 
@@ -4546,11 +5454,11 @@ function baseGetTag(value) {
 
 
 /***/ }),
-/* 51 */
+/* 59 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__freeGlobal_js__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__freeGlobal_js__ = __webpack_require__(60);
 
 
 /** Detect free variable `self`. */
@@ -4563,7 +5471,7 @@ var root = __WEBPACK_IMPORTED_MODULE_0__freeGlobal_js__["a" /* default */] || fr
 
 
 /***/ }),
-/* 52 */
+/* 60 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4572,14 +5480,14 @@ var freeGlobal = typeof global == 'object' && global && global.Object === Object
 
 /* harmony default export */ __webpack_exports__["a"] = (freeGlobal);
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(16)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(19)))
 
 /***/ }),
-/* 53 */
+/* 61 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Symbol_js__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Symbol_js__ = __webpack_require__(35);
 
 
 /** Used for built-in method references. */
@@ -4629,7 +5537,7 @@ function getRawTag(value) {
 
 
 /***/ }),
-/* 54 */
+/* 62 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4658,11 +5566,11 @@ function objectToString(value) {
 
 
 /***/ }),
-/* 55 */
+/* 63 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__overArg_js__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__overArg_js__ = __webpack_require__(64);
 
 
 /** Built-in value references. */
@@ -4672,7 +5580,7 @@ var getPrototype = Object(__WEBPACK_IMPORTED_MODULE_0__overArg_js__["a" /* defau
 
 
 /***/ }),
-/* 56 */
+/* 64 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4694,7 +5602,7 @@ function overArg(func, transform) {
 
 
 /***/ }),
-/* 57 */
+/* 65 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4730,14 +5638,14 @@ function isObjectLike(value) {
 
 
 /***/ }),
-/* 58 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(59);
+module.exports = __webpack_require__(67);
 
 
 /***/ }),
-/* 59 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4747,7 +5655,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _ponyfill = __webpack_require__(61);
+var _ponyfill = __webpack_require__(69);
 
 var _ponyfill2 = _interopRequireDefault(_ponyfill);
 
@@ -4770,10 +5678,10 @@ if (typeof self !== 'undefined') {
 
 var result = (0, _ponyfill2['default'])(root);
 exports['default'] = result;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16), __webpack_require__(60)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(19), __webpack_require__(68)(module)))
 
 /***/ }),
-/* 60 */
+/* 68 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -4801,7 +5709,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 61 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4830,14 +5738,14 @@ function symbolObservablePonyfill(root) {
 };
 
 /***/ }),
-/* 62 */
+/* 70 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/* harmony export (immutable) */ __webpack_exports__["a"] = combineReducers;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_es_isPlainObject__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_warning__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_es_isPlainObject__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_warning__ = __webpack_require__(36);
 
 
 
@@ -4968,10 +5876,10 @@ function combineReducers(reducers) {
     return hasChanged ? nextState : state;
   };
 }
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(29)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(32)))
 
 /***/ }),
-/* 63 */
+/* 71 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5025,12 +5933,12 @@ function bindActionCreators(actionCreators, dispatch) {
 }
 
 /***/ }),
-/* 64 */
+/* 72 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = applyMiddleware;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__compose__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__compose__ = __webpack_require__(37);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 
@@ -5081,7 +5989,7 @@ function applyMiddleware() {
 }
 
 /***/ }),
-/* 65 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5094,7 +6002,7 @@ exports.LOG_LEVEL = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _jsLogger = __webpack_require__(66);
+var _jsLogger = __webpack_require__(74);
 
 var JsLogger = _interopRequireWildcard(_jsLogger);
 
@@ -5157,7 +6065,7 @@ exports.default = lf;
 exports.LOG_LEVEL = LOG_LEVEL;
 
 /***/ }),
-/* 66 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -5424,7 +6332,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 
 /***/ }),
-/* 67 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5437,7 +6345,13 @@ exports.IconType = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _style = __webpack_require__(7);
+
+var _style2 = _interopRequireDefault(_style);
+
 var _preact = __webpack_require__(0);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -5504,14 +6418,14 @@ var Icon = function (_Component) {
         case IconType.Maximize:
           return (0, _preact.h)(
             'svg',
-            { className: 'icon icon-maximize', viewBox: '0 0 1024 1024' },
+            { className: [_style2.default.icon, _style2.default.iconMaximize].join(' '), viewBox: '0 0 1024 1024' },
             (0, _preact.h)('path', { d: 'M800 269.255v114.745c0 17.673 14.327 32 32 32s32-14.327 32-32v-192c0-17.673-14.327-32-32-32h-192c-17.673 0-32 14.327-32 32s14.327 32 32 32h114.745l-137.373 137.373c-12.497 12.497-12.497 32.758 0 45.255s32.758 12.497 45.255 0l137.373-137.373z' }),
             (0, _preact.h)('path', { d: 'M224 754.745v-114.745c0-17.673-14.327-32-32-32s-32 14.327-32 32v192c0 17.673 14.327 32 32 32h192c17.673 0 32-14.327 32-32s-14.327-32-32-32h-114.745l137.373-137.373c12.497-12.497 12.497-32.758 0-45.255s-32.758-12.497-45.255 0l-137.373 137.373z' })
           );
         case IconType.Minimize:
           return (0, _preact.h)(
             'svg',
-            { className: 'icon icon-minimize', viewBox: '0 0 1024 1024' },
+            { className: [_style2.default.icon, _style2.default.iconMinimize].join(' '), viewBox: '0 0 1024 1024' },
             (0, _preact.h)('path', { d: 'M672 306.745v-114.745c0-17.673-14.327-32-32-32s-32 14.327-32 32v192c0 17.673 14.327 32 32 32h192c17.673 0 32-14.327 32-32s-14.327-32-32-32h-114.745l137.373-137.373c12.497-12.497 12.497-32.758 0-45.255s-32.758-12.497-45.255 0l-137.373 137.373z' }),
             (0, _preact.h)('path', { d: 'M352 717.255v114.745c0 17.673 14.327 32 32 32s32-14.327 32-32v-192c0-17.673-14.327-32-32-32h-192c-17.673 0-32 14.327-32 32s14.327 32 32 32h114.745l-137.373 137.373c-12.497 12.497-12.497 32.758 0 45.255s32.758 12.497 45.255 0l137.373-137.373z' })
           );
@@ -5519,21 +6433,21 @@ var Icon = function (_Component) {
         case IconType.Play:
           return (0, _preact.h)(
             'svg',
-            { className: 'icon icon-play', viewBox: '0 0 1024 1024' },
+            { className: [_style2.default.icon, _style2.default.iconPlay].join(' '), viewBox: '0 0 1024 1024' },
             (0, _preact.h)('path', { d: 'M796.806 461.202c44.919 28.075 44.739 73.706 0 101.668l-459.472 287.171c-44.919 28.075-81.334 7.915-81.334-45.305v-585.4c0-53.096 36.595-73.266 81.334-45.305l459.472 287.171z' })
           );
 
         case IconType.Pause:
           return (0, _preact.h)(
             'svg',
-            { className: 'icon icon-pause', viewBox: '0 0 1024 1024' },
+            { className: [_style2.default.icon, _style2.default.iconPause].join(' '), viewBox: '0 0 1024 1024' },
             (0, _preact.h)('path', { d: 'M256 287.843c0-35.259 28.407-63.843 64-63.843 35.346 0 64 28.564 64 63.843v448.314c0 35.259-28.407 63.843-64 63.843-35.346 0-64-28.564-64-63.843v-448.314zM640 287.843c0-35.259 28.407-63.843 64-63.843 35.346 0 64 28.564 64 63.843v448.314c0 35.259-28.407 63.843-64 63.843-35.346 0-64-28.564-64-63.843v-448.314z' })
           );
 
         case IconType.VolumeBase:
           return (0, _preact.h)(
             'svg',
-            { className: 'icon volume-base', viewBox: '0 0 1024 1024' },
+            { className: [_style2.default.icon, _style2.default.volumeBase].join(' '), viewBox: '0 0 1024 1024' },
             (0, _preact.h)('path', { d: 'M128 416v192h96v-192h-96zM64 383.853c0-17.592 14.012-31.853 32.094-31.853h159.813c17.725 0 32.094 14.581 32.094 31.853v256.295c0 17.592-14.012 31.853-32.094 31.853h-159.813c-17.725 0-32.094-14.581-32.094-31.853v-256.295z' }),
             (0, _preact.h)('path', { d: 'M288 634.342l160 88.889v-422.462l-160 88.889v244.684zM224 352l231.787-128.771c31.046-17.248 56.213-2.487 56.213 32.476v512.589c0 35.184-25.054 49.786-56.213 32.476l-231.787-128.771v-320z' })
           );
@@ -5541,7 +6455,7 @@ var Icon = function (_Component) {
         case IconType.VolumeWaves:
           return (0, _preact.h)(
             'svg',
-            { className: 'icon volume-waves', viewBox: '0 0 1024 1024' },
+            { className: [_style2.default.icon, _style2.default.volumeWaves].join(' '), viewBox: '0 0 1024 1024' },
             (0, _preact.h)('path', { d: 'M802.017 837.177c82.359-86.627 129.183-201.774 129.183-324.26 0-123.976-47.976-240.409-132.127-327.329-12.293-12.697-32.552-13.025-45.249-0.732s-13.025 32.552-0.732 45.249c72.692 75.084 114.109 175.597 114.109 282.812 0 105.928-40.422 205.331-111.566 280.162-12.177 12.808-11.666 33.063 1.143 45.24s33.063 11.666 45.24-1.143z' }),
             (0, _preact.h)('path', { d: 'M667.436 743.221c67.761-60.884 107.273-147.888 107.273-241.233 0-87.318-34.552-169.203-94.836-229.446-12.501-12.493-32.762-12.486-45.255 0.015s-12.486 32.762 0.015 45.255c48.375 48.342 76.075 113.989 76.075 184.176 0 75.021-31.679 144.776-86.048 193.627-13.146 11.812-14.227 32.044-2.416 45.19s32.044 14.227 45.19 2.416z' })
           );
@@ -5549,41 +6463,41 @@ var Icon = function (_Component) {
         case IconType.VolumeMute:
           return (0, _preact.h)(
             'svg',
-            { className: 'icon volume-mute', viewBox: '0 0 1024 1024' },
+            { className: [_style2.default.icon, _style2.default.volumeMute].join(' '), viewBox: '0 0 1024 1024' },
             (0, _preact.h)('path', { d: 'M768 466.745l-67.986-67.986c-12.213-12.213-32.654-12.393-45.151 0.104-12.584 12.584-12.543 32.711-0.104 45.151l67.986 67.986-67.986 67.986c-12.213 12.213-12.393 32.654 0.104 45.151 12.584 12.584 32.711 12.543 45.151 0.104l67.986-67.986 67.986 67.986c12.213 12.213 32.654 12.393 45.151-0.104 12.584-12.584 12.543-32.711 0.104-45.151l-67.986-67.986 67.986-67.986c12.213-12.213 12.393-32.654-0.104-45.151-12.584-12.584-32.711-12.543-45.151-0.104l-67.986 67.986z' })
           );
 
         case IconType.Close:
           return (0, _preact.h)(
             'svg',
-            { className: 'icon icon-close', viewBox: '0 0 1024 1024' },
+            { className: [_style2.default.icon, _style2.default.iconClose].join(' '), viewBox: '0 0 1024 1024' },
             (0, _preact.h)('path', { d: 'M573.162 512l214.269-214.269c16.772-16.772 16.688-44.071-0.202-60.96-17.007-17.007-44.182-16.98-60.96-0.202l-214.269 214.269-214.269-214.269c-16.772-16.772-44.071-16.688-60.96 0.202-17.007 17.007-16.98 44.182-0.202 60.96l214.269 214.269-214.269 214.269c-16.772 16.772-16.688 44.071 0.202 60.96 17.007 17.007 44.182 16.98 60.96 0.202l214.269-214.269 214.269 214.269c16.772 16.772 44.071 16.688 60.96-0.202 17.007-17.007 16.98-44.182 0.202-60.96l-214.269-214.269z' })
           );
 
         case IconType.Share:
           return (0, _preact.h)(
             'svg',
-            { className: 'icon icon-share', viewBox: '0 0 1024 1024' },
+            { className: [_style2.default.icon, _style2.default.iconShare].join(' '), viewBox: '0 0 1024 1024' },
             (0, _preact.h)('path', { d: 'M318.641 446.219l236.155-142.257c-0.086-1.754-0.129-3.52-0.129-5.295 0-58.91 47.756-106.667 106.667-106.667s106.667 47.756 106.667 106.667c0 58.91-47.756 106.667-106.667 106.667-33.894 0-64.095-15.808-83.633-40.454l-236.467 142.445c-0.132-3.064-0.394-6.095-0.779-9.087l7.271-12.835-0.117 53.333-7.183-12.743c0.399-3.046 0.67-6.131 0.806-9.252l236.467 142.383c19.538-24.648 49.741-40.457 83.636-40.457 58.91 0 106.667 47.756 106.667 106.667s-47.756 106.667-106.667 106.667c-58.91 0-106.667-47.756-106.667-106.667 0-1.775 0.043-3.539 0.129-5.293l-236.19-142.216c-19.528 24.867-49.868 40.841-83.939 40.841-58.91 0-106.667-47.756-106.667-106.667s47.756-106.667 106.667-106.667c34.091 0 64.447 15.993 83.974 40.886zM234.667 554.667c23.564 0 42.667-19.103 42.667-42.667s-19.103-42.667-42.667-42.667c-23.564 0-42.667 19.103-42.667 42.667s19.103 42.667 42.667 42.667zM661.333 341.333c23.564 0 42.667-19.103 42.667-42.667s-19.103-42.667-42.667-42.667c-23.564 0-42.667 19.103-42.667 42.667s19.103 42.667 42.667 42.667zM661.333 768c23.564 0 42.667-19.103 42.667-42.667s-19.103-42.667-42.667-42.667c-23.564 0-42.667 19.103-42.667 42.667s19.103 42.667 42.667 42.667z' })
           );
 
         case IconType.Settings:
           return (0, _preact.h)(
             'svg',
-            { className: 'icon icon-share', viewBox: '0 0 1024 1024' },
+            { className: [_style2.default.icon, _style2.default.iconShare].join(' '), viewBox: '0 0 1024 1024' },
             (0, _preact.h)('path', { d: 'M803.451 546.033c2.552-22.107 2.552-44.408 0.246-64.81-1.084-6.208-6.499-10.721-12.535-10.671-30.286 0.533-57.727-17.773-68.866-45.941s-3.64-60.291 18.795-80.593c3.935-3.569 4.416-9.583 0.92-13.959-13.595-17.35-29.146-33.073-46.311-46.83-4.23-3.38-10.359-2.886-14.783 1.966-14.421 14.721-34.212 22.938-54.434 22.761-9.009 0.041-17.942-1.652-26.865-5.212-28.414-11.992-46.226-40.546-44.49-71.542 0.335-5.319-3.547-9.972-8.785-10.588-21.926-2.538-44.068-2.595-65.961-0.176-5.349 0.6-9.341 5.207-9.175 10.514 1.027 30.384-16.802 58.251-45.764 70.431-8.238 3.138-16.993 4.701-25.207 4.609-20.599 0.206-40.395-7.982-55.482-23.363-2.014-2.187-4.849-3.435-7.553-3.445-2.441 0.015-4.811 0.83-6.513 2.139-17.541 13.798-33.455 29.547-47.262 46.729-3.418 4.337-2.922 10.575 0.97 14.162 22.816 20.692 30.19 53.479 17.807 83.351-13.035 27.396-41.135 44.394-71.446 43.222-5.112-0.197-9.499 3.606-10.086 9.179-2.673 22.023-2.673 44.289-0.212 64.867 1.080 6.27 6.559 10.824 13.309 10.737l2.225 0.006c28.935 0.604 54.726 18.391 65.634 45.374 11.22 28.205 3.921 60.407-18.565 81.204-3.866 3.509-4.341 9.418-0.895 13.742 13.545 17.354 29.027 33.106 46.042 46.867 4.303 3.449 10.547 2.954 14.986-1.907 14.414-14.76 34.226-23.001 54.43-22.82 9.070-0.052 18.063 1.668 27.041 5.299 28.19 12.071 45.891 40.41 44.347 71.468-0.342 5.312 3.536 9.962 8.802 10.578 21.915 2.548 44.049 2.605 65.929 0.176 5.364-0.604 9.364-5.227 9.191-10.598-0.997-30.358 16.84-58.183 45.452-70.201 8.263-3.256 17.070-4.908 25.521-4.865 20.676-0.206 40.533 8.070 55.398 23.38 2.039 2.195 4.898 3.446 7.673 3.455 2.268-0.011 4.468-0.776 6.321-2.228 17.625-13.724 33.599-29.444 47.415-46.611 3.426-4.348 2.928-10.6-0.863-14.097-22.358-20.082-30.057-51.85-19.372-79.939s37.55-46.71 67.745-46.857h5.229c5.12-0.026 9.413-3.875 9.996-8.962zM861.733 552.735c-3.961 34.572-33.157 60.748-68.129 60.926h-5.235c-5.803 0.028-10.991 3.624-13.054 9.048s-0.577 11.558 4.020 15.69c26.602 24.519 29.853 65.381 7.275 94.034-16.847 20.934-36.063 39.845-57.197 56.302-12.034 9.427-26.861 14.584-42.368 14.658-19.254-0.051-37.623-8.090-50.269-21.718-3.221-3.315-7.66-5.165-12.712-5.118-1.425-0.007-2.839 0.258-3.554 0.532-5.581 2.346-9.136 7.892-8.937 13.966 1.152 35.958-25.509 66.771-61.307 70.804-26.332 2.923-52.909 2.854-79.246-0.208-36.286-4.245-62.897-36.157-60.576-72.186 0.304-6.123-3.235-11.788-8.302-13.964-1.328-0.536-2.748-0.808-4.606-0.8-4.651-0.041-9.118 1.817-11.635 4.367-24.544 27.036-65.886 30.311-94.481 7.394-20.587-16.65-39.207-35.595-55.308-56.226-22.552-28.277-19.261-69.208 7.317-93.334 4.474-4.138 5.939-10.604 3.748-16.115-2.052-5.076-6.932-8.442-11.794-8.55-36.436 0.464-66.759-24.741-72.949-60.89-3.243-26.718-3.243-53.731-0.055-79.964 3.744-35.827 34.642-62.605 70.642-61.219 6.877 0.266 13.251-3.59 15.584-8.401 2.309-5.59 0.861-12.028-3.789-16.247-26.603-24.51-29.856-65.368-7.293-93.994 16.767-20.868 35.856-39.76 57.129-56.491 12.099-9.322 26.921-14.42 42.463-14.513 19.308 0.059 37.717 8.166 50.145 21.684 3.263 3.322 7.737 5.172 12.994 5.126 1.471 0.015 2.933-0.245 3.363-0.39 5.601-2.359 9.165-7.93 8.957-14.077-1.126-35.941 25.542-66.721 61.322-70.731 26.322-2.909 52.889-2.84 79.251 0.212 36.244 4.265 62.828 36.125 60.546 72.343-0.339 6.047 3.159 11.654 8.186 13.782 1.381 0.55 2.855 0.829 4.726 0.823 4.663 0.040 9.142-1.819 11.615-4.312 24.439-26.99 65.656-30.312 94.137-7.557 20.721 16.607 39.456 35.549 55.655 56.225 22.667 28.35 19.38 69.439-7.531 93.846-4.33 3.918-5.776 10.112-3.628 15.542s7.438 8.96 13.543 8.854c34.999-0.298 65.076 24.766 71.337 60.925 3.065 26.552 3.065 53.368 0 79.92zM511.956 589.951c43.215-0.108 78.137-35.17 78.072-78.385 0-31.732-19.132-60.334-48.461-72.448s-63.068-5.35-85.461 17.133c-22.393 22.483-29.022 56.249-16.791 85.529s40.909 48.298 72.641 48.171zM512.146 648.617c-55.438 0.221-105.58-33.029-126.965-84.224s-9.796-110.233 29.358-149.543c39.153-39.31 98.144-51.136 149.424-29.956s84.731 71.189 84.732 126.627c0.114 75.549-60.999 136.907-136.548 137.096z' })
           );
 
         case IconType.Check:
           return (0, _preact.h)(
             'svg',
-            { className: 'icon check-icon', viewBox: '0 0 1024 1024' },
+            { className: [_style2.default.icon, _style2.default.checkIcon].join(' '), viewBox: '0 0 1024 1024' },
             (0, _preact.h)('path', { d: 'M342.481 563.894c-12.577-12.416-32.838-12.285-45.254 0.292s-12.285 32.838 0.292 45.254l118.857 117.333c13.275 13.105 34.901 12.123 46.933-2.131l297.143-352c11.4-13.505 9.694-33.694-3.811-45.094s-33.694-9.694-45.094 3.811l-274.828 325.566-94.238-93.030z' })
           );
         case IconType.Language:
           return (0, _preact.h)(
             'svg',
-            { className: 'icon language-icon', viewBox: '0 0 1024 1024' },
+            { className: [_style2.default.icon, _style2.default.languageIcon].join(' '), viewBox: '0 0 1024 1024' },
             (0, _preact.h)('path', { d: 'M512 800c159.058 0 288-128.942 288-288s-128.942-288-288-288c-159.058 0-288 128.942-288 288s128.942 288 288 288zM512 864c-194.404 0-352-157.596-352-352s157.596-352 352-352c194.404 0 352 157.596 352 352s-157.596 352-352 352z' }),
             (0, _preact.h)('path', { d: 'M441.231 173.324c-76.632 84.62-121.231 207.208-121.231 338.676 0 134.304 46.556 259.282 126.083 343.936l46.646-43.82c-68.041-72.429-108.728-181.651-108.728-300.116 0-116.001 39.001-223.203 104.669-295.716l-47.438-42.96z' }),
             (0, _preact.h)('path', { d: 'M584.297 173.324c76.632 84.62 121.231 207.208 121.231 338.676 0 134.304-46.556 259.282-126.083 343.936l-46.646-43.82c68.041-72.429 108.728-181.651 108.728-300.116 0-116.001-39.001-223.203-104.669-295.716l47.438-42.96z' }),
@@ -5595,14 +6509,14 @@ var Icon = function (_Component) {
         case IconType.Quality:
           return (0, _preact.h)(
             'svg',
-            { className: 'icon quality-icon', viewBox: '0 0 1024 1024' },
+            { className: [_style2.default.icon, _style2.default.qualityIcon].join(' '), viewBox: '0 0 1024 1024' },
             (0, _preact.h)('path', { d: 'M159.904 192h288.234c17.277 0 31.862 14.323 31.862 31.992 0 17.792-14.261 31.993-31.853 31.994l-288.147 0.014v544.174c-0.017-0.18 704-0.174 704-0.174v-128.006c0-17.795 14.327-31.994 32-31.994 17.796 0 32 14.34 32 32.029v128.145c0 35.25-28.639 63.826-63.904 63.826h-704.192c-35.293 0-63.904-28.875-63.904-63.826v-544.348c0-35.25 28.639-63.826 63.904-63.826zM501.818 378.182c108.449 0 196.364-87.915 196.364-196.364 0-29.091 43.636-29.091 43.636 0 0 108.449 87.915 196.364 196.364 196.364 29.091 0 29.091 43.636 0 43.636-108.449 0-196.364 87.915-196.364 196.364 0 29.091-43.636 29.091-43.636 0 0-108.449-87.915-196.364-196.364-196.364-29.091 0-29.091-43.636 0-43.636z' })
           );
 
         case IconType.Captions:
           return (0, _preact.h)(
             'svg',
-            { className: 'icon captions-icon', viewBox: '0 0 1024 1024' },
+            { className: [_style2.default.icon, _style2.default.captionsIcon].join(' '), viewBox: '0 0 1024 1024' },
             (0, _preact.h)('path', { d: 'M160 771.213c-0.017-0.172 704-0.166 704-0.166v-518.261c0.017 0.172-704 0.166-704 0.166v518.261zM96 252.787c0-33.572 28.639-60.787 63.904-60.787h704.192c35.293 0 63.904 27.5 63.904 60.787v518.427c0 33.572-28.639 60.787-63.904 60.787h-704.192c-35.293 0-63.904-27.5-63.904-60.787v-518.427z' }),
             (0, _preact.h)('path', { d: 'M490.583 568.655c0 7.729-2.311 15.987-6.933 24.777s-11.668 17.162-21.14 25.118c-9.471 7.956-21.405 14.358-35.801 19.208s-30.611 7.274-48.644 7.274c-38.34 0-68.268-11.176-89.787-33.528s-32.278-52.319-32.278-89.901c0-25.459 4.925-47.962 14.775-67.511s24.095-34.665 42.734-45.348c18.639-10.684 40.916-16.025 66.829-16.025 16.063 0 30.8 2.349 44.212 7.047s24.777 10.759 34.096 18.185c9.32 7.425 16.442 15.343 21.367 23.754s7.388 16.253 7.388 23.527c0 7.425-2.766 13.714-8.297 18.867s-12.237 7.729-20.117 7.729c-5.152 0-9.433-1.326-12.843-3.978s-7.236-6.933-11.479-12.843c-7.577-11.517-15.495-20.155-23.754-25.913s-18.753-8.638-31.482-8.638c-18.336 0-33.111 7.16-44.325 21.481s-16.821 33.907-16.821 58.759c0 11.669 1.44 22.39 4.319 32.164s7.047 18.109 12.502 25.004c5.455 6.895 12.047 12.123 19.776 15.684s16.215 5.342 25.459 5.342c12.426 0 23.072-2.879 31.937-8.638s16.707-14.548 23.527-26.368c3.789-6.971 7.88-12.426 12.275-16.366s9.774-5.91 16.139-5.91c7.577 0 13.866 2.879 18.867 8.638s7.501 11.896 7.501 18.412zM767.219 568.655c0 7.729-2.311 15.987-6.933 24.777s-11.668 17.162-21.14 25.118c-9.471 7.956-21.405 14.358-35.801 19.208s-30.611 7.274-48.644 7.274c-38.34 0-68.268-11.176-89.787-33.528s-32.278-52.319-32.278-89.901c0-25.459 4.925-47.962 14.775-67.511s24.095-34.665 42.734-45.348c18.639-10.684 40.916-16.025 66.829-16.025 16.063 0 30.8 2.349 44.212 7.047s24.777 10.759 34.096 18.185c9.32 7.425 16.442 15.343 21.367 23.754s7.388 16.253 7.388 23.527c0 7.425-2.766 13.714-8.297 18.867s-12.237 7.729-20.117 7.729c-5.152 0-9.433-1.326-12.843-3.978s-7.236-6.933-11.479-12.843c-7.577-11.517-15.495-20.155-23.754-25.913s-18.753-8.638-31.482-8.638c-18.336 0-33.111 7.16-44.325 21.481s-16.821 33.907-16.821 58.759c0 11.669 1.44 22.39 4.319 32.164s7.047 18.109 12.502 25.004c5.455 6.895 12.047 12.123 19.776 15.684s16.215 5.342 25.459 5.342c12.426 0 23.072-2.879 31.937-8.638s16.707-14.548 23.527-26.368c3.789-6.971 7.88-12.426 12.275-16.366s9.774-5.91 16.139-5.91c7.577 0 13.866 2.879 18.867 8.638s7.501 11.896 7.501 18.412z' })
           );
@@ -5610,84 +6524,84 @@ var Icon = function (_Component) {
         case IconType.Speed:
           return (0, _preact.h)(
             'svg',
-            { className: 'icon speed-icon', viewBox: '0 0 1024 1024' },
+            { className: [_style2.default.icon, _style2.default.speedIcon].join(' '), viewBox: '0 0 1024 1024' },
             (0, _preact.h)('path', { d: 'M512 832c35.346 0 64-28.654 64-64s-28.654-64-64-64c-35.346 0-64 28.654-64 64s28.654 64 64 64zM480.239 643.971c-0.158-1.272-0.239-2.566-0.239-3.876v-192.19c0-17.621 14.204-31.905 32-31.905 17.673 0 32 14.497 32 31.905v192.19c0 1.313-0.079 2.607-0.232 3.878 55.325 14.128 96.232 64.301 96.232 124.027 0 70.692-57.308 128-128 128s-128-57.308-128-128c0-59.729 40.91-109.903 96.239-124.029zM928 576c0 17.673-14.327 32-32 32s-32-14.327-32-32c0-194.404-157.596-352-352-352s-352 157.596-352 352c0 17.673-14.327 32-32 32s-32-14.327-32-32c0-229.75 186.25-416 416-416s416 186.25 416 416z' })
           );
 
         case IconType.Audio:
           return (0, _preact.h)(
             'svg',
-            { className: 'icon audio-icon', viewBox: '0 0 1024 1024' },
+            { className: [_style2.default.icon, _style2.default.audioIcon].join(' '), viewBox: '0 0 1024 1024' },
             (0, _preact.h)('path', { d: 'M768 625.124v-354.531l-352 135.385v330.022c0 70.692-57.308 128-128 128s-128-57.308-128-128c0-70.692 57.308-128 128-128 23.314 0 45.173 6.233 64 17.124v-241.124c0-13.241 8.155-25.114 20.513-29.867l416-160c20.96-8.062 43.487 7.41 43.487 29.867v512c0 70.692-57.308 128-128 128s-128-57.308-128-128c0-70.692 57.308-128 128-128 23.314 0 45.173 6.233 64 17.124zM288 800c35.346 0 64-28.654 64-64s-28.654-64-64-64c-35.346 0-64 28.654-64 64s28.654 64 64 64zM704 800c35.346 0 64-28.654 64-64s-28.654-64-64-64c-35.346 0-64 28.654-64 64s28.654 64 64 64z' })
           );
 
         case IconType.Copy:
           return (0, _preact.h)(
             'svg',
-            { className: 'icon copy-icon', viewBox: '0 0 1024 1024' },
+            { className: [_style2.default.icon, _style2.default.copyIcon].join(' '), viewBox: '0 0 1024 1024' },
             (0, _preact.h)('path', { d: 'M703.727 320c35.497 0 64.273 28.482 64.273 64.003v351.993c0 35.348-28.862 64.003-64.273 64.003h-191.454c-35.496 0-64.271-28.48-64.273-64.001l255.727 0.001v-352c0 0-28.356 0.147-63.727 0.001v-63.912l63.727-0.088zM256 288.187c0-35.45 28.398-64.187 63.988-64.187h192.025c35.339 0 63.988 28.706 63.988 64.187v319.625c0 35.45-28.398 64.187-63.988 64.187h-192.025c-35.339 0-63.988-28.706-63.988-64.187v-319.625zM320 288v320h192v-320h-192z' })
           );
 
         case IconType.Facebook:
           return (0, _preact.h)(
             'svg',
-            { className: 'icon facebook-icon', viewBox: '0 0 1024 1024' },
+            { className: [_style2.default.icon, _style2.default.facebookIcon].join(' '), viewBox: '0 0 1024 1024' },
             (0, _preact.h)('path', { d: 'M432 405.333h-80v106.667h80v320h133.333v-320h97.12l9.547-106.667h-106.667v-44.453c0-25.467 5.12-35.547 29.733-35.547h76.933v-133.333h-101.547c-95.893 0-138.453 42.213-138.453 123.067v90.267z' })
           );
 
         case IconType.Twitter:
           return (0, _preact.h)(
             'svg',
-            { className: 'icon twitter-icon', viewBox: '0 0 1024 1024' },
+            { className: [_style2.default.icon, _style2.default.twitterIcon].join(' '), viewBox: '0 0 1024 1024' },
             (0, _preact.h)('path', { d: 'M832 316.614c-23.547 10.29-48.853 17.221-75.413 20.345 27.12-15.987 47.947-41.319 57.733-71.508-25.36 14.806-53.467 25.568-83.387 31.37-23.92-25.122-58.080-40.82-95.84-40.82-84.773 0-147.067 77.861-127.92 158.687-109.093-5.381-205.84-56.833-270.613-135.035-34.4 58.094-17.84 134.090 40.613 172.574-21.493-0.683-41.76-6.484-59.44-16.171-1.44 59.879 42.16 115.898 105.307 128.368-18.48 4.935-38.72 6.090-59.307 2.205 16.693 51.347 65.173 88.702 122.667 89.752-55.2 42.605-124.747 61.637-194.4 53.552 58.107 36.673 127.147 58.067 201.28 58.067 243.787 0 381.52-202.684 373.2-384.473 25.653-18.244 47.92-41.004 65.52-66.914v0z' })
           );
 
         case IconType.GooglePlus:
           return (0, _preact.h)(
             'svg',
-            { className: 'icon google-plus-icon', viewBox: '0 0 1024 1024' },
+            { className: [_style2.default.icon, _style2.default.googleplusIcon].join(' '), viewBox: '0 0 1024 1024' },
             (0, _preact.h)('path', { fill: '#fff', d: 'M352 556.8h127.040c-5.12 32.928-38.4 96.64-127.040 96.64-76.48 0-138.88-63.328-138.88-141.44 0-78.080 62.4-141.44 138.88-141.44 43.52 0 72.64 18.56 89.28 34.56l60.8-58.56c-39.040-36.48-89.6-58.56-150.080-58.56-123.84 0-224 100.16-224 224s100.16 224 224 224c129.28 0 215.072-90.88 215.072-218.88 0-14.72-1.632-25.92-3.552-37.12h-211.52v76.8zM800 544v96h-64v-96h-96v-64h96v-96h64v96h96v64h-96z' })
           );
 
         case IconType.Linkedin:
           return (0, _preact.h)(
             'svg',
-            { className: 'icon linkedin-icon', viewBox: '0 0 1024 1024' },
+            { className: [_style2.default.icon, _style2.default.linkedinIcon].join(' '), viewBox: '0 0 1024 1024' },
             (0, _preact.h)('path', { d: 'M324.8 290.087c0 36.506-29.6 66.087-66.133 66.087s-66.133-29.581-66.133-66.087c0-36.48 29.6-66.087 66.133-66.087s66.133 29.607 66.133 66.087zM325.333 409.043h-133.333v422.957h133.333v-422.957zM538.187 409.043h-132.48v422.957h132.507v-222.026c0-123.45 160.773-133.549 160.773 0v222.026h133.013v-267.811c0-208.306-237.92-200.719-293.813-98.179v-56.967z' })
           );
 
         case IconType.Email:
           return (0, _preact.h)(
             'svg',
-            { className: 'icon email-icon', viewBox: '0 0 1024 1024' },
+            { className: [_style2.default.icon, _style2.default.emailIcon].join(' '), viewBox: '0 0 1024 1024' },
             (0, _preact.h)('path', { d: 'M256 768c-35.346 0-64-28.654-64-64v-352c0-35.346 28.654-64 64-64h512c35.346 0 64 28.654 64 64v352c0 35.346-28.654 64-64 64h-512zM512 467.488l147.52-115.488h-295.040l147.52 115.488zM748.48 352l-211.2 179.2c-0.713 1.308-1.572 2.532-2.56 3.648-12.707 12.158-32.733 12.158-45.44 0-0.988-1.116-1.847-2.34-2.56-3.648l-211.2-179.2h-19.52v352h512v-352h-19.52z' })
           );
 
         case IconType.Embed:
           return (0, _preact.h)(
             'svg',
-            { className: 'icon embed-icon', viewBox: '0 0 1024 1024' },
+            { className: [_style2.default.icon, _style2.default.embedIcon].join(' '), viewBox: '0 0 1024 1024' },
             (0, _preact.h)('path', { d: 'M377.989 579.335c12.669 12.904 12.669 33.777 0 46.68-12.733 12.969-33.427 12.969-46.16 0l-104.727-106.667c-12.669-12.904-12.669-33.777 0-46.68l104.727-106.667c12.733-12.969 33.427-12.969 46.16 0 12.669 12.904 12.669 33.777 0 46.68l-81.812 83.327 81.812 83.327zM646.011 412.68c-12.669-12.904-12.669-33.777 0-46.68 12.733-12.969 33.427-12.969 46.16 0l104.727 106.667c12.669 12.904 12.669 33.777 0 46.68l-104.727 106.667c-12.733 12.969-33.427 12.969-46.16 0-12.669-12.904-12.669-33.777 0-46.68l81.812-83.327-81.812-83.327zM572.293 250.6c17.455 4.445 28.025 22.388 23.686 40.066l-104.727 426.669c-4.349 17.719-22.048 28.535-39.545 24.079-17.455-4.445-28.025-22.388-23.686-40.066l104.727-426.669c4.349-17.719 22.048-28.535 39.545-24.079z' })
           );
 
         case IconType.Link:
           return (0, _preact.h)(
             'svg',
-            { className: 'icon link-icon', viewBox: '0 0 1024 1024' },
+            { className: [_style2.default.icon, _style2.default.linkIcon].join(' '), viewBox: '0 0 1024 1024' },
             (0, _preact.h)('path', { d: 'M355.028 445.537c12.497 12.497 12.497 32.758 0 45.255s-32.758 12.497-45.255 0l-24.141-24.141c-49.92-49.92-49.832-130.999 0.094-180.925 49.984-49.984 130.995-50.025 180.955-0.064l113.266 113.266c49.964 49.964 49.935 130.955-0.064 180.955-12.497 12.497-32.758 12.497-45.255 0s-12.497-32.758 0-45.255c25.013-25.013 25.027-65.482 0.064-90.445l-113.266-113.266c-24.957-24.957-65.445-24.936-90.445 0.064-24.955 24.955-24.998 65.511-0.094 90.416l24.141 24.141zM668.972 578.463c-12.497-12.497-12.497-32.758 0-45.255s32.758-12.497 45.255 0l24.141 24.141c49.92 49.92 49.832 130.999-0.094 180.925-49.984 49.984-130.995 50.025-180.955 0.064l-113.266-113.266c-49.964-49.964-49.935-130.955 0.064-180.955 12.497-12.497 32.758-12.497 45.255 0s12.497 32.758 0 45.255c-25.013 25.013-25.027 65.482-0.064 90.445l113.266 113.266c24.957 24.957 65.445 24.936 90.445-0.064 24.955-24.955 24.998-65.511 0.094-90.416l-24.141-24.141z' })
           );
 
         case IconType.ArrowDown:
           return (0, _preact.h)(
             'svg',
-            { className: 'icon arrow-down-icon', viewBox: '0 0 1024 1024' },
+            { className: [_style2.default.icon, _style2.default.arrowDownIcon].join(' '), viewBox: '0 0 1024 1024' },
             (0, _preact.h)('path', { d: 'M301.255 338.745c-24.994-24.994-65.516-24.994-90.51 0s-24.994 65.516 0 90.51l256 256c24.994 24.994 65.516 24.994 90.51 0l256-256c24.994-24.994 24.994-65.516 0-90.51s-65.516-24.994-90.51 0l-210.745 210.745-210.745-210.745z' })
           );
 
         case IconType.Startover:
           return (0, _preact.h)(
             'svg',
-            { className: 'icon startover-icon', viewBox: '0 0 1024 1024' },
+            { className: [_style2.default.icon, _style2.default.startoverIcon].join(' '), viewBox: '0 0 1024 1024' },
             (0, _preact.h)('path', { d: 'M255.271 339.053c94.182-126.513 270.298-165.203 410.222-84.418 150.758 87.040 202.411 279.813 115.371 430.571s-279.813 202.411-430.571 115.371c-61.424-35.463-107.948-89.4-134.169-153.673-7.677-18.818-29.156-27.85-47.974-20.173s-27.85 29.156-20.173 47.974c32.339 79.269 89.818 145.906 165.517 189.611 185.96 107.364 423.747 43.649 531.111-142.311s43.649-423.747-142.311-531.111c-172.433-99.554-389.428-52.014-505.682 103.69l-27.226-78.49c-6.66-19.202-27.626-29.368-46.828-22.708s-29.368 27.626-22.708 46.828l52.434 151.164c5.36 15.452 20.275 25.513 36.61 24.694l159.799-8.011c20.299-1.018 35.929-18.298 34.911-38.596s-18.298-35.929-38.596-34.911l-89.738 4.499z' })
           );
 
@@ -5704,7 +6618,7 @@ exports.default = Icon;
 exports.IconType = IconType;
 
 /***/ }),
-/* 68 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5718,19 +6632,23 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _dec, _class;
 
+var _prePlaybackPlayOverlay = __webpack_require__(77);
+
+var _prePlaybackPlayOverlay2 = _interopRequireDefault(_prePlaybackPlayOverlay);
+
 var _preact = __webpack_require__(0);
 
 var _preactRedux = __webpack_require__(1);
 
-var _bindActions = __webpack_require__(3);
+var _bindActions = __webpack_require__(5);
 
-var _shell = __webpack_require__(6);
+var _shell = __webpack_require__(9);
 
 var _base = __webpack_require__(2);
 
 var _base2 = _interopRequireDefault(_base);
 
-var _icon = __webpack_require__(4);
+var _icon = __webpack_require__(6);
 
 var _icon2 = _interopRequireDefault(_icon);
 
@@ -5775,7 +6693,12 @@ var PrePlaybackPlayOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, 
   function PrePlaybackPlayOverlay(obj) {
     _classCallCheck(this, PrePlaybackPlayOverlay);
 
-    return _possibleConstructorReturn(this, (PrePlaybackPlayOverlay.__proto__ || Object.getPrototypeOf(PrePlaybackPlayOverlay)).call(this, { name: 'PrePlaybackPlayOverlay', player: obj.player }));
+    var _this = _possibleConstructorReturn(this, (PrePlaybackPlayOverlay.__proto__ || Object.getPrototypeOf(PrePlaybackPlayOverlay)).call(this, { name: 'PrePlaybackPlayOverlay', player: obj.player }));
+
+    _this.player.addEventListener(_this.player.Event.CHANGE_SOURCE_ENDED, function () {
+      return _this._onChangeSourceEnded();
+    });
+    return _this;
   }
 
   /**
@@ -5790,7 +6713,7 @@ var PrePlaybackPlayOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, 
   _createClass(PrePlaybackPlayOverlay, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
-      this.props.addPlayerClass('pre-playback');
+      this.props.addPlayerClass(_prePlaybackPlayOverlay2.default.prePlayback);
 
       try {
         this.autoplay = this.player.config.playback.autoplay;
@@ -5817,8 +6740,8 @@ var PrePlaybackPlayOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, 
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
-      this.props.updatePrePlayback(false);
-      this.props.removePlayerClass('pre-playback');
+      this._hidePrePlayback();
+      this.props.removePlayerClass(_prePlaybackPlayOverlay2.default.prePlayback);
     }
 
     /**
@@ -5834,13 +6757,10 @@ var PrePlaybackPlayOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, 
       var _this2 = this;
 
       this.player.addEventListener(this.player.Event.PLAY, function () {
-        _this2.props.updatePrePlayback(false);
-        _this2.props.removePlayerClass('pre-playback');
+        return _this2._hidePrePlayback();
       });
-
       if (this.player.paused === false) {
-        this.props.updatePrePlayback(false);
-        this.props.removePlayerClass('pre-playback');
+        this._hidePrePlayback();
       }
     }
 
@@ -5870,8 +6790,7 @@ var PrePlaybackPlayOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, 
       }).then(function () {
         _this3.player.play();
         if (_this3.props.prePlayback) {
-          _this3.props.updatePrePlayback(false);
-          _this3.props.removePlayerClass('pre-playback');
+          _this3._hidePrePlayback();
         }
       }).catch(function (e) {
         _this3.logger.error(e.message);
@@ -5895,16 +6814,60 @@ var PrePlaybackPlayOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, 
 
       return (0, _preact.h)(
         'div',
-        { className: 'pre-playback-play-overlay', style: { backgroundImage: 'url(' + props.poster + ')' },
+        { className: _prePlaybackPlayOverlay2.default.prePlaybackPlayOverlay, style: { backgroundImage: 'url(' + props.poster + ')' },
           onClick: function onClick() {
             return _this4.handleClick();
           } },
         (0, _preact.h)(
           'a',
-          { className: 'pre-playback-play-button' },
+          { className: _prePlaybackPlayOverlay2.default.prePlaybackPlayButton },
           props.isEnded ? (0, _preact.h)(_icon2.default, { type: _icon.IconType.Startover }) : (0, _preact.h)(_icon2.default, { type: _icon.IconType.Play })
         )
       );
+    }
+
+    /**
+     * Change source ended event handler.
+     * @private
+     * @returns {void}
+     */
+
+  }, {
+    key: '_onChangeSourceEnded',
+    value: function _onChangeSourceEnded() {
+      try {
+        if (!this.player.config.playback.autoplay) {
+          this._displayPrePlayback();
+        }
+      } catch (e) {
+        this.logger.error(e.message);
+      }
+    }
+
+    /**
+     * Displays the pre playback overlay.
+     * @private
+     * @returns {void}
+     */
+
+  }, {
+    key: '_displayPrePlayback',
+    value: function _displayPrePlayback() {
+      this.props.updatePrePlayback(true);
+      this.props.addPlayerClass(_prePlaybackPlayOverlay2.default.prePlayback);
+    }
+
+    /**
+     * Hides the pre playback overlay.
+     * @private
+     * @returns {void}
+     */
+
+  }, {
+    key: '_hidePrePlayback',
+    value: function _hidePrePlayback() {
+      this.props.updatePrePlayback(false);
+      this.props.removePlayerClass(_prePlaybackPlayOverlay2.default.prePlayback);
     }
   }]);
 
@@ -5913,7 +6876,61 @@ var PrePlaybackPlayOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, 
 exports.default = PrePlaybackPlayOverlay;
 
 /***/ }),
-/* 69 */
+/* 77 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(78);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(4)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--2-1!../../../node_modules/sass-loader/lib/loader.js!./_pre-playback-play-overlay.scss", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js??ref--2-1!../../../node_modules/sass-loader/lib/loader.js!./_pre-playback-play-overlay.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 78 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".kp__pre-playback-play-overlay {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 10;\n  background-position: center center;\n  background-size: cover; }\n  .kp__pre-playback-play-overlay .kp__pre-playback-play-button {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    height: 108px;\n    width: 108px;\n    border: 2px solid rgba(255, 255, 255, 0.2);\n    background-color: rgba(0, 0, 0, 0.5);\n    margin: -54px 0 0 -54px;\n    border-radius: 54px;\n    fill: #fff;\n    padding: 20px;\n    cursor: pointer; }\n    .kp__pre-playback-play-overlay .kp__pre-playback-play-button:hover {\n      border: 2px solid rgba(255, 255, 255, 0.4); }\n    .kp__pre-playback-play-overlay .kp__pre-playback-play-button:active {\n      opacity: 0.7;\n      transform: scale(1); }\n\n.kp__pre-playback .kp__player-gui {\n  opacity: 0 !important;\n  display: none; }\n", ""]);
+
+// exports
+exports.locals = {
+	"pre-playback-play-overlay": "kp__pre-playback-play-overlay",
+	"prePlaybackPlayOverlay": "kp__pre-playback-play-overlay",
+	"pre-playback-play-button": "kp__pre-playback-play-button",
+	"prePlaybackPlayButton": "kp__pre-playback-play-button",
+	"pre-playback": "kp__pre-playback",
+	"prePlayback": "kp__pre-playback",
+	"player-gui": "kp__player-gui",
+	"playerGui": "kp__player-gui"
+};
+
+/***/ }),
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5927,13 +6944,17 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _dec, _class;
 
+var _loading = __webpack_require__(80);
+
+var _loading2 = _interopRequireDefault(_loading);
+
 var _preact = __webpack_require__(0);
 
 var _preactRedux = __webpack_require__(1);
 
-var _bindActions = __webpack_require__(3);
+var _bindActions = __webpack_require__(5);
 
-var _loading = __webpack_require__(36);
+var _loading3 = __webpack_require__(39);
 
 var _base = __webpack_require__(2);
 
@@ -5969,7 +6990,7 @@ var mapStateToProps = function mapStateToProps(state) {
  * @example <Loading />
  * @extends {BaseComponent}
  */
-var Loading = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.bindActions)(_loading.actions)), _dec(_class = function (_BaseComponent) {
+var Loading = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.bindActions)(_loading3.actions)), _dec(_class = function (_BaseComponent) {
   _inherits(Loading, _BaseComponent);
 
   /**
@@ -6067,13 +7088,13 @@ var Loading = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAction
 
       return (0, _preact.h)(
         'div',
-        { className: 'loading-backdrop show' },
+        { className: [_loading2.default.loadingBackdrop, _loading2.default.show].join(' ') },
         (0, _preact.h)(
           'div',
-          { className: 'spinner-container' },
+          { className: _loading2.default.spinnerContainer },
           (0, _preact.h)(
             'div',
-            { className: 'spinner' },
+            { className: _loading2.default.spinner },
             [].concat(_toConsumableArray(Array(8))).map(function (i) {
               return (0, _preact.h)('span', { key: i });
             })
@@ -6088,7 +7109,61 @@ var Loading = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAction
 exports.default = Loading;
 
 /***/ }),
-/* 70 */
+/* 80 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(81);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(4)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--2-1!../../../node_modules/sass-loader/lib/loader.js!./_loading.scss", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js??ref--2-1!../../../node_modules/sass-loader/lib/loader.js!./_loading.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 81 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "@keyframes kp__kaltura-spinner {\n  0% {\n    transform: rotate(0deg) scale(0.7);\n    opacity: 1; }\n  70% {\n    transform: rotate(360deg) scale(0.7);\n    opacity: 1; }\n  82% {\n    transform: rotate(360deg) scale(0);\n    opacity: 0; }\n  87% {\n    transform: rotate(360deg) scale(0.9);\n    opacity: 1; }\n  100% {\n    transform: rotate(360deg) scale(0.7);\n    opacity: 1; } }\n\n.kp__loading-backdrop {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.3);\n  transition: 100ms opacity;\n  opacity: 0; }\n  .kp__loading-backdrop.kp__show {\n    opacity: 1; }\n    .kp__loading-backdrop.kp__show .kp__spinner-container {\n      display: block; }\n  .kp__loading-backdrop .kp__spinner-container {\n    display: none;\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate3d(-50px, -50px, 0); }\n\n.kp__spinner {\n  width: 100px;\n  height: 100px;\n  position: relative;\n  animation: kp__kaltura-spinner 2.5s infinite; }\n  .kp__spinner span {\n    width: 8px;\n    height: 8px;\n    background-color: #fff;\n    display: block;\n    border-radius: 8px;\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    margin-top: -4px;\n    margin-left: -4px; }\n    .kp__spinner span:nth-child(1) {\n      transform: rotate(45deg) translateX(-25px) translateY(-25px);\n      background-color: #da1f26; }\n    .kp__spinner span:nth-child(2) {\n      transform: rotate(90deg) translateX(-25px) translateY(-25px);\n      background-color: #06a885; }\n    .kp__spinner span:nth-child(3) {\n      transform: rotate(135deg) translateX(-25px) translateY(-25px);\n      background-color: #009344; }\n    .kp__spinner span:nth-child(4) {\n      transform: rotate(180deg) translateX(-25px) translateY(-25px);\n      background-color: #f8a61a; }\n    .kp__spinner span:nth-child(5) {\n      transform: rotate(225deg) translateX(-25px) translateY(-25px);\n      background-color: #1b4a97; }\n    .kp__spinner span:nth-child(6) {\n      transform: rotate(270deg) translateX(-25px) translateY(-25px);\n      background-color: #00abcc; }\n    .kp__spinner span:nth-child(7) {\n      transform: rotate(315deg) translateX(-25px) translateY(-25px);\n      background-color: #b1d238; }\n    .kp__spinner span:nth-child(8) {\n      transform: rotate(360deg) translateX(-25px) translateY(-25px);\n      background-color: #fcd203; }\n", ""]);
+
+// exports
+exports.locals = {
+	"loading-backdrop": "kp__loading-backdrop",
+	"loadingBackdrop": "kp__loading-backdrop",
+	"show": "kp__show",
+	"spinner-container": "kp__spinner-container",
+	"spinnerContainer": "kp__spinner-container",
+	"spinner": "kp__spinner",
+	"kaltura-spinner": "kp__kaltura-spinner",
+	"kalturaSpinner": "kp__kaltura-spinner"
+};
+
+/***/ }),
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6102,21 +7177,25 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _dec, _class;
 
+var _playPause = __webpack_require__(83);
+
+var _playPause2 = _interopRequireDefault(_playPause);
+
 var _preact = __webpack_require__(0);
 
-var _preactI18n = __webpack_require__(5);
+var _preactI18n = __webpack_require__(8);
 
 var _preactRedux = __webpack_require__(1);
 
-var _bindActions = __webpack_require__(3);
+var _bindActions = __webpack_require__(5);
 
-var _playPause = __webpack_require__(17);
+var _playPause3 = __webpack_require__(20);
 
 var _base = __webpack_require__(2);
 
 var _base2 = _interopRequireDefault(_base);
 
-var _icon = __webpack_require__(4);
+var _icon = __webpack_require__(6);
 
 var _icon2 = _interopRequireDefault(_icon);
 
@@ -6149,7 +7228,7 @@ var mapStateToProps = function mapStateToProps(state) {
  * @example <PlayPauseControl player={this.player} />
  * @extends {BaseComponent}
  */
-var PlayPauseControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.bindActions)(_playPause.actions)), _dec(_class = function (_BaseComponent) {
+var PlayPauseControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.bindActions)(_playPause3.actions)), _dec(_class = function (_BaseComponent) {
   _inherits(PlayPauseControl, _BaseComponent);
 
   /**
@@ -6204,11 +7283,11 @@ var PlayPauseControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _b
     value: function render(props) {
       var _this2 = this;
 
-      var controlButtonClass = this.isPlayingAdOrPlayback() ? 'control-button is-playing' : 'control-button';
+      var controlButtonClass = this.isPlayingAdOrPlayback() ? [_playPause2.default.controlButton, _playPause2.default.isPlaying].join(' ') : _playPause2.default.controlButton;
 
       return (0, _preact.h)(
         'div',
-        { className: 'control-button-container control-play-pause' },
+        { className: [_playPause2.default.controlButtonContainer, _playPause2.default.controlPlayPause].join(' ') },
         (0, _preact.h)(
           _preactI18n.Localizer,
           null,
@@ -6238,13 +7317,75 @@ var PlayPauseControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _b
 exports.default = PlayPauseControl;
 
 /***/ }),
-/* 71 */
+/* 83 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(84);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(4)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--2-1!../../../node_modules/sass-loader/lib/loader.js!./_play-pause.scss", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js??ref--2-1!../../../node_modules/sass-loader/lib/loader.js!./_play-pause.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 84 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".kp__control-button-container.kp__control-play-pause .kp__control-button {\n  transition: 400ms transform; }\n  .kp__control-button-container.kp__control-play-pause .kp__control-button .kp__icon-pause {\n    transition: 400ms opacity;\n    opacity: 0;\n    display: none; }\n  .kp__control-button-container.kp__control-play-pause .kp__control-button .kp__icon-play {\n    transition: 400ms opacity;\n    opacity: 1;\n    display: block; }\n  .kp__control-button-container.kp__control-play-pause .kp__control-button.kp__is-playing {\n    transform: rotate(360deg); }\n    .kp__control-button-container.kp__control-play-pause .kp__control-button.kp__is-playing .kp__icon-pause {\n      opacity: 1;\n      display: block; }\n    .kp__control-button-container.kp__control-play-pause .kp__control-button.kp__is-playing .kp__icon-play {\n      opacity: 0;\n      display: none; }\n\n.kp__touch .kp__control-button-container.kp__control-play-pause {\n  display: none; }\n\n.kp__player.kp__size-sm .kp__control-button-container.kp__control-play-pause {\n  display: none; }\n", ""]);
+
+// exports
+exports.locals = {
+	"control-button-container": "kp__control-button-container",
+	"controlButtonContainer": "kp__control-button-container",
+	"control-play-pause": "kp__control-play-pause",
+	"controlPlayPause": "kp__control-play-pause",
+	"control-button": "kp__control-button",
+	"controlButton": "kp__control-button",
+	"icon-pause": "kp__icon-pause",
+	"iconPause": "kp__icon-pause",
+	"icon-play": "kp__icon-play",
+	"iconPlay": "kp__icon-play",
+	"is-playing": "kp__is-playing",
+	"isPlaying": "kp__is-playing",
+	"touch": "kp__touch",
+	"player": "kp__player",
+	"size-sm": "kp__size-sm",
+	"sizeSm": "kp__size-sm"
+};
+
+/***/ }),
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 !function(e,n){ true?module.exports=n():"function"==typeof define&&define.amd?define(n):e.dlv=n()}(this,function(){function e(e,n,t,o){for(o=0,n=n.split?n.split("."):n;e&&o<n.length;)e=e[n[o++]];return void 0===e?t:e}return e});
 
 /***/ }),
-/* 72 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6255,7 +7396,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _seekbarPlaybackContainer = __webpack_require__(73);
+var _seekbarPlaybackContainer = __webpack_require__(87);
 
 var _seekbarPlaybackContainer2 = _interopRequireDefault(_seekbarPlaybackContainer);
 
@@ -6264,7 +7405,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _seekbarPlaybackContainer2.default;
 
 /***/ }),
-/* 73 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6282,15 +7423,15 @@ var _preact = __webpack_require__(0);
 
 var _preactRedux = __webpack_require__(1);
 
-var _bindActions = __webpack_require__(3);
+var _bindActions = __webpack_require__(5);
 
-var _seekbar = __webpack_require__(10);
+var _seekbar = __webpack_require__(13);
 
 var _base = __webpack_require__(2);
 
 var _base2 = _interopRequireDefault(_base);
 
-var _seekbar2 = __webpack_require__(11);
+var _seekbar2 = __webpack_require__(14);
 
 var _seekbar3 = _interopRequireDefault(_seekbar2);
 
@@ -6399,7 +7540,7 @@ var SeekBarPlaybackContainer = (_dec = (0, _preactRedux.connect)(mapStateToProps
 exports.default = SeekBarPlaybackContainer;
 
 /***/ }),
-/* 74 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6411,9 +7552,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _seekbar = __webpack_require__(89);
+
+var _seekbar2 = _interopRequireDefault(_seekbar);
+
 var _preact = __webpack_require__(0);
 
-var _timeFormat = __webpack_require__(19);
+var _timeFormat = __webpack_require__(22);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -6490,7 +7637,7 @@ var SeekBarControl = function (_Component) {
   }, {
     key: 'componentWillUpdate',
     value: function componentWillUpdate(nextProps) {
-      if (this.props.playerPoster !== nextProps.playerPoster) {
+      if (nextProps.playerPoster && this.props.playerPoster !== nextProps.playerPoster) {
         this.framePreviewImg = this.getFramePreviewImg(nextProps.playerPoster);
       }
     }
@@ -6787,6 +7934,8 @@ var SeekBarControl = function (_Component) {
   }, {
     key: 'getFramePreviewImg',
     value: function getFramePreviewImg(posterUrl) {
+      if (!posterUrl) return '';
+
       var parts = posterUrl.split('/');
       var heightValueIndex = parts.indexOf('height') + 1;
       var widthValueIndex = parts.indexOf('width') + 1;
@@ -6817,13 +7966,13 @@ var SeekBarControl = function (_Component) {
       return (0, _preact.h)(
         'div',
         {
-          className: 'frame-preview',
+          className: _seekbar2.default.framePreview,
           style: framePreviewStyle,
           ref: function ref(c) {
             return _this3._framePreviewElement = c;
           }
         },
-        (0, _preact.h)('div', { className: 'frame-preview-img', style: framePreviewImgStyle })
+        (0, _preact.h)('div', { className: _seekbar2.default.framePreviewImg, style: framePreviewImgStyle })
       );
     }
 
@@ -6844,7 +7993,7 @@ var SeekBarControl = function (_Component) {
       var timeBubbleValue = this.props.isDvr ? '-' + (0, _timeFormat.toHHMMSS)(this.props.duration - this.state.virtualTime) : (0, _timeFormat.toHHMMSS)(this.state.virtualTime);
       return (0, _preact.h)(
         'div',
-        { className: 'time-preview', style: timeBubbleStyle, ref: function ref(c) {
+        { className: _seekbar2.default.timePreview, style: timeBubbleStyle, ref: function ref(c) {
             return _this4._timeBubbleElement = c;
           } },
         timeBubbleValue
@@ -6866,11 +8015,11 @@ var SeekBarControl = function (_Component) {
 
       var virtualProgressWidth = this.state.virtualTime / props.duration * 100 + '%';
       var progressWidth = props.currentTime / props.duration * 100 + '%';
-      var seekbarStyleClass = 'seek-bar';
-      if (props.adBreak) seekbarStyleClass += ' ad-break';
-      if (props.isDvr) seekbarStyleClass += ' live';
-      if (props.isMobile) seekbarStyleClass += ' hover';
-      if (props.isDraggingActive) seekbarStyleClass += ' hover';
+      var seekbarStyleClass = _seekbar2.default.seekBar;
+      if (props.adBreak) seekbarStyleClass += _seekbar2.default.adBreak;
+      if (props.isDvr) seekbarStyleClass += _seekbar2.default.live;
+      if (props.isMobile) seekbarStyleClass += _seekbar2.default.hover;
+      if (props.isDraggingActive) seekbarStyleClass += _seekbar2.default.hover;
 
       return (0, _preact.h)(
         'div',
@@ -6906,16 +8055,16 @@ var SeekBarControl = function (_Component) {
         },
         (0, _preact.h)(
           'div',
-          { className: 'progress-bar' },
+          { className: _seekbar2.default.progressBar },
           (0, _preact.h)(
             'div',
-            { className: 'progress', style: { width: progressWidth } },
-            props.adBreak ? undefined : (0, _preact.h)('a', { className: 'scrubber' })
+            { className: _seekbar2.default.progress, style: { width: progressWidth } },
+            props.adBreak ? undefined : (0, _preact.h)('a', { className: _seekbar2.default.scrubber })
           ),
-          (0, _preact.h)('div', { className: 'virtual-progress', style: { width: virtualProgressWidth } }),
+          (0, _preact.h)('div', { className: _seekbar2.default.virtualProgress, style: { width: virtualProgressWidth } }),
           this.renderTimeBubble(),
           this.renderFramePreview(),
-          (0, _preact.h)('div', { className: 'buffered', style: 'width: 60%;' })
+          (0, _preact.h)('div', { className: _seekbar2.default.buffered, style: 'width: 60%;' })
         )
       );
     }
@@ -6927,7 +8076,78 @@ var SeekBarControl = function (_Component) {
 exports.default = SeekBarControl;
 
 /***/ }),
-/* 75 */
+/* 89 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(90);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(4)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--2-1!../../../node_modules/sass-loader/lib/loader.js!./_seekbar.scss", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js??ref--2-1!../../../node_modules/sass-loader/lib/loader.js!./_seekbar.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 90 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".kp__player .kp__seek-bar {\n  padding: 6px 0;\n  cursor: pointer;\n  position: relative; }\n  .kp__player .kp__seek-bar:hover .kp__time-preview,\n  .kp__player .kp__seek-bar:hover .kp__frame-preview, .kp__player .kp__seek-bar.kp__hover .kp__time-preview,\n  .kp__player .kp__seek-bar.kp__hover .kp__frame-preview, .kp__player .kp__seek-bar.kp__dragging-active .kp__time-preview,\n  .kp__player .kp__seek-bar.kp__dragging-active .kp__frame-preview {\n    display: block; }\n  .kp__player .kp__seek-bar:hover .kp__progress-bar .kp__scrubber, .kp__player .kp__seek-bar.kp__hover .kp__progress-bar .kp__scrubber, .kp__player .kp__seek-bar.kp__dragging-active .kp__progress-bar .kp__scrubber {\n    transform: scale(1); }\n  .kp__player .kp__seek-bar:hover .kp__progress-bar .kp__virtual-progress, .kp__player .kp__seek-bar.kp__hover .kp__progress-bar .kp__virtual-progress, .kp__player .kp__seek-bar.kp__dragging-active .kp__progress-bar .kp__virtual-progress {\n    display: block; }\n  .kp__player .kp__seek-bar.kp__ad-break {\n    cursor: initial; }\n    .kp__player .kp__seek-bar.kp__ad-break .kp__progress-bar .kp__progress {\n      background-color: #F9A71B; }\n  .kp__player .kp__seek-bar.kp__live .kp__progress-bar .kp__progress {\n    background-color: #DA1F26; }\n  .kp__player .kp__seek-bar .kp__progress-bar {\n    height: 4px;\n    background-color: rgba(255, 255, 255, 0.3);\n    border-radius: 2px;\n    position: relative; }\n    .kp__player .kp__seek-bar .kp__progress-bar .kp__progress {\n      position: absolute;\n      top: 0;\n      left: 0;\n      height: 100%;\n      z-index: 2;\n      border-radius: 2px 0 0 2px;\n      background-color: #01ACCD; }\n    .kp__player .kp__seek-bar .kp__progress-bar .kp__virtual-progress {\n      display: none; }\n    .kp__player .kp__seek-bar .kp__progress-bar .kp__buffered, .kp__player .kp__seek-bar .kp__progress-bar .kp__virtual-progress {\n      position: absolute;\n      top: 0;\n      left: 0;\n      height: 100%;\n      z-index: 1;\n      border-radius: 2px 0 0 2px;\n      background-color: rgba(255, 255, 255, 0.3); }\n    .kp__player .kp__seek-bar .kp__progress-bar .kp__scrubber {\n      position: absolute;\n      z-index: 3;\n      cursor: pointer;\n      display: block;\n      top: -6px;\n      right: -8px;\n      border-radius: 8px;\n      height: 16px;\n      width: 16px;\n      background-color: #FFFFFF;\n      box-shadow: 0 0 31px 0 rgba(0, 0, 0, 0.3);\n      transform: scale(0);\n      transition: 100ms transform; }\n      .kp__player .kp__seek-bar .kp__progress-bar .kp__scrubber:active {\n        opacity: 1;\n        cursor: grabbing; }\n  .kp__player .kp__seek-bar .kp__frame-preview {\n    position: absolute;\n    bottom: 16px;\n    left: 0;\n    height: 94px;\n    width: 164px;\n    border: 2px solid rgba(255, 255, 255, 0.2);\n    border-radius: 4px;\n    z-index: 10; }\n    .kp__player .kp__seek-bar .kp__frame-preview .kp__frame-preview-img {\n      background-size: auto 100%;\n      width: 100%;\n      height: 100%;\n      position: relative; }\n  .kp__player .kp__seek-bar .kp__time-preview {\n    position: absolute;\n    bottom: 22px;\n    left: 0;\n    z-index: 11;\n    height: 22px;\n    min-width: 48px;\n    padding: 0 3px;\n    text-align: center;\n    border-radius: 3px;\n    background-color: rgba(0, 0, 0, 0.7);\n    font-size: 13px;\n    font-weight: bold;\n    line-height: 22px;\n    color: #fff; }\n  .kp__player .kp__seek-bar .kp__time-preview,\n  .kp__player .kp__seek-bar .kp__frame-preview {\n    display: none; }\n\n.kp__touch .kp__virtual-progress, .kp__touch .kp__time-preview, .kp__touch .kp__frame-preview {\n  display: none !important; }\n\n.kp__player.kp__size-sm .kp__virtual-progress, .kp__player.kp__size-sm .kp__time-preview, .kp__player.kp__size-sm .kp__frame-preview {\n  display: none; }\n", ""]);
+
+// exports
+exports.locals = {
+	"player": "kp__player",
+	"seek-bar": "kp__seek-bar",
+	"seekBar": "kp__seek-bar",
+	"time-preview": "kp__time-preview",
+	"timePreview": "kp__time-preview",
+	"frame-preview": "kp__frame-preview",
+	"framePreview": "kp__frame-preview",
+	"hover": "kp__hover",
+	"dragging-active": "kp__dragging-active",
+	"draggingActive": "kp__dragging-active",
+	"progress-bar": "kp__progress-bar",
+	"progressBar": "kp__progress-bar",
+	"scrubber": "kp__scrubber",
+	"virtual-progress": "kp__virtual-progress",
+	"virtualProgress": "kp__virtual-progress",
+	"ad-break": "kp__ad-break",
+	"adBreak": "kp__ad-break",
+	"progress": "kp__progress",
+	"live": "kp__live",
+	"buffered": "kp__buffered",
+	"frame-preview-img": "kp__frame-preview-img",
+	"framePreviewImg": "kp__frame-preview-img",
+	"touch": "kp__touch",
+	"size-sm": "kp__size-sm",
+	"sizeSm": "kp__size-sm"
+};
+
+/***/ }),
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6941,19 +8161,23 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _dec, _class;
 
+var _style = __webpack_require__(7);
+
+var _style2 = _interopRequireDefault(_style);
+
 var _preact = __webpack_require__(0);
 
 var _preactRedux = __webpack_require__(1);
 
-var _bindActions = __webpack_require__(3);
+var _bindActions = __webpack_require__(5);
 
-var _volume = __webpack_require__(37);
+var _volume = __webpack_require__(40);
 
 var _base = __webpack_require__(2);
 
 var _base2 = _interopRequireDefault(_base);
 
-var _icon = __webpack_require__(4);
+var _icon = __webpack_require__(6);
 
 var _icon2 = _interopRequireDefault(_icon);
 
@@ -7163,18 +8387,18 @@ var VolumeControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bind
     value: function render() {
       var _this3 = this;
 
-      var controlButtonClass = 'control-button-container volume-control';
-      if (this.props.isDraggingActive) controlButtonClass += ' dragging-active';
-      if (this.props.muted || this.props.volume === 0) controlButtonClass += ' is-muted';
+      var controlButtonClass = [_style2.default.controlButtonContainer, _style2.default.volumeControl];
+      if (this.props.isDraggingActive) controlButtonClass.push(_style2.default.draggingActive);
+      if (this.props.muted || this.props.volume === 0) controlButtonClass.push(_style2.default.isMuted);
 
       return (0, _preact.h)(
         'div',
         { ref: function ref(c) {
             return _this3._volumeControlElement = c;
-          }, className: controlButtonClass },
+          }, className: controlButtonClass.join(' ') },
         (0, _preact.h)(
           'button',
-          { className: 'control-button', onClick: function onClick() {
+          { className: _style2.default.controlButton, onClick: function onClick() {
               return _this3.onVolumeControlButtonClick();
             }, 'aria-label': 'Volume' },
           (0, _preact.h)(_icon2.default, { type: _icon.IconType.VolumeBase }),
@@ -7183,13 +8407,13 @@ var VolumeControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bind
         ),
         (0, _preact.h)(
           'div',
-          { className: 'volume-control-bar', role: 'slider',
+          { className: _style2.default.volumeControlBar, role: 'slider',
             'aria-valuemin': '0', 'aria-valuemaz': '100', 'aria-valuenow': this.player.volume * 100,
             'aria-valuetext': this.player.volume * 100 + '% volume ' + (this.player.muted ? 'muted' : '') },
           (0, _preact.h)(
             'div',
             {
-              className: 'bar',
+              className: _style2.default.bar,
               ref: function ref(c) {
                 return _this3._volumeProgressBarElement = c;
               },
@@ -7203,7 +8427,7 @@ var VolumeControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bind
                 return _this3.onVolumeProgressBarMouseMove(e);
               }
             },
-            (0, _preact.h)('div', { className: 'progress', style: { height: this.getVolumeProgressHeight() } })
+            (0, _preact.h)('div', { className: _style2.default.progress, style: { height: this.getVolumeProgressHeight() } })
           )
         )
       );
@@ -7215,7 +8439,7 @@ var VolumeControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bind
 exports.default = VolumeControl;
 
 /***/ }),
-/* 76 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7229,29 +8453,33 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _dec, _class;
 
+var _style = __webpack_require__(7);
+
+var _style2 = _interopRequireDefault(_style);
+
 var _preact = __webpack_require__(0);
 
-var _preactI18n = __webpack_require__(5);
+var _preactI18n = __webpack_require__(8);
 
 var _preactRedux = __webpack_require__(1);
 
-var _bindActions = __webpack_require__(3);
+var _bindActions = __webpack_require__(5);
 
-var _settings = __webpack_require__(38);
+var _settings = __webpack_require__(41);
 
 var _base = __webpack_require__(2);
 
 var _base2 = _interopRequireDefault(_base);
 
-var _smartContainer = __webpack_require__(39);
+var _smartContainer = __webpack_require__(42);
 
 var _smartContainer2 = _interopRequireDefault(_smartContainer);
 
-var _smartContainerItem = __webpack_require__(40);
+var _smartContainerItem = __webpack_require__(44);
 
 var _smartContainerItem2 = _interopRequireDefault(_smartContainerItem);
 
-var _icon = __webpack_require__(4);
+var _icon = __webpack_require__(6);
 
 var _icon2 = _interopRequireDefault(_icon);
 
@@ -7351,7 +8579,7 @@ var SettingsControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
     key: 'handleClickOutside',
     value: function handleClickOutside(e) {
       if (!this.props.isMobile && !!this._controlSettingsElement && !this._controlSettingsElement.contains(e.target) && this.state.smartContainerOpen) {
-        if (e.target.classList.contains('overlay-play')) {
+        if (e.target.classList.contains(_style2.default.overlayPlay)) {
           e.stopPropagation();
         }
         this.setState({ smartContainerOpen: false });
@@ -7486,7 +8714,7 @@ var SettingsControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
           ref: function ref(c) {
             return _this2._controlSettingsElement = c;
           },
-          className: 'control-button-container control-settings'
+          className: [_style2.default.controlButtonContainer, _style2.default.controlSettings].join(' ')
         },
         (0, _preact.h)(
           _preactI18n.Localizer,
@@ -7495,7 +8723,7 @@ var SettingsControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
             'button',
             {
               'aria-label': (0, _preact.h)(_preactI18n.Text, { id: 'controls.settings' }),
-              className: this.state.smartContainerOpen ? 'control-button active' : 'control-button',
+              className: this.state.smartContainerOpen ? [_style2.default.controlButton, _style2.default.active].join(' ') : _style2.default.controlButton,
               onClick: function onClick() {
                 return _this2.onControlButtonClick();
               }
@@ -7532,7 +8760,7 @@ var SettingsControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
 exports.default = SettingsControl;
 
 /***/ }),
-/* 77 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7546,15 +8774,19 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _dec, _class;
 
+var _smartContainer = __webpack_require__(43);
+
+var _smartContainer2 = _interopRequireDefault(_smartContainer);
+
 var _preact = __webpack_require__(0);
 
 var _preactRedux = __webpack_require__(1);
 
-var _preactPortal = __webpack_require__(21);
+var _preactPortal = __webpack_require__(24);
 
 var _preactPortal2 = _interopRequireDefault(_preactPortal);
 
-var _overlay = __webpack_require__(22);
+var _overlay = __webpack_require__(25);
 
 var _overlay2 = _interopRequireDefault(_overlay);
 
@@ -7624,14 +8856,14 @@ var SmartContainer = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_c
             } },
           (0, _preact.h)(
             'div',
-            { className: 'title' },
+            { className: _smartContainer2.default.title },
             props.title
           ),
           props.children
         )
       ) : (0, _preact.h)(
         'div',
-        { className: 'smart-container top left' },
+        { className: [_smartContainer2.default.smartContainer, _smartContainer2.default.top, _smartContainer2.default.left].join(' ') },
         props.children
       );
     }
@@ -7642,7 +8874,40 @@ var SmartContainer = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_c
 exports.default = SmartContainer;
 
 /***/ }),
-/* 78 */
+/* 94 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "@keyframes kp__openSmartContainer {\n  from {\n    opacity: 0;\n    transform: translateY(10px); }\n  to {\n    opacity: 1;\n    transform: translateY(0); } }\n\n@keyframes kp__closeSmartContainer {\n  from {\n    opacity: 1;\n    transform: translateY(0); }\n  to {\n    opacity: 0;\n    transform: translateY(10px); } }\n\n.kp__player:not(.kp__touch) .kp__smart-container {\n  background-color: #222222;\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.3);\n  border-radius: 4px;\n  position: absolute;\n  right: 0px;\n  min-width: 193px;\n  font-size: 15px;\n  z-index: 10;\n  display: block;\n  animation: kp__openSmartContainer 100ms ease-out forwards; }\n  .kp__player:not(.kp__touch) .kp__smart-container.kp__leaving {\n    animation: kp__closeSmartContainer 100ms ease-out forwards; }\n  .kp__player:not(.kp__touch) .kp__smart-container.kp__top {\n    bottom: 100%;\n    margin-bottom: 6px; }\n    .kp__player:not(.kp__touch) .kp__smart-container.kp__top:before {\n      display: block;\n      content: ' ';\n      position: absolute;\n      bottom: -6px;\n      left: 0;\n      width: 100%;\n      height: 6px; }\n  .kp__player:not(.kp__touch) .kp__smart-container.kp__bottom {\n    top: 100%;\n    margin-top: 6px; }\n  .kp__player:not(.kp__touch) .kp__smart-container.kp__right {\n    left: 0px; }\n  .kp__player:not(.kp__touch) .kp__smart-container.kp__left {\n    right: 0px; }\n  .kp__player:not(.kp__touch) .kp__smart-container .kp__smart-container-item {\n    margin: 16px;\n    color: rgba(244, 244, 244, 0.8);\n    white-space: nowrap; }\n    .kp__player:not(.kp__touch) .kp__smart-container .kp__smart-container-item:after {\n      display: block;\n      content: ' ';\n      clear: both; }\n    .kp__player:not(.kp__touch) .kp__smart-container .kp__smart-container-item.kp__select-menu-item label {\n      float: left; }\n      .kp__player:not(.kp__touch) .kp__smart-container .kp__smart-container-item.kp__select-menu-item label .kp__label-icon {\n        display: none; }\n    .kp__player:not(.kp__touch) .kp__smart-container .kp__smart-container-item.kp__select-menu-item .kp__dropdown, .kp__player:not(.kp__touch) .kp__smart-container .kp__smart-container-item.kp__select-menu-item select {\n      float: right; }\n    .kp__player:not(.kp__touch) .kp__smart-container .kp__smart-container-item.kp__select-menu-item select {\n      text-align-last: right; }\n\n.kp__touch .kp__smart-container-item {\n  width: 300px;\n  max-width: 100%;\n  margin: 16px auto;\n  color: rgba(244, 244, 244, 0.8);\n  white-space: nowrap;\n  text-align: left; }\n  .kp__touch .kp__smart-container-item:after {\n    display: block;\n    content: ' ';\n    clear: both; }\n  .kp__touch .kp__smart-container-item.kp__select-menu-item label {\n    float: left;\n    font-size: 16px;\n    color: rgba(255, 255, 255, 0.8);\n    fill: #fff; }\n    .kp__touch .kp__smart-container-item.kp__select-menu-item label .kp__label-icon {\n      width: 24px;\n      height: 24px;\n      display: inline-block;\n      vertical-align: middle;\n      margin-right: 16px; }\n  .kp__touch .kp__smart-container-item.kp__select-menu-item .kp__dropdown, .kp__touch .kp__smart-container-item.kp__select-menu-item select {\n    float: right; }\n  .kp__touch .kp__smart-container-item.kp__select-menu-item select {\n    text-align-last: right; }\n", ""]);
+
+// exports
+exports.locals = {
+	"player": "kp__player",
+	"touch": "kp__touch",
+	"smart-container": "kp__smart-container",
+	"smartContainer": "kp__smart-container",
+	"openSmartContainer": "kp__openSmartContainer",
+	"leaving": "kp__leaving",
+	"closeSmartContainer": "kp__closeSmartContainer",
+	"top": "kp__top",
+	"bottom": "kp__bottom",
+	"right": "kp__right",
+	"left": "kp__left",
+	"smart-container-item": "kp__smart-container-item",
+	"smartContainerItem": "kp__smart-container-item",
+	"select-menu-item": "kp__select-menu-item",
+	"selectMenuItem": "kp__select-menu-item",
+	"label-icon": "kp__label-icon",
+	"labelIcon": "kp__label-icon",
+	"dropdown": "kp__dropdown"
+};
+
+/***/ }),
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7656,17 +8921,21 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _dec, _class;
 
+var _style = __webpack_require__(7);
+
+var _style2 = _interopRequireDefault(_style);
+
 var _preact = __webpack_require__(0);
 
-var _preactI18n = __webpack_require__(5);
+var _preactI18n = __webpack_require__(8);
 
 var _preactRedux = __webpack_require__(1);
 
-var _bindActions = __webpack_require__(3);
+var _bindActions = __webpack_require__(5);
 
-var _shell = __webpack_require__(6);
+var _shell = __webpack_require__(9);
 
-var _icon = __webpack_require__(4);
+var _icon = __webpack_require__(6);
 
 var _icon2 = _interopRequireDefault(_icon);
 
@@ -7709,7 +8978,7 @@ var Overlay = (_dec = (0, _preactRedux.connect)(null, (0, _bindActions.bindActio
      * @memberof Overlay
      */
     value: function componentWillMount() {
-      this.props.addPlayerClass('overlay-active');
+      this.props.addPlayerClass(_style2.default.overlayActive);
     }
 
     /**
@@ -7722,7 +8991,7 @@ var Overlay = (_dec = (0, _preactRedux.connect)(null, (0, _bindActions.bindActio
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
-      this.props.removePlayerClass('overlay-active');
+      this.props.removePlayerClass(_style2.default.overlayActive);
     }
 
     /**
@@ -7736,16 +9005,16 @@ var Overlay = (_dec = (0, _preactRedux.connect)(null, (0, _bindActions.bindActio
   }, {
     key: 'render',
     value: function render(props) {
-      var overlayClass = 'overlay';
-      if (props.type) overlayClass += ' ' + props.type + '-overlay';
-      if (props.open) overlayClass += ' active';
+      var overlayClass = [_style2.default.overlay];
+      if (props.type) overlayClass.push(_style2.default[props.type + '-overlay']);
+      if (props.open) overlayClass.push(_style2.default.active);
 
       return (0, _preact.h)(
         'div',
-        { className: overlayClass, role: 'dialog' },
+        { className: overlayClass.join(' '), role: 'dialog' },
         (0, _preact.h)(
           'div',
-          { className: 'overlay-contents' },
+          { className: _style2.default.overlayContents },
           props.children
         ),
         (0, _preact.h)(
@@ -7755,7 +9024,7 @@ var Overlay = (_dec = (0, _preactRedux.connect)(null, (0, _bindActions.bindActio
             'a',
             { onClick: function onClick() {
                 return props.onClose();
-              }, 'aria-label': (0, _preact.h)(_preactI18n.Text, { id: 'core.close' }), className: 'close-overlay' },
+              }, 'aria-label': (0, _preact.h)(_preactI18n.Text, { id: 'core.close' }), className: _style2.default.closeOverlay },
             (0, _preact.h)(_icon2.default, { type: _icon.IconType.Close })
           )
         )
@@ -7768,7 +9037,7 @@ var Overlay = (_dec = (0, _preactRedux.connect)(null, (0, _bindActions.bindActio
 exports.default = Overlay;
 
 /***/ }),
-/* 79 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7782,15 +9051,19 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _dec, _class;
 
+var _style = __webpack_require__(7);
+
+var _style2 = _interopRequireDefault(_style);
+
 var _preact = __webpack_require__(0);
 
 var _preactRedux = __webpack_require__(1);
 
-var _menu = __webpack_require__(80);
+var _menu = __webpack_require__(97);
 
 var _menu2 = _interopRequireDefault(_menu);
 
-var _icon = __webpack_require__(4);
+var _icon = __webpack_require__(6);
 
 var _icon2 = _interopRequireDefault(_icon);
 
@@ -7944,10 +9217,10 @@ var DropDown = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class =
 
       return props.isMobile ? this.renderNativeSelect() : (0, _preact.h)(
         'div',
-        { className: this.state.dropMenuActive ? 'dropdown active' : 'dropdown' },
+        { className: this.state.dropMenuActive ? [_style2.default.dropdown, _style2.default.active].join(' ') : _style2.default.dropdown },
         (0, _preact.h)(
           'div',
-          { className: 'dropdown-button', onClick: function onClick() {
+          { className: _style2.default.dropdownButton, onClick: function onClick() {
               return _this3.setState({ dropMenuActive: !_this3.state.dropMenuActive });
             } },
           this.getActiveOptionLabel(),
@@ -7971,7 +9244,7 @@ var DropDown = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class =
 exports.default = DropDown;
 
 /***/ }),
-/* 80 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7982,7 +9255,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _menu = __webpack_require__(81);
+var _menu = __webpack_require__(98);
 
 var _menu2 = _interopRequireDefault(_menu);
 
@@ -7991,7 +9264,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _menu2.default;
 
 /***/ }),
-/* 81 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8005,15 +9278,21 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _dec, _class;
 
+var _style = __webpack_require__(7);
+
+var _style2 = _interopRequireDefault(_style);
+
 var _preact = __webpack_require__(0);
 
-var _icon = __webpack_require__(4);
+var _icon = __webpack_require__(6);
 
 var _icon2 = _interopRequireDefault(_icon);
 
 var _preactRedux = __webpack_require__(1);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -8053,16 +9332,31 @@ var Menu = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = fun
   }
 
   _createClass(Menu, [{
-    key: 'componentDidMount',
+    key: 'componentWillMount',
 
+
+    /**
+     * before component mounted, set initial state of the menu position
+     * @returns {void}
+     * @memberof Menu
+     */
+    value: function componentWillMount() {
+      this.setState({ position: ['top', 'left'] });
+    }
 
     /**
      * after component mounted, listen to click outside of the component
      * @returns {void}
      * @memberof Menu
      */
+
+  }, {
+    key: 'componentDidMount',
     value: function componentDidMount() {
       document.addEventListener('click', this.handleClickOutside.bind(this), true);
+      if (!this.props.isMobile) {
+        this.setState({ position: this.getPosition() });
+      }
     }
 
     /**
@@ -8079,6 +9373,24 @@ var Menu = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = fun
     }
 
     /**
+     * get menu position based on document boundaries
+     *
+     * @returns {Array} position style classes array
+     * @memberof Menu
+     */
+
+  }, {
+    key: 'getPosition',
+    value: function getPosition() {
+      var box = this._menuElement.getBoundingClientRect();
+      if (box.y < 0) {
+        return ['bottom', 'left'];
+      } else {
+        return ['top', 'left'];
+      }
+    }
+
+    /**
      * handler to click outside of the component event listener.
      * if not mobile device and clicked outside the component, call the onClose callback
      *
@@ -8092,7 +9404,7 @@ var Menu = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = fun
     value: function handleClickOutside(e) {
       if (!this.props.isMobile && this._menuElement && !this._menuElement.contains(e.target)) {
 
-        if (e.target.classList.contains('overlay-play') || e.target.parentElement.getElementsByClassName('dropdown-menu')[0] === this._menuElement) {
+        if (e.target.classList.contains(_style2.default.overlayPlay) || e.target.parentElement.getElementsByClassName(_style2.default.dropdownMenu)[0] === this._menuElement) {
           e.stopPropagation();
         }
         this.props.onClose();
@@ -8169,7 +9481,7 @@ var Menu = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = fun
       return (0, _preact.h)(
         'select',
         {
-          className: this.props.hideSelect ? 'mobile-hidden-select' : '',
+          className: this.props.hideSelect ? _style2.default.mobileHiddenSelect : '',
           onChange: function onChange(e) {
             return _this2.onSelect(_this2.props.options[e.target.value]);
           }
@@ -8204,12 +9516,12 @@ var Menu = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = fun
           ref: function ref(c) {
             return _this3._menuElement = c;
           },
-          className: 'dropdown-menu top left'
+          className: [_style2.default.dropdownMenu].concat(_toConsumableArray(this.state.position)).join(' ')
         },
         props.options.map(function (o, index) {
           return (0, _preact.h)(
             'div',
-            { key: index, className: _this3.isSelected(o) ? 'dropdown-menu-item active' : 'dropdown-menu-item', onClick: function onClick() {
+            { key: index, className: _this3.isSelected(o) ? [_style2.default.dropdownMenuItem, _style2.default.active].join(' ') : _style2.default.dropdownMenuItem, onClick: function onClick() {
                 return _this3.onSelect(o);
               } },
             (0, _preact.h)(
@@ -8233,7 +9545,7 @@ var Menu = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = fun
 exports.default = Menu;
 
 /***/ }),
-/* 82 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8247,37 +9559,41 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _dec, _class;
 
+var _style = __webpack_require__(7);
+
+var _style2 = _interopRequireDefault(_style);
+
 var _preact = __webpack_require__(0);
 
-var _preactI18n = __webpack_require__(5);
+var _preactI18n = __webpack_require__(8);
 
 var _preactRedux = __webpack_require__(1);
 
-var _bindActions = __webpack_require__(3);
+var _bindActions = __webpack_require__(5);
 
-var _cvaa = __webpack_require__(24);
+var _cvaa = __webpack_require__(27);
 
 var _base = __webpack_require__(2);
 
 var _base2 = _interopRequireDefault(_base);
 
-var _smartContainer = __webpack_require__(39);
+var _smartContainer = __webpack_require__(42);
 
 var _smartContainer2 = _interopRequireDefault(_smartContainer);
 
-var _smartContainerItem = __webpack_require__(40);
+var _smartContainerItem = __webpack_require__(44);
 
 var _smartContainerItem2 = _interopRequireDefault(_smartContainerItem);
 
-var _icon = __webpack_require__(4);
+var _icon = __webpack_require__(6);
 
 var _icon2 = _interopRequireDefault(_icon);
 
-var _cvaaOverlay = __webpack_require__(83);
+var _cvaaOverlay = __webpack_require__(100);
 
 var _cvaaOverlay2 = _interopRequireDefault(_cvaaOverlay);
 
-var _preactPortal = __webpack_require__(21);
+var _preactPortal = __webpack_require__(24);
 
 var _preactPortal2 = _interopRequireDefault(_preactPortal);
 
@@ -8457,7 +9773,7 @@ var LanguageControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
           ref: function ref(c) {
             return _this2._controlLanguageElement = c;
           },
-          className: 'control-button-container control-language'
+          className: [_style2.default.controlButtonContainer, _style2.default.controlLanguage].join(' ')
         },
         (0, _preact.h)(
           _preactI18n.Localizer,
@@ -8466,7 +9782,7 @@ var LanguageControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
             'button',
             {
               'aria-label': (0, _preact.h)(_preactI18n.Text, { id: 'controls.language' }),
-              className: this.state.smartContainerOpen ? 'control-button active' : 'control-button',
+              className: this.state.smartContainerOpen ? [_style2.default.controlButton, _style2.default.active].join(' ') : _style2.default.controlButton,
               onClick: function onClick() {
                 return _this2.onControlButtonClick();
               }
@@ -8505,7 +9821,7 @@ var LanguageControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
           ),
           textOptions.length === 0 ? undefined : (0, _preact.h)(
             'div',
-            { className: 'smart-container-item' },
+            { className: _style2.default.smartContainerItem },
             (0, _preact.h)(
               'a',
               { onClick: function onClick() {
@@ -8518,8 +9834,8 @@ var LanguageControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
         this.state.cvaaOverlay ? (0, _preact.h)(
           _preactPortal2.default,
           { into: '#overlay-portal' },
-          (0, _preact.h)(_cvaaOverlay2.default, { onClose: function onClose() {
-              return _this2.toggleCVAAOverlay();
+          (0, _preact.h)(_cvaaOverlay2.default, { player: this.player, onClose: function onClose() {
+              _this2.toggleCVAAOverlay();_this2.onControlButtonClick();
             } })
         ) : null
       );
@@ -8560,7 +9876,7 @@ var LanguageControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
 exports.default = LanguageControl;
 
 /***/ }),
-/* 83 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8571,7 +9887,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _cvaaOverlay = __webpack_require__(84);
+var _cvaaOverlay = __webpack_require__(101);
 
 var _cvaaOverlay2 = _interopRequireDefault(_cvaaOverlay);
 
@@ -8580,7 +9896,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _cvaaOverlay2.default;
 
 /***/ }),
-/* 84 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8596,27 +9912,43 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _dec, _class;
 
+var _style = __webpack_require__(7);
+
+var _style2 = _interopRequireDefault(_style);
+
 var _preact = __webpack_require__(0);
 
 var _preactRedux = __webpack_require__(1);
 
-var _bindActions = __webpack_require__(3);
+var _isEqual = __webpack_require__(102);
 
-var _cvaa = __webpack_require__(24);
+var _isEqual2 = _interopRequireDefault(_isEqual);
 
-var _shell = __webpack_require__(6);
+var _bindActions = __webpack_require__(5);
+
+var _cvaa = __webpack_require__(27);
+
+var _shell = __webpack_require__(9);
 
 var _base = __webpack_require__(2);
 
 var _base2 = _interopRequireDefault(_base);
 
-var _overlay = __webpack_require__(22);
+var _overlay = __webpack_require__(25);
 
 var _overlay2 = _interopRequireDefault(_overlay);
 
-var _dropdown = __webpack_require__(41);
+var _dropdown = __webpack_require__(45);
 
 var _dropdown2 = _interopRequireDefault(_dropdown);
+
+var _slider = __webpack_require__(103);
+
+var _slider2 = _interopRequireDefault(_slider);
+
+var _icon = __webpack_require__(6);
+
+var _icon2 = _interopRequireDefault(_icon);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -8689,7 +10021,22 @@ var CVAAOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAc
     key: 'componentWillMount',
     value: function componentWillMount() {
       this.setState({
-        state: cvaaOverlayState.Main
+        state: cvaaOverlayState.Main,
+        customTextStyle: this.props.player.textStyle
+      });
+
+      this.captionsStyleDefault = Object.assign(new this.props.player.TextStyle(), {
+        backgroundOpacity: this.props.player.TextStyle.StandardOpacities.TRANSPARENT
+      });
+
+      this.captionsStyleYellow = Object.assign(new this.props.player.TextStyle(), {
+        backgroundOpacity: this.props.player.TextStyle.StandardOpacities.TRANSPARENT,
+        fontColor: this.props.player.TextStyle.StandardColors.YELLOW
+      });
+
+      this.captionsStyleBlackBG = Object.assign(new this.props.player.TextStyle(), {
+        backgroundColor: this.props.player.TextStyle.StandardColors.BLACK,
+        fontColor: this.props.player.TextStyle.StandardColors.WHITE
       });
     }
 
@@ -8710,18 +10057,30 @@ var CVAAOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAc
     /**
      * changing the captions style
      *
-     * @param {string} style - style name
+     * @param {Object} textStyle - TextStyle object
      * @returns {void}
      * @memberof CVAAOverlay
      */
 
   }, {
     key: 'changeCaptionsStyle',
-    value: function changeCaptionsStyle(style) {
-      this.props.removePlayerClass('captions-' + this.props.style);
-      this.props.addPlayerClass('captions-' + style);
-      this.props.updateCaptionsStyle(style);
+    value: function changeCaptionsStyle(textStyle) {
+      this.props.updateCaptionsStyle(textStyle);
+      this.props.player.textStyle = textStyle;
       this.props.onClose();
+    }
+
+    /**
+     * detection if advanced style applied or one of the default presets applied
+     *
+     * @returns {boolean} advanced style applied boolean
+     * @memberof CVAAOverlay
+     */
+
+  }, {
+    key: 'isAdvancedStyleApplied',
+    value: function isAdvancedStyleApplied() {
+      return !(0, _isEqual2.default)(this.props.player.textStyle, this.captionsStyleDefault) && !(0, _isEqual2.default)(this.props.player.textStyle, this.captionsStyleBlackBG) && !(0, _isEqual2.default)(this.props.player.textStyle, this.captionsStyleYellow);
     }
 
     /**
@@ -8738,10 +10097,10 @@ var CVAAOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAc
 
       return (0, _preact.h)(
         'div',
-        { className: this.state.state === cvaaOverlayState.Main ? 'overlay-screen active' : 'overlay-screen' },
+        { className: this.state.state === cvaaOverlayState.Main ? [_style2.default.overlayScreen, _style2.default.active].join(' ') : _style2.default.overlayScreen },
         (0, _preact.h)(
           'div',
-          { className: 'title' },
+          { className: _style2.default.title },
           'Advanced captions settings'
         ),
         (0, _preact.h)(
@@ -8749,131 +10108,254 @@ var CVAAOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAc
           null,
           (0, _preact.h)(
             'div',
-            { className: 'sample', onClick: function onClick() {
-                return _this2.changeCaptionsStyle('default');
+            { className: _style2.default.sample, onClick: function onClick() {
+                return _this2.changeCaptionsStyle(_this2.captionsStyleDefault);
               } },
-            'Sample'
+            'Sample',
+            (0, _isEqual2.default)(this.props.player.textStyle, this.captionsStyleDefault) ? (0, _preact.h)(
+              'div',
+              { className: _style2.default.activeTick },
+              (0, _preact.h)(_icon2.default, { type: _icon.IconType.Check })
+            ) : undefined
           ),
           (0, _preact.h)(
             'div',
-            { className: 'sample black-bg', onClick: function onClick() {
-                return _this2.changeCaptionsStyle('black-bg');
+            { className: [_style2.default.sample, _style2.default.blackBg].join(' '), onClick: function onClick() {
+                return _this2.changeCaptionsStyle(_this2.captionsStyleBlackBG);
               } },
-            'Sample'
+            'Sample',
+            (0, _isEqual2.default)(this.props.player.textStyle, this.captionsStyleBlackBG) ? (0, _preact.h)(
+              'div',
+              { className: _style2.default.activeTick },
+              (0, _preact.h)(_icon2.default, { type: _icon.IconType.Check })
+            ) : undefined
           ),
           (0, _preact.h)(
             'div',
-            { className: 'sample yellow-text', onClick: function onClick() {
-                return _this2.changeCaptionsStyle('yellow-text');
+            { className: [_style2.default.sample, _style2.default.yellowText].join(' '), onClick: function onClick() {
+                return _this2.changeCaptionsStyle(_this2.captionsStyleYellow);
               } },
-            'Sample'
+            'Sample',
+            (0, _isEqual2.default)(this.props.player.textStyle, this.captionsStyleYellow) ? (0, _preact.h)(
+              'div',
+              { className: _style2.default.activeTick },
+              (0, _preact.h)(_icon2.default, { type: _icon.IconType.Check })
+            ) : undefined
           )
         ),
-        (0, _preact.h)(
+        !this.isAdvancedStyleApplied() ? (0, _preact.h)(
           'a',
-          { className: 'button-save-cvaa', onClick: function onClick() {
+          { className: _style2.default.buttonSaveCvaa, onClick: function onClick() {
               return _this2.transitionToState(cvaaOverlayState.CustomCaptions);
             } },
           'Set custom caption'
+        ) : (0, _preact.h)(
+          'div',
+          { className: _style2.default.customCaptionsApplied },
+          (0, _preact.h)(
+            'div',
+            { className: [_style2.default.sample, _style2.default.custom].join(' '), style: this.state.customTextStyle.toCSS() },
+            (0, _preact.h)(
+              'span',
+              null,
+              'Custom captions'
+            ),
+            (0, _preact.h)(
+              'div',
+              { className: _style2.default.activeTick },
+              (0, _preact.h)(_icon2.default, { type: _icon.IconType.Check })
+            )
+          ),
+          (0, _preact.h)(
+            'a',
+            { onClick: function onClick() {
+                return _this2.transitionToState(cvaaOverlayState.CustomCaptions);
+              } },
+            'Edit caption'
+          )
         )
       );
     }
 
     /**
+     * change one or more properties in customTextStyle object in the internal state
+     *
+     * @param {Object} styleChanges style changes object
+     * @returns {void}
+     * @memberof CVAAOverlay
+     */
+
+  }, {
+    key: 'changeCustomStyle',
+    value: function changeCustomStyle(styleChanges) {
+      this.setState({ customTextStyle: Object.assign(this.state.customTextStyle, styleChanges) });
+    }
+
+    /**
      * render custom captions state
      *
+     * @param {*} props - component props
      * @returns {React$Element} - custom captions elements
      * @memberof CVAAOverlay
      */
 
   }, {
     key: 'renderCustomCaptionsState',
-    value: function renderCustomCaptionsState() {
-      var speedOptions = [{ value: 1, label: 'Auto (360)', active: true }, { value: 2, label: '240' }, { value: 3, label: '144' }];
+    value: function renderCustomCaptionsState(props) {
+      var _this3 = this;
+
+      var fontFamily = this.props.player.TextStyle.FontFamily;
+      var edgeStyles = this.props.player.TextStyle.EdgeStyles;
+      var standardColors = props.player.TextStyle.StandardColors;
+
+      var fontSizeOptions = this.props.player.TextStyle.FontSizes.map(function (size) {
+        return {
+          value: size,
+          label: size,
+          active: _this3.state.customTextStyle.fontSize === size
+        };
+      });
+
+      var fontColorOptions = Object.keys(standardColors).map(function (key) {
+        return {
+          value: standardColors[key],
+          label: key.charAt(0).toUpperCase() + key.toLowerCase().slice(1),
+          active: _this3.state.customTextStyle.fontColor == standardColors[key]
+        };
+      });
+
+      var fontFamilyOptions = Object.keys(fontFamily).map(function (key) {
+        return {
+          value: fontFamily[key],
+          label: fontFamily[key],
+          active: _this3.state.customTextStyle.fontFamily == fontFamily[key]
+        };
+      });
+
+      var fontStyleOptions = Object.keys(edgeStyles).map(function (key) {
+        return {
+          value: edgeStyles[key],
+          label: key.charAt(0).toUpperCase() + key.toLowerCase().slice(1),
+          active: _this3.state.customTextStyle.fontEdge == edgeStyles[key]
+        };
+      });
+
+      var backgroundColorOptions = Object.keys(standardColors).map(function (key) {
+        return {
+          value: standardColors[key],
+          label: key.charAt(0).toUpperCase() + key.toLowerCase().slice(1),
+          active: _this3.state.customTextStyle.backgroundColor == standardColors[key]
+        };
+      });
 
       return (0, _preact.h)(
         'div',
-        { className: this.state.state === cvaaOverlayState.CustomCaptions ? 'overlay-screen active' : 'overlay-screen' },
+        { className: this.state.state === cvaaOverlayState.CustomCaptions ? [_style2.default.overlayScreen, _style2.default.active].join(' ') : _style2.default.overlayScreen },
         (0, _preact.h)(
           'form',
-          { className: 'form custom-caption-form' },
+          { className: [_style2.default.form, _style2.default.customCaptionForm].join(' ') },
           (0, _preact.h)(
             'div',
-            { className: 'form-group-row' },
+            { className: _style2.default.formGroupRow },
             (0, _preact.h)(
               'label',
               null,
               'Size'
             ),
-            (0, _preact.h)(_dropdown2.default, { options: speedOptions })
+            (0, _preact.h)(_dropdown2.default, { onSelect: function onSelect(fontSize) {
+                return _this3.changeCustomStyle({ fontSize: fontSize });
+              }, options: fontSizeOptions })
           ),
           (0, _preact.h)(
             'div',
-            { className: 'form-group-row' },
+            { className: _style2.default.formGroupRow },
             (0, _preact.h)(
               'label',
               null,
               'Font color'
             ),
-            (0, _preact.h)(_dropdown2.default, { options: speedOptions })
+            (0, _preact.h)(_dropdown2.default, { onSelect: function onSelect(fontColor) {
+                return _this3.changeCustomStyle({ fontColor: fontColor });
+              }, options: fontColorOptions })
           ),
           (0, _preact.h)(
             'div',
-            { className: 'form-group-row' },
-            (0, _preact.h)(
-              'label',
-              null,
-              'Font opacity'
-            ),
-            (0, _preact.h)(_dropdown2.default, { options: speedOptions })
-          ),
-          (0, _preact.h)(
-            'div',
-            { className: 'form-group-row' },
+            { className: _style2.default.formGroupRow },
             (0, _preact.h)(
               'label',
               null,
               'Font family'
             ),
-            (0, _preact.h)(_dropdown2.default, { options: speedOptions })
+            (0, _preact.h)(_dropdown2.default, { onSelect: function onSelect(fontFamily) {
+                return _this3.changeCustomStyle({ fontFamily: fontFamily });
+              }, options: fontFamilyOptions })
           ),
           (0, _preact.h)(
             'div',
-            { className: 'form-group-row' },
+            { className: _style2.default.formGroupRow },
             (0, _preact.h)(
               'label',
               null,
               'Font style'
             ),
-            (0, _preact.h)(_dropdown2.default, { options: speedOptions })
+            (0, _preact.h)(_dropdown2.default, { onSelect: function onSelect(fontEdge) {
+                return _this3.changeCustomStyle({ fontEdge: fontEdge });
+              }, options: fontStyleOptions })
           ),
           (0, _preact.h)(
             'div',
-            { className: 'form-group-row' },
+            { className: _style2.default.formGroupRow },
+            (0, _preact.h)(
+              'label',
+              null,
+              'Font opacity'
+            ),
+            (0, _preact.h)(_slider2.default, { min: 0, max: 100, value: this.state.customTextStyle.fontOpacity * 100, onChange: function onChange(fontOpacity) {
+                return _this3.changeCustomStyle({ fontOpacity: fontOpacity / 100 });
+              } })
+          ),
+          (0, _preact.h)(
+            'div',
+            { className: _style2.default.formGroupRow },
             (0, _preact.h)(
               'label',
               null,
               'Background color'
             ),
-            (0, _preact.h)(_dropdown2.default, { options: speedOptions })
+            (0, _preact.h)(_dropdown2.default, { onSelect: function onSelect(backgroundColor) {
+                return _this3.changeCustomStyle({ backgroundColor: backgroundColor });
+              }, options: backgroundColorOptions })
           ),
           (0, _preact.h)(
             'div',
-            { className: 'form-group-row' },
+            { className: _style2.default.formGroupRow },
             (0, _preact.h)(
               'label',
               null,
               'Background opacity'
             ),
-            (0, _preact.h)(_dropdown2.default, { options: speedOptions })
+            (0, _preact.h)(_slider2.default, { min: 0, max: 100, value: this.state.customTextStyle.backgroundOpacity * 100, onChange: function onChange(backgroundOpacity) {
+                return _this3.changeCustomStyle({ backgroundOpacity: backgroundOpacity / 100 });
+              } })
           ),
           (0, _preact.h)(
             'div',
-            { className: 'form-group-row' },
+            { className: _style2.default.formGroupRow },
             (0, _preact.h)(
               'a',
-              { className: 'btn btn-branded btn-block' },
+              { onClick: function onClick() {
+                  return _this3.changeCaptionsStyle(_this3.state.customTextStyle);
+                }, className: [_style2.default.btn, _style2.default.btnBranded, _style2.default.btnBlock].join(' ') },
               'Apply'
+            )
+          ),
+          (0, _preact.h)(
+            'div',
+            { className: _style2.default.previewContainer },
+            (0, _preact.h)(
+              'span',
+              { style: this.state.customTextStyle.toCSS() },
+              'This is your caption preview'
             )
           )
         )
@@ -8897,7 +10379,7 @@ var CVAAOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAc
             return props.onClose();
           }, type: 'cvaa' },
         this.renderMainState(),
-        this.renderCustomCaptionsState()
+        this.renderCustomCaptionsState(props)
       );
     }
   }]);
@@ -8907,7 +10389,349 @@ var CVAAOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAc
 exports.default = CVAAOverlay;
 
 /***/ }),
-/* 85 */
+/* 102 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+
+/**
+ * Shallow comparison of two objects
+ *
+ * @param {Object} objA object A
+ * @param {Object} objB object B
+ * @returns {boolean} objects equal or not
+ */
+function isEqual(objA, objB) {
+  var keysA = Object.keys(objA);
+  var keysB = Object.keys(objB);
+
+  if (keysA.length !== keysB.length) {
+    return false;
+  }
+
+  for (var i = 0; i < keysA.length; i++) {
+    if (objA[keysA[i]] !== objB[keysA[i]]) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+exports.default = isEqual;
+
+/***/ }),
+/* 103 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _slider = __webpack_require__(104);
+
+var _slider2 = _interopRequireDefault(_slider);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _slider2.default;
+
+/***/ }),
+/* 104 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _slider = __webpack_require__(105);
+
+var _slider2 = _interopRequireDefault(_slider);
+
+var _preact = __webpack_require__(0);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+/**
+ * Slider component
+ *
+ * @class Slider
+ * @example <Slider onChange={value => this.onOpacityChange(value)} value={this.initialOpacity} min={0} max={100} />
+ * @extends {Component}
+ */
+var Slider = function (_Component) {
+  _inherits(Slider, _Component);
+
+  function Slider() {
+    _classCallCheck(this, Slider);
+
+    return _possibleConstructorReturn(this, (Slider.__proto__ || Object.getPrototypeOf(Slider)).apply(this, arguments));
+  }
+
+  _createClass(Slider, [{
+    key: 'componentWillMount',
+
+
+    /**
+     * before component mounted, set initial state of the slider
+     *
+     * @returns {void}
+     * @memberof Slider
+     */
+    value: function componentWillMount() {
+      var _this2 = this;
+
+      this.setState({
+        value: this.props.value || 0,
+        min: this.props.min || 0,
+        max: this.props.max || 100,
+        dragging: false
+      });
+
+      document.addEventListener('mouseup', function (e) {
+        return _this2.mouseUpHandler(e);
+      });
+      document.addEventListener('mousemove', function (e) {
+        return _this2.mouseMoveHandler(e);
+      });
+    }
+
+    /**
+     * after component mounted, save the sliderWidth
+     *
+     * @returns {void}
+     * @memberof Slider
+     */
+
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.sliderWidth = this._sliderElement.clientWidth;
+    }
+
+    /**
+     * mousedown slider handler
+     *
+     * @param {*} e event
+     * @returns {void}
+     * @memberof Slider
+     */
+
+  }, {
+    key: 'mouseDownHandler',
+    value: function mouseDownHandler(e) {
+      if (!this.state.dragging) {
+        this.setState({
+          dragging: true,
+          value: this.mouseEventToValue(e)
+        });
+        this.props.onChange(this.mouseEventToValue(e));
+      }
+    }
+
+    /**
+     * document mousemove handler if dragging active
+     *
+     * @param {*} e event
+     * @returns {void}
+     * @memberof Slider
+     */
+
+  }, {
+    key: 'mouseMoveHandler',
+    value: function mouseMoveHandler(e) {
+      if (this.state.dragging) {
+        this.setState({
+          value: this.mouseEventToValue(e)
+        });
+        this.props.onChange(this.mouseEventToValue(e));
+      }
+    }
+
+    /**
+     * document mouseup handler if dragging active
+     *
+     * @param {*} e event
+     * @returns {void}
+     * @memberof Slider
+     */
+
+  }, {
+    key: 'mouseUpHandler',
+    value: function mouseUpHandler(e) {
+      if (this.state.dragging) {
+        this.setState({
+          value: this.mouseEventToValue(e),
+          dragging: false
+        });
+        this.props.onChange(this.mouseEventToValue(e));
+      }
+    }
+
+    /**
+     * get slider value based on mouse event
+     *
+     * @param {*} e event
+     * @returns {number} slider value
+     * @memberof Slider
+     */
+
+  }, {
+    key: 'mouseEventToValue',
+    value: function mouseEventToValue(e) {
+      var offsetLeft = e.clientX - this._sliderElement.getBoundingClientRect().left;
+      var offsetLeftPercentage = Math.round(offsetLeft / this._sliderElement.clientWidth * 100);
+
+      if (this.getValueByPersentage(offsetLeftPercentage) < this.state.min) return this.state.min;
+      if (this.getValueByPersentage(offsetLeftPercentage) > this.state.max) return this.state.max;
+
+      return this.getValueByPersentage(offsetLeftPercentage);
+    }
+
+    /**
+     * get slider value based on persentage value
+     *
+     * @param {any} persentage progress persentage of slider
+     * @returns {number} slider value
+     * @memberof Slider
+     */
+
+  }, {
+    key: 'getValueByPersentage',
+    value: function getValueByPersentage(persentage) {
+      return this.state.max / 100 * persentage;
+    }
+
+    /**
+     * get progress presentage by slider value
+     *
+     * @returns {number} presentage
+     * @memberof Slider
+     */
+
+  }, {
+    key: 'getPersentageByValue',
+    value: function getPersentageByValue() {
+      return Math.round(this.state.value / this.state.max * 100);
+    }
+
+    /**
+     * component render function
+     *
+     * @returns {React$Element<any>} component element
+     * @memberof Slider
+     */
+
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this3 = this;
+
+      return (0, _preact.h)(
+        'div',
+        {
+          ref: function ref(c) {
+            return _this3._sliderElement = c;
+          },
+          className: _slider2.default.slider,
+          onMouseDown: function onMouseDown(e) {
+            return _this3.mouseDownHandler(e);
+          }
+        },
+        (0, _preact.h)(
+          'div',
+          {
+            className: _slider2.default.progress,
+            style: { width: this.getPersentageByValue() + '%' }
+          },
+          (0, _preact.h)('div', {
+            className: _slider2.default.handle,
+            onMouseDown: function onMouseDown(e) {
+              return _this3.mouseDownHandler(e);
+            }
+          })
+        )
+      );
+    }
+  }]);
+
+  return Slider;
+}(_preact.Component);
+
+exports.default = Slider;
+
+/***/ }),
+/* 105 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(106);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(4)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--2-1!../../../node_modules/sass-loader/lib/loader.js!./_slider.scss", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js??ref--2-1!../../../node_modules/sass-loader/lib/loader.js!./_slider.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 106 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".kp__slider {\n  height: 8px;\n  border-radius: 4px;\n  background-color: rgba(255, 255, 255, 0.2); }\n  .kp__slider .kp__progress {\n    background-color: #01ACCD;\n    height: 8px;\n    border-radius: 4px;\n    position: relative; }\n    .kp__slider .kp__progress .kp__handle {\n      height: 12px;\n      width: 12px;\n      border-radius: 5px;\n      background-color: #FFFFFF;\n      box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.3);\n      position: absolute;\n      right: 0;\n      top: 0px;\n      transform: translate3d(6px, -2px, 0);\n      cursor: pointer; }\n", ""]);
+
+// exports
+exports.locals = {
+	"slider": "kp__slider",
+	"progress": "kp__progress",
+	"handle": "kp__handle"
+};
+
+/***/ }),
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8921,21 +10745,25 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _dec, _class;
 
+var _fullscreen = __webpack_require__(108);
+
+var _fullscreen2 = _interopRequireDefault(_fullscreen);
+
 var _preact = __webpack_require__(0);
 
-var _preactI18n = __webpack_require__(5);
+var _preactI18n = __webpack_require__(8);
 
 var _preactRedux = __webpack_require__(1);
 
-var _bindActions = __webpack_require__(3);
+var _bindActions = __webpack_require__(5);
 
-var _fullscreen = __webpack_require__(42);
+var _fullscreen3 = __webpack_require__(46);
 
 var _base = __webpack_require__(2);
 
 var _base2 = _interopRequireDefault(_base);
 
-var _icon = __webpack_require__(4);
+var _icon = __webpack_require__(6);
 
 var _icon2 = _interopRequireDefault(_icon);
 
@@ -8966,7 +10794,7 @@ var mapStateToProps = function mapStateToProps(state) {
  * @example <FullscreenControl player={this.player} />
  * @extends {BaseComponent}
  */
-var FullscreenControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.bindActions)(_fullscreen.actions)), _dec(_class = function (_BaseComponent) {
+var FullscreenControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.bindActions)(_fullscreen3.actions)), _dec(_class = function (_BaseComponent) {
   _inherits(FullscreenControl, _BaseComponent);
 
   /**
@@ -9121,14 +10949,14 @@ var FullscreenControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _
 
       return (0, _preact.h)(
         'div',
-        { className: 'control-button-container control-fullscreen' },
+        { className: [_fullscreen2.default.controlButtonContainer, _fullscreen2.default.controlFullscreen].join(' ') },
         (0, _preact.h)(
           _preactI18n.Localizer,
           null,
           (0, _preact.h)(
             'button',
             { 'aria-label': (0, _preact.h)(_preactI18n.Text, { id: 'controls.fullscreen' }),
-              className: this.props.fullscreen ? 'control-button is-fullscreen' : 'control-button',
+              className: this.props.fullscreen ? [_fullscreen2.default.controlButton, _fullscreen2.default.isFullscreen].join(' ') : _fullscreen2.default.controlButton,
               onClick: function onClick() {
                 return _this3.toggleFullscreen();
               } },
@@ -9145,7 +10973,67 @@ var FullscreenControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _
 exports.default = FullscreenControl;
 
 /***/ }),
-/* 86 */
+/* 108 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(109);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(4)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--2-1!../../../node_modules/sass-loader/lib/loader.js!./_fullscreen.scss", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js??ref--2-1!../../../node_modules/sass-loader/lib/loader.js!./_fullscreen.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 109 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".kp__control-button-container.kp__control-fullscreen .kp__control-button {\n  transition: 100ms transform;\n  transform: scale(1); }\n  .kp__control-button-container.kp__control-fullscreen .kp__control-button .kp__icon-minimize {\n    display: none; }\n  .kp__control-button-container.kp__control-fullscreen .kp__control-button.kp__is-fullscreen .kp__icon-maximize {\n    display: none; }\n  .kp__control-button-container.kp__control-fullscreen .kp__control-button.kp__is-fullscreen .kp__icon-minimize {\n    display: block; }\n\n.kp__player:not(.kp__touch) .kp__control-button-container.kp__control-fullscreen .kp__control-button:hover {\n  transform: scale(1.1); }\n", ""]);
+
+// exports
+exports.locals = {
+	"control-button-container": "kp__control-button-container",
+	"controlButtonContainer": "kp__control-button-container",
+	"control-fullscreen": "kp__control-fullscreen",
+	"controlFullscreen": "kp__control-fullscreen",
+	"control-button": "kp__control-button",
+	"controlButton": "kp__control-button",
+	"icon-minimize": "kp__icon-minimize",
+	"iconMinimize": "kp__icon-minimize",
+	"is-fullscreen": "kp__is-fullscreen",
+	"isFullscreen": "kp__is-fullscreen",
+	"icon-maximize": "kp__icon-maximize",
+	"iconMaximize": "kp__icon-maximize",
+	"player": "kp__player",
+	"touch": "kp__touch"
+};
+
+/***/ }),
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9156,7 +11044,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _timeDisplayPlaybackContainer = __webpack_require__(87);
+var _timeDisplayPlaybackContainer = __webpack_require__(111);
 
 var _timeDisplayPlaybackContainer2 = _interopRequireDefault(_timeDisplayPlaybackContainer);
 
@@ -9165,7 +11053,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _timeDisplayPlaybackContainer2.default;
 
 /***/ }),
-/* 87 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9189,7 +11077,7 @@ var _base = __webpack_require__(2);
 
 var _base2 = _interopRequireDefault(_base);
 
-var _timeDisplay = __webpack_require__(25);
+var _timeDisplay = __webpack_require__(28);
 
 var _timeDisplay2 = _interopRequireDefault(_timeDisplay);
 
@@ -9257,7 +11145,7 @@ var TimeDisplayPlaybackContainer = (_dec = (0, _preactRedux.connect)(mapStateToP
 exports.default = TimeDisplayPlaybackContainer;
 
 /***/ }),
-/* 88 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9269,9 +11157,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _timeDisplay = __webpack_require__(113);
+
+var _timeDisplay2 = _interopRequireDefault(_timeDisplay);
+
 var _preact = __webpack_require__(0);
 
-var _timeFormat = __webpack_require__(19);
+var _timeFormat = __webpack_require__(22);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -9340,7 +11234,7 @@ var TimeDisplay = function (_Component) {
     value: function render(props) {
       return (0, _preact.h)(
         'div',
-        { className: 'time-display' },
+        { className: _timeDisplay2.default.timeDisplay },
         (0, _preact.h)(
           'span',
           null,
@@ -9356,7 +11250,59 @@ var TimeDisplay = function (_Component) {
 exports.default = TimeDisplay;
 
 /***/ }),
-/* 89 */
+/* 113 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(114);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(4)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--2-1!../../../node_modules/sass-loader/lib/loader.js!./_time-display.scss", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js??ref--2-1!../../../node_modules/sass-loader/lib/loader.js!./_time-display.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 114 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".kp__player .kp__time-display {\n  display: inline-block;\n  line-height: 32px;\n  vertical-align: top;\n  font-size: 14px;\n  padding: 0 23px;\n  font-weight: bold; }\n\n.kp__touch .kp__time-display {\n  padding-left: 0; }\n\n.kp__player.kp__size-sm .kp__player .kp__time-display {\n  padding: 0 12px 0 0; }\n", ""]);
+
+// exports
+exports.locals = {
+	"player": "kp__player",
+	"time-display": "kp__time-display",
+	"timeDisplay": "kp__time-display",
+	"touch": "kp__touch",
+	"size-sm": "kp__size-sm",
+	"sizeSm": "kp__size-sm"
+};
+
+/***/ }),
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9368,7 +11314,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _bottomBar = __webpack_require__(116);
+
+var _bottomBar2 = _interopRequireDefault(_bottomBar);
+
 var _preact = __webpack_require__(0);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -9405,7 +11357,7 @@ var BottomBar = function (_Component) {
     value: function render(props) {
       return (0, _preact.h)(
         'div',
-        { className: 'bottom-bar' },
+        { className: _bottomBar2.default.bottomBar },
         props.children
       );
     }
@@ -9417,7 +11369,73 @@ var BottomBar = function (_Component) {
 exports.default = BottomBar;
 
 /***/ }),
-/* 90 */
+/* 116 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(117);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(4)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--2-1!../../../node_modules/sass-loader/lib/loader.js!./_bottom-bar.scss", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js??ref--2-1!../../../node_modules/sass-loader/lib/loader.js!./_bottom-bar.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 117 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".kp__player .kp__bottom-bar {\n  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.6) 100%);\n  padding: 6px 16px;\n  color: #fff;\n  opacity: 0;\n  transition: 100ms opacity;\n  width: 100%;\n  margin-top: auto;\n  position: absolute;\n  z-index: 10;\n  bottom: 0;\n  left: 0; }\n  .kp__player .kp__bottom-bar .kp__left-controls {\n    float: left;\n    text-align: left; }\n    .kp__player .kp__bottom-bar .kp__left-controls:first-child {\n      margin-left: 0px; }\n  .kp__player .kp__bottom-bar .kp__right-controls {\n    float: right;\n    text-align: left; }\n    .kp__player .kp__bottom-bar .kp__right-controls .kp__control-button-container {\n      margin: 0 6px; }\n      .kp__player .kp__bottom-bar .kp__right-controls .kp__control-button-container:last-child {\n        margin-right: 0; }\n\n.kp__player.kp__hover .kp__bottom-bar,\n.kp__player.kp__state-paused .kp__bottom-bar,\n.kp__player.kp__menu-active .kp__bottom-bar {\n  opacity: 1; }\n\n.kp__player.kp__overlay-active .kp__bottom-bar {\n  opacity: 0; }\n\n.kp__player.kp__size-sm .kp__bottom-bar {\n  padding: 6px 8px; }\n  .kp__player.kp__size-sm .kp__bottom-bar .kp__time-display {\n    padding-left: 0; }\n", ""]);
+
+// exports
+exports.locals = {
+	"player": "kp__player",
+	"bottom-bar": "kp__bottom-bar",
+	"bottomBar": "kp__bottom-bar",
+	"left-controls": "kp__left-controls",
+	"leftControls": "kp__left-controls",
+	"right-controls": "kp__right-controls",
+	"rightControls": "kp__right-controls",
+	"control-button-container": "kp__control-button-container",
+	"controlButtonContainer": "kp__control-button-container",
+	"hover": "kp__hover",
+	"state-paused": "kp__state-paused",
+	"statePaused": "kp__state-paused",
+	"menu-active": "kp__menu-active",
+	"menuActive": "kp__menu-active",
+	"overlay-active": "kp__overlay-active",
+	"overlayActive": "kp__overlay-active",
+	"size-sm": "kp__size-sm",
+	"sizeSm": "kp__size-sm",
+	"time-display": "kp__time-display",
+	"timeDisplay": "kp__time-display"
+};
+
+/***/ }),
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9492,7 +11510,7 @@ var OverlayPortal = function (_Component) {
 exports.default = OverlayPortal;
 
 /***/ }),
-/* 91 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9623,7 +11641,7 @@ var KeyboardControl = function (_BaseComponent) {
 exports.default = KeyboardControl;
 
 /***/ }),
-/* 92 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9634,7 +11652,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _seekbarAdsContainer = __webpack_require__(93);
+var _seekbarAdsContainer = __webpack_require__(121);
 
 var _seekbarAdsContainer2 = _interopRequireDefault(_seekbarAdsContainer);
 
@@ -9643,7 +11661,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _seekbarAdsContainer2.default;
 
 /***/ }),
-/* 93 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9661,15 +11679,15 @@ var _preact = __webpack_require__(0);
 
 var _preactRedux = __webpack_require__(1);
 
-var _bindActions = __webpack_require__(3);
+var _bindActions = __webpack_require__(5);
 
-var _seekbar = __webpack_require__(10);
+var _seekbar = __webpack_require__(13);
 
 var _base = __webpack_require__(2);
 
 var _base2 = _interopRequireDefault(_base);
 
-var _seekbar2 = __webpack_require__(11);
+var _seekbar2 = __webpack_require__(14);
 
 var _seekbar3 = _interopRequireDefault(_seekbar2);
 
@@ -9748,7 +11766,7 @@ var SeekBarAdsContainer = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0,
 exports.default = SeekBarAdsContainer;
 
 /***/ }),
-/* 94 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9759,7 +11777,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _timeDisplayAdsContainer = __webpack_require__(95);
+var _timeDisplayAdsContainer = __webpack_require__(123);
 
 var _timeDisplayAdsContainer2 = _interopRequireDefault(_timeDisplayAdsContainer);
 
@@ -9768,7 +11786,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _timeDisplayAdsContainer2.default;
 
 /***/ }),
-/* 95 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9792,7 +11810,7 @@ var _base = __webpack_require__(2);
 
 var _base2 = _interopRequireDefault(_base);
 
-var _timeDisplay = __webpack_require__(25);
+var _timeDisplay = __webpack_require__(28);
 
 var _timeDisplay2 = _interopRequireDefault(_timeDisplay);
 
@@ -9859,7 +11877,7 @@ var TimeDisplayAdsContainer = (_dec = (0, _preactRedux.connect)(mapStateToProps)
 exports.default = TimeDisplayAdsContainer;
 
 /***/ }),
-/* 96 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9870,7 +11888,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _adSkip = __webpack_require__(97);
+var _adSkip = __webpack_require__(125);
 
 var _adSkip2 = _interopRequireDefault(_adSkip);
 
@@ -9879,7 +11897,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _adSkip2.default;
 
 /***/ }),
-/* 97 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9892,6 +11910,10 @@ Object.defineProperty(exports, "__esModule", {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _dec, _class;
+
+var _adSkip = __webpack_require__(126);
+
+var _adSkip2 = _interopRequireDefault(_adSkip);
 
 var _preact = __webpack_require__(0);
 
@@ -9990,13 +12012,13 @@ var AdSkip = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = f
       if (!this.props.adSkippableState && this.skipSupport) {
         return this.getSkipTimeOffset() <= 0 ? (0, _preact.h)(
           'a',
-          { className: 'btn btn-branded btn-skip-ad', onClick: function onClick() {
+          { className: [_adSkip2.default.btn, _adSkip2.default.btnBranded, _adSkip2.default.btnSkipAd].join(' '), onClick: function onClick() {
               return _this2.player.skipAd();
             } },
           this.skipSupport.label || 'Skip ad'
         ) : (0, _preact.h)(
           'span',
-          { className: 'skip-ad' },
+          { className: _adSkip2.default.skipAd },
           'Skip in ',
           this.getSkipTimeOffset()
         );
@@ -10011,7 +12033,57 @@ var AdSkip = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = f
 exports.default = AdSkip;
 
 /***/ }),
-/* 98 */
+/* 126 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(127);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(4)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--2-1!../../../node_modules/sass-loader/lib/loader.js!./_ad-skip.scss", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js??ref--2-1!../../../node_modules/sass-loader/lib/loader.js!./_ad-skip.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 127 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".kp__btn-skip-ad {\n  position: absolute;\n  bottom: 60px;\n  right: 16px; }\n\n.kp__skip-ad {\n  color: #fff;\n  font-size: 20px;\n  font-weight: bold;\n  line-height: 24px;\n  text-shadow: 0 0 6px rgba(0, 0, 0, 0.6);\n  position: absolute;\n  bottom: 66px;\n  right: 16px; }\n", ""]);
+
+// exports
+exports.locals = {
+	"btn-skip-ad": "kp__btn-skip-ad",
+	"btnSkipAd": "kp__btn-skip-ad",
+	"skip-ad": "kp__skip-ad",
+	"skipAd": "kp__skip-ad"
+};
+
+/***/ }),
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10022,7 +12094,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _adLearnMore = __webpack_require__(99);
+var _adLearnMore = __webpack_require__(129);
 
 var _adLearnMore2 = _interopRequireDefault(_adLearnMore);
 
@@ -10031,7 +12103,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _adLearnMore2.default;
 
 /***/ }),
-/* 99 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10045,9 +12117,15 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _dec, _class;
 
+var _adLearnMore = __webpack_require__(130);
+
+var _adLearnMore2 = _interopRequireDefault(_adLearnMore);
+
 var _preact = __webpack_require__(0);
 
 var _preactRedux = __webpack_require__(1);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -10095,7 +12173,7 @@ var AdLearnMore = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_clas
     value: function render(props) {
       return (0, _preact.h)(
         'a',
-        { href: props.url, target: 'new', className: 'btn btn-dark-transparent' },
+        { href: props.url, target: 'new', className: [_adLearnMore2.default.btn, _adLearnMore2.default.btnDarkTransparent].join(' ') },
         'Learn more'
       );
     }
@@ -10106,7 +12184,52 @@ var AdLearnMore = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_clas
 exports.default = AdLearnMore;
 
 /***/ }),
-/* 100 */
+/* 130 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(131);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(4)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--2-1!../../../node_modules/sass-loader/lib/loader.js!./_ad-learn-more.scss", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js??ref--2-1!../../../node_modules/sass-loader/lib/loader.js!./_ad-learn-more.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 131 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/***/ }),
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10118,7 +12241,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _topBar = __webpack_require__(133);
+
+var _topBar2 = _interopRequireDefault(_topBar);
+
 var _preact = __webpack_require__(0);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -10155,7 +12284,7 @@ var TopBar = function (_Component) {
     value: function render(props) {
       return (0, _preact.h)(
         'div',
-        { className: 'top-bar' },
+        { className: _topBar2.default.topBar },
         props.children
       );
     }
@@ -10167,7 +12296,71 @@ var TopBar = function (_Component) {
 exports.default = TopBar;
 
 /***/ }),
-/* 101 */
+/* 133 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(134);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(4)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--2-1!../../../node_modules/sass-loader/lib/loader.js!./_top-bar.scss", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js??ref--2-1!../../../node_modules/sass-loader/lib/loader.js!./_top-bar.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 134 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".kp__player .kp__top-bar {\n  background: linear-gradient(0deg, transparent 0%, rgba(0, 0, 0, 0.6) 100%);\n  padding: 14px 16px;\n  color: #fff;\n  opacity: 0;\n  transition: 100ms opacity;\n  display: flex;\n  justify-content: space-between;\n  width: 100%;\n  position: absolute;\n  z-index: 10;\n  top: 0;\n  left: 0; }\n  .kp__player .kp__top-bar .kp__left-controls {\n    text-align: left;\n    min-width: 0; }\n  .kp__player .kp__top-bar .kp__right-controls {\n    text-align: left; }\n    .kp__player .kp__top-bar .kp__right-controls .kp__control-button-container {\n      margin: 0 6px; }\n      .kp__player .kp__top-bar .kp__right-controls .kp__control-button-container:last-child {\n        margin-right: 0; }\n\n.kp__player.kp__hover .kp__top-bar,\n.kp__player.kp__state-paused .kp__top-bar,\n.kp__player.kp__menu-active .kp__top-bar {\n  opacity: 1; }\n\n.kp__player.kp__overlay-active .kp__top-bar {\n  opacity: 0; }\n\n.kp__player.kp__size-sm .kp__player .kp__top-bar {\n  padding: 8px 8px 20px 8px; }\n", ""]);
+
+// exports
+exports.locals = {
+	"player": "kp__player",
+	"top-bar": "kp__top-bar",
+	"topBar": "kp__top-bar",
+	"left-controls": "kp__left-controls",
+	"leftControls": "kp__left-controls",
+	"right-controls": "kp__right-controls",
+	"rightControls": "kp__right-controls",
+	"control-button-container": "kp__control-button-container",
+	"controlButtonContainer": "kp__control-button-container",
+	"hover": "kp__hover",
+	"state-paused": "kp__state-paused",
+	"statePaused": "kp__state-paused",
+	"menu-active": "kp__menu-active",
+	"menuActive": "kp__menu-active",
+	"overlay-active": "kp__overlay-active",
+	"overlayActive": "kp__overlay-active",
+	"size-sm": "kp__size-sm",
+	"sizeSm": "kp__size-sm"
+};
+
+/***/ }),
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10178,7 +12371,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _seekbarLivePlaybackContainer = __webpack_require__(102);
+var _seekbarLivePlaybackContainer = __webpack_require__(136);
 
 var _seekbarLivePlaybackContainer2 = _interopRequireDefault(_seekbarLivePlaybackContainer);
 
@@ -10187,7 +12380,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _seekbarLivePlaybackContainer2.default;
 
 /***/ }),
-/* 102 */
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10205,15 +12398,15 @@ var _preact = __webpack_require__(0);
 
 var _preactRedux = __webpack_require__(1);
 
-var _bindActions = __webpack_require__(3);
+var _bindActions = __webpack_require__(5);
 
-var _seekbar = __webpack_require__(10);
+var _seekbar = __webpack_require__(13);
 
 var _base = __webpack_require__(2);
 
 var _base2 = _interopRequireDefault(_base);
 
-var _seekbar2 = __webpack_require__(11);
+var _seekbar2 = __webpack_require__(14);
 
 var _seekbar3 = _interopRequireDefault(_seekbar2);
 
@@ -10325,7 +12518,7 @@ var SeekBarLivePlaybackContainer = (_dec = (0, _preactRedux.connect)(mapStateToP
 exports.default = SeekBarLivePlaybackContainer;
 
 /***/ }),
-/* 103 */
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10336,7 +12529,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _liveTag = __webpack_require__(104);
+var _liveTag = __webpack_require__(138);
 
 var _liveTag2 = _interopRequireDefault(_liveTag);
 
@@ -10345,7 +12538,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _liveTag2.default;
 
 /***/ }),
-/* 104 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10358,6 +12551,10 @@ Object.defineProperty(exports, "__esModule", {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _dec, _class;
+
+var _liveTag = __webpack_require__(139);
+
+var _liveTag2 = _interopRequireDefault(_liveTag);
 
 var _preact = __webpack_require__(0);
 
@@ -10456,12 +12653,12 @@ var LiveTag = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = 
     value: function render(props) {
       var _this2 = this;
 
-      var tagStyleClass = 'live-tag';
-      if (props.isDvr && !this.isOnLiveEdge()) tagStyleClass += ' non-live-playhead';
+      var tagStyleClass = [_liveTag2.default.liveTag];
+      if (props.isDvr && !this.isOnLiveEdge()) tagStyleClass.push(_liveTag2.default.nonLivePlayhead);
 
       return (0, _preact.h)(
         'div',
-        { className: tagStyleClass, onClick: function onClick() {
+        { className: tagStyleClass.join(' '), onClick: function onClick() {
             return _this2.onClick();
           } },
         'Live'
@@ -10474,7 +12671,60 @@ var LiveTag = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = 
 exports.default = LiveTag;
 
 /***/ }),
-/* 105 */
+/* 139 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(140);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(4)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--2-1!../../../node_modules/sass-loader/lib/loader.js!./_live-tag.scss", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js??ref--2-1!../../../node_modules/sass-loader/lib/loader.js!./_live-tag.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 140 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".kp__live-tag {\n  color: #DA1F26;\n  font-size: 14px;\n  font-weight: bold;\n  letter-spacing: 1px;\n  line-height: 19px;\n  border: 2px solid #DA1F26;\n  border-radius: 4px;\n  text-transform: uppercase;\n  text-align: center;\n  display: inline-block;\n  padding: 0 3px 0 5px;\n  margin: 5px 23px;\n  cursor: default; }\n  .kp__live-tag.kp__non-live-playhead {\n    background-color: rgba(255, 255, 255, 0.2);\n    border: none;\n    color: #fff;\n    line-height: 23px;\n    padding: 0 5px 0 7px;\n    cursor: pointer; }\n\n.kp__player.kp__size-sm .kp__live-tag {\n  margin-left: 0; }\n", ""]);
+
+// exports
+exports.locals = {
+	"live-tag": "kp__live-tag",
+	"liveTag": "kp__live-tag",
+	"non-live-playhead": "kp__non-live-playhead",
+	"nonLivePlayhead": "kp__non-live-playhead",
+	"player": "kp__player",
+	"size-sm": "kp__size-sm",
+	"sizeSm": "kp__size-sm"
+};
+
+/***/ }),
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10485,7 +12735,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _share = __webpack_require__(106);
+var _share = __webpack_require__(142);
 
 var _share2 = _interopRequireDefault(_share);
 
@@ -10494,7 +12744,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _share2.default;
 
 /***/ }),
-/* 106 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10512,15 +12762,15 @@ var _base = __webpack_require__(2);
 
 var _base2 = _interopRequireDefault(_base);
 
-var _icon = __webpack_require__(4);
+var _icon = __webpack_require__(6);
 
 var _icon2 = _interopRequireDefault(_icon);
 
-var _shareOverlay = __webpack_require__(107);
+var _shareOverlay = __webpack_require__(143);
 
 var _shareOverlay2 = _interopRequireDefault(_shareOverlay);
 
-var _preactPortal = __webpack_require__(21);
+var _preactPortal = __webpack_require__(24);
 
 var _preactPortal2 = _interopRequireDefault(_preactPortal);
 
@@ -10619,7 +12869,7 @@ var ShareControl = function (_BaseComponent) {
 exports.default = ShareControl;
 
 /***/ }),
-/* 107 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10630,7 +12880,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _shareOverlay = __webpack_require__(108);
+var _shareOverlay = __webpack_require__(144);
 
 var _shareOverlay2 = _interopRequireDefault(_shareOverlay);
 
@@ -10639,7 +12889,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _shareOverlay2.default;
 
 /***/ }),
-/* 108 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10655,25 +12905,25 @@ var _dec, _class;
 
 var _preact = __webpack_require__(0);
 
-var _preactI18n = __webpack_require__(5);
+var _preactI18n = __webpack_require__(8);
 
 var _preactRedux = __webpack_require__(1);
 
-var _bindActions = __webpack_require__(3);
+var _bindActions = __webpack_require__(5);
 
-var _share = __webpack_require__(46);
+var _share = __webpack_require__(50);
 
-var _timeFormat = __webpack_require__(19);
+var _timeFormat = __webpack_require__(22);
 
 var _base = __webpack_require__(2);
 
 var _base2 = _interopRequireDefault(_base);
 
-var _overlay = __webpack_require__(22);
+var _overlay = __webpack_require__(25);
 
 var _overlay2 = _interopRequireDefault(_overlay);
 
-var _icon = __webpack_require__(4);
+var _icon = __webpack_require__(6);
 
 var _icon2 = _interopRequireDefault(_icon);
 
@@ -11228,7 +13478,7 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
 exports.default = ShareOverlay;
 
 /***/ }),
-/* 109 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11250,49 +13500,49 @@ var _preact = __webpack_require__(0);
 
 var _preactRedux = __webpack_require__(1);
 
-var _preactI18n = __webpack_require__(5);
+var _preactI18n = __webpack_require__(8);
 
-var _redux = __webpack_require__(7);
+var _redux = __webpack_require__(10);
 
-var _store = __webpack_require__(110);
+var _store = __webpack_require__(146);
 
 var _store2 = _interopRequireDefault(_store);
 
-var _fr = __webpack_require__(111);
+var _fr = __webpack_require__(147);
 
 var _fr2 = _interopRequireDefault(_fr);
 
-var _playkitJs = __webpack_require__(35);
+var _playkitJs = __webpack_require__(38);
 
-var _engineConnector = __webpack_require__(112);
+var _engineConnector = __webpack_require__(148);
 
 var _engineConnector2 = _interopRequireDefault(_engineConnector);
 
-var _shell = __webpack_require__(114);
+var _shell = __webpack_require__(150);
 
 var _shell2 = _interopRequireDefault(_shell);
 
-var _videoPlayer = __webpack_require__(116);
+var _videoPlayer = __webpack_require__(152);
 
 var _videoPlayer2 = _interopRequireDefault(_videoPlayer);
 
-var _playerGui = __webpack_require__(118);
+var _playerGui = __webpack_require__(156);
 
 var _playerGui2 = _interopRequireDefault(_playerGui);
 
-var _ads = __webpack_require__(43);
+var _ads = __webpack_require__(47);
 
 var _ads2 = _interopRequireDefault(_ads);
 
-var _playback = __webpack_require__(28);
+var _playback = __webpack_require__(31);
 
 var _playback2 = _interopRequireDefault(_playback);
 
-var _live = __webpack_require__(45);
+var _live = __webpack_require__(49);
 
 var _live2 = _interopRequireDefault(_live);
 
-__webpack_require__(119);
+__webpack_require__(7);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11409,7 +13659,7 @@ var UIManager = function () {
 exports.default = UIManager;
 
 /***/ }),
-/* 110 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11419,45 +13669,45 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _redux = __webpack_require__(7);
+var _redux = __webpack_require__(10);
 
-var _engine = __webpack_require__(47);
+var _engine = __webpack_require__(51);
 
 var _engine2 = _interopRequireDefault(_engine);
 
-var _shell = __webpack_require__(6);
+var _shell = __webpack_require__(9);
 
 var _shell2 = _interopRequireDefault(_shell);
 
-var _playPause = __webpack_require__(17);
+var _playPause = __webpack_require__(20);
 
 var _playPause2 = _interopRequireDefault(_playPause);
 
-var _seekbar = __webpack_require__(10);
+var _seekbar = __webpack_require__(13);
 
 var _seekbar2 = _interopRequireDefault(_seekbar);
 
-var _volume = __webpack_require__(37);
+var _volume = __webpack_require__(40);
 
 var _volume2 = _interopRequireDefault(_volume);
 
-var _fullscreen = __webpack_require__(42);
+var _fullscreen = __webpack_require__(46);
 
 var _fullscreen2 = _interopRequireDefault(_fullscreen);
 
-var _loading = __webpack_require__(36);
+var _loading = __webpack_require__(39);
 
 var _loading2 = _interopRequireDefault(_loading);
 
-var _share = __webpack_require__(46);
+var _share = __webpack_require__(50);
 
 var _share2 = _interopRequireDefault(_share);
 
-var _cvaa = __webpack_require__(24);
+var _cvaa = __webpack_require__(27);
 
 var _cvaa2 = _interopRequireDefault(_cvaa);
 
-var _settings = __webpack_require__(38);
+var _settings = __webpack_require__(41);
 
 var _settings2 = _interopRequireDefault(_settings);
 
@@ -11478,7 +13728,7 @@ var reducer = (0, _redux.combineReducers)({
 exports.default = reducer;
 
 /***/ }),
-/* 111 */
+/* 147 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -11511,7 +13761,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 112 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11522,7 +13772,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _engineConnector = __webpack_require__(113);
+var _engineConnector = __webpack_require__(149);
 
 var _engineConnector2 = _interopRequireDefault(_engineConnector);
 
@@ -11531,7 +13781,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _engineConnector2.default;
 
 /***/ }),
-/* 113 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11549,9 +13799,9 @@ var _preact = __webpack_require__(0);
 
 var _preactRedux = __webpack_require__(1);
 
-var _bindActions = __webpack_require__(3);
+var _bindActions = __webpack_require__(5);
 
-var _engine = __webpack_require__(47);
+var _engine = __webpack_require__(51);
 
 var _engine2 = _interopRequireDefault(_engine);
 
@@ -11602,6 +13852,10 @@ var EngineConnector = (_dec = (0, _preactRedux.connect)(_engine2.default, (0, _b
       var _this2 = this;
 
       var TrackType = this.player.Track;
+
+      this.player.addEventListener(this.player.Event.CHANGE_SOURCE_ENDED, function () {
+        _this2.props.updatePlayerPoster(_this2.player.poster);
+      });
 
       this.player.addEventListener(this.player.Event.PLAYER_STATE_CHANGED, function (e) {
         _this2.props.updatePlayerState(e.payload.oldState.type, e.payload.newState.type);
@@ -11743,7 +13997,7 @@ var EngineConnector = (_dec = (0, _preactRedux.connect)(_engine2.default, (0, _b
 exports.default = EngineConnector;
 
 /***/ }),
-/* 114 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11754,7 +14008,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _shell = __webpack_require__(115);
+var _shell = __webpack_require__(151);
 
 var _shell2 = _interopRequireDefault(_shell);
 
@@ -11763,7 +14017,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _shell2.default;
 
 /***/ }),
-/* 115 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11777,6 +14031,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _dec, _class;
 
+var _style = __webpack_require__(7);
+
+var _style2 = _interopRequireDefault(_style);
+
 var _preact = __webpack_require__(0);
 
 var _base = __webpack_require__(2);
@@ -11785,9 +14043,9 @@ var _base2 = _interopRequireDefault(_base);
 
 var _preactRedux = __webpack_require__(1);
 
-var _bindActions = __webpack_require__(3);
+var _bindActions = __webpack_require__(5);
 
-var _shell = __webpack_require__(6);
+var _shell = __webpack_require__(9);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11943,16 +14201,18 @@ var Shell = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.
     value: function render(props) {
       var _this4 = this;
 
-      var playerClasses = 'player skin-default';
-      playerClasses += ' ' + props.playerClasses.join(' ');
+      var playerClasses = [_style2.default.player, _style2.default.skinDefault];
+      playerClasses.push(props.playerClasses);
 
-      if (this.props.isMobile) playerClasses += ' touch';
-      if (this.props.playerHover) playerClasses += ' hover';
-      if (this.props.metadataLoaded) playerClasses += ' metadata-loaded';
-      if (this.props.adBreak) playerClasses += ' ad-break';
-      if (this.props.metadataLoaded) playerClasses += ' state-' + this.props.currentState;
-      if (this.props.playerWidth <= 480) playerClasses += ' size-sm';else if (this.props.playerWidth <= 768) playerClasses += ' size-md';
-      if (this.props.seekbarDraggingActive) playerClasses += ' hover';
+      if (this.props.isMobile) playerClasses.push(_style2.default.touch);
+      if (this.props.playerHover) playerClasses.push(_style2.default.hover);
+      if (this.props.metadataLoaded) playerClasses.push(_style2.default.metadataLoaded);
+      if (this.props.adBreak) playerClasses.push(_style2.default.adBreak);
+      if (this.props.metadataLoaded) playerClasses.push(_style2.default.state + this.props.currentState);
+      if (this.props.playerWidth <= 480) playerClasses.push(_style2.default.sizeSm);else if (this.props.playerWidth <= 768) playerClasses.push(_style2.default.sizeMd);
+      if (this.props.seekbarDraggingActive) playerClasses.push(_style2.default.hover);
+
+      playerClasses = playerClasses.join(' ');
 
       return (0, _preact.h)(
         'div',
@@ -11978,7 +14238,7 @@ var Shell = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.
 exports.default = Shell;
 
 /***/ }),
-/* 116 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11989,7 +14249,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _videoPlayer = __webpack_require__(117);
+var _videoPlayer = __webpack_require__(153);
 
 var _videoPlayer2 = _interopRequireDefault(_videoPlayer);
 
@@ -11998,7 +14258,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _videoPlayer2.default;
 
 /***/ }),
-/* 117 */
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12010,7 +14270,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _videoPlayer = __webpack_require__(154);
+
+var _videoPlayer2 = _interopRequireDefault(_videoPlayer);
+
 var _preact = __webpack_require__(0);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -12035,7 +14301,7 @@ var VideoPlayer = function (_Component) {
   }
 
   _createClass(VideoPlayer, [{
-    key: "shouldComponentUpdate",
+    key: 'shouldComponentUpdate',
 
 
     /**
@@ -12056,7 +14322,7 @@ var VideoPlayer = function (_Component) {
      */
 
   }, {
-    key: "componentDidMount",
+    key: 'componentDidMount',
     value: function componentDidMount() {
       this._el.appendChild(this.props.player.getView());
     }
@@ -12069,11 +14335,11 @@ var VideoPlayer = function (_Component) {
      */
 
   }, {
-    key: "render",
+    key: 'render',
     value: function render() {
       var _this2 = this;
 
-      return (0, _preact.h)("div", { className: "video-player", ref: function ref(c) {
+      return (0, _preact.h)('div', { className: _videoPlayer2.default.videoPlayer, ref: function ref(c) {
           return _this2._el = c;
         } });
     }
@@ -12085,7 +14351,55 @@ var VideoPlayer = function (_Component) {
 exports.default = VideoPlayer;
 
 /***/ }),
-/* 118 */
+/* 154 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(155);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(4)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--2-1!../../../node_modules/sass-loader/lib/loader.js!./_video-player.scss", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js??ref--2-1!../../../node_modules/sass-loader/lib/loader.js!./_video-player.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 155 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".kp__video-player {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: black; }\n", ""]);
+
+// exports
+exports.locals = {
+	"video-player": "kp__video-player",
+	"videoPlayer": "kp__video-player"
+};
+
+/***/ }),
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12211,587 +14525,6 @@ var PlayerGUI = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class 
   return PlayerGUI;
 }(_preact.Component)) || _class);
 exports.default = PlayerGUI;
-
-/***/ }),
-/* 119 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(120);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(122)(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/sass-loader/lib/loader.js!./style.scss", function() {
-			var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/sass-loader/lib/loader.js!./style.scss");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 120 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(121)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, ".row {\n  display: block; }\n  .row:after {\n    content: '';\n    clear: both;\n    display: block; }\n\n.d-inline-block {\n  display: inline-block; }\n\n.mobile-hidden-select {\n  display: block;\n  opacity: 0;\n  position: absolute;\n  top: 0;\n  left: 0px;\n  width: 100%;\n  height: 100%; }\n\n.font-size-base {\n  font-size: 15px; }\n\n.form-group {\n  margin: 10px 0;\n  position: relative;\n  max-width: 100%; }\n  .form-group.has-error .form-control {\n    border-color: #db1f26; }\n    .form-group.has-error .form-control:focus {\n      border-color: #fff; }\n  .form-group.has-icon .form-control {\n    padding-left: 34px; }\n  .form-group .icon {\n    position: absolute;\n    top: 2px;\n    left: 2px;\n    width: 32px;\n    height: 32px;\n    fill: rgba(255, 255, 255, 0.4); }\n\n.form-control {\n  height: 36px;\n  width: 100%;\n  min-width: 72px;\n  border: 2px solid rgba(255, 255, 255, 0.2);\n  border-radius: 4px;\n  background-color: rgba(0, 0, 0, 0.4);\n  font-size: 15px;\n  line-height: 18px;\n  color: #fff;\n  padding: 8px 10px;\n  text-overflow: ellipsis; }\n  .form-control::-webkit-input-placeholder {\n    color: rgba(255, 255, 255, 0.6); }\n  .form-control:focus {\n    background-color: #fff;\n    border-color: #fff;\n    color: #333; }\n    .form-control:focus::-webkit-input-placeholder {\n      color: #ccc; }\n    .form-control:focus + .icon {\n      fill: #999; }\n\ntextarea.form-control {\n  min-height: 72px; }\n\nselect {\n  font-size: 15px;\n  font-family: \"Lato\", sans-serif;\n  color: #fff;\n  -webkit-appearance: none;\n  border: 0;\n  background: url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23FFFFFF' viewBox='0 0 1024 1024'><path d='M301.255 338.745c-24.994-24.994-65.516-24.994-90.51 0s-24.994 65.516 0 90.51l256 256c24.994 24.994 65.516 24.994 90.51 0l256-256c24.994-24.994 24.994-65.516 0-90.51s-65.516-24.994-90.51 0l-210.745 210.745-210.745-210.745z' /></svg>\") no-repeat;\n  background-size: 16px;\n  background-position: 100% center;\n  background-repeat: no-repeat;\n  padding-right: 24px; }\n\n.checkbox {\n  font-size: 15px;\n  position: relative; }\n  .checkbox input {\n    display: none; }\n  .checkbox label:before {\n    height: 16px;\n    width: 16px;\n    border: 1px solid rgba(255, 255, 255, 0.2);\n    border-radius: 4px;\n    background-color: rgba(0, 0, 0, 0.4);\n    margin-right: 8px;\n    display: inline-block;\n    content: '';\n    vertical-align: middle; }\n  .checkbox input:checked + label:before {\n    border: 1px solid #fff;\n    background: #fff; }\n\n.form-group-row {\n  font-size: 15px;\n  margin: 24px 0; }\n  .form-group-row:after {\n    clear: both;\n    content: ' ';\n    display: block; }\n  .form-group-row label {\n    float: left;\n    color: rgba(244, 244, 244, 0.8); }\n  .form-group-row .dropdown {\n    float: right; }\n\n.btn {\n  text-decoration: none;\n  height: 36px;\n  border-radius: 18px;\n  color: #fff;\n  line-height: 36px;\n  font-weight: bold;\n  cursor: pointer;\n  display: inline-block;\n  padding: 0 24px; }\n  .btn.btn-block {\n    display: block; }\n  .btn.btn-dark-transparent {\n    background-color: rgba(0, 0, 0, 0.5);\n    border: 2px solid rgba(255, 255, 255, 0.2);\n    line-height: 32px; }\n    .btn.btn-dark-transparent:hover {\n      color: #fff;\n      border: 2px solid rgba(255, 255, 255, 0.4); }\n  .btn.btn-branded {\n    background-color: #01ACCD; }\n    .btn.btn-branded:hover {\n      color: #fff; }\n\n.btn-rounded {\n  height: 36px;\n  width: 36px;\n  min-width: 36px;\n  min-height: 36px;\n  border-radius: 18px;\n  background-color: rgba(0, 0, 0, 0.4);\n  display: inline-block;\n  padding: 2px;\n  fill: #fff; }\n\n@keyframes openDropmenu {\n  from {\n    opacity: 0;\n    transform: translateY(10px); }\n  to {\n    opacity: 1;\n    transform: translateY(0); } }\n\n.dropdown {\n  position: relative;\n  font-size: 15px; }\n  .dropdown.active .dropdown-menu {\n    display: block;\n    opacity: 1; }\n  .dropdown.active .dropdown-button .icon {\n    transform: rotate(180deg); }\n  .dropdown .dropdown-button {\n    font-weight: bold;\n    line-height: 18px;\n    color: #fff;\n    cursor: pointer;\n    padding-left: 20px; }\n    .dropdown .dropdown-button .icon {\n      width: 16px;\n      height: 16px;\n      fill: #fff;\n      vertical-align: middle;\n      margin-left: 6px;\n      transition: 150ms transform;\n      will-change: transform; }\n\n.dropdown-menu {\n  display: block;\n  opacity: 1;\n  position: absolute;\n  background-color: #333333;\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.3);\n  border-radius: 4px;\n  padding: 6px 0;\n  z-index: 5;\n  animation: openDropmenu 100ms ease-out forwards;\n  max-height: 173px;\n  overflow-y: auto;\n  font-size: 15px; }\n  .dropdown-menu.top {\n    margin-bottom: 10px;\n    bottom: 100%; }\n  .dropdown-menu.bottom {\n    margin-top: 10px;\n    top: 100%; }\n  .dropdown-menu.right {\n    left: 0; }\n  .dropdown-menu.left {\n    right: 0; }\n  .dropdown-menu .dropdown-menu-item {\n    padding: 2px 10px 2px 16px;\n    white-space: nowrap;\n    min-height: 30px;\n    cursor: pointer; }\n    .dropdown-menu .dropdown-menu-item:hover {\n      color: #fff; }\n    .dropdown-menu .dropdown-menu-item.active {\n      color: #01ACCD;\n      fill: #01ACCD; }\n    .dropdown-menu .dropdown-menu-item .check-icon {\n      display: inline-block;\n      margin-left: 16px;\n      vertical-align: middle;\n      width: 24px;\n      height: 24px; }\n    .dropdown-menu .dropdown-menu-item span {\n      vertical-align: middle;\n      line-height: 26px; }\n\n.tooltip {\n  display: inline-block;\n  height: 22px;\n  border-radius: 4px;\n  background-color: #FFFFFF;\n  padding: 3px 13px;\n  color: #333333;\n  font-size: 13px;\n  font-weight: bold;\n  line-height: 16px;\n  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.3); }\n\n.player .control-button {\n  width: 32px;\n  height: 32px;\n  background: transparent;\n  display: inline-block;\n  opacity: 0.8;\n  border: none;\n  padding: 0;\n  cursor: pointer;\n  fill: #fff; }\n  .player .control-button svg {\n    width: 32px;\n    height: 32px; }\n  .player .control-button.active {\n    opacity: 1; }\n  .player .control-button.control-button-rounded {\n    width: 36px;\n    height: 36px;\n    padding: 2px; }\n\n.player:not(.touch) .control-button:hover {\n  opacity: 1; }\n\n.player:not(.touch) .control-button.control-button-rounded:hover {\n  background-color: rgba(0, 0, 0, 0.4);\n  border-radius: 18px; }\n\n.player .control-button-container {\n  display: inline-block;\n  position: relative;\n  vertical-align: top; }\n\n.player.touch .player .control-button-container {\n  position: static; }\n\n.player.touch .control-button {\n  position: relative; }\n\na {\n  color: #01ACCD;\n  text-decoration: underline;\n  font-size: 15px;\n  line-height: 18px;\n  cursor: pointer; }\n  a:hover {\n    color: #01819a; }\n  a:active {\n    opacity: 0.7; }\n\n.kaltura-player-container {\n  position: absolute !important;\n  top: 0;\n  background-color: #000; }\n\n.player {\n  overflow: hidden;\n  user-select: none;\n  width: 100%; }\n  .player:-webkit-full-screen {\n    width: 100%;\n    height: 100%;\n    max-width: none; }\n  .player * {\n    box-sizing: border-box;\n    outline: none; }\n  .player ::selection {\n    background-color: rgba(0, 0, 0, 0.1); }\n  .player video {\n    width: 100%; }\n  .player .player-gui {\n    opacity: 0;\n    overflow: hidden;\n    font-size: 0;\n    font-family: \"Lato\", sans-serif; }\n    .player .player-gui input, .player .player-gui textarea {\n      font-family: \"Lato\", sans-serif; }\n  .player #overlay-portal {\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%; }\n  .player.metadata-loaded .player-gui,\n  .player.state-paused .player-gui,\n  .player.overlay-active .player-gui,\n  .player.menu-active .player-gui {\n    opacity: 1; }\n\n.player [id^=ads-container] {\n  z-index: 5;\n  transition: transform 100ms; }\n\n.player:not(.ad-break).metadata-loaded.hover [id^=ads-container],\n.player:not(.ad-break).metadata-loaded.state-paused [id^=ads-container] {\n  transform: translateY(-60px); }\n\nvideo {\n  left: 0; }\n  video::-webkit-media-controls-panel-container, video::-webkit-media-controls {\n    display: none !important;\n    -webkit-appearance: none; }\n  video::-webkit-media-controls-start-playback-button {\n    display: none !important;\n    -webkit-appearance: none; }\n\nvideo::cue {\n  background-color: transparent;\n  font-family: \"Lato\", sans-serif; }\n\n.player.captions-yellow-text video::cue {\n  color: #FAFF00; }\n\n.player.captions-black-bg video::cue {\n  background-color: #000; }\n\n.player video::-webkit-media-text-track-display {\n  transform: translateY(0px);\n  transition: ease-in 100ms; }\n\n.player.state-paused video::-webkit-media-text-track-display,\n.player.hover video::-webkit-media-text-track-display {\n  transform: translateY(-60px);\n  transition: ease-out 100ms; }\n\n.video-player {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: black; }\n\n@keyframes openOverlay {\n  from {\n    opacity: 0; }\n  to {\n    opacity: 1; } }\n\n.overlay {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  display: none;\n  opacity: 0;\n  animation: openOverlay 100ms ease-in-out forwards;\n  z-index: 4; }\n  .overlay.active {\n    display: block;\n    opacity: 1; }\n  .overlay .overlay-contents {\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, 0.42);\n    z-index: 4;\n    text-align: center;\n    color: #fff;\n    padding: 80px 20px;\n    overflow-y: auto; }\n  .overlay .title {\n    font-size: 24px;\n    font-weight: bold;\n    line-height: 29px;\n    margin-bottom: 60px; }\n  .overlay .close-overlay {\n    position: absolute;\n    top: 48px;\n    right: 48px;\n    z-index: 5;\n    fill: #fff;\n    cursor: pointer; }\n    .overlay .close-overlay .icon-close {\n      width: 24px;\n      height: 24px; }\n  .overlay .overlay-screen {\n    display: none; }\n    .overlay .overlay-screen.active {\n      display: block; }\n\n.player.size-md .overlay .overlay-contents {\n  padding: 36px 20px; }\n\n.player.size-md .overlay .close-overlay {\n  top: 38px; }\n\n.player.size-md .overlay .title {\n  margin-bottom: 24px; }\n\n.player.size-sm .overlay .overlay-contents {\n  padding: 16px 24px; }\n\n.player.size-sm .overlay .close-overlay {\n  top: 15px;\n  right: 24px; }\n\n.player.size-sm .overlay .title {\n  font-size: 16px;\n  line-height: 19px;\n  margin-bottom: 24px; }\n\n@keyframes openSmartContainer {\n  from {\n    opacity: 0;\n    transform: translateY(10px); }\n  to {\n    opacity: 1;\n    transform: translateY(0); } }\n\n@keyframes closeSmartContainer {\n  from {\n    opacity: 1;\n    transform: translateY(0); }\n  to {\n    opacity: 0;\n    transform: translateY(10px); } }\n\n.player:not(.touch) .smart-container {\n  background-color: #222222;\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.3);\n  border-radius: 4px;\n  position: absolute;\n  right: 0px;\n  min-width: 193px;\n  font-size: 15px;\n  z-index: 10;\n  display: block;\n  animation: openSmartContainer 100ms ease-out forwards; }\n  .player:not(.touch) .smart-container.leaving {\n    animation: closeSmartContainer 100ms ease-out forwards; }\n  .player:not(.touch) .smart-container.top {\n    bottom: 100%;\n    margin-bottom: 6px; }\n    .player:not(.touch) .smart-container.top:before {\n      display: block;\n      content: ' ';\n      position: absolute;\n      bottom: -6px;\n      left: 0;\n      width: 100%;\n      height: 6px; }\n  .player:not(.touch) .smart-container.bottom {\n    top: 100%;\n    margin-top: 6px; }\n  .player:not(.touch) .smart-container.right {\n    left: 0px; }\n  .player:not(.touch) .smart-container.left {\n    right: 0px; }\n  .player:not(.touch) .smart-container .smart-container-item {\n    margin: 16px;\n    color: rgba(244, 244, 244, 0.8);\n    white-space: nowrap; }\n    .player:not(.touch) .smart-container .smart-container-item:after {\n      display: block;\n      content: ' ';\n      clear: both; }\n    .player:not(.touch) .smart-container .smart-container-item.select-menu-item label {\n      float: left; }\n      .player:not(.touch) .smart-container .smart-container-item.select-menu-item label .label-icon {\n        display: none; }\n    .player:not(.touch) .smart-container .smart-container-item.select-menu-item .dropdown, .player:not(.touch) .smart-container .smart-container-item.select-menu-item select {\n      float: right; }\n    .player:not(.touch) .smart-container .smart-container-item.select-menu-item select {\n      text-align-last: right; }\n\n.touch .smart-container-item {\n  width: 300px;\n  max-width: 100%;\n  margin: 16px auto;\n  color: rgba(244, 244, 244, 0.8);\n  white-space: nowrap;\n  text-align: left; }\n  .touch .smart-container-item:after {\n    display: block;\n    content: ' ';\n    clear: both; }\n  .touch .smart-container-item.select-menu-item label {\n    float: left;\n    font-size: 16px;\n    color: rgba(255, 255, 255, 0.8);\n    fill: #fff; }\n    .touch .smart-container-item.select-menu-item label .label-icon {\n      width: 24px;\n      height: 24px;\n      display: inline-block;\n      vertical-align: middle;\n      margin-right: 16px; }\n  .touch .smart-container-item.select-menu-item .dropdown, .touch .smart-container-item.select-menu-item select {\n    float: right; }\n  .touch .smart-container-item.select-menu-item select {\n    text-align-last: right; }\n\n.overlay.share-overlay .share-icons {\n  margin: 60px 0; }\n  .overlay.share-overlay .share-icons .btn-rounded {\n    margin: 0 8px;\n    transition: transform 100ms;\n    will-change: transform; }\n    .overlay.share-overlay .share-icons .btn-rounded:first-child {\n      margin-left: 0; }\n    .overlay.share-overlay .share-icons .btn-rounded:last-child {\n      margin-right: 0; }\n    .overlay.share-overlay .share-icons .btn-rounded.facebook-share-btn {\n      background-color: #3B5998; }\n    .overlay.share-overlay .share-icons .btn-rounded.twitter-share-btn {\n      background-color: #1DA1F2; }\n    .overlay.share-overlay .share-icons .btn-rounded.google-plus-share-btn {\n      background-color: #DD4B39; }\n    .overlay.share-overlay .share-icons .btn-rounded.linkedin-share-btn {\n      background-color: #00A0DC; }\n\n.share-main-container {\n  width: 300px;\n  max-width: 100%;\n  margin: 0 auto;\n  text-align: center; }\n\n.link-options-container {\n  width: 400px;\n  max-width: 100%;\n  text-align: left;\n  margin: 0 auto; }\n  .link-options-container .copy-url-row {\n    display: flex; }\n    .link-options-container .copy-url-row .input-copy-url {\n      margin: 0; }\n    .link-options-container .copy-url-row .btn-copy-url {\n      margin-left: 16px; }\n      .link-options-container .copy-url-row .btn-copy-url .icon {\n        will-change: transform;\n        transition: 100ms transform;\n        position: absolute;\n        width: 32px; }\n      .link-options-container .copy-url-row .btn-copy-url .check-icon {\n        transform: scale(0);\n        opacity: 0; }\n      .link-options-container .copy-url-row .btn-copy-url.copied {\n        background-color: #009444; }\n        .link-options-container .copy-url-row .btn-copy-url.copied .copy-icon {\n          transform: scale(0);\n          opacity: 0; }\n        .link-options-container .copy-url-row .btn-copy-url.copied .check-icon {\n          transform: scale(1);\n          opacity: 1; }\n  .link-options-container .video-start-options-row {\n    margin-top: 24px; }\n    .link-options-container .video-start-options-row .checkbox {\n      margin-right: 15px; }\n    .link-options-container .video-start-options-row .form-group {\n      margin: 0; }\n\n.player:not(.touch) .overlay.share-overlay .share-icons .btn-rounded:hover {\n  transform: scale(1.1667); }\n\n.player.size-md .overlay.share-overlay .share-icons {\n  margin: 40px 0; }\n\n.player.size-sm .overlay.share-overlay .share-icons {\n  margin: 20px 0; }\n\n.overlay.cvaa-overlay .sample {\n  border: 2px solid rgba(255, 255, 255, 0.2);\n  border-radius: 4px;\n  font-size: 16px;\n  font-weight: bold;\n  line-height: 36px;\n  text-align: center;\n  padding: 0 31px;\n  display: inline-block;\n  margin: 0 12px;\n  cursor: pointer; }\n  .overlay.cvaa-overlay .sample.black-bg {\n    background-color: #000; }\n  .overlay.cvaa-overlay .sample.yellow-text {\n    color: #FAFF00; }\n\n.overlay.cvaa-overlay .button-save-cvaa {\n  margin-top: 50px;\n  height: 40px;\n  width: 400px;\n  max-width: 100%;\n  border: 2px solid rgba(255, 255, 255, 0.2);\n  border-radius: 4px;\n  font-size: 16px;\n  font-weight: bold;\n  line-height: 38px;\n  text-align: center;\n  display: inline-block;\n  color: #fff;\n  text-decoration: none;\n  cursor: pointer; }\n\n.overlay.cvaa-overlay .custom-caption-form {\n  width: 300px;\n  max-width: 100%;\n  margin: 0 auto; }\n\n.player.size-sm .overlay.cvaa-overlay .sample {\n  width: 30%;\n  margin: 2.33%;\n  padding: 0; }\n  .player.size-sm .overlay.cvaa-overlay .sample:first-child {\n    margin-left: 0; }\n  .player.size-sm .overlay.cvaa-overlay .sample:last-child {\n    margin-right: 0; }\n\n.player.size-sm .overlay.cvaa-overlay .button-save-cvaa {\n  margin-top: 20px; }\n\n@keyframes kaltura-spinner {\n  0% {\n    transform: rotate(0deg) scale(0.7);\n    opacity: 1; }\n  70% {\n    transform: rotate(360deg) scale(0.7);\n    opacity: 1; }\n  82% {\n    transform: rotate(360deg) scale(0);\n    opacity: 0; }\n  87% {\n    transform: rotate(360deg) scale(0.9);\n    opacity: 1; }\n  100% {\n    transform: rotate(360deg) scale(0.7);\n    opacity: 1; } }\n\n.loading-backdrop {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.3);\n  transition: 100ms opacity;\n  opacity: 0; }\n  .loading-backdrop.show {\n    opacity: 1; }\n    .loading-backdrop.show .spinner-container {\n      display: block; }\n  .loading-backdrop .spinner-container {\n    display: none;\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate3d(-50px, -50px, 0); }\n\n.spinner {\n  width: 100px;\n  height: 100px;\n  position: relative;\n  animation: kaltura-spinner 2.5s infinite; }\n  .spinner span {\n    width: 8px;\n    height: 8px;\n    background-color: #fff;\n    display: block;\n    border-radius: 8px;\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    margin-top: -4px;\n    margin-left: -4px; }\n    .spinner span:nth-child(1) {\n      transform: rotate(45deg) translateX(-25px) translateY(-25px);\n      background-color: #da1f26; }\n    .spinner span:nth-child(2) {\n      transform: rotate(90deg) translateX(-25px) translateY(-25px);\n      background-color: #06a885; }\n    .spinner span:nth-child(3) {\n      transform: rotate(135deg) translateX(-25px) translateY(-25px);\n      background-color: #009344; }\n    .spinner span:nth-child(4) {\n      transform: rotate(180deg) translateX(-25px) translateY(-25px);\n      background-color: #f8a61a; }\n    .spinner span:nth-child(5) {\n      transform: rotate(225deg) translateX(-25px) translateY(-25px);\n      background-color: #1b4a97; }\n    .spinner span:nth-child(6) {\n      transform: rotate(270deg) translateX(-25px) translateY(-25px);\n      background-color: #00abcc; }\n    .spinner span:nth-child(7) {\n      transform: rotate(315deg) translateX(-25px) translateY(-25px);\n      background-color: #b1d238; }\n    .spinner span:nth-child(8) {\n      transform: rotate(360deg) translateX(-25px) translateY(-25px);\n      background-color: #fcd203; }\n\n.control-button-container.control-play-pause .control-button {\n  transition: 400ms transform; }\n  .control-button-container.control-play-pause .control-button .icon-pause {\n    transition: 400ms opacity;\n    opacity: 0;\n    display: none; }\n  .control-button-container.control-play-pause .control-button .icon-play {\n    transition: 400ms opacity;\n    opacity: 1;\n    display: block; }\n  .control-button-container.control-play-pause .control-button.is-playing {\n    transform: rotate(360deg); }\n    .control-button-container.control-play-pause .control-button.is-playing .icon-pause {\n      opacity: 1;\n      display: block; }\n    .control-button-container.control-play-pause .control-button.is-playing .icon-play {\n      opacity: 0;\n      display: none; }\n\n.touch .control-button-container.control-play-pause {\n  display: none; }\n\n.player.size-sm .control-button-container.control-play-pause {\n  display: none; }\n\n.control-button-container.volume-control:hover .volume-control-bar {\n  display: block !important; }\n\n.control-button-container.volume-control.is-muted .volume-waves {\n  opacity: 0;\n  transform: translateX(-5px); }\n\n.control-button-container.volume-control.is-muted .volume-mute {\n  opacity: 1;\n  transform: scale(1); }\n\n.control-button-container.volume-control.dragging-active .volume-control-bar {\n  display: block; }\n\n.control-button-container.volume-control .volume-waves {\n  transform: translateX(0px); }\n\n.control-button-container.volume-control .volume-mute {\n  opacity: 1;\n  transform: scale(0); }\n\n.control-button-container.volume-control .volume-waves, .control-button-container.volume-control .volume-mute {\n  transition: 300ms transform, 300ms opacity; }\n\n.control-button-container.volume-control svg {\n  position: absolute;\n  top: 0;\n  left: 0; }\n\n.volume-control-bar {\n  position: absolute;\n  z-index: 2;\n  bottom: 38px;\n  left: 0px;\n  display: block;\n  height: 112px;\n  width: 34px;\n  border-radius: 4px;\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.3);\n  background-color: #333333;\n  padding: 6px;\n  display: none; }\n  .volume-control-bar:before {\n    position: absolute;\n    width: 34px;\n    height: 14px;\n    bottom: -8px;\n    left: 0;\n    content: ' ';\n    display: block; }\n  .volume-control-bar .bar {\n    background-color: #424242;\n    height: 100%;\n    position: relative;\n    cursor: pointer; }\n  .volume-control-bar .progress {\n    position: absolute;\n    bottom: 0px;\n    left: 0px;\n    width: 100%;\n    border-radius: 0 0 2px 2px;\n    background-color: #01ACCD; }\n\n.touch .control-button-container.volume-control:hover .volume-control-bar {\n  display: none !important; }\n\n.control-button-container.control-fullscreen .control-button {\n  transition: 100ms transform;\n  transform: scale(1); }\n  .control-button-container.control-fullscreen .control-button .icon-minimize {\n    display: none; }\n  .control-button-container.control-fullscreen .control-button.is-fullscreen .icon-maximize {\n    display: none; }\n  .control-button-container.control-fullscreen .control-button.is-fullscreen .icon-minimize {\n    display: block; }\n\n.player:not(.touch) .control-button-container.control-fullscreen .control-button:hover {\n  transform: scale(1.1); }\n\n.player .seek-bar {\n  padding: 6px 0;\n  cursor: pointer;\n  position: relative; }\n  .player .seek-bar:hover .time-preview,\n  .player .seek-bar:hover .frame-preview, .player .seek-bar.hover .time-preview,\n  .player .seek-bar.hover .frame-preview, .player .seek-bar.dragging-active .time-preview,\n  .player .seek-bar.dragging-active .frame-preview {\n    display: block; }\n  .player .seek-bar:hover .progress-bar .scrubber, .player .seek-bar.hover .progress-bar .scrubber, .player .seek-bar.dragging-active .progress-bar .scrubber {\n    transform: scale(1); }\n  .player .seek-bar:hover .progress-bar .virtual-progress, .player .seek-bar.hover .progress-bar .virtual-progress, .player .seek-bar.dragging-active .progress-bar .virtual-progress {\n    display: block; }\n  .player .seek-bar.ad-break {\n    cursor: initial; }\n    .player .seek-bar.ad-break .progress-bar .progress {\n      background-color: #F9A71B; }\n  .player .seek-bar.live .progress-bar .progress {\n    background-color: #DA1F26; }\n  .player .seek-bar .progress-bar {\n    height: 4px;\n    background-color: rgba(255, 255, 255, 0.3);\n    border-radius: 2px;\n    position: relative; }\n    .player .seek-bar .progress-bar .progress {\n      position: absolute;\n      top: 0;\n      left: 0;\n      height: 100%;\n      z-index: 2;\n      border-radius: 2px 0 0 2px;\n      background-color: #01ACCD; }\n    .player .seek-bar .progress-bar .virtual-progress {\n      display: none; }\n    .player .seek-bar .progress-bar .buffered, .player .seek-bar .progress-bar .virtual-progress {\n      position: absolute;\n      top: 0;\n      left: 0;\n      height: 100%;\n      z-index: 1;\n      border-radius: 2px 0 0 2px;\n      background-color: rgba(255, 255, 255, 0.3); }\n    .player .seek-bar .progress-bar .scrubber {\n      position: absolute;\n      z-index: 3;\n      cursor: pointer;\n      display: block;\n      top: -6px;\n      right: -8px;\n      border-radius: 8px;\n      height: 16px;\n      width: 16px;\n      background-color: #FFFFFF;\n      box-shadow: 0 0 31px 0 rgba(0, 0, 0, 0.3);\n      transform: scale(0);\n      transition: 100ms transform; }\n      .player .seek-bar .progress-bar .scrubber:active {\n        opacity: 1;\n        cursor: grabbing; }\n  .player .seek-bar .frame-preview {\n    position: absolute;\n    bottom: 16px;\n    left: 0;\n    height: 94px;\n    width: 164px;\n    border: 2px solid rgba(255, 255, 255, 0.2);\n    border-radius: 4px;\n    z-index: 10; }\n    .player .seek-bar .frame-preview .frame-preview-img {\n      background-size: auto 100%;\n      width: 100%;\n      height: 100%;\n      position: relative; }\n  .player .seek-bar .time-preview {\n    position: absolute;\n    bottom: 22px;\n    left: 0;\n    z-index: 11;\n    height: 22px;\n    min-width: 48px;\n    padding: 0 3px;\n    text-align: center;\n    border-radius: 3px;\n    background-color: rgba(0, 0, 0, 0.7);\n    font-size: 13px;\n    font-weight: bold;\n    line-height: 22px;\n    color: #fff; }\n  .player .seek-bar .time-preview,\n  .player .seek-bar .frame-preview {\n    display: none; }\n\n.touch .virtual-progress, .touch .time-preview, .touch .frame-preview {\n  display: none !important; }\n\n.player.size-sm .virtual-progress, .player.size-sm .time-preview, .player.size-sm .frame-preview {\n  display: none; }\n\n.player .time-display {\n  display: inline-block;\n  line-height: 32px;\n  vertical-align: top;\n  font-size: 14px;\n  padding: 0 23px;\n  font-weight: bold; }\n\n.touch .time-display {\n  padding-left: 0; }\n\n.player.size-sm .player .time-display {\n  padding: 0 12px 0 0; }\n\n.player .video-playing-title {\n  font-size: 15px;\n  font-weight: bold;\n  line-height: 18px;\n  padding: 6px 0;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap; }\n\n.player .bottom-bar {\n  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.6) 100%);\n  padding: 6px 16px;\n  color: #fff;\n  opacity: 0;\n  transition: 100ms opacity;\n  width: 100%;\n  margin-top: auto;\n  position: absolute;\n  z-index: 10;\n  bottom: 0;\n  left: 0; }\n  .player .bottom-bar .left-controls {\n    float: left;\n    text-align: left; }\n    .player .bottom-bar .left-controls:first-child {\n      margin-left: 0px; }\n  .player .bottom-bar .right-controls {\n    float: right;\n    text-align: left; }\n    .player .bottom-bar .right-controls .control-button-container {\n      margin: 0 6px; }\n      .player .bottom-bar .right-controls .control-button-container:last-child {\n        margin-right: 0; }\n\n.player.hover .bottom-bar,\n.player.state-paused .bottom-bar,\n.player.menu-active .bottom-bar {\n  opacity: 1; }\n\n.player.overlay-active .bottom-bar {\n  opacity: 0; }\n\n.player.size-sm .bottom-bar {\n  padding: 6px 8px; }\n  .player.size-sm .bottom-bar .time-display {\n    padding-left: 0; }\n\n.player .top-bar {\n  background: linear-gradient(0deg, transparent 0%, rgba(0, 0, 0, 0.6) 100%);\n  padding: 14px 16px;\n  color: #fff;\n  opacity: 0;\n  transition: 100ms opacity;\n  display: flex;\n  justify-content: space-between;\n  width: 100%;\n  position: absolute;\n  z-index: 10;\n  top: 0;\n  left: 0; }\n  .player .top-bar .left-controls {\n    text-align: left;\n    min-width: 0; }\n  .player .top-bar .right-controls {\n    text-align: left; }\n    .player .top-bar .right-controls .control-button-container {\n      margin: 0 6px; }\n      .player .top-bar .right-controls .control-button-container:last-child {\n        margin-right: 0; }\n\n.player.hover .top-bar,\n.player.state-paused .top-bar,\n.player.menu-active .top-bar {\n  opacity: 1; }\n\n.player.overlay-active .top-bar {\n  opacity: 0; }\n\n.player.size-sm .player .top-bar {\n  padding: 8px 8px 20px 8px; }\n\n@keyframes overlayPlayIconIn {\n  from {\n    opacity: 1;\n    transform: scale(0); }\n  to {\n    opacity: 0;\n    transform: scale(1); } }\n\n.overlay-play {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%; }\n  .overlay-play.in .icon {\n    animation: overlayPlayIconIn 400ms linear forwards; }\n  .overlay-play .icon {\n    width: 144px;\n    height: 144px;\n    fill: #fff;\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    margin: -72px 0 0 -72px;\n    opacity: 0; }\n\n.pre-playback-play-overlay {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 10;\n  background-position: center center;\n  background-size: cover; }\n  .pre-playback-play-overlay .pre-playback-play-button {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    height: 108px;\n    width: 108px;\n    border: 2px solid rgba(255, 255, 255, 0.2);\n    background-color: rgba(0, 0, 0, 0.5);\n    margin: -54px 0 0 -54px;\n    border-radius: 54px;\n    fill: #fff;\n    padding: 20px;\n    cursor: pointer; }\n    .pre-playback-play-overlay .pre-playback-play-button:hover {\n      border: 2px solid rgba(255, 255, 255, 0.4); }\n    .pre-playback-play-overlay .pre-playback-play-button:active {\n      opacity: 0.7;\n      transform: scale(1); }\n\n.pre-playback .player-gui {\n  opacity: 0 !important;\n  display: none; }\n\n.btn-skip-ad {\n  position: absolute;\n  bottom: 60px;\n  right: 16px; }\n\n.skip-ad {\n  color: #fff;\n  font-size: 20px;\n  font-weight: bold;\n  line-height: 24px;\n  text-shadow: 0 0 6px rgba(0, 0, 0, 0.6);\n  position: absolute;\n  bottom: 66px;\n  right: 16px; }\n\n.live-tag {\n  color: #DA1F26;\n  font-size: 14px;\n  font-weight: bold;\n  letter-spacing: 1px;\n  line-height: 19px;\n  border: 2px solid #DA1F26;\n  border-radius: 4px;\n  text-transform: uppercase;\n  text-align: center;\n  display: inline-block;\n  padding: 0 3px 0 5px;\n  margin: 5px 23px;\n  cursor: default; }\n  .live-tag.non-live-playhead {\n    background-color: rgba(255, 255, 255, 0.2);\n    border: none;\n    color: #fff;\n    line-height: 23px;\n    padding: 0 5px 0 7px;\n    cursor: pointer; }\n\n.player.size-sm .live-tag {\n  margin-left: 0; }\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 121 */
-/***/ (function(module, exports) {
-
-/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
-*/
-// css base code, injected by the css-loader
-module.exports = function(useSourceMap) {
-	var list = [];
-
-	// return the list of modules as css string
-	list.toString = function toString() {
-		return this.map(function (item) {
-			var content = cssWithMappingToString(item, useSourceMap);
-			if(item[2]) {
-				return "@media " + item[2] + "{" + content + "}";
-			} else {
-				return content;
-			}
-		}).join("");
-	};
-
-	// import a list of modules into the list
-	list.i = function(modules, mediaQuery) {
-		if(typeof modules === "string")
-			modules = [[null, modules, ""]];
-		var alreadyImportedModules = {};
-		for(var i = 0; i < this.length; i++) {
-			var id = this[i][0];
-			if(typeof id === "number")
-				alreadyImportedModules[id] = true;
-		}
-		for(i = 0; i < modules.length; i++) {
-			var item = modules[i];
-			// skip already imported module
-			// this implementation is not 100% perfect for weird media query combinations
-			//  when a module is imported multiple times with different media queries.
-			//  I hope this will never occur (Hey this way we have smaller bundles)
-			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-				if(mediaQuery && !item[2]) {
-					item[2] = mediaQuery;
-				} else if(mediaQuery) {
-					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-				}
-				list.push(item);
-			}
-		}
-	};
-	return list;
-};
-
-function cssWithMappingToString(item, useSourceMap) {
-	var content = item[1] || '';
-	var cssMapping = item[3];
-	if (!cssMapping) {
-		return content;
-	}
-
-	if (useSourceMap && typeof btoa === 'function') {
-		var sourceMapping = toComment(cssMapping);
-		var sourceURLs = cssMapping.sources.map(function (source) {
-			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
-		});
-
-		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
-	}
-
-	return [content].join('\n');
-}
-
-// Adapted from convert-source-map (MIT)
-function toComment(sourceMap) {
-	// eslint-disable-next-line no-undef
-	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
-
-	return '/*# ' + data + ' */';
-}
-
-
-/***/ }),
-/* 122 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
-*/
-
-var stylesInDom = {};
-
-var	memoize = function (fn) {
-	var memo;
-
-	return function () {
-		if (typeof memo === "undefined") memo = fn.apply(this, arguments);
-		return memo;
-	};
-};
-
-var isOldIE = memoize(function () {
-	// Test for IE <= 9 as proposed by Browserhacks
-	// @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
-	// Tests for existence of standard globals is to allow style-loader
-	// to operate correctly into non-standard environments
-	// @see https://github.com/webpack-contrib/style-loader/issues/177
-	return window && document && document.all && !window.atob;
-});
-
-var getElement = (function (fn) {
-	var memo = {};
-
-	return function(selector) {
-		if (typeof memo[selector] === "undefined") {
-			memo[selector] = fn.call(this, selector);
-		}
-
-		return memo[selector]
-	};
-})(function (target) {
-	return document.querySelector(target)
-});
-
-var singleton = null;
-var	singletonCounter = 0;
-var	stylesInsertedAtTop = [];
-
-var	fixUrls = __webpack_require__(123);
-
-module.exports = function(list, options) {
-	if (typeof DEBUG !== "undefined" && DEBUG) {
-		if (typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
-	}
-
-	options = options || {};
-
-	options.attrs = typeof options.attrs === "object" ? options.attrs : {};
-
-	// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-	// tags it will allow on a page
-	if (!options.singleton) options.singleton = isOldIE();
-
-	// By default, add <style> tags to the <head> element
-	if (!options.insertInto) options.insertInto = "head";
-
-	// By default, add <style> tags to the bottom of the target
-	if (!options.insertAt) options.insertAt = "bottom";
-
-	var styles = listToStyles(list, options);
-
-	addStylesToDom(styles, options);
-
-	return function update (newList) {
-		var mayRemove = [];
-
-		for (var i = 0; i < styles.length; i++) {
-			var item = styles[i];
-			var domStyle = stylesInDom[item.id];
-
-			domStyle.refs--;
-			mayRemove.push(domStyle);
-		}
-
-		if(newList) {
-			var newStyles = listToStyles(newList, options);
-			addStylesToDom(newStyles, options);
-		}
-
-		for (var i = 0; i < mayRemove.length; i++) {
-			var domStyle = mayRemove[i];
-
-			if(domStyle.refs === 0) {
-				for (var j = 0; j < domStyle.parts.length; j++) domStyle.parts[j]();
-
-				delete stylesInDom[domStyle.id];
-			}
-		}
-	};
-};
-
-function addStylesToDom (styles, options) {
-	for (var i = 0; i < styles.length; i++) {
-		var item = styles[i];
-		var domStyle = stylesInDom[item.id];
-
-		if(domStyle) {
-			domStyle.refs++;
-
-			for(var j = 0; j < domStyle.parts.length; j++) {
-				domStyle.parts[j](item.parts[j]);
-			}
-
-			for(; j < item.parts.length; j++) {
-				domStyle.parts.push(addStyle(item.parts[j], options));
-			}
-		} else {
-			var parts = [];
-
-			for(var j = 0; j < item.parts.length; j++) {
-				parts.push(addStyle(item.parts[j], options));
-			}
-
-			stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
-		}
-	}
-}
-
-function listToStyles (list, options) {
-	var styles = [];
-	var newStyles = {};
-
-	for (var i = 0; i < list.length; i++) {
-		var item = list[i];
-		var id = options.base ? item[0] + options.base : item[0];
-		var css = item[1];
-		var media = item[2];
-		var sourceMap = item[3];
-		var part = {css: css, media: media, sourceMap: sourceMap};
-
-		if(!newStyles[id]) styles.push(newStyles[id] = {id: id, parts: [part]});
-		else newStyles[id].parts.push(part);
-	}
-
-	return styles;
-}
-
-function insertStyleElement (options, style) {
-	var target = getElement(options.insertInto)
-
-	if (!target) {
-		throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
-	}
-
-	var lastStyleElementInsertedAtTop = stylesInsertedAtTop[stylesInsertedAtTop.length - 1];
-
-	if (options.insertAt === "top") {
-		if (!lastStyleElementInsertedAtTop) {
-			target.insertBefore(style, target.firstChild);
-		} else if (lastStyleElementInsertedAtTop.nextSibling) {
-			target.insertBefore(style, lastStyleElementInsertedAtTop.nextSibling);
-		} else {
-			target.appendChild(style);
-		}
-		stylesInsertedAtTop.push(style);
-	} else if (options.insertAt === "bottom") {
-		target.appendChild(style);
-	} else {
-		throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
-	}
-}
-
-function removeStyleElement (style) {
-	if (style.parentNode === null) return false;
-	style.parentNode.removeChild(style);
-
-	var idx = stylesInsertedAtTop.indexOf(style);
-	if(idx >= 0) {
-		stylesInsertedAtTop.splice(idx, 1);
-	}
-}
-
-function createStyleElement (options) {
-	var style = document.createElement("style");
-
-	options.attrs.type = "text/css";
-
-	addAttrs(style, options.attrs);
-	insertStyleElement(options, style);
-
-	return style;
-}
-
-function createLinkElement (options) {
-	var link = document.createElement("link");
-
-	options.attrs.type = "text/css";
-	options.attrs.rel = "stylesheet";
-
-	addAttrs(link, options.attrs);
-	insertStyleElement(options, link);
-
-	return link;
-}
-
-function addAttrs (el, attrs) {
-	Object.keys(attrs).forEach(function (key) {
-		el.setAttribute(key, attrs[key]);
-	});
-}
-
-function addStyle (obj, options) {
-	var style, update, remove, result;
-
-	// If a transform function was defined, run it on the css
-	if (options.transform && obj.css) {
-	    result = options.transform(obj.css);
-
-	    if (result) {
-	    	// If transform returns a value, use that instead of the original css.
-	    	// This allows running runtime transformations on the css.
-	    	obj.css = result;
-	    } else {
-	    	// If the transform function returns a falsy value, don't add this css.
-	    	// This allows conditional loading of css
-	    	return function() {
-	    		// noop
-	    	};
-	    }
-	}
-
-	if (options.singleton) {
-		var styleIndex = singletonCounter++;
-
-		style = singleton || (singleton = createStyleElement(options));
-
-		update = applyToSingletonTag.bind(null, style, styleIndex, false);
-		remove = applyToSingletonTag.bind(null, style, styleIndex, true);
-
-	} else if (
-		obj.sourceMap &&
-		typeof URL === "function" &&
-		typeof URL.createObjectURL === "function" &&
-		typeof URL.revokeObjectURL === "function" &&
-		typeof Blob === "function" &&
-		typeof btoa === "function"
-	) {
-		style = createLinkElement(options);
-		update = updateLink.bind(null, style, options);
-		remove = function () {
-			removeStyleElement(style);
-
-			if(style.href) URL.revokeObjectURL(style.href);
-		};
-	} else {
-		style = createStyleElement(options);
-		update = applyToTag.bind(null, style);
-		remove = function () {
-			removeStyleElement(style);
-		};
-	}
-
-	update(obj);
-
-	return function updateStyle (newObj) {
-		if (newObj) {
-			if (
-				newObj.css === obj.css &&
-				newObj.media === obj.media &&
-				newObj.sourceMap === obj.sourceMap
-			) {
-				return;
-			}
-
-			update(obj = newObj);
-		} else {
-			remove();
-		}
-	};
-}
-
-var replaceText = (function () {
-	var textStore = [];
-
-	return function (index, replacement) {
-		textStore[index] = replacement;
-
-		return textStore.filter(Boolean).join('\n');
-	};
-})();
-
-function applyToSingletonTag (style, index, remove, obj) {
-	var css = remove ? "" : obj.css;
-
-	if (style.styleSheet) {
-		style.styleSheet.cssText = replaceText(index, css);
-	} else {
-		var cssNode = document.createTextNode(css);
-		var childNodes = style.childNodes;
-
-		if (childNodes[index]) style.removeChild(childNodes[index]);
-
-		if (childNodes.length) {
-			style.insertBefore(cssNode, childNodes[index]);
-		} else {
-			style.appendChild(cssNode);
-		}
-	}
-}
-
-function applyToTag (style, obj) {
-	var css = obj.css;
-	var media = obj.media;
-
-	if(media) {
-		style.setAttribute("media", media)
-	}
-
-	if(style.styleSheet) {
-		style.styleSheet.cssText = css;
-	} else {
-		while(style.firstChild) {
-			style.removeChild(style.firstChild);
-		}
-
-		style.appendChild(document.createTextNode(css));
-	}
-}
-
-function updateLink (link, options, obj) {
-	var css = obj.css;
-	var sourceMap = obj.sourceMap;
-
-	/*
-		If convertToAbsoluteUrls isn't defined, but sourcemaps are enabled
-		and there is no publicPath defined then lets turn convertToAbsoluteUrls
-		on by default.  Otherwise default to the convertToAbsoluteUrls option
-		directly
-	*/
-	var autoFixUrls = options.convertToAbsoluteUrls === undefined && sourceMap;
-
-	if (options.convertToAbsoluteUrls || autoFixUrls) {
-		css = fixUrls(css);
-	}
-
-	if (sourceMap) {
-		// http://stackoverflow.com/a/26603875
-		css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
-	}
-
-	var blob = new Blob([css], { type: "text/css" });
-
-	var oldSrc = link.href;
-
-	link.href = URL.createObjectURL(blob);
-
-	if(oldSrc) URL.revokeObjectURL(oldSrc);
-}
-
-
-/***/ }),
-/* 123 */
-/***/ (function(module, exports) {
-
-
-/**
- * When source maps are enabled, `style-loader` uses a link element with a data-uri to
- * embed the css on the page. This breaks all relative urls because now they are relative to a
- * bundle instead of the current page.
- *
- * One solution is to only use full urls, but that may be impossible.
- *
- * Instead, this function "fixes" the relative urls to be absolute according to the current page location.
- *
- * A rudimentary test suite is located at `test/fixUrls.js` and can be run via the `npm test` command.
- *
- */
-
-module.exports = function (css) {
-  // get current location
-  var location = typeof window !== "undefined" && window.location;
-
-  if (!location) {
-    throw new Error("fixUrls requires window.location");
-  }
-
-	// blank or null?
-	if (!css || typeof css !== "string") {
-	  return css;
-  }
-
-  var baseUrl = location.protocol + "//" + location.host;
-  var currentDir = baseUrl + location.pathname.replace(/\/[^\/]*$/, "/");
-
-	// convert each url(...)
-	/*
-	This regular expression is just a way to recursively match brackets within
-	a string.
-
-	 /url\s*\(  = Match on the word "url" with any whitespace after it and then a parens
-	   (  = Start a capturing group
-	     (?:  = Start a non-capturing group
-	         [^)(]  = Match anything that isn't a parentheses
-	         |  = OR
-	         \(  = Match a start parentheses
-	             (?:  = Start another non-capturing groups
-	                 [^)(]+  = Match anything that isn't a parentheses
-	                 |  = OR
-	                 \(  = Match a start parentheses
-	                     [^)(]*  = Match anything that isn't a parentheses
-	                 \)  = Match a end parentheses
-	             )  = End Group
-              *\) = Match anything and then a close parens
-          )  = Close non-capturing group
-          *  = Match anything
-       )  = Close capturing group
-	 \)  = Match a close parens
-
-	 /gi  = Get all matches, not the first.  Be case insensitive.
-	 */
-	var fixedCss = css.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi, function(fullMatch, origUrl) {
-		// strip quotes (if they exist)
-		var unquotedOrigUrl = origUrl
-			.trim()
-			.replace(/^"(.*)"$/, function(o, $1){ return $1; })
-			.replace(/^'(.*)'$/, function(o, $1){ return $1; });
-
-		// already a full url? no change
-		if (/^(#|data:|http:\/\/|https:\/\/|file:\/\/\/)/i.test(unquotedOrigUrl)) {
-		  return fullMatch;
-		}
-
-		// convert the url to a full url
-		var newUrl;
-
-		if (unquotedOrigUrl.indexOf("//") === 0) {
-		  	//TODO: should we add protocol?
-			newUrl = unquotedOrigUrl;
-		} else if (unquotedOrigUrl.indexOf("/") === 0) {
-			// path should be relative to the base url
-			newUrl = baseUrl + unquotedOrigUrl; // already starts with '/'
-		} else {
-			// path should be relative to current directory
-			newUrl = currentDir + unquotedOrigUrl.replace(/^\.\//, ""); // Strip leading './'
-		}
-
-		// send back the fixed url(...)
-		return "url(" + JSON.stringify(newUrl) + ")";
-	});
-
-	// send back the fixed css
-	return fixedCss;
-};
-
 
 /***/ })
 /******/ ]);
