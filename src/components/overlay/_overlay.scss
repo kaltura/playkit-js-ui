@@ -9,7 +9,7 @@
   display: none;
   opacity: 0;
   animation: openOverlay 100ms ease-in-out forwards;
-  z-index: 4;
+  z-index: 11;
 
   &.active {
     display: block;

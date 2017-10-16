@@ -156,7 +156,7 @@ class CVAAOverlay extends BaseComponent {
           ) :
           (
             <div className={style.customCaptionsApplied}>
-              <div className={style.sample} style={this.state.customTextStyle.toCSS()}>
+              <div className={[style.sample, style.custom].join(' ')} style={this.state.customTextStyle.toCSS()}>
                 <span>Custom captions</span>
                 <div className={style.activeTick}><Icon type={IconType.Check} /></div>
               </div>
