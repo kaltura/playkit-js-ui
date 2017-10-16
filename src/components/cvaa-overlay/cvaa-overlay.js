@@ -263,7 +263,7 @@ class CVAAOverlay extends BaseComponent {
             <a onClick={() => this.changeCaptionsStyle(this.state.customTextStyle)} className={[style.btn, style.btnBranded, style.btnBlock].join(' ')}>Apply</a>
           </div>
 
-          <div className={style.previewContainer}'kp-preview-container'>
+          <div className={style.previewContainer}>
             <span style={this.state.customTextStyle.toCSS()}>This is your caption preview</span>
           </div>
         </form>
