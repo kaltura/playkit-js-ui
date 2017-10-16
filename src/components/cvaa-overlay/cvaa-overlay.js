@@ -9,6 +9,7 @@ import { actions as shellActions } from '../../reducers/shell';
 import BaseComponent from '../base';
 import Overlay from '../overlay';
 import DropDown from '../dropdown';
+import Slider from '../slider';
 import { default as Icon, IconType } from '../icon';
 
 /**
@@ -189,7 +190,6 @@ class CVAAOverlay extends BaseComponent {
 
     const fontFamily = this.props.player.TextStyle.FontFamily;
     const edgeStyles = this.props.player.TextStyle.EdgeStyles;
-    const standardOpacities = props.player.TextStyle.StandardOpacities;
     const standardColors = props.player.TextStyle.StandardColors;
 
     var fontSizeOptions = this.props.player.TextStyle.FontSizes.map(size => ({
@@ -222,18 +222,6 @@ class CVAAOverlay extends BaseComponent {
       active:  this.state.customTextStyle.backgroundColor == standardColors[key]
     }));
 
-    var fontOpacityOptions = Object.keys(standardOpacities).map(key => ({
-      value: standardOpacities[key],
-      label: `${standardOpacities[key] * 100}%`,
-      active: this.state.customTextStyle.fontOpacity == standardOpacities[key]
-    }));
-
-    var backgroundOpacityOptions = Object.keys(standardOpacities).map(key => ({
-      value: standardOpacities[key],
-      label: `${standardOpacities[key] * 100}%`,
-      active: this.state.customTextStyle.backgroundOpacity == standardOpacities[key]
-    }));
-
     return (
       <div className={this.state.state === cvaaOverlayState.CustomCaptions ? [style.overlayScreen, style.active].join(' ') : style.overlayScreen}>
         <form className={[style.form, style.customCaptionForm].join(' ')}>
@@ -255,7 +243,7 @@ class CVAAOverlay extends BaseComponent {
           </div>
           <div className={style.formGroupRow}>
             <label>Font opacity</label>
-            <DropDown onSelect={fontOpacity => this.changeCustomStyle({fontOpacity})} options={fontOpacityOptions} />
+            <Slider min={0} max={100} value={this.state.customTextStyle.fontOpacity * 100} onChange={fontOpacity => this.changeCustomStyle({fontOpacity: fontOpacity / 100})} />
           </div>
           <div className={style.formGroupRow}>
             <label>Background color</label>
@@ -263,7 +251,7 @@ class CVAAOverlay extends BaseComponent {
           </div>
           <div className={style.formGroupRow}>
             <label>Background opacity</label>
-            <DropDown onSelect={backgroundOpacity => this.changeCustomStyle({backgroundOpacity})} options={backgroundOpacityOptions} />
+            <Slider min={0} max={100} value={this.state.customTextStyle.backgroundOpacity * 100} onChange={backgroundOpacity => this.changeCustomStyle({backgroundOpacity: backgroundOpacity / 100})} />
           </div>
           <div className={style.formGroupRow}>
             <a onClick={() => this.changeCaptionsStyle(this.state.customTextStyle)} className={[style.btn, style.btnBranded, style.btnBlock].join(' ')}>Apply</a>
