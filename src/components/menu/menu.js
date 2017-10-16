@@ -27,6 +27,7 @@ const mapStateToProps = state => ({
 class Menu extends Component {
 
   _menuElement: any;
+  state: Object;
 
   /**
    * before component mounted, set initial state of the menu position

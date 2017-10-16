@@ -1,7 +1,7 @@
 //@flow
 import { h } from 'preact';
 import { connect } from 'preact-redux';
-import { isEqual } from 'lodash';
+import isEqual from '../../utils/is-equal';
 import { bindActions } from '../../utils/bind-actions';
 import {actions as cvaaActions } from '../../reducers/cvaa';
 import { actions as shellActions } from '../../reducers/shell';
