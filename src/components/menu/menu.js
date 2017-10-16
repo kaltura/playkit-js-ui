@@ -46,7 +46,9 @@ class Menu extends Component {
    */
   componentDidMount() {
     document.addEventListener('click', this.handleClickOutside.bind(this), true);
-    this.setState({position: this.getPosition()});
+    if (!this.props.isMobile) {
+      this.setState({position: this.getPosition()});
+    }
   }
 
   /**
