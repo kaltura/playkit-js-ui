@@ -1,3 +1,5 @@
+@import '~styles/variables';
+
 .overlay.cvaa-overlay {
   .sample {
     border: 2px solid rgba(255,255,255,0.2);
@@ -10,12 +12,31 @@
     display: inline-block;
     margin: 0 12px;
     cursor: pointer;
+    position: relative;
 
     &.black-bg {
       background-color: #000;
     }
     &.yellow-text {
       color: #FAFF00;
+    }
+    .active-tick {
+      height: 16px;
+      width: 16px;
+      border-radius: 8px;
+      background-color: $brand-color;
+      position: absolute;
+      top: -5px; right: -5px;
+
+      .icon {
+        fill: #fff;
+        vertical-align: top;
+      }
+    }
+    span {
+      font-size: 16px !important;
+      line-height: 1;
+      vertical-align: middle;
     }
   }
   .button-save-cvaa {
@@ -33,11 +54,26 @@
     text-decoration: none;
     cursor: pointer;
   }
+  .custom-captions-applied {
+    margin-top: 50px;
+  }
 
   .custom-caption-form {
     width: 300px;
     max-width: 100%;
     margin: 0 auto;
+
+    .slider {
+      float: right;
+      width: 100px;
+      margin-top: 5px;
+    }
+  }
+
+  .preview-container {
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
   }
 }
 
@@ -51,7 +87,8 @@
       &:first-child { margin-left: 0; }
       &:last-child { margin-right: 0; }
     }
-    .button-save-cvaa {
+    .button-save-cvaa,
+    .custom-captions-applied {
       margin-top: 20px;
     }
   }

@@ -1,0 +1,26 @@
+@import '~styles/variables';
+
+.slider {
+  height: 8px;
+  border-radius: 4px;
+  background-color: rgba(255,255,255,.2);
+
+  .progress {
+    background-color: $brand-color;
+    height: 8px;
+    border-radius: 4px;
+    position: relative;
+
+    .handle {
+      height: 12px;
+      width: 12px;
+      border-radius: 5px;
+      background-color: #FFFFFF;
+      box-shadow: 0 2px 8px 0 rgba(0,0,0,0.3);
+      position: absolute;
+      right: 0; top: 0px;
+      transform: translate3d(6px, -2px, 0);
+      cursor: pointer;
+    }
+  }
+}

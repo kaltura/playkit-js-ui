@@ -105,16 +105,16 @@ class Shell extends BaseComponent {
     if (document.body) {
       this.props.updateDocumentWidth(document.body.clientWidth);
     }
-      this.player.addEventListener(this.player.Event.LOADED_METADATA, () => {
-        this.props.updatePlayerWidth(this.player.getView().parentElement.clientWidth);
-      });
-      window.addEventListener('resize', () => {
-        this.props.updatePlayerWidth(this.player.getView().parentElement.clientWidth);
+    this.player.addEventListener(this.player.Event.LOADED_METADATA, () => {
+      this.props.updatePlayerWidth(this.player.getView().parentElement.clientWidth);
+    });
+    window.addEventListener('resize', () => {
+      this.props.updatePlayerWidth(this.player.getView().parentElement.clientWidth);
 
-        if (document.body) {
-          this.props.updateDocumentWidth(document.body.clientWidth);
-        }
-      });
+      if (document.body) {
+        this.props.updateDocumentWidth(document.body.clientWidth);
+      }
+    });
     if (this.player.env.device.type) {
       this.props.updatePlayerHoverState(true);
     }

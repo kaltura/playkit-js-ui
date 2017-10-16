@@ -62,7 +62,7 @@ class SeekBarControl extends Component {
    * @memberof SeekBarControl
    */
   componentWillUpdate(nextProps: any) {
-    if(this.props.playerPoster !== nextProps.playerPoster) {
+    if(nextProps.playerPoster && (this.props.playerPoster !== nextProps.playerPoster)) {
       this.framePreviewImg = this.getFramePreviewImg(nextProps.playerPoster);
     }
   }

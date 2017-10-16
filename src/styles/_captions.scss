@@ -1,26 +1,18 @@
-video::cue {
-  background-color: transparent;
-  font-family: $font-family;
-}
-.player.captions-yellow-text {
-  video::cue {
-    color: #FAFF00;
-  }
-}
-.player.captions-black-bg {
-  video::cue {
-    background-color: #000;
-  }
-}
-
 .player {
-  video::-webkit-media-text-track-display {
+  &.overlay-active {
+    :global(.playkit-subtitles) {
+      display: none;
+    }
+  }
+  :global(.playkit-subtitles) {
     transform: translateY(0px);
     transition: ease-in 100ms;
   }
-  &.state-paused video::-webkit-media-text-track-display,
-  &.hover video::-webkit-media-text-track-display {
-    transform: translateY(-60px);
-    transition: ease-out 100ms;
+  &:not(.overlay-active) {
+    &.state-paused :global(.playkit-subtitles),
+    &.hover :global(.playkit-subtitles) {
+      transform: translateY(-60px);
+      transition: ease-out 100ms;
+    }
   }
 }
