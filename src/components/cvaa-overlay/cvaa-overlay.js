@@ -1,4 +1,5 @@
 //@flow
+import style from '../../styles/style.scss';
 import { h } from 'preact';
 import { connect } from 'preact-redux';
 import isEqual from '../../utils/is-equal';
@@ -127,30 +128,30 @@ class CVAAOverlay extends BaseComponent {
    */
   renderMainState(): React$Element<any> {
     return (
-      <div className={this.state.state === cvaaOverlayState.Main ? 'overlay-screen active' : 'overlay-screen'}>
-        <div className='title'>
+      <div className={this.state.state === cvaaOverlayState.Main ? [style.overlayScreen, style.active].join(' ') : style.overlayScreen}>
+        <div className={style.title}>
           Advanced captions settings
         </div>
         <div>
-          <div className='sample' onClick={() => this.changeCaptionsStyle(this.captionsStyleDefault)}>Sample
-            { isEqual(this.props.player.textStyle, this.captionsStyleDefault) ? <div className='active-tick'><Icon type={IconType.Check} /></div> : undefined }
+          <div className={style.sample} onClick={() => this.changeCaptionsStyle(this.captionsStyleDefault)}>Sample
+            { isEqual(this.props.player.textStyle, this.captionsStyleDefault) ? <div className={style.activeTick}><Icon type={IconType.Check} /></div> : undefined }
           </div>
-          <div className='sample black-bg' onClick={() => this.changeCaptionsStyle(this.captionsStyleBlackBG)}>Sample
-            { isEqual(this.props.player.textStyle, this.captionsStyleBlackBG) ? <div className='active-tick'><Icon type={IconType.Check} /></div> : undefined }
+          <div className={[style.sample, style.blackBg].join(' ')} onClick={() => this.changeCaptionsStyle(this.captionsStyleBlackBG)}>Sample
+            { isEqual(this.props.player.textStyle, this.captionsStyleBlackBG) ? <div className={style.activeTick}><Icon type={IconType.Check} /></div> : undefined }
           </div>
-          <div className='sample yellow-text' onClick={() => this.changeCaptionsStyle(this.captionsStyleYellow)}>Sample
-            { isEqual(this.props.player.textStyle, this.captionsStyleYellow) ? <div className='active-tick'><Icon type={IconType.Check} /></div> : undefined }
+          <div className={[style.sample, style.yellowText].join(' ')} onClick={() => this.changeCaptionsStyle(this.captionsStyleYellow)}>Sample
+            { isEqual(this.props.player.textStyle, this.captionsStyleYellow) ? <div className={style.activeTick}><Icon type={IconType.Check} /></div> : undefined }
           </div>
         </div>
         { !this.isAdvancedStyleApplied() ?
           (
-            <a className='button-save-cvaa' onClick={() => this.transitionToState(cvaaOverlayState.CustomCaptions)}>Set custom caption</a>
+            <a className={style.buttonSaveCvaa} onClick={() => this.transitionToState(cvaaOverlayState.CustomCaptions)}>Set custom caption</a>
           ) :
           (
-            <div className='custom-captions-applied'>
-              <div className='sample' style={this.state.customTextStyle.toCSS()}>
+            <div className={style.customCaptionsApplied}>
+              <div className={style.sample} style={this.state.customTextStyle.toCSS()}>
                 <span>Custom captions</span>
-                <div className='active-tick'><Icon type={IconType.Check} /></div>
+                <div className={style.activeTick}><Icon type={IconType.Check} /></div>
               </div>
               <a onClick={() => this.transitionToState(cvaaOverlayState.CustomCaptions)}>Edit caption</a>
             </div>
@@ -228,41 +229,41 @@ class CVAAOverlay extends BaseComponent {
     }));
 
     return (
-      <div className={this.state.state === cvaaOverlayState.CustomCaptions ? 'overlay-screen active' : 'overlay-screen'}>
-        <form className='form custom-caption-form'>
-          <div className='form-group-row'>
+      <div className={this.state.state === cvaaOverlayState.CustomCaptions ? [style.overlayScreen, style.active].join(' ') : style.overlayScreen}>
+        <form className={[style.form, style.customCaptionForm].join(' ')}>
+          <div className={style.formGroupRow}>
             <label>Size</label>
             <DropDown onSelect={fontSize => this.changeCustomStyle({fontSize})} options={fontSizeOptions} />
           </div>
-          <div className='form-group-row'>
+          <div className={style.formGroupRow}>
             <label>Font color</label>
             <DropDown onSelect={fontColor => this.changeCustomStyle({fontColor})} options={fontColorOptions} />
           </div>
-          <div className='form-group-row'>
+          <div className={style.formGroupRow}>
             <label>Font family</label>
             <DropDown onSelect={fontFamily => this.changeCustomStyle({fontFamily})} options={fontFamilyOptions} />
           </div>
-          <div className='form-group-row'>
+          <div className={style.formGroupRow}>
             <label>Font style</label>
             <DropDown onSelect={fontEdge => this.changeCustomStyle({fontEdge})} options={fontStyleOptions} />
           </div>
-          <div className='form-group-row'>
+          <div className={style.formGroupRow}>
             <label>Font opacity</label>
             <DropDown onSelect={fontOpacity => this.changeCustomStyle({fontOpacity})} options={fontOpacityOptions} />
           </div>
-          <div className='form-group-row'>
+          <div className={style.formGroupRow}>
             <label>Background color</label>
             <DropDown onSelect={backgroundColor => this.changeCustomStyle({backgroundColor})} options={backgroundColorOptions} />
           </div>
-          <div className='form-group-row'>
+          <div className={style.formGroupRow}>
             <label>Background opacity</label>
             <DropDown onSelect={backgroundOpacity => this.changeCustomStyle({backgroundOpacity})} options={backgroundOpacityOptions} />
           </div>
-          <div className='form-group-row'>
-            <a onClick={() => this.changeCaptionsStyle(this.state.customTextStyle)} className='btn btn-branded btn-block'>Apply</a>
+          <div className={style.formGroupRow}>
+            <a onClick={() => this.changeCaptionsStyle(this.state.customTextStyle)} className={[style.btn, style.btnBranded, style.btnBlock].join(' ')}>Apply</a>
           </div>
 
-          <div className='kp-preview-container'>
+          <div className={style.previewContainer}'kp-preview-container'>
             <span style={this.state.customTextStyle.toCSS()}>This is your caption preview</span>
           </div>
         </form>

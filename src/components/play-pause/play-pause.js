@@ -1,4 +1,5 @@
 //@flow
+import style from './_play-pause.scss';
 import { h } from 'preact';
 import { Localizer, Text } from 'preact-i18n';
 import { connect } from 'preact-redux';
@@ -67,10 +68,10 @@ class PlayPauseControl extends BaseComponent {
    * @memberof PlayPauseControl
    */
   render(props: any): React$Element<any> | void {
-    var controlButtonClass = this.isPlayingAdOrPlayback() ? 'control-button is-playing' : 'control-button';
+    var controlButtonClass = this.isPlayingAdOrPlayback() ? [style.controlButton, style.isPlaying].join(' ') : style.controlButton;
 
     return (
-      <div className='control-button-container control-play-pause'>
+      <div className={[style.controlButtonContainer, style.controlPlayPause].join(' ')}>
         <Localizer>
           <button
             aria-label={<Text id={this.isPlayingAdOrPlayback() ? 'controls.pause' : 'controls.play'} />}

@@ -1,4 +1,5 @@
 //@flow
+import style from './_video-player.scss';
 import { h, Component } from 'preact';
 
 /**
@@ -39,7 +40,7 @@ class VideoPlayer extends Component {
    */
   render(): React$Element<any> {
     return (
-      <div className="video-player" ref={c => this._el=c} />
+      <div className={style.videoPlayer} ref={c => this._el=c} />
     )
   }
 }

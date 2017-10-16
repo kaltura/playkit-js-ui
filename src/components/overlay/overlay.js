@@ -1,4 +1,5 @@
 //@flow
+import style from '../../styles/style.scss';
 import { h, Component } from 'preact';
 import { Localizer, Text } from 'preact-i18n';
 import { connect } from 'preact-redux';
@@ -27,7 +28,7 @@ class Overlay extends Component {
    * @memberof Overlay
    */
   componentWillMount(): void {
-    this.props.addPlayerClass('overlay-active');
+    this.props.addPlayerClass(style.overlayActive);
   }
 
   /**
@@ -37,7 +38,7 @@ class Overlay extends Component {
    * @memberof Overlay
    */
   componentWillUnmount(): void {
-    this.props.removePlayerClass('overlay-active');
+    this.props.removePlayerClass(style.overlayActive);
   }
 
   /**
@@ -48,17 +49,17 @@ class Overlay extends Component {
    * @memberof Overlay
    */
   render(props: any): React$Element<any> {
-    var overlayClass = 'overlay';
-    if (props.type) overlayClass += ` ${props.type}-overlay`;
-    if (props.open) overlayClass += ' active'
+    var overlayClass = [style.overlay];
+    if (props.type) overlayClass.push(style[props.type + '-overlay']);
+    if (props.open) overlayClass.push(style.active);
 
     return (
-      <div className={overlayClass} role='dialog'>
-        <div className="overlay-contents">
+      <div className={overlayClass.join(' ')} role='dialog'>
+        <div className={style.overlayContents}>
           { props.children }
         </div>
         <Localizer>
-          <a onClick={() => props.onClose()} aria-label={<Text id='core.close' />} className='close-overlay'><Icon type={IconType.Close} /></a>
+          <a onClick={() => props.onClose()} aria-label={<Text id='core.close' />} className={style.closeOverlay}><Icon type={IconType.Close} /></a>
         </Localizer>
       </div>
     )

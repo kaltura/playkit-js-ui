@@ -1,4 +1,5 @@
 //@flow
+import style from '../styles/style.scss';
 import {h} from 'preact';
 import Loading from '../components/loading';
 import PlayPauseControl from '../components/play-pause';
@@ -32,17 +33,17 @@ export default function adsUI(props: any): React$Element<any> {
   }
 
   return (
-    <div className='ad-gui-wrapper'>
+    <div className={style.adGuiWrapper}>
       <Loading player={props.player}/>
       {
         useStyledLinearAds ? undefined :
-          <div className='player-gui' id='player-gui'>
+          <div className={style.playerGui} id='player-gui'>
             <div>
               <TopBar>
-                <div className='left-controls'>
-                  <span className='font-size-base'>Adverisment</span>
+                <div className={style.leftControls}>
+                  <span className={style.fontSizeBase}>Adverisment</span>
                 </div>
-                <div className='right-controls'>
+                <div className={style.rightControls}>
                   <AdLearnMore/>
                 </div>
               </TopBar>
@@ -50,11 +51,11 @@ export default function adsUI(props: any): React$Element<any> {
             </div>
             <BottomBar>
               <SeekBarAdsContainer adBreak showFramePreview showTimeBubble player={props.player}/>
-              <div className='left-controls'>
+              <div className={style.leftControls}>
                 <PlayPauseControl player={props.player}/>
                 <TimeDisplayAdsContainer/>
               </div>
-              <div className='right-controls'>
+              <div className={style.rightControls}>
                 <VolumeControl player={props.player}/>
                 <FullscreenControl player={props.player} config={props.config}/>
               </div>

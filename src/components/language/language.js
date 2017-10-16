@@ -1,4 +1,5 @@
 //@flow
+import style from '../../styles/style.scss';
 import { h } from 'preact';
 import { Localizer, Text } from 'preact-i18n';
 import { connect } from 'preact-redux';
@@ -150,12 +151,12 @@ class LanguageControl extends BaseComponent {
     return (
       <div
         ref={c => this._controlLanguageElement=c}
-        className='control-button-container control-language'
+        className={[style.controlButtonContainer, style.controlLanguage].join(' ')}
       >
         <Localizer>
           <button
             aria-label={<Text id='controls.language' />}
-            className={this.state.smartContainerOpen ? 'control-button active' : 'control-button'}
+            className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
             onClick={() => this.onControlButtonClick()}
           >
             <Icon type={IconType.Language} />
@@ -184,7 +185,7 @@ class LanguageControl extends BaseComponent {
             </Localizer>
           }
           { textOptions.length === 0 ? undefined :
-            <div className='smart-container-item'>
+            <div className={style.smartContainerItem}>
               <a onClick={() => this.toggleCVAAOverlay()}>
                 <Text id='language.advanced_captions_settings' />
               </a>
