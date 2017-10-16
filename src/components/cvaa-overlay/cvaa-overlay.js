@@ -36,6 +36,10 @@ type CvaaOverlayStateType = "main" | "custom-captions";
  */
 class CVAAOverlay extends BaseComponent {
 
+  captionsStyleDefault: Object;
+  captionsStyleYellow: Object;
+  captionsStyleBlackBG: Object;
+
   /**
    * Creates an instance of CVAAOverlay.
    * @memberof CVAAOverlay
@@ -67,6 +71,20 @@ class CVAAOverlay extends BaseComponent {
       state: cvaaOverlayState.Main,
       customTextStyle: this.props.player.textStyle
     });
+
+    this.captionsStyleDefault = Object.assign(new this.props.player.TextStyle(), {
+      backgroundOpacity: this.props.player.TextStyle.StandardOpacities.TRANSPARENT
+    });
+
+    this.captionsStyleYellow = Object.assign(new this.props.player.TextStyle(), {
+      backgroundOpacity: this.props.player.TextStyle.StandardOpacities.TRANSPARENT,
+      fontColor: this.props.player.TextStyle.StandardColors.YELLOW
+    });
+
+    this.captionsStyleBlackBG = Object.assign(new this.props.player.TextStyle(), {
+      backgroundColor: this.props.player.TextStyle.StandardColors.BLACK,
+      fontColor: this.props.player.TextStyle.StandardColors.WHITE
+    });
   }
 
   /**
@@ -93,6 +111,14 @@ class CVAAOverlay extends BaseComponent {
     this.props.onClose();
   }
 
+  isAdvancedStyleApplied(): boolean {
+    return (
+      !isEqual(this.props.player.textStyle, this.captionsStyleDefault) &&
+      !isEqual(this.props.player.textStyle, this.captionsStyleBlackBG) &&
+      !isEqual(this.props.player.textStyle, this.captionsStyleYellow)
+    )
+  }
+
   /**
    * render main state
    *
@@ -100,37 +126,36 @@ class CVAAOverlay extends BaseComponent {
    * @memberof CVAAOverlay
    */
   renderMainState(): React$Element<any> {
-    const captionsStyleDefault = Object.assign(new this.props.player.TextStyle(), {
-      backgroundOpacity: this.props.player.TextStyle.StandardOpacities.TRANSPARENT
-    });
-
-    const captionsStyleYellow = Object.assign(new this.props.player.TextStyle(), {
-      backgroundOpacity: this.props.player.TextStyle.StandardOpacities.TRANSPARENT,
-      fontColor: this.props.player.TextStyle.StandardColors.YELLOW
-    });
-
-    const captionsStyleBlackBG = Object.assign(new this.props.player.TextStyle(), {
-      backgroundColor: this.props.player.TextStyle.StandardColors.BLACK,
-      fontColor: this.props.player.TextStyle.StandardColors.WHITE
-    });
-
     return (
       <div className={this.state.state === cvaaOverlayState.Main ? 'overlay-screen active' : 'overlay-screen'}>
         <div className='title'>
           Advanced captions settings
         </div>
         <div>
-          <div className='sample' onClick={() => this.changeCaptionsStyle(captionsStyleDefault)}>Sample
-            { isEqual(this.props.player.textStyle, captionsStyleDefault) ? <div className='active-tick'><Icon type={IconType.Check} /></div> : undefined }
+          <div className='sample' onClick={() => this.changeCaptionsStyle(this.captionsStyleDefault)}>Sample
+            { isEqual(this.props.player.textStyle, this.captionsStyleDefault) ? <div className='active-tick'><Icon type={IconType.Check} /></div> : undefined }
           </div>
-          <div className='sample black-bg' onClick={() => this.changeCaptionsStyle(captionsStyleBlackBG)}>Sample
-            { isEqual(this.props.player.textStyle, captionsStyleBlackBG) ? <div className='active-tick'><Icon type={IconType.Check} /></div> : undefined }
+          <div className='sample black-bg' onClick={() => this.changeCaptionsStyle(this.captionsStyleBlackBG)}>Sample
+            { isEqual(this.props.player.textStyle, this.captionsStyleBlackBG) ? <div className='active-tick'><Icon type={IconType.Check} /></div> : undefined }
           </div>
-          <div className='sample yellow-text' onClick={() => this.changeCaptionsStyle(captionsStyleYellow)}>Sample
-            { isEqual(this.props.player.textStyle, captionsStyleYellow) ? <div className='active-tick'><Icon type={IconType.Check} /></div> : undefined }
+          <div className='sample yellow-text' onClick={() => this.changeCaptionsStyle(this.captionsStyleYellow)}>Sample
+            { isEqual(this.props.player.textStyle, this.captionsStyleYellow) ? <div className='active-tick'><Icon type={IconType.Check} /></div> : undefined }
           </div>
         </div>
-        <a className='button-save-cvaa' onClick={() => this.transitionToState(cvaaOverlayState.CustomCaptions)}>Set custom caption</a>
+        { !this.isAdvancedStyleApplied() ?
+          (
+            <a className='button-save-cvaa' onClick={() => this.transitionToState(cvaaOverlayState.CustomCaptions)}>Set custom caption</a>
+          ) :
+          (
+            <div className='custom-captions-applied'>
+              <div className='sample' style={this.state.customTextStyle.toCSS()}>
+                <span>Custom captions</span>
+                <div className='active-tick'><Icon type={IconType.Check} /></div>
+              </div>
+              <a onClick={() => this.transitionToState(cvaaOverlayState.CustomCaptions)}>Edit caption</a>
+            </div>
+          )
+        }
       </div>
     )
   }

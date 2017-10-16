@@ -33,6 +33,11 @@
         vertical-align: top;
       }
     }
+    span {
+      font-size: 16px !important;
+      line-height: 1;
+      vertical-align: middle;
+    }
   }
   .button-save-cvaa {
     margin-top: 50px;
@@ -48,6 +53,9 @@
     color: #fff;
     text-decoration: none;
     cursor: pointer;
+  }
+  .custom-captions-applied {
+    margin-top: 50px;
   }
 
   .custom-caption-form {
@@ -73,7 +81,8 @@
       &:first-child { margin-left: 0; }
       &:last-child { margin-right: 0; }
     }
-    .button-save-cvaa {
+    .button-save-cvaa,
+    .custom-captions-applied {
       margin-top: 20px;
     }
   }
