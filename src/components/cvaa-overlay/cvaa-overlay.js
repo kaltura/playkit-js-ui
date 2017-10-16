@@ -112,6 +112,12 @@ class CVAAOverlay extends BaseComponent {
     this.props.onClose();
   }
 
+  /**
+   * detection if advanced style applied or one of the default presets applied
+   *
+   * @returns {boolean} advanced style applied boolean
+   * @memberof CVAAOverlay
+   */
   isAdvancedStyleApplied(): boolean {
     return (
       !isEqual(this.props.player.textStyle, this.captionsStyleDefault) &&
