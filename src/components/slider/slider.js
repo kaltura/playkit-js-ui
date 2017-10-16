@@ -28,8 +28,8 @@ class Slider extends Component {
       dragging: false
     });
 
-    document.addEventListener('mouseup', e => this.mouseUpHandler(e));
-    document.addEventListener('mousemove', e => this.mouseMoveHandler(e));
+    document.addEventListener('mouseup', (e: Event) => this.mouseUpHandler(e));
+    document.addEventListener('mousemove', (e: Event) => this.mouseMoveHandler(e));
   }
 
   /**
@@ -45,11 +45,11 @@ class Slider extends Component {
   /**
    * mousedown slider handler
    *
-   * @param {Event} e event
+   * @param {*} e event
    * @returns {void}
    * @memberof Slider
    */
-  mouseDownHandler(e: Event): void {
+  mouseDownHandler(e: any): void {
     if (!this.state.dragging) {
       this.setState({
         dragging: true,
@@ -62,11 +62,11 @@ class Slider extends Component {
   /**
    * document mousemove handler if dragging active
    *
-   * @param {Event} e event
+   * @param {*} e event
    * @returns {void}
    * @memberof Slider
    */
-  mouseMoveHandler(e: Event): void {
+  mouseMoveHandler(e: any): void {
     if (this.state.dragging) {
       this.setState({
         value: this.mouseEventToValue(e)
@@ -78,11 +78,11 @@ class Slider extends Component {
   /**
    * document mouseup handler if dragging active
    *
-   * @param {Event} e event
+   * @param {*} e event
    * @returns {void}
    * @memberof Slider
    */
-  mouseUpHandler(e: Event): void {
+  mouseUpHandler(e: any): void {
     if (this.state.dragging) {
       this.setState({
         value: this.mouseEventToValue(e),
@@ -95,11 +95,11 @@ class Slider extends Component {
   /**
    * get slider value based on mouse event
    *
-   * @param {Event} e event
+   * @param {*} e event
    * @returns {number} slider value
    * @memberof Slider
    */
-  mouseEventToValue(e: Event): number {
+  mouseEventToValue(e: any): number {
     let offsetLeft = e.clientX - this._sliderElement.getBoundingClientRect().left;
     let offsetLeftPercentage = Math.round(offsetLeft / this._sliderElement.clientWidth * 100);
 
@@ -116,7 +116,7 @@ class Slider extends Component {
    * @returns {number} slider value
    * @memberof Slider
    */
-  getValueByPersentage(persentage): number {
+  getValueByPersentage(persentage: number): number {
     return (this.state.max / 100 * persentage);
   }
 
