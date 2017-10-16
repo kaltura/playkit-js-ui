@@ -213,7 +213,7 @@ class CVAAOverlay extends BaseComponent {
     var fontStyleOptions = Object.keys(edgeStyles).map(key => ({
       value: edgeStyles[key],
       label: key.charAt(0).toUpperCase() + key.toLowerCase().slice(1),
-      active: this.state.customTextStyle.fontEdge == key
+      active: this.state.customTextStyle.fontEdge == edgeStyles[key]
     }));
 
     var backgroundColorOptions = Object.keys(standardColors).map(key => ({
