@@ -45,14 +45,14 @@
     }
 }
 
-.player [id^=ads-container] {
+.player :global([id^=ads-container]) {
   z-index: 5;
   transition: transform 100ms;
 }
 
 .player:not(.ad-break).metadata-loaded {
-  &.hover [id^=ads-container],
-  &.state-paused [id^=ads-container] {
+  &.hover :global([id^=ads-container]),
+  &.state-paused :global([id^=ads-container]) {
     transform: translateY(-60px);
   }
 }
