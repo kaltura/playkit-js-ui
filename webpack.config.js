@@ -51,7 +51,7 @@ module.exports = {
           options: {
             camelCase: true,
             modules: true,
-            localIdentName: 'kp__[local]'
+            localIdentName: 'playkit-[local]'
           }
         }, {
           loader: "sass-loader"
