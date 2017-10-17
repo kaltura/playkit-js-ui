@@ -135,7 +135,7 @@ class Shell extends BaseComponent {
     if (this.props.playerHover) playerClasses.push(style.hover);
     if (this.props.metadataLoaded) playerClasses.push(style.metadataLoaded);
     if (this.props.adBreak) playerClasses.push(style.adBreak);
-    if (this.props.metadataLoaded) playerClasses.push(style.state + this.props.currentState);
+    if (this.props.metadataLoaded) playerClasses.push(style['state-' + this.props.currentState]);
     if (this.props.playerWidth <= 480) playerClasses.push(style.sizeSm);
     else if (this.props.playerWidth <= 768) playerClasses.push(style.sizeMd);
     if (this.props.seekbarDraggingActive) playerClasses.push(style.hover);

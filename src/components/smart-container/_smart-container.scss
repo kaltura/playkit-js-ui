@@ -48,23 +48,26 @@
     margin: 16px;
     color: rgba(244,244,244,0.8);
     white-space: nowrap;
-
-    &:after {
-      display: block;
-      content: ' ';
-      clear: both;
-    }
+    display: flex;
+    justify-content: space-between;
 
     &.select-menu-item {
       label {
-        float: left;
-
         .label-icon {
           display: none;
         }
       }
       .dropdown, select {
-        float: right;
+        align-self: flex-end;
+      }
+      .dropdown {
+        span {
+          max-width: 100px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: inline-block;
+          vertical-align: middle;
+        }
       }
       select {
         text-align-last: right;
@@ -81,19 +84,15 @@
     color: rgba(244,244,244,0.8);
     white-space: nowrap;
     text-align: left;
-
-    &:after {
-      display: block;
-      content: ' ';
-      clear: both;
-    }
+    display: flex;
+    justify-content: space-between;
 
     &.select-menu-item {
       label {
-        float: left;
         font-size: 16px;
         color: rgba(255,255,255,0.8);
         fill: #fff;
+        margin-right: 20px;
 
         .label-icon {
           width: 24px;
@@ -104,10 +103,12 @@
         }
       }
       .dropdown, select {
-        float: right;
+        align-self: flex-end;
       }
       select {
         text-align-last: right;
+        min-width: 1px;
+        line-height: 24px;
       }
     }
   }

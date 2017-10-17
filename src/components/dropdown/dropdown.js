@@ -112,7 +112,7 @@ class DropDown extends Component {
     (
       <div className={this.state.dropMenuActive ? [style.dropdown, style.active].join(' ') : style.dropdown}>
         <div className={style.dropdownButton} onClick={() => this.setState({dropMenuActive: !this.state.dropMenuActive})}>
-          {this.getActiveOptionLabel()}
+          <span>{this.getActiveOptionLabel()}</span>
           <Icon type={IconType.ArrowDown} />
         </div>
         {
