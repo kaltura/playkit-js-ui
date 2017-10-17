@@ -36,7 +36,7 @@ class Menu extends Component {
    * @memberof Menu
    */
   componentWillMount() {
-    this.setState({position: ['top', 'left']});
+    this.setState({position: [style.top, style.left]});
   }
 
   /**
@@ -70,10 +70,10 @@ class Menu extends Component {
   getPosition(): Array<string> {
     let box = this._menuElement.getBoundingClientRect();
     if (box.y < 0) {
-      return ['bottom', 'left'];
+      return [style.bottom, style.left];
     }
     else {
-      return ['top', 'left'];
+      return [style.top, style.left];
     }
   }
 
