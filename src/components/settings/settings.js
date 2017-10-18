@@ -183,7 +183,7 @@ class SettingsControl extends BaseComponent {
         return t.bandwidth || t.height
       })
       .sort((a, b) => {
-        return a.bandwidth < b.bandwidth
+        return a.bandwidth < b.bandwidth ? 1 : -1;
       })
       .map(t => ({
         label: this.getQualityOptionLabel(t),
