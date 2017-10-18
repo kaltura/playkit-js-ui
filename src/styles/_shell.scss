@@ -36,7 +36,9 @@
       position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      z-index: 10;
+    }
+    &.overlay-active :global(#overlay-portal) {
+      z-index: 11;
     }
     &.metadata-loaded .player-gui,
     &.state-paused .player-gui,
