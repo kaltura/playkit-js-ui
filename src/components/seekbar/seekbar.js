@@ -371,15 +371,15 @@ class SeekBarControl extends Component {
   render(props: any): React$Element<any> {
     var virtualProgressWidth = `${this.state.virtualTime / props.duration * 100}%`;
     var progressWidth = `${props.currentTime / props.duration * 100}%`;
-    var seekbarStyleClass = style.seekBar;
-    if (props.adBreak) seekbarStyleClass += style.adBreak;
-    if (props.isDvr) seekbarStyleClass += style.live;
-    if (props.isMobile) seekbarStyleClass += style.hover;
-    if (props.isDraggingActive) seekbarStyleClass += style.hover;
+    var seekbarStyleClass = [style.seekBar];
+    if (props.adBreak) seekbarStyleClass.push(style.adBreak);
+    if (props.isDvr) seekbarStyleClass.push(style.live);
+    if (props.isMobile) seekbarStyleClass.push(style.hover);
+    if (props.isDraggingActive) seekbarStyleClass.push(style.hover);
 
     return (
       <div
-        className={seekbarStyleClass}
+        className={seekbarStyleClass.join(' ')}
         ref={c => this._seekBarElement=c}
         role='slider'
         aria-label='Seek slider'
