@@ -3,6 +3,7 @@
     padding: 14px 16px;
     color: #fff;
     opacity: 0;
+    visibility: hidden;
     transition: 100ms opacity;
     display: flex;
     justify-content: space-between;
@@ -32,10 +33,12 @@
 .player.state-paused .top-bar,
 .player.menu-active .top-bar {
   opacity: 1;
+  visibility: visible;
 }
 
 .player.overlay-active .top-bar {
   opacity: 0;
+  visibility: hidden;
 }
 
 .player.size-sm {
