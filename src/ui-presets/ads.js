@@ -20,48 +20,82 @@ import BottomBar from '../components/bottom-bar';
  * @returns {HTMLElement} player ui tree
  */
 export default function adsUI(props: any): React$Element<any> {
-  let useCustomSkipButton = false;
-  let isMobile = !!props.player.env.device.type;
-  let adsRenderingSettings = props.player.config.plugins.ima.adsRenderingSettings;
-  let useStyledLinearAds = adsRenderingSettings && adsRenderingSettings.useStyledLinearAds;
-  try {
-    if (!useStyledLinearAds && isMobile) {
-      useStyledLinearAds = true;
-    }
-  } catch (e) {
-    //TODO: add error handling
-  }
-
+  const adsUiCustomization = getAdsUiCustomization();
   return (
     <div className={style.adGuiWrapper}>
       <Loading player={props.player}/>
-      {
-        useStyledLinearAds ? undefined :
-          <div className={style.playerGui} id='player-gui'>
-            <div>
-              <TopBar>
-                <div className={style.leftControls}>
-                  <span className={style.fontSizeBase}>Adverisment</span>
-                </div>
-                <div className={style.rightControls}>
-                  <AdLearnMore/>
-                </div>
-              </TopBar>
-              {useCustomSkipButton ? <AdSkip player={props.player}/> : undefined}
-            </div>
-            <BottomBar>
-              <SeekBarAdsContainer adBreak showFramePreview showTimeBubble player={props.player}/>
+      {adsUiCustomization ?
+        <div className={style.playerGui} id='player-gui'>
+          <div>
+            <TopBar>
               <div className={style.leftControls}>
-                <PlayPauseControl player={props.player}/>
-                <TimeDisplayAdsContainer/>
+                <span className={style.fontSizeBase}>Adverisment</span>
               </div>
               <div className={style.rightControls}>
-                <VolumeControl player={props.player}/>
-                <FullscreenControl player={props.player} config={props.config}/>
+                {adsUiCustomization.learnMoreButton ? <AdLearnMore/> : undefined}
               </div>
-            </BottomBar>
+            </TopBar>
+            {adsUiCustomization.skipButton ? <AdSkip player={props.player}/> : undefined}
           </div>
-      }
+          <BottomBar>
+            <SeekBarAdsContainer adBreak showFramePreview showTimeBubble player={props.player}/>
+            <div className={style.leftControls}>
+              <PlayPauseControl player={props.player}/>
+              <TimeDisplayAdsContainer/>
+            </div>
+            <div className={style.rightControls}>
+              <VolumeControl player={props.player}/>
+              <FullscreenControl player={props.player} config={props.config}/>
+            </div>
+          </BottomBar>
+        </div> : undefined}
     </div>
   )
+}
+
+/**
+ * Gets the ads ui customization settings
+ * @returns {?Object} - undefined if the default ads ui should be shown,
+ * or customization object if playkit ads ui should be shown.
+ */
+function getAdsUiCustomization(): ?Object {
+  if (useDefaultAdsUi()) {
+    return undefined;
+  }
+  return {
+    learnMoreButton: useCustomLearnMoreButton(),
+    skipButton: useCustomSkipButton()
+  };
+}
+
+/**
+ * Whether the default ads ui should be shown or not.
+ * @param {any} props - component props
+ * @returns {boolean} - Whether the default ads ui should be shown or not.
+ */
+function useDefaultAdsUi(props: any): boolean {
+  try {
+    let isMobile = !!props.player.env.device.type;
+    let adsRenderingSettings = props.player.config.plugins.ima.adsRenderingSettings;
+    let useStyledLinearAds = adsRenderingSettings && adsRenderingSettings.useStyledLinearAds;
+    return (isMobile || useStyledLinearAds);
+  } catch (e) {
+    return false;
+  }
+}
+
+/**
+ * @returns {boolean} - Whether to use playkit skip button or not.
+ */
+function useCustomSkipButton(): boolean {
+  //TODO: false until we develop are own ads manager
+  return false;
+}
+
+/**
+ * @returns {boolean} - Whether to use playkit learn more button or not.
+ */
+function useCustomLearnMoreButton(): boolean {
+  //TODO: false until we develop are own ads manager
+  return false;
 }
