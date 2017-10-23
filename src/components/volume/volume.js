@@ -62,6 +62,9 @@ class VolumeControl extends BaseComponent {
     this.player.addEventListener(this.player.Event.MUTE_CHANGE, () => {
       this.props.updateMuted(this.player.muted);
     });
+
+    document.addEventListener('mouseup', (e: any) => this.onVolumeProgressBarMouseUp(e));
+    document.addEventListener('mousemove', (e: any) => this.onVolumeProgressBarMouseMove(e));
   }
 
   /**
@@ -189,8 +192,6 @@ class VolumeControl extends BaseComponent {
               className={style.bar}
               ref={c => this._volumeProgressBarElement=c}
               onMouseDown={() => this.onVolumeProgressBarMouseDown()}
-              onMouseUp={e => this.onVolumeProgressBarMouseUp(e)}
-              onMouseMove={e => this.onVolumeProgressBarMouseMove(e)}
             >
               <div className={style.progress} style={{height: this.getVolumeProgressHeight()}} />
             </div>
