@@ -9,11 +9,11 @@
     }
 
     &.is-muted {
-      .volume-waves {
+      .icon-volume-waves {
         opacity: 0;
         transform: translateX(-5px);
       }
-      .volume-mute {
+      .icon-volume-mute {
         opacity: 1;
         transform: scale(1);
       }
@@ -25,17 +25,17 @@
       }
     }
 
-    .volume-waves {
+    .icon-volume-waves {
       transform: translateX(0px);
     }
-    .volume-mute {
+    .icon-volume-mute {
       opacity: 1;
       transform: scale(0);
     }
-    .volume-waves, .volume-mute {
+    .icon-volume-waves, .icon-volume-mute {
       transition: 300ms transform, 300ms opacity;
     }
-    svg {
+    i {
       position: absolute;
       top: 0; left: 0;
     }
