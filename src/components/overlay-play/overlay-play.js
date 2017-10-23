@@ -17,7 +17,8 @@ const mapStateToProps = state => ({
   adBreak: state.engine.adBreak,
   adIsPlaying: state.engine.adIsPlaying,
   playerHover: state.shell.playerHover,
-  isMobile: state.shell.isMobile
+  isMobile: state.shell.isMobile,
+  metadataLoaded: state.engine.metadataLoaded
 });
 
 @connect(mapStateToProps, bindActions(actions))
@@ -30,6 +31,7 @@ const mapStateToProps = state => ({
  */
 class OverlayPlay extends BaseComponent {
   state: Object;
+  adsContainerClickHandlerInitialized: boolean;
 
   /**
    * Creates an instance of OverlayPlay.
@@ -37,7 +39,26 @@ class OverlayPlay extends BaseComponent {
    * @memberof OverlayPlay
    */
   constructor(obj: Object) {
-    super({name: 'OverlayPlay', player: obj.player});
+    super({name: 'OverlayPlay', player: obj.player, config: obj.config});
+  }
+
+  /**
+   * Set up click event handler to ads container in order to control play pause
+   *
+   * @returns {void}
+   * @memberof OverlayPlay
+   */
+  componentDidUpdate() {
+    if (!this.adsContainerClickHandlerInitialized && this.props.metadataLoaded) {
+      let player = document.getElementById(this.config.targetId);
+      let adsContainer = player.querySelectorAll('*[id^="ads-container_"]');
+
+      if (adsContainer.length > 0) {
+        adsContainer[0].addEventListener('click', () => {
+          this.togglePlayPause();
+        })
+      }
+    }
   }
 
   /**
