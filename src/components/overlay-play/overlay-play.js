@@ -51,7 +51,11 @@ class OverlayPlay extends BaseComponent {
   componentDidUpdate() {
     if (!this.adsContainerClickHandlerInitialized && this.props.metadataLoaded) {
       let player = document.getElementById(this.config.targetId);
-      let adsContainer = player.querySelectorAll('*[id^="ads-container_"]');
+      let adsContainer = [];
+
+      if (player) {
+        adsContainer = player.querySelectorAll('*[id^="ads-container_"]');
+      }
 
       if (adsContainer.length > 0) {
         adsContainer[0].addEventListener('click', () => {
