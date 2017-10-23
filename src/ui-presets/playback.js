@@ -29,7 +29,7 @@ export default function playbackUI(props: any): React$Element<any> {
       <Loading player={props.player} />
       <div className={style.playerGui} id='player-gui'>
         <OverlayPortal />
-        <OverlayPlay player={props.player} />
+        <OverlayPlay player={props.player} config={props.config} />
         <BottomBar>
           <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player} config={props.config} />
           <div className={style.leftControls}>
