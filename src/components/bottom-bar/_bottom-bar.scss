@@ -3,6 +3,7 @@
     padding: 6px 16px;
     color: #fff;
     opacity: 0;
+    visibility: hidden;
     transition: 100ms opacity;
     width: 100%;
     margin-top: auto;
@@ -36,10 +37,12 @@
 .player.state-paused .bottom-bar,
 .player.menu-active .bottom-bar {
     opacity: 1;
+    visibility: visible;
 }
 
 .player.overlay-active .bottom-bar {
   opacity: 0;
+  visibility: hidden;
 }
 
 .player.size-sm {
