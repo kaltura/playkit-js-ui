@@ -112,8 +112,10 @@ class VolumeControl extends BaseComponent {
    * @memberof VolumeControl
    */
   onVolumeProgressBarMouseUp(e: Event): void {
-    this.props.updateVolumeDraggingStatus(false);
-    this.changeVolume(e);
+    if (this.props.isDraggingActive) {
+      this.props.updateVolumeDraggingStatus(false);
+      this.changeVolume(e);
+    }
   }
 
   /**
