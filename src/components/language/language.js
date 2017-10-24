@@ -35,6 +35,7 @@ const mapStateToProps = state => ({
 class LanguageControl extends BaseComponent {
   state: Object;
   _controlLanguageElement: any;
+  _portal: any;
 
   /**
    * Creates an instance of LanguageControl.
@@ -194,10 +195,10 @@ class LanguageControl extends BaseComponent {
         </SmartContainer>
         }
         { this.state.cvaaOverlay ? (
-          <Portal into="#overlay-portal">
+          <Portal into="#overlay-portal" ref={ref => this._portal = ref}>
             <CVAAOverlay player={this.player} onClose={() => {this.toggleCVAAOverlay(); this.onControlButtonClick();}} />
           </Portal>
-        ): null }
+        ): <div /> }
       </div>
     )
   }
