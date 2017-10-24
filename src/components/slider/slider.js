@@ -12,6 +12,7 @@ import { h, Component } from 'preact';
 class Slider extends Component {
   state: Object;
   _sliderElement: HTMLElement;
+  _sliderElementOffsetLeft: number;
   sliderWidth: number;
 
   /**
@@ -43,6 +44,7 @@ class Slider extends Component {
    */
   componentDidMount() {
     this.sliderWidth = this._sliderElement.clientWidth;
+    this._sliderElementOffsetLeft = this._sliderElement.getBoundingClientRect().left;
   }
 
   /**
@@ -53,6 +55,7 @@ class Slider extends Component {
    * @memberof Slider
    */
   mouseDownHandler(e: any): void {
+    this._sliderElementOffsetLeft = this._sliderElement.getBoundingClientRect().left;
     if (!this.state.dragging) {
       this.setState({
         dragging: true,
