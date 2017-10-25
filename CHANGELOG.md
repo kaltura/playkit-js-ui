@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.9.1"></a>
+## [0.9.1](https://github.com/kaltura/playkit-js-ui/compare/v0.9.0...v0.9.1) (2017-10-25)
+
+
+### Bug Fixes
+
+* **FEC-7196, FEC-7200:** ios - live icon is not highlighted and scrubber at left ([#104](https://github.com/kaltura/playkit-js-ui/issues/104)) ([b21c603](https://github.com/kaltura/playkit-js-ui/commit/b21c603))
+
+
+
 <a name="0.9.0"></a>
 # [0.9.0](https://github.com/kaltura/playkit-js-ui/compare/v0.8.0...v0.9.0) (2017-10-25)
 
