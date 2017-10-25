@@ -1,10 +1,10 @@
 //@flow
 import style from '../../styles/style.scss';
-import { h } from 'preact';
+import {h} from 'preact';
 import BaseComponent from '../base';
-import { connect } from 'preact-redux';
-import { bindActions } from '../../utils/bind-actions';
-import { actions } from '../../reducers/shell';
+import {connect} from 'preact-redux';
+import {bindActions} from '../../utils/bind-actions';
+import {actions} from '../../reducers/shell';
 
 /**
  * mapping state to props
@@ -24,16 +24,17 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps, bindActions(actions))
-/**
- * Shell component
- *
- * @class Shell
- * @example <Shell player={this.player}>...</Shell>
- * @extends {BaseComponent}
- */
+  /**
+   * Shell component
+   *
+   * @class Shell
+   * @example <Shell player={this.player}>...</Shell>
+   * @extends {BaseComponent}
+   */
 class Shell extends BaseComponent {
   state: Object;
   hoverTimeout: number;
+  fallbackToMutedAutoPlayMode: boolean;
 
   /**
    * Creates an instance of Shell.
@@ -42,6 +43,10 @@ class Shell extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'Shell', player: obj.player});
+    this.fallbackToMutedAutoPlayMode = false;
+    this.player.addEventListener(this.player.Event.FALLBACK_TO_MUTED_AUTOPLAY, () => {
+      this.fallbackToMutedAutoPlayMode = true
+    });
   }
 
   /**
@@ -89,6 +94,19 @@ class Shell extends BaseComponent {
     if (!this.state.hover) {
       this.setState({hover: true});
       this.props.updatePlayerHoverState(true);
+    }
+  }
+
+  /**
+   * if the ui is in fallback to muted autoplay mode, unmute the player on any click
+   *
+   * @returns {void}
+   * @memberof Shell
+   */
+  onClick(): void {
+    if (this.fallbackToMutedAutoPlayMode) {
+      this.player.muted = false;
+      this.fallbackToMutedAutoPlayMode = false;
     }
   }
 
@@ -145,11 +163,12 @@ class Shell extends BaseComponent {
     return (
       <div
         className={playerClasses}
+        onClick={() => this.onClick()}
         onMouseOver={() => this.onMouseOver()}
         onMouseMove={() => this.onMouseMove()}
         onMouseLeave={() => this.onMouseLeave()}
       >
-        { props.children }
+        {props.children}
       </div>
     )
   }
