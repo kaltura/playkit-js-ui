@@ -69,7 +69,7 @@ class Menu extends Component {
    */
   getPosition(): Array<string> {
     let box = this._menuElement.getBoundingClientRect();
-    if (box.y < 0) {
+    if (box.top < 0) {
       return [style.bottom, style.left];
     }
     else {
