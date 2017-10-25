@@ -13841,8 +13841,11 @@ var EngineConnector = (_dec = (0, _preactRedux.connect)(_engine2.default, (0, _b
         _this2.props.updateDuration(_this2.player.duration);
       });
 
-      this.player.addEventListener(this.player.Event.LOADED_METADATA, function () {
+      this.player.addEventListener(this.player.Event.LOADED_DATA, function () {
         _this2.props.updateDuration(_this2.player.duration);
+      });
+
+      this.player.addEventListener(this.player.Event.LOADED_METADATA, function () {
         _this2.props.updateMuted(_this2.player.muted);
         _this2.props.updateMetadataLoadingStatus(true);
         _this2.props.updatePlayerPoster(_this2.player.poster);
