@@ -12,6 +12,7 @@ import { h, Component } from 'preact';
 class Slider extends Component {
   state: Object;
   _sliderElement: HTMLElement;
+  _sliderElementOffsetLeft: number;
   sliderWidth: number;
 
   /**
@@ -30,6 +31,9 @@ class Slider extends Component {
 
     document.addEventListener('mouseup', (e: Event) => this.mouseUpHandler(e));
     document.addEventListener('mousemove', (e: Event) => this.mouseMoveHandler(e));
+
+    document.addEventListener('touchend', (e: Event) => this.mouseUpHandler(e));
+    document.addEventListener('touchmove', (e: Event) => this.mouseMoveHandler(e));
   }
 
   /**
@@ -40,6 +44,7 @@ class Slider extends Component {
    */
   componentDidMount() {
     this.sliderWidth = this._sliderElement.clientWidth;
+    this._sliderElementOffsetLeft = this._sliderElement.getBoundingClientRect().left;
   }
 
   /**
@@ -50,6 +55,7 @@ class Slider extends Component {
    * @memberof Slider
    */
   mouseDownHandler(e: any): void {
+    this._sliderElementOffsetLeft = this._sliderElement.getBoundingClientRect().left;
     if (!this.state.dragging) {
       this.setState({
         dragging: true,
@@ -100,7 +106,12 @@ class Slider extends Component {
    * @memberof Slider
    */
   mouseEventToValue(e: any): number {
-    let offsetLeft = e.clientX - this._sliderElement.getBoundingClientRect().left;
+    let clientX;
+    if (e.touches && e.touches.length > 0) { clientX = e.touches[0].clientX }
+    else if (e.changedTouches) { clientX = e.changedTouches[0].pageX }
+    else { clientX = e.clientX; }
+
+    let offsetLeft = clientX - this._sliderElement.getBoundingClientRect().left;
     let offsetLeftPercentage = Math.round(offsetLeft / this._sliderElement.clientWidth * 100);
 
     if (this.getValueByPersentage(offsetLeftPercentage) < this.state.min) return this.state.min;
@@ -142,6 +153,7 @@ class Slider extends Component {
         ref={c => this._sliderElement=c}
         className={style.slider}
         onMouseDown={e => this.mouseDownHandler(e)}
+        onTouchStart={e => this.mouseDownHandler(e)}
       >
         <div
           className={style.progress}
@@ -150,6 +162,7 @@ class Slider extends Component {
           <div
             className={style.handle}
             onMouseDown={e => this.mouseDownHandler(e)}
+            onTouchStart={e => this.mouseDownHandler(e)}
           />
         </div>
       </div>

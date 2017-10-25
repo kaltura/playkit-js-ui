@@ -2,6 +2,48 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.8.0"></a>
+# [0.8.0](https://github.com/kaltura/playkit-js-ui/compare/v0.7.0...v0.8.0) (2017-10-24)
+
+
+### Bug Fixes
+
+* volume muted on player init bug fix ([#99](https://github.com/kaltura/playkit-js-ui/issues/99)) ([506f935](https://github.com/kaltura/playkit-js-ui/commit/506f935))
+* **FEC-7324:** slider touch support ([#96](https://github.com/kaltura/playkit-js-ui/issues/96)) ([7c2dfa9](https://github.com/kaltura/playkit-js-ui/commit/7c2dfa9))
+* **FEC-7333:** encoding svg icons for cross platform support ([#100](https://github.com/kaltura/playkit-js-ui/issues/100)) ([9e52f03](https://github.com/kaltura/playkit-js-ui/commit/9e52f03))
+
+
+### Features
+
+* change media with ads ([#98](https://github.com/kaltura/playkit-js-ui/issues/98)) ([f066a50](https://github.com/kaltura/playkit-js-ui/commit/f066a50))
+
+
+
+<a name="0.7.0"></a>
+# [0.7.0](https://github.com/kaltura/playkit-js-ui/compare/v0.6.0...v0.7.0) (2017-10-23)
+
+
+### Bug Fixes
+
+* ad learn more ui styles ([#90](https://github.com/kaltura/playkit-js-ui/issues/90)) ([8207d15](https://github.com/kaltura/playkit-js-ui/commit/8207d15))
+* inaccessible play overlay bug fix ([#86](https://github.com/kaltura/playkit-js-ui/issues/86)) ([1490e92](https://github.com/kaltura/playkit-js-ui/commit/1490e92))
+* open clickthrough in new tab/window ([#82](https://github.com/kaltura/playkit-js-ui/issues/82)) ([ef4ce38](https://github.com/kaltura/playkit-js-ui/commit/ef4ce38))
+* seekbar classes update ([#89](https://github.com/kaltura/playkit-js-ui/issues/89)) ([9160061](https://github.com/kaltura/playkit-js-ui/commit/9160061))
+* **FEC-7152:** sorting video tracks by bandwidth bug fix ([#88](https://github.com/kaltura/playkit-js-ui/issues/88)) ([8560d29](https://github.com/kaltura/playkit-js-ui/commit/8560d29))
+* **FEC-7236:** long menu labels in smart container ([#83](https://github.com/kaltura/playkit-js-ui/issues/83)) ([cff1f40](https://github.com/kaltura/playkit-js-ui/commit/cff1f40))
+* **FEC-7252:** overlay hidden fix ([#84](https://github.com/kaltura/playkit-js-ui/issues/84)) ([b836850](https://github.com/kaltura/playkit-js-ui/commit/b836850))
+* **FEC-7257:** poster background size change to contain ([#91](https://github.com/kaltura/playkit-js-ui/issues/91)) ([71f56f7](https://github.com/kaltura/playkit-js-ui/commit/71f56f7))
+* **FEC-7312:** preact portal fix in Explorer ([#95](https://github.com/kaltura/playkit-js-ui/issues/95)) ([671ffa7](https://github.com/kaltura/playkit-js-ui/commit/671ffa7))
+* **FEC-7318:** volume bar dragging ([#93](https://github.com/kaltura/playkit-js-ui/issues/93)) ([9da3e1d](https://github.com/kaltura/playkit-js-ui/commit/9da3e1d))
+* **FEC-7320:** disable accessibility control bars when hidden ([#92](https://github.com/kaltura/playkit-js-ui/issues/92)) ([e6f3d67](https://github.com/kaltura/playkit-js-ui/commit/e6f3d67))
+
+
+### Features
+
+* css class background svg icons ([#87](https://github.com/kaltura/playkit-js-ui/issues/87)) ([41fb05e](https://github.com/kaltura/playkit-js-ui/commit/41fb05e))
+
+
+
 <a name="0.6.0"></a>
 # [0.6.0](https://github.com/kaltura/playkit-js-ui/compare/v0.5.0...v0.6.0) (2017-10-16)
 

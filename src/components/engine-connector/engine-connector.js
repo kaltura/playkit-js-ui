@@ -33,6 +33,12 @@ class EngineConnector extends BaseComponent {
   componentDidMount() {
     const TrackType = this.player.Track;
 
+    this.player.addEventListener(this.player.Event.CHANGE_SOURCE_STARTED, () => {
+      this.props.updateAdBreak(false);
+      this.props.updateAdIsPlaying(false);
+      this.props.updateIsPlaying(false);
+    });
+
     this.player.addEventListener(this.player.Event.CHANGE_SOURCE_ENDED, () => {
       this.props.updatePlayerPoster(this.player.poster);
     });

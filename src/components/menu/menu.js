@@ -69,7 +69,7 @@ class Menu extends Component {
    */
   getPosition(): Array<string> {
     let box = this._menuElement.getBoundingClientRect();
-    if (box.y < 0) {
+    if (box.top < 0) {
       return [style.bottom, style.left];
     }
     else {
@@ -166,7 +166,7 @@ class Menu extends Component {
           props.options.map((o, index) => (
             <div key={index} className={this.isSelected(o) ? [style.dropdownMenuItem, style.active].join(' ') : style.dropdownMenuItem} onClick={() => this.onSelect(o)}>
               <span>{o.label}</span>
-              <span style={`opacity: ${ this.isSelected(o) ? 1 : 0 }`}><Icon type={IconType.Check} /></span>
+              <span className={style.menuIconContainer} style={`opacity: ${ this.isSelected(o) ? 1 : 0 }`}><Icon type={IconType.Check} /></span>
             </div>
           ))
         }
