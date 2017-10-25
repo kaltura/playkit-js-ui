@@ -30,7 +30,6 @@ const mapStateToProps = state => ({
    */
 class PrePlaybackPlayOverlay extends BaseComponent {
   autoplay: boolean;
-  mobileAutoplay: boolean;
 
   /**
    * Creates an instance of PrePlaybackPlayOverlay.
@@ -51,17 +50,15 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    */
   componentWillMount() {
     this.props.addPlayerClass(style.prePlayback);
-
     try {
       this.autoplay = this.player.config.playback.autoplay;
+      if (this.autoplay === true) {
+        this.player.addEventListener(this.player.Event.AUTOPLAY_FAILED, () => {
+          this.autoplay = false;
+        });
+      }
     } catch (e) { // eslint-disable-line no-unused-vars
       this.autoplay = false;
-    }
-
-    try {
-      this.mobileAutoplay = this.player.config.playback.mobileAutoplay;
-    } catch (e) { // eslint-disable-line no-unused-vars
-      this.mobileAutoplay = false;
     }
   }
 
@@ -125,12 +122,9 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   render(props: any): React$Element<any> | void {
-    if (
-      (!props.isEnded && !props.prePlayback) ||
-      (!props.isEnded && !props.isMobile && this.autoplay) ||
-      (!props.isEnded && props.isMobile && this.mobileAutoplay)
-    ) return undefined;
-
+    if ((!props.isEnded && !props.prePlayback) || (!props.isEnded && this.autoplay)) {
+      return undefined;
+    }
     return (
       <div className={style.prePlaybackPlayOverlay} style={{backgroundImage: `url(${props.poster})`}}
            onClick={() => this.handleClick()}>
