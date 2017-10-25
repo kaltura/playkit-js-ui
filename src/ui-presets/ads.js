@@ -29,7 +29,7 @@ export default function adsUI(props: any): React$Element<any> {
           <div>
             <TopBar>
               <div className={style.leftControls}>
-                <span className={style.fontSizeBase}>Adverisment</span>
+                <span className={style.fontSizeBase}>Advertisement</span>
               </div>
               <div className={style.rightControls}>
                 {adsUiCustomization.learnMoreButton ? <AdLearnMore/> : undefined}
