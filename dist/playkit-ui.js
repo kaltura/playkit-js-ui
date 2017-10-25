@@ -4207,23 +4207,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * @returns {HTMLElement} player ui tree
  */
 function adsUI(props) {
-  var useCustomSkipButton = false;
-  var isMobile = !!props.player.env.device.type;
-  var adsRenderingSettings = props.player.config.plugins.ima.adsRenderingSettings;
-  var useStyledLinearAds = adsRenderingSettings && adsRenderingSettings.useStyledLinearAds;
-  try {
-    if (!useStyledLinearAds && isMobile) {
-      useStyledLinearAds = true;
-    }
-  } catch (e) {
-    //TODO: add error handling
-  }
-
+  var adsUiCustomization = getAdsUiCustomization();
   return (0, _preact.h)(
     'div',
     { className: _style2.default.adGuiWrapper },
     (0, _preact.h)(_loading2.default, { player: props.player }),
-    useStyledLinearAds ? undefined : (0, _preact.h)(
+    adsUiCustomization ? (0, _preact.h)(
       'div',
       { className: _style2.default.playerGui, id: 'player-gui' },
       (0, _preact.h)(
@@ -4244,10 +4233,10 @@ function adsUI(props) {
           (0, _preact.h)(
             'div',
             { className: _style2.default.rightControls },
-            (0, _preact.h)(_adLearnMore2.default, null)
+            adsUiCustomization.learnMoreButton ? (0, _preact.h)(_adLearnMore2.default, null) : undefined
           )
         ),
-        useCustomSkipButton ? (0, _preact.h)(_adSkip2.default, { player: props.player }) : undefined
+        adsUiCustomization.skipButton ? (0, _preact.h)(_adSkip2.default, { player: props.player }) : undefined
       ),
       (0, _preact.h)(
         _bottomBar2.default,
@@ -4266,8 +4255,55 @@ function adsUI(props) {
           (0, _preact.h)(_fullscreen2.default, { player: props.player, config: props.config })
         )
       )
-    )
+    ) : undefined
   );
+}
+
+/**
+ * Gets the ads ui customization settings
+ * @returns {?Object} - undefined if the default ads ui should be shown,
+ * or customization object if playkit ads ui should be shown.
+ */
+function getAdsUiCustomization() {
+  if (useDefaultAdsUi()) {
+    return undefined;
+  }
+  return {
+    learnMoreButton: useCustomLearnMoreButton(),
+    skipButton: useCustomSkipButton()
+  };
+}
+
+/**
+ * Whether the default ads ui should be shown or not.
+ * @param {any} props - component props
+ * @returns {boolean} - Whether the default ads ui should be shown or not.
+ */
+function useDefaultAdsUi(props) {
+  try {
+    var isMobile = !!props.player.env.device.type;
+    var adsRenderingSettings = props.player.config.plugins.ima.adsRenderingSettings;
+    var useStyledLinearAds = adsRenderingSettings && adsRenderingSettings.useStyledLinearAds;
+    return isMobile || useStyledLinearAds;
+  } catch (e) {
+    return false;
+  }
+}
+
+/**
+ * @returns {boolean} - Whether to use playkit skip button or not.
+ */
+function useCustomSkipButton() {
+  //TODO: false until we develop are own ads manager
+  return false;
+}
+
+/**
+ * @returns {boolean} - Whether to use playkit learn more button or not.
+ */
+function useCustomLearnMoreButton() {
+  //TODO: false until we develop are own ads manager
+  return false;
 }
 
 /***/ }),
