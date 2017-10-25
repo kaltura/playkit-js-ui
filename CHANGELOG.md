@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.8.0"></a>
+# [0.8.0](https://github.com/kaltura/playkit-js-ui/compare/v0.7.0...v0.8.0) (2017-10-24)
+
+
+### Bug Fixes
+
+* volume muted on player init bug fix ([#99](https://github.com/kaltura/playkit-js-ui/issues/99)) ([506f935](https://github.com/kaltura/playkit-js-ui/commit/506f935))
+* **FEC-7324:** slider touch support ([#96](https://github.com/kaltura/playkit-js-ui/issues/96)) ([7c2dfa9](https://github.com/kaltura/playkit-js-ui/commit/7c2dfa9))
+* **FEC-7333:** encoding svg icons for cross platform support ([#100](https://github.com/kaltura/playkit-js-ui/issues/100)) ([9e52f03](https://github.com/kaltura/playkit-js-ui/commit/9e52f03))
+
+
+### Features
+
+* change media with ads ([#98](https://github.com/kaltura/playkit-js-ui/issues/98)) ([f066a50](https://github.com/kaltura/playkit-js-ui/commit/f066a50))
+
+
+
 <a name="0.7.0"></a>
 # [0.7.0](https://github.com/kaltura/playkit-js-ui/compare/v0.6.0...v0.7.0) (2017-10-23)
 
