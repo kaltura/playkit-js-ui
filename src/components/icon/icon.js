@@ -28,7 +28,7 @@ const IconType = {
   Embed: 'embed',
   Link: 'link',
   ArrowDown: 'arrow-down',
-  Startover: 'shartover'
+  StartOver: 'start-over'
 }
 /**
  * Icon component
@@ -122,8 +122,8 @@ class Icon extends Component {
       case IconType.ArrowDown:
         return (<i className={[style.icon, style.iconArrowDown].join(' ')} />)
 
-      case IconType.Startover:
-        return (<i className={[style.icon, style.iconStartover].join(' ')} />)
+      case IconType.StartOver:
+        return (<i className={[style.icon, style.iconStartOver].join(' ')} />)
 
       default:
         break;

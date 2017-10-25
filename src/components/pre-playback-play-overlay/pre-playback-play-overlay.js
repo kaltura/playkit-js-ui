@@ -129,7 +129,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
       <div className={style.prePlaybackPlayOverlay} style={{backgroundImage: `url(${props.poster})`}}
            onClick={() => this.handleClick()}>
         <a className={style.prePlaybackPlayButton}>
-          {props.isEnded ? <Icon type={IconType.Startover}/> : <Icon type={IconType.Play}/>}
+          {props.isEnded ? <Icon type={IconType.StartOver}/> : <Icon type={IconType.Play}/>}
         </a>
       </div>
     )
