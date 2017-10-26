@@ -92,6 +92,7 @@ class VolumeControl extends BaseComponent {
   /**
    * hide unmute tooltip
    *
+   * @returns {void}
    * @memberof VolumeControl
    */
   hideTooltip(): void {
