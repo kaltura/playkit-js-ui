@@ -62,20 +62,21 @@ class VolumeControl extends BaseComponent {
       this.props.updateVolume(this.player.volume);
     });
 
-    this.player.addEventListener(this.player.Event.MUTE_CHANGE, () => {
-      this.props.updateMuted(this.player.muted);
+    this.player.addEventListener(this.player.Event.MUTE_CHANGE, e => {
+      this.props.updateMuted(e.payload.mute);
+
+      // hide tooltip on user interaction
+      if (!e.payload.mute && this.state.unmuteHint) {
+        this.hideTooltip();
+      }
     });
 
     this.player.addEventListener(this.player.Event.FALLBACK_TO_MUTED_AUTOPLAY, () => {
       this.setState({unmuteHint: true});
-      alert('1');
+
       setTimeout(() => {
         this.setState({unmuteHintOut: true});
-
-        setTimeout(() => {
-          this.setState({unmuteHintOut: false});
-          this.setState({unmuteHint: false});
-        }, 100);
+        this.hideTooltip();
       }, 5000);
     });
 
@@ -86,6 +87,18 @@ class VolumeControl extends BaseComponent {
       this._volumeControlElement.getBoundingClientRect().left -
       this.player.getView().getBoundingClientRect().left -
       this._volumeControlElement.clientWidth;
+  }
+
+  /**
+   * hide unmute tooltip
+   *
+   * @memberof VolumeControl
+   */
+  hideTooltip(): void {
+    setTimeout(() => {
+      this.setState({unmuteHintOut: false});
+      this.setState({unmuteHint: false});
+    }, 100);
   }
 
   /**
