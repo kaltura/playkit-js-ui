@@ -31,7 +31,7 @@ export default function liveUI(props: any): React$Element<any> {
         <OverlayPortal />
         <OverlayPlay player={props.player} />
         <BottomBar>
-          <SeekBarLivePlaybackContainer showFramePreview showTimeBubble player={props.player} />
+          <SeekBarLivePlaybackContainer showFramePreview showTimeBubble player={props.player} config={props.config} />
           <div className={style.leftControls}>
             <PlayPauseControl player={props.player} />
             <LiveTag player={props.player} />
@@ -40,7 +40,7 @@ export default function liveUI(props: any): React$Element<any> {
             <VolumeControl player={props.player} />
             <LanguageControl player={props.player} />
             <SettingsControl player={props.player} />
-            <FullscreenControl player={props.player} />
+            <FullscreenControl player={props.player} config={props.config} />
           </div>
         </BottomBar>
       </div>
