@@ -73,7 +73,7 @@
     "mocha": "^3.2.0",
     "mocha-cli": "^1.0.1",
     "node-sass": "^4.5.3",
-    "playkit-js": "https://github.com/kaltura/playkit-js.git#0.14.0",
+    "playkit-js": "https://github.com/kaltura/playkit-js.git#0.14.1",
     "pre-push": "^0.1.1",
     "sass-loader": "^6.0.6",
     "sinon": "^2.0.0",
