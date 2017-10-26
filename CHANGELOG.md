@@ -2,6 +2,59 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.9.2"></a>
+## [0.9.2](https://github.com/kaltura/playkit-js-ui/compare/v0.9.1...v0.9.2) (2017-10-25)
+
+
+### Bug Fixes
+
+* **FEC-7020:** conditionally add or remove learn-more and skip buttons from ads ui ([3d0489a](https://github.com/kaltura/playkit-js-ui/commit/3d0489a))
+
+
+
+<a name="0.9.1"></a>
+## [0.9.1](https://github.com/kaltura/playkit-js-ui/compare/v0.9.0...v0.9.1) (2017-10-25)
+
+
+### Bug Fixes
+
+* **FEC-7196, FEC-7200:** ios - live icon is not highlighted and scrubber at left ([#104](https://github.com/kaltura/playkit-js-ui/issues/104)) ([b21c603](https://github.com/kaltura/playkit-js-ui/commit/b21c603))
+
+
+
+<a name="0.9.0"></a>
+# [0.9.0](https://github.com/kaltura/playkit-js-ui/compare/v0.8.0...v0.9.0) (2017-10-25)
+
+
+### Bug Fixes
+
+* **FEC-7342:** menu position in explorer ([#101](https://github.com/kaltura/playkit-js-ui/issues/101)) ([b7e58d2](https://github.com/kaltura/playkit-js-ui/commit/b7e58d2))
+* **FEC-7349:** typo in startover icon ([#102](https://github.com/kaltura/playkit-js-ui/issues/102)) ([c9519cd](https://github.com/kaltura/playkit-js-ui/commit/c9519cd))
+
+
+### Features
+
+* **pre-playback-btn:** listen to AUTOPLAY_FAILED and cancel autoplay ([#103](https://github.com/kaltura/playkit-js-ui/issues/103)) ([d726c33](https://github.com/kaltura/playkit-js-ui/commit/d726c33))
+
+
+
+<a name="0.8.0"></a>
+# [0.8.0](https://github.com/kaltura/playkit-js-ui/compare/v0.7.0...v0.8.0) (2017-10-24)
+
+
+### Bug Fixes
+
+* volume muted on player init bug fix ([#99](https://github.com/kaltura/playkit-js-ui/issues/99)) ([506f935](https://github.com/kaltura/playkit-js-ui/commit/506f935))
+* **FEC-7324:** slider touch support ([#96](https://github.com/kaltura/playkit-js-ui/issues/96)) ([7c2dfa9](https://github.com/kaltura/playkit-js-ui/commit/7c2dfa9))
+* **FEC-7333:** encoding svg icons for cross platform support ([#100](https://github.com/kaltura/playkit-js-ui/issues/100)) ([9e52f03](https://github.com/kaltura/playkit-js-ui/commit/9e52f03))
+
+
+### Features
+
+* change media with ads ([#98](https://github.com/kaltura/playkit-js-ui/issues/98)) ([f066a50](https://github.com/kaltura/playkit-js-ui/commit/f066a50))
+
+
+
 <a name="0.7.0"></a>
 # [0.7.0](https://github.com/kaltura/playkit-js-ui/compare/v0.6.0...v0.7.0) (2017-10-23)
 
