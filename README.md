@@ -6,7 +6,7 @@ PlayKit JS UI is a UI Application Framework for composing PlayKit JS Player UI.
 
 The application uses [Preact] to manage virtual DOM and provide a declarative way for building UI and [Redux] to manage a predictable state container.
 
-PlayKit JS UI is written in [ECMAScript6], statically analaysed using [Flow] and transpiled in ECMAScript5 using [Babel].
+PlayKit JS UI is written in [ECMAScript6], statically analysed using [Flow] and transpiled in ECMAScript5 using [Babel].
 
 [Flow]: https://flow.org/
 [ECMAScript6]: https://github.com/ericdouglas/ES6-Learning#articles--tutorials
