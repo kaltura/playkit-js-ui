@@ -1,6 +1,6 @@
 # PlayKit JS UI - UI Application framework for the [PlayKit JS Player]
 
-[![Build Status](https://travis-ci.com/kaltura/playkit-js-ui.svg?token=s2ZQw18ukx9Q6ePzDX3F&branch=master)](https://travis-ci.com/kaltura/playkit-js-ui)
+[![Build Status](https://travis-ci.org/kaltura/playkit-js-ui.svg?branch=master)](https://travis-ci.org/kaltura/playkit-js-ui)
 
 PlayKit JS UI is a UI Application Framework for composing PlayKit JS Player UI.
 
@@ -66,7 +66,7 @@ For additional info and guides on how to extend the UI see the [docs](https://gi
 
 ## Running the tests
 
-Tests can be run localy via [Karma], which will run on Chrome, Firefox and Safari
+Tests can be run locally via [Karma], which will run on Chrome, Firefox and Safari
 
 [Karma]: https://karma-runner.github.io/1.0/index.html
 ```

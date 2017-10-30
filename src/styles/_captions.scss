@@ -10,6 +10,7 @@
   }
   &:not(.overlay-active) {
     &.state-paused :global(.playkit-subtitles),
+    &:hover :global(.playkit-subtitles),
     &.hover :global(.playkit-subtitles) {
       transform: translateY(-60px);
       transition: ease-out 100ms;

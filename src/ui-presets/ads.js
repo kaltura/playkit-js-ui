@@ -17,51 +17,49 @@ import BottomBar from '../components/bottom-bar';
  *
  * @export
  * @param {*} props component props
- * @returns {HTMLElement} player ui tree
+ * @returns {?HTMLElement} player ui tree
  */
-export default function adsUI(props: any): React$Element<any> {
+export default function adsUI(props: any): ?React$Element<any> {
+  if (useDefaultAdsUi(props)) {
+    return undefined;
+  }
   const adsUiCustomization = getAdsUiCustomization();
   return (
     <div className={style.adGuiWrapper}>
       <Loading player={props.player}/>
-      {adsUiCustomization ?
-        <div className={style.playerGui} id='player-gui'>
-          <div>
-            <TopBar>
-              <div className={style.leftControls}>
-                <span className={style.fontSizeBase}>Advertisement</span>
-              </div>
-              <div className={style.rightControls}>
-                {adsUiCustomization.learnMoreButton ? <AdLearnMore/> : undefined}
-              </div>
-            </TopBar>
-            {adsUiCustomization.skipButton ? <AdSkip player={props.player}/> : undefined}
-          </div>
-          <BottomBar>
-            <SeekBarAdsContainer adBreak showFramePreview showTimeBubble player={props.player}/>
+      <div className={style.playerGui} id='player-gui'>
+        <div>
+          <TopBar>
             <div className={style.leftControls}>
-              <PlayPauseControl player={props.player}/>
-              <TimeDisplayAdsContainer/>
+              <span className={style.fontSizeBase}>Advertisement</span>
             </div>
             <div className={style.rightControls}>
-              <VolumeControl player={props.player}/>
-              <FullscreenControl player={props.player} config={props.config}/>
+              {adsUiCustomization.learnMoreButton ? <AdLearnMore/> : undefined}
             </div>
-          </BottomBar>
-        </div> : undefined}
+          </TopBar>
+          {adsUiCustomization.skipButton ? <AdSkip player={props.player}/> : undefined}
+        </div>
+        <BottomBar>
+          <SeekBarAdsContainer adBreak showFramePreview showTimeBubble player={props.player}/>
+          <div className={style.leftControls}>
+            <PlayPauseControl player={props.player}/>
+            <TimeDisplayAdsContainer/>
+          </div>
+          <div className={style.rightControls}>
+            <VolumeControl player={props.player}/>
+            <FullscreenControl player={props.player} config={props.config}/>
+          </div>
+        </BottomBar>
+      </div>
     </div>
   )
 }
 
 /**
  * Gets the ads ui customization settings
- * @returns {?Object} - undefined if the default ads ui should be shown,
- * or customization object if playkit ads ui should be shown.
+ * @returns {Object} - Customization object
  */
-function getAdsUiCustomization(): ?Object {
-  if (useDefaultAdsUi()) {
-    return undefined;
-  }
+function getAdsUiCustomization(): Object {
   return {
     learnMoreButton: useCustomLearnMoreButton(),
     skipButton: useCustomSkipButton()

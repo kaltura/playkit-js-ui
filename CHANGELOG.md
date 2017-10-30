@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.9.4"></a>
+## [0.9.4](https://github.com/kaltura/playkit-js-ui/compare/v0.9.3...v0.9.4) (2017-10-30)
+
+
+### Bug Fixes
+
+* **FEC-7275, FEC-7360:** hide playkit ads ui on mobile ([#110](https://github.com/kaltura/playkit-js-ui/issues/110)) ([81f8e2b](https://github.com/kaltura/playkit-js-ui/commit/81f8e2b))
+* **FEC-7344:** repeated poster bug fix ([#111](https://github.com/kaltura/playkit-js-ui/issues/111)) ([d24fca0](https://github.com/kaltura/playkit-js-ui/commit/d24fca0))
+* **FEC-7359:** captions overlapping on mobile hover ([#112](https://github.com/kaltura/playkit-js-ui/issues/112)) ([a0c081b](https://github.com/kaltura/playkit-js-ui/commit/a0c081b))
+
+
+
+<a name="0.9.3"></a>
+## [0.9.3](https://github.com/kaltura/playkit-js-ui/compare/v0.9.2...v0.9.3) (2017-10-26)
+
+
+### Bug Fixes
+
+* live fullscreen fix ([#107](https://github.com/kaltura/playkit-js-ui/issues/107)) ([4ab5a20](https://github.com/kaltura/playkit-js-ui/commit/4ab5a20))
+* remove pre-playback-button added css ([#106](https://github.com/kaltura/playkit-js-ui/issues/106)) ([d886230](https://github.com/kaltura/playkit-js-ui/commit/d886230))
+* typo of ads ui label ([#105](https://github.com/kaltura/playkit-js-ui/issues/105)) ([ff877c7](https://github.com/kaltura/playkit-js-ui/commit/ff877c7))
+* **FEC-7321:** position of fullscreen element in safari bug fix. css ([#108](https://github.com/kaltura/playkit-js-ui/issues/108)) ([ca60e82](https://github.com/kaltura/playkit-js-ui/commit/ca60e82))
+
+
+
 <a name="0.9.2"></a>
 ## [0.9.2](https://github.com/kaltura/playkit-js-ui/compare/v0.9.1...v0.9.2) (2017-10-25)
 
