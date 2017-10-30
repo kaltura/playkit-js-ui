@@ -103,6 +103,7 @@ class Loading extends BaseComponent {
 
     this.player.addEventListener(this.player.Event.AD_LOADED, () => {
       this.props.updateLoadingSpinnerState(true);
+    });
 
     this.player.addEventListener(this.player.Event.AD_STARTED, () => {
       this.props.updateLoadingSpinnerState(false);
@@ -110,9 +111,6 @@ class Loading extends BaseComponent {
 
     this.player.addEventListener(this.player.Event.ALL_ADS_COMPLETED, () => {
       this.props.updateLoadingSpinnerState(false);
-    });
-
-
     });
   }
 
