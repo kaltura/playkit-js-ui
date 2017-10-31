@@ -4,8 +4,10 @@ import { h } from 'preact';
 import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
 import { actions } from '../../reducers/volume';
+import Portal from 'preact-portal';
 import BaseComponent from '../base';
 import { default as Icon, IconType } from '../icon';
+import Tooltip from '../tooltip';
 
 /**
  * mapping state to props
@@ -30,6 +32,7 @@ const mapStateToProps = state => ({
 class VolumeControl extends BaseComponent {
   _volumeControlElement: HTMLElement;
   _volumeProgressBarElement: HTMLElement;
+  _volumeOffsetLeft: number;
 
   /**
    * Creates an instance of VolumeControl.
@@ -59,12 +62,44 @@ class VolumeControl extends BaseComponent {
       this.props.updateVolume(this.player.volume);
     });
 
-    this.player.addEventListener(this.player.Event.MUTE_CHANGE, () => {
-      this.props.updateMuted(this.player.muted);
+    this.player.addEventListener(this.player.Event.MUTE_CHANGE, e => {
+      this.props.updateMuted(e.payload.mute);
+
+      // hide tooltip on user interaction
+      if (!e.payload.mute && this.state.unmuteHint) {
+        this.hideTooltip();
+      }
+    });
+
+    this.player.addEventListener(this.player.Event.FALLBACK_TO_MUTED_AUTOPLAY, () => {
+      this.setState({unmuteHint: true});
+
+      setTimeout(() => {
+        this.setState({unmuteHintOut: true});
+        this.hideTooltip();
+      }, 5000);
     });
 
     document.addEventListener('mouseup', (e: any) => this.onVolumeProgressBarMouseUp(e));
     document.addEventListener('mousemove', (e: any) => this.onVolumeProgressBarMouseMove(e));
+
+    this._volumeOffsetLeft =
+      this._volumeControlElement.getBoundingClientRect().left -
+      this.player.getView().getBoundingClientRect().left -
+      this._volumeControlElement.clientWidth;
+  }
+
+  /**
+   * hide unmute tooltip
+   *
+   * @returns {void}
+   * @memberof VolumeControl
+   */
+  hideTooltip(): void {
+    setTimeout(() => {
+      this.setState({unmuteHintOut: false});
+      this.setState({unmuteHint: false});
+    }, 100);
   }
 
   /**
@@ -198,6 +233,14 @@ class VolumeControl extends BaseComponent {
               <div className={style.progress} style={{height: this.getVolumeProgressHeight()}} />
             </div>
           </div>
+          {
+            !this.state.unmuteHint ? undefined :
+            (
+              <Portal into="#overlay-portal">
+                <Tooltip out={this.state.unmuteHintOut} left={this._volumeOffsetLeft}>Unmute</Tooltip>
+              </Portal>
+            )
+          }
         </div>
       )
   }
