@@ -6,7 +6,7 @@ import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/fullscreen';
 import BaseComponent from '../base';
-import { default as Icon, IconType } from '../icon';
+import {default as Icon, IconType} from '../icon';
 
 /**
  * mapping state to props
@@ -19,13 +19,13 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps, bindActions(actions))
-/**
- * FullscreenControl component
- *
- * @class FullscreenControl
- * @example <FullscreenControl player={this.player} />
- * @extends {BaseComponent}
- */
+  /**
+   * FullscreenControl component
+   *
+   * @class FullscreenControl
+   * @example <FullscreenControl player={this.player} />
+   * @extends {BaseComponent}
+   */
 class FullscreenControl extends BaseComponent {
 
   /**
@@ -48,7 +48,8 @@ class FullscreenControl extends BaseComponent {
     document.addEventListener('mozfullscreenchange', () => this.fullscreenChangeHandler());
     document.addEventListener('fullscreenchange', () => this.fullscreenChangeHandler());
     document.addEventListener('MSFullscreenChange', () => this.fullscreenChangeHandler());
-
+    this.player.addEventListener(this.player.Event.REQUESTED_ENTER_FULLSCREEN, () => this.enterFullscreen());
+    this.player.addEventListener(this.player.Event.REQUESTED_EXIT_FULLSCREEN, () => this.exitFullscreen());
   }
 
   /**
@@ -101,14 +102,14 @@ class FullscreenControl extends BaseComponent {
   enterFullscreen(): void {
     if (this.props.isMobile && this.player.env.os.name === 'iOS') {
       this.player.getView().getElementsByTagName('video')[0].webkitEnterFullscreen();
-    }
-    else {
+    } else {
       let elementToFullscreen = document.getElementById(this.config.targetId);
 
       if (elementToFullscreen) {
         this.requestFullscreen(elementToFullscreen);
       }
     }
+    this.player.notifyEnterFullscreen();
   }
 
   /**
@@ -127,6 +128,7 @@ class FullscreenControl extends BaseComponent {
     } else if (typeof document.msExitFullscreen === 'function') {
       document.msExitFullscreen();
     }
+    this.player.notifyExitFullscreen();
   }
 
   /**
@@ -153,8 +155,8 @@ class FullscreenControl extends BaseComponent {
           <button aria-label={<Text id='controls.fullscreen'/>}
                   className={this.props.fullscreen ? [style.controlButton, style.isFullscreen].join(' ') : style.controlButton}
                   onClick={() => this.toggleFullscreen()}>
-            <Icon type={IconType.Maximize} />
-            <Icon type={IconType.Minimize} />
+            <Icon type={IconType.Maximize}/>
+            <Icon type={IconType.Minimize}/>
           </button>
         </Localizer>
       </div>
