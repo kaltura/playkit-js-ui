@@ -31,11 +31,16 @@ class BaseComponent extends Component {
     this.logger.debug(`Initialized`);
   }
 
-  getConfig(property: string) {
+  /**
+   * Gets config param value
+   * @param {string} property property name
+   * @returns {string} config value
+   */
+  getConfig(property: string): ?string {
     try {
       return this.config.components[this.name][property];
     } catch (error) {
-      return '';
+      return undefined;
     }
 
   }
