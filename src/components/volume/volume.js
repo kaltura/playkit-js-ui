@@ -7,7 +7,6 @@ import { actions } from '../../reducers/volume';
 import Portal from 'preact-portal';
 import BaseComponent from '../base';
 import { default as Icon, IconType } from '../icon';
-import Tooltip from '../tooltip';
 
 /**
  * mapping state to props
