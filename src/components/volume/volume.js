@@ -32,7 +32,6 @@ const mapStateToProps = state => ({
 class VolumeControl extends BaseComponent {
   _volumeControlElement: HTMLElement;
   _volumeProgressBarElement: HTMLElement;
-  _volumeOffsetLeft: number;
 
   /**
    * Creates an instance of VolumeControl.
@@ -73,20 +72,10 @@ class VolumeControl extends BaseComponent {
 
     this.player.addEventListener(this.player.Event.FALLBACK_TO_MUTED_AUTOPLAY, () => {
       this.setState({unmuteHint: true});
-
-      setTimeout(() => {
-        this.setState({unmuteHintOut: true});
-        this.hideTooltip();
-      }, 5000);
     });
 
     document.addEventListener('mouseup', (e: any) => this.onVolumeProgressBarMouseUp(e));
     document.addEventListener('mousemove', (e: any) => this.onVolumeProgressBarMouseMove(e));
-
-    this._volumeOffsetLeft =
-      this._volumeControlElement.getBoundingClientRect().left -
-      this.player.getView().getBoundingClientRect().left -
-      this._volumeControlElement.clientWidth;
   }
 
   /**
@@ -96,10 +85,7 @@ class VolumeControl extends BaseComponent {
    * @memberof VolumeControl
    */
   hideTooltip(): void {
-    setTimeout(() => {
-      this.setState({unmuteHintOut: false});
-      this.setState({unmuteHint: false});
-    }, 100);
+    this.setState({unmuteHint: false});
   }
 
   /**
@@ -237,7 +223,15 @@ class VolumeControl extends BaseComponent {
             !this.state.unmuteHint ? undefined :
             (
               <Portal into="#overlay-portal">
-                <Tooltip out={this.state.unmuteHintOut} left={this._volumeOffsetLeft}>Unmute</Tooltip>
+                <a
+                  className={[style.btn, style.btnDarkTransparent, style.unmuteButton].join(' ')}
+                  onClick={() => this.player.muted = !this.player.muted}>
+                  <div className={style.unmuteIconContainer}>
+                    <Icon type={IconType.VolumeBase} />
+                    <Icon type={IconType.VolumeMute} />
+                  </div>
+                  Unmute
+                </a>
               </Portal>
             )
           }

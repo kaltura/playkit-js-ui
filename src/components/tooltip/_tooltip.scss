@@ -1,18 +1,5 @@
 @import '~styles/variables';
 
-@keyframes tooltipOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-.player.hover .tooltip {
-  bottom: 65px;
-}
-
 .tooltip {
   display: inline-block;
   height: 22px;
@@ -28,12 +15,6 @@
   transform: translate3d(-50%, 0, 0);
   left: 50%;
   bottom: 15px;
-  z-index: 15;
-  transition: all 100ms;
-
-  &.out {
-    animation: tooltipOut 100ms linear forwards;
-  }
 
   &:after {
     content: ' ';
