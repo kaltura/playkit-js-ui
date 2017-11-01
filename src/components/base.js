@@ -30,6 +30,15 @@ class BaseComponent extends Component {
     this.logger = LoggerFactory.getLogger(`UI ${this.name}`);
     this.logger.debug(`Initialized`);
   }
+
+  getConfig(property: string) {
+    try {
+      return this.config.components[this.name][property];
+    } catch (error) {
+      return '';
+    }
+
+  }
 }
 
 export default BaseComponent;

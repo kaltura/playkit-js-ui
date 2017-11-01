@@ -74,6 +74,9 @@ class SeekBarPlaybackContainer extends BaseComponent {
         duration={this.props.duration}
         isDraggingActive={this.props.isDraggingActive}
         isMobile={this.props.isMobile}
+        thumbsSprite={this.getConfig('thumbsSprite')}
+        thumbsSlices={this.getConfig('thumbsSlices')}
+        thumbsWidth={this.getConfig('thumbsWidth')}
       />
     )
   }

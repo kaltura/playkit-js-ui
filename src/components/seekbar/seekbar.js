@@ -12,7 +12,9 @@ import { toHHMMSS } from '../../utils/time-format';
  *  showFramePreview={this.props.showFramePreview}
  *  showTimeBubble={this.props.showTimeBubble}
  *  changeCurrentTime={time => this.player.currentTime = time}
- *  playerPoster={this.props.poster}
+ *  thumbsSprite={this.config.thumbsSprite}
+ *  thumbsSlices={this.config.thumbsSlices}
+ *  thumbsWidth={this.config.thumbsWidth}
  *  updateSeekbarDraggingStatus={data => this.props.updateSeekbarDraggingStatus(data)}
  *  updateCurrentTime={data => this.props.updateCurrentTime(data)}
  *  currentTime={this.props.currentTime}
@@ -39,32 +41,6 @@ class SeekBarControl extends Component {
   componentWillMount() {
     this.setState({virtualTime: 0});
 
-  }
-
-  /**
-   * on component update, check if playerPostaer configured and framePreviewImg not set yet,
-   * if true, update the frame preview image
-   *
-   * @returns {void}
-   * @memberof SeekBarControl
-   */
-  componentDidUpdate() {
-    if (this.props.playerPoster && !this.framePreviewImg) {
-      this.framePreviewImg = this.getFramePreviewImg(this.props.playerPoster);
-    }
-  }
-
-  /**
-   * before component update, check if the player poster changed and create new preview image url.
-   *
-   * @param {any} nextProps props for the next component update
-   * @returns {void}
-   * @memberof SeekBarControl
-   */
-  componentWillUpdate(nextProps: any) {
-    if(nextProps.playerPoster && (this.props.playerPoster !== nextProps.playerPoster)) {
-      this.framePreviewImg = this.getFramePreviewImg(nextProps.playerPoster);
-    }
   }
 
   /**
@@ -271,7 +247,7 @@ class SeekBarControl extends Component {
    * @memberof SeekBarControl
    */
   getThumbSpriteOffset(): string {
-    return - (Math.ceil(100 * this.state.virtualTime / this.props.duration) * 160) + 'px 0px';
+    return - (Math.ceil(this.props.thumbsSlices * this.state.virtualTime / this.props.duration) * this.props.thumbsWidth) + 'px 0px';
   }
 
   /**
@@ -307,35 +283,20 @@ class SeekBarControl extends Component {
   }
 
   /**
-   * get the frame preview sprite based on player poster
-   *
-   * @param {string} posterUrl poster url
-   * @returns {string} image url
-   * @memberof SeekBarControl
-   */
-  getFramePreviewImg(posterUrl: string): string {
-    if (!posterUrl) return '';
-
-    let parts = posterUrl.split('/');
-    let heightValueIndex = parts.indexOf('height') + 1;
-    let widthValueIndex = parts.indexOf('width') + 1;
-    parts[heightValueIndex] = '90';
-    parts[widthValueIndex] = '160';
-    parts.push('vid_slices/100');
-
-    return parts.join('/');
-  }
-
-  /**
    * render frame preview
    *
    * @returns {React$Element} - component
    * @memberof SeekBarControl
    */
   renderFramePreview(): React$Element<any> | void {
-    if (!this.props.showFramePreview || this.props.isMobile) return undefined;
+    if (
+      !this.props.thumbsSprite || !this.props.thumbsSlices || !this.props.thumbsWidth ||
+      !this.props.showFramePreview ||
+      this.props.isMobile
+    ) return undefined;
+
     var framePreviewStyle = `left: ${this.getFramePreviewOffset()}px`;
-    var framePreviewImgStyle = `background-image: url(${this.framePreviewImg}); `;
+    var framePreviewImgStyle = `background-image: url(${this.props.thumbsSprite}); `;
     framePreviewImgStyle += `background-position: ${this.getThumbSpriteOffset()}`
 
     return (
