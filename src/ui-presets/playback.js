@@ -1,6 +1,7 @@
 //@flow
 import style from '../styles/style.scss';
 import { h } from 'preact';
+import getComponentConfig from '../utils/component-config';
 import OverlayPlay from '../components/overlay-play';
 import PrePlaybackPlayOverlay from '../components/pre-playback-play-overlay';
 import Loading from '../components/loading';
@@ -23,6 +24,7 @@ import KeyboardControl from '../components/keyboard';
  * @returns {React$Element} player ui tree
  */
 export default function playbackUI(props: any): React$Element<any> {
+
   return (
     <div className={style.playbackGuiWWrapper}>
       <KeyboardControl player={props.player} config={props.config} />
@@ -31,7 +33,13 @@ export default function playbackUI(props: any): React$Element<any> {
         <OverlayPortal />
         <OverlayPlay player={props.player} />
         <BottomBar>
-          <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player} config={props.config} />
+          <SeekBarPlaybackContainer
+            showFramePreview
+            showTimeBubble
+            player={props.player}
+            config={getComponentConfig(props.config, 'seekbar')}
+            playerTargetId={props.config.targetId}
+          />
           <div className={style.leftControls}>
             <PlayPauseControl player={props.player} />
             <TimeDisplayPlaybackContainer format='current / total' />
