@@ -7030,6 +7030,22 @@ var Loading = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAction
           _this2.props.updateLoadingSpinnerState(true);
         }
       });
+
+      this.player.addEventListener(this.player.Event.AD_BREAK_START, function () {
+        _this2.props.updateLoadingSpinnerState(true);
+      });
+
+      this.player.addEventListener(this.player.Event.AD_LOADED, function () {
+        _this2.props.updateLoadingSpinnerState(true);
+      });
+
+      this.player.addEventListener(this.player.Event.AD_STARTED, function () {
+        _this2.props.updateLoadingSpinnerState(false);
+      });
+
+      this.player.addEventListener(this.player.Event.ALL_ADS_COMPLETED, function () {
+        _this2.props.updateLoadingSpinnerState(false);
+      });
     }
 
     /**
@@ -7043,7 +7059,7 @@ var Loading = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindAction
   }, {
     key: 'render',
     value: function render(props) {
-      if (!props.show || props.adBreak || this.isPreloading) return undefined;
+      if (!props.show || this.isPreloading) return undefined;
 
       return (0, _preact.h)(
         'div',
@@ -10822,6 +10838,12 @@ var FullscreenControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _
       document.addEventListener('MSFullscreenChange', function () {
         return _this2.fullscreenChangeHandler();
       });
+      this.player.addEventListener(this.player.Event.REQUESTED_ENTER_FULLSCREEN, function () {
+        return _this2.enterFullscreen();
+      });
+      this.player.addEventListener(this.player.Event.REQUESTED_EXIT_FULLSCREEN, function () {
+        return _this2.exitFullscreen();
+      });
     }
 
     /**
@@ -10887,6 +10909,7 @@ var FullscreenControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _
           this.requestFullscreen(elementToFullscreen);
         }
       }
+      this.player.notifyEnterFullscreen();
     }
 
     /**
@@ -10908,6 +10931,7 @@ var FullscreenControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _
       } else if (typeof document.msExitFullscreen === 'function') {
         document.msExitFullscreen();
       }
+      this.player.notifyExitFullscreen();
     }
 
     /**

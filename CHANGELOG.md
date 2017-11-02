@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.10.0"></a>
+# [0.10.0](https://github.com/kaltura/playkit-js-ui/compare/v0.9.4...v0.10.0) (2017-11-01)
+
+
+### Bug Fixes
+
+* **FEC-7368:** show loading spinner for ads initial buffering ([#114](https://github.com/kaltura/playkit-js-ui/issues/114)) ([2b8e74d](https://github.com/kaltura/playkit-js-ui/commit/2b8e74d))
+
+
+### Features
+
+* connect the fullscreen to the player ([#115](https://github.com/kaltura/playkit-js-ui/issues/115)) ([5860548](https://github.com/kaltura/playkit-js-ui/commit/5860548))
+
+
+
 <a name="0.9.4"></a>
 ## [0.9.4](https://github.com/kaltura/playkit-js-ui/compare/v0.9.3...v0.9.4) (2017-10-30)
 
