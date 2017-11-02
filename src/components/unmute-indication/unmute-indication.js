@@ -48,10 +48,10 @@ class UnmuteIndication extends BaseComponent {
    * render component
    *
    * @param {*} props - component props
-   * @returns {React$Element} component element
+   * @returns {?React$Element} component element
    * @memberof UnmuteIndication
    */
-  render(props: any): React$Element<any> {
+  render(props: any): ?React$Element<any> {
     if (!this.state.unmuteHint) return undefined;
 
     var styleClass = [style.btn, style.btnDarkTransparent, style.unmuteButton];
