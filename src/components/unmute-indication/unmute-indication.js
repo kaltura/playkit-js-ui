@@ -1,9 +1,13 @@
 //@flow
 import style from '../../styles/style.scss';
 import { h } from 'preact';
+import { connect } from 'preact-redux';
+import { bindActions } from '../../utils/bind-actions';
+import { actions } from '../../reducers/volume';
 import BaseComponent from '../base';
 import { default as Icon, IconType } from '../icon';
 
+@connect(null, bindActions(actions))
 /**
  * UnmuteIndication component
  *
@@ -41,6 +45,10 @@ class UnmuteIndication extends BaseComponent {
 
     this.player.addEventListener(this.player.Event.FALLBACK_TO_MUTED_AUTOPLAY, () => {
       this.setState({unmuteHint: true});
+
+      setTimeout(() => {
+        this.setState({iconOnly: true});
+      }, 3000);
     });
   }
 
@@ -54,19 +62,27 @@ class UnmuteIndication extends BaseComponent {
   render(props: any): ?React$Element<any> {
     if (!this.state.unmuteHint) return undefined;
 
-    var styleClass = [style.btn, style.btnDarkTransparent, style.unmuteButton];
+    var styleClass = [style.unmuteButtonContainer];
     if (props.hasTopBar) styleClass.push(style.hasTopBar);
+    if (this.state.iconOnly) styleClass.push(style.showIconOnly);
 
     return (
-      <a
+      <div
         className={styleClass.join(' ')}
-        onClick={() => this.player.muted = !this.player.muted}>
-        <div className={style.unmuteIconContainer}>
+        onMouseOver={() => this.setState({iconOnly: false})}
+        onMouseOut={() => this.setState({iconOnly: true})}
+        onClick={() => this.player.muted = !this.player.muted}
+      >
+        <a
+          className={[style.btn, style.btnDarkTransparent, style.unmuteButton].join(' ')}
+        >
+          Unmute
+        </a>
+        <div className={style.unmuteIconContainer} onClick={() => this.player.muted = !this.player.muted}>
           <Icon type={IconType.VolumeBase} />
           <Icon type={IconType.VolumeMute} />
         </div>
-        Unmute
-      </a>
+      </div>
     );
   }
 }
