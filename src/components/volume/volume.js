@@ -56,6 +56,7 @@ class VolumeControl extends BaseComponent {
     })
 
     this.player.addEventListener(this.player.Event.VOLUME_CHANGE, () => {
+      this.props.updateMuted(this.player.muted);
       this.props.updateVolume(this.player.volume);
     });
 
