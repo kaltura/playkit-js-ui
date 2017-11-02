@@ -22,6 +22,13 @@ class UnmuteIndication extends BaseComponent {
     super({name: 'UnmuteIndication', player: obj.player});
   }
 
+  /**
+   * after component mounted, listen to relevant player event for updating the state of the component
+   *
+   * @method componentDidMount
+   * @returns {void}
+   * @memberof UnmuteIndication
+   */
   componentDidMount() {
     this.player.addEventListener(this.player.Event.MUTE_CHANGE, e => {
       this.props.updateMuted(e.payload.mute);

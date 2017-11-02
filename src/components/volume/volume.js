@@ -4,7 +4,6 @@ import { h } from 'preact';
 import { connect } from 'preact-redux';
 import { bindActions } from '../../utils/bind-actions';
 import { actions } from '../../reducers/volume';
-import Portal from 'preact-portal';
 import BaseComponent from '../base';
 import { default as Icon, IconType } from '../icon';
 
