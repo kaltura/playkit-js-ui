@@ -40,28 +40,6 @@
       top: 0; left: 0;
     }
 }
-.btn.unmute-button {
-  font-size: 15px;
-  padding: 0 16px;
-  position: absolute;
-  top: 13px; left: 16px;
-  z-index: 15;
-
-  .unmute-icon-container {
-    position: relative;
-    width: 32px;
-    height: 32px;
-    display: inline-block;
-    vertical-align: top;
-    margin-right: 3px;
-
-    i {
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-  }
-}
 .volume-control-bar {
     position: absolute; z-index: 2;
     bottom: 38px; left: 0px;
