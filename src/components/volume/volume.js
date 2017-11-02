@@ -60,31 +60,8 @@ class VolumeControl extends BaseComponent {
       this.props.updateVolume(this.player.volume);
     });
 
-    this.player.addEventListener(this.player.Event.MUTE_CHANGE, e => {
-      this.props.updateMuted(e.payload.mute);
-
-      // hide tooltip on user interaction
-      if (!e.payload.mute && this.state.unmuteHint) {
-        this.hideTooltip();
-      }
-    });
-
-    this.player.addEventListener(this.player.Event.FALLBACK_TO_MUTED_AUTOPLAY, () => {
-      this.setState({unmuteHint: true});
-    });
-
     document.addEventListener('mouseup', (e: any) => this.onVolumeProgressBarMouseUp(e));
     document.addEventListener('mousemove', (e: any) => this.onVolumeProgressBarMouseMove(e));
-  }
-
-  /**
-   * hide unmute tooltip
-   *
-   * @returns {void}
-   * @memberof VolumeControl
-   */
-  hideTooltip(): void {
-    this.setState({unmuteHint: false});
   }
 
   /**
@@ -218,22 +195,6 @@ class VolumeControl extends BaseComponent {
               <div className={style.progress} style={{height: this.getVolumeProgressHeight()}} />
             </div>
           </div>
-          {
-            !this.state.unmuteHint ? undefined :
-            (
-              <Portal into="#overlay-portal">
-                <a
-                  className={[style.btn, style.btnDarkTransparent, style.unmuteButton].join(' ')}
-                  onClick={() => this.player.muted = !this.player.muted}>
-                  <div className={style.unmuteIconContainer}>
-                    <Icon type={IconType.VolumeBase} />
-                    <Icon type={IconType.VolumeMute} />
-                  </div>
-                  Unmute
-                </a>
-              </Portal>
-            )
-          }
         </div>
       )
   }

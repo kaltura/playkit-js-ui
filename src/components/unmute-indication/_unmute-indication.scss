@@ -1,0 +1,32 @@
+.btn.unmute-button {
+  font-size: 15px;
+  padding: 0 16px;
+  position: absolute;
+  top: 13px; left: 16px;
+  z-index: 15;
+
+  &.has-top-bar {
+    transition: 100ms transform;
+  }
+
+  .unmute-icon-container {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 3px;
+
+    i {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+}
+
+.player.hover .btn.unmute-button.has-top-bar,
+.player.state-paused .btn.unmute-button.has-top-bar,
+.player.menu-active .btn.unmute-button.has-top-bar {
+  transform: translateY(32px);
+}

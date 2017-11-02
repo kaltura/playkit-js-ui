@@ -14,6 +14,7 @@ import BottomBar from '../components/bottom-bar';
 import OverlayPortal from '../components/overlay-portal';
 import KeyboardControl from '../components/keyboard';
 import LiveTag from '../components/live-tag';
+import UnmuteIndication from '../components/unmute-indication';
 
 /**
  * Live ui intrface
@@ -29,6 +30,7 @@ export default function liveUI(props: any): React$Element<any> {
       <Loading player={props.player} />
       <div className={style.playerGui} id='player-gui'>
         <OverlayPortal />
+        <UnmuteIndication />
         <OverlayPlay player={props.player} />
         <BottomBar>
           <SeekBarLivePlaybackContainer showFramePreview showTimeBubble player={props.player} config={props.config} />
