@@ -1,32 +1,49 @@
-.btn.unmute-button {
-  font-size: 15px;
-  padding: 0 16px;
+.unmute-button-container {
+  display: inline-block;
   position: absolute;
   top: 13px; left: 16px;
   z-index: 15;
 
-  &.has-top-bar {
-    transition: 100ms transform;
-  }
+  &.show-icon-only {
 
-  .unmute-icon-container {
-    position: relative;
-    width: 32px;
-    height: 32px;
-    display: inline-block;
-    vertical-align: top;
-    margin-right: 3px;
-
-    i {
-      position: absolute;
-      top: 0;
-      left: 0;
+    .btn.unmute-button {
+      opacity: 0;
+    }
+    .unmute-icon-container {
+      transform: translateX(-10px);
     }
   }
 }
+.btn.unmute-button {
+  font-size: 15px;
+  padding: 0 16px 0 51px;
+  transition: 150ms opacity;
 
-.player.hover .btn.unmute-button.has-top-bar,
-.player.state-paused .btn.unmute-button.has-top-bar,
-.player.menu-active .btn.unmute-button.has-top-bar {
+  &.has-top-bar {
+    transition: 100ms transform;
+  }
+}
+
+.unmute-icon-container {
+  position: absolute;
+  left: 16px;
+  top: 2px;
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 3px;
+  transition: 100ms transform;
+
+  i {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+.player.hover .unmute-button-container.has-top-bar,
+.player.state-paused .unmute-button-container.has-top-bar,
+.player.menu-active .unmute-button-container.has-top-bar {
   transform: translateY(32px);
 }
