@@ -23,13 +23,6 @@ const mapStateToProps = state => ({
   adBreak: state.engine.adBreak
 });
 
-/**
- * The default control bar hover time rendering timeout value
- * @type {number}
- * @const
- */
-const DEFAULT_CONTROL_BAR_HOVER_TIME: number = 3000;
-
 @connect(mapStateToProps, bindActions(actions))
   /**
    * Shell component
@@ -63,7 +56,19 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   onMouseOver(): void {
-    this._showAndHideControlBar();
+    if (!this.state.hover) {
+      this.props.updatePlayerHoverState(true);
+      this.setState({hover: true});
+    }
+    if (this.hoverTimeout) {
+      clearTimeout(this.hoverTimeout);
+    }
+    this.hoverTimeout = setTimeout(() => {
+      if (!this.props.seekbarDraggingActive) {
+        this.props.updatePlayerHoverState(false);
+        this.setState({hover: false});
+      }
+    }, this.props.hoverTimeout || 3000);
   }
 
   /**
@@ -131,32 +136,7 @@ class Shell extends BaseComponent {
     if (this.player.env.device.type) {
       this.props.updatePlayerHoverState(true);
     }
-    this._showAndHideControlBar();
   }
-
-
-  /**
-   * show the control bar for few seconds and then hide it
-   * @returns {void}
-   * @memberof Shell
-   */
-  _showAndHideControlBar(): void{
-    if (!this.state.hover) {
-      this.props.updatePlayerHoverState(true);
-      this.setState({hover: true});
-    }
-    if (this.hoverTimeout) {
-      clearTimeout(this.hoverTimeout);
-    }
-    this.hoverTimeout = setTimeout(() => {
-      if (!this.props.seekbarDraggingActive) {
-        this.props.updatePlayerHoverState(false);
-        this.setState({hover: false});
-      }
-    }, this.props.hoverTimeout || DEFAULT_CONTROL_BAR_HOVER_TIME);
-  }
-
-
 
   /**
    * render component
