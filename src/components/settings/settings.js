@@ -163,7 +163,7 @@ class SettingsControl extends BaseComponent {
    * @returns {Object} - a map of all the heights with it's max values
    * @memberof SettingsControl
    */
-  mapHeightToMaxBandwidth(videoTracks: Array): Object {
+  mapHeightToMaxBandwidth(videoTracks: Array<any>): Object {
     let map = {};
     videoTracks.forEach(t => {
       if (t.height && t.bandwidth) {
