@@ -157,21 +157,28 @@ class SettingsControl extends BaseComponent {
   }
 
   /**
-   * render component
+   * This function gets an array and increases it if needed in each iteration. The function checks if the last element
+   * in the sorted array has the same resolution as the new current track element. If so, it compares their bandwidth
+   * and the the one with the higher. If the resolution is different then it just adds it to the array
    *
-   * @param {Array} videoTracks - video tracks
-   * @returns {Object} - a map of all the heights with it's max values
+   * @param {Array} returnArr - sorted (!) video tracks arragity
+   * @param {object} currentTrack - a track
+   * @returns {Arrat<any>} - an array with unique values, compared by their height. if the new track (currenttrack) has
+   * the same height value, then we take the one with the higher bandwidth (replace it if needed)
    * @memberof SettingsControl
    */
-  mapHeightToMaxBandwidth(videoTracks: Array<any>): Object {
-    let map = {};
-    videoTracks.forEach(t => {
-      if (t.height && t.bandwidth) {
-        const heightMaxBandwidth = map[t.height];
-        map[t.height] = (typeof heightMaxBandwidth === 'undefined') || (heightMaxBandwidth < t.bandwidth) ? t.bandwidth : heightMaxBandwidth;
+  compareWithLastAndReplace(returnArr: Array<any>, currentTrack: any): Array<any> {
+    const arrLength = returnArr.length - 1;
+    if (arrLength > -1 && currentTrack.height === returnArr[arrLength].height) {
+      if (currentTrack.bandwidth > returnArr[arrLength].bandwidth) {
+        returnArr[arrLength] = currentTrack;
+        return returnArr;
+      } else {
+        return returnArr;
       }
-    });
-    return map;
+    } else {
+      return returnArr.concat(currentTrack);
+    }
   }
 
   /**
@@ -197,14 +204,16 @@ class SettingsControl extends BaseComponent {
       }, []);
 
 
-    let heightToBandwidthMap = this.mapHeightToMaxBandwidth(props.videoTracks);
     let qualityOptions = props.videoTracks
-      .filter(t => {
-        return (t.bandwidth || t.height) && (t.bandwidth === heightToBandwidthMap[t.height])
-      })
       .sort((a, b) => {
         return a.bandwidth < b.bandwidth ? 1 : -1;
       })
+      .filter((t) => {
+        return (t.bandwidth || t.height)
+      })
+      .reduce((returnArr, currentTrack) => {
+        return this.compareWithLastAndReplace(returnArr, currentTrack);
+      }, [])
       .map(t => ({
         label: this.getQualityOptionLabel(t),
         active: !this.player.isAdaptiveBitrateEnabled() && t.active,
