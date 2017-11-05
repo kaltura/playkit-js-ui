@@ -1,14 +1,14 @@
 //@flow
 import style from '../../styles/style.scss';
-import { h } from 'preact';
-import { Localizer, Text } from 'preact-i18n';
-import { connect } from 'preact-redux';
-import { bindActions } from '../../utils/bind-actions';
-import { actions } from '../../reducers/settings';
+import {h} from 'preact';
+import {Localizer, Text} from 'preact-i18n';
+import {connect} from 'preact-redux';
+import {bindActions} from '../../utils/bind-actions';
+import {actions} from '../../reducers/settings';
 import BaseComponent from '../base';
 import SmartContainer from '../smart-container';
 import SmartContainerItem from '../smart-container/smart-container-item';
-import { default as Icon, IconType } from '../icon';
+import {default as Icon, IconType} from '../icon';
 
 const defaultSpeeds = [0.5, 1, 2, 4];
 
@@ -24,13 +24,13 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps, bindActions(actions))
-/**
- * SettingsControl component
- *
- * @class SettingsControl
- * @example <SettingsControl player={this.player} />
- * @extends {BaseComponent}
- */
+  /**
+   * SettingsControl component
+   *
+   * @class SettingsControl
+   * @example <SettingsControl player={this.player} />
+   * @extends {BaseComponent}
+   */
 class SettingsControl extends BaseComponent {
   state: Object;
   _controlSettingsElement: any;
@@ -137,7 +137,7 @@ class SettingsControl extends BaseComponent {
    */
   getQualityOptionLabel(t: Object): string {
     let resolution = t.height ? t.height + 'p' : undefined;
-    let mbs = t.bandwidth ? (t.bandwidth/1000000).toPrecision(2) + 'Mbs' : undefined;
+    let mbs = t.bandwidth ? (t.bandwidth / 1000000).toPrecision(2) + 'Mbs' : undefined;
 
     if (!this.props.qualityType) {
       return resolution || mbs || 'N/A';
@@ -154,6 +154,24 @@ class SettingsControl extends BaseComponent {
     else {
       return 'N/A'
     }
+  }
+
+  /**
+   * render component
+   *
+   * @param {Array} videoTracks - video tracks
+   * @returns {Object} - a map of all the heights with it's max values
+   * @memberof SettingsControl
+   */
+  mapHeightToMaxBandwidth(videoTracks: Array): Object {
+    let map = {};
+    videoTracks.forEach(t => {
+      if (t.height && t.bandwidth) {
+        const heightMaxBandwidth = map[t.height];
+        map[t.height] = (typeof heightMaxBandwidth === 'undefined') || (heightMaxBandwidth < t.bandwidth) ? t.bandwidth : heightMaxBandwidth;
+      }
+    });
+    return map;
   }
 
   /**
@@ -178,9 +196,11 @@ class SettingsControl extends BaseComponent {
         return acc;
       }, []);
 
+
+    let heightToBandwidthMap = this.mapHeightToMaxBandwidth(props.videoTracks);
     let qualityOptions = props.videoTracks
       .filter(t => {
-        return t.bandwidth || t.height
+        return (t.bandwidth || t.height) && (t.bandwidth === heightToBandwidthMap[t.height])
       })
       .sort((a, b) => {
         return a.bandwidth < b.bandwidth ? 1 : -1;
@@ -205,33 +225,35 @@ class SettingsControl extends BaseComponent {
 
     return (
       <div
-        ref={c => this._controlSettingsElement=c}
+        ref={c => this._controlSettingsElement = c}
         className={[style.controlButtonContainer, style.controlSettings].join(' ')}
       >
         <Localizer>
           <button
-            aria-label={<Text id='controls.settings' />}
+            aria-label={<Text id='controls.settings'/>}
             className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
             onClick={() => this.onControlButtonClick()}
           >
-            <Icon type={IconType.Settings} />
+            <Icon type={IconType.Settings}/>
           </button>
         </Localizer>
-        { !this.state.smartContainerOpen ? '' :
-        <SmartContainer title='Settings' onClose={() => this.onControlButtonClick()}>
-          {
-            qualityOptions.length === 0 ? '' :
-            <Localizer>
-              <SmartContainerItem icon='quality' label={<Text id='settings.quality' />} options={qualityOptions} onSelect={(o) => this.onQualityChange(o)} />
-            </Localizer>
-          }
-          {
-            props.isLive ? '' :
-            <Localizer>
-              <SmartContainerItem icon='speed' label={<Text id='settings.speed' />} options={speedOptions} onSelect={(o) => this.onSpeedChange(o)} />
-            </Localizer>
-          }
-        </SmartContainer>
+        {!this.state.smartContainerOpen ? '' :
+          <SmartContainer title='Settings' onClose={() => this.onControlButtonClick()}>
+            {
+              qualityOptions.length === 0 ? '' :
+                <Localizer>
+                  <SmartContainerItem icon='quality' label={<Text id='settings.quality'/>} options={qualityOptions}
+                                      onSelect={(o) => this.onQualityChange(o)}/>
+                </Localizer>
+            }
+            {
+              props.isLive ? '' :
+                <Localizer>
+                  <SmartContainerItem icon='speed' label={<Text id='settings.speed'/>} options={speedOptions}
+                                      onSelect={(o) => this.onSpeedChange(o)}/>
+                </Localizer>
+            }
+          </SmartContainer>
         }
       </div>
     )
