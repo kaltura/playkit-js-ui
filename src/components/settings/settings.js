@@ -220,7 +220,7 @@ class SettingsControl extends BaseComponent {
         { !this.state.smartContainerOpen ? '' :
         <SmartContainer title='Settings' onClose={() => this.onControlButtonClick()}>
           {
-            qualityOptions.length === 0 ? '' :
+            qualityOptions.length <= 1 ? '' :
             <Localizer>
               <SmartContainerItem icon='quality' label={<Text id='settings.quality' />} options={qualityOptions} onSelect={(o) => this.onQualityChange(o)} />
             </Localizer>
