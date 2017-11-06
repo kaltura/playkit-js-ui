@@ -8,7 +8,7 @@ import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 
 /**
- * The icon only timeout.
+ * The icon only timeout
  * @type {number}
  * @const
  */
@@ -23,6 +23,12 @@ const ICON_ONLY_TIMEOUT = 3000;
    * @extends {BaseComponent}
    */
 class UnmuteIndication extends BaseComponent {
+  /**
+   * The icon only timeout bounded method reference
+   * @private
+   * @memberof UnmuteIndication
+   * @type {Function}
+   */
   _iconOnlyTimeoutCallback: Function;
 
   /**
@@ -59,6 +65,12 @@ class UnmuteIndication extends BaseComponent {
     });
   }
 
+  /**
+   * The icon only timeout handler
+   * @private
+   * @memberof UnmuteIndication
+   * @returns {void}
+   */
   _iconOnlyTimeout(): void {
     this.player.removeEventListener(this.player.Event.PLAYING, this._iconOnlyTimeoutCallback);
     this.player.removeEventListener(this.player.Event.AD_STARTED, this._iconOnlyTimeoutCallback);
