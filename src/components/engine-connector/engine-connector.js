@@ -59,10 +59,14 @@ class EngineConnector extends BaseComponent {
       this.props.updateDuration(this.player.duration);
     });
 
+    this.player.addEventListener(this.player.Event.SOURCE_SELECTED, () => {
+      // TODO: change when player will expose the player.poster at this stage
+      this.props.updatePlayerPoster(this.player.config.metadata.poster);
+    });
+
     this.player.addEventListener(this.player.Event.LOADED_METADATA, () => {
       this.props.updateMuted(this.player.muted);
       this.props.updateMetadataLoadingStatus(true);
-      this.props.updatePlayerPoster(this.player.poster);
       this.props.updateIsLive(this.player.isLive());
       this.props.updateIsDvr(this.player.isDvr());
     });
