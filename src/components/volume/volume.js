@@ -56,11 +56,8 @@ class VolumeControl extends BaseComponent {
     })
 
     this.player.addEventListener(this.player.Event.VOLUME_CHANGE, () => {
-      this.props.updateVolume(this.player.volume);
-    });
-
-    this.player.addEventListener(this.player.Event.MUTE_CHANGE, () => {
       this.props.updateMuted(this.player.muted);
+      this.props.updateVolume(this.player.volume);
     });
 
     document.addEventListener('mouseup', (e: any) => this.onVolumeProgressBarMouseUp(e));
@@ -179,9 +176,15 @@ class VolumeControl extends BaseComponent {
       var controlButtonClass = [style.controlButtonContainer, style.volumeControl];
       if (this.props.isDraggingActive) controlButtonClass.push(style.draggingActive);
       if (this.props.muted || this.props.volume === 0) controlButtonClass.push(style.isMuted);
+      if (this.state.hover && !this.props.smartContainerOpen) controlButtonClass.push(style.hover);
 
       return (
-        <div ref={c => this._volumeControlElement=c} className={controlButtonClass.join(' ')}>
+        <div
+          ref={c => this._volumeControlElement=c}
+          className={controlButtonClass.join(' ')}
+          onMouseOver={() => this.setState({hover: true})}
+          onMouseOut={() => this.setState({hover: false})}
+        >
           <button className={style.controlButton} onClick={() => this.onVolumeControlButtonClick()} aria-label='Volume'>
             <Icon type={IconType.VolumeBase} />
             <Icon type={IconType.VolumeWaves} />

@@ -1,7 +1,9 @@
 //@flow
-import style from './_smart-container.scss';
+import style from '../../styles/style.scss';
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
+import { bindActions } from '../../utils/bind-actions';
+import { actions } from '../../reducers/shell';
 import Portal from 'preact-portal';
 import Overlay from '../overlay';
 
@@ -14,7 +16,7 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile
 });
 
-@connect(mapStateToProps)
+@connect(mapStateToProps, bindActions(actions))
 /**
  * SmartContainer component
  *
@@ -31,6 +33,26 @@ const mapStateToProps = state => ({
  * @extends {Component}
  */
 class SmartContainer extends Component {
+
+  /**
+   * before component mounted, add player css class
+   *
+   * @returns {void}
+   * @memberof SmartContainer
+   */
+  componentWillMount() {
+    this.props.addPlayerClass(style.smartContainerOpen);
+  }
+
+  /**
+   * after component unmounted, remove player css class
+   *
+   * @returns {void}
+   * @memberof SmartContainer
+   */
+  componentWillUnmount() {
+    this.props.removePlayerClass(style.smartContainerOpen);
+  }
 
   /**
    * if mobile detected, smart container representation is an overlay. hence, render overlay with its children.
