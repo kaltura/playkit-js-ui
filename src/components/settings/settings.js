@@ -161,7 +161,7 @@ class SettingsControl extends BaseComponent {
    * in the sorted array has the same resolution as the new current track element. If so, it compares their bandwidth
    * and the the one with the higher. If the resolution is different then it just adds it to the array
    *
-   * @param {Array} returnArr - sorted (!) video tracks arragity
+   * @param {Array} qualities - sorted (!) video tracks array
    * @param {object} currentTrack - a track
    * @returns {Array<any>} - an array with unique values, compared by their height. if the new track (currenttrack) has
    * the same height value, then we take the one with the higher bandwidth (replace it if needed)
