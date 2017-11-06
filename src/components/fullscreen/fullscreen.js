@@ -64,7 +64,7 @@ class FullscreenControl extends BaseComponent {
       typeof document.mozFullScreenElement !== 'undefined' && Boolean(document.mozFullScreenElement) ||
       typeof document.msFullscreenElement !== 'undefined' && Boolean(document.msFullscreenElement);
 
-    !isFullscreen ? this.player.notifyExitFullscreen() : this.player.notifyEnterFullscreen();
+    isFullscreen ? this.player.notifyEnterFullscreen() : this.player.notifyExitFullscreen();
     this.props.updateFullscreen(isFullscreen);
   }
 
