@@ -1,21 +1,29 @@
 //@flow
 import style from '../../styles/style.scss';
-import { h } from 'preact';
-import { connect } from 'preact-redux';
-import { bindActions } from '../../utils/bind-actions';
-import { actions } from '../../reducers/volume';
+import {h} from 'preact';
+import {connect} from 'preact-redux';
+import {bindActions} from '../../utils/bind-actions';
+import {actions} from '../../reducers/volume';
 import BaseComponent from '../base';
-import { default as Icon, IconType } from '../icon';
+import {default as Icon, IconType} from '../icon';
+
+/**
+ * The icon only timeout.
+ * @type {number}
+ * @const
+ */
+const ICON_ONLY_TIMEOUT = 3000;
 
 @connect(null, bindActions(actions))
-/**
- * UnmuteIndication component
- *
- * @class UnmuteIndication
- * @example <UnmuteIndication player={this.player} />
- * @extends {BaseComponent}
- */
+  /**
+   * UnmuteIndication component
+   *
+   * @class UnmuteIndication
+   * @example <UnmuteIndication player={this.player} />
+   * @extends {BaseComponent}
+   */
 class UnmuteIndication extends BaseComponent {
+  _iconOnlyTimeoutCallback: Function;
 
   /**
    * Creates an instance of UnmuteIndication.
@@ -24,6 +32,7 @@ class UnmuteIndication extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'UnmuteIndication', player: obj.player});
+    this._iconOnlyTimeoutCallback = this._iconOnlyTimeout.bind(this);
   }
 
   /**
@@ -45,11 +54,17 @@ class UnmuteIndication extends BaseComponent {
 
     this.player.addEventListener(this.player.Event.FALLBACK_TO_MUTED_AUTOPLAY, () => {
       this.setState({unmuteHint: true});
-
-      setTimeout(() => {
-        this.setState({iconOnly: true});
-      }, 3000);
+      this.player.addEventListener(this.player.Event.PLAYING, this._iconOnlyTimeoutCallback);
+      this.player.addEventListener(this.player.Event.AD_STARTED, this._iconOnlyTimeoutCallback);
     });
+  }
+
+  _iconOnlyTimeout(): void {
+    this.player.removeEventListener(this.player.Event.PLAYING, this._iconOnlyTimeoutCallback);
+    this.player.removeEventListener(this.player.Event.AD_STARTED, this._iconOnlyTimeoutCallback);
+    setTimeout(() => {
+      this.setState({iconOnly: true});
+    }, ICON_ONLY_TIMEOUT);
   }
 
   /**
@@ -77,8 +92,8 @@ class UnmuteIndication extends BaseComponent {
           className={[style.btn, style.btnDarkTransparent, style.unmuteButton].join(' ')}
         >
           <div className={style.unmuteIconContainer}>
-            <Icon type={IconType.VolumeBase} />
-            <Icon type={IconType.VolumeMute} />
+            <Icon type={IconType.VolumeBase}/>
+            <Icon type={IconType.VolumeMute}/>
           </div>
           <span>Unmute</span>
         </a>
