@@ -134,7 +134,6 @@ class Shell extends BaseComponent {
     this._showAndHideControlBar();
   }
 
-
   /**
    * show the control bar for few seconds and then hide it
    * @returns {void}
