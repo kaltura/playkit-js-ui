@@ -155,8 +155,6 @@ class Shell extends BaseComponent {
     }, this.props.hoverTimeout || DEFAULT_CONTROL_BAR_HOVER_TIME);
   }
 
-
-
   /**
    * render component
    *
