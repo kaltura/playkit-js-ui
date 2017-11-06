@@ -62,7 +62,7 @@ class SeekBarPlaybackContainer extends BaseComponent {
   render(): React$Element<any> {
     return (
       <SeekBarControl
-        playerElement={document.getElementById(this.props.playerTargetId)}
+        playerElement={this.player.getView().parentElement}
         showFramePreview={this.props.showFramePreview}
         showTimeBubble={this.props.showTimeBubble}
         changeCurrentTime={time => this.player.currentTime = time}
@@ -74,9 +74,9 @@ class SeekBarPlaybackContainer extends BaseComponent {
         duration={this.props.duration}
         isDraggingActive={this.props.isDraggingActive}
         isMobile={this.props.isMobile}
-        thumbsSprite={this.config.thumbsSprite}
-        thumbsSlices={this.config.thumbsSlices}
-        thumbsWidth={this.config.thumbsWidth}
+        thumbsSprite={this.props.config.thumbsSprite}
+        thumbsSlices={this.props.config.thumbsSlices}
+        thumbsWidth={this.props.config.thumbsWidth}
       />
     )
   }

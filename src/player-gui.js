@@ -14,7 +14,8 @@ const mapStateToProps = state => ({
       adBreak: state.engine.adBreak,
       isLive: state.engine.isLive
     }
-  }
+  },
+  config: state.config
 });
 
 @connect(mapStateToProps)

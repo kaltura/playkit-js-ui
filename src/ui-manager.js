@@ -7,6 +7,8 @@ import {createStore} from 'redux';
 import reducer from './store';
 import definition from './fr.json';
 
+import {actions} from './reducers/config';
+
 import {Player} from 'playkit-js';
 
 // core components for the UI
@@ -35,6 +37,8 @@ type UIPreset = {
 class UIManager {
   player: Player;
   config: Object;
+  targetId: string;
+  store: any;
 
   /**
    * Creates an instance of UIManager.
@@ -45,6 +49,25 @@ class UIManager {
   constructor(player: Player, config: Object) {
     this.player = player;
     this.config = config;
+    this.targetId = config.targetId;
+    this.store = createStore(reducer, window.devToolsExtension && window.devToolsExtension({ name: `playkit #${this.targetId}`, instanceId: this.targetId }));
+  }
+
+  /**
+   * sets the player and ui config in the store
+   *
+   * @param {Object} config - new config object
+   * @param {string} componentAlias - component alias (optional)
+   * @returns {void}
+   * @memberof UIManager
+   */
+  setConfig(config: Object, componentAlias?: string): void {
+    if (componentAlias) {
+      this.store.dispatch(actions.updateComponentConfig(componentAlias, config));
+    }
+    else {
+      this.store.dispatch(actions.updateConfig({targetId: this.targetId, ...config}));
+    }
   }
 
   /**
@@ -90,23 +113,23 @@ class UIManager {
     if (!this.player) return;
 
     // define the store and devtools for redux
-    const store = createStore(reducer, window.devToolsExtension && window.devToolsExtension({ name: `playkit #${this.config.target}`, instanceId: this.config.target }));
+    this.store.dispatch(actions.updateConfig({targetId: this.targetId, ...this.player.config}));
 
     // i18n, redux and initial player-to-store connector setup
     const template = (
-      <Provider store={store}>
+      <Provider store={this.store}>
         <IntlProvider definition={definition}>
           <Shell player={this.player}>
             <EngineConnector player={this.player} />
             <VideoPlayer player={this.player} />
-            <PlayerGUI uis={uis} player={this.player} config={this.config} />
+            <PlayerGUI uis={uis} player={this.player} />
           </Shell>
         </IntlProvider>
       </Provider>
     );
 
     // render the player
-    const container = document.getElementById(this.config.targetId);
+    const container = document.getElementById(this.targetId);
     render(template, container);
   }
 

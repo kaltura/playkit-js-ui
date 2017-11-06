@@ -8,7 +8,7 @@
  */
 function getComponentConfig(config: any, alias: string): Object {
   try {
-    return config.components[alias];
+    return config.ui[alias];
   } catch (error) {
     return {}
   }

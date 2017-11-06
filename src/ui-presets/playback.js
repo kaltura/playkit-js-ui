@@ -38,7 +38,6 @@ export default function playbackUI(props: any): React$Element<any> {
             showTimeBubble
             player={props.player}
             config={getComponentConfig(props.config, 'seekbar')}
-            playerTargetId={props.config.targetId}
           />
           <div className={style.leftControls}>
             <PlayPauseControl player={props.player} />
