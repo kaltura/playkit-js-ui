@@ -1,5 +1,5 @@
 //@flow
-import style from './_pre-playback-play-overlay.scss';
+import style from '../../styles/style.scss';
 import {h} from 'preact';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
@@ -125,8 +125,12 @@ class PrePlaybackPlayOverlay extends BaseComponent {
     if ((!props.isEnded && !props.prePlayback) || (!props.isEnded && this.autoplay)) {
       return undefined;
     }
+    let rootStyle = {
+      backgroundColor: '#000',
+      backgroundImage: `url(${props.poster})`
+    }
     return (
-      <div className={style.prePlaybackPlayOverlay} style={{backgroundImage: `url(${props.poster})`}}
+      <div className={style.prePlaybackPlayOverlay} style={!props.prePlayback && props.poster ? rootStyle : {}}
            onClick={() => this.handleClick()}>
         <a className={style.prePlaybackPlayButton}>
           {props.isEnded ? <Icon type={IconType.StartOver}/> : <Icon type={IconType.Play}/>}
