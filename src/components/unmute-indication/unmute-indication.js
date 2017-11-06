@@ -76,12 +76,12 @@ class UnmuteIndication extends BaseComponent {
         <a
           className={[style.btn, style.btnDarkTransparent, style.unmuteButton].join(' ')}
         >
-          Unmute
+          <div className={style.unmuteIconContainer}>
+            <Icon type={IconType.VolumeBase} />
+            <Icon type={IconType.VolumeMute} />
+          </div>
+          <span>Unmute</span>
         </a>
-        <div className={style.unmuteIconContainer} onClick={() => this.player.muted = !this.player.muted}>
-          <Icon type={IconType.VolumeBase} />
-          <Icon type={IconType.VolumeMute} />
-        </div>
       </div>
     );
   }

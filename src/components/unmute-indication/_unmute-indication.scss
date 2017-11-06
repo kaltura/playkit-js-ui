@@ -7,17 +7,28 @@
   &.show-icon-only {
 
     .btn.unmute-button {
-      opacity: 0;
-    }
-    .unmute-icon-container {
-      transform: translateX(-10px);
+      max-width: 64px;
+
+      span {
+        transform: translateX(10px);
+        opacity: 0;
+      }
     }
   }
 }
 .btn.unmute-button {
   font-size: 15px;
-  padding: 0 16px 0 51px;
-  transition: 150ms opacity;
+  max-width: 200px;
+  transition: max-width 200ms;
+  padding: 0 16px;
+  white-space: nowrap;
+
+  span {
+    transform: translateX(0px);
+    opacity: 1;
+    transition: transform 100ms, opacity 100ms;
+    display: inline-block;
+  }
 
   &.has-top-bar {
     transition: 100ms transform;
@@ -25,15 +36,12 @@
 }
 
 .unmute-icon-container {
-  position: absolute;
-  left: 16px;
-  top: 2px;
   width: 32px;
   height: 32px;
   display: inline-block;
   vertical-align: top;
+  position: relative;
   margin-right: 3px;
-  transition: 100ms transform;
 
   i {
     position: absolute;
