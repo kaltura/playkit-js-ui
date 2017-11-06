@@ -1,14 +1,14 @@
 //@flow
 import style from '../../styles/style.scss';
-import { h } from 'preact';
-import { Localizer, Text } from 'preact-i18n';
-import { connect } from 'preact-redux';
-import { bindActions } from '../../utils/bind-actions';
-import { actions } from '../../reducers/settings';
+import {h} from 'preact';
+import {Localizer, Text} from 'preact-i18n';
+import {connect} from 'preact-redux';
+import {bindActions} from '../../utils/bind-actions';
+import {actions} from '../../reducers/settings';
 import BaseComponent from '../base';
 import SmartContainer from '../smart-container';
 import SmartContainerItem from '../smart-container/smart-container-item';
-import { default as Icon, IconType } from '../icon';
+import {default as Icon, IconType} from '../icon';
 
 const defaultSpeeds = [0.5, 1, 2, 4];
 
@@ -24,13 +24,13 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps, bindActions(actions))
-/**
- * SettingsControl component
- *
- * @class SettingsControl
- * @example <SettingsControl player={this.player} />
- * @extends {BaseComponent}
- */
+  /**
+   * SettingsControl component
+   *
+   * @class SettingsControl
+   * @example <SettingsControl player={this.player} />
+   * @extends {BaseComponent}
+   */
 class SettingsControl extends BaseComponent {
   state: Object;
   _controlSettingsElement: any;
@@ -137,7 +137,7 @@ class SettingsControl extends BaseComponent {
    */
   getQualityOptionLabel(t: Object): string {
     let resolution = t.height ? t.height + 'p' : undefined;
-    let mbs = t.bandwidth ? (t.bandwidth/1000000).toPrecision(2) + 'Mbs' : undefined;
+    let mbs = t.bandwidth ? (t.bandwidth / 1000000).toPrecision(2) + 'Mbs' : undefined;
 
     if (!this.props.qualityType) {
       return resolution || mbs || 'N/A';
@@ -154,6 +154,30 @@ class SettingsControl extends BaseComponent {
     else {
       return 'N/A'
     }
+  }
+
+  /**
+   * This function gets an array and increases it if needed in each iteration. The function checks if the last element
+   * in the sorted array has the same resolution as the new current track element. If so, it compares their bandwidth
+   * and the the one with the higher. If the resolution is different then it just adds it to the array
+   *
+   * @param {Array} qualities - sorted (!) video tracks array
+   * @param {object} currentTrack - a track
+   * @returns {Array<any>} - an array with unique values, compared by their height. if the new track (currenttrack) has
+   * the same height value, then we take the one with the higher bandwidth (replace it if needed)
+   * @memberof SettingsControl
+   */
+  filterUniqueQualities(qualities: Array<any>, currentTrack: any): Array<any> {
+    const arrLength = qualities.length - 1;
+    const previousTrack = qualities[arrLength];
+    if ((arrLength > -1) && (currentTrack.height === previousTrack.height)) {
+      if (currentTrack.bandwidth > previousTrack.bandwidth) {
+        qualities[arrLength] = currentTrack;
+      }
+    } else {
+      qualities.push(currentTrack);
+    }
+    return qualities
   }
 
   /**
@@ -178,13 +202,15 @@ class SettingsControl extends BaseComponent {
         return acc;
       }, []);
 
+
     let qualityOptions = props.videoTracks
-      .filter(t => {
-        return t.bandwidth || t.height
-      })
       .sort((a, b) => {
         return a.bandwidth < b.bandwidth ? 1 : -1;
       })
+      .filter((t) => {
+        return (t.bandwidth || t.height)
+      })
+      .reduce(this.filterUniqueQualities, [])
       .map(t => ({
         label: this.getQualityOptionLabel(t),
         active: !this.player.isAdaptiveBitrateEnabled() && t.active,
@@ -205,33 +231,35 @@ class SettingsControl extends BaseComponent {
 
     return (
       <div
-        ref={c => this._controlSettingsElement=c}
+        ref={c => this._controlSettingsElement = c}
         className={[style.controlButtonContainer, style.controlSettings].join(' ')}
       >
         <Localizer>
           <button
-            aria-label={<Text id='controls.settings' />}
+            aria-label={<Text id='controls.settings'/>}
             className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
             onClick={() => this.onControlButtonClick()}
           >
-            <Icon type={IconType.Settings} />
+            <Icon type={IconType.Settings}/>
           </button>
         </Localizer>
-        { !this.state.smartContainerOpen ? '' :
-        <SmartContainer title='Settings' onClose={() => this.onControlButtonClick()}>
-          {
-            qualityOptions.length <= 1 ? '' :
-            <Localizer>
-              <SmartContainerItem icon='quality' label={<Text id='settings.quality' />} options={qualityOptions} onSelect={(o) => this.onQualityChange(o)} />
-            </Localizer>
-          }
-          {
-            props.isLive ? '' :
-            <Localizer>
-              <SmartContainerItem icon='speed' label={<Text id='settings.speed' />} options={speedOptions} onSelect={(o) => this.onSpeedChange(o)} />
-            </Localizer>
-          }
-        </SmartContainer>
+        {!this.state.smartContainerOpen ? '' :
+          <SmartContainer title='Settings' onClose={() => this.onControlButtonClick()}>
+            {
+              qualityOptions.length <= 1 ? '' :
+                <Localizer>
+                  <SmartContainerItem icon='quality' label={<Text id='settings.quality'/>} options={qualityOptions}
+                                      onSelect={(o) => this.onQualityChange(o)}/>
+                </Localizer>
+            }
+            {
+              props.isLive ? '' :
+                <Localizer>
+                  <SmartContainerItem icon='speed' label={<Text id='settings.speed'/>} options={speedOptions}
+                                      onSelect={(o) => this.onSpeedChange(o)}/>
+                </Localizer>
+            }
+          </SmartContainer>
         }
       </div>
     )
