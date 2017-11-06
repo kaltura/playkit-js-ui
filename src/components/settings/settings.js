@@ -163,22 +163,21 @@ class SettingsControl extends BaseComponent {
    *
    * @param {Array} returnArr - sorted (!) video tracks arragity
    * @param {object} currentTrack - a track
-   * @returns {Arrat<any>} - an array with unique values, compared by their height. if the new track (currenttrack) has
+   * @returns {Array<any>} - an array with unique values, compared by their height. if the new track (currenttrack) has
    * the same height value, then we take the one with the higher bandwidth (replace it if needed)
    * @memberof SettingsControl
    */
-  compareWithLastAndReplace(returnArr: Array<any>, currentTrack: any): Array<any> {
-    const arrLength = returnArr.length - 1;
-    if (arrLength > -1 && currentTrack.height === returnArr[arrLength].height) {
-      if (currentTrack.bandwidth > returnArr[arrLength].bandwidth) {
-        returnArr[arrLength] = currentTrack;
-        return returnArr;
-      } else {
-        return returnArr;
+  filterUniqueQualities(qualities: Array<any>, currentTrack: any): Array<any> {
+    const arrLength = qualities.length - 1;
+    const previousTrack = qualities[arrLength];
+    if ((arrLength > -1) && (currentTrack.height === previousTrack.height)) {
+      if (currentTrack.bandwidth > previousTrack.bandwidth) {
+        qualities[arrLength] = currentTrack;
       }
     } else {
-      return returnArr.concat(currentTrack);
+      qualities.push(currentTrack);
     }
+    return qualities
   }
 
   /**
@@ -211,9 +210,7 @@ class SettingsControl extends BaseComponent {
       .filter((t) => {
         return (t.bandwidth || t.height)
       })
-      .reduce((returnArr, currentTrack) => {
-        return this.compareWithLastAndReplace(returnArr, currentTrack);
-      }, [])
+      .reduce(this.filterUniqueQualities, [])
       .map(t => ({
         label: this.getQualityOptionLabel(t),
         active: !this.player.isAdaptiveBitrateEnabled() && t.active,
