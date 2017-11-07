@@ -3,6 +3,19 @@
 const webpack = require("webpack");
 const path = require("path");
 const PROD = (process.env.NODE_ENV === 'production');
+const packageData = require("./package.json");
+
+let plugins = [
+  new webpack.DefinePlugin({
+    __VERSION__: JSON.stringify(packageData.version),
+    __NAME__: JSON.stringify(packageData.name),
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+  })
+];
+
+if (PROD) {
+  plugins.push(new webpack.optimize.UglifyJsPlugin({sourceMap: true}));
+}
 
 module.exports = {
   context: __dirname + "/src",
@@ -15,7 +28,7 @@ module.exports = {
     devtoolModuleFilenameTemplate: "./ui/[resource-path]",
   },
   devtool: 'source-map',
-  plugins: PROD ? [new webpack.optimize.UglifyJsPlugin({sourceMap: true})] : [],
+  plugins: plugins,
   module: {
     rules: [
       {
