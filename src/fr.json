@@ -10,7 +10,8 @@
       "share": "Share",
       "language": "Language",
       "settings": "Settings",
-      "fullscreen": "Fullscreen"
+      "fullscreen": "Fullscreen",
+      "rewind": "Rewind"
     },
     "settings": {
       "quality": "Quality",

@@ -28,7 +28,9 @@ const IconType = {
   Embed: 'embed',
   Link: 'link',
   ArrowDown: 'arrow-down',
-  StartOver: 'start-over'
+  StartOver: 'start-over',
+  Rewind: 'rewind',
+  Rewind10: 'rewind10'
 }
 /**
  * Icon component
@@ -124,6 +126,12 @@ class Icon extends Component {
 
       case IconType.StartOver:
         return (<i className={[style.icon, style.iconStartOver].join(' ')} />)
+
+      case IconType.Rewind:
+        return (<i className={[style.icon, style.iconRewind].join(' ')} />)
+
+      case IconType.Rewind10:
+        return (<i className={[style.icon, style.iconRewind10].join(' ')} />)
 
       default:
         break;
