@@ -15,6 +15,7 @@ import TimeDisplayPlaybackContainer from '../components/time-display-playback-co
 import BottomBar from '../components/bottom-bar';
 import OverlayPortal from '../components/overlay-portal';
 import KeyboardControl from '../components/keyboard';
+import UnmuteIndication from '../components/unmute-indication';
 
 /**
  * Playback ui interface
@@ -31,6 +32,7 @@ export default function playbackUI(props: any): React$Element<any> {
       <Loading player={props.player} />
       <div className={style.playerGui} id='player-gui'>
         <OverlayPortal />
+        <UnmuteIndication player={props.player} />
         <OverlayPlay player={props.player} />
         <BottomBar>
           <SeekBarPlaybackContainer
