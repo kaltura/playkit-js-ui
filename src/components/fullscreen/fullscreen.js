@@ -64,6 +64,7 @@ class FullscreenControl extends BaseComponent {
       typeof document.mozFullScreenElement !== 'undefined' && Boolean(document.mozFullScreenElement) ||
       typeof document.msFullscreenElement !== 'undefined' && Boolean(document.msFullscreenElement);
 
+    isFullscreen ? this.player.notifyEnterFullscreen() : this.player.notifyExitFullscreen();
     this.props.updateFullscreen(isFullscreen);
   }
 
@@ -104,12 +105,10 @@ class FullscreenControl extends BaseComponent {
       this.player.getView().getElementsByTagName('video')[0].webkitEnterFullscreen();
     } else {
       let elementToFullscreen = document.getElementById(this.config.targetId);
-
       if (elementToFullscreen) {
         this.requestFullscreen(elementToFullscreen);
       }
     }
-    this.player.notifyEnterFullscreen();
   }
 
   /**
@@ -128,7 +127,6 @@ class FullscreenControl extends BaseComponent {
     } else if (typeof document.msExitFullscreen === 'function') {
       document.msExitFullscreen();
     }
-    this.player.notifyExitFullscreen();
   }
 
   /**
