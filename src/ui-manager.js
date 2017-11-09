@@ -24,6 +24,9 @@ import liveUI from './ui-presets/live';
 
 import './styles/style.scss';
 
+declare var __VERSION__: string;
+declare var __NAME__: string;
+
 type UIPreset = {
   template: (props: Object) => any;
   condition?: (state: Object) => boolean;
@@ -136,4 +139,5 @@ class UIManager {
 }
 
 export default UIManager;
+export {__VERSION__ as VERSION, __NAME__ as NAME};
 

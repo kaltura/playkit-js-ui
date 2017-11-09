@@ -15,7 +15,7 @@
         float: left;
         text-align: left;
 
-        &:first-child {
+        .control-button-container:first-child {
           margin-left: 0px;
         }
     }
@@ -23,13 +23,13 @@
         float: right;
         text-align: left;
 
-        .control-button-container {
-            margin: 0 6px;
-
-            &:last-child {
-                margin-right: 0;
-            }
+        .control-button-container:last-child {
+          margin-right: 0px;
         }
+    }
+
+    .control-button-container {
+      margin: 0 6px;
     }
 }
 
