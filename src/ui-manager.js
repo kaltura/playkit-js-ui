@@ -118,6 +118,8 @@ class UIManager {
     // define the store and devtools for redux
     this.store.dispatch(actions.updateConfig({targetId: this.targetId, ...this.player.config}));
 
+    const container = document.getElementById(this.targetId);
+
     // i18n, redux and initial player-to-store connector setup
     const template = (
       <Provider store={this.store}>
@@ -125,14 +127,13 @@ class UIManager {
           <Shell player={this.player}>
             <EngineConnector player={this.player} />
             <VideoPlayer player={this.player} />
-            <PlayerGUI uis={uis} player={this.player} />
+            <PlayerGUI uis={uis} player={this.player} playerContainer={container} />
           </Shell>
         </IntlProvider>
       </Provider>
     );
 
     // render the player
-    const container = document.getElementById(this.targetId);
     render(template, container);
   }
 

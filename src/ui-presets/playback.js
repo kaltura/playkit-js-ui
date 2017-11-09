@@ -40,7 +40,7 @@ export default function playbackUI(props: any): React$Element<any> {
             showFramePreview
             showTimeBubble
             player={props.player}
-            playerTargetId={props.config.targetId}
+            playerContainer={props.playerContainer}
             config={getComponentConfig(props.config, 'seekbar')}
           />
           <div className={style.leftControls}>
