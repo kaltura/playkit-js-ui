@@ -50,6 +50,7 @@ class UIManager {
   constructor(player: Player, config: Object) {
     this.player = player;
     this.config = config;
+    setLogLevel(config.logLevel && this.LogLevel[config.logLevel]);
   }
 
   /**
