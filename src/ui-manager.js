@@ -3,7 +3,7 @@ import {h, render} from 'preact';
 import {Provider} from 'preact-redux';
 import {IntlProvider} from 'preact-i18n';
 import {createStore} from 'redux';
-import getLogger, {LOG_LEVEL as LogLevel, getLogLevel, setLogLevel} from './utils/logger'
+import {LOG_LEVEL as LogLevel, getLogLevel, setLogLevel} from './utils/logger'
 
 
 import reducer from './store';
