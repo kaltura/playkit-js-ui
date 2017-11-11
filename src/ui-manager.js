@@ -3,6 +3,8 @@ import {h, render} from 'preact';
 import {Provider} from 'preact-redux';
 import {IntlProvider} from 'preact-i18n';
 import {createStore} from 'redux';
+import getLogger, {LOG_LEVEL as LogLevel, getLogLevel, setLogLevel} from './utils/logger'
+
 
 import reducer from './store';
 import definition from './fr.json';
@@ -111,6 +113,34 @@ class UIManager {
     // render the player
     const container = document.getElementById(this.config.targetId);
     render(template, container);
+  }
+
+  /**
+   * Get the player log level.
+   * @returns {Object} - The log levels of the player.
+   * @public
+   */
+  get LogLevel(): { [level: string]: Object } {
+    return LogLevel;
+  }
+
+  /**
+   * get the log level
+   * @param {?string} name - the logger name
+   * @returns {string} - the log level
+   */
+  getLogLevel(name?: string): string {
+    return getLogLevel(name);
+  }
+
+  /**
+   * sets the logger level
+   * @param {string} level - the log level
+   * @param {?string} name - the logger name
+   * @returns {void}
+   */
+  setLogLevel(level: string, name?: string){
+    setLogLevel(level, name);
   }
 
 }
