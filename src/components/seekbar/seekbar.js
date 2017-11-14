@@ -257,7 +257,7 @@ class SeekBarControl extends Component {
    * @memberof SeekBarControl
    */
   getFramePreviewOffset(): number {
-    if (this._seekBarElement) {
+    if (this._seekBarElement && this._framePreviewElement) {
       let leftOffset = (this.state.virtualTime / this.props.duration * this._seekBarElement.clientWidth) - (this._framePreviewElement.clientWidth / 2);
       if (leftOffset < 0) return 0;
       else if (leftOffset > this._seekBarElement.clientWidth - this._framePreviewElement.clientWidth) return (this._seekBarElement.clientWidth - this._framePreviewElement.clientWidth);
