@@ -1,7 +1,7 @@
 //@flow
 import * as JsLogger from 'js-logger';
 
-const LOG_LEVEL: { [level: string]: Object } = {
+const LogLevel: { [level: string]: Object } = {
   "DEBUG": JsLogger.DEBUG,
   "INFO": JsLogger.INFO,
   "TIME": JsLogger.TIME,
@@ -10,37 +10,38 @@ const LOG_LEVEL: { [level: string]: Object } = {
   "OFF": JsLogger.OFF
 };
 
-/**
- * LoggerFactory
- *
- * @class LoggerFactory
- */
-class LoggerFactory {
-  /**
-   * Creates an instance of LoggerFactory.
-   * @param {Object} [options] options
-   * @memberof LoggerFactory
-   */
-  constructor(options?: Object) {
-    JsLogger.useDefaults(options || {});
-  }
+JsLogger.useDefaults({defaultLevel: JsLogger.ERROR});
 
-  /**
-   * getLogger
-   *
-   * @param {string} [name] name
-   * @returns {*} - logger
-   * @memberof LoggerFactory
-   */
-  getLogger(name?: string) {
-    if (!name) {
-      return JsLogger;
-    }
-    return JsLogger.get(name);
+/**
+ * get a logger
+ * @param {?string} name - the logger name
+ * @returns {Object} - the logger class
+ */
+function getLogger(name?: string): Object {
+  if (!name) {
+    return JsLogger;
   }
+  return JsLogger.get(name);
 }
 
-const lf = new LoggerFactory({defaultLevel: JsLogger.DEBUG});
+/**
+ * get the log level
+ * @param {?string} name - the logger name
+ * @returns {Object} - the log level
+ */
+function getLogLevel(name?: string): Object {
+  return getLogger(name).getLevel();
+}
 
-export default lf;
-export {LOG_LEVEL};
+/**
+ * sets the logger level
+ * @param {Object} level - the log level
+ * @param {?string} name - the logger name
+ * @returns {void}
+ */
+function setLogLevel(level: Object, name?: string): void {
+  getLogger(name).setLevel(level);
+}
+
+export default getLogger;
+export {LogLevel, getLogLevel, setLogLevel};

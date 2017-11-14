@@ -1,7 +1,7 @@
 //@flow
 import { Component } from 'preact';
 import Player from 'playkit-js';
-import LoggerFactory from '../utils/logger';
+import getLogger from '../utils/logger';
 
 /**
  * Base component to be extended by other player UI components
@@ -27,7 +27,7 @@ class BaseComponent extends Component {
     this.name = obj.name;
     this.player = obj.player;
     this.config = obj.config;
-    this.logger = LoggerFactory.getLogger(`UI ${this.name}`);
+    this.logger = getLogger(`UI ${this.name}`);
     this.logger.debug(`Initialized`);
   }
 }
