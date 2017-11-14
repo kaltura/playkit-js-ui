@@ -50,7 +50,7 @@ class UIManager {
   constructor(player: Player, config: Object) {
     this.player = player;
     this.config = config;
-    if (config.logLevel && this.LogLevel[config.logLevel]){
+    if (config.logLevel && this.LogLevel[config.logLevel]) {
       setLogLevel(this.LogLevel[config.logLevel]);
     }
   }
@@ -63,9 +63,9 @@ class UIManager {
    */
   buildDefaultUI(): void {
     const uis = [
-      { template: props => adsUI(props), condition: state => state.engine.adBreak },
-      { template: props => liveUI(props), condition: state => state.engine.isLive },
-      { template: props => playbackUI(props) }
+      {template: props => adsUI(props), condition: state => state.engine.adBreak},
+      {template: props => liveUI(props), condition: state => state.engine.isLive},
+      {template: props => playbackUI(props)}
     ];
     this._buildUI(uis);
   }
@@ -82,7 +82,7 @@ class UIManager {
       this._buildUI(uis);
     }
     else {
-      let fallbackUIs = [{ template: props => playbackUI(props) }];
+      let fallbackUIs = [{template: props => playbackUI(props)}];
       this._buildUI(fallbackUIs);
     }
   }
@@ -98,16 +98,19 @@ class UIManager {
     if (!this.player) return;
 
     // define the store and devtools for redux
-    const store = createStore(reducer, window.devToolsExtension && window.devToolsExtension({ name: `playkit #${this.config.target}`, instanceId: this.config.target }));
+    const store = createStore(reducer, window.devToolsExtension && window.devToolsExtension({
+      name: `playkit #${this.config.target}`,
+      instanceId: this.config.target
+    }));
 
     // i18n, redux and initial player-to-store connector setup
     const template = (
       <Provider store={store}>
         <IntlProvider definition={definition}>
           <Shell player={this.player}>
-            <EngineConnector player={this.player} />
-            <VideoPlayer player={this.player} />
-            <PlayerGUI uis={uis} player={this.player} config={this.config} />
+            <EngineConnector player={this.player}/>
+            <VideoPlayer player={this.player}/>
+            <PlayerGUI uis={uis} player={this.player} config={this.config}/>
           </Shell>
         </IntlProvider>
       </Provider>
@@ -142,7 +145,7 @@ class UIManager {
    * @param {?string} name - the logger name
    * @returns {void}
    */
-  setLogLevel(level: Object, name?: string){
+  setLogLevel(level: Object, name?: string) {
     setLogLevel(level, name);
   }
 
