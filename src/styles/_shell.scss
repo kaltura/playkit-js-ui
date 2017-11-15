@@ -3,49 +3,53 @@
   top: 0;
   background-color: #000;
 }
+
 .player {
-    overflow: hidden;
-    user-select: none;
+  overflow: hidden;
+  user-select: none;
+  width: 100%;
+
+  &:-webkit-full-screen {
     width: 100%;
+    height: 100%;
+    max-width: none;
+  }
+  * {
+    box-sizing: border-box;
+    outline: none;
+  }
+  ::selection {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  video {
+    width: 100%;
+  }
+  .player-gui {
+    opacity: 0;
+    overflow: hidden;
+    font-size: 0;
+    font-family: $font-family;
 
-    &:-webkit-full-screen {
-      width: 100%; height: 100%;
-      max-width: none;
+    input, textarea {
+      font-family: $font-family;
     }
-    * {
-        box-sizing: border-box;
-        outline: none;
-    }
-    ::selection {
-      background-color: rgba(0,0,0,0.1);
-    }
-    video {
-        width: 100%;
-    }
-    .player-gui {
-        opacity: 0;
-        overflow: hidden;
-        font-size: 0;
-        font-family: $font-family;
-
-        input, textarea {
-          font-family: $font-family;
-        }
-    }
-    :global(#overlay-portal) {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-    }
-    &.overlay-active :global(#overlay-portal) {
-      z-index: 11;
-    }
-    &.metadata-loaded .player-gui,
-    &.state-paused .player-gui,
-    &.overlay-active .player-gui,
-    &.menu-active .player-gui {
-      opacity: 1;
-    }
+  }
+  :global(#overlay-portal) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  &.overlay-active :global(#overlay-portal) {
+    z-index: 11;
+  }
+  &.metadata-loaded .player-gui,
+  &.state-paused .player-gui,
+  &.overlay-active .player-gui,
+  &.menu-active .player-gui {
+    opacity: 1;
+  }
 }
 
 .player :global([id^=playkit-ads-container]) {
@@ -63,14 +67,19 @@
 video {
   left: 0;
 
-    &::-webkit-media-controls-panel-container,
-    &::-webkit-media-controls {
-        display: none !important;
-        -webkit-appearance: none;
-    }
+  &::-webkit-media-controls-panel-container,
+  &::-webkit-media-controls {
+    display: none !important;
+    -webkit-appearance: none;
+  }
 
-    &::-webkit-media-controls-start-playback-button {
-        display: none!important;
-        -webkit-appearance: none;
-    }
+  &::-webkit-media-controls-start-playback-button {
+    display: none !important;
+    -webkit-appearance: none;
+  }
+
+  &::-webkit-media-text-track-container {
+    bottom: 0;
+    height: 100% !important;
+  }
 }

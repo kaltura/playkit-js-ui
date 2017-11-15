@@ -11,6 +11,7 @@ import AdSkip from '../components/ad-skip';
 import AdLearnMore from '../components/ad-learn-more';
 import TopBar from '../components/top-bar';
 import BottomBar from '../components/bottom-bar';
+import UnmuteIndication from '../components/unmute-indication';
 
 /**
  * Ads ui interface
@@ -28,6 +29,7 @@ export default function adsUI(props: any): ?React$Element<any> {
     <div className={style.adGuiWrapper}>
       <Loading player={props.player}/>
       <div className={style.playerGui} id='player-gui'>
+        <UnmuteIndication player={props.player} hasTopBar />
         <div>
           <TopBar>
             <div className={style.leftControls}>

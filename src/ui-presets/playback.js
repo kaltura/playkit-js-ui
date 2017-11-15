@@ -5,6 +5,7 @@ import OverlayPlay from '../components/overlay-play';
 import PrePlaybackPlayOverlay from '../components/pre-playback-play-overlay';
 import Loading from '../components/loading';
 import PlayPauseControl from '../components/play-pause';
+import RewindControl from '../components/rewind';
 import SeekBarPlaybackContainer from '../components/seekbar-playback-container';
 import VolumeControl from '../components/volume';
 import SettingsControl from '../components/settings';
@@ -14,6 +15,7 @@ import TimeDisplayPlaybackContainer from '../components/time-display-playback-co
 import BottomBar from '../components/bottom-bar';
 import OverlayPortal from '../components/overlay-portal';
 import KeyboardControl from '../components/keyboard';
+import UnmuteIndication from '../components/unmute-indication';
 
 /**
  * Playback ui interface
@@ -29,11 +31,13 @@ export default function playbackUI(props: any): React$Element<any> {
       <Loading player={props.player} />
       <div className={style.playerGui} id='player-gui'>
         <OverlayPortal />
+        <UnmuteIndication player={props.player} />
         <OverlayPlay player={props.player} />
         <BottomBar>
           <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player} config={props.config} />
           <div className={style.leftControls}>
             <PlayPauseControl player={props.player} />
+            <RewindControl player={props.player} step={10} />
             <TimeDisplayPlaybackContainer format='current / total' />
           </div>
           <div className={style.rightControls}>

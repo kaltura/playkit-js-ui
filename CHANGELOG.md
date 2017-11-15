@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.11.0"></a>
+# [0.11.0](https://github.com/kaltura/playkit-js-ui/compare/v0.10.0...v0.11.0) (2017-11-07)
+
+
+### Bug Fixes
+
+* mute via iOS native player ([#121](https://github.com/kaltura/playkit-js-ui/issues/121)) ([bd06d12](https://github.com/kaltura/playkit-js-ui/commit/bd06d12))
+* **FEC-6916:** remove resolution setting duplicates ([#123](https://github.com/kaltura/playkit-js-ui/issues/123)) ([b9b62c8](https://github.com/kaltura/playkit-js-ui/commit/b9b62c8))
+* **FEC-7157:** dont show volume bar when smart container open ([#118](https://github.com/kaltura/playkit-js-ui/issues/118)) ([94c1066](https://github.com/kaltura/playkit-js-ui/commit/94c1066))
+* **FEC-7359:** add native caption style ([#119](https://github.com/kaltura/playkit-js-ui/issues/119)) ([6d768ee](https://github.com/kaltura/playkit-js-ui/commit/6d768ee))
+* **FEC-7373:** show and hide the control bar for a few seconds when the player loads ([#122](https://github.com/kaltura/playkit-js-ui/issues/122)) ([4468e7c](https://github.com/kaltura/playkit-js-ui/commit/4468e7c))
+* **FEC-7404:** captions does not resize when exiting fullscreen with esc button ([#127](https://github.com/kaltura/playkit-js-ui/issues/127)) ([12cce0d](https://github.com/kaltura/playkit-js-ui/commit/12cce0d))
+* **FEC-7407:** update adprogress value to duration value on ad_completed event ([#126](https://github.com/kaltura/playkit-js-ui/issues/126)) ([f8f227e](https://github.com/kaltura/playkit-js-ui/commit/f8f227e))
+* **settings:** hide quality selector in case of 1 option ([#124](https://github.com/kaltura/playkit-js-ui/issues/124)) ([f630c1f](https://github.com/kaltura/playkit-js-ui/commit/f630c1f))
+* native caption height ([#130](https://github.com/kaltura/playkit-js-ui/issues/130)) ([46c064b](https://github.com/kaltura/playkit-js-ui/commit/46c064b))
+
+
+### Features
+
+* adding rewind control button ([#128](https://github.com/kaltura/playkit-js-ui/issues/128)) ([1bef5d6](https://github.com/kaltura/playkit-js-ui/commit/1bef5d6))
+* export name and version on module ([#129](https://github.com/kaltura/playkit-js-ui/issues/129)) ([8f88c26](https://github.com/kaltura/playkit-js-ui/commit/8f88c26))
+* unmute indication for autoplay with volume failed ([#117](https://github.com/kaltura/playkit-js-ui/issues/117)) ([98a0c5d](https://github.com/kaltura/playkit-js-ui/commit/98a0c5d))
+
+
+
 <a name="0.10.0"></a>
 # [0.10.0](https://github.com/kaltura/playkit-js-ui/compare/v0.9.4...v0.10.0) (2017-11-01)
 

@@ -1,0 +1,31 @@
+@import '~styles/variables';
+
+.tooltip {
+  display: inline-block;
+  height: 22px;
+	border-radius: 4px;
+	background-color: $tooltip-bg-color;
+  padding: 3px 13px;
+  color: $tooltip-color;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 16px;
+  box-shadow: 0 0 8px 0 rgba(0,0,0,0.3);
+  position: absolute;
+  transform: translate3d(-50%, 0, 0);
+  left: 50%;
+  bottom: 15px;
+
+  &:after {
+    content: ' ';
+    display: block;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #fff;
+    border-radius: 3px;
+    transform: rotate(45deg) translate3d(0%, 50%, 0);
+    left: 50%;
+    bottom: -1px;
+  }
+}
