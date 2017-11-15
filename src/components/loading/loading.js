@@ -93,7 +93,7 @@ class Loading extends BaseComponent {
       if ((e.payload.newState.type === 'idle' || e.payload.newState.type === 'playing' || e.payload.newState.type === 'paused') && this.state.afterFirstPlay) {
         this.props.updateLoadingSpinnerState(false);
       }
-      else if (this.state.afterFirstPlay){
+      else if (this.state.afterFirstPlay) {
         this.props.updateLoadingSpinnerState(true);
       }
     });
@@ -117,6 +117,10 @@ class Loading extends BaseComponent {
     this.player.addEventListener(this.player.Event.FIRST_PLAY, () => {
       this.setState({afterFirstPlay: true});
       this.props.updateLoadingSpinnerState(false);
+    });
+
+    this.player.addEventListener(this.player.Event.CHANGE_SOURCE_STARTED, () => {
+      this.setState({afterFirstPlay: false});
     });
   }
 
