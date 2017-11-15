@@ -29,7 +29,6 @@ class Loading extends BaseComponent {
   isPreloading: boolean;
   autoplay: boolean;
   mobileAutoplay: boolean;
-
   /**
    * Creates an instance of Loading.
    * @param {Object} obj obj
@@ -37,6 +36,8 @@ class Loading extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'Loading', player: obj.player});
+    this.setState({ad: false});
+    this.setState({afterFirstPlay: false});
     try {
       // TODO: Change the dependency on ima to our ads plugin when it will be developed.
       if (this.player.config.playback.preload === "auto" && !this.player.config.plugins.ima) {
@@ -89,10 +90,10 @@ class Loading extends BaseComponent {
     }
 
     this.player.addEventListener(this.player.Event.PLAYER_STATE_CHANGED, e => {
-      if (e.payload.newState.type === 'idle' || e.payload.newState.type === 'playing' || e.payload.newState.type === 'paused') {
+      if ((e.payload.newState.type === 'idle' || e.payload.newState.type === 'playing' || e.payload.newState.type === 'paused') && this.state.afterFirstPlay) {
         this.props.updateLoadingSpinnerState(false);
       }
-      else {
+      else if (this.state.afterFirstPlay){
         this.props.updateLoadingSpinnerState(true);
       }
     });
@@ -110,6 +111,11 @@ class Loading extends BaseComponent {
     });
 
     this.player.addEventListener(this.player.Event.ALL_ADS_COMPLETED, () => {
+      this.props.updateLoadingSpinnerState(false);
+    });
+
+    this.player.addEventListener(this.player.Event.FIRST_PLAY, () => {
+      this.setState({afterFirstPlay: true});
       this.props.updateLoadingSpinnerState(false);
     });
   }
