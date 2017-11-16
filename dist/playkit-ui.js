@@ -3695,7 +3695,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_39__;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.setLogLevel = exports.getLogLevel = exports.LOG_LEVEL = undefined;
+exports.setLogLevel = exports.getLogLevel = exports.LogLevel = undefined;
 
 var _jsLogger = __webpack_require__(73);
 
@@ -3703,7 +3703,7 @@ var JsLogger = _interopRequireWildcard(_jsLogger);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var LOG_LEVEL = {
+var LogLevel = {
   "DEBUG": JsLogger.DEBUG,
   "INFO": JsLogger.INFO,
   "TIME": JsLogger.TIME,
@@ -3714,9 +3714,6 @@ var LOG_LEVEL = {
 
 
 JsLogger.useDefaults({ defaultLevel: JsLogger.ERROR });
-if (window.PLAYKIT_LOG_LEVEL && LOG_LEVEL[window.PLAYKIT_LOG_LEVEL]) {
-  JsLogger.useDefaults({ defaultLevel: LOG_LEVEL[window.PLAYKIT_LOG_LEVEL] });
-}
 
 /**
  * get a logger
@@ -3733,15 +3730,15 @@ function getLogger(name) {
 /**
  * get the log level
  * @param {?string} name - the logger name
- * @returns {string} - the log level
+ * @returns {Object} - the log level
  */
 function getLogLevel(name) {
-  return getLogger(name).getLevel().name;
+  return getLogger(name).getLevel();
 }
 
 /**
  * sets the logger level
- * @param {string} level - the log level
+ * @param {Object} level - the log level
  * @param {?string} name - the logger name
  * @returns {void}
  */
@@ -3750,7 +3747,7 @@ function setLogLevel(level, name) {
 }
 
 exports.default = getLogger;
-exports.LOG_LEVEL = LOG_LEVEL;
+exports.LogLevel = LogLevel;
 exports.getLogLevel = getLogLevel;
 exports.setLogLevel = setLogLevel;
 
@@ -13776,8 +13773,6 @@ var _redux = __webpack_require__(10);
 
 var _logger = __webpack_require__(40);
 
-var _logger2 = _interopRequireDefault(_logger);
-
 var _store = __webpack_require__(147);
 
 var _store2 = _interopRequireDefault(_store);
@@ -13840,6 +13835,9 @@ var UIManager = function () {
 
     this.player = player;
     this.config = config;
+    if (config.logLevel && this.LogLevel[config.logLevel]) {
+      (0, _logger.setLogLevel)(this.LogLevel[config.logLevel]);
+    }
   }
 
   /**
@@ -13902,7 +13900,10 @@ var UIManager = function () {
       if (!this.player) return;
 
       // define the store and devtools for redux
-      var store = (0, _redux.createStore)(_store2.default, window.devToolsExtension && window.devToolsExtension({ name: 'playkit #' + this.config.target, instanceId: this.config.target }));
+      var store = (0, _redux.createStore)(_store2.default, window.devToolsExtension && window.devToolsExtension({
+        name: 'playkit #' + this.config.target,
+        instanceId: this.config.target
+      }));
 
       // i18n, redux and initial player-to-store connector setup
       var template = (0, _preact.h)(
@@ -13939,7 +13940,7 @@ var UIManager = function () {
     /**
      * get the log level
      * @param {?string} name - the logger name
-     * @returns {string} - the log level
+     * @returns {Object} - the log level
      */
     value: function getLogLevel(name) {
       return (0, _logger.getLogLevel)(name);
@@ -13947,7 +13948,7 @@ var UIManager = function () {
 
     /**
      * sets the logger level
-     * @param {string} level - the log level
+     * @param {Object} level - the log level
      * @param {?string} name - the logger name
      * @returns {void}
      */
@@ -13960,7 +13961,7 @@ var UIManager = function () {
   }, {
     key: 'LogLevel',
     get: function get() {
-      return _logger.LOG_LEVEL;
+      return _logger.LogLevel;
     }
   }]);
 
@@ -13968,7 +13969,7 @@ var UIManager = function () {
 }();
 
 exports.default = UIManager;
-exports.VERSION = "0.11.0";
+exports.VERSION = "0.12.0";
 exports.NAME = "playkit-js-ui";
 
 /***/ }),
