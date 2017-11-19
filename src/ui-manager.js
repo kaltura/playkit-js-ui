@@ -3,6 +3,8 @@ import {h, render} from 'preact';
 import {Provider} from 'preact-redux';
 import {IntlProvider} from 'preact-i18n';
 import {createStore} from 'redux';
+import {LogLevel, getLogLevel, setLogLevel} from './utils/logger'
+
 
 import reducer from './store';
 import definition from './fr.json';
@@ -50,10 +52,16 @@ class UIManager {
    * @memberof UIManager
    */
   constructor(player: Player, config: Object) {
+    if (config.logLevel && this.LogLevel[config.logLevel]) {
+      setLogLevel(this.LogLevel[config.logLevel]);
+    }
     this.player = player;
     this.config = config;
     this.targetId = config.targetId;
-    this.store = createStore(reducer, window.devToolsExtension && window.devToolsExtension({ name: `playkit #${this.targetId}`, instanceId: this.targetId }));
+    this.store = createStore(reducer, window.devToolsExtension && window.devToolsExtension({
+      name: `playkit #${this.targetId}`,
+      instanceId: this.targetId
+    }));
   }
 
   /**
@@ -81,9 +89,9 @@ class UIManager {
    */
   buildDefaultUI(): void {
     const uis = [
-      { template: props => adsUI(props), condition: state => state.engine.adBreak },
-      { template: props => liveUI(props), condition: state => state.engine.isLive },
-      { template: props => playbackUI(props) }
+      {template: props => adsUI(props), condition: state => state.engine.adBreak},
+      {template: props => liveUI(props), condition: state => state.engine.isLive},
+      {template: props => playbackUI(props)}
     ];
     this._buildUI(uis);
   }
@@ -100,7 +108,7 @@ class UIManager {
       this._buildUI(uis);
     }
     else {
-      let fallbackUIs = [{ template: props => playbackUI(props) }];
+      let fallbackUIs = [{template: props => playbackUI(props)}];
       this._buildUI(fallbackUIs);
     }
   }
@@ -125,9 +133,9 @@ class UIManager {
       <Provider store={this.store}>
         <IntlProvider definition={definition}>
           <Shell player={this.player}>
-            <EngineConnector player={this.player} />
-            <VideoPlayer player={this.player} />
-            <PlayerGUI uis={uis} player={this.player} playerContainer={container} />
+            <EngineConnector player={this.player}/>
+            <VideoPlayer player={this.player}/>
+            <PlayerGUI uis={uis} player={this.player} playerContainer={container}/>
           </Shell>
         </IntlProvider>
       </Provider>
@@ -135,6 +143,34 @@ class UIManager {
 
     // render the player
     render(template, container);
+  }
+
+  /**
+   * Get the player log level.
+   * @returns {Object} - The log levels of the player.
+   * @public
+   */
+  get LogLevel(): { [level: string]: Object } {
+    return LogLevel;
+  }
+
+  /**
+   * get the log level
+   * @param {?string} name - the logger name
+   * @returns {Object} - the log level
+   */
+  getLogLevel(name?: string): Object {
+    return getLogLevel(name);
+  }
+
+  /**
+   * sets the logger level
+   * @param {Object} level - the log level
+   * @param {?string} name - the logger name
+   * @returns {void}
+   */
+  setLogLevel(level: Object, name?: string) {
+    setLogLevel(level, name);
   }
 
 }
