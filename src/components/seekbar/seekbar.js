@@ -1,7 +1,7 @@
 //@flow
 import style from './_seekbar.scss';
-import { h, Component } from 'preact';
-import { toHHMMSS } from '../../utils/time-format';
+import {h, Component} from 'preact';
+import {toHHMMSS} from '../../utils/time-format';
 
 /**
  * SeekBarControl component
@@ -102,7 +102,7 @@ class SeekBarControl extends Component {
   onPlayerMouseUp(e: Event): void {
     if (this.props.isMobile) return;
 
-    if(this.props.isDraggingActive) {
+    if (this.props.isDraggingActive) {
       let time = this.getTime(e);
       this.props.changeCurrentTime(time);
       this.updateSeekBarProgress(time, this.props.duration);
@@ -216,12 +216,12 @@ class SeekBarControl extends Component {
   getOffset(element: any): { top: number, left: number } {
     var _x = 0;
     var _y = 0;
-    while( element && !isNaN( element.offsetLeft ) && !isNaN( element.offsetTop ) ) {
+    while (element && !isNaN(element.offsetLeft) && !isNaN(element.offsetTop)) {
       _x += element.offsetLeft - element.scrollLeft;
       _y += element.offsetTop - element.scrollTop;
       element = element.offsetParent;
     }
-    return { top: _y, left: _x };
+    return {top: _y, left: _x};
   }
 
   /**
@@ -247,7 +247,9 @@ class SeekBarControl extends Component {
    * @memberof SeekBarControl
    */
   getThumbSpriteOffset(): string {
-    return - (Math.ceil(this.props.thumbsSlices * this.state.virtualTime / this.props.duration) * this.props.thumbsWidth) + 'px 0px';
+    const percent = this.state.virtualTime / this.props.duration;
+    const sliceIndex = Math.ceil(this.props.thumbsSlices * percent);
+    return -(sliceIndex * this.props.thumbsWidth) + 'px 0px';
   }
 
   /**
@@ -275,9 +277,12 @@ class SeekBarControl extends Component {
   getTimeBubbleOffset(): number {
     if (this._timeBubbleElement) {
       let leftOffset = (this.state.virtualTime / this.props.duration * this._seekBarElement.clientWidth) - (this._timeBubbleElement.clientWidth / 2);
-      if (leftOffset < 0) return 0;
-      else if (leftOffset > this._seekBarElement.clientWidth - this._timeBubbleElement.clientWidth) return (this._seekBarElement.clientWidth - this._timeBubbleElement.clientWidth);
-      else return leftOffset;
+      if (leftOffset < 0)
+        return 0;
+      else if (leftOffset > this._seekBarElement.clientWidth - this._timeBubbleElement.clientWidth)
+        return (this._seekBarElement.clientWidth - this._timeBubbleElement.clientWidth);
+      else
+        return leftOffset;
     }
     else return 0;
   }
@@ -295,18 +300,29 @@ class SeekBarControl extends Component {
       this.props.isMobile
     ) return undefined;
 
-    var framePreviewStyle = `left: ${this.getFramePreviewOffset()}px`;
-    var framePreviewImgStyle = `background-image: url(${this.props.thumbsSprite}); `;
-    framePreviewImgStyle += `background-position: ${this.getThumbSpriteOffset()}`
-
     return (
       <div
         className={style.framePreview}
-        style={framePreviewStyle}
-        ref={c => this._framePreviewElement=c}
-      >
-        <div className={style.framePreviewImg} style={framePreviewImgStyle} />
-      </div>)
+        style={this._getFramePreviewStyle()}
+        ref={c => this._framePreviewElement = c}>
+        <div
+          className={style.framePreviewImg}
+          style={this._getFramePreviewImgStyle()}/>
+      </div>
+    )
+  }
+
+  _getFramePreviewImgStyle(): string {
+    let framePreviewImgStyle = `background-image: url(${this.props.thumbsSprite});`;
+    framePreviewImgStyle += `background-position: ${this.getThumbSpriteOffset()};`;
+    framePreviewImgStyle += `background-size: ${this.props.thumbsSlices * this.props.thumbsWidth}px 100%;`;
+    return framePreviewImgStyle;
+  }
+
+  _getFramePreviewStyle(): string {
+    let framePreviewStyle = `left: ${this.getFramePreviewOffset()}px;`;
+    framePreviewStyle += `width: ${this.props.thumbsWidth}px;`;
+    return framePreviewStyle;
   }
 
   /**
@@ -319,7 +335,8 @@ class SeekBarControl extends Component {
     if (!this.props.showTimeBubble || this.props.isMobile) return undefined;
     var timeBubbleStyle = `left: ${this.getTimeBubbleOffset()}px`;
     var timeBubbleValue = this.props.isDvr ? '-' + toHHMMSS(this.props.duration - this.state.virtualTime) : toHHMMSS(this.state.virtualTime);
-    return <div className={style.timePreview} style={timeBubbleStyle} ref={c => this._timeBubbleElement=c}>{timeBubbleValue}</div>
+    return <div className={style.timePreview} style={timeBubbleStyle}
+                ref={c => this._timeBubbleElement = c}>{timeBubbleValue}</div>
   }
 
   /**
@@ -341,7 +358,7 @@ class SeekBarControl extends Component {
     return (
       <div
         className={seekbarStyleClass.join(' ')}
-        ref={c => this._seekBarElement=c}
+        ref={c => this._seekBarElement = c}
         role='slider'
         aria-label='Seek slider'
         aria-valuemin='0'
@@ -359,17 +376,18 @@ class SeekBarControl extends Component {
           <div className={style.progress} style={{width: progressWidth}}>
             {
               props.adBreak ? undefined :
-              <a className={style.scrubber} />
+                <a className={style.scrubber}/>
             }
           </div>
-          <div className={style.virtualProgress} style={{width: virtualProgressWidth}} />
+          <div className={style.virtualProgress} style={{width: virtualProgressWidth}}/>
           {this.renderTimeBubble()}
           {this.renderFramePreview()}
-          <div className={style.buffered} style='width: 60%;' />
+          <div className={style.buffered} style='width: 60%;'/>
         </div>
       </div>
     )
   }
 
 }
+
 export default SeekBarControl;
