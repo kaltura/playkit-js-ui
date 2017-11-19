@@ -312,6 +312,12 @@ class SeekBarControl extends Component {
     )
   }
 
+  /**
+   * Gets the style of the frame preview image.
+   * @returns {string} - The css style string.
+   * @memberof SeekBarControl
+   * @private
+   */
   _getFramePreviewImgStyle(): string {
     let framePreviewImgStyle = `background-image: url(${this.props.thumbsSprite});`;
     framePreviewImgStyle += `background-position: ${this.getThumbSpriteOffset()};`;
@@ -319,6 +325,12 @@ class SeekBarControl extends Component {
     return framePreviewImgStyle;
   }
 
+  /**
+   * Gets the style of the frame preview.
+   * @returns {string} - The css style string.
+   * @memberof SeekBarControl
+   * @private
+   */
   _getFramePreviewStyle(): string {
     let framePreviewStyle = `left: ${this.getFramePreviewOffset()}px;`;
     framePreviewStyle += `width: ${this.props.thumbsWidth}px;`;
