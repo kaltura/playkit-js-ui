@@ -1,7 +1,7 @@
 //@flow
 import style from './_ad-skip.scss';
-import { h } from 'preact';
-import { connect } from 'preact-redux';
+import {h} from 'preact';
+import {connect} from 'preact-redux';
 import BaseComponent from '../base';
 
 /**
@@ -17,13 +17,13 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps)
-/**
- * AdSkip component
- *
- * @class AdSkip
- * @example <AdSkip player={this.player} />
- * @extends {BaseComponent}
- */
+  /**
+   * AdSkip component
+   *
+   * @class AdSkip
+   * @example <AdSkip player={this.player} />
+   * @extends {BaseComponent}
+   */
 class AdSkip extends BaseComponent {
   skipSupport: any;
 
@@ -69,7 +69,7 @@ class AdSkip extends BaseComponent {
    */
   render(): React$Element<any> | void {
     if (!this.props.adSkippableState && this.skipSupport) {
-      return this.getSkipTimeOffset() <= 0 ?  (
+      return this.getSkipTimeOffset() <= 0 ? (
         <a className={[style.btn, style.btnBranded, style.btnSkipAd].join(' ')} onClick={() => this.player.skipAd()}>
           {this.skipSupport.label || 'Skip ad'}
         </a>

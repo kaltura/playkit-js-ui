@@ -1,8 +1,8 @@
 //@flow
 import style from '../../styles/style.scss';
-import { h, Component } from 'preact';
-import { default as Icon, IconType } from '../icon';
-import { connect } from 'preact-redux';
+import {h, Component} from 'preact';
+import {default as Icon, IconType} from '../icon';
+import {connect} from 'preact-redux';
 
 /**
  * mapping state to props
@@ -14,17 +14,17 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps)
-/**
- * Menu component
- *
- * @class Menu
- * @example <Menu
- *  options={this.videoTrackOptions}
- *  onSelect={track => this.videoTrackChangeHandler(track)}
- *  onClose={() => this.onClose()}
- * />
- * @extends {Component}
- */
+  /**
+   * Menu component
+   *
+   * @class Menu
+   * @example <Menu
+   *  options={this.videoTrackOptions}
+   *  onSelect={track => this.videoTrackChangeHandler(track)}
+   *  onClose={() => this.onClose()}
+   * />
+   * @extends {Component}
+   */
 class Menu extends Component {
 
   _menuElement: any;
@@ -115,7 +115,9 @@ class Menu extends Component {
     this.props.onSelect(option.value);
 
     // Instant select
-    this.props.options.filter(t => t.active).forEach(option => { option.active = false });
+    this.props.options.filter(t => t.active).forEach(option => {
+      option.active = false
+    });
     this.props.options.filter(t => t.value === option.value)[0].active = true;
   }
 
@@ -142,7 +144,8 @@ class Menu extends Component {
         className={this.props.hideSelect ? style.mobileHiddenSelect : ''}
         onChange={e => this.onSelect(this.props.options[e.target.value])}
       >
-        {this.props.options.map((o, index) => <option selected={this.isSelected(o)} value={index} key={index}>{o.label}</option>)}
+        {this.props.options.map((o, index) => <option selected={this.isSelected(o)} value={index}
+                                                      key={index}>{o.label}</option>)}
       </select>
     )
   }
@@ -157,21 +160,24 @@ class Menu extends Component {
    */
   render(props: any): React$Element<any> {
     return props.isMobile ? this.renderNativeSelect() :
-    (
-      <div
-        ref={c => this._menuElement = c}
-        className={[style.dropdownMenu, ...this.state.position].join(' ')}
-      >
-        {
-          props.options.map((o, index) => (
-            <div key={index} className={this.isSelected(o) ? [style.dropdownMenuItem, style.active].join(' ') : style.dropdownMenuItem} onClick={() => this.onSelect(o)}>
-              <span>{o.label}</span>
-              <span className={style.menuIconContainer} style={`opacity: ${ this.isSelected(o) ? 1 : 0 }`}><Icon type={IconType.Check} /></span>
-            </div>
-          ))
-        }
-      </div>
-    )
+      (
+        <div
+          ref={c => this._menuElement = c}
+          className={[style.dropdownMenu, ...this.state.position].join(' ')}
+        >
+          {
+            props.options.map((o, index) => (
+              <div key={index}
+                   className={this.isSelected(o) ? [style.dropdownMenuItem, style.active].join(' ') : style.dropdownMenuItem}
+                   onClick={() => this.onSelect(o)}>
+                <span>{o.label}</span>
+                <span className={style.menuIconContainer} style={`opacity: ${ this.isSelected(o) ? 1 : 0 }`}><Icon
+                  type={IconType.Check}/></span>
+              </div>
+            ))
+          }
+        </div>
+      )
   }
 }
 

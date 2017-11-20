@@ -1,6 +1,6 @@
 //@flow
 import style from '../styles/style.scss';
-import { h } from 'preact';
+import {h} from 'preact';
 import OverlayPlay from '../components/overlay-play';
 import PrePlaybackPlayOverlay from '../components/pre-playback-play-overlay';
 import Loading from '../components/loading';
@@ -27,28 +27,28 @@ import UnmuteIndication from '../components/unmute-indication';
 export default function playbackUI(props: any): React$Element<any> {
   return (
     <div className={style.playbackGuiWWrapper}>
-      <KeyboardControl player={props.player} config={props.config} />
-      <Loading player={props.player} />
+      <KeyboardControl player={props.player} config={props.config}/>
+      <Loading player={props.player}/>
       <div className={style.playerGui} id='player-gui'>
-        <OverlayPortal />
-        <UnmuteIndication player={props.player} />
-        <OverlayPlay player={props.player} />
+        <OverlayPortal/>
+        <UnmuteIndication player={props.player}/>
+        <OverlayPlay player={props.player}/>
         <BottomBar>
-          <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player} config={props.config} />
+          <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player} config={props.config}/>
           <div className={style.leftControls}>
-            <PlayPauseControl player={props.player} />
-            <RewindControl player={props.player} step={10} />
-            <TimeDisplayPlaybackContainer format='current / total' />
+            <PlayPauseControl player={props.player}/>
+            <RewindControl player={props.player} step={10}/>
+            <TimeDisplayPlaybackContainer format='current / total'/>
           </div>
           <div className={style.rightControls}>
-            <VolumeControl player={props.player} />
-            <LanguageControl player={props.player} />
-            <SettingsControl player={props.player} />
-            <FullscreenControl player={props.player} config={props.config} />
+            <VolumeControl player={props.player}/>
+            <LanguageControl player={props.player}/>
+            <SettingsControl player={props.player}/>
+            <FullscreenControl player={props.player} config={props.config}/>
           </div>
         </BottomBar>
       </div>
-      <PrePlaybackPlayOverlay player={props.player} />
+      <PrePlaybackPlayOverlay player={props.player}/>
     </div>
   )
 }

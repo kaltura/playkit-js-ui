@@ -1340,7 +1340,7 @@ function wrapMapToPropsConstant(getConstant) {
 // dependsOnOwnProps is used by createMapToPropsProxy to determine whether to pass props as args
 // to the mapToProps function being wrapped. It is also used by makePurePropsSelector to determine
 // whether mapToProps needs to be invoked when props have changed.
-// 
+//
 // A length of one signals that mapToProps does not depend on props from the parent component.
 // A length of zero is assumed to mean mapToProps is getting args via arguments or ...args and
 // therefore not reporting its length accurately..
@@ -1350,16 +1350,16 @@ function getDependsOnOwnProps(mapToProps) {
 
 // Used by whenMapStateToPropsIsFunction and whenMapDispatchToPropsIsFunction,
 // this function wraps mapToProps in a proxy function which does several things:
-// 
+//
 //  * Detects whether the mapToProps function being called depends on props, which
 //    is used by selectorFactory to decide if it should reinvoke on props changes.
-//    
+//
 //  * On first call, handles mapToProps if returns another function, and treats that
 //    new function as the true mapToProps for subsequent calls.
-//    
+//
 //  * On first call, verifies the first result is a plain object, in order to warn
 //    the developer that their mapToProps function is not returning a valid result.
-//    
+//
 function wrapMapToPropsFunc(mapToProps, methodName) {
   return function initProxySelector(dispatch, _ref) {
     var displayName = _ref.displayName;
@@ -1583,7 +1583,7 @@ function finalPropsSelectorFactory(dispatch, _ref2) {
   selectorFactory, which has the signature:
 
     (dispatch, options) => (nextState, nextOwnProps) => nextFinalProps
-  
+
   connect passes its args to connectAdvanced as options, which will in turn pass them to
   selectorFactory each time a Connect component instance is instantiated or hot reloaded.
 
@@ -1784,8 +1784,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {}
-options.transform = transform
+var options = {};
+options.transform = transform;
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -2059,7 +2059,7 @@ function listToStyles (list, options) {
 }
 
 function insertStyleElement (options, style) {
-	var target = getElement(options.insertInto)
+	var target = getElement(options.insertInto);
 
 	if (!target) {
 		throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
@@ -3695,7 +3695,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_39__;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.setLogLevel = exports.getLogLevel = exports.LOG_LEVEL = undefined;
+exports.setLogLevel = exports.getLogLevel = exports.LogLevel = undefined;
 
 var _jsLogger = __webpack_require__(73);
 
@@ -3703,7 +3703,7 @@ var JsLogger = _interopRequireWildcard(_jsLogger);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var LOG_LEVEL = {
+var LogLevel = {
   "DEBUG": JsLogger.DEBUG,
   "INFO": JsLogger.INFO,
   "TIME": JsLogger.TIME,
@@ -3714,9 +3714,6 @@ var LOG_LEVEL = {
 
 
 JsLogger.useDefaults({ defaultLevel: JsLogger.ERROR });
-if (window.PLAYKIT_LOG_LEVEL && LOG_LEVEL[window.PLAYKIT_LOG_LEVEL]) {
-  JsLogger.useDefaults({ defaultLevel: LOG_LEVEL[window.PLAYKIT_LOG_LEVEL] });
-}
 
 /**
  * get a logger
@@ -3733,15 +3730,15 @@ function getLogger(name) {
 /**
  * get the log level
  * @param {?string} name - the logger name
- * @returns {string} - the log level
+ * @returns {Object} - the log level
  */
 function getLogLevel(name) {
-  return getLogger(name).getLevel().name;
+  return getLogger(name).getLevel();
 }
 
 /**
  * sets the logger level
- * @param {string} level - the log level
+ * @param {Object} level - the log level
  * @param {?string} name - the logger name
  * @returns {void}
  */
@@ -3750,7 +3747,7 @@ function setLogLevel(level, name) {
 }
 
 exports.default = getLogger;
-exports.LOG_LEVEL = LOG_LEVEL;
+exports.LogLevel = LogLevel;
 exports.getLogLevel = getLogLevel;
 exports.setLogLevel = setLogLevel;
 
@@ -5364,8 +5361,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {}
-options.transform = transform
+var options = {};
+options.transform = transform;
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -5723,9 +5720,8 @@ function symbolObservablePonyfill(root) {
 	}
 
 	return result;
-};
-
-/***/ }),
+}
+    /***/ }),
 /* 70 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -5991,7 +5987,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 	var Logger = { };
 
 	// For those that are at home that are keeping score.
-	Logger.VERSION = "1.4.1";
+	Logger.VERSION = "1.3.0";
 
 	// Function which handles all incoming log messages.
 	var logHandler;
@@ -6047,11 +6043,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 			if (newLevel && "value" in newLevel) {
 				this.context.filterLevel = newLevel;
 			}
-		},
-		
-		// Gets the current logging level for the logging instance
-		getLevel: function () {
-			return this.context.filterLevel;
 		},
 
 		// Is the logger configured to output messages at the supplied level?
@@ -6137,11 +6128,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 		}
 	};
 
-	// Gets the global logging filter level
-	Logger.getLevel = function() {
-		return globalLogger.getLevel();
-	};
-
 	// Retrieve a ContextualLogger instance.  Note that named loggers automatically inherit the global logger's level,
 	// default context and log handler.
 	Logger.get = function (name) {
@@ -6213,8 +6199,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 					hdlr = console.error;
 				} else if (context.level === Logger.INFO && console.info) {
 					hdlr = console.info;
-				} else if (context.level === Logger.DEBUG && console.debug) {
-					hdlr = console.debug;
 				}
 
 				options.formatter(messages, context);
@@ -6912,8 +6896,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {}
-options.transform = transform
+var options = {};
+options.transform = transform;
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -7120,8 +7104,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {}
-options.transform = transform
+var options = {};
+options.transform = transform;
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -8025,8 +8009,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {}
-options.transform = transform
+var options = {};
+options.transform = transform;
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -9022,8 +9006,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {}
-options.transform = transform
+var options = {};
+options.transform = transform;
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -10758,8 +10742,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {}
-options.transform = transform
+var options = {};
+options.transform = transform;
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -11055,8 +11039,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {}
-options.transform = transform
+var options = {};
+options.transform = transform;
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -11332,8 +11316,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {}
-options.transform = transform
+var options = {};
+options.transform = transform;
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -11451,8 +11435,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {}
-options.transform = transform
+var options = {};
+options.transform = transform;
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -12303,8 +12287,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {}
-options.transform = transform
+var options = {};
+options.transform = transform;
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -12454,8 +12438,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {}
-options.transform = transform
+var options = {};
+options.transform = transform;
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -12576,8 +12560,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {}
-options.transform = transform
+var options = {};
+options.transform = transform;
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -12951,8 +12935,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {}
-options.transform = transform
+var options = {};
+options.transform = transform;
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -13776,8 +13760,6 @@ var _redux = __webpack_require__(10);
 
 var _logger = __webpack_require__(40);
 
-var _logger2 = _interopRequireDefault(_logger);
-
 var _store = __webpack_require__(147);
 
 var _store2 = _interopRequireDefault(_store);
@@ -13840,6 +13822,9 @@ var UIManager = function () {
 
     this.player = player;
     this.config = config;
+    if (config.logLevel && this.LogLevel[config.logLevel]) {
+      (0, _logger.setLogLevel)(this.LogLevel[config.logLevel]);
+    }
   }
 
   /**
@@ -13902,7 +13887,10 @@ var UIManager = function () {
       if (!this.player) return;
 
       // define the store and devtools for redux
-      var store = (0, _redux.createStore)(_store2.default, window.devToolsExtension && window.devToolsExtension({ name: 'playkit #' + this.config.target, instanceId: this.config.target }));
+      var store = (0, _redux.createStore)(_store2.default, window.devToolsExtension && window.devToolsExtension({
+        name: 'playkit #' + this.config.target,
+        instanceId: this.config.target
+      }));
 
       // i18n, redux and initial player-to-store connector setup
       var template = (0, _preact.h)(
@@ -13939,7 +13927,7 @@ var UIManager = function () {
     /**
      * get the log level
      * @param {?string} name - the logger name
-     * @returns {string} - the log level
+     * @returns {Object} - the log level
      */
     value: function getLogLevel(name) {
       return (0, _logger.getLogLevel)(name);
@@ -13947,7 +13935,7 @@ var UIManager = function () {
 
     /**
      * sets the logger level
-     * @param {string} level - the log level
+     * @param {Object} level - the log level
      * @param {?string} name - the logger name
      * @returns {void}
      */
@@ -13960,7 +13948,7 @@ var UIManager = function () {
   }, {
     key: 'LogLevel',
     get: function get() {
-      return _logger.LOG_LEVEL;
+      return _logger.LogLevel;
     }
   }]);
 
@@ -13968,7 +13956,7 @@ var UIManager = function () {
 }();
 
 exports.default = UIManager;
-exports.VERSION = "0.11.0";
+exports.VERSION = "0.12.0";
 exports.NAME = "playkit-js-ui";
 
 /***/ }),
@@ -14734,8 +14722,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {}
-options.transform = transform
+var options = {};
+options.transform = transform;
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;

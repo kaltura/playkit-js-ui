@@ -89,7 +89,7 @@ class UnmuteIndication extends BaseComponent {
   render(props: any): ?React$Element<any> {
     if (!this.state.unmuteHint) return undefined;
 
-    var styleClass = [style.unmuteButtonContainer];
+    const styleClass = [style.unmuteButtonContainer];
     if (props.hasTopBar) styleClass.push(style.hasTopBar);
     if (this.state.iconOnly) styleClass.push(style.showIconOnly);
 

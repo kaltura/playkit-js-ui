@@ -1,7 +1,7 @@
-@function svg-url($svg){
+@function svg-url($svg) {
   $svg: '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1024 1024" width="36" height="36">#{$svg}</svg>';
 
-  $encoded:'';
+  $encoded: '';
   $slice: 2000;
   $index: 0;
   $loops: ceil(str-length($svg)/$slice);
@@ -9,14 +9,14 @@
   @for $i from 1 through $loops {
     $chunk: str-slice($svg, $index, $index + $slice - 1);
 
-    $chunk: str-replace($chunk,'"', '\'');
-    $chunk: str-replace($chunk,'%', '%25');
-    $chunk: str-replace($chunk,'&', '%26');
-    $chunk: str-replace($chunk,'#', '%23');
-    $chunk: str-replace($chunk,'{', '%7B');
-    $chunk: str-replace($chunk,'}', '%7D');
-    $chunk: str-replace($chunk,'<', '%3C');
-    $chunk: str-replace($chunk,'>', '%3E');
+    $chunk: str-replace($chunk, '"', '\'');
+    $chunk: str-replace($chunk, '%', '%25');
+    $chunk: str-replace($chunk, '&', '%26');
+    $chunk: str-replace($chunk, '#', '%23');
+    $chunk: str-replace($chunk, '{', '%7B');
+    $chunk: str-replace($chunk, '}', '%7D');
+    $chunk: str-replace($chunk, '<', '%3C');
+    $chunk: str-replace($chunk, '>', '%3E');
 
     $encoded: #{$encoded}#{$chunk};
     $index: $index + $slice;
@@ -27,10 +27,10 @@
 @function str-replace($string, $search, $replace: '') {
   $index: str-index($string, $search);
   @return if($index,
-      str-slice($string, 1, $index - 1) + $replace +
+    str-slice($string, 1, $index - 1) + $replace +
       str-replace(str-slice($string, $index +
       str-length($search)), $search, $replace),
-      $string);
+    $string);
 }
 
 @function icon($icon-name, $color) {
@@ -72,37 +72,122 @@
 .icon {
   display: inline-block;
   font-size: 0;
-  width: 100%; height: 100%;
+  width: 100%;
+  height: 100%;
   margin: 0 auto;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50% 50%;
 }
-.icon-maximize { background-image: icon(maximize, '#fff'); }
-.icon-minimize { background-image: icon(minimize, '#fff'); }
-.icon-play { background-image: icon(play, '#fff'); }
-.icon-pause { background-image: icon(pause, '#fff'); }
-.icon-volume-base { background-image: icon(volumeBase, '#fff'); }
-.icon-volume-waves { background-image: icon(volumeWaves, '#fff'); }
-.icon-volume-mute { background-image: icon(volumeMute, '#fff'); }
-.icon-close { background-image: icon(close, '#fff'); }
-.icon-share { background-image: icon(share, '#fff'); }
-.icon-settings { background-image: icon(settings, '#fff'); }
-.icon-check { background-image: icon(check, '#fff'); }
-.icon-language { background-image: icon(language, '#fff'); }
-.icon-quality { background-image: icon(quality, '#fff'); }
-.icon-captions { background-image: icon(captions, '#fff'); }
-.icon-speed { background-image: icon(speed, '#fff'); }
-.icon-audio { background-image: icon(audio, '#fff'); }
-.icon-copy { background-image: icon(copy, '#fff'); }
-.icon-facebook { background-image: icon(facebook, '#fff'); }
-.icon-twitter { background-image: icon(twitter, '#fff'); }
-.icon-google-plus { background-image: icon(googlePlus, '#fff'); }
-.icon-linked-in { background-image: icon(linkedIn, '#fff'); }
-.icon-email { background-image: icon(email, '#fff'); }
-.icon-embed { background-image: icon(embed, '#fff'); }
-.icon-link { background-image: icon(link, '#fff'); }
-.icon-arrow-down { background-image: icon(arrowDown, '#fff'); }
-.icon-start-over { background-image: icon(startOver, '#fff'); }
-.icon-rewind { background-image: icon(rewind, '#fff'); }
-.icon-rewind-10 { background-image: icon(rewind10, '#fff') }
+
+.icon-maximize {
+  background-image: icon(maximize, '#fff');
+}
+
+.icon-minimize {
+  background-image: icon(minimize, '#fff');
+}
+
+.icon-play {
+  background-image: icon(play, '#fff');
+}
+
+.icon-pause {
+  background-image: icon(pause, '#fff');
+}
+
+.icon-volume-base {
+  background-image: icon(volumeBase, '#fff');
+}
+
+.icon-volume-waves {
+  background-image: icon(volumeWaves, '#fff');
+}
+
+.icon-volume-mute {
+  background-image: icon(volumeMute, '#fff');
+}
+
+.icon-close {
+  background-image: icon(close, '#fff');
+}
+
+.icon-share {
+  background-image: icon(share, '#fff');
+}
+
+.icon-settings {
+  background-image: icon(settings, '#fff');
+}
+
+.icon-check {
+  background-image: icon(check, '#fff');
+}
+
+.icon-language {
+  background-image: icon(language, '#fff');
+}
+
+.icon-quality {
+  background-image: icon(quality, '#fff');
+}
+
+.icon-captions {
+  background-image: icon(captions, '#fff');
+}
+
+.icon-speed {
+  background-image: icon(speed, '#fff');
+}
+
+.icon-audio {
+  background-image: icon(audio, '#fff');
+}
+
+.icon-copy {
+  background-image: icon(copy, '#fff');
+}
+
+.icon-facebook {
+  background-image: icon(facebook, '#fff');
+}
+
+.icon-twitter {
+  background-image: icon(twitter, '#fff');
+}
+
+.icon-google-plus {
+  background-image: icon(googlePlus, '#fff');
+}
+
+.icon-linked-in {
+  background-image: icon(linkedIn, '#fff');
+}
+
+.icon-email {
+  background-image: icon(email, '#fff');
+}
+
+.icon-embed {
+  background-image: icon(embed, '#fff');
+}
+
+.icon-link {
+  background-image: icon(link, '#fff');
+}
+
+.icon-arrow-down {
+  background-image: icon(arrowDown, '#fff');
+}
+
+.icon-start-over {
+  background-image: icon(startOver, '#fff');
+}
+
+.icon-rewind {
+  background-image: icon(rewind, '#fff');
+}
+
+.icon-rewind-10 {
+  background-image: icon(rewind10, '#fff')
+}

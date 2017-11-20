@@ -1,33 +1,25 @@
 {
   "name": "playkit-js-ui",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "description": "",
   "main": "dist/playkit-ui.js",
   "scripts": {
     "clean": "rm -rf ./dist",
     "prebuild": "npm run clean",
-    "build:prod": "NODE_ENV=production webpack",
-    "build": "webpack",
-    "dev": "webpack --progress --colors --watch",
+    "build": "NODE_ENV=production webpack",
+    "dev": "webpack-dev-server",
+    "watch": "webpack --progress --colors --watch",
     "test": "NODE_ENV=test karma start --color",
-    "test:chrome": "NODE_ENV=test karma start --color --browsers Chrome",
-    "test:chrome:dots": "NODE_ENV=test karma start --color --browsers Chrome --reporters dots",
-    "test:firefox": "NODE_ENV=test karma start --color --browsers Firefox",
-    "test:safari": "NODE_ENV=test karma start --color --browsers Safari",
-    "test:watch": "NODE_ENV=test karma start --color --auto-watch",
-    "start": "webpack-dev-server",
-    "release:dry-run": "standard-version --dry-run",
     "release": "standard-version",
     "publish": "git push --follow-tags --no-verify origin master",
     "eslint": "eslint . --color",
     "flow": "flow check",
-    "eslint:flow:test": "npm run eslint && npm run flow && npm run test",
     "commit:dist": "git add --force --all dist && (git commit -m 'chore: update dist' || exit 0)",
     "docs:components": "jsdoc -c component.jsdocs.json -r"
   },
   "standard-version": {
     "scripts": {
-      "postbump": "yarn run build && yarn run build:prod && npm run commit:dist"
+      "postbump": "yarn run build && npm run commit:dist"
     }
   },
   "devDependencies": {
@@ -73,7 +65,7 @@
     "mocha": "^3.2.0",
     "mocha-cli": "^1.0.1",
     "node-sass": "^4.5.3",
-    "playkit-js": "https://github.com/kaltura/playkit-js.git#v0.16.0",
+    "playkit-js": "https://github.com/kaltura/playkit-js.git#v0.17.0",
     "pre-push": "^0.1.1",
     "sass-loader": "^6.0.6",
     "sinon": "^2.0.0",

@@ -1,11 +1,11 @@
 //@flow
 import style from './_overlay-play.scss';
-import { h } from 'preact';
-import { connect } from 'preact-redux';
-import { bindActions } from '../../utils/bind-actions';
-import { actions } from '../../reducers/play-pause';
+import {h} from 'preact';
+import {connect} from 'preact-redux';
+import {bindActions} from '../../utils/bind-actions';
+import {actions} from '../../reducers/play-pause';
 import BaseComponent from '../base';
-import { default as Icon, IconType } from '../icon';
+import {default as Icon, IconType} from '../icon';
 
 /**
  * mapping state to props
@@ -21,13 +21,13 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps, bindActions(actions))
-/**
- * OverlayPlay component
- *
- * @class OverlayPlay
- * @example <OverlayPlay player={this.player} />
- * @extends {BaseComponent}
- */
+  /**
+   * OverlayPlay component
+   *
+   * @class OverlayPlay
+   * @example <OverlayPlay player={this.player} />
+   * @extends {BaseComponent}
+   */
 class OverlayPlay extends BaseComponent {
   state: Object;
 
@@ -86,8 +86,9 @@ class OverlayPlay extends BaseComponent {
    */
   render(): React$Element<any> {
     return (
-      <div className={`${style.overlayPlay} ${this.state.animation ? style.in : ''}`} onClick={() => this.onOverlayClick()}>
-        { this.isPlayingAdOrPlayback() ? <Icon type={IconType.Play} /> : <Icon type={IconType.Pause} /> }
+      <div className={`${style.overlayPlay} ${this.state.animation ? style.in : ''}`}
+           onClick={() => this.onOverlayClick()}>
+        {this.isPlayingAdOrPlayback() ? <Icon type={IconType.Play}/> : <Icon type={IconType.Pause}/>}
       </div>
     )
   }

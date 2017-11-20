@@ -1,6 +1,6 @@
 //@flow
 import style from '../styles/style.scss';
-import { h } from 'preact';
+import {h} from 'preact';
 import OverlayPlay from '../components/overlay-play';
 import PrePlaybackPlayOverlay from '../components/pre-playback-play-overlay';
 import Loading from '../components/loading';
@@ -26,27 +26,27 @@ import UnmuteIndication from '../components/unmute-indication';
 export default function liveUI(props: any): React$Element<any> {
   return (
     <div className={style.playbackGuiWWrapper}>
-      <KeyboardControl player={props.player} config={props.config} />
-      <Loading player={props.player} />
+      <KeyboardControl player={props.player} config={props.config}/>
+      <Loading player={props.player}/>
       <div className={style.playerGui} id='player-gui'>
-        <OverlayPortal />
-        <UnmuteIndication />
-        <OverlayPlay player={props.player} />
+        <OverlayPortal/>
+        <UnmuteIndication/>
+        <OverlayPlay player={props.player}/>
         <BottomBar>
-          <SeekBarLivePlaybackContainer showFramePreview showTimeBubble player={props.player} config={props.config} />
+          <SeekBarLivePlaybackContainer showFramePreview showTimeBubble player={props.player} config={props.config}/>
           <div className={style.leftControls}>
-            <PlayPauseControl player={props.player} />
-            <LiveTag player={props.player} />
+            <PlayPauseControl player={props.player}/>
+            <LiveTag player={props.player}/>
           </div>
           <div className={style.rightControls}>
-            <VolumeControl player={props.player} />
-            <LanguageControl player={props.player} />
-            <SettingsControl player={props.player} />
-            <FullscreenControl player={props.player} config={props.config} />
+            <VolumeControl player={props.player}/>
+            <LanguageControl player={props.player}/>
+            <SettingsControl player={props.player}/>
+            <FullscreenControl player={props.player} config={props.config}/>
           </div>
         </BottomBar>
       </div>
-      <PrePlaybackPlayOverlay player={props.player} />
+      <PrePlaybackPlayOverlay player={props.player}/>
     </div>
   )
 }

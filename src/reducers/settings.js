@@ -1,9 +1,8 @@
 //@flow
-
 export const types = {
   UPDATE_QUALITY: 'settings/UPDATE_QUALITY',
   UPDATE_SPEED: 'settings/UPDATE_SPEED'
-}
+};
 
 export const initialState = {
   quality: 1,
@@ -16,13 +15,13 @@ export default (state: Object = initialState, action: Object) => {
       return {
         ...state,
         quality: action.quality
-      }
+      };
 
     case types.UPDATE_SPEED:
       return {
         ...state,
         speed: action.speed
-      }
+      };
 
     default:
       return state;
@@ -30,6 +29,6 @@ export default (state: Object = initialState, action: Object) => {
 }
 
 export const actions = {
-  updateQuality: (quality: string) => ({ type: types.UPDATE_QUALITY, quality }),
-  updateSpeed: (speed: string) => ({ type: types.UPDATE_SPEED, speed })
-}
+  updateQuality: (quality: string) => ({type: types.UPDATE_QUALITY, quality}),
+  updateSpeed: (speed: string) => ({type: types.UPDATE_SPEED, speed})
+};

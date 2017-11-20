@@ -1,5 +1,5 @@
 //@flow
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux';
 import engine from './reducers/engine';
 import shell from './reducers/shell';
 import playPause from './reducers/play-pause';
