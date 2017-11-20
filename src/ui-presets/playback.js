@@ -1,6 +1,7 @@
 //@flow
 import style from '../styles/style.scss';
 import {h} from 'preact';
+import getComponentConfig from '../utils/component-config';
 import OverlayPlay from '../components/overlay-play';
 import PrePlaybackPlayOverlay from '../components/pre-playback-play-overlay';
 import Loading from '../components/loading';
@@ -25,6 +26,7 @@ import UnmuteIndication from '../components/unmute-indication';
  * @returns {React$Element} player ui tree
  */
 export default function playbackUI(props: any): React$Element<any> {
+
   return (
     <div className={style.playbackGuiWWrapper}>
       <KeyboardControl player={props.player} config={props.config}/>
@@ -34,7 +36,9 @@ export default function playbackUI(props: any): React$Element<any> {
         <UnmuteIndication player={props.player}/>
         <OverlayPlay player={props.player}/>
         <BottomBar>
-          <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player} config={props.config}/>
+          <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player}
+                                    playerContainer={props.playerContainer}
+                                    config={getComponentConfig(props.config, 'seekbar')}/>
           <div className={style.leftControls}>
             <PlayPauseControl player={props.player}/>
             <RewindControl player={props.player} step={10}/>
