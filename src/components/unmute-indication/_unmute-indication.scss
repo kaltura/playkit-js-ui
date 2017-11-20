@@ -1,7 +1,8 @@
 .unmute-button-container {
   display: inline-block;
   position: absolute;
-  top: 13px; left: 16px;
+  top: 13px;
+  left: 16px;
   z-index: 15;
 
   &.show-icon-only {
@@ -16,6 +17,7 @@
     }
   }
 }
+
 .btn.unmute-button {
   font-size: 15px;
   max-width: 200px;

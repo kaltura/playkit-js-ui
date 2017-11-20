@@ -135,7 +135,7 @@ class EngineConnector extends BaseComponent {
       this.props.updateAdBreakProgress(currentTime, duration);
     });
 
-    this.player.addEventListener(this.player.Event.AD_COMPLETED, ()=> {
+    this.player.addEventListener(this.player.Event.AD_COMPLETED, () => {
       this.props.updateAdBreakCompleted();
     });
 

@@ -1,8 +1,7 @@
 //@flow
-
 export const types = {
   TOGGLE_SHARE_OVERLAY: 'share/TOGGLE_SHARE_OVERLAY'
-}
+};
 
 export const initialState = {
   overlayOpen: false
@@ -14,7 +13,7 @@ export default (state: Object = initialState, action: Object) => {
       return {
         ...state,
         overlayOpen: action.show
-      }
+      };
 
     default:
       return state;
@@ -22,5 +21,5 @@ export default (state: Object = initialState, action: Object) => {
 }
 
 export const actions = {
-  toggleShareOverlay: (show: boolean) => ({ type: types.TOGGLE_SHARE_OVERLAY, show })
-}
+  toggleShareOverlay: (show: boolean) => ({type: types.TOGGLE_SHARE_OVERLAY, show})
+};

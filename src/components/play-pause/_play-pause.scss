@@ -1,29 +1,29 @@
 .control-button-container.control-play-pause .control-button {
-    transition: 400ms transform;
+  transition: 400ms transform;
+
+  .icon-pause {
+    transition: 400ms opacity;
+    opacity: 0;
+    display: none;
+  }
+  .icon-play {
+    transition: 400ms opacity;
+    opacity: 1;
+    display: block;
+  }
+
+  &.is-playing {
+    transform: rotate(360deg);
 
     .icon-pause {
-        transition: 400ms opacity;
-        opacity: 0;
-        display: none;
+      opacity: 1;
+      display: block;
     }
     .icon-play {
-        transition: 400ms opacity;
-        opacity: 1;
-        display: block;
+      opacity: 0;
+      display: none;
     }
-
-    &.is-playing {
-        transform: rotate(360deg);
-
-        .icon-pause {
-            opacity: 1;
-            display: block;
-        }
-        .icon-play {
-            opacity: 0;
-            display: none;
-        }
-    }
+  }
 }
 
 .touch {

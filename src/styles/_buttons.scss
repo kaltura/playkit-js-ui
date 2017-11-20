@@ -14,13 +14,13 @@
   }
 
   &.btn-dark-transparent {
-    background-color: rgba(0,0,0,0.5);
-    border: 2px solid rgba(255,255,255,0.2);
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.2);
     line-height: 32px;
 
     &:hover {
       color: #fff;
-      border: 2px solid rgba(255,255,255,0.4);
+      border: 2px solid rgba(255, 255, 255, 0.4);
     }
   }
 
@@ -34,10 +34,12 @@
 }
 
 .btn-rounded {
-  height: 36px;	width: 36px;
-  min-width: 36px; min-height: 36px;
+  height: 36px;
+  width: 36px;
+  min-width: 36px;
+  min-height: 36px;
   border-radius: 18px;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.4);
   display: inline-block;
   padding: 2px;
 }

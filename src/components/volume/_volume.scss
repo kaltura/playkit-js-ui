@@ -2,75 +2,84 @@
 
 .control-button-container.volume-control {
 
-    &.hover {
-        .volume-control-bar {
-            display: block !important;
-        }
+  &.hover {
+    .volume-control-bar {
+      display: block !important;
     }
+  }
 
-    &.is-muted {
-      .icon-volume-waves {
-        opacity: 0;
-        transform: translateX(-5px);
-      }
-      .icon-volume-mute {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    &.dragging-active {
-      .volume-control-bar {
-        display: block;
-      }
-    }
-
+  &.is-muted {
     .icon-volume-waves {
-      transform: translateX(0px);
+      opacity: 0;
+      transform: translateX(-5px);
     }
     .icon-volume-mute {
       opacity: 1;
-      transform: scale(0);
+      transform: scale(1);
     }
-    .icon-volume-waves, .icon-volume-mute {
-      transition: 300ms transform, 300ms opacity;
+  }
+
+  &.dragging-active {
+    .volume-control-bar {
+      display: block;
     }
-    i {
-      position: absolute;
-      top: 0; left: 0;
-    }
+  }
+
+  .icon-volume-waves {
+    transform: translateX(0px);
+  }
+  .icon-volume-mute {
+    opacity: 1;
+    transform: scale(0);
+  }
+  .icon-volume-waves, .icon-volume-mute {
+    transition: 300ms transform, 300ms opacity;
+  }
+  i {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 }
+
 .volume-control-bar {
-    position: absolute; z-index: 2;
-    bottom: 38px; left: 0px;
+  position: absolute;
+  z-index: 2;
+  bottom: 38px;
+  left: 0px;
+  display: block;
+  height: 112px;
+  width: 34px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.3);
+  background-color: #333333;
+  padding: 6px;
+  display: none;
+
+  &:before {
+    position: absolute;
+    width: 34px;
+    height: 14px;
+    bottom: -8px;
+    left: 0;
+    content: ' ';
     display: block;
-    height: 112px; width: 34px;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.3);
-    background-color: #333333;
-    padding: 6px;
-    display: none;
+  }
 
-    &:before {
-      position: absolute;
-      width: 34px; height: 14px;
-      bottom: -8px; left: 0;
-      content: ' '; display: block;
-    }
-
-    .bar {
-        background-color: #424242;
-        height: 100%;
-        position: relative;
-        cursor: pointer;
-    }
-    .progress {
-        position: absolute;
-        bottom: 0px; left: 0px;
-        width: 100%;
-        border-radius: 0 0 2px 2px;
-        background-color: $brand-color;
-    }
+  .bar {
+    background-color: #424242;
+    height: 100%;
+    position: relative;
+    cursor: pointer;
+  }
+  .progress {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    border-radius: 0 0 2px 2px;
+    background-color: $brand-color;
+  }
 }
 
 .player.smart-container-open .control-button-container.volume-control.hover .volume-control-bar {

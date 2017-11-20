@@ -1,16 +1,16 @@
 //@flow
 import style from '../../styles/style.scss';
-import { h } from 'preact';
-import { connect } from 'preact-redux';
+import {h} from 'preact';
+import {connect} from 'preact-redux';
 import isEqual from '../../utils/is-equal';
-import { bindActions } from '../../utils/bind-actions';
-import {actions as cvaaActions } from '../../reducers/cvaa';
-import { actions as shellActions } from '../../reducers/shell';
+import {bindActions} from '../../utils/bind-actions';
+import {actions as cvaaActions} from '../../reducers/cvaa';
+import {actions as shellActions} from '../../reducers/shell';
 import BaseComponent from '../base';
 import Overlay from '../overlay';
 import DropDown from '../dropdown';
 import Slider from '../slider';
-import { default as Icon, IconType } from '../icon';
+import {default as Icon, IconType} from '../icon';
 
 /**
  * mapping state to props
@@ -25,17 +25,17 @@ const mapStateToProps = state => ({
 const cvaaOverlayState = {
   Main: 'main',
   CustomCaptions: 'custom-captions'
-}
+};
 
 type CvaaOverlayStateType = "main" | "custom-captions";
 
 @connect(mapStateToProps, bindActions({...cvaaActions, ...shellActions}))
-/**
- * CVAAOverlay component
- *
- * @class CVAAOverlay
- * @extends {BaseComponent}
- */
+  /**
+   * CVAAOverlay component
+   *
+   * @class CVAAOverlay
+   * @extends {BaseComponent}
+   */
 class CVAAOverlay extends BaseComponent {
 
   captionsStyleDefault: Object;
@@ -135,30 +135,37 @@ class CVAAOverlay extends BaseComponent {
    */
   renderMainState(): React$Element<any> {
     return (
-      <div className={this.state.state === cvaaOverlayState.Main ? [style.overlayScreen, style.active].join(' ') : style.overlayScreen}>
+      <div
+        className={this.state.state === cvaaOverlayState.Main ? [style.overlayScreen, style.active].join(' ') : style.overlayScreen}>
         <div className={style.title}>
           Advanced captions settings
         </div>
         <div>
           <div className={style.sample} onClick={() => this.changeCaptionsStyle(this.captionsStyleDefault)}>Sample
-            { isEqual(this.props.player.textStyle, this.captionsStyleDefault) ? <div className={style.activeTick}><Icon type={IconType.Check} /></div> : undefined }
+            {isEqual(this.props.player.textStyle, this.captionsStyleDefault) ?
+              <div className={style.activeTick}><Icon type={IconType.Check}/></div> : undefined}
           </div>
-          <div className={[style.sample, style.blackBg].join(' ')} onClick={() => this.changeCaptionsStyle(this.captionsStyleBlackBG)}>Sample
-            { isEqual(this.props.player.textStyle, this.captionsStyleBlackBG) ? <div className={style.activeTick}><Icon type={IconType.Check} /></div> : undefined }
+          <div className={[style.sample, style.blackBg].join(' ')}
+               onClick={() => this.changeCaptionsStyle(this.captionsStyleBlackBG)}>Sample
+            {isEqual(this.props.player.textStyle, this.captionsStyleBlackBG) ?
+              <div className={style.activeTick}><Icon type={IconType.Check}/></div> : undefined}
           </div>
-          <div className={[style.sample, style.yellowText].join(' ')} onClick={() => this.changeCaptionsStyle(this.captionsStyleYellow)}>Sample
-            { isEqual(this.props.player.textStyle, this.captionsStyleYellow) ? <div className={style.activeTick}><Icon type={IconType.Check} /></div> : undefined }
+          <div className={[style.sample, style.yellowText].join(' ')}
+               onClick={() => this.changeCaptionsStyle(this.captionsStyleYellow)}>Sample
+            {isEqual(this.props.player.textStyle, this.captionsStyleYellow) ?
+              <div className={style.activeTick}><Icon type={IconType.Check}/></div> : undefined}
           </div>
         </div>
-        { !this.isAdvancedStyleApplied() ?
+        {!this.isAdvancedStyleApplied() ?
           (
-            <a className={style.buttonSaveCvaa} onClick={() => this.transitionToState(cvaaOverlayState.CustomCaptions)}>Set custom caption</a>
+            <a className={style.buttonSaveCvaa} onClick={() => this.transitionToState(cvaaOverlayState.CustomCaptions)}>Set
+              custom caption</a>
           ) :
           (
             <div className={style.customCaptionsApplied}>
               <div className={[style.sample, style.custom].join(' ')} style={this.state.customTextStyle.toCSS()}>
                 <span>Custom captions</span>
-                <div className={style.activeTick}><Icon type={IconType.Check} /></div>
+                <div className={style.activeTick}><Icon type={IconType.Check}/></div>
               </div>
               <a onClick={() => this.transitionToState(cvaaOverlayState.CustomCaptions)}>Edit caption</a>
             </div>
@@ -192,69 +199,74 @@ class CVAAOverlay extends BaseComponent {
     const edgeStyles = this.props.player.TextStyle.EdgeStyles;
     const standardColors = props.player.TextStyle.StandardColors;
 
-    var fontSizeOptions = this.props.player.TextStyle.FontSizes.map(size => ({
+    const fontSizeOptions = this.props.player.TextStyle.FontSizes.map(size => ({
       value: size,
       label: size,
       active: this.state.customTextStyle.fontSize === size
     }));
 
-    var fontColorOptions = Object.keys(standardColors).map(key => ({
+    const fontColorOptions = Object.keys(standardColors).map(key => ({
       value: standardColors[key],
       label: key.charAt(0).toUpperCase() + key.toLowerCase().slice(1),
-      active:  this.state.customTextStyle.fontColor == standardColors[key]
+      active: this.state.customTextStyle.fontColor == standardColors[key]
     }));
 
-    var fontFamilyOptions = Object.keys(fontFamily).map(key => ({
+    const fontFamilyOptions = Object.keys(fontFamily).map(key => ({
       value: fontFamily[key],
       label: fontFamily[key],
       active: this.state.customTextStyle.fontFamily == fontFamily[key]
     }));
 
-    var fontStyleOptions = Object.keys(edgeStyles).map(key => ({
+    const fontStyleOptions = Object.keys(edgeStyles).map(key => ({
       value: edgeStyles[key],
       label: key.charAt(0).toUpperCase() + key.toLowerCase().slice(1),
       active: this.state.customTextStyle.fontEdge == edgeStyles[key]
     }));
 
-    var backgroundColorOptions = Object.keys(standardColors).map(key => ({
+    const backgroundColorOptions = Object.keys(standardColors).map(key => ({
       value: standardColors[key],
       label: key.charAt(0).toUpperCase() + key.toLowerCase().slice(1),
-      active:  this.state.customTextStyle.backgroundColor == standardColors[key]
+      active: this.state.customTextStyle.backgroundColor == standardColors[key]
     }));
 
     return (
-      <div className={this.state.state === cvaaOverlayState.CustomCaptions ? [style.overlayScreen, style.active].join(' ') : style.overlayScreen}>
+      <div
+        className={this.state.state === cvaaOverlayState.CustomCaptions ? [style.overlayScreen, style.active].join(' ') : style.overlayScreen}>
         <form className={[style.form, style.customCaptionForm].join(' ')}>
           <div className={style.formGroupRow}>
             <label>Size</label>
-            <DropDown onSelect={fontSize => this.changeCustomStyle({fontSize})} options={fontSizeOptions} />
+            <DropDown onSelect={fontSize => this.changeCustomStyle({fontSize})} options={fontSizeOptions}/>
           </div>
           <div className={style.formGroupRow}>
             <label>Font color</label>
-            <DropDown onSelect={fontColor => this.changeCustomStyle({fontColor})} options={fontColorOptions} />
+            <DropDown onSelect={fontColor => this.changeCustomStyle({fontColor})} options={fontColorOptions}/>
           </div>
           <div className={style.formGroupRow}>
             <label>Font family</label>
-            <DropDown onSelect={fontFamily => this.changeCustomStyle({fontFamily})} options={fontFamilyOptions} />
+            <DropDown onSelect={fontFamily => this.changeCustomStyle({fontFamily})} options={fontFamilyOptions}/>
           </div>
           <div className={style.formGroupRow}>
             <label>Font style</label>
-            <DropDown onSelect={fontEdge => this.changeCustomStyle({fontEdge})} options={fontStyleOptions} />
+            <DropDown onSelect={fontEdge => this.changeCustomStyle({fontEdge})} options={fontStyleOptions}/>
           </div>
           <div className={style.formGroupRow}>
             <label>Font opacity</label>
-            <Slider min={0} max={100} value={this.state.customTextStyle.fontOpacity * 100} onChange={fontOpacity => this.changeCustomStyle({fontOpacity: fontOpacity / 100})} />
+            <Slider min={0} max={100} value={this.state.customTextStyle.fontOpacity * 100}
+                    onChange={fontOpacity => this.changeCustomStyle({fontOpacity: fontOpacity / 100})}/>
           </div>
           <div className={style.formGroupRow}>
             <label>Background color</label>
-            <DropDown onSelect={backgroundColor => this.changeCustomStyle({backgroundColor})} options={backgroundColorOptions} />
+            <DropDown onSelect={backgroundColor => this.changeCustomStyle({backgroundColor})}
+                      options={backgroundColorOptions}/>
           </div>
           <div className={style.formGroupRow}>
             <label>Background opacity</label>
-            <Slider min={0} max={100} value={this.state.customTextStyle.backgroundOpacity * 100} onChange={backgroundOpacity => this.changeCustomStyle({backgroundOpacity: backgroundOpacity / 100})} />
+            <Slider min={0} max={100} value={this.state.customTextStyle.backgroundOpacity * 100}
+                    onChange={backgroundOpacity => this.changeCustomStyle({backgroundOpacity: backgroundOpacity / 100})}/>
           </div>
           <div className={style.formGroupRow}>
-            <a onClick={() => this.changeCaptionsStyle(this.state.customTextStyle)} className={[style.btn, style.btnBranded, style.btnBlock].join(' ')}>Apply</a>
+            <a onClick={() => this.changeCaptionsStyle(this.state.customTextStyle)}
+               className={[style.btn, style.btnBranded, style.btnBlock].join(' ')}>Apply</a>
           </div>
 
           <div className={style.previewContainer}>

@@ -1,11 +1,11 @@
 //@flow
 import style from '../../styles/style.scss';
-import { h } from 'preact';
-import { connect } from 'preact-redux';
-import { bindActions } from '../../utils/bind-actions';
-import { actions } from '../../reducers/volume';
+import {h} from 'preact';
+import {connect} from 'preact-redux';
+import {bindActions} from '../../utils/bind-actions';
+import {actions} from '../../reducers/volume';
 import BaseComponent from '../base';
-import { default as Icon, IconType } from '../icon';
+import {default as Icon, IconType} from '../icon';
 
 /**
  * mapping state to props
@@ -20,13 +20,13 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps, bindActions(actions))
-/**
- * VolumeControl component
- *
- * @class VolumeControl
- * @example <VolumeControl player={this.player} />
- * @extends {BaseComponent}
- */
+  /**
+   * VolumeControl component
+   *
+   * @class VolumeControl
+   * @example <VolumeControl player={this.player} />
+   * @extends {BaseComponent}
+   */
 class VolumeControl extends BaseComponent {
   _volumeControlElement: HTMLElement;
   _volumeProgressBarElement: HTMLElement;
@@ -53,7 +53,7 @@ class VolumeControl extends BaseComponent {
     this.player.addEventListener(this.player.Event.LOADED_METADATA, () => {
       this.props.updateVolume(this.player.volume);
       this.props.updateMuted(this.player.muted);
-    })
+    });
 
     this.player.addEventListener(this.player.Event.VOLUME_CHANGE, () => {
       this.props.updateMuted(this.player.muted);
@@ -157,7 +157,7 @@ class VolumeControl extends BaseComponent {
    * @returns {{top: number, left: number}} object with the top and left position
    * @memberof VolumeControl
    */
-  getCoords(el: HTMLElement): {top: number, left: number} {
+  getCoords(el: HTMLElement): { top: number, left: number } {
     let box = el.getBoundingClientRect();
 
     return {
@@ -173,36 +173,36 @@ class VolumeControl extends BaseComponent {
    * @memberof VolumeControl
    */
   render(): React$Element<any> {
-      var controlButtonClass = [style.controlButtonContainer, style.volumeControl];
-      if (this.props.isDraggingActive) controlButtonClass.push(style.draggingActive);
-      if (this.props.muted || this.props.volume === 0) controlButtonClass.push(style.isMuted);
-      if (this.state.hover && !this.props.smartContainerOpen) controlButtonClass.push(style.hover);
+    const controlButtonClass = [style.controlButtonContainer, style.volumeControl];
+    if (this.props.isDraggingActive) controlButtonClass.push(style.draggingActive);
+    if (this.props.muted || this.props.volume === 0) controlButtonClass.push(style.isMuted);
+    if (this.state.hover && !this.props.smartContainerOpen) controlButtonClass.push(style.hover);
 
-      return (
-        <div
-          ref={c => this._volumeControlElement=c}
-          className={controlButtonClass.join(' ')}
-          onMouseOver={() => this.setState({hover: true})}
-          onMouseOut={() => this.setState({hover: false})}
-        >
-          <button className={style.controlButton} onClick={() => this.onVolumeControlButtonClick()} aria-label='Volume'>
-            <Icon type={IconType.VolumeBase} />
-            <Icon type={IconType.VolumeWaves} />
-            <Icon type={IconType.VolumeMute} />
-          </button>
-          <div className={style.volumeControlBar} role='slider'
-            aria-valuemin='0' aria-valuemaz='100' aria-valuenow={this.player.volume * 100}
-            aria-valuetext={`${this.player.volume * 100}% volume ${this.player.muted ? 'muted' : ''}`}>
-            <div
-              className={style.bar}
-              ref={c => this._volumeProgressBarElement=c}
-              onMouseDown={() => this.onVolumeProgressBarMouseDown()}
-            >
-              <div className={style.progress} style={{height: this.getVolumeProgressHeight()}} />
-            </div>
+    return (
+      <div
+        ref={c => this._volumeControlElement = c}
+        className={controlButtonClass.join(' ')}
+        onMouseOver={() => this.setState({hover: true})}
+        onMouseOut={() => this.setState({hover: false})}
+      >
+        <button className={style.controlButton} onClick={() => this.onVolumeControlButtonClick()} aria-label='Volume'>
+          <Icon type={IconType.VolumeBase}/>
+          <Icon type={IconType.VolumeWaves}/>
+          <Icon type={IconType.VolumeMute}/>
+        </button>
+        <div className={style.volumeControlBar} role='slider'
+             aria-valuemin='0' aria-valuemaz='100' aria-valuenow={this.player.volume * 100}
+             aria-valuetext={`${this.player.volume * 100}% volume ${this.player.muted ? 'muted' : ''}`}>
+          <div
+            className={style.bar}
+            ref={c => this._volumeProgressBarElement = c}
+            onMouseDown={() => this.onVolumeProgressBarMouseDown()}
+          >
+            <div className={style.progress} style={{height: this.getVolumeProgressHeight()}}/>
           </div>
         </div>
-      )
+      </div>
+    )
   }
 }
 

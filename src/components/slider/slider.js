@@ -1,6 +1,6 @@
 //@flow
 import style from './_slider.scss';
-import { h, Component } from 'preact';
+import {h, Component} from 'preact';
 
 /**
  * Slider component
@@ -107,9 +107,15 @@ class Slider extends Component {
    */
   mouseEventToValue(e: any): number {
     let clientX;
-    if (e.touches && e.touches.length > 0) { clientX = e.touches[0].clientX }
-    else if (e.changedTouches) { clientX = e.changedTouches[0].pageX }
-    else { clientX = e.clientX; }
+    if (e.touches && e.touches.length > 0) {
+      clientX = e.touches[0].clientX
+    }
+    else if (e.changedTouches) {
+      clientX = e.changedTouches[0].pageX
+    }
+    else {
+      clientX = e.clientX;
+    }
 
     let offsetLeft = clientX - this._sliderElement.getBoundingClientRect().left;
     let offsetLeftPercentage = Math.round(offsetLeft / this._sliderElement.clientWidth * 100);
@@ -150,7 +156,7 @@ class Slider extends Component {
   render(): React$Element<any> {
     return (
       <div
-        ref={c => this._sliderElement=c}
+        ref={c => this._sliderElement = c}
         className={style.slider}
         onMouseDown={e => this.mouseDownHandler(e)}
         onTouchStart={e => this.mouseDownHandler(e)}

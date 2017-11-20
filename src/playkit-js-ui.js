@@ -1,5 +1,6 @@
 // @flow
 import UIManager from './ui-manager';
+
 export {h} from 'preact';
 
 // ui presets

@@ -1,7 +1,7 @@
 //@flow
 import style from './_seekbar.scss';
-import { h, Component } from 'preact';
-import { toHHMMSS } from '../../utils/time-format';
+import {h, Component} from 'preact';
+import {toHHMMSS} from '../../utils/time-format';
 
 /**
  * SeekBarControl component
@@ -62,7 +62,7 @@ class SeekBarControl extends Component {
    * @memberof SeekBarControl
    */
   componentWillUpdate(nextProps: any) {
-    if(nextProps.playerPoster && (this.props.playerPoster !== nextProps.playerPoster)) {
+    if (nextProps.playerPoster && (this.props.playerPoster !== nextProps.playerPoster)) {
       this.framePreviewImg = this.getFramePreviewImg(nextProps.playerPoster);
     }
   }
@@ -126,7 +126,7 @@ class SeekBarControl extends Component {
   onPlayerMouseUp(e: Event): void {
     if (this.props.isMobile) return;
 
-    if(this.props.isDraggingActive) {
+    if (this.props.isDraggingActive) {
       let time = this.getTime(e);
       this.props.changeCurrentTime(time);
       this.updateSeekBarProgress(time, this.props.duration);
@@ -238,14 +238,14 @@ class SeekBarControl extends Component {
    * @memberof SeekBarControl
    */
   getOffset(element: any): { top: number, left: number } {
-    var _x = 0;
-    var _y = 0;
-    while( element && !isNaN( element.offsetLeft ) && !isNaN( element.offsetTop ) ) {
+    let _x = 0;
+    let _y = 0;
+    while (element && !isNaN(element.offsetLeft) && !isNaN(element.offsetTop)) {
       _x += element.offsetLeft - element.scrollLeft;
       _y += element.offsetTop - element.scrollTop;
       element = element.offsetParent;
     }
-    return { top: _y, left: _x };
+    return {top: _y, left: _x};
   }
 
   /**
@@ -271,7 +271,7 @@ class SeekBarControl extends Component {
    * @memberof SeekBarControl
    */
   getThumbSpriteOffset(): string {
-    return - (Math.ceil(100 * this.state.virtualTime / this.props.duration) * 160) + 'px 0px';
+    return -(Math.ceil(100 * this.state.virtualTime / this.props.duration) * 160) + 'px 0px';
   }
 
   /**
@@ -334,17 +334,17 @@ class SeekBarControl extends Component {
    */
   renderFramePreview(): React$Element<any> | void {
     if (!this.props.showFramePreview || this.props.isMobile) return undefined;
-    var framePreviewStyle = `left: ${this.getFramePreviewOffset()}px`;
-    var framePreviewImgStyle = `background-image: url(${this.framePreviewImg}); `;
+    let framePreviewStyle = `left: ${this.getFramePreviewOffset()}px`;
+    let framePreviewImgStyle = `background-image: url(${this.framePreviewImg}); `;
     framePreviewImgStyle += `background-position: ${this.getThumbSpriteOffset()}`
 
     return (
       <div
         className={style.framePreview}
         style={framePreviewStyle}
-        ref={c => this._framePreviewElement=c}
+        ref={c => this._framePreviewElement = c}
       >
-        <div className={style.framePreviewImg} style={framePreviewImgStyle} />
+        <div className={style.framePreviewImg} style={framePreviewImgStyle}/>
       </div>)
   }
 
@@ -356,9 +356,10 @@ class SeekBarControl extends Component {
    */
   renderTimeBubble(): React$Element<any> | void {
     if (!this.props.showTimeBubble || this.props.isMobile) return undefined;
-    var timeBubbleStyle = `left: ${this.getTimeBubbleOffset()}px`;
-    var timeBubbleValue = this.props.isDvr ? '-' + toHHMMSS(this.props.duration - this.state.virtualTime) : toHHMMSS(this.state.virtualTime);
-    return <div className={style.timePreview} style={timeBubbleStyle} ref={c => this._timeBubbleElement=c}>{timeBubbleValue}</div>
+    const timeBubbleStyle = `left: ${this.getTimeBubbleOffset()}px`;
+    const timeBubbleValue = this.props.isDvr ? '-' + toHHMMSS(this.props.duration - this.state.virtualTime) : toHHMMSS(this.state.virtualTime);
+    return <div className={style.timePreview} style={timeBubbleStyle}
+                ref={c => this._timeBubbleElement = c}>{timeBubbleValue}</div>
   }
 
   /**
@@ -369,9 +370,9 @@ class SeekBarControl extends Component {
    * @memberof SeekBarControl
    */
   render(props: any): React$Element<any> {
-    var virtualProgressWidth = `${this.state.virtualTime / props.duration * 100}%`;
-    var progressWidth = `${props.currentTime / props.duration * 100}%`;
-    var seekbarStyleClass = [style.seekBar];
+    const virtualProgressWidth = `${this.state.virtualTime / props.duration * 100}%`;
+    const progressWidth = `${props.currentTime / props.duration * 100}%`;
+    const seekbarStyleClass = [style.seekBar];
     if (props.adBreak) seekbarStyleClass.push(style.adBreak);
     if (props.isDvr) seekbarStyleClass.push(style.live);
     if (props.isMobile) seekbarStyleClass.push(style.hover);
@@ -380,7 +381,7 @@ class SeekBarControl extends Component {
     return (
       <div
         className={seekbarStyleClass.join(' ')}
-        ref={c => this._seekBarElement=c}
+        ref={c => this._seekBarElement = c}
         role='slider'
         aria-label='Seek slider'
         aria-valuemin='0'
@@ -398,17 +399,18 @@ class SeekBarControl extends Component {
           <div className={style.progress} style={{width: progressWidth}}>
             {
               props.adBreak ? undefined :
-              <a className={style.scrubber} />
+                <a className={style.scrubber}/>
             }
           </div>
-          <div className={style.virtualProgress} style={{width: virtualProgressWidth}} />
+          <div className={style.virtualProgress} style={{width: virtualProgressWidth}}/>
           {this.renderTimeBubble()}
           {this.renderFramePreview()}
-          <div className={style.buffered} style='width: 60%;' />
+          <div className={style.buffered} style='width: 60%;'/>
         </div>
       </div>
     )
   }
 
 }
+
 export default SeekBarControl;

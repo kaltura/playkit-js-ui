@@ -22,7 +22,7 @@ export const types = {
   UPDATE_IS_LIVE: 'engine/UPDATE_IS_LIVE',
   UPDATE_IS_DVR: 'engine/UPDATE_IS_DVR',
   UPDATE_ERROR: 'engine/ERROR'
-}
+};
 
 export const initialState = {
   isPlaying: false,
@@ -52,7 +52,7 @@ export const initialState = {
   },
   adUrl: '',
   error: ''
-}
+};
 
 export default (state: Object = initialState, action: Object) => {
   switch (action.type) {
@@ -66,79 +66,79 @@ export default (state: Object = initialState, action: Object) => {
       return {
         ...state,
         playerState: action.playerState
-      }
+      };
 
     case types.UPDATE_IS_PLAYING:
       return {
         ...state,
         isPlaying: action.isPlaying
-      }
+      };
 
     case types.UPDATE_IS_ENDED:
       return {
         ...state,
         isEnded: action.isEnded
-      }
+      };
 
     case types.UPDATE_CURRENT_TIME:
       return {
         ...state,
         currentTime: action.currentTime
-      }
+      };
 
     case types.UPDATE_DURATION:
       return {
         ...state,
         duration: action.duration
-      }
+      };
 
     case types.UPDATE_VOLUME:
       return {
         ...state,
         volume: action.volume
-      }
+      };
 
     case types.UPDATE_MUTED:
       return {
         ...state,
         muted: action.muted
-      }
+      };
 
     case types.UPDATE_METADATA_LOADING_STATUS:
       return {
         ...state,
         metadataLoaded: action.metadataLoaded
-      }
+      };
 
     case types.UPDATE_AUDIO_TRACKS:
       return {
         ...state,
         audioTracks: action.tracks
-      }
+      };
 
     case types.UPDATE_VIDEO_TRACKS:
       return {
         ...state,
         videoTracks: action.tracks
-      }
+      };
 
     case types.UPDATE_TEXT_TRACKS:
       return {
         ...state,
         textTracks: action.tracks
-      }
+      };
 
     case types.UPDATE_AD_BREAK:
       return {
         ...state,
         adBreak: action.adBreak
-      }
+      };
 
     case types.UPDATE_AD_BREAK_PROGRESS:
       return {
         ...state,
         adProgress: action.adProgress
-      }
+      };
 
     case types.UPDATE_AD_BREAK_COMPLETED:
       return {
@@ -147,49 +147,49 @@ export default (state: Object = initialState, action: Object) => {
           currentTime: state.adProgress.duration,
           duration: state.adProgress.duration
         }
-      }
+      };
 
     case types.UPDATE_AD_IS_PLAYING:
       return {
         ...state,
         adIsPlaying: action.adIsPlaying
-      }
+      };
 
     case types.UPDATE_AD_SKIP_TIME_OFFSET:
       return {
         ...state,
         adSkipTimeOffset: action.adSkipTimeOffset
-      }
+      };
 
     case types.UPDATE_AD_SKIPPABLE_STATE:
       return {
         ...state,
         adSkippableState: action.adSkippableState
-      }
+      };
 
     case types.UPDATE_AD_URL:
       return {
         ...state,
         adUrl: action.adUrl
-      }
+      };
 
     case types.UPDATE_PLAYER_POSTER:
       return {
         ...state,
         poster: action.poster
-      }
+      };
 
     case types.UPDATE_IS_LIVE:
       return {
         ...state,
         isLive: action.isLive
-      }
+      };
 
     case types.UPDATE_IS_DVR:
       return {
         ...state,
         isDvr: action.isDvr
-      }
+      };
 
     default:
       return state;
@@ -198,25 +198,34 @@ export default (state: Object = initialState, action: Object) => {
 
 export const actions = {
   updateError: (error: string)=> ({type: types.UPDATE_ERROR, error}),
-  updatePlayerState: (prevoiusState: string, currentState: string) => ({ type: types.UPDATE_PLAYER_STATE, playerState: {prevoiusState, currentState} }),
-  updateIsPlaying: (isPlaying: boolean) => ({ type: types.UPDATE_IS_PLAYING, isPlaying }),
-  updateIsEnded: (isEnded: boolean) => ({ type: types.UPDATE_IS_ENDED, isEnded }),
-  updateCurrentTime: (currentTime: number) => ({ type: types.UPDATE_CURRENT_TIME, currentTime }),
-  updateDuration: (duration: number) => ({ type: types.UPDATE_DURATION, duration }),
-  updateVolume: (volume: number) => ({ type: types.UPDATE_VOLUME, volume }),
-  updateMuted: (muted: boolean) => ({ type: types.UPDATE_MUTED, muted }),
-  updateMetadataLoadingStatus: (metadataLoaded: boolean) => ({ type: types.UPDATE_METADATA_LOADING_STATUS, metadataLoaded }),
-  updateAudioTracks: (tracks: Array<any>) => ({ type: types.UPDATE_AUDIO_TRACKS, tracks }),
-  updateVideoTracks: (tracks: Array<any>) => ({ type: types.UPDATE_VIDEO_TRACKS, tracks }),
-  updateTextTracks: (tracks: Array<any>) => ({ type: types.UPDATE_TEXT_TRACKS, tracks }),
-  updateAdBreak: (adBreak: boolean) => ({ type: types.UPDATE_AD_BREAK, adBreak }),
-  updateAdBreakProgress: (currentTime: number, duration: number) => ({ type: types.UPDATE_AD_BREAK_PROGRESS, adProgress: {currentTime, duration} }),
-  updateAdBreakCompleted: () => ({ type: types.UPDATE_AD_BREAK_COMPLETED }),
-  updateAdIsPlaying: (adIsPlaying: boolean) => ({ type: types.UPDATE_AD_IS_PLAYING, adIsPlaying }),
-  updateAdSkipTimeOffset: (adSkipTimeOffset: boolean) => ({ type: types.UPDATE_AD_SKIP_TIME_OFFSET, adSkipTimeOffset }),
-  updateAdSkippableState: (adSkippableState: boolean) => ({ type: types.UPDATE_AD_SKIPPABLE_STATE, adSkippableState }),
-  updateAdClickUrl: (adUrl: string) => ({ type: types.UPDATE_AD_URL, adUrl }),
-  updatePlayerPoster: (poster: string) => ({ type: types.UPDATE_PLAYER_POSTER, poster }),
-  updateIsLive: (isLive: boolean) => ({ type: types.UPDATE_IS_LIVE, isLive }),
-  updateIsDvr: (isDvr: boolean) => ({ type: types.UPDATE_IS_DVR, isDvr })
-}
+  updatePlayerState: (prevoiusState: string, currentState: string) => ({
+    type: types.UPDATE_PLAYER_STATE,
+    playerState: {prevoiusState, currentState}
+  }),
+  updateIsPlaying: (isPlaying: boolean) => ({type: types.UPDATE_IS_PLAYING, isPlaying}),
+  updateIsEnded: (isEnded: boolean) => ({type: types.UPDATE_IS_ENDED, isEnded}),
+  updateCurrentTime: (currentTime: number) => ({type: types.UPDATE_CURRENT_TIME, currentTime}),
+  updateDuration: (duration: number) => ({type: types.UPDATE_DURATION, duration}),
+  updateVolume: (volume: number) => ({type: types.UPDATE_VOLUME, volume}),
+  updateMuted: (muted: boolean) => ({type: types.UPDATE_MUTED, muted}),
+  updateMetadataLoadingStatus: (metadataLoaded: boolean) => ({
+    type: types.UPDATE_METADATA_LOADING_STATUS,
+    metadataLoaded
+  }),
+  updateAudioTracks: (tracks: Array<any>) => ({type: types.UPDATE_AUDIO_TRACKS, tracks}),
+  updateVideoTracks: (tracks: Array<any>) => ({type: types.UPDATE_VIDEO_TRACKS, tracks}),
+  updateTextTracks: (tracks: Array<any>) => ({type: types.UPDATE_TEXT_TRACKS, tracks}),
+  updateAdBreak: (adBreak: boolean) => ({type: types.UPDATE_AD_BREAK, adBreak}),
+  updateAdBreakProgress: (currentTime: number, duration: number) => ({
+    type: types.UPDATE_AD_BREAK_PROGRESS,
+    adProgress: {currentTime, duration}
+  }),
+  updateAdBreakCompleted: () => ({type: types.UPDATE_AD_BREAK_COMPLETED}),
+  updateAdIsPlaying: (adIsPlaying: boolean) => ({type: types.UPDATE_AD_IS_PLAYING, adIsPlaying}),
+  updateAdSkipTimeOffset: (adSkipTimeOffset: boolean) => ({type: types.UPDATE_AD_SKIP_TIME_OFFSET, adSkipTimeOffset}),
+  updateAdSkippableState: (adSkippableState: boolean) => ({type: types.UPDATE_AD_SKIPPABLE_STATE, adSkippableState}),
+  updateAdClickUrl: (adUrl: string) => ({type: types.UPDATE_AD_URL, adUrl}),
+  updatePlayerPoster: (poster: string) => ({type: types.UPDATE_PLAYER_POSTER, poster}),
+  updateIsLive: (isLive: boolean) => ({type: types.UPDATE_IS_LIVE, isLive}),
+  updateIsDvr: (isDvr: boolean) => ({type: types.UPDATE_IS_DVR, isDvr})
+};

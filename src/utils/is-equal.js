@@ -8,8 +8,8 @@
  * @returns {boolean} objects equal or not
  */
 function isEqual(objA: Object, objB: Object): boolean {
-  var keysA = Object.keys(objA);
-  var keysB = Object.keys(objB);
+  const keysA = Object.keys(objA);
+  const keysB = Object.keys(objB);
 
   if (keysA.length !== keysB.length) {
     return false;

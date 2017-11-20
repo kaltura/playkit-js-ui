@@ -1,5 +1,5 @@
 //@flow
-import { h, Component } from 'preact';
+import {h, Component} from 'preact';
 
 /**
  * OverlayPortal component
@@ -29,7 +29,7 @@ class OverlayPortal extends Component {
    */
   render(props: any): React$Element<any> {
     return (
-      <div id='overlay-portal'>{ props.children }</div>
+      <div id='overlay-portal'>{props.children}</div>
     )
   }
 }

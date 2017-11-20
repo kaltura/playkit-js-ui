@@ -1,6 +1,6 @@
 //@flow
-import { h } from 'preact';
-import { connect } from 'preact-redux';
+import {h} from 'preact';
+import {connect} from 'preact-redux';
 import BaseComponent from '../base';
 import TimeDisplay from '../time-display';
 
@@ -15,13 +15,13 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps)
-/**
- * TimeDisplayPlaybackContainer component
- *
- * @class TimeDisplayPlaybackContainer
- * @example <TimeDisplayPlaybackContainer format='currentTime / duration' />
- * @extends {BaseComponent}
- */
+  /**
+   * TimeDisplayPlaybackContainer component
+   *
+   * @class TimeDisplayPlaybackContainer
+   * @example <TimeDisplayPlaybackContainer format='currentTime / duration' />
+   * @extends {BaseComponent}
+   */
 class TimeDisplayPlaybackContainer extends BaseComponent {
   /**
    * Creates an instance of TimeDisplayPlaybackContainer.
