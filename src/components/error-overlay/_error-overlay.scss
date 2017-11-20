@@ -1,0 +1,39 @@
+@import '~styles/variables';
+
+.error-overlay {
+  position: relative;
+  background-color: $grayscale5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+
+    .headline{
+      color: $white;
+      font-size: 19px;
+      margin: 10px 0 10px 0;
+    }
+
+    .error-session{
+      font-size:14px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-width: 80%;
+      white-space: nowrap;
+      margin-bottom: 10px;
+    }
+
+    .retry-btn{
+      height: 36px;
+      width: 120px;
+      border: 2px solid $grayscale6;
+      border-radius: 18px;
+      background-color: $grayscale5;
+      color: $white;
+      font-size: 15px;
+      font-weight: bold;
+      line-height: 32px;
+      cursor: pointer;
+    }
+}
