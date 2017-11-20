@@ -1,7 +1,9 @@
 .pre-playback-play-overlay {
   position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   z-index: 10;
   background-position: center center;
   background-size: contain;
@@ -13,17 +15,19 @@
 
   .pre-playback-play-button {
     position: absolute;
-    top: 50%; left: 50%;
-    height: 108px; width: 108px;
-    border: 2px solid rgba(255,255,255,0.2);
-    background-color: rgba(0,0,0,0.5);
+    top: 50%;
+    left: 50%;
+    height: 108px;
+    width: 108px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    background-color: rgba(0, 0, 0, 0.5);
     margin: -54px 0 0 -54px;
     border-radius: 54px;
     padding: 20px;
     cursor: pointer;
 
     &:hover {
-      border: 2px solid rgba(255,255,255,0.4);
+      border: 2px solid rgba(255, 255, 255, 0.4);
     }
     &:active {
       opacity: 0.7;

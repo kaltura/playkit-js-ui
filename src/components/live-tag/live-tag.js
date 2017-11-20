@@ -1,7 +1,7 @@
 //@flow
 import style from './_live-tag.scss';
-import { h } from 'preact';
-import { connect } from 'preact-redux';
+import {h} from 'preact';
+import {connect} from 'preact-redux';
 import BaseComponent from '../base';
 
 /**
@@ -17,13 +17,13 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps)
-/**
- * LiveTag component
- *
- * @class LiveTag
- * @example <LiveTag player={this.player} />
- * @extends {BaseComponent}
- */
+  /**
+   * LiveTag component
+   *
+   * @class LiveTag
+   * @example <LiveTag player={this.player} />
+   * @extends {BaseComponent}
+   */
 class LiveTag extends BaseComponent {
 
   /**
@@ -69,7 +69,7 @@ class LiveTag extends BaseComponent {
    * @memberof LiveTag
    */
   render(props: any): React$Element<any> {
-    var tagStyleClass = [style.liveTag];
+    const tagStyleClass = [style.liveTag];
     if (props.isDvr && !this.isOnLiveEdge()) tagStyleClass.push(style.nonLivePlayhead);
 
     return (

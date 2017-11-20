@@ -1,8 +1,8 @@
 //@flow
-import { h } from 'preact';
-import { connect } from 'preact-redux';
-import { bindActions } from '../../utils/bind-actions';
-import { actions } from '../../reducers/seekbar';
+import {h} from 'preact';
+import {connect} from 'preact-redux';
+import {bindActions} from '../../utils/bind-actions';
+import {actions} from '../../reducers/seekbar';
 import BaseComponent from '../base';
 import SeekBarControl from '../seekbar';
 
@@ -19,13 +19,13 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps, bindActions(actions))
-/**
- * SeekBarAdsContainer component
- *
- * @class SeekBarAdsContainer
- * @example <SeekBarAdsContainer player={this.player} />
- * @extends {BaseComponent}
- */
+  /**
+   * SeekBarAdsContainer component
+   *
+   * @class SeekBarAdsContainer
+   * @example <SeekBarAdsContainer player={this.player} />
+   * @extends {BaseComponent}
+   */
 class SeekBarAdsContainer extends BaseComponent {
 
   /**
@@ -48,10 +48,12 @@ class SeekBarAdsContainer extends BaseComponent {
     return (
       <SeekBarControl
         playerElement={this.props.playerContainer}
-        changeCurrentTime={time => {}} // eslint-disable-line no-unused-vars
-        updateSeekbarDraggingStatus={data => {}} // eslint-disable-line no-unused-vars
-        updateCurrentTime={data => {}} // eslint-disable-line no-unused-vars
-
+        changeCurrentTime={time => {  // eslint-disable-line no-unused-vars
+        }}
+        updateSeekbarDraggingStatus={data => { // eslint-disable-line no-unused-vars
+        }}
+        updateCurrentTime={data => { // eslint-disable-line no-unused-vars
+        }}
         adBreak={props.adBreak}
         currentTime={props.currentTime}
         duration={props.duration}
@@ -62,4 +64,5 @@ class SeekBarAdsContainer extends BaseComponent {
   }
 
 }
+
 export default SeekBarAdsContainer;

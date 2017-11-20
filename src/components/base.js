@@ -1,5 +1,5 @@
 //@flow
-import { Component } from 'preact';
+import {Component} from 'preact';
 import Player from 'playkit-js';
 import getLogger from '../utils/logger';
 
@@ -21,7 +21,7 @@ class BaseComponent extends Component {
    * @param {Object} [obj={ config: {} }] obj
    * @memberof BaseComponent
    */
-  constructor(obj?: Object = { config: {} }) {
+  constructor(obj?: Object = {config: {}}) {
     super();
 
     this.name = obj.name;

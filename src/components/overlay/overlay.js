@@ -1,24 +1,24 @@
 //@flow
 import style from '../../styles/style.scss';
-import { h, Component } from 'preact';
-import { Localizer, Text } from 'preact-i18n';
-import { connect } from 'preact-redux';
-import { bindActions } from '../../utils/bind-actions';
-import { actions } from '../../reducers/shell';
-import { default as Icon, IconType } from '../icon';
+import {h, Component} from 'preact';
+import {Localizer, Text} from 'preact-i18n';
+import {connect} from 'preact-redux';
+import {bindActions} from '../../utils/bind-actions';
+import {actions} from '../../reducers/shell';
+import {default as Icon, IconType} from '../icon';
 
 @connect(null, bindActions(actions))
-/**
- * Overlay component
- * @class Overlay
- * @example <Overlay
- *  type='share'
- *  onClose={() => this.closeShareOverlay()}
- * >
- *  ...
- * </Overlay>
- * @extends {Component}
- */
+  /**
+   * Overlay component
+   * @class Overlay
+   * @example <Overlay
+   *  type='share'
+   *  onClose={() => this.closeShareOverlay()}
+   * >
+   *  ...
+   * </Overlay>
+   * @extends {Component}
+   */
 class Overlay extends Component {
 
   /**
@@ -49,17 +49,18 @@ class Overlay extends Component {
    * @memberof Overlay
    */
   render(props: any): React$Element<any> {
-    var overlayClass = [style.overlay];
+    const overlayClass = [style.overlay];
     if (props.type) overlayClass.push(style[props.type + '-overlay']);
     if (props.open) overlayClass.push(style.active);
 
     return (
       <div className={overlayClass.join(' ')} role='dialog'>
         <div className={style.overlayContents}>
-          { props.children }
+          {props.children}
         </div>
         <Localizer>
-          <a onClick={() => props.onClose()} aria-label={<Text id='core.close' />} className={style.closeOverlay}><Icon type={IconType.Close} /></a>
+          <a onClick={() => props.onClose()} aria-label={<Text id='core.close'/>} className={style.closeOverlay}><Icon
+            type={IconType.Close}/></a>
         </Localizer>
       </div>
     )

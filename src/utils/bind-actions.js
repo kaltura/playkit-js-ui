@@ -1,5 +1,5 @@
 //@flow
-import { bindActionCreators } from 'redux';
+import {bindActionCreators} from 'redux';
 
 /**
  * Binding redux actions to props utility
@@ -9,7 +9,7 @@ import { bindActionCreators } from 'redux';
  * @returns {Function} function
  */
 export function bindActions(actions: Array<any>): Function {
-	return dispatch => ({
-		...bindActionCreators(actions, dispatch)
-	});
+  return dispatch => ({
+    ...bindActionCreators(actions, dispatch)
+  });
 }

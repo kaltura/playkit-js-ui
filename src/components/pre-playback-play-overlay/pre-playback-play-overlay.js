@@ -126,7 +126,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
       return undefined;
     }
     let rootStyle = {},
-        rootClass = [style.prePlaybackPlayOverlay];
+      rootClass = [style.prePlaybackPlayOverlay];
 
     if (!props.prePlayback && props.poster) {
       rootStyle = {backgroundImage: `url(${props.poster})`};

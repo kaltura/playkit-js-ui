@@ -1,5 +1,5 @@
 //@flow
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux';
 import config from './reducers/config';
 import engine from './reducers/engine';
 import shell from './reducers/shell';

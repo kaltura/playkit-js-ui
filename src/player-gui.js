@@ -1,6 +1,6 @@
 //@flow
-import { Component } from 'preact';
-import { connect } from 'preact-redux';
+import {Component} from 'preact';
+import {connect} from 'preact-redux';
 
 /**
  * mapping state to props
@@ -19,12 +19,12 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps)
-/**
- * Player GUI component
- *
- * @class PlayerGUI
- * @extends {Component}
- */
+  /**
+   * Player GUI component
+   *
+   * @class PlayerGUI
+   * @extends {Component}
+   */
 class PlayerGUI extends Component {
   /**
    * get the single matched UI to render based on the UIs and it's conditions
@@ -60,8 +60,9 @@ class PlayerGUI extends Component {
       uiToRender = this.getMatchedUI(props.uis, props.state);
       return uiToRender ? uiToRender.template(props) : this.props.uis[0].template(props);
     }
-    else { return undefined; }
-
+    else {
+      return undefined;
+    }
   }
 }
 

@@ -1,7 +1,7 @@
 //@flow
 import style from './_time-display.scss';
-import { h, Component } from 'preact';
-import { toHHMMSS } from '../../utils/time-format';
+import {h, Component} from 'preact';
+import {toHHMMSS} from '../../utils/time-format';
 
 /**
  * TimeDisplay component
@@ -28,9 +28,9 @@ class TimeDisplay extends Component {
    */
   getTimeDisplay(currentTime: number, duration: number, format?: string): string {
     let result = format ? format : 'current / total',
-        current = toHHMMSS(currentTime),
-        total = toHHMMSS(duration),
-        left = toHHMMSS(duration - currentTime);
+      current = toHHMMSS(currentTime),
+      total = toHHMMSS(duration),
+      left = toHHMMSS(duration - currentTime);
 
     result = result.replace(/current/g, current);
     result = result.replace(/total/g, total);

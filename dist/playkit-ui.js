@@ -1340,7 +1340,7 @@ function wrapMapToPropsConstant(getConstant) {
 // dependsOnOwnProps is used by createMapToPropsProxy to determine whether to pass props as args
 // to the mapToProps function being wrapped. It is also used by makePurePropsSelector to determine
 // whether mapToProps needs to be invoked when props have changed.
-// 
+//
 // A length of one signals that mapToProps does not depend on props from the parent component.
 // A length of zero is assumed to mean mapToProps is getting args via arguments or ...args and
 // therefore not reporting its length accurately..
@@ -1350,16 +1350,16 @@ function getDependsOnOwnProps(mapToProps) {
 
 // Used by whenMapStateToPropsIsFunction and whenMapDispatchToPropsIsFunction,
 // this function wraps mapToProps in a proxy function which does several things:
-// 
+//
 //  * Detects whether the mapToProps function being called depends on props, which
 //    is used by selectorFactory to decide if it should reinvoke on props changes.
-//    
+//
 //  * On first call, handles mapToProps if returns another function, and treats that
 //    new function as the true mapToProps for subsequent calls.
-//    
+//
 //  * On first call, verifies the first result is a plain object, in order to warn
 //    the developer that their mapToProps function is not returning a valid result.
-//    
+//
 function wrapMapToPropsFunc(mapToProps, methodName) {
   return function initProxySelector(dispatch, _ref) {
     var displayName = _ref.displayName;
@@ -1583,7 +1583,7 @@ function finalPropsSelectorFactory(dispatch, _ref2) {
   selectorFactory, which has the signature:
 
     (dispatch, options) => (nextState, nextOwnProps) => nextFinalProps
-  
+
   connect passes its args to connectAdvanced as options, which will in turn pass them to
   selectorFactory each time a Connect component instance is instantiated or hot reloaded.
 
@@ -1784,8 +1784,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {}
-options.transform = transform
+var options = {};
+options.transform = transform;
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -2059,7 +2059,7 @@ function listToStyles (list, options) {
 }
 
 function insertStyleElement (options, style) {
-	var target = getElement(options.insertInto)
+	var target = getElement(options.insertInto);
 
 	if (!target) {
 		throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
@@ -3161,10 +3161,6 @@ var _style2 = _interopRequireDefault(_style);
 
 var _preact = __webpack_require__(0);
 
-var _componentConfig = __webpack_require__(159);
-
-var _componentConfig2 = _interopRequireDefault(_componentConfig);
-
 var _overlayPlay = __webpack_require__(18);
 
 var _overlayPlay2 = _interopRequireDefault(_overlayPlay);
@@ -3235,7 +3231,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * @returns {React$Element} player ui tree
  */
 function playbackUI(props) {
-
   return (0, _preact.h)(
     'div',
     { className: _style2.default.playbackGuiWWrapper },
@@ -3250,13 +3245,7 @@ function playbackUI(props) {
       (0, _preact.h)(
         _bottomBar2.default,
         null,
-        (0, _preact.h)(_seekbarPlaybackContainer2.default, {
-          showFramePreview: true,
-          showTimeBubble: true,
-          player: props.player,
-          playerContainer: props.playerContainer,
-          config: (0, _componentConfig2.default)(props.config, 'seekbar')
-        }),
+        (0, _preact.h)(_seekbarPlaybackContainer2.default, { showFramePreview: true, showTimeBubble: true, player: props.player, config: props.config }),
         (0, _preact.h)(
           'div',
           { className: _style2.default.leftControls },
@@ -5372,8 +5361,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {}
-options.transform = transform
+var options = {};
+options.transform = transform;
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -5731,9 +5720,8 @@ function symbolObservablePonyfill(root) {
 	}
 
 	return result;
-};
-
-/***/ }),
+}
+    /***/ }),
 /* 70 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -6908,8 +6896,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {}
-options.transform = transform
+var options = {};
+options.transform = transform;
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -7116,8 +7104,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {}
-options.transform = transform
+var options = {};
+options.transform = transform;
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -7447,7 +7435,7 @@ var SeekBarPlaybackContainer = (_dec = (0, _preactRedux.connect)(mapStateToProps
       var _this3 = this;
 
       return (0, _preact.h)(_seekbar3.default, {
-        playerElement: this.props.playerContainer,
+        playerElement: document.getElementById(this.config.targetId),
         showFramePreview: this.props.showFramePreview,
         showTimeBubble: this.props.showTimeBubble,
         changeCurrentTime: function changeCurrentTime(time) {
@@ -7464,10 +7452,7 @@ var SeekBarPlaybackContainer = (_dec = (0, _preactRedux.connect)(mapStateToProps
         currentTime: this.props.currentTime,
         duration: this.props.duration,
         isDraggingActive: this.props.isDraggingActive,
-        isMobile: this.props.isMobile,
-        thumbsSprite: this.props.config.thumbsSprite,
-        thumbsSlices: this.props.config.thumbsSlices,
-        thumbsWidth: this.props.config.thumbsWidth
+        isMobile: this.props.isMobile
       });
     }
   }]);
@@ -7514,9 +7499,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  *  showFramePreview={this.props.showFramePreview}
  *  showTimeBubble={this.props.showTimeBubble}
  *  changeCurrentTime={time => this.player.currentTime = time}
- *  thumbsSprite={this.config.thumbsSprite}
- *  thumbsSlices={this.config.thumbsSlices}
- *  thumbsWidth={this.config.thumbsWidth}
+ *  playerPoster={this.props.poster}
  *  updateSeekbarDraggingStatus={data => this.props.updateSeekbarDraggingStatus(data)}
  *  updateCurrentTime={data => this.props.updateCurrentTime(data)}
  *  currentTime={this.props.currentTime}
@@ -7547,6 +7530,38 @@ var SeekBarControl = function (_Component) {
      */
     value: function componentWillMount() {
       this.setState({ virtualTime: 0 });
+    }
+
+    /**
+     * on component update, check if playerPostaer configured and framePreviewImg not set yet,
+     * if true, update the frame preview image
+     *
+     * @returns {void}
+     * @memberof SeekBarControl
+     */
+
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate() {
+      if (this.props.playerPoster && !this.framePreviewImg) {
+        this.framePreviewImg = this.getFramePreviewImg(this.props.playerPoster);
+      }
+    }
+
+    /**
+     * before component update, check if the player poster changed and create new preview image url.
+     *
+     * @param {any} nextProps props for the next component update
+     * @returns {void}
+     * @memberof SeekBarControl
+     */
+
+  }, {
+    key: 'componentWillUpdate',
+    value: function componentWillUpdate(nextProps) {
+      if (nextProps.playerPoster && this.props.playerPoster !== nextProps.playerPoster) {
+        this.framePreviewImg = this.getFramePreviewImg(nextProps.playerPoster);
+      }
     }
 
     /**
@@ -7795,9 +7810,7 @@ var SeekBarControl = function (_Component) {
   }, {
     key: 'getThumbSpriteOffset',
     value: function getThumbSpriteOffset() {
-      var percent = this.state.virtualTime / this.props.duration;
-      var sliceIndex = Math.ceil(this.props.thumbsSlices * percent);
-      return -(sliceIndex * this.props.thumbsWidth) + 'px 0px';
+      return -(Math.ceil(100 * this.state.virtualTime / this.props.duration) * 160) + 'px 0px';
     }
 
     /**
@@ -7810,7 +7823,7 @@ var SeekBarControl = function (_Component) {
   }, {
     key: 'getFramePreviewOffset',
     value: function getFramePreviewOffset() {
-      if (this._seekBarElement && this._framePreviewElement) {
+      if (this._seekBarElement) {
         var leftOffset = this.state.virtualTime / this.props.duration * this._seekBarElement.clientWidth - this._framePreviewElement.clientWidth / 2;
         if (leftOffset < 0) return 0;else if (leftOffset > this._seekBarElement.clientWidth - this._framePreviewElement.clientWidth) return this._seekBarElement.clientWidth - this._framePreviewElement.clientWidth;else return leftOffset;
       } else return 0;
@@ -7833,6 +7846,29 @@ var SeekBarControl = function (_Component) {
     }
 
     /**
+     * get the frame preview sprite based on player poster
+     *
+     * @param {string} posterUrl poster url
+     * @returns {string} image url
+     * @memberof SeekBarControl
+     */
+
+  }, {
+    key: 'getFramePreviewImg',
+    value: function getFramePreviewImg(posterUrl) {
+      if (!posterUrl) return '';
+
+      var parts = posterUrl.split('/');
+      var heightValueIndex = parts.indexOf('height') + 1;
+      var widthValueIndex = parts.indexOf('width') + 1;
+      parts[heightValueIndex] = '90';
+      parts[widthValueIndex] = '160';
+      parts.push('vid_slices/100');
+
+      return parts.join('/');
+    }
+
+    /**
      * render frame preview
      *
      * @returns {React$Element} - component
@@ -7844,51 +7880,22 @@ var SeekBarControl = function (_Component) {
     value: function renderFramePreview() {
       var _this3 = this;
 
-      if (!this.props.thumbsSprite || !this.props.thumbsSlices || !this.props.thumbsWidth || !this.props.showFramePreview || this.props.isMobile) return undefined;
+      if (!this.props.showFramePreview || this.props.isMobile) return undefined;
+      var framePreviewStyle = 'left: ' + this.getFramePreviewOffset() + 'px';
+      var framePreviewImgStyle = 'background-image: url(' + this.framePreviewImg + '); ';
+      framePreviewImgStyle += 'background-position: ' + this.getThumbSpriteOffset();
 
       return (0, _preact.h)(
         'div',
         {
           className: _seekbar2.default.framePreview,
-          style: this._getFramePreviewStyle(),
+          style: framePreviewStyle,
           ref: function ref(c) {
             return _this3._framePreviewElement = c;
-          } },
-        (0, _preact.h)('div', {
-          className: _seekbar2.default.framePreviewImg,
-          style: this._getFramePreviewImgStyle() })
+          }
+        },
+        (0, _preact.h)('div', { className: _seekbar2.default.framePreviewImg, style: framePreviewImgStyle })
       );
-    }
-
-    /**
-     * Gets the style of the frame preview image.
-     * @returns {string} - The css style string.
-     * @memberof SeekBarControl
-     * @private
-     */
-
-  }, {
-    key: '_getFramePreviewImgStyle',
-    value: function _getFramePreviewImgStyle() {
-      var framePreviewImgStyle = 'background-image: url(' + this.props.thumbsSprite + ');';
-      framePreviewImgStyle += 'background-position: ' + this.getThumbSpriteOffset() + ';';
-      framePreviewImgStyle += 'background-size: ' + this.props.thumbsSlices * this.props.thumbsWidth + 'px 100%;';
-      return framePreviewImgStyle;
-    }
-
-    /**
-     * Gets the style of the frame preview.
-     * @returns {string} - The css style string.
-     * @memberof SeekBarControl
-     * @private
-     */
-
-  }, {
-    key: '_getFramePreviewStyle',
-    value: function _getFramePreviewStyle() {
-      var framePreviewStyle = 'left: ' + this.getFramePreviewOffset() + 'px;';
-      framePreviewStyle += 'width: ' + this.props.thumbsWidth + 'px;';
-      return framePreviewStyle;
     }
 
     /**
@@ -7908,8 +7915,7 @@ var SeekBarControl = function (_Component) {
       var timeBubbleValue = this.props.isDvr ? '-' + (0, _timeFormat.toHHMMSS)(this.props.duration - this.state.virtualTime) : (0, _timeFormat.toHHMMSS)(this.state.virtualTime);
       return (0, _preact.h)(
         'div',
-        { className: _seekbar2.default.timePreview, style: timeBubbleStyle,
-          ref: function ref(c) {
+        { className: _seekbar2.default.timePreview, style: timeBubbleStyle, ref: function ref(c) {
             return _this4._timeBubbleElement = c;
           } },
         timeBubbleValue
@@ -8003,8 +8009,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {}
-options.transform = transform
+var options = {};
+options.transform = transform;
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -9000,8 +9006,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {}
-options.transform = transform
+var options = {};
+options.transform = transform;
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -10736,8 +10742,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {}
-options.transform = transform
+var options = {};
+options.transform = transform;
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -11033,8 +11039,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {}
-options.transform = transform
+var options = {};
+options.transform = transform;
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -11310,8 +11316,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {}
-options.transform = transform
+var options = {};
+options.transform = transform;
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -11429,8 +11435,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {}
-options.transform = transform
+var options = {};
+options.transform = transform;
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -11984,7 +11990,7 @@ var SeekBarAdsContainer = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0,
     key: 'render',
     value: function render(props) {
       return (0, _preact.h)(_seekbar3.default, {
-        playerElement: this.props.playerContainer,
+        playerElement: this.player.getView().parentElement,
         changeCurrentTime: function changeCurrentTime(time) {} // eslint-disable-line no-unused-vars
         , updateSeekbarDraggingStatus: function updateSeekbarDraggingStatus(data) {} // eslint-disable-line no-unused-vars
         , updateCurrentTime: function updateCurrentTime(data) {} // eslint-disable-line no-unused-vars
@@ -12281,8 +12287,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {}
-options.transform = transform
+var options = {};
+options.transform = transform;
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -12432,8 +12438,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {}
-options.transform = transform
+var options = {};
+options.transform = transform;
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -12554,8 +12560,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {}
-options.transform = transform
+var options = {};
+options.transform = transform;
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -12738,7 +12744,7 @@ var SeekBarLivePlaybackContainer = (_dec = (0, _preactRedux.connect)(mapStateToP
 
       if (!props.isDvr) return undefined;
       return (0, _preact.h)(_seekbar3.default, {
-        playerElement: this.props.playerContainer,
+        playerElement: this.player.getView().parentElement,
         showTimeBubble: this.props.showTimeBubble,
         changeCurrentTime: function changeCurrentTime(time) {
           return _this3.player.currentTime = time;
@@ -12929,8 +12935,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {}
-options.transform = transform
+var options = {};
+options.transform = transform;
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -13736,8 +13742,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.NAME = exports.VERSION = undefined;
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 // core components for the UI
@@ -13763,8 +13767,6 @@ var _store2 = _interopRequireDefault(_store);
 var _fr = __webpack_require__(148);
 
 var _fr2 = _interopRequireDefault(_fr);
-
-var _config = __webpack_require__(158);
 
 var _playkitJs = __webpack_require__(39);
 
@@ -13818,46 +13820,22 @@ var UIManager = function () {
   function UIManager(player, config) {
     _classCallCheck(this, UIManager);
 
+    this.player = player;
+    this.config = config;
     if (config.logLevel && this.LogLevel[config.logLevel]) {
       (0, _logger.setLogLevel)(this.LogLevel[config.logLevel]);
     }
-    this.player = player;
-    this.config = config;
-    this.targetId = config.targetId;
-    this.store = (0, _redux.createStore)(_store2.default, window.devToolsExtension && window.devToolsExtension({
-      name: 'playkit #' + this.targetId,
-      instanceId: this.targetId
-    }));
   }
 
   /**
-   * sets the player and ui config in the store
+   * build default UIs
    *
-   * @param {Object} config - new config object
-   * @param {string} componentAlias - component alias (optional)
    * @returns {void}
    * @memberof UIManager
    */
 
 
   _createClass(UIManager, [{
-    key: 'setConfig',
-    value: function setConfig(config, componentAlias) {
-      if (componentAlias) {
-        this.store.dispatch(_config.actions.updateComponentConfig(componentAlias, config));
-      } else {
-        this.store.dispatch(_config.actions.updateConfig(_extends({ targetId: this.targetId }, config)));
-      }
-    }
-
-    /**
-     * build default UIs
-     *
-     * @returns {void}
-     * @memberof UIManager
-     */
-
-  }, {
     key: 'buildDefaultUI',
     value: function buildDefaultUI() {
       var uis = [{ template: function template(props) {
@@ -13909,14 +13887,15 @@ var UIManager = function () {
       if (!this.player) return;
 
       // define the store and devtools for redux
-      this.store.dispatch(_config.actions.updateConfig(_extends({ targetId: this.targetId }, this.player.config)));
-
-      var container = document.getElementById(this.targetId);
+      var store = (0, _redux.createStore)(_store2.default, window.devToolsExtension && window.devToolsExtension({
+        name: 'playkit #' + this.config.target,
+        instanceId: this.config.target
+      }));
 
       // i18n, redux and initial player-to-store connector setup
       var template = (0, _preact.h)(
         _preactRedux.Provider,
-        { store: this.store },
+        { store: store },
         (0, _preact.h)(
           _preactI18n.IntlProvider,
           { definition: _fr2.default },
@@ -13925,12 +13904,13 @@ var UIManager = function () {
             { player: this.player },
             (0, _preact.h)(_engineConnector2.default, { player: this.player }),
             (0, _preact.h)(_videoPlayer2.default, { player: this.player }),
-            (0, _preact.h)(_playerGui2.default, { uis: uis, player: this.player, playerContainer: container })
+            (0, _preact.h)(_playerGui2.default, { uis: uis, player: this.player, config: this.config })
           )
         )
       );
 
       // render the player
+      var container = document.getElementById(this.config.targetId);
       (0, _preact.render)(template, container);
     }
 
@@ -13992,10 +13972,6 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(10);
 
-var _config = __webpack_require__(158);
-
-var _config2 = _interopRequireDefault(_config);
-
 var _engine = __webpack_require__(51);
 
 var _engine2 = _interopRequireDefault(_engine);
@@ -14039,7 +14015,6 @@ var _settings2 = _interopRequireDefault(_settings);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var reducer = (0, _redux.combineReducers)({
-  config: _config2.default,
   engine: _engine2.default,
   shell: _shell2.default,
   seekbar: _seekbar2.default,
@@ -14051,7 +14026,6 @@ var reducer = (0, _redux.combineReducers)({
   cvaa: _cvaa2.default,
   settings: _settings2.default
 });
-
 exports.default = reducer;
 
 /***/ }),
@@ -14748,8 +14722,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {}
-options.transform = transform
+var options = {};
+options.transform = transform;
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -14822,8 +14796,7 @@ var mapStateToProps = function mapStateToProps(state) {
         adBreak: state.engine.adBreak,
         isLive: state.engine.isLive
       }
-    },
-    config: state.config
+    }
   };
 };
 
@@ -14912,92 +14885,6 @@ var PlayerGUI = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class 
   return PlayerGUI;
 }(_preact.Component)) || _class);
 exports.default = PlayerGUI;
-
-/***/ }),
-/* 158 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.actions = exports.initialState = exports.types = undefined;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _playkitJs = __webpack_require__(39);
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var types = exports.types = {
-  UPDATE: 'config/UPDATE',
-  UPDATE_COMPONENT: 'config/UPDATE_COMPONENT',
-  RESET: 'config/RESET'
-};
-
-var initialState = exports.initialState = {
-  ui: {
-    seekbar: {}
-  }
-};
-
-exports.default = function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-  var action = arguments[1];
-
-  switch (action.type) {
-    case types.UPDATE:
-      var config = _playkitJs.Utils.Object.mergeDeep(state, action.config);
-      return _extends({}, state, config);
-
-    case types.UPDATE_COMPONENT:
-      return _extends({}, state, {
-        ui: _extends({}, state.ui, _defineProperty({}, action.componentAlias, _playkitJs.Utils.Object.mergeDeep(state.ui[action.componentAlias], action.config)))
-      });
-
-    default:
-      return state;
-  }
-};
-
-var actions = exports.actions = {
-  updateConfig: function updateConfig(config) {
-    return { type: types.UPDATE, config: config };
-  },
-  updateComponentConfig: function updateComponentConfig(componentAlias, config) {
-    return { type: types.UPDATE_COMPONENT, componentAlias: componentAlias, config: config };
-  }
-};
-
-/***/ }),
-/* 159 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-
-/**
- * Gets config param value
- * @param {*} config property name
- * @param {string} alias component name alias
- * @returns {Object} component config object
- */
-function getComponentConfig(config, alias) {
-  try {
-    return config.ui[alias];
-  } catch (error) {
-    return {};
-  }
-}
-
-exports.default = getComponentConfig;
 
 /***/ })
 /******/ ]);

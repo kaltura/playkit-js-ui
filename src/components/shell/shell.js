@@ -139,7 +139,7 @@ class Shell extends BaseComponent {
    * @returns {void}
    * @memberof Shell
    */
-  _showAndHideControlBar(): void{
+  _showAndHideControlBar(): void {
     if (!this.state.hover) {
       this.props.updatePlayerHoverState(true);
       this.setState({hover: true});
@@ -163,7 +163,7 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   render(props: any): React$Element<any> {
-    var playerClasses = [style.player, style.skinDefault];
+    let playerClasses = [style.player, style.skinDefault];
     playerClasses.push(props.playerClasses);
 
     if (this.props.isMobile) playerClasses.push(style.touch);

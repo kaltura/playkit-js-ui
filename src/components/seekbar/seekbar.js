@@ -214,8 +214,8 @@ class SeekBarControl extends Component {
    * @memberof SeekBarControl
    */
   getOffset(element: any): { top: number, left: number } {
-    var _x = 0;
-    var _y = 0;
+    let _x = 0;
+    let _y = 0;
     while (element && !isNaN(element.offsetLeft) && !isNaN(element.offsetTop)) {
       _x += element.offsetLeft - element.scrollLeft;
       _y += element.offsetTop - element.scrollTop;
@@ -345,8 +345,8 @@ class SeekBarControl extends Component {
    */
   renderTimeBubble(): React$Element<any> | void {
     if (!this.props.showTimeBubble || this.props.isMobile) return undefined;
-    var timeBubbleStyle = `left: ${this.getTimeBubbleOffset()}px`;
-    var timeBubbleValue = this.props.isDvr ? '-' + toHHMMSS(this.props.duration - this.state.virtualTime) : toHHMMSS(this.state.virtualTime);
+    const timeBubbleStyle = `left: ${this.getTimeBubbleOffset()}px`;
+    const timeBubbleValue = this.props.isDvr ? '-' + toHHMMSS(this.props.duration - this.state.virtualTime) : toHHMMSS(this.state.virtualTime);
     return <div className={style.timePreview} style={timeBubbleStyle}
                 ref={c => this._timeBubbleElement = c}>{timeBubbleValue}</div>
   }
@@ -359,9 +359,9 @@ class SeekBarControl extends Component {
    * @memberof SeekBarControl
    */
   render(props: any): React$Element<any> {
-    var virtualProgressWidth = `${this.state.virtualTime / props.duration * 100}%`;
-    var progressWidth = `${props.currentTime / props.duration * 100}%`;
-    var seekbarStyleClass = [style.seekBar];
+    const virtualProgressWidth = `${this.state.virtualTime / props.duration * 100}%`;
+    const progressWidth = `${props.currentTime / props.duration * 100}%`;
+    const seekbarStyleClass = [style.seekBar];
     if (props.adBreak) seekbarStyleClass.push(style.adBreak);
     if (props.isDvr) seekbarStyleClass.push(style.live);
     if (props.isMobile) seekbarStyleClass.push(style.hover);
