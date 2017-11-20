@@ -1,9 +1,9 @@
 //@flow
 import style from '../../styles/style.scss';
-import { h, Component } from 'preact';
-import { connect } from 'preact-redux';
+import {h, Component} from 'preact';
+import {connect} from 'preact-redux';
 import Menu from '../menu';
-import { default as Icon, IconType } from '../icon';
+import {default as Icon, IconType} from '../icon';
 
 /**
  * mapping state to props
@@ -15,13 +15,13 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps)
-/**
- * DropDown component
- *
- * @class DropDown
- * @example <DropDown options={this.videoTrackOptions} />
- * @extends {Component}
- */
+  /**
+   * DropDown component
+   *
+   * @class DropDown
+   * @example <DropDown options={this.videoTrackOptions} />
+   * @extends {Component}
+   */
 class DropDown extends Component {
   state: Object;
 
@@ -109,22 +109,23 @@ class DropDown extends Component {
    */
   render(props: any): React$Element<any> {
     return props.isMobile ? this.renderNativeSelect() :
-    (
-      <div className={this.state.dropMenuActive ? [style.dropdown, style.active].join(' ') : style.dropdown}>
-        <div className={style.dropdownButton} onClick={() => this.setState({dropMenuActive: !this.state.dropMenuActive})}>
-          <span>{this.getActiveOptionLabel()}</span>
-          <Icon type={IconType.ArrowDown} />
+      (
+        <div className={this.state.dropMenuActive ? [style.dropdown, style.active].join(' ') : style.dropdown}>
+          <div className={style.dropdownButton}
+               onClick={() => this.setState({dropMenuActive: !this.state.dropMenuActive})}>
+            <span>{this.getActiveOptionLabel()}</span>
+            <Icon type={IconType.ArrowDown}/>
+          </div>
+          {
+            !this.state.dropMenuActive ? undefined :
+              <Menu
+                options={props.options}
+                onSelect={(o) => this.onSelect(o)}
+                onClose={() => this.onClose()}
+              />
+          }
         </div>
-        {
-          !this.state.dropMenuActive ? undefined :
-          <Menu
-            options={props.options}
-            onSelect={(o) => this.onSelect(o)}
-            onClose={() => this.onClose()}
-          />
-        }
-      </div>
-    )
+      )
   }
 }
 

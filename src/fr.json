@@ -1,29 +1,29 @@
 {
-    "core": {
-      "disable": "Disable",
-      "auto": "Auto",
-      "close": "Close"
-    },
-    "controls": {
-      "play": "Play",
-      "pause": "Pause",
-      "share": "Share",
-      "language": "Language",
-      "settings": "Settings",
-      "fullscreen": "Fullscreen",
-      "rewind": "Rewind"
-    },
-    "settings": {
-      "quality": "Quality",
-      "speed": "Speed"
-    },
-    "language": {
-      "audio": "Audio",
-      "captions": "Captions",
-      "advanced_captions_settings": "Advanced captions settings"
-    },
-    "share": {
-      "share_title": "Share",
-      "link_options": "Link options"
-    }
+  "core": {
+    "disable": "Disable",
+    "auto": "Auto",
+    "close": "Close"
+  },
+  "controls": {
+    "play": "Play",
+    "pause": "Pause",
+    "share": "Share",
+    "language": "Language",
+    "settings": "Settings",
+    "fullscreen": "Fullscreen",
+    "rewind": "Rewind"
+  },
+  "settings": {
+    "quality": "Quality",
+    "speed": "Speed"
+  },
+  "language": {
+    "audio": "Audio",
+    "captions": "Captions",
+    "advanced_captions_settings": "Advanced captions settings"
+  },
+  "share": {
+    "share_title": "Share",
+    "link_options": "Link options"
+  }
 }

@@ -1,8 +1,7 @@
 //@flow
-
 export const types = {
   UPDATE_LOADING_SPINNER_STATE: 'loading/UPDATE_LOADING_SPINNER_STATE'
-}
+};
 
 export const initialState = {
   show: false
@@ -14,7 +13,7 @@ export default (state: Object = initialState, action: Object) => {
       return {
         ...state,
         show: action.show
-      }
+      };
 
     default:
       return state;
@@ -22,5 +21,5 @@ export default (state: Object = initialState, action: Object) => {
 }
 
 export const actions = {
-  updateLoadingSpinnerState: (show: boolean) => ({ type: types.UPDATE_LOADING_SPINNER_STATE, show })
-}
+  updateLoadingSpinnerState: (show: boolean) => ({type: types.UPDATE_LOADING_SPINNER_STATE, show})
+};

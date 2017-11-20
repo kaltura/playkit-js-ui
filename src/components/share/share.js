@@ -1,5 +1,5 @@
 //@flow
-import { h } from 'preact';
+import {h} from 'preact';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import ShareOverlay from '../share-overlay';
@@ -52,14 +52,15 @@ class ShareControl extends BaseComponent {
   render(): React$Element<any> {
     return (
       <div className='control-button-container control-share'>
-        <button className='control-button control-button-rounded' onClick={() => this.toggleOverlay()} aria-label='Share'>
-          <Icon type={IconType.Share} />
+        <button className='control-button control-button-rounded' onClick={() => this.toggleOverlay()}
+                aria-label='Share'>
+          <Icon type={IconType.Share}/>
         </button>
-        { this.state.overlay ? (
+        {this.state.overlay ? (
           <Portal into="#overlay-portal">
-            <ShareOverlay player={this.player} onClose={() => this.toggleOverlay()} />
+            <ShareOverlay player={this.player} onClose={() => this.toggleOverlay()}/>
           </Portal>
-          ) : null }
+        ) : null}
       </div>
     )
   }

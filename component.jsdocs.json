@@ -4,7 +4,7 @@
   ],
   "recurseDepth": 10,
   "source": {
-    "include":"./src/components",
+    "include": "./src/components",
     "includePattern": ".+\\.js(doc|x)?$"
   }
 }
