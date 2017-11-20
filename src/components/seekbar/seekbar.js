@@ -261,11 +261,16 @@ class SeekBarControl extends Component {
   getFramePreviewOffset(): number {
     if (this._seekBarElement && this._framePreviewElement) {
       let leftOffset = (this.state.virtualTime / this.props.duration * this._seekBarElement.clientWidth) - (this._framePreviewElement.clientWidth / 2);
-      if (leftOffset < 0) return 0;
-      else if (leftOffset > this._seekBarElement.clientWidth - this._framePreviewElement.clientWidth) return (this._seekBarElement.clientWidth - this._framePreviewElement.clientWidth);
-      else return leftOffset;
+      if (leftOffset < 0) {
+        return 0;
+      } else if (leftOffset > this._seekBarElement.clientWidth - this._framePreviewElement.clientWidth) {
+        return (this._seekBarElement.clientWidth - this._framePreviewElement.clientWidth);
+      } else {
+        return leftOffset;
+      }
+    } else {
+      return 0;
     }
-    else return 0;
   }
 
   /**
@@ -277,14 +282,16 @@ class SeekBarControl extends Component {
   getTimeBubbleOffset(): number {
     if (this._timeBubbleElement) {
       let leftOffset = (this.state.virtualTime / this.props.duration * this._seekBarElement.clientWidth) - (this._timeBubbleElement.clientWidth / 2);
-      if (leftOffset < 0)
+      if (leftOffset < 0) {
         return 0;
-      else if (leftOffset > this._seekBarElement.clientWidth - this._timeBubbleElement.clientWidth)
+      } else if (leftOffset > this._seekBarElement.clientWidth - this._timeBubbleElement.clientWidth) {
         return (this._seekBarElement.clientWidth - this._timeBubbleElement.clientWidth);
-      else
+      } else {
         return leftOffset;
+      }
+    } else {
+      return 0;
     }
-    else return 0;
   }
 
   /**
