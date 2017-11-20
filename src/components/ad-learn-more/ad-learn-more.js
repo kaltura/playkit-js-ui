@@ -1,7 +1,7 @@
 //@flow
 import style from './_ad-learn-more.scss';
-import { h, Component } from 'preact';
-import { connect } from 'preact-redux';
+import {h, Component} from 'preact';
+import {connect} from 'preact-redux';
 
 /**
  * mapping state to props
@@ -13,13 +13,13 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps)
-/**
- * AdLearnMore component
- *
- * @class AdLearnMore
- * @example <AdLearnMore />
- * @extends {Component}
- */
+  /**
+   * AdLearnMore component
+   *
+   * @class AdLearnMore
+   * @example <AdLearnMore />
+   * @extends {Component}
+   */
 class AdLearnMore extends Component {
   /**
    * render component
@@ -29,7 +29,8 @@ class AdLearnMore extends Component {
    * @memberof AdLearnMore
    */
   render(props: any): React$Element<any> {
-    return <a href={props.url} target='_blank' className={[style.btn, style.btnDarkTransparent].join(' ')}>Learn more</a>
+    return <a href={props.url} target='_blank' className={[style.btn, style.btnDarkTransparent].join(' ')}>Learn
+      more</a>
   }
 }
 

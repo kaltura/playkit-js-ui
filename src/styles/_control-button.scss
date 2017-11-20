@@ -1,5 +1,6 @@
 .player .control-button {
-  width: 32px; height: 32px;
+  width: 32px;
+  height: 32px;
   background: transparent;
   display: inline-block;
   opacity: 0.8;
@@ -17,7 +18,8 @@
   }
 
   &.control-button-rounded {
-    width: 36px; height: 36px;
+    width: 36px;
+    height: 36px;
     padding: 2px;
   }
 }
@@ -28,12 +30,11 @@
       opacity: 1;
     }
     &.control-button-rounded:hover {
-      background-color: rgba(0,0,0,0.4);
+      background-color: rgba(0, 0, 0, 0.4);
       border-radius: 18px;
     }
   }
 }
-
 
 .player .control-button-container {
   display: inline-block;

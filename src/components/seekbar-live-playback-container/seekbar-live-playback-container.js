@@ -1,8 +1,8 @@
 //@flow
-import { h } from 'preact';
-import { connect } from 'preact-redux';
-import { bindActions } from '../../utils/bind-actions';
-import { actions } from '../../reducers/seekbar';
+import {h} from 'preact';
+import {connect} from 'preact-redux';
+import {bindActions} from '../../utils/bind-actions';
+import {actions} from '../../reducers/seekbar';
 import BaseComponent from '../base';
 import SeekBarControl from '../seekbar';
 
@@ -21,13 +21,13 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps, bindActions(actions))
-/**
- * SeekBarLivePlaybackContainer component
- *
- * @class SeekBarLivePlaybackContainer
- * @example <SeekBarLivePlaybackContainer player={this.player} />
- * @extends {BaseComponent}
- */
+  /**
+   * SeekBarLivePlaybackContainer component
+   *
+   * @class SeekBarLivePlaybackContainer
+   * @example <SeekBarLivePlaybackContainer player={this.player} />
+   * @extends {BaseComponent}
+   */
 class SeekBarLivePlaybackContainer extends BaseComponent {
 
   /**
@@ -82,4 +82,5 @@ class SeekBarLivePlaybackContainer extends BaseComponent {
   }
 
 }
+
 export default SeekBarLivePlaybackContainer;

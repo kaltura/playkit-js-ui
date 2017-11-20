@@ -2,7 +2,7 @@
 
 .overlay.cvaa-overlay {
   .sample {
-    border: 2px solid rgba(255,255,255,0.2);
+    border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 4px;
     font-size: 16px;
     font-weight: bold;
@@ -26,7 +26,8 @@
       border-radius: 8px;
       background-color: $brand-color;
       position: absolute;
-      top: -5px; right: -5px;
+      top: -5px;
+      right: -5px;
 
       .icon {
         vertical-align: top;
@@ -40,9 +41,10 @@
   }
   .button-save-cvaa {
     margin-top: 50px;
-    height: 40px; width: 400px;
+    height: 40px;
+    width: 400px;
     max-width: 100%;
-    border: 2px solid rgba(255,255,255,0.2);
+    border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 4px;
     font-size: 16px;
     font-weight: bold;
@@ -83,8 +85,12 @@
       margin: 2.33%;
       padding: 0;
 
-      &:first-child { margin-left: 0; }
-      &:last-child { margin-right: 0; }
+      &:first-child {
+        margin-left: 0;
+      }
+      &:last-child {
+        margin-right: 0;
+      }
 
       &.custom {
         width: auto;

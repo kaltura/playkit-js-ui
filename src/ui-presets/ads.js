@@ -29,7 +29,7 @@ export default function adsUI(props: any): ?React$Element<any> {
     <div className={style.adGuiWrapper}>
       <Loading player={props.player}/>
       <div className={style.playerGui} id='player-gui'>
-        <UnmuteIndication player={props.player} hasTopBar />
+        <UnmuteIndication player={props.player} hasTopBar/>
         <div>
           <TopBar>
             <div className={style.leftControls}>

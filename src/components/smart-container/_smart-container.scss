@@ -1,16 +1,28 @@
 @keyframes openSmartContainer {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform : translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes closeSmartContainer {
-  from { opacity: 1; transform: translateY(0); }
-  to { opacity: 0; transform : translateY(10px); }
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(10px);
+  }
 }
 
 .player:not(.touch) .smart-container {
   background-color: #222222;
-  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.3);
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.3);
   border-radius: 4px;
   position: absolute;
   right: 0px;
@@ -33,20 +45,26 @@
       display: block;
       content: ' ';
       position: absolute;
-      bottom: -6px; left: 0;
-      width: 100%; height: 6px;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 6px;
     }
   }
   &.bottom {
     top: 100%;
     margin-top: 6px;
   }
-  &.right { left: 0px; }
-  &.left { right: 0px; }
+  &.right {
+    left: 0px;
+  }
+  &.left {
+    right: 0px;
+  }
 
   .smart-container-item {
     margin: 16px;
-    color: rgba(244,244,244,0.8);
+    color: rgba(244, 244, 244, 0.8);
     white-space: nowrap;
     display: flex;
     justify-content: space-between;
@@ -81,7 +99,7 @@
     width: 300px;
     max-width: 100%;
     margin: 16px auto;
-    color: rgba(244,244,244,0.8);
+    color: rgba(244, 244, 244, 0.8);
     white-space: nowrap;
     text-align: left;
     display: flex;
@@ -90,7 +108,7 @@
     &.select-menu-item {
       label {
         font-size: 16px;
-        color: rgba(255,255,255,0.8);
+        color: rgba(255, 255, 255, 0.8);
         margin-right: 20px;
 
         .label-icon {

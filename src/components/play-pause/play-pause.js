@@ -1,12 +1,12 @@
 //@flow
 import style from './_play-pause.scss';
-import { h } from 'preact';
-import { Localizer, Text } from 'preact-i18n';
-import { connect } from 'preact-redux';
-import { bindActions } from '../../utils/bind-actions';
-import { actions } from '../../reducers/play-pause';
+import {h} from 'preact';
+import {Localizer, Text} from 'preact-i18n';
+import {connect} from 'preact-redux';
+import {bindActions} from '../../utils/bind-actions';
+import {actions} from '../../reducers/play-pause';
 import BaseComponent from '../base';
-import { default as Icon, IconType } from '../icon';
+import {default as Icon, IconType} from '../icon';
 
 /**
  * mapping state to props
@@ -21,13 +21,13 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps, bindActions(actions))
-/**
- * PlayPauseControl component
- *
- * @class PlayPauseControl
- * @example <PlayPauseControl player={this.player} />
- * @extends {BaseComponent}
- */
+  /**
+   * PlayPauseControl component
+   *
+   * @class PlayPauseControl
+   * @example <PlayPauseControl player={this.player} />
+   * @extends {BaseComponent}
+   */
 class PlayPauseControl extends BaseComponent {
 
   /**
@@ -68,20 +68,20 @@ class PlayPauseControl extends BaseComponent {
    * @memberof PlayPauseControl
    */
   render(props: any): React$Element<any> | void {
-    var controlButtonClass = this.isPlayingAdOrPlayback() ? [style.controlButton, style.isPlaying].join(' ') : style.controlButton;
+    const controlButtonClass = this.isPlayingAdOrPlayback() ? [style.controlButton, style.isPlaying].join(' ') : style.controlButton;
 
     return (
       <div className={[style.controlButtonContainer, style.controlPlayPause].join(' ')}>
         <Localizer>
           <button
-            aria-label={<Text id={this.isPlayingAdOrPlayback() ? 'controls.pause' : 'controls.play'} />}
+            aria-label={<Text id={this.isPlayingAdOrPlayback() ? 'controls.pause' : 'controls.play'}/>}
             className={controlButtonClass}
             onClick={() => this.togglePlayPause()}
           >
-            {props.isEnded && !props.adBreak ? <Icon type={IconType.StartOver} /> : (
+            {props.isEnded && !props.adBreak ? <Icon type={IconType.StartOver}/> : (
               <div>
-                <Icon type={IconType.Play} />
-                <Icon type={IconType.Pause} />
+                <Icon type={IconType.Play}/>
+                <Icon type={IconType.Pause}/>
               </div>
             )}
 
