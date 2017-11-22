@@ -6,14 +6,16 @@ export const types = {
   UPDATE_PRE_PLAYBACK: 'shell/UPDATE_PRE_PLAYBACK',
   UPDATE_PLAYER_WIDTH: 'shell/UPDATE_PLAYER_WIDTH',
   UPDATE_DOCUMENT_WIDTH: 'shell/UPDATE_DOCUMENT_WIDTH',
-  UPDATE_PLAYER_HOVER_STATE: 'shell/UPDATE_PLAYER_HOVER_STATE'
+  UPDATE_PLAYER_HOVER_STATE: 'shell/UPDATE_PLAYER_HOVER_STATE',
+  UPDATE_PLAYER_NAV_STATE: 'shell/UPDATE_PLAYER_NAV_STATE'
 };
 
 export const initialState = {
   playerClasses: [],
   prePlayback: true,
   is_ad: true,
-  playerHover: false
+  playerHover: false,
+  playerNav: false
 };
 
 export default (state: Object = initialState, action: Object) => {
@@ -61,17 +63,24 @@ export default (state: Object = initialState, action: Object) => {
         playerHover: action.hover
       };
 
+    case types.UPDATE_PLAYER_NAV_STATE:
+      return {
+        ...state,
+        playerNav: action.nav
+      };
+
     default:
       return state;
   }
 }
 
 export const actions = {
-  addPlayerClass: (className: string) => ({ type: types.ADD_PLAYER_CLASS, className }),
-  removePlayerClass: (className: string) => ({ type: types.REMOVE_PLAYER_CLASS, className }),
-  updateIsMobile: (isMobile: boolean) => ({ type: types.UPDATE_IS_MOBILE, isMobile }),
-  updatePrePlayback: (prePlayback: boolean) => ({ type: types.UPDATE_PRE_PLAYBACK, prePlayback }),
-  updatePlayerWidth: (playerWidth: number) => ({ type: types.UPDATE_PLAYER_WIDTH, playerWidth }),
-  updateDocumentWidth: (documentWidth: number) => ({ type: types.UPDATE_DOCUMENT_WIDTH, documentWidth }),
-  updatePlayerHoverState: (hover: boolean) => ({ type: types.UPDATE_PLAYER_HOVER_STATE, hover })
+  addPlayerClass: (className: string) => ({type: types.ADD_PLAYER_CLASS, className}),
+  removePlayerClass: (className: string) => ({type: types.REMOVE_PLAYER_CLASS, className}),
+  updateIsMobile: (isMobile: boolean) => ({type: types.UPDATE_IS_MOBILE, isMobile}),
+  updatePrePlayback: (prePlayback: boolean) => ({type: types.UPDATE_PRE_PLAYBACK, prePlayback}),
+  updatePlayerWidth: (playerWidth: number) => ({type: types.UPDATE_PLAYER_WIDTH, playerWidth}),
+  updateDocumentWidth: (documentWidth: number) => ({type: types.UPDATE_DOCUMENT_WIDTH, documentWidth}),
+  updatePlayerHoverState: (hover: boolean) => ({type: types.UPDATE_PLAYER_HOVER_STATE, hover}),
+  updatePlayerNavState: (nav: boolean) => ({type: types.UPDATE_PLAYER_NAV_STATE, nav})
 };

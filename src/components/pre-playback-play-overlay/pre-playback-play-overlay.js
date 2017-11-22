@@ -115,6 +115,19 @@ class PrePlaybackPlayOverlay extends BaseComponent {
   }
 
   /**
+   * play on key down
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @returns {void}
+   * @memberof PrePlaybackPlayOverlay
+   */
+  onKeyDown(e: KeyboardEvent): void {
+    if (e.keyCode === 13) { // enter
+      this.handleClick();
+    }
+  }
+
+  /**
    * render component
    *
    * @param {*} props - component props
@@ -137,9 +150,10 @@ class PrePlaybackPlayOverlay extends BaseComponent {
       <div
         className={rootClass.join(' ')}
         style={rootStyle}
-        onClick={() => this.handleClick()}
-      >
-        <a className={style.prePlaybackPlayButton}>
+        onClick={() => this.handleClick()}>
+        <a className={style.prePlaybackPlayButton}
+           tabIndex="0"
+           onKeyDown={e => this.onKeyDown(e)}>
           {props.isEnded ? <Icon type={IconType.StartOver}/> : <Icon type={IconType.Play}/>}
         </a>
       </div>

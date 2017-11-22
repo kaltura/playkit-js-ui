@@ -152,14 +152,13 @@ class LanguageControl extends BaseComponent {
     return (
       <div
         ref={c => this._controlLanguageElement = c}
-        className={[style.controlButtonContainer, style.controlLanguage].join(' ')}
-      >
+        className={[style.controlButtonContainer, style.controlLanguage].join(' ')}>
         <Localizer>
           <button
+            tabIndex="0"
             aria-label={<Text id='controls.language'/>}
             className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
-            onClick={() => this.onControlButtonClick()}
-          >
+            onClick={() => this.onControlButtonClick()}>
             <Icon type={IconType.Language}/>
           </button>
         </Localizer>

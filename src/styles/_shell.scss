@@ -52,6 +52,14 @@
   }
 }
 
+.player.nav {
+  .control-button, .seek-bar, .dropdown-button, .dropdown-menu-item, .pre-playback-play-button {
+    &:focus {
+      outline: 1px solid #00cbff;
+    }
+  }
+}
+
 .player :global([id^=playkit-ads-container]) {
   z-index: 5;
   transition: transform 100ms;

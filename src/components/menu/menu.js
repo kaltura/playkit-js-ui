@@ -122,6 +122,20 @@ class Menu extends Component {
   }
 
   /**
+   * on key down handler
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @param {Object} o - option object
+   * @returns {void}
+   * @memberof Menu
+   */
+  onKeyDown(e: KeyboardEvent, o: Object): void {
+    if (e.keyCode === 13) { // enter
+      this.onSelect(o);
+    }
+  }
+
+  /**
    * get active option label
    *
    * @returns {string} active option label
@@ -163,13 +177,14 @@ class Menu extends Component {
       (
         <div
           ref={c => this._menuElement = c}
-          className={[style.dropdownMenu, ...this.state.position].join(' ')}
-        >
+          className={[style.dropdownMenu, ...this.state.position].join(' ')}>
           {
             props.options.map((o, index) => (
-              <div key={index}
+              <div tabIndex="0"
+                   key={index}
                    className={this.isSelected(o) ? [style.dropdownMenuItem, style.active].join(' ') : style.dropdownMenuItem}
-                   onClick={() => this.onSelect(o)}>
+                   onClick={() => this.onSelect(o)}
+                   onKeyDown={e => this.onKeyDown(e, o)}>
                 <span>{o.label}</span>
                 <span className={style.menuIconContainer} style={`opacity: ${ this.isSelected(o) ? 1 : 0 }`}><Icon
                   type={IconType.Check}/></span>

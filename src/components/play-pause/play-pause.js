@@ -51,6 +51,19 @@ class PlayPauseControl extends BaseComponent {
   }
 
   /**
+   * toggle play / pause on key down
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @returns {void}
+   * @memberof PlayPauseControl
+   */
+  onKeyDown(e: KeyboardEvent): void {
+    if (e.keyCode === 13) { // enter
+      this.togglePlayPause();
+    }
+  }
+
+  /**
    * check if currently playing ad or playback
    *
    * @returns {boolean} - if currently playing ad or playback
@@ -69,22 +82,21 @@ class PlayPauseControl extends BaseComponent {
    */
   render(props: any): React$Element<any> | void {
     const controlButtonClass = this.isPlayingAdOrPlayback() ? [style.controlButton, style.isPlaying].join(' ') : style.controlButton;
-
     return (
       <div className={[style.controlButtonContainer, style.controlPlayPause].join(' ')}>
         <Localizer>
           <button
+            tabIndex="0"
             aria-label={<Text id={this.isPlayingAdOrPlayback() ? 'controls.pause' : 'controls.play'}/>}
             className={controlButtonClass}
             onClick={() => this.togglePlayPause()}
-          >
+            onKeyDown={e => this.onKeyDown(e)}>
             {props.isEnded && !props.adBreak ? <Icon type={IconType.StartOver}/> : (
               <div>
                 <Icon type={IconType.Play}/>
                 <Icon type={IconType.Pause}/>
               </div>
             )}
-
           </button>
         </Localizer>
       </div>

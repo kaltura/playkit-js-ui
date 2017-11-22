@@ -37,13 +37,24 @@ class RewindControl extends BaseComponent {
    * @memberof RewindControl
    */
   onClick(): void {
-    let step = this.props.step || DEFAULT_STEP;
-
+    const step = this.props.step || DEFAULT_STEP;
     if (this.player.currentTime - step < 0) {
       this.player.currentTime = 0;
-    }
-    else {
+    } else {
       this.player.currentTime = this.player.currentTime - step;
+    }
+  }
+
+  /**
+   * rewind on key down
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @returns {void}
+   * @memberof RewindControl
+   */
+  onKeyDown(e: KeyboardEvent): void {
+    if (e.keyCode === 13) { // enter
+      this.onClick();
     }
   }
 
@@ -59,10 +70,11 @@ class RewindControl extends BaseComponent {
       <div className={[style.controlButtonContainer, style.controlRewind].join(' ')}>
         <Localizer>
           <button
+            tabIndex="0"
             aria-label={<Text id={'controls.rewind'}/>}
             className={style.controlButton}
             onClick={() => this.onClick()}
-          >
+            onKeyDown={e => this.onKeyDown(e)}>
             <Icon type={(!props.step || props.step === 10) ? IconType.Rewind10 : IconType.Rewind}/>
           </button>
         </Localizer>
