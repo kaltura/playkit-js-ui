@@ -2,6 +2,7 @@
 import style from './_seekbar.scss';
 import {h, Component} from 'preact';
 import {toHHMMSS} from '../../utils/time-format';
+import {KeyMap} from "../../utils/key-map";
 
 /**
  * SeekBarControl component
@@ -186,12 +187,12 @@ class SeekBarControl extends Component {
   onSeekbarKeyDown(e: KeyboardEvent): void {
     let time;
     switch (e.keyCode) {
-      case 37: // left
+      case KeyMap.LEFT:
         time = (this.props.player.currentTime - 5) > 0 ? this.props.player.currentTime - 5 : 0;
         this.props.player.currentTime = time;
         this.updateSeekBarProgress(time, this.props.duration, true);
         break;
-      case 39: // right
+      case KeyMap.RIGHT:
         time = (this.props.player.currentTime + 5) > this.props.player.duration ? this.props.player.duration : this.props.player.currentTime + 5;
         this.props.player.currentTime = time;
         this.updateSeekBarProgress(time, this.props.duration, true);

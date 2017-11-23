@@ -3,6 +3,7 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {default as Icon, IconType} from '../icon';
 import {connect} from 'preact-redux';
+import {KeyMap} from "../../utils/key-map";
 
 /**
  * mapping state to props
@@ -130,7 +131,7 @@ class Menu extends Component {
    * @memberof Menu
    */
   onKeyDown(e: KeyboardEvent, o: Object): void {
-    if (e.keyCode === 13) { // enter
+    if (e.keyCode === KeyMap.ENTER) {
       this.onSelect(o);
     }
   }

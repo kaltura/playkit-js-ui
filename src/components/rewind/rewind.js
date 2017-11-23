@@ -4,6 +4,7 @@ import {h} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
+import {KeyMap} from "../../utils/key-map";
 
 /**
  * Default rewind step
@@ -53,7 +54,7 @@ class RewindControl extends BaseComponent {
    * @memberof RewindControl
    */
   onKeyDown(e: KeyboardEvent): void {
-    if (e.keyCode === 13) { // enter
+    if (e.keyCode === KeyMap.ENTER) {
       this.onClick();
     }
   }

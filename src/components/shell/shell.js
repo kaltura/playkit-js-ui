@@ -5,6 +5,7 @@ import BaseComponent from '../base';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
+import {KeyMap} from "../../utils/key-map";
 
 /**
  * mapping state to props
@@ -117,7 +118,7 @@ class Shell extends BaseComponent {
    * @returns {void}
    */
   onKeyDown(e: KeyboardEvent): void {
-    if (!this.state.nav && e.keyCode === 9) {
+    if (!this.state.nav && e.keyCode === KeyMap.TAB) {
       this.setState({nav: true});
       this.props.updatePlayerNavState(true);
     }

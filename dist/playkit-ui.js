@@ -3157,7 +3157,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _unmuteIndication = __webpack_require__(122);
+var _unmuteIndication = __webpack_require__(123);
 
 var _unmuteIndication2 = _interopRequireDefault(_unmuteIndication);
 
@@ -4063,7 +4063,7 @@ var _playPause = __webpack_require__(12);
 
 var _playPause2 = _interopRequireDefault(_playPause);
 
-var _seekbarAdsContainer = __webpack_require__(123);
+var _seekbarAdsContainer = __webpack_require__(124);
 
 var _seekbarAdsContainer2 = _interopRequireDefault(_seekbarAdsContainer);
 
@@ -4075,15 +4075,15 @@ var _fullscreen = __webpack_require__(16);
 
 var _fullscreen2 = _interopRequireDefault(_fullscreen);
 
-var _timeDisplayAdsContainer = __webpack_require__(125);
+var _timeDisplayAdsContainer = __webpack_require__(126);
 
 var _timeDisplayAdsContainer2 = _interopRequireDefault(_timeDisplayAdsContainer);
 
-var _adSkip = __webpack_require__(127);
+var _adSkip = __webpack_require__(128);
 
 var _adSkip2 = _interopRequireDefault(_adSkip);
 
-var _adLearnMore = __webpack_require__(131);
+var _adLearnMore = __webpack_require__(132);
 
 var _adLearnMore2 = _interopRequireDefault(_adLearnMore);
 
@@ -4221,7 +4221,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _topBar = __webpack_require__(135);
+var _topBar = __webpack_require__(136);
 
 var _topBar2 = _interopRequireDefault(_topBar);
 
@@ -4263,7 +4263,7 @@ var _playPause = __webpack_require__(12);
 
 var _playPause2 = _interopRequireDefault(_playPause);
 
-var _seekbarLivePlaybackContainer = __webpack_require__(138);
+var _seekbarLivePlaybackContainer = __webpack_require__(139);
 
 var _seekbarLivePlaybackContainer2 = _interopRequireDefault(_seekbarLivePlaybackContainer);
 
@@ -4295,7 +4295,7 @@ var _keyboard = __webpack_require__(32);
 
 var _keyboard2 = _interopRequireDefault(_keyboard);
 
-var _liveTag = __webpack_require__(140);
+var _liveTag = __webpack_require__(141);
 
 var _liveTag2 = _interopRequireDefault(_liveTag);
 
@@ -4809,7 +4809,7 @@ Object.defineProperty(exports, 'VolumeControl', {
   }
 });
 
-var _share = __webpack_require__(144);
+var _share = __webpack_require__(145);
 
 Object.defineProperty(exports, 'ShareControl', {
   enumerable: true,
@@ -4890,7 +4890,7 @@ Object.defineProperty(exports, 'KeyboardControl', {
   }
 });
 
-var _uiManager = __webpack_require__(148);
+var _uiManager = __webpack_require__(149);
 
 var _uiManager2 = _interopRequireDefault(_uiManager);
 
@@ -6578,6 +6578,8 @@ var _icon = __webpack_require__(5);
 
 var _icon2 = _interopRequireDefault(_icon);
 
+var _keyMap = __webpack_require__(122);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -6733,8 +6735,7 @@ var PrePlaybackPlayOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, 
   }, {
     key: 'onKeyDown',
     value: function onKeyDown(e) {
-      if (e.keyCode === 13) {
-        // enter
+      if (e.keyCode === _keyMap.KeyMap.ENTER) {
         this.handleClick();
       }
     }
@@ -7118,6 +7119,8 @@ var _icon = __webpack_require__(5);
 
 var _icon2 = _interopRequireDefault(_icon);
 
+var _keyMap = __webpack_require__(122);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -7187,8 +7190,7 @@ var PlayPauseControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _b
   }, {
     key: 'onKeyDown',
     value: function onKeyDown(e) {
-      if (e.keyCode === 13) {
-        // enter
+      if (e.keyCode === _keyMap.KeyMap.ENTER) {
         this.togglePlayPause();
       }
     }
@@ -7371,6 +7373,8 @@ var _icon = __webpack_require__(5);
 
 var _icon2 = _interopRequireDefault(_icon);
 
+var _keyMap = __webpack_require__(122);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -7438,8 +7442,7 @@ var RewindControl = function (_BaseComponent) {
   }, {
     key: 'onKeyDown',
     value: function onKeyDown(e) {
-      if (e.keyCode === 13) {
-        // enter
+      if (e.keyCode === _keyMap.KeyMap.ENTER) {
         this.onClick();
       }
     }
@@ -7666,6 +7669,8 @@ var _preact = __webpack_require__(0);
 
 var _timeFormat = __webpack_require__(23);
 
+var _keyMap = __webpack_require__(122);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -7891,14 +7896,12 @@ var SeekBarControl = function (_Component) {
     value: function onSeekbarKeyDown(e) {
       var time = void 0;
       switch (e.keyCode) {
-        case 37:
-          // left
+        case _keyMap.KeyMap.LEFT:
           time = this.props.player.currentTime - 5 > 0 ? this.props.player.currentTime - 5 : 0;
           this.props.player.currentTime = time;
           this.updateSeekBarProgress(time, this.props.duration, true);
           break;
-        case 39:
-          // right
+        case _keyMap.KeyMap.RIGHT:
           time = this.props.player.currentTime + 5 > this.props.player.duration ? this.props.player.duration : this.props.player.currentTime + 5;
           this.props.player.currentTime = time;
           this.updateSeekBarProgress(time, this.props.duration, true);
@@ -8320,6 +8323,8 @@ var _icon = __webpack_require__(5);
 
 var _icon2 = _interopRequireDefault(_icon);
 
+var _keyMap = __webpack_require__(122);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -8456,27 +8461,21 @@ var VolumeControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bind
     value: function onVolumeControlKeyDown(e) {
       var newVolume = void 0;
       switch (e.keyCode) {
-        case 38:
-          // up
+        case _keyMap.KeyMap.UP:
           this.setState({ hover: true });
-          this.logger.debug("Keydown up");
           newVolume = Math.round(this.player.volume * 100) + 5;
-          this.logger.debug('Changing volume. ' + this.player.volume + ' => ' + newVolume);
           if (this.player.muted) {
             this.player.muted = false;
           }
           this.player.volume = newVolume / 100;
           break;
-        case 40:
-          // down
+        case _keyMap.KeyMap.DOWN:
           this.setState({ hover: true });
-          this.logger.debug("Keydown down");
           newVolume = Math.round(this.player.volume * 100) - 5;
           if (newVolume < 5) {
             this.player.muted = true;
             return;
           }
-          this.logger.debug('Changing volume. ' + this.player.volume + ' => ' + newVolume);
           this.player.volume = newVolume / 100;
           break;
         default:
@@ -9352,6 +9351,8 @@ var _icon = __webpack_require__(5);
 
 var _icon2 = _interopRequireDefault(_icon);
 
+var _keyMap = __webpack_require__(122);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -9441,8 +9442,7 @@ var DropDown = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class =
   }, {
     key: 'onKeyDown',
     value: function onKeyDown(e) {
-      if (e.keyCode === 13) {
-        // enter
+      if (e.keyCode === _keyMap.KeyMap.ENTER) {
         this.setState({ dropMenuActive: !this.state.dropMenuActive });
       }
     }
@@ -9601,6 +9601,8 @@ var _icon = __webpack_require__(5);
 var _icon2 = _interopRequireDefault(_icon);
 
 var _preactRedux = __webpack_require__(1);
+
+var _keyMap = __webpack_require__(122);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -9771,8 +9773,7 @@ var Menu = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = fun
   }, {
     key: 'onKeyDown',
     value: function onKeyDown(e, o) {
-      if (e.keyCode === 13) {
-        // enter
+      if (e.keyCode === _keyMap.KeyMap.ENTER) {
         this.onSelect(o);
       }
     }
@@ -11899,13 +11900,23 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _dec, _class;
 
 var _base = __webpack_require__(2);
 
 var _base2 = _interopRequireDefault(_base);
 
+var _preactRedux = __webpack_require__(1);
+
+var _shell = __webpack_require__(9);
+
+var _bindActions = __webpack_require__(3);
+
+var _keyMap = __webpack_require__(122);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -11914,12 +11925,27 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    playerNav: state.shell.playerNav
+  };
+};
+
+var SEEK_JUMP = 5;
+var VOLUME_JUMP = 5;
+var SPEEDS = [0.5, 1, 2, 4];
+
+/**
  * KeyboardControl component
  *
  * @class KeyboardControl
  * @extends {BaseComponent}
  */
-var KeyboardControl = function (_BaseComponent) {
+var KeyboardControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.bindActions)(_shell.actions)), _dec(_class = function (_BaseComponent) {
   _inherits(KeyboardControl, _BaseComponent);
 
   /**
@@ -11928,56 +11954,157 @@ var KeyboardControl = function (_BaseComponent) {
    * @memberof KeyboardControl
    */
   function KeyboardControl(obj) {
+    var _this$keyboardHandler;
+
     _classCallCheck(this, KeyboardControl);
 
     var _this = _possibleConstructorReturn(this, (KeyboardControl.__proto__ || Object.getPrototypeOf(KeyboardControl)).call(this, { name: 'Keyboard', player: obj.player, config: obj.config }));
 
-    var playerContainer = document.getElementById(_this.config.targetId);
+    _this._activeTextTrack = null;
+    _this.keyboardHandlers = (_this$keyboardHandler = {}, _defineProperty(_this$keyboardHandler, _keyMap.KeyMap.SPACE, function () {
+      _this.logger.debug("Keydown SPACE");
+      if (_this.player.paused) {
+        _this.logger.debug("Play");
+        _this.player.play();
+      } else {
+        _this.logger.debug("Pause");
+        _this.player.pause();
+      }
+    }), _defineProperty(_this$keyboardHandler, _keyMap.KeyMap.UP, function () {
+      _this.logger.debug("Keydown UP");
+      var newVolume = Math.round(_this.player.volume * 100) + VOLUME_JUMP;
+      _this.logger.debug('Changing volume. ' + _this.player.volume + ' => ' + newVolume);
+      if (_this.player.muted) {
+        _this.player.muted = false;
+      }
+      _this.player.volume = newVolume / 100;
+    }), _defineProperty(_this$keyboardHandler, _keyMap.KeyMap.DOWN, function () {
+      _this.logger.debug("Keydown DOWN");
+      var newVolume = Math.round(_this.player.volume * 100) - VOLUME_JUMP;
+      if (newVolume < 5) {
+        _this.player.muted = true;
+        return;
+      }
+      _this.logger.debug('Changing volume. ' + _this.player.volume + ' => ' + newVolume);
+      _this.player.volume = newVolume / 100;
+    }), _defineProperty(_this$keyboardHandler, _keyMap.KeyMap.F, function () {
+      _this.logger.debug("Keydown F");
+      if (!_this.player.isFullscreen()) {
+        _this.logger.debug("Enter fullscreen");
+        _this.player.enterFullscreen();
+      }
+    }), _defineProperty(_this$keyboardHandler, _keyMap.KeyMap.ESC, function () {
+      _this.logger.debug("Keydown ESC");
+      if (_this.player.isFullscreen()) {
+        _this.logger.debug("Exit fullscreen");
+        _this.player.exitFullscreen();
+      }
+    }), _defineProperty(_this$keyboardHandler, _keyMap.KeyMap.LEFT, function () {
+      _this.logger.debug("Keydown LEFT");
+      _this.logger.debug('Seek. ' + _this.player.currentTime + ' => ' + (_this.player.currentTime - 5));
+      _this.player.currentTime -= SEEK_JUMP;
+    }), _defineProperty(_this$keyboardHandler, _keyMap.KeyMap.RIGHT, function () {
+      _this.logger.debug("Keydown RIGHT");
+      _this.logger.debug('Seek. ' + _this.player.currentTime + ' => ' + (_this.player.currentTime + 5));
+      _this.player.currentTime += SEEK_JUMP;
+    }), _defineProperty(_this$keyboardHandler, _keyMap.KeyMap.HOME, function () {
+      _this.logger.debug("Keydown HOME");
+      _this.logger.debug('Seek. ' + _this.player.currentTime + ' => 0');
+      _this.player.currentTime = 0;
+    }), _defineProperty(_this$keyboardHandler, _keyMap.KeyMap.END, function () {
+      _this.logger.debug("Keydown END");
+      _this.logger.debug('Seek. ' + _this.player.currentTime + ' => ' + _this.player.duration);
+      _this.player.currentTime = _this.player.duration;
+    }), _defineProperty(_this$keyboardHandler, _keyMap.KeyMap.M, function () {
+      _this.logger.debug("Keydown M");
+      if (_this.player.muted) {
+        _this.logger.debug("Umnute");
+        _this.player.muted = false;
+      } else {
+        _this.logger.debug("Mute");
+        _this.player.muted = true;
+      }
+    }), _defineProperty(_this$keyboardHandler, _keyMap.KeyMap.ADD, function (shiftKey) {
+      _this.logger.debug("Keydown ADD, shiftKey: " + shiftKey);
+      if (shiftKey) {
+        _this.logger.debug('Changing playback rate. ' + _this.player.playbackRate + ' => 1');
+        _this.player.playbackRate = 1;
+      } else {
+        var playbackRate = _this.player.playbackRate;
+        var index = SPEEDS.indexOf(playbackRate);
+        if (index < SPEEDS.length - 1) {
+          _this.logger.debug('Changing playback rate. ' + playbackRate + ' => ' + SPEEDS[index + 1]);
+          _this.player.playbackRate = SPEEDS[index + 1];
+        }
+      }
+    }), _defineProperty(_this$keyboardHandler, _keyMap.KeyMap.SUBTRACT, function () {
+      _this.logger.debug("Keydown SUBTRACT");
+      var playbackRate = _this.player.playbackRate;
+      var index = SPEEDS.indexOf(playbackRate);
+      if (index > 0) {
+        _this.logger.debug('Changing playback rate. ' + playbackRate + ' => ' + SPEEDS[index - 1]);
+        _this.player.playbackRate = SPEEDS[index - 1];
+      }
+    }), _defineProperty(_this$keyboardHandler, _keyMap.KeyMap.C, function () {
+      _this.logger.debug("Keydown C");
+      var activeTextTrack = _this.player.getActiveTracks().text;
+      if (activeTextTrack.language === "off" && _this._activeTextTrack) {
+        _this.logger.debug('Changing text track', _this._activeTextTrack);
+        _this.player.selectTrack(_this._activeTextTrack);
+        _this._activeTextTrack = null;
+      } else if (activeTextTrack.language !== "off" && !_this._activeTextTrack) {
+        _this.logger.debug('Hiding text track');
+        _this._activeTextTrack = activeTextTrack;
+        _this.player.hideTextTrack();
+      }
+    }), _this$keyboardHandler);
 
+    var playerContainer = document.getElementById(_this.config.targetId);
     if (!playerContainer) {
       return _possibleConstructorReturn(_this);
     }
-
-    /*playerContainer.onkeydown = (e) => {
-      let time, newVolume;
-      switch (e.which) {
-        default:
-          return;
+    playerContainer.onkeydown = function (e) {
+      if (!_this.props.playerNav && typeof _this.keyboardHandlers[e.keyCode] === 'function') {
+        _this.keyboardHandlers[e.keyCode](e.shiftKey);
       }
-    };*/
-
-    _this.disableKeyboardCommandsOnControls();
+    };
     return _this;
   }
 
-  /**
-   * disable keyboard commands when control button is on focus to prevent
-   * double function execution.
-   *
-   * @returns {void}
-   * @memberof KeyboardControl
-   */
-
-
-  _createClass(KeyboardControl, [{
-    key: 'disableKeyboardCommandsOnControls',
-    value: function disableKeyboardCommandsOnControls() {
-      var controlButtonsElements = Array.from(document.getElementsByClassName('control-button'));
-      controlButtonsElements.forEach(function (element) {
-        element.onkeydown = function (e) {
-          return e.preventDefault();
-        };
-      });
-    }
-  }]);
-
   return KeyboardControl;
-}(_base2.default);
-
+}(_base2.default)) || _class);
 exports.default = KeyboardControl;
 
 /***/ }),
 /* 122 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var KeyMap = exports.KeyMap = {
+  ENTER: 13,
+  SPACE: 32,
+  UP: 38,
+  DOWN: 40,
+  LEFT: 37,
+  RIGHT: 39,
+  ESC: 27,
+  HOME: 36,
+  END: 35,
+  ADD: 187,
+  SUBTRACT: 189,
+  TAB: 9,
+  C: 67,
+  F: 70,
+  M: 77
+};
+
+/***/ }),
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12165,7 +12292,7 @@ var UnmuteIndication = (_dec = (0, _preactRedux.connect)(null, (0, _bindActions.
 exports.default = UnmuteIndication;
 
 /***/ }),
-/* 123 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12176,7 +12303,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _seekbarAdsContainer = __webpack_require__(124);
+var _seekbarAdsContainer = __webpack_require__(125);
 
 var _seekbarAdsContainer2 = _interopRequireDefault(_seekbarAdsContainer);
 
@@ -12185,7 +12312,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _seekbarAdsContainer2.default;
 
 /***/ }),
-/* 124 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12292,7 +12419,7 @@ var SeekBarAdsContainer = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0,
 exports.default = SeekBarAdsContainer;
 
 /***/ }),
-/* 125 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12303,7 +12430,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _timeDisplayAdsContainer = __webpack_require__(126);
+var _timeDisplayAdsContainer = __webpack_require__(127);
 
 var _timeDisplayAdsContainer2 = _interopRequireDefault(_timeDisplayAdsContainer);
 
@@ -12312,7 +12439,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _timeDisplayAdsContainer2.default;
 
 /***/ }),
-/* 126 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12403,7 +12530,7 @@ var TimeDisplayAdsContainer = (_dec = (0, _preactRedux.connect)(mapStateToProps)
 exports.default = TimeDisplayAdsContainer;
 
 /***/ }),
-/* 127 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12414,7 +12541,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _adSkip = __webpack_require__(128);
+var _adSkip = __webpack_require__(129);
 
 var _adSkip2 = _interopRequireDefault(_adSkip);
 
@@ -12423,7 +12550,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _adSkip2.default;
 
 /***/ }),
-/* 128 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12437,7 +12564,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _dec, _class;
 
-var _adSkip = __webpack_require__(129);
+var _adSkip = __webpack_require__(130);
 
 var _adSkip2 = _interopRequireDefault(_adSkip);
 
@@ -12559,13 +12686,13 @@ var AdSkip = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = f
 exports.default = AdSkip;
 
 /***/ }),
-/* 129 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(130);
+var content = __webpack_require__(131);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -12590,7 +12717,7 @@ if(false) {
 }
 
 /***/ }),
-/* 130 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(undefined);
@@ -12609,7 +12736,7 @@ exports.locals = {
 };
 
 /***/ }),
-/* 131 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12620,7 +12747,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _adLearnMore = __webpack_require__(132);
+var _adLearnMore = __webpack_require__(133);
 
 var _adLearnMore2 = _interopRequireDefault(_adLearnMore);
 
@@ -12629,7 +12756,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _adLearnMore2.default;
 
 /***/ }),
-/* 132 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12643,7 +12770,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _dec, _class;
 
-var _adLearnMore = __webpack_require__(133);
+var _adLearnMore = __webpack_require__(134);
 
 var _adLearnMore2 = _interopRequireDefault(_adLearnMore);
 
@@ -12710,13 +12837,13 @@ var AdLearnMore = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_clas
 exports.default = AdLearnMore;
 
 /***/ }),
-/* 133 */
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(134);
+var content = __webpack_require__(135);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -12741,7 +12868,7 @@ if(false) {
 }
 
 /***/ }),
-/* 134 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(undefined);
@@ -12765,7 +12892,7 @@ exports.locals = {
 };
 
 /***/ }),
-/* 135 */
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12777,7 +12904,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _topBar = __webpack_require__(136);
+var _topBar = __webpack_require__(137);
 
 var _topBar2 = _interopRequireDefault(_topBar);
 
@@ -12832,13 +12959,13 @@ var TopBar = function (_Component) {
 exports.default = TopBar;
 
 /***/ }),
-/* 136 */
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(137);
+var content = __webpack_require__(138);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -12863,7 +12990,7 @@ if(false) {
 }
 
 /***/ }),
-/* 137 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(undefined);
@@ -12896,7 +13023,7 @@ exports.locals = {
 };
 
 /***/ }),
-/* 138 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12907,7 +13034,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _seekbarLivePlaybackContainer = __webpack_require__(139);
+var _seekbarLivePlaybackContainer = __webpack_require__(140);
 
 var _seekbarLivePlaybackContainer2 = _interopRequireDefault(_seekbarLivePlaybackContainer);
 
@@ -12916,7 +13043,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _seekbarLivePlaybackContainer2.default;
 
 /***/ }),
-/* 139 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13054,7 +13181,7 @@ var SeekBarLivePlaybackContainer = (_dec = (0, _preactRedux.connect)(mapStateToP
 exports.default = SeekBarLivePlaybackContainer;
 
 /***/ }),
-/* 140 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13065,7 +13192,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _liveTag = __webpack_require__(141);
+var _liveTag = __webpack_require__(142);
 
 var _liveTag2 = _interopRequireDefault(_liveTag);
 
@@ -13074,7 +13201,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _liveTag2.default;
 
 /***/ }),
-/* 141 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13088,7 +13215,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _dec, _class;
 
-var _liveTag = __webpack_require__(142);
+var _liveTag = __webpack_require__(143);
 
 var _liveTag2 = _interopRequireDefault(_liveTag);
 
@@ -13207,13 +13334,13 @@ var LiveTag = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = 
 exports.default = LiveTag;
 
 /***/ }),
-/* 142 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(143);
+var content = __webpack_require__(144);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -13238,7 +13365,7 @@ if(false) {
 }
 
 /***/ }),
-/* 143 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(undefined);
@@ -13260,7 +13387,7 @@ exports.locals = {
 };
 
 /***/ }),
-/* 144 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13271,7 +13398,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _share = __webpack_require__(145);
+var _share = __webpack_require__(146);
 
 var _share2 = _interopRequireDefault(_share);
 
@@ -13280,7 +13407,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _share2.default;
 
 /***/ }),
-/* 145 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13302,7 +13429,7 @@ var _icon = __webpack_require__(5);
 
 var _icon2 = _interopRequireDefault(_icon);
 
-var _shareOverlay = __webpack_require__(146);
+var _shareOverlay = __webpack_require__(147);
 
 var _shareOverlay2 = _interopRequireDefault(_shareOverlay);
 
@@ -13406,7 +13533,7 @@ var ShareControl = function (_BaseComponent) {
 exports.default = ShareControl;
 
 /***/ }),
-/* 146 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13417,7 +13544,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _shareOverlay = __webpack_require__(147);
+var _shareOverlay = __webpack_require__(148);
 
 var _shareOverlay2 = _interopRequireDefault(_shareOverlay);
 
@@ -13426,7 +13553,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _shareOverlay2.default;
 
 /***/ }),
-/* 147 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14016,7 +14143,7 @@ var ShareOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindA
 exports.default = ShareOverlay;
 
 /***/ }),
-/* 148 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14047,11 +14174,11 @@ var _redux = __webpack_require__(10);
 
 var _logger = __webpack_require__(40);
 
-var _store = __webpack_require__(149);
+var _store = __webpack_require__(150);
 
 var _store2 = _interopRequireDefault(_store);
 
-var _fr = __webpack_require__(150);
+var _fr = __webpack_require__(151);
 
 var _fr2 = _interopRequireDefault(_fr);
 
@@ -14059,19 +14186,19 @@ var _config = __webpack_require__(51);
 
 var _playkitJs = __webpack_require__(21);
 
-var _engineConnector = __webpack_require__(151);
+var _engineConnector = __webpack_require__(152);
 
 var _engineConnector2 = _interopRequireDefault(_engineConnector);
 
-var _shell = __webpack_require__(153);
+var _shell = __webpack_require__(154);
 
 var _shell2 = _interopRequireDefault(_shell);
 
-var _videoPlayer = __webpack_require__(155);
+var _videoPlayer = __webpack_require__(156);
 
 var _videoPlayer2 = _interopRequireDefault(_videoPlayer);
 
-var _playerGui = __webpack_require__(159);
+var _playerGui = __webpack_require__(160);
 
 var _playerGui2 = _interopRequireDefault(_playerGui);
 
@@ -14271,7 +14398,7 @@ exports.VERSION = "0.12.0";
 exports.NAME = "playkit-js-ui";
 
 /***/ }),
-/* 149 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14346,7 +14473,7 @@ var reducer = (0, _redux.combineReducers)({
 exports.default = reducer;
 
 /***/ }),
-/* 150 */
+/* 151 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -14380,7 +14507,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 151 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14391,7 +14518,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _engineConnector = __webpack_require__(152);
+var _engineConnector = __webpack_require__(153);
 
 var _engineConnector2 = _interopRequireDefault(_engineConnector);
 
@@ -14400,7 +14527,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _engineConnector2.default;
 
 /***/ }),
-/* 152 */
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14629,7 +14756,7 @@ var EngineConnector = (_dec = (0, _preactRedux.connect)(_engine2.default, (0, _b
 exports.default = EngineConnector;
 
 /***/ }),
-/* 153 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14640,7 +14767,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _shell = __webpack_require__(154);
+var _shell = __webpack_require__(155);
 
 var _shell2 = _interopRequireDefault(_shell);
 
@@ -14649,7 +14776,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _shell2.default;
 
 /***/ }),
-/* 154 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14678,6 +14805,8 @@ var _preactRedux = __webpack_require__(1);
 var _bindActions = __webpack_require__(3);
 
 var _shell = __webpack_require__(9);
+
+var _keyMap = __webpack_require__(122);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14817,7 +14946,7 @@ var Shell = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.
   }, {
     key: 'onKeyDown',
     value: function onKeyDown(e) {
-      if (!this.state.nav && e.keyCode === 9) {
+      if (!this.state.nav && e.keyCode === _keyMap.KeyMap.TAB) {
         this.setState({ nav: true });
         this.props.updatePlayerNavState(true);
       }
@@ -14940,7 +15069,7 @@ var Shell = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.
 exports.default = Shell;
 
 /***/ }),
-/* 155 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14951,7 +15080,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _videoPlayer = __webpack_require__(156);
+var _videoPlayer = __webpack_require__(157);
 
 var _videoPlayer2 = _interopRequireDefault(_videoPlayer);
 
@@ -14960,7 +15089,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _videoPlayer2.default;
 
 /***/ }),
-/* 156 */
+/* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14972,7 +15101,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _videoPlayer = __webpack_require__(157);
+var _videoPlayer = __webpack_require__(158);
 
 var _videoPlayer2 = _interopRequireDefault(_videoPlayer);
 
@@ -15053,13 +15182,13 @@ var VideoPlayer = function (_Component) {
 exports.default = VideoPlayer;
 
 /***/ }),
-/* 157 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(158);
+var content = __webpack_require__(159);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -15084,7 +15213,7 @@ if(false) {
 }
 
 /***/ }),
-/* 158 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(undefined);
@@ -15101,7 +15230,7 @@ exports.locals = {
 };
 
 /***/ }),
-/* 159 */
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

@@ -4,6 +4,7 @@ import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 import Menu from '../menu';
 import {default as Icon, IconType} from '../icon';
+import {KeyMap} from "../../utils/key-map";
 
 /**
  * mapping state to props
@@ -66,7 +67,7 @@ class DropDown extends Component {
    * @memberof DropDown
    */
   onKeyDown(e: KeyboardEvent): void {
-    if (e.keyCode === 13) { // enter
+    if (e.keyCode === KeyMap.ENTER) {
       this.setState({dropMenuActive: !this.state.dropMenuActive});
     }
   }

@@ -6,6 +6,7 @@ import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
+import {KeyMap} from "../../utils/key-map";
 
 /**
  * mapping state to props
@@ -122,7 +123,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   onKeyDown(e: KeyboardEvent): void {
-    if (e.keyCode === 13) { // enter
+    if (e.keyCode === KeyMap.ENTER) {
       this.handleClick();
     }
   }

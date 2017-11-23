@@ -7,6 +7,7 @@ import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/play-pause';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
+import {KeyMap} from "../../utils/key-map";
 
 /**
  * mapping state to props
@@ -58,7 +59,7 @@ class PlayPauseControl extends BaseComponent {
    * @memberof PlayPauseControl
    */
   onKeyDown(e: KeyboardEvent): void {
-    if (e.keyCode === 13) { // enter
+    if (e.keyCode === KeyMap.ENTER) {
       this.togglePlayPause();
     }
   }
