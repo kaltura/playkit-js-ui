@@ -419,8 +419,7 @@ class SeekBarControl extends Component {
         onTouchStart={e => this.onSeekbarTouchStart(e)}
         onTouchMove={e => this.onSeekbarTouchMove(e)}
         onTouchEnd={() => this.onSeekbarTouchEnd()}
-        onKeyDown={(e) => this.onSeekbarKeyDown(e)}
-        onFocus={this.updateSeekBarProgress(this.props.currentTime, this.props.duration, true)}>
+        onKeyDown={(e) => this.onSeekbarKeyDown(e)}>
         <div className={style.progressBar}>
           <div className={style.progress} style={{width: progressWidth}}>
             {
