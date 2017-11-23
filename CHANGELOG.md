@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.13.0"></a>
+# [0.13.0](https://github.com/kaltura/playkit-js-ui/compare/v0.12.0...v0.13.0) (2017-11-22)
+
+
+### Bug Fixes
+
+* **FEC-7520:** playkit-ui changes the 'a' elements style outside the player ([#136](https://github.com/kaltura/playkit-js-ui/issues/136)) ([c43752b](https://github.com/kaltura/playkit-js-ui/commit/c43752b))
+
+
+### Features
+
+* **FEC-7140:** seekbar thumbs sprite from config ([#116](https://github.com/kaltura/playkit-js-ui/issues/116)) ([1da76ef](https://github.com/kaltura/playkit-js-ui/commit/1da76ef))
+
+
+
 <a name="0.12.0"></a>
 # [0.12.0](https://github.com/kaltura/playkit-js-ui/compare/v0.11.0...v0.12.0) (2017-11-16)
 
