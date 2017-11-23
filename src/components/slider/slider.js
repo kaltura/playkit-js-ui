@@ -1,6 +1,9 @@
 //@flow
 import style from './_slider.scss';
 import {h, Component} from 'preact';
+import {KeyMap} from "../../utils/key-map";
+
+const KEYBOARD_DRAG_STEP = 5;
 
 /**
  * Slider component
@@ -63,6 +66,33 @@ class Slider extends Component {
       });
       this.props.onChange(this.mouseEventToValue(e));
     }
+  }
+
+  /**
+   * key down handler if dragging via keyboard
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @returns {void}
+   * @memberof Slider
+   */
+  onKeyboardDragging(e: KeyboardEvent): void {
+    this._sliderElementOffsetLeft = this._sliderElement.getBoundingClientRect().left;
+    let newValue = this.props.value;
+    switch (e.keyCode) {
+      case KeyMap.RIGHT:
+        newValue += KEYBOARD_DRAG_STEP;
+        break;
+      case KeyMap.LEFT:
+        newValue -= KEYBOARD_DRAG_STEP;
+        break;
+      default:
+        break;
+    }
+    this.setState({
+      value: newValue,
+      dragging: false
+    });
+    this.props.onChange(newValue);
   }
 
   /**
@@ -155,16 +185,19 @@ class Slider extends Component {
    */
   render(): React$Element<any> {
     return (
-      <div
-        ref={c => this._sliderElement = c}
-        className={style.slider}
-        onMouseDown={e => this.mouseDownHandler(e)}
-        onTouchStart={e => this.mouseDownHandler(e)}
-      >
+      <div tabIndex="0"
+           ref={c => this._sliderElement = c}
+           className={style.slider}
+           onMouseDown={e => this.mouseDownHandler(e)}
+           onTouchStart={e => this.mouseDownHandler(e)}
+           onKeyDown={(e) => {
+             if (e.keyCode === KeyMap.LEFT || e.keyCode === KeyMap.RIGHT) {
+               this.onKeyboardDragging(e);
+             }
+           }}>
         <div
           className={style.progress}
-          style={{width: this.getPersentageByValue() + '%'}}
-        >
+          style={{width: this.getPersentageByValue() + '%'}}>
           <div
             className={style.handle}
             onMouseDown={e => this.mouseDownHandler(e)}

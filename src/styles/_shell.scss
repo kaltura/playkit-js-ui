@@ -53,7 +53,17 @@
 }
 
 .player.nav {
-  .control-button, .seek-bar, .dropdown-button, .dropdown-menu-item, .pre-playback-play-button {
+  .control-button,
+  .seek-bar,
+  .dropdown-button,
+  .smart-container-item,
+  .dropdown-menu-item,
+  .pre-playback-play-button,
+  .sample,
+  .custom-captions-applied > a,
+  .form-group-row > a,
+  .button-save-cvaa,
+  .slider {
     &:focus {
       outline: 1px solid #00cbff;
     }

@@ -114,7 +114,6 @@ class Menu extends Component {
    */
   onSelect(option: Object): void {
     this.props.onSelect(option.value);
-
     // Instant select
     this.props.options.filter(t => t.active).forEach(option => {
       option.active = false
@@ -133,6 +132,9 @@ class Menu extends Component {
   onKeyDown(e: KeyboardEvent, o: Object): void {
     if (e.keyCode === KeyMap.ENTER) {
       this.onSelect(o);
+    } else if (e.keyCode === KeyMap.ESC) {
+      this.props.onClose();
+      e.stopPropagation();
     }
   }
 
@@ -157,8 +159,7 @@ class Menu extends Component {
     return (
       <select
         className={this.props.hideSelect ? style.mobileHiddenSelect : ''}
-        onChange={e => this.onSelect(this.props.options[e.target.value])}
-      >
+        onChange={e => this.onSelect(this.props.options[e.target.value])}>
         {this.props.options.map((o, index) => <option selected={this.isSelected(o)} value={index}
                                                       key={index}>{o.label}</option>)}
       </select>

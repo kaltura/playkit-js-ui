@@ -199,7 +199,7 @@ class Shell extends BaseComponent {
 
     return (
       <div
-        tabIndex="0"
+        tabIndex="-1"
         className={playerClasses}
         onClick={() => this.onClick()}
         onMouseOver={() => this.onMouseOver()}

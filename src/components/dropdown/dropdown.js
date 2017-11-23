@@ -69,6 +69,9 @@ class DropDown extends Component {
   onKeyDown(e: KeyboardEvent): void {
     if (e.keyCode === KeyMap.ENTER) {
       this.setState({dropMenuActive: !this.state.dropMenuActive});
+    } else if (e.keyCode === KeyMap.ESC) {
+      this.onClose();
+      e.stopPropagation();
     }
   }
 
@@ -138,8 +141,7 @@ class DropDown extends Component {
               <Menu
                 options={props.options}
                 onSelect={(o) => this.onSelect(o)}
-                onClose={() => this.onClose()}
-              />
+                onClose={() => this.onClose()}/>
           }
         </div>
       )
