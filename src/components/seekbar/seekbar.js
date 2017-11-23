@@ -12,7 +12,9 @@ import {toHHMMSS} from '../../utils/time-format';
  *  showFramePreview={this.props.showFramePreview}
  *  showTimeBubble={this.props.showTimeBubble}
  *  changeCurrentTime={time => this.player.currentTime = time}
- *  playerPoster={this.props.poster}
+ *  thumbsSprite={this.config.thumbsSprite}
+ *  thumbsSlices={this.config.thumbsSlices}
+ *  thumbsWidth={this.config.thumbsWidth}
  *  updateSeekbarDraggingStatus={data => this.props.updateSeekbarDraggingStatus(data)}
  *  updateCurrentTime={data => this.props.updateCurrentTime(data)}
  *  currentTime={this.props.currentTime}
@@ -39,32 +41,6 @@ class SeekBarControl extends Component {
   componentWillMount() {
     this.setState({virtualTime: 0});
 
-  }
-
-  /**
-   * on component update, check if playerPostaer configured and framePreviewImg not set yet,
-   * if true, update the frame preview image
-   *
-   * @returns {void}
-   * @memberof SeekBarControl
-   */
-  componentDidUpdate() {
-    if (this.props.playerPoster && !this.framePreviewImg) {
-      this.framePreviewImg = this.getFramePreviewImg(this.props.playerPoster);
-    }
-  }
-
-  /**
-   * before component update, check if the player poster changed and create new preview image url.
-   *
-   * @param {any} nextProps props for the next component update
-   * @returns {void}
-   * @memberof SeekBarControl
-   */
-  componentWillUpdate(nextProps: any) {
-    if (nextProps.playerPoster && (this.props.playerPoster !== nextProps.playerPoster)) {
-      this.framePreviewImg = this.getFramePreviewImg(nextProps.playerPoster);
-    }
   }
 
   /**
@@ -271,7 +247,9 @@ class SeekBarControl extends Component {
    * @memberof SeekBarControl
    */
   getThumbSpriteOffset(): string {
-    return -(Math.ceil(100 * this.state.virtualTime / this.props.duration) * 160) + 'px 0px';
+    const percent = this.state.virtualTime / this.props.duration;
+    const sliceIndex = Math.ceil(this.props.thumbsSlices * percent);
+    return -(sliceIndex * this.props.thumbsWidth) + 'px 0px';
   }
 
   /**
@@ -281,13 +259,18 @@ class SeekBarControl extends Component {
    * @memberof SeekBarControl
    */
   getFramePreviewOffset(): number {
-    if (this._seekBarElement) {
+    if (this._seekBarElement && this._framePreviewElement) {
       let leftOffset = (this.state.virtualTime / this.props.duration * this._seekBarElement.clientWidth) - (this._framePreviewElement.clientWidth / 2);
-      if (leftOffset < 0) return 0;
-      else if (leftOffset > this._seekBarElement.clientWidth - this._framePreviewElement.clientWidth) return (this._seekBarElement.clientWidth - this._framePreviewElement.clientWidth);
-      else return leftOffset;
+      if (leftOffset < 0) {
+        return 0;
+      } else if (leftOffset > this._seekBarElement.clientWidth - this._framePreviewElement.clientWidth) {
+        return (this._seekBarElement.clientWidth - this._framePreviewElement.clientWidth);
+      } else {
+        return leftOffset;
+      }
+    } else {
+      return 0;
     }
-    else return 0;
   }
 
   /**
@@ -299,31 +282,16 @@ class SeekBarControl extends Component {
   getTimeBubbleOffset(): number {
     if (this._timeBubbleElement) {
       let leftOffset = (this.state.virtualTime / this.props.duration * this._seekBarElement.clientWidth) - (this._timeBubbleElement.clientWidth / 2);
-      if (leftOffset < 0) return 0;
-      else if (leftOffset > this._seekBarElement.clientWidth - this._timeBubbleElement.clientWidth) return (this._seekBarElement.clientWidth - this._timeBubbleElement.clientWidth);
-      else return leftOffset;
+      if (leftOffset < 0) {
+        return 0;
+      } else if (leftOffset > this._seekBarElement.clientWidth - this._timeBubbleElement.clientWidth) {
+        return (this._seekBarElement.clientWidth - this._timeBubbleElement.clientWidth);
+      } else {
+        return leftOffset;
+      }
+    } else {
+      return 0;
     }
-    else return 0;
-  }
-
-  /**
-   * get the frame preview sprite based on player poster
-   *
-   * @param {string} posterUrl poster url
-   * @returns {string} image url
-   * @memberof SeekBarControl
-   */
-  getFramePreviewImg(posterUrl: string): string {
-    if (!posterUrl) return '';
-
-    let parts = posterUrl.split('/');
-    let heightValueIndex = parts.indexOf('height') + 1;
-    let widthValueIndex = parts.indexOf('width') + 1;
-    parts[heightValueIndex] = '90';
-    parts[widthValueIndex] = '160';
-    parts.push('vid_slices/100');
-
-    return parts.join('/');
   }
 
   /**
@@ -333,19 +301,47 @@ class SeekBarControl extends Component {
    * @memberof SeekBarControl
    */
   renderFramePreview(): React$Element<any> | void {
-    if (!this.props.showFramePreview || this.props.isMobile) return undefined;
-    let framePreviewStyle = `left: ${this.getFramePreviewOffset()}px`;
-    let framePreviewImgStyle = `background-image: url(${this.framePreviewImg}); `;
-    framePreviewImgStyle += `background-position: ${this.getThumbSpriteOffset()}`
+    if (
+      !this.props.thumbsSprite || !this.props.thumbsSlices || !this.props.thumbsWidth ||
+      !this.props.showFramePreview ||
+      this.props.isMobile
+    ) return undefined;
 
     return (
       <div
         className={style.framePreview}
-        style={framePreviewStyle}
-        ref={c => this._framePreviewElement = c}
-      >
-        <div className={style.framePreviewImg} style={framePreviewImgStyle}/>
-      </div>)
+        style={this._getFramePreviewStyle()}
+        ref={c => this._framePreviewElement = c}>
+        <div
+          className={style.framePreviewImg}
+          style={this._getFramePreviewImgStyle()}/>
+      </div>
+    )
+  }
+
+  /**
+   * Gets the style of the frame preview image.
+   * @returns {string} - The css style string.
+   * @memberof SeekBarControl
+   * @private
+   */
+  _getFramePreviewImgStyle(): string {
+    let framePreviewImgStyle = `background-image: url(${this.props.thumbsSprite});`;
+    framePreviewImgStyle += `background-position: ${this.getThumbSpriteOffset()};`;
+    framePreviewImgStyle += `background-size: ${this.props.thumbsSlices * this.props.thumbsWidth}px 100%;`;
+    return framePreviewImgStyle;
+  }
+
+  /**
+   * Gets the style of the frame preview.
+   * @returns {string} - The css style string.
+   * @memberof SeekBarControl
+   * @private
+   */
+  _getFramePreviewStyle(): string {
+    let framePreviewStyle = `left: ${this.getFramePreviewOffset()}px;`;
+    framePreviewStyle += `width: ${this.props.thumbsWidth}px;`;
+    return framePreviewStyle;
   }
 
   /**
