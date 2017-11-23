@@ -47,19 +47,6 @@ class RewindControl extends BaseComponent {
   }
 
   /**
-   * rewind on key down
-   *
-   * @param {KeyboardEvent} e - keyboard event
-   * @returns {void}
-   * @memberof RewindControl
-   */
-  onKeyDown(e: KeyboardEvent): void {
-    if (e.keyCode === KeyMap.ENTER) {
-      this.onClick();
-    }
-  }
-
-  /**
    * render component
    *
    * @param {*} props - component props
@@ -75,7 +62,11 @@ class RewindControl extends BaseComponent {
             aria-label={<Text id={'controls.rewind'}/>}
             className={style.controlButton}
             onClick={() => this.onClick()}
-            onKeyDown={e => this.onKeyDown(e)}>
+            onKeyDown={(e) => {
+              if (e.keyCode === KeyMap.ENTER) {
+                this.onClick();
+              }
+            }}>
             <Icon type={(!props.step || props.step === 10) ? IconType.Rewind10 : IconType.Rewind}/>
           </button>
         </Localizer>

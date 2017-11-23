@@ -16,7 +16,7 @@ const mapStateToProps = state => ({
 
 const SEEK_JUMP: number = 5;
 const VOLUME_JUMP: number = 5;
-const SPEEDS = [0.5, 1, 2, 4];
+const PLAYBACK_RATES: Array<number> = [0.5, 1, 2, 4];
 
 @connect(mapStateToProps, bindActions(actions))
   /**
@@ -112,13 +112,8 @@ class KeyboardControl extends BaseComponent {
     },
     [KeyMap.M]: () => {
       this.logger.debug("Keydown M");
-      if (this.player.muted) {
-        this.logger.debug("Umnute");
-        this.player.muted = false;
-      } else {
-        this.logger.debug("Mute");
-        this.player.muted = true;
-      }
+      this.logger.debug(this.player.muted ? "Umnute" : "Mute");
+      this.player.muted = !this.player.muted;
     },
     [KeyMap.ADD]: (shiftKey) => {
       this.logger.debug("Keydown ADD, shiftKey: " + shiftKey);
@@ -127,20 +122,20 @@ class KeyboardControl extends BaseComponent {
         this.player.playbackRate = 1;
       } else {
         const playbackRate = this.player.playbackRate;
-        const index = SPEEDS.indexOf(playbackRate);
-        if (index < SPEEDS.length - 1) {
-          this.logger.debug(`Changing playback rate. ${playbackRate} => ${SPEEDS[index + 1]}`);
-          this.player.playbackRate = SPEEDS[index + 1];
+        const index = PLAYBACK_RATES.indexOf(playbackRate);
+        if (index < PLAYBACK_RATES.length - 1) {
+          this.logger.debug(`Changing playback rate. ${playbackRate} => ${PLAYBACK_RATES[index + 1]}`);
+          this.player.playbackRate = PLAYBACK_RATES[index + 1];
         }
       }
     },
     [KeyMap.SUBTRACT]: () => {
       this.logger.debug("Keydown SUBTRACT");
       const playbackRate = this.player.playbackRate;
-      const index = SPEEDS.indexOf(playbackRate);
+      const index = PLAYBACK_RATES.indexOf(playbackRate);
       if (index > 0) {
-        this.logger.debug(`Changing playback rate. ${playbackRate} => ${SPEEDS[index - 1]}`);
-        this.player.playbackRate = SPEEDS[index - 1];
+        this.logger.debug(`Changing playback rate. ${playbackRate} => ${PLAYBACK_RATES[index - 1]}`);
+        this.player.playbackRate = PLAYBACK_RATES[index - 1];
       }
     },
     [KeyMap.C]: () => {

@@ -52,19 +52,6 @@ class PlayPauseControl extends BaseComponent {
   }
 
   /**
-   * toggle play / pause on key down
-   *
-   * @param {KeyboardEvent} e - keyboard event
-   * @returns {void}
-   * @memberof PlayPauseControl
-   */
-  onKeyDown(e: KeyboardEvent): void {
-    if (e.keyCode === KeyMap.ENTER) {
-      this.togglePlayPause();
-    }
-  }
-
-  /**
    * check if currently playing ad or playback
    *
    * @returns {boolean} - if currently playing ad or playback
@@ -91,7 +78,11 @@ class PlayPauseControl extends BaseComponent {
             aria-label={<Text id={this.isPlayingAdOrPlayback() ? 'controls.pause' : 'controls.play'}/>}
             className={controlButtonClass}
             onClick={() => this.togglePlayPause()}
-            onKeyDown={e => this.onKeyDown(e)}>
+            onKeyDown={(e) => {
+              if (e.keyCode === KeyMap.ENTER) {
+                this.togglePlayPause();
+              }
+            }}>
             {props.isEnded && !props.adBreak ? <Icon type={IconType.StartOver}/> : (
               <div>
                 <Icon type={IconType.Play}/>

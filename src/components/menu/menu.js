@@ -130,11 +130,16 @@ class Menu extends Component {
    * @memberof Menu
    */
   onKeyDown(e: KeyboardEvent, o: Object): void {
-    if (e.keyCode === KeyMap.ENTER) {
-      this.onSelect(o);
-    } else if (e.keyCode === KeyMap.ESC) {
-      this.props.onClose();
-      e.stopPropagation();
+    switch (e.keyCode) {
+      case KeyMap.ENTER:
+        this.onSelect(o);
+        break;
+      case KeyMap.ESC:
+        this.props.onClose();
+        e.stopPropagation();
+        break;
+      default:
+        break;
     }
   }
 
@@ -182,7 +187,7 @@ class Menu extends Component {
           className={[style.dropdownMenu, ...this.state.position].join(' ')}>
           {
             props.options.map((o, index) => (
-              <div tabIndex="0"
+              <div tabIndex=""
                    key={index}
                    className={this.isSelected(o) ? [style.dropdownMenuItem, style.active].join(' ') : style.dropdownMenuItem}
                    onClick={() => this.onSelect(o)}

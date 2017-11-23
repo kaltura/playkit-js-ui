@@ -6725,22 +6725,6 @@ var PrePlaybackPlayOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, 
     }
 
     /**
-     * play on key down
-     *
-     * @param {KeyboardEvent} e - keyboard event
-     * @returns {void}
-     * @memberof PrePlaybackPlayOverlay
-     */
-
-  }, {
-    key: 'onKeyDown',
-    value: function onKeyDown(e) {
-      if (e.keyCode === _keyMap.KeyMap.ENTER) {
-        this.handleClick();
-      }
-    }
-
-    /**
      * render component
      *
      * @param {*} props - component props
@@ -6777,7 +6761,9 @@ var PrePlaybackPlayOverlay = (_dec = (0, _preactRedux.connect)(mapStateToProps, 
           { className: _style2.default.prePlaybackPlayButton,
             tabIndex: '0',
             onKeyDown: function onKeyDown(e) {
-              return _this5.onKeyDown(e);
+              if (e.keyCode === _keyMap.KeyMap.ENTER) {
+                _this5.handleClick();
+              }
             } },
           props.isEnded ? (0, _preact.h)(_icon2.default, { type: _icon.IconType.StartOver }) : (0, _preact.h)(_icon2.default, { type: _icon.IconType.Play })
         )
@@ -7180,22 +7166,6 @@ var PlayPauseControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _b
     }
 
     /**
-     * toggle play / pause on key down
-     *
-     * @param {KeyboardEvent} e - keyboard event
-     * @returns {void}
-     * @memberof PlayPauseControl
-     */
-
-  }, {
-    key: 'onKeyDown',
-    value: function onKeyDown(e) {
-      if (e.keyCode === _keyMap.KeyMap.ENTER) {
-        this.togglePlayPause();
-      }
-    }
-
-    /**
      * check if currently playing ad or playback
      *
      * @returns {boolean} - if currently playing ad or playback
@@ -7238,7 +7208,9 @@ var PlayPauseControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _b
                 return _this2.togglePlayPause();
               },
               onKeyDown: function onKeyDown(e) {
-                return _this2.onKeyDown(e);
+                if (e.keyCode === _keyMap.KeyMap.ENTER) {
+                  _this2.togglePlayPause();
+                }
               } },
             props.isEnded && !props.adBreak ? (0, _preact.h)(_icon2.default, { type: _icon.IconType.StartOver }) : (0, _preact.h)(
               'div',
@@ -7432,22 +7404,6 @@ var RewindControl = function (_BaseComponent) {
     }
 
     /**
-     * rewind on key down
-     *
-     * @param {KeyboardEvent} e - keyboard event
-     * @returns {void}
-     * @memberof RewindControl
-     */
-
-  }, {
-    key: 'onKeyDown',
-    value: function onKeyDown(e) {
-      if (e.keyCode === _keyMap.KeyMap.ENTER) {
-        this.onClick();
-      }
-    }
-
-    /**
      * render component
      *
      * @param {*} props - component props
@@ -7476,7 +7432,9 @@ var RewindControl = function (_BaseComponent) {
                 return _this2.onClick();
               },
               onKeyDown: function onKeyDown(e) {
-                return _this2.onKeyDown(e);
+                if (e.keyCode === _keyMap.KeyMap.ENTER) {
+                  _this2.onClick();
+                }
               } },
             (0, _preact.h)(_icon2.default, { type: !props.step || props.step === 10 ? _icon.IconType.Rewind10 : _icon.IconType.Rewind })
           )
@@ -9459,11 +9417,16 @@ var DropDown = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class =
   }, {
     key: 'onKeyDown',
     value: function onKeyDown(e) {
-      if (e.keyCode === _keyMap.KeyMap.ENTER) {
-        this.setState({ dropMenuActive: !this.state.dropMenuActive });
-      } else if (e.keyCode === _keyMap.KeyMap.ESC) {
-        this.onClose();
-        e.stopPropagation();
+      switch (e.keyCode) {
+        case _keyMap.KeyMap.ENTER:
+          this.setState({ dropMenuActive: !this.state.dropMenuActive });
+          break;
+        case _keyMap.KeyMap.ESC:
+          this.onClose();
+          e.stopPropagation();
+          break;
+        default:
+          break;
       }
     }
 
@@ -9791,11 +9754,16 @@ var Menu = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = fun
   }, {
     key: 'onKeyDown',
     value: function onKeyDown(e, o) {
-      if (e.keyCode === _keyMap.KeyMap.ENTER) {
-        this.onSelect(o);
-      } else if (e.keyCode === _keyMap.KeyMap.ESC) {
-        this.props.onClose();
-        e.stopPropagation();
+      switch (e.keyCode) {
+        case _keyMap.KeyMap.ENTER:
+          this.onSelect(o);
+          break;
+        case _keyMap.KeyMap.ESC:
+          this.props.onClose();
+          e.stopPropagation();
+          break;
+        default:
+          break;
       }
     }
 
@@ -9869,7 +9837,7 @@ var Menu = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class = fun
         props.options.map(function (o, index) {
           return (0, _preact.h)(
             'div',
-            { tabIndex: '0',
+            { tabIndex: '',
               key: index,
               className: _this3.isSelected(o) ? [_style2.default.dropdownMenuItem, _style2.default.active].join(' ') : _style2.default.dropdownMenuItem,
               onClick: function onClick() {
@@ -12044,7 +12012,7 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var SEEK_JUMP = 5;
 var VOLUME_JUMP = 5;
-var SPEEDS = [0.5, 1, 2, 4];
+var PLAYBACK_RATES = [0.5, 1, 2, 4];
 
 /**
  * KeyboardControl component
@@ -12124,13 +12092,8 @@ var KeyboardControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
       _this.player.currentTime = _this.player.duration;
     }), _defineProperty(_this$keyboardHandler, _keyMap.KeyMap.M, function () {
       _this.logger.debug("Keydown M");
-      if (_this.player.muted) {
-        _this.logger.debug("Umnute");
-        _this.player.muted = false;
-      } else {
-        _this.logger.debug("Mute");
-        _this.player.muted = true;
-      }
+      _this.logger.debug(_this.player.muted ? "Umnute" : "Mute");
+      _this.player.muted = !_this.player.muted;
     }), _defineProperty(_this$keyboardHandler, _keyMap.KeyMap.ADD, function (shiftKey) {
       _this.logger.debug("Keydown ADD, shiftKey: " + shiftKey);
       if (shiftKey) {
@@ -12138,19 +12101,19 @@ var KeyboardControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
         _this.player.playbackRate = 1;
       } else {
         var playbackRate = _this.player.playbackRate;
-        var index = SPEEDS.indexOf(playbackRate);
-        if (index < SPEEDS.length - 1) {
-          _this.logger.debug('Changing playback rate. ' + playbackRate + ' => ' + SPEEDS[index + 1]);
-          _this.player.playbackRate = SPEEDS[index + 1];
+        var index = PLAYBACK_RATES.indexOf(playbackRate);
+        if (index < PLAYBACK_RATES.length - 1) {
+          _this.logger.debug('Changing playback rate. ' + playbackRate + ' => ' + PLAYBACK_RATES[index + 1]);
+          _this.player.playbackRate = PLAYBACK_RATES[index + 1];
         }
       }
     }), _defineProperty(_this$keyboardHandler, _keyMap.KeyMap.SUBTRACT, function () {
       _this.logger.debug("Keydown SUBTRACT");
       var playbackRate = _this.player.playbackRate;
-      var index = SPEEDS.indexOf(playbackRate);
+      var index = PLAYBACK_RATES.indexOf(playbackRate);
       if (index > 0) {
-        _this.logger.debug('Changing playback rate. ' + playbackRate + ' => ' + SPEEDS[index - 1]);
-        _this.player.playbackRate = SPEEDS[index - 1];
+        _this.logger.debug('Changing playback rate. ' + playbackRate + ' => ' + PLAYBACK_RATES[index - 1]);
+        _this.player.playbackRate = PLAYBACK_RATES[index - 1];
       }
     }), _defineProperty(_this$keyboardHandler, _keyMap.KeyMap.C, function () {
       _this.logger.debug("Keydown C");
