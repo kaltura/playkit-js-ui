@@ -10,8 +10,6 @@ import SmartContainer from '../smart-container';
 import SmartContainerItem from '../smart-container/smart-container-item';
 import {default as Icon, IconType} from '../icon';
 
-const defaultSpeeds = [0.5, 1, 2, 4];
-
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -188,7 +186,7 @@ class SettingsControl extends BaseComponent {
    * @memberof SettingsControl
    */
   render(props: any): React$Element<any> | void {
-    let speedOptions = defaultSpeeds
+    const speedOptions = this.player.playbackRates
       .reduce((acc, speed) => {
         let speedOption = {
           value: speed,
@@ -202,7 +200,7 @@ class SettingsControl extends BaseComponent {
         return acc;
       }, []);
 
-    let qualityOptions = props.videoTracks
+    const qualityOptions = props.videoTracks
       .sort((a, b) => {
         return a.bandwidth < b.bandwidth ? 1 : -1;
       })

@@ -75,8 +75,6 @@ class DropDown extends Component {
         this.onClose();
         e.stopPropagation();
         break;
-      default:
-        break;
     }
   }
 

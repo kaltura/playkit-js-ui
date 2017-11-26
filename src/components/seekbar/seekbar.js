@@ -185,19 +185,17 @@ class SeekBarControl extends Component {
    * @memberof SeekBarControl
    */
   onSeekbarKeyDown(e: KeyboardEvent): void {
-    let time;
+    let newTime;
     switch (e.keyCode) {
       case KeyMap.LEFT:
-        time = (this.props.player.currentTime - 5) > 0 ? this.props.player.currentTime - 5 : 0;
-        this.props.player.currentTime = time;
-        this.updateSeekBarProgress(time, this.props.duration, true);
+        newTime = this.props.player.currentTime - 5;
+        this.props.player.currentTime = (newTime > 0) ? newTime : 0;
+        this.updateSeekBarProgress(this.props.player.currentTime, this.props.duration, true);
         break;
       case KeyMap.RIGHT:
-        time = (this.props.player.currentTime + 5) > this.props.player.duration ? this.props.player.duration : this.props.player.currentTime + 5;
-        this.props.player.currentTime = time;
-        this.updateSeekBarProgress(time, this.props.duration, true);
-        break;
-      default:
+        newTime = this.props.player.currentTime + 5;
+        this.props.player.currentTime = (newTime > this.props.player.duration) ? this.props.player.duration : newTime;
+        this.updateSeekBarProgress(this.props.player.currentTime, this.props.duration, true);
         break;
     }
   }

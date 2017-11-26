@@ -7852,19 +7852,17 @@ var SeekBarControl = function (_Component) {
   }, {
     key: 'onSeekbarKeyDown',
     value: function onSeekbarKeyDown(e) {
-      var time = void 0;
+      var newTime = void 0;
       switch (e.keyCode) {
         case _keyMap.KeyMap.LEFT:
-          time = this.props.player.currentTime - 5 > 0 ? this.props.player.currentTime - 5 : 0;
-          this.props.player.currentTime = time;
-          this.updateSeekBarProgress(time, this.props.duration, true);
+          newTime = this.props.player.currentTime - 5;
+          this.props.player.currentTime = newTime > 0 ? newTime : 0;
+          this.updateSeekBarProgress(this.props.player.currentTime, this.props.duration, true);
           break;
         case _keyMap.KeyMap.RIGHT:
-          time = this.props.player.currentTime + 5 > this.props.player.duration ? this.props.player.duration : this.props.player.currentTime + 5;
-          this.props.player.currentTime = time;
-          this.updateSeekBarProgress(time, this.props.duration, true);
-          break;
-        default:
+          newTime = this.props.player.currentTime + 5;
+          this.props.player.currentTime = newTime > this.props.player.duration ? this.props.player.duration : newTime;
+          this.updateSeekBarProgress(this.props.player.currentTime, this.props.duration, true);
           break;
       }
     }
@@ -8151,8 +8149,7 @@ var SeekBarControl = function (_Component) {
           },
           onKeyDown: function onKeyDown(e) {
             return _this5.onSeekbarKeyDown(e);
-          },
-          onFocus: this.updateSeekBarProgress(this.props.currentTime, this.props.duration, true) },
+          } },
         (0, _preact.h)(
           'div',
           { className: _seekbar2.default.progressBar },
@@ -8644,8 +8641,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var defaultSpeeds = [0.5, 1, 2, 4];
-
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -8852,7 +8847,7 @@ var SettingsControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
     value: function render(props) {
       var _this2 = this;
 
-      var speedOptions = defaultSpeeds.reduce(function (acc, speed) {
+      var speedOptions = this.player.playbackRates.reduce(function (acc, speed) {
         var speedOption = {
           value: speed,
           label: speed === 1 ? 'Normal' : speed,
@@ -9424,8 +9419,6 @@ var DropDown = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class =
         case _keyMap.KeyMap.ESC:
           this.onClose();
           e.stopPropagation();
-          break;
-        default:
           break;
       }
     }
@@ -12012,7 +12005,6 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var SEEK_JUMP = 5;
 var VOLUME_JUMP = 5;
-var PLAYBACK_RATES = [0.5, 1, 2, 4];
 
 /**
  * KeyboardControl component
@@ -12038,13 +12030,7 @@ var KeyboardControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
     _this._activeTextTrack = null;
     _this.keyboardHandlers = (_this$keyboardHandler = {}, _defineProperty(_this$keyboardHandler, _keyMap.KeyMap.SPACE, function () {
       _this.logger.debug("Keydown SPACE");
-      if (_this.player.paused) {
-        _this.logger.debug("Play");
-        _this.player.play();
-      } else {
-        _this.logger.debug("Pause");
-        _this.player.pause();
-      }
+      _this.player.paused ? _this.player.play() : _this.player.pause();
     }), _defineProperty(_this$keyboardHandler, _keyMap.KeyMap.UP, function () {
       _this.logger.debug("Keydown UP");
       var newVolume = Math.round(_this.player.volume * 100) + VOLUME_JUMP;
@@ -12076,12 +12062,14 @@ var KeyboardControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
       }
     }), _defineProperty(_this$keyboardHandler, _keyMap.KeyMap.LEFT, function () {
       _this.logger.debug("Keydown LEFT");
-      _this.logger.debug('Seek. ' + _this.player.currentTime + ' => ' + (_this.player.currentTime - 5));
-      _this.player.currentTime -= SEEK_JUMP;
+      var newTime = _this.player.currentTime - SEEK_JUMP;
+      _this.logger.debug('Seek. ' + _this.player.currentTime + ' => ' + (newTime > 0 ? newTime : 0));
+      _this.player.currentTime = newTime > 0 ? newTime : 0;
     }), _defineProperty(_this$keyboardHandler, _keyMap.KeyMap.RIGHT, function () {
       _this.logger.debug("Keydown RIGHT");
-      _this.logger.debug('Seek. ' + _this.player.currentTime + ' => ' + (_this.player.currentTime + 5));
-      _this.player.currentTime += SEEK_JUMP;
+      var newTime = _this.player.currentTime + SEEK_JUMP;
+      _this.logger.debug('Seek. ' + _this.player.currentTime + ' => ' + (newTime > _this.player.duration ? _this.player.duration : newTime));
+      _this.player.currentTime = newTime > _this.player.duration ? _this.player.duration : newTime;
     }), _defineProperty(_this$keyboardHandler, _keyMap.KeyMap.HOME, function () {
       _this.logger.debug("Keydown HOME");
       _this.logger.debug('Seek. ' + _this.player.currentTime + ' => 0');
@@ -12097,23 +12085,23 @@ var KeyboardControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
     }), _defineProperty(_this$keyboardHandler, _keyMap.KeyMap.ADD, function (shiftKey) {
       _this.logger.debug("Keydown ADD, shiftKey: " + shiftKey);
       if (shiftKey) {
-        _this.logger.debug('Changing playback rate. ' + _this.player.playbackRate + ' => 1');
-        _this.player.playbackRate = 1;
+        _this.logger.debug('Changing playback rate. ' + _this.player.playbackRate + ' => ' + _this.player.defaultPlaybackRate);
+        _this.player.playbackRate = _this.player.defaultPlaybackRate;
       } else {
         var playbackRate = _this.player.playbackRate;
-        var index = PLAYBACK_RATES.indexOf(playbackRate);
-        if (index < PLAYBACK_RATES.length - 1) {
-          _this.logger.debug('Changing playback rate. ' + playbackRate + ' => ' + PLAYBACK_RATES[index + 1]);
-          _this.player.playbackRate = PLAYBACK_RATES[index + 1];
+        var index = _this.player.playbackRates.indexOf(playbackRate);
+        if (index < _this.player.playbackRates.length - 1) {
+          _this.logger.debug('Changing playback rate. ' + playbackRate + ' => ' + _this.player.playbackRates[index + 1]);
+          _this.player.playbackRate = _this.player.playbackRates[index + 1];
         }
       }
     }), _defineProperty(_this$keyboardHandler, _keyMap.KeyMap.SUBTRACT, function () {
       _this.logger.debug("Keydown SUBTRACT");
       var playbackRate = _this.player.playbackRate;
-      var index = PLAYBACK_RATES.indexOf(playbackRate);
+      var index = _this.player.playbackRates.indexOf(playbackRate);
       if (index > 0) {
-        _this.logger.debug('Changing playback rate. ' + playbackRate + ' => ' + PLAYBACK_RATES[index - 1]);
-        _this.player.playbackRate = PLAYBACK_RATES[index - 1];
+        _this.logger.debug('Changing playback rate. ' + playbackRate + ' => ' + _this.player.playbackRates[index - 1]);
+        _this.player.playbackRate = _this.player.playbackRates[index - 1];
       }
     }), _defineProperty(_this$keyboardHandler, _keyMap.KeyMap.C, function () {
       _this.logger.debug("Keydown C");
@@ -12140,6 +12128,13 @@ var KeyboardControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
     };
     return _this;
   }
+
+  /**
+   * Handlers for keyboard commands
+   * @type { Object } - Maps key number to his handler
+   * @memberof KeyboardControl
+   */
+
 
   return KeyboardControl;
 }(_base2.default)) || _class);

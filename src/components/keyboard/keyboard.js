@@ -16,7 +16,6 @@ const mapStateToProps = state => ({
 
 const SEEK_JUMP: number = 5;
 const VOLUME_JUMP: number = 5;
-const PLAYBACK_RATES: Array<number> = [0.5, 1, 2, 4];
 
 @connect(mapStateToProps, bindActions(actions))
   /**
@@ -46,16 +45,15 @@ class KeyboardControl extends BaseComponent {
     };
   }
 
+  /**
+   * Handlers for keyboard commands
+   * @type { Object } - Maps key number to his handler
+   * @memberof KeyboardControl
+   */
   keyboardHandlers: { [key: number]: Function } = {
     [KeyMap.SPACE]: () => {
       this.logger.debug("Keydown SPACE");
-      if (this.player.paused) {
-        this.logger.debug("Play");
-        this.player.play();
-      } else {
-        this.logger.debug("Pause");
-        this.player.pause();
-      }
+      this.player.paused ? this.player.play() : this.player.pause();
     },
     [KeyMap.UP]: () => {
       this.logger.debug("Keydown UP");
@@ -92,13 +90,15 @@ class KeyboardControl extends BaseComponent {
     },
     [KeyMap.LEFT]: () => {
       this.logger.debug("Keydown LEFT");
-      this.logger.debug(`Seek. ${this.player.currentTime} => ${this.player.currentTime - 5}`);
-      this.player.currentTime -= SEEK_JUMP;
+      const newTime = this.player.currentTime - SEEK_JUMP;
+      this.logger.debug(`Seek. ${this.player.currentTime} => ${(newTime > 0) ? newTime : 0}`);
+      this.player.currentTime = (newTime > 0) ? newTime : 0;
     },
     [KeyMap.RIGHT]: () => {
       this.logger.debug("Keydown RIGHT");
-      this.logger.debug(`Seek. ${this.player.currentTime} => ${this.player.currentTime + 5}`);
-      this.player.currentTime += SEEK_JUMP;
+      const newTime = this.player.currentTime + SEEK_JUMP;
+      this.logger.debug(`Seek. ${this.player.currentTime} => ${(newTime > this.player.duration) ? this.player.duration : newTime}`);
+      this.player.currentTime = (newTime > this.player.duration) ? this.player.duration : newTime;
     },
     [KeyMap.HOME]: () => {
       this.logger.debug("Keydown HOME");
@@ -118,24 +118,24 @@ class KeyboardControl extends BaseComponent {
     [KeyMap.ADD]: (shiftKey) => {
       this.logger.debug("Keydown ADD, shiftKey: " + shiftKey);
       if (shiftKey) {
-        this.logger.debug(`Changing playback rate. ${this.player.playbackRate} => 1`);
-        this.player.playbackRate = 1;
+        this.logger.debug(`Changing playback rate. ${this.player.playbackRate} => ${this.player.defaultPlaybackRate}`);
+        this.player.playbackRate = this.player.defaultPlaybackRate;
       } else {
         const playbackRate = this.player.playbackRate;
-        const index = PLAYBACK_RATES.indexOf(playbackRate);
-        if (index < PLAYBACK_RATES.length - 1) {
-          this.logger.debug(`Changing playback rate. ${playbackRate} => ${PLAYBACK_RATES[index + 1]}`);
-          this.player.playbackRate = PLAYBACK_RATES[index + 1];
+        const index = this.player.playbackRates.indexOf(playbackRate);
+        if (index < this.player.playbackRates.length - 1) {
+          this.logger.debug(`Changing playback rate. ${playbackRate} => ${this.player.playbackRates[index + 1]}`);
+          this.player.playbackRate = this.player.playbackRates[index + 1];
         }
       }
     },
     [KeyMap.SUBTRACT]: () => {
       this.logger.debug("Keydown SUBTRACT");
       const playbackRate = this.player.playbackRate;
-      const index = PLAYBACK_RATES.indexOf(playbackRate);
+      const index = this.player.playbackRates.indexOf(playbackRate);
       if (index > 0) {
-        this.logger.debug(`Changing playback rate. ${playbackRate} => ${PLAYBACK_RATES[index - 1]}`);
-        this.player.playbackRate = PLAYBACK_RATES[index - 1];
+        this.logger.debug(`Changing playback rate. ${playbackRate} => ${this.player.playbackRates[index - 1]}`);
+        this.player.playbackRate = this.player.playbackRates[index - 1];
       }
     },
     [KeyMap.C]: () => {
