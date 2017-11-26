@@ -62,6 +62,7 @@ class SeekBarPlaybackContainer extends BaseComponent {
   render(): React$Element<any> {
     return (
       <SeekBarControl
+        player={this.props.player}
         playerElement={this.props.playerContainer}
         showFramePreview={this.props.showFramePreview}
         showTimeBubble={this.props.showTimeBubble}
@@ -69,7 +70,6 @@ class SeekBarPlaybackContainer extends BaseComponent {
         playerPoster={this.props.poster}
         updateSeekbarDraggingStatus={data => this.props.updateSeekbarDraggingStatus(data)}
         updateCurrentTime={data => this.props.updateCurrentTime(data)}
-
         currentTime={this.props.currentTime}
         duration={this.props.duration}
         isDraggingActive={this.props.isDraggingActive}

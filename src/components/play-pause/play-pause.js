@@ -7,6 +7,7 @@ import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/play-pause';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
+import {KeyMap} from "../../utils/key-map";
 
 /**
  * mapping state to props
@@ -69,22 +70,25 @@ class PlayPauseControl extends BaseComponent {
    */
   render(props: any): React$Element<any> | void {
     const controlButtonClass = this.isPlayingAdOrPlayback() ? [style.controlButton, style.isPlaying].join(' ') : style.controlButton;
-
     return (
       <div className={[style.controlButtonContainer, style.controlPlayPause].join(' ')}>
         <Localizer>
           <button
+            tabIndex="0"
             aria-label={<Text id={this.isPlayingAdOrPlayback() ? 'controls.pause' : 'controls.play'}/>}
             className={controlButtonClass}
             onClick={() => this.togglePlayPause()}
-          >
+            onKeyDown={(e) => {
+              if (e.keyCode === KeyMap.ENTER) {
+                this.togglePlayPause();
+              }
+            }}>
             {props.isEnded && !props.adBreak ? <Icon type={IconType.StartOver}/> : (
               <div>
                 <Icon type={IconType.Play}/>
                 <Icon type={IconType.Pause}/>
               </div>
             )}
-
           </button>
         </Localizer>
       </div>

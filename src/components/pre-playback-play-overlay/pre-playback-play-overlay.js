@@ -6,6 +6,7 @@ import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
+import {KeyMap} from "../../utils/key-map";
 
 /**
  * mapping state to props
@@ -137,9 +138,14 @@ class PrePlaybackPlayOverlay extends BaseComponent {
       <div
         className={rootClass.join(' ')}
         style={rootStyle}
-        onClick={() => this.handleClick()}
-      >
-        <a className={style.prePlaybackPlayButton}>
+        onClick={() => this.handleClick()}>
+        <a className={style.prePlaybackPlayButton}
+           tabIndex="0"
+           onKeyDown={(e) => {
+             if (e.keyCode === KeyMap.ENTER) {
+               this.handleClick();
+             }
+           }}>
           {props.isEnded ? <Icon type={IconType.StartOver}/> : <Icon type={IconType.Play}/>}
         </a>
       </div>

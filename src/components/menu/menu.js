@@ -3,6 +3,7 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {default as Icon, IconType} from '../icon';
 import {connect} from 'preact-redux';
+import {KeyMap} from "../../utils/key-map";
 
 /**
  * mapping state to props
@@ -113,12 +114,33 @@ class Menu extends Component {
    */
   onSelect(option: Object): void {
     this.props.onSelect(option.value);
-
     // Instant select
     this.props.options.filter(t => t.active).forEach(option => {
       option.active = false
     });
     this.props.options.filter(t => t.value === option.value)[0].active = true;
+  }
+
+  /**
+   * on key down handler
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @param {Object} o - option object
+   * @returns {void}
+   * @memberof Menu
+   */
+  onKeyDown(e: KeyboardEvent, o: Object): void {
+    switch (e.keyCode) {
+      case KeyMap.ENTER:
+        this.onSelect(o);
+        break;
+      case KeyMap.ESC:
+        this.props.onClose();
+        e.stopPropagation();
+        break;
+      default:
+        break;
+    }
   }
 
   /**
@@ -142,8 +164,7 @@ class Menu extends Component {
     return (
       <select
         className={this.props.hideSelect ? style.mobileHiddenSelect : ''}
-        onChange={e => this.onSelect(this.props.options[e.target.value])}
-      >
+        onChange={e => this.onSelect(this.props.options[e.target.value])}>
         {this.props.options.map((o, index) => <option selected={this.isSelected(o)} value={index}
                                                       key={index}>{o.label}</option>)}
       </select>
@@ -163,13 +184,14 @@ class Menu extends Component {
       (
         <div
           ref={c => this._menuElement = c}
-          className={[style.dropdownMenu, ...this.state.position].join(' ')}
-        >
+          className={[style.dropdownMenu, ...this.state.position].join(' ')}>
           {
             props.options.map((o, index) => (
-              <div key={index}
+              <div tabIndex=""
+                   key={index}
                    className={this.isSelected(o) ? [style.dropdownMenuItem, style.active].join(' ') : style.dropdownMenuItem}
-                   onClick={() => this.onSelect(o)}>
+                   onClick={() => this.onSelect(o)}
+                   onKeyDown={e => this.onKeyDown(e, o)}>
                 <span>{o.label}</span>
                 <span className={style.menuIconContainer} style={`opacity: ${ this.isSelected(o) ? 1 : 0 }`}><Icon
                   type={IconType.Check}/></span>

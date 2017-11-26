@@ -26,7 +26,6 @@ import UnmuteIndication from '../components/unmute-indication';
  * @returns {React$Element} player ui tree
  */
 export default function playbackUI(props: any): React$Element<any> {
-
   return (
     <div className={style.playbackGuiWWrapper}>
       <KeyboardControl player={props.player} config={props.config}/>
@@ -36,7 +35,9 @@ export default function playbackUI(props: any): React$Element<any> {
         <UnmuteIndication player={props.player}/>
         <OverlayPlay player={props.player}/>
         <BottomBar>
-          <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player}
+          <SeekBarPlaybackContainer showFramePreview
+                                    showTimeBubble
+                                    player={props.player}
                                     playerContainer={props.playerContainer}
                                     config={getComponentConfig(props.config, 'seekbar')}/>
           <div className={style.leftControls}>

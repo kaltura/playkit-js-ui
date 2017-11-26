@@ -11,6 +11,7 @@ import Overlay from '../overlay';
 import DropDown from '../dropdown';
 import Slider from '../slider';
 import {default as Icon, IconType} from '../icon';
+import {KeyMap} from "../../utils/key-map";
 
 /**
  * mapping state to props
@@ -141,33 +142,65 @@ class CVAAOverlay extends BaseComponent {
           Advanced captions settings
         </div>
         <div>
-          <div className={style.sample} onClick={() => this.changeCaptionsStyle(this.captionsStyleDefault)}>Sample
+          <div tabIndex="0"
+               className={style.sample}
+               onClick={() => this.changeCaptionsStyle(this.captionsStyleDefault)}
+               onKeyDown={(e) => {
+                 if (e.keyCode === KeyMap.ENTER) {
+                   this.changeCaptionsStyle(this.captionsStyleDefault);
+                 }
+               }}>Sample
             {isEqual(this.props.player.textStyle, this.captionsStyleDefault) ?
               <div className={style.activeTick}><Icon type={IconType.Check}/></div> : undefined}
           </div>
-          <div className={[style.sample, style.blackBg].join(' ')}
-               onClick={() => this.changeCaptionsStyle(this.captionsStyleBlackBG)}>Sample
+          <div tabIndex="0"
+               className={[style.sample, style.blackBg].join(' ')}
+               onClick={() => this.changeCaptionsStyle(this.captionsStyleBlackBG)}
+               onKeyDown={(e) => {
+                 if (e.keyCode === KeyMap.ENTER) {
+                   this.changeCaptionsStyle(this.captionsStyleBlackBG);
+                 }
+               }}>Sample
             {isEqual(this.props.player.textStyle, this.captionsStyleBlackBG) ?
               <div className={style.activeTick}><Icon type={IconType.Check}/></div> : undefined}
           </div>
-          <div className={[style.sample, style.yellowText].join(' ')}
-               onClick={() => this.changeCaptionsStyle(this.captionsStyleYellow)}>Sample
+          <div tabIndex="0"
+               className={[style.sample, style.yellowText].join(' ')}
+               onClick={() => this.changeCaptionsStyle(this.captionsStyleYellow)}
+               onKeyDown={(e) => {
+                 if (e.keyCode === KeyMap.ENTER) {
+                   this.changeCaptionsStyle(this.captionsStyleYellow);
+                 }
+               }}>Sample
             {isEqual(this.props.player.textStyle, this.captionsStyleYellow) ?
               <div className={style.activeTick}><Icon type={IconType.Check}/></div> : undefined}
           </div>
         </div>
         {!this.isAdvancedStyleApplied() ?
           (
-            <a className={style.buttonSaveCvaa} onClick={() => this.transitionToState(cvaaOverlayState.CustomCaptions)}>Set
-              custom caption</a>
+            <a tabIndex="0"
+               className={style.buttonSaveCvaa}
+               onClick={() => this.transitionToState(cvaaOverlayState.CustomCaptions)}
+               onKeyDown={(e) => {
+                 if (e.keyCode === KeyMap.ENTER) {
+                   this.transitionToState(cvaaOverlayState.CustomCaptions)
+                 }
+               }}>Set custom caption</a>
           ) :
           (
             <div className={style.customCaptionsApplied}>
-              <div className={[style.sample, style.custom].join(' ')} style={this.state.customTextStyle.toCSS()}>
+              <div tabIndex="0"
+                   className={[style.sample, style.custom].join(' ')}
+                   style={this.state.customTextStyle.toCSS()}>
                 <span>Custom captions</span>
                 <div className={style.activeTick}><Icon type={IconType.Check}/></div>
               </div>
-              <a onClick={() => this.transitionToState(cvaaOverlayState.CustomCaptions)}>Edit caption</a>
+              <a tabIndex="0" onClick={() => this.transitionToState(cvaaOverlayState.CustomCaptions)}
+                 onKeyDown={(e) => {
+                   if (e.keyCode === KeyMap.ENTER) {
+                     this.transitionToState(cvaaOverlayState.CustomCaptions)
+                   }
+                 }}>Edit caption</a>
             </div>
           )
         }
@@ -265,7 +298,13 @@ class CVAAOverlay extends BaseComponent {
                     onChange={backgroundOpacity => this.changeCustomStyle({backgroundOpacity: backgroundOpacity / 100})}/>
           </div>
           <div className={style.formGroupRow}>
-            <a onClick={() => this.changeCaptionsStyle(this.state.customTextStyle)}
+            <a tabIndex="0"
+               onClick={() => this.changeCaptionsStyle(this.state.customTextStyle)}
+               onKeyDown={(e) => {
+                 if (e.keyCode === KeyMap.ENTER) {
+                   this.changeCaptionsStyle(this.state.customTextStyle)
+                 }
+               }}
                className={[style.btn, style.btnBranded, style.btnBlock].join(' ')}>Apply</a>
           </div>
 

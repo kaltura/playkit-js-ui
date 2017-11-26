@@ -52,6 +52,24 @@
   }
 }
 
+.player.nav {
+  .control-button,
+  .seek-bar,
+  .dropdown-button,
+  .smart-container-item,
+  .dropdown-menu-item,
+  .pre-playback-play-button,
+  .sample,
+  .custom-captions-applied > a,
+  .form-group-row > a,
+  .button-save-cvaa,
+  .slider {
+    &:focus {
+      outline: 1px solid #00cbff;
+    }
+  }
+}
+
 .player :global([id^=playkit-ads-container]) {
   z-index: 5;
   transition: transform 100ms;
