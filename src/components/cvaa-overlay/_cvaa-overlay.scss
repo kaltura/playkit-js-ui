@@ -64,6 +64,15 @@
     max-width: 100%;
     margin: 0 auto;
 
+    a {
+      color: white;
+      line-height: 36px;
+      text-decoration: none;
+      &:hover, &:focus {
+        text-decoration: underline;
+      }
+    }
+
     .slider {
       float: right;
       width: 100px;
