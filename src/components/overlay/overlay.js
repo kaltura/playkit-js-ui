@@ -48,7 +48,7 @@ class Overlay extends Component {
    * @returns {React$Element}
    * @memberof Overlay
    */
-  renderCloseButton(props: any): React$Element<any> {
+  renderCloseButton(props: any): React$Element<any> | void {
     if (!props.permanent) {
       return (
         <Localizer>

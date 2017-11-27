@@ -35,7 +35,7 @@ class ErrorOverlay extends BaseComponent {
    * @param {Object} obj obj
    * @memberof ErrorObejct
    */
-  constructor(obj: object) {
+  constructor(obj: any) {
     super({name: 'ErrorOverlay', player: obj.player});
   }
 
@@ -43,24 +43,20 @@ class ErrorOverlay extends BaseComponent {
   /**
    * copy input text based on input element.
    * on success, set success internal component state for 2 seconds
-   *
-   * @param {HTMLInputElement} inputElement - start from input element
    * @returns {void}
    * @memberof ShareOverlay
    */
-  copyError() {
-    var selection = window.getSelection();
-    var dataEl = document.querySelector("." + style.errorSession);
-    var range = document.createRange();
-    range.selectNode(dataEl);
-    selection.removeAllRanges();
-    selection.addRange(range);
-
+  copyError(): void {
+    let selection = window.getSelection();
+    let dataEl = document.querySelector("." + style.errorSession);
+    let range = document.createRange();
     try {
+      range.selectNode(dataEl || document.createElement('div'));
+      selection.removeAllRanges();
+      selection.addRange(range);
       document.execCommand('copy');
       this.setState({copySuccess: true});
       setTimeout(() => this.setState({copySuccess: false}), 2000);
-
     } catch (e) {
       this.setState({copySuccess: false});
     }
@@ -98,7 +94,7 @@ class ErrorOverlay extends BaseComponent {
    * @returns {React$Element} - main state element
    * @memberof ErrorOverlay
    */
-  render(): React$Element<any> {
+  render(): React$Element<any> | void {
     let copyUrlClasses = [style.btnCopyUrl].join(' ');
     copyUrlClasses += this.state.copySuccess ? ' ' + style.copied : '';
     if (this.props && this.props.error) {
@@ -106,7 +102,7 @@ class ErrorOverlay extends BaseComponent {
           <div id='overlay-portal'>
           <Overlay open permanent={true} type='error'>
             <div className={style.errorOverlay}>
-              <p className={style.errorText} ref={c => this._moreDataEl = c}/>
+              <p className={style.errorText}/>
               <div className={style.cloud}>
                 <svg width="124" height="110" viewBox="0 0 124 110" xmlns="http://www.w3.org/2000/svg"
                      xmlnsXlink="http://www.w3.org/1999/xlink">
@@ -142,7 +138,7 @@ class ErrorOverlay extends BaseComponent {
                   <div className={style.errorSession}>{defaultSessionText + this.props.sessionId}</div>
                   <a
                     className={copyUrlClasses}
-                    onClick={() => this.copyError(this._moreDataEl)}>
+                    onClick={() => this.copyError()}>
                     <Icon type={IconType.Copy}/>
                     <Icon type={IconType.Check}/>
                   </a>
