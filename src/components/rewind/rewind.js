@@ -4,6 +4,7 @@ import {h} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
+import {KeyMap} from "../../utils/key-map";
 
 /**
  * Default rewind step
@@ -37,12 +38,10 @@ class RewindControl extends BaseComponent {
    * @memberof RewindControl
    */
   onClick(): void {
-    let step = this.props.step || DEFAULT_STEP;
-
+    const step = this.props.step || DEFAULT_STEP;
     if (this.player.currentTime - step < 0) {
       this.player.currentTime = 0;
-    }
-    else {
+    } else {
       this.player.currentTime = this.player.currentTime - step;
     }
   }
@@ -59,10 +58,15 @@ class RewindControl extends BaseComponent {
       <div className={[style.controlButtonContainer, style.controlRewind].join(' ')}>
         <Localizer>
           <button
+            tabIndex="0"
             aria-label={<Text id={'controls.rewind'}/>}
             className={style.controlButton}
             onClick={() => this.onClick()}
-          >
+            onKeyDown={(e) => {
+              if (e.keyCode === KeyMap.ENTER) {
+                this.onClick();
+              }
+            }}>
             <Icon type={(!props.step || props.step === 10) ? IconType.Rewind10 : IconType.Rewind}/>
           </button>
         </Localizer>

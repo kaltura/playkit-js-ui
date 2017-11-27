@@ -2,6 +2,7 @@
 import style from './_seekbar.scss';
 import {h, Component} from 'preact';
 import {toHHMMSS} from '../../utils/time-format';
+import {KeyMap} from "../../utils/key-map";
 
 /**
  * SeekBarControl component
@@ -26,11 +27,11 @@ import {toHHMMSS} from '../../utils/time-format';
  */
 class SeekBarControl extends Component {
   state: Object;
+  framePreviewImg: string;
   _seekBarElement: HTMLElement;
   _framePreviewElement: HTMLElement;
   _timeBubbleElement: HTMLElement;
   _movex: number;
-  framePreviewImg: string;
 
   /**
    * before component mounted, set initial state
@@ -40,7 +41,6 @@ class SeekBarControl extends Component {
    */
   componentWillMount() {
     this.setState({virtualTime: 0});
-
   }
 
   /**
@@ -67,8 +67,9 @@ class SeekBarControl extends Component {
    * @memberof SeekBarControl
    */
   onSeekbarMouseDown(e: Event): void {
-    if (this.props.isMobile) return;
-
+    if (this.props.isMobile) {
+      return;
+    }
     this.props.updateSeekbarDraggingStatus(true);
     if (this.props.isDraggingActive) {
       let time = this.getTime(e);
@@ -84,8 +85,9 @@ class SeekBarControl extends Component {
    * @memberof SeekBarControl
    */
   onTap(e: Event): void {
-    if (!this.props.isMobile) return;
-
+    if (!this.props.isMobile) {
+      return;
+    }
     let time = this.getTime(e);
     this.props.changeCurrentTime(time);
     this.updateSeekBarProgress(time, this.props.duration);
@@ -100,8 +102,9 @@ class SeekBarControl extends Component {
    * @memberof SeekBarControl
    */
   onPlayerMouseUp(e: Event): void {
-    if (this.props.isMobile) return;
-
+    if (this.props.isMobile) {
+      return;
+    }
     if (this.props.isDraggingActive) {
       let time = this.getTime(e);
       this.props.changeCurrentTime(time);
@@ -118,8 +121,9 @@ class SeekBarControl extends Component {
    * @memberof SeekBarControl
    */
   onPlayerMouseMove(e: Event): void {
-    if (this.props.isMobile) return;
-
+    if (this.props.isMobile) {
+      return;
+    }
     if (this.props.isDraggingActive) {
       let time = this.getTime(e);
       this.updateSeekBarProgress(time, this.props.duration);
@@ -135,8 +139,9 @@ class SeekBarControl extends Component {
    * @memberof SeekBarControl
    */
   onSeekbarMouseMove(e: Event): void {
-    if (this.props.isMobile) return;
-
+    if (this.props.isMobile) {
+      return;
+    }
     let time = this.getTime(e);
     this.updateSeekBarProgress(time, this.props.duration, true);
   }
@@ -167,9 +172,31 @@ class SeekBarControl extends Component {
     let time = this.getTime(e);
     this._movex = time;
     this.updateSeekBarProgress(time, this.props.duration, true);
-
     if (this.props.isDraggingActive) {
       this.updateSeekBarProgress(time, this.props.duration);
+    }
+  }
+
+  /**
+   * seekbar key down handler
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @returns {void}
+   * @memberof SeekBarControl
+   */
+  onSeekbarKeyDown(e: KeyboardEvent): void {
+    let newTime;
+    switch (e.keyCode) {
+      case KeyMap.LEFT:
+        newTime = this.props.player.currentTime - 5;
+        this.props.player.currentTime = (newTime > 0) ? newTime : 0;
+        this.updateSeekBarProgress(this.props.player.currentTime, this.props.duration, true);
+        break;
+      case KeyMap.RIGHT:
+        newTime = this.props.player.currentTime + 5;
+        this.props.player.currentTime = (newTime > this.props.player.duration) ? this.props.player.duration : newTime;
+        this.updateSeekBarProgress(this.props.player.currentTime, this.props.duration, true);
+        break;
     }
   }
 
@@ -200,8 +227,7 @@ class SeekBarControl extends Component {
   updateSeekBarProgress(currentTime: number, duration: number, virtual: boolean = false): void {
     if (virtual) {
       this.setState({virtualTime: currentTime});
-    }
-    else {
+    } else {
       this.props.updateCurrentTime(currentTime);
     }
   }
@@ -376,6 +402,7 @@ class SeekBarControl extends Component {
 
     return (
       <div
+        tabIndex="0"
         className={seekbarStyleClass.join(' ')}
         ref={c => this._seekBarElement = c}
         role='slider'
@@ -390,12 +417,11 @@ class SeekBarControl extends Component {
         onTouchStart={e => this.onSeekbarTouchStart(e)}
         onTouchMove={e => this.onSeekbarTouchMove(e)}
         onTouchEnd={() => this.onSeekbarTouchEnd()}
-      >
+        onKeyDown={(e) => this.onSeekbarKeyDown(e)}>
         <div className={style.progressBar}>
           <div className={style.progress} style={{width: progressWidth}}>
             {
-              props.adBreak ? undefined :
-                <a className={style.scrubber}/>
+              props.adBreak ? undefined : <a className={style.scrubber}/>
             }
           </div>
           <div className={style.virtualProgress} style={{width: virtualProgressWidth}}/>

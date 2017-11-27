@@ -6,6 +6,7 @@ import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
 import Portal from 'preact-portal';
 import Overlay from '../overlay';
+import {KeyMap} from "../../utils/key-map";
 
 /**
  * mapping state to props
@@ -71,7 +72,13 @@ class SmartContainer extends Component {
         </Overlay>
       </Portal>
     ) : (
-      <div className={[style.smartContainer, style.top, style.left].join(' ')}>
+      <div tabIndex="-1"
+           className={[style.smartContainer, style.top, style.left].join(' ')}
+           onKeyDown={(e) => {
+             if (e.keyCode === KeyMap.ESC) {
+               props.onClose();
+             }
+           }}>
         {props.children}
       </div>
     )

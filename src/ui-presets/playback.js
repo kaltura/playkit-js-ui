@@ -27,7 +27,6 @@ import ErrorOverlay from '../components/error-overlay';
  * @returns {React$Element} player ui tree
  */
 export default function playbackUI(props: any): React$Element<any> {
-
   return (
     <div className={style.playbackGuiWWrapper}>
       <ErrorOverlay/>
@@ -38,7 +37,9 @@ export default function playbackUI(props: any): React$Element<any> {
         <UnmuteIndication player={props.player}/>
         <OverlayPlay player={props.player}/>
         <BottomBar>
-          <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player}
+          <SeekBarPlaybackContainer showFramePreview
+                                    showTimeBubble
+                                    player={props.player}
                                     playerContainer={props.playerContainer}
                                     config={getComponentConfig(props.config, 'seekbar')}/>
           <div className={style.leftControls}>

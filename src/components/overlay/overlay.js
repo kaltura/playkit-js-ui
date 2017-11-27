@@ -6,6 +6,7 @@ import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
 import {default as Icon, IconType} from '../icon';
+import {KeyMap} from "../../utils/key-map";
 
 @connect(null, bindActions(actions))
   /**
@@ -72,7 +73,14 @@ class Overlay extends Component {
     if (props.open) overlayClass.push(style.active);
 
     return (
-      <div className={overlayClass.join(' ')} role='dialog'>
+      <div
+        tabIndex="-1"
+        className={overlayClass.join(' ')} role='dialog'
+        onKeyDown={(e) => {
+          if (e.keyCode === KeyMap.ESC) {
+            props.onClose();
+          }
+        }}>
         <div className={style.overlayContents}>
           {props.children}
         </div>

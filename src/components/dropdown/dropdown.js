@@ -4,6 +4,7 @@ import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 import Menu from '../menu';
 import {default as Icon, IconType} from '../icon';
+import {KeyMap} from "../../utils/key-map";
 
 /**
  * mapping state to props
@@ -59,6 +60,25 @@ class DropDown extends Component {
   }
 
   /**
+   * on key down handler - on enter open toggle drop down menu
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @returns {void}
+   * @memberof DropDown
+   */
+  onKeyDown(e: KeyboardEvent): void {
+    switch (e.keyCode) {
+      case KeyMap.ENTER:
+        this.setState({dropMenuActive: !this.state.dropMenuActive});
+        break;
+      case KeyMap.ESC:
+        this.onClose();
+        e.stopPropagation();
+        break;
+    }
+  }
+
+  /**
    * listener function from Menu component to close the dropdown menu.
    * set the internal state of dropMenuActive to false.
    *
@@ -111,8 +131,11 @@ class DropDown extends Component {
     return props.isMobile ? this.renderNativeSelect() :
       (
         <div className={this.state.dropMenuActive ? [style.dropdown, style.active].join(' ') : style.dropdown}>
-          <div className={style.dropdownButton}
-               onClick={() => this.setState({dropMenuActive: !this.state.dropMenuActive})}>
+          <div
+            tabIndex="0"
+            className={style.dropdownButton}
+            onClick={() => this.setState({dropMenuActive: !this.state.dropMenuActive})}
+            onKeyDown={e => this.onKeyDown(e)}>
             <span>{this.getActiveOptionLabel()}</span>
             <Icon type={IconType.ArrowDown}/>
           </div>
@@ -121,8 +144,7 @@ class DropDown extends Component {
               <Menu
                 options={props.options}
                 onSelect={(o) => this.onSelect(o)}
-                onClose={() => this.onClose()}
-              />
+                onClose={() => this.onClose()}/>
           }
         </div>
       )
