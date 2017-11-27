@@ -42,6 +42,24 @@ class Overlay extends Component {
   }
 
   /**
+   * closeButton
+   *
+   * @returns {React$Element}
+   * @memberof Overlay
+   */
+  renderCloseButton(props: any): React$Element<any> {
+    if (!props.permanent) {
+      return (
+        <Localizer>
+          <a onClick={() => props.onClose()} aria-label={<Text id='core.close'/>} className={style.closeOverlay}><Icon
+            type={IconType.Close}/></a>
+        </Localizer>)
+    } else {
+      return undefined;
+    }
+  }
+
+  /**
    * render component
    *
    * @param {*} props - component props
@@ -58,10 +76,7 @@ class Overlay extends Component {
         <div className={style.overlayContents}>
           {props.children}
         </div>
-        <Localizer>
-          <a onClick={() => props.onClose()} aria-label={<Text id='core.close'/>} className={style.closeOverlay}><Icon
-            type={IconType.Close}/></a>
-        </Localizer>
+        {this.renderCloseButton(props)}
       </div>
     )
   }

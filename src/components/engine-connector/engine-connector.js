@@ -158,8 +158,8 @@ class EngineConnector extends BaseComponent {
     });
 
     this.player.addEventListener(this.player.Event.ERROR, e => {
-      if (e.payload.kv3Err){
-        this.props.updateError(e.payload.kv3Err);
+      if (e.payload){
+        this.props.updateError(e.payload);
       }
     })
   }

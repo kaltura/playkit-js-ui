@@ -65,6 +65,16 @@ class UIManager {
   }
 
   /**
+   * Sets a session Id
+   * @param {string} sessionId - session id string
+   * @returns {void}
+   * @memberOf UIManager
+   */
+  setSessionId(sessionId: string): void {
+    this.store.dispatch(actions.setSessionId(sessionId));
+  }
+
+  /**
    * sets the player and ui config in the store
    *
    * @param {Object} config - new config object
