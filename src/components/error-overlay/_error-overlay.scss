@@ -2,7 +2,13 @@
 
 .overlay{
   background-color: $grayscale1;
+
+  .overlay-contents{
+    padding-top:0px;
+  }
 }
+
+
 
 .error-overlay {
   position: relative;
@@ -11,17 +17,18 @@
   align-items: center;
   flex-direction: column;
   height: 100%;
+  font-family: $font-family;
 
     .headline{
       color: $white;
       font-size: $headline-font-size;
-      margin: 20px 0 10px 0;
+      margin: 26px 0 1px 0;
     }
 
     .error-session{
       font-size:$subheadline-font-size;
       color: $grayscale4;
-      margin-bottom: 20px;
+      margin-bottom: 40px;
       user-select: text;
       -webkit-user-select: text;
       -moz-user-select: text;

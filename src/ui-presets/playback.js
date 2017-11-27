@@ -17,7 +17,6 @@ import BottomBar from '../components/bottom-bar';
 import OverlayPortal from '../components/overlay-portal';
 import KeyboardControl from '../components/keyboard';
 import UnmuteIndication from '../components/unmute-indication';
-import ErrorOverlay from '../components/error-overlay';
 
 /**
  * Playback ui interface
@@ -29,7 +28,6 @@ import ErrorOverlay from '../components/error-overlay';
 export default function playbackUI(props: any): React$Element<any> {
   return (
     <div className={style.playbackGuiWWrapper}>
-      <ErrorOverlay/>
       <KeyboardControl player={props.player} config={props.config}/>
       <Loading player={props.player}/>
       <div className={style.playerGui} id='player-gui'>

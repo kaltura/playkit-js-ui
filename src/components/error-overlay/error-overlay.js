@@ -49,7 +49,6 @@ class ErrorOverlay extends BaseComponent {
    * @memberof ShareOverlay
    */
   copyError() {
-
     var selection = window.getSelection();
     var dataEl = document.querySelector("." + style.errorSession);
     var range = document.createRange();
@@ -59,13 +58,37 @@ class ErrorOverlay extends BaseComponent {
 
     try {
       document.execCommand('copy');
-
       this.setState({copySuccess: true});
       setTimeout(() => this.setState({copySuccess: false}), 2000);
 
     } catch (e) {
       this.setState({copySuccess: false});
     }
+  }
+
+  /**
+   * play on click
+   *
+   * @returns {void}
+   * @memberof PrePlaybackPlayOverlay
+   */
+  handleClick(): void {
+    // TODO: The promise handling should be in the play API of the player.
+    new Promise((resolve, reject) => {
+      try {
+        if (this.player.config.playback.preload === "auto" && !this.player.config.plugins.ima) {
+          this.player.ready().then(resolve);
+        } else {
+          resolve();
+        }
+      } catch (e) {
+        reject(e);
+      }
+    }).then(() => {
+      this.player.play();
+    }).catch((e) => {
+      this.logger.error(e.message);
+    });
   }
 
 
@@ -80,7 +103,7 @@ class ErrorOverlay extends BaseComponent {
     copyUrlClasses += this.state.copySuccess ? ' ' + style.copied : '';
     if (this.props && this.props.error) {
       return (
-        <Portal into="#overlay-portal">
+          <div id='overlay-portal'>
           <Overlay open permanent={true} type='error'>
             <div className={style.errorOverlay}>
               <p className={style.errorText} ref={c => this._moreDataEl = c}/>
@@ -126,13 +149,12 @@ class ErrorOverlay extends BaseComponent {
                 </div>
               </div>
 
-              <div className={style.controlButtonContainer}>
+              <div className={style.controlButtonContainer} onClick={() => this.handleClick()}>
                 <button className={[style.controlButton, style.retryBtn].join(' ')}>{buttonText}</button>
-
               </div>
             </div>
           </Overlay>
-        </Portal>
+          </div>
       )
     } else {
       return undefined;

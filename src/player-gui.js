@@ -12,7 +12,8 @@ const mapStateToProps = state => ({
     shell: state.shell,
     engine: {
       adBreak: state.engine.adBreak,
-      isLive: state.engine.isLive
+      isLive: state.engine.isLive,
+      error: state.engine.error
     }
   },
   config: state.config
