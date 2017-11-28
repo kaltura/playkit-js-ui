@@ -5,6 +5,7 @@ import {connect} from 'preact-redux';
 import {default as Icon, IconType} from '../icon';
 import BaseComponent from '../base';
 import Overlay from '../overlay';
+import {Text} from 'preact-i18n';
 
 /**
  * mapping state to props
@@ -14,10 +15,6 @@ import Overlay from '../overlay';
 const mapStateToProps = state => ({
   error: state.engine.error
 });
-
-const defaultError = "Something went wrong";
-const defaultSessionText = "Session ID ";
-const buttonText = "Retry";
 
 @connect(mapStateToProps)
   /**
@@ -126,10 +123,10 @@ class ErrorOverlay extends BaseComponent {
                   </g>
                 </svg>
               </div>
-              <div className={style.headline}>{this.props.errorHead ? this.props.errorHead : defaultError}</div>
+              <div className={style.headline}>{this.props.errorHead ? this.props.errorHead : <Text id={'error.default_error'}/>}</div>
               <div className={style.linkOptionsContainer}>
                 <div className={style.copyUrlRow}>
-                  <div className={style.errorSession}>{defaultSessionText + this.player.config.session.id}</div>
+                  <div className={style.errorSession}><Text id='error.default_session_text'/>{this.player.config.session.id}</div>
                   <a
                     className={copyUrlClasses}
                     onClick={() => this.copyError()}>
@@ -140,7 +137,7 @@ class ErrorOverlay extends BaseComponent {
               </div>
 
               <div className={style.controlButtonContainer} onClick={() => this.handleClick()}>
-                <button className={[style.controlButton, style.retryBtn].join(' ')}>{buttonText}</button>
+                <button className={[style.controlButton, style.retryBtn].join(' ')}><Text id='core.retry'/></button>
               </div>
             </div>
           </Overlay>

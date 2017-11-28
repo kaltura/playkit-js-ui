@@ -2,7 +2,8 @@
   "core": {
     "disable": "Disable",
     "auto": "Auto",
-    "close": "Close"
+    "close": "Close",
+    "retry": "Retry"
   },
   "controls": {
     "play": "Play",
@@ -25,5 +26,9 @@
   "share": {
     "share_title": "Share",
     "link_options": "Link options"
+  },
+  "error": {
+    "default_error": "Something went wrong",
+    "default_session_text": "Session ID "
   }
 }
