@@ -29,6 +29,7 @@ class Loading extends BaseComponent {
   isPreloading: boolean;
   autoplay: boolean;
   mobileAutoplay: boolean;
+
   /**
    * Creates an instance of Loading.
    * @param {Object} obj obj
@@ -89,7 +90,7 @@ class Loading extends BaseComponent {
     }
 
     this.player.addEventListener(this.player.Event.PLAYER_STATE_CHANGED, e => {
-      if (!this.state.afterFirstPlay){
+      if (!this.state.afterFirstPlay) {
         return;
       }
       if (e.payload.newState.type === 'idle' || e.payload.newState.type === 'playing' || e.payload.newState.type === 'paused') {
