@@ -21,6 +21,7 @@ const DEFAULT_STEP = 10;
  * @extends {BaseComponent}
  */
 class RewindControl extends BaseComponent {
+  _classList: Array<string> = [style.controlButtonContainer, style.controlRewind];
 
   /**
    * Creates an instance of RewindControl.
@@ -44,6 +45,19 @@ class RewindControl extends BaseComponent {
     } else {
       this.player.currentTime = this.player.currentTime - step;
     }
+    this.rotate();
+  }
+
+  /**
+   * toggles the rotate class to activate the rotate animation
+   *
+   * @returns {void}
+   * @memberof RewindControl
+   */
+  rotate(): void {
+    this._classList = this._classList.filter(s => s !== style.rotate);
+    this.forceUpdate();
+    this._classList.push(style.rotate);
   }
 
   /**
@@ -55,7 +69,7 @@ class RewindControl extends BaseComponent {
    */
   render(props: any): React$Element<any> | void {
     return (
-      <div className={[style.controlButtonContainer, style.controlRewind].join(' ')}>
+      <div className={this._classList.join(' ')}>
         <Localizer>
           <button
             tabIndex="0"
