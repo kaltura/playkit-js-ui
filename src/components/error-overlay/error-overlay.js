@@ -12,8 +12,7 @@ import Overlay from '../overlay';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  error: state.engine.error,
-  sessionId: state.config.sessionId
+  error: state.engine.error
 });
 
 const defaultError = "Something went wrong";
@@ -28,7 +27,6 @@ const buttonText = "Retry";
    * @extends {BaseComponent}
    */
 class ErrorOverlay extends BaseComponent {
-
   /**
    * Creates an instance of ErrorObejct.
    * @param {Object} obj obj
@@ -37,7 +35,6 @@ class ErrorOverlay extends BaseComponent {
   constructor(obj: any) {
     super({name: 'ErrorOverlay', player: obj.player});
   }
-
 
   /**
    * copy input text based on input element.
@@ -84,7 +81,6 @@ class ErrorOverlay extends BaseComponent {
       this.logger.error(e.message);
     });
   }
-
 
   /**
    * render main state
@@ -133,7 +129,7 @@ class ErrorOverlay extends BaseComponent {
               <div className={style.headline}>{this.props.errorHead ? this.props.errorHead : defaultError}</div>
               <div className={style.linkOptionsContainer}>
                 <div className={style.copyUrlRow}>
-                  <div className={style.errorSession}>{defaultSessionText + this.props.sessionId}</div>
+                  <div className={style.errorSession}>{defaultSessionText + this.player.config.session.id}</div>
                   <a
                     className={copyUrlClasses}
                     onClick={() => this.copyError()}>

@@ -5,8 +5,7 @@ import {Utils} from 'playkit-js';
 export const types = {
   UPDATE: 'config/UPDATE',
   UPDATE_COMPONENT: 'config/UPDATE_COMPONENT',
-  RESET: 'config/RESET',
-  SET_SESSION_ID: 'config/SET_SESSION_ID'
+  RESET: 'config/RESET'
 }
 
 export const initialState = {
@@ -33,12 +32,6 @@ export default (state: Object = initialState, action: Object) => {
         }
       }
 
-    case types.SET_SESSION_ID:
-      return{
-        ...state,
-        sessionId: action.sessionId
-      }
-
     default:
       return state;
   }
@@ -46,6 +39,5 @@ export default (state: Object = initialState, action: Object) => {
 
 export const actions = {
   updateConfig: (config: Object) => ({ type: types.UPDATE, config }),
-  updateComponentConfig: (componentAlias: string, config: Object) => ({ type: types.UPDATE_COMPONENT, componentAlias, config }),
-  setSessionId: (sessionId: string) => ({type: types.SET_SESSION_ID, sessionId})
+  updateComponentConfig: (componentAlias: string, config: Object) => ({ type: types.UPDATE_COMPONENT, componentAlias, config })
 }
