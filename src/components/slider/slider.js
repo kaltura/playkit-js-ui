@@ -79,14 +79,20 @@ class Slider extends Component {
     this._sliderElementOffsetLeft = this._sliderElement.getBoundingClientRect().left;
     let newValue = this.props.value;
     switch (e.keyCode) {
-      case KeyMap.RIGHT:
+      case KeyMap.RIGHT: {
         newValue += KEYBOARD_DRAG_STEP;
+        if (newValue > this.state.max) {
+          newValue = this.state.max;
+        }
         break;
-      case KeyMap.LEFT:
+      }
+      case KeyMap.LEFT: {
         newValue -= KEYBOARD_DRAG_STEP;
+        if (newValue < this.state.min) {
+          newValue = this.state.min;
+        }
         break;
-      default:
-        break;
+      }
     }
     this.setState({
       value: newValue,
