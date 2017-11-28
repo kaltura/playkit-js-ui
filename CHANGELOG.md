@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.15.0"></a>
+# [0.15.0](https://github.com/kaltura/playkit-js-ui/compare/v0.14.0...v0.15.0) (2017-11-28)
+
+
+### Bug Fixes
+
+* **FEC-7368:** fix the pause of the spinner when loading an ad ([#133](https://github.com/kaltura/playkit-js-ui/issues/133)) ([a5ea06a](https://github.com/kaltura/playkit-js-ui/commit/a5ea06a))
+* **FEC-7538:** font/background opacity - possible to move scrubber outside right bar border by press on "arrow" key ([#140](https://github.com/kaltura/playkit-js-ui/issues/140)) ([8e6aa58](https://github.com/kaltura/playkit-js-ui/commit/8e6aa58))
+* disable keyboard seek on ad break ([#143](https://github.com/kaltura/playkit-js-ui/issues/143)) ([899e69c](https://github.com/kaltura/playkit-js-ui/commit/899e69c))
+* **FEC-7540:** head-play/scroller seek is not working properly in regular-default mode in PC ([#141](https://github.com/kaltura/playkit-js-ui/issues/141)) ([cc6a3e9](https://github.com/kaltura/playkit-js-ui/commit/cc6a3e9))
+* **FEC-7555:** add live-tag to the tabs order ([#142](https://github.com/kaltura/playkit-js-ui/issues/142)) ([7f06d05](https://github.com/kaltura/playkit-js-ui/commit/7f06d05))
+
+
+### Features
+
+* **shell:** enable configure the shell to force ui like on touch device ([#139](https://github.com/kaltura/playkit-js-ui/issues/139)) ([902c351](https://github.com/kaltura/playkit-js-ui/commit/902c351))
+* animate rewind button ([#145](https://github.com/kaltura/playkit-js-ui/issues/145)) ([de2b222](https://github.com/kaltura/playkit-js-ui/commit/de2b222))
+
+
+
 <a name="0.14.0"></a>
 # [0.14.0](https://github.com/kaltura/playkit-js-ui/compare/v0.13.0...v0.14.0) (2017-11-26)
 
