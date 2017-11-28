@@ -44,8 +44,8 @@ class Overlay extends Component {
 
   /**
    * closeButton
-   *
-   * @returns {React$Element}
+   * @param {any} props - props
+   * @returns {React$Element | void} close button element
    * @memberof Overlay
    */
   renderCloseButton(props: any): React$Element<any> | void {

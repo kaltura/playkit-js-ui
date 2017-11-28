@@ -5,7 +5,6 @@ import {connect} from 'preact-redux';
 import {default as Icon, IconType} from '../icon';
 import BaseComponent from '../base';
 import Overlay from '../overlay';
-import Portal from 'preact-portal';
 
 /**
  * mapping state to props
@@ -69,7 +68,6 @@ class ErrorOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   handleClick(): void {
-    // TODO: The promise handling should be in the play API of the player.
     new Promise((resolve, reject) => {
       try {
         if (this.player.config.playback.preload === "auto" && !this.player.config.plugins.ima) {
