@@ -89,10 +89,13 @@ class Loading extends BaseComponent {
     }
 
     this.player.addEventListener(this.player.Event.PLAYER_STATE_CHANGED, e => {
-      if ((e.payload.newState.type === 'idle' || e.payload.newState.type === 'playing' || e.payload.newState.type === 'paused') && this.state.afterFirstPlay) {
+      if (!this.state.afterFirstPlay){
+        return;
+      }
+      if (e.payload.newState.type === 'idle' || e.payload.newState.type === 'playing' || e.payload.newState.type === 'paused') {
         this.props.updateLoadingSpinnerState(false);
       }
-      else if (this.state.afterFirstPlay) {
+      else {
         this.props.updateLoadingSpinnerState(true);
       }
     });
