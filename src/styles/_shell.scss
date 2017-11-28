@@ -63,7 +63,8 @@
   .custom-captions-applied > a,
   .form-group-row > a,
   .button-save-cvaa,
-  .slider {
+  .slider,
+  .live-tag {
     &:focus {
       outline: 1px solid #00cbff;
     }

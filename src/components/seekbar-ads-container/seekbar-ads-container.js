@@ -47,6 +47,7 @@ class SeekBarAdsContainer extends BaseComponent {
   render(props: any): React$Element<any> {
     return (
       <SeekBarControl
+        player={this.props.player}
         playerElement={this.props.playerContainer}
         changeCurrentTime={time => {  // eslint-disable-line no-unused-vars
         }}
@@ -62,7 +63,6 @@ class SeekBarAdsContainer extends BaseComponent {
       />
     )
   }
-
 }
 
 export default SeekBarAdsContainer;
