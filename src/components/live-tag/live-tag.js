@@ -3,6 +3,7 @@ import style from './_live-tag.scss';
 import {h} from 'preact';
 import {connect} from 'preact-redux';
 import BaseComponent from '../base';
+import {KeyMap} from "../../utils/key-map";
 
 /**
  * mapping state to props
@@ -73,7 +74,14 @@ class LiveTag extends BaseComponent {
     if (props.isDvr && !this.isOnLiveEdge()) tagStyleClass.push(style.nonLivePlayhead);
 
     return (
-      <div className={tagStyleClass.join(' ')} onClick={() => this.onClick()}>Live</div>
+      <div tabIndex="0"
+           className={tagStyleClass.join(' ')}
+           onClick={() => this.onClick()}
+           onKeyDown={(e) => {
+             if (e.keyCode === KeyMap.ENTER) {
+               this.onClick();
+             }
+           }}>Live</div>
     )
   }
 }
