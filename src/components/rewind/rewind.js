@@ -21,7 +21,6 @@ const DEFAULT_STEP = 10;
  * @extends {BaseComponent}
  */
 class RewindControl extends BaseComponent {
-  _classList: Array<string> = [style.controlButton];
 
   /**
    * Creates an instance of RewindControl.
@@ -39,25 +38,25 @@ class RewindControl extends BaseComponent {
    * @memberof RewindControl
    */
   onClick(): void {
+    this.animate();
     const step = this.props.step || DEFAULT_STEP;
     if (this.player.currentTime - step < 0) {
       this.player.currentTime = 0;
     } else {
       this.player.currentTime = this.player.currentTime - step;
     }
-    this.rotate();
   }
 
   /**
-   * toggles the rotate class to activate the rotate animation
+   * toggles the animation state to activate the rotate animation
    *
    * @returns {void}
    * @memberof RewindControl
    */
-  rotate(): void {
-    this._classList = this._classList.filter(s => s !== style.rotate);
+  animate(): void {
+    this.setState({animation: false});
     this.forceUpdate();
-    this._classList.push(style.rotate);
+    this.setState({animation: true});
   }
 
   /**
@@ -74,7 +73,7 @@ class RewindControl extends BaseComponent {
           <button
             tabIndex="0"
             aria-label={<Text id={'controls.rewind'}/>}
-            className={this._classList.join(' ')}
+            className={`${style.controlButton} ${this.state.animation ? style.rotate : ''}`}
             onClick={() => this.onClick()}
             onKeyDown={(e) => {
               if (e.keyCode === KeyMap.ENTER) {
