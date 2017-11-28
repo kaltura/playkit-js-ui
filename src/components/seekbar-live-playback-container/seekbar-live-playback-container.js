@@ -62,16 +62,18 @@ class SeekBarLivePlaybackContainer extends BaseComponent {
    * @memberof SeekBarLivePlaybackContainer
    */
   render(props: any) {
-    if (!props.isDvr) return undefined;
+    if (!props.isDvr) {
+      return undefined;
+    }
     return (
       <SeekBarControl
+        player={this.props.player}
         playerElement={this.props.playerContainer}
         showTimeBubble={this.props.showTimeBubble}
         changeCurrentTime={time => this.player.currentTime = time}
         playerPoster={this.props.poster}
         updateSeekbarDraggingStatus={data => this.props.updateSeekbarDraggingStatus(data)}
         updateCurrentTime={data => this.props.updateCurrentTime(data)}
-
         isDvr={this.props.isDvr}
         currentTime={this.props.currentTime}
         duration={this.props.duration}
