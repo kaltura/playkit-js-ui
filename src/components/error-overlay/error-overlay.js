@@ -41,10 +41,9 @@ class ErrorOverlay extends BaseComponent {
    */
   copyError(): void {
     let selection = window.getSelection();
-    let dataEl = document.querySelector("." + style.errorSession);
     let range = document.createRange();
     try {
-      range.selectNode(dataEl || document.createElement('div'));
+      range.selectNode(this.sessionEl);
       selection.removeAllRanges();
       selection.addRange(range);
       document.execCommand('copy');
@@ -126,7 +125,7 @@ class ErrorOverlay extends BaseComponent {
               <div className={style.headline}>{this.props.errorHead ? this.props.errorHead : <Text id={'error.default_error'}/>}</div>
               <div className={style.linkOptionsContainer}>
                 <div className={style.copyUrlRow}>
-                  <div className={style.errorSession}><Text id='error.default_session_text'/>{this.player.config.session.id}</div>
+                  <div ref={ (el) => {this.sessionEl = el }} className={style.errorSession}><Text id='error.default_session_text'/>{this.player.config.session.id}</div>
                   <a
                     className={copyUrlClasses}
                     onClick={() => this.copyError()}>
