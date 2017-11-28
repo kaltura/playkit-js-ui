@@ -115,7 +115,6 @@ class Loading extends BaseComponent {
 
     this.player.addEventListener(this.player.Event.FIRST_PLAY, () => {
       this.setState({afterFirstPlay: true});
-      this.props.updateLoadingSpinnerState(false);
     });
 
     this.player.addEventListener(this.player.Event.CHANGE_SOURCE_STARTED, () => {
