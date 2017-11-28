@@ -11,6 +11,7 @@ import SmartContainerItem from '../smart-container/smart-container-item';
 import {default as Icon, IconType} from '../icon';
 import CVAAOverlay from '../cvaa-overlay';
 import Portal from 'preact-portal';
+import {KeyMap} from "../../utils/key-map";
 
 /**
  * mapping state to props
@@ -152,14 +153,13 @@ class LanguageControl extends BaseComponent {
     return (
       <div
         ref={c => this._controlLanguageElement = c}
-        className={[style.controlButtonContainer, style.controlLanguage].join(' ')}
-      >
+        className={[style.controlButtonContainer, style.controlLanguage].join(' ')}>
         <Localizer>
           <button
+            tabIndex="0"
             aria-label={<Text id='controls.language'/>}
             className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
-            onClick={() => this.onControlButtonClick()}
-          >
+            onClick={() => this.onControlButtonClick()}>
             <Icon type={IconType.Language}/>
           </button>
         </Localizer>
@@ -186,7 +186,13 @@ class LanguageControl extends BaseComponent {
               </Localizer>
             }
             {textOptions.length === 0 ? undefined :
-              <div className={style.smartContainerItem}>
+              <div tabIndex="0"
+                   className={style.smartContainerItem}
+                   onKeyDown={(e) => {
+                     if (e.keyCode === KeyMap.ENTER) {
+                       this.toggleCVAAOverlay();
+                     }
+                   }}>
                 <a onClick={() => this.toggleCVAAOverlay()}>
                   <Text id='language.advanced_captions_settings'/>
                 </a>

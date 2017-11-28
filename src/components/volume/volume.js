@@ -6,6 +6,7 @@ import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/volume';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
+import {KeyMap} from "../../utils/key-map";
 
 /**
  * mapping state to props
@@ -101,6 +102,40 @@ class VolumeControl extends BaseComponent {
   }
 
   /**
+   * on volume control key down, update the volume in case of up/down keys
+   *
+   * @param {KeyboardEvent} e - keyboardEvent event
+   * @method onVolumeControlButtonClick
+   * @returns {void}
+   * @memberof VolumeControl
+   */
+  onVolumeControlKeyDown(e: KeyboardEvent): void {
+    let newVolume;
+    switch (e.keyCode) {
+      case KeyMap.UP:
+        this.setState({hover: true});
+        newVolume = Math.round(this.player.volume * 100) + 5;
+        if (this.player.muted) {
+          this.player.muted = false;
+        }
+        this.player.volume = newVolume / 100;
+        break;
+      case KeyMap.DOWN:
+        this.setState({hover: true});
+        newVolume = Math.round(this.player.volume * 100) - 5;
+        if (newVolume < 5) {
+          this.player.muted = true;
+          return;
+        }
+        this.player.volume = newVolume / 100;
+        break;
+      default:
+        this.setState({hover: false});
+        break;
+    }
+  }
+
+  /**
    * on volume progress bar mouse up, update the volume and change the dragging status to false
    *
    * @method onVolumeProgressBarMouseUp
@@ -183,9 +218,12 @@ class VolumeControl extends BaseComponent {
         ref={c => this._volumeControlElement = c}
         className={controlButtonClass.join(' ')}
         onMouseOver={() => this.setState({hover: true})}
-        onMouseOut={() => this.setState({hover: false})}
-      >
-        <button className={style.controlButton} onClick={() => this.onVolumeControlButtonClick()} aria-label='Volume'>
+        onMouseOut={() => this.setState({hover: false})}>
+        <button tabIndex="0"
+                aria-label='Volume'
+                className={style.controlButton}
+                onClick={() => this.onVolumeControlButtonClick()}
+                onKeyDown={e => this.onVolumeControlKeyDown(e)}>
           <Icon type={IconType.VolumeBase}/>
           <Icon type={IconType.VolumeWaves}/>
           <Icon type={IconType.VolumeMute}/>
@@ -196,8 +234,7 @@ class VolumeControl extends BaseComponent {
           <div
             className={style.bar}
             ref={c => this._volumeProgressBarElement = c}
-            onMouseDown={() => this.onVolumeProgressBarMouseDown()}
-          >
+            onMouseDown={() => this.onVolumeProgressBarMouseDown()}>
             <div className={style.progress} style={{height: this.getVolumeProgressHeight()}}/>
           </div>
         </div>

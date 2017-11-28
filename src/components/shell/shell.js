@@ -5,6 +5,7 @@ import BaseComponent from '../base';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
+import {KeyMap} from "../../utils/key-map";
 
 /**
  * mapping state to props
@@ -19,6 +20,7 @@ const mapStateToProps = state => ({
   playerWidth: state.shell.playerWidth,
   playerHeight: state.shell.playerHeight,
   playerHover: state.shell.playerHover,
+  playerNav: state.shell.playerNav,
   seekbarDraggingActive: state.seekbar.draggingActive,
   adBreak: state.engine.adBreak
 });
@@ -63,6 +65,10 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   onMouseOver(): void {
+    if (this.state.nav) {
+      this.setState({nav: false});
+      this.props.updatePlayerNavState(false);
+    }
     this._showAndHideControlBar();
   }
 
@@ -102,6 +108,19 @@ class Shell extends BaseComponent {
     if (this.fallbackToMutedAutoPlayMode) {
       this.player.muted = false;
       this.fallbackToMutedAutoPlayMode = false;
+    }
+  }
+
+  /**
+   * key down handler
+   *
+   * @param {KeyboardEvent} e - event object
+   * @returns {void}
+   */
+  onKeyDown(e: KeyboardEvent): void {
+    if (!this.state.nav && e.keyCode === KeyMap.TAB) {
+      this.setState({nav: true});
+      this.props.updatePlayerNavState(true);
     }
   }
 
@@ -167,7 +186,8 @@ class Shell extends BaseComponent {
     playerClasses.push(props.playerClasses);
 
     if (this.props.isMobile) playerClasses.push(style.touch);
-    if (this.props.playerHover) playerClasses.push(style.hover);
+    if (this.props.playerNav) playerClasses.push(style.nav);
+    if (this.props.playerHover || this.props.playerNav) playerClasses.push(style.hover);
     if (this.props.metadataLoaded) playerClasses.push(style.metadataLoaded);
     if (this.props.adBreak) playerClasses.push(style.adBreak);
     if (this.props.metadataLoaded) playerClasses.push(style['state-' + this.props.currentState]);
@@ -179,12 +199,13 @@ class Shell extends BaseComponent {
 
     return (
       <div
+        tabIndex="-1"
         className={playerClasses}
         onClick={() => this.onClick()}
         onMouseOver={() => this.onMouseOver()}
         onMouseMove={() => this.onMouseMove()}
         onMouseLeave={() => this.onMouseLeave()}
-      >
+        onKeyDown={(e) => this.onKeyDown(e)}>
         {props.children}
       </div>
     )

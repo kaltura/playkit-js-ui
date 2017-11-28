@@ -10,8 +10,6 @@ import SmartContainer from '../smart-container';
 import SmartContainerItem from '../smart-container/smart-container-item';
 import {default as Icon, IconType} from '../icon';
 
-const defaultSpeeds = [0.5, 1, 2, 4];
-
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -96,7 +94,7 @@ class SettingsControl extends BaseComponent {
    * @returns {void}
    * @memberof SettingsControl
    */
-  onControlButtonClick() {
+  onControlButtonClick(): void {
     this.setState({smartContainerOpen: !this.state.smartContainerOpen});
   }
 
@@ -188,7 +186,7 @@ class SettingsControl extends BaseComponent {
    * @memberof SettingsControl
    */
   render(props: any): React$Element<any> | void {
-    let speedOptions = defaultSpeeds
+    const speedOptions = this.player.playbackRates
       .reduce((acc, speed) => {
         let speedOption = {
           value: speed,
@@ -202,8 +200,7 @@ class SettingsControl extends BaseComponent {
         return acc;
       }, []);
 
-
-    let qualityOptions = props.videoTracks
+    const qualityOptions = props.videoTracks
       .sort((a, b) => {
         return a.bandwidth < b.bandwidth ? 1 : -1;
       })
@@ -217,7 +214,7 @@ class SettingsControl extends BaseComponent {
         value: t
       }));
 
-    //Progressive playback doesn't support auto
+    // Progressive playback doesn't support auto
     if ((qualityOptions.length > 1) && (this.player.streamType !== "progressive")) {
       qualityOptions
         .unshift({
@@ -228,18 +225,16 @@ class SettingsControl extends BaseComponent {
     }
 
     if (props.isLive && qualityOptions.length === 0) return undefined;
-
     return (
       <div
         ref={c => this._controlSettingsElement = c}
-        className={[style.controlButtonContainer, style.controlSettings].join(' ')}
-      >
+        className={[style.controlButtonContainer, style.controlSettings].join(' ')}>
         <Localizer>
           <button
+            tabIndex="0"
             aria-label={<Text id='controls.settings'/>}
             className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
-            onClick={() => this.onControlButtonClick()}
-          >
+            onClick={() => this.onControlButtonClick()}>
             <Icon type={IconType.Settings}/>
           </button>
         </Localizer>

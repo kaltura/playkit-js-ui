@@ -1,5 +1,6 @@
 //@flow
 import {combineReducers} from 'redux';
+import config from './reducers/config';
 import engine from './reducers/engine';
 import shell from './reducers/shell';
 import playPause from './reducers/play-pause';
@@ -12,6 +13,7 @@ import cvaa from './reducers/cvaa';
 import settings from './reducers/settings';
 
 const reducer = combineReducers({
+  config,
   engine,
   shell,
   seekbar,

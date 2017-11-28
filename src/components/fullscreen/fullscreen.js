@@ -150,7 +150,8 @@ class FullscreenControl extends BaseComponent {
     return (
       <div className={[style.controlButtonContainer, style.controlFullscreen].join(' ')}>
         <Localizer>
-          <button aria-label={<Text id='controls.fullscreen'/>}
+          <button tabIndex="0"
+                  aria-label={<Text id='controls.fullscreen'/>}
                   className={this.props.fullscreen ? [style.controlButton, style.isFullscreen].join(' ') : style.controlButton}
                   onClick={() => this.toggleFullscreen()}>
             <Icon type={IconType.Maximize}/>

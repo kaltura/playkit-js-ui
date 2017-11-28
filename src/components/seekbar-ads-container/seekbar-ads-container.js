@@ -47,7 +47,7 @@ class SeekBarAdsContainer extends BaseComponent {
   render(props: any): React$Element<any> {
     return (
       <SeekBarControl
-        playerElement={this.player.getView().parentElement}
+        playerElement={this.props.playerContainer}
         changeCurrentTime={time => {  // eslint-disable-line no-unused-vars
         }}
         updateSeekbarDraggingStatus={data => { // eslint-disable-line no-unused-vars
