@@ -21,7 +21,7 @@ const DEFAULT_STEP = 10;
  * @extends {BaseComponent}
  */
 class RewindControl extends BaseComponent {
-  _classList: Array<string> = [style.controlButtonContainer, style.controlRewind];
+  _classList: Array<string> = [style.controlButton];
 
   /**
    * Creates an instance of RewindControl.
@@ -69,12 +69,12 @@ class RewindControl extends BaseComponent {
    */
   render(props: any): React$Element<any> | void {
     return (
-      <div className={this._classList.join(' ')}>
+      <div className={[style.controlButtonContainer, style.controlRewind].join(' ')}>
         <Localizer>
           <button
             tabIndex="0"
             aria-label={<Text id={'controls.rewind'}/>}
-            className={style.controlButton}
+            className={this._classList.join(' ')}
             onClick={() => this.onClick()}
             onKeyDown={(e) => {
               if (e.keyCode === KeyMap.ENTER) {
