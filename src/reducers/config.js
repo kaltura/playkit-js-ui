@@ -10,7 +10,8 @@ export const types = {
 
 export const initialState = {
   ui: {
-    seekbar: {}
+    seekbar: {},
+    shell: {}
   }
 };
 
@@ -38,6 +39,10 @@ export default (state: Object = initialState, action: Object) => {
 }
 
 export const actions = {
-  updateConfig: (config: Object) => ({ type: types.UPDATE, config }),
-  updateComponentConfig: (componentAlias: string, config: Object) => ({ type: types.UPDATE_COMPONENT, componentAlias, config })
+  updateConfig: (config: Object) => ({type: types.UPDATE, config}),
+  updateComponentConfig: (componentAlias: string, config: Object) => ({
+    type: types.UPDATE_COMPONENT,
+    componentAlias,
+    config
+  })
 }
