@@ -185,6 +185,9 @@ class SeekBarControl extends Component {
    * @memberof SeekBarControl
    */
   onSeekbarKeyDown(e: KeyboardEvent): void {
+    if (this.props.adBreak) {
+      return;
+    }
     let newTime;
     switch (e.keyCode) {
       case KeyMap.LEFT:

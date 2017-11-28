@@ -42,7 +42,12 @@ export default function adsUI(props: any): ?React$Element<any> {
           {adsUiCustomization.skipButton ? <AdSkip player={props.player}/> : undefined}
         </div>
         <BottomBar>
-          <SeekBarAdsContainer adBreak showFramePreview showTimeBubble player={props.player}/>
+          <SeekBarAdsContainer
+            adBreak
+            showFramePreview
+            showTimeBubble
+            player={props.player}
+            playerContainer={props.playerContainer}/>
           <div className={style.leftControls}>
             <PlayPauseControl player={props.player}/>
             <TimeDisplayAdsContainer/>
