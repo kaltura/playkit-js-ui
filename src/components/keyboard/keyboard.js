@@ -78,7 +78,6 @@ class KeyboardControl extends BaseComponent {
       }
     },
     [KeyMap.UP]: () => {
-      if (this.player.volume === 1) return;
       const newVolume = (Math.round(this.player.volume * 100) + KEYBOARD_DEFAULT_VOLUME_JUMP) / 100;
       this.logger.debug(`Changing volume. ${this.player.volume} => ${newVolume}`);
       if (this.player.muted) {
@@ -88,7 +87,6 @@ class KeyboardControl extends BaseComponent {
       this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWaves]);
     },
     [KeyMap.DOWN]: () => {
-      if (this.player.muted || this.player.volume === 0) return;
       const newVolume = (Math.round(this.player.volume * 100) - KEYBOARD_DEFAULT_VOLUME_JUMP) / 100;
       if (newVolume === 0) {
         this.player.muted = true;
@@ -115,22 +113,26 @@ class KeyboardControl extends BaseComponent {
       const newTime = this.player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP;
       this.logger.debug(`Seek. ${this.player.currentTime} => ${(newTime > 0) ? newTime : 0}`);
       this.player.currentTime = (newTime > 0) ? newTime : 0;
+      this.props.updateOverlayActionIcon(IconType.Rewind);
       this.toggleHoverState();
     },
     [KeyMap.RIGHT]: () => {
       const newTime = this.player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP;
       this.logger.debug(`Seek. ${this.player.currentTime} => ${(newTime > this.player.duration) ? this.player.duration : newTime}`);
       this.player.currentTime = (newTime > this.player.duration) ? this.player.duration : newTime;
+      this.props.updateOverlayActionIcon(IconType.SeekForward);
       this.toggleHoverState();
     },
     [KeyMap.HOME]: () => {
       this.logger.debug(`Seek. ${this.player.currentTime} => 0`);
       this.player.currentTime = 0;
+      this.props.updateOverlayActionIcon(IconType.StartOver);
       this.toggleHoverState();
     },
     [KeyMap.END]: () => {
       this.logger.debug(`Seek. ${this.player.currentTime} => ${this.player.duration}`);
       this.player.currentTime = this.player.duration;
+      this.props.updateOverlayActionIcon(IconType.SeekEnd);
       this.toggleHoverState();
     },
     [KeyMap.M]: () => {
@@ -151,8 +153,8 @@ class KeyboardControl extends BaseComponent {
         if (index < this.player.playbackRates.length - 1) {
           this.logger.debug(`Changing playback rate. ${playbackRate} => ${this.player.playbackRates[index + 1]}`);
           this.player.playbackRate = this.player.playbackRates[index + 1];
-          this.props.updateOverlayActionIcon(IconType.SpeedUp);
         }
+        this.props.updateOverlayActionIcon(IconType.SpeedUp);
       }
     },
     [KeyMap.SUBTRACT]: () => {
@@ -161,8 +163,8 @@ class KeyboardControl extends BaseComponent {
       if (index > 0) {
         this.logger.debug(`Changing playback rate. ${playbackRate} => ${this.player.playbackRates[index - 1]}`);
         this.player.playbackRate = this.player.playbackRates[index - 1];
-        this.props.updateOverlayActionIcon(IconType.SpeedDown);
       }
+      this.props.updateOverlayActionIcon(IconType.SpeedDown);
     },
     [KeyMap.C]: () => {
       let activeTextTrack = this.player.getActiveTracks().text;

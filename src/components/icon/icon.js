@@ -32,6 +32,8 @@ const IconType = {
   Link: 'link',
   ArrowDown: 'arrow-down',
   StartOver: 'start-over',
+  SeekForward: 'seek-forward',
+  SeekEnd: 'seek-end',
   Rewind: 'rewind',
   Rewind10: 'rewind10'
 };
@@ -139,6 +141,12 @@ class Icon extends Component {
 
       case IconType.StartOver:
         return (<i className={[style.icon, style.iconStartOver].join(' ')}/>);
+
+      case IconType.SeekForward:
+        return (<i className={[style.icon, style.iconSeekForward].join(' ')}/>);
+
+      case IconType.SeekEnd:
+        return (<i className={[style.icon, style.iconSeekEnd].join(' ')}/>);
 
       case IconType.Rewind:
         return (<i className={[style.icon, style.iconRewind].join(' ')}/>);
