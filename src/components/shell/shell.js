@@ -43,8 +43,9 @@ const DEFAULT_CONTROL_BAR_HOVER_TIME: number = 3000;
    */
 class Shell extends BaseComponent {
   state: Object;
-  hoverTimeout: number;
-  fallbackToMutedAutoPlayMode: boolean;
+  _hoverTimeout: number;
+  _fallbackToMutedAutoPlayMode: boolean;
+  _el: HTMLDivElement;
 
   /**
    * Creates an instance of Shell.
@@ -53,9 +54,9 @@ class Shell extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'Shell', player: obj.player});
-    this.fallbackToMutedAutoPlayMode = false;
+    this._fallbackToMutedAutoPlayMode = false;
     this.player.addEventListener(this.player.Event.FALLBACK_TO_MUTED_AUTOPLAY, () => {
-      this.fallbackToMutedAutoPlayMode = true
+      this._fallbackToMutedAutoPlayMode = true
     });
   }
 
@@ -71,6 +72,7 @@ class Shell extends BaseComponent {
       this.props.updatePlayerNavState(false);
     }
     this._showAndHideControlBar();
+    this._el.focus();
   }
 
   /**
@@ -106,9 +108,9 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   onClick(): void {
-    if (this.fallbackToMutedAutoPlayMode) {
+    if (this._fallbackToMutedAutoPlayMode) {
       this.player.muted = false;
-      this.fallbackToMutedAutoPlayMode = false;
+      this._fallbackToMutedAutoPlayMode = false;
     }
   }
 
@@ -133,7 +135,7 @@ class Shell extends BaseComponent {
    * @returns {void}
    * @memberof Shell
    */
-  componentDidMount() {
+  componentDidMount(): void {
     this.props.updateIsMobile(!!this.player.env.device.type || this.props.config.forceTouchUI);
     if (document.body) {
       this.props.updateDocumentWidth(document.body.clientWidth);
@@ -164,10 +166,10 @@ class Shell extends BaseComponent {
       this.props.updatePlayerHoverState(true);
       this.setState({hover: true});
     }
-    if (this.hoverTimeout) {
-      clearTimeout(this.hoverTimeout);
+    if (this._hoverTimeout) {
+      clearTimeout(this._hoverTimeout);
     }
-    this.hoverTimeout = setTimeout(() => {
+    this._hoverTimeout = setTimeout(() => {
       if (!this.props.seekbarDraggingActive) {
         this.props.updatePlayerHoverState(false);
         this.setState({hover: false});
@@ -200,6 +202,7 @@ class Shell extends BaseComponent {
 
     return (
       <div
+        ref={el => this._el = el}
         tabIndex="-1"
         className={playerClasses}
         onClick={() => this.onClick()}
