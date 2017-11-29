@@ -1,5 +1,4 @@
 //@flow
-import {h} from 'preact';
 import BaseComponent from '../base';
 import {connect} from 'preact-redux';
 import {actions as shellActions} from '../../reducers/shell';

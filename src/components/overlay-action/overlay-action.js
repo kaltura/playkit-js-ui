@@ -91,6 +91,7 @@ class OverlayAction extends BaseComponent {
    * should component update handler
    *
    * @returns {boolean} - always update component
+   * @param {Object} nextProps - next props of the component
    * @memberof OverlayAction
    */
   shouldComponentUpdate(nextProps: Object): boolean {
@@ -143,9 +144,7 @@ class OverlayAction extends BaseComponent {
    */
   renderIcons(): React$Element<any> {
     if (Array.isArray(this.state.iconType)) {
-      return this.state.iconType.map((i) => {
-        return <Icon type={i}/>;
-      });
+      return this.state.iconType.map((i, x) => <Icon key={x} type={i}/>);
     }
     return <Icon type={this.state.iconType}/>;
   }

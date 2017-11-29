@@ -16,14 +16,14 @@ export const initialState = {
 
 export default (state: Object = initialState, action: Object) => {
   switch (action.type) {
-    case types.UPDATE:
+    case types.UPDATE: {
       const config = Utils.Object.mergeDeep(state, action.config);
       return {
         ...state,
         ...config
       };
-
-    case types.UPDATE_COMPONENT:
+    }
+    case types.UPDATE_COMPONENT: {
       return {
         ...state,
         ui: {
@@ -31,7 +31,7 @@ export default (state: Object = initialState, action: Object) => {
           [action.componentAlias]: Utils.Object.mergeDeep(state.ui[action.componentAlias], action.config)
         }
       };
-
+    }
     default:
       return state;
   }
