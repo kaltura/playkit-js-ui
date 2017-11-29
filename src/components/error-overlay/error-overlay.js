@@ -87,6 +87,7 @@ class ErrorOverlay extends BaseComponent {
   render(): React$Element<any> | void {
     let copyUrlClasses = [style.btnCopyUrl].join(' ');
     copyUrlClasses += this.state.copySuccess ? ' ' + style.copied : '';
+    const sessionId = this.player && this.player.config && this.player.config.session && this.player.config.session.id;
     if (this.props && this.props.error) {
       return (
           <div id='overlay-portal'>
@@ -125,7 +126,7 @@ class ErrorOverlay extends BaseComponent {
               <div className={style.headline}>{this.props.errorHead ? this.props.errorHead : <Text id={'error.default_error'}/>}</div>
               <div className={style.linkOptionsContainer}>
                 <div className={style.copyUrlRow}>
-                  <div ref={ (el) => {this.sessionEl = el }} className={style.errorSession}><Text id='error.default_session_text'/>{this.player.config.session.id}</div>
+                  <div ref={ (el) => {this.sessionEl = el }} className={style.errorSession}><Text id='error.default_session_text'/>{sessionId}</div>
                   <a
                     className={copyUrlClasses}
                     onClick={() => this.copyError()}>
