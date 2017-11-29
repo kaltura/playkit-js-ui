@@ -17,7 +17,7 @@ export const REWIND_DEFAULT_STEP = 10;
  * RewindControl component
  *
  * @class RewindControl
- * @example <RewindControl player={Fthis.player} step={5} />
+ * @example <RewindControl player={this.player} step={5} />
  * @extends {BaseComponent}
  */
 class RewindControl extends BaseComponent {
