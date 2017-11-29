@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.15.1"></a>
+## [0.15.1](https://github.com/kaltura/playkit-js-ui/compare/v0.15.0...v0.15.1) (2017-11-29)
+
+
+### Bug Fixes
+
+* **FEC-7518:** captions container overflows ([#147](https://github.com/kaltura/playkit-js-ui/issues/147)) ([bb01fd5](https://github.com/kaltura/playkit-js-ui/commit/bb01fd5))
+* **FEC-7561:** avoid CSS global name space collision ([#146](https://github.com/kaltura/playkit-js-ui/issues/146)) ([7428836](https://github.com/kaltura/playkit-js-ui/commit/7428836))
+
+
+
 <a name="0.15.0"></a>
 # [0.15.0](https://github.com/kaltura/playkit-js-ui/compare/v0.14.0...v0.15.0) (2017-11-28)
 
