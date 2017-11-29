@@ -1,12 +1,12 @@
 //@flow
 import {h} from 'preact';
-import style from './_keyboard.scss';
 import BaseComponent from '../base';
 import {connect} from 'preact-redux';
-import {actions} from '../../reducers/shell';
+import {actions as shellActions} from '../../reducers/shell';
+import {actions as overlayIconActions} from '../../reducers/overlay-action';
 import {bindActions} from '../../utils/bind-actions';
 import {KeyMap} from "../../utils/key-map";
-import {default as Icon, IconType} from '../icon';
+import {IconType} from '../icon';
 import {DEFAULT_CONTROL_BAR_HOVER_TIMEOUT} from "../shell/shell";
 
 /**
@@ -20,9 +20,8 @@ const mapStateToProps = state => ({
 
 const SEEK_JUMP: number = 5;
 const VOLUME_JUMP: number = 5;
-const ICON_GESTURE_TIMEOUT = 300;
 
-@connect(mapStateToProps, bindActions(actions))
+@connect(mapStateToProps, bindActions(Object.assign(shellActions, overlayIconActions)))
   /**
    * KeyboardControl component
    *
@@ -32,7 +31,6 @@ const ICON_GESTURE_TIMEOUT = 300;
 class KeyboardControl extends BaseComponent {
   _activeTextTrack: ?Object = null;
   _hoverTimeout: ?number = null;
-  _iconTimeout: ?number = null;
 
   /**
    * creates an instance of KeyboardControl
@@ -48,7 +46,6 @@ class KeyboardControl extends BaseComponent {
     }
     playerContainer.onkeydown = (e: KeyboardEvent) => {
       if (!this.props.playerNav && typeof this.keyboardHandlers[e.keyCode] === 'function') {
-        e.preventDefault();
         this.keyboardHandlers[e.keyCode](e.shiftKey);
       }
     };
@@ -64,10 +61,10 @@ class KeyboardControl extends BaseComponent {
     [KeyMap.SPACE]: () => {
       if (this.player.paused) {
         this.player.play();
-        this.toggleIconGesture(IconType.Play);
+        this.props.updateOverlayActionIcon(IconType.Play);
       } else {
         this.player.pause();
-        this.toggleIconGesture(IconType.Pause);
+        this.props.updateOverlayActionIcon(IconType.Pause);
       }
     },
     [KeyMap.UP]: () => {
@@ -78,19 +75,19 @@ class KeyboardControl extends BaseComponent {
         this.player.muted = false;
       }
       this.player.volume = newVolume;
-      this.toggleIconGesture([IconType.VolumeBase, IconType.VolumeWaves]);
+      this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWaves]);
     },
     [KeyMap.DOWN]: () => {
       if (this.player.muted || this.player.volume === 0) return;
       const newVolume = (Math.round(this.player.volume * 100) - VOLUME_JUMP) / 100;
       if (newVolume === 0) {
         this.player.muted = true;
-        this.toggleIconGesture([IconType.VolumeBase, IconType.VolumeMute]);
+        this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeMute]);
         return;
       }
       this.logger.debug(`Changing volume. ${this.player.volume} => ${newVolume}`);
       this.player.volume = newVolume;
-      // TODO: VolumeWave icon
+      this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWave]);
     },
     [KeyMap.F]: () => {
       if (!this.player.isFullscreen()) {
@@ -130,22 +127,23 @@ class KeyboardControl extends BaseComponent {
       this.logger.debug(this.player.muted ? "Umnute" : "Mute");
       this.player.muted = !this.player.muted;
       this.player.muted ?
-        this.toggleIconGesture([IconType.VolumeBase, IconType.VolumeMute])
-        : this.toggleIconGesture([IconType.VolumeBase, IconType.VolumeWaves]);
+        this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeMute]) :
+        this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWaves]);
     },
     [KeyMap.ADD]: (shiftKey) => {
       if (shiftKey) {
         this.logger.debug(`Changing playback rate. ${this.player.playbackRate} => ${this.player.defaultPlaybackRate}`);
         this.player.playbackRate = this.player.defaultPlaybackRate;
+        this.props.updateOverlayActionIcon(IconType.Speed);
       } else {
         const playbackRate = this.player.playbackRate;
         const index = this.player.playbackRates.indexOf(playbackRate);
         if (index < this.player.playbackRates.length - 1) {
           this.logger.debug(`Changing playback rate. ${playbackRate} => ${this.player.playbackRates[index + 1]}`);
           this.player.playbackRate = this.player.playbackRates[index + 1];
+          this.props.updateOverlayActionIcon(IconType.SpeedUp);
         }
       }
-      // TODO: SpeedUp icon
     },
     [KeyMap.SUBTRACT]: () => {
       const playbackRate = this.player.playbackRate;
@@ -153,8 +151,8 @@ class KeyboardControl extends BaseComponent {
       if (index > 0) {
         this.logger.debug(`Changing playback rate. ${playbackRate} => ${this.player.playbackRates[index - 1]}`);
         this.player.playbackRate = this.player.playbackRates[index - 1];
+        this.props.updateOverlayActionIcon(IconType.SpeedDown);
       }
-      // TODO: SpeedDown icon
     },
     [KeyMap.C]: () => {
       let activeTextTrack = this.player.getActiveTracks().text;
@@ -171,54 +169,6 @@ class KeyboardControl extends BaseComponent {
   };
 
   /**
-   * render component
-   *
-   * @returns {?React$Element} - component element
-   * @memberof KeyboardControl
-   */
-  render(): ?React$Element<any> {
-    if (!this.state.animation) return undefined;
-    return (
-      <div className={`${style.overlayKeyboardShortcut} ${style.in}`}>
-        {this.state.icon ? this.renderIcons() : undefined}
-      </div>
-    )
-  }
-
-  /**
-   * renders the icons components
-   *
-   * @returns {React$Element} - component element
-   * @memberof KeyboardControl
-   */
-  renderIcons(): React$Element<any> {
-    if (Array.isArray(this.state.icon)) {
-      return this.state.icon.map((i) => {
-        return <Icon type={i}/>;
-      });
-    }
-    return <Icon type={this.state.icon}/>;
-  }
-
-  /**
-   * toggles the icon gesture animation
-   *
-   * @param {string | Array<string>} icon - icon id/s
-   * @memberof KeyboardControl
-   */
-  toggleIconGesture(icon: string | Array<string>): void {
-    if (this._iconTimeout !== null) {
-      clearTimeout(this._iconTimeout);
-      this.setState({animation: false});
-      this.forceUpdate();
-    }
-    this.setState({animation: true, icon: icon});
-    this._iconTimeout = setTimeout(() => {
-      this.setState({animation: false});
-    }, ICON_GESTURE_TIMEOUT);
-  }
-
-  /**
    * toggles the shell hover state
    *
    * @returns {void}
@@ -227,22 +177,13 @@ class KeyboardControl extends BaseComponent {
   toggleHoverState(): void {
     if (this._hoverTimeout !== null) {
       clearTimeout(this._hoverTimeout);
+      this._hoverTimeout = null;
     }
     this.props.updatePlayerHoverState(true);
     this._hoverTimeout = setTimeout(() => {
       this.props.updatePlayerHoverState(false);
     }, DEFAULT_CONTROL_BAR_HOVER_TIMEOUT);
   }
-}
-
-/**
- * clears given timeout id
- *
- * @returns {void}
- */
-function clearTimeout(timeout: ?number): void {
-  window.clearTimeout(timeout);
-  timeout = null;
 }
 
 export default KeyboardControl;

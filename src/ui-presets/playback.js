@@ -2,7 +2,7 @@
 import style from '../styles/style.scss';
 import {h} from 'preact';
 import getComponentConfig from '../utils/component-config';
-import OverlayPlay from '../components/overlay-play';
+import OverlayAction from '../components/overlay-action';
 import PrePlaybackPlayOverlay from '../components/pre-playback-play-overlay';
 import Loading from '../components/loading';
 import PlayPauseControl from '../components/play-pause';
@@ -33,7 +33,7 @@ export default function playbackUI(props: any): React$Element<any> {
       <div className={style.playerGui} id='player-gui'>
         <OverlayPortal/>
         <UnmuteIndication player={props.player}/>
-        <OverlayPlay player={props.player}/>
+        <OverlayAction player={props.player}/>
         <BottomBar>
           <SeekBarPlaybackContainer showFramePreview
                                     showTimeBubble

@@ -9,7 +9,7 @@ export {default as adsUI} from './ui-presets/ads';
 export {default as liveUI} from './ui-presets/live';
 
 // components
-export {OverlayPlay} from './components/overlay-play';
+export {Bezel} from './components/overlay-action';
 export {PrePlaybackPlayOverlay} from './components/pre-playback-play-overlay';
 export {Loading} from './components/loading';
 export {PlayPauseControl} from './components/play-pause';

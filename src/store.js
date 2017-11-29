@@ -11,6 +11,7 @@ import loading from './reducers/loading';
 import share from './reducers/share';
 import cvaa from './reducers/cvaa';
 import settings from './reducers/settings';
+import overlayAction from './reducers/overlay-action';
 
 const reducer = combineReducers({
   config,
@@ -23,7 +24,8 @@ const reducer = combineReducers({
   playPause,
   share,
   cvaa,
-  settings
+  settings,
+  overlayAction
 });
 
 export default reducer;
