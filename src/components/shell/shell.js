@@ -31,7 +31,7 @@ const mapStateToProps = state => ({
  * @type {number}
  * @const
  */
-export const DEFAULT_CONTROL_BAR_HOVER_TIMEOUT: number = 3000;
+export const CONTROL_BAR_HOVER_DEFAULT_TIMEOUT: number = 3000;
 
 @connect(mapStateToProps, bindActions(actions))
   /**
@@ -172,7 +172,7 @@ class Shell extends BaseComponent {
         this.props.updatePlayerHoverState(false);
         this.setState({hover: false});
       }
-    }, this.props.hoverTimeout || DEFAULT_CONTROL_BAR_HOVER_TIMEOUT);
+    }, this.props.hoverTimeout || CONTROL_BAR_HOVER_DEFAULT_TIMEOUT);
   }
 
   /**

@@ -7195,6 +7195,7 @@ exports.default = _rewind2.default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.REWIND_DEFAULT_STEP = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -7226,16 +7227,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 /**
  * Default rewind step
- * @type {number} number of seconds
+ * @type {number}
  * @const
  */
-var DEFAULT_STEP = 10;
+var REWIND_DEFAULT_STEP = exports.REWIND_DEFAULT_STEP = 10;
 
 /**
  * RewindControl component
  *
  * @class RewindControl
- * @example <RewindControl player={this.player} step={5} />
+ * @example <RewindControl player={Fthis.player} step={5} />
  * @extends {BaseComponent}
  */
 
@@ -7265,7 +7266,7 @@ var RewindControl = function (_BaseComponent) {
     key: 'onClick',
     value: function onClick() {
       this.animate();
-      var step = this.props.step || DEFAULT_STEP;
+      var step = this.props.step || REWIND_DEFAULT_STEP;
       if (this.player.currentTime - step < 0) {
         this.player.currentTime = 0;
       } else {
@@ -11863,6 +11864,7 @@ exports.default = OverlayPortal;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.KEYBOARD_DEFAULT_VOLUME_JUMP = exports.KEYBOARD_DEFAULT_SEEK_JUMP = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -11909,8 +11911,18 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
-var SEEK_JUMP = 5;
-var VOLUME_JUMP = 5;
+/**
+ * Default seek jump
+ * @type {number}
+ * @const
+ */
+var KEYBOARD_DEFAULT_SEEK_JUMP = exports.KEYBOARD_DEFAULT_SEEK_JUMP = 5;
+/**
+ * Default volume jump
+ * @type {number}
+ * @const
+ */
+var KEYBOARD_DEFAULT_VOLUME_JUMP = exports.KEYBOARD_DEFAULT_VOLUME_JUMP = 5;
 
 /**
  * KeyboardControl component
@@ -11946,7 +11958,7 @@ var KeyboardControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
       }
     }), _defineProperty(_this$keyboardHandler, _keyMap.KeyMap.UP, function () {
       if (_this.player.volume === 1) return;
-      var newVolume = (Math.round(_this.player.volume * 100) + VOLUME_JUMP) / 100;
+      var newVolume = (Math.round(_this.player.volume * 100) + KEYBOARD_DEFAULT_VOLUME_JUMP) / 100;
       _this.logger.debug('Changing volume. ' + _this.player.volume + ' => ' + newVolume);
       if (_this.player.muted) {
         _this.player.muted = false;
@@ -11955,7 +11967,7 @@ var KeyboardControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
       _this.props.updateOverlayActionIcon([_icon.IconType.VolumeBase, _icon.IconType.VolumeWaves]);
     }), _defineProperty(_this$keyboardHandler, _keyMap.KeyMap.DOWN, function () {
       if (_this.player.muted || _this.player.volume === 0) return;
-      var newVolume = (Math.round(_this.player.volume * 100) - VOLUME_JUMP) / 100;
+      var newVolume = (Math.round(_this.player.volume * 100) - KEYBOARD_DEFAULT_VOLUME_JUMP) / 100;
       if (newVolume === 0) {
         _this.player.muted = true;
         _this.props.updateOverlayActionIcon([_icon.IconType.VolumeBase, _icon.IconType.VolumeMute]);
@@ -11975,12 +11987,12 @@ var KeyboardControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
         _this.player.exitFullscreen();
       }
     }), _defineProperty(_this$keyboardHandler, _keyMap.KeyMap.LEFT, function () {
-      var newTime = _this.player.currentTime - SEEK_JUMP;
+      var newTime = _this.player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP;
       _this.logger.debug('Seek. ' + _this.player.currentTime + ' => ' + (newTime > 0 ? newTime : 0));
       _this.player.currentTime = newTime > 0 ? newTime : 0;
       _this.toggleHoverState();
     }), _defineProperty(_this$keyboardHandler, _keyMap.KeyMap.RIGHT, function () {
-      var newTime = _this.player.currentTime + SEEK_JUMP;
+      var newTime = _this.player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP;
       _this.logger.debug('Seek. ' + _this.player.currentTime + ' => ' + (newTime > _this.player.duration ? _this.player.duration : newTime));
       _this.player.currentTime = newTime > _this.player.duration ? _this.player.duration : newTime;
       _this.toggleHoverState();
@@ -12071,7 +12083,7 @@ var KeyboardControl = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bi
       this.props.updatePlayerHoverState(true);
       this._hoverTimeout = setTimeout(function () {
         _this2.props.updatePlayerHoverState(false);
-      }, _shell2.DEFAULT_CONTROL_BAR_HOVER_TIMEOUT);
+      }, _shell2.CONTROL_BAR_HOVER_DEFAULT_TIMEOUT);
     }
   }]);
 
@@ -12089,6 +12101,7 @@ exports.default = KeyboardControl;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.MUTED_AUTOPLAY_ICON_ONLY_DEFAULT_TIMEOUT = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -12123,11 +12136,11 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /**
- * The icon only timeout
+ * The icon only default timeout
  * @type {number}
  * @const
  */
-var ICON_ONLY_TIMEOUT = 3000;
+var MUTED_AUTOPLAY_ICON_ONLY_DEFAULT_TIMEOUT = exports.MUTED_AUTOPLAY_ICON_ONLY_DEFAULT_TIMEOUT = 3000;
 
 /**
  * UnmuteIndication component
@@ -12206,7 +12219,7 @@ var UnmuteIndication = (_dec = (0, _preactRedux.connect)(null, (0, _bindActions.
       this.player.removeEventListener(this.player.Event.AD_STARTED, this._iconOnlyTimeoutCallback);
       setTimeout(function () {
         _this3.setState({ iconOnly: true });
-      }, ICON_ONLY_TIMEOUT);
+      }, MUTED_AUTOPLAY_ICON_ONLY_DEFAULT_TIMEOUT);
     }
 
     /**
@@ -14777,7 +14790,7 @@ exports.default = _shell2.default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.DEFAULT_CONTROL_BAR_HOVER_TIMEOUT = undefined;
+exports.CONTROL_BAR_HOVER_DEFAULT_TIMEOUT = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -14835,7 +14848,7 @@ var mapStateToProps = function mapStateToProps(state) {
  * @type {number}
  * @const
  */
-var DEFAULT_CONTROL_BAR_HOVER_TIMEOUT = exports.DEFAULT_CONTROL_BAR_HOVER_TIMEOUT = 3000;
+var CONTROL_BAR_HOVER_DEFAULT_TIMEOUT = exports.CONTROL_BAR_HOVER_DEFAULT_TIMEOUT = 3000;
 
 /**
  * Shell component
@@ -15003,7 +15016,7 @@ var Shell = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bindActions.
           _this3.props.updatePlayerHoverState(false);
           _this3.setState({ hover: false });
         }
-      }, this.props.hoverTimeout || DEFAULT_CONTROL_BAR_HOVER_TIMEOUT);
+      }, this.props.hoverTimeout || CONTROL_BAR_HOVER_DEFAULT_TIMEOUT);
     }
 
     /**
@@ -15483,6 +15496,7 @@ var actions = exports.actions = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.OVERLAY_ACTION_DEFAULT_TIMEOUT = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -15516,8 +15530,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var OVERLAY_ACTION_TIMEOUT = 300;
-
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -15533,6 +15545,13 @@ var mapStateToProps = function mapStateToProps(state) {
     isMobile: state.shell.isMobile
   };
 };
+
+/**
+ * Default overlay action timeout
+ * @type {number}
+ * @const
+ */
+var OVERLAY_ACTION_DEFAULT_TIMEOUT = exports.OVERLAY_ACTION_DEFAULT_TIMEOUT = 300;
 
 /**
  * OverlayAction component
@@ -15644,7 +15663,7 @@ var OverlayAction = (_dec = (0, _preactRedux.connect)(mapStateToProps, (0, _bind
       this.setState({ animation: true, iconType: iconType });
       this._iconTimeout = setTimeout(function () {
         _this2.setState({ animation: false });
-      }, OVERLAY_ACTION_TIMEOUT);
+      }, OVERLAY_ACTION_DEFAULT_TIMEOUT);
     }
 
     /**

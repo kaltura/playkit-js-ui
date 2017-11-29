@@ -7,8 +7,6 @@ import {actions} from '../../reducers/overlay-action';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 
-const OVERLAY_ACTION_TIMEOUT = 300;
-
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -22,6 +20,13 @@ const mapStateToProps = state => ({
   playerHover: state.shell.playerHover,
   isMobile: state.shell.isMobile
 });
+
+/**
+ * Default overlay action timeout
+ * @type {number}
+ * @const
+ */
+export const OVERLAY_ACTION_DEFAULT_TIMEOUT = 300;
 
 @connect(mapStateToProps, bindActions(actions))
   /**
@@ -112,7 +117,7 @@ class OverlayAction extends BaseComponent {
     this.setState({animation: true, iconType: iconType});
     this._iconTimeout = setTimeout(() => {
       this.setState({animation: false});
-    }, OVERLAY_ACTION_TIMEOUT);
+    }, OVERLAY_ACTION_DEFAULT_TIMEOUT);
   }
 
   /**
