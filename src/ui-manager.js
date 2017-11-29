@@ -4,8 +4,7 @@ import {Provider} from 'preact-redux';
 import {IntlProvider} from 'preact-i18n';
 import {createStore} from 'redux';
 import {LogLevel, getLogLevel, setLogLevel} from './utils/logger'
-
-
+import WebFont from 'webfontloader';
 import reducer from './store';
 import definition from './fr.json';
 
@@ -33,6 +32,16 @@ type UIPreset = {
   template: (props: Object) => any;
   condition?: (state: Object) => boolean;
 }
+
+const webFontConfig: WebFont.Config = {
+  google: {
+    families: [
+      "Lato"
+    ]
+  }
+};
+
+WebFont.load(webFontConfig);
 
 /**
  * API used for building UIs based on state conditions
