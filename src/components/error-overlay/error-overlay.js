@@ -61,21 +61,8 @@ class ErrorOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   handleClick(): void {
-    new Promise((resolve, reject) => {
-      try {
-        if (this.player.config.playback.preload === "auto" && !this.player.config.plugins.ima) {
-          this.player.ready().then(resolve);
-        } else {
-          resolve();
-        }
-      } catch (e) {
-        reject(e);
-      }
-    }).then(() => {
-      this.player.play();
-    }).catch((e) => {
-      this.logger.error(e.message);
-    });
+    this.setState({"error": false});
+    this.player.loadMedia(this.props.config.entryId);
   }
 
   /**
@@ -94,7 +81,7 @@ class ErrorOverlay extends BaseComponent {
           <Overlay open permanent={true} type='error'>
             <div className={style.errorOverlay}>
               <p className={style.errorText}/>
-              <div className={style.cloud}>
+              <div className={style.svgContainer}>
                 <svg width="124" height="110" viewBox="0 0 124 110" xmlns="http://www.w3.org/2000/svg"
                      xmlnsXlink="http://www.w3.org/1999/xlink">
                   <defs>

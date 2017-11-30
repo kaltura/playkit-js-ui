@@ -2,13 +2,12 @@
 
 .overlay{
   background-color: $grayscale1;
+  font-size: 0em;
 
   .overlay-contents{
-    padding-top:0px;
+    padding-top:20px;
   }
 }
-
-
 
 .error-overlay {
   position: relative;
@@ -19,16 +18,24 @@
   height: 100%;
   font-family: $font-family;
 
+    .svg-container{
+      flex: 4;
+      display: flex;
+      justify-content: space-around;
+      flex-flow: column;
+    }
+
     .headline{
       color: $white;
       font-size: $headline-font-size;
-      margin: 26px 0 14px 0;
+      margin: 10px 0 14px 0;
+      flex: 0;
     }
 
     .error-session{
       font-size:$subheadline-font-size;
       color: $grayscale4;
-      margin-bottom: 40px;
+      margin-bottom: 20px;
       user-select: text;
       -webkit-user-select: text;
       -moz-user-select: text;
@@ -37,6 +44,11 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      flex: 1;
+    }
+
+    .control-button-container{
+      flex: 5;
     }
 
     .retry-btn{
