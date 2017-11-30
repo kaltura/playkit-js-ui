@@ -20,7 +20,7 @@ export const KeyMap: { [key: string]: number } = {
 
 /**
  * gets the key name for a certain key code
- * @param keyCode - key code
+ * @param {number} keyCode - key code
  * @returns {string} - key name
  */
 export function getKeyName(keyCode: number): string {
@@ -33,7 +33,7 @@ export function getKeyName(keyCode: number): string {
 }
 
 /**
- * @param keyCode - key code
+ * @param {number} keyCode - key code
  * @returns {boolean} - whether the given key code is a tab key
  */
 export function isTab(keyCode: number): boolean {
@@ -41,7 +41,7 @@ export function isTab(keyCode: number): boolean {
 }
 
 /**
- * @param keyCode - key code
+ * @param {number} keyCode - key code
  * @returns {boolean} - whether the given key code is an enter key
  */
 export function isEnter(keyCode: number): boolean {
@@ -49,7 +49,7 @@ export function isEnter(keyCode: number): boolean {
 }
 
 /**
- * @param keyCode - key code
+ * @param {number} keyCode - key code
  * @returns {boolean} - whether the given key code is an esc key
  */
 export function isEsc(keyCode: number): boolean {
@@ -57,8 +57,8 @@ export function isEsc(keyCode: number): boolean {
 }
 
 /**
- * @param inputKeyCode - input key code
- * @param targetKeyCode - target key code
+ * @param {number} inputKeyCode - input key code
+ * @param {number} targetKeyCode - target key code
  * @returns {boolean} - whether the given key code is equals to the input key
  */
 function isKeyEqual(inputKeyCode: number, targetKeyCode: number): boolean {
