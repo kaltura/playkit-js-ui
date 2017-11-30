@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.15.2"></a>
+## [0.15.2](https://github.com/kaltura/playkit-js-ui/compare/v0.15.1...v0.15.2) (2017-11-29)
+
+
+### Bug Fixes
+
+* **FEC-7563:** prevent user select of root div element ([#150](https://github.com/kaltura/playkit-js-ui/issues/150)) ([29aba48](https://github.com/kaltura/playkit-js-ui/commit/29aba48))
+
+
+### Reverts
+
+* **FEC-7368:** pause of the spinner when loading an ad ([fff91da](https://github.com/kaltura/playkit-js-ui/commit/fff91da))
+
+
+
 <a name="0.15.1"></a>
 ## [0.15.1](https://github.com/kaltura/playkit-js-ui/compare/v0.15.0...v0.15.1) (2017-11-29)
 
