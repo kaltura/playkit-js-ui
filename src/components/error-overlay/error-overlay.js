@@ -65,6 +65,36 @@ class ErrorOverlay extends BaseComponent {
     this.player.loadMedia(this.props.config.entryId);
   }
 
+
+  /**
+   * render the sessionID line
+   *
+   * @returns {React$Element} - main state element
+   * @memberof ErrorOverlay
+   */
+  renderSessionID(): React$Element<an> | void{
+    const sessionId = this.player && this.player.config && this.player.config.session && this.player.config.session.id;
+    let copyUrlClasses = [style.btnCopyUrl].join(' ');
+    copyUrlClasses += this.state.copySuccess ? ' ' + style.copied : '';
+    if (sessionId){
+      return (
+        <div className={style.linkOptionsContainer}>
+          <div className={style.copyUrlRow}>
+            <div ref={ (el) => {this.sessionEl = el }} className={style.errorSession}><Text id='error.default_session_text'/>{sessionId}</div>
+            <a
+              className={copyUrlClasses}
+              onClick={() => this.copyError()}>
+              <Icon type={IconType.Copy}/>
+              <Icon type={IconType.Check}/>
+            </a>
+          </div>
+        </div>
+      )
+    }else{
+      return undefined;
+    }
+  }
+
   /**
    * render main state
    *
@@ -72,9 +102,6 @@ class ErrorOverlay extends BaseComponent {
    * @memberof ErrorOverlay
    */
   render(): React$Element<any> | void {
-    let copyUrlClasses = [style.btnCopyUrl].join(' ');
-    copyUrlClasses += this.state.copySuccess ? ' ' + style.copied : '';
-    const sessionId = this.player && this.player.config && this.player.config.session && this.player.config.session.id;
     if (this.props && this.props.error) {
       return (
           <div id='overlay-portal'>
@@ -111,18 +138,7 @@ class ErrorOverlay extends BaseComponent {
                 </svg>
               </div>
               <div className={style.headline}>{this.props.errorHead ? this.props.errorHead : <Text id={'error.default_error'}/>}</div>
-              <div className={style.linkOptionsContainer}>
-                <div className={style.copyUrlRow}>
-                  <div ref={ (el) => {this.sessionEl = el }} className={style.errorSession}><Text id='error.default_session_text'/>{sessionId}</div>
-                  <a
-                    className={copyUrlClasses}
-                    onClick={() => this.copyError()}>
-                    <Icon type={IconType.Copy}/>
-                    <Icon type={IconType.Check}/>
-                  </a>
-                </div>
-              </div>
-
+              {this.renderSessionID()}
               <div className={style.controlButtonContainer} onClick={() => this.handleClick()}>
                 <button className={[style.controlButton, style.retryBtn].join(' ')}><Text id='core.retry'/></button>
               </div>
