@@ -13,7 +13,7 @@ import {Text} from 'preact-i18n';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  error: state.engine.error
+  hasError: state.engine.hasError
 });
 
 @connect(mapStateToProps)
@@ -61,7 +61,7 @@ class ErrorOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   handleClick(): void {
-    this.setState({"error": false});
+    this.setState({"hasError": false});
     this.player.loadMedia(this.props.config.entryId);
   }
 
@@ -102,7 +102,7 @@ class ErrorOverlay extends BaseComponent {
    * @memberof ErrorOverlay
    */
   render(): React$Element<any> | void {
-    if (this.props && this.props.error) {
+    if (this.props && this.props.hasError) {
       return (
           <div id='overlay-portal'>
           <Overlay open permanent={true} type='error'>

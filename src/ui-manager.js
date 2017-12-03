@@ -90,7 +90,7 @@ class UIManager {
    */
   buildDefaultUI(): void {
     const uis = [
-      {template: props => errorUI(props), condition: state => state.engine.error},
+      {template: props => errorUI(props), condition: state => state.engine.hasError},
       {template: props => adsUI(props), condition: state => state.engine.adBreak},
       {template: props => liveUI(props), condition: state => state.engine.isLive},
       {template: props => playbackUI(props)}
