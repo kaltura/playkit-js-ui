@@ -14,7 +14,10 @@ import getComponentConfig from "../utils/component-config";
 export default function errorUI(props: any): React$Element<any> {
   return (
     <div className={style.playbackGuiWWrapper}>
-      <ErrorOverlay config={getComponentConfig(props.config, 'errorOverlay')} player={props.player}/>
+      <ErrorOverlay config={getComponentConfig(props.config, 'errorOverlay')}
+                    player={props.player}
+                    updateHasError={error=>props.updateHasError(error)}
+      />
     </div>
   )
 }

@@ -197,7 +197,7 @@ export default (state: Object = initialState, action: Object) => {
 }
 
 export const actions = {
-  updateHasError: (error: string)=> ({type: types.UPDATE_ERROR, hasError: error}),
+  updateHasError: (error: any)=> ({type: types.UPDATE_ERROR, hasError: error}),
   updatePlayerState: (prevoiusState: string, currentState: string) => ({
     type: types.UPDATE_PLAYER_STATE,
     playerState: {prevoiusState, currentState}

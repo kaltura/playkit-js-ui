@@ -6,6 +6,8 @@ import {default as Icon, IconType} from '../icon';
 import BaseComponent from '../base';
 import Overlay from '../overlay';
 import {Text} from 'preact-i18n';
+import {bindActions} from "../../utils/bind-actions";
+import {actions} from "../../reducers/engine";
 
 /**
  * mapping state to props
@@ -16,7 +18,7 @@ const mapStateToProps = state => ({
   hasError: state.engine.hasError
 });
 
-@connect(mapStateToProps)
+@connect(mapStateToProps ,bindActions(actions))
   /**
    * errorOverlay component
    *
@@ -25,7 +27,7 @@ const mapStateToProps = state => ({
    */
 class ErrorOverlay extends BaseComponent {
   /**
-   * Creates an instance of ErrorObejct.
+   * Creates an instance of ErrorObject.
    * @param {Object} obj obj
    * @memberof ErrorObejct
    */
@@ -61,7 +63,7 @@ class ErrorOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   handleClick(): void {
-    this.setState({"hasError": false});
+    this.props.updateHasError(false);
     this.player.loadMedia(this.props.config.entryId);
   }
 
