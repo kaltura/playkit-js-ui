@@ -37,7 +37,6 @@ class Loading extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'Loading', player: obj.player});
-    this.setState({afterFirstPlay: false});
     try {
       // TODO: Change the dependency on ima to our ads plugin when it will be developed.
       if (this.player.config.playback.preload === "auto" && !this.player.config.plugins.ima) {
@@ -93,7 +92,6 @@ class Loading extends BaseComponent {
       if (!this.state.afterFirstPlay) {
         return;
       }
-
       if (e.payload.newState.type === 'idle' || e.payload.newState.type === 'playing' || e.payload.newState.type === 'paused') {
         this.props.updateLoadingSpinnerState(false);
       }
