@@ -8,6 +8,15 @@
   overflow: hidden;
   user-select: none;
   width: 100%;
+  height: 100%;
+  position: relative;
+  outline: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 
   &:-webkit-full-screen {
     width: 100%;
@@ -63,7 +72,8 @@
   .custom-captions-applied > a,
   .form-group-row > a,
   .button-save-cvaa,
-  .slider {
+  .slider,
+  .live-tag {
     &:focus {
       outline: 1px solid #00cbff;
     }

@@ -15,6 +15,7 @@ import OverlayPortal from '../components/overlay-portal';
 import KeyboardControl from '../components/keyboard';
 import LiveTag from '../components/live-tag';
 import UnmuteIndication from '../components/unmute-indication';
+import getComponentConfig from '../utils/component-config';
 
 /**
  * Live ui intrface
@@ -33,7 +34,12 @@ export default function liveUI(props: any): React$Element<any> {
         <UnmuteIndication/>
         <OverlayPlay player={props.player}/>
         <BottomBar>
-          <SeekBarLivePlaybackContainer showFramePreview showTimeBubble player={props.player} config={props.config}/>
+          <SeekBarLivePlaybackContainer
+            showFramePreview
+            showTimeBubble
+            player={props.player}
+            playerContainer={props.playerContainer}
+            config={getComponentConfig(props.config, 'seekbar')}/>
           <div className={style.leftControls}>
             <PlayPauseControl player={props.player}/>
             <LiveTag player={props.player}/>
