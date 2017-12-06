@@ -20,7 +20,8 @@ export const types = {
   UPDATE_AD_URL: 'engine/UPDATE_AD_URL',
   UPDATE_PLAYER_POSTER: 'engine/UPDATE_PLATER_POSTER',
   UPDATE_IS_LIVE: 'engine/UPDATE_IS_LIVE',
-  UPDATE_IS_DVR: 'engine/UPDATE_IS_DVR'
+  UPDATE_IS_DVR: 'engine/UPDATE_IS_DVR',
+  UPDATE_ERROR: 'engine/ERROR'
 };
 
 export const initialState = {
@@ -49,11 +50,18 @@ export const initialState = {
     currentTime: 0,
     duration: 0
   },
-  adUrl: ''
+  adUrl: '',
+  hasError: ''
 };
 
 export default (state: Object = initialState, action: Object) => {
   switch (action.type) {
+    case types.UPDATE_ERROR:
+      return {
+        ...state,
+        hasError: action.hasError
+      }
+
     case types.UPDATE_PLAYER_STATE:
       return {
         ...state,
@@ -189,6 +197,7 @@ export default (state: Object = initialState, action: Object) => {
 }
 
 export const actions = {
+  updateHasError: (error: any)=> ({type: types.UPDATE_ERROR, hasError: error}),
   updatePlayerState: (prevoiusState: string, currentState: string) => ({
     type: types.UPDATE_PLAYER_STATE,
     playerState: {prevoiusState, currentState}
