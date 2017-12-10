@@ -270,6 +270,19 @@ class SeekBarControl extends Component {
   }
 
   /**
+   * get current buffered percent from the player
+   *
+   * @returns {number} - current buffered percent
+   * @memberof SeekBarControl
+   */
+  getBufferedPercent(): number {
+    if (this.props.player.duration > 0 && this.props.player.buffered.length > 0) {
+      return (this.props.player.buffered.end(0) / this.props.player.duration) * 100;
+    }
+    return 0;
+  }
+
+  /**
    * utility function to get the thumb sprite background position
    *
    * @returns {string} background-position string value
@@ -397,6 +410,7 @@ class SeekBarControl extends Component {
   render(props: any): React$Element<any> {
     const virtualProgressWidth = `${this.state.virtualTime / props.duration * 100}%`;
     const progressWidth = `${props.currentTime / props.duration * 100}%`;
+    const bufferedWidth = `${Math.round(this.getBufferedPercent())}%`;
     const seekbarStyleClass = [style.seekBar];
     if (props.adBreak) seekbarStyleClass.push(style.adBreak);
     if (props.isDvr) seekbarStyleClass.push(style.live);
@@ -430,12 +444,11 @@ class SeekBarControl extends Component {
           <div className={style.virtualProgress} style={{width: virtualProgressWidth}}/>
           {this.renderTimeBubble()}
           {this.renderFramePreview()}
-          <div className={style.buffered} style='width: 60%;'/>
+          <div className={style.buffered} style={{width: bufferedWidth}}/>
         </div>
       </div>
     )
   }
-
 }
 
 export default SeekBarControl;

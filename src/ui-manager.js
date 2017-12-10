@@ -23,6 +23,7 @@ import PlayerGUI from './player-gui';
 import adsUI from './ui-presets/ads';
 import playbackUI from './ui-presets/playback';
 import liveUI from './ui-presets/live';
+import errorUI from './ui-presets/error';
 
 import './styles/style.scss';
 
@@ -89,6 +90,7 @@ class UIManager {
    */
   buildDefaultUI(): void {
     const uis = [
+      {template: props => errorUI(props), condition: state => state.engine.hasError},
       {template: props => adsUI(props), condition: state => state.engine.adBreak},
       {template: props => liveUI(props), condition: state => state.engine.isLive},
       {template: props => playbackUI(props)}

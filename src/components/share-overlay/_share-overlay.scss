@@ -58,7 +58,7 @@
         position: absolute;
         width: 32px;
       }
-      .check-icon {
+      .icon-check {
         transform: scale(0);
         opacity: 0;
 
@@ -67,11 +67,11 @@
       &.copied {
         background-color: $success-color;
 
-        .copy-icon {
+        .icon-copy {
           transform: scale(0);
           opacity: 0;
         }
-        .check-icon {
+        .icon-check {
           transform: scale(1);
           opacity: 1;
         }

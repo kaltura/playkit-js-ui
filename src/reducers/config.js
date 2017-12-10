@@ -6,24 +6,25 @@ export const types = {
   UPDATE: 'config/UPDATE',
   UPDATE_COMPONENT: 'config/UPDATE_COMPONENT',
   RESET: 'config/RESET'
-}
+};
 
 export const initialState = {
   ui: {
     seekbar: {},
-    shell: {}
+    shell: {},
+    errorOverlay: {}
   }
 };
 
 export default (state: Object = initialState, action: Object) => {
   switch (action.type) {
-    case types.UPDATE:
-      var config = Utils.Object.mergeDeep(state, action.config);
+    case types.UPDATE: {
+      const config = Utils.Object.mergeDeep(state, action.config);
       return {
         ...state,
         ...config
-      }
-
+      };
+    }
     case types.UPDATE_COMPONENT:
       return {
         ...state,
@@ -31,7 +32,7 @@ export default (state: Object = initialState, action: Object) => {
           ...state.ui,
           [action.componentAlias]: Utils.Object.mergeDeep(state.ui[action.componentAlias], action.config)
         }
-      }
+      };
 
     default:
       return state;
@@ -45,4 +46,4 @@ export const actions = {
     componentAlias,
     config
   })
-}
+};
