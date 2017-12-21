@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.16.1"></a>
+## [0.16.1](https://github.com/kaltura/playkit-js-ui/compare/v0.16.0...v0.16.1) (2017-12-12)
+
+
+### Bug Fixes
+
+* remove global container reference ([402a8c8](https://github.com/kaltura/playkit-js-ui/commit/402a8c8))
+* **FEC-7591:** player shell is not part of the tabbing traversal ([#157](https://github.com/kaltura/playkit-js-ui/issues/157)) ([2031c54](https://github.com/kaltura/playkit-js-ui/commit/2031c54))
+
+
+
 <a name="0.16.0"></a>
 # [0.16.0](https://github.com/kaltura/playkit-js-ui/compare/v0.15.2...v0.16.0) (2017-12-06)
 
