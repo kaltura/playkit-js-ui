@@ -23,7 +23,7 @@ module.exports = {
   output: {
     path: __dirname + "/dist",
     filename: '[name].js',
-    library: "PlaykitJsUi",
+    library: "PlaykitUI",
     libraryTarget: "umd",
     devtoolModuleFilenameTemplate: "./ui/[resource-path]",
   },
