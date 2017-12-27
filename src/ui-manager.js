@@ -14,6 +14,8 @@ import {actions} from './reducers/config';
 import {Player} from 'playkit-js';
 
 // core components for the UI
+import UIOptions from './entities/ui-options';
+import UIComponentConfig from './entities/component-config';
 import EngineConnector from './components/engine-connector';
 import Shell from './components/shell';
 import VideoPlayer from './components/video-player';
@@ -42,23 +44,23 @@ type UIPreset = {
  */
 class UIManager {
   player: Player;
-  config: Object;
+  config: UIOptions;
   targetId: string;
   store: any;
 
   /**
    * Creates an instance of UIManager.
    * @param {Player} player - player instance
-   * @param {Object} config - player config
+   * @param {UIOptions} options - UI options
    * @memberof UIManager
    */
-  constructor(player: Player, config: Object) {
-    if (config.logLevel && this.LogLevel[config.logLevel]) {
-      setLogLevel(this.LogLevel[config.logLevel]);
+  constructor(player: Player, options: UIOptions) {
+    if (options.logLevel && this.LogLevel[options.logLevel]) {
+      setLogLevel(this.LogLevel[options.logLevel]);
     }
     this.player = player;
-    this.config = config;
-    this.targetId = config.targetId;
+    this.config = options;
+    this.targetId = options.targetId;
     this.store = createStore(reducer, window.devToolsExtension && window.devToolsExtension({
       name: `playkit #${this.targetId}`,
       instanceId: this.targetId
@@ -68,18 +70,12 @@ class UIManager {
   /**
    * sets the player and ui config in the store
    *
-   * @param {Object} config - new config object
-   * @param {string} componentAlias - component alias (optional)
+   * @param {UIComponentConfig} componentConfig - component config
    * @returns {void}
    * @memberof UIManager
    */
-  setConfig(config: Object, componentAlias?: string): void {
-    if (componentAlias) {
-      this.store.dispatch(actions.updateComponentConfig(componentAlias, config));
-    }
-    else {
-      this.store.dispatch(actions.updateConfig({targetId: this.targetId, ...config}));
-    }
+  setComponentConfig(componentConfig: UIComponentConfig): void {
+    this.store.dispatch(actions.updateComponentConfig(componentConfig.component, componentConfig.config));
   }
 
   /**
@@ -108,8 +104,7 @@ class UIManager {
   buildCustomUI(uis: Array<UIPreset>): void {
     if (uis.length > 0) {
       this._buildUI(uis);
-    }
-    else {
+    } else {
       let fallbackUIs = [{template: props => playbackUI(props)}];
       this._buildUI(fallbackUIs);
     }
@@ -174,7 +169,6 @@ class UIManager {
   setLogLevel(level: Object, name?: string) {
     setLogLevel(level, name);
   }
-
 }
 
 export default UIManager;

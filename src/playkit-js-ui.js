@@ -1,5 +1,7 @@
 // @flow
 import UIManager from './ui-manager';
+import UIOptions from './entities/ui-options';
+import UIComponentConfig from './entities/component-config';
 
 export {h} from 'preact';
 
@@ -26,5 +28,8 @@ export {BottomBar} from './components/bottom-bar';
 export {OverlayPortal} from './components/overlay-portal';
 export {KeyboardControl} from './components/keyboard';
 export {ErrorOverlay} from './components/error-overlay';
+
+export {UIOptions};
+export {UIComponentConfig};
 
 export default UIManager;
