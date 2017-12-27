@@ -3,15 +3,10 @@ import {h, render} from 'preact';
 import {Provider} from 'preact-redux';
 import {IntlProvider} from 'preact-i18n';
 import {createStore} from 'redux';
-import {LogLevel, getLogLevel, setLogLevel} from './utils/logger'
-
-
+import {LogLevel, getLogLevel, setLogLevel} from './utils/logger';
 import reducer from './store';
 import definition from './fr.json';
-
 import {actions} from './reducers/config';
-
-import {Player} from 'playkit-js';
 
 // core components for the UI
 import UIOptions from './entities/ui-options';
@@ -29,9 +24,6 @@ import errorUI from './ui-presets/error';
 
 import './styles/style.scss';
 
-declare var __VERSION__: string;
-declare var __NAME__: string;
-
 type UIPreset = {
   template: (props: Object) => any;
   condition?: (state: Object) => boolean;
@@ -42,7 +34,7 @@ type UIPreset = {
  *
  * @class UIManager
  */
-class UIManager {
+export default class UIManager {
   player: Player;
   config: UIOptions;
   targetId: string;
@@ -170,7 +162,3 @@ class UIManager {
     setLogLevel(level, name);
   }
 }
-
-export default UIManager;
-export {__VERSION__ as VERSION, __NAME__ as NAME};
-

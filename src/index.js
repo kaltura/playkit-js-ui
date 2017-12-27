@@ -3,6 +3,9 @@ import UIManager from './ui-manager';
 import UIOptions from './entities/ui-options';
 import UIComponentConfig from './entities/component-config';
 
+declare var __VERSION__: string;
+declare var __NAME__: string;
+
 export {h} from 'preact';
 
 // ui presets
@@ -33,3 +36,4 @@ export {UIOptions};
 export {UIComponentConfig};
 
 export default UIManager;
+export {__VERSION__ as VERSION, __NAME__ as NAME};
