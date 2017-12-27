@@ -19,11 +19,13 @@ if (PROD) {
 
 module.exports = {
   context: __dirname + "/src",
-  entry: {"playkit-ui": "index.js"},
+  entry: {
+    "playkit-ui": "index.js"
+  },
   output: {
     path: __dirname + "/dist",
     filename: '[name].js',
-    library: "PlaykitUI",
+    library: ["playkit", "ui"],
     libraryTarget: "umd",
     devtoolModuleFilenameTemplate: "./ui/[resource-path]"
   },

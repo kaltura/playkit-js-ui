@@ -52,10 +52,10 @@ Finally, add the bundle as a script tag in your page, and initialize the player
 <script type="text/javascript" src="/PATH/TO/FILE/playkit-ui.js"></script>
 <div id="player-placeholder" style="height:360px; width:640px">
 <script type="text/javascript">
-var playerOptions = new Playkit.PlayerOptions();
-var uiOptions = new PlaykitUI.UIOptions("player-placeholder");
-var player = Playkit.loadPlayer(playerOptions);
-var uiManager = new PlaykitUI(player, uiOptions);
+var playerOptions = new playkit.core.PlayerOptions();
+var uiOptions = new playkit.ui.UIOptions("player-placeholder");
+var player = playkit.core.loadPlayer(playerOptions);
+var uiManager = new playkit.ui.UIManager(player, uiOptions);
 uiManager.buildDefaultUI();
 player.play();
 </script>

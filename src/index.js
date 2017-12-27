@@ -31,9 +31,7 @@ export {BottomBar} from './components/bottom-bar';
 export {OverlayPortal} from './components/overlay-portal';
 export {KeyboardControl} from './components/keyboard';
 export {ErrorOverlay} from './components/error-overlay';
-
 export {UIOptions};
 export {UIComponentConfig};
-
-export default UIManager;
+export {UIManager};
 export {__VERSION__ as VERSION, __NAME__ as NAME};
