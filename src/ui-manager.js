@@ -9,8 +9,8 @@ import definition from './fr.json';
 import {actions} from './reducers/config';
 
 // core components for the UI
-import UIOptions from './entities/ui-options';
-import UIComponentConfig from './entities/component-config';
+import UIOptions from './ui-options/ui-options';
+import UIComponentConfig from './ui-options/component-config';
 import EngineConnector from './components/engine-connector';
 import Shell from './components/shell';
 import VideoPlayer from './components/video-player';

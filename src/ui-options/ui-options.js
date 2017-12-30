@@ -14,11 +14,6 @@ export default class UIOptions {
     return this._targetId;
   }
 
-  set targetId(value: string): void {
-    if (typeof value !== 'string') return;
-    this._targetId = value;
-  }
-
   get logLevel(): string {
     return this._logLevel;
   }
@@ -30,19 +25,18 @@ export default class UIOptions {
     }
   }
 
-  constructor(targetId: string, logLevel?: string) {
+  constructor(targetId: string) {
+    validate(targetId);
     if (typeof targetId === 'string') {
-      this.targetId = targetId;
-      this.logLevel = logLevel || 'ERROR';
+      this._targetId = targetId;
+      this.logLevel = 'ERROR';
     } else if (typeof targetId === 'object') {
       this.fromJSON(targetId);
     }
   }
 
   fromJSON(json: UIOptionsObject): void {
-    if (json.targetId) {
-      this.targetId = json.targetId;
-    }
+    this._targetId = json.targetId;
     if (json.logLevel) {
       this.logLevel = json.logLevel;
     }
@@ -54,4 +48,10 @@ export default class UIOptions {
       logLevel: this.logLevel
     };
   }
+}
+
+function validate(param: string | UIOptionsObject): void {
+  if (typeof param === 'string') return;
+  if (typeof param === 'object' && typeof param.targetId === 'string') return;
+  throw new TypeError('Target id must be provide and be type of string');
 }

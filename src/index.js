@@ -1,7 +1,7 @@
 // @flow
 import UIManager from './ui-manager';
-import UIOptions from './entities/ui-options';
-import UIComponentConfig from './entities/component-config';
+import UIOptions from './ui-options/ui-options';
+import UIComponentConfig from './ui-options/component-config';
 
 declare var __VERSION__: string;
 declare var __NAME__: string;
