@@ -50,6 +50,9 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   componentWillMount() {
+    this.player.ready().then(() => {
+      this.setState({isPlayerReady: true});
+    });
     this.props.addPlayerClass(style.prePlayback);
     try {
       this.autoplay = this.player.config.playback.autoplay;
@@ -123,16 +126,18 @@ class PrePlaybackPlayOverlay extends BaseComponent {
       <div
         className={rootClass.join(' ')}
         style={rootStyle}
-        onClick={() => this.handleClick()}>
-        <a className={style.prePlaybackPlayButton}
-           tabIndex="0"
-           onKeyDown={(e) => {
-             if (e.keyCode === KeyMap.ENTER) {
-               this.handleClick();
-             }
-           }}>
-          {props.isEnded ? <Icon type={IconType.StartOver}/> : <Icon type={IconType.Play}/>}
-        </a>
+        onClick={() => this.state.isPlayerReady ? this.handleClick() : undefined}>
+        {this.state.isPlayerReady ?
+          <a className={style.prePlaybackPlayButton}
+             tabIndex="0"
+             onKeyDown={(e) => {
+               if (e.keyCode === KeyMap.ENTER) {
+                 this.handleClick();
+               }
+             }}>
+            {props.isEnded ? <Icon type={IconType.StartOver}/> : <Icon type={IconType.Play}/>}
+          </a>
+          : undefined}
       </div>
     )
   }
