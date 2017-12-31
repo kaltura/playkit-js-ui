@@ -25,7 +25,7 @@ export default class UIOptions {
     }
   }
 
-  constructor(targetId: string) {
+  constructor(targetId: string | UIOptionsObject) {
     validate(targetId);
     if (typeof targetId === 'string') {
       this._targetId = targetId;
@@ -50,6 +50,11 @@ export default class UIOptions {
   }
 }
 
+/**
+ * Validate user input
+ * @param {string | UIOptionsObject} param - user input
+ * @returns {void}
+ */
 function validate(param: string | UIOptionsObject): void {
   if (typeof param === 'string') return;
   if (typeof param === 'object' && typeof param.targetId === 'string') return;
