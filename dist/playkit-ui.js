@@ -1340,7 +1340,7 @@ function wrapMapToPropsConstant(getConstant) {
 // dependsOnOwnProps is used by createMapToPropsProxy to determine whether to pass props as args
 // to the mapToProps function being wrapped. It is also used by makePurePropsSelector to determine
 // whether mapToProps needs to be invoked when props have changed.
-//
+// 
 // A length of one signals that mapToProps does not depend on props from the parent component.
 // A length of zero is assumed to mean mapToProps is getting args via arguments or ...args and
 // therefore not reporting its length accurately..
@@ -1350,16 +1350,16 @@ function getDependsOnOwnProps(mapToProps) {
 
 // Used by whenMapStateToPropsIsFunction and whenMapDispatchToPropsIsFunction,
 // this function wraps mapToProps in a proxy function which does several things:
-//
+// 
 //  * Detects whether the mapToProps function being called depends on props, which
 //    is used by selectorFactory to decide if it should reinvoke on props changes.
-//
+//    
 //  * On first call, handles mapToProps if returns another function, and treats that
 //    new function as the true mapToProps for subsequent calls.
-//
+//    
 //  * On first call, verifies the first result is a plain object, in order to warn
 //    the developer that their mapToProps function is not returning a valid result.
-//
+//    
 function wrapMapToPropsFunc(mapToProps, methodName) {
   return function initProxySelector(dispatch, _ref) {
     var displayName = _ref.displayName;
@@ -1583,7 +1583,7 @@ function finalPropsSelectorFactory(dispatch, _ref2) {
   selectorFactory, which has the signature:
 
     (dispatch, options) => (nextState, nextOwnProps) => nextFinalProps
-
+  
   connect passes its args to connectAdvanced as options, which will in turn pass them to
   selectorFactory each time a Connect component instance is instantiated or hot reloaded.
 
@@ -1784,8 +1784,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {};
-options.transform = transform;
+var options = {}
+options.transform = transform
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -2059,7 +2059,7 @@ function listToStyles (list, options) {
 }
 
 function insertStyleElement (options, style) {
-	var target = getElement(options.insertInto);
+	var target = getElement(options.insertInto)
 
 	if (!target) {
 		throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
@@ -4926,9 +4926,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _logger = __webpack_require__(24);
+
+var _uiOptionsHelpers = __webpack_require__(166);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -4944,20 +4948,32 @@ var UIOptions = function () {
       return this._logLevel;
     },
     set: function set(value) {
-      if (_logger.LogLevel[value]) {
+      if (typeof value === 'string' && _logger.LogLevel[value]) {
         this._logLevel = value;
       }
     }
   }]);
 
-  function UIOptions(targetId, logLevel) {
+  function UIOptions(targetId) {
     _classCallCheck(this, UIOptions);
 
-    this._targetId = targetId;
-    this.logLevel = logLevel || 'ERROR';
+    this._logLevel = 'ERROR';
+
+    (0, _uiOptionsHelpers.validate)(targetId);
+    if (typeof targetId === 'string') {
+      this._targetId = targetId;
+    } else if ((typeof targetId === 'undefined' ? 'undefined' : _typeof(targetId)) === 'object') {
+      this.fromJSON(targetId);
+    }
   }
 
   _createClass(UIOptions, [{
+    key: 'fromJSON',
+    value: function fromJSON(json) {
+      this._targetId = json.targetId;
+      this.logLevel = json.logLevel || this.logLevel;
+    }
+  }, {
     key: 'toJSON',
     value: function toJSON() {
       return {
@@ -5811,8 +5827,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {};
-options.transform = transform;
+var options = {}
+options.transform = transform
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -6170,8 +6186,9 @@ function symbolObservablePonyfill(root) {
 	}
 
 	return result;
-}
-    /***/ }),
+};
+
+/***/ }),
 /* 77 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -6494,7 +6511,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 				this.context.filterLevel = newLevel;
 			}
 		},
-
+		
 		// Gets the current logging level for the logging instance
 		getLevel: function () {
 			return this.context.filterLevel;
@@ -7367,8 +7384,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {};
-options.transform = transform;
+var options = {}
+options.transform = transform
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -7581,8 +7598,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {};
-options.transform = transform;
+var options = {}
+options.transform = transform
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -8561,8 +8578,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {};
-options.transform = transform;
+var options = {}
+options.transform = transform
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -9632,8 +9649,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {};
-options.transform = transform;
+var options = {}
+options.transform = transform
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -11536,8 +11553,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {};
-options.transform = transform;
+var options = {}
+options.transform = transform
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -11834,8 +11851,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {};
-options.transform = transform;
+var options = {}
+options.transform = transform
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -12111,8 +12128,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {};
-options.transform = transform;
+var options = {}
+options.transform = transform
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -12230,8 +12247,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {};
-options.transform = transform;
+var options = {}
+options.transform = transform
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -13129,8 +13146,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {};
-options.transform = transform;
+var options = {}
+options.transform = transform
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -13280,8 +13297,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {};
-options.transform = transform;
+var options = {}
+options.transform = transform
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -13402,8 +13419,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {};
-options.transform = transform;
+var options = {}
+options.transform = transform
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -13788,8 +13805,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {};
-options.transform = transform;
+var options = {}
+options.transform = transform
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -15921,8 +15938,8 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
 
-var options = {};
-options.transform = transform;
+var options = {}
+options.transform = transform
 // add the styles to the DOM
 var update = __webpack_require__(7)(content, options);
 if(content.locals) module.exports = content.locals;
@@ -16086,6 +16103,33 @@ var PlayerGUI = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class 
   return PlayerGUI;
 }(_preact.Component)) || _class);
 exports.default = PlayerGUI;
+
+/***/ }),
+/* 166 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+exports.validate = validate;
+
+
+/**
+ * Validate user input
+ * @param {string | UIOptionsObject} param - user input
+ * @returns {void}
+ */
+function validate(param) {
+  if (typeof param === 'string') return;
+  if ((typeof param === 'undefined' ? 'undefined' : _typeof(param)) === 'object' && typeof param.targetId === 'string') return;
+  throw new TypeError('Invalid UI configuration - must provide {targetId:string}');
+}
 
 /***/ })
 /******/ ]);
