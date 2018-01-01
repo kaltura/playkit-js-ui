@@ -58,5 +58,5 @@ export default class UIOptions {
 function validate(param: string | UIOptionsObject): void {
   if (typeof param === 'string') return;
   if (typeof param === 'object' && typeof param.targetId === 'string') return;
-  throw new TypeError('Target id must be provide and be type of string');
+  throw new TypeError('Invalid UIOptions: targetId must be provided and be a string');
 }
