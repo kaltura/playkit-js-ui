@@ -1,6 +1,5 @@
 // @flow
 import {LogLevel} from '../utils/logger';
-import {validate} from './ui-options-helpers'
 
 export type UIOptionsObject = {
   targetId: string,
@@ -9,7 +8,7 @@ export type UIOptionsObject = {
 
 export default class UIOptions {
   _targetId: string;
-  _logLevel: string = 'ERROR';
+  _logLevel: string;
 
   get targetId(): string {
     return this._targetId;
@@ -20,7 +19,8 @@ export default class UIOptions {
   }
 
   set logLevel(value: string): void {
-    if (typeof value === 'string' && LogLevel[value]) {
+    if (typeof value !== 'string') return;
+    if (LogLevel[value]) {
       this._logLevel = value;
     }
   }
@@ -29,6 +29,7 @@ export default class UIOptions {
     validate(targetId);
     if (typeof targetId === 'string') {
       this._targetId = targetId;
+      this.logLevel = 'ERROR';
     } else if (typeof targetId === 'object') {
       this.fromJSON(targetId);
     }
@@ -36,7 +37,9 @@ export default class UIOptions {
 
   fromJSON(json: UIOptionsObject): void {
     this._targetId = json.targetId;
-    this.logLevel = json.logLevel || this.logLevel;
+    if (json.logLevel) {
+      this.logLevel = json.logLevel;
+    }
   }
 
   toJSON(): UIOptionsObject {
@@ -45,4 +48,15 @@ export default class UIOptions {
       logLevel: this.logLevel
     };
   }
+}
+
+/**
+ * Validate user input
+ * @param {string | UIOptionsObject} param - user input
+ * @returns {void}
+ */
+function validate(param: string | UIOptionsObject): void {
+  if (typeof param === 'string') return;
+  if (typeof param === 'object' && typeof param.targetId === 'string') return;
+  throw new TypeError('Target id must be provide and be type of string');
 }

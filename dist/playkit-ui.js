@@ -4932,8 +4932,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _logger = __webpack_require__(24);
 
-var _uiOptionsHelpers = __webpack_require__(166);
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var UIOptions = function () {
@@ -4948,7 +4946,8 @@ var UIOptions = function () {
       return this._logLevel;
     },
     set: function set(value) {
-      if (typeof value === 'string' && _logger.LogLevel[value]) {
+      if (typeof value !== 'string') return;
+      if (_logger.LogLevel[value]) {
         this._logLevel = value;
       }
     }
@@ -4957,11 +4956,10 @@ var UIOptions = function () {
   function UIOptions(targetId) {
     _classCallCheck(this, UIOptions);
 
-    this._logLevel = 'ERROR';
-
-    (0, _uiOptionsHelpers.validate)(targetId);
+    validate(targetId);
     if (typeof targetId === 'string') {
       this._targetId = targetId;
+      this.logLevel = 'ERROR';
     } else if ((typeof targetId === 'undefined' ? 'undefined' : _typeof(targetId)) === 'object') {
       this.fromJSON(targetId);
     }
@@ -4971,7 +4969,9 @@ var UIOptions = function () {
     key: 'fromJSON',
     value: function fromJSON(json) {
       this._targetId = json.targetId;
-      this.logLevel = json.logLevel || this.logLevel;
+      if (json.logLevel) {
+        this.logLevel = json.logLevel;
+      }
     }
   }, {
     key: 'toJSON',
@@ -4986,7 +4986,19 @@ var UIOptions = function () {
   return UIOptions;
 }();
 
+/**
+ * Validate user input
+ * @param {string | UIOptionsObject} param - user input
+ * @returns {void}
+ */
+
+
 exports.default = UIOptions;
+function validate(param) {
+  if (typeof param === 'string') return;
+  if ((typeof param === 'undefined' ? 'undefined' : _typeof(param)) === 'object' && typeof param.targetId === 'string') return;
+  throw new TypeError('Target id must be provide and be type of string');
+}
 
 /***/ }),
 /* 58 */
@@ -16103,33 +16115,6 @@ var PlayerGUI = (_dec = (0, _preactRedux.connect)(mapStateToProps), _dec(_class 
   return PlayerGUI;
 }(_preact.Component)) || _class);
 exports.default = PlayerGUI;
-
-/***/ }),
-/* 166 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-exports.validate = validate;
-
-
-/**
- * Validate user input
- * @param {string | UIOptionsObject} param - user input
- * @returns {void}
- */
-function validate(param) {
-  if (typeof param === 'string') return;
-  if ((typeof param === 'undefined' ? 'undefined' : _typeof(param)) === 'object' && typeof param.targetId === 'string') return;
-  throw new TypeError('Invalid UI configuration - must provide {targetId:string}');
-}
 
 /***/ })
 /******/ ]);
