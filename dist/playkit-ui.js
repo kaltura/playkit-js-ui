@@ -4936,9 +4936,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var UIOptions = function () {
   _createClass(UIOptions, [{
+    key: 'forceTouchUI',
+    get: function get() {
+      return this._forceTouchUI;
+    },
+    set: function set(value) {
+      if (typeof value !== 'boolean') return;
+      this._forceTouchUI = value;
+    }
+  }, {
     key: 'targetId',
     get: function get() {
       return this._targetId;
+    },
+    set: function set(value) {
+      if (typeof value !== 'string') return;
+      this._targetId = value;
     }
   }, {
     key: 'logLevel',
@@ -4946,8 +4959,7 @@ var UIOptions = function () {
       return this._logLevel;
     },
     set: function set(value) {
-      if (typeof value !== 'string') return;
-      if (_logger.LogLevel[value]) {
+      if (typeof value === 'string' && _logger.LogLevel[value]) {
         this._logLevel = value;
       }
     }
@@ -4956,10 +4968,11 @@ var UIOptions = function () {
   function UIOptions(targetId) {
     _classCallCheck(this, UIOptions);
 
-    validate(targetId);
+    this._logLevel = 'ERROR';
+    this._forceTouchUI = false;
+
     if (typeof targetId === 'string') {
-      this._targetId = targetId;
-      this.logLevel = 'ERROR';
+      this.targetId = targetId;
     } else if ((typeof targetId === 'undefined' ? 'undefined' : _typeof(targetId)) === 'object') {
       this.fromJSON(targetId);
     }
@@ -4968,9 +4981,14 @@ var UIOptions = function () {
   _createClass(UIOptions, [{
     key: 'fromJSON',
     value: function fromJSON(json) {
-      this._targetId = json.targetId;
+      if (json.targetId) {
+        this.targetId = json.targetId;
+      }
       if (json.logLevel) {
         this.logLevel = json.logLevel;
+      }
+      if (json.forceTouchUI) {
+        this.forceTouchUI = json.forceTouchUI;
       }
     }
   }, {
@@ -4978,7 +4996,8 @@ var UIOptions = function () {
     value: function toJSON() {
       return {
         targetId: this.targetId,
-        logLevel: this.logLevel
+        logLevel: this.logLevel,
+        forceTouchUI: this.forceTouchUI
       };
     }
   }]);
@@ -4986,19 +5005,7 @@ var UIOptions = function () {
   return UIOptions;
 }();
 
-/**
- * Validate user input
- * @param {string | UIOptionsObject} param - user input
- * @returns {void}
- */
-
-
 exports.default = UIOptions;
-function validate(param) {
-  if (typeof param === 'string') return;
-  if ((typeof param === 'undefined' ? 'undefined' : _typeof(param)) === 'object' && typeof param.targetId === 'string') return;
-  throw new TypeError('Target id must be provide and be type of string');
-}
 
 /***/ }),
 /* 58 */
