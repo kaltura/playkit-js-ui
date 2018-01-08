@@ -1,5 +1,10 @@
 // @flow
 import UIManager from './ui-manager';
+import UIOptions from './ui-options/ui-options';
+import UIComponentConfig from './ui-options/component-config';
+
+declare var __VERSION__: string;
+declare var __NAME__: string;
 
 export {h} from 'preact';
 
@@ -26,5 +31,7 @@ export {BottomBar} from './components/bottom-bar';
 export {OverlayPortal} from './components/overlay-portal';
 export {KeyboardControl} from './components/keyboard';
 export {ErrorOverlay} from './components/error-overlay';
-
-export default UIManager;
+export {UIOptions};
+export {UIComponentConfig};
+export {UIManager};
+export {__VERSION__ as VERSION, __NAME__ as NAME};

@@ -3,17 +3,14 @@ import {h, render} from 'preact';
 import {Provider} from 'preact-redux';
 import {IntlProvider} from 'preact-i18n';
 import {createStore} from 'redux';
-import {LogLevel, getLogLevel, setLogLevel} from './utils/logger'
-
-
+import {LogLevel, getLogLevel, setLogLevel} from './utils/logger';
 import reducer from './store';
 import definition from './fr.json';
-
 import {actions} from './reducers/config';
 
-import {Player} from 'playkit-js';
-
 // core components for the UI
+import UIOptions from './ui-options/ui-options';
+import UIComponentConfig from './ui-options/component-config';
 import EngineConnector from './components/engine-connector';
 import Shell from './components/shell';
 import VideoPlayer from './components/video-player';
@@ -27,9 +24,6 @@ import errorUI from './ui-presets/error';
 
 import './styles/style.scss';
 
-declare var __VERSION__: string;
-declare var __NAME__: string;
-
 type UIPreset = {
   template: (props: Object) => any;
   condition?: (state: Object) => boolean;
@@ -40,25 +34,25 @@ type UIPreset = {
  *
  * @class UIManager
  */
-class UIManager {
+export default class UIManager {
   player: Player;
-  config: Object;
+  config: UIOptions;
   targetId: string;
   store: any;
 
   /**
    * Creates an instance of UIManager.
    * @param {Player} player - player instance
-   * @param {Object} config - player config
+   * @param {UIOptions} options - UI options
    * @memberof UIManager
    */
-  constructor(player: Player, config: Object) {
-    if (config.logLevel && this.LogLevel[config.logLevel]) {
-      setLogLevel(this.LogLevel[config.logLevel]);
+  constructor(player: Player, options: UIOptions) {
+    if (options.logLevel && this.LogLevel[options.logLevel]) {
+      setLogLevel(this.LogLevel[options.logLevel]);
     }
     this.player = player;
-    this.config = config;
-    this.targetId = config.targetId;
+    this.config = options;
+    this.targetId = options.targetId;
     this.store = createStore(reducer, window.devToolsExtension && window.devToolsExtension({
       name: `playkit #${this.targetId}`,
       instanceId: this.targetId
@@ -68,18 +62,12 @@ class UIManager {
   /**
    * sets the player and ui config in the store
    *
-   * @param {Object} config - new config object
-   * @param {string} componentAlias - component alias (optional)
+   * @param {UIComponentConfig} componentConfig - component config
    * @returns {void}
    * @memberof UIManager
    */
-  setConfig(config: Object, componentAlias?: string): void {
-    if (componentAlias) {
-      this.store.dispatch(actions.updateComponentConfig(componentAlias, config));
-    }
-    else {
-      this.store.dispatch(actions.updateConfig({targetId: this.targetId, ...config}));
-    }
+  setComponentConfig(componentConfig: UIComponentConfig): void {
+    this.store.dispatch(actions.updateComponentConfig(componentConfig.component, componentConfig.config));
   }
 
   /**
@@ -108,8 +96,7 @@ class UIManager {
   buildCustomUI(uis: Array<UIPreset>): void {
     if (uis.length > 0) {
       this._buildUI(uis);
-    }
-    else {
+    } else {
       let fallbackUIs = [{template: props => playbackUI(props)}];
       this._buildUI(fallbackUIs);
     }
@@ -174,9 +161,4 @@ class UIManager {
   setLogLevel(level: Object, name?: string) {
     setLogLevel(level, name);
   }
-
 }
-
-export default UIManager;
-export {__VERSION__ as VERSION, __NAME__ as NAME};
-
