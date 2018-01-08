@@ -9,7 +9,7 @@ export type UIOptionsObject = {
 
 export default class UIOptions {
   _targetId: string;
-  _logLevel: string = 'ERROR';
+  _logLevel: string = LogLevel.ERROR.name;
   _forceTouchUI: boolean = false;
 
   get forceTouchUI(): boolean {
