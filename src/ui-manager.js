@@ -39,14 +39,14 @@ type UIPreset = {
  */
 export default class UIManager {
   player: Player;
-  config: Object;
+  config: UIOptionsObject;
   targetId: string;
   store: any;
 
   /**
    * Creates an instance of UIManager.
    * @param {Player} player - player instance
-   * @param {Object} config - player config
+   * @param {UIOptionsObject} config - ui config
    * @memberof UIManager
    */
   constructor(player: Player, config: Object) {
