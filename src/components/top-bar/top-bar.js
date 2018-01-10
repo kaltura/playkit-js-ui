@@ -1,5 +1,5 @@
 //@flow
-import style from './_top-bar.scss';
+import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 
 /**
