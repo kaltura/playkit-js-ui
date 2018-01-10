@@ -13,7 +13,7 @@ export {default as liveUI} from './ui-presets/live';
 export {default as errorUI} from './ui-presets/error'
 
 // components
-export {OverlayPlay} from './components/overlay-play';
+export {OverlayAction} from './components/overlay-action';
 export {PrePlaybackPlayOverlay} from './components/pre-playback-play-overlay';
 export {Loading} from './components/loading';
 export {PlayPauseControl} from './components/play-pause';
