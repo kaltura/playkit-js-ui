@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.17.0"></a>
+# [0.17.0](https://github.com/kaltura/playkit-js-ui/compare/v0.16.1...v0.17.0) (2018-01-10)
+
+
+### Bug Fixes
+
+* logger types ([#162](https://github.com/kaltura/playkit-js-ui/issues/162)) ([39f9772](https://github.com/kaltura/playkit-js-ui/commit/39f9772))
+* retry callback ([#161](https://github.com/kaltura/playkit-js-ui/issues/161)) ([8ab4980](https://github.com/kaltura/playkit-js-ui/commit/8ab4980))
+* style class appears twice ([#163](https://github.com/kaltura/playkit-js-ui/issues/163)) ([10b5910](https://github.com/kaltura/playkit-js-ui/commit/10b5910))
+
+
+### Features
+
+* align playkit env convention ([#160](https://github.com/kaltura/playkit-js-ui/issues/160)) ([1a4a1e4](https://github.com/kaltura/playkit-js-ui/commit/1a4a1e4))
+* keyboard shortcuts ui gestures ([#149](https://github.com/kaltura/playkit-js-ui/issues/149)) ([9e922db](https://github.com/kaltura/playkit-js-ui/commit/9e922db))
+
+
+
 <a name="0.16.1"></a>
 ## [0.16.1](https://github.com/kaltura/playkit-js-ui/compare/v0.16.0...v0.16.1) (2017-12-12)
 
