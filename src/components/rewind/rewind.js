@@ -8,10 +8,10 @@ import {KeyMap} from "../../utils/key-map";
 
 /**
  * Default rewind step
- * @type {number} number of seconds
+ * @type {number}
  * @const
  */
-const DEFAULT_STEP = 10;
+export const REWIND_DEFAULT_STEP = 10;
 
 /**
  * RewindControl component
@@ -39,7 +39,7 @@ class RewindControl extends BaseComponent {
    */
   onClick(): void {
     this.animate();
-    const step = this.props.step || DEFAULT_STEP;
+    const step = this.props.step || REWIND_DEFAULT_STEP;
     if (this.player.currentTime - step < 0) {
       this.player.currentTime = 0;
     } else {
