@@ -4,7 +4,7 @@ import {connect} from 'preact-redux';
 import {actions as shellActions} from '../../reducers/shell';
 import {actions as overlayIconActions} from '../../reducers/overlay-action';
 import {bindActions} from '../../utils/bind-actions';
-import {KeyMap} from "../../utils/key-map";
+import {KeyMap, getKeyName} from "../../utils/key-map";
 import {IconType} from '../icon';
 import {CONTROL_BAR_HOVER_DEFAULT_TIMEOUT} from "../shell/shell";
 
@@ -55,6 +55,7 @@ class KeyboardControl extends BaseComponent {
     }
     playerContainer.onkeydown = (e: KeyboardEvent) => {
       if (!this.props.playerNav && typeof this.keyboardHandlers[e.keyCode] === 'function') {
+        this.logger.debug(`KeyDown -> keyName: ${getKeyName(e.keyCode)}, shiftKey: ${e.shiftKey.toString()}`);
         this.keyboardHandlers[e.keyCode](e.shiftKey);
       }
     };
@@ -141,12 +142,15 @@ class KeyboardControl extends BaseComponent {
         this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeMute]) :
         this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWaves]);
     },
-    [KeyMap.ADD]: (shiftKey) => {
+    [KeyMap.SEMI_COLON]: (shiftKey: boolean) => {
       if (shiftKey) {
         this.logger.debug(`Changing playback rate. ${this.player.playbackRate} => ${this.player.defaultPlaybackRate}`);
         this.player.playbackRate = this.player.defaultPlaybackRate;
         this.props.updateOverlayActionIcon(IconType.Speed);
-      } else {
+      }
+    },
+    [KeyMap.PERIOD]: (shiftKey: boolean) => {
+      if (shiftKey) {
         const playbackRate = this.player.playbackRate;
         const index = this.player.playbackRates.indexOf(playbackRate);
         if (index < this.player.playbackRates.length - 1) {
@@ -156,12 +160,14 @@ class KeyboardControl extends BaseComponent {
         this.props.updateOverlayActionIcon(IconType.SpeedUp);
       }
     },
-    [KeyMap.SUBTRACT]: () => {
-      const playbackRate = this.player.playbackRate;
-      const index = this.player.playbackRates.indexOf(playbackRate);
-      if (index > 0) {
-        this.logger.debug(`Changing playback rate. ${playbackRate} => ${this.player.playbackRates[index - 1]}`);
-        this.player.playbackRate = this.player.playbackRates[index - 1];
+    [KeyMap.COMMA]: (shiftKey: boolean) => {
+      if (shiftKey) {
+        const playbackRate = this.player.playbackRate;
+        const index = this.player.playbackRates.indexOf(playbackRate);
+        if (index > 0) {
+          this.logger.debug(`Changing playback rate. ${playbackRate} => ${this.player.playbackRates[index - 1]}`);
+          this.player.playbackRate = this.player.playbackRates[index - 1];
+        }
       }
       this.props.updateOverlayActionIcon(IconType.SpeedDown);
     },

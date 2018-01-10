@@ -23,11 +23,9 @@ import PlayerGUI from './player-gui';
 import adsUI from './ui-presets/ads';
 import playbackUI from './ui-presets/playback';
 import liveUI from './ui-presets/live';
+import errorUI from './ui-presets/error';
 
 import './styles/style.scss';
-
-declare var __VERSION__: string;
-declare var __NAME__: string;
 
 type UIPreset = {
   template: (props: Object) => any;
@@ -39,16 +37,16 @@ type UIPreset = {
  *
  * @class UIManager
  */
-class UIManager {
+export default class UIManager {
   player: Player;
-  config: Object;
+  config: UIOptionsObject;
   targetId: string;
   store: any;
 
   /**
    * Creates an instance of UIManager.
    * @param {Player} player - player instance
-   * @param {Object} config - player config
+   * @param {UIOptionsObject} config - ui config
    * @memberof UIManager
    */
   constructor(player: Player, config: Object) {
@@ -75,8 +73,7 @@ class UIManager {
   setConfig(config: Object, componentAlias?: string): void {
     if (componentAlias) {
       this.store.dispatch(actions.updateComponentConfig(componentAlias, config));
-    }
-    else {
+    } else {
       this.store.dispatch(actions.updateConfig({targetId: this.targetId, ...config}));
     }
   }
@@ -89,6 +86,7 @@ class UIManager {
    */
   buildDefaultUI(): void {
     const uis = [
+      {template: props => errorUI(props), condition: state => state.engine.hasError},
       {template: props => adsUI(props), condition: state => state.engine.adBreak},
       {template: props => liveUI(props), condition: state => state.engine.isLive},
       {template: props => playbackUI(props)}
@@ -172,9 +170,4 @@ class UIManager {
   setLogLevel(level: Object, name?: string) {
     setLogLevel(level, name);
   }
-
 }
-
-export default UIManager;
-export {__VERSION__ as VERSION, __NAME__ as NAME};
-

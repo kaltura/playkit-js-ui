@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.16.1"></a>
+## [0.16.1](https://github.com/kaltura/playkit-js-ui/compare/v0.16.0...v0.16.1) (2017-12-12)
+
+
+### Bug Fixes
+
+* remove global container reference ([402a8c8](https://github.com/kaltura/playkit-js-ui/commit/402a8c8))
+* **FEC-7591:** player shell is not part of the tabbing traversal ([#157](https://github.com/kaltura/playkit-js-ui/issues/157)) ([2031c54](https://github.com/kaltura/playkit-js-ui/commit/2031c54))
+
+
+
+<a name="0.16.0"></a>
+# [0.16.0](https://github.com/kaltura/playkit-js-ui/compare/v0.15.2...v0.16.0) (2017-12-06)
+
+
+### Bug Fixes
+
+* update speed keys shortcuts ([#153](https://github.com/kaltura/playkit-js-ui/issues/153)) ([4f04e56](https://github.com/kaltura/playkit-js-ui/commit/4f04e56))
+
+
+### Features
+
+* **FEC-7472:** error handling ui ([#144](https://github.com/kaltura/playkit-js-ui/issues/144)) ([5ec0940](https://github.com/kaltura/playkit-js-ui/commit/5ec0940))
+* **FEC-7568:** seekbar buffered progress is hard coded ([#154](https://github.com/kaltura/playkit-js-ui/issues/154)) ([53d14b7](https://github.com/kaltura/playkit-js-ui/commit/53d14b7))
+
+
+
 <a name="0.15.2"></a>
 ## [0.15.2](https://github.com/kaltura/playkit-js-ui/compare/v0.15.1...v0.15.2) (2017-11-29)
 

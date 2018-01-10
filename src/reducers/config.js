@@ -10,7 +10,8 @@ export const types = {
 export const initialState = {
   ui: {
     seekbar: {},
-    shell: {}
+    shell: {},
+    errorOverlay: {}
   }
 };
 
