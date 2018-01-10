@@ -1,5 +1,5 @@
 //@flow
-import style from './_ad-skip.scss';
+import style from '../../styles/style.scss';
 import {h} from 'preact';
 import {connect} from 'preact-redux';
 import BaseComponent from '../base';

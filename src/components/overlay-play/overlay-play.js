@@ -1,5 +1,5 @@
 //@flow
-import style from './_overlay-play.scss';
+import style from '../../styles/style.scss';
 import {h} from 'preact';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
