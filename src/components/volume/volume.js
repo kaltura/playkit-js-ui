@@ -6,7 +6,9 @@ import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/volume';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
-import {KeyMap} from "../../utils/key-map";
+import {KeyMap} from '../../utils/key-map';
+import Tooltip from '../tooltip/tooltip';
+import {Text} from 'preact-i18n';
 
 /**
  * mapping state to props
@@ -208,6 +210,7 @@ class VolumeControl extends BaseComponent {
    * @memberof VolumeControl
    */
   render(): React$Element<any> {
+    const tooltipLabel = this.player.muted ? 'tooltips.volume.unmute' : 'tooltips.volume.mute';
     const controlButtonClass = [style.controlButtonContainer, style.volumeControl];
     if (this.props.isDraggingActive) controlButtonClass.push(style.draggingActive);
     if (this.props.muted || this.props.volume === 0) controlButtonClass.push(style.isMuted);
@@ -219,15 +222,17 @@ class VolumeControl extends BaseComponent {
         className={controlButtonClass.join(' ')}
         onMouseOver={() => this.setState({hover: true})}
         onMouseOut={() => this.setState({hover: false})}>
-        <button tabIndex="0"
-                aria-label='Volume'
-                className={style.controlButton}
-                onClick={() => this.onVolumeControlButtonClick()}
-                onKeyDown={e => this.onVolumeControlKeyDown(e)}>
-          <Icon type={IconType.VolumeBase}/>
-          <Icon type={IconType.VolumeWaves}/>
-          <Icon type={IconType.VolumeMute}/>
-        </button>
+        <Tooltip label={<Text id={tooltipLabel}/>} position="left">
+          <button tabIndex="0"
+                  aria-label='Volume'
+                  className={style.controlButton}
+                  onClick={() => this.onVolumeControlButtonClick()}
+                  onKeyDown={e => this.onVolumeControlKeyDown(e)}>
+            <Icon type={IconType.VolumeBase}/>
+            <Icon type={IconType.VolumeWaves}/>
+            <Icon type={IconType.VolumeMute}/>
+          </button>
+        </Tooltip>
         <div className={style.volumeControlBar} role='slider'
              aria-valuemin='0' aria-valuemaz='100' aria-valuenow={this.player.volume * 100}
              aria-valuetext={`${this.player.volume * 100}% volume ${this.player.muted ? 'muted' : ''}`}>

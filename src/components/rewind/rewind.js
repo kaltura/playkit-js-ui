@@ -4,7 +4,8 @@ import {h} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
-import {KeyMap} from "../../utils/key-map";
+import {KeyMap} from '../../utils/key-map';
+import Tooltip from '../tooltip/tooltip';
 
 /**
  * Default rewind step
@@ -70,18 +71,20 @@ class RewindControl extends BaseComponent {
     return (
       <div className={[style.controlButtonContainer, style.controlRewind].join(' ')}>
         <Localizer>
-          <button
-            tabIndex="0"
-            aria-label={<Text id={'controls.rewind'}/>}
-            className={`${style.controlButton} ${this.state.animation ? style.rotate : ''}`}
-            onClick={() => this.onClick()}
-            onKeyDown={(e) => {
-              if (e.keyCode === KeyMap.ENTER) {
-                this.onClick();
-              }
-            }}>
-            <Icon type={(!props.step || props.step === 10) ? IconType.Rewind10 : IconType.Rewind}/>
-          </button>
+          <Tooltip label={<Text id={'tooltips.rewind'}/>}>
+            <button
+              tabIndex="0"
+              aria-label={<Text id={'controls.rewind'}/>}
+              className={`${style.controlButton} ${this.state.animation ? style.rotate : ''}`}
+              onClick={() => this.onClick()}
+              onKeyDown={(e) => {
+                if (e.keyCode === KeyMap.ENTER) {
+                  this.onClick();
+                }
+              }}>
+              <Icon type={(!props.step || props.step === 10) ? IconType.Rewind10 : IconType.Rewind}/>
+            </button>
+          </Tooltip>
         </Localizer>
       </div>
     )

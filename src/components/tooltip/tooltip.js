@@ -10,20 +10,44 @@ import {h, Component} from 'preact';
  * @extends {Component}
  */
 class Tooltip extends Component {
+  static defaultProps = {
+    position: 'top'
+  };
+
+  /**
+   * gets the tooltip position based on component prop
+   *
+   * @returns {string} - position style class
+   * @memberof Tooltip
+   */
+  getTooltipPosition(): string {
+    switch (this.props.position) {
+      case 'left':
+        return style.tooltipLeft;
+      case 'right':
+        return style.tooltipRight;
+      case 'bottom':
+        return style.tooltipBottom;
+      case 'top':
+      default:
+        return style.tooltipTop;
+    }
+  }
+
   /**
    * render component
    *
-   * @param {*} props - component props
    * @returns {React$Element} - component element
    * @memberof Tooltip
    */
-  render(props: any): React$Element<any> {
-    let className = [style.tooltip];
-    if (props.out) className.push(style.out);
-
+  render(): React$Element<any> {
+    const className = [style.tooltipLabel, this.getTooltipPosition()];
     return (
-      <div className={className.join(' ')} style={props.left ? {left: props.left} : ''}>{props.children}</div>
-    )
+      <div className={style.tooltip}>
+        <span className={className.join(' ')}>{this.props.label}</span>
+        {this.props.children}
+      </div>
+    );
   }
 }
 

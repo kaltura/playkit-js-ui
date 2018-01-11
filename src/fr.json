@@ -14,6 +14,13 @@
     "fullscreen": "Fullscreen",
     "rewind": "Rewind"
   },
+  "tooltips": {
+    "rewind": "Seek 10s back",
+    "volume": {
+      "unmute": "Unmute",
+      "mute": "Mute"
+    }
+  },
   "settings": {
     "quality": "Quality",
     "speed": "Speed"
