@@ -22,7 +22,14 @@ import UnmuteIndication from '../components/unmute-indication';
  */
 export default function adsUI(props: any): ?React$Element<any> {
   if (useDefaultAdsUi(props)) {
-    return undefined;
+    return (
+      <div className={style.adGuiWrapper}>
+        <Loading player={props.player}/>
+        <div className={style.playerGui} id='player-gui'>
+          <UnmuteIndication player={props.player} hasTopBar/>
+        </div>
+      </div>
+    );
   }
   const adsUiCustomization = getAdsUiCustomization();
   return (
@@ -78,7 +85,7 @@ function getAdsUiCustomization(): Object {
  * @param {any} props - component props
  * @returns {boolean} - Whether the default ads ui should be shown or not.
  */
-function useDefaultAdsUi(props: any): boolean {
+    function useDefaultAdsUi(props: any): boolean {
   try {
     let isMobile = !!props.player.env.device.type;
     let adsRenderingSettings = props.player.config.plugins.ima.adsRenderingSettings;
