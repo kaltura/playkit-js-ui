@@ -1,4 +1,4 @@
-# PlayKit JS UI - UI Application framework for the [PlayKit JS Player]
+# PlayKit JS UI - UI Application Framework for the [PlayKit JS Player]
 
 [![Build Status](https://travis-ci.org/kaltura/playkit-js-ui.svg?branch=master)](https://travis-ci.org/kaltura/playkit-js-ui)
 
@@ -43,7 +43,7 @@ Then, build the player
 yarn run build
 ```
 
-### Embed the player in your test page
+### Embed the Player In Your Test Page
 
 Finally, add the bundle as a script tag in your page, and initialize the player
 
@@ -61,11 +61,18 @@ player.play();
 </script>
 ```
 
+## Documentation: Configuration and API
+The UI framework can be configured and controlled easily using the UI API.
+- **Configuration**
+<br>Click [here](docs/configuration.md) to learn more.
+- **API**
+<br> Click [here](docs/api.md) to learn more.
+
 ## Extending the UI
 
 For additional info and guides on how to extend the UI see the [docs](https://github.com/kaltura/playkit-js-ui/tree/master/docs)
 
-## Running the tests
+## Running the Tests
 
 Tests can be run locally via [Karma], which will run on Chrome, Firefox and Safari
 
@@ -81,7 +88,7 @@ yarn run test:firefox
 yarn run test:safari
 ```
 
-### And coding style tests
+### And Coding Style Tests
 
 We use ESLint [recommended set](http://eslint.org/docs/rules/) with some additions for enforcing [Flow] types and other rules.
 
