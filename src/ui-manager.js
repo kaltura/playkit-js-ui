@@ -27,9 +27,6 @@ import errorUI from './ui-presets/error';
 
 import './styles/style.scss';
 
-declare var __VERSION__: string;
-declare var __NAME__: string;
-
 type UIPreset = {
   template: (props: Object) => any;
   condition?: (state: Object) => boolean;
@@ -40,16 +37,16 @@ type UIPreset = {
  *
  * @class UIManager
  */
-class UIManager {
+export default class UIManager {
   player: Player;
-  config: Object;
+  config: UIOptionsObject;
   targetId: string;
   store: any;
 
   /**
    * Creates an instance of UIManager.
    * @param {Player} player - player instance
-   * @param {Object} config - player config
+   * @param {UIOptionsObject} config - ui config
    * @memberof UIManager
    */
   constructor(player: Player, config: Object) {
@@ -76,8 +73,7 @@ class UIManager {
   setConfig(config: Object, componentAlias?: string): void {
     if (componentAlias) {
       this.store.dispatch(actions.updateComponentConfig(componentAlias, config));
-    }
-    else {
+    } else {
       this.store.dispatch(actions.updateConfig({targetId: this.targetId, ...config}));
     }
   }
@@ -174,9 +170,4 @@ class UIManager {
   setLogLevel(level: Object, name?: string) {
     setLogLevel(level, name);
   }
-
 }
-
-export default UIManager;
-export {__VERSION__ as VERSION, __NAME__ as NAME};
-

@@ -26,7 +26,6 @@ const mapStateToProps = state => ({
    * @extends {BaseComponent}
    */
 class ErrorOverlay extends BaseComponent {
-
   sessionEl: HTMLDivElement;
 
   /**
@@ -67,7 +66,7 @@ class ErrorOverlay extends BaseComponent {
    */
   handleClick(): void {
     this.props.updateHasError(false);
-    this.player.loadMedia(this.props.config.entryId);
+    this.player.loadMedia(this.props.config.mediaInfo);
   }
 
 

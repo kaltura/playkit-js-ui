@@ -1,5 +1,5 @@
 //@flow
-import style from './_slider.scss';
+import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {KeyMap} from "../../utils/key-map";
 
