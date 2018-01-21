@@ -50,6 +50,9 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   componentWillMount() {
+    this.player.ready().then(() => {
+      this.setState({isPlayerReady: true});
+    });
     this.props.addPlayerClass(style.prePlayback);
     try {
       this.autoplay = this.player.config.playback.autoplay;
@@ -94,25 +97,10 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   handleClick(): void {
-    // TODO: The promise handling should be in the play API of the player.
-    new Promise((resolve, reject) => {
-      try {
-        if (this.player.config.playback.preload === "auto" && !this.player.config.plugins.ima) {
-          this.player.ready().then(resolve);
-        } else {
-          resolve();
-        }
-      } catch (e) {
-        reject(e);
-      }
-    }).then(() => {
-      this.player.play();
-      if (this.props.prePlayback) {
-        this._hidePrePlayback();
-      }
-    }).catch((e) => {
-      this.logger.error(e.message);
-    });
+    this.player.play();
+    if (this.props.prePlayback) {
+      this._hidePrePlayback();
+    }
   }
 
   /**
@@ -126,6 +114,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
     if ((!props.isEnded && !props.prePlayback) || (!props.isEnded && this.autoplay)) {
       return undefined;
     }
+    const isPlayerReady = this.player.config.playback.preload === "auto" ? this.state.isPlayerReady : true;
     let rootStyle = {},
       rootClass = [style.prePlaybackPlayOverlay];
 
@@ -138,16 +127,18 @@ class PrePlaybackPlayOverlay extends BaseComponent {
       <div
         className={rootClass.join(' ')}
         style={rootStyle}
-        onClick={() => this.handleClick()}>
-        <a className={style.prePlaybackPlayButton}
-           tabIndex="0"
-           onKeyDown={(e) => {
-             if (e.keyCode === KeyMap.ENTER) {
-               this.handleClick();
-             }
-           }}>
-          {props.isEnded ? <Icon type={IconType.StartOver}/> : <Icon type={IconType.Play}/>}
-        </a>
+        onClick={() => isPlayerReady ? this.handleClick() : undefined}>
+        {isPlayerReady ?
+          <a className={style.prePlaybackPlayButton}
+             tabIndex="0"
+             onKeyDown={(e) => {
+               if (e.keyCode === KeyMap.ENTER) {
+                 this.handleClick();
+               }
+             }}>
+            {props.isEnded ? <Icon type={IconType.StartOver}/> : <Icon type={IconType.Play}/>}
+          </a>
+          : undefined}
       </div>
     )
   }
