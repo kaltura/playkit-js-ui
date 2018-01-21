@@ -1,26 +1,23 @@
-# CSS classes
-The player user interface is all made with HTML and CSS, which mean you can edit it as you wish.
-Here you will find a list of the classes that are responsible to the look and feel of the player.
+# Customizing the CSS
+The player user interface is all made with HTML and CSS, which mean you can edit it as you wish as seen in this [demo](https://codepen.io/anon/pen/JMaObJ?editors=1100).
 
-## Overview
+You can change the color of the scrubber, text fonts family, change the control icons and more!
 
-![Player classes](/images/main_classes.png)
+![Here is some of the classes you can override](./images/main_classes.png)
 
-You can override the player classes, as seen in this demo, and create a player with a look that suits your design guidelines. You can change the color of the scrubber, text fonts family, change the control icons and more!
 
-We created a codepan.io [demo](https://codepen.io/anon/pen/JMaObJ?editors=1100) to demonstrate the classes overriding.
 
-## Namespacing
-The namespace for the default skin is 'playkit'.
 
-## Player Font
-The player use the same font family in all it's components.
 
-Changing the font-family (and other properties) in '.playkit-player-gui' will change it all over the player.
+> **Pay attention:**
+> - The namespace for the default skin is 'playkit'.
+> - The player use the same font family in all it's components. You can override it in the general parent class (`.playkit-player-gui`) or customize each component as you wish.
+
 
 ## Player Classes List
 
 **Buttons**
+
 |Class Name| Description |
 |--|--|
 | .`playkit-pre-playback-play-button` | The background of the play button, before the player started playing |
@@ -39,6 +36,7 @@ Changing the font-family (and other properties) in '.playkit-player-gui' will ch
 
 
 **Volume and Seek Bar**
+
 | Class Name | Description |
 |--|--|
 | `.playkit-volume-control-bar` | Placeholder for the volume level |
@@ -52,6 +50,7 @@ Changing the font-family (and other properties) in '.playkit-player-gui' will ch
 | `.playkit-seek-bar .playkit-progress-bar .playkit-time-preview` | When hovering on the seek bar, it will show the current mouse position time |
 
 **Overlays**
+
 | Class Name | Description |
 |--|--|
 |`.playkit-bottom-bar`| Placeholder of all the bottom controllers|
@@ -59,7 +58,7 @@ Changing the font-family (and other properties) in '.playkit-player-gui' will ch
 |`.playkit-overlay .playkit-error-overlay`| Overlay that pops up when there is an error|
 
 **Spinner**
+
 |Class name| Description |
 |--|--|
 |`.playkit-spinner`| Our spinner implementation. It is consisted of several span child elements which you can remove with: ` .playkit-spinner span{ display: none;}` |
-
