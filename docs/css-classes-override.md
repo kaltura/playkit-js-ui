@@ -21,6 +21,7 @@ Changing the font-family (and other properties) in '.playkit-player-gui' will ch
 ## Player Classes List
 
 **Buttons**
+
 |Class Name| Description |
 |--|--|
 | .`playkit-pre-playback-play-button` | The background of the play button, before the player started playing |
@@ -39,6 +40,7 @@ Changing the font-family (and other properties) in '.playkit-player-gui' will ch
 
 
 **Volume and Seek Bar**
+
 | Class Name | Description |
 |--|--|
 | `.playkit-volume-control-bar` | Placeholder for the volume level |
@@ -52,6 +54,7 @@ Changing the font-family (and other properties) in '.playkit-player-gui' will ch
 | `.playkit-seek-bar .playkit-progress-bar .playkit-time-preview` | When hovering on the seek bar, it will show the current mouse position time |
 
 **Overlays**
+
 | Class Name | Description |
 |--|--|
 |`.playkit-bottom-bar`| Placeholder of all the bottom controllers|
@@ -59,6 +62,7 @@ Changing the font-family (and other properties) in '.playkit-player-gui' will ch
 |`.playkit-overlay .playkit-error-overlay`| Overlay that pops up when there is an error|
 
 **Spinner**
+
 |Class name| Description |
 |--|--|
 |`.playkit-spinner`| Our spinner implementation. It is consisted of several span child elements which you can remove with: ` .playkit-spinner span{ display: none;}` |
