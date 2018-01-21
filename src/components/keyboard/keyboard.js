@@ -1,9 +1,12 @@
 //@flow
 import BaseComponent from '../base';
 import {connect} from 'preact-redux';
-import {actions} from '../../reducers/shell';
+import {actions as shellActions} from '../../reducers/shell';
+import {actions as overlayIconActions} from '../../reducers/overlay-action';
 import {bindActions} from '../../utils/bind-actions';
 import {KeyMap, getKeyName} from "../../utils/key-map";
+import {IconType} from '../icon';
+import {CONTROL_BAR_HOVER_DEFAULT_TIMEOUT} from "../shell/shell";
 
 /**
  * mapping state to props
@@ -14,10 +17,20 @@ const mapStateToProps = state => ({
   playerNav: state.shell.playerNav
 });
 
-const SEEK_JUMP: number = 5;
-const VOLUME_JUMP: number = 5;
+/**
+ * Default seek jump
+ * @type {number}
+ * @const
+ */
+export const KEYBOARD_DEFAULT_SEEK_JUMP: number = 5;
+/**
+ * Default volume jump
+ * @type {number}
+ * @const
+ */
+export const KEYBOARD_DEFAULT_VOLUME_JUMP: number = 5;
 
-@connect(mapStateToProps, bindActions(actions))
+@connect(mapStateToProps, bindActions(Object.assign(shellActions, overlayIconActions)))
   /**
    * KeyboardControl component
    *
@@ -26,9 +39,11 @@ const VOLUME_JUMP: number = 5;
    */
 class KeyboardControl extends BaseComponent {
   _activeTextTrack: ?Object = null;
+  _hoverTimeout: ?number = null;
 
   /**
-   * Creates an instance of KeyboardControl.
+   * creates an instance of KeyboardControl
+   *
    * @param {Object} obj obj
    * @memberof KeyboardControl
    */
@@ -47,30 +62,40 @@ class KeyboardControl extends BaseComponent {
   }
 
   /**
-   * Handlers for keyboard commands
-   * @type { Object } - Maps key number to his handler
+   * handlers for keyboard commands
+   * @type {Object} - maps key number to his handler
+   *
    * @memberof KeyboardControl
    */
   keyboardHandlers: { [key: number]: Function } = {
     [KeyMap.SPACE]: () => {
-      this.player.paused ? this.player.play() : this.player.pause();
+      if (this.player.paused) {
+        this.player.play();
+        this.props.updateOverlayActionIcon(IconType.Play);
+      } else {
+        this.player.pause();
+        this.props.updateOverlayActionIcon(IconType.Pause);
+      }
     },
     [KeyMap.UP]: () => {
-      const newVolume = Math.round(this.player.volume * 100) + VOLUME_JUMP;
+      const newVolume = (Math.round(this.player.volume * 100) + KEYBOARD_DEFAULT_VOLUME_JUMP) / 100;
       this.logger.debug(`Changing volume. ${this.player.volume} => ${newVolume}`);
       if (this.player.muted) {
         this.player.muted = false;
       }
-      this.player.volume = newVolume / 100;
+      this.player.volume = newVolume;
+      this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWaves]);
     },
     [KeyMap.DOWN]: () => {
-      const newVolume = Math.round(this.player.volume * 100) - VOLUME_JUMP;
-      if (newVolume < 5) {
+      const newVolume = (Math.round(this.player.volume * 100) - KEYBOARD_DEFAULT_VOLUME_JUMP) / 100;
+      if (newVolume === 0) {
         this.player.muted = true;
+        this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeMute]);
         return;
       }
       this.logger.debug(`Changing volume. ${this.player.volume} => ${newVolume}`);
-      this.player.volume = newVolume / 100;
+      this.player.volume = newVolume;
+      this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWave]);
     },
     [KeyMap.F]: () => {
       if (!this.player.isFullscreen()) {
@@ -85,31 +110,43 @@ class KeyboardControl extends BaseComponent {
       }
     },
     [KeyMap.LEFT]: () => {
-      const newTime = this.player.currentTime - SEEK_JUMP;
+      const newTime = this.player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP;
       this.logger.debug(`Seek. ${this.player.currentTime} => ${(newTime > 0) ? newTime : 0}`);
       this.player.currentTime = (newTime > 0) ? newTime : 0;
+      this.props.updateOverlayActionIcon(IconType.Rewind);
+      this.toggleHoverState();
     },
     [KeyMap.RIGHT]: () => {
-      const newTime = this.player.currentTime + SEEK_JUMP;
+      const newTime = this.player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP;
       this.logger.debug(`Seek. ${this.player.currentTime} => ${(newTime > this.player.duration) ? this.player.duration : newTime}`);
       this.player.currentTime = (newTime > this.player.duration) ? this.player.duration : newTime;
+      this.props.updateOverlayActionIcon(IconType.SeekForward);
+      this.toggleHoverState();
     },
     [KeyMap.HOME]: () => {
       this.logger.debug(`Seek. ${this.player.currentTime} => 0`);
       this.player.currentTime = 0;
+      this.props.updateOverlayActionIcon(IconType.StartOver);
+      this.toggleHoverState();
     },
     [KeyMap.END]: () => {
       this.logger.debug(`Seek. ${this.player.currentTime} => ${this.player.duration}`);
       this.player.currentTime = this.player.duration;
+      this.props.updateOverlayActionIcon(IconType.SeekEnd);
+      this.toggleHoverState();
     },
     [KeyMap.M]: () => {
       this.logger.debug(this.player.muted ? "Umnute" : "Mute");
       this.player.muted = !this.player.muted;
+      this.player.muted ?
+        this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeMute]) :
+        this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWaves]);
     },
     [KeyMap.SEMI_COLON]: (shiftKey: boolean) => {
       if (shiftKey) {
         this.logger.debug(`Changing playback rate. ${this.player.playbackRate} => ${this.player.defaultPlaybackRate}`);
         this.player.playbackRate = this.player.defaultPlaybackRate;
+        this.props.updateOverlayActionIcon(IconType.Speed);
       }
     },
     [KeyMap.PERIOD]: (shiftKey: boolean) => {
@@ -120,6 +157,7 @@ class KeyboardControl extends BaseComponent {
           this.logger.debug(`Changing playback rate. ${playbackRate} => ${this.player.playbackRates[index + 1]}`);
           this.player.playbackRate = this.player.playbackRates[index + 1];
         }
+        this.props.updateOverlayActionIcon(IconType.SpeedUp);
       }
     },
     [KeyMap.COMMA]: (shiftKey: boolean) => {
@@ -131,6 +169,7 @@ class KeyboardControl extends BaseComponent {
           this.player.playbackRate = this.player.playbackRates[index - 1];
         }
       }
+      this.props.updateOverlayActionIcon(IconType.SpeedDown);
     },
     [KeyMap.C]: () => {
       let activeTextTrack = this.player.getActiveTracks().text;
@@ -145,6 +184,23 @@ class KeyboardControl extends BaseComponent {
       }
     }
   };
+
+  /**
+   * toggles the shell hover state
+   *
+   * @returns {void}
+   * @memberof KeyboardControl
+   */
+  toggleHoverState(): void {
+    if (this._hoverTimeout !== null) {
+      clearTimeout(this._hoverTimeout);
+      this._hoverTimeout = null;
+    }
+    this.props.updatePlayerHoverState(true);
+    this._hoverTimeout = setTimeout(() => {
+      this.props.updatePlayerHoverState(false);
+    }, CONTROL_BAR_HOVER_DEFAULT_TIMEOUT);
+  }
 }
 
 export default KeyboardControl;

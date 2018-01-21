@@ -9,6 +9,7 @@ const IconType = {
   Pause: 'pause',
   VolumeBase: 'volume-base',
   VolumeWaves: 'volume-waves',
+  VolumeWave: 'volume-wave',
   VolumeMute: 'volume-mute',
   Close: 'close',
   Share: 'share',
@@ -18,6 +19,8 @@ const IconType = {
   Quality: 'quality',
   Captions: 'captions',
   Speed: 'speed',
+  SpeedDown: 'speed-down',
+  SpeedUp: 'speed-up',
   Audio: 'audio',
   Copy: 'copy',
   Facebook: 'facebook',
@@ -29,6 +32,8 @@ const IconType = {
   Link: 'link',
   ArrowDown: 'arrow-down',
   StartOver: 'start-over',
+  SeekForward: 'seek-forward',
+  SeekEnd: 'seek-end',
   Rewind: 'rewind',
   Rewind10: 'rewind10'
 };
@@ -68,6 +73,9 @@ class Icon extends Component {
       case IconType.VolumeWaves:
         return (<i className={[style.icon, style.iconVolumeWaves].join(' ')}/>);
 
+      case IconType.VolumeWave:
+        return (<i className={[style.icon, style.iconVolumeWave].join(' ')}/>);
+
       case IconType.VolumeMute:
         return (<i className={[style.icon, style.iconVolumeMute].join(' ')}/>);
 
@@ -94,6 +102,12 @@ class Icon extends Component {
 
       case IconType.Speed:
         return (<i className={[style.icon, style.iconSpeed].join(' ')}/>);
+
+      case IconType.SpeedDown:
+        return (<i className={[style.icon, style.iconSpeedDown].join(' ')}/>);
+
+      case IconType.SpeedUp:
+        return (<i className={[style.icon, style.iconSpeedUp].join(' ')}/>);
 
       case IconType.Audio:
         return (<i className={[style.icon, style.iconAudio].join(' ')}/>);
@@ -127,6 +141,12 @@ class Icon extends Component {
 
       case IconType.StartOver:
         return (<i className={[style.icon, style.iconStartOver].join(' ')}/>);
+
+      case IconType.SeekForward:
+        return (<i className={[style.icon, style.iconSeekForward].join(' ')}/>);
+
+      case IconType.SeekEnd:
+        return (<i className={[style.icon, style.iconSeekEnd].join(' ')}/>);
 
       case IconType.Rewind:
         return (<i className={[style.icon, style.iconRewind].join(' ')}/>);

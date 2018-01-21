@@ -1,5 +1,5 @@
 //@flow
-import style from './_smart-container.scss';
+import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import DropDown from '../dropdown';
 import {default as Icon, IconType} from '../icon';

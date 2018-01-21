@@ -1,5 +1,8 @@
 // @flow
-import UIManager from './ui-manager';
+import UIManager from './ui-manager'
+
+declare var __VERSION__: string;
+declare var __NAME__: string;
 
 export {h} from 'preact';
 
@@ -10,7 +13,7 @@ export {default as liveUI} from './ui-presets/live';
 export {default as errorUI} from './ui-presets/error'
 
 // components
-export {OverlayPlay} from './components/overlay-play';
+export {OverlayAction} from './components/overlay-action';
 export {PrePlaybackPlayOverlay} from './components/pre-playback-play-overlay';
 export {Loading} from './components/loading';
 export {PlayPauseControl} from './components/play-pause';
@@ -27,4 +30,5 @@ export {OverlayPortal} from './components/overlay-portal';
 export {KeyboardControl} from './components/keyboard';
 export {ErrorOverlay} from './components/error-overlay';
 
-export default UIManager;
+export {UIManager};
+export {__VERSION__ as VERSION, __NAME__ as NAME};

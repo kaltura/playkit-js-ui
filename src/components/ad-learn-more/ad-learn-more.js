@@ -1,5 +1,5 @@
 //@flow
-import style from './_ad-learn-more.scss';
+import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 

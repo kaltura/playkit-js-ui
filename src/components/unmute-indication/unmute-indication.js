@@ -8,11 +8,11 @@ import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 
 /**
- * The icon only timeout
+ * The icon only default timeout
  * @type {number}
  * @const
  */
-const ICON_ONLY_TIMEOUT = 3000;
+export const MUTED_AUTOPLAY_ICON_ONLY_DEFAULT_TIMEOUT = 3000;
 
 @connect(null, bindActions(actions))
   /**
@@ -76,7 +76,7 @@ class UnmuteIndication extends BaseComponent {
     this.player.removeEventListener(this.player.Event.AD_STARTED, this._iconOnlyTimeoutCallback);
     setTimeout(() => {
       this.setState({iconOnly: true});
-    }, ICON_ONLY_TIMEOUT);
+    }, MUTED_AUTOPLAY_ICON_ONLY_DEFAULT_TIMEOUT);
   }
 
   /**
