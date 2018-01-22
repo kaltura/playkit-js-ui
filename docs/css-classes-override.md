@@ -3,7 +3,7 @@ The player user interface is all made with HTML and CSS, which mean you can edit
 
 You can change the color of the scrubber, text fonts family, change the control icons and more!
 
-![Here is some of the classes you can override](./images/main_classes.png)
+![Here is some of the classes you can override](./images/cssOverride-nocopy.png)
 
 
 
