@@ -1,5 +1,5 @@
 # Customizing the CSS
-The player user interface is all made with HTML and CSS, which mean you can edit it as you wish as seen in this [demo](https://codepen.io/anon/pen/JMaObJ?editors=1100).
+The player user interface is all made with HTML and CSS, which mean you can edit it as you wish as seen in this [demo](https://codepen.io/presentation_k/pen/XVQEXZ?editors=1100).
 
 You can change the color of the scrubber, text fonts family, change the control icons and more!
 
