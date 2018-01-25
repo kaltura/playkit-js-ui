@@ -24,7 +24,7 @@ Here's a list of the player classes you can customize:
 | .`playkit-pre-playback-play-button` | The background of the play button, before the player starts playing |
 | `.playkit-icon-play` | The player icon, which is used in the bottom controllers and on the player itself |
 |`.playkit-icon-start-over`| Start over icon, shown at the end of the video|
-| `.playkit-control-button` | The same for all the controllers icon buttons in the bottom control |
+| `.playkit-control-button` | This is a class that is attached to all the buttons in the control container; a change here will affect all of the buttons. |
 | `.playkit-icon-pause` | Pause icon |
 | `.playkit-icon-playkit-icon-rewind-10` |Rewind icon  |
 | `.playkit-icon-volume-base`| The left side of the volume icon |
