@@ -1,5 +1,5 @@
 # Customizing the Player CSS
-The player user interface (UI) is created using HTML and CSS, which mean you can edit the UI according to your needs, such as changing the color of the scrubber, changing the text font family, changing the control icons, and much more.
+The player user interface (UI) is created using HTML and CSS, whichs mean you can edit the UI according to your needs, such as changing the color of the scrubber, changing the text font family, changing the control icons, and much more.
 
 This [demo](https://codepen.io/presentation_k/pen/XVQEXZ?editors=1100) is an example of how you can customzie the UI using the CSS.
 
