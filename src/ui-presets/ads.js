@@ -22,7 +22,14 @@ import UnmuteIndication from '../components/unmute-indication';
  */
 export default function adsUI(props: any): ?React$Element<any> {
   if (useDefaultAdsUi(props)) {
-    return undefined;
+    return (
+      <div className={style.adGuiWrapper}>
+        <Loading player={props.player}/>
+        <div className={style.playerGui} id='player-gui'>
+          <UnmuteIndication player={props.player} hasTopBar/>
+        </div>
+      </div>
+    );
   }
   const adsUiCustomization = getAdsUiCustomization();
   return (

@@ -1,5 +1,5 @@
 //@flow
-import style from './_seekbar.scss';
+import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {toHHMMSS} from '../../utils/time-format';
 import {KeyMap} from "../../utils/key-map";

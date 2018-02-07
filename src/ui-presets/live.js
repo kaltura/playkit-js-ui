@@ -1,7 +1,7 @@
 //@flow
 import style from '../styles/style.scss';
 import {h} from 'preact';
-import OverlayPlay from '../components/overlay-play';
+import OverlayAction from '../components/overlay-action';
 import PrePlaybackPlayOverlay from '../components/pre-playback-play-overlay';
 import Loading from '../components/loading';
 import PlayPauseControl from '../components/play-pause';
@@ -32,7 +32,7 @@ export default function liveUI(props: any): React$Element<any> {
       <div className={style.playerGui} id='player-gui'>
         <OverlayPortal/>
         <UnmuteIndication/>
-        <OverlayPlay player={props.player}/>
+        <OverlayAction player={props.player}/>
         <BottomBar>
           <SeekBarLivePlaybackContainer
             showFramePreview

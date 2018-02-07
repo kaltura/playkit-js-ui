@@ -1,5 +1,5 @@
 //@flow
-import style from './_play-pause.scss';
+import style from '../../styles/style.scss';
 import {h} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {connect} from 'preact-redux';
