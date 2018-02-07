@@ -1,4 +1,4 @@
-# PlayKit JS UI - UI Application framework for the [PlayKit JS Player]
+# PlayKit JS UI - UI Application Framework for the [PlayKit JS Player]
 
 [![Build Status](https://travis-ci.org/kaltura/playkit-js-ui.svg?branch=master)](https://travis-ci.org/kaltura/playkit-js-ui)
 
@@ -12,6 +12,19 @@ PlayKit JS UI is written in [ECMAScript6], statically analysed using [Flow] and 
 [ECMAScript6]: https://github.com/ericdouglas/ES6-Learning#articles--tutorials
 [Babel]: https://babeljs.io
 
+## Table of Contents
+  * [Getting Started](#getting-started)
+    + [Prerequisites](#prerequisites)
+    + [Installing](#installing)
+    + [Building](#building)
+    + [Embed the Player In Your Test Page](#embed-the-player-in-your-test-page)
+  * [Documentation](#documentation)
+  * [Running the Tests](#running-the-tests)
+  * [Compatibility](#compatibility)
+  * [Contributing](#contributing)
+  * [Versioning](#versioning)
+  * [License](#license)
+  
 ## Getting Started
 
 ### Prerequisites
@@ -43,7 +56,7 @@ Then, build the player
 yarn run build
 ```
 
-### Embed the player in your test page
+### Embed the Player In Your Test Page
 
 Finally, add the bundle as a script tag in your page, and initialize the player
 
@@ -61,13 +74,15 @@ player.play();
 </script>
 ```
 
-## Extending the UI
+## Documentation
+- **[Configuration](docs/configuration.md)**
+- **API**
+- **[Guides](docs/guides.md)**
+- **[Components](docs/components.md)**
 
-For additional info and guides on how to extend the UI see the [docs](https://github.com/kaltura/playkit-js-ui/tree/master/docs)
+## Running the Tests
 
-## Running the tests
-
-Tests can be run locally via [Karma], which will run on Chrome, Firefox and Safari
+Tests can be run locally via [Karma], which will run on Chrome, Firefox and Safari.
 
 [Karma]: https://karma-runner.github.io/1.0/index.html
 ```
@@ -81,7 +96,7 @@ yarn run test:firefox
 yarn run test:safari
 ```
 
-### And coding style tests
+### And Coding Style Tests
 
 We use ESLint [recommended set](http://eslint.org/docs/rules/) with some additions for enforcing [Flow] types and other rules.
 
