@@ -12,6 +12,19 @@ PlayKit JS UI is written in [ECMAScript6], statically analysed using [Flow] and 
 [ECMAScript6]: https://github.com/ericdouglas/ES6-Learning#articles--tutorials
 [Babel]: https://babeljs.io
 
+## Table of Contents
+  * [Getting Started](#getting-started)
+    + [Prerequisites](#prerequisites)
+    + [Installing](#installing)
+    + [Building](#building)
+    + [Embed the Player In Your Test Page](#embed-the-player-in-your-test-page)
+  * [Documentation](#documentation)
+  * [Running the Tests](#running-the-tests)
+  * [Compatibility](#compatibility)
+  * [Contributing](#contributing)
+  * [Versioning](#versioning)
+  * [License](#license)
+  
 ## Getting Started
 
 ### Prerequisites
@@ -61,20 +74,15 @@ player.play();
 </script>
 ```
 
-## Documentation: Configuration and API
-The UI framework can be configured and controlled easily using the UI API.
-- **Configuration**
-<br>Click [here](docs/configuration.md) to learn more.
+## Documentation
+- **[Configuration](docs/configuration.md)**
 - **API**
-<br> Click [here](docs/api.md) to learn more.
-
-## Extending the UI
-
-For additional info and guides on how to extend the UI see the [docs](https://github.com/kaltura/playkit-js-ui/tree/master/docs)
+- **[Guides](docs/guides.md)**
+- **[Components](docs/components.md)**
 
 ## Running the Tests
 
-Tests can be run locally via [Karma], which will run on Chrome, Firefox and Safari
+Tests can be run locally via [Karma], which will run on Chrome, Firefox and Safari.
 
 [Karma]: https://karma-runner.github.io/1.0/index.html
 ```
