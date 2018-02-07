@@ -1,7 +1,7 @@
 # Customizing the Player CSS
 The player user interface (UI) is created using HTML and CSS, whichs mean you can edit the UI according to your needs, such as changing the color of the scrubber, changing the text font family, changing the control icons, and much more.
 
-This [demo](https://codepen.io/presentation_k/pen/XVQEXZ?editors=1100) is an example of how you can customzie the UI using the CSS.
+This [Demo](https://codepen.io/presentation_k/pen/XVQEXZ?editors=1100) is an example of how you can customzie the UI using the CSS.
 
 And here are some of the classes you can override:
 ![Here is some of the classes you can override](./images/cssOverride-nocopy.png)
@@ -9,7 +9,7 @@ And here are some of the classes you can override:
 
 
 > **Important!**
-> - The namespace for the default skin must be 'playkit'.
+> - The namespace for the default skin must be `playkit`.
 > - The player uses the same font family in all of its components. You can override it in the general parent class (`.playkit-player-gui`) or customize each component according to your preferences.
 
 
