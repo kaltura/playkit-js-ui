@@ -4,7 +4,7 @@ The player user interface (UI) is created using HTML and CSS, whichs mean you ca
 This [Demo](https://codepen.io/presentation_k/pen/XVQEXZ?editors=1100) is an example of how you can customzie the UI using the CSS.
 
 And here are some of the classes you can override:
-![Here is some of the classes you can override](./images/cssOverride-nocopy.png)
+![Here is some of the classes you can override](images/css-class-override.png)
 
 
 
