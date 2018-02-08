@@ -58,7 +58,6 @@ class KeyboardControl extends BaseComponent {
     }
     playerContainer.onkeydown = (e: KeyboardEvent) => {
       if (!this.props.playerNav && typeof this.keyboardHandlers[e.keyCode] === 'function') {
-        // e.stopPropagation();
         this.logger.debug(`KeyDown -> keyName: ${getKeyName(e.keyCode)}, shiftKey: ${e.shiftKey.toString()}`);
         this.keyboardHandlers[e.keyCode](e.shiftKey);
       }
