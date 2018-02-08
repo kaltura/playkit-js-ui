@@ -14,7 +14,10 @@ import {CONTROL_BAR_HOVER_DEFAULT_TIMEOUT} from "../shell/shell";
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  playerNav: state.shell.playerNav
+  playerNav: state.shell.playerNav,
+  isPlaying: state.engine.isPlaying,
+  adBreak: state.engine.adBreak,
+  adIsPlaying: state.engine.adIsPlaying
 });
 
 /**
@@ -63,6 +66,16 @@ class KeyboardControl extends BaseComponent {
   }
 
   /**
+   * check if currently playing ad or playback
+   *
+   * @returns {boolean} - if currently playing ad or playback
+   * @memberof KeyboardControl
+   */
+  isPlayingAdOrPlayback(): boolean {
+    return (this.props.adBreak && this.props.adIsPlaying) || (!this.props.adBreak && this.props.isPlaying);
+  }
+
+  /**
    * handlers for keyboard commands
    * @type {Object} - maps key number to his handler
    *
@@ -70,12 +83,12 @@ class KeyboardControl extends BaseComponent {
    */
   keyboardHandlers: { [key: number]: Function } = {
     [KeyMap.SPACE]: () => {
-      if (this.player.paused) {
-        this.player.play();
-        this.props.updateOverlayActionIcon(IconType.Play);
-      } else {
+      if (this.isPlayingAdOrPlayback()) {
         this.player.pause();
         this.props.updateOverlayActionIcon(IconType.Pause);
+      } else {
+        this.player.play();
+        this.props.updateOverlayActionIcon(IconType.Play);
       }
     },
     [KeyMap.UP]: () => {
