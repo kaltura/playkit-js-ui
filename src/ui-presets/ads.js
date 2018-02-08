@@ -12,6 +12,7 @@ import AdLearnMore from '../components/ad-learn-more';
 import TopBar from '../components/top-bar';
 import BottomBar from '../components/bottom-bar';
 import UnmuteIndication from '../components/unmute-indication';
+import KeyboardControl from '../components/keyboard/keyboard'
 
 /**
  * Ads ui interface
@@ -34,6 +35,7 @@ export default function adsUI(props: any): ?React$Element<any> {
   const adsUiCustomization = getAdsUiCustomization();
   return (
     <div className={style.adGuiWrapper}>
+      <KeyboardControl player={props.player} config={props.config}/>
       <Loading player={props.player}/>
       <div className={style.playerGui} id='player-gui'>
         <UnmuteIndication player={props.player} hasTopBar/>
