@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.18.1"></a>
+## [0.18.1](https://github.com/kaltura/playkit-js-ui/compare/v0.18.0...v0.18.1) (2018-02-11)
+
+
+### Bug Fixes
+
+* **FEC-7578:** sound of video started to play, if pause pre-roll Ad using navigation mode ([#171](https://github.com/kaltura/playkit-js-ui/issues/171)) ([59fd519](https://github.com/kaltura/playkit-js-ui/commit/59fd519))
+* **FEC-7882:** Live+DVR - unavailable time shown in the seekbar ([#170](https://github.com/kaltura/playkit-js-ui/issues/170)) ([c57a2b2](https://github.com/kaltura/playkit-js-ui/commit/c57a2b2))
+
+
+
 <a name="0.18.0"></a>
 # [0.18.0](https://github.com/kaltura/playkit-js-ui/compare/v0.16.1...v0.18.0) (2018-02-06)
 
