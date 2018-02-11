@@ -277,7 +277,9 @@ class SeekBarControl extends Component {
    */
   getBufferedPercent(): number {
     if (this.props.player.duration > 0 && this.props.player.buffered.length > 0) {
-      return (this.props.player.buffered.end(0) / this.props.player.duration) * 100;
+      const buffered = this.props.player.isLive() ? this.props.player.buffered.end(0) - this.props.player.getStartTimeOfDvrWindow() : this.props.player.buffered.end(0);
+      const bufferedPercent = (buffered / this.props.player.duration) * 100;
+      return  bufferedPercent < 100 ? bufferedPercent : 100;
     }
     return 0;
   }
