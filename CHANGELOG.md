@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.18.0"></a>
+# [0.18.0](https://github.com/kaltura/playkit-js-ui/compare/v0.16.1...v0.18.0) (2018-02-06)
+
+
+### Bug Fixes
+
+* logger types ([#162](https://github.com/kaltura/playkit-js-ui/issues/162)) ([39f9772](https://github.com/kaltura/playkit-js-ui/commit/39f9772))
+* retry callback ([#161](https://github.com/kaltura/playkit-js-ui/issues/161)) ([8ab4980](https://github.com/kaltura/playkit-js-ui/commit/8ab4980))
+* style class appears twice ([#163](https://github.com/kaltura/playkit-js-ui/issues/163)) ([10b5910](https://github.com/kaltura/playkit-js-ui/commit/10b5910))
+* **FEC-7368:** no spinner between ads and spinner doesn't stop on autoplay on native adapter ([#156](https://github.com/kaltura/playkit-js-ui/issues/156)) ([2df9ca0](https://github.com/kaltura/playkit-js-ui/commit/2df9ca0))
+* **FEC-7451:** video does not play after pressing play ([#158](https://github.com/kaltura/playkit-js-ui/issues/158)) ([f12329c](https://github.com/kaltura/playkit-js-ui/commit/f12329c))
+* **FEC-7807:** no unmute icon on ads on mobile ([#165](https://github.com/kaltura/playkit-js-ui/issues/165)) ([f83da1f](https://github.com/kaltura/playkit-js-ui/commit/f83da1f))
+* **webpack:** playkit core externals root value ([#166](https://github.com/kaltura/playkit-js-ui/issues/166)) ([1314358](https://github.com/kaltura/playkit-js-ui/commit/1314358))
+
+
+### Features
+
+* align playkit env convention ([#160](https://github.com/kaltura/playkit-js-ui/issues/160)) ([1a4a1e4](https://github.com/kaltura/playkit-js-ui/commit/1a4a1e4))
+* keyboard shortcuts ui gestures ([#149](https://github.com/kaltura/playkit-js-ui/issues/149)) ([9e922db](https://github.com/kaltura/playkit-js-ui/commit/9e922db))
+
+
+
 <a name="0.17.0"></a>
 # [0.17.0](https://github.com/kaltura/playkit-js-ui/compare/v0.16.1...v0.17.0) (2018-01-10)
 
