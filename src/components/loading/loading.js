@@ -125,6 +125,10 @@ class Loading extends BaseComponent {
     this.player.addEventListener(this.player.Event.CHANGE_SOURCE_STARTED, () => {
       this.setState({afterPlayingEvent: false});
     });
+
+    this.player.addEventListener(this.player.Event.WAITING_FOR_SOURCE, () => {
+      this.props.updateLoadingSpinnerState(true);
+    });
   }
 
   /**
