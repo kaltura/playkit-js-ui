@@ -7,6 +7,7 @@ import {actions} from '../../reducers/shell';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from "../../utils/key-map";
+import {actions as loadingActions} from '../../reducers/loading';
 
 /**
  * mapping state to props
@@ -21,7 +22,7 @@ const mapStateToProps = state => ({
   isEnded: state.engine.isEnded
 });
 
-@connect(mapStateToProps, bindActions(actions))
+@connect(mapStateToProps, bindActions(Object.assign(actions, loadingActions)))
   /**
    * PrePlaybackPlayOverlay component
    *
@@ -97,6 +98,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
     this.player.play();
     if (this.props.prePlayback) {
       this._hidePrePlayback();
+      this.props.updateLoadingSpinnerState(true);
     }
   }
 
