@@ -7,6 +7,7 @@ import {actions} from '../../reducers/shell';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from "../../utils/key-map";
+import {actions as loadingActions} from '../../reducers/loading';
 
 /**
  * mapping state to props
@@ -21,7 +22,7 @@ const mapStateToProps = state => ({
   isEnded: state.engine.isEnded
 });
 
-@connect(mapStateToProps, bindActions(actions))
+@connect(mapStateToProps, bindActions(Object.assign(actions, loadingActions)))
   /**
    * PrePlaybackPlayOverlay component
    *
@@ -50,9 +51,6 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   componentWillMount() {
-    this.player.ready().then(() => {
-      this.setState({isPlayerReady: true});
-    });
     this.props.addPlayerClass(style.prePlayback);
     try {
       this.autoplay = this.player.config.playback.autoplay;
@@ -100,6 +98,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
     this.player.play();
     if (this.props.prePlayback) {
       this._hidePrePlayback();
+      this.props.updateLoadingSpinnerState(true);
     }
   }
 
@@ -114,7 +113,6 @@ class PrePlaybackPlayOverlay extends BaseComponent {
     if ((!props.isEnded && !props.prePlayback) || (!props.isEnded && this.autoplay)) {
       return undefined;
     }
-    const isPlayerReady = this.player.config.playback.preload === "auto" ? this.state.isPlayerReady : true;
     let rootStyle = {},
       rootClass = [style.prePlaybackPlayOverlay];
 
@@ -127,9 +125,8 @@ class PrePlaybackPlayOverlay extends BaseComponent {
       <div
         className={rootClass.join(' ')}
         style={rootStyle}
-        onClick={() => isPlayerReady ? this.handleClick() : undefined}>
-        {isPlayerReady ?
-          <a className={style.prePlaybackPlayButton}
+        onClick={() => this.handleClick()}>
+        {<a className={style.prePlaybackPlayButton}
              tabIndex="0"
              onKeyDown={(e) => {
                if (e.keyCode === KeyMap.ENTER) {
@@ -137,8 +134,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
                }
              }}>
             {props.isEnded ? <Icon type={IconType.StartOver}/> : <Icon type={IconType.Play}/>}
-          </a>
-          : undefined}
+          </a>}
       </div>
     )
   }
