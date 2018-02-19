@@ -2,6 +2,9 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 
+
+export const TOOLTIP_SHOW_TIMEOUT: number = 800;
+
 /**
  * Tooltip component
  *
@@ -13,6 +16,16 @@ class Tooltip extends Component {
   static defaultProps = {
     position: 'top'
   };
+  _hoverTimeout: ?number;
+
+  /**
+   * @constructor
+   * @memberof Tooltip
+   */
+  constructor() {
+    super();
+    this.setState({show: false});
+  }
 
   /**
    * gets the tooltip position based on component prop
@@ -35,6 +48,32 @@ class Tooltip extends Component {
   }
 
   /**
+   * on mouse over handler.
+   * @memberof Tooltip
+   * @returns {void}
+   */
+  onMouseOver(): void {
+    if (this._hoverTimeout) {
+      clearTimeout(this._hoverTimeout);
+      this._hoverTimeout = null;
+    }
+    this._hoverTimeout = setTimeout(() => {
+      this.setState({show: true});
+    }, TOOLTIP_SHOW_TIMEOUT);
+  }
+
+  /**
+   * on mouse leave handler.
+   * @memberof Tooltip
+   * @returns {void}
+   */
+  onMouseLeave(): void {
+    this.setState({show: false});
+    clearTimeout(this._hoverTimeout);
+    this._hoverTimeout = null;
+  }
+
+  /**
    * render component
    *
    * @returns {React$Element} - component element
@@ -42,8 +81,11 @@ class Tooltip extends Component {
    */
   render(): React$Element<any> {
     const className = [style.tooltipLabel, this.getTooltipPosition()];
+    this.state.show ? className.push(style.show) : className.push(style.hide);
     return (
-      <div className={style.tooltip}>
+      <div className={style.tooltip}
+           onMouseOver={() => this.onMouseOver()}
+           onMouseLeave={() => this.onMouseLeave()}>
         <span className={className.join(' ')}>{this.props.label}</span>
         {this.props.children}
       </div>
