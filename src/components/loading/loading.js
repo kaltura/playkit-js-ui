@@ -26,7 +26,6 @@ const mapStateToProps = state => ({
    * @extends {BaseComponent}
    */
 class Loading extends BaseComponent {
-  isPreloading: boolean;
   autoplay: boolean;
   mobileAutoplay: boolean;
 
@@ -38,20 +37,6 @@ class Loading extends BaseComponent {
   constructor(obj: Object) {
     super({name: 'Loading', player: obj.player});
     this.setState({afterPlayingEvent: false});
-    try {
-      // TODO: Change the dependency on ima to our ads plugin when it will be developed.
-      if (this.player.config.playback.preload === "auto" && !this.player.config.plugins.ima) {
-        this.isPreloading = true;
-        this.player.addEventListener(this.player.Event.PLAYER_STATE_CHANGED, (e) => {
-          if (e.payload.oldState.type === this.player.State.LOADING) {
-            this.isPreloading = false;
-          }
-        });
-      }
-    } catch (e) {
-      this.logger.error(e.message);
-      this.isPreloading = false;
-    }
   }
 
   /**
@@ -135,7 +120,7 @@ class Loading extends BaseComponent {
    * @memberof Loading
    */
   render(props: any): React$Element<any> | void {
-    if (!props.show || this.isPreloading) return undefined;
+    if (!props.show) return undefined;
 
     return (
       <div className={[style.loadingBackdrop, style.show].join(' ')}>
