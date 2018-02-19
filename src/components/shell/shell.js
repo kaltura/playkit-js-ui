@@ -140,9 +140,11 @@ class Shell extends BaseComponent {
     }
     this.player.addEventListener(this.player.Event.LOADED_METADATA, () => {
       this.props.updatePlayerWidth(this.player.getView().parentElement.clientWidth);
+      this.props.updatePlayerHeight(this.player.getView().parentElement.offsetHeight);
     });
     window.addEventListener('resize', () => {
       this.props.updatePlayerWidth(this.player.getView().parentElement.clientWidth);
+      this.props.updatePlayerHeight(this.player.getView().parentElement.offsetHeight);
 
       if (document.body) {
         this.props.updateDocumentWidth(document.body.clientWidth);
