@@ -1,1 +1,1 @@
-export default from './pre-playback-play-overlay';
+export {PrePlaybackPlayOverlay} from './pre-playback-play-overlay';

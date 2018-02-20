@@ -6,10 +6,10 @@ import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/cvaa';
 import BaseComponent from '../base';
-import SmartContainer from '../smart-container';
-import SmartContainerItem from '../smart-container/smart-container-item';
+import {SmartContainer} from '../smart-container';
+import {SmartContainerItem} from '../smart-container/smart-container-item';
 import {default as Icon, IconType} from '../icon';
-import CVAAOverlay from '../cvaa-overlay';
+import {CVAAOverlay} from '../cvaa-overlay';
 import Portal from 'preact-portal';
 import {KeyMap} from "../../utils/key-map";
 
@@ -238,4 +238,4 @@ class LanguageControl extends BaseComponent {
   }
 }
 
-export default LanguageControl;
+export {LanguageControl};

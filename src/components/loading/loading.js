@@ -135,4 +135,4 @@ class Loading extends BaseComponent {
 
 }
 
-export default Loading;
+export {Loading};

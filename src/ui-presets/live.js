@@ -1,20 +1,20 @@
 //@flow
 import style from '../styles/style.scss';
 import {h} from 'preact';
-import OverlayAction from '../components/overlay-action';
-import PrePlaybackPlayOverlay from '../components/pre-playback-play-overlay';
-import Loading from '../components/loading';
-import PlayPauseControl from '../components/play-pause';
-import SeekBarLivePlaybackContainer from '../components/seekbar-live-playback-container';
-import VolumeControl from '../components/volume';
-import SettingsControl from '../components/settings';
-import LanguageControl from '../components/language';
-import FullscreenControl from '../components/fullscreen';
-import BottomBar from '../components/bottom-bar';
-import OverlayPortal from '../components/overlay-portal';
-import KeyboardControl from '../components/keyboard';
-import LiveTag from '../components/live-tag';
-import UnmuteIndication from '../components/unmute-indication';
+import {OverlayAction} from '../components/overlay-action';
+import {PrePlaybackPlayOverlay} from '../components/pre-playback-play-overlay';
+import {Loading} from '../components/loading';
+import {PlayPauseControl} from '../components/play-pause';
+import {SeekBarLivePlaybackContainer} from '../components/seekbar-live-playback-container';
+import {VolumeControl} from '../components/volume';
+import {SettingsControl} from '../components/settings';
+import {LanguageControl} from '../components/language';
+import {FullscreenControl} from '../components/fullscreen';
+import {BottomBar} from '../components/bottom-bar';
+import {OverlayPortal} from '../components/overlay-portal';
+import {KeyboardControl} from '../components/keyboard';
+import {LiveTag} from '../components/live-tag';
+import {UnmuteIndication} from '../components/unmute-indication';
 import getComponentConfig from '../utils/component-config';
 
 /**
@@ -24,7 +24,7 @@ import getComponentConfig from '../utils/component-config';
  * @param {*} props component props
  * @returns {React$Element<any>} player ui tree
  */
-export default function liveUI(props: any): React$Element<any> {
+export function liveUI(props: any): React$Element<any> {
   return (
     <div className={style.playbackGuiWWrapper}>
       <KeyboardControl player={props.player} config={props.config}/>

@@ -2,21 +2,21 @@
 import style from '../styles/style.scss';
 import {h} from 'preact';
 import getComponentConfig from '../utils/component-config';
-import OverlayAction from '../components/overlay-action';
-import PrePlaybackPlayOverlay from '../components/pre-playback-play-overlay';
-import Loading from '../components/loading';
-import PlayPauseControl from '../components/play-pause';
-import RewindControl from '../components/rewind';
-import SeekBarPlaybackContainer from '../components/seekbar-playback-container';
-import VolumeControl from '../components/volume';
-import SettingsControl from '../components/settings';
-import LanguageControl from '../components/language';
-import FullscreenControl from '../components/fullscreen';
-import TimeDisplayPlaybackContainer from '../components/time-display-playback-container';
-import BottomBar from '../components/bottom-bar';
-import OverlayPortal from '../components/overlay-portal';
-import KeyboardControl from '../components/keyboard';
-import UnmuteIndication from '../components/unmute-indication';
+import {OverlayAction} from '../components/overlay-action';
+import {PrePlaybackPlayOverlay} from '../components/pre-playback-play-overlay';
+import {Loading} from '../components/loading';
+import {PlayPauseControl} from '../components/play-pause';
+import {RewindControl} from '../components/rewind';
+import {SeekBarPlaybackContainer} from '../components/seekbar-playback-container';
+import {VolumeControl} from '../components/volume';
+import {SettingsControl} from '../components/settings';
+import {LanguageControl} from '../components/language';
+import {FullscreenControl} from '../components/fullscreen';
+import {TimeDisplayPlaybackContainer} from '../components/time-display-playback-container';
+import {BottomBar} from '../components/bottom-bar';
+import {OverlayPortal} from '../components/overlay-portal';
+import {KeyboardControl} from '../components/keyboard';
+import {UnmuteIndication} from '../components/unmute-indication';
 
 /**
  * Playback ui interface
@@ -25,7 +25,7 @@ import UnmuteIndication from '../components/unmute-indication';
  * @param {*} props component props
  * @returns {React$Element} player ui tree
  */
-export default function playbackUI(props: any): React$Element<any> {
+export function playbackUI(props: any): React$Element<any> {
   return (
     <div className={style.playbackGuiWWrapper}>
       <KeyboardControl player={props.player} config={props.config}/>

@@ -1,1 +1,1 @@
-export default from './time-display';
+export {TimeDisplay} from './time-display';

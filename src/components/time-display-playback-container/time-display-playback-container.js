@@ -2,7 +2,7 @@
 import {h} from 'preact';
 import {connect} from 'preact-redux';
 import BaseComponent from '../base';
-import TimeDisplay from '../time-display';
+import {TimeDisplay} from '../time-display';
 
 /**
  * mapping state to props
@@ -49,4 +49,4 @@ class TimeDisplayPlaybackContainer extends BaseComponent {
   }
 }
 
-export default TimeDisplayPlaybackContainer;
+export {TimeDisplayPlaybackContainer};

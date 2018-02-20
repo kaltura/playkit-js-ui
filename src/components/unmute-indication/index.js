@@ -1,1 +1,1 @@
-export default from './unmute-indication';
+export {UnmuteIndication} from './unmute-indication';

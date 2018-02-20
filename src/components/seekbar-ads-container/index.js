@@ -1,1 +1,1 @@
-export default from './seekbar-ads-container';
+export {SeekBarAdsContainer} from './seekbar-ads-container';

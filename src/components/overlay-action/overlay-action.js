@@ -162,4 +162,4 @@ class OverlayAction extends BaseComponent {
   }
 }
 
-export default OverlayAction;
+export {OverlayAction};

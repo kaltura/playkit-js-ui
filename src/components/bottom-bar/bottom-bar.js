@@ -24,4 +24,4 @@ class BottomBar extends Component {
   }
 }
 
-export default BottomBar;
+export {BottomBar};

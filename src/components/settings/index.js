@@ -1,1 +1,1 @@
-export default from './settings';
+export {SettingsControl} from './settings';

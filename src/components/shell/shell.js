@@ -220,4 +220,4 @@ class Shell extends BaseComponent {
   }
 }
 
-export default Shell;
+export {Shell};

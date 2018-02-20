@@ -175,4 +175,4 @@ class PrePlaybackPlayOverlay extends BaseComponent {
   }
 }
 
-export default PrePlaybackPlayOverlay;
+export {PrePlaybackPlayOverlay};

@@ -1,18 +1,18 @@
 //@flow
 import style from '../styles/style.scss';
 import {h} from 'preact';
-import Loading from '../components/loading';
-import PlayPauseControl from '../components/play-pause';
-import SeekBarAdsContainer from '../components/seekbar-ads-container';
-import VolumeControl from '../components/volume';
-import FullscreenControl from '../components/fullscreen';
-import TimeDisplayAdsContainer from '../components/time-display-ads-container';
-import AdSkip from '../components/ad-skip';
-import AdLearnMore from '../components/ad-learn-more';
-import TopBar from '../components/top-bar';
-import BottomBar from '../components/bottom-bar';
-import UnmuteIndication from '../components/unmute-indication';
-import KeyboardControl from '../components/keyboard/keyboard'
+import {Loading} from '../components/loading';
+import {PlayPauseControl} from '../components/play-pause';
+import {SeekBarAdsContainer} from '../components/seekbar-ads-container';
+import {VolumeControl} from '../components/volume';
+import {FullscreenControl} from '../components/fullscreen';
+import {TimeDisplayAdsContainer} from '../components/time-display-ads-container';
+import {AdSkip} from '../components/ad-skip';
+import {AdLearnMore} from '../components/ad-learn-more';
+import {TopBar} from '../components/top-bar';
+import {BottomBar} from '../components/bottom-bar';
+import {UnmuteIndication} from '../components/unmute-indication';
+import {KeyboardControl} from '../components/keyboard';
 
 /**
  * Ads ui interface
@@ -21,7 +21,7 @@ import KeyboardControl from '../components/keyboard/keyboard'
  * @param {*} props component props
  * @returns {?HTMLElement} player ui tree
  */
-export default function adsUI(props: any): ?React$Element<any> {
+export function adsUI(props: any): ?React$Element<any> {
   if (useDefaultAdsUi(props)) {
     return (
       <div className={style.adGuiWrapper}>
