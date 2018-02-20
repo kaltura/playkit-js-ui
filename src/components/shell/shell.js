@@ -139,19 +139,25 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   componentDidMount() {
+    /**
+     * updates the player element size props in the store
+     * @returns {void}
+     */
+    const updatePlayerElementSizeProps = () => {
+      this.props.updatePlayerWidth(this.player.getView().parentElement.clientWidth);
+      this.props.updatePlayerHeight(this.player.getView().parentElement.offsetHeight);
+      const playerContainer = document.getElementById(this.props.targetId);
+      if (playerContainer) {
+        this.props.updatePlayerClientRect(playerContainer.getBoundingClientRect());
+      }
+    };
     this.props.updateIsMobile(!!this.player.env.device.type || this.props.config.forceTouchUI);
     if (document.body) {
       this.props.updateDocumentWidth(document.body.clientWidth);
     }
-    this.player.addEventListener(this.player.Event.LOADED_METADATA, () => {
-      this.props.updatePlayerWidth(this.player.getView().parentElement.clientWidth);
-      this.props.updatePlayerHeight(this.player.getView().parentElement.offsetHeight);
-      this.props.updatePlayerClientRect(document.getElementById(this.props.targetId).getBoundingClientRect());
-    });
+    this.player.addEventListener(this.player.Event.LOADED_METADATA, () => updatePlayerElementSizeProps());
     window.addEventListener('resize', () => {
-      this.props.updatePlayerWidth(this.player.getView().parentElement.clientWidth);
-      this.props.updatePlayerHeight(this.player.getView().parentElement.offsetHeight);
-      this.props.updatePlayerClientRect(document.getElementById(this.props.targetId).getBoundingClientRect());
+      updatePlayerElementSizeProps();
       if (document.body) {
         this.props.updateDocumentWidth(document.body.clientWidth);
       }
