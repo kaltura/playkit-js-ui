@@ -5,6 +5,10 @@
   left: 16px;
   z-index: 15;
 
+  a {
+    color: white;
+  }
+
   &.show-icon-only {
 
     .btn.unmute-button {
