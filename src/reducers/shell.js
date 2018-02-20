@@ -8,7 +8,8 @@ export const types = {
   UPDATE_PLAYER_HEIGHT: 'shell/UPDATE_PLAYER_HEIGHT',
   UPDATE_DOCUMENT_WIDTH: 'shell/UPDATE_DOCUMENT_WIDTH',
   UPDATE_PLAYER_HOVER_STATE: 'shell/UPDATE_PLAYER_HOVER_STATE',
-  UPDATE_PLAYER_NAV_STATE: 'shell/UPDATE_PLAYER_NAV_STATE'
+  UPDATE_PLAYER_NAV_STATE: 'shell/UPDATE_PLAYER_NAV_STATE',
+  UPDATE_BOTTOM_BAR_HOVER_ACTIVE: 'shell/UPDATE_BOTTOM_BAR_HOVER_ACTIVE'
 };
 
 export const initialState = {
@@ -76,6 +77,12 @@ export default (state: Object = initialState, action: Object) => {
         playerNav: action.nav
       };
 
+    case types.UPDATE_BOTTOM_BAR_HOVER_ACTIVE:
+      return {
+        ...state,
+        bottomBarHoverActive: action.active
+      };
+
     default:
       return state;
   }
@@ -90,5 +97,6 @@ export const actions = {
   updatePlayerHeight: (playerHeight: number) => ({type: types.UPDATE_PLAYER_HEIGHT, playerHeight}),
   updateDocumentWidth: (documentWidth: number) => ({type: types.UPDATE_DOCUMENT_WIDTH, documentWidth}),
   updatePlayerHoverState: (hover: boolean) => ({type: types.UPDATE_PLAYER_HOVER_STATE, hover}),
-  updatePlayerNavState: (nav: boolean) => ({type: types.UPDATE_PLAYER_NAV_STATE, nav})
+  updatePlayerNavState: (nav: boolean) => ({type: types.UPDATE_PLAYER_NAV_STATE, nav}),
+  updateBottomBarHoverActive: (active: boolean) => ({type: types.UPDATE_BOTTOM_BAR_HOVER_ACTIVE, active})
 };

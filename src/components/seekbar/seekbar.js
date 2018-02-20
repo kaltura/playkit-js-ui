@@ -27,7 +27,6 @@ import {KeyMap} from "../../utils/key-map";
  */
 class SeekBarControl extends Component {
   state: Object;
-  framePreviewImg: string;
   _seekBarElement: HTMLElement;
   _framePreviewElement: HTMLElement;
   _timeBubbleElement: HTMLElement;
@@ -279,7 +278,7 @@ class SeekBarControl extends Component {
     if (this.props.player.duration > 0 && this.props.player.buffered.length > 0) {
       const buffered = this.props.player.isLive() ? this.props.player.buffered.end(0) - this.props.player.getStartTimeOfDvrWindow() : this.props.player.buffered.end(0);
       const bufferedPercent = (buffered / this.props.player.duration) * 100;
-      return  bufferedPercent < 100 ? bufferedPercent : 100;
+      return bufferedPercent < 100 ? bufferedPercent : 100;
     }
     return 0;
   }
@@ -431,6 +430,8 @@ class SeekBarControl extends Component {
         aria-valuenow={Math.round(this.props.currentTime)}
         aria-valuetext={`${toHHMMSS(this.props.currentTime)} of ${toHHMMSS(this.props.duration)}`}
         onClick={e => this.onTap(e)}
+        onMouseOver={() => this.props.updateSeekbarHoverActive(true)}
+        onMouseLeave={() => this.props.updateSeekbarHoverActive(false)}
         onMouseMove={e => this.onSeekbarMouseMove(e)}
         onMouseDown={e => this.onSeekbarMouseDown(e)}
         onTouchStart={e => this.onSeekbarTouchStart(e)}
