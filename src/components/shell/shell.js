@@ -13,6 +13,7 @@ import {KeyMap} from "../../utils/key-map";
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
+  targetId: state.config.targetId,
   config: state.config.ui.shell,
   metadataLoaded: state.engine.metadataLoaded,
   currentState: state.engine.playerState.currentState,
@@ -145,11 +146,12 @@ class Shell extends BaseComponent {
     this.player.addEventListener(this.player.Event.LOADED_METADATA, () => {
       this.props.updatePlayerWidth(this.player.getView().parentElement.clientWidth);
       this.props.updatePlayerHeight(this.player.getView().parentElement.offsetHeight);
+      this.props.updatePlayerClientRect(document.getElementById(this.props.targetId).getBoundingClientRect());
     });
     window.addEventListener('resize', () => {
       this.props.updatePlayerWidth(this.player.getView().parentElement.clientWidth);
       this.props.updatePlayerHeight(this.player.getView().parentElement.offsetHeight);
-
+      this.props.updatePlayerClientRect(document.getElementById(this.props.targetId).getBoundingClientRect());
       if (document.body) {
         this.props.updateDocumentWidth(document.body.clientWidth);
       }

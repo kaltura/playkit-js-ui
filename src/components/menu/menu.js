@@ -12,7 +12,7 @@ import {KeyMap} from "../../utils/key-map";
  */
 const mapStateToProps = state => ({
   isMobile: state.shell.isMobile,
-  playerHeight: state.shell.playerHeight
+  playerClientRect: state.shell.playerClientRect
 });
 
 @connect(mapStateToProps)
@@ -69,15 +69,14 @@ class Menu extends Component {
    * @memberof Menu
    */
   getPosition(): Array<string> {
-    const playerHeight = this.props.playerHeight;
-    const parentOffsetTop = this.props.parentEl.offsetTop;
-    const offsetBottom = playerHeight - parentOffsetTop;
-    const box = this._menuElement.getBoundingClientRect();
-    if (offsetBottom + box.height > playerHeight) {
+    const menuElementRect = this._menuElement.getBoundingClientRect();
+    const playerContainerRect = this.props.playerClientRect;
+    const offsetBottom = playerContainerRect.bottom - menuElementRect.bottom;
+    const height = offsetBottom + menuElementRect.height;
+    if (height > playerContainerRect.height) {
       return [style.bottom, style.left];
-    } else {
-      return [style.top, style.left];
     }
+    return [style.top, style.left];
   }
 
   /**
