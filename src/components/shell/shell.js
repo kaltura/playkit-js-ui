@@ -19,8 +19,7 @@ const mapStateToProps = state => ({
   currentState: state.engine.playerState.currentState,
   playerClasses: state.shell.playerClasses,
   isMobile: state.shell.isMobile,
-  playerWidth: state.shell.playerWidth,
-  playerHeight: state.shell.playerHeight,
+  playerClientRect: state.shell.playerClientRect,
   playerHover: state.shell.playerHover,
   playerNav: state.shell.playerNav,
   seekbarDraggingActive: state.seekbar.draggingActive,
@@ -139,25 +138,19 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   componentDidMount() {
-    /**
-     * updates the player element size props in the store
-     * @returns {void}
-     */
-    const updatePlayerElementSizeProps = () => {
-      this.props.updatePlayerWidth(this.player.getView().parentElement.clientWidth);
-      this.props.updatePlayerHeight(this.player.getView().parentElement.offsetHeight);
-      const playerContainer = document.getElementById(this.props.targetId);
-      if (playerContainer) {
-        this.props.updatePlayerClientRect(playerContainer.getBoundingClientRect());
-      }
-    };
     this.props.updateIsMobile(!!this.player.env.device.type || this.props.config.forceTouchUI);
     if (document.body) {
       this.props.updateDocumentWidth(document.body.clientWidth);
     }
-    this.player.addEventListener(this.player.Event.LOADED_METADATA, () => updatePlayerElementSizeProps());
+    const playerContainer = document.getElementById(this.props.targetId);
+    if (playerContainer) {
+      this.props.updatePlayerClientRect(playerContainer.getBoundingClientRect());
+    }
     window.addEventListener('resize', () => {
-      updatePlayerElementSizeProps();
+      const playerContainer = document.getElementById(this.props.targetId);
+      if (playerContainer) {
+        this.props.updatePlayerClientRect(playerContainer.getBoundingClientRect());
+      }
       if (document.body) {
         this.props.updateDocumentWidth(document.body.clientWidth);
       }
@@ -206,9 +199,9 @@ class Shell extends BaseComponent {
     if (this.props.metadataLoaded) playerClasses.push(style.metadataLoaded);
     if (this.props.adBreak) playerClasses.push(style.adBreak);
     if (this.props.metadataLoaded) playerClasses.push(style['state-' + this.props.currentState]);
-    if (this.props.playerWidth <= 480) playerClasses.push(style.sizeSm);
-    else if (this.props.playerWidth <= 768) playerClasses.push(style.sizeMd);
     if (this.props.seekbarDraggingActive) playerClasses.push(style.hover);
+    if (this.props.playerClientRect && this.props.playerClientRect.width <= 480) playerClasses.push(style.sizeSm);
+    else if (this.props.playerClientRect && this.props.playerClientRect.width <= 768) playerClasses.push(style.sizeMd);
 
     playerClasses = playerClasses.join(' ');
 

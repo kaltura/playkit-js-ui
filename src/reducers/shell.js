@@ -4,8 +4,6 @@ export const types = {
   REMOVE_PLAYER_CLASS: 'shell/REMOVE_PLAYER_CLASS',
   UPDATE_IS_MOBILE: 'shell/UPDATE_IS_MOBILE',
   UPDATE_PRE_PLAYBACK: 'shell/UPDATE_PRE_PLAYBACK',
-  UPDATE_PLAYER_WIDTH: 'shell/UPDATE_PLAYER_WIDTH',
-  UPDATE_PLAYER_HEIGHT: 'shell/UPDATE_PLAYER_HEIGHT',
   UPDATE_PLAYER_CLIENT_RECT: 'shell/UPDATE_PLAYER_CLIENT_RECT',
   UPDATE_DOCUMENT_WIDTH: 'shell/UPDATE_DOCUMENT_WIDTH',
   UPDATE_PLAYER_HOVER_STATE: 'shell/UPDATE_PLAYER_HOVER_STATE',
@@ -47,18 +45,6 @@ export default (state: Object = initialState, action: Object) => {
         prePlayback: action.prePlayback
       };
 
-    case types.UPDATE_PLAYER_HEIGHT:
-      return {
-        ...state,
-        playerHeight: action.playerHeight
-      };
-
-    case types.UPDATE_PLAYER_WIDTH:
-      return {
-        ...state,
-        playerWidth: action.playerWidth
-      };
-
     case types.UPDATE_PLAYER_CLIENT_RECT:
       return {
         ...state,
@@ -93,8 +79,6 @@ export const actions = {
   removePlayerClass: (className: string) => ({type: types.REMOVE_PLAYER_CLASS, className}),
   updateIsMobile: (isMobile: boolean) => ({type: types.UPDATE_IS_MOBILE, isMobile}),
   updatePrePlayback: (prePlayback: boolean) => ({type: types.UPDATE_PRE_PLAYBACK, prePlayback}),
-  updatePlayerWidth: (playerWidth: number) => ({type: types.UPDATE_PLAYER_WIDTH, playerWidth}),
-  updatePlayerHeight: (playerHeight: number) => ({type: types.UPDATE_PLAYER_HEIGHT, playerHeight}),
   updatePlayerClientRect: (playerClientRect: Object) => ({type: types.UPDATE_PLAYER_CLIENT_RECT, playerClientRect}),
   updateDocumentWidth: (documentWidth: number) => ({type: types.UPDATE_DOCUMENT_WIDTH, documentWidth}),
   updatePlayerHoverState: (hover: boolean) => ({type: types.UPDATE_PLAYER_HOVER_STATE, hover}),
