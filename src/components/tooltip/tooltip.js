@@ -13,10 +13,17 @@ export const TOOLTIP_SHOW_TIMEOUT: number = 800;
  * @extends {Component}
  */
 class Tooltip extends Component {
+  state: Object;
+  _hoverTimeout: ?number;
+
+  /**
+   * default component props
+   * @type {Object}
+   * @memberof Tooltip
+   */
   static defaultProps = {
     position: 'top'
   };
-  _hoverTimeout: ?number;
 
   /**
    * @constructor
@@ -24,7 +31,7 @@ class Tooltip extends Component {
    */
   constructor() {
     super();
-    this.setState({show: false});
+    this.setState({showTooltip: false});
   }
 
   /**
@@ -58,7 +65,7 @@ class Tooltip extends Component {
       this._hoverTimeout = null;
     }
     this._hoverTimeout = setTimeout(() => {
-      this.setState({show: true});
+      this.setState({showTooltip: true});
     }, TOOLTIP_SHOW_TIMEOUT);
   }
 
@@ -68,7 +75,7 @@ class Tooltip extends Component {
    * @returns {void}
    */
   onMouseLeave(): void {
-    this.setState({show: false});
+    this.setState({showTooltip: false});
     clearTimeout(this._hoverTimeout);
     this._hoverTimeout = null;
   }
@@ -81,7 +88,7 @@ class Tooltip extends Component {
    */
   render(): React$Element<any> {
     const className = [style.tooltipLabel, this.getTooltipPosition()];
-    this.state.show ? className.push(style.show) : className.push(style.hide);
+    this.state.showTooltip ? className.push(style.show) : className.push(style.hide);
     return (
       <div className={style.tooltip}
            onMouseOver={() => this.onMouseOver()}
