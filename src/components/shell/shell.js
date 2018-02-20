@@ -25,6 +25,9 @@ const mapStateToProps = state => ({
   seekbarDraggingActive: state.seekbar.draggingActive,
   seekbarHoverActive: state.seekbar.hoverActive,
   bottomBarHoverActive: state.shell.bottomBarHoverActive,
+  volumeHoverActive: state.volume.hover,
+  languageMenuOpen: state.language.menuOpen,
+  settingsMenuOpen: state.settings.menuOpen,
   adBreak: state.engine.adBreak
 });
 
@@ -175,11 +178,25 @@ class Shell extends BaseComponent {
       clearTimeout(this._hoverTimeout);
     }
     this._hoverTimeout = setTimeout(() => {
-      if (!this.props.seekbarDraggingActive && !this.props.seekbarHoverActive) {
+      if (this._canEndHoverState()) {
         this.props.updatePlayerHoverState(false);
         this.setState({hover: false});
       }
     }, this.props._hoverTimeout || CONTROL_BAR_HOVER_DEFAULT_TIMEOUT);
+  }
+
+  /**
+   * checks if hover state can be ended based on other components states
+   * @returns {boolean} - if hover state can be ended
+   * @private
+   * @memberof Shell
+   */
+  _canEndHoverState(): boolean {
+    return !this.props.seekbarDraggingActive
+      && !this.props.seekbarHoverActive
+      && !this.props.volumeHoverActive
+      && !this.props.languageMenuOpen
+      && !this.props.settingsMenuOpen;
   }
 
   /**
