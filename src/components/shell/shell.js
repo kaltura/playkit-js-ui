@@ -23,6 +23,11 @@ const mapStateToProps = state => ({
   playerHover: state.shell.playerHover,
   playerNav: state.shell.playerNav,
   seekbarDraggingActive: state.seekbar.draggingActive,
+  seekbarHoverActive: state.seekbar.hoverActive,
+  bottomBarHoverActive: state.shell.bottomBarHoverActive,
+  volumeHoverActive: state.volume.hover,
+  languageMenuOpen: state.language.menuOpen,
+  settingsMenuOpen: state.settings.menuOpen,
   adBreak: state.engine.adBreak
 });
 
@@ -71,7 +76,9 @@ class Shell extends BaseComponent {
       this.setState({nav: false});
       this.props.updatePlayerNavState(false);
     }
-    this._showAndHideControlBar();
+    if (!this.props.bottomBarHoverActive) {
+      this._updatePlayerHoverState();
+    }
   }
 
   /**
@@ -94,10 +101,7 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   onMouseMove(): void {
-    if (!this.state.hover) {
-      this.setState({hover: true});
-      this.props.updatePlayerHoverState(true);
-    }
+    this._updatePlayerHoverState();
   }
 
   /**
@@ -158,15 +162,15 @@ class Shell extends BaseComponent {
     if (this.player.env.device.type) {
       this.props.updatePlayerHoverState(true);
     }
-    this._showAndHideControlBar();
+    this._updatePlayerHoverState();
   }
 
   /**
-   * show the control bar for few seconds and then hide it
+   * updates the player hover state
    * @returns {void}
    * @memberof Shell
    */
-  _showAndHideControlBar(): void {
+  _updatePlayerHoverState(): void {
     if (!this.state.hover) {
       this.props.updatePlayerHoverState(true);
       this.setState({hover: true});
@@ -175,11 +179,25 @@ class Shell extends BaseComponent {
       clearTimeout(this._hoverTimeout);
     }
     this._hoverTimeout = setTimeout(() => {
-      if (!this.props.seekbarDraggingActive) {
+      if (this._canEndHoverState()) {
         this.props.updatePlayerHoverState(false);
         this.setState({hover: false});
       }
     }, this.props._hoverTimeout || CONTROL_BAR_HOVER_DEFAULT_TIMEOUT);
+  }
+
+  /**
+   * checks if hover state can be ended based on other components states
+   * @returns {boolean} - if hover state can be ended
+   * @private
+   * @memberof Shell
+   */
+  _canEndHoverState(): boolean {
+    return !this.props.seekbarDraggingActive
+      && !this.props.seekbarHoverActive
+      && !this.props.volumeHoverActive
+      && !this.props.languageMenuOpen
+      && !this.props.settingsMenuOpen;
   }
 
   /**

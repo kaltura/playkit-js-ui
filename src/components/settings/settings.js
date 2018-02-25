@@ -49,6 +49,7 @@ class SettingsControl extends BaseComponent {
    * @memberof SettingsControl
    */
   componentWillMount() {
+    this.props.updateSettingsMenuOpen(false);
     this.setState({smartContainerOpen: false});
   }
 
@@ -84,6 +85,7 @@ class SettingsControl extends BaseComponent {
       if (e.target.classList.contains(style.overlayPlay)) {
         e.stopPropagation();
       }
+      this.props.updateSettingsMenuOpen(false);
       this.setState({smartContainerOpen: false});
     }
   }
@@ -95,6 +97,7 @@ class SettingsControl extends BaseComponent {
    * @memberof SettingsControl
    */
   onControlButtonClick(): void {
+    this.props.updateSettingsMenuOpen(!this.state.smartContainerOpen);
     this.setState({smartContainerOpen: !this.state.smartContainerOpen});
   }
 

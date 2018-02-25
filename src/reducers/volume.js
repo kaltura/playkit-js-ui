@@ -2,13 +2,15 @@
 export const types = {
   UPDATE_VOLUME: 'volume/UPDATE_VOLUME',
   UPDATE_VOLUME_DRAGGING_STATUS: 'volume/UPDATE_VOLUME_DRAGGING_STATUS',
-  UPDATE_MUTED: 'volume/UPDATE_MUTED'
+  UPDATE_MUTED: 'volume/UPDATE_MUTED',
+  UPDATE_HOVER: 'volume/UPDATE_HOVER'
 };
 
 export const initialState = {
   draggingActive: false,
   volume: 1,
-  muted: false
+  muted: false,
+  hover: false
 };
 
 export default (state: Object = initialState, action: Object) => {
@@ -31,6 +33,12 @@ export default (state: Object = initialState, action: Object) => {
         muted: action.muted
       };
 
+    case types.UPDATE_HOVER:
+      return {
+        ...state,
+        hover: action.hover
+      };
+
     default:
       return state;
   }
@@ -42,5 +50,6 @@ export const actions = {
     type: types.UPDATE_VOLUME_DRAGGING_STATUS,
     draggingActive
   }),
-  updateMuted: (muted: boolean) => ({type: types.UPDATE_MUTED, muted})
+  updateMuted: (muted: boolean) => ({type: types.UPDATE_MUTED, muted}),
+  updateVolumeHover: (hover: boolean) => ({type: types.UPDATE_HOVER, hover})
 };
