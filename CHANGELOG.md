@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.18.3"></a>
+## [0.18.3](https://github.com/kaltura/playkit-js-ui/compare/v0.18.2...v0.18.3) (2018-02-26)
+
+
+### Bug Fixes
+
+* **FEC-7914:** focus player on pre playback button clicked ([#180](https://github.com/kaltura/playkit-js-ui/issues/180)) ([3d2b343](https://github.com/kaltura/playkit-js-ui/commit/3d2b343))
+* **FEC-7922:** dropdown in CVAA menu is cut and isn't displayed correctly ([#177](https://github.com/kaltura/playkit-js-ui/issues/177)) ([86f40fb](https://github.com/kaltura/playkit-js-ui/commit/86f40fb))
+* dropdown position calculation ([#181](https://github.com/kaltura/playkit-js-ui/issues/181)) ([240e69a](https://github.com/kaltura/playkit-js-ui/commit/240e69a))
+* **FEC-7930:** slide with the keyboard in CVAA menu seeks back and forth the player ([#179](https://github.com/kaltura/playkit-js-ui/issues/179)) ([989fc20](https://github.com/kaltura/playkit-js-ui/commit/989fc20))
+* **FEC-7931:** UI flickering on hovering the bottom bar ([#182](https://github.com/kaltura/playkit-js-ui/issues/182)) ([446fa02](https://github.com/kaltura/playkit-js-ui/commit/446fa02))
+* **FEC-7932:** mute indication text is coloured blue instead of white ([#178](https://github.com/kaltura/playkit-js-ui/issues/178)) ([9bf4ae9](https://github.com/kaltura/playkit-js-ui/commit/9bf4ae9))
+* **FEC-7956:** When autoplay fails, loading spinner stays in the background ([#183](https://github.com/kaltura/playkit-js-ui/issues/183)) ([da5ac5f](https://github.com/kaltura/playkit-js-ui/commit/da5ac5f))
+
+
+
 <a name="0.18.2"></a>
 ## [0.18.2](https://github.com/kaltura/playkit-js-ui/compare/v0.18.1...v0.18.2) (2018-02-19)
 
