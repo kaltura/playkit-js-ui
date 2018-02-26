@@ -220,8 +220,14 @@ class VolumeControl extends BaseComponent {
       <div
         ref={c => this._volumeControlElement = c}
         className={controlButtonClass.join(' ')}
-        onMouseOver={() => this.setState({hover: true})}
-        onMouseOut={() => this.setState({hover: false})}>
+        onMouseOver={() => {
+          this.props.updateVolumeHover(true);
+          this.setState({hover: true});
+        }}
+        onMouseOut={() => {
+          this.props.updateVolumeHover(false);
+          this.setState({hover: false});
+        }}>
         <Tooltip label={<Text id={tooltipLabel}/>} position="left">
           <button tabIndex="0"
                   aria-label='Volume'
