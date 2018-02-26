@@ -62,10 +62,6 @@ class Loading extends BaseComponent {
    * @memberof Loading
    */
   componentDidMount() {
-    if (this.autoplay) {
-      this.props.updateLoadingSpinnerState(true);
-    }
-
     this.player.addEventListener(this.player.Event.PLAYER_STATE_CHANGED, e => {
       const StateType = this.player.State;
       if (!this.state.afterPlayingEvent) {
@@ -76,6 +72,12 @@ class Loading extends BaseComponent {
         || e.payload.newState.type === StateType.PAUSED) {
         this.props.updateLoadingSpinnerState(false);
       } else {
+        this.props.updateLoadingSpinnerState(true);
+      }
+    });
+
+    this.player.addEventListener(this.player.Event.SOURCE_SELECTED, () => {
+      if (this.autoplay && !this.props.adBreak) {
         this.props.updateLoadingSpinnerState(true);
       }
     });
