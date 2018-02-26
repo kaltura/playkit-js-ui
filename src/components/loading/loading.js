@@ -26,8 +26,6 @@ const mapStateToProps = state => ({
    * @extends {BaseComponent}
    */
 class Loading extends BaseComponent {
-  autoplay: boolean;
-
   /**
    * Creates an instance of Loading.
    * @param {Object} obj obj
@@ -36,21 +34,6 @@ class Loading extends BaseComponent {
   constructor(obj: Object) {
     super({name: 'Loading', player: obj.player});
     this.setState({afterPlayingEvent: false});
-  }
-
-  /**
-   * before component mount, update the autoplay and mobileAutoplay values from player config
-   *
-   * @returns {void}
-   * @memberof Loading
-   */
-  componentWillMount() {
-    try {
-      this.autoplay = this.player.config.playback.autoplay;
-    } catch (e) { // eslint-disable-line no-unused-vars
-      this.autoplay = false;
-    }
-
   }
 
   /**
@@ -77,7 +60,7 @@ class Loading extends BaseComponent {
     });
 
     this.player.addEventListener(this.player.Event.SOURCE_SELECTED, () => {
-      if (this.autoplay && !this.props.adBreak) {
+      if (this.player.config.autoplay && !this.props.adBreak) {
         this.props.updateLoadingSpinnerState(true);
       }
     });
