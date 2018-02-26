@@ -4,10 +4,11 @@ export const types = {
   REMOVE_PLAYER_CLASS: 'shell/REMOVE_PLAYER_CLASS',
   UPDATE_IS_MOBILE: 'shell/UPDATE_IS_MOBILE',
   UPDATE_PRE_PLAYBACK: 'shell/UPDATE_PRE_PLAYBACK',
-  UPDATE_PLAYER_WIDTH: 'shell/UPDATE_PLAYER_WIDTH',
+  UPDATE_PLAYER_CLIENT_RECT: 'shell/UPDATE_PLAYER_CLIENT_RECT',
   UPDATE_DOCUMENT_WIDTH: 'shell/UPDATE_DOCUMENT_WIDTH',
   UPDATE_PLAYER_HOVER_STATE: 'shell/UPDATE_PLAYER_HOVER_STATE',
-  UPDATE_PLAYER_NAV_STATE: 'shell/UPDATE_PLAYER_NAV_STATE'
+  UPDATE_PLAYER_NAV_STATE: 'shell/UPDATE_PLAYER_NAV_STATE',
+  UPDATE_BOTTOM_BAR_HOVER_ACTIVE: 'shell/UPDATE_BOTTOM_BAR_HOVER_ACTIVE'
 };
 
 export const initialState = {
@@ -45,10 +46,10 @@ export default (state: Object = initialState, action: Object) => {
         prePlayback: action.prePlayback
       };
 
-    case types.UPDATE_PLAYER_WIDTH:
+    case types.UPDATE_PLAYER_CLIENT_RECT:
       return {
         ...state,
-        playerWidth: action.playerWidth
+        playerClientRect: action.playerClientRect
       };
 
     case types.UPDATE_DOCUMENT_WIDTH:
@@ -69,6 +70,12 @@ export default (state: Object = initialState, action: Object) => {
         playerNav: action.nav
       };
 
+    case types.UPDATE_BOTTOM_BAR_HOVER_ACTIVE:
+      return {
+        ...state,
+        bottomBarHoverActive: action.active
+      };
+
     default:
       return state;
   }
@@ -79,8 +86,9 @@ export const actions = {
   removePlayerClass: (className: string) => ({type: types.REMOVE_PLAYER_CLASS, className}),
   updateIsMobile: (isMobile: boolean) => ({type: types.UPDATE_IS_MOBILE, isMobile}),
   updatePrePlayback: (prePlayback: boolean) => ({type: types.UPDATE_PRE_PLAYBACK, prePlayback}),
-  updatePlayerWidth: (playerWidth: number) => ({type: types.UPDATE_PLAYER_WIDTH, playerWidth}),
+  updatePlayerClientRect: (playerClientRect: Object) => ({type: types.UPDATE_PLAYER_CLIENT_RECT, playerClientRect}),
   updateDocumentWidth: (documentWidth: number) => ({type: types.UPDATE_DOCUMENT_WIDTH, documentWidth}),
   updatePlayerHoverState: (hover: boolean) => ({type: types.UPDATE_PLAYER_HOVER_STATE, hover}),
-  updatePlayerNavState: (nav: boolean) => ({type: types.UPDATE_PLAYER_NAV_STATE, nav})
+  updatePlayerNavState: (nav: boolean) => ({type: types.UPDATE_PLAYER_NAV_STATE, nav}),
+  updateBottomBarHoverActive: (active: boolean) => ({type: types.UPDATE_BOTTOM_BAR_HOVER_ACTIVE, active})
 };

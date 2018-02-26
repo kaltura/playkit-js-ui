@@ -13,16 +13,21 @@ import {KeyMap} from "../../utils/key-map";
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
+  targetId: state.config.targetId,
   config: state.config.ui.shell,
   metadataLoaded: state.engine.metadataLoaded,
   currentState: state.engine.playerState.currentState,
   playerClasses: state.shell.playerClasses,
   isMobile: state.shell.isMobile,
-  playerWidth: state.shell.playerWidth,
-  playerHeight: state.shell.playerHeight,
+  playerClientRect: state.shell.playerClientRect,
   playerHover: state.shell.playerHover,
   playerNav: state.shell.playerNav,
   seekbarDraggingActive: state.seekbar.draggingActive,
+  seekbarHoverActive: state.seekbar.hoverActive,
+  bottomBarHoverActive: state.shell.bottomBarHoverActive,
+  volumeHoverActive: state.volume.hover,
+  languageMenuOpen: state.language.menuOpen,
+  settingsMenuOpen: state.settings.menuOpen,
   adBreak: state.engine.adBreak
 });
 
@@ -43,8 +48,9 @@ export const CONTROL_BAR_HOVER_DEFAULT_TIMEOUT: number = 3000;
    */
 class Shell extends BaseComponent {
   state: Object;
-  hoverTimeout: number;
-  fallbackToMutedAutoPlayMode: boolean;
+  _hoverTimeout: number;
+  _fallbackToMutedAutoPlayMode: boolean;
+  _el: HTMLDivElement;
 
   /**
    * Creates an instance of Shell.
@@ -53,9 +59,9 @@ class Shell extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'Shell', player: obj.player});
-    this.fallbackToMutedAutoPlayMode = false;
+    this._fallbackToMutedAutoPlayMode = false;
     this.player.addEventListener(this.player.Event.FALLBACK_TO_MUTED_AUTOPLAY, () => {
-      this.fallbackToMutedAutoPlayMode = true
+      this._fallbackToMutedAutoPlayMode = true
     });
   }
 
@@ -70,7 +76,9 @@ class Shell extends BaseComponent {
       this.setState({nav: false});
       this.props.updatePlayerNavState(false);
     }
-    this._showAndHideControlBar();
+    if (!this.props.bottomBarHoverActive) {
+      this._updatePlayerHoverState();
+    }
   }
 
   /**
@@ -93,10 +101,7 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   onMouseMove(): void {
-    if (!this.state.hover) {
-      this.setState({hover: true});
-      this.props.updatePlayerHoverState(true);
-    }
+    this._updatePlayerHoverState();
   }
 
   /**
@@ -106,9 +111,12 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   onClick(): void {
-    if (this.fallbackToMutedAutoPlayMode) {
+    if (this._fallbackToMutedAutoPlayMode) {
       this.player.muted = false;
-      this.fallbackToMutedAutoPlayMode = false;
+      this._fallbackToMutedAutoPlayMode = false;
+    }
+    if (!this.state.nav) {
+      this._el.focus();
     }
   }
 
@@ -138,12 +146,15 @@ class Shell extends BaseComponent {
     if (document.body) {
       this.props.updateDocumentWidth(document.body.clientWidth);
     }
-    this.player.addEventListener(this.player.Event.LOADED_METADATA, () => {
-      this.props.updatePlayerWidth(this.player.getView().parentElement.clientWidth);
-    });
+    const playerContainer = document.getElementById(this.props.targetId);
+    if (playerContainer) {
+      this.props.updatePlayerClientRect(playerContainer.getBoundingClientRect());
+    }
     window.addEventListener('resize', () => {
-      this.props.updatePlayerWidth(this.player.getView().parentElement.clientWidth);
-
+      const playerContainer = document.getElementById(this.props.targetId);
+      if (playerContainer) {
+        this.props.updatePlayerClientRect(playerContainer.getBoundingClientRect());
+      }
       if (document.body) {
         this.props.updateDocumentWidth(document.body.clientWidth);
       }
@@ -151,28 +162,42 @@ class Shell extends BaseComponent {
     if (this.player.env.device.type) {
       this.props.updatePlayerHoverState(true);
     }
-    this._showAndHideControlBar();
+    this._updatePlayerHoverState();
   }
 
   /**
-   * show the control bar for few seconds and then hide it
+   * updates the player hover state
    * @returns {void}
    * @memberof Shell
    */
-  _showAndHideControlBar(): void {
+  _updatePlayerHoverState(): void {
     if (!this.state.hover) {
       this.props.updatePlayerHoverState(true);
       this.setState({hover: true});
     }
-    if (this.hoverTimeout) {
-      clearTimeout(this.hoverTimeout);
+    if (this._hoverTimeout) {
+      clearTimeout(this._hoverTimeout);
     }
-    this.hoverTimeout = setTimeout(() => {
-      if (!this.props.seekbarDraggingActive) {
+    this._hoverTimeout = setTimeout(() => {
+      if (this._canEndHoverState()) {
         this.props.updatePlayerHoverState(false);
         this.setState({hover: false});
       }
-    }, this.props.hoverTimeout || CONTROL_BAR_HOVER_DEFAULT_TIMEOUT);
+    }, this.props._hoverTimeout || CONTROL_BAR_HOVER_DEFAULT_TIMEOUT);
+  }
+
+  /**
+   * checks if hover state can be ended based on other components states
+   * @returns {boolean} - if hover state can be ended
+   * @private
+   * @memberof Shell
+   */
+  _canEndHoverState(): boolean {
+    return !this.props.seekbarDraggingActive
+      && !this.props.seekbarHoverActive
+      && !this.props.volumeHoverActive
+      && !this.props.languageMenuOpen
+      && !this.props.settingsMenuOpen;
   }
 
   /**
@@ -192,15 +217,16 @@ class Shell extends BaseComponent {
     if (this.props.metadataLoaded) playerClasses.push(style.metadataLoaded);
     if (this.props.adBreak) playerClasses.push(style.adBreak);
     if (this.props.metadataLoaded) playerClasses.push(style['state-' + this.props.currentState]);
-    if (this.props.playerWidth <= 480) playerClasses.push(style.sizeSm);
-    else if (this.props.playerWidth <= 768) playerClasses.push(style.sizeMd);
     if (this.props.seekbarDraggingActive) playerClasses.push(style.hover);
+    if (this.props.playerClientRect && this.props.playerClientRect.width <= 480) playerClasses.push(style.sizeSm);
+    else if (this.props.playerClientRect && this.props.playerClientRect.width <= 768) playerClasses.push(style.sizeMd);
 
     playerClasses = playerClasses.join(' ');
 
     return (
       <div
         tabIndex="0"
+        ref={el => this._el = el}
         className={playerClasses}
         onClick={() => this.onClick()}
         onMouseOver={() => this.onMouseOver()}

@@ -4,7 +4,8 @@ import {h} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
-import {actions} from '../../reducers/cvaa';
+import {actions as cvaaActions} from '../../reducers/cvaa';
+import {actions as langActions} from '../../reducers/language';
 import BaseComponent from '../base';
 import SmartContainer from '../smart-container';
 import SmartContainerItem from '../smart-container/smart-container-item';
@@ -25,7 +26,7 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile
 });
 
-@connect(mapStateToProps, bindActions(actions))
+@connect(mapStateToProps, bindActions(Object.assign(langActions, cvaaActions)))
   /**
    * LanguageControl component
    *
@@ -54,6 +55,7 @@ class LanguageControl extends BaseComponent {
    * @memberof LanguageControl
    */
   componentWillMount() {
+    this.props.updateLanguageMenuOpen(false);
     this.setState({smartContainerOpen: false});
   }
 
@@ -95,6 +97,7 @@ class LanguageControl extends BaseComponent {
       if (e.target.classList.contains('overlay-action')) {
         e.stopPropagation();
       }
+      this.props.updateLanguageMenuOpen(false);
       this.setState({smartContainerOpen: false});
     }
   }
@@ -106,6 +109,7 @@ class LanguageControl extends BaseComponent {
    * @memberof LanguageControl
    */
   onControlButtonClick(): void {
+    this.props.updateLanguageMenuOpen(!this.state.smartContainerOpen);
     this.setState({smartContainerOpen: !this.state.smartContainerOpen});
   }
 
