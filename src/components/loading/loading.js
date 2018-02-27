@@ -26,8 +26,6 @@ const mapStateToProps = state => ({
    * @extends {BaseComponent}
    */
 class Loading extends BaseComponent {
-  autoplay: boolean;
-
   /**
    * Creates an instance of Loading.
    * @param {Object} obj obj
@@ -39,21 +37,6 @@ class Loading extends BaseComponent {
   }
 
   /**
-   * before component mount, update the autoplay and mobileAutoplay values from player config
-   *
-   * @returns {void}
-   * @memberof Loading
-   */
-  componentWillMount() {
-    try {
-      this.autoplay = this.player.config.playback.autoplay;
-    } catch (e) { // eslint-disable-line no-unused-vars
-      this.autoplay = false;
-    }
-
-  }
-
-  /**
    * after component mounted, set event listener to player state change and update the state of loading spinner accordingly.
    * initially, if not mobile and autoplay is on, show the loading spinner without dependency on the player state.
    * if is mobile and mobile autoplay is on, show the loading spinner without dependency on the player state.
@@ -62,10 +45,6 @@ class Loading extends BaseComponent {
    * @memberof Loading
    */
   componentDidMount() {
-    if (this.autoplay) {
-      this.props.updateLoadingSpinnerState(true);
-    }
-
     this.player.addEventListener(this.player.Event.PLAYER_STATE_CHANGED, e => {
       const StateType = this.player.State;
       if (!this.state.afterPlayingEvent) {
@@ -76,6 +55,12 @@ class Loading extends BaseComponent {
         || e.payload.newState.type === StateType.PAUSED) {
         this.props.updateLoadingSpinnerState(false);
       } else {
+        this.props.updateLoadingSpinnerState(true);
+      }
+    });
+
+    this.player.addEventListener(this.player.Event.SOURCE_SELECTED, () => {
+      if (this.player.config.autoplay) {
         this.props.updateLoadingSpinnerState(true);
       }
     });
