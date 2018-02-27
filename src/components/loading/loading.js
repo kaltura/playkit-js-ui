@@ -60,7 +60,7 @@ class Loading extends BaseComponent {
     });
 
     this.player.addEventListener(this.player.Event.SOURCE_SELECTED, () => {
-      if (this.player.config.autoplay && !this.props.adBreak) {
+      if (this.player.config.autoplay) {
         this.props.updateLoadingSpinnerState(true);
       }
     });
