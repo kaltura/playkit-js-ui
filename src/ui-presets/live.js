@@ -16,6 +16,7 @@ import KeyboardControl from '../components/keyboard';
 import LiveTag from '../components/live-tag';
 import UnmuteIndication from '../components/unmute-indication';
 import getComponentConfig from '../utils/component-config';
+import Watermark from "../components/watermark/watermark";
 
 /**
  * Live ui intrface
@@ -32,6 +33,11 @@ export default function liveUI(props: any): React$Element<any> {
       <div className={style.playerGui} id='player-gui'>
         <OverlayPortal/>
         <UnmuteIndication/>
+        <Watermark player={props.player}
+                   img={props.uiconfig.watermark.img}
+                   url={props.uiconfig.watermark.url}
+                   timeout={props.uiconfig.watermark.timeout}
+                   placement={props.uiconfig.watermark.placement}/>
         <OverlayAction player={props.player}/>
         <BottomBar>
           <SeekBarLivePlaybackContainer

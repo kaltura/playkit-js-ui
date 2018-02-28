@@ -1,0 +1,32 @@
+.player .watermark {
+  position: absolute;
+  padding: 5px;
+  z-index: 1;
+  &.hide-watermark {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 1s, opacity 1s linear;
+  }
+  &.top {
+    top: 0;
+  }
+  &.bottom {
+    bottom: 0;
+  }
+  &.right {
+    right: 0;
+  }
+  &.left {
+    left: 0;
+  }
+}
+
+.player {
+  &:not(.overlay-active) {
+    &.state-paused :global(.playkit-watermark.playkit-bottom),
+    &.hover :global(.playkit-watermark.playkit-bottom) {
+      transform: translateY(-60px);
+      transition: ease-out 100ms;
+    }
+  }
+}
