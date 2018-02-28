@@ -39,10 +39,10 @@ Useful for applications that wants to force mobile view of player UI.
 >##### Type: `Object`
 >```js
 >{
->    img: string // The URL for the watermark image
->    url: string, // The URL to open on clicking the watermark
->    placement: string, // The placement of the watermark. Possible values: `"top-left", "top-right", "bottom-left", "bottom-right"`
->    timeout: number // timeout (in milliseconds) to hide the watermark
+>    img: string,
+>    url: string, 
+>    placement: string, 
+>    timeout: number
 >}
 >```
 >##### Default: 
@@ -55,3 +55,20 @@ Useful for applications that wants to force mobile view of player UI.
 >}
 >```
 >##### Description: Defines a watermark.
+>>### config.watermark.img
+>>##### Type: `string`
+>>##### Default: `''`
+>>##### Description: The URL for the watermark image.
+>>### config.watermark.url
+>>##### Type: `string`
+>>##### Default: `''`
+>>##### Description: The URL to open on clicking the watermark.
+>>### config.watermark.placement
+>>##### Type: `string`
+>>##### Default: `'top-left'`
+>>##### Description: The placement of the watermark.
+>>Possible values: `'top-left', 'top-right', 'bottom-left', 'bottom-right'`
+>>### config.watermark.timeout
+>>##### Type: `number`
+>>##### Default: `0`
+>>##### Description: Timeout (in milliseconds) to hide the watermark.
