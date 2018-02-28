@@ -11,7 +11,7 @@ All notable changes to this project will be documented in this file. See [standa
 * console error on ads seekbar hover ([#186](https://github.com/kaltura/playkit-js-ui/issues/186)) ([1d23872](https://github.com/kaltura/playkit-js-ui/commit/1d23872))
 * **FEC-7535:** setting autoplay causes player spinner before loading media ([#185](https://github.com/kaltura/playkit-js-ui/issues/185)) ([e80334a](https://github.com/kaltura/playkit-js-ui/commit/e80334a))
 * **FEC-7959:** speed down ui gesture is shown without pressing shift button ([#187](https://github.com/kaltura/playkit-js-ui/issues/187)) ([146ccaf](https://github.com/kaltura/playkit-js-ui/commit/146ccaf))
-
+* **FEC-7963:** native menus are not opened in mobile devices (Android/iOS) ([#189](https://github.com/kaltura/playkit-js-ui/issues/189)) ([511f5ed](https://github.com/kaltura/playkit-js-ui/commit/511f5ed))
 
 
 <a name="0.18.3"></a>
