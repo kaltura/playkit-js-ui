@@ -33,11 +33,13 @@ export default function liveUI(props: any): React$Element<any> {
       <div className={style.playerGui} id='player-gui'>
         <OverlayPortal/>
         <UnmuteIndication/>
-        <Watermark player={props.player}
-                   img={props.uiconfig.watermark.img}
-                   url={props.uiconfig.watermark.url}
-                   timeout={props.uiconfig.watermark.timeout}
-                   placement={props.uiconfig.watermark.placement}/>
+        {props.uiconfig.watermark ?
+          <Watermark player={props.player}
+                     img={props.uiconfig.watermark.img}
+                     url={props.uiconfig.watermark.url}
+                     timeout={props.uiconfig.watermark.timeout}
+                     placement={props.uiconfig.watermark.placement}/> : undefined
+        }
         <OverlayAction player={props.player}/>
         <BottomBar>
           <SeekBarLivePlaybackContainer

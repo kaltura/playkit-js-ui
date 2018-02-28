@@ -133,7 +133,9 @@ export default class UIManager {
           <Shell player={this.player}>
             <EngineConnector player={this.player}/>
             <VideoPlayer player={this.player}/>
-            <PlayerGUI uis={uis} player={this.player} playerContainer={container} uiconfig={this.config}/>
+            <PlayerGUI uis={uis} player={this.player}
+                       playerContainer={container}
+                       uiconfig={this.config}/>
           </Shell>
         </IntlProvider>
       </Provider>
