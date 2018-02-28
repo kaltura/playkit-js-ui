@@ -12,7 +12,8 @@ import BaseComponent from '../base';
 class Watermark extends BaseComponent {
 
   static defaultProps: any = {
-    placement: 'top-left'
+    placement: 'top-left',
+    timeout: 0
   };
 
   /**

@@ -12,7 +12,8 @@ var uiManager = new playkit.ui.UIManager(player, config);
 {
   targetId: string,
   forceTouchUI: boolean, // optional
-  logLevel: string // optional
+  logLevel: string, // optional
+  watermark: Object // optional
 }
 ```
 ## 
@@ -33,3 +34,24 @@ Useful for applications that wants to force mobile view of player UI.
 >##### Default: `"ERROR"`
 >##### Description: Defines the ui log level.
 >Possible values: `"DEBUG", "INFO", "TIME", "WARN", "ERROR", "OFF"`
+## 
+>### config.watermark
+>##### Type: `Object`
+>```js
+>{
+>    img: string // The URL for the watermark image
+>    url: string, // The URL to open on clicking the watermark
+>    placement: string, // The placement of the watermark. Possible values: `"top-left", "top-right", "bottom-left", "bottom-right"`
+>    timeout: number // timeout (in milliseconds) to hide the watermark
+>}
+>```
+>##### Default: 
+>```js
+>{
+>    img: '',
+>    url: '',
+>    placement: 'top-left',
+>    timeout: 0
+>}
+>```
+>##### Description: Defines a watermark.
