@@ -11,7 +11,7 @@ import BaseComponent from '../base';
  */
 class Watermark extends BaseComponent {
 
-  static defaultProps = {
+  static defaultProps: any = {
     placement: 'top-left'
   };
 
@@ -52,10 +52,10 @@ class Watermark extends BaseComponent {
   /**
    * Render component
    * @param {*} props - component props
-   * @returns {React$Element} - component element
+   * @returns {?React$Element} - component element
    * @memberof Watermark
    */
-  render(props: any): React$Element<any> {
+  render(props: any): ?React$Element<any> {
     if (props.img) {
       const styleClass = [style.watermark];
       props.placement.split('-').forEach((side) => {
