@@ -50,7 +50,6 @@ class Shell extends BaseComponent {
   state: Object;
   _hoverTimeout: number;
   _fallbackToMutedAutoPlayMode: boolean;
-  _el: HTMLDivElement;
 
   /**
    * Creates an instance of Shell.
@@ -114,9 +113,6 @@ class Shell extends BaseComponent {
     if (this._fallbackToMutedAutoPlayMode) {
       this.player.muted = false;
       this._fallbackToMutedAutoPlayMode = false;
-    }
-    if (!this.state.nav) {
-      this._el.focus();
     }
   }
 
@@ -226,7 +222,6 @@ class Shell extends BaseComponent {
     return (
       <div
         tabIndex="0"
-        ref={el => this._el = el}
         className={playerClasses}
         onClick={() => this.onClick()}
         onMouseOver={() => this.onMouseOver()}
