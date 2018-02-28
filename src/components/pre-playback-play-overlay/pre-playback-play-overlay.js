@@ -95,6 +95,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   handleClick(): void {
+    this.player.getView().focus();
     this.player.play();
     if (this.props.prePlayback) {
       this._hidePrePlayback();
@@ -127,14 +128,14 @@ class PrePlaybackPlayOverlay extends BaseComponent {
         style={rootStyle}
         onClick={() => this.handleClick()}>
         {<a className={style.prePlaybackPlayButton}
-             tabIndex="0"
-             onKeyDown={(e) => {
-               if (e.keyCode === KeyMap.ENTER) {
-                 this.handleClick();
-               }
-             }}>
-            {props.isEnded ? <Icon type={IconType.StartOver}/> : <Icon type={IconType.Play}/>}
-          </a>}
+            tabIndex="0"
+            onKeyDown={(e) => {
+              if (e.keyCode === KeyMap.ENTER) {
+                this.handleClick();
+              }
+            }}>
+          {props.isEnded ? <Icon type={IconType.StartOver}/> : <Icon type={IconType.Play}/>}
+        </a>}
       </div>
     )
   }
