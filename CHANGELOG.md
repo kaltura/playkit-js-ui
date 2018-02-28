@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.18.4"></a>
+## [0.18.4](https://github.com/kaltura/playkit-js-ui/compare/v0.18.3...v0.18.4) (2018-02-28)
+
+
+### Bug Fixes
+
+* console error on ads seekbar hover ([#186](https://github.com/kaltura/playkit-js-ui/issues/186)) ([1d23872](https://github.com/kaltura/playkit-js-ui/commit/1d23872))
+* **FEC-7535:** setting autoplay causes player spinner before loading media ([#185](https://github.com/kaltura/playkit-js-ui/issues/185)) ([e80334a](https://github.com/kaltura/playkit-js-ui/commit/e80334a))
+* **FEC-7959:** speed down ui gesture is shown without pressing shift button ([#187](https://github.com/kaltura/playkit-js-ui/issues/187)) ([146ccaf](https://github.com/kaltura/playkit-js-ui/commit/146ccaf))
+
+
+
 <a name="0.18.3"></a>
 ## [0.18.3](https://github.com/kaltura/playkit-js-ui/compare/v0.18.2...v0.18.3) (2018-02-26)
 
