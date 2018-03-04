@@ -28,7 +28,8 @@ const mapStateToProps = state => ({
   volumeHoverActive: state.volume.hover,
   languageMenuOpen: state.language.menuOpen,
   settingsMenuOpen: state.settings.menuOpen,
-  adBreak: state.engine.adBreak
+  adBreak: state.engine.adBreak,
+  prePlayback: state.shell.prePlayback
 });
 
 /**
@@ -48,7 +49,7 @@ export const CONTROL_BAR_HOVER_DEFAULT_TIMEOUT: number = 3000;
    */
 class Shell extends BaseComponent {
   state: Object;
-  _hoverTimeout: number;
+  hoverTimeout: ?number;
   _fallbackToMutedAutoPlayMode: boolean;
 
   /**
@@ -71,6 +72,9 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   onMouseOver(): void {
+    if (this.props.isMobile) {
+      return;
+    }
     if (this.state.nav) {
       this.setState({nav: false});
       this.props.updatePlayerNavState(false);
@@ -87,6 +91,9 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   onMouseLeave(): void {
+    if (this.props.isMobile) {
+      return;
+    }
     if (this.state.hover) {
       this.setState({hover: false});
       this.props.updatePlayerHoverState(false);
@@ -100,6 +107,9 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   onMouseMove(): void {
+    if (this.props.isMobile) {
+      return;
+    }
     this._updatePlayerHoverState();
   }
 
@@ -110,9 +120,35 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   onClick(): void {
+    if (this.props.isMobile) {
+      return;
+    }
     if (this._fallbackToMutedAutoPlayMode) {
       this.player.muted = false;
       this._fallbackToMutedAutoPlayMode = false;
+    }
+  }
+
+  /**
+   * on touch start handler
+   * @param {TouchEvent} e - touch event
+
+   * @returns {void}
+   * @memberof Shell
+   */
+  onTouchStart(e: TouchEvent): void {
+    if (this.props.prePlayback) {
+      return;
+    }
+    if (!this.state.hover) {
+      e.stopPropagation();
+      this._updatePlayerHoverState();
+    } else {
+      if (this.hoverTimeout) {
+        this._clearHoverTimeout();
+      } else {
+        this._startHoverTimeout();
+      }
     }
   }
 
@@ -155,10 +191,9 @@ class Shell extends BaseComponent {
         this.props.updateDocumentWidth(document.body.clientWidth);
       }
     });
-    if (this.player.env.device.type) {
-      this.props.updatePlayerHoverState(true);
-    }
-    this._updatePlayerHoverState();
+    this.player.addEventListener(this.player.Event.FIRST_PLAY, () => {
+      this._updatePlayerHoverState();
+    });
   }
 
   /**
@@ -167,19 +202,15 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   _updatePlayerHoverState(): void {
+    if (this.props.prePlayback) {
+      return;
+    }
     if (!this.state.hover) {
       this.props.updatePlayerHoverState(true);
       this.setState({hover: true});
     }
-    if (this._hoverTimeout) {
-      clearTimeout(this._hoverTimeout);
-    }
-    this._hoverTimeout = setTimeout(() => {
-      if (this._canEndHoverState()) {
-        this.props.updatePlayerHoverState(false);
-        this.setState({hover: false});
-      }
-    }, this.props._hoverTimeout || CONTROL_BAR_HOVER_DEFAULT_TIMEOUT);
+    this._clearHoverTimeout();
+    this._startHoverTimeout();
   }
 
   /**
@@ -194,6 +225,34 @@ class Shell extends BaseComponent {
       && !this.props.volumeHoverActive
       && !this.props.languageMenuOpen
       && !this.props.settingsMenuOpen;
+  }
+
+  /**
+   * starts the hover timeout.
+   * @returns {void}
+   * @private
+   * @memberof Shell
+   */
+  _startHoverTimeout(): void {
+    this.hoverTimeout = setTimeout(() => {
+      if (this._canEndHoverState()) {
+        this.props.updatePlayerHoverState(false);
+        this.setState({hover: false});
+      }
+    }, this.props.hoverTimeout || CONTROL_BAR_HOVER_DEFAULT_TIMEOUT);
+  }
+
+  /**
+   * clears the hover timeout.
+   * @returns {void}
+   * @private
+   * @memberof Shell
+   */
+  _clearHoverTimeout(): void {
+    if (this.hoverTimeout) {
+      clearTimeout(this.hoverTimeout);
+      this.hoverTimeout = null;
+    }
   }
 
   /**
@@ -224,6 +283,7 @@ class Shell extends BaseComponent {
         tabIndex="0"
         className={playerClasses}
         onClick={() => this.onClick()}
+        onTouchStart={(e) => this.onTouchStart(e)}
         onMouseOver={() => this.onMouseOver()}
         onMouseMove={() => this.onMouseMove()}
         onMouseLeave={() => this.onMouseLeave()}

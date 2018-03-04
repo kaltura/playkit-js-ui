@@ -126,6 +126,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
       <div
         className={rootClass.join(' ')}
         style={rootStyle}
+        onMouseOver={(e) => e.stopPropagation()}
         onClick={() => this.handleClick()}>
         {<a className={style.prePlaybackPlayButton}
             tabIndex="0"
