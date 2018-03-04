@@ -1,7 +1,7 @@
 .player .watermark {
   position: absolute;
   padding: 5px;
-  z-index: 1;
+  z-index: 6;
   &.hide-watermark {
     visibility: hidden;
     opacity: 0;
