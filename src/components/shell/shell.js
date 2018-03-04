@@ -49,7 +49,7 @@ export const CONTROL_BAR_HOVER_DEFAULT_TIMEOUT: number = 3000;
    */
 class Shell extends BaseComponent {
   state: Object;
-  hoverTimeout: number;
+  hoverTimeout: ?number;
   _fallbackToMutedAutoPlayMode: boolean;
 
   /**
@@ -136,7 +136,7 @@ class Shell extends BaseComponent {
    * @returns {void}
    * @memberof Shell
    */
-  onTouchStart(e): void {
+  onTouchStart(e: TouchEvent): void {
     if (this.props.prePlayback) {
       return;
     }
