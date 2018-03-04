@@ -95,6 +95,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   handleClick(): void {
+    this.player.getView().focus();
     this.player.play();
     if (this.props.prePlayback) {
       this._hidePrePlayback();
