@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.19.0"></a>
+# [0.19.0](https://github.com/kaltura/playkit-js-ui/compare/v0.18.4...v0.19.0) (2018-03-05)
+
+
+### Bug Fixes
+
+* **FEC-7964:** touch while playing on mobiles always pause/resume the video ([#188](https://github.com/kaltura/playkit-js-ui/issues/188)) ([3ec2eb5](https://github.com/kaltura/playkit-js-ui/commit/3ec2eb5))
+* **FEC-7971:** change media doesn't work after a critical error  ([#191](https://github.com/kaltura/playkit-js-ui/issues/191)) ([901d6f8](https://github.com/kaltura/playkit-js-ui/commit/901d6f8))
+
+
+### Features
+
+* support external component config ([#192](https://github.com/kaltura/playkit-js-ui/issues/192)) ([5d6d450](https://github.com/kaltura/playkit-js-ui/commit/5d6d450))
+* watermark support ([#190](https://github.com/kaltura/playkit-js-ui/issues/190)) ([86d5f46](https://github.com/kaltura/playkit-js-ui/commit/86d5f46))
+
+
+
 <a name="0.18.4"></a>
 ## [0.18.4](https://github.com/kaltura/playkit-js-ui/compare/v0.18.3...v0.18.4) (2018-02-28)
 
