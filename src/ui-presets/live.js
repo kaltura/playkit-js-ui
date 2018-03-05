@@ -15,6 +15,8 @@ import OverlayPortal from '../components/overlay-portal';
 import KeyboardControl from '../components/keyboard';
 import LiveTag from '../components/live-tag';
 import UnmuteIndication from '../components/unmute-indication';
+import Watermark from '../components/watermark/watermark';
+import {shouldRenderComponent} from '../utils/component-config';
 
 /**
  * Live ui intrface
@@ -51,6 +53,9 @@ export default function liveUI(props: any): React$Element<any> {
         </BottomBar>
       </div>
       <PrePlaybackPlayOverlay player={props.player}/>
+      {shouldRenderComponent(props.config, Watermark.displayName)
+        ? <Watermark player={props.player}/>
+        : undefined}
     </div>
   )
 }

@@ -12,7 +12,8 @@ var uiManager = new playkit.ui.UIManager(player, config);
 {
   targetId: string,
   forceTouchUI: boolean, // optional
-  logLevel: string // optional
+  logLevel: string, // optional
+  components: Object // optional
 }
 ```
 ## 
@@ -33,3 +34,50 @@ Useful for applications that wants to force mobile view of player UI.
 >##### Default: `"ERROR"`
 >##### Description: Defines the ui log level.
 >Possible values: `"DEBUG", "INFO", "TIME", "WARN", "ERROR", "OFF"`
+## 
+>### config.components
+>##### Type: `Object`
+>##### Default: `-`
+>##### Description: Defines the ui components configuration.
+>Optional components to configure: `watermark`
+## 
+>>### config.components.watermark
+>>##### Type: `Object`
+>>```js
+>>{
+>>    img: string,
+>>    url: string, 
+>>    placement: string, 
+>>    timeout: number
+>>}
+>>```
+>>##### Default: 
+>>```js
+>>{
+>>    img: '',
+>>    url: '',
+>>    placement: 'top-left',
+>>    timeout: 0
+>>}
+>>```
+>>##### Description: Defines a watermark component.
+>>>### config.components.watermark.img
+>>>##### Type: `string`
+>>>##### Default: `''`
+>>>##### Description: The URL for the watermark image.
+>>>## 
+>>>### config.components.watermark.url
+>>>##### Type: `string`
+>>>##### Default: `''`
+>>>##### Description: The URL to open on clicking the watermark.
+>>>## 
+>>>### config.components.watermark.placement
+>>>##### Type: `string`
+>>>##### Default: `'top-left'`
+>>>##### Description: The placement of the watermark.
+>>>Possible values: `'top-left', 'top-right', 'bottom-left', 'bottom-right'`
+>>>## 
+>>>### config.components.watermark.timeout
+>>>##### Type: `number`
+>>>##### Default: `0`
+>>>##### Description: Timeout (in milliseconds) to hide the watermark.
