@@ -66,7 +66,6 @@ class ErrorOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   handleClick(): void {
-    this.props.updateHasError(false);
     this.player.loadMedia(this.props.config.mediaInfo);
   }
 
