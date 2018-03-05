@@ -2,10 +2,10 @@
   position: absolute;
   padding: 5px;
   z-index: 11;
+  transition: visibility 0s 1s, opacity 1s linear, transform ease-out 100ms;
   &.hide-watermark {
     visibility: hidden;
     opacity: 0;
-    transition: visibility 0s 1s, opacity 1s linear;
   }
   &.top {
     top: 0;
@@ -26,7 +26,6 @@
     &.state-paused :global(.playkit-watermark.playkit-bottom),
     &.hover :global(.playkit-watermark.playkit-bottom) {
       transform: translateY(-60px);
-      transition: ease-out 100ms;
     }
   }
 }
