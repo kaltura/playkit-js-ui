@@ -8,9 +8,9 @@
  */
 function getComponentConfig(config: any, alias: string): Object {
   try {
-    return config.ui[alias];
+    return config.components[alias];
   } catch (error) {
-    return {}
+    return {};
   }
 }
 
