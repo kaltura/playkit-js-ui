@@ -16,7 +16,7 @@ export default function errorUI(props: any): React$Element<any> {
     <div className={style.playbackGuiWWrapper}>
       <ErrorOverlay config={getComponentConfig(props.config, 'errorOverlay')}
                     player={props.player}
-                    updateHasError={error => props.updateHasError(error)}/>
+                    updateHasError={hasError => props.updateHasError(hasError)}/>
     </div>
   )
 }
