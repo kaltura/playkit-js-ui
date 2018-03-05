@@ -18,7 +18,6 @@ import EngineConnector from './components/engine-connector';
 import Shell from './components/shell';
 import VideoPlayer from './components/video-player';
 import PlayerGUI from './player-gui';
-import Watermark from "./components/watermark/watermark";
 
 // ui presets
 import adsUI from './ui-presets/ads';
