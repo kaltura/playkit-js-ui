@@ -15,7 +15,7 @@ import {actions} from "../../reducers/engine";
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  config: state.config.error,
+  config: state.config.components.error,
   hasError: state.engine.hasError
 });
 
