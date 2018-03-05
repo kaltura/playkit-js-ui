@@ -34,6 +34,7 @@ class EngineConnector extends BaseComponent {
     const TrackType = this.player.Track;
 
     this.player.addEventListener(this.player.Event.CHANGE_SOURCE_STARTED, () => {
+      this.props.updateHasError(false);
       this.props.updateAdBreak(false);
       this.props.updateAdIsPlaying(false);
       this.props.updateIsPlaying(false);
@@ -158,7 +159,7 @@ class EngineConnector extends BaseComponent {
     });
 
     this.player.addEventListener(this.player.Event.ERROR, e => {
-      if (e.payload && e.payload.severity === 2){
+      if (e.payload && e.payload.severity === 2) {
         this.props.updateHasError(e.payload);
       }
     })
