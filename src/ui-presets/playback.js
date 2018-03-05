@@ -1,7 +1,6 @@
 //@flow
 import style from '../styles/style.scss';
 import {h} from 'preact';
-import getComponentConfig from '../utils/component-config';
 import OverlayAction from '../components/overlay-action';
 import PrePlaybackPlayOverlay from '../components/pre-playback-play-overlay';
 import Loading from '../components/loading';
@@ -38,8 +37,7 @@ export default function playbackUI(props: any): React$Element<any> {
           <SeekBarPlaybackContainer showFramePreview
                                     showTimeBubble
                                     player={props.player}
-                                    playerContainer={props.playerContainer}
-                                    config={getComponentConfig(props.config, 'seekbar')}/>
+                                    playerContainer={props.playerContainer}/>
           <div className={style.leftControls}>
             <PlayPauseControl player={props.player}/>
             <RewindControl player={props.player} step={10}/>
@@ -49,7 +47,7 @@ export default function playbackUI(props: any): React$Element<any> {
             <VolumeControl player={props.player}/>
             <LanguageControl player={props.player}/>
             <SettingsControl player={props.player}/>
-            <FullscreenControl player={props.player} config={props.config}/>
+            <FullscreenControl player={props.player}/>
           </div>
         </BottomBar>
       </div>
