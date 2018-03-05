@@ -66,7 +66,7 @@ class Watermark extends BaseComponent {
         styleClass.push(style.hideWatermark);
       }
       return (
-        <div className={styleClass.join(' ')}>
+        <div className={styleClass.join(' ')} style='display:none'>
           <a href={props.url} target='_blank' rel='noopener noreferrer'>
             <img src={props.img}/>
           </a>

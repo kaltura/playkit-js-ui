@@ -18,6 +18,7 @@ import EngineConnector from './components/engine-connector';
 import Shell from './components/shell';
 import VideoPlayer from './components/video-player';
 import PlayerGUI from './player-gui';
+import Watermark from "./components/watermark/watermark";
 
 // ui presets
 import adsUI from './ui-presets/ads';
@@ -133,10 +134,15 @@ export default class UIManager {
           <Shell player={this.player}>
             <EngineConnector player={this.player}/>
             <VideoPlayer player={this.player}/>
-            <PlayerGUI uis={uis}
-                       player={this.player}
-                       playerContainer={container}
-                       uiconfig={this.config}/>
+            {this.config.watermark ?
+              <Watermark player={this.player}
+                         img={this.config.watermark.img}
+                         url={this.config.watermark.url}
+                         timeout={this.config.watermark.timeout}
+                         placement={this.config.watermark.placement}/>
+              : undefined
+            }
+            <PlayerGUI uis={uis} player={this.player} playerContainer={container}/>
           </Shell>
         </IntlProvider>
       </Provider>

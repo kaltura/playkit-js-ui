@@ -1,7 +1,8 @@
-.player .watermark {
+.player:not(.ad-break) .watermark {
+  display: block !important;
   position: absolute;
   padding: 5px;
-  z-index: 6;
+  z-index: 11;
   &.hide-watermark {
     visibility: hidden;
     opacity: 0;
@@ -22,7 +23,7 @@
 }
 
 .player {
-  &:not(.overlay-active) {
+  &:not(.pre-playback):not(.overlay-active) {
     &.state-paused :global(.playkit-watermark.playkit-bottom),
     &.hover :global(.playkit-watermark.playkit-bottom) {
       transform: translateY(-60px);
