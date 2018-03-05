@@ -53,9 +53,9 @@ export default function liveUI(props: any): React$Element<any> {
         </BottomBar>
       </div>
       <PrePlaybackPlayOverlay player={props.player}/>
-      {shouldRenderComponent(props.config, Watermark.displayName) ?
-        <Watermark player={props.player}/> :
-        undefined}
+      {shouldRenderComponent(props.config, Watermark.displayName)
+        ? <Watermark player={props.player}/>
+        : undefined}
     </div>
   )
 }
