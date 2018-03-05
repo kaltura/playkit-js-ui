@@ -13,7 +13,7 @@ var uiManager = new playkit.ui.UIManager(player, config);
   targetId: string,
   forceTouchUI: boolean, // optional
   logLevel: string, // optional
-  components: Object // options
+  components: Object // optional
 }
 ```
 ## 
