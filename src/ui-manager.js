@@ -60,6 +60,7 @@ export default class UIManager {
       name: `playkit #${this.targetId}`,
       instanceId: this.targetId
     }));
+    this.setConfig(config);
   }
 
   /**
@@ -74,7 +75,7 @@ export default class UIManager {
     if (componentAlias) {
       this.store.dispatch(actions.updateComponentConfig(componentAlias, config));
     } else {
-      this.store.dispatch(actions.updateConfig({targetId: this.targetId, ...config}));
+      this.store.dispatch(actions.updateConfig(config));
     }
   }
 
@@ -133,10 +134,7 @@ export default class UIManager {
           <Shell player={this.player}>
             <EngineConnector player={this.player}/>
             <VideoPlayer player={this.player}/>
-            <PlayerGUI uis={uis}
-                       player={this.player}
-                       playerContainer={container}
-                       uiconfig={this.config}/>
+            <PlayerGUI uis={uis} player={this.player} playerContainer={container}/>
           </Shell>
         </IntlProvider>
       </Provider>

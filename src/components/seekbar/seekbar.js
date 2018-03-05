@@ -3,28 +3,26 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {toHHMMSS} from '../../utils/time-format';
 import {KeyMap} from "../../utils/key-map";
+import {connect} from "preact-redux";
+import {bindActions} from "../../utils/bind-actions";
+import {actions} from "../../reducers/shell";
 
 /**
- * SeekBarControl component
- *
- * @class SeekBarControl
- * @example <SeekBarControl
- *  playerElement={this.player.getView().parentElement}
- *  showFramePreview={this.props.showFramePreview}
- *  showTimeBubble={this.props.showTimeBubble}
- *  changeCurrentTime={time => this.player.currentTime = time}
- *  thumbsSprite={this.config.thumbsSprite}
- *  thumbsSlices={this.config.thumbsSlices}
- *  thumbsWidth={this.config.thumbsWidth}
- *  updateSeekbarDraggingStatus={data => this.props.updateSeekbarDraggingStatus(data)}
- *  updateCurrentTime={data => this.props.updateCurrentTime(data)}
- *  currentTime={this.props.currentTime}
- *  duration={this.props.duration}
- *  isDraggingActive={this.props.isDraggingActive}
- *  isMobile={this.props.isMobile}
- * />
- * @extends {Component}
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
  */
+const mapStateToProps = state => ({
+  config: state.config.components.seekbar
+});
+
+@connect(mapStateToProps, bindActions(actions))
+  /**
+   * SeekBarControl component
+   *
+   * @class SeekBarControl
+   * @extends {Component}
+   */
 class SeekBarControl extends Component {
   state: Object;
   _seekBarElement: HTMLElement;
@@ -291,8 +289,8 @@ class SeekBarControl extends Component {
    */
   getThumbSpriteOffset(): string {
     const percent = this.state.virtualTime / this.props.duration;
-    const sliceIndex = Math.ceil(this.props.thumbsSlices * percent);
-    return -(sliceIndex * this.props.thumbsWidth) + 'px 0px';
+    const sliceIndex = Math.ceil(this.props.config.thumbsSlices * percent);
+    return -(sliceIndex * this.props.config.thumbsWidth) + 'px 0px';
   }
 
   /**
@@ -345,7 +343,7 @@ class SeekBarControl extends Component {
    */
   renderFramePreview(): React$Element<any> | void {
     if (
-      !this.props.thumbsSprite || !this.props.thumbsSlices || !this.props.thumbsWidth ||
+      !this.props.config.thumbsSprite || !this.props.config.thumbsSlices || !this.props.config.thumbsWidth ||
       !this.props.showFramePreview ||
       this.props.isMobile
     ) return undefined;
@@ -369,9 +367,9 @@ class SeekBarControl extends Component {
    * @private
    */
   _getFramePreviewImgStyle(): string {
-    let framePreviewImgStyle = `background-image: url(${this.props.thumbsSprite});`;
+    let framePreviewImgStyle = `background-image: url(${this.props.config.thumbsSprite});`;
     framePreviewImgStyle += `background-position: ${this.getThumbSpriteOffset()};`;
-    framePreviewImgStyle += `background-size: ${this.props.thumbsSlices * this.props.thumbsWidth}px 100%;`;
+    framePreviewImgStyle += `background-size: ${this.props.config.thumbsSlices * this.props.config.thumbsWidth}px 100%;`;
     return framePreviewImgStyle;
   }
 
@@ -383,7 +381,7 @@ class SeekBarControl extends Component {
    */
   _getFramePreviewStyle(): string {
     let framePreviewStyle = `left: ${this.getFramePreviewOffset()}px;`;
-    framePreviewStyle += `width: ${this.props.thumbsWidth}px;`;
+    framePreviewStyle += `width: ${this.props.config.thumbsWidth}px;`;
     return framePreviewStyle;
   }
 

@@ -35,7 +35,7 @@ class SeekBarPlaybackContainer extends BaseComponent {
    * @memberof SeekBarPlaybackContainer
    */
   constructor(obj: Object) {
-    super({name: 'SeekBarPlaybackContainer', player: obj.player, config: obj.config});
+    super({name: 'SeekBarPlaybackContainer', player: obj.player});
   }
 
   /**
@@ -75,9 +75,6 @@ class SeekBarPlaybackContainer extends BaseComponent {
         duration={this.props.duration}
         isDraggingActive={this.props.isDraggingActive}
         isMobile={this.props.isMobile}
-        thumbsSprite={this.props.config.thumbsSprite}
-        thumbsSlices={this.props.config.thumbsSlices}
-        thumbsWidth={this.props.config.thumbsWidth}
       />
     )
   }

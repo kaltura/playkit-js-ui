@@ -14,7 +14,7 @@ import {KeyMap} from "../../utils/key-map";
  */
 const mapStateToProps = state => ({
   targetId: state.config.targetId,
-  config: state.config.ui.shell,
+  forceTouchUI: state.config.forceTouchUI,
   metadataLoaded: state.engine.metadataLoaded,
   currentState: state.engine.playerState.currentState,
   playerClasses: state.shell.playerClasses,
@@ -174,7 +174,7 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   componentDidMount() {
-    this.props.updateIsMobile(!!this.player.env.device.type || this.props.config.forceTouchUI);
+    this.props.updateIsMobile(!!this.player.env.device.type || this.props.forceTouchUI);
     if (document.body) {
       this.props.updateDocumentWidth(document.body.clientWidth);
     }

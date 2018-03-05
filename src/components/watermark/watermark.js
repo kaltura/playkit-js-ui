@@ -2,19 +2,33 @@
 import style from '../../styles/style.scss';
 import {h} from 'preact';
 import BaseComponent from '../base';
+import {connect} from "preact-redux";
 
 /**
- * Watermark component
- * @class Watermark
- * @example <Watermark player={this.player} />
- * @extends {BaseComponent}
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
  */
-class Watermark extends BaseComponent {
-
-  static defaultProps: any = {
+const mapStateToProps = state => ({
+  config: Object.assign({
     placement: 'top-left',
     timeout: 0
-  };
+  }, state.config.components.watermark)
+});
+
+@connect(mapStateToProps)
+  /**
+   * Watermark component
+   * @class Watermark
+   * @example <Watermark player={this.player} />
+   * @extends {BaseComponent}
+   */
+class Watermark extends BaseComponent {
+  /**
+   * @static
+   * @type {string} - Component display name
+   */
+  static displayName = 'watermark';
 
   /**
    * Creates an instance of Watermark.
@@ -39,8 +53,8 @@ class Watermark extends BaseComponent {
      */
     const onPlaying = () => {
       this.player.removeEventListener(this.player.Event.PLAYING, onPlaying);
-      if (this.props.timeout > 0) {
-        setTimeout(() => this.setState({show: false}), this.props.timeout);
+      if (this.props.config.timeout > 0) {
+        setTimeout(() => this.setState({show: false}), this.props.config.timeout);
       }
     };
     this.player.addEventListener(this.player.Event.PLAYING, onPlaying);
@@ -57,9 +71,9 @@ class Watermark extends BaseComponent {
    * @memberof Watermark
    */
   render(props: any): ?React$Element<any> {
-    if (props.img) {
+    if (props.config.img) {
       const styleClass = [style.watermark];
-      props.placement.split('-').forEach((side) => {
+      props.config.placement.split('-').forEach((side) => {
         styleClass.push(style[side]);
       });
       if (!this.state.show) {
@@ -67,8 +81,8 @@ class Watermark extends BaseComponent {
       }
       return (
         <div className={styleClass.join(' ')}>
-          <a href={props.url} target='_blank' rel='noopener noreferrer'>
-            <img src={props.img}/>
+          <a href={props.config.url} target='_blank' rel='noopener noreferrer'>
+            <img src={props.config.img}/>
           </a>
         </div>
       )
