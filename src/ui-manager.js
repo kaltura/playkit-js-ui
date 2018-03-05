@@ -60,6 +60,7 @@ export default class UIManager {
       name: `playkit #${this.targetId}`,
       instanceId: this.targetId
     }));
+    this._handleTouchUi();
   }
 
   /**
@@ -169,5 +170,17 @@ export default class UIManager {
    */
   setLogLevel(level: Object, name?: string) {
     setLogLevel(level, name);
+  }
+
+  /**
+   * Handle forcing touch ui
+   * @returns {void}
+   */
+  _handleTouchUi(): void {
+    if (this.config.forceTouchUI) {
+      this.setConfig({
+        forceTouchUI: true
+      }, "shell");
+    }
   }
 }
