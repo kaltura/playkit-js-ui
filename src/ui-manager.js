@@ -134,15 +134,10 @@ export default class UIManager {
           <Shell player={this.player}>
             <EngineConnector player={this.player}/>
             <VideoPlayer player={this.player}/>
-            {this.config.watermark ?
-              <Watermark player={this.player}
-                         img={this.config.watermark.img}
-                         url={this.config.watermark.url}
-                         timeout={this.config.watermark.timeout}
-                         placement={this.config.watermark.placement}/>
-              : undefined
-            }
-            <PlayerGUI uis={uis} player={this.player} playerContainer={container}/>
+            <PlayerGUI uis={uis}
+                       player={this.player}
+                       playerContainer={container}
+                       uiconfig={this.config}/>
           </Shell>
         </IntlProvider>
       </Provider>

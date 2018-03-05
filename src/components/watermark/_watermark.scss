@@ -1,5 +1,4 @@
-.player:not(.ad-break) .watermark {
-  display: block !important;
+.player .watermark {
   position: absolute;
   padding: 5px;
   z-index: 11;
