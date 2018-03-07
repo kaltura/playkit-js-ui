@@ -39,7 +39,7 @@ Useful for applications that wants to force mobile view of player UI.
 >##### Type: `Object`
 >##### Default: `-`
 >##### Description: Defines the ui components configuration.
->Optional components to configure: `watermark`
+>Optional components to configure: `watermark`,`seekbar`
 ## 
 >>### config.components.watermark
 >>##### Type: `Object`
@@ -81,3 +81,28 @@ Useful for applications that wants to force mobile view of player UI.
 >>>##### Type: `number`
 >>>##### Default: `0`
 >>>##### Description: Timeout (in milliseconds) to hide the watermark.
+>>##
+>>### config.components.seekbar
+>>##### Type: `Object`
+>>```js
+>>{
+>>    thumbsSprite: string, 
+>>    thumbsWidth: number, 
+>>    thumbsSlices: number
+>>}
+>>```
+>>##### Description: Defines the seekbar component optional configuration.
+>>>### config.components.seekbar.thumbsSprite
+>>>##### Type: `string`
+>>>##### Default: `-`
+>>>##### Description: The URL for the preview thumbnail image.
+>>>## 
+>>>### config.components.seekbar.thumbsWidth
+>>>##### Type: `number`
+>>>##### Default: `-`
+>>>##### Description: The width of each preview thumbnail slice.
+>>>## 
+>>>### config.components.watermark.thumbsSlices
+>>>##### Type: `number`
+>>>##### Default: `'-'`
+>>>##### Description: The amount of slices that the preview thumbnail image will divided into.
