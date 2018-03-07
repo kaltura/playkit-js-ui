@@ -191,9 +191,15 @@ class Shell extends BaseComponent {
         this.props.updateDocumentWidth(document.body.clientWidth);
       }
     });
-    this.player.addEventListener(this.player.Event.FIRST_PLAY, () => {
+    /**
+     * Handler for the first playing event - remove the listener and turn on the hover state.
+     * @returns {void}
+     */
+    const onPlaying = () => {
+      this.player.removeEventListener(this.player.Event.PLAYING, onPlaying);
       this._updatePlayerHoverState();
-    });
+    };
+    this.player.addEventListener(this.player.Event.PLAYING, onPlaying);
   }
 
   /**
