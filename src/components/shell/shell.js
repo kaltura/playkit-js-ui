@@ -199,6 +199,9 @@ class Shell extends BaseComponent {
       this.player.removeEventListener(this.player.Event.PLAYING, onPlaying);
       this._updatePlayerHoverState();
     };
+    this.player.addEventListener(this.player.Event.CHANGE_SOURCE_STARTED, () => {
+      this.player.addEventListener(this.player.Event.PLAYING, onPlaying);
+    });
     this.player.addEventListener(this.player.Event.PLAYING, onPlaying);
   }
 
