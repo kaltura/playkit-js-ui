@@ -8,7 +8,8 @@ export const types = {
   UPDATE_DOCUMENT_WIDTH: 'shell/UPDATE_DOCUMENT_WIDTH',
   UPDATE_PLAYER_HOVER_STATE: 'shell/UPDATE_PLAYER_HOVER_STATE',
   UPDATE_PLAYER_NAV_STATE: 'shell/UPDATE_PLAYER_NAV_STATE',
-  UPDATE_BOTTOM_BAR_HOVER_ACTIVE: 'shell/UPDATE_BOTTOM_BAR_HOVER_ACTIVE'
+  UPDATE_BOTTOM_BAR_HOVER_ACTIVE: 'shell/UPDATE_BOTTOM_BAR_HOVER_ACTIVE',
+  UPDATE_SMART_CONTAINER_OPEN: 'shell/UPDATE_SMART_CONTAINER_OPEN'
 };
 
 export const initialState = {
@@ -16,7 +17,8 @@ export const initialState = {
   prePlayback: true,
   is_ad: true,
   playerHover: false,
-  playerNav: false
+  playerNav: false,
+  smartContainerOpen: false
 };
 
 export default (state: Object = initialState, action: Object) => {
@@ -76,6 +78,12 @@ export default (state: Object = initialState, action: Object) => {
         bottomBarHoverActive: action.active
       };
 
+    case types.UPDATE_SMART_CONTAINER_OPEN:
+      return {
+        ...state,
+        smartContainerOpen: action.open
+      };
+
     default:
       return state;
   }
@@ -90,5 +98,6 @@ export const actions = {
   updateDocumentWidth: (documentWidth: number) => ({type: types.UPDATE_DOCUMENT_WIDTH, documentWidth}),
   updatePlayerHoverState: (hover: boolean) => ({type: types.UPDATE_PLAYER_HOVER_STATE, hover}),
   updatePlayerNavState: (nav: boolean) => ({type: types.UPDATE_PLAYER_NAV_STATE, nav}),
-  updateBottomBarHoverActive: (active: boolean) => ({type: types.UPDATE_BOTTOM_BAR_HOVER_ACTIVE, active})
+  updateBottomBarHoverActive: (active: boolean) => ({type: types.UPDATE_BOTTOM_BAR_HOVER_ACTIVE, active}),
+  updateSmartContainerOpen: (open: boolean) => ({type: types.UPDATE_SMART_CONTAINER_OPEN, open})
 };

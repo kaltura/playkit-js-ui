@@ -26,10 +26,9 @@ const mapStateToProps = state => ({
   seekbarHoverActive: state.seekbar.hoverActive,
   bottomBarHoverActive: state.shell.bottomBarHoverActive,
   volumeHoverActive: state.volume.hover,
-  languageMenuOpen: state.language.menuOpen,
-  settingsMenuOpen: state.settings.menuOpen,
   adBreak: state.engine.adBreak,
-  prePlayback: state.shell.prePlayback
+  prePlayback: state.shell.prePlayback,
+  smartContainerOpen: state.shell.smartContainerOpen
 });
 
 /**
@@ -232,8 +231,8 @@ class Shell extends BaseComponent {
     return !this.props.seekbarDraggingActive
       && !this.props.seekbarHoverActive
       && !this.props.volumeHoverActive
-      && !this.props.languageMenuOpen
-      && !this.props.settingsMenuOpen;
+      && !this.props.smartContainerOpen
+      && !this.player.paused
   }
 
   /**
