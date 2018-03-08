@@ -89,6 +89,20 @@ class PrePlaybackPlayOverlay extends BaseComponent {
   }
 
   /**
+   * change in component props or state shouldn't render the component again
+   *
+   * @returns {boolean} shouldComponentUpdate
+   * @param {Object} nextProps - nextProps
+   * @memberof PrePlaybackPlayOverlay
+   */
+  shouldComponentUpdate(nextProps: Object): boolean {
+    if (nextProps.isEnded) {
+      this.props.addPlayerClass(style.prePlayback);
+    }
+    return true;
+  }
+
+  /**
    * play on click
    *
    * @returns {void}
