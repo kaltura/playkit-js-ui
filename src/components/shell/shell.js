@@ -232,7 +232,6 @@ class Shell extends BaseComponent {
       && !this.props.seekbarHoverActive
       && !this.props.volumeHoverActive
       && !this.props.smartContainerOpen
-      && !this.player.paused
   }
 
   /**
