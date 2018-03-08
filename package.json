@@ -1,6 +1,6 @@
 {
   "name": "playkit-js-ui",
-  "version": "0.19.0",
+  "version": "0.19.1",
   "description": "",
   "main": "dist/playkit-ui.js",
   "scripts": {
@@ -65,7 +65,7 @@
     "mocha": "^3.2.0",
     "mocha-cli": "^1.0.1",
     "node-sass": "^4.5.3",
-    "playkit-js": "https://github.com/kaltura/playkit-js.git#v0.21.5",
+    "playkit-js": "https://github.com/kaltura/playkit-js.git#v0.21.6",
     "pre-push": "^0.1.1",
     "sass-loader": "^6.0.6",
     "sinon": "^2.0.0",
