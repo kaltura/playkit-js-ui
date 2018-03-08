@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.19.1"></a>
+## [0.19.1](https://github.com/kaltura/playkit-js-ui/compare/v0.19.0...v0.19.1) (2018-03-08)
+
+
+### Bug Fixes
+
+* **FEC-7964:** touch while playing on mobiles always pause/resume the video ([#193](https://github.com/kaltura/playkit-js-ui/issues/193)) ([3dacd30](https://github.com/kaltura/playkit-js-ui/commit/3dacd30))
+* **FEC-7988:** [Watermark] - When using a custom image it partially hides the play/replay icons ([#194](https://github.com/kaltura/playkit-js-ui/issues/194)) ([0ebf9aa](https://github.com/kaltura/playkit-js-ui/commit/0ebf9aa))
+* **FEC-7992:** on replay, hovering causes watermark to move up and down ([#195](https://github.com/kaltura/playkit-js-ui/issues/195)) ([c236d0f](https://github.com/kaltura/playkit-js-ui/commit/c236d0f))
+
+
+
 <a name="0.19.0"></a>
 # [0.19.0](https://github.com/kaltura/playkit-js-ui/compare/v0.18.4...v0.19.0) (2018-03-05)
 
