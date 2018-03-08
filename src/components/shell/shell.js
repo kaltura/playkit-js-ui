@@ -26,10 +26,9 @@ const mapStateToProps = state => ({
   seekbarHoverActive: state.seekbar.hoverActive,
   bottomBarHoverActive: state.shell.bottomBarHoverActive,
   volumeHoverActive: state.volume.hover,
-  languageMenuOpen: state.language.menuOpen,
-  settingsMenuOpen: state.settings.menuOpen,
   adBreak: state.engine.adBreak,
-  prePlayback: state.shell.prePlayback
+  prePlayback: state.shell.prePlayback,
+  smartContainerOpen: state.shell.smartContainerOpen
 });
 
 /**
@@ -232,8 +231,7 @@ class Shell extends BaseComponent {
     return !this.props.seekbarDraggingActive
       && !this.props.seekbarHoverActive
       && !this.props.volumeHoverActive
-      && !this.props.languageMenuOpen
-      && !this.props.settingsMenuOpen;
+      && !this.props.smartContainerOpen
   }
 
   /**
@@ -247,6 +245,7 @@ class Shell extends BaseComponent {
       if (this._canEndHoverState()) {
         this.props.updatePlayerHoverState(false);
         this.setState({hover: false});
+        this._clearHoverTimeout();
       }
     }, this.props.hoverTimeout || CONTROL_BAR_HOVER_DEFAULT_TIMEOUT);
   }
@@ -261,6 +260,21 @@ class Shell extends BaseComponent {
     if (this.hoverTimeout) {
       clearTimeout(this.hoverTimeout);
       this.hoverTimeout = null;
+    }
+  }
+
+  /**
+   * When component will update after closing smart container, start the
+   * hovering timeout
+   *
+   * @param {Object} nextProps - next props
+   * @private
+   * @returns {void}
+   * @memberof Shell
+   */
+  componentWillUpdate(nextProps): void {
+    if (this.props.smartContainerOpen && !nextProps.smartContainerOpen) {
+      this._startHoverTimeout();
     }
   }
 
