@@ -24,10 +24,7 @@ class BottomBar extends Component {
   render(props: any): React$Element<any> {
     return (
       <div className={style.bottomBar}
-           onMouseOver={() => {
-             this.props.updateBottomBarHoverActive(true);
-             this.props.updatePlayerHoverState(true);
-           }}
+           onMouseOver={() => this.props.updateBottomBarHoverActive(true)}
            onMouseLeave={() => this.props.updateBottomBarHoverActive(false)}>
         {props.children}
       </div>
