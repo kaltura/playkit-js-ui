@@ -93,7 +93,10 @@ class FullscreenControl extends BaseComponent {
   }
 
   /**
+   * Attach listeners to ios full screen change
    *
+   * @returns {void}
+   * @memberof FullscreenControl
    */
   attachIosFullscreenListeners(): void {
     this.player.getVideoElement().addEventListener('webkitbeginfullscreen', () => {
