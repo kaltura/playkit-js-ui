@@ -101,13 +101,13 @@ class FullscreenControl extends BaseComponent {
   attachIosFullscreenListeners(): void {
     this.player.getVideoElement().addEventListener('webkitbeginfullscreen', () => {
       if (this.player.env.device.type === 'tablet') {
-        this.props.addPlayerClass(style.nativeFullscreen);
+        this.props.addPlayerClass(style.nativeTabletFullscreen);
       }
       this.fullscreenEnterHandler();
     });
     this.player.getVideoElement().addEventListener('webkitendfullscreen', () => {
       if (this.player.env.device.type === 'tablet') {
-        this.props.removePlayerClass(style.nativeFullscreen);
+        this.props.removePlayerClass(style.nativeTabletFullscreen);
       }
       this.fullscreenExitHandler();
     });
