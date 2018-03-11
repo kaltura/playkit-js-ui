@@ -13,7 +13,8 @@ import {actions} from "../../reducers/shell";
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  config: state.config.components.seekbar
+  config: state.config.components.seekbar,
+  isMobile: state.shell.isMobile
 });
 
 @connect(mapStateToProps, bindActions(actions))
@@ -213,6 +214,28 @@ class SeekBarControl extends Component {
       this.updateSeekBarProgress(time, this.props.duration);
     }
     this.props.updateSeekbarDraggingStatus(false);
+  }
+
+  /**
+   * seekbar mouse over handler
+   *
+   * @returns {void}
+   * @memberof SeekBarControl
+   */
+  onSeekbarMouseOver(): void {
+    if (this.props.isMobile) return;
+    this.props.updateSeekbarHoverActive(true)
+  }
+
+  /**
+   * seekbar mouse leave handler
+   *
+   * @returns {void}
+   * @memberof SeekBarControl
+   */
+  onSeekbarMouseLeave(): void {
+    if (this.props.isMobile) return;
+    this.props.updateSeekbarHoverActive(false)
   }
 
   /**
@@ -428,8 +451,8 @@ class SeekBarControl extends Component {
         aria-valuenow={Math.round(this.props.currentTime)}
         aria-valuetext={`${toHHMMSS(this.props.currentTime)} of ${toHHMMSS(this.props.duration)}`}
         onClick={e => this.onTap(e)}
-        onMouseOver={() => this.props.updateSeekbarHoverActive(true)}
-        onMouseLeave={() => this.props.updateSeekbarHoverActive(false)}
+        onMouseOver={() => this.onSeekbarMouseOver()}
+        onMouseLeave={() => this.onSeekbarMouseLeave()}
         onMouseMove={e => this.onSeekbarMouseMove(e)}
         onMouseDown={e => this.onSeekbarMouseDown(e)}
         onTouchStart={e => this.onSeekbarTouchStart(e)}
