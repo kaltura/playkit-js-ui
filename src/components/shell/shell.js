@@ -184,18 +184,6 @@ class Shell extends BaseComponent {
         this.props.updateDocumentWidth(document.body.clientWidth);
       }
     });
-    /**
-     * Handler for the first playing event - remove the listener and turn on the hover state.
-     * @returns {void}
-     */
-    const onPlaying = () => {
-      this.player.removeEventListener(this.player.Event.PLAYING, onPlaying);
-      this._updatePlayerHoverState();
-    };
-    this.player.addEventListener(this.player.Event.CHANGE_SOURCE_STARTED, () => {
-      this.player.addEventListener(this.player.Event.PLAYING, onPlaying);
-    });
-    this.player.addEventListener(this.player.Event.PLAYING, onPlaying);
   }
 
   /**
@@ -254,6 +242,20 @@ class Shell extends BaseComponent {
     if (this.hoverTimeout) {
       clearTimeout(this.hoverTimeout);
       this.hoverTimeout = null;
+    }
+  }
+
+  /**
+   * when component did update and change its props from prePlayback to !prePlayback
+   * update the hover state
+   *
+   * @param {Object} prevProps - previous props
+   * @returns {void}
+   * @memberof Shell
+   */
+  componentDidUpdate(prevProps: Object): void {
+    if (!this.props.prePlayback && prevProps.prePlayback) {
+      this._updatePlayerHoverState();
     }
   }
 
