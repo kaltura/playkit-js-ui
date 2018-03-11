@@ -224,7 +224,7 @@ class SeekBarControl extends Component {
    */
   onSeekbarMouseOver(): void {
     if (this.props.isMobile) return;
-    this.props.updateSeekbarHoverActive(true)
+    this.props.updateSeekbarHoverActive(true);
   }
 
   /**
@@ -235,7 +235,7 @@ class SeekBarControl extends Component {
    */
   onSeekbarMouseLeave(): void {
     if (this.props.isMobile) return;
-    this.props.updateSeekbarHoverActive(false)
+    this.props.updateSeekbarHoverActive(false);
   }
 
   /**
