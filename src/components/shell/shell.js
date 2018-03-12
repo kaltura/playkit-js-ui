@@ -141,14 +141,8 @@ class Shell extends BaseComponent {
     }
     if (!this.state.hover) {
       e.stopPropagation();
-      this._updatePlayerHoverState();
-    } else {
-      if (this.hoverTimeout) {
-        this._clearHoverTimeout();
-      } else {
-        this._startHoverTimeout();
-      }
     }
+    this._updatePlayerHoverState();
   }
 
   /**
@@ -205,7 +199,6 @@ class Shell extends BaseComponent {
       this.props.updatePlayerHoverState(true);
       this.setState({hover: true});
     }
-    this._clearHoverTimeout();
     this._startHoverTimeout();
   }
 
@@ -220,6 +213,7 @@ class Shell extends BaseComponent {
       && !this.props.seekbarHoverActive
       && !this.props.volumeHoverActive
       && !this.props.smartContainerOpen
+      && !this.player.paused;
   }
 
   /**
@@ -229,6 +223,7 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   _startHoverTimeout(): void {
+    this._clearHoverTimeout();
     this.hoverTimeout = setTimeout(() => {
       if (this._canEndHoverState()) {
         this.props.updatePlayerHoverState(false);

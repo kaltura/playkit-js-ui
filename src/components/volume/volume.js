@@ -102,6 +102,30 @@ class VolumeControl extends BaseComponent {
   }
 
   /**
+   * volume mouse over handler
+   *
+   * @returns {void}
+   * @memberof VolumeControl
+   */
+  onVolumeMouseOver(): void {
+    if (this.props.isMobile) return;
+    this.props.updateVolumeHover(true);
+    this.setState({hover: true});
+  }
+
+  /**
+   * volume mouse over handler
+   *
+   * @returns {void}
+   * @memberof VolumeControl
+   */
+  onVolumeMouseOut(): void {
+    if (this.props.isMobile) return;
+    this.props.updateVolumeHover(false);
+    this.setState({hover: false});
+  }
+
+  /**
    * on volume control key down, update the volume in case of up/down keys
    *
    * @param {KeyboardEvent} e - keyboardEvent event
@@ -217,14 +241,8 @@ class VolumeControl extends BaseComponent {
       <div
         ref={c => this._volumeControlElement = c}
         className={controlButtonClass.join(' ')}
-        onMouseOver={() => {
-          this.props.updateVolumeHover(true);
-          this.setState({hover: true});
-        }}
-        onMouseOut={() => {
-          this.props.updateVolumeHover(false);
-          this.setState({hover: false});
-        }}>
+        onMouseOver={() => this.onVolumeMouseOver()}
+        onMouseOut={() => this.onVolumeMouseOut()}>
         <button tabIndex="0"
                 aria-label='Volume'
                 className={style.controlButton}
