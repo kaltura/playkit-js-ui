@@ -4,7 +4,8 @@ import {h} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
-import {actions} from '../../reducers/fullscreen';
+import {actions} from '../../reducers/shell';
+import {actions as fullscreenActions} from '../../reducers/fullscreen';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 
@@ -19,7 +20,7 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile
 });
 
-@connect(mapStateToProps, bindActions(actions))
+@connect(mapStateToProps, bindActions(Object.assign(actions, fullscreenActions)))
   /**
    * FullscreenControl component
    *
@@ -51,10 +52,42 @@ class FullscreenControl extends BaseComponent {
     document.addEventListener('MSFullscreenChange', () => this.fullscreenChangeHandler());
     this.player.addEventListener(this.player.Event.REQUESTED_ENTER_FULLSCREEN, () => this.enterFullscreen());
     this.player.addEventListener(this.player.Event.REQUESTED_EXIT_FULLSCREEN, () => this.exitFullscreen());
+    this.hanldeIosFullscreen();
   }
 
   /**
-   * fullscreen change handler function. updates the store with new value
+   * Handle iOS full screen changes
+   *
+   * @returns {void}
+   * @memberof FullscreenControl
+   */
+  hanldeIosFullscreen(): void {
+    if (this.player.env.os.name === 'iOS') {
+      /**
+       * Attach listeners to ios full screen change.
+       * @returns {void}
+       */
+      const attachIosFullscreenListeners = () => {
+        this.player.removeEventListener(this.player.Event.SOURCE_SELECTED, attachIosFullscreenListeners);
+        this.player.getVideoElement().addEventListener('webkitbeginfullscreen', () => {
+          if (this.player.env.device.type === 'tablet') {
+            this.props.addPlayerClass(style.nativeTabletFullscreen);
+          }
+          this.fullscreenEnterHandler();
+        });
+        this.player.getVideoElement().addEventListener('webkitendfullscreen', () => {
+          if (this.player.env.device.type === 'tablet') {
+            this.props.removePlayerClass(style.nativeTabletFullscreen);
+          }
+          this.fullscreenExitHandler();
+        });
+      };
+      this.player.addEventListener(this.player.Event.SOURCE_SELECTED, attachIosFullscreenListeners);
+    }
+  }
+
+  /**
+   * fullscreen change handler function.
    *
    * @returns {void}
    * @memberof FullscreenControl
@@ -65,8 +98,29 @@ class FullscreenControl extends BaseComponent {
       typeof document.mozFullScreenElement !== 'undefined' && Boolean(document.mozFullScreenElement) ||
       typeof document.msFullscreenElement !== 'undefined' && Boolean(document.msFullscreenElement);
 
-    isFullscreen ? this.player.notifyEnterFullscreen() : this.player.notifyExitFullscreen();
-    this.props.updateFullscreen(isFullscreen);
+    isFullscreen ? this.fullscreenEnterHandler() : this.fullscreenExitHandler();
+  }
+
+  /**
+   * fullscreen enter handler function. updates the store with new value
+   *
+   * @returns {void}
+   * @memberof FullscreenControl
+   */
+  fullscreenEnterHandler(): void {
+    this.player.notifyEnterFullscreen();
+    this.props.updateFullscreen(true);
+  }
+
+  /**
+   * fullscreen exit handler function. updates the store with new value
+   *
+   * @returns {void}
+   * @memberof FullscreenControl
+   */
+  fullscreenExitHandler(): void {
+    this.player.notifyExitFullscreen();
+    this.props.updateFullscreen(false);
   }
 
   /**
@@ -96,14 +150,14 @@ class FullscreenControl extends BaseComponent {
 
   /**
    * if mobile detected, get the video element and request fullscreen.
-   * otherwise, request fullscreen to the parent plater view than includes the GUI as well
+   * otherwise, request fullscreen to the parent player view than includes the GUI as well
    *
    * @returns {void}
    * @memberof FullscreenControl
    */
   enterFullscreen(): void {
     if (this.props.isMobile && this.player.env.os.name === 'iOS') {
-      this.player.getView().getElementsByTagName('video')[0].webkitEnterFullscreen();
+      this.player.getVideoElement().webkitEnterFullscreen();
     } else {
       let elementToFullscreen = document.getElementById(this.props.targetId);
       if (elementToFullscreen) {
