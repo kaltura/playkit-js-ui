@@ -46,13 +46,34 @@ class FullscreenControl extends BaseComponent {
    * @memberof FullscreenControl
    */
   componentDidMount() {
+    /**
+     * Attach listeners to ios full screen change.
+     * @returns {void}
+     */
+    const attachIosFullscreenListeners = () => {
+      this.player.removeEventListener(this.player.Event.SOURCE_SELECTED, attachIosFullscreenListeners);
+      this.player.getVideoElement().addEventListener('webkitbeginfullscreen', () => {
+        if (this.player.env.device.type === 'tablet') {
+          this.props.addPlayerClass(style.nativeTabletFullscreen);
+        }
+        this.fullscreenEnterHandler();
+      });
+      this.player.getVideoElement().addEventListener('webkitendfullscreen', () => {
+        if (this.player.env.device.type === 'tablet') {
+          this.props.removePlayerClass(style.nativeTabletFullscreen);
+        }
+        this.fullscreenExitHandler();
+      });
+    };
     document.addEventListener('webkitfullscreenchange', () => this.fullscreenChangeHandler());
     document.addEventListener('mozfullscreenchange', () => this.fullscreenChangeHandler());
     document.addEventListener('fullscreenchange', () => this.fullscreenChangeHandler());
     document.addEventListener('MSFullscreenChange', () => this.fullscreenChangeHandler());
     this.player.addEventListener(this.player.Event.REQUESTED_ENTER_FULLSCREEN, () => this.enterFullscreen());
     this.player.addEventListener(this.player.Event.REQUESTED_EXIT_FULLSCREEN, () => this.exitFullscreen());
-    this.player.addEventListener(this.player.Event.SOURCE_SELECTED, () => this.attachIosFullscreenListeners());
+    if (this.player.env.os.name === 'iOS') {
+      this.player.addEventListener(this.player.Event.SOURCE_SELECTED, attachIosFullscreenListeners);
+    }
   }
 
   /**
@@ -90,27 +111,6 @@ class FullscreenControl extends BaseComponent {
   fullscreenExitHandler(): void {
     this.player.notifyExitFullscreen();
     this.props.updateFullscreen(false);
-  }
-
-  /**
-   * Attach listeners to ios full screen change
-   *
-   * @returns {void}
-   * @memberof FullscreenControl
-   */
-  attachIosFullscreenListeners(): void {
-    this.player.getVideoElement().addEventListener('webkitbeginfullscreen', () => {
-      if (this.player.env.device.type === 'tablet') {
-        this.props.addPlayerClass(style.nativeTabletFullscreen);
-      }
-      this.fullscreenEnterHandler();
-    });
-    this.player.getVideoElement().addEventListener('webkitendfullscreen', () => {
-      if (this.player.env.device.type === 'tablet') {
-        this.props.removePlayerClass(style.nativeTabletFullscreen);
-      }
-      this.fullscreenExitHandler();
-    });
   }
 
   /**
