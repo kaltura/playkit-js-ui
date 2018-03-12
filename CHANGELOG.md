@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.19.2"></a>
+## [0.19.2](https://github.com/kaltura/playkit-js-ui/compare/v0.19.1...v0.19.2) (2018-03-12)
+
+
+### Bug Fixes
+
+* join menu open states to one generic state ([#196](https://github.com/kaltura/playkit-js-ui/issues/196)) ([5107421](https://github.com/kaltura/playkit-js-ui/commit/5107421))
+* **FEC-7964:** after first play the control bar is hidden on touch devices ([#198](https://github.com/kaltura/playkit-js-ui/issues/198)) ([527289e](https://github.com/kaltura/playkit-js-ui/commit/527289e))
+* **FEC-7990:** captions do not move down when the bottom bar disappears ([#197](https://github.com/kaltura/playkit-js-ui/issues/197)) ([61cc2c1](https://github.com/kaltura/playkit-js-ui/commit/61cc2c1))
+* **FEC-7991:** when changing captions language, the captions and bottom bar stay visible all the time ([#199](https://github.com/kaltura/playkit-js-ui/issues/199)) ([8db608f](https://github.com/kaltura/playkit-js-ui/commit/8db608f))
+* **FEC-8012:** captions on ipad displayed in center ([#200](https://github.com/kaltura/playkit-js-ui/issues/200)) ([62c4ccf](https://github.com/kaltura/playkit-js-ui/commit/62c4ccf))
+* move watermark behind everything ([#202](https://github.com/kaltura/playkit-js-ui/issues/202)) ([eb6e446](https://github.com/kaltura/playkit-js-ui/commit/eb6e446))
+
+
+
 <a name="0.19.1"></a>
 ## [0.19.1](https://github.com/kaltura/playkit-js-ui/compare/v0.19.0...v0.19.1) (2018-03-08)
 
