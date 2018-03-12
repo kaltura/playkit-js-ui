@@ -104,5 +104,5 @@ Useful for applications that wants to force mobile view of player UI.
 >>>## 
 >>>### config.components.watermark.thumbsSlices
 >>>##### Type: `number`
->>>##### Default: `'-'`
+>>>##### Default: `-`
 >>>##### Description: The amount of slices that the preview thumbnail image will divided into.
