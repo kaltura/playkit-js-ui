@@ -63,7 +63,7 @@ export function adsUI(props: any): ?React$Element<any> {
           </div>
           <div className={style.rightControls}>
             <VolumeControl player={props.player}/>
-            <FullscreenControl player={props.player} config={props.config}/>
+            <FullscreenControl player={props.player}/>
           </div>
         </BottomBar>
       </div>

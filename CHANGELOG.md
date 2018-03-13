@@ -2,6 +2,78 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.19.2"></a>
+## [0.19.2](https://github.com/kaltura/playkit-js-ui/compare/v0.19.1...v0.19.2) (2018-03-12)
+
+
+### Bug Fixes
+
+* join menu open states to one generic state ([#196](https://github.com/kaltura/playkit-js-ui/issues/196)) ([5107421](https://github.com/kaltura/playkit-js-ui/commit/5107421))
+* **FEC-7964:** after first play the control bar is hidden on touch devices ([#198](https://github.com/kaltura/playkit-js-ui/issues/198)) ([527289e](https://github.com/kaltura/playkit-js-ui/commit/527289e))
+* **FEC-7990:** captions do not move down when the bottom bar disappears ([#197](https://github.com/kaltura/playkit-js-ui/issues/197)) ([61cc2c1](https://github.com/kaltura/playkit-js-ui/commit/61cc2c1))
+* **FEC-7991:** when changing captions language, the captions and bottom bar stay visible all the time ([#199](https://github.com/kaltura/playkit-js-ui/issues/199)) ([8db608f](https://github.com/kaltura/playkit-js-ui/commit/8db608f))
+* **FEC-8012:** captions on ipad displayed in center ([#200](https://github.com/kaltura/playkit-js-ui/issues/200)) ([62c4ccf](https://github.com/kaltura/playkit-js-ui/commit/62c4ccf))
+* move watermark behind everything ([#202](https://github.com/kaltura/playkit-js-ui/issues/202)) ([eb6e446](https://github.com/kaltura/playkit-js-ui/commit/eb6e446))
+
+
+
+<a name="0.19.1"></a>
+## [0.19.1](https://github.com/kaltura/playkit-js-ui/compare/v0.19.0...v0.19.1) (2018-03-08)
+
+
+### Bug Fixes
+
+* **FEC-7964:** touch while playing on mobiles always pause/resume the video ([#193](https://github.com/kaltura/playkit-js-ui/issues/193)) ([3dacd30](https://github.com/kaltura/playkit-js-ui/commit/3dacd30))
+* **FEC-7988:** [Watermark] - When using a custom image it partially hides the play/replay icons ([#194](https://github.com/kaltura/playkit-js-ui/issues/194)) ([0ebf9aa](https://github.com/kaltura/playkit-js-ui/commit/0ebf9aa))
+* **FEC-7992:** on replay, hovering causes watermark to move up and down ([#195](https://github.com/kaltura/playkit-js-ui/issues/195)) ([c236d0f](https://github.com/kaltura/playkit-js-ui/commit/c236d0f))
+
+
+
+<a name="0.19.0"></a>
+# [0.19.0](https://github.com/kaltura/playkit-js-ui/compare/v0.18.4...v0.19.0) (2018-03-05)
+
+
+### Bug Fixes
+
+* **FEC-7964:** touch while playing on mobiles always pause/resume the video ([#188](https://github.com/kaltura/playkit-js-ui/issues/188)) ([3ec2eb5](https://github.com/kaltura/playkit-js-ui/commit/3ec2eb5))
+* **FEC-7971:** change media doesn't work after a critical error  ([#191](https://github.com/kaltura/playkit-js-ui/issues/191)) ([901d6f8](https://github.com/kaltura/playkit-js-ui/commit/901d6f8))
+
+
+### Features
+
+* support external component config ([#192](https://github.com/kaltura/playkit-js-ui/issues/192)) ([5d6d450](https://github.com/kaltura/playkit-js-ui/commit/5d6d450))
+* watermark support ([#190](https://github.com/kaltura/playkit-js-ui/issues/190)) ([86d5f46](https://github.com/kaltura/playkit-js-ui/commit/86d5f46))
+
+
+
+<a name="0.18.4"></a>
+## [0.18.4](https://github.com/kaltura/playkit-js-ui/compare/v0.18.3...v0.18.4) (2018-02-28)
+
+
+### Bug Fixes
+
+* console error on ads seekbar hover ([#186](https://github.com/kaltura/playkit-js-ui/issues/186)) ([1d23872](https://github.com/kaltura/playkit-js-ui/commit/1d23872))
+* **FEC-7535:** setting autoplay causes player spinner before loading media ([#185](https://github.com/kaltura/playkit-js-ui/issues/185)) ([e80334a](https://github.com/kaltura/playkit-js-ui/commit/e80334a))
+* **FEC-7959:** speed down ui gesture is shown without pressing shift button ([#187](https://github.com/kaltura/playkit-js-ui/issues/187)) ([146ccaf](https://github.com/kaltura/playkit-js-ui/commit/146ccaf))
+* **FEC-7963:** native menus are not opened in mobile devices (Android/iOS) ([#189](https://github.com/kaltura/playkit-js-ui/issues/189)) ([511f5ed](https://github.com/kaltura/playkit-js-ui/commit/511f5ed))
+
+
+<a name="0.18.3"></a>
+## [0.18.3](https://github.com/kaltura/playkit-js-ui/compare/v0.18.2...v0.18.3) (2018-02-26)
+
+
+### Bug Fixes
+
+* **FEC-7914:** focus player on pre playback button clicked ([#180](https://github.com/kaltura/playkit-js-ui/issues/180)) ([3d2b343](https://github.com/kaltura/playkit-js-ui/commit/3d2b343))
+* **FEC-7922:** dropdown in CVAA menu is cut and isn't displayed correctly ([#177](https://github.com/kaltura/playkit-js-ui/issues/177)) ([86f40fb](https://github.com/kaltura/playkit-js-ui/commit/86f40fb))
+* dropdown position calculation ([#181](https://github.com/kaltura/playkit-js-ui/issues/181)) ([240e69a](https://github.com/kaltura/playkit-js-ui/commit/240e69a))
+* **FEC-7930:** slide with the keyboard in CVAA menu seeks back and forth the player ([#179](https://github.com/kaltura/playkit-js-ui/issues/179)) ([989fc20](https://github.com/kaltura/playkit-js-ui/commit/989fc20))
+* **FEC-7931:** UI flickering on hovering the bottom bar ([#182](https://github.com/kaltura/playkit-js-ui/issues/182)) ([446fa02](https://github.com/kaltura/playkit-js-ui/commit/446fa02))
+* **FEC-7932:** mute indication text is coloured blue instead of white ([#178](https://github.com/kaltura/playkit-js-ui/issues/178)) ([9bf4ae9](https://github.com/kaltura/playkit-js-ui/commit/9bf4ae9))
+* **FEC-7956:** When autoplay fails, loading spinner stays in the background ([#183](https://github.com/kaltura/playkit-js-ui/issues/183)) ([da5ac5f](https://github.com/kaltura/playkit-js-ui/commit/da5ac5f))
+
+
+
 <a name="0.18.2"></a>
 ## [0.18.2](https://github.com/kaltura/playkit-js-ui/compare/v0.18.1...v0.18.2) (2018-02-19)
 

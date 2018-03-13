@@ -13,17 +13,22 @@ import {KeyMap} from "../../utils/key-map";
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  config: state.config.ui.shell,
+  targetId: state.config.targetId,
+  forceTouchUI: state.config.forceTouchUI,
   metadataLoaded: state.engine.metadataLoaded,
   currentState: state.engine.playerState.currentState,
   playerClasses: state.shell.playerClasses,
   isMobile: state.shell.isMobile,
-  playerWidth: state.shell.playerWidth,
-  playerHeight: state.shell.playerHeight,
+  playerClientRect: state.shell.playerClientRect,
   playerHover: state.shell.playerHover,
   playerNav: state.shell.playerNav,
   seekbarDraggingActive: state.seekbar.draggingActive,
-  adBreak: state.engine.adBreak
+  seekbarHoverActive: state.seekbar.hoverActive,
+  bottomBarHoverActive: state.shell.bottomBarHoverActive,
+  volumeHoverActive: state.volume.hover,
+  adBreak: state.engine.adBreak,
+  prePlayback: state.shell.prePlayback,
+  smartContainerOpen: state.shell.smartContainerOpen
 });
 
 /**
@@ -43,9 +48,8 @@ export const CONTROL_BAR_HOVER_DEFAULT_TIMEOUT: number = 3000;
    */
 class Shell extends BaseComponent {
   state: Object;
-  _hoverTimeout: number;
+  hoverTimeout: ?number;
   _fallbackToMutedAutoPlayMode: boolean;
-  _el: HTMLDivElement;
 
   /**
    * Creates an instance of Shell.
@@ -67,11 +71,16 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   onMouseOver(): void {
+    if (this.props.isMobile) {
+      return;
+    }
     if (this.state.nav) {
       this.setState({nav: false});
       this.props.updatePlayerNavState(false);
     }
-    this._showAndHideControlBar();
+    if (!this.props.bottomBarHoverActive) {
+      this._updatePlayerHoverState();
+    }
   }
 
   /**
@@ -81,6 +90,9 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   onMouseLeave(): void {
+    if (this.props.isMobile) {
+      return;
+    }
     if (this.state.hover) {
       this.setState({hover: false});
       this.props.updatePlayerHoverState(false);
@@ -94,10 +106,10 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   onMouseMove(): void {
-    if (!this.state.hover) {
-      this.setState({hover: true});
-      this.props.updatePlayerHoverState(true);
+    if (this.props.isMobile) {
+      return;
     }
+    this._updatePlayerHoverState();
   }
 
   /**
@@ -111,9 +123,23 @@ class Shell extends BaseComponent {
       this.player.muted = false;
       this._fallbackToMutedAutoPlayMode = false;
     }
-    if (!this.state.nav) {
-      this._el.focus();
+  }
+
+  /**
+   * on touch start handler
+   * @param {TouchEvent} e - touch event
+
+   * @returns {void}
+   * @memberof Shell
+   */
+  onTouchStart(e: TouchEvent): void {
+    if (this.props.prePlayback) {
+      return;
     }
+    if (!this.state.hover) {
+      e.stopPropagation();
+    }
+    this._updatePlayerHoverState();
   }
 
   /**
@@ -138,47 +164,96 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   componentDidMount() {
-    this.props.updateIsMobile(!!this.player.env.device.type || this.props.config.forceTouchUI);
+    this.props.updateIsMobile(!!this.player.env.device.type || this.props.forceTouchUI);
     if (document.body) {
       this.props.updateDocumentWidth(document.body.clientWidth);
     }
-    this.player.addEventListener(this.player.Event.LOADED_METADATA, () => {
-      this.props.updatePlayerWidth(this.player.getView().parentElement.clientWidth);
-      this.props.updatePlayerHeight(this.player.getView().parentElement.offsetHeight);
-    });
+    const playerContainer = document.getElementById(this.props.targetId);
+    if (playerContainer) {
+      this.props.updatePlayerClientRect(playerContainer.getBoundingClientRect());
+    }
     window.addEventListener('resize', () => {
-      this.props.updatePlayerWidth(this.player.getView().parentElement.clientWidth);
-      this.props.updatePlayerHeight(this.player.getView().parentElement.offsetHeight);
-
+      const playerContainer = document.getElementById(this.props.targetId);
+      if (playerContainer) {
+        this.props.updatePlayerClientRect(playerContainer.getBoundingClientRect());
+      }
       if (document.body) {
         this.props.updateDocumentWidth(document.body.clientWidth);
       }
     });
-    if (this.player.env.device.type) {
-      this.props.updatePlayerHoverState(true);
-    }
-    this._showAndHideControlBar();
   }
 
   /**
-   * show the control bar for few seconds and then hide it
+   * updates the player hover state
    * @returns {void}
    * @memberof Shell
    */
-  _showAndHideControlBar(): void {
+  _updatePlayerHoverState(): void {
+    if (this.props.prePlayback) {
+      return;
+    }
     if (!this.state.hover) {
       this.props.updatePlayerHoverState(true);
       this.setState({hover: true});
     }
-    if (this._hoverTimeout) {
-      clearTimeout(this._hoverTimeout);
-    }
-    this._hoverTimeout = setTimeout(() => {
-      if (!this.props.seekbarDraggingActive) {
+    this._startHoverTimeout();
+  }
+
+  /**
+   * checks if hover state can be ended based on other components states
+   * @returns {boolean} - if hover state can be ended
+   * @private
+   * @memberof Shell
+   */
+  _canEndHoverState(): boolean {
+    return !this.props.seekbarDraggingActive
+      && !this.props.seekbarHoverActive
+      && !this.props.volumeHoverActive
+      && !this.props.smartContainerOpen
+      && !this.player.paused;
+  }
+
+  /**
+   * starts the hover timeout.
+   * @returns {void}
+   * @private
+   * @memberof Shell
+   */
+  _startHoverTimeout(): void {
+    this._clearHoverTimeout();
+    this.hoverTimeout = setTimeout(() => {
+      if (this._canEndHoverState()) {
         this.props.updatePlayerHoverState(false);
         this.setState({hover: false});
       }
-    }, this.props._hoverTimeout || CONTROL_BAR_HOVER_DEFAULT_TIMEOUT);
+    }, this.props.hoverTimeout || CONTROL_BAR_HOVER_DEFAULT_TIMEOUT);
+  }
+
+  /**
+   * clears the hover timeout.
+   * @returns {void}
+   * @private
+   * @memberof Shell
+   */
+  _clearHoverTimeout(): void {
+    if (this.hoverTimeout) {
+      clearTimeout(this.hoverTimeout);
+      this.hoverTimeout = null;
+    }
+  }
+
+  /**
+   * when component did update and change its props from prePlayback to !prePlayback
+   * update the hover state
+   *
+   * @param {Object} prevProps - previous props
+   * @returns {void}
+   * @memberof Shell
+   */
+  componentDidUpdate(prevProps: Object): void {
+    if (!this.props.prePlayback && prevProps.prePlayback) {
+      this._updatePlayerHoverState();
+    }
   }
 
   /**
@@ -198,18 +273,18 @@ class Shell extends BaseComponent {
     if (this.props.metadataLoaded) playerClasses.push(style.metadataLoaded);
     if (this.props.adBreak) playerClasses.push(style.adBreak);
     if (this.props.metadataLoaded) playerClasses.push(style['state-' + this.props.currentState]);
-    if (this.props.playerWidth <= 480) playerClasses.push(style.sizeSm);
-    else if (this.props.playerWidth <= 768) playerClasses.push(style.sizeMd);
     if (this.props.seekbarDraggingActive) playerClasses.push(style.hover);
+    if (this.props.playerClientRect && this.props.playerClientRect.width <= 480) playerClasses.push(style.sizeSm);
+    else if (this.props.playerClientRect && this.props.playerClientRect.width <= 768) playerClasses.push(style.sizeMd);
 
     playerClasses = playerClasses.join(' ');
 
     return (
       <div
         tabIndex="0"
-        ref={el => this._el = el}
         className={playerClasses}
         onClick={() => this.onClick()}
+        onTouchStart={(e) => this.onTouchStart(e)}
         onMouseOver={() => this.onMouseOver()}
         onMouseMove={() => this.onMouseMove()}
         onMouseLeave={() => this.onMouseLeave()}

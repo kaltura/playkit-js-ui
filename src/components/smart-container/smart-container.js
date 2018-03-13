@@ -43,6 +43,7 @@ class SmartContainer extends Component {
    */
   componentWillMount() {
     this.props.addPlayerClass(style.smartContainerOpen);
+    this.props.updateSmartContainerOpen(true);
   }
 
   /**
@@ -53,6 +54,7 @@ class SmartContainer extends Component {
    */
   componentWillUnmount() {
     this.props.removePlayerClass(style.smartContainerOpen);
+    this.props.updateSmartContainerOpen(false);
   }
 
   /**

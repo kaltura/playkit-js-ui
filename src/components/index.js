@@ -1,4 +1,4 @@
-export {AdLearnMore} from './ad-learn-more'
+export AdLearnMore from './ad-learn-more'
 export {AdSkip} from './ad-skip'
 export {BaseComponent} from './base'
 export {BottomBar} from './bottom-bar'

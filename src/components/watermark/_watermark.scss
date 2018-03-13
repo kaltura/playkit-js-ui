@@ -1,0 +1,30 @@
+.player .watermark {
+  position: absolute;
+  padding: 5px;
+  transition: visibility 0s 1s, opacity 1s linear, transform ease-out 100ms;
+  &.hide-watermark {
+    visibility: hidden;
+    opacity: 0;
+  }
+  &.top {
+    top: 0;
+  }
+  &.bottom {
+    bottom: 0;
+  }
+  &.right {
+    right: 0;
+  }
+  &.left {
+    left: 0;
+  }
+}
+
+.player {
+  &:not(.pre-playback):not(.overlay-active) {
+    &.state-paused :global(.playkit-watermark.playkit-bottom),
+    &.hover :global(.playkit-watermark.playkit-bottom) {
+      transform: translateY(-60px);
+    }
+  }
+}

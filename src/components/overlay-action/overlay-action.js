@@ -82,7 +82,20 @@ class OverlayAction extends BaseComponent {
    * @memberof OverlayAction
    */
   onOverlayClick(): void {
-    if (!this.props.isMobile || this.props.isMobile && this.props.playerHover) {
+    if (this.props.isMobile) {
+      return;
+    }
+    this.togglePlayPause();
+  }
+
+  /**
+   * handler for overlay touch
+   *
+   * @returns {void}
+   * @memberof OverlayAction
+   */
+  onOverlayTouch(): void {
+    if (this.props.playerHover) {
       this.togglePlayPause();
     }
   }
@@ -130,7 +143,8 @@ class OverlayAction extends BaseComponent {
   render(): React$Element<any> {
     return (
       <div className={`${style.overlayAction} ${this.state.animation ? style.in : ''}`}
-           onClick={() => this.onOverlayClick()}>
+           onClick={() => this.onOverlayClick()}
+           onTouchStart={() => this.onOverlayTouch()}>
         {this.state.animation ? this.renderIcons() : undefined}
       </div>
     )

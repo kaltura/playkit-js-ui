@@ -3,31 +3,29 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {toHHMMSS} from '../../utils/time-format';
 import {KeyMap} from "../../utils/key-map";
+import {connect} from "preact-redux";
+import {bindActions} from "../../utils/bind-actions";
+import {actions} from "../../reducers/shell";
 
 /**
- * SeekBarControl component
- *
- * @class SeekBarControl
- * @example <SeekBarControl
- *  playerElement={this.player.getView().parentElement}
- *  showFramePreview={this.props.showFramePreview}
- *  showTimeBubble={this.props.showTimeBubble}
- *  changeCurrentTime={time => this.player.currentTime = time}
- *  thumbsSprite={this.config.thumbsSprite}
- *  thumbsSlices={this.config.thumbsSlices}
- *  thumbsWidth={this.config.thumbsWidth}
- *  updateSeekbarDraggingStatus={data => this.props.updateSeekbarDraggingStatus(data)}
- *  updateCurrentTime={data => this.props.updateCurrentTime(data)}
- *  currentTime={this.props.currentTime}
- *  duration={this.props.duration}
- *  isDraggingActive={this.props.isDraggingActive}
- *  isMobile={this.props.isMobile}
- * />
- * @extends {Component}
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
  */
+const mapStateToProps = state => ({
+  config: state.config.components.seekbar,
+  isMobile: state.shell.isMobile
+});
+
+@connect(mapStateToProps, bindActions(actions))
+  /**
+   * SeekBarControl component
+   *
+   * @class SeekBarControl
+   * @extends {Component}
+   */
 class SeekBarControl extends Component {
   state: Object;
-  framePreviewImg: string;
   _seekBarElement: HTMLElement;
   _framePreviewElement: HTMLElement;
   _timeBubbleElement: HTMLElement;
@@ -219,6 +217,28 @@ class SeekBarControl extends Component {
   }
 
   /**
+   * seekbar mouse over handler
+   *
+   * @returns {void}
+   * @memberof SeekBarControl
+   */
+  onSeekbarMouseOver(): void {
+    if (this.props.isMobile) return;
+    this.props.updateSeekbarHoverActive(true);
+  }
+
+  /**
+   * seekbar mouse leave handler
+   *
+   * @returns {void}
+   * @memberof SeekBarControl
+   */
+  onSeekbarMouseLeave(): void {
+    if (this.props.isMobile) return;
+    this.props.updateSeekbarHoverActive(false);
+  }
+
+  /**
    * abstract function to update virtual progress ui using component state or report to upper component of time change
    *
    * @param {number} currentTime - current time
@@ -279,7 +299,7 @@ class SeekBarControl extends Component {
     if (this.props.player.duration > 0 && this.props.player.buffered.length > 0) {
       const buffered = this.props.player.isLive() ? this.props.player.buffered.end(0) - this.props.player.getStartTimeOfDvrWindow() : this.props.player.buffered.end(0);
       const bufferedPercent = (buffered / this.props.player.duration) * 100;
-      return  bufferedPercent < 100 ? bufferedPercent : 100;
+      return bufferedPercent < 100 ? bufferedPercent : 100;
     }
     return 0;
   }
@@ -292,8 +312,8 @@ class SeekBarControl extends Component {
    */
   getThumbSpriteOffset(): string {
     const percent = this.state.virtualTime / this.props.duration;
-    const sliceIndex = Math.ceil(this.props.thumbsSlices * percent);
-    return -(sliceIndex * this.props.thumbsWidth) + 'px 0px';
+    const sliceIndex = Math.ceil(this.props.config.thumbsSlices * percent);
+    return -(sliceIndex * this.props.config.thumbsWidth) + 'px 0px';
   }
 
   /**
@@ -346,7 +366,7 @@ class SeekBarControl extends Component {
    */
   renderFramePreview(): React$Element<any> | void {
     if (
-      !this.props.thumbsSprite || !this.props.thumbsSlices || !this.props.thumbsWidth ||
+      !this.props.config.thumbsSprite || !this.props.config.thumbsSlices || !this.props.config.thumbsWidth ||
       !this.props.showFramePreview ||
       this.props.isMobile
     ) return undefined;
@@ -370,9 +390,9 @@ class SeekBarControl extends Component {
    * @private
    */
   _getFramePreviewImgStyle(): string {
-    let framePreviewImgStyle = `background-image: url(${this.props.thumbsSprite});`;
+    let framePreviewImgStyle = `background-image: url(${this.props.config.thumbsSprite});`;
     framePreviewImgStyle += `background-position: ${this.getThumbSpriteOffset()};`;
-    framePreviewImgStyle += `background-size: ${this.props.thumbsSlices * this.props.thumbsWidth}px 100%;`;
+    framePreviewImgStyle += `background-size: ${this.props.config.thumbsSlices * this.props.config.thumbsWidth}px 100%;`;
     return framePreviewImgStyle;
   }
 
@@ -384,7 +404,7 @@ class SeekBarControl extends Component {
    */
   _getFramePreviewStyle(): string {
     let framePreviewStyle = `left: ${this.getFramePreviewOffset()}px;`;
-    framePreviewStyle += `width: ${this.props.thumbsWidth}px;`;
+    framePreviewStyle += `width: ${this.props.config.thumbsWidth}px;`;
     return framePreviewStyle;
   }
 
@@ -431,6 +451,8 @@ class SeekBarControl extends Component {
         aria-valuenow={Math.round(this.props.currentTime)}
         aria-valuetext={`${toHHMMSS(this.props.currentTime)} of ${toHHMMSS(this.props.duration)}`}
         onClick={e => this.onTap(e)}
+        onMouseOver={() => this.onSeekbarMouseOver()}
+        onMouseLeave={() => this.onSeekbarMouseLeave()}
         onMouseMove={e => this.onSeekbarMouseMove(e)}
         onMouseDown={e => this.onSeekbarMouseDown(e)}
         onTouchStart={e => this.onSeekbarTouchStart(e)}

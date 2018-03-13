@@ -1,7 +1,6 @@
 //@flow
 import style from '../styles/style.scss';
 import {h} from 'preact';
-import getComponentConfig from '../utils/component-config';
 import {OverlayAction} from '../components/overlay-action';
 import {PrePlaybackPlayOverlay} from '../components/pre-playback-play-overlay';
 import {Loading} from '../components/loading';
@@ -17,6 +16,8 @@ import {BottomBar} from '../components/bottom-bar';
 import {OverlayPortal} from '../components/overlay-portal';
 import {KeyboardControl} from '../components/keyboard';
 import {UnmuteIndication} from '../components/unmute-indication';
+import Watermark from '../components/watermark/watermark';
+import {shouldRenderComponent} from '../utils/component-config';
 
 /**
  * Playback ui interface
@@ -38,8 +39,7 @@ export function playbackUI(props: any): React$Element<any> {
           <SeekBarPlaybackContainer showFramePreview
                                     showTimeBubble
                                     player={props.player}
-                                    playerContainer={props.playerContainer}
-                                    config={getComponentConfig(props.config, 'seekbar')}/>
+                                    playerContainer={props.playerContainer}/>
           <div className={style.leftControls}>
             <PlayPauseControl player={props.player}/>
             <RewindControl player={props.player} step={10}/>
@@ -49,11 +49,14 @@ export function playbackUI(props: any): React$Element<any> {
             <VolumeControl player={props.player}/>
             <LanguageControl player={props.player}/>
             <SettingsControl player={props.player}/>
-            <FullscreenControl player={props.player} config={props.config}/>
+            <FullscreenControl player={props.player}/>
           </div>
         </BottomBar>
       </div>
       <PrePlaybackPlayOverlay player={props.player}/>
+      {shouldRenderComponent(props.config, Watermark.displayName)
+        ? <Watermark player={props.player}/>
+        : undefined}
     </div>
   )
 }

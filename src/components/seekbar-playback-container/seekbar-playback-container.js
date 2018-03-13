@@ -35,7 +35,7 @@ class SeekBarPlaybackContainer extends BaseComponent {
    * @memberof SeekBarPlaybackContainer
    */
   constructor(obj: Object) {
-    super({name: 'SeekBarPlaybackContainer', player: obj.player, config: obj.config});
+    super({name: 'SeekBarPlaybackContainer', player: obj.player});
   }
 
   /**
@@ -69,14 +69,12 @@ class SeekBarPlaybackContainer extends BaseComponent {
         changeCurrentTime={time => this.player.currentTime = time}
         playerPoster={this.props.poster}
         updateSeekbarDraggingStatus={data => this.props.updateSeekbarDraggingStatus(data)}
+        updateSeekbarHoverActive={data => this.props.updateSeekbarHoverActive(data)}
         updateCurrentTime={data => this.props.updateCurrentTime(data)}
         currentTime={this.props.currentTime}
         duration={this.props.duration}
         isDraggingActive={this.props.isDraggingActive}
         isMobile={this.props.isMobile}
-        thumbsSprite={this.props.config.thumbsSprite}
-        thumbsSlices={this.props.config.thumbsSlices}
-        thumbsWidth={this.props.config.thumbsWidth}
       />
     )
   }

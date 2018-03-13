@@ -6,10 +6,11 @@ export const types = {
 };
 
 export const initialState = {
-  ui: {
+  forceTouchUI: false,
+  components: {
+    watermark: {},
     seekbar: {},
-    shell: {},
-    errorOverlay: {}
+    error: {}
   }
 };
 
@@ -56,9 +57,9 @@ export default (state: Object = initialState, action: Object) => {
     case types.UPDATE_COMPONENT: {
       return {
         ...state,
-        ui: {
-          ...state.ui,
-          [action.componentAlias]: mergeDeep(state.ui[action.componentAlias], action.config)
+        components: {
+          ...state.components,
+          [action.componentAlias]: mergeDeep(state.components[action.componentAlias], action.config)
         }
       };
     }

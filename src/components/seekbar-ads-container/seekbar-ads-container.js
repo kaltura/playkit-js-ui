@@ -55,6 +55,7 @@ class SeekBarAdsContainer extends BaseComponent {
         }}
         updateCurrentTime={data => { // eslint-disable-line no-unused-vars
         }}
+        updateSeekbarHoverActive={data => this.props.updateSeekbarHoverActive(data)}
         adBreak={props.adBreak}
         currentTime={props.currentTime}
         duration={props.duration}

@@ -182,8 +182,8 @@ class KeyboardControl extends BaseComponent {
           this.logger.debug(`Changing playback rate. ${playbackRate} => ${this.player.playbackRates[index - 1]}`);
           this.player.playbackRate = this.player.playbackRates[index - 1];
         }
+        this.props.updateOverlayActionIcon(IconType.SpeedDown);
       }
-      this.props.updateOverlayActionIcon(IconType.SpeedDown);
     },
     [KeyMap.C]: () => {
       let activeTextTrack = this.player.getActiveTracks().text;
