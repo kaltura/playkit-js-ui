@@ -119,9 +119,6 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   onClick(): void {
-    if (this.props.isMobile) {
-      return;
-    }
     if (this._fallbackToMutedAutoPlayMode) {
       this.player.muted = false;
       this._fallbackToMutedAutoPlayMode = false;
