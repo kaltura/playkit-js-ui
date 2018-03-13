@@ -90,4 +90,4 @@ class Watermark extends BaseComponent {
   }
 }
 
-export default Watermark;
+export {Watermark};
