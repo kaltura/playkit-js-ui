@@ -52,7 +52,7 @@ class FullscreenControl extends BaseComponent {
     document.addEventListener('MSFullscreenChange', () => this.fullscreenChangeHandler());
     this.player.addEventListener(this.player.Event.REQUESTED_ENTER_FULLSCREEN, () => this.enterFullscreen());
     this.player.addEventListener(this.player.Event.REQUESTED_EXIT_FULLSCREEN, () => this.exitFullscreen());
-    this.hanldeIosFullscreen();
+    this.handleIosFullscreen();
   }
 
   /**
@@ -61,7 +61,7 @@ class FullscreenControl extends BaseComponent {
    * @returns {void}
    * @memberof FullscreenControl
    */
-  hanldeIosFullscreen(): void {
+  handleIosFullscreen(): void {
     if (this.player.env.os.name === 'iOS') {
       /**
        * Attach listeners to ios full screen change.
@@ -70,15 +70,9 @@ class FullscreenControl extends BaseComponent {
       const attachIosFullscreenListeners = () => {
         this.player.removeEventListener(this.player.Event.SOURCE_SELECTED, attachIosFullscreenListeners);
         this.player.getVideoElement().addEventListener('webkitbeginfullscreen', () => {
-          if (this.player.env.device.type === 'tablet') {
-            this.props.addPlayerClass(style.nativeTabletFullscreen);
-          }
           this.fullscreenEnterHandler();
         });
         this.player.getVideoElement().addEventListener('webkitendfullscreen', () => {
-          if (this.player.env.device.type === 'tablet') {
-            this.props.removePlayerClass(style.nativeTabletFullscreen);
-          }
           this.fullscreenExitHandler();
         });
       };
