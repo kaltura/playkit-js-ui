@@ -52,7 +52,7 @@ class FullscreenControl extends BaseComponent {
     document.addEventListener('MSFullscreenChange', () => this.fullscreenChangeHandler());
     this.player.addEventListener(this.player.Event.REQUESTED_ENTER_FULLSCREEN, () => this.enterFullscreen());
     this.player.addEventListener(this.player.Event.REQUESTED_EXIT_FULLSCREEN, () => this.exitFullscreen());
-    this.hanldeIosFullscreen();
+    this.handleIosFullscreen();
   }
 
   /**
@@ -61,7 +61,7 @@ class FullscreenControl extends BaseComponent {
    * @returns {void}
    * @memberof FullscreenControl
    */
-  hanldeIosFullscreen(): void {
+  handleIosFullscreen(): void {
     if (this.player.env.os.name === 'iOS') {
       /**
        * Attach listeners to ios full screen change.
