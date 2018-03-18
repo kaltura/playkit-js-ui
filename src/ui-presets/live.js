@@ -15,7 +15,7 @@ import {OverlayPortal} from '../components/overlay-portal';
 import {KeyboardControl} from '../components/keyboard';
 import {LiveTag} from '../components/live-tag';
 import {UnmuteIndication} from '../components/unmute-indication';
-import Watermark from '../components/watermark/watermark';
+import {Watermark} from '../components/watermark/watermark';
 import {shouldRenderComponent} from '../utils/component-config';
 
 /**
