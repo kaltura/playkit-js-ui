@@ -51,7 +51,7 @@ export const initialState = {
     duration: 0
   },
   adUrl: '',
-  hasError: ''
+  hasError: false
 };
 
 export default (state: Object = initialState, action: Object) => {
@@ -60,7 +60,7 @@ export default (state: Object = initialState, action: Object) => {
       return {
         ...state,
         hasError: action.hasError
-      }
+      };
 
     case types.UPDATE_PLAYER_STATE:
       return {
@@ -197,7 +197,7 @@ export default (state: Object = initialState, action: Object) => {
 }
 
 export const actions = {
-  updateHasError: (error: any)=> ({type: types.UPDATE_ERROR, hasError: error}),
+  updateHasError: (hasError: boolean)=> ({type: types.UPDATE_ERROR, hasError: hasError}),
   updatePlayerState: (prevoiusState: string, currentState: string) => ({
     type: types.UPDATE_PLAYER_STATE,
     playerState: {prevoiusState, currentState}

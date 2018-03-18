@@ -26,10 +26,6 @@ const mapStateToProps = state => ({
    * @extends {BaseComponent}
    */
 class Loading extends BaseComponent {
-  isPreloading: boolean;
-  autoplay: boolean;
-  mobileAutoplay: boolean;
-
   /**
    * Creates an instance of Loading.
    * @param {Object} obj obj
@@ -38,42 +34,6 @@ class Loading extends BaseComponent {
   constructor(obj: Object) {
     super({name: 'Loading', player: obj.player});
     this.setState({afterPlayingEvent: false});
-    try {
-      // TODO: Change the dependency on ima to our ads plugin when it will be developed.
-      if (this.player.config.playback.preload === "auto" && !this.player.config.plugins.ima) {
-        this.isPreloading = true;
-        this.player.addEventListener(this.player.Event.PLAYER_STATE_CHANGED, (e) => {
-          if (e.payload.oldState.type === this.player.State.LOADING) {
-            this.isPreloading = false;
-          }
-        });
-      }
-    } catch (e) {
-      this.logger.error(e.message);
-      this.isPreloading = false;
-    }
-  }
-
-  /**
-   * before component mount, update the autoplay and mobileAutoplay values from player config
-   *
-   * @returns {void}
-   * @memberof Loading
-   */
-  componentWillMount() {
-    try {
-      this.autoplay = this.player.config.playback.autoplay;
-    }
-    catch (e) { // eslint-disable-line no-unused-vars
-      this.autoplay = false;
-    }
-
-    try {
-      this.mobileAutoplay = this.player.config.playback.mobileAutoplay;
-    }
-    catch (e) { // eslint-disable-line no-unused-vars
-      this.mobileAutoplay = false;
-    }
   }
 
   /**
@@ -85,18 +45,22 @@ class Loading extends BaseComponent {
    * @memberof Loading
    */
   componentDidMount() {
-    if (!this.props.isMobile && this.autoplay || this.props.isMobile && this.mobileAutoplay) {
-      this.props.updateLoadingSpinnerState(true);
-    }
-
     this.player.addEventListener(this.player.Event.PLAYER_STATE_CHANGED, e => {
+      const StateType = this.player.State;
       if (!this.state.afterPlayingEvent) {
         return;
       }
-      if (e.payload.newState.type === 'idle' || e.payload.newState.type === 'playing' || e.payload.newState.type === 'paused') {
+      if (e.payload.newState.type === StateType.IDLE
+        || e.payload.newState.type === StateType.PLAYING
+        || e.payload.newState.type === StateType.PAUSED) {
         this.props.updateLoadingSpinnerState(false);
+      } else {
+        this.props.updateLoadingSpinnerState(true);
       }
-      else {
+    });
+
+    this.player.addEventListener(this.player.Event.SOURCE_SELECTED, () => {
+      if (this.player.config.autoplay) {
         this.props.updateLoadingSpinnerState(true);
       }
     });
@@ -114,6 +78,10 @@ class Loading extends BaseComponent {
     });
 
     this.player.addEventListener(this.player.Event.ALL_ADS_COMPLETED, () => {
+      this.props.updateLoadingSpinnerState(false);
+    });
+
+    this.player.addEventListener(this.player.Event.AUTOPLAY_FAILED, () => {
       this.props.updateLoadingSpinnerState(false);
     });
 
@@ -135,7 +103,7 @@ class Loading extends BaseComponent {
    * @memberof Loading
    */
   render(props: any): React$Element<any> | void {
-    if (!props.show || this.isPreloading) return undefined;
+    if (!props.show) return undefined;
 
     return (
       <div className={[style.loadingBackdrop, style.show].join(' ')}>

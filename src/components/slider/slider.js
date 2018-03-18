@@ -76,6 +76,7 @@ class Slider extends Component {
    * @memberof Slider
    */
   onKeyboardDragging(e: KeyboardEvent): void {
+    e.stopPropagation();
     this._sliderElementOffsetLeft = this._sliderElement.getBoundingClientRect().left;
     let newValue = this.props.value;
     switch (e.keyCode) {

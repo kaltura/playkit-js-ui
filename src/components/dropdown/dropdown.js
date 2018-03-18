@@ -25,6 +25,7 @@ const mapStateToProps = state => ({
    */
 class DropDown extends Component {
   state: Object;
+  _el: HTMLDivElement;
 
   /**
    * before component mounted, set initial internal state
@@ -130,7 +131,8 @@ class DropDown extends Component {
   render(props: any): React$Element<any> {
     return props.isMobile ? this.renderNativeSelect() :
       (
-        <div className={this.state.dropMenuActive ? [style.dropdown, style.active].join(' ') : style.dropdown}>
+        <div className={this.state.dropMenuActive ? [style.dropdown, style.active].join(' ') : style.dropdown}
+             ref={el => this._el = el}>
           <div
             tabIndex="0"
             className={style.dropdownButton}
@@ -142,6 +144,7 @@ class DropDown extends Component {
           {
             !this.state.dropMenuActive ? undefined :
               <Menu
+                parentEl={this._el}
                 options={props.options}
                 onSelect={(o) => this.onSelect(o)}
                 onClose={() => this.onClose()}/>

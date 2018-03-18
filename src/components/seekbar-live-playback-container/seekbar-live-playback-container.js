@@ -73,6 +73,7 @@ class SeekBarLivePlaybackContainer extends BaseComponent {
         changeCurrentTime={time => this.player.currentTime = time}
         playerPoster={this.props.poster}
         updateSeekbarDraggingStatus={data => this.props.updateSeekbarDraggingStatus(data)}
+        updateSeekbarHoverActive={data => this.props.updateSeekbarHoverActive(data)}
         updateCurrentTime={data => this.props.updateCurrentTime(data)}
         isDvr={this.props.isDvr}
         currentTime={this.props.currentTime}

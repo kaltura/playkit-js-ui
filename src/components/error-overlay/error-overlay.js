@@ -15,6 +15,7 @@ import {actions} from "../../reducers/engine";
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
+  config: state.config.components.error,
   hasError: state.engine.hasError
 });
 
@@ -65,7 +66,6 @@ class ErrorOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   handleClick(): void {
-    this.props.updateHasError(false);
     this.player.loadMedia(this.props.config.mediaInfo);
   }
 

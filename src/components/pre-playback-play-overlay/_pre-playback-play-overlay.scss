@@ -4,7 +4,6 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 10;
   background-position: center center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -14,6 +13,7 @@
   }
 
   .pre-playback-play-button {
+    z-index: 10;
     position: absolute;
     top: 50%;
     left: 50%;
