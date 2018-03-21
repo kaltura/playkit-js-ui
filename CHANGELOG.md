@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.19.5"></a>
+## [0.19.5](https://github.com/kaltura/playkit-js-ui/compare/v0.19.4...v0.19.5) (2018-03-21)
+
+
+### Bug Fixes
+
+* **FEC-8024:** black screen on replay - ie11 ([#206](https://github.com/kaltura/playkit-js-ui/issues/206)) ([cccbb30](https://github.com/kaltura/playkit-js-ui/commit/cccbb30))
+
+
+
 <a name="0.19.4"></a>
 ## [0.19.4](https://github.com/kaltura/playkit-js-ui/compare/v0.19.3...v0.19.4) (2018-03-14)
 
