@@ -109,11 +109,11 @@ class ErrorOverlay extends BaseComponent {
    * @memberof ErrorOverlay
    */
   renderRetryButton(): React$Element<any> | void {
-    if (this.props.config.mediaInfo){
+    if (this.props.config.mediaInfo) {
       return (
         <div className={style.controlButtonContainer} onClick={() => this.handleClick()}>
-        <button className={[style.controlButton, style.retryBtn].join(' ')}><Text id='core.retry'/></button>
-      </div>
+          <button className={[style.controlButton, style.retryBtn].join(' ')}><Text id='core.retry'/></button>
+        </div>
       )
     } else {
       return undefined;
