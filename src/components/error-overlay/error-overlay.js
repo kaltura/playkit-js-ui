@@ -101,6 +101,26 @@ class ErrorOverlay extends BaseComponent {
     }
   }
 
+
+  /**
+   * render the retry button
+   *
+   * @returns {React$Element} - main state element
+   * @memberof ErrorOverlay
+   */
+  renderRetryButton(): React$Element<any> | void {
+    if (this.props.config.mediaInfo) {
+      return (
+        <div className={style.controlButtonContainer} onClick={() => this.handleClick()}>
+          <button className={[style.controlButton, style.retryBtn].join(' ')}><Text id='core.retry'/></button>
+        </div>
+      )
+    } else {
+      return undefined;
+    }
+  }
+
+
   /**
    * render main state
    *
@@ -146,9 +166,7 @@ class ErrorOverlay extends BaseComponent {
               <div className={style.headline}>{this.props.errorHead ? this.props.errorHead :
                 <Text id={'error.default_error'}/>}</div>
               {this.renderSessionID()}
-              <div className={style.controlButtonContainer} onClick={() => this.handleClick()}>
-                <button className={[style.controlButton, style.retryBtn].join(' ')}><Text id='core.retry'/></button>
-              </div>
+              {this.renderRetryButton()}
             </div>
           </Overlay>
         </div>
