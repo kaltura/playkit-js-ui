@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.19.6"></a>
+## [0.19.6](https://github.com/kaltura/playkit-js-ui/compare/v0.19.5...v0.19.6) (2018-03-27)
+
+
+### Bug Fixes
+
+* remove retry button when retry not possible ([#205](https://github.com/kaltura/playkit-js-ui/issues/205)) ([ea28008](https://github.com/kaltura/playkit-js-ui/commit/ea28008))
+* **FEC-8079:** hide UI on player RESET event ([#207](https://github.com/kaltura/playkit-js-ui/issues/207)) ([f6f51be](https://github.com/kaltura/playkit-js-ui/commit/f6f51be))
+
+
+
 <a name="0.19.5"></a>
 ## [0.19.5](https://github.com/kaltura/playkit-js-ui/compare/v0.19.4...v0.19.5) (2018-03-21)
 
