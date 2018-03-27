@@ -13,7 +13,8 @@ const mapStateToProps = state => ({
     engine: {
       adBreak: state.engine.adBreak,
       isLive: state.engine.isLive,
-      hasError: state.engine.hasError
+      hasError: state.engine.hasError,
+      isStopped: state.engine.isStopped
     }
   },
   config: state.config
@@ -56,12 +57,10 @@ class PlayerGUI extends Component {
    */
   render(props: any): React$Element<any> | void {
     let uiToRender;
-
-    if (this.props.uis.length > 0) {
+    if (this.props.uis.length > 0 && !props.state.engine.isStopped) {
       uiToRender = this.getMatchedUI(props.uis, props.state);
       return uiToRender ? uiToRender.template(props) : this.props.uis[0].template(props);
-    }
-    else {
+    } else {
       return undefined;
     }
   }
