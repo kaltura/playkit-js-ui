@@ -19,7 +19,8 @@ const mapStateToProps = state => ({
   prePlayback: state.shell.prePlayback,
   poster: state.engine.poster,
   isMobile: state.shell.isMobile,
-  isEnded: state.engine.isEnded
+  isEnded: state.engine.isEnded,
+  loading: state.loading.show
 });
 
 @connect(mapStateToProps, bindActions(Object.assign(actions, loadingActions)))
@@ -125,7 +126,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   render(props: any): React$Element<any> | void {
-    if ((!props.isEnded && !props.prePlayback) || (!props.isEnded && this.autoplay)) {
+    if ((!props.isEnded && !props.prePlayback) || (!props.isEnded && this.autoplay) || props.loading) {
       return undefined;
     }
     let rootStyle = {},

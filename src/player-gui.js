@@ -57,7 +57,7 @@ class PlayerGUI extends Component {
    */
   render(props: any): React$Element<any> | void {
     let uiToRender;
-    if (this.props.uis.length > 0 && !props.state.engine.isStopped) {
+    if (this.props.uis.length > 0) {
       uiToRender = this.getMatchedUI(props.uis, props.state);
       return uiToRender ? uiToRender.template(props) : this.props.uis[0].template(props);
     } else {
