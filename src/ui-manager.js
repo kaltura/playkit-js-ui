@@ -3,6 +3,7 @@ import {h, render} from 'preact';
 import {Provider} from 'preact-redux';
 import {IntlProvider} from 'preact-i18n';
 import {createStore} from 'redux';
+import {copyDeep} from './utils/copy-deep';
 import {LogLevel, getLogLevel, setLogLevel} from './utils/logger'
 
 
@@ -67,7 +68,7 @@ export default class UIManager {
    * @returns {UIOptionsObject} - The UI manager config.
    */
   get config(): UIOptionsObject {
-    return this.store.getState().config;
+    return copyDeep(this.store.getState().config);
   }
 
   /**
