@@ -1,13 +1,27 @@
-## Custom UI Preset
+# Custom UI Preset
 
-### General
+## General
 
 UI presets are used to define the player GUI based on conditions.
 
-### Usage example
+The UI Manager accepts an array of UI presets.
 
-For example- UI preset that will be activated only when the player is on fullscreen state.
-Let's say that we want our fullscreen UI to have only the bottom bar with the fullscreen control. nothing else.
+The preset list may contain one default preset and additional conditional presets.
+
+A conditional preset will only be shown if it's defined condition is met.
+
+The UI manager has a list of pre-defined conditions, and custom conditions can be defined as well, see [below](#defining-ui-conditions).
+
+The order that the UI presets are defined and their respective conditions define the priority which they'll be rendered, where the order is ascending, so first UI preset condition will be evaluated first and last will be evaluated last.
+
+The last preset should always be the default one that has no condition.
+
+## Defining a preset
+A preset is a simple function that returns a tree that defines the compoentns structure to be used in a layout.
+
+For example- Let's say that we want our fullscreen UI to have only the bottom bar with the fullscreen control. nothing else.
+
+this is a UI preset that will define the look of fullscreen state, which uses the built-in components `BottomBar` and `FullscreenControl`
 
 ```javascript
 //fullscreen-preset.js
@@ -25,7 +39,8 @@ export default function fullscreenUI(props: any) {
 }
 ```
 
-### Attaching the preset to the fullscreen state
+## Attaching the preset to the fullscreen state
+In order to use a preset we pass our custom preset function to the UI manager.
 
 ```javascript
 //@flow
@@ -45,3 +60,18 @@ function buildUI(player: Player, config: Object): void {
 }
 
 ```
+
+## Defining UI conditions
+A preset condition is a simple method that returns a boolean.
+
+Once a boolean is returned, either `true` or `false`, the UI will be rendered.
+
+The UI Manager has three pre-defined conditions:
+1. Error state: `state.engine.hasError`
+2. Ad break state: `state.engine.adBreak`
+3. Live state: `state.engine.isLive`
+
+## Using custom components
+Presets can be created by using the player default library components, but you can also create and use your own components to define the layout.
+
+See example on how to create and use your own compoentns [here](https://github.com/kaltura/playkit-js-ui/blob/master/docs/create-new-component.md)
