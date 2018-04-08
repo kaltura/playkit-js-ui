@@ -39,7 +39,6 @@ type UIPreset = {
  */
 export default class UIManager {
   player: Player;
-  config: UIOptionsObject;
   targetId: string;
   store: any;
 
@@ -49,18 +48,26 @@ export default class UIManager {
    * @param {UIOptionsObject} config - ui config
    * @memberof UIManager
    */
-  constructor(player: Player, config: Object) {
+  constructor(player: Player, config: UIOptionsObject) {
     if (config.logLevel && this.LogLevel[config.logLevel]) {
       setLogLevel(this.LogLevel[config.logLevel]);
     }
     this.player = player;
-    this.config = config;
     this.targetId = config.targetId;
     this.store = createStore(reducer, window.devToolsExtension && window.devToolsExtension({
       name: `playkit #${this.targetId}`,
       instanceId: this.targetId
     }));
     this.setConfig(config);
+  }
+
+  /**
+   * Gets the updated state from the config reducer.
+   * @public
+   * @returns {UIOptionsObject} - The UI manager config.
+   */
+  get config(): UIOptionsObject {
+    return this.store.getState().config;
   }
 
   /**
@@ -121,12 +128,7 @@ export default class UIManager {
    */
   _buildUI(uis?: Array<UIPreset>): void {
     if (!this.player) return;
-
-    // define the store and devtools for redux
-    this.store.dispatch(actions.updateConfig({targetId: this.targetId, ...this.player.config}));
-
     const container = document.getElementById(this.targetId);
-
     // i18n, redux and initial player-to-store connector setup
     const template = (
       <Provider store={this.store}>
