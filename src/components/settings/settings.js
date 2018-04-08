@@ -134,7 +134,7 @@ class SettingsControl extends BaseComponent {
    * @memberof SettingsControl
    */
   getQualityOptionLabel(t: Object): string {
-    let resolution = t.height ? t.height + 'p' : undefined;
+    let resolution = t.label ? t.label : t.height ? t.height + 'p' : undefined;
     let mbs = t.bandwidth ? (t.bandwidth / 1000000).toPrecision(2) + 'Mbs' : undefined;
 
     if (!this.props.qualityType) {
