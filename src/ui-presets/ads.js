@@ -3,7 +3,6 @@ import style from '../styles/style.scss';
 import {h} from 'preact';
 import Loading from '../components/loading';
 import PlayPauseControl from '../components/play-pause';
-import SeekBarAdsContainer from '../components/seekbar-ads-container';
 import VolumeControl from '../components/volume';
 import FullscreenControl from '../components/fullscreen';
 import TimeDisplayAdsContainer from '../components/time-display-ads-container';
