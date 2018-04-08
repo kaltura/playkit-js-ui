@@ -134,16 +134,16 @@ class SettingsControl extends BaseComponent {
    * @memberof SettingsControl
    */
   getQualityOptionLabel(t: Object): string {
-    let resolution = t.label ? t.label : t.height ? t.height + 'p' : undefined;
+    let label = t.label ? t.label : t.height ? t.height + 'p' : undefined;
     let mbs = t.bandwidth ? (t.bandwidth / 1000000).toPrecision(2) + 'Mbs' : undefined;
 
     if (!this.props.qualityType) {
-      return resolution || mbs || 'N/A';
+      return label || mbs || 'N/A';
     }
     else if (this.props.qualityType.toUpperCase() === 'MBS' && mbs) {
       return mbs;
     }
-    else if (this.props.qualityType.toUpperCase() === 'RESOLUTION' && resolution) {
+    else if (this.props.qualityType.toUpperCase() === 'RESOLUTION' && label) {
       return t.height + 'p';
     }
     else if (t.label) {
