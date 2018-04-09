@@ -18,7 +18,7 @@ export const types = {
   UPDATE_AD_SKIP_TIME_OFFSET: 'engine/UPDATE_AD_SKIP_TIME_OFFSET',
   UPDATE_AD_SKIPPABLE_STATE: 'engine/UPDATE_AD_SKIPPABLE_STATE',
   UPDATE_AD_URL: 'engine/UPDATE_AD_URL',
-  UPDATE_PLAYER_POSTER: 'engine/UPDATE_PLATER_POSTER',
+  UPDATE_PLAYER_POSTER: 'engine/UPDATE_PLAYER_POSTER',
   UPDATE_IS_LIVE: 'engine/UPDATE_IS_LIVE',
   UPDATE_IS_DVR: 'engine/UPDATE_IS_DVR',
   UPDATE_ERROR: 'engine/ERROR',
@@ -198,7 +198,6 @@ export default (state: Object = initialState, action: Object) => {
         ...state,
         isIdle: action.IsIdle
       };
-
 
     default:
       return state;
