@@ -16,10 +16,10 @@ The order that the UI presets are defined and their respective conditions define
 
 The last preset should always be the default one that has no condition.
 
-:information_source:
+>:information_source:
 This guide assumes you are using the [Kaltura Player].</br>
 If you intend to build a new preset that will be compiled as part of the library then you can import the components and use JSX for building the preset.</br>
-Each section will contain a collapsable section to show snippet for building a preset inside the app
+Each section will also contain a collapsable section to show snippet for testing the UI application in standalone mode - where it is imported directly and not used as part of the Kaltura Player.
 
 [Kaltura Player]: https://github.com/kaltura/kaltura-player-js/
 
