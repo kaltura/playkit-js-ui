@@ -12,6 +12,8 @@ export {preact};
 export * as Presets from './ui-presets';
 // components
 export * as Components from './components'
+//Utils
+export * as Utils from './utils'
 
 export {UIManager};
 export {__VERSION__ as VERSION, __NAME__ as NAME};
