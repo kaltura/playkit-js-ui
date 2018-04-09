@@ -54,7 +54,7 @@ class OverlayAction extends BaseComponent {
   state: Object;
   _iconTimeout: ?number = null;
   _firstClickTime: number = 0;
-  _secondClickTime: number = 0;
+  _clickTimeout: ?number = 0;
 
   /**
    * Creates an instance of OverlayAction.
@@ -121,27 +121,38 @@ class OverlayAction extends BaseComponent {
 
     let currentTime = Date.now();
 
-    if (currentTime - this._firstClickTime < PLAY_PAUSE_BUFFER_TIME ) {
-      this.clickTimeout && clearTimeout(this.clickTimeout);
-      this._secondClickTime = currentTime;
+    if (currentTime - this._firstClickTime < PLAY_PAUSE_BUFFER_TIME) {
+      this.cancelClickTimeout();
       this.toggleFullscreen();
       return;
     }
     if (currentTime - this._firstClickTime < DOUBLE_CLICK_MAX_BUFFER_TIME) {
-      this.clickTimeout && clearTimeout(this.clickTimeout);
+      this.cancelClickTimeout();
       this.togglePlayPause();
       this.toggleFullscreen();
-      this._secondClickTime = currentTime;
       this._firstClickTime = 0;
       return;
     }
 
     this._firstClickTime = currentTime;
 
-    this.clickTimeout = setTimeout(() => {
-      this.clickTimeout = null;
+    this._clickTimeout = setTimeout(() => {
+      this._clickTimeout = null;
       this.togglePlayPause();
     }, PLAY_PAUSE_BUFFER_TIME);
+  }
+
+  /**
+   * cancel the clickTimeout
+   *
+   * @returns {void}
+   * @memberof OverlayAction
+   */
+  cancelClickTimeout(): void {
+    if (this._clickTimeout) {
+      clearTimeout(this._clickTimeout);
+      this._clickTimeout = null;
+    }
   }
 
   /**
