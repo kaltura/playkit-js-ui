@@ -7,6 +7,7 @@ declare var __NAME__: string;
 
 export {h} from 'preact';
 export {preact};
+export * as redux from 'preact-redux';
 
 // ui presets
 export * as Presets from './ui-presets';
