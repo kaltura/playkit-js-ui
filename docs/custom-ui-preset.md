@@ -49,9 +49,16 @@ const fullscreenUI = function(props){
 };
 ```
 
+### Using JSX
 If your app is using [Babel] for transpiling you can use [JSX] syntax which will be transpiled to the above code.
 In order to do this do the following:
-1. in your babel config (most likely in your `.babelrc` file) add:
+1. Install [transform-react-jsx](https://www.npmjs.com/package/babel-plugin-transform-react-jsx) with your favoruite package manager
+```bash
+yarn add -D babel-plugin-transform-react-jsx
+//or
+npm install --save-dev babel-plugin-transform-react-jsx
+```
+2. in your babel config (most likely in your `.babelrc` file) add:
 ```javascript
 "plugins": [
   [
@@ -63,7 +70,7 @@ In order to do this do the following:
 ]
 ```
 
-2. change the UI markup to use JSX syntax:
+3. change the UI markup to use JSX syntax:
 ```javascript
 //fullscreen-preset.js
 const components = KalturaPlayer.ui.components;
