@@ -63,7 +63,7 @@ In order to do this do the following:
 ]
 ```
 
-2. change the 
+2. change the UI markup to use JSX syntax:
 ```javascript
 //fullscreen-preset.js
 const components = KalturaPlayer.ui.components;
