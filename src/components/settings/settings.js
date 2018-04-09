@@ -127,34 +127,6 @@ class SettingsControl extends BaseComponent {
   }
 
   /**
-   * get the quality option label with fallbacks by optional configuration
-   *
-   * @param {Object} t - video track
-   * @returns {string} - quality option label
-   * @memberof SettingsControl
-   */
-  getQualityOptionLabel(t: Object): string {
-    let qualityLabel = t.qualityLabel ? t.qualityLabel : t.height ? t.height + 'p' : undefined;
-    let mbs = t.bandwidth ? (t.bandwidth / 1000000).toPrecision(2) + 'Mbs' : undefined;
-
-    if (!this.props.qualityType) {
-      return qualityLabel || mbs || 'N/A';
-    }
-    else if (this.props.qualityType.toUpperCase() === 'MBS' && mbs) {
-      return mbs;
-    }
-    else if (this.props.qualityType.toUpperCase() === 'RESOLUTION' && qualityLabel) {
-      return t.height + 'p';
-    }
-    else if (t.label) {
-      return t.label;
-    }
-    else {
-      return 'N/A'
-    }
-  }
-
-  /**
    * This function gets an array and increases it if needed in each iteration. The function checks if the last element
    * in the sorted array has the same resolution as the new current track element. If so, it compares their bandwidth
    * and the the one with the higher. If the resolution is different then it just adds it to the array
@@ -209,7 +181,7 @@ class SettingsControl extends BaseComponent {
       })
       .reduce(this.filterUniqueQualities, [])
       .map(t => ({
-        label: this.getQualityOptionLabel(t),
+        label: t.label,
         active: !this.player.isAdaptiveBitrateEnabled() && t.active,
         value: t
       }));
