@@ -58,6 +58,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
       if (this.autoplay === true) {
         this.player.addEventListener(this.player.Event.AUTOPLAY_FAILED, () => {
           this.autoplay = false;
+          this.forceUpdate();
         });
       }
     } catch (e) { // eslint-disable-line no-unused-vars
