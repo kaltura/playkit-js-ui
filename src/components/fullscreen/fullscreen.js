@@ -150,7 +150,7 @@ class FullscreenControl extends BaseComponent {
    * @memberof FullscreenControl
    */
   enterFullscreen(): void {
-    if (this.props.isMobile && this.player.env.os.name === 'iOS') {
+    if (this.player.env.os.name === 'iOS') {
       this.player.getVideoElement().webkitEnterFullScreen();
     } else {
       let elementToFullscreen = document.getElementById(this.props.targetId);
@@ -167,7 +167,7 @@ class FullscreenControl extends BaseComponent {
    * @memberof FullscreenControl
    */
   exitFullscreen() {
-    if (this.props.isMobile && this.player.env.os.name === 'iOS') {
+    if (this.player.env.os.name === 'iOS') {
       this.player.getVideoElement().webkitExitFullScreen();
     } else if (typeof document.exitFullscreen === 'function') {
       document.exitFullscreen();
