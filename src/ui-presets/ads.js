@@ -3,7 +3,6 @@ import style from '../styles/style.scss';
 import {h} from 'preact';
 import {Loading} from '../components/loading';
 import {PlayPauseControl} from '../components/play-pause';
-import {SeekBarAdsContainer} from '../components/seekbar-ads-container';
 import {VolumeControl} from '../components/volume';
 import {FullscreenControl} from '../components/fullscreen';
 import {TimeDisplayAdsContainer} from '../components/time-display-ads-container';
@@ -51,12 +50,6 @@ export function adsUI(props: any): ?React$Element<any> {
           {adsUiCustomization.skipButton ? <AdSkip player={props.player}/> : undefined}
         </div>
         <BottomBar>
-          <SeekBarAdsContainer
-            adBreak
-            showFramePreview
-            showTimeBubble
-            player={props.player}
-            playerContainer={props.playerContainer}/>
           <div className={style.leftControls}>
             <PlayPauseControl player={props.player}/>
             <TimeDisplayAdsContainer/>

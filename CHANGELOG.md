@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.20.0"></a>
+# [0.20.0](https://github.com/kaltura/playkit-js-ui/compare/v0.19.6...v0.20.0) (2018-04-09)
+
+
+### Bug Fixes
+
+* **FEC-8061:** old video thumbnails seen on scrubber ([#214](https://github.com/kaltura/playkit-js-ui/issues/214)) ([22144ad](https://github.com/kaltura/playkit-js-ui/commit/22144ad))
+* **FEC-8099:** delete seekbarAdsContainer component ([#213](https://github.com/kaltura/playkit-js-ui/issues/213)) ([24849b2](https://github.com/kaltura/playkit-js-ui/commit/24849b2))
+* **FEC-8099:** remove the seek bar while ad ([#210](https://github.com/kaltura/playkit-js-ui/issues/210)) ([be4a35f](https://github.com/kaltura/playkit-js-ui/commit/be4a35f))
+* **FEC-8107:** fullscreen APIs on IOS devices ([#212](https://github.com/kaltura/playkit-js-ui/issues/212)) ([91df91d](https://github.com/kaltura/playkit-js-ui/commit/91df91d))
+* idle UI ([1141fd1](https://github.com/kaltura/playkit-js-ui/commit/1141fd1))
+* player reset event name ([c071eb8](https://github.com/kaltura/playkit-js-ui/commit/c071eb8))
+* **FEC-8108:** no playback after preroll - android browser ([#216](https://github.com/kaltura/playkit-js-ui/issues/216)) ([8b88f06](https://github.com/kaltura/playkit-js-ui/commit/8b88f06))
+
+
+### Features
+
+* **FEC-7330:** enable setting custom track labels by app ([#211](https://github.com/kaltura/playkit-js-ui/issues/211)) ([ea6b485](https://github.com/kaltura/playkit-js-ui/commit/ea6b485))
+* **FEC-8084:** add loading spinner while preforming change media ([#209](https://github.com/kaltura/playkit-js-ui/issues/209)) ([2c702cd](https://github.com/kaltura/playkit-js-ui/commit/2c702cd))
+* **FEC-8102:** toggle fullscreen on double click ([#215](https://github.com/kaltura/playkit-js-ui/issues/215)) ([fe33564](https://github.com/kaltura/playkit-js-ui/commit/fe33564))
+
+
+
+<a name="0.19.6"></a>
+## [0.19.6](https://github.com/kaltura/playkit-js-ui/compare/v0.19.5...v0.19.6) (2018-03-27)
+
+
+### Bug Fixes
+
+* remove retry button when retry not possible ([#205](https://github.com/kaltura/playkit-js-ui/issues/205)) ([ea28008](https://github.com/kaltura/playkit-js-ui/commit/ea28008))
+* **FEC-8079:** hide UI on player RESET event ([#207](https://github.com/kaltura/playkit-js-ui/issues/207)) ([f6f51be](https://github.com/kaltura/playkit-js-ui/commit/f6f51be))
+
+
+
 <a name="0.19.5"></a>
 ## [0.19.5](https://github.com/kaltura/playkit-js-ui/compare/v0.19.4...v0.19.5) (2018-03-21)
 

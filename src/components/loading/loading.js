@@ -38,18 +38,14 @@ class Loading extends BaseComponent {
 
   /**
    * after component mounted, set event listener to player state change and update the state of loading spinner accordingly.
-   * initially, if not mobile and autoplay is on, show the loading spinner without dependency on the player state.
-   * if is mobile and mobile autoplay is on, show the loading spinner without dependency on the player state.
    *
    * @returns {void}
    * @memberof Loading
    */
   componentDidMount() {
     this.player.addEventListener(this.player.Event.PLAYER_STATE_CHANGED, e => {
+      if (!this.state.afterPlayingEvent) return;
       const StateType = this.player.State;
-      if (!this.state.afterPlayingEvent) {
-        return;
-      }
       if (e.payload.newState.type === StateType.IDLE
         || e.payload.newState.type === StateType.PLAYING
         || e.payload.newState.type === StateType.PAUSED) {
@@ -60,8 +56,10 @@ class Loading extends BaseComponent {
     });
 
     this.player.addEventListener(this.player.Event.SOURCE_SELECTED, () => {
-      if (this.player.config.autoplay) {
+      if (this.player.config.playback.autoplay) {
         this.props.updateLoadingSpinnerState(true);
+      } else {
+        this.props.updateLoadingSpinnerState(false);
       }
     });
 

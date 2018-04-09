@@ -33,8 +33,8 @@ class EngineConnector extends BaseComponent {
   componentDidMount() {
     const TrackType = this.player.Track;
 
-    this.player.addEventListener(this.player.Event.PLAYER_RESET_ENDED, () => {
-      this.props.updateIsStopped(true);
+    this.player.addEventListener(this.player.Event.PLAYER_RESET, () => {
+      this.props.updateIsIdle(true);
     });
 
     this.player.addEventListener(this.player.Event.SOURCE_SELECTED, () => {
@@ -49,7 +49,7 @@ class EngineConnector extends BaseComponent {
 
     this.player.addEventListener(this.player.Event.CHANGE_SOURCE_ENDED, () => {
       this.props.updatePlayerPoster(this.player.poster);
-      this.props.updateIsStopped(false);
+      this.props.updateIsIdle(false);
     });
 
     this.player.addEventListener(this.player.Event.PLAYER_STATE_CHANGED, (e) => {
