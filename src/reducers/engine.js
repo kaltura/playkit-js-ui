@@ -22,11 +22,11 @@ export const types = {
   UPDATE_IS_LIVE: 'engine/UPDATE_IS_LIVE',
   UPDATE_IS_DVR: 'engine/UPDATE_IS_DVR',
   UPDATE_ERROR: 'engine/ERROR',
-  UPDATE_IS_STOPPED: 'engine/UPDATE_IS_STOPPED'
+  UPDATE_IS_IDLE: 'engine/UPDATE_IS_IDLE'
 };
 
 export const initialState = {
-  isStopped: false,
+  isIdle: false,
   isPlaying: false,
   isEnded: false,
   metadataLoaded: false,
@@ -193,10 +193,10 @@ export default (state: Object = initialState, action: Object) => {
         isDvr: action.isDvr
       };
 
-    case types.UPDATE_IS_STOPPED:
+    case types.UPDATE_IS_IDLE:
       return {
         ...state,
-        isStopped: action.stopped
+        isIdle: action.IsIdle
       };
 
 
@@ -237,5 +237,5 @@ export const actions = {
   updatePlayerPoster: (poster: string) => ({type: types.UPDATE_PLAYER_POSTER, poster}),
   updateIsLive: (isLive: boolean) => ({type: types.UPDATE_IS_LIVE, isLive}),
   updateIsDvr: (isDvr: boolean) => ({type: types.UPDATE_IS_DVR, isDvr}),
-  updateIsStopped: (stopped: boolean) => ({type: types.UPDATE_IS_STOPPED, stopped})
+  updateIsIdle: (IsIdle: boolean) => ({type: types.UPDATE_IS_IDLE, IsIdle: IsIdle})
 };

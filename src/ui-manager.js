@@ -25,7 +25,7 @@ import adsUI from './ui-presets/ads';
 import playbackUI from './ui-presets/playback';
 import liveUI from './ui-presets/live';
 import errorUI from './ui-presets/error';
-import resetUI from './ui-presets/reset'
+import idleUI from './ui-presets/idle'
 
 import './styles/style.scss';
 
@@ -96,7 +96,7 @@ export default class UIManager {
    */
   buildDefaultUI(): void {
     const uis = [
-      {template: props => resetUI(props), condition: state => state.engine.isStopped},
+      {template: props => idleUI(props), condition: state => state.engine.isIdle},
       {template: props => errorUI(props), condition: state => state.engine.hasError},
       {template: props => adsUI(props), condition: state => state.engine.adBreak},
       {template: props => liveUI(props), condition: state => state.engine.isLive},

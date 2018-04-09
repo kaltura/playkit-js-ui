@@ -13,8 +13,7 @@ const mapStateToProps = state => ({
     engine: {
       adBreak: state.engine.adBreak,
       isLive: state.engine.isLive,
-      hasError: state.engine.hasError,
-      isStopped: state.engine.isStopped
+      hasError: state.engine.hasError
     }
   },
   config: state.config
