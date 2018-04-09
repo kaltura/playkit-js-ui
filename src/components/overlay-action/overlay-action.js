@@ -33,7 +33,7 @@ export const OVERLAY_ACTION_DEFAULT_TIMEOUT = 300;
  * @type {number}
  * @const
  */
-const DOUBLE_CLICK_BUFFER_TIME: number = 200;
+const PLAY_PAUSE_BUFFER_TIME: number = 200;
 
 /**
  * The maximun time two click would be considered a double click
@@ -53,8 +53,8 @@ const DOUBLE_CLICK_MAX_BUFFER_TIME: number = 500;
 class OverlayAction extends BaseComponent {
   state: Object;
   _iconTimeout: ?number = null;
-  _clickTime: number = 0;
-  _doubleClickTime: number = 0;
+  _firstClickTime: number = 0;
+  _secondClickTime: number = 0;
 
   /**
    * Creates an instance of OverlayAction.
@@ -119,23 +119,29 @@ class OverlayAction extends BaseComponent {
       return;
     }
 
-    let now = Date.now();
-    if (now - this._clickTime < DOUBLE_CLICK_BUFFER_TIME) {
-      this._doubleClickTime = now;
+    let currentTime = Date.now();
+
+    if (currentTime - this._firstClickTime < PLAY_PAUSE_BUFFER_TIME ) {
+      this.clickTimeout && clearTimeout(this.clickTimeout);
+      this._secondClickTime = currentTime;
       this.toggleFullscreen();
-      return;
-    } else if (now - this._clickTime < DOUBLE_CLICK_MAX_BUFFER_TIME) {
-      this.togglePlayPause();
-      this.toggleFullscreen();
-      this._doubleClickTime = now;
       return;
     }
-    this._clickTime = now;
-    setTimeout(() => {
-      if (Date.now() - this._doubleClickTime > DOUBLE_CLICK_BUFFER_TIME) {
-        this.togglePlayPause();
-      }
-    }, DOUBLE_CLICK_BUFFER_TIME);
+    if (currentTime - this._firstClickTime < DOUBLE_CLICK_MAX_BUFFER_TIME) {
+      this.clickTimeout && clearTimeout(this.clickTimeout);
+      this.togglePlayPause();
+      this.toggleFullscreen();
+      this._secondClickTime = currentTime;
+      this._firstClickTime = 0;
+      return;
+    }
+
+    this._firstClickTime = currentTime;
+
+    this.clickTimeout = setTimeout(() => {
+      this.clickTimeout = null;
+      this.togglePlayPause();
+    }, PLAY_PAUSE_BUFFER_TIME);
   }
 
   /**
