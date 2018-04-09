@@ -49,6 +49,7 @@ const fullscreenUI = function(props){
 };
 ```
 
+### using JSX
 If your app is using [Babel] for transpiling you can use [JSX] syntax which will be transpiled to the above code.
 In order to do this do the following:
 1. in your babel config (most likely in your `.babelrc` file) add:
