@@ -1,1 +1,1 @@
-export {bindActions} from 'bind-actions';
+export {bindActions} from './bind-actions';
