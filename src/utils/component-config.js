@@ -1,16 +1,31 @@
 //@flow
+import {Utils} from 'playkit-js'
+
 /**
- * Gets config param value
- * @param {*} config property name
- * @param {string} alias component name alias
- * @returns {Object} component config object
+ * @param {string} component - The component name.
+ * @param {string} oldState - The component old state.
+ * @param {string} action - The action object.
+ * @returns {Object} - The component updated state.
  */
-function getComponentConfig(config: any, alias: string): Object {
-  try {
-    return config.components[alias];
-  } catch (error) {
-    return {};
+function getComponentStateFromConfig(component: string, oldState: Object, action: Object): Object {
+  const componentConfig = action.config.components && action.config.components[component];
+  if (componentConfig) {
+    return Utils.Object.mergeDeep(oldState, componentConfig);
   }
+  return oldState;
+}
+
+/**
+ * @param {string} component - The component name.
+ * @param {string} oldState - The component old state.
+ * @param {string} action - The action object.
+ * @returns {Object} - The component updated state.
+ */
+function getComponentStateFromComponentConfig(component: string, oldState: Object, action: Object): Object {
+  if (action.componentAlias === component) {
+    return Utils.Object.mergeDeep(oldState, action.config);
+  }
+  return oldState;
 }
 
 /**
@@ -25,4 +40,4 @@ function shouldRenderComponent(config: Object, alias: string) {
     componentConfig.constructor === Object);
 }
 
-export {shouldRenderComponent, getComponentConfig};
+export {shouldRenderComponent, getComponentStateFromConfig, getComponentStateFromComponentConfig};

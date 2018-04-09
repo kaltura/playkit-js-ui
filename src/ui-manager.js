@@ -3,6 +3,7 @@ import {h, render} from 'preact';
 import {Provider} from 'preact-redux';
 import {IntlProvider} from 'preact-i18n';
 import {createStore} from 'redux';
+import {copyDeep} from './utils/copy-deep';
 import {LogLevel, getLogLevel, setLogLevel} from './utils/logger'
 
 
@@ -24,6 +25,7 @@ import adsUI from './ui-presets/ads';
 import playbackUI from './ui-presets/playback';
 import liveUI from './ui-presets/live';
 import errorUI from './ui-presets/error';
+import idleUI from './ui-presets/idle'
 
 import './styles/style.scss';
 
@@ -39,7 +41,6 @@ type UIPreset = {
  */
 export default class UIManager {
   player: Player;
-  config: UIOptionsObject;
   targetId: string;
   store: any;
 
@@ -49,18 +50,26 @@ export default class UIManager {
    * @param {UIOptionsObject} config - ui config
    * @memberof UIManager
    */
-  constructor(player: Player, config: Object) {
+  constructor(player: Player, config: UIOptionsObject) {
     if (config.logLevel && this.LogLevel[config.logLevel]) {
       setLogLevel(this.LogLevel[config.logLevel]);
     }
     this.player = player;
-    this.config = config;
     this.targetId = config.targetId;
     this.store = createStore(reducer, window.devToolsExtension && window.devToolsExtension({
       name: `playkit #${this.targetId}`,
       instanceId: this.targetId
     }));
     this.setConfig(config);
+  }
+
+  /**
+   * Gets the updated state from the config reducer.
+   * @public
+   * @returns {UIOptionsObject} - The UI manager config.
+   */
+  get config(): UIOptionsObject {
+    return copyDeep(this.store.getState().config);
   }
 
   /**
@@ -87,6 +96,7 @@ export default class UIManager {
    */
   buildDefaultUI(): void {
     const uis = [
+      {template: props => idleUI(props), condition: state => state.engine.isIdle},
       {template: props => errorUI(props), condition: state => state.engine.hasError},
       {template: props => adsUI(props), condition: state => state.engine.adBreak},
       {template: props => liveUI(props), condition: state => state.engine.isLive},
@@ -121,12 +131,7 @@ export default class UIManager {
    */
   _buildUI(uis?: Array<UIPreset>): void {
     if (!this.player) return;
-
-    // define the store and devtools for redux
-    this.store.dispatch(actions.updateConfig({targetId: this.targetId, ...this.player.config}));
-
     const container = document.getElementById(this.targetId);
-
     // i18n, redux and initial player-to-store connector setup
     const template = (
       <Provider store={this.store}>
