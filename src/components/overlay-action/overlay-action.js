@@ -28,6 +28,20 @@ const mapStateToProps = state => ({
  */
 export const OVERLAY_ACTION_DEFAULT_TIMEOUT = 300;
 
+/**
+ * The buffer before
+ * @type {number}
+ * @const
+ */
+const PLAY_PAUSE_BUFFER_TIME: number = 200;
+
+/**
+ * The maximun time two click would be considered a double click
+ * @type {number}
+ * @const
+ */
+const DOUBLE_CLICK_MAX_BUFFER_TIME: number = 500;
+
 @connect(mapStateToProps, bindActions(actions))
   /**
    * OverlayAction component
@@ -39,6 +53,8 @@ export const OVERLAY_ACTION_DEFAULT_TIMEOUT = 300;
 class OverlayAction extends BaseComponent {
   state: Object;
   _iconTimeout: ?number = null;
+  _firstClickTime: number = 0;
+  _clickTimeout: ?number = 0;
 
   /**
    * Creates an instance of OverlayAction.
@@ -76,7 +92,24 @@ class OverlayAction extends BaseComponent {
   }
 
   /**
-   * handler for overlay click
+   * toggle exit-enter fullscreen
+   *
+   * @returns {void}
+   * @memberof OverlayAction
+   */
+  toggleFullscreen(): void {
+    if (!this.player.isFullscreen()) {
+      this.logger.debug("Enter fullscreen");
+      this.player.enterFullscreen();
+
+    } else {
+      this.logger.debug("Exit fullscreen");
+      this.player.exitFullscreen();
+    }
+  }
+
+  /**
+   * Handler for overlay click
    *
    * @returns {void}
    * @memberof OverlayAction
@@ -85,7 +118,41 @@ class OverlayAction extends BaseComponent {
     if (this.props.isMobile) {
       return;
     }
-    this.togglePlayPause();
+
+    let currentTime = Date.now();
+
+    if (currentTime - this._firstClickTime < PLAY_PAUSE_BUFFER_TIME) {
+      this.cancelClickTimeout();
+      this.toggleFullscreen();
+      return;
+    }
+    if (currentTime - this._firstClickTime < DOUBLE_CLICK_MAX_BUFFER_TIME) {
+      this.cancelClickTimeout();
+      this.togglePlayPause();
+      this.toggleFullscreen();
+      this._firstClickTime = 0;
+      return;
+    }
+
+    this._firstClickTime = currentTime;
+
+    this._clickTimeout = setTimeout(() => {
+      this._clickTimeout = null;
+      this.togglePlayPause();
+    }, PLAY_PAUSE_BUFFER_TIME);
+  }
+
+  /**
+   * cancel the clickTimeout
+   *
+   * @returns {void}
+   * @memberof OverlayAction
+   */
+  cancelClickTimeout(): void {
+    if (this._clickTimeout) {
+      clearTimeout(this._clickTimeout);
+      this._clickTimeout = null;
+    }
   }
 
   /**
