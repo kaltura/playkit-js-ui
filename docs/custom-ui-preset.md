@@ -82,7 +82,7 @@ const fullscreenUI = function(props){
 [Babel]: http://babeljs.io/
 
 <details>
-  <summary>Building a preset inside the app</summary>
+  <summary>Example if importing the UI in standalone mode</summary>
   
 ```javascript
 //fullscreen-preset.js
