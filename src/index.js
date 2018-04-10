@@ -7,14 +7,17 @@ declare var __NAME__: string;
 
 export {h} from 'preact';
 export {preact};
-export * as redux from 'preact-redux';
+import * as redux from 'preact-redux';
+export {redux}
 
 // ui presets
-export * as Presets from './ui-presets';
+import * as Presets from './ui-presets';
 // components
-export * as Components from './components'
+import * as Components from './components'
 //Utils
-export * as Utils from './utils'
+import * as Utils from './utils'
+
+export {Presets, Components, Utils}
 
 export {UIManager};
 export {__VERSION__ as VERSION, __NAME__ as NAME};
