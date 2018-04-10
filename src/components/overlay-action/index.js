@@ -1,1 +1,1 @@
-export default from './overlay-action';
+export {OverlayAction} from './overlay-action';

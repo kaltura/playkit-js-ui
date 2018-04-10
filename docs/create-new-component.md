@@ -5,7 +5,27 @@
 This component will just be a div wrapper with a className
 
 ```javascript
-import { h, Component } from 'preact';
+const h = KalturaPlayer.ui.h;
+const BaseComponent = KalturaPlayer.ui.Components.BaseComponent;
+
+class DumbComponent extends Component {
+  render(props) {
+    return h(
+      'div', 
+      {className: 'dumb-component'},
+      props.children
+    )
+  }
+}
+
+export default DumbComponent;
+```
+
+If you want to use JSX follow this [guide](./custom-ui-preset.md#using-jsx), and use following JSX syntax:
+
+```javascript
+const h = KalturaPlayer.ui.h;
+const BaseComponent = KalturaPlayer.ui.Components.BaseComponent;
 
 class DumbComponent extends Component {
   render(props) {
@@ -20,6 +40,20 @@ export default DumbComponent;
 
 The usage of this component will be:
 
+```javascript
+const h = KalturaPlayer.ui.h;
+h(
+  DumbComponent,
+  null,
+  h(
+    "p",
+    null,
+    "You can add here any components and html you want and it will be appended to the DumbComponent"
+  )
+);
+```
+
+Or again, if using JSX:
 ```html
 <DumbComponent>
   <p>You can add here any components and html you want and it will be appended to the DumbComponent</p>
@@ -35,13 +69,12 @@ The component will also get a prop of additional className.
 
 ```javascript
 //@flow
-import { h } from 'preact';
-import { bindActions } from '../../utils/bind-actions';
-import BaseComponent from '../base';
+const h = KalturaPlayer.ui.h;
+const BaseComponent = KalturaPlayer.ui.Components.BaseComponent;
+const connect = playkit.ui.redux.connect;
 
 const mapStateToProps = state => ({ playerState: state.engine.playerState });
 
-@connect(mapStateToProps)
 class PlayerStateLog extends BaseComponent {
   log = new Array();
 
@@ -56,21 +89,63 @@ class PlayerStateLog extends BaseComponent {
     className += ` ${props.additionalClass}`;
 
     return (
-      <ul className={className}>
-        { this.log.map(playerState => <li>{playerState}</li>) }
-      </div>
+      h(
+        "ul",
+        { className: className },
+        this.log.map(function (playerState) {
+          return h(
+            "li",
+            null,
+            playerState
+          );
+        })
+      )
     )
   }
 }
 
-export default PlayerStateLog;
+export default connect(mapStateToProps)(PlayerStateLog);
 
 ```
 
 The usage of this component will be:
 
+```javascript
+const h = KalturaPlayer.ui.h;
+h(
+  PlayerStateLog,
+  { additionalClass: 'red-list' }
+);
+```
+
+Or again, if using JSX:
+
+change the `render` method above to
+
+```javascript
+return (
+  <ul className={className}>
+    { this.log.map(playerState => <li>{playerState}</li>) }
+  </ul>
+)
+```
+
+And the usage of this component will be:
+
 ```html
 <PlayerStateLog additionalClass='red-list' />
 ```
 
+### Creating a component to be included in the core library
 
+If a component is to be made in order to be included in the core library then same guidelines are applied as above.
+
+Main difference it that dependencies are managed by importing the core libraries.
+
+instead of referring to the components via the `KalturaPlayer.ui.*` path they can be included like:
+
+```javascript
+import { h, Component } from 'preact';
+import { bindActions } from '../../utils/bind-actions';
+import BaseComponent from '../base';
+```

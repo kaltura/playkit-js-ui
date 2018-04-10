@@ -7,9 +7,9 @@ import {bindActions} from '../../utils/bind-actions';
 import {actions as cvaaActions} from '../../reducers/cvaa';
 import {actions as shellActions} from '../../reducers/shell';
 import BaseComponent from '../base';
-import Overlay from '../overlay';
-import DropDown from '../dropdown';
-import Slider from '../slider';
+import {Overlay} from '../overlay';
+import {DropDown} from '../dropdown';
+import {Slider} from '../slider';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from "../../utils/key-map";
 
@@ -333,4 +333,4 @@ class CVAAOverlay extends BaseComponent {
   }
 }
 
-export default CVAAOverlay;
+export {CVAAOverlay};

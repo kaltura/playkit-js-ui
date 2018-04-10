@@ -214,4 +214,4 @@ class FullscreenControl extends BaseComponent {
   }
 }
 
-export default FullscreenControl;
+export {FullscreenControl};

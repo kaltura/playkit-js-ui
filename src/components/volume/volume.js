@@ -267,4 +267,4 @@ class VolumeControl extends BaseComponent {
   }
 }
 
-export default VolumeControl;
+export {VolumeControl};

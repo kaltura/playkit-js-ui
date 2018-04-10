@@ -1,1 +1,1 @@
-export default from './error-overlay';
+export {ErrorOverlay} from './error-overlay';

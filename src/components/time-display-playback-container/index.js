@@ -1,1 +1,1 @@
-export default from './time-display-playback-container';
+export {TimeDisplayPlaybackContainer} from './time-display-playback-container';

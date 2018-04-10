@@ -475,4 +475,4 @@ class SeekBarControl extends Component {
   }
 }
 
-export default SeekBarControl;
+export {SeekBarControl};

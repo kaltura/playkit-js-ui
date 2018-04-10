@@ -34,4 +34,4 @@ class OverlayPortal extends Component {
   }
 }
 
-export default OverlayPortal;
+export {OverlayPortal};

@@ -1,1 +1,1 @@
-export default from './live-tag';
+export {LiveTag} from './live-tag';

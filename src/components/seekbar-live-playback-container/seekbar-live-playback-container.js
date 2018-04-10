@@ -4,7 +4,7 @@ import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/seekbar';
 import BaseComponent from '../base';
-import SeekBarControl from '../seekbar';
+import {SeekBarControl} from '../seekbar';
 
 /**
  * mapping state to props
@@ -86,4 +86,4 @@ class SeekBarLivePlaybackContainer extends BaseComponent {
 
 }
 
-export default SeekBarLivePlaybackContainer;
+export {SeekBarLivePlaybackContainer};

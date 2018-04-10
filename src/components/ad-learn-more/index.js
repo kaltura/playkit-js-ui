@@ -1,1 +1,1 @@
-export default from './ad-learn-more';
+export {AdLearnMore} from './ad-learn-more';

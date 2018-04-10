@@ -1,1 +1,1 @@
-export default from './ad-skip';
+export {AdSkip} from './ad-skip';

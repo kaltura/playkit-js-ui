@@ -1,1 +1,1 @@
-export default from './share-overlay';
+export {ShareOverlay} from './share-overlay';
