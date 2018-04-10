@@ -47,7 +47,7 @@ class BaseComponent extends Component {
   }
 
   /**
-   * Notify the store that a changeable component has been clicked.
+   * Notify the store that a changeable component has been change.
    * @param {any} payload - Optional payload.
    * @returns {void}
    *
