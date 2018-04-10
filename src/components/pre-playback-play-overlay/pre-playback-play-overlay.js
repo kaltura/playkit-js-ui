@@ -116,6 +116,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
     if (this.props.prePlayback) {
       this._hidePrePlayback();
       this.props.updateLoadingSpinnerState(true);
+      this.notifyClick();
     }
   }
 

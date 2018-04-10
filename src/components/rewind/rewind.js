@@ -45,6 +45,7 @@ class RewindControl extends BaseComponent {
     } else {
       this.player.currentTime = this.player.currentTime - step;
     }
+    this.notifyClick();
   }
 
   /**

@@ -1,5 +1,6 @@
 // @flow
 import UIManager from './ui-manager'
+import {EventType} from './event/event-type'
 
 declare var __VERSION__: string;
 declare var __NAME__: string;
@@ -29,6 +30,6 @@ export {BottomBar} from './components/bottom-bar';
 export {OverlayPortal} from './components/overlay-portal';
 export {KeyboardControl} from './components/keyboard';
 export {ErrorOverlay} from './components/error-overlay';
-
+export {EventType};
 export {UIManager};
 export {__VERSION__ as VERSION, __NAME__ as NAME};

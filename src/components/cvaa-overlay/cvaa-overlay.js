@@ -112,6 +112,9 @@ class CVAAOverlay extends BaseComponent {
     this.props.updateCaptionsStyle(textStyle);
     this.props.player.textStyle = textStyle;
     this.props.onClose();
+    this.notifyClick({
+      textStyle: textStyle
+    });
   }
 
   /**

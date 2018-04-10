@@ -3,8 +3,6 @@ import style from '../../styles/style.scss';
 import {h} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {connect} from 'preact-redux';
-import {bindActions} from '../../utils/bind-actions';
-import {actions} from '../../reducers/play-pause';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from "../../utils/key-map";
@@ -21,7 +19,7 @@ const mapStateToProps = state => ({
   isEnded: state.engine.isEnded
 });
 
-@connect(mapStateToProps, bindActions(actions))
+@connect(mapStateToProps)
   /**
    * PlayPauseControl component
    *
@@ -49,6 +47,7 @@ class PlayPauseControl extends BaseComponent {
   togglePlayPause(): void {
     this.logger.debug('Toggle play');
     this.isPlayingAdOrPlayback() ? this.player.pause() : this.player.play();
+    this.notifyClick();
   }
 
   /**

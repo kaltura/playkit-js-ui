@@ -2,6 +2,7 @@
 import {Component} from 'preact';
 import Player from 'playkit-js';
 import getLogger from '../utils/logger';
+import {types} from '../middlewars/event-dispacher';
 
 /**
  * Base component to be extended by other player UI components
@@ -28,6 +29,36 @@ class BaseComponent extends Component {
     this.config = obj.config;
     this.logger = getLogger(`UI ${this.name}`);
     this.logger.debug(`Initialized`);
+  }
+
+  /**
+   * Notify the store that a clickable component has been clicked.
+   * @param {any} payload - Optional payload.
+   * @returns {void}
+   *
+   * @memberof BaseComponent
+   */
+  notifyClick(payload?: any): void {
+    this.context.store.dispatch({
+      type: types.COMPONENT_CLICKED,
+      name: this.name,
+      payload: payload
+    });
+  }
+
+  /**
+   * Notify the store that a changeable component has been clicked.
+   * @param {any} payload - Optional payload.
+   * @returns {void}
+   *
+   * @memberof BaseComponent
+   */
+  notifyChange(payload?: any): void {
+    this.context.store.dispatch({
+      type: types.COMPONENT_CHANGED,
+      name: this.name,
+      payload: payload
+    });
   }
 }
 

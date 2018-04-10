@@ -123,6 +123,7 @@ class Shell extends BaseComponent {
       this.player.muted = false;
       this._fallbackToMutedAutoPlayMode = false;
     }
+    this.notifyClick();
   }
 
   /**

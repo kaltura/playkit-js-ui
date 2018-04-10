@@ -118,6 +118,10 @@ class LanguageControl extends BaseComponent {
    */
   onAudioChange(audioTrack: Object): void {
     this.player.selectTrack(audioTrack);
+    this.notifyClick({
+      type: this.player.Track.AUDIO,
+      track: audioTrack
+    });
   }
 
   /**
@@ -129,6 +133,10 @@ class LanguageControl extends BaseComponent {
    */
   onCaptionsChange(textTrack: Object): void {
     this.player.selectTrack(textTrack);
+    this.notifyClick({
+      type: this.player.Track.TEXT,
+      track: textTrack
+    });
   }
 
   /**
