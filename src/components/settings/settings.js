@@ -6,8 +6,8 @@ import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/settings';
 import BaseComponent from '../base';
-import SmartContainer from '../smart-container';
-import SmartContainerItem from '../smart-container/smart-container-item';
+import {SmartContainer} from '../smart-container';
+import {SmartContainerItem} from '../smart-container/smart-container-item';
 import {default as Icon, IconType} from '../icon';
 
 /**
@@ -239,4 +239,4 @@ class SettingsControl extends BaseComponent {
   }
 }
 
-export default SettingsControl;
+export {SettingsControl};

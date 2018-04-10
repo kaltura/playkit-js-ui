@@ -1,1 +1,1 @@
-export default from './rewind';
+export {RewindControl} from './rewind';

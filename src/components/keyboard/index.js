@@ -1,1 +1,1 @@
-export default from './keyboard';
+export {KeyboardControl} from './keyboard';

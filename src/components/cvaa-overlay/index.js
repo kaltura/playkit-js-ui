@@ -1,1 +1,1 @@
-export default from './cvaa-overlay';
+export {CVAAOverlay} from './cvaa-overlay';

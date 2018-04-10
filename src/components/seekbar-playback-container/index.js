@@ -1,1 +1,1 @@
-export default from './seekbar-playback-container';
+export {SeekBarPlaybackContainer} from './seekbar-playback-container';

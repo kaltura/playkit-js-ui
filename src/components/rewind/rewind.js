@@ -89,4 +89,4 @@ class RewindControl extends BaseComponent {
   }
 }
 
-export default RewindControl;
+export {RewindControl};

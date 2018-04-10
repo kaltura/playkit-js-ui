@@ -86,4 +86,4 @@ class LiveTag extends BaseComponent {
   }
 }
 
-export default LiveTag;
+export {LiveTag};

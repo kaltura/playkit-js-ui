@@ -95,4 +95,4 @@ class PlayPauseControl extends BaseComponent {
   }
 }
 
-export default PlayPauseControl;
+export {PlayPauseControl};

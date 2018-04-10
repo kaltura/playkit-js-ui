@@ -2,7 +2,7 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
-import Menu from '../menu';
+import {Menu} from '../menu';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from "../../utils/key-map";
 
@@ -154,4 +154,4 @@ class DropDown extends Component {
   }
 }
 
-export default DropDown;
+export {DropDown};

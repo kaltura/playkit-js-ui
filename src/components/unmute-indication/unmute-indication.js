@@ -114,4 +114,4 @@ class UnmuteIndication extends BaseComponent {
   }
 }
 
-export default UnmuteIndication;
+export {UnmuteIndication};

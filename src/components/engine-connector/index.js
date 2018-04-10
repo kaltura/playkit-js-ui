@@ -1,1 +1,1 @@
-export default from './engine-connector';
+export {EngineConnector} from './engine-connector';

@@ -1,1 +1,1 @@
-export default from './time-display-ads-container';
+export {TimeDisplayAdsContainer} from './time-display-ads-container';

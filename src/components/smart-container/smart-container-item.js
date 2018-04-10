@@ -1,7 +1,7 @@
 //@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
-import DropDown from '../dropdown';
+import {DropDown} from '../dropdown';
 import {default as Icon, IconType} from '../icon';
 
 /**
@@ -32,4 +32,4 @@ class SmartContainerItem extends Component {
   }
 }
 
-export default SmartContainerItem;
+export {SmartContainerItem};

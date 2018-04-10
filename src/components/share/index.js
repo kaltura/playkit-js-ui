@@ -1,1 +1,1 @@
-export default from './share';
+export {ShareControl} from './share';

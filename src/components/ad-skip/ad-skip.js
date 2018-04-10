@@ -83,4 +83,4 @@ class AdSkip extends BaseComponent {
   }
 }
 
-export default AdSkip;
+export {AdSkip};

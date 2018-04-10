@@ -5,7 +5,7 @@ import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
 import Portal from 'preact-portal';
-import Overlay from '../overlay';
+import {Overlay} from '../overlay';
 import {KeyMap} from "../../utils/key-map";
 
 /**
@@ -87,4 +87,4 @@ class SmartContainer extends Component {
   }
 }
 
-export default SmartContainer;
+export {SmartContainer};

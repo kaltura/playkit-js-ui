@@ -195,4 +195,4 @@ class EngineConnector extends BaseComponent {
   }
 }
 
-export default EngineConnector;
+export {EngineConnector};

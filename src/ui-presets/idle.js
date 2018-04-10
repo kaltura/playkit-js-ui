@@ -10,7 +10,7 @@ import Loading from '../components/loading';
  * @param {*} props component props
  * @returns {React$Element} player ui tree
  */
-export default function idleUI(props: any): React$Element<any> {
+export function idleUI(props: any): React$Element<any> {
   return (
     <div className={style.playbackGuiWWrapper}>
       <Loading player={props.player}/>

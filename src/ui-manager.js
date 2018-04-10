@@ -15,17 +15,13 @@ import {actions} from './reducers/config';
 import {Player} from 'playkit-js';
 
 // core components for the UI
-import EngineConnector from './components/engine-connector';
-import Shell from './components/shell';
-import VideoPlayer from './components/video-player';
-import PlayerGUI from './player-gui';
+import {EngineConnector} from './components/engine-connector';
+import {Shell} from './components/shell';
+import {VideoPlayer} from './components/video-player';
+import {PlayerGUI} from './player-gui';
 
 // ui presets
-import adsUI from './ui-presets/ads';
-import playbackUI from './ui-presets/playback';
-import liveUI from './ui-presets/live';
-import errorUI from './ui-presets/error';
-import idleUI from './ui-presets/idle'
+import * as presets from './ui-presets';
 
 import {middleware} from './middlewars'
 
@@ -95,11 +91,11 @@ export default class UIManager {
    */
   buildDefaultUI(): void {
     const uis = [
-      {template: props => idleUI(props), condition: state => state.engine.isIdle},
-      {template: props => errorUI(props), condition: state => state.engine.hasError},
-      {template: props => adsUI(props), condition: state => state.engine.adBreak},
-      {template: props => liveUI(props), condition: state => state.engine.isLive},
-      {template: props => playbackUI(props)}
+      {template: props => presets.idleUI(props), condition: state => state.engine.isIdle},
+      {template: props => presets.errorUI(props), condition: state => state.engine.hasError},
+      {template: props => presets.adsUI(props), condition: state => state.engine.adBreak},
+      {template: props => presets.liveUI(props), condition: state => state.engine.isLive},
+      {template: props => presets.playbackUI(props)}
     ];
     this._buildUI(uis);
   }
@@ -116,7 +112,7 @@ export default class UIManager {
       this._buildUI(uis);
     }
     else {
-      let fallbackUIs = [{template: props => playbackUI(props)}];
+      let fallbackUIs = [{template: props => presets.playbackUI(props)}];
       this._buildUI(fallbackUIs);
     }
   }

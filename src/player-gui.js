@@ -66,4 +66,4 @@ class PlayerGUI extends Component {
   }
 }
 
-export default PlayerGUI;
+export {PlayerGUI};

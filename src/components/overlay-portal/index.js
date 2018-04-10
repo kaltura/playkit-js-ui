@@ -1,1 +1,1 @@
-export default from './overlay-portal';
+export {OverlayPortal} from './overlay-portal';

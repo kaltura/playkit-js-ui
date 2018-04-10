@@ -34,4 +34,4 @@ class AdLearnMore extends Component {
   }
 }
 
-export default AdLearnMore;
+export {AdLearnMore};

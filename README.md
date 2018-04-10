@@ -6,6 +6,14 @@ PlayKit JS UI is a UI Application Framework for composing PlayKit JS Player UI.
 
 The application uses [Preact] to manage virtual DOM and provide a declarative way for building UI and [Redux] to manage a predictable state container.
 
+The PlayKit JS UI framework enables an easy and intuitive way of customize the UI to any purpose and design, either by simple CSS definitions or by letting application define it's entire layout.
+
+The UI framework exposes a UIManager that handles the life cycle of the UI, and and a library of components which is used to build the UI layout, where each component is responsible of a specific functionality.
+
+Components library contains any need of the UI, but can be extended to include any additional component an application will require.
+
+The library also exposes its default presets, which can be used as-is&trade; or extended.
+
 PlayKit JS UI is written in [ECMAScript6], statically analysed using [Flow] and transpiled in ECMAScript5 using [Babel].
 
 [Flow]: https://flow.org/
@@ -77,7 +85,7 @@ player.play();
 ## Documentation
 - **[Configuration](docs/configuration.md)**
 - **API**
-- **[Guides](docs/guides.md)**
+- **[UI customization](docs/ui-customization.md)**
 - **[Components](docs/components.md)**
 
 ## Running the Tests

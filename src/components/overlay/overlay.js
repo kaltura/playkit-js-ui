@@ -90,4 +90,4 @@ class Overlay extends Component {
   }
 }
 
-export default Overlay;
+export {Overlay};

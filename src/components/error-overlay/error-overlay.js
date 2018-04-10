@@ -4,7 +4,7 @@ import {h} from 'preact';
 import {connect} from 'preact-redux';
 import {default as Icon, IconType} from '../icon';
 import BaseComponent from '../base';
-import Overlay from '../overlay';
+import {Overlay} from '../overlay';
 import {Text} from 'preact-i18n';
 import {bindActions} from "../../utils/bind-actions";
 import {actions} from "../../reducers/engine";
@@ -177,4 +177,4 @@ class ErrorOverlay extends BaseComponent {
   }
 }
 
-export default ErrorOverlay;
+export {ErrorOverlay};
