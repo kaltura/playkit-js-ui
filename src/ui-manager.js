@@ -23,7 +23,7 @@ import {PlayerGUI} from './player-gui';
 // ui presets
 import * as presets from './ui-presets';
 
-import {middleware} from './middlewars'
+import {middleware} from './middlewares'
 
 import './styles/style.scss';
 
