@@ -1,3 +1,4 @@
+// @flow
 import getLogger from '../utils/logger'
 
 const logger = getLogger('UILoggerMiddleware');
@@ -8,7 +9,7 @@ const logger = getLogger('UILoggerMiddleware');
  * @param {UIOptionsObject} config - The UI config.
  * @returns {void}
  */
-const loggerMiddleware = config => store => next => action => {  // eslint-disable-line no-unused-vars
+const loggerMiddleware = (config: UIOptionsObject) => (store: Object) => (next: Function) => (action: Object) => {  // eslint-disable-line no-unused-vars
   if (config.debugActions) {
     logger.debug('Action fired', action);
   }

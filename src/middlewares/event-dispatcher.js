@@ -21,7 +21,7 @@ const types = {
  * @param {Player} player - The video player.
  * @returns {void}
  */
-const eventDispatcherMiddleware = player => store => next => action => {
+const eventDispatcherMiddleware = (player: Player) => (store: Object) => (next: Function) => (action: Object) => {
   switch (action.type) {
     case types.COMPONENT_CLICKED:
       onClickableComponentsHandler(store, action, player);
