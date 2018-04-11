@@ -86,10 +86,15 @@ class SeekBarControl extends Component {
     if (!this.props.isMobile) {
       return;
     }
-    let time = this.getTime(e);
-    this.props.changeCurrentTime(time);
-    this.updateSeekBarProgress(time, this.props.duration);
+    const oldTime = this.props.player.currentTime;
+    const newTime = this.getTime(e);
+    this.props.changeCurrentTime(newTime);
+    this.updateSeekBarProgress(newTime, this.props.duration);
     this.props.updateSeekbarDraggingStatus(false);
+    this.props.notifyChange({
+      from: oldTime,
+      to: newTime
+    });
   }
 
   /**
@@ -104,10 +109,15 @@ class SeekBarControl extends Component {
       return;
     }
     if (this.props.isDraggingActive) {
-      let time = this.getTime(e);
-      this.props.changeCurrentTime(time);
-      this.updateSeekBarProgress(time, this.props.duration);
+      const oldTime = this.props.player.currentTime;
+      const newTime = this.getTime(e);
+      this.props.changeCurrentTime(newTime);
+      this.updateSeekBarProgress(newTime, this.props.duration);
       this.props.updateSeekbarDraggingStatus(false);
+      this.props.notifyChange({
+        from: oldTime,
+        to: newTime
+      });
     }
   }
 
@@ -209,9 +219,14 @@ class SeekBarControl extends Component {
    */
   onSeekbarTouchEnd(): void {
     if (this.props.isDraggingActive) {
-      let time = this._movex;
-      this.props.changeCurrentTime(time);
-      this.updateSeekBarProgress(time, this.props.duration);
+      const oldTime = this.props.player.currentTime;
+      const newTime = this._movex;
+      this.props.changeCurrentTime(newTime);
+      this.updateSeekBarProgress(newTime, this.props.duration);
+      this.props.notifyChange({
+        from: oldTime,
+        to: newTime
+      });
     }
     this.props.updateSeekbarDraggingStatus(false);
   }

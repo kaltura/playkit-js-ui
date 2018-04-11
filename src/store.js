@@ -3,7 +3,6 @@ import {combineReducers} from 'redux';
 import config from './reducers/config';
 import engine from './reducers/engine';
 import shell from './reducers/shell';
-import playPause from './reducers/play-pause';
 import seekbar from './reducers/seekbar';
 import volume from './reducers/volume';
 import fullscreen from './reducers/fullscreen';
@@ -21,7 +20,6 @@ const reducer = combineReducers({
   volume,
   fullscreen,
   loading,
-  playPause,
   share,
   cvaa,
   settings,

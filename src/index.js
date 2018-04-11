@@ -1,6 +1,7 @@
 // @flow
 import UIManager from './ui-manager'
 import * as preact from 'preact';
+import {EventType} from './event/event-type'
 
 declare var __VERSION__: string;
 declare var __NAME__: string;
@@ -18,6 +19,6 @@ import * as Components from './components'
 import * as Utils from './utils'
 
 export {Presets, Components, Utils}
-
+export {EventType};
 export {UIManager};
 export {__VERSION__ as VERSION, __NAME__ as NAME};

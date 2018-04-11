@@ -75,6 +75,7 @@ class SeekBarPlaybackContainer extends BaseComponent {
         duration={this.props.duration}
         isDraggingActive={this.props.isDraggingActive}
         isMobile={this.props.isMobile}
+        notifyChange={payload => this.notifyChange(payload)}
       />
     )
   }

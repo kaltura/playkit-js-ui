@@ -11,47 +11,53 @@ var uiManager = new playkit.ui.UIManager(player, config);
 ```js
 {
   targetId: string,
+  debugActions: boolean, // optional
   forceTouchUI: boolean, // optional
   logLevel: string, // optional
   components: Object // optional
 }
 ```
-## 
+##
 >### config.targetId
 >##### Type: `string`
 >##### Default: `-`
 >##### Description: Defines the player container dom element id.
-The UI manager needs this parameter since it renders the player UI below it. 
+The UI manager needs this parameter since it renders the player UI below it.
+##
+>### config.debugActions
+>##### Type: `boolean`
+>##### Default: `false`
+>##### Description: Whether to print the fired redux actions.
 ##
 >### config.forceTouchUI
 >##### Type: `boolean`
 >##### Default: `false`
 >##### Description: Defines the view type of the UI (mobile or desktop).
 Useful for applications that wants to force mobile view of player UI.
-## 
+##
 >### config.logLevel
 >##### Type: `string`
 >##### Default: `"ERROR"`
 >##### Description: Defines the ui log level.
 >Possible values: `"DEBUG", "INFO", "TIME", "WARN", "ERROR", "OFF"`
-## 
+##
 >### config.components
 >##### Type: `Object`
 >##### Default: `-`
 >##### Description: Defines the ui components configuration.
 >Optional components to configure: `watermark`,`seekbar`
-## 
+##
 >>### config.components.watermark
 >>##### Type: `Object`
 >>```js
 >>{
 >>    img: string,
->>    url: string, 
->>    placement: string, 
+>>    url: string,
+>>    placement: string,
 >>    timeout: number
 >>}
 >>```
->>##### Default: 
+>>##### Default:
 >>```js
 >>{
 >>    img: '',
@@ -65,18 +71,18 @@ Useful for applications that wants to force mobile view of player UI.
 >>>##### Type: `string`
 >>>##### Default: `''`
 >>>##### Description: The URL for the watermark image.
->>>## 
+>>>##
 >>>### config.components.watermark.url
 >>>##### Type: `string`
 >>>##### Default: `''`
 >>>##### Description: The URL to open on clicking the watermark.
->>>## 
+>>>##
 >>>### config.components.watermark.placement
 >>>##### Type: `string`
 >>>##### Default: `'top-left'`
 >>>##### Description: The placement of the watermark.
 >>>Possible values: `'top-left', 'top-right', 'bottom-left', 'bottom-right'`
->>>## 
+>>>##
 >>>### config.components.watermark.timeout
 >>>##### Type: `number`
 >>>##### Default: `0`
@@ -86,8 +92,8 @@ Useful for applications that wants to force mobile view of player UI.
 >>##### Type: `Object`
 >>```js
 >>{
->>    thumbsSprite: string, 
->>    thumbsWidth: number, 
+>>    thumbsSprite: string,
+>>    thumbsWidth: number,
 >>    thumbsSlices: number
 >>}
 >>```
@@ -96,12 +102,12 @@ Useful for applications that wants to force mobile view of player UI.
 >>>##### Type: `string`
 >>>##### Default: `-`
 >>>##### Description: The URL for the preview thumbnail image.
->>>## 
+>>>##
 >>>### config.components.seekbar.thumbsWidth
 >>>##### Type: `number`
 >>>##### Default: `-`
 >>>##### Description: The width of each preview thumbnail slice.
->>>## 
+>>>##
 >>>### config.components.watermark.thumbsSlices
 >>>##### Type: `number`
 >>>##### Default: `-`
