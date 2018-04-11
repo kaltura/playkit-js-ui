@@ -11,12 +11,12 @@ class QualitySelectedEvent extends FakeEvent {
   /**
    * @constructor
    *
-   * @param {Object} quality - The selected quality track.
+   * @param {Object} qualityTrack - The selected quality track.
    */
-  constructor(quality: Object) {
-    super(FakeEvent.Type.USER_SELECTED_QUALITY);
+  constructor(qualityTrack: Object) {
+    super(FakeEvent.Type.USER_SELECTED_QUALITY_TRACK);
     this.payload = {
-      quality: quality
+      qualityTrack: qualityTrack
     };
   }
 }

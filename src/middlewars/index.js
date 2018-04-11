@@ -1,5 +1,5 @@
 import {applyMiddleware} from 'redux';
-import {eventDispatcherMiddleware} from './event-dispacher'
+import {eventDispatcherMiddleware} from './event-dispatcher'
 import {loggerMiddleware} from './logger'
 
 /**

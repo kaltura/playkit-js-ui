@@ -12,7 +12,7 @@ const EventType: { [event: string]: string } = {
   USER_CHANGED_VOLUME: `${namespace}-userchangedvolume`,
   USER_SELECTED_CAPTION_TRACK: `${namespace}-userselectedcaptiontrack`,
   USER_SELECTED_AUDIO_TRACK: `${namespace}-userselectedaudiotrack`,
-  USER_SELECTED_QUALITY: `${namespace}-userselectedquality`,
+  USER_SELECTED_QUALITY_TRACK: `${namespace}-userselectedqualitytrack`,
   USER_ENTERED_FULL_SCREEN: `${namespace}-userenteredfullscreen`,
   USER_EXITED_FULL_SCREEN: `${namespace}-userexitedfullscreen`,
   USER_SELECTED_CAPTIONS_STYLE: `${namespace}-userselectedcaptionsstyle`,

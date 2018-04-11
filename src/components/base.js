@@ -2,7 +2,7 @@
 import {Component} from 'preact';
 import Player from 'playkit-js';
 import getLogger from '../utils/logger';
-import {types} from '../middlewars/event-dispacher';
+import {types} from '../middlewars/event-dispatcher';
 
 /**
  * Base component to be extended by other player UI components
