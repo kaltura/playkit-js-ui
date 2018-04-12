@@ -202,12 +202,14 @@ class VolumeControl extends BaseComponent {
     let clickY = (e: any).clientY;
     let volume = 1 - ((clickY - topY) / barHeight);
     volume = parseFloat(volume.toFixed(2));
-    this.logger.debug(`Change volume from ${this.player.volume} => ${volume}`);
-    this.player.volume = volume;
-    if (this.props.muted) {
-      this.player.muted = false;
+    if (volume <= 1 && volume >= 0) {
+      this.logger.debug(`Change volume from ${this.player.volume} => ${volume}`);
+      this.player.volume = volume;
+      if (this.props.muted) {
+        this.player.muted = false;
+      }
+      this.notifyChange();
     }
-    this.notifyChange();
   }
 
   /**

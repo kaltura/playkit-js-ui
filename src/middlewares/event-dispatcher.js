@@ -8,6 +8,7 @@ import {QualitySelectedEvent} from '../event/events/quality-selected-event';
 import {SeekedEvent} from '../event/events/seeked-event';
 import {SpeedSelectedEvent} from '../event/events/speed-selected-event';
 import {UIActiveStateChangedEvent} from '../event/events/ui-active-changed-event';
+import {KeyMap} from '../utils/key-map';
 
 const namespace = 'event-dispatcher-middleware';
 
@@ -48,7 +49,7 @@ const eventDispatcherMiddleware = (player: Player) => (store: Object) => (next: 
  * @param {Player} player - The video player.
  * @returns {void}
  */
-function onChangeableComponentsHandler(store, action, player): void {
+function onChangeableComponentsHandler(store: any, action: Object, player: Player): void {
   switch (action.name) {
     case 'Volume':
       player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CHANGED_VOLUME));
@@ -70,8 +71,12 @@ function onChangeableComponentsHandler(store, action, player): void {
  * @param {Player} player - The video player.
  * @returns {void}
  */
-function onClickableComponentsHandler(store, action, player) {
+function onClickableComponentsHandler(store: any, action: Object, player: Player): void {
   switch (action.name) {
+    case 'Keyboard':
+      keyboardHandlers[action.payload.key](store, action, player);
+      break;
+
     case 'OverlayAction':
       onOverlayActionClicked(store, action, player);
       break;
@@ -118,7 +123,7 @@ function onClickableComponentsHandler(store, action, player) {
  * @param {Player} player - The video player.
  * @returns {void}
  */
-function onPlayPauseClicked(store, action, player) {
+function onPlayPauseClicked(store: any, action: Object, player: Player): void {
   const engineState = store.getState().engine;
   if (engineState.adBreak) {
     engineState.adIsPlaying ?
@@ -138,7 +143,7 @@ function onPlayPauseClicked(store, action, player) {
  * @param {Player} player - The video player.
  * @returns {void}
  */
-function onVolumeClicked(store, action, player) {
+function onVolumeClicked(store: any, action: Object, player: Player): void {
   const engineState = store.getState().engine;
   engineState.muted ?
     player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CLICKED_MUTE)) :
@@ -152,7 +157,7 @@ function onVolumeClicked(store, action, player) {
  * @param {Player} player - The video player.
  * @returns {void}
  */
-function onLanguageClicked(store, action, player) {
+function onLanguageClicked(store: any, action: Object, player: Player): void {
   if (action.payload.type === player.Track.AUDIO) {
     player.dispatchEvent(new AudioSelectedEvent(action.payload.track));
   } else if (action.payload.type === player.Track.TEXT) {
@@ -167,7 +172,7 @@ function onLanguageClicked(store, action, player) {
  * @param {Player} player - The video player.
  * @returns {void}
  */
-function onFullScreenClicked(store, action, player) {
+function onFullScreenClicked(store: any, action: Object, player: Player): void {
   player.isFullscreen() ?
     player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_EXITED_FULL_SCREEN)) :
     player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_ENTERED_FULL_SCREEN));
@@ -180,7 +185,7 @@ function onFullScreenClicked(store, action, player) {
  * @param {Player} player - The video player.
  * @returns {void}
  */
-function onSettingsClicked(store, action, player) {
+function onSettingsClicked(store: any, action: Object, player: Player): void {
   if (action.payload.type === player.Track.VIDEO) {
     player.dispatchEvent(new QualitySelectedEvent(action.payload.track));
   } else {
@@ -195,12 +200,62 @@ function onSettingsClicked(store, action, player) {
  * @param {Player} player - The video player.
  * @returns {void}
  */
-function onOverlayActionClicked(store, action, player) {
+function onOverlayActionClicked(store: any, action: Object, player: Player): void {
   if (action.payload.type === 'PlayPause') {
     onPlayPauseClicked(store, action, player);
   } else if (action.payload.type === 'Fullscreen') {
     onFullScreenClicked(store, action, player);
   }
 }
+
+/**
+ * Keyboard handler object.
+ * Maps key code to its event dispatching logic.
+ * @type {Object}
+ */
+const keyboardHandlers: { [key: number]: Function } = {
+  [KeyMap.SPACE]: (store, action, player) => {
+    onPlayPauseClicked(store, action, player);
+  },
+  [KeyMap.UP]: (store, action, player) => {
+    player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CHANGED_VOLUME));
+  },
+  [KeyMap.DOWN]: (store, action, player) => {
+    player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CHANGED_VOLUME));
+  },
+  [KeyMap.F]: (store, action, player) => {
+    onFullScreenClicked(store, action, player);
+  },
+  [KeyMap.ESC]: (store, action, player) => {
+    onFullScreenClicked(store, action, player);
+  },
+  [KeyMap.LEFT]: (store, action, player) => {
+    player.dispatchEvent(new SeekedEvent(action.payload.from, action.payload.to));
+  },
+  [KeyMap.RIGHT]: (store, action, player) => {
+    player.dispatchEvent(new SeekedEvent(action.payload.from, action.payload.to));
+  },
+  [KeyMap.HOME]: (store, action, player) => {
+    player.dispatchEvent(new SeekedEvent(action.payload.from, action.payload.to));
+  },
+  [KeyMap.END]: (store, action, player) => {
+    player.dispatchEvent(new SeekedEvent(action.payload.from, action.payload.to));
+  },
+  [KeyMap.M]: (store, action, player) => {
+    onVolumeClicked(store, action, player);
+  },
+  [KeyMap.SEMI_COLON]: (store, action, player) => {
+    player.dispatchEvent(new SpeedSelectedEvent(action.payload.speed));
+  },
+  [KeyMap.PERIOD]: (store, action, player) => {
+    player.dispatchEvent(new SpeedSelectedEvent(action.payload.speed));
+  },
+  [KeyMap.COMMA]: (store, action, player) => {
+    player.dispatchEvent(new SpeedSelectedEvent(action.payload.speed));
+  },
+  [KeyMap.C]: (store, action, player) => {
+    player.dispatchEvent(new CaptionSelectedEvent(action.payload.track));
+  }
+};
 
 export {types, eventDispatcherMiddleware};
