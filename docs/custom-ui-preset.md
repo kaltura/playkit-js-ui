@@ -163,6 +163,7 @@ The UI Manager has three pre-defined conditions:
 1. Error state: `state.engine.hasError`
 2. Ad break state: `state.engine.adBreak`
 3. Live state: `state.engine.isLive`
+4. Idle state: `state.engine.isIdle`
 
 ## Using custom components
 Presets can be created by using the player default library components, but you can also create and use your own components to define the layout.
