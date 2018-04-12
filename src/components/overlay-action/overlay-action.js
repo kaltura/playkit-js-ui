@@ -89,6 +89,9 @@ class OverlayAction extends BaseComponent {
       this.player.play();
       this.props.updateOverlayActionIcon(IconType.Play);
     }
+    this.notifyClick({
+      type: 'PlayPause'
+    });
   }
 
   /**
@@ -101,11 +104,13 @@ class OverlayAction extends BaseComponent {
     if (!this.player.isFullscreen()) {
       this.logger.debug("Enter fullscreen");
       this.player.enterFullscreen();
-
     } else {
       this.logger.debug("Exit fullscreen");
       this.player.exitFullscreen();
     }
+    this.notifyClick({
+      type: 'Fullscreen'
+    });
   }
 
   /**
@@ -119,14 +124,13 @@ class OverlayAction extends BaseComponent {
       return;
     }
 
-    let currentTime = Date.now();
-
-    if (currentTime - this._firstClickTime < PLAY_PAUSE_BUFFER_TIME) {
+    const now = Date.now();
+    if (now - this._firstClickTime < PLAY_PAUSE_BUFFER_TIME) {
       this.cancelClickTimeout();
       this.toggleFullscreen();
       return;
     }
-    if (currentTime - this._firstClickTime < DOUBLE_CLICK_MAX_BUFFER_TIME) {
+    if (now - this._firstClickTime < DOUBLE_CLICK_MAX_BUFFER_TIME) {
       this.cancelClickTimeout();
       this.togglePlayPause();
       this.toggleFullscreen();
@@ -134,8 +138,7 @@ class OverlayAction extends BaseComponent {
       return;
     }
 
-    this._firstClickTime = currentTime;
-
+    this._firstClickTime = now;
     this._clickTimeout = setTimeout(() => {
       this._clickTimeout = null;
       this.togglePlayPause();

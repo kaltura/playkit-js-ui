@@ -184,6 +184,7 @@ class VolumeControl extends BaseComponent {
   onVolumeControlButtonClick(): void {
     this.logger.debug(`Toggle mute. ${this.player.muted} => ${!this.player.muted}`);
     this.player.muted = !this.player.muted;
+    this.notifyClick();
   }
 
   /**
@@ -206,6 +207,7 @@ class VolumeControl extends BaseComponent {
     if (this.props.muted) {
       this.player.muted = false;
     }
+    this.notifyChange();
   }
 
   /**

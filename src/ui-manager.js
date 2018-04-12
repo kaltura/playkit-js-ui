@@ -5,7 +5,7 @@ import {IntlProvider} from 'preact-i18n';
 import {createStore} from 'redux';
 import {copyDeep} from './utils/copy-deep';
 import {LogLevel, getLogLevel, setLogLevel} from './utils/logger'
-
+import {EventType} from './event/event-type'
 
 import reducer from './store';
 import definition from './fr.json';
@@ -22,6 +22,8 @@ import {PlayerGUI} from './player-gui';
 
 // ui presets
 import * as presets from './ui-presets';
+
+import {middleware} from './middlewares'
 
 import './styles/style.scss';
 
@@ -52,10 +54,7 @@ export default class UIManager {
     }
     this.player = player;
     this.targetId = config.targetId;
-    this.store = createStore(reducer, window.devToolsExtension && window.devToolsExtension({
-      name: `playkit #${this.targetId}`,
-      instanceId: this.targetId
-    }));
+    this._createStore(config);
     this.setConfig(config);
   }
 
@@ -119,6 +118,20 @@ export default class UIManager {
   }
 
   /**
+   * Creates the redux store.
+   * @param {UIOptionsObject} config - The UI config.
+   * @private
+   * @returns {void}
+   */
+  _createStore(config: UIOptionsObject): void {
+    this.store = createStore(reducer,
+      window.devToolsExtension && window.devToolsExtension({
+        name: `playkit #${this.targetId}`,
+        instanceId: this.targetId
+      }), middleware(this.player, config));
+  }
+
+  /**
    * build the UI and render to targetId configured in player config
    *
    * @param {Array<UIPreset>} [uis] - UI array with conditions
@@ -146,15 +159,6 @@ export default class UIManager {
   }
 
   /**
-   * Get the player log level.
-   * @returns {Object} - The log levels of the player.
-   * @public
-   */
-  get LogLevel(): { [level: string]: Object } {
-    return LogLevel;
-  }
-
-  /**
    * get the log level
    * @param {?string} name - the logger name
    * @returns {Object} - the log level
@@ -171,5 +175,23 @@ export default class UIManager {
    */
   setLogLevel(level: Object, name?: string) {
     setLogLevel(level, name);
+  }
+
+  /**
+   * Get the ui manager log level.
+   * @returns {Object} - The log levels of the player.
+   * @public
+   */
+  get LogLevel(): { [level: string]: Object } {
+    return LogLevel;
+  }
+
+  /**
+   * Gets the ui manager event enums.
+   * @returns {Object} - The ui manager event enums.
+   * @public
+   */
+  get Event(): { [event: string]: string } {
+    return EventType;
   }
 }

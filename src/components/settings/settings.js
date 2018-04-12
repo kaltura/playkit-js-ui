@@ -108,6 +108,9 @@ class SettingsControl extends BaseComponent {
   onSpeedChange(playbackRate: number): void {
     this.props.updateSpeed(playbackRate);
     this.player.playbackRate = playbackRate;
+    this.notifyClick({
+      speed: playbackRate
+    });
   }
 
   /**
@@ -120,10 +123,13 @@ class SettingsControl extends BaseComponent {
   onQualityChange(videoTrack: Object | string): void {
     if (videoTrack === 'auto') {
       this.player.enableAdaptiveBitrate();
-    }
-    else {
+    } else {
       this.player.selectTrack(videoTrack);
     }
+    this.notifyClick({
+      type: this.player.Track.VIDEO,
+      track: videoTrack
+    });
   }
 
   /**
