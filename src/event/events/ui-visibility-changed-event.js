@@ -2,12 +2,12 @@
 import {FakeEvent} from '../fake-event';
 
 /**
- * UiVisibilityChangedEvent event
+ * UIVisibilityChangedEvent event
  *
- * @class UiVisibilityChangedEvent
+ * @class UIVisibilityChangedEvent
  * @extends {FakeEvent}
  */
-class UiVisibilityChangedEvent extends FakeEvent {
+class UIVisibilityChangedEvent extends FakeEvent {
   /**
    * @constructor
    *
@@ -21,4 +21,4 @@ class UiVisibilityChangedEvent extends FakeEvent {
   }
 }
 
-export {UiVisibilityChangedEvent};
+export {UIVisibilityChangedEvent};
