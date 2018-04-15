@@ -85,7 +85,8 @@ player.play();
 ## Documentation
 - **[Configuration](docs/configuration.md)**
 - **API**
-- **[UI customization](docs/ui-customization.md)**
+- **[Events](docs/events.md)**
+- **[UI Customization](docs/ui-customization.md)**
 - **[Components](docs/components.md)**
 
 ## Running the Tests
