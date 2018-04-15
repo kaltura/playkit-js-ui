@@ -6,7 +6,8 @@ import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/volume';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
-import {KeyMap} from "../../utils/key-map";
+import {KeyMap} from '../../utils/key-map';
+import {KEYBOARD_DEFAULT_VOLUME_JUMP} from '../keyboard/keyboard';
 
 /**
  * mapping state to props
@@ -144,16 +145,16 @@ class VolumeControl extends BaseComponent {
       if (newVolume > 100 || newVolume < 0) {
         return;
       }
-      this.player.muted = (newVolume < 5);
+      this.player.muted = (newVolume < KEYBOARD_DEFAULT_VOLUME_JUMP);
       this.player.volume = (newVolume / 100);
       this.notifyChange({volume: this.player.volume});
     };
     switch (e.keyCode) {
       case KeyMap.UP:
-        changeVolume(Math.round(this.player.volume * 100) + 5);
+        changeVolume(Math.round(this.player.volume * 100) + KEYBOARD_DEFAULT_VOLUME_JUMP);
         break;
       case KeyMap.DOWN:
-        changeVolume(Math.round(this.player.volume * 100) - 5);
+        changeVolume(Math.round(this.player.volume * 100) - KEYBOARD_DEFAULT_VOLUME_JUMP);
         break;
       default:
         this.setState({hover: false});

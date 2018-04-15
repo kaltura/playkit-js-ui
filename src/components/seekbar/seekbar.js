@@ -6,6 +6,7 @@ import {KeyMap} from "../../utils/key-map";
 import {connect} from "preact-redux";
 import {bindActions} from "../../utils/bind-actions";
 import {actions} from "../../reducers/shell";
+import {KEYBOARD_DEFAULT_SEEK_JUMP} from '../keyboard/keyboard';
 
 /**
  * mapping state to props
@@ -213,11 +214,11 @@ class SeekBarControl extends Component {
     let newTime;
     switch (e.keyCode) {
       case KeyMap.LEFT:
-        newTime = (this.props.player.currentTime - 5 > 0) ? this.props.player.currentTime - 5 : 0;
+        newTime = (this.props.player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP > 0) ? this.props.player.currentTime - 5 : 0;
         seek(this.props.player.currentTime, newTime);
         break;
       case KeyMap.RIGHT:
-        newTime = (this.props.player.currentTime + 5 > this.props.player.duration) ? this.props.player.duration : this.props.player.currentTime + 5;
+        newTime = (this.props.player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP > this.props.player.duration) ? this.props.player.duration : this.props.player.currentTime + 5;
         seek(this.props.player.currentTime, newTime);
         break;
     }

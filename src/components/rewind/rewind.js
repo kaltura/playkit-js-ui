@@ -87,7 +87,7 @@ class RewindControl extends BaseComponent {
                 this.onClick();
               }
             }}>
-            <Icon type={(!props.step || props.step === 10) ? IconType.Rewind10 : IconType.Rewind}/>
+            <Icon type={(!props.step || props.step === REWIND_DEFAULT_STEP) ? IconType.Rewind10 : IconType.Rewind}/>
           </button>
         </Localizer>
       </div>
