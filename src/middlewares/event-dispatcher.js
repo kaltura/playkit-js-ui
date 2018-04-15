@@ -33,7 +33,7 @@ const eventDispatcherMiddleware = (player: Player) => (store: Object) => (next: 
       break;
 
     case shell.UPDATE_PLAYER_HOVER_STATE:
-      player.dispatchEvent(new UIActiveStateChangedEvent(action.hover));
+      onPlayerHoverStateChangeHandler(store, action, player);
       break;
 
     default:
@@ -41,6 +41,22 @@ const eventDispatcherMiddleware = (player: Player) => (store: Object) => (next: 
   }
   next(action);
 };
+
+/**
+ * Handler for hover state change action.
+ * @param {any} store - The redux store.
+ * @param {Object} action - The action object.
+ * @param {Player} player - The video player.
+ * @returns {void}
+ */
+function onPlayerHoverStateChangeHandler(store: any, action: Object, player: Player): void {
+  const engineState = store.getState().engine;
+  const shellState = store.getState().shell;
+  if (!engineState.adBreak && engineState.isPlaying
+    && shellState.playerHover !== action.hover) {
+    player.dispatchEvent(new UIActiveStateChangedEvent(action.hover));
+  }
+}
 
 /**
  * Handler for changeable components actions.

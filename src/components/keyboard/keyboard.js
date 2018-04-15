@@ -90,6 +90,7 @@ class KeyboardControl extends BaseComponent {
         this.player.play();
         this.props.updateOverlayActionIcon(IconType.Play);
       }
+      this.toggleHoverState();
       this.notifyClick({key: KeyMap.SPACE});
     },
     [KeyMap.UP]: () => {
