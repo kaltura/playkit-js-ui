@@ -134,24 +134,26 @@ class VolumeControl extends BaseComponent {
    * @memberof VolumeControl
    */
   onVolumeControlKeyDown(e: KeyboardEvent): void {
-    let newVolume;
+    /**
+     * Change volume operations.
+     * @param {number} newVolume - The new volume.
+     * @returns {void}
+     */
+    const changeVolume = (newVolume: number) => {
+      this.setState({hover: true});
+      if (newVolume > 100 || newVolume < 0) {
+        return;
+      }
+      this.player.muted = (newVolume < 5);
+      this.player.volume = (newVolume / 100);
+      this.notifyChange();
+    };
     switch (e.keyCode) {
       case KeyMap.UP:
-        this.setState({hover: true});
-        newVolume = Math.round(this.player.volume * 100) + 5;
-        if (this.player.muted) {
-          this.player.muted = false;
-        }
-        this.player.volume = newVolume / 100;
+        changeVolume(Math.round(this.player.volume * 100) + 5);
         break;
       case KeyMap.DOWN:
-        this.setState({hover: true});
-        newVolume = Math.round(this.player.volume * 100) - 5;
-        if (newVolume < 5) {
-          this.player.muted = true;
-          return;
-        }
-        this.player.volume = newVolume / 100;
+        changeVolume(Math.round(this.player.volume * 100) - 5);
         break;
       default:
         this.setState({hover: false});

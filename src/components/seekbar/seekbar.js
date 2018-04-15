@@ -196,17 +196,29 @@ class SeekBarControl extends Component {
     if (this.props.adBreak) {
       return;
     }
+    /**
+     * Do seek operations.
+     * @param {number} from - Seek start point.
+     * @param {number} to - Seek end point.
+     * @returns {void}
+     */
+    const seek = (from: number, to: number) => {
+      this.props.player.currentTime = to;
+      this.updateSeekBarProgress(this.props.player.currentTime, this.props.duration, true);
+      this.props.notifyChange({
+        from: from,
+        to: to
+      });
+    };
     let newTime;
     switch (e.keyCode) {
       case KeyMap.LEFT:
-        newTime = this.props.player.currentTime - 5;
-        this.props.player.currentTime = (newTime > 0) ? newTime : 0;
-        this.updateSeekBarProgress(this.props.player.currentTime, this.props.duration, true);
+        newTime = (this.props.player.currentTime - 5 > 0) ? this.props.player.currentTime - 5 : 0;
+        seek(this.props.player.currentTime, newTime);
         break;
       case KeyMap.RIGHT:
-        newTime = this.props.player.currentTime + 5;
-        this.props.player.currentTime = (newTime > this.props.player.duration) ? this.props.player.duration : newTime;
-        this.updateSeekBarProgress(this.props.player.currentTime, this.props.duration, true);
+        newTime = (this.props.player.currentTime + 5 > this.props.player.duration) ? this.props.player.duration : this.props.player.currentTime + 5;
+        seek(this.props.player.currentTime, newTime);
         break;
     }
   }
