@@ -41,7 +41,7 @@
 > It will fires neither by clicking the pause button or by clicking the video area.
 #
 > ### <a name="USER_CLICKED_REWIND"></a>USER_CLICKED_REWIND
-> Fires when the rewind button has been clicked by the user.<br>
+> Fires when the rewind button has been clicked by the user.
 > <br><br>_payload parameters:_
 >
 > | Name | Type  | Description
