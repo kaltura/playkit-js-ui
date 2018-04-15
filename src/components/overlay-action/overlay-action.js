@@ -4,6 +4,7 @@ import style from '../../styles/style.scss';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/overlay-action';
+import {actions as shellActions} from '../../reducers/shell'
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 
@@ -42,7 +43,7 @@ const PLAY_PAUSE_BUFFER_TIME: number = 200;
  */
 const DOUBLE_CLICK_MAX_BUFFER_TIME: number = 500;
 
-@connect(mapStateToProps, bindActions(actions))
+@connect(mapStateToProps, bindActions(Object.assign(actions, shellActions)))
   /**
    * OverlayAction component
    *
@@ -89,6 +90,7 @@ class OverlayAction extends BaseComponent {
       this.player.play();
       this.props.updateOverlayActionIcon(IconType.Play);
     }
+    this.props.updatePlayerHoverState(true);
     this.notifyClick({
       type: 'PlayPause'
     });
