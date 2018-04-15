@@ -3,7 +3,7 @@ const namespace = 'playkit-ui';
 
 const EventType: { [event: string]: string } = {
   UI_CLICKED: `${namespace}-uiclicked`,
-  UI_ACTIVE_STATE_CHANGED: `${namespace}-uiactivestatechanged`,
+  UI_VISIBILITY_CHANGED: `${namespace}-uivisibilitychanged`,
   USER_CLICKED_PLAY: `${namespace}-userclickedplay`,
   USER_CLICKED_PAUSE: `${namespace}-userclickedpause`,
   USER_CLICKED_REWIND: `${namespace}-userclickedrewind`,

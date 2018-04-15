@@ -4,7 +4,7 @@
 | Events List |
 |--|
 | [`UI_CLICKED`](#UI_CLICKED) |
-| [`UI_ACTIVE_STATE_CHANGED`](#UI_ACTIVE_STATE_CHANGED) |
+| [`UI_VISIBILITY_CHANGED`](#UI_VISIBILITY_CHANGED) |
 | [`USER_CLICKED_PLAY`](#USER_CLICKED_PLAY) |
 | [`USER_CLICKED_PAUSE`](#USER_CLICKED_PAUSE) |
 | [`USER_CLICKED_REWIND`](#USER_CLICKED_REWIND) |
@@ -24,13 +24,13 @@
 > ### <a name="UI_CLICKED"></a>UI_CLICKED
 > Fires on any user interaction with the UI.
 #
-> ### <a name="UI_ACTIVE_STATE_CHANGED"></a>UI_ACTIVE_STATE_CHANGED
-> Fires when the UI changes his active state, i.e, changes from visible to hidden or from hidden to visible.
+> ### <a name="UI_VISIBILITY_CHANGED"></a>UI_VISIBILITY_CHANGED
+> Fires when the UI visibility state changes from visible to hidden or from hidden to visible.
 > <br><br>_payload parameters:_
 >
 > | Name | Type  | Description
 > |--|--|--|
-> | `isActive` | `boolean`| True when the UI is shown, false when the UI is hidden
+> | `visible` | `boolean`| True when the UI is shown, false when the UI is hidden
 #
 > ### <a name="USER_CLICKED_PLAY"></a>USER_CLICKED_PLAY
 > Fires when the user initiated play by the UI.<br>

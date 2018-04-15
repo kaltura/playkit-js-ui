@@ -7,7 +7,7 @@ import {CaptionsStyleSelectedEvent} from '../event/events/captions-style-selecte
 import {QualitySelectedEvent} from '../event/events/quality-selected-event';
 import {SeekedEvent} from '../event/events/seeked-event';
 import {SpeedSelectedEvent} from '../event/events/speed-selected-event';
-import {UIActiveStateChangedEvent} from '../event/events/ui-active-changed-event';
+import {UiVisibilityChangedEvent} from '../event/events/ui-visibility-changed-event';
 import {RewindClickedEvent} from '../event/events/rewind-clicked';
 import {VolumeChangedEvent} from '../event/events/volume-changed';
 import {KeyMap} from '../utils/key-map';
@@ -56,7 +56,7 @@ function onPlayerHoverStateChangeHandler(store: any, action: Object, player: Pla
   const shellState = store.getState().shell;
   if (!engineState.adBreak && engineState.isPlaying
     && shellState.playerHover !== action.hover) {
-    player.dispatchEvent(new UIActiveStateChangedEvent(action.hover));
+    player.dispatchEvent(new UiVisibilityChangedEvent(action.hover));
   }
 }
 
