@@ -102,7 +102,7 @@ class KeyboardControl extends BaseComponent {
       if (newVolume <= 1) {
         this.player.volume = newVolume;
         this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWaves]);
-        this.notifyClick({key: KeyMap.UP});
+        this.notifyClick({key: KeyMap.UP, volume: this.player.volume});
       }
     },
     [KeyMap.DOWN]: () => {
@@ -116,7 +116,7 @@ class KeyboardControl extends BaseComponent {
         } else {
           this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWave]);
         }
-        this.notifyClick({key: KeyMap.DOWN});
+        this.notifyClick({key: KeyMap.DOWN, volume: this.player.volume});
       }
     },
     [KeyMap.F]: () => {

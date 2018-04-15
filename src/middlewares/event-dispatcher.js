@@ -8,6 +8,8 @@ import {QualitySelectedEvent} from '../event/events/quality-selected-event';
 import {SeekedEvent} from '../event/events/seeked-event';
 import {SpeedSelectedEvent} from '../event/events/speed-selected-event';
 import {UIActiveStateChangedEvent} from '../event/events/ui-active-changed-event';
+import {RewindClickedEvent} from '../event/events/rewind-clicked';
+import {VolumeChangedEvent} from '../event/events/volume-changed';
 import {KeyMap} from '../utils/key-map';
 
 const namespace = 'event-dispatcher-middleware';
@@ -68,7 +70,7 @@ function onPlayerHoverStateChangeHandler(store: any, action: Object, player: Pla
 function onChangeableComponentsHandler(store: any, action: Object, player: Player): void {
   switch (action.name) {
     case 'Volume':
-      player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CHANGED_VOLUME));
+      player.dispatchEvent(new VolumeChangedEvent(action.payload.volume));
       break;
 
     case 'SeekBarPlaybackContainer':
@@ -118,7 +120,7 @@ function onClickableComponentsHandler(store: any, action: Object, player: Player
       break;
 
     case 'Rewind':
-      player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CLICKED_REWIND));
+      player.dispatchEvent(new RewindClickedEvent(action.payload.from, action.payload.to));
       break;
 
     case 'PrePlaybackPlayOverlay':
@@ -234,10 +236,10 @@ const keyboardHandlers: { [key: number]: Function } = {
     onPlayPauseClicked(store, action, player);
   },
   [KeyMap.UP]: (store, action, player) => {
-    player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CHANGED_VOLUME));
+    player.dispatchEvent(new VolumeChangedEvent(action.payload.volume));
   },
   [KeyMap.DOWN]: (store, action, player) => {
-    player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CHANGED_VOLUME));
+    player.dispatchEvent(new VolumeChangedEvent(action.payload.volume));
   },
   [KeyMap.F]: (store, action, player) => {
     onFullScreenClicked(store, action, player);

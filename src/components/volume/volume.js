@@ -146,7 +146,7 @@ class VolumeControl extends BaseComponent {
       }
       this.player.muted = (newVolume < 5);
       this.player.volume = (newVolume / 100);
-      this.notifyChange();
+      this.notifyChange({volume: this.player.volume});
     };
     switch (e.keyCode) {
       case KeyMap.UP:
@@ -210,7 +210,7 @@ class VolumeControl extends BaseComponent {
       if (this.props.muted) {
         this.player.muted = false;
       }
-      this.notifyChange();
+      this.notifyChange({volume: this.player.volume});
     }
   }
 

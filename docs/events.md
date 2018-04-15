@@ -1,26 +1,26 @@
 
 # UI Events
 
-| Events List | 
+| Events List |
 |--|
-| [`UI_CLICKED`](#UI_CLICKED) | 
-| [`UI_ACTIVE_STATE_CHANGED`](#UI_ACTIVE_STATE_CHANGED) | 
-| [`USER_CLICKED_PLAY`](#USER_CLICKED_PLAY) | 
-| [`USER_CLICKED_PAUSE`](#USER_CLICKED_PAUSE) | 
-| [`USER_CLICKED_REWIND`](#USER_CLICKED_REWIND) | 
-| [`USER_CLICKED_MUTE`](#USER_CLICKED_MUTE) | 
-| [`USER_CLICKED_UNMUTE`](#USER_CLICKED_UNMUTE) | 
-| [`USER_CHANGED_VOLUME`](#USER_CHANGED_VOLUME) | 
-| [`USER_SELECTED_CAPTION_TRACK`](#USER_SELECTED_CAPTION_TRACK) | 
-| [`USER_SELECTED_AUDIO_TRACK`](#USER_SELECTED_AUDIO_TRACK) | 
-| [`USER_SELECTED_QUALITY_TRACK`](#USER_SELECTED_QUALITY_TRACK) | 
-| [`USER_ENTERED_FULL_SCREEN`](#USER_ENTERED_FULL_SCREEN) | 
-| [`USER_EXITED_FULL_SCREEN`](#USER_EXITED_FULL_SCREEN) | 
-| [`USER_SELECTED_CAPTIONS_STYLE`](#USER_SELECTED_CAPTIONS_STYLE) | 
-| [`USER_SELECTED_SPEED`](#USER_SELECTED_SPEED) | 
-| [`USER_SEEKED`](#USER_SEEKED) | 
+| [`UI_CLICKED`](#UI_CLICKED) |
+| [`UI_ACTIVE_STATE_CHANGED`](#UI_ACTIVE_STATE_CHANGED) |
+| [`USER_CLICKED_PLAY`](#USER_CLICKED_PLAY) |
+| [`USER_CLICKED_PAUSE`](#USER_CLICKED_PAUSE) |
+| [`USER_CLICKED_REWIND`](#USER_CLICKED_REWIND) |
+| [`USER_CLICKED_MUTE`](#USER_CLICKED_MUTE) |
+| [`USER_CLICKED_UNMUTE`](#USER_CLICKED_UNMUTE) |
+| [`USER_CHANGED_VOLUME`](#USER_CHANGED_VOLUME) |
+| [`USER_SELECTED_CAPTION_TRACK`](#USER_SELECTED_CAPTION_TRACK) |
+| [`USER_SELECTED_AUDIO_TRACK`](#USER_SELECTED_AUDIO_TRACK) |
+| [`USER_SELECTED_QUALITY_TRACK`](#USER_SELECTED_QUALITY_TRACK) |
+| [`USER_ENTERED_FULL_SCREEN`](#USER_ENTERED_FULL_SCREEN) |
+| [`USER_EXITED_FULL_SCREEN`](#USER_EXITED_FULL_SCREEN) |
+| [`USER_SELECTED_CAPTIONS_STYLE`](#USER_SELECTED_CAPTIONS_STYLE) |
+| [`USER_SELECTED_SPEED`](#USER_SELECTED_SPEED) |
+| [`USER_SEEKED`](#USER_SEEKED) |
 
-## Events 
+## Events
 > ### <a name="UI_CLICKED"></a>UI_CLICKED
 > Fires on any user interaction with the UI.
 #
@@ -42,6 +42,12 @@
 #
 > ### <a name="USER_CLICKED_REWIND"></a>USER_CLICKED_REWIND
 > Fires when the rewind button has been clicked by the user.<br>
+> <br><br>_payload parameters:_
+>
+> | Name | Type  | Description
+> |--|--|--|
+> | `from` | `number` | The playback time before the click
+> | `to` | `number` | The playback time after the click
 #
 > ### <a name="USER_CLICKED_MUTE"></a>USER_CLICKED_MUTE
 > Fires when the user clicked the volume button and changed his state to mute.
@@ -51,6 +57,11 @@
 #
 > ### <a name="USER_CHANGED_VOLUME"></a>USER_CHANGED_VOLUME
 > Fires when the user dragged the volume bar and changed its value.
+> <br><br>_payload parameters:_
+>
+> | Name | Type  | Description
+> |--|--|--|
+> | `volume` | `number` | The new volume
 #
 > ### <a name="USER_SELECTED_CAPTION_TRACK"></a>USER_SELECTED_CAPTION_TRACK
 > Fires when the user selected a caption from the Captions dropdown.
