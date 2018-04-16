@@ -60,7 +60,10 @@ class KeyboardControl extends BaseComponent {
       if (!this.props.playerNav && typeof this.keyboardHandlers[e.keyCode] === 'function') {
         e.preventDefault();
         this.logger.debug(`KeyDown -> keyName: ${getKeyName(e.keyCode)}, shiftKey: ${e.shiftKey.toString()}`);
-        this.keyboardHandlers[e.keyCode](e.shiftKey);
+        const payload = this.keyboardHandlers[e.keyCode](e.shiftKey);
+        if (payload) {
+          this.notifyClick({key: e.keyCode, ...payload});
+        }
       }
     };
   }
@@ -91,7 +94,7 @@ class KeyboardControl extends BaseComponent {
         this.props.updateOverlayActionIcon(IconType.Play);
       }
       this.toggleHoverState();
-      this.notifyClick({key: KeyMap.SPACE});
+      return true;
     },
     [KeyMap.UP]: () => {
       const newVolume = (Math.round(this.player.volume * 100) + KEYBOARD_DEFAULT_VOLUME_JUMP) / 100;
@@ -102,7 +105,7 @@ class KeyboardControl extends BaseComponent {
       if (newVolume <= 1) {
         this.player.volume = newVolume;
         this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWaves]);
-        this.notifyClick({key: KeyMap.UP, volume: this.player.volume});
+        return {volume: this.player.volume};
       }
     },
     [KeyMap.DOWN]: () => {
@@ -116,21 +119,21 @@ class KeyboardControl extends BaseComponent {
         } else {
           this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWave]);
         }
-        this.notifyClick({key: KeyMap.DOWN, volume: this.player.volume});
+        return {volume: this.player.volume};
       }
     },
     [KeyMap.F]: () => {
       if (!this.player.isFullscreen()) {
         this.logger.debug('Enter fullscreen');
         this.player.enterFullscreen();
-        this.notifyClick({key: KeyMap.F});
+        return true;
       }
     },
     [KeyMap.ESC]: () => {
       if (this.player.isFullscreen()) {
         this.logger.debug('Exit fullscreen');
         this.player.exitFullscreen();
-        this.notifyClick({key: KeyMap.ESC});
+        return true;
       }
     },
     [KeyMap.LEFT]: () => {
@@ -141,7 +144,7 @@ class KeyboardControl extends BaseComponent {
       this.player.currentTime = to;
       this.props.updateOverlayActionIcon(IconType.Rewind);
       this.toggleHoverState();
-      this.notifyClick({key: KeyMap.LEFT, from: from, to: to});
+      return {from: from, to: to};
     },
     [KeyMap.RIGHT]: () => {
       const newTime = this.player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP;
@@ -151,7 +154,7 @@ class KeyboardControl extends BaseComponent {
       this.player.currentTime = (newTime > this.player.duration) ? this.player.duration : newTime;
       this.props.updateOverlayActionIcon(IconType.SeekForward);
       this.toggleHoverState();
-      this.notifyClick({key: KeyMap.LEFT, from: from, to: to});
+      return {from: from, to: to};
     },
     [KeyMap.HOME]: () => {
       const from = this.player.currentTime;
@@ -160,7 +163,7 @@ class KeyboardControl extends BaseComponent {
       this.player.currentTime = to;
       this.props.updateOverlayActionIcon(IconType.StartOver);
       this.toggleHoverState();
-      this.notifyClick({key: KeyMap.LEFT, from: from, to: to});
+      return {from: from, to: to};
     },
     [KeyMap.END]: () => {
       const from = this.player.currentTime;
@@ -169,7 +172,7 @@ class KeyboardControl extends BaseComponent {
       this.player.currentTime = to;
       this.props.updateOverlayActionIcon(IconType.SeekEnd);
       this.toggleHoverState();
-      this.notifyClick({key: KeyMap.LEFT, from: from, to: to});
+      return {from: from, to: to};
     },
     [KeyMap.M]: () => {
       this.logger.debug(this.player.muted ? 'Umnute' : 'Mute');
@@ -177,14 +180,14 @@ class KeyboardControl extends BaseComponent {
       this.player.muted ?
         this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeMute]) :
         this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWaves]);
-      this.notifyClick({key: KeyMap.M});
+      return true;
     },
     [KeyMap.SEMI_COLON]: (shiftKey: boolean) => {
       if (shiftKey && this.player.playbackRate !== this.player.defaultPlaybackRate) {
         this.logger.debug(`Changing playback rate. ${this.player.playbackRate} => ${this.player.defaultPlaybackRate}`);
         this.player.playbackRate = this.player.defaultPlaybackRate;
         this.props.updateOverlayActionIcon(IconType.Speed);
-        this.notifyClick({key: KeyMap.SEMI_COLON, speed: this.player.defaultPlaybackRate});
+        return {speed: this.player.defaultPlaybackRate};
       }
     },
     [KeyMap.PERIOD]: (shiftKey: boolean) => {
@@ -194,8 +197,8 @@ class KeyboardControl extends BaseComponent {
         if (index < this.player.playbackRates.length - 1) {
           this.logger.debug(`Changing playback rate. ${playbackRate} => ${this.player.playbackRates[index + 1]}`);
           this.player.playbackRate = this.player.playbackRates[index + 1];
-          this.notifyClick({key: KeyMap.PERIOD, speed: this.player.playbackRates[index + 1]});
           this.props.updateOverlayActionIcon(IconType.SpeedUp);
+          return {speed: this.player.playbackRates[index + 1]};
         }
       }
     },
@@ -206,8 +209,8 @@ class KeyboardControl extends BaseComponent {
         if (index > 0) {
           this.logger.debug(`Changing playback rate. ${playbackRate} => ${this.player.playbackRates[index - 1]}`);
           this.player.playbackRate = this.player.playbackRates[index - 1];
-          this.notifyClick({key: KeyMap.COMMA, speed: this.player.playbackRates[index - 1]});
           this.props.updateOverlayActionIcon(IconType.SpeedDown);
+          return {speed: this.player.playbackRates[index - 1]};
         }
       }
     },
@@ -216,8 +219,9 @@ class KeyboardControl extends BaseComponent {
       if (activeTextTrack.language === 'off' && this._activeTextTrack) {
         this.logger.debug(`Changing text track`, this._activeTextTrack);
         this.player.selectTrack(this._activeTextTrack);
-        this.notifyClick({key: KeyMap.C, track: this._activeTextTrack});
+        const clonedTextTrack = Object.assign({}, this._activeTextTrack);
         this._activeTextTrack = null;
+        return {track: clonedTextTrack};
       } else if (activeTextTrack.language !== 'off' && !this._activeTextTrack) {
         this.logger.debug(`Hiding text track`);
         this._activeTextTrack = activeTextTrack;
