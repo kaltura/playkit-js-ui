@@ -8,6 +8,7 @@
 | [`USER_CLICKED_PLAY`](#USER_CLICKED_PLAY) |
 | [`USER_CLICKED_PAUSE`](#USER_CLICKED_PAUSE) |
 | [`USER_CLICKED_REWIND`](#USER_CLICKED_REWIND) |
+| [`USER_CLICKED_LIVE_TAG`](#USER_CLICKED_LIVE_TAG) |
 | [`USER_CLICKED_MUTE`](#USER_CLICKED_MUTE) |
 | [`USER_CLICKED_UNMUTE`](#USER_CLICKED_UNMUTE) |
 | [`USER_CHANGED_VOLUME`](#USER_CHANGED_VOLUME) |
@@ -48,6 +49,9 @@
 > |--|--|--|
 > | `from` | `number` | The playback time before the click
 > | `to` | `number` | The playback time after the click
+#
+> ### <a name="USER_CLICKED_LIVE_TAG"></a>USER_CLICKED_LIVE_TAG
+> Fires when the live tag button has been clicked by the user.<br>
 #
 > ### <a name="USER_CLICKED_MUTE"></a>USER_CLICKED_MUTE
 > Fires when the user clicked the volume button and changed his state to mute.

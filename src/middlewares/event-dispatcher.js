@@ -123,6 +123,10 @@ function onClickableComponentsHandler(store: any, action: Object, player: Player
       player.dispatchEvent(new RewindClickedEvent(action.payload.from, action.payload.to));
       break;
 
+    case 'LiveTag':
+      player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CLICKED_LIVE_TAG));
+      break;
+
     case 'PrePlaybackPlayOverlay':
     case 'PlayPause':
       onPlayPauseClicked(store, action, player);
