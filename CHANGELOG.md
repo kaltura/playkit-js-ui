@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.22.1"></a>
+## [0.22.1](https://github.com/kaltura/playkit-js-ui/compare/v0.22.0...v0.22.1) (2018-04-16)
+
+
+### Bug Fixes
+
+* **FEC-7836:** seek doesn't work correctly on MAC safari on fullscreen ([#218](https://github.com/kaltura/playkit-js-ui/issues/218)) ([659df58](https://github.com/kaltura/playkit-js-ui/commit/659df58))
+* UI options flow type ([#221](https://github.com/kaltura/playkit-js-ui/issues/221)) ([961a081](https://github.com/kaltura/playkit-js-ui/commit/961a081))
+* **FEC-8116:** include UI events on keyboard shortcuts & accessibility navigation ([#220](https://github.com/kaltura/playkit-js-ui/issues/220)) ([3a72950](https://github.com/kaltura/playkit-js-ui/commit/3a72950))
+
+
+
 <a name="0.22.0"></a>
 # [0.22.0](https://github.com/kaltura/playkit-js-ui/compare/v0.21.0...v0.22.0) (2018-04-11)
 
