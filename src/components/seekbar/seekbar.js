@@ -285,6 +285,10 @@ class SeekBarControl extends Component {
       _y += element.offsetTop - element.scrollTop;
       element = element.offsetParent;
     }
+    //offset 0 is forced to handle browser compatibility issue
+    if (this.props.player.isFullscreen()) {
+      _x = 0;
+    }
     return {top: _y, left: _x};
   }
 
