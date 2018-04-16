@@ -39,13 +39,19 @@ class RewindControl extends BaseComponent {
    */
   onClick(): void {
     this.animate();
+    let to;
     const step = this.props.step || REWIND_DEFAULT_STEP;
+    const from = this.player.currentTime;
     if (this.player.currentTime - step < 0) {
-      this.player.currentTime = 0;
+      to = 0;
     } else {
-      this.player.currentTime = this.player.currentTime - step;
+      to = this.player.currentTime - step;
     }
-    this.notifyClick();
+    this.player.currentTime = to;
+    this.notifyClick({
+      from: from,
+      to: to
+    });
   }
 
   /**
@@ -81,7 +87,7 @@ class RewindControl extends BaseComponent {
                 this.onClick();
               }
             }}>
-            <Icon type={(!props.step || props.step === 10) ? IconType.Rewind10 : IconType.Rewind}/>
+            <Icon type={(!props.step || props.step === REWIND_DEFAULT_STEP) ? IconType.Rewind10 : IconType.Rewind}/>
           </button>
         </Localizer>
       </div>

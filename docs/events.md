@@ -1,36 +1,37 @@
 
 # UI Events
 
-| Events List | 
+| Events List |
 |--|
-| [`UI_CLICKED`](#UI_CLICKED) | 
-| [`UI_ACTIVE_STATE_CHANGED`](#UI_ACTIVE_STATE_CHANGED) | 
-| [`USER_CLICKED_PLAY`](#USER_CLICKED_PLAY) | 
-| [`USER_CLICKED_PAUSE`](#USER_CLICKED_PAUSE) | 
-| [`USER_CLICKED_REWIND`](#USER_CLICKED_REWIND) | 
-| [`USER_CLICKED_MUTE`](#USER_CLICKED_MUTE) | 
-| [`USER_CLICKED_UNMUTE`](#USER_CLICKED_UNMUTE) | 
-| [`USER_CHANGED_VOLUME`](#USER_CHANGED_VOLUME) | 
-| [`USER_SELECTED_CAPTION_TRACK`](#USER_SELECTED_CAPTION_TRACK) | 
-| [`USER_SELECTED_AUDIO_TRACK`](#USER_SELECTED_AUDIO_TRACK) | 
-| [`USER_SELECTED_QUALITY_TRACK`](#USER_SELECTED_QUALITY_TRACK) | 
-| [`USER_ENTERED_FULL_SCREEN`](#USER_ENTERED_FULL_SCREEN) | 
-| [`USER_EXITED_FULL_SCREEN`](#USER_EXITED_FULL_SCREEN) | 
-| [`USER_SELECTED_CAPTIONS_STYLE`](#USER_SELECTED_CAPTIONS_STYLE) | 
-| [`USER_SELECTED_SPEED`](#USER_SELECTED_SPEED) | 
-| [`USER_SEEKED`](#USER_SEEKED) | 
+| [`UI_CLICKED`](#UI_CLICKED) |
+| [`UI_VISIBILITY_CHANGED`](#UI_VISIBILITY_CHANGED) |
+| [`USER_CLICKED_PLAY`](#USER_CLICKED_PLAY) |
+| [`USER_CLICKED_PAUSE`](#USER_CLICKED_PAUSE) |
+| [`USER_CLICKED_REWIND`](#USER_CLICKED_REWIND) |
+| [`USER_CLICKED_LIVE_TAG`](#USER_CLICKED_LIVE_TAG) |
+| [`USER_CLICKED_MUTE`](#USER_CLICKED_MUTE) |
+| [`USER_CLICKED_UNMUTE`](#USER_CLICKED_UNMUTE) |
+| [`USER_CHANGED_VOLUME`](#USER_CHANGED_VOLUME) |
+| [`USER_SELECTED_CAPTION_TRACK`](#USER_SELECTED_CAPTION_TRACK) |
+| [`USER_SELECTED_AUDIO_TRACK`](#USER_SELECTED_AUDIO_TRACK) |
+| [`USER_SELECTED_QUALITY_TRACK`](#USER_SELECTED_QUALITY_TRACK) |
+| [`USER_ENTERED_FULL_SCREEN`](#USER_ENTERED_FULL_SCREEN) |
+| [`USER_EXITED_FULL_SCREEN`](#USER_EXITED_FULL_SCREEN) |
+| [`USER_SELECTED_CAPTIONS_STYLE`](#USER_SELECTED_CAPTIONS_STYLE) |
+| [`USER_SELECTED_SPEED`](#USER_SELECTED_SPEED) |
+| [`USER_SEEKED`](#USER_SEEKED) |
 
-## Events 
+## Events
 > ### <a name="UI_CLICKED"></a>UI_CLICKED
 > Fires on any user interaction with the UI.
 #
-> ### <a name="UI_ACTIVE_STATE_CHANGED"></a>UI_ACTIVE_STATE_CHANGED
-> Fires when the UI changes his active state, i.e, changes from visible to hidden or from hidden to visible.
+> ### <a name="UI_VISIBILITY_CHANGED"></a>UI_VISIBILITY_CHANGED
+> Fires when the UI visibility state changes from visible to hidden or from hidden to visible.
 > <br><br>_payload parameters:_
 >
 > | Name | Type  | Description
 > |--|--|--|
-> | `isActive` | `boolean`| True when the UI is shown, false when the UI is hidden
+> | `visible` | `boolean`| True when the UI is shown, false when the UI is hidden
 #
 > ### <a name="USER_CLICKED_PLAY"></a>USER_CLICKED_PLAY
 > Fires when the user initiated play by the UI.<br>
@@ -41,7 +42,16 @@
 > It will fires neither by clicking the pause button or by clicking the video area.
 #
 > ### <a name="USER_CLICKED_REWIND"></a>USER_CLICKED_REWIND
-> Fires when the rewind button has been clicked by the user.<br>
+> Fires when the rewind button has been clicked by the user.
+> <br><br>_payload parameters:_
+>
+> | Name | Type  | Description
+> |--|--|--|
+> | `from` | `number` | The playback time before the click
+> | `to` | `number` | The playback time after the click
+#
+> ### <a name="USER_CLICKED_LIVE_TAG"></a>USER_CLICKED_LIVE_TAG
+> Fires when the live tag button has been clicked by the user.<br>
 #
 > ### <a name="USER_CLICKED_MUTE"></a>USER_CLICKED_MUTE
 > Fires when the user clicked the volume button and changed his state to mute.
@@ -51,6 +61,11 @@
 #
 > ### <a name="USER_CHANGED_VOLUME"></a>USER_CHANGED_VOLUME
 > Fires when the user dragged the volume bar and changed its value.
+> <br><br>_payload parameters:_
+>
+> | Name | Type  | Description
+> |--|--|--|
+> | `volume` | `number` | The new volume
 #
 > ### <a name="USER_SELECTED_CAPTION_TRACK"></a>USER_SELECTED_CAPTION_TRACK
 > Fires when the user selected a caption from the Captions dropdown.

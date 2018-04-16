@@ -60,6 +60,7 @@ class LiveTag extends BaseComponent {
         this.player.play();
       }
     }
+    this.notifyClick();
   }
 
   /**

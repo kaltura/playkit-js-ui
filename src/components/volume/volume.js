@@ -6,7 +6,8 @@ import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/volume';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
-import {KeyMap} from "../../utils/key-map";
+import {KeyMap} from '../../utils/key-map';
+import {KEYBOARD_DEFAULT_VOLUME_JUMP} from '../keyboard/keyboard';
 
 /**
  * mapping state to props
@@ -134,24 +135,26 @@ class VolumeControl extends BaseComponent {
    * @memberof VolumeControl
    */
   onVolumeControlKeyDown(e: KeyboardEvent): void {
-    let newVolume;
+    /**
+     * Change volume operations.
+     * @param {number} newVolume - The new volume.
+     * @returns {void}
+     */
+    const changeVolume = (newVolume: number) => {
+      this.setState({hover: true});
+      if (newVolume > 100 || newVolume < 0) {
+        return;
+      }
+      this.player.muted = (newVolume < KEYBOARD_DEFAULT_VOLUME_JUMP);
+      this.player.volume = (newVolume / 100);
+      this.notifyChange({volume: this.player.volume});
+    };
     switch (e.keyCode) {
       case KeyMap.UP:
-        this.setState({hover: true});
-        newVolume = Math.round(this.player.volume * 100) + 5;
-        if (this.player.muted) {
-          this.player.muted = false;
-        }
-        this.player.volume = newVolume / 100;
+        changeVolume(Math.round(this.player.volume * 100) + KEYBOARD_DEFAULT_VOLUME_JUMP);
         break;
       case KeyMap.DOWN:
-        this.setState({hover: true});
-        newVolume = Math.round(this.player.volume * 100) - 5;
-        if (newVolume < 5) {
-          this.player.muted = true;
-          return;
-        }
-        this.player.volume = newVolume / 100;
+        changeVolume(Math.round(this.player.volume * 100) - KEYBOARD_DEFAULT_VOLUME_JUMP);
         break;
       default:
         this.setState({hover: false});
@@ -202,12 +205,14 @@ class VolumeControl extends BaseComponent {
     let clickY = (e: any).clientY;
     let volume = 1 - ((clickY - topY) / barHeight);
     volume = parseFloat(volume.toFixed(2));
-    this.logger.debug(`Change volume from ${this.player.volume} => ${volume}`);
-    this.player.volume = volume;
-    if (this.props.muted) {
-      this.player.muted = false;
+    if (volume <= 1 && volume >= 0) {
+      this.logger.debug(`Change volume from ${this.player.volume} => ${volume}`);
+      this.player.volume = volume;
+      if (this.props.muted) {
+        this.player.muted = false;
+      }
+      this.notifyChange({volume: this.player.volume});
     }
-    this.notifyChange();
   }
 
   /**
