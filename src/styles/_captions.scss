@@ -8,6 +8,9 @@
     transform: translateY(-60px);
     transition: ease-out 100ms;
   }
+  &.iOSFullscreen video::-webkit-media-text-track-display {
+    transform: translateY(0px);
+  }
   &.overlay-active {
     :global(.playkit-subtitles) {
       display: none;
@@ -22,6 +25,9 @@
     &.hover :global(.playkit-subtitles) {
       transform: translateY(-60px);
       transition: ease-out 100ms;
+    }
+    &.iOSFullscreen :global(.playkit-subtitles) {
+      transform: translateY(0px);
     }
   }
 }

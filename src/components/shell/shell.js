@@ -28,7 +28,8 @@ const mapStateToProps = state => ({
   volumeHoverActive: state.volume.hover,
   adBreak: state.engine.adBreak,
   prePlayback: state.shell.prePlayback,
-  smartContainerOpen: state.shell.smartContainerOpen
+  smartContainerOpen: state.shell.smartContainerOpen,
+  iOSFullscreen: state.fullscreen.iOSFullscreen
 });
 
 /**
@@ -276,6 +277,7 @@ class Shell extends BaseComponent {
     if (this.props.metadataLoaded) playerClasses.push(style['state-' + this.props.currentState]);
     if (this.props.seekbarDraggingActive) playerClasses.push(style.hover);
     if (this.props.playerClientRect && this.props.playerClientRect.width <= 480) playerClasses.push(style.sizeSm);
+    if (this.props.iOSFullscreen) playerClasses.push(style.iOSFullscreen);
     else if (this.props.playerClientRect && this.props.playerClientRect.width <= 768) playerClasses.push(style.sizeMd);
 
     playerClasses = playerClasses.join(' ');
