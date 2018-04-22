@@ -134,8 +134,8 @@ class SettingsControl extends BaseComponent {
 
   /**
    * This function gets an array and increases it if needed in each iteration. The function checks if the last element
-   * in the sorted array has the same resolution as the new current track element. If so, it compares their bandwidth
-   * and the the one with the higher. If the resolution is different then it just adds it to the array
+   * in the sorted array has the same label as the new current track element. If so, it compares their bandwidth
+   * and selects the one with the higher. If the resolution is different then it just adds it to the array
    *
    * @param {Array} qualities - sorted (!) video tracks array
    * @param {object} currentTrack - a track
