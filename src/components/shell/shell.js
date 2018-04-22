@@ -266,7 +266,9 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   render(props: any): React$Element<any> {
-    let playerClasses = [style.player, style.skinDefault];
+    let playerClasses = [style.player, style.skinDefault,
+      `playkit-${this.player.env.os.name.replace(/ /g, "_")}`,
+      `playkit-${this.player.env.browser.name.replace(/ /g, "_")}`];
     playerClasses.push(props.playerClasses);
 
     if (this.props.isMobile) playerClasses.push(style.touch);
@@ -276,8 +278,8 @@ class Shell extends BaseComponent {
     if (this.props.adBreak) playerClasses.push(style.adBreak);
     if (this.props.metadataLoaded) playerClasses.push(style['state-' + this.props.currentState]);
     if (this.props.seekbarDraggingActive) playerClasses.push(style.hover);
+    if (this.props.fullscreen) playerClasses.push(style.fullscreen);
     if (this.props.playerClientRect && this.props.playerClientRect.width <= 480) playerClasses.push(style.sizeSm);
-    if (this.props.fullscreen && this.player.env.os.name === 'iOS') playerClasses.push(style.iOSFullscreen);
     else if (this.props.playerClientRect && this.props.playerClientRect.width <= 768) playerClasses.push(style.sizeMd);
 
     playerClasses = playerClasses.join(' ');
