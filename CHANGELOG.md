@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.22.2"></a>
+## [0.22.2](https://github.com/kaltura/playkit-js-ui/compare/v0.22.1...v0.22.2) (2018-04-22)
+
+
+### Bug Fixes
+
+* **FEC-8134:** replay fails on iOS for playback with ads ([#224](https://github.com/kaltura/playkit-js-ui/issues/224)) ([30e6c89](https://github.com/kaltura/playkit-js-ui/commit/30e6c89))
+* **FEC-8136:** quality tracks are filtered by height instead of by label ([#225](https://github.com/kaltura/playkit-js-ui/issues/225)) ([afe561f](https://github.com/kaltura/playkit-js-ui/commit/afe561f))
+
+
+
 <a name="0.22.1"></a>
 ## [0.22.1](https://github.com/kaltura/playkit-js-ui/compare/v0.22.0...v0.22.1) (2018-04-16)
 
