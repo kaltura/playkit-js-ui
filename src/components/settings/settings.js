@@ -146,7 +146,7 @@ class SettingsControl extends BaseComponent {
   filterUniqueQualities(qualities: Array<any>, currentTrack: any): Array<any> {
     const arrLength = qualities.length - 1;
     const previousTrack = qualities[arrLength];
-    if ((arrLength > -1) && (currentTrack.height === previousTrack.height)) {
+    if ((arrLength > -1) && (currentTrack.label === previousTrack.label)) {
       if (currentTrack.bandwidth > previousTrack.bandwidth) {
         qualities[arrLength] = currentTrack;
       }
