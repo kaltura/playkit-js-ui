@@ -75,7 +75,6 @@
 }
 
 .player :global([id^=playkit-ads-container]) {
-  z-index: 5;
   transition: transform 100ms;
 }
 
