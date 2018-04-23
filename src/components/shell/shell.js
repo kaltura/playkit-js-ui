@@ -268,8 +268,8 @@ class Shell extends BaseComponent {
    */
   render(props: any): React$Element<any> {
     let playerClasses = [style.player, style.skinDefault,
-      __CSS_MODULE_PREFIX__+this.player.env.os.name.replace(/ /g, "_"),
-      __CSS_MODULE_PREFIX__+this.player.env.browser.name.replace(/ /g, "_")];
+      __CSS_MODULE_PREFIX__ + '-' + this.player.env.os.name.replace(/ /g, "_"),
+      __CSS_MODULE_PREFIX__ + '-' + this.player.env.browser.name.replace(/ /g, "_")];
     playerClasses.push(props.playerClasses);
 
     if (this.props.isMobile) playerClasses.push(style.touch);
