@@ -75,7 +75,7 @@
 }
 
 .player :global([id^=playkit-ads-container]) {
-  &:global(.playkit-overlay-ad) {
+  &:global([data-ad-type="overlay"]) {
     z-index: 1;
   }
   transition: transform 100ms;
