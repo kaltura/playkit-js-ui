@@ -7,6 +7,7 @@ import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
 import {KeyMap} from "../../utils/key-map";
 
+declare var __CSS_MODULE_PREFIX__: string;
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -267,8 +268,8 @@ class Shell extends BaseComponent {
    */
   render(props: any): React$Element<any> {
     let playerClasses = [style.player, style.skinDefault,
-      `playkit-${this.player.env.os.name.replace(/ /g, "_")}`,
-      `playkit-${this.player.env.browser.name.replace(/ /g, "_")}`];
+      __CSS_MODULE_PREFIX__+this.player.env.os.name.replace(/ /g, "_"),
+      __CSS_MODULE_PREFIX__+this.player.env.browser.name.replace(/ /g, "_")];
     playerClasses.push(props.playerClasses);
 
     if (this.props.isMobile) playerClasses.push(style.touch);

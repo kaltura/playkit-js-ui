@@ -4,11 +4,13 @@ const webpack = require("webpack");
 const path = require("path");
 const PROD = (process.env.NODE_ENV === 'production');
 const packageData = require("./package.json");
+const CSS_MODULE_PREFIX = "playkit-";
 
 let plugins = [
   new webpack.DefinePlugin({
     __VERSION__: JSON.stringify(packageData.version),
     __NAME__: JSON.stringify(packageData.name),
+    __CSS_MODULE_PREFIX__: JSON.stringify(CSS_MODULE_PREFIX),
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
   })
 ];
@@ -66,7 +68,7 @@ module.exports = {
           options: {
             camelCase: true,
             modules: true,
-            localIdentName: 'playkit-[local]'
+            localIdentName: CSS_MODULE_PREFIX+'[local]'
           }
         }, {
           loader: "sass-loader"
