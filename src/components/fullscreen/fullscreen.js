@@ -17,7 +17,7 @@ import {default as Icon, IconType} from '../icon';
 const mapStateToProps = state => ({
   targetId: state.config.targetId,
   fullscreen: state.fullscreen.fullscreen,
-  inBrowserFullscreenForIOSDevices: state.fullscreen.inBrowserFullscreenForIOSDevices,
+  inBrowserFullscreenForIOS: state.fullscreen.inBrowserFullscreenForIOS,
   isMobile: state.shell.isMobile
 });
 
@@ -178,7 +178,7 @@ class FullscreenControl extends BaseComponent {
    */
   enterFullscreen(): void {
     if (this.player.env.os.name === 'iOS') {
-      if (this.props.inBrowserFullscreenForIOSDevices) {
+      if (this.props.inBrowserFullscreenForIOS) {
         this.enterInBrowserFullscreen();
       } else {
         this.player.getVideoElement().webkitEnterFullScreen();
@@ -199,7 +199,7 @@ class FullscreenControl extends BaseComponent {
    */
   exitFullscreen() {
     if (this.player.env.os.name === 'iOS') {
-      if (this.props.inBrowserFullscreenForIOSDevices) {
+      if (this.props.inBrowserFullscreenForIOS) {
         this.exitInBrowserFullscreen();
       } else {
         this.player.getVideoElement().webkitExitFullScreen();
