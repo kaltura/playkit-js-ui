@@ -1,18 +1,26 @@
-.control-button-container.control-fullscreen {
-  .control-button {
-    transition: 100ms transform;
-    transform: scale(1);
+.in-browser-fullscreen-mode {
+  width: auto !important;
+  height: auto !important;
+  position: fixed !important;
+}
 
-    .icon-minimize {
-      display: none;
-    }
+.player {
+  .control-button-container.control-fullscreen {
+    .control-button {
+      transition: 100ms transform;
+      transform: scale(1);
 
-    &.is-fullscreen {
-      .icon-maximize {
+      .icon-minimize {
         display: none;
       }
-      .icon-minimize {
-        display: block;
+
+      &.is-fullscreen {
+        .icon-maximize {
+          display: none;
+        }
+        .icon-minimize {
+          display: block;
+        }
       }
     }
   }
