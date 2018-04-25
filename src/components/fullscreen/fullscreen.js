@@ -30,6 +30,7 @@ const mapStateToProps = state => ({
    * @extends {BaseComponent}
    */
 class FullscreenControl extends BaseComponent {
+  _targetDiv: ?HTMLElement;
 
   /**
    * Creates an instance of FullscreenControl.
@@ -38,6 +39,16 @@ class FullscreenControl extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'Fullscreen', player: obj.player});
+  }
+
+  /**
+   * before component mounted, cache the target id div
+   *
+   * @returns {void}
+   * @memberof FullscreenControl
+   */
+  componentWillMount(): void {
+    this._targetDiv = document.getElementById(this.props.targetId);
   }
 
   /**
@@ -150,10 +161,11 @@ class FullscreenControl extends BaseComponent {
    * @memberof FullscreenControl
    */
   enterInBrowserFullscreen(): void {
-    const elementToFullscreen = document.getElementById(this.props.targetId);
-    elementToFullscreen.classList.add(style.inBrowserFullscreenMode);
-    this.player.notifyEnterFullscreen();
-    this.props.updateFullscreen(true);
+    if (this._targetDiv) {
+      this._targetDiv.classList.add(style.inBrowserFullscreenMode);
+      this.player.notifyEnterFullscreen();
+      this.props.updateFullscreen(true);
+    }
   }
 
   /**
@@ -163,10 +175,11 @@ class FullscreenControl extends BaseComponent {
    * @memberof FullscreenControl
    */
   exitInBrowserFullscreen(): void {
-    const elementToFullscreen = document.getElementById(this.props.targetId);
-    elementToFullscreen.classList.remove(style.inBrowserFullscreenMode);
-    this.player.notifyExitFullscreen();
-    this.props.updateFullscreen(false);
+    if (this._targetDiv) {
+      this._targetDiv.classList.remove(style.inBrowserFullscreenMode);
+      this.player.notifyExitFullscreen();
+      this.props.updateFullscreen(false);
+    }
   }
 
   /**
@@ -184,9 +197,8 @@ class FullscreenControl extends BaseComponent {
         this.player.getVideoElement().webkitEnterFullScreen();
       }
     } else {
-      const elementToFullscreen = document.getElementById(this.props.targetId);
-      if (elementToFullscreen) {
-        this.requestFullscreen(elementToFullscreen);
+      if (this._targetDiv) {
+        this.requestFullscreen(this._targetDiv);
       }
     }
   }
