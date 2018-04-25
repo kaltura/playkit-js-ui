@@ -27,11 +27,6 @@ import {middleware} from './middlewares'
 
 import './styles/style.scss';
 
-type UIPreset = {
-  template: (props: Object) => any;
-  condition?: (state: Object) => boolean;
-}
-
 /**
  * API used for building UIs based on state conditions
  *

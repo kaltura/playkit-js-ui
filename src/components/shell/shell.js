@@ -7,7 +7,6 @@ import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
 import {KeyMap} from "../../utils/key-map";
 
-declare var __CSS_MODULE_PREFIX__: string;
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -52,6 +51,7 @@ class Shell extends BaseComponent {
   state: Object;
   hoverTimeout: ?number;
   _fallbackToMutedAutoPlayMode: boolean;
+  _environmentClasses: Array<string>;
 
   /**
    * Creates an instance of Shell.
@@ -64,6 +64,10 @@ class Shell extends BaseComponent {
     this.player.addEventListener(this.player.Event.FALLBACK_TO_MUTED_AUTOPLAY, () => {
       this._fallbackToMutedAutoPlayMode = true
     });
+    this._environmentClasses = [
+      __CSS_MODULE_PREFIX__ + '-' + this.player.env.os.name.replace(/ /g, "-"),
+      __CSS_MODULE_PREFIX__ + '-' + this.player.env.browser.name.replace(/ /g, "-")
+    ];
   }
 
   /**
@@ -267,9 +271,7 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   render(props: any): React$Element<any> {
-    let playerClasses = [style.player, style.skinDefault,
-      __CSS_MODULE_PREFIX__ + '-' + this.player.env.os.name.replace(/ /g, "_"),
-      __CSS_MODULE_PREFIX__ + '-' + this.player.env.browser.name.replace(/ /g, "_")];
+    let playerClasses = [style.player, style.skinDefault, ...this._environmentClasses];
     playerClasses.push(props.playerClasses);
 
     if (this.props.isMobile) playerClasses.push(style.touch);
