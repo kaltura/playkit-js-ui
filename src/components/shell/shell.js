@@ -65,8 +65,8 @@ class Shell extends BaseComponent {
       this._fallbackToMutedAutoPlayMode = true
     });
     this._environmentClasses = [
-      __CSS_MODULE_PREFIX__ + '-' + this.player.env.os.name.replace(/ /g, '-'),
-      __CSS_MODULE_PREFIX__ + '-' + this.player.env.browser.name.replace(/ /g, '-')
+      `${__CSS_MODULE_PREFIX__}-${this.player.env.os.name.replace(/ /g, '-')}`,
+      `${__CSS_MODULE_PREFIX__}-${this.player.env.browser.name.replace(/ /g, '-')}`
     ];
   }
 

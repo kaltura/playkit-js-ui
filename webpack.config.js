@@ -4,7 +4,7 @@ const webpack = require("webpack");
 const path = require("path");
 const PROD = (process.env.NODE_ENV === 'production');
 const packageData = require("./package.json");
-const CSS_MODULE_PREFIX = "playkit";
+const CSS_MODULE_PREFIX = 'playkit';
 
 let plugins = [
   new webpack.DefinePlugin({
