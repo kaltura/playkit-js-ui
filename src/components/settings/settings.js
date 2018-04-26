@@ -9,6 +9,7 @@ import BaseComponent from '../base';
 import {SmartContainer} from '../smart-container';
 import {SmartContainerItem} from '../smart-container/smart-container-item';
 import {default as Icon, IconType} from '../icon';
+import {bindMethod} from '../../utils/bind-method';
 
 /**
  * mapping state to props
@@ -40,6 +41,7 @@ class SettingsControl extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'Settings', player: obj.player});
+    this.handleClickOutside = bindMethod(this, this.handleClickOutside);
   }
 
   /**
@@ -59,7 +61,7 @@ class SettingsControl extends BaseComponent {
    * @memberof SettingsControl
    */
   componentDidMount() {
-    document.addEventListener('click', this.handleClickOutside.bind(this), true);
+    document.addEventListener('click', this.handleClickOutside, true);
   }
 
   /**
@@ -69,7 +71,7 @@ class SettingsControl extends BaseComponent {
    * @memberof SettingsControl
    */
   componentWillUnmount() {
-    document.removeEventListener('click', this.handleClickOutside.bind(this));
+    document.removeEventListener('click', this.handleClickOutside, true);
   }
 
   /**

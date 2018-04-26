@@ -5,7 +5,8 @@ import BaseComponent from '../base';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
-import {KeyMap} from "../../utils/key-map";
+import {KeyMap} from '../../utils/key-map';
+import {bindMethod} from '../../utils/bind-method';
 
 /**
  * mapping state to props
@@ -58,6 +59,7 @@ class Shell extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'Shell', player: obj.player});
+    this._onWindowResize = bindMethod(this, this._onWindowResize);
     this._fallbackToMutedAutoPlayMode = false;
     this.player.addEventListener(this.player.Event.FALLBACK_TO_MUTED_AUTOPLAY, () => {
       this._fallbackToMutedAutoPlayMode = true
@@ -166,22 +168,34 @@ class Shell extends BaseComponent {
    */
   componentDidMount() {
     this.props.updateIsMobile(!!this.player.env.device.type || this.props.forceTouchUI);
-    if (document.body) {
-      this.props.updateDocumentWidth(document.body.clientWidth);
-    }
+    this._onWindowResize();
+    window.addEventListener('resize', this._onWindowResize);
+  }
+
+  /**
+   * window resize handler
+   *
+   * @returns {void}
+   * @memberof Shell
+   */
+  _onWindowResize(): void {
     const playerContainer = document.getElementById(this.props.targetId);
     if (playerContainer) {
       this.props.updatePlayerClientRect(playerContainer.getBoundingClientRect());
     }
-    window.addEventListener('resize', () => {
-      const playerContainer = document.getElementById(this.props.targetId);
-      if (playerContainer) {
-        this.props.updatePlayerClientRect(playerContainer.getBoundingClientRect());
-      }
-      if (document.body) {
-        this.props.updateDocumentWidth(document.body.clientWidth);
-      }
-    });
+    if (document.body) {
+      this.props.updateDocumentWidth(document.body.clientWidth);
+    }
+  }
+
+  /**
+   * before component mounted, remove event listeners
+   *
+   * @returns {void}
+   * @memberof Shell
+   */
+  componentWillUnmount(): void {
+    window.removeEventListener('resize', this._onWindowResize);
   }
 
   /**

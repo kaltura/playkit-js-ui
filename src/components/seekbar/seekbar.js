@@ -7,6 +7,7 @@ import {connect} from "preact-redux";
 import {bindActions} from "../../utils/bind-actions";
 import {actions} from "../../reducers/shell";
 import {KEYBOARD_DEFAULT_SEEK_JUMP} from '../keyboard/keyboard';
+import {bindMethod} from '../../utils/bind-method';
 
 /**
  * mapping state to props
@@ -33,12 +34,21 @@ class SeekBarControl extends Component {
   _movex: number;
 
   /**
+   * Creates an instance of SeekBarControl.
+   * @memberof SeekBarControl
+   */
+  constructor() {
+    super();
+    this.onPlayerMouseUp = bindMethod(this, this.onPlayerMouseUp);
+  }
+
+  /**
    * before component mounted, set initial state
    *
    * @returns {void}
    * @memberof SeekBarControl
    */
-  componentWillMount() {
+  componentWillMount(): void {
     this.setState({virtualTime: 0});
   }
 
@@ -48,14 +58,20 @@ class SeekBarControl extends Component {
    * @returns {void}
    * @memberof SeekBarControl
    */
-  componentDidMount() {
-    document.addEventListener('mouseup', (e: Event) => {
-      this.onPlayerMouseUp(e);
-    });
+  componentDidMount(): void {
+    document.addEventListener('mouseup', this.onPlayerMouseUp);
+    document.addEventListener('mousemove', this.onPlayerMouseUp);
+  }
 
-    document.addEventListener('mousemove', (e: Event) => {
-      this.onPlayerMouseMove(e);
-    });
+  /**
+   * before component unmounted, remove event listeners
+   *
+   * @returns {void}
+   * @memberof SeekBarControl
+   */
+  componentWillUnmount(): void {
+    document.removeEventListener('mouseup', this.onPlayerMouseUp);
+    document.removeEventListener('mousemove', this.onPlayerMouseUp);
   }
 
   /**
