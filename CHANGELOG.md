@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.22.4"></a>
+## [0.22.4](https://github.com/kaltura/playkit-js-ui/compare/v0.22.3...v0.22.4) (2018-05-01)
+
+
+### Bug Fixes
+
+* **FEC-8177:** playback UI isn't displayed on fatal ad error when changing media ([#235](https://github.com/kaltura/playkit-js-ui/issues/235)) ([2cc13ea](https://github.com/kaltura/playkit-js-ui/commit/2cc13ea))
+
+
+
+<a name="0.22.3"></a>
+## [0.22.3](https://github.com/kaltura/playkit-js-ui/compare/v0.22.2...v0.22.3) (2018-04-23)
+
+
+### Bug Fixes
+
+* **FEC-8142:** overlay ad clickthrough doesn't work ([#228](https://github.com/kaltura/playkit-js-ui/issues/228)) ([0489cf3](https://github.com/kaltura/playkit-js-ui/commit/0489cf3))
+
+
+
 <a name="0.22.2"></a>
 ## [0.22.2](https://github.com/kaltura/playkit-js-ui/compare/v0.22.1...v0.22.2) (2018-04-22)
 
