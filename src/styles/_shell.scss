@@ -79,7 +79,9 @@
 }
 
 .player :global([id^=playkit-ads-container]) {
-  z-index: 5;
+  &:global([data-adtype="overlay"]) {
+    z-index: 1;
+  }
   transition: transform 100ms;
 }
 
