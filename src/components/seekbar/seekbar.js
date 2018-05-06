@@ -185,6 +185,7 @@ class SeekBarControl extends Component {
     if (this.props.isDraggingActive) {
       this.updateSeekBarProgress(time, this.props.duration);
     }
+    e.preventDefault();
   }
 
   /**
