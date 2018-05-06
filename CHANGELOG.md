@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.23.0"></a>
+# [0.23.0](https://github.com/kaltura/playkit-js-ui/compare/v0.22.4...v0.23.0) (2018-05-06)
+
+
+### Bug Fixes
+
+* **FEC-7976:** when bootstrap reset is on the page the player menus and CVAA is not working right ([#222](https://github.com/kaltura/playkit-js-ui/issues/222)) ([137411c](https://github.com/kaltura/playkit-js-ui/commit/137411c))
+* **FEC-8032:** when switching to iOS fullscreen in portrait captions displayed in the middle for few seconds ([#223](https://github.com/kaltura/playkit-js-ui/issues/223)) ([4da5170](https://github.com/kaltura/playkit-js-ui/commit/4da5170))
+* **FEC-8058:** mouse cursor not released after seek action in firefox ([#226](https://github.com/kaltura/playkit-js-ui/issues/226)) ([352fdee](https://github.com/kaltura/playkit-js-ui/commit/352fdee))
+* **FEC-8141:** prevent scroll when seeking on mobile ([#227](https://github.com/kaltura/playkit-js-ui/issues/227)) ([41ba7f6](https://github.com/kaltura/playkit-js-ui/commit/41ba7f6))
+* **FEC-8144, FEC-8024:** black screen once seeking ie11 ([#233](https://github.com/kaltura/playkit-js-ui/issues/233)) ([7fc9a3f](https://github.com/kaltura/playkit-js-ui/commit/7fc9a3f))
+* **FEC-8146:** loading spinner disappear too early when overlay ad ([#230](https://github.com/kaltura/playkit-js-ui/issues/230)) ([90c30d6](https://github.com/kaltura/playkit-js-ui/commit/90c30d6))
+* **FEC-8154:** notifyClick error is throwing when seeking live with DVR ([#232](https://github.com/kaltura/playkit-js-ui/issues/232)) ([0ed9cd7](https://github.com/kaltura/playkit-js-ui/commit/0ed9cd7))
+* **FEC-8155:** error UI isn't displayed ([#231](https://github.com/kaltura/playkit-js-ui/issues/231)) ([371ed56](https://github.com/kaltura/playkit-js-ui/commit/371ed56))
+* **FEC-8163:** UI doesn't remove its listeners when components unmount ([#234](https://github.com/kaltura/playkit-js-ui/issues/234)) ([13f9078](https://github.com/kaltura/playkit-js-ui/commit/13f9078))
+
+
+### Features
+
+* **FEC-8139:** iOS in-browser fullscreen ([#229](https://github.com/kaltura/playkit-js-ui/issues/229)) ([dc51dc1](https://github.com/kaltura/playkit-js-ui/commit/dc51dc1))
+
+
+
 <a name="0.22.4"></a>
 ## [0.22.4](https://github.com/kaltura/playkit-js-ui/compare/v0.22.3...v0.22.4) (2018-05-01)
 
