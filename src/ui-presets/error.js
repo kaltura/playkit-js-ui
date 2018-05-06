@@ -1,7 +1,7 @@
 //@flow
 import style from '../styles/style.scss';
 import {h} from 'preact';
-import ErrorOverlay from '../components/error-overlay';
+import {ErrorOverlay} from '../components/error-overlay';
 
 /**
  * Error ui
