@@ -28,7 +28,8 @@ const mapStateToProps = state => ({
   volumeHoverActive: state.volume.hover,
   adBreak: state.engine.adBreak,
   prePlayback: state.shell.prePlayback,
-  smartContainerOpen: state.shell.smartContainerOpen
+  smartContainerOpen: state.shell.smartContainerOpen,
+  fullscreen: state.fullscreen.fullscreen
 });
 
 /**
@@ -50,6 +51,7 @@ class Shell extends BaseComponent {
   state: Object;
   hoverTimeout: ?number;
   _fallbackToMutedAutoPlayMode: boolean;
+  _environmentClasses: Array<string>;
 
   /**
    * Creates an instance of Shell.
@@ -62,6 +64,10 @@ class Shell extends BaseComponent {
     this.player.addEventListener(this.player.Event.FALLBACK_TO_MUTED_AUTOPLAY, () => {
       this._fallbackToMutedAutoPlayMode = true
     });
+    this._environmentClasses = [
+      `${__CSS_MODULE_PREFIX__}-${this.player.env.os.name.replace(/ /g, '-')}`,
+      `${__CSS_MODULE_PREFIX__}-${this.player.env.browser.name.replace(/ /g, '-')}`
+    ];
   }
 
   /**
@@ -265,7 +271,7 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   render(props: any): React$Element<any> {
-    let playerClasses = [style.player, style.skinDefault];
+    let playerClasses = [style.player, style.skinDefault, ...this._environmentClasses];
     playerClasses.push(props.playerClasses);
 
     if (this.props.isMobile) playerClasses.push(style.touch);
@@ -275,6 +281,7 @@ class Shell extends BaseComponent {
     if (this.props.adBreak) playerClasses.push(style.adBreak);
     if (this.props.metadataLoaded) playerClasses.push(style['state-' + this.props.currentState]);
     if (this.props.seekbarDraggingActive) playerClasses.push(style.hover);
+    if (this.props.fullscreen) playerClasses.push(style.fullscreen);
     if (this.props.playerClientRect && this.props.playerClientRect.width <= 480) playerClasses.push(style.sizeSm);
     else if (this.props.playerClientRect && this.props.playerClientRect.width <= 768) playerClasses.push(style.sizeMd);
 
