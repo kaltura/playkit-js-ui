@@ -33,6 +33,10 @@
     font-size: 0;
     font-family: $font-family;
 
+    label {
+      margin-bottom: initial;
+    }
+
     input, textarea {
       font-family: $font-family;
     }
@@ -75,6 +79,9 @@
 }
 
 .player :global([id^=playkit-ads-container]) {
+  &:global([data-adtype="overlay"]) {
+    z-index: 1;
+  }
   transition: transform 100ms;
 }
 
