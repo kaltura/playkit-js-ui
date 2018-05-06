@@ -48,7 +48,6 @@
       top: 0;
       left: 0;
       height: 100%;
-      z-index: 2;
       border-radius: $progress-bar-border-radius 0 0 $progress-bar-border-radius;
       background-color: $brand-color;
     }
@@ -60,13 +59,11 @@
       top: 0;
       left: 0;
       height: 100%;
-      z-index: 1;
       border-radius: $progress-bar-border-radius 0 0 $progress-bar-border-radius;
       background-color: rgba(255, 255, 255, 0.3);
     }
     .scrubber {
       position: absolute;
-      z-index: 3;
       cursor: pointer;
       display: block;
       top: -8px + $progress-bar-height / 2;
@@ -94,7 +91,6 @@
     width: 164px;
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 4px;
-    z-index: 10;
 
     .frame-preview-img {
       background-size: auto 100%;
@@ -108,7 +104,6 @@
     position: absolute;
     bottom: $progress-bar-height + 18px;
     left: 0;
-    z-index: 11;
     height: 22px;
     min-width: 48px;
     padding: 0 3px;

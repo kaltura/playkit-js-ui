@@ -33,6 +33,10 @@
     font-size: 0;
     font-family: $font-family;
 
+    label {
+      margin-bottom: initial;
+    }
+
     input, textarea {
       font-family: $font-family;
     }
