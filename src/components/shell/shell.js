@@ -53,6 +53,7 @@ class Shell extends BaseComponent {
   hoverTimeout: ?number;
   _fallbackToMutedAutoPlayMode: boolean;
   _environmentClasses: Array<string>;
+  _onWindowResize: Function;
 
   /**
    * Creates an instance of Shell.

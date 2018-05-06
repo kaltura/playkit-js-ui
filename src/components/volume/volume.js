@@ -31,6 +31,8 @@ const mapStateToProps = state => ({
    * @extends {BaseComponent}
    */
 class VolumeControl extends BaseComponent {
+  onVolumeProgressBarMouseUp: Function;
+  onVolumeProgressBarMouseMove: Function;
   _volumeControlElement: HTMLElement;
   _volumeProgressBarElement: HTMLElement;
 

@@ -28,6 +28,7 @@ const mapStateToProps = state => ({
    */
 class SeekBarControl extends Component {
   state: Object;
+  onPlayerMouseUp: Function;
   _seekBarElement: HTMLElement;
   _framePreviewElement: HTMLElement;
   _timeBubbleElement: HTMLElement;

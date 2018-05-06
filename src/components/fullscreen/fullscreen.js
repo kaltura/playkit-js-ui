@@ -32,6 +32,7 @@ const mapStateToProps = state => ({
    */
 class FullscreenControl extends BaseComponent {
   _targetDiv: ?HTMLElement;
+  fullscreenChangeHandler: Function;
 
   /**
    * Creates an instance of FullscreenControl.

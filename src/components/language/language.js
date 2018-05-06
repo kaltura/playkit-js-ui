@@ -36,6 +36,7 @@ const mapStateToProps = state => ({
    */
 class LanguageControl extends BaseComponent {
   state: Object;
+  handleClickOutside: Function;
   _controlLanguageElement: any;
   _portal: any;
 

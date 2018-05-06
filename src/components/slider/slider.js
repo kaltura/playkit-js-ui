@@ -16,6 +16,8 @@ const KEYBOARD_DRAG_STEP = 5;
 class Slider extends Component {
   state: Object;
   sliderWidth: number;
+  mouseUpHandler: Function;
+  mouseMoveHandler: Function;
   _sliderElement: HTMLElement;
   _sliderElementOffsetLeft: number;
 

@@ -30,6 +30,7 @@ const mapStateToProps = state => ({
    */
 class Menu extends Component {
   state: Object;
+  handleClickOutside: Function;
   _menuElement: any;
 
   /**
