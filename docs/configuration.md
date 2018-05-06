@@ -45,7 +45,7 @@ Useful for applications that wants to force mobile view of player UI.
 >##### Type: `Object`
 >##### Default: `-`
 >##### Description: Defines the ui components configuration.
->Optional components to configure: `watermark`,`seekbar`
+>Optional components to configure: `watermark`,`seekbar`, `fullscreen`
 ##
 >>### config.components.watermark
 >>##### Type: `Object`
@@ -112,3 +112,22 @@ Useful for applications that wants to force mobile view of player UI.
 >>>##### Type: `number`
 >>>##### Default: `-`
 >>>##### Description: The amount of slices that the preview thumbnail image will divided into.
+##
+>>### config.components.fullscreen
+>>##### Type: `Object`
+>>```js
+>>{
+>>    inBrowserFullscreenForIOS: boolean
+>>}
+>>```
+>>##### Default:
+>>```js
+>>{
+>>    inBrowserFullscreenForIOS: false
+>>}
+>>```
+>>##### Description: Defines a fullscreen component.
+>>>### config.components.fullscreen.inBrowserFullscreenForIOS
+>>>##### Type: `boolean`
+>>>##### Default: `false`
+>>>##### Description: Gives the ability to choose an in-browser fullscreen experience on iOS devices which will replace the native fullscreen of the AV player.

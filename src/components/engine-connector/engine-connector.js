@@ -161,6 +161,12 @@ class EngineConnector extends BaseComponent {
       this.props.updateAdIsPlaying(false);
     });
 
+    this.player.addEventListener(this.player.Event.AD_ERROR, e => {
+      if (e.payload.fatal) {
+        this.props.updateAdBreak(false);
+      }
+    });
+
     this.player.addEventListener(this.player.Event.AD_LOADED, e => {
       this.props.updateAdIsLinear(e.payload.ad.isLinear());
       this.props.updateAdClickUrl(e.payload.ad.g.clickThroughUrl);

@@ -17,6 +17,7 @@ import {default as Icon, IconType} from '../icon';
 const mapStateToProps = state => ({
   targetId: state.config.targetId,
   fullscreen: state.fullscreen.fullscreen,
+  inBrowserFullscreenForIOS: state.fullscreen.inBrowserFullscreenForIOS,
   isMobile: state.shell.isMobile
 });
 
@@ -29,6 +30,7 @@ const mapStateToProps = state => ({
    * @extends {BaseComponent}
    */
 class FullscreenControl extends BaseComponent {
+  _targetDiv: ?HTMLElement;
 
   /**
    * Creates an instance of FullscreenControl.
@@ -37,6 +39,16 @@ class FullscreenControl extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'Fullscreen', player: obj.player});
+  }
+
+  /**
+   * before component mounted, cache the target id div
+   *
+   * @returns {void}
+   * @memberof FullscreenControl
+   */
+  componentWillMount(): void {
+    this._targetDiv = document.getElementById(this.props.targetId);
   }
 
   /**
@@ -143,6 +155,34 @@ class FullscreenControl extends BaseComponent {
   }
 
   /**
+   * enter in browser fullscreen mode
+   *
+   * @returns {void}
+   * @memberof FullscreenControl
+   */
+  enterInBrowserFullscreen(): void {
+    if (this._targetDiv) {
+      this._targetDiv.classList.add(style.inBrowserFullscreenMode);
+      this.player.notifyEnterFullscreen();
+      this.props.updateFullscreen(true);
+    }
+  }
+
+  /**
+   * exit in browser fullscreen mode
+   *
+   * @returns {void}
+   * @memberof FullscreenControl
+   */
+  exitInBrowserFullscreen(): void {
+    if (this._targetDiv) {
+      this._targetDiv.classList.remove(style.inBrowserFullscreenMode);
+      this.player.notifyExitFullscreen();
+      this.props.updateFullscreen(false);
+    }
+  }
+
+  /**
    * if mobile detected, get the video element and request fullscreen.
    * otherwise, request fullscreen to the parent player view than includes the GUI as well
    *
@@ -151,11 +191,14 @@ class FullscreenControl extends BaseComponent {
    */
   enterFullscreen(): void {
     if (this.player.env.os.name === 'iOS') {
-      this.player.getVideoElement().webkitEnterFullScreen();
+      if (this.props.inBrowserFullscreenForIOS) {
+        this.enterInBrowserFullscreen();
+      } else {
+        this.player.getVideoElement().webkitEnterFullScreen();
+      }
     } else {
-      let elementToFullscreen = document.getElementById(this.props.targetId);
-      if (elementToFullscreen) {
-        this.requestFullscreen(elementToFullscreen);
+      if (this._targetDiv) {
+        this.requestFullscreen(this._targetDiv);
       }
     }
   }
@@ -168,7 +211,11 @@ class FullscreenControl extends BaseComponent {
    */
   exitFullscreen() {
     if (this.player.env.os.name === 'iOS') {
-      this.player.getVideoElement().webkitExitFullScreen();
+      if (this.props.inBrowserFullscreenForIOS) {
+        this.exitInBrowserFullscreen();
+      } else {
+        this.player.getVideoElement().webkitExitFullScreen();
+      }
     } else if (typeof document.exitFullscreen === 'function') {
       document.exitFullscreen();
     } else if (typeof document.webkitExitFullscreen === 'function') {
