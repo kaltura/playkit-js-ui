@@ -12,6 +12,7 @@ import {default as Icon, IconType} from '../icon';
 import {CVAAOverlay} from '../cvaa-overlay';
 import Portal from 'preact-portal';
 import {KeyMap} from "../../utils/key-map";
+import {bindMethod} from '../../utils/bind-method';
 
 /**
  * mapping state to props
@@ -35,6 +36,7 @@ const mapStateToProps = state => ({
    */
 class LanguageControl extends BaseComponent {
   state: Object;
+  handleClickOutside: Function;
   _controlLanguageElement: any;
   _portal: any;
 
@@ -45,6 +47,7 @@ class LanguageControl extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'LanguageControl', player: obj.player});
+    this.handleClickOutside = bindMethod(this, this.handleClickOutside);
   }
 
   /**
@@ -64,7 +67,7 @@ class LanguageControl extends BaseComponent {
    * @memberof LanguageControl
    */
   componentDidMount() {
-    document.addEventListener('click', this.handleClickOutside.bind(this), true);
+    document.addEventListener('click', this.handleClickOutside, true);
   }
 
   /**
@@ -74,7 +77,7 @@ class LanguageControl extends BaseComponent {
    * @memberof LanguageControl
    */
   componentWillUnmount() {
-    document.removeEventListener('click', this.handleClickOutside.bind(this), true);
+    document.removeEventListener('click', this.handleClickOutside, true);
   }
 
   /**

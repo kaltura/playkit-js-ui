@@ -1,7 +1,8 @@
 //@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
-import {KeyMap} from "../../utils/key-map";
+import {KeyMap} from '../../utils/key-map';
+import {bindMethod} from '../../utils/bind-method';
 
 const KEYBOARD_DRAG_STEP = 5;
 
@@ -14,9 +15,23 @@ const KEYBOARD_DRAG_STEP = 5;
  */
 class Slider extends Component {
   state: Object;
+  sliderWidth: number;
+  mouseUpHandler: Function;
+  mouseMoveHandler: Function;
   _sliderElement: HTMLElement;
   _sliderElementOffsetLeft: number;
-  sliderWidth: number;
+
+  /**
+   * Creates an instance of Slider.
+   *
+   * @constructor
+   * @memberof Slider
+   */
+  constructor() {
+    super();
+    this.mouseUpHandler = bindMethod(this, this.mouseUpHandler);
+    this.mouseMoveHandler = bindMethod(this, this.mouseMoveHandler);
+  }
 
   /**
    * before component mounted, set initial state of the slider
@@ -24,7 +39,7 @@ class Slider extends Component {
    * @returns {void}
    * @memberof Slider
    */
-  componentWillMount() {
+  componentWillMount(): void {
     this.setState({
       value: this.props.value || 0,
       min: this.props.min || 0,
@@ -32,11 +47,23 @@ class Slider extends Component {
       dragging: false
     });
 
-    document.addEventListener('mouseup', (e: Event) => this.mouseUpHandler(e));
-    document.addEventListener('mousemove', (e: Event) => this.mouseMoveHandler(e));
+    document.addEventListener('mouseup', this.mouseUpHandler);
+    document.addEventListener('mousemove', this.mouseMoveHandler);
+    document.addEventListener('touchend', this.mouseUpHandler);
+    document.addEventListener('touchmove', this.mouseMoveHandler);
+  }
 
-    document.addEventListener('touchend', (e: Event) => this.mouseUpHandler(e));
-    document.addEventListener('touchmove', (e: Event) => this.mouseMoveHandler(e));
+  /**
+   * before component unmounted, remove event listeners
+   *
+   * @returns {void}
+   * @memberof Slider
+   */
+  componentWillUnmount(): void {
+    document.removeEventListener('mouseup', this.mouseUpHandler);
+    document.removeEventListener('mousemove', this.mouseMoveHandler);
+    document.removeEventListener('touchend', this.mouseUpHandler);
+    document.removeEventListener('touchmove', this.mouseMoveHandler);
   }
 
   /**

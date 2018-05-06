@@ -3,7 +3,8 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {default as Icon, IconType} from '../icon';
 import {connect} from 'preact-redux';
-import {KeyMap} from "../../utils/key-map";
+import {KeyMap} from '../../utils/key-map';
+import {bindMethod} from '../../utils/bind-method';
 
 /**
  * mapping state to props
@@ -28,8 +29,20 @@ const mapStateToProps = state => ({
    * @extends {Component}
    */
 class Menu extends Component {
-  _menuElement: any;
   state: Object;
+  handleClickOutside: Function;
+  _menuElement: any;
+
+  /**
+   * Creates an instance of Menu.
+   *
+   * @constructor
+   * @memberof Menu
+   */
+  constructor() {
+    super();
+    this.handleClickOutside = bindMethod(this, this.handleClickOutside);
+  }
 
   /**
    * before component mounted, set initial state of the menu position
@@ -46,7 +59,7 @@ class Menu extends Component {
    * @memberof Menu
    */
   componentDidMount() {
-    document.addEventListener('click', this.handleClickOutside.bind(this), true);
+    document.addEventListener('click', this.handleClickOutside, true);
     if (!this.props.isMobile) {
       this.setState({position: this.getPosition()});
     }
@@ -59,7 +72,7 @@ class Menu extends Component {
    * @memberof Menu
    */
   componentWillUnmount() {
-    document.removeEventListener('click', this.handleClickOutside.bind(this));
+    document.removeEventListener('click', this.handleClickOutside);
   }
 
   /**

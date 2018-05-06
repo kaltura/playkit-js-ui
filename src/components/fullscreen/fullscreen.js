@@ -8,6 +8,7 @@ import {actions} from '../../reducers/shell';
 import {actions as fullscreenActions} from '../../reducers/fullscreen';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
+import {bindMethod} from '../../utils/bind-method';
 
 /**
  * mapping state to props
@@ -31,6 +32,7 @@ const mapStateToProps = state => ({
    */
 class FullscreenControl extends BaseComponent {
   _targetDiv: ?HTMLElement;
+  fullscreenChangeHandler: Function;
 
   /**
    * Creates an instance of FullscreenControl.
@@ -39,6 +41,7 @@ class FullscreenControl extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'Fullscreen', player: obj.player});
+    this.fullscreenChangeHandler = bindMethod(this, this.fullscreenChangeHandler);
   }
 
   /**
@@ -52,19 +55,32 @@ class FullscreenControl extends BaseComponent {
   }
 
   /**
-   * after component mounted, set up event listerners to window fullscreen state change
+   * after component mounted, set up event listeners to window fullscreen state change
    *
    * @returns {void}
    * @memberof FullscreenControl
    */
-  componentDidMount() {
-    document.addEventListener('webkitfullscreenchange', () => this.fullscreenChangeHandler());
-    document.addEventListener('mozfullscreenchange', () => this.fullscreenChangeHandler());
-    document.addEventListener('fullscreenchange', () => this.fullscreenChangeHandler());
-    document.addEventListener('MSFullscreenChange', () => this.fullscreenChangeHandler());
+  componentDidMount(): void {
+    document.addEventListener('webkitfullscreenchange', this.fullscreenChangeHandler);
+    document.addEventListener('mozfullscreenchange', this.fullscreenChangeHandler);
+    document.addEventListener('fullscreenchange', this.fullscreenChangeHandler);
+    document.addEventListener('MSFullscreenChange', this.fullscreenChangeHandler);
     this.player.addEventListener(this.player.Event.REQUESTED_ENTER_FULLSCREEN, () => this.enterFullscreen());
     this.player.addEventListener(this.player.Event.REQUESTED_EXIT_FULLSCREEN, () => this.exitFullscreen());
     this.handleIosFullscreen();
+  }
+
+  /**
+   * before component unmounted, remove event listeners
+   *
+   * @returns {void}
+   * @memberof FullscreenControl
+   */
+  componentWillUnmount(): void {
+    document.removeEventListener('webkitfullscreenchange', this.fullscreenChangeHandler);
+    document.removeEventListener('mozfullscreenchange', this.fullscreenChangeHandler);
+    document.removeEventListener('fullscreenchange', this.fullscreenChangeHandler);
+    document.removeEventListener('MSFullscreenChange', this.fullscreenChangeHandler);
   }
 
   /**
@@ -81,12 +97,8 @@ class FullscreenControl extends BaseComponent {
        */
       const attachIosFullscreenListeners = () => {
         this.player.removeEventListener(this.player.Event.SOURCE_SELECTED, attachIosFullscreenListeners);
-        this.player.getVideoElement().addEventListener('webkitbeginfullscreen', () => {
-          this.fullscreenEnterHandler();
-        });
-        this.player.getVideoElement().addEventListener('webkitendfullscreen', () => {
-          this.fullscreenExitHandler();
-        });
+        this.player.getVideoElement().addEventListener('webkitbeginfullscreen', () => this.fullscreenEnterHandler());
+        this.player.getVideoElement().addEventListener('webkitendfullscreen', () => this.fullscreenExitHandler());
       };
       this.player.addEventListener(this.player.Event.SOURCE_SELECTED, attachIosFullscreenListeners);
     }
@@ -99,7 +111,7 @@ class FullscreenControl extends BaseComponent {
    * @memberof FullscreenControl
    */
   fullscreenChangeHandler(): void {
-    let isFullscreen = typeof document.fullscreenElement !== 'undefined' && Boolean(document.fullscreenElement) ||
+    const isFullscreen = typeof document.fullscreenElement !== 'undefined' && Boolean(document.fullscreenElement) ||
       typeof document.webkitFullscreenElement !== 'undefined' && Boolean(document.webkitFullscreenElement) ||
       typeof document.mozFullScreenElement !== 'undefined' && Boolean(document.mozFullScreenElement) ||
       typeof document.msFullscreenElement !== 'undefined' && Boolean(document.msFullscreenElement);
