@@ -201,7 +201,7 @@ class LanguageControl extends BaseComponent {
                        this.toggleCVAAOverlay();
                      }
                    }}>
-                <a onClick={() => this.toggleCVAAOverlay()}>
+                <a className={style.advancedCaptionsMenuLink} onClick={() => this.toggleCVAAOverlay()}>
                   <Text id='language.advanced_captions_settings'/>
                 </a>
               </div>
