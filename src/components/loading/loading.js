@@ -14,7 +14,8 @@ import BaseComponent from '../base';
 const mapStateToProps = state => ({
   show: state.loading.show,
   isMobile: state.shell.isMobile,
-  adBreak: state.engine.adBreak
+  adBreak: state.engine.adBreak,
+  adIsLinear: state.engine.adIsLinear
 });
 
 @connect(mapStateToProps, bindActions(actions))
@@ -72,7 +73,9 @@ class Loading extends BaseComponent {
     });
 
     this.player.addEventListener(this.player.Event.AD_STARTED, () => {
-      this.props.updateLoadingSpinnerState(false);
+      if (this.props.adIsLinear) {
+        this.props.updateLoadingSpinnerState(false);
+      }
     });
 
     this.player.addEventListener(this.player.Event.ALL_ADS_COMPLETED, () => {
