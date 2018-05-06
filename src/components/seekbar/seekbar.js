@@ -85,6 +85,7 @@ class SeekBarControl extends Component {
     if (this.props.isMobile) {
       return;
     }
+    e.preventDefault(); // fixes firefox mouseup not firing after dragging the scrubber
     this.props.updateSeekbarDraggingStatus(true);
     if (this.props.isDraggingActive) {
       let time = this.getTime(e);
@@ -200,6 +201,7 @@ class SeekBarControl extends Component {
     if (this.props.isDraggingActive) {
       this.updateSeekBarProgress(time, this.props.duration);
     }
+    e.preventDefault();
   }
 
   /**
@@ -508,15 +510,15 @@ class SeekBarControl extends Component {
         onTouchEnd={() => this.onSeekbarTouchEnd()}
         onKeyDown={(e) => this.onSeekbarKeyDown(e)}>
         <div className={style.progressBar}>
+          {this.renderFramePreview()}
+          {this.renderTimeBubble()}
+          <div className={style.virtualProgress} style={{width: virtualProgressWidth}}/>
+          <div className={style.buffered} style={{width: bufferedWidth}}/>
           <div className={style.progress} style={{width: progressWidth}}>
             {
               props.adBreak ? undefined : <a className={style.scrubber}/>
             }
           </div>
-          <div className={style.virtualProgress} style={{width: virtualProgressWidth}}/>
-          {this.renderTimeBubble()}
-          {this.renderFramePreview()}
-          <div className={style.buffered} style={{width: bufferedWidth}}/>
         </div>
       </div>
     )
