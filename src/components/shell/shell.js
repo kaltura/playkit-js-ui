@@ -273,7 +273,10 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   componentDidUpdate(prevProps: Object): void {
-    if (!this.props.prePlayback && prevProps.prePlayback) {
+    // Update the hover state if the transition was from pre playback screen
+    // or after an ad break
+    if (!this.props.prePlayback && prevProps.prePlayback ||
+      !this.props.adBreak && prevProps.adBreak) {
       this._updatePlayerHoverState();
     }
   }
