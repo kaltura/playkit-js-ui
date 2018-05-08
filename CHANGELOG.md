@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.23.1"></a>
+## [0.23.1](https://github.com/kaltura/playkit-js-ui/compare/v0.23.0...v0.23.1) (2018-05-08)
+
+
+### Bug Fixes
+
+* **FEC-8205:** playback UI isn't disappear after ads on mobile ([#236](https://github.com/kaltura/playkit-js-ui/issues/236)) ([6f117b7](https://github.com/kaltura/playkit-js-ui/commit/6f117b7))
+
+
+
 <a name="0.23.0"></a>
 # [0.23.0](https://github.com/kaltura/playkit-js-ui/compare/v0.22.4...v0.23.0) (2018-05-06)
 
