@@ -6,7 +6,7 @@ import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/overlay-action';
 import {actions as shellActions} from '../../reducers/shell'
 import BaseComponent from '../base';
-import {default as Icon, IconType} from '../icon';
+import {Icon, IconType} from '../icon';
 
 /**
  * mapping state to props

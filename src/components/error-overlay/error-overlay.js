@@ -2,7 +2,7 @@
 import style from '../../styles/style.scss';
 import {h} from 'preact';
 import {connect} from 'preact-redux';
-import {default as Icon, IconType} from '../icon';
+import {Icon, IconType} from '../icon';
 import BaseComponent from '../base';
 import {Overlay} from '../overlay';
 import {Text} from 'preact-i18n';

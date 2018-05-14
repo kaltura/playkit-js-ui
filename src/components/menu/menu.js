@@ -1,7 +1,7 @@
 //@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
-import {default as Icon, IconType} from '../icon';
+import {Icon, IconType} from '../icon';
 import {connect} from 'preact-redux';
 import {KeyMap} from '../../utils/key-map';
 import {bindMethod} from '../../utils/bind-method';

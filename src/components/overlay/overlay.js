@@ -5,7 +5,7 @@ import {Localizer, Text} from 'preact-i18n';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
-import {default as Icon, IconType} from '../icon';
+import {Icon, IconType} from '../icon';
 import {KeyMap} from "../../utils/key-map";
 
 @connect(null, bindActions(actions))

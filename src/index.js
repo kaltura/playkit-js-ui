@@ -6,6 +6,11 @@ import {EventType} from './event/event-type'
 declare var __VERSION__: string;
 declare var __NAME__: string;
 
+const VERSION = __VERSION__;
+const NAME = __NAME__;
+
+export {VERSION, NAME};
+
 export {h} from 'preact';
 export {preact};
 import * as redux from 'preact-redux';
@@ -21,4 +26,5 @@ import * as Utils from './utils'
 export {Presets, Components, Utils}
 export {EventType};
 export {UIManager};
-export {__VERSION__ as VERSION, __NAME__ as NAME};
+
+

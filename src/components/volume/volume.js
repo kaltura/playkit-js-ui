@@ -5,7 +5,7 @@ import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/volume';
 import BaseComponent from '../base';
-import {default as Icon, IconType} from '../icon';
+import {Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {KEYBOARD_DEFAULT_VOLUME_JUMP} from '../keyboard/keyboard';
 import {bindMethod} from '../../utils/bind-method';

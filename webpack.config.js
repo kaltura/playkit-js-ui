@@ -15,10 +15,6 @@ let plugins = [
   })
 ];
 
-if (PROD) {
-  plugins.push(new webpack.optimize.UglifyJsPlugin({sourceMap: true}));
-}
-
 module.exports = {
   context: __dirname + "/src",
   entry: {
@@ -29,7 +25,7 @@ module.exports = {
     filename: '[name].js',
     library: ["playkit", "ui"],
     libraryTarget: "umd",
-    devtoolModuleFilenameTemplate: "./ui/[resource-path]"
+    devtoolModuleFilenameTemplate: "./playkit/ui/[resource-path]"
   },
   devtool: 'source-map',
   plugins: plugins,
@@ -37,29 +33,12 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        use: [{
-          loader: "babel-loader"
-        }],
-        exclude: [
-          /node_modules/
-        ]
-      },
-      {
-        test: /\.js$/,
-        exclude: [
-          /node_modules/
+        use: [
+          "babel-loader",
+          "eslint-loader",
         ],
-        enforce: 'pre',
-        use: [{
-          loader: 'eslint-loader',
-          options: {
-            rules: {
-              semi: 0
-            }
-          }
-        }],
-      },
-      {
+        exclude: /node_modules/
+      }, {
         test: /\.scss$/,
         use: [{
           loader: "style-loader"

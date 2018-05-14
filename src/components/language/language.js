@@ -8,7 +8,7 @@ import {actions} from '../../reducers/cvaa';
 import BaseComponent from '../base';
 import {SmartContainer} from '../smart-container';
 import {SmartContainerItem} from '../smart-container/smart-container-item';
-import {default as Icon, IconType} from '../icon';
+import {Icon, IconType} from '../icon';
 import {CVAAOverlay} from '../cvaa-overlay';
 import Portal from 'preact-portal';
 import {KeyMap} from "../../utils/key-map";

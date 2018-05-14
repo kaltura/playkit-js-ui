@@ -8,7 +8,7 @@ import {actions} from '../../reducers/settings';
 import BaseComponent from '../base';
 import {SmartContainer} from '../smart-container';
 import {SmartContainerItem} from '../smart-container/smart-container-item';
-import {default as Icon, IconType} from '../icon';
+import {Icon, IconType} from '../icon';
 import {bindMethod} from '../../utils/bind-method';
 
 /**

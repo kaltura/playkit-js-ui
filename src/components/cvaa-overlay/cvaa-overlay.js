@@ -10,7 +10,7 @@ import BaseComponent from '../base';
 import {Overlay} from '../overlay';
 import {DropDown} from '../dropdown';
 import {Slider} from '../slider';
-import {default as Icon, IconType} from '../icon';
+import {Icon, IconType} from '../icon';
 import {KeyMap} from "../../utils/key-map";
 
 /**

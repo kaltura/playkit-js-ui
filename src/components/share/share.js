@@ -1,7 +1,7 @@
 //@flow
 import {h} from 'preact';
 import BaseComponent from '../base';
-import {default as Icon, IconType} from '../icon';
+import {Icon, IconType} from '../icon';
 import {ShareOverlay} from '../share-overlay';
 import Portal from 'preact-portal';
 

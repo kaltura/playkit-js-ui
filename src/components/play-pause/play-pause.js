@@ -4,7 +4,7 @@ import {h} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {connect} from 'preact-redux';
 import BaseComponent from '../base';
-import {default as Icon, IconType} from '../icon';
+import {Icon, IconType} from '../icon';
 import {KeyMap} from "../../utils/key-map";
 
 /**

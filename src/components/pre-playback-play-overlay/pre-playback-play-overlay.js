@@ -5,7 +5,7 @@ import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
 import BaseComponent from '../base';
-import {default as Icon, IconType} from '../icon';
+import {Icon, IconType} from '../icon';
 import {KeyMap} from "../../utils/key-map";
 import {actions as loadingActions} from '../../reducers/loading';
 

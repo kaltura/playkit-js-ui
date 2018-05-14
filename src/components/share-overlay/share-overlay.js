@@ -7,7 +7,7 @@ import {actions} from '../../reducers/share';
 import {toHHMMSS, toSecondsFromHHMMSS} from '../../utils/time-format';
 import BaseComponent from '../base';
 import {Overlay} from '../overlay';
-import {default as Icon, IconType} from '../icon';
+import {Icon, IconType} from '../icon';
 
 /**
  * mapping state to props
