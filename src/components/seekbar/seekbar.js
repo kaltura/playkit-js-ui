@@ -29,6 +29,7 @@ const mapStateToProps = state => ({
 class SeekBarControl extends Component {
   state: Object;
   onPlayerMouseUp: Function;
+  onPlayerMouseMove: Function;
   _seekBarElement: HTMLElement;
   _framePreviewElement: HTMLElement;
   _timeBubbleElement: HTMLElement;
@@ -41,6 +42,7 @@ class SeekBarControl extends Component {
   constructor() {
     super();
     this.onPlayerMouseUp = bindMethod(this, this.onPlayerMouseUp);
+    this.onPlayerMouseMove = bindMethod(this, this.onPlayerMouseMove);
   }
 
   /**
@@ -61,7 +63,7 @@ class SeekBarControl extends Component {
    */
   componentDidMount(): void {
     document.addEventListener('mouseup', this.onPlayerMouseUp);
-    document.addEventListener('mousemove', this.onPlayerMouseUp);
+    document.addEventListener('mousemove', this.onPlayerMouseMove);
   }
 
   /**
@@ -72,7 +74,7 @@ class SeekBarControl extends Component {
    */
   componentWillUnmount(): void {
     document.removeEventListener('mouseup', this.onPlayerMouseUp);
-    document.removeEventListener('mousemove', this.onPlayerMouseUp);
+    document.removeEventListener('mousemove', this.onPlayerMouseMove);
   }
 
   /**
