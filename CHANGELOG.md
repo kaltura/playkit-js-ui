@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.23.2"></a>
+## [0.23.2](https://github.com/kaltura/playkit-js-ui/compare/v0.23.1...v0.23.2) (2018-05-15)
+
+
+### Bug Fixes
+
+* **FEC-8214:** seekbar playhead cannot be dragged ([#237](https://github.com/kaltura/playkit-js-ui/issues/237)) ([b9cc051](https://github.com/kaltura/playkit-js-ui/commit/b9cc051))
+
+
+
 <a name="0.23.1"></a>
 ## [0.23.1](https://github.com/kaltura/playkit-js-ui/compare/v0.23.0...v0.23.1) (2018-05-08)
 
