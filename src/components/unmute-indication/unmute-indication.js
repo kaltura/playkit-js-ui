@@ -65,12 +65,13 @@ class UnmuteIndication extends BaseComponent {
   /**
    * after component updated, check the fallbackToMutedAutoPlay prop for updating the state of the component
    *
+   * @param {Object} prevProps - previous component props
    * @method componentDidUpdate
    * @returns {void}
    * @memberof UnmuteIndication
    */
-  componentDidUpdate(): void {
-    if (this.props.fallbackToMutedAutoPlay) {
+  componentDidUpdate(prevProps: Object): void {
+    if (!prevProps.fallbackToMutedAutoPlay && this.props.fallbackToMutedAutoPlay) {
       this.player.addEventListener(this.player.Event.PLAYING, this._iconOnlyTimeoutCallback);
       this.player.addEventListener(this.player.Event.AD_STARTED, this._iconOnlyTimeoutCallback);
     }
