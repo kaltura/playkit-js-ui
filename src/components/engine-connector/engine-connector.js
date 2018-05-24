@@ -167,6 +167,10 @@ class EngineConnector extends BaseComponent {
       }
     });
 
+    this.player.addEventListener(this.player.Event.FALLBACK_TO_MUTED_AUTOPLAY, () => {
+      this.props.updateFallbackToMutedAutoPlay(true);
+    });
+
     this.player.addEventListener(this.player.Event.AD_LOADED, e => {
       this.props.updateAdIsLinear(e.payload.ad.isLinear());
       this.props.updateAdClickUrl(e.payload.ad.g.clickThroughUrl);

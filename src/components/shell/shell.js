@@ -4,7 +4,8 @@ import {h} from 'preact';
 import BaseComponent from '../base';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
-import {actions} from '../../reducers/shell';
+import {actions as shellActions} from '../../reducers/shell';
+import {actions as engineActions} from '../../reducers/engine';
 import {KeyMap} from '../../utils/key-map';
 import {bindMethod} from '../../utils/bind-method';
 
@@ -30,7 +31,8 @@ const mapStateToProps = state => ({
   adBreak: state.engine.adBreak,
   prePlayback: state.shell.prePlayback,
   smartContainerOpen: state.shell.smartContainerOpen,
-  fullscreen: state.fullscreen.fullscreen
+  fullscreen: state.fullscreen.fullscreen,
+  fallbackToMutedAutoPlay: state.engine.fallbackToMutedAutoPlay
 });
 
 /**
@@ -40,7 +42,7 @@ const mapStateToProps = state => ({
  */
 export const CONTROL_BAR_HOVER_DEFAULT_TIMEOUT: number = 3000;
 
-@connect(mapStateToProps, bindActions(actions))
+@connect(mapStateToProps, bindActions(Object.assign(shellActions, engineActions)))
   /**
    * Shell component
    *
@@ -51,7 +53,6 @@ export const CONTROL_BAR_HOVER_DEFAULT_TIMEOUT: number = 3000;
 class Shell extends BaseComponent {
   state: Object;
   hoverTimeout: ?number;
-  _fallbackToMutedAutoPlayMode: boolean;
   _environmentClasses: Array<string>;
   _onWindowResize: Function;
 
@@ -63,10 +64,6 @@ class Shell extends BaseComponent {
   constructor(obj: Object) {
     super({name: 'Shell', player: obj.player});
     this._onWindowResize = bindMethod(this, this._onWindowResize);
-    this._fallbackToMutedAutoPlayMode = false;
-    this.player.addEventListener(this.player.Event.FALLBACK_TO_MUTED_AUTOPLAY, () => {
-      this._fallbackToMutedAutoPlayMode = true
-    });
     this._environmentClasses = [
       `${__CSS_MODULE_PREFIX__}-${this.player.env.os.name.replace(/ /g, '-')}`,
       `${__CSS_MODULE_PREFIX__}-${this.player.env.browser.name.replace(/ /g, '-')}`
@@ -128,9 +125,9 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   onClick(): void {
-    if (this._fallbackToMutedAutoPlayMode) {
+    if (this.props.fallbackToMutedAutoPlay) {
       this.player.muted = false;
-      this._fallbackToMutedAutoPlayMode = false;
+      this.props.updateFallbackToMutedAutoPlay(false);
     }
     this.notifyClick();
   }
