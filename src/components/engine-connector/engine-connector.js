@@ -42,6 +42,7 @@ class EngineConnector extends BaseComponent {
     });
 
     this.player.addEventListener(this.player.Event.CHANGE_SOURCE_STARTED, () => {
+      this.props.updateFallbackToMutedAutoPlay(false);
       this.props.updateAdBreak(false);
       this.props.updateAdIsPlaying(false);
       this.props.updateIsPlaying(false);
