@@ -43,7 +43,7 @@ const PLAY_PAUSE_BUFFER_TIME: number = 200;
  */
 const DOUBLE_CLICK_MAX_BUFFER_TIME: number = 500;
 
-@connect(mapStateToProps, bindActions(Object.assign(actions, shellActions)))
+@connect(mapStateToProps, bindActions(Object.assign({}, actions, shellActions)))
   /**
    * OverlayAction component
    *

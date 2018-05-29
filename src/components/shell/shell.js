@@ -42,7 +42,7 @@ const mapStateToProps = state => ({
  */
 export const CONTROL_BAR_HOVER_DEFAULT_TIMEOUT: number = 3000;
 
-@connect(mapStateToProps, bindActions(Object.assign(shellActions, engineActions)))
+@connect(mapStateToProps, bindActions(Object.assign({}, shellActions, engineActions)))
   /**
    * Shell component
    *
