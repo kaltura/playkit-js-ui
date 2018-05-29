@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.23.4"></a>
+## [0.23.4](https://github.com/kaltura/playkit-js-ui/compare/v0.23.3...v0.23.4) (2018-05-28)
+
+
+### Bug Fixes
+
+* **FEC-8268:** the scrubber doesn't moved with the cursor during seek [#240](https://github.com/kaltura/playkit-js-ui/issues/240) ([cf22c33](https://github.com/kaltura/playkit-js-ui/commit/cf22c33))
+
+
+
 <a name="0.23.3"></a>
 ## [0.23.3](https://github.com/kaltura/playkit-js-ui/compare/v0.23.2...v0.23.3) (2018-05-26)
 
