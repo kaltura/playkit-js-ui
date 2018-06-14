@@ -20,7 +20,7 @@ const mapStateToProps = state => ({
   adIsPlaying: state.engine.adIsPlaying,
   playerHover: state.shell.playerHover,
   isMobile: state.shell.isMobile,
-  is360: state.engine.is360
+  isVr: state.engine.isVr
 });
 
 /**
@@ -140,7 +140,7 @@ class OverlayAction extends BaseComponent {
    * @memberof OverlayAction
    */
   onOverlayMouseUp(event: any): void {
-    if (!this.props.is360 || (event.clientX === this._pointerDownPosX && event.clientY === this._pointerDownPosY)) {
+    if (!this.props.isVr || (event.clientX === this._pointerDownPosX && event.clientY === this._pointerDownPosY)) {
       this.onOverlayClick();
     }
   }
@@ -153,7 +153,7 @@ class OverlayAction extends BaseComponent {
    * @memberof OverlayAction
    */
   onOverlayTouchEnd(event: any): void {
-    if (this.props.playerHover && (!this.props.is360 || (event.changedTouches[0].clientX === this._pointerDownPosX && event.changedTouches[0].clientY === this._pointerDownPosY))) {
+    if (this.props.playerHover && (!this.props.isVr || (event.changedTouches[0].clientX === this._pointerDownPosX && event.changedTouches[0].clientY === this._pointerDownPosY))) {
       this.togglePlayPause();
     }
   }

@@ -59,7 +59,7 @@ export const initialState = {
   },
   adUrl: '',
   hasError: false,
-  is360: false
+  isVr: false
 };
 
 export default (state: Object = initialState, action: Object) => {
@@ -220,7 +220,7 @@ export default (state: Object = initialState, action: Object) => {
     case types.UPDATE_IS_360:
       return {
         ...state,
-        is360: action.is360
+        isVr: action.isVr
       };
 
     default:
@@ -263,5 +263,5 @@ export const actions = {
   updateIsDvr: (isDvr: boolean) => ({type: types.UPDATE_IS_DVR, isDvr}),
   updateIsIdle: (IsIdle: boolean) => ({type: types.UPDATE_IS_IDLE, IsIdle: IsIdle}),
   updateFallbackToMutedAutoPlay: (fallback: boolean) => ({type: types.UPDATE_FALLBACK_TO_MUTED_AUTOPLAY, fallback}),
-  updateIs360: (is360: boolean) => ({type: types.UPDATE_IS_360, is360}),
+  updateIsVr: (isVr: boolean) => ({type: types.UPDATE_IS_360, isVr}),
 };
