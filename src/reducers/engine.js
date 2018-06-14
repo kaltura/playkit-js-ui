@@ -24,7 +24,8 @@ export const types = {
   UPDATE_IS_DVR: 'engine/UPDATE_IS_DVR',
   UPDATE_ERROR: 'engine/ERROR',
   UPDATE_IS_IDLE: 'engine/UPDATE_IS_IDLE',
-  UPDATE_FALLBACK_TO_MUTED_AUTOPLAY: 'engine/UPDATE_FALLBACK_TO_MUTED_AUTOPLAY'
+  UPDATE_FALLBACK_TO_MUTED_AUTOPLAY: 'engine/UPDATE_FALLBACK_TO_MUTED_AUTOPLAY',
+  UPDATE_IS_360: 'engine/UPDATE_IS_360'
 };
 
 export const initialState = {
@@ -57,7 +58,8 @@ export const initialState = {
     duration: 0
   },
   adUrl: '',
-  hasError: false
+  hasError: false,
+  is360: false
 };
 
 export default (state: Object = initialState, action: Object) => {
@@ -215,6 +217,12 @@ export default (state: Object = initialState, action: Object) => {
         fallbackToMutedAutoPlay: action.fallback
       };
 
+    case types.UPDATE_IS_360:
+      return {
+        ...state,
+        is360: action.is360
+      };
+
     default:
       return state;
   }
@@ -254,5 +262,6 @@ export const actions = {
   updateIsLive: (isLive: boolean) => ({type: types.UPDATE_IS_LIVE, isLive}),
   updateIsDvr: (isDvr: boolean) => ({type: types.UPDATE_IS_DVR, isDvr}),
   updateIsIdle: (IsIdle: boolean) => ({type: types.UPDATE_IS_IDLE, IsIdle: IsIdle}),
-  updateFallbackToMutedAutoPlay: (fallback: boolean) => ({type: types.UPDATE_FALLBACK_TO_MUTED_AUTOPLAY, fallback})
+  updateFallbackToMutedAutoPlay: (fallback: boolean) => ({type: types.UPDATE_FALLBACK_TO_MUTED_AUTOPLAY, fallback}),
+  updateIs360: (is360: boolean) => ({type: types.UPDATE_IS_360, is360}),
 };

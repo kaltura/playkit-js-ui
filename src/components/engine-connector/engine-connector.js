@@ -39,6 +39,7 @@ class EngineConnector extends BaseComponent {
 
     this.player.addEventListener(this.player.Event.SOURCE_SELECTED, () => {
       this.props.updateHasError(false);
+      this.props.updateIs360(this.player.is360());
     });
 
     this.player.addEventListener(this.player.Event.CHANGE_SOURCE_STARTED, () => {

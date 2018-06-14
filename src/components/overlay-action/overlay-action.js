@@ -19,7 +19,8 @@ const mapStateToProps = state => ({
   adBreak: state.engine.adBreak,
   adIsPlaying: state.engine.adIsPlaying,
   playerHover: state.shell.playerHover,
-  isMobile: state.shell.isMobile
+  isMobile: state.shell.isMobile,
+  is360: state.engine.is360
 });
 
 /**
@@ -37,7 +38,7 @@ export const OVERLAY_ACTION_DEFAULT_TIMEOUT = 300;
 const PLAY_PAUSE_BUFFER_TIME: number = 200;
 
 /**
- * The maximun time two click would be considered a double click
+ * The maximum time two click would be considered a double click
  * @type {number}
  * @const
  */
@@ -52,8 +53,11 @@ const DOUBLE_CLICK_MAX_BUFFER_TIME: number = 500;
    * @extends {BaseComponent}
    */
 class OverlayAction extends BaseComponent {
+  _el: HTMLElement;
   state: Object;
   _iconTimeout: ?number = null;
+  _pointerDownPosX: number = NaN;
+  _pointerDownPosY: number = NaN;
   _firstClickTime: number = 0;
   _clickTimeout: ?number = 0;
 
@@ -116,6 +120,45 @@ class OverlayAction extends BaseComponent {
   }
 
   /**
+   * Handler for overlay pointer (mouse/touch) down
+   *
+   * @param {*} event - mousedown/touchstart event
+   * @returns {void}
+   * @memberof OverlayAction
+   */
+  onOverlayPointerDown(event: any): void {
+    this._pointerDownPosX = event.clientX || event.changedTouches[0].clientX;
+    this._pointerDownPosY = event.clientY || event.changedTouches[0].clientY;
+    this.notifyClick({type: 'PointerDown', x: this._pointerDownPosX, y: this._pointerDownPosY});
+  }
+
+  /**
+   * Handler for overlay mouse up
+   *
+   * @param {*} event - mouseup event
+   * @returns {void}
+   * @memberof OverlayAction
+   */
+  onOverlayMouseUp(event: any): void {
+    if (!this.props.is360 || (event.clientX === this._pointerDownPosX && event.clientY === this._pointerDownPosY)) {
+      this.onOverlayClick();
+    }
+  }
+
+  /**
+   * handler for overlay touch end
+   *
+   * @param {*} event - touchend event
+   * @returns {void}
+   * @memberof OverlayAction
+   */
+  onOverlayTouchEnd(event: any): void {
+    if (this.props.playerHover && (!this.props.is360 || (event.changedTouches[0].clientX === this._pointerDownPosX && event.changedTouches[0].clientY === this._pointerDownPosY))) {
+      this.togglePlayPause();
+    }
+  }
+
+  /**
    * Handler for overlay click
    *
    * @returns {void}
@@ -161,18 +204,6 @@ class OverlayAction extends BaseComponent {
   }
 
   /**
-   * handler for overlay touch
-   *
-   * @returns {void}
-   * @memberof OverlayAction
-   */
-  onOverlayTouch(): void {
-    if (this.props.playerHover) {
-      this.togglePlayPause();
-    }
-  }
-
-  /**
    * should component update handler
    *
    * @returns {boolean} - always update component
@@ -214,9 +245,12 @@ class OverlayAction extends BaseComponent {
    */
   render(): React$Element<any> {
     return (
-      <div className={`${style.overlayAction} ${this.state.animation ? style.in : ''}`}
-           onClick={() => this.onOverlayClick()}
-           onTouchStart={() => this.onOverlayTouch()}>
+      <div ref={c => this._el = c}
+           className={`${style.overlayAction} ${this.state.animation ? style.in : ''}`}
+           onMouseDown={(e) => this.onOverlayPointerDown(e)}
+           onTouchStart={(e) => this.onOverlayPointerDown(e)}
+           onMouseUp={(e) => this.onOverlayMouseUp(e)}
+           onTouchEnd={(e) => this.onOverlayTouchEnd(e)}>
         {this.state.animation ? this.renderIcons() : undefined}
       </div>
     )

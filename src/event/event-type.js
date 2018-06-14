@@ -18,7 +18,8 @@ const EventType: { [event: string]: string } = {
   USER_EXITED_FULL_SCREEN: `${namespace}-userexitedfullscreen`,
   USER_SELECTED_CAPTIONS_STYLE: `${namespace}-userselectedcaptionsstyle`,
   USER_SELECTED_SPEED: `${namespace}-userselectedspeed`,
-  USER_SEEKED: `${namespace}-userseeked`
+  USER_SEEKED: `${namespace}-userseeked`,
+  USER_POINTER_DOWN: `${namespace}-pointerdown`
 };
 
 export {EventType};
