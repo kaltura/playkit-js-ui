@@ -53,7 +53,6 @@ const DOUBLE_CLICK_MAX_BUFFER_TIME: number = 500;
    * @extends {BaseComponent}
    */
 class OverlayAction extends BaseComponent {
-  _el: HTMLElement;
   state: Object;
   _iconTimeout: ?number = null;
   _pointerDownPosX: number = NaN;
@@ -245,8 +244,7 @@ class OverlayAction extends BaseComponent {
    */
   render(): React$Element<any> {
     return (
-      <div ref={c => this._el = c}
-           className={`${style.overlayAction} ${this.state.animation ? style.in : ''}`}
+      <div className={`${style.overlayAction} ${this.state.animation ? style.in : ''}`}
            onMouseDown={(e) => this.onOverlayPointerDown(e)}
            onTouchStart={(e) => this.onOverlayPointerDown(e)}
            onMouseUp={(e) => this.onOverlayMouseUp(e)}
