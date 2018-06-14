@@ -25,7 +25,7 @@ export const types = {
   UPDATE_ERROR: 'engine/ERROR',
   UPDATE_IS_IDLE: 'engine/UPDATE_IS_IDLE',
   UPDATE_FALLBACK_TO_MUTED_AUTOPLAY: 'engine/UPDATE_FALLBACK_TO_MUTED_AUTOPLAY',
-  UPDATE_IS_360: 'engine/UPDATE_IS_360'
+  UPDATE_IS_VR: 'engine/UPDATE_IS_VR'
 };
 
 export const initialState = {
@@ -217,7 +217,7 @@ export default (state: Object = initialState, action: Object) => {
         fallbackToMutedAutoPlay: action.fallback
       };
 
-    case types.UPDATE_IS_360:
+    case types.UPDATE_IS_VR:
       return {
         ...state,
         isVr: action.isVr
@@ -263,5 +263,5 @@ export const actions = {
   updateIsDvr: (isDvr: boolean) => ({type: types.UPDATE_IS_DVR, isDvr}),
   updateIsIdle: (IsIdle: boolean) => ({type: types.UPDATE_IS_IDLE, IsIdle: IsIdle}),
   updateFallbackToMutedAutoPlay: (fallback: boolean) => ({type: types.UPDATE_FALLBACK_TO_MUTED_AUTOPLAY, fallback}),
-  updateIsVr: (isVr: boolean) => ({type: types.UPDATE_IS_360, isVr}),
+  updateIsVr: (isVr: boolean) => ({type: types.UPDATE_IS_VR, isVr}),
 };

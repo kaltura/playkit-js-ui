@@ -35,7 +35,8 @@ const IconType = {
   SeekForward: 'seek-forward',
   SeekEnd: 'seek-end',
   Rewind: 'rewind',
-  Rewind10: 'rewind10'
+  Rewind10: 'rewind10',
+  Stereo: 'stereo'
 };
 
 /**
@@ -153,6 +154,9 @@ class Icon extends Component {
 
       case IconType.Rewind10:
         return (<i className={[style.icon, style.iconRewind10].join(' ')}/>);
+
+      case IconType.Stereo:
+        return (<i className={[style.icon, style.iconStereo].join(' ')}/>);
 
       default:
         break;

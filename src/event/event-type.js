@@ -10,6 +10,7 @@ const EventType: { [event: string]: string } = {
   USER_CLICKED_LIVE_TAG: `${namespace}-userclickedlivetag`,
   USER_CLICKED_MUTE: `${namespace}-userclickedmute`,
   USER_CLICKED_UNMUTE: `${namespace}-userclickedunmute`,
+  USER_CLICKED_STEREO_MODE: `${namespace}-userclickedstereomode`,
   USER_CHANGED_VOLUME: `${namespace}-userchangedvolume`,
   USER_SELECTED_CAPTION_TRACK: `${namespace}-userselectedcaptiontrack`,
   USER_SELECTED_AUDIO_TRACK: `${namespace}-userselectedaudiotrack`,
