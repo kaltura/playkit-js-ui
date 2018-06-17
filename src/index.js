@@ -11,6 +11,8 @@ export {preact};
 import * as redux from 'preact-redux';
 export {redux}
 
+// ui reducers
+import * as Reducers from './reducers';
 // ui presets
 import * as Presets from './ui-presets';
 // components
@@ -18,7 +20,7 @@ import * as Components from './components'
 //Utils
 import * as Utils from './utils'
 
-export {Presets, Components, Utils}
+export {Reducers, Presets, Components, Utils}
 export {EventType};
 export {UIManager};
 export {__VERSION__ as VERSION, __NAME__ as NAME};
