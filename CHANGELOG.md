@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.23.5"></a>
+## [0.23.5](https://github.com/kaltura/playkit-js-ui/compare/v0.23.4...v0.23.5) (2018-06-17)
+
+
+### Bug Fixes
+
+* **FEC-8257:** research autoplay detection handling ([#239](https://github.com/kaltura/playkit-js-ui/issues/239)) ([16615f5](https://github.com/kaltura/playkit-js-ui/commit/16615f5))
+
+
+
 <a name="0.23.4"></a>
 ## [0.23.4](https://github.com/kaltura/playkit-js-ui/compare/v0.23.3...v0.23.4) (2018-05-28)
 
