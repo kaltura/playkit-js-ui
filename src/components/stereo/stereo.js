@@ -48,7 +48,7 @@ class StereoControl extends BaseComponent {
    * @memberof StereoControl
    */
   onClick(): void {
-    this.notifyClick({});
+    this.notifyClick();
     this.props.updateStereoMode(!this.props.stereoMode);
   }
 

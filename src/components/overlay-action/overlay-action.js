@@ -128,7 +128,6 @@ class OverlayAction extends BaseComponent {
   onOverlayPointerDown(event: any): void {
     this._pointerDownPosX = event.clientX || event.changedTouches[0].clientX;
     this._pointerDownPosY = event.clientY || event.changedTouches[0].clientY;
-    this.notifyClick({type: 'PointerDown', x: this._pointerDownPosX, y: this._pointerDownPosY});
   }
 
   /**
@@ -139,7 +138,7 @@ class OverlayAction extends BaseComponent {
    * @memberof OverlayAction
    */
   onOverlayMouseUp(event: any): void {
-    if (!this.props.isVr || (event.clientX === this._pointerDownPosX && event.clientY === this._pointerDownPosY)) {
+    if (!this.props.isVr || !this.isDragging(event)) {
       this.onOverlayClick();
     }
   }
@@ -152,9 +151,25 @@ class OverlayAction extends BaseComponent {
    * @memberof OverlayAction
    */
   onOverlayTouchEnd(event: any): void {
-    if (this.props.playerHover && (!this.props.isVr || (event.changedTouches[0].clientX === this._pointerDownPosX && event.changedTouches[0].clientY === this._pointerDownPosY))) {
+    if (this.props.playerHover && (!this.props.isVr || !this.isDragging(event))) {
       this.togglePlayPause();
     }
+  }
+
+  /**
+   * Whether the user is dragging
+   *
+   * @param {*} event - mouseup/touchend event
+   * @returns {boolean} - is dragging
+   */
+  isDragging(event: any): boolean {
+    if (event.clientX) {
+      return (event.clientX !== this._pointerDownPosX || event.clientY !== this._pointerDownPosY);
+    }
+    if (event.changedTouches[0].clientX) {
+      return (event.changedTouches[0].clientX !== this._pointerDownPosX || event.changedTouches[0].clientY !== this._pointerDownPosY)
+    }
+    return false;
   }
 
   /**

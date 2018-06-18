@@ -17,6 +17,7 @@ import {LiveTag} from '../components/live-tag';
 import {UnmuteIndication} from '../components/unmute-indication';
 import {Watermark} from '../components/watermark/watermark';
 import {shouldRenderComponent} from '../utils/component-config';
+import {StereoControl} from "../components/stereo";
 
 /**
  * Live ui intrface
@@ -45,6 +46,9 @@ export function liveUI(props: any): React$Element<any> {
             <LiveTag player={props.player}/>
           </div>
           <div className={style.rightControls}>
+            {(props.state.engine.isVr && shouldRenderComponent(props.config, StereoControl.displayName))
+              ? <StereoControl/>
+              : undefined}
             <VolumeControl player={props.player}/>
             <LanguageControl player={props.player}/>
             <SettingsControl player={props.player}/>

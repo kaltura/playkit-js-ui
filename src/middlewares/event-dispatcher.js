@@ -10,7 +10,6 @@ import {SpeedSelectedEvent} from '../event/events/speed-selected-event';
 import {UIVisibilityChangedEvent} from '../event/events/ui-visibility-changed-event';
 import {RewindClickedEvent} from '../event/events/rewind-clicked';
 import {VolumeChangedEvent} from '../event/events/volume-changed';
-import {PointerDownEvent} from '../event/events/pointer-down';
 import {KeyMap} from '../utils/key-map';
 
 const namespace = 'event-dispatcher-middleware';
@@ -228,21 +227,10 @@ function onSettingsClicked(store: any, action: Object, player: Player): void {
  * @returns {void}
  */
 function onOverlayActionClicked(store: any, action: Object, player: Player): void {
-  switch (action.payload.type) {
-    case 'PlayPause':
-      onPlayPauseClicked(store, action, player);
-      break;
-
-    case 'Fullscreen':
-      onFullScreenClicked(store, action, player);
-      break;
-
-    case 'PointerDown':
-      player.dispatchEvent(new PointerDownEvent(action.payload));
-      break;
-
-    default:
-      break;
+  if (action.payload.type === 'PlayPause') {
+    onPlayPauseClicked(store, action, player);
+  } else if (action.payload.type === 'Fullscreen') {
+    onFullScreenClicked(store, action, player);
   }
 }
 
