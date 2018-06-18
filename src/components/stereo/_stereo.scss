@@ -1,0 +1,14 @@
+.control-button-container.control-stereo .control-button {
+  .icon-stereo-full {
+    display: none;
+  }
+
+  &.stereo-mode {
+    .icon-stereo {
+      display: none;
+    }
+    .icon-stereo-full {
+      display: block;
+    }
+  }
+}

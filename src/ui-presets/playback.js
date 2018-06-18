@@ -47,7 +47,9 @@ export function playbackUI(props: any): React$Element<any> {
             <TimeDisplayPlaybackContainer format='current / total'/>
           </div>
           <div className={style.rightControls}>
-            {(props.state.engine.isVr && props.player.getPlugin('vr')) ? <StereoControl/> : undefined}
+            {(props.state.engine.isVr && shouldRenderComponent(props.config, StereoControl.displayName))
+              ? <StereoControl/>
+              : undefined}
             <VolumeControl player={props.player}/>
             <LanguageControl player={props.player}/>
             <SettingsControl player={props.player}/>

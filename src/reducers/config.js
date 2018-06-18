@@ -10,7 +10,8 @@ export const initialState = {
   components: {
     watermark: {},
     seekbar: {},
-    error: {}
+    error: {},
+    stereo: {},
   }
 };
 

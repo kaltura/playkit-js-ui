@@ -11,6 +11,7 @@ import share from './reducers/share';
 import cvaa from './reducers/cvaa';
 import settings from './reducers/settings';
 import overlayAction from './reducers/overlay-action';
+import stereo from './reducers/stereo';
 
 const reducer = combineReducers({
   config,
@@ -23,7 +24,8 @@ const reducer = combineReducers({
   share,
   cvaa,
   settings,
-  overlayAction
+  overlayAction,
+  stereo
 });
 
 export default reducer;
