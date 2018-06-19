@@ -3,7 +3,7 @@ import style from '../../styles/style.scss';
 import {h} from 'preact';
 import BaseComponent from '../base';
 import {connect} from 'preact-redux';
-import {EventManager} from ' ../../event/event-manager';
+import {EventManager} from '../../event/event-manager';
 
 /**
  * mapping state to props
