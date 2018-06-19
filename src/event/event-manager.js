@@ -13,6 +13,9 @@ import {FakeEvent} from './fake-event';
 class EventManager {
   _bindingMap: MultiMap<Binding_> | null;
 
+  /**
+   * @constructor
+   */
   constructor() {
     /**
      * Maps an event type to an array of event bindings.
@@ -39,7 +42,12 @@ class EventManager {
    * @returns {void}
    */
   listenOnce(target: any, type: string, listener: ListenerType): void {
-    let oneListener = (event) => {
+    /**
+     * Unlisten to the current event and executing the handler.
+     * @param {Object} event - event
+     * @returns {void}
+     */
+    let oneListener = (event: Object) => {
       this.unlisten(target, type, oneListener);
       listener.call(this, event)
     };
@@ -122,6 +130,12 @@ class Binding_ {
   type: string;
   listener: ?ListenerType;
 
+  /**
+   * @constructor
+   * @param {EventTarget} target - The event target.
+   * @param {string} type - The event type.
+   * @param {ListenerType} listener - The event listener.
+   */
   constructor(target, type, listener) {
     /** @type {EventTarget} */
     this.target = target;

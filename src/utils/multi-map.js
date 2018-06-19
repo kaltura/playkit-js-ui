@@ -9,6 +9,9 @@
 class MultiMap<T> {
   _map: Map<string, T[]>;
 
+  /**
+   * @constructor
+   */
   constructor() {
     /** @private {!Object.<string, !Array.<T>>} */
     this._map = new Map();
@@ -86,7 +89,7 @@ class MultiMap<T> {
     let list = this._map.get(key);
     if (Array.isArray(list)) {
       for (let i = 0; i < list.length; ++i) {
-        if (list[i] == value) {
+        if (list[i] === value) {
           list.splice(i, 1);
           --i;
         }
@@ -95,10 +98,9 @@ class MultiMap<T> {
   }
 
   /**
-   * Get all keys from the multimap.
-   * @return {!Array.<string>}
+   * Gets all keys from the multimap.
+   * @return {!Array.<string>} - The map keys.
    */
-  // eslint-disable-next-line no-undef
   keys(): Iterator<string> {
     return this._map.keys();
   }

@@ -9,6 +9,7 @@ import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {KEYBOARD_DEFAULT_VOLUME_JUMP} from '../keyboard/keyboard';
 import {EventManager} from '../../event/event-manager';
+import {bindMethod} from '../../utils/bind-method';
 
 /**
  * mapping state to props
@@ -34,6 +35,8 @@ class VolumeControl extends BaseComponent {
   _volumeControlElement: HTMLElement;
   _volumeProgressBarElement: HTMLElement;
   _eventManager: EventManager;
+  onVolumeProgressBarMouseUp: Function;
+  onVolumeProgressBarMouseMove: Function;
 
   /**
    * Creates an instance of VolumeControl.
@@ -45,6 +48,8 @@ class VolumeControl extends BaseComponent {
   constructor(obj: Object) {
     super({name: 'Volume', player: obj.player});
     this._eventManager = new EventManager();
+    this.onVolumeProgressBarMouseUp = bindMethod(this, this.onVolumeProgressBarMouseUp);
+    this.onVolumeProgressBarMouseMove = bindMethod(this, this.onVolumeProgressBarMouseMove);
   }
 
   /**
@@ -63,8 +68,8 @@ class VolumeControl extends BaseComponent {
       this.props.updateMuted(this.player.muted);
       this.props.updateVolume(this.player.volume);
     });
-    this._eventManager.listen(document, 'mouseup', e => this.onVolumeProgressBarMouseUp(e));
-    this._eventManager.listen(document, 'mousemove', e => this.onVolumeProgressBarMouseMove(e));
+    document.addEventListener('mouseup', this.onVolumeProgressBarMouseUp);
+    document.addEventListener('mousemove', this.onVolumeProgressBarMouseMove);
   }
 
   /**
@@ -75,6 +80,8 @@ class VolumeControl extends BaseComponent {
    */
   componentWillUnmount(): void {
     this._eventManager.removeAll();
+    document.removeEventListener('mouseup', this.onVolumeProgressBarMouseUp);
+    document.removeEventListener('mousemove', this.onVolumeProgressBarMouseMove);
   }
 
   /**
