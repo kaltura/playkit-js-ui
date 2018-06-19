@@ -160,9 +160,6 @@ export default class UIManager {
     if (container && container.childNodes) {
       container.removeChild(container.childNodes[0]);
       container.prepend(this.player.getView());
-      this.store = null;
-      this.player = null;
-      this.targetId = '';
     }
   }
 
