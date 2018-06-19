@@ -8,7 +8,7 @@ import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {KEYBOARD_DEFAULT_VOLUME_JUMP} from '../keyboard/keyboard';
-import {bindMethod} from '../../utils/bind-method';
+import {EventManager} from '../../event/event-manager';
 
 /**
  * mapping state to props
@@ -17,8 +17,8 @@ import {bindMethod} from '../../utils/bind-method';
  */
 const mapStateToProps = state => ({
   isDraggingActive: state.volume.draggingActive,
-  volume: state.volume.volume,
-  muted: state.volume.muted,
+  volume: state.engine.volume,
+  muted: state.engine.muted,
   isMobile: state.shell.isMobile
 });
 
@@ -31,10 +31,9 @@ const mapStateToProps = state => ({
    * @extends {BaseComponent}
    */
 class VolumeControl extends BaseComponent {
-  onVolumeProgressBarMouseUp: Function;
-  onVolumeProgressBarMouseMove: Function;
   _volumeControlElement: HTMLElement;
   _volumeProgressBarElement: HTMLElement;
+  _eventManager: EventManager;
 
   /**
    * Creates an instance of VolumeControl.
@@ -45,8 +44,7 @@ class VolumeControl extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'Volume', player: obj.player});
-    this.onVolumeProgressBarMouseUp = bindMethod(this, this.onVolumeProgressBarMouseUp);
-    this.onVolumeProgressBarMouseMove = bindMethod(this, this.onVolumeProgressBarMouseMove);
+    this._eventManager = new EventManager();
   }
 
   /**
@@ -57,29 +55,26 @@ class VolumeControl extends BaseComponent {
    * @memberof VolumeControl
    */
   componentDidMount(): void {
-    this.player.addEventListener(this.player.Event.LOADED_METADATA, () => {
+    this._eventManager.listen(this.player, this.player.Event.LOADED_METADATA, () => {
       this.props.updateVolume(this.player.volume);
       this.props.updateMuted(this.player.muted);
     });
-
-    this.player.addEventListener(this.player.Event.VOLUME_CHANGE, () => {
+    this._eventManager.listen(this.player, this.player.Event.VOLUME_CHANGE, () => {
       this.props.updateMuted(this.player.muted);
       this.props.updateVolume(this.player.volume);
     });
-
-    document.addEventListener('mouseup', this.onVolumeProgressBarMouseUp);
-    document.addEventListener('mousemove', this.onVolumeProgressBarMouseMove);
+    this._eventManager.listen(document, 'mouseup', e => this.onVolumeProgressBarMouseUp(e));
+    this._eventManager.listen(document, 'mousemove', e => this.onVolumeProgressBarMouseMove(e));
   }
 
   /**
    * before component unmounted, remove event listeners
    *
    * @returns {void}
-   * @memberof VolumeControlremove
+   * @memberof VolumeControl
    */
   componentWillUnmount(): void {
-    document.removeEventListener('mouseup', this.onVolumeProgressBarMouseUp);
-    document.removeEventListener('mousemove', this.onVolumeProgressBarMouseMove);
+    this._eventManager.removeAll();
   }
 
   /**

@@ -199,6 +199,7 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   componentWillUnmount(): void {
+    this._clearHoverTimeout();
     window.removeEventListener('resize', this._onWindowResize);
   }
 

@@ -8,6 +8,7 @@ import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from "../../utils/key-map";
 import {actions as loadingActions} from '../../reducers/loading';
+import {EventManager} from '../../event/event-manager';
 
 /**
  * mapping state to props
@@ -33,6 +34,7 @@ const mapStateToProps = state => ({
    */
 class PrePlaybackPlayOverlay extends BaseComponent {
   autoplay: boolean;
+  _eventManager: EventManager;
 
   /**
    * Creates an instance of PrePlaybackPlayOverlay.
@@ -41,7 +43,8 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'PrePlaybackPlayOverlay', player: obj.player});
-    this.player.addEventListener(this.player.Event.CHANGE_SOURCE_ENDED, () => this._onChangeSourceEnded());
+    this._eventManager = new EventManager();
+    this._eventManager.listen(this.player, this.player.Event.CHANGE_SOURCE_ENDED, () => this._onChangeSourceEnded());
   }
 
   /**
@@ -56,7 +59,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
     try {
       this.autoplay = this.player.config.playback.autoplay;
       if (this.autoplay === true) {
-        this.player.addEventListener(this.player.Event.AUTOPLAY_FAILED, () => {
+        this._eventManager.listen(this.player, this.player.Event.AUTOPLAY_FAILED, () => {
           this.autoplay = false;
           this.forceUpdate();
         });
@@ -75,6 +78,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
   componentWillUnmount() {
     this._hidePrePlayback();
     this.props.removePlayerClass(style.prePlayback);
+    this._eventManager.removeAll();
   }
 
   /**
@@ -84,7 +88,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   componentDidMount() {
-    this.player.addEventListener(this.player.Event.PLAY, () => this._hidePrePlayback());
+    this._eventManager.listen(this.player, this.player.Event.PLAY, () => this._hidePrePlayback());
     if (this.player.paused === false) {
       this._hidePrePlayback();
     }

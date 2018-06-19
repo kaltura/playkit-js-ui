@@ -32,7 +32,6 @@ const mapStateToProps = state => ({
    */
 class SettingsControl extends BaseComponent {
   state: Object;
-  handleClickOutside: Function;
   _controlSettingsElement: any;
 
   /**

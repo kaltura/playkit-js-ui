@@ -5,6 +5,7 @@ import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/loading';
 import BaseComponent from '../base';
+import {EventManager} from '../../event/event-manager';
 
 /**
  * mapping state to props
@@ -27,6 +28,8 @@ const mapStateToProps = state => ({
    * @extends {BaseComponent}
    */
 class Loading extends BaseComponent {
+  _eventManager: EventManager;
+
   /**
    * Creates an instance of Loading.
    * @param {Object} obj obj
@@ -34,6 +37,7 @@ class Loading extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'Loading', player: obj.player});
+    this._eventManager = new EventManager();
     this.setState({afterPlayingEvent: false});
   }
 
@@ -44,7 +48,7 @@ class Loading extends BaseComponent {
    * @memberof Loading
    */
   componentDidMount() {
-    this.player.addEventListener(this.player.Event.PLAYER_STATE_CHANGED, e => {
+    this._eventManager.listen(this.player, this.player.Event.PLAYER_STATE_CHANGED, e => {
       if (!this.state.afterPlayingEvent) return;
       const StateType = this.player.State;
       if (e.payload.newState.type === StateType.IDLE
@@ -56,7 +60,7 @@ class Loading extends BaseComponent {
       }
     });
 
-    this.player.addEventListener(this.player.Event.SOURCE_SELECTED, () => {
+    this._eventManager.listen(this.player, this.player.Event.SOURCE_SELECTED, () => {
       if (this.player.config.playback.autoplay) {
         this.props.updateLoadingSpinnerState(true);
       } else {
@@ -64,36 +68,46 @@ class Loading extends BaseComponent {
       }
     });
 
-    this.player.addEventListener(this.player.Event.AD_BREAK_START, () => {
+    this._eventManager.listen(this.player, this.player.Event.AD_BREAK_START, () => {
       this.props.updateLoadingSpinnerState(true);
     });
 
-    this.player.addEventListener(this.player.Event.AD_LOADED, () => {
+    this._eventManager.listen(this.player, this.player.Event.AD_LOADED, () => {
       this.props.updateLoadingSpinnerState(true);
     });
 
-    this.player.addEventListener(this.player.Event.AD_STARTED, () => {
+    this._eventManager.listen(this.player, this.player.Event.AD_STARTED, () => {
       if (this.props.adIsLinear) {
         this.props.updateLoadingSpinnerState(false);
       }
     });
 
-    this.player.addEventListener(this.player.Event.ALL_ADS_COMPLETED, () => {
+    this._eventManager.listen(this.player, this.player.Event.ALL_ADS_COMPLETED, () => {
       this.props.updateLoadingSpinnerState(false);
     });
 
-    this.player.addEventListener(this.player.Event.AUTOPLAY_FAILED, () => {
+    this._eventManager.listen(this.player, this.player.Event.AUTOPLAY_FAILED, () => {
       this.props.updateLoadingSpinnerState(false);
     });
 
-    this.player.addEventListener(this.player.Event.PLAYING, () => {
+    this._eventManager.listen(this.player, this.player.Event.PLAYING, () => {
       this.setState({afterPlayingEvent: true});
       this.props.updateLoadingSpinnerState(false);
     });
 
-    this.player.addEventListener(this.player.Event.CHANGE_SOURCE_STARTED, () => {
+    this._eventManager.listen(this.player, this.player.Event.CHANGE_SOURCE_STARTED, () => {
       this.setState({afterPlayingEvent: false});
     });
+  }
+
+  /**
+   * before component unmounted, remove event listeners
+   *
+   * @returns {void}
+   * @memberof Loading
+   */
+  componentWillUnmount(): void {
+    this._eventManager.removeAll();
   }
 
   /**

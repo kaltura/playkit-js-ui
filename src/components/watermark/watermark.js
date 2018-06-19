@@ -2,7 +2,8 @@
 import style from '../../styles/style.scss';
 import {h} from 'preact';
 import BaseComponent from '../base';
-import {connect} from "preact-redux";
+import {connect} from 'preact-redux';
+import {EventManager} from ' ../../event/event-manager';
 
 /**
  * mapping state to props
@@ -24,6 +25,8 @@ const mapStateToProps = state => ({
    * @extends {BaseComponent}
    */
 class Watermark extends BaseComponent {
+  _eventManager: EventManager;
+
   /**
    * @static
    * @type {string} - Component display name
@@ -37,6 +40,7 @@ class Watermark extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'Watermark', player: obj.player});
+    this._eventManager = new EventManager();
     this.setState({show: true});
   }
 
@@ -52,16 +56,26 @@ class Watermark extends BaseComponent {
      * @returns {void}
      */
     const onPlaying = () => {
-      this.player.removeEventListener(this.player.Event.PLAYING, onPlaying);
       if (this.props.config.timeout > 0) {
         setTimeout(() => this.setState({show: false}), this.props.config.timeout);
       }
     };
-    this.player.addEventListener(this.player.Event.PLAYING, onPlaying);
-    this.player.addEventListener(this.player.Event.CHANGE_SOURCE_ENDED, () => {
+
+    this._eventManager.listenOnce(this.player, this.player.Event.PLAYING, onPlaying);
+    this._eventManager.listen(this.player, this.player.Event.CHANGE_SOURCE_ENDED, () => {
       this.setState({show: true});
-      this.player.addEventListener(this.player.Event.PLAYING, onPlaying)
+      this._eventManager.listenOnce(this.player, this.player.Event.PLAYING, onPlaying)
     });
+  }
+
+  /**
+   * before component unmounted, remove event listeners
+   *
+   * @returns {void}
+   * @memberof Watermark
+   */
+  componentWillUnmount(): void {
+    this._eventManager.removeAll();
   }
 
   /**

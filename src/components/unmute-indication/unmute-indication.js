@@ -4,6 +4,7 @@ import {h} from 'preact';
 import {connect} from 'preact-redux';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
+import {EventManager} from '../../event/event-manager';
 
 /**
  * The icon only default timeout
@@ -34,6 +35,7 @@ const mapStateToProps = state => ({
    * @extends {BaseComponent}
    */
 class UnmuteIndication extends BaseComponent {
+  _eventManager: EventManager;
   /**
    * The icon only timeout bounded method reference
    * @private
@@ -49,6 +51,7 @@ class UnmuteIndication extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'UnmuteIndication', player: obj.player});
+    this._eventManager = new EventManager();
     this._iconOnlyTimeoutCallback = this._iconOnlyTimeout.bind(this);
   }
 
@@ -72,8 +75,8 @@ class UnmuteIndication extends BaseComponent {
    */
   componentDidUpdate(prevProps: Object): void {
     if (!prevProps.fallbackToMutedAutoPlay && this.props.fallbackToMutedAutoPlay) {
-      this.player.addEventListener(this.player.Event.PLAYING, this._iconOnlyTimeoutCallback);
-      this.player.addEventListener(this.player.Event.AD_STARTED, this._iconOnlyTimeoutCallback);
+      this._eventManager.listen(this.player, this.player.Event.PLAYING, this._iconOnlyTimeoutCallback);
+      this._eventManager.listen(this.player, this.player.Event.AD_STARTED, this._iconOnlyTimeoutCallback);
     }
   }
 
@@ -89,6 +92,16 @@ class UnmuteIndication extends BaseComponent {
     setTimeout(() => {
       this.setState({iconOnly: true});
     }, MUTED_AUTOPLAY_ICON_ONLY_DEFAULT_TIMEOUT);
+  }
+
+  /**
+   * before component unmounted, remove event listeners
+   *
+   * @returns {void}
+   * @memberof UnmuteIndication
+   */
+  componentWillUnmount(): void {
+    this._eventManager.removeAll();
   }
 
   /**

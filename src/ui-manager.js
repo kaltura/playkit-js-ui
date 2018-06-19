@@ -13,13 +13,11 @@ import definition from './fr.json';
 import {actions} from './reducers/config';
 
 import {Player} from 'playkit-js';
-
 // core components for the UI
 import {EngineConnector} from './components/engine-connector';
 import {Shell} from './components/shell';
 import {VideoPlayer} from './components/video-player';
 import {PlayerGUI} from './player-gui';
-
 // ui presets
 import * as presets from './ui-presets';
 
@@ -151,6 +149,21 @@ export default class UIManager {
 
     // render the player
     render(template, container);
+  }
+
+  /**
+   * Destroy the ui manager.
+   * @returns {void}
+   */
+  destroy(): void {
+    const container = document.getElementById(this.targetId);
+    if (container && container.childNodes) {
+      container.removeChild(container.childNodes[0]);
+      container.prepend(this.player.getView());
+      this.store = null;
+      this.player = null;
+      this.targetId = '';
+    }
   }
 
   /**
