@@ -19,7 +19,8 @@ const mapStateToProps = state => ({
   adBreak: state.engine.adBreak,
   adIsPlaying: state.engine.adIsPlaying,
   playerHover: state.shell.playerHover,
-  isMobile: state.shell.isMobile
+  isMobile: state.shell.isMobile,
+  isVr: state.engine.isVr
 });
 
 /**
@@ -37,7 +38,7 @@ export const OVERLAY_ACTION_DEFAULT_TIMEOUT = 300;
 const PLAY_PAUSE_BUFFER_TIME: number = 200;
 
 /**
- * The maximun time two click would be considered a double click
+ * The maximum time two click would be considered a double click
  * @type {number}
  * @const
  */
@@ -54,6 +55,8 @@ const DOUBLE_CLICK_MAX_BUFFER_TIME: number = 500;
 class OverlayAction extends BaseComponent {
   state: Object;
   _iconTimeout: ?number = null;
+  _pointerDownPosX: number = NaN;
+  _pointerDownPosY: number = NaN;
   _firstClickTime: number = 0;
   _clickTimeout: ?number = 0;
 
@@ -116,6 +119,58 @@ class OverlayAction extends BaseComponent {
   }
 
   /**
+   * Handler for overlay pointer (mouse/touch) down
+   *
+   * @param {*} event - mousedown/touchstart event
+   * @returns {void}
+   * @memberof OverlayAction
+   */
+  onOverlayPointerDown(event: any): void {
+    this._pointerDownPosX = event.clientX || event.changedTouches[0].clientX;
+    this._pointerDownPosY = event.clientY || event.changedTouches[0].clientY;
+  }
+
+  /**
+   * Handler for overlay mouse up
+   *
+   * @param {*} event - mouseup event
+   * @returns {void}
+   * @memberof OverlayAction
+   */
+  onOverlayMouseUp(event: any): void {
+    if (!this.props.isVr || !this.isDragging(event)) {
+      this.onOverlayClick();
+    }
+  }
+
+  /**
+   * handler for overlay touch end
+   *
+   * @param {*} event - touchend event
+   * @returns {void}
+   * @memberof OverlayAction
+   */
+  onOverlayTouchEnd(event: any): void {
+    if (this.props.playerHover && (!this.props.isVr || !this.isDragging(event))) {
+      this.togglePlayPause();
+    }
+  }
+
+  /**
+   * Whether the user is dragging
+   *
+   * @param {*} event - mouseup/touchend event
+   * @returns {boolean} - is dragging
+   */
+  isDragging(event: any): boolean {
+    const points = {
+      clientX: event.clientX || event.changedTouches[0] && event.changedTouches[0].clientX,
+      clientY: event.clientY || event.changedTouches[0] && event.changedTouches[0].clientY
+    };
+    return (Math.abs(points.clientX - this._pointerDownPosX) > 1 || Math.abs(points.clientY - this._pointerDownPosY) > 1);
+  }
+
+  /**
    * Handler for overlay click
    *
    * @returns {void}
@@ -157,18 +212,6 @@ class OverlayAction extends BaseComponent {
     if (this._clickTimeout) {
       clearTimeout(this._clickTimeout);
       this._clickTimeout = null;
-    }
-  }
-
-  /**
-   * handler for overlay touch
-   *
-   * @returns {void}
-   * @memberof OverlayAction
-   */
-  onOverlayTouch(): void {
-    if (this.props.playerHover) {
-      this.togglePlayPause();
     }
   }
 
@@ -215,8 +258,10 @@ class OverlayAction extends BaseComponent {
   render(): React$Element<any> {
     return (
       <div className={`${style.overlayAction} ${this.state.animation ? style.in : ''}`}
-           onClick={() => this.onOverlayClick()}
-           onTouchStart={() => this.onOverlayTouch()}>
+           onMouseDown={(e) => this.onOverlayPointerDown(e)}
+           onTouchStart={(e) => this.onOverlayPointerDown(e)}
+           onMouseUp={(e) => this.onOverlayMouseUp(e)}
+           onTouchEnd={(e) => this.onOverlayTouchEnd(e)}>
         {this.state.animation ? this.renderIcons() : undefined}
       </div>
     )

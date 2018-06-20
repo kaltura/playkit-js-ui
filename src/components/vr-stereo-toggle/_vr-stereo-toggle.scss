@@ -1,0 +1,14 @@
+.control-button-container.control-vr-stereo .control-button {
+  .icon-vr-stereo-full {
+    display: none;
+  }
+
+  &.vr-stereo-mode {
+    .icon-vr-stereo {
+      display: none;
+    }
+    .icon-vr-stereo-full {
+      display: block;
+    }
+  }
+}
