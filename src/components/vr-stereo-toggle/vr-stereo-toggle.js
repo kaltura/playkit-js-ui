@@ -54,6 +54,12 @@ class VrStereoToggleControl extends BaseComponent {
     this.props.updateVrStereoMode(!this.props.vrStereoMode);
   }
 
+  /**
+   * before component mounted, set initial state
+   *
+   * @returns {void}
+   * @memberof VrStereoToggleControl
+   */
   componentWillMount(): void {
     this.props.updateVrStereoMode(this.props.config.vrStereoMode);
   }
