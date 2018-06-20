@@ -163,13 +163,11 @@ class OverlayAction extends BaseComponent {
    * @returns {boolean} - is dragging
    */
   isDragging(event: any): boolean {
-    if (event.clientX) {
-      return (event.clientX !== this._pointerDownPosX || event.clientY !== this._pointerDownPosY);
-    }
-    if (event.changedTouches[0].clientX) {
-      return (event.changedTouches[0].clientX !== this._pointerDownPosX || event.changedTouches[0].clientY !== this._pointerDownPosY)
-    }
-    return false;
+    const points = {
+      clientX: event.clientX || event.changedTouches[0] && event.changedTouches[0].clientX,
+      clientY: event.clientY || event.changedTouches[0] && event.changedTouches[0].clientY
+    };
+    return (points.clientX !== this._pointerDownPosX || points.clientY !== this._pointerDownPosY);
   }
 
   /**

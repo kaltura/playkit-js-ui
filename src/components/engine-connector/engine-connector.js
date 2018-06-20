@@ -180,6 +180,10 @@ class EngineConnector extends BaseComponent {
       this.props.updateAdSkippableState(e.payload.ad.getAdSkippableState());
     });
 
+    this.player.addEventListener(this.player.Event.VR_STEREO_MODE_CHANGED, e => {
+      this.props.updateVrStereoMode(e.payload.mode);
+    });
+
     this.player.addEventListener(this.player.Event.ERROR, e => {
       if (e.payload && e.payload.severity === 2) {
         this.props.updateHasError(true);

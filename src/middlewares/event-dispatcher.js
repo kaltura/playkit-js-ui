@@ -135,10 +135,6 @@ function onClickableComponentsHandler(store: any, action: Object, player: Player
     case 'Volume':
       onVolumeClicked(store, action, player);
       break;
-
-    case 'Stereo':
-      player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CLICKED_STEREO_MODE));
-      break;
   }
 }
 

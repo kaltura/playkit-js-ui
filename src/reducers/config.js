@@ -11,7 +11,7 @@ export const initialState = {
     watermark: {},
     seekbar: {},
     error: {},
-    stereo: {},
+    vrStereo: {}
   }
 };
 

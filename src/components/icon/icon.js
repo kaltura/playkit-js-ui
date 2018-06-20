@@ -36,8 +36,8 @@ const IconType = {
   SeekEnd: 'seek-end',
   Rewind: 'rewind',
   Rewind10: 'rewind10',
-  Stereo: 'stereo',
-  StereoFull: 'stereo-full'
+  vrStereo: 'vr-stereo',
+  vrStereoFull: 'vr-stereo-full'
 };
 
 /**
@@ -156,11 +156,11 @@ class Icon extends Component {
       case IconType.Rewind10:
         return (<i className={[style.icon, style.iconRewind10].join(' ')}/>);
 
-      case IconType.Stereo:
-        return (<i className={[style.icon, style.iconStereo].join(' ')}/>);
+      case IconType.vrStereo:
+        return (<i className={[style.icon, style.iconVrStereo].join(' ')}/>);
 
-      case IconType.StereoFull:
-        return (<i className={[style.icon, style.iconStereoFull].join(' ')}/>);
+      case IconType.vrStereoFull:
+        return (<i className={[style.icon, style.iconVrStereoFull].join(' ')}/>);
 
       default:
         break;

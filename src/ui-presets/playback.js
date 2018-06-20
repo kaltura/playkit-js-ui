@@ -11,7 +11,7 @@ import {VolumeControl} from '../components/volume';
 import {SettingsControl} from '../components/settings';
 import {LanguageControl} from '../components/language';
 import {FullscreenControl} from '../components/fullscreen';
-import {StereoControl} from '../components/stereo';
+import {VrStereoToggleControl} from '../components/vr-stereo-toggle';
 import {TimeDisplayPlaybackContainer} from '../components/time-display-playback-container';
 import {BottomBar} from '../components/bottom-bar';
 import {OverlayPortal} from '../components/overlay-portal';
@@ -47,8 +47,8 @@ export function playbackUI(props: any): React$Element<any> {
             <TimeDisplayPlaybackContainer format='current / total'/>
           </div>
           <div className={style.rightControls}>
-            {(props.state.engine.isVr && shouldRenderComponent(props.config, StereoControl.displayName))
-              ? <StereoControl/>
+            {(props.player.isVr() && shouldRenderComponent(props.config, VrStereoToggleControl.displayName))
+              ? <VrStereoToggleControl player={props.player}/>
               : undefined}
             <VolumeControl player={props.player}/>
             <LanguageControl player={props.player}/>

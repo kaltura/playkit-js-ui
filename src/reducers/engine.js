@@ -25,7 +25,8 @@ export const types = {
   UPDATE_ERROR: 'engine/ERROR',
   UPDATE_IS_IDLE: 'engine/UPDATE_IS_IDLE',
   UPDATE_FALLBACK_TO_MUTED_AUTOPLAY: 'engine/UPDATE_FALLBACK_TO_MUTED_AUTOPLAY',
-  UPDATE_IS_VR: 'engine/UPDATE_IS_VR'
+  UPDATE_IS_VR: 'engine/UPDATE_IS_VR',
+  UPDATE_VR_STEREO_MODE: 'engine/UPDATE_VR_STEREO_MODE'
 };
 
 export const initialState = {
@@ -223,6 +224,12 @@ export default (state: Object = initialState, action: Object) => {
         isVr: action.isVr
       };
 
+    case types.UPDATE_VR_STEREO_MODE:
+      return {
+        ...state,
+        vrStereoMode: action.vrStereoMode
+      };
+
     default:
       return state;
   }
@@ -264,4 +271,5 @@ export const actions = {
   updateIsIdle: (IsIdle: boolean) => ({type: types.UPDATE_IS_IDLE, IsIdle: IsIdle}),
   updateFallbackToMutedAutoPlay: (fallback: boolean) => ({type: types.UPDATE_FALLBACK_TO_MUTED_AUTOPLAY, fallback}),
   updateIsVr: (isVr: boolean) => ({type: types.UPDATE_IS_VR, isVr}),
+  updateVrStereoMode: (vrStereoMode: boolean) => ({type: types.UPDATE_VR_STEREO_MODE, vrStereoMode})
 };
