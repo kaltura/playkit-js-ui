@@ -60,7 +60,8 @@ export const initialState = {
   },
   adUrl: '',
   hasError: false,
-  isVr: false
+  isVr: false,
+  vrStereoMode: false
 };
 
 export default (state: Object = initialState, action: Object) => {
