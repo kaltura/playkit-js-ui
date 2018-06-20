@@ -167,7 +167,7 @@ class OverlayAction extends BaseComponent {
       clientX: event.clientX || event.changedTouches[0] && event.changedTouches[0].clientX,
       clientY: event.clientY || event.changedTouches[0] && event.changedTouches[0].clientY
     };
-    return (points.clientX !== this._pointerDownPosX || points.clientY !== this._pointerDownPosY);
+    return (Math.abs(points.clientX - this._pointerDownPosX) > 1 || Math.abs(points.clientY - this._pointerDownPosY) > 1);
   }
 
   /**
