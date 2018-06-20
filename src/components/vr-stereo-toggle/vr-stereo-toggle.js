@@ -25,7 +25,7 @@ const mapStateToProps = state => ({
  * VrStereoToggleControl component
  *
  * @class VrStereoToggleControl
- * @example <VrStereoToggleControl/>
+ * @example <VrStereoToggleControl player={this.player}/>
  * @extends {BaseComponent}
  */
 class VrStereoToggleControl extends BaseComponent {
@@ -40,7 +40,7 @@ class VrStereoToggleControl extends BaseComponent {
    * @memberof VrStereoToggleControl
    */
   constructor(obj: Object) {
-    super({name: 'vrStereo', player: obj.player});
+    super({name: VrStereoToggleControl.displayName, player: obj.player});
   }
 
   /**
