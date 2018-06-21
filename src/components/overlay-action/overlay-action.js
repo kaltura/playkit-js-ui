@@ -44,6 +44,13 @@ const PLAY_PAUSE_BUFFER_TIME: number = 200;
  */
 const DOUBLE_CLICK_MAX_BUFFER_TIME: number = 500;
 
+/**
+ * The maximum distance between 'pointerdown' point and 'pointerup' point to still be considered as click and not as dragging
+ * @type {number}
+ * @const
+ */
+const DRAGGING_THRESHOLD: number = 5;
+
 @connect(mapStateToProps, bindActions(Object.assign(actions, shellActions)))
   /**
    * OverlayAction component
@@ -167,7 +174,7 @@ class OverlayAction extends BaseComponent {
       clientX: event.clientX || event.changedTouches[0] && event.changedTouches[0].clientX,
       clientY: event.clientY || event.changedTouches[0] && event.changedTouches[0].clientY
     };
-    return (Math.abs(points.clientX - this._pointerDownPosX) > 1 || Math.abs(points.clientY - this._pointerDownPosY) > 1);
+    return (Math.abs(points.clientX - this._pointerDownPosX) > DRAGGING_THRESHOLD || Math.abs(points.clientY - this._pointerDownPosY) > DRAGGING_THRESHOLD);
   }
 
   /**
