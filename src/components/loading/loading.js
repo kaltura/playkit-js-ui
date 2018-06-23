@@ -6,6 +6,7 @@ import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/loading';
 import BaseComponent from '../base';
 import {EventManager} from '../../event/event-manager';
+import {UIEventManager} from '../../event/event-manager';
 
 /**
  * mapping state to props
@@ -37,7 +38,7 @@ class Loading extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'Loading', player: obj.player});
-    this._eventManager = new EventManager();
+    this._eventManager = UIEventManager.getInstance();
     this.setState({afterPlayingEvent: false});
   }
 
@@ -98,16 +99,6 @@ class Loading extends BaseComponent {
     this._eventManager.listen(this.player, this.player.Event.CHANGE_SOURCE_STARTED, () => {
       this.setState({afterPlayingEvent: false});
     });
-  }
-
-  /**
-   * before component unmounted, remove event listeners
-   *
-   * @returns {void}
-   * @memberof Loading
-   */
-  componentWillUnmount(): void {
-    this._eventManager.removeAll();
   }
 
   /**

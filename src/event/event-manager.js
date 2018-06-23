@@ -2,6 +2,20 @@
 import {MultiMap} from '../utils/multi-map';
 import {FakeEvent} from './fake-event';
 
+/** A singleton wrapper for the event manager.
+ * @class UIEventManager
+ */
+class UIEventManager {
+  static _instance: EventManager;
+
+  static getInstance(): EventManager {
+    if (!UIEventManager._instance) {
+      UIEventManager._instance = new EventManager();
+    }
+    return UIEventManager._instance;
+  }
+}
+
 /**
  * Creates a new EventManager. An EventManager maintains a collection of "event
  * bindings" between event targets and event listeners.
@@ -166,4 +180,4 @@ class Binding_ {
   }
 }
 
-export {EventManager};
+export {UIEventManager, EventManager};

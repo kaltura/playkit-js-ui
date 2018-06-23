@@ -5,6 +5,7 @@ import {connect} from 'preact-redux';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {EventManager} from '../../event/event-manager';
+import {UIEventManager} from '../../event/event-manager';
 
 /**
  * The icon only default timeout
@@ -51,7 +52,7 @@ class UnmuteIndication extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'UnmuteIndication', player: obj.player});
-    this._eventManager = new EventManager();
+    this._eventManager = UIEventManager.getInstance();
     this._iconOnlyTimeoutCallback = this._iconOnlyTimeout.bind(this);
   }
 
@@ -92,16 +93,6 @@ class UnmuteIndication extends BaseComponent {
     setTimeout(() => {
       this.setState({iconOnly: true});
     }, MUTED_AUTOPLAY_ICON_ONLY_DEFAULT_TIMEOUT);
-  }
-
-  /**
-   * before component unmounted, remove event listeners
-   *
-   * @returns {void}
-   * @memberof UnmuteIndication
-   */
-  componentWillUnmount(): void {
-    this._eventManager.removeAll();
   }
 
   /**

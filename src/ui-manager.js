@@ -24,6 +24,8 @@ import * as presets from './ui-presets';
 import {middleware} from './middlewares'
 
 import './styles/style.scss';
+import {EventManager} from './event/event-manager';
+import {UIEventManager} from './event/event-manager';
 
 /**
  * API used for building UIs based on state conditions
@@ -34,6 +36,7 @@ export default class UIManager {
   player: Player;
   targetId: string;
   store: any;
+  _eventManager: EventManager;
 
   /**
    * Creates an instance of UIManager.
@@ -47,6 +50,7 @@ export default class UIManager {
     }
     this.player = player;
     this.targetId = config.targetId;
+    this._eventManager = UIEventManager.getInstance();
     this._createStore(config);
     this.setConfig(config);
   }
@@ -160,9 +164,7 @@ export default class UIManager {
     if (container && container.childNodes) {
       container.removeChild(container.childNodes[0]);
       container.prepend(this.player.getView());
-      this.store = null;
-      this.player = null;
-      this.targetId = '';
+      this._eventManager.removeAll();
     }
   }
 

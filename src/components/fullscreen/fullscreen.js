@@ -9,6 +9,7 @@ import {actions as fullscreenActions} from '../../reducers/fullscreen';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {EventManager} from '../../event/event-manager';
+import {UIEventManager} from '../../event/event-manager';
 
 /**
  * mapping state to props
@@ -41,7 +42,7 @@ class FullscreenControl extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'Fullscreen', player: obj.player});
-    this._eventManager = new EventManager();
+    this._eventManager = UIEventManager.getInstance();
   }
 
   /**
@@ -68,16 +69,6 @@ class FullscreenControl extends BaseComponent {
     this._eventManager.listen(this.player, this.player.Event.REQUESTED_ENTER_FULLSCREEN, () => this.enterFullscreen());
     this._eventManager.listen(this.player, this.player.Event.REQUESTED_EXIT_FULLSCREEN, () => this.exitFullscreen());
     this.handleIosFullscreen();
-  }
-
-  /**
-   * before component unmounted, remove event listeners
-   *
-   * @returns {void}
-   * @memberof FullscreenControl
-   */
-  componentWillUnmount(): void {
-    this._eventManager.removeAll();
   }
 
   /**

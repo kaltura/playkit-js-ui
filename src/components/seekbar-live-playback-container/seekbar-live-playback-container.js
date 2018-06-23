@@ -6,6 +6,7 @@ import {actions} from '../../reducers/seekbar';
 import BaseComponent from '../base';
 import {SeekBarControl} from '../seekbar';
 import {EventManager} from '../../event/event-manager';
+import {UIEventManager} from '../../event/event-manager';
 
 /**
  * mapping state to props
@@ -39,7 +40,7 @@ class SeekBarLivePlaybackContainer extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'SeekBarLivePlaybackContainer', player: obj.player});
-    this._eventManager = new EventManager();
+    this._eventManager = UIEventManager.getInstance();
   }
 
   /**
@@ -55,17 +56,6 @@ class SeekBarLivePlaybackContainer extends BaseComponent {
         this.props.updateCurrentTime(this.player.currentTime);
       }
     });
-  }
-
-
-  /**
-   * before component unmounted, remove event listeners
-   *
-   * @returns {void}
-   * @memberof SeekBarLivePlaybackContainer
-   */
-  componentWillUnmount(): void {
-    this._eventManager.removeAll();
   }
 
   /**

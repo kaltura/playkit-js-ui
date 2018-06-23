@@ -5,6 +5,7 @@ import {bindActions} from '../../utils/bind-actions';
 import {default as reduce, actions} from '../../reducers/engine';
 import BaseComponent from '../base';
 import {EventManager} from '../../event/event-manager';
+import {UIEventManager} from '../../event/event-manager';
 
 @connect(reduce, bindActions(actions))
   /**
@@ -24,7 +25,7 @@ class EngineConnector extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'EngineConnector', player: obj.player});
-    this._eventManager = new EventManager();
+    this._eventManager = UIEventManager.getInstance();
   }
 
   /**
@@ -187,16 +188,6 @@ class EngineConnector extends BaseComponent {
         this.props.updateHasError(true);
       }
     });
-  }
-
-  /**
-   * before component unmounted, remove event listeners
-   *
-   * @returns {void}
-   * @memberof EngineConnector
-   */
-  componentWillUnmount(): void {
-    this._eventManager.removeAll();
   }
 
   /**

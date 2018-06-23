@@ -6,9 +6,10 @@ import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
-import {KeyMap} from "../../utils/key-map";
+import {KeyMap} from '../../utils/key-map';
 import {actions as loadingActions} from '../../reducers/loading';
 import {EventManager} from '../../event/event-manager';
+import {UIEventManager} from '../../event/event-manager';
 
 /**
  * mapping state to props
@@ -43,7 +44,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'PrePlaybackPlayOverlay', player: obj.player});
-    this._eventManager = new EventManager();
+    this._eventManager = UIEventManager.getInstance();
     this._eventManager.listen(this.player, this.player.Event.CHANGE_SOURCE_ENDED, () => this._onChangeSourceEnded());
   }
 
@@ -78,7 +79,6 @@ class PrePlaybackPlayOverlay extends BaseComponent {
   componentWillUnmount() {
     this._hidePrePlayback();
     this.props.removePlayerClass(style.prePlayback);
-    this._eventManager.removeAll();
   }
 
   /**

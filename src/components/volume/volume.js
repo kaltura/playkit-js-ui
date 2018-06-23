@@ -10,6 +10,7 @@ import {KeyMap} from '../../utils/key-map';
 import {KEYBOARD_DEFAULT_VOLUME_JUMP} from '../keyboard/keyboard';
 import {EventManager} from '../../event/event-manager';
 import {bindMethod} from '../../utils/bind-method';
+import {UIEventManager} from '../../event/event-manager';
 
 /**
  * mapping state to props
@@ -47,7 +48,7 @@ class VolumeControl extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'Volume', player: obj.player});
-    this._eventManager = new EventManager();
+    this._eventManager = UIEventManager.getInstance();
     this.onVolumeProgressBarMouseUp = bindMethod(this, this.onVolumeProgressBarMouseUp);
     this.onVolumeProgressBarMouseMove = bindMethod(this, this.onVolumeProgressBarMouseMove);
   }
@@ -79,7 +80,6 @@ class VolumeControl extends BaseComponent {
    * @memberof VolumeControl
    */
   componentWillUnmount(): void {
-    this._eventManager.removeAll();
     document.removeEventListener('mouseup', this.onVolumeProgressBarMouseUp);
     document.removeEventListener('mousemove', this.onVolumeProgressBarMouseMove);
   }

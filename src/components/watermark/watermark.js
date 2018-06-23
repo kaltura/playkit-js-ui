@@ -4,6 +4,7 @@ import {h} from 'preact';
 import BaseComponent from '../base';
 import {connect} from 'preact-redux';
 import {EventManager} from '../../event/event-manager';
+import {UIEventManager} from '../../event/event-manager';
 
 /**
  * mapping state to props
@@ -40,7 +41,7 @@ class Watermark extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'Watermark', player: obj.player});
-    this._eventManager = new EventManager();
+    this._eventManager = UIEventManager.getInstance();
     this.setState({show: true});
   }
 
@@ -66,16 +67,6 @@ class Watermark extends BaseComponent {
       this.setState({show: true});
       this._eventManager.listenOnce(this.player, this.player.Event.PLAYING, onPlaying)
     });
-  }
-
-  /**
-   * before component unmounted, remove event listeners
-   *
-   * @returns {void}
-   * @memberof Watermark
-   */
-  componentWillUnmount(): void {
-    this._eventManager.removeAll();
   }
 
   /**
