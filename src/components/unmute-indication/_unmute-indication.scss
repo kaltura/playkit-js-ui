@@ -1,3 +1,5 @@
+$color: 'white';
+
 .unmute-button-container {
   display: inline-block;
   position: absolute;
@@ -6,7 +8,7 @@
   z-index: 15;
 
   a {
-    color: white;
+    color: $color;
   }
 
   &.show-icon-only {
@@ -34,7 +36,7 @@
     opacity: 1;
     transition: transform 100ms, opacity 100ms;
     display: inline-block;
-    color: white;
+    color: $color;
   }
 
   &.has-top-bar {
