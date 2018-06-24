@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.24.0"></a>
+# [0.24.0](https://github.com/kaltura/playkit-js-ui/compare/v0.23.5...v0.24.0) (2018-06-20)
+
+
+### Features
+
+* **FEC-8046:** 360 support ([#245](https://github.com/kaltura/playkit-js-ui/issues/245)) ([079f82b](https://github.com/kaltura/playkit-js-ui/commit/079f82b))
+* **FEC-8241,FEC-8242:** expose Icon component and reducers constructs ([#243](https://github.com/kaltura/playkit-js-ui/issues/243)) ([8e81d28](https://github.com/kaltura/playkit-js-ui/commit/8e81d28))
+
+
+
 <a name="0.23.5"></a>
 ## [0.23.5](https://github.com/kaltura/playkit-js-ui/compare/v0.23.4...v0.23.5) (2018-06-17)
 

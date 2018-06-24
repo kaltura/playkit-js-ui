@@ -12,7 +12,8 @@
     "language": "Language",
     "settings": "Settings",
     "fullscreen": "Fullscreen",
-    "rewind": "Rewind"
+    "rewind": "Rewind",
+    "vrStereo": "vrStereo"
   },
   "settings": {
     "quality": "Quality",
