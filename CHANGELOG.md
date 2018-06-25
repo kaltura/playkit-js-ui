@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file. See [standa
 <a name="0.24.2"></a>
 ## [0.24.2](https://github.com/kaltura/playkit-js-ui/compare/v0.24.1...v0.24.2) (2018-06-25)
 
+### Bug Fixes
+
+* add color white on the span itself ([#247](https://github.com/kaltura/playkit-js-ui/issues/247)) ([df9b6d7](https://github.com/kaltura/playkit-js-ui/commit/df9b6d7))
 
 
 <a name="0.24.1"></a>
@@ -13,7 +16,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Bug Fixes
 
-* play/pause click on 360 content is too sensitive ([#246](https://github.com/kaltura/playkit-js-ui/issues/246)) ([3346024](https://github.com/kaltura/playkit-js-ui/commit/3346024))
+* **FEC-8338** play/pause click on 360 content is too sensitive ([#246](https://github.com/kaltura/playkit-js-ui/issues/246)) ([3346024](https://github.com/kaltura/playkit-js-ui/commit/3346024))
 
 
 
