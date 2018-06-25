@@ -8,6 +8,13 @@
     transform: translateY(-60px);
     transition: ease-out 100ms;
   }
+  &.Safari {
+    &.state-paused video::-webkit-media-text-track-display,
+    &.hover video::-webkit-media-text-track-display {
+      transform: translateY(-30px);
+      transition: ease-out 100ms;
+    }
+  }
   &.fullscreen {
     &.iOS video::-webkit-media-text-track-display {
       transform: translateY(0px);
@@ -32,6 +39,13 @@
       &.iOS :global(.playkit-subtitles) {
         transform: translateY(0px);
       }
+    }
+  }
+  &.Safari {
+    &.state-paused :global(.playkit-subtitles),
+    &.hover :global(.playkit-subtitles) {
+      transform: translateY(-30px);
+      transition: ease-out 100ms;
     }
   }
 }
