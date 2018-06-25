@@ -21,6 +21,7 @@ const mapStateToProps = state => ({
   currentState: state.engine.playerState.currentState,
   playerClasses: state.shell.playerClasses,
   isMobile: state.shell.isMobile,
+  isCasting: state.engine.isCasting,
   playerClientRect: state.shell.playerClientRect,
   playerHover: state.shell.playerHover,
   playerNav: state.shell.playerNav,
@@ -290,6 +291,7 @@ class Shell extends BaseComponent {
     let playerClasses = [style.player, style.skinDefault, ...this._environmentClasses];
     playerClasses.push(props.playerClasses);
 
+    if (this.props.isCasting) playerClasses.push(`${__CSS_MODULE_PREFIX__}-casting`);
     if (this.props.isMobile) playerClasses.push(style.touch);
     if (this.props.playerNav) playerClasses.push(style.nav);
     if (this.props.playerHover || this.props.playerNav) playerClasses.push(style.hover);

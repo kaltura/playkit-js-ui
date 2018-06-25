@@ -17,7 +17,10 @@ import {LiveTag} from '../components/live-tag';
 import {UnmuteIndication} from '../components/unmute-indication';
 import {Watermark} from '../components/watermark/watermark';
 import {shouldRenderComponent} from '../utils/component-config';
-import {VrStereoToggleControl} from "../components/vr-stereo-toggle";
+import {VrStereoToggleControl} from '../components/vr-stereo-toggle';
+import {ChromecastControl} from '../components/chromecast/chromecast';
+import {CastBeforePlay} from '../components/cast-before-play/cast-before-play';
+import {Backdrop} from '../components/backdrop/backdrop';
 
 /**
  * Live ui intrface
@@ -52,14 +55,17 @@ export function liveUI(props: any): React$Element<any> {
             <VolumeControl player={props.player}/>
             <LanguageControl player={props.player}/>
             <SettingsControl player={props.player}/>
+            <ChromecastControl player={props.player}/>
             <FullscreenControl player={props.player}/>
           </div>
         </BottomBar>
       </div>
       <PrePlaybackPlayOverlay player={props.player}/>
+      <CastBeforePlay player={props.player}/>
       {shouldRenderComponent(props.config, Watermark.displayName)
         ? <Watermark player={props.player}/>
         : undefined}
+      <Backdrop/>
     </div>
   )
 }

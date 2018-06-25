@@ -51,6 +51,7 @@
   &.overlay-active :global(#overlay-portal) {
     z-index: 11;
   }
+  &.casting .player-gui,
   &.metadata-loaded .player-gui,
   &.state-paused .player-gui,
   &.overlay-active .player-gui,

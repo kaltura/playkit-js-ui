@@ -8,6 +8,11 @@ import {FakeEvent} from './fake-event';
 class UIEventManager {
   static _instance: EventManager;
 
+  /**
+   * Gets the event manager instance.
+   * @return {EventManager} - The event manager instance.
+   * @static
+   */
   static getInstance(): EventManager {
     if (!UIEventManager._instance) {
       UIEventManager._instance = new EventManager();

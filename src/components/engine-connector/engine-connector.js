@@ -193,6 +193,24 @@ class EngineConnector extends BaseComponent {
         this.props.updateHasError(true);
       }
     });
+
+    this._eventManager.listen(this.player, this.player.Event.Cast.CAST_SESSION_STARTED, e => {
+      this.props.updateIsCasting(true);
+      this.props.updateCastSession(e.payload.session);
+    });
+
+    this._eventManager.listen(this.player, this.player.Event.Cast.CAST_SESSION_ENDED, () => {
+      this.props.updateIsCasting(false);
+      this.props.updateCastSession(null);
+    });
+
+    this._eventManager.listen(this.player, this.player.Event.Cast.CAST_AVAILABLE, e => {
+      const {available, type} = e.payload;
+      this.props.updateIsCastAvailable(available);
+      if (available) {
+        this.props.updateCastAvailableTypes(type);
+      }
+    });
   }
 
   /**

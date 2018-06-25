@@ -1,0 +1,16 @@
+.player {
+  .chromecast-button {
+    width: 38px;
+    height: 32px;
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    cursor: pointer;
+    --connected-color: rgba(1, 172, 205, 0.8);
+    --disconnected-color: $grayscale4;
+  }
+
+  .chromecast-button:hover {
+    --disconnected-color: $white;
+    --connected-color: $brand-color;
+  }
+}

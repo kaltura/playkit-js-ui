@@ -26,7 +26,11 @@ export const types = {
   UPDATE_IS_IDLE: 'engine/UPDATE_IS_IDLE',
   UPDATE_FALLBACK_TO_MUTED_AUTOPLAY: 'engine/UPDATE_FALLBACK_TO_MUTED_AUTOPLAY',
   UPDATE_IS_VR: 'engine/UPDATE_IS_VR',
-  UPDATE_VR_STEREO_MODE: 'engine/UPDATE_VR_STEREO_MODE'
+  UPDATE_VR_STEREO_MODE: 'engine/UPDATE_VR_STEREO_MODE',
+  UPDATE_IS_CASTING: 'engine/UPDATE_IS_CASTING',
+  UPDATE_CAST_SESSION: 'engine/UPDATE_CAST_SESSION',
+  UPDATE_IS_CAST_AVAILABLE: 'engine/UPDATE_IS_CAST_AVAILABLE',
+  UPDATE_CAST_AVAILABLE_TYPES: 'engine/UPDATE_CAST_AVAILABLE_TYPES'
 };
 
 export const initialState = {
@@ -61,7 +65,11 @@ export const initialState = {
   adUrl: '',
   hasError: false,
   isVr: false,
-  vrStereoMode: false
+  vrStereoMode: false,
+  isCasting: false,
+  castSession: null,
+  isCastAvailable: false,
+  castAvailableTypes: []
 };
 
 export default (state: Object = initialState, action: Object) => {
@@ -231,6 +239,31 @@ export default (state: Object = initialState, action: Object) => {
         vrStereoMode: action.vrStereoMode
       };
 
+    case types.UPDATE_IS_CASTING:
+      return {
+        ...state,
+        isCasting: action.isCasting
+      };
+
+    case types.UPDATE_CAST_SESSION:
+      return {
+        ...state,
+        castSession: action.castSession
+      };
+
+    case types.UPDATE_IS_CAST_AVAILABLE:
+      return {
+        ...state,
+        isCastAvailable: action.isCastAvailable
+      };
+
+    case types.UPDATE_CAST_AVAILABLE_TYPES: {
+      if (!state.castAvailableTypes.includes(action.castType)) {
+        state.castAvailableTypes.push(action.castType);
+      }
+      return state;
+    }
+
     default:
       return state;
   }
@@ -272,5 +305,9 @@ export const actions = {
   updateIsIdle: (IsIdle: boolean) => ({type: types.UPDATE_IS_IDLE, IsIdle: IsIdle}),
   updateFallbackToMutedAutoPlay: (fallback: boolean) => ({type: types.UPDATE_FALLBACK_TO_MUTED_AUTOPLAY, fallback}),
   updateIsVr: (isVr: boolean) => ({type: types.UPDATE_IS_VR, isVr}),
-  updateVrStereoMode: (vrStereoMode: boolean) => ({type: types.UPDATE_VR_STEREO_MODE, vrStereoMode})
+  updateVrStereoMode: (vrStereoMode: boolean) => ({type: types.UPDATE_VR_STEREO_MODE, vrStereoMode}),
+  updateIsCasting: (isCasting: boolean) => ({type: types.UPDATE_IS_CASTING, isCasting}),
+  updateCastSession: (castSession: Object) => ({type: types.UPDATE_CAST_SESSION, castSession}),
+  updateIsCastAvailable: (isCastAvailable: boolean) => ({type: types.UPDATE_IS_CAST_AVAILABLE, isCastAvailable}),
+  updateCastAvailableTypes: (castType: string) => ({type: types.UPDATE_CAST_AVAILABLE_TYPES, castType})
 };

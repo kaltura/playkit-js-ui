@@ -18,6 +18,13 @@ class BaseComponent extends Component {
   logger: any;
 
   /**
+   * Components default props.
+   * @type {Object}
+   * @static
+   */
+  static defaultProps: Object = {};
+
+  /**
    * Creates an instance of BaseComponent.
    * @param {Object} [obj={ config: {} }] obj
    * @memberof BaseComponent

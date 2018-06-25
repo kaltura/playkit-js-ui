@@ -19,6 +19,9 @@ import {KeyboardControl} from '../components/keyboard';
 import {UnmuteIndication} from '../components/unmute-indication';
 import {Watermark} from '../components/watermark/watermark';
 import {shouldRenderComponent} from '../utils/component-config';
+import {ChromecastControl} from '../components/chromecast';
+import {CastBeforePlay} from '../components/cast-before-play/cast-before-play';
+import {Backdrop} from '../components/backdrop/backdrop';
 
 /**
  * Playback ui interface
@@ -53,14 +56,17 @@ export function playbackUI(props: any): React$Element<any> {
             <VolumeControl player={props.player}/>
             <LanguageControl player={props.player}/>
             <SettingsControl player={props.player}/>
+            <ChromecastControl player={props.player}/>
             <FullscreenControl player={props.player}/>
           </div>
         </BottomBar>
       </div>
       <PrePlaybackPlayOverlay player={props.player}/>
+      <CastBeforePlay player={props.player}/>
       {shouldRenderComponent(props.config, Watermark.displayName)
         ? <Watermark player={props.player}/>
         : undefined}
+      <Backdrop/>
     </div>
   )
 }
