@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.24.4"></a>
+## [0.24.4](https://github.com/kaltura/playkit-js-ui/compare/v0.24.3...v0.24.4) (2018-06-28)
+
+
+### Bug Fixes
+
+* **FEC-7971:** change media doesn't work after a critical error ([c70b485](https://github.com/kaltura/playkit-js-ui/commit/c70b485))
+* unmute color [#250](https://github.com/kaltura/playkit-js-ui/issues/250) ([8bbc574](https://github.com/kaltura/playkit-js-ui/commit/8bbc574))
+
+
+
 <a name="0.24.3"></a>
 ## [0.24.3](https://github.com/kaltura/playkit-js-ui/compare/v0.24.2...v0.24.3) (2018-06-26)
 
