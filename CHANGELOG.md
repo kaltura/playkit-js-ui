@@ -8,7 +8,6 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Bug Fixes
 
-* **FEC-7971:** change media doesn't work after a critical error ([c70b485](https://github.com/kaltura/playkit-js-ui/commit/c70b485))
 * unmute color [#250](https://github.com/kaltura/playkit-js-ui/issues/250) ([8bbc574](https://github.com/kaltura/playkit-js-ui/commit/8bbc574))
 
 
@@ -19,7 +18,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Bug Fixes
 
-* **FEC-7971:** change media doesn't work after a critical error ([#249](https://github.com/kaltura/playkit-js-ui/issues/249)) ([f7a6966](https://github.com/kaltura/playkit-js-ui/commit/f7a6966)), closes [#191](https://github.com/kaltura/playkit-js-ui/issues/191) [kaltura/kaltura-player-js#135](https://github.com/kaltura/kaltura-player-js/issues/135)
+* **FEC-7971:** change media doesn't work after a critical error ([#249](https://github.com/kaltura/playkit-js-ui/issues/249)) ([f7a6966](https://github.com/kaltura/playkit-js-ui/commit/f7a6966))
 
 
 
