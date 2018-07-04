@@ -2,13 +2,52 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.24.5"></a>
+## [0.24.5](https://github.com/kaltura/playkit-js-ui/compare/v0.24.4...v0.24.5) (2018-07-02)
+
+
+### Bug Fixes
+
+* **FEC-8121:** Sometime captions menu close when changing lang although it's in focus ([#251](https://github.com/kaltura/playkit-js-ui/issues/251)) ([92e0d95](https://github.com/kaltura/playkit-js-ui/commit/92e0d95))
+* **FEC-8368:** isVr method throws exception on change media ([#252](https://github.com/kaltura/playkit-js-ui/issues/252)) ([d6996ce](https://github.com/kaltura/playkit-js-ui/commit/d6996ce))
+
+
+
+<a name="0.24.4"></a>
+## [0.24.4](https://github.com/kaltura/playkit-js-ui/compare/v0.24.3...v0.24.4) (2018-06-28)
+
+
+### Bug Fixes
+
+* unmute color [#250](https://github.com/kaltura/playkit-js-ui/issues/250) ([8bbc574](https://github.com/kaltura/playkit-js-ui/commit/8bbc574))
+
+
+
+<a name="0.24.3"></a>
+## [0.24.3](https://github.com/kaltura/playkit-js-ui/compare/v0.24.2...v0.24.3) (2018-06-26)
+
+
+### Bug Fixes
+
+* **FEC-7971:** change media doesn't work after a critical error ([#249](https://github.com/kaltura/playkit-js-ui/issues/249)) ([f7a6966](https://github.com/kaltura/playkit-js-ui/commit/f7a6966))
+
+
+
+<a name="0.24.2"></a>
+## [0.24.2](https://github.com/kaltura/playkit-js-ui/compare/v0.24.1...v0.24.2) (2018-06-25)
+
+### Bug Fixes
+
+* add color white on the span itself ([#247](https://github.com/kaltura/playkit-js-ui/issues/247)) ([df9b6d7](https://github.com/kaltura/playkit-js-ui/commit/df9b6d7))
+
+
 <a name="0.24.1"></a>
 ## [0.24.1](https://github.com/kaltura/playkit-js-ui/compare/v0.24.0...v0.24.1) (2018-06-24)
 
 
 ### Bug Fixes
 
-* play/pause click on 360 content is too sensitive ([#246](https://github.com/kaltura/playkit-js-ui/issues/246)) ([3346024](https://github.com/kaltura/playkit-js-ui/commit/3346024))
+* **FEC-8338** play/pause click on 360 content is too sensitive ([#246](https://github.com/kaltura/playkit-js-ui/issues/246)) ([3346024](https://github.com/kaltura/playkit-js-ui/commit/3346024))
 
 
 

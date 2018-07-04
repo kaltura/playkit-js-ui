@@ -49,7 +49,7 @@ export function liveUI(props: any): React$Element<any> {
             <LiveTag player={props.player}/>
           </div>
           <div className={style.rightControls}>
-            {(props.player.isVr() && shouldRenderComponent(props.config, VrStereoToggleControl.displayName))
+            {(props.state.engine.isVr && shouldRenderComponent(props.config, VrStereoToggleControl.displayName))
               ? <VrStereoToggleControl player={props.player}/>
               : undefined}
             <VolumeControl player={props.player}/>

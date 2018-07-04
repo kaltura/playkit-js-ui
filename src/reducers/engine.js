@@ -1,4 +1,9 @@
 //@flow
+import {getComponentStateFromComponentConfig, getComponentStateFromConfig} from "../utils/component-config";
+import {types as configReducerTypes} from "./config";
+
+const component = 'engine';
+
 export const types = {
   UPDATE_PLAYER_STATE: 'engine/UPDATE_PLAYER_STATE',
   UPDATE_IS_PLAYING: 'engine/UPDATE_IS_PLAYING',
@@ -74,6 +79,12 @@ export const initialState = {
 
 export default (state: Object = initialState, action: Object) => {
   switch (action.type) {
+    case configReducerTypes.UPDATE:
+      return getComponentStateFromConfig(component, state, action);
+
+    case configReducerTypes.UPDATE_COMPONENT:
+      return getComponentStateFromComponentConfig(component, state, action);
+
     case types.UPDATE_ERROR:
       return {
         ...state,

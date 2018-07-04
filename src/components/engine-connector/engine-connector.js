@@ -42,7 +42,6 @@ class EngineConnector extends BaseComponent {
     });
 
     this._eventManager.listen(this.player, this.player.Event.SOURCE_SELECTED, () => {
-      this.props.updateHasError(false);
       this.props.updateIsVr(this.player.isVr());
     });
 
