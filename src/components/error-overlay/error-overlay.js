@@ -15,7 +15,6 @@ import {actions} from "../../reducers/engine";
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  config: state.config.components.error,
   hasError: state.engine.hasError
 });
 
@@ -66,7 +65,8 @@ class ErrorOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   handleClick(): void {
-    this.player.loadMedia(this.props.config.mediaInfo);
+    const mediaInfo = this.player.getMediaInfo();
+    this.player.loadMedia(mediaInfo);
   }
 
 
@@ -109,17 +109,15 @@ class ErrorOverlay extends BaseComponent {
    * @memberof ErrorOverlay
    */
   renderRetryButton(): React$Element<any> | void {
-    if (this.props.config.mediaInfo) {
+    if (this.player.getMediaInfo()) {
       return (
         <div className={style.controlButtonContainer} onClick={() => this.handleClick()}>
           <button className={[style.controlButton, style.retryBtn].join(' ')}><Text id='core.retry'/></button>
         </div>
       )
-    } else {
-      return undefined;
     }
+    return undefined;
   }
-
 
   /**
    * render main state
