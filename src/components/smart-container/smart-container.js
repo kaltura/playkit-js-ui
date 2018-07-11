@@ -65,7 +65,8 @@ class SmartContainer extends Component {
    * @returns {React$Element} - component element
    * @memberof SmartContainer
    */
-  render(props: any): React$Element<any> {
+  render(props: any): React$Element<any> | void {
+    if (props.children.length == 0) return undefined;
     return props.isMobile ? (
       <Portal into="#overlay-portal">
         <Overlay open onClose={() => props.onClose()}>

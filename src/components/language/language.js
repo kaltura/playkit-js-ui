@@ -160,7 +160,8 @@ class LanguageControl extends BaseComponent {
    * @returns {React$Element} - component
    * @memberof LanguageControl
    */
-  renderAll(audioOptions: Array<Object>, textOptions: Array<Object>): React$Element<any> {
+  renderAll(audioOptions: Array<Object>, textOptions: Array<Object>): React$Element<any> | void {
+    if (audioOptions.length <=1 && textOptions.length <= 1) return undefined;
     return (
       <div
         ref={c => this._controlLanguageElement = c}

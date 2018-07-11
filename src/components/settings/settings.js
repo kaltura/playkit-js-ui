@@ -205,7 +205,7 @@ class SettingsControl extends BaseComponent {
         });
     }
 
-    if (props.isLive && qualityOptions.length === 0) return undefined;
+    if (qualityOptions.length <= 1 && speedOptions.length <= 1) return undefined;
     return (
       <div
         ref={c => this._controlSettingsElement = c}
@@ -222,14 +222,12 @@ class SettingsControl extends BaseComponent {
         {!this.state.smartContainerOpen ? '' :
           <SmartContainer title='Settings' onClose={() => this.onControlButtonClick()}>
             {
-              qualityOptions.length <= 1 ? '' :
                 <Localizer>
                   <SmartContainerItem icon='quality' label={<Text id='settings.quality'/>} options={qualityOptions}
                                       onSelect={(o) => this.onQualityChange(o)}/>
                 </Localizer>
             }
             {
-              props.isLive ? '' :
                 <Localizer>
                   <SmartContainerItem icon='speed' label={<Text id='settings.speed'/>} options={speedOptions}
                                       onSelect={(o) => this.onSpeedChange(o)}/>
