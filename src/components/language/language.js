@@ -234,7 +234,7 @@ class LanguageControl extends BaseComponent {
     const audioOptions = props.audioTracks
       .filter(t => t.label || t.language)
       .map(t => ({label: t.label || t.language, active: t.active, value: t}));
-    const textOptions = props.textTracks.filter(t => t.kind === 'subtitles').map(t => ({
+    const textOptions = props.textTracks.map(t => ({
       label: t.label || t.language,
       active: t.active,
       value: t
