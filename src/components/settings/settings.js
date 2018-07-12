@@ -206,6 +206,7 @@ class SettingsControl extends BaseComponent {
     }
 
     if (qualityOptions.length <= 1 && speedOptions.length <= 1) return undefined;
+    if (props.isLive && qualityOptions.length <= 1) return undefined;
     return (
       <div
         ref={c => this._controlSettingsElement = c}
@@ -228,7 +229,7 @@ class SettingsControl extends BaseComponent {
                 </Localizer>
             }
             {
-                <Localizer>
+              props.isLive ? '' :<Localizer>
                   <SmartContainerItem icon='speed' label={<Text id='settings.speed'/>} options={speedOptions}
                                       onSelect={(o) => this.onSpeedChange(o)}/>
                 </Localizer>
