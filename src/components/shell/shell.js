@@ -91,11 +91,18 @@ class Shell extends BaseComponent {
 
   /**
    * on mouse leave, remove the hover class (hide the player gui)
-   *
+   * @param {Event} event - the mouse leave event
    * @returns {void}
    * @memberof Shell
    */
-  onMouseLeave(): void {
+  onMouseLeave(event: Event): void {
+    /**
+     * a hack to fix 'mouseleave' bug in chrome - the event is called sometimes on a click inside the div.
+     * https://bugs.chromium.org/p/chromium/issues/detail?id=798535
+     */
+    if (!event.toElement) {
+      return;
+    }
     if (this.props.isMobile) {
       return;
     }
@@ -133,13 +140,13 @@ class Shell extends BaseComponent {
   }
 
   /**
-   * on touch start handler
+   * on touch end handler
    * @param {TouchEvent} e - touch event
 
    * @returns {void}
    * @memberof Shell
    */
-  onTouchStart(e: TouchEvent): void {
+  onTouchEnd(e: TouchEvent): void {
     if (this.props.prePlayback) {
       return;
     }
@@ -307,10 +314,10 @@ class Shell extends BaseComponent {
         tabIndex="0"
         className={playerClasses}
         onClick={() => this.onClick()}
-        onTouchStart={(e) => this.onTouchStart(e)}
+        onTouchEnd={(e) => this.onTouchEnd(e)}
         onMouseOver={() => this.onMouseOver()}
         onMouseMove={() => this.onMouseMove()}
-        onMouseLeave={() => this.onMouseLeave()}
+        onMouseLeave={(event) => this.onMouseLeave(event)}
         onKeyDown={(e) => this.onKeyDown(e)}>
         {props.children}
       </div>

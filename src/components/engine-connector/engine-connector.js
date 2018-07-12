@@ -38,10 +38,11 @@ class EngineConnector extends BaseComponent {
     });
 
     this.player.addEventListener(this.player.Event.SOURCE_SELECTED, () => {
-      this.props.updateHasError(false);
+      this.props.updateIsVr(this.player.isVr());
     });
 
     this.player.addEventListener(this.player.Event.CHANGE_SOURCE_STARTED, () => {
+      this.props.updateFallbackToMutedAutoPlay(false);
       this.props.updateAdBreak(false);
       this.props.updateAdIsPlaying(false);
       this.props.updateIsPlaying(false);
@@ -176,6 +177,10 @@ class EngineConnector extends BaseComponent {
       this.props.updateAdClickUrl(e.payload.ad.g.clickThroughUrl);
       this.props.updateAdSkipTimeOffset(e.payload.ad.getSkipTimeOffset());
       this.props.updateAdSkippableState(e.payload.ad.getAdSkippableState());
+    });
+
+    this.player.addEventListener(this.player.Event.VR_STEREO_MODE_CHANGED, e => {
+      this.props.updateVrStereoMode(e.payload.mode);
     });
 
     this.player.addEventListener(this.player.Event.ERROR, e => {

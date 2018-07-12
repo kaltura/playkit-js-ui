@@ -177,6 +177,7 @@ class FullscreenControl extends BaseComponent {
       this._targetDiv.classList.add(style.inBrowserFullscreenMode);
       this.player.notifyEnterFullscreen();
       this.props.updateFullscreen(true);
+      window.dispatchEvent(new Event('resize'));
     }
   }
 
@@ -191,6 +192,7 @@ class FullscreenControl extends BaseComponent {
       this._targetDiv.classList.remove(style.inBrowserFullscreenMode);
       this.player.notifyExitFullscreen();
       this.props.updateFullscreen(false);
+      window.dispatchEvent(new Event('resize'));
     }
   }
 
