@@ -33,7 +33,7 @@ export const KEYBOARD_DEFAULT_SEEK_JUMP: number = 5;
  */
 export const KEYBOARD_DEFAULT_VOLUME_JUMP: number = 5;
 
-@connect(mapStateToProps, bindActions(Object.assign(shellActions, overlayIconActions)))
+@connect(mapStateToProps, bindActions(Object.assign({}, shellActions, overlayIconActions)))
   /**
    * KeyboardControl component
    *
