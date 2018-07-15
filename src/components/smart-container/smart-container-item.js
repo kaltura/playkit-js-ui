@@ -19,10 +19,7 @@ class SmartContainerItem extends Component {
    * @returns {React$Element} - component element
    * @memberof SmartContainer
    */
-  render(props: any): React$Element<any> | void{
-    if (props.options && props.options.length <= 1) {
-      return undefined;
-    }
+  render(props: any): React$Element<any> {
     return (
       <div className={[style.smartContainerItem, style.selectMenuItem].join(' ')}>
         <label htmlFor={IconType.Quality}>

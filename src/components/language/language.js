@@ -160,7 +160,7 @@ class LanguageControl extends BaseComponent {
    * @returns {React$Element} - component
    * @memberof LanguageControl
    */
-  renderAll(audioOptions: Array<Object>, textOptions: Array<Object>): React$Element<any> | void {
+  renderAll(audioOptions: Array<Object>, textOptions: Array<Object>): React$Element<any> {
     return (
       <div
         ref={c => this._controlLanguageElement = c}
@@ -176,7 +176,7 @@ class LanguageControl extends BaseComponent {
         </Localizer>
         {!this.state.smartContainerOpen || this.state.cvaaOverlay ? undefined :
           <SmartContainer title='Language' onClose={() => this.onControlButtonClick()}>
-            {audioOptions.length === 0 ? undefined :
+            {audioOptions.length <= 1 ? undefined :
               <Localizer>
                 <SmartContainerItem
                   icon='audio'
@@ -186,7 +186,7 @@ class LanguageControl extends BaseComponent {
                 />
               </Localizer>
             }
-            {textOptions.length === 0 ? undefined :
+            {textOptions.length <= 1 ? undefined :
               <Localizer>
                 <SmartContainerItem
                   icon='captions'
@@ -196,7 +196,7 @@ class LanguageControl extends BaseComponent {
                 />
               </Localizer>
             }
-            {textOptions.length === 0 ? undefined :
+            {textOptions.length <= 1 ? undefined :
               <div tabIndex="0"
                    className={style.smartContainerItem}
                    onKeyDown={(e) => {
