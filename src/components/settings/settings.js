@@ -223,13 +223,13 @@ class SettingsControl extends BaseComponent {
         {!this.state.smartContainerOpen ? '' :
           <SmartContainer title='Settings' onClose={() => this.onControlButtonClick()}>
             {
-                <Localizer>
+                qualityOptions.length <= 1 ? '' : <Localizer>
                   <SmartContainerItem icon='quality' label={<Text id='settings.quality'/>} options={qualityOptions}
                                       onSelect={(o) => this.onQualityChange(o)}/>
                 </Localizer>
             }
             {
-              props.isLive ? '' :<Localizer>
+              props.isLive || speedOptions.length <= 1 ? '' :<Localizer>
                   <SmartContainerItem icon='speed' label={<Text id='settings.speed'/>} options={speedOptions}
                                       onSelect={(o) => this.onSpeedChange(o)}/>
                 </Localizer>
