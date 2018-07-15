@@ -176,7 +176,7 @@ class LanguageControl extends BaseComponent {
         </Localizer>
         {!this.state.smartContainerOpen || this.state.cvaaOverlay ? undefined :
           <SmartContainer title='Language' onClose={() => this.onControlButtonClick()}>
-            {audioOptions.length === 0 ? undefined :
+            {audioOptions.length <= 1 ? undefined :
               <Localizer>
                 <SmartContainerItem
                   icon='audio'
@@ -186,7 +186,7 @@ class LanguageControl extends BaseComponent {
                 />
               </Localizer>
             }
-            {textOptions.length === 0 ? undefined :
+            {textOptions.length <= 1 ? undefined :
               <Localizer>
                 <SmartContainerItem
                   icon='captions'
@@ -196,7 +196,7 @@ class LanguageControl extends BaseComponent {
                 />
               </Localizer>
             }
-            {textOptions.length === 0 ? undefined :
+            {textOptions.length <= 1 ? undefined :
               <div tabIndex="0"
                    className={style.smartContainerItem}
                    onKeyDown={(e) => {
@@ -240,7 +240,7 @@ class LanguageControl extends BaseComponent {
       value: t
     }));
 
-    if (audioOptions.length > 0 || textOptions.length > 0) {
+    if (audioOptions.length > 1 || textOptions.length > 1) {
       return this.renderAll(audioOptions, textOptions);
     }
     else {
