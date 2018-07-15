@@ -51,7 +51,8 @@ const DOUBLE_CLICK_MAX_BUFFER_TIME: number = 500;
  */
 const DRAGGING_THRESHOLD: number = 5;
 
-@connect(mapStateToProps, bindActions(Object.assign(actions, shellActions)))
+@connect(mapStateToProps, bindActions(Object.assign({}, actions, shellActions)))
+
   /**
    * OverlayAction component
    *
