@@ -1,5 +1,6 @@
 {
   "rules": {
+    "prettier/prettier": "error",
     "flowtype/no-types-missing-file-annotation": "off",
     "require-jsdoc": "off",
     "valid-jsdoc": "off",

@@ -14,6 +14,7 @@
     }
   },
   "plugins": [
+    "prettier",
     "import",
     "flowtype",
     "mocha-no-only",
@@ -34,6 +35,7 @@
     "__CSS_MODULE_PREFIX__": true
   },
   "rules": {
+    "prettier/prettier": "error",
     "mocha-no-only/mocha-no-only": "off",
     "flowtype/define-flow-type": 2,
     "react/prop-types": 0,
