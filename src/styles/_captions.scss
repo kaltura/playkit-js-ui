@@ -1,16 +1,23 @@
 .player {
-  video::-webkit-media-text-track-display {
-    transform: translateY(0px);
-    transition: ease-in 100ms;
+  &.iOS {
+    video::-webkit-media-text-track-container {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
   }
-  &.state-paused video::-webkit-media-text-track-display,
-  &.hover video::-webkit-media-text-track-display {
-    transform: translateY(-60px);
-    transition: ease-out 100ms;
+  video::-webkit-media-text-track-container {
+    max-height: none;
   }
-  &.fullscreen {
-    &.iOS video::-webkit-media-text-track-display {
-      transform: translateY(0px);
+  &.state-paused video::-webkit-media-text-track-container,
+  &.hover video::-webkit-media-text-track-container {
+    max-height: calc(100% - 60px);
+  }
+  &.fullscreen.iOS {
+    video::-webkit-media-text-track-container {
+      max-height: none;
     }
   }
   &.overlay-active {
@@ -19,18 +26,16 @@
     }
   }
   :global(.playkit-subtitles) {
-    transform: translateY(0px);
-    transition: ease-in 100ms;
+    max-height: none;
   }
   &:not(.overlay-active) {
     &.state-paused :global(.playkit-subtitles),
     &.hover :global(.playkit-subtitles) {
-      transform: translateY(-60px);
-      transition: ease-out 100ms;
+      max-height: calc(100% - 60px);
     }
     &.fullscreen {
       &.iOS :global(.playkit-subtitles) {
-        transform: translateY(0px);
+        max-height: none;
       }
     }
   }

@@ -32,7 +32,8 @@ const mapStateToProps = state => ({
   prePlayback: state.shell.prePlayback,
   smartContainerOpen: state.shell.smartContainerOpen,
   fullscreen: state.fullscreen.fullscreen,
-  fallbackToMutedAutoPlay: state.engine.fallbackToMutedAutoPlay
+  fallbackToMutedAutoPlay: state.engine.fallbackToMutedAutoPlay,
+  playerState: state.engine.playerState
 });
 
 /**
@@ -282,6 +283,12 @@ class Shell extends BaseComponent {
     if (!this.props.prePlayback && prevProps.prePlayback ||
       !this.props.adBreak && prevProps.adBreak) {
       this._updatePlayerHoverState();
+    }
+    if ((prevProps.playerHover !== this.props.playerHover) ||
+      (prevProps.playerState.currentState !== this.props.playerState.currentState)) {
+      // hover state and play/pause affect the subtitle container size,
+      // Hence, we have to reprocess the subtitle cues to fit the subtitle container.
+      this.player.setTextDisplaySettings();
     }
   }
 
