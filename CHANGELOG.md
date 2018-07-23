@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.25.0"></a>
+# [0.25.0](https://github.com/kaltura/playkit-js-ui/compare/v0.24.6...v0.25.0) (2018-07-23)
+
+
+### Features
+
+* **FEC-8390, FEC-8246:** support 608/708 captions ([#254](https://github.com/kaltura/playkit-js-ui/issues/254)) ([6a9c787](https://github.com/kaltura/playkit-js-ui/commit/6a9c787))
+* **FEC-8395:** dont render options with one option (language and settings) + remove the isLive - playbackrate (move to core) ([2338a4b](https://github.com/kaltura/playkit-js-ui/commit/2338a4b))
+
+
+
 <a name="0.24.6"></a>
 ## [0.24.6](https://github.com/kaltura/playkit-js-ui/compare/v0.24.5...v0.24.6) (2018-07-12)
 
