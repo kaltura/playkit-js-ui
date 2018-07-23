@@ -106,7 +106,7 @@ class UnmuteIndication extends BaseComponent {
     if (this.state.iconOnly) styleClass.push(style.showIconOnly);
 
     return (
-      <div
+      <div tabIndex="0"
         className={styleClass.join(' ')}
         onMouseOver={() => this.setState({iconOnly: false})}
         onMouseOut={() => this.setState({iconOnly: true})}
