@@ -73,7 +73,7 @@
   .slider,
   .live-tag {
     &:focus {
-      outline: 1px solid #00cbff;
+      outline: 1px solid $tab-focus-color;
     }
   }
 }
