@@ -93,7 +93,7 @@ class UnmuteIndication extends BaseComponent {
   }
 
   /**
-   * @param {HTMLElementEventMap} e - the keyDown Event
+   * @param {KeyboardEvent} e - the keyDown Event
    * @private
    * @memberof UnmuteIndication
    * @returns {void}
