@@ -53,6 +53,7 @@
   }
   &.metadata-loaded .player-gui,
   &.state-paused .player-gui,
+  &.ad-break .player-gui,
   &.overlay-active .player-gui,
   &.menu-active .player-gui {
     opacity: 1;
