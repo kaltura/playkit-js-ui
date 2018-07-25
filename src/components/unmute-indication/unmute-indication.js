@@ -98,7 +98,7 @@ class UnmuteIndication extends BaseComponent {
    * @memberof UnmuteIndication
    * @returns {void}
    */
-  _keyDownHandler(e: HTMLElementEventMap): void {
+  _keyDownHandler(e: KeyboardEvent): void {
     if (e.keyCode === KeyMap.ENTER) {
       this.player.muted = !this.player.muted;
     }
