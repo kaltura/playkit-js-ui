@@ -1,3 +1,5 @@
+$hovering-offset: 50px;
+
 .player {
   video::-webkit-media-text-track-container {
     max-height: none;
@@ -13,7 +15,7 @@
   }
   &.state-paused video::-webkit-media-text-track-container,
   &.hover video::-webkit-media-text-track-container {
-    max-height: calc(100% - 60px);
+    max-height: calc(100% - #{$hovering-offset});
   }
   &.fullscreen.iOS {
     video::-webkit-media-text-track-container {
@@ -26,14 +28,14 @@
     }
   }
   :global(.playkit-subtitles) {
-    top: 60px;
+    top: $hovering-offset;
     transform: translateY(0px);
     transition: ease-in 100ms;
   }
   &:not(.overlay-active) {
     &.state-paused :global(.playkit-subtitles),
     &.hover :global(.playkit-subtitles) {
-      transform: translateY(-60px);
+      transform: translateY(-$hovering-offset);
     }
     &.fullscreen.iOS {
       :global(.playkit-subtitles) {
