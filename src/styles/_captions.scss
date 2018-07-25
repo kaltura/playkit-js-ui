@@ -15,7 +15,7 @@ $hovering-offset: 50px;
   }
   &.state-paused video::-webkit-media-text-track-container,
   &.hover video::-webkit-media-text-track-container {
-    max-height: calc(100% - #{$hovering-offset})
+    max-height: calc(100% - #{$hovering-offset});
   }
   &.fullscreen.iOS {
     video::-webkit-media-text-track-container {
