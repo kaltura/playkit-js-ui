@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.25.1"></a>
+## [0.25.1](https://github.com/kaltura/playkit-js-ui/compare/v0.25.0...v0.25.1) (2018-07-26)
+
+
+### Bug Fixes
+
+* **FEC-8286:** make unmute button focusable ([#256](https://github.com/kaltura/playkit-js-ui/issues/256)) ([7accc69](https://github.com/kaltura/playkit-js-ui/commit/7accc69))
+* **FEC-8421, FEC-8422:** Ads UI issues [#255](https://github.com/kaltura/playkit-js-ui/issues/255) ([66ddc4e](https://github.com/kaltura/playkit-js-ui/commit/66ddc4e))
+* subtitles font size is too small on mobile ([#257](https://github.com/kaltura/playkit-js-ui/issues/257)) ([a74d72d](https://github.com/kaltura/playkit-js-ui/commit/a74d72d)), closes [kaltura/playkit-js#270](https://github.com/kaltura/playkit-js/issues/270)
+
+
+
 <a name="0.25.0"></a>
 # [0.25.0](https://github.com/kaltura/playkit-js-ui/compare/v0.24.6...v0.25.0) (2018-07-23)
 
