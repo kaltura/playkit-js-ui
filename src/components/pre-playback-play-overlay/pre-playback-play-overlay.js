@@ -32,8 +32,6 @@ const mapStateToProps = state => ({
    * @extends {BaseComponent}
    */
 class PrePlaybackPlayOverlay extends BaseComponent {
-  autoplay: boolean;
-
   /**
    * Creates an instance of PrePlaybackPlayOverlay.
    * @param {Object} obj obj
@@ -41,7 +39,17 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'PrePlaybackPlayOverlay', player: obj.player});
+    this.player.addEventListener(this.player.Event.CHANGE_SOURCE_STARTED, () => this._onChangeSourceStarted());
     this.player.addEventListener(this.player.Event.CHANGE_SOURCE_ENDED, () => this._onChangeSourceEnded());
+    this.setState({autoplay: this.player.config.playback.autoplay});
+  }
+
+  /**
+   * @returns {void}
+   * @memberof PrePlaybackPlayOverlay
+   */
+  _onChangeSourceStarted(): void {
+    this.setState({autoplay: this.player.config.playback.autoplay});
   }
 
   /**
@@ -52,18 +60,8 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   componentWillMount() {
+    this._displayPrePlayback();
     this.props.addPlayerClass(style.prePlayback);
-    try {
-      this.autoplay = this.player.config.playback.autoplay;
-      if (this.autoplay === true) {
-        this.player.addEventListener(this.player.Event.AUTOPLAY_FAILED, () => {
-          this.autoplay = false;
-          this.forceUpdate();
-        });
-      }
-    } catch (e) { // eslint-disable-line no-unused-vars
-      this.autoplay = false;
-    }
   }
 
   /**
@@ -88,7 +86,25 @@ class PrePlaybackPlayOverlay extends BaseComponent {
     if (this.player.paused === false) {
       this._hidePrePlayback();
     }
+    try {
+      if (this.state.autoplay === true) {
+        this.player.listen(this.player, this.player.Event.AUTOPLAY_FAILED, this._autoPlayFailedCallback);
+      }
+    } catch (e) { // eslint-disable-line no-unused-vars
+      this.setState({autoplay: false});
+    }
   }
+
+  /**
+   * @returns {void}
+   * @memberof PrePlaybackPlayOverlay
+   */
+  _autoPlayFailedCallback() {
+    this.setState({autoplay: false});
+    this._displayPrePlayback();
+    this.player.unlisten(this._player, this.player.Event.AUTOPLAY_FAILED);
+  }
+
 
   /**
    * change in component props or state shouldn't render the component again
@@ -113,7 +129,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
   handleClick(): void {
     this.player.getView().focus();
     this.player.play();
-    if (this.props.prePlayback) {
+    if (this.state.prePlayback) {
       this._hidePrePlayback();
       this.props.updateLoadingSpinnerState(true);
       this.notifyClick();
@@ -128,13 +144,13 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   render(props: any): React$Element<any> | void {
-    if ((!props.isEnded && !props.prePlayback) || (!props.isEnded && this.autoplay) || props.loading) {
+    if ((!props.isEnded && !this.state.prePlayback) || (!props.isEnded && this.state.autoplay) || props.loading) {
       return undefined;
     }
     let rootStyle = {},
       rootClass = [style.prePlaybackPlayOverlay];
 
-    if (!props.prePlayback && props.poster) {
+    if (!this.state.prePlayback && props.poster) {
       rootStyle = {backgroundImage: `url(${props.poster})`};
       rootClass.push(style.hasPoster)
     }
@@ -165,7 +181,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    */
   _onChangeSourceEnded(): void {
     try {
-      if (!this.player.config.playback.autoplay) {
+      if (!this.state.autoplay) {
         this._displayPrePlayback();
       }
     } catch (e) {
@@ -180,6 +196,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    */
   _displayPrePlayback(): void {
     this.props.updatePrePlayback(true);
+    this.setState({prePlayback: true});
     this.props.addPlayerClass(style.prePlayback);
   }
 
@@ -190,6 +207,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    */
   _hidePrePlayback(): void {
     this.props.updatePrePlayback(false);
+    this.setState({prePlayback: false});
     this.props.removePlayerClass(style.prePlayback);
   }
 }
