@@ -15,7 +15,6 @@ export const types = {
 export const initialState = {
   playerClasses: [],
   prePlayback: true,
-  is_ad: true,
   playerHover: false,
   playerNav: false,
   smartContainerOpen: false

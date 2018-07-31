@@ -47,7 +47,7 @@ class SeekBarLivePlaybackContainer extends BaseComponent {
    * @memberof SeekBarLivePlaybackContainer
    */
   componentDidMount() {
-    this.player.addEventListener(this.player.Event.TIME_UPDATE, () => {
+    this.eventManager.listen(this.player, this.player.Event.TIME_UPDATE, () => {
       if (!this.props.isDraggingActive) {
         this.props.updateCurrentTime(this.player.currentTime);
       }
@@ -82,7 +82,7 @@ class SeekBarLivePlaybackContainer extends BaseComponent {
         isMobile={this.props.isMobile}
         notifyChange={payload => this.notifyChange(payload)}
       />
-    )
+    );
   }
 
 }

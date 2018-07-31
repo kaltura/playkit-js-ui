@@ -2,7 +2,7 @@
 import style from '../../styles/style.scss';
 import {h} from 'preact';
 import BaseComponent from '../base';
-import {connect} from "preact-redux";
+import {connect} from 'preact-redux';
 
 /**
  * mapping state to props
@@ -52,15 +52,15 @@ class Watermark extends BaseComponent {
      * @returns {void}
      */
     const onPlaying = () => {
-      this.player.removeEventListener(this.player.Event.PLAYING, onPlaying);
       if (this.props.config.timeout > 0) {
         setTimeout(() => this.setState({show: false}), this.props.config.timeout);
       }
     };
-    this.player.addEventListener(this.player.Event.PLAYING, onPlaying);
-    this.player.addEventListener(this.player.Event.CHANGE_SOURCE_ENDED, () => {
+
+    this.eventManager.listenOnce(this.player, this.player.Event.PLAYING, onPlaying);
+    this.eventManager.listen(this.player, this.player.Event.CHANGE_SOURCE_ENDED, () => {
       this.setState({show: true});
-      this.player.addEventListener(this.player.Event.PLAYING, onPlaying)
+      this.eventManager.listenOnce(this.player, this.player.Event.PLAYING, onPlaying);
     });
   }
 
@@ -85,7 +85,7 @@ class Watermark extends BaseComponent {
             <img src={props.config.img}/>
           </a>
         </div>
-      )
+      );
     }
   }
 }
