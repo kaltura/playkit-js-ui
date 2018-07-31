@@ -4,8 +4,8 @@ import {Provider} from 'preact-redux';
 import {IntlProvider} from 'preact-i18n';
 import {createStore} from 'redux';
 import {copyDeep} from './utils/copy-deep';
-import {LogLevel, getLogLevel, setLogLevel} from './utils/logger'
-import {EventType} from './event/event-type'
+import {LogLevel, getLogLevel, setLogLevel} from './utils/logger';
+import {EventType} from './event/event-type';
 
 import reducer from './store';
 import definition from './fr.json';
@@ -21,11 +21,9 @@ import {PlayerGUI} from './player-gui';
 // ui presets
 import * as presets from './ui-presets';
 
-import {middleware} from './middlewares'
+import {middleware} from './middlewares';
 
 import './styles/style.scss';
-import {EventManager} from './event/event-manager';
-import {UIEventManager} from './event/event-manager';
 
 /**
  * API used for building UIs based on state conditions
@@ -36,7 +34,8 @@ export default class UIManager {
   player: Player;
   targetId: string;
   store: any;
-  _eventManager: EventManager;
+  container: HTMLDivElement;
+  root: HTMLDivElement;
 
   /**
    * Creates an instance of UIManager.
@@ -50,7 +49,6 @@ export default class UIManager {
     }
     this.player = player;
     this.targetId = config.targetId;
-    this._eventManager = UIEventManager.getInstance();
     this._createStore(config);
     this.setConfig(config);
   }
@@ -137,7 +135,7 @@ export default class UIManager {
    */
   _buildUI(uis?: Array<UIPreset>): void {
     if (!this.player) return;
-    const container = document.getElementById(this.targetId);
+    this.container = document.getElementById(this.targetId);
     // i18n, redux and initial player-to-store connector setup
     const template = (
       <Provider store={this.store}>
@@ -145,14 +143,14 @@ export default class UIManager {
           <Shell player={this.player}>
             <EngineConnector player={this.player}/>
             <VideoPlayer player={this.player}/>
-            <PlayerGUI uis={uis} player={this.player} playerContainer={container}/>
+            <PlayerGUI uis={uis} player={this.player} playerContainer={this.container}/>
           </Shell>
         </IntlProvider>
       </Provider>
     );
 
     // render the player
-    render(template, container);
+    this.root = render(template, this.container);
   }
 
   /**
@@ -160,12 +158,8 @@ export default class UIManager {
    * @returns {void}
    */
   destroy(): void {
-    const container = document.getElementById(this.targetId);
-    if (container && container.childNodes) {
-      container.removeChild(container.childNodes[0]);
-      container.prepend(this.player.getView());
-      this._eventManager.removeAll();
-    }
+    render('', this.container, this.root);
+    this.container.prepend(this.player.getView());
   }
 
   /**
@@ -192,7 +186,7 @@ export default class UIManager {
    * @returns {Object} - The log levels of the player.
    * @public
    */
-  get LogLevel(): { [level: string]: Object } {
+  get LogLevel(): {[level: string]: Object} {
     return LogLevel;
   }
 
@@ -201,7 +195,7 @@ export default class UIManager {
    * @returns {Object} - The ui manager event enums.
    * @public
    */
-  get Event(): { [event: string]: string } {
+  get Event(): {[event: string]: string} {
     return EventType;
   }
 }
