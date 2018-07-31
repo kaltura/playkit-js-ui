@@ -161,7 +161,6 @@ class UIManager {
    * @returns {void}
    */
   destroy(): void {
-    // $FlowFixMe
     render('', this.container, this.root);
     if (this.container) {
       this.container.prepend(this.player.getView());
