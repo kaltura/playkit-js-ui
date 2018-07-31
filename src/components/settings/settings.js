@@ -9,7 +9,6 @@ import BaseComponent from '../base';
 import {SmartContainer} from '../smart-container';
 import {SmartContainerItem} from '../smart-container/smart-container-item';
 import {default as Icon, IconType} from '../icon';
-import {bindMethod} from '../../utils/bind-method';
 
 /**
  * mapping state to props
@@ -32,7 +31,6 @@ const mapStateToProps = state => ({
    */
 class SettingsControl extends BaseComponent {
   state: Object;
-  handleClickOutside: Function;
   _controlSettingsElement: any;
 
   /**
@@ -42,7 +40,6 @@ class SettingsControl extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'Settings', player: obj.player});
-    this.handleClickOutside = bindMethod(this, this.handleClickOutside);
   }
 
   /**
@@ -62,17 +59,7 @@ class SettingsControl extends BaseComponent {
    * @memberof SettingsControl
    */
   componentDidMount() {
-    document.addEventListener('click', this.handleClickOutside, true);
-  }
-
-  /**
-   * before component unmounted, remove event listener
-   *
-   * @returns {void}
-   * @memberof SettingsControl
-   */
-  componentWillUnmount() {
-    document.removeEventListener('click', this.handleClickOutside, true);
+    this.eventManager.listen(document, 'click', e => this.handleClickOutside(e));
   }
 
   /**
@@ -156,7 +143,7 @@ class SettingsControl extends BaseComponent {
     } else {
       qualities.push(currentTrack);
     }
-    return qualities
+    return qualities;
   }
 
   /**
@@ -186,7 +173,7 @@ class SettingsControl extends BaseComponent {
         return a.bandwidth < b.bandwidth ? 1 : -1;
       })
       .filter((t) => {
-        return (t.bandwidth || t.height)
+        return (t.bandwidth || t.height);
       })
       .reduce(this.filterUniqueQualities, [])
       .map(t => ({
@@ -196,7 +183,7 @@ class SettingsControl extends BaseComponent {
       }));
 
     // Progressive playback doesn't support auto
-    if ((qualityOptions.length > 1) && (this.player.streamType !== "progressive")) {
+    if ((qualityOptions.length > 1) && (this.player.streamType !== 'progressive')) {
       qualityOptions
         .unshift({
           label: 'Auto',
@@ -205,7 +192,8 @@ class SettingsControl extends BaseComponent {
         });
     }
 
-    if (props.isLive && qualityOptions.length === 0) return undefined;
+    if (qualityOptions.length <= 1 && speedOptions.length <= 1) return undefined;
+    if (props.isLive && qualityOptions.length <= 1) return undefined;
     return (
       <div
         ref={c => this._controlSettingsElement = c}
@@ -222,23 +210,21 @@ class SettingsControl extends BaseComponent {
         {!this.state.smartContainerOpen ? '' :
           <SmartContainer title='Settings' onClose={() => this.onControlButtonClick()}>
             {
-              qualityOptions.length <= 1 ? '' :
-                <Localizer>
-                  <SmartContainerItem icon='quality' label={<Text id='settings.quality'/>} options={qualityOptions}
-                                      onSelect={(o) => this.onQualityChange(o)}/>
-                </Localizer>
+              qualityOptions.length <= 1 ? '' : <Localizer>
+                <SmartContainerItem icon='quality' label={<Text id='settings.quality'/>} options={qualityOptions}
+                                    onSelect={(o) => this.onQualityChange(o)}/>
+              </Localizer>
             }
             {
-              props.isLive ? '' :
-                <Localizer>
-                  <SmartContainerItem icon='speed' label={<Text id='settings.speed'/>} options={speedOptions}
-                                      onSelect={(o) => this.onSpeedChange(o)}/>
-                </Localizer>
+              props.isLive || speedOptions.length <= 1 ? '' : <Localizer>
+                <SmartContainerItem icon='speed' label={<Text id='settings.speed'/>} options={speedOptions}
+                                    onSelect={(o) => this.onSpeedChange(o)}/>
+              </Localizer>
             }
           </SmartContainer>
         }
       </div>
-    )
+    );
   }
 }
 

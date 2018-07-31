@@ -4,26 +4,22 @@ import {Provider} from 'preact-redux';
 import {IntlProvider} from 'preact-i18n';
 import {createStore} from 'redux';
 import {copyDeep} from './utils/copy-deep';
-import {LogLevel, getLogLevel, setLogLevel} from './utils/logger'
-import {EventType} from './event/event-type'
+import {LogLevel, getLogLevel, setLogLevel} from './utils/logger';
+import {EventType} from './event/event-type';
 
 import reducer from './store';
 import definition from './fr.json';
 
 import {actions} from './reducers/config';
-
-import {Player} from 'playkit-js';
-
 // core components for the UI
 import {EngineConnector} from './components/engine-connector';
 import {Shell} from './components/shell';
 import {VideoPlayer} from './components/video-player';
 import {PlayerGUI} from './player-gui';
-
 // ui presets
 import * as presets from './ui-presets';
 
-import {middleware} from './middlewares'
+import {middleware} from './middlewares';
 
 import './styles/style.scss';
 
@@ -32,10 +28,12 @@ import './styles/style.scss';
  *
  * @class UIManager
  */
-export default class UIManager {
-  player: Player;
+class UIManager {
+  player: Object;
   targetId: string;
   store: any;
+  container: ?HTMLElement;
+  root: React$Component<any, any, any>;
 
   /**
    * Creates an instance of UIManager.
@@ -135,22 +133,36 @@ export default class UIManager {
    */
   _buildUI(uis?: Array<UIPreset>): void {
     if (!this.player) return;
-    const container = document.getElementById(this.targetId);
-    // i18n, redux and initial player-to-store connector setup
-    const template = (
-      <Provider store={this.store}>
-        <IntlProvider definition={definition}>
-          <Shell player={this.player}>
-            <EngineConnector player={this.player}/>
-            <VideoPlayer player={this.player}/>
-            <PlayerGUI uis={uis} player={this.player} playerContainer={container}/>
-          </Shell>
-        </IntlProvider>
-      </Provider>
-    );
+    this.container = document.getElementById(this.targetId);
+    if (this.container) {
+      // i18n, redux and initial player-to-store connector setup
+      const template = (
+        <Provider store={this.store}>
+          <IntlProvider definition={definition}>
+            <Shell player={this.player}>
+              <EngineConnector player={this.player}/>
+              <VideoPlayer player={this.player}/>
+              <PlayerGUI uis={uis} player={this.player} playerContainer={this.container}/>
+            </Shell>
+          </IntlProvider>
+        </Provider>
+      );
 
-    // render the player
-    render(template, container);
+      // render the player
+      this.root = render(template, this.container);
+    }
+  }
+
+  /**
+   * Destroy the ui manager.
+   * @returns {void}
+   */
+  destroy(): void {
+    // $FlowFixMe
+    render('', this.container, this.root);
+    if (this.container) {
+      this.container.prepend(this.player.getView());
+    }
   }
 
   /**
@@ -177,7 +189,7 @@ export default class UIManager {
    * @returns {Object} - The log levels of the player.
    * @public
    */
-  get LogLevel(): { [level: string]: Object } {
+  get LogLevel(): {[level: string]: Object} {
     return LogLevel;
   }
 
@@ -186,7 +198,9 @@ export default class UIManager {
    * @returns {Object} - The ui manager event enums.
    * @public
    */
-  get Event(): { [event: string]: string } {
+  get Event(): {[event: string]: string} {
     return EventType;
   }
 }
+
+export {UIManager};

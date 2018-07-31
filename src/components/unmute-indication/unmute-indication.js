@@ -4,6 +4,7 @@ import {h} from 'preact';
 import {connect} from 'preact-redux';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
+import {KeyMap} from '../../utils/key-map';
 
 /**
  * The icon only default timeout
@@ -34,13 +35,6 @@ const mapStateToProps = state => ({
    * @extends {BaseComponent}
    */
 class UnmuteIndication extends BaseComponent {
-  /**
-   * The icon only timeout bounded method reference
-   * @private
-   * @memberof UnmuteIndication
-   * @type {Function}
-   */
-  _iconOnlyTimeoutCallback: Function;
 
   /**
    * Creates an instance of UnmuteIndication.
@@ -49,7 +43,6 @@ class UnmuteIndication extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'UnmuteIndication', player: obj.player});
-    this._iconOnlyTimeoutCallback = this._iconOnlyTimeout.bind(this);
   }
 
   /**
@@ -72,8 +65,8 @@ class UnmuteIndication extends BaseComponent {
    */
   componentDidUpdate(prevProps: Object): void {
     if (!prevProps.fallbackToMutedAutoPlay && this.props.fallbackToMutedAutoPlay) {
-      this.player.addEventListener(this.player.Event.PLAYING, this._iconOnlyTimeoutCallback);
-      this.player.addEventListener(this.player.Event.AD_STARTED, this._iconOnlyTimeoutCallback);
+      this.eventManager.listenOnce(this.player, this.player.Event.PLAYING, () => this._iconOnlyTimeout());
+      this.eventManager.listenOnce(this.player, this.player.Event.AD_STARTED, () => this._iconOnlyTimeout());
     }
   }
 
@@ -84,11 +77,21 @@ class UnmuteIndication extends BaseComponent {
    * @returns {void}
    */
   _iconOnlyTimeout(): void {
-    this.player.removeEventListener(this.player.Event.PLAYING, this._iconOnlyTimeoutCallback);
-    this.player.removeEventListener(this.player.Event.AD_STARTED, this._iconOnlyTimeoutCallback);
     setTimeout(() => {
       this.setState({iconOnly: true});
     }, MUTED_AUTOPLAY_ICON_ONLY_DEFAULT_TIMEOUT);
+  }
+
+  /**
+   * @param {KeyboardEvent} e - the keyDown Event
+   * @private
+   * @memberof UnmuteIndication
+   * @returns {void}
+   */
+  _keyDownHandler(e: KeyboardEvent): void {
+    if (e.keyCode === KeyMap.ENTER) {
+      this.player.muted = !this.player.muted;
+    }
   }
 
   /**
@@ -106,11 +109,12 @@ class UnmuteIndication extends BaseComponent {
     if (this.state.iconOnly) styleClass.push(style.showIconOnly);
 
     return (
-      <div
-        className={styleClass.join(' ')}
-        onMouseOver={() => this.setState({iconOnly: false})}
-        onMouseOut={() => this.setState({iconOnly: true})}
-        onClick={() => this.player.muted = !this.player.muted}>
+      <div tabIndex="0" aria-label="Unmute"
+           className={styleClass.join(' ')}
+           onMouseOver={() => this.setState({iconOnly: false})}
+           onMouseOut={() => this.setState({iconOnly: true})}
+           onClick={() => this.player.muted = !this.player.muted}
+           onKeyDown={(e) => this._keyDownHandler(e)}>
         <a className={[style.btn, style.btnDarkTransparent, style.unmuteButton].join(' ')}>
           <div className={style.unmuteIconContainer}>
             <Icon type={IconType.VolumeBase}/>

@@ -1,4 +1,9 @@
 //@flow
+import {getComponentStateFromComponentConfig, getComponentStateFromConfig} from "../utils/component-config";
+import {types as configReducerTypes} from "./config";
+
+const component = 'engine';
+
 export const types = {
   UPDATE_PLAYER_STATE: 'engine/UPDATE_PLAYER_STATE',
   UPDATE_IS_PLAYING: 'engine/UPDATE_IS_PLAYING',
@@ -24,7 +29,9 @@ export const types = {
   UPDATE_IS_DVR: 'engine/UPDATE_IS_DVR',
   UPDATE_ERROR: 'engine/ERROR',
   UPDATE_IS_IDLE: 'engine/UPDATE_IS_IDLE',
-  UPDATE_FALLBACK_TO_MUTED_AUTOPLAY: 'engine/UPDATE_FALLBACK_TO_MUTED_AUTOPLAY'
+  UPDATE_FALLBACK_TO_MUTED_AUTOPLAY: 'engine/UPDATE_FALLBACK_TO_MUTED_AUTOPLAY',
+  UPDATE_IS_VR: 'engine/UPDATE_IS_VR',
+  UPDATE_VR_STEREO_MODE: 'engine/UPDATE_VR_STEREO_MODE'
 };
 
 export const initialState = {
@@ -57,11 +64,19 @@ export const initialState = {
     duration: 0
   },
   adUrl: '',
-  hasError: false
+  hasError: false,
+  isVr: false,
+  vrStereoMode: false
 };
 
 export default (state: Object = initialState, action: Object) => {
   switch (action.type) {
+    case configReducerTypes.UPDATE:
+      return getComponentStateFromConfig(component, state, action);
+
+    case configReducerTypes.UPDATE_COMPONENT:
+      return getComponentStateFromComponentConfig(component, state, action);
+
     case types.UPDATE_ERROR:
       return {
         ...state,
@@ -215,6 +230,18 @@ export default (state: Object = initialState, action: Object) => {
         fallbackToMutedAutoPlay: action.fallback
       };
 
+    case types.UPDATE_IS_VR:
+      return {
+        ...state,
+        isVr: action.isVr
+      };
+
+    case types.UPDATE_VR_STEREO_MODE:
+      return {
+        ...state,
+        vrStereoMode: action.vrStereoMode
+      };
+
     default:
       return state;
   }
@@ -254,5 +281,7 @@ export const actions = {
   updateIsLive: (isLive: boolean) => ({type: types.UPDATE_IS_LIVE, isLive}),
   updateIsDvr: (isDvr: boolean) => ({type: types.UPDATE_IS_DVR, isDvr}),
   updateIsIdle: (IsIdle: boolean) => ({type: types.UPDATE_IS_IDLE, IsIdle: IsIdle}),
-  updateFallbackToMutedAutoPlay: (fallback: boolean) => ({type: types.UPDATE_FALLBACK_TO_MUTED_AUTOPLAY, fallback})
+  updateFallbackToMutedAutoPlay: (fallback: boolean) => ({type: types.UPDATE_FALLBACK_TO_MUTED_AUTOPLAY, fallback}),
+  updateIsVr: (isVr: boolean) => ({type: types.UPDATE_IS_VR, isVr}),
+  updateVrStereoMode: (vrStereoMode: boolean) => ({type: types.UPDATE_VR_STEREO_MODE, vrStereoMode})
 };

@@ -17,6 +17,7 @@ import {LiveTag} from '../components/live-tag';
 import {UnmuteIndication} from '../components/unmute-indication';
 import {Watermark} from '../components/watermark/watermark';
 import {shouldRenderComponent} from '../utils/component-config';
+import {VrStereoToggleControl} from "../components/vr-stereo-toggle";
 
 /**
  * Live ui intrface
@@ -45,6 +46,9 @@ export function liveUI(props: any): React$Element<any> {
             <LiveTag player={props.player}/>
           </div>
           <div className={style.rightControls}>
+            {(props.state.engine.isVr && shouldRenderComponent(props.config, VrStereoToggleControl.displayName))
+              ? <VrStereoToggleControl player={props.player}/>
+              : undefined}
             <VolumeControl player={props.player}/>
             <LanguageControl player={props.player}/>
             <SettingsControl player={props.player}/>
