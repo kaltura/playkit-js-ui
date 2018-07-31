@@ -19,16 +19,18 @@ const mapStateToProps = state => ({
   poster: state.engine.poster
 });
 
-@connect(mapStateToProps, bindActions(actions))
-  /**
-   * SeekBarPlaybackContainer component
-   *
-   * @class SeekBarPlaybackContainer
-   * @example <SeekBarPlaybackContainer player={this.player} />
-   * @extends {BaseComponent}
-   */
+@connect(
+  mapStateToProps,
+  bindActions(actions)
+)
+/**
+ * SeekBarPlaybackContainer component
+ *
+ * @class SeekBarPlaybackContainer
+ * @example <SeekBarPlaybackContainer player={this.player} />
+ * @extends {BaseComponent}
+ */
 class SeekBarPlaybackContainer extends BaseComponent {
-
   /**
    * Creates an instance of SeekBarPlaybackContainer.
    * @param {Object} obj obj
@@ -66,7 +68,7 @@ class SeekBarPlaybackContainer extends BaseComponent {
         playerElement={this.props.playerContainer}
         showFramePreview={this.props.showFramePreview}
         showTimeBubble={this.props.showTimeBubble}
-        changeCurrentTime={time => this.player.currentTime = time}
+        changeCurrentTime={time => (this.player.currentTime = time)}
         playerPoster={this.props.poster}
         updateSeekbarDraggingStatus={data => this.props.updateSeekbarDraggingStatus(data)}
         updateSeekbarHoverActive={data => this.props.updateSeekbarHoverActive(data)}
@@ -79,7 +81,6 @@ class SeekBarPlaybackContainer extends BaseComponent {
       />
     );
   }
-
 }
 
 export {SeekBarPlaybackContainer};

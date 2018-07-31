@@ -18,14 +18,17 @@ const mapStateToProps = state => ({
   adIsLinear: state.engine.adIsLinear
 });
 
-@connect(mapStateToProps, bindActions(actions))
-  /**
-   * Loading component
-   *
-   * @class Loading
-   * @example <Loading />
-   * @extends {BaseComponent}
-   */
+@connect(
+  mapStateToProps,
+  bindActions(actions)
+)
+/**
+ * Loading component
+ *
+ * @class Loading
+ * @example <Loading />
+ * @extends {BaseComponent}
+ */
 class Loading extends BaseComponent {
   /**
    * Creates an instance of Loading.
@@ -47,9 +50,11 @@ class Loading extends BaseComponent {
     this.eventManager.listen(this.player, this.player.Event.PLAYER_STATE_CHANGED, e => {
       if (!this.state.afterPlayingEvent) return;
       const StateType = this.player.State;
-      if (e.payload.newState.type === StateType.IDLE
-        || e.payload.newState.type === StateType.PLAYING
-        || e.payload.newState.type === StateType.PAUSED) {
+      if (
+        e.payload.newState.type === StateType.IDLE ||
+        e.payload.newState.type === StateType.PLAYING ||
+        e.payload.newState.type === StateType.PAUSED
+      ) {
         this.props.updateLoadingSpinnerState(false);
       } else {
         this.props.updateLoadingSpinnerState(true);
@@ -101,14 +106,11 @@ class Loading extends BaseComponent {
     return (
       <div className={[style.loadingBackdrop, style.show].join(' ')}>
         <div className={style.spinnerContainer}>
-          <div className={style.spinner}>
-            {[...Array(8)].map((i) => <span key={i}/>)}
-          </div>
+          <div className={style.spinner}>{[...Array(8)].map(i => <span key={i} />)}</div>
         </div>
       </div>
     );
   }
-
 }
 
 export {Loading};

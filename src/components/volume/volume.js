@@ -22,14 +22,17 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile
 });
 
-@connect(mapStateToProps, bindActions(actions))
-  /**
-   * VolumeControl component
-   *
-   * @class VolumeControl
-   * @example <VolumeControl player={this.player} />
-   * @extends {BaseComponent}
-   */
+@connect(
+  mapStateToProps,
+  bindActions(actions)
+)
+/**
+ * VolumeControl component
+ *
+ * @class VolumeControl
+ * @example <VolumeControl player={this.player} />
+ * @extends {BaseComponent}
+ */
 class VolumeControl extends BaseComponent {
   _volumeControlElement: HTMLElement;
   _volumeProgressBarElement: HTMLElement;
@@ -144,8 +147,8 @@ class VolumeControl extends BaseComponent {
       if (newVolume > 100 || newVolume < 0) {
         return;
       }
-      this.player.muted = (newVolume < KEYBOARD_DEFAULT_VOLUME_JUMP);
-      this.player.volume = (newVolume / 100);
+      this.player.muted = newVolume < KEYBOARD_DEFAULT_VOLUME_JUMP;
+      this.player.volume = newVolume / 100;
       this.notifyChange({volume: this.player.volume});
     };
     switch (e.keyCode) {
@@ -202,7 +205,7 @@ class VolumeControl extends BaseComponent {
     let barHeight = this._volumeProgressBarElement.clientHeight;
     let topY = this.getCoords(this._volumeProgressBarElement).top;
     let clickY = (e: any).clientY;
-    let volume = 1 - ((clickY - topY) / barHeight);
+    let volume = 1 - (clickY - topY) / barHeight;
     volume = parseFloat(volume.toFixed(2));
     if (volume <= 1 && volume >= 0) {
       this.logger.debug(`Change volume from ${this.player.volume} => ${volume}`);
@@ -245,27 +248,29 @@ class VolumeControl extends BaseComponent {
 
     return (
       <div
-        ref={c => this._volumeControlElement = c}
+        ref={c => (this._volumeControlElement = c)}
         className={controlButtonClass.join(' ')}
         onMouseOver={() => this.onVolumeMouseOver()}
         onMouseOut={() => this.onVolumeMouseOut()}>
-        <button tabIndex="0"
-                aria-label='Volume'
-                className={style.controlButton}
-                onClick={() => this.onVolumeControlButtonClick()}
-                onKeyDown={e => this.onVolumeControlKeyDown(e)}>
-          <Icon type={IconType.VolumeBase}/>
-          <Icon type={IconType.VolumeWaves}/>
-          <Icon type={IconType.VolumeMute}/>
+        <button
+          tabIndex="0"
+          aria-label="Volume"
+          className={style.controlButton}
+          onClick={() => this.onVolumeControlButtonClick()}
+          onKeyDown={e => this.onVolumeControlKeyDown(e)}>
+          <Icon type={IconType.VolumeBase} />
+          <Icon type={IconType.VolumeWaves} />
+          <Icon type={IconType.VolumeMute} />
         </button>
-        <div className={style.volumeControlBar} role='slider'
-             aria-valuemin='0' aria-valuemaz='100' aria-valuenow={this.player.volume * 100}
-             aria-valuetext={`${this.player.volume * 100}% volume ${this.player.muted ? 'muted' : ''}`}>
-          <div
-            className={style.bar}
-            ref={c => this._volumeProgressBarElement = c}
-            onMouseDown={() => this.onVolumeProgressBarMouseDown()}>
-            <div className={style.progress} style={{height: this.getVolumeProgressHeight()}}/>
+        <div
+          className={style.volumeControlBar}
+          role="slider"
+          aria-valuemin="0"
+          aria-valuemaz="100"
+          aria-valuenow={this.player.volume * 100}
+          aria-valuetext={`${this.player.volume * 100}% volume ${this.player.muted ? 'muted' : ''}`}>
+          <div className={style.bar} ref={c => (this._volumeProgressBarElement = c)} onMouseDown={() => this.onVolumeProgressBarMouseDown()}>
+            <div className={style.progress} style={{height: this.getVolumeProgressHeight()}} />
           </div>
         </div>
       </div>

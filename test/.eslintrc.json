@@ -6,8 +6,6 @@
     "valid-jsdoc": "off",
     "flowtype/define-flow-type": 2,
     "react/prop-types": 0,
-    "mocha-no-only/mocha-no-only": [
-      "error"
-    ]
+    "mocha-no-only/mocha-no-only": ["error"]
   }
 }

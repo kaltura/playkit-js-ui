@@ -1,5 +1,5 @@
-describe("UIManager", function () {
-  it("", function (done) {
+describe('UIManager', function() {
+  it('', function(done) {
     done();
-  })
+  });
 });

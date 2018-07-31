@@ -23,14 +23,17 @@ const mapStateToProps = state => ({
   loading: state.loading.show
 });
 
-@connect(mapStateToProps, bindActions(Object.assign({}, actions, loadingActions)))
-  /**
-   * PrePlaybackPlayOverlay component
-   *
-   * @class PrePlaybackPlayOverlay
-   * @example <PrePlaybackPlayOverlay player={this.player} />
-   * @extends {BaseComponent}
-   */
+@connect(
+  mapStateToProps,
+  bindActions(Object.assign({}, actions, loadingActions))
+)
+/**
+ * PrePlaybackPlayOverlay component
+ *
+ * @class PrePlaybackPlayOverlay
+ * @example <PrePlaybackPlayOverlay player={this.player} />
+ * @extends {BaseComponent}
+ */
 class PrePlaybackPlayOverlay extends BaseComponent {
   autoplay: boolean;
 
@@ -60,7 +63,8 @@ class PrePlaybackPlayOverlay extends BaseComponent {
           this.forceUpdate();
         });
       }
-    } catch (e) { // eslint-disable-line no-unused-vars
+    } catch (e) {
+      // eslint-disable-line no-unused-vars
       this.autoplay = false;
     }
   }
@@ -140,20 +144,19 @@ class PrePlaybackPlayOverlay extends BaseComponent {
     }
 
     return (
-      <div
-        className={rootClass.join(' ')}
-        style={rootStyle}
-        onMouseOver={(e) => e.stopPropagation()}
-        onClick={() => this.handleClick()}>
-        {<a className={style.prePlaybackPlayButton}
+      <div className={rootClass.join(' ')} style={rootStyle} onMouseOver={e => e.stopPropagation()} onClick={() => this.handleClick()}>
+        {
+          <a
+            className={style.prePlaybackPlayButton}
             tabIndex="0"
-            onKeyDown={(e) => {
+            onKeyDown={e => {
               if (e.keyCode === KeyMap.ENTER) {
                 this.handleClick();
               }
             }}>
-          {props.isEnded ? <Icon type={IconType.StartOver}/> : <Icon type={IconType.Play}/>}
-        </a>}
+            {props.isEnded ? <Icon type={IconType.StartOver} /> : <Icon type={IconType.Play} />}
+          </a>
+        }
       </div>
     );
   }

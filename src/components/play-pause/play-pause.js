@@ -5,7 +5,7 @@ import {Localizer, Text} from 'preact-i18n';
 import {connect} from 'preact-redux';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
-import {KeyMap} from "../../utils/key-map";
+import {KeyMap} from '../../utils/key-map';
 
 /**
  * mapping state to props
@@ -20,15 +20,14 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps)
-  /**
-   * PlayPauseControl component
-   *
-   * @class PlayPauseControl
-   * @example <PlayPauseControl player={this.player} />
-   * @extends {BaseComponent}
-   */
+/**
+ * PlayPauseControl component
+ *
+ * @class PlayPauseControl
+ * @example <PlayPauseControl player={this.player} />
+ * @extends {BaseComponent}
+ */
 class PlayPauseControl extends BaseComponent {
-
   /**
    * Creates an instance of PlayPauseControl.
    * @param {Object} obj obj
@@ -74,24 +73,26 @@ class PlayPauseControl extends BaseComponent {
         <Localizer>
           <button
             tabIndex="0"
-            aria-label={<Text id={this.isPlayingAdOrPlayback() ? 'controls.pause' : 'controls.play'}/>}
+            aria-label={<Text id={this.isPlayingAdOrPlayback() ? 'controls.pause' : 'controls.play'} />}
             className={controlButtonClass}
             onClick={() => this.togglePlayPause()}
-            onKeyDown={(e) => {
+            onKeyDown={e => {
               if (e.keyCode === KeyMap.ENTER) {
                 this.togglePlayPause();
               }
             }}>
-            {props.isEnded && !props.adBreak ? <Icon type={IconType.StartOver}/> : (
+            {props.isEnded && !props.adBreak ? (
+              <Icon type={IconType.StartOver} />
+            ) : (
               <div>
-                <Icon type={IconType.Play}/>
-                <Icon type={IconType.Pause}/>
+                <Icon type={IconType.Play} />
+                <Icon type={IconType.Pause} />
               </div>
             )}
           </button>
         </Localizer>
       </div>
-    )
+    );
   }
 }
 

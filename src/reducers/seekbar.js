@@ -3,7 +3,7 @@ export const types = {
   UPDATE_SEEKBAR_DRAGGING_STATUS: 'seekbar/UPDATE_SEEKBAR_DRAGGING_STATUS',
   UPDATE_SEEKBAR_HOVER_ACTIVE: 'seekbar/UPDATE_SEEKBAR_HOVER_ACTIVE',
   UPDATE_CURRENT_TIME: 'seekbar/UPDATE_CURRENT_TIME',
-  UPDATE_DURATION: 'seekbar/UPDATE_DURATION',
+  UPDATE_DURATION: 'seekbar/UPDATE_DURATION'
 };
 
 export const initialState = {
@@ -42,7 +42,7 @@ export default (state: Object = initialState, action: Object) => {
     default:
       return state;
   }
-}
+};
 
 export const actions = {
   updateSeekbarDraggingStatus: (draggingActive: boolean) => ({

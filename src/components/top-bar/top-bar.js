@@ -18,9 +18,7 @@ class TopBar extends Component {
    * @memberof TopBar
    */
   render(props: any): React$Element<any> {
-    return (
-      <div className={style.topBar}>{props.children}</div>
-    )
+    return <div className={style.topBar}>{props.children}</div>;
   }
 }
 

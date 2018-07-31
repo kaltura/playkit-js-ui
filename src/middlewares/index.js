@@ -1,7 +1,7 @@
 // @flow
 import {applyMiddleware} from 'redux';
-import {eventDispatcherMiddleware} from './event-dispatcher'
-import {loggerMiddleware} from './logger'
+import {eventDispatcherMiddleware} from './event-dispatcher';
+import {loggerMiddleware} from './logger';
 
 /**
  * Creates the redux middleware.
@@ -9,10 +9,6 @@ import {loggerMiddleware} from './logger'
  * @param {UIOptionsObject} config - The UI config.
  * @return {GenericStoreEnhancer} - The redux middleware.
  */
-const middleware = (player: Player, config: UIOptionsObject) =>
-  applyMiddleware(
-    loggerMiddleware(config),
-    eventDispatcherMiddleware(player)
-  );
+const middleware = (player: Player, config: UIOptionsObject) => applyMiddleware(loggerMiddleware(config), eventDispatcherMiddleware(player));
 
 export {middleware};

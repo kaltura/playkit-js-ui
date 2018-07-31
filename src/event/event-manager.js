@@ -54,7 +54,6 @@ class EventManager {
     this.listen(target, type, oneListener);
   }
 
-
   /**
    * Attaches an event listener to an event target.
    * @param {EventTarget} target The event target.
@@ -68,7 +67,6 @@ class EventManager {
       this._bindingMap.push(type, binding);
     }
   }
-
 
   /**
    * Detaches an event listener from an event target.
@@ -149,15 +147,13 @@ class Binding_ {
     this.target.addEventListener(type, listener, false);
   }
 
-
   /**
    * Detaches the event listener from the event target. This does nothing if the
    * event listener is already detached.
    * @returns {void}
    */
   unlisten(): void {
-    if (!this.target)
-      return;
+    if (!this.target) return;
 
     this.target.removeEventListener(this.type, this.listener, false);
 

@@ -25,17 +25,18 @@ const mapStateToProps = state => ({
   adIsPlaying: state.engine.adIsPlaying
 });
 
-
-@connect(mapStateToProps, null)
-  /**
-   * UnmuteIndication component
-   *
-   * @class UnmuteIndication
-   * @example <UnmuteIndication player={this.player} />
-   * @extends {BaseComponent}
-   */
+@connect(
+  mapStateToProps,
+  null
+)
+/**
+ * UnmuteIndication component
+ *
+ * @class UnmuteIndication
+ * @example <UnmuteIndication player={this.player} />
+ * @extends {BaseComponent}
+ */
 class UnmuteIndication extends BaseComponent {
-
   /**
    * Creates an instance of UnmuteIndication.
    * @param {Object} obj obj
@@ -109,16 +110,18 @@ class UnmuteIndication extends BaseComponent {
     if (this.state.iconOnly) styleClass.push(style.showIconOnly);
 
     return (
-      <div tabIndex="0" aria-label="Unmute"
-           className={styleClass.join(' ')}
-           onMouseOver={() => this.setState({iconOnly: false})}
-           onMouseOut={() => this.setState({iconOnly: true})}
-           onClick={() => this.player.muted = !this.player.muted}
-           onKeyDown={(e) => this._keyDownHandler(e)}>
+      <div
+        tabIndex="0"
+        aria-label="Unmute"
+        className={styleClass.join(' ')}
+        onMouseOver={() => this.setState({iconOnly: false})}
+        onMouseOut={() => this.setState({iconOnly: true})}
+        onClick={() => (this.player.muted = !this.player.muted)}
+        onKeyDown={e => this._keyDownHandler(e)}>
         <a className={[style.btn, style.btnDarkTransparent, style.unmuteButton].join(' ')}>
           <div className={style.unmuteIconContainer}>
-            <Icon type={IconType.VolumeBase}/>
-            <Icon type={IconType.VolumeMute}/>
+            <Icon type={IconType.VolumeBase} />
+            <Icon type={IconType.VolumeMute} />
           </div>
           <span>Unmute</span>
         </a>

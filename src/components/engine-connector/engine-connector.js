@@ -8,16 +8,18 @@ import {actions as loadingActions} from '../../reducers/loading';
 import {actions as shellActions} from '../../reducers/shell';
 import BaseComponent from '../base';
 
-@connect(reduce, bindActions({...actions, ...loadingActions, ...shellActions}))
-  /**
-   * EngineConnector component
-   *
-   * @class EngineConnector
-   * @example <EngineConnector player={this.player} />
-   * @extends {BaseComponent}
-   */
+@connect(
+  reduce,
+  bindActions({...actions, ...loadingActions, ...shellActions})
+)
+/**
+ * EngineConnector component
+ *
+ * @class EngineConnector
+ * @example <EngineConnector player={this.player} />
+ * @extends {BaseComponent}
+ */
 class EngineConnector extends BaseComponent {
-
   /**
    * Creates an instance of EngineConnector.
    * @param {Object} obj obj
@@ -63,7 +65,7 @@ class EngineConnector extends BaseComponent {
       this.props.updateIsIdle(false);
     });
 
-    this.eventManager.listen(this.player, this.player.Event.PLAYER_STATE_CHANGED, (e) => {
+    this.eventManager.listen(this.player, this.player.Event.PLAYER_STATE_CHANGED, e => {
       this.props.updatePlayerState(e.payload.oldState.type, e.payload.newState.type);
     });
 
@@ -217,7 +219,7 @@ class EngineConnector extends BaseComponent {
    * @memberof EngineConnector
    */
   render(): React$Element<any> {
-    return <span/>;
+    return <span />;
   }
 }
 

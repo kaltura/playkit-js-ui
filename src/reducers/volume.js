@@ -26,7 +26,7 @@ export default (state: Object = initialState, action: Object) => {
     default:
       return state;
   }
-}
+};
 
 export const actions = {
   updateVolumeDraggingStatus: (draggingActive: boolean) => ({

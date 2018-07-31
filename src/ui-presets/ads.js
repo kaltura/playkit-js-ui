@@ -24,9 +24,9 @@ export function adsUI(props: any): ?React$Element<any> {
   if (useDefaultAdsUi(props)) {
     return (
       <div className={style.adGuiWrapper}>
-        <Loading player={props.player}/>
-        <div className={style.playerGui} id='player-gui'>
-          <UnmuteIndication player={props.player} hasTopBar/>
+        <Loading player={props.player} />
+        <div className={style.playerGui} id="player-gui">
+          <UnmuteIndication player={props.player} hasTopBar />
         </div>
       </div>
     );
@@ -34,34 +34,32 @@ export function adsUI(props: any): ?React$Element<any> {
   const adsUiCustomization = getAdsUiCustomization();
   return (
     <div className={style.adGuiWrapper}>
-      <KeyboardControl player={props.player} config={props.config}/>
-      <Loading player={props.player}/>
-      <div className={style.playerGui} id='player-gui'>
-        <UnmuteIndication player={props.player} hasTopBar/>
+      <KeyboardControl player={props.player} config={props.config} />
+      <Loading player={props.player} />
+      <div className={style.playerGui} id="player-gui">
+        <UnmuteIndication player={props.player} hasTopBar />
         <div>
           <TopBar>
             <div className={style.leftControls}>
               <span className={style.fontSizeBase}>Advertisement</span>
             </div>
-            <div className={style.rightControls}>
-              {adsUiCustomization.learnMoreButton ? <AdLearnMore/> : undefined}
-            </div>
+            <div className={style.rightControls}>{adsUiCustomization.learnMoreButton ? <AdLearnMore /> : undefined}</div>
           </TopBar>
-          {adsUiCustomization.skipButton ? <AdSkip player={props.player}/> : undefined}
+          {adsUiCustomization.skipButton ? <AdSkip player={props.player} /> : undefined}
         </div>
         <BottomBar>
           <div className={style.leftControls}>
-            <PlayPauseControl player={props.player}/>
-            <TimeDisplayAdsContainer/>
+            <PlayPauseControl player={props.player} />
+            <TimeDisplayAdsContainer />
           </div>
           <div className={style.rightControls}>
-            <VolumeControl player={props.player}/>
-            <FullscreenControl player={props.player}/>
+            <VolumeControl player={props.player} />
+            <FullscreenControl player={props.player} />
           </div>
         </BottomBar>
       </div>
     </div>
-  )
+  );
 }
 
 /**
@@ -85,7 +83,7 @@ function useDefaultAdsUi(props: any): boolean {
     let isMobile = !!props.player.env.device.type;
     let adsRenderingSettings = props.player.config.plugins.ima.adsRenderingSettings;
     let useStyledLinearAds = adsRenderingSettings && adsRenderingSettings.useStyledLinearAds;
-    return (isMobile || useStyledLinearAds);
+    return isMobile || useStyledLinearAds;
   } catch (e) {
     return false;
   }

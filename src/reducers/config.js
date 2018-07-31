@@ -17,7 +17,6 @@ export const initialState = {
   }
 };
 
-
 export default (state: Object = initialState, action: Object) => {
   switch (action.type) {
     case types.UPDATE: {
@@ -39,7 +38,7 @@ export default (state: Object = initialState, action: Object) => {
     default:
       return state;
   }
-}
+};
 
 export const actions = {
   updateConfig: (config: Object) => ({type: types.UPDATE, config}),

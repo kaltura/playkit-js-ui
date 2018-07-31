@@ -36,8 +36,7 @@ function getComponentStateFromComponentConfig(component: string, oldState: Objec
  */
 function shouldRenderComponent(config: Object, alias: string) {
   const componentConfig = config.components[alias];
-  return !(Object.keys(componentConfig).length === 0 &&
-    componentConfig.constructor === Object);
+  return !(Object.keys(componentConfig).length === 0 && componentConfig.constructor === Object);
 }
 
 export {shouldRenderComponent, getComponentStateFromConfig, getComponentStateFromComponentConfig};

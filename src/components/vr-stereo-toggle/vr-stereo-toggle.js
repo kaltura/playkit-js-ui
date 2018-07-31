@@ -4,11 +4,11 @@ import {h} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
-import {KeyMap} from "../../utils/key-map";
-import {actions as engineActions} from "../../reducers/engine";
-import {bindActions} from "../../utils/bind-actions";
-import {connect} from "preact-redux";
-import {actions} from "../../reducers/shell";
+import {KeyMap} from '../../utils/key-map';
+import {actions as engineActions} from '../../reducers/engine';
+import {bindActions} from '../../utils/bind-actions';
+import {connect} from 'preact-redux';
+import {actions} from '../../reducers/shell';
 
 /**
  * mapping state to props
@@ -20,7 +20,10 @@ const mapStateToProps = state => ({
   config: state.config.components.vrStereo
 });
 
-@connect(mapStateToProps, bindActions(Object.assign({}, actions, engineActions)))
+@connect(
+  mapStateToProps,
+  bindActions(Object.assign({}, actions, engineActions))
+)
 /**
  * VrStereoToggleControl component
  *
@@ -76,20 +79,20 @@ class VrStereoToggleControl extends BaseComponent {
         <Localizer>
           <button
             tabIndex="0"
-            aria-label={<Text id={'controls.vrStereo'}/>}
+            aria-label={<Text id={'controls.vrStereo'} />}
             className={this.props.vrStereoMode ? [style.controlButton, style.vrStereoMode].join(' ') : style.controlButton}
             onClick={() => this.onClick()}
-            onKeyDown={(e) => {
+            onKeyDown={e => {
               if (e.keyCode === KeyMap.ENTER) {
                 this.onClick();
               }
             }}>
-            <Icon type={IconType.vrStereo}/>
-            <Icon type={IconType.vrStereoFull}/>
+            <Icon type={IconType.vrStereo} />
+            <Icon type={IconType.vrStereoFull} />
           </button>
         </Localizer>
       </div>
-    )
+    );
   }
 }
 
