@@ -11,8 +11,6 @@ import reducer from './store';
 import definition from './fr.json';
 
 import {actions} from './reducers/config';
-
-import {Player} from 'playkit-js';
 // core components for the UI
 import {EngineConnector} from './components/engine-connector';
 import {Shell} from './components/shell';
@@ -30,12 +28,12 @@ import './styles/style.scss';
  *
  * @class UIManager
  */
-export default class UIManager {
-  player: Player;
+class UIManager {
+  player: Object;
   targetId: string;
   store: any;
-  container: HTMLDivElement;
-  root: HTMLDivElement;
+  container: ?HTMLElement;
+  root: React$Component<any, any, any>;
 
   /**
    * Creates an instance of UIManager.
@@ -136,21 +134,23 @@ export default class UIManager {
   _buildUI(uis?: Array<UIPreset>): void {
     if (!this.player) return;
     this.container = document.getElementById(this.targetId);
-    // i18n, redux and initial player-to-store connector setup
-    const template = (
-      <Provider store={this.store}>
-        <IntlProvider definition={definition}>
-          <Shell player={this.player}>
-            <EngineConnector player={this.player}/>
-            <VideoPlayer player={this.player}/>
-            <PlayerGUI uis={uis} player={this.player} playerContainer={this.container}/>
-          </Shell>
-        </IntlProvider>
-      </Provider>
-    );
+    if (this.container) {
+      // i18n, redux and initial player-to-store connector setup
+      const template = (
+        <Provider store={this.store}>
+          <IntlProvider definition={definition}>
+            <Shell player={this.player}>
+              <EngineConnector player={this.player}/>
+              <VideoPlayer player={this.player}/>
+              <PlayerGUI uis={uis} player={this.player} playerContainer={this.container}/>
+            </Shell>
+          </IntlProvider>
+        </Provider>
+      );
 
-    // render the player
-    this.root = render(template, this.container);
+      // render the player
+      this.root = render(template, this.container);
+    }
   }
 
   /**
@@ -158,8 +158,11 @@ export default class UIManager {
    * @returns {void}
    */
   destroy(): void {
+    // $FlowFixMe
     render('', this.container, this.root);
-    this.container.prepend(this.player.getView());
+    if (this.container) {
+      this.container.prepend(this.player.getView());
+    }
   }
 
   /**
@@ -199,3 +202,5 @@ export default class UIManager {
     return EventType;
   }
 }
+
+export {UIManager};

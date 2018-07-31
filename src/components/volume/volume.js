@@ -8,6 +8,7 @@ import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {KEYBOARD_DEFAULT_VOLUME_JUMP} from '../keyboard/keyboard';
+import {FakeEvent} from '../../event/fake-event';
 
 /**
  * mapping state to props
@@ -90,11 +91,11 @@ class VolumeControl extends BaseComponent {
    * on volume progress bar mouse move, update the volume if dragging is active
    *
    * @method onVolumeProgressBarMouseMove
-   * @param {Event} e - mouse move event
+   * @param {FakeEvent} e - mouse move event
    * @returns {void}
    * @memberof VolumeControl
    */
-  onVolumeProgressBarMouseMove(e: Event): void {
+  onVolumeProgressBarMouseMove(e: FakeEvent): void {
     if (this.props.isDraggingActive) {
       this.changeVolume(e);
     }
@@ -164,11 +165,11 @@ class VolumeControl extends BaseComponent {
    * on volume progress bar mouse up, update the volume and change the dragging status to false
    *
    * @method onVolumeProgressBarMouseUp
-   * @param {Event} e - mouse up event
+   * @param {FakeEvent} e - mouse up event
    * @returns {void}
    * @memberof VolumeControl
    */
-  onVolumeProgressBarMouseUp(e: Event): void {
+  onVolumeProgressBarMouseUp(e: FakeEvent): void {
     if (this.props.isDraggingActive) {
       this.props.updateVolumeDraggingStatus(false);
       this.changeVolume(e);
@@ -193,11 +194,11 @@ class VolumeControl extends BaseComponent {
    * if muted value is true in store state, change it to false both in store state and in player instance.
    *
    * @method changeVolume
-   * @param {Event} e - event to get the position from
+   * @param {FakeEvent} e - event to get the position from
    * @returns {void}
    * @memberof VolumeControl
    */
-  changeVolume(e: Event): void {
+  changeVolume(e: FakeEvent): void {
     let barHeight = this._volumeProgressBarElement.clientHeight;
     let topY = this.getCoords(this._volumeProgressBarElement).top;
     let clickY = (e: any).clientY;

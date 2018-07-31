@@ -1,6 +1,5 @@
 //@flow
 import {Component} from 'preact';
-import Player from 'playkit-js';
 import getLogger from '../utils/logger';
 import {types} from '../middlewares/event-dispatcher';
 import {EventManager} from '../event/event-manager';
@@ -13,7 +12,7 @@ import {EventManager} from '../event/event-manager';
  */
 class BaseComponent extends Component {
   state: Object;
-  player: Player;
+  player: Object;
   name: string;
   config: Object;
   logger: any;

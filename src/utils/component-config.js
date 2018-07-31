@@ -1,5 +1,5 @@
 //@flow
-import {Utils} from 'playkit-js'
+import {mergeDeep} from './merge-deep';
 
 /**
  * @param {string} component - The component name.
@@ -10,7 +10,7 @@ import {Utils} from 'playkit-js'
 function getComponentStateFromConfig(component: string, oldState: Object, action: Object): Object {
   const componentConfig = action.config.components && action.config.components[component];
   if (componentConfig) {
-    return Utils.Object.mergeDeep(oldState, componentConfig);
+    return mergeDeep(oldState, componentConfig);
   }
   return oldState;
 }
@@ -23,7 +23,7 @@ function getComponentStateFromConfig(component: string, oldState: Object, action
  */
 function getComponentStateFromComponentConfig(component: string, oldState: Object, action: Object): Object {
   if (action.componentAlias === component) {
-    return Utils.Object.mergeDeep(oldState, action.config);
+    return mergeDeep(oldState, action.config);
   }
   return oldState;
 }
