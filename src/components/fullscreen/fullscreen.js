@@ -8,8 +8,6 @@ import {actions} from '../../reducers/shell';
 import {actions as fullscreenActions} from '../../reducers/fullscreen';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
-import {EventManager} from '../../event/event-manager';
-import {UIEventManager} from '../../event/event-manager';
 
 /**
  * mapping state to props
@@ -33,7 +31,6 @@ const mapStateToProps = state => ({
    */
 class FullscreenControl extends BaseComponent {
   _targetDiv: ?HTMLElement;
-  _eventManager: EventManager;
 
   /**
    * Creates an instance of FullscreenControl.
@@ -42,7 +39,6 @@ class FullscreenControl extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'Fullscreen', player: obj.player});
-    this._eventManager = UIEventManager.getInstance();
   }
 
   /**
@@ -62,12 +58,12 @@ class FullscreenControl extends BaseComponent {
    * @memberof FullscreenControl
    */
   componentDidMount(): void {
-    this._eventManager.listen(document, 'webkitfullscreenchange', () => this.fullscreenChangeHandler());
-    this._eventManager.listen(document, 'mozfullscreenchange', () => this.fullscreenChangeHandler());
-    this._eventManager.listen(document, 'fullscreenchange', () => this.fullscreenChangeHandler());
-    this._eventManager.listen(document, 'MSFullscreenChange', () => this.fullscreenChangeHandler());
-    this._eventManager.listen(this.player, this.player.Event.REQUESTED_ENTER_FULLSCREEN, () => this.enterFullscreen());
-    this._eventManager.listen(this.player, this.player.Event.REQUESTED_EXIT_FULLSCREEN, () => this.exitFullscreen());
+    this.eventManager.listen(document, 'webkitfullscreenchange', () => this.fullscreenChangeHandler());
+    this.eventManager.listen(document, 'mozfullscreenchange', () => this.fullscreenChangeHandler());
+    this.eventManager.listen(document, 'fullscreenchange', () => this.fullscreenChangeHandler());
+    this.eventManager.listen(document, 'MSFullscreenChange', () => this.fullscreenChangeHandler());
+    this.eventManager.listen(this.player, this.player.Event.REQUESTED_ENTER_FULLSCREEN, () => this.enterFullscreen());
+    this.eventManager.listen(this.player, this.player.Event.REQUESTED_EXIT_FULLSCREEN, () => this.exitFullscreen());
     this.handleIosFullscreen();
   }
 
@@ -84,10 +80,10 @@ class FullscreenControl extends BaseComponent {
        * @returns {void}
        */
       const attachIosFullscreenListeners = () => {
-        this._eventManager.listen(this.player.getVideoElement(), 'webkitbeginfullscreen', () => this.fullscreenEnterHandler());
-        this._eventManager.listen(this.player.getVideoElement(), 'webkitendfullscreen', () => this.fullscreenExitHandler());
+        this.eventManager.listen(this.player.getVideoElement(), 'webkitbeginfullscreen', () => this.fullscreenEnterHandler());
+        this.eventManager.listen(this.player.getVideoElement(), 'webkitendfullscreen', () => this.fullscreenExitHandler());
       };
-      this._eventManager.listenOnce(this.player, this.player.Event.SOURCE_SELECTED, attachIosFullscreenListeners);
+      this.eventManager.listenOnce(this.player, this.player.Event.SOURCE_SELECTED, attachIosFullscreenListeners);
     }
   }
 
@@ -259,7 +255,7 @@ class FullscreenControl extends BaseComponent {
           </button>
         </Localizer>
       </div>
-    )
+    );
   }
 }
 

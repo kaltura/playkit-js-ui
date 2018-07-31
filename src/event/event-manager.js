@@ -63,7 +63,7 @@ class EventManager {
      */
     let oneListener = (event: Object) => {
       this.unlisten(target, type, oneListener);
-      listener.call(this, event)
+      listener.call(this, event);
     };
     this.listen(target, type, oneListener);
   }

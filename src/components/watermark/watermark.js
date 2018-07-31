@@ -3,8 +3,6 @@ import style from '../../styles/style.scss';
 import {h} from 'preact';
 import BaseComponent from '../base';
 import {connect} from 'preact-redux';
-import {EventManager} from '../../event/event-manager';
-import {UIEventManager} from '../../event/event-manager';
 
 /**
  * mapping state to props
@@ -26,8 +24,6 @@ const mapStateToProps = state => ({
    * @extends {BaseComponent}
    */
 class Watermark extends BaseComponent {
-  _eventManager: EventManager;
-
   /**
    * @static
    * @type {string} - Component display name
@@ -41,7 +37,6 @@ class Watermark extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'Watermark', player: obj.player});
-    this._eventManager = UIEventManager.getInstance();
     this.setState({show: true});
   }
 
@@ -62,10 +57,10 @@ class Watermark extends BaseComponent {
       }
     };
 
-    this._eventManager.listenOnce(this.player, this.player.Event.PLAYING, onPlaying);
-    this._eventManager.listen(this.player, this.player.Event.CHANGE_SOURCE_ENDED, () => {
+    this.eventManager.listenOnce(this.player, this.player.Event.PLAYING, onPlaying);
+    this.eventManager.listen(this.player, this.player.Event.CHANGE_SOURCE_ENDED, () => {
       this.setState({show: true});
-      this._eventManager.listenOnce(this.player, this.player.Event.PLAYING, onPlaying)
+      this.eventManager.listenOnce(this.player, this.player.Event.PLAYING, onPlaying);
     });
   }
 
@@ -90,7 +85,7 @@ class Watermark extends BaseComponent {
             <img src={props.config.img}/>
           </a>
         </div>
-      )
+      );
     }
   }
 }
