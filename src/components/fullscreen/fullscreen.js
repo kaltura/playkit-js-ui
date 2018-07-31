@@ -23,7 +23,7 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile
 });
 
-@connect(mapStateToProps, bindActions(Object.assign(actions, fullscreenActions)))
+@connect(mapStateToProps, bindActions(Object.assign({}, actions, fullscreenActions)))
   /**
    * FullscreenControl component
    *

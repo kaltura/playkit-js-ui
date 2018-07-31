@@ -6,6 +6,7 @@ import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {EventManager} from '../../event/event-manager';
 import {UIEventManager} from '../../event/event-manager';
+import {KeyMap} from "../../utils/key-map";
 
 /**
  * The icon only default timeout
@@ -96,6 +97,18 @@ class UnmuteIndication extends BaseComponent {
   }
 
   /**
+   * @param {KeyboardEvent} e - the keyDown Event
+   * @private
+   * @memberof UnmuteIndication
+   * @returns {void}
+   */
+  _keyDownHandler(e: KeyboardEvent): void {
+    if (e.keyCode === KeyMap.ENTER) {
+      this.player.muted = !this.player.muted;
+    }
+  }
+
+  /**
    * render component
    *
    * @param {*} props - component props
@@ -110,11 +123,12 @@ class UnmuteIndication extends BaseComponent {
     if (this.state.iconOnly) styleClass.push(style.showIconOnly);
 
     return (
-      <div
-        className={styleClass.join(' ')}
-        onMouseOver={() => this.setState({iconOnly: false})}
-        onMouseOut={() => this.setState({iconOnly: true})}
-        onClick={() => this.player.muted = !this.player.muted}>
+      <div tabIndex="0" aria-label="Unmute"
+           className={styleClass.join(' ')}
+           onMouseOver={() => this.setState({iconOnly: false})}
+           onMouseOut={() => this.setState({iconOnly: true})}
+           onClick={() => this.player.muted = !this.player.muted}
+           onKeyDown={(e) => this._keyDownHandler(e)}>
         <a className={[style.btn, style.btnDarkTransparent, style.unmuteButton].join(' ')}>
           <div className={style.unmuteIconContainer}>
             <Icon type={IconType.VolumeBase}/>

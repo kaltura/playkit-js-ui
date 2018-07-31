@@ -2,13 +2,85 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.25.1"></a>
+## [0.25.1](https://github.com/kaltura/playkit-js-ui/compare/v0.25.0...v0.25.1) (2018-07-26)
+
+
+### Bug Fixes
+
+* **FEC-8286:** make unmute button focusable ([#256](https://github.com/kaltura/playkit-js-ui/issues/256)) ([7accc69](https://github.com/kaltura/playkit-js-ui/commit/7accc69))
+* **FEC-8421, FEC-8422:** Ads UI issues [#255](https://github.com/kaltura/playkit-js-ui/issues/255) ([66ddc4e](https://github.com/kaltura/playkit-js-ui/commit/66ddc4e))
+* subtitles font size is too small on mobile ([#257](https://github.com/kaltura/playkit-js-ui/issues/257)) ([a74d72d](https://github.com/kaltura/playkit-js-ui/commit/a74d72d)), closes [kaltura/playkit-js#270](https://github.com/kaltura/playkit-js/issues/270)
+
+
+
+<a name="0.25.0"></a>
+# [0.25.0](https://github.com/kaltura/playkit-js-ui/compare/v0.24.6...v0.25.0) (2018-07-23)
+
+
+### Features
+
+* **FEC-8390, FEC-8246:** support 608/708 captions ([#254](https://github.com/kaltura/playkit-js-ui/issues/254)) ([6a9c787](https://github.com/kaltura/playkit-js-ui/commit/6a9c787))
+* **FEC-8395:** dont render options with one option (language and settings) + remove the isLive - playbackrate (move to core) ([2338a4b](https://github.com/kaltura/playkit-js-ui/commit/2338a4b))
+
+
+
+<a name="0.24.6"></a>
+## [0.24.6](https://github.com/kaltura/playkit-js-ui/compare/v0.24.5...v0.24.6) (2018-07-12)
+
+
+### Bug Fixes
+
+* **FEC-8271:** merge actions into new object [#241](https://github.com/kaltura/playkit-js-ui/issues/241) ([5566f3b](https://github.com/kaltura/playkit-js-ui/commit/5566f3b))
+
+
+
+<a name="0.24.5"></a>
+## [0.24.5](https://github.com/kaltura/playkit-js-ui/compare/v0.24.4...v0.24.5) (2018-07-02)
+
+
+### Bug Fixes
+
+* **FEC-8121:** Sometime captions menu close when changing lang although it's in focus ([#251](https://github.com/kaltura/playkit-js-ui/issues/251)) ([92e0d95](https://github.com/kaltura/playkit-js-ui/commit/92e0d95))
+* **FEC-8368:** isVr method throws exception on change media ([#252](https://github.com/kaltura/playkit-js-ui/issues/252)) ([d6996ce](https://github.com/kaltura/playkit-js-ui/commit/d6996ce))
+
+
+
+<a name="0.24.4"></a>
+## [0.24.4](https://github.com/kaltura/playkit-js-ui/compare/v0.24.3...v0.24.4) (2018-06-28)
+
+
+### Bug Fixes
+
+* unmute color [#250](https://github.com/kaltura/playkit-js-ui/issues/250) ([8bbc574](https://github.com/kaltura/playkit-js-ui/commit/8bbc574))
+
+
+
+<a name="0.24.3"></a>
+## [0.24.3](https://github.com/kaltura/playkit-js-ui/compare/v0.24.2...v0.24.3) (2018-06-26)
+
+
+### Bug Fixes
+
+* **FEC-7971:** change media doesn't work after a critical error ([#249](https://github.com/kaltura/playkit-js-ui/issues/249)) ([f7a6966](https://github.com/kaltura/playkit-js-ui/commit/f7a6966))
+
+
+
+<a name="0.24.2"></a>
+## [0.24.2](https://github.com/kaltura/playkit-js-ui/compare/v0.24.1...v0.24.2) (2018-06-25)
+
+### Bug Fixes
+
+* add color white on the span itself ([#247](https://github.com/kaltura/playkit-js-ui/issues/247)) ([df9b6d7](https://github.com/kaltura/playkit-js-ui/commit/df9b6d7))
+
+
 <a name="0.24.1"></a>
 ## [0.24.1](https://github.com/kaltura/playkit-js-ui/compare/v0.24.0...v0.24.1) (2018-06-24)
 
 
 ### Bug Fixes
 
-* play/pause click on 360 content is too sensitive ([#246](https://github.com/kaltura/playkit-js-ui/issues/246)) ([3346024](https://github.com/kaltura/playkit-js-ui/commit/3346024))
+* **FEC-8338** play/pause click on 360 content is too sensitive ([#246](https://github.com/kaltura/playkit-js-ui/issues/246)) ([3346024](https://github.com/kaltura/playkit-js-ui/commit/3346024))
 
 
 

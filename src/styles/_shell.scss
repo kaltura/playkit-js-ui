@@ -53,6 +53,7 @@
   }
   &.metadata-loaded .player-gui,
   &.state-paused .player-gui,
+  &.ad-break .player-gui,
   &.overlay-active .player-gui,
   &.menu-active .player-gui {
     opacity: 1;
@@ -71,9 +72,10 @@
   .form-group-row > a,
   .button-save-cvaa,
   .slider,
+  .unmute-button-container,
   .live-tag {
     &:focus {
-      outline: 1px solid #00cbff;
+      outline: 1px solid $tab-focus-color;
     }
   }
 }

@@ -25,7 +25,7 @@ const mapStateToProps = state => ({
   loading: state.loading.show
 });
 
-@connect(mapStateToProps, bindActions(Object.assign(actions, loadingActions)))
+@connect(mapStateToProps, bindActions(Object.assign({}, actions, loadingActions)))
   /**
    * PrePlaybackPlayOverlay component
    *
