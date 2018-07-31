@@ -3,6 +3,7 @@ import {Component} from 'preact';
 import Player from 'playkit-js';
 import getLogger from '../utils/logger';
 import {types} from '../middlewares/event-dispatcher';
+import {EventManager} from '../event/event-manager';
 
 /**
  * Base component to be extended by other player UI components
@@ -16,6 +17,7 @@ class BaseComponent extends Component {
   name: string;
   config: Object;
   logger: any;
+  eventManager: EventManager;
 
   /**
    * Creates an instance of BaseComponent.
@@ -27,6 +29,7 @@ class BaseComponent extends Component {
     this.name = obj.name;
     this.player = obj.player;
     this.config = obj.config;
+    this.eventManager = new EventManager();
     this.logger = getLogger(`UI ${this.name}`);
     this.logger.debug(`Initialized`);
   }
@@ -59,6 +62,16 @@ class BaseComponent extends Component {
       name: this.name,
       payload: payload
     });
+  }
+
+  /**
+   * Before component is mounted remove all event manager listeners.
+   * @returns {void}
+   *
+   * @memberof BaseComponent
+   */
+  componentWillUnmount(): void {
+    this.eventManager.removeAll();
   }
 }
 
