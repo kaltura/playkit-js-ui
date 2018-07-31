@@ -11,7 +11,6 @@ import {default as Icon, IconType} from '../icon';
  * @extends {Component}
  */
 class SmartContainerItem extends Component {
-
   /**
    * render component
    *
@@ -23,12 +22,18 @@ class SmartContainerItem extends Component {
     return (
       <div className={[style.smartContainerItem, style.selectMenuItem].join(' ')}>
         <label htmlFor={IconType.Quality}>
-          {props.icon ? <div className={style.labelIcon}><Icon type={props.icon}/></div> : undefined}
+          {props.icon ? (
+            <div className={style.labelIcon}>
+              <Icon type={props.icon} />
+            </div>
+          ) : (
+            undefined
+          )}
           {props.label}
         </label>
-        <DropDown onSelect={o => props.onSelect(o)} options={props.options}/>
+        <DropDown onSelect={o => props.onSelect(o)} options={props.options} />
       </div>
-    )
+    );
   }
 }
 

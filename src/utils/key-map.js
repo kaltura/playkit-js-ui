@@ -1,5 +1,5 @@
 // @flow
-export const KeyMap: { [key: string]: number } = {
+export const KeyMap: {[key: string]: number} = {
   TAB: 9,
   ENTER: 13,
   ESC: 27,

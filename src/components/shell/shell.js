@@ -41,14 +41,17 @@ const mapStateToProps = state => ({
  */
 export const CONTROL_BAR_HOVER_DEFAULT_TIMEOUT: number = 3000;
 
-@connect(mapStateToProps, bindActions(Object.assign({}, shellActions, engineActions)))
-  /**
-   * Shell component
-   *
-   * @class Shell
-   * @example <Shell player={this.player}>...</Shell>
-   * @extends {BaseComponent}
-   */
+@connect(
+  mapStateToProps,
+  bindActions(Object.assign({}, shellActions, engineActions))
+)
+/**
+ * Shell component
+ *
+ * @class Shell
+ * @example <Shell player={this.player}>...</Shell>
+ * @extends {BaseComponent}
+ */
 class Shell extends BaseComponent {
   state: Object;
   hoverTimeout: ?number;
@@ -230,11 +233,13 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   _canEndHoverState(): boolean {
-    return !this.props.seekbarDraggingActive
-      && !this.props.seekbarHoverActive
-      && !this.props.volumeHoverActive
-      && !this.props.smartContainerOpen
-      && !this.player.paused;
+    return (
+      !this.props.seekbarDraggingActive &&
+      !this.props.seekbarHoverActive &&
+      !this.props.volumeHoverActive &&
+      !this.props.smartContainerOpen &&
+      !this.player.paused
+    );
   }
 
   /**
@@ -277,8 +282,7 @@ class Shell extends BaseComponent {
   componentDidUpdate(prevProps: Object): void {
     // Update the hover state if the transition was from pre playback screen
     // or after an ad break
-    if (!this.props.prePlayback && prevProps.prePlayback ||
-      !this.props.adBreak && prevProps.adBreak) {
+    if ((!this.props.prePlayback && prevProps.prePlayback) || (!this.props.adBreak && prevProps.adBreak)) {
       this._updatePlayerHoverState();
     }
   }
@@ -312,11 +316,11 @@ class Shell extends BaseComponent {
         tabIndex="0"
         className={playerClasses}
         onClick={() => this.onClick()}
-        onTouchEnd={(e) => this.onTouchEnd(e)}
+        onTouchEnd={e => this.onTouchEnd(e)}
         onMouseOver={() => this.onMouseOver()}
         onMouseMove={() => this.onMouseMove()}
-        onMouseLeave={(event) => this.onMouseLeave(event)}
-        onKeyDown={(e) => this.onKeyDown(e)}>
+        onMouseLeave={event => this.onMouseLeave(event)}
+        onKeyDown={e => this.onKeyDown(e)}>
         {props.children}
       </div>
     );

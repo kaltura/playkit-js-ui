@@ -52,10 +52,10 @@
 }
 
 .rotate {
-  -moz-animation: spin .3s 1 linear;
-  -o-animation: spin .3s 1 linear;
-  -webkit-animation: spin .3s 1 linear;
-  animation: spin .3s 1 linear;
+  -moz-animation: spin 0.3s 1 linear;
+  -o-animation: spin 0.3s 1 linear;
+  -webkit-animation: spin 0.3s 1 linear;
+  animation: spin 0.3s 1 linear;
 }
 
 @-webkit-keyframes spin {

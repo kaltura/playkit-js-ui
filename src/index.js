@@ -19,7 +19,6 @@ export {h} from 'preact';
 export {preact};
 export {redux};
 
-
 export {Reducers, Presets, Components, Utils};
 export {EventType};
 export {UIManager};

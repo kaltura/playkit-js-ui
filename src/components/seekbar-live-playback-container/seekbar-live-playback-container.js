@@ -20,16 +20,18 @@ const mapStateToProps = state => ({
   isDvr: state.engine.isDvr
 });
 
-@connect(mapStateToProps, bindActions(actions))
-  /**
-   * SeekBarLivePlaybackContainer component
-   *
-   * @class SeekBarLivePlaybackContainer
-   * @example <SeekBarLivePlaybackContainer player={this.player} />
-   * @extends {BaseComponent}
-   */
+@connect(
+  mapStateToProps,
+  bindActions(actions)
+)
+/**
+ * SeekBarLivePlaybackContainer component
+ *
+ * @class SeekBarLivePlaybackContainer
+ * @example <SeekBarLivePlaybackContainer player={this.player} />
+ * @extends {BaseComponent}
+ */
 class SeekBarLivePlaybackContainer extends BaseComponent {
-
   /**
    * Creates an instance of SeekBarLivePlaybackContainer.
    * @param {Object} obj obj
@@ -70,7 +72,7 @@ class SeekBarLivePlaybackContainer extends BaseComponent {
         player={this.props.player}
         playerElement={this.props.playerContainer}
         showTimeBubble={this.props.showTimeBubble}
-        changeCurrentTime={time => this.player.currentTime = time}
+        changeCurrentTime={time => (this.player.currentTime = time)}
         playerPoster={this.props.poster}
         updateSeekbarDraggingStatus={data => this.props.updateSeekbarDraggingStatus(data)}
         updateSeekbarHoverActive={data => this.props.updateSeekbarHoverActive(data)}
@@ -84,7 +86,6 @@ class SeekBarLivePlaybackContainer extends BaseComponent {
       />
     );
   }
-
 }
 
 export {SeekBarLivePlaybackContainer};

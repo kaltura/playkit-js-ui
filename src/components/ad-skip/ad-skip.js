@@ -17,13 +17,13 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps)
-  /**
-   * AdSkip component
-   *
-   * @class AdSkip
-   * @example <AdSkip player={this.player} />
-   * @extends {BaseComponent}
-   */
+/**
+ * AdSkip component
+ *
+ * @class AdSkip
+ * @example <AdSkip player={this.player} />
+ * @extends {BaseComponent}
+ */
 class AdSkip extends BaseComponent {
   skipSupport: any;
 
@@ -55,8 +55,7 @@ class AdSkip extends BaseComponent {
   getSkipTimeOffset(): number {
     if (this.skipSupport) {
       return Math.ceil(this.skipSupport.skipTimeOffset - this.props.currentTime);
-    }
-    else {
+    } else {
       return Math.ceil(this.props.adSkipTimeOffset - this.props.currentTime);
     }
   }
@@ -76,8 +75,7 @@ class AdSkip extends BaseComponent {
       ) : (
         <span className={style.skipAd}>Skip in {this.getSkipTimeOffset()}</span>
       );
-    }
-    else {
+    } else {
       return undefined;
     }
   }

@@ -6,7 +6,7 @@ import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
 import Portal from 'preact-portal';
 import {Overlay} from '../overlay';
-import {KeyMap} from "../../utils/key-map";
+import {KeyMap} from '../../utils/key-map';
 
 /**
  * mapping state to props
@@ -17,24 +17,26 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile
 });
 
-@connect(mapStateToProps, bindActions(actions))
-  /**
-   * SmartContainer component
-   *
-   * @class SmartContainer
-   * @example <SmartContainer title='Language' onClose={() => this.controlButtonClickHandler()}>
-   *   <SmartContainerItem
-   *     icon={IconType.Audio}
-   *     label='Audio'
-   *     options={audioTrackOptions}
-   *     onSelect={audioTrack => this.audioTrackChangeHandler(audioTrack)}
-   *   />
-   *   ...
-   * </SmartContainer>
-   * @extends {Component}
-   */
+@connect(
+  mapStateToProps,
+  bindActions(actions)
+)
+/**
+ * SmartContainer component
+ *
+ * @class SmartContainer
+ * @example <SmartContainer title='Language' onClose={() => this.controlButtonClickHandler()}>
+ *   <SmartContainerItem
+ *     icon={IconType.Audio}
+ *     label='Audio'
+ *     options={audioTrackOptions}
+ *     onSelect={audioTrack => this.audioTrackChangeHandler(audioTrack)}
+ *   />
+ *   ...
+ * </SmartContainer>
+ * @extends {Component}
+ */
 class SmartContainer extends Component {
-
   /**
    * before component mounted, add player css class
    *
@@ -74,16 +76,17 @@ class SmartContainer extends Component {
         </Overlay>
       </Portal>
     ) : (
-      <div tabIndex="-1"
-           className={[style.smartContainer, style.top, style.left].join(' ')}
-           onKeyDown={(e) => {
-             if (e.keyCode === KeyMap.ESC) {
-               props.onClose();
-             }
-           }}>
+      <div
+        tabIndex="-1"
+        className={[style.smartContainer, style.top, style.left].join(' ')}
+        onKeyDown={e => {
+          if (e.keyCode === KeyMap.ESC) {
+            props.onClose();
+          }
+        }}>
         {props.children}
       </div>
-    )
+    );
   }
 }
 

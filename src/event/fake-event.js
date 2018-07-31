@@ -1,5 +1,5 @@
 //@flow
-import {EventType} from './event-type'
+import {EventType} from './event-type';
 
 /**
  * Create an Event work-alike object based on the dictionary.
@@ -7,7 +7,7 @@ import {EventType} from './event-type'
  * @classdesc
  */
 class FakeEvent {
-  static Type: { [event: string]: string } = EventType;
+  static Type: {[event: string]: string} = EventType;
   /** @const {boolean} */
   bubbles: boolean;
   /** @const {boolean} */
@@ -66,8 +66,7 @@ class FakeEvent {
    * with native Events.
    * @override
    */
-  preventDefault() {
-  }
+  preventDefault() {}
 
   /**
    * Stops processing event listeners for this event.  Provided for compatibility
@@ -83,8 +82,7 @@ class FakeEvent {
    * with native Events.
    * @override
    */
-  stopPropagation() {
-  }
+  stopPropagation() {}
 }
 
 export {FakeEvent};

@@ -15,13 +15,13 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps)
-  /**
-   * TimeDisplayPlaybackContainer component
-   *
-   * @class TimeDisplayPlaybackContainer
-   * @example <TimeDisplayPlaybackContainer format='currentTime / duration' />
-   * @extends {BaseComponent}
-   */
+/**
+ * TimeDisplayPlaybackContainer component
+ *
+ * @class TimeDisplayPlaybackContainer
+ * @example <TimeDisplayPlaybackContainer format='currentTime / duration' />
+ * @extends {BaseComponent}
+ */
 class TimeDisplayPlaybackContainer extends BaseComponent {
   /**
    * Creates an instance of TimeDisplayPlaybackContainer.
@@ -39,13 +39,7 @@ class TimeDisplayPlaybackContainer extends BaseComponent {
    * @memberof TimeDisplayPlaybackContainer
    */
   render(props: any): React$Element<any> {
-    return (
-      <TimeDisplay
-        currentTime={props.currentTime}
-        duration={props.duration}
-        {...props}
-      />
-    )
+    return <TimeDisplay currentTime={props.currentTime} duration={props.duration} {...props} />;
   }
 }
 

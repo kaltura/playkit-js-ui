@@ -1,6 +1,6 @@
 //@flow
-import {types as configReducerTypes} from './config'
-import {getComponentStateFromConfig, getComponentStateFromComponentConfig} from '../utils/component-config'
+import {types as configReducerTypes} from './config';
+import {getComponentStateFromConfig, getComponentStateFromComponentConfig} from '../utils/component-config';
 
 const component = 'loading';
 
@@ -29,7 +29,7 @@ export default (state: Object = initialState, action: Object) => {
     default:
       return state;
   }
-}
+};
 
 export const actions = {
   updateLoadingSpinnerState: (show: boolean) => ({type: types.UPDATE_LOADING_SPINNER_STATE, show})

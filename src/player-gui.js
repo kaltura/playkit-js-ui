@@ -22,12 +22,12 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps)
-  /**
-   * Player GUI component
-   *
-   * @class PlayerGUI
-   * @extends {Component}
-   */
+/**
+ * Player GUI component
+ *
+ * @class PlayerGUI
+ * @extends {Component}
+ */
 class PlayerGUI extends Component {
   /**
    * get the single matched UI to render based on the UIs and it's conditions

@@ -1,6 +1,7 @@
 # PlayKit JS UI - UI Application Framework for the [PlayKit JS Player]
 
 [![Build Status](https://travis-ci.org/kaltura/playkit-js-ui.svg?branch=master)](https://travis-ci.org/kaltura/playkit-js-ui)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 PlayKit JS UI is a UI Application Framework for composing PlayKit JS Player UI.
 
@@ -16,33 +17,35 @@ The library also exposes its default presets, which can be used as-is&trade; or 
 
 PlayKit JS UI is written in [ECMAScript6], statically analysed using [Flow] and transpiled in ECMAScript5 using [Babel].
 
-[Flow]: https://flow.org/
-[ECMAScript6]: https://github.com/ericdouglas/ES6-Learning#articles--tutorials
-[Babel]: https://babeljs.io
+[flow]: https://flow.org/
+[ecmascript6]: https://github.com/ericdouglas/ES6-Learning#articles--tutorials
+[babel]: https://babeljs.io
 
 ## Table of Contents
-  * [Getting Started](#getting-started)
-    + [Prerequisites](#prerequisites)
-    + [Installing](#installing)
-    + [Building](#building)
-    + [Embed the Player In Your Test Page](#embed-the-player-in-your-test-page)
-  * [Documentation](#documentation)
-  * [Running the Tests](#running-the-tests)
-  * [Compatibility](#compatibility)
-  * [Contributing](#contributing)
-  * [Versioning](#versioning)
-  * [License](#license)
-  
+
+* [Getting Started](#getting-started)
+  * [Prerequisites](#prerequisites)
+  * [Installing](#installing)
+  * [Building](#building)
+  * [Embed the Player In Your Test Page](#embed-the-player-in-your-test-page)
+* [Documentation](#documentation)
+* [Running the Tests](#running-the-tests)
+* [Compatibility](#compatibility)
+* [Contributing](#contributing)
+* [Versioning](#versioning)
+* [License](#license)
+
 ## Getting Started
 
 ### Prerequisites
+
 The UI Manager expects a player that implements the [PlayKit JS Player] interface.
 
 The UI Manager depends on [Preact] and [Redux].
 
-[Playkit JS Player]: https://github.com/kaltura/playkit-js
-[Preact]: https://preactjs.com/
-[Redux]: http://redux.js.org/
+[playkit js player]: https://github.com/kaltura/playkit-js
+[preact]: https://preactjs.com/
+[redux]: http://redux.js.org/
 
 ### Installing
 
@@ -83,22 +86,25 @@ player.play();
 ```
 
 ## Documentation
-- **[Configuration](docs/configuration.md)**
-- **API**
-- **[Events](docs/events.md)**
-- **[UI Customization](docs/ui-customization.md)**
-- **[Components](docs/components.md)**
+
+* **[Configuration](docs/configuration.md)**
+* **API**
+* **[Events](docs/events.md)**
+* **[UI Customization](docs/ui-customization.md)**
+* **[Components](docs/components.md)**
 
 ## Running the Tests
 
 Tests can be run locally via [Karma], which will run on Chrome, Firefox and Safari.
 
-[Karma]: https://karma-runner.github.io/1.0/index.html
+[karma]: https://karma-runner.github.io/1.0/index.html
+
 ```
 yarn run test
 ```
 
 You can test individual browsers:
+
 ```
 yarn run test:chrome
 yarn run test:firefox
@@ -113,7 +119,6 @@ See [ESLint config](.eslintrc.json) for full configuration.
 
 We also use [.editorconfig](.editorconfig) to maintain consistent coding styles and settings, please make sure you comply with the styling.
 
-
 ## Compatibility
 
 TBD
@@ -124,7 +129,7 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/kaltura/playkit-js-ui/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/kaltura/playkit-js-ui/tags).
 
 ## License
 
