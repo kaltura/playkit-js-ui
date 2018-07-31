@@ -103,8 +103,7 @@ class UIManager {
   buildCustomUI(uis: Array<UIPreset>): void {
     if (uis.length > 0) {
       this._buildUI(uis);
-    }
-    else {
+    } else {
       let fallbackUIs = [{template: props => presets.playbackUI(props)}];
       this._buildUI(fallbackUIs);
     }
@@ -117,11 +116,15 @@ class UIManager {
    * @returns {void}
    */
   _createStore(config: UIOptionsObject): void {
-    this.store = createStore(reducer,
-      window.devToolsExtension && window.devToolsExtension({
-        name: `playkit #${this.targetId}`,
-        instanceId: this.targetId
-      }), middleware(this.player, config));
+    this.store = createStore(
+      reducer,
+      window.devToolsExtension &&
+        window.devToolsExtension({
+          name: `playkit #${this.targetId}`,
+          instanceId: this.targetId
+        }),
+      middleware(this.player, config)
+    );
   }
 
   /**
@@ -140,9 +143,9 @@ class UIManager {
         <Provider store={this.store}>
           <IntlProvider definition={definition}>
             <Shell player={this.player}>
-              <EngineConnector player={this.player}/>
-              <VideoPlayer player={this.player}/>
-              <PlayerGUI uis={uis} player={this.player} playerContainer={this.container}/>
+              <EngineConnector player={this.player} />
+              <VideoPlayer player={this.player} />
+              <PlayerGUI uis={uis} player={this.player} playerContainer={this.container} />
             </Shell>
           </IntlProvider>
         </Provider>
@@ -158,7 +161,6 @@ class UIManager {
    * @returns {void}
    */
   destroy(): void {
-    // $FlowFixMe
     render('', this.container, this.root);
     if (this.container) {
       this.container.prepend(this.player.getView());

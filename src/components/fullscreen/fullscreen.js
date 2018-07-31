@@ -21,14 +21,17 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile
 });
 
-@connect(mapStateToProps, bindActions(Object.assign({}, actions, fullscreenActions)))
-  /**
-   * FullscreenControl component
-   *
-   * @class FullscreenControl
-   * @example <FullscreenControl player={this.player} />
-   * @extends {BaseComponent}
-   */
+@connect(
+  mapStateToProps,
+  bindActions(Object.assign({}, actions, fullscreenActions))
+)
+/**
+ * FullscreenControl component
+ *
+ * @class FullscreenControl
+ * @example <FullscreenControl player={this.player} />
+ * @extends {BaseComponent}
+ */
 class FullscreenControl extends BaseComponent {
   _targetDiv: ?HTMLElement;
 
@@ -94,10 +97,11 @@ class FullscreenControl extends BaseComponent {
    * @memberof FullscreenControl
    */
   fullscreenChangeHandler(): void {
-    const isFullscreen = typeof document.fullscreenElement !== 'undefined' && Boolean(document.fullscreenElement) ||
-      typeof document.webkitFullscreenElement !== 'undefined' && Boolean(document.webkitFullscreenElement) ||
-      typeof document.mozFullScreenElement !== 'undefined' && Boolean(document.mozFullScreenElement) ||
-      typeof document.msFullscreenElement !== 'undefined' && Boolean(document.msFullscreenElement);
+    const isFullscreen =
+      (typeof document.fullscreenElement !== 'undefined' && Boolean(document.fullscreenElement)) ||
+      (typeof document.webkitFullscreenElement !== 'undefined' && Boolean(document.webkitFullscreenElement)) ||
+      (typeof document.mozFullScreenElement !== 'undefined' && Boolean(document.mozFullScreenElement)) ||
+      (typeof document.msFullscreenElement !== 'undefined' && Boolean(document.msFullscreenElement));
 
     isFullscreen ? this.fullscreenEnterHandler() : this.fullscreenExitHandler();
   }
@@ -246,12 +250,13 @@ class FullscreenControl extends BaseComponent {
     return (
       <div className={[style.controlButtonContainer, style.controlFullscreen].join(' ')}>
         <Localizer>
-          <button tabIndex="0"
-                  aria-label={<Text id='controls.fullscreen'/>}
-                  className={this.props.fullscreen ? [style.controlButton, style.isFullscreen].join(' ') : style.controlButton}
-                  onClick={() => this.toggleFullscreen()}>
-            <Icon type={IconType.Maximize}/>
-            <Icon type={IconType.Minimize}/>
+          <button
+            tabIndex="0"
+            aria-label={<Text id="controls.fullscreen" />}
+            className={this.props.fullscreen ? [style.controlButton, style.isFullscreen].join(' ') : style.controlButton}
+            onClick={() => this.toggleFullscreen()}>
+            <Icon type={IconType.Maximize} />
+            <Icon type={IconType.Minimize} />
           </button>
         </Localizer>
       </div>

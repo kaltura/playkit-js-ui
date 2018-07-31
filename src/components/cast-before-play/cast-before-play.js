@@ -18,16 +18,18 @@ const mapStateToProps = state => ({
   isCastAvailable: state.engine.isCastAvailable
 });
 
-@connect(mapStateToProps, actions)
-  /**
-   * CastOverlay component
-   *
-   * @class CastBeforePlay
-   * @example <CastBeforePlay player={this.player} />
-   * @extends {BaseComponent}
-   */
+@connect(
+  mapStateToProps,
+  actions
+)
+/**
+ * CastOverlay component
+ *
+ * @class CastBeforePlay
+ * @example <CastBeforePlay player={this.player} />
+ * @extends {BaseComponent}
+ */
 class CastBeforePlay extends BaseComponent {
-
   /**
    * @static
    * @type {Object} - Component default props
@@ -53,8 +55,7 @@ class CastBeforePlay extends BaseComponent {
    */
   onClick(): void {
     this.props.updateBackdropVisibility(true);
-    this.player.startCasting()
-      .catch(() => this.props.updateBackdropVisibility(false));
+    this.player.startCasting().catch(() => this.props.updateBackdropVisibility(false));
   }
 
   /**
@@ -84,12 +85,10 @@ class CastBeforePlay extends BaseComponent {
     }
     return (
       <div>
-        <div
-          className={rootStyle.join(' ')}
-          onClick={() => this.onClick()}>
+        <div className={rootStyle.join(' ')} onClick={() => this.onClick()}>
           <a className={[style.btn, style.btnDarkTransparent, style.castBeforePlayButton].join(' ')}>
             <div className={style.castBeforePlayIconContainer}>
-              <Icon type={props.icon}/>
+              <Icon type={props.icon} />
             </div>
             <span>Play on TV</span>
           </a>

@@ -16,16 +16,18 @@ const mapStateToProps = state => ({
   castSession: state.engine.castSession
 });
 
-@connect(mapStateToProps, null)
-  /**
-   * CastOverlay component
-   *
-   * @class CastOverlay
-   * @example <CastOverlay player={this.player} />
-   * @extends {BaseComponent}
-   */
+@connect(
+  mapStateToProps,
+  null
+)
+/**
+ * CastOverlay component
+ *
+ * @class CastOverlay
+ * @example <CastOverlay player={this.player} />
+ * @extends {BaseComponent}
+ */
 class CastOverlay extends BaseComponent {
-
   /**
    * @static
    * @type {Object} - Component default props
@@ -50,16 +52,20 @@ class CastOverlay extends BaseComponent {
    * @returns {void}
    */
   componentWillMount(): void {
-    this.eventManager.listen(this.player, this.player.Event.PLAYBACK_STARTED, () => this.setState({
-      playing: true,
-      connected: false,
-      connecting: false
-    }));
-    this.eventManager.listen(this.player, this.player.Event.ENDED, () => this.setState({
-      playing: false,
-      connected: true,
-      connecting: false
-    }));
+    this.eventManager.listen(this.player, this.player.Event.PLAYBACK_STARTED, () =>
+      this.setState({
+        playing: true,
+        connected: false,
+        connecting: false
+      })
+    );
+    this.eventManager.listen(this.player, this.player.Event.ENDED, () =>
+      this.setState({
+        playing: false,
+        connected: true,
+        connecting: false
+      })
+    );
   }
 
   /**
@@ -91,27 +97,15 @@ class CastOverlay extends BaseComponent {
     return (
       <div>
         <div className={style.castOverlay}>
-          <div className={posterClasses.join(' ')}
-               style={posterStyle}
-               onMouseOver={(e) => e.stopPropagation()}/>
-          <div className={style.castBlackCover}/>
+          <div className={posterClasses.join(' ')} style={posterStyle} onMouseOver={e => e.stopPropagation()} />
+          <div className={style.castBlackCover} />
         </div>
         <div className={style.castBox}>
-          <div className={style.castIcon}>
-            {
-              this.state.connecting ?
-                <div className={style.castConnectingSpinner}/> :
-                <Icon type={props.icon}/>
-            }
-          </div>
+          <div className={style.castIcon}>{this.state.connecting ? <div className={style.castConnectingSpinner} /> : <Icon type={props.icon} />}</div>
           <div className={style.castText}>
-          <span className={style.castPlayingOn}>
-            {status}
-          </span>
-            <br/>
-            <span className={style.castDevice}>
-            {props.castSession.deviceFriendlyName}
-          </span>
+            <span className={style.castPlayingOn}>{status}</span>
+            <br />
+            <span className={style.castDevice}>{props.castSession.deviceFriendlyName}</span>
           </div>
         </div>
       </div>

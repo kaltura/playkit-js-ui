@@ -6,22 +6,24 @@ import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
 import {default as Icon, IconType} from '../icon';
-import {KeyMap} from "../../utils/key-map";
+import {KeyMap} from '../../utils/key-map';
 
-@connect(null, bindActions(actions))
-  /**
-   * Overlay component
-   * @class Overlay
-   * @example <Overlay
-   *  type='share'
-   *  onClose={() => this.closeShareOverlay()}
-   * >
-   *  ...
-   * </Overlay>
-   * @extends {Component}
-   */
+@connect(
+  null,
+  bindActions(actions)
+)
+/**
+ * Overlay component
+ * @class Overlay
+ * @example <Overlay
+ *  type='share'
+ *  onClose={() => this.closeShareOverlay()}
+ * >
+ *  ...
+ * </Overlay>
+ * @extends {Component}
+ */
 class Overlay extends Component {
-
   /**
    * componentWillMount
    *
@@ -52,9 +54,11 @@ class Overlay extends Component {
     if (!props.permanent) {
       return (
         <Localizer>
-          <a onClick={() => props.onClose()} aria-label={<Text id='core.close'/>} className={style.closeOverlay}><Icon
-            type={IconType.Close}/></a>
-        </Localizer>)
+          <a onClick={() => props.onClose()} aria-label={<Text id="core.close" />} className={style.closeOverlay}>
+            <Icon type={IconType.Close} />
+          </a>
+        </Localizer>
+      );
     } else {
       return undefined;
     }
@@ -75,18 +79,17 @@ class Overlay extends Component {
     return (
       <div
         tabIndex="-1"
-        className={overlayClass.join(' ')} role='dialog'
-        onKeyDown={(e) => {
+        className={overlayClass.join(' ')}
+        role="dialog"
+        onKeyDown={e => {
           if (e.keyCode === KeyMap.ESC) {
             props.onClose();
           }
         }}>
-        <div className={style.overlayContents}>
-          {props.children}
-        </div>
+        <div className={style.overlayContents}>{props.children}</div>
         {this.renderCloseButton(props)}
       </div>
-    )
+    );
   }
 }
 

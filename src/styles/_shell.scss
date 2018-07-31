@@ -37,7 +37,8 @@
       margin-bottom: initial;
     }
 
-    input, textarea {
+    input,
+    textarea {
       font-family: $font-family;
     }
   }
@@ -81,16 +82,16 @@
   }
 }
 
-.player :global([id^=playkit-ads-container]) {
-  &:global([data-adtype="overlay"]) {
+.player :global([id^='playkit-ads-container']) {
+  &:global([data-adtype='overlay']) {
     z-index: 1;
   }
   transition: transform 100ms;
 }
 
 .player:not(.ad-break).metadata-loaded {
-  &.hover :global([id^=playkit-ads-container]),
-  &.state-paused :global([id^=playkit-ads-container]) {
+  &.hover :global([id^='playkit-ads-container']),
+  &.state-paused :global([id^='playkit-ads-container']) {
     transform: translateY(-60px);
   }
 }

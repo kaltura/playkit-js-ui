@@ -4,7 +4,7 @@ import style from '../../styles/style.scss';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/overlay-action';
-import {actions as shellActions} from '../../reducers/shell'
+import {actions as shellActions} from '../../reducers/shell';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 
@@ -51,15 +51,18 @@ const DOUBLE_CLICK_MAX_BUFFER_TIME: number = 500;
  */
 const DRAGGING_THRESHOLD: number = 5;
 
-@connect(mapStateToProps, bindActions(Object.assign({}, actions, shellActions)))
+@connect(
+  mapStateToProps,
+  bindActions(Object.assign({}, actions, shellActions))
+)
 
-  /**
-   * OverlayAction component
-   *
-   * @class OverlayAction
-   * @example <OverlayAction player={this.player} />
-   * @extends {BaseComponent}
-   */
+/**
+ * OverlayAction component
+ *
+ * @class OverlayAction
+ * @example <OverlayAction player={this.player} />
+ * @extends {BaseComponent}
+ */
 class OverlayAction extends BaseComponent {
   state: Object;
   _iconTimeout: ?number = null;
@@ -115,10 +118,10 @@ class OverlayAction extends BaseComponent {
    */
   toggleFullscreen(): void {
     if (!this.player.isFullscreen()) {
-      this.logger.debug("Enter fullscreen");
+      this.logger.debug('Enter fullscreen');
       this.player.enterFullscreen();
     } else {
-      this.logger.debug("Exit fullscreen");
+      this.logger.debug('Exit fullscreen');
       this.player.exitFullscreen();
     }
     this.notifyClick({
@@ -172,10 +175,12 @@ class OverlayAction extends BaseComponent {
    */
   isDragging(event: any): boolean {
     const points = {
-      clientX: event.clientX || event.changedTouches[0] && event.changedTouches[0].clientX,
-      clientY: event.clientY || event.changedTouches[0] && event.changedTouches[0].clientY
+      clientX: event.clientX || (event.changedTouches[0] && event.changedTouches[0].clientX),
+      clientY: event.clientY || (event.changedTouches[0] && event.changedTouches[0].clientY)
     };
-    return (Math.abs(points.clientX - this._pointerDownPosX) > DRAGGING_THRESHOLD || Math.abs(points.clientY - this._pointerDownPosY) > DRAGGING_THRESHOLD);
+    return (
+      Math.abs(points.clientX - this._pointerDownPosX) > DRAGGING_THRESHOLD || Math.abs(points.clientY - this._pointerDownPosY) > DRAGGING_THRESHOLD
+    );
   }
 
   /**
@@ -265,14 +270,15 @@ class OverlayAction extends BaseComponent {
    */
   render(): React$Element<any> {
     return (
-      <div className={`${style.overlayAction} ${this.state.animation ? style.in : ''}`}
-           onMouseDown={(e) => this.onOverlayPointerDown(e)}
-           onTouchStart={(e) => this.onOverlayPointerDown(e)}
-           onMouseUp={(e) => this.onOverlayMouseUp(e)}
-           onTouchEnd={(e) => this.onOverlayTouchEnd(e)}>
+      <div
+        className={`${style.overlayAction} ${this.state.animation ? style.in : ''}`}
+        onMouseDown={e => this.onOverlayPointerDown(e)}
+        onTouchStart={e => this.onOverlayPointerDown(e)}
+        onMouseUp={e => this.onOverlayMouseUp(e)}
+        onTouchEnd={e => this.onOverlayTouchEnd(e)}>
         {this.state.animation ? this.renderIcons() : undefined}
       </div>
-    )
+    );
   }
 
   /**
@@ -283,9 +289,9 @@ class OverlayAction extends BaseComponent {
    */
   renderIcons(): React$Element<any> {
     if (Array.isArray(this.state.iconType)) {
-      return this.state.iconType.map((i, x) => <Icon key={x} type={i}/>);
+      return this.state.iconType.map((i, x) => <Icon key={x} type={i} />);
     }
-    return <Icon type={this.state.iconType}/>;
+    return <Icon type={this.state.iconType} />;
   }
 
   /**

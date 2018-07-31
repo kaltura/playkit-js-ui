@@ -172,17 +172,15 @@ class Slider extends Component {
   mouseEventToValue(e: any): number {
     let clientX;
     if (e.touches && e.touches.length > 0) {
-      clientX = e.touches[0].clientX
-    }
-    else if (e.changedTouches) {
-      clientX = e.changedTouches[0].pageX
-    }
-    else {
+      clientX = e.touches[0].clientX;
+    } else if (e.changedTouches) {
+      clientX = e.changedTouches[0].pageX;
+    } else {
       clientX = e.clientX;
     }
 
     let offsetLeft = clientX - this._sliderElement.getBoundingClientRect().left;
-    let offsetLeftPercentage = Math.round(offsetLeft / this._sliderElement.clientWidth * 100);
+    let offsetLeftPercentage = Math.round((offsetLeft / this._sliderElement.clientWidth) * 100);
 
     if (this.getValueByPersentage(offsetLeftPercentage) < this.state.min) return this.state.min;
     if (this.getValueByPersentage(offsetLeftPercentage) > this.state.max) return this.state.max;
@@ -198,7 +196,7 @@ class Slider extends Component {
    * @memberof Slider
    */
   getValueByPersentage(persentage: number): number {
-    return (this.state.max / 100 * persentage);
+    return (this.state.max / 100) * persentage;
   }
 
   /**
@@ -208,7 +206,7 @@ class Slider extends Component {
    * @memberof Slider
    */
   getPersentageByValue(): number {
-    return Math.round((this.state.value / this.state.max * 100));
+    return Math.round((this.state.value / this.state.max) * 100);
   }
 
   /**
@@ -219,27 +217,22 @@ class Slider extends Component {
    */
   render(): React$Element<any> {
     return (
-      <div tabIndex="0"
-           ref={c => this._sliderElement = c}
-           className={style.slider}
-           onMouseDown={e => this.mouseDownHandler(e)}
-           onTouchStart={e => this.mouseDownHandler(e)}
-           onKeyDown={(e) => {
-             if (e.keyCode === KeyMap.LEFT || e.keyCode === KeyMap.RIGHT) {
-               this.onKeyboardDragging(e);
-             }
-           }}>
-        <div
-          className={style.progress}
-          style={{width: this.getPersentageByValue() + '%'}}>
-          <div
-            className={style.handle}
-            onMouseDown={e => this.mouseDownHandler(e)}
-            onTouchStart={e => this.mouseDownHandler(e)}
-          />
+      <div
+        tabIndex="0"
+        ref={c => (this._sliderElement = c)}
+        className={style.slider}
+        onMouseDown={e => this.mouseDownHandler(e)}
+        onTouchStart={e => this.mouseDownHandler(e)}
+        onKeyDown={e => {
+          if (e.keyCode === KeyMap.LEFT || e.keyCode === KeyMap.RIGHT) {
+            this.onKeyboardDragging(e);
+          }
+        }}>
+        <div className={style.progress} style={{width: this.getPersentageByValue() + '%'}}>
+          <div className={style.handle} onMouseDown={e => this.mouseDownHandler(e)} onTouchStart={e => this.mouseDownHandler(e)} />
         </div>
       </div>
-    )
+    );
   }
 }
 

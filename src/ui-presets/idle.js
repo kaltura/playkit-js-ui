@@ -13,7 +13,7 @@ import Loading from '../components/loading';
 export function idleUI(props: any): React$Element<any> {
   return (
     <div className={style.playbackGuiWWrapper}>
-      <Loading player={props.player}/>
+      <Loading player={props.player} />
     </div>
-  )
+  );
 }

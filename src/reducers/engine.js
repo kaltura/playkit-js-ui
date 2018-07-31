@@ -1,6 +1,6 @@
 //@flow
-import {getComponentStateFromComponentConfig, getComponentStateFromConfig} from "../utils/component-config";
-import {types as configReducerTypes} from "./config";
+import {getComponentStateFromComponentConfig, getComponentStateFromConfig} from '../utils/component-config';
+import {types as configReducerTypes} from './config';
 
 const component = 'engine';
 
@@ -278,7 +278,7 @@ export default (state: Object = initialState, action: Object) => {
     default:
       return state;
   }
-}
+};
 
 export const actions = {
   updateHasError: (hasError: boolean) => ({type: types.UPDATE_ERROR, hasError: hasError}),

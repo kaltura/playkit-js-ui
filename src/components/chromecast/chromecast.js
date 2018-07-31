@@ -15,14 +15,17 @@ const mapStateToProps = state => ({
   castAvailableTypes: state.engine.castAvailableTypes
 });
 
-@connect(mapStateToProps, null)
-  /**
-   * CastOverlay component
-   *
-   * @class ChromecastControl
-   * @example <ChromecastControl player={this.player} />
-   * @extends {BaseComponent}
-   */
+@connect(
+  mapStateToProps,
+  null
+)
+/**
+ * CastOverlay component
+ *
+ * @class ChromecastControl
+ * @example <ChromecastControl player={this.player} />
+ * @extends {BaseComponent}
+ */
 class ChromecastControl extends BaseComponent {
   _googleCastButton: HTMLButtonElement;
   _el: HTMLDivElement;
@@ -72,9 +75,7 @@ class ChromecastControl extends BaseComponent {
    */
   render(props: any): ?React$Element<any> {
     if (props.isCasting || (props.isCastAvailable && props.castAvailableTypes.includes('chromecast'))) {
-      return (
-        <div className={style.controlButtonContainer} ref={c => this._el = c}/>
-      )
+      return <div className={style.controlButtonContainer} ref={c => (this._el = c)} />;
     }
   }
 }

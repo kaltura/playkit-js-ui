@@ -13,14 +13,17 @@ const mapStateToProps = state => ({
   show: state.backdrop.show
 });
 
-@connect(mapStateToProps, null)
-  /**
-   * Backdrop component
-   *
-   * @class Backdrop
-   * @example <Backdrop/>
-   * @extends {Component}
-   */
+@connect(
+  mapStateToProps,
+  null
+)
+/**
+ * Backdrop component
+ *
+ * @class Backdrop
+ * @example <Backdrop/>
+ * @extends {Component}
+ */
 class Backdrop extends Component {
   /**
    * render component
@@ -31,9 +34,7 @@ class Backdrop extends Component {
    */
   render(props: any): ?React$Element<any> {
     if (!props.show) return undefined;
-    return (
-      <div className={style.backdrop}/>
-    )
+    return <div className={style.backdrop} />;
   }
 }
 

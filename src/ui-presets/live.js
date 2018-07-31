@@ -32,40 +32,36 @@ import {Backdrop} from '../components/backdrop/backdrop';
 export function liveUI(props: any): React$Element<any> {
   return (
     <div className={style.playbackGuiWWrapper}>
-      <KeyboardControl player={props.player} config={props.config}/>
-      <Loading player={props.player}/>
-      <div className={style.playerGui} id='player-gui'>
-        <OverlayPortal/>
-        <UnmuteIndication/>
-        <OverlayAction player={props.player}/>
+      <KeyboardControl player={props.player} config={props.config} />
+      <Loading player={props.player} />
+      <div className={style.playerGui} id="player-gui">
+        <OverlayPortal />
+        <UnmuteIndication />
+        <OverlayAction player={props.player} />
         <BottomBar>
-          <SeekBarLivePlaybackContainer
-            showFramePreview
-            showTimeBubble
-            player={props.player}
-            playerContainer={props.playerContainer}/>
+          <SeekBarLivePlaybackContainer showFramePreview showTimeBubble player={props.player} playerContainer={props.playerContainer} />
           <div className={style.leftControls}>
-            <PlayPauseControl player={props.player}/>
-            <LiveTag player={props.player}/>
+            <PlayPauseControl player={props.player} />
+            <LiveTag player={props.player} />
           </div>
           <div className={style.rightControls}>
-            {(props.state.engine.isVr && shouldRenderComponent(props.config, VrStereoToggleControl.displayName))
-              ? <VrStereoToggleControl player={props.player}/>
-              : undefined}
-            <VolumeControl player={props.player}/>
-            <LanguageControl player={props.player}/>
-            <SettingsControl player={props.player}/>
-            <ChromecastControl player={props.player}/>
-            <FullscreenControl player={props.player}/>
+            {props.state.engine.isVr && shouldRenderComponent(props.config, VrStereoToggleControl.displayName) ? (
+              <VrStereoToggleControl player={props.player} />
+            ) : (
+              undefined
+            )}
+            <VolumeControl player={props.player} />
+            <LanguageControl player={props.player} />
+            <SettingsControl player={props.player} />
+            <ChromecastControl player={props.player} />
+            <FullscreenControl player={props.player} />
           </div>
         </BottomBar>
       </div>
-      <PrePlaybackPlayOverlay player={props.player}/>
-      <CastBeforePlay player={props.player}/>
-      {shouldRenderComponent(props.config, Watermark.displayName)
-        ? <Watermark player={props.player}/>
-        : undefined}
-      <Backdrop/>
+      <PrePlaybackPlayOverlay player={props.player} />
+      <CastBeforePlay player={props.player} />
+      {shouldRenderComponent(props.config, Watermark.displayName) ? <Watermark player={props.player} /> : undefined}
+      <Backdrop />
     </div>
-  )
+  );
 }

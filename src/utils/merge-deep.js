@@ -4,7 +4,7 @@
  * @returns {boolean} - Whether the item is an object.
  */
 function isObject(item: any) {
-  return (item && typeof item === 'object' && !Array.isArray(item));
+  return item && typeof item === 'object' && !Array.isArray(item);
 }
 
 /**

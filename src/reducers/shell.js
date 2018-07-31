@@ -86,7 +86,7 @@ export default (state: Object = initialState, action: Object) => {
     default:
       return state;
   }
-}
+};
 
 export const actions = {
   addPlayerClass: (className: string) => ({type: types.ADD_PLAYER_CLASS, className}),

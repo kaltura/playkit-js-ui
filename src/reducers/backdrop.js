@@ -1,6 +1,6 @@
 //@flow
 export const types = {
-  UPDATE_BACKDROP_VISIBILITY: 'backdrop/UPDATE_BACKDROP_VISIBILITY',
+  UPDATE_BACKDROP_VISIBILITY: 'backdrop/UPDATE_BACKDROP_VISIBILITY'
 };
 
 export const initialState = {
@@ -18,7 +18,7 @@ export default (state: Object = initialState, action: Object) => {
     default:
       return state;
   }
-}
+};
 
 export const actions = {
   updateBackdropVisibility: (show: boolean) => ({type: types.UPDATE_BACKDROP_VISIBILITY, show})
