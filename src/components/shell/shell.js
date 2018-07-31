@@ -7,7 +7,6 @@ import {bindActions} from '../../utils/bind-actions';
 import {actions as shellActions} from '../../reducers/shell';
 import {actions as engineActions} from '../../reducers/engine';
 import {KeyMap} from '../../utils/key-map';
-import {bindMethod} from '../../utils/bind-method';
 
 /**
  * mapping state to props
@@ -55,7 +54,6 @@ class Shell extends BaseComponent {
   state: Object;
   hoverTimeout: ?number;
   _environmentClasses: Array<string>;
-  _onWindowResize: Function;
 
   /**
    * Creates an instance of Shell.
@@ -64,7 +62,6 @@ class Shell extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'Shell', player: obj.player});
-    this._onWindowResize = bindMethod(this, this._onWindowResize);
     this._environmentClasses = [
       `${__CSS_MODULE_PREFIX__}-${this.player.env.os.name.replace(/ /g, '-')}`,
       `${__CSS_MODULE_PREFIX__}-${this.player.env.browser.name.replace(/ /g, '-')}`
@@ -181,7 +178,7 @@ class Shell extends BaseComponent {
   componentDidMount() {
     this.props.updateIsMobile(!!this.player.env.device.type || this.props.forceTouchUI);
     this._onWindowResize();
-    window.addEventListener('resize', this._onWindowResize);
+    this.eventManager.listen(window, 'resize', () => this._onWindowResize());
   }
 
   /**
@@ -207,8 +204,8 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   componentWillUnmount(): void {
+    super.componentWillUnmount();
     this._clearHoverTimeout();
-    window.removeEventListener('resize', this._onWindowResize);
   }
 
   /**
@@ -324,7 +321,7 @@ class Shell extends BaseComponent {
         onKeyDown={(e) => this.onKeyDown(e)}>
         {props.children}
       </div>
-    )
+    );
   }
 }
 

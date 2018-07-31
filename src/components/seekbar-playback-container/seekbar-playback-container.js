@@ -5,8 +5,6 @@ import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/seekbar';
 import BaseComponent from '../base';
 import {SeekBarControl} from '../seekbar';
-import {EventManager} from '../../event/event-manager';
-import {UIEventManager} from '../../event/event-manager';
 
 /**
  * mapping state to props
@@ -30,7 +28,6 @@ const mapStateToProps = state => ({
    * @extends {BaseComponent}
    */
 class SeekBarPlaybackContainer extends BaseComponent {
-  _eventManager: EventManager;
 
   /**
    * Creates an instance of SeekBarPlaybackContainer.
@@ -39,7 +36,6 @@ class SeekBarPlaybackContainer extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'SeekBarPlaybackContainer', player: obj.player});
-    this._eventManager = UIEventManager.getInstance();
   }
 
   /**
@@ -50,7 +46,7 @@ class SeekBarPlaybackContainer extends BaseComponent {
    * @memberof SeekBarPlaybackContainer
    */
   componentDidMount() {
-    this._eventManager.listen(this.player, this.player.Event.TIME_UPDATE, () => {
+    this.eventManager.listen(this.player, this.player.Event.TIME_UPDATE, () => {
       if (!this.props.isDraggingActive) {
         this.props.updateCurrentTime(this.player.currentTime);
       }
@@ -81,7 +77,7 @@ class SeekBarPlaybackContainer extends BaseComponent {
         isMobile={this.props.isMobile}
         notifyChange={payload => this.notifyChange(payload)}
       />
-    )
+    );
   }
 
 }

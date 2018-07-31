@@ -11,8 +11,7 @@ import {SmartContainerItem} from '../smart-container/smart-container-item';
 import {default as Icon, IconType} from '../icon';
 import {CVAAOverlay} from '../cvaa-overlay';
 import Portal from 'preact-portal';
-import {KeyMap} from "../../utils/key-map";
-import {bindMethod} from '../../utils/bind-method';
+import {KeyMap} from '../../utils/key-map';
 
 /**
  * mapping state to props
@@ -36,7 +35,6 @@ const mapStateToProps = state => ({
    */
 class LanguageControl extends BaseComponent {
   state: Object;
-  handleClickOutside: Function;
   _controlLanguageElement: any;
   _portal: any;
 
@@ -47,7 +45,6 @@ class LanguageControl extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'LanguageControl', player: obj.player});
-    this.handleClickOutside = bindMethod(this, this.handleClickOutside);
   }
 
   /**
@@ -67,17 +64,7 @@ class LanguageControl extends BaseComponent {
    * @memberof LanguageControl
    */
   componentDidMount() {
-    document.addEventListener('click', this.handleClickOutside, true);
-  }
-
-  /**
-   * before component unmounted, remove event listener
-   *
-   * @returns {void}
-   * @memberof LanguageControl
-   */
-  componentWillUnmount() {
-    document.removeEventListener('click', this.handleClickOutside, true);
+    this.eventManager.listen(document, 'click', e => this.handleClickOutside(e));
   }
 
   /**
@@ -176,7 +163,7 @@ class LanguageControl extends BaseComponent {
         </Localizer>
         {!this.state.smartContainerOpen || this.state.cvaaOverlay ? undefined :
           <SmartContainer title='Language' onClose={() => this.onControlButtonClick()}>
-            {audioOptions.length === 0 ? undefined :
+            {audioOptions.length <= 1 ? undefined :
               <Localizer>
                 <SmartContainerItem
                   icon='audio'
@@ -186,7 +173,7 @@ class LanguageControl extends BaseComponent {
                 />
               </Localizer>
             }
-            {textOptions.length === 0 ? undefined :
+            {textOptions.length <= 1 ? undefined :
               <Localizer>
                 <SmartContainerItem
                   icon='captions'
@@ -196,7 +183,7 @@ class LanguageControl extends BaseComponent {
                 />
               </Localizer>
             }
-            {textOptions.length === 0 ? undefined :
+            {textOptions.length <= 1 ? undefined :
               <div tabIndex="0"
                    className={style.smartContainerItem}
                    onKeyDown={(e) => {
@@ -220,7 +207,7 @@ class LanguageControl extends BaseComponent {
           </Portal>
         ) : <div/>}
       </div>
-    )
+    );
   }
 
   /**
@@ -234,13 +221,13 @@ class LanguageControl extends BaseComponent {
     const audioOptions = props.audioTracks
       .filter(t => t.label || t.language)
       .map(t => ({label: t.label || t.language, active: t.active, value: t}));
-    const textOptions = props.textTracks.filter(t => t.kind === 'subtitles').map(t => ({
+    const textOptions = props.textTracks.map(t => ({
       label: t.label || t.language,
       active: t.active,
       value: t
     }));
 
-    if (audioOptions.length > 0 || textOptions.length > 0) {
+    if (audioOptions.length > 1 || textOptions.length > 1) {
       return this.renderAll(audioOptions, textOptions);
     }
     else {

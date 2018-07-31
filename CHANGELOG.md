@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.25.1"></a>
+## [0.25.1](https://github.com/kaltura/playkit-js-ui/compare/v0.25.0...v0.25.1) (2018-07-26)
+
+
+### Bug Fixes
+
+* **FEC-8286:** make unmute button focusable ([#256](https://github.com/kaltura/playkit-js-ui/issues/256)) ([7accc69](https://github.com/kaltura/playkit-js-ui/commit/7accc69))
+* **FEC-8421, FEC-8422:** Ads UI issues [#255](https://github.com/kaltura/playkit-js-ui/issues/255) ([66ddc4e](https://github.com/kaltura/playkit-js-ui/commit/66ddc4e))
+* subtitles font size is too small on mobile ([#257](https://github.com/kaltura/playkit-js-ui/issues/257)) ([a74d72d](https://github.com/kaltura/playkit-js-ui/commit/a74d72d)), closes [kaltura/playkit-js#270](https://github.com/kaltura/playkit-js/issues/270)
+
+
+
+<a name="0.25.0"></a>
+# [0.25.0](https://github.com/kaltura/playkit-js-ui/compare/v0.24.6...v0.25.0) (2018-07-23)
+
+
+### Features
+
+* **FEC-8390, FEC-8246:** support 608/708 captions ([#254](https://github.com/kaltura/playkit-js-ui/issues/254)) ([6a9c787](https://github.com/kaltura/playkit-js-ui/commit/6a9c787))
+* **FEC-8395:** dont render options with one option (language and settings) + remove the isLive - playbackrate (move to core) ([2338a4b](https://github.com/kaltura/playkit-js-ui/commit/2338a4b))
+
+
+
+<a name="0.24.6"></a>
+## [0.24.6](https://github.com/kaltura/playkit-js-ui/compare/v0.24.5...v0.24.6) (2018-07-12)
+
+
+### Bug Fixes
+
+* **FEC-8271:** merge actions into new object [#241](https://github.com/kaltura/playkit-js-ui/issues/241) ([5566f3b](https://github.com/kaltura/playkit-js-ui/commit/5566f3b))
+
+
+
 <a name="0.24.5"></a>
 ## [0.24.5](https://github.com/kaltura/playkit-js-ui/compare/v0.24.4...v0.24.5) (2018-07-02)
 

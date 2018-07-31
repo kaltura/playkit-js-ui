@@ -8,9 +8,6 @@ import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {KEYBOARD_DEFAULT_VOLUME_JUMP} from '../keyboard/keyboard';
-import {EventManager} from '../../event/event-manager';
-import {bindMethod} from '../../utils/bind-method';
-import {UIEventManager} from '../../event/event-manager';
 
 /**
  * mapping state to props
@@ -35,9 +32,6 @@ const mapStateToProps = state => ({
 class VolumeControl extends BaseComponent {
   _volumeControlElement: HTMLElement;
   _volumeProgressBarElement: HTMLElement;
-  _eventManager: EventManager;
-  onVolumeProgressBarMouseUp: Function;
-  onVolumeProgressBarMouseMove: Function;
 
   /**
    * Creates an instance of VolumeControl.
@@ -48,9 +42,6 @@ class VolumeControl extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'Volume', player: obj.player});
-    this._eventManager = UIEventManager.getInstance();
-    this.onVolumeProgressBarMouseUp = bindMethod(this, this.onVolumeProgressBarMouseUp);
-    this.onVolumeProgressBarMouseMove = bindMethod(this, this.onVolumeProgressBarMouseMove);
   }
 
   /**
@@ -61,27 +52,16 @@ class VolumeControl extends BaseComponent {
    * @memberof VolumeControl
    */
   componentDidMount(): void {
-    this._eventManager.listen(this.player, this.player.Event.LOADED_METADATA, () => {
+    this.eventManager.listen(this.player, this.player.Event.LOADED_METADATA, () => {
       this.props.updateVolume(this.player.volume);
       this.props.updateMuted(this.player.muted);
     });
-    this._eventManager.listen(this.player, this.player.Event.VOLUME_CHANGE, () => {
+    this.eventManager.listen(this.player, this.player.Event.VOLUME_CHANGE, () => {
       this.props.updateMuted(this.player.muted);
       this.props.updateVolume(this.player.volume);
     });
-    document.addEventListener('mouseup', this.onVolumeProgressBarMouseUp);
-    document.addEventListener('mousemove', this.onVolumeProgressBarMouseMove);
-  }
-
-  /**
-   * before component unmounted, remove event listeners
-   *
-   * @returns {void}
-   * @memberof VolumeControl
-   */
-  componentWillUnmount(): void {
-    document.removeEventListener('mouseup', this.onVolumeProgressBarMouseUp);
-    document.removeEventListener('mousemove', this.onVolumeProgressBarMouseMove);
+    this.eventManager.listen(document, 'mouseup', e => this.onVolumeProgressBarMouseUp(e));
+    this.eventManager.listen(document, 'mousemove', e => this.onVolumeProgressBarMouseMove(e));
   }
 
   /**
@@ -110,11 +90,11 @@ class VolumeControl extends BaseComponent {
    * on volume progress bar mouse move, update the volume if dragging is active
    *
    * @method onVolumeProgressBarMouseMove
-   * @param {Event} e - mouse move event
+   * @param {FakeEvent} e - mouse move event
    * @returns {void}
    * @memberof VolumeControl
    */
-  onVolumeProgressBarMouseMove(e: Event): void {
+  onVolumeProgressBarMouseMove(e: FakeEvent): void {
     if (this.props.isDraggingActive) {
       this.changeVolume(e);
     }
@@ -184,11 +164,11 @@ class VolumeControl extends BaseComponent {
    * on volume progress bar mouse up, update the volume and change the dragging status to false
    *
    * @method onVolumeProgressBarMouseUp
-   * @param {Event} e - mouse up event
+   * @param {FakeEvent} e - mouse up event
    * @returns {void}
    * @memberof VolumeControl
    */
-  onVolumeProgressBarMouseUp(e: Event): void {
+  onVolumeProgressBarMouseUp(e: FakeEvent): void {
     if (this.props.isDraggingActive) {
       this.props.updateVolumeDraggingStatus(false);
       this.changeVolume(e);
@@ -213,11 +193,11 @@ class VolumeControl extends BaseComponent {
    * if muted value is true in store state, change it to false both in store state and in player instance.
    *
    * @method changeVolume
-   * @param {Event} e - event to get the position from
+   * @param {FakeEvent} e - event to get the position from
    * @returns {void}
    * @memberof VolumeControl
    */
-  changeVolume(e: Event): void {
+  changeVolume(e: FakeEvent): void {
     let barHeight = this._volumeProgressBarElement.clientHeight;
     let topY = this.getCoords(this._volumeProgressBarElement).top;
     let clickY = (e: any).clientY;
@@ -241,13 +221,13 @@ class VolumeControl extends BaseComponent {
    * @returns {{top: number, left: number}} object with the top and left position
    * @memberof VolumeControl
    */
-  getCoords(el: HTMLElement): { top: number, left: number } {
+  getCoords(el: HTMLElement): {top: number, left: number} {
     let box = el.getBoundingClientRect();
 
     return {
       top: box.top,
       left: box.left
-    }
+    };
   }
 
   /**
@@ -288,7 +268,7 @@ class VolumeControl extends BaseComponent {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
