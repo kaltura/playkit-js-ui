@@ -1,11 +1,14 @@
 //@flow
 import {h} from 'preact';
+import style from '../../styles/style.scss';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {default as reduce, actions} from '../../reducers/engine';
+import {actions as loadingActions} from '../../reducers/loading';
+import {actions as shellActions} from '../../reducers/shell';
 import BaseComponent from '../base';
 
-@connect(reduce, bindActions(actions))
+@connect(reduce, bindActions({...actions, ...loadingActions, ...shellActions}))
   /**
    * EngineConnector component
    *
@@ -39,6 +42,13 @@ class EngineConnector extends BaseComponent {
 
     this.eventManager.listen(this.player, this.player.Event.SOURCE_SELECTED, () => {
       this.props.updateIsVr(this.player.isVr());
+      if (this.player.config.playback.autoplay) {
+        this.props.updateLoadingSpinnerState(true);
+      } else {
+        this.props.updateLoadingSpinnerState(false);
+        this.props.updatePrePlayback(true);
+        this.props.addPlayerClass(style.prePlayback);
+      }
     });
 
     this.eventManager.listen(this.player, this.player.Event.CHANGE_SOURCE_STARTED, () => {
