@@ -6,8 +6,6 @@ import {connect} from 'preact-redux';
 import {IconType} from '../icon/index';
 import {actions} from '../../reducers/backdrop';
 import {Icon} from '../icon/icon';
-import {EventManager} from '../../event/event-manager';
-import {UIEventManager} from '../../event/event-manager';
 
 /**
  * mapping state to props
@@ -29,7 +27,6 @@ const mapStateToProps = state => ({
    * @extends {BaseComponent}
    */
 class CastBeforePlay extends BaseComponent {
-  _eventManager: EventManager;
 
   /**
    * @static
@@ -46,7 +43,6 @@ class CastBeforePlay extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'CastBeforePlay', player: obj.player});
-    this._eventManager = UIEventManager.getInstance();
   }
 
   /**
@@ -69,8 +65,8 @@ class CastBeforePlay extends BaseComponent {
    */
   componentDidMount(): void {
     setTimeout(() => {
-      this.setState({show: true})
-    }, 700)
+      this.setState({show: true});
+    }, 700);
   }
 
   /**
@@ -99,7 +95,7 @@ class CastBeforePlay extends BaseComponent {
           </a>
         </div>
       </div>
-    )
+    );
   }
 }
 

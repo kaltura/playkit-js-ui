@@ -7,8 +7,6 @@ import {default as reduce, actions} from '../../reducers/engine';
 import {actions as loadingActions} from '../../reducers/loading';
 import {actions as shellActions} from '../../reducers/shell';
 import BaseComponent from '../base';
-import {EventManager} from '../../event/event-manager';
-import {UIEventManager} from '../../event/event-manager';
 
 @connect(reduce, bindActions({...actions, ...loadingActions, ...shellActions}))
   /**
@@ -19,7 +17,6 @@ import {UIEventManager} from '../../event/event-manager';
    * @extends {BaseComponent}
    */
 class EngineConnector extends BaseComponent {
-  _eventManager: EventManager;
 
   /**
    * Creates an instance of EngineConnector.
@@ -28,7 +25,6 @@ class EngineConnector extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'EngineConnector', player: obj.player});
-    this._eventManager = UIEventManager.getInstance();
   }
 
   /**

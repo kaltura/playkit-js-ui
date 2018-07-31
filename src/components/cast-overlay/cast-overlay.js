@@ -5,8 +5,6 @@ import BaseComponent from '../base';
 import {connect} from 'preact-redux';
 import {IconType} from '../icon/index';
 import {Icon} from '../icon/icon';
-import {EventManager} from '../../event/event-manager';
-import {UIEventManager} from '../../event/event-manager';
 
 /**
  * mapping state to props
@@ -27,13 +25,12 @@ const mapStateToProps = state => ({
    * @extends {BaseComponent}
    */
 class CastOverlay extends BaseComponent {
-  _eventManager: EventManager;
 
   /**
    * @static
    * @type {Object} - Component default props
    */
-  static defaultProps: any= {
+  static defaultProps: any = {
     icon: IconType.Chromecast
   };
 
@@ -44,7 +41,6 @@ class CastOverlay extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'CastOverlay', player: obj.player});
-    this._eventManager = UIEventManager.getInstance();
     this.setState({connecting: true});
   }
 
@@ -54,12 +50,12 @@ class CastOverlay extends BaseComponent {
    * @returns {void}
    */
   componentWillMount(): void {
-    this._eventManager.listen(this.player, this.player.Event.PLAYBACK_STARTED, () => this.setState({
+    this.eventManager.listen(this.player, this.player.Event.PLAYBACK_STARTED, () => this.setState({
       playing: true,
       connected: false,
       connecting: false
     }));
-    this._eventManager.listen(this.player, this.player.Event.ENDED, () => this.setState({
+    this.eventManager.listen(this.player, this.player.Event.ENDED, () => this.setState({
       playing: false,
       connected: true,
       connecting: false
@@ -89,7 +85,7 @@ class CastOverlay extends BaseComponent {
     const posterClasses = [style.castPoster];
     if (props.poster) {
       posterStyle = {backgroundImage: `url(${props.poster})`};
-      posterClasses.push(style.hasPoster)
+      posterClasses.push(style.hasPoster);
     }
 
     return (
@@ -119,12 +115,12 @@ class CastOverlay extends BaseComponent {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
-// CastOverlay.defaultProps = {
-//     icon: IconType.Chromecast
-//   };
+CastOverlay.defaultProps = {
+  icon: IconType.Chromecast
+};
 
 export {CastOverlay};
