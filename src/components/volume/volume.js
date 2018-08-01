@@ -8,6 +8,7 @@ import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {KEYBOARD_DEFAULT_VOLUME_JUMP} from '../keyboard/keyboard';
+import {FakeEvent} from '../../event/fake-event';
 
 /**
  * mapping state to props
