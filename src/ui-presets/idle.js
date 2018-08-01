@@ -1,7 +1,7 @@
 //@flow
 import {h} from 'preact';
 import style from '../styles/style.scss';
-import Loading from '../components/loading';
+import {Loading} from '../components/loading';
 
 /**
  * Idle ui interface
