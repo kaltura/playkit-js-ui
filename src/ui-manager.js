@@ -161,9 +161,9 @@ class UIManager {
    * @returns {void}
    */
   destroy(): void {
-    render('', this.container, this.root);
     if (this.container) {
       this.container.prepend(this.player.getView());
+      render('', this.container, this.root);
     }
   }
 
