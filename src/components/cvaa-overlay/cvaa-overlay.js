@@ -267,25 +267,25 @@ class CVAAOverlay extends BaseComponent {
     const fontColorOptions = Object.keys(standardColors).map(key => ({
       value: standardColors[key],
       label: key.charAt(0).toUpperCase() + key.toLowerCase().slice(1),
-      active: this.state.customTextStyle.fontColor == standardColors[key]
+      active: this.state.customTextStyle.fontColor.every((value, index) => value === standardColors[key][index])
     }));
 
     const fontFamilyOptions = Object.keys(fontFamily).map(key => ({
       value: fontFamily[key],
       label: fontFamily[key],
-      active: this.state.customTextStyle.fontFamily == fontFamily[key]
+      active: this.state.customTextStyle.fontFamily === fontFamily[key]
     }));
 
     const fontStyleOptions = Object.keys(edgeStyles).map(key => ({
       value: edgeStyles[key],
       label: key.charAt(0).toUpperCase() + key.toLowerCase().slice(1),
-      active: this.state.customTextStyle.fontEdge == edgeStyles[key]
+      active: this.state.customTextStyle.fontEdge === edgeStyles[key]
     }));
 
     const backgroundColorOptions = Object.keys(standardColors).map(key => ({
       value: standardColors[key],
       label: key.charAt(0).toUpperCase() + key.toLowerCase().slice(1),
-      active: this.state.customTextStyle.backgroundColor == standardColors[key]
+      active: this.state.customTextStyle.backgroundColor.every((value, index) => value === standardColors[key][index])
     }));
 
     return (
