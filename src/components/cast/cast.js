@@ -3,6 +3,7 @@ import style from '../../styles/style.scss';
 import {h} from 'preact';
 import BaseComponent from '../base';
 import {connect} from 'preact-redux';
+import {actions} from '../../reducers/backdrop';
 
 /**
  * mapping state to props
@@ -17,7 +18,7 @@ const mapStateToProps = state => ({
 
 @connect(
   mapStateToProps,
-  null
+  actions
 )
 /**
  * CastOverlay component
@@ -37,6 +38,17 @@ class CastControl extends BaseComponent {
   }
 
   /**
+   * On click set the backdrop to visible.
+   * If cast session start failed remove the backdrop.
+   * @memberof CastControl
+   * @returns {void}
+   */
+  onClick(): void {
+    this.props.updateBackdropVisibility(true);
+    this.eventManager.listenOnce(this.player, this.player.Event.Cast.CAST_SESSION_START_FAILED, () => this.props.updateBackdropVisibility(false));
+  }
+
+  /**
    * render component
    *
    * @param {*} props - component props
@@ -48,7 +60,8 @@ class CastControl extends BaseComponent {
       return h(
         'div',
         {
-          class: style.controlButtonContainer
+          class: style.controlButtonContainer,
+          onClick: () => this.onClick()
         },
         h('google-cast-launcher', {
           class: style.castButton
