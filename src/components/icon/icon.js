@@ -38,7 +38,7 @@ const IconType = {
   Rewind10: 'rewind10',
   vrStereo: 'vr-stereo',
   vrStereoFull: 'vr-stereo-full',
-  Chromecast: 'chromecast'
+  Cast: 'cast'
 };
 
 /**
@@ -163,7 +163,7 @@ class Icon extends Component {
       case IconType.vrStereoFull:
         return <i className={[style.icon, style.iconVrStereoFull].join(' ')} />;
 
-      case IconType.Chromecast:
+      case IconType.Cast:
         return <i className={[style.icon, style.iconChromecast].join(' ')} />;
 
       default:

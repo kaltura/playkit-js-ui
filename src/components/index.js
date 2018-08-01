@@ -37,6 +37,6 @@ export {UnmuteIndication} from './unmute-indication';
 export {VideoPlayer} from './video-player';
 export {VolumeControl} from './volume';
 export {Watermark} from './watermark';
-export {ChromecastControl} from './chromecast';
+export {CastControl} from './cast';
 export {CastOverlay} from './cast-overlay';
 export {VrStereoToggleControl} from './vr-stereo-toggle';

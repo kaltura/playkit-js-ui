@@ -33,7 +33,7 @@ class CastOverlay extends BaseComponent {
    * @type {Object} - Component default props
    */
   static defaultProps: any = {
-    icon: IconType.Chromecast
+    icon: IconType.Cast
   };
 
   /**
@@ -112,9 +112,5 @@ class CastOverlay extends BaseComponent {
     );
   }
 }
-
-CastOverlay.defaultProps = {
-  icon: IconType.Chromecast
-};
 
 export {CastOverlay};

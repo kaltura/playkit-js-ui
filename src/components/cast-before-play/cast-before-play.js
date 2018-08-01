@@ -35,7 +35,7 @@ class CastBeforePlay extends BaseComponent {
    * @type {Object} - Component default props
    */
   static defaultProps: Object = {
-    icon: IconType.Chromecast
+    icon: IconType.Cast
   };
 
   /**
