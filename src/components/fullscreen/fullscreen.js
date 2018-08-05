@@ -34,7 +34,6 @@ const mapStateToProps = state => ({
    */
 class FullscreenControl extends BaseComponent {
   _targetDiv: ?HTMLElement;
-  fullscreenChangeHandler: Function;
   _prevFullscreenState: boolean;
 
   /**
@@ -72,20 +71,6 @@ class FullscreenControl extends BaseComponent {
     this.eventManager.listen(this.player, this.player.Event.REQUESTED_ENTER_FULLSCREEN, () => this.enterFullscreen());
     this.eventManager.listen(this.player, this.player.Event.REQUESTED_EXIT_FULLSCREEN, () => this.exitFullscreen());
     this.handleIosFullscreen();
-  }
-
-  /**
-   * before component unmounted, remove event listeners
-   *
-   * @returns {void}
-   * @memberof FullscreenControl
-   */
-  componentWillUnmount(): void {
-    document.removeEventListener('webkitfullscreenchange', this.fullscreenChangeHandler);
-    document.removeEventListener('mozfullscreenchange', this.fullscreenChangeHandler);
-    document.removeEventListener('fullscreenchange', this.fullscreenChangeHandler);
-    document.removeEventListener('MSFullscreenChange', this.fullscreenChangeHandler);
-
   }
 
   /**
