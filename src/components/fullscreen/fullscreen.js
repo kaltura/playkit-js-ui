@@ -25,20 +25,17 @@ const mapStateToProps = state => ({
   mapStateToProps,
   bindActions(Object.assign({}, actions, fullscreenActions))
 )
-/**
- * FullscreenControl component
- *
- * @class FullscreenControl
- * @example <FullscreenControl player={this.player} />
- * @extends {BaseComponent}
- */
+  /**
+   * FullscreenControl component
+   *
+   * @class FullscreenControl
+   * @example <FullscreenControl player={this.player} />
+   * @extends {BaseComponent}
+   */
 class FullscreenControl extends BaseComponent {
   _targetDiv: ?HTMLElement;
-<<<<<<< HEAD
   fullscreenChangeHandler: Function;
   _prevFullscreenState: boolean;
-=======
->>>>>>> 0c42520bd9f116bec44d37e95cdd21e699c49806
 
   /**
    * Creates an instance of FullscreenControl.
@@ -47,11 +44,8 @@ class FullscreenControl extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'Fullscreen', player: obj.player});
-<<<<<<< HEAD
     this.fullscreenChangeHandler = bindMethod(this, this.fullscreenChangeHandler);
     this._prevFullscreenState = false;
-=======
->>>>>>> 0c42520bd9f116bec44d37e95cdd21e699c49806
   }
 
   /**
@@ -81,7 +75,6 @@ class FullscreenControl extends BaseComponent {
   }
 
   /**
-<<<<<<< HEAD
    * before component unmounted, remove event listeners
    *
    * @returns {void}
@@ -96,15 +89,13 @@ class FullscreenControl extends BaseComponent {
   }
 
   /**
-=======
->>>>>>> 0c42520bd9f116bec44d37e95cdd21e699c49806
    * Handle iOS full screen changes
    *
    * @returns {void}
    * @memberof FullscreenControl
    */
   handleIosFullscreen(): void {
-    // if (this.player.env.os.name === 'iOS' || this.player.pl) {
+    if (this.player.env.os.name === 'iOS' || this.player.pl) {
       /**
        * Attach listeners to ios full screen change.
        * @returns {void}
@@ -113,13 +104,9 @@ class FullscreenControl extends BaseComponent {
         this.eventManager.listen(this.player.getVideoElement(), 'webkitbeginfullscreen', () => this.fullscreenEnterHandler());
         this.eventManager.listen(this.player.getVideoElement(), 'webkitendfullscreen', () => this.fullscreenExitHandler());
       };
-<<<<<<< HEAD
       this.player.addEventListener(this.player.Event.SOURCE_SELECTED, attachIosFullscreenListeners);
-    // }
-=======
-      this.eventManager.listenOnce(this.player, this.player.Event.SOURCE_SELECTED, attachIosFullscreenListeners);
     }
->>>>>>> 0c42520bd9f116bec44d37e95cdd21e699c49806
+    this.eventManager.listenOnce(this.player, this.player.Event.SOURCE_SELECTED, attachIosFullscreenListeners);
   }
 
   /**
@@ -129,7 +116,6 @@ class FullscreenControl extends BaseComponent {
    * @memberof FullscreenControl
    */
   fullscreenChangeHandler(): void {
-<<<<<<< HEAD
     const isFullscreen = this._isFullscreen();
     this._prevFullscreenState = isFullscreen;
     isFullscreen ? this.fullscreenEnterHandler() : this.fullscreenExitHandler();
@@ -145,13 +131,7 @@ class FullscreenControl extends BaseComponent {
       typeof document.mozFullScreenElement !== 'undefined' && Boolean(document.mozFullScreenElement) ||
       typeof document.msFullscreenElement !== 'undefined' && Boolean(document.msFullscreenElement);
   }
-=======
-    const isFullscreen =
-      (typeof document.fullscreenElement !== 'undefined' && Boolean(document.fullscreenElement)) ||
-      (typeof document.webkitFullscreenElement !== 'undefined' && Boolean(document.webkitFullscreenElement)) ||
-      (typeof document.mozFullScreenElement !== 'undefined' && Boolean(document.mozFullScreenElement)) ||
-      (typeof document.msFullscreenElement !== 'undefined' && Boolean(document.msFullscreenElement));
->>>>>>> 0c42520bd9f116bec44d37e95cdd21e699c49806
+
 
   /**
    * @returns {boolean} - true if there is difference between the previous fullscreen state and the current
@@ -303,7 +283,7 @@ class FullscreenControl extends BaseComponent {
    * @memberof FullscreenControl
    */
   render(): React$Element<any> {
-    if (this._isChanged()){
+    if (this._isChanged()) {
       this.fullscreenChangeHandler();
     }
     return (
@@ -311,11 +291,11 @@ class FullscreenControl extends BaseComponent {
         <Localizer>
           <button
             tabIndex="0"
-            aria-label={<Text id="controls.fullscreen" />}
+            aria-label={<Text id="controls.fullscreen"/>}
             className={this.props.fullscreen ? [style.controlButton, style.isFullscreen].join(' ') : style.controlButton}
             onClick={() => this.toggleFullscreen()}>
-            <Icon type={IconType.Maximize} />
-            <Icon type={IconType.Minimize} />
+            <Icon type={IconType.Maximize}/>
+            <Icon type={IconType.Minimize}/>
           </button>
         </Localizer>
       </div>
