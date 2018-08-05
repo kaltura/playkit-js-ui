@@ -19,8 +19,14 @@
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "*.{js,jsx}": ["eslint --fix", "git add"],
-    "*.{json,md,scss}": ["prettier --write", "git add"]
+    "*.{js,jsx}": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.{json,md,scss}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "standard-version": {
     "scripts": {
@@ -73,7 +79,7 @@
     "mocha": "^3.2.0",
     "mocha-cli": "^1.0.1",
     "node-sass": "^4.5.3",
-    "playkit-js": "https://github.com/kaltura/playkit-js.git#v0.34.0",
+    "playkit-js": "https://github.com/kaltura/playkit-js.git#v0.35.0",
     "prettier": "^1.13.7",
     "sass-loader": "^6.0.6",
     "sinon": "^2.0.0",
