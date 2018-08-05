@@ -1,9 +1,9 @@
 'use strict';
 
-const webpack = require("webpack");
-const path = require("path");
-const PROD = (process.env.NODE_ENV === 'production');
-const packageData = require("./package.json");
+const webpack = require('webpack');
+const path = require('path');
+const PROD = process.env.NODE_ENV === 'production';
+const packageData = require('./package.json');
 const CSS_MODULE_PREFIX = 'playkit';
 
 let plugins = [
@@ -20,16 +20,16 @@ if (PROD) {
 }
 
 module.exports = {
-  context: __dirname + "/src",
+  context: __dirname + '/src',
   entry: {
-    "playkit-ui": "index.js"
+    'playkit-ui': 'index.js'
   },
   output: {
-    path: __dirname + "/dist",
+    path: __dirname + '/dist',
     filename: '[name].js',
-    library: ["playkit", "ui"],
-    libraryTarget: "umd",
-    devtoolModuleFilenameTemplate: "./ui/[resource-path]"
+    library: ['playkit', 'ui'],
+    libraryTarget: 'umd',
+    devtoolModuleFilenameTemplate: './ui/[resource-path]'
   },
   devtool: 'source-map',
   plugins: plugins,
@@ -37,60 +37,61 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        use: [{
-          loader: "babel-loader"
-        }],
-        exclude: [
-          /node_modules/
-        ]
+        use: [
+          {
+            loader: 'babel-loader'
+          }
+        ],
+        exclude: [/node_modules/]
       },
       {
         test: /\.js$/,
-        exclude: [
-          /node_modules/
-        ],
+        exclude: [/node_modules/],
         enforce: 'pre',
-        use: [{
-          loader: 'eslint-loader',
-          options: {
-            rules: {
-              semi: 0
+        use: [
+          {
+            loader: 'eslint-loader',
+            options: {
+              rules: {
+                semi: 0
+              }
             }
           }
-        }],
+        ]
       },
       {
         test: /\.scss$/,
-        use: [{
-          loader: "style-loader"
-        }, {
-          loader: "css-loader",
-          options: {
-            camelCase: true,
-            modules: true,
-            localIdentName: CSS_MODULE_PREFIX + '-[local]'
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              camelCase: true,
+              modules: true,
+              localIdentName: CSS_MODULE_PREFIX + '-[local]'
+            }
+          },
+          {
+            loader: 'sass-loader'
           }
-        }, {
-          loader: "sass-loader"
-        }]
+        ]
       }
     ]
   },
   devServer: {
-    contentBase: __dirname + "/src"
+    contentBase: __dirname + '/src'
   },
   resolve: {
-    modules: [
-      path.resolve(__dirname, "src"),
-      "node_modules"
-    ]
+    modules: [path.resolve(__dirname, 'src'), 'node_modules']
   },
   externals: {
-    "playkit-js": {
-      commonjs: "playkit-js",
-      commonjs2: "playkit-js",
-      amd: "playkit-js",
-      root: ["playkit", "core"]
+    'playkit-js': {
+      commonjs: 'playkit-js',
+      commonjs2: 'playkit-js',
+      amd: 'playkit-js',
+      root: ['playkit', 'core']
     }
   }
 };

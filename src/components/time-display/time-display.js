@@ -15,7 +15,6 @@ import {toHHMMSS} from '../../utils/time-format';
  * @extends {Component}
  */
 class TimeDisplay extends Component {
-
   /**
    * get formatted time display based on defined format
    *
@@ -52,7 +51,7 @@ class TimeDisplay extends Component {
       <div className={style.timeDisplay}>
         <span>{this.getTimeDisplay(props.currentTime, props.duration, props.format)}</span>
       </div>
-    )
+    );
   }
 }
 

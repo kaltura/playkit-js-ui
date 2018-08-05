@@ -13,7 +13,7 @@ import {ErrorOverlay} from '../components/error-overlay';
 export function errorUI(props: any): React$Element<any> {
   return (
     <div className={style.playbackGuiWWrapper}>
-      <ErrorOverlay player={props.player}/>
+      <ErrorOverlay player={props.player} />
     </div>
-  )
+  );
 }

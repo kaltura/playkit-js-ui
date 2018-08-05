@@ -9,7 +9,6 @@ import {h, Component} from 'preact';
  * @extends {Component}
  */
 class OverlayPortal extends Component {
-
   /**
    * change in component props or state shouldn't render the component again
    *
@@ -28,9 +27,7 @@ class OverlayPortal extends Component {
    * @memberof OverlayPortal
    */
   render(props: any): React$Element<any> {
-    return (
-      <div id='overlay-portal'>{props.children}</div>
-    )
+    return <div id="overlay-portal">{props.children}</div>;
   }
 }
 

@@ -31,7 +31,7 @@ export default (state: Object = initialState, action: Object) => {
     default:
       return state;
   }
-}
+};
 
 export const actions = {
   updateFullscreen: (fullscreen: boolean) => ({type: types.UPDATE_FULLSCREEN, fullscreen})

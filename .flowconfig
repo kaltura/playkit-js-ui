@@ -1,6 +1,5 @@
 [ignore]
-.*/node_modules/conventional-changelog-core/test/fixtures/_malformation.json
-.*/node_modules/playkit-js/src/
+.*/node_modules
 [include]
 [libs]
 node_modules/playkit-js/flow-typed/

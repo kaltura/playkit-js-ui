@@ -1,6 +1,6 @@
 // @flow
 import {FakeEvent} from '../event/fake-event';
-import {types as shell} from '../reducers/shell'
+import {types as shell} from '../reducers/shell';
 import {AudioSelectedEvent} from '../event/events/audio-selected-event';
 import {CaptionSelectedEvent} from '../event/events/caption-selected-event';
 import {CaptionsStyleSelectedEvent} from '../event/events/captions-style-selected-event';
@@ -54,8 +54,7 @@ const eventDispatcherMiddleware = (player: Player) => (store: Object) => (next: 
 function onPlayerHoverStateChangeHandler(store: any, action: Object, player: Player): void {
   const engineState = store.getState().engine;
   const shellState = store.getState().shell;
-  if (!engineState.adBreak && engineState.isPlaying
-    && shellState.playerHover !== action.hover) {
+  if (!engineState.adBreak && engineState.isPlaying && shellState.playerHover !== action.hover) {
     player.dispatchEvent(new UIVisibilityChangedEvent(action.hover));
   }
 }
@@ -148,13 +147,13 @@ function onClickableComponentsHandler(store: any, action: Object, player: Player
 function onPlayPauseClicked(store: any, action: Object, player: Player): void {
   const engineState = store.getState().engine;
   if (engineState.adBreak) {
-    engineState.adIsPlaying ?
-      player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CLICKED_PAUSE)) :
-      player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CLICKED_PLAY))
+    engineState.adIsPlaying
+      ? player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CLICKED_PAUSE))
+      : player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CLICKED_PLAY));
   } else {
-    engineState.isPlaying ?
-      player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CLICKED_PAUSE)) :
-      player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CLICKED_PLAY));
+    engineState.isPlaying
+      ? player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CLICKED_PAUSE))
+      : player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CLICKED_PLAY));
   }
 }
 
@@ -167,9 +166,9 @@ function onPlayPauseClicked(store: any, action: Object, player: Player): void {
  */
 function onVolumeClicked(store: any, action: Object, player: Player): void {
   const engineState = store.getState().engine;
-  engineState.muted ?
-    player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CLICKED_MUTE)) :
-    player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CLICKED_UNMUTE));
+  engineState.muted
+    ? player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CLICKED_MUTE))
+    : player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CLICKED_UNMUTE));
 }
 
 /**
@@ -195,9 +194,9 @@ function onLanguageClicked(store: any, action: Object, player: Player): void {
  * @returns {void}
  */
 function onFullScreenClicked(store: any, action: Object, player: Player): void {
-  player.isFullscreen() ?
-    player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_EXITED_FULL_SCREEN)) :
-    player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_ENTERED_FULL_SCREEN));
+  player.isFullscreen()
+    ? player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_EXITED_FULL_SCREEN))
+    : player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_ENTERED_FULL_SCREEN));
 }
 
 /**
@@ -235,7 +234,7 @@ function onOverlayActionClicked(store: any, action: Object, player: Player): voi
  * Maps key code to its event dispatching logic.
  * @type {Object}
  */
-const keyboardHandlers: { [key: number]: Function } = {
+const keyboardHandlers: {[key: number]: Function} = {
   [KeyMap.SPACE]: (store, action, player) => {
     onPlayPauseClicked(store, action, player);
   },

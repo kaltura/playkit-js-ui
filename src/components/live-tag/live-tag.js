@@ -3,7 +3,7 @@ import style from '../../styles/style.scss';
 import {h} from 'preact';
 import {connect} from 'preact-redux';
 import BaseComponent from '../base';
-import {KeyMap} from "../../utils/key-map";
+import {KeyMap} from '../../utils/key-map';
 
 /**
  * mapping state to props
@@ -18,15 +18,14 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps)
-  /**
-   * LiveTag component
-   *
-   * @class LiveTag
-   * @example <LiveTag player={this.player} />
-   * @extends {BaseComponent}
-   */
+/**
+ * LiveTag component
+ *
+ * @class LiveTag
+ * @example <LiveTag player={this.player} />
+ * @extends {BaseComponent}
+ */
 class LiveTag extends BaseComponent {
-
   /**
    * Creates an instance of LiveTag.
    * @param {Object} obj obj
@@ -43,7 +42,7 @@ class LiveTag extends BaseComponent {
    * @memberof LiveTag
    */
   isOnLiveEdge(): boolean {
-    return (this.props.currentTime >= this.props.duration - 1);
+    return this.props.currentTime >= this.props.duration - 1;
   }
 
   /**
@@ -75,15 +74,18 @@ class LiveTag extends BaseComponent {
     if (props.isDvr && !this.isOnLiveEdge()) tagStyleClass.push(style.nonLivePlayhead);
 
     return (
-      <div tabIndex="0"
-           className={tagStyleClass.join(' ')}
-           onClick={() => this.onClick()}
-           onKeyDown={(e) => {
-             if (e.keyCode === KeyMap.ENTER) {
-               this.onClick();
-             }
-           }}>Live</div>
-    )
+      <div
+        tabIndex="0"
+        className={tagStyleClass.join(' ')}
+        onClick={() => this.onClick()}
+        onKeyDown={e => {
+          if (e.keyCode === KeyMap.ENTER) {
+            this.onClick();
+          }
+        }}>
+        Live
+      </div>
+    );
   }
 }
 

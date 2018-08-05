@@ -18,14 +18,17 @@ const mapStateToProps = state => ({
   adIsLinear: state.engine.adIsLinear
 });
 
-@connect(mapStateToProps, bindActions(actions))
-  /**
-   * Loading component
-   *
-   * @class Loading
-   * @example <Loading />
-   * @extends {BaseComponent}
-   */
+@connect(
+  mapStateToProps,
+  bindActions(actions)
+)
+/**
+ * Loading component
+ *
+ * @class Loading
+ * @example <Loading />
+ * @extends {BaseComponent}
+ */
 class Loading extends BaseComponent {
   /**
    * Creates an instance of Loading.
@@ -44,54 +47,48 @@ class Loading extends BaseComponent {
    * @memberof Loading
    */
   componentDidMount() {
-    this.player.addEventListener(this.player.Event.PLAYER_STATE_CHANGED, e => {
+    this.eventManager.listen(this.player, this.player.Event.PLAYER_STATE_CHANGED, e => {
       if (!this.state.afterPlayingEvent) return;
       const StateType = this.player.State;
-      if (e.payload.newState.type === StateType.IDLE
-        || e.payload.newState.type === StateType.PLAYING
-        || e.payload.newState.type === StateType.PAUSED) {
+      if (
+        e.payload.newState.type === StateType.IDLE ||
+        e.payload.newState.type === StateType.PLAYING ||
+        e.payload.newState.type === StateType.PAUSED
+      ) {
         this.props.updateLoadingSpinnerState(false);
       } else {
         this.props.updateLoadingSpinnerState(true);
       }
     });
 
-    this.player.addEventListener(this.player.Event.SOURCE_SELECTED, () => {
-      if (this.player.config.playback.autoplay) {
-        this.props.updateLoadingSpinnerState(true);
-      } else {
-        this.props.updateLoadingSpinnerState(false);
-      }
-    });
-
-    this.player.addEventListener(this.player.Event.AD_BREAK_START, () => {
+    this.eventManager.listen(this.player, this.player.Event.AD_BREAK_START, () => {
       this.props.updateLoadingSpinnerState(true);
     });
 
-    this.player.addEventListener(this.player.Event.AD_LOADED, () => {
+    this.eventManager.listen(this.player, this.player.Event.AD_LOADED, () => {
       this.props.updateLoadingSpinnerState(true);
     });
 
-    this.player.addEventListener(this.player.Event.AD_STARTED, () => {
+    this.eventManager.listen(this.player, this.player.Event.AD_STARTED, () => {
       if (this.props.adIsLinear) {
         this.props.updateLoadingSpinnerState(false);
       }
     });
 
-    this.player.addEventListener(this.player.Event.ALL_ADS_COMPLETED, () => {
+    this.eventManager.listen(this.player, this.player.Event.ALL_ADS_COMPLETED, () => {
       this.props.updateLoadingSpinnerState(false);
     });
 
-    this.player.addEventListener(this.player.Event.AUTOPLAY_FAILED, () => {
+    this.eventManager.listen(this.player, this.player.Event.AUTOPLAY_FAILED, () => {
       this.props.updateLoadingSpinnerState(false);
     });
 
-    this.player.addEventListener(this.player.Event.PLAYING, () => {
+    this.eventManager.listen(this.player, this.player.Event.PLAYING, () => {
       this.setState({afterPlayingEvent: true});
       this.props.updateLoadingSpinnerState(false);
     });
 
-    this.player.addEventListener(this.player.Event.CHANGE_SOURCE_STARTED, () => {
+    this.eventManager.listen(this.player, this.player.Event.CHANGE_SOURCE_STARTED, () => {
       this.setState({afterPlayingEvent: false});
     });
   }
@@ -109,14 +106,11 @@ class Loading extends BaseComponent {
     return (
       <div className={[style.loadingBackdrop, style.show].join(' ')}>
         <div className={style.spinnerContainer}>
-          <div className={style.spinner}>
-            {[...Array(8)].map((i) => <span key={i}/>)}
-          </div>
+          <div className={style.spinner}>{[...Array(8)].map(i => <span key={i} />)}</div>
         </div>
       </div>
-    )
+    );
   }
-
 }
 
 export {Loading};

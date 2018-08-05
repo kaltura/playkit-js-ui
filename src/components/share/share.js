@@ -13,7 +13,6 @@ import Portal from 'preact-portal';
  * @extends {BaseComponent}
  */
 class ShareControl extends BaseComponent {
-
   /**
    * Creates an instance of ShareControl.
    * @param {Object} obj obj
@@ -51,18 +50,17 @@ class ShareControl extends BaseComponent {
    */
   render(): React$Element<any> {
     return (
-      <div className='control-button-container control-share'>
-        <button className='control-button control-button-rounded' onClick={() => this.toggleOverlay()}
-                aria-label='Share'>
-          <Icon type={IconType.Share}/>
+      <div className="control-button-container control-share">
+        <button className="control-button control-button-rounded" onClick={() => this.toggleOverlay()} aria-label="Share">
+          <Icon type={IconType.Share} />
         </button>
         {this.state.overlay ? (
           <Portal into="#overlay-portal">
-            <ShareOverlay player={this.player} onClose={() => this.toggleOverlay()}/>
+            <ShareOverlay player={this.player} onClose={() => this.toggleOverlay()} />
           </Portal>
         ) : null}
       </div>
-    )
+    );
   }
 }
 

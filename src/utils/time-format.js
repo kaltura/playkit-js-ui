@@ -9,8 +9,8 @@
 function toHHMMSS(input: number): string {
   const sec_num = parseInt(input, 10);
   let hours = Math.floor(sec_num / 3600);
-  let minutes = Math.floor((sec_num - (hours * 3600)) / 60);
-  let seconds = sec_num - (hours * 3600) - (minutes * 60);
+  let minutes = Math.floor((sec_num - hours * 3600) / 60);
+  let seconds = sec_num - hours * 3600 - minutes * 60;
 
   if (hours < 10) {
     hours = '0' + hours;

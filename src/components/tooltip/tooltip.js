@@ -22,8 +22,10 @@ class Tooltip extends Component {
     if (props.out) className.push(style.out);
 
     return (
-      <div className={className.join(' ')} style={props.left ? {left: props.left} : ''}>{props.children}</div>
-    )
+      <div className={className.join(' ')} style={props.left ? {left: props.left} : ''}>
+        {props.children}
+      </div>
+    );
   }
 }
 

@@ -30,37 +30,34 @@ import {shouldRenderComponent} from '../utils/component-config';
 export function playbackUI(props: any): React$Element<any> {
   return (
     <div className={style.playbackGuiWWrapper}>
-      <KeyboardControl player={props.player} config={props.config}/>
-      <Loading player={props.player}/>
-      <div className={style.playerGui} id='player-gui'>
-        <OverlayPortal/>
-        <UnmuteIndication player={props.player}/>
-        <OverlayAction player={props.player}/>
+      <KeyboardControl player={props.player} config={props.config} />
+      <Loading player={props.player} />
+      <div className={style.playerGui} id="player-gui">
+        <OverlayPortal />
+        <UnmuteIndication player={props.player} />
+        <OverlayAction player={props.player} />
         <BottomBar>
-          <SeekBarPlaybackContainer showFramePreview
-                                    showTimeBubble
-                                    player={props.player}
-                                    playerContainer={props.playerContainer}/>
+          <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player} playerContainer={props.playerContainer} />
           <div className={style.leftControls}>
-            <PlayPauseControl player={props.player}/>
-            <RewindControl player={props.player} step={10}/>
-            <TimeDisplayPlaybackContainer format='current / total'/>
+            <PlayPauseControl player={props.player} />
+            <RewindControl player={props.player} step={10} />
+            <TimeDisplayPlaybackContainer format="current / total" />
           </div>
           <div className={style.rightControls}>
-            {(props.state.engine.isVr && shouldRenderComponent(props.config, VrStereoToggleControl.displayName))
-              ? <VrStereoToggleControl player={props.player}/>
-              : undefined}
-            <VolumeControl player={props.player}/>
-            <LanguageControl player={props.player}/>
-            <SettingsControl player={props.player}/>
-            <FullscreenControl player={props.player}/>
+            {props.state.engine.isVr && shouldRenderComponent(props.config, VrStereoToggleControl.displayName) ? (
+              <VrStereoToggleControl player={props.player} />
+            ) : (
+              undefined
+            )}
+            <VolumeControl player={props.player} />
+            <LanguageControl player={props.player} />
+            <SettingsControl player={props.player} />
+            <FullscreenControl player={props.player} />
           </div>
         </BottomBar>
       </div>
-      <PrePlaybackPlayOverlay player={props.player}/>
-      {shouldRenderComponent(props.config, Watermark.displayName)
-        ? <Watermark player={props.player}/>
-        : undefined}
+      <PrePlaybackPlayOverlay player={props.player} />
+      {shouldRenderComponent(props.config, Watermark.displayName) ? <Watermark player={props.player} /> : undefined}
     </div>
-  )
+  );
 }

@@ -15,7 +15,6 @@ export const types = {
 export const initialState = {
   playerClasses: [],
   prePlayback: true,
-  is_ad: true,
   playerHover: false,
   playerNav: false,
   smartContainerOpen: false
@@ -87,7 +86,7 @@ export default (state: Object = initialState, action: Object) => {
     default:
       return state;
   }
-}
+};
 
 export const actions = {
   addPlayerClass: (className: string) => ({type: types.ADD_PLAYER_CLASS, className}),

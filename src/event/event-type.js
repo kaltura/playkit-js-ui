@@ -1,7 +1,7 @@
 // @flow
 const namespace = 'playkit-ui';
 
-const EventType: { [event: string]: string } = {
+const EventType: {[event: string]: string} = {
   UI_CLICKED: `${namespace}-uiclicked`,
   UI_VISIBILITY_CHANGED: `${namespace}-uivisibilitychanged`,
   USER_CLICKED_PLAY: `${namespace}-userclickedplay`,

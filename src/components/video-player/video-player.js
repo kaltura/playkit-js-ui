@@ -39,9 +39,7 @@ class VideoPlayer extends Component {
    * @memberof VideoPlayer
    */
   render(): React$Element<any> {
-    return (
-      <div className={style.videoPlayer} ref={c => this._el = c}/>
-    )
+    return <div className={style.videoPlayer} ref={c => (this._el = c)} />;
   }
 }
 

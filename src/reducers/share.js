@@ -18,7 +18,7 @@ export default (state: Object = initialState, action: Object) => {
     default:
       return state;
   }
-}
+};
 
 export const actions = {
   toggleShareOverlay: (show: boolean) => ({type: types.TOGGLE_SHARE_OVERLAY, show})

@@ -33,13 +33,16 @@ export const KEYBOARD_DEFAULT_SEEK_JUMP: number = 5;
  */
 export const KEYBOARD_DEFAULT_VOLUME_JUMP: number = 5;
 
-@connect(mapStateToProps, bindActions(Object.assign({}, shellActions, overlayIconActions)))
-  /**
-   * KeyboardControl component
-   *
-   * @class KeyboardControl
-   * @extends {BaseComponent}
-   */
+@connect(
+  mapStateToProps,
+  bindActions(Object.assign({}, shellActions, overlayIconActions))
+)
+/**
+ * KeyboardControl component
+ *
+ * @class KeyboardControl
+ * @extends {BaseComponent}
+ */
 class KeyboardControl extends BaseComponent {
   _activeTextTrack: ?Object = null;
   _hoverTimeout: ?number = null;
@@ -84,7 +87,7 @@ class KeyboardControl extends BaseComponent {
    *
    * @memberof KeyboardControl
    */
-  keyboardHandlers: { [key: number]: Function } = {
+  keyboardHandlers: {[key: number]: Function} = {
     [KeyMap.SPACE]: () => {
       if (this.isPlayingAdOrPlayback()) {
         this.player.pause();
@@ -139,7 +142,7 @@ class KeyboardControl extends BaseComponent {
     [KeyMap.LEFT]: () => {
       const newTime = this.player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP;
       const from = this.player.currentTime;
-      const to = (newTime > 0) ? newTime : 0;
+      const to = newTime > 0 ? newTime : 0;
       this.logger.debug(`Seek. ${from} => ${to}`);
       this.player.currentTime = to;
       this.props.updateOverlayActionIcon(IconType.Rewind);
@@ -149,9 +152,9 @@ class KeyboardControl extends BaseComponent {
     [KeyMap.RIGHT]: () => {
       const newTime = this.player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP;
       const from = this.player.currentTime;
-      const to = (newTime > this.player.duration) ? this.player.duration : newTime;
+      const to = newTime > this.player.duration ? this.player.duration : newTime;
       this.logger.debug(`Seek. ${from} => ${to}`);
-      this.player.currentTime = (newTime > this.player.duration) ? this.player.duration : newTime;
+      this.player.currentTime = newTime > this.player.duration ? this.player.duration : newTime;
       this.props.updateOverlayActionIcon(IconType.SeekForward);
       this.toggleHoverState();
       return {from: from, to: to};
@@ -177,9 +180,9 @@ class KeyboardControl extends BaseComponent {
     [KeyMap.M]: () => {
       this.logger.debug(this.player.muted ? 'Umnute' : 'Mute');
       this.player.muted = !this.player.muted;
-      this.player.muted ?
-        this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeMute]) :
-        this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWaves]);
+      this.player.muted
+        ? this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeMute])
+        : this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWaves]);
       return true;
     },
     [KeyMap.SEMI_COLON]: (shiftKey: boolean) => {
