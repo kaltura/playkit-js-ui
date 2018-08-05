@@ -43,7 +43,6 @@ class FullscreenControl extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'Fullscreen', player: obj.player});
-    this.fullscreenChangeHandler = bindMethod(this, this.fullscreenChangeHandler);
     this._prevFullscreenState = false;
   }
 
