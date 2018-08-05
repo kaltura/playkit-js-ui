@@ -33,6 +33,7 @@ const mapStateToProps = state => ({
 class FullscreenControl extends BaseComponent {
   _targetDiv: ?HTMLElement;
   fullscreenChangeHandler: Function;
+  _prevFullscreenState: boolean;
 
   /**
    * Creates an instance of FullscreenControl.
@@ -42,6 +43,7 @@ class FullscreenControl extends BaseComponent {
   constructor(obj: Object) {
     super({name: 'Fullscreen', player: obj.player});
     this.fullscreenChangeHandler = bindMethod(this, this.fullscreenChangeHandler);
+    this._prevFullscreenState = false;
   }
 
   /**
@@ -81,6 +83,7 @@ class FullscreenControl extends BaseComponent {
     document.removeEventListener('mozfullscreenchange', this.fullscreenChangeHandler);
     document.removeEventListener('fullscreenchange', this.fullscreenChangeHandler);
     document.removeEventListener('MSFullscreenChange', this.fullscreenChangeHandler);
+
   }
 
   /**
@@ -90,7 +93,7 @@ class FullscreenControl extends BaseComponent {
    * @memberof FullscreenControl
    */
   handleIosFullscreen(): void {
-    if (this.player.env.os.name === 'iOS') {
+    // if (this.player.env.os.name === 'iOS' || this.player.pl) {
       /**
        * Attach listeners to ios full screen change.
        * @returns {void}
@@ -101,7 +104,7 @@ class FullscreenControl extends BaseComponent {
         this.player.getVideoElement().addEventListener('webkitendfullscreen', () => this.fullscreenExitHandler());
       };
       this.player.addEventListener(this.player.Event.SOURCE_SELECTED, attachIosFullscreenListeners);
-    }
+    // }
   }
 
   /**
@@ -111,13 +114,30 @@ class FullscreenControl extends BaseComponent {
    * @memberof FullscreenControl
    */
   fullscreenChangeHandler(): void {
-    const isFullscreen = typeof document.fullscreenElement !== 'undefined' && Boolean(document.fullscreenElement) ||
+    const isFullscreen = this._isFullscreen();
+    this._prevFullscreenState = isFullscreen;
+    isFullscreen ? this.fullscreenEnterHandler() : this.fullscreenExitHandler();
+  }
+
+  /**
+   * @returns {boolean} - the current fullscreen state of the document
+   * @memberof FullscreenControl
+   */
+  _isFullscreen(): boolean {
+    return typeof document.fullscreenElement !== 'undefined' && Boolean(document.fullscreenElement) ||
       typeof document.webkitFullscreenElement !== 'undefined' && Boolean(document.webkitFullscreenElement) ||
       typeof document.mozFullScreenElement !== 'undefined' && Boolean(document.mozFullScreenElement) ||
       typeof document.msFullscreenElement !== 'undefined' && Boolean(document.msFullscreenElement);
-
-    isFullscreen ? this.fullscreenEnterHandler() : this.fullscreenExitHandler();
   }
+
+  /**
+   * @returns {boolean} - true if there is difference between the previous fullscreen state and the current
+   * @memberof FullscreenControl
+   */
+  _isChanged(): boolean {
+    return this._prevFullscreenState === this._isFullscreen();
+  }
+
 
   /**
    * fullscreen enter handler function. updates the store with new value
@@ -260,6 +280,9 @@ class FullscreenControl extends BaseComponent {
    * @memberof FullscreenControl
    */
   render(): React$Element<any> {
+    if (this._isChanged()){
+      this.fullscreenChangeHandler();
+    }
     return (
       <div className={[style.controlButtonContainer, style.controlFullscreen].join(' ')}>
         <Localizer>
