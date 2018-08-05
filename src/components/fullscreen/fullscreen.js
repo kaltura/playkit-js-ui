@@ -95,7 +95,7 @@ class FullscreenControl extends BaseComponent {
    * @memberof FullscreenControl
    */
   handleIosFullscreen(): void {
-    if (this.player.env.os.name === 'iOS' || this.player.pl) {
+    if (this.player.env.os.name === 'iOS') {
       /**
        * Attach listeners to ios full screen change.
        * @returns {void}
@@ -104,9 +104,8 @@ class FullscreenControl extends BaseComponent {
         this.eventManager.listen(this.player.getVideoElement(), 'webkitbeginfullscreen', () => this.fullscreenEnterHandler());
         this.eventManager.listen(this.player.getVideoElement(), 'webkitendfullscreen', () => this.fullscreenExitHandler());
       };
-      this.player.addEventListener(this.player.Event.SOURCE_SELECTED, attachIosFullscreenListeners);
+      this.eventManager.listenOnce(this.player, this.player.Event.SOURCE_SELECTED, attachIosFullscreenListeners);
     }
-    this.eventManager.listenOnce(this.player, this.player.Event.SOURCE_SELECTED, attachIosFullscreenListeners);
   }
 
   /**
@@ -291,11 +290,11 @@ class FullscreenControl extends BaseComponent {
         <Localizer>
           <button
             tabIndex="0"
-            aria-label={<Text id="controls.fullscreen"/>}
+            aria-label={<Text id="controls.fullscreen" />}
             className={this.props.fullscreen ? [style.controlButton, style.isFullscreen].join(' ') : style.controlButton}
             onClick={() => this.toggleFullscreen()}>
-            <Icon type={IconType.Maximize}/>
-            <Icon type={IconType.Minimize}/>
+            <Icon type={IconType.Maximize} />
+            <Icon type={IconType.Minimize} />
           </button>
         </Localizer>
       </div>
