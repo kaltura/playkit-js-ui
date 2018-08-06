@@ -92,7 +92,6 @@ class UnmuteIndication extends BaseComponent {
   _keyDownHandler(e: KeyboardEvent): void {
     if (e.keyCode === KeyMap.ENTER) {
       this.player.muted = !this.player.muted;
-      this.setState({clicked: true});
     }
   }
 
@@ -104,7 +103,7 @@ class UnmuteIndication extends BaseComponent {
    * @memberof UnmuteIndication
    */
   render(props: any): ?React$Element<any> {
-    if (!this.props.fallbackToMutedAutoPlay || !this.isPlayingAdOrPlayback() || this.state.clicked) return undefined;
+    if (!this.props.fallbackToMutedAutoPlay || !this.isPlayingAdOrPlayback()) return undefined;
 
     const styleClass = [style.unmuteButtonContainer];
     if (props.hasTopBar) styleClass.push(style.hasTopBar);
