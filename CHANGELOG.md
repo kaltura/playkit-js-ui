@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.25.4"></a>
+## [0.25.4](https://github.com/kaltura/playkit-js-ui/compare/v0.25.3...v0.25.4) (2018-08-06)
+
+
+### Bug Fixes
+
+* **FEC-8269:** pre-playback overlay is displayed when loop ([#265](https://github.com/kaltura/playkit-js-ui/issues/265)) ([a29ebaa](https://github.com/kaltura/playkit-js-ui/commit/a29ebaa))
+* **FEC-8286:** adding click indication to the state ([#264](https://github.com/kaltura/playkit-js-ui/issues/264)) ([e54c3cf](https://github.com/kaltura/playkit-js-ui/commit/e54c3cf))
+* **FEC-8448:** after 'learn more' is clicked, fullscreen button is not responding  ([#261](https://github.com/kaltura/playkit-js-ui/issues/261)) ([706881f](https://github.com/kaltura/playkit-js-ui/commit/706881f))
+
+
+
 <a name="0.25.3"></a>
 ## [0.25.3](https://github.com/kaltura/playkit-js-ui/compare/v0.25.2...v0.25.3) (2018-08-06)
 
