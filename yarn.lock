@@ -1339,7 +1339,7 @@ chalk@^2.0.1:
     escape-string-regexp "^1.0.5"
     supports-color "^4.0.0"
 
-chalk@^2.3.1:
+chalk@^2.1.0, chalk@^2.3.1:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.4.1.tgz#18c49ab16a037b6eb0152cc83e3471338215b66e"
   dependencies:
@@ -4056,6 +4056,14 @@ karma-ie-launcher@^1.0.0:
   dependencies:
     lodash "^4.6.1"
 
+karma-mocha-reporter@^2.2.5:
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/karma-mocha-reporter/-/karma-mocha-reporter-2.2.5.tgz#15120095e8ed819186e47a0b012f3cd741895560"
+  dependencies:
+    chalk "^2.1.0"
+    log-symbols "^2.1.0"
+    strip-ansi "^4.0.0"
+
 karma-mocha@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/karma-mocha/-/karma-mocha-1.3.0.tgz#eeaac7ffc0e201eb63c467440d2b69c7cf3778bf"
@@ -4418,7 +4426,7 @@ log-symbols@^1.0.2:
   dependencies:
     chalk "^1.0.0"
 
-log-symbols@^2.2.0:
+log-symbols@^2.1.0, log-symbols@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/log-symbols/-/log-symbols-2.2.0.tgz#5740e1c5d6f0dfda4ad9323b5332107ef6b4c40a"
   dependencies:
@@ -5241,9 +5249,9 @@ pkg-dir@^1.0.0:
   dependencies:
     find-up "^1.0.0"
 
-"playkit-js@https://github.com/kaltura/playkit-js.git#v0.34.0":
-  version "0.34.0"
-  resolved "https://github.com/kaltura/playkit-js.git#366eb141a45d910fbf8a0c4fe5fe35d4c896bb20"
+"playkit-js@https://github.com/kaltura/playkit-js.git#v0.35.0":
+  version "0.35.0"
+  resolved "https://github.com/kaltura/playkit-js.git#d969c6601acdbc783fb8bc1835f829e08a76a3b1"
   dependencies:
     js-logger "^1.3.0"
     ua-parser-js "^0.7.13"
@@ -5515,12 +5523,6 @@ postcss@^6.0.1:
     chalk "^2.0.1"
     source-map "^0.5.6"
     supports-color "^4.1.0"
-
-pre-push@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/pre-push/-/pre-push-0.1.1.tgz#2a2a79827d243a76c91089897ac707f45e716aac"
-  dependencies:
-    shelljs "0.3.x"
 
 preact-i18n@^1.0.0:
   version "1.0.0"
@@ -6160,10 +6162,6 @@ shebang-command@^1.2.0:
 shebang-regex@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-1.0.0.tgz#da42f49740c0b42db2ca9728571cb190c98efea3"
-
-shelljs@0.3.x:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/shelljs/-/shelljs-0.3.0.tgz#3596e6307a781544f591f37da618360f31db57b1"
 
 signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"

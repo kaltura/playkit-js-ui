@@ -4,6 +4,7 @@ import {h} from 'preact';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/volume';
+import {actions as engineActions} from '../../reducers/engine';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
@@ -24,7 +25,7 @@ const mapStateToProps = state => ({
 
 @connect(
   mapStateToProps,
-  bindActions(actions)
+  bindActions({...actions, ...engineActions})
 )
 /**
  * VolumeControl component
