@@ -7,6 +7,8 @@ const component = 'engine';
 export const types = {
   UPDATE_PLAYER_STATE: 'engine/UPDATE_PLAYER_STATE',
   UPDATE_IS_PLAYING: 'engine/UPDATE_IS_PLAYING',
+  UPDATE_IS_PAUSED: 'engine/UPDATE_IS_PAUSED',
+  UPDATE_IS_CHANGING_SOURCE: 'engine/UPDATE_IS_CHANGING_SOURCE',
   UPDATE_IS_ENDED: 'engine/UPDATE_IS_ENDED',
   UPDATE_CURRENT_TIME: 'engine/UPDATE_CURRENT_TIME',
   UPDATE_DURATION: 'engine/UPDATE_DURATION',
@@ -41,7 +43,9 @@ export const types = {
 export const initialState = {
   isIdle: false,
   isPlaying: false,
+  isPaused: false,
   isEnded: false,
+  isChangingSource: false,
   metadataLoaded: false,
   playerState: {
     previousState: '',
@@ -101,6 +105,12 @@ export default (state: Object = initialState, action: Object) => {
       return {
         ...state,
         isPlaying: action.isPlaying
+      };
+
+    case types.UPDATE_IS_PAUSED:
+      return {
+        ...state,
+        isPaused: action.isPaused
       };
 
     case types.UPDATE_IS_ENDED:
@@ -275,6 +285,12 @@ export default (state: Object = initialState, action: Object) => {
       return state;
     }
 
+    case types.UPDATE_IS_CHANGING_SOURCE:
+      return {
+        ...state,
+        isChangingSource: action.isChangingSource
+      };
+
     default:
       return state;
   }
@@ -287,6 +303,7 @@ export const actions = {
     playerState: {prevoiusState, currentState}
   }),
   updateIsPlaying: (isPlaying: boolean) => ({type: types.UPDATE_IS_PLAYING, isPlaying}),
+  updateIsPaused: (isPaused: boolean) => ({type: types.UPDATE_IS_PAUSED, isPaused}),
   updateIsEnded: (isEnded: boolean) => ({type: types.UPDATE_IS_ENDED, isEnded}),
   updateCurrentTime: (currentTime: number) => ({type: types.UPDATE_CURRENT_TIME, currentTime}),
   updateDuration: (duration: number) => ({type: types.UPDATE_DURATION, duration}),
@@ -320,5 +337,9 @@ export const actions = {
   updateIsCasting: (isCasting: boolean) => ({type: types.UPDATE_IS_CASTING, isCasting}),
   updateCastSession: (castSession: Object) => ({type: types.UPDATE_CAST_SESSION, castSession}),
   updateIsCastAvailable: (isCastAvailable: boolean) => ({type: types.UPDATE_IS_CAST_AVAILABLE, isCastAvailable}),
-  updateCastAvailableTypes: (castType: string) => ({type: types.UPDATE_CAST_AVAILABLE_TYPES, castType})
+  updateCastAvailableTypes: (castType: string) => ({type: types.UPDATE_CAST_AVAILABLE_TYPES, castType}),
+  updateIsChangingSource: (isChangingSource: boolean) => ({
+    type: types.UPDATE_IS_CHANGING_SOURCE,
+    isChangingSource
+  })
 };

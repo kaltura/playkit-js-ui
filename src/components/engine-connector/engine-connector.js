@@ -54,13 +54,18 @@ class EngineConnector extends BaseComponent {
     });
 
     this.eventManager.listen(this.player, this.player.Event.CHANGE_SOURCE_STARTED, () => {
+      this.props.updateIsChangingSource(true);
       this.props.updateFallbackToMutedAutoPlay(false);
       this.props.updateAdBreak(false);
       this.props.updateAdIsPlaying(false);
       this.props.updateIsPlaying(false);
+      if (this.props.engine.isCasting) {
+        this.props.updateLoadingSpinnerState(true);
+      }
     });
 
     this.eventManager.listen(this.player, this.player.Event.CHANGE_SOURCE_ENDED, () => {
+      this.props.updateIsChangingSource(false);
       this.props.updatePlayerPoster(this.player.poster);
       this.props.updateIsIdle(false);
     });
@@ -99,6 +104,7 @@ class EngineConnector extends BaseComponent {
 
     this.eventManager.listen(this.player, this.player.Event.PLAYING, () => {
       this.props.updateIsPlaying(true);
+      this.props.updateIsPaused(false);
 
       if (this.props.engine.isEnded) {
         this.props.updateIsEnded(false);
@@ -107,6 +113,7 @@ class EngineConnector extends BaseComponent {
 
     this.eventManager.listen(this.player, this.player.Event.PAUSE, () => {
       this.props.updateIsPlaying(false);
+      this.props.updateIsPaused(true);
     });
 
     this.eventManager.listen(this.player, this.player.Event.ENDED, () => {
@@ -202,8 +209,12 @@ class EngineConnector extends BaseComponent {
     });
 
     this.eventManager.listen(this.player, this.player.Event.Cast.CAST_SESSION_STARTED, e => {
+      const session = e.payload.session;
       this.props.updateIsCasting(true);
-      this.props.updateCastSession(e.payload.session);
+      this.props.updateCastSession(session);
+      if (session.resuming) {
+        this.props.updateLoadingSpinnerState(false);
+      }
     });
 
     this.eventManager.listen(this.player, this.player.Event.Cast.CAST_SESSION_ENDED, () => {

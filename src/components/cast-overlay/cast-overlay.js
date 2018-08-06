@@ -13,13 +13,15 @@ import {Icon} from '../icon/icon';
  */
 const mapStateToProps = state => ({
   poster: state.engine.poster,
-  castSession: state.engine.castSession
+  castSession: state.engine.castSession,
+  isIdle: state.engine.isIdle,
+  isPlaying: state.engine.isPlaying,
+  isEnded: state.engine.isEnded,
+  isPaused: state.engine.isPaused,
+  isChangingSource: state.engine.isChangingSource
 });
 
-@connect(
-  mapStateToProps,
-  null
-)
+@connect(mapStateToProps)
 /**
  * CastOverlay component
  *
@@ -43,29 +45,33 @@ class CastOverlay extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'CastOverlay', player: obj.player});
-    this.setState({connecting: true});
   }
 
   /**
-   * when component mounted, attach the relevant listeners.
+   * Gets the cast status.
+   * @returns {string} - The cast status.
    * @memberof CastOverlay
-   * @returns {void}
    */
-  componentWillMount(): void {
-    this.eventManager.listen(this.player, this.player.Event.PLAYBACK_STARTED, () =>
-      this.setState({
-        playing: true,
-        connected: false,
-        connecting: false
-      })
-    );
-    this.eventManager.listen(this.player, this.player.Event.ENDED, () =>
-      this.setState({
-        playing: false,
-        connected: true,
-        connecting: false
-      })
-    );
+  getStatus(): string {
+    if (this.props.isPlaying || this.props.isPaused) {
+      return 'Playing on';
+    }
+    if (this.props.isEnded || this.props.isChangingSource || this.props.castSession.resuming) {
+      return 'Connected to';
+    }
+    return 'Connecting to';
+  }
+
+  /**
+   * Gets the cast icon next to the status.
+   * @returns {React$Element} - The cast icon.
+   * @memberof CastOverlay
+   */
+  getIcon(): React$Element<any> {
+    if (this.props.isPlaying || this.props.isPaused || this.props.isEnded || this.props.isChangingSource || this.props.castSession.resuming) {
+      return <Icon type={this.props.icon} />;
+    }
+    return <div className={style.castConnectingSpinner} />;
   }
 
   /**
@@ -78,21 +84,19 @@ class CastOverlay extends BaseComponent {
   render(props: any): ?React$Element<any> {
     if (!props.castSession) return undefined;
 
-    let status;
-    if (this.state.playing) {
-      status = 'Playing on';
-    } else if (this.state.connected) {
-      status = 'Connected to';
-    } else if (this.state.connecting) {
-      status = 'Connecting to';
-    }
-
     let posterStyle = {};
     const posterClasses = [style.castPoster];
     if (props.poster) {
-      posterStyle = {backgroundImage: `url(${props.poster})`};
+      const backgroundImage = props.isChangingSource ? '' : `url(${props.poster})`;
+      posterStyle = {
+        backgroundImage: backgroundImage,
+        backgroundSize: 'contain'
+      };
       posterClasses.push(style.hasPoster);
     }
+
+    const status = this.getStatus();
+    const icon = this.getIcon();
 
     return (
       <div>
@@ -101,7 +105,7 @@ class CastOverlay extends BaseComponent {
           <div className={style.castBlackCover} />
         </div>
         <div className={style.castBox}>
-          <div className={style.castIcon}>{this.state.connecting ? <div className={style.castConnectingSpinner} /> : <Icon type={props.icon} />}</div>
+          <div className={style.castIcon}>{icon}</div>
           <div className={style.castText}>
             <span className={style.castPlayingOn}>{status}</span>
             <br />
