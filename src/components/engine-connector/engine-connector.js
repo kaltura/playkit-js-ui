@@ -221,7 +221,7 @@ class EngineConnector extends BaseComponent {
    * @memberof EngineConnector
    */
   render(): React$Element<any> {
-    return <span/>;
+    return <span />;
   }
 }
 
