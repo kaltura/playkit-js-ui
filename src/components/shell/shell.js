@@ -132,20 +132,10 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   onClick(): void {
-    this._maybeUpdateMutedAutoplay();
-    this.notifyClick();
-  }
-
-  /**
-   * checks & updates the fallback to muted autoplay prop
-   * @returns {void}
-   * @memberof Shell
-   */
-  _maybeUpdateMutedAutoplay(): void {
     if (this.props.fallbackToMutedAutoPlay) {
       this.player.muted = false;
-      this.props.updateFallbackToMutedAutoPlay(false);
     }
+    this.notifyClick();
   }
 
   /**
@@ -175,9 +165,6 @@ class Shell extends BaseComponent {
     if (!this.state.nav && e.keyCode === KeyMap.TAB) {
       this.setState({nav: true});
       this.props.updatePlayerNavState(true);
-    }
-    if (e.keyCode === KeyMap.ENTER) {
-      this._maybeUpdateMutedAutoplay();
     }
   }
 

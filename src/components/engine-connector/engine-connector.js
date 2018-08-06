@@ -97,6 +97,9 @@ class EngineConnector extends BaseComponent {
 
     this.eventManager.listen(this.player, this.player.Event.MUTE_CHANGE, () => {
       this.props.updateMuted(this.player.muted);
+      if (this.props.engine.fallbackToMutedAutoPlay) {
+        this.props.updateFallbackToMutedAutoPlay(this.player.muted);
+      }
     });
 
     this.eventManager.listen(this.player, this.player.Event.PLAY, () => {
