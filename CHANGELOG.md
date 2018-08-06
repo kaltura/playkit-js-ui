@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.25.3"></a>
+## [0.25.3](https://github.com/kaltura/playkit-js-ui/compare/v0.25.2...v0.25.3) (2018-08-06)
+
+
+### Bug Fixes
+
+* **FEC-8450:** after replay no control bar ([#263](https://github.com/kaltura/playkit-js-ui/issues/263)) ([991cd19](https://github.com/kaltura/playkit-js-ui/commit/991cd19))
+
+
+
 <a name="0.25.2"></a>
 ## [0.25.2](https://github.com/kaltura/playkit-js-ui/compare/v0.25.1...v0.25.2) (2018-08-05)
 
