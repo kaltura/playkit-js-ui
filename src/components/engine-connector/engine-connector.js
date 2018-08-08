@@ -223,11 +223,8 @@ class EngineConnector extends BaseComponent {
     });
 
     this.eventManager.listen(this.player, this.player.Event.Cast.CAST_AVAILABLE, e => {
-      const {available, type} = e.payload;
+      const {available} = e.payload;
       this.props.updateIsCastAvailable(available);
-      if (available) {
-        this.props.updateCastAvailableTypes(type);
-      }
     });
   }
 

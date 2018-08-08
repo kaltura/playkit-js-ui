@@ -12,8 +12,7 @@ import {actions} from '../../reducers/backdrop';
  */
 const mapStateToProps = state => ({
   isCasting: state.engine.isCasting,
-  isCastAvailable: state.engine.isCastAvailable,
-  castAvailableTypes: state.engine.castAvailableTypes
+  isCastAvailable: state.engine.isCastAvailable
 });
 
 @connect(
@@ -56,7 +55,7 @@ class CastControl extends BaseComponent {
    * @memberof CastControl
    */
   render(props: any): ?React$Element<any> {
-    if (props.isCasting || (props.isCastAvailable && props.castAvailableTypes.includes('chromecast'))) {
+    if (props.isCasting || props.isCastAvailable) {
       return h(
         'div',
         {

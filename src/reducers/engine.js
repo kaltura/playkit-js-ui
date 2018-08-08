@@ -5,39 +5,38 @@ import {types as configReducerTypes} from './config';
 const component = 'engine';
 
 export const types = {
-  UPDATE_PLAYER_STATE: 'engine/UPDATE_PLAYER_STATE',
-  UPDATE_IS_PLAYING: 'engine/UPDATE_IS_PLAYING',
-  UPDATE_IS_PAUSED: 'engine/UPDATE_IS_PAUSED',
-  UPDATE_IS_CHANGING_SOURCE: 'engine/UPDATE_IS_CHANGING_SOURCE',
-  UPDATE_IS_ENDED: 'engine/UPDATE_IS_ENDED',
-  UPDATE_CURRENT_TIME: 'engine/UPDATE_CURRENT_TIME',
-  UPDATE_DURATION: 'engine/UPDATE_DURATION',
-  UPDATE_VOLUME: 'engine/UPDATE_VOLUME',
-  UPDATE_MUTED: 'engine/UPDATE_MUTED',
-  UPDATE_METADATA_LOADING_STATUS: 'engine/UPDATE_METADATA_LOADING_STATUS',
-  UPDATE_AUDIO_TRACKS: 'engine/UPDATE_AUDIO_TRACKS',
-  UPDATE_VIDEO_TRACKS: 'engine/UPDATE_VIDEO_TRACKS',
-  UPDATE_TEXT_TRACKS: 'engine/UPDATE_TEXT_TRACKS',
-  UPDATE_AD_BREAK: 'engine/UPDATE_AD_BREAK',
-  UPDATE_AD_BREAK_PROGRESS: 'engine/UPDATE_AD_BREAK_PROGRESS',
-  UPDATE_AD_BREAK_COMPLETED: 'engine/UPDATE_AD_BREAK_COMPLETED',
-  UPDATE_AD_IS_PLAYING: 'engine/UPDATE_AD_IS_PLAYING',
-  UPDATE_AD_SKIP_TIME_OFFSET: 'engine/UPDATE_AD_SKIP_TIME_OFFSET',
-  UPDATE_AD_SKIPPABLE_STATE: 'engine/UPDATE_AD_SKIPPABLE_STATE',
-  UPDATE_AD_URL: 'engine/UPDATE_AD_URL',
-  UPDATE_AD_IS_LINEAR: 'engine/UPDATE_AD_IS_LINEAR',
-  UPDATE_PLAYER_POSTER: 'engine/UPDATE_PLAYER_POSTER',
-  UPDATE_IS_LIVE: 'engine/UPDATE_IS_LIVE',
-  UPDATE_IS_DVR: 'engine/UPDATE_IS_DVR',
-  UPDATE_ERROR: 'engine/ERROR',
-  UPDATE_IS_IDLE: 'engine/UPDATE_IS_IDLE',
-  UPDATE_FALLBACK_TO_MUTED_AUTOPLAY: 'engine/UPDATE_FALLBACK_TO_MUTED_AUTOPLAY',
-  UPDATE_IS_VR: 'engine/UPDATE_IS_VR',
-  UPDATE_VR_STEREO_MODE: 'engine/UPDATE_VR_STEREO_MODE',
-  UPDATE_IS_CASTING: 'engine/UPDATE_IS_CASTING',
-  UPDATE_CAST_SESSION: 'engine/UPDATE_CAST_SESSION',
-  UPDATE_IS_CAST_AVAILABLE: 'engine/UPDATE_IS_CAST_AVAILABLE',
-  UPDATE_CAST_AVAILABLE_TYPES: 'engine/UPDATE_CAST_AVAILABLE_TYPES'
+  UPDATE_PLAYER_STATE: `${component}/UPDATE_PLAYER_STATE`,
+  UPDATE_IS_PLAYING: `${component}/UPDATE_IS_PLAYING`,
+  UPDATE_IS_PAUSED: `${component}/UPDATE_IS_PAUSED`,
+  UPDATE_IS_CHANGING_SOURCE: `${component}/UPDATE_IS_CHANGING_SOURCE`,
+  UPDATE_IS_ENDED: `${component}/UPDATE_IS_ENDED`,
+  UPDATE_CURRENT_TIME: `${component}/UPDATE_CURRENT_TIME`,
+  UPDATE_DURATION: `${component}/UPDATE_DURATION`,
+  UPDATE_VOLUME: `${component}/UPDATE_VOLUME`,
+  UPDATE_MUTED: `${component}/UPDATE_MUTED`,
+  UPDATE_METADATA_LOADING_STATUS: `${component}/UPDATE_METADATA_LOADING_STATUS`,
+  UPDATE_AUDIO_TRACKS: `${component}/UPDATE_AUDIO_TRACKS`,
+  UPDATE_VIDEO_TRACKS: `${component}/UPDATE_VIDEO_TRACKS`,
+  UPDATE_TEXT_TRACKS: `${component}/UPDATE_TEXT_TRACKS`,
+  UPDATE_AD_BREAK: `${component}/UPDATE_AD_BREAK`,
+  UPDATE_AD_BREAK_PROGRESS: `${component}/UPDATE_AD_BREAK_PROGRESS`,
+  UPDATE_AD_BREAK_COMPLETED: `${component}/UPDATE_AD_BREAK_COMPLETED`,
+  UPDATE_AD_IS_PLAYING: `${component}/UPDATE_AD_IS_PLAYING`,
+  UPDATE_AD_SKIP_TIME_OFFSET: `${component}/UPDATE_AD_SKIP_TIME_OFFSET`,
+  UPDATE_AD_SKIPPABLE_STATE: `${component}/UPDATE_AD_SKIPPABLE_STATE`,
+  UPDATE_AD_URL: `${component}/UPDATE_AD_URL`,
+  UPDATE_AD_IS_LINEAR: `${component}/UPDATE_AD_IS_LINEAR`,
+  UPDATE_PLAYER_POSTER: `${component}/UPDATE_PLAYER_POSTER`,
+  UPDATE_IS_LIVE: `${component}/UPDATE_IS_LIVE`,
+  UPDATE_IS_DVR: `${component}/UPDATE_IS_DVR`,
+  UPDATE_ERROR: `${component}/ERROR`,
+  UPDATE_IS_IDLE: `${component}/UPDATE_IS_IDLE`,
+  UPDATE_FALLBACK_TO_MUTED_AUTOPLAY: `${component}/UPDATE_FALLBACK_TO_MUTED_AUTOPLAY`,
+  UPDATE_IS_VR: `${component}/UPDATE_IS_VR`,
+  UPDATE_VR_STEREO_MODE: `${component}/UPDATE_VR_STEREO_MODE`,
+  UPDATE_IS_CASTING: `${component}/UPDATE_IS_CASTING`,
+  UPDATE_CAST_SESSION: `${component}/UPDATE_CAST_SESSION`,
+  UPDATE_IS_CAST_AVAILABLE: `${component}/UPDATE_IS_CAST_AVAILABLE`
 };
 
 export const initialState = {
@@ -77,8 +76,7 @@ export const initialState = {
   vrStereoMode: false,
   isCasting: false,
   castSession: null,
-  isCastAvailable: false,
-  castAvailableTypes: []
+  isCastAvailable: false
 };
 
 export default (state: Object = initialState, action: Object) => {
@@ -278,13 +276,6 @@ export default (state: Object = initialState, action: Object) => {
         isCastAvailable: action.isCastAvailable
       };
 
-    case types.UPDATE_CAST_AVAILABLE_TYPES: {
-      if (!state.castAvailableTypes.includes(action.castType)) {
-        state.castAvailableTypes.push(action.castType);
-      }
-      return state;
-    }
-
     case types.UPDATE_IS_CHANGING_SOURCE:
       return {
         ...state,
@@ -337,7 +328,6 @@ export const actions = {
   updateIsCasting: (isCasting: boolean) => ({type: types.UPDATE_IS_CASTING, isCasting}),
   updateCastSession: (castSession: Object) => ({type: types.UPDATE_CAST_SESSION, castSession}),
   updateIsCastAvailable: (isCastAvailable: boolean) => ({type: types.UPDATE_IS_CAST_AVAILABLE, isCastAvailable}),
-  updateCastAvailableTypes: (castType: string) => ({type: types.UPDATE_CAST_AVAILABLE_TYPES, castType}),
   updateIsChangingSource: (isChangingSource: boolean) => ({
     type: types.UPDATE_IS_CHANGING_SOURCE,
     isChangingSource
