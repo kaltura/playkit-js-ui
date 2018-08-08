@@ -13,7 +13,8 @@
     "settings": "Settings",
     "fullscreen": "Fullscreen",
     "rewind": "Rewind",
-    "vrStereo": "vrStereo"
+    "vrStereo": "vrStereo",
+    "cast": "Cast"
   },
   "settings": {
     "quality": "Quality",
@@ -31,5 +32,13 @@
   "error": {
     "default_error": "Something went wrong",
     "default_session_text": "Session ID "
+  },
+  "cast": {
+    "play_on_tv": "Play on TV",
+    "status": {
+      "connecting_to": "Connecting to",
+      "connected_to": "Connected to",
+      "playing_on": "Playing on"
+    }
   }
 }

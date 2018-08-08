@@ -6,6 +6,7 @@ import {connect} from 'preact-redux';
 import {IconType} from '../icon/index';
 import {actions} from '../../reducers/backdrop';
 import {Icon} from '../icon/icon';
+import {Localizer, Text} from 'preact-i18n';
 
 /**
  * mapping state to props
@@ -90,7 +91,11 @@ class CastBeforePlay extends BaseComponent {
             <div className={style.castBeforePlayIconContainer}>
               <Icon type={props.icon} />
             </div>
-            <span>Play on TV</span>
+            <Localizer>
+              <span>
+                <Text id="cast.play_on_tv" />
+              </span>
+            </Localizer>
           </a>
         </div>
       </div>

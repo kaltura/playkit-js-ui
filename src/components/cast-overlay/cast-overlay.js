@@ -5,6 +5,7 @@ import BaseComponent from '../base';
 import {connect} from 'preact-redux';
 import {IconType} from '../icon/index';
 import {Icon} from '../icon/icon';
+import {Localizer, Text} from 'preact-i18n';
 
 /**
  * mapping state to props
@@ -49,17 +50,17 @@ class CastOverlay extends BaseComponent {
 
   /**
    * Gets the cast status.
-   * @returns {string} - The cast status.
+   * @returns {React$Element} - The text status string.
    * @memberof CastOverlay
    */
-  getStatus(): string {
+  getStatus(): React$Element<any> {
     if (this.props.isPlaying || this.props.isPaused) {
-      return 'Playing on';
+      return <Text id="cast.status.playing_on" />;
     }
     if (this.props.isEnded || this.props.isChangingSource || this.props.castSession.resuming) {
-      return 'Connected to';
+      return <Text id="cast.status.connected_to" />;
     }
-    return 'Connecting to';
+    return <Text id="cast.status.connecting_to" />;
   }
 
   /**
@@ -107,7 +108,9 @@ class CastOverlay extends BaseComponent {
         <div className={style.castBox}>
           <div className={style.castIcon}>{icon}</div>
           <div className={style.castText}>
-            <span className={style.castPlayingOn}>{status}</span>
+            <Localizer>
+              <span className={style.castStatus}>{status}</span>
+            </Localizer>
             <br />
             <span className={style.castDevice}>{props.castSession.deviceFriendlyName}</span>
           </div>
