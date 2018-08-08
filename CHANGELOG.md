@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.25.4"></a>
+## [0.25.4](https://github.com/kaltura/playkit-js-ui/compare/v0.25.3...v0.25.4) (2018-08-06)
+
+
+### Bug Fixes
+
+* **FEC-8269:** pre-playback overlay is displayed when loop ([#265](https://github.com/kaltura/playkit-js-ui/issues/265)) ([a29ebaa](https://github.com/kaltura/playkit-js-ui/commit/a29ebaa))
+* **FEC-8286:** adding click indication to the state ([#264](https://github.com/kaltura/playkit-js-ui/issues/264)) ([e54c3cf](https://github.com/kaltura/playkit-js-ui/commit/e54c3cf))
+* **FEC-8448:** after 'learn more' is clicked, fullscreen button is not responding  ([#261](https://github.com/kaltura/playkit-js-ui/issues/261)) ([706881f](https://github.com/kaltura/playkit-js-ui/commit/706881f))
+
+
+
+<a name="0.25.3"></a>
+## [0.25.3](https://github.com/kaltura/playkit-js-ui/compare/v0.25.2...v0.25.3) (2018-08-06)
+
+
+### Bug Fixes
+
+* **FEC-8450:** after replay no control bar ([#263](https://github.com/kaltura/playkit-js-ui/issues/263)) ([991cd19](https://github.com/kaltura/playkit-js-ui/commit/991cd19))
+
+
+
+<a name="0.25.2"></a>
+## [0.25.2](https://github.com/kaltura/playkit-js-ui/compare/v0.25.1...v0.25.2) (2018-08-05)
+
+
+### Bug Fixes
+
+* **FEC-7501:** cleanup on destroy doesn't completely remove player  ([#244](https://github.com/kaltura/playkit-js-ui/issues/244)) ([9c52273](https://github.com/kaltura/playkit-js-ui/commit/9c52273))
+* **FEC-7501:** destroy removes all content under player container including the video element ([#260](https://github.com/kaltura/playkit-js-ui/issues/260)) ([0c42520](https://github.com/kaltura/playkit-js-ui/commit/0c42520))
+
+
+
 <a name="0.25.1"></a>
 ## [0.25.1](https://github.com/kaltura/playkit-js-ui/compare/v0.25.0...v0.25.1) (2018-07-26)
 

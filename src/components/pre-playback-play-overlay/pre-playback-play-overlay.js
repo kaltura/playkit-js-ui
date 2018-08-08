@@ -78,7 +78,6 @@ class PrePlaybackPlayOverlay extends BaseComponent {
   componentWillUnmount() {
     super.componentWillUnmount();
     this._hidePrePlayback();
-    this.props.removePlayerClass(style.prePlayback);
   }
 
   /**

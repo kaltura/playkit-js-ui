@@ -135,7 +135,6 @@ class Shell extends BaseComponent {
   onClick(): void {
     if (this.props.fallbackToMutedAutoPlay) {
       this.player.muted = false;
-      this.props.updateFallbackToMutedAutoPlay(false);
     }
     this.notifyClick();
   }

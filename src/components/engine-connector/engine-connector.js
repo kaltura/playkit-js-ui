@@ -48,8 +48,6 @@ class EngineConnector extends BaseComponent {
         this.props.updateLoadingSpinnerState(true);
       } else {
         this.props.updateLoadingSpinnerState(false);
-        this.props.updatePrePlayback(true);
-        this.props.addPlayerClass(style.prePlayback);
       }
     });
 
@@ -68,6 +66,10 @@ class EngineConnector extends BaseComponent {
       this.props.updateIsChangingSource(false);
       this.props.updatePlayerPoster(this.player.poster);
       this.props.updateIsIdle(false);
+      if (!this.player.config.playback.autoplay) {
+        this.props.updatePrePlayback(true);
+        this.props.addPlayerClass(style.prePlayback);
+      }
     });
 
     this.eventManager.listen(this.player, this.player.Event.PLAYER_STATE_CHANGED, e => {
@@ -100,15 +102,14 @@ class EngineConnector extends BaseComponent {
 
     this.eventManager.listen(this.player, this.player.Event.MUTE_CHANGE, () => {
       this.props.updateMuted(this.player.muted);
+      if (this.props.engine.fallbackToMutedAutoPlay) {
+        this.props.updateFallbackToMutedAutoPlay(this.player.muted);
+      }
     });
 
-    this.eventManager.listen(this.player, this.player.Event.PLAYING, () => {
+    this.eventManager.listen(this.player, this.player.Event.PLAY, () => {
       this.props.updateIsPlaying(true);
-      this.props.updateIsPaused(false);
-
-      if (this.props.engine.isEnded) {
-        this.props.updateIsEnded(false);
-      }
+      this.props.updateIsEnded(false);
     });
 
     this.eventManager.listen(this.player, this.player.Event.PAUSE, () => {

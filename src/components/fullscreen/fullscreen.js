@@ -52,6 +52,9 @@ class FullscreenControl extends BaseComponent {
    */
   componentWillMount(): void {
     this._targetDiv = document.getElementById(this.props.targetId);
+    if (this._isFullscreen() !== this.props.fullscreen) {
+      this.fullscreenChangeHandler();
+    }
   }
 
   /**
@@ -97,13 +100,20 @@ class FullscreenControl extends BaseComponent {
    * @memberof FullscreenControl
    */
   fullscreenChangeHandler(): void {
-    const isFullscreen =
+    this._isFullscreen() ? this.fullscreenEnterHandler() : this.fullscreenExitHandler();
+  }
+
+  /**
+   * @returns {boolean} - the current fullscreen state of the document
+   * @memberof FullscreenControl
+   */
+  _isFullscreen(): boolean {
+    return (
       (typeof document.fullscreenElement !== 'undefined' && Boolean(document.fullscreenElement)) ||
       (typeof document.webkitFullscreenElement !== 'undefined' && Boolean(document.webkitFullscreenElement)) ||
       (typeof document.mozFullScreenElement !== 'undefined' && Boolean(document.mozFullScreenElement)) ||
-      (typeof document.msFullscreenElement !== 'undefined' && Boolean(document.msFullscreenElement));
-
-    isFullscreen ? this.fullscreenEnterHandler() : this.fullscreenExitHandler();
+      (typeof document.msFullscreenElement !== 'undefined' && Boolean(document.msFullscreenElement))
+    );
   }
 
   /**
