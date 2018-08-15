@@ -3,7 +3,7 @@ sudo: required
 dist: trusty
 language: node_js
 node_js:
-  - "node"
+  - "9.11.1"
 
 addons:
   chrome: stable
