@@ -44,7 +44,7 @@ export const KEYBOARD_DEFAULT_VOLUME_JUMP: number = 5;
  * @extends {BaseComponent}
  */
 class KeyboardControl extends BaseComponent {
-  _lastActiveTextTrack: ?Object = null;
+  _lastActiveTextLanguage: ?string = '';
   _hoverTimeout: ?number = null;
 
   /**
@@ -219,16 +219,15 @@ class KeyboardControl extends BaseComponent {
     },
     [KeyMap.C]: () => {
       let activeTextTrack = this.player.getActiveTracks().text;
-      if (activeTextTrack.language === 'off' && this._lastActiveTextTrack) {
-        this.logger.debug(`Changing text track`, this._lastActiveTextTrack);
-        this.player.selectTrack(this._lastActiveTextTrack);
-        const clonedTextTrack = Object.assign({}, this._lastActiveTextTrack);
-        this._lastActiveTextTrack = null;
-        return {track: clonedTextTrack};
-      } else if (activeTextTrack.language !== 'off' && !this._lastActiveTextTrack) {
+      if (activeTextTrack.language === 'off' && this._lastActiveTextLanguage) {
+        this.logger.debug(`Changing text track to language`, this._lastActiveTextLanguage);
+        const selectedTextTrack = this.player.getTracks('text').find(track => track.language === this._lastActiveTextLanguage);
+        this.player.selectTrack(selectedTextTrack);
+        this._lastActiveTextLanguage = '';
+        return {track: selectedTextTrack};
+      } else if (activeTextTrack.language !== 'off' && !this._lastActiveTextLanguage) {
         this.logger.debug(`Hiding text track`);
-        this._lastActiveTextTrack = activeTextTrack;
-        this._lastActiveTextTrack.active = false;
+        this._lastActiveTextLanguage = activeTextTrack.language;
         this.player.hideTextTrack();
       }
     }
