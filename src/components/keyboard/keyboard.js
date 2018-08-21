@@ -44,7 +44,7 @@ export const KEYBOARD_DEFAULT_VOLUME_JUMP: number = 5;
  * @extends {BaseComponent}
  */
 class KeyboardControl extends BaseComponent {
-  _activeTextTrack: ?Object = null;
+  _lastActiveTextTrack: ?Object = null;
   _hoverTimeout: ?number = null;
 
   /**
@@ -219,15 +219,16 @@ class KeyboardControl extends BaseComponent {
     },
     [KeyMap.C]: () => {
       let activeTextTrack = this.player.getActiveTracks().text;
-      if (activeTextTrack.language === 'off' && this._activeTextTrack) {
-        this.logger.debug(`Changing text track`, this._activeTextTrack);
-        this.player.selectTrack(this._activeTextTrack);
-        const clonedTextTrack = Object.assign({}, this._activeTextTrack);
-        this._activeTextTrack = null;
+      if (activeTextTrack.language === 'off' && this._lastActiveTextTrack) {
+        this.logger.debug(`Changing text track`, this._lastActiveTextTrack);
+        this.player.selectTrack(this._lastActiveTextTrack);
+        const clonedTextTrack = Object.assign({}, this._lastActiveTextTrack);
+        this._lastActiveTextTrack = null;
         return {track: clonedTextTrack};
-      } else if (activeTextTrack.language !== 'off' && !this._activeTextTrack) {
+      } else if (activeTextTrack.language !== 'off' && !this._lastActiveTextTrack) {
         this.logger.debug(`Hiding text track`);
-        this._activeTextTrack = activeTextTrack;
+        this._lastActiveTextTrack = activeTextTrack;
+        this._lastActiveTextTrack.active = false;
         this.player.hideTextTrack();
       }
     }
