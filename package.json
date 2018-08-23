@@ -1,5 +1,5 @@
 {
-  "name": "playkit-js-ui",
+  "name": "@playkit-js/playkit-js-ui",
   "version": "0.25.4",
   "description": "",
   "main": "dist/playkit-ui.js",
@@ -11,10 +11,9 @@
     "watch": "webpack --progress --colors --watch",
     "test": "NODE_ENV=test karma start --color",
     "release": "standard-version",
-    "publish": "git push --follow-tags --no-verify origin master",
+    "pushTaggedRelease": "git push --follow-tags --no-verify origin master",
     "eslint": "eslint . --color",
     "flow": "flow check",
-    "commit:dist": "git add --force --all dist && (git commit -m 'chore: update dist' || exit 0)",
     "docs:components": "jsdoc -c component.jsdocs.json -r",
     "precommit": "lint-staged"
   },
@@ -28,10 +27,17 @@
       "git add"
     ]
   },
-  "standard-version": {
-    "scripts": {
-      "postbump": "yarn run build && npm run commit:dist"
-    }
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "empty": "^0.10.1",
+    "js-logger": "^1.3.0",
+    "preact": "^8.1.0",
+    "preact-i18n": "^1.0.0",
+    "preact-portal": "^1.1.2",
+    "preact-redux": "^2.0.1",
+    "redux": "^3.6.0"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
@@ -91,16 +97,13 @@
     "webpack": "^3.3.0",
     "webpack-dev-server": "latest"
   },
-  "dependencies": {
-    "empty": "^0.10.1",
-    "js-logger": "^1.3.0",
-    "preact": "^8.1.0",
-    "preact-i18n": "^1.0.0",
-    "preact-portal": "^1.1.2",
-    "preact-redux": "^2.0.1",
-    "redux": "^3.6.0"
-  },
-  "keywords": [],
+  "keywords": [
+    "kaltura",
+    "player",
+    "playkit-js",
+    "playkit-js-ui",
+    "html5 player"
+  ],
   "license": "AGPL-3.0",
   "repository": {
     "type": "git",
@@ -109,5 +112,8 @@
   "bugs": {
     "url": "https://github.com/kaltura/playkit-js-ui/issues"
   },
-  "homepage": "https://github.com/kaltura/playkit-js-ui#readme"
+  "homepage": "https://github.com/kaltura/playkit-js-ui#readme",
+  "kcc": {
+    "name": "playkit-ui"
+  }
 }
