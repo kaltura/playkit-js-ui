@@ -30,7 +30,7 @@ class AdLearnMore extends Component {
    */
   render(props: any): React$Element<any> {
     return (
-      <a href={props.url} target="_blank" className={[style.btn, style.btnDarkTransparent].join(' ')}>
+      <a href={props.url} target="_blank" className={[style.btn, style.btnDarkTransparent, style.learnMore].join(' ')}>
         Learn more
       </a>
     );

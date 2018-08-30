@@ -40,5 +40,9 @@
       "connected_to": "Connected to",
       "playing_on": "Playing on"
     }
+  },
+  "ads": {
+    "skip_ad": "Skip Ad",
+    "skip_in": "Skip in"
   }
 }
