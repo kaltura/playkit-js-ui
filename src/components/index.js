@@ -40,3 +40,4 @@ export {Watermark} from './watermark';
 export {CastControl} from './cast';
 export {CastOverlay} from './cast-overlay';
 export {VrStereoToggleControl} from './vr-stereo-toggle';
+export {CastBeforePlay, CastAfterPlay} from './cast-on-tv';

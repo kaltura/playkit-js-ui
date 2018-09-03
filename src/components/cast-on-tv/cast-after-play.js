@@ -4,7 +4,6 @@ import {h} from 'preact';
 import BaseComponent from '../base';
 import {connect} from 'preact-redux';
 import {IconType} from '../icon/index';
-import {actions} from '../../reducers/backdrop';
 import {Icon} from '../icon/icon';
 import {Localizer, Text} from 'preact-i18n';
 
@@ -14,56 +13,54 @@ import {Localizer, Text} from 'preact-i18n';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  prePlayback: state.shell.prePlayback,
-  loading: state.loading.show,
-  isCastAvailable: state.engine.isCastAvailable
+  isEnded: state.engine.isEnded,
+  isCasting: state.engine.isCasting
 });
 
 @connect(
   mapStateToProps,
-  actions
+  null
 )
 /**
- * CastOverlay component
+ * CastAfterPlay component
  *
- * @class CastBeforePlay
- * @example <CastBeforePlay player={this.player} />
+ * @class CastAfterPlay
+ * @example <CastAfterPlay player={this.player} />
  * @extends {BaseComponent}
  */
-class CastBeforePlay extends BaseComponent {
+class CastAfterPlay extends BaseComponent {
   /**
    * @static
    * @type {Object} - Component default props
    */
   static defaultProps: Object = {
-    icon: IconType.Cast
+    icon: IconType.CastBrand
   };
 
   /**
    * Creates an instance of CastOverlay.
    * @param {Object} obj obj
-   * @memberof CastBeforePlay
+   * @memberof CastAfterPlay
    */
   constructor(obj: Object) {
-    super({name: 'CastBeforePlay', player: obj.player});
+    super({name: 'CastAfterPlay', player: obj.player});
   }
 
   /**
-   * on click we're calling the start casting API and setting connecting state.
+   * on click call the stop casting API.
    *
    * @returns {void}
-   * @memberof CastBeforePlay
+   * @memberof CastAfterPlay
    */
   onClick(): void {
-    this.props.updateBackdropVisibility(true);
-    this.player.startCasting().catch(() => this.props.updateBackdropVisibility(false));
+    this.player.stopCasting();
   }
 
   /**
-   * after component did mount, show the cast before play button.
+   * after component did mount, show the cast after play button.
    *
    * @returns {void}
-   * @memberof CastBeforePlay
+   * @memberof CastAfterPlay
    */
   componentDidMount(): void {
     setTimeout(() => {
@@ -76,24 +73,24 @@ class CastBeforePlay extends BaseComponent {
    *
    * @param {*} props - component props
    * @returns {?React$Element} - component element
-   * @memberof CastBeforePlay
+   * @memberof CastAfterPlay
    */
   render(props: any): ?React$Element<any> {
-    if (!props.isCastAvailable || !props.prePlayback || props.loading) return undefined;
-    const rootStyle = [style.castBeforePlayButtonContainer];
+    if (!props.isCasting || !props.isEnded) return undefined;
+    const rootStyle = [style.castOnTvButtonContainer];
     if (this.state.show) {
-      rootStyle.push(style.showCastBeforePlay);
+      rootStyle.push(style.showCastOnTv);
     }
     return (
       <div>
         <div className={rootStyle.join(' ')} onClick={() => this.onClick()}>
-          <a className={[style.btn, style.btnDarkTransparent, style.castBeforePlayButton].join(' ')}>
-            <div className={style.castBeforePlayIconContainer}>
+          <a className={[style.btn, style.btnDarkTransparent, style.castOnTvButton].join(' ')}>
+            <div className={style.castOnTvIconContainer}>
               <Icon type={props.icon} />
             </div>
             <Localizer>
               <span>
-                <Text id="cast.play_on_tv" />
+                <Text id="cast.disconnect_from_tv" />
               </span>
             </Localizer>
           </a>
@@ -103,4 +100,4 @@ class CastBeforePlay extends BaseComponent {
   }
 }
 
-export {CastBeforePlay};
+export {CastAfterPlay};

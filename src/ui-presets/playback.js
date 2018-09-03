@@ -20,7 +20,7 @@ import {UnmuteIndication} from '../components/unmute-indication';
 import {Watermark} from '../components/watermark/watermark';
 import {shouldRenderComponent} from '../utils/component-config';
 import {CastControl} from '../components/cast';
-import {CastBeforePlay} from '../components/cast-before-play/cast-before-play';
+import {CastBeforePlay} from '../components/cast-on-tv/cast-before-play';
 import {Backdrop} from '../components/backdrop/backdrop';
 
 /**

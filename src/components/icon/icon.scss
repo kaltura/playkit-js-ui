@@ -266,3 +266,7 @@
 .icon-chromecast {
   background-image: icon(chromecast, '#fff')
 }
+
+.icon-chromecast-brand {
+  background-image: icon(chromecast, $brand-color)
+}

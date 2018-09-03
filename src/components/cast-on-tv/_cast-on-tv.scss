@@ -1,4 +1,4 @@
-@keyframes castBeforePlayAnimation {
+@keyframes castOnTVAnimation {
   0% {
     opacity: 0;
     transform: rotateY(70deg);
@@ -18,7 +18,7 @@
 }
 
 .player {
-  .cast-before-play-button-container {
+  .cast-on-tv-button-container {
     margin: auto;
     position: absolute;
     left: 0;
@@ -32,12 +32,12 @@
       color: white;
     }
 
-    &.show-cast-before-play {
-      animation: castBeforePlayAnimation 300ms linear forwards;
+    &.show-cast-on-tv {
+      animation: castOnTVAnimation 300ms linear forwards;
     }
   }
 
-  .btn.cast-before-play-button {
+  .btn.cast-on-tv-button {
     font-size: 15px;
     max-width: 200px;
     transition: max-width 200ms;
@@ -52,7 +52,7 @@
     }
   }
 
-  .cast-before-play-icon-container {
+  .cast-on-tv-icon-container {
     width: 32px;
     height: 32px;
     display: inline-block;
