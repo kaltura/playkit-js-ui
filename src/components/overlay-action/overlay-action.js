@@ -20,7 +20,8 @@ const mapStateToProps = state => ({
   adIsPlaying: state.engine.adIsPlaying,
   playerHover: state.shell.playerHover,
   isMobile: state.shell.isMobile,
-  isVr: state.engine.isVr
+  isVr: state.engine.isVr,
+  isEnded: state.engine.isEnded
 });
 
 /**
@@ -269,6 +270,7 @@ class OverlayAction extends BaseComponent {
    * @memberof OverlayAction
    */
   render(): React$Element<any> {
+    if (this.props.isEnded) return undefined;
     return (
       <div
         className={`${style.overlayAction} ${this.state.animation ? style.in : ''}`}
