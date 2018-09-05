@@ -5,6 +5,7 @@ import {connect} from 'preact-redux';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
+import {Localizer, Text} from 'preact-i18n';
 
 /**
  * The icon only default timeout
@@ -110,22 +111,26 @@ class UnmuteIndication extends BaseComponent {
     if (this.state.iconOnly) styleClass.push(style.showIconOnly);
 
     return (
-      <div
-        tabIndex="0"
-        aria-label="Unmute"
-        className={styleClass.join(' ')}
-        onMouseOver={() => this.setState({iconOnly: false})}
-        onMouseOut={() => this.setState({iconOnly: true})}
-        onClick={() => (this.player.muted = !this.player.muted)}
-        onKeyDown={e => this._keyDownHandler(e)}>
-        <a className={[style.btn, style.btnDarkTransparent, style.unmuteButton].join(' ')}>
-          <div className={style.unmuteIconContainer}>
-            <Icon type={IconType.VolumeBase} />
-            <Icon type={IconType.VolumeMute} />
-          </div>
-          <span>Unmute</span>
-        </a>
-      </div>
+      <Localizer>
+        <div
+          tabIndex="0"
+          aria-label={<Text id="controls.unmute" />}
+          className={styleClass.join(' ')}
+          onMouseOver={() => this.setState({iconOnly: false})}
+          onMouseOut={() => this.setState({iconOnly: true})}
+          onClick={() => (this.player.muted = !this.player.muted)}
+          onKeyDown={e => this._keyDownHandler(e)}>
+          <a className={[style.btn, style.btnDarkTransparent, style.unmuteButton].join(' ')}>
+            <div className={style.unmuteIconContainer}>
+              <Icon type={IconType.VolumeBase} />
+              <Icon type={IconType.VolumeMute} />
+            </div>
+            <span>
+              <Text id={'unmute.unmute'} />
+            </span>
+          </a>
+        </div>
+      </Localizer>
     );
   }
 }

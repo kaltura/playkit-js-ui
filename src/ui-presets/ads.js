@@ -12,6 +12,7 @@ import {TopBar} from '../components/top-bar';
 import {BottomBar} from '../components/bottom-bar';
 import {UnmuteIndication} from '../components/unmute-indication';
 import {KeyboardControl} from '../components/keyboard';
+import {AdNotice} from '../components/ad-notice/ad-notice';
 
 /**
  * Ads ui interface
@@ -41,7 +42,7 @@ export function adsUI(props: any): ?React$Element<any> {
         <div>
           <TopBar>
             <div className={style.leftControls}>
-              <span className={style.fontSizeBase}>Advertisement</span>
+              <AdNotice />
             </div>
             <div className={style.rightControls}>{adsUiCustomization.learnMoreButton ? <AdLearnMore /> : undefined}</div>
           </TopBar>
