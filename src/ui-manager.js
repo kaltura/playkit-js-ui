@@ -4,6 +4,7 @@ import {Provider} from 'preact-redux';
 import {IntlProvider} from 'preact-i18n';
 import {createStore} from 'redux';
 import {copyDeep} from './utils/copy-deep';
+import {mergeDeep} from './utils/merge-deep';
 import {LogLevel, getLogLevel, setLogLevel} from './utils/logger';
 import {EventType} from './event/event-type';
 
@@ -121,6 +122,8 @@ class UIManager {
   _setLocaleTranslations(config: UIOptionsObject): void {
     if (config.translations) {
       Object.entries(config.translations).forEach(([locale, translation]) => {
+        //fallback to english for non existing keys
+        translation = mergeDeep({}, this._translations['en'], translation);
         this._translations[locale] = translation;
       });
     }
