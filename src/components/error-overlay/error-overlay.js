@@ -91,8 +91,7 @@ class ErrorOverlay extends BaseComponent {
                 this.sessionEl = el;
               }}
               className={style.errorSession}>
-              <Text id="error.default_session_text" />
-              {sessionId}
+              <Text id="error.default_session_text" /> {' ' + sessionId}
             </div>
             <a className={copyUrlClasses} onClick={() => this.copyError()}>
               <Icon type={IconType.Copy} />
@@ -117,7 +116,7 @@ class ErrorOverlay extends BaseComponent {
       return (
         <div className={style.controlButtonContainer} onClick={() => this.handleClick()}>
           <button className={[style.controlButton, style.retryBtn].join(' ')}>
-            <Text id="core.retry" />
+            <Text id="error.retry" />
           </button>
         </div>
       );

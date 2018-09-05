@@ -8,7 +8,7 @@ import {LogLevel, getLogLevel, setLogLevel} from './utils/logger';
 import {EventType} from './event/event-type';
 
 import reducer from './store';
-import definition from './fr.json';
+import en_translations from './en.json';
 
 import {actions} from './reducers/config';
 // core components for the UI
@@ -34,6 +34,8 @@ class UIManager {
   store: any;
   container: ?HTMLElement;
   root: React$Component<any, any, any>;
+  _translations: {[langKey: string]: Object} = {en: en_translations};
+  _locale: string = 'en';
 
   /**
    * Creates an instance of UIManager.
@@ -49,6 +51,7 @@ class UIManager {
     this.targetId = config.targetId;
     this._createStore(config);
     this.setConfig(config);
+    this._setLocaleTranslations(config);
   }
 
   /**
@@ -110,6 +113,23 @@ class UIManager {
   }
 
   /**
+   * set the language translations
+   * @param {UIOptionsObject} config - config
+   * @private
+   * @returns {void}
+   */
+  _setLocaleTranslations(config: UIOptionsObject): void {
+    if (config.translations) {
+      Object.entries(config.translations).forEach(([locale, translation]) => {
+        this._translations[locale] = translation;
+      });
+    }
+    if (config.locale && this._translations[config.locale]) {
+      this._locale = config.locale;
+    }
+  }
+
+  /**
    * Creates the redux store.
    * @param {UIOptionsObject} config - The UI config.
    * @private
@@ -141,7 +161,7 @@ class UIManager {
       // i18n, redux and initial player-to-store connector setup
       const template = (
         <Provider store={this.store}>
-          <IntlProvider definition={definition}>
+          <IntlProvider definition={this._translations[this._locale]}>
             <Shell player={this.player}>
               <EngineConnector player={this.player} />
               <VideoPlayer player={this.player} />
