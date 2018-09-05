@@ -9,7 +9,7 @@ import {LogLevel, getLogLevel, setLogLevel} from './utils/logger';
 import {EventType} from './event/event-type';
 
 import reducer from './store';
-import en_translations from './en.json';
+import en_translations from './translations/en.json';
 
 import {actions} from './reducers/config';
 // core components for the UI
