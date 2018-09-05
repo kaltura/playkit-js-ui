@@ -4,7 +4,7 @@ declare type UIOptionsObject = {
   debugActions?: boolean,
   forceTouchUI?: boolean,
   logLevel?: string,
-  components?: ComponentsConfig
-  _translations?: {[langKey: string]: Object},
-  _locale?: string
+  components?: ComponentsConfig,
+  translations?: {[langKey: string]: Object},
+  locale?: string
 };
