@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.26.1"></a>
+## [0.26.1](https://github.com/kaltura/playkit-js-ui/compare/v0.26.0...v0.26.1) (2018-09-06)
+
+
+### Bug Fixes
+
+* incorrect i18n key name ([56e61c6](https://github.com/kaltura/playkit-js-ui/commit/56e61c6))
+
+
+
 <a name="0.26.0"></a>
 # [0.26.0](https://github.com/kaltura/playkit-js-ui/compare/v0.25.4...v0.26.0) (2018-09-05)
 
