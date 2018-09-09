@@ -42,7 +42,7 @@ const fullscreenUI = function(props){
     h(
       components.BottomBar,
       h(
-        components.FullscreenControl, { player: props.player }
+        components.FullscreenControl, { player: props.player },
         { className: "playkit-left-controls" }
       )
     )
