@@ -1,27 +1,12 @@
 //@flow
 import {h, render} from 'preact';
-import {Provider} from 'preact-redux';
-import {IntlProvider} from 'preact-i18n';
-import {createStore} from 'redux';
+import {getStore} from './store';
 import {copyDeep} from './utils/copy-deep';
-import {mergeDeep} from './utils/merge-deep';
+import {App} from './app';
 import {LogLevel, getLogLevel, setLogLevel} from './utils/logger';
 import {EventType} from './event/event-type';
-
-import reducer from './store';
-import en_translations from './translations/en.json';
-
 import {actions} from './reducers/config';
-// core components for the UI
-import {EngineConnector} from './components/engine-connector';
-import {Shell} from './components/shell';
-import {VideoPlayer} from './components/video-player';
-import {PlayerGUI} from './player-gui';
-// ui presets
 import * as presets from './ui-presets';
-
-import {middleware} from './middlewares';
-
 import './styles/style.scss';
 
 /**
@@ -35,8 +20,6 @@ class UIManager {
   store: any;
   container: ?HTMLElement;
   root: React$Component<any, any, any>;
-  _translations: {[langKey: string]: Object} = {en: en_translations};
-  _locale: string = 'en';
 
   /**
    * Creates an instance of UIManager.
@@ -52,7 +35,6 @@ class UIManager {
     this.targetId = config.targetId;
     this._createStore(config);
     this.setConfig(config);
-    this._setLocaleTranslations(config);
   }
 
   /**
@@ -114,40 +96,13 @@ class UIManager {
   }
 
   /**
-   * set the language translations
-   * @param {UIOptionsObject} config - config
-   * @private
-   * @returns {void}
-   */
-  _setLocaleTranslations(config: UIOptionsObject): void {
-    if (config.translations) {
-      Object.entries(config.translations).forEach(([locale, translation]) => {
-        //fallback to english for non existing keys
-        translation = mergeDeep({}, this._translations['en'], translation);
-        this._translations[locale] = translation;
-      });
-    }
-    if (config.locale && this._translations[config.locale]) {
-      this._locale = config.locale;
-    }
-  }
-
-  /**
    * Creates the redux store.
    * @param {UIOptionsObject} config - The UI config.
    * @private
    * @returns {void}
    */
   _createStore(config: UIOptionsObject): void {
-    this.store = createStore(
-      reducer,
-      window.devToolsExtension &&
-        window.devToolsExtension({
-          name: `playkit #${this.targetId}`,
-          instanceId: this.targetId
-        }),
-      middleware(this.player, config)
-    );
+    this.store = getStore(this.player, config);
   }
 
   /**
@@ -161,21 +116,8 @@ class UIManager {
     if (!this.player) return;
     this.container = document.getElementById(this.targetId);
     if (this.container) {
-      // i18n, redux and initial player-to-store connector setup
-      const template = (
-        <Provider store={this.store}>
-          <IntlProvider definition={this._translations[this._locale]}>
-            <Shell player={this.player}>
-              <EngineConnector player={this.player} />
-              <VideoPlayer player={this.player} />
-              <PlayerGUI uis={uis} player={this.player} playerContainer={this.container} />
-            </Shell>
-          </IntlProvider>
-        </Provider>
-      );
-
       // render the player
-      this.root = render(template, this.container);
+      this.root = render(<App uis={uis} container={this.targetId} player={this.player} />, this.container);
     }
   }
 
