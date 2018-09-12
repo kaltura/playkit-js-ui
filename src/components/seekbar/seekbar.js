@@ -321,7 +321,7 @@ class SeekBarControl extends Component {
     let _x = 0;
     let _y = 0;
     while (element && !isNaN(element.offsetLeft) && !isNaN(element.offsetTop)) {
-      _x += element.offsetLeft - element.scrollLeft;
+      _x += element.offsetLeft - element.scrollLeft + this._getTransformX(element);
       _y += element.offsetTop - element.scrollTop;
       element = element.offsetParent;
     }
@@ -330,6 +330,22 @@ class SeekBarControl extends Component {
       _x = 0;
     }
     return {top: _y, left: _x};
+  }
+
+  /**
+   * calculating the transform of an element
+   * @param {HTMLElement} element - the element to calculate the transform offset for
+   * @returns {number} - the transform
+   * @private
+   */
+  _getTransformX(element: HTMLElement): number {
+    const transformValues = getComputedStyle(element).transform.match(/-?\d+/g);
+    // [scaleX(),skewY(),skewX(),scaleY(),translateX(),translateY()]
+    let translateXVal = 0;
+    if (transformValues && transformValues.length > 0) {
+      translateXVal = parseFloat(transformValues[4]);
+    }
+    return translateXVal;
   }
 
   /**

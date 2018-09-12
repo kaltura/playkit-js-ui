@@ -2,6 +2,7 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
+import {Text} from 'preact-i18n';
 
 /**
  * mapping state to props
@@ -31,7 +32,7 @@ class AdLearnMore extends Component {
   render(props: any): React$Element<any> {
     return (
       <a href={props.url} target="_blank" className={[style.btn, style.btnDarkTransparent, style.learnMore].join(' ')}>
-        Learn more
+        <Text id={'ads.learn_more'} />
       </a>
     );
   }

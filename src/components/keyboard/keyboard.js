@@ -17,7 +17,8 @@ const mapStateToProps = state => ({
   playerNav: state.shell.playerNav,
   isPlaying: state.engine.isPlaying,
   adBreak: state.engine.adBreak,
-  adIsPlaying: state.engine.adIsPlaying
+  adIsPlaying: state.engine.adIsPlaying,
+  textTracks: state.engine.textTracks
 });
 
 /**
@@ -44,7 +45,7 @@ export const KEYBOARD_DEFAULT_VOLUME_JUMP: number = 5;
  * @extends {BaseComponent}
  */
 class KeyboardControl extends BaseComponent {
-  _activeTextTrack: ?Object = null;
+  _lastActiveTextLanguage: string = '';
   _hoverTimeout: ?number = null;
 
   /**
@@ -79,6 +80,22 @@ class KeyboardControl extends BaseComponent {
    */
   isPlayingAdOrPlayback(): boolean {
     return (this.props.adBreak && this.props.adIsPlaying) || (!this.props.adBreak && this.props.isPlaying);
+  }
+
+  /**
+   * We update the last language selected here upon trackTracks props change. This is done to make sure we update the
+   * last text track lanague upon language menu selection and using the (C) keyboard key.
+   * @param {Object} nextProps - the props that will replace the current props
+   * @returns {void}
+   */
+  componentWillReceiveProps(nextProps: Object): void {
+    const currActiveTrack = this.props.textTracks.find(track => track.active);
+    const nextActiveTrack = nextProps.textTracks.find(track => track.active);
+    if (currActiveTrack && currActiveTrack.language !== 'off' && nextActiveTrack && nextActiveTrack.language === 'off') {
+      this._lastActiveTextLanguage = currActiveTrack.language;
+    } else if (nextActiveTrack && nextActiveTrack.language !== 'off') {
+      this._lastActiveTextLanguage = '';
+    }
   }
 
   /**
@@ -219,15 +236,14 @@ class KeyboardControl extends BaseComponent {
     },
     [KeyMap.C]: () => {
       let activeTextTrack = this.player.getActiveTracks().text;
-      if (activeTextTrack.language === 'off' && this._activeTextTrack) {
-        this.logger.debug(`Changing text track`, this._activeTextTrack);
-        this.player.selectTrack(this._activeTextTrack);
-        const clonedTextTrack = Object.assign({}, this._activeTextTrack);
-        this._activeTextTrack = null;
-        return {track: clonedTextTrack};
-      } else if (activeTextTrack.language !== 'off' && !this._activeTextTrack) {
+      if (activeTextTrack.language === 'off' && this._lastActiveTextLanguage) {
+        this.logger.debug(`Changing text track to language`, this._lastActiveTextLanguage);
+        const selectedTextTrack = this.player.getTracks('text').find(track => track.language === this._lastActiveTextLanguage);
+        this.player.selectTrack(selectedTextTrack);
+        return {track: selectedTextTrack};
+      } else if (activeTextTrack.language !== 'off' && !this._lastActiveTextLanguage) {
         this.logger.debug(`Hiding text track`);
-        this._activeTextTrack = activeTextTrack;
+        this._lastActiveTextLanguage = activeTextTrack.language;
         this.player.hideTextTrack();
       }
     }

@@ -12,6 +12,7 @@ import {DropDown} from '../dropdown';
 import {Slider} from '../slider';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
+import {Text} from 'preact-i18n';
 
 /**
  * mapping state to props
@@ -142,7 +143,9 @@ class CVAAOverlay extends BaseComponent {
   renderMainState(): React$Element<any> {
     return (
       <div className={this.state.state === cvaaOverlayState.Main ? [style.overlayScreen, style.active].join(' ') : style.overlayScreen}>
-        <div className={style.title}>Advanced captions settings</div>
+        <div className={style.title}>
+          <Text id={'cvaa.title'} />
+        </div>
         <div>
           <div
             tabIndex="0"
@@ -153,7 +156,7 @@ class CVAAOverlay extends BaseComponent {
                 this.changeCaptionsStyle(this.captionsStyleDefault);
               }
             }}>
-            Sample
+            <Text id={'cvaa.sample_caption_tag'} />
             {isEqual(this.props.player.textStyle, this.captionsStyleDefault) ? (
               <div className={style.activeTick}>
                 <Icon type={IconType.Check} />
@@ -171,7 +174,7 @@ class CVAAOverlay extends BaseComponent {
                 this.changeCaptionsStyle(this.captionsStyleBlackBG);
               }
             }}>
-            Sample
+            <Text id={'cvaa.sample_caption_tag'} />
             {isEqual(this.props.player.textStyle, this.captionsStyleBlackBG) ? (
               <div className={style.activeTick}>
                 <Icon type={IconType.Check} />
@@ -189,7 +192,7 @@ class CVAAOverlay extends BaseComponent {
                 this.changeCaptionsStyle(this.captionsStyleYellow);
               }
             }}>
-            Sample
+            <Text id={'cvaa.sample_caption_tag'} />
             {isEqual(this.props.player.textStyle, this.captionsStyleYellow) ? (
               <div className={style.activeTick}>
                 <Icon type={IconType.Check} />
@@ -209,7 +212,7 @@ class CVAAOverlay extends BaseComponent {
                 this.transitionToState(cvaaOverlayState.CustomCaptions);
               }
             }}>
-            Set custom caption
+            <Text id={'cvaa.set_custom_caption'} />
           </a>
         ) : (
           <div className={style.customCaptionsApplied}>
@@ -227,7 +230,7 @@ class CVAAOverlay extends BaseComponent {
                   this.transitionToState(cvaaOverlayState.CustomCaptions);
                 }
               }}>
-              Edit caption
+              <Text id={'cvaa.edit_caption'} />
             </a>
           </div>
         )}
@@ -292,23 +295,33 @@ class CVAAOverlay extends BaseComponent {
       <div className={this.state.state === cvaaOverlayState.CustomCaptions ? [style.overlayScreen, style.active].join(' ') : style.overlayScreen}>
         <form className={[style.form, style.customCaptionForm].join(' ')}>
           <div className={style.formGroupRow}>
-            <label>Size</label>
+            <label>
+              <Text id={'cvaa.size_label'} />
+            </label>
             <DropDown onSelect={fontSize => this.changeCustomStyle({fontSize})} options={fontSizeOptions} />
           </div>
           <div className={style.formGroupRow}>
-            <label>Font color</label>
+            <label>
+              <Text id={'cvaa.font_color_label'} />
+            </label>
             <DropDown onSelect={fontColor => this.changeCustomStyle({fontColor})} options={fontColorOptions} />
           </div>
           <div className={style.formGroupRow}>
-            <label>Font family</label>
+            <label>
+              <Text id={'cvaa.font_family_label'} />
+            </label>
             <DropDown onSelect={fontFamily => this.changeCustomStyle({fontFamily})} options={fontFamilyOptions} />
           </div>
           <div className={style.formGroupRow}>
-            <label>Font style</label>
+            <label>
+              <Text id={'cvaa.font_style_label'} />
+            </label>
             <DropDown onSelect={fontEdge => this.changeCustomStyle({fontEdge})} options={fontStyleOptions} />
           </div>
           <div className={style.formGroupRow}>
-            <label>Font opacity</label>
+            <label>
+              <Text id={'cvaa.font_opacity_label'} />
+            </label>
             <Slider
               min={0}
               max={100}
@@ -317,11 +330,15 @@ class CVAAOverlay extends BaseComponent {
             />
           </div>
           <div className={style.formGroupRow}>
-            <label>Background color</label>
+            <label>
+              <Text id={'cvaa.background_color_label'} />
+            </label>
             <DropDown onSelect={backgroundColor => this.changeCustomStyle({backgroundColor})} options={backgroundColorOptions} />
           </div>
           <div className={style.formGroupRow}>
-            <label>Background opacity</label>
+            <label>
+              <Text id={'cvaa.background_opacity_label'} />
+            </label>
             <Slider
               min={0}
               max={100}
@@ -339,12 +356,14 @@ class CVAAOverlay extends BaseComponent {
                 }
               }}
               className={[style.btn, style.btnBranded, style.btnBlock].join(' ')}>
-              Apply
+              <Text id={'cvaa.apply'} />
             </a>
           </div>
 
           <div className={style.previewContainer}>
-            <span style={this.state.customTextStyle.toCSS()}>This is your caption preview</span>
+            <span style={this.state.customTextStyle.toCSS()}>
+              <Text id={'cvaa.caption_preview'} />
+            </span>
           </div>
         </form>
       </div>
