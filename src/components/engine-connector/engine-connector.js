@@ -187,10 +187,10 @@ class EngineConnector extends BaseComponent {
     });
 
     this.eventManager.listen(this.player, this.player.Event.AD_LOADED, e => {
-      this.props.updateAdIsLinear(e.payload.ad.isLinear());
-      this.props.updateAdClickUrl(e.payload.ad.g.clickThroughUrl);
-      this.props.updateAdSkipTimeOffset(e.payload.ad.getSkipTimeOffset());
-      this.props.updateAdSkippableState(e.payload.ad.getAdSkippableState());
+      this.props.updateAdIsLinear(e.payload.ad.linear);
+      this.props.updateAdClickUrl(e.payload.ad.clickThroughUrl);
+      this.props.updateAdSkipTimeOffset(e.payload.ad.skipOffset);
+      this.props.updateAdSkippableState(e.payload.ad.skippable);
     });
 
     this.eventManager.listen(this.player, this.player.Event.VR_STEREO_MODE_CHANGED, e => {
