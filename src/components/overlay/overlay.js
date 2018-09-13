@@ -54,7 +54,7 @@ class Overlay extends Component {
     if (!props.permanent) {
       return (
         <Localizer>
-          <a onClick={() => props.onClose()} aria-label={<Text id="core.close" />} className={style.closeOverlay}>
+          <a onClick={() => props.onClose()} aria-label={<Text id="overlay.close" />} className={style.closeOverlay}>
             <Icon type={IconType.Close} />
           </a>
         </Localizer>

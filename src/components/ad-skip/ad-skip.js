@@ -3,6 +3,7 @@ import style from '../../styles/style.scss';
 import {h} from 'preact';
 import {connect} from 'preact-redux';
 import BaseComponent from '../base';
+import {Text} from 'preact-i18n';
 
 /**
  * mapping state to props
@@ -70,10 +71,12 @@ class AdSkip extends BaseComponent {
     if (!this.props.adSkippableState && this.skipSupport) {
       return this.getSkipTimeOffset() <= 0 ? (
         <a className={[style.btn, style.btnBranded, style.btnSkipAd].join(' ')} onClick={() => this.player.skipAd()}>
-          {this.skipSupport.label || 'Skip ad'}
+          <Text key={'ads.skip_ad'} />
         </a>
       ) : (
-        <span className={style.skipAd}>Skip in {this.getSkipTimeOffset()}</span>
+        <span className={style.skipAd}>
+          <Text id={'ads.skip_in'} /> {this.getSkipTimeOffset()}
+        </span>
       );
     } else {
       return undefined;

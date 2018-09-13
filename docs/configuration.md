@@ -17,7 +17,9 @@ var uiManager = new playkit.ui.UIManager(player, config);
   debugActions: boolean, // optional
   forceTouchUI: boolean, // optional
   logLevel: string, // optional
-  components: Object // optional
+  components: Object, // optional
+  translations: Object, // optional
+  locale: Object // optional
 }
 ```
 
@@ -66,6 +68,30 @@ var uiManager = new playkit.ui.UIManager(player, config);
 > ##### Description: Defines the ui log level.
 >
 > Possible values: `"DEBUG", "INFO", "TIME", "WARN", "ERROR", "OFF"`
+
+##
+
+> ### config.translations
+>
+> ##### Type: `{[langKey: string]: Object}`
+>
+> ##### Default: `see en.json`
+>
+> ##### Description: Defines the ui translation dictionary configuration.
+>
+> Optional components to configure: `watermark`,`seekbar`, `fullscreen`
+
+##
+
+> ### config.locale
+>
+> ##### Type: `string`
+>
+> ##### Default: `en`
+>
+> ##### Description: Defines the ui locale configuration.
+>
+> Determine the translation dictionary to be used
 
 ##
 
