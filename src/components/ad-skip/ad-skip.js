@@ -55,7 +55,7 @@ class AdSkip extends BaseComponent {
     if (this.props.adSkippableState) {
       return this.getSkipTimeOffset() <= 0 ? (
         <Localizer>
-          <a className={[style.btn, style.btnBranded, style.btnSkipAd].join(' ')} onClick={() => this.player.skipAd()}>
+          <a className={[style.btn, style.btnBranded, style.btnSkipAd].join(' ')} onClick={() => this.player.ads.skipAd()}>
             <Text id="ads.skip_ad" />
           </a>
         </Localizer>
