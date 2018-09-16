@@ -40,11 +40,11 @@ class UIManager {
 
   /**
    * Creates an instance of UIManager.
-   * @param {Player} player - player instance
+   * @param {Object} player - player instance
    * @param {UIOptionsObject} config - ui config
    * @memberof UIManager
    */
-  constructor(player: Player, config: UIOptionsObject) {
+  constructor(player: Object, config: UIOptionsObject) {
     if (config.logLevel && this.LogLevel[config.logLevel]) {
       setLogLevel(this.LogLevel[config.logLevel]);
     }
