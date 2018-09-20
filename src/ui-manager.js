@@ -4,11 +4,12 @@ import {Provider} from 'preact-redux';
 import {IntlProvider} from 'preact-i18n';
 import {createStore} from 'redux';
 import {copyDeep} from './utils/copy-deep';
+import {mergeDeep} from './utils/merge-deep';
 import {LogLevel, getLogLevel, setLogLevel} from './utils/logger';
 import {EventType} from './event/event-type';
 
 import reducer from './store';
-import definition from './fr.json';
+import en_translations from './translations/en.json';
 
 import {actions} from './reducers/config';
 // core components for the UI
@@ -34,14 +35,16 @@ class UIManager {
   store: any;
   container: ?HTMLElement;
   root: React$Component<any, any, any>;
+  _translations: {[langKey: string]: Object} = {en: en_translations};
+  _locale: string = 'en';
 
   /**
    * Creates an instance of UIManager.
-   * @param {Player} player - player instance
+   * @param {Object} player - player instance
    * @param {UIOptionsObject} config - ui config
    * @memberof UIManager
    */
-  constructor(player: Player, config: UIOptionsObject) {
+  constructor(player: Object, config: UIOptionsObject) {
     if (config.logLevel && this.LogLevel[config.logLevel]) {
       setLogLevel(this.LogLevel[config.logLevel]);
     }
@@ -49,6 +52,7 @@ class UIManager {
     this.targetId = config.targetId;
     this._createStore(config);
     this.setConfig(config);
+    this._setLocaleTranslations(config);
   }
 
   /**
@@ -110,6 +114,25 @@ class UIManager {
   }
 
   /**
+   * set the language translations
+   * @param {UIOptionsObject} config - config
+   * @private
+   * @returns {void}
+   */
+  _setLocaleTranslations(config: UIOptionsObject): void {
+    if (config.translations) {
+      Object.entries(config.translations).forEach(([locale, translation]) => {
+        //fallback to english for non existing keys
+        translation = mergeDeep({}, this._translations['en'], translation);
+        this._translations[locale] = translation;
+      });
+    }
+    if (config.locale && this._translations[config.locale]) {
+      this._locale = config.locale;
+    }
+  }
+
+  /**
    * Creates the redux store.
    * @param {UIOptionsObject} config - The UI config.
    * @private
@@ -141,7 +164,7 @@ class UIManager {
       // i18n, redux and initial player-to-store connector setup
       const template = (
         <Provider store={this.store}>
-          <IntlProvider definition={definition}>
+          <IntlProvider definition={this._translations[this._locale]}>
             <Shell player={this.player}>
               <EngineConnector player={this.player} />
               <VideoPlayer player={this.player} />

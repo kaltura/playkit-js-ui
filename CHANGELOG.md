@@ -2,6 +2,57 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.27.1"></a>
+## [0.27.1](https://github.com/kaltura/playkit-js-ui/compare/v0.27.0...v0.27.1) (2018-09-16)
+
+
+### Bug Fixes
+
+* remove dependency in player ([6a08e43](https://github.com/kaltura/playkit-js-ui/commit/6a08e43))
+
+
+
+<a name="0.27.0"></a>
+# [0.27.0](https://github.com/kaltura/playkit-js-ui/compare/v0.26.1...v0.27.0) (2018-09-16)
+
+
+### Bug Fixes
+
+* use 'player.ads.skipAd()' instead of 'player.skipAd()' ([#272](https://github.com/kaltura/playkit-js-ui/issues/272)) ([d38d930](https://github.com/kaltura/playkit-js-ui/commit/d38d930))
+
+
+### Features
+
+* use playkit ads interface ([#273](https://github.com/kaltura/playkit-js-ui/issues/273)) ([8145949](https://github.com/kaltura/playkit-js-ui/commit/8145949))
+
+
+
+<a name="0.26.1"></a>
+## [0.26.1](https://github.com/kaltura/playkit-js-ui/compare/v0.26.0...v0.26.1) (2018-09-06)
+
+
+### Bug Fixes
+
+* incorrect i18n key name ([56e61c6](https://github.com/kaltura/playkit-js-ui/commit/56e61c6))
+
+
+
+<a name="0.26.0"></a>
+# [0.26.0](https://github.com/kaltura/playkit-js-ui/compare/v0.25.4...v0.26.0) (2018-09-05)
+
+
+### Bug Fixes
+
+* **FEC-8252:** Caption shortcut key (C) does not turn caption on ([#267](https://github.com/kaltura/playkit-js-ui/issues/267)) ([76e29b2](https://github.com/kaltura/playkit-js-ui/commit/76e29b2))
+* **FEC-8503:** seekbar virtual position is incorrect when positioned in a container with CSS transform ([#268](https://github.com/kaltura/playkit-js-ui/issues/268)) ([449d564](https://github.com/kaltura/playkit-js-ui/commit/449d564))
+
+
+### Features
+
+* **FEC-7681:** add i18n support ([#269](https://github.com/kaltura/playkit-js-ui/issues/269)) ([0b06db9](https://github.com/kaltura/playkit-js-ui/commit/0b06db9))
+
+
+
 <a name="0.25.4"></a>
 ## [0.25.4](https://github.com/kaltura/playkit-js-ui/compare/v0.25.3...v0.25.4) (2018-08-06)
 

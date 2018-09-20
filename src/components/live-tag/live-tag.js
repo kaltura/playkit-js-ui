@@ -4,6 +4,7 @@ import {h} from 'preact';
 import {connect} from 'preact-redux';
 import BaseComponent from '../base';
 import {KeyMap} from '../../utils/key-map';
+import {Text} from 'preact-i18n';
 
 /**
  * mapping state to props
@@ -83,7 +84,7 @@ class LiveTag extends BaseComponent {
             this.onClick();
           }
         }}>
-        Live
+        <Text id={'controls.live'} />
       </div>
     );
   }

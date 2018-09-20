@@ -21,10 +21,10 @@ const types = {
 
 /**
  * EventDispatcher Middleware function.
- * @param {Player} player - The video player.
+ * @param {Object} player - The video player.
  * @returns {void}
  */
-const eventDispatcherMiddleware = (player: Player) => (store: Object) => (next: Function) => (action: Object) => {
+const eventDispatcherMiddleware = (player: Object) => (store: Object) => (next: Function) => (action: Object) => {
   switch (action.type) {
     case types.COMPONENT_CLICKED:
       onClickableComponentsHandler(store, action, player);
@@ -48,10 +48,10 @@ const eventDispatcherMiddleware = (player: Player) => (store: Object) => (next: 
  * Handler for hover state change action.
  * @param {any} store - The redux store.
  * @param {Object} action - The action object.
- * @param {Player} player - The video player.
+ * @param {Object} player - The video player.
  * @returns {void}
  */
-function onPlayerHoverStateChangeHandler(store: any, action: Object, player: Player): void {
+function onPlayerHoverStateChangeHandler(store: any, action: Object, player: Object): void {
   const engineState = store.getState().engine;
   const shellState = store.getState().shell;
   if (!engineState.adBreak && engineState.isPlaying && shellState.playerHover !== action.hover) {
@@ -63,10 +63,10 @@ function onPlayerHoverStateChangeHandler(store: any, action: Object, player: Pla
  * Handler for changeable components actions.
  * @param {any} store - The redux store.
  * @param {Object} action - The action object.
- * @param {Player} player - The video player.
+ * @param {Object} player - The video player.
  * @returns {void}
  */
-function onChangeableComponentsHandler(store: any, action: Object, player: Player): void {
+function onChangeableComponentsHandler(store: any, action: Object, player: Object): void {
   switch (action.name) {
     case 'Volume':
       player.dispatchEvent(new VolumeChangedEvent(action.payload.volume));
@@ -85,10 +85,10 @@ function onChangeableComponentsHandler(store: any, action: Object, player: Playe
  * Handler for clickable components actions.
  * @param {any} store - The redux store.
  * @param {Object} action - The action object.
- * @param {Player} player - The video player.
+ * @param {Object} player - The video player.
  * @returns {void}
  */
-function onClickableComponentsHandler(store: any, action: Object, player: Player): void {
+function onClickableComponentsHandler(store: any, action: Object, player: Object): void {
   switch (action.name) {
     case 'Keyboard':
       keyboardHandlers[action.payload.key](store, action, player);
@@ -141,10 +141,10 @@ function onClickableComponentsHandler(store: any, action: Object, player: Player
  * Handler for play-pause clicked actions.
  * @param {any} store - The redux store.
  * @param {Object} action - The action object.
- * @param {Player} player - The video player.
+ * @param {Object} player - The video player.
  * @returns {void}
  */
-function onPlayPauseClicked(store: any, action: Object, player: Player): void {
+function onPlayPauseClicked(store: any, action: Object, player: Object): void {
   const engineState = store.getState().engine;
   if (engineState.adBreak) {
     engineState.adIsPlaying
@@ -161,10 +161,10 @@ function onPlayPauseClicked(store: any, action: Object, player: Player): void {
  * Handler for volume clicked actions.
  * @param {any} store - The redux store.
  * @param {Object} action - The action object.
- * @param {Player} player - The video player.
+ * @param {Object} player - The video player.
  * @returns {void}
  */
-function onVolumeClicked(store: any, action: Object, player: Player): void {
+function onVolumeClicked(store: any, action: Object, player: Object): void {
   const engineState = store.getState().engine;
   engineState.muted
     ? player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CLICKED_MUTE))
@@ -175,10 +175,10 @@ function onVolumeClicked(store: any, action: Object, player: Player): void {
  * Handler for language menu clicked actions.
  * @param {any} store - The redux store.
  * @param {Object} action - The action object.
- * @param {Player} player - The video player.
+ * @param {Object} player - The video player.
  * @returns {void}
  */
-function onLanguageClicked(store: any, action: Object, player: Player): void {
+function onLanguageClicked(store: any, action: Object, player: Object): void {
   if (action.payload.type === player.Track.AUDIO) {
     player.dispatchEvent(new AudioSelectedEvent(action.payload.track));
   } else if (action.payload.type === player.Track.TEXT) {
@@ -190,10 +190,10 @@ function onLanguageClicked(store: any, action: Object, player: Player): void {
  * Handler for fullscreen clicked actions.
  * @param {any} store - The redux store.
  * @param {Object} action - The action object.
- * @param {Player} player - The video player.
+ * @param {Object} player - The video player.
  * @returns {void}
  */
-function onFullScreenClicked(store: any, action: Object, player: Player): void {
+function onFullScreenClicked(store: any, action: Object, player: Object): void {
   player.isFullscreen()
     ? player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_EXITED_FULL_SCREEN))
     : player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_ENTERED_FULL_SCREEN));
@@ -203,10 +203,10 @@ function onFullScreenClicked(store: any, action: Object, player: Player): void {
  * Handler for settings menu clicked actions.
  * @param {any} store - The redux store.
  * @param {Object} action - The action object.
- * @param {Player} player - The video player.
+ * @param {Object} player - The video player.
  * @returns {void}
  */
-function onSettingsClicked(store: any, action: Object, player: Player): void {
+function onSettingsClicked(store: any, action: Object, player: Object): void {
   if (action.payload.type === player.Track.VIDEO) {
     player.dispatchEvent(new QualitySelectedEvent(action.payload.track));
   } else {
@@ -218,10 +218,10 @@ function onSettingsClicked(store: any, action: Object, player: Player): void {
  * Handler for overlay clicked actions.
  * @param {any} store - The redux store.
  * @param {Object} action - The action object.
- * @param {Player} player - The video player.
+ * @param {Object} player - The video player.
  * @returns {void}
  */
-function onOverlayActionClicked(store: any, action: Object, player: Player): void {
+function onOverlayActionClicked(store: any, action: Object, player: Object): void {
   if (action.payload.type === 'PlayPause') {
     onPlayPauseClicked(store, action, player);
   } else if (action.payload.type === 'Fullscreen') {
