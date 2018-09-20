@@ -183,7 +183,7 @@ class EngineConnector extends BaseComponent {
     });
 
     this.eventManager.listen(this.player, this.player.Event.AD_ERROR, e => {
-      if (e.payload.fatal) {
+      if (e.payload.severity === this.player.Error.Severity.CRITICAL) {
         this.props.updateAdBreak(false);
       }
     });
@@ -205,7 +205,7 @@ class EngineConnector extends BaseComponent {
     });
 
     this.eventManager.listen(this.player, this.player.Event.ERROR, e => {
-      if (e.payload && e.payload.severity === 2) {
+      if (e.payload.severity === this.player.Error.Severity.CRITICAL) {
         this.props.updateHasError(true);
       }
     });
