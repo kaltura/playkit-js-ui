@@ -20,7 +20,7 @@ export const initialState = {
 export default (state: Object = initialState, action: Object) => {
   switch (action.type) {
     case types.UPDATE: {
-      const config = mergeDeep(state, action.config);
+      const config = mergeDeep({}, state, action.config);
       return {
         ...state,
         ...config
@@ -31,7 +31,7 @@ export default (state: Object = initialState, action: Object) => {
         ...state,
         components: {
           ...state.components,
-          [action.componentAlias]: mergeDeep(state.components[action.componentAlias], action.config)
+          [action.componentAlias]: mergeDeep({}, state.components[action.componentAlias], action.config)
         }
       };
     }
