@@ -1,5 +1,6 @@
 export {AdLearnMore} from './ad-learn-more';
 export {AdSkip} from './ad-skip';
+export {AdNotice} from './ad-notice';
 export {BaseComponent} from './base';
 export {BottomBar} from './bottom-bar';
 export {CVAAOverlay} from './cvaa-overlay';
