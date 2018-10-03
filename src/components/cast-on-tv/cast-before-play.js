@@ -80,27 +80,29 @@ class CastBeforePlay extends BaseComponent {
    * @memberof CastBeforePlay
    */
   render(props: any): ?React$Element<any> {
-    if ((!props.isCastAvailable || !props.prePlayback || props.loading) && !props.isEnded) return undefined;
-    const rootStyle = [style.castOnTvButtonContainer];
-    if (this.state.show) {
-      rootStyle.push(style.showCastOnTv);
-    }
-    return (
-      <div>
-        <div className={rootStyle.join(' ')} onClick={() => this.onClick()}>
-          <a className={[style.btn, style.btnDarkTransparent, style.castOnTvButton].join(' ')}>
-            <div className={style.castOnTvIconContainer}>
-              <Icon type={props.icon} />
-            </div>
-            <Localizer>
-              <span>
-                <Text id="cast.play_on_tv" />
-              </span>
-            </Localizer>
-          </a>
+    if (!props.isCastAvailable || props.loading) return undefined;
+    if (props.prePlayback || props.isEnded) {
+      const rootStyle = [style.castOnTvButtonContainer];
+      if (this.state.show) {
+        rootStyle.push(style.showCastOnTv);
+      }
+      return (
+        <div>
+          <div className={rootStyle.join(' ')} onClick={() => this.onClick()}>
+            <a className={[style.btn, style.btnDarkTransparent, style.castOnTvButton].join(' ')}>
+              <div className={style.castOnTvIconContainer}>
+                <Icon type={props.icon} />
+              </div>
+              <Localizer>
+                <span>
+                  <Text id="cast.play_on_tv" />
+                </span>
+              </Localizer>
+            </a>
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
 
