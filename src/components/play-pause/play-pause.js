@@ -56,7 +56,7 @@ class PlayPauseControl extends BaseComponent {
    * @memberof PlayPauseControl
    */
   isPlayingAdOrPlayback(): boolean {
-    return (this.props.adBreak && this.props.adIsPlaying) || (!this.props.adBreak && this.props.isPlaying);
+    return !this.props.isEnded && ((this.props.adBreak && this.props.adIsPlaying) || (!this.props.adBreak && this.props.isPlaying));
   }
 
   /**

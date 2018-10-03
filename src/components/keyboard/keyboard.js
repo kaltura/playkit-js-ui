@@ -16,6 +16,7 @@ import {CONTROL_BAR_HOVER_DEFAULT_TIMEOUT} from '../shell/shell';
 const mapStateToProps = state => ({
   playerNav: state.shell.playerNav,
   isPlaying: state.engine.isPlaying,
+  isEnded: state.engine.isEnded,
   adBreak: state.engine.adBreak,
   adIsPlaying: state.engine.adIsPlaying,
   textTracks: state.engine.textTracks
@@ -79,7 +80,7 @@ class KeyboardControl extends BaseComponent {
    * @memberof KeyboardControl
    */
   isPlayingAdOrPlayback(): boolean {
-    return (this.props.adBreak && this.props.adIsPlaying) || (!this.props.adBreak && this.props.isPlaying);
+    return !this.props.isEnded && ((this.props.adBreak && this.props.adIsPlaying) || (!this.props.adBreak && this.props.isPlaying));
   }
 
   /**

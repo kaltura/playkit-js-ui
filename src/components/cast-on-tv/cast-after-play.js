@@ -49,10 +49,12 @@ class CastAfterPlay extends BaseComponent {
   /**
    * on click call the stop casting API.
    *
+   * @param {Event} e - click event
    * @returns {void}
    * @memberof CastAfterPlay
    */
-  onClick(): void {
+  onClick(e: Event): void {
+    e.stopPropagation();
     this.player.stopCasting();
   }
 
@@ -83,7 +85,7 @@ class CastAfterPlay extends BaseComponent {
     }
     return (
       <div>
-        <div className={rootStyle.join(' ')} onClick={() => this.onClick()}>
+        <div className={rootStyle.join(' ')} onClick={e => this.onClick(e)}>
           <a className={[style.btn, style.btnDarkTransparent, style.castOnTvButton].join(' ')}>
             <div className={style.castOnTvIconContainer}>
               <Icon type={props.icon} />

@@ -87,7 +87,7 @@ class OverlayAction extends BaseComponent {
    * @memberof OverlayAction
    */
   isPlayingAdOrPlayback(): boolean {
-    return (this.props.adBreak && this.props.adIsPlaying) || (!this.props.adBreak && this.props.isPlaying);
+    return !this.props.isEnded && ((this.props.adBreak && this.props.adIsPlaying) || (!this.props.adBreak && this.props.isPlaying));
   }
 
   /**
@@ -269,7 +269,6 @@ class OverlayAction extends BaseComponent {
    * @memberof OverlayAction
    */
   render(): React$Element<any> {
-    if (this.props.isEnded) return undefined;
     return (
       <div
         className={`${style.overlayAction} ${this.state.animation ? style.in : ''}`}

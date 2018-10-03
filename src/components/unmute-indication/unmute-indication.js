@@ -23,7 +23,8 @@ const mapStateToProps = state => ({
   fallbackToMutedAutoPlay: state.engine.fallbackToMutedAutoPlay,
   isPlaying: state.engine.isPlaying,
   adBreak: state.engine.adBreak,
-  adIsPlaying: state.engine.adIsPlaying
+  adIsPlaying: state.engine.adIsPlaying,
+  isEnded: state.engine.isEnded
 });
 
 @connect(
@@ -54,7 +55,7 @@ class UnmuteIndication extends BaseComponent {
    * @memberof UnmuteIndication
    */
   isPlayingAdOrPlayback(): boolean {
-    return (this.props.adBreak && this.props.adIsPlaying) || (!this.props.adBreak && this.props.isPlaying);
+    return !this.props.isEnded && ((this.props.adBreak && this.props.adIsPlaying) || (!this.props.adBreak && this.props.isPlaying));
   }
 
   /**
