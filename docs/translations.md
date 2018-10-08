@@ -23,7 +23,9 @@ A sample English dictionary may look like:
     "rewind": "Rewind",
     "vrStereo": "vrStereo",
     "live": "Live",
-    "unmute": "Unmute"
+    "unmute": "Unmute",
+    "next": "Next",
+    "prev": "Prev"
   },
   "settings": {
     "quality": "Quality",

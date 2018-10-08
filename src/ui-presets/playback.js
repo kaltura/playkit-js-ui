@@ -22,6 +22,8 @@ import {shouldRenderComponent} from '../utils/component-config';
 import {CastControl} from '../components/cast';
 import {CastBeforePlay} from '../components/cast-on-tv/cast-before-play';
 import {Backdrop} from '../components/backdrop/backdrop';
+import {NextControl} from '../components/next/next';
+import {PrevControl} from '../components/prev/prev';
 
 /**
  * Playback ui interface
@@ -42,7 +44,9 @@ export function playbackUI(props: any): React$Element<any> {
         <BottomBar>
           <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player} playerContainer={props.playerContainer} />
           <div className={style.leftControls}>
+            {shouldRenderComponent(props.config, PrevControl.displayName) ? <PrevControl player={props.player} /> : undefined}
             <PlayPauseControl player={props.player} />
+            {shouldRenderComponent(props.config, NextControl.displayName) ? <NextControl player={props.player} /> : undefined}
             <RewindControl player={props.player} step={10} />
             <TimeDisplayPlaybackContainer format="current / total" />
           </div>

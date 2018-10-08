@@ -1,0 +1,20 @@
+.control-button-container.control-next .control-button {
+
+  .icon-next {
+    display: block;
+  }
+  .icon-next-disabled {
+    display: none;
+  }
+
+  &:disabled {
+
+    .icon-next {
+      display: none;
+    }
+    .icon-next-disabled {
+      display: block;
+    }
+  }
+}
+

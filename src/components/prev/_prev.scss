@@ -1,0 +1,20 @@
+.control-button-container.control-prev .control-button {
+
+  .icon-prev {
+    display: block;
+  }
+  .icon-prev-disabled {
+    display: none;
+  }
+
+  &:disabled {
+
+    .icon-prev {
+      display: none;
+    }
+    .icon-prev-disabled {
+      display: block;
+    }
+  }
+}
+
