@@ -37,8 +37,7 @@ export const types = {
   UPDATE_IS_CASTING: `${component}/UPDATE_IS_CASTING`,
   UPDATE_CAST_SESSION: `${component}/UPDATE_CAST_SESSION`,
   UPDATE_IS_CAST_AVAILABLE: `${component}/UPDATE_IS_CAST_AVAILABLE`,
-  UPDATE_PLAYLIST_PREV: `${component}/UPDATE_PLAYLIST_PREV`,
-  UPDATE_PLAYLIST_NEXT: `${component}/UPDATE_PLAYLIST_NEXT`
+  UPDATE_PLAYLIST: `${component}/UPDATE_PLAYLIST`
 };
 
 export const initialState = {
@@ -79,8 +78,7 @@ export const initialState = {
   isCasting: false,
   castSession: null,
   isCastAvailable: false,
-  prev: null,
-  next: null
+  playlist: null
 };
 
 export default (state: Object = initialState, action: Object) => {
@@ -286,16 +284,10 @@ export default (state: Object = initialState, action: Object) => {
         isChangingSource: action.isChangingSource
       };
 
-    case types.UPDATE_PLAYLIST_PREV:
+    case types.UPDATE_PLAYLIST:
       return {
         ...state,
-        prev: action.prev
-      };
-
-    case types.UPDATE_PLAYLIST_NEXT:
-      return {
-        ...state,
-        next: action.next
+        playlist: action.playlist
       };
 
     default:
@@ -348,6 +340,5 @@ export const actions = {
     type: types.UPDATE_IS_CHANGING_SOURCE,
     isChangingSource
   }),
-  updatePlaylistPrev: (prev: ?KPPlaylistItem) => ({type: types.UPDATE_PLAYLIST_PREV, prev}),
-  updatePlaylistNext: (next: ?KPPlaylistItem) => ({type: types.UPDATE_PLAYLIST_NEXT, next})
+  updatePlaylist: (playlist: Object) => ({type: types.UPDATE_PLAYLIST, playlist}),
 };

@@ -13,7 +13,7 @@ import {connect} from 'preact-redux';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  item: state.engine.prev
+  item: state.engine.playlist.prev
 });
 
 @connect(mapStateToProps)

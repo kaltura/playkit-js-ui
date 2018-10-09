@@ -230,8 +230,7 @@ class EngineConnector extends BaseComponent {
     });
 
     this.eventManager.listen(this.player, this.player.Event.Playlist.PLAYLIST_ITEM_CHANGED, () => {
-      this.props.updatePlaylistPrev(this.player.playlist.prev);
-      this.props.updatePlaylistNext(this.player.playlist.next);
+      this.props.updatePlaylist({next: this.player.playlist.next, prev: this.player.playlist.prev});
     });
   }
 

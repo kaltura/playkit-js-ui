@@ -16,8 +16,7 @@ const mapStateToProps = state => ({
       hasError: state.engine.hasError,
       isIdle: state.engine.isIdle,
       isVr: state.engine.isVr,
-      prev: state.engine.prev,
-      next: state.engine.next
+      playlist: state.engine.playlist
     }
   },
   config: state.config
