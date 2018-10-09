@@ -1,6 +1,8 @@
 //@flow
+import {h} from 'preact';
 import {Component} from 'preact';
 import {connect} from 'preact-redux';
+import {IntlProvider} from 'preact-i18n';
 
 /**
  * mapping state to props
@@ -18,7 +20,10 @@ const mapStateToProps = state => ({
       isVr: state.engine.isVr
     }
   },
-  config: state.config
+  config: state.config,
+  container: state.app.targetId,
+  locale: state.app.locale,
+  translations: state.app.translations
 });
 
 @connect(mapStateToProps)
@@ -49,6 +54,17 @@ class PlayerGUI extends Component {
   }
 
   /**
+   * componentWillReceiveProps
+   * @param {Object} nextProps - the props that will replace the current props
+   * @returns {void}
+   */
+  componentWillReceiveProps(nextProps: Object): void {
+    if (nextProps.locale !== this.props.locale) {
+      this.forceUpdate();
+    }
+  }
+
+  /**
    * render component based on the matched UI.
    * if no matched UI found, it will choose the first UI configured in the UI array
    *
@@ -60,7 +76,11 @@ class PlayerGUI extends Component {
     let uiToRender;
     if (this.props.uis.length > 0) {
       uiToRender = this.getMatchedUI(props.uis, props.state);
-      return uiToRender ? uiToRender.template(props) : this.props.uis[0].template(props);
+      return (
+        <IntlProvider definition={props.translations[props.locale]}>
+          {uiToRender ? uiToRender.template(props) : this.props.uis[0].template(props)}
+        </IntlProvider>
+      );
     } else {
       return undefined;
     }
