@@ -206,6 +206,7 @@ class EngineConnector extends BaseComponent {
 
     this.eventManager.listen(this.player, this.player.Event.ERROR, e => {
       if (e.payload.severity === this.player.Error.Severity.CRITICAL) {
+        this.props.updateIsIdle(false);
         this.props.updateHasError(true);
       }
     });
