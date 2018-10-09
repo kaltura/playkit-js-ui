@@ -9,10 +9,6 @@
   display: inline-block;
   padding: 0 24px;
 
-  &:focus {
-    outline: none;
-  }
-
   &.btn-block {
     display: block;
   }
@@ -46,4 +42,12 @@
   background-color: rgba(0, 0, 0, 0.4);
   display: inline-block;
   padding: 2px;
+}
+
+.player {
+  button{
+    &:focus{
+      outline:none;
+    }
+  }
 }
