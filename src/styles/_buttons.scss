@@ -9,6 +9,10 @@
   display: inline-block;
   padding: 0 24px;
 
+  &:focus {
+    outline: none;
+  }
+
   &.btn-block {
     display: block;
   }
@@ -44,8 +48,3 @@
   padding: 2px;
 }
 
-button{
-  &:focus{
-    outline: 1px solid $tab-focus-color;
-  }
-}
