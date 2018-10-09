@@ -1,19 +1,42 @@
-.control-button-container.control-prev .control-button {
+.control-button-container.control-prev {
 
-  .icon-prev {
-    display: block;
-  }
-  .icon-prev-disabled {
+  .poster-preview {
+    position: absolute;
+    bottom: 35px;
+    width: 160px;
+    height: 90px;
     display: none;
   }
 
-  &:disabled {
+  .poster-preview-img {
+    height: 100%;
+    background-size: cover;
+    border-radius: 4px
+  }
+
+  &:hover {
+    .poster-preview {
+      display: block;
+    }
+  }
+
+  .control-button {
 
     .icon-prev {
-      display: none;
+      display: block;
     }
     .icon-prev-disabled {
-      display: block;
+      display: none;
+    }
+
+    &:disabled {
+
+      .icon-prev {
+        display: none;
+      }
+      .icon-prev-disabled {
+        display: block;
+      }
     }
   }
 }

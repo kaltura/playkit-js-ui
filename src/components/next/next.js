@@ -5,10 +5,7 @@ import {Localizer, Text} from 'preact-i18n';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
-import {actions as engineActions} from '../../reducers/engine';
-import {connect} from "preact-redux";
-import {bindActions} from '../../utils/bind-actions';
-import {actions} from '../../reducers/shell';
+import {connect} from 'preact-redux';
 
 /**
  * mapping state to props
@@ -16,13 +13,10 @@ import {actions} from '../../reducers/shell';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  item: state.config.components.playlist.next
+  item: state.engine.next
 });
 
-@connect(
-  mapStateToProps,
-  bindActions(Object.assign({}, actions, engineActions))
-)
+@connect(mapStateToProps)
 /**
  * NextControl component
  *
@@ -65,9 +59,16 @@ class NextControl extends BaseComponent {
   render(props: any): React$Element<any> | void {
     return (
       <div className={[style.controlButtonContainer, style.controlNext].join(' ')}>
+        {props.item ? (
+          <div className={style.posterPreview}>
+            <div className={style.posterPreviewImg} style={`background-image: url(${props.item.sources.poster});`} />
+          </div>
+        ) : (
+          undefined
+        )}
         <Localizer>
           <button
-            disabled={!this.props.item}
+            disabled={!props.item}
             tabIndex="0"
             aria-label={<Text id={'controls.next'} />}
             className={`${style.controlButton}`}

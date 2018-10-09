@@ -44,9 +44,9 @@ export function playbackUI(props: any): React$Element<any> {
         <BottomBar>
           <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player} playerContainer={props.playerContainer} />
           <div className={style.leftControls}>
-            {shouldRenderComponent(props.config, PrevControl.displayName) ? <PrevControl player={props.player} /> : undefined}
+            {props.state.engine.prev || props.state.engine.next ? <PrevControl player={props.player} /> : undefined}
             <PlayPauseControl player={props.player} />
-            {shouldRenderComponent(props.config, NextControl.displayName) ? <NextControl player={props.player} /> : undefined}
+            {props.state.engine.prev || props.state.engine.next ? <NextControl player={props.player} /> : undefined}
             <RewindControl player={props.player} step={10} />
             <TimeDisplayPlaybackContainer format="current / total" />
           </div>

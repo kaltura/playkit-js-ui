@@ -12,8 +12,7 @@ export const initialState = {
   components: {
     watermark: {},
     seekbar: {},
-    vrStereo: {},
-    playlist: {}
+    vrStereo: {}
   }
 };
 
