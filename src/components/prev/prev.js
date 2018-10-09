@@ -26,11 +26,6 @@ const mapStateToProps = state => ({
  */
 class PrevControl extends BaseComponent {
   /**
-   * @static
-   * @type {string} - Component display name
-   */
-  static displayName = 'playlist';
-  /**
    * Creates an instance of PrevControl.
    * @param {Object} obj obj
    * @memberof PrevControl

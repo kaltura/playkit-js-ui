@@ -26,11 +26,6 @@ const mapStateToProps = state => ({
  */
 class NextControl extends BaseComponent {
   /**
-   * @static
-   * @type {string} - Component display name
-   */
-  static displayName = 'playlist';
-  /**
    * Creates an instance of NextControl.
    * @param {Object} obj obj
    * @memberof NextControl
