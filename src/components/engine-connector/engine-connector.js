@@ -149,6 +149,7 @@ class EngineConnector extends BaseComponent {
     this.eventManager.listen(this.player, this.player.Event.AD_BREAK_START, () => {
       this.props.updateHasError(false);
       this.props.updateAdBreak(true);
+      this.props.updateIsEnded(false);
     });
 
     this.eventManager.listen(this.player, this.player.Event.AD_BREAK_END, () => {
@@ -206,6 +207,7 @@ class EngineConnector extends BaseComponent {
 
     this.eventManager.listen(this.player, this.player.Event.ERROR, e => {
       if (e.payload.severity === this.player.Error.Severity.CRITICAL) {
+        this.props.updateIsIdle(false);
         this.props.updateHasError(true);
       }
     });
