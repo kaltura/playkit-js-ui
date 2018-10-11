@@ -18,27 +18,27 @@ const mapStateToProps = state => ({
 
 @connect(mapStateToProps)
 /**
- * PrevControl component
+ * PlaylistButton component
  *
- * @class PrevControl
- * @example <PrevControl player={this.player}/>
+ * @class PlaylistButton
+ * @example <PlaylistButton player={this.player} type="next"/>
  * @extends {BaseComponent}
  */
 class PlaylistButton extends BaseComponent {
   /**
-   * Creates an instance of PrevControl.
+   * Creates an instance of PlaylistButton.
    * @param {Object} obj obj
-   * @memberof PrevControl
+   * @memberof PlaylistButton
    */
   constructor(obj: Object) {
     super({name: `PlaybackButton-${obj.type}`, player: obj.player});
   }
 
   /**
-   * prev click handler
+   * playlist button click handler
    *
    * @returns {void}
-   * @memberof PrevControl
+   * @memberof PlaylistButton
    */
   onClick(): void {
     this.props.type === 'prev' ? this.player.playlist.playPrev() : this.player.playlist.playNext();
@@ -49,7 +49,7 @@ class PlaylistButton extends BaseComponent {
    *
    * @param {*} props - component props
    * @returns {React$Element} - component element
-   * @memberof PrevControl
+   * @memberof PlaylistButton
    */
   render(props: any): React$Element<any> | void {
     return (

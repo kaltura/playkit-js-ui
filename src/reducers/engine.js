@@ -340,5 +340,5 @@ export const actions = {
     type: types.UPDATE_IS_CHANGING_SOURCE,
     isChangingSource
   }),
-  updatePlaylist: (playlist: Object) => ({type: types.UPDATE_PLAYLIST, playlist}),
+  updatePlaylist: (playlist: Object) => ({type: types.UPDATE_PLAYLIST, playlist})
 };
