@@ -13,35 +13,35 @@ import {connect} from 'preact-redux';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  item: state.engine.playlist.next
+  playlist: state.engine.playlist
 });
 
 @connect(mapStateToProps)
 /**
- * NextControl component
+ * PrevControl component
  *
- * @class NextControl
- * @example <NextControl player={this.player}/>
+ * @class PrevControl
+ * @example <PrevControl player={this.player}/>
  * @extends {BaseComponent}
  */
-class NextControl extends BaseComponent {
+class PlaylistButton extends BaseComponent {
   /**
-   * Creates an instance of NextControl.
+   * Creates an instance of PrevControl.
    * @param {Object} obj obj
-   * @memberof NextControl
+   * @memberof PrevControl
    */
   constructor(obj: Object) {
-    super({name: 'Next', player: obj.player});
+    super({name: `PlaybackButton-${obj.type}`, player: obj.player});
   }
 
   /**
-   * next click handler
+   * prev click handler
    *
    * @returns {void}
-   * @memberof NextControl
+   * @memberof PrevControl
    */
   onClick(): void {
-    this.player.playlist.playNext();
+    this.props.type === 'prev' ? this.player.playlist.playPrev() : this.player.playlist.playNext();
   }
 
   /**
@@ -49,23 +49,16 @@ class NextControl extends BaseComponent {
    *
    * @param {*} props - component props
    * @returns {React$Element} - component element
-   * @memberof NextControl
+   * @memberof PrevControl
    */
   render(props: any): React$Element<any> | void {
     return (
-      <div className={[style.controlButtonContainer, style.controlNext].join(' ')}>
-        {props.item ? (
-          <div className={style.posterPreview}>
-            <div className={style.posterPreviewImg} style={`background-image: url(${props.item.sources.poster});`} />
-          </div>
-        ) : (
-          undefined
-        )}
+      <div className={[style.controlButtonContainer, style.controlPlaylistButton].join(' ')}>
         <Localizer>
           <button
-            disabled={!props.item}
+            disabled={!props.playlist[props.type]}
             tabIndex="0"
-            aria-label={<Text id={'controls.next'} />}
+            aria-label={<Text id={`controls.${props.type}`} />}
             className={`${style.controlButton}`}
             onClick={() => this.onClick()}
             onKeyDown={e => {
@@ -73,8 +66,17 @@ class NextControl extends BaseComponent {
                 this.onClick();
               }
             }}>
-            <Icon type={IconType.Next} />
-            <Icon type={IconType.NextDisabled} />
+            {props.type === 'prev' ? (
+              <div>
+                <Icon type={IconType.Prev} />
+                <Icon type={IconType.PrevDisabled} />
+              </div>
+            ) : (
+              <div>
+                <Icon type={IconType.Next} />
+                <Icon type={IconType.NextDisabled} />
+              </div>
+            )}
           </button>
         </Localizer>
       </div>
@@ -82,4 +84,4 @@ class NextControl extends BaseComponent {
   }
 }
 
-export {NextControl};
+export {PlaylistButton};

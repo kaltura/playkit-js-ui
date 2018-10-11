@@ -13,6 +13,7 @@ import {BottomBar} from '../components/bottom-bar';
 import {UnmuteIndication} from '../components/unmute-indication';
 import {KeyboardControl} from '../components/keyboard';
 import {AdNotice} from '../components/ad-notice/ad-notice';
+import {PlaylistButton} from '../components/playlist-button/playlist-button';
 
 /**
  * Ads ui interface
@@ -50,7 +51,9 @@ export function adsUI(props: any): ?React$Element<any> {
         </div>
         <BottomBar>
           <div className={style.leftControls}>
+            {props.state.engine.playlist ? <PlaylistButton player={props.player} type="prev" /> : undefined}
             <PlayPauseControl player={props.player} />
+            {props.state.engine.playlist ? <PlaylistButton player={props.player} type="next" /> : undefined}
             <TimeDisplayAdsContainer />
           </div>
           <div className={style.rightControls}>
