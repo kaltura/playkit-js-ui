@@ -123,6 +123,10 @@ class EngineConnector extends BaseComponent {
       this.props.updateIsEnded(true);
     });
 
+    this.eventManager.listen(this.player, this.player.Event.PLAYBACK_ENDED, () => {
+      this.props.updateIsEnded(true);
+    });
+
     this.eventManager.listen(this.player, this.player.Event.TRACKS_CHANGED, () => {
       let audioTracks = this.player.getTracks(TrackType.AUDIO);
       let videoTracks = this.player.getTracks(TrackType.VIDEO);
