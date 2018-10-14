@@ -17,7 +17,6 @@ const mapStateToProps = state => ({
   isPlayingAdOrPlayback: isPlayingAdOrPlayback(state.engine),
   isPlaying: state.engine.isPlaying,
   adBreak: state.engine.adBreak,
-  adIsPlaying: state.engine.adIsPlaying,
   isEnded: state.engine.isEnded
 });
 
