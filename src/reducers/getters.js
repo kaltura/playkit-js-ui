@@ -5,5 +5,5 @@
  * @returns {boolean} - Whether the player is playing ad or content.
  */
 export const isPlayingAdOrPlayback = (state: Object) => {
-  return !state.isEnded && ((state.adBreak && state.adIsPlaying) || (!state.adBreak && state.isPlaying));
+  return (state.adBreak && state.adIsPlaying) || (!state.adBreak && state.isPlaying);
 };
