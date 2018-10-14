@@ -18,11 +18,8 @@ const mapStateToProps = state => ({
   isPlayingAdOrPlayback: isPlayingAdOrPlayback(state.engine),
   iconType: state.overlayAction.iconType,
   isPlaying: state.engine.isPlaying,
-  adBreak: state.engine.adBreak,
-  adIsPlaying: state.engine.adIsPlaying,
   playerHover: state.shell.playerHover,
-  isMobile: state.shell.isMobile,
-  isEnded: state.engine.isEnded
+  isMobile: state.shell.isMobile
 });
 
 /**
