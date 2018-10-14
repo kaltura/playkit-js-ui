@@ -7,6 +7,7 @@ import {bindActions} from '../../utils/bind-actions';
 import {KeyMap, getKeyName} from '../../utils/key-map';
 import {IconType} from '../icon';
 import {CONTROL_BAR_HOVER_DEFAULT_TIMEOUT} from '../shell/shell';
+import {isPlayingAdOrPlayback} from '../../reducers/getters';
 
 /**
  * mapping state to props
@@ -14,6 +15,7 @@ import {CONTROL_BAR_HOVER_DEFAULT_TIMEOUT} from '../shell/shell';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
+  isPlayingAdOrPlayback: isPlayingAdOrPlayback(state.engine),
   playerNav: state.shell.playerNav,
   isPlaying: state.engine.isPlaying,
   isEnded: state.engine.isEnded,
@@ -74,16 +76,6 @@ class KeyboardControl extends BaseComponent {
   }
 
   /**
-   * check if currently playing ad or playback
-   *
-   * @returns {boolean} - if currently playing ad or playback
-   * @memberof KeyboardControl
-   */
-  isPlayingAdOrPlayback(): boolean {
-    return !this.props.isEnded && ((this.props.adBreak && this.props.adIsPlaying) || (!this.props.adBreak && this.props.isPlaying));
-  }
-
-  /**
    * We update the last language selected here upon trackTracks props change. This is done to make sure we update the
    * last text track lanague upon language menu selection and using the (C) keyboard key.
    * @param {Object} nextProps - the props that will replace the current props
@@ -107,7 +99,7 @@ class KeyboardControl extends BaseComponent {
    */
   keyboardHandlers: {[key: number]: Function} = {
     [KeyMap.SPACE]: () => {
-      if (this.isPlayingAdOrPlayback()) {
+      if (this.props.isPlayingAdOrPlayback) {
         this.player.pause();
         this.props.updateOverlayActionIcon(IconType.Pause);
       } else {

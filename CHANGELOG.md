@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.28.0"></a>
+# [0.28.0](https://github.com/kaltura/playkit-js-ui/compare/v0.27.1...v0.28.0) (2018-10-14)
+
+
+### Bug Fixes
+
+* **engine-connector:** fix ad error check ([#274](https://github.com/kaltura/playkit-js-ui/issues/274)) ([452c69f](https://github.com/kaltura/playkit-js-ui/commit/452c69f))
+* **FEC-8273:** overriding any focus outline - fix IE black screen issue ([#277](https://github.com/kaltura/playkit-js-ui/issues/277)) ([674ea09](https://github.com/kaltura/playkit-js-ui/commit/674ea09))
+* **FEC-8462:** Thumbnail scrubber preview is overridden when multiple players are loaded simultaneously ([#275](https://github.com/kaltura/playkit-js-ui/issues/275)) ([987a280](https://github.com/kaltura/playkit-js-ui/commit/987a280))
+
+
+### Features
+
+* **FEC-8038:** chromecast sender ([#278](https://github.com/kaltura/playkit-js-ui/issues/278)) ([2e8e162](https://github.com/kaltura/playkit-js-ui/commit/2e8e162))
+
+
+
 <a name="0.27.1"></a>
 ## [0.27.1](https://github.com/kaltura/playkit-js-ui/compare/v0.27.0...v0.27.1) (2018-09-16)
 

@@ -7,6 +7,7 @@ import {actions} from '../../reducers/overlay-action';
 import {actions as shellActions} from '../../reducers/shell';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
+import {isPlayingAdOrPlayback} from '../../reducers/getters';
 
 /**
  * mapping state to props
@@ -14,6 +15,7 @@ import {default as Icon, IconType} from '../icon';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
+  isPlayingAdOrPlayback: isPlayingAdOrPlayback(state.engine),
   iconType: state.overlayAction.iconType,
   isPlaying: state.engine.isPlaying,
   adBreak: state.engine.adBreak,
@@ -81,23 +83,13 @@ class OverlayAction extends BaseComponent {
   }
 
   /**
-   * check if currently playing ad or playback
-   *
-   * @returns {boolean} - if currently playing ad or playback
-   * @memberof OverlayAction
-   */
-  isPlayingAdOrPlayback(): boolean {
-    return !this.props.isEnded && ((this.props.adBreak && this.props.adIsPlaying) || (!this.props.adBreak && this.props.isPlaying));
-  }
-
-  /**
    * toggle play pause and set animation to icon change
    *
    * @returns {void}
    * @memberof OverlayAction
    */
   togglePlayPause(): void {
-    if (this.isPlayingAdOrPlayback()) {
+    if (this.props.isPlayingAdOrPlayback) {
       this.player.pause();
       this.props.updateOverlayActionIcon(IconType.Pause);
     } else {
