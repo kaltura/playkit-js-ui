@@ -17,10 +17,6 @@ import {isPlayingAdOrPlayback} from '../../reducers/getters';
 const mapStateToProps = state => ({
   isPlayingAdOrPlayback: isPlayingAdOrPlayback(state.engine),
   playerNav: state.shell.playerNav,
-  isPlaying: state.engine.isPlaying,
-  isEnded: state.engine.isEnded,
-  adBreak: state.engine.adBreak,
-  adIsPlaying: state.engine.adIsPlaying,
   textTracks: state.engine.textTracks
 });
 

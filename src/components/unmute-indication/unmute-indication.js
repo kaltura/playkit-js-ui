@@ -22,11 +22,7 @@ export const MUTED_AUTOPLAY_ICON_ONLY_DEFAULT_TIMEOUT = 3000;
  */
 const mapStateToProps = state => ({
   isPlayingAdOrPlayback: isPlayingAdOrPlayback(state.engine),
-  fallbackToMutedAutoPlay: state.engine.fallbackToMutedAutoPlay,
-  isPlaying: state.engine.isPlaying,
-  adBreak: state.engine.adBreak,
-  adIsPlaying: state.engine.adIsPlaying,
-  isEnded: state.engine.isEnded
+  fallbackToMutedAutoPlay: state.engine.fallbackToMutedAutoPlay
 });
 
 @connect(
