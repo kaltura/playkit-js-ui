@@ -17,7 +17,6 @@ import {isPlayingAdOrPlayback} from '../../reducers/getters';
 const mapStateToProps = state => ({
   isPlayingAdOrPlayback: isPlayingAdOrPlayback(state.engine),
   iconType: state.overlayAction.iconType,
-  isPlaying: state.engine.isPlaying,
   playerHover: state.shell.playerHover,
   isMobile: state.shell.isMobile
 });
