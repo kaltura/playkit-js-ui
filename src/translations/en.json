@@ -52,5 +52,14 @@
     "background_opacity_label": "Background opacity",
     "apply": "Apply",
     "caption_preview": "This is your caption preview"
+  },
+  "cast": {
+    "play_on_tv": "Play on TV",
+    "disconnect_from_tv": "Disconnect from TV",
+    "status": {
+      "connecting_to": "Connecting to",
+      "connected_to": "Connected to",
+      "playing_on": "Playing on"
+    }
   }
 }

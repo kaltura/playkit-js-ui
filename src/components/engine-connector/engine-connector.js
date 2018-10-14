@@ -52,13 +52,19 @@ class EngineConnector extends BaseComponent {
     });
 
     this.eventManager.listen(this.player, this.player.Event.CHANGE_SOURCE_STARTED, () => {
+      this.props.updateIsChangingSource(true);
       this.props.updateFallbackToMutedAutoPlay(false);
       this.props.updateAdBreak(false);
       this.props.updateAdIsPlaying(false);
       this.props.updateIsPlaying(false);
+      this.props.updateIsEnded(false);
+      if (this.props.engine.isCasting) {
+        this.props.updateLoadingSpinnerState(true);
+      }
     });
 
     this.eventManager.listen(this.player, this.player.Event.CHANGE_SOURCE_ENDED, () => {
+      this.props.updateIsChangingSource(false);
       this.props.updatePlayerPoster(this.player.poster);
       this.props.updateIsIdle(false);
       if (!this.player.config.playback.autoplay) {
@@ -89,6 +95,7 @@ class EngineConnector extends BaseComponent {
       this.props.updateIsLive(this.player.isLive());
       this.props.updateIsDvr(this.player.isDvr());
       this.props.updatePlayerPoster(this.player.poster);
+      this.props.updateIsEnded(false);
     });
 
     this.eventManager.listen(this.player, this.player.Event.VOLUME_CHANGE, () => {
@@ -109,6 +116,7 @@ class EngineConnector extends BaseComponent {
 
     this.eventManager.listen(this.player, this.player.Event.PAUSE, () => {
       this.props.updateIsPlaying(false);
+      this.props.updateIsPaused(true);
     });
 
     this.eventManager.listen(this.player, this.player.Event.ENDED, () => {
@@ -143,6 +151,7 @@ class EngineConnector extends BaseComponent {
     this.eventManager.listen(this.player, this.player.Event.AD_BREAK_START, () => {
       this.props.updateHasError(false);
       this.props.updateAdBreak(true);
+      this.props.updateIsEnded(false);
     });
 
     this.eventManager.listen(this.player, this.player.Event.AD_BREAK_END, () => {
@@ -200,8 +209,28 @@ class EngineConnector extends BaseComponent {
 
     this.eventManager.listen(this.player, this.player.Event.ERROR, e => {
       if (e.payload.severity === this.player.Error.Severity.CRITICAL) {
+        this.props.updateIsIdle(false);
         this.props.updateHasError(true);
       }
+    });
+
+    this.eventManager.listen(this.player, this.player.Event.Cast.CAST_SESSION_STARTED, e => {
+      const session = e.payload.session;
+      this.props.updateIsCasting(true);
+      this.props.updateCastSession(session);
+      if (session.resuming) {
+        this.props.updateLoadingSpinnerState(false);
+      }
+    });
+
+    this.eventManager.listen(this.player, this.player.Event.Cast.CAST_SESSION_ENDED, () => {
+      this.props.updateIsCasting(false);
+      this.props.updateCastSession(null);
+    });
+
+    this.eventManager.listen(this.player, this.player.Event.Cast.CAST_AVAILABLE, e => {
+      const {available} = e.payload;
+      this.props.updateIsCastAvailable(available);
     });
   }
 

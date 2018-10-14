@@ -12,7 +12,6 @@ export const initialState = {
   components: {
     watermark: {},
     seekbar: {},
-    error: {},
     vrStereo: {}
   }
 };

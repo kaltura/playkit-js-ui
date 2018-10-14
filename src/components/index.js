@@ -1,5 +1,6 @@
 export {AdLearnMore} from './ad-learn-more';
 export {AdSkip} from './ad-skip';
+export {AdNotice} from './ad-notice';
 export {BaseComponent} from './base';
 export {BottomBar} from './bottom-bar';
 export {CVAAOverlay} from './cvaa-overlay';
@@ -37,4 +38,7 @@ export {UnmuteIndication} from './unmute-indication';
 export {VideoPlayer} from './video-player';
 export {VolumeControl} from './volume';
 export {Watermark} from './watermark';
+export {CastControl} from './cast';
+export {CastOverlay} from './cast-overlay';
 export {VrStereoToggleControl} from './vr-stereo-toggle';
+export {CastBeforePlay, CastAfterPlay} from './cast-on-tv';

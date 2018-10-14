@@ -6,6 +6,7 @@ import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {Localizer, Text} from 'preact-i18n';
+import {isPlayingAdOrPlayback} from '../../reducers/getters';
 
 /**
  * The icon only default timeout
@@ -20,10 +21,12 @@ export const MUTED_AUTOPLAY_ICON_ONLY_DEFAULT_TIMEOUT = 3000;
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
+  isPlayingAdOrPlayback: isPlayingAdOrPlayback(state.engine),
   fallbackToMutedAutoPlay: state.engine.fallbackToMutedAutoPlay,
   isPlaying: state.engine.isPlaying,
   adBreak: state.engine.adBreak,
-  adIsPlaying: state.engine.adIsPlaying
+  adIsPlaying: state.engine.adIsPlaying,
+  isEnded: state.engine.isEnded
 });
 
 @connect(
@@ -45,16 +48,6 @@ class UnmuteIndication extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'UnmuteIndication', player: obj.player});
-  }
-
-  /**
-   * check if currently playing ad or playback
-   *
-   * @returns {boolean} - if currently playing ad or playback
-   * @memberof UnmuteIndication
-   */
-  isPlayingAdOrPlayback(): boolean {
-    return (this.props.adBreak && this.props.adIsPlaying) || (!this.props.adBreak && this.props.isPlaying);
   }
 
   /**
@@ -104,7 +97,7 @@ class UnmuteIndication extends BaseComponent {
    * @memberof UnmuteIndication
    */
   render(props: any): ?React$Element<any> {
-    if (!this.props.fallbackToMutedAutoPlay || !this.isPlayingAdOrPlayback()) return undefined;
+    if (!this.props.fallbackToMutedAutoPlay || !this.props.isPlayingAdOrPlayback) return undefined;
 
     const styleClass = [style.unmuteButtonContainer];
     if (props.hasTopBar) styleClass.push(style.hasTopBar);

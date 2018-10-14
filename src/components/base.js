@@ -19,6 +19,13 @@ class BaseComponent extends Component {
   eventManager: EventManager;
 
   /**
+   * Components default props.
+   * @type {Object}
+   * @static
+   */
+  static defaultProps: Object = {};
+
+  /**
    * Creates an instance of BaseComponent.
    * @param {Object} [obj={ config: {} }] obj
    * @memberof BaseComponent

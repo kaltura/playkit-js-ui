@@ -11,6 +11,7 @@ import * as Presets from './ui-presets';
 import * as Components from './components';
 //Utils
 import * as Utils from './utils';
+import style from './styles/style.scss';
 
 declare var __VERSION__: string;
 declare var __NAME__: string;
@@ -19,6 +20,7 @@ export {h} from 'preact';
 export {preact};
 export {redux};
 
+export {style};
 export {Reducers, Presets, Components, Utils};
 export {EventType};
 export {UIManager};

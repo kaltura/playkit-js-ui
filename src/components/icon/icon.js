@@ -37,7 +37,9 @@ const IconType = {
   Rewind: 'rewind',
   Rewind10: 'rewind10',
   vrStereo: 'vr-stereo',
-  vrStereoFull: 'vr-stereo-full'
+  vrStereoFull: 'vr-stereo-full',
+  Cast: 'cast',
+  CastBrand: 'cast-brand'
 };
 
 /**
@@ -161,6 +163,12 @@ class Icon extends Component {
 
       case IconType.vrStereoFull:
         return <i className={[style.icon, style.iconVrStereoFull].join(' ')} />;
+
+      case IconType.Cast:
+        return <i className={[style.icon, style.iconChromecast].join(' ')} />;
+
+      case IconType.CastBrand:
+        return <i className={[style.icon, style.iconChromecastBrand].join(' ')} />;
 
       default:
         break;
