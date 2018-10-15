@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.28.1"></a>
+## [0.28.1](https://github.com/kaltura/playkit-js-ui/compare/v0.28.0...v0.28.1) (2018-10-14)
+
+
+### Bug Fixes
+
+* remove unused props ([#280](https://github.com/kaltura/playkit-js-ui/issues/280)) ([d31d0aa](https://github.com/kaltura/playkit-js-ui/commit/d31d0aa))
+* replay button is missing after postroll ([#282](https://github.com/kaltura/playkit-js-ui/issues/282)) ([a17a280](https://github.com/kaltura/playkit-js-ui/commit/a17a280))
+
+
+
 <a name="0.28.0"></a>
 # [0.28.0](https://github.com/kaltura/playkit-js-ui/compare/v0.27.1...v0.28.0) (2018-10-14)
 

@@ -95,7 +95,6 @@ class EngineConnector extends BaseComponent {
       this.props.updateIsLive(this.player.isLive());
       this.props.updateIsDvr(this.player.isDvr());
       this.props.updatePlayerPoster(this.player.poster);
-      this.props.updateIsEnded(false);
     });
 
     this.eventManager.listen(this.player, this.player.Event.VOLUME_CHANGE, () => {
@@ -121,6 +120,8 @@ class EngineConnector extends BaseComponent {
 
     this.eventManager.listen(this.player, this.player.Event.ENDED, () => {
       this.props.updateIsEnded(true);
+      this.props.updateIsPlaying(false);
+      this.props.updateIsPaused(true);
     });
 
     this.eventManager.listen(this.player, this.player.Event.TRACKS_CHANGED, () => {
@@ -151,7 +152,6 @@ class EngineConnector extends BaseComponent {
     this.eventManager.listen(this.player, this.player.Event.AD_BREAK_START, () => {
       this.props.updateHasError(false);
       this.props.updateAdBreak(true);
-      this.props.updateIsEnded(false);
     });
 
     this.eventManager.listen(this.player, this.player.Event.AD_BREAK_END, () => {
