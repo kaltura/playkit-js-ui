@@ -22,6 +22,7 @@ import {shouldRenderComponent} from '../utils/component-config';
 import {CastControl} from '../components/cast';
 import {CastBeforePlay} from '../components/cast-on-tv/cast-before-play';
 import {Backdrop} from '../components/backdrop/backdrop';
+import {PictureInPicture} from '../components/picture-in-picture';
 
 /**
  * Playback ui interface
@@ -45,6 +46,7 @@ export function playbackUI(props: any): React$Element<any> {
             <PlayPauseControl player={props.player} />
             <RewindControl player={props.player} step={10} />
             <TimeDisplayPlaybackContainer format="current / total" />
+            <PictureInPicture player={props.player} />
           </div>
           <div className={style.rightControls}>
             {props.state.engine.isVr && shouldRenderComponent(props.config, VrStereoToggleControl.displayName) ? (

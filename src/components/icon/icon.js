@@ -39,7 +39,8 @@ const IconType = {
   vrStereo: 'vr-stereo',
   vrStereoFull: 'vr-stereo-full',
   Cast: 'cast',
-  CastBrand: 'cast-brand'
+  CastBrand: 'cast-brand',
+  PictureInPicture: 'picture-in-picture'
 };
 
 /**
@@ -169,6 +170,9 @@ class Icon extends Component {
 
       case IconType.CastBrand:
         return <i className={[style.icon, style.iconChromecastBrand].join(' ')} />;
+
+      case IconType.PictureInPicture:
+        return <i className={[style.icon, style.iconPictureInPicture].join(' ')} />;
 
       default:
         break;
