@@ -15,6 +15,11 @@ $hovering-offset: 50px;
   }
   &.state-paused video::-webkit-media-text-track-container,
   &.hover video::-webkit-media-text-track-container {
+    padding: 0 0 $hovering-offset 0;
+  }
+  &.state-paused.Safari video::-webkit-media-text-track-container,
+  &.hover.Safari video::-webkit-media-text-track-container {
+    padding: initial;
     max-height: calc(100% - #{$hovering-offset});
   }
   &.fullscreen.iOS {
