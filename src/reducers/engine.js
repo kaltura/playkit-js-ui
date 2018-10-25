@@ -36,7 +36,8 @@ export const types = {
   UPDATE_VR_STEREO_MODE: `${component}/UPDATE_VR_STEREO_MODE`,
   UPDATE_IS_CASTING: `${component}/UPDATE_IS_CASTING`,
   UPDATE_CAST_SESSION: `${component}/UPDATE_CAST_SESSION`,
-  UPDATE_IS_CAST_AVAILABLE: `${component}/UPDATE_IS_CAST_AVAILABLE`
+  UPDATE_IS_CAST_AVAILABLE: `${component}/UPDATE_IS_CAST_AVAILABLE`,
+  UPDATE_PLAYLIST: `${component}/UPDATE_PLAYLIST`
 };
 
 export const initialState = {
@@ -76,7 +77,8 @@ export const initialState = {
   vrStereoMode: false,
   isCasting: false,
   castSession: null,
-  isCastAvailable: false
+  isCastAvailable: false,
+  playlist: null
 };
 
 export default (state: Object = initialState, action: Object) => {
@@ -282,6 +284,12 @@ export default (state: Object = initialState, action: Object) => {
         isChangingSource: action.isChangingSource
       };
 
+    case types.UPDATE_PLAYLIST:
+      return {
+        ...state,
+        playlist: action.playlist
+      };
+
     default:
       return state;
   }
@@ -331,5 +339,6 @@ export const actions = {
   updateIsChangingSource: (isChangingSource: boolean) => ({
     type: types.UPDATE_IS_CHANGING_SOURCE,
     isChangingSource
-  })
+  }),
+  updatePlaylist: (playlist: Object) => ({type: types.UPDATE_PLAYLIST, playlist})
 };
