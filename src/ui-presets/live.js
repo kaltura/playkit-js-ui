@@ -21,6 +21,7 @@ import {VrStereoToggleControl} from '../components/vr-stereo-toggle';
 import {CastControl} from '../components/cast';
 import {CastBeforePlay} from '../components/cast-on-tv/cast-before-play';
 import {Backdrop} from '../components/backdrop/backdrop';
+import {PlaylistButton} from '../components/playlist-button/playlist-button';
 
 /**
  * Live ui intrface
@@ -41,7 +42,9 @@ export function liveUI(props: any): React$Element<any> {
         <BottomBar>
           <SeekBarLivePlaybackContainer showFramePreview showTimeBubble player={props.player} playerContainer={props.playerContainer} />
           <div className={style.leftControls}>
+            {props.state.engine.playlist ? <PlaylistButton player={props.player} type="prev" /> : undefined}
             <PlayPauseControl player={props.player} />
+            {props.state.engine.playlist ? <PlaylistButton player={props.player} type="next" /> : undefined}
             <LiveTag player={props.player} />
           </div>
           <div className={style.rightControls}>
