@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.29.0"></a>
+# [0.29.0](https://github.com/kaltura/playkit-js-ui/compare/v0.28.1...v0.29.0) (2018-10-28)
+
+
+### Features
+
+* **FEC-8452:** playlist ([#276](https://github.com/kaltura/playkit-js-ui/issues/276)) ([564694f](https://github.com/kaltura/playkit-js-ui/commit/564694f))
+
+
+
 <a name="0.28.1"></a>
 ## [0.28.1](https://github.com/kaltura/playkit-js-ui/compare/v0.28.0...v0.28.1) (2018-10-14)
 
