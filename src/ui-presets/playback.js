@@ -46,7 +46,6 @@ export function playbackUI(props: any): React$Element<any> {
             <PlayPauseControl player={props.player} />
             <RewindControl player={props.player} step={10} />
             <TimeDisplayPlaybackContainer format="current / total" />
-            <PictureInPicture player={props.player} />
           </div>
           <div className={style.rightControls}>
             {props.state.engine.isVr && shouldRenderComponent(props.config, VrStereoToggleControl.displayName) ? (
@@ -58,6 +57,7 @@ export function playbackUI(props: any): React$Element<any> {
             <LanguageControl player={props.player} />
             <SettingsControl player={props.player} />
             <CastControl player={props.player} />
+            <PictureInPicture player={props.player} />
             <FullscreenControl player={props.player} />
           </div>
         </BottomBar>

@@ -13,7 +13,7 @@ import BaseComponent from '../base';
  * @extends {BaseComponent}
  */
 class PictureInPicture extends BaseComponent {
-  _pipFunction: ?Function = null;
+  _isSupported: boolean = false;
 
   /**
    * Creates an instance of PictureInPicture.
@@ -30,17 +30,8 @@ class PictureInPicture extends BaseComponent {
    * @private
    */
   _onPlayerReady(): void {
-    const videoElement = this.props.player.getVideoElement();
-    switch (this.player.env.browser.name) {
-      case 'Chrome':
-        if (document.pictureInPictureEnabled) {
-          this._pipFunction = this._pipChrome;
-        }
-        break;
-      case 'Safari':
-        if (videoElement.webkitSupportsPresentationMode && typeof videoElement.webkitSetPresentationMode === 'function') {
-          this._pipFunction = this._pipSafari;
-        }
+    if (this.player.isPictureInPictureSupported()) {
+      this._isSupported = true;
     }
   }
 
@@ -50,34 +41,11 @@ class PictureInPicture extends BaseComponent {
    * @private
    */
   _onClick(): void {
-    if (this._pipFunction) {
-      this._pipFunction();
-    }
-  }
-
-  /**
-   * PIP handler using Chrome API
-   * @returns {void}
-   * @private
-   */
-  _pipChrome(): void {
-    const videoElement = this.props.player.getVideoElement();
-    if (!document.pictureInPictureElement) {
-      videoElement.requestPictureInPicture();
+    if (this.player.isInPictureInPicture()) {
+      this.player.exitPictureInPicture();
     } else {
-      // $FlowFixMe
-      document.exitPictureInPicture();
+      this.player.enterPictureInPicture();
     }
-  }
-
-  /**
-   * PIP handler using Safari API
-   * @returns {void}
-   * @private
-   */
-  _pipSafari(): void {
-    const videoElement = this.props.player.getVideoElement();
-    videoElement.webkitSetPresentationMode(videoElement.webkitPresentationMode === 'picture-in-picture' ? 'inline' : 'picture-in-picture');
   }
 
   /**
@@ -97,7 +65,7 @@ class PictureInPicture extends BaseComponent {
    * @memberof RewindControl
    */
   render(): React$Element<any> | void {
-    if (this._pipFunction) {
+    if (this._isSupported) {
       return (
         <div className={[style.controlButtonContainer, style.pictureInPicture].join(' ')}>
           <Localizer>
@@ -108,7 +76,7 @@ class PictureInPicture extends BaseComponent {
               onClick={() => this._onClick()}
               onKeyDown={e => {
                 if (e.keyCode === KeyMap.ENTER) {
-                  this.onClick();
+                  this._onClick();
                 }
               }}>
               <Icon type={IconType.PictureInPicture} />
