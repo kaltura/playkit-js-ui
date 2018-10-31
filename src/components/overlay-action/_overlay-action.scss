@@ -84,9 +84,7 @@
 }
 
 .player:not(.touch, .size-sm) {
-  .overlay-action {
-    &.in .icon {
-      animation: overlayActionIconIn 300ms linear forwards;
-    }
+  .overlay-action.in .icon {
+    animation: overlayActionIconIn 300ms linear forwards;
   }
 }
