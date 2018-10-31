@@ -72,10 +72,6 @@
   width: 100%;
   height: 100%;
 
-  &.in .icon {
-    animation: overlayActionIconIn 300ms linear forwards;
-  }
-
   .icon {
     width: 144px;
     height: 144px;
@@ -84,5 +80,13 @@
     left: 50%;
     margin: -72px 0 0 -72px;
     opacity: 0;
+  }
+}
+
+.player:not(.touch, .size-sm) {
+  .overlay-action {
+    &.in .icon {
+      animation: overlayActionIconIn 300ms linear forwards;
+    }
   }
 }

@@ -2,7 +2,6 @@
 import style from '../styles/style.scss';
 import {h} from 'preact';
 import {Loading} from '../components/loading';
-import {PlayPauseControl} from '../components/play-pause';
 import {VolumeControl} from '../components/volume';
 import {FullscreenControl} from '../components/fullscreen';
 import {TimeDisplayAdsContainer} from '../components/time-display-ads-container';
@@ -13,7 +12,7 @@ import {BottomBar} from '../components/bottom-bar';
 import {UnmuteIndication} from '../components/unmute-indication';
 import {KeyboardControl} from '../components/keyboard';
 import {AdNotice} from '../components/ad-notice/ad-notice';
-import {PlaylistButton} from '../components/playlist-button/playlist-button';
+import {PlaybackControls} from '../components/playback-controls';
 
 /**
  * Ads ui interface
@@ -49,11 +48,10 @@ export function adsUI(props: any): ?React$Element<any> {
           </TopBar>
           {adsUiCustomization.skipButton ? <AdSkip player={props.player} /> : undefined}
         </div>
+        <PlaybackControls player={props.player} />
         <BottomBar>
           <div className={style.leftControls}>
-            {props.state.engine.playlist ? <PlaylistButton player={props.player} type="prev" /> : undefined}
-            <PlayPauseControl player={props.player} />
-            {props.state.engine.playlist ? <PlaylistButton player={props.player} type="next" /> : undefined}
+            <PlaybackControls player={props.player} />
             <TimeDisplayAdsContainer />
           </div>
           <div className={style.rightControls}>
