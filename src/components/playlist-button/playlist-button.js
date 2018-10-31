@@ -54,6 +54,17 @@ class PlaylistButton extends BaseComponent {
   render(props: any): React$Element<any> | void {
     return (
       <div className={[style.controlButtonContainer, style.controlPlaylistButton].join(' ')}>
+        {props.playlist[props.type] ? (
+          <div className={style.posterPreview}>
+            <div className={style.posterPreviewText}>
+              <div className={style.posterPreviewTextTitle}>{props.type === 'prev' ? 'Previous' : 'Up next'}</div>
+              <div className={style.posterPreviewTextName}>{`${props.playlist[props.type].sources.metadata.name}`}</div>
+            </div>
+            <div className={style.posterPreviewImg} style={`background-image: url(${props.playlist[props.type].sources.poster});`} />
+          </div>
+        ) : (
+          undefined
+        )}
         <Localizer>
           <button
             disabled={!props.playlist[props.type]}
