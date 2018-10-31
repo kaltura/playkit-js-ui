@@ -5,7 +5,18 @@ import {Localizer, Text} from 'preact-i18n';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import BaseComponent from '../base';
+import {connect} from 'preact-redux';
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
+const mapStateToProps = state => ({
+  isPictureInPictureSupported: state.engine.isPictureInPictureSupported
+});
+
+@connect(mapStateToProps)
 /**
  * PictureInPicture component
  *
@@ -13,7 +24,6 @@ import BaseComponent from '../base';
  * @extends {BaseComponent}
  */
 class PictureInPicture extends BaseComponent {
-  _isSupported: boolean = false;
 
   /**
    * Creates an instance of PictureInPicture.
@@ -22,17 +32,6 @@ class PictureInPicture extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'PictureInPicture', player: obj.player});
-  }
-
-  /**
-   * registers the correct PIP handler function according to the browser
-   * @returns {void}
-   * @private
-   */
-  _onPlayerReady(): void {
-    if (this.player.isPictureInPictureSupported()) {
-      this._isSupported = true;
-    }
   }
 
   /**
@@ -49,23 +48,13 @@ class PictureInPicture extends BaseComponent {
   }
 
   /**
-   * after component mounted, wait till the player is ready and check for PIP support
-   *
-   * @returns {void}
-   * @memberof SmartContainer
-   */
-  componentDidMount() {
-    this.player.ready().then(() => this._onPlayerReady());
-  }
-
-  /**
    * render component
    *
    * @returns {React$Element} - component element
    * @memberof RewindControl
    */
   render(): React$Element<any> | void {
-    if (this._isSupported) {
+    if (this.props.isPictureInPictureSupported) {
       return (
         <div className={[style.controlButtonContainer, style.pictureInPicture].join(' ')}>
           <Localizer>
