@@ -24,7 +24,6 @@ const mapStateToProps = state => ({
  * @extends {BaseComponent}
  */
 class PictureInPicture extends BaseComponent {
-
   /**
    * Creates an instance of PictureInPicture.
    * @param {Object} obj - the object passed when created
@@ -73,8 +72,6 @@ class PictureInPicture extends BaseComponent {
           </Localizer>
         </div>
       );
-    } else {
-      return;
     }
   }
 }
