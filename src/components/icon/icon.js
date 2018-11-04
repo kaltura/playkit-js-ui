@@ -43,7 +43,8 @@ const IconType = {
   Next: 'next',
   NextDisabled: 'next-disabled',
   Prev: 'prev',
-  PrevDisabled: 'prev-disabled'
+  PrevDisabled: 'prev-disabled',
+  PictureInPicture: 'picture-in-picture'
 };
 
 /**
@@ -185,6 +186,9 @@ class Icon extends Component {
 
       case IconType.PrevDisabled:
         return <i className={[style.icon, style.iconPrevDisabled].join(' ')} />;
+
+      case IconType.PictureInPicture:
+        return <i className={[style.icon, style.iconPictureInPicture].join(' ')} />;
 
       default:
         break;

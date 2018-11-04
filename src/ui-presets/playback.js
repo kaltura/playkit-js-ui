@@ -23,6 +23,7 @@ import {CastControl} from '../components/cast';
 import {CastBeforePlay} from '../components/cast-on-tv/cast-before-play';
 import {Backdrop} from '../components/backdrop/backdrop';
 import {PlaylistButton} from '../components/playlist-button/playlist-button';
+import {PictureInPicture} from '../components/picture-in-picture';
 
 /**
  * Playback ui interface
@@ -59,6 +60,7 @@ export function playbackUI(props: any): React$Element<any> {
             <LanguageControl player={props.player} />
             <SettingsControl player={props.player} />
             <CastControl player={props.player} />
+            <PictureInPicture player={props.player} />
             <FullscreenControl player={props.player} />
           </div>
         </BottomBar>

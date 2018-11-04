@@ -95,6 +95,7 @@ class EngineConnector extends BaseComponent {
       this.props.updateIsLive(this.player.isLive());
       this.props.updateIsDvr(this.player.isDvr());
       this.props.updatePlayerPoster(this.player.poster);
+      this.props.updatePictureInPictureSupport(this.player.isPictureInPictureSupported());
     });
 
     this.eventManager.listen(this.player, this.player.Event.VOLUME_CHANGE, () => {
