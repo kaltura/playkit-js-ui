@@ -15,7 +15,8 @@ const mapStateToProps = state => ({
       isLive: state.engine.isLive,
       hasError: state.engine.hasError,
       isIdle: state.engine.isIdle,
-      isVr: state.engine.isVr
+      isVr: state.engine.isVr,
+      playlist: state.engine.playlist
     }
   },
   config: state.config
