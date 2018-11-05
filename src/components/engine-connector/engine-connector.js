@@ -1,6 +1,5 @@
 //@flow
 import {h} from 'preact';
-import style from '../../styles/style.scss';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {default as reduce, actions} from '../../reducers/engine';
@@ -67,10 +66,6 @@ class EngineConnector extends BaseComponent {
       this.props.updateIsChangingSource(false);
       this.props.updatePlayerPoster(this.player.poster);
       this.props.updateIsIdle(false);
-      if (!this.player.config.playback.autoplay) {
-        this.props.updatePrePlayback(true);
-        this.props.addPlayerClass(style.prePlayback);
-      }
     });
 
     this.eventManager.listen(this.player, this.player.Event.PLAYER_STATE_CHANGED, e => {
