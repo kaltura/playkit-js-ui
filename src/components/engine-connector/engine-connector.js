@@ -57,6 +57,7 @@ class EngineConnector extends BaseComponent {
       this.props.updateAdIsPlaying(false);
       this.props.updateIsPlaying(false);
       this.props.updateIsEnded(false);
+      this.props.updateLastSeekPoint(0);
       if (this.props.engine.isCasting) {
         this.props.updateLoadingSpinnerState(true);
       }
@@ -112,6 +113,10 @@ class EngineConnector extends BaseComponent {
     this.eventManager.listen(this.player, this.player.Event.PAUSE, () => {
       this.props.updateIsPlaying(false);
       this.props.updateIsPaused(true);
+    });
+
+    this.eventManager.listen(this.player, this.player.Event.SEEKED, () => {
+      this.props.updateLastSeekPoint(this.player.currentTime);
     });
 
     this.eventManager.listen(this.player, this.player.Event.ENDED, () => {

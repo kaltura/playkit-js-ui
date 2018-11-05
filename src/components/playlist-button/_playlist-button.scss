@@ -1,5 +1,61 @@
 .control-button-container.control-playlist-button {
 
+  .poster-preview {
+    position: absolute;
+    bottom: 35px;
+    width: 160px;
+    height: 90px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    opacity: 0;
+    transition: 400ms opacity;
+    pointer-events: none;
+
+    &:hover {
+      opacity: 0 !important;
+    }
+
+    .poster-preview-text {
+      position: absolute;
+      padding: 8px;
+      width: 100%;
+
+      .poster-preview-text-title {
+        font-size: 14px;
+        font-weight: 400;
+        margin-bottom: 3px;
+        opacity: 0.7;
+      }
+
+      .poster-preview-text-name {
+        font-size: 15px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 400;
+      }
+    }
+
+    .poster-preview-img {
+      height: 100%;
+      background-size: contain;
+      background-repeat: round;
+
+      &:after {
+        display: block;
+        background-image: linear-gradient(rgba(black, 0.8), transparent);
+        height: 60%;
+        content: '';
+      }
+    }
+  }
+
+  &:hover {
+    .poster-preview {
+      opacity: 1;
+    }
+  }
+
   .control-button {
 
     .icon-prev {
@@ -16,6 +72,7 @@
     }
 
     &:disabled {
+      opacity: 1;
 
       .icon-prev {
         display: none;
@@ -32,10 +89,3 @@
     }
   }
 }
-
-.touch {
-  .control-button-container.control-playlist-button {
-    display: none;
-  }
-}
-

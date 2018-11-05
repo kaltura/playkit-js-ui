@@ -4,7 +4,6 @@ import {h} from 'preact';
 import {OverlayAction} from '../components/overlay-action';
 import {PrePlaybackPlayOverlay} from '../components/pre-playback-play-overlay';
 import {Loading} from '../components/loading';
-import {PlayPauseControl} from '../components/play-pause';
 import {RewindControl} from '../components/rewind';
 import {SeekBarPlaybackContainer} from '../components/seekbar-playback-container';
 import {VolumeControl} from '../components/volume';
@@ -22,7 +21,8 @@ import {shouldRenderComponent} from '../utils/component-config';
 import {CastControl} from '../components/cast';
 import {CastBeforePlay} from '../components/cast-on-tv/cast-before-play';
 import {Backdrop} from '../components/backdrop/backdrop';
-import {PlaylistButton} from '../components/playlist-button/playlist-button';
+import {PlaybackControls} from '../components/playback-controls';
+import {PlaylistCountdown} from '../components/playlist-countdown';
 import {PictureInPicture} from '../components/picture-in-picture';
 
 /**
@@ -41,12 +41,11 @@ export function playbackUI(props: any): React$Element<any> {
         <OverlayPortal />
         <UnmuteIndication player={props.player} />
         <OverlayAction player={props.player} />
+        <PlaybackControls player={props.player} />
         <BottomBar>
           <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player} playerContainer={props.playerContainer} />
           <div className={style.leftControls}>
-            {props.state.engine.playlist ? <PlaylistButton player={props.player} type="prev" /> : undefined}
-            <PlayPauseControl player={props.player} />
-            {props.state.engine.playlist ? <PlaylistButton player={props.player} type="next" /> : undefined}
+            <PlaybackControls player={props.player} />
             <RewindControl player={props.player} step={10} />
             <TimeDisplayPlaybackContainer format="current / total" />
           </div>
@@ -64,6 +63,14 @@ export function playbackUI(props: any): React$Element<any> {
             <FullscreenControl player={props.player} />
           </div>
         </BottomBar>
+        {props.state.engine.playlist &&
+        props.state.engine.playlist.next &&
+        props.player.playlist.options.autoContinue &&
+        props.player.playlist.countdown.showing ? (
+          <PlaylistCountdown player={props.player} />
+        ) : (
+          undefined
+        )}
       </div>
       <PrePlaybackPlayOverlay player={props.player} />
       <CastBeforePlay player={props.player} />

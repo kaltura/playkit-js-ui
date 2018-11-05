@@ -63,5 +63,10 @@
       "connected_to": "Connected to",
       "playing_on": "Playing on"
     }
+  },
+  "playlist": {
+    "prev": "Previous",
+    "next": "Up Next",
+    "cancel": "Cancel"
   }
 }
