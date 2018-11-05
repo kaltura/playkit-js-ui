@@ -9,6 +9,7 @@
     border-radius: 4px;
     opacity: 0;
     transition: 400ms opacity;
+    pointer-events: none;
 
     &:hover {
       opacity: 0 !important;
@@ -71,6 +72,7 @@
     }
 
     &:disabled {
+      opacity: 1;
 
       .icon-prev {
         display: none;

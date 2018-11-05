@@ -22,6 +22,7 @@ import {CastControl} from '../components/cast';
 import {CastBeforePlay} from '../components/cast-on-tv/cast-before-play';
 import {Backdrop} from '../components/backdrop/backdrop';
 import {PlaybackControls} from '../components/playback-controls';
+import {PlaylistCountdown} from '../components/playlist-countdown';
 
 /**
  * Playback ui interface
@@ -60,6 +61,14 @@ export function playbackUI(props: any): React$Element<any> {
             <FullscreenControl player={props.player} />
           </div>
         </BottomBar>
+        {props.state.engine.playlist &&
+        props.state.engine.playlist.next &&
+        props.player.playlist.options.autoContinue &&
+        props.player.playlist.countdown.showing ? (
+          <PlaylistCountdown player={props.player} />
+        ) : (
+          undefined
+        )}
       </div>
       <PrePlaybackPlayOverlay player={props.player} />
       <CastBeforePlay player={props.player} />
