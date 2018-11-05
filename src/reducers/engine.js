@@ -38,7 +38,8 @@ export const types = {
   UPDATE_IS_CASTING: `${component}/UPDATE_IS_CASTING`,
   UPDATE_CAST_SESSION: `${component}/UPDATE_CAST_SESSION`,
   UPDATE_IS_CAST_AVAILABLE: `${component}/UPDATE_IS_CAST_AVAILABLE`,
-  UPDATE_PLAYLIST: `${component}/UPDATE_PLAYLIST`
+  UPDATE_PLAYLIST: `${component}/UPDATE_PLAYLIST`,
+  UPDATE_PICTURE_IN_PICTURE_SUPPORTED: `${component}/UPDATE_PICTURE_IN_PICTURE_SUPPORTED`
 };
 
 export const initialState = {
@@ -80,6 +81,7 @@ export const initialState = {
   isCasting: false,
   castSession: null,
   isCastAvailable: false,
+  pictureInPictureSupported: false,
   playlist: null
 };
 
@@ -298,6 +300,12 @@ export default (state: Object = initialState, action: Object) => {
         playlist: action.playlist
       };
 
+    case types.UPDATE_PICTURE_IN_PICTURE_SUPPORTED:
+      return {
+        ...state,
+        isPictureInPictureSupported: action.isPictureInPictureSupported
+      };
+
     default:
       return state;
   }
@@ -349,5 +357,9 @@ export const actions = {
     type: types.UPDATE_IS_CHANGING_SOURCE,
     isChangingSource
   }),
-  updatePlaylist: (playlist: Object) => ({type: types.UPDATE_PLAYLIST, playlist})
+  updatePlaylist: (playlist: Object) => ({type: types.UPDATE_PLAYLIST, playlist}),
+  updatePictureInPictureSupport: (isPictureInPictureSupported: boolean) => ({
+    type: types.UPDATE_PICTURE_IN_PICTURE_SUPPORTED,
+    isPictureInPictureSupported
+  })
 };
