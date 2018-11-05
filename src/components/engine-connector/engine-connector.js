@@ -1,6 +1,5 @@
 //@flow
 import {h} from 'preact';
-import style from '../../styles/style.scss';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {default as reduce, actions} from '../../reducers/engine';
