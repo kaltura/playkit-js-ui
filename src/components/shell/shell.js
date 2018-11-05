@@ -32,7 +32,8 @@ const mapStateToProps = state => ({
   prePlayback: state.shell.prePlayback,
   smartContainerOpen: state.shell.smartContainerOpen,
   fullscreen: state.fullscreen.fullscreen,
-  fallbackToMutedAutoPlay: state.engine.fallbackToMutedAutoPlay
+  fallbackToMutedAutoPlay: state.engine.fallbackToMutedAutoPlay,
+  playlist: state.engine.playlist
 });
 
 /**
@@ -307,6 +308,7 @@ class Shell extends BaseComponent {
     if (this.props.metadataLoaded) playerClasses.push(style['state-' + this.props.currentState]);
     if (this.props.seekbarDraggingActive) playerClasses.push(style.hover);
     if (this.props.fullscreen) playerClasses.push(style.fullscreen);
+    if (this.props.playlist) playerClasses.push(style.playlist);
     if (this.props.playerClientRect && this.props.playerClientRect.width <= 480) playerClasses.push(style.sizeSm);
     else if (this.props.playerClientRect && this.props.playerClientRect.width <= 768) playerClasses.push(style.sizeMd);
 

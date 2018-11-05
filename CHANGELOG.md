@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.30.0"></a>
+# [0.30.0](https://github.com/kaltura/playkit-js-ui/compare/v0.29.0...v0.30.0) (2018-11-05)
+
+
+### Bug Fixes
+
+* **FEC-8603:** native captions are overlapped by toolbar ([#284](https://github.com/kaltura/playkit-js-ui/issues/284)) ([0c0133e](https://github.com/kaltura/playkit-js-ui/commit/0c0133e))
+* **FEC-8628:** when removing the large play-button from preset, the player does not change its prePlayback state ([#286](https://github.com/kaltura/playkit-js-ui/issues/286)) ([74eed0e](https://github.com/kaltura/playkit-js-ui/commit/74eed0e))
+
+
+### Features
+
+* **FEC-8277:** Add picture-in-picture support ([#283](https://github.com/kaltura/playkit-js-ui/issues/283)) ([687426c](https://github.com/kaltura/playkit-js-ui/commit/687426c))
+* **FEC-8623:** playlist UI ([#285](https://github.com/kaltura/playkit-js-ui/issues/285)) ([8124b59](https://github.com/kaltura/playkit-js-ui/commit/8124b59))
+
+
+
 <a name="0.29.0"></a>
 # [0.29.0](https://github.com/kaltura/playkit-js-ui/compare/v0.28.1...v0.29.0) (2018-10-28)
 

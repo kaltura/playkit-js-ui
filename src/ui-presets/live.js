@@ -4,7 +4,6 @@ import {h} from 'preact';
 import {OverlayAction} from '../components/overlay-action';
 import {PrePlaybackPlayOverlay} from '../components/pre-playback-play-overlay';
 import {Loading} from '../components/loading';
-import {PlayPauseControl} from '../components/play-pause';
 import {SeekBarLivePlaybackContainer} from '../components/seekbar-live-playback-container';
 import {VolumeControl} from '../components/volume';
 import {SettingsControl} from '../components/settings';
@@ -21,7 +20,7 @@ import {VrStereoToggleControl} from '../components/vr-stereo-toggle';
 import {CastControl} from '../components/cast';
 import {CastBeforePlay} from '../components/cast-on-tv/cast-before-play';
 import {Backdrop} from '../components/backdrop/backdrop';
-import {PlaylistButton} from '../components/playlist-button/playlist-button';
+import {PlaybackControls} from '../components/playback-controls';
 import {PictureInPicture} from '../components/picture-in-picture';
 
 /**
@@ -40,12 +39,11 @@ export function liveUI(props: any): React$Element<any> {
         <OverlayPortal />
         <UnmuteIndication />
         <OverlayAction player={props.player} />
+        <PlaybackControls player={props.player} />
         <BottomBar>
           <SeekBarLivePlaybackContainer showFramePreview showTimeBubble player={props.player} playerContainer={props.playerContainer} />
           <div className={style.leftControls}>
-            {props.state.engine.playlist ? <PlaylistButton player={props.player} type="prev" /> : undefined}
-            <PlayPauseControl player={props.player} />
-            {props.state.engine.playlist ? <PlaylistButton player={props.player} type="next" /> : undefined}
+            <PlaybackControls player={props.player} />
             <LiveTag player={props.player} />
           </div>
           <div className={style.rightControls}>
