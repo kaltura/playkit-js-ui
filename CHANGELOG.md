@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.30.1"></a>
+## [0.30.1](https://github.com/kaltura/playkit-js-ui/compare/v0.30.0...v0.30.1) (2018-11-06)
+
+
+### Bug Fixes
+
+* add picture-in-picture to live stream ([#287](https://github.com/kaltura/playkit-js-ui/issues/287)) ([af4dac3](https://github.com/kaltura/playkit-js-ui/commit/af4dac3))
+* **FEC-8646:** unmute text isn't displayed ([#288](https://github.com/kaltura/playkit-js-ui/issues/288)) ([a26c9f5](https://github.com/kaltura/playkit-js-ui/commit/a26c9f5))
+
+
+
 <a name="0.30.0"></a>
 # [0.30.0](https://github.com/kaltura/playkit-js-ui/compare/v0.29.0...v0.30.0) (2018-11-05)
 
