@@ -13,6 +13,9 @@
     "next": "Next",
     "prev": "Prev"
   },
+  "unmute": {
+    "unmute": "Unmute"
+  },
   "settings": {
     "quality": "Quality",
     "speed": "Speed"
