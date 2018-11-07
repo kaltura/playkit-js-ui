@@ -2,6 +2,65 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.30.3"></a>
+## [0.30.3](https://github.com/kaltura/playkit-js-ui/compare/v0.30.2...v0.30.3) (2018-11-07)
+
+
+### Bug Fixes
+
+* **FEC-8644:** The playlist jumps to the last item - safari and FF ([#291](https://github.com/kaltura/playkit-js-ui/issues/291)) ([b7a3bdf](https://github.com/kaltura/playkit-js-ui/commit/b7a3bdf))
+* **FEC-8645:** next item doesn't play automatically - safari ([#290](https://github.com/kaltura/playkit-js-ui/issues/290)) ([3f8cc07](https://github.com/kaltura/playkit-js-ui/commit/3f8cc07))
+
+
+
+<a name="0.30.2"></a>
+## [0.30.2](https://github.com/kaltura/playkit-js-ui/compare/v0.30.1...v0.30.2) (2018-11-07)
+
+
+### Bug Fixes
+
+* **FEC-8651:** picture in picture icon is missing in safari ([#289](https://github.com/kaltura/playkit-js-ui/issues/289)) ([136c20c](https://github.com/kaltura/playkit-js-ui/commit/136c20c))
+
+
+
+<a name="0.30.1"></a>
+## [0.30.1](https://github.com/kaltura/playkit-js-ui/compare/v0.30.0...v0.30.1) (2018-11-06)
+
+
+### Bug Fixes
+
+* add picture-in-picture to live stream ([#287](https://github.com/kaltura/playkit-js-ui/issues/287)) ([af4dac3](https://github.com/kaltura/playkit-js-ui/commit/af4dac3))
+* **FEC-8646:** unmute text isn't displayed ([#288](https://github.com/kaltura/playkit-js-ui/issues/288)) ([a26c9f5](https://github.com/kaltura/playkit-js-ui/commit/a26c9f5))
+
+
+
+<a name="0.30.0"></a>
+# [0.30.0](https://github.com/kaltura/playkit-js-ui/compare/v0.29.0...v0.30.0) (2018-11-05)
+
+
+### Bug Fixes
+
+* **FEC-8603:** native captions are overlapped by toolbar ([#284](https://github.com/kaltura/playkit-js-ui/issues/284)) ([0c0133e](https://github.com/kaltura/playkit-js-ui/commit/0c0133e))
+* **FEC-8628:** when removing the large play-button from preset, the player does not change its prePlayback state ([#286](https://github.com/kaltura/playkit-js-ui/issues/286)) ([74eed0e](https://github.com/kaltura/playkit-js-ui/commit/74eed0e))
+
+
+### Features
+
+* **FEC-8277:** Add picture-in-picture support ([#283](https://github.com/kaltura/playkit-js-ui/issues/283)) ([687426c](https://github.com/kaltura/playkit-js-ui/commit/687426c))
+* **FEC-8623:** playlist UI ([#285](https://github.com/kaltura/playkit-js-ui/issues/285)) ([8124b59](https://github.com/kaltura/playkit-js-ui/commit/8124b59))
+
+
+
+<a name="0.29.0"></a>
+# [0.29.0](https://github.com/kaltura/playkit-js-ui/compare/v0.28.1...v0.29.0) (2018-10-28)
+
+
+### Features
+
+* **FEC-8452:** playlist ([#276](https://github.com/kaltura/playkit-js-ui/issues/276)) ([564694f](https://github.com/kaltura/playkit-js-ui/commit/564694f))
+
+
+
 <a name="0.28.1"></a>
 ## [0.28.1](https://github.com/kaltura/playkit-js-ui/compare/v0.28.0...v0.28.1) (2018-10-14)
 

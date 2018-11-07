@@ -39,7 +39,12 @@ const IconType = {
   vrStereo: 'vr-stereo',
   vrStereoFull: 'vr-stereo-full',
   Cast: 'cast',
-  CastBrand: 'cast-brand'
+  CastBrand: 'cast-brand',
+  Next: 'next',
+  NextDisabled: 'next-disabled',
+  Prev: 'prev',
+  PrevDisabled: 'prev-disabled',
+  PictureInPicture: 'picture-in-picture'
 };
 
 /**
@@ -169,6 +174,21 @@ class Icon extends Component {
 
       case IconType.CastBrand:
         return <i className={[style.icon, style.iconChromecastBrand].join(' ')} />;
+
+      case IconType.Next:
+        return <i className={[style.icon, style.iconNext].join(' ')} />;
+
+      case IconType.NextDisabled:
+        return <i className={[style.icon, style.iconNextDisabled].join(' ')} />;
+
+      case IconType.Prev:
+        return <i className={[style.icon, style.iconPrev].join(' ')} />;
+
+      case IconType.PrevDisabled:
+        return <i className={[style.icon, style.iconPrevDisabled].join(' ')} />;
+
+      case IconType.PictureInPicture:
+        return <i className={[style.icon, style.iconPictureInPicture].join(' ')} />;
 
       default:
         break;

@@ -1,6 +1,5 @@
 //@flow
 import {h} from 'preact';
-import style from '../../styles/style.scss';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {default as reduce, actions} from '../../reducers/engine';
@@ -58,6 +57,8 @@ class EngineConnector extends BaseComponent {
       this.props.updateAdIsPlaying(false);
       this.props.updateIsPlaying(false);
       this.props.updateIsEnded(false);
+      this.props.updateLastSeekPoint(0);
+      this.props.updateCurrentTime(0);
       if (this.props.engine.isCasting) {
         this.props.updateLoadingSpinnerState(true);
       }
@@ -67,10 +68,6 @@ class EngineConnector extends BaseComponent {
       this.props.updateIsChangingSource(false);
       this.props.updatePlayerPoster(this.player.poster);
       this.props.updateIsIdle(false);
-      if (!this.player.config.playback.autoplay) {
-        this.props.updatePrePlayback(true);
-        this.props.addPlayerClass(style.prePlayback);
-      }
     });
 
     this.eventManager.listen(this.player, this.player.Event.PLAYER_STATE_CHANGED, e => {
@@ -87,6 +84,7 @@ class EngineConnector extends BaseComponent {
 
     this.eventManager.listen(this.player, this.player.Event.LOADED_DATA, () => {
       this.props.updateDuration(this.player.duration);
+      this.props.updatePictureInPictureSupport(this.player.isPictureInPictureSupported());
     });
 
     this.eventManager.listen(this.player, this.player.Event.LOADED_METADATA, () => {
@@ -116,6 +114,10 @@ class EngineConnector extends BaseComponent {
     this.eventManager.listen(this.player, this.player.Event.PAUSE, () => {
       this.props.updateIsPlaying(false);
       this.props.updateIsPaused(true);
+    });
+
+    this.eventManager.listen(this.player, this.player.Event.SEEKED, () => {
+      this.props.updateLastSeekPoint(this.player.currentTime);
     });
 
     this.eventManager.listen(this.player, this.player.Event.ENDED, () => {
@@ -231,6 +233,10 @@ class EngineConnector extends BaseComponent {
     this.eventManager.listen(this.player, this.player.Event.Cast.CAST_AVAILABLE, e => {
       const {available} = e.payload;
       this.props.updateIsCastAvailable(available);
+    });
+
+    this.eventManager.listen(this.player, this.player.Event.Playlist.PLAYLIST_ITEM_CHANGED, () => {
+      this.props.updatePlaylist({next: this.player.playlist.next, prev: this.player.playlist.prev});
     });
   }
 

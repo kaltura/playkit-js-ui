@@ -9,6 +9,11 @@
     "rewind": "Rewind",
     "vrStereo": "vrStereo",
     "live": "Live",
+    "unmute": "Unmute",
+    "next": "Next",
+    "prev": "Prev"
+  },
+  "unmute": {
     "unmute": "Unmute"
   },
   "settings": {
@@ -61,5 +66,10 @@
       "connected_to": "Connected to",
       "playing_on": "Playing on"
     }
+  },
+  "playlist": {
+    "prev": "Previous",
+    "next": "Up Next",
+    "cancel": "Cancel"
   }
 }
