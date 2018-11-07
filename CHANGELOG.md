@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.30.3"></a>
+## [0.30.3](https://github.com/kaltura/playkit-js-ui/compare/v0.30.2...v0.30.3) (2018-11-07)
+
+
+### Bug Fixes
+
+* **FEC-8644:** The playlist jumps to the last item - safari and FF ([#291](https://github.com/kaltura/playkit-js-ui/issues/291)) ([b7a3bdf](https://github.com/kaltura/playkit-js-ui/commit/b7a3bdf))
+* **FEC-8645:** next item doesn't play automatically - safari ([#290](https://github.com/kaltura/playkit-js-ui/issues/290)) ([3f8cc07](https://github.com/kaltura/playkit-js-ui/commit/3f8cc07))
+
+
+
 <a name="0.30.2"></a>
 ## [0.30.2](https://github.com/kaltura/playkit-js-ui/compare/v0.30.1...v0.30.2) (2018-11-07)
 
