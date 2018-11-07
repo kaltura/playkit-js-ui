@@ -58,6 +58,7 @@ class EngineConnector extends BaseComponent {
       this.props.updateIsPlaying(false);
       this.props.updateIsEnded(false);
       this.props.updateLastSeekPoint(0);
+      this.props.updateCurrentTime(0);
       if (this.props.engine.isCasting) {
         this.props.updateLoadingSpinnerState(true);
       }
