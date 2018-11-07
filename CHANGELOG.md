@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.30.2"></a>
+## [0.30.2](https://github.com/kaltura/playkit-js-ui/compare/v0.30.1...v0.30.2) (2018-11-07)
+
+
+### Bug Fixes
+
+* **FEC-8651:** picture in picture icon is missing in safari ([#289](https://github.com/kaltura/playkit-js-ui/issues/289)) ([136c20c](https://github.com/kaltura/playkit-js-ui/commit/136c20c))
+
+
+
 <a name="0.30.1"></a>
 ## [0.30.1](https://github.com/kaltura/playkit-js-ui/compare/v0.30.0...v0.30.1) (2018-11-06)
 
