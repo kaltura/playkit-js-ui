@@ -16,7 +16,8 @@ const mapStateToProps = state => ({
   playlist: state.engine.playlist,
   currentTime: state.engine.currentTime,
   duration: state.engine.duration,
-  lastSeekPoint: state.engine.lastSeekPoint
+  lastSeekPoint: state.engine.lastSeekPoint,
+  isEnded: state.engine.isEnded
 });
 
 @connect(mapStateToProps)
@@ -94,8 +95,7 @@ class PlaylistCountdown extends BaseComponent {
     if (nextProps.currentTime > timeToShow) {
       this.setState({timeToShow: true});
     } else {
-      this.setState({timeToShow: false});
-      this.setState({canceled: false});
+      this.setState({timeToShow: false, canceled: false});
     }
   }
 
@@ -108,10 +108,11 @@ class PlaylistCountdown extends BaseComponent {
     const timeToShow = this._getTimeToShow();
     const countdown = this.player.playlist.countdown;
     if (
-      (this.props.currentTime >= timeToShow + countdown.duration || (this.props.duration && this.props.currentTime >= this.props.duration)) &&
-      !this.state.canceled
+      !this.state.canceled &&
+      (this.props.isEnded ||
+        this.props.currentTime >= timeToShow + countdown.duration ||
+        (this.props.duration && this.props.currentTime >= this.props.duration))
     ) {
-      this.setState({canceled: true});
       this.player.playlist.playNext();
     }
   }
