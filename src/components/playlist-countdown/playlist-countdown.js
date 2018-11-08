@@ -127,44 +127,48 @@ class PlaylistCountdown extends BaseComponent {
     const timeToShow = this._getTimeToShow();
     const progressTime = props.currentTime - timeToShow;
     const progressDuration = Math.min(countdown.duration, props.duration - timeToShow);
-    const progressWidth = `${progressTime > 0 ? (progressTime / progressDuration) * 100 : 0}%`;
+    const progressWidth = `${progressTime > 0 ? (progressTime / progressDuration) * 104 : 0}%`;
+    const className = [style.playlistCountdown];
+    if (!this.state.timeToShow || countdown.duration >= props.duration) {
+      className.push(style.hidden);
+    } else if (this.state.canceled) {
+      className.push(style.canceled);
+    }
 
     return (
-      <div
-        className={
-          this.state.timeToShow && !this.state.canceled && countdown.duration < props.duration
-            ? [style.playlistCountdown]
-            : [style.playlistCountdown, style.hidden].join(' ')
-        }
-        onClick={() => this.onClick()}>
+      <div className={className.join(' ')} onClick={() => this.onClick()}>
         <div className={style.playlistCountdownPoster} style={`background-image: url(${props.playlist.next.sources.poster});`} />
-        <div className={style.playlistCountdownContent}>
-          <Localizer>
-            <div className={style.playlistCountdownText}>
-              <div className={style.playlistCountdownTextTitle}>
-                <Text id="playlist.next" />
+        <div className={style.playlistCountdownContentPlaceholder}>
+          <div className={style.playlistCountdownContentBackground}>
+            <div className={style.playlistCountdownContent}>
+              <Localizer>
+                <div className={style.playlistCountdownText}>
+                  <div className={style.playlistCountdownTextTitle}>
+                    <Text id="playlist.next" />
+                  </div>
+                  <div className={style.playlistCountdownTextName}>{`${props.playlist.next.sources.metadata.name}`}</div>
+                </div>
+              </Localizer>
+              <div className={[style.controlButtonContainer, style.playlistCountdownCancel].join(' ')}>
+                <Localizer>
+                  <button
+                    tabIndex="0"
+                    aria-label={<Text id="playlist.cancel" />}
+                    className={[style.controlButton, style.playlistCountdownCancelButton].join(' ')}
+                    onClick={e => this.cancelNext(e)}
+                    onKeyDown={e => {
+                      if (e.keyCode === KeyMap.ENTER) {
+                        this.cancelNext();
+                      }
+                    }}>
+                    <Icon type={IconType.Close} />
+                  </button>
+                </Localizer>
               </div>
-              <div className={style.playlistCountdownTextName}>{`${props.playlist.next.sources.metadata.name}`}</div>
+              <div className={style.playlistCountdownIndicatorBar}>
+                <div className={style.playlistCountdownIndicatorProgress} style={{width: progressWidth}} />
+              </div>
             </div>
-          </Localizer>
-          <div className={[style.controlButtonContainer, style.playlistCountdownCancel].join(' ')}>
-            <Localizer>
-              <button
-                tabIndex="0"
-                aria-label={<Text id="playlist.cancel" />}
-                className={[style.controlButton, style.playlistCountdownCancelButton].join(' ')}
-                onClick={e => this.cancelNext(e)}
-                onKeyDown={e => {
-                  if (e.keyCode === KeyMap.ENTER) {
-                    this.cancelNext();
-                  }
-                }}>
-                <Icon type={IconType.Close} />
-              </button>
-            </Localizer>
-          </div>
-          <div className={style.playlistCountdownIndicatorBar}>
-            <div className={style.playlistCountdownIndicatorProgress} style={{width: progressWidth}} />
           </div>
         </div>
       </div>
