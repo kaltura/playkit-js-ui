@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.30.4"></a>
+## [0.30.4](https://github.com/kaltura/playkit-js-ui/compare/v0.30.3...v0.30.4) (2018-11-08)
+
+
+### Bug Fixes
+
+* **FEC-8603:** native captions are overlapped by toolbar ([#292](https://github.com/kaltura/playkit-js-ui/issues/292)) ([e571ce3](https://github.com/kaltura/playkit-js-ui/commit/e571ce3))
+
+
+
 <a name="0.30.3"></a>
 ## [0.30.3](https://github.com/kaltura/playkit-js-ui/compare/v0.30.2...v0.30.3) (2018-11-07)
 
