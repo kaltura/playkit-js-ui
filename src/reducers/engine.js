@@ -8,6 +8,7 @@ export const types = {
   UPDATE_PLAYER_STATE: `${component}/UPDATE_PLAYER_STATE`,
   UPDATE_IS_PLAYING: `${component}/UPDATE_IS_PLAYING`,
   UPDATE_IS_PAUSED: `${component}/UPDATE_IS_PAUSED`,
+  UPDATE_IS_SEEKING: `${component}/UPDATE_IS_SEEKING`,
   UPDATE_LAST_SEEK_POINT: `${component}/UPDATE_LAST_SEEK_POINT`,
   UPDATE_IS_CHANGING_SOURCE: `${component}/UPDATE_IS_CHANGING_SOURCE`,
   UPDATE_IS_ENDED: `${component}/UPDATE_IS_ENDED`,
@@ -46,6 +47,7 @@ export const initialState = {
   isIdle: false,
   isPlaying: false,
   isPaused: false,
+  isSeeking: false,
   isEnded: false,
   isChangingSource: false,
   metadataLoaded: false,
@@ -115,6 +117,12 @@ export default (state: Object = initialState, action: Object) => {
       return {
         ...state,
         isPaused: action.isPaused
+      };
+
+    case types.UPDATE_IS_SEEKING:
+      return {
+        ...state,
+        isSeeking: action.isSeeking
       };
 
     case types.UPDATE_LAST_SEEK_POINT:
@@ -319,6 +327,7 @@ export const actions = {
   }),
   updateIsPlaying: (isPlaying: boolean) => ({type: types.UPDATE_IS_PLAYING, isPlaying}),
   updateIsPaused: (isPaused: boolean) => ({type: types.UPDATE_IS_PAUSED, isPaused}),
+  updateIsSeeking: (isSeeking: boolean) => ({type: types.UPDATE_IS_SEEKING, isSeeking}),
   updateLastSeekPoint: (lastSeekPoint: number) => ({type: types.UPDATE_LAST_SEEK_POINT, lastSeekPoint}),
   updateIsEnded: (isEnded: boolean) => ({type: types.UPDATE_IS_ENDED, isEnded}),
   updateCurrentTime: (currentTime: number) => ({type: types.UPDATE_CURRENT_TIME, currentTime}),

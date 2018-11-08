@@ -17,6 +17,7 @@ const mapStateToProps = state => ({
   currentTime: state.engine.currentTime,
   duration: state.engine.duration,
   lastSeekPoint: state.engine.lastSeekPoint,
+  isSeeking: state.engine.isSeeking,
   isEnded: state.engine.isEnded
 });
 
@@ -118,6 +119,16 @@ class PlaylistCountdown extends BaseComponent {
   }
 
   /**
+   * should component update handler
+   *
+   * @param {Object} nextProps - the props that will replace the current props
+   * @returns {boolean} shouldComponentUpdate
+   */
+  shouldComponentUpdate(nextProps: Object): boolean {
+    return !nextProps.isSeeking;
+  }
+
+  /**
    * render component
    *
    * @param {*} props - component props
@@ -130,6 +141,9 @@ class PlaylistCountdown extends BaseComponent {
     const progressTime = props.currentTime - timeToShow;
     const progressDuration = Math.min(countdown.duration, props.duration - timeToShow);
     const progressWidth = `${progressTime > 0 ? (progressTime / progressDuration) * 100 : 0}%`;
+    if (!props.playlist.next) {
+      return undefined;
+    }
 
     return (
       <div
