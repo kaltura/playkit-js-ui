@@ -133,7 +133,11 @@ class PlaylistCountdown extends BaseComponent {
 
     return (
       <div
-        className={this.state.timeToShow && !this.state.canceled ? [style.playlistCountdown] : [style.playlistCountdown, style.hidden].join(' ')}
+        className={
+          this.state.timeToShow && !this.state.canceled && countdown.duration < props.duration
+            ? [style.playlistCountdown]
+            : [style.playlistCountdown, style.hidden].join(' ')
+        }
         onClick={() => this.onClick()}>
         <div className={style.playlistCountdownPoster} style={`background-image: url(${props.playlist.next.sources.poster});`} />
         <div className={style.playlistCountdownContent}>
