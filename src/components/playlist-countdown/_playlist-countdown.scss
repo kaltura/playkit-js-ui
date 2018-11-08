@@ -7,10 +7,24 @@
     right: 0;
     margin: 16px;
     transform: translateY(0px);
-    transition: transform ease-in 100ms, opacity 400ms;
+    transition: transform ease-in 100ms, right 500ms 500ms, opacity 400ms, bottom 300ms;
     cursor: pointer;
 
     &.hidden {
+      right: -160px;
+      opacity: 0;
+      .playlist-countdown-content-placeholder {
+        .playlist-countdown-content-background {
+          width: 0;
+          .playlist-countdown-content {
+            opacity: 0;
+          }
+        }
+      }
+    }
+
+    &.canceled {
+      bottom: -50px;
       opacity: 0;
     }
 
@@ -23,59 +37,66 @@
       background-repeat: round;
     }
 
-    .playlist-countdown-content {
+    .playlist-countdown-content-placeholder {
       width: 160px;
       height: inherit;
       float: right;
-      border-radius: 0 4px 4px 0;
-      background-color: rgba(0, 0, 0, 0.7);
 
-      .playlist-countdown-text {
-        width: 75%;
-        padding: 10px 0 0 10px;
-        text-align: left;
-        color: #fff;
-        float: left;
-
-        .playlist-countdown-text-title {
-          font-size: 14px;
-          font-weight: 400;
-          margin-bottom: 12px;
-          opacity: 0.7;
-        }
-
-        .playlist-countdown-text-name {
-          font-size: 15px;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          font-weight: 600;
-        }
-      }
-
-      .playlist-countdown-cancel {
-        float: right;
-        padding: 4px 4px 0 0;
-
-        .playlist-countdown-cancel-button {
-          opacity: 1;
-        }
-      }
-
-      .playlist-countdown-indicator-bar {
-        height: 4px;
-        background-color: rgba(255, 255, 255, 0.3);
-        position: absolute;
-        bottom: 0;
+      .playlist-countdown-content-background {
         width: inherit;
-        border-radius: inherit;
+        border-radius: 0 4px 3px 0;
+        background-color: rgba(0, 0, 0, 0.7);
+        height: inherit;
+        transition: width 500ms 1000ms;
 
-        .playlist-countdown-indicator-progress {
-          max-width: 100%;
-          height: 100%;
-          background-color: #01accd;
-          border-radius: inherit;
-          transition: width 400ms linear;
+        .playlist-countdown-content {
+          width: inherit;
+          transition: opacity 300ms 1200ms;
+
+          .playlist-countdown-text {
+            width: 100%;
+            padding: 10px;
+            text-align: left;
+            color: #fff;
+            float: left;
+
+            .playlist-countdown-text-title {
+              font-size: 14px;
+              font-weight: 400;
+              margin-bottom: 12px;
+              opacity: 0.7;
+            }
+
+            .playlist-countdown-text-name {
+              font-size: 15px;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              font-weight: 600;
+            }
+          }
+
+          .playlist-countdown-cancel {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+          }
+
+          .playlist-countdown-indicator-bar {
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.3);
+            position: absolute;
+            bottom: 0;
+            width: inherit;
+            border-radius: inherit;
+
+            .playlist-countdown-indicator-progress {
+              max-width: 100%;
+              height: 100%;
+              background-color: rgba(255, 255, 255, 0.5);
+              transition: width 400ms linear;
+            }
+          }
         }
       }
     }
@@ -98,19 +119,26 @@
         width: 96px;
       }
 
-      .playlist-countdown-content {
+      .playlist-countdown-content-placeholder {
         width: 152px;
 
-        .playlist-countdown-text {
-          padding: 8px 0 0 8px;
+        .playlist-countdown-content-background {
 
-          .playlist-countdown-text-title {
-            margin-bottom: 4px;
+          .playlist-countdown-content {
+
+            .playlist-countdown-text {
+              padding: 8px;
+
+              .playlist-countdown-text-title {
+                margin-bottom: 4px;
+              }
+            }
+
+            .playlist-countdown-cancel {
+              top: 0;
+              right: 0;
+            }
           }
-        }
-
-        .playlist-countdown-cancel {
-          padding: 0;
         }
       }
     }
@@ -118,6 +146,7 @@
 
   @media screen and (max-width: 479px) {
     .playlist-countdown {
+      z-index: 1;
       height: 36px;
       margin: 8px;
 
@@ -125,27 +154,40 @@
         display: none;
       }
 
-      .playlist-countdown-content {
+      .playlist-countdown-content-placeholder {
         width: 108px;
-        border-radius: 2px;
 
-        .playlist-countdown-text {
-          width: 70%;
-          padding: 2px 0 0 2px;
+        .playlist-countdown-content-background {
+          border-radius: 2px;
 
-          .playlist-countdown-text-title {
-            font-size: 12px;
-            margin-bottom: 0;
+          .playlist-countdown-content {
+
+            .playlist-countdown-text {
+              width: 90%;
+              padding: 3px 0 0 4px;
+
+              .playlist-countdown-text-title {
+                font-size: 12px;
+                margin-bottom: 0;
+              }
+
+              .playlist-countdown-text-name {
+                font-size: 12px;
+                font-weight: 400;
+              }
+            }
+
+            .playlist-countdown-cancel {
+              width: 24px;
+              height: 24px;
+              margin-top: 3px;
+
+              * {
+                width: inherit;
+                height: inherit;
+              }
+            }
           }
-
-          .playlist-countdown-text-name {
-            font-size: 12px;
-            font-weight: 400;
-          }
-        }
-
-        .playlist-countdown-cancel {
-          padding: 0;
         }
       }
     }
