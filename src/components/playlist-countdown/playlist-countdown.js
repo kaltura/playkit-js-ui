@@ -17,7 +17,7 @@ const mapStateToProps = state => ({
   currentTime: state.engine.currentTime,
   duration: state.engine.duration,
   lastSeekPoint: state.engine.lastSeekPoint,
-  isEnded: state.engine.isEnded
+  isPlaybackEnded: state.engine.isPlaybackEnded
 });
 
 @connect(mapStateToProps)
@@ -109,9 +109,7 @@ class PlaylistCountdown extends BaseComponent {
     const countdown = this.player.playlist.countdown;
     if (
       !this.state.canceled &&
-      (this.props.isEnded ||
-        this.props.currentTime >= timeToShow + countdown.duration ||
-        (this.props.duration && this.props.currentTime >= this.props.duration))
+      (this.props.isPlaybackEnded || (this.props.currentTime >= timeToShow + countdown.duration && this.props.currentTime < this.props.duration))
     ) {
       this.player.playlist.playNext();
     }

@@ -11,6 +11,7 @@ export const types = {
   UPDATE_LAST_SEEK_POINT: `${component}/UPDATE_LAST_SEEK_POINT`,
   UPDATE_IS_CHANGING_SOURCE: `${component}/UPDATE_IS_CHANGING_SOURCE`,
   UPDATE_IS_ENDED: `${component}/UPDATE_IS_ENDED`,
+  UPDATE_IS_PLAYBACK_ENDED: `${component}/UPDATE_IS_PLAYBACK_ENDED`,
   UPDATE_CURRENT_TIME: `${component}/UPDATE_CURRENT_TIME`,
   UPDATE_DURATION: `${component}/UPDATE_DURATION`,
   UPDATE_VOLUME: `${component}/UPDATE_VOLUME`,
@@ -47,6 +48,7 @@ export const initialState = {
   isPlaying: false,
   isPaused: false,
   isEnded: false,
+  isPlaybackEnded: false,
   isChangingSource: false,
   metadataLoaded: false,
   playerState: {
@@ -127,6 +129,12 @@ export default (state: Object = initialState, action: Object) => {
       return {
         ...state,
         isEnded: action.isEnded
+      };
+
+    case types.UPDATE_IS_PLAYBACK_ENDED:
+      return {
+        ...state,
+        isPlaybackEnded: action.isPlaybackEnded
       };
 
     case types.UPDATE_CURRENT_TIME:
@@ -321,6 +329,7 @@ export const actions = {
   updateIsPaused: (isPaused: boolean) => ({type: types.UPDATE_IS_PAUSED, isPaused}),
   updateLastSeekPoint: (lastSeekPoint: number) => ({type: types.UPDATE_LAST_SEEK_POINT, lastSeekPoint}),
   updateIsEnded: (isEnded: boolean) => ({type: types.UPDATE_IS_ENDED, isEnded}),
+  updateIsPlaybackEnded: (isPlaybackEnded: boolean) => ({type: types.UPDATE_IS_PLAYBACK_ENDED, isPlaybackEnded}),
   updateCurrentTime: (currentTime: number) => ({type: types.UPDATE_CURRENT_TIME, currentTime}),
   updateDuration: (duration: number) => ({type: types.UPDATE_DURATION, duration}),
   updateVolume: (volume: number) => ({type: types.UPDATE_VOLUME, volume}),
