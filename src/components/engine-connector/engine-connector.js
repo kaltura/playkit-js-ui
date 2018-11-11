@@ -117,7 +117,12 @@ class EngineConnector extends BaseComponent {
       this.props.updateIsPaused(true);
     });
 
+    this.eventManager.listen(this.player, this.player.Event.SEEKING, () => {
+      this.props.updateIsSeeking(true);
+    });
+
     this.eventManager.listen(this.player, this.player.Event.SEEKED, () => {
+      this.props.updateIsSeeking(false);
       this.props.updateLastSeekPoint(this.player.currentTime);
     });
 
