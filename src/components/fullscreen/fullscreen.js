@@ -146,6 +146,9 @@ class FullscreenControl extends BaseComponent {
    * @memberof FullscreenControl
    */
   requestFullscreen(element: HTMLElement): boolean {
+    if (this.player.isInPictureInPicture()) {
+      this.player.exitPictureInPicture();
+    }
     if (typeof element.requestFullscreen === 'function') {
       element.requestFullscreen();
       return true;
