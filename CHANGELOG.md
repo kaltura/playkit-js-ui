@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.30.5"></a>
+## [0.30.5](https://github.com/kaltura/playkit-js-ui/compare/v0.30.0...v0.30.5) (2018-11-11)
+
+
+### Bug Fixes
+
+* add picture-in-picture to live stream ([#287](https://github.com/kaltura/playkit-js-ui/issues/287)) ([af4dac3](https://github.com/kaltura/playkit-js-ui/commit/af4dac3))
+* **FEC-8603:** native captions are overlapped by toolbar ([#292](https://github.com/kaltura/playkit-js-ui/issues/292)) ([e571ce3](https://github.com/kaltura/playkit-js-ui/commit/e571ce3))
+* **FEC-8644:** The playlist jumps to the last item - safari and FF ([#291](https://github.com/kaltura/playkit-js-ui/issues/291)) ([b7a3bdf](https://github.com/kaltura/playkit-js-ui/commit/b7a3bdf))
+* **FEC-8645:** next item doesn't play automatically - safari ([#290](https://github.com/kaltura/playkit-js-ui/issues/290)) ([3f8cc07](https://github.com/kaltura/playkit-js-ui/commit/3f8cc07))
+* **FEC-8646:** unmute text isn't displayed ([#288](https://github.com/kaltura/playkit-js-ui/issues/288)) ([a26c9f5](https://github.com/kaltura/playkit-js-ui/commit/a26c9f5))
+* countdown skips the postroll ([#294](https://github.com/kaltura/playkit-js-ui/issues/294)) ([89e8d9a](https://github.com/kaltura/playkit-js-ui/commit/89e8d9a))
+* do not show countdown when is longer the playback duration ([#296](https://github.com/kaltura/playkit-js-ui/issues/296)) ([7271bd2](https://github.com/kaltura/playkit-js-ui/commit/7271bd2))
+* **FEC-8650:** video continues in PiP window when full screen opened  ([#297](https://github.com/kaltura/playkit-js-ui/issues/297)) ([695f672](https://github.com/kaltura/playkit-js-ui/commit/695f672))
+* **FEC-8651:** picture in picture icon is missing in safari ([#289](https://github.com/kaltura/playkit-js-ui/issues/289)) ([136c20c](https://github.com/kaltura/playkit-js-ui/commit/136c20c))
+* **FEC-8671:** Sometimes the playlist skip to the next item immediately, before the countdown finished - safari ([#295](https://github.com/kaltura/playkit-js-ui/issues/295)) ([b12c0fa](https://github.com/kaltura/playkit-js-ui/commit/b12c0fa))
+
+
+
 <a name="0.30.4"></a>
 ## [0.30.4](https://github.com/kaltura/playkit-js-ui/compare/v0.30.3...v0.30.4) (2018-11-08)
 
