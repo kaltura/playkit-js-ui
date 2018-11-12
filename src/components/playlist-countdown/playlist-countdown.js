@@ -161,7 +161,7 @@ class PlaylistCountdown extends BaseComponent {
                   <div className={style.playlistCountdownTextTitle}>
                     <Text id="playlist.next" />
                   </div>
-                  {next.sources.metadata ? <div className={style.posterPreviewTextName}>{`${next.sources.metadata.name}`}</div> : undefined}
+                  <div className={style.playlistCountdownTextName}>{`${next.sources.metadata ? next.sources.metadata.name : ''}`}</div>
                 </div>
               </Localizer>
               <div className={[style.controlButtonContainer, style.playlistCountdownCancel].join(' ')}>

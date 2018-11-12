@@ -55,7 +55,7 @@ class PlaylistButton extends BaseComponent {
     const item = props.playlist[props.type];
     return (
       <div className={[style.controlButtonContainer, style.controlPlaylistButton].join(' ')}>
-        {item && item.sources && item.sources.poster ? (
+        {item && item.sources && (item.sources.poster || (item.sources.metadata && item.sources.metadata.name)) ? (
           <div className={style.posterPreview}>
             <div className={style.posterPreviewText}>
               <Localizer>
@@ -63,7 +63,7 @@ class PlaylistButton extends BaseComponent {
                   <Text id={props.type === 'prev' ? 'playlist.prev' : 'playlist.next'} />
                 </div>
               </Localizer>
-              {item.sources.metadata ? <div className={style.posterPreviewTextName}>{`${item.sources.metadata.name}`}</div> : undefined}
+              <div className={style.posterPreviewTextName}>{`${item.sources.metadata ? item.sources.metadata.name : ''}`}</div>
             </div>
             <div className={style.posterPreviewImg} style={`background-image: url(${item.sources.poster});`} />
           </div>
