@@ -52,9 +52,10 @@ class PlaylistButton extends BaseComponent {
    * @memberof PlaylistButton
    */
   render(props: any): React$Element<any> | void {
+    const item = props.playlist[props.type];
     return (
       <div className={[style.controlButtonContainer, style.controlPlaylistButton].join(' ')}>
-        {props.playlist[props.type] ? (
+        {item && item.sources && (item.sources.poster || (item.sources.metadata && item.sources.metadata.name)) ? (
           <div className={style.posterPreview}>
             <div className={style.posterPreviewText}>
               <Localizer>
@@ -62,16 +63,16 @@ class PlaylistButton extends BaseComponent {
                   <Text id={props.type === 'prev' ? 'playlist.prev' : 'playlist.next'} />
                 </div>
               </Localizer>
-              <div className={style.posterPreviewTextName}>{`${props.playlist[props.type].sources.metadata.name}`}</div>
+              <div className={style.posterPreviewTextName}>{`${item.sources.metadata ? item.sources.metadata.name : ''}`}</div>
             </div>
-            <div className={style.posterPreviewImg} style={`background-image: url(${props.playlist[props.type].sources.poster});`} />
+            <div className={style.posterPreviewImg} style={`background-image: url(${item.sources.poster});`} />
           </div>
         ) : (
           undefined
         )}
         <Localizer>
           <button
-            disabled={!props.playlist[props.type]}
+            disabled={!item}
             tabIndex="0"
             aria-label={<Text id={`controls.${props.type}`} />}
             className={`${style.controlButton}`}

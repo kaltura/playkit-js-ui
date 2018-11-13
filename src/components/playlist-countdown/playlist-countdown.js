@@ -134,7 +134,8 @@ class PlaylistCountdown extends BaseComponent {
    * @memberof PlaylistCountdown
    */
   render(props: any): React$Element<any> | void {
-    if (!props.playlist.next) {
+    const next = props.playlist.next;
+    if (!(next && next.sources)) {
       return undefined;
     }
     const countdown = this.player.playlist.countdown;
@@ -151,7 +152,7 @@ class PlaylistCountdown extends BaseComponent {
 
     return (
       <div className={className.join(' ')} onClick={() => this.onClick()}>
-        <div className={style.playlistCountdownPoster} style={`background-image: url(${props.playlist.next.sources.poster});`} />
+        <div className={style.playlistCountdownPoster} style={`background-image: url(${next.sources.poster});`} />
         <div className={style.playlistCountdownContentPlaceholder}>
           <div className={style.playlistCountdownContentBackground}>
             <div className={style.playlistCountdownContent}>
@@ -160,7 +161,7 @@ class PlaylistCountdown extends BaseComponent {
                   <div className={style.playlistCountdownTextTitle}>
                     <Text id="playlist.next" />
                   </div>
-                  <div className={style.playlistCountdownTextName}>{`${props.playlist.next.sources.metadata.name}`}</div>
+                  <div className={style.playlistCountdownTextName}>{`${next.sources.metadata ? next.sources.metadata.name : ''}`}</div>
                 </div>
               </Localizer>
               <div className={[style.controlButtonContainer, style.playlistCountdownCancel].join(' ')}>
