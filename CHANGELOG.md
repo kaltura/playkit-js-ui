@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.30.6"></a>
+## [0.30.6](https://github.com/kaltura/playkit-js-ui/compare/v0.30.5...v0.30.6) (2018-11-14)
+
+
+### Bug Fixes
+
+* **FEC-8683:** playlist by config, no ui for the second entry and onwards ([#298](https://github.com/kaltura/playkit-js-ui/issues/298)) ([3745803](https://github.com/kaltura/playkit-js-ui/commit/3745803))
+* **FEC-8686:** the playlist jumps to the last item (in case setting timeToShow) ([#300](https://github.com/kaltura/playkit-js-ui/issues/300)) ([04c74dd](https://github.com/kaltura/playkit-js-ui/commit/04c74dd))
+
+
+
 <a name="0.30.5"></a>
 ## [0.30.5](https://github.com/kaltura/playkit-js-ui/compare/v0.30.0...v0.30.5) (2018-11-11)
 
