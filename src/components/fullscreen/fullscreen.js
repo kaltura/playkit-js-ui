@@ -123,8 +123,10 @@ class FullscreenControl extends BaseComponent {
    * @memberof FullscreenControl
    */
   fullscreenEnterHandler(): void {
-    this.player.notifyEnterFullscreen();
-    this.props.updateFullscreen(true);
+    if (!this.player.isInPictureInPicture()) {
+      this.player.notifyEnterFullscreen();
+      this.props.updateFullscreen(true);
+    }
   }
 
   /**
