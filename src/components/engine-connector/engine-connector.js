@@ -38,6 +38,7 @@ class EngineConnector extends BaseComponent {
     const TrackType = this.player.Track;
 
     this.eventManager.listen(this.player, this.player.Event.PLAYER_RESET, () => {
+      this.props.updateCurrentTime(0);
       this.props.updateIsIdle(true);
     });
 
@@ -58,7 +59,6 @@ class EngineConnector extends BaseComponent {
       this.props.updateIsPlaying(false);
       this.props.updateIsEnded(false);
       this.props.updateIsPlaybackEnded(false);
-      this.props.updateCurrentTime(0);
       this.props.updateLastSeekPoint(0);
       if (this.props.engine.isCasting) {
         this.props.updateLoadingSpinnerState(true);
