@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.30.7"></a>
+## [0.30.7](https://github.com/kaltura/playkit-js-ui/compare/v0.30.6...v0.30.7) (2018-11-14)
+
+
+### Bug Fixes
+
+* **FEC-8686:** the playlist jumps to the last item (in case setting timeToShow) ([#302](https://github.com/kaltura/playkit-js-ui/issues/302)) ([94f880f](https://github.com/kaltura/playkit-js-ui/commit/94f880f))
+
+
+
 <a name="0.30.6"></a>
 ## [0.30.6](https://github.com/kaltura/playkit-js-ui/compare/v0.30.5...v0.30.6) (2018-11-14)
 
