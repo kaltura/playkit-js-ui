@@ -104,6 +104,7 @@
 
   &:not(.overlay-active) {
     &.state-paused,
+    &.state-idle,
     &.hover {
       .playlist-countdown {
         transform: translateY(-50px);
@@ -158,6 +159,7 @@
         width: 108px;
 
         .playlist-countdown-content-background {
+          transition: width 500ms;
           border-radius: 2px;
 
           .playlist-countdown-content {

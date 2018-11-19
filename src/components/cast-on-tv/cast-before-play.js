@@ -14,8 +14,8 @@ import {Localizer, Text} from 'preact-i18n';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  isEnded: state.engine.isEnded,
-  prePlayback: state.shell.prePlayback,
+  isPlaybackEnded: state.engine.isPlaybackEnded,
+  prePlayback: state.engine.prePlayback,
   loading: state.loading.show,
   isCastAvailable: state.engine.isCastAvailable
 });
@@ -81,7 +81,7 @@ class CastBeforePlay extends BaseComponent {
    */
   render(props: any): ?React$Element<any> {
     if (!props.isCastAvailable || props.loading) return undefined;
-    if (props.prePlayback || props.isEnded) {
+    if (props.prePlayback || props.isPlaybackEnded) {
       const rootStyle = [style.castOnTvButtonContainer];
       if (this.state.show) {
         rootStyle.push(style.showCastOnTv);

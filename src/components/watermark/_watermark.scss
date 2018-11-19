@@ -22,9 +22,12 @@
 
 .player {
   &:not(.pre-playback):not(.overlay-active) {
-    &.state-paused :global(.playkit-watermark.playkit-bottom),
-    &.hover :global(.playkit-watermark.playkit-bottom) {
-      transform: translateY(-60px);
+    &.state-paused,
+    &.state-idle,
+    &.hover {
+      .watermark.bottom {
+        transform: translateY(-60px);
+      }
     }
   }
 }

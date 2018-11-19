@@ -14,6 +14,7 @@ $hovering-offset: 50px;
     }
   }
   &.state-paused,
+  &.state-idle,
   &.hover {
     video::-webkit-media-text-track-container {
       padding: 0 0 $hovering-offset 0;
@@ -43,6 +44,7 @@ $hovering-offset: 50px;
   }
   &:not(.overlay-active) {
     &.state-paused :global(.playkit-subtitles),
+    &.state-idle :global(.playkit-subtitles),
     &.hover :global(.playkit-subtitles) {
       transform: translateY(-$hovering-offset);
     }

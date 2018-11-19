@@ -107,6 +107,14 @@ class EngineConnector extends BaseComponent {
       }
     });
 
+    this.eventManager.listen(this.player, this.player.Event.PLAYBACK_START, () => {
+      this.props.updatePrePlayback(false);
+    });
+
+    this.eventManager.listen(this.player, this.player.Event.AUTOPLAY_FAILED, () => {
+      this.props.updatePrePlayback(true);
+    });
+
     this.eventManager.listen(this.player, this.player.Event.PLAY, () => {
       this.props.updateIsPlaying(true);
       this.props.updateIsEnded(false);
@@ -125,6 +133,7 @@ class EngineConnector extends BaseComponent {
     this.eventManager.listen(this.player, this.player.Event.SEEKED, () => {
       this.props.updateIsSeeking(false);
       this.props.updateLastSeekPoint(this.player.currentTime);
+      this.props.updateIsPlaybackEnded(false);
     });
 
     this.eventManager.listen(this.player, this.player.Event.ENDED, () => {
