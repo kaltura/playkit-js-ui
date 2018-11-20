@@ -56,36 +56,7 @@
     }
   }
 
-  .control-button {
-
-    .icon-prev {
-      display: block;
-    }
-    .icon-next {
-      display: block;
-    }
-    .icon-prev-disabled {
-      display: none;
-    }
-    .icon-next-disabled {
-      display: none;
-    }
-
-    &:disabled {
-      opacity: 1;
-
-      .icon-prev {
-        display: none;
-      }
-      .icon-next {
-        display: none;
-      }
-      .icon-prev-disabled {
-        display: block;
-      }
-      .icon-next-disabled {
-        display: block;
-      }
-    }
+  .control-button:disabled {
+    opacity: 0.4;
   }
 }

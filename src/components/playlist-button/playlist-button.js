@@ -85,12 +85,10 @@ class PlaylistButton extends BaseComponent {
             {props.type === 'prev' ? (
               <div>
                 <Icon type={IconType.Prev} />
-                <Icon type={IconType.PrevDisabled} />
               </div>
             ) : (
               <div>
                 <Icon type={IconType.Next} />
-                <Icon type={IconType.NextDisabled} />
               </div>
             )}
           </button>

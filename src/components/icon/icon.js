@@ -41,9 +41,7 @@ const IconType = {
   Cast: 'cast',
   CastBrand: 'cast-brand',
   Next: 'next',
-  NextDisabled: 'next-disabled',
   Prev: 'prev',
-  PrevDisabled: 'prev-disabled',
   PictureInPicture: 'picture-in-picture'
 };
 
