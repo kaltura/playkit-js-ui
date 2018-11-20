@@ -176,14 +176,8 @@ class Icon extends Component {
       case IconType.Next:
         return <i className={[style.icon, style.iconNext].join(' ')} />;
 
-      case IconType.NextDisabled:
-        return <i className={[style.icon, style.iconNextDisabled].join(' ')} />;
-
       case IconType.Prev:
         return <i className={[style.icon, style.iconPrev].join(' ')} />;
-
-      case IconType.PrevDisabled:
-        return <i className={[style.icon, style.iconPrevDisabled].join(' ')} />;
 
       case IconType.PictureInPicture:
         return <i className={[style.icon, style.iconPictureInPicture].join(' ')} />;
