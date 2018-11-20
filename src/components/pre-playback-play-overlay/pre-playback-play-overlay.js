@@ -15,7 +15,8 @@ import {actions as loadingActions} from '../../reducers/loading';
  */
 const mapStateToProps = state => ({
   prePlayback: state.engine.prePlayback,
-  poster: state.engine.poster
+  isPlaybackEnded: state.engine.isPlaybackEnded,
+  loading: state.loading.show
 });
 
 @connect(
@@ -48,7 +49,6 @@ class PrePlaybackPlayOverlay extends BaseComponent {
   handleClick(): void {
     this.player.getView().focus();
     this.player.play();
-    this.props.updateLoadingSpinnerState(true);
     this.notifyClick();
   }
 
@@ -60,19 +60,11 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   render(props: any): React$Element<any> | void {
-    if (!props.prePlayback) {
+    if (!(props.prePlayback || props.isPlaybackEnded) || props.loading) {
       return undefined;
     }
-    let rootStyle = {},
-      rootClass = [style.prePlaybackPlayOverlay];
-
-    if (!props.prePlayback && props.poster) {
-      rootStyle = {backgroundImage: `url(${props.poster})`};
-      rootClass.push(style.hasPoster);
-    }
-
     return (
-      <div className={rootClass.join(' ')} style={rootStyle} onMouseOver={e => e.stopPropagation()} onClick={() => this.handleClick()}>
+      <div className={style.prePlaybackPlayOverlay} onMouseOver={e => e.stopPropagation()} onClick={() => this.handleClick()}>
         {
           <a
             className={style.prePlaybackPlayButton}
@@ -82,7 +74,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
                 this.handleClick();
               }
             }}>
-            <Icon type={IconType.Play} />
+            {props.isPlaybackEnded ? <Icon type={IconType.StartOver} /> : <Icon type={IconType.Play} />}
           </a>
         }
       </div>

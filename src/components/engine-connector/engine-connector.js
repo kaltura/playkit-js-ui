@@ -36,6 +36,7 @@ class EngineConnector extends BaseComponent {
    */
   componentDidMount() {
     const TrackType = this.player.Track;
+    this.props.updatePrePlayback(!this.player.config.playback.autoplay);
 
     this.eventManager.listen(this.player, this.player.Event.PLAYER_RESET, () => {
       this.props.updateCurrentTime(0);
@@ -52,6 +53,7 @@ class EngineConnector extends BaseComponent {
     });
 
     this.eventManager.listen(this.player, this.player.Event.CHANGE_SOURCE_STARTED, () => {
+      this.props.updatePrePlayback(!this.player.config.playback.autoplay);
       this.props.updateIsChangingSource(true);
       this.props.updateFallbackToMutedAutoPlay(false);
       this.props.updateAdBreak(false);
@@ -110,6 +112,7 @@ class EngineConnector extends BaseComponent {
 
     this.eventManager.listen(this.player, this.player.Event.PLAYBACK_START, () => {
       this.props.updatePrePlayback(false);
+      this.props.updateLoadingSpinnerState(true);
     });
 
     this.eventManager.listen(this.player, this.player.Event.AUTOPLAY_FAILED, () => {
