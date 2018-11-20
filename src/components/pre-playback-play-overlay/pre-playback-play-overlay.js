@@ -19,7 +19,7 @@ const mapStateToProps = state => ({
   prePlayback: state.shell.prePlayback,
   poster: state.engine.poster,
   isMobile: state.shell.isMobile,
-  isEnded: state.engine.isEnded,
+  isPlaybackEnded: state.engine.isPlaybackEnded,
   loading: state.loading.show
 });
 
@@ -103,7 +103,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   shouldComponentUpdate(nextProps: Object): boolean {
-    if (nextProps.isEnded) {
+    if (nextProps.isPlaybackEnded) {
       this.props.addPlayerClass(style.prePlayback);
     }
     return true;
@@ -133,7 +133,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   render(props: any): React$Element<any> | void {
-    if ((!props.isEnded && !props.prePlayback) || (!props.isEnded && this.autoplay) || props.loading) {
+    if ((!props.isPlaybackEnded && !props.prePlayback) || (!props.isPlaybackEnded && this.autoplay) || props.loading) {
       return undefined;
     }
     let rootStyle = {},
@@ -155,7 +155,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
                 this.handleClick();
               }
             }}>
-            {props.isEnded ? <Icon type={IconType.StartOver} /> : <Icon type={IconType.Play} />}
+            {props.isPlaybackEnded ? <Icon type={IconType.StartOver} /> : <Icon type={IconType.Play} />}
           </a>
         }
       </div>

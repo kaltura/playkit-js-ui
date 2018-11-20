@@ -17,7 +17,7 @@ const mapStateToProps = state => ({
   castSession: state.engine.castSession,
   isIdle: state.engine.isIdle,
   isPlaying: state.engine.isPlaying,
-  isEnded: state.engine.isEnded,
+  isPlaybackEnded: state.engine.isPlaybackEnded,
   isPaused: state.engine.isPaused,
   isChangingSource: state.engine.isChangingSource
 });
@@ -57,7 +57,7 @@ class CastOverlay extends BaseComponent {
     if (this.props.isPlaying || this.props.isPaused) {
       return <Text id="cast.status.playing_on" />;
     }
-    if (this.props.isEnded || this.props.isChangingSource || this.props.castSession.resuming) {
+    if (this.props.isPlaybackEnded || this.props.isChangingSource || this.props.castSession.resuming) {
       return <Text id="cast.status.connected_to" />;
     }
     return <Text id="cast.status.connecting_to" />;
@@ -69,7 +69,7 @@ class CastOverlay extends BaseComponent {
    * @memberof CastOverlay
    */
   getIcon(): React$Element<any> {
-    if (this.props.isPlaying || this.props.isPaused || this.props.isEnded || this.props.isChangingSource || this.props.castSession.resuming) {
+    if (this.props.isPlaying || this.props.isPaused || this.props.isPlaybackEnded || this.props.isChangingSource || this.props.castSession.resuming) {
       return <Icon type={this.props.icon} />;
     }
     return <div className={style.castConnectingSpinner} />;
