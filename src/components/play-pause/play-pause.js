@@ -17,7 +17,7 @@ const mapStateToProps = state => ({
   isPlayingAdOrPlayback: isPlayingAdOrPlayback(state.engine),
   isPlaying: state.engine.isPlaying,
   adBreak: state.engine.adBreak,
-  isEnded: state.engine.isEnded
+  isPlaybackEnded: state.engine.isPlaybackEnded
 });
 
 @connect(mapStateToProps)
@@ -72,7 +72,7 @@ class PlayPauseControl extends BaseComponent {
                 this.togglePlayPause();
               }
             }}>
-            {props.isEnded && !props.adBreak ? (
+            {props.isPlaybackEnded && !props.adBreak ? (
               <Icon type={IconType.StartOver} />
             ) : (
               <div>

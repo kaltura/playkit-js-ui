@@ -13,7 +13,7 @@ import {Localizer, Text} from 'preact-i18n';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  isEnded: state.engine.isEnded,
+  isPlaybackEnded: state.engine.isPlaybackEnded,
   isCasting: state.engine.isCasting
 });
 
@@ -78,7 +78,7 @@ class CastAfterPlay extends BaseComponent {
    * @memberof CastAfterPlay
    */
   render(props: any): ?React$Element<any> {
-    if (!props.isCasting || !props.isEnded) return undefined;
+    if (!props.isCasting || !props.isPlaybackEnded) return undefined;
     const rootStyle = [style.castOnTvButtonContainer];
     if (this.state.show) {
       rootStyle.push(style.showCastOnTv);
