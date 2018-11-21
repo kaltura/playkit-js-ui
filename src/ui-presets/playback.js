@@ -42,6 +42,7 @@ export function playbackUI(props: any): React$Element<any> {
         <UnmuteIndication player={props.player} />
         <OverlayAction player={props.player} />
         <PlaybackControls player={props.player} />
+        {shouldRenderComponent(props.config, Watermark.displayName) ? <Watermark player={props.player} /> : undefined}
         <BottomBar>
           <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player} playerContainer={props.playerContainer} />
           <div className={style.leftControls}>
@@ -63,7 +64,6 @@ export function playbackUI(props: any): React$Element<any> {
             <FullscreenControl player={props.player} />
           </div>
         </BottomBar>
-        {shouldRenderComponent(props.config, Watermark.displayName) ? <Watermark player={props.player} /> : undefined}
         {props.state.engine.playlist &&
         props.state.engine.playlist.next &&
         props.player.playlist.options.autoContinue &&

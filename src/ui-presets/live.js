@@ -40,6 +40,7 @@ export function liveUI(props: any): React$Element<any> {
         <UnmuteIndication />
         <OverlayAction player={props.player} />
         <PlaybackControls player={props.player} />
+        {shouldRenderComponent(props.config, Watermark.displayName) ? <Watermark player={props.player} /> : undefined}
         <BottomBar>
           <SeekBarLivePlaybackContainer showFramePreview showTimeBubble player={props.player} playerContainer={props.playerContainer} />
           <div className={style.leftControls}>
@@ -60,7 +61,6 @@ export function liveUI(props: any): React$Element<any> {
             <FullscreenControl player={props.player} />
           </div>
         </BottomBar>
-        {shouldRenderComponent(props.config, Watermark.displayName) ? <Watermark player={props.player} /> : undefined}
       </div>
       <PrePlaybackPlayOverlay player={props.player} />
       <CastBeforePlay player={props.player} />
