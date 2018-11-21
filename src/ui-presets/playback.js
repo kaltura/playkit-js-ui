@@ -63,6 +63,7 @@ export function playbackUI(props: any): React$Element<any> {
             <FullscreenControl player={props.player} />
           </div>
         </BottomBar>
+        {shouldRenderComponent(props.config, Watermark.displayName) ? <Watermark player={props.player} /> : undefined}
         {props.state.engine.playlist &&
         props.state.engine.playlist.next &&
         props.player.playlist.options.autoContinue &&
@@ -74,7 +75,6 @@ export function playbackUI(props: any): React$Element<any> {
       </div>
       <PrePlaybackPlayOverlay player={props.player} />
       <CastBeforePlay player={props.player} />
-      {shouldRenderComponent(props.config, Watermark.displayName) ? <Watermark player={props.player} /> : undefined}
       <Backdrop />
     </div>
   );
