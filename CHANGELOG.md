@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.30.8"></a>
+## [0.30.8](https://github.com/kaltura/playkit-js-ui/compare/v0.30.7...v0.30.8) (2018-11-20)
+
+
+### Bug Fixes
+
+* cast ui ([#304](https://github.com/kaltura/playkit-js-ui/issues/304)) ([fc82543](https://github.com/kaltura/playkit-js-ui/commit/fc82543))
+* disabled playlist button is black ([#303](https://github.com/kaltura/playkit-js-ui/issues/303)) ([d1105a3](https://github.com/kaltura/playkit-js-ui/commit/d1105a3))
+
+
+
 <a name="0.30.7"></a>
 ## [0.30.7](https://github.com/kaltura/playkit-js-ui/compare/v0.30.6...v0.30.7) (2018-11-14)
 
