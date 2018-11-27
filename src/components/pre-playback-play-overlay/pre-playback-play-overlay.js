@@ -16,6 +16,7 @@ import {actions as loadingActions} from '../../reducers/loading';
 const mapStateToProps = state => ({
   prePlayback: state.engine.prePlayback,
   isPlaybackEnded: state.engine.isPlaybackEnded,
+  playlist: state.engine.playlist,
   loading: state.loading.show
 });
 
@@ -60,7 +61,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   render(props: any): React$Element<any> | void {
-    if (!(props.prePlayback || props.isPlaybackEnded) || props.loading) {
+    if ((!props.prePlayback && (!props.isPlaybackEnded || (props.playlist && props.playlist.next))) || props.loading) {
       return undefined;
     }
     return (

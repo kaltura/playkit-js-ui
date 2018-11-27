@@ -60,7 +60,7 @@ class PlaylistButton extends BaseComponent {
             <div className={style.posterPreviewText}>
               <Localizer>
                 <div className={style.posterPreviewTextTitle}>
-                  <Text id={props.type === 'prev' ? 'playlist.prev' : 'playlist.next'} />
+                  <Text id={props.type === 'prev' ? 'playlist.prev' : 'playlist.up_next'} />
                 </div>
               </Localizer>
               <div className={style.posterPreviewTextName}>{`${item.sources.metadata ? item.sources.metadata.name : ''}`}</div>

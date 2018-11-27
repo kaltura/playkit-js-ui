@@ -135,9 +135,6 @@ class PlaylistCountdown extends BaseComponent {
    */
   render(props: any): React$Element<any> | void {
     const next = props.playlist.next;
-    if (!(next && next.sources)) {
-      return undefined;
-    }
     const countdown = this.player.playlist.countdown;
     const timeToShow = this._getTimeToShow();
     const progressTime = props.currentTime - timeToShow;
@@ -159,7 +156,7 @@ class PlaylistCountdown extends BaseComponent {
               <Localizer>
                 <div className={style.playlistCountdownText}>
                   <div className={style.playlistCountdownTextTitle}>
-                    <Text id="playlist.next" />
+                    <Text id="playlist.up_next" />
                   </div>
                   <div className={style.playlistCountdownTextName}>{`${next.sources.metadata ? next.sources.metadata.name : ''}`}</div>
                 </div>

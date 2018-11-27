@@ -23,6 +23,7 @@ import {CastBeforePlay} from '../components/cast-on-tv/cast-before-play';
 import {Backdrop} from '../components/backdrop/backdrop';
 import {PlaybackControls} from '../components/playback-controls';
 import {PlaylistCountdown} from '../components/playlist-countdown';
+import {PlaylistNextScreen} from '../components/playlist-next-screen';
 import {PictureInPicture} from '../components/picture-in-picture';
 
 /**
@@ -42,6 +43,14 @@ export function playbackUI(props: any): React$Element<any> {
         <UnmuteIndication player={props.player} />
         <OverlayAction player={props.player} />
         <PlaybackControls player={props.player} />
+        {props.state.engine.playlist &&
+        props.state.engine.playlist.next &&
+        props.state.engine.playlist.next.sources &&
+        !props.player.playlist.options.autoContinue ? (
+          <PlaylistNextScreen player={props.player} />
+        ) : (
+          undefined
+        )}
         <BottomBar>
           <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player} playerContainer={props.playerContainer} />
           <div className={style.leftControls}>
@@ -65,6 +74,7 @@ export function playbackUI(props: any): React$Element<any> {
         </BottomBar>
         {props.state.engine.playlist &&
         props.state.engine.playlist.next &&
+        props.state.engine.playlist.next.sources &&
         props.player.playlist.options.autoContinue &&
         props.player.playlist.countdown.showing ? (
           <PlaylistCountdown player={props.player} />
