@@ -8,8 +8,8 @@
 
     .playlist-next-screen-content {
       position: relative;
-      top: 50%;
-      margin-top: -175px;
+      top: calc(50% - 197.5px);
+      height: 305px;
 
       .playlist-next-screen-text {
         font-size: 15px;
@@ -31,13 +31,12 @@
 
       .playlist-next-screen-poster {
         position: relative;
-        left: 50%;
-        height: 170px;
-        width: 300px;
+        height: 215px;
+        width: 384px;
+        left: calc(50% - 192px);
         border: 2px solid rgba(255, 255, 255, 0.2);
         border-radius: 4px;
         cursor: pointer;
-        margin-left: -150px;
 
         .playlist-next-screen-poster-img {
           height: 100%;
@@ -57,56 +56,58 @@
       }
     }
 
-  @media screen and (max-width: 767px) {
-    .playlist-next-screen-content {
-      margin-top: -138px;
+    @media screen and (max-width: 1023px) {
+      .playlist-next-screen-content {
+        top: calc(31.25% - 90px);
+        height: calc(37.5% + 90px);
 
-      .playlist-next-screen-text .playlist-next-screen-text-name {
-        padding: 0;
-      }
-
-      .playlist-next-screen-poster {
-        width: 284px;
-        height: 160px;
-        margin-left: -142px;
+        .playlist-next-screen-poster {
+          height: calc(100% - 90px);
+          width: 37.5%;
+          left: 31.25%;
+        }
       }
     }
-  }
 
-  @media screen and (max-width: 620px) {
-    .playlist-next-screen-content {
-      margin-top: -101px;
+    @media screen and (max-width: 767px) {
+      .playlist-next-screen-content {
+        top: calc(29% - 58px);
+        height: calc(42% + 58px);
 
-      .playlist-next-screen-poster {
-        width: 152px;
-        height: 86px;
-        margin-left: -76px;
-      }
-    }
-  }
-
-  @media screen and (max-width: 479px) {
-    .playlist-next-screen-content {
-      margin-top: -74px;
-
-      .playlist-next-screen-poster {
-        width: 32px;
-        height: 32px;
-        margin-left: -16px;
-        border: 0;
-
-        .playlist-next-screen-poster-img {
-          display: none;
+        .playlist-next-screen-text .playlist-next-screen-text-name {
+          padding: 0;
         }
 
-        .icon {
-          width: 32px;
+        .playlist-next-screen-poster {
+          height: calc(100% - 58px);
+          width: 42%;
+          left: 29%;
+        }
+      }
+    }
+
+    @media screen and (max-width: 479px) {
+      .playlist-next-screen-content {
+        top: calc(50% - 74px);
+        height: 90px;
+
+        .playlist-next-screen-poster {
           height: 32px;
-          margin: -16px 0 0 -16px;
+          width: 32px;
+          left: calc(50% - 16px);
+          border: 0;
+
+          .playlist-next-screen-poster-img {
+            display: none;
+          }
+
+          .icon {
+            width: 32px;
+            height: 32px;
+            margin: -16px 0 0 -16px;
+          }
         }
       }
     }
   }
-}
-
 }
