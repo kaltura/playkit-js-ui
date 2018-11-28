@@ -15,3 +15,9 @@ The player builds its UI by definfing presets which are built upon the applicati
 An application can define its own UI layout and styling, by defining its presets, which can be built from custom components and/or the default components library.
 
 More information on how to build custom components and composing your own UI layout see [here](custom-ui-preset.md).
+
+## Removing style settings from the captions menu
+
+The captions customizing level can be modified by removing settings from the captions setting menu.
+
+More information on removing settings from the menu can be found [here](cvaa-override.md).
