@@ -1,29 +1,27 @@
 # Removing style settings from the captions menu
 
-The player captions style can be modified by the viewer.
+The player enables viewers to modify the captions style using the "Advanced captions settings" in the language menu, and clicking the 'Set custom caption' button.
 
-It can be done by opening the 'Advanced captions settings' in the language menu and clicking on the 
-'Set custom caption' button.
+To prevent viewers from using these modifications, simply overload the style option's class and add ```display: none``` to it.
 
-Each of these style options can be hidden by overloading it's css class and adding ```display: none``` to it.
-
-For example, adding the below will remove the ability to change the captions color:
+For example, adding the line below will remove the ability to change the captions color:
 
 ```
 .playkit-font-color {
   display: none
 }
 ```
+Refer to the list of caption settings classes below for detailed information on each class.
 
 ## Captions settings class list
 
 
 | Class Name                             | Description                                          |
 | -------------------------------------- | ---------------------------------------------------- |
-| `.playkit-font-size`                   | Changing the size of the captions                    |
-| `.playkit-font-color`                  | Changing the color of the captions                   |
-| `.playkit-font-family`                 | Changing the font family of the captions             |
-| `.playkit-font-style`                  | Changing the weight of the captions                  |
-| `.playkit-font-opacity`                | Changing the opacity of the captions                 |
-| `.playkit-background-color`            | Changing the color of the captions background        |
-| `.playkit-background-opacity`          | Changing the opacity of the captions background      |
+| `.playkit-font-size`                   | Changes the size of the captions                    |
+| `.playkit-font-color`                  | Changes the color of the captions                   |
+| `.playkit-font-family`                 | Changes the font family of the captions             |
+| `.playkit-font-style`                  | Changes the weight of the captions                  |
+| `.playkit-font-opacity`                | Changes the opacity of the captions                 |
+| `.playkit-background-color`            | Changes the color of the captions background        |
+| `.playkit-background-opacity`          | Changes the opacity of the captions background      |
