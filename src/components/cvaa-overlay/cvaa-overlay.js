@@ -294,31 +294,31 @@ class CVAAOverlay extends BaseComponent {
     return (
       <div className={this.state.state === cvaaOverlayState.CustomCaptions ? [style.overlayScreen, style.active].join(' ') : style.overlayScreen}>
         <form className={[style.form, style.customCaptionForm].join(' ')}>
-          <div className={style.formGroupRow}>
+          <div className={[style.formGroupRow, style.fontSize].join(' ')}>
             <label>
               <Text id={'cvaa.size_label'} />
             </label>
             <DropDown onSelect={fontSize => this.changeCustomStyle({fontSize})} options={fontSizeOptions} />
           </div>
-          <div className={style.formGroupRow}>
+          <div className={[style.formGroupRow, style.fontColor].join(' ')}>
             <label>
               <Text id={'cvaa.font_color_label'} />
             </label>
             <DropDown onSelect={fontColor => this.changeCustomStyle({fontColor})} options={fontColorOptions} />
           </div>
-          <div className={style.formGroupRow}>
+          <div className={[style.formGroupRow, style.fontFamily].join(' ')}>
             <label>
               <Text id={'cvaa.font_family_label'} />
             </label>
             <DropDown onSelect={fontFamily => this.changeCustomStyle({fontFamily})} options={fontFamilyOptions} />
           </div>
-          <div className={style.formGroupRow}>
+          <div className={[style.formGroupRow, style.fontStyle].join(' ')}>
             <label>
               <Text id={'cvaa.font_style_label'} />
             </label>
             <DropDown onSelect={fontEdge => this.changeCustomStyle({fontEdge})} options={fontStyleOptions} />
           </div>
-          <div className={style.formGroupRow}>
+          <div className={[style.formGroupRow, style.fontOpacity].join(' ')}>
             <label>
               <Text id={'cvaa.font_opacity_label'} />
             </label>
@@ -329,13 +329,13 @@ class CVAAOverlay extends BaseComponent {
               onChange={fontOpacity => this.changeCustomStyle({fontOpacity: fontOpacity / 100})}
             />
           </div>
-          <div className={style.formGroupRow}>
+          <div className={[style.formGroupRow, style.backgroundColor].join(' ')}>
             <label>
               <Text id={'cvaa.background_color_label'} />
             </label>
             <DropDown onSelect={backgroundColor => this.changeCustomStyle({backgroundColor})} options={backgroundColorOptions} />
           </div>
-          <div className={style.formGroupRow}>
+          <div className={[style.formGroupRow, style.backgrouOpacity].join(' ')}>
             <label>
               <Text id={'cvaa.background_opacity_label'} />
             </label>
