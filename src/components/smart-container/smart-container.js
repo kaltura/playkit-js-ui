@@ -1,12 +1,13 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h} from 'preact';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
 import Portal from 'preact-portal';
 import {Overlay} from '../overlay';
 import {KeyMap} from '../../utils/key-map';
+import BaseComponent from '../base';
 
 /**
  * mapping state to props
@@ -36,7 +37,14 @@ const mapStateToProps = state => ({
  * </SmartContainer>
  * @extends {Component}
  */
-class SmartContainer extends Component {
+class SmartContainer extends BaseComponent {
+  /**
+   * @param {Object} obj an object
+   */
+  constructor(obj: Object) {
+    super({name: 'SmartContainer', player: obj.player});
+  }
+
   /**
    * before component mounted, add player css class
    *
@@ -68,8 +76,9 @@ class SmartContainer extends Component {
    * @memberof SmartContainer
    */
   render(props: any): React$Element<any> {
+    const portalSelector = `#${this.player.config.targetId} .overlay-portal`;
     return props.isMobile ? (
-      <Portal into="#overlay-portal">
+      <Portal into={portalSelector}>
         <Overlay open onClose={() => props.onClose()}>
           <div className={style.title}>{props.title}</div>
           {props.children}

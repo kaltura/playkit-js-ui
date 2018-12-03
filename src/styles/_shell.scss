@@ -42,14 +42,14 @@
       font-family: $font-family;
     }
   }
-  :global(#overlay-portal) {
+  :global(.overlay-portal) {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
   }
-  &.overlay-active :global(#overlay-portal) {
+  &.overlay-active :global(.overlay-portal) {
     z-index: 11;
   }
   &.casting .player-gui,

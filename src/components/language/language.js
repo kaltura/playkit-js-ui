@@ -151,6 +151,7 @@ class LanguageControl extends BaseComponent {
    * @memberof LanguageControl
    */
   renderAll(audioOptions: Array<Object>, textOptions: Array<Object>): React$Element<any> {
+    const portalSelector = `#${this.player.config.targetId} .overlay-portal`;
     return (
       <div ref={c => (this._controlLanguageElement = c)} className={[style.controlButtonContainer, style.controlLanguage].join(' ')}>
         <Localizer>
@@ -165,7 +166,7 @@ class LanguageControl extends BaseComponent {
         {!this.state.smartContainerOpen || this.state.cvaaOverlay ? (
           undefined
         ) : (
-          <SmartContainer title="Language" onClose={() => this.onControlButtonClick()}>
+          <SmartContainer player={this.player} title="Language" onClose={() => this.onControlButtonClick()}>
             {audioOptions.length <= 1 ? (
               undefined
             ) : (
@@ -209,7 +210,7 @@ class LanguageControl extends BaseComponent {
           </SmartContainer>
         )}
         {this.state.cvaaOverlay ? (
-          <Portal into="#overlay-portal" ref={ref => (this._portal = ref)}>
+          <Portal into={portalSelector} ref={ref => (this._portal = ref)}>
             <CVAAOverlay
               player={this.player}
               onClose={() => {
