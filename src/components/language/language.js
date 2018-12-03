@@ -166,7 +166,7 @@ class LanguageControl extends BaseComponent {
         {!this.state.smartContainerOpen || this.state.cvaaOverlay ? (
           undefined
         ) : (
-          <SmartContainer player={this.player} title="Language" onClose={() => this.onControlButtonClick()}>
+          <SmartContainer targetId={this.player.config.targetId} title="Language" onClose={() => this.onControlButtonClick()}>
             {audioOptions.length <= 1 ? (
               undefined
             ) : (
