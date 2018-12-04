@@ -61,6 +61,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
         this.props.updatePrePlayback(true);
       } else {
         this.eventManager.listen(this.player, this.player.Event.AUTOPLAY_FAILED, () => {
+          this.props.updatePrePlayback(true);
           this.autoplay = false;
           this.forceUpdate();
         });
