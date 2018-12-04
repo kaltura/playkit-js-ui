@@ -31,6 +31,22 @@ const mapStateToProps = state => ({
  */
 class PlaylistCountdown extends BaseComponent {
   /**
+   * should render component
+   * @param {*} props - component props
+   * @returns {boolean} - component element
+   * @static
+   */
+  static shouldRender(props: any): boolean {
+    return (
+      props.state.engine.playlist &&
+      props.state.engine.playlist.next &&
+      props.state.engine.playlist.next.sources &&
+      props.player.playlist.options.autoContinue &&
+      props.player.playlist.countdown.showing
+    );
+  }
+
+  /**
    * Creates an instance of PlaylistCountdown.
    * @param {Object} obj obj
    * @memberof PlaylistCountdown

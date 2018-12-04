@@ -43,14 +43,7 @@ export function playbackUI(props: any): React$Element<any> {
         <UnmuteIndication player={props.player} />
         <OverlayAction player={props.player} />
         <PlaybackControls player={props.player} />
-        {props.state.engine.playlist &&
-        props.state.engine.playlist.next &&
-        props.state.engine.playlist.next.sources &&
-        !props.player.playlist.options.autoContinue ? (
-          <PlaylistNextScreen player={props.player} />
-        ) : (
-          undefined
-        )}
+        {PlaylistNextScreen.shouldRender(props) ? <PlaylistNextScreen player={props.player} /> : undefined}
         <BottomBar>
           <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player} playerContainer={props.playerContainer} />
           <div className={style.leftControls}>
@@ -72,15 +65,7 @@ export function playbackUI(props: any): React$Element<any> {
             <FullscreenControl player={props.player} />
           </div>
         </BottomBar>
-        {props.state.engine.playlist &&
-        props.state.engine.playlist.next &&
-        props.state.engine.playlist.next.sources &&
-        props.player.playlist.options.autoContinue &&
-        props.player.playlist.countdown.showing ? (
-          <PlaylistCountdown player={props.player} />
-        ) : (
-          undefined
-        )}
+        {PlaylistCountdown.shouldRender(props) ? <PlaylistCountdown player={props.player} /> : undefined}
       </div>
       <PrePlaybackPlayOverlay player={props.player} />
       <CastBeforePlay player={props.player} />

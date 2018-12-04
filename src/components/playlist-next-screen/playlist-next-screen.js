@@ -5,6 +5,7 @@ import {Localizer, Text} from 'preact-i18n';
 import BaseComponent from '../base';
 import {connect} from 'preact-redux';
 import {default as Icon, IconType} from '../icon';
+import {shouldRenderComponent} from '../../utils/component-config';
 
 /**
  * mapping state to props
@@ -17,14 +18,29 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps)
-  /**
-   * PlaylistNextScreen component
-   *
-   * @class PlaylistNextScreen
-   * @example <PlaylistNextScreen player={this.player} type="next"/>
-   * @extends {BaseComponent}
-   */
+/**
+ * PlaylistNextScreen component
+ *
+ * @class PlaylistNextScreen
+ * @example <PlaylistNextScreen player={this.player} type="next"/>
+ * @extends {BaseComponent}
+ */
 class PlaylistNextScreen extends BaseComponent {
+  /**
+   * should render component
+   * @param {*} props - component props
+   * @returns {boolean} - component element
+   * @static
+   */
+  static shouldRender(props: any): boolean {
+    return (
+      props.state.engine.playlist &&
+      props.state.engine.playlist.next &&
+      props.state.engine.playlist.next.sources &&
+      !props.player.playlist.options.autoContinue
+    );
+  }
+
   /**
    * Creates an instance of PlaylistNextScreen.
    * @param {Object} obj obj
