@@ -17,13 +17,13 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps)
-/**
- * PlaylistNextScreen component
- *
- * @class PlaylistNextScreen
- * @example <PlaylistNextScreen player={this.player} type="next"/>
- * @extends {BaseComponent}
- */
+  /**
+   * PlaylistNextScreen component
+   *
+   * @class PlaylistNextScreen
+   * @example <PlaylistNextScreen player={this.player} type="next"/>
+   * @extends {BaseComponent}
+   */
 class PlaylistNextScreen extends BaseComponent {
   /**
    * Creates an instance of PlaylistNextScreen.
@@ -64,9 +64,13 @@ class PlaylistNextScreen extends BaseComponent {
             </Localizer>
             <div className={style.playlistNextScreenTextName}>{`${next.sources.metadata ? next.sources.metadata.name : ''}`}</div>
           </div>
-          <div className={style.playlistNextScreenPoster} onClick={() => this.onPosterClick()}>
-            <div className={style.playlistNextScreenPosterImg} style={`background-image: url(${next.sources.poster || ''});`} />
-            <Icon type={IconType.Play} />
+          <div className={style.playlistNextScreenPosterPlaceholder}>
+            <div className={style.playlistNextScreenPosterAspectRatio}>
+              <div className={style.playlistNextScreenPoster} onClick={() => this.onPosterClick()}>
+                <div className={style.playlistNextScreenPosterImg} style={`background-image: url(${next.sources.poster || ''});`} />
+                <Icon type={IconType.Play} />
+              </div>
+            </div>
           </div>
         </div>
       </div>
