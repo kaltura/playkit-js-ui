@@ -8,10 +8,13 @@
 
     .playlist-next-screen-content {
       position: relative;
-      top: calc(50% - 197.5px);
-      height: 305px;
+      height: 215px;
+      top: calc(50% - 107.5px);
 
       .playlist-next-screen-text {
+        position: absolute;
+        width: 100%;
+        top: -90px;
         font-size: 15px;
         color: #fff;
         padding: 4px 8px 12px 8px;
@@ -31,7 +34,7 @@
 
       .playlist-next-screen-poster {
         position: relative;
-        height: 215px;
+        height: 100%;
         width: 384px;
         left: calc(50% - 192px);
         border: 2px solid rgba(255, 255, 255, 0.2);
@@ -58,11 +61,10 @@
 
     @media screen and (max-width: 1023px) {
       .playlist-next-screen-content {
-        top: calc(31.25% - 90px);
-        height: calc(37.5% + 90px);
+        height: 37.5%;
+        top: 31.25%;
 
         .playlist-next-screen-poster {
-          height: calc(100% - 90px);
           width: 37.5%;
           left: 31.25%;
         }
@@ -71,15 +73,18 @@
 
     @media screen and (max-width: 767px) {
       .playlist-next-screen-content {
-        top: calc(29% - 58px);
-        height: calc(42% + 58px);
+        height: 42%;
+        top: 29%;
 
-        .playlist-next-screen-text .playlist-next-screen-text-name {
-          padding: 0;
+        .playlist-next-screen-text {
+          top: -58px;
+
+          .playlist-next-screen-text-name {
+            padding: 0;
+          }
         }
 
         .playlist-next-screen-poster {
-          height: calc(100% - 58px);
           width: 42%;
           left: 29%;
         }
@@ -88,11 +93,10 @@
 
     @media screen and (max-width: 479px) {
       .playlist-next-screen-content {
-        top: calc(50% - 74px);
-        height: 90px;
+        top: calc(50% - 16px);
+        height: 32px;
 
         .playlist-next-screen-poster {
-          height: 32px;
           width: 32px;
           left: calc(50% - 16px);
           border: 0;
