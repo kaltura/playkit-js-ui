@@ -133,7 +133,7 @@ class ErrorOverlay extends BaseComponent {
   render(): ?React$Element<any> {
     if (this.props && this.props.hasError) {
       return (
-        <div id="overlay-portal">
+        <div className="overlay-portal">
           <Overlay open permanent={true} type="error">
             <div className={style.errorOverlay}>
               <p className={style.errorText} />
