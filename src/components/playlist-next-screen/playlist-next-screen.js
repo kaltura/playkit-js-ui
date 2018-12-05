@@ -32,12 +32,7 @@ class PlaylistNextScreen extends BaseComponent {
    * @static
    */
   static shouldRender(props: any): boolean {
-    return (
-      props.state.engine.playlist &&
-      props.state.engine.playlist.next &&
-      props.state.engine.playlist.next.sources &&
-      !props.player.playlist.options.autoContinue
-    );
+    return props.state.engine.playlist && props.state.engine.playlist.next && props.state.engine.playlist.next.sources;
   }
 
   /**
