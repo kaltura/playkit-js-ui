@@ -312,6 +312,7 @@ class Shell extends BaseComponent {
     if (this.props.playlist) playerClasses.push(style.playlist);
     if (this.props.playerClientRect && this.props.playerClientRect.width <= 480) playerClasses.push(style.sizeSm);
     else if (this.props.playerClientRect && this.props.playerClientRect.width <= 768) playerClasses.push(style.sizeMd);
+    else if (this.props.playerClientRect && this.props.playerClientRect.width <= 1024) playerClasses.push(style.sizeLg);
 
     playerClasses = playerClasses.join(' ');
 

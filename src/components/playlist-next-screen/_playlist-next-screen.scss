@@ -69,54 +69,54 @@
         }
       }
     }
+  }
 
-    @media screen and (max-width: 1023px) {
-      .playlist-next-screen-content {
-        top: 31.25%;
+  &.size-lg {
+    .playlist-next-screen-content {
+      top: 31.25%;
 
-        .playlist-next-screen-poster-placeholder {
-          width: 37.5%;
-        }
+      .playlist-next-screen-poster-placeholder {
+        width: 37.5%;
       }
     }
+  }
 
-    @media screen and (max-width: 767px) {
-      .playlist-next-screen-content {
-        top: 29%;
+  &.size-md {
+    .playlist-next-screen-content {
+      top: 29%;
 
-        .playlist-next-screen-text {
-          top: -58px;
+      .playlist-next-screen-text {
+        top: -58px;
 
-          .playlist-next-screen-text-name {
-            padding: 0;
+        .playlist-next-screen-text-name {
+          padding: 0;
+        }
+      }
+
+      .playlist-next-screen-poster-placeholder {
+        width: 42%;
+      }
+    }
+  }
+
+  &.size-sm {
+    .playlist-next-screen-content {
+      top: calc(50% - 16px);
+
+      .playlist-next-screen-poster-placeholder {
+        width: 32px;
+
+        .playlist-next-screen-poster-aspect-ratio .playlist-next-screen-poster {
+          border: 0;
+
+          .playlist-next-screen-poster-img {
+            display: none;
           }
-        }
 
-        .playlist-next-screen-poster-placeholder {
-          width: 42%;
-        }
-      }
-    }
-
-    @media screen and (max-width: 479px) {
-      .playlist-next-screen-content {
-        top: calc(50% - 16px);
-
-        .playlist-next-screen-poster-placeholder {
-          width: 32px;
-
-          .playlist-next-screen-poster-aspect-ratio .playlist-next-screen-poster {
-            border: 0;
-
-            .playlist-next-screen-poster-img {
-              display: none;
-            }
-
-            .icon {
-              width: 32px;
-              height: 32px;
-              margin: -16px 0 0 -16px;
-            }
+          .icon {
+            width: 32px;
+            height: 32px;
+            margin: -16px 0 0 -16px;
           }
         }
       }
