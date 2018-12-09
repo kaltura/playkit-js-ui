@@ -45,7 +45,7 @@ class VrStereoToggleControl extends BaseComponent {
    */
   static shouldRender(props: any): boolean {
     const componentConfig = props.config.components[this.displayName];
-    return !(Object.keys(componentConfig).length === 0 && componentConfig.constructor === Object);
+    return props.state.engine.isVr && !(Object.keys(componentConfig).length === 0 && componentConfig.constructor === Object);
   }
   /**
    * Creates an instance of VrStereoToggleControl.
