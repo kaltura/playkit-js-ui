@@ -32,6 +32,16 @@ class Watermark extends BaseComponent {
    * @type {string} - Component display name
    */
   static displayName = 'watermark';
+  /**
+   * should render component
+   * @param {*} props - component props
+   * @returns {boolean} - whether to render the component
+   * @static
+   */
+  static shouldRender(props: any): boolean {
+    const componentConfig = props.config.components[this.displayName];
+    return !(Object.keys(componentConfig).length === 0 && componentConfig.constructor === Object);
+  }
 
   /**
    * Creates an instance of Watermark.

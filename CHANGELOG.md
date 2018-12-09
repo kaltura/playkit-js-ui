@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.31.0"></a>
+# [0.31.0](https://github.com/kaltura/playkit-js-ui/compare/v0.30.8...v0.31.0) (2018-12-04)
+
+
+### Bug Fixes
+
+* **FEC-8747:** no play button when auto play failed ([#311](https://github.com/kaltura/playkit-js-ui/issues/311)) ([1169540](https://github.com/kaltura/playkit-js-ui/commit/1169540))
+
+
+### Features
+
+* **FEC-8671:** add CVAA menu labels/ids to enable external CSS to customize it ([#308](https://github.com/kaltura/playkit-js-ui/issues/308)) ([cd1f115](https://github.com/kaltura/playkit-js-ui/commit/cd1f115))
+
+
+
 <a name="0.30.8"></a>
 ## [0.30.8](https://github.com/kaltura/playkit-js-ui/compare/v0.30.7...v0.30.8) (2018-11-20)
 

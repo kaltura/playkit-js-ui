@@ -17,7 +17,6 @@ import {OverlayPortal} from '../components/overlay-portal';
 import {KeyboardControl} from '../components/keyboard';
 import {UnmuteIndication} from '../components/unmute-indication';
 import {Watermark} from '../components/watermark/watermark';
-import {shouldRenderComponent} from '../utils/component-config';
 import {CastControl} from '../components/cast';
 import {CastBeforePlay} from '../components/cast-on-tv/cast-before-play';
 import {Backdrop} from '../components/backdrop/backdrop';
@@ -44,6 +43,7 @@ export function playbackUI(props: any): React$Element<any> {
         <OverlayAction player={props.player} />
         <PlaybackControls player={props.player} />
         {PlaylistNextScreen.shouldRender(props) ? <PlaylistNextScreen player={props.player} /> : undefined}
+        {Watermark.shouldRender(props) ? <Watermark player={props.player} /> : undefined}
         <BottomBar>
           <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player} playerContainer={props.playerContainer} />
           <div className={style.leftControls}>
@@ -52,11 +52,7 @@ export function playbackUI(props: any): React$Element<any> {
             <TimeDisplayPlaybackContainer format="current / total" />
           </div>
           <div className={style.rightControls}>
-            {props.state.engine.isVr && shouldRenderComponent(props.config, VrStereoToggleControl.displayName) ? (
-              <VrStereoToggleControl player={props.player} />
-            ) : (
-              undefined
-            )}
+            {VrStereoToggleControl.shouldRender(props) ? <VrStereoToggleControl player={props.player} /> : undefined}
             <VolumeControl player={props.player} />
             <LanguageControl player={props.player} />
             <SettingsControl player={props.player} />
@@ -69,7 +65,6 @@ export function playbackUI(props: any): React$Element<any> {
       </div>
       <PrePlaybackPlayOverlay player={props.player} />
       <CastBeforePlay player={props.player} />
-      {shouldRenderComponent(props.config, Watermark.displayName) ? <Watermark player={props.player} /> : undefined}
       <Backdrop />
     </div>
   );
