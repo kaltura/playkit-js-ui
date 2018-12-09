@@ -22,6 +22,7 @@ import {CastBeforePlay} from '../components/cast-on-tv/cast-before-play';
 import {Backdrop} from '../components/backdrop/backdrop';
 import {PlaybackControls} from '../components/playback-controls';
 import {PlaylistCountdown} from '../components/playlist-countdown';
+import {PlaylistNextScreen} from '../components/playlist-next-screen';
 import {PictureInPicture} from '../components/picture-in-picture';
 
 /**
@@ -41,6 +42,7 @@ export function playbackUI(props: any): React$Element<any> {
         <UnmuteIndication player={props.player} />
         <OverlayAction player={props.player} />
         <PlaybackControls player={props.player} />
+        {PlaylistNextScreen.shouldRender(props) ? <PlaylistNextScreen player={props.player} /> : undefined}
         {Watermark.shouldRender(props) ? <Watermark player={props.player} /> : undefined}
         <BottomBar>
           <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player} playerContainer={props.playerContainer} />
@@ -59,14 +61,7 @@ export function playbackUI(props: any): React$Element<any> {
             <FullscreenControl player={props.player} />
           </div>
         </BottomBar>
-        {props.state.engine.playlist &&
-        props.state.engine.playlist.next &&
-        props.player.playlist.options.autoContinue &&
-        props.player.playlist.countdown.showing ? (
-          <PlaylistCountdown player={props.player} />
-        ) : (
-          undefined
-        )}
+        {PlaylistCountdown.shouldRender(props) ? <PlaylistCountdown player={props.player} /> : undefined}
       </div>
       <PrePlaybackPlayOverlay player={props.player} />
       <CastBeforePlay player={props.player} />

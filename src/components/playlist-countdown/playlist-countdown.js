@@ -31,6 +31,22 @@ const mapStateToProps = state => ({
  */
 class PlaylistCountdown extends BaseComponent {
   /**
+   * should render component
+   * @param {*} props - component props
+   * @returns {boolean} - component element
+   * @static
+   */
+  static shouldRender(props: any): boolean {
+    return (
+      props.state.engine.playlist &&
+      props.state.engine.playlist.next &&
+      props.state.engine.playlist.next.sources &&
+      props.player.playlist.options.autoContinue &&
+      props.player.playlist.countdown.showing
+    );
+  }
+
+  /**
    * Creates an instance of PlaylistCountdown.
    * @param {Object} obj obj
    * @memberof PlaylistCountdown
@@ -135,9 +151,6 @@ class PlaylistCountdown extends BaseComponent {
    */
   render(props: any): React$Element<any> | void {
     const next = props.playlist.next;
-    if (!(next && next.sources)) {
-      return undefined;
-    }
     const countdown = this.player.playlist.countdown;
     const timeToShow = this._getTimeToShow();
     const progressTime = props.currentTime - timeToShow;
@@ -159,7 +172,7 @@ class PlaylistCountdown extends BaseComponent {
               <Localizer>
                 <div className={style.playlistCountdownText}>
                   <div className={style.playlistCountdownTextTitle}>
-                    <Text id="playlist.next" />
+                    <Text id="playlist.up_next" />
                   </div>
                   <div className={style.playlistCountdownTextName}>{`${next.sources.metadata ? next.sources.metadata.name : ''}`}</div>
                 </div>
