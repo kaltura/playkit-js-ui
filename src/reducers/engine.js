@@ -6,6 +6,7 @@ const component = 'engine';
 
 export const types = {
   UPDATE_PLAYER_STATE: `${component}/UPDATE_PLAYER_STATE`,
+  UPDATE_PRE_PLAYBACK: `${component}/UPDATE_PRE_PLAYBACK`,
   UPDATE_IS_PLAYING: `${component}/UPDATE_IS_PLAYING`,
   UPDATE_IS_PAUSED: `${component}/UPDATE_IS_PAUSED`,
   UPDATE_IS_SEEKING: `${component}/UPDATE_IS_SEEKING`,
@@ -52,6 +53,7 @@ export const initialState = {
   isEnded: false,
   isPlaybackEnded: false,
   isChangingSource: false,
+  prePlayback: true,
   metadataLoaded: false,
   playerState: {
     previousState: '',
@@ -107,6 +109,12 @@ export default (state: Object = initialState, action: Object) => {
       return {
         ...state,
         playerState: action.playerState
+      };
+
+    case types.UPDATE_PRE_PLAYBACK:
+      return {
+        ...state,
+        prePlayback: action.prePlayback
       };
 
     case types.UPDATE_IS_PLAYING:
@@ -333,6 +341,7 @@ export const actions = {
     type: types.UPDATE_PLAYER_STATE,
     playerState: {prevoiusState, currentState}
   }),
+  updatePrePlayback: (prePlayback: boolean) => ({type: types.UPDATE_PRE_PLAYBACK, prePlayback}),
   updateIsPlaying: (isPlaying: boolean) => ({type: types.UPDATE_IS_PLAYING, isPlaying}),
   updateIsPaused: (isPaused: boolean) => ({type: types.UPDATE_IS_PAUSED, isPaused}),
   updateIsSeeking: (isSeeking: boolean) => ({type: types.UPDATE_IS_SEEKING, isSeeking}),

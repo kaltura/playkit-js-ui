@@ -15,7 +15,7 @@ import {Localizer, Text} from 'preact-i18n';
  */
 const mapStateToProps = state => ({
   isPlaybackEnded: state.engine.isPlaybackEnded,
-  prePlayback: state.shell.prePlayback,
+  prePlayback: state.engine.prePlayback,
   loading: state.loading.show,
   isCastAvailable: state.engine.isCastAvailable
 });
