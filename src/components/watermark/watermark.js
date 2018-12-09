@@ -35,7 +35,7 @@ class Watermark extends BaseComponent {
   /**
    * should render component
    * @param {*} props - component props
-   * @returns {boolean} - component element
+   * @returns {boolean} - whether to render the component
    * @static
    */
   static shouldRender(props: any): boolean {
