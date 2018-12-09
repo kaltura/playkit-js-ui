@@ -112,7 +112,7 @@
     }
   }
 
-  @media screen and (max-width: 767px) {
+  &.size-md {
     .playlist-countdown {
       height: 54px;
 
@@ -145,7 +145,7 @@
     }
   }
 
-  @media screen and (max-width: 479px) {
+  &.size-sm {
     .playlist-countdown {
       z-index: 1;
       height: 36px;
