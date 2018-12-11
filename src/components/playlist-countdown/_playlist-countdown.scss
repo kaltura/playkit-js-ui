@@ -104,6 +104,7 @@
 
   &:not(.overlay-active) {
     &.state-paused,
+    &.state-idle,
     &.hover {
       .playlist-countdown {
         transform: translateY(-50px);
@@ -111,7 +112,7 @@
     }
   }
 
-  @media screen and (max-width: 767px) {
+  &.size-md {
     .playlist-countdown {
       height: 54px;
 
@@ -144,7 +145,7 @@
     }
   }
 
-  @media screen and (max-width: 479px) {
+  &.size-sm {
     .playlist-countdown {
       z-index: 1;
       height: 36px;
@@ -158,6 +159,7 @@
         width: 108px;
 
         .playlist-countdown-content-background {
+          transition: width 500ms;
           border-radius: 2px;
 
           .playlist-countdown-content {

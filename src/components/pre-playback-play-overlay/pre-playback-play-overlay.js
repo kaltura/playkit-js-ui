@@ -3,7 +3,6 @@ import style from '../../styles/style.scss';
 import {h} from 'preact';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
-import {actions} from '../../reducers/shell';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
@@ -15,17 +14,15 @@ import {actions as loadingActions} from '../../reducers/loading';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  metadataLoaded: state.engine.metadataLoaded,
-  prePlayback: state.shell.prePlayback,
-  poster: state.engine.poster,
-  isMobile: state.shell.isMobile,
+  prePlayback: state.engine.prePlayback,
   isPlaybackEnded: state.engine.isPlaybackEnded,
+  playlist: state.engine.playlist,
   loading: state.loading.show
 });
 
 @connect(
   mapStateToProps,
-  bindActions(Object.assign({}, actions, loadingActions))
+  bindActions(Object.assign({}, loadingActions))
 )
 /**
  * PrePlaybackPlayOverlay component
@@ -35,8 +32,6 @@ const mapStateToProps = state => ({
  * @extends {BaseComponent}
  */
 class PrePlaybackPlayOverlay extends BaseComponent {
-  autoplay: boolean;
-
   /**
    * Creates an instance of PrePlaybackPlayOverlay.
    * @param {Object} obj obj
@@ -44,69 +39,6 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'PrePlaybackPlayOverlay', player: obj.player});
-  }
-
-  /**
-   * before component mounted, add 'pre-playback' class to player shell in order to hide the gui
-   * and set the autoplay and mobileAutoplay values from the player config
-   *
-   * @returns {void}
-   * @memberof PrePlaybackPlayOverlay
-   */
-  componentWillMount() {
-    this.props.addPlayerClass(style.prePlayback);
-    try {
-      this.autoplay = this.player.config.playback.autoplay;
-      if (!this.autoplay) {
-        this.props.updatePrePlayback(true);
-      } else {
-        this.eventManager.listen(this.player, this.player.Event.AUTOPLAY_FAILED, () => {
-          this.autoplay = false;
-          this.forceUpdate();
-        });
-      }
-    } catch (e) {
-      // eslint-disable-line no-unused-vars
-      this.autoplay = false;
-    }
-  }
-
-  /**
-   * before component unmounted, remove the pre playback flag and class from player shell.
-   *
-   * @returns {void}
-   * @memberof PrePlaybackPlayOverlay
-   */
-  componentWillUnmount() {
-    super.componentWillUnmount();
-    this._hidePrePlayback();
-  }
-
-  /**
-   * after component mounted, listen to play event and update the pre plackback flag to false
-   *
-   * @returns {void}
-   * @memberof PrePlaybackPlayOverlay
-   */
-  componentDidMount() {
-    this.eventManager.listen(this.player, this.player.Event.PLAY, () => this._hidePrePlayback());
-    if (this.player.paused === false) {
-      this._hidePrePlayback();
-    }
-  }
-
-  /**
-   * change in component props or state shouldn't render the component again
-   *
-   * @returns {boolean} shouldComponentUpdate
-   * @param {Object} nextProps - nextProps
-   * @memberof PrePlaybackPlayOverlay
-   */
-  shouldComponentUpdate(nextProps: Object): boolean {
-    if (nextProps.isPlaybackEnded) {
-      this.props.addPlayerClass(style.prePlayback);
-    }
-    return true;
   }
 
   /**
@@ -118,11 +50,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
   handleClick(): void {
     this.player.getView().focus();
     this.player.play();
-    if (this.props.prePlayback) {
-      this._hidePrePlayback();
-      this.props.updateLoadingSpinnerState(true);
-      this.notifyClick();
-    }
+    this.notifyClick();
   }
 
   /**
@@ -133,19 +61,11 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   render(props: any): React$Element<any> | void {
-    if ((!props.isPlaybackEnded && !props.prePlayback) || (!props.isPlaybackEnded && this.autoplay) || props.loading) {
+    if ((!props.prePlayback && (!props.isPlaybackEnded || (props.playlist && props.playlist.next))) || props.loading) {
       return undefined;
     }
-    let rootStyle = {},
-      rootClass = [style.prePlaybackPlayOverlay];
-
-    if (!props.prePlayback && props.poster) {
-      rootStyle = {backgroundImage: `url(${props.poster})`};
-      rootClass.push(style.hasPoster);
-    }
-
     return (
-      <div className={rootClass.join(' ')} style={rootStyle} onMouseOver={e => e.stopPropagation()} onClick={() => this.handleClick()}>
+      <div className={style.prePlaybackPlayOverlay} onMouseOver={e => e.stopPropagation()} onClick={() => this.handleClick()}>
         {
           <a
             className={style.prePlaybackPlayButton}
@@ -160,16 +80,6 @@ class PrePlaybackPlayOverlay extends BaseComponent {
         }
       </div>
     );
-  }
-
-  /**
-   * Hides the pre playback overlay.
-   * @private
-   * @returns {void}
-   */
-  _hidePrePlayback(): void {
-    this.props.updatePrePlayback(false);
-    this.props.removePlayerClass(style.prePlayback);
   }
 }
 

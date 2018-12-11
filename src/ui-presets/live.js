@@ -15,7 +15,6 @@ import {KeyboardControl} from '../components/keyboard';
 import {LiveTag} from '../components/live-tag';
 import {UnmuteIndication} from '../components/unmute-indication';
 import {Watermark} from '../components/watermark/watermark';
-import {shouldRenderComponent} from '../utils/component-config';
 import {VrStereoToggleControl} from '../components/vr-stereo-toggle';
 import {CastControl} from '../components/cast';
 import {CastBeforePlay} from '../components/cast-on-tv/cast-before-play';
@@ -40,6 +39,7 @@ export function liveUI(props: any): React$Element<any> {
         <UnmuteIndication />
         <OverlayAction player={props.player} />
         <PlaybackControls player={props.player} />
+        {Watermark.shouldRender(props) ? <Watermark player={props.player} /> : undefined}
         <BottomBar>
           <SeekBarLivePlaybackContainer showFramePreview showTimeBubble player={props.player} playerContainer={props.playerContainer} />
           <div className={style.leftControls}>
@@ -47,11 +47,7 @@ export function liveUI(props: any): React$Element<any> {
             <LiveTag player={props.player} />
           </div>
           <div className={style.rightControls}>
-            {props.state.engine.isVr && shouldRenderComponent(props.config, VrStereoToggleControl.displayName) ? (
-              <VrStereoToggleControl player={props.player} />
-            ) : (
-              undefined
-            )}
+            {VrStereoToggleControl.shouldRender(props) ? <VrStereoToggleControl player={props.player} /> : undefined}
             <VolumeControl player={props.player} />
             <LanguageControl player={props.player} />
             <SettingsControl player={props.player} />
@@ -63,7 +59,6 @@ export function liveUI(props: any): React$Element<any> {
       </div>
       <PrePlaybackPlayOverlay player={props.player} />
       <CastBeforePlay player={props.player} />
-      {shouldRenderComponent(props.config, Watermark.displayName) ? <Watermark player={props.player} /> : undefined}
       <Backdrop />
     </div>
   );

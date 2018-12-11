@@ -72,7 +72,7 @@ class PlayPauseControl extends BaseComponent {
                 this.togglePlayPause();
               }
             }}>
-            {props.isPlaybackEnded && !props.adBreak ? (
+            {props.isPlaybackEnded ? (
               <Icon type={IconType.StartOver} />
             ) : (
               <div>

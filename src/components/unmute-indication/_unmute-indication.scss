@@ -60,6 +60,7 @@ $color: #ffffff;
 
 .player.hover .unmute-button-container.has-top-bar,
 .player.state-paused .unmute-button-container.has-top-bar,
+.player.state-idle .unmute-button-container.has-top-bar,
 .player.menu-active .unmute-button-container.has-top-bar {
   transform: translateY(32px);
 }

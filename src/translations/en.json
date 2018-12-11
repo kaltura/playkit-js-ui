@@ -69,7 +69,8 @@
   },
   "playlist": {
     "prev": "Previous",
-    "next": "Up Next",
+    "next": "Next",
+    "up_next": "Up Next",
     "cancel": "Cancel"
   }
 }

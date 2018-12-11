@@ -18,6 +18,7 @@
   }
 
   &:disabled {
+    opacity: 0.4;
     cursor: default;
   }
 
@@ -29,7 +30,7 @@
 }
 
 .player:not(.touch) {
-  .control-button {
+  .control-button:not(:disabled) {
     &:hover {
       opacity: 1;
     }

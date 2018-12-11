@@ -29,7 +29,7 @@ const mapStateToProps = state => ({
   bottomBarHoverActive: state.shell.bottomBarHoverActive,
   volumeHoverActive: state.volume.hover,
   adBreak: state.engine.adBreak,
-  prePlayback: state.shell.prePlayback,
+  prePlayback: state.engine.prePlayback,
   smartContainerOpen: state.shell.smartContainerOpen,
   fullscreen: state.fullscreen.fullscreen,
   fallbackToMutedAutoPlay: state.engine.fallbackToMutedAutoPlay,
@@ -299,6 +299,7 @@ class Shell extends BaseComponent {
     let playerClasses = [style.player, style.skinDefault, ...this._environmentClasses];
     playerClasses.push(props.playerClasses);
 
+    if (this.props.prePlayback) playerClasses.push(style.prePlayback);
     if (this.props.isCasting) playerClasses.push(`${__CSS_MODULE_PREFIX__}-casting`);
     if (this.props.isMobile) playerClasses.push(style.touch);
     if (this.props.playerNav) playerClasses.push(style.nav);
@@ -311,6 +312,7 @@ class Shell extends BaseComponent {
     if (this.props.playlist) playerClasses.push(style.playlist);
     if (this.props.playerClientRect && this.props.playerClientRect.width <= 480) playerClasses.push(style.sizeSm);
     else if (this.props.playerClientRect && this.props.playerClientRect.width <= 768) playerClasses.push(style.sizeMd);
+    else if (this.props.playerClientRect && this.props.playerClientRect.width <= 1024) playerClasses.push(style.sizeLg);
 
     playerClasses = playerClasses.join(' ');
 

@@ -380,6 +380,7 @@ a:active {
 }
 .player.metadata-loaded .player-gui,
 .player.state-paused .player-gui,
+.player.state-idle .player-gui,
 .player.overlay-active .player-gui,
 .player.menu-active .player-gui {
   opacity: 1;
@@ -409,6 +410,7 @@ video::cue {
   transition: ease-in 100ms;
 }
 .player.state-paused video::-webkit-media-text-track-display,
+.player.state-idle video::-webkit-media-text-track-display,
 .player.hover video::-webkit-media-text-track-display {
   -webkit-transform: translateY(-60px);
   transform: translateY(-60px);
@@ -1271,6 +1273,7 @@ video::cue {
 }
 .player.hover .bottom-bar,
 .player.state-paused .bottom-bar,
+.player.state-idle .bottom-bar,
 .player.menu-active .bottom-bar {
   opacity: 1;
 }
@@ -1315,6 +1318,7 @@ video::cue {
 }
 .player.hover .top-bar,
 .player.state-paused .top-bar,
+.player.state-idle .top-bar,
 .player.menu-active .top-bar {
   opacity: 1;
 }
