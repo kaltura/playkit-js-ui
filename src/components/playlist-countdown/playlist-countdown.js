@@ -151,6 +151,9 @@ class PlaylistCountdown extends BaseComponent {
    */
   render(props: any): React$Element<any> | void {
     const next = props.playlist.next;
+    if (!(next && next.sources)) {
+      return undefined;
+    }
     const countdown = this.player.playlist.countdown;
     const timeToShow = this._getTimeToShow();
     const progressTime = props.currentTime - timeToShow;
