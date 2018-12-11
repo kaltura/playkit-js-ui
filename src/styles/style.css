@@ -371,7 +371,7 @@ a:active {
 .player .player-gui textarea {
   font-family: 'Lato', sans-serif;
 }
-.player #overlay-portal {
+.player .overlay-portal {
   position: absolute;
   top: 0;
   left: 0;

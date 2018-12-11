@@ -209,7 +209,7 @@ class SettingsControl extends BaseComponent {
         {!this.state.smartContainerOpen ? (
           ''
         ) : (
-          <SmartContainer title="Settings" onClose={() => this.onControlButtonClick()}>
+          <SmartContainer targetId={this.player.config.targetId} title="Settings" onClose={() => this.onControlButtonClick()}>
             {qualityOptions.length <= 1 ? (
               ''
             ) : (

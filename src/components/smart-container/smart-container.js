@@ -68,8 +68,9 @@ class SmartContainer extends Component {
    * @memberof SmartContainer
    */
   render(props: any): React$Element<any> {
+    const portalSelector = `#${this.props.targetId} .overlay-portal`;
     return props.isMobile ? (
-      <Portal into="#overlay-portal">
+      <Portal into={portalSelector}>
         <Overlay open onClose={() => props.onClose()}>
           <div className={style.title}>{props.title}</div>
           {props.children}
