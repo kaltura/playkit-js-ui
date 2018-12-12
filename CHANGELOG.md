@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.32.0"></a>
+# [0.32.0](https://github.com/kaltura/playkit-js-ui/compare/v0.31.0...v0.32.0) (2018-12-12)
+
+
+### Bug Fixes
+
+* **FEC-8710:** watermark covers the playlist countdown ([#305](https://github.com/kaltura/playkit-js-ui/issues/305)) ([2ed6c35](https://github.com/kaltura/playkit-js-ui/commit/2ed6c35))
+* **FEC-8750:** playlist countdown is not fit to the player size ([#312](https://github.com/kaltura/playkit-js-ui/issues/312)) ([e8ed9bd](https://github.com/kaltura/playkit-js-ui/commit/e8ed9bd))
+* uncaught exception from playlist countdown component ([#314](https://github.com/kaltura/playkit-js-ui/issues/314)) ([ec71046](https://github.com/kaltura/playkit-js-ui/commit/ec71046))
+* vr button is shown for non vr content ([#313](https://github.com/kaltura/playkit-js-ui/issues/313)) ([48a4132](https://github.com/kaltura/playkit-js-ui/commit/48a4132))
+
+
+### Features
+
+* **FEC-8682:** end screen ([#306](https://github.com/kaltura/playkit-js-ui/issues/306)) ([ae87bc9](https://github.com/kaltura/playkit-js-ui/commit/ae87bc9))
+* **FEC-8721:** playlist - next screen ([#309](https://github.com/kaltura/playkit-js-ui/issues/309)) ([093b867](https://github.com/kaltura/playkit-js-ui/commit/093b867))
+
+
+
 <a name="0.31.0"></a>
 # [0.31.0](https://github.com/kaltura/playkit-js-ui/compare/v0.30.8...v0.31.0) (2018-12-04)
 
