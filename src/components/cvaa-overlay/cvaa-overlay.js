@@ -245,7 +245,7 @@ class CVAAOverlay extends BaseComponent {
    */
   _getPreviewStyle(): string {
     // style does not compute the font size.
-    const fontSize = (this.state.customTextStyle.fontSize * this.state.customTextStyle.implicitScalePercentage + 1) * 100 + '%';
+    const fontSize = this.state.customTextStyle.implicitFontScale * 100 + '%';
     const style = this.state.customTextStyle.toCSS();
     return `font-size: ${fontSize}!important; ${style}`;
   }
@@ -276,7 +276,7 @@ class CVAAOverlay extends BaseComponent {
     const fontSizeOptions = this.props.player.TextStyle.FontSizes.map(size => ({
       value: size.value,
       label: size.label,
-      active: this.state.customTextStyle.fontSize === size.value
+      active: this.state.customTextStyle.fontScale === size.value
     }));
 
     const fontColorOptions = Object.keys(standardColors).map(key => ({
@@ -310,7 +310,7 @@ class CVAAOverlay extends BaseComponent {
             <label>
               <Text id={'cvaa.size_label'} />
             </label>
-            <DropDown onSelect={fontSize => this.changeCustomStyle({fontSize})} options={fontSizeOptions} />
+            <DropDown onSelect={fontScale => this.changeCustomStyle({fontScale})} options={fontSizeOptions} />
           </div>
           <div className={[style.formGroupRow, style.fontColor].join(' ')}>
             <label>
