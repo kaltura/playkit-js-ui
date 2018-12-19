@@ -125,6 +125,7 @@ class OverlayAction extends BaseComponent {
    * @memberof OverlayAction
    */
   onOverlayPointerDown(event: any): void {
+    event.preventDefault();
     this._pointerDownPosX = event.clientX || event.changedTouches[0].clientX;
     this._pointerDownPosY = event.clientY || event.changedTouches[0].clientY;
   }
