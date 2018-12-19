@@ -118,39 +118,56 @@ class OverlayAction extends BaseComponent {
   }
 
   /**
-   * Handler for overlay pointer down
+   * Handler for overlay pointer (mouse/touch) down
    *
-   * @param {*} event - pointer event
+   * @param {*} event - mousedown/touchstart event
    * @returns {void}
    * @memberof OverlayAction
    */
   onOverlayPointerDown(event: any): void {
-    this._pointerDownPosX = event.clientX;
-    this._pointerDownPosY = event.clientY;
+    this._pointerDownPosX = event.clientX || event.changedTouches[0].clientX;
+    this._pointerDownPosY = event.clientY || event.changedTouches[0].clientY;
   }
 
   /**
-   * Handler for overlay pointer up
+   * Handler for overlay mouse up
    *
-   * @param {*} event - pointer event
+   * @param {*} event - mouseup event
    * @returns {void}
    * @memberof OverlayAction
    */
-  onOverlayPointerUp(event: any): void {
-    if (this.props.playerHover && !this.isDragging(event)) {
+  onOverlayMouseUp(event: any): void {
+    if (!this.isDragging(event)) {
       this.onOverlayClick();
+    }
+  }
+
+  /**
+   * handler for overlay touch end
+   *
+   * @param {*} event - touchend event
+   * @returns {void}
+   * @memberof OverlayAction
+   */
+  onOverlayTouchEnd(event: any): void {
+    if (this.props.playerHover && !this.isDragging(event)) {
+      this.togglePlayPause();
     }
   }
 
   /**
    * Whether the user is dragging
    *
-   * @param {*} event - pointer event
+   * @param {*} event - mouseup/touchend event
    * @returns {boolean} - is dragging
    */
   isDragging(event: any): boolean {
+    const points = {
+      clientX: event.clientX || (event.changedTouches[0] && event.changedTouches[0].clientX),
+      clientY: event.clientY || (event.changedTouches[0] && event.changedTouches[0].clientY)
+    };
     return (
-      Math.abs(event.clientX - this._pointerDownPosX) > DRAGGING_THRESHOLD || Math.abs(event.clientY - this._pointerDownPosY) > DRAGGING_THRESHOLD
+      Math.abs(points.clientX - this._pointerDownPosX) > DRAGGING_THRESHOLD || Math.abs(points.clientY - this._pointerDownPosY) > DRAGGING_THRESHOLD
     );
   }
 
@@ -162,7 +179,6 @@ class OverlayAction extends BaseComponent {
    */
   onOverlayClick(): void {
     if (this.props.isMobile) {
-      this.togglePlayPause();
       return;
     }
 
@@ -244,8 +260,10 @@ class OverlayAction extends BaseComponent {
     return (
       <div
         className={`${style.overlayAction} ${this.state.animation ? style.in : ''}`}
-        onPointerDown={e => this.onOverlayPointerDown(e)}
-        onPointerUp={e => this.onOverlayPointerUp(e)}>
+        onMouseDown={e => this.onOverlayPointerDown(e)}
+        onTouchStart={e => this.onOverlayPointerDown(e)}
+        onMouseUp={e => this.onOverlayMouseUp(e)}
+        onTouchEnd={e => this.onOverlayTouchEnd(e)}>
         {this.state.animation ? this.renderIcons() : undefined}
       </div>
     );

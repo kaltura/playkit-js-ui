@@ -12,8 +12,6 @@ import * as Components from './components';
 //Utils
 import * as Utils from './utils';
 import style from './styles/style.scss';
-/* eslint-disable no-unused-vars */
-import handjs from 'handjs/hand.min';
 
 declare var __VERSION__: string;
 declare var __NAME__: string;
