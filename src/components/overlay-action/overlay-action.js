@@ -179,10 +179,6 @@ class OverlayAction extends BaseComponent {
    * @memberof OverlayAction
    */
   onOverlayClick(): void {
-    if (this.props.isMobile) {
-      return;
-    }
-
     const now = Date.now();
     if (now - this._firstClickTime < PLAY_PAUSE_BUFFER_TIME) {
       this.cancelClickTimeout();
