@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.32.1"></a>
+## [0.32.1](https://github.com/kaltura/playkit-js-ui/compare/v0.32.0...v0.32.1) (2018-12-20)
+
+
+### Bug Fixes
+
+* **FEC-8614:** play/pause is stuck in chrome-mobile mode ([#315](https://github.com/kaltura/playkit-js-ui/issues/315)) ([fcd1fc2](https://github.com/kaltura/playkit-js-ui/commit/fcd1fc2))
+* **FEC-8771:** cvaa - background opacity does not have specific class ([#316](https://github.com/kaltura/playkit-js-ui/issues/316)) ([7665b51](https://github.com/kaltura/playkit-js-ui/commit/7665b51))
+* **FEC-8775:** preplayback is not updated if play is requested before media is loaded ([#318](https://github.com/kaltura/playkit-js-ui/issues/318)) ([a7d2bb8](https://github.com/kaltura/playkit-js-ui/commit/a7d2bb8))
+* **FEC-8778:** no watermark is shown in pre-play presentation ([#319](https://github.com/kaltura/playkit-js-ui/issues/319)) ([bc23ee4](https://github.com/kaltura/playkit-js-ui/commit/bc23ee4))
+
+
+
 <a name="0.32.0"></a>
 # [0.32.0](https://github.com/kaltura/playkit-js-ui/compare/v0.31.0...v0.32.0) (2018-12-12)
 
