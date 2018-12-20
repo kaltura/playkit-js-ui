@@ -1,6 +1,7 @@
 .player {
 
   .playlist-countdown {
+    font-family: $font-family;
     height: 72px;
     position: absolute;
     bottom: 0;
@@ -12,6 +13,7 @@
 
     &.hidden {
       right: -160px;
+      pointer-events: none;
       opacity: 0;
       .playlist-countdown-content-placeholder {
         .playlist-countdown-content-background {
