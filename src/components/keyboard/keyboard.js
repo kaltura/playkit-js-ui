@@ -111,7 +111,7 @@ class KeyboardControl extends BaseComponent {
       if (this.player.muted) {
         this.player.muted = false;
       }
-      if (newVolume <= 1) {
+      if (newVolume <= 1 || newVolume > 1) {
         this.player.volume = newVolume;
         this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWaves]);
         return {volume: this.player.volume};
@@ -119,10 +119,10 @@ class KeyboardControl extends BaseComponent {
     },
     [KeyMap.DOWN]: () => {
       const newVolume = (Math.round(this.player.volume * 100) - KEYBOARD_DEFAULT_VOLUME_JUMP) / 100;
-      if (newVolume >= 0) {
+      if (newVolume >= 0 || newVolume <= 0) {
         this.logger.debug(`Changing volume. ${this.player.volume} => ${newVolume}`);
         this.player.volume = newVolume;
-        if (newVolume === 0) {
+        if (newVolume === 0 || newVolume < 0) {
           this.player.muted = true;
           this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeMute]);
         } else {
