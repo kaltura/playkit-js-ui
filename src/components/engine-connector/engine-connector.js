@@ -112,7 +112,6 @@ class EngineConnector extends BaseComponent {
     });
 
     this.eventManager.listen(this.player, this.player.Event.PLAYBACK_START, () => {
-      this.props.updatePrePlayback(false);
       this.props.updateIsPlaybackStarted(true);
       this.props.updateLoadingSpinnerState(true);
     });
@@ -123,6 +122,7 @@ class EngineConnector extends BaseComponent {
 
     this.eventManager.listen(this.player, this.player.Event.PLAY, () => {
       this.props.updateIsPlaying(true);
+      this.props.updatePrePlayback(false);
       this.props.updateIsEnded(false);
       this.props.updateIsPaused(false);
       this.props.updateIsPlaybackEnded(false);
