@@ -59,7 +59,7 @@ class PictureInPicture extends BaseComponent {
           <Localizer>
             <button
               tabIndex="0"
-              aria-label={<Text id={'controls.PictureInPicture'} />}
+              aria-label={<Text id={'controls.pictureInPicture'} />}
               className={`${style.controlButton} ${this.state.animation ? style.rotate : ''}`}
               onClick={() => this._onClick()}
               onKeyDown={e => {

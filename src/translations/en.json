@@ -11,7 +11,9 @@
     "live": "Live",
     "unmute": "Unmute",
     "next": "Next",
-    "prev": "Prev"
+    "prev": "Prev",
+    "startOver": "start-over",
+    "pictureInPicture": "picture-in-picture"
   },
   "unmute": {
     "unmute": "Unmute"
