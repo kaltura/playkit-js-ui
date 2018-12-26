@@ -37,12 +37,12 @@ export const KEYBOARD_DEFAULT_VOLUME_JUMP: number = 5;
   mapStateToProps,
   bindActions(Object.assign({}, shellActions, overlayIconActions))
 )
-  /**
-   * KeyboardControl component
-   *
-   * @class KeyboardControl
-   * @extends {BaseComponent}
-   */
+/**
+ * KeyboardControl component
+ *
+ * @class KeyboardControl
+ * @extends {BaseComponent}
+ */
 class KeyboardControl extends BaseComponent {
   _lastActiveTextLanguage: string = '';
   _hoverTimeout: ?number = null;
