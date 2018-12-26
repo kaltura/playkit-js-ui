@@ -37,12 +37,12 @@ export const KEYBOARD_DEFAULT_VOLUME_JUMP: number = 5;
   mapStateToProps,
   bindActions(Object.assign({}, shellActions, overlayIconActions))
 )
-/**
- * KeyboardControl component
- *
- * @class KeyboardControl
- * @extends {BaseComponent}
- */
+  /**
+   * KeyboardControl component
+   *
+   * @class KeyboardControl
+   * @extends {BaseComponent}
+   */
 class KeyboardControl extends BaseComponent {
   _lastActiveTextLanguage: string = '';
   _hoverTimeout: ?number = null;
@@ -106,30 +106,28 @@ class KeyboardControl extends BaseComponent {
       return true;
     },
     [KeyMap.UP]: () => {
-      const newVolume = (Math.round(this.player.volume * 100) + KEYBOARD_DEFAULT_VOLUME_JUMP) / 100;
+      let newVolume = (Math.round(this.player.volume * 100) + KEYBOARD_DEFAULT_VOLUME_JUMP) / 100;
+      newVolume = newVolume > 1 ? 1 : newVolume;
       this.logger.debug(`Changing volume. ${this.player.volume} => ${newVolume}`);
       if (this.player.muted) {
         this.player.muted = false;
       }
-      if (newVolume <= 1 || newVolume > 1) {
-        this.player.volume = newVolume;
-        this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWaves]);
-        return {volume: this.player.volume};
-      }
+      this.player.volume = newVolume;
+      this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWaves]);
+      return {volume: this.player.volume};
     },
     [KeyMap.DOWN]: () => {
-      const newVolume = (Math.round(this.player.volume * 100) - KEYBOARD_DEFAULT_VOLUME_JUMP) / 100;
-      if (newVolume >= 0 || newVolume <= 0) {
-        this.logger.debug(`Changing volume. ${this.player.volume} => ${newVolume}`);
-        this.player.volume = newVolume;
-        if (newVolume === 0 || newVolume < 0) {
-          this.player.muted = true;
-          this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeMute]);
-        } else {
-          this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWave]);
-        }
-        return {volume: this.player.volume};
+      let newVolume = (Math.round(this.player.volume * 100) - KEYBOARD_DEFAULT_VOLUME_JUMP) / 100;
+      newVolume = newVolume < 0 ? 0 : newVolume;
+      this.logger.debug(`Changing volume. ${this.player.volume} => ${newVolume}`);
+      this.player.volume = newVolume;
+      if (newVolume === 0) {
+        this.player.muted = true;
+        this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeMute]);
+      } else {
+        this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWave]);
       }
+      return {volume: this.player.volume};
     },
     [KeyMap.F]: () => {
       if (!this.player.isFullscreen()) {
