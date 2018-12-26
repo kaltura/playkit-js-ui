@@ -125,6 +125,7 @@ class OverlayAction extends BaseComponent {
    * @memberof OverlayAction
    */
   onOverlayPointerDown(event: any): void {
+    event.preventDefault();
     this._pointerDownPosX = event.clientX || event.changedTouches[0].clientX;
     this._pointerDownPosY = event.clientY || event.changedTouches[0].clientY;
   }
@@ -178,10 +179,6 @@ class OverlayAction extends BaseComponent {
    * @memberof OverlayAction
    */
   onOverlayClick(): void {
-    if (this.props.isMobile) {
-      return;
-    }
-
     const now = Date.now();
     if (now - this._firstClickTime < PLAY_PAUSE_BUFFER_TIME) {
       this.cancelClickTimeout();

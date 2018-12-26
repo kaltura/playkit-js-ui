@@ -347,7 +347,7 @@ class CVAAOverlay extends BaseComponent {
             </label>
             <DropDown onSelect={backgroundColor => this.changeCustomStyle({backgroundColor})} options={backgroundColorOptions} />
           </div>
-          <div className={[style.formGroupRow, style.backgrouOpacity].join(' ')}>
+          <div className={[style.formGroupRow, style.backgroundOpacity].join(' ')}>
             <label>
               <Text id={'cvaa.background_opacity_label'} />
             </label>

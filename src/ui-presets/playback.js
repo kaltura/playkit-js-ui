@@ -43,7 +43,6 @@ export function playbackUI(props: any): React$Element<any> {
         <OverlayAction player={props.player} />
         <PlaybackControls player={props.player} />
         {PlaylistNextScreen.shouldRender(props) ? <PlaylistNextScreen player={props.player} /> : undefined}
-        {Watermark.shouldRender(props) ? <Watermark player={props.player} /> : undefined}
         <BottomBar>
           <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player} playerContainer={props.playerContainer} />
           <div className={style.leftControls}>
@@ -61,8 +60,9 @@ export function playbackUI(props: any): React$Element<any> {
             <FullscreenControl player={props.player} />
           </div>
         </BottomBar>
-        {PlaylistCountdown.shouldRender(props) ? <PlaylistCountdown player={props.player} /> : undefined}
       </div>
+      {Watermark.shouldRender(props) ? <Watermark player={props.player} /> : undefined}
+      {PlaylistCountdown.shouldRender(props) ? <PlaylistCountdown player={props.player} /> : undefined}
       <PrePlaybackPlayOverlay player={props.player} />
       <CastBeforePlay player={props.player} />
       <Backdrop />
