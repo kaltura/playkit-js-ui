@@ -86,10 +86,16 @@ class Menu extends Component {
     const playerContainerRect = this.props.playerClientRect;
     const offsetBottom = playerContainerRect.bottom - menuElementRect.bottom;
     const height = offsetBottom + menuElementRect.height;
-    if (height > playerContainerRect.height) {
+    if (height < playerContainerRect.height) {
+      // if it can be on top of the drop down
+      return [style.top, style.left];
+    } else if (menuElementRect.bottom - menuElementRect.height > playerContainerRect) {
+      // if not - if it can be below that drop down
       return [style.bottom, style.left];
+    } else {
+      // if the screen is too small and the menu is too big - stick it to the bottom of the player.
+      return [style.containedBottom, style.left];
     }
-    return [style.top, style.left];
   }
 
   /**
