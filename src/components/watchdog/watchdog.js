@@ -2,6 +2,7 @@
 import style from '../../styles/style.scss';
 import {h} from 'preact';
 import BaseComponent from '../base';
+import {default as Icon, IconType} from '../icon';
 
 class Watchdog extends BaseComponent {
   watchdog: Array<Object>;
@@ -13,7 +14,6 @@ class Watchdog extends BaseComponent {
 
   startWatchdog(): void {
     this.watchdog = this.player.config.watchdog;
-    this.watchdog.forEach(p => p.seen = false);
     this.player.addEventListener(this.player.Event.TIME_UPDATE, () => {
       if (this.state.active) {
         if (this.state.point.end <= this.player.currentTime) {
@@ -21,7 +21,7 @@ class Watchdog extends BaseComponent {
           this.setState({active: false, point: null});
         }
       } else {
-        const point = this.watchdog.find(p => p.start <= this.player.currentTime && !p.seen);
+        const point = this.watchdog.find(p => p.start <= this.player.currentTime && this.player.currentTime <= p.end);
         if (point && !this.state.active) {
           this.setState({active: true, point: point});
         }
@@ -29,9 +29,16 @@ class Watchdog extends BaseComponent {
     });
   }
 
+  getContentForbiddenIcon(): React$Element<any> {
+    return (
+      <div className={style['content-forbidden-container']}>
+        <Icon type={IconType.NoWatch} />
+      </div>
+    );
+  }
+
   render(): React$Element<any> {
-    return <div className={style.watchdog}>{this.state.active ?
-      <div className={style.familyModeText}>FORBIDDEN CONTENT</div> : undefined}</div>;
+    return <div className={style.watchdog}>{this.state.active ? this.getContentForbiddenIcon() : undefined}</div>;
   }
 }
 
