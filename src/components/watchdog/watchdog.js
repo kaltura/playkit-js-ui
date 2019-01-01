@@ -7,6 +7,7 @@ import {connect} from 'preact-redux';
 import {actions} from '../../reducers/shell';
 import {bindActions} from '../../utils/bind-actions';
 import {actions as engineActions} from '../../reducers/engine';
+
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -31,16 +32,11 @@ class Watchdog extends BaseComponent {
   startWatchdog(): void {
     this.watchdog = this.player.config.watchdog;
     this.player.addEventListener(this.player.Event.TIME_UPDATE, () => {
-      if (this.state.active) {
-        if (this.state.point.end <= this.player.currentTime) {
-          this.state.point.seen = true;
-          this.setState({active: false, point: null});
-        }
+      const point = this.watchdog.find(p => p.start <= this.player.currentTime && this.player.currentTime <= p.end);
+      if (point) {
+        this.setState({active: true});
       } else {
-        const point = this.watchdog.find(p => p.start <= this.player.currentTime && this.player.currentTime <= p.end);
-        if (point && !this.state.active) {
-          this.setState({active: true, point: point});
-        }
+        this.setState({active: false});
       }
     });
   }
@@ -59,7 +55,8 @@ class Watchdog extends BaseComponent {
   }
 
   render(): React$Element<any> {
-    return <div className={style.watchdog}>{this.state.active && this.props.familyMode ? this.getContentForbiddenIcon() : undefined}</div>;
+    return <div
+      className={style.watchdog}>{this.state.active && this.props.familyMode ? this.getContentForbiddenIcon() : undefined}</div>;
   }
 }
 
