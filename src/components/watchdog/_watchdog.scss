@@ -1,2 +1,15 @@
 .player {
+  .watchdog {
+    .family-mode-text {
+      position: absolute;
+      color: white;
+      font-family: sans-serif;
+      margin-left: 5px;
+      margin-top: 5px;
+      opacity: 0.5;
+      border: 2px solid #ffffff;
+      border-radius: 5px;
+      box-shadow: 0 0 black;
+    }
+  }
 }

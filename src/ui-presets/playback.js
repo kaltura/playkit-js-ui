@@ -66,7 +66,7 @@ export function playbackUI(props: any): React$Element<any> {
       {PlaylistCountdown.shouldRender(props) ? <PlaylistCountdown player={props.player} /> : undefined}
       <PrePlaybackPlayOverlay player={props.player} />
       <CastBeforePlay player={props.player} />
-      <Watchdog />
+      <Watchdog player={props.player} />
       <Backdrop />
     </div>
   );
