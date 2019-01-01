@@ -8,6 +8,10 @@ class Watchdog extends BaseComponent {
 
   constructor(obj: Object) {
     super({name: 'Watchdog', player: obj.player});
+    this.startWatchdog();
+  }
+
+  startWatchdog(): void {
     this.watchdog = this.player.config.watchdog;
     this.watchdog.forEach(p => p.seen = false);
     this.player.addEventListener(this.player.Event.TIME_UPDATE, () => {
@@ -25,17 +29,9 @@ class Watchdog extends BaseComponent {
     });
   }
 
-  render(props: any): React$Element<any> {
-    if (this.state.active) {
-      console.warn('::: active', this.state.point);
-    } else {
-      console.warn('::: not active');
-    }
-    return (
-      <div className={style.watchdog}>
-        <div className={style.familyModeText}>FAMILY MODE</div>
-      </div>
-    );
+  render(): React$Element<any> {
+    return <div className={style.watchdog}>{this.state.active ?
+      <div className={style.familyModeText}>FORBIDDEN CONTENT</div> : undefined}</div>;
   }
 }
 
