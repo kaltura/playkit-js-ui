@@ -31,8 +31,13 @@ class Watchdog extends BaseComponent {
 
   getContentForbiddenIcon(): React$Element<any> {
     return (
-      <div className={style['content-forbidden-container']}>
-        <Icon type={IconType.NoWatch} />
+      <div>
+        <div className={style['content-forbidden-container']}>
+          <Icon type={IconType.NoWatch} />
+        </div>
+        <div className={style['content-forbidden-text']}>
+          <span>Violent Content</span>
+        </div>
       </div>
     );
   }

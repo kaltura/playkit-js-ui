@@ -1,5 +1,17 @@
 .player {
   .watchdog {
+    font-family: 'Lato';
+
+    .content-forbidden-text {
+      position: absolute;
+      color: white;
+      font-weight: lighter;
+      font-size: 8px;
+      margin-left: 14px;
+      top: 50px;
+      animation: fadeInFadeOut 1.5s infinite;
+    }
+
     .content-forbidden-container {
       display: block;
       position: absolute;
@@ -8,8 +20,8 @@
       opacity: 0.5;
       width: 50px;
       height: 40px;
-      margin-top: 5px;
-      margin-left: 5px;
+      margin-top: 10px;
+      margin-left: 15px;
       animation: fadeInFadeOut 1.5s infinite;
     }
   }
