@@ -42,7 +42,10 @@ const IconType = {
   CastBrand: 'cast-brand',
   Next: 'next',
   Prev: 'prev',
-  PictureInPicture: 'picture-in-picture'
+  PictureInPicture: 'picture-in-picture',
+  FamilyModeOff: 'family-mode-off',
+  FamilyModeOn: 'family-mode-on',
+  NoWatch: 'no-watch'
 };
 
 /**
@@ -181,6 +184,15 @@ class Icon extends Component {
 
       case IconType.PictureInPicture:
         return <i className={[style.icon, style.iconPictureInPicture].join(' ')} />;
+
+      case IconType.FamilyModeOff:
+        return <i className={[style.icon, style.iconFamilyModeOff].join(' ')} />;
+
+      case IconType.FamilyModeOn:
+        return <i className={[style.icon, style.iconFamilyModeOn].join(' ')} />;
+
+      case IconType.NoWatch:
+        return <i className={[style.icon, style.iconNoWatch].join(' ')} />;
 
       default:
         break;
