@@ -37,7 +37,8 @@
     "preact-i18n": "^1.0.0",
     "preact-portal": "^1.1.2",
     "preact-redux": "^2.0.1",
-    "redux": "^3.6.0"
+    "redux": "^3.6.0",
+    "webfontloader": "^1.6.28"
   },
   "devDependencies": {
     "@playkit-js/playkit-js": "^0.37.0",

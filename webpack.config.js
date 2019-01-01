@@ -22,7 +22,8 @@ if (PROD) {
 module.exports = {
   context: __dirname + '/src',
   entry: {
-    'playkit-ui': 'index.js'
+    'playkit-ui': 'index.js',
+    vendor: ['webfontloader']
   },
   output: {
     path: __dirname + '/dist',
@@ -84,6 +85,9 @@ module.exports = {
     contentBase: __dirname + '/src'
   },
   resolve: {
+    alias: {
+      webfontloader: path.resolve(__dirname, './node_modules/webfontloader/webfontloader.js')
+    },
     modules: [path.resolve(__dirname, 'src'), 'node_modules']
   },
   externals: {

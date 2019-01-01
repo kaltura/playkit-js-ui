@@ -23,6 +23,15 @@ import * as presets from './ui-presets';
 import {middleware} from './middlewares';
 
 import './styles/style.scss';
+import WebFont from 'webfontloader';
+
+const webFontConfig: WebFont.Config = {
+  google: {
+    families: ['Lato']
+  }
+};
+
+WebFont.load(webFontConfig);
 
 /**
  * API used for building UIs based on state conditions
@@ -142,10 +151,10 @@ class UIManager {
     this.store = createStore(
       reducer,
       window.devToolsExtension &&
-        window.devToolsExtension({
-          name: `playkit #${this.targetId}`,
-          instanceId: this.targetId
-        }),
+      window.devToolsExtension({
+        name: `playkit #${this.targetId}`,
+        instanceId: this.targetId
+      }),
       middleware(this.player, config)
     );
   }
@@ -166,9 +175,9 @@ class UIManager {
         <Provider store={this.store}>
           <IntlProvider definition={this._translations[this._locale]}>
             <Shell player={this.player}>
-              <EngineConnector player={this.player} />
-              <VideoPlayer player={this.player} />
-              <PlayerGUI uis={uis} player={this.player} playerContainer={this.container} />
+              <EngineConnector player={this.player}/>
+              <VideoPlayer player={this.player}/>
+              <PlayerGUI uis={uis} player={this.player} playerContainer={this.container}/>
             </Shell>
           </IntlProvider>
         </Provider>
