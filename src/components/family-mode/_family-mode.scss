@@ -1,0 +1,23 @@
+.player.family-mode {
+  video {
+    filter: blur(13px);
+  }
+}
+.control-button-container.control-family .control-button {
+  .icon {
+    width: 38px;
+    transform: translate(-2px, -2px);
+  }
+  .icon-family-mode-on {
+    display: none;
+  }
+
+  &.family-mode {
+    .icon-family-mode-off {
+      display: none;
+    }
+    .icon-family-mode-on {
+      display: block;
+    }
+  }
+}

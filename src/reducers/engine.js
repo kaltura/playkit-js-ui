@@ -39,6 +39,7 @@ export const types = {
   UPDATE_FALLBACK_TO_MUTED_AUTOPLAY: `${component}/UPDATE_FALLBACK_TO_MUTED_AUTOPLAY`,
   UPDATE_IS_VR: `${component}/UPDATE_IS_VR`,
   UPDATE_VR_STEREO_MODE: `${component}/UPDATE_VR_STEREO_MODE`,
+  UPDATE_FAMILY_MODE: `${component}/UPDATE_FAMILY_MODE`,
   UPDATE_IS_CASTING: `${component}/UPDATE_IS_CASTING`,
   UPDATE_CAST_SESSION: `${component}/UPDATE_CAST_SESSION`,
   UPDATE_IS_CAST_AVAILABLE: `${component}/UPDATE_IS_CAST_AVAILABLE`,
@@ -86,6 +87,7 @@ export const initialState = {
   hasError: false,
   isVr: false,
   vrStereoMode: false,
+  familyMode: false,
   isCasting: false,
   castSession: null,
   isCastAvailable: false,
@@ -302,6 +304,12 @@ export default (state: Object = initialState, action: Object) => {
         vrStereoMode: action.vrStereoMode
       };
 
+    case types.UPDATE_FAMILY_MODE:
+      return {
+        ...state,
+        familyMode: action.familyMode
+      };
+
     case types.UPDATE_IS_CASTING:
       return {
         ...state,
@@ -386,6 +394,7 @@ export const actions = {
   updateFallbackToMutedAutoPlay: (fallback: boolean) => ({type: types.UPDATE_FALLBACK_TO_MUTED_AUTOPLAY, fallback}),
   updateIsVr: (isVr: boolean) => ({type: types.UPDATE_IS_VR, isVr}),
   updateVrStereoMode: (vrStereoMode: boolean) => ({type: types.UPDATE_VR_STEREO_MODE, vrStereoMode}),
+  updateFamilyMode: (familyMode: boolean) => ({type: types.UPDATE_FAMILY_MODE, familyMode}),
   updateIsCasting: (isCasting: boolean) => ({type: types.UPDATE_IS_CASTING, isCasting}),
   updateCastSession: (castSession: Object) => ({type: types.UPDATE_CAST_SESSION, castSession}),
   updateIsCastAvailable: (isCastAvailable: boolean) => ({type: types.UPDATE_IS_CAST_AVAILABLE, isCastAvailable}),

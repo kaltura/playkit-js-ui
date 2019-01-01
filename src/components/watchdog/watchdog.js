@@ -3,7 +3,23 @@ import style from '../../styles/style.scss';
 import {h} from 'preact';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
+import {connect} from 'preact-redux';
+import {actions} from '../../reducers/shell';
+import {bindActions} from '../../utils/bind-actions';
+import {actions as engineActions} from '../../reducers/engine';
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
+const mapStateToProps = state => ({
+  familyMode: state.engine.familyMode
+});
 
+@connect(
+  mapStateToProps,
+  bindActions(Object.assign({}, actions, engineActions))
+)
 class Watchdog extends BaseComponent {
   watchdog: Array<Object>;
 
@@ -43,7 +59,7 @@ class Watchdog extends BaseComponent {
   }
 
   render(): React$Element<any> {
-    return <div className={style.watchdog}>{this.state.active ? this.getContentForbiddenIcon() : undefined}</div>;
+    return <div className={style.watchdog}>{this.state.active && this.props.familyMode ? this.getContentForbiddenIcon() : undefined}</div>;
   }
 }
 

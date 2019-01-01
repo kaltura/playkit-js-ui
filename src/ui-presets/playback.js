@@ -24,6 +24,7 @@ import {PlaybackControls} from '../components/playback-controls';
 import {PlaylistCountdown} from '../components/playlist-countdown';
 import {PlaylistNextScreen} from '../components/playlist-next-screen';
 import {PictureInPicture} from '../components/picture-in-picture';
+import {FamilyMode} from '../components/family-mode';
 import {Watchdog} from '../components/watchdog/watchdog';
 
 /**
@@ -52,12 +53,12 @@ export function playbackUI(props: any): React$Element<any> {
             <TimeDisplayPlaybackContainer format="current / total" />
           </div>
           <div className={style.rightControls}>
+            <FamilyMode player={props.player} />
             {VrStereoToggleControl.shouldRender(props) ? <VrStereoToggleControl player={props.player} /> : undefined}
             <VolumeControl player={props.player} />
             <LanguageControl player={props.player} />
             <SettingsControl player={props.player} />
             <CastControl player={props.player} />
-            <PictureInPicture player={props.player} />
             <FullscreenControl player={props.player} />
           </div>
         </BottomBar>
