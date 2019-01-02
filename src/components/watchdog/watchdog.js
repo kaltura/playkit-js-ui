@@ -41,7 +41,7 @@ class Watchdog extends BaseComponent {
       }
       const point = this.watchdog.find(p => p.start <= this.player.currentTime && this.player.currentTime <= p.end);
       if (point) {
-        // this.watchdogEventTriggered = false;
+        this.watchdogEventTriggered = false;
         this.props.updateWatchdog(true);
         this._iconOnlyTimeout();
       } else {
