@@ -316,7 +316,7 @@ class Shell extends BaseComponent {
     if (this.props.fullscreen) playerClasses.push(style.fullscreen);
     if (this.props.playlist) playerClasses.push(style.playlist);
     if (this.props.watchdog) playerClasses.push(style.watchdog);
-    if (this.props.familyMode) playerClasses.push(style.familyMode);
+    if (this.props.familyMode || !(!this.player.adMode || this.player.age >= 18)) playerClasses.push(style.familyMode);
     if (this.props.playerClientRect && this.props.playerClientRect.width <= 480) playerClasses.push(style.sizeSm);
     else if (this.props.playerClientRect && this.props.playerClientRect.width <= 768) playerClasses.push(style.sizeMd);
     else if (this.props.playerClientRect && this.props.playerClientRect.width <= 1024) playerClasses.push(style.sizeLg);

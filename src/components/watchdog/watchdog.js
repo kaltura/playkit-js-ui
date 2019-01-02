@@ -7,6 +7,7 @@ import {connect} from 'preact-redux';
 import {actions} from '../../reducers/shell';
 import {bindActions} from '../../utils/bind-actions';
 import {actions as engineActions} from '../../reducers/engine';
+import {FakeEvent} from '../../event/fake-event';
 
 /**
  * mapping state to props
@@ -33,8 +34,14 @@ class Watchdog extends BaseComponent {
   startWatchdog(): void {
     this.watchdog = this.player.config.watchdog;
     this.player.addEventListener(this.player.Event.TIME_UPDATE, () => {
+      this.prePoint = this.watchdog.find(p => p.start - this.player.currentTime < 3 && p.start - this.player.currentTime > 0);
+      if (this.prePoint && !this.watchdogEventTriggered) {
+        this.player.dispatchEvent(new FakeEvent('watchdog'));
+        this.watchdogEventTriggered = true;
+      }
       const point = this.watchdog.find(p => p.start <= this.player.currentTime && this.player.currentTime <= p.end);
       if (point) {
+        // this.watchdogEventTriggered = false;
         this.props.updateWatchdog(true);
         this._iconOnlyTimeout();
       } else {
@@ -51,7 +58,7 @@ class Watchdog extends BaseComponent {
   }
 
   render(props): React$Element<any> {
-    if (!props.watchdog || !props.familyMode) {
+    if (!props.watchdog || (!props.familyMode && (!this.player.adMode || this.player.age >= 18))) {
       clearTimeout(this.timeout);
       return undefined;
     }

@@ -4,7 +4,6 @@
   height: 60px;
   position: absolute;
   padding: 5px;
-  transition: visibility 0s 1s, opacity 1s linear, transform ease-out 100ms;
 
   &.hide-watermark {
     visibility: hidden;
