@@ -1,74 +1,90 @@
-.player {
-  .watchdog {
-    font-family: 'Lato';
+$color: #ffffff;
+.nowatch-button-container {
+  display: inline-block;
+  position: absolute;
+  top: 13px;
+  left: 16px;
+  animation: fadeIn 0.5s;
 
-    .content-forbidden-text {
-      position: absolute;
-      color: white;
-      font-weight: lighter;
-      font-size: 8px;
-      margin-left: 13px;
-      top: 50px;
-      animation: fadeInFadeOut 1.5s infinite;
-    }
+  a {
+    color: $color;
+  }
 
-    .content-forbidden-container {
-      display: block;
-      position: absolute;
-      color: white;
-      font-family: sans-serif;
-      opacity: 0.5;
-      width: 50px;
-      height: 40px;
-      margin-top: 10px;
-      margin-left: 15px;
-      animation: fadeInFadeOut 1.5s infinite;
+  &.show-icon-only {
+    .btn.nowatch-button {
+      max-width: 66px;
+
+      span {
+        transform: translateX(10px);
+        opacity: 0;
+      }
     }
   }
 }
 
-@keyframes fadeInFadeOut {
-  0% {
-    opacity: 1;
-  }
+.btn.nowatch-button {
+  font-size: 15px;
+  max-width: 200px;
+  transition: max-width 200ms;
+  padding: 0 16px;
+  white-space: nowrap;
 
-  10% {
+  span {
+    transform: translateX(0px);
+    transition: transform 100ms, opacity 100ms;
+    display: inline-block;
+    color: $color;
     opacity: 0.8;
+    font-weight: 100;
   }
 
-  20% {
-    opacity: 0.6;
+  &.has-top-bar {
+    transition: 100ms transform;
   }
+}
 
-  30% {
-    opacity: 0.4;
+.nowatch-icon-container {
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  margin-right: 3px;
+
+  i {
+    position: absolute;
+    top: 0;
+    left: 0;
   }
+}
 
-  40% {
-    opacity: 0.2;
-  }
+.player.hover .nowatch-button-container.has-top-bar,
+.player.state-paused .nowatch-button-container.has-top-bar,
+.player.state-idle .nowatch-button-container.has-top-bar,
+.player.menu-active .nowatch-button-container.has-top-bar {
+  transform: translateY(32px);
+}
 
-  50% {
+@keyframes fadeIn {
+  0% {
+    transform: translateX(-100px);
     opacity: 0;
   }
 
-  60% {
-    opacity: 0.2;
+  100% {
+    transform: translateX(0);
+    opacity: 1;
   }
+}
 
-  70% {
-    opacity: 0.4;
-  }
-
-  80% {
-    opacity: 0.6;
-  }
-
-  90% {
-    opacity: 0.8;
+@keyframes fadeOut {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
   }
 
   100% {
-    opacity: 1;
+    transform: translateX(-100px);
+    opacity: 0;
   }
 }

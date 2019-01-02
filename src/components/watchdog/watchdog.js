@@ -34,26 +34,42 @@ class Watchdog extends BaseComponent {
     this.watchdog = this.player.config.watchdog;
     this.player.addEventListener(this.player.Event.TIME_UPDATE, () => {
       const point = this.watchdog.find(p => p.start <= this.player.currentTime && this.player.currentTime <= p.end);
-      this.props.updateWatchdog(!!point);
+      if (point) {
+        this.props.updateWatchdog(true);
+        this._iconOnlyTimeout();
+      } else {
+        this.props.updateWatchdog(false);
+      }
     });
   }
 
-  getContentForbiddenIcon(): React$Element<any> {
-    return (
-      <div>
-        <div className={style['content-forbidden-container']}>
-          <Icon type={IconType.NoWatch} />
-        </div>
-        <div className={style['content-forbidden-text']}>
-          <span>Violent Content</span>
-        </div>
-      </div>
-    );
+  _iconOnlyTimeout(): void {
+    if (this.timeout) return;
+    this.timeout = setTimeout(() => {
+      this.setState({iconOnly: true});
+    }, 5000);
   }
 
-  render(): React$Element<any> {
-    return <div
-      className={style.watchdog}>{this.props.watchdog && this.props.familyMode ? this.getContentForbiddenIcon() : undefined}</div>;
+  render(props): React$Element<any> {
+    if (!props.watchdog || !props.familyMode) {
+      clearTimeout(this.timeout);
+      return undefined;
+    }
+
+    const styleClass = [style.nowatchButtonContainer];
+    if (props.hasTopBar) styleClass.push(style.hasTopBar);
+    if (this.state.iconOnly) styleClass.push(style.showIconOnly);
+
+    return (
+      <div className={styleClass.join(' ')}>
+        <a className={[style.btn, style.btnDarkTransparent, style.nowatchButton].join(' ')}>
+          <div className={style.nowatchIconContainer}>
+            <Icon type={IconType.NoWatch} />
+          </div>
+          <span>Forbidden Content</span>
+        </a>
+      </div>
+    );
   }
 }
 
