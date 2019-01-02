@@ -33,7 +33,9 @@ const mapStateToProps = state => ({
   smartContainerOpen: state.shell.smartContainerOpen,
   fullscreen: state.fullscreen.fullscreen,
   fallbackToMutedAutoPlay: state.engine.fallbackToMutedAutoPlay,
-  playlist: state.engine.playlist
+  playlist: state.engine.playlist,
+  watchdog: state.engine.watchdog,
+  familyMode: state.engine.familyMode
 });
 
 /**
@@ -313,6 +315,8 @@ class Shell extends BaseComponent {
     if (this.props.seekbarDraggingActive) playerClasses.push(style.hover);
     if (this.props.fullscreen) playerClasses.push(style.fullscreen);
     if (this.props.playlist) playerClasses.push(style.playlist);
+    if (this.props.watchdog) playerClasses.push(style.watchdog);
+    if (this.props.familyMode) playerClasses.push(style.familyMode);
     if (this.props.playerClientRect && this.props.playerClientRect.width <= 480) playerClasses.push(style.sizeSm);
     else if (this.props.playerClientRect && this.props.playerClientRect.width <= 768) playerClasses.push(style.sizeMd);
     else if (this.props.playerClientRect && this.props.playerClientRect.width <= 1024) playerClasses.push(style.sizeLg);

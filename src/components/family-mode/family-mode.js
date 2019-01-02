@@ -46,11 +46,6 @@ class FamilyMode extends BaseComponent {
    */
   _onClick(): void {
     this.props.updateFamilyMode(!this.props.familyMode);
-    if (this.props.familyMode) {
-      this.props.removePlayerClass(style.familyMode);
-    } else {
-      this.props.addPlayerClass(style.familyMode);
-    }
   }
 
   /**

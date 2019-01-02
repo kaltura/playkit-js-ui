@@ -26,6 +26,13 @@
   }
   video {
     width: 100%;
+    transition: filter 1s;
+    filter: blur(0);
+  }
+  &.family-mode.watchdog {
+    video {
+      filter: blur(20px);
+    }
   }
   .player-gui {
     opacity: 0;

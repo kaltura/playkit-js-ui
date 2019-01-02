@@ -14,7 +14,8 @@ import {actions as engineActions} from '../../reducers/engine';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  familyMode: state.engine.familyMode
+  familyMode: state.engine.familyMode,
+  watchdog: state.engine.watchdog
 });
 
 @connect(
@@ -33,11 +34,7 @@ class Watchdog extends BaseComponent {
     this.watchdog = this.player.config.watchdog;
     this.player.addEventListener(this.player.Event.TIME_UPDATE, () => {
       const point = this.watchdog.find(p => p.start <= this.player.currentTime && this.player.currentTime <= p.end);
-      if (point) {
-        this.setState({active: true});
-      } else {
-        this.setState({active: false});
-      }
+      this.props.updateWatchdog(!!point);
     });
   }
 
@@ -56,7 +53,7 @@ class Watchdog extends BaseComponent {
 
   render(): React$Element<any> {
     return <div
-      className={style.watchdog}>{this.state.active && this.props.familyMode ? this.getContentForbiddenIcon() : undefined}</div>;
+      className={style.watchdog}>{this.props.watchdog && this.props.familyMode ? this.getContentForbiddenIcon() : undefined}</div>;
   }
 }
 
