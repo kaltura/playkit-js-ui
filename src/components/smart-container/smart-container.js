@@ -14,7 +14,8 @@ import {KeyMap} from '../../utils/key-map';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  isMobile: state.shell.isMobile
+  isMobile: state.shell.isMobile,
+  isSmallView: state.shell.isSmallView
 });
 
 @connect(
@@ -69,7 +70,7 @@ class SmartContainer extends Component {
    */
   render(props: any): React$Element<any> {
     const portalSelector = `#${this.props.targetId} .overlay-portal`;
-    return props.isMobile ? (
+    return props.isMobile || props.isSmallView ? (
       <Portal into={portalSelector}>
         <Overlay open onClose={() => props.onClose()}>
           <div className={style.title}>{props.title}</div>

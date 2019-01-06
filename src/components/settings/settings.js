@@ -18,7 +18,8 @@ import {default as Icon, IconType} from '../icon';
 const mapStateToProps = state => ({
   videoTracks: state.engine.videoTracks,
   isMobile: state.shell.isMobile,
-  isLive: state.engine.isLive
+  isLive: state.engine.isLive,
+  isSmallView: state.shell.isSmallView
 });
 
 @connect(
@@ -73,7 +74,13 @@ class SettingsControl extends BaseComponent {
    * @memberof SettingsControl
    */
   handleClickOutside(e: any) {
-    if (!this.props.isMobile && !!this._controlSettingsElement && !this._controlSettingsElement.contains(e.target) && this.state.smartContainerOpen) {
+    if (
+      !this.props.isMobile &&
+      !this.props.isSmallView &&
+      !!this._controlSettingsElement &&
+      !this._controlSettingsElement.contains(e.target) &&
+      this.state.smartContainerOpen
+    ) {
       if (e.target.classList.contains(style.overlayPlay)) {
         e.stopPropagation();
       }

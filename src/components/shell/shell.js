@@ -20,6 +20,7 @@ const mapStateToProps = state => ({
   currentState: state.engine.playerState.currentState,
   playerClasses: state.shell.playerClasses,
   isMobile: state.shell.isMobile,
+  isSmallView: state.shell.isSmallView,
   isCasting: state.engine.isCasting,
   playerClientRect: state.shell.playerClientRect,
   playerHover: state.shell.playerHover,
@@ -42,6 +43,8 @@ const mapStateToProps = state => ({
  * @const
  */
 export const CONTROL_BAR_HOVER_DEFAULT_TIMEOUT: number = 3000;
+
+const DEFAULT_SMALL_PLAYER_SIZE: number = 400;
 
 @connect(
   mapStateToProps,
@@ -180,6 +183,7 @@ class Shell extends BaseComponent {
    */
   componentDidMount() {
     this.props.updateIsMobile(!!this.player.env.device.type || this.props.forceTouchUI);
+    this.props.updateIsSmallView(document.getElementById(this.props.targetId).getClientRects()[0].width < DEFAULT_SMALL_PLAYER_SIZE);
     this._onWindowResize();
     this.eventManager.listen(window, 'resize', () => this._onWindowResize());
   }
@@ -301,7 +305,7 @@ class Shell extends BaseComponent {
 
     if (this.props.prePlayback) playerClasses.push(style.prePlayback);
     if (this.props.isCasting) playerClasses.push(`${__CSS_MODULE_PREFIX__}-casting`);
-    if (this.props.isMobile) playerClasses.push(style.touch);
+    if (this.props.isMobile || this.props.isSmallView) playerClasses.push(style.touch);
     if (this.props.playerNav) playerClasses.push(style.nav);
     if (this.props.playerHover || this.props.playerNav) playerClasses.push(style.hover);
     if (this.props.metadataLoaded) playerClasses.push(style.metadataLoaded);

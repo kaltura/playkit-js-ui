@@ -13,7 +13,8 @@ import {bindMethod} from '../../utils/bind-method';
  */
 const mapStateToProps = state => ({
   isMobile: state.shell.isMobile,
-  playerClientRect: state.shell.playerClientRect
+  playerClientRect: state.shell.playerClientRect,
+  isSmallView: state.shell.isSmallView
 });
 
 @connect(mapStateToProps)
@@ -60,7 +61,7 @@ class Menu extends Component {
    */
   componentDidMount() {
     document.addEventListener('click', this.handleClickOutside, true);
-    if (!this.props.isMobile) {
+    if (!this.props.isMobile && !this.props.isSmallView) {
       this.setState({position: this.getPosition()});
     }
   }
@@ -107,7 +108,7 @@ class Menu extends Component {
    * @memberof Menu
    */
   handleClickOutside(e: any) {
-    if (!this.props.isMobile && this._menuElement && !this._menuElement.contains(e.target)) {
+    if (!this.props.isMobile && !this.props.isSmallView && this._menuElement && !this._menuElement.contains(e.target)) {
       e.stopPropagation();
       this.props.onClose();
     }
@@ -201,7 +202,7 @@ class Menu extends Component {
    * @memberof Menu
    */
   render(props: any): React$Element<any> {
-    return props.isMobile ? (
+    return props.isMobile || props.isSmallView ? (
       this.renderNativeSelect()
     ) : (
       <div ref={c => (this._menuElement = c)} className={[style.dropdownMenu, ...this.state.position].join(' ')}>

@@ -22,7 +22,8 @@ const mapStateToProps = state => ({
   audioTracks: state.engine.audioTracks,
   textTracks: state.engine.textTracks,
   overlayOpen: state.cvaa.overlayOpen,
-  isMobile: state.shell.isMobile
+  isMobile: state.shell.isMobile,
+  isSmallView: state.shell.isSmallView
 });
 
 @connect(
@@ -83,7 +84,8 @@ class LanguageControl extends BaseComponent {
       !this.props.isMobile &&
       !this._controlLanguageElement.contains(e.target) &&
       this.state.smartContainerOpen &&
-      !this.state.cvaaOverlay
+      !this.state.cvaaOverlay &&
+      !this.props.isSmallView
     ) {
       if (e.target.classList.contains('overlay-action')) {
         e.stopPropagation();

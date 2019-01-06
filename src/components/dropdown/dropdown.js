@@ -12,7 +12,8 @@ import {KeyMap} from '../../utils/key-map';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  isMobile: state.shell.isMobile
+  isMobile: state.shell.isMobile,
+  isSmallView: state.shell.isSmallView
 });
 
 @connect(mapStateToProps)
@@ -123,7 +124,7 @@ class DropDown extends Component {
    * @memberof DropDown
    */
   render(props: any): React$Element<any> {
-    return props.isMobile ? (
+    return props.isMobile || this.props.isSmallView ? (
       this.renderNativeSelect()
     ) : (
       <div className={this.state.dropMenuActive ? [style.dropdown, style.active].join(' ') : style.dropdown} ref={el => (this._el = el)}>
