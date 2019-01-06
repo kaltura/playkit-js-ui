@@ -42,9 +42,9 @@ const mapStateToProps = state => ({
  * @type {number}
  * @const
  */
-export const CONTROL_BAR_HOVER_DEFAULT_TIMEOUT: number = 3000;
+const CONTROL_BAR_HOVER_DEFAULT_TIMEOUT: number = 3000;
 
-const DEFAULT_SMALL_PLAYER_SIZE: number = 400;
+const DEFAULT_SMALL_PLAYER_HEIGHT: number = 200;
 
 @connect(
   mapStateToProps,
@@ -183,7 +183,7 @@ class Shell extends BaseComponent {
    */
   componentDidMount() {
     this.props.updateIsMobile(!!this.player.env.device.type || this.props.forceTouchUI);
-    this.props.updateIsSmallView(document.getElementById(this.props.targetId).getClientRects()[0].width < DEFAULT_SMALL_PLAYER_SIZE);
+    this.props.updateIsSmallView(document.getElementById(this.props.targetId).getClientRects()[0].height < DEFAULT_SMALL_PLAYER_HEIGHT);
     this._onWindowResize();
     this.eventManager.listen(window, 'resize', () => this._onWindowResize());
   }
@@ -336,4 +336,4 @@ class Shell extends BaseComponent {
   }
 }
 
-export {Shell};
+export {Shell, CONTROL_BAR_HOVER_DEFAULT_TIMEOUT, DEFAULT_SMALL_PLAYER_HEIGHT};
