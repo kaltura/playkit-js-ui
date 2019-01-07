@@ -64,7 +64,9 @@ class PlayPauseControl extends BaseComponent {
         <Localizer>
           <button
             tabIndex="0"
-            aria-label={<Text id={this.props.isPlayingAdOrPlayback ? 'controls.pause' : 'controls.play'} />}
+            aria-label={
+              <Text id={props.isPlaybackEnded ? 'controls.startOver' : this.props.isPlayingAdOrPlayback ? 'controls.pause' : 'controls.play'} />
+            }
             className={controlButtonClass}
             onClick={() => this.togglePlayPause()}
             onKeyDown={e => {
