@@ -20,17 +20,17 @@ const mapStateToProps = state => ({
 
 @connect(mapStateToProps)
 /**
- * CastOverlay component
+ * PictureInPictureOverlay component
  *
- * @class CastOverlay
- * @example <CastOverlay player={this.player} />
+ * @class PictureInPictureOverlay
+ * @example <PictureInPictureOverlay player={this.player} />
  * @extends {BaseComponent}
  */
 class PictureInPictureOverlay extends BaseComponent {
   /**
-   * Creates an instance of CastOverlay.
+   * Creates an instance of PictureInPictureOverlay.
    * @param {Object} obj obj
-   * @memberof CastOverlay
+   * @memberof PictureInPictureOverlay
    */
   constructor(obj: Object) {
     super({name: 'PictureInPictureOverlay', player: obj.player});
@@ -44,7 +44,7 @@ class PictureInPictureOverlay extends BaseComponent {
    * render component
    *
    * @returns {?React$Element} - component element
-   * @memberof CastOverlay
+   * @memberof PictureInPictureOverlay
    */
   render(): ?React$Element<any> {
     if (!this.props.isInPictureInPicture) {
