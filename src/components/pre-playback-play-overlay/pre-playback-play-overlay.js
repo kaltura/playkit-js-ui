@@ -7,6 +7,7 @@ import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {actions as loadingActions} from '../../reducers/loading';
+import {Localizer, Text} from 'preact-i18n';
 
 /**
  * mapping state to props
@@ -67,16 +68,19 @@ class PrePlaybackPlayOverlay extends BaseComponent {
     return (
       <div className={style.prePlaybackPlayOverlay} onMouseOver={e => e.stopPropagation()} onClick={() => this.handleClick()}>
         {
-          <a
-            className={style.prePlaybackPlayButton}
-            tabIndex="0"
-            onKeyDown={e => {
-              if (e.keyCode === KeyMap.ENTER) {
-                this.handleClick();
-              }
-            }}>
-            {props.isPlaybackEnded ? <Icon type={IconType.StartOver} /> : <Icon type={IconType.Play} />}
-          </a>
+          <Localizer>
+            <a
+              className={style.prePlaybackPlayButton}
+              tabIndex="0"
+              aria-label={<Text id={props.isPlaybackEnded ? 'controls.startOver' : 'controls.play'} />}
+              onKeyDown={e => {
+                if (e.keyCode === KeyMap.ENTER) {
+                  this.handleClick();
+                }
+              }}>
+              {props.isPlaybackEnded ? <Icon type={IconType.StartOver} /> : <Icon type={IconType.Play} />}
+            </a>
+          </Localizer>
         }
       </div>
     );
