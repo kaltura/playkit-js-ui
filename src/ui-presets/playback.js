@@ -24,6 +24,7 @@ import {PlaybackControls} from '../components/playback-controls';
 import {PlaylistCountdown} from '../components/playlist-countdown';
 import {PlaylistNextScreen} from '../components/playlist-next-screen';
 import {PictureInPicture} from '../components/picture-in-picture';
+import {PictureInPictureOverlay} from '../components/picture-in-picture-overlay';
 
 /**
  * Playback ui interface
@@ -65,6 +66,7 @@ export function playbackUI(props: any): React$Element<any> {
       {PlaylistCountdown.shouldRender(props) ? <PlaylistCountdown player={props.player} /> : undefined}
       <PrePlaybackPlayOverlay player={props.player} />
       <CastBeforePlay player={props.player} />
+      <PictureInPictureOverlay player={props.player} />
       <Backdrop />
     </div>
   );
