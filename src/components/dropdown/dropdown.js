@@ -124,7 +124,7 @@ class DropDown extends Component {
    * @memberof DropDown
    */
   render(props: any): React$Element<any> {
-    return props.isMobile || this.props.isSmallView ? (
+    return props.isMobile || props.isSmallView ? (
       this.renderNativeSelect()
     ) : (
       <div className={this.state.dropMenuActive ? [style.dropdown, style.active].join(' ') : style.dropdown} ref={el => (this._el = el)}>
