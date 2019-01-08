@@ -620,6 +620,43 @@ video::cue {
 .player:not(.touch) .smart-container .smart-container-item.select-menu-item select {
   text-align-last: right;
 }
+
+
+.player.size-sm:not(.touch) .smart-container-item {
+  width: 300px;
+  max-width: 100%;
+  margin: 16px auto;
+  color: rgba(244, 244, 244, 0.8);
+  white-space: nowrap;
+  text-align: left;
+}
+.player.size-sm:not(.touch) .smart-container-item:after {
+  display: block;
+  content: ' ';
+  clear: both;
+}
+.player.size-sm:not(.touch) .smart-container-item.select-menu-item label {
+  float: left;
+  font-size: 16px;
+  color: #fff;
+  fill: #fff;
+}
+.player.size-sm:not(.touch) .smart-container-item.select-menu-item label .label-icon {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 16px;
+}
+.player.size-sm:not(.touch) .smart-container-item.select-menu-item .dropdown,
+.player.size-sm:not(.touch) .smart-container-item.select-menu-item select {
+  float: right;
+}
+.player.size-sm:not(.touch) .smart-container-item.select-menu-item select {
+  text-align-last: right;
+}
+
+
 .touch .smart-container-item {
   width: 300px;
   max-width: 100%;

@@ -6,7 +6,7 @@ import {default as reduce, actions} from '../../reducers/engine';
 import {actions as loadingActions} from '../../reducers/loading';
 import {actions as shellActions} from '../../reducers/shell';
 import BaseComponent from '../base';
-import {DEFAULT_SMALL_PLAYER_HEIGHT} from '../shell/shell';
+import {PLAYER_SIZE_OPTIONS} from '../shell/shell';
 
 @connect(
   reduce,
@@ -71,7 +71,7 @@ class EngineConnector extends BaseComponent {
     });
 
     this.eventManager.listen(this.player, this.player.Event.RESIZE, () => {
-      this.props.updateIsSmallView(document.getElementById(this.player.config.targetId).getClientRects()[0].height < DEFAULT_SMALL_PLAYER_HEIGHT);
+      this.props.updateIsSmallView(document.getElementById(this.player.config.targetId).getClientRects()[0].width < PLAYER_SIZE_OPTIONS.SMALL);
     });
 
     this.eventManager.listen(this.player, this.player.Event.CHANGE_SOURCE_ENDED, () => {

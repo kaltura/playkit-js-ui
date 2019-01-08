@@ -176,8 +176,10 @@ class Menu extends Component {
    * @memberof Menu
    */
   renderNativeSelect(): React$Element<any> {
+    let classes = this.props.hideSelect ? style.mobileHiddenSelect : '';
+    classes += ` ${style.dropdown}`;
     return (
-      <select className={this.props.hideSelect ? style.mobileHiddenSelect : ''} onChange={e => this.onSelect(this.props.options[e.target.value])}>
+      <select className={classes} onChange={e => this.onSelect(this.props.options[e.target.value])}>
         {this.props.options.map((o, index) => (
           <option selected={this.isSelected(o)} value={index} key={index}>
             {o.label}

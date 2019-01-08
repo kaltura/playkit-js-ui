@@ -44,7 +44,11 @@ const mapStateToProps = state => ({
  */
 const CONTROL_BAR_HOVER_DEFAULT_TIMEOUT: number = 3000;
 
-const DEFAULT_SMALL_PLAYER_HEIGHT: number = 200;
+const PLAYER_SIZE_OPTIONS: {[size: string]: number} = {
+  SMALL: 480,
+  MEDIUM: 768,
+  LARGE: 1024
+};
 
 @connect(
   mapStateToProps,
@@ -186,7 +190,6 @@ class Shell extends BaseComponent {
    */
   componentDidMount() {
     this.props.updateIsMobile(!!this.player.env.device.type || this.props.forceTouchUI);
-    this.props.updateIsSmallView(document.getElementById(this.props.targetId).getClientRects()[0].height < DEFAULT_SMALL_PLAYER_HEIGHT);
     this._onWindowResize();
     this.eventManager.listen(window, 'resize', () => this._onWindowResize());
   }
@@ -317,9 +320,9 @@ class Shell extends BaseComponent {
     if (this.props.seekbarDraggingActive) playerClasses.push(style.hover);
     if (this.props.fullscreen) playerClasses.push(style.fullscreen);
     if (this.props.playlist) playerClasses.push(style.playlist);
-    if (this.props.playerClientRect && this.props.playerClientRect.width <= 480) playerClasses.push(style.sizeSm);
-    else if (this.props.playerClientRect && this.props.playerClientRect.width <= 768) playerClasses.push(style.sizeMd);
-    else if (this.props.playerClientRect && this.props.playerClientRect.width <= 1024) playerClasses.push(style.sizeLg);
+    if (this.props.playerClientRect && this.props.playerClientRect.width <= PLAYER_SIZE_OPTIONS.SMALL) playerClasses.push(style.sizeSm);
+    else if (this.props.playerClientRect && this.props.playerClientRect.width <= PLAYER_SIZE_OPTIONS.MEDIUM) playerClasses.push(style.sizeMd);
+    else if (this.props.playerClientRect && this.props.playerClientRect.width <= PLAYER_SIZE_OPTIONS.LARGE) playerClasses.push(style.sizeLg);
 
     playerClasses = playerClasses.join(' ');
 
@@ -339,4 +342,4 @@ class Shell extends BaseComponent {
   }
 }
 
-export {Shell, CONTROL_BAR_HOVER_DEFAULT_TIMEOUT, DEFAULT_SMALL_PLAYER_HEIGHT};
+export {Shell, CONTROL_BAR_HOVER_DEFAULT_TIMEOUT, PLAYER_SIZE_OPTIONS};
