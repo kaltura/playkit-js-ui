@@ -154,6 +154,9 @@ class Shell extends BaseComponent {
     if (this.props.prePlayback) {
       return;
     }
+    if (this.props.fallbackToMutedAutoPlay) {
+      this.player.muted = false;
+    }
     if (!this.state.hover) {
       e.stopPropagation();
     }

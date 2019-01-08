@@ -8,7 +8,8 @@
 
     .playlist-next-screen-content {
       position: relative;
-      top: calc(50% - 107.5px);
+      top: 50%;
+      transform: translateY(-50%);
 
       .playlist-next-screen-text {
         position: absolute;
@@ -61,9 +62,9 @@
               position: absolute;
               top: 50%;
               left: 50%;
+              transform: translate(-50%, -50%);
               width: 64px;
               height: 64px;
-              margin: -32px 0 0 -32px;
             }
           }
         }
@@ -72,19 +73,13 @@
   }
 
   &.size-lg {
-    .playlist-next-screen-content {
-      top: 31.25%;
-
-      .playlist-next-screen-poster-placeholder {
-        width: 37.5%;
-      }
+    .playlist-next-screen-content .playlist-next-screen-poster-placeholder {
+      width: 37.5%;
     }
   }
 
   &.size-md {
     .playlist-next-screen-content {
-      top: 29%;
-
       .playlist-next-screen-text {
         top: -58px;
 
@@ -101,8 +96,6 @@
 
   &.size-sm {
     .playlist-next-screen-content {
-      top: calc(50% - 16px);
-
       .playlist-next-screen-poster-placeholder {
         width: 32px;
 
@@ -116,7 +109,6 @@
           .icon {
             width: 32px;
             height: 32px;
-            margin: -16px 0 0 -16px;
           }
         }
       }
