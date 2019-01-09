@@ -71,7 +71,10 @@ class EngineConnector extends BaseComponent {
     });
 
     this.eventManager.listen(this.player, this.player.Event.RESIZE, () => {
-      this.props.updateIsSmallView(document.getElementById(this.player.config.targetId).getClientRects()[0].width < PLAYER_SIZE_OPTIONS.SMALL);
+      const el = document.getElementById(this.player.config.targetId);
+      if (el) {
+        this.props.updateIsSmallView(el.getClientRects()[0].width < PLAYER_SIZE_OPTIONS.SMALL);
+      }
     });
 
     this.eventManager.listen(this.player, this.player.Event.CHANGE_SOURCE_ENDED, () => {
