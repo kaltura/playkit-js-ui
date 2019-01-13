@@ -203,21 +203,10 @@ class VolumeControl extends BaseComponent {
    * @memberof VolumeControl
    */
   changeVolume(e: FakeEvent): void {
-    const dimensions = this._volumeProgressBarElement.getClientRects()[0];
-    let volume;
-    if (dimensions.height > dimensions.width) {
-      // if the volume bar is vertical
-      let barHeight = dimensions.height;
-      let topY = dimensions.top;
-      let clickY = (e: any).clientY;
-      volume = 1 - (clickY - topY) / barHeight;
-    } else {
-      // if the volume bar is horizontal
-      let barWidth = dimensions.width;
-      let left = dimensions.left;
-      let clickX = (e: any).clientX;
-      volume = (clickX - left) / barWidth;
-    }
+    let barHeight = this._volumeProgressBarElement.clientHeight;
+    let topY = this.getCoords(this._volumeProgressBarElement).top;
+    let clickY = (e: any).clientY;
+    let volume = 1 - (clickY - topY) / barHeight;
     volume = parseFloat(volume.toFixed(2));
     if (volume <= 1 && volume >= 0) {
       this.logger.debug(`Change volume from ${this.player.volume} => ${volume}`);
