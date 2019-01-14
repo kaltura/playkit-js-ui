@@ -31,7 +31,7 @@ class SmartContainerItem extends Component {
           )}
           {props.label}
         </label>
-        <DropDown onSelect={o => props.onSelect(o)} options={props.options} />
+        <DropDown name={props.label.toLowerCase()} onSelect={o => props.onSelect(o)} options={props.options} />
       </div>
     );
   }
