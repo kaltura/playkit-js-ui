@@ -311,7 +311,7 @@ class Shell extends BaseComponent {
 
     if (this.props.prePlayback) playerClasses.push(style.prePlayback);
     if (this.props.isCasting) playerClasses.push(`${__CSS_MODULE_PREFIX__}-casting`);
-    if (this.props.isMobile || this.props.isSmallView) playerClasses.push(style.touch);
+    if (this.props.isMobile) playerClasses.push(style.touch);
     if (this.props.playerNav) playerClasses.push(style.nav);
     if (this.props.playerHover || this.props.playerNav) playerClasses.push(style.hover);
     if (this.props.metadataLoaded) playerClasses.push(style.metadataLoaded);
