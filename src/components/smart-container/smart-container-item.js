@@ -2,7 +2,7 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {DropDown} from '../dropdown';
-import {default as Icon, IconType} from '../icon';
+import {default as Icon} from '../icon';
 
 /**
  * SmartContainerItem component
@@ -21,7 +21,7 @@ class SmartContainerItem extends Component {
   render(props: any): React$Element<any> {
     return (
       <div className={[style.smartContainerItem, style.selectMenuItem].join(' ')}>
-        <label htmlFor={IconType.Quality}>
+        <label htmlFor={props.label.toLowerCase()}>
           {props.icon ? (
             <div className={style.labelIcon}>
               <Icon type={props.icon} />
@@ -31,7 +31,7 @@ class SmartContainerItem extends Component {
           )}
           {props.label}
         </label>
-        <DropDown onSelect={o => props.onSelect(o)} options={props.options} />
+        <DropDown name={props.label.toLowerCase()} onSelect={o => props.onSelect(o)} options={props.options} />
       </div>
     );
   }

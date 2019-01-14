@@ -19,11 +19,10 @@
 
 .player {
   .cast-on-tv-button-container {
-    margin: auto;
     position: absolute;
-    left: 0;
+    width: 100%;
+    text-align: center;
     bottom: 20px;
-    right: 0;
     opacity: 0;
 
     span {
