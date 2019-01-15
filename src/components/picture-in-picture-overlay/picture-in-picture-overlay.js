@@ -3,8 +3,6 @@ import style from '../../styles/style.scss';
 import {h} from 'preact';
 import BaseComponent from '../base';
 import {connect} from 'preact-redux';
-import {IconType} from '../icon/index';
-import {Icon} from '../icon/icon';
 import {Localizer, Text} from 'preact-i18n';
 
 /**
@@ -36,6 +34,11 @@ class PictureInPictureOverlay extends BaseComponent {
     super({name: 'PictureInPictureOverlay', player: obj.player});
   }
 
+  /**
+   * The button is clicked, play the video in the player instead of in picture in picture
+   * @returns {void}
+   * @memberof PictureInPictureOverlay
+   */
   _handleClick(): void {
     this.player.exitPictureInPicture();
   }
