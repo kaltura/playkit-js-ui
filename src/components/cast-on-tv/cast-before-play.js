@@ -81,7 +81,7 @@ class CastBeforePlay extends BaseComponent {
    */
   render(props: any): ?React$Element<any> {
     if (!props.isCastAvailable || props.loading) return undefined;
-    if (props.prePlayback || props.isPlaybackEnded) {
+    if (props.prePlayback) {
       const rootStyle = [style.castOnTvButtonContainer];
       if (this.state.show) {
         rootStyle.push(style.showCastOnTv);
