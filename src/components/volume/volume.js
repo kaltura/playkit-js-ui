@@ -203,7 +203,7 @@ class VolumeControl extends BaseComponent {
    * @memberof VolumeControl
    */
   changeVolume(e: FakeEvent): void {
-    const dimensions = this._volumeProgressBarElement.getClientRects()[0];
+    const dimensions = this._volumeProgressBarElement.getBoundingClientRect();
     let volume;
     if (dimensions.height > dimensions.width) {
       volume = this._getVerticalVolume(dimensions, e);
