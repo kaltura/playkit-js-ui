@@ -239,6 +239,18 @@ class CVAAOverlay extends BaseComponent {
   }
 
   /**
+   * get the css style of the preview element
+   * @return {string} the css string
+   * @private
+   */
+  _getPreviewStyle(): string {
+    // style does not compute the font size.
+    const fontSize = this.state.customTextStyle.implicitFontScale * 100 + '%';
+    const style = this.state.customTextStyle.toCSS();
+    return `font-size: ${fontSize}!important; ${style}`;
+  }
+
+  /**
    * change one or more properties in customTextStyle object in the internal state
    *
    * @param {Object} styleChanges style changes object
@@ -262,9 +274,9 @@ class CVAAOverlay extends BaseComponent {
     const standardColors = props.player.TextStyle.StandardColors;
 
     const fontSizeOptions = this.props.player.TextStyle.FontSizes.map(size => ({
-      value: size,
-      label: size,
-      active: this.state.customTextStyle.fontSize === size
+      value: size.value,
+      label: size.label,
+      active: this.state.customTextStyle.fontScale === size.value
     }));
 
     const fontColorOptions = Object.keys(standardColors).map(key => ({
@@ -298,7 +310,7 @@ class CVAAOverlay extends BaseComponent {
             <label>
               <Text id={'cvaa.size_label'} />
             </label>
-            <DropDown onSelect={fontSize => this.changeCustomStyle({fontSize})} options={fontSizeOptions} />
+            <DropDown onSelect={fontScale => this.changeCustomStyle({fontScale})} options={fontSizeOptions} />
           </div>
           <div className={[style.formGroupRow, style.fontColor].join(' ')}>
             <label>
@@ -361,7 +373,7 @@ class CVAAOverlay extends BaseComponent {
           </div>
 
           <div className={style.previewContainer}>
-            <span style={this.state.customTextStyle.toCSS()}>
+            <span style={this._getPreviewStyle()}>
               <Text id={'cvaa.caption_preview'} />
             </span>
           </div>
