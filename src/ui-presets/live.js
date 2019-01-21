@@ -21,6 +21,7 @@ import {CastBeforePlay} from '../components/cast-on-tv/cast-before-play';
 import {Backdrop} from '../components/backdrop/backdrop';
 import {PlaybackControls} from '../components/playback-controls';
 import {PictureInPicture} from '../components/picture-in-picture';
+import {PictureInPictureOverlay} from '../components/picture-in-picture-overlay';
 
 /**
  * Live ui intrface
@@ -59,6 +60,7 @@ export function liveUI(props: any): React$Element<any> {
       {Watermark.shouldRender(props) ? <Watermark player={props.player} /> : undefined}
       <PrePlaybackPlayOverlay player={props.player} />
       <CastBeforePlay player={props.player} />
+      <PictureInPictureOverlay player={props.player} />
       <Backdrop />
     </div>
   );
