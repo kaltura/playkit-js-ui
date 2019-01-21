@@ -2,7 +2,7 @@
 
 The player user interface (UI) is created using HTML and CSS, whichs mean you can edit the UI according to your needs, such as changing the color of the scrubber, changing the text font family, changing the control icons, and much more.
 
-This [Demo](https://codepen.io/presentation_k/pen/XVQEXZ?editors=1100) is an example of how you can customzie the UI using the CSS.
+This [Demo](https://codepen.io/odedhutzler/pen/wNwRbm?editors=1100) is an example of how you can customzie the UI using the CSS.
 
 And here are some of the classes you can override:
 ![Here is some of the classes you can override](images/css-class-override.png)
@@ -38,7 +38,7 @@ Here's a list of the player classes you can customize:
 
 | Class Name                                                                    | Description                                                                                                                                |
 | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `.playkit-volume-control-bar`                                                 | Placeholder for the volume level                                                                                                           |
+| `.playkit-volume-control-bar`                                                 | Placeholder for the volume level, use `transform: rotate(90deg);` for a horizontal volume bar. See [Demo](https://codepen.io/odedhutzler/pen/wNwRbm?editors=1100) for usage example.                                                                                                        |
 | `.playkit-volume-control-bar .playkit-bar`                                    | The background of the level                                                                                                                |
 | `.playkit-volume-control-bar .playkit-progress`                               | Indicates the audio level                                                                                                                  |
 | `.playkit-seek-bar`                                                           | Placeholder for the player seek bar                                                                                                        |

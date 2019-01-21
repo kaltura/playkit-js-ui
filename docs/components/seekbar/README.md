@@ -1,6 +1,6 @@
 # Seekbar
 
-Component that toggles fullscreen state.
+Component that changes seekbar state.
 
 ## Props
 
