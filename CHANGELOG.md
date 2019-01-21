@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.34.0"></a>
+# [0.34.0](https://github.com/kaltura/playkit-js-ui/compare/v0.33.0...v0.34.0) (2019-01-21)
+
+
+### Features
+
+* **FEC-8632:** add graphic indication to chrome picture in picture mode ([#326](https://github.com/kaltura/playkit-js-ui/issues/326)) ([9be71ac](https://github.com/kaltura/playkit-js-ui/commit/9be71ac))
+* **FEC-8817:** support horizontal volume bar ([#329](https://github.com/kaltura/playkit-js-ui/issues/329)) ([2ae9925](https://github.com/kaltura/playkit-js-ui/commit/2ae9925))
+
+
+
 <a name="0.33.0"></a>
 # [0.33.0](https://github.com/kaltura/playkit-js-ui/compare/v0.32.1...v0.33.0) (2019-01-20)
 
