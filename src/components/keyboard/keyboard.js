@@ -136,6 +136,13 @@ class KeyboardControl extends BaseComponent {
         return true;
       }
     },
+    [KeyMap.P]: () => {
+      if (!this.player.isInPictureInPicture()) {
+        this.logger.debug('Enter Picture In Picture');
+        this.player.enterPictureInPicture();
+        return true;
+      }
+    },
     [KeyMap.ESC]: () => {
       if (this.player.isFullscreen()) {
         this.logger.debug('Exit fullscreen');
