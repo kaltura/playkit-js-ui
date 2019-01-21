@@ -223,30 +223,38 @@ class VolumeControl extends BaseComponent {
 
   /**
    * Computes & returns the volume of the player according to the user horizontal click / mouse move.
-   * @param {DOMRect} dimensions - dimensions of the horizontal volume bar
+   * @param {Object} dimensions - dimensions of the horizontal volume bar
    * @param {FakeEvent} e - click / move event
    * @return {number} - the volume of the player. a number in the range of 0 and 1.
    * @private
    */
-  _getHorizontalVolume(dimensions: DOMRect, e: FakeEvent): number {
+  _getHorizontalVolume(dimensions: Object, e: FakeEvent): number {
     let barWidth = dimensions.width;
     let left = dimensions.left;
     let clickX = (e: any).clientX;
-    return (clickX - left) / barWidth;
+    if (barWidth != 0) {
+      return (clickX - left) / barWidth;
+    } else {
+      return 0;
+    }
   }
 
   /**
    * Computes & returns the volume of the player according to the user vertical click / mouse move.
-   * @param {DOMRect} dimensions - dimensions of the vertical volume bar
+   * @param {Object} dimensions - dimensions of the vertical volume bar
    * @param {FakeEvent} e - click / move event
    * @return {number} - the volume of the player. a number in the range of 0 and 1.
    * @private
    */
-  _getVerticalVolume(dimensions: DOMRect, e: FakeEvent): number {
+  _getVerticalVolume(dimensions: Object, e: FakeEvent): number {
     let barHeight = dimensions.height;
     let top = dimensions.top;
     let clickY = (e: any).clientY;
-    return 1 - (clickY - top) / barHeight;
+    if (barHeight != 0) {
+      return 1 - (clickY - top) / barHeight;
+    } else {
+      return 0;
+    }
   }
 
   /**
