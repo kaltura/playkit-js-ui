@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.33.0"></a>
+# [0.33.0](https://github.com/kaltura/playkit-js-ui/compare/v0.32.1...v0.33.0) (2019-01-20)
+
+
+### Bug Fixes
+
+* **FEC-8258:** captions and audio 'for' attribute is set to 'quality' ([#328](https://github.com/kaltura/playkit-js-ui/issues/328)) ([26ea92b](https://github.com/kaltura/playkit-js-ui/commit/26ea92b))
+* **FEC-8572:** change the way the player compute text tracks font size ([#317](https://github.com/kaltura/playkit-js-ui/issues/317)) ([d4cfd26](https://github.com/kaltura/playkit-js-ui/commit/d4cfd26))
+* **FEC-8781:** simplify center ui elements ([#321](https://github.com/kaltura/playkit-js-ui/issues/321)) ([e6acda4](https://github.com/kaltura/playkit-js-ui/commit/e6acda4))
+* **FEC-8784:** can't set the volume to 1 or 0/mute via keyboard ([#322](https://github.com/kaltura/playkit-js-ui/issues/322)) ([a7caf8c](https://github.com/kaltura/playkit-js-ui/commit/a7caf8c))
+* **FEC-8799:** video not unmuted by tapping on player or seek by dragging ([#325](https://github.com/kaltura/playkit-js-ui/issues/325)) ([d450914](https://github.com/kaltura/playkit-js-ui/commit/d450914))
+* **FEC-8806:** Playlist - Next item screen - the text is not centered ([#327](https://github.com/kaltura/playkit-js-ui/issues/327)) ([6c396ae](https://github.com/kaltura/playkit-js-ui/commit/6c396ae))
+* **FEC-8827:** cast button is not centered ([#331](https://github.com/kaltura/playkit-js-ui/issues/331)) ([5c11438](https://github.com/kaltura/playkit-js-ui/commit/5c11438))
+* **FEC-8827:** Cast button is redundant and unreachable on replay ([#330](https://github.com/kaltura/playkit-js-ui/issues/330)) ([5c4f529](https://github.com/kaltura/playkit-js-ui/commit/5c4f529))
+
+
+### Features
+
+* **FEC-8743:** no aria-label for start over and picture-in-picture ([#323](https://github.com/kaltura/playkit-js-ui/issues/323)) ([b3c9f6b](https://github.com/kaltura/playkit-js-ui/commit/b3c9f6b))
+
+
+
 <a name="0.32.1"></a>
 ## [0.32.1](https://github.com/kaltura/playkit-js-ui/compare/v0.32.0...v0.32.1) (2018-12-20)
 
