@@ -1,6 +1,6 @@
 # Seekbar
 
-Component that changes seekbar state.
+A component that changes the seekbar state.
 
 ## Props
 
