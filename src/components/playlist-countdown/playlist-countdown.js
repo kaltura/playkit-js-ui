@@ -41,8 +41,8 @@ class PlaylistCountdown extends BaseComponent {
       props.state.engine.playlist &&
       props.state.engine.playlist.next &&
       props.state.engine.playlist.next.sources &&
-      props.player.playlist.options.autoContinue &&
-      props.player.playlist.countdown.showing
+      props.player.playlist.countdown.showing &&
+      (props.player.playlist.options.autoContinue || props.player.playlist.options.loop)
     );
   }
 
