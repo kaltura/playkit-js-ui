@@ -34,7 +34,7 @@ $hovering-offset: 50px;
   }
   &.overlay-active {
     :global(.playkit-subtitles) {
-      display: none;
+      visibility: hidden;
     }
   }
   :global(.playkit-subtitles) {
