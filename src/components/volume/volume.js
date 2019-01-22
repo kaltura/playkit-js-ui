@@ -203,10 +203,13 @@ class VolumeControl extends BaseComponent {
    * @memberof VolumeControl
    */
   changeVolume(e: FakeEvent): void {
-    let barHeight = this._volumeProgressBarElement.clientHeight;
-    let topY = this.getCoords(this._volumeProgressBarElement).top;
-    let clickY = (e: any).clientY;
-    let volume = 1 - (clickY - topY) / barHeight;
+    const dimensions = this._volumeProgressBarElement.getBoundingClientRect();
+    let volume;
+    if (dimensions.height > dimensions.width) {
+      volume = this._getVerticalVolume(dimensions, e);
+    } else {
+      volume = this._getHorizontalVolume(dimensions, e);
+    }
     volume = parseFloat(volume.toFixed(2));
     if (volume <= 1 && volume >= 0) {
       this.logger.debug(`Change volume from ${this.player.volume} => ${volume}`);
@@ -219,20 +222,39 @@ class VolumeControl extends BaseComponent {
   }
 
   /**
-   * get element cordinates
-   *
-   * @method getCoords
-   * @param {HTMLElement} el element to inspect
-   * @returns {{top: number, left: number}} object with the top and left position
-   * @memberof VolumeControl
+   * Computes & returns the volume of the player according to the user horizontal click / mouse move.
+   * @param {Object} dimensions - dimensions of the horizontal volume bar
+   * @param {FakeEvent} e - click / move event
+   * @return {number} - the volume of the player. a number in the range of 0 and 1.
+   * @private
    */
-  getCoords(el: HTMLElement): {top: number, left: number} {
-    let box = el.getBoundingClientRect();
+  _getHorizontalVolume(dimensions: Object, e: FakeEvent): number {
+    let barWidth = dimensions.width;
+    let left = dimensions.left;
+    let clickX = (e: any).clientX;
+    if (barWidth != 0) {
+      return (clickX - left) / barWidth;
+    } else {
+      return 0;
+    }
+  }
 
-    return {
-      top: box.top,
-      left: box.left
-    };
+  /**
+   * Computes & returns the volume of the player according to the user vertical click / mouse move.
+   * @param {Object} dimensions - dimensions of the vertical volume bar
+   * @param {FakeEvent} e - click / move event
+   * @return {number} - the volume of the player. a number in the range of 0 and 1.
+   * @private
+   */
+  _getVerticalVolume(dimensions: Object, e: FakeEvent): number {
+    let barHeight = dimensions.height;
+    let top = dimensions.top;
+    let clickY = (e: any).clientY;
+    if (barHeight != 0) {
+      return 1 - (clickY - top) / barHeight;
+    } else {
+      return 0;
+    }
   }
 
   /**

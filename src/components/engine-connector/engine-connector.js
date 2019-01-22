@@ -47,6 +47,7 @@ class EngineConnector extends BaseComponent {
 
     this.eventManager.listen(this.player, this.player.Event.SOURCE_SELECTED, () => {
       this.props.updateIsVr(this.player.isVr());
+      this.props.updateIsInPictureInPicture(this.player.isInPictureInPicture());
       if (this.player.config.playback.autoplay) {
         this.props.updateLoadingSpinnerState(true);
       } else {
@@ -273,6 +274,14 @@ class EngineConnector extends BaseComponent {
 
     this.eventManager.listen(this.player, this.player.Event.Playlist.PLAYLIST_ITEM_CHANGED, () => {
       this.props.updatePlaylist({next: this.player.playlist.next, prev: this.player.playlist.prev});
+    });
+
+    this.eventManager.listen(this.player, this.player.Event.ENTER_PICTURE_IN_PICTURE, () => {
+      this.props.updateIsInPictureInPicture(true);
+    });
+
+    this.eventManager.listen(this.player, this.player.Event.LEAVE_PICTURE_IN_PICTURE, () => {
+      this.props.updateIsInPictureInPicture(false);
     });
   }
 

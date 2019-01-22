@@ -74,5 +74,9 @@
     "next": "Next",
     "up_next": "Up Next",
     "cancel": "Cancel"
+  },
+  "pictureInPicture": {
+    "overlay_text": "Playing in Picture In Picture mode",
+    "overlay_button": "Play Here"
   }
 }
