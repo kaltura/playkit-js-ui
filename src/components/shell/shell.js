@@ -51,7 +51,7 @@ const PLAYER_SIZE: {[size: string]: string} = {
   EXTRA_LARGE: 'extralarge'
 };
 
-const SIZE: {[size: string]: number} = {
+const PLAYER_BREAK_POINTS: {[size: string]: number} = {
   SMALL: 480,
   MEDIUM: 768,
   LARGE: 1024
@@ -327,13 +327,13 @@ class Shell extends BaseComponent {
     if (this.props.seekbarDraggingActive) playerClasses.push(style.hover);
     if (this.props.fullscreen) playerClasses.push(style.fullscreen);
     if (this.props.playlist) playerClasses.push(style.playlist);
-    if (this.props.playerClientRect && this.props.playerClientRect.width <= SIZE.SMALL) {
+    if (this.props.playerClientRect && this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.SMALL) {
       playerClasses.push(style.sizeSm);
       this.props.updatePlayerSize(PLAYER_SIZE.SMALL);
-    } else if (this.props.playerClientRect && this.props.playerClientRect.width <= SIZE.MEDIUM) {
+    } else if (this.props.playerClientRect && this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.MEDIUM) {
       playerClasses.push(style.sizeMd);
       this.props.updatePlayerSize(PLAYER_SIZE.MEDIUM);
-    } else if (this.props.playerClientRect && this.props.playerClientRect.width <= SIZE.LARGE) {
+    } else if (this.props.playerClientRect && this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.LARGE) {
       playerClasses.push(style.sizeLg);
       this.props.updatePlayerSize(PLAYER_SIZE.LARGE);
     } else {
