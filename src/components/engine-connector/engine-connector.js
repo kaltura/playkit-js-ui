@@ -6,7 +6,6 @@ import {default as reduce, actions} from '../../reducers/engine';
 import {actions as loadingActions} from '../../reducers/loading';
 import {actions as shellActions} from '../../reducers/shell';
 import BaseComponent from '../base';
-import {PLAYER_SIZE_OPTIONS} from '../shell/shell';
 
 @connect(
   reduce,
