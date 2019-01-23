@@ -44,7 +44,7 @@ const mapStateToProps = state => ({
  */
 const CONTROL_BAR_HOVER_DEFAULT_TIMEOUT: number = 3000;
 
-const PLAYER_SIZE_OPTIONS: {[size: string]: number} = {
+const PLAYER_SIZE: {[size: string]: number} = {
   SMALL: 480,
   MEDIUM: 768,
   LARGE: 1024
@@ -320,9 +320,16 @@ class Shell extends BaseComponent {
     if (this.props.seekbarDraggingActive) playerClasses.push(style.hover);
     if (this.props.fullscreen) playerClasses.push(style.fullscreen);
     if (this.props.playlist) playerClasses.push(style.playlist);
-    if (this.props.playerClientRect && this.props.playerClientRect.width <= PLAYER_SIZE_OPTIONS.SMALL) playerClasses.push(style.sizeSm);
-    else if (this.props.playerClientRect && this.props.playerClientRect.width <= PLAYER_SIZE_OPTIONS.MEDIUM) playerClasses.push(style.sizeMd);
-    else if (this.props.playerClientRect && this.props.playerClientRect.width <= PLAYER_SIZE_OPTIONS.LARGE) playerClasses.push(style.sizeLg);
+    if (this.props.playerClientRect && this.props.playerClientRect.width <= PLAYER_SIZE.SMALL) {
+      playerClasses.push(style.sizeSm);
+      this.props.updateIsSmallView(true);
+    } else if (this.props.playerClientRect && this.props.playerClientRect.width <= PLAYER_SIZE.MEDIUM) {
+      playerClasses.push(style.sizeMd);
+      this.props.updateIsSmallView(false);
+    } else if (this.props.playerClientRect && this.props.playerClientRect.width <= PLAYER_SIZE.LARGE) {
+      playerClasses.push(style.sizeLg);
+      this.props.updateIsSmallView(false);
+    }
 
     playerClasses = playerClasses.join(' ');
 
@@ -342,4 +349,4 @@ class Shell extends BaseComponent {
   }
 }
 
-export {Shell, CONTROL_BAR_HOVER_DEFAULT_TIMEOUT, PLAYER_SIZE_OPTIONS};
+export {Shell, CONTROL_BAR_HOVER_DEFAULT_TIMEOUT, PLAYER_SIZE};

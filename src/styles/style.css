@@ -620,7 +620,6 @@ video::cue {
 .player:not(.touch) .smart-container .smart-container-item.select-menu-item select {
   text-align-last: right;
 }
-
 .touch .smart-container-item {
   width: 300px;
   max-width: 100%;

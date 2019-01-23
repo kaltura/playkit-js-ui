@@ -18,8 +18,7 @@ const mapStateToProps = state => ({
   isPlayingAdOrPlayback: isPlayingAdOrPlayback(state.engine),
   iconType: state.overlayAction.iconType,
   playerHover: state.shell.playerHover,
-  isMobile: state.shell.isMobile,
-  isSmallView: state.shell.isSmallView
+  isMobile: state.shell.isMobile
 });
 
 /**
