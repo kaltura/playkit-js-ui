@@ -77,7 +77,7 @@ class SettingsControl extends BaseComponent {
   handleClickOutside(e: any) {
     if (
       !this.props.isMobile &&
-      !(this.props.playerSize === PLAYER_SIZE.SMALL) &&
+      this.props.playerSize !== PLAYER_SIZE.SMALL &&
       !!this._controlSettingsElement &&
       !this._controlSettingsElement.contains(e.target) &&
       this.state.smartContainerOpen
