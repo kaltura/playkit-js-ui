@@ -337,7 +337,6 @@ class Shell extends BaseComponent {
       playerClasses.push(style.sizeLg);
       this.props.updatePlayerSize(PLAYER_SIZE.LARGE);
     } else {
-      playerClasses.push(style.sizeLg);
       this.props.updatePlayerSize(PLAYER_SIZE.EXTRA_LARGE);
     }
 
