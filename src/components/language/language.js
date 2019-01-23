@@ -12,6 +12,7 @@ import {default as Icon, IconType} from '../icon';
 import {CVAAOverlay} from '../cvaa-overlay';
 import Portal from 'preact-portal';
 import {KeyMap} from '../../utils/key-map';
+import {PLAYER_SIZE} from '../shell/shell';
 
 /**
  * mapping state to props
@@ -22,7 +23,8 @@ const mapStateToProps = state => ({
   audioTracks: state.engine.audioTracks,
   textTracks: state.engine.textTracks,
   overlayOpen: state.cvaa.overlayOpen,
-  isMobile: state.shell.isMobile
+  isMobile: state.shell.isMobile,
+  playerSize: state.shell.playerSize
 });
 
 @connect(
@@ -83,7 +85,8 @@ class LanguageControl extends BaseComponent {
       !this.props.isMobile &&
       !this._controlLanguageElement.contains(e.target) &&
       this.state.smartContainerOpen &&
-      !this.state.cvaaOverlay
+      !this.state.cvaaOverlay &&
+      this.props.playerSize !== PLAYER_SIZE.SMALL
     ) {
       if (e.target.classList.contains('overlay-action')) {
         e.stopPropagation();

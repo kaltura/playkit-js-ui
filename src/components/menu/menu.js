@@ -5,6 +5,7 @@ import {default as Icon, IconType} from '../icon';
 import {connect} from 'preact-redux';
 import {KeyMap} from '../../utils/key-map';
 import {bindMethod} from '../../utils/bind-method';
+import {PLAYER_SIZE} from '../shell/shell';
 
 /**
  * mapping state to props
@@ -13,7 +14,8 @@ import {bindMethod} from '../../utils/bind-method';
  */
 const mapStateToProps = state => ({
   isMobile: state.shell.isMobile,
-  playerClientRect: state.shell.playerClientRect
+  playerClientRect: state.shell.playerClientRect,
+  playerSize: state.shell.playerSize
 });
 
 @connect(mapStateToProps)
@@ -60,7 +62,7 @@ class Menu extends Component {
    */
   componentDidMount() {
     document.addEventListener('click', this.handleClickOutside, true);
-    if (!this.props.isMobile) {
+    if (!this.props.isMobile && this.props.playerSize !== PLAYER_SIZE.SMALL) {
       this.setState({position: this.getPosition()});
     }
   }
@@ -101,7 +103,7 @@ class Menu extends Component {
    * @memberof Menu
    */
   handleClickOutside(e: any) {
-    if (!this.props.isMobile && this._menuElement && !this._menuElement.contains(e.target)) {
+    if (!this.props.isMobile && this.props.playerSize !== PLAYER_SIZE.SMALL && this._menuElement && !this._menuElement.contains(e.target)) {
       e.stopPropagation();
       this.props.onClose();
     }
@@ -175,8 +177,10 @@ class Menu extends Component {
    * @memberof Menu
    */
   renderNativeSelect(): React$Element<any> {
+    let classes = this.props.hideSelect ? style.mobileHiddenSelect : '';
+    classes += ` ${style.dropdown}`;
     return (
-      <select className={this.props.hideSelect ? style.mobileHiddenSelect : ''} onChange={e => this.onSelect(this.props.options[e.target.value])}>
+      <select className={classes} onChange={e => this.onSelect(this.props.options[e.target.value])}>
         {this.props.options.map((o, index) => (
           <option selected={this.isSelected(o)} value={index} key={index}>
             {o.label}
@@ -195,7 +199,7 @@ class Menu extends Component {
    * @memberof Menu
    */
   render(props: any): React$Element<any> {
-    return props.isMobile ? (
+    return props.isMobile || props.playerSize === PLAYER_SIZE.SMALL ? (
       this.renderNativeSelect()
     ) : (
       <div ref={c => (this._menuElement = c)} className={[style.dropdownMenu, ...this.state.position].join(' ')}>
