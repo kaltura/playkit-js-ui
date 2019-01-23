@@ -5,6 +5,7 @@ import {default as Icon, IconType} from '../icon';
 import {connect} from 'preact-redux';
 import {KeyMap} from '../../utils/key-map';
 import {bindMethod} from '../../utils/bind-method';
+import {PLAYER_SIZE} from '../shell/shell';
 
 /**
  * mapping state to props
@@ -14,7 +15,7 @@ import {bindMethod} from '../../utils/bind-method';
 const mapStateToProps = state => ({
   isMobile: state.shell.isMobile,
   playerClientRect: state.shell.playerClientRect,
-  isSmallView: state.shell.isSmallView
+  playerSize: state.shell.playerSize
 });
 
 @connect(mapStateToProps)
@@ -61,7 +62,7 @@ class Menu extends Component {
    */
   componentDidMount() {
     document.addEventListener('click', this.handleClickOutside, true);
-    if (!this.props.isMobile && !this.props.isSmallView) {
+    if (!this.props.isMobile && this.props.playerSize !== PLAYER_SIZE.SMALL) {
       this.setState({position: this.getPosition()});
     }
   }
@@ -102,7 +103,7 @@ class Menu extends Component {
    * @memberof Menu
    */
   handleClickOutside(e: any) {
-    if (!this.props.isMobile && !this.props.isSmallView && this._menuElement && !this._menuElement.contains(e.target)) {
+    if (!this.props.isMobile && this.props.playerSize !== PLAYER_SIZE.SMALL && this._menuElement && !this._menuElement.contains(e.target)) {
       e.stopPropagation();
       this.props.onClose();
     }
@@ -198,7 +199,7 @@ class Menu extends Component {
    * @memberof Menu
    */
   render(props: any): React$Element<any> {
-    return props.isMobile || props.isSmallView ? (
+    return props.isMobile || props.playerSize === PLAYER_SIZE.SMALL ? (
       this.renderNativeSelect()
     ) : (
       <div ref={c => (this._menuElement = c)} className={[style.dropdownMenu, ...this.state.position].join(' ')}>

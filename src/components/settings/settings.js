@@ -9,6 +9,7 @@ import BaseComponent from '../base';
 import {SmartContainer} from '../smart-container';
 import {SmartContainerItem} from '../smart-container/smart-container-item';
 import {default as Icon, IconType} from '../icon';
+import {PLAYER_SIZE} from '../shell/shell';
 
 /**
  * mapping state to props
@@ -19,7 +20,7 @@ const mapStateToProps = state => ({
   videoTracks: state.engine.videoTracks,
   isMobile: state.shell.isMobile,
   isLive: state.engine.isLive,
-  isSmallView: state.shell.isSmallView
+  playerSize: state.shell.playerSize
 });
 
 @connect(
@@ -76,7 +77,7 @@ class SettingsControl extends BaseComponent {
   handleClickOutside(e: any) {
     if (
       !this.props.isMobile &&
-      !this.props.isSmallView &&
+      !(this.props.playerSize === PLAYER_SIZE.SMALL) &&
       !!this._controlSettingsElement &&
       !this._controlSettingsElement.contains(e.target) &&
       this.state.smartContainerOpen

@@ -3,7 +3,7 @@ export const types = {
   ADD_PLAYER_CLASS: 'shell/ADD_PLAYER_CLASS',
   REMOVE_PLAYER_CLASS: 'shell/REMOVE_PLAYER_CLASS',
   UPDATE_IS_MOBILE: 'shell/UPDATE_IS_MOBILE',
-  UPDATE_IS_SMALL_VIEW: 'shell/UPDATE_IS_SMALL_VIEW',
+  UPDATE_PLAYER_SIZE: 'shell/UPDATE_PLAYER_SIZE',
   UPDATE_PLAYER_CLIENT_RECT: 'shell/UPDATE_PLAYER_CLIENT_RECT',
   UPDATE_DOCUMENT_WIDTH: 'shell/UPDATE_DOCUMENT_WIDTH',
   UPDATE_PLAYER_HOVER_STATE: 'shell/UPDATE_PLAYER_HOVER_STATE',
@@ -40,10 +40,10 @@ export default (state: Object = initialState, action: Object) => {
         isMobile: action.isMobile
       };
 
-    case types.UPDATE_IS_SMALL_VIEW:
+    case types.UPDATE_PLAYER_SIZE:
       return {
         ...state,
-        isSmallView: action.isSmallView
+        playerSize: action.playerSize
       };
 
     case types.UPDATE_PLAYER_CLIENT_RECT:
@@ -91,7 +91,7 @@ export const actions = {
   addPlayerClass: (className: string) => ({type: types.ADD_PLAYER_CLASS, className}),
   removePlayerClass: (className: string) => ({type: types.REMOVE_PLAYER_CLASS, className}),
   updateIsMobile: (isMobile: boolean) => ({type: types.UPDATE_IS_MOBILE, isMobile}),
-  updateIsSmallView: (isSmallView: boolean) => ({type: types.UPDATE_IS_SMALL_VIEW, isSmallView}),
+  updatePlayerSize: (playerSize: string) => ({type: types.UPDATE_PLAYER_SIZE, playerSize}),
   updatePlayerClientRect: (playerClientRect: Object) => ({type: types.UPDATE_PLAYER_CLIENT_RECT, playerClientRect}),
   updateDocumentWidth: (documentWidth: number) => ({type: types.UPDATE_DOCUMENT_WIDTH, documentWidth}),
   updatePlayerHoverState: (hover: boolean) => ({type: types.UPDATE_PLAYER_HOVER_STATE, hover}),

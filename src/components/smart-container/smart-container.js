@@ -7,6 +7,7 @@ import {actions} from '../../reducers/shell';
 import Portal from 'preact-portal';
 import {Overlay} from '../overlay';
 import {KeyMap} from '../../utils/key-map';
+import {PLAYER_SIZE} from '../shell/shell';
 
 /**
  * mapping state to props
@@ -15,7 +16,7 @@ import {KeyMap} from '../../utils/key-map';
  */
 const mapStateToProps = state => ({
   isMobile: state.shell.isMobile,
-  isSmallView: state.shell.isSmallView
+  playerSize: state.shell.playerSize
 });
 
 @connect(
@@ -70,7 +71,7 @@ class SmartContainer extends Component {
    */
   render(props: any): React$Element<any> {
     const portalSelector = `#${this.props.targetId} .overlay-portal`;
-    return props.isMobile || props.isSmallView ? (
+    return props.isMobile || props.playerSize === PLAYER_SIZE.SMALL ? (
       <Portal into={portalSelector}>
         <Overlay open onClose={() => props.onClose()}>
           <div className={style.title}>{props.title}</div>

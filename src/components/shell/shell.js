@@ -20,7 +20,7 @@ const mapStateToProps = state => ({
   currentState: state.engine.playerState.currentState,
   playerClasses: state.shell.playerClasses,
   isMobile: state.shell.isMobile,
-  isSmallView: state.shell.isSmallView,
+  playerSize: state.shell.playerSize,
   isCasting: state.engine.isCasting,
   playerClientRect: state.shell.playerClientRect,
   playerHover: state.shell.playerHover,
@@ -322,13 +322,13 @@ class Shell extends BaseComponent {
     if (this.props.playlist) playerClasses.push(style.playlist);
     if (this.props.playerClientRect && this.props.playerClientRect.width <= PLAYER_SIZE.SMALL) {
       playerClasses.push(style.sizeSm);
-      this.props.updateIsSmallView(true);
+      this.props.updatePlayerSize(PLAYER_SIZE.SMALL);
     } else if (this.props.playerClientRect && this.props.playerClientRect.width <= PLAYER_SIZE.MEDIUM) {
       playerClasses.push(style.sizeMd);
-      this.props.updateIsSmallView(false);
+      this.props.updatePlayerSize(PLAYER_SIZE.MEDIUM);
     } else if (this.props.playerClientRect && this.props.playerClientRect.width <= PLAYER_SIZE.LARGE) {
       playerClasses.push(style.sizeLg);
-      this.props.updateIsSmallView(false);
+      this.props.updatePlayerSize(PLAYER_SIZE.LARGE);
     }
 
     playerClasses = playerClasses.join(' ');
