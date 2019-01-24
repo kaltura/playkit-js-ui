@@ -20,6 +20,7 @@ const mapStateToProps = state => ({
   currentState: state.engine.playerState.currentState,
   playerClasses: state.shell.playerClasses,
   isMobile: state.shell.isMobile,
+  playerSize: state.shell.playerSize,
   isCasting: state.engine.isCasting,
   playerClientRect: state.shell.playerClientRect,
   playerHover: state.shell.playerHover,
@@ -41,7 +42,20 @@ const mapStateToProps = state => ({
  * @type {number}
  * @const
  */
-export const CONTROL_BAR_HOVER_DEFAULT_TIMEOUT: number = 3000;
+const CONTROL_BAR_HOVER_DEFAULT_TIMEOUT: number = 3000;
+
+const PLAYER_SIZE: {[size: string]: string} = {
+  SMALL: 'small',
+  MEDIUM: 'medium',
+  LARGE: 'large',
+  EXTRA_LARGE: 'extralarge'
+};
+
+const PLAYER_BREAK_POINTS: {[size: string]: number} = {
+  SMALL: 480,
+  MEDIUM: 768,
+  LARGE: 1024
+};
 
 @connect(
   mapStateToProps,
@@ -313,9 +327,18 @@ class Shell extends BaseComponent {
     if (this.props.seekbarDraggingActive) playerClasses.push(style.hover);
     if (this.props.fullscreen) playerClasses.push(style.fullscreen);
     if (this.props.playlist) playerClasses.push(style.playlist);
-    if (this.props.playerClientRect && this.props.playerClientRect.width <= 480) playerClasses.push(style.sizeSm);
-    else if (this.props.playerClientRect && this.props.playerClientRect.width <= 768) playerClasses.push(style.sizeMd);
-    else if (this.props.playerClientRect && this.props.playerClientRect.width <= 1024) playerClasses.push(style.sizeLg);
+    if (this.props.playerClientRect && this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.SMALL) {
+      playerClasses.push(style.sizeSm);
+      this.props.updatePlayerSize(PLAYER_SIZE.SMALL);
+    } else if (this.props.playerClientRect && this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.MEDIUM) {
+      playerClasses.push(style.sizeMd);
+      this.props.updatePlayerSize(PLAYER_SIZE.MEDIUM);
+    } else if (this.props.playerClientRect && this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.LARGE) {
+      playerClasses.push(style.sizeLg);
+      this.props.updatePlayerSize(PLAYER_SIZE.LARGE);
+    } else {
+      this.props.updatePlayerSize(PLAYER_SIZE.EXTRA_LARGE);
+    }
 
     playerClasses = playerClasses.join(' ');
 
@@ -335,4 +358,4 @@ class Shell extends BaseComponent {
   }
 }
 
-export {Shell};
+export {Shell, CONTROL_BAR_HOVER_DEFAULT_TIMEOUT, PLAYER_SIZE};

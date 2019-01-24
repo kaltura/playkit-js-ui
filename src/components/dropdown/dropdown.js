@@ -5,6 +5,7 @@ import {connect} from 'preact-redux';
 import {Menu} from '../menu';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
+import {PLAYER_SIZE} from '../shell/shell';
 
 /**
  * mapping state to props
@@ -12,7 +13,8 @@ import {KeyMap} from '../../utils/key-map';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  isMobile: state.shell.isMobile
+  isMobile: state.shell.isMobile,
+  playerSize: state.shell.playerSize
 });
 
 @connect(mapStateToProps)
@@ -123,7 +125,7 @@ class DropDown extends Component {
    * @memberof DropDown
    */
   render(props: any): React$Element<any> {
-    return props.isMobile ? (
+    return props.isMobile || props.playerSize === PLAYER_SIZE.SMALL ? (
       this.renderNativeSelect()
     ) : (
       <div
