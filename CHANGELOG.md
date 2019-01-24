@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.35.0"></a>
+# [0.35.0](https://github.com/kaltura/playkit-js-ui/compare/v0.34.0...v0.35.0) (2019-01-24)
+
+
+### Bug Fixes
+
+* **FEC-8717:** when player ui is small the captions language options dropdown is cut ([#324](https://github.com/kaltura/playkit-js-ui/issues/324)) ([f5ca361](https://github.com/kaltura/playkit-js-ui/commit/f5ca361))
+* **FEC-8846:** current caption disappear after changing its style in advanced settings ([#337](https://github.com/kaltura/playkit-js-ui/issues/337)) ([f02fd47](https://github.com/kaltura/playkit-js-ui/commit/f02fd47))
+* icon style is duplicate ([#339](https://github.com/kaltura/playkit-js-ui/issues/339)) ([db8b5c0](https://github.com/kaltura/playkit-js-ui/commit/db8b5c0))
+* icons not shown on a white background ([#338](https://github.com/kaltura/playkit-js-ui/issues/338)) ([e945563](https://github.com/kaltura/playkit-js-ui/commit/e945563))
+* **FEC-8852:** closing pip window on Mac with Safari the video dose not return to the player ([#336](https://github.com/kaltura/playkit-js-ui/issues/336)) ([3574993](https://github.com/kaltura/playkit-js-ui/commit/3574993))
+
+
+### Features
+
+* **FEC-8124:** render player ads UI (also on mobile) unless configured else ([#334](https://github.com/kaltura/playkit-js-ui/issues/334)) ([0dcbb68](https://github.com/kaltura/playkit-js-ui/commit/0dcbb68))
+* **FEC-8703:** playlist loop ([#332](https://github.com/kaltura/playkit-js-ui/issues/332)) ([bbe770a](https://github.com/kaltura/playkit-js-ui/commit/bbe770a))
+
+
+
 <a name="0.34.0"></a>
 # [0.34.0](https://github.com/kaltura/playkit-js-ui/compare/v0.33.0...v0.34.0) (2019-01-21)
 
