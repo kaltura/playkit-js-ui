@@ -29,6 +29,13 @@ export function adsUI(props: any): ?React$Element<any> {
         <div className={style.playerGui} id="player-gui">
           <UnmuteIndication player={props.player} hasTopBar />
         </div>
+        <div>
+          <TopBar>
+            <div className={style.leftControls}>
+              <AdNotice />
+            </div>
+          </TopBar>
+        </div>
       </div>
     );
   }
@@ -82,9 +89,10 @@ function getAdsUiCustomization(): Object {
  */
 function useDefaultAdsUi(props: any): boolean {
   try {
+    let isMobile = !!props.player.env.device.type;
     let adsRenderingSettings = props.player.config.plugins.ima.adsRenderingSettings;
     let useStyledLinearAds = adsRenderingSettings && adsRenderingSettings.useStyledLinearAds;
-    return useStyledLinearAds;
+    return isMobile || useStyledLinearAds;
   } catch (e) {
     return false;
   }
