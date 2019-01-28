@@ -72,6 +72,10 @@
   &.left {
     right: 0;
   }
+  &.stick-bottom{
+    top: -60px;
+    margin: 10px 0;
+  }
 
   .dropdown-menu-item {
     padding: 2px 10px 2px 16px;
