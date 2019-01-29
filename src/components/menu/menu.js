@@ -87,11 +87,17 @@ class Menu extends Component {
     const menuElementRect = this._menuElement.getBoundingClientRect();
     const playerContainerRect = this.props.playerClientRect;
 
+    // The menu is first rendered above its label.
+    // top / bottom are determined from the top of the view port, if the menus top edge is lower than the top of the
+    // player it means that menu.top is bigger than player.top.
     if (menuElementRect.top >= playerContainerRect.top) {
       return [style.top, style.left];
     } else if (menuElementRect.bottom + menuElementRect.height < playerContainerRect.bottom) {
+      // menu.bottom + menu.height is the value of the bottom edge of the menu if its rendered below the label.
       return [style.bottom, style.left];
     } else {
+      // If we cannot render it on top of the label or below it, we will reduce the height of the menu to be
+      // 80% of the player height and put it at the bottom of the player.
       this._menuElement.style.maxHeight = playerContainerRect.height * 0.8 + 'px';
       return [style.stickBottom, style.left];
     }
