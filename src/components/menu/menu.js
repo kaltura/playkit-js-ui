@@ -87,7 +87,7 @@ class Menu extends Component {
     const menuElementRect = this._menuElement.getBoundingClientRect();
     const playerContainerRect = this.props.playerClientRect;
 
-    if (menuElementRect.top > playerContainerRect.top) {
+    if (menuElementRect.top >= playerContainerRect.top) {
       return [style.top, style.left];
     } else if (menuElementRect.bottom + menuElementRect.height < playerContainerRect.bottom) {
       return [style.bottom, style.left];
