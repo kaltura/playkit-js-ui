@@ -5,8 +5,18 @@ import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
 import {connect} from 'preact-redux';
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
+const mapStateToProps = state => ({
+  isCasting: state.engine.isCasting,
+  isPlaybackEnded: state.engine.isPlaybackEnded
+});
+
 @connect(
-  null,
+  mapStateToProps,
   bindActions(actions)
 )
 /**
@@ -21,10 +31,13 @@ class BottomBar extends Component {
    * render component
    *
    * @param {*} props - component props
-   * @returns {React$Element} - component element
+   * @returns {?React$Element} - component element
    * @memberof BottomBar
    */
-  render(props: any): React$Element<any> {
+  render(props: any): ?React$Element<any> {
+    if (props.isCasting && props.isPlaybackEnded) {
+      return undefined;
+    }
     return (
       <div
         className={style.bottomBar}
