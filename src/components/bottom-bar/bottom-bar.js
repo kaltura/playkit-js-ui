@@ -31,10 +31,10 @@ class BottomBar extends Component {
    * render component
    *
    * @param {*} props - component props
-   * @returns {React$Element} - component element
+   * @returns {?React$Element} - component element
    * @memberof BottomBar
    */
-  render(props: any): React$Element<any> {
+  render(props: any): ?React$Element<any> {
     if (props.isCasting && props.isPlaybackEnded) {
       return undefined;
     }
