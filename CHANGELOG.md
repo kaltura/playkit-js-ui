@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.35.1"></a>
+## [0.35.1](https://github.com/kaltura/playkit-js-ui/compare/v0.35.0...v0.35.1) (2019-01-30)
+
+
+### Bug Fixes
+
+* **FEC-8717:** the dropdown is cut on large amount of options ([#341](https://github.com/kaltura/playkit-js-ui/issues/341)) ([ea88270](https://github.com/kaltura/playkit-js-ui/commit/ea88270))
+* **FEC-8768:** seeking back on ended doesn't work when casting ([#342](https://github.com/kaltura/playkit-js-ui/issues/342)) ([2cf3fd1](https://github.com/kaltura/playkit-js-ui/commit/2cf3fd1))
+* **FEC-8866:** 'skip ad' button is covered by the control bar on mobile devices ([#340](https://github.com/kaltura/playkit-js-ui/issues/340)) ([8f13320](https://github.com/kaltura/playkit-js-ui/commit/8f13320))
+
+
+
 <a name="0.35.0"></a>
 # [0.35.0](https://github.com/kaltura/playkit-js-ui/compare/v0.34.0...v0.35.0) (2019-01-24)
 
