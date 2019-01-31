@@ -32,7 +32,7 @@ class TopBar extends Component {
    */
   render(props: any): ?React$Element<any> {
     if (props.isCasting && props.isPlaybackEnded) {
-      return undefined;
+      return <div />;
     }
     return <div className={style.topBar}>{props.children}</div>;
   }
