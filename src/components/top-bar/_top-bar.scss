@@ -13,6 +13,10 @@
   left: 0;
   pointer-events: none;
 
+  &.hide {
+    display: none;
+  }
+
   .left-controls {
     text-align: left;
     min-width: 0;

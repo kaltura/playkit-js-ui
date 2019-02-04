@@ -35,12 +35,13 @@ class BottomBar extends Component {
    * @memberof BottomBar
    */
   render(props: any): ?React$Element<any> {
+    const styleClass = [style.bottomBar];
     if (props.isCasting && props.isPlaybackEnded) {
-      return <div />;
+      styleClass.push(style.hide);
     }
     return (
       <div
-        className={style.bottomBar}
+        className={styleClass.join(' ')}
         onMouseOver={() => this.props.updateBottomBarHoverActive(true)}
         onMouseLeave={() => this.props.updateBottomBarHoverActive(false)}>
         {props.children}

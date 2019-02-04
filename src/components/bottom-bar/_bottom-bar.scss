@@ -12,6 +12,10 @@
   left: 0;
   z-index: 1;
 
+  &.hide {
+    display: none;
+  }
+
   .left-controls {
     float: left;
     text-align: left;
