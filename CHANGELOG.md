@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.35.2"></a>
+## [0.35.2](https://github.com/kaltura/playkit-js-ui/compare/v0.35.1...v0.35.2) (2019-02-04)
+
+
+### Bug Fixes
+
+* cast ui shows replay button when seeking after replay ([#343](https://github.com/kaltura/playkit-js-ui/issues/343)) ([ac98217](https://github.com/kaltura/playkit-js-ui/commit/ac98217))
+
+
+
 <a name="0.35.1"></a>
 ## [0.35.1](https://github.com/kaltura/playkit-js-ui/compare/v0.35.0...v0.35.1) (2019-01-30)
 
