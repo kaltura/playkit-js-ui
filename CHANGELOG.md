@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.35.3"></a>
+## [0.35.3](https://github.com/kaltura/playkit-js-ui/compare/v0.35.2...v0.35.3) (2019-02-05)
+
+
+### Bug Fixes
+
+* **FEC-8885:** smart menu doesn't open if no label is supplied ([#344](https://github.com/kaltura/playkit-js-ui/issues/344)) ([e7bc3c3](https://github.com/kaltura/playkit-js-ui/commit/e7bc3c3))
+
+
+
 <a name="0.35.2"></a>
 ## [0.35.2](https://github.com/kaltura/playkit-js-ui/compare/v0.35.1...v0.35.2) (2019-02-04)
 
