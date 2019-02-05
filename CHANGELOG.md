@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.35.4"></a>
+## [0.35.4](https://github.com/kaltura/playkit-js-ui/compare/v0.35.3...v0.35.4) (2019-02-05)
+
+
+### Bug Fixes
+
+* **FEC-8888:** the playback paused when tap on "unmute" button on mobile [#345](https://github.com/kaltura/playkit-js-ui/issues/345) ([#345](https://github.com/kaltura/playkit-js-ui/issues/345)) ([847eaa9](https://github.com/kaltura/playkit-js-ui/commit/847eaa9))
+
+
+
 <a name="0.35.3"></a>
 ## [0.35.3](https://github.com/kaltura/playkit-js-ui/compare/v0.35.2...v0.35.3) (2019-02-05)
 
