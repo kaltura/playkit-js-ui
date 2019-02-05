@@ -21,7 +21,7 @@ class SmartContainerItem extends Component {
   render(props: any): React$Element<any> {
     return (
       <div className={[style.smartContainerItem, style.selectMenuItem].join(' ')}>
-        <label htmlFor={props.label.toLowerCase()}>
+        <label htmlFor={props.label && props.label.toLowerCase()}>
           {props.icon ? (
             <div className={style.labelIcon}>
               <Icon type={props.icon} />
@@ -31,7 +31,7 @@ class SmartContainerItem extends Component {
           )}
           {props.label}
         </label>
-        <DropDown name={props.label.toLowerCase()} onSelect={o => props.onSelect(o)} options={props.options} />
+        <DropDown name={props.label && props.label.toLowerCase()} onSelect={o => props.onSelect(o)} options={props.options} />
       </div>
     );
   }
