@@ -24,17 +24,29 @@ import {PlaybackControls} from '../components/playback-controls';
 export function adsUI(props: any): ?React$Element<any> {
   if (useDefaultAdsUi(props)) {
     return (
-      <div className={style.adGuiWrapper}>
+      <div className={[style.adGuiWrapper, style.onTopAd].join(' ')}>
+        <KeyboardControl player={props.player} config={props.config} />
         <Loading player={props.player} />
         <div className={style.playerGui} id="player-gui">
           <UnmuteIndication player={props.player} hasTopBar />
-        </div>
-        <div>
-          <TopBar>
+          <div>
+            <TopBar>
+              <div className={style.leftControls}>
+                <AdNotice />
+              </div>
+            </TopBar>
+          </div>
+          <PlaybackControls player={props.player} />
+          <BottomBar>
             <div className={style.leftControls}>
-              <AdNotice />
+              <PlaybackControls player={props.player} />
+              <TimeDisplayAdsContainer />
             </div>
-          </TopBar>
+            <div className={style.leftControls}>
+              <VolumeControl player={props.player} />
+              <FullscreenControl player={props.player} />
+            </div>
+          </BottomBar>
         </div>
       </div>
     );
@@ -89,10 +101,9 @@ function getAdsUiCustomization(): Object {
  */
 function useDefaultAdsUi(props: any): boolean {
   try {
-    let isMobile = !!props.player.env.device.type;
     let adsRenderingSettings = props.player.config.plugins.ima.adsRenderingSettings;
     let useStyledLinearAds = adsRenderingSettings && adsRenderingSettings.useStyledLinearAds;
-    return isMobile || useStyledLinearAds;
+    return useStyledLinearAds;
   } catch (e) {
     return false;
   }
