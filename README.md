@@ -7,17 +7,17 @@
 
 PlayKit JS UI is a UI Application Framework for composing PlayKit JS Player UI.
 
-The application uses [Preact] to manage virtual DOM and provide a declarative way for building UI and [Redux] to manage a predictable state container.
+The application uses [Preact] to manage virtual DOM and provide a declarative way for building UI, and [Redux] to manage a predictable state container.
 
-The PlayKit JS UI framework enables an easy and intuitive way of customize the UI to any purpose and design, either by simple CSS definitions or by letting application define it's entire layout.
+The PlayKit JS UI framework enables an easy and intuitive way to customize the UI for any purpose and design, either by simple CSS definitions or by letting the application define its entire layout.
 
-The UI framework exposes a UIManager that handles the life cycle of the UI, and and a library of components which is used to build the UI layout, where each component is responsible of a specific functionality.
+The UI framework exposes a UIManager that handles the life cycle of the UI, and a library of components is used to build the UI layout, where each component is responsible for a specific functionality.
 
-Components library contains any need of the UI, but can be extended to include any additional component an application will require.
+Components library contains all the needs of the UI, but can be extended to include additional components that an application may require.
 
 The library also exposes its default presets, which can be used as-is&trade; or extended.
 
-PlayKit JS UI is written in [ECMAScript6], statically analysed using [Flow] and transpiled in ECMAScript5 using [Babel].
+PlayKit JS UI is written in [ECMAScript6], statically analysed using [Flow], and transpiled in ECMAScript5 using [Babel].
 
 [flow]: https://flow.org/
 [ecmascript6]: https://github.com/ericdouglas/ES6-Learning#articles--tutorials
@@ -51,7 +51,7 @@ The UI Manager depends on [Preact] and [Redux].
 
 ### Installing
 
-First, clone and run [yarn] to install dependencies:
+First clone and run [yarn] to install dependencies:
 
 [yarn]: https://yarnpkg.com/lang/en/
 
@@ -63,7 +63,7 @@ yarn install
 
 ### Building
 
-Then, build the player
+Then build the player
 
 ```javascript
 yarn run build
@@ -71,7 +71,7 @@ yarn run build
 
 ### Embed the Player In Your Test Page
 
-Finally, add the bundle as a script tag in your page, and initialize the player
+Finally, add the bundle as a script tag in your page and initialize the player
 
 ```html
 <script type="text/javascript" src="/PATH/TO/FILE/playkit.js"></script>
@@ -97,7 +97,7 @@ player.play();
 
 ## Running the Tests
 
-Tests can be run locally via [Karma], which will run on Chrome, Firefox and Safari.
+Tests can be ran locally via [Karma], which will run on Chrome, Firefox, and Safari.
 
 [karma]: https://karma-runner.github.io/1.0/index.html
 
@@ -105,7 +105,7 @@ Tests can be run locally via [Karma], which will run on Chrome, Firefox and Safa
 yarn run test
 ```
 
-You can test individual browsers:
+Individual browsers can also be tested:
 
 ```
 yarn run test:chrome
@@ -115,11 +115,11 @@ yarn run test:safari
 
 ### And Coding Style Tests
 
-We use ESLint [recommended set](http://eslint.org/docs/rules/) with some additions for enforcing [Flow] types and other rules.
+We use ESLint [recommended set](http://eslint.org/docs/rules/) for enforcing [Flow] types and other rules.
 
 See [ESLint config](.eslintrc.json) for full configuration.
 
-We also use [.editorconfig](.editorconfig) to maintain consistent coding styles and settings, please make sure you comply with the styling.
+We also use [.editorconfig](.editorconfig) to maintain consistent coding styles and settings, so please make sure you comply with the styling.
 
 ## Compatibility
 
