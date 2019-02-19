@@ -11,8 +11,12 @@
   padding-left: 0;
 }
 
-.player.size-sm {
-  .player .time-display {
-    padding: 0 12px 0 0;
+.player {
+  &.size-xs,
+  &.size-sm {
+    .time-display {
+      padding: 0 12px 0 0;
+    }
   }
 }
+

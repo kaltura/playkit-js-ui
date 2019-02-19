@@ -125,7 +125,7 @@ class DropDown extends Component {
    * @memberof DropDown
    */
   render(props: any): React$Element<any> {
-    return props.isMobile || props.playerSize === PLAYER_SIZE.SMALL ? (
+    return props.isMobile || [PLAYER_SIZE.SMALL, PLAYER_SIZE.EXTRA_SMALL].includes(this.props.playerSize) ? (
       this.renderNativeSelect()
     ) : (
       <div

@@ -62,7 +62,7 @@ class Menu extends Component {
    */
   componentDidMount() {
     document.addEventListener('click', this.handleClickOutside, true);
-    if (!this.props.isMobile && this.props.playerSize !== PLAYER_SIZE.SMALL) {
+    if (!this.props.isMobile && ![PLAYER_SIZE.SMALL, PLAYER_SIZE.EXTRA_SMALL].includes(this.props.playerSize)) {
       this.setState({position: this.getPosition()});
     }
   }
@@ -112,7 +112,7 @@ class Menu extends Component {
    * @memberof Menu
    */
   handleClickOutside(e: any) {
-    if (!this.props.isMobile && this.props.playerSize !== PLAYER_SIZE.SMALL && this._menuElement && !this._menuElement.contains(e.target)) {
+    if (!this.props.isMobile && ![PLAYER_SIZE.SMALL, PLAYER_SIZE.EXTRA_SMALL].includes(this.props.playerSize) && this._menuElement && !this._menuElement.contains(e.target)) {
       e.stopPropagation();
       this.props.onClose();
     }
@@ -208,7 +208,7 @@ class Menu extends Component {
    * @memberof Menu
    */
   render(props: any): React$Element<any> {
-    return props.isMobile || props.playerSize === PLAYER_SIZE.SMALL ? (
+    return props.isMobile || [PLAYER_SIZE.SMALL, PLAYER_SIZE.EXTRA_SMALL].includes(this.props.playerSize) ? (
       this.renderNativeSelect()
     ) : (
       <div ref={c => (this._menuElement = c)} className={[style.dropdownMenu, ...this.state.position].join(' ')}>
