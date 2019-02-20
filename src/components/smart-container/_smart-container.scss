@@ -132,14 +132,5 @@
         }
       }
     }
-    &.IE,
-    &.Edge{
-      select{
-        option{
-          color: black;
-          background-color: white;
-        }
-      }
-    }
   }
 }
