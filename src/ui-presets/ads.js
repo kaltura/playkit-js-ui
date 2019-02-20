@@ -41,8 +41,6 @@ export function adsUI(props: any): ?React$Element<any> {
             <div className={style.leftControls}>
               <PlaybackControls player={props.player} />
               <TimeDisplayAdsContainer />
-            </div>
-            <div className={style.leftControls}>
               <VolumeControl player={props.player} />
               <FullscreenControl player={props.player} />
             </div>
