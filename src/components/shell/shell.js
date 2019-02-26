@@ -54,8 +54,8 @@ const PLAYER_SIZE: {[size: string]: string} = {
 };
 
 const PLAYER_BREAK_POINTS: {[size: string]: number} = {
-  TINY: 200,
-  EXTRA_SMALL: 320,
+  TINY: 280,
+  EXTRA_SMALL: 380,
   SMALL: 480,
   MEDIUM: 768,
   LARGE: 1024
