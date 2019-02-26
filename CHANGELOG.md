@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.36.0"></a>
+# [0.36.0](https://github.com/kaltura/playkit-js-ui/compare/v0.35.4...v0.36.0) (2019-02-20)
+
+
+### Bug Fixes
+
+* **FEC-8903:** when loading a player with display: none, the player size class is set to small ([#350](https://github.com/kaltura/playkit-js-ui/issues/350)) ([20c5c43](https://github.com/kaltura/playkit-js-ui/commit/20c5c43))
+* **FEC-8905:** default drop-downs options in IE and Edge are not visible ([#349](https://github.com/kaltura/playkit-js-ui/issues/349)) ([19d73e0](https://github.com/kaltura/playkit-js-ui/commit/19d73e0))
+
+
+### Features
+
+* **FEC-8868:** mobile ads preset ([#346](https://github.com/kaltura/playkit-js-ui/issues/346)) ([3726d7d](https://github.com/kaltura/playkit-js-ui/commit/3726d7d))
+
+
+
 <a name="0.35.4"></a>
 ## [0.35.4](https://github.com/kaltura/playkit-js-ui/compare/v0.35.3...v0.35.4) (2019-02-05)
 

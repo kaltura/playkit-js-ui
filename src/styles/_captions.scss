@@ -20,7 +20,7 @@ $hovering-offset: 50px;
       padding: 0 0 $hovering-offset 0;
     }
     &.Safari,
-    &.Mobile-Safari {
+    &.iOS {
       video::-webkit-media-text-track-container {
         padding: initial;
         max-height: calc(100% - #{$hovering-offset});
