@@ -89,7 +89,11 @@ class FullscreenControl extends BaseComponent {
         this.eventManager.listen(this.player.getVideoElement(), 'webkitbeginfullscreen', () => this.fullscreenEnterHandler());
         this.eventManager.listen(this.player.getVideoElement(), 'webkitendfullscreen', () => this.fullscreenExitHandler());
       };
-      this.eventManager.listenOnce(this.player, this.player.Event.SOURCE_SELECTED, attachIosFullscreenListeners);
+      if (this.player.getVideoElement()) {
+        attachIosFullscreenListeners();
+      } else {
+        this.eventManager.listenOnce(this.player, this.player.Event.SOURCE_SELECTED, attachIosFullscreenListeners);
+      }
     }
   }
 
