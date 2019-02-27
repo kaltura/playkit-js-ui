@@ -144,42 +144,50 @@ class KeyboardControl extends BaseComponent {
       }
     },
     [KeyMap.LEFT]: () => {
-      const newTime = this.player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP;
-      const from = this.player.currentTime;
-      const to = newTime > 0 ? newTime : 0;
-      this.logger.debug(`Seek. ${from} => ${to}`);
-      this.player.currentTime = to;
-      this.props.updateOverlayActionIcon(IconType.Rewind);
-      this.toggleHoverState();
-      return {from: from, to: to};
+      if (!(this.player.ads && this.player.ads.isAdBreak())) {
+        const newTime = this.player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP;
+        const from = this.player.currentTime;
+        const to = newTime > 0 ? newTime : 0;
+        this.logger.debug(`Seek. ${from} => ${to}`);
+        this.player.currentTime = to;
+        this.props.updateOverlayActionIcon(IconType.Rewind);
+        this.toggleHoverState();
+        return {from: from, to: to};
+      }
     },
     [KeyMap.RIGHT]: () => {
-      const newTime = this.player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP;
-      const from = this.player.currentTime;
-      const to = newTime > this.player.duration ? this.player.duration : newTime;
-      this.logger.debug(`Seek. ${from} => ${to}`);
-      this.player.currentTime = newTime > this.player.duration ? this.player.duration : newTime;
-      this.props.updateOverlayActionIcon(IconType.SeekForward);
-      this.toggleHoverState();
-      return {from: from, to: to};
+      if (!(this.player.ads && this.player.ads.isAdBreak())) {
+        const newTime = this.player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP;
+        const from = this.player.currentTime;
+        const to = newTime > this.player.duration ? this.player.duration : newTime;
+        this.logger.debug(`Seek. ${from} => ${to}`);
+        this.player.currentTime = newTime > this.player.duration ? this.player.duration : newTime;
+        this.props.updateOverlayActionIcon(IconType.SeekForward);
+        this.toggleHoverState();
+        return {from: from, to: to};
+      }
     },
     [KeyMap.HOME]: () => {
-      const from = this.player.currentTime;
-      const to = 0;
-      this.logger.debug(`Seek. ${from} => ${to}`);
-      this.player.currentTime = to;
-      this.props.updateOverlayActionIcon(IconType.StartOver);
-      this.toggleHoverState();
-      return {from: from, to: to};
+      if (!(this.player.ads && this.player.ads.isAdBreak())) {
+        const from = this.player.currentTime;
+        const to = 0;
+        this.logger.debug(`Seek. ${from} => ${to}`);
+        this.player.currentTime = to;
+        this.props.updateOverlayActionIcon(IconType.StartOver);
+        this.toggleHoverState();
+        return {from: from, to: to};
+      }
     },
     [KeyMap.END]: () => {
-      const from = this.player.currentTime;
-      const to = this.player.duration;
-      this.logger.debug(`Seek. ${from} => ${to}`);
-      this.player.currentTime = to;
-      this.props.updateOverlayActionIcon(IconType.SeekEnd);
-      this.toggleHoverState();
-      return {from: from, to: to};
+      if (!(this.player.ads && this.player.ads.isAdBreak())) {
+        const from = this.player.currentTime;
+        const to = this.player.duration;
+        this.logger.debug(`Seek. ${from} => ${to}`);
+        this.player.currentTime = to;
+        this.props.updateOverlayActionIcon(IconType.SeekEnd);
+        this.toggleHoverState();
+        return {from: from, to: to};
+      }
     },
     [KeyMap.M]: () => {
       this.logger.debug(this.player.muted ? 'Umnute' : 'Mute');
