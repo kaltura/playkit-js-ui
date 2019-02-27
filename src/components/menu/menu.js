@@ -112,7 +112,12 @@ class Menu extends Component {
    * @memberof Menu
    */
   handleClickOutside(e: any) {
-    if (!this.props.isMobile && ![PLAYER_SIZE.SMALL, PLAYER_SIZE.EXTRA_SMALL].includes(this.props.playerSize) && this._menuElement && !this._menuElement.contains(e.target)) {
+    if (
+      !this.props.isMobile &&
+      ![PLAYER_SIZE.SMALL, PLAYER_SIZE.EXTRA_SMALL].includes(this.props.playerSize) &&
+      this._menuElement &&
+      !this._menuElement.contains(e.target)
+    ) {
       e.stopPropagation();
       this.props.onClose();
     }
