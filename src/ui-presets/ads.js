@@ -37,6 +37,7 @@ export function adsUI(props: any): ?React$Element<any> {
             </TopBar>
           </div>
           <PlaybackControls player={props.player} />
+          <div className={style.fakeBottomBar} />
           <BottomBar>
             <div className={style.leftControls}>
               <PlaybackControls player={props.player} />
