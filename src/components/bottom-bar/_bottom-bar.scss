@@ -24,6 +24,7 @@
       margin-left: 0px;
     }
   }
+
   .right-controls {
     float: right;
     text-align: left;
@@ -38,6 +39,29 @@
   }
 }
 
+.player{
+  &.size-ty {
+    .left-controls {
+      display: none;
+    }
+    .control-button-container{
+      display: none;
+      margin: 0;
+    }
+  }
+  &.size-xs {
+    .control-button-container{
+      margin: 0 1px;
+    }
+    .left-controls {
+      .control-button-container {
+        display: none;
+      }
+    }
+  }
+}
+
+
 .player.casting .bottom-bar,
 .player.hover .bottom-bar,
 .player.state-paused .bottom-bar,
@@ -51,10 +75,6 @@
 .player.overlay-active .bottom-bar {
   opacity: 0;
   visibility: hidden;
-}
-
-.player .on-top-ad .bottom-bar{
-  width: auto;
 }
 
 .player.size-sm {

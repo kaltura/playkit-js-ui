@@ -142,3 +142,12 @@
     display: none;
   }
 }
+
+.player.size-ty .seek-bar{
+  padding: 12px 0;
+  cursor: pointer;
+  position: relative;
+  float: left;
+  width: calc(100% - 45px);
+  margin: 1px 0;
+}
