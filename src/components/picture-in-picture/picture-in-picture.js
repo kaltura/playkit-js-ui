@@ -6,6 +6,7 @@ import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import BaseComponent from '../base';
 import {connect} from 'preact-redux';
+import {PLAYER_SIZE} from '../shell/shell';
 
 /**
  * mapping state to props
@@ -13,7 +14,8 @@ import {connect} from 'preact-redux';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  isPictureInPictureSupported: state.engine.isPictureInPictureSupported
+  isPictureInPictureSupported: state.engine.isPictureInPictureSupported,
+  playerSize: state.shell.playerSize
 });
 
 @connect(mapStateToProps)
@@ -53,7 +55,7 @@ class PictureInPicture extends BaseComponent {
    * @memberof RewindControl
    */
   render(): React$Element<any> | void {
-    if (this.props.isPictureInPictureSupported) {
+    if (this.props.isPictureInPictureSupported && this.props.playerSize !== PLAYER_SIZE.EXTRA_SMALL) {
       return (
         <div className={[style.controlButtonContainer, style.pictureInPicture].join(' ')}>
           <Localizer>

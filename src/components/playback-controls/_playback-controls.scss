@@ -19,6 +19,7 @@
 
 .player {
   &.size-sm,
+  &.size-xs,
   &.touch {
     &.state-idle .control-playlist-button {
       display: none;
