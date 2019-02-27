@@ -86,7 +86,7 @@ class LanguageControl extends BaseComponent {
       !this._controlLanguageElement.contains(e.target) &&
       this.state.smartContainerOpen &&
       !this.state.cvaaOverlay &&
-      this.props.playerSize !== PLAYER_SIZE.SMALL
+      ![PLAYER_SIZE.SMALL, PLAYER_SIZE.EXTRA_SMALL].includes(this.props.playerSize)
     ) {
       if (e.target.classList.contains('overlay-action')) {
         e.stopPropagation();

@@ -45,6 +45,8 @@ const mapStateToProps = state => ({
 const CONTROL_BAR_HOVER_DEFAULT_TIMEOUT: number = 3000;
 
 const PLAYER_SIZE: {[size: string]: string} = {
+  TINY: 'tiny',
+  EXTRA_SMALL: 'extrasmall',
   SMALL: 'small',
   MEDIUM: 'medium',
   LARGE: 'large',
@@ -52,6 +54,8 @@ const PLAYER_SIZE: {[size: string]: string} = {
 };
 
 const PLAYER_BREAK_POINTS: {[size: string]: number} = {
+  TINY: 280,
+  EXTRA_SMALL: 380,
   SMALL: 480,
   MEDIUM: 768,
   LARGE: 1024
@@ -328,17 +332,25 @@ class Shell extends BaseComponent {
     if (this.props.seekbarDraggingActive) playerClasses.push(style.hover);
     if (this.props.fullscreen) playerClasses.push(style.fullscreen);
     if (this.props.playlist) playerClasses.push(style.playlist);
-    if (this.props.playerClientRect && this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.SMALL) {
-      playerClasses.push(style.sizeSm);
-      this.props.updatePlayerSize(PLAYER_SIZE.SMALL);
-    } else if (this.props.playerClientRect && this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.MEDIUM) {
-      playerClasses.push(style.sizeMd);
-      this.props.updatePlayerSize(PLAYER_SIZE.MEDIUM);
-    } else if (this.props.playerClientRect && this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.LARGE) {
-      playerClasses.push(style.sizeLg);
-      this.props.updatePlayerSize(PLAYER_SIZE.LARGE);
-    } else {
-      this.props.updatePlayerSize(PLAYER_SIZE.EXTRA_LARGE);
+    if (this.props.playerClientRect) {
+      if (this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.TINY) {
+        playerClasses.push(style.sizeTy);
+        this.props.updatePlayerSize(PLAYER_SIZE.TINY);
+      } else if (this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.EXTRA_SMALL) {
+        playerClasses.push(style.sizeXs);
+        this.props.updatePlayerSize(PLAYER_SIZE.EXTRA_SMALL);
+      } else if (this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.SMALL) {
+        playerClasses.push(style.sizeSm);
+        this.props.updatePlayerSize(PLAYER_SIZE.SMALL);
+      } else if (this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.MEDIUM) {
+        playerClasses.push(style.sizeMd);
+        this.props.updatePlayerSize(PLAYER_SIZE.MEDIUM);
+      } else if (this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.LARGE) {
+        playerClasses.push(style.sizeLg);
+        this.props.updatePlayerSize(PLAYER_SIZE.LARGE);
+      } else {
+        this.props.updatePlayerSize(PLAYER_SIZE.EXTRA_LARGE);
+      }
     }
 
     playerClasses = playerClasses.join(' ');

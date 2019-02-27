@@ -96,7 +96,7 @@
 }
 
 .player {
-  &.touch, &.size-sm {
+  &.touch, &.size-sm, &.size-xs{
     .smart-container-item {
       width: 300px;
       max-width: 100%;

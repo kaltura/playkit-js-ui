@@ -71,7 +71,7 @@ class SmartContainer extends Component {
    */
   render(props: any): React$Element<any> {
     const portalSelector = `#${this.props.targetId} .overlay-portal`;
-    return props.isMobile || props.playerSize === PLAYER_SIZE.SMALL ? (
+    return props.isMobile || [PLAYER_SIZE.SMALL, PLAYER_SIZE.EXTRA_SMALL].includes(this.props.playerSize) ? (
       <Portal into={portalSelector}>
         <Overlay open onClose={() => props.onClose()}>
           <div className={style.title}>{props.title}</div>
