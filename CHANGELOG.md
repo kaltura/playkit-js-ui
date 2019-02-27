@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.37.0"></a>
+# [0.37.0](https://github.com/kaltura/playkit-js-ui/compare/v0.36.0...v0.37.0) (2019-02-27)
+
+
+### Bug Fixes
+
+* **FEC-8565:** bottom bar is not clickable when the loading overlay is displayed ([#351](https://github.com/kaltura/playkit-js-ui/issues/351)) ([2a8bb26](https://github.com/kaltura/playkit-js-ui/commit/2a8bb26))
+* **FEC-8802:** Fullscreen event is not available on iOS after an Ad ([#357](https://github.com/kaltura/playkit-js-ui/issues/357)) ([06328e9](https://github.com/kaltura/playkit-js-ui/commit/06328e9))
+* **FEC-8926:** Subtitles are hidden by the seek bar on none Safari browsers in iOS ([#354](https://github.com/kaltura/playkit-js-ui/issues/354)) ([566f157](https://github.com/kaltura/playkit-js-ui/commit/566f157))
+
+
+### Features
+
+* **FEC-8294:** toggle unmute on volume icon click when volume was decreased to zero via dragging ([#353](https://github.com/kaltura/playkit-js-ui/issues/353)) ([9c391f2](https://github.com/kaltura/playkit-js-ui/commit/9c391f2))
+* **FEC-8454:** handle small player views ([#348](https://github.com/kaltura/playkit-js-ui/issues/348)) ([2dd65ad](https://github.com/kaltura/playkit-js-ui/commit/2dd65ad))
+
+
+
 <a name="0.36.0"></a>
 # [0.36.0](https://github.com/kaltura/playkit-js-ui/compare/v0.35.4...v0.36.0) (2019-02-20)
 
