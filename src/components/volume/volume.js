@@ -188,8 +188,14 @@ class VolumeControl extends BaseComponent {
    * @memberof VolumeControl
    */
   onVolumeControlButtonClick(): void {
-    this.logger.debug(`Toggle mute. ${this.player.muted} => ${!this.player.muted}`);
-    this.player.muted = !this.player.muted;
+    if (this.player.volume == 0) {
+      this.logger.debug(`Toggle mute. Volume is 0, set mute to false & volume to 0.5`);
+      this.player.muted = false;
+      this.player.volume = 0.5;
+    } else {
+      this.logger.debug(`Toggle mute. ${this.player.muted} => ${!this.player.muted}`);
+      this.player.muted = !this.player.muted;
+    }
     this.notifyClick();
   }
 
