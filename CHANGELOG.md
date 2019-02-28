@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.38.0"></a>
+# [0.38.0](https://github.com/kaltura/playkit-js-ui/compare/v0.37.0...v0.38.0) (2019-02-28)
+
+
+### Features
+
+* **FEC-8631:** bumper plugin ([1b33565](https://github.com/kaltura/playkit-js-ui/commit/1b33565))
+
+
+
 <a name="0.37.0"></a>
 # [0.37.0](https://github.com/kaltura/playkit-js-ui/compare/v0.36.0...v0.37.0) (2019-02-27)
 
