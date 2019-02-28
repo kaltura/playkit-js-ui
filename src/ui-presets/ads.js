@@ -31,9 +31,7 @@ export function adsUI(props: any): ?React$Element<any> {
         </div>
         <div>
           <TopBar>
-            <div className={style.leftControls}>
-              <AdNotice />
-            </div>
+            <div className={style.leftControls}>{isBumper(props) ? undefined : <AdNotice />}</div>
           </TopBar>
         </div>
       </div>
@@ -48,9 +46,7 @@ export function adsUI(props: any): ?React$Element<any> {
         <UnmuteIndication player={props.player} hasTopBar />
         <div>
           <TopBar>
-            <div className={style.leftControls}>
-              <AdNotice />
-            </div>
+            <div className={style.leftControls}>{isBumper(props) ? undefined : <AdNotice />}</div>
             <div className={style.rightControls}>{adsUiCustomization.learnMoreButton ? <AdLearnMore /> : undefined}</div>
           </TopBar>
           {adsUiCustomization.skipButton ? <AdSkip player={props.player} /> : undefined}
@@ -96,6 +92,16 @@ function useDefaultAdsUi(props: any): boolean {
   } catch (e) {
     return false;
   }
+}
+
+/**
+ * Whether the current ad is a bumper.
+ * @param {any} props - component props
+ * @returns {boolean} - Whether is bumper.
+ */
+function isBumper(props: any): boolean {
+  const ad = props.player.ads.getAd();
+  return ad && ad.bumper;
 }
 
 /**
