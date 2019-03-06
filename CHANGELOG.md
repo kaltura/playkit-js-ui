@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.37.1"></a>
+## [0.37.1](https://github.com/kaltura/playkit-js-ui/compare/v0.37.0...v0.37.1) (2019-03-06)
+
+
+### Bug Fixes
+
+* **FEC-8939:** language and settings menu dose not fit player size under 480px [#361](https://github.com/kaltura/playkit-js-ui/issues/361) ([7d8fc51](https://github.com/kaltura/playkit-js-ui/commit/7d8fc51))
+* **FEC-8948:** play/pause icons (in middle player) are not changing according to player size ([#362](https://github.com/kaltura/playkit-js-ui/issues/362)) ([86bc4db](https://github.com/kaltura/playkit-js-ui/commit/86bc4db))
+
+
+
 <a name="0.37.0"></a>
 # [0.37.0](https://github.com/kaltura/playkit-js-ui/compare/v0.36.0...v0.37.0) (2019-02-27)
 
