@@ -14,7 +14,7 @@
     width: 108px;
     border: 2px solid rgba(255, 255, 255, 0.2);
     background-color: rgba(0, 0, 0, 0.5);
-    margin: -54px 0 0 -54px;
+    transform: translate(-50%, -50%);
     border-radius: 54px;
     padding: 20px;
     cursor: pointer;
@@ -34,5 +34,22 @@
   .player-gui {
     opacity: 0 !important;
     display: none;
+  }
+}
+
+.player{
+  &.size-ty {
+    .pre-playback-play-button {
+      width: 75px;
+      height: 75px;
+      padding: 12px;
+    }
+  }
+  &.size-xs {
+    .pre-playback-play-button{
+      width: 85px;
+      height: 85px;
+      padding: 15px;
+    }
   }
 }
