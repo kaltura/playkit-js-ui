@@ -36,3 +36,22 @@
     display: none;
   }
 }
+
+.player{
+  &.size-ty {
+    .pre-playback-play-button {
+      width: 75px;
+      height: 75px;
+      padding: 12px;
+      margin: -35px 0 0 -42px;
+    }
+  }
+  &.size-xs {
+    .pre-playback-play-button{
+      width: 85px;
+      height: 85px;
+      padding: 15px;
+      margin: -38px 0 0 -49px;
+    }
+  }
+}
