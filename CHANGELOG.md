@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.37.3"></a>
+## [0.37.3](https://github.com/kaltura/playkit-js-ui/compare/v0.37.2...v0.37.3) (2019-03-07)
+
+
+### Bug Fixes
+
+* **FEC-8961:** the play button located not in the middle of the player ([#364](https://github.com/kaltura/playkit-js-ui/issues/364)) ([5b6af13](https://github.com/kaltura/playkit-js-ui/commit/5b6af13))
+
+
+
 <a name="0.37.2"></a>
 ## [0.37.2](https://github.com/kaltura/playkit-js-ui/compare/v0.37.1...v0.37.2) (2019-03-07)
 
