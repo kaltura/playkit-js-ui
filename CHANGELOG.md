@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.37.2"></a>
+## [0.37.2](https://github.com/kaltura/playkit-js-ui/compare/v0.37.1...v0.37.2) (2019-03-07)
+
+
+### Bug Fixes
+
+* **FEC-8960:** need to tap on Play button more than one time in order to start playback on iOS ([#363](https://github.com/kaltura/playkit-js-ui/issues/363)) ([362b53f](https://github.com/kaltura/playkit-js-ui/commit/362b53f))
+
+
+
 <a name="0.37.1"></a>
 ## [0.37.1](https://github.com/kaltura/playkit-js-ui/compare/v0.37.0...v0.37.1) (2019-03-06)
 
