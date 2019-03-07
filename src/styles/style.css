@@ -1391,7 +1391,7 @@ video::cue {
   width: 108px;
   border: 2px solid rgba(255, 255, 255, 0.2);
   background-color: rgba(0, 0, 0, 0.5);
-  margin: -54px 0 0 -54px;
+  transform: translate(-50%, -50%);
   border-radius: 54px;
   fill: #fff;
   padding: 20px;
