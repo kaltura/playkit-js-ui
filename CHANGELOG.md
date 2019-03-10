@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.37.4"></a>
+## [0.37.4](https://github.com/kaltura/playkit-js-ui/compare/v0.37.3...v0.37.4) (2019-03-10)
+
+
+### Bug Fixes
+
+* **FEC-8968:** native drop downs on windows chrome does not show the options ([#365](https://github.com/kaltura/playkit-js-ui/issues/365)) ([68939d9](https://github.com/kaltura/playkit-js-ui/commit/68939d9))
+
+
+
 <a name="0.37.3"></a>
 ## [0.37.3](https://github.com/kaltura/playkit-js-ui/compare/v0.37.2...v0.37.3) (2019-03-07)
 
