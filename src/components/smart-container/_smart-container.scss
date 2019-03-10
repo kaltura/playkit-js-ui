@@ -132,10 +132,9 @@
         }
       }
     }
-    &.IE,
-    &.Edge{
+    &.Windows {
       select{
-        option{
+        option {
           color: black;
           background-color: white;
         }
