@@ -18,7 +18,8 @@ const mapStateToProps = state => ({
   isPlayingAdOrPlayback: isPlayingAdOrPlayback(state.engine),
   iconType: state.overlayAction.iconType,
   playerHover: state.shell.playerHover,
-  isMobile: state.shell.isMobile
+  isMobile: state.shell.isMobile,
+  isSmartContainerOpen: state.shell.smartContainerOpen
 });
 
 /**
@@ -179,6 +180,9 @@ class OverlayAction extends BaseComponent {
    * @memberof OverlayAction
    */
   onOverlayClick(): void {
+    if (this.props.isSmartContainerOpen) {
+      return;
+    }
     const now = Date.now();
     if (now - this._firstClickTime < PLAY_PAUSE_BUFFER_TIME) {
       this.cancelClickTimeout();
