@@ -202,7 +202,7 @@ class Shell extends BaseComponent {
   componentDidMount() {
     this.props.updateIsMobile(!!this.player.env.device.type || this.props.forceTouchUI);
     this._onWindowResize();
-    this.eventManager.listen(window, 'resize', () => this._onWindowResize());
+    this.eventManager.listen(this.player, this.player.Event.RESIZE, () => this._onWindowResize());
     this.eventManager.listen(this.player, this.player.Event.FIRST_PLAY, () => this._onWindowResize());
   }
 
