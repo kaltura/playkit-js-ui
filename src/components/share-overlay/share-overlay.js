@@ -8,6 +8,8 @@ import {toHHMMSS, toSecondsFromHHMMSS} from '../../utils/time-format';
 import BaseComponent from '../base';
 import {Overlay} from '../overlay';
 import {default as Icon, IconType} from '../icon';
+import style from '../../styles/style.scss';
+import {CopyButton} from '../copy-button/copy-button';
 
 /**
  * mapping state to props
@@ -24,6 +26,40 @@ const shareOverlayState: Object = {
   LinkOptions: 'link-options',
   EmbedOptions: 'embed-options'
 };
+
+const ShareButton = (props) => {
+  /**
+   * opens new window for share
+   *
+   * @param {string} href - url to open
+   * @returns {boolean} - false
+   * @memberof ShareOverlay
+   */
+  const share = () => {
+    const shareUrl = props.config.shareUrl;
+    const templateUrl = props.config.templateUrl;
+    let href = shareUrl;
+    if (templateUrl) {
+      href = templateUrl.replace('{shareUrl}', shareUrl);
+    }
+    window.open(href, '_blank', 'width=580,height=580');
+    return false;
+  };
+
+  return (
+    <a
+      href={props.config.shareUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      title={props.config.title}
+      role="button"
+      aria-label={props.config.ariaLable}
+      className={[style.btnRounded, style[props.config.iconType], props.config.iconType].join(' ')}
+      onClick={() => share()}>
+      <Icon style={props.config.iconType === 'svg' ? `background-image: url(${props.config.svg})` : ``} type={props.config.iconType} />
+    </a>
+  );
+}
 
 @connect(
   mapStateToProps,
@@ -57,7 +93,7 @@ class ShareOverlay extends BaseComponent {
   componentWillMount() {
     this.setState({
       state: shareOverlayState.Main,
-      shareUrl: 'https://cdnapisec.kaltura.com/index.php?assetId=123456',
+      shareUrl: '',
       startFrom: false,
       startFromValue: 0
     });
@@ -95,16 +131,9 @@ class ShareOverlay extends BaseComponent {
    * @memberof ShareOverlay
    */
   copyUrl(inputElement: HTMLInputElement) {
-    try {
-      inputElement.select();
-      document.execCommand('copy');
-      inputElement.blur();
-
-      this.setState({copySuccess: true});
-      setTimeout(() => this.setState({copySuccess: false}), 2000);
-    } catch (e) {
-      this.setState({copySuccess: false});
-    }
+    inputElement.select();
+    document.execCommand('copy');
+    inputElement.blur();
   }
 
   /**
@@ -139,7 +168,11 @@ class ShareOverlay extends BaseComponent {
    * @memberof ShareOverlay
    */
   getEmbedCode(): string {
-    return '<iframe src="//cdnapi.kaltura.com/p/243342/sp/24334200/embedIframeJs/uiconf_id/28685261/partner_id/243342?iframeembed=true&playerId=kdp&entry_id=1_sf5ovm7u&flashvars[streamerType]=auto" width="560" height="395" allowfullscreen webkitallowfullscreen mozAllowFullScreen frameborder="0"></iframe>';
+    const pid = this.player.config.provider.partenrId;
+    const uiconf = this.player.config.provider.uiConfId;
+    const entryId = this.player.config.sources.entryId;
+    const serviceUrl = this.player.config.provider.env.serviceUrl;
+    return `<iframe type="text/javascript" src='${serviceUrl}/p/${pid}/embedPlaykitJs/uiconf_id/${uiconf}?iframeembed=true&entry_id=${entryId}' style="width: 560px;height: 395px" allowfullscreen webkitallowfullscreen mozAllowFullScreen frameborder="0"></iframe>`;
   }
 
   /**
@@ -158,16 +191,25 @@ class ShareOverlay extends BaseComponent {
     this.setState({startFromValue: seconds});
   }
 
-  /**
-   * opens new window for share
-   *
-   * @param {string} href - url to open
-   * @returns {boolean} - false
-   * @memberof ShareOverlay
-   */
-  share(href: string): boolean {
-    window.open(href, '_blank', 'width=580,height=580');
-    return false;
+  _getVideoLink(shareUrl?: string): string {
+    const pid = this.player.config.provider.partenrId;
+    const uiconf = this.player.config.provider.uiConfId;
+    const entryId = this.player.config.sources.entryId;
+    const serviceUrl = this.player.config.provider.env.serviceUrl;
+    if (shareUrl) {
+      return shareUrl.replace('mediaId', entryId);
+    } else {
+      return `${serviceUrl}/extwidget/preview/partner_id/${pid}/uiconf_id/${uiconf}/entry_id/${entryId}/embed/dynamic`;
+    }
+  }
+
+  _createSocialNetworks(socialNetworksConfig: Array<Object>): React$Element {
+    return socialNetworksConfig.map(social => {
+      if (social.iconType === 'default') {
+        social.iconType = social.name;
+      }
+      return <ShareButton key={social.name} config={social} />;
+    });
   }
 
   /**
@@ -179,67 +221,24 @@ class ShareOverlay extends BaseComponent {
   renderMainState(): React$Element<any> {
     return (
       <div className={this.state.state === shareOverlayState.Main ? 'overlay-screen active' : 'overlay-screen'}>
-        <div className="title">
+        <div className={style.title}>
           <Text id="share.share_title" />
         </div>
-        <div className="share-main-container">
-          <div className="share-icons">
+        <div className={style.shareMainContainer}>
+          <div className={style.shareIcons}>
+            {this._createSocialNetworks(this.props.socialNetworks)}
             <a
-              href="https://player.kaltura.com/video/220277207/share/facebook"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="Share on Facebook"
-              role="button"
-              aria-label="Share on Facebook"
-              className="btn-rounded facebook-share-btn"
-              onClick={() => this.share('https://player.kaltura.com/video/220277207/share/facebook')}>
-              <Icon type={IconType.Facebook} />
-            </a>
-            <a
-              href="https://player.kaltura.com/video/220277207/share/twitter"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="Share on Twitter"
-              role="button"
-              aria-label="Share on Twitter"
-              className="btn-rounded twitter-share-btn"
-              onClick={() => this.share('https://player.kaltura.com/video/220277207/share/twitter')}>
-              <Icon type={IconType.Twitter} />
-            </a>
-            <a
-              href="https://player.kaltura.com/video/220277207/share/google-plus"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="Share on Google Plus"
-              role="button"
-              aria-label="Share on Google Plus"
-              className="btn-rounded google-plus-share-btn"
-              onClick={() => this.share('https://player.kaltura.com/video/220277207/share/google')}>
-              <Icon type={IconType.GooglePlus} />
-            </a>
-            <a
-              href="https://player.kaltura.com/video/220277207/share/linkedin"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="Share on Linkedin"
-              role="button"
-              aria-label="Share on Linkedin"
-              className="btn-rounded linkedin-share-btn"
-              onClick={() => this.share('https://player.kaltura.com/video/220277207/share/linkedin')}>
-              <Icon type={IconType.Linkedin} />
-            </a>
-            <a
-              className="btn-rounded email-share-btn"
+              className={[style.btnRounded, style.emailShareBtn].join(' ')}
               href={`mailto:?subject=${encodeURIComponent('email subject')}&body=${encodeURIComponent('email body')}`}>
               <Icon type={IconType.Email} />
             </a>
-            <a className="btn-rounded embed-share-btn" onClick={() => this.transitionToState(shareOverlayState.EmbedOptions)}>
+            <a className={[style.btnRounded, style.embedShareBtn].join(' ')} onClick={() => this.transitionToState(shareOverlayState.EmbedOptions)}>
               <Icon type={IconType.Embed} />
             </a>
           </div>
           <div>
-            <div className="form-group has-icon">
-              <input type="text" placeholder="Share URL" className="form-control" value={this.state.shareUrl} readOnly />
+            <div className={[style.formGroup, style.hasIcon].join(' ')}>
+              <input type="text" placeholder="Share URL" className={style.formControl} value={this.state.shareUrl} readOnly />
               <Icon type={IconType.Link} />
             </div>
           </div>
@@ -258,39 +257,33 @@ class ShareOverlay extends BaseComponent {
    * @memberof ShareOverlay
    */
   renderLinkOptionsState(): React$Element<any> {
-    let copyUrlClasses = 'btn-rounded btn-branded btn-copy-url';
-    copyUrlClasses += this.state.copySuccess ? ' copied' : '';
-
     return (
       <div className={this.state.state === shareOverlayState.LinkOptions ? 'overlay-screen active' : 'overlay-screen'}>
-        <div className="title">Link options</div>
-        <div className="link-options-container">
-          <div className="copy-url-row">
-            <div className="form-group has-icon input-copy-url" style="width: 350px;">
+        <div className={style.title}>Link options</div>
+        <div className={style.linkOptionsContainer}>
+          <div className={style.copyUrlRow}>
+            <div className={[style.formGroup, style.hasIcon, style.inputCopyUrl].join(' ')} style="width: 350px;">
               <input
                 type="text"
                 ref={c => (this._shareUrlInput = c)}
                 placeholder="Share URL"
-                className="form-control"
+                className={style.formControl}
                 value={this.getShareUrl()}
                 readOnly
               />
               <Icon type={IconType.Link} />
             </div>
-            <a className={copyUrlClasses} onClick={() => this.copyUrl(this._shareUrlInput)}>
-              <Icon type={IconType.Copy} />
-              <Icon type={IconType.Check} />
-            </a>
+            <CopyButton copy={() => this.copyUrl(this._shareUrlInput)} />
           </div>
-          <div className="video-start-options-row">
-            <div className="checkbox d-inline-block">
+          <div className={style.videoStartOptionsRow}>
+            <div className={[style.checkbox, style.dInlineBlock].join(' ')}>
               <input type="checkbox" id="start-from" checked={this.state.startFrom} onClick={() => this.toggleStartFrom()} />
               <label htmlFor="start-from">Start video at </label>
             </div>
-            <div className="form-group d-inline-block">
+            <div className={[style.formGroup, style.dInlineBlock].join(' ')}>
               <input
                 type="text"
-                className="form-control"
+                className={style.formControl}
                 onChange={e => this.handleStartFromChange(e)}
                 value={toHHMMSS(this.state.startFromValue)}
                 style="width: 72px;"
@@ -309,39 +302,33 @@ class ShareOverlay extends BaseComponent {
    * @memberof ShareOverlay
    */
   renderEmbedOptionsState(): React$Element<any> {
-    let copyUrlClasses = 'btn-rounded btn-branded btn-copy-url';
-    copyUrlClasses += this.state.copySuccess ? ' copied' : '';
-
     return (
       <div className={this.state.state === shareOverlayState.EmbedOptions ? 'overlay-screen active' : 'overlay-screen'}>
-        <div className="title">Embed options</div>
-        <div className="link-options-container">
-          <div className="copy-url-row">
-            <div className="form-group has-icon input-copy-url" style="width: 350px;">
+        <div className={style.title}>Embed options</div>
+        <div className={style.linkOptionsContainer}>
+          <div className={style.copyUrlRow}>
+            <div className={[style.formGroup, style.hasIcon, style.inputCopyUrl].join(' ')} style="width: 350px;">
               <input
                 type="text"
                 ref={c => (this._embedCodeInput = c)}
                 placeholder="Share URL"
-                className="form-control"
+                className={style.formControl}
                 value={this.getEmbedCode()}
                 readOnly
               />
               <Icon type={IconType.Embed} />
             </div>
-            <a className={copyUrlClasses} onClick={() => this.copyUrl(this._embedCodeInput)}>
-              <Icon type={IconType.Copy} />
-              <Icon type={IconType.Check} />
-            </a>
+            <CopyButton copy={() => this.copyUrl(this._embedCodeInput)} />
           </div>
-          <div className="video-start-options-row">
-            <div className="checkbox d-inline-block">
+          <div className={style.videoStartOptionsRow}>
+            <div className={[style.checkbox, style.dInlineBlock].join(' ')}>
               <input type="checkbox" id="start-from" checked={this.state.startFrom} onClick={() => this.toggleStartFrom()} />
               <label htmlFor="start-from">Start video at </label>
             </div>
-            <div className="form-group d-inline-block">
+            <div className={[style.formGroup, style.dInlineBlock].join(' ')}>
               <input
                 type="text"
-                className="form-control"
+                className={style.formControl}
                 onChange={e => this.handleStartFromChange(e)}
                 value={toHHMMSS(this.state.startFromValue)}
                 style="width: 72px;"

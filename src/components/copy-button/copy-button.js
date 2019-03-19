@@ -1,0 +1,64 @@
+//@flow
+import style from '../../styles/style.scss';
+import {h} from 'preact';
+import BaseComponent from '../base';
+import {IconType} from '../icon/index';
+import {Icon} from '../icon/icon';
+
+/**
+ * CopyButton component
+ *
+ * @class CopyButton
+ * @example <CopyButton/>
+ * @extends {BaseComponent}
+ */
+class CopyButton extends BaseComponent {
+  /**
+   * @static
+   * @type {Object} - Component default props
+   */
+  static defaultProps: any = {
+    icon: IconType.Copy
+  };
+
+  /**
+   * Creates an instance of CastOverlay.
+   * @memberof CopyButton
+   */
+  constructor(props) {
+    super(props);
+    this.setState({copySuccess: false});
+  }
+
+  copy() {
+    try {
+      this.props.copy();
+      this.setState({copySuccess: true});
+    } catch (e) {
+      this.setState({copySuccess: false});
+    }
+    setTimeout(() => {
+      this.setState({copySuccess: false});
+    }, 2000);
+  }
+
+  /**
+   * render component
+   *
+   * @param {*} props - component props
+   * @returns {?CopyButton} - component element
+   * @memberof CopyButton
+   */
+  render(): ?React$Element<any> {
+    let copyUrlClasses = [style.btnCopyUrl].join(' ');
+    copyUrlClasses += this.state.copySuccess ? ' ' + style.copied : '';
+    return (
+      <a className={copyUrlClasses} onClick={() => this.copy()}>
+        <Icon type={IconType.Copy} />
+        <Icon type={IconType.Check} />
+      </a>
+    );
+  }
+}
+
+export {CopyButton};

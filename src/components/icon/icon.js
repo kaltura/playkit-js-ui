@@ -129,7 +129,7 @@ class Icon extends Component {
         return <i className={[style.icon, style.iconTwitter].join(' ')} />;
 
       case IconType.GooglePlus:
-        return <i className={[style.icon, style.iconGoogleplus].join(' ')} />;
+        return <i className={[style.icon, style.iconGooglePlus].join(' ')} />;
 
       case IconType.Linkedin:
         return <i className={[style.icon, style.iconLinkedin].join(' ')} />;
