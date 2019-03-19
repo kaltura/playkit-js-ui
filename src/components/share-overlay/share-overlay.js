@@ -93,7 +93,7 @@ class ShareOverlay extends BaseComponent {
   componentWillMount() {
     this.setState({
       state: shareOverlayState.Main,
-      shareUrl: '',
+      shareUrl: this._getShareUrl(),
       startFrom: false,
       startFromValue: 0
     });
@@ -168,11 +168,11 @@ class ShareOverlay extends BaseComponent {
    * @memberof ShareOverlay
    */
   getEmbedCode(): string {
-    const pid = this.player.config.provider.partenrId;
-    const uiconf = this.player.config.provider.uiConfId;
-    const entryId = this.player.config.sources.entryId;
-    const serviceUrl = this.player.config.provider.env.serviceUrl;
-    return `<iframe type="text/javascript" src='${serviceUrl}/p/${pid}/embedPlaykitJs/uiconf_id/${uiconf}?iframeembed=true&entry_id=${entryId}' style="width: 560px;height: 395px" allowfullscreen webkitallowfullscreen mozAllowFullScreen frameborder="0"></iframe>`;
+    const playerParams = this._getPlayerParams();
+    return `<iframe type="text/javascript" src='${playerParams.serviceUrl}/p/${playerParams.pid}/embedPlaykitJs/uiconf_id/${playerParams.uiconf}
+      ?iframeembed=true&entry_id=${
+        playerParams.entryId
+      }' style="width: 560px;height: 395px" allowfullscreen webkitallowfullscreen mozAllowFullScreen frameborder="0"></iframe>`;
   }
 
   /**
@@ -191,22 +191,32 @@ class ShareOverlay extends BaseComponent {
     this.setState({startFromValue: seconds});
   }
 
-  _getVideoLink(shareUrl?: string): string {
-    const pid = this.player.config.provider.partenrId;
-    const uiconf = this.player.config.provider.uiConfId;
-    const entryId = this.player.config.sources.entryId;
-    const serviceUrl = this.player.config.provider.env.serviceUrl;
-    if (shareUrl) {
-      return shareUrl.replace('mediaId', entryId);
+  _getShareUrl(): string {
+    const playerParams = this._getPlayerParams();
+    if (this.props.shareUrl) {
+      return this.props.shareUrl.replace('mediaId', playerParams.entryId);
     } else {
-      return `${serviceUrl}/extwidget/preview/partner_id/${pid}/uiconf_id/${uiconf}/entry_id/${entryId}/embed/dynamic`;
+      return `${playerParams.serviceUrl}/index.php/extwidget/preview/partner_id/${playerParams.pid}/uiconf_id/${playerParams.uiconf}/entry_id/${
+        playerParams.entryId
+      }
+      /embed/dynamic`;
     }
+  }
+
+  _getPlayerParams(): object {
+    return {
+      pid: this.player.config.provider.partnerId,
+      uiconf: this.player.config.provider.uiConfId,
+      entryId: this.player.config.sources.id,
+      serviceUrl: this.player.config.provider.env.serviceUrl.replace('api_v3', '')
+    };
   }
 
   _createSocialNetworks(socialNetworksConfig: Array<Object>): React$Element {
     return socialNetworksConfig.map(social => {
       if (social.iconType === 'default') {
         social.iconType = social.name;
+        social.shareUrl = this._getShareUrl();
       }
       return <ShareButton key={social.name} config={social} />;
     });
