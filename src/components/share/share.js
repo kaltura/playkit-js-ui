@@ -17,7 +17,8 @@ import {bindActions} from '../../utils/bind-actions';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  open: state.share.overlayOpen
+  open: state.share.overlayOpen,
+  isPlaying: state.engine.isPlaying
 });
 
 @connect(
@@ -50,10 +51,16 @@ class ShareControl extends BaseComponent {
   toggleOverlay(): void {
     this.setState({overlay: !this.state.overlay});
     this.props.toggleShareOverlay(this.state.overlay);
+    if (this.props.isPlaying || this.state.previousIsPlaying) {
+      this.setState({previousIsPlaying: true});
+    } else {
+      this.setState({previousIsPlaying: false});
+    }
     if (this.state.overlay) {
       this.player.pause();
-    } else {
+    } else if (this.state.previousIsPlaying) {
       this.player.play();
+      this.setState({previousIsPlaying: false});
     }
   }
 
