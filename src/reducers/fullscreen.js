@@ -10,8 +10,7 @@ export const types = {
 };
 
 export const initialState = {
-  fullscreen: false,
-  inBrowserFullscreenForIOS: false
+  fullscreen: false
 };
 
 export default (state: Object = initialState, action: Object) => {

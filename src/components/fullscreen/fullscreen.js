@@ -17,7 +17,6 @@ import {default as Icon, IconType} from '../icon';
 const mapStateToProps = state => ({
   targetId: state.config.targetId,
   fullscreen: state.fullscreen.fullscreen,
-  inBrowserFullscreenForIOS: state.fullscreen.inBrowserFullscreenForIOS,
   isMobile: state.shell.isMobile
 });
 
@@ -52,7 +51,8 @@ class FullscreenControl extends BaseComponent {
    */
   componentWillMount(): void {
     this._targetDiv = document.getElementById(this.props.targetId);
-    this.player.registerFullScreenEvents(this.fullscreenChangeHandler.bind(this));
+    this.eventManager.listen(this.player, this.player.Event.ENTER_FULLSCREEN, () => this._fullscreenEnterHandler());
+    this.eventManager.listen(this.player, this.player.Event.EXIT_FULLSCREEN, () => this._fullscreenExitHandler());
   }
 
   /**
@@ -61,18 +61,18 @@ class FullscreenControl extends BaseComponent {
    * @returns {void}
    * @memberof FullscreenControl
    */
-  fullscreenChangeHandler(): void {
-    if (!this.player.isFullscreen()) {
-      this.props.updateFullscreen(false);
-      if (this._targetDiv) {
-        this._targetDiv.classList.remove(style.inBrowserFullscreenMode);
-      }
-    } else {
-      this.props.updateFullscreen(true);
-      if (this._targetDiv) {
-        this._targetDiv.classList.add(style.inBrowserFullscreenMode);
-      }
-    }
+  _fullscreenEnterHandler(): void {
+    this.props.updateFullscreen(true);
+  }
+
+  /**
+   * fullscreen change handler function.
+   *
+   * @returns {void}
+   * @memberof FullscreenControl
+   */
+  _fullscreenExitHandler(): void {
+    this.props.updateFullscreen(false);
   }
 
   /**
