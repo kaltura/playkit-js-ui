@@ -32,7 +32,7 @@ const mapStateToProps = state => ({
   adBreak: state.engine.adBreak,
   prePlayback: state.engine.prePlayback,
   smartContainerOpen: state.shell.smartContainerOpen,
-  fullscreen: state.fullscreen.fullscreen,
+  fullscreen: state.engine.fullscreen,
   fallbackToMutedAutoPlay: state.engine.fallbackToMutedAutoPlay,
   playlist: state.engine.playlist
 });

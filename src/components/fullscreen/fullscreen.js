@@ -4,10 +4,10 @@ import {h} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
-import {actions} from '../../reducers/shell';
-import {actions as fullscreenActions} from '../../reducers/fullscreen';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
+import {actions as engineActions} from '../../reducers/engine';
+import {actions} from '../../reducers/shell';
 
 /**
  * mapping state to props
@@ -16,13 +16,12 @@ import {default as Icon, IconType} from '../icon';
  */
 const mapStateToProps = state => ({
   targetId: state.config.targetId,
-  fullscreen: state.fullscreen.fullscreen,
-  isMobile: state.shell.isMobile
+  fullscreen: state.engine.fullscreen
 });
 
 @connect(
   mapStateToProps,
-  bindActions(Object.assign({}, actions, fullscreenActions))
+  bindActions(Object.assign({}, actions, engineActions))
 )
 /**
  * FullscreenControl component
@@ -51,28 +50,6 @@ class FullscreenControl extends BaseComponent {
    */
   componentWillMount(): void {
     this._targetDiv = document.getElementById(this.props.targetId);
-    this.eventManager.listen(this.player, this.player.Event.ENTER_FULLSCREEN, () => this._fullscreenEnterHandler());
-    this.eventManager.listen(this.player, this.player.Event.EXIT_FULLSCREEN, () => this._fullscreenExitHandler());
-  }
-
-  /**
-   * fullscreen change handler function.
-   *
-   * @returns {void}
-   * @memberof FullscreenControl
-   */
-  _fullscreenEnterHandler(): void {
-    this.props.updateFullscreen(true);
-  }
-
-  /**
-   * fullscreen change handler function.
-   *
-   * @returns {void}
-   * @memberof FullscreenControl
-   */
-  _fullscreenExitHandler(): void {
-    this.props.updateFullscreen(false);
   }
 
   /**
@@ -83,7 +60,7 @@ class FullscreenControl extends BaseComponent {
    */
   toggleFullscreen(): void {
     this.logger.debug(`Toggle fullscreen`);
-    this.props.fullscreen ? this.player.exitFullscreen(this._targetDiv) : this.player.enterFullscreen(this._targetDiv);
+    this.props.fullscreen ? this.player.exitFullscreen() : this.player.enterFullscreen(this._targetDiv);
     this.notifyClick();
   }
 
