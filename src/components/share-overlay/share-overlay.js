@@ -253,7 +253,7 @@ class ShareOverlay extends BaseComponent {
     return (
       <div className={this.state.state === shareOverlayState.Main ? 'overlay-screen active' : 'overlay-screen'}>
         <div className={style.title}>
-          <Text id="share.share_title" />
+          <Text id="share.title" />
         </div>
         <div className={style.shareMainContainer}>
           <div className={style.shareIcons}>
@@ -311,7 +311,7 @@ class ShareOverlay extends BaseComponent {
         return this.renderOptionsState({title: 'Link options', shareUrl: this.getShareUrl()});
 
       case shareOverlayState.EmbedOptions:
-        return this.renderOptionsState({title: 'Embed options', shareUrl: this.getEmbedCode()});
+        return this.renderOptionsState({title: <Text id="share.embed_options" />, shareUrl: this.getEmbedCode()});
 
       case shareOverlayState.Main:
       default:

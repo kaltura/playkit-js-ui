@@ -28,8 +28,8 @@
     "advanced_captions_settings": "Advanced captions settings"
   },
   "share": {
-    "share_title": "Share",
-    "link_options": "Link options"
+    "title": "Share",
+    "embed_options": "Embed Options"
   },
   "overlay": {
     "close": "Close"
