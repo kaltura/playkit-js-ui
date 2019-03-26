@@ -18,7 +18,8 @@ import {bindActions} from '../../utils/bind-actions';
  */
 const mapStateToProps = state => ({
   open: state.share.overlayOpen,
-  isPlaying: state.engine.isPlaying
+  isPlaying: state.engine.isPlaying,
+  config: state.config.components.share
 });
 
 @connect(
@@ -64,8 +65,13 @@ class ShareControl extends BaseComponent {
     }
   }
 
+  /**
+   * returns the merged share config
+   * @returns {Object[]} the merged share config
+   * @private
+   */
   _getMergedShareConfig(): Array<Object> {
-    let appConfig = this.player.config.ui.share.socialNetworks;
+    let appConfig = this.props.config.socialNetworks || [];
     return appConfig.concat(defaultConfig.filter(item => !appConfig.find(appItem => appItem.name === item.name)));
   }
 
@@ -75,10 +81,10 @@ class ShareControl extends BaseComponent {
    * @returns {React$Element} component element
    * @memberof ShareControl
    */
-  render(): React$Element<any> {
-    const showShare = this.player.config.ui && this.player.config.ui.share && this.player.config.ui.share.enable;
+  render(): React$Element<any> | void {
+    const showShare = this.props.config.enable;
     if (!showShare) {
-      return;
+      return undefined;
     }
     const shareConfig = this._getMergedShareConfig();
     return (
@@ -88,7 +94,13 @@ class ShareControl extends BaseComponent {
         </button>
         {this.state.overlay ? (
           <Portal into=".overlay-portal">
-            <ShareOverlay shareUrl={this.player.config.ui.share.shareUrl} socialNetworks={shareConfig} player={this.player} onClose={() => this.toggleOverlay()} />
+            <ShareOverlay
+              shareUrl={this.props.config.shareUrl}
+              embedUrl={this.props.config.embedUrl}
+              socialNetworks={shareConfig}
+              player={this.player}
+              onClose={() => this.toggleOverlay()}
+            />
           </Portal>
         ) : null}
       </div>
