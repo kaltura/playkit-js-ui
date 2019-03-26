@@ -6,6 +6,13 @@ import {IconType} from '../icon/index';
 import {Icon} from '../icon/icon';
 
 /**
+ * The default copy action indication timeout value
+ * @type {number}
+ * @const
+ */
+const TIMEOUT = 2000;
+
+/**
  * CopyButton component
  *
  * @class CopyButton
@@ -41,7 +48,7 @@ class CopyButton extends BaseComponent {
       this.setState({copySuccess: true});
       setTimeout(() => {
         this.setState({copySuccess: false});
-      }, 2000);
+      }, TIMEOUT);
     } catch (e) {
       this.setState({copySuccess: false});
     }
