@@ -1,4 +1,6 @@
 // @flow
 declare type ShareConfig = {
-  enable: boolean
+  enable: boolean,
+  shareUrl: string,
+  embedUrl: string
 };
