@@ -23,7 +23,6 @@ const mapStateToProps = state => ({
 
 const shareOverlayState: Object = {
   Main: 'main',
-  LinkOptions: 'link-options',
   EmbedOptions: 'embed-options'
 };
 
@@ -267,10 +266,15 @@ class ShareOverlay extends BaseComponent {
               <Icon type={IconType.Embed} />
             </a>
           </div>
-          <ShareUrl shareUrl={this.props.shareUrl} />
-          <a onClick={() => this._transitionToState(shareOverlayState.LinkOptions)}>
-            <Text id="share.link_options" />
-          </a>
+          <div className={style.linkOptionsContainer}>
+            <ShareUrl shareUrl={this.getShareUrl()} copy={true} />
+            <VideoStartOptions
+              startFrom={this.state.startFrom}
+              startFromValue={this.state.startFromValue}
+              handleStartFromChange={e => this._handleStartFromChange(e)}
+              toggleStartFrom={() => this._toggleStartFrom()}
+            />
+          </div>
         </div>
       </div>
     );
@@ -307,9 +311,6 @@ class ShareOverlay extends BaseComponent {
    */
   renderStateContent(): React$Element<any> {
     switch (this.state.state) {
-      case shareOverlayState.LinkOptions:
-        return this.renderOptionsState({title: 'Link options', shareUrl: this.getShareUrl()});
-
       case shareOverlayState.EmbedOptions:
         return this.renderOptionsState({title: <Text id="share.embed_options" />, shareUrl: this.getEmbedCode()});
 
