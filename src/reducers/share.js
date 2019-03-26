@@ -8,7 +8,8 @@ export const types = {
 };
 
 export const initialState = {
-  overlayOpen: false
+  overlayOpen: false,
+  config: {}
 };
 
 export default (state: Object = initialState, action: Object) => {
