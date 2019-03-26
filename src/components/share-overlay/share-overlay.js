@@ -21,7 +21,7 @@ const mapStateToProps = state => ({
   open: state.share.overlayOpen
 });
 
-const shareOverlayState: Object = {
+const shareOverlayView: Object = {
   Main: 'main',
   EmbedOptions: 'embed-options'
 };
@@ -48,11 +48,10 @@ const ShareButton = (props: Object): React$Element<any> => {
       href = templateUrl.replace('{shareUrl}', shareUrl);
     }
     window.open(href, '_blank', 'width=580,height=580');
-    return false;
   };
 
   return (
-    <a
+    <button
       href={props.config.shareUrl}
       target="_blank"
       rel="noopener noreferrer"
@@ -62,7 +61,7 @@ const ShareButton = (props: Object): React$Element<any> => {
       className={[style.btnRounded, style[props.config.iconType], props.config.iconType].join(' ')}
       onClick={() => share()}>
       <Icon style={props.config.iconType === 'svg' ? `background-image: url(${props.config.svg})` : ``} type={props.config.iconType} />
-    </a>
+    </button>
   );
 };
 
@@ -92,7 +91,7 @@ const ShareUrl = (props: Object): React$Element<any> => {
   return (
     <div className={props.copy ? style.copyUrlRow : ''}>
       <div className={[style.formGroup, style.hasIcon, style.inputCopyUrl].join(' ')} style="width: 350px;">
-        <input type="text" ref={c => (_ref = c)} placeholder="Share URL" className={style.formControl} value={props.shareUrl} readOnly />
+        <input type="text" ref={c => (_ref = c)} className={style.formControl} value={props.shareUrl} readOnly />
         <Icon type={IconType.Link} />
       </div>
       {props.copy && <CopyButton copy={() => copyUrl(_ref)} />}
@@ -111,7 +110,9 @@ const VideoStartOptions = (props: Object): React$Element<any> => {
     <div className={style.videoStartOptionsRow}>
       <div className={[style.checkbox, style.dInlineBlock].join(' ')}>
         <input type="checkbox" id="start-from" checked={props.startFrom} onClick={() => props.toggleStartFrom()} />
-        <label htmlFor="start-from">Start video at </label>
+        <label htmlFor="start-from">
+          <Text id={'share.start_video_at'} />
+        </label>
       </div>
       <div className={[style.formGroup, style.dInlineBlock].join(' ')}>
         <input
@@ -154,7 +155,7 @@ class ShareOverlay extends BaseComponent {
    */
   componentWillMount() {
     this.setState({
-      state: shareOverlayState.Main,
+      view: shareOverlayView.Main,
       startFrom: false,
       startFromValue: Math.floor(this.player.currentTime)
     });
@@ -168,7 +169,7 @@ class ShareOverlay extends BaseComponent {
    * @memberof ShareOverlay
    */
   _transitionToState(stateName: string): void {
-    this.setState({state: stateName});
+    this.setState({view: stateName});
   }
 
   /**
@@ -250,7 +251,7 @@ class ShareOverlay extends BaseComponent {
    */
   renderMainState(): React$Element<any> {
     return (
-      <div className={this.state.state === shareOverlayState.Main ? 'overlay-screen active' : 'overlay-screen'}>
+      <div className={this.state.view === shareOverlayView.Main ? 'overlay-screen active' : 'overlay-screen'}>
         <div className={style.title}>
           <Text id="share.title" />
         </div>
@@ -262,9 +263,11 @@ class ShareOverlay extends BaseComponent {
               href={`mailto:?subject=${encodeURIComponent('email subject')}&body=${encodeURIComponent('email body')}`}>
               <Icon type={IconType.Email} />
             </a>
-            <a className={[style.btnRounded, style.embedShareBtn].join(' ')} onClick={() => this._transitionToState(shareOverlayState.EmbedOptions)}>
+            <button
+              className={[style.btnRounded, style.embedShareBtn].join(' ')}
+              onClick={() => this._transitionToState(shareOverlayView.EmbedOptions)}>
               <Icon type={IconType.Embed} />
-            </a>
+            </button>
           </div>
           <div className={style.linkOptionsContainer}>
             <ShareUrl shareUrl={this.getShareUrl()} copy={true} />
@@ -288,7 +291,7 @@ class ShareOverlay extends BaseComponent {
    */
   renderOptionsState(props: Object): React$Element<any> {
     return (
-      <div className={this.state.state === shareOverlayState.EmbedOptions ? 'overlay-screen active' : 'overlay-screen'}>
+      <div className={this.state.view === shareOverlayView.EmbedOptions ? 'overlay-screen active' : 'overlay-screen'}>
         <div className={style.title}>{props.title}</div>
         <div className={style.linkOptionsContainer}>
           <ShareUrl shareUrl={props.shareUrl} copy={true} />
@@ -310,11 +313,11 @@ class ShareOverlay extends BaseComponent {
    * @memberof ShareOverlay
    */
   renderStateContent(): React$Element<any> {
-    switch (this.state.state) {
-      case shareOverlayState.EmbedOptions:
+    switch (this.state.view) {
+      case shareOverlayView.EmbedOptions:
         return this.renderOptionsState({title: <Text id="share.embed_options" />, shareUrl: this.getEmbedCode()});
 
-      case shareOverlayState.Main:
+      case shareOverlayView.Main:
       default:
         return this.renderMainState();
     }

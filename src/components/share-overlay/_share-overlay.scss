@@ -6,6 +6,7 @@
       margin: 0 8px;
       transition: transform 100ms;
       will-change: transform;
+      border: none;
 
       &:first-child {
         margin-left: 0;

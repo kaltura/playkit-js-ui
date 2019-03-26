@@ -29,7 +29,8 @@
   },
   "share": {
     "title": "Share",
-    "embed_options": "Embed Options"
+    "embed_options": "Embed Options",
+    "start_video_at": "Start video at"
   },
   "overlay": {
     "close": "Close"
