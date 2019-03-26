@@ -219,7 +219,8 @@ var uiManager = new playkit.ui.UIManager(player, config);
 
 ##
 
-> > ### config.components.fullscreen
+> > ### config.components.fullscreen (Deprecated)
+> > #### Moved under playback.inBrowserFullscreenForIOS
 > >
 > > ##### Type: `Object`
 > >
