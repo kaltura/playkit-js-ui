@@ -82,8 +82,8 @@ class ShareControl extends BaseComponent {
    * @memberof ShareControl
    */
   render(): React$Element<any> | void {
-    const showShare = this.props.config.enable;
-    if (!showShare) {
+    const {embedUrl, enable, shareUrl} = this.props.config;
+    if (!(enable && shareUrl && embedUrl)) {
       return undefined;
     }
     const shareConfig = this._getMergedShareConfig();
@@ -95,8 +95,8 @@ class ShareControl extends BaseComponent {
         {this.state.overlay ? (
           <Portal into=".overlay-portal">
             <ShareOverlay
-              shareUrl={this.props.config.shareUrl}
-              embedUrl={this.props.config.embedUrl}
+              shareUrl={shareUrl}
+              embedUrl={embedUrl}
               socialNetworks={shareConfig}
               player={this.player}
               onClose={() => this.toggleOverlay()}
