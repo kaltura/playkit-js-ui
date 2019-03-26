@@ -22,24 +22,29 @@ class CopyButton extends BaseComponent {
   };
 
   /**
-   * Creates an instance of CastOverlay.
+   * Creates an instance of CopyButton.
+   * @param {Object} props object
    * @memberof CopyButton
    */
-  constructor(props) {
+  constructor(props: Object) {
     super(props);
     this.setState({copySuccess: false});
   }
 
+  /**
+   * copy and update the state
+   * @returns {void}
+   */
   copy() {
     try {
       this.props.copy();
       this.setState({copySuccess: true});
+      setTimeout(() => {
+        this.setState({copySuccess: false});
+      }, 2000);
     } catch (e) {
       this.setState({copySuccess: false});
     }
-    setTimeout(() => {
-      this.setState({copySuccess: false});
-    }, 2000);
   }
 
   /**
