@@ -98,8 +98,7 @@
     vertical-align: middle;
   }
   input:checked + label:before {
-    border: 1px solid #fff;
-    background: #fff;
+    content: '✔';
   }
 }
 
