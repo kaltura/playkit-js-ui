@@ -271,12 +271,16 @@ class ShareOverlay extends BaseComponent {
           </div>
           <div className={style.linkOptionsContainer}>
             <ShareUrl shareUrl={this.getShareUrl()} copy={true} />
-            <VideoStartOptions
-              startFrom={this.state.startFrom}
-              startFromValue={this.state.startFromValue}
-              handleStartFromChange={e => this._handleStartFromChange(e)}
-              toggleStartFrom={() => this._toggleStartFrom()}
-            />
+            {this.props.enableTimeOffset ? (
+              <VideoStartOptions
+                startFrom={this.state.startFrom}
+                startFromValue={this.state.startFromValue}
+                handleStartFromChange={e => this._handleStartFromChange(e)}
+                toggleStartFrom={() => this._toggleStartFrom()}
+              />
+            ) : (
+              undefined
+            )}
           </div>
         </div>
       </div>
@@ -295,12 +299,16 @@ class ShareOverlay extends BaseComponent {
         <div className={style.title}>{props.title}</div>
         <div className={style.linkOptionsContainer}>
           <ShareUrl shareUrl={props.shareUrl} copy={true} />
-          <VideoStartOptions
-            startFrom={this.state.startFrom}
-            startFromValue={this.state.startFromValue}
-            handleStartFromChange={e => this._handleStartFromChange(e)}
-            toggleStartFrom={() => this._toggleStartFrom()}
-          />
+          {this.props.enableTimeOffset ? (
+            <VideoStartOptions
+              startFrom={this.state.startFrom}
+              startFromValue={this.state.startFromValue}
+              handleStartFromChange={e => this._handleStartFromChange(e)}
+              toggleStartFrom={() => this._toggleStartFrom()}
+            />
+          ) : (
+            undefined
+          )}
         </div>
       </div>
     );

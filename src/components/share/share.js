@@ -82,7 +82,7 @@ class ShareControl extends BaseComponent {
    * @memberof ShareControl
    */
   render(): React$Element<any> | void {
-    const {embedUrl, enable, shareUrl} = this.props.config;
+    const {embedUrl, enable, shareUrl, enableTimeOffset} = this.props.config;
     if (!(enable && shareUrl && embedUrl)) {
       return undefined;
     }
@@ -97,6 +97,7 @@ class ShareControl extends BaseComponent {
             <ShareOverlay
               shareUrl={shareUrl}
               embedUrl={embedUrl}
+              enableTimeOffset={enableTimeOffset}
               socialNetworks={shareConfig}
               player={this.player}
               onClose={() => this.toggleOverlay()}
