@@ -3,11 +3,8 @@ import style from '../../styles/style.scss';
 import {h} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {connect} from 'preact-redux';
-import {bindActions} from '../../utils/bind-actions';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
-import {actions as engineActions} from '../../reducers/engine';
-import {actions} from '../../reducers/shell';
 
 /**
  * mapping state to props
@@ -19,10 +16,7 @@ const mapStateToProps = state => ({
   fullscreen: state.engine.fullscreen
 });
 
-@connect(
-  mapStateToProps,
-  bindActions(Object.assign({}, actions, engineActions))
-)
+@connect(mapStateToProps)
 /**
  * FullscreenControl component
  *
