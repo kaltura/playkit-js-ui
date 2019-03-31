@@ -2,5 +2,6 @@
 declare type ShareConfig = {
   enable: boolean,
   shareUrl: string,
-  embedUrl: string
+  embedUrl: string,
+  enableTimeOffset: boolean
 };
