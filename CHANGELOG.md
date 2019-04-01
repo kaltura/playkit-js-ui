@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.38.0"></a>
+# [0.38.0](https://github.com/kaltura/playkit-js-ui/compare/v0.37.5...v0.38.0) (2019-04-01)
+
+
+### Bug Fixes
+
+* **FEC-7642:** firefox speed selector keyboard shortcut doesnt work ([#368](https://github.com/kaltura/playkit-js-ui/issues/368)) ([ce9d3b8](https://github.com/kaltura/playkit-js-ui/commit/ce9d3b8))
+* **FEC-8826:** fullscreen implementation moved to core ([#370](https://github.com/kaltura/playkit-js-ui/issues/370)) ([6f7c648](https://github.com/kaltura/playkit-js-ui/commit/6f7c648))
+
+
+### Features
+
+* **FEC-8662:** share component ([#369](https://github.com/kaltura/playkit-js-ui/issues/369)) ([efca096](https://github.com/kaltura/playkit-js-ui/commit/efca096))
+
+
+
 <a name="0.37.5"></a>
 ## [0.37.5](https://github.com/kaltura/playkit-js-ui/compare/v0.37.3...v0.37.5) (2019-03-17)
 
