@@ -25,6 +25,7 @@ import {PlaylistCountdown} from '../components/playlist-countdown';
 import {PlaylistNextScreen} from '../components/playlist-next-screen';
 import {PictureInPicture} from '../components/picture-in-picture';
 import {PictureInPictureOverlay} from '../components/picture-in-picture-overlay';
+import {ShareControl} from '../components/share';
 
 /**
  * Playback ui interface
@@ -63,6 +64,7 @@ export function playbackUI(props: any): React$Element<any> {
         </BottomBar>
       </div>
       {Watermark.shouldRender(props) ? <Watermark player={props.player} /> : undefined}
+      <ShareControl player={props.player} />
       {PlaylistCountdown.shouldRender(props) ? <PlaylistCountdown player={props.player} /> : undefined}
       <PrePlaybackPlayOverlay player={props.player} />
       <CastBeforePlay player={props.player} />

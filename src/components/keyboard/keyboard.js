@@ -17,7 +17,8 @@ import {isPlayingAdOrPlayback} from '../../reducers/getters';
 const mapStateToProps = state => ({
   isPlayingAdOrPlayback: isPlayingAdOrPlayback(state.engine),
   playerNav: state.shell.playerNav,
-  textTracks: state.engine.textTracks
+  textTracks: state.engine.textTracks,
+  shareOverlay: state.share.overlayOpen
 });
 
 /**
@@ -60,7 +61,7 @@ class KeyboardControl extends BaseComponent {
       return;
     }
     playerContainer.onkeydown = (e: KeyboardEvent) => {
-      if (!this.props.playerNav && typeof this.keyboardHandlers[e.keyCode] === 'function') {
+      if (!this.props.shareOverlay && !this.props.playerNav && typeof this.keyboardHandlers[e.keyCode] === 'function') {
         e.preventDefault();
         this.logger.debug(`KeyDown -> keyName: ${getKeyName(e.keyCode)}, shiftKey: ${e.shiftKey.toString()}`);
         const payload = this.keyboardHandlers[e.keyCode](e.shiftKey);

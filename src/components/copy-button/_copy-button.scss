@@ -1,0 +1,28 @@
+.copy-url-row {
+  .input-copy-url {
+    margin: 0;
+  }
+  .btn-copy-url {
+    margin-left: 10px;
+
+    .icon {
+      height: 24px;
+      width: 24px;
+      margin-top: -3px;
+      display: none;
+    }
+    .icon-copy {
+      display: block;
+    }
+    &.copied {
+      .icon-copy {
+        display: none;
+      }
+      .icon-check {
+        display: block;
+      }
+    }
+  }
+}
+
+

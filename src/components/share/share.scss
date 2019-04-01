@@ -1,0 +1,16 @@
+.player{
+  .control-button-container.control-share{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    display: none;
+  }
+
+  &.hover, &.state-paused {
+    .control-button-container.control-share{
+      display: inline-block;
+    }
+  }
+}
+
+

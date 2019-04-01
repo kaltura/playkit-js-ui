@@ -22,6 +22,7 @@ import {Backdrop} from '../components/backdrop/backdrop';
 import {PlaybackControls} from '../components/playback-controls';
 import {PictureInPicture} from '../components/picture-in-picture';
 import {PictureInPictureOverlay} from '../components/picture-in-picture-overlay';
+import {ShareControl} from '../components/share';
 
 /**
  * Live ui intrface
@@ -58,6 +59,7 @@ export function liveUI(props: any): React$Element<any> {
         </BottomBar>
       </div>
       {Watermark.shouldRender(props) ? <Watermark player={props.player} /> : undefined}
+      <ShareControl player={props.player} />
       <PrePlaybackPlayOverlay player={props.player} />
       <CastBeforePlay player={props.player} />
       <PictureInPictureOverlay player={props.player} />
