@@ -18,7 +18,8 @@ const mapStateToProps = state => ({
   isPlayingAdOrPlayback: isPlayingAdOrPlayback(state.engine),
   iconType: state.overlayAction.iconType,
   playerHover: state.shell.playerHover,
-  isMobile: state.shell.isMobile
+  isMobile: state.shell.isMobile,
+  vrStereoMode: state.engine.vrStereoMode
 });
 
 /**
@@ -257,10 +258,10 @@ class OverlayAction extends BaseComponent {
     return (
       <div
         className={`${style.overlayAction} ${this.state.animation ? style.in : ''}`}
-        onMouseDown={e => this.onOverlayPointerDown(e)}
-        onTouchStart={e => this.onOverlayPointerDown(e)}
-        onMouseUp={e => this.onOverlayMouseUp(e)}
-        onTouchEnd={e => this.onOverlayTouchEnd(e)}>
+        onMouseDown={this.props.vrStereoMode ? e => this.onOverlayPointerDown(e) : null}
+        onTouchStart={this.props.vrStereoMode ? e => this.onOverlayPointerDown(e) : null}
+        onMouseUp={this.props.vrStereoMode ? e => this.onOverlayMouseUp(e) : null}
+        onTouchEnd={this.props.vrStereoMode ? e => this.onOverlayTouchEnd(e) : null}>
         {this.state.animation ? this.renderIcons() : undefined}
       </div>
     );
