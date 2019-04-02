@@ -77,7 +77,10 @@ class PlaylistNextScreen extends BaseComponent {
           <div className={style.playlistNextScreenPosterPlaceholder}>
             <div className={style.playlistNextScreenPosterAspectRatio}>
               <div className={style.playlistNextScreenPoster} onClick={() => this.onPosterClick()}>
-                <div className={style.playlistNextScreenPosterImg} style={`background-image: url(${next.sources.poster || ''});`} />
+                <div
+                  className={style.playlistNextScreenPosterImg}
+                  style={`background-image: url(${next.sources.poster ? `${next.sources.poster}/width/384` : ''});`}
+                />
                 <Icon type={IconType.Play} />
               </div>
             </div>
