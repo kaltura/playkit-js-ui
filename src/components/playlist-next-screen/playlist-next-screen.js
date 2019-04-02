@@ -62,6 +62,19 @@ class PlaylistNextScreen extends BaseComponent {
   }
 
   /**
+   * @private
+   * @memberof PlaylistNextScreen
+   * @returns {string} - Next poster URL
+   */
+  _getPosterUrl(): string {
+    const next = this.props.playlist.next;
+    if (next.sources.poster) {
+      return next.sources.poster.indexOf('/width/') > -1 ? next.sources.poster : `${next.sources.poster}/width/${MAX_POSTER_WIDTH}`;
+    }
+    return '';
+  }
+
+  /**
    * render component
    *
    * @param {*} props - component props
@@ -84,10 +97,7 @@ class PlaylistNextScreen extends BaseComponent {
           <div className={style.playlistNextScreenPosterPlaceholder}>
             <div className={style.playlistNextScreenPosterAspectRatio}>
               <div className={style.playlistNextScreenPoster} onClick={() => this.onPosterClick()}>
-                <div
-                  className={style.playlistNextScreenPosterImg}
-                  style={`background-image: url(${next.sources.poster ? `${next.sources.poster}/width/${MAX_POSTER_WIDTH}` : ''});`}
-                />
+                <div className={style.playlistNextScreenPosterImg} style={`background-image: url(${this._getPosterUrl()});`} />
                 <Icon type={IconType.Play} />
               </div>
             </div>
