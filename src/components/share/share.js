@@ -87,13 +87,14 @@ class ShareControl extends BaseComponent {
       return undefined;
     }
     const shareConfig = this._getMergedShareConfig();
+    const portalSelector = `#${this.player.config.targetId} .overlay-portal`;
     return (
       <div className={[style.controlButtonContainer, style.controlShare].join(' ')}>
         <button className={style.controlButton} onClick={() => this.toggleOverlay()} aria-label="Share">
           <Icon type={IconType.Share} />
         </button>
         {this.state.overlay ? (
-          <Portal into=".overlay-portal">
+          <Portal into={portalSelector}>
             <ShareOverlay
               shareUrl={shareUrl}
               embedUrl={embedUrl}
