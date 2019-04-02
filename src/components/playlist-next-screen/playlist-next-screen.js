@@ -7,6 +7,13 @@ import {connect} from 'preact-redux';
 import {default as Icon, IconType} from '../icon';
 
 /**
+ * The maximum next item poster width
+ * @type {number}
+ * @const
+ */
+const MAX_POSTER_WIDTH: number = 384;
+
+/**
  * mapping state to props
  * @param {*} state - redux store state
  * @returns {Object} - mapped state to this component
@@ -79,7 +86,7 @@ class PlaylistNextScreen extends BaseComponent {
               <div className={style.playlistNextScreenPoster} onClick={() => this.onPosterClick()}>
                 <div
                   className={style.playlistNextScreenPosterImg}
-                  style={`background-image: url(${next.sources.poster ? `${next.sources.poster}/width/384` : ''});`}
+                  style={`background-image: url(${next.sources.poster ? `${next.sources.poster}/width/${MAX_POSTER_WIDTH}` : ''});`}
                 />
                 <Icon type={IconType.Play} />
               </div>
