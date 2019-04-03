@@ -34,6 +34,7 @@ const mapStateToProps = state => ({
  * @extends {BaseComponent}
  */
 class ShareControl extends BaseComponent {
+  _portal: any;
   /**
    * Creates an instance of ShareControl.
    * @param {Object} obj obj
@@ -87,13 +88,11 @@ class ShareControl extends BaseComponent {
       return undefined;
     }
     const shareConfig = this._getMergedShareConfig();
+    const portalSelector = `#${this.player.config.targetId} .overlay-portal`;
     return (
       <div className={[style.controlButtonContainer, style.controlShare].join(' ')}>
-        <button className={style.controlButton} onClick={() => this.toggleOverlay()} aria-label="Share">
-          <Icon type={IconType.Share} />
-        </button>
         {this.state.overlay ? (
-          <Portal into=".overlay-portal">
+          <Portal into={portalSelector} ref={ref => (this._portal = ref)}>
             <ShareOverlay
               shareUrl={shareUrl}
               embedUrl={embedUrl}
@@ -103,7 +102,11 @@ class ShareControl extends BaseComponent {
               onClose={() => this.toggleOverlay()}
             />
           </Portal>
-        ) : null}
+        ) : (
+          <button className={style.controlButton} onClick={() => this.toggleOverlay()} aria-label="Share">
+            <Icon type={IconType.Share} />
+          </button>
+        )}
       </div>
     );
   }

@@ -4,6 +4,7 @@ import {h} from 'preact';
 import BaseComponent from '../base';
 import {IconType} from '../icon/index';
 import {Icon} from '../icon/icon';
+import {Text, Localizer} from 'preact-i18n';
 
 /**
  * The default copy action indication timeout value
@@ -65,10 +66,12 @@ class CopyButton extends BaseComponent {
     let copyUrlClasses = [style.btnCopyUrl].join(' ');
     copyUrlClasses += this.state.copySuccess ? ' ' + style.copied : '';
     return (
-      <a className={copyUrlClasses} onClick={() => this.copy()}>
-        <Icon type={IconType.Copy} />
-        <Icon type={IconType.Check} />
-      </a>
+      <Localizer>
+        <a className={copyUrlClasses} onClick={() => this.copy()} title={<Text id="copy.button" />}>
+          <Icon type={IconType.Copy} />
+          <Icon type={IconType.Check} />
+        </a>
+      </Localizer>
     );
   }
 }
