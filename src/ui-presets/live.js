@@ -39,9 +39,9 @@ export function liveUI(props: any): React$Element<any> {
       <div className={style.playerGui} id="player-gui">
         <OverlayPortal />
         <UnmuteIndication player={props.player} />
-        <ShareControl player={props.player} />
         <OverlayAction player={props.player} />
         <PlaybackControls player={props.player} />
+        <ShareControl player={props.player} />
         <BottomBar>
           <SeekBarLivePlaybackContainer showFramePreview showTimeBubble player={props.player} playerContainer={props.playerContainer} />
           <div className={style.leftControls}>

@@ -42,9 +42,9 @@ export function playbackUI(props: any): React$Element<any> {
       <div className={style.playerGui} id="player-gui">
         <OverlayPortal />
         <UnmuteIndication player={props.player} />
-        <ShareControl player={props.player} />
         <OverlayAction player={props.player} />
         <PlaybackControls player={props.player} />
+        <ShareControl player={props.player} />
         {PlaylistNextScreen.shouldRender(props) ? <PlaylistNextScreen player={props.player} /> : undefined}
         <BottomBar>
           <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player} playerContainer={props.playerContainer} />
