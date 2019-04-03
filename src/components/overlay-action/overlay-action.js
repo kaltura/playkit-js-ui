@@ -19,7 +19,8 @@ const mapStateToProps = state => ({
   iconType: state.overlayAction.iconType,
   playerHover: state.shell.playerHover,
   isMobile: state.shell.isMobile,
-  vrStereoMode: state.engine.vrStereoMode
+  isVr: state.engine.isVr,
+  forceScrollInVideoPlayer: state.config.forceScrollInVideoPlayer
 });
 
 /**
@@ -258,10 +259,11 @@ class OverlayAction extends BaseComponent {
     return (
       <div
         className={`${style.overlayAction} ${this.state.animation ? style.in : ''}`}
-        onMouseDown={this.props.vrStereoMode ? e => this.onOverlayPointerDown(e) : null}
-        onTouchStart={this.props.vrStereoMode ? e => this.onOverlayPointerDown(e) : null}
-        onMouseUp={this.props.vrStereoMode ? e => this.onOverlayMouseUp(e) : null}
-        onTouchEnd={this.props.vrStereoMode ? e => this.onOverlayTouchEnd(e) : null}>
+        onMouseDown={this.props.isVr && this.props.forceScrollInVideoPlayer ? e => this.onOverlayPointerDown(e) : null}
+        onTouchStart={this.props.isVr && this.props.forceScrollInVideoPlayer ? e => this.onOverlayPointerDown(e) : null}
+        onMouseUp={this.props.isVr && this.props.forceScrollInVideoPlayer ? e => this.onOverlayMouseUp(e) : null}
+        onTouchEnd={this.props.isVr && this.props.forceScrollInVideoPlayer ? e => this.onOverlayTouchEnd(e) : null}
+        onClick={this.props.isVr && this.props.forceScrollInVideoPlayer ? null : e => this.onOverlayMouseUp(e)}>
         {this.state.animation ? this.renderIcons() : undefined}
       </div>
     );
