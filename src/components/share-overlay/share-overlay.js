@@ -79,11 +79,16 @@ const ShareUrl = (props: Object): React$Element<any> => {
    * on success, set success internal component state for 2 seconds
    *
    * @param {HTMLInputElement} inputElement - start from input element
+   * @param {boolean} isIos - if UA is on iOS device
    * @returns {void}
    * @memberof ShareOverlay
    */
-  const copyUrl = (inputElement: HTMLInputElement) => {
-    inputElement.select();
+  const copyUrl = (inputElement: HTMLInputElement, isIos: boolean) => {
+    if (isIos) {
+      inputElement.setSelectionRange(0, 9999);
+    } else {
+      inputElement.select();
+    }
     document.execCommand('copy');
     inputElement.blur();
   };
@@ -94,7 +99,7 @@ const ShareUrl = (props: Object): React$Element<any> => {
         <input type="text" ref={c => (_ref = c)} className={style.formControl} value={props.shareUrl} readOnly />
         <Icon type={IconType.Link} />
       </div>
-      {props.copy && <CopyButton copy={() => copyUrl(_ref)} />}
+      {props.copy && <CopyButton copy={() => copyUrl(_ref, props.isIos)} />}
     </div>
   );
 };
@@ -154,6 +159,7 @@ class ShareOverlay extends BaseComponent {
    * @memberof ShareOverlay
    */
   componentWillMount() {
+    this.isIos = this.player.env.os.name === 'iOS';
     this.setState({
       view: shareOverlayView.Main,
       startFrom: false,
@@ -270,7 +276,7 @@ class ShareOverlay extends BaseComponent {
             </button>
           </div>
           <div className={style.linkOptionsContainer}>
-            <ShareUrl shareUrl={this.getShareUrl()} copy={true} />
+            <ShareUrl shareUrl={this.getShareUrl()} copy={true} isIos={this.isIos} />
             {this.props.enableTimeOffset ? (
               <VideoStartOptions
                 startFrom={this.state.startFrom}
@@ -298,7 +304,7 @@ class ShareOverlay extends BaseComponent {
       <div className={this.state.view === shareOverlayView.EmbedOptions ? 'overlay-screen active' : 'overlay-screen'}>
         <div className={style.title}>{props.title}</div>
         <div className={style.linkOptionsContainer}>
-          <ShareUrl shareUrl={props.shareUrl} copy={true} />
+          <ShareUrl shareUrl={props.shareUrl} copy={true} isIos={this.isIos} />
           {this.props.enableTimeOffset ? (
             <VideoStartOptions
               startFrom={this.state.startFrom}
