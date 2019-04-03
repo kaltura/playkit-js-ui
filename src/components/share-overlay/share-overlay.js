@@ -57,7 +57,7 @@ const ShareButton = (props: Object): React$Element<any> => {
       rel="noopener noreferrer"
       title={props.config.title}
       role="button"
-      aria-label={props.config.ariaLable}
+      aria-label={props.config.ariaLablel}
       className={[style.btnRounded, style[props.config.iconType], props.config.iconType].join(' ')}
       onClick={() => share()}>
       <Icon style={props.config.iconType === 'svg' ? `background-image: url(${props.config.svg})` : ``} type={props.config.iconType} />
@@ -208,6 +208,18 @@ class ShareOverlay extends BaseComponent {
   }
 
   /**
+   * Create the email mailto template string
+   * @returns {string} the mailto template
+   * @private
+   */
+  _getEmailTemplate(): string {
+    const emailSubject = encodeURIComponent(`Check out ${this.player.config.sources.metadata.name}`);
+    const emailBody = encodeURIComponent(`Check out ${this.player.config.sources.metadata.name}: ${this.getShareUrl()}`);
+    const mailTo = `mailto:?subject=${emailSubject}&body=${emailBody}`;
+    return mailTo;
+  }
+
+  /**
    * toggle start from option checkbox in the internal component state
    *
    * @returns {void}
@@ -265,10 +277,7 @@ class ShareOverlay extends BaseComponent {
           <div className={style.shareIcons}>
             {this._createSocialNetworks(this.props.socialNetworks)}
             <Localizer>
-              <a
-                className={[style.btnRounded, style.emailShareBtn].join(' ')}
-                href={`mailto:?subject=${encodeURIComponent('email subject')}&body=${encodeURIComponent('email body')}`}
-                title={<Text id="share.email" />}>
+              <a className={[style.btnRounded, style.emailShareBtn].join(' ')} href={this._getEmailTemplate()} title={<Text id="share.email" />}>
                 <Icon type={IconType.Email} />
               </a>
             </Localizer>
