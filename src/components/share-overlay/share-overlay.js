@@ -1,6 +1,6 @@
 //@flow
 import {h} from 'preact';
-import {Text} from 'preact-i18n';
+import {Text, Localizer} from 'preact-i18n';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/share';
@@ -264,16 +264,22 @@ class ShareOverlay extends BaseComponent {
         <div className={style.shareMainContainer}>
           <div className={style.shareIcons}>
             {this._createSocialNetworks(this.props.socialNetworks)}
-            <a
-              className={[style.btnRounded, style.emailShareBtn].join(' ')}
-              href={`mailto:?subject=${encodeURIComponent('email subject')}&body=${encodeURIComponent('email body')}`}>
-              <Icon type={IconType.Email} />
-            </a>
-            <button
-              className={[style.btnRounded, style.embedShareBtn].join(' ')}
-              onClick={() => this._transitionToState(shareOverlayView.EmbedOptions)}>
-              <Icon type={IconType.Embed} />
-            </button>
+            <Localizer>
+              <a
+                className={[style.btnRounded, style.emailShareBtn].join(' ')}
+                href={`mailto:?subject=${encodeURIComponent('email subject')}&body=${encodeURIComponent('email body')}`}
+                title={<Text id="share.email" />}>
+                <Icon type={IconType.Email} />
+              </a>
+            </Localizer>
+            <Localizer>
+              <button
+                className={[style.btnRounded, style.embedShareBtn].join(' ')}
+                onClick={() => this._transitionToState(shareOverlayView.EmbedOptions)}
+                title={<Text id="share.embed" />}>
+                <Icon type={IconType.Embed} />
+              </button>
+            </Localizer>
           </div>
           <div className={style.linkOptionsContainer}>
             <ShareUrl shareUrl={this.getShareUrl()} copy={true} isIos={this.isIos} />
