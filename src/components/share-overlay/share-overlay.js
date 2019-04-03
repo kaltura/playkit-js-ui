@@ -159,6 +159,7 @@ class ShareOverlay extends BaseComponent {
    * @memberof ShareOverlay
    */
   componentWillMount() {
+    this.isIos = this.player.env.os.name === 'iOS';
     this.setState({
       view: shareOverlayView.Main,
       startFrom: false,
@@ -275,7 +276,7 @@ class ShareOverlay extends BaseComponent {
             </button>
           </div>
           <div className={style.linkOptionsContainer}>
-            <ShareUrl shareUrl={this.getShareUrl()} copy={true} isIos={this.player.env.os.name === 'iOS'} />
+            <ShareUrl shareUrl={this.getShareUrl()} copy={true} isIos={this.isIos} />
             {this.props.enableTimeOffset ? (
               <VideoStartOptions
                 startFrom={this.state.startFrom}
@@ -303,7 +304,7 @@ class ShareOverlay extends BaseComponent {
       <div className={this.state.view === shareOverlayView.EmbedOptions ? 'overlay-screen active' : 'overlay-screen'}>
         <div className={style.title}>{props.title}</div>
         <div className={style.linkOptionsContainer}>
-          <ShareUrl shareUrl={props.shareUrl} copy={true} isIos={this.player.env.os.name === 'iOS'} />
+          <ShareUrl shareUrl={props.shareUrl} copy={true} isIos={this.isIos} />
           {this.props.enableTimeOffset ? (
             <VideoStartOptions
               startFrom={this.state.startFrom}
