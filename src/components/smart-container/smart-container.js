@@ -39,6 +39,7 @@ const mapStateToProps = state => ({
  * @extends {Component}
  */
 class SmartContainer extends Component {
+  _portal: any;
   /**
    * before component mounted, add player css class
    *
@@ -72,7 +73,7 @@ class SmartContainer extends Component {
   render(props: any): React$Element<any> {
     const portalSelector = `#${this.props.targetId} .overlay-portal`;
     return props.isMobile || [PLAYER_SIZE.SMALL, PLAYER_SIZE.EXTRA_SMALL].includes(this.props.playerSize) ? (
-      <Portal into={portalSelector}>
+      <Portal into={portalSelector} ref={ref => (this._portal = ref)}>
         <Overlay open onClose={() => props.onClose()}>
           <div className={style.title}>{props.title}</div>
           {props.children}

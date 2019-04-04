@@ -44,6 +44,7 @@ export function playbackUI(props: any): React$Element<any> {
         <UnmuteIndication player={props.player} />
         <OverlayAction player={props.player} />
         <PlaybackControls player={props.player} />
+        <ShareControl player={props.player} />
         {PlaylistNextScreen.shouldRender(props) ? <PlaylistNextScreen player={props.player} /> : undefined}
         <BottomBar>
           <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player} playerContainer={props.playerContainer} />
@@ -64,7 +65,6 @@ export function playbackUI(props: any): React$Element<any> {
         </BottomBar>
       </div>
       {Watermark.shouldRender(props) ? <Watermark player={props.player} /> : undefined}
-      <ShareControl player={props.player} />
       {PlaylistCountdown.shouldRender(props) ? <PlaylistCountdown player={props.player} /> : undefined}
       <PrePlaybackPlayOverlay player={props.player} />
       <CastBeforePlay player={props.player} />

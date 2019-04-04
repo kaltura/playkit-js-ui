@@ -18,6 +18,9 @@
   "unmute": {
     "unmute": "Unmute"
   },
+  "copy": {
+    "button": "Copy"
+  },
   "settings": {
     "quality": "Quality",
     "speed": "Speed"
@@ -30,7 +33,9 @@
   "share": {
     "title": "Share",
     "embed_options": "Embed Options",
-    "start_video_at": "Start video at"
+    "start_video_at": "Start video at",
+    "email": "Share on Email",
+    "embed": "Get embed code"
   },
   "overlay": {
     "close": "Close"

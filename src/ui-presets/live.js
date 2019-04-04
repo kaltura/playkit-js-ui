@@ -38,9 +38,10 @@ export function liveUI(props: any): React$Element<any> {
       <Loading player={props.player} />
       <div className={style.playerGui} id="player-gui">
         <OverlayPortal />
-        <UnmuteIndication />
+        <UnmuteIndication player={props.player} />
         <OverlayAction player={props.player} />
         <PlaybackControls player={props.player} />
+        <ShareControl player={props.player} />
         <BottomBar>
           <SeekBarLivePlaybackContainer showFramePreview showTimeBubble player={props.player} playerContainer={props.playerContainer} />
           <div className={style.leftControls}>
@@ -59,7 +60,6 @@ export function liveUI(props: any): React$Element<any> {
         </BottomBar>
       </div>
       {Watermark.shouldRender(props) ? <Watermark player={props.player} /> : undefined}
-      <ShareControl player={props.player} />
       <PrePlaybackPlayOverlay player={props.player} />
       <CastBeforePlay player={props.player} />
       <PictureInPictureOverlay player={props.player} />
