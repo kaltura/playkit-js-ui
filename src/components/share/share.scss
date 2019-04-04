@@ -4,9 +4,10 @@
     right: 10px;
     top: 10px;
     display: none;
+    z-index: 1;
   }
 
-  &.hover, &.state-paused {
+  &.hover, &.state-paused, &.state-idle {
     .control-button-container.control-share{
       display: inline-block;
     }
