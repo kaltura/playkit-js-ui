@@ -19,8 +19,7 @@ const mapStateToProps = state => ({
   iconType: state.overlayAction.iconType,
   playerHover: state.shell.playerHover,
   isMobile: state.shell.isMobile,
-  isVr: state.engine.isVr,
-  forceScrollInVideoPlayer: state.config.forceScrollInVideoPlayer
+  preventScrollInPlayer: state.config.preventScrollInPlayer
 });
 
 /**
@@ -127,7 +126,9 @@ class OverlayAction extends BaseComponent {
    * @memberof OverlayAction
    */
   onOverlayPointerDown(event: any): void {
-    event.preventDefault();
+    if (this.props.preventScrollInPlayer) {
+      event.preventDefault();
+    }
     this._pointerDownPosX = event.clientX || event.changedTouches[0].clientX;
     this._pointerDownPosY = event.clientY || event.changedTouches[0].clientY;
   }
@@ -167,10 +168,6 @@ class OverlayAction extends BaseComponent {
   onOverlayClick(): void {
     if (!this.props.isMobile) {
       this.overlayClick();
-    } else {
-      if (this.props.playerHover) {
-        this.togglePlayPause();
-      }
     }
   }
 
@@ -275,11 +272,11 @@ class OverlayAction extends BaseComponent {
     return (
       <div
         className={`${style.overlayAction} ${this.state.animation ? style.in : ''}`}
-        onMouseDown={this.props.isVr && this.props.forceScrollInVideoPlayer ? e => this.onOverlayPointerDown(e) : null}
-        onTouchStart={this.props.isVr && this.props.forceScrollInVideoPlayer ? e => this.onOverlayPointerDown(e) : null}
-        onMouseUp={this.props.isVr && this.props.forceScrollInVideoPlayer ? e => this.onOverlayMouseUp(e) : null}
-        onTouchEnd={this.props.isVr && this.props.forceScrollInVideoPlayer ? e => this.onOverlayTouchEnd(e) : null}
-        onClick={this.props.isVr && this.props.forceScrollInVideoPlayer ? null : e => this.onOverlayClick()}>
+        onMouseDown={this.props.preventScrollInPlayer ? e => this.onOverlayPointerDown(e) : null}
+        onTouchStart={e => this.onOverlayPointerDown(e)}
+        onMouseUp={this.props.preventScrollInPlayer ? e => this.onOverlayMouseUp(e) : null}
+        onTouchEnd={e => this.onOverlayTouchEnd(e)}
+        onClick={this.props.preventScrollInPlayer ? null : () => this.onOverlayClick()}>
         {this.state.animation ? this.renderIcons() : undefined}
       </div>
     );
