@@ -69,7 +69,9 @@ class PlaylistNextScreen extends BaseComponent {
   _getPosterUrl(): string {
     const next = this.props.playlist.next;
     if (next.sources.poster) {
-      return next.sources.poster.indexOf('/width/') > -1 ? next.sources.poster : `${next.sources.poster}/width/${MAX_POSTER_WIDTH}`;
+      return next.sources.poster.indexOf(`entry_id/${next.sources.id}`) > -1 && next.sources.poster.indexOf('/width/') === -1
+        ? `${next.sources.poster}/width/${MAX_POSTER_WIDTH}`
+        : next.sources.poster;
     }
     return '';
   }
