@@ -279,7 +279,7 @@ class OverlayAction extends BaseComponent {
         onTouchStart={this.props.isVr && this.props.forceScrollInVideoPlayer ? e => this.onOverlayPointerDown(e) : null}
         onMouseUp={this.props.isVr && this.props.forceScrollInVideoPlayer ? e => this.onOverlayMouseUp(e) : null}
         onTouchEnd={this.props.isVr && this.props.forceScrollInVideoPlayer ? e => this.onOverlayTouchEnd(e) : null}
-        onClick={this.props.isVr && this.props.forceScrollInVideoPlayer ? null : e => this.onOverlayClick(e)}>
+        onClick={this.props.isVr && this.props.forceScrollInVideoPlayer ? null : e => this.onOverlayClick()}>
         {this.state.animation ? this.renderIcons() : undefined}
       </div>
     );
