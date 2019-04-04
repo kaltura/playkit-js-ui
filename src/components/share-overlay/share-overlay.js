@@ -214,7 +214,7 @@ class ShareOverlay extends BaseComponent {
    */
   _getEmailTemplate(): string {
     let name = 'this video';
-    if (this.player.config.sources && this.player.config.sources.metadata) {
+    if (this.player.config.sources && this.player.config.sources.metadata && this.player.config.sources.metadata.name) {
       name = this.player.config.sources.metadata.name;
     }
     const emailSubject = encodeURIComponent(`Check out ${name}`);
