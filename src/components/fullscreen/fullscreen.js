@@ -24,7 +24,6 @@ const mapStateToProps = state => ({
  * @extends {BaseComponent}
  */
 class FullscreenControl extends BaseComponent {
-
   /**
    * Creates an instance of FullscreenControl.
    * @param {Object} obj obj
