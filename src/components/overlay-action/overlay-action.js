@@ -141,7 +141,7 @@ class OverlayAction extends BaseComponent {
    */
   onOverlayMouseUp(event: any): void {
     if (!this.isDragging(event)) {
-      this.onOverlayClick();
+      this.overlayClick();
     }
   }
 
@@ -155,6 +155,22 @@ class OverlayAction extends BaseComponent {
   onOverlayTouchEnd(event: any): void {
     if (this.props.playerHover && !this.isDragging(event)) {
       this.togglePlayPause();
+    }
+  }
+
+  /**
+   * handler for click for regular videos - (not VR)
+   *
+   * @returns {void}
+   * @memberof OverlayAction
+   */
+  onOverlayClick(): void {
+    if (!this.props.isMobile) {
+      this.overlayClick();
+    } else {
+      if (this.props.playerHover) {
+        this.togglePlayPause();
+      }
     }
   }
 
@@ -175,12 +191,12 @@ class OverlayAction extends BaseComponent {
   }
 
   /**
-   * Handler for overlay click
+   * click action
    *
    * @returns {void}
    * @memberof OverlayAction
    */
-  onOverlayClick(): void {
+  overlayClick(): void {
     const now = Date.now();
     if (now - this._firstClickTime < PLAY_PAUSE_BUFFER_TIME) {
       this.cancelClickTimeout();
@@ -263,7 +279,7 @@ class OverlayAction extends BaseComponent {
         onTouchStart={this.props.isVr && this.props.forceScrollInVideoPlayer ? e => this.onOverlayPointerDown(e) : null}
         onMouseUp={this.props.isVr && this.props.forceScrollInVideoPlayer ? e => this.onOverlayMouseUp(e) : null}
         onTouchEnd={this.props.isVr && this.props.forceScrollInVideoPlayer ? e => this.onOverlayTouchEnd(e) : null}
-        onClick={this.props.isVr && this.props.forceScrollInVideoPlayer ? null : e => this.onOverlayMouseUp(e)}>
+        onClick={this.props.isVr && this.props.forceScrollInVideoPlayer ? null : e => this.onOverlayClick(e)}>
         {this.state.animation ? this.renderIcons() : undefined}
       </div>
     );
