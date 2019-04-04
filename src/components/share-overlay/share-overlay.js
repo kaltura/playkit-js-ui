@@ -57,7 +57,7 @@ const ShareButton = (props: Object): React$Element<any> => {
       rel="noopener noreferrer"
       title={props.config.title}
       role="button"
-      aria-label={props.config.ariaLablel}
+      aria-label={props.config.ariaLabel}
       className={[style.btnRounded, style[props.config.iconType], props.config.iconType].join(' ')}
       onClick={() => share()}>
       <Icon style={props.config.iconType === 'svg' ? `background-image: url(${props.config.svg})` : ``} type={props.config.iconType} />
