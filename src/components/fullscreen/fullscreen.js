@@ -54,7 +54,7 @@ class FullscreenControl extends BaseComponent {
    */
   toggleFullscreen(): void {
     this.logger.debug(`Toggle fullscreen`);
-    this.props.fullscreen ? this.player.exitFullscreen() : this.player.enterFullscreen(this._targetDiv);
+    this.props.fullscreen ? this.player.exitFullscreen() : this.player.enterFullscreen();
     this.notifyClick();
   }
 
