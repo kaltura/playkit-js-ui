@@ -12,7 +12,6 @@ import {default as Icon, IconType} from '../icon';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  targetId: state.config.targetId,
   fullscreen: state.engine.fullscreen
 });
 
@@ -25,8 +24,6 @@ const mapStateToProps = state => ({
  * @extends {BaseComponent}
  */
 class FullscreenControl extends BaseComponent {
-  _targetDiv: ?HTMLElement;
-
   /**
    * Creates an instance of FullscreenControl.
    * @param {Object} obj obj
@@ -37,16 +34,6 @@ class FullscreenControl extends BaseComponent {
   }
 
   /**
-   * before component mounted, cache the target id div
-   *
-   * @returns {void}
-   * @memberof FullscreenControl
-   */
-  componentWillMount(): void {
-    this._targetDiv = document.getElementById(this.props.targetId);
-  }
-
-  /**
    * toggle fullscreen based on current fullscreen state in store
    *
    * @returns {void}
@@ -54,7 +41,7 @@ class FullscreenControl extends BaseComponent {
    */
   toggleFullscreen(): void {
     this.logger.debug(`Toggle fullscreen`);
-    this.props.fullscreen ? this.player.exitFullscreen() : this.player.enterFullscreen(this._targetDiv);
+    this.props.fullscreen ? this.player.exitFullscreen() : this.player.enterFullscreen();
     this.notifyClick();
   }
 
