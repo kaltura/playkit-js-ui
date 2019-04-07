@@ -8,7 +8,6 @@ export const types = {
 };
 
 export const initialState = {
-  preventScrollInPlayer: false,
   forceTouchUI: false,
   components: {
     watermark: {},

@@ -18,8 +18,7 @@ const mapStateToProps = state => ({
   isPlayingAdOrPlayback: isPlayingAdOrPlayback(state.engine),
   iconType: state.overlayAction.iconType,
   playerHover: state.shell.playerHover,
-  isMobile: state.shell.isMobile,
-  preventScrollInPlayer: state.config.preventScrollInPlayer
+  isMobile: state.shell.isMobile
 });
 
 /**
@@ -126,9 +125,6 @@ class OverlayAction extends BaseComponent {
    * @memberof OverlayAction
    */
   onOverlayPointerDown(event: any): void {
-    if (this.props.preventScrollInPlayer) {
-      event.preventDefault();
-    }
     this._pointerDownPosX = event.clientX || event.changedTouches[0].clientX;
     this._pointerDownPosY = event.clientY || event.changedTouches[0].clientY;
   }
@@ -154,20 +150,9 @@ class OverlayAction extends BaseComponent {
    * @memberof OverlayAction
    */
   onOverlayTouchEnd(event: any): void {
+    event.preventDefault();
     if (this.props.playerHover && !this.isDragging(event)) {
       this.togglePlayPause();
-    }
-  }
-
-  /**
-   * handler for click for regular videos - (not VR)
-   *
-   * @returns {void}
-   * @memberof OverlayAction
-   */
-  onOverlayClick(): void {
-    if (!this.props.isMobile) {
-      this.overlayClick();
     }
   }
 
@@ -272,11 +257,10 @@ class OverlayAction extends BaseComponent {
     return (
       <div
         className={`${style.overlayAction} ${this.state.animation ? style.in : ''}`}
-        onMouseDown={this.props.preventScrollInPlayer ? e => this.onOverlayPointerDown(e) : null}
+        onMouseDown={e => this.onOverlayPointerDown(e)}
         onTouchStart={e => this.onOverlayPointerDown(e)}
-        onMouseUp={this.props.preventScrollInPlayer ? e => this.onOverlayMouseUp(e) : null}
-        onTouchEnd={e => this.onOverlayTouchEnd(e)}
-        onClick={this.props.preventScrollInPlayer ? null : () => this.onOverlayClick()}>
+        onMouseUp={e => this.onOverlayMouseUp(e)}
+        onTouchEnd={e => this.onOverlayTouchEnd(e)}>
         {this.state.animation ? this.renderIcons() : undefined}
       </div>
     );
