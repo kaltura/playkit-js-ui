@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.38.3"></a>
+## [0.38.3](https://github.com/kaltura/playkit-js-ui/compare/v0.38.2...v0.38.3) (2019-04-07)
+
+
+### Bug Fixes
+
+* **FEC-8924:** [V3][iOS] when touch and dragging from player area the page is not scrolling ([#372](https://github.com/kaltura/playkit-js-ui/issues/372)) ([a066d79](https://github.com/kaltura/playkit-js-ui/commit/a066d79))
+
+
+
 <a name="0.38.2"></a>
 ## [0.38.2](https://github.com/kaltura/playkit-js-ui/compare/v0.38.1...v0.38.2) (2019-04-07)
 
