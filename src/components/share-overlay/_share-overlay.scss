@@ -6,6 +6,7 @@
       margin: 0 8px;
       transition: transform 100ms;
       will-change: transform;
+      border: none;
 
       &:first-child {
         margin-left: 0;
@@ -14,17 +15,46 @@
         margin-right: 0;
       }
 
-      &.facebook-share-btn {
+      &.facebook {
         background-color: #3b5998;
       }
-      &.twitter-share-btn {
+      &.twitter {
         background-color: #1da1f2;
       }
-      &.google-plus-share-btn {
-        background-color: #dd4b39;
-      }
-      &.linkedin-share-btn {
+      &.linkedin {
         background-color: #00a0dc;
+      }
+    }
+  }
+
+  .link-options-container {
+    width: auto;
+    display: inline-block;
+    max-width: 100%;
+    text-align: left;
+    margin: 0 auto;
+
+    .copy-url-row {
+      display: flex;
+
+      .input-copy-url {
+        margin: 0;
+      }
+      .btn-copy-url {
+        .icon {
+          width: 32px;
+          margin-top: 5px;
+        }
+      }
+    }
+    .video-start-options-row {
+      margin-top: 24px;
+
+      .checkbox {
+        margin-right: 15px;
+      }
+      .form-group {
+        margin: 0;
       }
     }
   }
@@ -37,57 +67,7 @@
   text-align: center;
 }
 
-.link-options-container {
-  width: 400px;
-  max-width: 100%;
-  text-align: left;
-  margin: 0 auto;
 
-  .copy-url-row {
-    display: flex;
-
-    .input-copy-url {
-      margin: 0;
-    }
-    .btn-copy-url {
-      margin-left: 16px;
-
-      .icon {
-        will-change: transform;
-        transition: 100ms transform;
-        position: absolute;
-        width: 32px;
-      }
-      .icon-check {
-        transform: scale(0);
-        opacity: 0;
-      }
-
-      &.copied {
-        background-color: $success-color;
-
-        .icon-copy {
-          transform: scale(0);
-          opacity: 0;
-        }
-        .icon-check {
-          transform: scale(1);
-          opacity: 1;
-        }
-      }
-    }
-  }
-  .video-start-options-row {
-    margin-top: 24px;
-
-    .checkbox {
-      margin-right: 15px;
-    }
-    .form-group {
-      margin: 0;
-    }
-  }
-}
 
 .player:not(.touch) .overlay.share-overlay .share-icons .btn-rounded:hover {
   transform: scale(1.1667);

@@ -2,12 +2,12 @@
 import style from '../../styles/style.scss';
 import {h} from 'preact';
 import {connect} from 'preact-redux';
-import {default as Icon, IconType} from '../icon';
 import BaseComponent from '../base';
 import {Overlay} from '../overlay';
 import {Text} from 'preact-i18n';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/engine';
+import {CopyButton} from '../copy-button';
 
 /**
  * mapping state to props
@@ -49,16 +49,10 @@ class ErrorOverlay extends BaseComponent {
   copyError(): void {
     let selection = window.getSelection();
     let range = document.createRange();
-    try {
-      range.selectNode(this.sessionEl);
-      selection.removeAllRanges();
-      selection.addRange(range);
-      document.execCommand('copy');
-      this.setState({copySuccess: true});
-      setTimeout(() => this.setState({copySuccess: false}), 2000);
-    } catch (e) {
-      this.setState({copySuccess: false});
-    }
+    range.selectNode(this.sessionEl);
+    selection.removeAllRanges();
+    selection.addRange(range);
+    document.execCommand('copy');
   }
 
   /**
@@ -80,8 +74,6 @@ class ErrorOverlay extends BaseComponent {
    */
   renderSessionID(): React$Element<any> | void {
     const sessionId = this.player && this.player.config && this.player.config.session && this.player.config.session.id;
-    let copyUrlClasses = [style.btnCopyUrl].join(' ');
-    copyUrlClasses += this.state.copySuccess ? ' ' + style.copied : '';
     if (sessionId) {
       return (
         <div className={style.linkOptionsContainer}>
@@ -93,10 +85,7 @@ class ErrorOverlay extends BaseComponent {
               className={style.errorSession}>
               <Text id="error.default_session_text" /> {' ' + sessionId}
             </div>
-            <a className={copyUrlClasses} onClick={() => this.copyError()}>
-              <Icon type={IconType.Copy} />
-              <Icon type={IconType.Check} />
-            </a>
+            <CopyButton copy={() => this.copyError()} />
           </div>
         </div>
       );
