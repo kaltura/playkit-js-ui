@@ -2,6 +2,55 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.38.3"></a>
+## [0.38.3](https://github.com/kaltura/playkit-js-ui/compare/v0.38.2...v0.38.3) (2019-04-07)
+
+
+### Bug Fixes
+
+* **FEC-8924:** [V3][iOS] when touch and dragging from player area the page is not scrolling ([#372](https://github.com/kaltura/playkit-js-ui/issues/372)) ([a066d79](https://github.com/kaltura/playkit-js-ui/commit/a066d79))
+
+
+
+<a name="0.38.2"></a>
+## [0.38.2](https://github.com/kaltura/playkit-js-ui/compare/v0.38.1...v0.38.2) (2019-04-07)
+
+
+### Bug Fixes
+
+* **FEC-8826:** element sent from UI for fullscreen ([#382](https://github.com/kaltura/playkit-js-ui/issues/382)) ([b686d28](https://github.com/kaltura/playkit-js-ui/commit/b686d28))
+* **FEC-8969:** playlist - next screen poster displayed blurred with bad resolution ([#373](https://github.com/kaltura/playkit-js-ui/issues/373)) ([3f72c23](https://github.com/kaltura/playkit-js-ui/commit/3f72c23))
+* **FEC-9003:** can't close share overlay on IE11 ([#379](https://github.com/kaltura/playkit-js-ui/issues/379)) ([a38f4f6](https://github.com/kaltura/playkit-js-ui/commit/a38f4f6))
+* **FEC-9004:** share copy link doesn't work on iOS ([#376](https://github.com/kaltura/playkit-js-ui/issues/376)) ([5f0e4d5](https://github.com/kaltura/playkit-js-ui/commit/5f0e4d5))
+* **FEC-9005:** no tooltip displayed on copy link icon ([#378](https://github.com/kaltura/playkit-js-ui/issues/378)) ([f7f4f70](https://github.com/kaltura/playkit-js-ui/commit/f7f4f70))
+* **FEC-9006:** invalid share CSS portal selector ([#374](https://github.com/kaltura/playkit-js-ui/issues/374)) ([fa2c509](https://github.com/kaltura/playkit-js-ui/commit/fa2c509))
+* **FEC-9010:** share button shows on preplay screen ([#375](https://github.com/kaltura/playkit-js-ui/issues/375)) ([f708d94](https://github.com/kaltura/playkit-js-ui/commit/f708d94))
+* **FEC-9011:** share button dose not work on end screen ([#381](https://github.com/kaltura/playkit-js-ui/issues/381)) ([93743d3](https://github.com/kaltura/playkit-js-ui/commit/93743d3))
+* **FEC-9015:** share to email subject and body ([#380](https://github.com/kaltura/playkit-js-ui/issues/380)) ([d8b7912](https://github.com/kaltura/playkit-js-ui/commit/d8b7912))
+
+
+
+<a name="0.38.1"></a>
+## [0.38.1](https://github.com/kaltura/playkit-js-ui/compare/v0.38.0...v0.38.1) (2019-04-01)
+
+
+
+<a name="0.38.0"></a>
+# [0.38.0](https://github.com/kaltura/playkit-js-ui/compare/v0.37.5...v0.38.0) (2019-04-01)
+
+
+### Bug Fixes
+
+* **FEC-7642:** firefox speed selector keyboard shortcut doesnt work ([#368](https://github.com/kaltura/playkit-js-ui/issues/368)) ([ce9d3b8](https://github.com/kaltura/playkit-js-ui/commit/ce9d3b8))
+* **FEC-8826:** fullscreen implementation moved to core ([#370](https://github.com/kaltura/playkit-js-ui/issues/370)) ([6f7c648](https://github.com/kaltura/playkit-js-ui/commit/6f7c648))
+
+
+### Features
+
+* **FEC-8662:** share component ([#369](https://github.com/kaltura/playkit-js-ui/issues/369)) ([efca096](https://github.com/kaltura/playkit-js-ui/commit/efca096))
+
+
+
 <a name="0.37.5"></a>
 ## [0.37.5](https://github.com/kaltura/playkit-js-ui/compare/v0.37.3...v0.37.5) (2019-03-17)
 
