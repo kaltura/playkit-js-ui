@@ -1,6 +1,7 @@
 //@flow
 import style from '../styles/style.scss';
 import {h} from 'preact';
+import {Container} from '../components/container';
 import {OverlayAction} from '../components/overlay-action';
 import {PrePlaybackPlayOverlay} from '../components/pre-playback-play-overlay';
 import {Loading} from '../components/loading';
@@ -36,10 +37,10 @@ import {ShareControl} from '../components/share';
  */
 export function playbackUI(props: any): React$Element<any> {
   return (
-    <div className={style.playbackGuiWWrapper}>
+    <Container name="xyz" newComponents={props.config.newComponents} player={props.player} presetName={'playbackUI'}>
       <KeyboardControl player={props.player} config={props.config} />
       <Loading player={props.player} />
-      <div className={style.playerGui} id="player-gui">
+      <Container name={style.playerGui} id="player-gui" newComponents={props.config.newComponents} player={props.player} presetName={'playbackUI'}>
         <OverlayPortal />
         <UnmuteIndication player={props.player} />
         <OverlayAction player={props.player} />
@@ -48,12 +49,12 @@ export function playbackUI(props: any): React$Element<any> {
         {PlaylistNextScreen.shouldRender(props) ? <PlaylistNextScreen player={props.player} /> : undefined}
         <BottomBar>
           <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player} playerContainer={props.playerContainer} />
-          <div className={style.leftControls}>
+          <Container name={style.leftControls} newComponents={props.config.newComponents} player={props.player} presetName={'playbackUI'}>
             <PlaybackControls player={props.player} />
             <RewindControl player={props.player} step={10} />
             <TimeDisplayPlaybackContainer format="current / total" />
-          </div>
-          <div className={style.rightControls}>
+          </Container>
+          <Container name={style.rightControls} newComponents={props.config.newComponents} player={props.player} presetName={'playbackUI'}>
             {VrStereoToggleControl.shouldRender(props) ? <VrStereoToggleControl player={props.player} /> : undefined}
             <VolumeControl player={props.player} />
             <LanguageControl player={props.player} />
@@ -61,15 +62,15 @@ export function playbackUI(props: any): React$Element<any> {
             <CastControl player={props.player} />
             <PictureInPicture player={props.player} />
             <FullscreenControl player={props.player} />
-          </div>
+          </Container>
         </BottomBar>
-      </div>
+      </Container>
       {Watermark.shouldRender(props) ? <Watermark player={props.player} /> : undefined}
       {PlaylistCountdown.shouldRender(props) ? <PlaylistCountdown player={props.player} /> : undefined}
       <PrePlaybackPlayOverlay player={props.player} />
       <CastBeforePlay player={props.player} />
       <PictureInPictureOverlay player={props.player} />
       <Backdrop />
-    </div>
+    </Container>
   );
 }
