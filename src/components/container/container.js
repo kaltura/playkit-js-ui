@@ -2,7 +2,7 @@
 import {h, Component} from 'preact';
 
 type newComponentsType = {
-  preset?: string,
+  presets?: Array<string>,
   container: string,
   componentName?: string,
   component: Function,
@@ -38,7 +38,7 @@ class Container extends Component {
     const newChildren = [];
     const newComponentsArray: Array<newComponentsType> = Object.keys(this.props.newComponents).map(k => this.props.newComponents[k]);
     const presetComponents = newComponentsArray.filter(newComponent => {
-      return !newComponent.preset || newComponent.preset === this.props.presetName;
+      return !newComponent.presets || newComponent.presets.includes(this.props.presetName);
     });
     const containerComponents = presetComponents.filter(presetComponent => {
       return presetComponent.container === this.props.name;
