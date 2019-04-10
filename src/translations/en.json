@@ -22,10 +22,12 @@
     "button": "Copy"
   },
   "settings": {
+    "title": "Settings",
     "quality": "Quality",
     "speed": "Speed"
   },
   "language": {
+    "title": "Language",
     "audio": "Audio",
     "captions": "Captions",
     "advanced_captions_settings": "Advanced captions settings"
@@ -84,9 +86,5 @@
   "pictureInPicture": {
     "overlay_text": "Playing in Picture In Picture mode",
     "overlay_button": "Play Here"
-  },
-  "smartContainer": {
-    "language": "Language",
-    "settings": "Settings"
   }
 }
