@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.39.0"></a>
+# [0.39.0](https://github.com/kaltura/playkit-js-ui/compare/v0.38.4...v0.39.0) (2019-04-15)
+
+
+### Features
+
+* **FEC-8044:** ima-dai plugin ([#371](https://github.com/kaltura/playkit-js-ui/issues/371)) ([382295b](https://github.com/kaltura/playkit-js-ui/commit/382295b))
+
+
+
 <a name="0.38.4"></a>
 ## [0.38.4](https://github.com/kaltura/playkit-js-ui/compare/v0.38.3...v0.38.4) (2019-04-10)
 
