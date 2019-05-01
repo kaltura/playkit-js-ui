@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.40.0"></a>
+# [0.40.0](https://github.com/kaltura/playkit-js-ui/compare/v0.39.0...v0.40.0) (2019-05-01)
+
+
+### Features
+
+* **FEC-9029:** unable to set the Smart Container titles ([#383](https://github.com/kaltura/playkit-js-ui/issues/383)) ([433a994](https://github.com/kaltura/playkit-js-ui/commit/433a994))
+
+
+
 <a name="0.39.0"></a>
 # [0.39.0](https://github.com/kaltura/playkit-js-ui/compare/v0.38.4...v0.39.0) (2019-04-15)
 
