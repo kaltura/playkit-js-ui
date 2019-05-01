@@ -22,10 +22,12 @@
     "button": "Copy"
   },
   "settings": {
+    "title": "Settings",
     "quality": "Quality",
     "speed": "Speed"
   },
   "language": {
+    "title": "Language",
     "audio": "Audio",
     "captions": "Captions",
     "advanced_captions_settings": "Advanced captions settings"
