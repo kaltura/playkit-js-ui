@@ -1,7 +1,6 @@
 export * as config from './config';
 export * as cvaa from './cvaa';
 export * as engine from './engine';
-export * as fullscreen from './fullscreen';
 export * as loading from './loading';
 export * as overlayAction from './overlay-action';
 export * as seekbar from './seekbar';

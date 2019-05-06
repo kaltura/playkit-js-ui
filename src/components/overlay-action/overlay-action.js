@@ -126,7 +126,6 @@ class OverlayAction extends BaseComponent {
    * @memberof OverlayAction
    */
   onOverlayPointerDown(event: any): void {
-    event.preventDefault();
     this._pointerDownPosX = event.clientX || event.changedTouches[0].clientX;
     this._pointerDownPosY = event.clientY || event.changedTouches[0].clientY;
   }
@@ -140,7 +139,7 @@ class OverlayAction extends BaseComponent {
    */
   onOverlayMouseUp(event: any): void {
     if (!this.isDragging(event)) {
-      this.onOverlayClick();
+      this.overlayClick();
     }
   }
 
@@ -152,6 +151,7 @@ class OverlayAction extends BaseComponent {
    * @memberof OverlayAction
    */
   onOverlayTouchEnd(event: any): void {
+    event.preventDefault();
     if (this.props.playerHover && !this.isDragging(event)) {
       this.togglePlayPause();
     }
@@ -174,12 +174,12 @@ class OverlayAction extends BaseComponent {
   }
 
   /**
-   * Handler for overlay click
+   * click action
    *
    * @returns {void}
    * @memberof OverlayAction
    */
-  onOverlayClick(): void {
+  overlayClick(): void {
     if (this.props.isSmartContainerOpen) {
       return;
     }

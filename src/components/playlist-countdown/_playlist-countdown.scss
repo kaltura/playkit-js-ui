@@ -148,7 +148,9 @@
     }
   }
 
-  &.size-sm {
+  &.size-sm,
+  &.size-xs,
+  &.size-ty {
     .playlist-countdown {
       z-index: 1;
       height: 36px;
