@@ -340,14 +340,15 @@ class SeekBarControl extends Component {
    */
   _getTransformX(element: HTMLElement): number {
     const computedStyle = getComputedStyle(element);
+    // [scaleX(),skewY(),skewX(),scaleY(),translateX(),translateY()]
     const transform =
+      computedStyle.getPropertyValue('transform') ||
       computedStyle.getPropertyValue('-webkit-transform') ||
       computedStyle.getPropertyValue('-moz-transform') ||
       computedStyle.getPropertyValue('-ms-transform') ||
-      computedStyle.getPropertyValue('-o-transform') ||
-      computedStyle.getPropertyValue('transform');
+      computedStyle.getPropertyValue('-o-transform');
+
     const transformValues = transform.match(/-?\d+/g);
-    // [scaleX(),skewY(),skewX(),scaleY(),translateX(),translateY()]
     let translateXVal = 0;
     if (transformValues && transformValues.length > 0) {
       translateXVal = parseFloat(transformValues[4]);
