@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.40.1"></a>
+## [0.40.1](https://github.com/kaltura/playkit-js-ui/compare/v0.40.0...v0.40.1) (2019-05-16)
+
+
+### Bug Fixes
+
+* **FEC-8843:** handle click outside when the menu is open ([#366](https://github.com/kaltura/playkit-js-ui/issues/366)) ([9820c35](https://github.com/kaltura/playkit-js-ui/commit/9820c35))
+* **FEC-9111:** seekbar doesnt work in LG TV ([#386](https://github.com/kaltura/playkit-js-ui/issues/386)) ([49d60b1](https://github.com/kaltura/playkit-js-ui/commit/49d60b1))
+* **FEC-9113:** Add checks to avoid errors in LG TV ([#387](https://github.com/kaltura/playkit-js-ui/issues/387)) ([b601143](https://github.com/kaltura/playkit-js-ui/commit/b601143))
+
+
+
 <a name="0.40.0"></a>
 # [0.40.0](https://github.com/kaltura/playkit-js-ui/compare/v0.39.0...v0.40.0) (2019-05-01)
 
