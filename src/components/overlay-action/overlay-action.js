@@ -126,8 +126,8 @@ class OverlayAction extends BaseComponent {
    * @memberof OverlayAction
    */
   onOverlayPointerDown(event: any): void {
-    this._pointerDownPosX = event.clientX || event.changedTouches[0].clientX;
-    this._pointerDownPosY = event.clientY || event.changedTouches[0].clientY;
+    this._pointerDownPosX = event.clientX || (event.changedTouches && event.changedTouches[0] && event.changedTouches[0].clientX);
+    this._pointerDownPosY = event.clientY || (event.changedTouches && event.changedTouches[0] && event.changedTouches[0].clientY);
   }
 
   /**
@@ -165,8 +165,8 @@ class OverlayAction extends BaseComponent {
    */
   isDragging(event: any): boolean {
     const points = {
-      clientX: event.clientX || (event.changedTouches[0] && event.changedTouches[0].clientX),
-      clientY: event.clientY || (event.changedTouches[0] && event.changedTouches[0].clientY)
+      clientX: event.clientX || (event.changedTouches && event.changedTouches[0] && event.changedTouches[0].clientX),
+      clientY: event.clientY || (event.changedTouches && event.changedTouches[0] && event.changedTouches[0].clientY)
     };
     return (
       Math.abs(points.clientX - this._pointerDownPosX) > DRAGGING_THRESHOLD || Math.abs(points.clientY - this._pointerDownPosY) > DRAGGING_THRESHOLD
