@@ -45,7 +45,6 @@ export function playbackUI(props: any): React$Element<any> {
         <OverlayPortal />
         <UnmuteIndication player={props.player} />
         <OverlayAction player={props.player} />
-        <PlaybackControls player={props.player} />
         <ShareControl player={props.player} />
         <TopBar>
           <Container className={style.leftControls} name={'top-bar__left-controls'} player={props.player} presetName={'playbackUI'} />
