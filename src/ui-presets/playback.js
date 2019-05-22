@@ -37,10 +37,10 @@ import {ShareControl} from '../components/share';
  */
 export function playbackUI(props: any): React$Element<any> {
   return (
-    <Container name="xyz" newComponents={props.config.newComponents} player={props.player} presetName={'playbackUI'}>
+    <Container className={style.playerGui} name={'player-container'} player={props.player} presetName={'playbackUI'}>
       <KeyboardControl player={props.player} config={props.config} />
       <Loading player={props.player} />
-      <Container name={style.playerGui} id="player-gui" newComponents={props.config.newComponents} player={props.player} presetName={'playbackUI'}>
+      <Container className={style.playerGui} name={'player-gui'} player={props.player} presetName={'playbackUI'}>
         <OverlayPortal />
         <UnmuteIndication player={props.player} />
         <OverlayAction player={props.player} />
@@ -49,12 +49,12 @@ export function playbackUI(props: any): React$Element<any> {
         {PlaylistNextScreen.shouldRender(props) ? <PlaylistNextScreen player={props.player} /> : undefined}
         <BottomBar>
           <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player} playerContainer={props.playerContainer} />
-          <Container name={style.leftControls} newComponents={props.config.newComponents} player={props.player} presetName={'playbackUI'}>
+          <Container className={style.leftControls} name={'bottom-bar__left-controls'} player={props.player} presetName={'playbackUI'}>
             <PlaybackControls player={props.player} />
             <RewindControl player={props.player} step={10} />
             <TimeDisplayPlaybackContainer format="current / total" />
           </Container>
-          <Container name={style.rightControls} newComponents={props.config.newComponents} player={props.player} presetName={'playbackUI'}>
+          <Container className={style.rightControls} name={'bottom-bar__right-controls'} player={props.player} presetName={'playbackUI'}>
             {VrStereoToggleControl.shouldRender(props) ? <VrStereoToggleControl player={props.player} /> : undefined}
             <VolumeControl player={props.player} />
             <LanguageControl player={props.player} />

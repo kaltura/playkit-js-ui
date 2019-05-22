@@ -58,6 +58,16 @@ class UIManager {
   }
 
   /**
+   * Adds external preset component
+   * @public
+   * @param {ExternalPresetComponent} component - new preset component
+   * @returns {void}
+   */
+  addExternalPresetComponent(component: ExternalPresetComponent): void {
+    this.store.dispatch(actions.addExternalPresetComponent(component));
+  }
+
+  /**
    * Gets the updated state from the config reducer.
    * @public
    * @returns {UIOptionsObject} - The UI manager config.

@@ -1,14 +1,6 @@
 //@flow
 import {h, Component} from 'preact';
-
-type newComponentsType = {
-  presets?: Array<string>,
-  container: string,
-  componentName?: string,
-  component: Function,
-  position?: string,
-  context?: any
-};
+import {connect} from 'preact-redux';
 
 /**
  *
@@ -24,6 +16,19 @@ function getComponentName(component: Object) {
 }
 
 /**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
+const mapStateToProps = state => ({
+  externalPresetComponents: state.config.externalPresetComponents
+});
+
+@connect(
+  mapStateToProps,
+  null
+)
+/**
  * A video container enabling injecting components by preset, container and position
  */
 class Container extends Component {
@@ -36,8 +41,7 @@ class Container extends Component {
   render(): React$Element<any> {
     const children = this.props.children;
     const newChildren = [];
-    const newComponentsArray: Array<newComponentsType> = Object.keys(this.props.newComponents).map(k => this.props.newComponents[k]);
-    const presetComponents = newComponentsArray.filter(newComponent => {
+    const presetComponents = this.props.externalPresetComponents.filter(newComponent => {
       return !newComponent.presets || newComponent.presets.includes(this.props.presetName);
     });
     const containerComponents = presetComponents.filter(presetComponent => {
@@ -82,7 +86,7 @@ class Container extends Component {
     });
     newChildren.push(...lastContainerComponents);
     return (
-      <div className={this.props.name} id={this.props.id}>
+      <div className={this.props.className} name={this.props.name}>
         {newChildren.length ? newChildren : newChildren[0]}
       </div>
     );
