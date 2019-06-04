@@ -84,10 +84,10 @@ function getAdsUiCustomization(): Object {
  * @returns {boolean} - Whether the default ads ui should be shown or not.
  */
 function useDefaultAdsUi(props: any): boolean {
-  let isMobile = !!props.player.env.device.type;
+  const isMobile = props.state.shell.isMobile;
   let useStyledLinearAds = false;
   try {
-    let adsRenderingSettings = props.player.config.plugins.ima.adsRenderingSettings;
+    const adsRenderingSettings = props.player.config.plugins.ima.adsRenderingSettings;
     useStyledLinearAds = adsRenderingSettings && adsRenderingSettings.useStyledLinearAds;
   } catch (e) {
     // Do nothing
