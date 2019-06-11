@@ -26,6 +26,13 @@ $hovering-offset: 50px;
         max-height: calc(100% - #{$hovering-offset});
       }
     }
+    &.fullscreen.iOS {
+        video::-webkit-media-text-track-display{
+        transform: translateY(-$hovering-offset);
+        -webkit-transform: translateY(-$hovering-offset);
+        -ms-transform: translateY(-$hovering-offset);
+      }
+    }
   }
   &.fullscreen.iOS {
     video::-webkit-media-text-track-container {
