@@ -43,7 +43,7 @@ export function adsUI(props: any): ?React$Element<any> {
       <div className={style.playerGui} id="player-gui">
         <UnmuteIndication player={props.player} hasTopBar />
         <TopBar>
-            <div className={style.leftControls}>{isBumper(props) ? undefined : <AdNotice />}</div>
+          <div className={style.leftControls}>{isBumper(props) ? undefined : <AdNotice />}</div>
           <div className={style.rightControls}>{adsUiCustomization.learnMoreButton ? <AdLearnMore /> : undefined}</div>
         </TopBar>
         {adsUiCustomization.skipButton ? <AdSkip player={props.player} /> : undefined}
