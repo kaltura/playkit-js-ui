@@ -26,6 +26,13 @@ $hovering-offset: 50px;
         max-height: calc(100% - #{$hovering-offset});
       }
     }
+    &.fullscreen.iOS {
+        video::-webkit-media-text-track-display{
+        transform: translateY(-$hovering-offset);
+        -webkit-transform: translateY(-$hovering-offset);
+        -ms-transform: translateY(-$hovering-offset);
+      }
+    }
   }
   &.fullscreen.iOS {
     video::-webkit-media-text-track-container {
@@ -40,6 +47,8 @@ $hovering-offset: 50px;
   :global(.playkit-subtitles) {
     top: $hovering-offset;
     transform: translateY(0px);
+    -webkit-transform: translateY(0px);
+    -ms-transform: translateY(0px);
     transition: ease-in 100ms;
   }
   &:not(.overlay-active) {
@@ -47,10 +56,14 @@ $hovering-offset: 50px;
     &.state-idle :global(.playkit-subtitles),
     &.hover :global(.playkit-subtitles) {
       transform: translateY(-$hovering-offset);
+      -webkit-transform: translateY(-$hovering-offset);
+      -ms-transform: translateY(-$hovering-offset);
     }
     &.fullscreen.iOS {
       :global(.playkit-subtitles) {
         transform: translateY(0px);
+        -webkit-transform: translateY(0px);
+        -ms-transform: translateY(0px);
       }
     }
   }

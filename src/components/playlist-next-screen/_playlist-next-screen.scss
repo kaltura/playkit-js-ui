@@ -95,7 +95,9 @@
     }
   }
 
-  &.size-sm {
+  &.size-sm,
+  &.size-xs,
+  &.size-ty {
     .playlist-next-screen-content {
       .playlist-next-screen-poster-placeholder {
         width: 32px;

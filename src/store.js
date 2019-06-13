@@ -5,7 +5,6 @@ import engine from './reducers/engine';
 import shell from './reducers/shell';
 import seekbar from './reducers/seekbar';
 import volume from './reducers/volume';
-import fullscreen from './reducers/fullscreen';
 import loading from './reducers/loading';
 import share from './reducers/share';
 import cvaa from './reducers/cvaa';
@@ -19,7 +18,6 @@ const reducer = combineReducers({
   shell,
   seekbar,
   volume,
-  fullscreen,
   loading,
   share,
   cvaa,

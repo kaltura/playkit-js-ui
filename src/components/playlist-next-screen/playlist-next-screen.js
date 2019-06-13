@@ -7,6 +7,13 @@ import {connect} from 'preact-redux';
 import {default as Icon, IconType} from '../icon';
 
 /**
+ * The maximum next item poster width
+ * @type {number}
+ * @const
+ */
+const MAX_POSTER_WIDTH: number = 384;
+
+/**
  * mapping state to props
  * @param {*} state - redux store state
  * @returns {Object} - mapped state to this component
@@ -55,6 +62,21 @@ class PlaylistNextScreen extends BaseComponent {
   }
 
   /**
+   * @private
+   * @memberof PlaylistNextScreen
+   * @returns {string} - Next poster URL
+   */
+  _getPosterUrl(): string {
+    const next = this.props.playlist.next;
+    if (next.sources.poster) {
+      return next.sources.poster.indexOf(`entry_id/${next.sources.id}`) > -1 && next.sources.poster.indexOf('/width/') === -1
+        ? `${next.sources.poster}/width/${MAX_POSTER_WIDTH}`
+        : next.sources.poster;
+    }
+    return '';
+  }
+
+  /**
    * render component
    *
    * @param {*} props - component props
@@ -77,7 +99,7 @@ class PlaylistNextScreen extends BaseComponent {
           <div className={style.playlistNextScreenPosterPlaceholder}>
             <div className={style.playlistNextScreenPosterAspectRatio}>
               <div className={style.playlistNextScreenPoster} onClick={() => this.onPosterClick()}>
-                <div className={style.playlistNextScreenPosterImg} style={`background-image: url(${next.sources.poster || ''});`} />
+                <div className={style.playlistNextScreenPosterImg} style={`background-image: url(${this._getPosterUrl()});`} />
                 <Icon type={IconType.Play} />
               </div>
             </div>

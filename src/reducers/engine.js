@@ -44,7 +44,8 @@ export const types = {
   UPDATE_IS_CAST_AVAILABLE: `${component}/UPDATE_IS_CAST_AVAILABLE`,
   UPDATE_PLAYLIST: `${component}/UPDATE_PLAYLIST`,
   UPDATE_PICTURE_IN_PICTURE_SUPPORTED: `${component}/UPDATE_PICTURE_IN_PICTURE_SUPPORTED`,
-  UPDATE_PICTURE_IN_PICTURE_MODE: `${component}/UPDATE_PICTURE_IN_PICTURE_MODE`
+  UPDATE_PICTURE_IN_PICTURE_MODE: `${component}/UPDATE_PICTURE_IN_PICTURE_MODE`,
+  UPDATE_FULLSCREEN: `${component}/UPDATE_FULLSCREEN`
 };
 
 export const initialState = {
@@ -92,7 +93,8 @@ export const initialState = {
   isCastAvailable: false,
   pictureInPictureSupported: false,
   isInPictureInPicture: false,
-  playlist: null
+  playlist: null,
+  fullscreen: false
 };
 
 export default (state: Object = initialState, action: Object) => {
@@ -346,6 +348,12 @@ export default (state: Object = initialState, action: Object) => {
         isInPictureInPicture: action.isInPictureInPicture
       };
 
+    case types.UPDATE_FULLSCREEN:
+      return {
+        ...state,
+        fullscreen: action.fullscreen
+      };
+
     default:
       return state;
   }
@@ -406,5 +414,6 @@ export const actions = {
     type: types.UPDATE_PICTURE_IN_PICTURE_SUPPORTED,
     isPictureInPictureSupported
   }),
-  updateIsInPictureInPicture: (isInPictureInPicture: boolean) => ({type: types.UPDATE_PICTURE_IN_PICTURE_MODE, isInPictureInPicture})
+  updateIsInPictureInPicture: (isInPictureInPicture: boolean) => ({type: types.UPDATE_PICTURE_IN_PICTURE_MODE, isInPictureInPicture}),
+  updateFullscreen: (fullscreen: boolean) => ({type: types.UPDATE_FULLSCREEN, fullscreen})
 };

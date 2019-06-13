@@ -22,6 +22,7 @@ import {Backdrop} from '../components/backdrop/backdrop';
 import {PlaybackControls} from '../components/playback-controls';
 import {PictureInPicture} from '../components/picture-in-picture';
 import {PictureInPictureOverlay} from '../components/picture-in-picture-overlay';
+import {ShareControl} from '../components/share';
 
 /**
  * Live ui intrface
@@ -37,9 +38,10 @@ export function liveUI(props: any): React$Element<any> {
       <Loading player={props.player} />
       <div className={style.playerGui} id="player-gui">
         <OverlayPortal />
-        <UnmuteIndication />
+        <UnmuteIndication player={props.player} />
         <OverlayAction player={props.player} />
         <PlaybackControls player={props.player} />
+        <ShareControl player={props.player} />
         <BottomBar>
           <SeekBarLivePlaybackContainer showFramePreview showTimeBubble player={props.player} playerContainer={props.playerContainer} />
           <div className={style.leftControls}>
