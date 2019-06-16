@@ -86,7 +86,7 @@ class Container extends Component {
     });
     newChildren.push(...lastContainerComponents);
     return (
-      <div className={this.props.className} name={this.props.name}>
+      <div className={this.props.className} data-container={this.props.name}>
         {newChildren.length ? newChildren : newChildren[0]}
       </div>
     );

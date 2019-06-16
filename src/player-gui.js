@@ -1,5 +1,5 @@
 //@flow
-import {Component} from 'preact';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 
 /**
@@ -61,7 +61,13 @@ class PlayerGUI extends Component {
     let uiToRender;
     if (this.props.uis.length > 0) {
       uiToRender = this.getMatchedUI(props.uis, props.state);
-      return uiToRender ? uiToRender.template(props) : this.props.uis[0].template(props);
+      const presetComponent = uiToRender ? uiToRender.template(props) : this.props.uis[0].template(props);
+
+      return (
+        <div className={'sakal'} data-preset={presetComponent.name}>
+          {presetComponent}
+        </div>
+      );
     } else {
       return undefined;
     }

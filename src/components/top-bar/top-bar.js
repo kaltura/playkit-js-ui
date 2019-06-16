@@ -35,8 +35,14 @@ class TopBar extends Component {
     if (props.isCasting && props.isPlaybackEnded) {
       styleClass.push(style.hide);
     }
-    return <div className={styleClass.join(' ')}>{props.children}</div>;
+    return (
+      <div data-component={TopBar.name} className={styleClass.join(' ')}>
+        {props.children}
+      </div>
+    );
   }
 }
+
+Object.defineProperty(TopBar, 'name', {value: 'TopBar'});
 
 export {TopBar};

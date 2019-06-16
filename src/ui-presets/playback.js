@@ -78,3 +78,5 @@ export function playbackUI(props: any): React$Element<any> {
     </Container>
   );
 }
+
+Object.defineProperty(playbackUI, 'name', {value: 'playbackUI'});
