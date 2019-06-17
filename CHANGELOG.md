@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.41.0"></a>
+# [0.41.0](https://github.com/kaltura/playkit-js-ui/compare/v0.40.1...v0.41.0) (2019-06-17)
+
+
+### Bug Fixes
+
+* **FEC-9014:** when playing captions in Browser fullscreen, captions are hidden by control bar ([#392](https://github.com/kaltura/playkit-js-ui/issues/392)) ([115f328](https://github.com/kaltura/playkit-js-ui/commit/115f328))
+* **FEC-9122:** The replay icon is not aligned ([#390](https://github.com/kaltura/playkit-js-ui/issues/390)) ([4585b16](https://github.com/kaltura/playkit-js-ui/commit/4585b16))
+* **FEC-9177:** Smart TV showed as mobile device ([#389](https://github.com/kaltura/playkit-js-ui/issues/389)) ([ab5b905](https://github.com/kaltura/playkit-js-ui/commit/ab5b905))
+* **FEC-9178:** seekbar slide up on captions ([#391](https://github.com/kaltura/playkit-js-ui/issues/391)) ([8b4e6d4](https://github.com/kaltura/playkit-js-ui/commit/8b4e6d4))
+* **FEC-9179:** seekbar hide non-linear ads ([#393](https://github.com/kaltura/playkit-js-ui/issues/393)) ([f9db05e](https://github.com/kaltura/playkit-js-ui/commit/f9db05e))
+
+
+### Features
+
+* **FEC-8631:** bumper plugin ([#360](https://github.com/kaltura/playkit-js-ui/issues/360)) ([b5a5b2b](https://github.com/kaltura/playkit-js-ui/commit/b5a5b2b))
+* **FEC-8754:** PiP Accessibility ([#333](https://github.com/kaltura/playkit-js-ui/issues/333)) ([b5e820a](https://github.com/kaltura/playkit-js-ui/commit/b5e820a))
+
+
+
 <a name="0.40.1"></a>
 ## [0.40.1](https://github.com/kaltura/playkit-js-ui/compare/v0.40.0...v0.40.1) (2019-05-16)
 
