@@ -7,6 +7,7 @@ import {copyDeep} from './utils/copy-deep';
 import {mergeDeep} from './utils/merge-deep';
 import {LogLevel, getLogLevel, setLogLevel} from './utils/logger';
 import {EventType} from './event/event-type';
+import {setEnv} from './utils/key-map';
 
 import reducer from './store';
 import en_translations from './translations/en.json';
@@ -53,6 +54,7 @@ class UIManager {
     this._createStore(config);
     this.setConfig(config);
     this._setLocaleTranslations(config);
+    setEnv(this.player.env);
   }
 
   /**

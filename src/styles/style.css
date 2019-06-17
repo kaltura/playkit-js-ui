@@ -674,9 +674,6 @@ video::cue {
 .overlay.share-overlay .share-icons .btn-rounded.twitter-share-btn {
   background-color: #1da1f2;
 }
-.overlay.share-overlay .share-icons .btn-rounded.google-plus-share-btn {
-  background-color: #dd4b39;
-}
 .overlay.share-overlay .share-icons .btn-rounded.linkedin-share-btn {
   background-color: #00a0dc;
 }
@@ -1391,7 +1388,7 @@ video::cue {
   width: 108px;
   border: 2px solid rgba(255, 255, 255, 0.2);
   background-color: rgba(0, 0, 0, 0.5);
-  margin: -54px 0 0 -54px;
+  transform: translate(-50%, -50%);
   border-radius: 54px;
   fill: #fff;
   padding: 20px;

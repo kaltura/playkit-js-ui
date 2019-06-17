@@ -95,39 +95,49 @@
   }
 }
 
-.touch {
-  .smart-container-item {
-    width: 300px;
-    max-width: 100%;
-    margin: 16px auto;
-    color: rgba(244, 244, 244, 0.8);
-    white-space: nowrap;
-    text-align: left;
-    display: flex;
-    justify-content: space-between;
+.player {
+  &.touch, &.size-sm, &.size-xs{
+    .smart-container-item {
+      width: 300px;
+      max-width: 100%;
+      margin: 16px auto;
+      color: rgba(244, 244, 244, 0.8);
+      white-space: nowrap;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
 
-    &.select-menu-item {
-      label {
-        font-size: 16px;
-        color: rgba(255, 255, 255, 0.8);
-        margin-right: 20px;
+      &.select-menu-item {
+        label {
+          font-size: 16px;
+          color: rgba(255, 255, 255, 0.8);
+          margin-right: 20px;
 
-        .label-icon {
-          width: 24px;
-          height: 24px;
-          display: inline-block;
-          vertical-align: middle;
-          margin-right: 16px;
+          .label-icon {
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 16px;
+          }
+        }
+        .dropdown,
+        select {
+          align-self: flex-end;
+        }
+        select {
+          text-align-last: right;
+          min-width: 1px;
+          line-height: 24px;
         }
       }
-      .dropdown,
-      select {
-        align-self: flex-end;
-      }
-      select {
-        text-align-last: right;
-        min-width: 1px;
-        line-height: 24px;
+    }
+    &.Windows {
+      select{
+        option {
+          color: black;
+          background-color: white;
+        }
       }
     }
   }

@@ -20,6 +20,15 @@ export const KeyMap: {[key: string]: number} = {
 };
 
 /**
+ * set env for keymap
+ * @param {Object} env - env object
+ * @returns {void}
+ */
+export function setEnv(env: Object): void {
+  KeyMap.SEMI_COLON = env.browser.name.toLowerCase() === 'firefox' ? 59 : 186;
+}
+
+/**
  * gets the key name for a certain key code
  * @param {number} keyCode - key code
  * @returns {string} - key name

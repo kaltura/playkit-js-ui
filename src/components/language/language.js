@@ -12,6 +12,7 @@ import {default as Icon, IconType} from '../icon';
 import {CVAAOverlay} from '../cvaa-overlay';
 import Portal from 'preact-portal';
 import {KeyMap} from '../../utils/key-map';
+import {PLAYER_SIZE} from '../shell/shell';
 
 /**
  * mapping state to props
@@ -22,7 +23,8 @@ const mapStateToProps = state => ({
   audioTracks: state.engine.audioTracks,
   textTracks: state.engine.textTracks,
   overlayOpen: state.cvaa.overlayOpen,
-  isMobile: state.shell.isMobile
+  isMobile: state.shell.isMobile,
+  playerSize: state.shell.playerSize
 });
 
 @connect(
@@ -83,7 +85,8 @@ class LanguageControl extends BaseComponent {
       !this.props.isMobile &&
       !this._controlLanguageElement.contains(e.target) &&
       this.state.smartContainerOpen &&
-      !this.state.cvaaOverlay
+      !this.state.cvaaOverlay &&
+      ![PLAYER_SIZE.SMALL, PLAYER_SIZE.EXTRA_SMALL].includes(this.props.playerSize)
     ) {
       if (e.target.classList.contains('overlay-action')) {
         e.stopPropagation();
@@ -166,7 +169,7 @@ class LanguageControl extends BaseComponent {
         {!this.state.smartContainerOpen || this.state.cvaaOverlay ? (
           undefined
         ) : (
-          <SmartContainer targetId={this.player.config.targetId} title="Language" onClose={() => this.onControlButtonClick()}>
+          <SmartContainer targetId={this.player.config.targetId} title={<Text id="language.title" />} onClose={() => this.onControlButtonClick()}>
             {audioOptions.length <= 1 ? (
               undefined
             ) : (

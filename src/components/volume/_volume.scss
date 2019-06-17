@@ -1,6 +1,7 @@
 @import '~styles/variables';
 
 .control-button-container.volume-control {
+  display: inline-block !important;
   &.hover {
     .volume-control-bar {
       display: block !important;
@@ -82,10 +83,10 @@
   }
 }
 
-.player.smart-container-open .control-button-container.volume-control.hover .volume-control-bar {
+.player.smart-container-open .control-button-container.volume-control.hover .volume-control-bar, .size-ty .control-button-container.volume-control.hover .volume-control-bar {
   display: none !important;
 }
 
-.touch .control-button-container.volume-control.hover .volume-control-bar {
+.touch .control-button-container.volume-control.hover .volume-control-bar, .size-ty .control-button-container.volume-control.hover .volume-control-bar {
   display: none !important;
 }

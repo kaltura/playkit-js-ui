@@ -11,6 +11,11 @@
   position: absolute;
   top: 0;
   left: 0;
+  pointer-events: none;
+
+  &.hide {
+    display: none;
+  }
 
   .left-controls {
     text-align: left;
@@ -29,6 +34,7 @@
   }
 }
 
+.player.casting .top-bar,
 .player.hover .top-bar,
 .player.state-paused .top-bar,
 .player.state-idle .top-bar,

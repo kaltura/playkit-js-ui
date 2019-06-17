@@ -275,6 +275,18 @@ class EngineConnector extends BaseComponent {
     this.eventManager.listen(this.player, this.player.Event.LEAVE_PICTURE_IN_PICTURE, () => {
       this.props.updateIsInPictureInPicture(false);
     });
+
+    this.eventManager.listen(this.player, this.player.Event.PRESENTATION_MODE_CHANGED, () => {
+      this.player.isInPictureInPicture() ? this.props.updateIsInPictureInPicture(true) : this.props.updateIsInPictureInPicture(false);
+    });
+
+    this.eventManager.listen(this.player, this.player.Event.ENTER_FULLSCREEN, () => {
+      this.props.updateFullscreen(true);
+    });
+
+    this.eventManager.listen(this.player, this.player.Event.EXIT_FULLSCREEN, () => {
+      this.props.updateFullscreen(false);
+    });
   }
 
   /**

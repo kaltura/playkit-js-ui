@@ -20,6 +20,7 @@ const mapStateToProps = state => ({
   currentState: state.engine.playerState.currentState,
   playerClasses: state.shell.playerClasses,
   isMobile: state.shell.isMobile,
+  playerSize: state.shell.playerSize,
   isCasting: state.engine.isCasting,
   playerClientRect: state.shell.playerClientRect,
   playerHover: state.shell.playerHover,
@@ -31,7 +32,7 @@ const mapStateToProps = state => ({
   adBreak: state.engine.adBreak,
   prePlayback: state.engine.prePlayback,
   smartContainerOpen: state.shell.smartContainerOpen,
-  fullscreen: state.fullscreen.fullscreen,
+  fullscreen: state.engine.fullscreen,
   fallbackToMutedAutoPlay: state.engine.fallbackToMutedAutoPlay,
   playlist: state.engine.playlist
 });
@@ -41,7 +42,24 @@ const mapStateToProps = state => ({
  * @type {number}
  * @const
  */
-export const CONTROL_BAR_HOVER_DEFAULT_TIMEOUT: number = 3000;
+const CONTROL_BAR_HOVER_DEFAULT_TIMEOUT: number = 3000;
+
+const PLAYER_SIZE: {[size: string]: string} = {
+  TINY: 'tiny',
+  EXTRA_SMALL: 'extrasmall',
+  SMALL: 'small',
+  MEDIUM: 'medium',
+  LARGE: 'large',
+  EXTRA_LARGE: 'extralarge'
+};
+
+const PLAYER_BREAK_POINTS: {[size: string]: number} = {
+  TINY: 280,
+  EXTRA_SMALL: 380,
+  SMALL: 480,
+  MEDIUM: 768,
+  LARGE: 1024
+};
 
 @connect(
   mapStateToProps,
@@ -182,9 +200,10 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   componentDidMount() {
-    this.props.updateIsMobile(!!this.player.env.device.type || this.props.forceTouchUI);
+    this.props.updateIsMobile(this.player.env.isTablet || this.player.env.isMobile || this.props.forceTouchUI);
     this._onWindowResize();
-    this.eventManager.listen(window, 'resize', () => this._onWindowResize());
+    this.eventManager.listen(this.player, this.player.Event.RESIZE, () => this._onWindowResize());
+    this.eventManager.listen(this.player, this.player.Event.FIRST_PLAY, () => this._onWindowResize());
   }
 
   /**
@@ -313,9 +332,26 @@ class Shell extends BaseComponent {
     if (this.props.seekbarDraggingActive) playerClasses.push(style.hover);
     if (this.props.fullscreen) playerClasses.push(style.fullscreen);
     if (this.props.playlist) playerClasses.push(style.playlist);
-    if (this.props.playerClientRect && this.props.playerClientRect.width <= 480) playerClasses.push(style.sizeSm);
-    else if (this.props.playerClientRect && this.props.playerClientRect.width <= 768) playerClasses.push(style.sizeMd);
-    else if (this.props.playerClientRect && this.props.playerClientRect.width <= 1024) playerClasses.push(style.sizeLg);
+    if (this.props.playerClientRect) {
+      if (this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.TINY) {
+        playerClasses.push(style.sizeTy);
+        this.props.updatePlayerSize(PLAYER_SIZE.TINY);
+      } else if (this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.EXTRA_SMALL) {
+        playerClasses.push(style.sizeXs);
+        this.props.updatePlayerSize(PLAYER_SIZE.EXTRA_SMALL);
+      } else if (this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.SMALL) {
+        playerClasses.push(style.sizeSm);
+        this.props.updatePlayerSize(PLAYER_SIZE.SMALL);
+      } else if (this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.MEDIUM) {
+        playerClasses.push(style.sizeMd);
+        this.props.updatePlayerSize(PLAYER_SIZE.MEDIUM);
+      } else if (this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.LARGE) {
+        playerClasses.push(style.sizeLg);
+        this.props.updatePlayerSize(PLAYER_SIZE.LARGE);
+      } else {
+        this.props.updatePlayerSize(PLAYER_SIZE.EXTRA_LARGE);
+      }
+    }
 
     playerClasses = playerClasses.join(' ');
 
@@ -335,4 +371,4 @@ class Shell extends BaseComponent {
   }
 }
 
-export {Shell};
+export {Shell, CONTROL_BAR_HOVER_DEFAULT_TIMEOUT, PLAYER_SIZE};

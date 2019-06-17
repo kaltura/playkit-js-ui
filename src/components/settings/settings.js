@@ -9,6 +9,7 @@ import BaseComponent from '../base';
 import {SmartContainer} from '../smart-container';
 import {SmartContainerItem} from '../smart-container/smart-container-item';
 import {default as Icon, IconType} from '../icon';
+import {PLAYER_SIZE} from '../shell/shell';
 
 /**
  * mapping state to props
@@ -18,7 +19,8 @@ import {default as Icon, IconType} from '../icon';
 const mapStateToProps = state => ({
   videoTracks: state.engine.videoTracks,
   isMobile: state.shell.isMobile,
-  isLive: state.engine.isLive
+  isLive: state.engine.isLive,
+  playerSize: state.shell.playerSize
 });
 
 @connect(
@@ -73,7 +75,13 @@ class SettingsControl extends BaseComponent {
    * @memberof SettingsControl
    */
   handleClickOutside(e: any) {
-    if (!this.props.isMobile && !!this._controlSettingsElement && !this._controlSettingsElement.contains(e.target) && this.state.smartContainerOpen) {
+    if (
+      !this.props.isMobile &&
+      ![PLAYER_SIZE.SMALL, PLAYER_SIZE.EXTRA_SMALL].includes(this.props.playerSize) &&
+      !!this._controlSettingsElement &&
+      !this._controlSettingsElement.contains(e.target) &&
+      this.state.smartContainerOpen
+    ) {
       if (e.target.classList.contains(style.overlayPlay)) {
         e.stopPropagation();
       }
@@ -209,7 +217,7 @@ class SettingsControl extends BaseComponent {
         {!this.state.smartContainerOpen ? (
           ''
         ) : (
-          <SmartContainer targetId={this.player.config.targetId} title="Settings" onClose={() => this.onControlButtonClick()}>
+          <SmartContainer targetId={this.player.config.targetId} title={<Text id="settings.title" />} onClose={() => this.onControlButtonClick()}>
             {qualityOptions.length <= 1 ? (
               ''
             ) : (
