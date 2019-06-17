@@ -49,22 +49,13 @@ class UIManager {
     if (config.logLevel && this.LogLevel[config.logLevel]) {
       setLogLevel(this.LogLevel[config.logLevel]);
     }
+
     this.player = player;
     this.targetId = config.targetId;
     this._createStore(config);
     this.setConfig(config);
     this._setLocaleTranslations(config);
     setEnv(this.player.env);
-  }
-
-  /**
-   * Adds external preset component
-   * @public
-   * @param {ExternalPresetComponent} component - new preset component
-   * @returns {void}
-   */
-  addExternalPresetComponent(component: ExternalPresetComponent): void {
-    this.store.dispatch(actions.addExternalPresetComponent(component));
   }
 
   /**
