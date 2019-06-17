@@ -200,6 +200,19 @@ function onFullScreenClicked(store: any, action: Object, player: Object): void {
 }
 
 /**
+ * Handler for PictureInPicture clicked actions.
+ * @param {any} store - The redux store.
+ * @param {Object} action - The action object.
+ * @param {Object} player - The video player.
+ * @returns {void}
+ */
+function onPictureInPictureClicked(store: any, action: Object, player: Object): void {
+  player.isInPictureInPicture()
+    ? player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_EXITED_PICTURE_IN_PICTURE))
+    : player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_ENTERED_PICTURE_IN_PICTURE));
+}
+
+/**
  * Handler for settings menu clicked actions.
  * @param {any} store - The redux store.
  * @param {Object} action - The action object.
@@ -246,6 +259,9 @@ const keyboardHandlers: {[key: number]: Function} = {
   },
   [KeyMap.F]: (store, action, player) => {
     onFullScreenClicked(store, action, player);
+  },
+  [KeyMap.P]: (store, action, player) => {
+    onPictureInPictureClicked(store, action, player);
   },
   [KeyMap.ESC]: (store, action, player) => {
     onFullScreenClicked(store, action, player);
