@@ -118,7 +118,6 @@ class Menu extends Component {
       this._menuElement &&
       !this._menuElement.contains(e.target)
     ) {
-      e.stopPropagation();
       this.props.onClose();
     }
   }

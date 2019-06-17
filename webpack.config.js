@@ -29,6 +29,7 @@ module.exports = {
     filename: '[name].js',
     library: ['playkit', 'ui'],
     libraryTarget: 'umd',
+    umdNamedDefine: true,
     devtoolModuleFilenameTemplate: './ui/[resource-path]'
   },
   devtool: 'source-map',

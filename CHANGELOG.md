@@ -2,6 +2,48 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.40.1"></a>
+## [0.40.1](https://github.com/kaltura/playkit-js-ui/compare/v0.40.0...v0.40.1) (2019-05-16)
+
+
+### Bug Fixes
+
+* **FEC-8843:** handle click outside when the menu is open ([#366](https://github.com/kaltura/playkit-js-ui/issues/366)) ([9820c35](https://github.com/kaltura/playkit-js-ui/commit/9820c35))
+* **FEC-9111:** seekbar doesnt work in LG TV ([#386](https://github.com/kaltura/playkit-js-ui/issues/386)) ([49d60b1](https://github.com/kaltura/playkit-js-ui/commit/49d60b1))
+* **FEC-9113:** Add checks to avoid errors in LG TV ([#387](https://github.com/kaltura/playkit-js-ui/issues/387)) ([b601143](https://github.com/kaltura/playkit-js-ui/commit/b601143))
+
+
+
+<a name="0.40.0"></a>
+# [0.40.0](https://github.com/kaltura/playkit-js-ui/compare/v0.39.0...v0.40.0) (2019-05-01)
+
+
+### Features
+
+* **FEC-9029:** unable to set the Smart Container titles ([#383](https://github.com/kaltura/playkit-js-ui/issues/383)) ([433a994](https://github.com/kaltura/playkit-js-ui/commit/433a994))
+
+
+
+<a name="0.39.0"></a>
+# [0.39.0](https://github.com/kaltura/playkit-js-ui/compare/v0.38.4...v0.39.0) (2019-04-15)
+
+
+### Features
+
+* **FEC-8044:** ima-dai plugin ([#371](https://github.com/kaltura/playkit-js-ui/issues/371)) ([382295b](https://github.com/kaltura/playkit-js-ui/commit/382295b))
+
+
+
+<a name="0.38.4"></a>
+## [0.38.4](https://github.com/kaltura/playkit-js-ui/compare/v0.38.3...v0.38.4) (2019-04-10)
+
+
+### Bug Fixes
+
+* **FEC-8937:** UI icons rendered oddly in iOS ([#384](https://github.com/kaltura/playkit-js-ui/issues/384)) ([4fa078b](https://github.com/kaltura/playkit-js-ui/commit/4fa078b))
+
+
+
 <a name="0.38.3"></a>
 ## [0.38.3](https://github.com/kaltura/playkit-js-ui/compare/v0.38.2...v0.38.3) (2019-04-07)
 
