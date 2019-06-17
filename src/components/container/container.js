@@ -1,6 +1,5 @@
 //@flow
 import {h, Component} from 'preact';
-import {connect} from 'preact-redux';
 
 /**
  *
@@ -16,19 +15,6 @@ function getComponentName(component: Object) {
 }
 
 /**
- * mapping state to props
- * @param {*} state - redux store state
- * @returns {Object} - mapped state to this component
- */
-const mapStateToProps = state => ({
-  externalPresetComponents: state.config.externalPresetComponents
-});
-
-@connect(
-  mapStateToProps,
-  null
-)
-/**
  * A video container enabling injecting components by preset, container and position
  */
 class Container extends Component {
@@ -41,9 +27,9 @@ class Container extends Component {
   render(): React$Element<any> {
     const children = this.props.children;
     const newChildren = [];
-    const presetComponents = this.props.externalPresetComponents.filter(newComponent => {
-      return !newComponent.presets || newComponent.presets.includes(this.props.presetName);
-    });
+    const presetComponents = []; //this.props.externalPresetComponents.filter(newComponent => {
+    //   return !newComponent.presets || newComponent.presets.includes(this.props.presetName);
+    // });
     const containerComponents = presetComponents.filter(presetComponent => {
       return presetComponent.container === this.props.name;
     });

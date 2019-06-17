@@ -43,6 +43,6 @@ class TopBar extends Component {
   }
 }
 
-Object.defineProperty(TopBar, 'name', {value: 'TopBar'});
+//Object.defineProperty(TopBar, 'name', {value: 'TopBar'});
 
 export {TopBar};
