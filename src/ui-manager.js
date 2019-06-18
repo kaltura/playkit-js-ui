@@ -46,10 +46,10 @@ class UIManager {
    * @memberof UIManager
    */
   constructor(player: Object, config: UIOptionsObject) {
-    if (config.log.level && this.LogLevel[config.log.level]) {
+    if (config.log && config.log.level && this.LogLevel[config.log.level]) {
       setLogLevel(this.LogLevel[config.log.level]);
     }
-    if (typeof config.log.handler === 'function') {
+    if (config.log && typeof config.log.handler === 'function') {
       setLogHandler(config.log.handler);
     }
     this.player = player;
