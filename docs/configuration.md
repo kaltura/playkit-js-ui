@@ -16,7 +16,7 @@ var uiManager = new playkit.ui.UIManager(player, config);
   targetId: string,
   debugActions: boolean, // optional
   forceTouchUI: boolean, // optional
-  logLevel: string, // optional
+  log?: UILogConfigObject, // optional
   components: Object, // optional
   translations: Object, // optional
   locale: Object // optional
@@ -220,6 +220,7 @@ var uiManager = new playkit.ui.UIManager(player, config);
 ##
 
 > > ### config.components.fullscreen (Deprecated)
+> >
 > > #### Moved under playback.inBrowserFullscreen
 > >
 > > ##### Type: `Object`
