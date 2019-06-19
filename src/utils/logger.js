@@ -17,7 +17,6 @@ JsLogger.useDefaults({defaultLevel: JsLogger.ERROR});
 
 /**
  * sets the logger handler
- * @private
  * @param {LogHandlerType} handler - the log level
  * @returns {void}
  */
@@ -26,7 +25,6 @@ function setLogHandler(handler: LogHandlerType): void {
 }
 /**
  * get a logger
- * @private
  * @param {?string} name - the logger name
  * @returns {Object} - the logger class
  */
@@ -39,7 +37,6 @@ function getLogger(name?: string): Object {
 
 /**
  * get the log level
- * @private
  * @param {?string} name - the logger name
  * @returns {LogLevelObject} - the log level
  */
@@ -49,7 +46,6 @@ function getLogLevel(name?: string): LogLevelObject {
 
 /**
  * sets the logger level
- * @private
  * @param {LogLevelObject} level - the log level
  * @param {?string} name - the logger name
  * @returns {void}
