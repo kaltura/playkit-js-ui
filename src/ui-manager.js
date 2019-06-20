@@ -5,7 +5,7 @@ import {IntlProvider} from 'preact-i18n';
 import {createStore} from 'redux';
 import {copyDeep} from './utils/copy-deep';
 import {mergeDeep} from './utils/merge-deep';
-import {LogLevel, getLogLevel, setLogLevel} from './utils/logger';
+import {LogLevel, getLogLevel, setLogLevel, setLogHandler} from './utils/logger';
 import {EventType} from './event/event-type';
 import {setEnv} from './utils/key-map';
 
@@ -46,8 +46,11 @@ class UIManager {
    * @memberof UIManager
    */
   constructor(player: Object, config: UIOptionsObject) {
-    if (config.logLevel && this.LogLevel[config.logLevel]) {
-      setLogLevel(this.LogLevel[config.logLevel]);
+    if (config.log && config.log.level && this.LogLevel[config.log.level]) {
+      setLogLevel(this.LogLevel[config.log.level]);
+    }
+    if (config.log && typeof config.log.handler === 'function') {
+      setLogHandler(config.log.handler);
     }
     this.player = player;
     this.targetId = config.targetId;
