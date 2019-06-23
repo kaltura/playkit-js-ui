@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.42.0"></a>
+# [0.42.0](https://github.com/kaltura/playkit-js-ui/compare/v0.41.0...v0.42.0) (2019-06-23)
+
+
+### Features
+
+* **FEC-9023:** More logger options ([#394](https://github.com/kaltura/playkit-js-ui/issues/394)) ([bae70c8](https://github.com/kaltura/playkit-js-ui/commit/bae70c8))
+
+
+
 <a name="0.41.0"></a>
 # [0.41.0](https://github.com/kaltura/playkit-js-ui/compare/v0.40.1...v0.41.0) (2019-06-17)
 
