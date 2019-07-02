@@ -27,10 +27,13 @@ export class ContainerProvider extends Component {
     const allPresets = [];
 
     (this.props.presetComponents || []).forEach(component => {
-      if (!component.render || !component.container) {
+      if (!component.create || !component.container) {
         // TODO sakal log this case
         // eslint-disable-next-line no-console
-        console.warn(`one of the preset components is invalid (did you forget to set render method and container name?`);
+        console.warn(
+          `preset with label '${component.label ||
+            ''}' configuration is invalid, missing required configuration (did you remember to set 'container' and 'create'?)`
+        );
         return;
       }
 

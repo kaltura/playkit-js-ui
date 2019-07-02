@@ -1,6 +1,7 @@
 //@flow
 import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
+import {InjectedComponent} from '../injected-component';
 
 /**
  * mapping state to props
@@ -136,7 +137,7 @@ class Container extends Component {
    * @private
    */
   _renderPresetComponent(presetComponent: PresetComponent) {
-    return presetComponent.render({context: presetComponent.context});
+    return <InjectedComponent presetComponent={presetComponent} />;
   }
   /**
    * render component
@@ -190,17 +191,8 @@ class Container extends Component {
 
     containerComponents.appendedComponents.forEach(component => {
       const newChild = this._renderPresetComponent(component);
-      if (this.props.name === 'player-gui') {
-        // eslint-disable-next-line no-console
-        console.log(`>>>>>>>>>>>> newChild`, {newChild});
-      }
       newChildren.push(newChild);
     });
-
-    if (this.props.name === 'player-gui') {
-      // eslint-disable-next-line no-console
-      console.log(`>>>>>>>>>>>> a`, {containerComponents, hasPositionedComponents, newChildren});
-    }
 
     return (
       <div className={this.props.className} data-kp-container={this.props.name}>
