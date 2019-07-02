@@ -93,11 +93,12 @@ class UIManager {
    */
   buildDefaultUI(): void {
     // TODO sakal I needed to remove the extra wrapping otherwise displayname are not relevant
+    // TODO remove temp 'sakal' global variable
     const uis = [
       {template: presets.idleUI, condition: state => state.engine.isIdle},
-      {template: presets.errorUI, condition: state => state.engine.hasError},
-      {template: presets.adsUI, condition: state => state.engine.adBreak},
-      {template: presets.liveUI, condition: state => state.engine.isLive},
+      {template: presets.errorUI, condition: state => window.sakal === 'error' || state.engine.hasError},
+      {template: presets.adsUI, condition: state => window.sakal === 'ads' || state.engine.adBreak},
+      {template: presets.liveUI, condition: state => window.sakal === 'live' || state.engine.isLive},
       {template: presets.playbackUI}
     ];
     this._buildUI(uis);

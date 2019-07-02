@@ -54,7 +54,7 @@ class InjectedComponent extends Component {
 
     // TODO Sakal use logger
     // eslint-disable-next-line no-console
-    console.info(`[injected-component]: inject preset component with label '${presetComponent.label || ''}'`);
+    console.info(`[InjectedComponent().componentDidMount('${presetComponent.label || ''}'): inject preset component `);
     presetComponent.create({context: presetComponent.context, parent: this._root});
   }
 
