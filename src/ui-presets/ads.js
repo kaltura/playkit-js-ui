@@ -14,6 +14,8 @@ import {KeyboardControl} from '../components/keyboard';
 import {AdNotice} from '../components/ad-notice/ad-notice';
 import {PlaybackControls} from '../components/playback-controls';
 
+const PRESET_NAME = 'ads';
+
 /**
  * Ads ui interface
  *
@@ -62,6 +64,8 @@ export function adsUI(props: any): ?React$Element<any> {
     </div>
   );
 }
+
+adsUI.displayName = PRESET_NAME;
 
 /**
  * Gets the ads ui customization settings

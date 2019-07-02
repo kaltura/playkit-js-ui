@@ -24,8 +24,10 @@ import {PictureInPicture} from '../components/picture-in-picture';
 import {PictureInPictureOverlay} from '../components/picture-in-picture-overlay';
 import {ShareControl} from '../components/share';
 
+const PRESET_NAME = 'live';
+
 /**
- * Live ui intrface
+ * Live ui interface
  *
  * @export
  * @param {*} props component props
@@ -67,3 +69,5 @@ export function liveUI(props: any): React$Element<any> {
     </div>
   );
 }
+
+liveUI.displayName = PRESET_NAME;

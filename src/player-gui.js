@@ -1,6 +1,8 @@
 //@flow
 import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
+import {bindActions} from './utils';
+import {actions} from './reducers/shell';
 
 /**
  * mapping state to props
@@ -22,7 +24,10 @@ const mapStateToProps = state => ({
   config: state.config
 });
 
-@connect(mapStateToProps)
+@connect(
+  mapStateToProps,
+  bindActions(actions)
+)
 /**
  * Player GUI component
  *
@@ -39,6 +44,7 @@ class PlayerGUI extends Component {
    * @memberof PlayerGUI
    */
   getMatchedUI(uis: Array<any>, state: Object): any {
+    // TODO sakal did you consider performance as the conditions are dynamic? why not support it explicitly
     let matchedUI;
     for (let ui of uis) {
       if (typeof ui.condition === 'undefined' || ui.condition(state)) {
@@ -61,13 +67,17 @@ class PlayerGUI extends Component {
     let uiToRender;
     if (this.props.uis.length > 0) {
       uiToRender = this.getMatchedUI(props.uis, props.state);
-      const presetComponent = uiToRender ? uiToRender.template(props) : this.props.uis[0].template(props);
+      // TODO sakal I think the fallback here is problematic and will lead to implementation issues - consider undefined instead
+      // TODO sakal  I removed the invokation of the component and left it to preact otherwise displayname are not relevant
+      const template = uiToRender ? uiToRender.template : this.props.uis[0].template;
+      const presetComponent = h(template, props);
+      const presetName = presetComponent ? presetComponent.nodeName.displayName : '';
 
-      return (
-        <div className={'sakal'} data-preset={presetComponent.name}>
-          {presetComponent}
-        </div>
-      );
+      if (props.state.shell.presetName !== presetName) {
+        props.updatePresetName(presetName);
+      }
+
+      return <div data-kp-preset={presetName}>{presetComponent}</div>;
     } else {
       return undefined;
     }

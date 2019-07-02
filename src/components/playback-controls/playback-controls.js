@@ -14,6 +14,8 @@ const mapStateToProps = state => ({
   playlist: state.engine.playlist
 });
 
+const COMPONENT_NAME = 'PlaybackControls';
+
 @connect(mapStateToProps)
 /**
  * PlaybackControls component
@@ -24,6 +26,12 @@ const mapStateToProps = state => ({
  */
 class PlaybackControls extends Component {
   /**
+   * constructor
+   */
+  constructor() {
+    super();
+  }
+  /**
    * render component
    *
    * @param {*} props - component props
@@ -32,7 +40,7 @@ class PlaybackControls extends Component {
    */
   render(props: any): React$Element<any> {
     return (
-      <div className={[style.playbackControls]}>
+      <div className={[style.playbackControls]} data-kp-component={COMPONENT_NAME}>
         {props.playlist ? <PlaylistButton player={props.player} type="prev" /> : undefined}
         <PlayPauseControl player={props.player} />
         {props.playlist ? <PlaylistButton player={props.player} type="next" /> : undefined}
@@ -40,5 +48,5 @@ class PlaybackControls extends Component {
     );
   }
 }
-
+PlaybackControls.displayName = COMPONENT_NAME;
 export {PlaybackControls};

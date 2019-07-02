@@ -3,6 +3,8 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 
+const COMPONENT_NAME = 'TopBar';
+
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -36,7 +38,7 @@ class TopBar extends Component {
       styleClass.push(style.hide);
     }
     return (
-      <div data-component={TopBar.name} className={styleClass.join(' ')}>
+      <div data-kp-component={COMPONENT_NAME} className={styleClass.join(' ')}>
         {props.children}
       </div>
     );
@@ -45,4 +47,5 @@ class TopBar extends Component {
 
 //Object.defineProperty(TopBar, 'name', {value: 'TopBar'});
 
+TopBar.displayName = COMPONENT_NAME;
 export {TopBar};

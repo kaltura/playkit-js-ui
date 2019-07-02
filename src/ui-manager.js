@@ -8,7 +8,7 @@ import {mergeDeep} from './utils/merge-deep';
 import {LogLevel, getLogLevel, setLogLevel} from './utils/logger';
 import {EventType} from './event/event-type';
 import {setEnv} from './utils/key-map';
-
+import {ContainerProvider} from './components/container/container-provider';
 import reducer from './store';
 import en_translations from './translations/en.json';
 
@@ -38,6 +38,7 @@ class UIManager {
   root: React$Component<any, any, any>;
   _translations: {[langKey: string]: Object} = {en: en_translations};
   _locale: string = 'en';
+  _presetComponents: PresetComponent[];
 
   /**
    * Creates an instance of UIManager.
@@ -50,6 +51,7 @@ class UIManager {
       setLogLevel(this.LogLevel[config.logLevel]);
     }
 
+    this._presetComponents = config.presetComponents || [];
     this.player = player;
     this.targetId = config.targetId;
     this._createStore(config);
@@ -90,12 +92,13 @@ class UIManager {
    * @memberof UIManager
    */
   buildDefaultUI(): void {
+    // TODO sakal I needed to remove the extra wrapping otherwise displayname are not relevant
     const uis = [
-      {template: props => presets.idleUI(props), condition: state => state.engine.isIdle},
-      {template: props => presets.errorUI(props), condition: state => state.engine.hasError},
-      {template: props => presets.adsUI(props), condition: state => state.engine.adBreak},
-      {template: props => presets.liveUI(props), condition: state => state.engine.isLive},
-      {template: props => presets.playbackUI(props)}
+      {template: presets.idleUI, condition: state => state.engine.isIdle},
+      {template: presets.errorUI, condition: state => state.engine.hasError},
+      {template: presets.adsUI, condition: state => state.engine.adBreak},
+      {template: presets.liveUI, condition: state => state.engine.isLive},
+      {template: presets.playbackUI}
     ];
     this._buildUI(uis);
   }
@@ -167,13 +170,15 @@ class UIManager {
       // i18n, redux and initial player-to-store connector setup
       const template = (
         <Provider store={this.store}>
-          <IntlProvider definition={this._translations[this._locale]}>
-            <Shell player={this.player}>
-              <EngineConnector player={this.player} />
-              <VideoPlayer player={this.player} />
-              <PlayerGUI uis={uis} player={this.player} playerContainer={this.container} />
-            </Shell>
-          </IntlProvider>
+          <ContainerProvider presetComponents={this._presetComponents}>
+            <IntlProvider definition={this._translations[this._locale]}>
+              <Shell player={this.player}>
+                <EngineConnector player={this.player} />
+                <VideoPlayer player={this.player} />
+                <PlayerGUI uis={uis} player={this.player} playerContainer={this.container} />
+              </Shell>
+            </IntlProvider>
+          </ContainerProvider>
         </Provider>
       );
 
