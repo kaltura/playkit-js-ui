@@ -10,6 +10,7 @@ export const KeyMap: {[key: string]: number} = {
   UP: 38,
   RIGHT: 39,
   DOWN: 40,
+  P: 80,
   C: 67,
   F: 70,
   M: 77,

@@ -16,6 +16,8 @@ const EventType: {[event: string]: string} = {
   USER_SELECTED_QUALITY_TRACK: `${namespace}-userselectedqualitytrack`,
   USER_ENTERED_FULL_SCREEN: `${namespace}-userenteredfullscreen`,
   USER_EXITED_FULL_SCREEN: `${namespace}-userexitedfullscreen`,
+  USER_ENTERED_PICTURE_IN_PICTURE: `${namespace}-userenteredpictureinpicture`,
+  USER_EXITED_PICTURE_IN_PICTURE: `${namespace}-userexitedpictureinpicture`,
   USER_SELECTED_CAPTIONS_STYLE: `${namespace}-userselectedcaptionsstyle`,
   USER_SELECTED_SPEED: `${namespace}-userselectedspeed`,
   USER_SEEKED: `${namespace}-userseeked`
