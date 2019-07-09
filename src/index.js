@@ -1,6 +1,7 @@
 // @flow
 import {UIManager} from './ui-manager';
 import * as preact from 'preact';
+export {h} from 'preact';
 import {EventType} from './event/event-type';
 import * as redux from 'preact-redux';
 // ui reducers
@@ -19,15 +20,4 @@ declare var __NAME__: string;
 const VERSION = __VERSION__;
 const NAME = __NAME__;
 
-export {VERSION, NAME};
-
-export {h} from 'preact';
-export {preact};
-export {redux};
-
-export {style};
-export {Reducers, Presets, Components, Utils};
-export {EventType};
-export {UIManager};
-
-
+export {preact, redux, style, Reducers, Presets, Components, Utils, EventType, UIManager, VERSION, NAME};

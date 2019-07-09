@@ -2,7 +2,7 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {DropDown} from '../dropdown';
-import {Icon, IconType} from '../icon';
+import {Icon} from '../icon';
 
 /**
  * SmartContainerItem component

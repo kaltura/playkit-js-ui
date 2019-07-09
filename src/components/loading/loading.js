@@ -106,7 +106,11 @@ class Loading extends BaseComponent {
     return (
       <div className={[style.loadingBackdrop, style.show].join(' ')}>
         <div className={style.spinnerContainer}>
-          <div className={style.spinner}>{[...Array(8)].map(i => <span key={i} />)}</div>
+          <div className={style.spinner}>
+            {[...Array(8)].map(i => (
+              <span key={i} />
+            ))}
+          </div>
         </div>
       </div>
     );

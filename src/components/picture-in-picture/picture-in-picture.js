@@ -2,7 +2,7 @@
 import style from '../../styles/style.scss';
 import {h} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
-import {default as Icon, IconType} from '../icon';
+import {Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import BaseComponent from '../base';
 import {connect} from 'preact-redux';

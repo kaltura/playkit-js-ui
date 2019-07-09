@@ -2,7 +2,6 @@
 
 const webpack = require('webpack');
 const path = require('path');
-const PROD = process.env.NODE_ENV === 'production';
 const packageData = require('./package.json');
 const CSS_MODULE_PREFIX = 'playkit';
 
@@ -34,12 +33,10 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        use: [
-          'babel-loader',
-          'eslint-loader',
-        ],
+        use: ['babel-loader', 'eslint-loader'],
         exclude: /node_modules/
-      }, {
+      },
+      {
         test: /\.scss$/,
         use: [
           {
@@ -48,9 +45,10 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              camelCase: true,
-              modules: true,
-              localIdentName: CSS_MODULE_PREFIX + '-[local]'
+              localsConvention: 'camelCase',
+              modules: {
+                localIdentName: CSS_MODULE_PREFIX + '-[local]'
+              }
             }
           },
           {

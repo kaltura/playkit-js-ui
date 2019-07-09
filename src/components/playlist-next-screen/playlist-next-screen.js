@@ -4,7 +4,7 @@ import {h} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import BaseComponent from '../base';
 import {connect} from 'preact-redux';
-import {default as Icon, IconType} from '../icon';
+import {Icon, IconType} from '../icon';
 
 /**
  * The maximum next item poster width
