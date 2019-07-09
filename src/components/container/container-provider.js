@@ -1,5 +1,8 @@
 // @flow
 import {Component} from 'preact';
+import getLogger from '../../utils/logger';
+
+const logger = getLogger('ContainerProvider');
 
 /**
  *  A provider of injected preset components configuration
@@ -25,12 +28,9 @@ export class ContainerProvider extends Component {
   componentDidMount(): void {
     const specificPreset = {};
     const allPresets = [];
-
     (this.props.presetComponents || []).forEach(component => {
       if (!component.create || !component.container) {
-        // TODO sakal log this case
-        // eslint-disable-next-line no-console
-        console.warn(
+        logger.warn(
           `preset with label '${component.label ||
             ''}' configuration is invalid, missing required configuration (did you remember to set 'container' and 'create'?)`
         );

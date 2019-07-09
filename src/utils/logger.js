@@ -13,6 +13,7 @@ const LogLevel: LogLevelType = {
   OFF: JsLogger.OFF
 };
 
+// TODO sakal check why not using playkit-js logger
 JsLogger.useDefaults({defaultLevel: JsLogger.ERROR});
 
 /**

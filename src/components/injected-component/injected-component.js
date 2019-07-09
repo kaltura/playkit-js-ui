@@ -1,5 +1,11 @@
 //@flow
 import {h, Component} from 'preact';
+import getLogger from '../../utils/logger';
+
+// TODO sakal check with Oren if should inherit from 'BaseComponent'
+// TODO sakal if using base component, use its' logger
+
+const logger = getLogger('InjectedComponent');
 
 /**
  * injected component wrapper with support for life-cycle events
@@ -33,28 +39,20 @@ class InjectedComponent extends Component {
   componentDidMount(): void {
     const {presetComponent} = this.props;
     if (!presetComponent) {
-      // TODO Sakal use logger
-      // eslint-disable-next-line no-console
-      console.warn('Cannot inject preset item, presetComponent prop is missing');
+      logger.warn('Cannot inject preset item, presetComponent prop is missing');
       return;
     }
     if (!presetComponent.create) {
-      // TODO Sakal use logger
-      // eslint-disable-next-line no-console
-      console.warn(`Cannot inject preset item with label '${presetComponent.label}', missing 'create' method`);
+      logger.warn(`Cannot inject preset item with label '${presetComponent.label}', missing 'create' method`);
       return;
     }
 
     if (!this._root) {
-      // TODO Sakal use logger
-      // eslint-disable-next-line no-console
-      console.warn(`Cannot inject preset item with label '${presetComponent.label}', failed to create parent component`);
+      logger.warn(`Cannot inject preset item with label '${presetComponent.label}', failed to create parent component`);
       return;
     }
 
-    // TODO Sakal use logger
-    // eslint-disable-next-line no-console
-    console.info(`[InjectedComponent().componentDidMount('${presetComponent.label || ''}'): inject preset component `);
+    logger.debug(`[componentDidMount('${presetComponent.label || ''}')]: inject preset component`);
     presetComponent.create({context: presetComponent.context, parent: this._root});
   }
 
@@ -70,6 +68,7 @@ class InjectedComponent extends Component {
     }
 
     presetComponent.onDestroy({context: presetComponent.context, parent: this._root});
+    logger.debug(`[componentWillUnmount('${presetComponent.label || ''}')]: destory preset component`);
   }
 
   /**
