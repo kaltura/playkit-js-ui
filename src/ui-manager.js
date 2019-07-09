@@ -50,6 +50,12 @@ class UIManager {
     if (config.log && config.log.level && this.LogLevel[config.log.level]) {
       setLogLevel(this.LogLevel[config.log.level]);
     }
+
+    // TODO sakal check how they currently modify player log level (probably not from ui-manager)
+    if (config.log && player && player.setLogLevel && player.LogLevel) {
+      player.setLogLevel(player.LogLevel[config.log.level]);
+    }
+
     if (config.log && typeof config.log.handler === 'function') {
       setLogHandler(config.log.handler);
     }
@@ -95,7 +101,6 @@ class UIManager {
    * @memberof UIManager
    */
   buildDefaultUI(): void {
-    // TODO sakal I needed to remove the extra wrapping otherwise displayname are not relevant
     // TODO remove temp 'sakal' global variable
     const uis = [
       {template: presets.idleUI, condition: state => state.engine.isIdle},
