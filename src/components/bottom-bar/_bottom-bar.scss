@@ -12,6 +12,10 @@
   left: 0;
   z-index: 1;
 
+  &.hide {
+    display: none;
+  }
+
   .left-controls {
     float: left;
     text-align: left;
@@ -20,6 +24,7 @@
       margin-left: 0px;
     }
   }
+
   .right-controls {
     float: right;
     text-align: left;
@@ -34,8 +39,34 @@
   }
 }
 
+.player{
+  &.size-ty {
+    .left-controls {
+      display: none;
+    }
+    .control-button-container{
+      display: none;
+      margin: 0;
+    }
+  }
+  &.size-xs {
+    .control-button-container{
+      margin: 0 1px;
+    }
+    .left-controls {
+      .control-button-container {
+        display: none;
+      }
+    }
+  }
+}
+
+
+.player.casting .bottom-bar,
 .player.hover .bottom-bar,
 .player.state-paused .bottom-bar,
+.player.state-idle .bottom-bar,
+.player.ad-break .bottom-bar,
 .player.menu-active .bottom-bar {
   opacity: 1;
   visibility: visible;

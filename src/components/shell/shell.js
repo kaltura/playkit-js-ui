@@ -4,9 +4,9 @@ import {h} from 'preact';
 import BaseComponent from '../base';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
-import {actions} from '../../reducers/shell';
+import {actions as shellActions} from '../../reducers/shell';
+import {actions as engineActions} from '../../reducers/engine';
 import {KeyMap} from '../../utils/key-map';
-import {bindMethod} from '../../utils/bind-method';
 
 /**
  * mapping state to props
@@ -20,6 +20,8 @@ const mapStateToProps = state => ({
   currentState: state.engine.playerState.currentState,
   playerClasses: state.shell.playerClasses,
   isMobile: state.shell.isMobile,
+  playerSize: state.shell.playerSize,
+  isCasting: state.engine.isCasting,
   playerClientRect: state.shell.playerClientRect,
   playerHover: state.shell.playerHover,
   playerNav: state.shell.playerNav,
@@ -28,9 +30,11 @@ const mapStateToProps = state => ({
   bottomBarHoverActive: state.shell.bottomBarHoverActive,
   volumeHoverActive: state.volume.hover,
   adBreak: state.engine.adBreak,
-  prePlayback: state.shell.prePlayback,
+  prePlayback: state.engine.prePlayback,
   smartContainerOpen: state.shell.smartContainerOpen,
-  fullscreen: state.fullscreen.fullscreen
+  fullscreen: state.engine.fullscreen,
+  fallbackToMutedAutoPlay: state.engine.fallbackToMutedAutoPlay,
+  playlist: state.engine.playlist
 });
 
 /**
@@ -38,22 +42,40 @@ const mapStateToProps = state => ({
  * @type {number}
  * @const
  */
-export const CONTROL_BAR_HOVER_DEFAULT_TIMEOUT: number = 3000;
+const CONTROL_BAR_HOVER_DEFAULT_TIMEOUT: number = 3000;
 
-@connect(mapStateToProps, bindActions(actions))
-  /**
-   * Shell component
-   *
-   * @class Shell
-   * @example <Shell player={this.player}>...</Shell>
-   * @extends {BaseComponent}
-   */
+const PLAYER_SIZE: {[size: string]: string} = {
+  TINY: 'tiny',
+  EXTRA_SMALL: 'extrasmall',
+  SMALL: 'small',
+  MEDIUM: 'medium',
+  LARGE: 'large',
+  EXTRA_LARGE: 'extralarge'
+};
+
+const PLAYER_BREAK_POINTS: {[size: string]: number} = {
+  TINY: 280,
+  EXTRA_SMALL: 380,
+  SMALL: 480,
+  MEDIUM: 768,
+  LARGE: 1024
+};
+
+@connect(
+  mapStateToProps,
+  bindActions(Object.assign({}, shellActions, engineActions))
+)
+/**
+ * Shell component
+ *
+ * @class Shell
+ * @example <Shell player={this.player}>...</Shell>
+ * @extends {BaseComponent}
+ */
 class Shell extends BaseComponent {
   state: Object;
   hoverTimeout: ?number;
-  _fallbackToMutedAutoPlayMode: boolean;
   _environmentClasses: Array<string>;
-  _onWindowResize: Function;
 
   /**
    * Creates an instance of Shell.
@@ -62,11 +84,6 @@ class Shell extends BaseComponent {
    */
   constructor(obj: Object) {
     super({name: 'Shell', player: obj.player});
-    this._onWindowResize = bindMethod(this, this._onWindowResize);
-    this._fallbackToMutedAutoPlayMode = false;
-    this.player.addEventListener(this.player.Event.FALLBACK_TO_MUTED_AUTOPLAY, () => {
-      this._fallbackToMutedAutoPlayMode = true
-    });
     this._environmentClasses = [
       `${__CSS_MODULE_PREFIX__}-${this.player.env.os.name.replace(/ /g, '-')}`,
       `${__CSS_MODULE_PREFIX__}-${this.player.env.browser.name.replace(/ /g, '-')}`
@@ -94,11 +111,18 @@ class Shell extends BaseComponent {
 
   /**
    * on mouse leave, remove the hover class (hide the player gui)
-   *
+   * @param {Event} event - the mouse leave event
    * @returns {void}
    * @memberof Shell
    */
-  onMouseLeave(): void {
+  onMouseLeave(event: Event): void {
+    /**
+     * a hack to fix 'mouseleave' bug in chrome - the event is called sometimes on a click inside the div.
+     * https://bugs.chromium.org/p/chromium/issues/detail?id=798535
+     */
+    if (!event.toElement) {
+      return;
+    }
     if (this.props.isMobile) {
       return;
     }
@@ -128,23 +152,25 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   onClick(): void {
-    if (this._fallbackToMutedAutoPlayMode) {
+    if (this.props.fallbackToMutedAutoPlay) {
       this.player.muted = false;
-      this._fallbackToMutedAutoPlayMode = false;
     }
     this.notifyClick();
   }
 
   /**
-   * on touch start handler
+   * on touch end handler
    * @param {TouchEvent} e - touch event
 
    * @returns {void}
    * @memberof Shell
    */
-  onTouchStart(e: TouchEvent): void {
+  onTouchEnd(e: TouchEvent): void {
     if (this.props.prePlayback) {
       return;
+    }
+    if (this.props.fallbackToMutedAutoPlay) {
+      this.player.muted = false;
     }
     if (!this.state.hover) {
       e.stopPropagation();
@@ -174,9 +200,10 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   componentDidMount() {
-    this.props.updateIsMobile(!!this.player.env.device.type || this.props.forceTouchUI);
+    this.props.updateIsMobile(this.player.env.isTablet || this.player.env.isMobile || this.props.forceTouchUI);
     this._onWindowResize();
-    window.addEventListener('resize', this._onWindowResize);
+    this.eventManager.listen(this.player, this.player.Event.RESIZE, () => this._onWindowResize());
+    this.eventManager.listen(this.player, this.player.Event.FIRST_PLAY, () => this._onWindowResize());
   }
 
   /**
@@ -202,7 +229,8 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   componentWillUnmount(): void {
-    window.removeEventListener('resize', this._onWindowResize);
+    super.componentWillUnmount();
+    this._clearHoverTimeout();
   }
 
   /**
@@ -228,11 +256,13 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   _canEndHoverState(): boolean {
-    return !this.props.seekbarDraggingActive
-      && !this.props.seekbarHoverActive
-      && !this.props.volumeHoverActive
-      && !this.props.smartContainerOpen
-      && !this.player.paused;
+    return (
+      !this.props.seekbarDraggingActive &&
+      !this.props.seekbarHoverActive &&
+      !this.props.volumeHoverActive &&
+      !this.props.smartContainerOpen &&
+      !this.player.paused
+    );
   }
 
   /**
@@ -275,8 +305,7 @@ class Shell extends BaseComponent {
   componentDidUpdate(prevProps: Object): void {
     // Update the hover state if the transition was from pre playback screen
     // or after an ad break
-    if (!this.props.prePlayback && prevProps.prePlayback ||
-      !this.props.adBreak && prevProps.adBreak) {
+    if ((!this.props.prePlayback && prevProps.prePlayback) || (!this.props.adBreak && prevProps.adBreak)) {
       this._updatePlayerHoverState();
     }
   }
@@ -292,6 +321,8 @@ class Shell extends BaseComponent {
     let playerClasses = [style.player, style.skinDefault, ...this._environmentClasses];
     playerClasses.push(props.playerClasses);
 
+    if (this.props.prePlayback) playerClasses.push(style.prePlayback);
+    if (this.props.isCasting) playerClasses.push(`${__CSS_MODULE_PREFIX__}-casting`);
     if (this.props.isMobile) playerClasses.push(style.touch);
     if (this.props.playerNav) playerClasses.push(style.nav);
     if (this.props.playerHover || this.props.playerNav) playerClasses.push(style.hover);
@@ -300,8 +331,27 @@ class Shell extends BaseComponent {
     if (this.props.metadataLoaded) playerClasses.push(style['state-' + this.props.currentState]);
     if (this.props.seekbarDraggingActive) playerClasses.push(style.hover);
     if (this.props.fullscreen) playerClasses.push(style.fullscreen);
-    if (this.props.playerClientRect && this.props.playerClientRect.width <= 480) playerClasses.push(style.sizeSm);
-    else if (this.props.playerClientRect && this.props.playerClientRect.width <= 768) playerClasses.push(style.sizeMd);
+    if (this.props.playlist) playerClasses.push(style.playlist);
+    if (this.props.playerClientRect) {
+      if (this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.TINY) {
+        playerClasses.push(style.sizeTy);
+        this.props.updatePlayerSize(PLAYER_SIZE.TINY);
+      } else if (this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.EXTRA_SMALL) {
+        playerClasses.push(style.sizeXs);
+        this.props.updatePlayerSize(PLAYER_SIZE.EXTRA_SMALL);
+      } else if (this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.SMALL) {
+        playerClasses.push(style.sizeSm);
+        this.props.updatePlayerSize(PLAYER_SIZE.SMALL);
+      } else if (this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.MEDIUM) {
+        playerClasses.push(style.sizeMd);
+        this.props.updatePlayerSize(PLAYER_SIZE.MEDIUM);
+      } else if (this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.LARGE) {
+        playerClasses.push(style.sizeLg);
+        this.props.updatePlayerSize(PLAYER_SIZE.LARGE);
+      } else {
+        this.props.updatePlayerSize(PLAYER_SIZE.EXTRA_LARGE);
+      }
+    }
 
     playerClasses = playerClasses.join(' ');
 
@@ -310,15 +360,15 @@ class Shell extends BaseComponent {
         tabIndex="0"
         className={playerClasses}
         onClick={() => this.onClick()}
-        onTouchStart={(e) => this.onTouchStart(e)}
+        onTouchEnd={e => this.onTouchEnd(e)}
         onMouseOver={() => this.onMouseOver()}
         onMouseMove={() => this.onMouseMove()}
-        onMouseLeave={() => this.onMouseLeave()}
-        onKeyDown={(e) => this.onKeyDown(e)}>
+        onMouseLeave={event => this.onMouseLeave(event)}
+        onKeyDown={e => this.onKeyDown(e)}>
         {props.children}
       </div>
-    )
+    );
   }
 }
 
-export {Shell};
+export {Shell, CONTROL_BAR_HOVER_DEFAULT_TIMEOUT, PLAYER_SIZE};

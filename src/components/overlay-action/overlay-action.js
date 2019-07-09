@@ -4,9 +4,10 @@ import style from '../../styles/style.scss';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/overlay-action';
-import {actions as shellActions} from '../../reducers/shell'
+import {actions as shellActions} from '../../reducers/shell';
 import BaseComponent from '../base';
 import {Icon, IconType} from '../icon';
+import {isPlayingAdOrPlayback} from '../../reducers/getters';
 
 /**
  * mapping state to props
@@ -14,12 +15,11 @@ import {Icon, IconType} from '../icon';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
+  isPlayingAdOrPlayback: isPlayingAdOrPlayback(state.engine),
   iconType: state.overlayAction.iconType,
-  isPlaying: state.engine.isPlaying,
-  adBreak: state.engine.adBreak,
-  adIsPlaying: state.engine.adIsPlaying,
   playerHover: state.shell.playerHover,
-  isMobile: state.shell.isMobile
+  isMobile: state.shell.isMobile,
+  isSmartContainerOpen: state.shell.smartContainerOpen
 });
 
 /**
@@ -37,23 +37,36 @@ export const OVERLAY_ACTION_DEFAULT_TIMEOUT = 300;
 const PLAY_PAUSE_BUFFER_TIME: number = 200;
 
 /**
- * The maximun time two click would be considered a double click
+ * The maximum time two click would be considered a double click
  * @type {number}
  * @const
  */
 const DOUBLE_CLICK_MAX_BUFFER_TIME: number = 500;
 
-@connect(mapStateToProps, bindActions(Object.assign(actions, shellActions)))
-  /**
-   * OverlayAction component
-   *
-   * @class OverlayAction
-   * @example <OverlayAction player={this.player} />
-   * @extends {BaseComponent}
-   */
+/**
+ * The maximum distance between 'pointerdown' point and 'pointerup' point to still be considered as click and not as dragging
+ * @type {number}
+ * @const
+ */
+const DRAGGING_THRESHOLD: number = 5;
+
+@connect(
+  mapStateToProps,
+  bindActions(Object.assign({}, actions, shellActions))
+)
+
+/**
+ * OverlayAction component
+ *
+ * @class OverlayAction
+ * @example <OverlayAction player={this.player} />
+ * @extends {BaseComponent}
+ */
 class OverlayAction extends BaseComponent {
   state: Object;
   _iconTimeout: ?number = null;
+  _pointerDownPosX: number = NaN;
+  _pointerDownPosY: number = NaN;
   _firstClickTime: number = 0;
   _clickTimeout: ?number = 0;
 
@@ -67,23 +80,13 @@ class OverlayAction extends BaseComponent {
   }
 
   /**
-   * check if currently playing ad or playback
-   *
-   * @returns {boolean} - if currently playing ad or playback
-   * @memberof OverlayAction
-   */
-  isPlayingAdOrPlayback(): boolean {
-    return (this.props.adBreak && this.props.adIsPlaying) || (!this.props.adBreak && this.props.isPlaying);
-  }
-
-  /**
    * toggle play pause and set animation to icon change
    *
    * @returns {void}
    * @memberof OverlayAction
    */
   togglePlayPause(): void {
-    if (this.isPlayingAdOrPlayback()) {
+    if (this.props.isPlayingAdOrPlayback) {
       this.player.pause();
       this.props.updateOverlayActionIcon(IconType.Pause);
     } else {
@@ -104,10 +107,10 @@ class OverlayAction extends BaseComponent {
    */
   toggleFullscreen(): void {
     if (!this.player.isFullscreen()) {
-      this.logger.debug("Enter fullscreen");
+      this.logger.debug('Enter fullscreen');
       this.player.enterFullscreen();
     } else {
-      this.logger.debug("Exit fullscreen");
+      this.logger.debug('Exit fullscreen');
       this.player.exitFullscreen();
     }
     this.notifyClick({
@@ -116,16 +119,70 @@ class OverlayAction extends BaseComponent {
   }
 
   /**
-   * Handler for overlay click
+   * Handler for overlay pointer (mouse/touch) down
+   *
+   * @param {*} event - mousedown/touchstart event
+   * @returns {void}
+   * @memberof OverlayAction
+   */
+  onOverlayPointerDown(event: any): void {
+    this._pointerDownPosX = event.clientX || (event.changedTouches && event.changedTouches[0] && event.changedTouches[0].clientX);
+    this._pointerDownPosY = event.clientY || (event.changedTouches && event.changedTouches[0] && event.changedTouches[0].clientY);
+  }
+
+  /**
+   * Handler for overlay mouse up
+   *
+   * @param {*} event - mouseup event
+   * @returns {void}
+   * @memberof OverlayAction
+   */
+  onOverlayMouseUp(event: any): void {
+    if (!this.isDragging(event)) {
+      this.overlayClick();
+    }
+  }
+
+  /**
+   * handler for overlay touch end
+   *
+   * @param {*} event - touchend event
+   * @returns {void}
+   * @memberof OverlayAction
+   */
+  onOverlayTouchEnd(event: any): void {
+    event.preventDefault();
+    if (this.props.playerHover && !this.isDragging(event)) {
+      this.togglePlayPause();
+    }
+  }
+
+  /**
+   * Whether the user is dragging
+   *
+   * @param {*} event - mouseup/touchend event
+   * @returns {boolean} - is dragging
+   */
+  isDragging(event: any): boolean {
+    const points = {
+      clientX: event.clientX || (event.changedTouches && event.changedTouches[0] && event.changedTouches[0].clientX),
+      clientY: event.clientY || (event.changedTouches && event.changedTouches[0] && event.changedTouches[0].clientY)
+    };
+    return (
+      Math.abs(points.clientX - this._pointerDownPosX) > DRAGGING_THRESHOLD || Math.abs(points.clientY - this._pointerDownPosY) > DRAGGING_THRESHOLD
+    );
+  }
+
+  /**
+   * click action
    *
    * @returns {void}
    * @memberof OverlayAction
    */
-  onOverlayClick(): void {
-    if (this.props.isMobile) {
+  overlayClick(): void {
+    if (this.props.isSmartContainerOpen) {
       return;
     }
-
     const now = Date.now();
     if (now - this._firstClickTime < PLAY_PAUSE_BUFFER_TIME) {
       this.cancelClickTimeout();
@@ -157,18 +214,6 @@ class OverlayAction extends BaseComponent {
     if (this._clickTimeout) {
       clearTimeout(this._clickTimeout);
       this._clickTimeout = null;
-    }
-  }
-
-  /**
-   * handler for overlay touch
-   *
-   * @returns {void}
-   * @memberof OverlayAction
-   */
-  onOverlayTouch(): void {
-    if (this.props.playerHover) {
-      this.togglePlayPause();
     }
   }
 
@@ -214,12 +259,15 @@ class OverlayAction extends BaseComponent {
    */
   render(): React$Element<any> {
     return (
-      <div className={`${style.overlayAction} ${this.state.animation ? style.in : ''}`}
-           onClick={() => this.onOverlayClick()}
-           onTouchStart={() => this.onOverlayTouch()}>
+      <div
+        className={`${style.overlayAction} ${this.state.animation ? style.in : ''}`}
+        onMouseDown={e => this.onOverlayPointerDown(e)}
+        onTouchStart={e => this.onOverlayPointerDown(e)}
+        onMouseUp={e => this.onOverlayMouseUp(e)}
+        onTouchEnd={e => this.onOverlayTouchEnd(e)}>
         {this.state.animation ? this.renderIcons() : undefined}
       </div>
-    )
+    );
   }
 
   /**
@@ -230,9 +278,9 @@ class OverlayAction extends BaseComponent {
    */
   renderIcons(): React$Element<any> {
     if (Array.isArray(this.state.iconType)) {
-      return this.state.iconType.map((i, x) => <Icon key={x} type={i}/>);
+      return this.state.iconType.map((i, x) => <Icon key={x} type={i} />);
     }
-    return <Icon type={this.state.iconType}/>;
+    return <Icon type={this.state.iconType} />;
   }
 
   /**

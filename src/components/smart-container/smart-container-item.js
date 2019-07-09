@@ -11,7 +11,6 @@ import {Icon, IconType} from '../icon';
  * @extends {Component}
  */
 class SmartContainerItem extends Component {
-
   /**
    * render component
    *
@@ -20,15 +19,22 @@ class SmartContainerItem extends Component {
    * @memberof SmartContainer
    */
   render(props: any): React$Element<any> {
+    const label = props.label && props.label.toLowerCase();
     return (
       <div className={[style.smartContainerItem, style.selectMenuItem].join(' ')}>
-        <label htmlFor={IconType.Quality}>
-          {props.icon ? <div className={style.labelIcon}><Icon type={props.icon}/></div> : undefined}
+        <label htmlFor={label}>
+          {props.icon ? (
+            <div className={style.labelIcon}>
+              <Icon type={props.icon} />
+            </div>
+          ) : (
+            undefined
+          )}
           {props.label}
         </label>
-        <DropDown onSelect={o => props.onSelect(o)} options={props.options}/>
+        <DropDown name={label} onSelect={o => props.onSelect(o)} options={props.options} />
       </div>
-    )
+    );
   }
 }
 

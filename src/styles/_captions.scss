@@ -1,36 +1,69 @@
+$hovering-offset: 50px;
+
 .player {
-  video::-webkit-media-text-track-display {
-    transform: translateY(0px);
-    transition: ease-in 100ms;
+  video::-webkit-media-text-track-container {
+    max-height: none;
   }
-  &.state-paused video::-webkit-media-text-track-display,
-  &.hover video::-webkit-media-text-track-display {
-    transform: translateY(-60px);
-    transition: ease-out 100ms;
+  &.iOS {
+    video::-webkit-media-text-track-container {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
   }
-  &.fullscreen {
-    &.iOS video::-webkit-media-text-track-display {
-      transform: translateY(0px);
+  &.state-paused,
+  &.state-idle,
+  &.hover {
+    video::-webkit-media-text-track-container {
+      padding: 0 0 $hovering-offset 0;
+    }
+    &.Safari,
+    &.iOS {
+      video::-webkit-media-text-track-container {
+        padding: initial;
+        max-height: calc(100% - #{$hovering-offset});
+      }
+    }
+    &.fullscreen.iOS {
+        video::-webkit-media-text-track-display{
+        transform: translateY(-$hovering-offset);
+        -webkit-transform: translateY(-$hovering-offset);
+        -ms-transform: translateY(-$hovering-offset);
+      }
+    }
+  }
+  &.fullscreen.iOS {
+    video::-webkit-media-text-track-container {
+      max-height: none;
     }
   }
   &.overlay-active {
     :global(.playkit-subtitles) {
-      display: none;
+      visibility: hidden;
     }
   }
   :global(.playkit-subtitles) {
+    top: $hovering-offset;
     transform: translateY(0px);
+    -webkit-transform: translateY(0px);
+    -ms-transform: translateY(0px);
     transition: ease-in 100ms;
   }
   &:not(.overlay-active) {
     &.state-paused :global(.playkit-subtitles),
+    &.state-idle :global(.playkit-subtitles),
     &.hover :global(.playkit-subtitles) {
-      transform: translateY(-60px);
-      transition: ease-out 100ms;
+      transform: translateY(-$hovering-offset);
+      -webkit-transform: translateY(-$hovering-offset);
+      -ms-transform: translateY(-$hovering-offset);
     }
-    &.fullscreen {
-      &.iOS :global(.playkit-subtitles) {
+    &.fullscreen.iOS {
+      :global(.playkit-subtitles) {
         transform: translateY(0px);
+        -webkit-transform: translateY(0px);
+        -ms-transform: translateY(0px);
       }
     }
   }

@@ -5,6 +5,7 @@ import {Icon, IconType} from '../icon';
 import {connect} from 'preact-redux';
 import {KeyMap} from '../../utils/key-map';
 import {bindMethod} from '../../utils/bind-method';
+import {PLAYER_SIZE} from '../shell/shell';
 
 /**
  * mapping state to props
@@ -13,21 +14,22 @@ import {bindMethod} from '../../utils/bind-method';
  */
 const mapStateToProps = state => ({
   isMobile: state.shell.isMobile,
-  playerClientRect: state.shell.playerClientRect
+  playerClientRect: state.shell.playerClientRect,
+  playerSize: state.shell.playerSize
 });
 
 @connect(mapStateToProps)
-  /**
-   * Menu component
-   *
-   * @class Menu
-   * @example <Menu
-   *  options={this.videoTrackOptions}
-   *  onSelect={track => this.videoTrackChangeHandler(track)}
-   *  onClose={() => this.onClose()}
-   * />
-   * @extends {Component}
-   */
+/**
+ * Menu component
+ *
+ * @class Menu
+ * @example <Menu
+ *  options={this.videoTrackOptions}
+ *  onSelect={track => this.videoTrackChangeHandler(track)}
+ *  onClose={() => this.onClose()}
+ * />
+ * @extends {Component}
+ */
 class Menu extends Component {
   state: Object;
   handleClickOutside: Function;
@@ -60,7 +62,7 @@ class Menu extends Component {
    */
   componentDidMount() {
     document.addEventListener('click', this.handleClickOutside, true);
-    if (!this.props.isMobile) {
+    if (!this.props.isMobile && ![PLAYER_SIZE.SMALL, PLAYER_SIZE.EXTRA_SMALL].includes(this.props.playerSize)) {
       this.setState({position: this.getPosition()});
     }
   }
@@ -84,12 +86,21 @@ class Menu extends Component {
   getPosition(): Array<string> {
     const menuElementRect = this._menuElement.getBoundingClientRect();
     const playerContainerRect = this.props.playerClientRect;
-    const offsetBottom = playerContainerRect.bottom - menuElementRect.bottom;
-    const height = offsetBottom + menuElementRect.height;
-    if (height > playerContainerRect.height) {
+
+    // The menu is first rendered above its label.
+    // top / bottom are determined from the top of the view port, if the menus top edge is lower than the top of the
+    // player it means that menu.top is bigger than player.top.
+    if (menuElementRect.top >= playerContainerRect.top) {
+      return [style.top, style.left];
+    } else if (menuElementRect.bottom + menuElementRect.height < playerContainerRect.bottom) {
+      // menu.bottom + menu.height is the value of the bottom edge of the menu if its rendered below the label.
       return [style.bottom, style.left];
+    } else {
+      // If we cannot render it on top of the label or below it, we will reduce the height of the menu to be
+      // 80% of the player height and put it at the bottom of the player.
+      this._menuElement.style.maxHeight = playerContainerRect.height * 0.8 + 'px';
+      return [style.stickBottom, style.left];
     }
-    return [style.top, style.left];
   }
 
   /**
@@ -101,8 +112,12 @@ class Menu extends Component {
    * @memberof Menu
    */
   handleClickOutside(e: any) {
-    if (!this.props.isMobile && this._menuElement && !this._menuElement.contains(e.target)) {
-      e.stopPropagation();
+    if (
+      !this.props.isMobile &&
+      ![PLAYER_SIZE.SMALL, PLAYER_SIZE.EXTRA_SMALL].includes(this.props.playerSize) &&
+      this._menuElement &&
+      !this._menuElement.contains(e.target)
+    ) {
       this.props.onClose();
     }
   }
@@ -130,7 +145,7 @@ class Menu extends Component {
     this.props.onSelect(option.value);
     // Instant select
     this.props.options.filter(t => t.active).forEach(option => {
-      option.active = false
+      option.active = false;
     });
     this.props.options.filter(t => t.value === option.value)[0].active = true;
   }
@@ -175,14 +190,17 @@ class Menu extends Component {
    * @memberof Menu
    */
   renderNativeSelect(): React$Element<any> {
+    let classes = this.props.hideSelect ? style.mobileHiddenSelect : '';
+    classes += ` ${style.dropdown}`;
     return (
-      <select
-        className={this.props.hideSelect ? style.mobileHiddenSelect : ''}
-        onChange={e => this.onSelect(this.props.options[e.target.value])}>
-        {this.props.options.map((o, index) => <option selected={this.isSelected(o)} value={index}
-                                                      key={index}>{o.label}</option>)}
+      <select className={classes} onChange={e => this.onSelect(this.props.options[e.target.value])}>
+        {this.props.options.map((o, index) => (
+          <option selected={this.isSelected(o)} value={index} key={index}>
+            {o.label}
+          </option>
+        ))}
       </select>
-    )
+    );
   }
 
   /**
@@ -194,26 +212,25 @@ class Menu extends Component {
    * @memberof Menu
    */
   render(props: any): React$Element<any> {
-    return props.isMobile ? this.renderNativeSelect() :
-      (
-        <div
-          ref={c => this._menuElement = c}
-          className={[style.dropdownMenu, ...this.state.position].join(' ')}>
-          {
-            props.options.map((o, index) => (
-              <div tabIndex=""
-                   key={index}
-                   className={this.isSelected(o) ? [style.dropdownMenuItem, style.active].join(' ') : style.dropdownMenuItem}
-                   onClick={() => this.onSelect(o)}
-                   onKeyDown={e => this.onKeyDown(e, o)}>
-                <span>{o.label}</span>
-                <span className={style.menuIconContainer} style={`opacity: ${ this.isSelected(o) ? 1 : 0 }`}><Icon
-                  type={IconType.Check}/></span>
-              </div>
-            ))
-          }
-        </div>
-      )
+    return props.isMobile || [PLAYER_SIZE.SMALL, PLAYER_SIZE.EXTRA_SMALL].includes(this.props.playerSize) ? (
+      this.renderNativeSelect()
+    ) : (
+      <div ref={c => (this._menuElement = c)} className={[style.dropdownMenu, ...this.state.position].join(' ')}>
+        {props.options.map((o, index) => (
+          <div
+            tabIndex=""
+            key={index}
+            className={this.isSelected(o) ? [style.dropdownMenuItem, style.active].join(' ') : style.dropdownMenuItem}
+            onClick={() => this.onSelect(o)}
+            onKeyDown={e => this.onKeyDown(e, o)}>
+            <span>{o.label}</span>
+            <span className={style.menuIconContainer} style={`opacity: ${this.isSelected(o) ? 1 : 0}`}>
+              <Icon type={IconType.Check} />
+            </span>
+          </div>
+        ))}
+      </div>
+    );
   }
 }
 

@@ -1,0 +1,120 @@
+.player.state-idle {
+
+  .playlist-next-screen-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(black, 0.5);
+
+    .playlist-next-screen-content {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+
+      .playlist-next-screen-text {
+        position: absolute;
+        width: 100%;
+        top: -90px;
+        font-size: 15px;
+        color: #fff;
+        padding: 4px 8px 12px 8px;
+        text-align: center;
+
+        .playlist-next-screen-text-title {
+          padding: 4px;
+          font-weight: 100;
+        }
+
+        .playlist-next-screen-text-name {
+          padding: 16px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+
+      .playlist-next-screen-poster-placeholder {
+        position: relative;
+        margin: auto;
+        width: 384px;
+
+        .playlist-next-screen-poster-aspect-ratio {
+          width: 100%;
+          padding-top: 56%;
+
+          .playlist-next-screen-poster {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            cursor: pointer;
+
+            .playlist-next-screen-poster-img {
+              height: 100%;
+              border-radius: 3px;
+              background-size: contain;
+              background-repeat: round;
+            }
+
+            .icon {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              width: 64px;
+              height: 64px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.size-lg {
+    .playlist-next-screen-content .playlist-next-screen-poster-placeholder {
+      width: 37.5%;
+    }
+  }
+
+  &.size-md {
+    .playlist-next-screen-content {
+      .playlist-next-screen-text {
+        top: -58px;
+
+        .playlist-next-screen-text-name {
+          padding: 0;
+        }
+      }
+
+      .playlist-next-screen-poster-placeholder {
+        width: 42%;
+      }
+    }
+  }
+
+  &.size-sm,
+  &.size-xs,
+  &.size-ty {
+    .playlist-next-screen-content {
+      .playlist-next-screen-poster-placeholder {
+        width: 32px;
+
+        .playlist-next-screen-poster-aspect-ratio .playlist-next-screen-poster {
+          border: 0;
+
+          .playlist-next-screen-poster-img {
+            display: none;
+          }
+
+          .icon {
+            width: 32px;
+            height: 32px;
+          }
+        }
+      }
+    }
+  }
+}

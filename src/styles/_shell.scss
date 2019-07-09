@@ -37,22 +37,26 @@
       margin-bottom: initial;
     }
 
-    input, textarea {
+    input,
+    textarea {
       font-family: $font-family;
     }
   }
-  :global(#overlay-portal) {
+  :global(.overlay-portal) {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
   }
-  &.overlay-active :global(#overlay-portal) {
+  &.overlay-active :global(.overlay-portal) {
     z-index: 11;
   }
+  &.casting .player-gui,
   &.metadata-loaded .player-gui,
   &.state-paused .player-gui,
+  &.state-idle .player-gui,
+  &.ad-break .player-gui,
   &.overlay-active .player-gui,
   &.menu-active .player-gui {
     opacity: 1;
@@ -71,24 +75,28 @@
   .form-group-row > a,
   .button-save-cvaa,
   .slider,
+  .unmute-button-container,
   .live-tag {
     &:focus {
-      outline: 1px solid #00cbff;
+      outline: 1px solid $tab-focus-color;
     }
   }
 }
 
-.player :global([id^=playkit-ads-container]) {
-  &:global([data-adtype="overlay"]) {
+.player :global([id^='playkit-ads-container']) {
+  &:global([data-adtype='overlay']) {
     z-index: 1;
   }
   transition: transform 100ms;
 }
 
 .player:not(.ad-break).metadata-loaded {
-  &.hover :global([id^=playkit-ads-container]),
-  &.state-paused :global([id^=playkit-ads-container]) {
+  &.hover :global([id^='playkit-ads-container']),
+  &.state-paused :global([id^='playkit-ads-container']),
+  &.state-idle :global([id^='playkit-ads-container']) {
     transform: translateY(-60px);
+    -webkit-transform: translateY(-60px);
+    -ms-transform: translateY(-60px);
   }
 }
 

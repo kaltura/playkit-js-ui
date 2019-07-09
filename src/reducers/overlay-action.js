@@ -18,7 +18,7 @@ export default (state: Object = initialState, action: Object) => {
     default:
       return state;
   }
-}
+};
 
 export const actions = {
   updateOverlayActionIcon: (iconType: string | Array<string>) => ({type: types.UPDATE_ACTION_ICON, iconType})

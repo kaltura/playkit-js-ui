@@ -3,6 +3,7 @@ import style from '../../styles/style.scss';
 import {h} from 'preact';
 import {connect} from 'preact-redux';
 import BaseComponent from '../base';
+import {Localizer, Text} from 'preact-i18n';
 
 /**
  * mapping state to props
@@ -17,16 +18,14 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps)
-  /**
-   * AdSkip component
-   *
-   * @class AdSkip
-   * @example <AdSkip player={this.player} />
-   * @extends {BaseComponent}
-   */
+/**
+ * AdSkip component
+ *
+ * @class AdSkip
+ * @example <AdSkip player={this.player} />
+ * @extends {BaseComponent}
+ */
 class AdSkip extends BaseComponent {
-  skipSupport: any;
-
   /**
    * Creates an instance of AdSkip.
    * @param {Object} obj obj
@@ -37,28 +36,13 @@ class AdSkip extends BaseComponent {
   }
 
   /**
-   * componentDidMount
-   *
-   * @returns {void}
-   * @memberof AdSkip
-   */
-  componentDidMount() {
-    this.skipSupport = this.player.config.plugins.ima.skipSupport;
-  }
-
-  /**
    * getting the number value of seconds left to be able to skip ad
    *
    * @returns {number} - number of seconds left to skip ad
    * @memberof AdSkip
    */
   getSkipTimeOffset(): number {
-    if (this.skipSupport) {
-      return Math.ceil(this.skipSupport.skipTimeOffset - this.props.currentTime);
-    }
-    else {
-      return Math.ceil(this.props.adSkipTimeOffset - this.props.currentTime);
-    }
+    return Math.ceil(this.props.adSkipTimeOffset - this.props.currentTime);
   }
 
   /**
@@ -68,16 +52,22 @@ class AdSkip extends BaseComponent {
    * @memberof AdSkip
    */
   render(): React$Element<any> | void {
-    if (!this.props.adSkippableState && this.skipSupport) {
+    if (this.props.adSkippableState) {
       return this.getSkipTimeOffset() <= 0 ? (
-        <a className={[style.btn, style.btnBranded, style.btnSkipAd].join(' ')} onClick={() => this.player.skipAd()}>
-          {this.skipSupport.label || 'Skip ad'}
-        </a>
+        <Localizer>
+          <a className={[style.btn, style.btnBranded, style.btnSkipAd].join(' ')} onClick={() => this.player.ads.skipAd()}>
+            <Text id="ads.skip_ad" />
+          </a>
+        </Localizer>
       ) : (
-        <span className={style.skipAd}>Skip in {this.getSkipTimeOffset()}</span>
+        <Localizer>
+          <span className={style.skipAd}>
+            <Text id="ads.skip_in" />
+            {' ' + this.getSkipTimeOffset()}
+          </span>
+        </Localizer>
       );
-    }
-    else {
+    } else {
       return undefined;
     }
   }

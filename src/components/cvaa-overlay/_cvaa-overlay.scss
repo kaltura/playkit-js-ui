@@ -18,7 +18,7 @@
       background-color: #000;
     }
     &.yellow-text {
-      color: #FAFF00;
+      color: #faff00;
     }
     .active-tick {
       height: 16px;
@@ -68,7 +68,8 @@
       color: white;
       line-height: 36px;
       text-decoration: none;
-      &:hover, &:focus {
+      &:hover,
+      &:focus {
         text-decoration: underline;
       }
     }
@@ -111,4 +112,8 @@
       margin-top: 20px;
     }
   }
+}
+
+.font-size, .font-color, .font-family, .font-style, .font-opacity, .background-color, .background-opacity{
+  background: initial;
 }

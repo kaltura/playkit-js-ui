@@ -18,6 +18,10 @@
   height: 100%;
   font-family: $font-family;
 
+  .copy-url-row{
+    display: flex;
+  }
+
   .svg-container {
     flex: 4;
     display: flex;
@@ -74,7 +78,6 @@
   width: auto;
 
   .copy-url-row {
-
     .input-copy-url {
       margin: 0;
     }

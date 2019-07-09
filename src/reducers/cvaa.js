@@ -27,7 +27,7 @@ export default (state: Object = initialState, action: Object) => {
     default:
       return state;
   }
-}
+};
 
 export const actions = {
   toggleCVAAOverlay: (show: boolean) => ({type: types.TOGGLE_CVAA_OVERLAY, show}),

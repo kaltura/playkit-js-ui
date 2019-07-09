@@ -2,10 +2,10 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {toHHMMSS} from '../../utils/time-format';
-import {KeyMap} from "../../utils/key-map";
-import {connect} from "preact-redux";
-import {bindActions} from "../../utils/bind-actions";
-import {actions} from "../../reducers/shell";
+import {KeyMap} from '../../utils/key-map';
+import {connect} from 'preact-redux';
+import {bindActions} from '../../utils/bind-actions';
+import {actions} from '../../reducers/shell';
 import {KEYBOARD_DEFAULT_SEEK_JUMP} from '../keyboard/keyboard';
 import {bindMethod} from '../../utils/bind-method';
 
@@ -19,16 +19,20 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile
 });
 
-@connect(mapStateToProps, bindActions(actions))
-  /**
-   * SeekBarControl component
-   *
-   * @class SeekBarControl
-   * @extends {Component}
-   */
+@connect(
+  mapStateToProps,
+  bindActions(actions)
+)
+/**
+ * SeekBarControl component
+ *
+ * @class SeekBarControl
+ * @extends {Component}
+ */
 class SeekBarControl extends Component {
   state: Object;
   onPlayerMouseUp: Function;
+  onPlayerMouseMove: Function;
   _seekBarElement: HTMLElement;
   _framePreviewElement: HTMLElement;
   _timeBubbleElement: HTMLElement;
@@ -41,6 +45,7 @@ class SeekBarControl extends Component {
   constructor() {
     super();
     this.onPlayerMouseUp = bindMethod(this, this.onPlayerMouseUp);
+    this.onPlayerMouseMove = bindMethod(this, this.onPlayerMouseMove);
   }
 
   /**
@@ -61,7 +66,7 @@ class SeekBarControl extends Component {
    */
   componentDidMount(): void {
     document.addEventListener('mouseup', this.onPlayerMouseUp);
-    document.addEventListener('mousemove', this.onPlayerMouseUp);
+    document.addEventListener('mousemove', this.onPlayerMouseMove);
   }
 
   /**
@@ -72,7 +77,7 @@ class SeekBarControl extends Component {
    */
   componentWillUnmount(): void {
     document.removeEventListener('mouseup', this.onPlayerMouseUp);
-    document.removeEventListener('mousemove', this.onPlayerMouseUp);
+    document.removeEventListener('mousemove', this.onPlayerMouseMove);
   }
 
   /**
@@ -233,11 +238,14 @@ class SeekBarControl extends Component {
     let newTime;
     switch (e.keyCode) {
       case KeyMap.LEFT:
-        newTime = (this.props.player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP > 0) ? this.props.player.currentTime - 5 : 0;
+        newTime = this.props.player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP > 0 ? this.props.player.currentTime - 5 : 0;
         seek(this.props.player.currentTime, newTime);
         break;
       case KeyMap.RIGHT:
-        newTime = (this.props.player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP > this.props.player.duration) ? this.props.player.duration : this.props.player.currentTime + 5;
+        newTime =
+          this.props.player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP > this.props.player.duration
+            ? this.props.player.duration
+            : this.props.player.currentTime + 5;
         seek(this.props.player.currentTime, newTime);
         break;
     }
@@ -309,11 +317,11 @@ class SeekBarControl extends Component {
    * @returns {{ top: number, left: number }} - object with offset in both asixs
    * @memberof SeekBarControl
    */
-  getOffset(element: any): { top: number, left: number } {
+  getOffset(element: any): {top: number, left: number} {
     let _x = 0;
     let _y = 0;
     while (element && !isNaN(element.offsetLeft) && !isNaN(element.offsetTop)) {
-      _x += element.offsetLeft - element.scrollLeft;
+      _x += element.offsetLeft - element.scrollLeft + this._getTransformX(element);
       _y += element.offsetTop - element.scrollTop;
       element = element.offsetParent;
     }
@@ -325,6 +333,30 @@ class SeekBarControl extends Component {
   }
 
   /**
+   * calculating the transform of an element
+   * @param {HTMLElement} element - the element to calculate the transform offset for
+   * @returns {number} - the transform
+   * @private
+   */
+  _getTransformX(element: HTMLElement): number {
+    const computedStyle = getComputedStyle(element);
+    // [scaleX(),skewY(),skewX(),scaleY(),translateX(),translateY()]
+    const transform =
+      computedStyle.getPropertyValue('transform') ||
+      computedStyle.getPropertyValue('-webkit-transform') ||
+      computedStyle.getPropertyValue('-moz-transform') ||
+      computedStyle.getPropertyValue('-ms-transform') ||
+      computedStyle.getPropertyValue('-o-transform');
+
+    const transformValues = transform.match(/-?\d+/g);
+    let translateXVal = 0;
+    if (transformValues && transformValues.length > 0) {
+      translateXVal = parseFloat(transformValues[4]);
+    }
+    return translateXVal;
+  }
+
+  /**
    * get current time based on position of the mouseEvent on the seekbar
    *
    * @param {*} e - event
@@ -333,7 +365,9 @@ class SeekBarControl extends Component {
    */
   getTime(e: any): number {
     let xPosition = e.touches ? e.touches[0].clientX : e.clientX;
-    let time = this.props.duration * ((xPosition - this._seekBarElement.offsetLeft - this.getOffset(this.props.playerElement).left) / this._seekBarElement.clientWidth);
+    let time =
+      this.props.duration *
+      ((xPosition - this._seekBarElement.offsetLeft - this.getOffset(this.props.playerElement).left) / this._seekBarElement.clientWidth);
     time = parseFloat(time.toFixed(2));
     if (time < 0) return 0;
     if (time > this.props.duration) return this.props.duration;
@@ -348,7 +382,9 @@ class SeekBarControl extends Component {
    */
   getBufferedPercent(): number {
     if (this.props.player.duration > 0 && this.props.player.buffered.length > 0) {
-      const buffered = this.props.player.isLive() ? this.props.player.buffered.end(0) - this.props.player.getStartTimeOfDvrWindow() : this.props.player.buffered.end(0);
+      const buffered = this.props.player.isLive()
+        ? this.props.player.buffered.end(0) - this.props.player.getStartTimeOfDvrWindow()
+        : this.props.player.buffered.end(0);
       const bufferedPercent = (buffered / this.props.player.duration) * 100;
       return bufferedPercent < 100 ? bufferedPercent : 100;
     }
@@ -375,11 +411,11 @@ class SeekBarControl extends Component {
    */
   getFramePreviewOffset(): number {
     if (this._seekBarElement && this._framePreviewElement) {
-      let leftOffset = (this.state.virtualTime / this.props.duration * this._seekBarElement.clientWidth) - (this._framePreviewElement.clientWidth / 2);
+      let leftOffset = (this.state.virtualTime / this.props.duration) * this._seekBarElement.clientWidth - this._framePreviewElement.clientWidth / 2;
       if (leftOffset < 0) {
         return 0;
       } else if (leftOffset > this._seekBarElement.clientWidth - this._framePreviewElement.clientWidth) {
-        return (this._seekBarElement.clientWidth - this._framePreviewElement.clientWidth);
+        return this._seekBarElement.clientWidth - this._framePreviewElement.clientWidth;
       } else {
         return leftOffset;
       }
@@ -396,11 +432,11 @@ class SeekBarControl extends Component {
    */
   getTimeBubbleOffset(): number {
     if (this._timeBubbleElement) {
-      let leftOffset = (this.state.virtualTime / this.props.duration * this._seekBarElement.clientWidth) - (this._timeBubbleElement.clientWidth / 2);
+      let leftOffset = (this.state.virtualTime / this.props.duration) * this._seekBarElement.clientWidth - this._timeBubbleElement.clientWidth / 2;
       if (leftOffset < 0) {
         return 0;
       } else if (leftOffset > this._seekBarElement.clientWidth - this._timeBubbleElement.clientWidth) {
-        return (this._seekBarElement.clientWidth - this._timeBubbleElement.clientWidth);
+        return this._seekBarElement.clientWidth - this._timeBubbleElement.clientWidth;
       } else {
         return leftOffset;
       }
@@ -417,21 +453,19 @@ class SeekBarControl extends Component {
    */
   renderFramePreview(): React$Element<any> | void {
     if (
-      !this.props.config.thumbsSprite || !this.props.config.thumbsSlices || !this.props.config.thumbsWidth ||
+      !this.props.config.thumbsSprite ||
+      !this.props.config.thumbsSlices ||
+      !this.props.config.thumbsWidth ||
       !this.props.showFramePreview ||
       this.props.isMobile
-    ) return undefined;
+    )
+      return undefined;
 
     return (
-      <div
-        className={style.framePreview}
-        style={this._getFramePreviewStyle()}
-        ref={c => this._framePreviewElement = c}>
-        <div
-          className={style.framePreviewImg}
-          style={this._getFramePreviewImgStyle()}/>
+      <div className={style.framePreview} style={this._getFramePreviewStyle()} ref={c => (this._framePreviewElement = c)}>
+        <div className={style.framePreviewImg} style={this._getFramePreviewImgStyle()} />
       </div>
-    )
+    );
   }
 
   /**
@@ -469,8 +503,11 @@ class SeekBarControl extends Component {
     if (!this.props.showTimeBubble || this.props.isMobile) return undefined;
     const timeBubbleStyle = `left: ${this.getTimeBubbleOffset()}px`;
     const timeBubbleValue = this.props.isDvr ? '-' + toHHMMSS(this.props.duration - this.state.virtualTime) : toHHMMSS(this.state.virtualTime);
-    return <div className={style.timePreview} style={timeBubbleStyle}
-                ref={c => this._timeBubbleElement = c}>{timeBubbleValue}</div>
+    return (
+      <div className={style.timePreview} style={timeBubbleStyle} ref={c => (this._timeBubbleElement = c)}>
+        {timeBubbleValue}
+      </div>
+    );
   }
 
   /**
@@ -481,8 +518,8 @@ class SeekBarControl extends Component {
    * @memberof SeekBarControl
    */
   render(props: any): React$Element<any> {
-    const virtualProgressWidth = `${this.state.virtualTime / props.duration * 100}%`;
-    const progressWidth = `${props.currentTime / props.duration * 100}%`;
+    const virtualProgressWidth = `${(this.state.virtualTime / props.duration) * 100}%`;
+    const progressWidth = `${(props.currentTime / props.duration) * 100}%`;
     const bufferedWidth = `${Math.round(this.getBufferedPercent())}%`;
     const seekbarStyleClass = [style.seekBar];
     if (props.adBreak) seekbarStyleClass.push(style.adBreak);
@@ -494,10 +531,10 @@ class SeekBarControl extends Component {
       <div
         tabIndex="0"
         className={seekbarStyleClass.join(' ')}
-        ref={c => this._seekBarElement = c}
-        role='slider'
-        aria-label='Seek slider'
-        aria-valuemin='0'
+        ref={c => (this._seekBarElement = c)}
+        role="slider"
+        aria-label="Seek slider"
+        aria-valuemin="0"
         aria-valuemax={Math.round(this.props.duration)}
         aria-valuenow={Math.round(this.props.currentTime)}
         aria-valuetext={`${toHHMMSS(this.props.currentTime)} of ${toHHMMSS(this.props.duration)}`}
@@ -509,20 +546,18 @@ class SeekBarControl extends Component {
         onTouchStart={e => this.onSeekbarTouchStart(e)}
         onTouchMove={e => this.onSeekbarTouchMove(e)}
         onTouchEnd={() => this.onSeekbarTouchEnd()}
-        onKeyDown={(e) => this.onSeekbarKeyDown(e)}>
+        onKeyDown={e => this.onSeekbarKeyDown(e)}>
         <div className={style.progressBar}>
           {this.renderFramePreview()}
           {this.renderTimeBubble()}
-          <div className={style.virtualProgress} style={{width: virtualProgressWidth}}/>
-          <div className={style.buffered} style={{width: bufferedWidth}}/>
+          <div className={style.virtualProgress} style={{width: virtualProgressWidth}} />
+          <div className={style.buffered} style={{width: bufferedWidth}} />
           <div className={style.progress} style={{width: progressWidth}}>
-            {
-              props.adBreak ? undefined : <a className={style.scrubber}/>
-            }
+            {props.adBreak ? undefined : <a className={style.scrubber} />}
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 

@@ -1,0 +1,56 @@
+.player-gui > .playback-controls {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -32px;
+  margin-left: -48px;
+}
+
+.player.playlist {
+  .player-gui > .playback-controls {
+    margin-left: -144px;
+  }
+}
+
+.bottom-bar .playback-controls {
+  display: inline;
+}
+
+.player {
+  &.size-sm,
+  &.size-xs,
+  &.touch {
+    &.state-idle .control-playlist-button {
+      display: none;
+    }
+
+    &:not(.state-idle) {
+      .bottom-bar .playback-controls {
+        display: none;
+      }
+
+      &.hover {
+        .player-gui > .playback-controls {
+          display: block;
+
+          .control-button {
+            width: auto;
+            height: auto;
+            padding: 0 16px;
+            -webkit-filter: drop-shadow(0px 0px 8px rgba(0,0,0,0.5));
+            filter: drop-shadow(0px 0px 8px rgba(0,0,0,0.5));
+          }
+          .icon {
+            width: 64px;
+            height: 64px;
+          }
+
+          .poster-preview {
+            opacity: 0;
+          }
+        }
+      }
+    }
+  }
+}

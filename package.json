@@ -1,6 +1,6 @@
 {
-  "name": "playkit-js-ui",
-  "version": "0.23.1",
+  "name": "@playkit-js/playkit-js-ui",
+  "version": "0.42.0",
   "description": "",
   "main": "dist/playkit-ui.js",
   "scripts": {
@@ -11,18 +11,37 @@
     "watch": "webpack --mode production --progress --colors --watch",
     "test": "NODE_ENV=test karma start --color",
     "release": "standard-version",
-    "publish": "git push --follow-tags --no-verify origin master",
+    "pushTaggedRelease": "git push --follow-tags --no-verify origin master",
     "eslint": "eslint . --color",
     "flow": "flow check",
-    "commit:dist": "git add --force --all dist && (git commit -m 'chore: update dist' || exit 0)",
-    "docs:components": "jsdoc -c component.jsdocs.json -r"
+    "docs:components": "jsdoc -c component.jsdocs.json -r",
+    "precommit": "lint-staged"
   },
-  "standard-version": {
-    "scripts": {
-      "postbump": "yarn run build && npm run commit:dist"
-    }
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.{json,md,scss}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "empty": "^0.10.1",
+    "js-logger": "^1.3.0",
+    "preact": "^8.4.2",
+    "preact-i18n": "^1.2.0",
+    "preact-portal": "^1.1.3",
+    "preact-context": "^1.1.3",
+    "preact-redux": "^2.1.0",
+    "redux": "^4.0.0"
   },
   "devDependencies": {
+    "@playkit-js/playkit-js": "^0.37.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
@@ -39,12 +58,14 @@
     "cross-env": "^5.2.0",
     "css-loader": "^3.0.0",
     "eslint": "5.16.0",
+    "eslint-config-prettier": "^6.0.0",
     "eslint-config-standard-preact": "^1.1.6",
     "eslint-loader": "^2.2.1",
     "eslint-plugin-flowtype": "^3.10.4",
     "eslint-plugin-import": "^2.18.0",
     "eslint-plugin-mocha-no-only": "^1.1.0",
     "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.14.2",
     "flow-bin": "latest",
     "istanbul": "^0.4.5",
@@ -58,13 +79,16 @@
     "karma-firefox-launcher": "^1.1.0",
     "karma-ie-launcher": "^1.0.0",
     "karma-mocha": "^1.3.0",
+    "karma-mocha-reporter": "^2.2.5",
     "karma-safari-launcher": "^1.0.0",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^4.0.2",
+    "lint-staged": "^9.1.0",
     "mocha": "^6.1.4",
     "mocha-cli": "^1.0.1",
     "node-sass": "^4.12.0",
     "sass-loader": "^7.1.0",
+    "prettier": "^1.18.2",
     "sinon": "^7.3.2",
     "sinon-chai": "^3.3.0",
     "standard-version": "^6.0.1",
@@ -74,17 +98,13 @@
     "webpack-cli": "^3.3.5",
     "webpack-dev-server": "^3.7.2"
   },
-  "dependencies": {
-    "empty": "^0.10.1",
-    "js-logger": "^1.3.0",
-    "preact": "^8.4.2",
-    "preact-i18n": "^1.2.0",
-    "preact-portal": "^1.1.3",
-    "preact-context": "^1.1.3",
-    "preact-redux": "^2.1.0",
-    "redux": "^4.0.0"
-  },
-  "keywords": [],
+  "keywords": [
+    "kaltura",
+    "player",
+    "playkit-js",
+    "playkit-js-ui",
+    "html5 player"
+  ],
   "license": "AGPL-3.0",
   "repository": {
     "type": "git",

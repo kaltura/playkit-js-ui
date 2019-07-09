@@ -2,7 +2,7 @@
 import style from '../../styles/style.scss';
 import {h} from 'preact';
 import BaseComponent from '../base';
-import {connect} from "preact-redux";
+import {connect} from 'preact-redux';
 
 /**
  * mapping state to props
@@ -10,25 +10,38 @@ import {connect} from "preact-redux";
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  config: Object.assign({
-    placement: 'top-left',
-    timeout: 0
-  }, state.config.components.watermark)
+  config: Object.assign(
+    {
+      placement: 'top-left',
+      timeout: 0
+    },
+    state.config.components.watermark
+  )
 });
 
 @connect(mapStateToProps)
-  /**
-   * Watermark component
-   * @class Watermark
-   * @example <Watermark player={this.player} />
-   * @extends {BaseComponent}
-   */
+/**
+ * Watermark component
+ * @class Watermark
+ * @example <Watermark player={this.player} />
+ * @extends {BaseComponent}
+ */
 class Watermark extends BaseComponent {
   /**
    * @static
    * @type {string} - Component display name
    */
   static displayName = 'watermark';
+  /**
+   * should render component
+   * @param {*} props - component props
+   * @returns {boolean} - whether to render the component
+   * @static
+   */
+  static shouldRender(props: any): boolean {
+    const componentConfig = props.config.components[this.displayName];
+    return !(Object.keys(componentConfig).length === 0 && componentConfig.constructor === Object);
+  }
 
   /**
    * Creates an instance of Watermark.
@@ -52,15 +65,15 @@ class Watermark extends BaseComponent {
      * @returns {void}
      */
     const onPlaying = () => {
-      this.player.removeEventListener(this.player.Event.PLAYING, onPlaying);
       if (this.props.config.timeout > 0) {
         setTimeout(() => this.setState({show: false}), this.props.config.timeout);
       }
     };
-    this.player.addEventListener(this.player.Event.PLAYING, onPlaying);
-    this.player.addEventListener(this.player.Event.CHANGE_SOURCE_ENDED, () => {
+
+    this.eventManager.listenOnce(this.player, this.player.Event.PLAYING, onPlaying);
+    this.eventManager.listen(this.player, this.player.Event.CHANGE_SOURCE_ENDED, () => {
       this.setState({show: true});
-      this.player.addEventListener(this.player.Event.PLAYING, onPlaying)
+      this.eventManager.listenOnce(this.player, this.player.Event.PLAYING, onPlaying);
     });
   }
 
@@ -73,7 +86,7 @@ class Watermark extends BaseComponent {
   render(props: any): ?React$Element<any> {
     if (props.config.img) {
       const styleClass = [style.watermark];
-      props.config.placement.split('-').forEach((side) => {
+      props.config.placement.split('-').forEach(side => {
         styleClass.push(style[side]);
       });
       if (!this.state.show) {
@@ -81,11 +94,11 @@ class Watermark extends BaseComponent {
       }
       return (
         <div className={styleClass.join(' ')}>
-          <a href={props.config.url} target='_blank' rel='noopener noreferrer'>
-            <img src={props.config.img}/>
+          <a href={props.config.url} target="_blank" rel="noopener noreferrer">
+            <img src={props.config.img} />
           </a>
         </div>
-      )
+      );
     }
   }
 }

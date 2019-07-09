@@ -54,7 +54,8 @@
     .virtual-progress {
       display: none;
     }
-    .buffered, .virtual-progress {
+    .buffered,
+    .virtual-progress {
       position: absolute;
       top: 0;
       left: 0;
@@ -71,7 +72,7 @@
       border-radius: 8px;
       height: 16px;
       width: 16px;
-      background-color: #FFFFFF;
+      background-color: #ffffff;
       box-shadow: 0 0 31px 0 rgba(0, 0, 0, 0.3);
       transform: scale(0);
       transition: 100ms transform;
@@ -91,6 +92,10 @@
     width: 164px;
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 4px;
+
+    &:hover {
+      display: none !important;
+    }
 
     .frame-preview-img {
       background-size: auto 100%;
@@ -123,13 +128,26 @@
 }
 
 .touch {
-  .virtual-progress, .time-preview, .frame-preview {
+  .virtual-progress,
+  .time-preview,
+  .frame-preview {
     display: none !important;
   }
 }
 
 .player.size-sm {
-  .virtual-progress, .time-preview, .frame-preview {
+  .virtual-progress,
+  .time-preview,
+  .frame-preview {
     display: none;
   }
+}
+
+.player.size-ty .seek-bar{
+  padding: 12px 0;
+  cursor: pointer;
+  position: relative;
+  float: left;
+  width: calc(100% - 45px);
+  margin: 1px 0;
 }

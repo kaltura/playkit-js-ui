@@ -1,9 +1,9 @@
 'use strict';
 
-const webpack = require("webpack");
-const path = require("path");
-const PROD = (process.env.NODE_ENV === 'production');
-const packageData = require("./package.json");
+const webpack = require('webpack');
+const path = require('path');
+const PROD = process.env.NODE_ENV === 'production';
+const packageData = require('./package.json');
 const CSS_MODULE_PREFIX = 'playkit';
 
 let plugins = [
@@ -16,16 +16,17 @@ let plugins = [
 ];
 
 module.exports = {
-  context: __dirname + "/src",
+  context: __dirname + '/src',
   entry: {
-    "playkit-ui": "index.js"
+    'playkit-ui': 'index.js'
   },
   output: {
-    path: __dirname + "/dist",
+    path: __dirname + '/dist',
     filename: '[name].js',
-    library: ["playkit", "ui"],
-    libraryTarget: "umd",
-    devtoolModuleFilenameTemplate: "./playkit/ui/[resource-path]"
+    library: ['playkit', 'ui'],
+    libraryTarget: 'umd',
+    umdNamedDefine: true,
+    devtoolModuleFilenameTemplate: './playkit/ui/[resource-path]'
   },
   devtool: 'source-map',
   plugins: plugins,
@@ -34,42 +35,43 @@ module.exports = {
       {
         test: /\.js$/,
         use: [
-          "babel-loader",
-          "eslint-loader",
+          'babel-loader',
+          'eslint-loader',
         ],
         exclude: /node_modules/
       }, {
         test: /\.scss$/,
-        use: [{
-          loader: "style-loader"
-        }, {
-          loader: "css-loader",
-          options: {
-            camelCase: true,
-            modules: true,
-            localIdentName: CSS_MODULE_PREFIX + '-[local]'
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              camelCase: true,
+              modules: true,
+              localIdentName: CSS_MODULE_PREFIX + '-[local]'
+            }
+          },
+          {
+            loader: 'sass-loader'
           }
-        }, {
-          loader: "sass-loader"
-        }]
+        ]
       }
     ]
   },
   devServer: {
-    contentBase: __dirname + "/src"
+    contentBase: __dirname + '/src'
   },
   resolve: {
-    modules: [
-      path.resolve(__dirname, "src"),
-      "node_modules"
-    ]
+    modules: [path.resolve(__dirname, 'src'), 'node_modules']
   },
   externals: {
-    "playkit-js": {
-      commonjs: "playkit-js",
-      commonjs2: "playkit-js",
-      amd: "playkit-js",
-      root: ["playkit", "core"]
+    '@playkit-js/playkit-js': {
+      commonjs: '@playkit-js/playkit-js',
+      commonjs2: '@playkit-js/playkit-js',
+      amd: 'playkit-js',
+      root: ['playkit', 'core']
     }
   }
 };

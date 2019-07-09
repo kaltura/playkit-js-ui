@@ -1,3 +1,5 @@
+$color: #ffffff;
+
 .unmute-button-container {
   display: inline-block;
   position: absolute;
@@ -6,11 +8,10 @@
   z-index: 15;
 
   a {
-    color: white;
+    color: $color;
   }
 
   &.show-icon-only {
-
     .btn.unmute-button {
       max-width: 64px;
 
@@ -34,6 +35,7 @@
     opacity: 1;
     transition: transform 100ms, opacity 100ms;
     display: inline-block;
+    color: $color;
   }
 
   &.has-top-bar {
@@ -58,6 +60,7 @@
 
 .player.hover .unmute-button-container.has-top-bar,
 .player.state-paused .unmute-button-container.has-top-bar,
+.player.state-idle .unmute-button-container.has-top-bar,
 .player.menu-active .unmute-button-container.has-top-bar {
   transform: translateY(32px);
 }

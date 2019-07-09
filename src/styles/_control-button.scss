@@ -17,6 +17,11 @@
     opacity: 1;
   }
 
+  &:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+
   &.control-button-rounded {
     width: 36px;
     height: 36px;
@@ -25,7 +30,7 @@
 }
 
 .player:not(.touch) {
-  .control-button {
+  .control-button:not(:disabled) {
     &:hover {
       opacity: 1;
     }
@@ -52,10 +57,10 @@
 }
 
 .rotate {
-  -moz-animation: spin .3s 1 linear;
-  -o-animation: spin .3s 1 linear;
-  -webkit-animation: spin .3s 1 linear;
-  animation: spin .3s 1 linear;
+  -moz-animation: spin 0.3s 1 linear;
+  -o-animation: spin 0.3s 1 linear;
+  -webkit-animation: spin 0.3s 1 linear;
+  animation: spin 0.3s 1 linear;
 }
 
 @-webkit-keyframes spin {

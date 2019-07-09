@@ -5,7 +5,8 @@ import {Localizer, Text} from 'preact-i18n';
 import {connect} from 'preact-redux';
 import BaseComponent from '../base';
 import {Icon, IconType} from '../icon';
-import {KeyMap} from "../../utils/key-map";
+import {KeyMap} from '../../utils/key-map';
+import {isPlayingAdOrPlayback} from '../../reducers/getters';
 
 /**
  * mapping state to props
@@ -13,22 +14,21 @@ import {KeyMap} from "../../utils/key-map";
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
+  isPlayingAdOrPlayback: isPlayingAdOrPlayback(state.engine),
   isPlaying: state.engine.isPlaying,
   adBreak: state.engine.adBreak,
-  adIsPlaying: state.engine.adIsPlaying,
-  isEnded: state.engine.isEnded
+  isPlaybackEnded: state.engine.isPlaybackEnded
 });
 
 @connect(mapStateToProps)
-  /**
-   * PlayPauseControl component
-   *
-   * @class PlayPauseControl
-   * @example <PlayPauseControl player={this.player} />
-   * @extends {BaseComponent}
-   */
+/**
+ * PlayPauseControl component
+ *
+ * @class PlayPauseControl
+ * @example <PlayPauseControl player={this.player} />
+ * @extends {BaseComponent}
+ */
 class PlayPauseControl extends BaseComponent {
-
   /**
    * Creates an instance of PlayPauseControl.
    * @param {Object} obj obj
@@ -46,18 +46,8 @@ class PlayPauseControl extends BaseComponent {
    */
   togglePlayPause(): void {
     this.logger.debug('Toggle play');
-    this.isPlayingAdOrPlayback() ? this.player.pause() : this.player.play();
+    this.props.isPlayingAdOrPlayback ? this.player.pause() : this.player.play();
     this.notifyClick();
-  }
-
-  /**
-   * check if currently playing ad or playback
-   *
-   * @returns {boolean} - if currently playing ad or playback
-   * @memberof PlayPauseControl
-   */
-  isPlayingAdOrPlayback(): boolean {
-    return (this.props.adBreak && this.props.adIsPlaying) || (!this.props.adBreak && this.props.isPlaying);
   }
 
   /**
@@ -68,30 +58,34 @@ class PlayPauseControl extends BaseComponent {
    * @memberof PlayPauseControl
    */
   render(props: any): React$Element<any> | void {
-    const controlButtonClass = this.isPlayingAdOrPlayback() ? [style.controlButton, style.isPlaying].join(' ') : style.controlButton;
+    const controlButtonClass = this.props.isPlayingAdOrPlayback ? [style.controlButton, style.isPlaying].join(' ') : style.controlButton;
     return (
       <div className={[style.controlButtonContainer, style.controlPlayPause].join(' ')}>
         <Localizer>
           <button
             tabIndex="0"
-            aria-label={<Text id={this.isPlayingAdOrPlayback() ? 'controls.pause' : 'controls.play'}/>}
+            aria-label={
+              <Text id={props.isPlaybackEnded ? 'controls.startOver' : this.props.isPlayingAdOrPlayback ? 'controls.pause' : 'controls.play'} />
+            }
             className={controlButtonClass}
             onClick={() => this.togglePlayPause()}
-            onKeyDown={(e) => {
+            onKeyDown={e => {
               if (e.keyCode === KeyMap.ENTER) {
                 this.togglePlayPause();
               }
             }}>
-            {props.isEnded && !props.adBreak ? <Icon type={IconType.StartOver}/> : (
+            {props.isPlaybackEnded ? (
+              <Icon type={IconType.StartOver} />
+            ) : (
               <div>
-                <Icon type={IconType.Play}/>
-                <Icon type={IconType.Pause}/>
+                <Icon type={IconType.Play} />
+                <Icon type={IconType.Pause} />
               </div>
             )}
           </button>
         </Localizer>
       </div>
-    )
+    );
   }
 }
 

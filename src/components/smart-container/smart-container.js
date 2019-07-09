@@ -6,7 +6,8 @@ import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
 import Portal from 'preact-portal';
 import {Overlay} from '../overlay';
-import {KeyMap} from "../../utils/key-map";
+import {KeyMap} from '../../utils/key-map';
+import {PLAYER_SIZE} from '../shell/shell';
 
 /**
  * mapping state to props
@@ -14,27 +15,31 @@ import {KeyMap} from "../../utils/key-map";
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  isMobile: state.shell.isMobile
+  isMobile: state.shell.isMobile,
+  playerSize: state.shell.playerSize
 });
 
-@connect(mapStateToProps, bindActions(actions))
-  /**
-   * SmartContainer component
-   *
-   * @class SmartContainer
-   * @example <SmartContainer title='Language' onClose={() => this.controlButtonClickHandler()}>
-   *   <SmartContainerItem
-   *     icon={IconType.Audio}
-   *     label='Audio'
-   *     options={audioTrackOptions}
-   *     onSelect={audioTrack => this.audioTrackChangeHandler(audioTrack)}
-   *   />
-   *   ...
-   * </SmartContainer>
-   * @extends {Component}
-   */
+@connect(
+  mapStateToProps,
+  bindActions(actions)
+)
+/**
+ * SmartContainer component
+ *
+ * @class SmartContainer
+ * @example <SmartContainer title='Language' onClose={() => this.controlButtonClickHandler()}>
+ *   <SmartContainerItem
+ *     icon={IconType.Audio}
+ *     label='Audio'
+ *     options={audioTrackOptions}
+ *     onSelect={audioTrack => this.audioTrackChangeHandler(audioTrack)}
+ *   />
+ *   ...
+ * </SmartContainer>
+ * @extends {Component}
+ */
 class SmartContainer extends Component {
-
+  _portal: any;
   /**
    * before component mounted, add player css class
    *
@@ -66,24 +71,26 @@ class SmartContainer extends Component {
    * @memberof SmartContainer
    */
   render(props: any): React$Element<any> {
-    return props.isMobile ? (
-      <Portal into="#overlay-portal">
+    const portalSelector = `#${this.props.targetId} .overlay-portal`;
+    return props.isMobile || [PLAYER_SIZE.SMALL, PLAYER_SIZE.EXTRA_SMALL].includes(this.props.playerSize) ? (
+      <Portal into={portalSelector} ref={ref => (this._portal = ref)}>
         <Overlay open onClose={() => props.onClose()}>
           <div className={style.title}>{props.title}</div>
           {props.children}
         </Overlay>
       </Portal>
     ) : (
-      <div tabIndex="-1"
-           className={[style.smartContainer, style.top, style.left].join(' ')}
-           onKeyDown={(e) => {
-             if (e.keyCode === KeyMap.ESC) {
-               props.onClose();
-             }
-           }}>
+      <div
+        tabIndex="-1"
+        className={[style.smartContainer, style.top, style.left].join(' ')}
+        onKeyDown={e => {
+          if (e.keyCode === KeyMap.ESC) {
+            props.onClose();
+          }
+        }}>
         {props.children}
       </div>
-    )
+    );
   }
 }
 

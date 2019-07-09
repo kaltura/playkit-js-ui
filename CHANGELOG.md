@@ -2,6 +2,721 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.42.0"></a>
+# [0.42.0](https://github.com/kaltura/playkit-js-ui/compare/v0.41.0...v0.42.0) (2019-06-23)
+
+
+### Features
+
+* **FEC-9023:** More logger options ([#394](https://github.com/kaltura/playkit-js-ui/issues/394)) ([bae70c8](https://github.com/kaltura/playkit-js-ui/commit/bae70c8))
+
+
+
+<a name="0.41.0"></a>
+# [0.41.0](https://github.com/kaltura/playkit-js-ui/compare/v0.40.1...v0.41.0) (2019-06-17)
+
+
+### Bug Fixes
+
+* **FEC-9014:** when playing captions in Browser fullscreen, captions are hidden by control bar ([#392](https://github.com/kaltura/playkit-js-ui/issues/392)) ([115f328](https://github.com/kaltura/playkit-js-ui/commit/115f328))
+* **FEC-9122:** The replay icon is not aligned ([#390](https://github.com/kaltura/playkit-js-ui/issues/390)) ([4585b16](https://github.com/kaltura/playkit-js-ui/commit/4585b16))
+* **FEC-9177:** Smart TV showed as mobile device ([#389](https://github.com/kaltura/playkit-js-ui/issues/389)) ([ab5b905](https://github.com/kaltura/playkit-js-ui/commit/ab5b905))
+* **FEC-9178:** seekbar slide up on captions ([#391](https://github.com/kaltura/playkit-js-ui/issues/391)) ([8b4e6d4](https://github.com/kaltura/playkit-js-ui/commit/8b4e6d4))
+* **FEC-9179:** seekbar hide non-linear ads ([#393](https://github.com/kaltura/playkit-js-ui/issues/393)) ([f9db05e](https://github.com/kaltura/playkit-js-ui/commit/f9db05e))
+
+
+### Features
+
+* **FEC-8631:** bumper plugin ([#360](https://github.com/kaltura/playkit-js-ui/issues/360)) ([b5a5b2b](https://github.com/kaltura/playkit-js-ui/commit/b5a5b2b))
+* **FEC-8754:** PiP Accessibility ([#333](https://github.com/kaltura/playkit-js-ui/issues/333)) ([b5e820a](https://github.com/kaltura/playkit-js-ui/commit/b5e820a))
+
+
+
+<a name="0.40.1"></a>
+## [0.40.1](https://github.com/kaltura/playkit-js-ui/compare/v0.40.0...v0.40.1) (2019-05-16)
+
+
+### Bug Fixes
+
+* **FEC-8843:** handle click outside when the menu is open ([#366](https://github.com/kaltura/playkit-js-ui/issues/366)) ([9820c35](https://github.com/kaltura/playkit-js-ui/commit/9820c35))
+* **FEC-9111:** seekbar doesnt work in LG TV ([#386](https://github.com/kaltura/playkit-js-ui/issues/386)) ([49d60b1](https://github.com/kaltura/playkit-js-ui/commit/49d60b1))
+* **FEC-9113:** Add checks to avoid errors in LG TV ([#387](https://github.com/kaltura/playkit-js-ui/issues/387)) ([b601143](https://github.com/kaltura/playkit-js-ui/commit/b601143))
+
+
+
+<a name="0.40.0"></a>
+# [0.40.0](https://github.com/kaltura/playkit-js-ui/compare/v0.39.0...v0.40.0) (2019-05-01)
+
+
+### Features
+
+* **FEC-9029:** unable to set the Smart Container titles ([#383](https://github.com/kaltura/playkit-js-ui/issues/383)) ([433a994](https://github.com/kaltura/playkit-js-ui/commit/433a994))
+
+
+
+<a name="0.39.0"></a>
+# [0.39.0](https://github.com/kaltura/playkit-js-ui/compare/v0.38.4...v0.39.0) (2019-04-15)
+
+
+### Features
+
+* **FEC-8044:** ima-dai plugin ([#371](https://github.com/kaltura/playkit-js-ui/issues/371)) ([382295b](https://github.com/kaltura/playkit-js-ui/commit/382295b))
+
+
+
+<a name="0.38.4"></a>
+## [0.38.4](https://github.com/kaltura/playkit-js-ui/compare/v0.38.3...v0.38.4) (2019-04-10)
+
+
+### Bug Fixes
+
+* **FEC-8937:** UI icons rendered oddly in iOS ([#384](https://github.com/kaltura/playkit-js-ui/issues/384)) ([4fa078b](https://github.com/kaltura/playkit-js-ui/commit/4fa078b))
+
+
+
+<a name="0.38.3"></a>
+## [0.38.3](https://github.com/kaltura/playkit-js-ui/compare/v0.38.2...v0.38.3) (2019-04-07)
+
+
+### Bug Fixes
+
+* **FEC-8924:** [V3][iOS] when touch and dragging from player area the page is not scrolling ([#372](https://github.com/kaltura/playkit-js-ui/issues/372)) ([a066d79](https://github.com/kaltura/playkit-js-ui/commit/a066d79))
+
+
+
+<a name="0.38.2"></a>
+## [0.38.2](https://github.com/kaltura/playkit-js-ui/compare/v0.38.1...v0.38.2) (2019-04-07)
+
+
+### Bug Fixes
+
+* **FEC-8826:** element sent from UI for fullscreen ([#382](https://github.com/kaltura/playkit-js-ui/issues/382)) ([b686d28](https://github.com/kaltura/playkit-js-ui/commit/b686d28))
+* **FEC-8969:** playlist - next screen poster displayed blurred with bad resolution ([#373](https://github.com/kaltura/playkit-js-ui/issues/373)) ([3f72c23](https://github.com/kaltura/playkit-js-ui/commit/3f72c23))
+* **FEC-9003:** can't close share overlay on IE11 ([#379](https://github.com/kaltura/playkit-js-ui/issues/379)) ([a38f4f6](https://github.com/kaltura/playkit-js-ui/commit/a38f4f6))
+* **FEC-9004:** share copy link doesn't work on iOS ([#376](https://github.com/kaltura/playkit-js-ui/issues/376)) ([5f0e4d5](https://github.com/kaltura/playkit-js-ui/commit/5f0e4d5))
+* **FEC-9005:** no tooltip displayed on copy link icon ([#378](https://github.com/kaltura/playkit-js-ui/issues/378)) ([f7f4f70](https://github.com/kaltura/playkit-js-ui/commit/f7f4f70))
+* **FEC-9006:** invalid share CSS portal selector ([#374](https://github.com/kaltura/playkit-js-ui/issues/374)) ([fa2c509](https://github.com/kaltura/playkit-js-ui/commit/fa2c509))
+* **FEC-9010:** share button shows on preplay screen ([#375](https://github.com/kaltura/playkit-js-ui/issues/375)) ([f708d94](https://github.com/kaltura/playkit-js-ui/commit/f708d94))
+* **FEC-9011:** share button dose not work on end screen ([#381](https://github.com/kaltura/playkit-js-ui/issues/381)) ([93743d3](https://github.com/kaltura/playkit-js-ui/commit/93743d3))
+* **FEC-9015:** share to email subject and body ([#380](https://github.com/kaltura/playkit-js-ui/issues/380)) ([d8b7912](https://github.com/kaltura/playkit-js-ui/commit/d8b7912))
+
+
+
+<a name="0.38.1"></a>
+## [0.38.1](https://github.com/kaltura/playkit-js-ui/compare/v0.38.0...v0.38.1) (2019-04-01)
+
+
+
+<a name="0.38.0"></a>
+# [0.38.0](https://github.com/kaltura/playkit-js-ui/compare/v0.37.5...v0.38.0) (2019-04-01)
+
+
+### Bug Fixes
+
+* **FEC-7642:** firefox speed selector keyboard shortcut doesnt work ([#368](https://github.com/kaltura/playkit-js-ui/issues/368)) ([ce9d3b8](https://github.com/kaltura/playkit-js-ui/commit/ce9d3b8))
+* **FEC-8826:** fullscreen implementation moved to core ([#370](https://github.com/kaltura/playkit-js-ui/issues/370)) ([6f7c648](https://github.com/kaltura/playkit-js-ui/commit/6f7c648))
+
+
+### Features
+
+* **FEC-8662:** share component ([#369](https://github.com/kaltura/playkit-js-ui/issues/369)) ([efca096](https://github.com/kaltura/playkit-js-ui/commit/efca096))
+
+
+
+<a name="0.37.5"></a>
+## [0.37.5](https://github.com/kaltura/playkit-js-ui/compare/v0.37.3...v0.37.5) (2019-03-17)
+
+
+### Bug Fixes
+
+* **FEC-8968:** native drop downs on windows chrome does not show the options ([#365](https://github.com/kaltura/playkit-js-ui/issues/365)) ([68939d9](https://github.com/kaltura/playkit-js-ui/commit/68939d9))
+* **FEC-8980:** size CSS class is incorrect if player is rendered when detached from DOM ([#367](https://github.com/kaltura/playkit-js-ui/issues/367)) ([5ad349f](https://github.com/kaltura/playkit-js-ui/commit/5ad349f))
+
+
+
+<a name="0.37.4"></a>
+## [0.37.4](https://github.com/kaltura/playkit-js-ui/compare/v0.37.3...v0.37.4) (2019-03-10)
+
+
+### Bug Fixes
+
+* **FEC-8968:** native drop downs on windows chrome does not show the options ([#365](https://github.com/kaltura/playkit-js-ui/issues/365)) ([68939d9](https://github.com/kaltura/playkit-js-ui/commit/68939d9))
+
+
+
+<a name="0.37.3"></a>
+## [0.37.3](https://github.com/kaltura/playkit-js-ui/compare/v0.37.2...v0.37.3) (2019-03-07)
+
+
+### Bug Fixes
+
+* **FEC-8961:** the play button located not in the middle of the player ([#364](https://github.com/kaltura/playkit-js-ui/issues/364)) ([5b6af13](https://github.com/kaltura/playkit-js-ui/commit/5b6af13))
+
+
+
+<a name="0.37.2"></a>
+## [0.37.2](https://github.com/kaltura/playkit-js-ui/compare/v0.37.1...v0.37.2) (2019-03-07)
+
+
+### Bug Fixes
+
+* **FEC-8960:** need to tap on Play button more than one time in order to start playback on iOS ([#363](https://github.com/kaltura/playkit-js-ui/issues/363)) ([362b53f](https://github.com/kaltura/playkit-js-ui/commit/362b53f))
+
+
+
+<a name="0.37.1"></a>
+## [0.37.1](https://github.com/kaltura/playkit-js-ui/compare/v0.37.0...v0.37.1) (2019-03-06)
+
+
+### Bug Fixes
+
+* **FEC-8939:** language and settings menu dose not fit player size under 480px [#361](https://github.com/kaltura/playkit-js-ui/issues/361) ([7d8fc51](https://github.com/kaltura/playkit-js-ui/commit/7d8fc51))
+* **FEC-8948:** play/pause icons (in middle player) are not changing according to player size ([#362](https://github.com/kaltura/playkit-js-ui/issues/362)) ([86bc4db](https://github.com/kaltura/playkit-js-ui/commit/86bc4db))
+
+
+
+<a name="0.37.0"></a>
+# [0.37.0](https://github.com/kaltura/playkit-js-ui/compare/v0.36.0...v0.37.0) (2019-02-27)
+
+
+### Bug Fixes
+
+* **FEC-8565:** bottom bar is not clickable when the loading overlay is displayed ([#351](https://github.com/kaltura/playkit-js-ui/issues/351)) ([2a8bb26](https://github.com/kaltura/playkit-js-ui/commit/2a8bb26))
+* **FEC-8802:** Fullscreen event is not available on iOS after an Ad ([#357](https://github.com/kaltura/playkit-js-ui/issues/357)) ([06328e9](https://github.com/kaltura/playkit-js-ui/commit/06328e9))
+* **FEC-8910:** seeking using keyboard shortcuts while ad causes content seeking ([#359](https://github.com/kaltura/playkit-js-ui/issues/359)) ([10cd027](https://github.com/kaltura/playkit-js-ui/commit/10cd027))
+* **FEC-8926:** Subtitles are hidden by the seek bar on none Safari browsers in iOS ([#354](https://github.com/kaltura/playkit-js-ui/issues/354)) ([566f157](https://github.com/kaltura/playkit-js-ui/commit/566f157))
+
+
+### Features
+
+* **FEC-8294:** toggle unmute on volume icon click when volume was decreased to zero via dragging ([#353](https://github.com/kaltura/playkit-js-ui/issues/353)) ([9c391f2](https://github.com/kaltura/playkit-js-ui/commit/9c391f2))
+* **FEC-8454:** handle small player views ([#348](https://github.com/kaltura/playkit-js-ui/issues/348)) ([2dd65ad](https://github.com/kaltura/playkit-js-ui/commit/2dd65ad))
+
+
+
+<a name="0.36.0"></a>
+# [0.36.0](https://github.com/kaltura/playkit-js-ui/compare/v0.35.4...v0.36.0) (2019-02-20)
+
+
+### Bug Fixes
+
+* **FEC-8903:** when loading a player with display: none, the player size class is set to small ([#350](https://github.com/kaltura/playkit-js-ui/issues/350)) ([20c5c43](https://github.com/kaltura/playkit-js-ui/commit/20c5c43))
+* **FEC-8905:** default drop-downs options in IE and Edge are not visible ([#349](https://github.com/kaltura/playkit-js-ui/issues/349)) ([19d73e0](https://github.com/kaltura/playkit-js-ui/commit/19d73e0))
+
+
+### Features
+
+* **FEC-8868:** mobile ads preset ([#346](https://github.com/kaltura/playkit-js-ui/issues/346)) ([3726d7d](https://github.com/kaltura/playkit-js-ui/commit/3726d7d))
+
+
+
+<a name="0.35.4"></a>
+## [0.35.4](https://github.com/kaltura/playkit-js-ui/compare/v0.35.3...v0.35.4) (2019-02-05)
+
+
+### Bug Fixes
+
+* **FEC-8888:** the playback paused when tap on "unmute" button on mobile [#345](https://github.com/kaltura/playkit-js-ui/issues/345) ([#345](https://github.com/kaltura/playkit-js-ui/issues/345)) ([847eaa9](https://github.com/kaltura/playkit-js-ui/commit/847eaa9))
+
+
+
+<a name="0.35.3"></a>
+## [0.35.3](https://github.com/kaltura/playkit-js-ui/compare/v0.35.2...v0.35.3) (2019-02-05)
+
+
+### Bug Fixes
+
+* **FEC-8885:** smart menu doesn't open if no label is supplied ([#344](https://github.com/kaltura/playkit-js-ui/issues/344)) ([e7bc3c3](https://github.com/kaltura/playkit-js-ui/commit/e7bc3c3))
+
+
+
+<a name="0.35.2"></a>
+## [0.35.2](https://github.com/kaltura/playkit-js-ui/compare/v0.35.1...v0.35.2) (2019-02-04)
+
+
+### Bug Fixes
+
+* cast ui shows replay button when seeking after replay ([#343](https://github.com/kaltura/playkit-js-ui/issues/343)) ([ac98217](https://github.com/kaltura/playkit-js-ui/commit/ac98217))
+
+
+
+<a name="0.35.1"></a>
+## [0.35.1](https://github.com/kaltura/playkit-js-ui/compare/v0.35.0...v0.35.1) (2019-01-30)
+
+
+### Bug Fixes
+
+* **FEC-8717:** the dropdown is cut on large amount of options ([#341](https://github.com/kaltura/playkit-js-ui/issues/341)) ([ea88270](https://github.com/kaltura/playkit-js-ui/commit/ea88270))
+* **FEC-8768:** seeking back on ended doesn't work when casting ([#342](https://github.com/kaltura/playkit-js-ui/issues/342)) ([2cf3fd1](https://github.com/kaltura/playkit-js-ui/commit/2cf3fd1))
+* **FEC-8866:** 'skip ad' button is covered by the control bar on mobile devices ([#340](https://github.com/kaltura/playkit-js-ui/issues/340)) ([8f13320](https://github.com/kaltura/playkit-js-ui/commit/8f13320))
+
+
+
+<a name="0.35.0"></a>
+# [0.35.0](https://github.com/kaltura/playkit-js-ui/compare/v0.34.0...v0.35.0) (2019-01-24)
+
+
+### Bug Fixes
+
+* **FEC-8717:** when player ui is small the captions language options dropdown is cut ([#324](https://github.com/kaltura/playkit-js-ui/issues/324)) ([f5ca361](https://github.com/kaltura/playkit-js-ui/commit/f5ca361))
+* **FEC-8846:** current caption disappear after changing its style in advanced settings ([#337](https://github.com/kaltura/playkit-js-ui/issues/337)) ([f02fd47](https://github.com/kaltura/playkit-js-ui/commit/f02fd47))
+* icon style is duplicate ([#339](https://github.com/kaltura/playkit-js-ui/issues/339)) ([db8b5c0](https://github.com/kaltura/playkit-js-ui/commit/db8b5c0))
+* icons not shown on a white background ([#338](https://github.com/kaltura/playkit-js-ui/issues/338)) ([e945563](https://github.com/kaltura/playkit-js-ui/commit/e945563))
+* **FEC-8852:** closing pip window on Mac with Safari the video dose not return to the player ([#336](https://github.com/kaltura/playkit-js-ui/issues/336)) ([3574993](https://github.com/kaltura/playkit-js-ui/commit/3574993))
+
+
+### Features
+
+* **FEC-8124:** render player ads UI (also on mobile) unless configured else ([#334](https://github.com/kaltura/playkit-js-ui/issues/334)) ([0dcbb68](https://github.com/kaltura/playkit-js-ui/commit/0dcbb68))
+* **FEC-8703:** playlist loop ([#332](https://github.com/kaltura/playkit-js-ui/issues/332)) ([bbe770a](https://github.com/kaltura/playkit-js-ui/commit/bbe770a))
+
+
+
+<a name="0.34.0"></a>
+# [0.34.0](https://github.com/kaltura/playkit-js-ui/compare/v0.33.0...v0.34.0) (2019-01-21)
+
+
+### Features
+
+* **FEC-8632:** add graphic indication to chrome picture in picture mode ([#326](https://github.com/kaltura/playkit-js-ui/issues/326)) ([9be71ac](https://github.com/kaltura/playkit-js-ui/commit/9be71ac))
+* **FEC-8817:** support horizontal volume bar ([#329](https://github.com/kaltura/playkit-js-ui/issues/329)) ([2ae9925](https://github.com/kaltura/playkit-js-ui/commit/2ae9925))
+
+
+
+<a name="0.33.0"></a>
+# [0.33.0](https://github.com/kaltura/playkit-js-ui/compare/v0.32.1...v0.33.0) (2019-01-20)
+
+
+### Bug Fixes
+
+* **FEC-8258:** captions and audio 'for' attribute is set to 'quality' ([#328](https://github.com/kaltura/playkit-js-ui/issues/328)) ([26ea92b](https://github.com/kaltura/playkit-js-ui/commit/26ea92b))
+* **FEC-8572:** change the way the player compute text tracks font size ([#317](https://github.com/kaltura/playkit-js-ui/issues/317)) ([d4cfd26](https://github.com/kaltura/playkit-js-ui/commit/d4cfd26))
+* **FEC-8781:** simplify center ui elements ([#321](https://github.com/kaltura/playkit-js-ui/issues/321)) ([e6acda4](https://github.com/kaltura/playkit-js-ui/commit/e6acda4))
+* **FEC-8784:** can't set the volume to 1 or 0/mute via keyboard ([#322](https://github.com/kaltura/playkit-js-ui/issues/322)) ([a7caf8c](https://github.com/kaltura/playkit-js-ui/commit/a7caf8c))
+* **FEC-8799:** video not unmuted by tapping on player or seek by dragging ([#325](https://github.com/kaltura/playkit-js-ui/issues/325)) ([d450914](https://github.com/kaltura/playkit-js-ui/commit/d450914))
+* **FEC-8806:** Playlist - Next item screen - the text is not centered ([#327](https://github.com/kaltura/playkit-js-ui/issues/327)) ([6c396ae](https://github.com/kaltura/playkit-js-ui/commit/6c396ae))
+* **FEC-8827:** cast button is not centered ([#331](https://github.com/kaltura/playkit-js-ui/issues/331)) ([5c11438](https://github.com/kaltura/playkit-js-ui/commit/5c11438))
+* **FEC-8827:** Cast button is redundant and unreachable on replay ([#330](https://github.com/kaltura/playkit-js-ui/issues/330)) ([5c4f529](https://github.com/kaltura/playkit-js-ui/commit/5c4f529))
+
+
+### Features
+
+* **FEC-8743:** no aria-label for start over and picture-in-picture ([#323](https://github.com/kaltura/playkit-js-ui/issues/323)) ([b3c9f6b](https://github.com/kaltura/playkit-js-ui/commit/b3c9f6b))
+
+
+
+<a name="0.32.1"></a>
+## [0.32.1](https://github.com/kaltura/playkit-js-ui/compare/v0.32.0...v0.32.1) (2018-12-20)
+
+
+### Bug Fixes
+
+* **FEC-8614:** play/pause is stuck in chrome-mobile mode ([#315](https://github.com/kaltura/playkit-js-ui/issues/315)) ([fcd1fc2](https://github.com/kaltura/playkit-js-ui/commit/fcd1fc2))
+* **FEC-8771:** cvaa - background opacity does not have specific class ([#316](https://github.com/kaltura/playkit-js-ui/issues/316)) ([7665b51](https://github.com/kaltura/playkit-js-ui/commit/7665b51))
+* **FEC-8775:** preplayback is not updated if play is requested before media is loaded ([#318](https://github.com/kaltura/playkit-js-ui/issues/318)) ([a7d2bb8](https://github.com/kaltura/playkit-js-ui/commit/a7d2bb8))
+* **FEC-8778:** no watermark is shown in pre-play presentation ([#319](https://github.com/kaltura/playkit-js-ui/issues/319)) ([bc23ee4](https://github.com/kaltura/playkit-js-ui/commit/bc23ee4))
+
+
+
+<a name="0.32.0"></a>
+# [0.32.0](https://github.com/kaltura/playkit-js-ui/compare/v0.31.0...v0.32.0) (2018-12-12)
+
+
+### Bug Fixes
+
+* **FEC-8710:** watermark covers the playlist countdown ([#305](https://github.com/kaltura/playkit-js-ui/issues/305)) ([2ed6c35](https://github.com/kaltura/playkit-js-ui/commit/2ed6c35))
+* **FEC-8750:** playlist countdown is not fit to the player size ([#312](https://github.com/kaltura/playkit-js-ui/issues/312)) ([e8ed9bd](https://github.com/kaltura/playkit-js-ui/commit/e8ed9bd))
+* uncaught exception from playlist countdown component ([#314](https://github.com/kaltura/playkit-js-ui/issues/314)) ([ec71046](https://github.com/kaltura/playkit-js-ui/commit/ec71046))
+* vr button is shown for non vr content ([#313](https://github.com/kaltura/playkit-js-ui/issues/313)) ([48a4132](https://github.com/kaltura/playkit-js-ui/commit/48a4132))
+
+
+### Features
+
+* **FEC-8682:** end screen ([#306](https://github.com/kaltura/playkit-js-ui/issues/306)) ([ae87bc9](https://github.com/kaltura/playkit-js-ui/commit/ae87bc9))
+* **FEC-8721:** playlist - next screen ([#309](https://github.com/kaltura/playkit-js-ui/issues/309)) ([093b867](https://github.com/kaltura/playkit-js-ui/commit/093b867))
+
+
+
+<a name="0.31.0"></a>
+# [0.31.0](https://github.com/kaltura/playkit-js-ui/compare/v0.30.8...v0.31.0) (2018-12-04)
+
+
+### Bug Fixes
+
+* **FEC-8747:** no play button when auto play failed ([#311](https://github.com/kaltura/playkit-js-ui/issues/311)) ([1169540](https://github.com/kaltura/playkit-js-ui/commit/1169540))
+
+
+### Features
+
+* **FEC-8671:** add CVAA menu labels/ids to enable external CSS to customize it ([#308](https://github.com/kaltura/playkit-js-ui/issues/308)) ([cd1f115](https://github.com/kaltura/playkit-js-ui/commit/cd1f115))
+
+
+
+<a name="0.30.8"></a>
+## [0.30.8](https://github.com/kaltura/playkit-js-ui/compare/v0.30.7...v0.30.8) (2018-11-20)
+
+
+### Bug Fixes
+
+* cast ui ([#304](https://github.com/kaltura/playkit-js-ui/issues/304)) ([fc82543](https://github.com/kaltura/playkit-js-ui/commit/fc82543))
+* disabled playlist button is black ([#303](https://github.com/kaltura/playkit-js-ui/issues/303)) ([d1105a3](https://github.com/kaltura/playkit-js-ui/commit/d1105a3))
+
+
+
+<a name="0.30.7"></a>
+## [0.30.7](https://github.com/kaltura/playkit-js-ui/compare/v0.30.6...v0.30.7) (2018-11-14)
+
+
+### Bug Fixes
+
+* **FEC-8686:** the playlist jumps to the last item (in case setting timeToShow) ([#302](https://github.com/kaltura/playkit-js-ui/issues/302)) ([94f880f](https://github.com/kaltura/playkit-js-ui/commit/94f880f))
+
+
+
+<a name="0.30.6"></a>
+## [0.30.6](https://github.com/kaltura/playkit-js-ui/compare/v0.30.5...v0.30.6) (2018-11-14)
+
+
+### Bug Fixes
+
+* **FEC-8683:** playlist by config, no ui for the second entry and onwards ([#298](https://github.com/kaltura/playkit-js-ui/issues/298)) ([3745803](https://github.com/kaltura/playkit-js-ui/commit/3745803))
+* **FEC-8686:** the playlist jumps to the last item (in case setting timeToShow) ([#300](https://github.com/kaltura/playkit-js-ui/issues/300)) ([04c74dd](https://github.com/kaltura/playkit-js-ui/commit/04c74dd))
+
+
+
+<a name="0.30.5"></a>
+## [0.30.5](https://github.com/kaltura/playkit-js-ui/compare/v0.30.0...v0.30.5) (2018-11-11)
+
+
+### Bug Fixes
+
+* add picture-in-picture to live stream ([#287](https://github.com/kaltura/playkit-js-ui/issues/287)) ([af4dac3](https://github.com/kaltura/playkit-js-ui/commit/af4dac3))
+* **FEC-8603:** native captions are overlapped by toolbar ([#292](https://github.com/kaltura/playkit-js-ui/issues/292)) ([e571ce3](https://github.com/kaltura/playkit-js-ui/commit/e571ce3))
+* **FEC-8644:** The playlist jumps to the last item - safari and FF ([#291](https://github.com/kaltura/playkit-js-ui/issues/291)) ([b7a3bdf](https://github.com/kaltura/playkit-js-ui/commit/b7a3bdf))
+* **FEC-8645:** next item doesn't play automatically - safari ([#290](https://github.com/kaltura/playkit-js-ui/issues/290)) ([3f8cc07](https://github.com/kaltura/playkit-js-ui/commit/3f8cc07))
+* **FEC-8646:** unmute text isn't displayed ([#288](https://github.com/kaltura/playkit-js-ui/issues/288)) ([a26c9f5](https://github.com/kaltura/playkit-js-ui/commit/a26c9f5))
+* countdown skips the postroll ([#294](https://github.com/kaltura/playkit-js-ui/issues/294)) ([89e8d9a](https://github.com/kaltura/playkit-js-ui/commit/89e8d9a))
+* do not show countdown when is longer the playback duration ([#296](https://github.com/kaltura/playkit-js-ui/issues/296)) ([7271bd2](https://github.com/kaltura/playkit-js-ui/commit/7271bd2))
+* **FEC-8650:** video continues in PiP window when full screen opened  ([#297](https://github.com/kaltura/playkit-js-ui/issues/297)) ([695f672](https://github.com/kaltura/playkit-js-ui/commit/695f672))
+* **FEC-8651:** picture in picture icon is missing in safari ([#289](https://github.com/kaltura/playkit-js-ui/issues/289)) ([136c20c](https://github.com/kaltura/playkit-js-ui/commit/136c20c))
+* **FEC-8671:** Sometimes the playlist skip to the next item immediately, before the countdown finished - safari ([#295](https://github.com/kaltura/playkit-js-ui/issues/295)) ([b12c0fa](https://github.com/kaltura/playkit-js-ui/commit/b12c0fa))
+
+
+
+<a name="0.30.4"></a>
+## [0.30.4](https://github.com/kaltura/playkit-js-ui/compare/v0.30.3...v0.30.4) (2018-11-08)
+
+
+### Bug Fixes
+
+* **FEC-8603:** native captions are overlapped by toolbar ([#292](https://github.com/kaltura/playkit-js-ui/issues/292)) ([e571ce3](https://github.com/kaltura/playkit-js-ui/commit/e571ce3))
+
+
+
+<a name="0.30.3"></a>
+## [0.30.3](https://github.com/kaltura/playkit-js-ui/compare/v0.30.2...v0.30.3) (2018-11-07)
+
+
+### Bug Fixes
+
+* **FEC-8644:** The playlist jumps to the last item - safari and FF ([#291](https://github.com/kaltura/playkit-js-ui/issues/291)) ([b7a3bdf](https://github.com/kaltura/playkit-js-ui/commit/b7a3bdf))
+* **FEC-8645:** next item doesn't play automatically - safari ([#290](https://github.com/kaltura/playkit-js-ui/issues/290)) ([3f8cc07](https://github.com/kaltura/playkit-js-ui/commit/3f8cc07))
+
+
+
+<a name="0.30.2"></a>
+## [0.30.2](https://github.com/kaltura/playkit-js-ui/compare/v0.30.1...v0.30.2) (2018-11-07)
+
+
+### Bug Fixes
+
+* **FEC-8651:** picture in picture icon is missing in safari ([#289](https://github.com/kaltura/playkit-js-ui/issues/289)) ([136c20c](https://github.com/kaltura/playkit-js-ui/commit/136c20c))
+
+
+
+<a name="0.30.1"></a>
+## [0.30.1](https://github.com/kaltura/playkit-js-ui/compare/v0.30.0...v0.30.1) (2018-11-06)
+
+
+### Bug Fixes
+
+* add picture-in-picture to live stream ([#287](https://github.com/kaltura/playkit-js-ui/issues/287)) ([af4dac3](https://github.com/kaltura/playkit-js-ui/commit/af4dac3))
+* **FEC-8646:** unmute text isn't displayed ([#288](https://github.com/kaltura/playkit-js-ui/issues/288)) ([a26c9f5](https://github.com/kaltura/playkit-js-ui/commit/a26c9f5))
+
+
+
+<a name="0.30.0"></a>
+# [0.30.0](https://github.com/kaltura/playkit-js-ui/compare/v0.29.0...v0.30.0) (2018-11-05)
+
+
+### Bug Fixes
+
+* **FEC-8603:** native captions are overlapped by toolbar ([#284](https://github.com/kaltura/playkit-js-ui/issues/284)) ([0c0133e](https://github.com/kaltura/playkit-js-ui/commit/0c0133e))
+* **FEC-8628:** when removing the large play-button from preset, the player does not change its prePlayback state ([#286](https://github.com/kaltura/playkit-js-ui/issues/286)) ([74eed0e](https://github.com/kaltura/playkit-js-ui/commit/74eed0e))
+
+
+### Features
+
+* **FEC-8277:** Add picture-in-picture support ([#283](https://github.com/kaltura/playkit-js-ui/issues/283)) ([687426c](https://github.com/kaltura/playkit-js-ui/commit/687426c))
+* **FEC-8623:** playlist UI ([#285](https://github.com/kaltura/playkit-js-ui/issues/285)) ([8124b59](https://github.com/kaltura/playkit-js-ui/commit/8124b59))
+
+
+
+<a name="0.29.0"></a>
+# [0.29.0](https://github.com/kaltura/playkit-js-ui/compare/v0.28.1...v0.29.0) (2018-10-28)
+
+
+### Features
+
+* **FEC-8452:** playlist ([#276](https://github.com/kaltura/playkit-js-ui/issues/276)) ([564694f](https://github.com/kaltura/playkit-js-ui/commit/564694f))
+
+
+
+<a name="0.28.1"></a>
+## [0.28.1](https://github.com/kaltura/playkit-js-ui/compare/v0.28.0...v0.28.1) (2018-10-14)
+
+
+### Bug Fixes
+
+* remove unused props ([#280](https://github.com/kaltura/playkit-js-ui/issues/280)) ([d31d0aa](https://github.com/kaltura/playkit-js-ui/commit/d31d0aa))
+* replay button is missing after postroll ([#282](https://github.com/kaltura/playkit-js-ui/issues/282)) ([a17a280](https://github.com/kaltura/playkit-js-ui/commit/a17a280))
+
+
+
+<a name="0.28.0"></a>
+# [0.28.0](https://github.com/kaltura/playkit-js-ui/compare/v0.27.1...v0.28.0) (2018-10-14)
+
+
+### Bug Fixes
+
+* **engine-connector:** fix ad error check ([#274](https://github.com/kaltura/playkit-js-ui/issues/274)) ([452c69f](https://github.com/kaltura/playkit-js-ui/commit/452c69f))
+* **FEC-8273:** overriding any focus outline - fix IE black screen issue ([#277](https://github.com/kaltura/playkit-js-ui/issues/277)) ([674ea09](https://github.com/kaltura/playkit-js-ui/commit/674ea09))
+* **FEC-8462:** Thumbnail scrubber preview is overridden when multiple players are loaded simultaneously ([#275](https://github.com/kaltura/playkit-js-ui/issues/275)) ([987a280](https://github.com/kaltura/playkit-js-ui/commit/987a280))
+
+
+### Features
+
+* **FEC-8038:** chromecast sender ([#278](https://github.com/kaltura/playkit-js-ui/issues/278)) ([2e8e162](https://github.com/kaltura/playkit-js-ui/commit/2e8e162))
+
+
+
+<a name="0.27.1"></a>
+## [0.27.1](https://github.com/kaltura/playkit-js-ui/compare/v0.27.0...v0.27.1) (2018-09-16)
+
+
+### Bug Fixes
+
+* remove dependency in player ([6a08e43](https://github.com/kaltura/playkit-js-ui/commit/6a08e43))
+
+
+
+<a name="0.27.0"></a>
+# [0.27.0](https://github.com/kaltura/playkit-js-ui/compare/v0.26.1...v0.27.0) (2018-09-16)
+
+
+### Bug Fixes
+
+* use 'player.ads.skipAd()' instead of 'player.skipAd()' ([#272](https://github.com/kaltura/playkit-js-ui/issues/272)) ([d38d930](https://github.com/kaltura/playkit-js-ui/commit/d38d930))
+
+
+### Features
+
+* use playkit ads interface ([#273](https://github.com/kaltura/playkit-js-ui/issues/273)) ([8145949](https://github.com/kaltura/playkit-js-ui/commit/8145949))
+
+
+
+<a name="0.26.1"></a>
+## [0.26.1](https://github.com/kaltura/playkit-js-ui/compare/v0.26.0...v0.26.1) (2018-09-06)
+
+
+### Bug Fixes
+
+* incorrect i18n key name ([56e61c6](https://github.com/kaltura/playkit-js-ui/commit/56e61c6))
+
+
+
+<a name="0.26.0"></a>
+# [0.26.0](https://github.com/kaltura/playkit-js-ui/compare/v0.25.4...v0.26.0) (2018-09-05)
+
+
+### Bug Fixes
+
+* **FEC-8252:** Caption shortcut key (C) does not turn caption on ([#267](https://github.com/kaltura/playkit-js-ui/issues/267)) ([76e29b2](https://github.com/kaltura/playkit-js-ui/commit/76e29b2))
+* **FEC-8503:** seekbar virtual position is incorrect when positioned in a container with CSS transform ([#268](https://github.com/kaltura/playkit-js-ui/issues/268)) ([449d564](https://github.com/kaltura/playkit-js-ui/commit/449d564))
+
+
+### Features
+
+* **FEC-7681:** add i18n support ([#269](https://github.com/kaltura/playkit-js-ui/issues/269)) ([0b06db9](https://github.com/kaltura/playkit-js-ui/commit/0b06db9))
+
+
+
+<a name="0.25.4"></a>
+## [0.25.4](https://github.com/kaltura/playkit-js-ui/compare/v0.25.3...v0.25.4) (2018-08-06)
+
+
+### Bug Fixes
+
+* **FEC-8269:** pre-playback overlay is displayed when loop ([#265](https://github.com/kaltura/playkit-js-ui/issues/265)) ([a29ebaa](https://github.com/kaltura/playkit-js-ui/commit/a29ebaa))
+* **FEC-8286:** adding click indication to the state ([#264](https://github.com/kaltura/playkit-js-ui/issues/264)) ([e54c3cf](https://github.com/kaltura/playkit-js-ui/commit/e54c3cf))
+* **FEC-8448:** after 'learn more' is clicked, fullscreen button is not responding  ([#261](https://github.com/kaltura/playkit-js-ui/issues/261)) ([706881f](https://github.com/kaltura/playkit-js-ui/commit/706881f))
+
+
+
+<a name="0.25.3"></a>
+## [0.25.3](https://github.com/kaltura/playkit-js-ui/compare/v0.25.2...v0.25.3) (2018-08-06)
+
+
+### Bug Fixes
+
+* **FEC-8450:** after replay no control bar ([#263](https://github.com/kaltura/playkit-js-ui/issues/263)) ([991cd19](https://github.com/kaltura/playkit-js-ui/commit/991cd19))
+
+
+
+<a name="0.25.2"></a>
+## [0.25.2](https://github.com/kaltura/playkit-js-ui/compare/v0.25.1...v0.25.2) (2018-08-05)
+
+
+### Bug Fixes
+
+* **FEC-7501:** cleanup on destroy doesn't completely remove player  ([#244](https://github.com/kaltura/playkit-js-ui/issues/244)) ([9c52273](https://github.com/kaltura/playkit-js-ui/commit/9c52273))
+* **FEC-7501:** destroy removes all content under player container including the video element ([#260](https://github.com/kaltura/playkit-js-ui/issues/260)) ([0c42520](https://github.com/kaltura/playkit-js-ui/commit/0c42520))
+
+
+
+<a name="0.25.1"></a>
+## [0.25.1](https://github.com/kaltura/playkit-js-ui/compare/v0.25.0...v0.25.1) (2018-07-26)
+
+
+### Bug Fixes
+
+* **FEC-8286:** make unmute button focusable ([#256](https://github.com/kaltura/playkit-js-ui/issues/256)) ([7accc69](https://github.com/kaltura/playkit-js-ui/commit/7accc69))
+* **FEC-8421, FEC-8422:** Ads UI issues [#255](https://github.com/kaltura/playkit-js-ui/issues/255) ([66ddc4e](https://github.com/kaltura/playkit-js-ui/commit/66ddc4e))
+* subtitles font size is too small on mobile ([#257](https://github.com/kaltura/playkit-js-ui/issues/257)) ([a74d72d](https://github.com/kaltura/playkit-js-ui/commit/a74d72d)), closes [kaltura/playkit-js#270](https://github.com/kaltura/playkit-js/issues/270)
+
+
+
+<a name="0.25.0"></a>
+# [0.25.0](https://github.com/kaltura/playkit-js-ui/compare/v0.24.6...v0.25.0) (2018-07-23)
+
+
+### Features
+
+* **FEC-8390, FEC-8246:** support 608/708 captions ([#254](https://github.com/kaltura/playkit-js-ui/issues/254)) ([6a9c787](https://github.com/kaltura/playkit-js-ui/commit/6a9c787))
+* **FEC-8395:** dont render options with one option (language and settings) + remove the isLive - playbackrate (move to core) ([2338a4b](https://github.com/kaltura/playkit-js-ui/commit/2338a4b))
+
+
+
+<a name="0.24.6"></a>
+## [0.24.6](https://github.com/kaltura/playkit-js-ui/compare/v0.24.5...v0.24.6) (2018-07-12)
+
+
+### Bug Fixes
+
+* **FEC-8271:** merge actions into new object [#241](https://github.com/kaltura/playkit-js-ui/issues/241) ([5566f3b](https://github.com/kaltura/playkit-js-ui/commit/5566f3b))
+
+
+
+<a name="0.24.5"></a>
+## [0.24.5](https://github.com/kaltura/playkit-js-ui/compare/v0.24.4...v0.24.5) (2018-07-02)
+
+
+### Bug Fixes
+
+* **FEC-8121:** Sometime captions menu close when changing lang although it's in focus ([#251](https://github.com/kaltura/playkit-js-ui/issues/251)) ([92e0d95](https://github.com/kaltura/playkit-js-ui/commit/92e0d95))
+* **FEC-8368:** isVr method throws exception on change media ([#252](https://github.com/kaltura/playkit-js-ui/issues/252)) ([d6996ce](https://github.com/kaltura/playkit-js-ui/commit/d6996ce))
+
+
+
+<a name="0.24.4"></a>
+## [0.24.4](https://github.com/kaltura/playkit-js-ui/compare/v0.24.3...v0.24.4) (2018-06-28)
+
+
+### Bug Fixes
+
+* unmute color [#250](https://github.com/kaltura/playkit-js-ui/issues/250) ([8bbc574](https://github.com/kaltura/playkit-js-ui/commit/8bbc574))
+
+
+
+<a name="0.24.3"></a>
+## [0.24.3](https://github.com/kaltura/playkit-js-ui/compare/v0.24.2...v0.24.3) (2018-06-26)
+
+
+### Bug Fixes
+
+* **FEC-7971:** change media doesn't work after a critical error ([#249](https://github.com/kaltura/playkit-js-ui/issues/249)) ([f7a6966](https://github.com/kaltura/playkit-js-ui/commit/f7a6966))
+
+
+
+<a name="0.24.2"></a>
+## [0.24.2](https://github.com/kaltura/playkit-js-ui/compare/v0.24.1...v0.24.2) (2018-06-25)
+
+### Bug Fixes
+
+* add color white on the span itself ([#247](https://github.com/kaltura/playkit-js-ui/issues/247)) ([df9b6d7](https://github.com/kaltura/playkit-js-ui/commit/df9b6d7))
+
+
+<a name="0.24.1"></a>
+## [0.24.1](https://github.com/kaltura/playkit-js-ui/compare/v0.24.0...v0.24.1) (2018-06-24)
+
+
+### Bug Fixes
+
+* **FEC-8338** play/pause click on 360 content is too sensitive ([#246](https://github.com/kaltura/playkit-js-ui/issues/246)) ([3346024](https://github.com/kaltura/playkit-js-ui/commit/3346024))
+
+
+
+<a name="0.24.0"></a>
+# [0.24.0](https://github.com/kaltura/playkit-js-ui/compare/v0.23.5...v0.24.0) (2018-06-20)
+
+
+### Features
+
+* **FEC-8046:** 360 support ([#245](https://github.com/kaltura/playkit-js-ui/issues/245)) ([079f82b](https://github.com/kaltura/playkit-js-ui/commit/079f82b))
+* **FEC-8241,FEC-8242:** expose Icon component and reducers constructs ([#243](https://github.com/kaltura/playkit-js-ui/issues/243)) ([8e81d28](https://github.com/kaltura/playkit-js-ui/commit/8e81d28))
+
+
+
+<a name="0.23.5"></a>
+## [0.23.5](https://github.com/kaltura/playkit-js-ui/compare/v0.23.4...v0.23.5) (2018-06-17)
+
+
+### Bug Fixes
+
+* **FEC-8257:** research autoplay detection handling ([#239](https://github.com/kaltura/playkit-js-ui/issues/239)) ([16615f5](https://github.com/kaltura/playkit-js-ui/commit/16615f5))
+
+
+
+<a name="0.23.4"></a>
+## [0.23.4](https://github.com/kaltura/playkit-js-ui/compare/v0.23.3...v0.23.4) (2018-05-28)
+
+
+### Bug Fixes
+
+* **FEC-8268:** the scrubber doesn't moved with the cursor during seek [#240](https://github.com/kaltura/playkit-js-ui/issues/240) ([cf22c33](https://github.com/kaltura/playkit-js-ui/commit/cf22c33))
+
+
+
+<a name="0.23.3"></a>
+## [0.23.3](https://github.com/kaltura/playkit-js-ui/compare/v0.23.2...v0.23.3) (2018-05-26)
+
+
+### Bug Fixes
+
+* **FEC-8180:** when video starts fallback muted and user select to change media the unmute icon is not displayed although video still muted ([#238](https://github.com/kaltura/playkit-js-ui/issues/238)) ([c3bb7c0](https://github.com/kaltura/playkit-js-ui/commit/c3bb7c0))
+
+
+
+<a name="0.23.2"></a>
+## [0.23.2](https://github.com/kaltura/playkit-js-ui/compare/v0.23.1...v0.23.2) (2018-05-15)
+
+
+### Bug Fixes
+
+* **FEC-8214:** seekbar playhead cannot be dragged ([#237](https://github.com/kaltura/playkit-js-ui/issues/237)) ([b9cc051](https://github.com/kaltura/playkit-js-ui/commit/b9cc051))
+
+
+
 <a name="0.23.1"></a>
 ## [0.23.1](https://github.com/kaltura/playkit-js-ui/compare/v0.23.0...v0.23.1) (2018-05-08)
 

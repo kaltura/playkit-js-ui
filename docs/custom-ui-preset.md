@@ -16,14 +16,15 @@ The order that the UI presets are defined and their respective conditions define
 
 The last preset should always be the default one that has no condition.
 
->:information_source:
-This guide assumes you are using the [Kaltura Player].</br>
-If you intend to build a new preset that will be compiled as part of the library then you can import the components and use JSX for building the preset.</br>
-Each section will also contain a collapsable section to show snippet for testing the UI application in standalone mode - where it is imported directly and not used as part of the Kaltura Player.
+> :information_source:
+> This guide assumes you are using the [Kaltura Player].</br>
+> If you intend to build a new preset that will be compiled as part of the library then you can import the components and use JSX for building the preset.</br>
+> Each section will also contain a collapsable section to show snippet for testing the UI application in standalone mode - where it is imported directly and not used as part of the Kaltura Player.
 
-[Kaltura Player]: https://github.com/kaltura/kaltura-player-js/
+[kaltura player]: https://github.com/kaltura/kaltura-player-js/
 
 ## Defining a preset
+
 A preset is a simple function that returns a tree that defines the compoentns structure to be used in a layout.
 
 For example- Let's say that we want our fullscreen UI to have only the bottom bar with the fullscreen control. nothing else.
@@ -41,7 +42,7 @@ const fullscreenUI = function(props){
     h(
       components.BottomBar,
       h(
-        components.FullscreenControl, { player: props.player }
+        components.FullscreenControl, { player: props.player },
         { className: "playkit-left-controls" }
       )
     )
@@ -50,15 +51,20 @@ const fullscreenUI = function(props){
 ```
 
 ### Using JSX
+
 If your app is using [Babel] for transpiling you can use [JSX] syntax which will be transpiled to the above code.
 In order to do this do the following:
-1. Install [transform-react-jsx](https://www.npmjs.com/package/babel-plugin-transform-react-jsx) with your favoruite package manager
+
+1.  Install [transform-react-jsx](https://www.npmjs.com/package/babel-plugin-transform-react-jsx) with your favoruite package manager
+
 ```bash
 yarn add -D babel-plugin-transform-react-jsx
 //or
 npm install --save-dev babel-plugin-transform-react-jsx
 ```
-2. in your babel config (most likely in your `.babelrc` file) add:
+
+2.  in your babel config (most likely in your `.babelrc` file) add:
+
 ```javascript
 "plugins": [
   [
@@ -70,43 +76,44 @@ npm install --save-dev babel-plugin-transform-react-jsx
 ]
 ```
 
-3. change the UI markup to use JSX syntax:
+3.  change the UI markup to use JSX syntax:
+
 ```javascript
 //fullscreen-preset.js
 const components = KalturaPlayer.ui.components;
-const fullscreenUI = function(props){
+const fullscreenUI = function(props) {
   return (
-    <div className='playback-gui-wrapper' style='height: 100%'>
+    <div className="playback-gui-wrapper" style="height: 100%">
       <BottomBar>
         <FullscreenControl player={props.player} />
       </BottomBar>
     </div>
-  )
+  );
 };
 ```
 
-[JSX]: https://reactjs.org/docs/jsx-in-depth.html
-[Babel]: http://babeljs.io/
+[jsx]: https://reactjs.org/docs/jsx-in-depth.html
+[babel]: http://babeljs.io/
 
 <details>
   <summary>Example if importing the UI in standalone mode</summary>
-  
+
 ```javascript
 //fullscreen-preset.js
 //@flow
 import { h, BottomBar, FullscreenControl  } from 'playkit-js-ui';
 
 export default function fullscreenUI(props: any) {
-  return (
-    <div className='playback-gui-wrapper' style='height: 100%'>
-      <BottomBar>
-        <FullscreenControl player={props.player} />
-      </BottomBar>
-    </div>
-  )
+return (
+<div className='playback-gui-wrapper' style='height: 100%'>
+<BottomBar>
+<FullscreenControl player={props.player} />
+</BottomBar>
+</div>
+)
 }
-```
 
+````
 </details>
 
 ## Attaching the preset to the fullscreen state
@@ -130,11 +137,11 @@ const config = {
 };
 //Call th eplayer with the new UI presets
 const kalturaPlayer = KalturaPlayer.setup(config);
-```
+````
 
 <details>
   <summary>Example if importing the UI in standalone mode</summary>
-  
+
 ```javascript
 //@flow
 import { default as PlaykitUI, Presets } from 'playkit-js-ui';
@@ -143,14 +150,15 @@ import { default as PlaykitUI, Presets } from 'playkit-js-ui';
 import fullscreenUI from './fullscreen-preset.js';
 
 function buildUI(player: Player, config: Object): void {
-  const uis = [
-    { template: props => fullscreenUI(props), condition: state => state.fullscreen.fullscreen },
-    { template: props => Presets.playbackUI(props) }
-  ];
+const uis = [
+{ template: props => fullscreenUI(props), condition: state => state.fullscreen.fullscreen },
+{ template: props => Presets.playbackUI(props) }
+];
 
-  let playerUIManager = new PlaykitUI(player, config);
-  playerUIManager.buildCustomUI(uis);
+let playerUIManager = new PlaykitUI(player, config);
+playerUIManager.buildCustomUI(uis);
 }
+
 ```
 </details>
 
@@ -169,3 +177,4 @@ The UI Manager has three pre-defined conditions:
 Presets can be created by using the player default library components, but you can also create and use your own components to define the layout.
 
 See example on how to create and use your own compoentns [here](create-new-component.md)
+```

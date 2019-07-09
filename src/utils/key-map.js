@@ -1,5 +1,5 @@
 // @flow
-export const KeyMap: { [key: string]: number } = {
+export const KeyMap: {[key: string]: number} = {
   TAB: 9,
   ENTER: 13,
   ESC: 27,
@@ -10,6 +10,7 @@ export const KeyMap: { [key: string]: number } = {
   UP: 38,
   RIGHT: 39,
   DOWN: 40,
+  P: 80,
   C: 67,
   F: 70,
   M: 77,
@@ -17,6 +18,15 @@ export const KeyMap: { [key: string]: number } = {
   COMMA: 188,
   PERIOD: 190
 };
+
+/**
+ * set env for keymap
+ * @param {Object} env - env object
+ * @returns {void}
+ */
+export function setEnv(env: Object): void {
+  KeyMap.SEMI_COLON = env.browser.name.toLowerCase() === 'firefox' ? 59 : 186;
+}
 
 /**
  * gets the key name for a certain key code

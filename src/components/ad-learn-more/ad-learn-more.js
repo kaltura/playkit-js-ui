@@ -2,6 +2,7 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
+import {Text} from 'preact-i18n';
 
 /**
  * mapping state to props
@@ -13,13 +14,13 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps)
-  /**
-   * AdLearnMore component
-   *
-   * @class AdLearnMore
-   * @example <AdLearnMore />
-   * @extends {Component}
-   */
+/**
+ * AdLearnMore component
+ *
+ * @class AdLearnMore
+ * @example <AdLearnMore />
+ * @extends {Component}
+ */
 class AdLearnMore extends Component {
   /**
    * render component
@@ -29,8 +30,11 @@ class AdLearnMore extends Component {
    * @memberof AdLearnMore
    */
   render(props: any): React$Element<any> {
-    return <a href={props.url} target='_blank' className={[style.btn, style.btnDarkTransparent].join(' ')}>Learn
-      more</a>
+    return (
+      <a href={props.url} target="_blank" className={[style.btn, style.btnDarkTransparent, style.learnMore].join(' ')}>
+        <Text id={'ads.learn_more'} />
+      </a>
+    );
   }
 }
 

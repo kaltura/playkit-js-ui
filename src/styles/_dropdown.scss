@@ -41,7 +41,6 @@
       will-change: transform;
     }
   }
-
 }
 
 .dropdown-menu {
@@ -72,6 +71,10 @@
   }
   &.left {
     right: 0;
+  }
+  &.stick-bottom{
+    bottom: -95px;
+    margin: 5px 0;
   }
 
   .dropdown-menu-item {

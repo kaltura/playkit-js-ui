@@ -10,11 +10,7 @@ const BaseComponent = KalturaPlayer.ui.Components.BaseComponent;
 
 class DumbComponent extends Component {
   render(props) {
-    return h(
-      'div', 
-      {className: 'dumb-component'},
-      props.children
-    )
+    return h('div', {className: 'dumb-component'}, props.children);
   }
 }
 
@@ -29,9 +25,7 @@ const BaseComponent = KalturaPlayer.ui.Components.BaseComponent;
 
 class DumbComponent extends Component {
   render(props) {
-    return (
-      <div className='dumb-component'>{ props.children }</div>
-    )
+    return <div className="dumb-component">{props.children}</div>;
   }
 }
 
@@ -42,18 +36,11 @@ The usage of this component will be:
 
 ```javascript
 const h = KalturaPlayer.ui.h;
-h(
-  DumbComponent,
-  null,
-  h(
-    "p",
-    null,
-    "You can add here any components and html you want and it will be appended to the DumbComponent"
-  )
-);
+h(DumbComponent, null, h('p', null, 'You can add here any components and html you want and it will be appended to the DumbComponent'));
 ```
 
 Or again, if using JSX:
+
 ```html
 <DumbComponent>
   <p>You can add here any components and html you want and it will be appended to the DumbComponent</p>
@@ -73,12 +60,14 @@ const h = KalturaPlayer.ui.h;
 const BaseComponent = KalturaPlayer.ui.Components.BaseComponent;
 const connect = playkit.ui.redux.connect;
 
-const mapStateToProps = state => ({ playerState: state.engine.playerState });
+const mapStateToProps = state => ({playerState: state.engine.playerState});
 
 class PlayerStateLog extends BaseComponent {
   log = new Array();
 
-  constructor() { super({name: 'PlayerStateLog'}); }
+  constructor() {
+    super({name: 'PlayerStateLog'});
+  }
 
   componentDidUpdate() {
     this.log.push(this.props.playerState.currentState);
@@ -88,34 +77,24 @@ class PlayerStateLog extends BaseComponent {
     var className = 'log';
     className += ` ${props.additionalClass}`;
 
-    return (
-      h(
-        "ul",
-        { className: className },
-        this.log.map(function (playerState) {
-          return h(
-            "li",
-            null,
-            playerState
-          );
-        })
-      )
-    )
+    return h(
+      'ul',
+      {className: className},
+      this.log.map(function(playerState) {
+        return h('li', null, playerState);
+      })
+    );
   }
 }
 
 export default connect(mapStateToProps)(PlayerStateLog);
-
 ```
 
 The usage of this component will be:
 
 ```javascript
 const h = KalturaPlayer.ui.h;
-h(
-  PlayerStateLog,
-  { additionalClass: 'red-list' }
-);
+h(PlayerStateLog, {additionalClass: 'red-list'});
 ```
 
 Or again, if using JSX:
@@ -123,11 +102,7 @@ Or again, if using JSX:
 change the `render` method above to
 
 ```javascript
-return (
-  <ul className={className}>
-    { this.log.map(playerState => <li>{playerState}</li>) }
-  </ul>
-)
+return <ul className={className}>{this.log.map(playerState => <li>{playerState}</li>)}</ul>;
 ```
 
 And the usage of this component will be:
@@ -145,7 +120,7 @@ Main difference it that dependencies are managed by importing the core libraries
 instead of referring to the components via the `KalturaPlayer.ui.*` path they can be included like:
 
 ```javascript
-import { h, Component } from 'preact';
-import { bindActions } from '../../utils/bind-actions';
+import {h, Component} from 'preact';
+import {bindActions} from '../../utils/bind-actions';
 import BaseComponent from '../base';
 ```
