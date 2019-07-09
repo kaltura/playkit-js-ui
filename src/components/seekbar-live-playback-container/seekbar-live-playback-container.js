@@ -20,10 +20,6 @@ const mapStateToProps = state => ({
   isDvr: state.engine.isDvr
 });
 
-@connect(
-  mapStateToProps,
-  bindActions(actions)
-)
 /**
  * SeekBarLivePlaybackContainer component
  *
@@ -31,6 +27,10 @@ const mapStateToProps = state => ({
  * @example <SeekBarLivePlaybackContainer player={this.player} />
  * @extends {BaseComponent}
  */
+@connect(
+  mapStateToProps,
+  bindActions(actions)
+)
 class SeekBarLivePlaybackContainer extends BaseComponent {
   /**
    * Creates an instance of SeekBarLivePlaybackContainer.

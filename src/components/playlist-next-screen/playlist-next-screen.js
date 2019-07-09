@@ -23,7 +23,6 @@ const mapStateToProps = state => ({
   isPlaybackEnded: state.engine.isPlaybackEnded
 });
 
-@connect(mapStateToProps)
 /**
  * PlaylistNextScreen component
  *
@@ -31,6 +30,7 @@ const mapStateToProps = state => ({
  * @example <PlaylistNextScreen player={this.player} type="next"/>
  * @extends {BaseComponent}
  */
+@connect(mapStateToProps)
 class PlaylistNextScreen extends BaseComponent {
   /**
    * should render component

@@ -18,10 +18,6 @@ const mapStateToProps = state => ({
   adIsLinear: state.engine.adIsLinear
 });
 
-@connect(
-  mapStateToProps,
-  bindActions(actions)
-)
 /**
  * Loading component
  *
@@ -29,6 +25,10 @@ const mapStateToProps = state => ({
  * @example <Loading />
  * @extends {BaseComponent}
  */
+@connect(
+  mapStateToProps,
+  bindActions(actions)
+)
 class Loading extends BaseComponent {
   /**
    * Creates an instance of Loading.

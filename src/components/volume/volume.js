@@ -23,10 +23,6 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile
 });
 
-@connect(
-  mapStateToProps,
-  bindActions({...actions, ...engineActions})
-)
 /**
  * VolumeControl component
  *
@@ -34,6 +30,10 @@ const mapStateToProps = state => ({
  * @example <VolumeControl player={this.player} />
  * @extends {BaseComponent}
  */
+@connect(
+  mapStateToProps,
+  bindActions({...actions, ...engineActions})
+)
 class VolumeControl extends BaseComponent {
   _volumeControlElement: HTMLElement;
   _volumeProgressBarElement: HTMLElement;

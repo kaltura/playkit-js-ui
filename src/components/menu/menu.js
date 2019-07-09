@@ -18,7 +18,6 @@ const mapStateToProps = state => ({
   playerSize: state.shell.playerSize
 });
 
-@connect(mapStateToProps)
 /**
  * Menu component
  *
@@ -30,6 +29,7 @@ const mapStateToProps = state => ({
  * />
  * @extends {Component}
  */
+@connect(mapStateToProps)
 class Menu extends Component {
   state: Object;
   handleClickOutside: Function;

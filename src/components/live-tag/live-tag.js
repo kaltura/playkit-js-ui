@@ -18,7 +18,6 @@ const mapStateToProps = state => ({
   duration: state.engine.duration
 });
 
-@connect(mapStateToProps)
 /**
  * LiveTag component
  *
@@ -26,6 +25,7 @@ const mapStateToProps = state => ({
  * @example <LiveTag player={this.player} />
  * @extends {BaseComponent}
  */
+@connect(mapStateToProps)
 class LiveTag extends BaseComponent {
   /**
    * Creates an instance of LiveTag.

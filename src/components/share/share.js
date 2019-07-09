@@ -22,10 +22,6 @@ const mapStateToProps = state => ({
   config: state.config.components.share
 });
 
-@connect(
-  mapStateToProps,
-  bindActions(actions)
-)
 /**
  * ShareControl component
  *
@@ -33,6 +29,10 @@ const mapStateToProps = state => ({
  * @example <ShareControl player={this.player} />
  * @extends {BaseComponent}
  */
+@connect(
+  mapStateToProps,
+  bindActions(actions)
+)
 class ShareControl extends BaseComponent {
   _portal: any;
   /**

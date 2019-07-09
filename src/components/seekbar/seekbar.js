@@ -19,16 +19,16 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile
 });
 
-@connect(
-  mapStateToProps,
-  bindActions(actions)
-)
 /**
  * SeekBarControl component
  *
  * @class SeekBarControl
  * @extends {Component}
  */
+@connect(
+  mapStateToProps,
+  bindActions(actions)
+)
 class SeekBarControl extends Component {
   state: Object;
   onPlayerMouseUp: Function;

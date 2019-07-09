@@ -7,10 +7,6 @@ import {actions as loadingActions} from '../../reducers/loading';
 import {actions as shellActions} from '../../reducers/shell';
 import BaseComponent from '../base';
 
-@connect(
-  reduce,
-  bindActions({...actions, ...loadingActions, ...shellActions})
-)
 /**
  * EngineConnector component
  *
@@ -18,6 +14,10 @@ import BaseComponent from '../base';
  * @example <EngineConnector player={this.player} />
  * @extends {BaseComponent}
  */
+@connect(
+  reduce,
+  bindActions({...actions, ...loadingActions, ...shellActions})
+)
 class EngineConnector extends BaseComponent {
   /**
    * Creates an instance of EngineConnector.

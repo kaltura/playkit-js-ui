@@ -132,16 +132,16 @@ const VideoStartOptions = (props: Object): React$Element<any> => {
   );
 };
 
-@connect(
-  mapStateToProps,
-  bindActions(actions)
-)
 /**
  * ShareOverlay component
  *
  * @class ShareOverlay
  * @extends {BaseComponent}
  */
+@connect(
+  mapStateToProps,
+  bindActions(actions)
+)
 class ShareOverlay extends BaseComponent {
   /**
    * Creates an instance of ShareOverlay.

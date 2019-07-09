@@ -31,16 +31,16 @@ const cvaaOverlayState = {
 
 type CvaaOverlayStateType = 'main' | 'custom-captions';
 
-@connect(
-  mapStateToProps,
-  bindActions({...cvaaActions, ...shellActions})
-)
 /**
  * CVAAOverlay component
  *
  * @class CVAAOverlay
  * @extends {BaseComponent}
  */
+@connect(
+  mapStateToProps,
+  bindActions({...cvaaActions, ...shellActions})
+)
 class CVAAOverlay extends BaseComponent {
   captionsStyleDefault: Object;
   captionsStyleYellow: Object;

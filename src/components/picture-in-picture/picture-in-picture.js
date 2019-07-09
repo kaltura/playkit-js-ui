@@ -18,13 +18,13 @@ const mapStateToProps = state => ({
   playerSize: state.shell.playerSize
 });
 
-@connect(mapStateToProps)
 /**
  * PictureInPicture component
  *
  * @class PictureInPicture
  * @extends {BaseComponent}
  */
+@connect(mapStateToProps)
 class PictureInPicture extends BaseComponent {
   /**
    * Creates an instance of PictureInPicture.

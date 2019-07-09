@@ -16,7 +16,6 @@ const mapStateToProps = state => ({
   playlist: state.engine.playlist
 });
 
-@connect(mapStateToProps)
 /**
  * PlaylistButton component
  *
@@ -24,6 +23,7 @@ const mapStateToProps = state => ({
  * @example <PlaylistButton player={this.player} type="next"/>
  * @extends {BaseComponent}
  */
+@connect(mapStateToProps)
 class PlaylistButton extends BaseComponent {
   /**
    * Creates an instance of PlaylistButton.

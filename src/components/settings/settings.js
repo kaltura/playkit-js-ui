@@ -23,10 +23,6 @@ const mapStateToProps = state => ({
   playerSize: state.shell.playerSize
 });
 
-@connect(
-  mapStateToProps,
-  bindActions(actions)
-)
 /**
  * SettingsControl component
  *
@@ -34,6 +30,10 @@ const mapStateToProps = state => ({
  * @example <SettingsControl player={this.player} />
  * @extends {BaseComponent}
  */
+@connect(
+  mapStateToProps,
+  bindActions(actions)
+)
 class SettingsControl extends BaseComponent {
   state: Object;
   _controlSettingsElement: any;

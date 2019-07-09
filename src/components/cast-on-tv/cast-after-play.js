@@ -17,10 +17,6 @@ const mapStateToProps = state => ({
   isCasting: state.engine.isCasting
 });
 
-@connect(
-  mapStateToProps,
-  null
-)
 /**
  * CastAfterPlay component
  *
@@ -28,6 +24,10 @@ const mapStateToProps = state => ({
  * @example <CastAfterPlay player={this.player} />
  * @extends {BaseComponent}
  */
+@connect(
+  mapStateToProps,
+  null
+)
 class CastAfterPlay extends BaseComponent {
   /**
    * @static

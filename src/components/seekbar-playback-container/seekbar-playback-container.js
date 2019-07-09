@@ -19,10 +19,6 @@ const mapStateToProps = state => ({
   poster: state.engine.poster
 });
 
-@connect(
-  mapStateToProps,
-  bindActions(actions)
-)
 /**
  * SeekBarPlaybackContainer component
  *
@@ -30,6 +26,10 @@ const mapStateToProps = state => ({
  * @example <SeekBarPlaybackContainer player={this.player} />
  * @extends {BaseComponent}
  */
+@connect(
+  mapStateToProps,
+  bindActions(actions)
+)
 class SeekBarPlaybackContainer extends BaseComponent {
   /**
    * Creates an instance of SeekBarPlaybackContainer.

@@ -13,8 +13,6 @@ const mapStateToProps = state => ({
   isPlaybackEnded: state.engine.isPlaybackEnded
 });
 
-@connect(mapStateToProps)
-
 /**
  * TopBar component
  *
@@ -22,6 +20,7 @@ const mapStateToProps = state => ({
  * @example <TopBar>...</TopBar>
  * @extends {Component}
  */
+@connect(mapStateToProps)
 class TopBar extends Component {
   /**
    * render component

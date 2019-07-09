@@ -19,13 +19,13 @@ const mapStateToProps = state => ({
   )
 });
 
-@connect(mapStateToProps)
 /**
  * Watermark component
  * @class Watermark
  * @example <Watermark player={this.player} />
  * @extends {BaseComponent}
  */
+@connect(mapStateToProps)
 class Watermark extends BaseComponent {
   /**
    * @static

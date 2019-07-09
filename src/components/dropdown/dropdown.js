@@ -17,7 +17,6 @@ const mapStateToProps = state => ({
   playerSize: state.shell.playerSize
 });
 
-@connect(mapStateToProps)
 /**
  * DropDown component
  *
@@ -25,6 +24,7 @@ const mapStateToProps = state => ({
  * @example <DropDown options={this.videoTrackOptions} />
  * @extends {Component}
  */
+@connect(mapStateToProps)
 class DropDown extends Component {
   state: Object;
   _el: HTMLDivElement;

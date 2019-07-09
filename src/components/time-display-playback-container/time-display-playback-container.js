@@ -14,7 +14,6 @@ const mapStateToProps = state => ({
   duration: state.engine.duration
 });
 
-@connect(mapStateToProps)
 /**
  * TimeDisplayPlaybackContainer component
  *
@@ -22,6 +21,7 @@ const mapStateToProps = state => ({
  * @example <TimeDisplayPlaybackContainer format='currentTime / duration' />
  * @extends {BaseComponent}
  */
+@connect(mapStateToProps)
 class TimeDisplayPlaybackContainer extends BaseComponent {
   /**
    * Creates an instance of TimeDisplayPlaybackContainer.

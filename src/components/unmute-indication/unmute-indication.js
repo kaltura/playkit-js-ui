@@ -23,10 +23,6 @@ const mapStateToProps = state => ({
   fallbackToMutedAutoPlay: state.engine.fallbackToMutedAutoPlay
 });
 
-@connect(
-  mapStateToProps,
-  null
-)
 /**
  * UnmuteIndication component
  *
@@ -34,6 +30,10 @@ const mapStateToProps = state => ({
  * @example <UnmuteIndication player={this.player} />
  * @extends {BaseComponent}
  */
+@connect(
+  mapStateToProps,
+  null
+)
 class UnmuteIndication extends BaseComponent {
   /**
    * Creates an instance of UnmuteIndication.

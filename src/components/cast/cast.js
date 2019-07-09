@@ -15,10 +15,6 @@ const mapStateToProps = state => ({
   isCastAvailable: state.engine.isCastAvailable
 });
 
-@connect(
-  mapStateToProps,
-  actions
-)
 /**
  * CastOverlay component
  *
@@ -26,6 +22,10 @@ const mapStateToProps = state => ({
  * @example <CastControl player={this.player} />
  * @extends {BaseComponent}
  */
+@connect(
+  mapStateToProps,
+  actions
+)
 class CastControl extends BaseComponent {
   /**
    * Creates an instance of ChromecastControl.

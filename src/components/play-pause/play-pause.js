@@ -20,7 +20,6 @@ const mapStateToProps = state => ({
   isPlaybackEnded: state.engine.isPlaybackEnded
 });
 
-@connect(mapStateToProps)
 /**
  * PlayPauseControl component
  *
@@ -28,6 +27,7 @@ const mapStateToProps = state => ({
  * @example <PlayPauseControl player={this.player} />
  * @extends {BaseComponent}
  */
+@connect(mapStateToProps)
 class PlayPauseControl extends BaseComponent {
   /**
    * Creates an instance of PlayPauseControl.

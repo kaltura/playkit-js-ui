@@ -20,10 +20,6 @@ const mapStateToProps = state => ({
   config: state.config.components.vrStereo
 });
 
-@connect(
-  mapStateToProps,
-  bindActions(Object.assign({}, actions, engineActions))
-)
 /**
  * VrStereoToggleControl component
  *
@@ -31,6 +27,10 @@ const mapStateToProps = state => ({
  * @example <VrStereoToggleControl player={this.player}/>
  * @extends {BaseComponent}
  */
+@connect(
+  mapStateToProps,
+  bindActions(Object.assign({}, actions, engineActions))
+)
 class VrStereoToggleControl extends BaseComponent {
   /**
    * @static

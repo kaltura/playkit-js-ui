@@ -61,10 +61,6 @@ const PLAYER_BREAK_POINTS: {[size: string]: number} = {
   LARGE: 1024
 };
 
-@connect(
-  mapStateToProps,
-  bindActions(Object.assign({}, shellActions, engineActions))
-)
 /**
  * Shell component
  *
@@ -72,6 +68,10 @@ const PLAYER_BREAK_POINTS: {[size: string]: number} = {
  * @example <Shell player={this.player}>...</Shell>
  * @extends {BaseComponent}
  */
+@connect(
+  mapStateToProps,
+  bindActions(Object.assign({}, shellActions, engineActions))
+)
 class Shell extends BaseComponent {
   state: Object;
   hoverTimeout: ?number;

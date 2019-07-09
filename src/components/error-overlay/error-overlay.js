@@ -18,16 +18,16 @@ const mapStateToProps = state => ({
   hasError: state.engine.hasError
 });
 
-@connect(
-  mapStateToProps,
-  bindActions(actions)
-)
 /**
  * errorOverlay component
  *
  * @class errorOverlay
  * @extends {BaseComponent}
  */
+@connect(
+  mapStateToProps,
+  bindActions(actions)
+)
 class ErrorOverlay extends BaseComponent {
   sessionEl: HTMLDivElement;
 

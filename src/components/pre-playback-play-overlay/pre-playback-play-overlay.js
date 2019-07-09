@@ -21,10 +21,6 @@ const mapStateToProps = state => ({
   loading: state.loading.show
 });
 
-@connect(
-  mapStateToProps,
-  bindActions(Object.assign({}, loadingActions))
-)
 /**
  * PrePlaybackPlayOverlay component
  *
@@ -32,6 +28,10 @@ const mapStateToProps = state => ({
  * @example <PrePlaybackPlayOverlay player={this.player} />
  * @extends {BaseComponent}
  */
+@connect(
+  mapStateToProps,
+  bindActions(Object.assign({}, loadingActions))
+)
 class PrePlaybackPlayOverlay extends BaseComponent {
   /**
    * Creates an instance of PrePlaybackPlayOverlay.

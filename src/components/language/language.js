@@ -27,10 +27,6 @@ const mapStateToProps = state => ({
   playerSize: state.shell.playerSize
 });
 
-@connect(
-  mapStateToProps,
-  bindActions(actions)
-)
 /**
  * LanguageControl component
  *
@@ -38,6 +34,10 @@ const mapStateToProps = state => ({
  * @example <LanguageControl />
  * @extends {BaseComponent}
  */
+@connect(
+  mapStateToProps,
+  bindActions(actions)
+)
 class LanguageControl extends BaseComponent {
   state: Object;
   _controlLanguageElement: any;

@@ -13,7 +13,6 @@ const mapStateToProps = state => ({
   adProgress: state.engine.adProgress
 });
 
-@connect(mapStateToProps)
 /**
  * TimeDisplayAdsContainer component
  *
@@ -21,6 +20,7 @@ const mapStateToProps = state => ({
  * @example <TimeDisplayAdsContainer format='-left seconds left' />
  * @extends {BaseComponent}
  */
+@connect(mapStateToProps)
 class TimeDisplayAdsContainer extends BaseComponent {
   /**
    * Creates an instance of TimeDisplayAdsContainer.

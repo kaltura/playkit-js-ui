@@ -17,7 +17,6 @@ const mapStateToProps = state => ({
   adSkippableState: state.engine.adSkippableState
 });
 
-@connect(mapStateToProps)
 /**
  * AdSkip component
  *
@@ -25,6 +24,7 @@ const mapStateToProps = state => ({
  * @example <AdSkip player={this.player} />
  * @extends {BaseComponent}
  */
+@connect(mapStateToProps)
 class AdSkip extends BaseComponent {
   /**
    * Creates an instance of AdSkip.

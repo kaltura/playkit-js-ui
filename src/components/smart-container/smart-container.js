@@ -19,10 +19,6 @@ const mapStateToProps = state => ({
   playerSize: state.shell.playerSize
 });
 
-@connect(
-  mapStateToProps,
-  bindActions(actions)
-)
 /**
  * SmartContainer component
  *
@@ -38,6 +34,10 @@ const mapStateToProps = state => ({
  * </SmartContainer>
  * @extends {Component}
  */
+@connect(
+  mapStateToProps,
+  bindActions(actions)
+)
 class SmartContainer extends Component {
   _portal: any;
   /**

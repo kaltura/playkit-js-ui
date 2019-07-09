@@ -8,10 +8,6 @@ import {actions} from '../../reducers/shell';
 import {Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 
-@connect(
-  null,
-  bindActions(actions)
-)
 /**
  * Overlay component
  * @class Overlay
@@ -23,6 +19,10 @@ import {KeyMap} from '../../utils/key-map';
  * </Overlay>
  * @extends {Component}
  */
+@connect(
+  null,
+  bindActions(actions)
+)
 class Overlay extends Component {
   /**
    * componentWillMount

@@ -15,7 +15,6 @@ const mapStateToProps = state => ({
   fullscreen: state.engine.fullscreen
 });
 
-@connect(mapStateToProps)
 /**
  * FullscreenControl component
  *
@@ -23,6 +22,7 @@ const mapStateToProps = state => ({
  * @example <FullscreenControl player={this.player} />
  * @extends {BaseComponent}
  */
+@connect(mapStateToProps)
 class FullscreenControl extends BaseComponent {
   /**
    * Creates an instance of FullscreenControl.

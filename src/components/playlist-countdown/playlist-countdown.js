@@ -21,7 +21,6 @@ const mapStateToProps = state => ({
   isPlaybackEnded: state.engine.isPlaybackEnded
 });
 
-@connect(mapStateToProps)
 /**
  * PlaylistCountdown component
  *
@@ -29,6 +28,7 @@ const mapStateToProps = state => ({
  * @example <PlaylistCountdown player={this.player} type="next"/>
  * @extends {BaseComponent}
  */
+@connect(mapStateToProps)
 class PlaylistCountdown extends BaseComponent {
   /**
    * should render component

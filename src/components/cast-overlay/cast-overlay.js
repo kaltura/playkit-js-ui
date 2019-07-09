@@ -22,7 +22,6 @@ const mapStateToProps = state => ({
   isChangingSource: state.engine.isChangingSource
 });
 
-@connect(mapStateToProps)
 /**
  * CastOverlay component
  *
@@ -30,6 +29,7 @@ const mapStateToProps = state => ({
  * @example <CastOverlay player={this.player} />
  * @extends {BaseComponent}
  */
+@connect(mapStateToProps)
 class CastOverlay extends BaseComponent {
   /**
    * @static

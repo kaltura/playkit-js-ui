@@ -16,7 +16,6 @@ const mapStateToProps = state => ({
   isChangingSource: state.engine.isChangingSource
 });
 
-@connect(mapStateToProps)
 /**
  * PictureInPictureOverlay component
  *
@@ -24,6 +23,7 @@ const mapStateToProps = state => ({
  * @example <PictureInPictureOverlay player={this.player} />
  * @extends {BaseComponent}
  */
+@connect(mapStateToProps)
 class PictureInPictureOverlay extends BaseComponent {
   /**
    * Creates an instance of PictureInPictureOverlay.
