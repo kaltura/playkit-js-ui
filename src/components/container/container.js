@@ -1,7 +1,6 @@
 //@flow
 import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
-import {InjectedComponent} from '../injected-component';
 
 /**
  * mapping state to props
@@ -137,8 +136,15 @@ class Container extends Component {
    * @private
    */
   _renderPresetComponent(presetComponent: PresetComponent) {
-    return <InjectedComponent presetComponent={presetComponent} />;
+    if (!presetComponent.render) {
+      return null;
+    }
+
+    return presetComponent.render({
+      context: presetComponent.context
+    });
   }
+
   /**
    * render component
    *

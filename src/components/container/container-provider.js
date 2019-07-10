@@ -29,10 +29,10 @@ export class ContainerProvider extends Component {
     const specificPreset = {};
     const allPresets = [];
     (this.props.presetComponents || []).forEach(component => {
-      if (!component.create || !component.container) {
+      if (!component.render || !component.container) {
         logger.warn(
           `preset with label '${component.label ||
-            ''}' configuration is invalid, missing required configuration (did you remember to set 'container' and 'create'?)`
+            ''}' configuration is invalid, missing required configuration (did you remember to set 'container' and 'render'?)`
         );
         return;
       }
