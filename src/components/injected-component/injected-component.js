@@ -37,23 +37,20 @@ class InjectedComponent extends Component {
    * @return {void}
    */
   componentDidMount(): void {
-    const {presetComponent} = this.props;
-    if (!presetComponent) {
-      logger.warn('Cannot inject preset item, presetComponent prop is missing');
-      return;
-    }
-    if (!presetComponent.create) {
-      logger.warn(`Cannot inject preset item with label '${presetComponent.label}', missing 'create' method`);
+    const {create, label} = this.props;
+
+    if (!create) {
+      logger.warn(`Cannot inject preset item with label '${label}', missing 'create' method`);
       return;
     }
 
     if (!this._root) {
-      logger.warn(`Cannot inject preset item with label '${presetComponent.label}', failed to create parent component`);
+      logger.warn(`Cannot inject preset item with label '${label}', failed to create parent component`);
       return;
     }
 
-    logger.debug(`[componentDidMount('${presetComponent.label || ''}')]: inject preset component`);
-    presetComponent.create({context: presetComponent.context, parent: this._root});
+    logger.debug(`[componentDidMount('${label || ''}')]: inject preset component`);
+    create({parent: this._root});
   }
 
   /**
@@ -62,13 +59,13 @@ class InjectedComponent extends Component {
    * @returns {void}
    */
   componentWillUnmount(): void {
-    const {presetComponent} = this.props;
-    if (!this._root || !presetComponent || !presetComponent.onDestroy) {
+    const {destroy, label} = this.props;
+    if (!this._root || !destroy) {
       return;
     }
 
-    presetComponent.onDestroy({context: presetComponent.context, parent: this._root});
-    logger.debug(`[componentWillUnmount('${presetComponent.label || ''}')]: destory preset component`);
+    destroy({parent: this._root});
+    logger.debug(`[componentWillUnmount('${label || ''}')]: destroy preset component`);
   }
 
   /**
@@ -81,8 +78,7 @@ class InjectedComponent extends Component {
    * @memberof Container
    */
   render(): React$Element<any> {
-    const {presetComponent} = this.props;
-    const label = presetComponent ? presetComponent.label : '';
+    const {label} = this.props;
     return <div data-kp-injected={label} ref={ref => (this._root = ref)} />;
   }
 }

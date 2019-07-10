@@ -47,3 +47,4 @@ export {PlaylistButton} from './playlist-button';
 export {PlaylistNextScreen} from './playlist-next-screen';
 export {PictureInPicture} from './picture-in-picture';
 export {PlaybackControls} from './playback-controls';
+export {InjectedComponent} from './injected-component';
