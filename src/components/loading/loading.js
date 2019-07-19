@@ -65,10 +65,6 @@ class Loading extends BaseComponent {
       this.props.updateLoadingSpinnerState(true);
     });
 
-    this.eventManager.listen(this.player, this.player.Event.AD_LOADED, () => {
-      this.props.updateLoadingSpinnerState(true);
-    });
-
     this.eventManager.listen(this.player, this.player.Event.AD_STARTED, () => {
       if (this.props.adIsLinear) {
         this.props.updateLoadingSpinnerState(false);
