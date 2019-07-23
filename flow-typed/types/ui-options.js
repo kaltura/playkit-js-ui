@@ -6,7 +6,7 @@ declare type UIOptionsObject = {
   forceTouchUI?: boolean,
   log?: UILogConfigObject,
   components?: ComponentsConfig,
-  presetComponents?: PresetComponent[],
+  uiComponents?: UIComponent[],
   translations?: {[langKey: string]: Object},
   locale?: string
 };

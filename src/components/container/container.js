@@ -106,8 +106,8 @@ class Container extends Component {
     const positionedComponentMap = nextContainerComponents.positionedComponentMap;
     let hasPositionedComponents = false;
 
-    const presetComponents = [...presetsData.allPresets, ...(presetsData.specificPreset[targetPresetName] || [])];
-    const relevantComponents = presetComponents.filter(component => component.container === this.props.name);
+    const uiComponents = [...presetsData.allPresets, ...(presetsData.specificPreset[targetPresetName] || [])];
+    const relevantComponents = uiComponents.filter(component => component.container === this.props.name);
     relevantComponents.forEach(component => {
       if (component.beforeComponent) {
         getPositionedContainerItem(positionedComponentMap, component.beforeComponent).before.push(component);
@@ -131,17 +131,17 @@ class Container extends Component {
 
   /**
    *  render preset component
-   * @param {PresetComponent} presetComponent presetComponent
+   * @param {UIComponent} uiComponent uiComponent
    * @returns {*} component
    * @private
    */
-  _renderPresetComponent(presetComponent: PresetComponent) {
-    if (!presetComponent.render) {
+  _renderUIComponent(uiComponent: UIComponent) {
+    if (!uiComponent.render) {
       return null;
     }
 
-    return presetComponent.render({
-      context: presetComponent.context
+    return uiComponent.render({
+      context: uiComponent.context
     });
   }
 
@@ -176,18 +176,18 @@ class Container extends Component {
         }
         const {replace, before, after} = positionedComponent;
         if (replace) {
-          newChildren.push(this._renderPresetComponent(replace));
+          newChildren.push(this._renderUIComponent(replace));
           return;
         }
         if (before.length) {
           before.forEach(component => {
-            newChildren.push(this._renderPresetComponent(component));
+            newChildren.push(this._renderUIComponent(component));
           });
         }
         newChildren.push(child);
         if (after.length) {
           after.forEach(component => {
-            newChildren.push(this._renderPresetComponent(component));
+            newChildren.push(this._renderUIComponent(component));
           });
         }
       });
@@ -196,7 +196,7 @@ class Container extends Component {
     }
 
     containerComponents.appendedComponents.forEach(component => {
-      const newChild = this._renderPresetComponent(component);
+      const newChild = this._renderUIComponent(component);
       newChildren.push(newChild);
     });
 

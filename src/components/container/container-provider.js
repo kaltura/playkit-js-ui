@@ -28,7 +28,7 @@ export class ContainerProvider extends Component {
   componentDidMount(): void {
     const specificPreset = {};
     const allPresets = [];
-    (this.props.presetComponents || []).forEach(component => {
+    (this.props.uiComponents || []).forEach(component => {
       if (!component.render || !component.container) {
         logger.warn(
           `preset with label '${component.label ||

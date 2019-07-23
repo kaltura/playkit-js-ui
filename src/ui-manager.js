@@ -38,7 +38,7 @@ class UIManager {
   root: React$Component<any, any, any>;
   _translations: {[langKey: string]: Object} = {en: en_translations};
   _locale: string = 'en';
-  _presetComponents: PresetComponent[];
+  _uiComponents: UIComponent[];
 
   /**
    * Creates an instance of UIManager.
@@ -60,7 +60,7 @@ class UIManager {
       setLogHandler(config.log.handler);
     }
 
-    this._presetComponents = config.presetComponents || [];
+    this._uiComponents = config.uiComponents || [];
     this.player = player;
     this.targetId = config.targetId;
     this._createStore(config);
@@ -179,7 +179,7 @@ class UIManager {
       // i18n, redux and initial player-to-store connector setup
       const template = (
         <Provider store={this.store}>
-          <ContainerProvider presetComponents={this._presetComponents}>
+          <ContainerProvider uiComponents={this._uiComponents}>
             <IntlProvider definition={this._translations[this._locale]}>
               <Shell player={this.player}>
                 <EngineConnector player={this.player} />

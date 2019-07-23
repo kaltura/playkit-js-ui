@@ -70,14 +70,14 @@ class PlayerGUI extends Component {
       // TODO sakal I think the fallback here is problematic and will lead to implementation issues - consider undefined instead
       // TODO sakal  I removed the invokation of the component and left it to preact otherwise displayname are not relevant
       const template = uiToRender ? uiToRender.template : this.props.uis[0].template;
-      const presetComponent = h(template, props);
-      const presetName = presetComponent ? presetComponent.nodeName.displayName : '';
+      const uiComponent = h(template, props);
+      const presetName = uiComponent ? uiComponent.nodeName.displayName : '';
 
       if (props.state.shell.presetName !== presetName) {
         props.updatePresetName(presetName);
       }
 
-      return <div data-kp-preset={presetName}>{presetComponent}</div>;
+      return <div data-kp-preset={presetName}>{uiComponent}</div>;
     } else {
       return undefined;
     }
