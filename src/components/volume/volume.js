@@ -23,7 +23,7 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile
 });
 
-const COMPONENT_NAME = 'Volume';
+const COMPONENT_NAME = 'volume';
 
 @connect(
   mapStateToProps,

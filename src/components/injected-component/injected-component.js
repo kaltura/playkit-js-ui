@@ -14,16 +14,6 @@ class InjectedComponent extends Component {
   _root = null;
 
   /**
-   * constructor
-   * @param {*} props props
-   * @param {*} context context
-   * @return {void}
-   */
-  constructor(props, context) {
-    super(props, context);
-  }
-
-  /**
    * change in component props or state shouldn't render the component again
    *
    * @returns {boolean} shouldComponentUpdate

@@ -14,7 +14,7 @@ const mapStateToProps = state => ({
   playlist: state.engine.playlist
 });
 
-const COMPONENT_NAME = 'PlaybackControls';
+const COMPONENT_NAME = 'playback-controls';
 
 @connect(mapStateToProps)
 /**
@@ -25,12 +25,6 @@ const COMPONENT_NAME = 'PlaybackControls';
  * @extends {Component}
  */
 class PlaybackControls extends Component {
-  /**
-   * constructor
-   */
-  constructor() {
-    super();
-  }
   /**
    * render component
    *

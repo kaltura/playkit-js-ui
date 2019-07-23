@@ -3,7 +3,7 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 
-const COMPONENT_NAME = 'TopBar';
+const COMPONENT_NAME = 'top-bar';
 
 /**
  * mapping state to props

@@ -7,7 +7,7 @@ const logger = getLogger('ContainerProvider');
 /**
  *  A provider of injected preset components configuration
  */
-export class ContainerProvider extends Component {
+class ContainerProvider extends Component {
   /**
    * constructor
    * @return {void}
@@ -113,3 +113,5 @@ export class ContainerProvider extends Component {
     return props.children[0];
   }
 }
+
+export {ContainerProvider};
