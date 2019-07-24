@@ -27,10 +27,10 @@ class InjectedComponent extends Component {
    * @return {void}
    */
   componentDidMount(): void {
-    const {create, label} = this.props;
+    const {onCreate, label} = this.props;
 
-    if (!create) {
-      logger.warn(`Cannot inject preset item with label '${label}', missing 'create' method`);
+    if (!onCreate) {
+      logger.warn(`Cannot inject preset item with label '${label}', missing 'onCreate' method`);
       return;
     }
 
@@ -40,7 +40,7 @@ class InjectedComponent extends Component {
     }
 
     logger.debug(`[componentDidMount('${label || ''}')]: inject preset component`);
-    create({parent: this._root});
+    onCreate({parent: this._root});
   }
 
   /**
@@ -49,12 +49,12 @@ class InjectedComponent extends Component {
    * @returns {void}
    */
   componentWillUnmount(): void {
-    const {destroy, label} = this.props;
-    if (!this._root || !destroy) {
+    const {onDestroy, label} = this.props;
+    if (!this._root || !onDestroy) {
       return;
     }
 
-    destroy({parent: this._root});
+    onDestroy({parent: this._root});
     logger.debug(`[componentWillUnmount('${label || ''}')]: destroy preset component`);
   }
 
