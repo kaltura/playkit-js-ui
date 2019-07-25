@@ -279,7 +279,6 @@ class VolumeControl extends BaseComponent {
 
     return (
       <div
-        data-kp-component={COMPONENT_NAME}
         ref={c => (this._volumeControlElement = c)}
         className={controlButtonClass.join(' ')}
         onMouseOver={() => this.onVolumeMouseOver()}

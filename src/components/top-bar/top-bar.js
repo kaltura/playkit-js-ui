@@ -42,11 +42,7 @@ class TopBar extends Component {
     if (props.isCasting && props.isPlaybackEnded) {
       styleClass.push(style.hide);
     }
-    return (
-      <div data-kp-component={COMPONENT_NAME} className={styleClass.join(' ')}>
-        {props.children}
-      </div>
-    );
+    return <div className={styleClass.join(' ')}>{props.children}</div>;
   }
 }
 

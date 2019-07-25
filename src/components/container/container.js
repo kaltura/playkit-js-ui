@@ -201,7 +201,7 @@ class Container extends Component {
     });
 
     return (
-      <div className={this.props.className} data-kp-container={this.props.name}>
+      <div className={this.props.className}>
         {newChildren}
       </div>
     );

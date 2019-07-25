@@ -34,7 +34,7 @@ class PlaybackControls extends Component {
    */
   render(props: any): React$Element<any> {
     return (
-      <div className={[style.playbackControls]} data-kp-component={COMPONENT_NAME}>
+      <div className={[style.playbackControls]}>
         {props.playlist ? <PlaylistButton player={props.player} type="prev" /> : undefined}
         <PlayPauseControl player={props.player} />
         {props.playlist ? <PlaylistButton player={props.player} type="next" /> : undefined}
