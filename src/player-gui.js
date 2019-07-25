@@ -3,6 +3,8 @@ import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 import {bindActions} from './utils';
 import {actions} from './reducers/shell';
+import {VideoPlayer} from './components/video-player';
+import {SidePanel} from './components/side-panel';
 
 /**
  * mapping state to props
@@ -44,7 +46,6 @@ class PlayerGUI extends Component {
    * @memberof PlayerGUI
    */
   getMatchedUI(uis: Array<any>, state: Object): any {
-    // TODO sakal did you consider performance as the conditions are dynamic? why not support it explicitly
     let matchedUI;
     for (let ui of uis) {
       if (typeof ui.condition === 'undefined' || ui.condition(state)) {
@@ -67,9 +68,7 @@ class PlayerGUI extends Component {
     let uiToRender;
     if (this.props.uis.length > 0) {
       uiToRender = this.getMatchedUI(props.uis, props.state);
-      // TODO sakal I think the fallback here is problematic and will lead to implementation issues - consider undefined instead
-      // TODO sakal  I removed the invokation of the component and left it to preact otherwise displayname are not relevant
-      const template = uiToRender ? uiToRender.template : this.props.uis[0].template;
+      const template = uiToRender ? uiToRender.template : this.props.uis[this.props.uis.length - 1].template;
       const uiComponent = h(template, props);
       const presetName = uiComponent ? uiComponent.nodeName.displayName : '';
 
@@ -77,7 +76,13 @@ class PlayerGUI extends Component {
         props.updatePresetName(presetName);
       }
 
-      return <div data-kp-preset={presetName}>{uiComponent}</div>;
+      return (
+        <div>
+          <VideoPlayer player={props.player} />
+          <div data-kp-preset={presetName}>{uiComponent}</div>
+          <SidePanel player={props.player} />
+        </div>
+      );
     } else {
       return undefined;
     }

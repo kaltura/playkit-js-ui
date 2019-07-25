@@ -16,7 +16,6 @@ import {actions} from './reducers/config';
 // core components for the UI
 import {EngineConnector} from './components/engine-connector';
 import {Shell} from './components/shell';
-import {VideoPlayer} from './components/video-player';
 import {PlayerGUI} from './player-gui';
 // ui presets
 import * as presets from './ui-presets';
@@ -50,12 +49,6 @@ class UIManager {
     if (config.log && config.log.level && this.LogLevel[config.log.level]) {
       setLogLevel(this.LogLevel[config.log.level]);
     }
-
-    // TODO sakal check how they currently modify player log level (probably not from ui-manager)
-    if (config.log && player && player.setLogLevel && player.LogLevel) {
-      player.setLogLevel(player.LogLevel[config.log.level]);
-    }
-
     if (config.log && typeof config.log.handler === 'function') {
       setLogHandler(config.log.handler);
     }
@@ -183,7 +176,6 @@ class UIManager {
             <IntlProvider definition={this._translations[this._locale]}>
               <Shell player={this.player}>
                 <EngineConnector player={this.player} />
-                <VideoPlayer player={this.player} />
                 <PlayerGUI uis={uis} player={this.player} playerContainer={this.container} />
               </Shell>
             </IntlProvider>
