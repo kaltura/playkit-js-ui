@@ -1,0 +1,21 @@
+.side-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 34%;
+  height: 100%;
+  opacity: 0.8;
+  background: black;
+  z-index: 1;
+  transition: 500ms width;
+
+  &.hide {
+    width: 0%;
+    z-index: initial;
+  }
+}
+
+.side-panel-content {
+  width: 100%;
+  height: 100%;
+}
