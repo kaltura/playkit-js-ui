@@ -46,7 +46,7 @@ class TopBar extends Component {
     }
 
     const elementStyle = props.sidePanelsAllowed
-      ? sidePanelUtils.calculatePresetElementStyles({
+      ? sidePanelUtils.calculatePresetChildStyles({
           maxSidePanelWidth: 480,
           minSidePanelWidth: 240,
           sidePanels: props.sidePanels,

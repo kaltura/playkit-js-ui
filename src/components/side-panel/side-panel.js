@@ -74,7 +74,7 @@ class SidePanel extends Component {
 
     const sidePanelStyles =
       isVisible && props.sidePanelsAllowed
-        ? sidePanelUtils.calculateVerticalSidePanelStyles({
+        ? sidePanelUtils.calculateSidePanelStyles({
             maxSidePanelWidth: 480,
             minSidePanelWidth: 240,
             sidePanels: props.sidePanels,
