@@ -16,7 +16,7 @@ import {actions} from './reducers/config';
 // core components for the UI
 import {EngineConnector} from './components/engine-connector';
 import {Shell} from './components/shell';
-import {PlayerGUI} from './player-gui';
+import {PlayerGUI} from './components/player-gui';
 // ui presets
 import * as presets from './ui-presets';
 

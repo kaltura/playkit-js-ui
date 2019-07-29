@@ -1,8 +1,8 @@
 //@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
-import {SidePanelModes} from '../../reducers/shell';
 import {connect} from 'preact-redux';
+import * as sidePanelUtils from '../../utils/side-panels';
 
 /**
  * mapping state to props
@@ -10,7 +10,9 @@ import {connect} from 'preact-redux';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  sidePanelMode: state.shell.sidePanelMode
+  sidePanels: state.shell.sidePanels,
+  sidePanelsEnabled: state.shell.sidePanelsEnabled,
+  playerClientRect: state.shell.playerClientRect
 });
 
 @connect(mapStateToProps)
@@ -32,7 +34,11 @@ class VideoPlayer extends Component {
    * @memberof VideoPlayer
    */
   shouldComponentUpdate(nextProps) {
-    return this.props.sidePanelMode !== nextProps.sidePanelMode;
+    return (
+      this.props.sidePanels !== nextProps.sidePanels ||
+      this.props.sidePanelsEnabled !== nextProps.sidePanelsEnabled ||
+      this.props.playerClientRect !== nextProps.playerClientRect
+    );
   }
 
   /**
@@ -53,13 +59,16 @@ class VideoPlayer extends Component {
    * @memberof VideoPlayer
    */
   render(props): React$Element<any> {
-    const styleClass = [style.videoPlayer];
+    const videoStyle = props.sidePanelsEnabled
+      ? sidePanelUtils.calculateVideoStyles({
+          maxSidePanelWidth: 480,
+          minSidePanelWidth: 240,
+          sidePanels: props.sidePanels,
+          playerClientRect: props.playerClientRect
+        })
+      : {};
 
-    if (props.sidePanelMode === SidePanelModes.EXPANDED) {
-      styleClass.push(style.sidePanelMode);
-    }
-
-    return <div className={styleClass.join(' ')} ref={c => (this._el = c)} />;
+    return <div style={videoStyle} className={style.videoPlayer} ref={c => (this._el = c)} />;
   }
 }
 

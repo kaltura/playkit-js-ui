@@ -2,8 +2,6 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
-import {SidePanelModes} from '../../reducers/shell';
-
 const COMPONENT_NAME = 'top-bar';
 
 /**
@@ -13,8 +11,7 @@ const COMPONENT_NAME = 'top-bar';
  */
 const mapStateToProps = state => ({
   isCasting: state.engine.isCasting,
-  isPlaybackEnded: state.engine.isPlaybackEnded,
-  sidePanelMode: state.shell.sidePanelMode
+  isPlaybackEnded: state.engine.isPlaybackEnded
 });
 
 @connect(mapStateToProps)
@@ -36,12 +33,10 @@ class TopBar extends Component {
    */
   render(props: any): ?React$Element<any> {
     const styleClass = [style.topBar];
-    if ([SidePanelModes.PARTIAL, SidePanelModes.EXPANDED].includes(props.sidePanelMode)) {
-      styleClass.push(style.sidePanelMode);
-    }
     if (props.isCasting && props.isPlaybackEnded) {
       styleClass.push(style.hide);
     }
+
     return <div className={styleClass.join(' ')}>{props.children}</div>;
   }
 }

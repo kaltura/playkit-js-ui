@@ -4,7 +4,7 @@
   color: #fff;
   opacity: 0;
   visibility: hidden;
-  transition: 100ms opacity, 100ms width;
+  transition: 100ms opacity, $affected-side-panel-transitions;
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -12,10 +12,6 @@
   top: 0;
   left: 0;
   z-index: 1;
-
-  &.side-panel-mode {
-    width: calc(100% - #{$side-panel-width});
-  }
 
   &.hide {
     display: none;

@@ -1,10 +1,12 @@
 //@flow
 import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
-import {bindActions} from './utils';
-import {actions} from './reducers/shell';
-import {VideoPlayer} from './components/video-player';
-import {SidePanel} from './components/side-panel';
+import {bindActions} from '../../utils';
+import {actions, SidePanelPositions} from '../../reducers/shell';
+import {VideoPlayer} from '../video-player';
+import {SidePanel} from '../side-panel';
+import * as sidePanelUtils from '../../utils/side-panels';
+import style from '../../styles/style.scss';
 
 /**
  * mapping state to props
@@ -76,11 +78,25 @@ class PlayerGUI extends Component {
         props.updatePresetName(presetName);
       }
 
+      const presetStyle = props.state.shell.sidePanelsEnabled
+        ? sidePanelUtils.calculatePresetStyles({
+            maxSidePanelWidth: 480,
+            minSidePanelWidth: 240,
+            sidePanels: props.state.shell.sidePanels,
+            playerClientRect: props.state.shell.playerClientRect
+          })
+        : {};
+
       return (
-        <div>
+        <div className={style.playerGuiContent}>
           <VideoPlayer player={props.player} />
-          <div data-kp-preset={presetName}>{uiComponent}</div>
-          <SidePanel player={props.player} />
+          <div style={presetStyle} data-kp-preset={presetName} className={style.presetContent}>
+            {uiComponent}
+          </div>
+          <SidePanel position={SidePanelPositions.RIGHT} player={props.player} />
+          <SidePanel position={SidePanelPositions.LEFT} player={props.player} />
+          <SidePanel position={SidePanelPositions.TOP} player={props.player} />
+          <SidePanel position={SidePanelPositions.BOTTOM} player={props.player} />
         </div>
       );
     } else {

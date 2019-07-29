@@ -2,7 +2,7 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {bindActions} from '../../utils/bind-actions';
-import {actions, SidePanelModes} from '../../reducers/shell';
+import {actions} from '../../reducers/shell';
 import {connect} from 'preact-redux';
 
 /**
@@ -12,8 +12,7 @@ import {connect} from 'preact-redux';
  */
 const mapStateToProps = state => ({
   isCasting: state.engine.isCasting,
-  isPlaybackEnded: state.engine.isPlaybackEnded,
-  sidePanelMode: state.shell.sidePanelMode
+  isPlaybackEnded: state.engine.isPlaybackEnded
 });
 
 @connect(
@@ -37,10 +36,6 @@ class BottomBar extends Component {
    */
   render(props: any): ?React$Element<any> {
     const styleClass = [style.bottomBar];
-
-    if ([SidePanelModes.PARTIAL, SidePanelModes.EXPANDED].includes(props.sidePanelMode)) {
-      styleClass.push(style.sidePanelMode);
-    }
 
     if (props.isCasting && props.isPlaybackEnded) {
       styleClass.push(style.hide);

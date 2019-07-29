@@ -1,13 +1,13 @@
-
-.video-player {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+.player-gui-content {
   height: 100%;
-  background: black;
-  transition: $affected-side-panel-transitions;
-
-
+  width: 100%;
 }
 
+.preset-content {
+  position: absolute;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 100%;
+  transition: $affected-side-panel-transitions;
+}

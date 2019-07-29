@@ -148,10 +148,7 @@ class Container extends Component {
   /**
    * render component
    *
-   * @param {*} props - props
-   * @param {*} state - state
-   * @param {*} context - context
-   * @returns {React$Element} - component
+   * @returns {null | *} - component
    * @memberof Container
    */
   render(): React$Element<any> {
@@ -200,11 +197,7 @@ class Container extends Component {
       newChildren.push(newChild);
     });
 
-    return (
-      <div className={this.props.className}>
-        {newChildren}
-      </div>
-    );
+    return <div className={this.props.className}>{newChildren}</div>;
   }
 }
 

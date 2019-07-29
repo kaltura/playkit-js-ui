@@ -11,7 +11,15 @@ export const types = {
   UPDATE_BOTTOM_BAR_HOVER_ACTIVE: 'shell/UPDATE_BOTTOM_BAR_HOVER_ACTIVE',
   UPDATE_SMART_CONTAINER_OPEN: 'shell/UPDATE_SMART_CONTAINER_OPEN',
   UPDATE_PRESET_NAME: 'shell/UPDATE_PRESET_NAME',
-  UPDATE_SIDE_PANEL_MODE: 'shell/UPDATE_SIDE_PANEL_MODE'
+  UPDATE_SIDE_PANEL_MODE: 'shell/UPDATE_SIDE_PANEL_MODE',
+  UPDATE_SIDE_PANELS_ENABLED: 'shell/UPDATE_SIDE_PANELS_ENABLED'
+};
+
+export const SidePanelPositions = {
+  LEFT: 'LEFT',
+  TOP: 'TOP',
+  BOTTOM: 'BOTTOM',
+  RIGHT: 'RIGHT'
 };
 
 export const SidePanelModes = {
@@ -26,7 +34,13 @@ export const initialState = {
   playerNav: false,
   smartContainerOpen: false,
   presetName: '',
-  sidePanelMode: SidePanelModes.COLLAPSED
+  sidePanels: {
+    [SidePanelPositions.LEFT]: SidePanelModes.COLLAPSED,
+    [SidePanelPositions.RIGHT]: SidePanelModes.COLLAPSED,
+    [SidePanelPositions.TOP]: SidePanelModes.COLLAPSED,
+    [SidePanelPositions.BOTTOM]: SidePanelModes.COLLAPSED
+  },
+  sidePanelsEnabled: true
 };
 
 export default (state: Object = initialState, action: Object) => {
@@ -101,7 +115,16 @@ export default (state: Object = initialState, action: Object) => {
     case types.UPDATE_SIDE_PANEL_MODE:
       return {
         ...state,
-        sidePanelMode: action.sidePanelMode
+        sidePanels: {
+          ...state.sidePanels,
+          [action.position]: action.sidePanelMode
+        }
+      };
+
+    case types.UPDATE_SIDE_PANELS_ENABLED:
+      return {
+        ...state,
+        sidePanelsEnabled: action.enabled
       };
 
     default:
@@ -121,5 +144,10 @@ export const actions = {
   updateBottomBarHoverActive: (active: boolean) => ({type: types.UPDATE_BOTTOM_BAR_HOVER_ACTIVE, active}),
   updateSmartContainerOpen: (open: boolean) => ({type: types.UPDATE_SMART_CONTAINER_OPEN, open}),
   updatePresetName: (presetName: string) => ({type: types.UPDATE_PRESET_NAME, presetName}),
-  updateSidePanelMode: (sidePanelMode: SidePanelModes) => ({type: types.UPDATE_SIDE_PANEL_MODE, sidePanelMode})
+  updateSidePanelMode: (position: SidePanelPositions, sidePanelMode: SidePanelModes) => ({
+    type: types.UPDATE_SIDE_PANEL_MODE,
+    position,
+    sidePanelMode
+  }),
+  updateSidePanelsEnabled: (enabled: boolean) => ({type: types.UPDATE_SIDE_PANELS_ENABLED, enabled})
 };
