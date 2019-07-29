@@ -55,7 +55,7 @@ class SidePanel extends Component {
     if (!props.sidePanelsAllowed) {
       return null;
     }
-    const isVisible = props.sidePanels[props.position] !== SidePanelModes.COLLAPSED;
+    const isVisible = props.sidePanels[props.position] !== SidePanelModes.HIDDEN;
 
     //let renderedContent = null;
     if (!isVisible) {

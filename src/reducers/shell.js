@@ -23,9 +23,9 @@ export const SidePanelPositions = {
 };
 
 export const SidePanelModes = {
-  EXPANDED: 'EXPANDED',
-  COLLAPSED: 'COLLAPSED',
-  PARTIAL: 'PARTIAL'
+  ALONG_SIDE_THE_VIDEO: 'ALONG_SIDE_THE_VIDEO',
+  HIDDEN: 'HIDDEN',
+  OVER_THE_VIDEO: 'OVER_THE_VIDEO'
 };
 
 export const initialState = {
@@ -35,10 +35,10 @@ export const initialState = {
   smartContainerOpen: false,
   activePresetName: '',
   sidePanels: {
-    [SidePanelPositions.LEFT]: SidePanelModes.COLLAPSED,
-    [SidePanelPositions.RIGHT]: SidePanelModes.COLLAPSED,
-    [SidePanelPositions.TOP]: SidePanelModes.COLLAPSED,
-    [SidePanelPositions.BOTTOM]: SidePanelModes.COLLAPSED
+    [SidePanelPositions.LEFT]: SidePanelModes.HIDDEN,
+    [SidePanelPositions.RIGHT]: SidePanelModes.HIDDEN,
+    [SidePanelPositions.TOP]: SidePanelModes.HIDDEN,
+    [SidePanelPositions.BOTTOM]: SidePanelModes.HIDDEN
   },
   sidePanelsAllowed: false
 };

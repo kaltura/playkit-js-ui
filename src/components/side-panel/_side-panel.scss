@@ -1,9 +1,15 @@
-.vertical-side-panel {
+@mixin side-panel {
   position: absolute;
   z-index: 1;
   overflow: hidden;
-  height: 100%;
+  background: rgba(0, 0, 0, .7);
   transition: $affected-side-panel-transitions;
+}
+
+.vertical-side-panel {
+  @include side-panel;
+  height: 100%;
+
 }
 
 .vertical-side-panel-hidden {
@@ -11,10 +17,7 @@
 }
 
 .horizontal-side-panel {
-  position: absolute;
-  z-index: 1;
-  overflow: hidden;
-  transition: $affected-side-panel-transitions;
+  @include side-panel;
 }
 
 .horizontal-side-panel-hidden {

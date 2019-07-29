@@ -92,7 +92,7 @@ class PlayerGUI extends Component {
         : {};
 
       return (
-        <div>
+        <div className={style.playerGuiContent}>
           <VideoPlayer player={props.player} />
           <div data-kp-preset={presetName} className={style.presetContent} style={presetStyle}>
             {uiComponent}
@@ -101,7 +101,13 @@ class PlayerGUI extends Component {
           <SidePanel position={SidePanelPositions.LEFT} player={props.player} />
           <SidePanel position={SidePanelPositions.TOP} player={props.player} />
           <SidePanel position={SidePanelPositions.BOTTOM} player={props.player} />
-          <Container key={activePresetName} player={props.player} name={'player-overlay'} targetPresetName={activePresetName} />
+          <Container
+            className={style.playerOverlay}
+            key={activePresetName}
+            player={props.player}
+            name={'player-overlay'}
+            targetPresetName={activePresetName}
+          />
         </div>
       );
     } else {
