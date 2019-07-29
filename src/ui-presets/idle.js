@@ -2,7 +2,6 @@
 import {h} from 'preact';
 import style from '../styles/style.scss';
 import {Loading} from '../components/loading';
-import {errorUI} from './error';
 
 const PRESET_NAME = 'idle';
 

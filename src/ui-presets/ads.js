@@ -13,7 +13,6 @@ import {UnmuteIndication} from '../components/unmute-indication';
 import {KeyboardControl} from '../components/keyboard';
 import {AdNotice} from '../components/ad-notice/ad-notice';
 import {PlaybackControls} from '../components/playback-controls';
-import {playbackUI} from './playback';
 
 const PRESET_NAME = 'ads';
 

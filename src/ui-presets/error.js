@@ -2,7 +2,6 @@
 import style from '../styles/style.scss';
 import {h} from 'preact';
 import {ErrorOverlay} from '../components/error-overlay';
-import {adsUI} from './ads';
 
 const PRESET_NAME = 'error';
 
