@@ -13,6 +13,7 @@ import {UnmuteIndication} from '../components/unmute-indication';
 import {KeyboardControl} from '../components/keyboard';
 import {AdNotice} from '../components/ad-notice/ad-notice';
 import {PlaybackControls} from '../components/playback-controls';
+import {playbackUI} from './playback';
 
 const PRESET_NAME = 'ads';
 
@@ -44,7 +45,7 @@ export function adsUI(props: any): ?React$Element<any> {
       <Loading player={props.player} />
       <div className={style.playerGui} id="player-gui">
         <UnmuteIndication player={props.player} hasTopBar />
-        <TopBar>
+        <TopBar disabled={true}>
           <div className={style.leftControls}>{isBumper(props) ? undefined : <AdNotice />}</div>
           <div className={style.rightControls}>{adsUiCustomization.learnMoreButton ? <AdLearnMore /> : undefined}</div>
         </TopBar>
@@ -66,6 +67,7 @@ export function adsUI(props: any): ?React$Element<any> {
 }
 
 adsUI.displayName = PRESET_NAME;
+adsUI.sidePanelsAllowed = false;
 
 /**
  * Gets the ads ui customization settings

@@ -12,7 +12,7 @@ export const types = {
   UPDATE_SMART_CONTAINER_OPEN: 'shell/UPDATE_SMART_CONTAINER_OPEN',
   UPDATE_PRESET_NAME: 'shell/UPDATE_PRESET_NAME',
   UPDATE_SIDE_PANEL_MODE: 'shell/UPDATE_SIDE_PANEL_MODE',
-  UPDATE_SIDE_PANELS_ENABLED: 'shell/UPDATE_SIDE_PANELS_ENABLED'
+  UPDATE_SIDE_PANELS_ALLOWED: 'shell/UPDATE_SIDE_PANELS_ALLOWED'
 };
 
 export const SidePanelPositions = {
@@ -40,7 +40,7 @@ export const initialState = {
     [SidePanelPositions.TOP]: SidePanelModes.COLLAPSED,
     [SidePanelPositions.BOTTOM]: SidePanelModes.COLLAPSED
   },
-  sidePanelsEnabled: true
+  sidePanelsAllowed: false
 };
 
 export default (state: Object = initialState, action: Object) => {
@@ -121,10 +121,10 @@ export default (state: Object = initialState, action: Object) => {
         }
       };
 
-    case types.UPDATE_SIDE_PANELS_ENABLED:
+    case types.UPDATE_SIDE_PANELS_ALLOWED:
       return {
         ...state,
-        sidePanelsEnabled: action.enabled
+        sidePanelsAllowed: action.allowed
       };
 
     default:
@@ -149,5 +149,5 @@ export const actions = {
     position,
     sidePanelMode
   }),
-  updateSidePanelsEnabled: (enabled: boolean) => ({type: types.UPDATE_SIDE_PANELS_ENABLED, enabled})
+  updateSidePanelsAllowed: (allowed: boolean) => ({type: types.UPDATE_SIDE_PANELS_ALLOWED, allowed})
 };

@@ -76,9 +76,11 @@ class PlayerGUI extends Component {
 
       if (props.state.shell.presetName !== presetName) {
         props.updatePresetName(presetName);
+        const sidePanelAllowed = typeof uiComponent.nodeName.sidePanelsAllowed !== 'boolean' || uiComponent.nodeName.sidePanelsAllowed;
+        props.updateSidePanelsAllowed(sidePanelAllowed);
       }
 
-      const presetStyle = props.state.shell.sidePanelsEnabled
+      const presetStyle = props.state.shell.sidePanelsAllowed
         ? sidePanelUtils.calculatePresetStyles({
             maxSidePanelWidth: 480,
             minSidePanelWidth: 240,

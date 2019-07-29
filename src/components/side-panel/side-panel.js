@@ -13,7 +13,7 @@ import * as sidePanelUtils from '../../utils/side-panels';
  */
 const mapStateToProps = state => ({
   sidePanels: state.shell.sidePanels,
-  sidePanelsEnabled: state.shell.sidePanelsEnabled,
+  sidePanelsAllowed: state.shell.sidePanelsAllowed,
   activePresetName: state.shell.presetName,
   playerClientRect: state.shell.playerClientRect
 });
@@ -52,7 +52,7 @@ class SidePanel extends Component {
     const stylePrefix = isVertical ? 'verticalSidePanel' : 'horizontalSidePanel';
     const styleClass = [style.sidePanel, style[stylePrefix], style[`sidePanel${toUpperCamelCase(props.position)}`]];
 
-    if (!props.sidePanelsEnabled) {
+    if (!props.sidePanelsAllowed) {
       return null;
     }
     const isVisible = props.sidePanels[props.position] !== SidePanelModes.COLLAPSED;
@@ -74,7 +74,7 @@ class SidePanel extends Component {
     }
 
     const sidePanelStyles =
-      isVisible && props.sidePanelsEnabled
+      isVisible && props.sidePanelsAllowed
         ? sidePanelUtils.calculateVerticalSidePanelStyles({
             maxSidePanelWidth: 480,
             minSidePanelWidth: 240,

@@ -2,6 +2,7 @@
 import {h} from 'preact';
 import style from '../styles/style.scss';
 import {Loading} from '../components/loading';
+import {errorUI} from './error';
 
 const PRESET_NAME = 'idle';
 
@@ -21,3 +22,4 @@ export function idleUI(props: any): React$Element<any> {
 }
 
 idleUI.displayName = PRESET_NAME;
+idleUI.sidePanelsAllowed = false;

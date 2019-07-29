@@ -11,7 +11,7 @@ import * as sidePanelUtils from '../../utils/side-panels';
  */
 const mapStateToProps = state => ({
   sidePanels: state.shell.sidePanels,
-  sidePanelsEnabled: state.shell.sidePanelsEnabled,
+  sidePanelsAllowed: state.shell.sidePanelsAllowed,
   playerClientRect: state.shell.playerClientRect
 });
 
@@ -36,7 +36,7 @@ class VideoPlayer extends Component {
   shouldComponentUpdate(nextProps) {
     return (
       this.props.sidePanels !== nextProps.sidePanels ||
-      this.props.sidePanelsEnabled !== nextProps.sidePanelsEnabled ||
+      this.props.sidePanelsAllowed !== nextProps.sidePanelsAllowed ||
       this.props.playerClientRect !== nextProps.playerClientRect
     );
   }
@@ -59,7 +59,7 @@ class VideoPlayer extends Component {
    * @memberof VideoPlayer
    */
   render(props): React$Element<any> {
-    const videoStyle = props.sidePanelsEnabled
+    const videoStyle = props.sidePanelsAllowed
       ? sidePanelUtils.calculateVideoStyles({
           maxSidePanelWidth: 480,
           minSidePanelWidth: 240,
