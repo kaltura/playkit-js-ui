@@ -106,8 +106,8 @@ class Container extends Component {
     const positionedComponentMap = nextContainerComponents.positionedComponentMap;
     let hasPositionedComponents = false;
 
-    const uiComponents = [...presetsData.allPresets, ...(presetsData.specificPreset[targetPresetName] || [])];
-    const relevantComponents = uiComponents.filter(component => component.container === this.props.name);
+    const presetComponents = presetsData.specificPreset[targetPresetName];
+    const relevantComponents = presetComponents.filter(component => component.container === this.props.name);
     relevantComponents.forEach(component => {
       if (component.beforeComponent) {
         getPositionedContainerItem(positionedComponentMap, component.beforeComponent).before.push(component);

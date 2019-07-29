@@ -16,7 +16,6 @@ class ContainerProvider extends Component {
     super();
     this._listeners = [];
     this._data = {
-      allPresets: [],
       specificPreset: {}
     };
   }
@@ -27,28 +26,22 @@ class ContainerProvider extends Component {
    */
   componentDidMount(): void {
     const specificPreset = {};
-    const allPresets = [];
     (this.props.uiComponents || []).forEach(component => {
-      if (!component.render || !component.container) {
+      if (!component.render || !component.container || !component.presets) {
         logger.warn(
           `preset with label '${component.label ||
-            ''}' configuration is invalid, missing required configuration (did you remember to set 'container' and 'render'?)`
+            ''}' configuration is invalid, missing required configuration (did you remember to set 'container', 'presets' and 'render'?)`
         );
         return;
       }
 
-      if (!component.presets) {
-        allPresets.push(component);
-      } else {
-        component.presets.forEach(preset => {
-          (specificPreset[preset] || (specificPreset[preset] = [])).push(component);
-        });
-      }
+      component.presets.forEach(preset => {
+        (specificPreset[preset] || (specificPreset[preset] = [])).push(component);
+      });
     });
 
     this._data = {
-      specificPreset,
-      allPresets
+      specificPreset
     };
 
     this._listeners.forEach(cb => {
