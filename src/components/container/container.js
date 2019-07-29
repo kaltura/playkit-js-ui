@@ -1,6 +1,7 @@
 //@flow
-import {h, Component} from 'preact';
+import {h} from 'preact';
 import {connect} from 'preact-redux';
+import BaseComponent from '../base';
 
 /**
  * mapping state to props
@@ -8,7 +9,7 @@ import {connect} from 'preact-redux';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  activePresetName: state.shell.presetName
+  activePresetName: state.shell.activePresetName
 });
 
 /**
@@ -49,7 +50,7 @@ function getComponentName(component: Object) {
 /**
  * A video container enabling injecting components by preset, container and position
  */
-class Container extends Component {
+class Container extends BaseComponent {
   /**
    * constructor
    * @param {*} props props
@@ -69,6 +70,14 @@ class Container extends Component {
     if (!this.context.presetData) {
       return;
     }
+
+    const {targetPresetName, activePresetName} = this.props;
+    if (targetPresetName !== activePresetName) {
+      this.logger.debug(`mount ui container (target preset '${targetPresetName}') - Container is not in use in active preset '${activePresetName}`);
+      return;
+    }
+
+    this.logger.debug(`mount ui container (target preset '${targetPresetName}') - handle injected components`);
     this.context.presetData.listen(this._onPresetDataChanged);
   }
 
@@ -82,6 +91,9 @@ class Container extends Component {
       return;
     }
     this.context.presetData.unlisten(this._onPresetDataChanged);
+
+    const {targetPresetName} = this.props;
+    this.logger.debug(`un-mount ui container (target preset '${targetPresetName}')`);
   }
 
   /**
@@ -93,11 +105,8 @@ class Container extends Component {
     if (!presetsData) {
       return;
     }
-    const {targetPresetName, activePresetName} = this.props;
-    if (targetPresetName !== activePresetName) {
-      this.setState(initialState);
-      return;
-    }
+
+    const {targetPresetName} = this.props;
 
     const nextContainerComponents = {
       appendedComponents: [],

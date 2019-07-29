@@ -7,6 +7,7 @@ import {VideoPlayer} from '../video-player';
 import {SidePanel} from '../side-panel';
 import * as sidePanelUtils from '../../utils/side-panels';
 import style from '../../styles/style.scss';
+import {Container} from '../container';
 
 /**
  * mapping state to props
@@ -68,14 +69,15 @@ class PlayerGUI extends Component {
    */
   render(props: any): React$Element<any> | void {
     let uiToRender;
+    const {activePresetName} = this.props.state.shell;
     if (this.props.uis.length > 0) {
       uiToRender = this.getMatchedUI(props.uis, props.state);
       const template = uiToRender ? uiToRender.template : this.props.uis[this.props.uis.length - 1].template;
       const uiComponent = h(template, props);
       const presetName = uiComponent ? uiComponent.nodeName.displayName : '';
 
-      if (props.state.shell.presetName !== presetName) {
-        props.updatePresetName(presetName);
+      if (props.state.shell.activePresetName !== presetName) {
+        props.updateActivePresetName(presetName);
         const sidePanelAllowed = typeof uiComponent.nodeName.sidePanelsAllowed !== 'boolean' || uiComponent.nodeName.sidePanelsAllowed;
         props.updateSidePanelsAllowed(sidePanelAllowed);
       }
@@ -99,6 +101,7 @@ class PlayerGUI extends Component {
           <SidePanel position={SidePanelPositions.LEFT} player={props.player} />
           <SidePanel position={SidePanelPositions.TOP} player={props.player} />
           <SidePanel position={SidePanelPositions.BOTTOM} player={props.player} />
+          <Container key={activePresetName} player={props.player} name={'player-overlay'} targetPresetName={activePresetName} />
         </div>
       );
     } else {

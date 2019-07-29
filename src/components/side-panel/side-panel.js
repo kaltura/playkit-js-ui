@@ -14,7 +14,7 @@ import * as sidePanelUtils from '../../utils/side-panels';
 const mapStateToProps = state => ({
   sidePanels: state.shell.sidePanels,
   sidePanelsAllowed: state.shell.sidePanelsAllowed,
-  activePresetName: state.shell.presetName,
+  activePresetName: state.shell.activePresetName,
   playerClientRect: state.shell.playerClientRect
 });
 
@@ -68,7 +68,6 @@ class SidePanel extends Component {
       // {/*  className={style.sidePanelContent}*/}
       // {/*  player={props.player}*/}
       // {/*  name={'side-panel'}*/}
-      // {/*  presetName={'playbackUI'}*/}
       // {/*  targetPresetName={activePresetName}*/}
       // {/*/>*/}
     }

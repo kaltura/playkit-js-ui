@@ -10,7 +10,7 @@ export const types = {
   UPDATE_PLAYER_NAV_STATE: 'shell/UPDATE_PLAYER_NAV_STATE',
   UPDATE_BOTTOM_BAR_HOVER_ACTIVE: 'shell/UPDATE_BOTTOM_BAR_HOVER_ACTIVE',
   UPDATE_SMART_CONTAINER_OPEN: 'shell/UPDATE_SMART_CONTAINER_OPEN',
-  UPDATE_PRESET_NAME: 'shell/UPDATE_PRESET_NAME',
+  UPDATE_ACTIVE_PRESET_NAME: 'shell/UPDATE_ACTIVE_PRESET_NAME',
   UPDATE_SIDE_PANEL_MODE: 'shell/UPDATE_SIDE_PANEL_MODE',
   UPDATE_SIDE_PANELS_ALLOWED: 'shell/UPDATE_SIDE_PANELS_ALLOWED'
 };
@@ -33,7 +33,7 @@ export const initialState = {
   playerHover: false,
   playerNav: false,
   smartContainerOpen: false,
-  presetName: '',
+  activePresetName: '',
   sidePanels: {
     [SidePanelPositions.LEFT]: SidePanelModes.COLLAPSED,
     [SidePanelPositions.RIGHT]: SidePanelModes.COLLAPSED,
@@ -106,10 +106,10 @@ export default (state: Object = initialState, action: Object) => {
         smartContainerOpen: action.open
       };
 
-    case types.UPDATE_PRESET_NAME:
+    case types.UPDATE_ACTIVE_PRESET_NAME:
       return {
         ...state,
-        presetName: action.presetName
+        activePresetName: action.activePresetName
       };
 
     case types.UPDATE_SIDE_PANEL_MODE:
@@ -143,7 +143,7 @@ export const actions = {
   updatePlayerNavState: (nav: boolean) => ({type: types.UPDATE_PLAYER_NAV_STATE, nav}),
   updateBottomBarHoverActive: (active: boolean) => ({type: types.UPDATE_BOTTOM_BAR_HOVER_ACTIVE, active}),
   updateSmartContainerOpen: (open: boolean) => ({type: types.UPDATE_SMART_CONTAINER_OPEN, open}),
-  updatePresetName: (presetName: string) => ({type: types.UPDATE_PRESET_NAME, presetName}),
+  updateActivePresetName: (activePresetName: string) => ({type: types.UPDATE_ACTIVE_PRESET_NAME, activePresetName}),
   updateSidePanelMode: (position: SidePanelPositions, sidePanelMode: SidePanelModes) => ({
     type: types.UPDATE_SIDE_PANEL_MODE,
     position,

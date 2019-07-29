@@ -109,6 +109,7 @@ export function calculatePresetElementStyles(options) {
 
     result['left'] = leftSidePanelMode === SidePanelModes.PARTIAL ? verticalPanelWidth : 0;
     result['right'] = rightSidePanelMode === SidePanelModes.PARTIAL ? verticalPanelWidth : 0;
+    result['width'] = 'auto';
   }
 
   if (topSidePanelMode === SidePanelModes.PARTIAL || bottomSidePanelMode === SidePanelModes.PARTIAL) {
