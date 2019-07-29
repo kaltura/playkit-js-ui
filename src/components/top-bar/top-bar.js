@@ -33,6 +33,10 @@ class TopBar extends Component {
    */
   render(props: any): ?React$Element<any> {
     const styleClass = [style.topBar];
+
+    if (props.disabled) {
+      styleClass.push(style.disabled);
+    }
     if (props.isCasting && props.isPlaybackEnded) {
       styleClass.push(style.hide);
     }
