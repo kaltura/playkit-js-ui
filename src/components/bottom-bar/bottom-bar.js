@@ -4,6 +4,7 @@ import {h, Component} from 'preact';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
 import {connect} from 'preact-redux';
+import * as sidePanelUtils from '../../utils/side-panels';
 
 /**
  * mapping state to props
@@ -12,7 +13,10 @@ import {connect} from 'preact-redux';
  */
 const mapStateToProps = state => ({
   isCasting: state.engine.isCasting,
-  isPlaybackEnded: state.engine.isPlaybackEnded
+  isPlaybackEnded: state.engine.isPlaybackEnded,
+  sidePanels: state.shell.sidePanels,
+  sidePanelsAllowed: state.shell.sidePanelsAllowed,
+  playerClientRect: state.shell.playerClientRect
 });
 
 @connect(
@@ -40,8 +44,20 @@ class BottomBar extends Component {
     if (props.isCasting && props.isPlaybackEnded) {
       styleClass.push(style.hide);
     }
+
+    const elementStyle = props.sidePanelsAllowed
+      ? sidePanelUtils.calculatePresetElementStyles({
+          maxSidePanelWidth: 480,
+          minSidePanelWidth: 240,
+          sidePanels: props.sidePanels,
+          playerClientRect: props.playerClientRect,
+          anchor: 'BOTTOM'
+        })
+      : {};
+
     return (
       <div
+        style={elementStyle}
         className={styleClass.join(' ')}
         onMouseOver={() => this.props.updateBottomBarHoverActive(true)}
         onMouseLeave={() => this.props.updateBottomBarHoverActive(false)}>

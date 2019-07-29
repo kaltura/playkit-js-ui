@@ -60,7 +60,7 @@ class VideoPlayer extends Component {
    */
   render(props): React$Element<any> {
     const videoStyle = props.sidePanelsAllowed
-      ? sidePanelUtils.calculateVideoStyles({
+      ? sidePanelUtils.calculateMainAreaStyles({
           maxSidePanelWidth: 480,
           minSidePanelWidth: 240,
           sidePanels: props.sidePanels,

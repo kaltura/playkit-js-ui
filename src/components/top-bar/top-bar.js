@@ -2,6 +2,7 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
+import * as sidePanelUtils from '../../utils/side-panels';
 const COMPONENT_NAME = 'top-bar';
 
 /**
@@ -11,7 +12,10 @@ const COMPONENT_NAME = 'top-bar';
  */
 const mapStateToProps = state => ({
   isCasting: state.engine.isCasting,
-  isPlaybackEnded: state.engine.isPlaybackEnded
+  isPlaybackEnded: state.engine.isPlaybackEnded,
+  sidePanels: state.shell.sidePanels,
+  sidePanelsAllowed: state.shell.sidePanelsAllowed,
+  playerClientRect: state.shell.playerClientRect
 });
 
 @connect(mapStateToProps)
@@ -41,7 +45,21 @@ class TopBar extends Component {
       styleClass.push(style.hide);
     }
 
-    return <div className={styleClass.join(' ')}>{props.children}</div>;
+    const elementStyle = props.sidePanelsAllowed
+      ? sidePanelUtils.calculatePresetElementStyles({
+          maxSidePanelWidth: 480,
+          minSidePanelWidth: 240,
+          sidePanels: props.sidePanels,
+          playerClientRect: props.playerClientRect,
+          anchor: 'TOP'
+        })
+      : {};
+
+    return (
+      <div style={elementStyle} className={styleClass.join(' ')}>
+        {props.children}
+      </div>
+    );
   }
 }
 

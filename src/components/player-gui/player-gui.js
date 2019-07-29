@@ -81,7 +81,7 @@ class PlayerGUI extends Component {
       }
 
       const presetStyle = props.state.shell.sidePanelsAllowed
-        ? sidePanelUtils.calculatePresetStyles({
+        ? sidePanelUtils.calculateMainAreaStyles({
             maxSidePanelWidth: 480,
             minSidePanelWidth: 240,
             sidePanels: props.state.shell.sidePanels,
@@ -92,7 +92,7 @@ class PlayerGUI extends Component {
       return (
         <div className={style.playerGuiContent}>
           <VideoPlayer player={props.player} />
-          <div style={presetStyle} data-kp-preset={presetName} className={style.presetContent}>
+          <div data-kp-preset={presetName} className={style.presetContent} style={presetStyle}>
             {uiComponent}
           </div>
           <SidePanel position={SidePanelPositions.RIGHT} player={props.player} />
