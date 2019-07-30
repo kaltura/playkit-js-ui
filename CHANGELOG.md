@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.42.1"></a>
+## [0.42.1](https://github.com/kaltura/playkit-js-ui/compare/v0.42.0...v0.42.1) (2019-07-19)
+
+
+### Bug Fixes
+
+* **FEC-8509:** ima-enablePreloading causes the player spinning before the mid-roll ([#397](https://github.com/kaltura/playkit-js-ui/issues/397)) ([394f888](https://github.com/kaltura/playkit-js-ui/commit/394f888))
+
+
+
 <a name="0.42.0"></a>
 # [0.42.0](https://github.com/kaltura/playkit-js-ui/compare/v0.41.0...v0.42.0) (2019-06-23)
 
