@@ -4,7 +4,7 @@ import {h, Component} from 'preact';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
 import {connect} from 'preact-redux';
-import * as sidePanelUtils from '../../utils/side-panels';
+import {connectToUIPresetsStore} from '../ui-presets-provider';
 
 /**
  * mapping state to props
@@ -13,16 +13,14 @@ import * as sidePanelUtils from '../../utils/side-panels';
  */
 const mapStateToProps = state => ({
   isCasting: state.engine.isCasting,
-  isPlaybackEnded: state.engine.isPlaybackEnded,
-  sidePanels: state.shell.sidePanels,
-  sidePanelsAllowed: state.shell.sidePanelsAllowed,
-  playerClientRect: state.shell.playerClientRect
+  isPlaybackEnded: state.engine.isPlaybackEnded
 });
 
 @connect(
   mapStateToProps,
   bindActions(actions)
 )
+@connectToUIPresetsStore()
 /**
  * BottomBar component
  *
@@ -39,21 +37,14 @@ class BottomBar extends Component {
    * @memberof BottomBar
    */
   render(props: any): ?React$Element<any> {
+    const {presetComponentsStore, isPlaybackEnded, isCasting} = props;
     const styleClass = [style.bottomBar];
 
-    if (props.isCasting && props.isPlaybackEnded) {
+    if (isCasting && isPlaybackEnded) {
       styleClass.push(style.hide);
     }
 
-    const elementStyle = props.sidePanelsAllowed
-      ? sidePanelUtils.calculatePresetChildStyles({
-          maxSidePanelWidth: 480,
-          minSidePanelWidth: 240,
-          sidePanels: props.sidePanels,
-          playerClientRect: props.playerClientRect,
-          anchor: 'BOTTOM'
-        })
-      : {};
+    const elementStyle = presetComponentsStore.calculatePresetChildStyles('BOTTOM');
 
     return (
       <div

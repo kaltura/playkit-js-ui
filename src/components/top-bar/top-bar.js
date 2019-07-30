@@ -2,7 +2,7 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
-import * as sidePanelUtils from '../../utils/side-panels';
+import {connectToUIPresetsStore} from '../ui-presets-provider';
 const COMPONENT_NAME = 'top-bar';
 
 /**
@@ -12,14 +12,11 @@ const COMPONENT_NAME = 'top-bar';
  */
 const mapStateToProps = state => ({
   isCasting: state.engine.isCasting,
-  isPlaybackEnded: state.engine.isPlaybackEnded,
-  sidePanels: state.shell.sidePanels,
-  sidePanelsAllowed: state.shell.sidePanelsAllowed,
-  playerClientRect: state.shell.playerClientRect
+  isPlaybackEnded: state.engine.isPlaybackEnded
 });
 
+@connectToUIPresetsStore()
 @connect(mapStateToProps)
-
 /**
  * TopBar component
  *
@@ -36,24 +33,18 @@ class TopBar extends Component {
    * @memberof TopBar
    */
   render(props: any): ?React$Element<any> {
+    const {presetComponentsStore, disabled, isPlaybackEnded, isCasting} = props;
+
     const styleClass = [style.topBar];
 
-    if (props.disabled) {
+    if (disabled) {
       styleClass.push(style.disabled);
     }
-    if (props.isCasting && props.isPlaybackEnded) {
+    if (isCasting && isPlaybackEnded) {
       styleClass.push(style.hide);
     }
 
-    const elementStyle = props.sidePanelsAllowed
-      ? sidePanelUtils.calculatePresetChildStyles({
-          maxSidePanelWidth: 480,
-          minSidePanelWidth: 240,
-          sidePanels: props.sidePanels,
-          playerClientRect: props.playerClientRect,
-          anchor: 'TOP'
-        })
-      : {};
+    const elementStyle = presetComponentsStore.calculatePresetChildStyles('TOP');
 
     return (
       <div style={elementStyle} className={styleClass.join(' ')}>

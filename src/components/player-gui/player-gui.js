@@ -5,9 +5,9 @@ import {bindActions} from '../../utils';
 import {actions, SidePanelPositions} from '../../reducers/shell';
 import {VideoPlayer} from '../video-player';
 import {SidePanel} from '../side-panel';
-import * as sidePanelUtils from '../../utils/side-panels';
 import style from '../../styles/style.scss';
 import {Container} from '../container';
+import {connectToUIPresetsStore} from '../ui-presets-provider';
 
 /**
  * mapping state to props
@@ -29,6 +29,7 @@ const mapStateToProps = state => ({
   config: state.config
 });
 
+@connectToUIPresetsStore()
 @connect(
   mapStateToProps,
   bindActions(actions)
@@ -69,6 +70,7 @@ class PlayerGUI extends Component {
    */
   render(props: any): React$Element<any> | void {
     let uiToRender;
+    const {presetComponentsStore} = this.props;
     const {activePresetName} = this.props.state.shell;
     if (this.props.uis.length > 0) {
       uiToRender = this.getMatchedUI(props.uis, props.state);
@@ -82,14 +84,7 @@ class PlayerGUI extends Component {
         props.updateSidePanelsAllowed(sidePanelAllowed);
       }
 
-      const presetStyle = props.state.shell.sidePanelsAllowed
-        ? sidePanelUtils.calculateVideoStyles({
-            maxSidePanelWidth: 480,
-            minSidePanelWidth: 240,
-            sidePanels: props.state.shell.sidePanels,
-            playerClientRect: props.state.shell.playerClientRect
-          })
-        : {};
+      const presetStyle = presetComponentsStore.calculateVideoStyles();
 
       return (
         <div className={style.playerGuiContent}>

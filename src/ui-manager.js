@@ -8,7 +8,7 @@ import {mergeDeep} from './utils/merge-deep';
 import {LogLevel, getLogLevel, setLogLevel, setLogHandler} from './utils/logger';
 import {EventType} from './event/event-type';
 import {setEnv} from './utils/key-map';
-import {ContainerProvider} from './components/container';
+import {UIPresetsProvider} from './components/ui-presets-provider';
 import reducer from './store';
 import en_translations from './translations/en.json';
 
@@ -172,14 +172,14 @@ class UIManager {
       // i18n, redux and initial player-to-store connector setup
       const template = (
         <Provider store={this.store}>
-          <ContainerProvider uiComponents={this._uiComponents}>
+          <UIPresetsProvider uiComponents={this._uiComponents}>
             <IntlProvider definition={this._translations[this._locale]}>
               <Shell player={this.player}>
                 <EngineConnector player={this.player} />
                 <PlayerGUI uis={uis} player={this.player} playerContainer={this.container} />
               </Shell>
             </IntlProvider>
-          </ContainerProvider>
+          </UIPresetsProvider>
         </Provider>
       );
 

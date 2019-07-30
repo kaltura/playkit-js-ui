@@ -70,7 +70,7 @@ class Container extends BaseComponent {
    * @return {void}
    */
   componentDidMount(): void {
-    if (!this.context.presetData) {
+    if (!this.context.presetComponentsStore) {
       return;
     }
 
@@ -81,7 +81,7 @@ class Container extends BaseComponent {
     }
 
     this.logger.debug(`mount ui container (target preset '${targetPresetName}') - handle injected components`);
-    this.context.presetData.listen(this._onPresetDataChanged);
+    this.context.presetComponentsStore.listen(this._onPresetsComponentsChange);
   }
 
   /**
@@ -90,10 +90,10 @@ class Container extends BaseComponent {
    * @returns {void}
    */
   componentWillUnmount(): void {
-    if (!this.context.presetData) {
+    if (!this.context.presetComponentsStore) {
       return;
     }
-    this.context.presetData.unlisten(this._onPresetDataChanged);
+    this.context.presetComponentsStore.unlisten(this._onPresetsComponentsChange);
 
     const {targetPresetName} = this.props;
     this.logger.debug(`un-mount ui container (target preset '${targetPresetName}')`);
@@ -101,15 +101,19 @@ class Container extends BaseComponent {
 
   /**
    * update container components
-   * @param {*} presetsData presetData
+   * @param {*} presetsComponents presetsComponents
    * @return {void}
    */
-  _onPresetDataChanged = presetsData => {
-    if (!presetsData) {
+  _onPresetsComponentsChange = presetsComponents => {
+    if (!presetsComponents) {
       return;
     }
 
-    const {targetPresetName} = this.props;
+    const {targetPresetName, activePresetName} = this.props;
+
+    if (targetPresetName !== activePresetName) {
+      return;
+    }
 
     const nextContainerComponents = {
       appendedComponents: [],
@@ -118,7 +122,7 @@ class Container extends BaseComponent {
     const positionedComponentMap = nextContainerComponents.positionedComponentMap;
     let hasPositionedComponents = false;
 
-    const presetComponents = presetsData.specificPreset[targetPresetName];
+    const presetComponents = presetsComponents[targetPresetName];
     const relevantComponents = presetComponents.filter(component => component.container === this.props.name);
     relevantComponents.forEach(component => {
       if (component.beforeComponent) {

@@ -2,9 +2,9 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
+import {connectToUIPresetsStore} from '../ui-presets-provider';
 import {Container} from '../container';
 import {SidePanelModes, SidePanelPositions} from '../../reducers/shell';
-import * as sidePanelUtils from '../../utils/side-panels';
 
 /**
  * mapping state to props
@@ -14,8 +14,7 @@ import * as sidePanelUtils from '../../utils/side-panels';
 const mapStateToProps = state => ({
   sidePanels: state.shell.sidePanels,
   sidePanelsAllowed: state.shell.sidePanelsAllowed,
-  activePresetName: state.shell.activePresetName,
-  playerClientRect: state.shell.playerClientRect
+  activePresetName: state.shell.activePresetName
 });
 
 /**
@@ -27,6 +26,7 @@ function toUpperCamelCase(word) {
   return word ? `${word[0].toUpperCase()}${word.substring(1).toLowerCase()}` : '';
 }
 
+@connectToUIPresetsStore()
 @connect(mapStateToProps)
 /**
  * SidePanel component
@@ -46,13 +46,13 @@ class SidePanel extends Component {
    * @memberof VideoPlayer
    */
   render(props): React$Element<any> {
-    const {activePresetName, position} = props;
+    const {activePresetName, position, sidePanelsAllowed, presetComponentsStore} = props;
 
     const isVertical = [SidePanelPositions.RIGHT, SidePanelPositions.LEFT].indexOf(position) !== -1;
     const stylePrefix = isVertical ? 'verticalSidePanel' : 'horizontalSidePanel';
     const styleClass = [style.sidePanel, style[stylePrefix], style[`sidePanel${toUpperCamelCase(position)}`]];
 
-    if (!props.sidePanelsAllowed) {
+    if (!sidePanelsAllowed) {
       return null;
     }
 
@@ -64,16 +64,7 @@ class SidePanel extends Component {
       styleClass.push(style[`${stylePrefix}Hidden`]);
     }
 
-    const sidePanelStyles =
-      isVisible && props.sidePanelsAllowed
-        ? sidePanelUtils.calculateSidePanelStyles({
-            maxSidePanelWidth: 480,
-            minSidePanelWidth: 240,
-            sidePanels: props.sidePanels,
-            playerClientRect: props.playerClientRect,
-            position: props.position
-          })
-        : {};
+    const sidePanelStyles = isVisible ? presetComponentsStore.calculateSidePanelStyles(props.position) : {};
 
     // TODO sakal remove
     const tempStyle = {
