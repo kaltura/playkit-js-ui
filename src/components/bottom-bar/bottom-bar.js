@@ -37,14 +37,14 @@ class BottomBar extends Component {
    * @memberof BottomBar
    */
   render(props: any): ?React$Element<any> {
-    const {presetComponentsStore, isPlaybackEnded, isCasting} = props;
+    const {sidePanelsStore, isPlaybackEnded, isCasting} = props;
     const styleClass = [style.bottomBar];
 
     if (isCasting && isPlaybackEnded) {
       styleClass.push(style.hide);
     }
 
-    const elementStyle = presetComponentsStore.calculatePresetChildStyles('BOTTOM');
+    const elementStyle = sidePanelsStore.calculatePresetChildStyles('BOTTOM');
 
     return (
       <div

@@ -22,7 +22,7 @@ class VideoPlayer extends Component {
    * @memberof VideoPlayer
    */
   shouldComponentUpdate(prevProps) {
-    return prevProps.sidePanelPropsUpdateRef !== this.props.sidePanelPropsUpdateRef;
+    return prevProps.sidePanelsStore !== this.props.sidePanelsStore;
   }
 
   /**
@@ -42,7 +42,7 @@ class VideoPlayer extends Component {
    * @memberof VideoPlayer
    */
   render(): React$Element<any> {
-    const videoStyle = this.props.presetComponentsStore.calculateVideoStyles();
+    const videoStyle = this.props.sidePanelsStore.calculateVideoStyles();
 
     return <div style={videoStyle} className={style.videoPlayer} ref={c => (this._el = c)} />;
   }

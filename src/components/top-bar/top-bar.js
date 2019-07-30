@@ -33,7 +33,7 @@ class TopBar extends Component {
    * @memberof TopBar
    */
   render(props: any): ?React$Element<any> {
-    const {presetComponentsStore, disabled, isPlaybackEnded, isCasting} = props;
+    const {sidePanelsStore, disabled, isPlaybackEnded, isCasting} = props;
 
     const styleClass = [style.topBar];
 
@@ -44,7 +44,7 @@ class TopBar extends Component {
       styleClass.push(style.hide);
     }
 
-    const elementStyle = presetComponentsStore.calculatePresetChildStyles('TOP');
+    const elementStyle = sidePanelsStore.calculatePresetChildStyles('TOP');
 
     return (
       <div style={elementStyle} className={styleClass.join(' ')}>

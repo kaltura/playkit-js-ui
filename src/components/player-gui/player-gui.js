@@ -70,7 +70,7 @@ class PlayerGUI extends Component {
    */
   render(props: any): React$Element<any> | void {
     let uiToRender;
-    const {presetComponentsStore} = this.props;
+    const {sidePanelsStore} = this.props;
     const {activePresetName} = this.props.state.shell;
     if (this.props.uis.length > 0) {
       uiToRender = this.getMatchedUI(props.uis, props.state);
@@ -84,7 +84,7 @@ class PlayerGUI extends Component {
         props.updateSidePanelsAllowed(sidePanelAllowed);
       }
 
-      const presetStyle = presetComponentsStore.calculateVideoStyles();
+      const presetStyle = sidePanelsStore.calculateVideoStyles();
 
       return (
         <div className={style.playerGuiContent}>

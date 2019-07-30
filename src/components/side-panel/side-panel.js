@@ -46,7 +46,7 @@ class SidePanel extends Component {
    * @memberof VideoPlayer
    */
   render(props): React$Element<any> {
-    const {activePresetName, position, sidePanelsAllowed, presetComponentsStore} = props;
+    const {activePresetName, position, sidePanelsAllowed, sidePanelsStore} = props;
 
     const isVertical = [SidePanelPositions.RIGHT, SidePanelPositions.LEFT].indexOf(position) !== -1;
     const stylePrefix = isVertical ? 'verticalSidePanel' : 'horizontalSidePanel';
@@ -64,7 +64,7 @@ class SidePanel extends Component {
       styleClass.push(style[`${stylePrefix}Hidden`]);
     }
 
-    const sidePanelStyles = isVisible ? presetComponentsStore.calculateSidePanelStyles(props.position) : {};
+    const sidePanelStyles = isVisible ? sidePanelsStore.calculateSidePanelStyles(props.position) : {};
 
     // TODO sakal remove
     const tempStyle = {
