@@ -2,7 +2,7 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
-//import {Container} from '../container';
+import {Container} from '../container';
 import {SidePanelModes, SidePanelPositions} from '../../reducers/shell';
 import * as sidePanelUtils from '../../utils/side-panels';
 
@@ -46,30 +46,22 @@ class SidePanel extends Component {
    * @memberof VideoPlayer
    */
   render(props): React$Element<any> {
-    //const {activePresetName} = props;
+    const {activePresetName, position} = props;
 
-    const isVertical = [SidePanelPositions.RIGHT, SidePanelPositions.LEFT].indexOf(props.position) !== -1;
+    const isVertical = [SidePanelPositions.RIGHT, SidePanelPositions.LEFT].indexOf(position) !== -1;
     const stylePrefix = isVertical ? 'verticalSidePanel' : 'horizontalSidePanel';
-    const styleClass = [style.sidePanel, style[stylePrefix], style[`sidePanel${toUpperCamelCase(props.position)}`]];
+    const styleClass = [style.sidePanel, style[stylePrefix], style[`sidePanel${toUpperCamelCase(position)}`]];
 
     if (!props.sidePanelsAllowed) {
       return null;
     }
+
+    const containerName = `side-panel-${position.toLowerCase()}`;
     const isVisible = props.sidePanels[props.position] !== SidePanelModes.HIDDEN;
 
     //let renderedContent = null;
     if (!isVisible) {
       styleClass.push(style[`${stylePrefix}Hidden`]);
-    } else {
-      // todo SAKAL render content
-      // renderedContent
-      // {/*<Container*/}
-      // {/*  key={activePresetName}*/}
-      // {/*  className={style.sidePanelContent}*/}
-      // {/*  player={props.player}*/}
-      // {/*  name={'side-panel'}*/}
-      // {/*  targetPresetName={activePresetName}*/}
-      // {/*/>*/}
     }
 
     const sidePanelStyles =
@@ -87,11 +79,10 @@ class SidePanel extends Component {
     const tempStyle = {
       ...sidePanelStyles,
       ...{
-        pointerEvents: 'none',
-        opacity: '0.5',
+        opacity: position === 'RIGHT' ? undefined : '0.5',
         background:
           props.position === SidePanelPositions.RIGHT
-            ? 'red'
+            ? 'transparent'
             : props.position === SidePanelPositions.TOP
               ? 'green'
               : props.position === SidePanelPositions.BOTTOM
@@ -100,7 +91,18 @@ class SidePanel extends Component {
       }
     };
 
-    return <div style={tempStyle} className={styleClass.join(' ')} ref={c => (this._el = c)} />;
+    return (
+      <div style={tempStyle} className={styleClass.join(' ')} ref={c => (this._el = c)}>
+        <Container
+          show={isVisible}
+          key={activePresetName}
+          className={style.sidePanelContent}
+          player={props.player}
+          name={containerName}
+          targetPresetName={activePresetName}
+        />
+      </div>
+    );
   }
 }
 

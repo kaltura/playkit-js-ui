@@ -51,6 +51,9 @@ function getComponentName(component: Object) {
  * A video container enabling injecting components by preset, container and position
  */
 class Container extends BaseComponent {
+  static defaultProps = {
+    show: true
+  };
   /**
    * constructor
    * @param {*} props props
@@ -161,9 +164,9 @@ class Container extends BaseComponent {
    * @memberof Container
    */
   render(): React$Element<any> {
-    const {children} = this.props;
+    const {children, show} = this.props;
     const {containerComponents, hasPositionedComponents} = this.state;
-    if (!containerComponents) {
+    if (!containerComponents || !show) {
       return null;
     }
     const newChildren = [];
