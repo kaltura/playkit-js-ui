@@ -3,7 +3,6 @@ import {h, Component} from 'preact';
 import getLogger from '../../utils/logger';
 
 // TODO sakal check with Oren if should inherit from 'BaseComponent'
-// TODO sakal if using base component, use its' logger
 
 const logger = getLogger('InjectedComponent');
 

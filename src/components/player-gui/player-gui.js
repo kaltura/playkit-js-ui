@@ -7,7 +7,7 @@ import {VideoPlayer} from '../video-player';
 import {SidePanel} from '../side-panel';
 import style from '../../styles/style.scss';
 import {Container} from '../container';
-import {connectToUIPresetsStore} from '../ui-presets-provider';
+import {connectToUIPresetsStore} from '../side-panel';
 
 /**
  * mapping state to props
@@ -29,7 +29,7 @@ const mapStateToProps = state => ({
   config: state.config
 });
 
-@connectToUIPresetsStore()
+@connectToUIPresetsStore('player-gui')
 @connect(
   mapStateToProps,
   bindActions(actions)

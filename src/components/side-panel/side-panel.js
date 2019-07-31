@@ -2,7 +2,7 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
-import {connectToUIPresetsStore} from '../ui-presets-provider';
+import {connectToUIPresetsStore} from './connect';
 import {Container} from '../container';
 import {SidePanelModes, SidePanelPositions} from '../../reducers/shell';
 

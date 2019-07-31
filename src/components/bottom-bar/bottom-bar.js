@@ -4,7 +4,7 @@ import {h, Component} from 'preact';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
 import {connect} from 'preact-redux';
-import {connectToUIPresetsStore} from '../ui-presets-provider';
+import {connectToUIPresetsStore} from '../side-panel';
 
 /**
  * mapping state to props
@@ -16,11 +16,11 @@ const mapStateToProps = state => ({
   isPlaybackEnded: state.engine.isPlaybackEnded
 });
 
+@connectToUIPresetsStore()
 @connect(
   mapStateToProps,
   bindActions(actions)
 )
-@connectToUIPresetsStore()
 /**
  * BottomBar component
  *

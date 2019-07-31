@@ -1,7 +1,7 @@
 //@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
-import {connectToUIPresetsStore} from '../ui-presets-provider';
+import {connectToUIPresetsStore} from '../side-panel';
 
 @connectToUIPresetsStore()
 /**
