@@ -8,19 +8,14 @@
 .vertical-side-panel {
   @include side-panel;
   height: 100%;
-
-}
-
-.vertical-side-panel-hidden {
   width: 0;
 }
 
 .horizontal-side-panel {
   @include side-panel;
-}
-
-.horizontal-side-panel-hidden {
   height: 0;
+  left: 0;
+  right: 0;
 }
 
 .side-panel-top {

@@ -162,8 +162,6 @@ export function calculateSidePanelStyles(options) {
 
     const {verticalPanelWidth} = calculateVerticalDimensions(options);
     const result = {};
-    result['left'] = position === SidePanelPositions.LEFT ? 0 : 'auto';
-    result['right'] = position === SidePanelPositions.RIGHT ? 0 : 'auto';
     result['width'] = verticalPanelWidth;
     return result;
   }
@@ -175,8 +173,6 @@ export function calculateSidePanelStyles(options) {
   const {horizontalPanelHeight} = calculateHorizontalDimensions(options);
   const {verticalPanelWidth} = calculateVerticalDimensions(options);
   const result = {};
-  result['top'] = position === SidePanelPositions.TOP ? 0 : 'auto';
-  result['bottom'] = position === SidePanelPositions.BOTTOM ? 0 : 'auto';
   result['height'] = horizontalPanelHeight;
   result['left'] = leftSidePanelMode !== SidePanelModes.HIDDEN ? verticalPanelWidth : 0;
   result['right'] = rightSidePanelMode !== SidePanelModes.HIDDEN ? verticalPanelWidth : 0;

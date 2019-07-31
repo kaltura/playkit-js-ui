@@ -207,21 +207,13 @@ const connectToUIPresetsStore = () => {
           sidePanelsAllowed: this.props.sidePanelsAllowed
         };
 
-        // eslint-disable-next-line no-console
-        console.log(`sakal ui preset provider - pre`, {options});
-        this.setState(
-          {
-            sidePanelsStore: {
-              calculatePresetChildStyles: createCalculatePresetChildStyles(options),
-              calculateVideoStyles: createCalculateVideoStyles(options),
-              calculateSidePanelStyles: createCalculateSidePanelStyles(options)
-            }
-          },
-          () => {
-            // eslint-disable-next-line no-console
-            console.log(`sakal ui preset provider - post`, {options});
+        this.setState({
+          sidePanelsStore: {
+            calculatePresetChildStyles: createCalculatePresetChildStyles(options),
+            calculateVideoStyles: createCalculateVideoStyles(options),
+            calculateSidePanelStyles: createCalculateSidePanelStyles(options)
           }
-        );
+        });
       }
 
       /**

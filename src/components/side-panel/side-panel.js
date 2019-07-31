@@ -58,12 +58,6 @@ class SidePanel extends Component {
 
     const containerName = `side-panel-${position.toLowerCase()}`;
     const isVisible = props.sidePanels[props.position] !== SidePanelModes.HIDDEN;
-
-    //let renderedContent = null;
-    if (!isVisible) {
-      styleClass.push(style[`${stylePrefix}Hidden`]);
-    }
-
     const sidePanelStyles = isVisible ? sidePanelsStore.calculateSidePanelStyles(props.position) : {};
 
     // TODO sakal remove
@@ -85,7 +79,7 @@ class SidePanel extends Component {
     return (
       <div style={tempStyle} className={styleClass.join(' ')} ref={c => (this._el = c)}>
         <Container
-          show={isVisible}
+          show={true}
           key={activePresetName}
           className={style.sidePanelContent}
           player={props.player}
