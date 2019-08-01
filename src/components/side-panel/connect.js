@@ -74,11 +74,6 @@ const connectToUIPresetsStore = () => {
      * store hoc
      */
     class extends Component {
-      static defaultProps = {
-        maxSidePanelWidth: 480,
-        minSidePanelWidth: 240
-      };
-
       /**
        * constructor
        * @param {*} props props
@@ -100,9 +95,8 @@ const connectToUIPresetsStore = () => {
        */
       createSidePanelsStore(propsSnapshot) {
         const options = {
-          maxSidePanelWidth: propsSnapshot.maxSidePanelWidth,
-          minSidePanelWidth: propsSnapshot.minSidePanelWidth,
           sidePanelsModes: propsSnapshot.sidePanelsModes,
+          sidePanelsSizes: propsSnapshot.sidePanelsSizes,
           playerClientRect: propsSnapshot.playerClientRect,
           sidePanelsAllowed: propsSnapshot.sidePanelsAllowed
         };

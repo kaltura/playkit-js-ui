@@ -14,12 +14,13 @@ var uiManager = new playkit.ui.UIManager(player, config);
 ```js
 {
   targetId: string,
-  debugActions: boolean, // optional
-  forceTouchUI: boolean, // optional
+  debugActions?: boolean, // optional
+  forceTouchUI?: boolean, // optional
   log?: UILogConfigObject, // optional
-  components: Object, // optional
+  components?: Object, // optional
+  uiComponents: Array<Object>, //optional
   translations: Object, // optional
-  locale: Object // optional
+  locale: Object // optional  
 }
 ```
 
@@ -219,6 +220,38 @@ var uiManager = new playkit.ui.UIManager(player, config);
 
 ##
 
+> > ### config.components.sidePanels 
+> >
+> > ##### Type: `Object`
+> >
+> > ```js
+> > {
+> >   verticalSizes: { min?: number, max?: number, ratio?: number},
+> >   horizontalSizes: { min?: number, max?: number, ratio?: number}
+> > }
+> > ```
+> >
+> > ##### Default:
+> >
+> > ```js
+> > {
+> >   verticalSizes: {min: 240, max: 480, ratio: 0.33},
+> >   horizontalSizes: {min: 144, max: 288, ratio: 0.33}
+> > }
+> > ```
+> >
+> > ##### Description: Defines sizes of side panels.
+> >
+> > > ### config.components.fullscreen.inBrowserFullscreenForIOS
+> > >
+> > > ##### Type: `boolean`
+> > >
+> > > ##### Default: `false`
+> > >
+> > > ##### Description: Gives the ability to choose an in-browser fullscreen experience on iOS devices which will replace the native fullscreen of the AV player.
+
+##
+
 > > ### config.components.fullscreen (Deprecated)
 > >
 > > #### Moved under playback.inBrowserFullscreen
@@ -248,3 +281,29 @@ var uiManager = new playkit.ui.UIManager(player, config);
 > > > ##### Default: `false`
 > > >
 > > > ##### Description: Gives the ability to choose an in-browser fullscreen experience on iOS devices which will replace the native fullscreen of the AV player.
+
+##
+
+> ### config.uiComponents
+>
+> ##### Type: `Object`
+>
+> ```
+>  Array<{
+>  label: string,
+>  presets?: Array<string>,
+>  container: string,
+>  render: (options: { context?: any}) => any
+>  beforeComponent?: string,
+>  afterComponent?: string,
+>  replaceComponent?: string,
+>  context?: any
+>  }>
+>  ```
+>
+>
+> ##### Default: `-`
+>
+> ##### Description: Defines custom ui components to be injected into the player ui.
+>
+> See guide [custom-ui-components](./custom-ui-components.md)

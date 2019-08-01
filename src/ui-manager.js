@@ -11,8 +11,9 @@ import {setEnv} from './utils/key-map';
 import {ContainerProvider} from './components/container';
 import reducer from './store';
 import en_translations from './translations/en.json';
+import {actions as configActions} from './reducers/config';
+import {actions as shellActions, SidePanelOrientation} from './reducers/shell';
 
-import {actions} from './reducers/config';
 // core components for the UI
 import {EngineConnector} from './components/engine-connector';
 import {Shell} from './components/shell';
@@ -53,7 +54,8 @@ class UIManager {
       setLogHandler(config.log.handler);
     }
 
-    this._uiComponents = config.uiComponents || [];
+    this._uiComponents = [...(config.uiComponents || [])];
+    delete config.uiComponents; // todo sakal consult with Oren if he wants to keep the value in the config even if it is stale
     this.player = player;
     this.targetId = config.targetId;
     this._createStore(config);
@@ -81,9 +83,20 @@ class UIManager {
    */
   setConfig(config: Object, componentAlias?: string): void {
     if (componentAlias) {
-      this.store.dispatch(actions.updateComponentConfig(componentAlias, config));
+      this.store.dispatch(configActions.updateComponentConfig(componentAlias, config));
     } else {
-      this.store.dispatch(actions.updateConfig(config));
+      this.store.dispatch(configActions.updateConfig(config));
+      if (config.components && config.components.sidePanels) {
+        // todo sakal consult with Oren if he wants to keep the value in the config even if it is stale
+        const {verticalSizes, horizontalSizes} = config.components.sidePanels;
+        if (verticalSizes) {
+          this.store.dispatch(shellActions.updateSidePanelSize(SidePanelOrientation.VERTICAL, verticalSizes));
+        }
+
+        if (horizontalSizes) {
+          this.store.dispatch(shellActions.updateSidePanelSize(SidePanelOrientation.HORIZONTAL, horizontalSizes));
+        }
+      }
     }
   }
 

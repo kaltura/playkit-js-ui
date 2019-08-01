@@ -1,19 +1,19 @@
-import {SidePanelModes, SidePanelPositions} from '../../reducers/shell';
+import {SidePanelModes, SidePanelOrientation, SidePanelPositions} from '../../reducers/shell';
 
-const sidePanelRatio = 0.33;
-const minimumVideoWidth = 100; // TODO sakal get actual width from Oren
-const minimumVideoHeight = 100; // TODO sakal get actual width from Oren
+const minimumVideoWidth = 150; // TODO sakal get actual width from Oren
+const minimumVideoHeight = 150; // TODO sakal get actual width from Oren
 
 /**
  * Calculate dimensions of video based on vertical side panels
  *
- * @param {{minSidePanelWidth: number, maxSidePanelWidth: number, playerClientRect: Object, isVideo: boolean}} options player state
+ * @param {*} options player state
  * @return {Object} dimensions
  */
 function calculateVerticalDimensions(options) {
-  const {minSidePanelWidth, maxSidePanelWidth, sidePanelsModes, playerClientRect, isVideo} = options;
+  const {sidePanelsSizes, sidePanelsModes, playerClientRect, isVideo} = options;
+  const sizes = sidePanelsSizes[SidePanelOrientation.VERTICAL];
   const playerWidth = playerClientRect.width;
-  let verticalPanelWidth = Math.max(minSidePanelWidth, Math.min(maxSidePanelWidth, playerWidth * sidePanelRatio));
+  let verticalPanelWidth = Math.max(sizes.min, Math.min(sizes.max, playerWidth * sizes.ratio));
 
   const leftSidePanelMode = sidePanelsModes[SidePanelPositions.LEFT];
   const rightSidePanelMode = sidePanelsModes[SidePanelPositions.RIGHT];
@@ -37,16 +37,14 @@ function calculateVerticalDimensions(options) {
 /**
  * Calculate dimensions of video based on horizontal side panels
  *
- * @param {{minSidePanelWidth: number, maxSidePanelWidth: number, playerClientRect: Object, isVideo: boolean}} options player state
+ * @param {*} options player state
  * @return {Object} dimensions
  */
 function calculateHorizontalDimensions(options) {
-  // TODO sakal from args
-  const horizontalMinHeight = 144;
-  // const isFullScreen = false; // TODO sakal what to do with full screen (DANA)
-  const {sidePanelsModes, playerClientRect, isVideo} = options;
+  const {sidePanelsSizes, sidePanelsModes, playerClientRect, isVideo} = options;
+  const sizes = sidePanelsSizes[SidePanelOrientation.HORIZONTAL];
   const playerHeight = playerClientRect.height;
-  let horizontalPanelHeight = Math.max(horizontalMinHeight, playerHeight * sidePanelRatio);
+  let horizontalPanelHeight = Math.max(sizes.min, Math.min(sizes.max, playerHeight * sizes.ratio));
 
   const topSidePanelMode = sidePanelsModes[SidePanelPositions.TOP];
   const bottomSidePanelMode = sidePanelsModes[SidePanelPositions.BOTTOM];
@@ -71,7 +69,7 @@ function calculateHorizontalDimensions(options) {
 /**
  * Calculate styles of video elements based on side panels mode
  *
- * @param {{minSidePanelWidth: number, maxSidePanelWidth: number, playerClientRect: Object, isVideo: boolean}} options player state
+ * @param {*} options player state
  * @return {Object} styles as hashtable
  */
 export function calculateVideoStyles(options) {
@@ -105,7 +103,7 @@ export function calculateVideoStyles(options) {
 /**
  * Calculate styles of preset element based on side panels mode
  *
- * @param {{minSidePanelWidth: number, maxSidePanelWidth: number, playerClientRect: Object}} options player state
+ * @param {*} options player state
  * @return {Object} styles as hashtable
  */
 export function calculatePresetChildStyles(options) {
@@ -143,7 +141,7 @@ export function calculatePresetChildStyles(options) {
 /**
  * Calculate styles of vertical side panel element based on side panels mode
  *
- * @param {{minSidePanelWidth: number, maxSidePanelWidth: number, position: SidePanelPositions, playerClientRect: Object}} options player state
+ * @param {*} options player state
  * @return {Object} styles as hashtable
  */
 export function calculateSidePanelStyles(options) {

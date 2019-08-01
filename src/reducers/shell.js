@@ -16,6 +16,11 @@ export const types = {
   UPDATE_SIDE_PANELS_ALLOWED: 'shell/UPDATE_SIDE_PANELS_ALLOWED'
 };
 
+export const SidePanelOrientation = {
+  VERTICAL: 'VERTICAL',
+  HORIZONTAL: 'HORIZONTAL'
+};
+
 export const SidePanelPositions = {
   LEFT: 'LEFT',
   TOP: 'TOP',
@@ -42,10 +47,8 @@ export const initialState = {
     [SidePanelPositions.BOTTOM]: SidePanelModes.HIDDEN
   },
   sidePanelsSizes: {
-    [SidePanelPositions.LEFT]: {min: 240, max: 480, ratio: 0.33},
-    [SidePanelPositions.RIGHT]: {min: 240, max: 480, ratio: 0.33},
-    [SidePanelPositions.TOP]: {min: 144, max: 0, ratio: 0.33},
-    [SidePanelPositions.BOTTOM]: {min: 144, max: 0, ratio: 0.33}
+    [SidePanelOrientation.VERTICAL]: {min: 240, max: 480, ratio: 0.33},
+    [SidePanelOrientation.HORIZONTAL]: {min: 144, max: 288, ratio: 0.33}
   },
   sidePanelsAllowed: false
 };
@@ -128,14 +131,22 @@ export default (state: Object = initialState, action: Object) => {
         }
       };
 
-    case types.UPDATE_SIDE_PANEL_SIZE:
+    case types.UPDATE_SIDE_PANEL_SIZE: {
+      const {ratio, min, max} = action.options;
+      const prevValues = state.sidePanelsSizes[action.orientation];
+      const newSizes = {
+        ratio: typeof ratio === 'number' && ratio <= 1 ? ratio : prevValues.ratio,
+        min: typeof min === 'number' ? min : prevValues.min,
+        max: typeof max === 'number' ? max : prevValues.max
+      };
       return {
         ...state,
         sidePanelsSizes: {
           ...state.sidePanelsSizes,
-          [action.position]: {ratio: action.ratio, min: action.min, max: action.max}
+          [action.orientation]: newSizes
         }
       };
+    }
 
     case types.UPDATE_SIDE_PANELS_ALLOWED:
       return {
@@ -165,12 +176,10 @@ export const actions = {
     position,
     sidePanelMode
   }),
-  updateSidePanelSize: (position: SidePanelPositions, ratio: number, min: number, max: number) => ({
+  updateSidePanelSize: (orientation: SidePanelOrientation, options) => ({
     type: types.UPDATE_SIDE_PANEL_SIZE,
-    position,
-    ratio,
-    min,
-    max
+    orientation,
+    options
   }),
   updateSidePanelsAllowed: (allowed: boolean) => ({type: types.UPDATE_SIDE_PANELS_ALLOWED, allowed})
 };
