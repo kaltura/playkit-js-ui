@@ -12,7 +12,8 @@ import {SidePanelModes, SidePanelPositions} from '../../reducers/shell';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  sidePanels: state.shell.sidePanels,
+  sidePanelsModes: state.shell.sidePanelsModes,
+  sidePanelsSizes: state.shell.sidePanelsSizes,
   sidePanelsAllowed: state.shell.sidePanelsAllowed,
   activePresetName: state.shell.activePresetName
 });
@@ -57,7 +58,7 @@ class SidePanel extends Component {
     }
 
     const containerName = `side-panel-${position.toLowerCase()}`;
-    const isVisible = props.sidePanels[props.position] !== SidePanelModes.HIDDEN;
+    const isVisible = props.sidePanelsModes[props.position] !== SidePanelModes.HIDDEN;
     const sidePanelStyles = isVisible ? sidePanelsStore.calculateSidePanelStyles(props.position) : {};
 
     // TODO sakal remove

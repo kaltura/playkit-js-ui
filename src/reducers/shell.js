@@ -12,6 +12,7 @@ export const types = {
   UPDATE_SMART_CONTAINER_OPEN: 'shell/UPDATE_SMART_CONTAINER_OPEN',
   UPDATE_ACTIVE_PRESET_NAME: 'shell/UPDATE_ACTIVE_PRESET_NAME',
   UPDATE_SIDE_PANEL_MODE: 'shell/UPDATE_SIDE_PANEL_MODE',
+  UPDATE_SIDE_PANEL_SIZE: 'shell/UPDATE_SIDE_PANEL_SIZE',
   UPDATE_SIDE_PANELS_ALLOWED: 'shell/UPDATE_SIDE_PANELS_ALLOWED'
 };
 
@@ -34,11 +35,17 @@ export const initialState = {
   playerNav: false,
   smartContainerOpen: false,
   activePresetName: '',
-  sidePanels: {
+  sidePanelsModes: {
     [SidePanelPositions.LEFT]: SidePanelModes.HIDDEN,
     [SidePanelPositions.RIGHT]: SidePanelModes.HIDDEN,
     [SidePanelPositions.TOP]: SidePanelModes.HIDDEN,
     [SidePanelPositions.BOTTOM]: SidePanelModes.HIDDEN
+  },
+  sidePanelsSizes: {
+    [SidePanelPositions.LEFT]: {min: 240, max: 480, ratio: 0.33},
+    [SidePanelPositions.RIGHT]: {min: 240, max: 480, ratio: 0.33},
+    [SidePanelPositions.TOP]: {min: 144, max: 0, ratio: 0.33},
+    [SidePanelPositions.BOTTOM]: {min: 144, max: 0, ratio: 0.33}
   },
   sidePanelsAllowed: false
 };
@@ -115,9 +122,18 @@ export default (state: Object = initialState, action: Object) => {
     case types.UPDATE_SIDE_PANEL_MODE:
       return {
         ...state,
-        sidePanels: {
-          ...state.sidePanels,
+        sidePanelsModes: {
+          ...state.sidePanelsModes,
           [action.position]: action.sidePanelMode
+        }
+      };
+
+    case types.UPDATE_SIDE_PANEL_SIZE:
+      return {
+        ...state,
+        sidePanelsSizes: {
+          ...state.sidePanelsSizes,
+          [action.position]: {ratio: action.ratio, min: action.min, max: action.max}
         }
       };
 
@@ -148,6 +164,13 @@ export const actions = {
     type: types.UPDATE_SIDE_PANEL_MODE,
     position,
     sidePanelMode
+  }),
+  updateSidePanelSize: (position: SidePanelPositions, ratio: number, min: number, max: number) => ({
+    type: types.UPDATE_SIDE_PANEL_SIZE,
+    position,
+    ratio,
+    min,
+    max
   }),
   updateSidePanelsAllowed: (allowed: boolean) => ({type: types.UPDATE_SIDE_PANELS_ALLOWED, allowed})
 };

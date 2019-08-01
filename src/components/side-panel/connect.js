@@ -57,7 +57,8 @@ function createCalculatePresetChildStyles(options) {
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  sidePanels: state.shell.sidePanels,
+  sidePanelsModes: state.shell.sidePanelsModes,
+  sidePanelsSizes: state.shell.sidePanelsSizes,
   sidePanelsAllowed: state.shell.sidePanelsAllowed,
   playerClientRect: state.shell.playerClientRect
 });
@@ -101,7 +102,7 @@ const connectToUIPresetsStore = () => {
         const options = {
           maxSidePanelWidth: propsSnapshot.maxSidePanelWidth,
           minSidePanelWidth: propsSnapshot.minSidePanelWidth,
-          sidePanels: propsSnapshot.sidePanels,
+          sidePanelsModes: propsSnapshot.sidePanelsModes,
           playerClientRect: propsSnapshot.playerClientRect,
           sidePanelsAllowed: propsSnapshot.sidePanelsAllowed
         };
@@ -119,9 +120,9 @@ const connectToUIPresetsStore = () => {
        * @return {void}
        */
       componentDidUpdate(prevProps): void {
-        const {sidePanels, sidePanelsAllowed, playerClientRect} = this.props;
-        const {sidePanels: prevSidePanels, sidePanelsAllowed: prevSidePanelsAllowed, playerClientRect: prevPlayerClientRect} = prevProps;
-        if (sidePanels === prevSidePanels && sidePanelsAllowed === prevSidePanelsAllowed && playerClientRect === prevPlayerClientRect) {
+        const {sidePanelsModes, sidePanelsAllowed, playerClientRect} = this.props;
+        const {sidePanelsModes: prevSidePanelsModes, sidePanelsAllowed: prevSidePanelsAllowed, playerClientRect: prevPlayerClientRect} = prevProps;
+        if (sidePanelsModes === prevSidePanelsModes && sidePanelsAllowed === prevSidePanelsAllowed && playerClientRect === prevPlayerClientRect) {
           return;
         }
 
@@ -141,7 +142,7 @@ const connectToUIPresetsStore = () => {
           return null;
         }
         // eslint-disable-next-line no-unused-vars
-        const {playerClientRect, sidePanels, sidePanelsAllowed, ...restProps} = this.props;
+        const {playerClientRect, sidePanelsModes, sidePanelsAllowed, ...restProps} = this.props;
         return <InnerComponent {...restProps} sidePanelsStore={sidePanelsStore} />;
       }
     };

@@ -11,12 +11,12 @@ const minimumVideoHeight = 100; // TODO sakal get actual width from Oren
  * @return {Object} dimensions
  */
 function calculateVerticalDimensions(options) {
-  const {minSidePanelWidth, maxSidePanelWidth, sidePanels, playerClientRect, isVideo} = options;
+  const {minSidePanelWidth, maxSidePanelWidth, sidePanelsModes, playerClientRect, isVideo} = options;
   const playerWidth = playerClientRect.width;
   let verticalPanelWidth = Math.max(minSidePanelWidth, Math.min(maxSidePanelWidth, playerWidth * sidePanelRatio));
 
-  const leftSidePanelMode = sidePanels[SidePanelPositions.LEFT];
-  const rightSidePanelMode = sidePanels[SidePanelPositions.RIGHT];
+  const leftSidePanelMode = sidePanelsModes[SidePanelPositions.LEFT];
+  const rightSidePanelMode = sidePanelsModes[SidePanelPositions.RIGHT];
   let verticalPanelCount;
   if (isVideo) {
     verticalPanelCount =
@@ -44,12 +44,12 @@ function calculateHorizontalDimensions(options) {
   // TODO sakal from args
   const horizontalMinHeight = 144;
   // const isFullScreen = false; // TODO sakal what to do with full screen (DANA)
-  const {sidePanels, playerClientRect, isVideo} = options;
+  const {sidePanelsModes, playerClientRect, isVideo} = options;
   const playerHeight = playerClientRect.height;
   let horizontalPanelHeight = Math.max(horizontalMinHeight, playerHeight * sidePanelRatio);
 
-  const topSidePanelMode = sidePanels[SidePanelPositions.TOP];
-  const bottomSidePanelMode = sidePanels[SidePanelPositions.BOTTOM];
+  const topSidePanelMode = sidePanelsModes[SidePanelPositions.TOP];
+  const bottomSidePanelMode = sidePanelsModes[SidePanelPositions.BOTTOM];
   let horizontalPanelCount;
   if (isVideo) {
     horizontalPanelCount =
@@ -77,12 +77,12 @@ function calculateHorizontalDimensions(options) {
 export function calculateVideoStyles(options) {
   // Video element cares only for side panels that are side to video
 
-  const {sidePanels} = options;
+  const {sidePanelsModes} = options;
   const result = {};
-  const leftSidePanelMode = sidePanels[SidePanelPositions.LEFT];
-  const rightSidePanelMode = sidePanels[SidePanelPositions.RIGHT];
-  const topSidePanelMode = sidePanels[SidePanelPositions.TOP];
-  const bottomSidePanelMode = sidePanels[SidePanelPositions.BOTTOM];
+  const leftSidePanelMode = sidePanelsModes[SidePanelPositions.LEFT];
+  const rightSidePanelMode = sidePanelsModes[SidePanelPositions.RIGHT];
+  const topSidePanelMode = sidePanelsModes[SidePanelPositions.TOP];
+  const bottomSidePanelMode = sidePanelsModes[SidePanelPositions.BOTTOM];
 
   if (leftSidePanelMode === SidePanelModes.ALONG_SIDE_THE_VIDEO || rightSidePanelMode === SidePanelModes.ALONG_SIDE_THE_VIDEO) {
     const {verticalPanelWidth, videoWidth} = calculateVerticalDimensions({...options, isVideo: true});
@@ -111,12 +111,12 @@ export function calculateVideoStyles(options) {
 export function calculatePresetChildStyles(options) {
   // Preset children care only for side panels that are are on top of video, otherwise they are handled as part of the preset itself.
 
-  const {sidePanels, anchor} = options;
+  const {sidePanelsModes, anchor} = options;
   const result = {};
-  const leftSidePanelMode = sidePanels[SidePanelPositions.LEFT];
-  const rightSidePanelMode = sidePanels[SidePanelPositions.RIGHT];
-  const topSidePanelMode = sidePanels[SidePanelPositions.TOP];
-  const bottomSidePanelMode = sidePanels[SidePanelPositions.BOTTOM];
+  const leftSidePanelMode = sidePanelsModes[SidePanelPositions.LEFT];
+  const rightSidePanelMode = sidePanelsModes[SidePanelPositions.RIGHT];
+  const topSidePanelMode = sidePanelsModes[SidePanelPositions.TOP];
+  const bottomSidePanelMode = sidePanelsModes[SidePanelPositions.BOTTOM];
 
   if (leftSidePanelMode === SidePanelModes.OVER_THE_VIDEO || rightSidePanelMode === SidePanelModes.OVER_THE_VIDEO) {
     const {verticalPanelWidth} = calculateVerticalDimensions(options);
@@ -147,11 +147,11 @@ export function calculatePresetChildStyles(options) {
  * @return {Object} styles as hashtable
  */
 export function calculateSidePanelStyles(options) {
-  const {position, sidePanels} = options;
-  const leftSidePanelMode = sidePanels[SidePanelPositions.LEFT];
-  const rightSidePanelMode = sidePanels[SidePanelPositions.RIGHT];
-  const topSidePanelMode = sidePanels[SidePanelPositions.TOP];
-  const bottomSidePanelMode = sidePanels[SidePanelPositions.BOTTOM];
+  const {position, sidePanelsModes} = options;
+  const leftSidePanelMode = sidePanelsModes[SidePanelPositions.LEFT];
+  const rightSidePanelMode = sidePanelsModes[SidePanelPositions.RIGHT];
+  const topSidePanelMode = sidePanelsModes[SidePanelPositions.TOP];
+  const bottomSidePanelMode = sidePanelsModes[SidePanelPositions.BOTTOM];
 
   const isVertical = [SidePanelPositions.RIGHT, SidePanelPositions.LEFT].indexOf(position) !== -1;
 
