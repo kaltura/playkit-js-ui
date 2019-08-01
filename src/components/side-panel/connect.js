@@ -4,6 +4,16 @@ import {connect} from 'preact-redux';
 import * as sidePanelUtils from './side-panel-utils';
 
 /**
+ * validate common options
+ * @param {*} options options
+ * @returns {boolean} valid
+ */
+function validateCommonOptions(options) {
+  const {sidePanelsSizes, sidePanelsModes, playerClientRect} = options;
+  return sidePanelsModes !== null && sidePanelsSizes !== null && playerClientRect !== null;
+}
+
+/**
  * create proxy method for calculateSidePanelStyles
  *
  * @param {string} options options
@@ -11,7 +21,7 @@ import * as sidePanelUtils from './side-panel-utils';
  */
 function createCalculateSidePanelStyles(options) {
   return position => {
-    if (!options.sidePanelsAllowed || ['TOP', 'BOTTOM', 'RIGHT', 'LEFT'].indexOf(position) === -1) {
+    if (!options.sidePanelsAllowed || !validateCommonOptions(options) || ['TOP', 'BOTTOM', 'RIGHT', 'LEFT'].indexOf(position) === -1) {
       return {};
     }
 
@@ -27,7 +37,7 @@ function createCalculateSidePanelStyles(options) {
  */
 function createCalculateVideoStyles(options) {
   return () => {
-    if (!options.sidePanelsAllowed) {
+    if (!options.sidePanelsAllowed || !validateCommonOptions(options)) {
       return {};
     }
 
@@ -43,7 +53,7 @@ function createCalculateVideoStyles(options) {
  */
 function createCalculatePresetChildStyles(options) {
   return anchor => {
-    if (!options.sidePanelsAllowed || ['TOP', 'BOTTOM'].indexOf(anchor) === -1) {
+    if (!options.sidePanelsAllowed || !validateCommonOptions(options) || ['TOP', 'BOTTOM'].indexOf(anchor) === -1) {
       return {};
     }
 
