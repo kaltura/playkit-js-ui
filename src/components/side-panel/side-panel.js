@@ -39,6 +39,22 @@ function toUpperCamelCase(word) {
 class SidePanel extends Component {
   _el: HTMLElement;
 
+  state = {
+    showContent: false
+  };
+
+  /**
+   * hide content of side panel only once transition is completed
+   * @private
+   * @param {boolean} isVisible is side panel visible
+   * @return {void}
+   */
+  _onTransitionEnd = isVisible => {
+    this.setState({
+      showContent: isVisible
+    });
+  };
+
   /**
    * render component
    *
@@ -48,6 +64,7 @@ class SidePanel extends Component {
    */
   render(props): React$Element<any> {
     const {activePresetName, position, sidePanelsAllowed, sidePanelsStore} = props;
+    const {showContent} = this.state;
 
     const isVertical = [SidePanelPositions.RIGHT, SidePanelPositions.LEFT].indexOf(position) !== -1;
     const stylePrefix = isVertical ? 'verticalSidePanel' : 'horizontalSidePanel';
@@ -78,9 +95,9 @@ class SidePanel extends Component {
     };
 
     return (
-      <div style={tempStyle} className={styleClass.join(' ')} ref={c => (this._el = c)}>
+      <div style={tempStyle} onTransitionEnd={() => this._onTransitionEnd(isVisible)} className={styleClass.join(' ')} ref={c => (this._el = c)}>
         <Container
-          show={true}
+          show={isVisible || showContent}
           key={activePresetName}
           className={style.sidePanelContent}
           player={props.player}

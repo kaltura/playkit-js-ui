@@ -333,8 +333,6 @@ class Shell extends BaseComponent {
     if (this.props.playlist) playerClasses.push(style.playlist);
 
     if (this.props.playerClientRect) {
-      // eslint-disable-next-line no-console
-      console.log(`sakal resize`, {size: this.props.playerClientRect.width});
       if (this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.TINY) {
         playerClasses.push(style.sizeTy);
         this.props.updatePlayerSize(PLAYER_SIZE.TINY);
