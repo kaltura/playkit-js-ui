@@ -9,8 +9,8 @@ import * as sidePanelUtils from './side-panel-utils';
  * @returns {boolean} valid
  */
 function validateCommonOptions(options) {
-  const {sidePanelsSizes, sidePanelsModes, playerClientRect} = options;
-  return sidePanelsModes !== null && sidePanelsSizes !== null && playerClientRect !== null;
+  const {sidePanelsSizes, sidePanelsModes, playerWrapperClientRect} = options;
+  return sidePanelsModes !== null && sidePanelsSizes !== null && playerWrapperClientRect !== null;
 }
 
 /**
@@ -70,7 +70,7 @@ const mapStateToProps = state => ({
   sidePanelsModes: state.shell.sidePanelsModes,
   sidePanelsSizes: state.shell.sidePanelsSizes,
   sidePanelsAllowed: state.shell.sidePanelsAllowed,
-  playerClientRect: state.shell.playerClientRect
+  playerWrapperClientRect: state.shell.playerWrapperClientRect
 });
 
 /**
@@ -107,7 +107,7 @@ const connectToUIPresetsStore = () => {
         const options = {
           sidePanelsModes: propsSnapshot.sidePanelsModes,
           sidePanelsSizes: propsSnapshot.sidePanelsSizes,
-          playerClientRect: propsSnapshot.playerClientRect,
+          playerWrapperClientRect: propsSnapshot.playerWrapperClientRect,
           sidePanelsAllowed: propsSnapshot.sidePanelsAllowed
         };
 
@@ -124,9 +124,17 @@ const connectToUIPresetsStore = () => {
        * @return {void}
        */
       componentDidUpdate(prevProps): void {
-        const {sidePanelsModes, sidePanelsAllowed, playerClientRect} = this.props;
-        const {sidePanelsModes: prevSidePanelsModes, sidePanelsAllowed: prevSidePanelsAllowed, playerClientRect: prevPlayerClientRect} = prevProps;
-        if (sidePanelsModes === prevSidePanelsModes && sidePanelsAllowed === prevSidePanelsAllowed && playerClientRect === prevPlayerClientRect) {
+        const {sidePanelsModes, sidePanelsAllowed, playerWrapperClientRect} = this.props;
+        const {
+          sidePanelsModes: prevSidePanelsModes,
+          sidePanelsAllowed: prevSidePanelsAllowed,
+          playerWrapperClientRect: prevplayerWrapperClientRect
+        } = prevProps;
+        if (
+          sidePanelsModes === prevSidePanelsModes &&
+          sidePanelsAllowed === prevSidePanelsAllowed &&
+          playerWrapperClientRect === prevplayerWrapperClientRect
+        ) {
           return;
         }
 
@@ -146,7 +154,7 @@ const connectToUIPresetsStore = () => {
           return null;
         }
         // eslint-disable-next-line no-unused-vars
-        const {playerClientRect, sidePanelsModes, sidePanelsAllowed, ...restProps} = this.props;
+        const {playerWrapperClientRect, sidePanelsModes, sidePanelsAllowed, ...restProps} = this.props;
         return <InnerComponent {...restProps} sidePanelsStore={sidePanelsStore} />;
       }
     };

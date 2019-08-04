@@ -213,12 +213,11 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   _onWindowResize(): void {
-    const playerContainer = document.getElementById(this.props.targetId);
+    // todo sakal use an exposed api
+    // todo sakal Oren - moved the `document.body` updateDocumentWidth to relevant listener
+    const playerContainer = document.getElementById(this.player._localPlayer._playerId);
     if (playerContainer) {
       this.props.updatePlayerClientRect(playerContainer.getBoundingClientRect());
-    }
-    if (document.body) {
-      this.props.updateDocumentWidth(document.body.clientWidth);
     }
   }
 
@@ -332,7 +331,10 @@ class Shell extends BaseComponent {
     if (this.props.seekbarDraggingActive) playerClasses.push(style.hover);
     if (this.props.fullscreen) playerClasses.push(style.fullscreen);
     if (this.props.playlist) playerClasses.push(style.playlist);
+
     if (this.props.playerClientRect) {
+      // eslint-disable-next-line no-console
+      console.log(`sakal resize`, {size: this.props.playerClientRect.width});
       if (this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.TINY) {
         playerClasses.push(style.sizeTy);
         this.props.updatePlayerSize(PLAYER_SIZE.TINY);

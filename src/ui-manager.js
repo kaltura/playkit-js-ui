@@ -13,6 +13,8 @@ import reducer from './store';
 import en_translations from './translations/en.json';
 import {actions as configActions} from './reducers/config';
 import {actions as shellActions, SidePanelOrientation} from './reducers/shell';
+import {CustomEventType} from '@playkit-js/playkit-js';
+import {utils as playkitUtils} from '@playkit-js/playkit-js';
 
 // core components for the UI
 import {EngineConnector} from './components/engine-connector';
@@ -24,6 +26,84 @@ import * as presets from './ui-presets';
 import {middleware} from './middlewares';
 
 import './styles/style.scss';
+
+// TODO sakal move to utils
+/**
+ * Throttle function (taken from underscore)
+ * Information on the differences between:
+ * https://css-tricks.com/debouncing-throttling-explained-examples/
+ * @param {*} func func
+ * @param {*} wait wait
+ * @param {*} options options
+ * @returns {function} throttle
+ */
+function throttle(func, wait, options) {
+  var timeout,
+    context,
+    args,
+    result,
+    previous = 0;
+
+  if (!options) options = {};
+
+  var later = function() {
+    previous = options.leading === false ? 0 : Date.now();
+    timeout = null;
+    result = func.apply(context, args);
+    if (!timeout) context = args = null;
+  };
+
+  var throttled = function() {
+    var now = Date.now();
+    if (!previous && options.leading === false) previous = now;
+    var remaining = wait - (now - previous);
+    context = this;
+    args = arguments;
+    if (remaining <= 0 || remaining > wait) {
+      if (timeout) {
+        clearTimeout(timeout);
+        timeout = null;
+      }
+      previous = now;
+      result = func.apply(context, args);
+      if (!timeout) context = args = null;
+    } else if (!timeout && options.trailing !== false) {
+      timeout = setTimeout(later, remaining);
+    }
+    return result;
+  };
+
+  throttled.cancel = function() {
+    clearTimeout(timeout);
+    previous = 0;
+    timeout = context = args = null;
+  };
+
+  return throttled;
+}
+// TODO sakal remove if not in use
+// /**
+//  * Debounce function, taken directly from lodash (thank you)
+//  * @param {*} func - the callback
+//  * @param {*} wait - how much time to wait before calling the callback.
+//  * @param {*} immediate - leading edge - trigger the callback right away and then wait.
+//  * @returns {Function} debounce
+//  */
+// function debounce(func, wait, immediate) {
+//   var timeout;
+//   return function() {
+//     var context = this,
+//       args = arguments,
+//       later = function() {
+//         timeout = null;
+//         if (!immediate) func.apply(context, args);
+//       },
+//       callNow = immediate && !timeout;
+//     clearTimeout(timeout);
+//     timeout = setTimeout(later, wait);
+//     if (callNow) func.apply(context, args);
+//   };
+// }
 
 /**
  * API used for building UIs based on state conditions
@@ -39,6 +119,13 @@ class UIManager {
   _translations: {[langKey: string]: Object} = {en: en_translations};
   _locale: string = 'en';
   _uiComponents: UIComponent[];
+
+  /**
+   * holds the resize observer. Incharge of notifying on resize changes.
+   * @type {?AdsController}
+   * @private
+   */
+  _resizeWatcher: ResizeWatcher;
 
   /**
    * Creates an instance of UIManager.
@@ -62,7 +149,29 @@ class UIManager {
     this.setConfig(config);
     this._setLocaleTranslations(config);
     setEnv(this.player.env);
+
+    this._resizeWatcher = new playkitUtils.ResizeWatcher();
+    this._resizeWatcher.init(document.getElementById(config.targetId));
+    this._resizeWatcher.addEventListener(CustomEventType.RESIZE, this._onPlayerWrapperResize);
   }
+
+  /**
+   * handle player wrapper resize
+   * @type {Function}
+   * @private
+   */
+  _onPlayerWrapperResize = throttle(() => {
+    // todo sakal discuss about the name player wrapper
+    const playerWrapperContainer = document.getElementById(this.targetId);
+    if (playerWrapperContainer) {
+      this.store.dispatch(shellActions.updatePlayerWrapperClientRect(playerWrapperContainer.getBoundingClientRect()));
+    }
+
+    // todo sakal Oren imo this is the relevant place and note that it is wrappered with debounce
+    if (document.body) {
+      this.store.dispatch(shellActions.updateDocumentWidth(document.body.clientWidth));
+    }
+  }, 500);
 
   /**
    * Gets the updated state from the config reducer.
@@ -206,6 +315,8 @@ class UIManager {
    * @returns {void}
    */
   destroy(): void {
+    this._resizeWatcher.removeEventListener(CustomEventType.RESIZE, this._onPlayerWrapperResize);
+    this._resizeWatcher.destroy();
     if (this.container) {
       this.container.prepend(this.player.getView());
       render('', this.container, this.root);

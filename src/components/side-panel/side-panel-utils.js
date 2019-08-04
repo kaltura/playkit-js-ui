@@ -10,9 +10,9 @@ const minimumVideoHeight = 150; // TODO sakal get actual width from Oren
  * @return {Object} dimensions
  */
 function calculateVerticalDimensions(options) {
-  const {sidePanelsSizes, sidePanelsModes, playerClientRect, isVideo} = options;
+  const {sidePanelsSizes, sidePanelsModes, playerWrapperClientRect, isVideo} = options;
   const sizes = sidePanelsSizes[SidePanelOrientation.VERTICAL];
-  const playerWidth = playerClientRect.width;
+  const playerWidth = playerWrapperClientRect.width;
   let verticalPanelWidth = Math.max(sizes.min, Math.min(sizes.max, playerWidth * sizes.ratio));
 
   const leftSidePanelMode = sidePanelsModes[SidePanelPositions.LEFT];
@@ -41,9 +41,9 @@ function calculateVerticalDimensions(options) {
  * @return {Object} dimensions
  */
 function calculateHorizontalDimensions(options) {
-  const {sidePanelsSizes, sidePanelsModes, playerClientRect, isVideo} = options;
+  const {sidePanelsSizes, sidePanelsModes, playerWrapperClientRect, isVideo} = options;
   const sizes = sidePanelsSizes[SidePanelOrientation.HORIZONTAL];
-  const playerHeight = playerClientRect.height;
+  const playerHeight = playerWrapperClientRect.height;
   let horizontalPanelHeight = Math.max(sizes.min, Math.min(sizes.max, playerHeight * sizes.ratio));
 
   const topSidePanelMode = sidePanelsModes[SidePanelPositions.TOP];

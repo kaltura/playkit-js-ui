@@ -5,6 +5,7 @@ export const types = {
   UPDATE_IS_MOBILE: 'shell/UPDATE_IS_MOBILE',
   UPDATE_PLAYER_SIZE: 'shell/UPDATE_PLAYER_SIZE',
   UPDATE_PLAYER_CLIENT_RECT: 'shell/UPDATE_PLAYER_CLIENT_RECT',
+  UPDATE_PLAYER_WRAPPER_CLIENT_RECT: 'shell/UPDATE_PLAYER_WRAPPER_CLIENT_RECT',
   UPDATE_DOCUMENT_WIDTH: 'shell/UPDATE_DOCUMENT_WIDTH',
   UPDATE_PLAYER_HOVER_STATE: 'shell/UPDATE_PLAYER_HOVER_STATE',
   UPDATE_PLAYER_NAV_STATE: 'shell/UPDATE_PLAYER_NAV_STATE',
@@ -36,6 +37,8 @@ export const SidePanelModes = {
 
 export const initialState = {
   playerClasses: [],
+  playerClientRect: {width: 0, height: 0}, // todo sakal oren decide if this is relevant
+  playerWrapperClientRect: {width: 0, height: 0},
   playerHover: false,
   playerNav: false,
   smartContainerOpen: false,
@@ -84,6 +87,12 @@ export default (state: Object = initialState, action: Object) => {
       return {
         ...state,
         playerClientRect: action.playerClientRect
+      };
+
+    case types.UPDATE_PLAYER_WRAPPER_CLIENT_RECT:
+      return {
+        ...state,
+        playerWrapperClientRect: action.playerWrapperClientRect
       };
 
     case types.UPDATE_DOCUMENT_WIDTH:
@@ -165,6 +174,7 @@ export const actions = {
   updateIsMobile: (isMobile: boolean) => ({type: types.UPDATE_IS_MOBILE, isMobile}),
   updatePlayerSize: (playerSize: string) => ({type: types.UPDATE_PLAYER_SIZE, playerSize}),
   updatePlayerClientRect: (playerClientRect: Object) => ({type: types.UPDATE_PLAYER_CLIENT_RECT, playerClientRect}),
+  updatePlayerWrapperClientRect: (playerWrapperClientRect: Object) => ({type: types.UPDATE_PLAYER_WRAPPER_CLIENT_RECT, playerWrapperClientRect}),
   updateDocumentWidth: (documentWidth: number) => ({type: types.UPDATE_DOCUMENT_WIDTH, documentWidth}),
   updatePlayerHoverState: (hover: boolean) => ({type: types.UPDATE_PLAYER_HOVER_STATE, hover}),
   updatePlayerNavState: (nav: boolean) => ({type: types.UPDATE_PLAYER_NAV_STATE, nav}),
