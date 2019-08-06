@@ -111,6 +111,9 @@ And the usage of this component will be:
 <PlayerStateLog additionalClass='red-list' />
 ```
 
+### Injected Component life-cycle
+XXXX
+
 ### Creating a component to be included in the core library
 
 If a component is to be made in order to be included in the core library then same guidelines are applied as above.
