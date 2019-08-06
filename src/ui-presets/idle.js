@@ -3,6 +3,8 @@ import {h} from 'preact';
 import style from '../styles/style.scss';
 import {Loading} from '../components/loading';
 
+const PRESET_NAME = 'idle';
+
 /**
  * Idle ui interface
  *
@@ -17,3 +19,5 @@ export function idleUI(props: any): React$Element<any> {
     </div>
   );
 }
+
+idleUI.displayName = PRESET_NAME;

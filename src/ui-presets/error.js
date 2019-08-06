@@ -3,6 +3,8 @@ import style from '../styles/style.scss';
 import {h} from 'preact';
 import {ErrorOverlay} from '../components/error-overlay';
 
+const PRESET_NAME = 'error';
+
 /**
  * Error ui
  *
@@ -17,3 +19,5 @@ export function errorUI(props: any): React$Element<any> {
     </div>
   );
 }
+
+errorUI.displayName = PRESET_NAME;
