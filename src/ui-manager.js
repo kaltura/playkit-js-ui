@@ -8,11 +8,11 @@ import {mergeDeep} from './utils/merge-deep';
 import {LogLevel, getLogLevel, setLogLevel, setLogHandler} from './utils/logger';
 import {EventType} from './event/event-type';
 import {setEnv} from './utils/key-map';
-
+import {ContainerProvider} from './components/container';
 import reducer from './store';
 import en_translations from './translations/en.json';
+import {actions as configActions} from './reducers/config';
 
-import {actions} from './reducers/config';
 // core components for the UI
 import {EngineConnector} from './components/engine-connector';
 import {Shell} from './components/shell';
@@ -38,6 +38,7 @@ class UIManager {
   root: React$Component<any, any, any>;
   _translations: {[langKey: string]: Object} = {en: en_translations};
   _locale: string = 'en';
+  _uiComponents: UIComponent[];
 
   /**
    * Creates an instance of UIManager.
@@ -52,6 +53,9 @@ class UIManager {
     if (config.log && typeof config.log.handler === 'function') {
       setLogHandler(config.log.handler);
     }
+
+    this._uiComponents = [...(config.uiComponents || [])];
+    delete config.uiComponents; // todo sakal consult with Oren if he wants to keep the value in the config even if it is stale
     this.player = player;
     this.targetId = config.targetId;
     this._createStore(config);
@@ -79,9 +83,9 @@ class UIManager {
    */
   setConfig(config: Object, componentAlias?: string): void {
     if (componentAlias) {
-      this.store.dispatch(actions.updateComponentConfig(componentAlias, config));
+      this.store.dispatch(configActions.updateComponentConfig(componentAlias, config));
     } else {
-      this.store.dispatch(actions.updateConfig(config));
+      this.store.dispatch(configActions.updateConfig(config));
     }
   }
 
@@ -92,12 +96,13 @@ class UIManager {
    * @memberof UIManager
    */
   buildDefaultUI(): void {
+    // TODO remove temp 'sakal' global variable
     const uis = [
-      {template: props => presets.idleUI(props), condition: state => state.engine.isIdle},
-      {template: props => presets.errorUI(props), condition: state => state.engine.hasError},
-      {template: props => presets.adsUI(props), condition: state => state.engine.adBreak},
-      {template: props => presets.liveUI(props), condition: state => state.engine.isLive},
-      {template: props => presets.playbackUI(props)}
+      {template: presets.idleUI, condition: state => state.engine.isIdle},
+      {template: presets.errorUI, condition: state => window.sakal === 'error' || state.engine.hasError},
+      {template: presets.adsUI, condition: state => window.sakal === 'ads' || state.engine.adBreak},
+      {template: presets.liveUI, condition: state => window.sakal === 'live' || state.engine.isLive},
+      {template: presets.playbackUI}
     ];
     this._buildUI(uis);
   }
@@ -169,18 +174,20 @@ class UIManager {
       // i18n, redux and initial player-to-store connector setup
       const template = (
         <Provider store={this.store}>
-          <IntlProvider definition={this._translations[this._locale]}>
-            <Shell player={this.player}>
-              <EngineConnector player={this.player} />
-              <VideoPlayer player={this.player} />
-              <PlayerGUI uis={uis} player={this.player} playerContainer={this.container} />
-            </Shell>
-          </IntlProvider>
+          <ContainerProvider uiComponents={this._uiComponents}>
+            <IntlProvider definition={this._translations[this._locale]}>
+              <Shell player={this.player}>
+                <EngineConnector player={this.player} />
+                <VideoPlayer player={this.player} />
+                <PlayerGUI uis={uis} player={this.player} playerContainer={this.container} />
+              </Shell>
+            </IntlProvider>
+          </ContainerProvider>
         </Provider>
       );
 
       // render the player
-      this.root = render(template, this.container);
+      this.root = render(template, this.container, this.root);
     }
   }
 
