@@ -61,7 +61,8 @@ class KeyboardControl extends BaseComponent {
       return;
     }
     playerContainer.onkeydown = (e: KeyboardEvent) => {
-      if (!this.props.shareOverlay && !this.props.playerNav && typeof this.keyboardHandlers[e.keyCode] === 'function') {
+      const isEditableNode = ['INPUT', 'SELECT', 'TEXTAREA'].indexOf(e.target.nodeName) !== -1;
+      if (!isEditableNode && !this.props.shareOverlay && !this.props.playerNav && typeof this.keyboardHandlers[e.keyCode] === 'function') {
         e.preventDefault();
         this.logger.debug(`KeyDown -> keyName: ${getKeyName(e.keyCode)}, shiftKey: ${e.shiftKey.toString()}`);
         const payload = this.keyboardHandlers[e.keyCode](e.shiftKey);
