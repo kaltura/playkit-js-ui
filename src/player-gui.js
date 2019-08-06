@@ -1,6 +1,8 @@
 //@flow
-import {Component} from 'preact';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
+import {bindActions} from './utils';
+import {actions} from './reducers/shell';
 
 /**
  * mapping state to props
@@ -22,7 +24,10 @@ const mapStateToProps = state => ({
   config: state.config
 });
 
-@connect(mapStateToProps)
+@connect(
+  mapStateToProps,
+  bindActions(actions)
+)
 /**
  * Player GUI component
  *
@@ -59,9 +64,22 @@ class PlayerGUI extends Component {
    */
   render(props: any): React$Element<any> | void {
     let uiToRender;
+    const {activePresetName} = this.props.state.shell;
     if (this.props.uis.length > 0) {
       uiToRender = this.getMatchedUI(props.uis, props.state);
-      return uiToRender ? uiToRender.template(props) : this.props.uis[0].template(props);
+      const template = uiToRender ? uiToRender.template : this.props.uis[this.props.uis.length - 1].template;
+      const uiComponent = h(template, props);
+      const presetName = uiComponent ? uiComponent.nodeName.displayName : '';
+
+      if (activePresetName !== presetName) {
+        props.updateActivePresetName(presetName);
+      }
+
+      return (
+        <div>
+          <div data-kp-preset={presetName}>{uiComponent}</div>
+        </div>
+      );
     } else {
       return undefined;
     }
