@@ -14,7 +14,6 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps)
-
 /**
  * TopBar component
  *
@@ -31,10 +30,17 @@ class TopBar extends Component {
    * @memberof TopBar
    */
   render(props: any): ?React$Element<any> {
+    const {disabled, isPlaybackEnded, isCasting} = props;
+
     const styleClass = [style.topBar];
-    if (props.isCasting && props.isPlaybackEnded) {
+
+    if (disabled) {
+      styleClass.push(style.disabled);
+    }
+    if (isCasting && isPlaybackEnded) {
       styleClass.push(style.hide);
     }
+
     return <div className={styleClass.join(' ')}>{props.children}</div>;
   }
 }
