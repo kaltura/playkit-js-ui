@@ -23,6 +23,8 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile
 });
 
+const COMPONENT_NAME = 'volume';
+
 @connect(
   mapStateToProps,
   bindActions({...actions, ...engineActions})
@@ -46,7 +48,7 @@ class VolumeControl extends BaseComponent {
    * @memberof VolumeControl
    */
   constructor(obj: Object) {
-    super({name: 'Volume', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
@@ -306,5 +308,7 @@ class VolumeControl extends BaseComponent {
     );
   }
 }
+
+VolumeControl.displayName = COMPONENT_NAME;
 
 export {VolumeControl};
