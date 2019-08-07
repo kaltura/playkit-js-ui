@@ -61,9 +61,6 @@ class InjectedComponent extends Component {
   /**
    * render component
    *
-   * @param {*} props - props
-   * @param {*} state - state
-   * @param {*} context - context
    * @returns {React$Element} - component
    * @memberof Container
    */

@@ -176,5 +176,5 @@ The UI Manager has three pre-defined conditions:
 ## Using custom components
 Presets can be created by using the player default library components, but you can also create and use your own components to define the layout.
 
-See example on how to create and use your own compoentns [here](create-new-component.md)
+See example on how to create and use your own components [here](create-ui-component.md)
 ```
