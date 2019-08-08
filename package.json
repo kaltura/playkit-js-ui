@@ -36,9 +36,8 @@
     "preact": "^8.4.2",
     "preact-i18n": "^1.2.0",
     "preact-portal": "^1.1.3",
-    "preact-context": "^1.1.3",
-    "preact-redux": "^2.1.0",
-    "redux": "^4.0.0"
+    "preact-redux": "2.0.2",
+    "redux": "3.7.1"
   },
   "devDependencies": {
     "@playkit-js/playkit-js": "^0.37.0",
@@ -87,8 +86,8 @@
     "mocha": "^6.1.4",
     "mocha-cli": "^1.0.1",
     "node-sass": "^4.12.0",
-    "sass-loader": "^7.1.0",
     "prettier": "^1.18.2",
+    "sass-loader": "^7.1.0",
     "sinon": "^7.3.2",
     "sinon-chai": "^3.3.0",
     "standard-version": "^6.0.1",
