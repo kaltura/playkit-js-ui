@@ -24,7 +24,8 @@ const mapStateToProps = state => ({
   textTracks: state.engine.textTracks,
   overlayOpen: state.cvaa.overlayOpen,
   isMobile: state.shell.isMobile,
-  playerSize: state.shell.playerSize
+  playerSize: state.shell.playerSize,
+  playerNav: state.shell.playerNav
 });
 
 @connect(
@@ -120,6 +121,18 @@ class LanguageControl extends BaseComponent {
     });
   }
 
+  handleKeyDown(e) {
+    if (e.keyCode === KeyMap.DOWN) {
+      if (e.composedPath && e.composedPath().length && e.composedPath()[0].nextSibling) {
+        e.composedPath()[0].nextSibling.focus();
+      }
+    } else if (e.keyCode === KeyMap.UP) {
+      if (e.composedPath && e.composedPath().length && e.composedPath()[0].previousSibling) {
+        e.composedPath()[0].previousSibling.focus();
+      }
+    }
+  }
+
   /**
    * Select the given text track
    *
@@ -179,6 +192,8 @@ class LanguageControl extends BaseComponent {
                   label={<Text id="language.audio" />}
                   options={audioOptions}
                   onSelect={audioTrack => this.onAudioChange(audioTrack)}
+                  focus={this.props.playerNav}
+                  onKeyDown={this.handleKeyDown}
                 />
               </Localizer>
             )}
@@ -191,6 +206,7 @@ class LanguageControl extends BaseComponent {
                   label={<Text id="language.captions" />}
                   options={textOptions}
                   onSelect={textTrack => this.onCaptionsChange(textTrack)}
+                  onKeyDown={this.handleKeyDown}
                 />
               </Localizer>
             )}
@@ -203,6 +219,8 @@ class LanguageControl extends BaseComponent {
                 onKeyDown={e => {
                   if (e.keyCode === KeyMap.ENTER) {
                     this.toggleCVAAOverlay();
+                  } else {
+                    this.handleKeyDown(e);
                   }
                 }}>
                 <a className={style.advancedCaptionsMenuLink} onClick={() => this.toggleCVAAOverlay()}>

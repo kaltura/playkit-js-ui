@@ -28,6 +28,7 @@ const mapStateToProps = state => ({
 class DropDown extends Component {
   state: Object;
   _el: HTMLDivElement;
+  _dropdownButton: HTMLDivElement;
 
   /**
    * before component mounted, set initial internal state
@@ -36,6 +37,7 @@ class DropDown extends Component {
    * @memberof DropDown
    */
   componentWillMount() {
+    this.props.onRef(this);
     this.setState({dropMenuActive: false});
   }
 
@@ -133,10 +135,10 @@ class DropDown extends Component {
         className={this.state.dropMenuActive ? [style.dropdown, style.active].join(' ') : style.dropdown}
         ref={el => (this._el = el)}>
         <div
-          tabIndex="0"
           className={style.dropdownButton}
           onClick={() => this.setState({dropMenuActive: !this.state.dropMenuActive})}
-          onKeyDown={e => this.onKeyDown(e)}>
+          onKeyDown={e => this.onKeyDown(e)}
+          ref={bt => (this._dropdownButton = bt)}>
           <span>{this.getActiveOptionLabel()}</span>
           <Icon type={IconType.ArrowDown} />
         </div>
