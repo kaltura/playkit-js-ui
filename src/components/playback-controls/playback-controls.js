@@ -42,5 +42,6 @@ class PlaybackControls extends Component {
     );
   }
 }
+
 PlaybackControls.displayName = COMPONENT_NAME;
 export {PlaybackControls};

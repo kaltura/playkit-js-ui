@@ -3,6 +3,8 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {toHHMMSS} from '../../utils/time-format';
 
+const COMPONENT_NAME = 'TimeDisplay';
+
 /**
  * TimeDisplay component
  *
@@ -55,4 +57,5 @@ class TimeDisplay extends Component {
   }
 }
 
+TimeDisplay.displayName = COMPONENT_NAME;
 export {TimeDisplay};

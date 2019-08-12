@@ -8,6 +8,8 @@ import {actions} from '../../reducers/shell';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 
+const COMPONENT_NAME = 'Overlay';
+
 @connect(
   null,
   bindActions(actions)
@@ -93,4 +95,5 @@ class Overlay extends Component {
   }
 }
 
+Overlay.displayName = COMPONENT_NAME;
 export {Overlay};

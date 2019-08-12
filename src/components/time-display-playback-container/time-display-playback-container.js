@@ -14,6 +14,8 @@ const mapStateToProps = state => ({
   duration: state.engine.duration
 });
 
+const COMPONENT_NAME = 'TimeDisplayPlaybackContainer';
+
 @connect(mapStateToProps)
 /**
  * TimeDisplayPlaybackContainer component
@@ -28,7 +30,7 @@ class TimeDisplayPlaybackContainer extends BaseComponent {
    * @memberof TimeDisplayPlaybackContainer
    */
   constructor() {
-    super({name: 'TimeDisplayPlaybackContainer'});
+    super({name: COMPONENT_NAME});
   }
 
   /**
@@ -43,4 +45,5 @@ class TimeDisplayPlaybackContainer extends BaseComponent {
   }
 }
 
+TimeDisplayPlaybackContainer.displayName = COMPONENT_NAME;
 export {TimeDisplayPlaybackContainer};

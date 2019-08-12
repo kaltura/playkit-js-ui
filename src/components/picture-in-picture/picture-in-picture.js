@@ -18,6 +18,8 @@ const mapStateToProps = state => ({
   playerSize: state.shell.playerSize
 });
 
+const COMPONENT_NAME = 'PictureInPicture';
+
 @connect(mapStateToProps)
 /**
  * PictureInPicture component
@@ -32,7 +34,7 @@ class PictureInPicture extends BaseComponent {
    * @memberof PictureInPicture
    */
   constructor(obj: Object) {
-    super({name: 'PictureInPicture', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
@@ -78,4 +80,5 @@ class PictureInPicture extends BaseComponent {
   }
 }
 
+PictureInPicture.displayName = COMPONENT_NAME;
 export {PictureInPicture};

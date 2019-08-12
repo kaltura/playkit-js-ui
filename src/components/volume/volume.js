@@ -23,6 +23,7 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile
 });
 
+// TODO oren the name in the constructor is incorrect (should have been VolumeControl)
 const COMPONENT_NAME = 'volume';
 
 @connect(
@@ -310,5 +311,4 @@ class VolumeControl extends BaseComponent {
 }
 
 VolumeControl.displayName = COMPONENT_NAME;
-
 export {VolumeControl};

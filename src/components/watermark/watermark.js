@@ -19,6 +19,9 @@ const mapStateToProps = state => ({
   )
 });
 
+// TODO oren had display name with lower camel case
+const COMPONENT_NAME = 'Watermark';
+
 @connect(mapStateToProps)
 /**
  * Watermark component
@@ -28,18 +31,13 @@ const mapStateToProps = state => ({
  */
 class Watermark extends BaseComponent {
   /**
-   * @static
-   * @type {string} - Component display name
-   */
-  static displayName = 'watermark';
-  /**
    * should render component
    * @param {*} props - component props
    * @returns {boolean} - whether to render the component
    * @static
    */
   static shouldRender(props: any): boolean {
-    const componentConfig = props.config.components[this.displayName];
+    const componentConfig = props.config.components['watermark'];
     return !(Object.keys(componentConfig).length === 0 && componentConfig.constructor === Object);
   }
 
@@ -49,7 +47,7 @@ class Watermark extends BaseComponent {
    * @memberof Watermark
    */
   constructor(obj: Object) {
-    super({name: 'Watermark', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
     this.setState({show: true});
   }
 
@@ -103,4 +101,5 @@ class Watermark extends BaseComponent {
   }
 }
 
+Watermark.displayName = COMPONENT_NAME;
 export {Watermark};

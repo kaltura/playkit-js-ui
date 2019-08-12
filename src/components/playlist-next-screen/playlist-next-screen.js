@@ -23,6 +23,8 @@ const mapStateToProps = state => ({
   isPlaybackEnded: state.engine.isPlaybackEnded
 });
 
+const COMPONENT_NAME = 'PlaylistNextScreen';
+
 @connect(mapStateToProps)
 /**
  * PlaylistNextScreen component
@@ -48,7 +50,7 @@ class PlaylistNextScreen extends BaseComponent {
    * @memberof PlaylistNextScreen
    */
   constructor(obj: Object) {
-    super({name: 'PlaylistNextScreen', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
@@ -112,4 +114,5 @@ class PlaylistNextScreen extends BaseComponent {
   }
 }
 
+PlaylistNextScreen.displayName = COMPONENT_NAME;
 export {PlaylistNextScreen};

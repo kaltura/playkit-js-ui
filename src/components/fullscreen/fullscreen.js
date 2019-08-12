@@ -15,6 +15,9 @@ const mapStateToProps = state => ({
   fullscreen: state.engine.fullscreen
 });
 
+// TODO oren the name in the constructor is incorrect (should have been FullscreenControl)
+const COMPONENT_NAME = 'Fullscreen';
+
 @connect(mapStateToProps)
 /**
  * FullscreenControl component
@@ -30,7 +33,7 @@ class FullscreenControl extends BaseComponent {
    * @memberof FullscreenControl
    */
   constructor(obj: Object) {
-    super({name: 'Fullscreen', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
@@ -69,4 +72,5 @@ class FullscreenControl extends BaseComponent {
   }
 }
 
+FullscreenControl.displayName = COMPONENT_NAME;
 export {FullscreenControl};

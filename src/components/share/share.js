@@ -22,6 +22,9 @@ const mapStateToProps = state => ({
   config: state.config.components.share
 });
 
+// TODO oren the name in the constructor is incorrect (should have been ShareControl)
+const COMPONENT_NAME = 'Share';
+
 @connect(
   mapStateToProps,
   bindActions(actions)
@@ -41,7 +44,7 @@ class ShareControl extends BaseComponent {
    * @memberof ShareControl
    */
   constructor(obj: Object) {
-    super({name: 'Share', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
@@ -112,4 +115,5 @@ class ShareControl extends BaseComponent {
   }
 }
 
+ShareControl.displayName = COMPONENT_NAME;
 export {ShareControl};

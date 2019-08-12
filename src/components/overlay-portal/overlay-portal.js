@@ -1,6 +1,8 @@
 //@flow
 import {h, Component} from 'preact';
 
+const COMPONENT_NAME = 'OverlayPortal';
+
 /**
  * OverlayPortal component
  *
@@ -31,4 +33,5 @@ class OverlayPortal extends Component {
   }
 }
 
+OverlayPortal.displayName = COMPONENT_NAME;
 export {OverlayPortal};

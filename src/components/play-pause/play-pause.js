@@ -20,6 +20,9 @@ const mapStateToProps = state => ({
   isPlaybackEnded: state.engine.isPlaybackEnded
 });
 
+// TODO oren the name in the constructor is incorrect (should have been PlayPauseControl)
+const COMPONENT_NAME = 'PlayPause';
+
 @connect(mapStateToProps)
 /**
  * PlayPauseControl component
@@ -35,7 +38,7 @@ class PlayPauseControl extends BaseComponent {
    * @memberof PlayPauseControl
    */
   constructor(obj: Object) {
-    super({name: 'PlayPause', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
@@ -89,4 +92,5 @@ class PlayPauseControl extends BaseComponent {
   }
 }
 
+PlayPauseControl.displayName = COMPONENT_NAME;
 export {PlayPauseControl};

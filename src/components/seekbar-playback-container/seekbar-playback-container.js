@@ -19,6 +19,8 @@ const mapStateToProps = state => ({
   poster: state.engine.poster
 });
 
+const COMPONENT_NAME = 'SeekBarPlaybackContainer';
+
 @connect(
   mapStateToProps,
   bindActions(actions)
@@ -37,7 +39,7 @@ class SeekBarPlaybackContainer extends BaseComponent {
    * @memberof SeekBarPlaybackContainer
    */
   constructor(obj: Object) {
-    super({name: 'SeekBarPlaybackContainer', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
@@ -83,4 +85,5 @@ class SeekBarPlaybackContainer extends BaseComponent {
   }
 }
 
+SeekBarPlaybackContainer.displayName = COMPONENT_NAME;
 export {SeekBarPlaybackContainer};

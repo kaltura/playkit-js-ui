@@ -6,6 +6,9 @@ import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 
+// TODO oren the name in the constructor is incorrect (should have been RewindControl)
+const COMPONENT_NAME = 'Rewind';
+
 /**
  * Default rewind step
  * @type {number}
@@ -27,7 +30,7 @@ class RewindControl extends BaseComponent {
    * @memberof RewindControl
    */
   constructor(obj: Object) {
-    super({name: 'Rewind', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
@@ -94,4 +97,5 @@ class RewindControl extends BaseComponent {
   }
 }
 
+RewindControl.displayName = COMPONENT_NAME;
 export {RewindControl};

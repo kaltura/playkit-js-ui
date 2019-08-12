@@ -17,6 +17,8 @@ const mapStateToProps = state => ({
   playerSize: state.shell.playerSize
 });
 
+const COMPONENT_NAME = 'DropDown';
+
 @connect(mapStateToProps)
 /**
  * DropDown component
@@ -150,4 +152,5 @@ class DropDown extends Component {
   }
 }
 
+DropDown.displayName = COMPONENT_NAME;
 export {DropDown};

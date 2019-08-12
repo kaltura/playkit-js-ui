@@ -22,6 +22,8 @@ const mapStateToProps = state => ({
   isChangingSource: state.engine.isChangingSource
 });
 
+const COMPONENT_NAME = 'CastOverlay';
+
 @connect(mapStateToProps)
 /**
  * CastOverlay component
@@ -45,7 +47,7 @@ class CastOverlay extends BaseComponent {
    * @memberof CastOverlay
    */
   constructor(obj: Object) {
-    super({name: 'CastOverlay', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
@@ -120,4 +122,5 @@ class CastOverlay extends BaseComponent {
   }
 }
 
+CastOverlay.displayName = COMPONENT_NAME;
 export {CastOverlay};

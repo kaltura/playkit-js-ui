@@ -7,6 +7,8 @@ import {actions as loadingActions} from '../../reducers/loading';
 import {actions as shellActions} from '../../reducers/shell';
 import BaseComponent from '../base';
 
+const COMPONENT_NAME = 'EngineConnector';
+
 @connect(
   reduce,
   bindActions({...actions, ...loadingActions, ...shellActions})
@@ -25,7 +27,7 @@ class EngineConnector extends BaseComponent {
    * @memberof EngineConnector
    */
   constructor(obj: Object) {
-    super({name: 'EngineConnector', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
@@ -310,4 +312,5 @@ class EngineConnector extends BaseComponent {
   }
 }
 
+EngineConnector.displayName = COMPONENT_NAME;
 export {EngineConnector};

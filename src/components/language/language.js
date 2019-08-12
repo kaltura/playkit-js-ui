@@ -27,6 +27,8 @@ const mapStateToProps = state => ({
   playerSize: state.shell.playerSize
 });
 
+const COMPONENT_NAME = 'LanguageControl';
+
 @connect(
   mapStateToProps,
   bindActions(actions)
@@ -49,7 +51,7 @@ class LanguageControl extends BaseComponent {
    * @memberof LanguageControl
    */
   constructor(obj: Object) {
-    super({name: 'LanguageControl', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
@@ -252,4 +254,5 @@ class LanguageControl extends BaseComponent {
   }
 }
 
+LanguageControl.displayName = COMPONENT_NAME;
 export {LanguageControl};

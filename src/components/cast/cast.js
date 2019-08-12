@@ -15,12 +15,15 @@ const mapStateToProps = state => ({
   isCastAvailable: state.engine.isCastAvailable
 });
 
+// TODO oren the name in the constructor is incorrect (should have been CastControl)
+const COMPONENT_NAME = 'Cast';
+
 @connect(
   mapStateToProps,
   actions
 )
 /**
- * CastOverlay component
+ * CastControl component
  *
  * @class CastControl
  * @example <CastControl player={this.player} />
@@ -33,7 +36,7 @@ class CastControl extends BaseComponent {
    * @memberof CastControl
    */
   constructor(obj: Object) {
-    super({name: 'Cast', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
@@ -70,4 +73,5 @@ class CastControl extends BaseComponent {
   }
 }
 
+CastControl.displayName = COMPONENT_NAME;
 export {CastControl};

@@ -21,6 +21,8 @@ const mapStateToProps = state => ({
   loading: state.loading.show
 });
 
+const COMPONENT_NAME = 'PrePlaybackPlayOverlay';
+
 @connect(
   mapStateToProps,
   bindActions(Object.assign({}, loadingActions))
@@ -39,7 +41,7 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   constructor(obj: Object) {
-    super({name: 'PrePlaybackPlayOverlay', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
@@ -87,4 +89,5 @@ class PrePlaybackPlayOverlay extends BaseComponent {
   }
 }
 
+PrePlaybackPlayOverlay.displayName = COMPONENT_NAME;
 export {PrePlaybackPlayOverlay};

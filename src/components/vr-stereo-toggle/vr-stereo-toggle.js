@@ -20,6 +20,9 @@ const mapStateToProps = state => ({
   config: state.config.components.vrStereo
 });
 
+// TODO oren the name in the constructor is incorrect (should have been VrStereoToggleControl)
+const COMPONENT_NAME = 'vrStereo';
+
 @connect(
   mapStateToProps,
   bindActions(Object.assign({}, actions, engineActions))
@@ -32,11 +35,6 @@ const mapStateToProps = state => ({
  * @extends {BaseComponent}
  */
 class VrStereoToggleControl extends BaseComponent {
-  /**
-   * @static
-   * @type {string} - Component display name
-   */
-  static displayName = 'vrStereo';
   /**
    * should render component
    * @param {*} props - component props
@@ -53,7 +51,7 @@ class VrStereoToggleControl extends BaseComponent {
    * @memberof VrStereoToggleControl
    */
   constructor(obj: Object) {
-    super({name: VrStereoToggleControl.displayName, player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
@@ -106,4 +104,5 @@ class VrStereoToggleControl extends BaseComponent {
   }
 }
 
+VrStereoToggleControl.displayName = COMPONENT_NAME;
 export {VrStereoToggleControl};

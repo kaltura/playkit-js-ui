@@ -20,6 +20,8 @@ const mapStateToProps = state => ({
   isDvr: state.engine.isDvr
 });
 
+const COMPONENT_NAME = 'SeekBarLivePlaybackContainer';
+
 @connect(
   mapStateToProps,
   bindActions(actions)
@@ -38,7 +40,7 @@ class SeekBarLivePlaybackContainer extends BaseComponent {
    * @memberof SeekBarLivePlaybackContainer
    */
   constructor(obj: Object) {
-    super({name: 'SeekBarLivePlaybackContainer', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
@@ -88,4 +90,5 @@ class SeekBarLivePlaybackContainer extends BaseComponent {
   }
 }
 
+SeekBarLivePlaybackContainer.displayName = COMPONENT_NAME;
 export {SeekBarLivePlaybackContainer};

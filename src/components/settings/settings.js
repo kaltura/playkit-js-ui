@@ -23,6 +23,9 @@ const mapStateToProps = state => ({
   playerSize: state.shell.playerSize
 });
 
+// TODO oren the name in the constructor is incorrect (should have been SettingsControl)
+const COMPONENT_NAME = 'Settings';
+
 @connect(
   mapStateToProps,
   bindActions(actions)
@@ -44,7 +47,7 @@ class SettingsControl extends BaseComponent {
    * @memberof SettingsControl
    */
   constructor(obj: Object) {
-    super({name: 'Settings', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
@@ -244,4 +247,5 @@ class SettingsControl extends BaseComponent {
   }
 }
 
+SettingsControl.displayName = COMPONENT_NAME;
 export {SettingsControl};

@@ -19,6 +19,8 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile
 });
 
+const COMPONENT_NAME = 'SeekBarControl';
+
 @connect(
   mapStateToProps,
   bindActions(actions)
@@ -561,4 +563,5 @@ class SeekBarControl extends Component {
   }
 }
 
+SeekBarControl.displayName = COMPONENT_NAME;
 export {SeekBarControl};
