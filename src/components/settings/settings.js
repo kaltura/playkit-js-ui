@@ -23,7 +23,7 @@ const mapStateToProps = state => ({
   playerSize: state.shell.playerSize
 });
 
-// TODO oren the name in the constructor is incorrect (should have been SettingsControl)
+// TODO Sakal - Oren, the name in the constructor is incorrect (should have been SettingsControl)
 const COMPONENT_NAME = 'Settings';
 
 @connect(

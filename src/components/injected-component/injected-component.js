@@ -3,8 +3,6 @@ import {h, Component} from 'preact';
 import getLogger from '../../utils/logger';
 import style from '../../styles/style.scss';
 
-// TODO sakal check with Oren if should inherit from 'BaseComponent'
-
 const logger = getLogger('InjectedComponent');
 
 /**

@@ -20,7 +20,7 @@ const mapStateToProps = state => ({
   isPlaybackEnded: state.engine.isPlaybackEnded
 });
 
-// TODO oren the name in the constructor is incorrect (should have been PlayPauseControl)
+// TODO Sakal - Oren, the name in the constructor is incorrect (should have been PlayPauseControl)
 const COMPONENT_NAME = 'PlayPause';
 
 @connect(mapStateToProps)

@@ -6,7 +6,7 @@ import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 
-// TODO oren the name in the constructor is incorrect (should have been RewindControl)
+// TODO Sakal - Oren, the name in the constructor is incorrect (should have been RewindControl)
 const COMPONENT_NAME = 'Rewind';
 
 /**

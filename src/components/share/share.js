@@ -22,7 +22,7 @@ const mapStateToProps = state => ({
   config: state.config.components.share
 });
 
-// TODO oren the name in the constructor is incorrect (should have been ShareControl)
+// TODO Sakal - Oren, the name in the constructor is incorrect (should have been ShareControl)
 const COMPONENT_NAME = 'Share';
 
 @connect(

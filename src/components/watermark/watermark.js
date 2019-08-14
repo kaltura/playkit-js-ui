@@ -19,7 +19,7 @@ const mapStateToProps = state => ({
   )
 });
 
-// TODO oren had display name with lower camel case
+// TODO Sakal - Oren, had display name with lower camel case
 const COMPONENT_NAME = 'Watermark';
 
 @connect(mapStateToProps)

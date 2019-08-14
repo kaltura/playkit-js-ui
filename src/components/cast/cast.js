@@ -15,7 +15,7 @@ const mapStateToProps = state => ({
   isCastAvailable: state.engine.isCastAvailable
 });
 
-// TODO oren the name in the constructor is incorrect (should have been CastControl)
+// TODO Sakal - Oren, the name in the constructor is incorrect (should have been CastControl)
 const COMPONENT_NAME = 'Cast';
 
 @connect(

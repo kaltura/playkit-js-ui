@@ -20,7 +20,7 @@ const mapStateToProps = state => ({
   config: state.config.components.vrStereo
 });
 
-// TODO oren the name in the constructor is incorrect (should have been VrStereoToggleControl)
+// TODO Sakal - Oren, the name in the constructor is incorrect (should have been VrStereoToggleControl)
 const COMPONENT_NAME = 'vrStereo';
 
 @connect(

@@ -15,7 +15,7 @@ const mapStateToProps = state => ({
   fullscreen: state.engine.fullscreen
 });
 
-// TODO oren the name in the constructor is incorrect (should have been FullscreenControl)
+// TODO Sakal - Oren, the name in the constructor is incorrect (should have been FullscreenControl)
 const COMPONENT_NAME = 'Fullscreen';
 
 @connect(mapStateToProps)

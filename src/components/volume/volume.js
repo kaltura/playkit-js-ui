@@ -23,7 +23,7 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile
 });
 
-// TODO oren the name in the constructor is incorrect (should have been VolumeControl)
+// TODO Sakal - Oren, the name in the constructor is incorrect (should have been VolumeControl)
 const COMPONENT_NAME = 'volume';
 
 @connect(
