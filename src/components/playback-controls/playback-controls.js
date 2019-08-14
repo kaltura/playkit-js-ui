@@ -14,7 +14,7 @@ const mapStateToProps = state => ({
   playlist: state.engine.playlist
 });
 
-const COMPONENT_NAME = 'playback-controls';
+const COMPONENT_NAME = 'PlaybackControls';
 
 @connect(mapStateToProps)
 /**
