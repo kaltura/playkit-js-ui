@@ -37,8 +37,14 @@ class DropDown extends Component {
    * @memberof DropDown
    */
   componentWillMount() {
-    this.props.onRef(this);
     this.setState({dropMenuActive: false});
+  }
+
+  componentWillUpdate(nextProps): void {
+    if (nextProps.parentClicked) {
+      this.setState({dropMenuActive: !this.state.dropMenuActive});
+      nextProps.parentClicked = false;
+    }
   }
 
   /**

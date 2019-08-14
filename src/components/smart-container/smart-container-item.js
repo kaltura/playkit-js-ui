@@ -13,7 +13,6 @@ import {KeyMap} from '../../utils/key-map';
  */
 class SmartContainerItem extends Component {
   _el: HTMLDivElement;
-  _dropDown: DropDown;
 
   /**
    * after component mounted, focus dropdown button if passed to be focus
@@ -26,10 +25,6 @@ class SmartContainerItem extends Component {
     }
   }
 
-  onKeyDown(e): void {
-    this.props.onKeyDown(e);
-    this._dropDown.onKeyDown(e);
-  }
   /**
    * render component
    *
@@ -42,7 +37,9 @@ class SmartContainerItem extends Component {
     return (
       <div
         onKeyDown={e => {
-          this.onKeyDown(e);
+          if (e.keyCode == KeyMap.ENTER) {
+            this.setState({clicked: true});
+          }
         }}
         ref={el => (this._el = el)}
         tabIndex="0"
@@ -59,10 +56,10 @@ class SmartContainerItem extends Component {
         </label>
         <DropDown
           name={label}
-          onRef={ref => (this._dropDown = ref)}
           onSelect={o => props.onSelect(o)}
           options={props.options}
           focus={typeof this.props.focus === 'boolean' && this.props.focus}
+          parentClicked={this.state.clicked}
         />
       </div>
     );

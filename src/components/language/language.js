@@ -121,17 +121,7 @@ class LanguageControl extends BaseComponent {
     });
   }
 
-  handleKeyDown(e) {
-    if (e.keyCode === KeyMap.DOWN) {
-      if (e.composedPath && e.composedPath().length && e.composedPath()[0].nextSibling) {
-        e.composedPath()[0].nextSibling.focus();
-      }
-    } else if (e.keyCode === KeyMap.UP) {
-      if (e.composedPath && e.composedPath().length && e.composedPath()[0].previousSibling) {
-        e.composedPath()[0].previousSibling.focus();
-      }
-    }
-  }
+
 
   /**
    * Select the given text track

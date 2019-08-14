@@ -20,7 +20,8 @@ const mapStateToProps = state => ({
   videoTracks: state.engine.videoTracks,
   isMobile: state.shell.isMobile,
   isLive: state.engine.isLive,
-  playerSize: state.shell.playerSize
+  playerSize: state.shell.playerSize,
+  playerNav: state.shell.playerNav
 });
 
 @connect(
@@ -227,6 +228,7 @@ class SettingsControl extends BaseComponent {
                   label={<Text id="settings.quality" />}
                   options={qualityOptions}
                   onSelect={o => this.onQualityChange(o)}
+                  focus={this.props.playerNav}
                 />
               </Localizer>
             )}

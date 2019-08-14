@@ -40,6 +40,7 @@ const mapStateToProps = state => ({
  */
 class SmartContainer extends Component {
   _portal: any;
+
   /**
    * before component mounted, add player css class
    *
@@ -84,7 +85,15 @@ class SmartContainer extends Component {
         tabIndex="-1"
         className={[style.smartContainer, style.top, style.left].join(' ')}
         onKeyDown={e => {
-          if (e.keyCode === KeyMap.ESC) {
+          if (e.keyCode === KeyMap.DOWN) {
+            if (e.composedPath && e.composedPath().length && e.composedPath()[0].nextSibling) {
+              e.composedPath()[0].nextSibling.focus();
+            }
+          } else if (e.keyCode === KeyMap.UP) {
+            if (e.composedPath && e.composedPath().length && e.composedPath()[0].previousSibling) {
+              e.composedPath()[0].previousSibling.focus();
+            }
+          } else if (e.keyCode === KeyMap.ESC) {
             props.onClose();
           }
         }}>
