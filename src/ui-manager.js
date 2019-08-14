@@ -38,7 +38,7 @@ class UIManager {
   root: React$Component<any, any, any>;
   _translations: {[langKey: string]: Object} = {en: en_translations};
   _locale: string = 'en';
-  _uiComponents: UIComponent[];
+  _uiComponents: Array<PKUIComponent>;
 
   /**
    * Creates an instance of UIManager.

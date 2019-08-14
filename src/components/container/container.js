@@ -38,7 +38,7 @@ const initialState = {
  * @param {*} component component
  * @returns {*} component name
  */
-function getComponentName(component: Object) {
+function getComponentName(component: any) {
   if (!component || !component.nodeName) {
     return null;
   }
@@ -51,7 +51,7 @@ function getComponentName(component: Object) {
  * A video container enabling injecting components by preset, container and position
  */
 class Container extends BaseComponent {
-  presetComponentsOnlyMode: false;
+  presetComponentsOnlyMode = false;
 
   static defaultProps = {
     show: true
@@ -62,8 +62,8 @@ class Container extends BaseComponent {
    * @param {*} context context
    * @return {void}
    */
-  constructor(props, context) {
-    super(props, context);
+  constructor(props: Object) {
+    super(props);
     this.setState(initialState);
   }
 
@@ -116,7 +116,7 @@ class Container extends BaseComponent {
    * @param {*} presetsComponents presetsComponents
    * @return {void}
    */
-  _onPresetsComponentsChange = presetsComponents => {
+  _onPresetsComponentsChange = (presetsComponents: any) => {
     if (!presetsComponents) {
       return;
     }
@@ -163,7 +163,7 @@ class Container extends BaseComponent {
    * @returns {*} component
    * @private
    */
-  _renderUIComponent(uiComponent: UIComponent) {
+  _renderUIComponent(uiComponent: PKUIComponent): React$Element<any> | null {
     if (!uiComponent.render) {
       return null;
     }
@@ -178,7 +178,7 @@ class Container extends BaseComponent {
    * @param {*} children children
    * @returns {*} component
    */
-  renderContent(children) {
+  renderContent(children: Array<any>) {
     return <div className={this.props.className}>{children}</div>;
   }
 
@@ -188,7 +188,7 @@ class Container extends BaseComponent {
    * @returns {null | *} - component
    * @memberof Container
    */
-  render(): React$Element<any> {
+  render(): React$Element<any> | null {
     const {children, show, preAppendTo} = this.props;
     const {containerComponents, hasPositionedComponents} = this.state;
 
