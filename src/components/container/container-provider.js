@@ -14,7 +14,7 @@ class ContainerProvider extends Component {
   constructor() {
     super();
     this._listeners = [];
-    this._presetsComponents = {};
+    this._presetsComponents = null;
   }
 
   /**
@@ -44,7 +44,7 @@ class ContainerProvider extends Component {
       try {
         cb(this._presetsComponents);
       } catch (e) {
-        // do nothing
+        logger.error(`error occurred with one of the containers handling preset components.`, e);
       }
     });
   }
@@ -64,10 +64,12 @@ class ContainerProvider extends Component {
    * @private
    */
   _listen = cb => {
-    try {
-      cb(this._presetsComponents);
-    } catch (e) {
-      // do nothing
+    if (this._presetsComponents) {
+      try {
+        cb(this._presetsComponents);
+      } catch (e) {
+        // do nothing
+      }
     }
     this._listeners.push(cb);
   };
