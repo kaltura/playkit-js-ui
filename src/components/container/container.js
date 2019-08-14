@@ -189,7 +189,7 @@ class Container extends BaseComponent {
    * @memberof Container
    */
   render(): React$Element<any> {
-    const {children, show} = this.props;
+    const {children, show, preAppendTo} = this.props;
     const {containerComponents, hasPositionedComponents} = this.state;
 
     if (this.presetComponentsOnlyMode) {
@@ -235,10 +235,17 @@ class Container extends BaseComponent {
       newChildren.push(...children);
     }
 
-    containerComponents.appendedComponents.forEach(component => {
-      const newChild = this._renderUIComponent(component);
-      newChildren.push(newChild);
+    const appendedChildren = containerComponents.appendedComponents.map(component => {
+      return this._renderUIComponent(component);
     });
+
+    let startIndex = newChildren.length;
+    if (preAppendTo) {
+      const defaultIndex = newChildren.findIndex(item => getComponentName(item) === preAppendTo);
+      startIndex = defaultIndex !== -1 ? defaultIndex : startIndex;
+    }
+
+    newChildren.splice(startIndex, 0, ...appendedChildren);
 
     return this.renderContent(newChildren);
   }

@@ -37,7 +37,12 @@ const PRESET_NAME = 'Live';
  */
 export function liveUI(props: any): React$Element<any> {
   return (
-    <Container className={style.playbackGuiWWrapper} name={'VideoOverlay'} player={props.player} targetPresetName={PRESET_NAME}>
+    <Container
+      className={style.playbackGuiWWrapper}
+      name={'VideoOverlay'}
+      player={props.player}
+      targetPresetName={PRESET_NAME}
+      preAppendTo={'Backdrop'}>
       <KeyboardControl player={props.player} config={props.config} />
       <Loading player={props.player} />
       <div className={style.playerGui} id="player-gui">
