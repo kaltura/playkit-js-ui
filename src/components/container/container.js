@@ -51,6 +51,8 @@ function getComponentName(component: Object) {
  * A video container enabling injecting components by preset, container and position
  */
 class Container extends BaseComponent {
+  presetComponentsOnlyMode: false;
+
   static defaultProps = {
     show: true
   };
@@ -73,8 +75,13 @@ class Container extends BaseComponent {
     if (!this.context.presetComponentsStore) {
       return;
     }
-
     const {targetPresetName, activePresetName} = this.props;
+
+    if (!activePresetName) {
+      this.presetComponentsOnlyMode = true;
+      return;
+    }
+
     if (targetPresetName !== activePresetName) {
       this.logger.debug(`mount ui container (target preset '${targetPresetName}') - Container is not in use in active preset '${activePresetName}`);
       return;
@@ -93,6 +100,11 @@ class Container extends BaseComponent {
     if (!this.context.presetComponentsStore) {
       return;
     }
+
+    if (this.presetComponentsOnlyMode) {
+      return;
+    }
+
     this.context.presetComponentsStore.unlisten(this._onPresetsComponentsChange);
 
     const {targetPresetName} = this.props;
@@ -122,7 +134,7 @@ class Container extends BaseComponent {
     const positionedComponentMap = nextContainerComponents.positionedComponentMap;
     let hasPositionedComponents = false;
 
-    const presetComponents = presetsComponents[targetPresetName];
+    const presetComponents = presetsComponents[targetPresetName] || [];
     const relevantComponents = presetComponents.filter(component => component.container === this.props.name);
     relevantComponents.forEach(component => {
       if (component.beforeComponent) {
@@ -162,6 +174,15 @@ class Container extends BaseComponent {
   }
 
   /**
+   * render container content
+   * @param {*} children children
+   * @returns {*} component
+   */
+  renderContent(children) {
+    return <div className={this.props.className}>{children}</div>;
+  }
+
+  /**
    * render component
    *
    * @returns {null | *} - component
@@ -170,9 +191,15 @@ class Container extends BaseComponent {
   render(): React$Element<any> {
     const {children, show} = this.props;
     const {containerComponents, hasPositionedComponents} = this.state;
+
+    if (this.presetComponentsOnlyMode) {
+      return this.renderContent(this.props.children);
+    }
+
     if (!containerComponents || !show) {
       return null;
     }
+
     const newChildren = [];
 
     if (hasPositionedComponents) {
@@ -213,7 +240,7 @@ class Container extends BaseComponent {
       newChildren.push(newChild);
     });
 
-    return <div className={this.props.className}>{newChildren}</div>;
+    return this.renderContent(newChildren);
   }
 }
 
