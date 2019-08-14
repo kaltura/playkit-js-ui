@@ -69,7 +69,7 @@ class PlayerGUI extends Component {
       uiToRender = this.getMatchedUI(props.uis, props.state);
       const template = uiToRender ? uiToRender.template : this.props.uis[this.props.uis.length - 1].template;
       const uiComponent = h(template, props);
-      const presetName = uiComponent ? uiComponent.nodeName.displayName : '';
+      const presetName = uiComponent ? uiComponent.nodeName.displayName || '' : '';
 
       if (activePresetName !== presetName) {
         props.updateActivePresetName(presetName);
