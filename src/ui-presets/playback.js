@@ -26,6 +26,7 @@ import {PlaylistNextScreen} from '../components/playlist-next-screen';
 import {PictureInPicture} from '../components/picture-in-picture';
 import {PictureInPictureOverlay} from '../components/picture-in-picture-overlay';
 import {ShareControl} from '../components/share';
+import {LogoControl} from '../components/logo/logo';
 
 /**
  * Playback ui interface
@@ -61,6 +62,7 @@ export function playbackUI(props: any): React$Element<any> {
             <CastControl player={props.player} />
             <PictureInPicture player={props.player} />
             <FullscreenControl player={props.player} />
+            {LogoControl.shouldRender(props) ? <LogoControl player={props.player} /> : undefined}
           </div>
         </BottomBar>
       </div>

@@ -13,7 +13,8 @@ export const initialState = {
     watermark: {},
     seekbar: {},
     vrStereo: {},
-    share: {}
+    share: {},
+    logo: {}
   }
 };
 
