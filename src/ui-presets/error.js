@@ -3,7 +3,7 @@ import style from '../styles/style.scss';
 import {h} from 'preact';
 import {ErrorOverlay} from '../components/error-overlay';
 
-const PRESET_NAME = 'error';
+const PRESET_NAME = 'Error';
 
 /**
  * Error ui

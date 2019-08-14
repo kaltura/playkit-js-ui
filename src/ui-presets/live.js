@@ -23,8 +23,10 @@ import {PlaybackControls} from '../components/playback-controls';
 import {PictureInPicture} from '../components/picture-in-picture';
 import {PictureInPictureOverlay} from '../components/picture-in-picture-overlay';
 import {ShareControl} from '../components/share';
+import {Container} from '../components/container';
+import {TopBar} from '../components/top-bar';
 
-const PRESET_NAME = 'live';
+const PRESET_NAME = 'Live';
 
 /**
  * Live ui interface
@@ -35,7 +37,7 @@ const PRESET_NAME = 'live';
  */
 export function liveUI(props: any): React$Element<any> {
   return (
-    <div className={style.playbackGuiWWrapper}>
+    <Container className={style.playbackGuiWWrapper} name={'VideoOverlay'} player={props.player} targetPresetName={PRESET_NAME}>
       <KeyboardControl player={props.player} config={props.config} />
       <Loading player={props.player} />
       <div className={style.playerGui} id="player-gui">
@@ -44,13 +46,17 @@ export function liveUI(props: any): React$Element<any> {
         <OverlayAction player={props.player} />
         <PlaybackControls player={props.player} />
         <ShareControl player={props.player} />
+        <TopBar>
+          <Container className={style.leftControls} name={'TopBarLeftControls'} player={props.player} targetPresetName={PRESET_NAME} />
+          <Container className={style.rightControls} name={'TopBarRightControls'} player={props.player} targetPresetName={PRESET_NAME} />
+        </TopBar>
         <BottomBar>
           <SeekBarLivePlaybackContainer showFramePreview showTimeBubble player={props.player} playerContainer={props.playerContainer} />
-          <div className={style.leftControls}>
+          <Container className={style.leftControls} name={'BottomBarLeftControls'} player={props.player} targetPresetName={PRESET_NAME}>
             <PlaybackControls player={props.player} />
             <LiveTag player={props.player} />
-          </div>
-          <div className={style.rightControls}>
+          </Container>
+          <Container className={style.rightControls} name={'BottomBarRightControls'} player={props.player} targetPresetName={PRESET_NAME}>
             {VrStereoToggleControl.shouldRender(props) ? <VrStereoToggleControl player={props.player} /> : undefined}
             <VolumeControl player={props.player} />
             <LanguageControl player={props.player} />
@@ -58,7 +64,7 @@ export function liveUI(props: any): React$Element<any> {
             <CastControl player={props.player} />
             <PictureInPicture player={props.player} />
             <FullscreenControl player={props.player} />
-          </div>
+          </Container>
         </BottomBar>
       </div>
       {Watermark.shouldRender(props) ? <Watermark player={props.player} /> : undefined}
@@ -66,7 +72,7 @@ export function liveUI(props: any): React$Element<any> {
       <CastBeforePlay player={props.player} />
       <PictureInPictureOverlay player={props.player} />
       <Backdrop />
-    </div>
+    </Container>
   );
 }
 

@@ -3,7 +3,7 @@ import {h} from 'preact';
 import style from '../styles/style.scss';
 import {Loading} from '../components/loading';
 
-const PRESET_NAME = 'idle';
+const PRESET_NAME = 'Idle';
 
 /**
  * Idle ui interface

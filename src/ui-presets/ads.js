@@ -14,7 +14,7 @@ import {KeyboardControl} from '../components/keyboard';
 import {AdNotice} from '../components/ad-notice/ad-notice';
 import {PlaybackControls} from '../components/playback-controls';
 
-const PRESET_NAME = 'ads';
+const PRESET_NAME = 'Ads';
 
 /**
  * Ads ui interface
