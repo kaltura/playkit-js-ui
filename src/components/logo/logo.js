@@ -58,7 +58,7 @@ class LogoControl extends BaseComponent {
    * @memberof LogoControl
    */
   render(props: any): ?React$Element<any> {
-    const invisibleMode = [PLAYER_SIZE.TINY, PLAYER_SIZE.EXTRA_SMALL].includes(this.props.playerSize);
+    const invisibleMode = [PLAYER_SIZE.TINY, PLAYER_SIZE.EXTRA_SMALL, PLAYER_SIZE.SMALL].includes(this.props.playerSize);
     if (props.config.img && !invisibleMode) {
       return (
         <div
