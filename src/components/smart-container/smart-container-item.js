@@ -4,6 +4,17 @@ import {h, Component} from 'preact';
 import {DropDown} from '../dropdown';
 import {default as Icon} from '../icon';
 import {KeyMap} from '../../utils/key-map';
+import {connect} from "preact-redux";
+
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
+const mapStateToProps = state => ({
+  playerNav: state.shell.playerNav
+});
+@connect(mapStateToProps)
 
 /**
  * SmartContainerItem component
@@ -56,13 +67,24 @@ class SmartContainerItem extends Component {
         </label>
         <DropDown
           name={label}
-          onSelect={o => props.onSelect(o)}
+          onSelect={o => this.onSelect(o)}
           options={props.options}
-          focus={typeof this.props.focus === 'boolean' && this.props.focus}
           parentClicked={this.state.clicked}
+          onDropdownClosed={() => {
+            if (this.props.playerNav && this._el) {
+              this._el.focus();
+            }
+          }}
+          onParentClickedDone={() => {
+            this.setState({clicked: false});
+          }}
         />
       </div>
     );
+  }
+
+  onSelect(option) {
+    this.props.onSelect(option);
   }
 }
 

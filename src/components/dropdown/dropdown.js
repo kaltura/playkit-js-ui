@@ -37,13 +37,13 @@ class DropDown extends Component {
    * @memberof DropDown
    */
   componentWillMount() {
-    this.setState({dropMenuActive: false});
+    this.onClose();
   }
 
-  componentWillUpdate(nextProps): void {
-    if (nextProps.parentClicked) {
-      this.setState({dropMenuActive: !this.state.dropMenuActive});
-      nextProps.parentClicked = false;
+  componentWillUpdate(newProps): void {
+    if (newProps.parentClicked) {
+      newProps.onParentClickedDone();
+      this.toggleMenu();
     }
   }
 
@@ -67,7 +67,7 @@ class DropDown extends Component {
    */
   onSelect(option: Object): void {
     this.props.onSelect(option);
-    this.setState({dropMenuActive: false});
+    this.onClose();
   }
 
   /**
@@ -80,12 +80,19 @@ class DropDown extends Component {
   onKeyDown(e: KeyboardEvent): void {
     switch (e.keyCode) {
       case KeyMap.ENTER:
-        this.setState({dropMenuActive: !this.state.dropMenuActive});
+        this.toggleMenu();
         break;
       case KeyMap.ESC:
         this.onClose();
         e.stopPropagation();
         break;
+    }
+  }
+
+  toggleMenu(): void {
+    this.setState({dropMenuActive: !this.state.dropMenuActive});
+    if (!this.state.dropMenuActive) {
+      this.props.onDropdownClosed();
     }
   }
 
@@ -98,6 +105,7 @@ class DropDown extends Component {
    */
   onClose(): void {
     this.setState({dropMenuActive: false});
+    this.props.onDropdownClosed();
   }
 
   /**
@@ -142,7 +150,9 @@ class DropDown extends Component {
         ref={el => (this._el = el)}>
         <div
           className={style.dropdownButton}
-          onClick={() => this.setState({dropMenuActive: !this.state.dropMenuActive})}
+          onClick={() => {
+            this.toggleMenu();
+          }}
           onKeyDown={e => this.onKeyDown(e)}
           ref={bt => (this._dropdownButton = bt)}>
           <span>{this.getActiveOptionLabel()}</span>

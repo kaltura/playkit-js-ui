@@ -42,6 +42,7 @@ const mapStateToProps = state => ({
 class LanguageControl extends BaseComponent {
   state: Object;
   _controlLanguageElement: any;
+  _languageButtonElement: HTMLButtonElement;
   _portal: any;
 
   /**
@@ -60,7 +61,7 @@ class LanguageControl extends BaseComponent {
    * @memberof LanguageControl
    */
   componentWillMount() {
-    this.setState({smartContainerOpen: false});
+    this.closeSmartContainer();
   }
 
   /**
@@ -92,7 +93,7 @@ class LanguageControl extends BaseComponent {
       if (e.target.classList.contains('overlay-action')) {
         e.stopPropagation();
       }
-      this.setState({smartContainerOpen: false});
+      this.closeSmartContainer();
     }
   }
 
@@ -104,6 +105,13 @@ class LanguageControl extends BaseComponent {
    */
   onControlButtonClick(): void {
     this.setState({smartContainerOpen: !this.state.smartContainerOpen});
+  }
+
+  closeSmartContainer() {
+    this.setState({smartContainerOpen: false});
+    if (this.props.playerNav && this._languageButtonElement) {
+      this._languageButtonElement.focus();
+    }
   }
 
   /**
@@ -120,8 +128,6 @@ class LanguageControl extends BaseComponent {
       track: audioTrack
     });
   }
-
-
 
   /**
    * Select the given text track
@@ -162,6 +168,7 @@ class LanguageControl extends BaseComponent {
       <div ref={c => (this._controlLanguageElement = c)} className={[style.controlButtonContainer, style.controlLanguage].join(' ')}>
         <Localizer>
           <button
+            ref={button => (this._languageButtonElement = button)}
             tabIndex="0"
             aria-label={<Text id="controls.language" />}
             className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
@@ -172,7 +179,7 @@ class LanguageControl extends BaseComponent {
         {!this.state.smartContainerOpen || this.state.cvaaOverlay ? (
           undefined
         ) : (
-          <SmartContainer targetId={this.player.config.targetId} title={<Text id="language.title" />} onClose={() => this.onControlButtonClick()}>
+          <SmartContainer targetId={this.player.config.targetId} title={<Text id="language.title" />} onClose={() => this.closeSmartContainer()}>
             {audioOptions.length <= 1 ? (
               undefined
             ) : (
@@ -196,7 +203,6 @@ class LanguageControl extends BaseComponent {
                   label={<Text id="language.captions" />}
                   options={textOptions}
                   onSelect={textTrack => this.onCaptionsChange(textTrack)}
-                  onKeyDown={this.handleKeyDown}
                 />
               </Localizer>
             )}
@@ -209,8 +215,6 @@ class LanguageControl extends BaseComponent {
                 onKeyDown={e => {
                   if (e.keyCode === KeyMap.ENTER) {
                     this.toggleCVAAOverlay();
-                  } else {
-                    this.handleKeyDown(e);
                   }
                 }}>
                 <a className={style.advancedCaptionsMenuLink} onClick={() => this.toggleCVAAOverlay()}>
@@ -226,7 +230,7 @@ class LanguageControl extends BaseComponent {
               player={this.player}
               onClose={() => {
                 this.toggleCVAAOverlay();
-                this.onControlButtonClick();
+                this.closeSmartContainer();
               }}
             />
           </Portal>

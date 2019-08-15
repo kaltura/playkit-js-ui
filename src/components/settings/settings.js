@@ -38,6 +38,8 @@ const mapStateToProps = state => ({
 class SettingsControl extends BaseComponent {
   state: Object;
   _controlSettingsElement: any;
+  _settingsButtonElement: HTMLButtonElement;
+
 
   /**
    * Creates an instance of SettingsControl.
@@ -55,7 +57,7 @@ class SettingsControl extends BaseComponent {
    * @memberof SettingsControl
    */
   componentWillMount() {
-    this.setState({smartContainerOpen: false});
+    this.closeSmartContainer();
   }
 
   /**
@@ -86,7 +88,14 @@ class SettingsControl extends BaseComponent {
       if (e.target.classList.contains(style.overlayPlay)) {
         e.stopPropagation();
       }
-      this.setState({smartContainerOpen: false});
+      this.closeSmartContainer();
+    }
+  }
+
+  closeSmartContainer() {
+    this.setState({smartContainerOpen: false});
+    if (this.props.playerNav && this._settingsButtonElement) {
+      this._settingsButtonElement.focus();
     }
   }
 
@@ -208,6 +217,7 @@ class SettingsControl extends BaseComponent {
       <div ref={c => (this._controlSettingsElement = c)} className={[style.controlButtonContainer, style.controlSettings].join(' ')}>
         <Localizer>
           <button
+            ref={button => (this._settingsButtonElement = button)}
             tabIndex="0"
             aria-label={<Text id="controls.settings" />}
             className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
@@ -218,7 +228,7 @@ class SettingsControl extends BaseComponent {
         {!this.state.smartContainerOpen ? (
           ''
         ) : (
-          <SmartContainer targetId={this.player.config.targetId} title={<Text id="settings.title" />} onClose={() => this.onControlButtonClick()}>
+          <SmartContainer targetId={this.player.config.targetId} title={<Text id="settings.title" />} onClose={() => this.closeSmartContainer()}>
             {qualityOptions.length <= 1 ? (
               ''
             ) : (

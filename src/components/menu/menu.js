@@ -15,7 +15,8 @@ import {PLAYER_SIZE} from '../shell/shell';
 const mapStateToProps = state => ({
   isMobile: state.shell.isMobile,
   playerClientRect: state.shell.playerClientRect,
-  playerSize: state.shell.playerSize
+  playerSize: state.shell.playerSize,
+  playerNav: state.shell.playerNav
 });
 
 @connect(mapStateToProps)
@@ -64,6 +65,9 @@ class Menu extends Component {
     document.addEventListener('click', this.handleClickOutside, true);
     if (!this.props.isMobile && ![PLAYER_SIZE.SMALL, PLAYER_SIZE.EXTRA_SMALL].includes(this.props.playerSize)) {
       this.setState({position: this.getPosition()});
+    }
+    if (this.props.playerNav) {
+      this._menuElement.querySelector('[tabindex]').focus();
     }
   }
 
@@ -160,16 +164,26 @@ class Menu extends Component {
    */
   onKeyDown(e: KeyboardEvent, o: Object): void {
     switch (e.keyCode) {
+      case KeyMap.DOWN:
+        if (e.composedPath && e.composedPath().length && e.composedPath()[0].nextSibling) {
+          e.composedPath()[0].nextSibling.focus();
+        }
+        break;
+      case KeyMap.UP:
+        if (e.composedPath && e.composedPath().length && e.composedPath()[0].previousSibling) {
+          e.composedPath()[0].previousSibling.focus();
+        }
+        break;
       case KeyMap.ENTER:
         this.onSelect(o);
         break;
       case KeyMap.ESC:
         this.props.onClose();
-        e.stopPropagation();
         break;
       default:
         break;
     }
+    e.stopPropagation();
   }
 
   /**
@@ -193,7 +207,11 @@ class Menu extends Component {
     let classes = this.props.hideSelect ? style.mobileHiddenSelect : '';
     classes += ` ${style.dropdown}`;
     return (
-      <select className={classes} onChange={e => this.onSelect(this.props.options[e.target.value])}>
+      <select
+        className={classes}
+        onChange={e => {
+          this.onSelect(this.props.options[e.target.value]), e.stopPropagation();
+        }}>
         {this.props.options.map((o, index) => (
           <option selected={this.isSelected(o)} value={index} key={index}>
             {o.label}
