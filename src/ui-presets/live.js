@@ -11,7 +11,7 @@ import {LanguageControl} from '../components/language';
 import {Fullscreen} from '../components/fullscreen';
 import {BottomBar} from '../components/bottom-bar';
 import {OverlayPortal} from '../components/overlay-portal';
-import {KeyboardControl} from '../components/keyboard';
+import {Keyboard} from '../components/keyboard';
 import {LiveTag} from '../components/live-tag';
 import {UnmuteIndication} from '../components/unmute-indication';
 import {Watermark} from '../components/watermark/watermark';
@@ -42,7 +42,7 @@ export function LiveUI(props: any): React$Element<any> {
       player={props.player}
       targetPresetName={PRESET_NAME}
       preAppendTo={'Backdrop'}>
-      <KeyboardControl player={props.player} config={props.config} />
+      <Keyboard player={props.player} config={props.config} />
       <Loading player={props.player} />
       <Container className={style.playerGui} name={'PlayerGUI'} player={props.player} targetPresetName={PRESET_NAME} id="player-gui">
         <OverlayPortal />

@@ -39,20 +39,20 @@ export const KEYBOARD_DEFAULT_VOLUME_JUMP: number = 5;
   bindActions(Object.assign({}, shellActions, overlayIconActions))
 )
 /**
- * KeyboardControl component
+ * Keyboard component
  *
- * @class KeyboardControl
+ * @class Keyboard
  * @extends {BaseComponent}
  */
-class KeyboardControl extends BaseComponent {
+class Keyboard extends BaseComponent {
   _lastActiveTextLanguage: string = '';
   _hoverTimeout: ?number = null;
 
   /**
-   * creates an instance of KeyboardControl
+   * creates an instance of Keyboard
    *
    * @param {Object} obj obj
-   * @memberof KeyboardControl
+   * @memberof Keyboard
    */
   constructor(obj: Object) {
     super({name: 'Keyboard', player: obj.player, config: obj.config});
@@ -92,7 +92,7 @@ class KeyboardControl extends BaseComponent {
    * handlers for keyboard commands
    * @type {Object} - maps key number to his handler
    *
-   * @memberof KeyboardControl
+   * @memberof Keyboard
    */
   keyboardHandlers: {[key: number]: Function} = {
     [KeyMap.SPACE]: () => {
@@ -260,7 +260,7 @@ class KeyboardControl extends BaseComponent {
    * toggles the shell hover state
    *
    * @returns {void}
-   * @memberof KeyboardControl
+   * @memberof Keyboard
    */
   toggleHoverState(): void {
     if (this._hoverTimeout !== null) {
@@ -274,4 +274,4 @@ class KeyboardControl extends BaseComponent {
   }
 }
 
-export {KeyboardControl};
+export {Keyboard};

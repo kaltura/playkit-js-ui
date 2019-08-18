@@ -10,7 +10,7 @@ import {AdLearnMore} from '../components/ad-learn-more';
 import {TopBar} from '../components/top-bar';
 import {BottomBar} from '../components/bottom-bar';
 import {UnmuteIndication} from '../components/unmute-indication';
-import {KeyboardControl} from '../components/keyboard';
+import {Keyboard} from '../components/keyboard';
 import {AdNotice} from '../components/ad-notice/ad-notice';
 import {PlaybackControls} from '../components/playback-controls';
 
@@ -39,7 +39,7 @@ function AdsUI(props: any): ?React$Element<any> {
   const adsUiCustomization = getAdsUiCustomization();
   return (
     <div className={style.adGuiWrapper}>
-      <KeyboardControl player={props.player} config={props.config} />
+      <Keyboard player={props.player} config={props.config} />
       <Loading player={props.player} />
       <div className={style.playerGui} id="player-gui">
         <UnmuteIndication player={props.player} hasTopBar />
