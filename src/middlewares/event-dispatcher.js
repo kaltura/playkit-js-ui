@@ -110,7 +110,7 @@ function onClickableComponentsHandler(store: any, action: Object, player: Object
       onFullScreenClicked(store, action, player);
       break;
 
-    case 'LanguageControl':
+    case 'Language':
       onLanguageClicked(store, action, player);
       break;
 

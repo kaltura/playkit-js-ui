@@ -1,6 +1,7 @@
 import {Cast} from './cast';
 import {Fullscreen} from './fullscreen';
 import {Keyboard} from './keyboard';
+import {Language} from './language';
 
 export {AdLearnMore} from './ad-learn-more';
 export {AdSkip} from './ad-skip';
@@ -13,7 +14,6 @@ export {DropDown} from './dropdown';
 export {EngineConnector} from './engine-connector';
 export {ErrorOverlay} from './error-overlay';
 export {Icon, IconType} from './icon';
-export {LanguageControl} from './language';
 export {LiveTag} from './live-tag';
 export {Loading} from './loading';
 export {Menu} from './menu';
@@ -53,3 +53,4 @@ export {InjectedComponent} from './injected-component';
 export {Cast, Cast as CastControl};
 export {Fullscreen, Fullscreen as FullscreenControl};
 export {Keyboard, Keyboard as KeyboardControl};
+export {Language, Language as LanguageControl};

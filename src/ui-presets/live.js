@@ -7,7 +7,7 @@ import {Loading} from '../components/loading';
 import {SeekBarLivePlaybackContainer} from '../components/seekbar-live-playback-container';
 import {VolumeControl} from '../components/volume';
 import {SettingsControl} from '../components/settings';
-import {LanguageControl} from '../components/language';
+import {Language} from '../components/language';
 import {Fullscreen} from '../components/fullscreen';
 import {BottomBar} from '../components/bottom-bar';
 import {OverlayPortal} from '../components/overlay-portal';
@@ -64,7 +64,7 @@ export function LiveUI(props: any): React$Element<any> {
           <Container className={style.rightControls} name={'BottomBarRightControls'} player={props.player} targetPresetName={PRESET_NAME}>
             {VrStereoToggleControl.shouldRender(props) ? <VrStereoToggleControl player={props.player} /> : undefined}
             <VolumeControl player={props.player} />
-            <LanguageControl player={props.player} />
+            <Language player={props.player} />
             <SettingsControl player={props.player} />
             <Cast player={props.player} />
             <PictureInPicture player={props.player} />
