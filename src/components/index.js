@@ -5,6 +5,7 @@ import {Language} from './language';
 import {PlayPause} from './play-pause';
 import {Rewind} from './rewind';
 import {SeekBar} from './seekbar';
+import {Settings} from './settings';
 
 export {AdLearnMore} from './ad-learn-more';
 export {AdSkip} from './ad-skip';
@@ -27,7 +28,6 @@ export {PrePlaybackPlayOverlay} from './pre-playback-play-overlay';
 
 export {SeekBarLivePlaybackContainer} from './seekbar-live-playback-container';
 export {SeekBarPlaybackContainer} from './seekbar-playback-container';
-export {SettingsControl} from './settings';
 export {ShareControl} from './share';
 export {ShareOverlay} from './share-overlay';
 export {Shell} from './shell';
@@ -58,3 +58,4 @@ export {Language, Language as LanguageControl};
 export {PlayPause, PlayPause as PlayPauseControl};
 export {Rewind, Rewind as RewindControl};
 export {SeekBar, SeekBar as SeekBarControl};
+export {Settings, Settings as SettingsControl};

@@ -6,7 +6,7 @@ import {PrePlaybackPlayOverlay} from '../components/pre-playback-play-overlay';
 import {Loading} from '../components/loading';
 import {SeekBarLivePlaybackContainer} from '../components/seekbar-live-playback-container';
 import {VolumeControl} from '../components/volume';
-import {SettingsControl} from '../components/settings';
+import {Settings} from '../components/settings';
 import {Language} from '../components/language';
 import {Fullscreen} from '../components/fullscreen';
 import {BottomBar} from '../components/bottom-bar';
@@ -65,7 +65,7 @@ export function LiveUI(props: any): React$Element<any> {
             {VrStereoToggleControl.shouldRender(props) ? <VrStereoToggleControl player={props.player} /> : undefined}
             <VolumeControl player={props.player} />
             <Language player={props.player} />
-            <SettingsControl player={props.player} />
+            <Settings player={props.player} />
             <Cast player={props.player} />
             <PictureInPicture player={props.player} />
             <Fullscreen player={props.player} />

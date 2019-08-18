@@ -8,7 +8,7 @@ import {Loading} from '../components/loading';
 import {Rewind} from '../components/rewind';
 import {SeekBarPlaybackContainer} from '../components/seekbar-playback-container';
 import {VolumeControl} from '../components/volume';
-import {SettingsControl} from '../components/settings';
+import {Settings} from '../components/settings';
 import {Language} from '../components/language';
 import {Fullscreen} from '../components/fullscreen';
 import {VrStereoToggleControl} from '../components/vr-stereo-toggle';
@@ -71,7 +71,7 @@ function PlaybackUI(props: any): React$Element<any> {
             {VrStereoToggleControl.shouldRender(props) ? <VrStereoToggleControl player={props.player} /> : undefined}
             <VolumeControl player={props.player} />
             <Language player={props.player} />
-            <SettingsControl player={props.player} />
+            <Settings player={props.player} />
             <Cast player={props.player} />
             <PictureInPicture player={props.player} />
             <Fullscreen player={props.player} />
