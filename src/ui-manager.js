@@ -96,11 +96,11 @@ class UIManager {
    */
   buildDefaultUI(): void {
     const uis = [
-      {template: presets.idleUI, condition: state => state.engine.isIdle},
-      {template: presets.errorUI, condition: state => state.engine.hasError},
-      {template: presets.adsUI, condition: state => state.engine.adBreak},
-      {template: presets.liveUI, condition: state => state.engine.isLive},
-      {template: presets.playbackUI}
+      {template: props => presets.idleUI(props), condition: state => state.engine.isIdle},
+      {template: props => presets.errorUI(props), condition: state => state.engine.hasError},
+      {template: props => presets.adsUI(props), condition: state => state.engine.adBreak},
+      {template: props => presets.liveUI(props), condition: state => state.engine.isLive},
+      {template: props => presets.playbackUI(props)}
     ];
     this._buildUI(uis);
   }

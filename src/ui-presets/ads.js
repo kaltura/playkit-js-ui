@@ -17,13 +17,12 @@ import {PlaybackControls} from '../components/playback-controls';
 const PRESET_NAME = 'Ads';
 
 /**
- * Ads ui interface
+ * Ads ui interface component
  *
- * @export
  * @param {*} props component props
  * @returns {?HTMLElement} player ui tree
  */
-export function adsUI(props: any): ?React$Element<any> {
+function AdsUI(props: any): ?React$Element<any> {
   if (useDefaultAdsUi(props)) {
     return (
       <div className={style.adGuiWrapper}>
@@ -65,7 +64,18 @@ export function adsUI(props: any): ?React$Element<any> {
   );
 }
 
-adsUI.displayName = PRESET_NAME;
+AdsUI.displayName = PRESET_NAME;
+
+/**
+ * Ads ui interface
+ *
+ * @export
+ * @param {*} props component props
+ * @returns {?HTMLElement} player ui tree
+ */
+export function adsUI(props: any): ?React$Element<any> {
+  return <AdsUI {...props} />;
+}
 
 /**
  * Gets the ads ui customization settings

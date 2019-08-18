@@ -6,13 +6,12 @@ import {Loading} from '../components/loading';
 const PRESET_NAME = 'Idle';
 
 /**
- * Idle ui interface
+ * Idle ui interface component
  *
- * @export
  * @param {*} props component props
  * @returns {React$Element} player ui tree
  */
-export function idleUI(props: any): React$Element<any> {
+export function IdleUI(props: any): React$Element<any> {
   return (
     <div className={style.playbackGuiWWrapper}>
       <Loading player={props.player} />
@@ -20,4 +19,15 @@ export function idleUI(props: any): React$Element<any> {
   );
 }
 
-idleUI.displayName = PRESET_NAME;
+IdleUI.displayName = PRESET_NAME;
+
+/**
+ * Idle ui interface
+ *
+ * @export
+ * @param {*} props component props
+ * @returns {React$Element} player ui tree
+ */
+export function idleUI(props: any): React$Element<any> {
+  return <IdleUI {...props} />;
+}

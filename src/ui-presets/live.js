@@ -29,13 +29,12 @@ import {TopBar} from '../components/top-bar';
 const PRESET_NAME = 'Live';
 
 /**
- * Live ui interface
+ * Live ui interface component
  *
- * @export
  * @param {*} props component props
  * @returns {React$Element<any>} player ui tree
  */
-export function liveUI(props: any): React$Element<any> {
+export function LiveUI(props: any): React$Element<any> {
   return (
     <Container
       className={style.playbackGuiWWrapper}
@@ -81,4 +80,15 @@ export function liveUI(props: any): React$Element<any> {
   );
 }
 
-liveUI.displayName = PRESET_NAME;
+LiveUI.displayName = PRESET_NAME;
+
+/**
+ * Live ui interface
+ *
+ * @export
+ * @param {*} props component props
+ * @returns {React$Element<any>} player ui tree
+ */
+export function liveUI(props: any): React$Element<any> {
+  return <LiveUI {...props} />;
+}

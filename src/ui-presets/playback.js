@@ -30,14 +30,15 @@ import {ShareControl} from '../components/share';
 import {TopBar} from '../components/top-bar';
 
 const PRESET_NAME = 'Playback';
+
 /**
- * Playback ui interface
+ * Playback ui interface component
  *
  * @export
  * @param {*} props component props
  * @returns {React$Element} player ui tree
  */
-export function playbackUI(props: any): React$Element<any> {
+function PlaybackUI(props: any): React$Element<any> {
   return (
     <Container
       className={style.playbackGuiWWrapper}
@@ -86,4 +87,15 @@ export function playbackUI(props: any): React$Element<any> {
   );
 }
 
-playbackUI.displayName = PRESET_NAME;
+PlaybackUI.displayName = PRESET_NAME;
+
+/**
+ * Playback ui interface
+ *
+ * @export
+ * @param {*} props component props
+ * @returns {React$Element} player ui tree
+ */
+export function playbackUI(props: any): React$Element<any> {
+  return <PlaybackUI {...props} />;
+}
