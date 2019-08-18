@@ -22,7 +22,6 @@ const mapStateToProps = state => ({
   config: state.config.components.share
 });
 
-// TODO Sakal - Oren, the name in the constructor is incorrect (should have been ShareControl)
 const COMPONENT_NAME = 'Share';
 
 @connect(
@@ -30,18 +29,18 @@ const COMPONENT_NAME = 'Share';
   bindActions(actions)
 )
 /**
- * ShareControl component
+ * Share component
  *
- * @class ShareControl
- * @example <ShareControl player={this.player} />
+ * @class Share
+ * @example <Share player={this.player} />
  * @extends {BaseComponent}
  */
-class ShareControl extends BaseComponent {
+class Share extends BaseComponent {
   _portal: any;
   /**
-   * Creates an instance of ShareControl.
+   * Creates an instance of Share.
    * @param {Object} obj obj
-   * @memberof ShareControl
+   * @memberof Share
    */
   constructor(obj: Object) {
     super({name: COMPONENT_NAME, player: obj.player});
@@ -51,7 +50,7 @@ class ShareControl extends BaseComponent {
    * toggle overlay internal component state
    *
    * @returns {void}
-   * @memberof ShareControl
+   * @memberof Share
    */
   toggleOverlay(): void {
     this.setState({overlay: !this.state.overlay});
@@ -83,7 +82,7 @@ class ShareControl extends BaseComponent {
    * render element
    *
    * @returns {React$Element} component element
-   * @memberof ShareControl
+   * @memberof Share
    */
   render(): React$Element<any> | void {
     const {embedUrl, enable, shareUrl, enableTimeOffset} = this.props.config;
@@ -115,5 +114,5 @@ class ShareControl extends BaseComponent {
   }
 }
 
-ShareControl.displayName = COMPONENT_NAME;
-export {ShareControl};
+Share.displayName = COMPONENT_NAME;
+export {Share};

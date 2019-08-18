@@ -26,7 +26,7 @@ import {PlaylistCountdown} from '../components/playlist-countdown';
 import {PlaylistNextScreen} from '../components/playlist-next-screen';
 import {PictureInPicture} from '../components/picture-in-picture';
 import {PictureInPictureOverlay} from '../components/picture-in-picture-overlay';
-import {ShareControl} from '../components/share';
+import {Share} from '../components/share';
 import {TopBar} from '../components/top-bar';
 
 const PRESET_NAME = 'Playback';
@@ -57,7 +57,7 @@ function PlaybackUI(props: any): React$Element<any> {
         <TopBar>
           <Container className={style.leftControls} name={'TopBarLeftControls'} player={props.player} targetPresetName={PRESET_NAME} />
           <Container className={style.rightControls} name={'TopBarRightControls'} player={props.player} targetPresetName={PRESET_NAME}>
-            <ShareControl player={props.player} />
+            <Share player={props.player} />
           </Container>
         </TopBar>
         <BottomBar>

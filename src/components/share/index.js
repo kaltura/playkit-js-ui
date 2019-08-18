@@ -1,1 +1,1 @@
-export {ShareControl} from './share';
+export {Share} from './share';

@@ -22,7 +22,7 @@ import {Backdrop} from '../components/backdrop/backdrop';
 import {PlaybackControls} from '../components/playback-controls';
 import {PictureInPicture} from '../components/picture-in-picture';
 import {PictureInPictureOverlay} from '../components/picture-in-picture-overlay';
-import {ShareControl} from '../components/share';
+import {Share} from '../components/share';
 import {Container} from '../components/container';
 import {TopBar} from '../components/top-bar';
 
@@ -52,7 +52,7 @@ export function LiveUI(props: any): React$Element<any> {
         <TopBar>
           <Container className={style.leftControls} name={'TopBarLeftControls'} player={props.player} targetPresetName={PRESET_NAME} />
           <Container className={style.rightControls} name={'TopBarRightControls'} player={props.player} targetPresetName={PRESET_NAME}>
-            <ShareControl player={props.player} />
+            <Share player={props.player} />
           </Container>
         </TopBar>
         <BottomBar>
