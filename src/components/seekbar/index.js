@@ -1,1 +1,1 @@
-export {SeekBarControl} from './seekbar';
+export {SeekBar} from './seekbar';

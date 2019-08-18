@@ -4,6 +4,7 @@ import {Keyboard} from './keyboard';
 import {Language} from './language';
 import {PlayPause} from './play-pause';
 import {Rewind} from './rewind';
+import {SeekBar} from './seekbar';
 
 export {AdLearnMore} from './ad-learn-more';
 export {AdSkip} from './ad-skip';
@@ -23,7 +24,7 @@ export {Overlay} from './overlay';
 export {OverlayAction} from './overlay-action';
 export {OverlayPortal} from './overlay-portal';
 export {PrePlaybackPlayOverlay} from './pre-playback-play-overlay';
-export {SeekBarControl} from './seekbar';
+
 export {SeekBarLivePlaybackContainer} from './seekbar-live-playback-container';
 export {SeekBarPlaybackContainer} from './seekbar-playback-container';
 export {SettingsControl} from './settings';
@@ -56,3 +57,4 @@ export {Keyboard, Keyboard as KeyboardControl};
 export {Language, Language as LanguageControl};
 export {PlayPause, PlayPause as PlayPauseControl};
 export {Rewind, Rewind as RewindControl};
+export {SeekBar, SeekBar as SeekBarControl};
