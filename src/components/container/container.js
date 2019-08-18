@@ -179,7 +179,12 @@ class Container extends BaseComponent {
    * @returns {*} component
    */
   renderContent(children: Array<any>) {
-    return <div className={this.props.className}>{children}</div>;
+    const {className, id} = this.props;
+    return (
+      <div className={className} id={id}>
+        {children}
+      </div>
+    );
   }
 
   /**

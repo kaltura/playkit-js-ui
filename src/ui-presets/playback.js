@@ -48,7 +48,7 @@ function PlaybackUI(props: any): React$Element<any> {
       preAppendTo={'Backdrop'}>
       <KeyboardControl player={props.player} config={props.config} />
       <Loading player={props.player} />
-      <div className={style.playerGui} id="player-gui">
+      <Container className={style.playerGui} name={'PlayerGUI'} player={props.player} targetPresetName={PRESET_NAME} id="player-gui">
         <OverlayPortal />
         <UnmuteIndication player={props.player} />
         <OverlayAction player={props.player} />
@@ -76,7 +76,7 @@ function PlaybackUI(props: any): React$Element<any> {
             <FullscreenControl player={props.player} />
           </Container>
         </BottomBar>
-      </div>
+      </Container>
       {Watermark.shouldRender(props) ? <Watermark player={props.player} /> : undefined}
       {PlaylistCountdown.shouldRender(props) ? <PlaylistCountdown player={props.player} /> : undefined}
       <PrePlaybackPlayOverlay player={props.player} />
