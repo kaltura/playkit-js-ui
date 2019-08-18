@@ -15,7 +15,7 @@ import {Keyboard} from '../components/keyboard';
 import {LiveTag} from '../components/live-tag';
 import {UnmuteIndication} from '../components/unmute-indication';
 import {Watermark} from '../components/watermark/watermark';
-import {VrStereoToggleControl} from '../components/vr-stereo-toggle';
+import {VrStereo} from '../components/vr-stereo-toggle';
 import {Cast} from '../components/cast';
 import {CastBeforePlay} from '../components/cast-on-tv/cast-before-play';
 import {Backdrop} from '../components/backdrop/backdrop';
@@ -62,7 +62,7 @@ export function LiveUI(props: any): React$Element<any> {
             <LiveTag player={props.player} />
           </Container>
           <Container className={style.rightControls} name={'BottomBarRightControls'} player={props.player} targetPresetName={PRESET_NAME}>
-            {VrStereoToggleControl.shouldRender(props) ? <VrStereoToggleControl player={props.player} /> : undefined}
+            {VrStereo.shouldRender(props) ? <VrStereo player={props.player} /> : undefined}
             <Volume player={props.player} />
             <Language player={props.player} />
             <Settings player={props.player} />

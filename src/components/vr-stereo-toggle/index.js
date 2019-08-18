@@ -1,1 +1,1 @@
-export {VrStereoToggleControl} from './vr-stereo-toggle';
+export {VrStereo} from './vr-stereo-toggle';
