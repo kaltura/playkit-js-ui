@@ -8,7 +8,7 @@ import {SeekBarLivePlaybackContainer} from '../components/seekbar-live-playback-
 import {VolumeControl} from '../components/volume';
 import {SettingsControl} from '../components/settings';
 import {LanguageControl} from '../components/language';
-import {FullscreenControl} from '../components/fullscreen';
+import {Fullscreen} from '../components/fullscreen';
 import {BottomBar} from '../components/bottom-bar';
 import {OverlayPortal} from '../components/overlay-portal';
 import {KeyboardControl} from '../components/keyboard';
@@ -68,7 +68,7 @@ export function LiveUI(props: any): React$Element<any> {
             <SettingsControl player={props.player} />
             <Cast player={props.player} />
             <PictureInPicture player={props.player} />
-            <FullscreenControl player={props.player} />
+            <Fullscreen player={props.player} />
           </Container>
         </BottomBar>
       </Container>

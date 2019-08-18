@@ -10,7 +10,7 @@ import {SeekBarPlaybackContainer} from '../components/seekbar-playback-container
 import {VolumeControl} from '../components/volume';
 import {SettingsControl} from '../components/settings';
 import {LanguageControl} from '../components/language';
-import {FullscreenControl} from '../components/fullscreen';
+import {Fullscreen} from '../components/fullscreen';
 import {VrStereoToggleControl} from '../components/vr-stereo-toggle';
 import {TimeDisplayPlaybackContainer} from '../components/time-display-playback-container';
 import {BottomBar} from '../components/bottom-bar';
@@ -74,7 +74,7 @@ function PlaybackUI(props: any): React$Element<any> {
             <SettingsControl player={props.player} />
             <Cast player={props.player} />
             <PictureInPicture player={props.player} />
-            <FullscreenControl player={props.player} />
+            <Fullscreen player={props.player} />
           </Container>
         </BottomBar>
       </Container>

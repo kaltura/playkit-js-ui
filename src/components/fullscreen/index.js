@@ -1,1 +1,1 @@
-export {FullscreenControl} from './fullscreen';
+export {Fullscreen} from './fullscreen';

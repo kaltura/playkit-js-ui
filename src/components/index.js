@@ -1,4 +1,5 @@
 import {Cast} from './cast';
+import {Fullscreen} from './fullscreen';
 
 export {AdLearnMore} from './ad-learn-more';
 export {AdSkip} from './ad-skip';
@@ -10,7 +11,6 @@ export {CVAAOverlay} from './cvaa-overlay';
 export {DropDown} from './dropdown';
 export {EngineConnector} from './engine-connector';
 export {ErrorOverlay} from './error-overlay';
-export {FullscreenControl} from './fullscreen';
 export {Icon, IconType} from './icon';
 export {KeyboardControl} from './keyboard';
 export {LanguageControl} from './language';
@@ -51,3 +51,4 @@ export {PlaybackControls} from './playback-controls';
 export {InjectedComponent} from './injected-component';
 
 export {Cast, Cast as CastControl};
+export {Fullscreen, Fullscreen as FullscreenControl};
