@@ -135,8 +135,8 @@ class Container extends BaseComponent {
     let hasPositionedComponents = false;
 
     const presetComponents = presetsComponents[targetPresetName] || [];
-    const relevantComponents = presetComponents.filter(component => component.container === this.props.name);
-    relevantComponents.forEach(component => {
+    const containerComponents = presetComponents.filter(component => component.container === this.props.name);
+    containerComponents.forEach(component => {
       if (component.beforeComponent) {
         getPositionedContainerItem(positionedComponentMap, component.beforeComponent).before.push(component);
         hasPositionedComponents = true;

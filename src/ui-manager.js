@@ -55,7 +55,6 @@ class UIManager {
     }
 
     this._uiComponents = [...(config.uiComponents || [])];
-    delete config.uiComponents;
     this.player = player;
     this.targetId = config.targetId;
     this._createStore(config);

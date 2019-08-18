@@ -75,11 +75,7 @@ class PlayerGUI extends Component {
         props.updateActivePresetName(presetName);
       }
 
-      return (
-        <div>
-          <div data-kp-preset={presetName}>{uiComponent}</div>
-        </div>
-      );
+      return <div data-kp-preset={presetName}>{uiComponent}</div>;
     } else {
       return undefined;
     }
