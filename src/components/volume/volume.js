@@ -23,7 +23,6 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile
 });
 
-// TODO Sakal - Oren, the name in the constructor is incorrect (should have been VolumeControl)
 const COMPONENT_NAME = 'volume';
 
 @connect(
@@ -31,22 +30,22 @@ const COMPONENT_NAME = 'volume';
   bindActions({...actions, ...engineActions})
 )
 /**
- * VolumeControl component
+ * Volume component
  *
- * @class VolumeControl
- * @example <VolumeControl player={this.player} />
+ * @class Volume
+ * @example <Volume player={this.player} />
  * @extends {BaseComponent}
  */
-class VolumeControl extends BaseComponent {
+class Volume extends BaseComponent {
   _volumeControlElement: HTMLElement;
   _volumeProgressBarElement: HTMLElement;
 
   /**
-   * Creates an instance of VolumeControl.
+   * Creates an instance of Volume.
    *
    * @constructor
    * @param {Object} obj obj
-   * @memberof VolumeControl
+   * @memberof Volume
    */
   constructor(obj: Object) {
     super({name: COMPONENT_NAME, player: obj.player});
@@ -57,7 +56,7 @@ class VolumeControl extends BaseComponent {
    *
    * @method componentDidMount
    * @returns {void}
-   * @memberof VolumeControl
+   * @memberof Volume
    */
   componentDidMount(): void {
     this.eventManager.listen(this.player, this.player.Event.LOADED_METADATA, () => {
@@ -77,7 +76,7 @@ class VolumeControl extends BaseComponent {
    *
    * @method getVolumeProgessHeight
    * @returns {string} - volume progress bar new height based on volume
-   * @memberof VolumeControl
+   * @memberof Volume
    */
   getVolumeProgressHeight(): string {
     return this.props.muted ? '0%' : Math.round(this.props.volume * 100) + '%';
@@ -88,7 +87,7 @@ class VolumeControl extends BaseComponent {
    *
    * @method onVolumeProgressBarMouseDown
    * @returns {void}
-   * @memberof VolumeControl
+   * @memberof Volume
    */
   onVolumeProgressBarMouseDown(): void {
     this.props.updateVolumeDraggingStatus(true);
@@ -100,7 +99,7 @@ class VolumeControl extends BaseComponent {
    * @method onVolumeProgressBarMouseMove
    * @param {FakeEvent} e - mouse move event
    * @returns {void}
-   * @memberof VolumeControl
+   * @memberof Volume
    */
   onVolumeProgressBarMouseMove(e: FakeEvent): void {
     if (this.props.isDraggingActive) {
@@ -112,7 +111,7 @@ class VolumeControl extends BaseComponent {
    * volume mouse over handler
    *
    * @returns {void}
-   * @memberof VolumeControl
+   * @memberof Volume
    */
   onVolumeMouseOver(): void {
     if (this.props.isMobile) return;
@@ -124,7 +123,7 @@ class VolumeControl extends BaseComponent {
    * volume mouse over handler
    *
    * @returns {void}
-   * @memberof VolumeControl
+   * @memberof Volume
    */
   onVolumeMouseOut(): void {
     if (this.props.isMobile) return;
@@ -138,7 +137,7 @@ class VolumeControl extends BaseComponent {
    * @param {KeyboardEvent} e - keyboardEvent event
    * @method onVolumeControlButtonClick
    * @returns {void}
-   * @memberof VolumeControl
+   * @memberof Volume
    */
   onVolumeControlKeyDown(e: KeyboardEvent): void {
     /**
@@ -174,7 +173,7 @@ class VolumeControl extends BaseComponent {
    * @method onVolumeProgressBarMouseUp
    * @param {FakeEvent} e - mouse up event
    * @returns {void}
-   * @memberof VolumeControl
+   * @memberof Volume
    */
   onVolumeProgressBarMouseUp(e: FakeEvent): void {
     if (this.props.isDraggingActive) {
@@ -188,7 +187,7 @@ class VolumeControl extends BaseComponent {
    *
    * @method onVolumeControlButtonClick
    * @returns {void}
-   * @memberof VolumeControl
+   * @memberof Volume
    */
   onVolumeControlButtonClick(): void {
     if (this.player.volume == 0) {
@@ -209,7 +208,7 @@ class VolumeControl extends BaseComponent {
    * @method changeVolume
    * @param {FakeEvent} e - event to get the position from
    * @returns {void}
-   * @memberof VolumeControl
+   * @memberof Volume
    */
   changeVolume(e: FakeEvent): void {
     const dimensions = this._volumeProgressBarElement.getBoundingClientRect();
@@ -270,7 +269,7 @@ class VolumeControl extends BaseComponent {
    * render component
    *
    * @returns {React$Element} - component element
-   * @memberof VolumeControl
+   * @memberof Volume
    */
   render(): React$Element<any> {
     const controlButtonClass = [style.controlButtonContainer, style.volumeControl];
@@ -310,5 +309,5 @@ class VolumeControl extends BaseComponent {
   }
 }
 
-VolumeControl.displayName = COMPONENT_NAME;
-export {VolumeControl};
+Volume.displayName = COMPONENT_NAME;
+export {Volume};

@@ -2,7 +2,7 @@
 import style from '../styles/style.scss';
 import {h} from 'preact';
 import {Loading} from '../components/loading';
-import {VolumeControl} from '../components/volume';
+import {Volume} from '../components/volume';
 import {Fullscreen} from '../components/fullscreen';
 import {TimeDisplayAdsContainer} from '../components/time-display-ads-container';
 import {AdSkip} from '../components/ad-skip';
@@ -55,7 +55,7 @@ function AdsUI(props: any): ?React$Element<any> {
             <TimeDisplayAdsContainer />
           </div>
           <div className={style.rightControls}>
-            <VolumeControl player={props.player} />
+            <Volume player={props.player} />
             <Fullscreen player={props.player} />
           </div>
         </BottomBar>

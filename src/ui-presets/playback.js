@@ -7,7 +7,7 @@ import {PrePlaybackPlayOverlay} from '../components/pre-playback-play-overlay';
 import {Loading} from '../components/loading';
 import {Rewind} from '../components/rewind';
 import {SeekBarPlaybackContainer} from '../components/seekbar-playback-container';
-import {VolumeControl} from '../components/volume';
+import {Volume} from '../components/volume';
 import {Settings} from '../components/settings';
 import {Language} from '../components/language';
 import {Fullscreen} from '../components/fullscreen';
@@ -69,7 +69,7 @@ function PlaybackUI(props: any): React$Element<any> {
           </Container>
           <Container className={style.rightControls} name={'BottomBarRightControls'} player={props.player} targetPresetName={PRESET_NAME}>
             {VrStereoToggleControl.shouldRender(props) ? <VrStereoToggleControl player={props.player} /> : undefined}
-            <VolumeControl player={props.player} />
+            <Volume player={props.player} />
             <Language player={props.player} />
             <Settings player={props.player} />
             <Cast player={props.player} />

@@ -96,14 +96,14 @@ The example below will replace the volume component with your own component:
         render: () => { return customComponent; },
         beforeComponent : '', // use this property to inject your component BEFORE the mentioned one
         afterComponent: '',
-        replaceComponent: 'VolumeControl',          
+        replaceComponent: 'Volume',          
       }
     ]
   }
 }
 ```
 **Notes**
-- the name of the component is the name of the class. so for `<VolumeControl ... ` the name is `VolumeControl`.
+- the name of the component is the name of the class. so for `<Volume ... ` the name is `Volume`.
 - you should set only of the properties above, if for example you want to set your component before and not instead the volume control, use `beforeComponent` instead of `replaceComponent`. 
 - This is optional, if you don't provide any of the properties above the container will append your custom component after all the other components.
 
