@@ -16,7 +16,7 @@ import {LiveTag} from '../components/live-tag';
 import {UnmuteIndication} from '../components/unmute-indication';
 import {Watermark} from '../components/watermark/watermark';
 import {VrStereoToggleControl} from '../components/vr-stereo-toggle';
-import {CastControl} from '../components/cast';
+import {Cast} from '../components/cast';
 import {CastBeforePlay} from '../components/cast-on-tv/cast-before-play';
 import {Backdrop} from '../components/backdrop/backdrop';
 import {PlaybackControls} from '../components/playback-controls';
@@ -66,7 +66,7 @@ export function LiveUI(props: any): React$Element<any> {
             <VolumeControl player={props.player} />
             <LanguageControl player={props.player} />
             <SettingsControl player={props.player} />
-            <CastControl player={props.player} />
+            <Cast player={props.player} />
             <PictureInPicture player={props.player} />
             <FullscreenControl player={props.player} />
           </Container>

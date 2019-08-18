@@ -15,7 +15,6 @@ const mapStateToProps = state => ({
   isCastAvailable: state.engine.isCastAvailable
 });
 
-// TODO Sakal - Oren, the name in the constructor is incorrect (should have been CastControl)
 const COMPONENT_NAME = 'Cast';
 
 @connect(
@@ -23,17 +22,17 @@ const COMPONENT_NAME = 'Cast';
   actions
 )
 /**
- * CastControl component
+ * Cast component
  *
- * @class CastControl
- * @example <CastControl player={this.player} />
+ * @class Cast
+ * @example <Cast player={this.player} />
  * @extends {BaseComponent}
  */
-class CastControl extends BaseComponent {
+class Cast extends BaseComponent {
   /**
    * Creates an instance of ChromecastControl.
    * @param {Object} obj obj
-   * @memberof CastControl
+   * @memberof Cast
    */
   constructor(obj: Object) {
     super({name: COMPONENT_NAME, player: obj.player});
@@ -42,7 +41,7 @@ class CastControl extends BaseComponent {
   /**
    * On click set the backdrop to visible.
    * If cast session start failed remove the backdrop.
-   * @memberof CastControl
+   * @memberof Cast
    * @returns {void}
    */
   onClick(): void {
@@ -55,7 +54,7 @@ class CastControl extends BaseComponent {
    *
    * @param {*} props - component props
    * @returns {?React$Element} - component element
-   * @memberof CastControl
+   * @memberof Cast
    */
   render(props: any): ?React$Element<any> {
     if (props.isCasting || props.isCastAvailable) {
@@ -73,5 +72,5 @@ class CastControl extends BaseComponent {
   }
 }
 
-CastControl.displayName = COMPONENT_NAME;
-export {CastControl};
+Cast.displayName = COMPONENT_NAME;
+export {Cast};

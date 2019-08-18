@@ -18,7 +18,7 @@ import {OverlayPortal} from '../components/overlay-portal';
 import {KeyboardControl} from '../components/keyboard';
 import {UnmuteIndication} from '../components/unmute-indication';
 import {Watermark} from '../components/watermark/watermark';
-import {CastControl} from '../components/cast';
+import {Cast} from '../components/cast';
 import {CastBeforePlay} from '../components/cast-on-tv/cast-before-play';
 import {Backdrop} from '../components/backdrop/backdrop';
 import {PlaybackControls} from '../components/playback-controls';
@@ -72,7 +72,7 @@ function PlaybackUI(props: any): React$Element<any> {
             <VolumeControl player={props.player} />
             <LanguageControl player={props.player} />
             <SettingsControl player={props.player} />
-            <CastControl player={props.player} />
+            <Cast player={props.player} />
             <PictureInPicture player={props.player} />
             <FullscreenControl player={props.player} />
           </Container>
