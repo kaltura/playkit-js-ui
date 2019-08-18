@@ -20,22 +20,21 @@ const mapStateToProps = state => ({
   isPlaybackEnded: state.engine.isPlaybackEnded
 });
 
-// TODO Sakal - Oren, the name in the constructor is incorrect (should have been PlayPauseControl)
 const COMPONENT_NAME = 'PlayPause';
 
 @connect(mapStateToProps)
 /**
- * PlayPauseControl component
+ * PlayPause component
  *
- * @class PlayPauseControl
- * @example <PlayPauseControl player={this.player} />
+ * @class PlayPause
+ * @example <PlayPause player={this.player} />
  * @extends {BaseComponent}
  */
-class PlayPauseControl extends BaseComponent {
+class PlayPause extends BaseComponent {
   /**
-   * Creates an instance of PlayPauseControl.
+   * Creates an instance of PlayPause.
    * @param {Object} obj obj
-   * @memberof PlayPauseControl
+   * @memberof PlayPause
    */
   constructor(obj: Object) {
     super({name: COMPONENT_NAME, player: obj.player});
@@ -45,7 +44,7 @@ class PlayPauseControl extends BaseComponent {
    * toggle play / pause
    *
    * @returns {void}
-   * @memberof PlayPauseControl
+   * @memberof PlayPause
    */
   togglePlayPause(): void {
     this.logger.debug('Toggle play');
@@ -58,7 +57,7 @@ class PlayPauseControl extends BaseComponent {
    *
    * @param {*} props - component props
    * @returns {React$Element} - component element
-   * @memberof PlayPauseControl
+   * @memberof PlayPause
    */
   render(props: any): React$Element<any> | void {
     const controlButtonClass = this.props.isPlayingAdOrPlayback ? [style.controlButton, style.isPlaying].join(' ') : style.controlButton;
@@ -92,5 +91,5 @@ class PlayPauseControl extends BaseComponent {
   }
 }
 
-PlayPauseControl.displayName = COMPONENT_NAME;
-export {PlayPauseControl};
+PlayPause.displayName = COMPONENT_NAME;
+export {PlayPause};
