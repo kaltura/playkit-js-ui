@@ -5,7 +5,7 @@ import {Container} from '../components/container';
 import {OverlayAction} from '../components/overlay-action';
 import {PrePlaybackPlayOverlay} from '../components/pre-playback-play-overlay';
 import {Loading} from '../components/loading';
-import {RewindControl} from '../components/rewind';
+import {Rewind} from '../components/rewind';
 import {SeekBarPlaybackContainer} from '../components/seekbar-playback-container';
 import {VolumeControl} from '../components/volume';
 import {SettingsControl} from '../components/settings';
@@ -64,7 +64,7 @@ function PlaybackUI(props: any): React$Element<any> {
           <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player} playerContainer={props.playerContainer} />
           <Container className={style.leftControls} name={'BottomBarLeftControls'} player={props.player} targetPresetName={PRESET_NAME}>
             <PlaybackControls player={props.player} />
-            <RewindControl player={props.player} step={10} />
+            <Rewind player={props.player} step={10} />
             <TimeDisplayPlaybackContainer format="current / total" />
           </Container>
           <Container className={style.rightControls} name={'BottomBarRightControls'} player={props.player} targetPresetName={PRESET_NAME}>
