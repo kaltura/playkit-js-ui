@@ -23,7 +23,6 @@ const mapStateToProps = state => ({
   playerSize: state.shell.playerSize
 });
 
-// TODO Sakal - Oren, the name in the constructor is incorrect (should have been Settings)
 const COMPONENT_NAME = 'Settings';
 
 @connect(
