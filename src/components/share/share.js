@@ -93,7 +93,7 @@ class ShareControl extends BaseComponent {
     const shareConfig = this._getMergedShareConfig();
     const portalSelector = `#${this.player.config.targetId} .overlay-portal`;
     return (
-      <div className={[style.controlButtonContainer, style.controlShare].join(' ')}>
+      <div>
         {this.state.overlay ? (
           <Portal into={portalSelector} ref={ref => (this._portal = ref)}>
             <ShareOverlay
