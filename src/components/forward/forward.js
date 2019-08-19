@@ -6,6 +6,8 @@ import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 
+const COMPONENT_NAME = 'Forward';
+
 /**
  * Default forward step
  * @type {number}
@@ -27,7 +29,7 @@ class Forward extends BaseComponent {
    * @memberof Forward
    */
   constructor(obj: Object) {
-    super({name: 'Forward', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
@@ -93,5 +95,7 @@ class Forward extends BaseComponent {
     );
   }
 }
+
+Forward.displayName = COMPONENT_NAME;
 
 export {Forward};
