@@ -44,19 +44,22 @@
     .left-controls {
       display: none;
     }
-    .control-button-container{
+    .control-button-container {
       display: none;
       margin: 0;
     }
   }
   &.size-xs {
-    .control-button-container{
-      margin: 0 1px;
-    }
     .left-controls {
       .control-button-container {
         display: none;
       }
+    }
+  }
+  &.size-xs,
+  &.size-sm {
+    .control-button-container {
+      margin: 0 3px;
     }
   }
 }
