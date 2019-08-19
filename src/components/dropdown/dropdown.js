@@ -28,24 +28,6 @@ const mapStateToProps = state => ({
 class DropDown extends Component {
   state: Object;
   _el: HTMLDivElement;
-  _dropdownButton: HTMLDivElement;
-
-  /**
-   * before component mounted, set initial internal state
-   *
-   * @returns {void}
-   * @memberof DropDown
-   */
-  componentWillMount() {
-    this.onClose();
-  }
-
-  componentWillUpdate(newProps): void {
-    if (newProps.parentClicked) {
-      newProps.onParentClickedDone();
-      this.toggleMenu();
-    }
-  }
 
   /**
    * is given option selected
@@ -67,45 +49,6 @@ class DropDown extends Component {
    */
   onSelect(option: Object): void {
     this.props.onSelect(option);
-    this.onClose();
-  }
-
-  /**
-   * on key down handler - on enter open toggle drop down menu
-   *
-   * @param {KeyboardEvent} e - keyboard event
-   * @returns {void}
-   * @memberof DropDown
-   */
-  onKeyDown(e: KeyboardEvent): void {
-    switch (e.keyCode) {
-      case KeyMap.ENTER:
-        this.toggleMenu();
-        break;
-      case KeyMap.ESC:
-        this.onClose();
-        e.stopPropagation();
-        break;
-    }
-  }
-
-  toggleMenu(): void {
-    this.setState({dropMenuActive: !this.state.dropMenuActive});
-    if (!this.state.dropMenuActive) {
-      this.props.onDropdownClosed();
-    }
-  }
-
-  /**
-   * listener function from Menu component to close the dropdown menu.
-   * set the internal state of dropMenuActive to false.
-   *
-   * @returns {void}
-   * @memberof DropDown
-   */
-  onClose(): void {
-    this.setState({dropMenuActive: false});
-    this.props.onDropdownClosed();
   }
 
   /**
@@ -130,7 +73,7 @@ class DropDown extends Component {
    * @memberof DropDown
    */
   renderNativeSelect(): React$Element<any> {
-    return <Menu options={this.props.options} onSelect={o => this.onSelect(o)} onClose={() => this.onClose()} />;
+    return <Menu options={this.props.options} onSelect={o => this.onSelect(o)} />;
   }
 
   /**
@@ -144,25 +87,12 @@ class DropDown extends Component {
     return props.isMobile || [PLAYER_SIZE.SMALL, PLAYER_SIZE.EXTRA_SMALL].includes(this.props.playerSize) ? (
       this.renderNativeSelect()
     ) : (
-      <div
-        name={props.name}
-        className={this.state.dropMenuActive ? [style.dropdown, style.active].join(' ') : style.dropdown}
-        ref={el => (this._el = el)}>
-        <div
-          className={style.dropdownButton}
-          onClick={() => {
-            this.toggleMenu();
-          }}
-          onKeyDown={e => this.onKeyDown(e)}
-          ref={bt => (this._dropdownButton = bt)}>
+      <div name={props.name} className={props.dropMenuActive ? [style.dropdown, style.active].join(' ') : style.dropdown} ref={el => (this._el = el)}>
+        <div className={style.dropdownButton}>
           <span>{this.getActiveOptionLabel()}</span>
           <Icon type={IconType.ArrowDown} />
         </div>
-        {!this.state.dropMenuActive ? (
-          undefined
-        ) : (
-          <Menu parentEl={this._el} options={props.options} onSelect={o => this.onSelect(o)} onClose={() => this.onClose()} />
-        )}
+        {!props.dropMenuActive ? undefined : <Menu parentEl={this._el} options={props.options} onSelect={o => this.onSelect(o)} />}
       </div>
     );
   }

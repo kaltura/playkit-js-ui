@@ -4,7 +4,7 @@ import {h, Component} from 'preact';
 import {DropDown} from '../dropdown';
 import {default as Icon} from '../icon';
 import {KeyMap} from '../../utils/key-map';
-import {connect} from "preact-redux";
+import {connect} from 'preact-redux';
 
 /**
  * mapping state to props
@@ -34,6 +34,7 @@ class SmartContainerItem extends Component {
     if (this.props.focus) {
       this._el.focus();
     }
+    this.setState({dropMenuActive: false});
   }
 
   /**
@@ -47,9 +48,18 @@ class SmartContainerItem extends Component {
     const label = props.label && props.label.toLowerCase();
     return (
       <div
+        onClick={e => {
+          this.toggleDropDown();
+          e.stopPropagation();
+        }}
         onKeyDown={e => {
           if (e.keyCode == KeyMap.ENTER) {
-            this.setState({clicked: true});
+            this.toggleDropDown();
+          } else if (e.keyCode == KeyMap.ESC) {
+            if (this.state.dropMenuActive) {
+              this.closeDropDown();
+              e.stopPropagation();
+            }
           }
         }}
         ref={el => (this._el = el)}
@@ -65,26 +75,29 @@ class SmartContainerItem extends Component {
           )}
           {props.label}
         </label>
-        <DropDown
-          name={label}
-          onSelect={o => this.onSelect(o)}
-          options={props.options}
-          parentClicked={this.state.clicked}
-          onDropdownClosed={() => {
-            if (this.props.playerNav && this._el) {
-              this._el.focus();
-            }
-          }}
-          onParentClickedDone={() => {
-            this.setState({clicked: false});
-          }}
-        />
+        <DropDown name={label} onSelect={o => this.onSelect(o)} options={props.options} dropMenuActive={this.state.dropMenuActive} />
       </div>
     );
   }
 
   onSelect(option) {
     this.props.onSelect(option);
+    this.closeDropDown();
+  }
+
+  toggleDropDown() {
+    const dropMenuActive = !this.state.dropMenuActive;
+    this.setState({dropMenuActive: dropMenuActive});
+    if (!dropMenuActive && this.props.playerNav && this._el) {
+      this._el.focus();
+    }
+  }
+
+  closeDropDown() {
+    this.setState({dropMenuActive: false});
+    if (this.props.playerNav && this._el) {
+      this._el.focus();
+    }
   }
 }
 
