@@ -19,13 +19,13 @@ const mapStateToProps = state => ({
 
 @connect(mapStateToProps)
 /**
- * LogoControl component
+ * Logo component
  *
- * @class LogoControl
- * @example <LogoControl player={this.player} />
+ * @class Logo
+ * @example <Logo player={this.player} />
  * @extends {BaseComponent}
  */
-class LogoControl extends BaseComponent {
+class Logo extends BaseComponent {
   /**
    * @static
    * @type {string} - Component display name
@@ -42,9 +42,9 @@ class LogoControl extends BaseComponent {
     return !(Object.keys(componentConfig).length === 0 && componentConfig.constructor === Object);
   }
   /**
-   * Creates an instance of LogoControl.
+   * Creates an instance of Logo.
    * @param {Object} obj obj
-   * @memberof LogoControl
+   * @memberof Logo
    */
   constructor(obj: Object) {
     super({name: 'Logo', player: obj.player});
@@ -55,7 +55,7 @@ class LogoControl extends BaseComponent {
    *
    * @param {*} props - component props
    * @returns {?React$Element} - component
-   * @memberof LogoControl
+   * @memberof Logo
    */
   render(props: any): ?React$Element<any> {
     const invisibleMode = [PLAYER_SIZE.TINY, PLAYER_SIZE.EXTRA_SMALL, PLAYER_SIZE.SMALL].includes(this.props.playerSize);
@@ -74,4 +74,4 @@ class LogoControl extends BaseComponent {
   }
 }
 
-export {LogoControl};
+export {Logo};

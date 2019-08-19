@@ -23,7 +23,7 @@ import {PlaybackControls} from '../components/playback-controls';
 import {PictureInPicture} from '../components/picture-in-picture';
 import {PictureInPictureOverlay} from '../components/picture-in-picture-overlay';
 import {ShareControl} from '../components/share';
-import {LogoControl} from '../components/logo/logo';
+import {Logo} from '../components/logo/logo';
 
 /**
  * Live ui intrface
@@ -57,7 +57,7 @@ export function liveUI(props: any): React$Element<any> {
             <CastControl player={props.player} />
             <PictureInPicture player={props.player} />
             <FullscreenControl player={props.player} />
-            {LogoControl.shouldRender(props) ? <LogoControl player={props.player} /> : undefined}
+            {Logo.shouldRender(props) ? <Logo player={props.player} /> : undefined}
           </div>
         </BottomBar>
       </div>
