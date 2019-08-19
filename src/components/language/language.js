@@ -190,7 +190,6 @@ class LanguageControl extends BaseComponent {
                   options={audioOptions}
                   onSelect={audioTrack => this.onAudioChange(audioTrack)}
                   focus={this.props.playerNav}
-                  onKeyDown={this.handleKeyDown}
                 />
               </Localizer>
             )}
