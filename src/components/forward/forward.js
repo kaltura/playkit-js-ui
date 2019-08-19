@@ -14,17 +14,17 @@ import {KeyMap} from '../../utils/key-map';
 export const FORWARD_DEFAULT_STEP = 10;
 
 /**
- * ForwardControl component
+ * Forward component
  *
- * @class ForwardControl
- * @example <ForwardControl player={this.player} step={5} />
+ * @class Forward
+ * @example <Forward player={this.player} step={5} />
  * @extends {BaseComponent}
  */
-class ForwardControl extends BaseComponent {
+class Forward extends BaseComponent {
   /**
-   * Creates an instance of ForwardControl.
+   * Creates an instance of Forward.
    * @param {Object} obj obj
-   * @memberof ForwardControl
+   * @memberof Forward
    */
   constructor(obj: Object) {
     super({name: 'Forward', player: obj.player});
@@ -34,7 +34,7 @@ class ForwardControl extends BaseComponent {
    * forward click handler
    *
    * @returns {void}
-   * @memberof ForwardControl
+   * @memberof Forward
    */
   onClick(): void {
     this.animate();
@@ -57,7 +57,7 @@ class ForwardControl extends BaseComponent {
    * toggles the animation state to activate the rotate animation
    *
    * @returns {void}
-   * @memberof ForwardControl
+   * @memberof Forward
    */
   animate(): void {
     this.setState({animation: false});
@@ -70,7 +70,7 @@ class ForwardControl extends BaseComponent {
    *
    * @param {*} props - component props
    * @returns {React$Element} - component element
-   * @memberof ForwardControl
+   * @memberof Forward
    */
   render(props: any): React$Element<any> | void {
     return (
@@ -94,4 +94,4 @@ class ForwardControl extends BaseComponent {
   }
 }
 
-export {ForwardControl};
+export {Forward};

@@ -1,1 +1,1 @@
-export {ForwardControl} from './forward';
+export {Forward} from './forward';

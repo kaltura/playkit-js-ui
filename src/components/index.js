@@ -20,7 +20,7 @@ export {OverlayPortal} from './overlay-portal';
 export {PlayPauseControl} from './play-pause';
 export {PrePlaybackPlayOverlay} from './pre-playback-play-overlay';
 export {RewindControl} from './rewind';
-export {ForwardControl} from './forward';
+export {Forward} from './forward';
 export {SeekBarControl} from './seekbar';
 export {SeekBarLivePlaybackContainer} from './seekbar-live-playback-container';
 export {SeekBarPlaybackContainer} from './seekbar-playback-container';
