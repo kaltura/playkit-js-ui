@@ -6,6 +6,8 @@ import BaseComponent from '../base';
 import {Text} from 'preact-i18n';
 import {PLAYER_SIZE} from '../shell/shell';
 
+const COMPONENT_NAME = 'Logo';
+
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -27,18 +29,13 @@ const mapStateToProps = state => ({
  */
 class Logo extends BaseComponent {
   /**
-   * @static
-   * @type {string} - Component display name
-   */
-  static displayName = 'logo';
-  /**
    * should render component
    * @param {*} props - component props
    * @returns {boolean} - whether to render the component
    * @static
    */
   static shouldRender(props: any): boolean {
-    const componentConfig = props.config.components[this.displayName];
+    const componentConfig = props.config.components[COMPONENT_NAME.toLocaleLowerCase()];
     return !(Object.keys(componentConfig).length === 0 && componentConfig.constructor === Object);
   }
   /**
@@ -47,7 +44,7 @@ class Logo extends BaseComponent {
    * @memberof Logo
    */
   constructor(obj: Object) {
-    super({name: 'Logo', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
@@ -73,5 +70,7 @@ class Logo extends BaseComponent {
     }
   }
 }
+
+Logo.displayName = COMPONENT_NAME;
 
 export {Logo};
