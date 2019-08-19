@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.43.0"></a>
+# [0.43.0](https://github.com/kaltura/playkit-js-ui/compare/v0.42.1...v0.43.0) (2019-08-19)
+
+
+### Bug Fixes
+
+* **FEC-9079:** USER_SEEKED event triggering twice ([#403](https://github.com/kaltura/playkit-js-ui/issues/403)) ([29fbeb5](https://github.com/kaltura/playkit-js-ui/commit/29fbeb5))
+
+
+### Features
+
+* **FEC-9056:** 10-second fast forward button ([#398](https://github.com/kaltura/playkit-js-ui/issues/398)) ([fd23f3b](https://github.com/kaltura/playkit-js-ui/commit/fd23f3b))
+* **FEC-9174:** customize logo on bottom bar ([#402](https://github.com/kaltura/playkit-js-ui/issues/402)) ([86db56b](https://github.com/kaltura/playkit-js-ui/commit/86db56b))
+
+
+
 <a name="0.42.1"></a>
 ## [0.42.1](https://github.com/kaltura/playkit-js-ui/compare/v0.42.0...v0.42.1) (2019-07-19)
 
