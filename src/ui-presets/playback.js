@@ -11,7 +11,7 @@ import {Volume} from '../components/volume';
 import {Settings} from '../components/settings';
 import {Language} from '../components/language';
 import {Fullscreen} from '../components/fullscreen';
-import {VrStereo} from '../components/vr-stereo-toggle';
+import {VrStereo} from '../components/vr-stereo';
 import {TimeDisplayPlaybackContainer} from '../components/time-display-playback-container';
 import {BottomBar} from '../components/bottom-bar';
 import {OverlayPortal} from '../components/overlay-portal';

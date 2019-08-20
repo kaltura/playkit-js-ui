@@ -20,7 +20,7 @@ const mapStateToProps = state => ({
   config: state.config.components.vrStereo
 });
 
-const COMPONENT_NAME = 'vrStereo';
+const COMPONENT_NAME = 'VrStereo';
 
 @connect(
   mapStateToProps,
@@ -41,7 +41,7 @@ class VrStereo extends BaseComponent {
    * @static
    */
   static shouldRender(props: any): boolean {
-    const componentConfig = props.config.components[this.displayName];
+    const componentConfig = props.config.components['vrStereo'];
     return props.state.engine.isVr && !(Object.keys(componentConfig).length === 0 && componentConfig.constructor === Object);
   }
   /**

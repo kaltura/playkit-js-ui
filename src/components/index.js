@@ -8,7 +8,7 @@ import {SeekBar} from './seekbar';
 import {Settings} from './settings';
 import {Share} from './share';
 import {Volume} from './volume';
-import {VrStereo} from './vr-stereo-toggle';
+import {VrStereo} from './vr-stereo';
 
 export {AdLearnMore} from './ad-learn-more';
 export {AdSkip} from './ad-skip';

@@ -15,7 +15,7 @@ import {Keyboard} from '../components/keyboard';
 import {LiveTag} from '../components/live-tag';
 import {UnmuteIndication} from '../components/unmute-indication';
 import {Watermark} from '../components/watermark/watermark';
-import {VrStereo} from '../components/vr-stereo-toggle';
+import {VrStereo} from '../components/vr-stereo';
 import {Cast} from '../components/cast';
 import {CastBeforePlay} from '../components/cast-on-tv/cast-before-play';
 import {Backdrop} from '../components/backdrop/backdrop';
