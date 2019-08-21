@@ -45,6 +45,8 @@ class CVAAOverlay extends BaseComponent {
   captionsStyleDefault: Object;
   captionsStyleYellow: Object;
   captionsStyleBlackBG: Object;
+  _firstMainAccessibleElement: HTMLElement;
+  _firstCustomAccessibleElement: HTMLElement;
 
   /**
    * Creates an instance of CVAAOverlay.
@@ -62,7 +64,7 @@ class CVAAOverlay extends BaseComponent {
    */
   componentWillUnmount() {
     this.setState({
-      state: cvaaOverlayState.Main
+      activeOverlay: cvaaOverlayState.Main
     });
   }
 
@@ -74,7 +76,7 @@ class CVAAOverlay extends BaseComponent {
    */
   componentWillMount() {
     this.setState({
-      state: cvaaOverlayState.Main,
+      activeOverlay: cvaaOverlayState.Main,
       customTextStyle: this.props.player.textStyle
     });
 
@@ -93,6 +95,23 @@ class CVAAOverlay extends BaseComponent {
     });
   }
 
+  componentDidMount(): void {
+    this._firstMainAccessibleElement.focus();
+  }
+
+  componentDidUpdate(previousProps: PropsType, previousState: StateType): void {
+    if (previousState.activeOverlay !== this.state.activeOverlay) {
+      switch (this.state.activeOverlay) {
+        case cvaaOverlayState.CustomCaptions:
+          this._firstCustomAccessibleElement.focus();
+          break;
+        case cvaaOverlayState.Main:
+          this._firstMainAccessibleElement.focus();
+          break;
+      }
+    }
+  }
+
   /**
    * changing the overlay state
    *
@@ -101,7 +120,7 @@ class CVAAOverlay extends BaseComponent {
    * @memberof CVAAOverlay
    */
   transitionToState(stateName: CvaaOverlayStateType): void {
-    this.setState({state: stateName});
+    this.setState({activeOverlay: stateName});
   }
 
   /**
@@ -142,12 +161,15 @@ class CVAAOverlay extends BaseComponent {
    */
   renderMainState(): React$Element<any> {
     return (
-      <div className={this.state.state === cvaaOverlayState.Main ? [style.overlayScreen, style.active].join(' ') : style.overlayScreen}>
+      <div className={this.state.activeOverlay === cvaaOverlayState.Main ? [style.overlayScreen, style.active].join(' ') : style.overlayScreen}>
         <div className={style.title}>
           <Text id={'cvaa.title'} />
         </div>
         <div>
           <div
+            ref={el => {
+              this._firstMainAccessibleElement = el;
+            }}
             tabIndex="0"
             className={style.sample}
             onClick={() => this.changeCaptionsStyle(this.captionsStyleDefault)}
@@ -304,9 +326,17 @@ class CVAAOverlay extends BaseComponent {
     }));
 
     return (
-      <div className={this.state.state === cvaaOverlayState.CustomCaptions ? [style.overlayScreen, style.active].join(' ') : style.overlayScreen}>
+      <div
+        className={
+          this.state.activeOverlay === cvaaOverlayState.CustomCaptions ? [style.overlayScreen, style.active].join(' ') : style.overlayScreen
+        }>
         <form className={[style.form, style.customCaptionForm].join(' ')}>
-          <div className={[style.formGroupRow, style.fontSize].join(' ')}>
+          <div
+            tabIndex="0"
+            className={[style.formGroupRow, style.fontSize].join(' ')}
+            ref={el => {
+              this._firstCustomAccessibleElement = el;
+            }}>
             <label>
               <Text id={'cvaa.size_label'} />
             </label>

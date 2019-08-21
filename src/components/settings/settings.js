@@ -10,6 +10,7 @@ import {SmartContainer} from '../smart-container';
 import {SmartContainerItem} from '../smart-container/smart-container-item';
 import {default as Icon, IconType} from '../icon';
 import {PLAYER_SIZE} from '../shell/shell';
+import {KeyMap} from '../../utils/key-map';
 
 /**
  * mapping state to props
@@ -204,7 +205,14 @@ class SettingsControl extends BaseComponent {
     if (qualityOptions.length <= 1 && speedOptions.length <= 1) return undefined;
     if (props.isLive && qualityOptions.length <= 1) return undefined;
     return (
-      <div ref={c => (this._controlSettingsElement = c)} className={[style.controlButtonContainer, style.controlSettings].join(' ')}>
+      <div
+        ref={c => (this._controlSettingsElement = c)}
+        onKeyDown={e => {
+          if (e.keyCode === KeyMap.ESC) {
+            this.setState({smartContainerOpen: false});
+          }
+        }}
+        className={[style.controlButtonContainer, style.controlSettings].join(' ')}>
         <Localizer>
           <button
             tabIndex="0"
