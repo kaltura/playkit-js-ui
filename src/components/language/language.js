@@ -41,7 +41,6 @@ const mapStateToProps = state => ({
 class LanguageControl extends BaseComponent {
   state: Object;
   _controlLanguageElement: any;
-  _button: HTMLButtonElement;
   _portal: any;
 
   /**
