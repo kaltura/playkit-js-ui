@@ -12,6 +12,11 @@
 }
 
 .player {
+  &.size-md {
+    .time-display {
+      padding: 0 12px;
+    }
+  }
   &.size-xs,
   &.size-sm {
     .time-display {

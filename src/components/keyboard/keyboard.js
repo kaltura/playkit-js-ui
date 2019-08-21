@@ -174,7 +174,7 @@ class Keyboard extends BaseComponent {
         const to = newTime > this.player.duration ? this.player.duration : newTime;
         this.logger.debug(`Seek. ${from} => ${to}`);
         this.player.currentTime = newTime > this.player.duration ? this.player.duration : newTime;
-        this.props.updateOverlayActionIcon(IconType.SeekForward);
+        this.props.updateOverlayActionIcon(IconType.Forward);
         this.toggleHoverState();
         return {from: from, to: to};
       }

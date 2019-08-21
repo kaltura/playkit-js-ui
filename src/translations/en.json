@@ -7,13 +7,15 @@
     "settings": "Settings",
     "fullscreen": "Fullscreen",
     "rewind": "Rewind",
+    "forward": "Forward",
     "vrStereo": "vrStereo",
     "live": "Live",
     "unmute": "Unmute",
     "next": "Next",
     "prev": "Prev",
     "startOver": "Start over",
-    "pictureInPicture": "Picture in picture"
+    "pictureInPicture": "Picture in picture",
+    "logo": "Logo"
   },
   "unmute": {
     "unmute": "Unmute"

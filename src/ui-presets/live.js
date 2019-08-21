@@ -25,6 +25,7 @@ import {PictureInPictureOverlay} from '../components/picture-in-picture-overlay'
 import {Share} from '../components/share';
 import {Container} from '../components/container';
 import {TopBar} from '../components/top-bar';
+import {Logo} from '../components/logo/logo';
 
 const PRESET_NAME = 'Live';
 
@@ -64,6 +65,7 @@ export function LiveUI(props: any): React$Element<any> {
             <Cast player={props.player} />
             <PictureInPicture player={props.player} />
             <Fullscreen player={props.player} />
+            {Logo.shouldRender(props) ? <Logo player={props.player} /> : undefined}
           </Container>
         </BottomBar>
       </Container>
