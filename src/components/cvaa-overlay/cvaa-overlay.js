@@ -99,7 +99,7 @@ class CVAAOverlay extends BaseComponent {
     this._firstMainAccessibleElement.focus();
   }
 
-  componentDidUpdate(previousProps: PropsType, previousState: StateType): void {
+  componentDidUpdate(previousProps: Object, previousState: Object): void {
     if (previousState.activeOverlay !== this.state.activeOverlay) {
       switch (this.state.activeOverlay) {
         case cvaaOverlayState.CustomCaptions:
