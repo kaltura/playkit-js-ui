@@ -95,10 +95,25 @@ class CVAAOverlay extends BaseComponent {
     });
   }
 
+  /**
+   * after component mounted, focus on overlay so esc can be handled,
+   *
+   * @returns {void}
+   * @memberof CVAAOverlay
+   */
   componentDidMount(): void {
     this._firstMainAccessibleElement.focus();
   }
 
+  /**
+   * when component did update and change its active overlay state
+   * focus on the overlay for "esc" to be handled
+   *
+   * @param {Object} previousProps - previous props
+   * @param {Object} previousState - previous State
+   * @returns {void}
+   * @memberof CVAAOverlay
+   */
   componentDidUpdate(previousProps: Object, previousState: Object): void {
     if (previousState.activeOverlay !== this.state.activeOverlay) {
       switch (this.state.activeOverlay) {
