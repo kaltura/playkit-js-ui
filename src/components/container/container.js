@@ -75,19 +75,14 @@ class Container extends BaseComponent {
     if (!this.context.presetComponentsStore) {
       return;
     }
-    const {targetPresetName, activePresetName} = this.props;
+    const {activePresetName} = this.props;
 
     if (!activePresetName) {
       this.presetComponentsOnlyMode = true;
       return;
     }
 
-    if (targetPresetName !== activePresetName) {
-      this.logger.debug(`mount ui container (target preset '${targetPresetName}') - Container is not in use in active preset '${activePresetName}`);
-      return;
-    }
-
-    this.logger.debug(`mount ui container (target preset '${targetPresetName}') - handle injected components`);
+    this.logger.debug(`mount ui container (active preset '${activePresetName}') - handle injected components`);
     this.context.presetComponentsStore.listen(this._onPresetsComponentsChange);
   }
 
@@ -107,8 +102,8 @@ class Container extends BaseComponent {
 
     this.context.presetComponentsStore.unlisten(this._onPresetsComponentsChange);
 
-    const {targetPresetName} = this.props;
-    this.logger.debug(`un-mount ui container (target preset '${targetPresetName}')`);
+    const {activePresetName} = this.props;
+    this.logger.debug(`un-mount ui container (active preset '${activePresetName}')`);
   }
 
   /**
@@ -121,11 +116,7 @@ class Container extends BaseComponent {
       return;
     }
 
-    const {targetPresetName, activePresetName} = this.props;
-
-    if (targetPresetName !== activePresetName) {
-      return;
-    }
+    const {activePresetName} = this.props;
 
     const nextContainerComponents = {
       appendedComponents: [],
@@ -134,7 +125,7 @@ class Container extends BaseComponent {
     const positionedComponentMap = nextContainerComponents.positionedComponentMap;
     let hasPositionedComponents = false;
 
-    const presetComponents = presetsComponents[targetPresetName] || [];
+    const presetComponents = presetsComponents[activePresetName] || [];
     const containerComponents = presetComponents.filter(component => component.container === this.props.name);
     containerComponents.forEach(component => {
       if (component.beforeComponent) {

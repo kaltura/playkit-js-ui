@@ -40,34 +40,29 @@ const PRESET_NAME = 'Playback';
  */
 function PlaybackUI(props: any): React$Element<any> {
   return (
-    <Container
-      className={style.playbackGuiWWrapper}
-      name={'VideoOverlay'}
-      player={props.player}
-      targetPresetName={PRESET_NAME}
-      preAppendTo={'Backdrop'}>
+    <Container className={style.playbackGuiWWrapper} name={'VideoOverlay'} player={props.player} preAppendTo={'Backdrop'}>
       <Keyboard player={props.player} config={props.config} />
       <Loading player={props.player} />
-      <Container className={style.playerGui} name={'PlayerGUI'} player={props.player} targetPresetName={PRESET_NAME} id="player-gui">
+      <Container className={style.playerGui} name={'PlayerGUI'} player={props.player} id="player-gui">
         <OverlayPortal />
         <UnmuteIndication player={props.player} />
         <OverlayAction player={props.player} />
         <PlaybackControls player={props.player} />
         {PlaylistNextScreen.shouldRender(props) ? <PlaylistNextScreen player={props.player} /> : undefined}
         <TopBar>
-          <Container className={style.leftControls} name={'TopBarLeftControls'} player={props.player} targetPresetName={PRESET_NAME} />
-          <Container className={style.rightControls} name={'TopBarRightControls'} player={props.player} targetPresetName={PRESET_NAME}>
+          <Container className={style.leftControls} name={'TopBarLeftControls'} player={props.player} />
+          <Container className={style.rightControls} name={'TopBarRightControls'} player={props.player}>
             <Share player={props.player} />
           </Container>
         </TopBar>
         <BottomBar>
           <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player} playerContainer={props.playerContainer} />
-          <Container className={style.leftControls} name={'BottomBarLeftControls'} player={props.player} targetPresetName={PRESET_NAME}>
+          <Container className={style.leftControls} name={'BottomBarLeftControls'} player={props.player}>
             <PlaybackControls player={props.player} />
             <Rewind player={props.player} step={10} />
             <TimeDisplayPlaybackContainer format="current / total" />
           </Container>
-          <Container className={style.rightControls} name={'BottomBarRightControls'} player={props.player} targetPresetName={PRESET_NAME}>
+          <Container className={style.rightControls} name={'BottomBarRightControls'} player={props.player}>
             {VrStereo.shouldRender(props) ? <VrStereo player={props.player} /> : undefined}
             <Volume player={props.player} />
             <Language player={props.player} />
