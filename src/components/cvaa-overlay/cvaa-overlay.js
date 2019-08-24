@@ -45,38 +45,16 @@ class CVAAOverlay extends BaseComponent {
   captionsStyleDefault: Object;
   captionsStyleYellow: Object;
   captionsStyleBlackBG: Object;
-  _firstMainAccessibleElement: HTMLElement;
-  _firstCustomAccessibleElement: HTMLElement;
+  _firstElementToFocus: HTMLElement;
 
   /**
    * Creates an instance of CVAAOverlay.
+   * @param {Object} props - component props
    * @memberof CVAAOverlay
    */
-  constructor() {
-    super({name: 'CVAAOverlay'});
-  }
-
-  /**
-   * componentWillUnmount
-   *
-   * @returns {void}
-   * @memberof CVAAOverlay
-   */
-  componentWillUnmount() {
+  constructor(props?: Object) {
+    super({name: 'CVAAOverlay'}, props);
     this.setState({
-      activeOverlay: cvaaOverlayState.Main
-    });
-  }
-
-  /**
-   * componentWillMount
-   *
-   * @returns {void}
-   * @memberof CVAAOverlay
-   */
-  componentWillMount() {
-    this.setState({
-      activeOverlay: cvaaOverlayState.Main,
       customTextStyle: this.props.player.textStyle
     });
 
@@ -96,13 +74,27 @@ class CVAAOverlay extends BaseComponent {
   }
 
   /**
+   * componentWillUnmount
+   *
+   * @returns {void}
+   * @memberof CVAAOverlay
+   */
+  componentWillUnmount() {
+    this.setState({
+      activeOverlay: cvaaOverlayState.Main
+    });
+  }
+
+  /**
    * after component mounted, focus on overlay so esc can be handled,
    *
    * @returns {void}
    * @memberof CVAAOverlay
    */
   componentDidMount(): void {
-    this._firstMainAccessibleElement.focus();
+    this.setState({
+      activeOverlay: cvaaOverlayState.Main
+    });
   }
 
   /**
@@ -116,14 +108,7 @@ class CVAAOverlay extends BaseComponent {
    */
   componentDidUpdate(previousProps: Object, previousState: Object): void {
     if (previousState.activeOverlay !== this.state.activeOverlay) {
-      switch (this.state.activeOverlay) {
-        case cvaaOverlayState.CustomCaptions:
-          this._firstCustomAccessibleElement.focus();
-          break;
-        case cvaaOverlayState.Main:
-          this._firstMainAccessibleElement.focus();
-          break;
-      }
+      this._firstElementToFocus.focus();
     }
   }
 
@@ -183,7 +168,9 @@ class CVAAOverlay extends BaseComponent {
         <div>
           <div
             ref={el => {
-              this._firstMainAccessibleElement = el;
+              if (this.state.activeOverlay === cvaaOverlayState.Main) {
+                this._firstElementToFocus = el;
+              }
             }}
             tabIndex="0"
             className={style.sample}
@@ -350,7 +337,9 @@ class CVAAOverlay extends BaseComponent {
             tabIndex="0"
             className={[style.formGroupRow, style.fontSize].join(' ')}
             ref={el => {
-              this._firstCustomAccessibleElement = el;
+              if (this.state.activeOverlay === cvaaOverlayState.CustomCaptions) {
+                this._firstElementToFocus = el;
+              }
             }}>
             <label>
               <Text id={'cvaa.size_label'} />

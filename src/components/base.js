@@ -28,10 +28,11 @@ class BaseComponent extends Component {
   /**
    * Creates an instance of BaseComponent.
    * @param {Object} [obj={ config: {} }] obj
+   * @param {Object} props - component props
    * @memberof BaseComponent
    */
-  constructor(obj?: Object = {config: {}}) {
-    super();
+  constructor(obj?: Object = {config: {}}, props?: Object) {
+    super(props);
     this.name = obj.name;
     this.player = obj.player;
     this.config = obj.config;
