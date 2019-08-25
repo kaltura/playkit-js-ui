@@ -156,14 +156,7 @@ class LanguageControl extends BaseComponent {
   renderAll(audioOptions: Array<Object>, textOptions: Array<Object>): React$Element<any> {
     const portalSelector = `#${this.player.config.targetId} .overlay-portal`;
     return (
-      <div
-        ref={c => (this._controlLanguageElement = c)}
-        onKeyDown={e => {
-          if (e.keyCode === KeyMap.ESC) {
-            this.setState({smartContainerOpen: false});
-          }
-        }}
-        className={[style.controlButtonContainer, style.controlLanguage].join(' ')}>
+      <div ref={c => (this._controlLanguageElement = c)} className={[style.controlButtonContainer, style.controlLanguage].join(' ')}>
         <Localizer>
           <button
             tabIndex="0"
