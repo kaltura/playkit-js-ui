@@ -24,12 +24,12 @@ const mapStateToProps = state => ({
   style: state.cvaa.style
 });
 
-const cvaaOverlayState = {
+const CvaaOverlayName = {
   Main: 'main',
   CustomCaptions: 'custom-captions'
 };
 
-type CvaaOverlayStateType = 'main' | 'custom-captions';
+type CvaaOverlayNameType = 'main' | 'custom-captions';
 
 @connect(
   mapStateToProps,
@@ -81,7 +81,7 @@ class CVAAOverlay extends BaseComponent {
    */
   componentWillUnmount() {
     this.setState({
-      activeOverlay: cvaaOverlayState.Main
+      activeOverlay: CvaaOverlayName.Main
     });
   }
 
@@ -93,7 +93,7 @@ class CVAAOverlay extends BaseComponent {
    */
   componentDidMount(): void {
     this.setState({
-      activeOverlay: cvaaOverlayState.Main
+      activeOverlay: CvaaOverlayName.Main
     });
   }
 
@@ -115,11 +115,11 @@ class CVAAOverlay extends BaseComponent {
   /**
    * changing the overlay state
    *
-   * @param {CvaaOverlayStateType} stateName - the new state name
+   * @param {CvaaOverlayNameType} stateName - the new state name
    * @returns {void}
    * @memberof CVAAOverlay
    */
-  transitionToState(stateName: CvaaOverlayStateType): void {
+  transitionToState(stateName: CvaaOverlayNameType): void {
     this.setState({activeOverlay: stateName});
   }
 
@@ -161,14 +161,14 @@ class CVAAOverlay extends BaseComponent {
    */
   renderMainState(): React$Element<any> {
     return (
-      <div className={this.state.activeOverlay === cvaaOverlayState.Main ? [style.overlayScreen, style.active].join(' ') : style.overlayScreen}>
+      <div className={this.state.activeOverlay === CvaaOverlayName.Main ? [style.overlayScreen, style.active].join(' ') : style.overlayScreen}>
         <div className={style.title}>
           <Text id={'cvaa.title'} />
         </div>
         <div>
           <div
             ref={el => {
-              if (this.state.activeOverlay === cvaaOverlayState.Main) {
+              if (this.state.activeOverlay === CvaaOverlayName.Main) {
                 this._firstElementToFocus = el;
               }
             }}
@@ -230,10 +230,10 @@ class CVAAOverlay extends BaseComponent {
           <a
             tabIndex="0"
             className={style.buttonSaveCvaa}
-            onClick={() => this.transitionToState(cvaaOverlayState.CustomCaptions)}
+            onClick={() => this.transitionToState(CvaaOverlayName.CustomCaptions)}
             onKeyDown={e => {
               if (e.keyCode === KeyMap.ENTER) {
-                this.transitionToState(cvaaOverlayState.CustomCaptions);
+                this.transitionToState(CvaaOverlayName.CustomCaptions);
               }
             }}>
             <Text id={'cvaa.set_custom_caption'} />
@@ -248,10 +248,10 @@ class CVAAOverlay extends BaseComponent {
             </div>
             <a
               tabIndex="0"
-              onClick={() => this.transitionToState(cvaaOverlayState.CustomCaptions)}
+              onClick={() => this.transitionToState(CvaaOverlayName.CustomCaptions)}
               onKeyDown={e => {
                 if (e.keyCode === KeyMap.ENTER) {
-                  this.transitionToState(cvaaOverlayState.CustomCaptions);
+                  this.transitionToState(CvaaOverlayName.CustomCaptions);
                 }
               }}>
               <Text id={'cvaa.edit_caption'} />
@@ -329,15 +329,13 @@ class CVAAOverlay extends BaseComponent {
 
     return (
       <div
-        className={
-          this.state.activeOverlay === cvaaOverlayState.CustomCaptions ? [style.overlayScreen, style.active].join(' ') : style.overlayScreen
-        }>
+        className={this.state.activeOverlay === CvaaOverlayName.CustomCaptions ? [style.overlayScreen, style.active].join(' ') : style.overlayScreen}>
         <form className={[style.form, style.customCaptionForm].join(' ')}>
           <div
             tabIndex="0"
             className={[style.formGroupRow, style.fontSize].join(' ')}
             ref={el => {
-              if (this.state.activeOverlay === cvaaOverlayState.CustomCaptions) {
+              if (this.state.activeOverlay === CvaaOverlayName.CustomCaptions) {
                 this._firstElementToFocus = el;
               }
             }}>
