@@ -24,12 +24,12 @@ const mapStateToProps = state => ({
   style: state.cvaa.style
 });
 
-const CvaaOverlayName = {
+const cvaaOverlayState = {
   Main: 'main',
   CustomCaptions: 'custom-captions'
 };
 
-type CvaaOverlayNameType = 'main' | 'custom-captions';
+type CvaaOverlayStateType = 'main' | 'custom-captions';
 
 @connect(
   mapStateToProps,
@@ -49,12 +49,33 @@ class CVAAOverlay extends BaseComponent {
 
   /**
    * Creates an instance of CVAAOverlay.
-   * @param {Object} props - component props
    * @memberof CVAAOverlay
    */
-  constructor(props?: Object) {
-    super({name: 'CVAAOverlay'}, props);
+  constructor() {
+    super({name: 'CVAAOverlay'});
+  }
+
+  /**
+   * componentWillUnmount
+   *
+   * @returns {void}
+   * @memberof CVAAOverlay
+   */
+  componentWillUnmount() {
     this.setState({
+      state: cvaaOverlayState.Main
+    });
+  }
+
+  /**
+   * componentWillMount
+   *
+   * @returns {void}
+   * @memberof CVAAOverlay
+   */
+  componentWillMount() {
+    this.setState({
+      state: cvaaOverlayState.Main,
       customTextStyle: this.props.player.textStyle
     });
 
@@ -74,53 +95,23 @@ class CVAAOverlay extends BaseComponent {
   }
 
   /**
-   * componentWillUnmount
-   *
-   * @returns {void}
-   * @memberof CVAAOverlay
-   */
-  componentWillUnmount() {
-    this.setState({
-      activeOverlay: CvaaOverlayName.Main
-    });
-  }
-
-  /**
-   * after component mounted, focus on overlay so esc can be handled,
-   *
+   * focus on the overlay for "esc" to be handled
    * @returns {void}
    * @memberof CVAAOverlay
    */
   componentDidMount(): void {
-    this.setState({
-      activeOverlay: CvaaOverlayName.Main
-    });
-  }
-
-  /**
-   * when component did update and change its active overlay state
-   * focus on the overlay for "esc" to be handled
-   *
-   * @param {Object} previousProps - previous props
-   * @param {Object} previousState - previous State
-   * @returns {void}
-   * @memberof CVAAOverlay
-   */
-  componentDidUpdate(previousProps: Object, previousState: Object): void {
-    if (previousState.activeOverlay !== this.state.activeOverlay) {
-      this._firstElementToFocus.focus();
-    }
+    this._firstElementToFocus.focus();
   }
 
   /**
    * changing the overlay state
    *
-   * @param {CvaaOverlayNameType} stateName - the new state name
+   * @param {CvaaOverlayStateType} stateName - the new state name
    * @returns {void}
    * @memberof CVAAOverlay
    */
-  transitionToState(stateName: CvaaOverlayNameType): void {
-    this.setState({activeOverlay: stateName});
+  transitionToState(stateName: CvaaOverlayStateType): void {
+    this.setState({state: stateName});
   }
 
   /**
@@ -161,18 +152,14 @@ class CVAAOverlay extends BaseComponent {
    */
   renderMainState(): React$Element<any> {
     return (
-      <div className={this.state.activeOverlay === CvaaOverlayName.Main ? [style.overlayScreen, style.active].join(' ') : style.overlayScreen}>
+      <div className={this.state.state === cvaaOverlayState.Main ? [style.overlayScreen, style.active].join(' ') : style.overlayScreen}>
         <div className={style.title}>
           <Text id={'cvaa.title'} />
         </div>
         <div>
           <div
-            ref={el => {
-              if (this.state.activeOverlay === CvaaOverlayName.Main) {
-                this._firstElementToFocus = el;
-              }
-            }}
             tabIndex="0"
+            ref={el => (this._firstElementToFocus = el)}
             className={style.sample}
             onClick={() => this.changeCaptionsStyle(this.captionsStyleDefault)}
             onKeyDown={e => {
@@ -230,10 +217,10 @@ class CVAAOverlay extends BaseComponent {
           <a
             tabIndex="0"
             className={style.buttonSaveCvaa}
-            onClick={() => this.transitionToState(CvaaOverlayName.CustomCaptions)}
+            onClick={() => this.transitionToState(cvaaOverlayState.CustomCaptions)}
             onKeyDown={e => {
               if (e.keyCode === KeyMap.ENTER) {
-                this.transitionToState(CvaaOverlayName.CustomCaptions);
+                this.transitionToState(cvaaOverlayState.CustomCaptions);
               }
             }}>
             <Text id={'cvaa.set_custom_caption'} />
@@ -248,10 +235,10 @@ class CVAAOverlay extends BaseComponent {
             </div>
             <a
               tabIndex="0"
-              onClick={() => this.transitionToState(CvaaOverlayName.CustomCaptions)}
+              onClick={() => this.transitionToState(cvaaOverlayState.CustomCaptions)}
               onKeyDown={e => {
                 if (e.keyCode === KeyMap.ENTER) {
-                  this.transitionToState(CvaaOverlayName.CustomCaptions);
+                  this.transitionToState(cvaaOverlayState.CustomCaptions);
                 }
               }}>
               <Text id={'cvaa.edit_caption'} />
@@ -328,17 +315,9 @@ class CVAAOverlay extends BaseComponent {
     }));
 
     return (
-      <div
-        className={this.state.activeOverlay === CvaaOverlayName.CustomCaptions ? [style.overlayScreen, style.active].join(' ') : style.overlayScreen}>
+      <div className={this.state.state === cvaaOverlayState.CustomCaptions ? [style.overlayScreen, style.active].join(' ') : style.overlayScreen}>
         <form className={[style.form, style.customCaptionForm].join(' ')}>
-          <div
-            tabIndex="0"
-            className={[style.formGroupRow, style.fontSize].join(' ')}
-            ref={el => {
-              if (this.state.activeOverlay === CvaaOverlayName.CustomCaptions) {
-                this._firstElementToFocus = el;
-              }
-            }}>
+          <div className={[style.formGroupRow, style.fontSize].join(' ')}>
             <label>
               <Text id={'cvaa.size_label'} />
             </label>
