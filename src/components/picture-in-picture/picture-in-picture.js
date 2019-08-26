@@ -52,7 +52,7 @@ class PictureInPicture extends BaseComponent {
    * render component
    *
    * @returns {React$Element} - component element
-   * @memberof RewindControl
+   * @memberof PictureInPicture
    */
   render(): React$Element<any> | void {
     if (this.props.isPictureInPictureSupported && this.props.playerSize !== PLAYER_SIZE.EXTRA_SMALL) {

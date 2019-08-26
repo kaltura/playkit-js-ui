@@ -5,6 +5,7 @@ import {OverlayAction} from '../components/overlay-action';
 import {PrePlaybackPlayOverlay} from '../components/pre-playback-play-overlay';
 import {Loading} from '../components/loading';
 import {RewindControl} from '../components/rewind';
+import {Forward} from '../components/forward';
 import {SeekBarPlaybackContainer} from '../components/seekbar-playback-container';
 import {VolumeControl} from '../components/volume';
 import {SettingsControl} from '../components/settings';
@@ -26,6 +27,7 @@ import {PlaylistNextScreen} from '../components/playlist-next-screen';
 import {PictureInPicture} from '../components/picture-in-picture';
 import {PictureInPictureOverlay} from '../components/picture-in-picture-overlay';
 import {ShareControl} from '../components/share';
+import {Logo} from '../components/logo/logo';
 
 /**
  * Playback ui interface
@@ -51,6 +53,7 @@ export function playbackUI(props: any): React$Element<any> {
           <div className={style.leftControls}>
             <PlaybackControls player={props.player} />
             <RewindControl player={props.player} step={10} />
+            <Forward player={props.player} step={10} />
             <TimeDisplayPlaybackContainer format="current / total" />
           </div>
           <div className={style.rightControls}>
@@ -61,6 +64,7 @@ export function playbackUI(props: any): React$Element<any> {
             <CastControl player={props.player} />
             <PictureInPicture player={props.player} />
             <FullscreenControl player={props.player} />
+            {Logo.shouldRender(props) ? <Logo player={props.player} /> : undefined}
           </div>
         </BottomBar>
       </div>

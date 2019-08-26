@@ -3,48 +3,50 @@ import style from '../../styles/style.scss';
 import {h} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import BaseComponent from '../base';
-import {Icon, IconType} from '../icon';
+import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 
+const COMPONENT_NAME = 'Forward';
+
 /**
- * Default rewind step
+ * Default forward step
  * @type {number}
  * @const
  */
-export const REWIND_DEFAULT_STEP = 10;
+export const FORWARD_DEFAULT_STEP = 10;
 
 /**
- * RewindControl component
+ * Forward component
  *
- * @class RewindControl
- * @example <RewindControl player={this.player} step={5} />
+ * @class Forward
+ * @example <Forward player={this.player} step={5} />
  * @extends {BaseComponent}
  */
-class RewindControl extends BaseComponent {
+class Forward extends BaseComponent {
   /**
-   * Creates an instance of RewindControl.
+   * Creates an instance of Forward.
    * @param {Object} obj obj
-   * @memberof RewindControl
+   * @memberof Forward
    */
   constructor(obj: Object) {
-    super({name: 'Rewind', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
-   * rewind click handler
+   * forward click handler
    *
    * @returns {void}
-   * @memberof RewindControl
+   * @memberof Forward
    */
   onClick(): void {
     this.animate();
     let to;
-    const step = this.props.step || REWIND_DEFAULT_STEP;
+    const step = this.props.step || FORWARD_DEFAULT_STEP;
     const from = this.player.currentTime;
-    if (this.player.currentTime - step < 0) {
-      to = 0;
+    if (this.player.currentTime + step > this.player.duration) {
+      to = this.player.duration;
     } else {
-      to = this.player.currentTime - step;
+      to = this.player.currentTime + step;
     }
     this.player.currentTime = to;
     this.notifyClick({
@@ -57,7 +59,7 @@ class RewindControl extends BaseComponent {
    * toggles the animation state to activate the rotate animation
    *
    * @returns {void}
-   * @memberof RewindControl
+   * @memberof Forward
    */
   animate(): void {
     this.setState({animation: false});
@@ -70,7 +72,7 @@ class RewindControl extends BaseComponent {
    *
    * @param {*} props - component props
    * @returns {React$Element} - component element
-   * @memberof RewindControl
+   * @memberof Forward
    */
   render(props: any): React$Element<any> | void {
     return (
@@ -78,15 +80,15 @@ class RewindControl extends BaseComponent {
         <Localizer>
           <button
             tabIndex="0"
-            aria-label={<Text id={'controls.rewind'} />}
-            className={`${style.controlButton} ${this.state.animation ? style.rotate : ''}`}
+            aria-label={<Text id={'controls.forward'} />}
+            className={`${style.controlButton} ${this.state.animation ? style.reverseRotate : ''}`}
             onClick={() => this.onClick()}
             onKeyDown={e => {
               if (e.keyCode === KeyMap.ENTER) {
                 this.onClick();
               }
             }}>
-            <Icon type={!props.step || props.step === REWIND_DEFAULT_STEP ? IconType.Rewind10 : IconType.Rewind} />
+            <Icon type={!props.step || props.step === FORWARD_DEFAULT_STEP ? IconType.Forward10 : IconType.Forward} />
           </button>
         </Localizer>
       </div>
@@ -94,4 +96,6 @@ class RewindControl extends BaseComponent {
   }
 }
 
-export {RewindControl};
+Forward.displayName = COMPONENT_NAME;
+
+export {Forward};

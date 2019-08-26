@@ -34,6 +34,7 @@
     &:hover {
       opacity: 1;
     }
+
     &.control-button-rounded:hover {
       background-color: rgba(0, 0, 0, 0.4);
       border-radius: 18px;
@@ -56,11 +57,24 @@
   }
 }
 
+.player.state-idle {
+  .no-idle-control {
+    display: none;
+  }
+}
+
 .rotate {
   -moz-animation: spin 0.3s 1 linear;
   -o-animation: spin 0.3s 1 linear;
   -webkit-animation: spin 0.3s 1 linear;
   animation: spin 0.3s 1 linear;
+}
+
+.reverse-rotate {
+  -moz-animation: reverse-spin 0.3s 1 linear;
+  -o-animation: reverse-spin 0.3s 1 linear;
+  -webkit-animation: reverse-spin 0.3s 1 linear;
+  animation: reverse-spin 0.3s 1 linear;
 }
 
 @-webkit-keyframes spin {
@@ -105,5 +119,50 @@
   }
   100% {
     transform: rotate(0deg);
+  }
+}
+
+@-webkit-keyframes reverse-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}
+
+@-moz-keyframes reverse-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}
+
+@-o-keyframes reverse-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}
+
+@-ms-keyframes reverse-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}
+
+@keyframes reverse-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
   }
 }

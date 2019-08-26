@@ -32,10 +32,11 @@ const IconType = {
   Link: 'link',
   ArrowDown: 'arrow-down',
   StartOver: 'start-over',
-  SeekForward: 'seek-forward',
   SeekEnd: 'seek-end',
   Rewind: 'rewind',
   Rewind10: 'rewind10',
+  Forward: 'forward',
+  Forward10: 'forward10',
   vrStereo: 'vr-stereo',
   vrStereoFull: 'vr-stereo-full',
   Cast: 'cast',
@@ -149,9 +150,6 @@ class Icon extends Component {
       case IconType.StartOver:
         return <i className={[style.icon, style.iconStartOver].join(' ')} />;
 
-      case IconType.SeekForward:
-        return <i className={[style.icon, style.iconSeekForward].join(' ')} />;
-
       case IconType.SeekEnd:
         return <i className={[style.icon, style.iconSeekEnd].join(' ')} />;
 
@@ -160,6 +158,12 @@ class Icon extends Component {
 
       case IconType.Rewind10:
         return <i className={[style.icon, style.iconRewind10].join(' ')} />;
+
+      case IconType.Forward:
+        return <i className={[style.icon, style.iconForward].join(' ')} />;
+
+      case IconType.Forward10:
+        return <i className={[style.icon, style.iconForward10].join(' ')} />;
 
       case IconType.vrStereo:
         return <i className={[style.icon, style.iconVrStereo].join(' ')} />;

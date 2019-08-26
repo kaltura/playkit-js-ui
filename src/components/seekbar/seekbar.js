@@ -36,8 +36,6 @@ class SeekBarControl extends Component {
   _seekBarElement: HTMLElement;
   _framePreviewElement: HTMLElement;
   _timeBubbleElement: HTMLElement;
-  _movex: number;
-
   /**
    * Creates an instance of SeekBarControl.
    * @memberof SeekBarControl
@@ -97,28 +95,6 @@ class SeekBarControl extends Component {
       let time = this.getTime(e);
       this.updateSeekBarProgress(time, this.props.duration);
     }
-  }
-
-  /**
-   * onTap event handler
-   *
-   * @param {Event} e - onClick event
-   * @returns {void}
-   * @memberof SeekBarControl
-   */
-  onTap(e: Event): void {
-    if (!this.props.isMobile) {
-      return;
-    }
-    const oldTime = this.props.player.currentTime;
-    const newTime = this.getTime(e);
-    this.props.changeCurrentTime(newTime);
-    this.updateSeekBarProgress(newTime, this.props.duration);
-    this.props.updateSeekbarDraggingStatus(false);
-    this.props.notifyChange({
-      from: oldTime,
-      to: newTime
-    });
   }
 
   /**
@@ -202,7 +178,6 @@ class SeekBarControl extends Component {
    */
   onSeekbarTouchMove(e: Event): void {
     let time = this.getTime(e);
-    this._movex = time;
     this.updateSeekBarProgress(time, this.props.duration, true);
     if (this.props.isDraggingActive) {
       this.updateSeekBarProgress(time, this.props.duration);
@@ -254,13 +229,15 @@ class SeekBarControl extends Component {
   /**
    * seekbar touch end handler
    *
+   * @param {Event} e - mouse end event
    * @returns {void}
    * @memberof SeekBarControl
    */
-  onSeekbarTouchEnd(): void {
+  onSeekbarTouchEnd(e: Event): void {
     if (this.props.isDraggingActive) {
+      let time = this.getTime(e);
       const oldTime = this.props.player.currentTime;
-      const newTime = this._movex;
+      const newTime = time;
       this.props.changeCurrentTime(newTime);
       this.updateSeekBarProgress(newTime, this.props.duration);
       this.props.notifyChange({
@@ -364,7 +341,7 @@ class SeekBarControl extends Component {
    * @memberof SeekBarControl
    */
   getTime(e: any): number {
-    let xPosition = e.touches ? e.touches[0].clientX : e.clientX;
+    let xPosition = e.clientX || (e.changedTouches && e.changedTouches[0] && e.changedTouches[0].clientX);
     let time =
       this.props.duration *
       ((xPosition - this._seekBarElement.offsetLeft - this.getOffset(this.props.playerElement).left) / this._seekBarElement.clientWidth);
@@ -538,14 +515,13 @@ class SeekBarControl extends Component {
         aria-valuemax={Math.round(this.props.duration)}
         aria-valuenow={Math.round(this.props.currentTime)}
         aria-valuetext={`${toHHMMSS(this.props.currentTime)} of ${toHHMMSS(this.props.duration)}`}
-        onClick={e => this.onTap(e)}
         onMouseOver={() => this.onSeekbarMouseOver()}
         onMouseLeave={() => this.onSeekbarMouseLeave()}
         onMouseMove={e => this.onSeekbarMouseMove(e)}
         onMouseDown={e => this.onSeekbarMouseDown(e)}
         onTouchStart={e => this.onSeekbarTouchStart(e)}
         onTouchMove={e => this.onSeekbarTouchMove(e)}
-        onTouchEnd={() => this.onSeekbarTouchEnd()}
+        onTouchEnd={e => this.onSeekbarTouchEnd(e)}
         onKeyDown={e => this.onSeekbarKeyDown(e)}>
         <div className={style.progressBar}>
           {this.renderFramePreview()}
