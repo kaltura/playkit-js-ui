@@ -13,7 +13,7 @@ import {default as Icon, IconType} from '../icon';
  */
 const mapStateToProps = state => ({
   fullscreen: state.engine.fullscreen,
-  config: state.config
+  targetId: state.config.targetId
 });
 
 @connect(mapStateToProps)
