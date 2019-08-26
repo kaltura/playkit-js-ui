@@ -19,7 +19,6 @@ const mapStateToProps = state => ({
   config: state.config.components.logo
 });
 
-@connect(mapStateToProps)
 /**
  * Logo component
  *
@@ -27,6 +26,7 @@ const mapStateToProps = state => ({
  * @example <Logo player={this.player} />
  * @extends {BaseComponent}
  */
+@connect(mapStateToProps)
 class Logo extends BaseComponent {
   /**
    * should render component
