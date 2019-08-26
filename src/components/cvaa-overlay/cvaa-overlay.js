@@ -45,6 +45,7 @@ class CVAAOverlay extends BaseComponent {
   captionsStyleDefault: Object;
   captionsStyleYellow: Object;
   captionsStyleBlackBG: Object;
+  _firstElementToFocus: HTMLElement;
 
   /**
    * Creates an instance of CVAAOverlay.
@@ -91,6 +92,15 @@ class CVAAOverlay extends BaseComponent {
       backgroundColor: this.props.player.TextStyle.StandardColors.BLACK,
       fontColor: this.props.player.TextStyle.StandardColors.WHITE
     });
+  }
+
+  /**
+   * focus on the overlay for "esc" to be handled
+   * @returns {void}
+   * @memberof CVAAOverlay
+   */
+  componentDidMount(): void {
+    this._firstElementToFocus.focus();
   }
 
   /**
@@ -149,6 +159,7 @@ class CVAAOverlay extends BaseComponent {
         <div>
           <div
             tabIndex="0"
+            ref={el => (this._firstElementToFocus = el)}
             className={style.sample}
             onClick={() => this.changeCaptionsStyle(this.captionsStyleDefault)}
             onKeyDown={e => {
