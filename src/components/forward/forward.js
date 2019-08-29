@@ -76,7 +76,7 @@ class Forward extends BaseComponent {
    * @memberof Forward
    */
   componentDidMount() {
-    this._button.className = [style.controlButton];
+    this._button.className = `${style.controlButton}`;
   }
 
   /**
