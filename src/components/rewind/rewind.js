@@ -60,9 +60,10 @@ class RewindControl extends BaseComponent {
    * @memberof RewindControl
    */
   animate(): void {
-    this.setState({animation: false});
-    this.forceUpdate();
     this.setState({animation: true});
+    setTimeout(() => {
+      this.setState({animation: false});
+    }, 300);
   }
 
   /**

@@ -62,9 +62,10 @@ class Forward extends BaseComponent {
    * @memberof Forward
    */
   animate(): void {
-    this.setState({animation: false});
-    this.forceUpdate();
     this.setState({animation: true});
+    setTimeout(() => {
+      this.setState({animation: false});
+    }, 300);
   }
 
   /**
