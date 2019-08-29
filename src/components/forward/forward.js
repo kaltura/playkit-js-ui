@@ -23,6 +23,8 @@ export const FORWARD_DEFAULT_STEP = 10;
  * @extends {BaseComponent}
  */
 class Forward extends BaseComponent {
+  _button: HTMLButtonElement;
+
   /**
    * Creates an instance of Forward.
    * @param {Object} obj obj
@@ -62,10 +64,19 @@ class Forward extends BaseComponent {
    * @memberof Forward
    */
   animate(): void {
-    this.setState({animation: true});
-    setTimeout(() => {
-      this.setState({animation: false});
-    }, 300);
+    this._button.className = `${style.controlButton}`;
+    window.scrollX; // trigger reflow
+    this._button.className = `${style.controlButton} ${style.reverseRotate}`;
+  }
+
+  /**
+   * after component mounted, set initial class
+   *
+   * @returns {void}
+   * @memberof Forward
+   */
+  componentDidMount() {
+    this._button.className = [style.controlButton];
   }
 
   /**
@@ -82,7 +93,7 @@ class Forward extends BaseComponent {
           <button
             tabIndex="0"
             aria-label={<Text id={'controls.forward'} />}
-            className={`${style.controlButton} ${this.state.animation ? style.reverseRotate : ''}`}
+            ref={c => (this._button = c)}
             onClick={() => this.onClick()}
             onKeyDown={e => {
               if (e.keyCode === KeyMap.ENTER) {
