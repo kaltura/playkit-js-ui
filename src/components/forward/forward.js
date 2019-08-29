@@ -64,9 +64,9 @@ class Forward extends BaseComponent {
    * @memberof Forward
    */
   animate(): void {
-    this._button.className = `${style.controlButton}`;
+    this._button.classList.remove(style.reverseRotate);
     window.scrollX; // trigger reflow
-    this._button.className = `${style.controlButton} ${style.reverseRotate}`;
+    this._button.classList.add(style.reverseRotate);
   }
 
   /**
@@ -76,7 +76,7 @@ class Forward extends BaseComponent {
    * @memberof Forward
    */
   componentDidMount() {
-    this._button.className = `${style.controlButton}`;
+    this._button.classList.add(style.controlButton);
   }
 
   /**
