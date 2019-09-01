@@ -49,7 +49,7 @@ class TimeDisplay extends Component {
   render(props: any): React$Element<any> {
     return (
       <div className={style.timeDisplay}>
-        <span>{this.getTimeDisplay(props.currentTime, props.duration, props.format)}</span>
+        <span className="notranslate">{this.getTimeDisplay(props.currentTime, props.duration, props.format)}</span>
       </div>
     );
   }
