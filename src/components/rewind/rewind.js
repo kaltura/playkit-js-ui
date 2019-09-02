@@ -21,6 +21,8 @@ export const REWIND_DEFAULT_STEP = 10;
  * @extends {BaseComponent}
  */
 class RewindControl extends BaseComponent {
+  _button: HTMLButtonElement;
+
   /**
    * Creates an instance of RewindControl.
    * @param {Object} obj obj
@@ -60,10 +62,31 @@ class RewindControl extends BaseComponent {
    * @memberof RewindControl
    */
   animate(): void {
-    this.setState({animation: true});
-    setTimeout(() => {
-      this.setState({animation: false});
-    }, 300);
+    this._button.classList.add(style.rotate);
+  }
+
+  /**
+   * after component mounted, set initial class
+   *
+   * @returns {void}
+   * @memberof Forward
+   */
+  componentDidMount() {
+    this._button.classList.add(style.controlButton);
+    this.eventManager.listen(this._button, 'animationend', () => {
+      this._button.classList.remove(style.rotate);
+    });
+  }
+
+  /**
+   * before component mounted, remove event listeners
+   *
+   * @returns {void}
+   * @memberof Shell
+   */
+  componentWillUnmount(): void {
+    super.componentWillUnmount();
+    this._button.classList.remove(style.rotate);
   }
 
   /**
@@ -80,7 +103,7 @@ class RewindControl extends BaseComponent {
           <button
             tabIndex="0"
             aria-label={<Text id={'controls.rewind'} />}
-            className={`${style.controlButton} ${this.state.animation ? style.rotate : ''}`}
+            ref={c => (this._button = c)}
             onClick={() => this.onClick()}
             onKeyDown={e => {
               if (e.keyCode === KeyMap.ENTER) {
