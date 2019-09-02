@@ -69,7 +69,7 @@ class RewindControl extends BaseComponent {
    * after component mounted, set initial class
    *
    * @returns {void}
-   * @memberof Forward
+   * @memberof RewindControl
    */
   componentDidMount() {
     this._button.classList.add(style.controlButton);
@@ -82,7 +82,7 @@ class RewindControl extends BaseComponent {
    * before component mounted, remove event listeners
    *
    * @returns {void}
-   * @memberof Shell
+   * @memberof RewindControl
    */
   componentWillUnmount(): void {
     super.componentWillUnmount();

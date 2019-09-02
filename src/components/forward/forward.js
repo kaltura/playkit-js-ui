@@ -84,7 +84,7 @@ class Forward extends BaseComponent {
    * before component mounted, remove event listeners
    *
    * @returns {void}
-   * @memberof Shell
+   * @memberof Forward
    */
   componentWillUnmount(): void {
     super.componentWillUnmount();
