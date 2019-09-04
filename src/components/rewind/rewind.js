@@ -84,5 +84,5 @@ class RewindControl extends BaseComponent {
   }
 }
 
-const animateRewind = withAnimation(RewindControl, style.reverseRotate);
+const animateRewind = withAnimation(RewindControl, style.rotate);
 export {animateRewind as RewindControl};
