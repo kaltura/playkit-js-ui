@@ -12,20 +12,20 @@ export const withAnimation: Function = (WrappedComponent: BaseComponent, cssClas
     element: HTMLElement;
 
     /**
-     * toggles the animation state to activate the rotate animation
+     * adds the animation class
      *
      * @returns {void}
-     * @memberof Forward
+     * @memberof HOC
      */
     animate(): void {
       this.element.classList.add(cssClass);
     }
 
     /**
-     * after component mounted, set initial class
+     * after component mounted, listen to events
      *
      * @returns {void}
-     * @memberof Forward
+     * @memberof HOC
      */
     componentDidMount() {
       this.eventManager.listen(this.element, 'animationend', () => {
@@ -34,10 +34,10 @@ export const withAnimation: Function = (WrappedComponent: BaseComponent, cssClas
     }
 
     /**
-     * before component mounted, remove event listeners
+     * before component unmounted, remove event listeners
      *
      * @returns {void}
-     * @memberof Forward
+     * @memberof HOC
      */
     componentWillUnmount(): void {
       super.componentWillUnmount();
@@ -49,7 +49,7 @@ export const withAnimation: Function = (WrappedComponent: BaseComponent, cssClas
      *
      * @param {*} props - component props
      * @returns {React$Element} - component element
-     * @memberof Forward
+     * @memberof HOC
      */
     render(props: any): React$Element<any> | void {
       return h(WrappedComponent, {
