@@ -85,34 +85,17 @@ Or again, if using JSX:
 Any component that is added to the player is exposed to internal API of the player.
 
 This shouldn't bother you unless you are trying to add (P)React components. If this is the case you have two options:
-1. For Preact, use the player instance instead of your own. This might work fine for simple use-cases.
-2. In more advanced use-cases you might want to bundle your own version of PReact or in cases that you are using React, you must isolate your component from the player PReact tree by using `InjectedComponent`
+1. The player exposes the bundled PReact instance it is using, use that one instead of your own. This might work fine for simple use-cases.
+2. In more advanced use-cases you might want to bundle your own version of PReact or in cases that you are using React, you must isolate your component from the player PReact tree:
 
-### Isolating your component 
-This component is using the player bundled PReact to manage state and intercept mount events.
+   [ ] create new component that is using (extending) the PReact instance exposed by the player `KalturaPlayer.ui.preact.Component`
+   
+   [ ] inject the new component to the player 
+   
+   [ ] use `shouldComponentUpdate` to always preent updating
+   
+   [ ] render a div and append render your PReact component into that div on `ComponentDidMount`  
 
-```javascript
-const h = KalturaPlayer.ui.h;
-const BaseComponent = KalturaPlayer.ui.Components.BaseComponent;
-const InjectedComponent = KalturaPlayer.ui.components;
-
-function onCreate({parent}) {
-  // use parent here to append any element and register events if needed
-}
-
-function onDestroy({parent}) {
-  // unregister to events, free memory and cancel ajax calls if needed
-}
-
-const IsolatedComponent = h(InjectedComponent, {
-            label: 'some label', // will be injected as attribute data-kp-injected
-            fillContainer: true|false, // setting true will add to parent width: 100%, height: 100%; overflow: hidden
-            onCreate: onCreate,
-            onDestroy: onDestroy
-        });
-
-export default IsolatedComponent
-```
  
 ### Redux-Store Connected Component
 
