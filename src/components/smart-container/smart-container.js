@@ -1,6 +1,6 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, cloneElement} from 'preact';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
@@ -8,6 +8,7 @@ import Portal from 'preact-portal';
 import {Overlay} from '../overlay';
 import {KeyMap} from '../../utils/key-map';
 import {PLAYER_SIZE} from '../shell/shell';
+import {withKeyboardA11y} from '../../utils/keyboard-accessibility';
 
 /**
  * mapping state to props
@@ -40,6 +41,8 @@ const mapStateToProps = state => ({
  */
 class SmartContainer extends Component {
   _portal: any;
+  _childRefs: Array<any> = [];
+
   /**
    * before component mounted, add player css class
    *
@@ -60,6 +63,10 @@ class SmartContainer extends Component {
   componentWillUnmount() {
     this.props.removePlayerClass(style.smartContainerOpen);
     this.props.updateSmartContainerOpen(false);
+  }
+
+    componentDidMount(): void {
+      this.props.setFirstFocusedElement(this._childRefs[0]);
   }
 
   /**
@@ -88,10 +95,24 @@ class SmartContainer extends Component {
             props.onClose();
           }
         }}>
-        {props.children}
+        {this.renderChildren(props)}
       </div>
     );
   }
+
+  renderChildren(props: any): React$Element<any> {
+    const children = props.children.map(child => {
+      if (child) {
+        return cloneElement(child, {pushRef: this.pushRef.bind(this)}, ...this.props);
+      }
+    });
+    return children;
+  }
+
+  pushRef(ref) {
+    this._childRefs.push(ref);
+  }
 }
 
-export {SmartContainer};
+const keyboardAccessibleSmartContainer = withKeyboardA11y(SmartContainer);
+export {keyboardAccessibleSmartContainer as SmartContainer};

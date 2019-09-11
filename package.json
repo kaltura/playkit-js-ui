@@ -34,7 +34,7 @@
     "empty": "^0.10.1",
     "js-logger": "^1.3.0",
     "preact": "^8.1.0",
-    "preact-i18n": "^1.0.0",
+    "preact-i18n": "^1.0.1",
     "preact-portal": "^1.1.2",
     "preact-redux": "^2.0.1",
     "redux": "^3.6.0"

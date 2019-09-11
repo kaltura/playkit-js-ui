@@ -1,7 +1,7 @@
 //@flow
 import style from '../../styles/style.scss';
 import {h} from 'preact';
-import {Localizer, Text} from 'preact-i18n';
+import {Text, withText} from 'preact-i18n';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/cvaa';
@@ -31,6 +31,12 @@ const mapStateToProps = state => ({
   mapStateToProps,
   bindActions(actions)
 )
+@withText({
+  audioLabelText: 'language.audio',
+  captionsLabelText: 'language.captions',
+  buttonAriaLabel: 'controls.language'
+})
+
 /**
  * LanguageControl component
  *
@@ -153,19 +159,17 @@ class LanguageControl extends BaseComponent {
    * @returns {React$Element} - component
    * @memberof LanguageControl
    */
-  renderAll(audioOptions: Array<Object>, textOptions: Array<Object>): React$Element<any> {
+  renderAll(audioOptions: Array<Object>, textOptions: Array<Object>, props: any): React$Element<any> {
     const portalSelector = `#${this.player.config.targetId} .overlay-portal`;
     return (
       <div ref={c => (this._controlLanguageElement = c)} className={[style.controlButtonContainer, style.controlLanguage].join(' ')}>
-        <Localizer>
-          <button
-            tabIndex="0"
-            aria-label={<Text id="controls.language" />}
-            className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
-            onClick={() => this.onControlButtonClick()}>
-            <Icon type={IconType.Language} />
-          </button>
-        </Localizer>
+        <button
+          tabIndex="0"
+          aria-label={props.buttonAriaLabel}
+          className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
+          onClick={() => this.onControlButtonClick()}>
+          <Icon type={IconType.Language} />
+        </button>
         {!this.state.smartContainerOpen || this.state.cvaaOverlay ? (
           undefined
         ) : (
@@ -173,26 +177,22 @@ class LanguageControl extends BaseComponent {
             {audioOptions.length <= 1 ? (
               undefined
             ) : (
-              <Localizer>
-                <SmartContainerItem
-                  icon="audio"
-                  label={<Text id="language.audio" />}
-                  options={audioOptions}
-                  onSelect={audioTrack => this.onAudioChange(audioTrack)}
-                />
-              </Localizer>
+              <SmartContainerItem
+                icon="audio"
+                label={props.audioLabelText}
+                options={audioOptions}
+                onSelect={audioTrack => this.onAudioChange(audioTrack)}
+              />
             )}
             {textOptions.length <= 1 ? (
               undefined
             ) : (
-              <Localizer>
-                <SmartContainerItem
-                  icon="captions"
-                  label={<Text id="language.captions" />}
-                  options={textOptions}
-                  onSelect={textTrack => this.onCaptionsChange(textTrack)}
-                />
-              </Localizer>
+              <SmartContainerItem
+                icon="captions"
+                label={props.captionsLabelText}
+                options={textOptions}
+                onSelect={textTrack => this.onCaptionsChange(textTrack)}
+              />
             )}
             {textOptions.length <= 1 ? (
               undefined
@@ -245,7 +245,7 @@ class LanguageControl extends BaseComponent {
     }));
 
     if (audioOptions.length > 1 || textOptions.length > 1) {
-      return this.renderAll(audioOptions, textOptions);
+      return this.renderAll(audioOptions, textOptions, props);
     } else {
       return undefined;
     }

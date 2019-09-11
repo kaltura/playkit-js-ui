@@ -6,6 +6,7 @@ import {connect} from 'preact-redux';
 import {KeyMap} from '../../utils/key-map';
 import {bindMethod} from '../../utils/bind-method';
 import {PLAYER_SIZE} from '../shell/shell';
+import {withKeyboardA11y} from '../../utils/keyboard-accessibility';
 
 /**
  * mapping state to props
@@ -34,6 +35,7 @@ class Menu extends Component {
   state: Object;
   handleClickOutside: Function;
   _menuElement: any;
+  _selectedElement: any;
 
   /**
    * Creates an instance of Menu.
@@ -220,6 +222,10 @@ class Menu extends Component {
           <div
             tabIndex=""
             key={index}
+            ref={se => {
+              this._selectedElement = this.isSelected(o) ? se : this._selectedElement;
+              this.props.setFirstFocusedElement(this._selectedElement);
+            }}
             className={this.isSelected(o) ? [style.dropdownMenuItem, style.active].join(' ') : style.dropdownMenuItem}
             onClick={() => this.onSelect(o)}
             onKeyDown={e => this.onKeyDown(e, o)}>
@@ -233,5 +239,5 @@ class Menu extends Component {
     );
   }
 }
-
-export {Menu};
+const keyboardAccessibleMenu = withKeyboardA11y(Menu);
+export {keyboardAccessibleMenu as Menu};

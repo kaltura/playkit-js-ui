@@ -21,7 +21,14 @@ class SmartContainerItem extends Component {
   render(props: any): React$Element<any> {
     const label = props.label && props.label.toLowerCase();
     return (
-      <div className={[style.smartContainerItem, style.selectMenuItem].join(' ')}>
+      <div
+        ref={el => {
+          if (props.pushRef) {
+            props.pushRef(el);
+          }
+        }}
+        tabIndex="0"
+        className={[style.smartContainerItem, style.selectMenuItem].join(' ')}>
         <label htmlFor={label}>
           {props.icon ? (
             <div className={style.labelIcon}>
