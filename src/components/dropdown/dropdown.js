@@ -30,6 +30,7 @@ const COMPONENT_NAME = 'DropDown';
 class DropDown extends Component {
   state: Object;
   _el: HTMLDivElement;
+  _dropdownButton: HTMLDivElement;
 
   /**
    * before component mounted, set initial internal state
@@ -62,6 +63,7 @@ class DropDown extends Component {
   onSelect(option: Object): void {
     this.props.onSelect(option);
     this.setState({dropMenuActive: false});
+    this._dropdownButton.focus();
   }
 
   /**
@@ -77,8 +79,10 @@ class DropDown extends Component {
         this.setState({dropMenuActive: !this.state.dropMenuActive});
         break;
       case KeyMap.ESC:
-        this.onClose();
-        e.stopPropagation();
+        if (this.state.dropMenuActive) {
+          this.onClose();
+          e.stopPropagation();
+        }
         break;
     }
   }
@@ -92,6 +96,7 @@ class DropDown extends Component {
    */
   onClose(): void {
     this.setState({dropMenuActive: false});
+    this._dropdownButton.focus();
   }
 
   /**
@@ -136,6 +141,7 @@ class DropDown extends Component {
         ref={el => (this._el = el)}>
         <div
           tabIndex="0"
+          ref={el => (this._dropdownButton = el)}
           className={style.dropdownButton}
           onClick={() => this.setState({dropMenuActive: !this.state.dropMenuActive})}
           onKeyDown={e => this.onKeyDown(e)}>
