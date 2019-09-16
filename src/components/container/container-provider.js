@@ -25,10 +25,10 @@ class ContainerProvider extends Component {
   _initializePresetComponents() {
     const presetsComponents = {};
     (this.props.uiComponents || []).forEach(component => {
-      if (!component.render || !component.container || !component.presets) {
+      if (!component.get || !component.container || !component.presets) {
         logger.warn(
           `preset with label '${component.label ||
-            ''}' configuration is invalid, missing required configuration (did you remember to set 'container', 'presets' and 'render'?)`
+            ''}' configuration is invalid, missing required configuration (did you remember to set 'get', 'presets' and 'render'?)`
         );
         return;
       }

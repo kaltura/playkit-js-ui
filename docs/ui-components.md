@@ -48,7 +48,7 @@ Let's say that we want to add new component into the bottom-bar in preset 'playb
         label: 'niceComponent',
         presets: ['Playback'],
         container: 'TopBarRightControls',
-        render: () => { return customComponent; } // see notes below          
+        get: customComponent // see notes below          
       }
     ]
   }
@@ -72,7 +72,7 @@ Let's say that you want to inject the component also to `live` preset.
         label: 'niceComponent',
         presets: ['Playback', 'Live'],
         container: 'TopBarRightControls',
-        render: () => { return customComponent; }        
+        get: customComponent        
       }
     ]
   }
@@ -101,7 +101,7 @@ The example below will replace the volume component with your own component:
         label: 'niceComponent',
         presets: ['Playback', 'Live'],
         container: 'TopBarRightControls',
-        render: () => { return customComponent; },
+        get: customComponent,
         beforeComponent : '', // use this property to inject your component BEFORE the mentioned one
         afterComponent: '',
         replaceComponent: 'Volume',          
@@ -131,7 +131,7 @@ export class MyCustomPlugin extends KalturaPlayer.core.BasePlugin {
           label: 'niceComponent',
           presets: ['Playback', 'Live'],
           container: 'TopBarRightControls',
-          render: () => { return customComponent; }          
+          get: customComponent          
         }
     ];
   }

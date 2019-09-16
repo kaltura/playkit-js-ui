@@ -155,11 +155,11 @@ class Container extends BaseComponent {
    * @private
    */
   _renderUIComponent(uiComponent: PKUIComponent): React$Element<any> | null {
-    if (!uiComponent.render) {
+    if (!uiComponent.get) {
       return null;
     }
 
-    return h(uiComponent.render, uiComponent.props);
+    return h(uiComponent.get, uiComponent.props);
   }
 
   /**
