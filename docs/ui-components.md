@@ -4,7 +4,15 @@
 
 ## General
 
-UI components are used to extend the player UI presets. Every preset layout contains logical `containers` that allow injecting components into. For example- a `playback` and `live` presets have the following containers `TopBarRightControls`, `TopBarLeftControls`, `PresetOverlay`.
+UI components are used to extend the player UI presets.  
+Every preset layout contains logical `containers` that allow injecting components into. 
+For example- a `Playback` and `Live` presets have the following containers:
+* `VideoOverlay`
+* `PlayerGUI`
+* `TopBarRightControls`
+* `TopBarLeftControls`
+* `BottomBarRightControls`
+* `BottomBarLeftControls`
 
 Injecting new component into preset means:
 * Runtime customization of the preset by adding new components or replacing existing components with new ones. 

@@ -92,7 +92,7 @@ This shouldn't bother you unless you are trying to add (P)React components. If t
    
    [ ] inject the new component to the player 
    
-   [ ] use `shouldComponentUpdate` to always preent updating
+   [ ] use `shouldComponentUpdate` to always prevent updating
    
    [ ] render a div and append render your PReact component into that div on `ComponentDidMount`  
 
