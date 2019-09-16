@@ -259,18 +259,16 @@ var uiManager = new playkit.ui.UIManager(player, config);
 > ```
 >  Array<{
 >  label: string,
->  presets?: Array<string>,
+>  presets: Array<string>,
 >  container: string,
->  render: (options: { context?: any}) => any
+>  render: Function 
+>  props?: {} 
 >  beforeComponent?: string,
 >  afterComponent?: string,
->  replaceComponent?: string,
->  context?: any
+>  replaceComponent?: string
 >  }>
 >  ```
 >
->
-> ##### Default: `-`
 >
 > ##### Description: Defines ui components to be injected into the player ui.
 >

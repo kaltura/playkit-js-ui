@@ -159,9 +159,7 @@ class Container extends BaseComponent {
       return null;
     }
 
-    return uiComponent.render({
-      context: uiComponent.context
-    });
+    return h(uiComponent.render, uiComponent.props);
   }
 
   /**
