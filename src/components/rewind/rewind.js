@@ -5,6 +5,7 @@ import {Localizer, Text} from 'preact-i18n';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
+import {withAnimation} from '../../utils/with-animation';
 
 const COMPONENT_NAME = 'Rewind';
 
@@ -39,7 +40,7 @@ class Rewind extends BaseComponent {
    * @memberof Rewind
    */
   onClick(): void {
-    this.animate();
+    this.props.animate();
     let to;
     const step = this.props.step || REWIND_DEFAULT_STEP;
     const from = this.player.currentTime;
@@ -81,7 +82,8 @@ class Rewind extends BaseComponent {
           <button
             tabIndex="0"
             aria-label={<Text id={'controls.rewind'} />}
-            className={`${style.controlButton} ${this.state.animation ? style.rotate : ''}`}
+            className={`${style.controlButton}`}
+            ref={this.props.innerRef}
             onClick={() => this.onClick()}
             onKeyDown={e => {
               if (e.keyCode === KeyMap.ENTER) {
@@ -97,4 +99,6 @@ class Rewind extends BaseComponent {
 }
 
 Rewind.displayName = COMPONENT_NAME;
-export {Rewind};
+
+const animateRewind = withAnimation(Rewind, style.rotate);
+export {animateRewind as Rewind};
