@@ -16,29 +16,31 @@ const mapStateToProps = state => ({
   targetId: state.config.targetId
 });
 
+const COMPONENT_NAME = 'Fullscreen';
+
 @connect(mapStateToProps)
 /**
- * FullscreenControl component
+ * Fullscreen component
  *
- * @class FullscreenControl
- * @example <FullscreenControl player={this.player} />
+ * @class Fullscreen
+ * @example <Fullscreen player={this.player} />
  * @extends {BaseComponent}
  */
-class FullscreenControl extends BaseComponent {
+class Fullscreen extends BaseComponent {
   /**
-   * Creates an instance of FullscreenControl.
+   * Creates an instance of Fullscreen.
    * @param {Object} obj obj
-   * @memberof FullscreenControl
+   * @memberof Fullscreen
    */
   constructor(obj: Object) {
-    super({name: 'Fullscreen', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
    * toggle fullscreen based on current fullscreen state in store
    *
    * @returns {void}
-   * @memberof FullscreenControl
+   * @memberof Fullscreen
    */
   toggleFullscreen(): void {
     this.logger.debug(`Toggle fullscreen`);
@@ -54,7 +56,7 @@ class FullscreenControl extends BaseComponent {
    * render component
    *
    * @returns {React$Element} - component
-   * @memberof FullscreenControl
+   * @memberof Fullscreen
    */
   render(): React$Element<any> {
     return (
@@ -74,4 +76,5 @@ class FullscreenControl extends BaseComponent {
   }
 }
 
-export {FullscreenControl};
+Fullscreen.displayName = COMPONENT_NAME;
+export {Fullscreen};

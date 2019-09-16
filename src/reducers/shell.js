@@ -9,14 +9,16 @@ export const types = {
   UPDATE_PLAYER_HOVER_STATE: 'shell/UPDATE_PLAYER_HOVER_STATE',
   UPDATE_PLAYER_NAV_STATE: 'shell/UPDATE_PLAYER_NAV_STATE',
   UPDATE_BOTTOM_BAR_HOVER_ACTIVE: 'shell/UPDATE_BOTTOM_BAR_HOVER_ACTIVE',
-  UPDATE_SMART_CONTAINER_OPEN: 'shell/UPDATE_SMART_CONTAINER_OPEN'
+  UPDATE_SMART_CONTAINER_OPEN: 'shell/UPDATE_SMART_CONTAINER_OPEN',
+  UPDATE_ACTIVE_PRESET_NAME: 'shell/UPDATE_ACTIVE_PRESET_NAME'
 };
 
 export const initialState = {
   playerClasses: [],
   playerHover: false,
   playerNav: false,
-  smartContainerOpen: false
+  smartContainerOpen: false,
+  activePresetName: ''
 };
 
 export default (state: Object = initialState, action: Object) => {
@@ -82,6 +84,12 @@ export default (state: Object = initialState, action: Object) => {
         smartContainerOpen: action.open
       };
 
+    case types.UPDATE_ACTIVE_PRESET_NAME:
+      return {
+        ...state,
+        activePresetName: action.activePresetName
+      };
+
     default:
       return state;
   }
@@ -97,5 +105,6 @@ export const actions = {
   updatePlayerHoverState: (hover: boolean) => ({type: types.UPDATE_PLAYER_HOVER_STATE, hover}),
   updatePlayerNavState: (nav: boolean) => ({type: types.UPDATE_PLAYER_NAV_STATE, nav}),
   updateBottomBarHoverActive: (active: boolean) => ({type: types.UPDATE_BOTTOM_BAR_HOVER_ACTIVE, active}),
-  updateSmartContainerOpen: (open: boolean) => ({type: types.UPDATE_SMART_CONTAINER_OPEN, open})
+  updateSmartContainerOpen: (open: boolean) => ({type: types.UPDATE_SMART_CONTAINER_OPEN, open}),
+  updateActivePresetName: (activePresetName: string) => ({type: types.UPDATE_ACTIVE_PRESET_NAME, activePresetName})
 };

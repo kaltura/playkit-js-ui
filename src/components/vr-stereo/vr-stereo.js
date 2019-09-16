@@ -20,23 +20,20 @@ const mapStateToProps = state => ({
   config: state.config.components.vrStereo
 });
 
+const COMPONENT_NAME = 'VrStereo';
+
 @connect(
   mapStateToProps,
   bindActions(Object.assign({}, actions, engineActions))
 )
 /**
- * VrStereoToggleControl component
+ * VrStereo component
  *
- * @class VrStereoToggleControl
- * @example <VrStereoToggleControl player={this.player}/>
+ * @class VrStereo
+ * @example <VrStereo player={this.player}/>
  * @extends {BaseComponent}
  */
-class VrStereoToggleControl extends BaseComponent {
-  /**
-   * @static
-   * @type {string} - Component display name
-   */
-  static displayName = 'vrStereo';
+class VrStereo extends BaseComponent {
   /**
    * should render component
    * @param {*} props - component props
@@ -44,23 +41,23 @@ class VrStereoToggleControl extends BaseComponent {
    * @static
    */
   static shouldRender(props: any): boolean {
-    const componentConfig = props.config.components[this.displayName];
+    const componentConfig = props.config.components['vrStereo'];
     return props.state.engine.isVr && !(Object.keys(componentConfig).length === 0 && componentConfig.constructor === Object);
   }
   /**
-   * Creates an instance of VrStereoToggleControl.
+   * Creates an instance of VrStereo.
    * @param {Object} obj obj
-   * @memberof VrStereoToggleControl
+   * @memberof VrStereo
    */
   constructor(obj: Object) {
-    super({name: VrStereoToggleControl.displayName, player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
    * Vr-Stereo click handler
    *
    * @returns {void}
-   * @memberof VrStereoToggleControl
+   * @memberof VrStereo
    */
   onClick(): void {
     this.player.toggleVrStereoMode();
@@ -71,7 +68,7 @@ class VrStereoToggleControl extends BaseComponent {
    * before component mounted, set initial state
    *
    * @returns {void}
-   * @memberof VrStereoToggleControl
+   * @memberof VrStereo
    */
   componentWillMount(): void {
     this.props.updateVrStereoMode(this.props.config.vrStereoMode);
@@ -81,7 +78,7 @@ class VrStereoToggleControl extends BaseComponent {
    *
    * @param {*} props - component props
    * @returns {React$Element} - component element
-   * @memberof VrStereoToggleControl
+   * @memberof VrStereo
    */
   render(): React$Element<any> | void {
     return (
@@ -106,4 +103,5 @@ class VrStereoToggleControl extends BaseComponent {
   }
 }
 
-export {VrStereoToggleControl};
+VrStereo.displayName = COMPONENT_NAME;
+export {VrStereo};

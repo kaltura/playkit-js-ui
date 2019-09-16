@@ -50,11 +50,12 @@ const DOUBLE_CLICK_MAX_BUFFER_TIME: number = 500;
  */
 const DRAGGING_THRESHOLD: number = 5;
 
+const COMPONENT_NAME = 'OverlayAction';
+
 @connect(
   mapStateToProps,
   bindActions(Object.assign({}, actions, shellActions))
 )
-
 /**
  * OverlayAction component
  *
@@ -76,7 +77,7 @@ class OverlayAction extends BaseComponent {
    * @memberof OverlayAction
    */
   constructor(obj: Object) {
-    super({name: 'OverlayAction', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
@@ -296,4 +297,5 @@ class OverlayAction extends BaseComponent {
   }
 }
 
+OverlayAction.displayName = COMPONENT_NAME;
 export {OverlayAction};

@@ -16,6 +16,8 @@ const mapStateToProps = state => ({
   playlist: state.engine.playlist
 });
 
+const COMPONENT_NAME = 'PlaylistButton';
+
 @connect(mapStateToProps)
 /**
  * PlaylistButton component
@@ -31,7 +33,7 @@ class PlaylistButton extends BaseComponent {
    * @memberof PlaylistButton
    */
   constructor(obj: Object) {
-    super({name: `PlaybackButton-${obj.type}`, player: obj.player});
+    super({name: `${COMPONENT_NAME}-${obj.type}`, player: obj.player});
   }
 
   /**
@@ -98,4 +100,5 @@ class PlaylistButton extends BaseComponent {
   }
 }
 
+PlaylistButton.displayName = COMPONENT_NAME;
 export {PlaylistButton};

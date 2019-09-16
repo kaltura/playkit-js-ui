@@ -18,6 +18,8 @@ const mapStateToProps = state => ({
   adIsLinear: state.engine.adIsLinear
 });
 
+const COMPONENT_NAME = 'Loading';
+
 @connect(
   mapStateToProps,
   bindActions(actions)
@@ -109,4 +111,5 @@ class Loading extends BaseComponent {
   }
 }
 
+Loading.displayName = COMPONENT_NAME;
 export {Loading};

@@ -1,1 +1,1 @@
-export {PlayPauseControl} from './play-pause';
+export {PlayPause} from './play-pause';

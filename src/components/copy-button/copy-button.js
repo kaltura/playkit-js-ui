@@ -13,6 +13,8 @@ import {Text, Localizer} from 'preact-i18n';
  */
 const TIMEOUT = 2000;
 
+const COMPONENT_NAME = 'CopyButton';
+
 /**
  * CopyButton component
  *
@@ -76,4 +78,5 @@ class CopyButton extends BaseComponent {
   }
 }
 
+CopyButton.displayName = COMPONENT_NAME;
 export {CopyButton};
