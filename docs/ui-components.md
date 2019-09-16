@@ -115,6 +115,30 @@ The example below will replace the volume component with your own component:
 - you should set only of the properties above, if for example you want to set your component before and not instead the volume control, use `beforeComponent` instead of `replaceComponent`. 
 - This is optional, if you don't provide any of the properties above the container will append your custom component after all the other components.
 
+### Passing props to an injected component
+
+> The section is optional, if you don't provide props the component will not be passed with a props object 
+
+Let's say that you want to pass `props` to a component, continuing from previous examples:
+1. add a `props` object to the component config
+2. once component is mounted it will be instantiated and `props` object will be passed as the props to the component instance 
+
+```javascript
+{  
+  ui : {    
+    uiComponents: [
+      {
+        label: 'niceComponent',
+        presets: ['Playback', 'Live'],
+        container: 'TopBarRightControls',
+        get: customComponent,
+        props: {myProp: true}
+      }
+    ]
+  }
+}
+```
+
 ## Defining a UI component from within a plugin
 
 > The definition of each ui component is described [here](configuration.md#configuicomponents).
