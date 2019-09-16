@@ -2,7 +2,7 @@
 .*/node_modules
 [include]
 [libs]
-node_modules/playkit-js/flow-typed/
+node_modules/@playkit-js/playkit-js/flow-typed/
 [options]
 unsafe.enable_getters_and_setters=true
 esproposal.decorators=ignore

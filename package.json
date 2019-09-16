@@ -40,7 +40,7 @@
     "redux": "^3.6.0"
   },
   "devDependencies": {
-    "@playkit-js/playkit-js": "^0.37.0",
+    "@playkit-js/playkit-js": "^0.54.0-canary.5056ca0",
     "babel-cli": "^6.18.0",
     "babel-core": "^6.24.1",
     "babel-eslint": "^7.1.1",
