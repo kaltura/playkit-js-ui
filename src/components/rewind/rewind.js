@@ -60,7 +60,7 @@ class Rewind extends BaseComponent {
    * toggles the animation state to activate the rotate animation
    *
    * @returns {void}
-   * @memberof RewindControl
+   * @memberof Rewind
    */
   animate(): void {
     this.setState({animation: false});
