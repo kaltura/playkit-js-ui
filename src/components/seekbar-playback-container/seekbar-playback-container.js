@@ -4,7 +4,7 @@ import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/seekbar';
 import BaseComponent from '../base';
-import {SeekBarControl} from '../seekbar';
+import {SeekBar} from '../seekbar';
 
 /**
  * mapping state to props
@@ -18,6 +18,8 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile,
   poster: state.engine.poster
 });
+
+const COMPONENT_NAME = 'SeekBarPlaybackContainer';
 
 @connect(
   mapStateToProps,
@@ -37,7 +39,7 @@ class SeekBarPlaybackContainer extends BaseComponent {
    * @memberof SeekBarPlaybackContainer
    */
   constructor(obj: Object) {
-    super({name: 'SeekBarPlaybackContainer', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
@@ -63,7 +65,7 @@ class SeekBarPlaybackContainer extends BaseComponent {
    */
   render(): React$Element<any> {
     return (
-      <SeekBarControl
+      <SeekBar
         player={this.props.player}
         playerElement={this.props.playerContainer}
         showFramePreview={this.props.showFramePreview}
@@ -83,4 +85,5 @@ class SeekBarPlaybackContainer extends BaseComponent {
   }
 }
 
+SeekBarPlaybackContainer.displayName = COMPONENT_NAME;
 export {SeekBarPlaybackContainer};

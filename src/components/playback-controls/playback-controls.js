@@ -3,7 +3,7 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 import {PlaylistButton} from '../playlist-button';
-import {PlayPauseControl} from '../play-pause';
+import {PlayPause} from '../play-pause';
 
 /**
  * mapping state to props
@@ -13,6 +13,8 @@ import {PlayPauseControl} from '../play-pause';
 const mapStateToProps = state => ({
   playlist: state.engine.playlist
 });
+
+const COMPONENT_NAME = 'PlaybackControls';
 
 @connect(mapStateToProps)
 /**
@@ -34,11 +36,12 @@ class PlaybackControls extends Component {
     return (
       <div className={[style.playbackControls]}>
         {props.playlist ? <PlaylistButton player={props.player} type="prev" /> : undefined}
-        <PlayPauseControl player={props.player} />
+        <PlayPause player={props.player} />
         {props.playlist ? <PlaylistButton player={props.player} type="next" /> : undefined}
       </div>
     );
   }
 }
 
+PlaybackControls.displayName = COMPONENT_NAME;
 export {PlaybackControls};

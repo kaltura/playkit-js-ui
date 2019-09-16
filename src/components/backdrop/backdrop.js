@@ -13,6 +13,8 @@ const mapStateToProps = state => ({
   show: state.backdrop.show
 });
 
+const COMPONENT_NAME = 'Backdrop';
+
 @connect(
   mapStateToProps,
   null
@@ -38,4 +40,5 @@ class Backdrop extends Component {
   }
 }
 
+Backdrop.displayName = COMPONENT_NAME;
 export {Backdrop};

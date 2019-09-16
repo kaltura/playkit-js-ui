@@ -7,6 +7,8 @@ import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {withAnimation} from '../../utils/with-animation';
 
+const COMPONENT_NAME = 'Rewind';
+
 /**
  * Default rewind step
  * @type {number}
@@ -15,27 +17,27 @@ import {withAnimation} from '../../utils/with-animation';
 export const REWIND_DEFAULT_STEP = 10;
 
 /**
- * RewindControl component
+ * Rewind component
  *
- * @class RewindControl
- * @example <RewindControl player={this.player} step={5} />
+ * @class Rewind
+ * @example <Rewind player={this.player} step={5} />
  * @extends {BaseComponent}
  */
-class RewindControl extends BaseComponent {
+class Rewind extends BaseComponent {
   /**
-   * Creates an instance of RewindControl.
+   * Creates an instance of Rewind.
    * @param {Object} obj obj
-   * @memberof RewindControl
+   * @memberof Rewind
    */
   constructor(obj: Object) {
-    super({name: 'Rewind', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
    * rewind click handler
    *
    * @returns {void}
-   * @memberof RewindControl
+   * @memberof Rewind
    */
   onClick(): void {
     this.props.animate();
@@ -55,11 +57,23 @@ class RewindControl extends BaseComponent {
   }
 
   /**
+   * toggles the animation state to activate the rotate animation
+   *
+   * @returns {void}
+   * @memberof RewindControl
+   */
+  animate(): void {
+    this.setState({animation: false});
+    this.forceUpdate();
+    this.setState({animation: true});
+  }
+
+  /**
    * render component
    *
    * @param {*} props - component props
    * @returns {React$Element} - component element
-   * @memberof RewindControl
+   * @memberof Rewind
    */
   render(props: any): React$Element<any> | void {
     return (
@@ -84,5 +98,7 @@ class RewindControl extends BaseComponent {
   }
 }
 
-const animateRewind = withAnimation(RewindControl, style.rotate);
-export {animateRewind as RewindControl};
+Rewind.displayName = COMPONENT_NAME;
+
+const animateRewind = withAnimation(Rewind, style.rotate);
+export {animateRewind as Rewind};

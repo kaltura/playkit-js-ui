@@ -1,1 +1,1 @@
-export {SettingsControl} from './settings';
+export {Settings} from './settings';

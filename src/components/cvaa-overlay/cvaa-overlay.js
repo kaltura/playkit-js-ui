@@ -31,6 +31,8 @@ const cvaaOverlayState = {
 
 type CvaaOverlayStateType = 'main' | 'custom-captions';
 
+const COMPONENT_NAME = 'CVAAOverlay';
+
 @connect(
   mapStateToProps,
   bindActions({...cvaaActions, ...shellActions})
@@ -52,7 +54,7 @@ class CVAAOverlay extends BaseComponent {
    * @memberof CVAAOverlay
    */
   constructor() {
-    super({name: 'CVAAOverlay'});
+    super({name: COMPONENT_NAME});
   }
 
   /**
@@ -410,4 +412,5 @@ class CVAAOverlay extends BaseComponent {
   }
 }
 
+CVAAOverlay.displayName = COMPONENT_NAME;
 export {CVAAOverlay};

@@ -17,6 +17,8 @@ const mapStateToProps = state => ({
   adSkippableState: state.engine.adSkippableState
 });
 
+const COMPONENT_NAME = 'AdSkip';
+
 @connect(mapStateToProps)
 /**
  * AdSkip component
@@ -32,7 +34,7 @@ class AdSkip extends BaseComponent {
    * @memberof AdSkip
    */
   constructor(obj: Object) {
-    super({name: 'AdSkip', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
@@ -73,4 +75,5 @@ class AdSkip extends BaseComponent {
   }
 }
 
+AdSkip.displayName = COMPONENT_NAME;
 export {AdSkip};

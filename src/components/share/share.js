@@ -22,33 +22,35 @@ const mapStateToProps = state => ({
   config: state.config.components.share
 });
 
+const COMPONENT_NAME = 'Share';
+
 @connect(
   mapStateToProps,
   bindActions(actions)
 )
 /**
- * ShareControl component
+ * Share component
  *
- * @class ShareControl
- * @example <ShareControl player={this.player} />
+ * @class Share
+ * @example <Share player={this.player} />
  * @extends {BaseComponent}
  */
-class ShareControl extends BaseComponent {
+class Share extends BaseComponent {
   _portal: any;
   /**
-   * Creates an instance of ShareControl.
+   * Creates an instance of Share.
    * @param {Object} obj obj
-   * @memberof ShareControl
+   * @memberof Share
    */
   constructor(obj: Object) {
-    super({name: 'Share', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
    * toggle overlay internal component state
    *
    * @returns {void}
-   * @memberof ShareControl
+   * @memberof Share
    */
   toggleOverlay(): void {
     this.setState({overlay: !this.state.overlay});
@@ -80,7 +82,7 @@ class ShareControl extends BaseComponent {
    * render element
    *
    * @returns {React$Element} component element
-   * @memberof ShareControl
+   * @memberof Share
    */
   render(): React$Element<any> | void {
     const {embedUrl, enable, shareUrl, enableTimeOffset} = this.props.config;
@@ -90,7 +92,7 @@ class ShareControl extends BaseComponent {
     const shareConfig = this._getMergedShareConfig();
     const portalSelector = `#${this.player.config.targetId} .overlay-portal`;
     return (
-      <div className={[style.controlButtonContainer, style.controlShare].join(' ')}>
+      <div>
         {this.state.overlay ? (
           <Portal into={portalSelector} ref={ref => (this._portal = ref)}>
             <ShareOverlay
@@ -112,4 +114,5 @@ class ShareControl extends BaseComponent {
   }
 }
 
-export {ShareControl};
+Share.displayName = COMPONENT_NAME;
+export {Share};

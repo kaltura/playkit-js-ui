@@ -16,6 +16,8 @@ const mapStateToProps = state => ({
   isChangingSource: state.engine.isChangingSource
 });
 
+const COMPONENT_NAME = 'PictureInPictureOverlay';
+
 @connect(mapStateToProps)
 /**
  * PictureInPictureOverlay component
@@ -31,7 +33,7 @@ class PictureInPictureOverlay extends BaseComponent {
    * @memberof PictureInPictureOverlay
    */
   constructor(obj: Object) {
-    super({name: 'PictureInPictureOverlay', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
@@ -89,4 +91,5 @@ class PictureInPictureOverlay extends BaseComponent {
   }
 }
 
+PictureInPictureOverlay.displayName = COMPONENT_NAME;
 export {PictureInPictureOverlay};

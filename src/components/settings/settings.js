@@ -23,35 +23,37 @@ const mapStateToProps = state => ({
   playerSize: state.shell.playerSize
 });
 
+const COMPONENT_NAME = 'Settings';
+
 @connect(
   mapStateToProps,
   bindActions(actions)
 )
 /**
- * SettingsControl component
+ * Settings component
  *
- * @class SettingsControl
- * @example <SettingsControl player={this.player} />
+ * @class Settings
+ * @example <Settings player={this.player} />
  * @extends {BaseComponent}
  */
-class SettingsControl extends BaseComponent {
+class Settings extends BaseComponent {
   state: Object;
   _controlSettingsElement: any;
 
   /**
-   * Creates an instance of SettingsControl.
+   * Creates an instance of Settings.
    * @param {Object} obj obj
-   * @memberof SettingsControl
+   * @memberof Settings
    */
   constructor(obj: Object) {
-    super({name: 'Settings', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
    * before component mounted, set initial state
    *
    * @returns {void}
-   * @memberof SettingsControl
+   * @memberof Settings
    */
   componentWillMount() {
     this.setState({smartContainerOpen: false});
@@ -61,7 +63,7 @@ class SettingsControl extends BaseComponent {
    * after component mounted, set event listener to click outside of the component
    *
    * @returns {void}
-   * @memberof SettingsControl
+   * @memberof Settings
    */
   componentDidMount() {
     this.eventManager.listen(document, 'click', e => this.handleClickOutside(e));
@@ -72,7 +74,7 @@ class SettingsControl extends BaseComponent {
    *
    * @param {*} e - click event
    * @returns {void}
-   * @memberof SettingsControl
+   * @memberof Settings
    */
   handleClickOutside(e: any) {
     if (
@@ -93,7 +95,7 @@ class SettingsControl extends BaseComponent {
    * toggle smart container internal state on control button click
    *
    * @returns {void}
-   * @memberof SettingsControl
+   * @memberof Settings
    */
   onControlButtonClick(): void {
     this.setState({smartContainerOpen: !this.state.smartContainerOpen});
@@ -104,7 +106,7 @@ class SettingsControl extends BaseComponent {
    *
    * @param {number} playbackRate - playback rate value
    * @returns {void}
-   * @memberof SettingsControl
+   * @memberof Settings
    */
   onSpeedChange(playbackRate: number): void {
     this.props.updateSpeed(playbackRate);
@@ -119,7 +121,7 @@ class SettingsControl extends BaseComponent {
    *
    * @param {(Object | string)} videoTrack - video track
    * @returns {void}
-   * @memberof SettingsControl
+   * @memberof Settings
    */
   onQualityChange(videoTrack: Object | string): void {
     if (videoTrack === 'auto') {
@@ -142,7 +144,7 @@ class SettingsControl extends BaseComponent {
    * @param {object} currentTrack - a track
    * @returns {Array<any>} - an array with unique values, compared by their height. if the new track (currenttrack) has
    * the same height value, then we take the one with the higher bandwidth (replace it if needed)
-   * @memberof SettingsControl
+   * @memberof Settings
    */
   filterUniqueQualities(qualities: Array<any>, currentTrack: any): Array<any> {
     const arrLength = qualities.length - 1;
@@ -162,7 +164,7 @@ class SettingsControl extends BaseComponent {
    *
    * @param {*} props - component props
    * @returns {React$Element} - component element
-   * @memberof SettingsControl
+   * @memberof Settings
    */
   render(props: any): React$Element<any> | void {
     const speedOptions = this.player.playbackRates.reduce((acc, speed) => {
@@ -244,4 +246,5 @@ class SettingsControl extends BaseComponent {
   }
 }
 
-export {SettingsControl};
+Settings.displayName = COMPONENT_NAME;
+export {Settings};

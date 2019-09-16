@@ -23,6 +23,8 @@ const mapStateToProps = state => ({
   fallbackToMutedAutoPlay: state.engine.fallbackToMutedAutoPlay
 });
 
+const COMPONENT_NAME = 'UnmuteIndication';
+
 @connect(
   mapStateToProps,
   null
@@ -41,7 +43,7 @@ class UnmuteIndication extends BaseComponent {
    * @memberof UnmuteIndication
    */
   constructor(obj: Object) {
-    super({name: 'UnmuteIndication', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
@@ -123,4 +125,5 @@ class UnmuteIndication extends BaseComponent {
   }
 }
 
+UnmuteIndication.displayName = COMPONENT_NAME;
 export {UnmuteIndication};

@@ -12,11 +12,11 @@ Component that toggles fullscreen state.
 
 ```html
 //@flow
-import { h, FullscreenControl } from 'playkit-js-ui';
+import { h, Fullscreen } from 'playkit-js-ui';
 
 export default function customUIPreset(props: any) {
   return (
-    <FullscreenControl player={props.player} />
+    <Fullscreen player={props.player} />
   )
 }
 ```

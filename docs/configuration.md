@@ -14,12 +14,13 @@ var uiManager = new playkit.ui.UIManager(player, config);
 ```js
 {
   targetId: string,
-  debugActions: boolean, // optional
-  forceTouchUI: boolean, // optional
+  debugActions?: boolean, // optional
+  forceTouchUI?: boolean, // optional
   log?: UILogConfigObject, // optional
-  components: Object, // optional
+  components?: Object, // optional
+  uiComponents: Array<Object>, //optional
   translations: Object, // optional
-  locale: Object // optional
+  locale: Object // optional  
 }
 ```
 
@@ -248,3 +249,27 @@ var uiManager = new playkit.ui.UIManager(player, config);
 > > > ##### Default: `false`
 > > >
 > > > ##### Description: Gives the ability to choose an in-browser fullscreen experience on iOS devices which will replace the native fullscreen of the AV player.
+
+##
+
+> ### config.uiComponents
+>
+> ##### Type: `Object`
+>
+> ```
+>  Array<{
+>  label: string,
+>  presets: Array<string>,
+>  container: string,
+>  get: Function 
+>  props?: {} 
+>  beforeComponent?: string,
+>  afterComponent?: string,
+>  replaceComponent?: string
+>  }>
+>  ```
+>
+>
+> ##### Description: Defines ui components to be injected into the player ui.
+>
+> See guide [ui-components](./ui-components.md)
