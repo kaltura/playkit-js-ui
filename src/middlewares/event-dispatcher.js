@@ -9,6 +9,7 @@ import {SeekedEvent} from '../event/events/seeked-event';
 import {SpeedSelectedEvent} from '../event/events/speed-selected-event';
 import {UIVisibilityChangedEvent} from '../event/events/ui-visibility-changed-event';
 import {RewindClickedEvent} from '../event/events/rewind-clicked';
+import {ForwardClickedEvent} from '../event/events/forward-clicked';
 import {VolumeChangedEvent} from '../event/events/volume-changed';
 import {KeyMap} from '../utils/key-map';
 
@@ -110,7 +111,7 @@ function onClickableComponentsHandler(store: any, action: Object, player: Object
       onFullScreenClicked(store, action, player);
       break;
 
-    case 'LanguageControl':
+    case 'Language':
       onLanguageClicked(store, action, player);
       break;
 
@@ -120,6 +121,10 @@ function onClickableComponentsHandler(store: any, action: Object, player: Object
 
     case 'Rewind':
       player.dispatchEvent(new RewindClickedEvent(action.payload.from, action.payload.to));
+      break;
+
+    case 'Forward':
+      player.dispatchEvent(new ForwardClickedEvent(action.payload.from, action.payload.to));
       break;
 
     case 'LiveTag':

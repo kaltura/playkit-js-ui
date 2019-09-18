@@ -15,6 +15,8 @@ const mapStateToProps = state => ({
   isPlaybackEnded: state.engine.isPlaybackEnded
 });
 
+const COMPONENT_NAME = 'BottomBar';
+
 @connect(
   mapStateToProps,
   bindActions(actions)
@@ -50,4 +52,5 @@ class BottomBar extends Component {
   }
 }
 
+BottomBar.displayName = COMPONENT_NAME;
 export {BottomBar};

@@ -31,6 +31,8 @@ const cvaaOverlayState = {
 
 type CvaaOverlayStateType = 'main' | 'custom-captions';
 
+const COMPONENT_NAME = 'CVAAOverlay';
+
 @connect(
   mapStateToProps,
   bindActions({...cvaaActions, ...shellActions})
@@ -45,13 +47,14 @@ class CVAAOverlay extends BaseComponent {
   captionsStyleDefault: Object;
   captionsStyleYellow: Object;
   captionsStyleBlackBG: Object;
+  _firstElementToFocus: HTMLElement;
 
   /**
    * Creates an instance of CVAAOverlay.
    * @memberof CVAAOverlay
    */
   constructor() {
-    super({name: 'CVAAOverlay'});
+    super({name: COMPONENT_NAME});
   }
 
   /**
@@ -91,6 +94,15 @@ class CVAAOverlay extends BaseComponent {
       backgroundColor: this.props.player.TextStyle.StandardColors.BLACK,
       fontColor: this.props.player.TextStyle.StandardColors.WHITE
     });
+  }
+
+  /**
+   * focus on the overlay for "esc" to be handled
+   * @returns {void}
+   * @memberof CVAAOverlay
+   */
+  componentDidMount(): void {
+    this._firstElementToFocus.focus();
   }
 
   /**
@@ -149,6 +161,7 @@ class CVAAOverlay extends BaseComponent {
         <div>
           <div
             tabIndex="0"
+            ref={el => (this._firstElementToFocus = el)}
             className={style.sample}
             onClick={() => this.changeCaptionsStyle(this.captionsStyleDefault)}
             onKeyDown={e => {
@@ -399,4 +412,5 @@ class CVAAOverlay extends BaseComponent {
   }
 }
 
+CVAAOverlay.displayName = COMPONENT_NAME;
 export {CVAAOverlay};

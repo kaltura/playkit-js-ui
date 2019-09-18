@@ -13,6 +13,8 @@ const mapStateToProps = state => ({
   url: state.engine.adUrl
 });
 
+const COMPONENT_NAME = 'AdLearnMore';
+
 @connect(mapStateToProps)
 /**
  * AdLearnMore component
@@ -38,4 +40,5 @@ class AdLearnMore extends Component {
   }
 }
 
+AdLearnMore.displayName = COMPONENT_NAME;
 export {AdLearnMore};

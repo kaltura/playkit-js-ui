@@ -21,7 +21,10 @@ export {preact};
 export {redux};
 
 export {style};
+
 export {Reducers, Presets, Components, Utils};
+
+export {Reducers as reducers, Presets as presets, Components as components, Utils as utils};
 export {EventType};
 export {UIManager};
 export {__VERSION__ as VERSION, __NAME__ as NAME};

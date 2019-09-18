@@ -18,6 +18,8 @@ const mapStateToProps = state => ({
   hasError: state.engine.hasError
 });
 
+const COMPONENT_NAME = 'ErrorOverlay';
+
 @connect(
   mapStateToProps,
   bindActions(actions)
@@ -37,7 +39,7 @@ class ErrorOverlay extends BaseComponent {
    * @memberof ErrorObejct
    */
   constructor(obj: any) {
-    super({name: 'ErrorOverlay', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
@@ -181,4 +183,5 @@ class ErrorOverlay extends BaseComponent {
   }
 }
 
+ErrorOverlay.displayName = COMPONENT_NAME;
 export {ErrorOverlay};

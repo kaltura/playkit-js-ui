@@ -27,36 +27,38 @@ const mapStateToProps = state => ({
   playerSize: state.shell.playerSize
 });
 
+const COMPONENT_NAME = 'Language';
+
 @connect(
   mapStateToProps,
   bindActions(actions)
 )
 /**
- * LanguageControl component
+ * Language component
  *
- * @class LanguageControl
- * @example <LanguageControl />
+ * @class Language
+ * @example <Language />
  * @extends {BaseComponent}
  */
-class LanguageControl extends BaseComponent {
+class Language extends BaseComponent {
   state: Object;
   _controlLanguageElement: any;
   _portal: any;
 
   /**
-   * Creates an instance of LanguageControl.
+   * Creates an instance of Language.
    * @param {Object} obj obj
-   * @memberof LanguageControl
+   * @memberof Language
    */
   constructor(obj: Object) {
-    super({name: 'LanguageControl', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
    * before component mounted, set initial state
    *
    * @returns {void}
-   * @memberof LanguageControl
+   * @memberof Language
    */
   componentWillMount() {
     this.setState({smartContainerOpen: false});
@@ -66,7 +68,7 @@ class LanguageControl extends BaseComponent {
    * after component mounted, set event listener to click outside of the component
    *
    * @returns {void}
-   * @memberof LanguageControl
+   * @memberof Language
    */
   componentDidMount() {
     this.eventManager.listen(document, 'click', e => this.handleClickOutside(e));
@@ -77,7 +79,7 @@ class LanguageControl extends BaseComponent {
    *
    * @param {*} e - click event
    * @returns {void}
-   * @memberof LanguageControl
+   * @memberof Language
    */
   handleClickOutside(e: any): void {
     if (
@@ -99,7 +101,7 @@ class LanguageControl extends BaseComponent {
    * toggle smart container internal state on control button click
    *
    * @returns {void}
-   * @memberof LanguageControl
+   * @memberof Language
    */
   onControlButtonClick(): void {
     this.setState({smartContainerOpen: !this.state.smartContainerOpen});
@@ -110,7 +112,7 @@ class LanguageControl extends BaseComponent {
    *
    * @param {Object} audioTrack - audio track
    * @returns {void}
-   * @memberof LanguageControl
+   * @memberof Language
    */
   onAudioChange(audioTrack: Object): void {
     this.player.selectTrack(audioTrack);
@@ -125,7 +127,7 @@ class LanguageControl extends BaseComponent {
    *
    * @param {Object} textTrack - text track
    * @returns {void}
-   * @memberof LanguageControl
+   * @memberof Language
    */
   onCaptionsChange(textTrack: Object): void {
     this.player.selectTrack(textTrack);
@@ -139,7 +141,7 @@ class LanguageControl extends BaseComponent {
    * toggle the internal state of cvaa overlay
    *
    * @returns {void}
-   * @memberof LanguageControl
+   * @memberof Language
    */
   toggleCVAAOverlay(): void {
     this.setState({cvaaOverlay: !this.state.cvaaOverlay});
@@ -151,7 +153,7 @@ class LanguageControl extends BaseComponent {
    * @param {Array<Object>} audioOptions - audio tracks
    * @param {Array<Object>} textOptions - text tracks
    * @returns {React$Element} - component
-   * @memberof LanguageControl
+   * @memberof Language
    */
   renderAll(audioOptions: Array<Object>, textOptions: Array<Object>): React$Element<any> {
     const portalSelector = `#${this.player.config.targetId} .overlay-portal`;
@@ -234,7 +236,7 @@ class LanguageControl extends BaseComponent {
    *
    * @param {*} props - component props
    * @returns {React$Element} - component
-   * @memberof LanguageControl
+   * @memberof Language
    */
   render(props: any): React$Element<any> | void {
     const audioOptions = props.audioTracks.filter(t => t.label || t.language).map(t => ({label: t.label || t.language, active: t.active, value: t}));
@@ -252,4 +254,5 @@ class LanguageControl extends BaseComponent {
   }
 }
 
-export {LanguageControl};
+Language.displayName = COMPONENT_NAME;
+export {Language};

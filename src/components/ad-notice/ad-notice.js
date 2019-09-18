@@ -3,6 +3,8 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {Text} from 'preact-i18n';
 
+const COMPONENT_NAME = 'AdNotice';
+
 /**
  * AdNotice component
  *
@@ -26,4 +28,5 @@ class AdNotice extends Component {
   }
 }
 
+AdNotice.displayName = COMPONENT_NAME;
 export {AdNotice};

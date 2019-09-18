@@ -5,6 +5,9 @@ import {Localizer, Text} from 'preact-i18n';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
+import {withAnimation} from '../../utils/with-animation';
+
+const COMPONENT_NAME = 'Rewind';
 
 /**
  * Default rewind step
@@ -14,30 +17,30 @@ import {KeyMap} from '../../utils/key-map';
 export const REWIND_DEFAULT_STEP = 10;
 
 /**
- * RewindControl component
+ * Rewind component
  *
- * @class RewindControl
- * @example <RewindControl player={this.player} step={5} />
+ * @class Rewind
+ * @example <Rewind player={this.player} step={5} />
  * @extends {BaseComponent}
  */
-class RewindControl extends BaseComponent {
+class Rewind extends BaseComponent {
   /**
-   * Creates an instance of RewindControl.
+   * Creates an instance of Rewind.
    * @param {Object} obj obj
-   * @memberof RewindControl
+   * @memberof Rewind
    */
   constructor(obj: Object) {
-    super({name: 'Rewind', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
    * rewind click handler
    *
    * @returns {void}
-   * @memberof RewindControl
+   * @memberof Rewind
    */
   onClick(): void {
-    this.animate();
+    this.props.animate();
     let to;
     const step = this.props.step || REWIND_DEFAULT_STEP;
     const from = this.player.currentTime;
@@ -57,7 +60,7 @@ class RewindControl extends BaseComponent {
    * toggles the animation state to activate the rotate animation
    *
    * @returns {void}
-   * @memberof RewindControl
+   * @memberof Rewind
    */
   animate(): void {
     this.setState({animation: false});
@@ -70,16 +73,17 @@ class RewindControl extends BaseComponent {
    *
    * @param {*} props - component props
    * @returns {React$Element} - component element
-   * @memberof RewindControl
+   * @memberof Rewind
    */
   render(props: any): React$Element<any> | void {
     return (
-      <div className={[style.controlButtonContainer, style.controlRewind].join(' ')}>
+      <div className={[style.controlButtonContainer, style.noIdleControl].join(' ')}>
         <Localizer>
           <button
             tabIndex="0"
             aria-label={<Text id={'controls.rewind'} />}
-            className={`${style.controlButton} ${this.state.animation ? style.rotate : ''}`}
+            className={`${style.controlButton}`}
+            ref={this.props.innerRef}
             onClick={() => this.onClick()}
             onKeyDown={e => {
               if (e.keyCode === KeyMap.ENTER) {
@@ -94,4 +98,7 @@ class RewindControl extends BaseComponent {
   }
 }
 
-export {RewindControl};
+Rewind.displayName = COMPONENT_NAME;
+
+const animateRewind = withAnimation(Rewind, style.rotate);
+export {animateRewind as Rewind};

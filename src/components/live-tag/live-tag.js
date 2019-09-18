@@ -18,6 +18,8 @@ const mapStateToProps = state => ({
   duration: state.engine.duration
 });
 
+const COMPONENT_NAME = 'LiveTag';
+
 @connect(mapStateToProps)
 /**
  * LiveTag component
@@ -33,7 +35,7 @@ class LiveTag extends BaseComponent {
    * @memberof LiveTag
    */
   constructor(obj: Object) {
-    super({name: 'LiveTag', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
@@ -90,4 +92,5 @@ class LiveTag extends BaseComponent {
   }
 }
 
+LiveTag.displayName = COMPONENT_NAME;
 export {LiveTag};

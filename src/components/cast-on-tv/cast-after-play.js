@@ -17,6 +17,8 @@ const mapStateToProps = state => ({
   isCasting: state.engine.isCasting
 });
 
+const COMPONENT_NAME = 'CastAfterPlay';
+
 @connect(
   mapStateToProps,
   null
@@ -43,7 +45,7 @@ class CastAfterPlay extends BaseComponent {
    * @memberof CastAfterPlay
    */
   constructor(obj: Object) {
-    super({name: 'CastAfterPlay', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
@@ -102,4 +104,5 @@ class CastAfterPlay extends BaseComponent {
   }
 }
 
+CastAfterPlay.displayName = COMPONENT_NAME;
 export {CastAfterPlay};

@@ -1,6 +1,9 @@
 //@flow
 import {Component} from 'preact';
 import {connect} from 'preact-redux';
+import {bindActions} from './utils';
+import {actions} from './reducers/shell';
+import getLogger from './utils/logger';
 
 /**
  * mapping state to props
@@ -22,7 +25,12 @@ const mapStateToProps = state => ({
   config: state.config
 });
 
-@connect(mapStateToProps)
+const logger = getLogger('PlayerGUI');
+
+@connect(
+  mapStateToProps,
+  bindActions(actions)
+)
 /**
  * Player GUI component
  *
@@ -59,9 +67,18 @@ class PlayerGUI extends Component {
    */
   render(props: any): React$Element<any> | void {
     let uiToRender;
+    const {activePresetName} = this.props.state.shell;
     if (this.props.uis.length > 0) {
       uiToRender = this.getMatchedUI(props.uis, props.state);
-      return uiToRender ? uiToRender.template(props) : this.props.uis[0].template(props);
+      const uiComponent = uiToRender ? uiToRender.template(props) : this.props.uis[this.props.uis.length - 1].template(props);
+      const presetName = uiComponent ? uiComponent.nodeName.displayName || '' : '';
+
+      if (activePresetName !== presetName) {
+        props.updateActivePresetName(presetName);
+        logger.debug(`set active preset '${presetName}'`);
+      }
+
+      return uiComponent;
     } else {
       return undefined;
     }
