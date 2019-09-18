@@ -132,6 +132,8 @@ const VideoStartOptions = (props: Object): React$Element<any> => {
   );
 };
 
+const COMPONENT_NAME = 'ShareOverlay';
+
 @connect(
   mapStateToProps,
   bindActions(actions)
@@ -149,7 +151,7 @@ class ShareOverlay extends BaseComponent {
    * @memberof ShareOverlay
    */
   constructor(obj: Object) {
-    super({name: 'ShareOverlay', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
@@ -372,4 +374,5 @@ class ShareOverlay extends BaseComponent {
   }
 }
 
+ShareOverlay.displayName = COMPONENT_NAME;
 export {ShareOverlay};

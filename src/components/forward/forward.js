@@ -5,6 +5,7 @@ import {Localizer, Text} from 'preact-i18n';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
+import {withAnimation} from '../../utils/with-animation';
 
 const COMPONENT_NAME = 'Forward';
 
@@ -39,7 +40,7 @@ class Forward extends BaseComponent {
    * @memberof Forward
    */
   onClick(): void {
-    this.animate();
+    this.props.animate();
     let to;
     const step = this.props.step || FORWARD_DEFAULT_STEP;
     const from = this.player.currentTime;
@@ -56,18 +57,6 @@ class Forward extends BaseComponent {
   }
 
   /**
-   * toggles the animation state to activate the rotate animation
-   *
-   * @returns {void}
-   * @memberof Forward
-   */
-  animate(): void {
-    this.setState({animation: false});
-    this.forceUpdate();
-    this.setState({animation: true});
-  }
-
-  /**
    * render component
    *
    * @param {*} props - component props
@@ -81,7 +70,8 @@ class Forward extends BaseComponent {
           <button
             tabIndex="0"
             aria-label={<Text id={'controls.forward'} />}
-            className={`${style.controlButton} ${this.state.animation ? style.reverseRotate : ''}`}
+            className={`${style.controlButton}`}
+            ref={this.props.innerRef}
             onClick={() => this.onClick()}
             onKeyDown={e => {
               if (e.keyCode === KeyMap.ENTER) {
@@ -98,4 +88,5 @@ class Forward extends BaseComponent {
 
 Forward.displayName = COMPONENT_NAME;
 
-export {Forward};
+const animateForward = withAnimation(Forward, style.reverseRotate);
+export {animateForward as Forward};

@@ -21,6 +21,8 @@ const mapStateToProps = state => ({
   isPlaybackEnded: state.engine.isPlaybackEnded
 });
 
+const COMPONENT_NAME = 'PlaylistCountdown';
+
 @connect(mapStateToProps)
 /**
  * PlaylistCountdown component
@@ -52,7 +54,7 @@ class PlaylistCountdown extends BaseComponent {
    * @memberof PlaylistCountdown
    */
   constructor(obj: Object) {
-    super({name: 'PlaylistCountdown', player: obj.player});
+    super({name: COMPONENT_NAME, player: obj.player});
   }
 
   /**
@@ -207,4 +209,5 @@ class PlaylistCountdown extends BaseComponent {
   }
 }
 
+PlaylistCountdown.displayName = COMPONENT_NAME;
 export {PlaylistCountdown};

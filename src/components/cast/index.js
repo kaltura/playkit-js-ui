@@ -1,1 +1,1 @@
-export {CastControl} from './cast';
+export {Cast} from './cast';

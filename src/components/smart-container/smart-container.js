@@ -19,6 +19,8 @@ const mapStateToProps = state => ({
   playerSize: state.shell.playerSize
 });
 
+const COMPONENT_NAME = 'SmartContainer';
+
 @connect(
   mapStateToProps,
   bindActions(actions)
@@ -94,4 +96,5 @@ class SmartContainer extends Component {
   }
 }
 
+SmartContainer.displayName = COMPONENT_NAME;
 export {SmartContainer};

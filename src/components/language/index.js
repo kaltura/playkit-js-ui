@@ -1,1 +1,1 @@
-export {LanguageControl} from './language';
+export {Language} from './language';

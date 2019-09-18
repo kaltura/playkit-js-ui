@@ -2,26 +2,27 @@
 import style from '../styles/style.scss';
 import {h} from 'preact';
 import {Loading} from '../components/loading';
-import {VolumeControl} from '../components/volume';
-import {FullscreenControl} from '../components/fullscreen';
+import {Volume} from '../components/volume';
+import {Fullscreen} from '../components/fullscreen';
 import {TimeDisplayAdsContainer} from '../components/time-display-ads-container';
 import {AdSkip} from '../components/ad-skip';
 import {AdLearnMore} from '../components/ad-learn-more';
 import {TopBar} from '../components/top-bar';
 import {BottomBar} from '../components/bottom-bar';
 import {UnmuteIndication} from '../components/unmute-indication';
-import {KeyboardControl} from '../components/keyboard';
+import {Keyboard} from '../components/keyboard';
 import {AdNotice} from '../components/ad-notice/ad-notice';
 import {PlaybackControls} from '../components/playback-controls';
 
+const PRESET_NAME = 'Ads';
+
 /**
- * Ads ui interface
+ * Ads ui interface component
  *
- * @export
  * @param {*} props component props
  * @returns {?HTMLElement} player ui tree
  */
-export function adsUI(props: any): ?React$Element<any> {
+function AdsUI(props: any): ?React$Element<any> {
   if (useDefaultAdsUi(props)) {
     return (
       <div className={style.adGuiWrapper}>
@@ -38,11 +39,11 @@ export function adsUI(props: any): ?React$Element<any> {
   const adsUiCustomization = getAdsUiCustomization();
   return (
     <div className={style.adGuiWrapper}>
-      <KeyboardControl player={props.player} config={props.config} />
+      <Keyboard player={props.player} config={props.config} />
       <Loading player={props.player} />
       <div className={style.playerGui} id="player-gui">
         <UnmuteIndication player={props.player} hasTopBar />
-        <TopBar>
+        <TopBar disabled={true}>
           <div className={style.leftControls}>{isBumper(props) ? undefined : <AdNotice />}</div>
           <div className={style.rightControls}>{adsUiCustomization.learnMoreButton ? <AdLearnMore /> : undefined}</div>
         </TopBar>
@@ -54,13 +55,26 @@ export function adsUI(props: any): ?React$Element<any> {
             <TimeDisplayAdsContainer />
           </div>
           <div className={style.rightControls}>
-            <VolumeControl player={props.player} />
-            <FullscreenControl player={props.player} />
+            <Volume player={props.player} />
+            <Fullscreen player={props.player} />
           </div>
         </BottomBar>
       </div>
     </div>
   );
+}
+
+AdsUI.displayName = PRESET_NAME;
+
+/**
+ * Ads ui interface
+ *
+ * @export
+ * @param {*} props component props
+ * @returns {?HTMLElement} player ui tree
+ */
+export function adsUI(props: any): ?React$Element<any> {
+  return <AdsUI {...props} />;
 }
 
 /**

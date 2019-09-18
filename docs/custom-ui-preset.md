@@ -29,7 +29,7 @@ A preset is a simple function that returns a tree that defines the compoentns st
 
 For example- Let's say that we want our fullscreen UI to have only the bottom bar with the fullscreen control. nothing else.
 
-this is a UI preset that will define the look of fullscreen state, which uses the built-in components `BottomBar` and `FullscreenControl`
+this is a UI preset that will define the look of fullscreen state, which uses the built-in components `BottomBar` and `Fullscreen`
 
 ```javascript
 //fullscreen-preset.js
@@ -42,7 +42,7 @@ const fullscreenUI = function(props){
     h(
       components.BottomBar,
       h(
-        components.FullscreenControl, { player: props.player },
+        components.Fullscreen, { player: props.player },
         { className: "playkit-left-controls" }
       )
     )
@@ -85,7 +85,7 @@ const fullscreenUI = function(props) {
   return (
     <div className="playback-gui-wrapper" style="height: 100%">
       <BottomBar>
-        <FullscreenControl player={props.player} />
+        <Fullscreen player={props.player} />
       </BottomBar>
     </div>
   );
@@ -101,13 +101,13 @@ const fullscreenUI = function(props) {
 ```javascript
 //fullscreen-preset.js
 //@flow
-import { h, BottomBar, FullscreenControl  } from 'playkit-js-ui';
+import { h, BottomBar, Fullscreen  } from 'playkit-js-ui';
 
 export default function fullscreenUI(props: any) {
 return (
 <div className='playback-gui-wrapper' style='height: 100%'>
 <BottomBar>
-<FullscreenControl player={props.player} />
+<Fullscreen player={props.player} />
 </BottomBar>
 </div>
 )
@@ -176,5 +176,5 @@ The UI Manager has three pre-defined conditions:
 ## Using custom components
 Presets can be created by using the player default library components, but you can also create and use your own components to define the layout.
 
-See example on how to create and use your own compoentns [here](create-new-component.md)
+See example on how to create and use your own components [here](create-ui-component.md)
 ```

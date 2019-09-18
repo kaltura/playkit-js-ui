@@ -13,6 +13,8 @@ const mapStateToProps = state => ({
   adProgress: state.engine.adProgress
 });
 
+const COMPONENT_NAME = 'TimeDisplayAdsContainer';
+
 @connect(mapStateToProps)
 /**
  * TimeDisplayAdsContainer component
@@ -27,7 +29,7 @@ class TimeDisplayAdsContainer extends BaseComponent {
    * @memberof TimeDisplayAdsContainer
    */
   constructor() {
-    super({name: 'TimeDisplayAdsContainer'});
+    super({name: COMPONENT_NAME});
   }
 
   /**
@@ -42,4 +44,5 @@ class TimeDisplayAdsContainer extends BaseComponent {
   }
 }
 
+TimeDisplayAdsContainer.displayName = COMPONENT_NAME;
 export {TimeDisplayAdsContainer};

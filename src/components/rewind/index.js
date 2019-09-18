@@ -1,1 +1,1 @@
-export {RewindControl} from './rewind';
+export {Rewind} from './rewind';
