@@ -3,6 +3,8 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {DropDown} from '../dropdown';
 import {default as Icon} from '../icon';
+import {popupItemWithKeyboardA11y} from '../../utils/popup-item-keyboard-accessibility';
+
 
 /**
  * SmartContainerItem component
@@ -11,6 +13,12 @@ import {default as Icon} from '../icon';
  * @extends {Component}
  */
 class SmartContainerItem extends Component {
+  _parentSelectCallback: Function;
+
+  componentDidMount(): void {
+    this.props.setSelectCallback(this._parentSelectCallback);
+  }
+
   /**
    * render component
    *
@@ -27,7 +35,7 @@ class SmartContainerItem extends Component {
             props.pushRef(el);
           }
         }}
-        tabIndex="0"
+        tabIndex="-1"
         className={[style.smartContainerItem, style.selectMenuItem].join(' ')}>
         <label htmlFor={label}>
           {props.icon ? (
@@ -39,10 +47,22 @@ class SmartContainerItem extends Component {
           )}
           {props.label}
         </label>
-        <DropDown name={label} onSelect={o => props.onSelect(o)} options={props.options} />
+        <DropDown
+          name={label}
+          onSelect={o => props.onSelect(o)}
+          options={props.options}
+          registerParentSelectedCallback={callback => {
+            this.registerParentSelectedCallback(callback);
+          }}
+        />
       </div>
     );
   }
+
+  registerParentSelectedCallback(callback) {
+    this._parentSelectCallback = callback;
+  }
 }
 
-export {SmartContainerItem};
+const keyboardAccessibleSmartContainerItem = popupItemWithKeyboardA11y(SmartContainerItem);
+export {keyboardAccessibleSmartContainerItem as SmartContainerItem};

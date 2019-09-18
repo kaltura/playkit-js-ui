@@ -30,6 +30,10 @@ class DropDown extends Component {
   _el: HTMLDivElement;
   _dropdownButton: HTMLDivElement;
 
+  constructor(props: any) {
+    super(props);
+    this.props.onParentSelected = this.toggleDropDown;
+  }
   /**
    * before component mounted, set initial internal state
    *
@@ -39,6 +43,10 @@ class DropDown extends Component {
   componentWillMount() {
     this.setState({dropMenuActive: false});
   }
+  componentDidMount(): void {
+    this.props.registerParentSelectedCallback(this.toggleDropDown.bind(this));
+  }
+
 
   /**
    * is given option selected
@@ -138,10 +146,9 @@ class DropDown extends Component {
         className={this.state.dropMenuActive ? [style.dropdown, style.active].join(' ') : style.dropdown}
         ref={el => (this._el = el)}>
         <div
-          tabIndex="0"
           ref={el => (this._dropdownButton = el)}
           className={style.dropdownButton}
-          onClick={() => this.setState({dropMenuActive: !this.state.dropMenuActive})}
+          onClick={() => this.toggleDropDown()}
           onKeyDown={e => this.onKeyDown(e)}>
           <span>{this.getActiveOptionLabel()}</span>
           <Icon type={IconType.ArrowDown} />
@@ -153,6 +160,10 @@ class DropDown extends Component {
         )}
       </div>
     );
+  }
+
+  toggleDropDown() {
+    this.setState({dropMenuActive: !this.state.dropMenuActive});
   }
 }
 

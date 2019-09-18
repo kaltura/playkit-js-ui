@@ -11,8 +11,9 @@ import {SmartContainerItem} from '../smart-container/smart-container-item';
 import {default as Icon, IconType} from '../icon';
 import {CVAAOverlay} from '../cvaa-overlay';
 import Portal from 'preact-portal';
-import {KeyMap} from '../../utils/key-map';
 import {PLAYER_SIZE} from '../shell/shell';
+import {Component} from 'preact/src/preact';
+import {popupItemWithKeyboardA11y} from '../../utils/popup-item-keyboard-accessibility';
 
 /**
  * mapping state to props
@@ -194,22 +195,7 @@ class LanguageControl extends BaseComponent {
                 onSelect={textTrack => this.onCaptionsChange(textTrack)}
               />
             )}
-            {textOptions.length <= 1 ? (
-              undefined
-            ) : (
-              <div
-                tabIndex="0"
-                className={style.smartContainerItem}
-                onKeyDown={e => {
-                  if (e.keyCode === KeyMap.ENTER) {
-                    this.toggleCVAAOverlay();
-                  }
-                }}>
-                <a className={style.advancedCaptionsMenuLink} onClick={() => this.toggleCVAAOverlay()}>
-                  <Text id="language.advanced_captions_settings" />
-                </a>
-              </div>
-            )}
+            {textOptions.length <= 1 ? undefined : <KeyboardAccessibleAdvancedCaptionsAnchor />}
           </SmartContainer>
         )}
         {this.state.cvaaOverlay ? (
@@ -251,5 +237,26 @@ class LanguageControl extends BaseComponent {
     }
   }
 }
+
+class AdvancedCaptionsAnchor extends Component {
+  render(props: any): React$Element<any> {
+    return (
+      <div
+        tabIndex="-1"
+        ref={el => {
+          if (props.pushRef) {
+            props.pushRef(el);
+          }
+        }}
+        className={style.smartContainerItem}
+        onSelect={this.toggleCVAAOverlay.bind(this)}>
+        <a className={style.advancedCaptionsMenuLink} onClick={() => this.toggleCVAAOverlay()}>
+          <Text id="language.advanced_captions_settings" />
+        </a>
+      </div>
+    );
+  }
+}
+const KeyboardAccessibleAdvancedCaptionsAnchor = popupItemWithKeyboardA11y(AdvancedCaptionsAnchor);
 
 export {LanguageControl};
