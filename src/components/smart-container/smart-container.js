@@ -84,12 +84,7 @@ class SmartContainer extends Component {
     ) : (
       <div
         tabIndex="-1"
-        className={[style.smartContainer, style.top, style.left].join(' ')}
-        onKeyDown={e => {
-          if (e.keyCode === KeyMap.ESC) {
-            props.onClose();
-          }
-        }}>
+        className={[style.smartContainer, style.top, style.left].join(' ')}>
         {this.renderChildren(props)}
       </div>
     );
@@ -103,7 +98,8 @@ class SmartContainer extends Component {
           {
             pushRef: ref => {
               props.addAccessibleChild(ref);
-            }
+            },
+            onClose: props.onClose
           },
           ...this.props
         );

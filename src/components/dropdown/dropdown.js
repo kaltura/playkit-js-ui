@@ -44,9 +44,10 @@ class DropDown extends Component {
     this.setState({dropMenuActive: false});
   }
   componentDidMount(): void {
-    this.props.registerParentSelectedCallback(this.toggleDropDown.bind(this));
+    if (this.props.registerParentSelectedCallback) {
+      this.props.registerParentSelectedCallback(this.toggleDropDown.bind(this));
+    }
   }
-
 
   /**
    * is given option selected

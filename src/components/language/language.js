@@ -195,7 +195,7 @@ class LanguageControl extends BaseComponent {
                 onSelect={textTrack => this.onCaptionsChange(textTrack)}
               />
             )}
-            {textOptions.length <= 1 ? undefined : <KeyboardAccessibleAdvancedCaptionsAnchor />}
+            {textOptions.length <= 1 ? undefined : <KeyboardAccessibleAdvancedCaptionsAnchor onSelect={this.toggleCVAAOverlay.bind(this)} />}
           </SmartContainer>
         )}
         {this.state.cvaaOverlay ? (
@@ -239,6 +239,10 @@ class LanguageControl extends BaseComponent {
 }
 
 class AdvancedCaptionsAnchor extends Component {
+  componentDidMount(): void {
+    this.props.setSelectCallback(this.props.onSelect);
+  }
+
   render(props: any): React$Element<any> {
     return (
       <div
@@ -249,7 +253,7 @@ class AdvancedCaptionsAnchor extends Component {
           }
         }}
         className={style.smartContainerItem}
-        onSelect={this.toggleCVAAOverlay.bind(this)}>
+        onSelect={props.onSelect}>
         <a className={style.advancedCaptionsMenuLink} onClick={() => this.toggleCVAAOverlay()}>
           <Text id="language.advanced_captions_settings" />
         </a>

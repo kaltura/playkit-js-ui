@@ -154,23 +154,8 @@ class Menu extends Component {
     this.props.options.filter(t => t.value === props.data.value)[0].active = true;
   }
 
-  /**
-   * on key down handler
-   *
-   * @param {KeyboardEvent} e - keyboard event
-   * @param {Object} o - option object
-   * @returns {void}
-   * @memberof Menu
-   */
-  onKeyDown(e: KeyboardEvent, o: Object): void {
-    switch (e.keyCode) {
-      case KeyMap.ESC:
-        this.props.onClose();
-        e.stopPropagation();
-        break;
-      default:
-        break;
-    }
+  onClose(): void {
+    this.props.onClose();
   }
 
   /**
@@ -227,6 +212,7 @@ class Menu extends Component {
             addAccessibleChild={props.addAccessibleChild}
             isSelected={this.isSelected}
             onSelect={this.onSelect.bind(this)}
+            onClose={this.onClose.bind(this)}
             key={index}
             data={o}
           />
@@ -244,6 +230,7 @@ class MenuItem extends Component {
 
   componentDidMount(): void {
     this.props.setSelectCallback(this.props.onSelect);
+    this.props.setCloseCallback(this.props.onClose);
     this._mounted = true;
   }
 
@@ -269,4 +256,3 @@ class MenuItem extends Component {
   }
 }
 const KeyboardAccessibleMenuItem = popupItemWithKeyboardA11y(MenuItem);
-

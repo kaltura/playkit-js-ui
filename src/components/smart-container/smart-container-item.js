@@ -17,6 +17,7 @@ class SmartContainerItem extends Component {
 
   componentDidMount(): void {
     this.props.setSelectCallback(this._parentSelectCallback);
+    this.props.setCloseCallback(this.props.onClose);
   }
 
   /**

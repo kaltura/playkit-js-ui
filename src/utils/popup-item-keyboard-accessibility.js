@@ -10,6 +10,7 @@ import {KeyMap} from '../utils/key-map';
 export const popupItemWithKeyboardA11y: Function = (WrappedComponent: BaseComponent): typeof BaseComponent =>
   class extends BaseComponent {
     _selectCallback: Function;
+    _closeCallback: Function;
 
     /**
      * render component
@@ -24,7 +25,8 @@ export const popupItemWithKeyboardA11y: Function = (WrappedComponent: BaseCompon
         {onKeyDown: e => this.onKeyDown(e, props)},
         h(WrappedComponent, {
           ...props,
-          setSelectCallback: this.setSelectCallback.bind(this)
+          setSelectCallback: this.setSelectCallback.bind(this),
+          setCloseCallback: this.setCloseCallback.bind(this)
         })
       );
     }
@@ -33,10 +35,18 @@ export const popupItemWithKeyboardA11y: Function = (WrappedComponent: BaseCompon
       this._selectCallback = callback;
     }
 
+    setCloseCallback(callback: Function) {
+      this._closeCallback = callback;
+    }
+
     onKeyDown(e: KeyboardEvent, props: any): void {
       switch (e.keyCode) {
         case KeyMap.ENTER:
           this._selectCallback(props);
+          e.stopPropagation();
+          break;
+        case KeyMap.ESC:
+          this._closeCallback();
           e.stopPropagation();
           break;
 
