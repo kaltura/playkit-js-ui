@@ -13,6 +13,7 @@ export const popupWithKeyboardA11y: Function = (WrappedComponent: BaseComponent)
     _accessibleChildren: Array<HTMLElement> = [];
     _activeElement: ?HTMLElement;
     _previouslyActiveElement: ?HTMLElement;
+    _element: ?HTMLElement;
 
     /**
      * after component mounted, listen to events
@@ -40,6 +41,12 @@ export const popupWithKeyboardA11y: Function = (WrappedComponent: BaseComponent)
             this._activeElement.focus();
           }
           e.stopPropagation();
+          break;
+        case KeyMap.TAB:
+          this._previouslyActiveElement = null;
+          if (this.props.onClose) {
+            this.props.onClose();
+          }
           break;
       }
     }
