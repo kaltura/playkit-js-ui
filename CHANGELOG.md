@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.45.0"></a>
+# [0.45.0](https://github.com/kaltura/playkit-js-ui/compare/v0.44.0...v0.45.0) (2019-09-18)
+
+
+### Bug Fixes
+
+* **FEC-9309:** when clicking on Fast Forward button, the arrow sometimes isn't rotates in playlist when countdown window shown ([#406](https://github.com/kaltura/playkit-js-ui/issues/406)) ([25d1250](https://github.com/kaltura/playkit-js-ui/commit/25d1250))
+
+
+### Features
+
+* **FEC-8696:** allow adding/changing discrete components in UI ([#399](https://github.com/kaltura/playkit-js-ui/issues/399)) ([1eea3a1](https://github.com/kaltura/playkit-js-ui/commit/1eea3a1))
+
+
+
 <a name="0.44.0"></a>
 # [0.44.0](https://github.com/kaltura/playkit-js-ui/compare/v0.42.1...v0.44.0) (2019-08-26)
 
