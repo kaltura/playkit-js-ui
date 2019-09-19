@@ -33,19 +33,25 @@ export const popupWithKeyboardA11y: Function = (WrappedComponent: BaseComponent)
       switch (e.keyCode) {
         case KeyMap.DOWN:
         case KeyMap.UP:
-          if (this._activeElement) {
-            let activeElementIndex = this._accessibleChildren.indexOf(this._activeElement);
-            activeElementIndex =
-              (activeElementIndex + (e.keyCode == KeyMap.DOWN ? 1 : -1) + this._accessibleChildren.length) % this._accessibleChildren.length;
-            this._activeElement = this._accessibleChildren[activeElementIndex];
-            this._activeElement.focus();
+          if (!this.props.tabbable) {
+            if (this._activeElement) {
+              let activeElementIndex = this._accessibleChildren.indexOf(this._activeElement);
+              activeElementIndex =
+                (activeElementIndex + (e.keyCode == KeyMap.DOWN ? 1 : -1) + this._accessibleChildren.length) % this._accessibleChildren.length;
+              this._activeElement = this._accessibleChildren[activeElementIndex];
+              this._activeElement.focus();
+            }
+            e.preventDefault();
+            e.stopPropagation();
           }
-          e.stopImmediatePropagation();
+
           break;
         case KeyMap.TAB:
-          this._previouslyActiveElement = null;
-          if (this.props.onClose) {
-            this.props.onClose();
+          if (!this.props.tabbable) {
+            this._previouslyActiveElement = null;
+            if (this.props.onClose) {
+              this.props.onClose();
+            }
           }
           break;
       }

@@ -147,8 +147,13 @@ class DropDown extends Component {
         className={this.state.dropMenuActive ? [style.dropdown, style.active].join(' ') : style.dropdown}
         ref={el => (this._el = el)}>
         <div
-          tabIndex={props.tabable ? '0' : -1}
-          ref={el => (this._dropdownButton = el)}
+          tabIndex={props.tabbable ? '0' : -1}
+          ref={el => {
+            this._dropdownButton = el;
+            if (props.setFocusableElement) {
+              props.setFocusableElement(el);
+            }
+          }}
           className={style.dropdownButton}
           onClick={() => this.toggleDropDown()}
           onKeyDown={e => this.onKeyDown(e)}>
