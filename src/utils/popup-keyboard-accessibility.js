@@ -40,7 +40,7 @@ export const popupWithKeyboardA11y: Function = (WrappedComponent: BaseComponent)
             this._activeElement = this._accessibleChildren[activeElementIndex];
             this._activeElement.focus();
           }
-          e.stopPropagation();
+          e.stopImmediatePropagation();
           break;
         case KeyMap.TAB:
           this._previouslyActiveElement = null;

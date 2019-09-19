@@ -321,7 +321,12 @@ class CVAAOverlay extends BaseComponent {
             <label>
               <Text id={'cvaa.size_label'} />
             </label>
-            <DropDown onSelect={fontScale => this.changeCustomStyle({fontScale})} options={fontSizeOptions} />
+            <DropDown
+              ref={el => (this._firstElementToFocus = el)}
+              tabable="true"
+              onSelect={fontScale => this.changeCustomStyle({fontScale})}
+              options={fontSizeOptions}
+            />
           </div>
           <div className={[style.formGroupRow, style.fontColor].join(' ')}>
             <label>
@@ -403,8 +408,7 @@ class CVAAOverlay extends BaseComponent {
   render(props: any): React$Element<any> {
     return (
       <Overlay open onClose={() => props.onClose()} type="cvaa">
-        {this.renderMainState()}
-        {this.renderCustomCaptionsState(props)}
+        {this.state.state === cvaaOverlayState.Main ? this.renderMainState() : this.renderCustomCaptionsState(props)}
       </Overlay>
     );
   }

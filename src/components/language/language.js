@@ -254,7 +254,7 @@ class AdvancedCaptionsAnchor extends Component {
         }}
         className={style.smartContainerItem}
         onSelect={props.onSelect}>
-        <a className={style.advancedCaptionsMenuLink} onClick={() => this.toggleCVAAOverlay()}>
+        <a className={style.advancedCaptionsMenuLink} onClick={() => this.props.onSelect()}>
           <Text id="language.advanced_captions_settings" />
         </a>
       </div>
