@@ -45,7 +45,7 @@ export const popupWithKeyboardA11y: Function = (WrappedComponent: BaseComponent)
         case KeyMap.TAB:
           this._previouslyActiveElement = null;
           if (this.props.onClose) {
-            this.props.onClose(); 
+            this.props.onClose();
           }
           break;
       }
