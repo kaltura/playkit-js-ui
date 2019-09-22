@@ -7,6 +7,7 @@ import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {isPlayingAdOrPlayback} from '../../reducers/getters';
+import {withPlayer} from '../player';
 
 /**
  * mapping state to props
@@ -23,21 +24,21 @@ const mapStateToProps = state => ({
 const COMPONENT_NAME = 'PlayPause';
 
 @connect(mapStateToProps)
+@withPlayer
 /**
  * PlayPause component
  *
  * @class PlayPause
- * @example <PlayPause player={this.player} />
+ * @example <PlayPause />
  * @extends {BaseComponent}
  */
 class PlayPause extends BaseComponent {
   /**
    * Creates an instance of PlayPause.
-   * @param {Object} obj obj
    * @memberof PlayPause
    */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
+  constructor() {
+    super({name: COMPONENT_NAME});
   }
 
   /**
@@ -48,7 +49,7 @@ class PlayPause extends BaseComponent {
    */
   togglePlayPause(): void {
     this.logger.debug('Toggle play');
-    this.props.isPlayingAdOrPlayback ? this.player.pause() : this.player.play();
+    this.props.isPlayingAdOrPlayback ? this.props.player.pause() : this.props.player.play();
     this.notifyClick();
   }
 

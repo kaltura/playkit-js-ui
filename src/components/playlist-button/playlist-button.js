@@ -6,6 +6,7 @@ import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {connect} from 'preact-redux';
+import {withPlayer} from '../player';
 
 /**
  * mapping state to props
@@ -19,11 +20,12 @@ const mapStateToProps = state => ({
 const COMPONENT_NAME = 'PlaylistButton';
 
 @connect(mapStateToProps)
+@withPlayer
 /**
  * PlaylistButton component
  *
  * @class PlaylistButton
- * @example <PlaylistButton player={this.player} type="next"/>
+ * @example <PlaylistButton type="next"/>
  * @extends {BaseComponent}
  */
 class PlaylistButton extends BaseComponent {
@@ -33,7 +35,7 @@ class PlaylistButton extends BaseComponent {
    * @memberof PlaylistButton
    */
   constructor(obj: Object) {
-    super({name: `${COMPONENT_NAME}-${obj.type}`, player: obj.player});
+    super({name: `${COMPONENT_NAME}-${obj.type}`});
   }
 
   /**
@@ -43,7 +45,7 @@ class PlaylistButton extends BaseComponent {
    * @memberof PlaylistButton
    */
   onClick(): void {
-    this.props.type === 'prev' ? this.player.playlist.playPrev() : this.player.playlist.playNext();
+    this.props.type === 'prev' ? this.props.player.playlist.playPrev() : this.props.player.playlist.playNext();
   }
 
   /**

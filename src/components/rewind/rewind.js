@@ -6,6 +6,7 @@ import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {withAnimation} from '../../utils/with-animation';
+import {withPlayer} from '../player';
 
 const COMPONENT_NAME = 'Rewind';
 
@@ -16,21 +17,21 @@ const COMPONENT_NAME = 'Rewind';
  */
 export const REWIND_DEFAULT_STEP = 10;
 
+@withPlayer
 /**
  * Rewind component
  *
  * @class Rewind
- * @example <Rewind player={this.player} step={5} />
+ * @example <Rewind step={5} />
  * @extends {BaseComponent}
  */
 class Rewind extends BaseComponent {
   /**
    * Creates an instance of Rewind.
-   * @param {Object} obj obj
    * @memberof Rewind
    */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
+  constructor() {
+    super({name: COMPONENT_NAME});
   }
 
   /**
@@ -43,13 +44,13 @@ class Rewind extends BaseComponent {
     this.props.animate();
     let to;
     const step = this.props.step || REWIND_DEFAULT_STEP;
-    const from = this.player.currentTime;
-    if (this.player.currentTime - step < 0) {
+    const from = this.props.player.currentTime;
+    if (this.props.player.currentTime - step < 0) {
       to = 0;
     } else {
-      to = this.player.currentTime - step;
+      to = this.props.player.currentTime - step;
     }
-    this.player.currentTime = to;
+    this.props.player.currentTime = to;
     this.notifyClick({
       from: from,
       to: to

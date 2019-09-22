@@ -4,6 +4,7 @@ import {h} from 'preact';
 import BaseComponent from '../base';
 import {connect} from 'preact-redux';
 import {Localizer, Text} from 'preact-i18n';
+import {withPlayer} from '../player';
 
 /**
  * mapping state to props
@@ -19,21 +20,21 @@ const mapStateToProps = state => ({
 const COMPONENT_NAME = 'PictureInPictureOverlay';
 
 @connect(mapStateToProps)
+@withPlayer
 /**
  * PictureInPictureOverlay component
  *
  * @class PictureInPictureOverlay
- * @example <PictureInPictureOverlay player={this.player} />
+ * @example <PictureInPictureOverlay />
  * @extends {BaseComponent}
  */
 class PictureInPictureOverlay extends BaseComponent {
   /**
    * Creates an instance of PictureInPictureOverlay.
-   * @param {Object} obj obj
    * @memberof PictureInPictureOverlay
    */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
+  constructor() {
+    super({name: COMPONENT_NAME});
   }
 
   /**
@@ -42,7 +43,7 @@ class PictureInPictureOverlay extends BaseComponent {
    * @memberof PictureInPictureOverlay
    */
   _handleClick(): void {
-    this.player.exitPictureInPicture();
+    this.props.player.exitPictureInPicture();
   }
 
   /**

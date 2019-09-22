@@ -27,6 +27,7 @@ export {Menu} from './menu';
 export {Overlay} from './overlay';
 export {OverlayAction} from './overlay-action';
 export {OverlayPortal} from './overlay-portal';
+export * from './player';
 export {PrePlaybackPlayOverlay} from './pre-playback-play-overlay';
 export {Forward} from './forward';
 export {SeekBarLivePlaybackContainer} from './seekbar-live-playback-container';

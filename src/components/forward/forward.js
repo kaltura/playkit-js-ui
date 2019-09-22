@@ -6,6 +6,7 @@ import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {withAnimation} from '../../utils/with-animation';
+import {withPlayer} from '../player';
 
 const COMPONENT_NAME = 'Forward';
 
@@ -16,21 +17,21 @@ const COMPONENT_NAME = 'Forward';
  */
 export const FORWARD_DEFAULT_STEP = 10;
 
+@withPlayer
 /**
  * Forward component
  *
  * @class Forward
- * @example <Forward player={this.player} step={5} />
+ * @example <Forward step={5} />
  * @extends {BaseComponent}
  */
 class Forward extends BaseComponent {
   /**
    * Creates an instance of Forward.
-   * @param {Object} obj obj
    * @memberof Forward
    */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
+  constructor() {
+    super({name: COMPONENT_NAME});
   }
 
   /**
@@ -40,16 +41,17 @@ class Forward extends BaseComponent {
    * @memberof Forward
    */
   onClick(): void {
+    const {player} = this.props;
     this.props.animate();
     let to;
     const step = this.props.step || FORWARD_DEFAULT_STEP;
-    const from = this.player.currentTime;
-    if (this.player.currentTime + step > this.player.duration) {
-      to = this.player.duration;
+    const from = player.currentTime;
+    if (player.currentTime + step > player.duration) {
+      to = player.duration;
     } else {
-      to = this.player.currentTime + step;
+      to = player.currentTime + step;
     }
-    this.player.currentTime = to;
+    player.currentTime = to;
     this.notifyClick({
       from: from,
       to: to

@@ -10,6 +10,7 @@ import {SmartContainer} from '../smart-container';
 import {SmartContainerItem} from '../smart-container/smart-container-item';
 import {default as Icon, IconType} from '../icon';
 import {PLAYER_SIZE} from '../shell/shell';
+import {withPlayer} from '../player';
 
 /**
  * mapping state to props
@@ -29,11 +30,12 @@ const COMPONENT_NAME = 'Settings';
   mapStateToProps,
   bindActions(actions)
 )
+@withPlayer
 /**
  * Settings component
  *
  * @class Settings
- * @example <Settings player={this.player} />
+ * @example <Settings />
  * @extends {BaseComponent}
  */
 class Settings extends BaseComponent {
@@ -42,11 +44,10 @@ class Settings extends BaseComponent {
 
   /**
    * Creates an instance of Settings.
-   * @param {Object} obj obj
    * @memberof Settings
    */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
+  constructor() {
+    super({name: COMPONENT_NAME});
   }
 
   /**
@@ -110,7 +111,7 @@ class Settings extends BaseComponent {
    */
   onSpeedChange(playbackRate: number): void {
     this.props.updateSpeed(playbackRate);
-    this.player.playbackRate = playbackRate;
+    this.props.player.playbackRate = playbackRate;
     this.notifyClick({
       speed: playbackRate
     });
@@ -124,13 +125,14 @@ class Settings extends BaseComponent {
    * @memberof Settings
    */
   onQualityChange(videoTrack: Object | string): void {
+    const {player} = this.props;
     if (videoTrack === 'auto') {
-      this.player.enableAdaptiveBitrate();
+      player.enableAdaptiveBitrate();
     } else {
-      this.player.selectTrack(videoTrack);
+      player.selectTrack(videoTrack);
     }
     this.notifyClick({
-      type: this.player.Track.VIDEO,
+      type: player.Track.VIDEO,
       track: videoTrack
     });
   }
@@ -167,13 +169,14 @@ class Settings extends BaseComponent {
    * @memberof Settings
    */
   render(props: any): React$Element<any> | void {
-    const speedOptions = this.player.playbackRates.reduce((acc, speed) => {
+    const {player, isLive} = this.props;
+    const speedOptions = player.playbackRates.reduce((acc, speed) => {
       let speedOption = {
         value: speed,
         label: speed === 1 ? 'Normal' : speed,
         active: false
       };
-      if (speed === this.player.playbackRate) {
+      if (speed === player.playbackRate) {
         speedOption.active = true;
       }
       acc.push(speedOption);
@@ -190,15 +193,15 @@ class Settings extends BaseComponent {
       .reduce(this.filterUniqueQualities, [])
       .map(t => ({
         label: t.label,
-        active: !this.player.isAdaptiveBitrateEnabled() && t.active,
+        active: !player.isAdaptiveBitrateEnabled() && t.active,
         value: t
       }));
 
     // Progressive playback doesn't support auto
-    if (qualityOptions.length > 1 && this.player.streamType !== 'progressive') {
+    if (qualityOptions.length > 1 && player.streamType !== 'progressive') {
       qualityOptions.unshift({
         label: 'Auto',
-        active: this.player.isAdaptiveBitrateEnabled(),
+        active: player.isAdaptiveBitrateEnabled(),
         value: 'auto'
       });
     }
@@ -219,7 +222,7 @@ class Settings extends BaseComponent {
         {!this.state.smartContainerOpen ? (
           ''
         ) : (
-          <SmartContainer targetId={this.player.config.targetId} title={<Text id="settings.title" />} onClose={() => this.onControlButtonClick()}>
+          <SmartContainer targetId={player.config.targetId} title={<Text id="settings.title" />} onClose={() => this.onControlButtonClick()}>
             {qualityOptions.length <= 1 ? (
               ''
             ) : (
@@ -232,7 +235,7 @@ class Settings extends BaseComponent {
                 />
               </Localizer>
             )}
-            {props.isLive || speedOptions.length <= 1 ? (
+            {isLive || speedOptions.length <= 1 ? (
               ''
             ) : (
               <Localizer>

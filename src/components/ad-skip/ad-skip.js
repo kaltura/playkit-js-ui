@@ -4,6 +4,7 @@ import {h} from 'preact';
 import {connect} from 'preact-redux';
 import BaseComponent from '../base';
 import {Localizer, Text} from 'preact-i18n';
+import {withPlayer} from '../player';
 
 /**
  * mapping state to props
@@ -20,21 +21,21 @@ const mapStateToProps = state => ({
 const COMPONENT_NAME = 'AdSkip';
 
 @connect(mapStateToProps)
+@withPlayer
 /**
  * AdSkip component
  *
  * @class AdSkip
- * @example <AdSkip player={this.player} />
+ * @example <AdSkip />
  * @extends {BaseComponent}
  */
 class AdSkip extends BaseComponent {
   /**
    * Creates an instance of AdSkip.
-   * @param {Object} obj obj
    * @memberof AdSkip
    */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
+  constructor() {
+    super({name: COMPONENT_NAME});
   }
 
   /**
@@ -57,7 +58,7 @@ class AdSkip extends BaseComponent {
     if (this.props.adSkippableState) {
       return this.getSkipTimeOffset() <= 0 ? (
         <Localizer>
-          <a className={[style.btn, style.btnBranded, style.btnSkipAd].join(' ')} onClick={() => this.player.ads.skipAd()}>
+          <a className={[style.btn, style.btnBranded, style.btnSkipAd].join(' ')} onClick={() => this.props.player.ads.skipAd()}>
             <Text id="ads.skip_ad" />
           </a>
         </Localizer>

@@ -7,7 +7,7 @@ import {bindActions} from '../../utils/bind-actions';
 import {actions as shellActions} from '../../reducers/shell';
 import {actions as engineActions} from '../../reducers/engine';
 import {KeyMap} from '../../utils/key-map';
-
+import {withPlayer} from '../player';
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -69,7 +69,7 @@ const PLAYER_BREAK_POINTS: {[size: string]: number} = {
  * Shell component
  *
  * @class Shell
- * @example <Shell player={this.player}>...</Shell>
+ * @example <Shell />
  * @extends {BaseComponent}
  */
 class Shell extends BaseComponent {
@@ -79,15 +79,10 @@ class Shell extends BaseComponent {
 
   /**
    * Creates an instance of Shell.
-   * @param {Object} obj obj
    * @memberof Shell
    */
-  constructor(obj: Object) {
-    super({name: 'Shell', player: obj.player});
-    this._environmentClasses = [
-      `${__CSS_MODULE_PREFIX__}-${this.player.env.os.name.replace(/ /g, '-')}`,
-      `${__CSS_MODULE_PREFIX__}-${this.player.env.browser.name.replace(/ /g, '-')}`
-    ];
+  constructor() {
+    super({name: 'Shell'});
   }
 
   /**
@@ -153,7 +148,7 @@ class Shell extends BaseComponent {
    */
   onClick(): void {
     if (this.props.fallbackToMutedAutoPlay) {
-      this.player.muted = false;
+      this.props.player.muted = false;
     }
     this.notifyClick();
   }
@@ -170,7 +165,7 @@ class Shell extends BaseComponent {
       return;
     }
     if (this.props.fallbackToMutedAutoPlay) {
-      this.player.muted = false;
+      this.props.player.muted = false;
     }
     if (!this.state.hover) {
       e.stopPropagation();
@@ -192,6 +187,20 @@ class Shell extends BaseComponent {
   }
 
   /**
+   * componentWillMount
+   *
+   * @returns {void}
+   * @memberof Shell
+   */
+  componentWillMount() {
+    const {player} = this.props;
+    this._environmentClasses = [
+      `${__CSS_MODULE_PREFIX__}-${player.env.os.name.replace(/ /g, '-')}`,
+      `${__CSS_MODULE_PREFIX__}-${player.env.browser.name.replace(/ /g, '-')}`
+    ];
+  }
+
+  /**
    * after component mounted, update the isMobile indication in the store state,
    * add event listener to get the player width and update these on resize as well.
    * also, update document width initially and on resize.
@@ -200,10 +209,11 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   componentDidMount() {
-    this.props.updateIsMobile(this.player.env.isTablet || this.player.env.isMobile || this.props.forceTouchUI);
+    const {player, forceTouchUI} = this.props;
+    this.props.updateIsMobile(player.env.isTablet || player.env.isMobile || forceTouchUI);
     this._onWindowResize();
-    this.eventManager.listen(this.player, this.player.Event.RESIZE, () => this._onWindowResize());
-    this.eventManager.listen(this.player, this.player.Event.FIRST_PLAY, () => this._onWindowResize());
+    this.eventManager.listen(player, player.Event.RESIZE, () => this._onWindowResize());
+    this.eventManager.listen(player, player.Event.FIRST_PLAY, () => this._onWindowResize());
   }
 
   /**
@@ -261,7 +271,7 @@ class Shell extends BaseComponent {
       !this.props.seekbarHoverActive &&
       !this.props.volumeHoverActive &&
       !this.props.smartContainerOpen &&
-      !this.player.paused
+      !this.props.player.paused
     );
   }
 
@@ -371,4 +381,5 @@ class Shell extends BaseComponent {
   }
 }
 
-export {Shell, CONTROL_BAR_HOVER_DEFAULT_TIMEOUT, PLAYER_SIZE};
+const wrappedShell = withPlayer(Shell);
+export {wrappedShell as Shell, CONTROL_BAR_HOVER_DEFAULT_TIMEOUT, PLAYER_SIZE};

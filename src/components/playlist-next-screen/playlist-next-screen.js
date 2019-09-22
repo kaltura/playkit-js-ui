@@ -5,6 +5,7 @@ import {Localizer, Text} from 'preact-i18n';
 import BaseComponent from '../base';
 import {connect} from 'preact-redux';
 import {default as Icon, IconType} from '../icon';
+import {withPlayer} from '../player';
 
 /**
  * The maximum next item poster width
@@ -26,11 +27,12 @@ const mapStateToProps = state => ({
 const COMPONENT_NAME = 'PlaylistNextScreen';
 
 @connect(mapStateToProps)
+@withPlayer
 /**
  * PlaylistNextScreen component
  *
  * @class PlaylistNextScreen
- * @example <PlaylistNextScreen player={this.player} type="next"/>
+ * @example <PlaylistNextScreen type="next"/>
  * @extends {BaseComponent}
  */
 class PlaylistNextScreen extends BaseComponent {
@@ -38,19 +40,17 @@ class PlaylistNextScreen extends BaseComponent {
    * should render component
    * @param {*} props - component props
    * @returns {boolean} - component element
-   * @static
    */
-  static shouldRender(props: any): boolean {
-    return props.state.engine.playlist && props.state.engine.playlist.next && props.state.engine.playlist.next.sources;
+  _shouldRender(props: any): boolean {
+    return props.playlist && props.playlist.next && props.playlist.next.sources;
   }
 
   /**
    * Creates an instance of PlaylistNextScreen.
-   * @param {Object} obj obj
    * @memberof PlaylistNextScreen
    */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
+  constructor() {
+    super({name: COMPONENT_NAME});
   }
 
   /**
@@ -60,7 +60,7 @@ class PlaylistNextScreen extends BaseComponent {
    * @memberof PlaylistNextScreen
    */
   onPosterClick() {
-    this.player.playlist.playNext();
+    this.props.player.playlist.playNext();
   }
 
   /**
@@ -86,6 +86,9 @@ class PlaylistNextScreen extends BaseComponent {
    * @memberof PlaylistNextScreen
    */
   render(props: any): React$Element<any> | void {
+    if (!this._shouldRender(props)) {
+      return undefined;
+    }
     const next = props.playlist.next;
     return props.isPlaybackEnded ? (
       <div className={style.playlistNextScreenOverlay}>

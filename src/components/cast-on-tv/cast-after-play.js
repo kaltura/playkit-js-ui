@@ -6,6 +6,7 @@ import {connect} from 'preact-redux';
 import {IconType} from '../icon/index';
 import {Icon} from '../icon/icon';
 import {Localizer, Text} from 'preact-i18n';
+import {withPlayer} from '../player';
 
 /**
  * mapping state to props
@@ -23,11 +24,12 @@ const COMPONENT_NAME = 'CastAfterPlay';
   mapStateToProps,
   null
 )
+@withPlayer
 /**
  * CastAfterPlay component
  *
  * @class CastAfterPlay
- * @example <CastAfterPlay player={this.player} />
+ * @example <CastAfterPlay />
  * @extends {BaseComponent}
  */
 class CastAfterPlay extends BaseComponent {
@@ -41,11 +43,10 @@ class CastAfterPlay extends BaseComponent {
 
   /**
    * Creates an instance of CastOverlay.
-   * @param {Object} obj obj
    * @memberof CastAfterPlay
    */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
+  constructor() {
+    super({name: COMPONENT_NAME});
   }
 
   /**
@@ -57,7 +58,7 @@ class CastAfterPlay extends BaseComponent {
    */
   onClick(e: Event): void {
     e.stopPropagation();
-    this.player.stopCasting();
+    this.props.player.stopCasting();
   }
 
   /**

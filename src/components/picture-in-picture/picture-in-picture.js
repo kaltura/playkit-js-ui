@@ -7,6 +7,7 @@ import {KeyMap} from '../../utils/key-map';
 import BaseComponent from '../base';
 import {connect} from 'preact-redux';
 import {PLAYER_SIZE} from '../shell/shell';
+import {withPlayer} from '../player';
 
 /**
  * mapping state to props
@@ -21,6 +22,7 @@ const mapStateToProps = state => ({
 const COMPONENT_NAME = 'PictureInPicture';
 
 @connect(mapStateToProps)
+@withPlayer
 /**
  * PictureInPicture component
  *
@@ -30,11 +32,10 @@ const COMPONENT_NAME = 'PictureInPicture';
 class PictureInPicture extends BaseComponent {
   /**
    * Creates an instance of PictureInPicture.
-   * @param {Object} obj - the object passed when created
    * @memberof PictureInPicture
    */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
+  constructor() {
+    super({name: COMPONENT_NAME});
   }
 
   /**
@@ -43,10 +44,11 @@ class PictureInPicture extends BaseComponent {
    * @private
    */
   _onClick(): void {
-    if (this.player.isInPictureInPicture()) {
-      this.player.exitPictureInPicture();
+    const {player} = this.props;
+    if (player.isInPictureInPicture()) {
+      player.exitPictureInPicture();
     } else {
-      this.player.enterPictureInPicture();
+      player.enterPictureInPicture();
     }
   }
 

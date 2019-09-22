@@ -5,6 +5,7 @@ import {connect} from 'preact-redux';
 import BaseComponent from '../base';
 import {KeyMap} from '../../utils/key-map';
 import {Text} from 'preact-i18n';
+import {withPlayer} from '../player';
 
 /**
  * mapping state to props
@@ -21,21 +22,21 @@ const mapStateToProps = state => ({
 const COMPONENT_NAME = 'LiveTag';
 
 @connect(mapStateToProps)
+@withPlayer
 /**
  * LiveTag component
  *
  * @class LiveTag
- * @example <LiveTag player={this.player} />
+ * @example <LiveTag />
  * @extends {BaseComponent}
  */
 class LiveTag extends BaseComponent {
   /**
    * Creates an instance of LiveTag.
-   * @param {Object} obj obj
    * @memberof LiveTag
    */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
+  constructor() {
+    super({name: COMPONENT_NAME});
   }
 
   /**
@@ -57,9 +58,9 @@ class LiveTag extends BaseComponent {
    */
   onClick(): void {
     if (!this.isOnLiveEdge()) {
-      this.player.seekToLiveEdge();
-      if (this.player.paused) {
-        this.player.play();
+      this.props.player.seekToLiveEdge();
+      if (this.props.player.paused) {
+        this.props.player.play();
       }
     }
     this.notifyClick();

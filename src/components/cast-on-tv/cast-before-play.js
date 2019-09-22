@@ -7,6 +7,7 @@ import {IconType} from '../icon/index';
 import {actions} from '../../reducers/backdrop';
 import {Icon} from '../icon/icon';
 import {Localizer, Text} from 'preact-i18n';
+import {withPlayer} from '../player';
 
 /**
  * mapping state to props
@@ -26,11 +27,12 @@ const COMPONENT_NAME = 'CastBeforePlay';
   mapStateToProps,
   actions
 )
+@withPlayer
 /**
  * CastBeforePlay component
  *
  * @class CastBeforePlay
- * @example <CastBeforePlay player={this.player} />
+ * @example <CastBeforePlay />
  * @extends {BaseComponent}
  */
 class CastBeforePlay extends BaseComponent {
@@ -44,11 +46,10 @@ class CastBeforePlay extends BaseComponent {
 
   /**
    * Creates an instance of CastOverlay.
-   * @param {Object} obj obj
    * @memberof CastBeforePlay
    */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
+  constructor() {
+    super({name: COMPONENT_NAME});
   }
 
   /**
@@ -59,7 +60,7 @@ class CastBeforePlay extends BaseComponent {
    */
   onClick(): void {
     this.props.updateBackdropVisibility(true);
-    this.player.startCasting().catch(() => this.props.updateBackdropVisibility(false));
+    this.props.player.startCasting().catch(() => this.props.updateBackdropVisibility(false));
   }
 
   /**

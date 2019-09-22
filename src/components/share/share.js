@@ -9,11 +9,12 @@ import {defaultConfig} from './default-config';
 import {actions} from '../../reducers/share';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
+import {withPlayer} from '../player';
 
 /**
  * mapping state to props
  * @param {*} state - redux store state
- * @example <ShareOverlay player={this.player} />
+ * @example <ShareOverlay />
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
@@ -28,22 +29,22 @@ const COMPONENT_NAME = 'Share';
   mapStateToProps,
   bindActions(actions)
 )
+@withPlayer
 /**
  * Share component
  *
  * @class Share
- * @example <Share player={this.player} />
+ * @example <Share />
  * @extends {BaseComponent}
  */
 class Share extends BaseComponent {
   _portal: any;
   /**
    * Creates an instance of Share.
-   * @param {Object} obj obj
    * @memberof Share
    */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
+  constructor() {
+    super({name: COMPONENT_NAME});
   }
 
   /**
@@ -61,9 +62,9 @@ class Share extends BaseComponent {
       this.setState({previousIsPlaying: false});
     }
     if (this.state.overlay) {
-      this.player.pause();
+      this.props.player.pause();
     } else if (this.state.previousIsPlaying) {
-      this.player.play();
+      this.props.player.play();
       this.setState({previousIsPlaying: false});
     }
   }
@@ -90,7 +91,7 @@ class Share extends BaseComponent {
       return undefined;
     }
     const shareConfig = this._getMergedShareConfig();
-    const portalSelector = `#${this.player.config.targetId} .overlay-portal`;
+    const portalSelector = `#${this.props.player.config.targetId} .overlay-portal`;
     return (
       <div>
         {this.state.overlay ? (
@@ -100,7 +101,7 @@ class Share extends BaseComponent {
               embedUrl={embedUrl}
               enableTimeOffset={enableTimeOffset}
               socialNetworks={shareConfig}
-              player={this.player}
+              player={this.props.player}
               onClose={() => this.toggleOverlay()}
             />
           </Portal>

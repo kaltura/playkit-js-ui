@@ -8,6 +8,7 @@ import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
 import {KEYBOARD_DEFAULT_SEEK_JUMP} from '../keyboard/keyboard';
 import {bindMethod} from '../../utils/bind-method';
+import {withPlayer} from '../player';
 
 /**
  * mapping state to props
@@ -25,6 +26,7 @@ const COMPONENT_NAME = 'SeekBar';
   mapStateToProps,
   bindActions(actions)
 )
+@withPlayer
 /**
  * SeekBar component
  *
@@ -198,6 +200,7 @@ class SeekBar extends Component {
     if (this.props.adBreak) {
       return;
     }
+    const {player} = this.props;
     /**
      * Do seek operations.
      * @param {number} from - Seek start point.
@@ -205,8 +208,8 @@ class SeekBar extends Component {
      * @returns {void}
      */
     const seek = (from: number, to: number) => {
-      this.props.player.currentTime = to;
-      this.updateSeekBarProgress(this.props.player.currentTime, this.props.duration, true);
+      player.currentTime = to;
+      this.updateSeekBarProgress(player.currentTime, this.props.duration, true);
       this.props.notifyChange({
         from: from,
         to: to
@@ -215,15 +218,12 @@ class SeekBar extends Component {
     let newTime;
     switch (e.keyCode) {
       case KeyMap.LEFT:
-        newTime = this.props.player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP > 0 ? this.props.player.currentTime - 5 : 0;
-        seek(this.props.player.currentTime, newTime);
+        newTime = player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP > 0 ? player.currentTime - 5 : 0;
+        seek(player.currentTime, newTime);
         break;
       case KeyMap.RIGHT:
-        newTime =
-          this.props.player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP > this.props.player.duration
-            ? this.props.player.duration
-            : this.props.player.currentTime + 5;
-        seek(this.props.player.currentTime, newTime);
+        newTime = player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP > player.duration ? player.duration : player.currentTime + 5;
+        seek(player.currentTime, newTime);
         break;
     }
   }
@@ -360,11 +360,10 @@ class SeekBar extends Component {
    * @memberof SeekBar
    */
   getBufferedPercent(): number {
-    if (this.props.player.duration > 0 && this.props.player.buffered.length > 0) {
-      const buffered = this.props.player.isLive()
-        ? this.props.player.buffered.end(0) - this.props.player.getStartTimeOfDvrWindow()
-        : this.props.player.buffered.end(0);
-      const bufferedPercent = (buffered / this.props.player.duration) * 100;
+    const {player} = this.props;
+    if (player.duration > 0 && player.buffered.length > 0) {
+      const buffered = player.isLive() ? player.buffered.end(0) - player.getStartTimeOfDvrWindow() : player.buffered.end(0);
+      const bufferedPercent = (buffered / player.duration) * 100;
       return bufferedPercent < 100 ? bufferedPercent : 100;
     }
     return 0;

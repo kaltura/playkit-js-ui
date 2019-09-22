@@ -17,7 +17,7 @@ import { h, TimeDisplay } from 'playkit-js-ui';
 
 export default function customUIPreset(props: any) {
   return (
-    <TimeDisplay format='current / total' player={props.player} />
+    <TimeDisplay format='current / total' />
   )
 }
 ```

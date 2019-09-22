@@ -10,6 +10,7 @@ import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {KEYBOARD_DEFAULT_VOLUME_JUMP} from '../keyboard/keyboard';
 import {FakeEvent} from '../../event/fake-event';
+import {withPlayer} from '../player';
 
 /**
  * mapping state to props
@@ -29,11 +30,12 @@ const COMPONENT_NAME = 'Volume';
   mapStateToProps,
   bindActions({...actions, ...engineActions})
 )
+@withPlayer
 /**
  * Volume component
  *
  * @class Volume
- * @example <Volume player={this.player} />
+ * @example <Volume />
  * @extends {BaseComponent}
  */
 class Volume extends BaseComponent {
@@ -44,11 +46,10 @@ class Volume extends BaseComponent {
    * Creates an instance of Volume.
    *
    * @constructor
-   * @param {Object} obj obj
    * @memberof Volume
    */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
+  constructor() {
+    super({name: COMPONENT_NAME});
   }
 
   /**
@@ -59,13 +60,14 @@ class Volume extends BaseComponent {
    * @memberof Volume
    */
   componentDidMount(): void {
-    this.eventManager.listen(this.player, this.player.Event.LOADED_METADATA, () => {
-      this.props.updateVolume(this.player.volume);
-      this.props.updateMuted(this.player.muted);
+    const {player} = this.props;
+    this.eventManager.listen(player, player.Event.LOADED_METADATA, () => {
+      this.props.updateVolume(player.volume);
+      this.props.updateMuted(player.muted);
     });
-    this.eventManager.listen(this.player, this.player.Event.VOLUME_CHANGE, () => {
-      this.props.updateMuted(this.player.muted);
-      this.props.updateVolume(this.player.volume);
+    this.eventManager.listen(player, player.Event.VOLUME_CHANGE, () => {
+      this.props.updateMuted(player.muted);
+      this.props.updateVolume(player.volume);
     });
     this.eventManager.listen(document, 'mouseup', e => this.onVolumeProgressBarMouseUp(e));
     this.eventManager.listen(document, 'mousemove', e => this.onVolumeProgressBarMouseMove(e));
@@ -140,6 +142,7 @@ class Volume extends BaseComponent {
    * @memberof Volume
    */
   onVolumeControlKeyDown(e: KeyboardEvent): void {
+    const {player} = this.state;
     /**
      * Change volume operations.
      * @param {number} newVolume - The new volume.
@@ -150,16 +153,16 @@ class Volume extends BaseComponent {
       if (newVolume > 100 || newVolume < 0) {
         return;
       }
-      this.player.muted = newVolume < KEYBOARD_DEFAULT_VOLUME_JUMP;
-      this.player.volume = newVolume / 100;
-      this.notifyChange({volume: this.player.volume});
+      player.muted = newVolume < KEYBOARD_DEFAULT_VOLUME_JUMP;
+      player.volume = newVolume / 100;
+      this.notifyChange({volume: player.volume});
     };
     switch (e.keyCode) {
       case KeyMap.UP:
-        changeVolume(Math.round(this.player.volume * 100) + KEYBOARD_DEFAULT_VOLUME_JUMP);
+        changeVolume(Math.round(player.volume * 100) + KEYBOARD_DEFAULT_VOLUME_JUMP);
         break;
       case KeyMap.DOWN:
-        changeVolume(Math.round(this.player.volume * 100) - KEYBOARD_DEFAULT_VOLUME_JUMP);
+        changeVolume(Math.round(player.volume * 100) - KEYBOARD_DEFAULT_VOLUME_JUMP);
         break;
       default:
         this.setState({hover: false});
@@ -190,13 +193,14 @@ class Volume extends BaseComponent {
    * @memberof Volume
    */
   onVolumeControlButtonClick(): void {
-    if (this.player.volume == 0) {
+    const {player} = this.props;
+    if (player.volume == 0) {
       this.logger.debug(`Toggle mute. Volume is 0, set mute to false & volume to 0.5`);
-      this.player.muted = false;
-      this.player.volume = 0.5;
+      player.muted = false;
+      player.volume = 0.5;
     } else {
-      this.logger.debug(`Toggle mute. ${this.player.muted} => ${!this.player.muted}`);
-      this.player.muted = !this.player.muted;
+      this.logger.debug(`Toggle mute. ${player.muted} => ${!player.muted}`);
+      player.muted = !player.muted;
     }
     this.notifyClick();
   }
@@ -211,6 +215,7 @@ class Volume extends BaseComponent {
    * @memberof Volume
    */
   changeVolume(e: FakeEvent): void {
+    const {player} = this.props;
     const dimensions = this._volumeProgressBarElement.getBoundingClientRect();
     let volume;
     if (dimensions.height > dimensions.width) {
@@ -220,12 +225,12 @@ class Volume extends BaseComponent {
     }
     volume = parseFloat(volume.toFixed(2));
     if (volume <= 1 && volume >= 0) {
-      this.logger.debug(`Change volume from ${this.player.volume} => ${volume}`);
-      this.player.volume = volume;
+      this.logger.debug(`Change volume from ${player.volume} => ${volume}`);
+      player.volume = volume;
       if (this.props.muted) {
-        this.player.muted = false;
+        player.muted = false;
       }
-      this.notifyChange({volume: this.player.volume});
+      this.notifyChange({volume: player.volume});
     }
   }
 
@@ -272,10 +277,11 @@ class Volume extends BaseComponent {
    * @memberof Volume
    */
   render(): React$Element<any> {
+    const {player, isDraggingActive, muted, volume, smartContainerOpen} = this.props;
     const controlButtonClass = [style.controlButtonContainer, style.volumeControl];
-    if (this.props.isDraggingActive) controlButtonClass.push(style.draggingActive);
-    if (this.props.muted || this.props.volume === 0) controlButtonClass.push(style.isMuted);
-    if (this.state.hover && !this.props.smartContainerOpen) controlButtonClass.push(style.hover);
+    if (isDraggingActive) controlButtonClass.push(style.draggingActive);
+    if (muted || volume === 0) controlButtonClass.push(style.isMuted);
+    if (this.state.hover && !smartContainerOpen) controlButtonClass.push(style.hover);
 
     return (
       <div
@@ -298,8 +304,8 @@ class Volume extends BaseComponent {
           role="slider"
           aria-valuemin="0"
           aria-valuemaz="100"
-          aria-valuenow={this.player.volume * 100}
-          aria-valuetext={`${this.player.volume * 100}% volume ${this.player.muted ? 'muted' : ''}`}>
+          aria-valuenow={player.volume * 100}
+          aria-valuetext={`${player.volume * 100}% volume ${player.muted ? 'muted' : ''}`}>
           <div className={style.bar} ref={c => (this._volumeProgressBarElement = c)} onMouseDown={() => this.onVolumeProgressBarMouseDown()}>
             <div className={style.progress} style={{height: this.getVolumeProgressHeight()}} />
           </div>

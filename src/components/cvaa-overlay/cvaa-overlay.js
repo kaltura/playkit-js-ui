@@ -13,6 +13,7 @@ import {Slider} from '../slider';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {Text} from 'preact-i18n';
+import {withPlayer} from '../player';
 
 /**
  * mapping state to props
@@ -37,6 +38,7 @@ const COMPONENT_NAME = 'CVAAOverlay';
   mapStateToProps,
   bindActions({...cvaaActions, ...shellActions})
 )
+@withPlayer
 /**
  * CVAAOverlay component
  *
@@ -76,23 +78,24 @@ class CVAAOverlay extends BaseComponent {
    * @memberof CVAAOverlay
    */
   componentWillMount() {
+    const {player} = this.props;
     this.setState({
       state: cvaaOverlayState.Main,
-      customTextStyle: this.props.player.textStyle
+      customTextStyle: player.textStyle
     });
 
-    this.captionsStyleDefault = Object.assign(new this.props.player.TextStyle(), {
-      backgroundOpacity: this.props.player.TextStyle.StandardOpacities.TRANSPARENT
+    this.captionsStyleDefault = Object.assign(new player.TextStyle(), {
+      backgroundOpacity: player.TextStyle.StandardOpacities.TRANSPARENT
     });
 
-    this.captionsStyleYellow = Object.assign(new this.props.player.TextStyle(), {
-      backgroundOpacity: this.props.player.TextStyle.StandardOpacities.TRANSPARENT,
-      fontColor: this.props.player.TextStyle.StandardColors.YELLOW
+    this.captionsStyleYellow = Object.assign(new player.TextStyle(), {
+      backgroundOpacity: player.TextStyle.StandardOpacities.TRANSPARENT,
+      fontColor: player.TextStyle.StandardColors.YELLOW
     });
 
-    this.captionsStyleBlackBG = Object.assign(new this.props.player.TextStyle(), {
-      backgroundColor: this.props.player.TextStyle.StandardColors.BLACK,
-      fontColor: this.props.player.TextStyle.StandardColors.WHITE
+    this.captionsStyleBlackBG = Object.assign(new player.TextStyle(), {
+      backgroundColor: player.TextStyle.StandardColors.BLACK,
+      fontColor: player.TextStyle.StandardColors.WHITE
     });
   }
 
@@ -139,10 +142,11 @@ class CVAAOverlay extends BaseComponent {
    * @memberof CVAAOverlay
    */
   isAdvancedStyleApplied(): boolean {
+    const {player} = this.props;
     return (
-      !isEqual(this.props.player.textStyle, this.captionsStyleDefault) &&
-      !isEqual(this.props.player.textStyle, this.captionsStyleBlackBG) &&
-      !isEqual(this.props.player.textStyle, this.captionsStyleYellow)
+      !isEqual(player.textStyle, this.captionsStyleDefault) &&
+      !isEqual(player.textStyle, this.captionsStyleBlackBG) &&
+      !isEqual(player.textStyle, this.captionsStyleYellow)
     );
   }
 
@@ -153,6 +157,7 @@ class CVAAOverlay extends BaseComponent {
    * @memberof CVAAOverlay
    */
   renderMainState(): React$Element<any> {
+    const {player} = this.props;
     return (
       <div className={this.state.state === cvaaOverlayState.Main ? [style.overlayScreen, style.active].join(' ') : style.overlayScreen}>
         <div className={style.title}>
@@ -170,7 +175,7 @@ class CVAAOverlay extends BaseComponent {
               }
             }}>
             <Text id={'cvaa.sample_caption_tag'} />
-            {isEqual(this.props.player.textStyle, this.captionsStyleDefault) ? (
+            {isEqual(player.textStyle, this.captionsStyleDefault) ? (
               <div className={style.activeTick}>
                 <Icon type={IconType.Check} />
               </div>
@@ -188,7 +193,7 @@ class CVAAOverlay extends BaseComponent {
               }
             }}>
             <Text id={'cvaa.sample_caption_tag'} />
-            {isEqual(this.props.player.textStyle, this.captionsStyleBlackBG) ? (
+            {isEqual(player.textStyle, this.captionsStyleBlackBG) ? (
               <div className={style.activeTick}>
                 <Icon type={IconType.Check} />
               </div>
@@ -206,7 +211,7 @@ class CVAAOverlay extends BaseComponent {
               }
             }}>
             <Text id={'cvaa.sample_caption_tag'} />
-            {isEqual(this.props.player.textStyle, this.captionsStyleYellow) ? (
+            {isEqual(player.textStyle, this.captionsStyleYellow) ? (
               <div className={style.activeTick}>
                 <Icon type={IconType.Check} />
               </div>
@@ -277,16 +282,16 @@ class CVAAOverlay extends BaseComponent {
   /**
    * render custom captions state
    *
-   * @param {*} props - component props
    * @returns {React$Element} - custom captions elements
    * @memberof CVAAOverlay
    */
-  renderCustomCaptionsState(props: any): React$Element<any> {
-    const fontFamily = this.props.player.TextStyle.FontFamily;
-    const edgeStyles = this.props.player.TextStyle.EdgeStyles;
-    const standardColors = props.player.TextStyle.StandardColors;
+  renderCustomCaptionsState(): React$Element<any> {
+    const {player} = this.props;
+    const fontFamily = player.TextStyle.FontFamily;
+    const edgeStyles = player.TextStyle.EdgeStyles;
+    const standardColors = player.TextStyle.StandardColors;
 
-    const fontSizeOptions = this.props.player.TextStyle.FontSizes.map(size => ({
+    const fontSizeOptions = player.TextStyle.FontSizes.map(size => ({
       value: size.value,
       label: size.label,
       active: this.state.customTextStyle.fontScale === size.value

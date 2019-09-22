@@ -5,6 +5,7 @@ import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/seekbar';
 import BaseComponent from '../base';
 import {SeekBar} from '../seekbar';
+import {withPlayer} from '../player';
 
 /**
  * mapping state to props
@@ -26,21 +27,21 @@ const COMPONENT_NAME = 'SeekBarLivePlaybackContainer';
   mapStateToProps,
   bindActions(actions)
 )
+@withPlayer
 /**
  * SeekBarLivePlaybackContainer component
  *
  * @class SeekBarLivePlaybackContainer
- * @example <SeekBarLivePlaybackContainer player={this.player} />
+ * @example <SeekBarLivePlaybackContainer />
  * @extends {BaseComponent}
  */
 class SeekBarLivePlaybackContainer extends BaseComponent {
   /**
    * Creates an instance of SeekBarLivePlaybackContainer.
-   * @param {Object} obj obj
    * @memberof SeekBarLivePlaybackContainer
    */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
+  constructor() {
+    super({name: COMPONENT_NAME});
   }
 
   /**
@@ -51,9 +52,9 @@ class SeekBarLivePlaybackContainer extends BaseComponent {
    * @memberof SeekBarLivePlaybackContainer
    */
   componentDidMount() {
-    this.eventManager.listen(this.player, this.player.Event.TIME_UPDATE, () => {
+    this.eventManager.listen(this.props.player, this.props.player.Event.TIME_UPDATE, () => {
       if (!this.props.isDraggingActive) {
-        this.props.updateCurrentTime(this.player.currentTime);
+        this.props.updateCurrentTime(this.props.player.currentTime);
       }
     });
   }
@@ -71,10 +72,9 @@ class SeekBarLivePlaybackContainer extends BaseComponent {
     }
     return (
       <SeekBar
-        player={this.props.player}
         playerElement={this.props.playerContainer}
         showTimeBubble={this.props.showTimeBubble}
-        changeCurrentTime={time => (this.player.currentTime = time)}
+        changeCurrentTime={time => (this.props.player.currentTime = time)}
         playerPoster={this.props.poster}
         updateSeekbarDraggingStatus={data => this.props.updateSeekbarDraggingStatus(data)}
         updateSeekbarHoverActive={data => this.props.updateSeekbarHoverActive(data)}

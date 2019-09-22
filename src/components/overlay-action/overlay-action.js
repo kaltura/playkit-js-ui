@@ -8,6 +8,7 @@ import {actions as shellActions} from '../../reducers/shell';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {isPlayingAdOrPlayback} from '../../reducers/getters';
+import {withPlayer} from '../player';
 
 /**
  * mapping state to props
@@ -56,11 +57,12 @@ const COMPONENT_NAME = 'OverlayAction';
   mapStateToProps,
   bindActions(Object.assign({}, actions, shellActions))
 )
+@withPlayer
 /**
  * OverlayAction component
  *
  * @class OverlayAction
- * @example <OverlayAction player={this.player} />
+ * @example <OverlayAction />
  * @extends {BaseComponent}
  */
 class OverlayAction extends BaseComponent {
@@ -73,11 +75,10 @@ class OverlayAction extends BaseComponent {
 
   /**
    * Creates an instance of OverlayAction.
-   * @param {Object} obj obj
    * @memberof OverlayAction
    */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
+  constructor() {
+    super({name: COMPONENT_NAME});
   }
 
   /**
@@ -88,10 +89,10 @@ class OverlayAction extends BaseComponent {
    */
   togglePlayPause(): void {
     if (this.props.isPlayingAdOrPlayback) {
-      this.player.pause();
+      this.props.player.pause();
       this.props.updateOverlayActionIcon(IconType.Pause);
     } else {
-      this.player.play();
+      this.props.player.play();
       this.props.updateOverlayActionIcon(IconType.Play);
     }
     this.props.updatePlayerHoverState(true);
@@ -107,12 +108,12 @@ class OverlayAction extends BaseComponent {
    * @memberof OverlayAction
    */
   toggleFullscreen(): void {
-    if (!this.player.isFullscreen()) {
+    if (!this.props.player.isFullscreen()) {
       this.logger.debug('Enter fullscreen');
-      this.player.enterFullscreen();
+      this.props.player.enterFullscreen();
     } else {
       this.logger.debug('Exit fullscreen');
-      this.player.exitFullscreen();
+      this.props.player.exitFullscreen();
     }
     this.notifyClick({
       type: 'Fullscreen'

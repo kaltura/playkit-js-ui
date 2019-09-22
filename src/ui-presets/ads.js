@@ -26,9 +26,9 @@ function AdsUI(props: any): ?React$Element<any> {
   if (useDefaultAdsUi(props)) {
     return (
       <div className={style.adGuiWrapper}>
-        <Loading player={props.player} />
+        <Loading />
         <div className={style.playerGui} id="player-gui">
-          <UnmuteIndication player={props.player} hasTopBar />
+          <UnmuteIndication hasTopBar />
           <TopBar>
             <div className={style.leftControls}>{isBumper(props) ? undefined : <AdNotice />}</div>
           </TopBar>
@@ -39,24 +39,24 @@ function AdsUI(props: any): ?React$Element<any> {
   const adsUiCustomization = getAdsUiCustomization();
   return (
     <div className={style.adGuiWrapper}>
-      <Keyboard player={props.player} config={props.config} />
-      <Loading player={props.player} />
+      <Keyboard config={props.config} />
+      <Loading />
       <div className={style.playerGui} id="player-gui">
-        <UnmuteIndication player={props.player} hasTopBar />
+        <UnmuteIndication hasTopBar />
         <TopBar disabled={true}>
           <div className={style.leftControls}>{isBumper(props) ? undefined : <AdNotice />}</div>
           <div className={style.rightControls}>{adsUiCustomization.learnMoreButton ? <AdLearnMore /> : undefined}</div>
         </TopBar>
-        {adsUiCustomization.skipButton ? <AdSkip player={props.player} /> : undefined}
-        <PlaybackControls player={props.player} />
+        {adsUiCustomization.skipButton ? <AdSkip /> : undefined}
+        <PlaybackControls />
         <BottomBar>
           <div className={style.leftControls}>
-            <PlaybackControls player={props.player} />
+            <PlaybackControls />
             <TimeDisplayAdsContainer />
           </div>
           <div className={style.rightControls}>
-            <Volume player={props.player} />
-            <Fullscreen player={props.player} />
+            <Volume />
+            <Fullscreen />
           </div>
         </BottomBar>
       </div>

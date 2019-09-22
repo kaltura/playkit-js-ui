@@ -14,7 +14,7 @@ import {CopyButton} from '../copy-button/copy-button';
 /**
  * mapping state to props
  * @param {*} state - redux store state
- * @example <ShareOverlay player={this.player} />
+ * @example <ShareOverlay />
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
@@ -147,11 +147,10 @@ const COMPONENT_NAME = 'ShareOverlay';
 class ShareOverlay extends BaseComponent {
   /**
    * Creates an instance of ShareOverlay.
-   * @param {Object} obj obj
    * @memberof ShareOverlay
    */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
+  constructor() {
+    super({name: COMPONENT_NAME});
   }
 
   /**
@@ -161,11 +160,11 @@ class ShareOverlay extends BaseComponent {
    * @memberof ShareOverlay
    */
   componentWillMount() {
-    this.isIos = this.player.env.os.name === 'iOS';
+    this.isIos = this.props.player.env.os.name === 'iOS';
     this.setState({
       view: shareOverlayView.Main,
       startFrom: false,
-      startFromValue: Math.floor(this.player.currentTime)
+      startFromValue: Math.floor(this.props.player.currentTime)
     });
   }
 
@@ -216,8 +215,9 @@ class ShareOverlay extends BaseComponent {
    */
   _getEmailTemplate(): string {
     let name = 'this video';
-    if (this.player.config.sources && this.player.config.sources.metadata && this.player.config.sources.metadata.name) {
-      name = this.player.config.sources.metadata.name;
+    const {player} = this.props;
+    if (player.config.sources && player.config.sources.metadata && player.config.sources.metadata.name) {
+      name = player.config.sources.metadata.name;
     }
     const emailSubject = encodeURIComponent(`Check out ${name}`);
     const emailBody = encodeURIComponent(`Check out ${name}: ${this.getShareUrl()}`);
@@ -245,7 +245,7 @@ class ShareOverlay extends BaseComponent {
    */
   _handleStartFromChange(e: any): void {
     let seconds = toSecondsFromHHMMSS(e.target.value);
-    if (seconds >= this.player.duration) {
+    if (seconds >= this.props.player.duration) {
       this.setState({startFromValue: 1});
     }
     this.setState({startFromValue: seconds});

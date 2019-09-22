@@ -33,7 +33,6 @@ class BaseComponent extends Component {
   constructor(obj?: Object = {config: {}}) {
     super();
     this.name = obj.name;
-    this.player = obj.player;
     this.config = obj.config;
     this.eventManager = new EventManager();
     this.logger = getLogger(`UI ${this.name}`);

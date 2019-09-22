@@ -29,7 +29,7 @@ const COMPONENT_NAME = 'CastOverlay';
  * CastOverlay component
  *
  * @class CastOverlay
- * @example <CastOverlay player={this.player} />
+ * @example <CastOverlay />
  * @extends {BaseComponent}
  */
 class CastOverlay extends BaseComponent {

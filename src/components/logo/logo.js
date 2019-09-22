@@ -5,6 +5,7 @@ import {connect} from 'preact-redux';
 import BaseComponent from '../base';
 import {Text} from 'preact-i18n';
 import {PLAYER_SIZE} from '../shell/shell';
+import {withPlayer} from '../player';
 
 const COMPONENT_NAME = 'Logo';
 
@@ -20,31 +21,28 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps)
+@withPlayer
 /**
  * Logo component
  *
  * @class Logo
- * @example <Logo player={this.player} />
+ * @example <Logo />
  * @extends {BaseComponent}
  */
 class Logo extends BaseComponent {
   /**
    * should render component
-   * @param {*} props - component props
    * @returns {boolean} - whether to render the component
-   * @static
    */
-  static shouldRender(props: any): boolean {
-    const componentConfig = props.config.components[COMPONENT_NAME.toLocaleLowerCase()];
-    return !(Object.keys(componentConfig).length === 0 && componentConfig.constructor === Object);
+  _shouldRender(): boolean {
+    return !(Object.keys(this.props.config).length === 0 && this.props.config.constructor === Object);
   }
   /**
    * Creates an instance of Logo.
-   * @param {Object} obj obj
    * @memberof Logo
    */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
+  constructor() {
+    super({name: COMPONENT_NAME});
   }
 
   /**
@@ -55,6 +53,9 @@ class Logo extends BaseComponent {
    * @memberof Logo
    */
   render(props: any): ?React$Element<any> {
+    if (!this._shouldRender()) {
+      return undefined;
+    }
     const invisibleMode = [PLAYER_SIZE.TINY, PLAYER_SIZE.EXTRA_SMALL, PLAYER_SIZE.SMALL].includes(this.props.playerSize);
     if (props.config.img && !invisibleMode) {
       return (

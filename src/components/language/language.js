@@ -13,6 +13,7 @@ import {CVAAOverlay} from '../cvaa-overlay';
 import Portal from 'preact-portal';
 import {KeyMap} from '../../utils/key-map';
 import {PLAYER_SIZE} from '../shell/shell';
+import {withPlayer} from '../player';
 
 /**
  * mapping state to props
@@ -33,6 +34,7 @@ const COMPONENT_NAME = 'Language';
   mapStateToProps,
   bindActions(actions)
 )
+@withPlayer
 /**
  * Language component
  *
@@ -47,11 +49,10 @@ class Language extends BaseComponent {
 
   /**
    * Creates an instance of Language.
-   * @param {Object} obj obj
    * @memberof Language
    */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
+  constructor() {
+    super({name: COMPONENT_NAME});
   }
 
   /**
@@ -115,9 +116,9 @@ class Language extends BaseComponent {
    * @memberof Language
    */
   onAudioChange(audioTrack: Object): void {
-    this.player.selectTrack(audioTrack);
+    this.props.player.selectTrack(audioTrack);
     this.notifyClick({
-      type: this.player.Track.AUDIO,
+      type: this.props.player.Track.AUDIO,
       track: audioTrack
     });
   }
@@ -130,9 +131,9 @@ class Language extends BaseComponent {
    * @memberof Language
    */
   onCaptionsChange(textTrack: Object): void {
-    this.player.selectTrack(textTrack);
+    this.props.player.selectTrack(textTrack);
     this.notifyClick({
-      type: this.player.Track.TEXT,
+      type: this.props.player.Track.TEXT,
       track: textTrack
     });
   }
@@ -156,7 +157,7 @@ class Language extends BaseComponent {
    * @memberof Language
    */
   renderAll(audioOptions: Array<Object>, textOptions: Array<Object>): React$Element<any> {
-    const portalSelector = `#${this.player.config.targetId} .overlay-portal`;
+    const portalSelector = `#${this.props.player.config.targetId} .overlay-portal`;
     return (
       <div ref={c => (this._controlLanguageElement = c)} className={[style.controlButtonContainer, style.controlLanguage].join(' ')}>
         <Localizer>
@@ -171,7 +172,10 @@ class Language extends BaseComponent {
         {!this.state.smartContainerOpen || this.state.cvaaOverlay ? (
           undefined
         ) : (
-          <SmartContainer targetId={this.player.config.targetId} title={<Text id="language.title" />} onClose={() => this.onControlButtonClick()}>
+          <SmartContainer
+            targetId={this.props.player.config.targetId}
+            title={<Text id="language.title" />}
+            onClose={() => this.onControlButtonClick()}>
             {audioOptions.length <= 1 ? (
               undefined
             ) : (
@@ -217,7 +221,6 @@ class Language extends BaseComponent {
         {this.state.cvaaOverlay ? (
           <Portal into={portalSelector} ref={ref => (this._portal = ref)}>
             <CVAAOverlay
-              player={this.player}
               onClose={() => {
                 this.toggleCVAAOverlay();
                 this.onControlButtonClick();

@@ -19,10 +19,10 @@ import { h, SeekBar } from 'playkit-js-ui';
 export default function customUIPreset(props: any) {
   return (
     // show both frame preview and time bubble
-    <SeekBar showFramePreview showTimeBubble player={props.player} />
+    <SeekBar showFramePreview showTimeBubble />
 
     // show only time bubble
-    <SeekBar showTimeBubble player={props.player} />
+    <SeekBar showTimeBubble />
   )
 }
 ```

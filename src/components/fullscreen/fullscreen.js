@@ -5,6 +5,7 @@ import {Localizer, Text} from 'preact-i18n';
 import {connect} from 'preact-redux';
 import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
+import {withPlayer} from '../player';
 
 /**
  * mapping state to props
@@ -19,21 +20,21 @@ const mapStateToProps = state => ({
 const COMPONENT_NAME = 'Fullscreen';
 
 @connect(mapStateToProps)
+@withPlayer
 /**
  * Fullscreen component
  *
  * @class Fullscreen
- * @example <Fullscreen player={this.player} />
+ * @example <Fullscreen />
  * @extends {BaseComponent}
  */
 class Fullscreen extends BaseComponent {
   /**
    * Creates an instance of Fullscreen.
-   * @param {Object} obj obj
    * @memberof Fullscreen
    */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
+  constructor() {
+    super({name: COMPONENT_NAME});
   }
 
   /**
@@ -45,7 +46,7 @@ class Fullscreen extends BaseComponent {
   toggleFullscreen(): void {
     this.logger.debug(`Toggle fullscreen`);
     const playerContainer: HTMLElement | null = document.getElementById(this.props.targetId);
-    this.props.fullscreen ? this.player.exitFullscreen() : this.player.enterFullscreen();
+    this.props.fullscreen ? this.props.player.exitFullscreen() : this.props.player.enterFullscreen();
     if (playerContainer) {
       playerContainer.focus();
     }

@@ -5,6 +5,7 @@ import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/loading';
 import BaseComponent from '../base';
+import {withPlayer} from '../player';
 
 /**
  * mapping state to props
@@ -24,6 +25,7 @@ const COMPONENT_NAME = 'Loading';
   mapStateToProps,
   bindActions(actions)
 )
+@withPlayer
 /**
  * Loading component
  *
@@ -34,11 +36,10 @@ const COMPONENT_NAME = 'Loading';
 class Loading extends BaseComponent {
   /**
    * Creates an instance of Loading.
-   * @param {Object} obj obj
    * @memberof Loading
    */
-  constructor(obj: Object) {
-    super({name: 'Loading', player: obj.player});
+  constructor() {
+    super({name: 'Loading'});
     this.setState({afterPlayingEvent: false});
   }
 
@@ -49,9 +50,10 @@ class Loading extends BaseComponent {
    * @memberof Loading
    */
   componentDidMount() {
-    this.eventManager.listen(this.player, this.player.Event.PLAYER_STATE_CHANGED, e => {
+    const {player} = this.props;
+    this.eventManager.listen(player, player.Event.PLAYER_STATE_CHANGED, e => {
       if (!this.state.afterPlayingEvent) return;
-      const StateType = this.player.State;
+      const StateType = player.State;
       if (
         e.payload.newState.type === StateType.IDLE ||
         e.payload.newState.type === StateType.PLAYING ||
@@ -63,30 +65,30 @@ class Loading extends BaseComponent {
       }
     });
 
-    this.eventManager.listen(this.player, this.player.Event.AD_BREAK_START, () => {
+    this.eventManager.listen(player, player.Event.AD_BREAK_START, () => {
       this.props.updateLoadingSpinnerState(true);
     });
 
-    this.eventManager.listen(this.player, this.player.Event.AD_STARTED, () => {
+    this.eventManager.listen(player, player.Event.AD_STARTED, () => {
       if (this.props.adIsLinear) {
         this.props.updateLoadingSpinnerState(false);
       }
     });
 
-    this.eventManager.listen(this.player, this.player.Event.ALL_ADS_COMPLETED, () => {
+    this.eventManager.listen(player, player.Event.ALL_ADS_COMPLETED, () => {
       this.props.updateLoadingSpinnerState(false);
     });
 
-    this.eventManager.listen(this.player, this.player.Event.AUTOPLAY_FAILED, () => {
+    this.eventManager.listen(player, player.Event.AUTOPLAY_FAILED, () => {
       this.props.updateLoadingSpinnerState(false);
     });
 
-    this.eventManager.listen(this.player, this.player.Event.PLAYING, () => {
+    this.eventManager.listen(player, player.Event.PLAYING, () => {
       this.setState({afterPlayingEvent: true});
       this.props.updateLoadingSpinnerState(false);
     });
 
-    this.eventManager.listen(this.player, this.player.Event.CHANGE_SOURCE_STARTED, () => {
+    this.eventManager.listen(player, player.Event.CHANGE_SOURCE_STARTED, () => {
       this.setState({afterPlayingEvent: false});
     });
   }

@@ -4,6 +4,7 @@ import {h} from 'preact';
 import BaseComponent from '../base';
 import {connect} from 'preact-redux';
 import {actions} from '../../reducers/backdrop';
+import {withPlayer} from '../player';
 
 /**
  * mapping state to props
@@ -21,21 +22,21 @@ const COMPONENT_NAME = 'Cast';
   mapStateToProps,
   actions
 )
+@withPlayer
 /**
  * Cast component
  *
  * @class Cast
- * @example <Cast player={this.player} />
+ * @example <Cast />
  * @extends {BaseComponent}
  */
 class Cast extends BaseComponent {
   /**
    * Creates an instance of ChromecastControl.
-   * @param {Object} obj obj
    * @memberof Cast
    */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
+  constructor() {
+    super({name: COMPONENT_NAME});
   }
 
   /**
@@ -46,7 +47,9 @@ class Cast extends BaseComponent {
    */
   onClick(): void {
     this.props.updateBackdropVisibility(true);
-    this.eventManager.listenOnce(this.player, this.player.Event.Cast.CAST_SESSION_START_FAILED, () => this.props.updateBackdropVisibility(false));
+    this.eventManager.listenOnce(this.props.player, this.props.player.Event.Cast.CAST_SESSION_START_FAILED, () =>
+      this.props.updateBackdropVisibility(false)
+    );
   }
 
   /**

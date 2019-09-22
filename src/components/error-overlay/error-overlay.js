@@ -64,8 +64,8 @@ class ErrorOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   handleClick(): void {
-    const mediaInfo = this.player.getMediaInfo();
-    this.player.loadMedia(mediaInfo);
+    const mediaInfo = this.props.player.getMediaInfo();
+    this.props.player.loadMedia(mediaInfo);
   }
 
   /**
@@ -75,7 +75,8 @@ class ErrorOverlay extends BaseComponent {
    * @memberof ErrorOverlay
    */
   renderSessionID(): React$Element<any> | void {
-    const sessionId = this.player && this.player.config && this.player.config.session && this.player.config.session.id;
+    const {player} = this.props;
+    const sessionId = player && player.config && player.config.session && player.config.session.id;
     if (sessionId) {
       return (
         <div className={style.linkOptionsContainer}>
@@ -103,7 +104,7 @@ class ErrorOverlay extends BaseComponent {
    * @memberof ErrorOverlay
    */
   renderRetryButton(): React$Element<any> | void {
-    if (this.player.getMediaInfo()) {
+    if (this.props.player.getMediaInfo()) {
       return (
         <div className={style.controlButtonContainer} onClick={() => this.handleClick()}>
           <button className={[style.controlButton, style.retryBtn].join(' ')}>
