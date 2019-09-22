@@ -78,7 +78,10 @@ class PictureInPictureOverlay extends BaseComponent {
               </span>
             </Localizer>
             <Localizer>
-              <button className={[style.pictureInPictureButton, style.controlButtonContainer].join(' ')} onClick={() => this._handleClick()}>
+              <button
+                tabIndex="0"
+                className={[style.pictureInPictureButton, style.controlButton].join(' ')}
+                onClick={() => this._handleClick()}>
                 <Text id="pictureInPicture.overlay_button" />
               </button>
             </Localizer>

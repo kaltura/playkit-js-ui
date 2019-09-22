@@ -41,6 +41,7 @@ export function playbackUI(props: any): React$Element<any> {
     <div className={style.playbackGuiWWrapper}>
       <KeyboardControl player={props.player} config={props.config} />
       <Loading player={props.player} />
+      <PictureInPictureOverlay player={props.player} />
       <div className={style.playerGui} id="player-gui">
         <OverlayPortal />
         <UnmuteIndication player={props.player} />
@@ -72,7 +73,6 @@ export function playbackUI(props: any): React$Element<any> {
       {PlaylistCountdown.shouldRender(props) ? <PlaylistCountdown player={props.player} /> : undefined}
       <PrePlaybackPlayOverlay player={props.player} />
       <CastBeforePlay player={props.player} />
-      <PictureInPictureOverlay player={props.player} />
       <Backdrop />
     </div>
   );
