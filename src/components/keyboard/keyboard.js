@@ -61,7 +61,10 @@ class Keyboard extends BaseComponent {
       return;
     }
     playerContainer.onkeydown = (e: KeyboardEvent) => {
-      if (!this.props.shareOverlay && !this.props.playerNav && typeof this.keyboardHandlers[e.keyCode] === 'function') {
+      // TODO [es] remove once merged in https://github.com/kaltura/playkit-js-ui/pull/400
+      const nodeName = e.target instanceof Node ? e.target.nodeName || '' : '';
+      const isEditableNode = ['INPUT', 'SELECT', 'TEXTAREA'].indexOf(nodeName) !== -1;
+      if (!isEditableNode && !this.props.shareOverlay && !this.props.playerNav && typeof this.keyboardHandlers[e.keyCode] === 'function') {
         e.preventDefault();
         this.logger.debug(`KeyDown -> keyName: ${getKeyName(e.keyCode)}, shiftKey: ${e.shiftKey.toString()}`);
         const payload = this.keyboardHandlers[e.keyCode](e.shiftKey);
