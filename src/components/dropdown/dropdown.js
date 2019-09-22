@@ -30,10 +30,6 @@ class DropDown extends Component {
   _el: HTMLDivElement;
   _dropdownButton: HTMLDivElement;
 
-  constructor(props: any) {
-    super(props);
-    this.props.onParentSelected = this.toggleDropDown;
-  }
   /**
    * before component mounted, set initial internal state
    *
