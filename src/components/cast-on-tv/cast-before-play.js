@@ -89,9 +89,10 @@ class CastBeforePlay extends BaseComponent {
       }
       return (
         <div>
-          <div className={rootStyle.join(' ')} onClick={() => this.onClick()}>
+          <div className={rootStyle.join(' ')}>
             <a
               tabIndex="0"
+              onClick={() => this.onClick()}
               onKeyDown={e => {
                 if (e.keyCode === KeyMap.ENTER) {
                   this.onClick();

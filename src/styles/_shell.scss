@@ -64,21 +64,7 @@
 }
 
 .player.nav {
-  .control-button,
-  .seek-bar,
-  .dropdown-button,
-  .smart-container-item,
-  .dropdown-menu-item,
-  .pre-playback-play-button,
-  .sample,
-  .custom-captions-applied > a,
-  .form-group-row > a,
-  .button-save-cvaa,
-  .slider,
-  .unmute-button-container,
-  .live-tag,
-  .cast-on-tv-button,
-  .cast-button {
+* {
     &:focus {
       outline: 1px solid $tab-focus-color;
     }
