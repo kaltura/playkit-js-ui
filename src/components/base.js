@@ -34,6 +34,7 @@ class BaseComponent extends Component {
     super();
     this.name = obj.name;
     this.config = obj.config;
+    this.player = obj.player;
     this.eventManager = new EventManager();
     this.logger = getLogger(`UI ${this.name}`);
     this.logger.debug(`Initialized`);
