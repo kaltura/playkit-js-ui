@@ -7,6 +7,7 @@ import {IconType} from '../icon/index';
 import {actions} from '../../reducers/backdrop';
 import {Icon} from '../icon/icon';
 import {Localizer, Text} from 'preact-i18n';
+import {KeyMap} from '../../utils/key-map';
 
 /**
  * mapping state to props
@@ -89,7 +90,14 @@ class CastBeforePlay extends BaseComponent {
       return (
         <div>
           <div className={rootStyle.join(' ')} onClick={() => this.onClick()}>
-            <a className={[style.btn, style.btnDarkTransparent, style.castOnTvButton].join(' ')}>
+            <a
+              tabIndex="0"
+              onKeyDown={e => {
+                if (e.keyCode === KeyMap.ENTER) {
+                  this.onClick();
+                }
+              }}
+              className={[style.btn, style.btnDarkTransparent, style.castOnTvButton].join(' ')}>
               <div className={style.castOnTvIconContainer}>
                 <Icon type={props.icon} />
               </div>

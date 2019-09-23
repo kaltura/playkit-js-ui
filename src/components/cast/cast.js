@@ -4,6 +4,7 @@ import {h} from 'preact';
 import BaseComponent from '../base';
 import {connect} from 'preact-redux';
 import {actions} from '../../reducers/backdrop';
+import {KeyMap} from '../../utils/key-map';
 
 /**
  * mapping state to props
@@ -60,10 +61,17 @@ class CastControl extends BaseComponent {
         'div',
         {
           class: style.controlButtonContainer,
-          onClick: () => this.onClick()
+          onClick: () => this.onClick(),
+          onKeyDown: e => {
+            if (e.keyCode === KeyMap.ENTER) {
+              this.props.updateBackdropVisibility(true);
+              this.player.startCasting().catch(() => this.props.updateBackdropVisibility(false));
+            }
+          }
         },
         h('google-cast-launcher', {
-          class: style.castButton
+          class: [style.castButton].join(' '),
+          tabIndex: 0
         })
       );
     }

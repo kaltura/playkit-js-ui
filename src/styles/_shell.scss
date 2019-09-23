@@ -76,7 +76,9 @@
   .button-save-cvaa,
   .slider,
   .unmute-button-container,
-  .live-tag {
+  .live-tag,
+  .cast-on-tv-button,
+  .cast-button {
     &:focus {
       outline: 1px solid $tab-focus-color;
     }
