@@ -5,6 +5,7 @@ import {Localizer, Text} from 'preact-i18n';
 import BaseComponent from '../base';
 import {connect} from 'preact-redux';
 import {default as Icon, IconType} from '../icon';
+import {KeyMap} from '../../utils/key-map';
 
 /**
  * The maximum next item poster width
@@ -98,7 +99,15 @@ class PlaylistNextScreen extends BaseComponent {
           </div>
           <div className={style.playlistNextScreenPosterPlaceholder}>
             <div className={style.playlistNextScreenPosterAspectRatio}>
-              <div className={style.playlistNextScreenPoster} onClick={() => this.onPosterClick()}>
+              <div
+                tabIndex="0"
+                className={style.playlistNextScreenPoster}
+                onClick={() => this.onPosterClick()}
+                onKeyDown={e => {
+                  if (e.keyCode === KeyMap.ENTER) {
+                    this.onPosterClick();
+                  }
+                }}>
                 <div className={style.playlistNextScreenPosterImg} style={`background-image: url(${this._getPosterUrl()});`} />
                 <Icon type={IconType.Play} />
               </div>

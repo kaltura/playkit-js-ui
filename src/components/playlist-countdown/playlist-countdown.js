@@ -167,7 +167,15 @@ class PlaylistCountdown extends BaseComponent {
     }
 
     return (
-      <div className={className.join(' ')} onClick={() => this.onClick()}>
+      <div
+        tabIndex={this.state.timeToShow ? 0 : -1}
+        className={className.join(' ')}
+        onKeyDown={e => {
+          if (e.keyCode === KeyMap.ENTER) {
+            this.onClick(e);
+          }
+        }}
+        onClick={() => this.onClick()}>
         <div className={style.playlistCountdownPoster} style={`background-image: url(${next.sources.poster});`} />
         <div className={style.playlistCountdownContentPlaceholder}>
           <div className={style.playlistCountdownContentBackground}>
@@ -183,13 +191,13 @@ class PlaylistCountdown extends BaseComponent {
               <div className={[style.controlButtonContainer, style.playlistCountdownCancel].join(' ')}>
                 <Localizer>
                   <button
-                    tabIndex="0"
+                    tabIndex={this.state.timeToShow ? 0 : -1}
                     aria-label={<Text id="playlist.cancel" />}
                     className={[style.controlButton, style.playlistCountdownCancelButton].join(' ')}
                     onClick={e => this.cancelNext(e)}
                     onKeyDown={e => {
                       if (e.keyCode === KeyMap.ENTER) {
-                        this.cancelNext();
+                        this.cancelNext(e);
                       }
                     }}>
                     <Icon type={IconType.Close} />
