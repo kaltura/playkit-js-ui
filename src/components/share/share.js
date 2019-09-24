@@ -1,6 +1,5 @@
 //@flow
-import {h} from 'preact';
-import BaseComponent from '../base';
+import {h, Component} from 'preact';
 import {default as Icon, IconType} from '../icon';
 import {ShareOverlay} from '../share-overlay';
 import Portal from 'preact-portal';
@@ -10,6 +9,7 @@ import {actions} from '../../reducers/share';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {withPlayer} from '../player';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -30,22 +30,16 @@ const COMPONENT_NAME = 'Share';
   bindActions(actions)
 )
 @withPlayer
+@withLogger(COMPONENT_NAME)
 /**
  * Share component
  *
  * @class Share
  * @example <Share />
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class Share extends BaseComponent {
+class Share extends Component {
   _portal: any;
-  /**
-   * Creates an instance of Share.
-   * @memberof Share
-   */
-  constructor() {
-    super({name: COMPONENT_NAME});
-  }
 
   /**
    * toggle overlay internal component state

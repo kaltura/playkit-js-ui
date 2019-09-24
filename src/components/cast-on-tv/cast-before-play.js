@@ -1,13 +1,13 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
-import BaseComponent from '../base';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 import {IconType} from '../icon/index';
 import {actions} from '../../reducers/backdrop';
 import {Icon} from '../icon/icon';
 import {Localizer, Text} from 'preact-i18n';
 import {withPlayer} from '../player';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -28,14 +28,15 @@ const COMPONENT_NAME = 'CastBeforePlay';
   actions
 )
 @withPlayer
+@withLogger(COMPONENT_NAME)
 /**
  * CastBeforePlay component
  *
  * @class CastBeforePlay
  * @example <CastBeforePlay />
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class CastBeforePlay extends BaseComponent {
+class CastBeforePlay extends Component {
   /**
    * @static
    * @type {Object} - Component default props
@@ -43,14 +44,6 @@ class CastBeforePlay extends BaseComponent {
   static defaultProps: Object = {
     icon: IconType.Cast
   };
-
-  /**
-   * Creates an instance of CastOverlay.
-   * @memberof CastBeforePlay
-   */
-  constructor() {
-    super({name: COMPONENT_NAME});
-  }
 
   /**
    * on click call the start casting API and set connecting state.

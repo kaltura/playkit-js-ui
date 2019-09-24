@@ -11,6 +11,8 @@ import {KeyMap} from '../../utils/key-map';
 import {KEYBOARD_DEFAULT_VOLUME_JUMP} from '../keyboard/keyboard';
 import {FakeEvent} from '../../event/fake-event';
 import {withPlayer} from '../player';
+import {withEventManager} from 'event/with-event-manager';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -31,6 +33,8 @@ const COMPONENT_NAME = 'Volume';
   bindActions({...actions, ...engineActions})
 )
 @withPlayer
+@withEventManager
+@withLogger(COMPONENT_NAME)
 /**
  * Volume component
  *
@@ -61,16 +65,16 @@ class Volume extends BaseComponent {
    */
   componentDidMount(): void {
     const {player} = this.props;
-    this.eventManager.listen(player, player.Event.LOADED_METADATA, () => {
+    this.props.eventManager.listen(player, player.Event.LOADED_METADATA, () => {
       this.props.updateVolume(player.volume);
       this.props.updateMuted(player.muted);
     });
-    this.eventManager.listen(player, player.Event.VOLUME_CHANGE, () => {
+    this.props.eventManager.listen(player, player.Event.VOLUME_CHANGE, () => {
       this.props.updateMuted(player.muted);
       this.props.updateVolume(player.volume);
     });
-    this.eventManager.listen(document, 'mouseup', e => this.onVolumeProgressBarMouseUp(e));
-    this.eventManager.listen(document, 'mousemove', e => this.onVolumeProgressBarMouseMove(e));
+    this.props.eventManager.listen(document, 'mouseup', e => this.onVolumeProgressBarMouseUp(e));
+    this.props.eventManager.listen(document, 'mousemove', e => this.onVolumeProgressBarMouseMove(e));
   }
 
   /**

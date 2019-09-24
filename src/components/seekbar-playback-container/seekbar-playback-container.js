@@ -1,11 +1,12 @@
 //@flow
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/seekbar';
-import BaseComponent from '../base';
 import {SeekBar} from '../seekbar';
 import {withPlayer} from '../player';
+import {withEventManager} from 'event/with-event-manager';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -27,22 +28,16 @@ const COMPONENT_NAME = 'SeekBarPlaybackContainer';
   bindActions(actions)
 )
 @withPlayer
+@withEventManager
+@withLogger(COMPONENT_NAME)
 /**
  * SeekBarPlaybackContainer component
  *
  * @class SeekBarPlaybackContainer
  * @example <SeekBarPlaybackContainer />
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class SeekBarPlaybackContainer extends BaseComponent {
-  /**
-   * Creates an instance of SeekBarPlaybackContainer.
-   * @memberof SeekBarPlaybackContainer
-   */
-  constructor() {
-    super({name: COMPONENT_NAME});
-  }
-
+class SeekBarPlaybackContainer extends Component {
   /**
    * after component mounted, listen to time update event and if dragging not active,
    * update the current time in the store
@@ -51,7 +46,7 @@ class SeekBarPlaybackContainer extends BaseComponent {
    * @memberof SeekBarPlaybackContainer
    */
   componentDidMount() {
-    this.eventManager.listen(this.props.player, this.props.player.Event.TIME_UPDATE, () => {
+    this.props.eventManager.listen(this.props.player, this.props.player.Event.TIME_UPDATE, () => {
       if (!this.props.isDraggingActive) {
         this.props.updateCurrentTime(this.props.player.currentTime);
       }

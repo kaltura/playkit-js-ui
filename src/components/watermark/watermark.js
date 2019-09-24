@@ -1,9 +1,10 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
-import BaseComponent from '../base';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 import {withPlayer} from '../player';
+import {withEventManager} from 'event/with-event-manager';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -24,19 +25,21 @@ const COMPONENT_NAME = 'Watermark';
 
 @connect(mapStateToProps)
 @withPlayer
+@withEventManager
+@withLogger(COMPONENT_NAME)
 /**
  * Watermark component
  * @class Watermark
  * @example <Watermark />
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class Watermark extends BaseComponent {
+class Watermark extends Component {
   /**
    * Creates an instance of Watermark.
    * @memberof Watermark
    */
   constructor() {
-    super({name: COMPONENT_NAME});
+    super();
     this.setState({show: true});
   }
 
@@ -58,10 +61,10 @@ class Watermark extends BaseComponent {
     };
 
     const {player} = this.props;
-    this.eventManager.listenOnce(player, player.Event.PLAYING, onPlaying);
-    this.eventManager.listen(player, player.Event.CHANGE_SOURCE_ENDED, () => {
+    this.props.eventManager.listenOnce(player, player.Event.PLAYING, onPlaying);
+    this.props.eventManager.listen(player, player.Event.CHANGE_SOURCE_ENDED, () => {
       this.setState({show: true});
-      this.eventManager.listenOnce(player, player.Event.PLAYING, onPlaying);
+      this.props.eventManager.listenOnce(player, player.Event.PLAYING, onPlaying);
     });
   }
 

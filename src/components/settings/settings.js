@@ -11,6 +11,7 @@ import {SmartContainerItem} from '../smart-container/smart-container-item';
 import {default as Icon, IconType} from '../icon';
 import {PLAYER_SIZE} from '../shell/shell';
 import {withPlayer} from '../player';
+import {withEventManager} from 'event/with-event-manager';
 
 /**
  * mapping state to props
@@ -31,6 +32,7 @@ const COMPONENT_NAME = 'Settings';
   bindActions(actions)
 )
 @withPlayer
+@withEventManager
 /**
  * Settings component
  *
@@ -67,7 +69,7 @@ class Settings extends BaseComponent {
    * @memberof Settings
    */
   componentDidMount() {
-    this.eventManager.listen(document, 'click', e => this.handleClickOutside(e));
+    this.props.eventManager.listen(document, 'click', e => this.handleClickOutside(e));
   }
 
   /**

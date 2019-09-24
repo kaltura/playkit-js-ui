@@ -14,9 +14,9 @@ Let's see an example:
 ```javascript
 const h = KalturaPlayer.ui.h;
 const withPlayer = KalturaPlayer.ui.components.withPlayer;
-const BaseComponent = KalturaPlayer.ui.Components.BaseComponent;
+const Component = KalturaPlayer.ui.preact.Component;
 
-class SampleComponent extends BaseComponent {
+class SampleComponent extends Component {
   componentDidMount() {
     // register to event handlers and other stuff here
   }
@@ -52,9 +52,9 @@ If you want to use JSX follow this [guide](./custom-ui-preset.md#using-jsx), and
 ```javascript
 const h = KalturaPlayer.ui.h;
 const withPlayer = KalturaPlayer.ui.components.withPlayer;
-const BaseComponent = KalturaPlayer.ui.Components.BaseComponent;
+const Component = KalturaPlayer.ui.preact.Component;
 
-class DumbComponent extends BaseComponent {
+class DumbComponent extends Component {
   render(props) {
     return <div 
       className="dumb-component"
@@ -80,10 +80,10 @@ And if you want to use it as a decorator:
 ```javascript
 const h = KalturaPlayer.ui.h;
 const withPlayer = KalturaPlayer.ui.components.withPlayer;
-const BaseComponent = KalturaPlayer.ui.Components.BaseComponent;
+const Component = KalturaPlayer.ui.preact.Component;
 
 @withPlayer
-class DumbComponent extends BaseComponent {
+class DumbComponent extends Component {
   render(props) {
     return <div 
       className="dumb-component"

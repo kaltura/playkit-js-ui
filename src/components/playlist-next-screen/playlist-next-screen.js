@@ -1,11 +1,11 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
-import BaseComponent from '../base';
 import {connect} from 'preact-redux';
 import {default as Icon, IconType} from '../icon';
 import {withPlayer} from '../player';
+import {withLogger} from 'components/logger';
 
 /**
  * The maximum next item poster width
@@ -28,14 +28,15 @@ const COMPONENT_NAME = 'PlaylistNextScreen';
 
 @connect(mapStateToProps)
 @withPlayer
+@withLogger(COMPONENT_NAME)
 /**
  * PlaylistNextScreen component
  *
  * @class PlaylistNextScreen
  * @example <PlaylistNextScreen type="next"/>
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class PlaylistNextScreen extends BaseComponent {
+class PlaylistNextScreen extends Component {
   /**
    * should render component
    * @param {*} props - component props
@@ -43,14 +44,6 @@ class PlaylistNextScreen extends BaseComponent {
    */
   _shouldRender(props: any): boolean {
     return props.playlist && props.playlist.next && props.playlist.next.sources;
-  }
-
-  /**
-   * Creates an instance of PlaylistNextScreen.
-   * @memberof PlaylistNextScreen
-   */
-  constructor() {
-    super({name: COMPONENT_NAME});
   }
 
   /**

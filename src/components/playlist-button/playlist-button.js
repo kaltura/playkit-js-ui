@@ -1,8 +1,7 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
-import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {connect} from 'preact-redux';
@@ -26,18 +25,9 @@ const COMPONENT_NAME = 'PlaylistButton';
  *
  * @class PlaylistButton
  * @example <PlaylistButton type="next"/>
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class PlaylistButton extends BaseComponent {
-  /**
-   * Creates an instance of PlaylistButton.
-   * @param {Object} obj obj
-   * @memberof PlaylistButton
-   */
-  constructor(obj: Object) {
-    super({name: `${COMPONENT_NAME}-${obj.type}`});
-  }
-
+class PlaylistButton extends Component {
   /**
    * playlist button click handler
    *

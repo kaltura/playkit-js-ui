@@ -1,12 +1,13 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
-import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {Localizer, Text} from 'preact-i18n';
 import {withPlayer} from '../player';
+import {withEventManager} from 'event/with-event-manager';
+import {withLogger} from 'components/logger';
 
 /**
  * The icon only default timeout
@@ -31,22 +32,16 @@ const COMPONENT_NAME = 'UnmuteIndication';
   null
 )
 @withPlayer
+@withEventManager
+@withLogger(COMPONENT_NAME)
 /**
  * UnmuteIndication component
  *
  * @class UnmuteIndication
  * @example <UnmuteIndication />
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class UnmuteIndication extends BaseComponent {
-  /**
-   * Creates an instance of UnmuteIndication.
-   * @memberof UnmuteIndication
-   */
-  constructor() {
-    super({name: COMPONENT_NAME});
-  }
-
+class UnmuteIndication extends Component {
   /**
    * after component updated, check the fallbackToMutedAutoPlay prop for updating the state of the component
    *
@@ -57,8 +52,8 @@ class UnmuteIndication extends BaseComponent {
    */
   componentDidUpdate(prevProps: Object): void {
     if (!prevProps.fallbackToMutedAutoPlay && this.props.fallbackToMutedAutoPlay) {
-      this.eventManager.listenOnce(this.props.player, this.props.player.Event.PLAYING, () => this._iconOnlyTimeout());
-      this.eventManager.listenOnce(this.props.player, this.props.player.Event.AD_STARTED, () => this._iconOnlyTimeout());
+      this.props.eventManager.listenOnce(this.props.player, this.props.player.Event.PLAYING, () => this._iconOnlyTimeout());
+      this.props.eventManager.listenOnce(this.props.player, this.props.player.Event.AD_STARTED, () => this._iconOnlyTimeout());
     }
   }
 

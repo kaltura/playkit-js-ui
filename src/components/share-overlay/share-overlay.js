@@ -1,15 +1,15 @@
 //@flow
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {Text, Localizer} from 'preact-i18n';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/share';
 import {toHHMMSS, toSecondsFromHHMMSS} from '../../utils/time-format';
-import BaseComponent from '../base';
 import {Overlay} from '../overlay';
 import {default as Icon, IconType} from '../icon';
 import style from '../../styles/style.scss';
 import {CopyButton} from '../copy-button/copy-button';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -138,21 +138,14 @@ const COMPONENT_NAME = 'ShareOverlay';
   mapStateToProps,
   bindActions(actions)
 )
+@withLogger(COMPONENT_NAME)
 /**
  * ShareOverlay component
  *
  * @class ShareOverlay
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class ShareOverlay extends BaseComponent {
-  /**
-   * Creates an instance of ShareOverlay.
-   * @memberof ShareOverlay
-   */
-  constructor() {
-    super({name: COMPONENT_NAME});
-  }
-
+class ShareOverlay extends Component {
   /**
    * before component mount, set initial state
    *

@@ -1,11 +1,11 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
-import BaseComponent from '../base';
 import {Text} from 'preact-i18n';
 import {PLAYER_SIZE} from '../shell/shell';
 import {withPlayer} from '../player';
+import {withLogger} from 'components/logger';
 
 const COMPONENT_NAME = 'Logo';
 
@@ -22,27 +22,21 @@ const mapStateToProps = state => ({
 
 @connect(mapStateToProps)
 @withPlayer
+@withLogger(COMPONENT_NAME)
 /**
  * Logo component
  *
  * @class Logo
  * @example <Logo />
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class Logo extends BaseComponent {
+class Logo extends Component {
   /**
    * should render component
    * @returns {boolean} - whether to render the component
    */
   _shouldRender(): boolean {
     return !(Object.keys(this.props.config).length === 0 && this.props.config.constructor === Object);
-  }
-  /**
-   * Creates an instance of Logo.
-   * @memberof Logo
-   */
-  constructor() {
-    super({name: COMPONENT_NAME});
   }
 
   /**

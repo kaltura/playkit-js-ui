@@ -8,6 +8,7 @@ import {actions as shellActions} from '../../reducers/shell';
 import {actions as engineActions} from '../../reducers/engine';
 import {KeyMap} from '../../utils/key-map';
 import {withPlayer} from '../player';
+import {withEventManager} from 'event/with-event-manager';
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -65,6 +66,8 @@ const PLAYER_BREAK_POINTS: {[size: string]: number} = {
   mapStateToProps,
   bindActions(Object.assign({}, shellActions, engineActions))
 )
+@withPlayer
+@withEventManager
 /**
  * Shell component
  *
@@ -212,8 +215,8 @@ class Shell extends BaseComponent {
     const {player, forceTouchUI} = this.props;
     this.props.updateIsMobile(player.env.isTablet || player.env.isMobile || forceTouchUI);
     this._onWindowResize();
-    this.eventManager.listen(player, player.Event.RESIZE, () => this._onWindowResize());
-    this.eventManager.listen(player, player.Event.FIRST_PLAY, () => this._onWindowResize());
+    this.props.eventManager.listen(player, player.Event.RESIZE, () => this._onWindowResize());
+    this.props.eventManager.listen(player, player.Event.FIRST_PLAY, () => this._onWindowResize());
   }
 
   /**
@@ -239,7 +242,6 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   componentWillUnmount(): void {
-    super.componentWillUnmount();
     this._clearHoverTimeout();
   }
 
@@ -381,5 +383,4 @@ class Shell extends BaseComponent {
   }
 }
 
-const wrappedShell = withPlayer(Shell);
-export {wrappedShell as Shell, CONTROL_BAR_HOVER_DEFAULT_TIMEOUT, PLAYER_SIZE};
+export {Shell, CONTROL_BAR_HOVER_DEFAULT_TIMEOUT, PLAYER_SIZE};

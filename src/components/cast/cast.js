@@ -1,10 +1,11 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
-import BaseComponent from '../base';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 import {actions} from '../../reducers/backdrop';
 import {withPlayer} from '../player';
+import {withEventManager} from 'event/with-event-manager';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -23,22 +24,16 @@ const COMPONENT_NAME = 'Cast';
   actions
 )
 @withPlayer
+@withEventManager
+@withLogger(COMPONENT_NAME)
 /**
  * Cast component
  *
  * @class Cast
  * @example <Cast />
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class Cast extends BaseComponent {
-  /**
-   * Creates an instance of ChromecastControl.
-   * @memberof Cast
-   */
-  constructor() {
-    super({name: COMPONENT_NAME});
-  }
-
+class Cast extends Component {
   /**
    * On click set the backdrop to visible.
    * If cast session start failed remove the backdrop.
@@ -47,7 +42,7 @@ class Cast extends BaseComponent {
    */
   onClick(): void {
     this.props.updateBackdropVisibility(true);
-    this.eventManager.listenOnce(this.props.player, this.props.player.Event.Cast.CAST_SESSION_START_FAILED, () =>
+    this.props.eventManager.listenOnce(this.props.player, this.props.player.Event.Cast.CAST_SESSION_START_FAILED, () =>
       this.props.updateBackdropVisibility(false)
     );
   }

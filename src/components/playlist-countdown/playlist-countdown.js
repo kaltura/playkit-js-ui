@@ -1,12 +1,12 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
-import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {connect} from 'preact-redux';
 import {withPlayer} from '../player';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -26,14 +26,15 @@ const COMPONENT_NAME = 'PlaylistCountdown';
 
 @connect(mapStateToProps)
 @withPlayer
+@withLogger(COMPONENT_NAME)
 /**
  * PlaylistCountdown component
  *
  * @class PlaylistCountdown
  * @example <PlaylistCountdown type="next"/>
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class PlaylistCountdown extends BaseComponent {
+class PlaylistCountdown extends Component {
   /**
    * should render component
    * @param {*} props - component props
@@ -47,14 +48,6 @@ class PlaylistCountdown extends BaseComponent {
       props.player.playlist.countdown.showing &&
       (props.player.playlist.options.autoContinue || props.player.playlist.options.loop)
     );
-  }
-
-  /**
-   * Creates an instance of PlaylistCountdown.
-   * @memberof PlaylistCountdown
-   */
-  constructor() {
-    super({name: COMPONENT_NAME});
   }
 
   /**
@@ -75,7 +68,7 @@ class PlaylistCountdown extends BaseComponent {
    * @memberof PlaylistCountdown
    */
   cancelNext(e: any): void {
-    this.logger.debug('Cancel auto play next item');
+    this.props.logger.debug('Cancel auto play next item');
     e.stopPropagation();
     this.setState({canceled: true});
   }

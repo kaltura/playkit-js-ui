@@ -1,12 +1,12 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
-import BaseComponent from '../base';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 import {IconType} from '../icon/index';
 import {Icon} from '../icon/icon';
 import {Localizer, Text} from 'preact-i18n';
 import {withPlayer} from '../player';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -25,14 +25,15 @@ const COMPONENT_NAME = 'CastAfterPlay';
   null
 )
 @withPlayer
+@withLogger(COMPONENT_NAME)
 /**
  * CastAfterPlay component
  *
  * @class CastAfterPlay
  * @example <CastAfterPlay />
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class CastAfterPlay extends BaseComponent {
+class CastAfterPlay extends Component {
   /**
    * @static
    * @type {Object} - Component default props
@@ -40,14 +41,6 @@ class CastAfterPlay extends BaseComponent {
   static defaultProps: Object = {
     icon: IconType.CastBrand
   };
-
-  /**
-   * Creates an instance of CastOverlay.
-   * @memberof CastAfterPlay
-   */
-  constructor() {
-    super({name: COMPONENT_NAME});
-  }
 
   /**
    * on click call the stop casting API.

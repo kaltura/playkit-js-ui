@@ -1,10 +1,10 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
-import BaseComponent from '../base';
 import {Localizer, Text} from 'preact-i18n';
 import {withPlayer} from '../player';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -22,22 +22,15 @@ const COMPONENT_NAME = 'AdSkip';
 
 @connect(mapStateToProps)
 @withPlayer
+@withLogger(COMPONENT_NAME)
 /**
  * AdSkip component
  *
  * @class AdSkip
  * @example <AdSkip />
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class AdSkip extends BaseComponent {
-  /**
-   * Creates an instance of AdSkip.
-   * @memberof AdSkip
-   */
-  constructor() {
-    super({name: COMPONENT_NAME});
-  }
-
+class AdSkip extends Component {
   /**
    * getting the number value of seconds left to be able to skip ad
    *

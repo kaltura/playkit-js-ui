@@ -1,7 +1,6 @@
 //@flow
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
-import BaseComponent from '../base';
 import {TimeDisplay} from '../time-display';
 
 /**
@@ -21,17 +20,9 @@ const COMPONENT_NAME = 'TimeDisplayAdsContainer';
  *
  * @class TimeDisplayAdsContainer
  * @example <TimeDisplayAdsContainer format='-left seconds left' />
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class TimeDisplayAdsContainer extends BaseComponent {
-  /**
-   * Creates an instance of TimeDisplayAdsContainer.
-   * @memberof TimeDisplayAdsContainer
-   */
-  constructor() {
-    super({name: COMPONENT_NAME});
-  }
-
+class TimeDisplayAdsContainer extends Component {
   /**
    * render component
    *

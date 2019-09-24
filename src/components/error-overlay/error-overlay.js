@@ -1,13 +1,13 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
-import BaseComponent from '../base';
 import {Overlay} from '../overlay';
 import {Text} from 'preact-i18n';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/engine';
 import {CopyButton} from '../copy-button';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -24,23 +24,15 @@ const COMPONENT_NAME = 'ErrorOverlay';
   mapStateToProps,
   bindActions(actions)
 )
+@withLogger(COMPONENT_NAME)
 /**
  * errorOverlay component
  *
  * @class errorOverlay
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class ErrorOverlay extends BaseComponent {
+class ErrorOverlay extends Component {
   sessionEl: HTMLDivElement;
-
-  /**
-   * Creates an instance of ErrorObject.
-   * @param {Object} obj obj
-   * @memberof ErrorObejct
-   */
-  constructor(obj: any) {
-    super({name: COMPONENT_NAME, player: obj.player});
-  }
 
   /**
    * copy input text based on input element.

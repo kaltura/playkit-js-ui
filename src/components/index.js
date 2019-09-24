@@ -32,6 +32,7 @@ export {PrePlaybackPlayOverlay} from './pre-playback-play-overlay';
 export {Forward} from './forward';
 export {SeekBarLivePlaybackContainer} from './seekbar-live-playback-container';
 export {SeekBarPlaybackContainer} from './seekbar-playback-container';
+export * from './logger';
 
 export {ShareOverlay} from './share-overlay';
 export {Shell} from './shell';

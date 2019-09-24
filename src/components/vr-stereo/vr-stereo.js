@@ -1,8 +1,7 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
-import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {actions as engineActions} from '../../reducers/engine';
@@ -10,6 +9,7 @@ import {bindActions} from '../../utils/bind-actions';
 import {connect} from 'preact-redux';
 import {actions} from '../../reducers/shell';
 import {withPlayer} from '../player';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -29,14 +29,15 @@ const COMPONENT_NAME = 'VrStereo';
   bindActions(Object.assign({}, actions, engineActions))
 )
 @withPlayer
+@withLogger(COMPONENT_NAME)
 /**
  * VrStereo component
  *
  * @class VrStereo
  * @example <VrStereo />
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class VrStereo extends BaseComponent {
+class VrStereo extends Component {
   /**
    * should render component
    * @returns {boolean} - whether to render the component
@@ -45,14 +46,6 @@ class VrStereo extends BaseComponent {
     const componentConfig = this.props.config;
     return this.props.isVr && !(Object.keys(componentConfig).length === 0 && componentConfig.constructor === Object);
   }
-  /**
-   * Creates an instance of VrStereo.
-   * @memberof VrStereo
-   */
-  constructor() {
-    super({name: COMPONENT_NAME});
-  }
-
   /**
    * Vr-Stereo click handler
    *

@@ -1,10 +1,10 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
-import BaseComponent from '../base';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 import {Localizer, Text} from 'preact-i18n';
 import {withPlayer} from '../player';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -21,22 +21,15 @@ const COMPONENT_NAME = 'PictureInPictureOverlay';
 
 @connect(mapStateToProps)
 @withPlayer
+@withLogger(COMPONENT_NAME)
 /**
  * PictureInPictureOverlay component
  *
  * @class PictureInPictureOverlay
  * @example <PictureInPictureOverlay />
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class PictureInPictureOverlay extends BaseComponent {
-  /**
-   * Creates an instance of PictureInPictureOverlay.
-   * @memberof PictureInPictureOverlay
-   */
-  constructor() {
-    super({name: COMPONENT_NAME});
-  }
-
+class PictureInPictureOverlay extends Component {
   /**
    * The button is clicked, play the video in the player instead of in picture in picture
    * @returns {void}

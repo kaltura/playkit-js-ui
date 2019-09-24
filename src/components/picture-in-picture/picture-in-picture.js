@@ -1,13 +1,13 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
-import BaseComponent from '../base';
 import {connect} from 'preact-redux';
 import {PLAYER_SIZE} from '../shell/shell';
 import {withPlayer} from '../player';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -23,21 +23,14 @@ const COMPONENT_NAME = 'PictureInPicture';
 
 @connect(mapStateToProps)
 @withPlayer
+@withLogger(COMPONENT_NAME)
 /**
  * PictureInPicture component
  *
  * @class PictureInPicture
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class PictureInPicture extends BaseComponent {
-  /**
-   * Creates an instance of PictureInPicture.
-   * @memberof PictureInPicture
-   */
-  constructor() {
-    super({name: COMPONENT_NAME});
-  }
-
+class PictureInPicture extends Component {
   /**
    * On PIP icon clicked
    * @returns {void}

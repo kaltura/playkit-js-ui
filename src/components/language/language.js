@@ -14,6 +14,8 @@ import Portal from 'preact-portal';
 import {KeyMap} from '../../utils/key-map';
 import {PLAYER_SIZE} from '../shell/shell';
 import {withPlayer} from '../player';
+import {withEventManager} from 'event/with-event-manager';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -35,6 +37,8 @@ const COMPONENT_NAME = 'Language';
   bindActions(actions)
 )
 @withPlayer
+@withEventManager
+@withLogger(COMPONENT_NAME)
 /**
  * Language component
  *
@@ -72,7 +76,7 @@ class Language extends BaseComponent {
    * @memberof Language
    */
   componentDidMount() {
-    this.eventManager.listen(document, 'click', e => this.handleClickOutside(e));
+    this.props.eventManager.listen(document, 'click', e => this.handleClickOutside(e));
   }
 
   /**
