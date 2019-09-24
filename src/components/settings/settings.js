@@ -204,7 +204,7 @@ class Settings extends Component {
     }
 
     if (qualityOptions.length <= 1 && speedOptions.length <= 1) return undefined;
-    if (props.isLive && qualityOptions.length <= 1) return undefined;
+    if (isLive && qualityOptions.length <= 1) return undefined;
     return (
       <div ref={c => (this._controlSettingsElement = c)} className={[style.controlButtonContainer, style.controlSettings].join(' ')}>
         <Localizer>
