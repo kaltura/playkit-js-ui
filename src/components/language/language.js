@@ -195,7 +195,11 @@ class LanguageControl extends BaseComponent {
                 onMenuChosen={textTrack => this.onCaptionsChange(textTrack)}
               />
             )}
-            {textOptions.length <= 1 ? undefined : <KeyboardAccessibleAdvancedCaptionsAnchor onSelect={this.toggleCVAAOverlay.bind(this)} />}
+            {textOptions.length <= 1 ? (
+              undefined
+            ) : (
+              <KeyboardAccessibleAdvancedCaptionsAnchor onMenuChosen={() => this.toggleCVAAOverlay()} onClose={() => this.onControlButtonClick()} />
+            )}
           </SmartContainer>
         )}
         {this.state.cvaaOverlay ? (
@@ -252,6 +256,7 @@ class AdvancedCaptionsAnchor extends Component {
    */
   componentDidMount(): void {
     this.props.setSelectCallback(this.props.onMenuChosen);
+    this.props.setCloseCallback(this.props.onClose);
   }
 
   /**
@@ -269,8 +274,7 @@ class AdvancedCaptionsAnchor extends Component {
             props.pushRef(el);
           }
         }}
-        className={style.smartContainerItem}
-        onSelect={props.onMenuChosen}>
+        className={style.smartContainerItem}>
         <a className={style.advancedCaptionsMenuLink} onClick={() => this.props.onMenuChosen()}>
           <Text id="language.advanced_captions_settings" />
         </a>
