@@ -13,7 +13,6 @@ export const popupWithKeyboardA11y: Function = (WrappedComponent: BaseComponent)
     _accessibleChildren: Array<HTMLElement> = [];
     _activeElement: ?HTMLElement;
     _previouslyActiveElement: ?HTMLElement;
-    _element: ?HTMLElement;
 
     /**
      * after component mounted, listen to events
@@ -29,6 +28,12 @@ export const popupWithKeyboardA11y: Function = (WrappedComponent: BaseComponent)
       }
     }
 
+    /**
+     * handles keydown events
+     * @param {KeyboardEvent} e - the keyboard event
+     * @returns {void}
+     * @memberof HOC
+     */
     onKeyDown(e: KeyboardEvent): void {
       switch (e.keyCode) {
         case KeyMap.DOWN:

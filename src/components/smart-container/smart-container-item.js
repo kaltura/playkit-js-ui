@@ -5,7 +5,6 @@ import {DropDown} from '../dropdown';
 import {default as Icon} from '../icon';
 import {popupItemWithKeyboardA11y} from '../../utils/popup-item-keyboard-accessibility';
 
-
 /**
  * SmartContainerItem component
  *
@@ -15,6 +14,12 @@ import {popupItemWithKeyboardA11y} from '../../utils/popup-item-keyboard-accessi
 class SmartContainerItem extends Component {
   _parentSelectCallback: Function;
 
+  /**
+   * after component mounted, set selected and close callbacks for keyboard accessibility item hoc
+   *
+   * @returns {void}
+   * @memberof SmartContainerItem
+   */
   componentDidMount(): void {
     this.props.setSelectCallback(this._parentSelectCallback);
     this.props.setCloseCallback(this.props.onClose);
@@ -50,18 +55,14 @@ class SmartContainerItem extends Component {
         </label>
         <DropDown
           name={label}
-          onSelect={o => props.onSelect(o)}
+          onMenuChosen={o => props.onMenuChosen(o)}
           options={props.options}
           registerParentSelectedCallback={callback => {
-            this.registerParentSelectedCallback(callback);
+            this._parentSelectCallback = callback;
           }}
         />
       </div>
     );
-  }
-
-  registerParentSelectedCallback(callback) {
-    this._parentSelectCallback = callback;
   }
 }
 

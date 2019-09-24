@@ -39,6 +39,11 @@ class DropDown extends Component {
   componentWillMount() {
     this.setState({dropMenuActive: false});
   }
+  /**
+   * after component mounted, set the callback to be called when parent selected
+   * @returns {void}
+   * @memberof DropDown
+   */
   componentDidMount(): void {
     if (this.props.registerParentSelectedCallback) {
       this.props.registerParentSelectedCallback(this.toggleDropDown.bind(this));
@@ -63,8 +68,8 @@ class DropDown extends Component {
    * @returns {void}
    * @memberof DropDown
    */
-  onSelect(option: Object): void {
-    this.props.onSelect(option);
+  onMenuChosen(option: Object): void {
+    this.props.onMenuChosen(option);
     this.setState({dropMenuActive: false});
     this._dropdownButton.focus();
   }
@@ -124,7 +129,7 @@ class DropDown extends Component {
    * @memberof DropDown
    */
   renderNativeSelect(): React$Element<any> {
-    return <Menu options={this.props.options} onSelect={o => this.onSelect(o)} onClose={() => this.onClose()} />;
+    return <Menu options={this.props.options} onMenuChosen={o => this.onMenuChosen(o)} onClose={() => this.onClose()} />;
   }
 
   /**
@@ -159,13 +164,18 @@ class DropDown extends Component {
         {!this.state.dropMenuActive ? (
           undefined
         ) : (
-          <Menu parentEl={this._el} options={props.options} onSelect={o => this.onSelect(o)} onClose={() => this.onClose()} />
+          <Menu parentEl={this._el} options={props.options} onMenuChosen={o => this.onMenuChosen(o)} onClose={() => this.onClose()} />
         )}
       </div>
     );
   }
 
-  toggleDropDown() {
+  /**
+   * toggles the dropdown menu window
+   * @returns {void}
+   * @memberof DropDown
+   */
+  toggleDropDown(): void {
     this.setState({dropMenuActive: !this.state.dropMenuActive});
   }
 }

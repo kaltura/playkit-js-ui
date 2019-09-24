@@ -14,7 +14,6 @@ import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {Text} from 'preact-i18n';
 import {Component} from 'preact/src/preact';
-import {popupItemWithKeyboardA11y} from '../../utils/popup-item-keyboard-accessibility';
 import {popupWithKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
 
 /**
@@ -197,7 +196,19 @@ class CVAAOverlay extends BaseComponent {
   }
 }
 
+/**
+ * CustomCaptionsWindow component to be wrapped with popupWithKeyboardA11y
+ * @class CustomCaptionsWindow
+ * @extends {Component}
+ */
 class CustomCaptionsWindow extends Component {
+  /**
+   * render component
+   *
+   * @param {*} props - component props
+   * @returns {React$Element} - component element
+   * @memberof CustomCaptionsWindow
+   */
   render(props: any): React$Element<any> {
     const fontFamily = props.player.TextStyle.FontFamily;
     const edgeStyles = props.player.TextStyle.EdgeStyles;
@@ -248,7 +259,7 @@ class CustomCaptionsWindow extends Component {
                 props.setFirstFocusedElement(el);
               }}
               tabbable="true"
-              onSelect={fontScale => props.changeCustomStyle({fontScale})}
+              onMenuChosen={fontScale => props.changeCustomStyle({fontScale})}
               options={fontSizeOptions}
             />
           </div>
@@ -256,19 +267,19 @@ class CustomCaptionsWindow extends Component {
             <label>
               <Text id={'cvaa.font_color_label'} />
             </label>
-            <DropDown tabbable="true" onSelect={fontColor => props.changeCustomStyle({fontColor})} options={fontColorOptions} />
+            <DropDown tabbable="true" onMenuChosen={fontColor => props.changeCustomStyle({fontColor})} options={fontColorOptions} />
           </div>
           <div className={[style.formGroupRow, style.fontFamily].join(' ')}>
             <label>
               <Text id={'cvaa.font_family_label'} />
             </label>
-            <DropDown tabbable="true" onSelect={fontFamily => props.changeCustomStyle({fontFamily})} options={fontFamilyOptions} />
+            <DropDown tabbable="true" onMenuChosen={fontFamily => props.changeCustomStyle({fontFamily})} options={fontFamilyOptions} />
           </div>
           <div className={[style.formGroupRow, style.fontStyle].join(' ')}>
             <label>
               <Text id={'cvaa.font_style_label'} />
             </label>
-            <DropDown tabbable="true" onSelect={fontEdge => props.changeCustomStyle({fontEdge})} options={fontStyleOptions} />
+            <DropDown tabbable="true" onMenuChosen={fontEdge => props.changeCustomStyle({fontEdge})} options={fontStyleOptions} />
           </div>
           <div className={[style.formGroupRow, style.fontOpacity].join(' ')}>
             <label>
@@ -285,7 +296,7 @@ class CustomCaptionsWindow extends Component {
             <label>
               <Text id={'cvaa.background_color_label'} />
             </label>
-            <DropDown tabbable="true" onSelect={backgroundColor => props.changeCustomStyle({backgroundColor})} options={backgroundColorOptions} />
+            <DropDown tabbable="true" onMenuChosen={backgroundColor => props.changeCustomStyle({backgroundColor})} options={backgroundColorOptions} />
           </div>
           <div className={[style.formGroupRow, style.backgroundOpacity].join(' ')}>
             <label>
@@ -323,7 +334,19 @@ class CustomCaptionsWindow extends Component {
   }
 }
 
+/**
+ * MainWindow component to be wrapped with popupWithKeyboardA11y
+ * @class MainWindow
+ * @extends {Component}
+ */
 class MainWindow extends Component {
+  /**
+   * render component
+   *
+   * @param {*} props - component props
+   * @returns {React$Element} - component element
+   * @memberof MainWindow
+   */
   render(props: any): React$Element<any> {
     return (
       <div className={props.state.activeWindow === cvaaOverlayState.Main ? [style.overlayScreen, style.active].join(' ') : style.overlayScreen}>

@@ -160,13 +160,13 @@ class LanguageControl extends BaseComponent {
    * @returns {React$Element} - component
    * @memberof LanguageControl
    */
-  renderAll(audioOptions: Array<Object>, textOptions: Array<Object>, props: any): React$Element<any> {
+  renderAll(audioOptions: Array<Object>, textOptions: Array<Object>): React$Element<any> {
     const portalSelector = `#${this.player.config.targetId} .overlay-portal`;
     return (
       <div ref={c => (this._controlLanguageElement = c)} className={[style.controlButtonContainer, style.controlLanguage].join(' ')}>
         <button
           tabIndex="0"
-          aria-label={props.buttonAriaLabel}
+          aria-label={this.props.buttonAriaLabel}
           className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
           onClick={() => this.onControlButtonClick()}>
           <Icon type={IconType.Language} />
@@ -180,9 +180,9 @@ class LanguageControl extends BaseComponent {
             ) : (
               <SmartContainerItem
                 icon="audio"
-                label={props.audioLabelText}
+                label={this.props.audioLabelText}
                 options={audioOptions}
-                onSelect={audioTrack => this.onAudioChange(audioTrack)}
+                onMenuChosen={audioTrack => this.onAudioChange(audioTrack)}
               />
             )}
             {textOptions.length <= 1 ? (
@@ -190,9 +190,9 @@ class LanguageControl extends BaseComponent {
             ) : (
               <SmartContainerItem
                 icon="captions"
-                label={props.captionsLabelText}
+                label={this.props.captionsLabelText}
                 options={textOptions}
-                onSelect={textTrack => this.onCaptionsChange(textTrack)}
+                onMenuChosen={textTrack => this.onCaptionsChange(textTrack)}
               />
             )}
             {textOptions.length <= 1 ? undefined : <KeyboardAccessibleAdvancedCaptionsAnchor onSelect={this.toggleCVAAOverlay.bind(this)} />}
@@ -231,18 +231,35 @@ class LanguageControl extends BaseComponent {
     }));
 
     if (audioOptions.length > 1 || textOptions.length > 1) {
-      return this.renderAll(audioOptions, textOptions, props);
+      return this.renderAll(audioOptions, textOptions);
     } else {
       return undefined;
     }
   }
 }
 
+/**
+ * AdvancedCaptionsAnchor component to be wrapped with popupItemWithKeyboardA11y
+ * @class AdvancedCaptionsAnchor
+ * @extends {Component}
+ */
 class AdvancedCaptionsAnchor extends Component {
+  /**
+   * after component mounted, set the callback to be called when selected
+   *
+   * @returns {void}
+   * @memberof AdvancedCaptionsAnchor
+   */
   componentDidMount(): void {
-    this.props.setSelectCallback(this.props.onSelect);
+    this.props.setSelectCallback(this.props.onMenuChosen);
   }
 
+  /**
+   * rendered AdvancedCaptionsAnchor jsx
+   * @param {*} props - component props
+   * @returns {?React$Element} - main state element
+   * @memberof AdvancedCaptionsAnchor
+   */
   render(props: any): React$Element<any> {
     return (
       <div
@@ -253,8 +270,8 @@ class AdvancedCaptionsAnchor extends Component {
           }
         }}
         className={style.smartContainerItem}
-        onSelect={props.onSelect}>
-        <a className={style.advancedCaptionsMenuLink} onClick={() => this.props.onSelect()}>
+        onSelect={props.onMenuChosen}>
+        <a className={style.advancedCaptionsMenuLink} onClick={() => this.props.onMenuChosen()}>
           <Text id="language.advanced_captions_settings" />
         </a>
       </div>

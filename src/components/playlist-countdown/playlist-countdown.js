@@ -172,7 +172,7 @@ class PlaylistCountdown extends BaseComponent {
         className={className.join(' ')}
         onKeyDown={e => {
           if (e.keyCode === KeyMap.ENTER) {
-            this.onClick(e);
+            this.onClick();
           }
         }}
         onClick={() => this.onClick()}>

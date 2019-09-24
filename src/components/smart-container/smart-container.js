@@ -6,7 +6,6 @@ import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
 import Portal from 'preact-portal';
 import {Overlay} from '../overlay';
-import {KeyMap} from '../../utils/key-map';
 import {PLAYER_SIZE} from '../shell/shell';
 import {popupWithKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
 
@@ -82,14 +81,17 @@ class SmartContainer extends Component {
         </Overlay>
       </Portal>
     ) : (
-      <div
-        tabIndex="-1"
-        className={[style.smartContainer, style.top, style.left].join(' ')}>
+      <div tabIndex="-1" className={[style.smartContainer, style.top, style.left].join(' ')}>
         {this.renderChildren(props)}
       </div>
     );
   }
 
+  /**
+   * adds the children pushref prop to forward to keyboard accessibility popup hoc
+   * @param {any} props - smart containers props
+   * @returns {React$Element<any>} the rendered jsx
+   */
   renderChildren(props: any): React$Element<any> {
     const children = props.children.map(child => {
       if (child) {

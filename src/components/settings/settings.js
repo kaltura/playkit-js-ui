@@ -225,12 +225,17 @@ class SettingsControl extends BaseComponent {
             {qualityOptions.length <= 1 ? (
               ''
             ) : (
-              <SmartContainerItem icon="quality" label={props.qualityLabelText} options={qualityOptions} onSelect={o => this.onQualityChange(o)} />
+              <SmartContainerItem
+                icon="quality"
+                label={props.qualityLabelText}
+                options={qualityOptions}
+                onMenuChosen={o => this.onQualityChange(o)}
+              />
             )}
             {props.isLive || speedOptions.length <= 1 ? (
               ''
             ) : (
-              <SmartContainerItem icon="speed" label={props.speedLabelText} options={speedOptions} onSelect={o => this.onSpeedChange(o)} />
+              <SmartContainerItem icon="speed" label={props.speedLabelText} options={speedOptions} onMenuChosen={o => this.onSpeedChange(o)} />
             )}
           </SmartContainer>
         )}

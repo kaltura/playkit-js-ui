@@ -14,8 +14,7 @@ export const popupItemWithKeyboardA11y: Function = (WrappedComponent: BaseCompon
 
     /**
      * render component
-     *
-     * @param {*} props - component props
+     * @param {any} props - component props
      * @returns {React$Element} - component element
      * @memberof HOC
      */
@@ -31,14 +30,33 @@ export const popupItemWithKeyboardA11y: Function = (WrappedComponent: BaseCompon
       );
     }
 
-    setSelectCallback(callback: Function) {
+    /**
+     * sets the callback to execute if item is selected (enter pressed)
+     * @param {Function} callback - the callback function
+     * @returns {void}
+     * @memberof HOC
+     */
+    setSelectCallback(callback: Function): void {
       this._selectCallback = callback;
     }
 
-    setCloseCallback(callback: Function) {
+    /**
+     * sets the callback to execute if canceled (esc pressed)
+     * @param {Function} callback - the callback function
+     * @returns {void}
+     * @memberof HOC
+     */
+    setCloseCallback(callback: Function): void {
       this._closeCallback = callback;
     }
 
+    /**
+     * handles keydown events
+     * @param {KeyboardEvent} e - the keyboard event
+     * @param {any} props - the keyboard event
+     * @returns {void}
+     * @memberof HOC
+     */
     onKeyDown(e: KeyboardEvent, props: any): void {
       switch (e.keyCode) {
         case KeyMap.ENTER:

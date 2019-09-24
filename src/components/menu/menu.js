@@ -3,7 +3,6 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {default as Icon, IconType} from '../icon';
 import {connect} from 'preact-redux';
-import {KeyMap} from '../../utils/key-map';
 import {bindMethod} from '../../utils/bind-method';
 import {PLAYER_SIZE} from '../shell/shell';
 import {popupWithKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
@@ -146,16 +145,12 @@ class Menu extends Component {
    * @memberof Menu
    */
   onSelect(props: Object): void {
-    this.props.onSelect(props.data.value);
+    this.props.onMenuChosen(props.data.value);
     // Instant select
     this.props.options.filter(t => t.active).forEach(option => {
       option.active = false;
     });
     this.props.options.filter(t => t.value === props.data.value)[0].active = true;
-  }
-
-  onClose(): void {
-    this.props.onClose();
   }
 
   /**
@@ -211,8 +206,10 @@ class Menu extends Component {
             setFirstFocusedElement={props.setFirstFocusedElement}
             addAccessibleChild={props.addAccessibleChild}
             isSelected={this.isSelected}
-            onSelect={this.onSelect.bind(this)}
-            onClose={this.onClose.bind(this)}
+            onSelect={props => {
+              this.onSelect(props);
+            }}
+            onClose={this.props.onClose}
             key={index}
             data={o}
           />
@@ -225,15 +222,32 @@ class Menu extends Component {
 const keyboardAccessibleMenu = popupWithKeyboardA11y(Menu);
 export {keyboardAccessibleMenu as Menu};
 
+/**
+ * MenuItem component to be wrapped as keyboard accessibility item
+ *
+ * @class MenuItem
+ * @extends {Component}
+ */
 class MenuItem extends Component {
   _mounted: boolean = false;
 
+  /**
+   * after component mounted, save the sliderWidth
+   *
+   * @returns {void}
+   * @memberof Slider
+   */
   componentDidMount(): void {
     this.props.setSelectCallback(this.props.onSelect);
     this.props.setCloseCallback(this.props.onClose);
     this._mounted = true;
   }
 
+  /**
+   * the menu item jsx
+   * @param {any} props - MenuItem props
+   * @returns {React$Element<any>} - rendered jsx
+   */
   render(props: any): React$Element<any> {
     return (
       <div
@@ -246,7 +260,7 @@ class MenuItem extends Component {
           }
         }}
         className={props.isSelected(props.data) ? [style.dropdownMenuItem, style.active].join(' ') : style.dropdownMenuItem}
-        onClick={() => this.onSelect(props)}>
+        onClick={() => this.props.onSelect(props)}>
         <span>{props.data.label}</span>
         <span className={style.menuIconContainer} style={`opacity: ${props.isSelected(props.data) ? 1 : 0}`}>
           <Icon type={IconType.Check} />
