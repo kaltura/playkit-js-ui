@@ -23,7 +23,7 @@ const COMPONENT_NAME = 'TimeDisplayPlaybackContainer';
  *
  * @class TimeDisplayPlaybackContainer
  * @example <TimeDisplayPlaybackContainer format='currentTime / duration' />
-  * @extends {Component}
+ * @extends {Component}
  */
 class TimeDisplayPlaybackContainer extends Component {
   /**
