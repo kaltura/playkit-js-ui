@@ -36,7 +36,6 @@ class Menu extends Component {
   state: Object;
   handleClickOutside: Function;
   _menuElement: any;
-  _selectedElement: any;
 
   /**
    * Creates an instance of Menu.
@@ -229,7 +228,7 @@ export {keyboardAccessibleMenu as Menu};
  * @extends {Component}
  */
 class MenuItem extends Component {
-  _mounted: boolean = false;
+  _element: HTMLElement;
 
   /**
    * after component mounted, save the sliderWidth
@@ -240,7 +239,7 @@ class MenuItem extends Component {
   componentDidMount(): void {
     this.props.setSelectCallback(this.props.onSelect);
     this.props.setCloseCallback(this.props.onClose);
-    this._mounted = true;
+    this.props.addAccessibleChild(this._element);
   }
 
   /**
@@ -253,10 +252,9 @@ class MenuItem extends Component {
       <div
         tabIndex="-1"
         ref={se => {
-          this._selectedElement = props.isSelected(props.data) ? se : this._selectedElement;
-          props.setFirstFocusedElement(this._selectedElement);
-          if (!this._mounted) {
-            props.addAccessibleChild(se);
+          this._element = se;
+          if (props.isSelected(props.data)) {
+            props.setFirstFocusedElement(se);
           }
         }}
         className={props.isSelected(props.data) ? [style.dropdownMenuItem, style.active].join(' ') : style.dropdownMenuItem}
