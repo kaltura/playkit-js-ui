@@ -17,7 +17,7 @@ import {Component} from 'preact';
  * PlayerProvider component
  *
  * @class EventDispatcherProvider
- * @example <EventDispatcherProvider player={this.player} store={this.store}>...</PlayerProvider>
+ * @example <EventDispatcherProvider player={this.player} store={this.store}>...</EventDispatcherProvider>
  * @extends {Component}
  */
 class EventDispatcherProvider extends Component {
