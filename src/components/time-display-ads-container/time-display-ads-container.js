@@ -2,6 +2,7 @@
 import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 import {TimeDisplay} from '../time-display';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -15,6 +16,7 @@ const mapStateToProps = state => ({
 const COMPONENT_NAME = 'TimeDisplayAdsContainer';
 
 @connect(mapStateToProps)
+@withLogger(COMPONENT_NAME)
 /**
  * TimeDisplayAdsContainer component
  *

@@ -2,6 +2,7 @@
 import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 import {TimeDisplay} from '../time-display';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -16,6 +17,7 @@ const mapStateToProps = state => ({
 const COMPONENT_NAME = 'TimeDisplayPlaybackContainer';
 
 @connect(mapStateToProps)
+@withLogger(COMPONENT_NAME)
 /**
  * TimeDisplayPlaybackContainer component
  *
