@@ -29,10 +29,6 @@ export const withLogger: Function = (name: string) => (WrappedComponent: Compone
      * @memberof LoggerComponent
      */
     render(): React$Element<any> | void {
-      return (
-        <span>
-          <WrappedComponent {...this.props} logger={this.logger} />
-        </span>
-      );
+      return <WrappedComponent {...this.props} logger={this.logger} />;
     }
   };
