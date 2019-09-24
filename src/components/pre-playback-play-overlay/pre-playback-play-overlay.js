@@ -29,6 +29,7 @@ const COMPONENT_NAME = 'PrePlaybackPlayOverlay';
   bindActions(Object.assign({}, loadingActions))
 )
 @withPlayer
+@withPlayer(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
 /**
  * PrePlaybackPlayOverlay component

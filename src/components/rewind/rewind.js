@@ -7,6 +7,7 @@ import {KeyMap} from '../../utils/key-map';
 import {withAnimation} from '../../utils/with-animation';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from 'components/event-dispatcher';
+import {withLogger} from 'components/logger';
 
 const COMPONENT_NAME = 'Rewind';
 
@@ -18,6 +19,7 @@ const COMPONENT_NAME = 'Rewind';
 export const REWIND_DEFAULT_STEP = 10;
 
 @withPlayer
+@withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
 /**
  * Rewind component
