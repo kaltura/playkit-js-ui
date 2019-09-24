@@ -10,6 +10,7 @@ import {default as Icon, IconType} from '../icon';
 import style from '../../styles/style.scss';
 import {CopyButton} from '../copy-button/copy-button';
 import {withLogger} from 'components/logger';
+import {withPlayer} from 'components/player';
 
 /**
  * mapping state to props
@@ -138,6 +139,7 @@ const COMPONENT_NAME = 'ShareOverlay';
   mapStateToProps,
   bindActions(actions)
 )
+@withPlayer
 @withLogger(COMPONENT_NAME)
 /**
  * ShareOverlay component
