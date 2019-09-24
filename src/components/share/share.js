@@ -14,7 +14,6 @@ import {withLogger} from 'components/logger';
 /**
  * mapping state to props
  * @param {*} state - redux store state
- * @example <ShareOverlay />
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
