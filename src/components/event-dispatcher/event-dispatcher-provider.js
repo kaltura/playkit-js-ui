@@ -22,14 +22,35 @@ import {Component} from 'preact';
  */
 class EventDispatcherProvider extends Component {
   /**
+   * bounded component click handler
+   * @param {Object} payload - the click data payload
+   * @returns {void}
+   * @private
+   */
+  _notifyClick = (payload: Object) => onClickableComponentsHandler(this.props.store, payload, this.props.player);
+  /**
+   * bounded component state change handler
+   * @param {Object} payload - the click data payload
+   * @returns {void}
+   * @private
+   */
+  _notifyChange = (payload: Object) => onChangeableComponentsHandler(this.props.store, payload, this.props.player);
+  /**
+   * bounded hover change  handler
+   * @param {Object} payload - the click data payload
+   * @returns {void}
+   * @private
+   */
+  _notifyHoverChange = (payload: Object) => onPlayerHoverStateChangeHandler(this.props.store, payload, this.props.player);
+  /**
    * create context player
    * @returns {void}
    */
   getChildContext() {
     return {
-      notifyClick: (payload: Object) => onClickableComponentsHandler(this.props.store, payload, this.props.player),
-      notifyChange: (payload: Object) => onChangeableComponentsHandler(this.props.store, payload, this.props.player),
-      notifyHoverChange: (payload: Object) => onPlayerHoverStateChangeHandler(this.props.store, payload, this.props.player)
+      notifyClick: this._notifyClick,
+      notifyChange: this._notifyChange,
+      notifyHoverChange: this._notifyHoverChange
     };
   }
 

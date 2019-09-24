@@ -9,6 +9,7 @@ import {KeyMap} from '../../utils/key-map';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withEventDispatcher} from 'components/event-dispatcher';
+import {withLogger} from 'components/logger';
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -70,6 +71,7 @@ const COMPONENT_NAME = 'Shell';
 )
 @withPlayer
 @withEventManager
+@withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
 /**
  * Shell component
