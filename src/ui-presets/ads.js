@@ -29,7 +29,7 @@ function AdsUI(props: any): ?React$Element<any> {
         <Loading />
         <div className={style.playerGui} id="player-gui">
           <UnmuteIndication hasTopBar />
-          <TopBar>
+          <TopBar disabled={true}>
             <div className={style.leftControls}>{isBumper(props) ? undefined : <AdNotice />}</div>
           </TopBar>
         </div>
