@@ -1,5 +1,5 @@
 //@flow
-import {h, Component} from 'preact/dist/preact';
+import {h, Component} from 'preact';
 
 /**
  * withPlayer component

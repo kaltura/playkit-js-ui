@@ -1,61 +1,64 @@
 //@flow
-import {BaseComponent} from '../components/base';
-import {h} from 'preact';
+import {h, Component} from 'preact';
+import {withEventManager} from 'event/with-event-manager';
 
 /**
- * @param {BaseComponent} WrappedComponent - The component to animate
+ * @param {Component} WrappedComponent - The component to animate
  * @param {string} cssClass - the CSS class to add/remove for the animation
- * @returns {BaseComponent} - HOC that handles animation
+ * @returns {Component} - HOC that handles animation
  */
-export const withAnimation: Function = (WrappedComponent: BaseComponent, cssClass: string): typeof BaseComponent =>
-  class extends BaseComponent {
-    element: HTMLElement;
+export const withAnimation: Function = (WrappedComponent: Component, cssClass: string): typeof Component =>
+  withEventManager(
+    class AnimationComponent extends Component {
+      element: HTMLElement;
 
-    /**
-     * adds the animation class
-     *
-     * @returns {void}
-     * @memberof HOC
-     */
-    animate(): void {
-      this.element.classList.add(cssClass);
-    }
-
-    /**
-     * after component mounted, listen to events
-     *
-     * @returns {void}
-     * @memberof HOC
-     */
-    componentDidMount() {
-      this.eventManager.listen(this.element, 'animationend', () => {
+      /**
+       * When component is mounted create event manager instance.
+       * @returns {void}
+       *
+       * @memberof AnimationComponent
+       */
+      componentDidMount(): void {
+        this.props.eventManager.listen(this.element, 'animationend', () => {
+          this.element.classList.remove(cssClass);
+        });
+      }
+      /**
+       * Before component is unmounted remove all event manager listeners.
+       * @returns {void}
+       *∏
+       * @memberof AnimationComponent
+       */
+      componentWillUnmount(): void {
         this.element.classList.remove(cssClass);
-      });
-    }
+      }
 
-    /**
-     * before component unmounted, remove event listeners
-     *
-     * @returns {void}
-     * @memberof HOC
-     */
-    componentWillUnmount(): void {
-      super.componentWillUnmount();
-      this.element.classList.remove(cssClass);
-    }
+      /**
+       * adds the animation class
+       *
+       * @returns {void}
+       * @memberof AnimationComponent
+       */
+      animate(): void {
+        this.element.classList.add(cssClass);
+      }
 
-    /**
-     * render component
-     *
-     * @param {*} props - component props
-     * @returns {React$Element} - component element
-     * @memberof HOC
-     */
-    render(props: any): React$Element<any> | void {
-      return h(WrappedComponent, {
-        ...props,
-        innerRef: ref => (this.element = ref),
-        animate: this.animate.bind(this)
-      });
+      /**
+       * render component
+       *
+       * @returns {React$Element} - component element
+       * @memberof HOC
+       */
+      render(): React$Element<any> | void {
+        return (
+          <WrappedComponent
+            {...this.props}
+            innerRef={ref => (this.element = ref)}
+            animate={() => {
+              this.animate();
+            }}
+          />
+        );
+      }
     }
-  };
+  );
