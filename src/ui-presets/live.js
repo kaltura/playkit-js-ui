@@ -58,18 +58,18 @@ export function LiveUI(props: any): React$Element<any> {
             <LiveTag />
           </Container>
           <Container className={style.rightControls} name={'BottomBarRightControls'}>
-            {VrStereo.shouldRender(props) ? <VrStereo /> : undefined}
+            <VrStereo />
             <Volume />
             <Language />
             <Settings />
             <Cast />
             <PictureInPicture />
             <Fullscreen />
-            {Logo.shouldRender(props) ? <Logo /> : undefined}
+            <Logo />
           </Container>
         </BottomBar>
       </Container>
-      {Watermark._shouldRender(props) ? <Watermark /> : undefined}
+      <Watermark />
       <PrePlaybackPlayOverlay />
       <CastBeforePlay />
       <PictureInPictureOverlay />
