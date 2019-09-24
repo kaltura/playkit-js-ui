@@ -20,6 +20,7 @@ export {CVAAOverlay} from './cvaa-overlay';
 export {DropDown} from './dropdown';
 export {EngineConnector} from './engine-connector';
 export {ErrorOverlay} from './error-overlay';
+export * from './event-dispatcher';
 export {Icon, IconType} from './icon';
 export {LiveTag} from './live-tag';
 export {Loading} from './loading';

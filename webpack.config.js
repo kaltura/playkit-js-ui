@@ -88,6 +88,7 @@ module.exports = {
     modules: [path.resolve(__dirname, 'src'), 'node_modules'],
     alias: {
       components: path.resolve(__dirname, 'src/components/'),
+      reducers: path.resolve(__dirname, 'src/reducers/'),
       utils: path.resolve(__dirname, 'src/utils/'),
       event: path.resolve(__dirname, 'src/event')
     }

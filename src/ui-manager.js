@@ -25,6 +25,7 @@ import * as presets from './ui-presets';
 import {middleware} from './middlewares';
 
 import './styles/style.scss';
+import {EventDispatcherProvider} from 'components/event-dispatcher';
 
 /**
  * API used for building UIs based on state conditions
@@ -176,11 +177,13 @@ class UIManager {
           <ContainerProvider uiComponents={this._uiComponents}>
             <IntlProvider definition={this._translations[this._locale]}>
               <PlayerProvider player={this.player}>
-                <Shell>
-                  <EngineConnector />
-                  <VideoPlayer />
-                  <PlayerGUI uis={uis} playerContainer={this.container} />
-                </Shell>
+                <EventDispatcherProvider player={this.player} store={this.store}>
+                  <Shell>
+                    <EngineConnector />
+                    <VideoPlayer />
+                    <PlayerGUI uis={uis} playerContainer={this.container} />
+                  </Shell>
+                </EventDispatcherProvider>
               </PlayerProvider>
             </IntlProvider>
           </ContainerProvider>
