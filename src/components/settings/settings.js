@@ -12,6 +12,7 @@ import {PLAYER_SIZE} from '../shell/shell';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withEventDispatcher} from 'components/event-dispatcher';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -33,6 +34,7 @@ const COMPONENT_NAME = 'Settings';
 )
 @withPlayer
 @withEventManager
+@withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
 /**
  * Settings component
