@@ -13,6 +13,8 @@ import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {Text} from 'preact-i18n';
 import {withPlayer} from '../player';
+import {withEventDispatcher} from 'components/event-dispatcher';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -38,6 +40,8 @@ const COMPONENT_NAME = 'CVAAOverlay';
   bindActions({...cvaaActions, ...shellActions})
 )
 @withPlayer
+@withLogger(COMPONENT_NAME)
+@withEventDispatcher(COMPONENT_NAME)
 /**
  * CVAAOverlay component
  *
@@ -402,7 +406,7 @@ class CVAAOverlay extends Component {
     return (
       <Overlay open onClose={() => props.onClose()} type="cvaa">
         {this.renderMainState()}
-        {this.renderCustomCaptionsState(props)}
+        {this.renderCustomCaptionsState()}
       </Overlay>
     );
   }

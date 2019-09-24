@@ -8,6 +8,7 @@ import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/engine';
 import {CopyButton} from '../copy-button';
 import {withLogger} from 'components/logger';
+import {withPlayer} from 'components/player';
 
 /**
  * mapping state to props
@@ -24,6 +25,7 @@ const COMPONENT_NAME = 'ErrorOverlay';
   mapStateToProps,
   bindActions(actions)
 )
+@withPlayer
 @withLogger(COMPONENT_NAME)
 /**
  * errorOverlay component

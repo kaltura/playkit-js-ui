@@ -53,8 +53,8 @@ class Loading extends Component {
    * @memberof Loading
    */
   componentDidMount() {
-    const {player} = this.props;
-    this.props.eventManager.listen(player, player.Event.PLAYER_STATE_CHANGED, e => {
+    const {player, eventManager} = this.props;
+    eventManager.listen(player, player.Event.PLAYER_STATE_CHANGED, e => {
       if (!this.state.afterPlayingEvent) return;
       const StateType = player.State;
       if (
@@ -68,30 +68,30 @@ class Loading extends Component {
       }
     });
 
-    this.props.eventManager.listen(player, player.Event.AD_BREAK_START, () => {
+    eventManager.listen(player, player.Event.AD_BREAK_START, () => {
       this.props.updateLoadingSpinnerState(true);
     });
 
-    this.props.eventManager.listen(player, player.Event.AD_STARTED, () => {
+    eventManager.listen(player, player.Event.AD_STARTED, () => {
       if (this.props.adIsLinear) {
         this.props.updateLoadingSpinnerState(false);
       }
     });
 
-    this.props.eventManager.listen(player, player.Event.ALL_ADS_COMPLETED, () => {
+    eventManager.listen(player, player.Event.ALL_ADS_COMPLETED, () => {
       this.props.updateLoadingSpinnerState(false);
     });
 
-    this.props.eventManager.listen(player, player.Event.AUTOPLAY_FAILED, () => {
+    eventManager.listen(player, player.Event.AUTOPLAY_FAILED, () => {
       this.props.updateLoadingSpinnerState(false);
     });
 
-    this.props.eventManager.listen(player, player.Event.PLAYING, () => {
+    eventManager.listen(player, player.Event.PLAYING, () => {
       this.setState({afterPlayingEvent: true});
       this.props.updateLoadingSpinnerState(false);
     });
 
-    this.props.eventManager.listen(player, player.Event.CHANGE_SOURCE_STARTED, () => {
+    eventManager.listen(player, player.Event.CHANGE_SOURCE_STARTED, () => {
       this.setState({afterPlayingEvent: false});
     });
   }

@@ -6,6 +6,7 @@ import {KeyMap} from '../../utils/key-map';
 import {Text} from 'preact-i18n';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from 'components/event-dispatcher';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -23,6 +24,7 @@ const COMPONENT_NAME = 'LiveTag';
 
 @connect(mapStateToProps)
 @withPlayer
+@withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
 /**
  * LiveTag component
