@@ -21,6 +21,7 @@ export const REWIND_DEFAULT_STEP = 10;
 @withPlayer
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
+@withAnimation(style.rotate)
 /**
  * Rewind component
  *
@@ -95,6 +96,4 @@ class Rewind extends Component {
 }
 
 Rewind.displayName = COMPONENT_NAME;
-
-const animateRewind = withAnimation(Rewind, style.rotate);
-export {animateRewind as Rewind};
+export {Rewind};

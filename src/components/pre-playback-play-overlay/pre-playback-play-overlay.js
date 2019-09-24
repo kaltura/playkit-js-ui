@@ -9,6 +9,7 @@ import {actions as loadingActions} from '../../reducers/loading';
 import {Localizer, Text} from 'preact-i18n';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from 'components/event-dispatcher';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -29,7 +30,7 @@ const COMPONENT_NAME = 'PrePlaybackPlayOverlay';
   bindActions(Object.assign({}, loadingActions))
 )
 @withPlayer
-@withPlayer(COMPONENT_NAME)
+@withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
 /**
  * PrePlaybackPlayOverlay component

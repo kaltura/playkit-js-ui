@@ -3,11 +3,10 @@ import {h, Component} from 'preact';
 import {withEventManager} from 'event/with-event-manager';
 
 /**
- * @param {Component} WrappedComponent - The component to animate
  * @param {string} cssClass - the CSS class to add/remove for the animation
- * @returns {Component} - HOC that handles animation
+ * @returns {Component} - the wrapped component
  */
-export const withAnimation: Function = (WrappedComponent: Component, cssClass: string): typeof Component =>
+export const withAnimation: Function = (cssClass: string) => (WrappedComponent: Component): typeof Component =>
   withEventManager(
     class AnimationComponent extends Component {
       element: HTMLElement;

@@ -21,6 +21,7 @@ export const FORWARD_DEFAULT_STEP = 10;
 @withPlayer
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
+@withAnimation(style.reverseRotate)
 /**
  * Forward component
  *
@@ -84,6 +85,4 @@ class Forward extends Component {
 }
 
 Forward.displayName = COMPONENT_NAME;
-
-const animateForward = withAnimation(Forward, style.reverseRotate);
-export {animateForward as Forward};
+export {Forward};
