@@ -27,7 +27,7 @@ export const withEventDispatcher: Function = (name: string) => (WrappedComponent
      * @param {any} payload - Optional payload.
      * @returns {void}
      *
-     * @memberof BaseComponent
+     * @memberof EventDispatcherComponent
      */
     notifyChange(payload?: any): void {
       this.context.notifyChange({
