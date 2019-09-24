@@ -1,12 +1,12 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
-import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {withAnimation} from '../../utils/with-animation';
 import {withPlayer} from '../player';
+import {withEventDispatcher} from 'components/event-dispatcher';
 
 const COMPONENT_NAME = 'Forward';
 
@@ -18,22 +18,15 @@ const COMPONENT_NAME = 'Forward';
 export const FORWARD_DEFAULT_STEP = 10;
 
 @withPlayer
+@withEventDispatcher(COMPONENT_NAME)
 /**
  * Forward component
  *
  * @class Forward
  * @example <Forward step={5} />
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class Forward extends BaseComponent {
-  /**
-   * Creates an instance of Forward.
-   * @memberof Forward
-   */
-  constructor() {
-    super({name: COMPONENT_NAME});
-  }
-
+class Forward extends Component {
   /**
    * forward click handler
    *
@@ -52,7 +45,7 @@ class Forward extends BaseComponent {
       to = player.currentTime + step;
     }
     player.currentTime = to;
-    this.notifyClick({
+    this.props.notifyClick({
       from: from,
       to: to
     });

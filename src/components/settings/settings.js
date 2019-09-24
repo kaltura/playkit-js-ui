@@ -1,17 +1,17 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/settings';
-import BaseComponent from '../base';
 import {SmartContainer} from '../smart-container';
 import {SmartContainerItem} from '../smart-container/smart-container-item';
 import {default as Icon, IconType} from '../icon';
 import {PLAYER_SIZE} from '../shell/shell';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
+import {withEventDispatcher} from 'components/event-dispatcher';
 
 /**
  * mapping state to props
@@ -33,24 +33,17 @@ const COMPONENT_NAME = 'Settings';
 )
 @withPlayer
 @withEventManager
+@withEventDispatcher(COMPONENT_NAME)
 /**
  * Settings component
  *
  * @class Settings
  * @example <Settings />
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class Settings extends BaseComponent {
+class Settings extends Component {
   state: Object;
   _controlSettingsElement: any;
-
-  /**
-   * Creates an instance of Settings.
-   * @memberof Settings
-   */
-  constructor() {
-    super({name: COMPONENT_NAME});
-  }
 
   /**
    * before component mounted, set initial state
@@ -114,7 +107,7 @@ class Settings extends BaseComponent {
   onSpeedChange(playbackRate: number): void {
     this.props.updateSpeed(playbackRate);
     this.props.player.playbackRate = playbackRate;
-    this.notifyClick({
+    this.props.notifyClick({
       speed: playbackRate
     });
   }
@@ -133,7 +126,7 @@ class Settings extends BaseComponent {
     } else {
       player.selectTrack(videoTrack);
     }
-    this.notifyClick({
+    this.props.notifyClick({
       type: player.Track.VIDEO,
       track: videoTrack
     });

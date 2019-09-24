@@ -1,11 +1,10 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/cvaa';
-import BaseComponent from '../base';
 import {SmartContainer} from '../smart-container';
 import {SmartContainerItem} from '../smart-container/smart-container-item';
 import {default as Icon, IconType} from '../icon';
@@ -16,6 +15,7 @@ import {PLAYER_SIZE} from '../shell/shell';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withLogger} from 'components/logger';
+import {withEventDispatcher} from 'components/event-dispatcher';
 
 /**
  * mapping state to props
@@ -39,25 +39,18 @@ const COMPONENT_NAME = 'Language';
 @withPlayer
 @withEventManager
 @withLogger(COMPONENT_NAME)
+@withEventDispatcher(COMPONENT_NAME)
 /**
  * Language component
  *
  * @class Language
  * @example <Language />
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class Language extends BaseComponent {
+class Language extends Component {
   state: Object;
   _controlLanguageElement: any;
   _portal: any;
-
-  /**
-   * Creates an instance of Language.
-   * @memberof Language
-   */
-  constructor() {
-    super({name: COMPONENT_NAME});
-  }
 
   /**
    * before component mounted, set initial state
@@ -121,7 +114,7 @@ class Language extends BaseComponent {
    */
   onAudioChange(audioTrack: Object): void {
     this.props.player.selectTrack(audioTrack);
-    this.notifyClick({
+    this.props.notifyClick({
       type: this.props.player.Track.AUDIO,
       track: audioTrack
     });
@@ -136,7 +129,7 @@ class Language extends BaseComponent {
    */
   onCaptionsChange(textTrack: Object): void {
     this.props.player.selectTrack(textTrack);
-    this.notifyClick({
+    this.props.notifyClick({
       type: this.props.player.Track.TEXT,
       track: textTrack
     });

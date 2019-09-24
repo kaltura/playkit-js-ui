@@ -1,11 +1,11 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
-import BaseComponent from '../base';
 import {KeyMap} from '../../utils/key-map';
 import {Text} from 'preact-i18n';
 import {withPlayer} from '../player';
+import {withEventDispatcher} from 'components/event-dispatcher';
 
 /**
  * mapping state to props
@@ -23,22 +23,15 @@ const COMPONENT_NAME = 'LiveTag';
 
 @connect(mapStateToProps)
 @withPlayer
+@withEventDispatcher(COMPONENT_NAME)
 /**
  * LiveTag component
  *
  * @class LiveTag
  * @example <LiveTag />
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class LiveTag extends BaseComponent {
-  /**
-   * Creates an instance of LiveTag.
-   * @memberof LiveTag
-   */
-  constructor() {
-    super({name: COMPONENT_NAME});
-  }
-
+class LiveTag extends Component {
   /**
    * returns a boolean to detect if player is on live edge with buffer of 1 second
    *
@@ -63,7 +56,7 @@ class LiveTag extends BaseComponent {
         this.props.player.play();
       }
     }
-    this.notifyClick();
+    this.props.notifyClick();
   }
 
   /**

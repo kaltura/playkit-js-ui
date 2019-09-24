@@ -1,12 +1,12 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
-import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {withAnimation} from '../../utils/with-animation';
 import {withPlayer} from '../player';
+import {withEventDispatcher} from 'components/event-dispatcher';
 
 const COMPONENT_NAME = 'Rewind';
 
@@ -18,22 +18,15 @@ const COMPONENT_NAME = 'Rewind';
 export const REWIND_DEFAULT_STEP = 10;
 
 @withPlayer
+@withEventDispatcher(COMPONENT_NAME)
 /**
  * Rewind component
  *
  * @class Rewind
  * @example <Rewind step={5} />
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class Rewind extends BaseComponent {
-  /**
-   * Creates an instance of Rewind.
-   * @memberof Rewind
-   */
-  constructor() {
-    super({name: COMPONENT_NAME});
-  }
-
+class Rewind extends Component {
   /**
    * rewind click handler
    *
@@ -51,7 +44,7 @@ class Rewind extends BaseComponent {
       to = this.props.player.currentTime - step;
     }
     this.props.player.currentTime = to;
-    this.notifyClick({
+    this.props.notifyClick({
       from: from,
       to: to
     });

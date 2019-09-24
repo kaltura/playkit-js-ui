@@ -1,7 +1,6 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
-import BaseComponent from '../base';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions as shellActions} from '../../reducers/shell';
@@ -9,6 +8,7 @@ import {actions as engineActions} from '../../reducers/engine';
 import {KeyMap} from '../../utils/key-map';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
+import {withEventDispatcher} from 'components/event-dispatcher';
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -62,31 +62,26 @@ const PLAYER_BREAK_POINTS: {[size: string]: number} = {
   LARGE: 1024
 };
 
+const COMPONENT_NAME = 'Shell';
+
 @connect(
   mapStateToProps,
   bindActions(Object.assign({}, shellActions, engineActions))
 )
 @withPlayer
 @withEventManager
+@withEventDispatcher(COMPONENT_NAME)
 /**
  * Shell component
  *
  * @class Shell
  * @example <Shell />
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class Shell extends BaseComponent {
+class Shell extends Component {
   state: Object;
   hoverTimeout: ?number;
   _environmentClasses: Array<string>;
-
-  /**
-   * Creates an instance of Shell.
-   * @memberof Shell
-   */
-  constructor() {
-    super({name: 'Shell'});
-  }
 
   /**
    * on mouse over, add hover class (shows the player ui) and timeout of 3 seconds bt default or what pass as prop configuration to component
@@ -127,6 +122,7 @@ class Shell extends BaseComponent {
     if (this.state.hover) {
       this.setState({hover: false});
       this.props.updatePlayerHoverState(false);
+      this.props.notifyHoverChange({hover: false});
     }
   }
 
@@ -153,7 +149,7 @@ class Shell extends BaseComponent {
     if (this.props.fallbackToMutedAutoPlay) {
       this.props.player.muted = false;
     }
-    this.notifyClick();
+    this.props.notifyClick();
   }
 
   /**
@@ -256,6 +252,7 @@ class Shell extends BaseComponent {
     }
     if (!this.state.hover) {
       this.props.updatePlayerHoverState(true);
+      this.props.notifyHoverChange({hover: true});
       this.setState({hover: true});
     }
     this._startHoverTimeout();
@@ -288,6 +285,7 @@ class Shell extends BaseComponent {
     this.hoverTimeout = setTimeout(() => {
       if (this._canEndHoverState()) {
         this.props.updatePlayerHoverState(false);
+        this.props.notifyHoverChange({hover: false});
         this.setState({hover: false});
       }
     }, this.props.hoverTimeout || CONTROL_BAR_HOVER_DEFAULT_TIMEOUT);

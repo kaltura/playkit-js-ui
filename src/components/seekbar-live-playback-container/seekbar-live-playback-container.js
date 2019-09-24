@@ -7,6 +7,7 @@ import {SeekBar} from '../seekbar';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withLogger} from 'components/logger';
+import {withEventDispatcher} from 'components/event-dispatcher';
 
 /**
  * mapping state to props
@@ -30,6 +31,7 @@ const COMPONENT_NAME = 'SeekBarLivePlaybackContainer';
 )
 @withPlayer
 @withEventManager
+@withEventDispatcher(COMPONENT_NAME)
 @withLogger(COMPONENT_NAME)
 /**
  * SeekBarLivePlaybackContainer component
@@ -79,7 +81,7 @@ class SeekBarLivePlaybackContainer extends Component {
         duration={this.props.duration}
         isDraggingActive={this.props.isDraggingActive}
         isMobile={this.props.isMobile}
-        notifyChange={payload => this.notifyChange(payload)}
+        notifyChange={payload => this.props.notifyChange(payload)}
       />
     );
   }

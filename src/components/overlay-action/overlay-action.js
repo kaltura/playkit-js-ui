@@ -1,14 +1,15 @@
 //@flow
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import style from '../../styles/style.scss';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/overlay-action';
 import {actions as shellActions} from '../../reducers/shell';
-import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {isPlayingAdOrPlayback} from '../../reducers/getters';
 import {withPlayer} from '../player';
+import {withEventDispatcher} from 'components/event-dispatcher';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -58,28 +59,22 @@ const COMPONENT_NAME = 'OverlayAction';
   bindActions(Object.assign({}, actions, shellActions))
 )
 @withPlayer
+@withLogger(COMPONENT_NAME)
+@withEventDispatcher(COMPONENT_NAME)
 /**
  * OverlayAction component
  *
  * @class OverlayAction
  * @example <OverlayAction />
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class OverlayAction extends BaseComponent {
+class OverlayAction extends Component {
   state: Object;
   _iconTimeout: ?number = null;
   _pointerDownPosX: number = NaN;
   _pointerDownPosY: number = NaN;
   _firstClickTime: number = 0;
   _clickTimeout: ?number = 0;
-
-  /**
-   * Creates an instance of OverlayAction.
-   * @memberof OverlayAction
-   */
-  constructor() {
-    super({name: COMPONENT_NAME});
-  }
 
   /**
    * toggle play pause and set animation to icon change
@@ -96,7 +91,8 @@ class OverlayAction extends BaseComponent {
       this.props.updateOverlayActionIcon(IconType.Play);
     }
     this.props.updatePlayerHoverState(true);
-    this.notifyClick({
+    this.props.notifyHoverChange({hover: true});
+    this.props.notifyClick({
       type: 'PlayPause'
     });
   }
@@ -109,13 +105,13 @@ class OverlayAction extends BaseComponent {
    */
   toggleFullscreen(): void {
     if (!this.props.player.isFullscreen()) {
-      this.logger.debug('Enter fullscreen');
+      this.props.logger.debug('Enter fullscreen');
       this.props.player.enterFullscreen();
     } else {
-      this.logger.debug('Exit fullscreen');
+      this.props.logger.debug('Exit fullscreen');
       this.props.player.exitFullscreen();
     }
-    this.notifyClick({
+    this.props.notifyClick({
       type: 'Fullscreen'
     });
   }

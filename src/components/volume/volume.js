@@ -1,11 +1,10 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/volume';
 import {actions as engineActions} from '../../reducers/engine';
-import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {KEYBOARD_DEFAULT_VOLUME_JUMP} from '../keyboard/keyboard';
@@ -13,6 +12,7 @@ import {FakeEvent} from '../../event/fake-event';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withLogger} from 'components/logger';
+import {withEventDispatcher} from 'components/event-dispatcher';
 
 /**
  * mapping state to props
@@ -35,26 +35,17 @@ const COMPONENT_NAME = 'Volume';
 @withPlayer
 @withEventManager
 @withLogger(COMPONENT_NAME)
+@withEventDispatcher(COMPONENT_NAME)
 /**
  * Volume component
  *
  * @class Volume
  * @example <Volume />
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class Volume extends BaseComponent {
+class Volume extends Component {
   _volumeControlElement: HTMLElement;
   _volumeProgressBarElement: HTMLElement;
-
-  /**
-   * Creates an instance of Volume.
-   *
-   * @constructor
-   * @memberof Volume
-   */
-  constructor() {
-    super({name: COMPONENT_NAME});
-  }
 
   /**
    * after component mounted, update initial volume and muted value and listen to volume change
@@ -159,7 +150,7 @@ class Volume extends BaseComponent {
       }
       player.muted = newVolume < KEYBOARD_DEFAULT_VOLUME_JUMP;
       player.volume = newVolume / 100;
-      this.notifyChange({volume: player.volume});
+      this.props.notifyChange({volume: player.volume});
     };
     switch (e.keyCode) {
       case KeyMap.UP:
@@ -199,14 +190,14 @@ class Volume extends BaseComponent {
   onVolumeControlButtonClick(): void {
     const {player} = this.props;
     if (player.volume == 0) {
-      this.logger.debug(`Toggle mute. Volume is 0, set mute to false & volume to 0.5`);
+      this.props.logger.debug(`Toggle mute. Volume is 0, set mute to false & volume to 0.5`);
       player.muted = false;
       player.volume = 0.5;
     } else {
-      this.logger.debug(`Toggle mute. ${player.muted} => ${!player.muted}`);
+      this.props.logger.debug(`Toggle mute. ${player.muted} => ${!player.muted}`);
       player.muted = !player.muted;
     }
-    this.notifyClick();
+    this.props.notifyClick();
   }
 
   /**
@@ -229,12 +220,12 @@ class Volume extends BaseComponent {
     }
     volume = parseFloat(volume.toFixed(2));
     if (volume <= 1 && volume >= 0) {
-      this.logger.debug(`Change volume from ${player.volume} => ${volume}`);
+      this.props.logger.debug(`Change volume from ${player.volume} => ${volume}`);
       player.volume = volume;
       if (this.props.muted) {
         player.muted = false;
       }
-      this.notifyChange({volume: player.volume});
+      this.props.notifyChange({volume: player.volume});
     }
   }
 

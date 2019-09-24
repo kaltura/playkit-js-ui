@@ -1,12 +1,11 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 import isEqual from '../../utils/is-equal';
 import {bindActions} from '../../utils/bind-actions';
 import {actions as cvaaActions} from '../../reducers/cvaa';
 import {actions as shellActions} from '../../reducers/shell';
-import BaseComponent from '../base';
 import {Overlay} from '../overlay';
 import {DropDown} from '../dropdown';
 import {Slider} from '../slider';
@@ -43,21 +42,13 @@ const COMPONENT_NAME = 'CVAAOverlay';
  * CVAAOverlay component
  *
  * @class CVAAOverlay
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class CVAAOverlay extends BaseComponent {
+class CVAAOverlay extends Component {
   captionsStyleDefault: Object;
   captionsStyleYellow: Object;
   captionsStyleBlackBG: Object;
   _firstElementToFocus: HTMLElement;
-
-  /**
-   * Creates an instance of CVAAOverlay.
-   * @memberof CVAAOverlay
-   */
-  constructor() {
-    super({name: COMPONENT_NAME});
-  }
 
   /**
    * componentWillUnmount
@@ -130,7 +121,7 @@ class CVAAOverlay extends BaseComponent {
     this.props.updateCaptionsStyle(textStyle);
     this.props.player.textStyle = textStyle;
     this.props.onClose();
-    this.notifyClick({
+    this.props.notifyClick({
       textStyle: textStyle
     });
   }
