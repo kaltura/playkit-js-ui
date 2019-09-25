@@ -7,3 +7,12 @@ node_modules/@playkit-js/playkit-js/flow-typed/
 unsafe.enable_getters_and_setters=true
 esproposal.decorators=ignore
 module.name_mapper.extension='scss' -> 'empty/object'
+module.name_mapper='^utils\/\(.*\)$' -> '<PROJECT_ROOT>/src/utils/\1'
+module.name_mapper='^utils$' -> '<PROJECT_ROOT>/src/utils'
+module.name_mapper='^reducers\/\(.*\)$' -> '<PROJECT_ROOT>/src/reducers/\1'
+module.name_mapper='^reducers$' -> '<PROJECT_ROOT>/src/reducers'
+module.name_mapper='^components\/\(.*\)$' -> '<PROJECT_ROOT>/src/components/\1'
+module.name_mapper='^components$' -> '<PROJECT_ROOT>/src/components'
+module.name_mapper='^event\/\(.*\)$' -> '<PROJECT_ROOT>/src/event/\1'
+module.name_mapper='^event$' -> '<PROJECT_ROOT>/src/event'
+module.system.node.resolve_dirname='<PROJECT_ROOT>/src/'

@@ -1,3 +1,5 @@
+@import '~styles/variables';
+
 .player {
   .cast-button {
     display: block;
@@ -7,11 +9,11 @@
     border: none;
     cursor: pointer;
     --connected-color: rgba(1, 172, 205, 0.8);
-    --disconnected-color: $grayscale4;
+    --disconnected-color: #{$grayscale4};
   }
 
   .cast-button:hover {
-    --disconnected-color: $white;
-    --connected-color: $brand-color;
+    --disconnected-color: #{$white};
+    --connected-color: #{$brand-color};
   }
 }

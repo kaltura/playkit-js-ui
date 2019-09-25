@@ -1,7 +1,6 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
-import BaseComponent from '../base';
+import {h, Component} from 'preact';
 import {IconType} from '../icon/index';
 import {Icon} from '../icon/icon';
 import {Text, Localizer} from 'preact-i18n';
@@ -20,9 +19,9 @@ const COMPONENT_NAME = 'CopyButton';
  *
  * @class CopyButton
  * @example <CopyButton/>
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class CopyButton extends BaseComponent {
+class CopyButton extends Component {
   /**
    * @static
    * @type {Object} - Component default props

@@ -1,13 +1,15 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
-import BaseComponent from '../base';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions as shellActions} from '../../reducers/shell';
 import {actions as engineActions} from '../../reducers/engine';
 import {KeyMap} from '../../utils/key-map';
-
+import {withPlayer} from '../player';
+import {withEventManager} from 'event/with-event-manager';
+import {withEventDispatcher} from 'components/event-dispatcher';
+import {withLogger} from 'components/logger';
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -61,34 +63,27 @@ const PLAYER_BREAK_POINTS: {[size: string]: number} = {
   LARGE: 1024
 };
 
+const COMPONENT_NAME = 'Shell';
+
 @connect(
   mapStateToProps,
   bindActions(Object.assign({}, shellActions, engineActions))
 )
+@withPlayer
+@withEventManager
+@withLogger(COMPONENT_NAME)
+@withEventDispatcher(COMPONENT_NAME)
 /**
  * Shell component
  *
  * @class Shell
- * @example <Shell player={this.player}>...</Shell>
- * @extends {BaseComponent}
+ * @example <Shell />
+ * @extends {Component}
  */
-class Shell extends BaseComponent {
+class Shell extends Component {
   state: Object;
   hoverTimeout: ?number;
   _environmentClasses: Array<string>;
-
-  /**
-   * Creates an instance of Shell.
-   * @param {Object} obj obj
-   * @memberof Shell
-   */
-  constructor(obj: Object) {
-    super({name: 'Shell', player: obj.player});
-    this._environmentClasses = [
-      `${__CSS_MODULE_PREFIX__}-${this.player.env.os.name.replace(/ /g, '-')}`,
-      `${__CSS_MODULE_PREFIX__}-${this.player.env.browser.name.replace(/ /g, '-')}`
-    ];
-  }
 
   /**
    * on mouse over, add hover class (shows the player ui) and timeout of 3 seconds bt default or what pass as prop configuration to component
@@ -129,6 +124,7 @@ class Shell extends BaseComponent {
     if (this.state.hover) {
       this.setState({hover: false});
       this.props.updatePlayerHoverState(false);
+      this.props.notifyHoverChange({hover: false});
     }
   }
 
@@ -153,9 +149,9 @@ class Shell extends BaseComponent {
    */
   onClick(): void {
     if (this.props.fallbackToMutedAutoPlay) {
-      this.player.muted = false;
+      this.props.player.muted = false;
     }
-    this.notifyClick();
+    this.props.notifyClick();
   }
 
   /**
@@ -170,7 +166,7 @@ class Shell extends BaseComponent {
       return;
     }
     if (this.props.fallbackToMutedAutoPlay) {
-      this.player.muted = false;
+      this.props.player.muted = false;
     }
     if (!this.state.hover) {
       e.stopPropagation();
@@ -192,6 +188,20 @@ class Shell extends BaseComponent {
   }
 
   /**
+   * componentWillMount
+   *
+   * @returns {void}
+   * @memberof Shell
+   */
+  componentWillMount() {
+    const {player} = this.props;
+    this._environmentClasses = [
+      `${__CSS_MODULE_PREFIX__}-${player.env.os.name.replace(/ /g, '-')}`,
+      `${__CSS_MODULE_PREFIX__}-${player.env.browser.name.replace(/ /g, '-')}`
+    ];
+  }
+
+  /**
    * after component mounted, update the isMobile indication in the store state,
    * add event listener to get the player width and update these on resize as well.
    * also, update document width initially and on resize.
@@ -200,10 +210,11 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   componentDidMount() {
-    this.props.updateIsMobile(this.player.env.isTablet || this.player.env.isMobile || this.props.forceTouchUI);
+    const {player, forceTouchUI} = this.props;
+    this.props.updateIsMobile(player.env.isTablet || player.env.isMobile || forceTouchUI);
     this._onWindowResize();
-    this.eventManager.listen(this.player, this.player.Event.RESIZE, () => this._onWindowResize());
-    this.eventManager.listen(this.player, this.player.Event.FIRST_PLAY, () => this._onWindowResize());
+    this.props.eventManager.listen(player, player.Event.RESIZE, () => this._onWindowResize());
+    this.props.eventManager.listen(player, player.Event.FIRST_PLAY, () => this._onWindowResize());
   }
 
   /**
@@ -229,7 +240,6 @@ class Shell extends BaseComponent {
    * @memberof Shell
    */
   componentWillUnmount(): void {
-    super.componentWillUnmount();
     this._clearHoverTimeout();
   }
 
@@ -244,6 +254,7 @@ class Shell extends BaseComponent {
     }
     if (!this.state.hover) {
       this.props.updatePlayerHoverState(true);
+      this.props.notifyHoverChange({hover: true});
       this.setState({hover: true});
     }
     this._startHoverTimeout();
@@ -261,7 +272,7 @@ class Shell extends BaseComponent {
       !this.props.seekbarHoverActive &&
       !this.props.volumeHoverActive &&
       !this.props.smartContainerOpen &&
-      !this.player.paused
+      !this.props.player.paused
     );
   }
 
@@ -276,6 +287,7 @@ class Shell extends BaseComponent {
     this.hoverTimeout = setTimeout(() => {
       if (this._canEndHoverState()) {
         this.props.updatePlayerHoverState(false);
+        this.props.notifyHoverChange({hover: false});
         this.setState({hover: false});
       }
     }, this.props.hoverTimeout || CONTROL_BAR_HOVER_DEFAULT_TIMEOUT);

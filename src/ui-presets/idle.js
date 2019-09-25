@@ -8,13 +8,12 @@ const PRESET_NAME = 'Idle';
 /**
  * Idle ui interface component
  *
- * @param {*} props component props
  * @returns {React$Element} player ui tree
  */
-export function IdleUI(props: any): React$Element<any> {
+export function IdleUI(): React$Element<any> {
   return (
     <div className={style.playbackGuiWWrapper}>
-      <Loading player={props.player} />
+      <Loading />
     </div>
   );
 }

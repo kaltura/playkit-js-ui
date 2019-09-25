@@ -1,10 +1,11 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
-import BaseComponent from '../base';
 import {Text} from 'preact-i18n';
 import {PLAYER_SIZE} from '../shell/shell';
+import {withPlayer} from '../player';
+import {withLogger} from 'components/logger';
 
 const COMPONENT_NAME = 'Logo';
 
@@ -20,31 +21,22 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps)
+@withPlayer
+@withLogger(COMPONENT_NAME)
 /**
  * Logo component
  *
  * @class Logo
- * @example <Logo player={this.player} />
- * @extends {BaseComponent}
+ * @example <Logo />
+ * @extends {Component}
  */
-class Logo extends BaseComponent {
+class Logo extends Component {
   /**
    * should render component
-   * @param {*} props - component props
    * @returns {boolean} - whether to render the component
-   * @static
    */
-  static shouldRender(props: any): boolean {
-    const componentConfig = props.config.components[COMPONENT_NAME.toLocaleLowerCase()];
-    return !(Object.keys(componentConfig).length === 0 && componentConfig.constructor === Object);
-  }
-  /**
-   * Creates an instance of Logo.
-   * @param {Object} obj obj
-   * @memberof Logo
-   */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
+  _shouldRender(): boolean {
+    return !(Object.keys(this.props.config).length === 0 && this.props.config.constructor === Object);
   }
 
   /**
@@ -55,6 +47,9 @@ class Logo extends BaseComponent {
    * @memberof Logo
    */
   render(props: any): ?React$Element<any> {
+    if (!this._shouldRender()) {
+      return undefined;
+    }
     const invisibleMode = [PLAYER_SIZE.TINY, PLAYER_SIZE.EXTRA_SMALL, PLAYER_SIZE.SMALL].includes(this.props.playerSize);
     if (props.config.img && !invisibleMode) {
       return (

@@ -1,6 +1,8 @@
 # Guides
 
-* [Create UI Component](./create-ui-component.md)
-* [Customizing the Player CSS](./css-classes-override.md)
-* [Custom UI Preset](./custom-ui-preset.md)
-* [Inject UI Component](./ui-components.md)
+## Customizing the UI look-and-feel
+* [UI customization](./ui-customization.md)
+
+## Services and Events
+* [UI manager services as HoC containers](./ui-manager-services.md)
+* [Supported UI events](./events.md)

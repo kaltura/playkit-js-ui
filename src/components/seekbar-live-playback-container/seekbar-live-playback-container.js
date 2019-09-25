@@ -1,10 +1,13 @@
 //@flow
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/seekbar';
-import BaseComponent from '../base';
 import {SeekBar} from '../seekbar';
+import {withPlayer} from '../player';
+import {withEventManager} from 'event/with-event-manager';
+import {withLogger} from 'components/logger';
+import {withEventDispatcher} from 'components/event-dispatcher';
 
 /**
  * mapping state to props
@@ -26,23 +29,18 @@ const COMPONENT_NAME = 'SeekBarLivePlaybackContainer';
   mapStateToProps,
   bindActions(actions)
 )
+@withPlayer
+@withEventManager
+@withEventDispatcher(COMPONENT_NAME)
+@withLogger(COMPONENT_NAME)
 /**
  * SeekBarLivePlaybackContainer component
  *
  * @class SeekBarLivePlaybackContainer
- * @example <SeekBarLivePlaybackContainer player={this.player} />
- * @extends {BaseComponent}
+ * @example <SeekBarLivePlaybackContainer />
+ * @extends {Component}
  */
-class SeekBarLivePlaybackContainer extends BaseComponent {
-  /**
-   * Creates an instance of SeekBarLivePlaybackContainer.
-   * @param {Object} obj obj
-   * @memberof SeekBarLivePlaybackContainer
-   */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
-  }
-
+class SeekBarLivePlaybackContainer extends Component {
   /**
    * after component mounted, listen to time update event and if dragging not active,
    * update the current time in the store
@@ -51,9 +49,9 @@ class SeekBarLivePlaybackContainer extends BaseComponent {
    * @memberof SeekBarLivePlaybackContainer
    */
   componentDidMount() {
-    this.eventManager.listen(this.player, this.player.Event.TIME_UPDATE, () => {
+    this.props.eventManager.listen(this.props.player, this.props.player.Event.TIME_UPDATE, () => {
       if (!this.props.isDraggingActive) {
-        this.props.updateCurrentTime(this.player.currentTime);
+        this.props.updateCurrentTime(this.props.player.currentTime);
       }
     });
   }
@@ -71,10 +69,9 @@ class SeekBarLivePlaybackContainer extends BaseComponent {
     }
     return (
       <SeekBar
-        player={this.props.player}
         playerElement={this.props.playerContainer}
         showTimeBubble={this.props.showTimeBubble}
-        changeCurrentTime={time => (this.player.currentTime = time)}
+        changeCurrentTime={time => (this.props.player.currentTime = time)}
         playerPoster={this.props.poster}
         updateSeekbarDraggingStatus={data => this.props.updateSeekbarDraggingStatus(data)}
         updateSeekbarHoverActive={data => this.props.updateSeekbarHoverActive(data)}
@@ -84,7 +81,7 @@ class SeekBarLivePlaybackContainer extends BaseComponent {
         duration={this.props.duration}
         isDraggingActive={this.props.isDraggingActive}
         isMobile={this.props.isMobile}
-        notifyChange={payload => this.notifyChange(payload)}
+        notifyChange={payload => this.props.notifyChange(payload)}
       />
     );
   }

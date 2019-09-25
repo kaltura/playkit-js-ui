@@ -1,13 +1,15 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
-import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {actions as loadingActions} from '../../reducers/loading';
 import {Localizer, Text} from 'preact-i18n';
+import {withPlayer} from '../player';
+import {withEventDispatcher} from 'components/event-dispatcher';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -27,23 +29,17 @@ const COMPONENT_NAME = 'PrePlaybackPlayOverlay';
   mapStateToProps,
   bindActions(Object.assign({}, loadingActions))
 )
+@withPlayer
+@withLogger(COMPONENT_NAME)
+@withEventDispatcher(COMPONENT_NAME)
 /**
  * PrePlaybackPlayOverlay component
  *
  * @class PrePlaybackPlayOverlay
- * @example <PrePlaybackPlayOverlay player={this.player} />
- * @extends {BaseComponent}
+ * @example <PrePlaybackPlayOverlay />
+ * @extends {Component}
  */
-class PrePlaybackPlayOverlay extends BaseComponent {
-  /**
-   * Creates an instance of PrePlaybackPlayOverlay.
-   * @param {Object} obj obj
-   * @memberof PrePlaybackPlayOverlay
-   */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
-  }
-
+class PrePlaybackPlayOverlay extends Component {
   /**
    * play on click
    *
@@ -51,9 +47,9 @@ class PrePlaybackPlayOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   handleClick(): void {
-    this.player.getView().focus();
-    this.props.playlist && this.props.isPlaybackEnded ? this.player.playlist.playNext() : this.player.play();
-    this.notifyClick();
+    this.props.player.getView().focus();
+    this.props.playlist && this.props.isPlaybackEnded ? this.props.player.playlist.playNext() : this.props.player.play();
+    this.props.notifyClick();
   }
 
   /**

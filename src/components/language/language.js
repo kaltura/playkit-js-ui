@@ -1,11 +1,10 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/cvaa';
-import BaseComponent from '../base';
 import {SmartContainer} from '../smart-container';
 import {SmartContainerItem} from '../smart-container/smart-container-item';
 import {default as Icon, IconType} from '../icon';
@@ -13,6 +12,10 @@ import {CVAAOverlay} from '../cvaa-overlay';
 import Portal from 'preact-portal';
 import {KeyMap} from '../../utils/key-map';
 import {PLAYER_SIZE} from '../shell/shell';
+import {withPlayer} from '../player';
+import {withEventManager} from 'event/with-event-manager';
+import {withLogger} from 'components/logger';
+import {withEventDispatcher} from 'components/event-dispatcher';
 
 /**
  * mapping state to props
@@ -33,26 +36,21 @@ const COMPONENT_NAME = 'Language';
   mapStateToProps,
   bindActions(actions)
 )
+@withPlayer
+@withEventManager
+@withLogger(COMPONENT_NAME)
+@withEventDispatcher(COMPONENT_NAME)
 /**
  * Language component
  *
  * @class Language
  * @example <Language />
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class Language extends BaseComponent {
+class Language extends Component {
   state: Object;
   _controlLanguageElement: any;
   _portal: any;
-
-  /**
-   * Creates an instance of Language.
-   * @param {Object} obj obj
-   * @memberof Language
-   */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
-  }
 
   /**
    * before component mounted, set initial state
@@ -71,7 +69,7 @@ class Language extends BaseComponent {
    * @memberof Language
    */
   componentDidMount() {
-    this.eventManager.listen(document, 'click', e => this.handleClickOutside(e));
+    this.props.eventManager.listen(document, 'click', e => this.handleClickOutside(e));
   }
 
   /**
@@ -115,9 +113,9 @@ class Language extends BaseComponent {
    * @memberof Language
    */
   onAudioChange(audioTrack: Object): void {
-    this.player.selectTrack(audioTrack);
-    this.notifyClick({
-      type: this.player.Track.AUDIO,
+    this.props.player.selectTrack(audioTrack);
+    this.props.notifyClick({
+      type: this.props.player.Track.AUDIO,
       track: audioTrack
     });
   }
@@ -130,9 +128,9 @@ class Language extends BaseComponent {
    * @memberof Language
    */
   onCaptionsChange(textTrack: Object): void {
-    this.player.selectTrack(textTrack);
-    this.notifyClick({
-      type: this.player.Track.TEXT,
+    this.props.player.selectTrack(textTrack);
+    this.props.notifyClick({
+      type: this.props.player.Track.TEXT,
       track: textTrack
     });
   }
@@ -156,7 +154,7 @@ class Language extends BaseComponent {
    * @memberof Language
    */
   renderAll(audioOptions: Array<Object>, textOptions: Array<Object>): React$Element<any> {
-    const portalSelector = `#${this.player.config.targetId} .overlay-portal`;
+    const portalSelector = `#${this.props.player.config.targetId} .overlay-portal`;
     return (
       <div ref={c => (this._controlLanguageElement = c)} className={[style.controlButtonContainer, style.controlLanguage].join(' ')}>
         <Localizer>
@@ -171,7 +169,10 @@ class Language extends BaseComponent {
         {!this.state.smartContainerOpen || this.state.cvaaOverlay ? (
           undefined
         ) : (
-          <SmartContainer targetId={this.player.config.targetId} title={<Text id="language.title" />} onClose={() => this.onControlButtonClick()}>
+          <SmartContainer
+            targetId={this.props.player.config.targetId}
+            title={<Text id="language.title" />}
+            onClose={() => this.onControlButtonClick()}>
             {audioOptions.length <= 1 ? (
               undefined
             ) : (
@@ -217,7 +218,6 @@ class Language extends BaseComponent {
         {this.state.cvaaOverlay ? (
           <Portal into={portalSelector} ref={ref => (this._portal = ref)}>
             <CVAAOverlay
-              player={this.player}
               onClose={() => {
                 this.toggleCVAAOverlay();
                 this.onControlButtonClick();

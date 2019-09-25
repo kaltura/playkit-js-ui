@@ -1,7 +1,9 @@
 //@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
+import {withPlayer} from '../player';
 
+@withPlayer
 /**
  * VideoPlayer component
  *

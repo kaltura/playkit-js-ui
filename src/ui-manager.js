@@ -16,6 +16,7 @@ import {actions as configActions} from './reducers/config';
 // core components for the UI
 import {EngineConnector} from './components/engine-connector';
 import {Shell} from './components/shell';
+import {PlayerProvider} from './components/player';
 import {VideoPlayer} from './components/video-player';
 import {PlayerGUI} from './player-gui';
 // ui presets
@@ -24,6 +25,7 @@ import * as presets from './ui-presets';
 import {middleware} from './middlewares';
 
 import './styles/style.scss';
+import {EventDispatcherProvider} from 'components/event-dispatcher';
 
 /**
  * API used for building UIs based on state conditions
@@ -174,11 +176,15 @@ class UIManager {
         <Provider store={this.store}>
           <ContainerProvider uiComponents={this._uiComponents}>
             <IntlProvider definition={this._translations[this._locale]}>
-              <Shell player={this.player}>
-                <EngineConnector player={this.player} />
-                <VideoPlayer player={this.player} />
-                <PlayerGUI uis={uis} player={this.player} playerContainer={this.container} />
-              </Shell>
+              <PlayerProvider player={this.player}>
+                <EventDispatcherProvider player={this.player} store={this.store}>
+                  <Shell>
+                    <EngineConnector />
+                    <VideoPlayer />
+                    <PlayerGUI uis={uis} playerContainer={this.container} />
+                  </Shell>
+                </EventDispatcherProvider>
+              </PlayerProvider>
             </IntlProvider>
           </ContainerProvider>
         </Provider>

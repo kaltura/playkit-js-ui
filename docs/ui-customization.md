@@ -16,6 +16,12 @@ An application can define its own UI layout and styling, by defining its presets
 
 More information on how to build custom components and composing your own UI layout see [here](custom-ui-preset.md).
 
+In addition, specific UI components can be defined and/or override instead of defining an entire UI preset
+
+More information on how to build UI components and injecting them to UI see:
+* [Create UI Component](./create-ui-component.md)
+* [Inject UI Component](./ui-components.md)
+
 ## Removing style settings from the captions menu
 
 The captions customizing level can be modified by removing settings from the captions setting menu.
