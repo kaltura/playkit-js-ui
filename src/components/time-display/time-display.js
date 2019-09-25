@@ -10,8 +10,8 @@ const COMPONENT_NAME = 'TimeDisplay';
  *
  * @class TimeDisplay
  * @example <TimeDisplay
- *  currentTime={this.player.currentTime}
- *  duration={this.player.duration}
+ *  currentTime={this.props.player.currentTime}
+ *  duration={this.props.player.duration}
  *  format='currentTime / duration'
  * />
  * @extends {Component}

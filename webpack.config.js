@@ -85,7 +85,13 @@ module.exports = {
     contentBase: __dirname + '/src'
   },
   resolve: {
-    modules: [path.resolve(__dirname, 'src'), 'node_modules']
+    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+    alias: {
+      components: path.resolve(__dirname, 'src/components/'),
+      reducers: path.resolve(__dirname, 'src/reducers/'),
+      utils: path.resolve(__dirname, 'src/utils/'),
+      event: path.resolve(__dirname, 'src/event')
+    }
   },
   externals: {
     '@playkit-js/playkit-js': {

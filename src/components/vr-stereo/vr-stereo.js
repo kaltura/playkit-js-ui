@@ -1,14 +1,15 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
-import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {actions as engineActions} from '../../reducers/engine';
 import {bindActions} from '../../utils/bind-actions';
 import {connect} from 'preact-redux';
 import {actions} from '../../reducers/shell';
+import {withPlayer} from '../player';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -16,6 +17,7 @@ import {actions} from '../../reducers/shell';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
+  isVr: state.engine.isVr,
   vrStereoMode: state.engine.vrStereoMode,
   config: state.config.components.vrStereo
 });
@@ -26,33 +28,24 @@ const COMPONENT_NAME = 'VrStereo';
   mapStateToProps,
   bindActions(Object.assign({}, actions, engineActions))
 )
+@withPlayer
+@withLogger(COMPONENT_NAME)
 /**
  * VrStereo component
  *
  * @class VrStereo
- * @example <VrStereo player={this.player}/>
- * @extends {BaseComponent}
+ * @example <VrStereo />
+ * @extends {Component}
  */
-class VrStereo extends BaseComponent {
+class VrStereo extends Component {
   /**
    * should render component
-   * @param {*} props - component props
    * @returns {boolean} - whether to render the component
-   * @static
    */
-  static shouldRender(props: any): boolean {
-    const componentConfig = props.config.components['vrStereo'];
-    return props.state.engine.isVr && !(Object.keys(componentConfig).length === 0 && componentConfig.constructor === Object);
+  _shouldRender(): boolean {
+    const componentConfig = this.props.config;
+    return this.props.isVr && !(Object.keys(componentConfig).length === 0 && componentConfig.constructor === Object);
   }
-  /**
-   * Creates an instance of VrStereo.
-   * @param {Object} obj obj
-   * @memberof VrStereo
-   */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
-  }
-
   /**
    * Vr-Stereo click handler
    *
@@ -60,7 +53,7 @@ class VrStereo extends BaseComponent {
    * @memberof VrStereo
    */
   onClick(): void {
-    this.player.toggleVrStereoMode();
+    this.props.player.toggleVrStereoMode();
     this.props.updateVrStereoMode(!this.props.vrStereoMode);
   }
 
@@ -81,6 +74,9 @@ class VrStereo extends BaseComponent {
    * @memberof VrStereo
    */
   render(): React$Element<any> | void {
+    if (!this._shouldRender()) {
+      return undefined;
+    }
     return (
       <div className={[style.controlButtonContainer, style.controlVrStereo].join(' ')}>
         <Localizer>

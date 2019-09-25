@@ -11,10 +11,10 @@ const PRESET_NAME = 'Error';
  * @param {*} props component props
  * @returns {React$Element} player ui tree
  */
-export function ErrorUI(props: any): React$Element<any> {
+export function ErrorUI(): React$Element<any> {
   return (
     <div className={style.playbackGuiWWrapper}>
-      <ErrorOverlay player={props.player} />
+      <ErrorOverlay />
     </div>
   );
 }

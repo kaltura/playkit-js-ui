@@ -1,10 +1,12 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {connect} from 'preact-redux';
-import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
+import {withPlayer} from '../player';
+import {withEventDispatcher} from 'components/event-dispatcher';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -19,23 +21,17 @@ const mapStateToProps = state => ({
 const COMPONENT_NAME = 'Fullscreen';
 
 @connect(mapStateToProps)
+@withPlayer
+@withLogger(COMPONENT_NAME)
+@withEventDispatcher(COMPONENT_NAME)
 /**
  * Fullscreen component
  *
  * @class Fullscreen
- * @example <Fullscreen player={this.player} />
- * @extends {BaseComponent}
+ * @example <Fullscreen />
+ * @extends {Component}
  */
-class Fullscreen extends BaseComponent {
-  /**
-   * Creates an instance of Fullscreen.
-   * @param {Object} obj obj
-   * @memberof Fullscreen
-   */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
-  }
-
+class Fullscreen extends Component {
   /**
    * toggle fullscreen based on current fullscreen state in store
    *
@@ -43,13 +39,13 @@ class Fullscreen extends BaseComponent {
    * @memberof Fullscreen
    */
   toggleFullscreen(): void {
-    this.logger.debug(`Toggle fullscreen`);
+    this.props.logger.debug(`Toggle fullscreen`);
     const playerContainer: HTMLElement | null = document.getElementById(this.props.targetId);
-    this.props.fullscreen ? this.player.exitFullscreen() : this.player.enterFullscreen();
+    this.props.fullscreen ? this.props.player.exitFullscreen() : this.props.player.enterFullscreen();
     if (playerContainer) {
       playerContainer.focus();
     }
-    this.notifyClick();
+    this.props.notifyClick();
   }
 
   /**
