@@ -7,7 +7,7 @@ import {actions} from '../../reducers/shell';
 import Portal from 'preact-portal';
 import {Overlay} from '../overlay';
 import {PLAYER_SIZE} from '../shell/shell';
-import {popupWithKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
+import {withKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
 
 /**
  * mapping state to props
@@ -23,6 +23,7 @@ const mapStateToProps = state => ({
   mapStateToProps,
   bindActions(actions)
 )
+@withKeyboardA11y
 /**
  * SmartContainer component
  *
@@ -113,5 +114,4 @@ class SmartContainer extends Component {
   }
 }
 
-const keyboardAccessibleSmartContainer = popupWithKeyboardA11y(SmartContainer);
-export {keyboardAccessibleSmartContainer as SmartContainer};
+export {SmartContainer};

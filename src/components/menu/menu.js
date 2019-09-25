@@ -5,7 +5,7 @@ import {default as Icon, IconType} from '../icon';
 import {connect} from 'preact-redux';
 import {bindMethod} from '../../utils/bind-method';
 import {PLAYER_SIZE} from '../shell/shell';
-import {popupWithKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
+import {withKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
 
 /**
  * mapping state to props
@@ -19,7 +19,7 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps)
-
+@withKeyboardA11y
 /**
  * Menu component
  *
@@ -220,8 +220,7 @@ class Menu extends Component {
   }
 }
 
-const keyboardAccessibleMenu = popupWithKeyboardA11y(Menu);
-export {keyboardAccessibleMenu as Menu};
+export {Menu};
 
 /**
  * MenuItem component to be wrapped as keyboard accessibility item

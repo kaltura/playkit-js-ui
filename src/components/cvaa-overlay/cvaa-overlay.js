@@ -14,7 +14,7 @@ import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {Text} from 'preact-i18n';
 import {Component} from 'preact/src/preact';
-import {popupWithKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
+import {withKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
 
 /**
  * mapping state to props
@@ -37,6 +37,7 @@ type CvaaOverlayStateType = 'main' | 'custom-captions';
   mapStateToProps,
   bindActions({...cvaaActions, ...shellActions})
 )
+
 /**
  * CVAAOverlay component
  *
@@ -170,7 +171,7 @@ class CVAAOverlay extends BaseComponent {
     return (
       <Overlay open onClose={() => props.onClose()} type="cvaa">
         {this.state.activeWindow === cvaaOverlayState.Main ? (
-          <KeyboardAccessibleMainWindow
+          <MainWindow
             tabbable="true"
             state={this.state}
             player={props.player}
@@ -182,7 +183,7 @@ class CVAAOverlay extends BaseComponent {
             transitionToState={this.transitionToState.bind(this)}
           />
         ) : (
-          <KeyboardAccessibleCustomCaptionsWindow
+          <CustomCaptionsWindow
             tabbable="true"
             state={this.state}
             player={props.player}
@@ -195,6 +196,8 @@ class CVAAOverlay extends BaseComponent {
     );
   }
 }
+
+@withKeyboardA11y
 
 /**
  * CustomCaptionsWindow component to be wrapped with popupWithKeyboardA11y
@@ -330,6 +333,7 @@ class CustomCaptionsWindow extends Component {
   }
 }
 
+@withKeyboardA11y
 /**
  * MainWindow component to be wrapped with popupWithKeyboardA11y
  * @class MainWindow
@@ -444,7 +448,5 @@ class MainWindow extends Component {
     );
   }
 }
-const KeyboardAccessibleMainWindow = popupWithKeyboardA11y(MainWindow);
-const KeyboardAccessibleCustomCaptionsWindow = popupWithKeyboardA11y(CustomCaptionsWindow);
 
 export {CVAAOverlay};
