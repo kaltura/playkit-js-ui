@@ -90,24 +90,25 @@ class CastBeforePlay extends BaseComponent {
       return (
         <div>
           <div className={rootStyle.join(' ')}>
-            <a
-              tabIndex="0"
-              onClick={() => this.onClick()}
-              onKeyDown={e => {
-                if (e.keyCode === KeyMap.ENTER) {
-                  this.onClick();
-                }
-              }}
-              className={[style.btn, style.btnDarkTransparent, style.castOnTvButton].join(' ')}>
-              <div className={style.castOnTvIconContainer}>
-                <Icon type={props.icon} />
-              </div>
-              <Localizer>
+            <Localizer>
+              <button
+                tabIndex="0"
+                aria-label={<Text id={'cast.play_on_tv'} />}
+                onClick={() => this.onClick()}
+                onKeyDown={e => {
+                  if (e.keyCode === KeyMap.ENTER) {
+                    this.onClick();
+                  }
+                }}
+                className={[style.btn, style.btnDarkTransparent, style.castOnTvButton].join(' ')}>
+                <div className={style.castOnTvIconContainer}>
+                  <Icon type={props.icon} />
+                </div>
                 <span>
                   <Text id="cast.play_on_tv" />
                 </span>
-              </Localizer>
-            </a>
+              </button>
+            </Localizer>
           </div>
         </div>
       );

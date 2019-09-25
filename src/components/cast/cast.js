@@ -57,22 +57,18 @@ class CastControl extends BaseComponent {
    */
   render(props: any): ?React$Element<any> {
     if (props.isCasting || props.isCastAvailable) {
-      return h(
-        'div',
-        {
-          class: style.controlButtonContainer,
-          onClick: () => this.onClick(),
-          onKeyDown: e => {
+      return (
+        <div
+          className={style.controlButtonContainer}
+          onClick={() => this.onClick()}
+          onKeyDown={e => {
             if (e.keyCode === KeyMap.ENTER) {
               this.props.updateBackdropVisibility(true);
               this.player.startCasting().catch(() => this.props.updateBackdropVisibility(false));
             }
-          }
-        },
-        h('google-cast-launcher', {
-          class: [style.castButton].join(' '),
-          tabIndex: 0
-        })
+          }}>
+          <google-cast-launcher className={style.castButton} tabIndex="0" />
+        </div>
       );
     }
   }
