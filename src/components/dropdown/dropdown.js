@@ -151,13 +151,12 @@ class DropDown extends Component {
           tabIndex={props.tabbable ? 0 : -1}
           ref={el => {
             this._dropdownButton = el;
-            if (props.setFocusableElement) {
-              props.setFocusableElement(el);
+            if (props.pushRef) {
+              props.pushRef(el);
             }
           }}
           className={style.dropdownButton}
-          onClick={() => this.toggleDropDown()}
-          onKeyDown={e => this.onKeyDown(e)}>
+          onClick={() => this.toggleDropDown()}>
           <span>{this.getActiveOptionLabel()}</span>
           <Icon type={IconType.ArrowDown} />
         </div>

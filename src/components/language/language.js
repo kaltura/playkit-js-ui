@@ -13,7 +13,6 @@ import {CVAAOverlay} from '../cvaa-overlay';
 import Portal from 'preact-portal';
 import {PLAYER_SIZE} from '../shell/shell';
 import {Component} from 'preact/src/preact';
-import {popupItemWithKeyboardA11y} from '../../utils/popup-item-keyboard-accessibility';
 
 /**
  * mapping state to props
@@ -198,7 +197,7 @@ class LanguageControl extends BaseComponent {
             {textOptions.length <= 1 ? (
               undefined
             ) : (
-              <KeyboardAccessibleAdvancedCaptionsAnchor onMenuChosen={() => this.toggleCVAAOverlay()} onClose={() => this.onControlButtonClick()} />
+              <AdvancedCaptionsAnchor onMenuChosen={() => this.toggleCVAAOverlay()} onClose={() => this.onControlButtonClick()} />
             )}
           </SmartContainer>
         )}
@@ -243,22 +242,11 @@ class LanguageControl extends BaseComponent {
 }
 
 /**
- * AdvancedCaptionsAnchor component to be wrapped with popupItemWithKeyboardA11y
+ * AdvancedCaptionsAnchor component
  * @class AdvancedCaptionsAnchor
  * @extends {Component}
  */
 class AdvancedCaptionsAnchor extends Component {
-  /**
-   * after component mounted, set the callback to be called when selected
-   *
-   * @returns {void}
-   * @memberof AdvancedCaptionsAnchor
-   */
-  componentDidMount(): void {
-    this.props.setSelectCallback(this.props.onMenuChosen);
-    this.props.setCloseCallback(this.props.onClose);
-  }
-
   /**
    * rendered AdvancedCaptionsAnchor jsx
    * @param {*} props - component props
@@ -267,21 +255,21 @@ class AdvancedCaptionsAnchor extends Component {
    */
   render(props: any): React$Element<any> {
     return (
-      <div
-        tabIndex="-1"
-        ref={el => {
-          if (props.pushRef) {
-            props.pushRef(el);
-          }
-        }}
-        className={style.smartContainerItem}>
-        <a className={style.advancedCaptionsMenuLink} onClick={() => this.props.onMenuChosen()}>
+      <div className={style.smartContainerItem}>
+        <a
+          tabIndex="-1"
+          ref={el => {
+            if (props.pushRef) {
+              props.pushRef(el);
+            }
+          }}
+          className={style.advancedCaptionsMenuLink}
+          onClick={() => this.props.onMenuChosen()}>
           <Text id="language.advanced_captions_settings" />
         </a>
       </div>
     );
   }
 }
-const KeyboardAccessibleAdvancedCaptionsAnchor = popupItemWithKeyboardA11y(AdvancedCaptionsAnchor);
 
 export {LanguageControl};

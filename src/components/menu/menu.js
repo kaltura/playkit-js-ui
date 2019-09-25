@@ -6,7 +6,6 @@ import {connect} from 'preact-redux';
 import {bindMethod} from '../../utils/bind-method';
 import {PLAYER_SIZE} from '../shell/shell';
 import {popupWithKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
-import {popupItemWithKeyboardA11y} from '../../utils/popup-item-keyboard-accessibility';
 
 /**
  * mapping state to props
@@ -121,6 +120,7 @@ class Menu extends Component {
       !this._menuElement.contains(e.target)
     ) {
       this.props.onClose();
+      e.stopPropagation();
     }
   }
 
@@ -204,14 +204,13 @@ class Menu extends Component {
         }}
         className={[style.dropdownMenu, ...this.state.position].join(' ')}>
         {props.options.map((o, index) => (
-          <KeyboardAccessibleMenuItem
+          <MenuItem
             setFirstFocusedElement={props.setFirstFocusedElement}
             addAccessibleChild={props.addAccessibleChild}
             isSelected={this.isSelected}
             onSelect={props => {
               this.onSelect(props);
             }}
-            onClose={this.props.onClose}
             key={index}
             data={o}
           />
@@ -240,8 +239,6 @@ class MenuItem extends Component {
    * @memberof Slider
    */
   componentDidMount(): void {
-    this.props.setSelectCallback(this.props.onSelect);
-    this.props.setCloseCallback(this.props.onClose);
     this.props.addAccessibleChild(this._element);
   }
 
@@ -270,4 +267,3 @@ class MenuItem extends Component {
     );
   }
 }
-const KeyboardAccessibleMenuItem = popupItemWithKeyboardA11y(MenuItem);

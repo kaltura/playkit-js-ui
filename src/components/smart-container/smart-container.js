@@ -39,7 +39,6 @@ const mapStateToProps = state => ({
  * @extends {Component}
  */
 class SmartContainer extends Component {
-
   /**
    * before component mounted, add player css class
    *
@@ -104,8 +103,7 @@ class SmartContainer extends Component {
           {
             pushRef: ref => {
               props.addAccessibleChild(ref);
-            },
-            onClose: props.onClose
+            }
           },
           ...this.props
         );

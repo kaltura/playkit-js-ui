@@ -246,16 +246,17 @@ class CustomCaptionsWindow extends Component {
 
     return (
       <div
-        className={
-          props.state.activeWindow === cvaaOverlayState.CustomCaptions ? [style.overlayScreen, style.active].join(' ') : style.overlayScreen
-        }>
+        onKeyDown={e => {
+          props.handleKeyDown(e);
+        }}
+        className={[style.overlayScreen, style.active].join(' ')}>
         <form className={[style.form, style.customCaptionForm].join(' ')}>
           <div className={[style.formGroupRow, style.fontSize].join(' ')}>
             <label>
               <Text id={'cvaa.size_label'} />
             </label>
             <DropDown
-              setFocusableElement={el => {
+              pushRef={el => {
                 props.setFirstFocusedElement(el);
               }}
               tabbable="true"
@@ -313,11 +314,6 @@ class CustomCaptionsWindow extends Component {
             <a
               tabIndex="0"
               onClick={() => props.changeCaptionsStyle(props.state.customTextStyle)}
-              onKeyDown={e => {
-                if (e.keyCode === KeyMap.ENTER) {
-                  props.changeCaptionsStyle(props.state.customTextStyle);
-                }
-              }}
               className={[style.btn, style.btnBranded, style.btnBlock].join(' ')}>
               <Text id={'cvaa.apply'} />
             </a>
@@ -349,7 +345,7 @@ class MainWindow extends Component {
    */
   render(props: any): React$Element<any> {
     return (
-      <div className={props.state.activeWindow === cvaaOverlayState.Main ? [style.overlayScreen, style.active].join(' ') : style.overlayScreen}>
+      <div className={[style.overlayScreen, style.active].join(' ')}>
         <div className={style.title}>
           <Text id={'cvaa.title'} />
         </div>

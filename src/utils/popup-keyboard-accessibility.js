@@ -36,6 +36,16 @@ export const popupWithKeyboardA11y: Function = (WrappedComponent: BaseComponent)
      */
     onKeyDown(e: KeyboardEvent): void {
       switch (e.keyCode) {
+        case KeyMap.ENTER:
+          e.target.click();
+          e.stopPropagation();
+          break;
+        case KeyMap.ESC:
+          if (this.props.onClose) {
+            this.props.onClose();
+            e.stopPropagation();
+          }
+          break;
         case KeyMap.DOWN:
         case KeyMap.UP:
           if (!this.props.tabbable) {
