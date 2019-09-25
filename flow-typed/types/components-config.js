@@ -2,5 +2,6 @@
 declare type ComponentsConfig = {
   seekbar?: SeekbarConfig,
   watermark?: WatermarkConfig,
-  share?: ShareConfig
+  share?: ShareConfig,
+  sidePanels?: SidePanelsConfig
 };
