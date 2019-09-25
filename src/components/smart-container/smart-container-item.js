@@ -4,6 +4,8 @@ import {h, Component} from 'preact';
 import {DropDown} from '../dropdown';
 import {default as Icon} from '../icon';
 
+const COMPONENT_NAME = 'SmartContainerItem';
+
 /**
  * SmartContainerItem component
  *
@@ -45,4 +47,5 @@ class SmartContainerItem extends Component {
   }
 }
 
+SmartContainerItem.displayName = COMPONENT_NAME;
 export {SmartContainerItem};

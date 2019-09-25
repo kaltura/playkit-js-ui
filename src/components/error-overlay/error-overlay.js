@@ -1,13 +1,14 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
-import BaseComponent from '../base';
 import {Overlay} from '../overlay';
 import {Text} from 'preact-i18n';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/engine';
 import {CopyButton} from '../copy-button';
+import {withLogger} from 'components/logger';
+import {withPlayer} from 'components/player';
 
 /**
  * mapping state to props
@@ -18,27 +19,22 @@ const mapStateToProps = state => ({
   hasError: state.engine.hasError
 });
 
+const COMPONENT_NAME = 'ErrorOverlay';
+
 @connect(
   mapStateToProps,
   bindActions(actions)
 )
+@withPlayer
+@withLogger(COMPONENT_NAME)
 /**
  * errorOverlay component
  *
  * @class errorOverlay
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class ErrorOverlay extends BaseComponent {
+class ErrorOverlay extends Component {
   sessionEl: HTMLDivElement;
-
-  /**
-   * Creates an instance of ErrorObject.
-   * @param {Object} obj obj
-   * @memberof ErrorObejct
-   */
-  constructor(obj: any) {
-    super({name: 'ErrorOverlay', player: obj.player});
-  }
 
   /**
    * copy input text based on input element.
@@ -62,8 +58,8 @@ class ErrorOverlay extends BaseComponent {
    * @memberof PrePlaybackPlayOverlay
    */
   handleClick(): void {
-    const mediaInfo = this.player.getMediaInfo();
-    this.player.loadMedia(mediaInfo);
+    const mediaInfo = this.props.player.getMediaInfo();
+    this.props.player.loadMedia(mediaInfo);
   }
 
   /**
@@ -73,7 +69,8 @@ class ErrorOverlay extends BaseComponent {
    * @memberof ErrorOverlay
    */
   renderSessionID(): React$Element<any> | void {
-    const sessionId = this.player && this.player.config && this.player.config.session && this.player.config.session.id;
+    const {player} = this.props;
+    const sessionId = player && player.config && player.config.session && player.config.session.id;
     if (sessionId) {
       return (
         <div className={style.linkOptionsContainer}>
@@ -101,7 +98,7 @@ class ErrorOverlay extends BaseComponent {
    * @memberof ErrorOverlay
    */
   renderRetryButton(): React$Element<any> | void {
-    if (this.player.getMediaInfo()) {
+    if (this.props.player.getMediaInfo()) {
       return (
         <div className={style.controlButtonContainer} onClick={() => this.handleClick()}>
           <button className={[style.controlButton, style.retryBtn].join(' ')}>
@@ -181,4 +178,5 @@ class ErrorOverlay extends BaseComponent {
   }
 }
 
+ErrorOverlay.displayName = COMPONENT_NAME;
 export {ErrorOverlay};

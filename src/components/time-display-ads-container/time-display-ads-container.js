@@ -1,8 +1,8 @@
 //@flow
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
-import BaseComponent from '../base';
 import {TimeDisplay} from '../time-display';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -13,23 +13,18 @@ const mapStateToProps = state => ({
   adProgress: state.engine.adProgress
 });
 
+const COMPONENT_NAME = 'TimeDisplayAdsContainer';
+
 @connect(mapStateToProps)
+@withLogger(COMPONENT_NAME)
 /**
  * TimeDisplayAdsContainer component
  *
  * @class TimeDisplayAdsContainer
  * @example <TimeDisplayAdsContainer format='-left seconds left' />
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class TimeDisplayAdsContainer extends BaseComponent {
-  /**
-   * Creates an instance of TimeDisplayAdsContainer.
-   * @memberof TimeDisplayAdsContainer
-   */
-  constructor() {
-    super({name: 'TimeDisplayAdsContainer'});
-  }
-
+class TimeDisplayAdsContainer extends Component {
   /**
    * render component
    *
@@ -42,4 +37,5 @@ class TimeDisplayAdsContainer extends BaseComponent {
   }
 }
 
+TimeDisplayAdsContainer.displayName = COMPONENT_NAME;
 export {TimeDisplayAdsContainer};

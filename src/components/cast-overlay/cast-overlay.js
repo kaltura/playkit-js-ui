@@ -1,11 +1,11 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
-import BaseComponent from '../base';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 import {IconType} from '../icon/index';
 import {Icon} from '../icon/icon';
 import {Localizer, Text} from 'preact-i18n';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -22,15 +22,18 @@ const mapStateToProps = state => ({
   isChangingSource: state.engine.isChangingSource
 });
 
+const COMPONENT_NAME = 'CastOverlay';
+
 @connect(mapStateToProps)
+@withLogger(COMPONENT_NAME)
 /**
  * CastOverlay component
  *
  * @class CastOverlay
- * @example <CastOverlay player={this.player} />
- * @extends {BaseComponent}
+ * @example <CastOverlay />
+ * @extends {Component}
  */
-class CastOverlay extends BaseComponent {
+class CastOverlay extends Component {
   /**
    * @static
    * @type {Object} - Component default props
@@ -38,15 +41,6 @@ class CastOverlay extends BaseComponent {
   static defaultProps: any = {
     icon: IconType.Cast
   };
-
-  /**
-   * Creates an instance of CastOverlay.
-   * @param {Object} obj obj
-   * @memberof CastOverlay
-   */
-  constructor(obj: Object) {
-    super({name: 'CastOverlay', player: obj.player});
-  }
 
   /**
    * Gets the cast status.
@@ -120,4 +114,5 @@ class CastOverlay extends BaseComponent {
   }
 }
 
+CastOverlay.displayName = COMPONENT_NAME;
 export {CastOverlay};

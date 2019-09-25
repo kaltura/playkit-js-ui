@@ -1,15 +1,18 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {withText, Text} from 'preact-i18n';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/settings';
-import BaseComponent from '../base';
 import {SmartContainer} from '../smart-container';
 import {SmartContainerItem} from '../smart-container/smart-container-item';
 import {default as Icon, IconType} from '../icon';
 import {PLAYER_SIZE} from '../shell/shell';
+import {withPlayer} from '../player';
+import {withEventManager} from 'event/with-event-manager';
+import {withEventDispatcher} from 'components/event-dispatcher';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -23,6 +26,8 @@ const mapStateToProps = state => ({
   playerSize: state.shell.playerSize
 });
 
+const COMPONENT_NAME = 'Settings';
+
 @connect(
   mapStateToProps,
   bindActions(actions)
@@ -32,32 +37,26 @@ const mapStateToProps = state => ({
   speedLabelText: 'settings.speed',
   buttonAriaLabel: 'controls.settings'
 })
-
+@withPlayer
+@withEventManager
+@withLogger(COMPONENT_NAME)
+@withEventDispatcher(COMPONENT_NAME)
 /**
- * SettingsControl component
+ * Settings component
  *
- * @class SettingsControl
- * @example <SettingsControl player={this.player} />
- * @extends {BaseComponent}
+ * @class Settings
+ * @example <Settings />
+ * @extends {Component}
  */
-class SettingsControl extends BaseComponent {
+class Settings extends Component {
   state: Object;
   _controlSettingsElement: any;
-
-  /**
-   * Creates an instance of SettingsControl.
-   * @param {Object} obj obj
-   * @memberof SettingsControl
-   */
-  constructor(obj: Object) {
-    super({name: 'Settings', player: obj.player});
-  }
 
   /**
    * before component mounted, set initial state
    *
    * @returns {void}
-   * @memberof SettingsControl
+   * @memberof Settings
    */
   componentWillMount() {
     this.setState({smartContainerOpen: false});
@@ -67,10 +66,10 @@ class SettingsControl extends BaseComponent {
    * after component mounted, set event listener to click outside of the component
    *
    * @returns {void}
-   * @memberof SettingsControl
+   * @memberof Settings
    */
   componentDidMount() {
-    this.eventManager.listen(document, 'click', e => this.handleClickOutside(e));
+    this.props.eventManager.listen(document, 'click', e => this.handleClickOutside(e));
   }
 
   /**
@@ -78,7 +77,7 @@ class SettingsControl extends BaseComponent {
    *
    * @param {*} e - click event
    * @returns {void}
-   * @memberof SettingsControl
+   * @memberof Settings
    */
   handleClickOutside(e: any) {
     if (
@@ -99,7 +98,7 @@ class SettingsControl extends BaseComponent {
    * toggle smart container internal state on control button click
    *
    * @returns {void}
-   * @memberof SettingsControl
+   * @memberof Settings
    */
   onControlButtonClick(): void {
     this.setState({smartContainerOpen: !this.state.smartContainerOpen});
@@ -110,12 +109,12 @@ class SettingsControl extends BaseComponent {
    *
    * @param {number} playbackRate - playback rate value
    * @returns {void}
-   * @memberof SettingsControl
+   * @memberof Settings
    */
   onSpeedChange(playbackRate: number): void {
     this.props.updateSpeed(playbackRate);
-    this.player.playbackRate = playbackRate;
-    this.notifyClick({
+    this.props.player.playbackRate = playbackRate;
+    this.props.notifyClick({
       speed: playbackRate
     });
   }
@@ -125,16 +124,17 @@ class SettingsControl extends BaseComponent {
    *
    * @param {(Object | string)} videoTrack - video track
    * @returns {void}
-   * @memberof SettingsControl
+   * @memberof Settings
    */
   onQualityChange(videoTrack: Object | string): void {
+    const {player} = this.props;
     if (videoTrack === 'auto') {
-      this.player.enableAdaptiveBitrate();
+      player.enableAdaptiveBitrate();
     } else {
-      this.player.selectTrack(videoTrack);
+      player.selectTrack(videoTrack);
     }
-    this.notifyClick({
-      type: this.player.Track.VIDEO,
+    this.props.notifyClick({
+      type: player.Track.VIDEO,
       track: videoTrack
     });
   }
@@ -148,7 +148,7 @@ class SettingsControl extends BaseComponent {
    * @param {object} currentTrack - a track
    * @returns {Array<any>} - an array with unique values, compared by their height. if the new track (currenttrack) has
    * the same height value, then we take the one with the higher bandwidth (replace it if needed)
-   * @memberof SettingsControl
+   * @memberof Settings
    */
   filterUniqueQualities(qualities: Array<any>, currentTrack: any): Array<any> {
     const arrLength = qualities.length - 1;
@@ -168,16 +168,17 @@ class SettingsControl extends BaseComponent {
    *
    * @param {*} props - component props
    * @returns {React$Element} - component element
-   * @memberof SettingsControl
+   * @memberof Settings
    */
   render(props: any): React$Element<any> | void {
-    const speedOptions = this.player.playbackRates.reduce((acc, speed) => {
+    const {player, isLive} = this.props;
+    const speedOptions = player.playbackRates.reduce((acc, speed) => {
       let speedOption = {
         value: speed,
         label: speed === 1 ? 'Normal' : speed,
         active: false
       };
-      if (speed === this.player.playbackRate) {
+      if (speed === player.playbackRate) {
         speedOption.active = true;
       }
       acc.push(speedOption);
@@ -194,21 +195,21 @@ class SettingsControl extends BaseComponent {
       .reduce(this.filterUniqueQualities, [])
       .map(t => ({
         label: t.label,
-        active: !this.player.isAdaptiveBitrateEnabled() && t.active,
+        active: !player.isAdaptiveBitrateEnabled() && t.active,
         value: t
       }));
 
     // Progressive playback doesn't support auto
-    if (qualityOptions.length > 1 && this.player.streamType !== 'progressive') {
+    if (qualityOptions.length > 1 && player.streamType !== 'progressive') {
       qualityOptions.unshift({
         label: 'Auto',
-        active: this.player.isAdaptiveBitrateEnabled(),
+        active: player.isAdaptiveBitrateEnabled(),
         value: 'auto'
       });
     }
 
     if (qualityOptions.length <= 1 && speedOptions.length <= 1) return undefined;
-    if (props.isLive && qualityOptions.length <= 1) return undefined;
+    if (isLive && qualityOptions.length <= 1) return undefined;
     return (
       <div ref={c => (this._controlSettingsElement = c)} className={[style.controlButtonContainer, style.controlSettings].join(' ')}>
         <button
@@ -221,7 +222,7 @@ class SettingsControl extends BaseComponent {
         {!this.state.smartContainerOpen ? (
           ''
         ) : (
-          <SmartContainer targetId={this.player.config.targetId} title={<Text id="settings.title" />} onClose={() => this.onControlButtonClick()}>
+          <SmartContainer targetId={player.config.targetId} title={<Text id="settings.title" />} onClose={() => this.onControlButtonClick()}>
             {qualityOptions.length <= 1 ? (
               ''
             ) : (
@@ -232,7 +233,7 @@ class SettingsControl extends BaseComponent {
                 onMenuChosen={o => this.onQualityChange(o)}
               />
             )}
-            {props.isLive || speedOptions.length <= 1 ? (
+            {isLive || speedOptions.length <= 1 ? (
               ''
             ) : (
               <SmartContainerItem icon="speed" label={props.speedLabelText} options={speedOptions} onMenuChosen={o => this.onSpeedChange(o)} />
@@ -244,4 +245,5 @@ class SettingsControl extends BaseComponent {
   }
 }
 
-export {SettingsControl};
+Settings.displayName = COMPONENT_NAME;
+export {Settings};

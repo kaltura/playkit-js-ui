@@ -1,20 +1,21 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 import isEqual from '../../utils/is-equal';
 import {bindActions} from '../../utils/bind-actions';
 import {actions as cvaaActions} from '../../reducers/cvaa';
 import {actions as shellActions} from '../../reducers/shell';
-import BaseComponent from '../base';
 import {Overlay} from '../overlay';
 import {DropDown} from '../dropdown';
 import {Slider} from '../slider';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {Text} from 'preact-i18n';
-import {Component} from 'preact/src/preact';
 import {withKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
+import {withPlayer} from '../player';
+import {withEventDispatcher} from 'components/event-dispatcher';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -33,29 +34,26 @@ const cvaaOverlayState = {
 
 type CvaaOverlayStateType = 'main' | 'custom-captions';
 
+const COMPONENT_NAME = 'CVAAOverlay';
+
 @connect(
   mapStateToProps,
   bindActions({...cvaaActions, ...shellActions})
 )
+@withPlayer
+@withLogger(COMPONENT_NAME)
+@withEventDispatcher(COMPONENT_NAME)
 
 /**
  * CVAAOverlay component
  *
  * @class CVAAOverlay
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class CVAAOverlay extends BaseComponent {
+class CVAAOverlay extends Component {
   captionsStyleDefault: Object;
   captionsStyleYellow: Object;
   captionsStyleBlackBG: Object;
-
-  /**
-   * Creates an instance of CVAAOverlay.
-   * @memberof CVAAOverlay
-   */
-  constructor() {
-    super({name: 'CVAAOverlay'});
-  }
 
   /**
    * componentWillUnmount
@@ -76,23 +74,24 @@ class CVAAOverlay extends BaseComponent {
    * @memberof CVAAOverlay
    */
   componentWillMount() {
+    const {player} = this.props;
     this.setState({
       activeWindow: cvaaOverlayState.Main,
-      customTextStyle: this.props.player.textStyle
+      customTextStyle: player.textStyle
     });
 
-    this.captionsStyleDefault = Object.assign(new this.props.player.TextStyle(), {
-      backgroundOpacity: this.props.player.TextStyle.StandardOpacities.TRANSPARENT
+    this.captionsStyleDefault = Object.assign(new player.TextStyle(), {
+      backgroundOpacity: player.TextStyle.StandardOpacities.TRANSPARENT
     });
 
-    this.captionsStyleYellow = Object.assign(new this.props.player.TextStyle(), {
-      backgroundOpacity: this.props.player.TextStyle.StandardOpacities.TRANSPARENT,
-      fontColor: this.props.player.TextStyle.StandardColors.YELLOW
+    this.captionsStyleYellow = Object.assign(new player.TextStyle(), {
+      backgroundOpacity: player.TextStyle.StandardOpacities.TRANSPARENT,
+      fontColor: player.TextStyle.StandardColors.YELLOW
     });
 
-    this.captionsStyleBlackBG = Object.assign(new this.props.player.TextStyle(), {
-      backgroundColor: this.props.player.TextStyle.StandardColors.BLACK,
-      fontColor: this.props.player.TextStyle.StandardColors.WHITE
+    this.captionsStyleBlackBG = Object.assign(new player.TextStyle(), {
+      backgroundColor: player.TextStyle.StandardColors.BLACK,
+      fontColor: player.TextStyle.StandardColors.WHITE
     });
   }
 
@@ -116,9 +115,9 @@ class CVAAOverlay extends BaseComponent {
    */
   changeCaptionsStyle(textStyle: Object): void {
     this.props.updateCaptionsStyle(textStyle);
-    this.props.player.textStyle = textStyle;
+    this.player.textStyle = textStyle;
     this.props.onClose();
-    this.notifyClick({
+    this.props.notifyClick({
       textStyle: textStyle
     });
   }
@@ -130,10 +129,11 @@ class CVAAOverlay extends BaseComponent {
    * @memberof CVAAOverlay
    */
   isAdvancedStyleApplied(): boolean {
+    const {player} = this.props;
     return (
-      !isEqual(this.props.player.textStyle, this.captionsStyleDefault) &&
-      !isEqual(this.props.player.textStyle, this.captionsStyleBlackBG) &&
-      !isEqual(this.props.player.textStyle, this.captionsStyleYellow)
+      !isEqual(player.textStyle, this.captionsStyleDefault) &&
+      !isEqual(player.textStyle, this.captionsStyleBlackBG) &&
+      !isEqual(player.textStyle, this.captionsStyleYellow)
     );
   }
 
@@ -162,19 +162,20 @@ class CVAAOverlay extends BaseComponent {
 
   /**
    * render component
-   *
    * @param {*} props - component props
    * @returns {React$Element} - component element
    * @memberof CVAAOverlay
    */
   render(props: any): React$Element<any> {
+    const {player} = this.props;
+
     return (
       <Overlay open onClose={() => props.onClose()} type="cvaa">
         {this.state.activeWindow === cvaaOverlayState.Main ? (
           <MainWindow
             tabbable="true"
             state={this.state}
-            player={props.player}
+            player={player}
             captionsStyleDefault={this.captionsStyleDefault}
             captionsStyleBlackBG={this.captionsStyleBlackBG}
             captionsStyleYellow={this.captionsStyleYellow}
@@ -186,7 +187,7 @@ class CVAAOverlay extends BaseComponent {
           <CustomCaptionsWindow
             tabbable="true"
             state={this.state}
-            player={props.player}
+            player={player}
             changeCaptionsStyle={this.changeCaptionsStyle.bind(this)}
             changeCustomStyle={this.changeCustomStyle.bind(this)}
             getPreviewStyle={this._getPreviewStyle.bind(this)}
@@ -213,11 +214,12 @@ class CustomCaptionsWindow extends Component {
    * @memberof CustomCaptionsWindow
    */
   render(props: any): React$Element<any> {
-    const fontFamily = props.player.TextStyle.FontFamily;
-    const edgeStyles = props.player.TextStyle.EdgeStyles;
-    const standardColors = props.player.TextStyle.StandardColors;
+    const {player} = this.props;
+    const fontFamily = player.TextStyle.FontFamily;
+    const edgeStyles = player.TextStyle.EdgeStyles;
+    const standardColors = player.TextStyle.StandardColors;
 
-    const fontSizeOptions = props.player.TextStyle.FontSizes.map(size => ({
+    const fontSizeOptions = player.TextStyle.FontSizes.map(size => ({
       value: size.value,
       label: size.label,
       active: props.state.customTextStyle.fontScale === size.value
@@ -348,6 +350,7 @@ class MainWindow extends Component {
    * @memberof MainWindow
    */
   render(props: any): React$Element<any> {
+    const {player} = this.props;
     return (
       <div className={[style.overlayScreen, style.active].join(' ')}>
         <div className={style.title}>
@@ -367,7 +370,7 @@ class MainWindow extends Component {
               }
             }}>
             <Text id={'cvaa.sample_caption_tag'} />
-            {isEqual(props.player.textStyle, props.captionsStyleDefault) ? (
+            {isEqual(player.textStyle, props.captionsStyleDefault) ? (
               <div className={style.activeTick}>
                 <Icon type={IconType.Check} />
               </div>
@@ -385,7 +388,7 @@ class MainWindow extends Component {
               }
             }}>
             <Text id={'cvaa.sample_caption_tag'} />
-            {isEqual(props.player.textStyle, props.captionsStyleBlackBG) ? (
+            {isEqual(player.textStyle, props.captionsStyleBlackBG) ? (
               <div className={style.activeTick}>
                 <Icon type={IconType.Check} />
               </div>
@@ -403,7 +406,7 @@ class MainWindow extends Component {
               }
             }}>
             <Text id={'cvaa.sample_caption_tag'} />
-            {isEqual(props.player.textStyle, props.captionsStyleYellow) ? (
+            {isEqual(player.textStyle, props.captionsStyleYellow) ? (
               <div className={style.activeTick}>
                 <Icon type={IconType.Check} />
               </div>
@@ -449,4 +452,5 @@ class MainWindow extends Component {
   }
 }
 
+CVAAOverlay.displayName = COMPONENT_NAME;
 export {CVAAOverlay};

@@ -14,15 +14,15 @@ A component that changes the seekbar state.
 
 ```html
 //@flow
-import { h, SeekBarControl } from 'playkit-js-ui';
+import { h, SeekBar } from 'playkit-js-ui';
 
 export default function customUIPreset(props: any) {
   return (
     // show both frame preview and time bubble
-    <SeekBarControl showFramePreview showTimeBubble player={props.player} />
+    <SeekBar showFramePreview showTimeBubble />
 
     // show only time bubble
-    <SeekBarControl showTimeBubble player={props.player} />
+    <SeekBar showTimeBubble />
   )
 }
 ```

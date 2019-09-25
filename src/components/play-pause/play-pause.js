@@ -1,12 +1,14 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {connect} from 'preact-redux';
-import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {isPlayingAdOrPlayback} from '../../reducers/getters';
+import {withPlayer} from '../player';
+import {withEventDispatcher} from 'components/event-dispatcher';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -20,34 +22,30 @@ const mapStateToProps = state => ({
   isPlaybackEnded: state.engine.isPlaybackEnded
 });
 
-@connect(mapStateToProps)
-/**
- * PlayPauseControl component
- *
- * @class PlayPauseControl
- * @example <PlayPauseControl player={this.player} />
- * @extends {BaseComponent}
- */
-class PlayPauseControl extends BaseComponent {
-  /**
-   * Creates an instance of PlayPauseControl.
-   * @param {Object} obj obj
-   * @memberof PlayPauseControl
-   */
-  constructor(obj: Object) {
-    super({name: 'PlayPause', player: obj.player});
-  }
+const COMPONENT_NAME = 'PlayPause';
 
+@connect(mapStateToProps)
+@withPlayer
+@withLogger(COMPONENT_NAME)
+@withEventDispatcher(COMPONENT_NAME)
+/**
+ * PlayPause component
+ *
+ * @class PlayPause
+ * @example <PlayPause />
+ * @extends {Component}
+ */
+class PlayPause extends Component {
   /**
    * toggle play / pause
    *
    * @returns {void}
-   * @memberof PlayPauseControl
+   * @memberof PlayPause
    */
   togglePlayPause(): void {
-    this.logger.debug('Toggle play');
-    this.props.isPlayingAdOrPlayback ? this.player.pause() : this.player.play();
-    this.notifyClick();
+    this.props.logger.debug('Toggle play');
+    this.props.isPlayingAdOrPlayback ? this.props.player.pause() : this.props.player.play();
+    this.props.notifyClick();
   }
 
   /**
@@ -55,7 +53,7 @@ class PlayPauseControl extends BaseComponent {
    *
    * @param {*} props - component props
    * @returns {React$Element} - component element
-   * @memberof PlayPauseControl
+   * @memberof PlayPause
    */
   render(props: any): React$Element<any> | void {
     const controlButtonClass = this.props.isPlayingAdOrPlayback ? [style.controlButton, style.isPlaying].join(' ') : style.controlButton;
@@ -89,4 +87,5 @@ class PlayPauseControl extends BaseComponent {
   }
 }
 
-export {PlayPauseControl};
+PlayPause.displayName = COMPONENT_NAME;
+export {PlayPause};

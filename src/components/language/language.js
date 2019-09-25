@@ -1,18 +1,20 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {Text, withText} from 'preact-i18n';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/cvaa';
-import BaseComponent from '../base';
 import {SmartContainer} from '../smart-container';
 import {SmartContainerItem} from '../smart-container/smart-container-item';
 import {default as Icon, IconType} from '../icon';
 import {CVAAOverlay} from '../cvaa-overlay';
 import Portal from 'preact-portal';
 import {PLAYER_SIZE} from '../shell/shell';
-import {Component} from 'preact/src/preact';
+import {withPlayer} from '../player';
+import {withEventManager} from 'event/with-event-manager';
+import {withLogger} from 'components/logger';
+import {withEventDispatcher} from 'components/event-dispatcher';
 
 /**
  * mapping state to props
@@ -27,10 +29,16 @@ const mapStateToProps = state => ({
   playerSize: state.shell.playerSize
 });
 
+const COMPONENT_NAME = 'Language';
+
 @connect(
   mapStateToProps,
   bindActions(actions)
 )
+@withPlayer
+@withEventManager
+@withLogger(COMPONENT_NAME)
+@withEventDispatcher(COMPONENT_NAME)
 @withText({
   audioLabelText: 'language.audio',
   captionsLabelText: 'language.captions',
@@ -38,31 +46,22 @@ const mapStateToProps = state => ({
 })
 
 /**
- * LanguageControl component
+ * Language component
  *
- * @class LanguageControl
- * @example <LanguageControl />
- * @extends {BaseComponent}
+ * @class Language
+ * @example <Language />
+ * @extends {Component}
  */
-class LanguageControl extends BaseComponent {
+class Language extends Component {
   state: Object;
   _controlLanguageElement: any;
   _portal: any;
 
   /**
-   * Creates an instance of LanguageControl.
-   * @param {Object} obj obj
-   * @memberof LanguageControl
-   */
-  constructor(obj: Object) {
-    super({name: 'LanguageControl', player: obj.player});
-  }
-
-  /**
    * before component mounted, set initial state
    *
    * @returns {void}
-   * @memberof LanguageControl
+   * @memberof Language
    */
   componentWillMount() {
     this.setState({smartContainerOpen: false});
@@ -72,10 +71,10 @@ class LanguageControl extends BaseComponent {
    * after component mounted, set event listener to click outside of the component
    *
    * @returns {void}
-   * @memberof LanguageControl
+   * @memberof Language
    */
   componentDidMount() {
-    this.eventManager.listen(document, 'click', e => this.handleClickOutside(e));
+    this.props.eventManager.listen(document, 'click', e => this.handleClickOutside(e));
   }
 
   /**
@@ -83,7 +82,7 @@ class LanguageControl extends BaseComponent {
    *
    * @param {*} e - click event
    * @returns {void}
-   * @memberof LanguageControl
+   * @memberof Language
    */
   handleClickOutside(e: any): void {
     if (
@@ -105,7 +104,7 @@ class LanguageControl extends BaseComponent {
    * toggle smart container internal state on control button click
    *
    * @returns {void}
-   * @memberof LanguageControl
+   * @memberof Language
    */
   onControlButtonClick(): void {
     this.setState({smartContainerOpen: !this.state.smartContainerOpen});
@@ -116,12 +115,12 @@ class LanguageControl extends BaseComponent {
    *
    * @param {Object} audioTrack - audio track
    * @returns {void}
-   * @memberof LanguageControl
+   * @memberof Language
    */
   onAudioChange(audioTrack: Object): void {
-    this.player.selectTrack(audioTrack);
-    this.notifyClick({
-      type: this.player.Track.AUDIO,
+    this.props.player.selectTrack(audioTrack);
+    this.props.notifyClick({
+      type: this.props.player.Track.AUDIO,
       track: audioTrack
     });
   }
@@ -131,12 +130,12 @@ class LanguageControl extends BaseComponent {
    *
    * @param {Object} textTrack - text track
    * @returns {void}
-   * @memberof LanguageControl
+   * @memberof Language
    */
   onCaptionsChange(textTrack: Object): void {
-    this.player.selectTrack(textTrack);
-    this.notifyClick({
-      type: this.player.Track.TEXT,
+    this.props.player.selectTrack(textTrack);
+    this.props.notifyClick({
+      type: this.props.player.Track.TEXT,
       track: textTrack
     });
   }
@@ -145,7 +144,7 @@ class LanguageControl extends BaseComponent {
    * toggle the internal state of cvaa overlay
    *
    * @returns {void}
-   * @memberof LanguageControl
+   * @memberof Language
    */
   toggleCVAAOverlay(): void {
     this.setState({cvaaOverlay: !this.state.cvaaOverlay});
@@ -157,10 +156,10 @@ class LanguageControl extends BaseComponent {
    * @param {Array<Object>} audioOptions - audio tracks
    * @param {Array<Object>} textOptions - text tracks
    * @returns {React$Element} - component
-   * @memberof LanguageControl
+   * @memberof Language
    */
   renderAll(audioOptions: Array<Object>, textOptions: Array<Object>): React$Element<any> {
-    const portalSelector = `#${this.player.config.targetId} .overlay-portal`;
+    const portalSelector = `#${this.props.player.config.targetId} .overlay-portal`;
     return (
       <div ref={c => (this._controlLanguageElement = c)} className={[style.controlButtonContainer, style.controlLanguage].join(' ')}>
         <button
@@ -173,7 +172,10 @@ class LanguageControl extends BaseComponent {
         {!this.state.smartContainerOpen || this.state.cvaaOverlay ? (
           undefined
         ) : (
-          <SmartContainer targetId={this.player.config.targetId} title={<Text id="language.title" />} onClose={() => this.onControlButtonClick()}>
+          <SmartContainer
+            targetId={this.props.player.config.targetId}
+            title={<Text id="language.title" />}
+            onClose={() => this.onControlButtonClick()}>
             {audioOptions.length <= 1 ? (
               undefined
             ) : (
@@ -204,7 +206,6 @@ class LanguageControl extends BaseComponent {
         {this.state.cvaaOverlay ? (
           <Portal into={portalSelector} ref={ref => (this._portal = ref)}>
             <CVAAOverlay
-              player={this.player}
               onClose={() => {
                 this.toggleCVAAOverlay();
                 this.onControlButtonClick();
@@ -223,7 +224,7 @@ class LanguageControl extends BaseComponent {
    *
    * @param {*} props - component props
    * @returns {React$Element} - component
-   * @memberof LanguageControl
+   * @memberof Language
    */
   render(props: any): React$Element<any> | void {
     const audioOptions = props.audioTracks.filter(t => t.label || t.language).map(t => ({label: t.label || t.language, active: t.active, value: t}));
@@ -272,4 +273,5 @@ class AdvancedCaptionsAnchor extends Component {
   }
 }
 
-export {LanguageControl};
+Language.displayName = COMPONENT_NAME;
+export {Language};

@@ -3,13 +3,15 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {toHHMMSS} from '../../utils/time-format';
 
+const COMPONENT_NAME = 'TimeDisplay';
+
 /**
  * TimeDisplay component
  *
  * @class TimeDisplay
  * @example <TimeDisplay
- *  currentTime={this.player.currentTime}
- *  duration={this.player.duration}
+ *  currentTime={this.props.player.currentTime}
+ *  duration={this.props.player.duration}
  *  format='currentTime / duration'
  * />
  * @extends {Component}
@@ -55,4 +57,5 @@ class TimeDisplay extends Component {
   }
 }
 
+TimeDisplay.displayName = COMPONENT_NAME;
 export {TimeDisplay};

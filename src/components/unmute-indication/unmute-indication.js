@@ -1,11 +1,13 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
-import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {Localizer, Text} from 'preact-i18n';
+import {withPlayer} from '../player';
+import {withEventManager} from 'event/with-event-manager';
+import {withLogger} from 'components/logger';
 
 /**
  * The icon only default timeout
@@ -23,27 +25,23 @@ const mapStateToProps = state => ({
   fallbackToMutedAutoPlay: state.engine.fallbackToMutedAutoPlay
 });
 
+const COMPONENT_NAME = 'UnmuteIndication';
+
 @connect(
   mapStateToProps,
   null
 )
+@withPlayer
+@withEventManager
+@withLogger(COMPONENT_NAME)
 /**
  * UnmuteIndication component
  *
  * @class UnmuteIndication
- * @example <UnmuteIndication player={this.player} />
- * @extends {BaseComponent}
+ * @example <UnmuteIndication />
+ * @extends {Component}
  */
-class UnmuteIndication extends BaseComponent {
-  /**
-   * Creates an instance of UnmuteIndication.
-   * @param {Object} obj obj
-   * @memberof UnmuteIndication
-   */
-  constructor(obj: Object) {
-    super({name: 'UnmuteIndication', player: obj.player});
-  }
-
+class UnmuteIndication extends Component {
   /**
    * after component updated, check the fallbackToMutedAutoPlay prop for updating the state of the component
    *
@@ -54,8 +52,8 @@ class UnmuteIndication extends BaseComponent {
    */
   componentDidUpdate(prevProps: Object): void {
     if (!prevProps.fallbackToMutedAutoPlay && this.props.fallbackToMutedAutoPlay) {
-      this.eventManager.listenOnce(this.player, this.player.Event.PLAYING, () => this._iconOnlyTimeout());
-      this.eventManager.listenOnce(this.player, this.player.Event.AD_STARTED, () => this._iconOnlyTimeout());
+      this.props.eventManager.listenOnce(this.props.player, this.props.player.Event.PLAYING, () => this._iconOnlyTimeout());
+      this.props.eventManager.listenOnce(this.props.player, this.props.player.Event.AD_STARTED, () => this._iconOnlyTimeout());
     }
   }
 
@@ -79,7 +77,7 @@ class UnmuteIndication extends BaseComponent {
    */
   _keyDownHandler(e: KeyboardEvent): void {
     if (e.keyCode === KeyMap.ENTER) {
-      this.player.muted = !this.player.muted;
+      this.props.player.muted = !this.props.player.muted;
     }
   }
 
@@ -105,7 +103,7 @@ class UnmuteIndication extends BaseComponent {
           className={styleClass.join(' ')}
           onMouseOver={() => this.setState({iconOnly: false})}
           onMouseOut={() => this.setState({iconOnly: true})}
-          onClick={() => (this.player.muted = !this.player.muted)}
+          onClick={() => (this.props.player.muted = !this.props.player.muted)}
           onTouchEnd={e => e.stopImmediatePropagation()}
           onKeyDown={e => this._keyDownHandler(e)}>
           <a className={[style.btn, style.btnDarkTransparent, style.unmuteButton].join(' ')}>
@@ -123,4 +121,5 @@ class UnmuteIndication extends BaseComponent {
   }
 }
 
+UnmuteIndication.displayName = COMPONENT_NAME;
 export {UnmuteIndication};

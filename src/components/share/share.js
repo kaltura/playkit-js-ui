@@ -1,6 +1,5 @@
 //@flow
-import {h} from 'preact';
-import BaseComponent from '../base';
+import {h, Component} from 'preact';
 import {default as Icon, IconType} from '../icon';
 import {ShareOverlay} from '../share-overlay';
 import Portal from 'preact-portal';
@@ -9,11 +8,12 @@ import {defaultConfig} from './default-config';
 import {actions} from '../../reducers/share';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
+import {withPlayer} from '../player';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
  * @param {*} state - redux store state
- * @example <ShareOverlay player={this.player} />
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
@@ -22,33 +22,29 @@ const mapStateToProps = state => ({
   config: state.config.components.share
 });
 
+const COMPONENT_NAME = 'Share';
+
 @connect(
   mapStateToProps,
   bindActions(actions)
 )
+@withPlayer
+@withLogger(COMPONENT_NAME)
 /**
- * ShareControl component
+ * Share component
  *
- * @class ShareControl
- * @example <ShareControl player={this.player} />
- * @extends {BaseComponent}
+ * @class Share
+ * @example <Share />
+ * @extends {Component}
  */
-class ShareControl extends BaseComponent {
+class Share extends Component {
   _portal: any;
-  /**
-   * Creates an instance of ShareControl.
-   * @param {Object} obj obj
-   * @memberof ShareControl
-   */
-  constructor(obj: Object) {
-    super({name: 'Share', player: obj.player});
-  }
 
   /**
    * toggle overlay internal component state
    *
    * @returns {void}
-   * @memberof ShareControl
+   * @memberof Share
    */
   toggleOverlay(): void {
     this.setState({overlay: !this.state.overlay});
@@ -59,9 +55,9 @@ class ShareControl extends BaseComponent {
       this.setState({previousIsPlaying: false});
     }
     if (this.state.overlay) {
-      this.player.pause();
+      this.props.player.pause();
     } else if (this.state.previousIsPlaying) {
-      this.player.play();
+      this.props.player.play();
       this.setState({previousIsPlaying: false});
     }
   }
@@ -80,7 +76,7 @@ class ShareControl extends BaseComponent {
    * render element
    *
    * @returns {React$Element} component element
-   * @memberof ShareControl
+   * @memberof Share
    */
   render(): React$Element<any> | void {
     const {embedUrl, enable, shareUrl, enableTimeOffset} = this.props.config;
@@ -88,9 +84,9 @@ class ShareControl extends BaseComponent {
       return undefined;
     }
     const shareConfig = this._getMergedShareConfig();
-    const portalSelector = `#${this.player.config.targetId} .overlay-portal`;
+    const portalSelector = `#${this.props.player.config.targetId} .overlay-portal`;
     return (
-      <div className={[style.controlButtonContainer, style.controlShare].join(' ')}>
+      <div>
         {this.state.overlay ? (
           <Portal into={portalSelector} ref={ref => (this._portal = ref)}>
             <ShareOverlay
@@ -98,7 +94,7 @@ class ShareControl extends BaseComponent {
               embedUrl={embedUrl}
               enableTimeOffset={enableTimeOffset}
               socialNetworks={shareConfig}
-              player={this.player}
+              player={this.props.player}
               onClose={() => this.toggleOverlay()}
             />
           </Portal>
@@ -112,4 +108,5 @@ class ShareControl extends BaseComponent {
   }
 }
 
-export {ShareControl};
+Share.displayName = COMPONENT_NAME;
+export {Share};

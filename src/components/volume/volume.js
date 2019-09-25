@@ -1,15 +1,18 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/volume';
 import {actions as engineActions} from '../../reducers/engine';
-import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {KEYBOARD_DEFAULT_VOLUME_JUMP} from '../keyboard/keyboard';
 import {FakeEvent} from '../../event/fake-event';
+import {withPlayer} from '../player';
+import {withEventManager} from 'event/with-event-manager';
+import {withLogger} from 'components/logger';
+import {withEventDispatcher} from 'components/event-dispatcher';
 
 /**
  * mapping state to props
@@ -23,50 +26,46 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile
 });
 
+const COMPONENT_NAME = 'Volume';
+
 @connect(
   mapStateToProps,
   bindActions({...actions, ...engineActions})
 )
+@withPlayer
+@withEventManager
+@withLogger(COMPONENT_NAME)
+@withEventDispatcher(COMPONENT_NAME)
 /**
- * VolumeControl component
+ * Volume component
  *
- * @class VolumeControl
- * @example <VolumeControl player={this.player} />
- * @extends {BaseComponent}
+ * @class Volume
+ * @example <Volume />
+ * @extends {Component}
  */
-class VolumeControl extends BaseComponent {
+class Volume extends Component {
   _volumeControlElement: HTMLElement;
   _volumeProgressBarElement: HTMLElement;
-
-  /**
-   * Creates an instance of VolumeControl.
-   *
-   * @constructor
-   * @param {Object} obj obj
-   * @memberof VolumeControl
-   */
-  constructor(obj: Object) {
-    super({name: 'Volume', player: obj.player});
-  }
 
   /**
    * after component mounted, update initial volume and muted value and listen to volume change
    *
    * @method componentDidMount
    * @returns {void}
-   * @memberof VolumeControl
+   * @memberof Volume
    */
   componentDidMount(): void {
-    this.eventManager.listen(this.player, this.player.Event.LOADED_METADATA, () => {
-      this.props.updateVolume(this.player.volume);
-      this.props.updateMuted(this.player.muted);
+    const {player} = this.props;
+    this.props.eventManager.listen(player, player.Event.LOADED_METADATA, () => {
+      this.props.updateVolume(player.volume);
+      this.props.updateMuted(player.muted);
     });
-    this.eventManager.listen(this.player, this.player.Event.VOLUME_CHANGE, () => {
-      this.props.updateMuted(this.player.muted);
-      this.props.updateVolume(this.player.volume);
+    this.props.eventManager.listen(player, player.Event.VOLUME_CHANGE, () => {
+      this.props.updateMuted(player.muted);
+      this.props.updateVolume(player.volume);
     });
-    this.eventManager.listen(document, 'mouseup', e => this.onVolumeProgressBarMouseUp(e));
-    this.eventManager.listen(document, 'mousemove', e => this.onVolumeProgressBarMouseMove(e));
+    this.props.eventManager.listen(document, 'mouseup', e => this.onVolumeProgressBarMouseUp(e));
+    this.props.eventManager.listen(document, 'mousemove', e => this.onVolumeProgressBarMouseMove(e));
   }
 
   /**
@@ -74,7 +73,7 @@ class VolumeControl extends BaseComponent {
    *
    * @method getVolumeProgessHeight
    * @returns {string} - volume progress bar new height based on volume
-   * @memberof VolumeControl
+   * @memberof Volume
    */
   getVolumeProgressHeight(): string {
     return this.props.muted ? '0%' : Math.round(this.props.volume * 100) + '%';
@@ -85,7 +84,7 @@ class VolumeControl extends BaseComponent {
    *
    * @method onVolumeProgressBarMouseDown
    * @returns {void}
-   * @memberof VolumeControl
+   * @memberof Volume
    */
   onVolumeProgressBarMouseDown(): void {
     this.props.updateVolumeDraggingStatus(true);
@@ -97,7 +96,7 @@ class VolumeControl extends BaseComponent {
    * @method onVolumeProgressBarMouseMove
    * @param {FakeEvent} e - mouse move event
    * @returns {void}
-   * @memberof VolumeControl
+   * @memberof Volume
    */
   onVolumeProgressBarMouseMove(e: FakeEvent): void {
     if (this.props.isDraggingActive) {
@@ -109,7 +108,7 @@ class VolumeControl extends BaseComponent {
    * volume mouse over handler
    *
    * @returns {void}
-   * @memberof VolumeControl
+   * @memberof Volume
    */
   onVolumeMouseOver(): void {
     if (this.props.isMobile) return;
@@ -121,7 +120,7 @@ class VolumeControl extends BaseComponent {
    * volume mouse over handler
    *
    * @returns {void}
-   * @memberof VolumeControl
+   * @memberof Volume
    */
   onVolumeMouseOut(): void {
     if (this.props.isMobile) return;
@@ -135,9 +134,10 @@ class VolumeControl extends BaseComponent {
    * @param {KeyboardEvent} e - keyboardEvent event
    * @method onVolumeControlButtonClick
    * @returns {void}
-   * @memberof VolumeControl
+   * @memberof Volume
    */
   onVolumeControlKeyDown(e: KeyboardEvent): void {
+    const {player} = this.state;
     /**
      * Change volume operations.
      * @param {number} newVolume - The new volume.
@@ -148,16 +148,16 @@ class VolumeControl extends BaseComponent {
       if (newVolume > 100 || newVolume < 0) {
         return;
       }
-      this.player.muted = newVolume < KEYBOARD_DEFAULT_VOLUME_JUMP;
-      this.player.volume = newVolume / 100;
-      this.notifyChange({volume: this.player.volume});
+      player.muted = newVolume < KEYBOARD_DEFAULT_VOLUME_JUMP;
+      player.volume = newVolume / 100;
+      this.props.notifyChange({volume: player.volume});
     };
     switch (e.keyCode) {
       case KeyMap.UP:
-        changeVolume(Math.round(this.player.volume * 100) + KEYBOARD_DEFAULT_VOLUME_JUMP);
+        changeVolume(Math.round(player.volume * 100) + KEYBOARD_DEFAULT_VOLUME_JUMP);
         break;
       case KeyMap.DOWN:
-        changeVolume(Math.round(this.player.volume * 100) - KEYBOARD_DEFAULT_VOLUME_JUMP);
+        changeVolume(Math.round(player.volume * 100) - KEYBOARD_DEFAULT_VOLUME_JUMP);
         break;
       default:
         this.setState({hover: false});
@@ -171,7 +171,7 @@ class VolumeControl extends BaseComponent {
    * @method onVolumeProgressBarMouseUp
    * @param {FakeEvent} e - mouse up event
    * @returns {void}
-   * @memberof VolumeControl
+   * @memberof Volume
    */
   onVolumeProgressBarMouseUp(e: FakeEvent): void {
     if (this.props.isDraggingActive) {
@@ -185,18 +185,19 @@ class VolumeControl extends BaseComponent {
    *
    * @method onVolumeControlButtonClick
    * @returns {void}
-   * @memberof VolumeControl
+   * @memberof Volume
    */
   onVolumeControlButtonClick(): void {
-    if (this.player.volume == 0) {
-      this.logger.debug(`Toggle mute. Volume is 0, set mute to false & volume to 0.5`);
-      this.player.muted = false;
-      this.player.volume = 0.5;
+    const {player} = this.props;
+    if (player.volume == 0) {
+      this.props.logger.debug(`Toggle mute. Volume is 0, set mute to false & volume to 0.5`);
+      player.muted = false;
+      player.volume = 0.5;
     } else {
-      this.logger.debug(`Toggle mute. ${this.player.muted} => ${!this.player.muted}`);
-      this.player.muted = !this.player.muted;
+      this.props.logger.debug(`Toggle mute. ${player.muted} => ${!player.muted}`);
+      player.muted = !player.muted;
     }
-    this.notifyClick();
+    this.props.notifyClick();
   }
 
   /**
@@ -206,9 +207,10 @@ class VolumeControl extends BaseComponent {
    * @method changeVolume
    * @param {FakeEvent} e - event to get the position from
    * @returns {void}
-   * @memberof VolumeControl
+   * @memberof Volume
    */
   changeVolume(e: FakeEvent): void {
+    const {player} = this.props;
     const dimensions = this._volumeProgressBarElement.getBoundingClientRect();
     let volume;
     if (dimensions.height > dimensions.width) {
@@ -218,12 +220,12 @@ class VolumeControl extends BaseComponent {
     }
     volume = parseFloat(volume.toFixed(2));
     if (volume <= 1 && volume >= 0) {
-      this.logger.debug(`Change volume from ${this.player.volume} => ${volume}`);
-      this.player.volume = volume;
+      this.props.logger.debug(`Change volume from ${player.volume} => ${volume}`);
+      player.volume = volume;
       if (this.props.muted) {
-        this.player.muted = false;
+        player.muted = false;
       }
-      this.notifyChange({volume: this.player.volume});
+      this.props.notifyChange({volume: player.volume});
     }
   }
 
@@ -267,13 +269,14 @@ class VolumeControl extends BaseComponent {
    * render component
    *
    * @returns {React$Element} - component element
-   * @memberof VolumeControl
+   * @memberof Volume
    */
   render(): React$Element<any> {
+    const {player, isDraggingActive, muted, volume, smartContainerOpen} = this.props;
     const controlButtonClass = [style.controlButtonContainer, style.volumeControl];
-    if (this.props.isDraggingActive) controlButtonClass.push(style.draggingActive);
-    if (this.props.muted || this.props.volume === 0) controlButtonClass.push(style.isMuted);
-    if (this.state.hover && !this.props.smartContainerOpen) controlButtonClass.push(style.hover);
+    if (isDraggingActive) controlButtonClass.push(style.draggingActive);
+    if (muted || volume === 0) controlButtonClass.push(style.isMuted);
+    if (this.state.hover && !smartContainerOpen) controlButtonClass.push(style.hover);
 
     return (
       <div
@@ -296,8 +299,8 @@ class VolumeControl extends BaseComponent {
           role="slider"
           aria-valuemin="0"
           aria-valuemaz="100"
-          aria-valuenow={this.player.volume * 100}
-          aria-valuetext={`${this.player.volume * 100}% volume ${this.player.muted ? 'muted' : ''}`}>
+          aria-valuenow={player.volume * 100}
+          aria-valuetext={`${player.volume * 100}% volume ${player.muted ? 'muted' : ''}`}>
           <div className={style.bar} ref={c => (this._volumeProgressBarElement = c)} onMouseDown={() => this.onVolumeProgressBarMouseDown()}>
             <div className={style.progress} style={{height: this.getVolumeProgressHeight()}} />
           </div>
@@ -307,4 +310,5 @@ class VolumeControl extends BaseComponent {
   }
 }
 
-export {VolumeControl};
+Volume.displayName = COMPONENT_NAME;
+export {Volume};

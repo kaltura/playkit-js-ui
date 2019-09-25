@@ -1,11 +1,12 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
-import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {connect} from 'preact-redux';
+import {withPlayer} from '../player';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -21,38 +22,32 @@ const mapStateToProps = state => ({
   isPlaybackEnded: state.engine.isPlaybackEnded
 });
 
+const COMPONENT_NAME = 'PlaylistCountdown';
+
 @connect(mapStateToProps)
+@withPlayer
+@withLogger(COMPONENT_NAME)
 /**
  * PlaylistCountdown component
  *
  * @class PlaylistCountdown
- * @example <PlaylistCountdown player={this.player} type="next"/>
- * @extends {BaseComponent}
+ * @example <PlaylistCountdown type="next"/>
+ * @extends {Component}
  */
-class PlaylistCountdown extends BaseComponent {
+class PlaylistCountdown extends Component {
   /**
    * should render component
    * @param {*} props - component props
    * @returns {boolean} - component element
-   * @static
    */
-  static shouldRender(props: any): boolean {
+  _shouldRender(props: any): boolean {
     return (
-      props.state.engine.playlist &&
-      props.state.engine.playlist.next &&
-      props.state.engine.playlist.next.sources &&
+      props.playlist &&
+      props.playlist.next &&
+      props.playlist.next.sources &&
       props.player.playlist.countdown.showing &&
       (props.player.playlist.options.autoContinue || props.player.playlist.options.loop)
     );
-  }
-
-  /**
-   * Creates an instance of PlaylistCountdown.
-   * @param {Object} obj obj
-   * @memberof PlaylistCountdown
-   */
-  constructor(obj: Object) {
-    super({name: 'PlaylistCountdown', player: obj.player});
   }
 
   /**
@@ -62,7 +57,7 @@ class PlaylistCountdown extends BaseComponent {
    * @memberof PlaylistCountdown
    */
   onClick(): void {
-    this.player.playlist.playNext();
+    this.props.player.playlist.playNext();
   }
 
   /**
@@ -73,7 +68,7 @@ class PlaylistCountdown extends BaseComponent {
    * @memberof PlaylistCountdown
    */
   cancelNext(e: any): void {
-    this.logger.debug('Cancel auto play next item');
+    this.props.logger.debug('Cancel auto play next item');
     e.stopPropagation();
     this.setState({canceled: true});
   }
@@ -83,7 +78,7 @@ class PlaylistCountdown extends BaseComponent {
    * @private
    */
   _getTimeToShow() {
-    const countdown = this.player.playlist.countdown;
+    const countdown = this.props.player.playlist.countdown;
     let timeToShow = this.props.duration - countdown.duration;
     if (countdown.timeToShow >= 0 && countdown.timeToShow <= this.props.duration) {
       timeToShow = Math.max(countdown.timeToShow, this.props.lastSeekPoint);
@@ -123,12 +118,12 @@ class PlaylistCountdown extends BaseComponent {
    */
   componentDidUpdate() {
     const timeToShow = this._getTimeToShow();
-    const countdown = this.player.playlist.countdown;
+    const countdown = this.props.player.playlist.countdown;
     if (
       !this.state.canceled &&
       (this.props.isPlaybackEnded || (this.props.currentTime >= timeToShow + countdown.duration && this.props.currentTime < this.props.duration))
     ) {
-      this.player.playlist.playNext();
+      this.props.player.playlist.playNext();
     }
   }
 
@@ -150,11 +145,14 @@ class PlaylistCountdown extends BaseComponent {
    * @memberof PlaylistCountdown
    */
   render(props: any): React$Element<any> | void {
+    if (!this._shouldRender(props)) {
+      return undefined;
+    }
     const next = props.playlist.next;
     if (!(next && next.sources)) {
       return undefined;
     }
-    const countdown = this.player.playlist.countdown;
+    const countdown = this.props.player.playlist.countdown;
     const timeToShow = this._getTimeToShow();
     const progressTime = props.currentTime - timeToShow;
     const progressDuration = Math.min(countdown.duration, props.duration - timeToShow);
@@ -215,4 +213,5 @@ class PlaylistCountdown extends BaseComponent {
   }
 }
 
+PlaylistCountdown.displayName = COMPONENT_NAME;
 export {PlaylistCountdown};

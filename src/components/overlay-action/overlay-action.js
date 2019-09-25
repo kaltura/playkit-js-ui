@@ -1,13 +1,15 @@
 //@flow
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import style from '../../styles/style.scss';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/overlay-action';
 import {actions as shellActions} from '../../reducers/shell';
-import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {isPlayingAdOrPlayback} from '../../reducers/getters';
+import {withPlayer} from '../player';
+import {withEventDispatcher} from 'components/event-dispatcher';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -50,34 +52,29 @@ const DOUBLE_CLICK_MAX_BUFFER_TIME: number = 500;
  */
 const DRAGGING_THRESHOLD: number = 5;
 
+const COMPONENT_NAME = 'OverlayAction';
+
 @connect(
   mapStateToProps,
   bindActions(Object.assign({}, actions, shellActions))
 )
-
+@withPlayer
+@withLogger(COMPONENT_NAME)
+@withEventDispatcher(COMPONENT_NAME)
 /**
  * OverlayAction component
  *
  * @class OverlayAction
- * @example <OverlayAction player={this.player} />
- * @extends {BaseComponent}
+ * @example <OverlayAction />
+ * @extends {Component}
  */
-class OverlayAction extends BaseComponent {
+class OverlayAction extends Component {
   state: Object;
   _iconTimeout: ?number = null;
   _pointerDownPosX: number = NaN;
   _pointerDownPosY: number = NaN;
   _firstClickTime: number = 0;
   _clickTimeout: ?number = 0;
-
-  /**
-   * Creates an instance of OverlayAction.
-   * @param {Object} obj obj
-   * @memberof OverlayAction
-   */
-  constructor(obj: Object) {
-    super({name: 'OverlayAction', player: obj.player});
-  }
 
   /**
    * toggle play pause and set animation to icon change
@@ -87,14 +84,15 @@ class OverlayAction extends BaseComponent {
    */
   togglePlayPause(): void {
     if (this.props.isPlayingAdOrPlayback) {
-      this.player.pause();
+      this.props.player.pause();
       this.props.updateOverlayActionIcon(IconType.Pause);
     } else {
-      this.player.play();
+      this.props.player.play();
       this.props.updateOverlayActionIcon(IconType.Play);
     }
     this.props.updatePlayerHoverState(true);
-    this.notifyClick({
+    this.props.notifyHoverChange({hover: true});
+    this.props.notifyClick({
       type: 'PlayPause'
     });
   }
@@ -106,14 +104,14 @@ class OverlayAction extends BaseComponent {
    * @memberof OverlayAction
    */
   toggleFullscreen(): void {
-    if (!this.player.isFullscreen()) {
-      this.logger.debug('Enter fullscreen');
-      this.player.enterFullscreen();
+    if (!this.props.player.isFullscreen()) {
+      this.props.logger.debug('Enter fullscreen');
+      this.props.player.enterFullscreen();
     } else {
-      this.logger.debug('Exit fullscreen');
-      this.player.exitFullscreen();
+      this.props.logger.debug('Exit fullscreen');
+      this.props.player.exitFullscreen();
     }
-    this.notifyClick({
+    this.props.notifyClick({
       type: 'Fullscreen'
     });
   }
@@ -296,4 +294,5 @@ class OverlayAction extends BaseComponent {
   }
 }
 
+OverlayAction.displayName = COMPONENT_NAME;
 export {OverlayAction};

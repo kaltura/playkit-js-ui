@@ -1,27 +1,61 @@
-## Create New Component
+## Create UI Component
 
-### Dumb component
+### Dumb component 
 
-This component will just be a div wrapper with a className
+> Use this technique for simple use-cases when you don't need to manage state or intercept mounting/destroying of the component.
+
+This component will just be a div wrapper with a className.
 
 ```javascript
 const h = KalturaPlayer.ui.h;
-const BaseComponent = KalturaPlayer.ui.Components.BaseComponent;
 
-class DumbComponent extends Component {
-  render(props) {
-    return h('div', {className: 'dumb-component'}, props.children);
-  }
-}
+const DumpComponent = h('div', {className: 'dumb-component'});
 
-export default DumbComponent;
+export default DumpComponent;
 ```
 
 If you want to use JSX follow this [guide](./custom-ui-preset.md#using-jsx), and use following JSX syntax:
 
 ```javascript
 const h = KalturaPlayer.ui.h;
-const BaseComponent = KalturaPlayer.ui.Components.BaseComponent;
+
+const DumpComponent = <div className="dumb-component"></div>;
+  
+export default DumpComponent;
+```
+
+## Component with state and life-cycle interception
+
+> Use this technique when the component need to manage state, register to event handlers or perform async operations.
+
+This component is using the player bundled PReact to manage state and intercept mount events.
+
+```javascript
+const h = KalturaPlayer.ui.h;
+const Component = KalturaPlayer.ui.preact.Component;
+
+class SampleComponent extends Component {
+  componentDidMount() {
+    // register to event handlers and other stuff here
+  }
+  
+  componentWillUnount() {
+    // free resources here
+  }
+  
+  render(props) {
+    return h('div', {className: 'dumb-component'}, props.children);
+  }
+}
+
+export default SampleComponent;
+```
+
+If you want to use JSX follow this [guide](./custom-ui-preset.md#using-jsx), and use following JSX syntax:
+
+```javascript
+const h = KalturaPlayer.ui.h;
+const Component = KalturaPlayer.ui.preact.Component;
 
 class DumbComponent extends Component {
   render(props) {
@@ -47,6 +81,22 @@ Or again, if using JSX:
 </DumbComponent>
 ```
 
+## (P)React component
+Any component that is added to the player is exposed to internal API of the player.
+
+This shouldn't bother you unless you are trying to add (P)React components. If this is the case you have two options:
+1. The player exposes the bundled PReact instance it is using, use that one instead of your own. This might work fine for simple use-cases.
+2. In more advanced use-cases you might want to bundle your own version of PReact or in cases that you are using React, you must isolate your component from the player PReact tree:
+
+   [ ] create new component that is using (extending) the PReact instance exposed by the player `KalturaPlayer.ui.preact.Component`
+   
+   [ ] inject the new component to the player 
+   
+   [ ] use `shouldComponentUpdate` to always prevent updating
+   
+   [ ] render a div and append render your PReact component into that div on `ComponentDidMount`  
+
+ 
 ### Redux-Store Connected Component
 
 This component will log all player state changes (based on the redux store) and print them as a log.
@@ -57,12 +107,12 @@ The component will also get a prop of additional className.
 ```javascript
 //@flow
 const h = KalturaPlayer.ui.h;
-const BaseComponent = KalturaPlayer.ui.Components.BaseComponent;
+const Component = KalturaPlayer.ui.preact.Component;
 const connect = playkit.ui.redux.connect;
 
 const mapStateToProps = state => ({playerState: state.engine.playerState});
 
-class PlayerStateLog extends BaseComponent {
+class PlayerStateLog extends Component {
   log = new Array();
 
   constructor() {

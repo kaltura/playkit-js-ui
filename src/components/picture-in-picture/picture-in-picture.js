@@ -1,12 +1,13 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
-import BaseComponent from '../base';
 import {connect} from 'preact-redux';
 import {PLAYER_SIZE} from '../shell/shell';
+import {withPlayer} from '../player';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -18,33 +19,29 @@ const mapStateToProps = state => ({
   playerSize: state.shell.playerSize
 });
 
+const COMPONENT_NAME = 'PictureInPicture';
+
 @connect(mapStateToProps)
+@withPlayer
+@withLogger(COMPONENT_NAME)
 /**
  * PictureInPicture component
  *
  * @class PictureInPicture
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class PictureInPicture extends BaseComponent {
-  /**
-   * Creates an instance of PictureInPicture.
-   * @param {Object} obj - the object passed when created
-   * @memberof PictureInPicture
-   */
-  constructor(obj: Object) {
-    super({name: 'PictureInPicture', player: obj.player});
-  }
-
+class PictureInPicture extends Component {
   /**
    * On PIP icon clicked
    * @returns {void}
    * @private
    */
   _onClick(): void {
-    if (this.player.isInPictureInPicture()) {
-      this.player.exitPictureInPicture();
+    const {player} = this.props;
+    if (player.isInPictureInPicture()) {
+      player.exitPictureInPicture();
     } else {
-      this.player.enterPictureInPicture();
+      player.enterPictureInPicture();
     }
   }
 
@@ -78,4 +75,5 @@ class PictureInPicture extends BaseComponent {
   }
 }
 
+PictureInPicture.displayName = COMPONENT_NAME;
 export {PictureInPicture};

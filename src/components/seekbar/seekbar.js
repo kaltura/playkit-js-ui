@@ -8,6 +8,7 @@ import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
 import {KEYBOARD_DEFAULT_SEEK_JUMP} from '../keyboard/keyboard';
 import {bindMethod} from '../../utils/bind-method';
+import {withPlayer} from '../player';
 
 /**
  * mapping state to props
@@ -19,17 +20,20 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile
 });
 
+const COMPONENT_NAME = 'SeekBar';
+
 @connect(
   mapStateToProps,
   bindActions(actions)
 )
+@withPlayer
 /**
- * SeekBarControl component
+ * SeekBar component
  *
- * @class SeekBarControl
+ * @class SeekBar
  * @extends {Component}
  */
-class SeekBarControl extends Component {
+class SeekBar extends Component {
   state: Object;
   onPlayerMouseUp: Function;
   onPlayerMouseMove: Function;
@@ -37,8 +41,8 @@ class SeekBarControl extends Component {
   _framePreviewElement: HTMLElement;
   _timeBubbleElement: HTMLElement;
   /**
-   * Creates an instance of SeekBarControl.
-   * @memberof SeekBarControl
+   * Creates an instance of SeekBar.
+   * @memberof SeekBar
    */
   constructor() {
     super();
@@ -50,7 +54,7 @@ class SeekBarControl extends Component {
    * before component mounted, set initial state
    *
    * @returns {void}
-   * @memberof SeekBarControl
+   * @memberof SeekBar
    */
   componentWillMount(): void {
     this.setState({virtualTime: 0});
@@ -60,7 +64,7 @@ class SeekBarControl extends Component {
    * on component mount, bind mouseup and mousemove events to top player element
    *
    * @returns {void}
-   * @memberof SeekBarControl
+   * @memberof SeekBar
    */
   componentDidMount(): void {
     document.addEventListener('mouseup', this.onPlayerMouseUp);
@@ -71,7 +75,7 @@ class SeekBarControl extends Component {
    * before component unmounted, remove event listeners
    *
    * @returns {void}
-   * @memberof SeekBarControl
+   * @memberof SeekBar
    */
   componentWillUnmount(): void {
     document.removeEventListener('mouseup', this.onPlayerMouseUp);
@@ -83,7 +87,7 @@ class SeekBarControl extends Component {
    *
    * @param {Event} e - mouse down event
    * @returns {void}
-   * @memberof SeekBarControl
+   * @memberof SeekBar
    */
   onSeekbarMouseDown(e: Event): void {
     if (this.props.isMobile) {
@@ -102,7 +106,7 @@ class SeekBarControl extends Component {
    *
    * @param {Event} e - mouse up event
    * @returns {void}
-   * @memberof SeekBarControl
+   * @memberof SeekBar
    */
   onPlayerMouseUp(e: Event): void {
     if (this.props.isMobile) {
@@ -126,7 +130,7 @@ class SeekBarControl extends Component {
    *
    * @param {Event} e - mouse move event
    * @returns {void}
-   * @memberof SeekBarControl
+   * @memberof SeekBar
    */
   onPlayerMouseMove(e: Event): void {
     if (this.props.isMobile) {
@@ -144,7 +148,7 @@ class SeekBarControl extends Component {
    *
    * @param {Event} e - mouse move event
    * @returns {void}
-   * @memberof SeekBarControl
+   * @memberof SeekBar
    */
   onSeekbarMouseMove(e: Event): void {
     if (this.props.isMobile) {
@@ -159,7 +163,7 @@ class SeekBarControl extends Component {
    *
    * @param {Event} e - touch start event
    * @returns {void}
-   * @memberof SeekBarControl
+   * @memberof SeekBar
    */
   onSeekbarTouchStart(e: Event): void {
     this.props.updateSeekbarDraggingStatus(true);
@@ -174,7 +178,7 @@ class SeekBarControl extends Component {
    *
    * @param {Event} e - touch move event
    * @returns {void}
-   * @memberof SeekBarControl
+   * @memberof SeekBar
    */
   onSeekbarTouchMove(e: Event): void {
     let time = this.getTime(e);
@@ -190,12 +194,13 @@ class SeekBarControl extends Component {
    *
    * @param {KeyboardEvent} e - keyboard event
    * @returns {void}
-   * @memberof SeekBarControl
+   * @memberof SeekBar
    */
   onSeekbarKeyDown(e: KeyboardEvent): void {
     if (this.props.adBreak) {
       return;
     }
+    const {player} = this.props;
     /**
      * Do seek operations.
      * @param {number} from - Seek start point.
@@ -203,8 +208,8 @@ class SeekBarControl extends Component {
      * @returns {void}
      */
     const seek = (from: number, to: number) => {
-      this.props.player.currentTime = to;
-      this.updateSeekBarProgress(this.props.player.currentTime, this.props.duration, true);
+      player.currentTime = to;
+      this.updateSeekBarProgress(player.currentTime, this.props.duration, true);
       this.props.notifyChange({
         from: from,
         to: to
@@ -213,15 +218,12 @@ class SeekBarControl extends Component {
     let newTime;
     switch (e.keyCode) {
       case KeyMap.LEFT:
-        newTime = this.props.player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP > 0 ? this.props.player.currentTime - 5 : 0;
-        seek(this.props.player.currentTime, newTime);
+        newTime = player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP > 0 ? player.currentTime - 5 : 0;
+        seek(player.currentTime, newTime);
         break;
       case KeyMap.RIGHT:
-        newTime =
-          this.props.player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP > this.props.player.duration
-            ? this.props.player.duration
-            : this.props.player.currentTime + 5;
-        seek(this.props.player.currentTime, newTime);
+        newTime = player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP > player.duration ? player.duration : player.currentTime + 5;
+        seek(player.currentTime, newTime);
         break;
     }
   }
@@ -231,7 +233,7 @@ class SeekBarControl extends Component {
    *
    * @param {Event} e - mouse end event
    * @returns {void}
-   * @memberof SeekBarControl
+   * @memberof SeekBar
    */
   onSeekbarTouchEnd(e: Event): void {
     if (this.props.isDraggingActive) {
@@ -252,7 +254,7 @@ class SeekBarControl extends Component {
    * seekbar mouse over handler
    *
    * @returns {void}
-   * @memberof SeekBarControl
+   * @memberof SeekBar
    */
   onSeekbarMouseOver(): void {
     if (this.props.isMobile) return;
@@ -263,7 +265,7 @@ class SeekBarControl extends Component {
    * seekbar mouse leave handler
    *
    * @returns {void}
-   * @memberof SeekBarControl
+   * @memberof SeekBar
    */
   onSeekbarMouseLeave(): void {
     if (this.props.isMobile) return;
@@ -277,7 +279,7 @@ class SeekBarControl extends Component {
    * @param {number} duration - duration
    * @param {boolean} [virtual=false] - virtual relates to the hover seekbar position
    * @returns {void}
-   * @memberof SeekBarControl
+   * @memberof SeekBar
    */
   updateSeekBarProgress(currentTime: number, duration: number, virtual: boolean = false): void {
     if (virtual) {
@@ -292,7 +294,7 @@ class SeekBarControl extends Component {
    *
    * @param {*} element - element to get the offset for
    * @returns {{ top: number, left: number }} - object with offset in both asixs
-   * @memberof SeekBarControl
+   * @memberof SeekBar
    */
   getOffset(element: any): {top: number, left: number} {
     let _x = 0;
@@ -338,7 +340,7 @@ class SeekBarControl extends Component {
    *
    * @param {*} e - event
    * @returns {number} - current time in seconds
-   * @memberof SeekBarControl
+   * @memberof SeekBar
    */
   getTime(e: any): number {
     let xPosition = e.clientX || (e.changedTouches && e.changedTouches[0] && e.changedTouches[0].clientX);
@@ -355,14 +357,13 @@ class SeekBarControl extends Component {
    * get current buffered percent from the player
    *
    * @returns {number} - current buffered percent
-   * @memberof SeekBarControl
+   * @memberof SeekBar
    */
   getBufferedPercent(): number {
-    if (this.props.player.duration > 0 && this.props.player.buffered.length > 0) {
-      const buffered = this.props.player.isLive()
-        ? this.props.player.buffered.end(0) - this.props.player.getStartTimeOfDvrWindow()
-        : this.props.player.buffered.end(0);
-      const bufferedPercent = (buffered / this.props.player.duration) * 100;
+    const {player} = this.props;
+    if (player.duration > 0 && player.buffered.length > 0) {
+      const buffered = player.isLive() ? player.buffered.end(0) - player.getStartTimeOfDvrWindow() : player.buffered.end(0);
+      const bufferedPercent = (buffered / player.duration) * 100;
       return bufferedPercent < 100 ? bufferedPercent : 100;
     }
     return 0;
@@ -372,7 +373,7 @@ class SeekBarControl extends Component {
    * utility function to get the thumb sprite background position
    *
    * @returns {string} background-position string value
-   * @memberof SeekBarControl
+   * @memberof SeekBar
    */
   getThumbSpriteOffset(): string {
     const percent = this.state.virtualTime / this.props.duration;
@@ -384,7 +385,7 @@ class SeekBarControl extends Component {
    * get the left position the frame preview element should be in
    *
    * @returns {number} left position
-   * @memberof SeekBarControl
+   * @memberof SeekBar
    */
   getFramePreviewOffset(): number {
     if (this._seekBarElement && this._framePreviewElement) {
@@ -405,7 +406,7 @@ class SeekBarControl extends Component {
    * get the left position to time bubble should be in
    *
    * @returns {number} left position
-   * @memberof SeekBarControl
+   * @memberof SeekBar
    */
   getTimeBubbleOffset(): number {
     if (this._timeBubbleElement) {
@@ -426,7 +427,7 @@ class SeekBarControl extends Component {
    * render frame preview
    *
    * @returns {React$Element} - component
-   * @memberof SeekBarControl
+   * @memberof SeekBar
    */
   renderFramePreview(): React$Element<any> | void {
     if (
@@ -448,7 +449,7 @@ class SeekBarControl extends Component {
   /**
    * Gets the style of the frame preview image.
    * @returns {string} - The css style string.
-   * @memberof SeekBarControl
+   * @memberof SeekBar
    * @private
    */
   _getFramePreviewImgStyle(): string {
@@ -461,7 +462,7 @@ class SeekBarControl extends Component {
   /**
    * Gets the style of the frame preview.
    * @returns {string} - The css style string.
-   * @memberof SeekBarControl
+   * @memberof SeekBar
    * @private
    */
   _getFramePreviewStyle(): string {
@@ -474,7 +475,7 @@ class SeekBarControl extends Component {
    * render time bubble
    *
    * @returns {React$Element} - component
-   * @memberof SeekBarControl
+   * @memberof SeekBar
    */
   renderTimeBubble(): React$Element<any> | void {
     if (!this.props.showTimeBubble || this.props.isMobile) return undefined;
@@ -492,7 +493,7 @@ class SeekBarControl extends Component {
    *
    * @param {*} props - component props
    * @returns {React$Element} - component
-   * @memberof SeekBarControl
+   * @memberof SeekBar
    */
   render(props: any): React$Element<any> {
     const virtualProgressWidth = `${(this.state.virtualTime / props.duration) * 100}%`;
@@ -537,4 +538,5 @@ class SeekBarControl extends Component {
   }
 }
 
-export {SeekBarControl};
+SeekBar.displayName = COMPONENT_NAME;
+export {SeekBar};

@@ -1,10 +1,12 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
-import BaseComponent from '../base';
 import {KeyMap} from '../../utils/key-map';
 import {Text} from 'preact-i18n';
+import {withPlayer} from '../player';
+import {withEventDispatcher} from 'components/event-dispatcher';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -18,24 +20,20 @@ const mapStateToProps = state => ({
   duration: state.engine.duration
 });
 
+const COMPONENT_NAME = 'LiveTag';
+
 @connect(mapStateToProps)
+@withPlayer
+@withLogger(COMPONENT_NAME)
+@withEventDispatcher(COMPONENT_NAME)
 /**
  * LiveTag component
  *
  * @class LiveTag
- * @example <LiveTag player={this.player} />
- * @extends {BaseComponent}
+ * @example <LiveTag />
+ * @extends {Component}
  */
-class LiveTag extends BaseComponent {
-  /**
-   * Creates an instance of LiveTag.
-   * @param {Object} obj obj
-   * @memberof LiveTag
-   */
-  constructor(obj: Object) {
-    super({name: 'LiveTag', player: obj.player});
-  }
-
+class LiveTag extends Component {
   /**
    * returns a boolean to detect if player is on live edge with buffer of 1 second
    *
@@ -55,12 +53,12 @@ class LiveTag extends BaseComponent {
    */
   onClick(): void {
     if (!this.isOnLiveEdge()) {
-      this.player.seekToLiveEdge();
-      if (this.player.paused) {
-        this.player.play();
+      this.props.player.seekToLiveEdge();
+      if (this.props.player.paused) {
+        this.props.player.play();
       }
     }
-    this.notifyClick();
+    this.props.notifyClick();
   }
 
   /**
@@ -90,4 +88,5 @@ class LiveTag extends BaseComponent {
   }
 }
 
+LiveTag.displayName = COMPONENT_NAME;
 export {LiveTag};

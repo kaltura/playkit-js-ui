@@ -18,6 +18,8 @@ const mapStateToProps = state => ({
   playerSize: state.shell.playerSize
 });
 
+const COMPONENT_NAME = 'Menu';
+
 @connect(mapStateToProps)
 @withKeyboardA11y
 /**
@@ -220,6 +222,7 @@ class Menu extends Component {
   }
 }
 
+Menu.displayName = COMPONENT_NAME;
 export {Menu};
 
 /**

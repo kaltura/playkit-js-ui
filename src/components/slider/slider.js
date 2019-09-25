@@ -6,6 +6,8 @@ import {bindMethod} from '../../utils/bind-method';
 
 const KEYBOARD_DRAG_STEP = 5;
 
+const COMPONENT_NAME = 'Slider';
+
 /**
  * Slider component
  *
@@ -236,4 +238,5 @@ class Slider extends Component {
   }
 }
 
+Slider.displayName = COMPONENT_NAME;
 export {Slider};

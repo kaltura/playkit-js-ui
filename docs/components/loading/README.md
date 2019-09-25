@@ -16,7 +16,7 @@ import { h, Loading } from 'playkit-js-ui';
 
 export default function customUIPreset(props: any) {
   return (
-    <Loading player={props.player} />
+    <Loading />
   )
 }
 ```

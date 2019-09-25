@@ -1,10 +1,13 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
-import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
+import {withAnimation} from '../../utils/with-animation';
+import {withPlayer} from '../player';
+import {withEventDispatcher} from 'components/event-dispatcher';
+import {withLogger} from 'components/logger';
 
 const COMPONENT_NAME = 'Forward';
 
@@ -15,23 +18,18 @@ const COMPONENT_NAME = 'Forward';
  */
 export const FORWARD_DEFAULT_STEP = 10;
 
+@withPlayer
+@withLogger(COMPONENT_NAME)
+@withEventDispatcher(COMPONENT_NAME)
+@withAnimation(style.reverseRotate)
 /**
  * Forward component
  *
  * @class Forward
- * @example <Forward player={this.player} step={5} />
- * @extends {BaseComponent}
+ * @example <Forward step={5} />
+ * @extends {Component}
  */
-class Forward extends BaseComponent {
-  /**
-   * Creates an instance of Forward.
-   * @param {Object} obj obj
-   * @memberof Forward
-   */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
-  }
-
+class Forward extends Component {
   /**
    * forward click handler
    *
@@ -39,32 +37,21 @@ class Forward extends BaseComponent {
    * @memberof Forward
    */
   onClick(): void {
-    this.animate();
+    const {player} = this.props;
+    this.props.animate();
     let to;
     const step = this.props.step || FORWARD_DEFAULT_STEP;
-    const from = this.player.currentTime;
-    if (this.player.currentTime + step > this.player.duration) {
-      to = this.player.duration;
+    const from = player.currentTime;
+    if (player.currentTime + step > player.duration) {
+      to = player.duration;
     } else {
-      to = this.player.currentTime + step;
+      to = player.currentTime + step;
     }
-    this.player.currentTime = to;
-    this.notifyClick({
+    player.currentTime = to;
+    this.props.notifyClick({
       from: from,
       to: to
     });
-  }
-
-  /**
-   * toggles the animation state to activate the rotate animation
-   *
-   * @returns {void}
-   * @memberof Forward
-   */
-  animate(): void {
-    this.setState({animation: false});
-    this.forceUpdate();
-    this.setState({animation: true});
   }
 
   /**
@@ -81,7 +68,8 @@ class Forward extends BaseComponent {
           <button
             tabIndex="0"
             aria-label={<Text id={'controls.forward'} />}
-            className={`${style.controlButton} ${this.state.animation ? style.reverseRotate : ''}`}
+            className={`${style.controlButton}`}
+            ref={this.props.innerRef}
             onClick={() => this.onClick()}
             onKeyDown={e => {
               if (e.keyCode === KeyMap.ENTER) {
@@ -97,5 +85,4 @@ class Forward extends BaseComponent {
 }
 
 Forward.displayName = COMPONENT_NAME;
-
 export {Forward};

@@ -1,10 +1,12 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
-import BaseComponent from '../base';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 import {actions} from '../../reducers/backdrop';
 import {KeyMap} from '../../utils/key-map';
+import {withPlayer} from '../player';
+import {withEventManager} from 'event/with-event-manager';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -16,36 +18,34 @@ const mapStateToProps = state => ({
   isCastAvailable: state.engine.isCastAvailable
 });
 
+const COMPONENT_NAME = 'Cast';
+
 @connect(
   mapStateToProps,
   actions
 )
+@withPlayer
+@withEventManager
+@withLogger(COMPONENT_NAME)
 /**
- * CastOverlay component
+ * Cast component
  *
- * @class CastControl
- * @example <CastControl player={this.player} />
- * @extends {BaseComponent}
+ * @class Cast
+ * @example <Cast />
+ * @extends {Component}
  */
-class CastControl extends BaseComponent {
-  /**
-   * Creates an instance of ChromecastControl.
-   * @param {Object} obj obj
-   * @memberof CastControl
-   */
-  constructor(obj: Object) {
-    super({name: 'Cast', player: obj.player});
-  }
-
+class Cast extends Component {
   /**
    * On click set the backdrop to visible.
    * If cast session start failed remove the backdrop.
-   * @memberof CastControl
+   * @memberof Cast
    * @returns {void}
    */
   onClick(): void {
     this.props.updateBackdropVisibility(true);
-    this.eventManager.listenOnce(this.player, this.player.Event.Cast.CAST_SESSION_START_FAILED, () => this.props.updateBackdropVisibility(false));
+    this.props.eventManager.listenOnce(this.props.player, this.props.player.Event.Cast.CAST_SESSION_START_FAILED, () =>
+      this.props.updateBackdropVisibility(false)
+    );
   }
 
   /**
@@ -53,7 +53,7 @@ class CastControl extends BaseComponent {
    *
    * @param {*} props - component props
    * @returns {?React$Element} - component element
-   * @memberof CastControl
+   * @memberof Cast
    */
   render(props: any): ?React$Element<any> {
     if (props.isCasting || props.isCastAvailable) {
@@ -74,4 +74,5 @@ class CastControl extends BaseComponent {
   }
 }
 
-export {CastControl};
+Cast.displayName = COMPONENT_NAME;
+export {Cast};

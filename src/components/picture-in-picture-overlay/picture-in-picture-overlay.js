@@ -1,9 +1,10 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
-import BaseComponent from '../base';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 import {Localizer, Text} from 'preact-i18n';
+import {withPlayer} from '../player';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -16,31 +17,26 @@ const mapStateToProps = state => ({
   isChangingSource: state.engine.isChangingSource
 });
 
+const COMPONENT_NAME = 'PictureInPictureOverlay';
+
 @connect(mapStateToProps)
+@withPlayer
+@withLogger(COMPONENT_NAME)
 /**
  * PictureInPictureOverlay component
  *
  * @class PictureInPictureOverlay
- * @example <PictureInPictureOverlay player={this.player} />
- * @extends {BaseComponent}
+ * @example <PictureInPictureOverlay />
+ * @extends {Component}
  */
-class PictureInPictureOverlay extends BaseComponent {
-  /**
-   * Creates an instance of PictureInPictureOverlay.
-   * @param {Object} obj obj
-   * @memberof PictureInPictureOverlay
-   */
-  constructor(obj: Object) {
-    super({name: 'PictureInPictureOverlay', player: obj.player});
-  }
-
+class PictureInPictureOverlay extends Component {
   /**
    * The button is clicked, play the video in the player instead of in picture in picture
    * @returns {void}
    * @memberof PictureInPictureOverlay
    */
   _handleClick(): void {
-    this.player.exitPictureInPicture();
+    this.props.player.exitPictureInPicture();
   }
 
   /**
@@ -89,4 +85,5 @@ class PictureInPictureOverlay extends BaseComponent {
   }
 }
 
+PictureInPictureOverlay.displayName = COMPONENT_NAME;
 export {PictureInPictureOverlay};

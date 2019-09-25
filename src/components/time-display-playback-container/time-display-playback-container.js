@@ -1,8 +1,8 @@
 //@flow
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
-import BaseComponent from '../base';
 import {TimeDisplay} from '../time-display';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -14,23 +14,18 @@ const mapStateToProps = state => ({
   duration: state.engine.duration
 });
 
+const COMPONENT_NAME = 'TimeDisplayPlaybackContainer';
+
 @connect(mapStateToProps)
+@withLogger(COMPONENT_NAME)
 /**
  * TimeDisplayPlaybackContainer component
  *
  * @class TimeDisplayPlaybackContainer
  * @example <TimeDisplayPlaybackContainer format='currentTime / duration' />
- * @extends {BaseComponent}
+ * @extends {Component}
  */
-class TimeDisplayPlaybackContainer extends BaseComponent {
-  /**
-   * Creates an instance of TimeDisplayPlaybackContainer.
-   * @memberof TimeDisplayPlaybackContainer
-   */
-  constructor() {
-    super({name: 'TimeDisplayPlaybackContainer'});
-  }
-
+class TimeDisplayPlaybackContainer extends Component {
   /**
    * render component
    *
@@ -43,4 +38,5 @@ class TimeDisplayPlaybackContainer extends BaseComponent {
   }
 }
 
+TimeDisplayPlaybackContainer.displayName = COMPONENT_NAME;
 export {TimeDisplayPlaybackContainer};
