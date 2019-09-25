@@ -260,7 +260,7 @@ class MenuItem extends Component {
         className={props.isSelected(props.data) ? [style.dropdownMenuItem, style.active].join(' ') : style.dropdownMenuItem}
         onClick={() => this.props.onSelect(props)}>
         <span>{props.data.label}</span>
-        <span className={style.menuIconContainer} style={`opacity: ${props.isSelected(props.data) ? 1 : 0}`}>
+        <span className={[style.menuIconContainer, style.active].join(' ')}>
           <Icon type={IconType.Check} />
         </span>
       </div>

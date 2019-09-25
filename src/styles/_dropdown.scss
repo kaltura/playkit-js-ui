@@ -72,7 +72,7 @@
   &.left {
     right: 0;
   }
-  &.stick-bottom{
+  &.stick-bottom {
     bottom: -95px;
     margin: 5px 0;
   }
@@ -93,6 +93,10 @@
       .icon-check {
         background-image: icon(check, $brand-color);
       }
+
+      .menu-icon-container {
+        opacity: 1;
+      }
     }
     .icon-check {
       display: inline-block;
@@ -104,6 +108,10 @@
     span {
       vertical-align: middle;
       line-height: 26px;
+    }
+
+    .menu-icon-container {
+      opacity: 0;
     }
   }
 }
