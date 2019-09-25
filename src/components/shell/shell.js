@@ -211,7 +211,7 @@ class Shell extends Component {
    */
   componentDidMount() {
     const {player, forceTouchUI} = this.props;
-    const {isIPadOS, isTablet, isMobile} = this.player.env;
+    const {isIPadOS, isTablet, isMobile} = player.env;
     this.props.updateIsMobile(isIPadOS || isTablet || isMobile || forceTouchUI);
     this._onWindowResize();
     this.props.eventManager.listen(player, player.Event.RESIZE, () => this._onWindowResize());
