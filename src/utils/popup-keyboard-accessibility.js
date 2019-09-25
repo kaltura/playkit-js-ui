@@ -83,14 +83,19 @@ export const popupWithKeyboardA11y: Function = (WrappedComponent: BaseComponent)
      * @memberof HOC
      */
     render(props: any): React$Element<any> | void {
-      return h(
-        'div',
-        {onKeyDown: this.onKeyDown.bind(this)},
-        h(WrappedComponent, {
-          ...props,
-          setFirstFocusedElement: this.setFirstFocusedElement.bind(this),
-          addAccessibleChild: this.addAccessibleChild.bind(this)
-        })
+      return (
+        <WrappedComponent
+          {...props}
+          setFirstFocusedElement={el => {
+            this.setFirstFocusedElement(el);
+          }}
+          addAccessibleChild={el => {
+            this.addAccessibleChild(el);
+          }}
+          handleKeyDown={e => {
+            this.onKeyDown(e);
+          }}
+        />
       );
     }
 

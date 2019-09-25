@@ -196,6 +196,9 @@ class Menu extends Component {
       this.renderNativeSelect()
     ) : (
       <div
+        onKeyDown={e => {
+          props.handleKeyDown(e);
+        }}
         ref={c => {
           this._menuElement = c;
         }}
