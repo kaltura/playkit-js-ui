@@ -36,13 +36,13 @@ const COMPONENT_NAME = 'Volume';
 @withEventManager
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
-  /**
-   * Volume component
-   *
-   * @class Volume
-   * @example <Volume />
-   * @extends {Component}
-   */
+/**
+ * Volume component
+ *
+ * @class Volume
+ * @example <Volume />
+ * @extends {Component}
+ */
 class Volume extends Component {
   _volumeControlElement: HTMLElement;
   _volumeProgressBarElement: HTMLElement;
