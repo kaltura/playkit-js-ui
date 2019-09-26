@@ -1,15 +1,14 @@
 //@flow
-import {BaseComponent} from '../components/base';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {KeyMap} from '../utils/key-map';
 
 /**
  * wraps a component and handles all key navigation and focus
- * @param {BaseComponent} WrappedComponent - The popup component to implement keyboard accessibility
- * @returns {BaseComponent} - HOC that handles animation
+ * @param {Component} WrappedComponent - The popup component to implement keyboard accessibility
+ * @returns {Component} - HOC that handles animation
  */
-export const withKeyboardA11y: Function = (WrappedComponent: BaseComponent): typeof BaseComponent =>
-  class extends BaseComponent {
+export const withKeyboardA11y: Function = (WrappedComponent: Component): typeof Component =>
+  class KeyBoardAccessibility extends Component {
     _firstFocusedElement: HTMLElement;
     _accessibleChildren: Array<HTMLElement> = [];
     _activeElement: ?HTMLElement;
