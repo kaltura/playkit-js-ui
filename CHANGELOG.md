@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.47.0"></a>
+# [0.47.0](https://github.com/kaltura/playkit-js-ui/compare/v0.46.0...v0.47.0) (2019-09-26)
+
+
+### Features
+
+* **FEC-7551:** handling keyboard a11y ([#409](https://github.com/kaltura/playkit-js-ui/issues/409)) ([53698a5](https://github.com/kaltura/playkit-js-ui/commit/53698a5))
+
+
+
 <a name="0.46.0"></a>
 # [0.46.0](https://github.com/kaltura/playkit-js-ui/compare/v0.45.0...v0.46.0) (2019-09-25)
 
