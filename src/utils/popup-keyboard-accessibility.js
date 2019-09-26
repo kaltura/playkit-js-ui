@@ -15,7 +15,7 @@ export const withKeyboardA11y: Function = (WrappedComponent: Component): typeof 
     _previouslyActiveElement: ?HTMLElement;
 
     /**
-     * after component mounted, listen to events
+     * after component mounted, focus on relevant element
      *
      * @returns {void}
      * @memberof HOC
