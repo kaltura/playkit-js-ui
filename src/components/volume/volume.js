@@ -183,11 +183,11 @@ class Volume extends Component {
   /**
    * on volume control button click, toggle mute in player and store state
    *
-   * @method onVolumeControlButtonClick
+   * @method VolumeButtonClicked
    * @returns {void}
    * @memberof Volume
    */
-  onVolumeControlButtonClick(): void {
+  VolumeButtonClicked(): void {
     const {player} = this.props;
     if (player.volume == 0) {
       this.props.logger.debug(`Toggle mute. Volume is 0, set mute to false & volume to 0.5`);
@@ -198,6 +198,18 @@ class Volume extends Component {
       player.muted = !player.muted;
     }
     this.props.notifyClick();
+  }
+  /**
+   * on volume control button click on touch device, toggle mute in player and store state
+   *
+   * @method onVolumeButtonTouch
+   * @param {TouchEvent} e - event of touch end
+   * @returns {void}
+   * @memberof Volume
+   */
+  onVolumeButtonTouch(e: TouchEvent): void {
+    e.preventDefault();
+    this.VolumeButtonClicked();
   }
 
   /**
@@ -288,7 +300,8 @@ class Volume extends Component {
           tabIndex="0"
           aria-label="Volume"
           className={style.controlButton}
-          onClick={() => this.onVolumeControlButtonClick()}
+          onClick={() => this.VolumeButtonClicked()}
+          onTouchEnd={e => this.onVolumeButtonTouch(e)}
           onKeyDown={e => this.onVolumeControlKeyDown(e)}>
           <Icon type={IconType.VolumeBase} />
           <Icon type={IconType.VolumeWaves} />
