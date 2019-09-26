@@ -158,7 +158,15 @@ class DropDown extends Component {
             }
           }}
           className={style.dropdownButton}
-          onClick={() => this.toggleDropDown()}>
+          onClick={() => this.toggleDropDown()}
+          onKeyDown={e => {
+            switch (e.keyCode) {
+              case KeyMap.ENTER:
+                this.toggleDropDown();
+                e.stopPropagation();
+                break;
+            }
+          }}>
           <span>{this.getActiveOptionLabel()}</span>
           <Icon type={IconType.ArrowDown} />
         </div>

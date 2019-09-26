@@ -6,6 +6,7 @@ import {connect} from 'preact-redux';
 import {bindMethod} from '../../utils/bind-method';
 import {PLAYER_SIZE} from '../shell/shell';
 import {withKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
+import {KeyMap} from 'utils/key-map';
 
 /**
  * mapping state to props
@@ -260,7 +261,15 @@ class MenuItem extends Component {
           }
         }}
         className={props.isSelected(props.data) ? [style.dropdownMenuItem, style.active].join(' ') : style.dropdownMenuItem}
-        onClick={() => this.props.onSelect(props)}>
+        onClick={() => this.props.onSelect(props)}
+        onKeyDown={e => {
+          switch (e.keyCode) {
+            case KeyMap.ENTER:
+              props.onSelect(props);
+              e.stopPropagation();
+              break;
+          }
+        }}>
         <span>{props.data.label}</span>
         <span className={[style.menuIconContainer, style.active].join(' ')}>
           <Icon type={IconType.Check} />

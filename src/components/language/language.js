@@ -15,6 +15,7 @@ import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withLogger} from 'components/logger';
 import {withEventDispatcher} from 'components/event-dispatcher';
+import {KeyMap} from 'utils/key-map';
 
 /**
  * mapping state to props
@@ -265,7 +266,15 @@ class AdvancedCaptionsAnchor extends Component {
             }
           }}
           className={style.advancedCaptionsMenuLink}
-          onClick={() => this.props.onMenuChosen()}>
+          onClick={() => this.props.onMenuChosen()}
+          onKeyDown={e => {
+            switch (e.keyCode) {
+              case KeyMap.ENTER:
+                this.props.onMenuChosen();
+                e.stopPropagation();
+                break;
+            }
+          }}>
           <Text id="language.advanced_captions_settings" />
         </a>
       </div>

@@ -115,7 +115,7 @@ class CVAAOverlay extends Component {
    */
   changeCaptionsStyle(textStyle: Object): void {
     this.props.updateCaptionsStyle(textStyle);
-    this.player.textStyle = textStyle;
+    this.props.player.textStyle = textStyle;
     this.props.onClose();
     this.props.notifyClick({
       textStyle: textStyle
@@ -250,11 +250,7 @@ class CustomCaptionsWindow extends Component {
     }));
 
     return (
-      <div
-        onKeyDown={e => {
-          props.handleKeyDown(e);
-        }}
-        className={[style.overlayScreen, style.active].join(' ')}>
+      <div className={[style.overlayScreen, style.active].join(' ')}>
         <form className={[style.form, style.customCaptionForm].join(' ')}>
           <div className={[style.formGroupRow, style.fontSize].join(' ')}>
             <label>
