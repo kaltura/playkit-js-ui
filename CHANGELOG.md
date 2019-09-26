@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.47.1"></a>
+## [0.47.1](https://github.com/kaltura/playkit-js-ui/compare/v0.47.0...v0.47.1) (2019-09-26)
+
+
+### Bug Fixes
+
+* **FEC-9375:** After unmute volume icon, the volume get unmuted and then returning to unmute state ([#415](https://github.com/kaltura/playkit-js-ui/issues/415)) ([d3c3a47](https://github.com/kaltura/playkit-js-ui/commit/d3c3a47))
+
+
+
 <a name="0.47.0"></a>
 # [0.47.0](https://github.com/kaltura/playkit-js-ui/compare/v0.46.0...v0.47.0) (2019-09-26)
 
