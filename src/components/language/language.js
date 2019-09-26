@@ -56,7 +56,6 @@ const COMPONENT_NAME = 'Language';
 class Language extends Component {
   state: Object;
   _controlLanguageElement: any;
-  _portal: any;
 
   /**
    * before component mounted, set initial state
@@ -205,7 +204,7 @@ class Language extends Component {
           </SmartContainer>
         )}
         {this.state.cvaaOverlay ? (
-          <Portal into={portalSelector} ref={ref => (this._portal = ref)}>
+          <Portal into={portalSelector}>
             <CVAAOverlay
               onClose={() => {
                 this.toggleCVAAOverlay();

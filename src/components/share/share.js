@@ -38,8 +38,6 @@ const COMPONENT_NAME = 'Share';
  * @extends {Component}
  */
 class Share extends Component {
-  _portal: any;
-
   /**
    * toggle overlay internal component state
    *
@@ -88,7 +86,7 @@ class Share extends Component {
     return (
       <div>
         {this.state.overlay ? (
-          <Portal into={portalSelector} ref={ref => (this._portal = ref)}>
+          <Portal into={portalSelector}>
             <ShareOverlay
               shareUrl={shareUrl}
               embedUrl={embedUrl}

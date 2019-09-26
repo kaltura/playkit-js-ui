@@ -71,7 +71,6 @@ export const withKeyboardA11y: Function = (WrappedComponent: Component): typeof 
      * @memberof HOC
      */
     componentWillUnmount(): void {
-      super.componentWillUnmount();
       if (this._previouslyActiveElement) {
         this._previouslyActiveElement.focus();
       }
