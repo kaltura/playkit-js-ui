@@ -36,13 +36,13 @@ const COMPONENT_NAME = 'Volume';
 @withEventManager
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
-/**
- * Volume component
- *
- * @class Volume
- * @example <Volume />
- * @extends {Component}
- */
+  /**
+   * Volume component
+   *
+   * @class Volume
+   * @example <Volume />
+   * @extends {Component}
+   */
 class Volume extends Component {
   _volumeControlElement: HTMLElement;
   _volumeProgressBarElement: HTMLElement;
@@ -183,11 +183,11 @@ class Volume extends Component {
   /**
    * on volume control button click, toggle mute in player and store state
    *
-   * @method VolumeButtonClicked
+   * @method onVolumeControlButtonClick
    * @returns {void}
    * @memberof Volume
    */
-  VolumeButtonClicked(): void {
+  onVolumeControlButtonClick(): void {
     const {player} = this.props;
     if (player.volume == 0) {
       this.props.logger.debug(`Toggle mute. Volume is 0, set mute to false & volume to 0.5`);
@@ -198,18 +198,6 @@ class Volume extends Component {
       player.muted = !player.muted;
     }
     this.props.notifyClick();
-  }
-  /**
-   * on volume control button click on touch device, toggle mute in player and store state
-   *
-   * @method onVolumeButtonTouch
-   * @param {TouchEvent} e - event of touch end
-   * @returns {void}
-   * @memberof Volume
-   */
-  onVolumeButtonTouch(e: TouchEvent): void {
-    e.preventDefault();
-    this.VolumeButtonClicked();
   }
 
   /**
@@ -300,8 +288,8 @@ class Volume extends Component {
           tabIndex="0"
           aria-label="Volume"
           className={style.controlButton}
-          onClick={() => this.VolumeButtonClicked()}
-          onTouchEnd={e => this.onVolumeButtonTouch(e)}
+          onClick={() => this.onVolumeControlButtonClick()}
+          onTouchEnd={e => e.stopImmediatePropagation()}
           onKeyDown={e => this.onVolumeControlKeyDown(e)}>
           <Icon type={IconType.VolumeBase} />
           <Icon type={IconType.VolumeWaves} />
