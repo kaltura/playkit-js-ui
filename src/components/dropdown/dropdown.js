@@ -41,6 +41,16 @@ class DropDown extends Component {
   componentWillMount() {
     this.setState({dropMenuActive: false});
   }
+  /**
+   * after component mounted, set the callback to be called when parent selected
+   * @returns {void}
+   * @memberof DropDown
+   */
+  componentDidMount(): void {
+    if (this.props.registerParentSelectedCallback) {
+      this.props.registerParentSelectedCallback(this.toggleDropDown.bind(this));
+    }
+  }
 
   /**
    * is given option selected
@@ -60,8 +70,8 @@ class DropDown extends Component {
    * @returns {void}
    * @memberof DropDown
    */
-  onSelect(option: Object): void {
-    this.props.onSelect(option);
+  onMenuChosen(option: Object): void {
+    this.props.onMenuChosen(option);
     this.setState({dropMenuActive: false});
     this._dropdownButton.focus();
   }
@@ -121,7 +131,7 @@ class DropDown extends Component {
    * @memberof DropDown
    */
   renderNativeSelect(): React$Element<any> {
-    return <Menu options={this.props.options} onSelect={o => this.onSelect(o)} onClose={() => this.onClose()} />;
+    return <Menu options={this.props.options} onMenuChosen={o => this.onMenuChosen(o)} onClose={() => this.onClose()} />;
   }
 
   /**
@@ -140,21 +150,42 @@ class DropDown extends Component {
         className={this.state.dropMenuActive ? [style.dropdown, style.active].join(' ') : style.dropdown}
         ref={el => (this._el = el)}>
         <div
-          tabIndex="0"
-          ref={el => (this._dropdownButton = el)}
+          tabIndex={props.tabbable ? 0 : -1}
+          ref={el => {
+            this._dropdownButton = el;
+            if (props.pushRef) {
+              props.pushRef(el);
+            }
+          }}
           className={style.dropdownButton}
-          onClick={() => this.setState({dropMenuActive: !this.state.dropMenuActive})}
-          onKeyDown={e => this.onKeyDown(e)}>
+          onClick={() => this.toggleDropDown()}
+          onKeyDown={e => {
+            switch (e.keyCode) {
+              case KeyMap.ENTER:
+                this.toggleDropDown();
+                e.stopPropagation();
+                break;
+            }
+          }}>
           <span>{this.getActiveOptionLabel()}</span>
           <Icon type={IconType.ArrowDown} />
         </div>
         {!this.state.dropMenuActive ? (
           undefined
         ) : (
-          <Menu parentEl={this._el} options={props.options} onSelect={o => this.onSelect(o)} onClose={() => this.onClose()} />
+          <Menu parentEl={this._el} options={props.options} onMenuChosen={o => this.onMenuChosen(o)} onClose={() => this.onClose()} />
         )}
       </div>
     );
+  }
+
+  /**
+   * toggles the dropdown menu window
+   * @returns {void}
+   * @memberof DropDown
+   */
+  toggleDropDown(): void {
+    this.setState({dropMenuActive: !this.state.dropMenuActive});
   }
 }
 

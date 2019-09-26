@@ -3,9 +3,10 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {default as Icon, IconType} from '../icon';
 import {connect} from 'preact-redux';
-import {KeyMap} from '../../utils/key-map';
 import {bindMethod} from '../../utils/bind-method';
 import {PLAYER_SIZE} from '../shell/shell';
+import {withKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
+import {KeyMap} from 'utils/key-map';
 
 /**
  * mapping state to props
@@ -21,6 +22,7 @@ const mapStateToProps = state => ({
 const COMPONENT_NAME = 'Menu';
 
 @connect(mapStateToProps)
+@withKeyboardA11y
 /**
  * Menu component
  *
@@ -121,6 +123,7 @@ class Menu extends Component {
       !this._menuElement.contains(e.target)
     ) {
       this.props.onClose();
+      e.stopPropagation();
     }
   }
 
@@ -139,39 +142,17 @@ class Menu extends Component {
    * when option selected, change the active prop immediately for instant ui change
    * and call the onSelect callback with the option value
    *
-   * @param {Object} option - option object
+   * @param {Object} props - props object of the selected menuitem
    * @returns {void}
    * @memberof Menu
    */
-  onSelect(option: Object): void {
-    this.props.onSelect(option.value);
+  onSelect(props: Object): void {
+    this.props.onMenuChosen(props.data.value);
     // Instant select
     this.props.options.filter(t => t.active).forEach(option => {
       option.active = false;
     });
-    this.props.options.filter(t => t.value === option.value)[0].active = true;
-  }
-
-  /**
-   * on key down handler
-   *
-   * @param {KeyboardEvent} e - keyboard event
-   * @param {Object} o - option object
-   * @returns {void}
-   * @memberof Menu
-   */
-  onKeyDown(e: KeyboardEvent, o: Object): void {
-    switch (e.keyCode) {
-      case KeyMap.ENTER:
-        this.onSelect(o);
-        break;
-      case KeyMap.ESC:
-        this.props.onClose();
-        e.stopPropagation();
-        break;
-      default:
-        break;
-    }
+    this.props.options.filter(t => t.value === props.data.value)[0].active = true;
   }
 
   /**
@@ -217,19 +198,25 @@ class Menu extends Component {
     return props.isMobile || [PLAYER_SIZE.SMALL, PLAYER_SIZE.EXTRA_SMALL].includes(this.props.playerSize) ? (
       this.renderNativeSelect()
     ) : (
-      <div ref={c => (this._menuElement = c)} className={[style.dropdownMenu, ...this.state.position].join(' ')}>
+      <div
+        onKeyDown={e => {
+          props.handleKeyDown(e);
+        }}
+        ref={c => {
+          this._menuElement = c;
+        }}
+        className={[style.dropdownMenu, ...this.state.position].join(' ')}>
         {props.options.map((o, index) => (
-          <div
-            tabIndex=""
+          <MenuItem
+            setFirstFocusedElement={props.setFirstFocusedElement}
+            addAccessibleChild={props.addAccessibleChild}
+            isSelected={this.isSelected}
+            onSelect={props => {
+              this.onSelect(props);
+            }}
             key={index}
-            className={this.isSelected(o) ? [style.dropdownMenuItem, style.active].join(' ') : style.dropdownMenuItem}
-            onClick={() => this.onSelect(o)}
-            onKeyDown={e => this.onKeyDown(e, o)}>
-            <span>{o.label}</span>
-            <span className={style.menuIconContainer} style={`opacity: ${this.isSelected(o) ? 1 : 0}`}>
-              <Icon type={IconType.Check} />
-            </span>
-          </div>
+            data={o}
+          />
         ))}
       </div>
     );
@@ -238,3 +225,56 @@ class Menu extends Component {
 
 Menu.displayName = COMPONENT_NAME;
 export {Menu};
+
+/**
+ * MenuItem component to be wrapped as keyboard accessibility item
+ *
+ * @class MenuItem
+ * @extends {Component}
+ */
+class MenuItem extends Component {
+  _element: HTMLElement;
+
+  /**
+   * after component mounted, save the sliderWidth
+   *
+   * @returns {void}
+   * @memberof Slider
+   */
+  componentDidMount(): void {
+    this.props.addAccessibleChild(this._element);
+  }
+
+  /**
+   * the menu item jsx
+   * @param {any} props - MenuItem props
+   * @returns {React$Element<any>} - rendered jsx
+   */
+  render(props: any): React$Element<any> {
+    return (
+      <div
+        tabIndex="-1"
+        ref={se => {
+          this._element = se;
+          if (props.isSelected(props.data)) {
+            props.setFirstFocusedElement(se);
+          }
+        }}
+        className={props.isSelected(props.data) ? [style.dropdownMenuItem, style.active].join(' ') : style.dropdownMenuItem}
+        onClick={() => this.props.onSelect(props)}
+        onKeyDown={e => {
+          switch (e.keyCode) {
+            case KeyMap.ENTER:
+              props.onSelect(props);
+              e.stopPropagation();
+              break;
+          }
+        }}>
+        <span>{props.data.label}</span>
+        <span className={[style.menuIconContainer, style.active].join(' ')}>
+          <Icon type={IconType.Check} />
+        </span>
+      </div>
+    );
+  }
+}

@@ -1,7 +1,7 @@
 //@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
-import {Localizer, Text} from 'preact-i18n';
+import {Text, withText} from 'preact-i18n';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/cvaa';
@@ -10,12 +10,12 @@ import {SmartContainerItem} from '../smart-container/smart-container-item';
 import {default as Icon, IconType} from '../icon';
 import {CVAAOverlay} from '../cvaa-overlay';
 import Portal from 'preact-portal';
-import {KeyMap} from '../../utils/key-map';
 import {PLAYER_SIZE} from '../shell/shell';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withLogger} from 'components/logger';
 import {withEventDispatcher} from 'components/event-dispatcher';
+import {KeyMap} from 'utils/key-map';
 
 /**
  * mapping state to props
@@ -40,6 +40,12 @@ const COMPONENT_NAME = 'Language';
 @withEventManager
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
+@withText({
+  audioLabelText: 'language.audio',
+  captionsLabelText: 'language.captions',
+  buttonAriaLabel: 'controls.language'
+})
+
 /**
  * Language component
  *
@@ -50,7 +56,6 @@ const COMPONENT_NAME = 'Language';
 class Language extends Component {
   state: Object;
   _controlLanguageElement: any;
-  _portal: any;
 
   /**
    * before component mounted, set initial state
@@ -157,15 +162,13 @@ class Language extends Component {
     const portalSelector = `#${this.props.player.config.targetId} .overlay-portal`;
     return (
       <div ref={c => (this._controlLanguageElement = c)} className={[style.controlButtonContainer, style.controlLanguage].join(' ')}>
-        <Localizer>
-          <button
-            tabIndex="0"
-            aria-label={<Text id="controls.language" />}
-            className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
-            onClick={() => this.onControlButtonClick()}>
-            <Icon type={IconType.Language} />
-          </button>
-        </Localizer>
+        <button
+          tabIndex="0"
+          aria-label={this.props.buttonAriaLabel}
+          className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
+          onClick={() => this.onControlButtonClick()}>
+          <Icon type={IconType.Language} />
+        </button>
         {!this.state.smartContainerOpen || this.state.cvaaOverlay ? (
           undefined
         ) : (
@@ -176,47 +179,32 @@ class Language extends Component {
             {audioOptions.length <= 1 ? (
               undefined
             ) : (
-              <Localizer>
-                <SmartContainerItem
-                  icon="audio"
-                  label={<Text id="language.audio" />}
-                  options={audioOptions}
-                  onSelect={audioTrack => this.onAudioChange(audioTrack)}
-                />
-              </Localizer>
+              <SmartContainerItem
+                icon="audio"
+                label={this.props.audioLabelText}
+                options={audioOptions}
+                onMenuChosen={audioTrack => this.onAudioChange(audioTrack)}
+              />
             )}
             {textOptions.length <= 1 ? (
               undefined
             ) : (
-              <Localizer>
-                <SmartContainerItem
-                  icon="captions"
-                  label={<Text id="language.captions" />}
-                  options={textOptions}
-                  onSelect={textTrack => this.onCaptionsChange(textTrack)}
-                />
-              </Localizer>
+              <SmartContainerItem
+                icon="captions"
+                label={this.props.captionsLabelText}
+                options={textOptions}
+                onMenuChosen={textTrack => this.onCaptionsChange(textTrack)}
+              />
             )}
             {textOptions.length <= 1 ? (
               undefined
             ) : (
-              <div
-                tabIndex="0"
-                className={style.smartContainerItem}
-                onKeyDown={e => {
-                  if (e.keyCode === KeyMap.ENTER) {
-                    this.toggleCVAAOverlay();
-                  }
-                }}>
-                <a className={style.advancedCaptionsMenuLink} onClick={() => this.toggleCVAAOverlay()}>
-                  <Text id="language.advanced_captions_settings" />
-                </a>
-              </div>
+              <AdvancedCaptionsAnchor onMenuChosen={() => this.toggleCVAAOverlay()} onClose={() => this.onControlButtonClick()} />
             )}
           </SmartContainer>
         )}
         {this.state.cvaaOverlay ? (
-          <Portal into={portalSelector} ref={ref => (this._portal = ref)}>
+          <Portal into={portalSelector}>
             <CVAAOverlay
               onClose={() => {
                 this.toggleCVAAOverlay();
@@ -251,6 +239,45 @@ class Language extends Component {
     } else {
       return undefined;
     }
+  }
+}
+
+/**
+ * AdvancedCaptionsAnchor component
+ * @class AdvancedCaptionsAnchor
+ * @extends {Component}
+ */
+class AdvancedCaptionsAnchor extends Component {
+  /**
+   * rendered AdvancedCaptionsAnchor jsx
+   * @param {*} props - component props
+   * @returns {?React$Element} - main state element
+   * @memberof AdvancedCaptionsAnchor
+   */
+  render(props: any): React$Element<any> {
+    return (
+      <div className={style.smartContainerItem}>
+        <a
+          tabIndex="-1"
+          ref={el => {
+            if (props.pushRef) {
+              props.pushRef(el);
+            }
+          }}
+          className={style.advancedCaptionsMenuLink}
+          onClick={() => this.props.onMenuChosen()}
+          onKeyDown={e => {
+            switch (e.keyCode) {
+              case KeyMap.ENTER:
+                this.props.onMenuChosen();
+                e.stopPropagation();
+                break;
+            }
+          }}>
+          <Text id="language.advanced_captions_settings" />
+        </a>
+      </div>
+    );
   }
 }
 

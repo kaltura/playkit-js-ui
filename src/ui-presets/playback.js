@@ -49,6 +49,7 @@ function PlaybackUI(props: any): React$Element<any> {
         <OverlayPortal />
         <UnmuteIndication />
         <OverlayAction />
+        <PictureInPictureOverlay />
         <PlaybackControls />
         <PlaylistNextScreen />
         <TopBar>
@@ -81,7 +82,6 @@ function PlaybackUI(props: any): React$Element<any> {
       <PlaylistCountdown />
       <PrePlaybackPlayOverlay />
       <CastBeforePlay />
-      <PictureInPictureOverlay />
       <Backdrop />
     </Container>
   );

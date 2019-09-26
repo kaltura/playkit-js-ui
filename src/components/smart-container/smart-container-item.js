@@ -34,7 +34,14 @@ class SmartContainerItem extends Component {
           )}
           {props.label}
         </label>
-        <DropDown name={label} onSelect={o => props.onSelect(o)} options={props.options} />
+        <DropDown
+          pushRef={el => {
+            props.pushRef(el);
+          }}
+          name={label}
+          onMenuChosen={o => props.onMenuChosen(o)}
+          options={props.options}
+        />
       </div>
     );
   }

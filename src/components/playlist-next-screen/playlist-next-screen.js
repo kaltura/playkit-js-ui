@@ -4,6 +4,7 @@ import {h, Component} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {connect} from 'preact-redux';
 import {default as Icon, IconType} from '../icon';
+import {KeyMap} from '../../utils/key-map';
 import {withPlayer} from '../player';
 import {withLogger} from 'components/logger';
 
@@ -96,7 +97,15 @@ class PlaylistNextScreen extends Component {
           </div>
           <div className={style.playlistNextScreenPosterPlaceholder}>
             <div className={style.playlistNextScreenPosterAspectRatio}>
-              <div className={style.playlistNextScreenPoster} onClick={() => this.onPosterClick()}>
+              <div
+                tabIndex="0"
+                className={style.playlistNextScreenPoster}
+                onClick={() => this.onPosterClick()}
+                onKeyDown={e => {
+                  if (e.keyCode === KeyMap.ENTER) {
+                    this.onPosterClick();
+                  }
+                }}>
                 <div className={style.playlistNextScreenPosterImg} style={`background-image: url(${this._getPosterUrl()});`} />
                 <Icon type={IconType.Play} />
               </div>
