@@ -45,25 +45,21 @@ export const withKeyboardA11y: Function = (WrappedComponent: BaseComponent): typ
           break;
         case KeyMap.DOWN:
         case KeyMap.UP:
-          if (!this.props.tabbable) {
-            if (this._activeElement) {
-              let activeElementIndex = this._accessibleChildren.indexOf(this._activeElement);
-              activeElementIndex =
-                (activeElementIndex + (e.keyCode == KeyMap.DOWN ? 1 : -1) + this._accessibleChildren.length) % this._accessibleChildren.length;
-              this._activeElement = this._accessibleChildren[activeElementIndex];
-              this._activeElement.focus();
-            }
-            e.preventDefault();
-            e.stopPropagation();
+          if (this._activeElement) {
+            let activeElementIndex = this._accessibleChildren.indexOf(this._activeElement);
+            activeElementIndex =
+              (activeElementIndex + (e.keyCode == KeyMap.DOWN ? 1 : -1) + this._accessibleChildren.length) % this._accessibleChildren.length;
+            this._activeElement = this._accessibleChildren[activeElementIndex];
+            this._activeElement.focus();
           }
+          e.preventDefault();
+          e.stopPropagation();
 
           break;
         case KeyMap.TAB:
-          if (!this.props.tabbable) {
-            this._previouslyActiveElement = null;
-            if (this.props.onClose) {
-              this.props.onClose();
-            }
+          this._previouslyActiveElement = null;
+          if (this.props.onClose) {
+            this.props.onClose();
           }
           break;
       }

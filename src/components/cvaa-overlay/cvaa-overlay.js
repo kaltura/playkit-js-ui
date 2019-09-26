@@ -173,7 +173,6 @@ class CVAAOverlay extends Component {
       <Overlay open onClose={() => props.onClose()} type="cvaa">
         {this.state.activeWindow === cvaaOverlayState.Main ? (
           <MainWindow
-            tabbable="true"
             state={this.state}
             player={player}
             captionsStyleDefault={this.captionsStyleDefault}
@@ -185,7 +184,6 @@ class CVAAOverlay extends Component {
           />
         ) : (
           <CustomCaptionsWindow
-            tabbable="true"
             state={this.state}
             player={player}
             changeCaptionsStyle={this.changeCaptionsStyle.bind(this)}
@@ -260,7 +258,7 @@ class CustomCaptionsWindow extends Component {
               pushRef={el => {
                 props.setFirstFocusedElement(el);
               }}
-              tabbable="true"
+              tabbable
               onMenuChosen={fontScale => props.changeCustomStyle({fontScale})}
               options={fontSizeOptions}
             />
@@ -269,19 +267,19 @@ class CustomCaptionsWindow extends Component {
             <label>
               <Text id={'cvaa.font_color_label'} />
             </label>
-            <DropDown tabbable="true" onMenuChosen={fontColor => props.changeCustomStyle({fontColor})} options={fontColorOptions} />
+            <DropDown tabbable onMenuChosen={fontColor => props.changeCustomStyle({fontColor})} options={fontColorOptions} />
           </div>
           <div className={[style.formGroupRow, style.fontFamily].join(' ')}>
             <label>
               <Text id={'cvaa.font_family_label'} />
             </label>
-            <DropDown tabbable="true" onMenuChosen={fontFamily => props.changeCustomStyle({fontFamily})} options={fontFamilyOptions} />
+            <DropDown tabbable onMenuChosen={fontFamily => props.changeCustomStyle({fontFamily})} options={fontFamilyOptions} />
           </div>
           <div className={[style.formGroupRow, style.fontStyle].join(' ')}>
             <label>
               <Text id={'cvaa.font_style_label'} />
             </label>
-            <DropDown tabbable="true" onMenuChosen={fontEdge => props.changeCustomStyle({fontEdge})} options={fontStyleOptions} />
+            <DropDown tabbable onMenuChosen={fontEdge => props.changeCustomStyle({fontEdge})} options={fontStyleOptions} />
           </div>
           <div className={[style.formGroupRow, style.fontOpacity].join(' ')}>
             <label>
@@ -298,7 +296,7 @@ class CustomCaptionsWindow extends Component {
             <label>
               <Text id={'cvaa.background_color_label'} />
             </label>
-            <DropDown tabbable="true" onMenuChosen={backgroundColor => props.changeCustomStyle({backgroundColor})} options={backgroundColorOptions} />
+            <DropDown tabbable onMenuChosen={backgroundColor => props.changeCustomStyle({backgroundColor})} options={backgroundColorOptions} />
           </div>
           <div className={[style.formGroupRow, style.backgroundOpacity].join(' ')}>
             <label>
@@ -315,6 +313,11 @@ class CustomCaptionsWindow extends Component {
             <a
               tabIndex="0"
               onClick={() => props.changeCaptionsStyle(props.state.customTextStyle)}
+              onKeyDown={e => {
+                if (e.keyCode === KeyMap.ENTER) {
+                  props.changeCaptionsStyle(props.state.customTextStyle);
+                }
+              }}
               className={[style.btn, style.btnBranded, style.btnBlock].join(' ')}>
               <Text id={'cvaa.apply'} />
             </a>
