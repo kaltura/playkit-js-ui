@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.46.0"></a>
+# [0.46.0](https://github.com/kaltura/playkit-js-ui/compare/v0.45.0...v0.46.0) (2019-09-25)
+
+
+### Bug Fixes
+
+* **FEC-9341:** learn more isn't clickable on mobile ([#412](https://github.com/kaltura/playkit-js-ui/issues/412)) ([ccc225b](https://github.com/kaltura/playkit-js-ui/commit/ccc225b))
+* **FEC-9351:** cast button is not visible ([#411](https://github.com/kaltura/playkit-js-ui/issues/411)) ([708a9f2](https://github.com/kaltura/playkit-js-ui/commit/708a9f2))
+* ads preset fails when using player ([#414](https://github.com/kaltura/playkit-js-ui/issues/414)) ([31f2b1c](https://github.com/kaltura/playkit-js-ui/commit/31f2b1c))
+* **FEC-9362:** IPad OS wasn't under touch devices  ([#413](https://github.com/kaltura/playkit-js-ui/issues/413)) ([c163869](https://github.com/kaltura/playkit-js-ui/commit/c163869))
+
+
+### Features
+
+* **FEC-9341:** refactor base component to HoC ([#410](https://github.com/kaltura/playkit-js-ui/issues/410)) ([f749921](https://github.com/kaltura/playkit-js-ui/commit/f749921))
+
+
+
 <a name="0.45.0"></a>
 # [0.45.0](https://github.com/kaltura/playkit-js-ui/compare/v0.44.0...v0.45.0) (2019-09-18)
 
