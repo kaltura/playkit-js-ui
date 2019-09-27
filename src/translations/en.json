@@ -2,6 +2,7 @@
   "controls": {
     "play": "Play",
     "pause": "Pause",
+    "seek_slider": "Seek Slider",
     "share": "Share",
     "language": "Language",
     "settings": "Settings",
@@ -10,6 +11,7 @@
     "forward": "Forward",
     "vrStereo": "vrStereo",
     "live": "Live",
+    "volume": "Volume",
     "unmute": "Unmute",
     "next": "Next",
     "prev": "Prev",
@@ -26,7 +28,8 @@
   "settings": {
     "title": "Settings",
     "quality": "Quality",
-    "speed": "Speed"
+    "speed": "Speed",
+    "speed_normal": "Normal"
   },
   "language": {
     "title": "Language",

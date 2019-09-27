@@ -35,6 +35,7 @@ const COMPONENT_NAME = 'Settings';
 @withText({
   qualityLabelText: 'settings.quality',
   speedLabelText: 'settings.speed',
+  normalSpeedLabel: 'settings.speed_normal',
   buttonAriaLabel: 'controls.settings'
 })
 @withPlayer
@@ -175,7 +176,7 @@ class Settings extends Component {
     const speedOptions = player.playbackRates.reduce((acc, speed) => {
       let speedOption = {
         value: speed,
-        label: speed === 1 ? 'Normal' : speed,
+        label: speed === 1 ? this.props.normalSpeedLabel : speed,
         active: false
       };
       if (speed === player.playbackRate) {

@@ -1,6 +1,7 @@
 //@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
+import {withText} from 'preact-i18n';
 import {toHHMMSS} from '../../utils/time-format';
 import {KeyMap} from '../../utils/key-map';
 import {connect} from 'preact-redux';
@@ -27,6 +28,9 @@ const COMPONENT_NAME = 'SeekBar';
   bindActions(actions)
 )
 @withPlayer
+@withText({
+  seekSlider: 'controls.seek_slider'
+})
 /**
  * SeekBar component
  *
@@ -511,7 +515,7 @@ class SeekBar extends Component {
         className={seekbarStyleClass.join(' ')}
         ref={c => (this._seekBarElement = c)}
         role="slider"
-        aria-label="Seek slider"
+        aria-label={props.seekSlider}
         aria-valuemin="0"
         aria-valuemax={Math.round(this.props.duration)}
         aria-valuenow={Math.round(this.props.currentTime)}

@@ -1,6 +1,7 @@
 //@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
+import {withText} from 'preact-i18n';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/volume';
@@ -36,6 +37,9 @@ const COMPONENT_NAME = 'Volume';
 @withEventManager
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
+@withText({
+  volumeLabel: 'controls.volume'
+})
 /**
  * Volume component
  *
@@ -286,7 +290,7 @@ class Volume extends Component {
         onMouseOut={() => this.onVolumeMouseOut()}>
         <button
           tabIndex="0"
-          aria-label="Volume"
+          aria-label={this.props.volumeLabel}
           className={style.controlButton}
           onClick={() => this.onVolumeControlButtonClick()}
           onTouchEnd={e => e.stopImmediatePropagation()}
@@ -299,7 +303,7 @@ class Volume extends Component {
           className={style.volumeControlBar}
           role="slider"
           aria-valuemin="0"
-          aria-valuemaz="100"
+          aria-valuemax="100"
           aria-valuenow={player.volume * 100}
           aria-valuetext={`${player.volume * 100}% volume ${player.muted ? 'muted' : ''}`}>
           <div className={style.bar} ref={c => (this._volumeProgressBarElement = c)} onMouseDown={() => this.onVolumeProgressBarMouseDown()}>
