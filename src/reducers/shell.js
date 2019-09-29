@@ -14,8 +14,12 @@ export const types = {
   UPDATE_ACTIVE_PRESET_NAME: 'shell/UPDATE_ACTIVE_PRESET_NAME',
   UPDATE_SIDE_PANEL_MODE: 'shell/UPDATE_SIDE_PANEL_MODE',
   UPDATE_SIDE_PANEL_SIZE: 'shell/UPDATE_SIDE_PANEL_SIZE',
-  UPDATE_SIDE_PANELS_ALLOWED: 'shell/UPDATE_SIDE_PANELS_ALLOWED'
+  UPDATE_PRESET_SETTINGS: 'shell/UPDATE_PRESET_SETTINGS'
 };
+
+type PresetSettings = {|
+  allowSidePanels: boolean
+|};
 
 export const SidePanelOrientation = {
   VERTICAL: 'VERTICAL',
@@ -35,6 +39,12 @@ export const SidePanelModes = {
   OVER_THE_VIDEO: 'OVER_THE_VIDEO'
 };
 
+function createDefaultPresetSettings(): PresetSettings {
+  return {
+    allowSidePanels: false
+  };
+}
+
 export const initialState = {
   playerClasses: [],
   playerClientRect: {width: 0, height: 0}, // todo sakal oren decide if this is relevant
@@ -53,7 +63,7 @@ export const initialState = {
     [SidePanelOrientation.VERTICAL]: {min: 240, max: 480, ratio: 0.33},
     [SidePanelOrientation.HORIZONTAL]: {min: 144, max: 288, ratio: 0.33}
   },
-  sidePanelsAllowed: false
+  presetSettings: createDefaultPresetSettings()
 };
 
 export default (state: Object = initialState, action: Object) => {
@@ -157,10 +167,10 @@ export default (state: Object = initialState, action: Object) => {
       };
     }
 
-    case types.UPDATE_SIDE_PANELS_ALLOWED:
+    case types.UPDATE_PRESET_SETTINGS:
       return {
         ...state,
-        sidePanelsAllowed: action.allowed
+        presetSettings: action.presetSettings || createDefaultPresetSettings()
       };
 
     default:
@@ -191,5 +201,5 @@ export const actions = {
     orientation,
     options
   }),
-  updateSidePanelsAllowed: (allowed: boolean) => ({type: types.UPDATE_SIDE_PANELS_ALLOWED, allowed})
+  updatePresetSettings: (presetSettings: PresetSettings) => ({type: types.UPDATE_PRESET_SETTINGS, presetSettings})
 };

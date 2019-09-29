@@ -30,6 +30,7 @@ import {PictureInPictureOverlay} from '../components/picture-in-picture-overlay'
 import {Share} from '../components/share';
 import {TopBar} from '../components/top-bar';
 import {Logo} from '../components/logo/logo';
+import {PresetInteractiveAreaContainer} from '../components/side-panels-container';
 
 const PRESET_NAME = 'Playback';
 
@@ -51,31 +52,33 @@ function PlaybackUI(props: any): React$Element<any> {
         <OverlayAction />
         <PlaybackControls />
         <PlaylistNextScreen />
-        <TopBar>
-          <Container className={style.leftControls} name={'TopBarLeftControls'} />
-          <Container className={style.rightControls} name={'TopBarRightControls'}>
-            <Share />
-          </Container>
-        </TopBar>
-        <BottomBar>
-          <SeekBarPlaybackContainer showFramePreview showTimeBubble playerContainer={props.playerContainer} />
-          <Container className={style.leftControls} name={'BottomBarLeftControls'}>
-            <PlaybackControls />
-            <Rewind step={10} />
-            <Forward step={10} />
-            <TimeDisplayPlaybackContainer format="current / total" />
-          </Container>
-          <Container className={style.rightControls} name={'BottomBarRightControls'}>
-            <VrStereo />
-            <Volume />
-            <Language />
-            <Settings />
-            <Cast />
-            <PictureInPicture />
-            <Fullscreen />
-            <Logo />
-          </Container>
-        </BottomBar>
+        <PresetInteractiveAreaContainer>
+          <TopBar>
+            <Container className={style.leftControls} name={'TopBarLeftControls'} />
+            <Container className={style.rightControls} name={'TopBarRightControls'}>
+              <Share />
+            </Container>
+          </TopBar>
+          <BottomBar>
+            <SeekBarPlaybackContainer showFramePreview showTimeBubble playerContainer={props.playerContainer} />
+            <Container className={style.leftControls} name={'BottomBarLeftControls'}>
+              <PlaybackControls />
+              <Rewind step={10} />
+              <Forward step={10} />
+              <TimeDisplayPlaybackContainer format="current / total" />
+            </Container>
+            <Container className={style.rightControls} name={'BottomBarRightControls'}>
+              <VrStereo />
+              <Volume />
+              <Language />
+              <Settings />
+              <Cast />
+              <PictureInPicture />
+              <Fullscreen />
+              <Logo />
+            </Container>
+          </BottomBar>
+        </PresetInteractiveAreaContainer>
       </Container>
       <Watermark />
       <PlaylistCountdown />
@@ -88,6 +91,9 @@ function PlaybackUI(props: any): React$Element<any> {
 }
 
 PlaybackUI.displayName = PRESET_NAME;
+PlaybackUI.settings = {
+  allowSidePanels: true
+};
 
 /**
  * Playback ui interface

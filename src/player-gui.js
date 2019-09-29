@@ -1,9 +1,10 @@
 //@flow
-import {Component} from 'preact';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 import {bindActions} from './utils';
 import {actions} from './reducers/shell';
 import getLogger from './utils/logger';
+import {SidePanelsContainer} from './components/side-panels-container';
 
 /**
  * mapping state to props
@@ -75,10 +76,12 @@ class PlayerGUI extends Component {
 
       if (activePresetName !== presetName) {
         props.updateActivePresetName(presetName);
-        logger.debug(`set active preset '${presetName}'`);
+        const presetSettings = uiComponent.nodeName && typeof uiComponent.nodeName.settings !== 'undefined' ? uiComponent.nodeName.settings : null;
+        props.updatePresetSettings(presetSettings);
+        logger.debug(`set active preset '${presetName}'`, {presetSettings});
       }
 
-      return uiComponent;
+      return <SidePanelsContainer>{uiComponent}</SidePanelsContainer>;
     } else {
       return undefined;
     }

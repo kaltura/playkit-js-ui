@@ -10,6 +10,9 @@ import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {withLogger} from 'components/logger';
+import {utils as playkitUtils, CustomEventType} from '@playkit-js/playkit-js';
+import {throttle} from '../../utils/throttle';
+
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -84,7 +87,7 @@ class Shell extends Component {
   state: Object;
   hoverTimeout: ?number;
   _environmentClasses: Array<string>;
-
+  _resizeWatcher: ResizeWatcher;
   /**
    * on mouse over, add hover class (shows the player ui) and timeout of 3 seconds bt default or what pass as prop configuration to component
    *
@@ -213,9 +216,33 @@ class Shell extends Component {
     const {player, forceTouchUI} = this.props;
     this.props.updateIsMobile(player.env.isTablet || player.env.isMobile || forceTouchUI);
     this._onWindowResize();
+    // TODO [es] check with Oren where they unlisten
     this.props.eventManager.listen(player, player.Event.RESIZE, () => this._onWindowResize());
     this.props.eventManager.listen(player, player.Event.FIRST_PLAY, () => this._onWindowResize());
+
+    this._resizeWatcher = new playkitUtils.ResizeWatcher();
+    this._resizeWatcher.init(document.getElementById(this.props.targetId));
+    this._resizeWatcher.addEventListener(CustomEventType.RESIZE, this._onPlayerWrapperResize);
+    this._onPlayerWrapperResize();
   }
+
+  /**
+   * handle player wrapper resize
+   * @type {Function}
+   * @private
+   */
+  _onPlayerWrapperResize = throttle(() => {
+    // todo sakal discuss about the name player wrapper
+    const playerWrapperContainer = document.getElementById(this.props.targetId);
+    if (playerWrapperContainer) {
+      this.props.updatePlayerWrapperClientRect(playerWrapperContainer.getBoundingClientRect());
+    }
+
+    // todo sakal Oren imo this is the relevant place and note that it is wrappered with debounce
+    if (document.body) {
+      this.props.updateDocumentWidth(document.body.clientWidth);
+    }
+  }, 500);
 
   /**
    * window resize handler
@@ -224,12 +251,11 @@ class Shell extends Component {
    * @memberof Shell
    */
   _onWindowResize(): void {
-    const playerContainer = document.getElementById(this.props.targetId);
+    // todo sakal use an exposed api
+    // todo sakal Oren - moved the `document.body` updateDocumentWidth to relevant listener
+    const playerContainer = document.getElementById(this.props.player._localPlayer._playerId);
     if (playerContainer) {
       this.props.updatePlayerClientRect(playerContainer.getBoundingClientRect());
-    }
-    if (document.body) {
-      this.props.updateDocumentWidth(document.body.clientWidth);
     }
   }
 
