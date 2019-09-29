@@ -196,7 +196,7 @@ class CVAAOverlay extends Component {
   }
 }
 
-@withKeyboardA11y
+@withKeyboardA11y(true)
 
 /**
  * CustomCaptionsWindow component to be wrapped with popupWithKeyboardA11y
@@ -248,7 +248,11 @@ class CustomCaptionsWindow extends Component {
     }));
 
     return (
-      <div className={[style.overlayScreen, style.active].join(' ')}>
+      <div
+        onKeyDown={e => {
+          props.handleKeyDown(e);
+        }}
+        className={[style.overlayScreen, style.active].join(' ')}>
         <form className={[style.form, style.customCaptionForm].join(' ')}>
           <div className={[style.formGroupRow, style.fontSize].join(' ')}>
             <label>
@@ -257,35 +261,64 @@ class CustomCaptionsWindow extends Component {
             <DropDown
               pushRef={el => {
                 props.setFirstFocusedElement(el);
+                props.addAccessibleChild(el);
               }}
               tabbable
               onMenuChosen={fontScale => props.changeCustomStyle({fontScale})}
               options={fontSizeOptions}
             />
           </div>
-          <div className={[style.formGroupRow, style.fontColor].join(' ')}>
+          <div
+            pushRef={el => {
+              props.addAccessibleChild(el);
+            }}
+            className={[style.formGroupRow, style.fontColor].join(' ')}>
             <label>
               <Text id={'cvaa.font_color_label'} />
             </label>
-            <DropDown tabbable onMenuChosen={fontColor => props.changeCustomStyle({fontColor})} options={fontColorOptions} />
+            <DropDown
+              pushRef={el => {
+                props.addAccessibleChild(el);
+              }}
+              tabbable
+              onMenuChosen={fontColor => props.changeCustomStyle({fontColor})}
+              options={fontColorOptions}
+            />
           </div>
           <div className={[style.formGroupRow, style.fontFamily].join(' ')}>
             <label>
               <Text id={'cvaa.font_family_label'} />
             </label>
-            <DropDown tabbable onMenuChosen={fontFamily => props.changeCustomStyle({fontFamily})} options={fontFamilyOptions} />
+            <DropDown
+              pushRef={el => {
+                props.addAccessibleChild(el);
+              }}
+              tabbable
+              onMenuChosen={fontFamily => props.changeCustomStyle({fontFamily})}
+              options={fontFamilyOptions}
+            />
           </div>
           <div className={[style.formGroupRow, style.fontStyle].join(' ')}>
             <label>
               <Text id={'cvaa.font_style_label'} />
             </label>
-            <DropDown tabbable onMenuChosen={fontEdge => props.changeCustomStyle({fontEdge})} options={fontStyleOptions} />
+            <DropDown
+              pushRef={el => {
+                props.addAccessibleChild(el);
+              }}
+              tabbable
+              onMenuChosen={fontEdge => props.changeCustomStyle({fontEdge})}
+              options={fontStyleOptions}
+            />
           </div>
           <div className={[style.formGroupRow, style.fontOpacity].join(' ')}>
             <label>
               <Text id={'cvaa.font_opacity_label'} />
             </label>
             <Slider
+              pushRef={el => {
+                props.addAccessibleChild(el);
+              }}
               min={0}
               max={100}
               value={props.state.customTextStyle.fontOpacity * 100}
@@ -296,13 +329,23 @@ class CustomCaptionsWindow extends Component {
             <label>
               <Text id={'cvaa.background_color_label'} />
             </label>
-            <DropDown tabbable onMenuChosen={backgroundColor => props.changeCustomStyle({backgroundColor})} options={backgroundColorOptions} />
+            <DropDown
+              pushRef={el => {
+                props.addAccessibleChild(el);
+              }}
+              tabbable
+              onMenuChosen={backgroundColor => props.changeCustomStyle({backgroundColor})}
+              options={backgroundColorOptions}
+            />
           </div>
           <div className={[style.formGroupRow, style.backgroundOpacity].join(' ')}>
             <label>
               <Text id={'cvaa.background_opacity_label'} />
             </label>
             <Slider
+              pushRef={el => {
+                props.addAccessibleChild(el);
+              }}
               min={0}
               max={100}
               value={props.state.customTextStyle.backgroundOpacity * 100}
@@ -312,6 +355,9 @@ class CustomCaptionsWindow extends Component {
           <div className={style.formGroupRow}>
             <a
               tabIndex="0"
+              ref={el => {
+                props.addAccessibleChild(el);
+              }}
               onClick={() => props.changeCaptionsStyle(props.state.customTextStyle)}
               onKeyDown={e => {
                 if (e.keyCode === KeyMap.ENTER) {
@@ -334,7 +380,7 @@ class CustomCaptionsWindow extends Component {
   }
 }
 
-@withKeyboardA11y
+@withKeyboardA11y(true)
 /**
  * MainWindow component to be wrapped with popupWithKeyboardA11y
  * @class MainWindow
@@ -351,7 +397,11 @@ class MainWindow extends Component {
   render(props: any): React$Element<any> {
     const {player} = this.props;
     return (
-      <div className={[style.overlayScreen, style.active].join(' ')}>
+      <div
+        onKeyDown={e => {
+          props.handleKeyDown(e);
+        }}
+        className={[style.overlayScreen, style.active].join(' ')}>
         <div className={style.title}>
           <Text id={'cvaa.title'} />
         </div>
@@ -360,6 +410,7 @@ class MainWindow extends Component {
             tabIndex="0"
             ref={el => {
               props.setFirstFocusedElement(el);
+              props.addAccessibleChild(el);
             }}
             className={style.sample}
             onClick={() => props.changeCaptionsStyle(props.captionsStyleDefault)}
@@ -381,6 +432,9 @@ class MainWindow extends Component {
             tabIndex="0"
             className={[style.sample, style.blackBg].join(' ')}
             onClick={() => props.changeCaptionsStyle(props.captionsStyleBlackBG)}
+            ref={el => {
+              props.addAccessibleChild(el);
+            }}
             onKeyDown={e => {
               if (e.keyCode === KeyMap.ENTER) {
                 props.changeCaptionsStyle(props.captionsStyleBlackBG);
@@ -399,6 +453,9 @@ class MainWindow extends Component {
             tabIndex="0"
             className={[style.sample, style.yellowText].join(' ')}
             onClick={() => props.changeCaptionsStyle(props.captionsStyleYellow)}
+            ref={el => {
+              props.addAccessibleChild(el);
+            }}
             onKeyDown={e => {
               if (e.keyCode === KeyMap.ENTER) {
                 props.changeCaptionsStyle(props.captionsStyleYellow);
@@ -419,6 +476,9 @@ class MainWindow extends Component {
             tabIndex="0"
             className={style.buttonSaveCvaa}
             onClick={() => props.transitionToState(cvaaOverlayState.CustomCaptions)}
+            ref={el => {
+              props.addAccessibleChild(el);
+            }}
             onKeyDown={e => {
               if (e.keyCode === KeyMap.ENTER) {
                 props.transitionToState(cvaaOverlayState.CustomCaptions);
@@ -428,7 +488,7 @@ class MainWindow extends Component {
           </a>
         ) : (
           <div className={style.customCaptionsApplied}>
-            <div tabIndex="0" className={[style.sample, style.custom].join(' ')} style={props.state.customTextStyle.toCSS()}>
+            <div className={[style.sample, style.custom].join(' ')} style={props.state.customTextStyle.toCSS()}>
               <span>Custom captions</span>
               <div className={style.activeTick}>
                 <Icon type={IconType.Check} />
@@ -437,6 +497,9 @@ class MainWindow extends Component {
             <a
               tabIndex="0"
               onClick={() => props.transitionToState(cvaaOverlayState.CustomCaptions)}
+              ref={el => {
+                props.addAccessibleChild(el);
+              }}
               onKeyDown={e => {
                 if (e.keyCode === KeyMap.ENTER) {
                   props.transitionToState(cvaaOverlayState.CustomCaptions);
