@@ -395,7 +395,6 @@ class MainWindow extends Component {
    * @memberof MainWindow
    */
   render(props: any): React$Element<any> {
-    const {player} = this.props;
     return (
       <div
         onKeyDown={e => {
@@ -406,70 +405,9 @@ class MainWindow extends Component {
           <Text id={'cvaa.title'} />
         </div>
         <div>
-          <div
-            tabIndex="0"
-            ref={el => {
-              props.setFirstFocusedElement(el);
-              props.addAccessibleChild(el);
-            }}
-            className={style.sample}
-            onClick={() => props.changeCaptionsStyle(props.captionsStyleDefault)}
-            onKeyDown={e => {
-              if (e.keyCode === KeyMap.ENTER) {
-                props.changeCaptionsStyle(props.captionsStyleDefault);
-              }
-            }}>
-            <Text id={'cvaa.sample_caption_tag'} />
-            {isEqual(player.textStyle, props.captionsStyleDefault) ? (
-              <div className={style.activeTick}>
-                <Icon type={IconType.Check} />
-              </div>
-            ) : (
-              undefined
-            )}
-          </div>
-          <div
-            tabIndex="0"
-            className={[style.sample, style.blackBg].join(' ')}
-            onClick={() => props.changeCaptionsStyle(props.captionsStyleBlackBG)}
-            ref={el => {
-              props.addAccessibleChild(el);
-            }}
-            onKeyDown={e => {
-              if (e.keyCode === KeyMap.ENTER) {
-                props.changeCaptionsStyle(props.captionsStyleBlackBG);
-              }
-            }}>
-            <Text id={'cvaa.sample_caption_tag'} />
-            {isEqual(player.textStyle, props.captionsStyleBlackBG) ? (
-              <div className={style.activeTick}>
-                <Icon type={IconType.Check} />
-              </div>
-            ) : (
-              undefined
-            )}
-          </div>
-          <div
-            tabIndex="0"
-            className={[style.sample, style.yellowText].join(' ')}
-            onClick={() => props.changeCaptionsStyle(props.captionsStyleYellow)}
-            ref={el => {
-              props.addAccessibleChild(el);
-            }}
-            onKeyDown={e => {
-              if (e.keyCode === KeyMap.ENTER) {
-                props.changeCaptionsStyle(props.captionsStyleYellow);
-              }
-            }}>
-            <Text id={'cvaa.sample_caption_tag'} />
-            {isEqual(player.textStyle, props.captionsStyleYellow) ? (
-              <div className={style.activeTick}>
-                <Icon type={IconType.Check} />
-              </div>
-            ) : (
-              undefined
-            )}
-          </div>
+          {this.renderMainWindowDefaultButton(props, true, props.captionsStyleDefault, [style.sample])}
+          {this.renderMainWindowDefaultButton(props, false, props.captionsStyleBlackBG, [style.sample, style.blackBg])}
+          {this.renderMainWindowDefaultButton(props, false, props.captionsStyleYellow, [style.sample, style.yellowText])}
         </div>
         {!props.isAdvancedStyleApplied() ? (
           <a
@@ -508,6 +446,46 @@ class MainWindow extends Component {
               <Text id={'cvaa.edit_caption'} />
             </a>
           </div>
+        )}
+      </div>
+    );
+  }
+
+  /**
+   * renders a default style pick button
+   *
+   * @param {*} props - component props
+   * @param {boolean} isFirst - is the button first (to apply focus on mount)
+   * @param {captionStyle} captionStyle - the caption style the represents
+   * @param {classNames} classNames - the css classes to apply
+   * @returns {React$Element} - component element
+   * @memberof MainWindow
+   */
+  renderMainWindowDefaultButton(props: any, isFirst: boolean, captionStyle: Object, classNames: Array<string>): React$Element<any> {
+    const {player} = this.props;
+    return (
+      <div
+        tabIndex="0"
+        ref={el => {
+          if (isFirst) {
+            props.setFirstFocusedElement(el);
+          }
+          props.addAccessibleChild(el);
+        }}
+        className={classNames.join(' ')}
+        onClick={() => props.changeCaptionsStyle(captionStyle)}
+        onKeyDown={e => {
+          if (e.keyCode === KeyMap.ENTER) {
+            props.changeCaptionsStyle(captionStyle);
+          }
+        }}>
+        <Text id={'cvaa.sample_caption_tag'} />
+        {isEqual(player.textStyle, captionStyle) ? (
+          <div className={style.activeTick}>
+            <Icon type={IconType.Check} />
+          </div>
+        ) : (
+          undefined
         )}
       </div>
     );
