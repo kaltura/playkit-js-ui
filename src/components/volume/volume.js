@@ -137,7 +137,7 @@ class Volume extends Component {
    * @memberof Volume
    */
   onVolumeControlKeyDown(e: KeyboardEvent): void {
-    const {player} = this.state;
+    const {player} = this.props;
     /**
      * Change volume operations.
      * @param {number} newVolume - The new volume.
