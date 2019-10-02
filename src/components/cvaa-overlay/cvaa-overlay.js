@@ -254,104 +254,35 @@ class CustomCaptionsWindow extends Component {
         }}
         className={[style.overlayScreen, style.active].join(' ')}>
         <form className={[style.form, style.customCaptionForm].join(' ')}>
-          <div className={[style.formGroupRow, style.fontSize].join(' ')}>
-            <label>
-              <Text id={'cvaa.size_label'} />
-            </label>
-            <DropDown
-              pushRef={el => {
-                props.setFirstFocusedElement(el);
-                props.addAccessibleChild(el);
-              }}
-              tabbable
-              onMenuChosen={fontScale => props.changeCustomStyle({fontScale})}
-              options={fontSizeOptions}
-            />
-          </div>
-          <div
-            pushRef={el => {
-              props.addAccessibleChild(el);
-            }}
-            className={[style.formGroupRow, style.fontColor].join(' ')}>
-            <label>
-              <Text id={'cvaa.font_color_label'} />
-            </label>
-            <DropDown
-              pushRef={el => {
-                props.addAccessibleChild(el);
-              }}
-              tabbable
-              onMenuChosen={fontColor => props.changeCustomStyle({fontColor})}
-              options={fontColorOptions}
-            />
-          </div>
-          <div className={[style.formGroupRow, style.fontFamily].join(' ')}>
-            <label>
-              <Text id={'cvaa.font_family_label'} />
-            </label>
-            <DropDown
-              pushRef={el => {
-                props.addAccessibleChild(el);
-              }}
-              tabbable
-              onMenuChosen={fontFamily => props.changeCustomStyle({fontFamily})}
-              options={fontFamilyOptions}
-            />
-          </div>
-          <div className={[style.formGroupRow, style.fontStyle].join(' ')}>
-            <label>
-              <Text id={'cvaa.font_style_label'} />
-            </label>
-            <DropDown
-              pushRef={el => {
-                props.addAccessibleChild(el);
-              }}
-              tabbable
-              onMenuChosen={fontEdge => props.changeCustomStyle({fontEdge})}
-              options={fontStyleOptions}
-            />
-          </div>
-          <div className={[style.formGroupRow, style.fontOpacity].join(' ')}>
-            <label>
-              <Text id={'cvaa.font_opacity_label'} />
-            </label>
-            <Slider
-              pushRef={el => {
-                props.addAccessibleChild(el);
-              }}
-              min={0}
-              max={100}
-              value={props.state.customTextStyle.fontOpacity * 100}
-              onChange={fontOpacity => props.changeCustomStyle({fontOpacity: fontOpacity / 100})}
-            />
-          </div>
-          <div className={[style.formGroupRow, style.backgroundColor].join(' ')}>
-            <label>
-              <Text id={'cvaa.background_color_label'} />
-            </label>
-            <DropDown
-              pushRef={el => {
-                props.addAccessibleChild(el);
-              }}
-              tabbable
-              onMenuChosen={backgroundColor => props.changeCustomStyle({backgroundColor})}
-              options={backgroundColorOptions}
-            />
-          </div>
-          <div className={[style.formGroupRow, style.backgroundOpacity].join(' ')}>
-            <label>
-              <Text id={'cvaa.background_opacity_label'} />
-            </label>
-            <Slider
-              pushRef={el => {
-                props.addAccessibleChild(el);
-              }}
-              min={0}
-              max={100}
-              value={props.state.customTextStyle.backgroundOpacity * 100}
-              onChange={backgroundOpacity => props.changeCustomStyle({backgroundOpacity: backgroundOpacity / 100})}
-            />
-          </div>
+          {this.renderDropDownOption(props, true, 'cvaa.size_label', fontSizeOptions, [style.formGroupRow, style.fontSize], 'fontSize')}
+          {this.renderDropDownOption(props, false, 'cvaa.font_color_label', fontColorOptions, [style.formGroupRow, style.fontColor], 'fontColor')}
+          {this.renderDropDownOption(props, false, 'cvaa.font_family_label', fontFamilyOptions, [style.formGroupRow, style.fontFamily], 'fontFamily')}
+          {this.renderDropDownOption(props, false, 'cvaa.font_style_label', fontStyleOptions, [style.formGroupRow, style.fontStyle], 'fontStyle')}
+          {this.renderSliderOption(
+            props,
+            false,
+            'cvaa.font_opacity_label',
+            props.state.customTextStyle.fontOpacity,
+            [style.formGroupRow, style.fontOpacity],
+            'fontOpacity'
+          )}
+          {this.renderDropDownOption(
+            props,
+            false,
+            'cvaa.background_color_label',
+            backgroundColorOptions,
+            [style.formGroupRow, style.backgroundColor],
+            'backgroundColor'
+          )}
+          {this.renderSliderOption(
+            props,
+            false,
+            'cvaa.background_opacity_label',
+            props.state.customTextStyle.backgroundOpacity,
+            [style.formGroupRow, style.backgroundOpacity],
+            'backgroundOpacity'
+          )}
+
           <div className={style.formGroupRow}>
             <a
               tabIndex="0"
@@ -375,6 +306,69 @@ class CustomCaptionsWindow extends Component {
             </span>
           </div>
         </form>
+      </div>
+    );
+  }
+
+  /**
+   * renders a custom dropdown style option
+   *
+   * @param {*} props - component props
+   * @param {boolean} isFirst - is the button first (to apply focus on mount)
+   * @param {string} labelId - the label id to localize
+   * @param {Array<any>} options - dropdown options array
+   * @param {classNames} classNames - the css classes to apply
+   * @param {string} styleName - the property name to change
+   * @returns {React$Element} - component element
+   * @memberof CustomCaptionsWindow
+   */
+  renderDropDownOption(props: any, isFirst: boolean, labelId: string, options: Array<any>, classNames: Array<string>, styleName: string) {
+    return (
+      <div className={classNames.join(' ')}>
+        <label>
+          <Text id={labelId} />
+        </label>
+        <DropDown
+          pushRef={el => {
+            if (isFirst) {
+              props.setFirstFocusedElement(el);
+            }
+            props.addAccessibleChild(el);
+          }}
+          tabbable
+          onMenuChosen={chosenOption => {
+            let changedStyle = {};
+            changedStyle[styleName] = chosenOption;
+            props.changeCustomStyle(changedStyle);
+          }}
+          options={options}
+        />
+      </div>
+    );
+  }
+
+  renderSliderOption(props: any, isFirst: boolean, labelId: string, value: number, classNames: Array<string>, styleName: string) {
+    return (
+      <div className={classNames.join(' ')}>
+        <label>
+          <Text id={labelId} />
+        </label>
+        <Slider
+          pushRef={el => {
+            if (isFirst) {
+              props.setFirstFocusedElement(el);
+            }
+            props.addAccessibleChild(el);
+          }}
+          min={0}
+          max={100}
+          value={value * 100}
+          onChange={valueChanged => {
+            let changedStyle = {};
+            changedStyle[styleName] = valueChanged / 100;
+            props.changeCustomStyle(changedStyle);
+          }}
+        />
       </div>
     );
   }
@@ -405,9 +399,9 @@ class MainWindow extends Component {
           <Text id={'cvaa.title'} />
         </div>
         <div>
-          {this.renderMainWindowDefaultButton(props, true, props.captionsStyleDefault, [style.sample])}
-          {this.renderMainWindowDefaultButton(props, false, props.captionsStyleBlackBG, [style.sample, style.blackBg])}
-          {this.renderMainWindowDefaultButton(props, false, props.captionsStyleYellow, [style.sample, style.yellowText])}
+          {this.renderPresetStyleButton(props, true, props.captionsStyleDefault, [style.sample])}
+          {this.renderPresetStyleButton(props, false, props.captionsStyleBlackBG, [style.sample, style.blackBg])}
+          {this.renderPresetStyleButton(props, false, props.captionsStyleYellow, [style.sample, style.yellowText])}
         </div>
         {!props.isAdvancedStyleApplied() ? (
           <a
@@ -456,12 +450,12 @@ class MainWindow extends Component {
    *
    * @param {*} props - component props
    * @param {boolean} isFirst - is the button first (to apply focus on mount)
-   * @param {captionStyle} captionStyle - the caption style the represents
-   * @param {classNames} classNames - the css classes to apply
+   * @param {Object} captionStyle - the caption style the represents
+   * @param {Array<string>} classNames - the css classes to apply
    * @returns {React$Element} - component element
    * @memberof MainWindow
    */
-  renderMainWindowDefaultButton(props: any, isFirst: boolean, captionStyle: Object, classNames: Array<string>): React$Element<any> {
+  renderPresetStyleButton(props: any, isFirst: boolean, captionStyle: Object, classNames: Array<string>): React$Element<any> {
     const {player} = this.props;
     return (
       <div
