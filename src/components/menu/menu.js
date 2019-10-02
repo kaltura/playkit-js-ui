@@ -142,17 +142,17 @@ class Menu extends Component {
    * when option selected, change the active prop immediately for instant ui change
    * and call the onSelect callback with the option value
    *
-   * @param {Object} props - props object of the selected menuitem
+   * @param {Object} option - option object
    * @returns {void}
    * @memberof Menu
    */
-  onSelect(props: Object): void {
-    this.props.onMenuChosen(props.data.value);
+  onSelect(option: Object): void {
+    this.props.onMenuChosen(option.value);
     // Instant select
     this.props.options.filter(t => t.active).forEach(option => {
       option.active = false;
     });
-    this.props.options.filter(t => t.value === props.data.value)[0].active = true;
+    this.props.options.filter(t => t.value === option.value)[0].active = true;
   }
 
   /**
@@ -211,8 +211,8 @@ class Menu extends Component {
             setFirstFocusedElement={props.setFirstFocusedElement}
             addAccessibleChild={props.addAccessibleChild}
             isSelected={this.isSelected}
-            onSelect={props => {
-              this.onSelect(props);
+            onSelect={option => {
+              this.onSelect(option);
             }}
             key={index}
             data={o}
@@ -236,10 +236,10 @@ class MenuItem extends Component {
   _element: HTMLElement;
 
   /**
-   * after component mounted, save the sliderWidth
+   * after component mounted, call parent to mark this as accessible child
    *
    * @returns {void}
-   * @memberof Slider
+   * @memberof MenuItem
    */
   componentDidMount(): void {
     this.props.addAccessibleChild(this._element);
@@ -249,6 +249,7 @@ class MenuItem extends Component {
    * the menu item jsx
    * @param {any} props - MenuItem props
    * @returns {React$Element<any>} - rendered jsx
+   * @memberof MenuItem
    */
   render(props: any): React$Element<any> {
     return (
@@ -261,11 +262,11 @@ class MenuItem extends Component {
           }
         }}
         className={props.isSelected(props.data) ? [style.dropdownMenuItem, style.active].join(' ') : style.dropdownMenuItem}
-        onClick={() => this.props.onSelect(props)}
+        onClick={() => this.props.onSelect(props.data)}
         onKeyDown={e => {
           switch (e.keyCode) {
             case KeyMap.ENTER:
-              props.onSelect(props);
+              props.onSelect(props.data);
               e.stopPropagation();
               break;
           }
