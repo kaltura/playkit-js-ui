@@ -30,7 +30,6 @@ import {PictureInPictureOverlay} from '../components/picture-in-picture-overlay'
 import {Share} from '../components/share';
 import {TopBar} from '../components/top-bar';
 import {Logo} from '../components/logo/logo';
-import {PresetInteractiveAreaContainer} from '../components/side-panels-container';
 
 const PRESET_NAME = 'Playback';
 
@@ -43,21 +42,16 @@ const PRESET_NAME = 'Playback';
  */
 function PlaybackUI(props: any): React$Element<any> {
   return (
-    <Container className={style.playbackGuiWrapper} name={'MainArea'} preAppendTo={'Backdrop'}>
+    <Container className={style.playbackGuiWWrapper} name={'VideoOverlay'} preAppendTo={'Backdrop'}>
       <Keyboard config={props.config} />
       <Loading />
-      <Container name={'VideoArea'} />
-      <Container className={style.playerGui} name={'BarsArea'} id="player-gui">
+      <Container className={style.playerGui} name={'PlayerGUI'} id="player-gui">
         <OverlayPortal />
+        <UnmuteIndication />
         <OverlayAction />
-          <PresetInteractiveAreaContainer>
-              <Container name={'InteractiveArea'}>
-              <UnmuteIndication />
-              <PlaylistNextScreen />
-              <Watermark />
-              <PlaylistCountdown />
-            </Container>
-          </PresetInteractiveAreaContainer>
+        <PictureInPictureOverlay />
+        <PlaybackControls />
+        <PlaylistNextScreen />
         <TopBar>
           <Container className={style.leftControls} name={'TopBarLeftControls'} />
           <Container className={style.rightControls} name={'TopBarRightControls'}>
@@ -83,20 +77,17 @@ function PlaybackUI(props: any): React$Element<any> {
             <Logo />
           </Container>
         </BottomBar>
-        <PlaybackControls />
       </Container>
+      <Watermark />
+      <PlaylistCountdown />
       <PrePlaybackPlayOverlay />
       <CastBeforePlay />
-      <PictureInPictureOverlay />
       <Backdrop />
     </Container>
   );
 }
 
 PlaybackUI.displayName = PRESET_NAME;
-PlaybackUI.settings = {
-  allowSidePanels: true
-};
 
 /**
  * Playback ui interface

@@ -107,9 +107,7 @@ export function calculateVideoStyles(options) {
  * @return {Object} styles as hashtable
  */
 export function calculateInteractiveAreaStyles(options) {
-  // Preset children care only for side panels that are are on top of video, otherwise they are handled as part of the preset itself.
-
-  const {sidePanelsModes, anchor} = options;
+  const {sidePanelsModes} = options;
   const result = {};
   const leftSidePanelMode = sidePanelsModes[SidePanelPositions.LEFT];
   const rightSidePanelMode = sidePanelsModes[SidePanelPositions.RIGHT];

@@ -3,6 +3,7 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 import {actions} from '../../reducers/backdrop';
+import {KeyMap} from '../../utils/key-map';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withLogger} from 'components/logger';
@@ -56,15 +57,18 @@ class Cast extends Component {
    */
   render(props: any): ?React$Element<any> {
     if (props.isCasting || props.isCastAvailable) {
-      return h(
-        'div',
-        {
-          class: style.controlButtonContainer,
-          onClick: () => this.onClick()
-        },
-        h('google-cast-launcher', {
-          class: style.castButton
-        })
+      return (
+        <div
+          className={style.controlButtonContainer}
+          onClick={() => this.onClick()}
+          onKeyDown={e => {
+            if (e.keyCode === KeyMap.ENTER) {
+              this.props.updateBackdropVisibility(true);
+              this.player.startCasting().catch(() => this.props.updateBackdropVisibility(false));
+            }
+          }}>
+          <google-cast-launcher className={style.castButton} tabIndex="0" />
+        </div>
       );
     }
   }

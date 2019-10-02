@@ -20,17 +20,18 @@ const PRESET_NAME = 'Ads';
  * Ads ui interface component
  *
  * @param {*} props component props
+ * @param {*} context component context
  * @returns {?HTMLElement} player ui tree
  */
-function AdsUI(props: any): ?React$Element<any> {
-  if (useDefaultAdsUi(props)) {
+function AdsUI(props: any, context: any): ?React$Element<any> {
+  if (useDefaultAdsUi(props, context)) {
     return (
       <div className={style.adGuiWrapper}>
         <Loading />
         <div className={style.playerGui} id="player-gui">
           <UnmuteIndication hasTopBar />
           <TopBar disabled={true}>
-            <div className={style.leftControls}>{isBumper(props) ? undefined : <AdNotice />}</div>
+            <div className={style.leftControls}>{isBumper(props, context) ? undefined : <AdNotice />}</div>
           </TopBar>
         </div>
       </div>
@@ -44,7 +45,7 @@ function AdsUI(props: any): ?React$Element<any> {
       <div className={style.playerGui} id="player-gui">
         <UnmuteIndication hasTopBar />
         <TopBar disabled={true}>
-          <div className={style.leftControls}>{isBumper(props) ? undefined : <AdNotice />}</div>
+          <div className={style.leftControls}>{isBumper(props, context) ? undefined : <AdNotice />}</div>
           <div className={style.rightControls}>{adsUiCustomization.learnMoreButton ? <AdLearnMore /> : undefined}</div>
         </TopBar>
         {adsUiCustomization.skipButton ? <AdSkip /> : undefined}
@@ -91,27 +92,29 @@ function getAdsUiCustomization(): Object {
 /**
  * Whether the default ads ui should be shown or not.
  * @param {any} props - component props
+ * @param {any} context - context
  * @returns {boolean} - Whether the default ads ui should be shown or not.
  */
-function useDefaultAdsUi(props: any): boolean {
-  const isMobile = props.state.shell.isMobile;
+function useDefaultAdsUi(props: any, context: any): boolean {
+  const isMobileUI = props.state.shell.isMobile && !context.player.env.isIPadOS;
   let useStyledLinearAds = false;
   try {
-    const adsRenderingSettings = props.player.config.plugins.ima.adsRenderingSettings;
+    const adsRenderingSettings = context.player.config.plugins.ima.adsRenderingSettings;
     useStyledLinearAds = adsRenderingSettings && adsRenderingSettings.useStyledLinearAds;
   } catch (e) {
     // Do nothing
   }
-  return isMobile || useStyledLinearAds;
+  return isMobileUI || useStyledLinearAds;
 }
 
 /**
  * Whether the current ad is a bumper.
  * @param {any} props - component props
+ * @param {any} context - component context
  * @returns {boolean} - Whether is bumper.
  */
-function isBumper(props: any): boolean {
-  const ad = props.player.ads.getAd();
+function isBumper(props: any, context: any): boolean {
+  const ad = context.player.ads.getAd();
   return ad && ad.bumper;
 }
 

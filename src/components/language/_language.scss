@@ -1,5 +1,5 @@
 .player {
-  a:not([href]):not([tabindex]) {
+  a:not([href]) {
     &.advanced-captions-menu-link {
       color: #01accd;
       text-decoration: underline;

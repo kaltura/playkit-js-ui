@@ -1,13 +1,13 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, cloneElement} from 'preact';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
 import Portal from 'preact-portal';
 import {Overlay} from '../overlay';
-import {KeyMap} from '../../utils/key-map';
 import {PLAYER_SIZE} from '../shell/shell';
+import {withKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
 
 /**
  * mapping state to props
@@ -25,6 +25,7 @@ const COMPONENT_NAME = 'SmartContainer';
   mapStateToProps,
   bindActions(actions)
 )
+@withKeyboardA11y
 /**
  * SmartContainer component
  *
@@ -41,7 +42,6 @@ const COMPONENT_NAME = 'SmartContainer';
  * @extends {Component}
  */
 class SmartContainer extends Component {
-  _portal: any;
   /**
    * before component mounted, add player css class
    *
@@ -75,7 +75,7 @@ class SmartContainer extends Component {
   render(props: any): React$Element<any> {
     const portalSelector = `#${this.props.targetId} .overlay-portal`;
     return props.isMobile || [PLAYER_SIZE.SMALL, PLAYER_SIZE.EXTRA_SMALL].includes(this.props.playerSize) ? (
-      <Portal into={portalSelector} ref={ref => (this._portal = ref)}>
+      <Portal into={portalSelector}>
         <Overlay open onClose={() => props.onClose()}>
           <div className={style.title}>{props.title}</div>
           {props.children}
@@ -83,16 +83,36 @@ class SmartContainer extends Component {
       </Portal>
     ) : (
       <div
-        tabIndex="-1"
-        className={[style.smartContainer, style.top, style.left].join(' ')}
         onKeyDown={e => {
-          if (e.keyCode === KeyMap.ESC) {
-            props.onClose();
-          }
-        }}>
-        {props.children}
+          props.handleKeyDown(e);
+        }}
+        tabIndex="-1"
+        className={[style.smartContainer, style.top, style.left].join(' ')}>
+        {this.renderChildren(props)}
       </div>
     );
+  }
+
+  /**
+   * adds the children pushref prop to forward to keyboard accessibility popup hoc
+   * @param {any} props - smart containers props
+   * @returns {React$Element<any>} the rendered jsx
+   */
+  renderChildren(props: any): React$Element<any> {
+    const children = props.children.map(child => {
+      if (child) {
+        return cloneElement(
+          child,
+          {
+            pushRef: ref => {
+              props.addAccessibleChild(ref);
+            }
+          },
+          ...this.props
+        );
+      }
+    });
+    return children;
   }
 }
 

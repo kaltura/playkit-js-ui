@@ -289,6 +289,7 @@ class Volume extends Component {
           aria-label="Volume"
           className={style.controlButton}
           onClick={() => this.onVolumeControlButtonClick()}
+          onTouchEnd={e => e.stopImmediatePropagation()}
           onKeyDown={e => this.onVolumeControlKeyDown(e)}>
           <Icon type={IconType.VolumeBase} />
           <Icon type={IconType.VolumeWaves} />

@@ -1,7 +1,7 @@
 //@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
-import {Localizer, Text} from 'preact-i18n';
+import {withText, Text} from 'preact-i18n';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/settings';
@@ -32,6 +32,11 @@ const COMPONENT_NAME = 'Settings';
   mapStateToProps,
   bindActions(actions)
 )
+@withText({
+  qualityLabelText: 'settings.quality',
+  speedLabelText: 'settings.speed',
+  buttonAriaLabel: 'controls.settings'
+})
 @withPlayer
 @withEventManager
 @withLogger(COMPONENT_NAME)
@@ -207,15 +212,13 @@ class Settings extends Component {
     if (isLive && qualityOptions.length <= 1) return undefined;
     return (
       <div ref={c => (this._controlSettingsElement = c)} className={[style.controlButtonContainer, style.controlSettings].join(' ')}>
-        <Localizer>
-          <button
-            tabIndex="0"
-            aria-label={<Text id="controls.settings" />}
-            className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
-            onClick={() => this.onControlButtonClick()}>
-            <Icon type={IconType.Settings} />
-          </button>
-        </Localizer>
+        <button
+          tabIndex="0"
+          aria-label={props.buttonAriaLabel}
+          className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
+          onClick={() => this.onControlButtonClick()}>
+          <Icon type={IconType.Settings} />
+        </button>
         {!this.state.smartContainerOpen ? (
           ''
         ) : (
@@ -223,21 +226,17 @@ class Settings extends Component {
             {qualityOptions.length <= 1 ? (
               ''
             ) : (
-              <Localizer>
-                <SmartContainerItem
-                  icon="quality"
-                  label={<Text id="settings.quality" />}
-                  options={qualityOptions}
-                  onSelect={o => this.onQualityChange(o)}
-                />
-              </Localizer>
+              <SmartContainerItem
+                icon="quality"
+                label={props.qualityLabelText}
+                options={qualityOptions}
+                onMenuChosen={o => this.onQualityChange(o)}
+              />
             )}
             {isLive || speedOptions.length <= 1 ? (
               ''
             ) : (
-              <Localizer>
-                <SmartContainerItem icon="speed" label={<Text id="settings.speed" />} options={speedOptions} onSelect={o => this.onSpeedChange(o)} />
-              </Localizer>
+              <SmartContainerItem icon="speed" label={props.speedLabelText} options={speedOptions} onMenuChosen={o => this.onSpeedChange(o)} />
             )}
           </SmartContainer>
         )}
