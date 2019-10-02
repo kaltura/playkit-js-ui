@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.47.2"></a>
+## [0.47.2](https://github.com/kaltura/playkit-js-ui/compare/v0.47.1...v0.47.2) (2019-10-02)
+
+
+### Bug Fixes
+
+* **FEC-9382:** dropdown menus not working in Portal mode ([#418](https://github.com/kaltura/playkit-js-ui/issues/418)) ([9a1c8bd](https://github.com/kaltura/playkit-js-ui/commit/9a1c8bd))
+
+
+
 <a name="0.47.1"></a>
 ## [0.47.1](https://github.com/kaltura/playkit-js-ui/compare/v0.47.0...v0.47.1) (2019-09-26)
 
