@@ -74,7 +74,7 @@ class SidePanel extends Component {
       return null;
     }
 
-    const containerName = `side-panel-${position.toLowerCase()}`;
+    const containerName = `SidePanel${position.charAt(0).toUpperCase() + position.slice(1).toLowerCase()}`;
     const isVisible = props.sidePanelsModes[props.position] !== SidePanelModes.HIDDEN;
     const sidePanelStyles = isVisible ? sidePanelsStore.calculateSidePanelStyles(props.position) : {};
 

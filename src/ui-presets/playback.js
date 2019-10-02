@@ -43,45 +43,48 @@ const PRESET_NAME = 'Playback';
  */
 function PlaybackUI(props: any): React$Element<any> {
   return (
-    <Container className={style.playbackGuiWWrapper} name={'VideoOverlay'} preAppendTo={'Backdrop'}>
+    <Container className={style.playbackGuiWrapper} name={'MainArea'} preAppendTo={'Backdrop'}>
       <Keyboard config={props.config} />
       <Loading />
-      <Container className={style.playerGui} name={'PlayerGUI'} id="player-gui">
+      <Container name={'VideoArea'} />
+      <Container className={style.playerGui} name={'BarsArea'} id="player-gui">
         <OverlayPortal />
-        <UnmuteIndication />
         <OverlayAction />
+          <PresetInteractiveAreaContainer>
+              <Container name={'InteractiveArea'}>
+              <UnmuteIndication />
+              <PlaylistNextScreen />
+              <Watermark />
+              <PlaylistCountdown />
+            </Container>
+          </PresetInteractiveAreaContainer>
+        <TopBar>
+          <Container className={style.leftControls} name={'TopBarLeftControls'} />
+          <Container className={style.rightControls} name={'TopBarRightControls'}>
+            <Share />
+          </Container>
+        </TopBar>
+        <BottomBar>
+          <SeekBarPlaybackContainer showFramePreview showTimeBubble playerContainer={props.playerContainer} />
+          <Container className={style.leftControls} name={'BottomBarLeftControls'}>
+            <PlaybackControls />
+            <Rewind step={10} />
+            <Forward step={10} />
+            <TimeDisplayPlaybackContainer format="current / total" />
+          </Container>
+          <Container className={style.rightControls} name={'BottomBarRightControls'}>
+            <VrStereo />
+            <Volume />
+            <Language />
+            <Settings />
+            <Cast />
+            <PictureInPicture />
+            <Fullscreen />
+            <Logo />
+          </Container>
+        </BottomBar>
         <PlaybackControls />
-        <PlaylistNextScreen />
-        <PresetInteractiveAreaContainer>
-          <TopBar>
-            <Container className={style.leftControls} name={'TopBarLeftControls'} />
-            <Container className={style.rightControls} name={'TopBarRightControls'}>
-              <Share />
-            </Container>
-          </TopBar>
-          <BottomBar>
-            <SeekBarPlaybackContainer showFramePreview showTimeBubble playerContainer={props.playerContainer} />
-            <Container className={style.leftControls} name={'BottomBarLeftControls'}>
-              <PlaybackControls />
-              <Rewind step={10} />
-              <Forward step={10} />
-              <TimeDisplayPlaybackContainer format="current / total" />
-            </Container>
-            <Container className={style.rightControls} name={'BottomBarRightControls'}>
-              <VrStereo />
-              <Volume />
-              <Language />
-              <Settings />
-              <Cast />
-              <PictureInPicture />
-              <Fullscreen />
-              <Logo />
-            </Container>
-          </BottomBar>
-        </PresetInteractiveAreaContainer>
       </Container>
-      <Watermark />
-      <PlaylistCountdown />
       <PrePlaybackPlayOverlay />
       <CastBeforePlay />
       <PictureInPictureOverlay />
