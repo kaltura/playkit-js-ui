@@ -172,7 +172,7 @@ class PlaylistCountdown extends Component {
 
     return (
       <div
-        tabIndex={isHidden || isCanceled ? -1 : -0}
+        tabIndex={isHidden || isCanceled ? -1 : 0}
         className={className.join(' ')}
         onKeyDown={e => {
           if (e.keyCode === KeyMap.ENTER) {
@@ -195,7 +195,7 @@ class PlaylistCountdown extends Component {
               <div className={[style.controlButtonContainer, style.playlistCountdownCancel].join(' ')}>
                 <Localizer>
                   <button
-                    tabIndex={isHidden || isCanceled ? -1 : -0}
+                    tabIndex={isHidden || isCanceled ? -1 : 0}
                     aria-label={<Text id="playlist.cancel" />}
                     className={[style.controlButton, style.playlistCountdownCancelButton].join(' ')}
                     onClick={e => this.cancelNext(e)}
