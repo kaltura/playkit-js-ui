@@ -103,7 +103,7 @@ class UnmuteIndication extends Component {
           className={styleClass.join(' ')}
           onMouseOver={() => this.setState({iconOnly: false})}
           onMouseOut={() => this.setState({iconOnly: true})}
-          onClick={() => (this.props.player.muted = !this.props.player.muted)}
+          onMouseDown={() => (this.props.player.muted = !this.props.player.muted)}
           onTouchEnd={e => e.stopImmediatePropagation()}
           onKeyDown={e => this._keyDownHandler(e)}>
           <a className={[style.btn, style.btnDarkTransparent, style.unmuteButton].join(' ')}>
