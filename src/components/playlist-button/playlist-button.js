@@ -3,7 +3,6 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {default as Icon, IconType} from '../icon';
-import {KeyMap} from '../../utils/key-map';
 import {connect} from 'preact-redux';
 import {withPlayer} from '../player';
 
@@ -70,12 +69,7 @@ class PlaylistButton extends Component {
             tabIndex="0"
             aria-label={<Text id={`controls.${props.type}`} />}
             className={`${style.controlButton}`}
-            onClick={() => this.onClick()}
-            onKeyDown={e => {
-              if (e.keyCode === KeyMap.ENTER) {
-                this.onClick();
-              }
-            }}>
+            onClick={() => this.onClick()}>
             {props.type === 'prev' ? (
               <div>
                 <Icon type={IconType.Prev} />
