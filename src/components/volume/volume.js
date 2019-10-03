@@ -159,6 +159,9 @@ class Volume extends Component {
       case KeyMap.DOWN:
         changeVolume(Math.round(player.volume * 100) - KEYBOARD_DEFAULT_VOLUME_JUMP);
         break;
+      case KeyMap.ENTER:
+        this.toggleMute();
+        break;
       default:
         this.setState({hover: false});
         break;
@@ -183,11 +186,11 @@ class Volume extends Component {
   /**
    * on volume control button Mouse Down, toggle mute in player and store state
    *
-   * @method onMouseDown
+   * @method toggleMute
    * @returns {void}
    * @memberof Volume
    */
-  onMouseDown(): void {
+  toggleMute(): void {
     const {player} = this.props;
     if (player.volume === 0) {
       this.props.logger.debug(`Toggle mute. Volume is 0, set mute to false & volume to 0.5`);
@@ -288,7 +291,7 @@ class Volume extends Component {
           tabIndex="0"
           aria-label="Volume"
           className={style.controlButton}
-          onMouseDown={() => this.onMouseDown()}
+          onMouseUp={() => this.toggleMute()}
           onTouchEnd={e => e.stopImmediatePropagation()}
           onKeyDown={e => this.onKeyDown(e)}>
           <Icon type={IconType.VolumeBase} />
