@@ -160,8 +160,6 @@ class Volume extends Component {
         changeVolume(Math.round(player.volume * 100) - KEYBOARD_DEFAULT_VOLUME_JUMP);
         break;
       case KeyMap.ENTER:
-        this.toggleMute();
-        break;
       case KeyMap.SPACE:
         this.toggleMute();
         break;
