@@ -110,7 +110,7 @@ class Volume extends Component {
    * @returns {void}
    * @memberof Volume
    */
-  onVolumeMouseOver(): void {
+  onMouseOver(): void {
     if (this.props.isMobile) return;
     this.props.updateVolumeHover(true);
     this.setState({hover: true});
@@ -122,7 +122,7 @@ class Volume extends Component {
    * @returns {void}
    * @memberof Volume
    */
-  onVolumeMouseOut(): void {
+  onMouseOut(): void {
     if (this.props.isMobile) return;
     this.props.updateVolumeHover(false);
     this.setState({hover: false});
@@ -132,11 +132,11 @@ class Volume extends Component {
    * on volume control key down, update the volume in case of up/down keys
    *
    * @param {KeyboardEvent} e - keyboardEvent event
-   * @method onVolumeControlButtonClick
+   * @method onKeyDown
    * @returns {void}
    * @memberof Volume
    */
-  onVolumeControlKeyDown(e: KeyboardEvent): void {
+  onKeyDown(e: KeyboardEvent): void {
     const {player} = this.state;
     /**
      * Change volume operations.
@@ -183,11 +183,11 @@ class Volume extends Component {
   /**
    * on volume control button Mouse Down, toggle mute in player and store state
    *
-   * @method onVolumeControlButtonClick
+   * @method onMouseDown
    * @returns {void}
    * @memberof Volume
    */
-  onVolumeControlButtonMouseDown(): void {
+  onMouseDown(): void {
     const {player} = this.props;
     if (player.volume === 0) {
       this.props.logger.debug(`Toggle mute. Volume is 0, set mute to false & volume to 0.5`);
@@ -282,15 +282,15 @@ class Volume extends Component {
       <div
         ref={c => (this._volumeControlElement = c)}
         className={controlButtonClass.join(' ')}
-        onMouseOver={() => this.onVolumeMouseOver()}
-        onMouseOut={() => this.onVolumeMouseOut()}>
+        onMouseOver={() => this.onMouseOver()}
+        onMouseOut={() => this.onMouseOut()}>
         <button
           tabIndex="0"
           aria-label="Volume"
           className={style.controlButton}
-          onMouseDown={() => this.onVolumeControlButtonMouseDown()}
+          onMouseDown={() => this.onMouseDown()}
           onTouchEnd={e => e.stopImmediatePropagation()}
-          onKeyDown={e => this.onVolumeControlKeyDown(e)}>
+          onKeyDown={e => this.onKeyDown(e)}>
           <Icon type={IconType.VolumeBase} />
           <Icon type={IconType.VolumeWaves} />
           <Icon type={IconType.VolumeMute} />
