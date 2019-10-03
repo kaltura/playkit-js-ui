@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.47.4"></a>
+## [0.47.4](https://github.com/kaltura/playkit-js-ui/compare/v0.47.3...v0.47.4) (2019-10-03)
+
+
+### Bug Fixes
+
+* **FEC-9395:** playlist countdown works even showing is false ([#423](https://github.com/kaltura/playkit-js-ui/issues/423)) ([28c4b0e](https://github.com/kaltura/playkit-js-ui/commit/28c4b0e))
+* **FEC-9398:** when selecting skip 10 sec back and forth buttons via tabs the skip jumping 20 sec and not 10 sec ([#426](https://github.com/kaltura/playkit-js-ui/issues/426)) ([f971b0c](https://github.com/kaltura/playkit-js-ui/commit/f971b0c))
+* **FEC-9399:** enter didn't do anything on volume button ([#424](https://github.com/kaltura/playkit-js-ui/issues/424)) ([a89e5d6](https://github.com/kaltura/playkit-js-ui/commit/a89e5d6))
+* **FEC-9401:** logo class wasn't exsposed ([#427](https://github.com/kaltura/playkit-js-ui/issues/427)) ([ba0de91](https://github.com/kaltura/playkit-js-ui/commit/ba0de91))
+* **FEC-9402:** x button not accessible with keyboard in overlays ([#428](https://github.com/kaltura/playkit-js-ui/issues/428)) ([cb43205](https://github.com/kaltura/playkit-js-ui/commit/cb43205))
+* **FEC-9404:** when countdown is still hidden tabbing is possible ([#425](https://github.com/kaltura/playkit-js-ui/issues/425)) ([9539d3c](https://github.com/kaltura/playkit-js-ui/commit/9539d3c))
+
+
+
 <a name="0.47.3"></a>
 ## [0.47.3](https://github.com/kaltura/playkit-js-ui/compare/v0.47.2...v0.47.3) (2019-10-03)
 
