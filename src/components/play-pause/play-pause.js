@@ -4,7 +4,6 @@ import {h, Component} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {connect} from 'preact-redux';
 import {default as Icon, IconType} from '../icon';
-import {KeyMap} from '../../utils/key-map';
 import {isPlayingAdOrPlayback} from '../../reducers/getters';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from 'components/event-dispatcher';
@@ -66,12 +65,7 @@ class PlayPause extends Component {
               <Text id={props.isPlaybackEnded ? 'controls.startOver' : this.props.isPlayingAdOrPlayback ? 'controls.pause' : 'controls.play'} />
             }
             className={controlButtonClass}
-            onClick={() => this.togglePlayPause()}
-            onKeyDown={e => {
-              if (e.keyCode === KeyMap.ENTER) {
-                this.togglePlayPause();
-              }
-            }}>
+            onClick={() => this.togglePlayPause()}>
             {props.isPlaybackEnded ? (
               <Icon type={IconType.StartOver} />
             ) : (

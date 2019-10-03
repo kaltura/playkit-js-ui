@@ -30,7 +30,6 @@ const COMPONENT_NAME = 'DropDown';
 class DropDown extends Component {
   state: Object;
   _el: HTMLDivElement;
-  _dropdownButton: HTMLDivElement;
 
   /**
    * before component mounted, set initial internal state
@@ -73,7 +72,6 @@ class DropDown extends Component {
   onMenuChosen(option: Object): void {
     this.props.onMenuChosen(option);
     this.setState({dropMenuActive: false});
-    this._dropdownButton.focus();
   }
 
   /**
@@ -106,7 +104,6 @@ class DropDown extends Component {
    */
   onClose(): void {
     this.setState({dropMenuActive: false});
-    this._dropdownButton.focus();
   }
 
   /**
@@ -152,7 +149,6 @@ class DropDown extends Component {
         <div
           tabIndex={props.tabbable ? 0 : -1}
           ref={el => {
-            this._dropdownButton = el;
             if (props.pushRef) {
               props.pushRef(el);
             }
