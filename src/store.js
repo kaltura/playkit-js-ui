@@ -11,6 +11,7 @@ import cvaa from './reducers/cvaa';
 import settings from './reducers/settings';
 import overlayAction from './reducers/overlay-action';
 import backdrop from './reducers/backdrop';
+import playlist from 'reducers/playlist';
 
 const reducer = combineReducers({
   config,
@@ -23,7 +24,8 @@ const reducer = combineReducers({
   cvaa,
   settings,
   overlayAction,
-  backdrop
+  backdrop,
+  playlist
 });
 
 export default reducer;
