@@ -162,6 +162,9 @@ class Volume extends Component {
       case KeyMap.ENTER:
         this.toggleMute();
         break;
+      case KeyMap.SPACE:
+        this.toggleMute();
+        break;
       default:
         this.setState({hover: false});
         break;
