@@ -31,6 +31,7 @@ import {Share} from '../components/share';
 import {TopBar} from '../components/top-bar';
 import {Logo} from '../components/logo/logo';
 import {InteractiveArea} from '../components/interactive-area';
+import {PresetArea} from '../components/preset-area';
 
 const PRESET_NAME = 'Playback';
 
@@ -43,7 +44,7 @@ const PRESET_NAME = 'Playback';
  */
 function PlaybackUI(props: any): React$Element<any> {
   return (
-    <Container className={style.playbackGuiWWrapper} name={'MainArea'} preAppendTo={'Backdrop'}>
+    <PresetArea preAppendTo={'Backdrop'} className={style.playbackGuiWWrapper}>
       <Keyboard config={props.config} />
       <Loading />
       <Container className={style.playerGui} name={'BarsArea'} id="player-gui">
@@ -91,7 +92,7 @@ function PlaybackUI(props: any): React$Element<any> {
       <PrePlaybackPlayOverlay />
       <CastBeforePlay />
       <Backdrop />
-    </Container>
+    </PresetArea>
   );
 }
 

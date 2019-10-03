@@ -108,7 +108,7 @@ export function calculateVideoStyles(options) {
  */
 export function calculateInteractiveAreaStyles(options) {
   const {sidePanelsModes} = options;
-  const result = {};
+  const result = { position: 'absolute' };
   const leftSidePanelMode = sidePanelsModes[SidePanelPositions.LEFT];
   const rightSidePanelMode = sidePanelsModes[SidePanelPositions.RIGHT];
   const topSidePanelMode = sidePanelsModes[SidePanelPositions.TOP];
@@ -120,6 +120,8 @@ export function calculateInteractiveAreaStyles(options) {
     result['left'] = leftSidePanelMode !== SidePanelModes.HIDDEN ? verticalPanelWidth : 0;
     result['right'] = rightSidePanelMode !== SidePanelModes.HIDDEN ? verticalPanelWidth : 0;
     result['width'] = 'auto';
+  } else {
+    result['width'] = '100%';
   }
 
   if (topSidePanelMode !== SidePanelModes.HIDDEN || bottomSidePanelMode !== SidePanelModes.HIDDEN) {
@@ -128,6 +130,8 @@ export function calculateInteractiveAreaStyles(options) {
 
     result['top'] = topSidePanelMode !== SidePanelModes.HIDDEN ? horizontalPanelHeight : 0;
     result['bottom'] = bottomSidePanelMode !== SidePanelModes.HIDDEN ? horizontalPanelHeight : 0;
+  } else {
+    result['height'] = '100%';
   }
 
   // if (leftSidePanelMode !== SidePanelModes.HIDDEN || rightSidePanelMode !== SidePanelModes.HIDDEN) {

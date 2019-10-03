@@ -169,9 +169,9 @@ class Container extends Component {
    * @returns {*} component
    */
   renderContent(children: Array<any>) {
-    const {className, id, name} = this.props;
+    const {className, id, name, style} = this.props;
     return (
-      <div className={className} id={id} data-kp-container={name}>
+      <div style={style} className={className} id={id} data-kp-container={name}>
         {children}
       </div>
     );

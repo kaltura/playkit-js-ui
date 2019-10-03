@@ -75,6 +75,7 @@ const mapStateToProps = state => ({
   playerWrapperClientRect: state.shell.playerWrapperClientRect
 });
 
+// TODO sakal rename
 /**
  * connect decorator
  * @returns {function(*): *} connect

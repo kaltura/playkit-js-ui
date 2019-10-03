@@ -2,6 +2,7 @@
 import {h, Component} from 'preact';
 import {connectToUIPresetsStore} from '../side-panel';
 
+// todo sakal change to video-area component
 @connectToUIPresetsStore
 export class PresetVideoAreaContainer extends Component {
   render() {
