@@ -72,7 +72,7 @@ class Keyboard extends Component {
       if (!this.props.shareOverlay && !this.props.playerNav && typeof this.keyboardHandlers[e.keyCode] === 'function') {
         e.preventDefault();
         this.props.logger.debug(`KeyDown -> keyName: ${getKeyName(e.keyCode)}, shiftKey: ${e.shiftKey.toString()}`);
-        const payload = this.keyboardHandlers[e.keyCode](e.shiftKey);
+        const payload = this.keyboardHandlers[e.keyCode](e);
         if (payload) {
           this.props.notifyClick({key: e.keyCode, ...payload});
         }
@@ -217,16 +217,16 @@ class Keyboard extends Component {
         : this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWaves]);
       return true;
     },
-    [KeyMap.SEMI_COLON]: (shiftKey: boolean) => {
-      if (shiftKey && this.props.player.playbackRate !== this.props.player.defaultPlaybackRate) {
+    [KeyMap.SEMI_COLON]: (event: KeyboardEvent) => {
+      if (event.shiftKey && this.props.player.playbackRate !== this.props.player.defaultPlaybackRate) {
         this.props.logger.debug(`Changing playback rate. ${this.props.player.playbackRate} => ${this.props.player.defaultPlaybackRate}`);
         this.props.player.playbackRate = this.props.player.defaultPlaybackRate;
         this.props.updateOverlayActionIcon(IconType.Speed);
         return {speed: this.props.player.defaultPlaybackRate};
       }
     },
-    [KeyMap.PERIOD]: (shiftKey: boolean) => {
-      if (shiftKey) {
+    [KeyMap.PERIOD]: (event: KeyboardEvent) => {
+      if (event.shiftKey) {
         const playbackRate = this.props.player.playbackRate;
         const index = this.props.player.playbackRates.indexOf(playbackRate);
         if (index < this.props.player.playbackRates.length - 1) {
@@ -237,8 +237,8 @@ class Keyboard extends Component {
         }
       }
     },
-    [KeyMap.COMMA]: (shiftKey: boolean) => {
-      if (shiftKey) {
+    [KeyMap.COMMA]: (event: KeyboardEvent) => {
+      if (event.shiftKey) {
         const playbackRate = this.props.player.playbackRate;
         const index = this.props.player.playbackRates.indexOf(playbackRate);
         if (index > 0) {
@@ -249,8 +249,10 @@ class Keyboard extends Component {
         }
       }
     },
-    [KeyMap.C]: () => {
+    [KeyMap.C]: (event: KeyboardEvent) => {
+      if (event.altKey || event.shiftKey || event.ctrlKey || event.metaKey) return; // if key is combined then exit
       let activeTextTrack = this.props.player.getActiveTracks().text;
+      if (!activeTextTrack) return; // if not active track then exit
       if (activeTextTrack.language === 'off' && this._lastActiveTextLanguage) {
         this.props.logger.debug(`Changing text track to language`, this._lastActiveTextLanguage);
         const selectedTextTrack = this.props.player.getTracks('text').find(track => track.language === this._lastActiveTextLanguage);
