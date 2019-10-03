@@ -147,7 +147,7 @@ class Shell extends Component {
    * @returns {void}
    * @memberof Shell
    */
-  onMouseDown(): void {
+  onMouseUp(): void {
     if (this.props.fallbackToMutedAutoPlay) {
       this.props.player.muted = false;
     }
@@ -373,7 +373,7 @@ class Shell extends Component {
         tabIndex="0"
         className={playerClasses}
         onTouchEnd={e => this.onTouchEnd(e)}
-        onMouseDown={() => this.onMouseDown()}
+        onMouseUp={() => this.onMouseUp()}
         onMouseOver={() => this.onMouseOver()}
         onMouseMove={() => this.onMouseMove()}
         onMouseLeave={event => this.onMouseLeave(event)}
