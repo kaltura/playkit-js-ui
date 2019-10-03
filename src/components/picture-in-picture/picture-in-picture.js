@@ -3,7 +3,6 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {default as Icon, IconType} from '../icon';
-import {KeyMap} from '../../utils/key-map';
 import {connect} from 'preact-redux';
 import {PLAYER_SIZE} from '../shell/shell';
 import {withPlayer} from '../player';
@@ -60,12 +59,7 @@ class PictureInPicture extends Component {
               tabIndex="0"
               aria-label={<Text id={'controls.pictureInPicture'} />}
               className={`${style.controlButton} ${this.state.animation ? style.rotate : ''}`}
-              onClick={() => this._onClick()}
-              onKeyDown={e => {
-                if (e.keyCode === KeyMap.ENTER) {
-                  this._onClick();
-                }
-              }}>
+              onClick={() => this._onClick()}>
               <Icon type={IconType.PictureInPicture} />
             </button>
           </Localizer>
