@@ -47,6 +47,7 @@ export {TopBar} from './top-bar';
 export {UnmuteIndication} from './unmute-indication';
 export {VideoPlayer} from './video-player';
 export {Watermark} from './watermark';
+export {Logo} from './logo';
 export {CastOverlay} from './cast-overlay';
 export {CastBeforePlay, CastAfterPlay} from './cast-on-tv';
 export {PlaylistButton} from './playlist-button';
