@@ -113,17 +113,20 @@ class PlaylistCountdown extends Component {
 
   /**
    * component did update handler
-
+   *
+   * @param {Object} prevProps - previous component props
    * @returns {void}
    */
-  componentDidUpdate() {
-    const timeToShow = this._getTimeToShow();
-    const countdown = this.props.player.playlist.countdown;
-    if (
-      !this.state.canceled &&
-      (this.props.isPlaybackEnded || (this.props.currentTime >= timeToShow + countdown.duration && this.props.currentTime < this.props.duration))
-    ) {
-      this.props.player.playlist.playNext();
+  componentDidUpdate(prevProps: Object): void {
+    if (this._shouldRender(prevProps)) {
+      const timeToShow = this._getTimeToShow();
+      const countdown = this.props.player.playlist.countdown;
+      if (
+        !this.state.canceled &&
+        (this.props.isPlaybackEnded || (this.props.currentTime >= timeToShow + countdown.duration && this.props.currentTime < this.props.duration))
+      ) {
+        this.props.player.playlist.playNext();
+      }
     }
   }
 
