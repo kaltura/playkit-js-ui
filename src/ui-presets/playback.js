@@ -30,6 +30,7 @@ import {PictureInPictureOverlay} from '../components/picture-in-picture-overlay'
 import {Share} from '../components/share';
 import {TopBar} from '../components/top-bar';
 import {Logo} from '../components/logo/logo';
+import {InteractiveArea} from '../components/interactive-area';
 
 const PRESET_NAME = 'Playback';
 
@@ -42,16 +43,23 @@ const PRESET_NAME = 'Playback';
  */
 function PlaybackUI(props: any): React$Element<any> {
   return (
-    <Container className={style.playbackGuiWWrapper} name={'VideoOverlay'} preAppendTo={'Backdrop'}>
+    <Container className={style.playbackGuiWWrapper} name={'MainArea'} preAppendTo={'Backdrop'}>
       <Keyboard config={props.config} />
       <Loading />
-      <Container className={style.playerGui} name={'PlayerGUI'} id="player-gui">
+      <Container className={style.playerGui} name={'BarsArea'} id="player-gui">
         <OverlayPortal />
         <UnmuteIndication />
         <OverlayAction />
         <PictureInPictureOverlay />
         <PlaybackControls />
         <PlaylistNextScreen />
+        <InteractiveArea>
+          {style => (
+            <div style={style}>
+              <Container name={'InteractiveArea'} />
+            </div>
+          )}
+        </InteractiveArea>
         <TopBar>
           <Container className={style.leftControls} name={'TopBarLeftControls'} />
           <Container className={style.rightControls} name={'TopBarRightControls'}>
@@ -88,6 +96,9 @@ function PlaybackUI(props: any): React$Element<any> {
 }
 
 PlaybackUI.displayName = PRESET_NAME;
+PlaybackUI.settings = {
+  allowSidePanels: true
+};
 
 /**
  * Playback ui interface
