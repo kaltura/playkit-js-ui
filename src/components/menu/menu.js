@@ -15,7 +15,7 @@ import {KeyMap} from 'utils/key-map';
  */
 const mapStateToProps = state => ({
   isMobile: state.shell.isMobile,
-  playerClientRect: state.shell.playerClientRect,
+  presetClientRect: state.shell.presetClientRect,
   playerSize: state.shell.playerSize
 });
 
@@ -89,7 +89,7 @@ class Menu extends Component {
    */
   getPosition(): Array<string> {
     const menuElementRect = this._menuElement.getBoundingClientRect();
-    const playerContainerRect = this.props.playerClientRect;
+    const playerContainerRect = this.props.presetClientRect;
 
     // The menu is first rendered above its label.
     // top / bottom are determined from the top of the view port, if the menus top edge is lower than the top of the

@@ -9,8 +9,8 @@ import * as sidePanelUtils from './side-panel-utils';
  * @returns {boolean} valid
  */
 function validateCommonOptions(options) {
-  const {sidePanelsSizes, sidePanelsModes, playerWrapperClientRect} = options;
-  return sidePanelsModes !== null && sidePanelsSizes !== null && playerWrapperClientRect !== null;
+  const {sidePanelsSizes, sidePanelsModes, playerClientRect} = options;
+  return sidePanelsModes !== null && sidePanelsSizes !== null && playerClientRect !== null;
 }
 
 /**
@@ -72,7 +72,7 @@ const mapStateToProps = state => ({
   sidePanelsModes: state.shell.sidePanelsModes,
   sidePanelsSizes: state.shell.sidePanelsSizes,
   allowSidePanels: state.shell.presetSettings.allowSidePanels,
-  playerWrapperClientRect: state.shell.playerWrapperClientRect
+  playerClientRect: state.shell.playerClientRect
 });
 
 // TODO sakal rename
@@ -109,7 +109,7 @@ const connectToUIPresetsStore = InnerComponent => {
       const options = {
         sidePanelsModes: propsSnapshot.sidePanelsModes,
         sidePanelsSizes: propsSnapshot.sidePanelsSizes,
-        playerWrapperClientRect: propsSnapshot.playerWrapperClientRect,
+        playerClientRect: propsSnapshot.playerClientRect,
         allowSidePanels: propsSnapshot.allowSidePanels
       };
 
@@ -126,16 +126,16 @@ const connectToUIPresetsStore = InnerComponent => {
      * @return {void}
      */
     componentDidUpdate(prevProps): void {
-      const {sidePanelsModes, allowSidePanels, playerWrapperClientRect} = this.props;
+      const {sidePanelsModes, allowSidePanels, playerClientRect} = this.props;
       const {
         sidePanelsModes: prevSidePanelsModes,
         allowSidePanels: prevAllowSidePanels,
-        playerWrapperClientRect: prevplayerWrapperClientRect
+        playerClientRect: prevplayerClientRect
       } = prevProps;
       if (
         sidePanelsModes === prevSidePanelsModes &&
         allowSidePanels === prevAllowSidePanels &&
-        playerWrapperClientRect === prevplayerWrapperClientRect
+        playerClientRect === prevplayerClientRect
       ) {
         return;
       }
@@ -156,7 +156,7 @@ const connectToUIPresetsStore = InnerComponent => {
         return null;
       }
       // eslint-disable-next-line no-unused-vars
-      const {playerWrapperClientRect, sidePanelsModes, allowSidePanels, ...restProps} = this.props;
+      const {playerClientRect, sidePanelsModes, allowSidePanels, ...restProps} = this.props;
       return <InnerComponent {...restProps} sidePanelsStore={sidePanelsStore} />;
     }
   };

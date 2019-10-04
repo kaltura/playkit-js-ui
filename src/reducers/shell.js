@@ -4,8 +4,8 @@ export const types = {
   REMOVE_PLAYER_CLASS: 'shell/REMOVE_PLAYER_CLASS',
   UPDATE_IS_MOBILE: 'shell/UPDATE_IS_MOBILE',
   UPDATE_PLAYER_SIZE: 'shell/UPDATE_PLAYER_SIZE',
+  UPDATE_PRESET_CLIENT_RECT: 'shell/UPDATE_PRESET_CLIENT_RECT',
   UPDATE_PLAYER_CLIENT_RECT: 'shell/UPDATE_PLAYER_CLIENT_RECT',
-  UPDATE_PLAYER_WRAPPER_CLIENT_RECT: 'shell/UPDATE_PLAYER_WRAPPER_CLIENT_RECT',
   UPDATE_DOCUMENT_WIDTH: 'shell/UPDATE_DOCUMENT_WIDTH',
   UPDATE_PLAYER_HOVER_STATE: 'shell/UPDATE_PLAYER_HOVER_STATE',
   UPDATE_PLAYER_NAV_STATE: 'shell/UPDATE_PLAYER_NAV_STATE',
@@ -47,8 +47,8 @@ function createDefaultPresetSettings(): PresetSettings {
 
 export const initialState = {
   playerClasses: [],
-  playerClientRect: {width: 0, height: 0}, // todo sakal oren decide if this is relevant
-  playerWrapperClientRect: {width: 0, height: 0},
+  presetClientRect: {width: 0, height: 0}, // todo sakal oren decide if this is relevant
+  playerClientRect: {width: 0, height: 0},
   playerHover: false,
   playerNav: false,
   smartContainerOpen: false,
@@ -93,16 +93,16 @@ export default (state: Object = initialState, action: Object) => {
         playerSize: action.playerSize
       };
 
+    case types.UPDATE_PRESET_CLIENT_RECT:
+      return {
+        ...state,
+        presetClientRect: action.presetClientRect
+      };
+
     case types.UPDATE_PLAYER_CLIENT_RECT:
       return {
         ...state,
         playerClientRect: action.playerClientRect
-      };
-
-    case types.UPDATE_PLAYER_WRAPPER_CLIENT_RECT:
-      return {
-        ...state,
-        playerWrapperClientRect: action.playerWrapperClientRect
       };
 
     case types.UPDATE_DOCUMENT_WIDTH:
@@ -183,8 +183,8 @@ export const actions = {
   removePlayerClass: (className: string) => ({type: types.REMOVE_PLAYER_CLASS, className}),
   updateIsMobile: (isMobile: boolean) => ({type: types.UPDATE_IS_MOBILE, isMobile}),
   updatePlayerSize: (playerSize: string) => ({type: types.UPDATE_PLAYER_SIZE, playerSize}),
+  updatePresetClientRect: (presetClientRect: Object) => ({type: types.UPDATE_PRESET_CLIENT_RECT, presetClientRect}),
   updatePlayerClientRect: (playerClientRect: Object) => ({type: types.UPDATE_PLAYER_CLIENT_RECT, playerClientRect}),
-  updatePlayerWrapperClientRect: (playerWrapperClientRect: Object) => ({type: types.UPDATE_PLAYER_WRAPPER_CLIENT_RECT, playerWrapperClientRect}),
   updateDocumentWidth: (documentWidth: number) => ({type: types.UPDATE_DOCUMENT_WIDTH, documentWidth}),
   updatePlayerHoverState: (hover: boolean) => ({type: types.UPDATE_PLAYER_HOVER_STATE, hover}),
   updatePlayerNavState: (nav: boolean) => ({type: types.UPDATE_PLAYER_NAV_STATE, nav}),

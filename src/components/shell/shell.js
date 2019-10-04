@@ -27,7 +27,7 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile,
   playerSize: state.shell.playerSize,
   isCasting: state.engine.isCasting,
-  playerClientRect: state.shell.playerClientRect,
+  presetClientRect: state.shell.presetClientRect,
   playerHover: state.shell.playerHover,
   playerNav: state.shell.playerNav,
   seekbarDraggingActive: state.seekbar.draggingActive,
@@ -87,7 +87,10 @@ class Shell extends Component {
   state: Object;
   hoverTimeout: ?number;
   _environmentClasses: Array<string>;
-  _resizeWatcher: ResizeWatcher;
+  _playerResizeWatcher: ResizeWatcher;
+  _presetResizeWatcher: ResizeWatcher;
+  _shellRef: React$Element;
+
   /**
    * on mouse over, add hover class (shows the player ui) and timeout of 3 seconds bt default or what pass as prop configuration to component
    *
@@ -216,27 +219,41 @@ class Shell extends Component {
     const {player, forceTouchUI} = this.props;
     const {isIPadOS, isTablet, isMobile} = player.env;
     this.props.updateIsMobile(isIPadOS || isTablet || isMobile || forceTouchUI);
-    this._onWindowResize();
-    // TODO [es] check with Oren where they unlisten
-    this.props.eventManager.listen(player, player.Event.RESIZE, () => this._onWindowResize());
-    this.props.eventManager.listen(player, player.Event.FIRST_PLAY, () => this._onWindowResize());
 
-    this._resizeWatcher = new playkitUtils.ResizeWatcher();
-    this._resizeWatcher.init(document.getElementById(this.props.targetId));
-    this._resizeWatcher.addEventListener(CustomEventType.RESIZE, this._onPlayerWrapperResize);
-    this._onPlayerWrapperResize();
+    this._playerResizeWatcher = new playkitUtils.ResizeWatcher();
+    this._playerResizeWatcher.init(document.getElementById(this.props.targetId));
+    this._playerResizeWatcher.addEventListener(CustomEventType.RESIZE, this._onPlayerResize);
+    this._onPlayerResize();
   }
+
+  _setShellRef = ref => {
+    if (this._presetResizeWatcher) {
+      this._presetResizeWatcher.destroy();
+      this._presetResizeWatcher = null;
+    }
+
+    this._shellRef = ref;
+
+    if (!this._shellRef) {
+      return;
+    }
+
+    this._presetResizeWatcher = new playkitUtils.ResizeWatcher();
+    this._presetResizeWatcher.init(this._shellRef);
+    this._presetResizeWatcher.addEventListener(CustomEventType.RESIZE, this._onPresetResize);
+    this._onPresetResize();
+  };
 
   /**
    * handle player wrapper resize
    * @type {Function}
    * @private
    */
-  _onPlayerWrapperResize = throttle(() => {
+  _onPlayerResize = throttle(() => {
     // todo sakal discuss about the name player wrapper
     const playerWrapperContainer = document.getElementById(this.props.targetId);
     if (playerWrapperContainer) {
-      this.props.updatePlayerWrapperClientRect(playerWrapperContainer.getBoundingClientRect());
+      this.props.updatePlayerClientRect(playerWrapperContainer.getBoundingClientRect());
     }
 
     // todo sakal Oren imo this is the relevant place and note that it is wrappered with debounce
@@ -246,20 +263,30 @@ class Shell extends Component {
   }, 500);
 
   /**
-   * window resize handler
+   * preset resize watcher
    *
    * @returns {void}
    * @memberof Shell
    */
-  _onWindowResize(): void {
-    // todo sakal use an exposed api
-    // todo sakal Oren - moved the `document.body` updateDocumentWidth to relevant listener
-    const playerContainer = document.getElementById(this.props.player._localPlayer._playerId);
-    if (playerContainer) {
-      this.props.updatePlayerClientRect(playerContainer.getBoundingClientRect());
-    }
-  }
+  _onPresetResize = throttle((): void => {
+    if (this._shellRef) {
+      this.props.updatePresetClientRect(this._shellRef.getBoundingClientRect());
 
+      const current = this._shellRef.getBoundingClientRect();
+      if (this._prevSize) {
+        const result = {};
+        ['bottom', 'height', 'left', 'right','top','width','x','y'].forEach(key => {
+          result[key] = this._prevSize[key] === current[key];
+        });
+        result.current = current;
+        result.prev = this._prevSize;
+        console.log(`sakal shell ref`, result);
+      }
+      this._prevSize = this._shellRef.getBoundingClientRect();
+    }
+  }, 500);
+
+  _prevSize: any;
   /**
    * before component mounted, remove event listeners
    *
@@ -371,20 +398,20 @@ class Shell extends Component {
     if (this.props.seekbarDraggingActive) playerClasses.push(style.hover);
     if (this.props.fullscreen) playerClasses.push(style.fullscreen);
     if (this.props.playlist) playerClasses.push(style.playlist);
-    if (this.props.playerClientRect) {
-      if (this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.TINY) {
+    if (this.props.presetClientRect) {
+      if (this.props.presetClientRect.width <= PLAYER_BREAK_POINTS.TINY) {
         playerClasses.push(style.sizeTy);
         this.props.updatePlayerSize(PLAYER_SIZE.TINY);
-      } else if (this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.EXTRA_SMALL) {
+      } else if (this.props.presetClientRect.width <= PLAYER_BREAK_POINTS.EXTRA_SMALL) {
         playerClasses.push(style.sizeXs);
         this.props.updatePlayerSize(PLAYER_SIZE.EXTRA_SMALL);
-      } else if (this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.SMALL) {
+      } else if (this.props.presetClientRect.width <= PLAYER_BREAK_POINTS.SMALL) {
         playerClasses.push(style.sizeSm);
         this.props.updatePlayerSize(PLAYER_SIZE.SMALL);
-      } else if (this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.MEDIUM) {
+      } else if (this.props.presetClientRect.width <= PLAYER_BREAK_POINTS.MEDIUM) {
         playerClasses.push(style.sizeMd);
         this.props.updatePlayerSize(PLAYER_SIZE.MEDIUM);
-      } else if (this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.LARGE) {
+      } else if (this.props.presetClientRect.width <= PLAYER_BREAK_POINTS.LARGE) {
         playerClasses.push(style.sizeLg);
         this.props.updatePlayerSize(PLAYER_SIZE.LARGE);
       } else {
@@ -396,6 +423,7 @@ class Shell extends Component {
 
     return (
       <div
+        ref={this._setShellRef}
         tabIndex="0"
         className={playerClasses}
         onClick={() => this.onClick()}
