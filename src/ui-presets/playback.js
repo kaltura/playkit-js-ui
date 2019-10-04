@@ -44,7 +44,7 @@ const PRESET_NAME = 'Playback';
  */
 function PlaybackUI(props: any): React$Element<any> {
   return (
-    <PresetArea preAppendTo={'Backdrop'} className={style.playbackGuiWWrapper}>
+    <PresetArea allowSidePanels={true} preAppendTo={'Backdrop'} className={style.playbackGuiWWrapper}>
       <Keyboard config={props.config} />
       <Loading />
       <Container className={style.playerGui} name={'BarsArea'} id="player-gui">
@@ -97,9 +97,6 @@ function PlaybackUI(props: any): React$Element<any> {
 }
 
 PlaybackUI.displayName = PRESET_NAME;
-PlaybackUI.settings = {
-  allowSidePanels: true
-};
 
 /**
  * Playback ui interface

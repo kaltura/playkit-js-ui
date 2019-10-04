@@ -5,32 +5,25 @@ import {bindActions} from './utils';
 import {actions} from './reducers/shell';
 import getLogger from './utils/logger';
 import {SidePanelsContainer} from './components/side-panels-container';
-
+import {connectToUIPresetsStore} from './components/side-panel';
+import {ActivePreset} from './components/active-preset';
 /**
  * mapping state to props
  * @param {*} state - redux store state
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  state: {
-    shell: state.shell,
-    engine: {
-      adBreak: state.engine.adBreak,
-      isLive: state.engine.isLive,
-      hasError: state.engine.hasError,
-      isIdle: state.engine.isIdle,
-      isVr: state.engine.isVr,
-      playlist: state.engine.playlist
-    }
-  },
-  config: state.config
+  presetClientRect: state.shell.presetClientRect
 });
 
-const logger = getLogger('PlayerGUI');
+const logger = getLogger('ActivePreset');
 
+@connectToUIPresetsStore
 @connect(
   mapStateToProps,
-  bindActions(actions)
+  bindActions({
+    updatePresetClientRect: actions.updatePresetClientRect
+  })
 )
 /**
  * Player GUI component
@@ -62,29 +55,29 @@ class PlayerGUI extends Component {
    * render component based on the matched UI.
    * if no matched UI found, it will choose the first UI configured in the UI array
    *
-   * @param {*} props - component props
    * @returns {React$Element} - component element
    * @memberof PlayerGUI
    */
-  render(props: any): React$Element<any> | void {
-    let uiToRender;
-    const {activePresetName} = this.props.state.shell;
-    if (this.props.uis.length > 0) {
-      uiToRender = this.getMatchedUI(props.uis, props.state);
-      const uiComponent = uiToRender ? uiToRender.template(props) : this.props.uis[this.props.uis.length - 1].template(props);
-      const presetName = uiComponent ? uiComponent.nodeName.displayName || '' : '';
+  render(): React$Element<any> | void {
+    const {sidePanelsStore, uis} = this.props;
 
-      if (activePresetName !== presetName) {
-        props.updateActivePresetName(presetName);
-        const presetSettings = uiComponent.nodeName && typeof uiComponent.nodeName.settings !== 'undefined' ? uiComponent.nodeName.settings : null;
-        props.updatePresetSettings(presetSettings);
-        logger.debug(`set active preset '${presetName}'`, {presetSettings});
-      }
+    const {width: currentWidth, height: currentHeight} = this.props.presetClientRect;
+    const areaProperties = sidePanelsStore.calculateInteractiveAreaStyles();
 
-      return <SidePanelsContainer>{uiComponent}</SidePanelsContainer>;
-    } else {
-      return undefined;
+    if (currentWidth !== areaProperties.width || currentHeight !== areaProperties.height) {
+      const newPresetSize = {width: areaProperties.width, height: areaProperties.height};
+      this.props.updatePresetClientRect(newPresetSize);
+      logger.debug(`sakal update preset size`, newPresetSize);
     }
+
+    // todo check if key is needed - key={activePresetName}
+    return (
+      <SidePanelsContainer>
+        <div style={areaProperties.style}>
+          <ActivePreset uis={uis} />
+        </div>
+      </SidePanelsContainer>
+    );
   }
 }
 

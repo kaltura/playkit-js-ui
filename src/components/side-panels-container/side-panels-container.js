@@ -1,9 +1,8 @@
 //@flow
 import {h, Component} from 'preact';
 import {SidePanelPositions} from '../../reducers/shell';
-import {connectToUIPresetsStore, SidePanel} from '../side-panel';
+import {SidePanel} from '../side-panel';
 
-@connectToUIPresetsStore
 /**
  * Side panels container
  *

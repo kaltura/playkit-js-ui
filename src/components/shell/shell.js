@@ -88,8 +88,6 @@ class Shell extends Component {
   hoverTimeout: ?number;
   _environmentClasses: Array<string>;
   _playerResizeWatcher: ResizeWatcher;
-  _presetResizeWatcher: ResizeWatcher;
-  _shellRef: React$Element;
 
   /**
    * on mouse over, add hover class (shows the player ui) and timeout of 3 seconds bt default or what pass as prop configuration to component
@@ -226,24 +224,6 @@ class Shell extends Component {
     this._onPlayerResize();
   }
 
-  _setShellRef = ref => {
-    if (this._presetResizeWatcher) {
-      this._presetResizeWatcher.destroy();
-      this._presetResizeWatcher = null;
-    }
-
-    this._shellRef = ref;
-
-    if (!this._shellRef) {
-      return;
-    }
-
-    this._presetResizeWatcher = new playkitUtils.ResizeWatcher();
-    this._presetResizeWatcher.init(this._shellRef);
-    this._presetResizeWatcher.addEventListener(CustomEventType.RESIZE, this._onPresetResize);
-    this._onPresetResize();
-  };
-
   /**
    * handle player wrapper resize
    * @type {Function}
@@ -253,7 +233,8 @@ class Shell extends Component {
     // todo sakal discuss about the name player wrapper
     const playerWrapperContainer = document.getElementById(this.props.targetId);
     if (playerWrapperContainer) {
-      this.props.updatePlayerClientRect(playerWrapperContainer.getBoundingClientRect());
+      const { width, height} = playerWrapperContainer.getBoundingClientRect();
+      this.props.updatePlayerClientRect({width, height});
     }
 
     // todo sakal Oren imo this is the relevant place and note that it is wrappered with debounce
@@ -262,31 +243,6 @@ class Shell extends Component {
     }
   }, 500);
 
-  /**
-   * preset resize watcher
-   *
-   * @returns {void}
-   * @memberof Shell
-   */
-  _onPresetResize = throttle((): void => {
-    if (this._shellRef) {
-      this.props.updatePresetClientRect(this._shellRef.getBoundingClientRect());
-
-      const current = this._shellRef.getBoundingClientRect();
-      if (this._prevSize) {
-        const result = {};
-        ['bottom', 'height', 'left', 'right','top','width','x','y'].forEach(key => {
-          result[key] = this._prevSize[key] === current[key];
-        });
-        result.current = current;
-        result.prev = this._prevSize;
-        console.log(`sakal shell ref`, result);
-      }
-      this._prevSize = this._shellRef.getBoundingClientRect();
-    }
-  }, 500);
-
-  _prevSize: any;
   /**
    * before component mounted, remove event listeners
    *

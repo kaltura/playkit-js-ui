@@ -107,8 +107,11 @@ export function calculateVideoStyles(options) {
  * @return {Object} styles as hashtable
  */
 export function calculateInteractiveAreaStyles(options) {
-  const {sidePanelsModes} = options;
-  const result = { position: 'absolute' };
+  // TODO sakal method rename
+  const {sidePanelsModes, playerClientRect} = options;
+  const areaStyle = { position: 'absolute' };
+  let areaWidth = playerClientRect.width;
+  let areaHeight = playerClientRect.height;
   const leftSidePanelMode = sidePanelsModes[SidePanelPositions.LEFT];
   const rightSidePanelMode = sidePanelsModes[SidePanelPositions.RIGHT];
   const topSidePanelMode = sidePanelsModes[SidePanelPositions.TOP];
@@ -117,43 +120,26 @@ export function calculateInteractiveAreaStyles(options) {
   if (leftSidePanelMode !== SidePanelModes.HIDDEN || rightSidePanelMode !== SidePanelModes.HIDDEN) {
     const {verticalPanelWidth} = calculateVerticalDimensions(options);
 
-    result['left'] = leftSidePanelMode !== SidePanelModes.HIDDEN ? verticalPanelWidth : 0;
-    result['right'] = rightSidePanelMode !== SidePanelModes.HIDDEN ? verticalPanelWidth : 0;
-    result['width'] = 'auto';
+    areaStyle['left'] = leftSidePanelMode !== SidePanelModes.HIDDEN ? verticalPanelWidth : 0;
+    areaStyle['right'] = rightSidePanelMode !== SidePanelModes.HIDDEN ? verticalPanelWidth : 0;
+    areaWidth = areaWidth - areaStyle['left'] - areaStyle['right'];
+    areaStyle['width'] = 'auto';
   } else {
-    result['width'] = '100%';
+    areaStyle['width'] = '100%';
   }
 
   if (topSidePanelMode !== SidePanelModes.HIDDEN || bottomSidePanelMode !== SidePanelModes.HIDDEN) {
 
     const {horizontalPanelHeight} = calculateHorizontalDimensions(options);
 
-    result['top'] = topSidePanelMode !== SidePanelModes.HIDDEN ? horizontalPanelHeight : 0;
-    result['bottom'] = bottomSidePanelMode !== SidePanelModes.HIDDEN ? horizontalPanelHeight : 0;
+    areaStyle['top'] = topSidePanelMode !== SidePanelModes.HIDDEN ? horizontalPanelHeight : 0;
+    areaStyle['bottom'] = bottomSidePanelMode !== SidePanelModes.HIDDEN ? horizontalPanelHeight : 0;
+    areaHeight = areaHeight - areaStyle['top'] - areaStyle['bottom'];
   } else {
-    result['height'] = '100%';
+    areaStyle['height'] = '100%';
   }
 
-  // if (leftSidePanelMode !== SidePanelModes.HIDDEN || rightSidePanelMode !== SidePanelModes.HIDDEN) {
-  //   const {verticalPanelWidth} = calculateVerticalDimensions(options);
-  //
-  //   result['left'] = leftSidePanelMode === SidePanelModes.OVER_THE_VIDEO ? verticalPanelWidth : 0;
-  //   result['right'] = rightSidePanelMode === SidePanelModes.OVER_THE_VIDEO ? verticalPanelWidth : 0;
-  //   result['width'] = 'auto';
-  // }
-  //
-  // if (topSidePanelMode !== SidePanelModes.HIDDEN || bottomSidePanelMode !== SidePanelModes.HIDDEN) {
-  //   const {horizontalPanelHeight} = calculateHorizontalDimensions(options);
-  //
-  //   if (anchor === 'TOP') {
-  //     result['top'] = topSidePanelMode === SidePanelModes.OVER_THE_VIDEO ? horizontalPanelHeight : 0;
-  //   }
-  //
-  //   if (anchor === 'BOTTOM') {
-  //     result['bottom'] = bottomSidePanelMode === SidePanelModes.OVER_THE_VIDEO ? horizontalPanelHeight : 0;
-  //   }
-  // }
-  return result;
+  return { style: areaStyle, height: areaHeight, width: areaWidth };
 }
 
 /**

@@ -1,16 +1,41 @@
 //@flow
 import {h, Component} from 'preact';
+import {connect} from 'preact-redux';
 import {Container} from '../container';
-import {connectToUIPresetsStore} from 'components/side-panel';
+import {SidePanelsContainer} from '../side-panels-container';
+import {bindActions} from 'utils/bind-actions';
+import {actions} from 'reducers/shell';
 
-@connectToUIPresetsStore
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
+const mapStateToProps = () => ({
+  state: {}
+});
+
+@connect(
+  mapStateToProps,
+  bindActions(actions)
+)
 export class PresetArea extends Component {
+  static defaultProps = {
+    allowSidePanels: false
+  };
+
+  componentDidMount(): void {
+    const {allowSidePanels} = this.props;
+    this.props.updatePresetSettings({
+      allowSidePanels
+    });
+  }
+
   render() {
-    const {children, className, preAppendTo, sidePanelsStore} = this.props;
-    const presetStyle = sidePanelsStore.calculateInteractiveAreaStyles();
+    const {children, className, preAppendTo} = this.props;
 
     return (
-      <Container style={presetStyle} className={className} name={'PresetArea'} preAppendTo={preAppendTo}>
+      <Container className={className} name={'PresetArea'} preAppendTo={preAppendTo}>
         {children}
       </Container>
     );
