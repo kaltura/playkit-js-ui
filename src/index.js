@@ -12,6 +12,7 @@ import * as Components from './components';
 //Utils
 import * as Utils from './utils';
 import style from './styles/style.scss';
+import Portal from 'preact-portal';
 
 declare var __VERSION__: string;
 declare var __NAME__: string;
@@ -19,6 +20,7 @@ declare var __NAME__: string;
 export {h} from 'preact';
 export {preact};
 export {redux};
+export {Portal};
 
 export {style};
 
