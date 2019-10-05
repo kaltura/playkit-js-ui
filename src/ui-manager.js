@@ -181,7 +181,7 @@ class UIManager {
                   <Shell>
                     <EngineConnector />
                     <VideoPlayer />
-                    <PlayerGUI uis={uis} playerContainer={this.container} />
+                    <PlayerGUI uis={uis} />
                     <Container name={'PlayerArea'} />
                   </Shell>
                 </EventDispatcherProvider>

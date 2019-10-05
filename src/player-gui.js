@@ -7,12 +7,16 @@ import getLogger from './utils/logger';
 import {SidePanelsContainer} from './components/side-panels-container';
 import {connectToUIPresetsStore} from './components/side-panel';
 import {ActivePreset} from './components/active-preset';
+import {PresetVideoAreaContainer} from './components/side-panels-container';
+import {Container} from './components/container';
+
 /**
  * mapping state to props
  * @param {*} state - redux store state
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
+  activePresetName: state.shell.activePresetName,
   presetClientRect: state.shell.presetClientRect
 });
 
@@ -32,6 +36,11 @@ const logger = getLogger('ActivePreset');
  * @extends {Component}
  */
 class PlayerGUI extends Component {
+  _presetContainerRef: React$Element;
+
+  _setPresetContainerRef = ref => {
+    this._presetContainerRef = ref;
+  };
   /**
    * get the single matched UI to render based on the UIs and it's conditions
    *
@@ -59,7 +68,7 @@ class PlayerGUI extends Component {
    * @memberof PlayerGUI
    */
   render(): React$Element<any> | void {
-    const {sidePanelsStore, uis} = this.props;
+    const {sidePanelsStore, uis, activePresetName} = this.props;
 
     const {width: currentWidth, height: currentHeight} = this.props.presetClientRect;
     const areaProperties = sidePanelsStore.calculateInteractiveAreaStyles();
@@ -73,8 +82,11 @@ class PlayerGUI extends Component {
     // todo check if key is needed - key={activePresetName}
     return (
       <SidePanelsContainer>
-        <div style={areaProperties.style}>
-          <ActivePreset uis={uis} />
+        <PresetVideoAreaContainer>
+          {context => <Container key={activePresetName} name={'VideoArea'} style={context.style} />}
+        </PresetVideoAreaContainer>
+        <div ref={this._setPresetContainerRef} style={areaProperties.style}>
+          <ActivePreset uis={uis} playerContainer={this._presetContainerRef} />
         </div>
       </SidePanelsContainer>
     );

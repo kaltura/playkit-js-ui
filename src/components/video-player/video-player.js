@@ -35,6 +35,10 @@ class VideoPlayer extends Component {
     this._el.appendChild(this.props.player.getView());
   }
 
+  _setRef = ref => {
+    this._el = ref;
+  };
+
   /**
    * render component
    *
@@ -42,7 +46,9 @@ class VideoPlayer extends Component {
    * @memberof VideoPlayer
    */
   render(): React$Element<any> {
-    return <PresetVideoAreaContainer className={style.videoPlayer} divRef={c => (this._el = c)} />;
+    return (
+      <PresetVideoAreaContainer>{context => <div className={style.videoPlayer} style={context.style} ref={this._setRef} />}</PresetVideoAreaContainer>
+    );
   }
 }
 

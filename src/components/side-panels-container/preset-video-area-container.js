@@ -6,9 +6,9 @@ import {connectToUIPresetsStore} from '../side-panel';
 @connectToUIPresetsStore
 export class PresetVideoAreaContainer extends Component {
   render() {
-    const {divRef, className, sidePanelsStore} = this.props;
-    const presetStyle = sidePanelsStore.calculateVideoStyles();
-    console.log(`sakal render PresetVideoAreaContainer`);
-    return <div className={className} style={presetStyle} ref={divRef}></div>;
+    const {children, sidePanelsStore} = this.props;
+    const videoStyle = sidePanelsStore.calculateVideoStyles();
+    console.log(`sakal render Preset Video Area  Container`);
+    return children[0]({ style: videoStyle});
   }
 }

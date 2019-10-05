@@ -88,6 +88,7 @@ export function calculateVideoStyles(options) {
     result['left'] = leftSidePanelMode === SidePanelModes.ALONG_SIDE_THE_VIDEO ? verticalPanelWidth : 0;
     result['right'] = rightSidePanelMode === SidePanelModes.ALONG_SIDE_THE_VIDEO ? verticalPanelWidth : 0;
     result['width'] = videoWidth;
+    result['position'] = 'absolute';
   }
 
   if (topSidePanelMode === SidePanelModes.ALONG_SIDE_THE_VIDEO || bottomSidePanelMode === SidePanelModes.ALONG_SIDE_THE_VIDEO) {
@@ -96,6 +97,7 @@ export function calculateVideoStyles(options) {
     result['top'] = topSidePanelMode === SidePanelModes.ALONG_SIDE_THE_VIDEO ? horizontalPanelHeight : 0;
     result['bottom'] = bottomSidePanelMode === SidePanelModes.ALONG_SIDE_THE_VIDEO ? horizontalPanelHeight : 0;
     result['height'] = videoHeight;
+    result['position'] = 'absolute';
   }
   return result;
 }

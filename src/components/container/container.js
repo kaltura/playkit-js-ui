@@ -73,17 +73,18 @@ class Container extends Component {
    * @return {void}
    */
   componentDidMount(): void {
+
     if (!this.context.presetComponentsStore) {
       return;
     }
-    const {activePresetName} = this.props;
+    const {activePresetName, name} = this.props;
 
     if (!activePresetName) {
       this.presetComponentsOnlyMode = true;
       return;
     }
 
-    this.props.logger.debug(`mount ui container (active preset '${activePresetName}') - handle injected components`);
+    this.props.logger.debug(`container name '${name}' mount (active preset '${activePresetName}') - handle injected components`);
     this.context.presetComponentsStore.listen(this._onPresetsComponentsChange);
   }
 
@@ -104,7 +105,7 @@ class Container extends Component {
     this.context.presetComponentsStore.unlisten(this._onPresetsComponentsChange);
 
     const {activePresetName} = this.props;
-    this.props.logger.debug(`un-mount ui container (active preset '${activePresetName}')`);
+    this.props.logger.debug(`container name '${name}' un-mount (active preset '${activePresetName}')`);
   }
 
   /**
@@ -113,6 +114,7 @@ class Container extends Component {
    * @return {void}
    */
   _onPresetsComponentsChange = (presetsComponents: any) => {
+
     if (!presetsComponents) {
       return;
     }
