@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.47.5"></a>
+## [0.47.5](https://github.com/kaltura/playkit-js-ui/compare/v0.47.4...v0.47.5) (2019-10-06)
+
+
+### Bug Fixes
+
+* **FEC-9333:** when playing a playlist and closing the countdown window, the next entry starts automatically ([#429](https://github.com/kaltura/playkit-js-ui/issues/429)) ([35635cf](https://github.com/kaltura/playkit-js-ui/commit/35635cf))
+* **FEC-9409:** portal doesn't close in ie11 ([#430](https://github.com/kaltura/playkit-js-ui/issues/430)) ([b2b156b](https://github.com/kaltura/playkit-js-ui/commit/b2b156b))
+
+
+
 <a name="0.47.4"></a>
 ## [0.47.4](https://github.com/kaltura/playkit-js-ui/compare/v0.47.3...v0.47.4) (2019-10-03)
 
