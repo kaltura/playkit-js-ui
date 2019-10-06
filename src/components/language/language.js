@@ -56,6 +56,8 @@ const COMPONENT_NAME = 'Language';
 class Language extends Component {
   state: Object;
   _controlLanguageElement: any;
+  // ie11 fix (FEC-7312) - don't remove
+  _portal: any;
 
   /**
    * before component mounted, set initial state
@@ -204,7 +206,12 @@ class Language extends Component {
           </SmartContainer>
         )}
         {this.state.cvaaOverlay ? (
-          <Portal into={portalSelector}>
+          <Portal
+            into={portalSelector}
+            ref={ref =>
+              // ie11 fix (FEC-7312) - don't remove
+              (this._portal = ref)
+            }>
             <CVAAOverlay
               onClose={() => {
                 this.toggleCVAAOverlay();
