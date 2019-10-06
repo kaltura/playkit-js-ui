@@ -38,6 +38,9 @@ const COMPONENT_NAME = 'Share';
  * @extends {Component}
  */
 class Share extends Component {
+  // ie11 fix (FEC-7312) - don't remove
+  _portal: any;
+
   /**
    * toggle overlay internal component state
    *
@@ -86,7 +89,12 @@ class Share extends Component {
     return (
       <div>
         {this.state.overlay ? (
-          <Portal into={portalSelector}>
+          <Portal
+            into={portalSelector}
+            ref={ref =>
+              // ie11 fix (FEC-7312) - don't remove
+              (this._portal = ref)
+            }>
             <ShareOverlay
               shareUrl={shareUrl}
               embedUrl={embedUrl}
