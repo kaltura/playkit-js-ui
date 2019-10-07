@@ -79,12 +79,8 @@ class PlayerGUI extends Component {
       logger.debug(`sakal update preset size`, newPresetSize);
     }
 
-    // todo check if key is needed - key={activePresetName}
     return (
       <SidePanelsContainer>
-        <PresetVideoAreaContainer>
-          {context => <Container key={activePresetName} name={'VideoArea'} style={context.style} />}
-        </PresetVideoAreaContainer>
         <div ref={this._setPresetContainerRef} style={areaProperties.style}>
           <ActivePreset uis={uis} playerContainer={this._presetContainerRef} />
         </div>

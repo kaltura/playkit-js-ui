@@ -32,6 +32,7 @@ import {TopBar} from '../components/top-bar';
 import {Logo} from '../components/logo/logo';
 import {InteractiveArea} from '../components/interactive-area';
 import {PresetArea} from '../components/preset-area';
+import {PresetVideoAreaContainer} from 'components/side-panels-container';
 
 const PRESET_NAME = 'Playback';
 
@@ -54,10 +55,11 @@ function PlaybackUI(props: any): React$Element<any> {
         <PictureInPictureOverlay />
         <PlaybackControls />
         <PlaylistNextScreen />
+        <PresetVideoAreaContainer>{context => <Container name={'VideoArea'} style={context.style} />}</PresetVideoAreaContainer>
         <InteractiveArea>
           {style => (
             <div style={style}>
-              <Container name={'InteractiveArea'} />
+              <Container style={{pointerEvents: 'auto'}} name={'InteractiveArea'} />
             </div>
           )}
         </InteractiveArea>

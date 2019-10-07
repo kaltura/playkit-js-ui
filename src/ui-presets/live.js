@@ -26,6 +26,9 @@ import {Share} from '../components/share';
 import {Container} from '../components/container';
 import {TopBar} from '../components/top-bar';
 import {Logo} from '../components/logo/logo';
+import {PresetArea} from 'components/preset-area';
+import {PresetVideoAreaContainer} from 'components/side-panels-container';
+import {InteractiveArea} from 'components/interactive-area';
 
 const PRESET_NAME = 'Live';
 
@@ -37,14 +40,22 @@ const PRESET_NAME = 'Live';
  */
 export function LiveUI(props: any): React$Element<any> {
   return (
-    <Container className={style.playbackGuiWWrapper} name={'VideoOverlay'} preAppendTo={'Backdrop'}>
+    <PresetArea allowSidePanels={true} preAppendTo={'Backdrop'} className={style.playbackGuiWWrapper}>
       <Keyboard config={props.config} />
       <Loading />
-      <Container className={style.playerGui} name={'PlayerGUI'} id="player-gui">
+      <Container className={style.playerGui} name={'BarsArea'} id="player-gui">
         <OverlayPortal />
         <UnmuteIndication />
         <OverlayAction />
         <PlaybackControls />
+        <PresetVideoAreaContainer>{context => <Container name={'VideoArea'} style={context.style} />}</PresetVideoAreaContainer>
+        <InteractiveArea>
+          {style => (
+            <div style={style}>
+              <Container style={{pointerEvents: 'auto'}} name={'InteractiveArea'} />
+            </div>
+          )}
+        </InteractiveArea>
         <TopBar>
           <Container className={style.leftControls} name={'TopBarLeftControls'} />
           <Container className={style.rightControls} name={'TopBarRightControls'}>
@@ -74,7 +85,7 @@ export function LiveUI(props: any): React$Element<any> {
       <CastBeforePlay />
       <PictureInPictureOverlay />
       <Backdrop />
-    </Container>
+    </PresetArea>
   );
 }
 

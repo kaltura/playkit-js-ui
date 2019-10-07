@@ -39,7 +39,7 @@ export class InteractiveArea extends Component {
   render() {
     const {children} = this.props;
     // TODO sakal re-write
-    const style = {width: '100%', height: '100%', position: 'absolute', top: '0', transition: 'top 0.5s, height 0.5s'};
+    const style = {pointerEvents: 'none', width: '100%', height: '100%', position: 'absolute', top: '0', transition: 'top 0.5s, height 0.5s'};
 
     if (this.areBarsVisible()) {
       // TODO sakal get value from somewhere
