@@ -82,10 +82,10 @@ class SidePanel extends Component {
     const tempStyle = {
       ...sidePanelStyles,
       ...{
-        opacity: position === 'RIGHT' ? '0.5' : '0.5',
+        opacity: position === 'RIGHT' ? '1' : '0.5',
         background:
           props.position === SidePanelPositions.RIGHT
-            ? 'purple'
+            ? 'transparent'
             : props.position === SidePanelPositions.TOP
               ? 'green'
               : props.position === SidePanelPositions.BOTTOM
