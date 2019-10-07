@@ -170,7 +170,10 @@ export default (state: Object = initialState, action: Object) => {
     case types.UPDATE_PRESET_SETTINGS:
       return {
         ...state,
-        presetSettings: action.presetSettings || createDefaultPresetSettings()
+        presetSettings: {
+          ...createDefaultPresetSettings(),
+          ...(action.presetSettings || {})
+        }
       };
 
     default:
