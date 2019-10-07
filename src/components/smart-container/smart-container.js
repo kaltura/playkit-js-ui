@@ -25,7 +25,7 @@ const COMPONENT_NAME = 'SmartContainer';
   mapStateToProps,
   bindActions(actions)
 )
-@withKeyboardA11y
+@withKeyboardA11y(false)
 /**
  * SmartContainer component
  *

@@ -22,7 +22,7 @@ const mapStateToProps = state => ({
 const COMPONENT_NAME = 'Menu';
 
 @connect(mapStateToProps)
-@withKeyboardA11y
+@withKeyboardA11y(false)
 /**
  * Menu component
  *
