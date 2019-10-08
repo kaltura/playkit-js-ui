@@ -100,7 +100,7 @@ class PlaylistCountdown extends Component {
    */
   componentWillUpdate(nextProps: Object) {
     const timeToShow = this._getTimeToShow();
-    if (nextProps.currentTime > timeToShow) {
+    if (nextProps.currentTime >= timeToShow) {
       this.setState({timeToShow: true});
     } else {
       this.setState({timeToShow: false});
