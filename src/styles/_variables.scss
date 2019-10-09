@@ -21,4 +21,5 @@ $spinner-colors: rgb(218, 31, 38), rgb(6, 168, 133), rgb(0, 147, 68), rgb(248, 1
   rgb(252, 210, 3);
 $side-panel-width: 34%;
 $side-panel-transition-time: 500ms;
-$affected-side-panel-transitions: width $side-panel-transition-time, height $side-panel-transition-time, left $side-panel-transition-time, right $side-panel-transition-time, bottom $side-panel-transition-time,  top $side-panel-transition-time;
+$video-container-transitions: left $side-panel-transition-time, height $side-panel-transition-time, width $side-panel-transition-time, right $side-panel-transition-time, bottom $side-panel-transition-time,  top $side-panel-transition-time;
+$side-panel-container-transitions: left $side-panel-transition-time, opacity $side-panel-transition-time, right $side-panel-transition-time, bottom $side-panel-transition-time,  top $side-panel-transition-time;

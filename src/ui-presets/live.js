@@ -48,7 +48,7 @@ export function LiveUI(props: any): React$Element<any> {
         <UnmuteIndication />
         <OverlayAction />
         <PlaybackControls />
-        <PresetVideoAreaContainer>{context => <Container name={'VideoArea'} style={context.style} />}</PresetVideoAreaContainer>
+        <PresetVideoAreaContainer>{context => <Container className={context.className} name={'VideoArea'} style={context.style} />}</PresetVideoAreaContainer>
         <InteractiveArea>
           {style => (
             <div style={style}>

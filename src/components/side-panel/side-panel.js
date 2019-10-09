@@ -75,14 +75,13 @@ class SidePanel extends Component {
     }
 
     const containerName = `SidePanel${position.charAt(0).toUpperCase() + position.slice(1).toLowerCase()}`;
-    const isVisible = props.sidePanelsModes[props.position] !== SidePanelModes.HIDDEN;
-    const sidePanelStyles = isVisible ? sidePanelsStore.calculateSidePanelStyles(props.position) : {};
+
+    const sidePanelStyles = sidePanelsStore.calculateSidePanelStyles(props.position);
 
     // TODO sakal remove
     const tempStyle = {
       ...sidePanelStyles,
       ...{
-        opacity: position === 'RIGHT' ? '1' : '0.5',
         background:
           props.position === SidePanelPositions.RIGHT
             ? 'transparent'
@@ -95,9 +94,9 @@ class SidePanel extends Component {
     };
 
     return (
-      <div style={tempStyle} onTransitionEnd={() => this._onTransitionEnd(isVisible)} className={styleClass.join(' ')} ref={c => (this._el = c)}>
+      <div style={tempStyle} className={styleClass.join(' ')} ref={c => (this._el = c)}>
         <Container
-          show={isVisible || showContent}
+          show={true}
           key={activePresetName}
           className={style.sidePanelContent}
           name={containerName}

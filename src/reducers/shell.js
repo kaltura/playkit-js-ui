@@ -41,7 +41,8 @@ export const SidePanelModes = {
 
 function createDefaultPresetSettings(): PresetSettings {
   return {
-    allowSidePanels: false
+    allowSidePanels: false,
+    allowPlayerArea: false
   };
 }
 

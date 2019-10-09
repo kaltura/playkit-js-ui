@@ -159,26 +159,58 @@ export function calculateSidePanelStyles(options) {
 
   const isVertical = [SidePanelPositions.RIGHT, SidePanelPositions.LEFT].indexOf(position) !== -1;
 
+
   if (isVertical) {
-    if (leftSidePanelMode === SidePanelModes.HIDDEN && rightSidePanelMode === SidePanelModes.HIDDEN) {
-      return {};
+    const result = {};
+    const {verticalPanelWidth} = calculateVerticalDimensions(options);
+    result['width'] = verticalPanelWidth;
+
+    if (position === SidePanelPositions.RIGHT) {
+      if (rightSidePanelMode === SidePanelModes.HIDDEN) {
+        result['right'] = -verticalPanelWidth;
+        result['opacity'] = 0;
+      } else {
+        result['right'] = 0;
+        result['opacity'] = 1;
+      }
+      return result;
     }
 
-    const {verticalPanelWidth} = calculateVerticalDimensions(options);
-    const result = {};
-    result['width'] = verticalPanelWidth;
+    if (leftSidePanelMode === SidePanelModes.HIDDEN) {
+      result['left'] = -verticalPanelWidth;
+      result['opacity'] = 0;
+    } else {
+      result['left'] = 0;
+      result['opacity'] = 1;
+    }
+
     return result;
   }
 
-  if (topSidePanelMode === SidePanelModes.HIDDEN && bottomSidePanelMode === SidePanelModes.HIDDEN) {
-    return {};
-  }
-
+  const result = {};
   const {horizontalPanelHeight} = calculateHorizontalDimensions(options);
   const {verticalPanelWidth} = calculateVerticalDimensions(options);
-  const result = {};
+
   result['height'] = horizontalPanelHeight;
-  result['left'] = leftSidePanelMode !== SidePanelModes.HIDDEN ? verticalPanelWidth : 0;
-  result['right'] = rightSidePanelMode !== SidePanelModes.HIDDEN ? verticalPanelWidth : 0;
+
+  if (position === SidePanelPositions.TOP) {
+    if (topSidePanelMode === SidePanelModes.HIDDEN) {
+      result['top'] = -horizontalPanelHeight;
+      result['opacity'] = 0;
+    } else {
+      result['top'] = 0;
+      result['opacity'] = 1;
+    }
+    return result;
+  }
+
+  if (bottomSidePanelMode === SidePanelModes.HIDDEN) {
+    result['bottom'] = -verticalPanelWidth;
+    result['opacity'] = 0;
+  } else {
+    result['bottom'] = 0;
+    result['opacity'] = 1;
+  }
+
   return result;
 }

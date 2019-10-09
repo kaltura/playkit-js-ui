@@ -2,13 +2,12 @@
   position: absolute;
   z-index: 1;
   overflow: hidden;
-  transition: $affected-side-panel-transitions;
+  transition: $side-panel-container-transitions;
 }
 
 .vertical-side-panel {
   @include side-panel;
   height: 100%;
-  width: 0;
 }
 
 .horizontal-side-panel {
@@ -27,11 +26,10 @@
 }
 
 .side-panel-right {
-  right: 0;
+
 }
 
 .side-panel-left {
-  left: 0;
 }
 
 .side-panel-content {
