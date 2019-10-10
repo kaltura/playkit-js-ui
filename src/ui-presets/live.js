@@ -29,6 +29,7 @@ import {Logo} from '../components/logo/logo';
 import {PresetArea} from 'components/preset-area';
 import {PresetVideoAreaContainer} from 'components/side-panels-container';
 import {InteractiveArea} from 'components/interactive-area';
+import {PresetSettings} from 'components/preset-settings';
 
 const PRESET_NAME = 'Live';
 
@@ -40,7 +41,8 @@ const PRESET_NAME = 'Live';
  */
 export function LiveUI(props: any): React$Element<any> {
   return (
-    <PresetArea allowSidePanels={true} preAppendTo={'Backdrop'} className={style.playbackGuiWWrapper}>
+    <PresetArea preAppendTo={'Backdrop'} className={style.playbackGuiWWrapper}>
+      <PresetSettings allowSidePanels={true} allowPlayerArea={true} allowVideoArea={true} />
       <Keyboard config={props.config} />
       <Loading />
       <Container className={style.playerGui} name={'BarsArea'} id="player-gui">

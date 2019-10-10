@@ -11,8 +11,9 @@ import {PresetVideoAreaContainer} from 'components/side-panels-container';
  * @param {*} state - redux store state
  * @returns {Object} - mapped state to this component
  */
-const mapStateToProps = (state) => ({
-  activePresetName: state.shell.activePresetName
+const mapStateToProps = state => ({
+  activePresetName: state.shell.activePresetName,
+  allowVideoArea: state.shell.presetSettings.allowVideoArea
 });
 
 @connect(
@@ -20,14 +21,12 @@ const mapStateToProps = (state) => ({
   bindActions(actions)
 )
 export class VideoArea extends Component {
-  static defaultProps = {
-  };
-
+  static defaultProps = {};
 
   render() {
-    const {activePresetName} = this.props;
+    const {activePresetName, allowVideoArea} = this.props;
 
-    return (
+    return allowVideoArea ? (
       <PresetVideoAreaContainer>
         {context => (
           <div>
@@ -35,6 +34,6 @@ export class VideoArea extends Component {
           </div>
         )}
       </PresetVideoAreaContainer>
-    );
+    ) : null;
   }
 }

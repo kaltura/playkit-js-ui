@@ -11,7 +11,8 @@ import {actions} from 'reducers/shell';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = (state) => ({
-    activePresetName: state.shell.activePresetName
+  activePresetName: state.shell.activePresetName,
+  allowPlayerArea: state.shell.presetSettings.allowPlayerArea
 });
 
 @connect(
@@ -23,12 +24,12 @@ export class PlayerArea extends Component {
   };
 
   render() {
-    const {children, className, preAppendTo, activePresetName} = this.props;
+    const {children, className, preAppendTo, activePresetName, allowPlayerArea} = this.props;
 
-    return (
+    return allowPlayerArea ? (
       <Container key={activePresetName} className={className} name={'PlayerArea'} preAppendTo={preAppendTo}>
         {children}
       </Container>
-    );
+    ) : null;
   }
 }

@@ -42,7 +42,8 @@ export const SidePanelModes = {
 function createDefaultPresetSettings(): PresetSettings {
   return {
     allowSidePanels: false,
-    allowPlayerArea: false
+    allowPlayerArea: false,
+    allowVideoArea: false
   };
 }
 
@@ -169,6 +170,7 @@ export default (state: Object = initialState, action: Object) => {
     }
 
     case types.UPDATE_PRESET_SETTINGS:
+      console.log('sakal UPDATE_PRESET_SETTINGS', action.presetSettings);
       return {
         ...state,
         presetSettings: {
