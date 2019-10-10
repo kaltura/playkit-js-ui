@@ -82,8 +82,7 @@ class PlayerGUI extends Component {
     const style = {
       transition: 'width 500ms, left 500ms, right 500ms, bottom 500ms,  top 500ms',
       ...areaProperties.style
-    }
-
+    };
 
     return (
       <SidePanelsContainer before={<VideoArea />} after={<PlayerArea />}>

@@ -10,7 +10,7 @@ import {actions} from 'reducers/shell';
  * @param {*} state - redux store state
  * @returns {Object} - mapped state to this component
  */
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   activePresetName: state.shell.activePresetName,
   allowPlayerArea: state.shell.presetSettings.allowPlayerArea
 });
@@ -20,8 +20,7 @@ const mapStateToProps = (state) => ({
   bindActions(actions)
 )
 export class PlayerArea extends Component {
-  static defaultProps = {
-  };
+  static defaultProps = {};
 
   render() {
     const {children, className, preAppendTo, activePresetName, allowPlayerArea} = this.props;

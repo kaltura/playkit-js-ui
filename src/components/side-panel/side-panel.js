@@ -94,13 +94,7 @@ class SidePanel extends Component {
 
     return (
       <div style={tempStyle} className={styleClass.join(' ')} ref={c => (this._el = c)}>
-        <Container
-          show={true}
-          key={activePresetName}
-          className={style.sidePanelContent}
-          name={containerName}
-          targetPresetName={activePresetName}
-        />
+        <Container show={true} key={activePresetName} className={style.sidePanelContent} name={containerName} targetPresetName={activePresetName} />
       </div>
     );
   }

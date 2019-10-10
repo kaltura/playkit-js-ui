@@ -126,16 +126,8 @@ const withPresetAreas = InnerComponent => {
      */
     componentDidUpdate(prevProps): void {
       const {sidePanelsModes, allowSidePanels, playerClientRect} = this.props;
-      const {
-        sidePanelsModes: prevSidePanelsModes,
-        allowSidePanels: prevAllowSidePanels,
-        playerClientRect: prevplayerClientRect
-      } = prevProps;
-      if (
-        sidePanelsModes === prevSidePanelsModes &&
-        allowSidePanels === prevAllowSidePanels &&
-        playerClientRect === prevplayerClientRect
-      ) {
+      const {sidePanelsModes: prevSidePanelsModes, allowSidePanels: prevAllowSidePanels, playerClientRect: prevplayerClientRect} = prevProps;
+      if (sidePanelsModes === prevSidePanelsModes && allowSidePanels === prevAllowSidePanels && playerClientRect === prevplayerClientRect) {
         return;
       }
 

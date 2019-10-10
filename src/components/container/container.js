@@ -73,7 +73,6 @@ class Container extends Component {
    * @return {void}
    */
   componentDidMount(): void {
-
     if (!this.context.presetComponentsStore) {
       return;
     }
@@ -114,7 +113,6 @@ class Container extends Component {
    * @return {void}
    */
   _onPresetsComponentsChange = (presetsComponents: any) => {
-
     if (!presetsComponents) {
       return;
     }

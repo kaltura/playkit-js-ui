@@ -4,7 +4,6 @@ import {SidePanelPositions} from '../../reducers/shell';
 import {SidePanel} from '../side-panel';
 import style from '../../styles/style.scss';
 
-
 /**
  * Side panels container
  *

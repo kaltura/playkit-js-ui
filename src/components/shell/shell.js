@@ -233,7 +233,7 @@ class Shell extends Component {
     // todo sakal discuss about the name player wrapper
     const playerWrapperContainer = document.getElementById(this.props.targetId);
     if (playerWrapperContainer) {
-      const { width, height} = playerWrapperContainer.getBoundingClientRect();
+      const {width, height} = playerWrapperContainer.getBoundingClientRect();
       this.props.updatePlayerClientRect({width, height});
     }
 
