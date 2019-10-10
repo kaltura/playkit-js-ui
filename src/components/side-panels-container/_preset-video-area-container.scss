@@ -1,3 +1,3 @@
 .video-size {
-  transition: $video-container-transitions;
+  transition: left $default-transition-time, height $default-transition-time, width $default-transition-time, right $default-transition-time, bottom $default-transition-time,  top $default-transition-time;
 }
