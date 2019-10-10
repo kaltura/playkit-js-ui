@@ -2,7 +2,7 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
-import {connectToUIPresetsStore} from './connect';
+import {withPresetAreas} from '../preset-areas';
 import {Container} from '../container';
 import {SidePanelModes, SidePanelPositions} from '../../reducers/shell';
 
@@ -27,7 +27,7 @@ function toUpperCamelCase(word) {
   return word ? `${word[0].toUpperCase()}${word.substring(1).toLowerCase()}` : '';
 }
 
-@connectToUIPresetsStore
+@withPresetAreas
 @connect(mapStateToProps)
 /**
  * SidePanel component
@@ -63,7 +63,7 @@ class SidePanel extends Component {
    * @memberof SidePanel
    */
   render(props): React$Element<any> {
-    const {activePresetName, position, allowSidePanels, sidePanelsStore} = props;
+    const {activePresetName, position, allowSidePanels, presetAreasService} = props;
 
     const isVertical = [SidePanelPositions.RIGHT, SidePanelPositions.LEFT].indexOf(position) !== -1;
     const stylePrefix = isVertical ? 'verticalSidePanel' : 'horizontalSidePanel';
@@ -75,7 +75,7 @@ class SidePanel extends Component {
 
     const containerName = `SidePanel${position.charAt(0).toUpperCase() + position.slice(1).toLowerCase()}`;
 
-    const sidePanelStyles = sidePanelsStore.calculateSidePanelStyles(props.position);
+    const sidePanelStyles = presetAreasService.calculateSidePanelStyles(props.position);
 
     // TODO sakal remove
     const tempStyle = {

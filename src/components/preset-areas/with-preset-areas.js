@@ -1,7 +1,7 @@
 // @flow
 import {Component, h} from 'preact';
 import {connect} from 'preact-redux';
-import * as sidePanelUtils from './side-panel-utils';
+import * as utils from './preset-areas-utils';
 
 /**
  * validate common options
@@ -25,7 +25,7 @@ function createCalculateSidePanelStyles(options) {
       return {};
     }
 
-    return sidePanelUtils.calculateSidePanelStyles({...options, position});
+    return utils.calculateSidePanelStyles({...options, position});
   };
 }
 
@@ -41,7 +41,7 @@ function createCalculateVideoStyles(options) {
       return {};
     }
 
-    return sidePanelUtils.calculateVideoStyles(options);
+    return utils.calculateVideoStyles(options);
   };
 }
 
@@ -57,7 +57,7 @@ function createCalculatePresetAreaStyles(options) {
       return {};
     }
 
-    const result = sidePanelUtils.calculatePresetAreaStyles(options);
+    const result = utils.calculatePresetAreaStyles(options);
 
     return result;
   };
@@ -75,15 +75,14 @@ const mapStateToProps = state => ({
   playerClientRect: state.shell.playerClientRect
 });
 
-// TODO sakal rename
 /**
  * connect decorator
  * @returns {function(*): *} connect
  */
-const connectToUIPresetsStore = InnerComponent => {
+const withPresetAreas = InnerComponent => {
   return @connect(mapStateToProps)
   /**
-   * store hocconnectToUIPresetsStore
+   * store hocwithPresetAreas
    */
   class SidePanelWrapper extends Component {
     /**
@@ -95,7 +94,7 @@ const connectToUIPresetsStore = InnerComponent => {
       super(props, context);
 
       this.state = {
-        sidePanelsStore: this.createSidePanelsStore(props)
+        presetAreasService: this.createPresetAreasService(props)
       };
     }
 
@@ -105,7 +104,7 @@ const connectToUIPresetsStore = InnerComponent => {
      * @param {*} propsSnapshot propsSnapshot
      * @return {void}
      */
-    createSidePanelsStore(propsSnapshot) {
+    createPresetAreasService(propsSnapshot) {
       const options = {
         sidePanelsModes: propsSnapshot.sidePanelsModes,
         sidePanelsSizes: propsSnapshot.sidePanelsSizes,
@@ -141,7 +140,7 @@ const connectToUIPresetsStore = InnerComponent => {
       }
 
       this.setState({
-        sidePanelsStore: this.createSidePanelsStore(this.props)
+        presetAreasService: this.createPresetAreasService(this.props)
       });
     }
 
@@ -150,16 +149,16 @@ const connectToUIPresetsStore = InnerComponent => {
      * @returns {*} component
      */
     render() {
-      const {sidePanelsStore} = this.state;
+      const {presetAreasService} = this.state;
 
-      if (!sidePanelsStore) {
+      if (!presetAreasService) {
         return null;
       }
       // eslint-disable-next-line no-unused-vars
       const {playerClientRect, sidePanelsModes, allowSidePanels, ...restProps} = this.props;
-      return <InnerComponent {...restProps} sidePanelsStore={sidePanelsStore} />;
+      return <InnerComponent {...restProps} presetAreasService={presetAreasService} />;
     }
   };
 };
 
-export {connectToUIPresetsStore};
+export {withPresetAreas};

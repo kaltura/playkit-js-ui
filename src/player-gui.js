@@ -5,7 +5,7 @@ import {bindActions} from './utils';
 import {actions} from './reducers/shell';
 import getLogger from './utils/logger';
 import {SidePanelsContainer} from './components/side-panels-container';
-import {connectToUIPresetsStore} from './components/side-panel';
+import {withPresetAreas} from './components/preset-areas';
 import {ActivePreset} from './components/active-preset';
 import {VideoArea} from './components/video-area';
 import {PlayerArea} from './components/player-area';
@@ -21,7 +21,7 @@ const mapStateToProps = state => ({
 
 const logger = getLogger('ActivePreset');
 
-@connectToUIPresetsStore
+@withPresetAreas
 @connect(
   mapStateToProps,
   bindActions({
@@ -67,10 +67,10 @@ class PlayerGUI extends Component {
    * @memberof PlayerGUI
    */
   render(): React$Element<any> | void {
-    const {sidePanelsStore, uis} = this.props;
+    const {presetAreasService, uis} = this.props;
 
     const {width: currentWidth, height: currentHeight} = this.props.presetClientRect;
-    const areaProperties = sidePanelsStore.calculatePresetAreaStyles();
+    const areaProperties = presetAreasService.calculatePresetAreaStyles();
 
     if (currentWidth !== areaProperties.width || currentHeight !== areaProperties.height) {
       const newPresetSize = {width: areaProperties.width, height: areaProperties.height};
