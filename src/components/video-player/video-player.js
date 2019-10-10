@@ -47,7 +47,9 @@ class VideoPlayer extends Component {
    */
   render(): React$Element<any> {
     return (
-      <PresetVideoAreaContainer>{context => <div className={context.className + ' ' + style.videoPlayer} style={context.style} ref={this._setRef} />}</PresetVideoAreaContainer>
+      <PresetVideoAreaContainer>
+        {context => <div className={context.className + ' ' + style.videoPlayer} style={context.style} ref={this._setRef} />}
+      </PresetVideoAreaContainer>
     );
   }
 }

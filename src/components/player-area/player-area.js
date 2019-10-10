@@ -10,30 +10,23 @@ import {actions} from 'reducers/shell';
  * @param {*} state - redux store state
  * @returns {Object} - mapped state to this component
  */
-const mapStateToProps = () => ({
+const mapStateToProps = (state) => ({
+    activePresetName: state.shell.activePresetName
 });
 
 @connect(
   mapStateToProps,
   bindActions(actions)
 )
-export class PresetArea extends Component {
+export class PlayerArea extends Component {
   static defaultProps = {
-    allowSidePanels: false
   };
 
-  componentDidMount(): void {
-    const {allowSidePanels} = this.props;
-    this.props.updatePresetSettings({
-      allowSidePanels
-    });
-  }
-
   render() {
-    const {children, className, preAppendTo} = this.props;
+    const {children, className, preAppendTo, activePresetName} = this.props;
 
     return (
-      <Container className={className} name={'PresetArea'} preAppendTo={preAppendTo}>
+      <Container key={activePresetName} className={className} name={'PlayerArea'} preAppendTo={preAppendTo}>
         {children}
       </Container>
     );

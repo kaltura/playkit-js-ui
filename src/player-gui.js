@@ -7,8 +7,8 @@ import getLogger from './utils/logger';
 import {SidePanelsContainer} from './components/side-panels-container';
 import {connectToUIPresetsStore} from './components/side-panel';
 import {ActivePreset} from './components/active-preset';
-import {PresetVideoAreaContainer} from './components/side-panels-container';
-import {Container} from './components/container';
+import {VideoArea} from './components/video-area';
+import {PlayerArea} from './components/player-area';
 
 /**
  * mapping state to props
@@ -16,7 +16,6 @@ import {Container} from './components/container';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  activePresetName: state.shell.activePresetName,
   presetClientRect: state.shell.presetClientRect
 });
 
@@ -68,7 +67,7 @@ class PlayerGUI extends Component {
    * @memberof PlayerGUI
    */
   render(): React$Element<any> | void {
-    const {sidePanelsStore, uis, activePresetName} = this.props;
+    const {sidePanelsStore, uis} = this.props;
 
     const {width: currentWidth, height: currentHeight} = this.props.presetClientRect;
     const areaProperties = sidePanelsStore.calculateInteractiveAreaStyles();
@@ -80,7 +79,7 @@ class PlayerGUI extends Component {
     }
 
     return (
-      <SidePanelsContainer>
+      <SidePanelsContainer before={<VideoArea />} after={<PlayerArea />}>
         <div ref={this._setPresetContainerRef} style={areaProperties.style}>
           <ActivePreset uis={uis} playerContainer={this._presetContainerRef} />
         </div>

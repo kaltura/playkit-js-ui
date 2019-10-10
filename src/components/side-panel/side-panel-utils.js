@@ -160,6 +160,7 @@ export function calculateSidePanelStyles(options) {
   const isVertical = [SidePanelPositions.RIGHT, SidePanelPositions.LEFT].indexOf(position) !== -1;
 
 
+
   if (isVertical) {
     const result = {};
     const {verticalPanelWidth} = calculateVerticalDimensions(options);

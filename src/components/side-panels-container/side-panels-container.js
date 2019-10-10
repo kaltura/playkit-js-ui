@@ -13,15 +13,17 @@ import style from '../../styles/style.scss';
  */
 class SidePanelsContainer extends Component {
   render() {
-    const {children} = this.props;
+    const {children, before, after} = this.props;
 
     return (
       <div>
+        {before}
         {children}
         <SidePanel position={SidePanelPositions.RIGHT} />
         <SidePanel position={SidePanelPositions.LEFT} />
         <SidePanel position={SidePanelPositions.TOP} />
         <SidePanel position={SidePanelPositions.BOTTOM} />
+        {after}
       </div>
     );
   }

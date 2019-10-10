@@ -64,7 +64,6 @@ class SidePanel extends Component {
    */
   render(props): React$Element<any> {
     const {activePresetName, position, allowSidePanels, sidePanelsStore} = props;
-    const {showContent} = this.state;
 
     const isVertical = [SidePanelPositions.RIGHT, SidePanelPositions.LEFT].indexOf(position) !== -1;
     const stylePrefix = isVertical ? 'verticalSidePanel' : 'horizontalSidePanel';
