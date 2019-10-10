@@ -7,6 +7,8 @@ import {KeyMap} from '../../utils/key-map';
 import {connect} from 'preact-redux';
 import {withPlayer} from '../player';
 import {withLogger} from 'components/logger';
+import {bindActions} from '../../utils/bind-actions';
+import {actions} from 'reducers/playlist';
 
 /**
  * mapping state to props
@@ -19,12 +21,16 @@ const mapStateToProps = state => ({
   duration: state.engine.duration,
   lastSeekPoint: state.engine.lastSeekPoint,
   isSeeking: state.engine.isSeeking,
-  isPlaybackEnded: state.engine.isPlaybackEnded
+  isPlaybackEnded: state.engine.isPlaybackEnded,
+  countdownCanceled: state.playlist.countdownCanceled
 });
 
 const COMPONENT_NAME = 'PlaylistCountdown';
 
-@connect(mapStateToProps)
+@connect(
+  mapStateToProps,
+  bindActions(actions)
+)
 @withPlayer
 @withLogger(COMPONENT_NAME)
 /**
@@ -70,7 +76,7 @@ class PlaylistCountdown extends Component {
   cancelNext(e: any): void {
     this.props.logger.debug('Cancel auto play next item');
     e.stopPropagation();
-    this.setState({canceled: true});
+    this.props.updatePlaylistCountdownCanceled(true);
   }
 
   /**
@@ -92,38 +98,32 @@ class PlaylistCountdown extends Component {
    * @param {Object} nextProps - the props that will replace the current props
    * @returns {void}
    */
-  componentDidMount() {
-    this.setState({canceled: false});
-  }
-
-  /**
-   * component will update handler
-
-   * @param {Object} nextProps - the props that will replace the current props
-   * @returns {void}
-   */
   componentWillUpdate(nextProps: Object) {
     const timeToShow = this._getTimeToShow();
     if (nextProps.currentTime > timeToShow) {
       this.setState({timeToShow: true});
     } else {
-      this.setState({timeToShow: false, canceled: false});
+      this.setState({timeToShow: false});
+      this.props.updatePlaylistCountdownCanceled(false);
     }
   }
 
   /**
    * component did update handler
-
+   *
+   * @param {Object} prevProps - previous component props
    * @returns {void}
    */
-  componentDidUpdate() {
-    const timeToShow = this._getTimeToShow();
-    const countdown = this.props.player.playlist.countdown;
-    if (
-      !this.state.canceled &&
-      (this.props.isPlaybackEnded || (this.props.currentTime >= timeToShow + countdown.duration && this.props.currentTime < this.props.duration))
-    ) {
-      this.props.player.playlist.playNext();
+  componentDidUpdate(prevProps: Object): void {
+    if (this._shouldRender(prevProps)) {
+      const timeToShow = this._getTimeToShow();
+      const countdown = this.props.player.playlist.countdown;
+      if (
+        !this.props.countdownCanceled &&
+        (this.props.isPlaybackEnded || (this.props.currentTime >= timeToShow + countdown.duration && this.props.currentTime < this.props.duration))
+      ) {
+        this.props.player.playlist.playNext();
+      }
     }
   }
 
@@ -134,7 +134,7 @@ class PlaylistCountdown extends Component {
    * @returns {boolean} shouldComponentUpdate
    */
   shouldComponentUpdate(nextProps: Object): boolean {
-    return !nextProps.isSeeking;
+    return !(nextProps.isSeeking || this.props.isPlaybackEnded);
   }
 
   /**
@@ -158,15 +158,18 @@ class PlaylistCountdown extends Component {
     const progressDuration = Math.min(countdown.duration, props.duration - timeToShow);
     const progressWidth = `${progressTime > 0 ? (progressTime / progressDuration) * 104 : 0}%`;
     const className = [style.playlistCountdown];
-    if (!this.state.timeToShow || countdown.duration >= props.duration) {
+    const isHidden = !this.state.timeToShow || countdown.duration >= props.duration;
+    const isCanceled = this.props.countdownCanceled;
+
+    if (isHidden) {
       className.push(style.hidden);
-    } else if (this.state.canceled) {
+    } else if (isCanceled) {
       className.push(style.canceled);
     }
 
     return (
       <div
-        tabIndex={this.state.timeToShow ? 0 : -1}
+        tabIndex={isHidden || isCanceled ? -1 : 0}
         className={className.join(' ')}
         onKeyDown={e => {
           if (e.keyCode === KeyMap.ENTER) {
@@ -189,7 +192,7 @@ class PlaylistCountdown extends Component {
               <div className={[style.controlButtonContainer, style.playlistCountdownCancel].join(' ')}>
                 <Localizer>
                   <button
-                    tabIndex={this.state.timeToShow ? 0 : -1}
+                    tabIndex={isHidden || isCanceled ? -1 : 0}
                     aria-label={<Text id="playlist.cancel" />}
                     className={[style.controlButton, style.playlistCountdownCancelButton].join(' ')}
                     onClick={e => this.cancelNext(e)}

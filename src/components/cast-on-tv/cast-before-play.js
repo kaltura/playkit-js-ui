@@ -6,7 +6,6 @@ import {IconType} from '../icon/index';
 import {actions} from '../../reducers/backdrop';
 import {Icon} from '../icon/icon';
 import {Localizer, Text} from 'preact-i18n';
-import {KeyMap} from '../../utils/key-map';
 import {withPlayer} from '../player';
 import {withLogger} from 'components/logger';
 
@@ -91,11 +90,6 @@ class CastBeforePlay extends Component {
                 tabIndex="0"
                 aria-label={<Text id={'cast.play_on_tv'} />}
                 onClick={() => this.onClick()}
-                onKeyDown={e => {
-                  if (e.keyCode === KeyMap.ENTER) {
-                    this.onClick();
-                  }
-                }}
                 className={[style.btn, style.btnDarkTransparent, style.castOnTvButton].join(' ')}>
                 <div className={style.castOnTvIconContainer}>
                   <Icon type={props.icon} />

@@ -146,12 +146,12 @@ class Shell extends Component {
   }
 
   /**
-   * if the ui is in fallback to muted autoplay mode, unmute the player on any click
+   * if the ui is in fallback to muted autoplay mode, unmute the player on any mouse down
    *
    * @returns {void}
    * @memberof Shell
    */
-  onClick(): void {
+  onMouseUp(): void {
     if (this.props.fallbackToMutedAutoPlay) {
       this.props.player.muted = false;
     }
@@ -382,8 +382,8 @@ class Shell extends Component {
         ref={this._setShellRef}
         tabIndex="0"
         className={playerClasses}
-        onClick={() => this.onClick()}
         onTouchEnd={e => this.onTouchEnd(e)}
+        onMouseUp={() => this.onMouseUp()}
         onMouseOver={() => this.onMouseOver()}
         onMouseMove={() => this.onMouseMove()}
         onMouseLeave={event => this.onMouseLeave(event)}

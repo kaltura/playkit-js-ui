@@ -3,7 +3,6 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {default as Icon, IconType} from '../icon';
-import {KeyMap} from '../../utils/key-map';
 import {withAnimation} from '../../utils/with-animation';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from 'components/event-dispatcher';
@@ -81,12 +80,7 @@ class Rewind extends Component {
             aria-label={<Text id={'controls.rewind'} />}
             className={`${style.controlButton}`}
             ref={this.props.innerRef}
-            onClick={() => this.onClick()}
-            onKeyDown={e => {
-              if (e.keyCode === KeyMap.ENTER) {
-                this.onClick();
-              }
-            }}>
+            onClick={() => this.onClick()}>
             <Icon type={!props.step || props.step === REWIND_DEFAULT_STEP ? IconType.Rewind10 : IconType.Rewind} />
           </button>
         </Localizer>
