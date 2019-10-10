@@ -119,6 +119,7 @@ class PlaylistCountdown extends Component {
       const timeToShow = this._getTimeToShow();
       const countdown = this.props.player.playlist.countdown;
       if (
+        !prevProps.isSeeking &&
         !this.props.countdownCanceled &&
         (this.props.isPlaybackEnded || (this.props.currentTime >= timeToShow + countdown.duration && this.props.currentTime < this.props.duration))
       ) {
