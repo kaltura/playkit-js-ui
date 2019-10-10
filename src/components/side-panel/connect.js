@@ -51,13 +51,13 @@ function createCalculateVideoStyles(options) {
  * @param {string} options options
  * @return {*} function
  */
-function createCalculateInteractiveAreaStyles(options) {
+function createCalculatePresetAreaStyles(options) {
   return () => {
     if (!options.allowSidePanels || !validateCommonOptions(options)) {
       return {};
     }
 
-    const result = sidePanelUtils.calculateInteractiveAreaStyles(options);
+    const result = sidePanelUtils.calculatePresetAreaStyles(options);
 
     return result;
   };
@@ -114,7 +114,7 @@ const connectToUIPresetsStore = InnerComponent => {
       };
 
       return {
-        calculateInteractiveAreaStyles: createCalculateInteractiveAreaStyles(options),
+        calculatePresetAreaStyles: createCalculatePresetAreaStyles(options),
         calculateVideoStyles: createCalculateVideoStyles(options),
         calculateSidePanelStyles: createCalculateSidePanelStyles(options)
       };

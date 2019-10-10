@@ -70,7 +70,7 @@ class PlayerGUI extends Component {
     const {sidePanelsStore, uis} = this.props;
 
     const {width: currentWidth, height: currentHeight} = this.props.presetClientRect;
-    const areaProperties = sidePanelsStore.calculateInteractiveAreaStyles();
+    const areaProperties = sidePanelsStore.calculatePresetAreaStyles();
 
     if (currentWidth !== areaProperties.width || currentHeight !== areaProperties.height) {
       const newPresetSize = {width: areaProperties.width, height: areaProperties.height};
@@ -78,9 +78,16 @@ class PlayerGUI extends Component {
       logger.debug(`sakal update preset size`, newPresetSize);
     }
 
+    // todo sakal use scss
+    const style = {
+      transition: 'width 500ms, left 500ms, right 500ms, bottom 500ms,  top 500ms',
+      ...areaProperties.style
+    }
+
+
     return (
       <SidePanelsContainer before={<VideoArea />} after={<PlayerArea />}>
-        <div ref={this._setPresetContainerRef} style={areaProperties.style}>
+        <div ref={this._setPresetContainerRef} style={style}>
           <ActivePreset uis={uis} playerContainer={this._presetContainerRef} />
         </div>
       </SidePanelsContainer>

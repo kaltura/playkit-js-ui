@@ -108,10 +108,10 @@ export function calculateVideoStyles(options) {
  * @param {*} options player state
  * @return {Object} styles as hashtable
  */
-export function calculateInteractiveAreaStyles(options) {
+export function calculatePresetAreaStyles(options) {
   // TODO sakal method rename
   const {sidePanelsModes, playerClientRect} = options;
-  const areaStyle = { position: 'absolute' };
+  const areaStyle = {position: 'absolute', left: 0, right: 0, top: 0, bottom: 0};
   let areaWidth = playerClientRect.width;
   let areaHeight = playerClientRect.height;
   const leftSidePanelMode = sidePanelsModes[SidePanelPositions.LEFT];
@@ -122,26 +122,28 @@ export function calculateInteractiveAreaStyles(options) {
   if (leftSidePanelMode !== SidePanelModes.HIDDEN || rightSidePanelMode !== SidePanelModes.HIDDEN) {
     const {verticalPanelWidth} = calculateVerticalDimensions(options);
 
-    areaStyle['left'] = leftSidePanelMode !== SidePanelModes.HIDDEN ? verticalPanelWidth : 0;
-    areaStyle['right'] = rightSidePanelMode !== SidePanelModes.HIDDEN ? verticalPanelWidth : 0;
-    areaWidth = areaWidth - areaStyle['left'] - areaStyle['right'];
-    areaStyle['width'] = 'auto';
-  } else {
-    areaStyle['width'] = '100%';
+    if (leftSidePanelMode !== SidePanelModes.HIDDEN) {
+      areaStyle['left'] = verticalPanelWidth;
+    }
+    if (rightSidePanelMode !== SidePanelModes.HIDDEN) {
+      areaStyle['right'] = verticalPanelWidth;
+    }
   }
 
   if (topSidePanelMode !== SidePanelModes.HIDDEN || bottomSidePanelMode !== SidePanelModes.HIDDEN) {
-
     const {horizontalPanelHeight} = calculateHorizontalDimensions(options);
 
-    areaStyle['top'] = topSidePanelMode !== SidePanelModes.HIDDEN ? horizontalPanelHeight : 0;
-    areaStyle['bottom'] = bottomSidePanelMode !== SidePanelModes.HIDDEN ? horizontalPanelHeight : 0;
-    areaHeight = areaHeight - areaStyle['top'] - areaStyle['bottom'];
-  } else {
-    areaStyle['height'] = '100%';
+    if (topSidePanelMode !== SidePanelModes.HIDDEN) {
+      areaStyle['top'] = horizontalPanelHeight;
+    }
+    if (bottomSidePanelMode !== SidePanelModes.HIDDEN) {
+      areaStyle['bottom'] = horizontalPanelHeight;
+    }
   }
 
-  return { style: areaStyle, height: areaHeight, width: areaWidth };
+  areaWidth = areaWidth - areaStyle['right'] - areaStyle['left'];
+  areaHeight = areaHeight - areaStyle['top'] - areaStyle['bottom'];
+  return {style: areaStyle, height: areaHeight, width: areaWidth};
 }
 
 /**
@@ -158,8 +160,6 @@ export function calculateSidePanelStyles(options) {
   const bottomSidePanelMode = sidePanelsModes[SidePanelPositions.BOTTOM];
 
   const isVertical = [SidePanelPositions.RIGHT, SidePanelPositions.LEFT].indexOf(position) !== -1;
-
-
 
   if (isVertical) {
     const result = {};
