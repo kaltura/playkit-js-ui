@@ -54,13 +54,7 @@ function PlaybackUI(props: any): React$Element<any> {
         <PictureInPictureOverlay />
         <PlaybackControls />
         <PlaylistNextScreen />
-        <InteractiveArea>
-          {style => (
-            <div style={style}>
-              <Container style={{pointerEvents: 'auto'}} name={'InteractiveArea'} />
-            </div>
-          )}
-        </InteractiveArea>
+        <InteractiveArea />
         <TopBar>
           <Container className={style.leftControls} name={'TopBarLeftControls'} />
           <Container className={style.rightControls} name={'TopBarRightControls'}>

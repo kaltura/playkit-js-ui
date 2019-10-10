@@ -2,6 +2,8 @@
 import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 import {withPlayer} from 'components/player';
+import style from '../../styles/style.scss';
+import {Container} from 'components/container';
 
 const mapStateToProps = state => ({
   playerHover: state.shell.playerHover,
@@ -11,6 +13,8 @@ const mapStateToProps = state => ({
   volumeHoverActive: state.volume.hover,
   smartContainerOpen: state.shell.smartContainerOpen
 });
+
+const barHeight = 60;
 
 @withPlayer
 @connect(
@@ -37,17 +41,18 @@ export class InteractiveArea extends Component {
   }
 
   render() {
-    const {children} = this.props;
-    // TODO sakal re-write
-    const style = {pointerEvents: 'none', width: '100%', height: '100%', position: 'absolute', top: '0', transition: 'top 0.5s, height 0.5s'};
+    const containerStyle = {};
 
     if (this.areBarsVisible()) {
-      // TODO sakal get value from somewhere
-      style.height = 'calc(100% - 120px)';
-      style.top = '60px';
+      // TODO sakal discuss about options, reasoning for calc
+      containerStyle.height = `calc(100% - ${2 * barHeight}px)`;
+      containerStyle.top = `${barHeight}px`;
     }
 
-    // guard against different children types
-    return children[0](style);
+    return (
+      <div className={style.interactiveArea} style={containerStyle}>
+        <Container style={{pointerEvents: 'auto'}} name={'InteractiveArea'} />
+      </div>
+    );
   }
 }
