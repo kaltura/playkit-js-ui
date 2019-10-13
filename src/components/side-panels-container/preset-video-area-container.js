@@ -1,5 +1,5 @@
 //@flow
-import {h, Component} from 'preact';
+import {Component} from 'preact';
 import {withPresetAreas} from '../preset-areas';
 import style from '../../styles/style.scss';
 

@@ -27,7 +27,6 @@ import {Container} from '../components/container';
 import {TopBar} from '../components/top-bar';
 import {Logo} from '../components/logo/logo';
 import {PresetArea} from 'components/preset-area';
-import {PresetVideoAreaContainer} from 'components/side-panels-container';
 import {InteractiveArea} from 'components/interactive-area';
 import {PresetSettings} from 'components/preset-settings';
 

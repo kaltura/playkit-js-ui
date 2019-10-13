@@ -4,7 +4,7 @@ import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 import {withPresetAreas} from '../preset-areas';
 import {Container} from '../container';
-import {SidePanelModes, SidePanelPositions} from '../../reducers/shell';
+import {SidePanelPositions} from '../../reducers/shell';
 
 /**
  * mapping state to props

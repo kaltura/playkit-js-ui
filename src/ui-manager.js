@@ -8,7 +8,7 @@ import {mergeDeep} from './utils/merge-deep';
 import {LogLevel, getLogLevel, setLogLevel, setLogHandler} from './utils/logger';
 import {EventType} from './event/event-type';
 import {setEnv} from './utils/key-map';
-import {Container, ContainerProvider} from './components/container';
+import {ContainerProvider} from './components/container';
 import reducer from './store';
 import en_translations from './translations/en.json';
 import {actions as configActions} from './reducers/config';
