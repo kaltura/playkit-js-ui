@@ -43,6 +43,7 @@ const COMPONENT_NAME = 'CVAAOverlay';
 @withPlayer
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
+@withKeyboardA11y(true)
 
 /**
  * CVAAOverlay component
@@ -168,11 +169,18 @@ class CVAAOverlay extends Component {
    */
   render(props: any): React$Element<any> {
     const {player} = this.props;
-
+    props.clearAccessibleChildren();
     return (
-      <Overlay open onClose={() => props.onClose()} type="cvaa">
+      <Overlay
+        handleKeyDown={e => this.props.handleKeyDown(e)}
+        pushCloseButton={el => this.props.addAccessibleChild(el)}
+        open
+        onClose={() => props.onClose()}
+        type="cvaa">
         {this.state.activeWindow === cvaaOverlayState.Main ? (
           <MainWindow
+            addAccessibleChild={props.addAccessibleChild}
+            setDefaultFocusedElement={props.setDefaultFocusedElement}
             state={this.state}
             player={player}
             captionsStyleDefault={this.captionsStyleDefault}
@@ -184,6 +192,9 @@ class CVAAOverlay extends Component {
           />
         ) : (
           <CustomCaptionsWindow
+            addAccessibleChild={props.addAccessibleChild}
+            setDefaultFocusedElement={props.setDefaultFocusedElement}
+            focusOnDefault={this.props.focusOnDefault}
             state={this.state}
             player={player}
             changeCaptionsStyle={this.changeCaptionsStyle.bind(this)}
@@ -196,14 +207,16 @@ class CVAAOverlay extends Component {
   }
 }
 
-@withKeyboardA11y(true)
-
 /**
- * CustomCaptionsWindow component to be wrapped with popupWithKeyboardA11y
+ * CustomCaptionsWindow component
  * @class CustomCaptionsWindow
  * @extends {Component}
  */
 class CustomCaptionsWindow extends Component {
+  componentDidMount(): void {
+    this.props.focusOnDefault();
+  }
+
   /**
    * render component
    *
@@ -248,11 +261,7 @@ class CustomCaptionsWindow extends Component {
     }));
 
     return (
-      <div
-        onKeyDown={e => {
-          props.handleKeyDown(e);
-        }}
-        className={[style.overlayScreen, style.active].join(' ')}>
+      <div className={[style.overlayScreen, style.active].join(' ')}>
         <form className={[style.form, style.customCaptionForm].join(' ')}>
           {this.renderDropDownOption(props, true, 'cvaa.size_label', fontSizeOptions, [style.formGroupRow, style.fontSize], 'fontSize')}
           {this.renderDropDownOption(props, false, 'cvaa.font_color_label', fontColorOptions, [style.formGroupRow, style.fontColor], 'fontColor')}
@@ -331,7 +340,7 @@ class CustomCaptionsWindow extends Component {
         <DropDown
           pushRef={el => {
             if (isFirst) {
-              props.setFirstFocusedElement(el);
+              props.setDefaultFocusedElement(el);
             }
             props.addAccessibleChild(el);
           }}
@@ -356,7 +365,7 @@ class CustomCaptionsWindow extends Component {
         <Slider
           pushRef={el => {
             if (isFirst) {
-              props.setFirstFocusedElement(el);
+              props.setDefaultFocusedElement(el);
             }
             props.addAccessibleChild(el);
           }}
@@ -374,9 +383,8 @@ class CustomCaptionsWindow extends Component {
   }
 }
 
-@withKeyboardA11y(true)
 /**
- * MainWindow component to be wrapped with popupWithKeyboardA11y
+ * MainWindow component
  * @class MainWindow
  * @extends {Component}
  */
@@ -390,11 +398,7 @@ class MainWindow extends Component {
    */
   render(props: any): React$Element<any> {
     return (
-      <div
-        onKeyDown={e => {
-          props.handleKeyDown(e);
-        }}
-        className={[style.overlayScreen, style.active].join(' ')}>
+      <div className={[style.overlayScreen, style.active].join(' ')}>
         <div className={style.title}>
           <Text id={'cvaa.title'} />
         </div>
@@ -462,7 +466,7 @@ class MainWindow extends Component {
         tabIndex="0"
         ref={el => {
           if (isFirst) {
-            props.setFirstFocusedElement(el);
+            props.setDefaultFocusedElement(el);
           }
           props.addAccessibleChild(el);
         }}

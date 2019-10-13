@@ -9,7 +9,7 @@ import {KeyMap} from '../utils/key-map';
  */
 export const withKeyboardA11y: Function = (isModal: boolean = false) => (WrappedComponent: Component): typeof Component =>
   class KeyBoardAccessibility extends Component {
-    _firstFocusedElement: HTMLElement;
+    _defaultFocusedElement: HTMLElement;
     _accessibleChildren: Array<HTMLElement> = [];
     _activeElement: ?HTMLElement;
     _previouslyActiveElement: ?HTMLElement;
@@ -22,11 +22,7 @@ export const withKeyboardA11y: Function = (isModal: boolean = false) => (Wrapped
      * @memberof HOC
      */
     componentDidMount() {
-      this._activeElement = this._firstFocusedElement || (this._accessibleChildren.length && this._accessibleChildren[0]);
-      if (this._activeElement) {
-        this._previouslyActiveElement = document.activeElement;
-        this._activeElement.focus();
-      }
+      this.focusOnDefault();
     }
 
     /**
@@ -106,11 +102,17 @@ export const withKeyboardA11y: Function = (isModal: boolean = false) => (Wrapped
       return (
         <WrappedComponent
           {...props}
-          setFirstFocusedElement={el => {
-            this.setFirstFocusedElement(el);
+          setDefaultFocusedElement={el => {
+            this.setDefaultFocusedElement(el);
+          }}
+          focusOnDefault={() => {
+            this.focusOnDefault();
           }}
           addAccessibleChild={el => {
             this.addAccessibleChild(el);
+          }}
+          clearAccessibleChildren={() => {
+            this.clearAccessibleChildren();
           }}
           handleKeyDown={e => {
             this.onKeyDown(e);
@@ -125,8 +127,10 @@ export const withKeyboardA11y: Function = (isModal: boolean = false) => (Wrapped
      * @returns {void}
      * @memberof HOC
      */
-    setFirstFocusedElement(element: HTMLElement): void {
-      this._firstFocusedElement = element;
+    setDefaultFocusedElement(element: HTMLElement): void {
+      if (element) {
+        this._defaultFocusedElement = element;
+      }
     }
 
     /**
@@ -136,6 +140,30 @@ export const withKeyboardA11y: Function = (isModal: boolean = false) => (Wrapped
      * @memberof HOC
      */
     addAccessibleChild(element: HTMLElement): void {
-      this._accessibleChildren.push(element);
+      if (element) {
+        this._accessibleChildren.push(element);
+      }
+    }
+
+    /**
+     * clears the the accessible children array
+     * @returns {void}
+     * @memberof HOC
+     */
+    clearAccessibleChildren(): void {
+      this._accessibleChildren = [];
+    }
+
+    /**
+     * focuses on the default accessible element (either an explicitly given default element or the first)
+     * @returns {void}
+     * @memberof HOC
+     */
+    focusOnDefault(): void {
+      this._activeElement = this._defaultFocusedElement || (this._accessibleChildren.length && this._accessibleChildren[0]);
+      if (this._activeElement) {
+        this._previouslyActiveElement = document.activeElement;
+        this._activeElement.focus();
+      }
     }
   };

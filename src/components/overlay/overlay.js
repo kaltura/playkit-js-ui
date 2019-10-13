@@ -57,6 +57,11 @@ class Overlay extends Component {
       return (
         <Localizer>
           <a
+            ref={el => {
+              if (props.pushCloseButton) {
+                props.pushCloseButton(el);
+              }
+            }}
             tabIndex="0"
             onClick={() => props.onClose()}
             onKeyDown={e => {
@@ -95,6 +100,9 @@ class Overlay extends Component {
         onKeyDown={e => {
           if (e.keyCode === KeyMap.ESC) {
             props.onClose();
+          }
+          if (props.handleKeyDown) {
+            props.handleKeyDown(e);
           }
         }}>
         <div className={style.overlayContents}>{props.children}</div>

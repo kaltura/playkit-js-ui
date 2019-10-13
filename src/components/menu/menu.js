@@ -195,6 +195,7 @@ class Menu extends Component {
    * @memberof Menu
    */
   render(props: any): React$Element<any> {
+    props.clearAccessibleChildren();
     return props.isMobile || [PLAYER_SIZE.SMALL, PLAYER_SIZE.EXTRA_SMALL].includes(this.props.playerSize) ? (
       this.renderNativeSelect()
     ) : (
@@ -208,7 +209,7 @@ class Menu extends Component {
         className={[style.dropdownMenu, ...this.state.position].join(' ')}>
         {props.options.map((o, index) => (
           <MenuItem
-            setFirstFocusedElement={props.setFirstFocusedElement}
+            setDefaultFocusedElement={props.setDefaultFocusedElement}
             addAccessibleChild={props.addAccessibleChild}
             isSelected={this.isSelected}
             onSelect={option => {
@@ -233,18 +234,6 @@ export {Menu};
  * @extends {Component}
  */
 class MenuItem extends Component {
-  _element: HTMLElement;
-
-  /**
-   * after component mounted, call parent to mark this as accessible child
-   *
-   * @returns {void}
-   * @memberof MenuItem
-   */
-  componentDidMount(): void {
-    this.props.addAccessibleChild(this._element);
-  }
-
   /**
    * the menu item jsx
    * @param {any} props - MenuItem props
@@ -256,9 +245,9 @@ class MenuItem extends Component {
       <div
         tabIndex="-1"
         ref={se => {
-          this._element = se;
+          this.props.addAccessibleChild(se);
           if (props.isSelected(props.data)) {
-            props.setFirstFocusedElement(se);
+            props.setDefaultFocusedElement(se);
           }
         }}
         className={props.isSelected(props.data) ? [style.dropdownMenuItem, style.active].join(' ') : style.dropdownMenuItem}
