@@ -213,6 +213,12 @@ class CVAAOverlay extends Component {
  * @extends {Component}
  */
 class CustomCaptionsWindow extends Component {
+  /**
+   * after component mounted, set focus on default
+   *
+   * @returns {void}
+   * @memberof CustomCaptionsWindow
+   */
   componentDidMount(): void {
     this.props.focusOnDefault();
   }
@@ -356,6 +362,18 @@ class CustomCaptionsWindow extends Component {
     );
   }
 
+  /**
+   * renders a custom slider style option
+   *
+   * @param {*} props - component props
+   * @param {boolean} isFirst - is the slider first element(to apply focus on mount)
+   * @param {string} labelId - the label id to localize
+   * @param {number} value - the current value of the slider
+   * @param {classNames} classNames - the css classes to apply
+   * @param {string} styleName - the property name to change
+   * @returns {React$Element} - component element
+   * @memberof CustomCaptionsWindow
+   */
   renderSliderOption(props: any, isFirst: boolean, labelId: string, value: number, classNames: Array<string>, styleName: string) {
     return (
       <div className={classNames.join(' ')}>
