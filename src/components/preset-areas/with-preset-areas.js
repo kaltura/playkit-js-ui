@@ -86,19 +86,6 @@ const withPresetAreas = InnerComponent => {
    */
   class SidePanelWrapper extends Component {
     /**
-     * constructor
-     * @param {*} props props
-     * @param {*} context context
-     */
-    constructor(props, context) {
-      super(props, context);
-
-      this.state = {
-        presetAreasService: this.createPresetAreasService(props)
-      };
-    }
-
-    /**
      * create side panels store
      * @private
      * @param {*} propsSnapshot propsSnapshot
@@ -117,6 +104,12 @@ const withPresetAreas = InnerComponent => {
         calculateVideoStyles: createCalculateVideoStyles(options),
         calculateSidePanelStyles: createCalculateSidePanelStyles(options)
       };
+    }
+
+    componentDidMount(): void {
+      this.setState({
+        presetAreasService: this.createPresetAreasService(this.props)
+      });
     }
 
     /**

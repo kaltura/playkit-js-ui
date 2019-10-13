@@ -25,18 +25,13 @@ class VideoPlayer extends Component {
     return false;
   }
 
-  /**
-   * appending the player view to component after the component was mounted
-   *
-   * @returns {void}
-   * @memberof VideoPlayer
-   */
-  componentDidMount() {
-    this._el.appendChild(this.props.player.getView());
-  }
-
   _setRef = ref => {
     this._el = ref;
+
+    if (!this._el) {
+      return;
+    }
+    this._el.appendChild(this.props.player.getView());
   };
 
   /**
