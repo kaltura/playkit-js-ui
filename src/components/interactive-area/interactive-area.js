@@ -44,7 +44,6 @@ export class InteractiveArea extends Component {
     const containerStyle = {};
 
     if (this.areBarsVisible()) {
-      // TODO sakal discuss about options, reasoning for calc
       containerStyle.height = `calc(100% - ${2 * barHeight}px)`;
       containerStyle.top = `${barHeight}px`;
     }

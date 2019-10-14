@@ -236,7 +236,6 @@ class Shell extends Component {
       this.props.updatePlayerClientRect({width, height});
     }
 
-    // todo sakal Oren imo this is the relevant place and note that it is wrappered with throttle
     if (document.body) {
       this.props.updateDocumentWidth(document.body.clientWidth);
     }
