@@ -1,12 +1,13 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
-import BaseComponent from '../base';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 import {IconType} from '../icon/index';
 import {actions} from '../../reducers/backdrop';
 import {Icon} from '../icon/icon';
 import {Localizer, Text} from 'preact-i18n';
+import {withPlayer} from '../player';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -26,14 +27,16 @@ const COMPONENT_NAME = 'CastBeforePlay';
   mapStateToProps,
   actions
 )
+@withPlayer
+@withLogger(COMPONENT_NAME)
 /**
  * CastBeforePlay component
  *
  * @class CastBeforePlay
- * @example <CastBeforePlay player={this.player} />
- * @extends {BaseComponent}
+ * @example <CastBeforePlay />
+ * @extends {Component}
  */
-class CastBeforePlay extends BaseComponent {
+class CastBeforePlay extends Component {
   /**
    * @static
    * @type {Object} - Component default props
@@ -43,15 +46,6 @@ class CastBeforePlay extends BaseComponent {
   };
 
   /**
-   * Creates an instance of CastOverlay.
-   * @param {Object} obj obj
-   * @memberof CastBeforePlay
-   */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
-  }
-
-  /**
    * on click call the start casting API and set connecting state.
    *
    * @returns {void}
@@ -59,7 +53,7 @@ class CastBeforePlay extends BaseComponent {
    */
   onClick(): void {
     this.props.updateBackdropVisibility(true);
-    this.player.startCasting().catch(() => this.props.updateBackdropVisibility(false));
+    this.props.player.startCasting().catch(() => this.props.updateBackdropVisibility(false));
   }
 
   /**
@@ -90,17 +84,21 @@ class CastBeforePlay extends BaseComponent {
       }
       return (
         <div>
-          <div className={rootStyle.join(' ')} onClick={() => this.onClick()}>
-            <a className={[style.btn, style.btnDarkTransparent, style.castOnTvButton].join(' ')}>
-              <div className={style.castOnTvIconContainer}>
-                <Icon type={props.icon} />
-              </div>
-              <Localizer>
+          <div className={rootStyle.join(' ')}>
+            <Localizer>
+              <button
+                tabIndex="0"
+                aria-label={<Text id={'cast.play_on_tv'} />}
+                onClick={() => this.onClick()}
+                className={[style.btn, style.btnDarkTransparent, style.castOnTvButton].join(' ')}>
+                <div className={style.castOnTvIconContainer}>
+                  <Icon type={props.icon} />
+                </div>
                 <span>
                   <Text id="cast.play_on_tv" />
                 </span>
-              </Localizer>
-            </a>
+              </button>
+            </Localizer>
           </div>
         </div>
       );

@@ -1,12 +1,13 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {connect} from 'preact-redux';
-import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
-import {KeyMap} from '../../utils/key-map';
 import {isPlayingAdOrPlayback} from '../../reducers/getters';
+import {withPlayer} from '../player';
+import {withEventDispatcher} from 'components/event-dispatcher';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -23,23 +24,17 @@ const mapStateToProps = state => ({
 const COMPONENT_NAME = 'PlayPause';
 
 @connect(mapStateToProps)
+@withPlayer
+@withLogger(COMPONENT_NAME)
+@withEventDispatcher(COMPONENT_NAME)
 /**
  * PlayPause component
  *
  * @class PlayPause
- * @example <PlayPause player={this.player} />
- * @extends {BaseComponent}
+ * @example <PlayPause />
+ * @extends {Component}
  */
-class PlayPause extends BaseComponent {
-  /**
-   * Creates an instance of PlayPause.
-   * @param {Object} obj obj
-   * @memberof PlayPause
-   */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
-  }
-
+class PlayPause extends Component {
   /**
    * toggle play / pause
    *
@@ -47,9 +42,9 @@ class PlayPause extends BaseComponent {
    * @memberof PlayPause
    */
   togglePlayPause(): void {
-    this.logger.debug('Toggle play');
-    this.props.isPlayingAdOrPlayback ? this.player.pause() : this.player.play();
-    this.notifyClick();
+    this.props.logger.debug('Toggle play');
+    this.props.isPlayingAdOrPlayback ? this.props.player.pause() : this.props.player.play();
+    this.props.notifyClick();
   }
 
   /**
@@ -70,12 +65,7 @@ class PlayPause extends BaseComponent {
               <Text id={props.isPlaybackEnded ? 'controls.startOver' : this.props.isPlayingAdOrPlayback ? 'controls.pause' : 'controls.play'} />
             }
             className={controlButtonClass}
-            onClick={() => this.togglePlayPause()}
-            onKeyDown={e => {
-              if (e.keyCode === KeyMap.ENTER) {
-                this.togglePlayPause();
-              }
-            }}>
+            onClick={() => this.togglePlayPause()}>
             {props.isPlaybackEnded ? (
               <Icon type={IconType.StartOver} />
             ) : (

@@ -42,7 +42,8 @@ const fullscreenUI = function(props){
     h(
       components.BottomBar,
       h(
-        components.Fullscreen, { player: props.player },
+        components.Fullscreen, 
+        {},
         { className: "playkit-left-controls" }
       )
     )
@@ -85,7 +86,7 @@ const fullscreenUI = function(props) {
   return (
     <div className="playback-gui-wrapper" style="height: 100%">
       <BottomBar>
-        <Fullscreen player={props.player} />
+        <Fullscreen />
       </BottomBar>
     </div>
   );
@@ -107,7 +108,7 @@ export default function fullscreenUI(props: any) {
 return (
 <div className='playback-gui-wrapper' style='height: 100%'>
 <BottomBar>
-<Fullscreen player={props.player} />
+<Fullscreen />
 </BottomBar>
 </div>
 )

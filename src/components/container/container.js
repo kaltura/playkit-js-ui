@@ -1,7 +1,7 @@
 //@flow
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
-import BaseComponent from '../base';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -47,10 +47,11 @@ function getComponentName(component: any) {
 }
 
 @connect(mapStateToProps)
+@withLogger('Container')
 /**
  * A video container enabling injecting components by preset, container and position
  */
-class Container extends BaseComponent {
+class Container extends Component {
   presetComponentsOnlyMode = false;
 
   static defaultProps = {
@@ -82,7 +83,7 @@ class Container extends BaseComponent {
       return;
     }
 
-    this.logger.debug(`mount ui container (active preset '${activePresetName}') - handle injected components`);
+    this.props.logger.debug(`mount ui container (active preset '${activePresetName}') - handle injected components`);
     this.context.presetComponentsStore.listen(this._onPresetsComponentsChange);
   }
 
@@ -103,7 +104,7 @@ class Container extends BaseComponent {
     this.context.presetComponentsStore.unlisten(this._onPresetsComponentsChange);
 
     const {activePresetName} = this.props;
-    this.logger.debug(`un-mount ui container (active preset '${activePresetName}')`);
+    this.props.logger.debug(`un-mount ui container (active preset '${activePresetName}')`);
   }
 
   /**

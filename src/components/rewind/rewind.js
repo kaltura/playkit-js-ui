@@ -1,11 +1,12 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
-import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
-import {KeyMap} from '../../utils/key-map';
 import {withAnimation} from '../../utils/with-animation';
+import {withPlayer} from '../player';
+import {withEventDispatcher} from 'components/event-dispatcher';
+import {withLogger} from 'components/logger';
 
 const COMPONENT_NAME = 'Rewind';
 
@@ -16,23 +17,18 @@ const COMPONENT_NAME = 'Rewind';
  */
 export const REWIND_DEFAULT_STEP = 10;
 
+@withPlayer
+@withLogger(COMPONENT_NAME)
+@withEventDispatcher(COMPONENT_NAME)
+@withAnimation(style.rotate)
 /**
  * Rewind component
  *
  * @class Rewind
- * @example <Rewind player={this.player} step={5} />
- * @extends {BaseComponent}
+ * @example <Rewind step={5} />
+ * @extends {Component}
  */
-class Rewind extends BaseComponent {
-  /**
-   * Creates an instance of Rewind.
-   * @param {Object} obj obj
-   * @memberof Rewind
-   */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
-  }
-
+class Rewind extends Component {
   /**
    * rewind click handler
    *
@@ -43,14 +39,14 @@ class Rewind extends BaseComponent {
     this.props.animate();
     let to;
     const step = this.props.step || REWIND_DEFAULT_STEP;
-    const from = this.player.currentTime;
-    if (this.player.currentTime - step < 0) {
+    const from = this.props.player.currentTime;
+    if (this.props.player.currentTime - step < 0) {
       to = 0;
     } else {
-      to = this.player.currentTime - step;
+      to = this.props.player.currentTime - step;
     }
-    this.player.currentTime = to;
-    this.notifyClick({
+    this.props.player.currentTime = to;
+    this.props.notifyClick({
       from: from,
       to: to
     });
@@ -84,12 +80,7 @@ class Rewind extends BaseComponent {
             aria-label={<Text id={'controls.rewind'} />}
             className={`${style.controlButton}`}
             ref={this.props.innerRef}
-            onClick={() => this.onClick()}
-            onKeyDown={e => {
-              if (e.keyCode === KeyMap.ENTER) {
-                this.onClick();
-              }
-            }}>
+            onClick={() => this.onClick()}>
             <Icon type={!props.step || props.step === REWIND_DEFAULT_STEP ? IconType.Rewind10 : IconType.Rewind} />
           </button>
         </Localizer>
@@ -99,6 +90,4 @@ class Rewind extends BaseComponent {
 }
 
 Rewind.displayName = COMPONENT_NAME;
-
-const animateRewind = withAnimation(Rewind, style.rotate);
-export {animateRewind as Rewind};
+export {Rewind};

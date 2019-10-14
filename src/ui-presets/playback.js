@@ -42,46 +42,46 @@ const PRESET_NAME = 'Playback';
  */
 function PlaybackUI(props: any): React$Element<any> {
   return (
-    <Container className={style.playbackGuiWWrapper} name={'VideoOverlay'} player={props.player} preAppendTo={'Backdrop'}>
-      <Keyboard player={props.player} config={props.config} />
-      <Loading player={props.player} />
-      <Container className={style.playerGui} name={'PlayerGUI'} player={props.player} id="player-gui">
+    <Container className={style.playbackGuiWWrapper} name={'VideoOverlay'} preAppendTo={'Backdrop'}>
+      <Keyboard config={props.config} />
+      <Loading />
+      <Container className={style.playerGui} name={'PlayerGUI'} id="player-gui">
         <OverlayPortal />
-        <UnmuteIndication player={props.player} />
-        <OverlayAction player={props.player} />
-        <PlaybackControls player={props.player} />
-        {PlaylistNextScreen.shouldRender(props) ? <PlaylistNextScreen player={props.player} /> : undefined}
+        <UnmuteIndication />
+        <OverlayAction />
+        <PictureInPictureOverlay />
+        <PlaybackControls />
+        <PlaylistNextScreen />
         <TopBar>
-          <Container className={style.leftControls} name={'TopBarLeftControls'} player={props.player} />
-          <Container className={style.rightControls} name={'TopBarRightControls'} player={props.player}>
-            <Share player={props.player} />
+          <Container className={style.leftControls} name={'TopBarLeftControls'} />
+          <Container className={style.rightControls} name={'TopBarRightControls'}>
+            <Share />
           </Container>
         </TopBar>
         <BottomBar>
-          <SeekBarPlaybackContainer showFramePreview showTimeBubble player={props.player} playerContainer={props.playerContainer} />
-          <Container className={style.leftControls} name={'BottomBarLeftControls'} player={props.player}>
-            <PlaybackControls player={props.player} />
-            <Rewind player={props.player} step={10} />
-            <Forward player={props.player} step={10} />
+          <SeekBarPlaybackContainer showFramePreview showTimeBubble playerContainer={props.playerContainer} />
+          <Container className={style.leftControls} name={'BottomBarLeftControls'}>
+            <PlaybackControls />
+            <Rewind step={10} />
+            <Forward step={10} />
             <TimeDisplayPlaybackContainer format="current / total" />
           </Container>
-          <Container className={style.rightControls} name={'BottomBarRightControls'} player={props.player}>
-            {VrStereo.shouldRender(props) ? <VrStereo player={props.player} /> : undefined}
-            <Volume player={props.player} />
-            <Language player={props.player} />
-            <Settings player={props.player} />
-            <Cast player={props.player} />
-            <PictureInPicture player={props.player} />
-            <Fullscreen player={props.player} />
-            {Logo.shouldRender(props) ? <Logo player={props.player} /> : undefined}
+          <Container className={style.rightControls} name={'BottomBarRightControls'}>
+            <VrStereo />
+            <Volume />
+            <Language />
+            <Settings />
+            <Cast />
+            <PictureInPicture />
+            <Fullscreen />
+            <Logo />
           </Container>
         </BottomBar>
       </Container>
-      {Watermark.shouldRender(props) ? <Watermark player={props.player} /> : undefined}
-      {PlaylistCountdown.shouldRender(props) ? <PlaylistCountdown player={props.player} /> : undefined}
-      <PrePlaybackPlayOverlay player={props.player} />
-      <CastBeforePlay player={props.player} />
-      <PictureInPictureOverlay player={props.player} />
+      <Watermark />
+      <PlaylistCountdown />
+      <PrePlaybackPlayOverlay />
+      <CastBeforePlay />
       <Backdrop />
     </Container>
   );

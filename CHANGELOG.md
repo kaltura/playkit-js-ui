@@ -2,6 +2,103 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.47.6"></a>
+## [0.47.6](https://github.com/kaltura/playkit-js-ui/compare/v0.47.5...v0.47.6) (2019-10-10)
+
+
+### Bug Fixes
+
+* **FEC-9333:** when playing a playlist and closing the countdown window, the next entry starts automatically ([#433](https://github.com/kaltura/playkit-js-ui/issues/433)) ([813d815](https://github.com/kaltura/playkit-js-ui/commit/813d815))
+* **FEC-9413:** when seeking the end of the 2nd entry the playlist skip the 3rd entry (last) and jumps to 1st ([#432](https://github.com/kaltura/playkit-js-ui/issues/432)) ([138401a](https://github.com/kaltura/playkit-js-ui/commit/138401a))
+
+
+
+<a name="0.47.5"></a>
+## [0.47.5](https://github.com/kaltura/playkit-js-ui/compare/v0.47.4...v0.47.5) (2019-10-06)
+
+
+### Bug Fixes
+
+* **FEC-9333:** when playing a playlist and closing the countdown window, the next entry starts automatically ([#429](https://github.com/kaltura/playkit-js-ui/issues/429)) ([35635cf](https://github.com/kaltura/playkit-js-ui/commit/35635cf))
+* **FEC-9409:** portal doesn't close in ie11 ([#430](https://github.com/kaltura/playkit-js-ui/issues/430)) ([b2b156b](https://github.com/kaltura/playkit-js-ui/commit/b2b156b))
+
+
+
+<a name="0.47.4"></a>
+## [0.47.4](https://github.com/kaltura/playkit-js-ui/compare/v0.47.3...v0.47.4) (2019-10-03)
+
+
+### Bug Fixes
+
+* **FEC-9395:** playlist countdown works even showing is false ([#423](https://github.com/kaltura/playkit-js-ui/issues/423)) ([28c4b0e](https://github.com/kaltura/playkit-js-ui/commit/28c4b0e))
+* **FEC-9398:** when selecting skip 10 sec back and forth buttons via tabs the skip jumping 20 sec and not 10 sec ([#426](https://github.com/kaltura/playkit-js-ui/issues/426)) ([f971b0c](https://github.com/kaltura/playkit-js-ui/commit/f971b0c))
+* **FEC-9399:** enter didn't do anything on volume button ([#424](https://github.com/kaltura/playkit-js-ui/issues/424)) ([a89e5d6](https://github.com/kaltura/playkit-js-ui/commit/a89e5d6))
+* **FEC-9401:** logo class wasn't exsposed ([#427](https://github.com/kaltura/playkit-js-ui/issues/427)) ([ba0de91](https://github.com/kaltura/playkit-js-ui/commit/ba0de91))
+* **FEC-9402:** x button not accessible with keyboard in overlays ([#428](https://github.com/kaltura/playkit-js-ui/issues/428)) ([cb43205](https://github.com/kaltura/playkit-js-ui/commit/cb43205))
+* **FEC-9404:** when countdown is still hidden tabbing is possible ([#425](https://github.com/kaltura/playkit-js-ui/issues/425)) ([9539d3c](https://github.com/kaltura/playkit-js-ui/commit/9539d3c))
+
+
+
+<a name="0.47.3"></a>
+## [0.47.3](https://github.com/kaltura/playkit-js-ui/compare/v0.47.2...v0.47.3) (2019-10-03)
+
+
+### Bug Fixes
+
+* **FEC-9390:** keyboard focus outline not working in menus in test page ([#420](https://github.com/kaltura/playkit-js-ui/issues/420)) ([871a5b2](https://github.com/kaltura/playkit-js-ui/commit/871a5b2))
+* **FEC-9391:** volume bar doesn't open by pressing on up/down arrows ([#421](https://github.com/kaltura/playkit-js-ui/issues/421)) ([2539697](https://github.com/kaltura/playkit-js-ui/commit/2539697))
+* **FEC-9394:** "c" shortcut when no active caption track throws excpetion ([#422](https://github.com/kaltura/playkit-js-ui/issues/422)) ([4377f69](https://github.com/kaltura/playkit-js-ui/commit/4377f69))
+
+
+
+<a name="0.47.2"></a>
+## [0.47.2](https://github.com/kaltura/playkit-js-ui/compare/v0.47.1...v0.47.2) (2019-10-02)
+
+
+### Bug Fixes
+
+* **FEC-9382:** dropdown menus not working in Portal mode ([#418](https://github.com/kaltura/playkit-js-ui/issues/418)) ([9a1c8bd](https://github.com/kaltura/playkit-js-ui/commit/9a1c8bd))
+
+
+
+<a name="0.47.1"></a>
+## [0.47.1](https://github.com/kaltura/playkit-js-ui/compare/v0.47.0...v0.47.1) (2019-09-26)
+
+
+### Bug Fixes
+
+* **FEC-9375:** After unmute volume icon, the volume get unmuted and then returning to unmute state ([#415](https://github.com/kaltura/playkit-js-ui/issues/415)) ([d3c3a47](https://github.com/kaltura/playkit-js-ui/commit/d3c3a47))
+
+
+
+<a name="0.47.0"></a>
+# [0.47.0](https://github.com/kaltura/playkit-js-ui/compare/v0.46.0...v0.47.0) (2019-09-26)
+
+
+### Features
+
+* **FEC-7551:** handling keyboard a11y ([#409](https://github.com/kaltura/playkit-js-ui/issues/409)) ([53698a5](https://github.com/kaltura/playkit-js-ui/commit/53698a5))
+
+
+
+<a name="0.46.0"></a>
+# [0.46.0](https://github.com/kaltura/playkit-js-ui/compare/v0.45.0...v0.46.0) (2019-09-25)
+
+
+### Bug Fixes
+
+* **FEC-9341:** learn more isn't clickable on mobile ([#412](https://github.com/kaltura/playkit-js-ui/issues/412)) ([ccc225b](https://github.com/kaltura/playkit-js-ui/commit/ccc225b))
+* **FEC-9351:** cast button is not visible ([#411](https://github.com/kaltura/playkit-js-ui/issues/411)) ([708a9f2](https://github.com/kaltura/playkit-js-ui/commit/708a9f2))
+* ads preset fails when using player ([#414](https://github.com/kaltura/playkit-js-ui/issues/414)) ([31f2b1c](https://github.com/kaltura/playkit-js-ui/commit/31f2b1c))
+* **FEC-9362:** IPad OS wasn't under touch devices  ([#413](https://github.com/kaltura/playkit-js-ui/issues/413)) ([c163869](https://github.com/kaltura/playkit-js-ui/commit/c163869))
+
+
+### Features
+
+* **FEC-9341:** refactor base component to HoC ([#410](https://github.com/kaltura/playkit-js-ui/issues/410)) ([f749921](https://github.com/kaltura/playkit-js-ui/commit/f749921))
+
+
+
 <a name="0.45.0"></a>
 # [0.45.0](https://github.com/kaltura/playkit-js-ui/compare/v0.44.0...v0.45.0) (2019-09-18)
 

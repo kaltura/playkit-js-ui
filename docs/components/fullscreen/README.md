@@ -16,7 +16,7 @@ import { h, Fullscreen } from 'playkit-js-ui';
 
 export default function customUIPreset(props: any) {
   return (
-    <Fullscreen player={props.player} />
+    <Fullscreen />
   )
 }
 ```

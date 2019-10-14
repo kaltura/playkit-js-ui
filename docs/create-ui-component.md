@@ -32,9 +32,9 @@ This component is using the player bundled PReact to manage state and intercept 
 
 ```javascript
 const h = KalturaPlayer.ui.h;
-const BaseComponent = KalturaPlayer.ui.Components.BaseComponent;
+const Component = KalturaPlayer.ui.preact.Component;
 
-class SampleComponent extends BaseComponent {
+class SampleComponent extends Component {
   componentDidMount() {
     // register to event handlers and other stuff here
   }
@@ -55,9 +55,9 @@ If you want to use JSX follow this [guide](./custom-ui-preset.md#using-jsx), and
 
 ```javascript
 const h = KalturaPlayer.ui.h;
-const BaseComponent = KalturaPlayer.ui.Components.BaseComponent;
+const Component = KalturaPlayer.ui.preact.Component;
 
-class DumbComponent extends BaseComponent {
+class DumbComponent extends Component {
   render(props) {
     return <div className="dumb-component">{props.children}</div>;
   }
@@ -107,12 +107,12 @@ The component will also get a prop of additional className.
 ```javascript
 //@flow
 const h = KalturaPlayer.ui.h;
-const BaseComponent = KalturaPlayer.ui.Components.BaseComponent;
+const Component = KalturaPlayer.ui.preact.Component;
 const connect = playkit.ui.redux.connect;
 
 const mapStateToProps = state => ({playerState: state.engine.playerState});
 
-class PlayerStateLog extends BaseComponent {
+class PlayerStateLog extends Component {
   log = new Array();
 
   constructor() {

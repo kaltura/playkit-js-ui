@@ -1,15 +1,18 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
-import {Localizer, Text} from 'preact-i18n';
+import {h, Component} from 'preact';
+import {withText, Text} from 'preact-i18n';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/settings';
-import BaseComponent from '../base';
 import {SmartContainer} from '../smart-container';
 import {SmartContainerItem} from '../smart-container/smart-container-item';
 import {default as Icon, IconType} from '../icon';
 import {PLAYER_SIZE} from '../shell/shell';
+import {withPlayer} from '../player';
+import {withEventManager} from 'event/with-event-manager';
+import {withEventDispatcher} from 'components/event-dispatcher';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -29,25 +32,25 @@ const COMPONENT_NAME = 'Settings';
   mapStateToProps,
   bindActions(actions)
 )
+@withText({
+  qualityLabelText: 'settings.quality',
+  speedLabelText: 'settings.speed',
+  buttonAriaLabel: 'controls.settings'
+})
+@withPlayer
+@withEventManager
+@withLogger(COMPONENT_NAME)
+@withEventDispatcher(COMPONENT_NAME)
 /**
  * Settings component
  *
  * @class Settings
- * @example <Settings player={this.player} />
- * @extends {BaseComponent}
+ * @example <Settings />
+ * @extends {Component}
  */
-class Settings extends BaseComponent {
+class Settings extends Component {
   state: Object;
   _controlSettingsElement: any;
-
-  /**
-   * Creates an instance of Settings.
-   * @param {Object} obj obj
-   * @memberof Settings
-   */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
-  }
 
   /**
    * before component mounted, set initial state
@@ -66,7 +69,7 @@ class Settings extends BaseComponent {
    * @memberof Settings
    */
   componentDidMount() {
-    this.eventManager.listen(document, 'click', e => this.handleClickOutside(e));
+    this.props.eventManager.listen(document, 'click', e => this.handleClickOutside(e));
   }
 
   /**
@@ -110,8 +113,8 @@ class Settings extends BaseComponent {
    */
   onSpeedChange(playbackRate: number): void {
     this.props.updateSpeed(playbackRate);
-    this.player.playbackRate = playbackRate;
-    this.notifyClick({
+    this.props.player.playbackRate = playbackRate;
+    this.props.notifyClick({
       speed: playbackRate
     });
   }
@@ -124,13 +127,14 @@ class Settings extends BaseComponent {
    * @memberof Settings
    */
   onQualityChange(videoTrack: Object | string): void {
+    const {player} = this.props;
     if (videoTrack === 'auto') {
-      this.player.enableAdaptiveBitrate();
+      player.enableAdaptiveBitrate();
     } else {
-      this.player.selectTrack(videoTrack);
+      player.selectTrack(videoTrack);
     }
-    this.notifyClick({
-      type: this.player.Track.VIDEO,
+    this.props.notifyClick({
+      type: player.Track.VIDEO,
       track: videoTrack
     });
   }
@@ -167,13 +171,14 @@ class Settings extends BaseComponent {
    * @memberof Settings
    */
   render(props: any): React$Element<any> | void {
-    const speedOptions = this.player.playbackRates.reduce((acc, speed) => {
+    const {player, isLive} = this.props;
+    const speedOptions = player.playbackRates.reduce((acc, speed) => {
       let speedOption = {
         value: speed,
         label: speed === 1 ? 'Normal' : speed,
         active: false
       };
-      if (speed === this.player.playbackRate) {
+      if (speed === player.playbackRate) {
         speedOption.active = true;
       }
       acc.push(speedOption);
@@ -190,54 +195,48 @@ class Settings extends BaseComponent {
       .reduce(this.filterUniqueQualities, [])
       .map(t => ({
         label: t.label,
-        active: !this.player.isAdaptiveBitrateEnabled() && t.active,
+        active: !player.isAdaptiveBitrateEnabled() && t.active,
         value: t
       }));
 
     // Progressive playback doesn't support auto
-    if (qualityOptions.length > 1 && this.player.streamType !== 'progressive') {
+    if (qualityOptions.length > 1 && player.streamType !== 'progressive') {
       qualityOptions.unshift({
         label: 'Auto',
-        active: this.player.isAdaptiveBitrateEnabled(),
+        active: player.isAdaptiveBitrateEnabled(),
         value: 'auto'
       });
     }
 
     if (qualityOptions.length <= 1 && speedOptions.length <= 1) return undefined;
-    if (props.isLive && qualityOptions.length <= 1) return undefined;
+    if (isLive && qualityOptions.length <= 1) return undefined;
     return (
       <div ref={c => (this._controlSettingsElement = c)} className={[style.controlButtonContainer, style.controlSettings].join(' ')}>
-        <Localizer>
-          <button
-            tabIndex="0"
-            aria-label={<Text id="controls.settings" />}
-            className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
-            onClick={() => this.onControlButtonClick()}>
-            <Icon type={IconType.Settings} />
-          </button>
-        </Localizer>
+        <button
+          tabIndex="0"
+          aria-label={props.buttonAriaLabel}
+          className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
+          onClick={() => this.onControlButtonClick()}>
+          <Icon type={IconType.Settings} />
+        </button>
         {!this.state.smartContainerOpen ? (
           ''
         ) : (
-          <SmartContainer targetId={this.player.config.targetId} title={<Text id="settings.title" />} onClose={() => this.onControlButtonClick()}>
+          <SmartContainer targetId={player.config.targetId} title={<Text id="settings.title" />} onClose={() => this.onControlButtonClick()}>
             {qualityOptions.length <= 1 ? (
               ''
             ) : (
-              <Localizer>
-                <SmartContainerItem
-                  icon="quality"
-                  label={<Text id="settings.quality" />}
-                  options={qualityOptions}
-                  onSelect={o => this.onQualityChange(o)}
-                />
-              </Localizer>
+              <SmartContainerItem
+                icon="quality"
+                label={props.qualityLabelText}
+                options={qualityOptions}
+                onMenuChosen={o => this.onQualityChange(o)}
+              />
             )}
-            {props.isLive || speedOptions.length <= 1 ? (
+            {isLive || speedOptions.length <= 1 ? (
               ''
             ) : (
-              <Localizer>
-                <SmartContainerItem icon="speed" label={<Text id="settings.speed" />} options={speedOptions} onSelect={o => this.onSpeedChange(o)} />
-              </Localizer>
+              <SmartContainerItem icon="speed" label={props.speedLabelText} options={speedOptions} onMenuChosen={o => this.onSpeedChange(o)} />
             )}
           </SmartContainer>
         )}

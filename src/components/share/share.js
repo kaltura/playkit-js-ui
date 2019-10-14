@@ -1,6 +1,5 @@
 //@flow
-import {h} from 'preact';
-import BaseComponent from '../base';
+import {h, Component} from 'preact';
 import {default as Icon, IconType} from '../icon';
 import {ShareOverlay} from '../share-overlay';
 import Portal from 'preact-portal';
@@ -9,11 +8,12 @@ import {defaultConfig} from './default-config';
 import {actions} from '../../reducers/share';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
+import {withPlayer} from '../player';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
  * @param {*} state - redux store state
- * @example <ShareOverlay player={this.player} />
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
@@ -28,23 +28,18 @@ const COMPONENT_NAME = 'Share';
   mapStateToProps,
   bindActions(actions)
 )
+@withPlayer
+@withLogger(COMPONENT_NAME)
 /**
  * Share component
  *
  * @class Share
- * @example <Share player={this.player} />
- * @extends {BaseComponent}
+ * @example <Share />
+ * @extends {Component}
  */
-class Share extends BaseComponent {
+class Share extends Component {
+  // ie11 fix (FEC-7312) - don't remove
   _portal: any;
-  /**
-   * Creates an instance of Share.
-   * @param {Object} obj obj
-   * @memberof Share
-   */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
-  }
 
   /**
    * toggle overlay internal component state
@@ -61,9 +56,9 @@ class Share extends BaseComponent {
       this.setState({previousIsPlaying: false});
     }
     if (this.state.overlay) {
-      this.player.pause();
+      this.props.player.pause();
     } else if (this.state.previousIsPlaying) {
-      this.player.play();
+      this.props.player.play();
       this.setState({previousIsPlaying: false});
     }
   }
@@ -90,17 +85,22 @@ class Share extends BaseComponent {
       return undefined;
     }
     const shareConfig = this._getMergedShareConfig();
-    const portalSelector = `#${this.player.config.targetId} .overlay-portal`;
+    const portalSelector = `#${this.props.player.config.targetId} .overlay-portal`;
     return (
       <div>
         {this.state.overlay ? (
-          <Portal into={portalSelector} ref={ref => (this._portal = ref)}>
+          <Portal
+            into={portalSelector}
+            ref={ref =>
+              // ie11 fix (FEC-7312) - don't remove
+              (this._portal = ref)
+            }>
             <ShareOverlay
               shareUrl={shareUrl}
               embedUrl={embedUrl}
               enableTimeOffset={enableTimeOffset}
               socialNetworks={shareConfig}
-              player={this.player}
+              player={this.props.player}
               onClose={() => this.toggleOverlay()}
             />
           </Portal>

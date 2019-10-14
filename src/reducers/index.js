@@ -1,8 +1,11 @@
+export * as backdrop from './backdrop';
 export * as config from './config';
 export * as cvaa from './cvaa';
 export * as engine from './engine';
+export * as getters from './getters';
 export * as loading from './loading';
 export * as overlayAction from './overlay-action';
+export * as playlist from './playlist';
 export * as seekbar from './seekbar';
 export * as setting from './settings';
 export * as share from './share';

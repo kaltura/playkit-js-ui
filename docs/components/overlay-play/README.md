@@ -16,7 +16,7 @@ import { h, OverlayPlay } from 'playkit-js-ui';
 
 export default function customUIPreset(props: any) {
   return (
-    <OverlayPlay player={props.player} />
+    <OverlayPlay />
   )
 }
 ```

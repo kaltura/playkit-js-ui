@@ -37,42 +37,42 @@ const PRESET_NAME = 'Live';
  */
 export function LiveUI(props: any): React$Element<any> {
   return (
-    <Container className={style.playbackGuiWWrapper} name={'VideoOverlay'} player={props.player} preAppendTo={'Backdrop'}>
-      <Keyboard player={props.player} config={props.config} />
-      <Loading player={props.player} />
-      <Container className={style.playerGui} name={'PlayerGUI'} player={props.player} id="player-gui">
+    <Container className={style.playbackGuiWWrapper} name={'VideoOverlay'} preAppendTo={'Backdrop'}>
+      <Keyboard config={props.config} />
+      <Loading />
+      <Container className={style.playerGui} name={'PlayerGUI'} id="player-gui">
         <OverlayPortal />
-        <UnmuteIndication player={props.player} />
-        <OverlayAction player={props.player} />
-        <PlaybackControls player={props.player} />
+        <UnmuteIndication />
+        <OverlayAction />
+        <PlaybackControls />
         <TopBar>
-          <Container className={style.leftControls} name={'TopBarLeftControls'} player={props.player} />
-          <Container className={style.rightControls} name={'TopBarRightControls'} player={props.player}>
-            <Share player={props.player} />
+          <Container className={style.leftControls} name={'TopBarLeftControls'} />
+          <Container className={style.rightControls} name={'TopBarRightControls'}>
+            <Share />
           </Container>
         </TopBar>
         <BottomBar>
-          <SeekBarLivePlaybackContainer showFramePreview showTimeBubble player={props.player} playerContainer={props.playerContainer} />
-          <Container className={style.leftControls} name={'BottomBarLeftControls'} player={props.player}>
-            <PlaybackControls player={props.player} />
-            <LiveTag player={props.player} />
+          <SeekBarLivePlaybackContainer showFramePreview showTimeBubble playerContainer={props.playerContainer} />
+          <Container className={style.leftControls} name={'BottomBarLeftControls'}>
+            <PlaybackControls />
+            <LiveTag />
           </Container>
-          <Container className={style.rightControls} name={'BottomBarRightControls'} player={props.player}>
-            {VrStereo.shouldRender(props) ? <VrStereo player={props.player} /> : undefined}
-            <Volume player={props.player} />
-            <Language player={props.player} />
-            <Settings player={props.player} />
-            <Cast player={props.player} />
-            <PictureInPicture player={props.player} />
-            <Fullscreen player={props.player} />
-            {Logo.shouldRender(props) ? <Logo player={props.player} /> : undefined}
+          <Container className={style.rightControls} name={'BottomBarRightControls'}>
+            <VrStereo />
+            <Volume />
+            <Language />
+            <Settings />
+            <Cast />
+            <PictureInPicture />
+            <Fullscreen />
+            <Logo />
           </Container>
         </BottomBar>
       </Container>
-      {Watermark.shouldRender(props) ? <Watermark player={props.player} /> : undefined}
-      <PrePlaybackPlayOverlay player={props.player} />
-      <CastBeforePlay player={props.player} />
-      <PictureInPictureOverlay player={props.player} />
+      <Watermark />
+      <PrePlaybackPlayOverlay />
+      <CastBeforePlay />
+      <PictureInPictureOverlay />
       <Backdrop />
     </Container>
   );

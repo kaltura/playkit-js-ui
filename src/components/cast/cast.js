@@ -1,9 +1,12 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
-import BaseComponent from '../base';
+import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 import {actions} from '../../reducers/backdrop';
+import {KeyMap} from '../../utils/key-map';
+import {withPlayer} from '../player';
+import {withEventManager} from 'event/with-event-manager';
+import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -21,23 +24,17 @@ const COMPONENT_NAME = 'Cast';
   mapStateToProps,
   actions
 )
+@withPlayer
+@withEventManager
+@withLogger(COMPONENT_NAME)
 /**
  * Cast component
  *
  * @class Cast
- * @example <Cast player={this.player} />
- * @extends {BaseComponent}
+ * @example <Cast />
+ * @extends {Component}
  */
-class Cast extends BaseComponent {
-  /**
-   * Creates an instance of ChromecastControl.
-   * @param {Object} obj obj
-   * @memberof Cast
-   */
-  constructor(obj: Object) {
-    super({name: COMPONENT_NAME, player: obj.player});
-  }
-
+class Cast extends Component {
   /**
    * On click set the backdrop to visible.
    * If cast session start failed remove the backdrop.
@@ -46,7 +43,9 @@ class Cast extends BaseComponent {
    */
   onClick(): void {
     this.props.updateBackdropVisibility(true);
-    this.eventManager.listenOnce(this.player, this.player.Event.Cast.CAST_SESSION_START_FAILED, () => this.props.updateBackdropVisibility(false));
+    this.props.eventManager.listenOnce(this.props.player, this.props.player.Event.Cast.CAST_SESSION_START_FAILED, () =>
+      this.props.updateBackdropVisibility(false)
+    );
   }
 
   /**
@@ -58,15 +57,18 @@ class Cast extends BaseComponent {
    */
   render(props: any): ?React$Element<any> {
     if (props.isCasting || props.isCastAvailable) {
-      return h(
-        'div',
-        {
-          class: style.controlButtonContainer,
-          onClick: () => this.onClick()
-        },
-        h('google-cast-launcher', {
-          class: style.castButton
-        })
+      return (
+        <div
+          className={style.controlButtonContainer}
+          onClick={() => this.onClick()}
+          onKeyDown={e => {
+            if (e.keyCode === KeyMap.ENTER) {
+              this.props.updateBackdropVisibility(true);
+              this.player.startCasting().catch(() => this.props.updateBackdropVisibility(false));
+            }
+          }}>
+          <google-cast-launcher className={style.castButton} tabIndex="0" />
+        </div>
       );
     }
   }

@@ -1,11 +1,10 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, Component} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
-import BaseComponent from '../base';
 import {default as Icon, IconType} from '../icon';
-import {KeyMap} from '../../utils/key-map';
 import {connect} from 'preact-redux';
+import {withPlayer} from '../player';
 
 /**
  * mapping state to props
@@ -19,23 +18,15 @@ const mapStateToProps = state => ({
 const COMPONENT_NAME = 'PlaylistButton';
 
 @connect(mapStateToProps)
+@withPlayer
 /**
  * PlaylistButton component
  *
  * @class PlaylistButton
- * @example <PlaylistButton player={this.player} type="next"/>
- * @extends {BaseComponent}
+ * @example <PlaylistButton type="next"/>
+ * @extends {Component}
  */
-class PlaylistButton extends BaseComponent {
-  /**
-   * Creates an instance of PlaylistButton.
-   * @param {Object} obj obj
-   * @memberof PlaylistButton
-   */
-  constructor(obj: Object) {
-    super({name: `${COMPONENT_NAME}-${obj.type}`, player: obj.player});
-  }
-
+class PlaylistButton extends Component {
   /**
    * playlist button click handler
    *
@@ -43,7 +34,7 @@ class PlaylistButton extends BaseComponent {
    * @memberof PlaylistButton
    */
   onClick(): void {
-    this.props.type === 'prev' ? this.player.playlist.playPrev() : this.player.playlist.playNext();
+    this.props.type === 'prev' ? this.props.player.playlist.playPrev() : this.props.player.playlist.playNext();
   }
 
   /**
@@ -78,12 +69,7 @@ class PlaylistButton extends BaseComponent {
             tabIndex="0"
             aria-label={<Text id={`controls.${props.type}`} />}
             className={`${style.controlButton}`}
-            onClick={() => this.onClick()}
-            onKeyDown={e => {
-              if (e.keyCode === KeyMap.ENTER) {
-                this.onClick();
-              }
-            }}>
+            onClick={() => this.onClick()}>
             {props.type === 'prev' ? (
               <div>
                 <Icon type={IconType.Prev} />
