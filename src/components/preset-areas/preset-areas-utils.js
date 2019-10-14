@@ -193,6 +193,14 @@ export function calculateSidePanelStyles(options) {
 
   result['height'] = horizontalPanelHeight;
 
+  if (leftSidePanelMode !== SidePanelModes.HIDDEN) {
+    result['left'] = verticalPanelWidth;
+  }
+
+  if (rightSidePanelMode !== SidePanelModes.HIDDEN) {
+    result['right'] = verticalPanelWidth;
+  }
+
   if (position === SidePanelPositions.TOP) {
     if (topSidePanelMode === SidePanelModes.HIDDEN) {
       result['top'] = -horizontalPanelHeight;
@@ -205,7 +213,7 @@ export function calculateSidePanelStyles(options) {
   }
 
   if (bottomSidePanelMode === SidePanelModes.HIDDEN) {
-    result['bottom'] = -verticalPanelWidth;
+    result['bottom'] = -horizontalPanelHeight;
     result['opacity'] = 0;
   } else {
     result['bottom'] = 0;
