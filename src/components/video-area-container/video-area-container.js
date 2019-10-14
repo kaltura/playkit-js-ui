@@ -3,9 +3,8 @@ import {Component} from 'preact';
 import {withPresetAreas} from '../preset-areas';
 import style from '../../styles/style.scss';
 
-// todo sakal change to video-area component
 @withPresetAreas
-export class PresetVideoAreaContainer extends Component {
+export class VideoAreaContainer extends Component {
   shouldComponentUpdate(nextProps: PropsType): boolean {
     return nextProps.presetAreasService !== this.props.presetAreasService;
   }
@@ -13,7 +12,6 @@ export class PresetVideoAreaContainer extends Component {
   render() {
     const {children, presetAreasService} = this.props;
     const videoStyle = presetAreasService.calculateVideoStyles();
-    console.log(`sakal render Preset Video Area  Container`);
     return children[0]({className: style.videoSize, style: videoStyle});
   }
 }

@@ -18,7 +18,7 @@ import {EngineConnector} from './components/engine-connector';
 import {Shell} from './components/shell';
 import {PlayerProvider} from './components/player';
 import {VideoPlayer} from './components/video-player';
-import {PlayerGUI} from './player-gui';
+import {PlayerGUI} from './components/player-gui';
 // ui presets
 import * as presets from './ui-presets';
 
@@ -97,7 +97,7 @@ class UIManager {
    * @memberof UIManager
    */
   buildDefaultUI(): void {
-    // todo sakal remove bypass to ads
+    // todo sakal remove bypass to liveUI
     const uis = [
       {template: props => presets.idleUI(props), condition: state => state.engine.isIdle},
       {template: props => presets.errorUI(props), condition: state => state.engine.hasError},

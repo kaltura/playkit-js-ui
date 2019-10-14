@@ -2,7 +2,7 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {withPlayer} from '../player';
-import {PresetVideoAreaContainer} from '../side-panels-container';
+import {VideoAreaContainer} from '../video-area-container';
 
 @withPlayer
 /**
@@ -42,9 +42,9 @@ class VideoPlayer extends Component {
    */
   render(): React$Element<any> {
     return (
-      <PresetVideoAreaContainer>
+      <VideoAreaContainer>
         {context => <div className={context.className + ' ' + style.videoPlayer} style={context.style} ref={this._setRef} />}
-      </PresetVideoAreaContainer>
+      </VideoAreaContainer>
     );
   }
 }

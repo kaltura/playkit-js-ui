@@ -109,7 +109,6 @@ export function calculateVideoStyles(options) {
  * @return {Object} styles as hashtable
  */
 export function calculatePresetAreaStyles(options) {
-  // TODO sakal method rename
   const {sidePanelsModes, playerClientRect} = options;
   const areaStyle = {position: 'absolute', left: 0, right: 0, top: 0, bottom: 0};
   let areaWidth = playerClientRect.width;

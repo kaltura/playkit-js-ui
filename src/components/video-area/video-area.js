@@ -4,7 +4,7 @@ import {connect} from 'preact-redux';
 import {Container} from '../container';
 import {bindActions} from 'utils/bind-actions';
 import {actions} from 'reducers/shell';
-import {PresetVideoAreaContainer} from 'components/side-panels-container';
+import {VideoAreaContainer} from 'components/video-area-container';
 
 /**
  * mapping state to props
@@ -27,13 +27,13 @@ export class VideoArea extends Component {
     const {activePresetName, allowVideoArea} = this.props;
 
     return allowVideoArea ? (
-      <PresetVideoAreaContainer>
+      <VideoAreaContainer>
         {context => (
           <div>
             <Container key={activePresetName} name={'VideoArea'} style={context.style} />
           </div>
         )}
-      </PresetVideoAreaContainer>
+      </VideoAreaContainer>
     ) : null;
   }
 }

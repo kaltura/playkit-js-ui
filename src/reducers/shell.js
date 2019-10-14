@@ -49,7 +49,7 @@ function createDefaultPresetSettings(): PresetSettings {
 
 export const initialState = {
   playerClasses: [],
-  presetClientRect: {width: 0, height: 0}, // todo sakal oren decide if this is relevant
+  presetClientRect: {width: 0, height: 0},
   playerClientRect: {width: 0, height: 0},
   playerHover: false,
   playerNav: false,
@@ -170,7 +170,6 @@ export default (state: Object = initialState, action: Object) => {
     }
 
     case types.UPDATE_PRESET_SETTINGS:
-      console.log('sakal UPDATE_PRESET_SETTINGS', action.presetSettings);
       return {
         ...state,
         presetSettings: {

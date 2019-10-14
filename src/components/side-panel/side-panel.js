@@ -77,23 +77,8 @@ class SidePanel extends Component {
 
     const sidePanelStyles = presetAreasService.calculateSidePanelStyles(props.position);
 
-    // TODO sakal remove
-    const tempStyle = {
-      ...sidePanelStyles,
-      ...{
-        background:
-          props.position === SidePanelPositions.RIGHT
-            ? 'transparent'
-            : props.position === SidePanelPositions.TOP
-              ? 'green'
-              : props.position === SidePanelPositions.BOTTOM
-                ? 'blue'
-                : 'yellow'
-      }
-    };
-
     return (
-      <div style={tempStyle} className={styleClass.join(' ')} ref={c => (this._el = c)}>
+      <div style={sidePanelStyles} className={styleClass.join(' ')} ref={c => (this._el = c)}>
         <Container show={true} key={activePresetName} className={style.sidePanelContent} name={containerName} targetPresetName={activePresetName} />
       </div>
     );

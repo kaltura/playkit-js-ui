@@ -1,14 +1,14 @@
 //@flow
 import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
-import {bindActions} from './utils';
-import {actions} from './reducers/shell';
-import getLogger from './utils/logger';
-import {SidePanelsContainer} from './components/side-panels-container';
-import {withPresetAreas} from './components/preset-areas';
-import {ActivePreset} from './components/active-preset';
-import {VideoArea} from './components/video-area';
-import {PlayerArea} from './components/player-area';
+import {bindActions} from '../../utils';
+import {actions} from '../../reducers/shell';
+import {SidePanelsContainer} from '../side-panels-container';
+import {withPresetAreas} from '../preset-areas';
+import {ActivePreset} from '../active-preset';
+import {VideoArea} from '../video-area';
+import {PlayerArea} from '../player-area';
+import style from '../../styles/style.scss';
 
 /**
  * mapping state to props
@@ -18,8 +18,6 @@ import {PlayerArea} from './components/player-area';
 const mapStateToProps = state => ({
   presetClientRect: state.shell.presetClientRect
 });
-
-const logger = getLogger('ActivePreset');
 
 @withPresetAreas
 @connect(
@@ -75,18 +73,11 @@ class PlayerGUI extends Component {
     if (currentWidth !== areaProperties.width || currentHeight !== areaProperties.height) {
       const newPresetSize = {width: areaProperties.width, height: areaProperties.height};
       this.props.updatePresetClientRect(newPresetSize);
-      logger.debug(`sakal update preset size`, newPresetSize);
     }
-
-    // todo sakal use scss
-    const style = {
-      transition: 'width 500ms, left 500ms, right 500ms, bottom 500ms,  top 500ms',
-      ...areaProperties.style
-    };
 
     return (
       <SidePanelsContainer before={<VideoArea />} after={<PlayerArea />}>
-        <div ref={this._setPresetContainerRef} style={style}>
+        <div ref={this._setPresetContainerRef} style={areaProperties.style} className={style.activePresetContainer}>
           <ActivePreset uis={uis} playerContainer={this._presetContainerRef} />
         </div>
       </SidePanelsContainer>

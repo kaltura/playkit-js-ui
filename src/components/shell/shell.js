@@ -230,14 +230,13 @@ class Shell extends Component {
    * @private
    */
   _onPlayerResize = throttle(() => {
-    // todo sakal discuss about the name player wrapper
-    const playerWrapperContainer = document.getElementById(this.props.targetId);
-    if (playerWrapperContainer) {
-      const {width, height} = playerWrapperContainer.getBoundingClientRect();
+    const playerContainer = document.getElementById(this.props.targetId);
+    if (playerContainer) {
+      const {width, height} = playerContainer.getBoundingClientRect();
       this.props.updatePlayerClientRect({width, height});
     }
 
-    // todo sakal Oren imo this is the relevant place and note that it is wrappered with debounce
+    // todo sakal Oren imo this is the relevant place and note that it is wrappered with throttle
     if (document.body) {
       this.props.updateDocumentWidth(document.body.clientWidth);
     }
