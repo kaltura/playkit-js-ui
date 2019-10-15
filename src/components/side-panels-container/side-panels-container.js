@@ -1,7 +1,6 @@
 //@flow
 import {h, Component} from 'preact';
 import {SidePanelPositions} from '../../reducers/shell';
-import {SidePanel} from '../side-panel';
 
 /**
  * Side panels container
