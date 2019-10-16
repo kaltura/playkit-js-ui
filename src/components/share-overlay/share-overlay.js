@@ -182,6 +182,14 @@ class ShareOverlay extends Component {
     });
   }
 
+  /**
+   * when component did update and change its view state then focus on default
+   *
+   * @param {Object} previousProps - previous props
+   * @param {Object} previousState - previous state
+   * @returns {void}
+   * @memberof ShareOverlay
+   */
   componentDidUpdate(previousProps: PropsType, previousState: StateType): void {
     if (previousState.view != this.state.view) {
       this.props.focusOnDefault();
@@ -274,6 +282,7 @@ class ShareOverlay extends Component {
   /**
    * render the partial social network DOM
    * @param {Array<Object>} socialNetworksConfig - the social network config
+   * @param {Function} addAccessibleChild - pass the addAccessibleChild so the share button can add its accessible elements
    * @returns {React$Element<*>[]} partial social network DOM
    * @private
    */
