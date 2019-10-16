@@ -4,6 +4,7 @@ import {h, Component} from 'preact';
 import {IconType} from '../icon/index';
 import {Icon} from '../icon/icon';
 import {Text, Localizer} from 'preact-i18n';
+import {KeyMap} from 'utils/key-map';
 
 /**
  * The default copy action indication timeout value
@@ -63,12 +64,26 @@ class CopyButton extends Component {
    * @returns {?CopyButton} - component element
    * @memberof CopyButton
    */
-  render(): ?React$Element<any> {
+  render(props: any): ?React$Element<any> {
     let copyUrlClasses = [style.btnCopyUrl].join(' ');
     copyUrlClasses += this.state.copySuccess ? ' ' + style.copied : '';
     return (
       <Localizer>
-        <a className={copyUrlClasses} onClick={() => this.copy()} title={<Text id="copy.button" />}>
+        <a
+          tabIndex="0"
+          ref={el => {
+            if (props.addAccessibleChild) {
+              props.addAccessibleChild(el);
+            }
+          }}
+          className={copyUrlClasses}
+          onClick={() => this.copy()}
+          onKeyDown={e => {
+            if (e.keyCode === KeyMap.ENTER) {
+              this.copy();
+            }
+          }}
+          title={<Text id="copy.button" />}>
           <Icon type={IconType.Copy} />
           <Icon type={IconType.Check} />
         </a>

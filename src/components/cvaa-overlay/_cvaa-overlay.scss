@@ -13,6 +13,10 @@
     margin: 0 12px;
     position: relative;
 
+    &:not(.custom){
+      cursor: pointer;
+    }
+
     &.black-bg {
       background-color: #000;
     }

@@ -140,7 +140,7 @@ export const withKeyboardA11y: Function = (isModal: boolean = false) => (Wrapped
      * @memberof HOC
      */
     addAccessibleChild(element: HTMLElement): void {
-      if (element) {
+      if (element && this._accessibleChildren.indexOf(element) == -1) {
         this._accessibleChildren.push(element);
       }
     }
