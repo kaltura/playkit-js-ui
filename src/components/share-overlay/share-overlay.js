@@ -190,7 +190,7 @@ class ShareOverlay extends Component {
    * @returns {void}
    * @memberof ShareOverlay
    */
-  componentDidUpdate(previousProps: PropsType, previousState: StateType): void {
+  componentDidUpdate(previousProps: Object, previousState: Object): void {
     if (previousState.view != this.state.view) {
       this.props.focusOnDefault();
     }
