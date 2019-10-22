@@ -135,7 +135,7 @@ class PlaylistCountdown extends Component {
    * @returns {boolean} shouldComponentUpdate
    */
   shouldComponentUpdate(nextProps: Object): boolean {
-    return !(nextProps.isSeeking || this.props.isPlaybackEnded);
+    return this.props.duration > 0 && !nextProps.isSeeking && !this.props.isPlaybackEnded;
   }
 
   /**
