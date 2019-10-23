@@ -10,7 +10,6 @@ import {SmartContainerItem} from '../smart-container/smart-container-item';
 import {default as Icon, IconType} from '../icon';
 import {CVAAOverlay} from '../cvaa-overlay';
 import Portal from 'preact-portal';
-import {PLAYER_SIZE} from '../shell/shell';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withLogger} from 'components/logger';
@@ -27,6 +26,7 @@ const mapStateToProps = state => ({
   textTracks: state.engine.textTracks,
   overlayOpen: state.cvaa.overlayOpen,
   isMobile: state.shell.isMobile,
+  isSmallSize: state.shell.isSmallSize,
   playerSize: state.shell.playerSize
 });
 
@@ -93,7 +93,7 @@ class Language extends Component {
       !this._controlLanguageElement.contains(e.target) &&
       this.state.smartContainerOpen &&
       !this.state.cvaaOverlay &&
-      ![PLAYER_SIZE.SMALL, PLAYER_SIZE.EXTRA_SMALL].includes(this.props.playerSize)
+      !this.props.isSmallSize
     ) {
       if (e.target.classList.contains('overlay-action')) {
         e.stopPropagation();
@@ -265,7 +265,7 @@ class AdvancedCaptionsAnchor extends Component {
     return (
       <div className={style.smartContainerItem}>
         <a
-          tabIndex="-1"
+          tabIndex="0"
           ref={el => {
             if (props.pushRef) {
               props.pushRef(el);

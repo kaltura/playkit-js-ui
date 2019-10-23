@@ -6,7 +6,6 @@ import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
 import Portal from 'preact-portal';
 import {Overlay} from '../overlay';
-import {PLAYER_SIZE} from '../shell/shell';
 import {withKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
 
 /**
@@ -16,6 +15,7 @@ import {withKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
  */
 const mapStateToProps = state => ({
   isMobile: state.shell.isMobile,
+  isSmallSize: state.shell.isSmallSize,
   playerSize: state.shell.playerSize
 });
 
@@ -68,6 +68,15 @@ class SmartContainer extends Component {
   }
 
   /**
+   * after component mounted, set A11y HOC to modal if is portal
+   * @returns {void}
+   * @memberof SmartContainer
+   */
+  componentDidMount(): void {
+    this.props.setIsModal(this.props.isMobile || this.props.isSmallSize);
+  }
+
+  /**
    * if mobile detected, smart container representation is an overlay. hence, render overlay with its children.
    * otherwise, render smart container
    *
@@ -78,16 +87,20 @@ class SmartContainer extends Component {
   render(props: any): React$Element<any> {
     const portalSelector = `#${this.props.targetId} .overlay-portal`;
     props.clearAccessibleChildren();
-    return props.isMobile || [PLAYER_SIZE.SMALL, PLAYER_SIZE.EXTRA_SMALL].includes(this.props.playerSize) ? (
+    return this.props.isMobile || this.props.isSmallSize ? (
       <Portal
         into={portalSelector}
         ref={ref =>
           // ie11 fix (FEC-7312) - don't remove
           (this._portal = ref)
         }>
-        <Overlay open onClose={() => props.onClose()}>
+        <Overlay
+          open
+          onClose={() => props.onClose()}
+          handleKeyDown={e => this.props.handleKeyDown(e)}
+          pushCloseButton={el => this.props.addAccessibleChild(el)}>
           <div className={style.title}>{props.title}</div>
-          {props.children}
+          {this.renderChildren(props)}
         </Overlay>
       </Portal>
     ) : (

@@ -26,6 +26,14 @@ export const withKeyboardA11y: Function = (isModal: boolean = false) => (Wrapped
     }
 
     /**
+     * setter to change to modal state
+     * @param {booleam} value - the modal state
+     * @memberOf HOC
+     */
+    set isModal(value: boolean): void {
+      this._isModal = value;
+    }
+    /**
      * handles keydown events
      * @param {KeyboardEvent} e - the keyboard event
      * @returns {void}
@@ -41,7 +49,7 @@ export const withKeyboardA11y: Function = (isModal: boolean = false) => (Wrapped
           break;
         case KeyMap.DOWN:
         case KeyMap.UP:
-          if (this._activeElement) {
+          if (this._activeElement && !this._isModal) {
             let activeElementIndex = this._accessibleChildren.indexOf(this._activeElement);
             activeElementIndex =
               (activeElementIndex + (e.keyCode == KeyMap.DOWN ? 1 : -1) + this._accessibleChildren.length) % this._accessibleChildren.length;
@@ -116,6 +124,9 @@ export const withKeyboardA11y: Function = (isModal: boolean = false) => (Wrapped
           }}
           handleKeyDown={e => {
             this.onKeyDown(e);
+          }}
+          setIsModal={val => {
+            this.isModal = val;
           }}
         />
       );
