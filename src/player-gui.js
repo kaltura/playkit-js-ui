@@ -4,7 +4,6 @@ import {connect} from 'preact-redux';
 import {bindActions} from './utils';
 import {actions} from './reducers/shell';
 import getLogger from './utils/logger';
-import {types} from './middlewares/event-dispatcher';
 import {withEventDispatcher} from 'components/event-dispatcher';
 
 /**
