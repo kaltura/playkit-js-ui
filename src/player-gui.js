@@ -61,20 +61,6 @@ class PlayerGUI extends Component {
     }
     return matchedUI;
   }
-  /**
-   * Notify the store that a preset has been changed.
-   * @param {any} payload - Optional payload.
-   * @returns {void}
-   *
-   * @memberof BaseComponent
-   */
-  notifyClick(payload?: any): void {
-    this.context.store.dispatch({
-      type: types.COMPONENT_CLICKED,
-      name: this.name,
-      payload: payload
-    });
-  }
 
   /**
    * render component based on the matched UI.
