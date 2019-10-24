@@ -4,6 +4,7 @@ import {connect} from 'preact-redux';
 import {bindActions} from './utils';
 import {actions} from './reducers/shell';
 import getLogger from './utils/logger';
+import {withEventDispatcher} from 'components/event-dispatcher';
 
 /**
  * mapping state to props
@@ -26,11 +27,14 @@ const mapStateToProps = state => ({
 });
 
 const logger = getLogger('PlayerGUI');
+const COMPONENT_NAME = 'PlayerGui';
 
 @connect(
   mapStateToProps,
   bindActions(actions)
 )
+@withEventDispatcher(COMPONENT_NAME)
+
 /**
  * Player GUI component
  *
@@ -74,6 +78,7 @@ class PlayerGUI extends Component {
       const presetName = uiComponent ? uiComponent.nodeName.displayName || '' : '';
 
       if (activePresetName !== presetName) {
+        props.notifyChange({from: activePresetName, to: presetName});
         props.updateActivePresetName(presetName);
         logger.debug(`set active preset '${presetName}'`);
       }
