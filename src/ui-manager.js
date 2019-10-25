@@ -12,6 +12,7 @@ import {ContainerProvider} from './components/container';
 import reducer from './store';
 import en_translations from './translations/en.json';
 import {actions as configActions} from './reducers/config';
+import {actions as shellActions, SidePanelOrientation} from './reducers/shell';
 
 // core components for the UI
 import {EngineConnector} from './components/engine-connector';
@@ -87,6 +88,17 @@ class UIManager {
       this.store.dispatch(configActions.updateComponentConfig(componentAlias, config));
     } else {
       this.store.dispatch(configActions.updateConfig(config));
+
+      if (config.components && config.components.sidePanels) {
+        const {verticalSizes, horizontalSizes} = config.components.sidePanels;
+        if (verticalSizes) {
+          this.store.dispatch(shellActions.updateSidePanelSize(SidePanelOrientation.VERTICAL, verticalSizes));
+        }
+
+        if (horizontalSizes) {
+          this.store.dispatch(shellActions.updateSidePanelSize(SidePanelOrientation.HORIZONTAL, horizontalSizes));
+        }
+      }
     }
   }
 
