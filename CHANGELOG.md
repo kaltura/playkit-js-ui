@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.47.6"></a>
+## [0.47.6](https://github.com/kaltura/playkit-js-ui/compare/v0.47.5...v0.47.6) (2019-10-10)
+
+
+### Bug Fixes
+
+* **FEC-9333:** when playing a playlist and closing the countdown window, the next entry starts automatically ([#433](https://github.com/kaltura/playkit-js-ui/issues/433)) ([813d815](https://github.com/kaltura/playkit-js-ui/commit/813d815))
+* **FEC-9413:** when seeking the end of the 2nd entry the playlist skip the 3rd entry (last) and jumps to 1st ([#432](https://github.com/kaltura/playkit-js-ui/issues/432)) ([138401a](https://github.com/kaltura/playkit-js-ui/commit/138401a))
+
+
+
 <a name="0.47.5"></a>
 ## [0.47.5](https://github.com/kaltura/playkit-js-ui/compare/v0.47.4...v0.47.5) (2019-10-06)
 

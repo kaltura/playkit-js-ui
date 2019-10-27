@@ -98,6 +98,10 @@ function onChangeableComponentsHandler(store: any, action: Object, player: Objec
       player.dispatchEvent(new SeekedEvent(action.payload.from, action.payload.to));
       break;
 
+    case 'PlayerGui':
+      player.dispatchEvent(new FakeEvent(FakeEvent.Type.UI_PRESET_CHANGE, action.payload));
+      break;
+
     default:
       break;
   }

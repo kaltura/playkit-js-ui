@@ -4,6 +4,7 @@
 | --------------------------------------------------------------- |
 | [`UI_CLICKED`](#UI_CLICKED)                                     |
 | [`UI_VISIBILITY_CHANGED`](#UI_VISIBILITY_CHANGED)               |
+| [`UI_PRESET_CHANGE`](#UI_PRESET_CHANGE)                         |
 | [`USER_CLICKED_PLAY`](#USER_CLICKED_PLAY)                       |
 | [`USER_CLICKED_PAUSE`](#USER_CLICKED_PAUSE)                     |
 | [`USER_CLICKED_REWIND`](#USER_CLICKED_REWIND)                   |
@@ -36,6 +37,20 @@
 > | Name      | Type      | Description                                            |
 > | --------- | --------- | ------------------------------------------------------ |
 > | `visible` | `boolean` | True when the UI is shown, false when the UI is hidden |
+
+#
+
+#
+
+> ### <a name="UI_PRESET_CHANGE"></a>UI_PRESET_CHANGE
+>
+> Fires when preset change.
+> <br><br>_payload parameters:_
+>
+> | Name   | Type     | Description                        |
+> | ------ | -------- | ---------------------------------- |
+> | `from` | `string` | Preset name before change          |
+> | `to`   | `string` | Preset name after change           |
 
 #
 
