@@ -100,7 +100,7 @@ class PlaylistCountdown extends Component {
    */
   componentWillUpdate(nextProps: Object) {
     const timeToShow = this._getTimeToShow();
-    if (nextProps.currentTime > timeToShow) {
+    if (nextProps.currentTime >= timeToShow) {
       this.setState({timeToShow: true});
     } else {
       this.setState({timeToShow: false});
@@ -119,6 +119,7 @@ class PlaylistCountdown extends Component {
       const timeToShow = this._getTimeToShow();
       const countdown = this.props.player.playlist.countdown;
       if (
+        !prevProps.isSeeking &&
         !this.props.countdownCanceled &&
         (this.props.isPlaybackEnded || (this.props.currentTime >= timeToShow + countdown.duration && this.props.currentTime < this.props.duration))
       ) {
@@ -134,7 +135,7 @@ class PlaylistCountdown extends Component {
    * @returns {boolean} shouldComponentUpdate
    */
   shouldComponentUpdate(nextProps: Object): boolean {
-    return !nextProps.isSeeking;
+    return this.props.duration > 0 && !nextProps.isSeeking && !this.props.isPlaybackEnded;
   }
 
   /**

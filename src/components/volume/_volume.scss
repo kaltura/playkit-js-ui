@@ -11,10 +11,14 @@
   &.is-muted {
     .icon-volume-waves {
       opacity: 0;
+      -webkit-transform: translateX(-5px);
+      -ms-transform: translateX(-5px);
       transform: translateX(-5px);
     }
     .icon-volume-mute {
       opacity: 1;
+      -webkit-transform: scale(1);
+      -ms-transform: scale(1);
       transform: scale(1);
     }
   }
@@ -26,10 +30,14 @@
   }
 
   .icon-volume-waves {
+    -webkit-transform: translateX(0px);
+    -ms-transform: translateX(0px);
     transform: translateX(0px);
   }
   .icon-volume-mute {
     opacity: 1;
+    -webkit-transform: scale(0);
+    -ms-transform: scale(0);
     transform: scale(0);
   }
   .icon-volume-waves,
@@ -47,8 +55,7 @@
   position: absolute;
   z-index: 2;
   bottom: 38px;
-  left: 0px;
-  display: block;
+  left: 0;
   height: 112px;
   width: 34px;
   border-radius: 4px;
@@ -75,18 +82,20 @@
   }
   .progress {
     position: absolute;
-    bottom: 0px;
-    left: 0px;
+    bottom: 0;
+    left: 0;
     width: 100%;
     border-radius: 0 0 2px 2px;
     background-color: $brand-color;
   }
 }
 
-.player.smart-container-open .control-button-container.volume-control.hover .volume-control-bar, .size-ty .control-button-container.volume-control.hover .volume-control-bar {
+.player.smart-container-open .control-button-container.volume-control.hover .volume-control-bar,
+.size-ty .control-button-container.volume-control.hover .volume-control-bar {
   display: none !important;
 }
 
-.touch .control-button-container.volume-control.hover .volume-control-bar, .size-ty .control-button-container.volume-control.hover .volume-control-bar {
+.touch .control-button-container.volume-control.hover .volume-control-bar,
+.size-ty .control-button-container.volume-control.hover .volume-control-bar {
   display: none !important;
 }
