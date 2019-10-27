@@ -58,8 +58,8 @@ class Overlay extends Component {
         <Localizer>
           <a
             ref={el => {
-              if (props.pushCloseButton) {
-                props.pushCloseButton(el);
+              if (props.addAccessibleChild) {
+                props.addAccessibleChild(el);
               }
             }}
             tabIndex="0"

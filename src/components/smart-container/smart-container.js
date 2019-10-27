@@ -15,8 +15,7 @@ import {withKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
  */
 const mapStateToProps = state => ({
   isMobile: state.shell.isMobile,
-  isSmallSize: state.shell.isSmallSize,
-  playerSize: state.shell.playerSize
+  isSmallSize: state.shell.isSmallSize
 });
 
 const COMPONENT_NAME = 'SmartContainer';
@@ -25,7 +24,7 @@ const COMPONENT_NAME = 'SmartContainer';
   mapStateToProps,
   bindActions(actions)
 )
-@withKeyboardA11y(false)
+@withKeyboardA11y
 /**
  * SmartContainer component
  *
@@ -98,7 +97,7 @@ class SmartContainer extends Component {
           open
           onClose={() => props.onClose()}
           handleKeyDown={e => this.props.handleKeyDown(e)}
-          pushCloseButton={el => this.props.addAccessibleChild(el)}>
+          addAccessibleChild={this.props.addAccessibleChild}>
           <div className={style.title}>{props.title}</div>
           {this.renderChildren(props)}
         </Overlay>

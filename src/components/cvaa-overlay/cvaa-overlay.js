@@ -43,7 +43,7 @@ const COMPONENT_NAME = 'CVAAOverlay';
 @withPlayer
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
-@withKeyboardA11y(true)
+@withKeyboardA11y
 
 /**
  * CVAAOverlay component
@@ -94,6 +94,7 @@ class CVAAOverlay extends Component {
       backgroundColor: player.TextStyle.StandardColors.BLACK,
       fontColor: player.TextStyle.StandardColors.WHITE
     });
+    this.props.setIsModal(true);
   }
 
   /**
@@ -173,14 +174,13 @@ class CVAAOverlay extends Component {
     return (
       <Overlay
         handleKeyDown={e => this.props.handleKeyDown(e)}
-        pushCloseButton={el => this.props.addAccessibleChild(el)}
+        addAccessibleChild={this.props.addAccessibleChild}
         open
         onClose={() => props.onClose()}
         type="cvaa">
         {this.state.activeWindow === cvaaOverlayState.Main ? (
           <MainWindow
             addAccessibleChild={props.addAccessibleChild}
-            setDefaultFocusedElement={props.setDefaultFocusedElement}
             state={this.state}
             player={player}
             captionsStyleDefault={this.captionsStyleDefault}
@@ -193,7 +193,6 @@ class CVAAOverlay extends Component {
         ) : (
           <CustomCaptionsWindow
             addAccessibleChild={props.addAccessibleChild}
-            setDefaultFocusedElement={props.setDefaultFocusedElement}
             focusOnDefault={this.props.focusOnDefault}
             state={this.state}
             player={player}
@@ -269,13 +268,12 @@ class CustomCaptionsWindow extends Component {
     return (
       <div className={[style.overlayScreen, style.active].join(' ')}>
         <form className={[style.form, style.customCaptionForm].join(' ')}>
-          {this.renderDropDownOption(props, true, 'cvaa.size_label', fontSizeOptions, [style.formGroupRow, style.fontSize], 'fontSize')}
-          {this.renderDropDownOption(props, false, 'cvaa.font_color_label', fontColorOptions, [style.formGroupRow, style.fontColor], 'fontColor')}
-          {this.renderDropDownOption(props, false, 'cvaa.font_family_label', fontFamilyOptions, [style.formGroupRow, style.fontFamily], 'fontFamily')}
-          {this.renderDropDownOption(props, false, 'cvaa.font_style_label', fontStyleOptions, [style.formGroupRow, style.fontStyle], 'fontStyle')}
+          {this.renderDropDownOption(props, 'cvaa.size_label', fontSizeOptions, [style.formGroupRow, style.fontSize], 'fontSize')}
+          {this.renderDropDownOption(props, 'cvaa.font_color_label', fontColorOptions, [style.formGroupRow, style.fontColor], 'fontColor')}
+          {this.renderDropDownOption(props, 'cvaa.font_family_label', fontFamilyOptions, [style.formGroupRow, style.fontFamily], 'fontFamily')}
+          {this.renderDropDownOption(props, 'cvaa.font_style_label', fontStyleOptions, [style.formGroupRow, style.fontStyle], 'fontStyle')}
           {this.renderSliderOption(
             props,
-            false,
             'cvaa.font_opacity_label',
             props.state.customTextStyle.fontOpacity,
             [style.formGroupRow, style.fontOpacity],
@@ -283,7 +281,6 @@ class CustomCaptionsWindow extends Component {
           )}
           {this.renderDropDownOption(
             props,
-            false,
             'cvaa.background_color_label',
             backgroundColorOptions,
             [style.formGroupRow, style.backgroundColor],
@@ -291,7 +288,6 @@ class CustomCaptionsWindow extends Component {
           )}
           {this.renderSliderOption(
             props,
-            false,
             'cvaa.background_opacity_label',
             props.state.customTextStyle.backgroundOpacity,
             [style.formGroupRow, style.backgroundOpacity],
@@ -329,7 +325,6 @@ class CustomCaptionsWindow extends Component {
    * renders a custom dropdown style option
    *
    * @param {*} props - component props
-   * @param {boolean} isFirst - is the button first (to apply focus on mount)
    * @param {string} labelId - the label id to localize
    * @param {Array<any>} options - dropdown options array
    * @param {classNames} classNames - the css classes to apply
@@ -337,7 +332,7 @@ class CustomCaptionsWindow extends Component {
    * @returns {React$Element} - component element
    * @memberof CustomCaptionsWindow
    */
-  renderDropDownOption(props: any, isFirst: boolean, labelId: string, options: Array<any>, classNames: Array<string>, styleName: string) {
+  renderDropDownOption(props: any, labelId: string, options: Array<any>, classNames: Array<string>, styleName: string) {
     return (
       <div className={classNames.join(' ')}>
         <label>
@@ -345,9 +340,6 @@ class CustomCaptionsWindow extends Component {
         </label>
         <DropDown
           pushRef={el => {
-            if (isFirst) {
-              props.setDefaultFocusedElement(el);
-            }
             props.addAccessibleChild(el);
           }}
           tabbable
@@ -366,7 +358,6 @@ class CustomCaptionsWindow extends Component {
    * renders a custom slider style option
    *
    * @param {*} props - component props
-   * @param {boolean} isFirst - is the slider first element(to apply focus on mount)
    * @param {string} labelId - the label id to localize
    * @param {number} value - the current value of the slider
    * @param {classNames} classNames - the css classes to apply
@@ -374,7 +365,7 @@ class CustomCaptionsWindow extends Component {
    * @returns {React$Element} - component element
    * @memberof CustomCaptionsWindow
    */
-  renderSliderOption(props: any, isFirst: boolean, labelId: string, value: number, classNames: Array<string>, styleName: string) {
+  renderSliderOption(props: any, labelId: string, value: number, classNames: Array<string>, styleName: string) {
     return (
       <div className={classNames.join(' ')}>
         <label>
@@ -382,9 +373,6 @@ class CustomCaptionsWindow extends Component {
         </label>
         <Slider
           pushRef={el => {
-            if (isFirst) {
-              props.setDefaultFocusedElement(el);
-            }
             props.addAccessibleChild(el);
           }}
           min={0}
@@ -421,9 +409,9 @@ class MainWindow extends Component {
           <Text id={'cvaa.title'} />
         </div>
         <div>
-          {this.renderPresetStyleButton(props, true, props.captionsStyleDefault, [style.sample])}
-          {this.renderPresetStyleButton(props, false, props.captionsStyleBlackBG, [style.sample, style.blackBg])}
-          {this.renderPresetStyleButton(props, false, props.captionsStyleYellow, [style.sample, style.yellowText])}
+          {this.renderPresetStyleButton(props, props.captionsStyleDefault, [style.sample])}
+          {this.renderPresetStyleButton(props, props.captionsStyleBlackBG, [style.sample, style.blackBg])}
+          {this.renderPresetStyleButton(props, props.captionsStyleYellow, [style.sample, style.yellowText])}
         </div>
         {!props.isAdvancedStyleApplied() ? (
           <a
@@ -471,21 +459,17 @@ class MainWindow extends Component {
    * renders a default style pick button
    *
    * @param {*} props - component props
-   * @param {boolean} isFirst - is the button first (to apply focus on mount)
    * @param {Object} captionStyle - the caption style the represents
    * @param {Array<string>} classNames - the css classes to apply
    * @returns {React$Element} - component element
    * @memberof MainWindow
    */
-  renderPresetStyleButton(props: any, isFirst: boolean, captionStyle: Object, classNames: Array<string>): React$Element<any> {
+  renderPresetStyleButton(props: any, captionStyle: Object, classNames: Array<string>): React$Element<any> {
     const {player} = this.props;
     return (
       <div
         tabIndex="0"
         ref={el => {
-          if (isFirst) {
-            props.setDefaultFocusedElement(el);
-          }
           props.addAccessibleChild(el);
         }}
         className={classNames.join(' ')}

@@ -367,7 +367,7 @@ class Shell extends Component {
 
       this.props.updatePlayerIsSmallSize(
         // in Tiny the ui is minimal and therefore this check is not relevant - left it this way to maintain current logic
-        this.props.playerClientRect.width > PLAYER_BREAK_POINTS.TINY && this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.SMALL
+        [PLAYER_SIZE.SMALL, PLAYER_SIZE.EXTRA_SMALL].includes(this.props.playerSize)
       );
     }
 

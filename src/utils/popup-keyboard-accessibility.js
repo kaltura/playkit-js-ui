@@ -4,16 +4,16 @@ import {KeyMap} from '../utils/key-map';
 
 /**
  * wraps a component and handles all key navigation and focus
- * @param {Component} isModal - Is the popup a modal (background ui controls are disabled)
+ * @param {Component} WrappedComponent - The popup component to implement keyboard accessibility
  * @returns {Component} - HOC that handles animation
  */
-export const withKeyboardA11y: Function = (isModal: boolean = false) => (WrappedComponent: Component): typeof Component =>
+export const withKeyboardA11y: Function = (WrappedComponent: Component): typeof Component =>
   class KeyBoardAccessibility extends Component {
     _defaultFocusedElement: HTMLElement;
     _accessibleChildren: Array<HTMLElement> = [];
     _activeElement: ?HTMLElement;
     _previouslyActiveElement: ?HTMLElement;
-    _isModal: boolean = isModal;
+    _isModal: boolean = false;
 
     /**
      * after component mounted, focus on relevant element
@@ -27,7 +27,7 @@ export const withKeyboardA11y: Function = (isModal: boolean = false) => (Wrapped
 
     /**
      * setter to change to modal state
-     * @param {booleam} value - the modal state
+     * @param {boolean} value - the modal state
      * @memberOf HOC
      */
     set isModal(value: boolean): void {
@@ -54,9 +54,9 @@ export const withKeyboardA11y: Function = (isModal: boolean = false) => (Wrapped
             activeElementIndex =
               (activeElementIndex + (e.keyCode == KeyMap.DOWN ? 1 : -1) + this._accessibleChildren.length) % this._accessibleChildren.length;
             this._accessibleChildren[activeElementIndex].focus();
+            e.preventDefault();
+            e.stopPropagation();
           }
-          e.preventDefault();
-          e.stopPropagation();
 
           break;
         case KeyMap.TAB:

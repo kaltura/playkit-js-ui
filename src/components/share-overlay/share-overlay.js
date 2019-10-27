@@ -159,7 +159,7 @@ const COMPONENT_NAME = 'ShareOverlay';
   bindActions(actions)
 )
 @withLogger(COMPONENT_NAME)
-@withKeyboardA11y(true)
+@withKeyboardA11y
 /**
  * ShareOverlay component
  *
@@ -194,6 +194,15 @@ class ShareOverlay extends Component {
     if (previousState.view != this.state.view) {
       this.props.focusOnDefault();
     }
+  }
+
+  /**
+   * after component mounted, set popup to behave as modal
+   * @returns {void}
+   * @memberof ShareOverlay
+   */
+  componentDidMount(): void {
+    this.props.setIsModal(true);
   }
 
   /**
@@ -286,13 +295,13 @@ class ShareOverlay extends Component {
    * @returns {React$Element<*>[]} partial social network DOM
    * @private
    */
-  _createSocialNetworks(socialNetworksConfig: Array<Object>, addAccessibleChild: Function): React$Element<any>[] {
+  _createSocialNetworks(socialNetworksConfig: Array<Object>): React$Element<any>[] {
     return socialNetworksConfig.map(social => {
       if (social.iconType === 'default') {
         social.iconType = social.name;
         social.shareUrl = this.props.shareUrl;
       }
-      return <ShareButton key={social.name} config={social} addAccessibleChild={addAccessibleChild} />;
+      return <ShareButton key={social.name} config={social} addAccessibleChild={this.props.addAccessibleChild} />;
     });
   }
 
@@ -310,7 +319,7 @@ class ShareOverlay extends Component {
         </div>
         <div className={style.shareMainContainer}>
           <div className={style.shareIcons}>
-            {this._createSocialNetworks(this.props.socialNetworks, this.props.addAccessibleChild)}
+            {this._createSocialNetworks(this.props.socialNetworks)}
             <Localizer>
               <a
                 ref={el => {
@@ -409,7 +418,7 @@ class ShareOverlay extends Component {
   render(props: any): React$Element<any> {
     return (
       <Overlay
-        pushCloseButton={el => this.props.addAccessibleChild(el)}
+        addAccessibleChild={this.props.addAccessibleChild}
         handleKeyDown={e => this.props.handleKeyDown(e)}
         open
         onClose={() => props.onClose()}

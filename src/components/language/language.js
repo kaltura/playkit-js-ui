@@ -26,8 +26,7 @@ const mapStateToProps = state => ({
   textTracks: state.engine.textTracks,
   overlayOpen: state.cvaa.overlayOpen,
   isMobile: state.shell.isMobile,
-  isSmallSize: state.shell.isSmallSize,
-  playerSize: state.shell.playerSize
+  isSmallSize: state.shell.isSmallSize
 });
 
 const COMPONENT_NAME = 'Language';
@@ -201,7 +200,11 @@ class Language extends Component {
             {textOptions.length <= 1 ? (
               undefined
             ) : (
-              <AdvancedCaptionsAnchor onMenuChosen={() => this.toggleCVAAOverlay()} onClose={() => this.onControlButtonClick()} />
+              <AdvancedCaptionsAnchor
+                isPortal={this.props.isMobile || this.props.isSmallSize}
+                onMenuChosen={() => this.toggleCVAAOverlay()}
+                onClose={() => this.onControlButtonClick()}
+              />
             )}
           </SmartContainer>
         )}
@@ -265,7 +268,7 @@ class AdvancedCaptionsAnchor extends Component {
     return (
       <div className={style.smartContainerItem}>
         <a
-          tabIndex="0"
+          tabIndex={props.isPortal ? '0' : '-1'}
           ref={el => {
             if (props.pushRef) {
               props.pushRef(el);

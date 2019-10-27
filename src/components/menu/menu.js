@@ -15,14 +15,13 @@ import {KeyMap} from 'utils/key-map';
 const mapStateToProps = state => ({
   isMobile: state.shell.isMobile,
   isSmallSize: state.shell.isSmallSize,
-  playerClientRect: state.shell.playerClientRect,
-  playerSize: state.shell.playerSize
+  playerClientRect: state.shell.playerClientRect
 });
 
 const COMPONENT_NAME = 'Menu';
 
 @connect(mapStateToProps)
-@withKeyboardA11y(false)
+@withKeyboardA11y
 /**
  * Menu component
  *
@@ -246,10 +245,10 @@ class MenuItem extends Component {
     return (
       <div
         tabIndex="-1"
-        ref={se => {
-          this.props.addAccessibleChild(se);
+        ref={element => {
+          this.props.addAccessibleChild(element);
           if (props.isSelected(props.data)) {
-            props.setDefaultFocusedElement(se);
+            props.setDefaultFocusedElement(element);
           }
         }}
         className={props.isSelected(props.data) ? [style.dropdownMenuItem, style.active].join(' ') : style.dropdownMenuItem}

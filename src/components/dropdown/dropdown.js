@@ -13,8 +13,7 @@ import {KeyMap} from '../../utils/key-map';
  */
 const mapStateToProps = state => ({
   isMobile: state.shell.isMobile,
-  isSmallSize: state.shell.isSmallSize,
-  playerSize: state.shell.playerSize
+  isSmallSize: state.shell.isSmallSize
 });
 
 const COMPONENT_NAME = 'DropDown';
