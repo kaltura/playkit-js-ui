@@ -71,13 +71,12 @@ class Keyboard extends Component {
     playerContainer.onkeydown = (e: KeyboardEvent) => {
       if (!this.props.shareOverlay && !this.props.playerNav && typeof this.keyboardHandlers[e.keyCode] === 'function') {
         this.props.logger.debug(`KeyDown -> keyName: ${getKeyName(e.keyCode)}, shiftKey: ${e.shiftKey.toString()}`);
-        const keyHandler = this.keyboardHandlers[e.keyCode](e);
-        if (keyHandler) {
+        const {preventDefault, payload} = this.keyboardHandlers[e.keyCode](e);
+        if (preventDefault) {
           e.preventDefault();
-          const payload = keyHandler[e.keyCode];
-          if (payload) {
-            this.props.notifyClick({key: e.keyCode, ...payload});
-          }
+        }
+        if (payload) {
+          this.props.notifyClick({key: e.keyCode, ...payload});
         }
       }
     };
@@ -105,8 +104,8 @@ class Keyboard extends Component {
    *
    * @memberof Keyboard
    */
-  keyboardHandlers: {[key: number]: Function} = {
-    [KeyMap.SPACE]: () => {
+  keyboardHandlers: {[key: number]: (event: KeyboardEvent) => {preventDefault: boolean, payload: any}} = {
+    [KeyMap.SPACE]: (): {preventDefault: boolean, payload: any} => {
       if (this.props.isPlayingAdOrPlayback) {
         this.props.player.pause();
         this.props.updateOverlayActionIcon(IconType.Pause);
@@ -115,9 +114,9 @@ class Keyboard extends Component {
         this.props.updateOverlayActionIcon(IconType.Play);
       }
       this.toggleHoverState();
-      return {[KeyMap.SPACE]: true};
+      return {preventDefault: true, payload: true};
     },
-    [KeyMap.UP]: () => {
+    [KeyMap.UP]: (): {preventDefault: boolean, payload: any} => {
       let newVolume = (Math.round(this.props.player.volume * 100) + KEYBOARD_DEFAULT_VOLUME_JUMP) / 100;
       newVolume = newVolume > 1 ? 1 : newVolume;
       this.props.logger.debug(`Changing volume. ${this.props.player.volume} => ${newVolume}`);
@@ -126,9 +125,9 @@ class Keyboard extends Component {
       }
       this.props.player.volume = newVolume;
       this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWaves]);
-      return {[KeyMap.UP]: {volume: this.props.player.volume}};
+      return {preventDefault: true, payload: {volume: this.props.player.volume}};
     },
-    [KeyMap.DOWN]: () => {
+    [KeyMap.DOWN]: (): {preventDefault: boolean, payload: any} => {
       let newVolume = (Math.round(this.props.player.volume * 100) - KEYBOARD_DEFAULT_VOLUME_JUMP) / 100;
       newVolume = newVolume < 0 ? 0 : newVolume;
       this.props.logger.debug(`Changing volume. ${this.props.player.volume} => ${newVolume}`);
@@ -139,17 +138,17 @@ class Keyboard extends Component {
       } else {
         this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWave]);
       }
-      return {[KeyMap.DOWN]: {volume: this.props.player.volume}};
+      return {preventDefault: true, payload: {volume: this.props.player.volume}};
     },
-    [KeyMap.F]: () => {
+    [KeyMap.F]: (): {preventDefault: boolean, payload: any} => {
       if (!this.props.player.isFullscreen()) {
         this.props.logger.debug('Enter fullscreen');
         this.props.player.enterFullscreen();
-        return {[KeyMap.F]: true};
+        return {preventDefault: true, payload: true};
       }
-      return {[KeyMap.F]: null};
+      return {preventDefault: true, payload: null};
     },
-    [KeyMap.P]: () => {
+    [KeyMap.P]: (): {preventDefault: boolean, payload: any} => {
       if (!this.props.player.isInPictureInPicture()) {
         this.props.logger.debug('Enter Picture In Picture');
         this.props.player.enterPictureInPicture();
@@ -158,17 +157,17 @@ class Keyboard extends Component {
         this.props.player.exitPictureInPicture();
       }
       this.toggleHoverState();
-      return {[KeyMap.P]: true};
+      return {preventDefault: true, payload: true};
     },
-    [KeyMap.ESC]: () => {
+    [KeyMap.ESC]: (): {preventDefault: boolean, payload: any} => {
       if (this.props.player.isFullscreen()) {
         this.props.logger.debug('Exit fullscreen');
         this.props.player.exitFullscreen();
-        return {[KeyMap.ESC]: true};
+        return {preventDefault: true, payload: true};
       }
-      return {[KeyMap.ESC]: null};
+      return {preventDefault: true, payload: null};
     },
-    [KeyMap.LEFT]: () => {
+    [KeyMap.LEFT]: (): {preventDefault: boolean, payload: any} => {
       if (!(this.props.player.ads && this.props.player.ads.isAdBreak())) {
         const newTime = this.props.player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP;
         const from = this.props.player.currentTime;
@@ -177,11 +176,11 @@ class Keyboard extends Component {
         this.props.player.currentTime = to;
         this.props.updateOverlayActionIcon(IconType.Rewind);
         this.toggleHoverState();
-        return {[KeyMap.LEFT]: {from: from, to: to}};
+        return {preventDefault: true, payload: {from: from, to: to}};
       }
-      return {[KeyMap.LEFT]: null};
+      return {preventDefault: true, payload: null};
     },
-    [KeyMap.RIGHT]: () => {
+    [KeyMap.RIGHT]: (): {preventDefault: boolean, payload: any} => {
       if (!(this.props.player.ads && this.props.player.ads.isAdBreak())) {
         const newTime = this.props.player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP;
         const from = this.props.player.currentTime;
@@ -190,11 +189,11 @@ class Keyboard extends Component {
         this.props.player.currentTime = newTime > this.props.player.duration ? this.props.player.duration : newTime;
         this.props.updateOverlayActionIcon(IconType.Forward);
         this.toggleHoverState();
-        return {[KeyMap.RIGHT]: {from: from, to: to}};
+        return {preventDefault: true, payload: {from: from, to: to}};
       }
-      return {[KeyMap.RIGHT]: null};
+      return {preventDefault: true, payload: null};
     },
-    [KeyMap.HOME]: () => {
+    [KeyMap.HOME]: (): {preventDefault: boolean, payload: any} => {
       if (!(this.props.player.ads && this.props.player.ads.isAdBreak())) {
         const from = this.props.player.currentTime;
         const to = 0;
@@ -202,11 +201,11 @@ class Keyboard extends Component {
         this.props.player.currentTime = to;
         this.props.updateOverlayActionIcon(IconType.StartOver);
         this.toggleHoverState();
-        return {[KeyMap.HOME]: {from: from, to: to}};
+        return {preventDefault: true, payload: {from: from, to: to}};
       }
-      return {[KeyMap.HOME]: null};
+      return {preventDefault: true, payload: null};
     },
-    [KeyMap.END]: () => {
+    [KeyMap.END]: (): {preventDefault: boolean, payload: any} => {
       if (!(this.props.player.ads && this.props.player.ads.isAdBreak())) {
         const from = this.props.player.currentTime;
         const to = this.props.player.duration;
@@ -214,30 +213,31 @@ class Keyboard extends Component {
         this.props.player.currentTime = to;
         this.props.updateOverlayActionIcon(IconType.SeekEnd);
         this.toggleHoverState();
-        return {[KeyMap.END]: {from: from, to: to}};
+        return {preventDefault: true, payload: {from: from, to: to}};
       }
-      return {[KeyMap.END]: null};
+      return {preventDefault: true, payload: null};
     },
-    [KeyMap.M]: () => {
+    [KeyMap.M]: (): {preventDefault: boolean, payload: any} => {
       this.props.logger.debug(this.props.player.muted ? 'Umnute' : 'Mute');
       this.props.player.muted = !this.props.player.muted;
       this.props.player.muted
         ? this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeMute])
         : this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWaves]);
-      return {[KeyMap.M]: true};
+      return {preventDefault: true, payload: true};
     },
-    [KeyMap.SEMI_COLON]: (event: KeyboardEvent) => {
+    [KeyMap.SEMI_COLON]: (event: KeyboardEvent): {preventDefault: boolean, payload: any} => {
       if (event.shiftKey) {
         if (this.props.player.playbackRate !== this.props.player.defaultPlaybackRate) {
           this.props.logger.debug(`Changing playback rate. ${this.props.player.playbackRate} => ${this.props.player.defaultPlaybackRate}`);
           this.props.player.playbackRate = this.props.player.defaultPlaybackRate;
           this.props.updateOverlayActionIcon(IconType.Speed);
-          return {[KeyMap.SEMI_COLON]: {speed: this.props.player.defaultPlaybackRate}};
+          return {preventDefault: true, payload: {speed: this.props.player.defaultPlaybackRate}};
         }
-        return {[KeyMap.SEMI_COLON]: null};
+        return {preventDefault: true, payload: null};
       }
+      return {preventDefault: false, payload: null};
     },
-    [KeyMap.PERIOD]: (event: KeyboardEvent) => {
+    [KeyMap.PERIOD]: (event: KeyboardEvent): {preventDefault: boolean, payload: any} => {
       if (event.shiftKey) {
         const playbackRate = this.props.player.playbackRate;
         const index = this.props.player.playbackRates.indexOf(playbackRate);
@@ -245,12 +245,13 @@ class Keyboard extends Component {
           this.props.logger.debug(`Changing playback rate. ${playbackRate} => ${this.props.player.playbackRates[index + 1]}`);
           this.props.player.playbackRate = this.props.player.playbackRates[index + 1];
           this.props.updateOverlayActionIcon(IconType.SpeedUp);
-          return {[KeyMap.PERIOD]: {speed: this.props.player.playbackRates[index + 1]}};
+          return {preventDefault: true, payload: {speed: this.props.player.playbackRates[index + 1]}};
         }
-        return {[KeyMap.PERIOD]: null};
+        return {preventDefault: true, payload: null};
       }
+      return {preventDefault: false, payload: null};
     },
-    [KeyMap.COMMA]: (event: KeyboardEvent) => {
+    [KeyMap.COMMA]: (event: KeyboardEvent): {preventDefault: boolean, payload: any} => {
       if (event.shiftKey) {
         const playbackRate = this.props.player.playbackRate;
         const index = this.props.player.playbackRates.indexOf(playbackRate);
@@ -258,26 +259,27 @@ class Keyboard extends Component {
           this.props.logger.debug(`Changing playback rate. ${playbackRate} => ${this.props.player.playbackRates[index - 1]}`);
           this.props.player.playbackRate = this.props.player.playbackRates[index - 1];
           this.props.updateOverlayActionIcon(IconType.SpeedDown);
-          return {[KeyMap.COMMA]: {speed: this.props.player.playbackRates[index - 1]}};
+          return {preventDefault: true, payload: {speed: this.props.player.playbackRates[index - 1]}};
         }
-        return {[KeyMap.COMMA]: null};
+        return {preventDefault: true, payload: null};
       }
+      return {preventDefault: false, payload: null};
     },
-    [KeyMap.C]: (event: KeyboardEvent) => {
-      if (event.altKey || event.shiftKey || event.ctrlKey || event.metaKey) return; // if key is combined then exit
+    [KeyMap.C]: (event: KeyboardEvent): {preventDefault: boolean, payload: any} => {
       let activeTextTrack = this.props.player.getActiveTracks().text;
-      if (!activeTextTrack) return; // if not active track then exit
+      // if not active track then exit or if key is combined then exit
+      if (!activeTextTrack || event.altKey || event.shiftKey || event.ctrlKey || event.metaKey) return {preventDefault: false, payload: null};
       if (activeTextTrack.language === 'off' && this._lastActiveTextLanguage) {
         this.props.logger.debug(`Changing text track to language`, this._lastActiveTextLanguage);
         const selectedTextTrack = this.props.player.getTracks('text').find(track => track.language === this._lastActiveTextLanguage);
         this.props.player.selectTrack(selectedTextTrack);
-        return {[KeyMap.C]: {track: selectedTextTrack}};
+        return {preventDefault: true, payload: {track: selectedTextTrack}};
       } else if (activeTextTrack.language !== 'off' && !this._lastActiveTextLanguage) {
         this.props.logger.debug(`Hiding text track`);
         this._lastActiveTextLanguage = activeTextTrack.language;
         this.props.player.hideTextTrack();
       }
-      return {[KeyMap.C]: null};
+      return {preventDefault: true, payload: null};
     }
   };
 
