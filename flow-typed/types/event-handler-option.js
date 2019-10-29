@@ -1,5 +1,5 @@
 // @flow
-declare type EventHandlerOption = {
+declare type KeyboardEventResult = {
   preventDefault: boolean,
   payload: any
 };

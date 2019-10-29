@@ -104,8 +104,8 @@ class Keyboard extends Component {
    *
    * @memberof Keyboard
    */
-  keyboardHandlers: {[key: number]: (event: KeyboardEvent) => EventHandlerOption} = {
-    [KeyMap.SPACE]: (): EventHandlerOption => {
+  keyboardHandlers: {[key: number]: (event: KeyboardEvent) => KeyboardEventResult} = {
+    [KeyMap.SPACE]: (): KeyboardEventResult => {
       if (this.props.isPlayingAdOrPlayback) {
         this.props.player.pause();
         this.props.updateOverlayActionIcon(IconType.Pause);
@@ -116,7 +116,7 @@ class Keyboard extends Component {
       this.toggleHoverState();
       return {preventDefault: true, payload: true};
     },
-    [KeyMap.UP]: (): EventHandlerOption => {
+    [KeyMap.UP]: (): KeyboardEventResult => {
       let newVolume = (Math.round(this.props.player.volume * 100) + KEYBOARD_DEFAULT_VOLUME_JUMP) / 100;
       newVolume = newVolume > 1 ? 1 : newVolume;
       this.props.logger.debug(`Changing volume. ${this.props.player.volume} => ${newVolume}`);
@@ -127,7 +127,7 @@ class Keyboard extends Component {
       this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWaves]);
       return {preventDefault: true, payload: {volume: this.props.player.volume}};
     },
-    [KeyMap.DOWN]: (): EventHandlerOption => {
+    [KeyMap.DOWN]: (): KeyboardEventResult => {
       let newVolume = (Math.round(this.props.player.volume * 100) - KEYBOARD_DEFAULT_VOLUME_JUMP) / 100;
       newVolume = newVolume < 0 ? 0 : newVolume;
       this.props.logger.debug(`Changing volume. ${this.props.player.volume} => ${newVolume}`);
@@ -140,7 +140,7 @@ class Keyboard extends Component {
       }
       return {preventDefault: true, payload: {volume: this.props.player.volume}};
     },
-    [KeyMap.F]: (): EventHandlerOption => {
+    [KeyMap.F]: (): KeyboardEventResult => {
       if (!this.props.player.isFullscreen()) {
         this.props.logger.debug('Enter fullscreen');
         this.props.player.enterFullscreen();
@@ -148,7 +148,7 @@ class Keyboard extends Component {
       }
       return {preventDefault: true, payload: null};
     },
-    [KeyMap.P]: (): EventHandlerOption => {
+    [KeyMap.P]: (): KeyboardEventResult => {
       if (!this.props.player.isInPictureInPicture()) {
         this.props.logger.debug('Enter Picture In Picture');
         this.props.player.enterPictureInPicture();
@@ -159,7 +159,7 @@ class Keyboard extends Component {
       this.toggleHoverState();
       return {preventDefault: true, payload: true};
     },
-    [KeyMap.ESC]: (): EventHandlerOption => {
+    [KeyMap.ESC]: (): KeyboardEventResult => {
       if (this.props.player.isFullscreen()) {
         this.props.logger.debug('Exit fullscreen');
         this.props.player.exitFullscreen();
@@ -167,7 +167,7 @@ class Keyboard extends Component {
       }
       return {preventDefault: true, payload: null};
     },
-    [KeyMap.LEFT]: (): EventHandlerOption => {
+    [KeyMap.LEFT]: (): KeyboardEventResult => {
       if (!(this.props.player.ads && this.props.player.ads.isAdBreak())) {
         const newTime = this.props.player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP;
         const from = this.props.player.currentTime;
@@ -180,7 +180,7 @@ class Keyboard extends Component {
       }
       return {preventDefault: true, payload: null};
     },
-    [KeyMap.RIGHT]: (): EventHandlerOption => {
+    [KeyMap.RIGHT]: (): KeyboardEventResult => {
       if (!(this.props.player.ads && this.props.player.ads.isAdBreak())) {
         const newTime = this.props.player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP;
         const from = this.props.player.currentTime;
@@ -193,7 +193,7 @@ class Keyboard extends Component {
       }
       return {preventDefault: true, payload: null};
     },
-    [KeyMap.HOME]: (): EventHandlerOption => {
+    [KeyMap.HOME]: (): KeyboardEventResult => {
       if (!(this.props.player.ads && this.props.player.ads.isAdBreak())) {
         const from = this.props.player.currentTime;
         const to = 0;
@@ -205,7 +205,7 @@ class Keyboard extends Component {
       }
       return {preventDefault: true, payload: null};
     },
-    [KeyMap.END]: (): EventHandlerOption => {
+    [KeyMap.END]: (): KeyboardEventResult => {
       if (!(this.props.player.ads && this.props.player.ads.isAdBreak())) {
         const from = this.props.player.currentTime;
         const to = this.props.player.duration;
@@ -217,7 +217,7 @@ class Keyboard extends Component {
       }
       return {preventDefault: true, payload: null};
     },
-    [KeyMap.M]: (): EventHandlerOption => {
+    [KeyMap.M]: (): KeyboardEventResult => {
       this.props.logger.debug(this.props.player.muted ? 'Umnute' : 'Mute');
       this.props.player.muted = !this.props.player.muted;
       this.props.player.muted
@@ -225,7 +225,7 @@ class Keyboard extends Component {
         : this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWaves]);
       return {preventDefault: true, payload: true};
     },
-    [KeyMap.SEMI_COLON]: (event: KeyboardEvent): EventHandlerOption => {
+    [KeyMap.SEMI_COLON]: (event: KeyboardEvent): KeyboardEventResult => {
       if (event.shiftKey) {
         if (this.props.player.playbackRate !== this.props.player.defaultPlaybackRate) {
           this.props.logger.debug(`Changing playback rate. ${this.props.player.playbackRate} => ${this.props.player.defaultPlaybackRate}`);
@@ -237,7 +237,7 @@ class Keyboard extends Component {
       }
       return {preventDefault: false, payload: null};
     },
-    [KeyMap.PERIOD]: (event: KeyboardEvent): EventHandlerOption => {
+    [KeyMap.PERIOD]: (event: KeyboardEvent): KeyboardEventResult => {
       if (event.shiftKey) {
         const playbackRate = this.props.player.playbackRate;
         const index = this.props.player.playbackRates.indexOf(playbackRate);
@@ -251,7 +251,7 @@ class Keyboard extends Component {
       }
       return {preventDefault: false, payload: null};
     },
-    [KeyMap.COMMA]: (event: KeyboardEvent): EventHandlerOption => {
+    [KeyMap.COMMA]: (event: KeyboardEvent): KeyboardEventResult => {
       if (event.shiftKey) {
         const playbackRate = this.props.player.playbackRate;
         const index = this.props.player.playbackRates.indexOf(playbackRate);
@@ -265,7 +265,7 @@ class Keyboard extends Component {
       }
       return {preventDefault: false, payload: null};
     },
-    [KeyMap.C]: (event: KeyboardEvent): EventHandlerOption => {
+    [KeyMap.C]: (event: KeyboardEvent): KeyboardEventResult => {
       let activeTextTrack = this.props.player.getActiveTracks().text;
       // if not active track then exit or if key is combined then exit
       if (!activeTextTrack || event.altKey || event.shiftKey || event.ctrlKey || event.metaKey) return {preventDefault: false, payload: null};
