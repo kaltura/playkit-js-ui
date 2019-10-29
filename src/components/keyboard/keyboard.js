@@ -267,17 +267,19 @@ class Keyboard extends Component {
     },
     [KeyMap.C]: (event: KeyboardEvent): KeyboardEventResult => {
       let activeTextTrack = this.props.player.getActiveTracks().text;
-      // if not active track then exit or if key is combined then exit
-      if (!activeTextTrack || event.altKey || event.shiftKey || event.ctrlKey || event.metaKey) return {preventDefault: false, payload: null};
-      if (activeTextTrack.language === 'off' && this._lastActiveTextLanguage) {
-        this.props.logger.debug(`Changing text track to language`, this._lastActiveTextLanguage);
-        const selectedTextTrack = this.props.player.getTracks('text').find(track => track.language === this._lastActiveTextLanguage);
-        this.props.player.selectTrack(selectedTextTrack);
-        return {preventDefault: true, payload: {track: selectedTextTrack}};
-      } else if (activeTextTrack.language !== 'off' && !this._lastActiveTextLanguage) {
-        this.props.logger.debug(`Hiding text track`);
-        this._lastActiveTextLanguage = activeTextTrack.language;
-        this.props.player.hideTextTrack();
+      //if key is combined then exit
+      if (event.altKey || event.shiftKey || event.ctrlKey || event.metaKey) return {preventDefault: false, payload: null};
+      if (activeTextTrack) {
+        if (activeTextTrack.language === 'off' && this._lastActiveTextLanguage) {
+          this.props.logger.debug(`Changing text track to language`, this._lastActiveTextLanguage);
+          const selectedTextTrack = this.props.player.getTracks('text').find(track => track.language === this._lastActiveTextLanguage);
+          this.props.player.selectTrack(selectedTextTrack);
+          return {preventDefault: true, payload: {track: selectedTextTrack}};
+        } else if (activeTextTrack.language !== 'off' && !this._lastActiveTextLanguage) {
+          this.props.logger.debug(`Hiding text track`);
+          this._lastActiveTextLanguage = activeTextTrack.language;
+          this.props.player.hideTextTrack();
+        }
       }
       return {preventDefault: true, payload: null};
     }
