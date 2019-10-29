@@ -235,7 +235,7 @@ class Keyboard extends Component {
         }
         return {preventDefault: true, payload: null};
       }
-      return {preventDefault: false, payload: null};
+      return this.unhandledKeyboardEventResult;
     },
     [KeyMap.PERIOD]: (event: KeyboardEvent): KeyboardEventResult => {
       if (event.shiftKey) {
@@ -249,7 +249,7 @@ class Keyboard extends Component {
         }
         return {preventDefault: true, payload: null};
       }
-      return {preventDefault: false, payload: null};
+      return this.unhandledKeyboardEventResult;
     },
     [KeyMap.COMMA]: (event: KeyboardEvent): KeyboardEventResult => {
       if (event.shiftKey) {
@@ -263,12 +263,12 @@ class Keyboard extends Component {
         }
         return {preventDefault: true, payload: null};
       }
-      return {preventDefault: false, payload: null};
+      return this.unhandledKeyboardEventResult;
     },
     [KeyMap.C]: (event: KeyboardEvent): KeyboardEventResult => {
       let activeTextTrack = this.props.player.getActiveTracks().text;
       //if key is combined then exit
-      if (event.altKey || event.shiftKey || event.ctrlKey || event.metaKey) return {preventDefault: false, payload: null};
+      if (event.altKey || event.shiftKey || event.ctrlKey || event.metaKey) return this.unhandledKeyboardEventResult;
       if (activeTextTrack) {
         if (activeTextTrack.language === 'off' && this._lastActiveTextLanguage) {
           this.props.logger.debug(`Changing text track to language`, this._lastActiveTextLanguage);
@@ -302,6 +302,15 @@ class Keyboard extends Component {
       this.props.updatePlayerHoverState(false);
       this.props.notifyHoverChange({hover: false});
     }, CONTROL_BAR_HOVER_DEFAULT_TIMEOUT);
+  }
+
+  /** get unhandled value for keyboard event
+   *
+   * @returns {KeyboardEventResult} - default result
+   * @memberof Keyboard
+   */
+  get unhandledKeyboardEventResult(): KeyboardEventResult {
+    return {preventDefault: false, payload: null};
   }
 }
 
