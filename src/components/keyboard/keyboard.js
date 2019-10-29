@@ -164,7 +164,7 @@ class Keyboard extends Component {
       }
     },
     [KeyMap.LEFT]: () => {
-      if (!(this.props.player.ads && this.props.player.ads.isAdBreak())) {
+      if (!(this.props.player.ads && this.props.player.ads.isAdBreak()) && !(this.props.player.isLive() && !this.props.player.isDvr())) {
         const newTime = this.props.player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP;
         const from = this.props.player.currentTime;
         const to = newTime > 0 ? newTime : 0;
@@ -176,7 +176,7 @@ class Keyboard extends Component {
       }
     },
     [KeyMap.RIGHT]: () => {
-      if (!(this.props.player.ads && this.props.player.ads.isAdBreak())) {
+      if (!(this.props.player.ads && this.props.player.ads.isAdBreak()) && !(this.props.player.isLive() && !this.props.player.isDvr())) {
         const newTime = this.props.player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP;
         const from = this.props.player.currentTime;
         const to = newTime > this.props.player.duration ? this.props.player.duration : newTime;
@@ -188,7 +188,7 @@ class Keyboard extends Component {
       }
     },
     [KeyMap.HOME]: () => {
-      if (!(this.props.player.ads && this.props.player.ads.isAdBreak())) {
+      if (!(this.props.player.ads && this.props.player.ads.isAdBreak()) && !(this.props.player.isLive() && !this.props.player.isDvr())) {
         const from = this.props.player.currentTime;
         const to = 0;
         this.props.logger.debug(`Seek. ${from} => ${to}`);
@@ -199,7 +199,7 @@ class Keyboard extends Component {
       }
     },
     [KeyMap.END]: () => {
-      if (!(this.props.player.ads && this.props.player.ads.isAdBreak())) {
+      if (!(this.props.player.ads && this.props.player.ads.isAdBreak()) && !(this.props.player.isLive() && !this.props.player.isDvr())) {
         const from = this.props.player.currentTime;
         const to = this.props.player.duration;
         this.props.logger.debug(`Seek. ${from} => ${to}`);
