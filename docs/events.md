@@ -4,6 +4,7 @@
 | --------------------------------------------------------------- |
 | [`UI_CLICKED`](#UI_CLICKED)                                     |
 | [`UI_VISIBILITY_CHANGED`](#UI_VISIBILITY_CHANGED)               |
+| [`ACTIVE_PRESET_CHANGED`](#ACTIVE_PRESET_CHANGED)               |
 | [`USER_CLICKED_PLAY`](#USER_CLICKED_PLAY)                       |
 | [`USER_CLICKED_PAUSE`](#USER_CLICKED_PAUSE)                     |
 | [`USER_CLICKED_REWIND`](#USER_CLICKED_REWIND)                   |
@@ -36,6 +37,28 @@
 > | Name      | Type      | Description                                            |
 > | --------- | --------- | ------------------------------------------------------ |
 > | `visible` | `boolean` | True when the UI is shown, false when the UI is hidden |
+
+#
+
+> ### <a name="ACTIVE_PRESET_RESIZE"></a>ACTIVE_PRESET_RESIZE
+>
+> Fires when the active preset is resized.
+> <br><br>_payload parameters:_
+>
+> | Name      | Type      | Description                                            |
+> | --------- | --------- | ------------------------------------------------------ |
+> SAKAL tbd
+
+#
+
+> ### <a name="ACTIVE_PRESET_CHANGED"></a>ACTIVE_PRESET_CHANGED
+>
+> Fires when the active preset is changed.
+> <br><br>_payload parameters:_
+>
+> | Name      | Type      | Description                                            |
+> | --------- | --------- | ------------------------------------------------------ |
+> | `presetName` | `string | null` | The name of the preset being activated. Value will be null every time that we change preset or if preset is simple and doesn't support advanced preset features like side panels  |
 
 #
 

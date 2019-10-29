@@ -7,6 +7,8 @@ import {CaptionsStyleSelectedEvent} from '../event/events/captions-style-selecte
 import {QualitySelectedEvent} from '../event/events/quality-selected-event';
 import {SeekedEvent} from '../event/events/seeked-event';
 import {SpeedSelectedEvent} from '../event/events/speed-selected-event';
+import {ActivePresetChangedEvent} from '../event/events/active-preset-changed-event';
+import {ActivePresetResizeEvent} from '../event/events/active-preset-resize-event';
 import {UIVisibilityChangedEvent} from '../event/events/ui-visibility-changed-event';
 import {RewindClickedEvent} from '../event/events/rewind-clicked';
 import {ForwardClickedEvent} from '../event/events/forward-clicked';
@@ -42,8 +44,45 @@ const eventDispatcherMiddleware = (player: Object) => (store: Object) => (next: 
     default:
       break;
   }
+
   next(action);
+
+  switch (action.type) {
+    case shell.UPDATE_ACTIVE_PRESET_NAME:
+      onActivePresetNameChangeHandler(store, action, player);
+      break;
+    case shell.UPDATE_PRESET_CLIENT_RECT:
+      onActivePresetResizeHandler(store, action, player);
+      break;
+
+    default:
+      break;
+  }
 };
+
+/**
+ * Handler for active preset resize change action
+ * @param {any} store - The redux store.
+ * @param {Object} action - The action object.
+ * @param {Object} player - The video player.
+ * @returns {void}
+ */
+function onActivePresetResizeHandler(store: any, action: Object, player: Object): void {
+  const presetClientRect = store.getState().shell.presetClientRect;
+  player.dispatchEvent(new ActivePresetResizeEvent(presetClientRect));
+}
+
+/**
+ * Handler for active preset name change action.
+ * @param {any} store - The redux store.
+ * @param {Object} action - The action object.
+ * @param {Object} player - The video player.
+ * @returns {void}
+ */
+function onActivePresetNameChangeHandler(store: any, action: Object, player: Object): void {
+  const activePresetName = store.getState().shell.activePresetName;
+  player.dispatchEvent(new ActivePresetChangedEvent(activePresetName));
+}
 
 /**
  * Handler for hover state change action.
