@@ -365,7 +365,7 @@ class Shell extends Component {
         this.props.updatePlayerSize(PLAYER_SIZE.EXTRA_LARGE);
       }
 
-      this.props.updatePlayerIsSmallSize(
+      this.props.updateIsSmallSize(
         // in Tiny the ui is minimal and therefore this check is not relevant - left it this way to maintain current logic
         [PLAYER_SIZE.SMALL, PLAYER_SIZE.EXTRA_SMALL].includes(this.props.playerSize)
       );

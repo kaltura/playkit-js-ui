@@ -11,7 +11,6 @@ export const withKeyboardA11y: Function = (WrappedComponent: Component): typeof 
   class KeyBoardAccessibility extends Component {
     _defaultFocusedElement: HTMLElement;
     _accessibleChildren: Array<HTMLElement> = [];
-    _activeElement: ?HTMLElement;
     _previouslyActiveElement: ?HTMLElement;
     _isModal: boolean = false;
 
@@ -49,8 +48,8 @@ export const withKeyboardA11y: Function = (WrappedComponent: Component): typeof 
           break;
         case KeyMap.DOWN:
         case KeyMap.UP:
-          if (this._activeElement && !this._isModal) {
-            let activeElementIndex = this._accessibleChildren.indexOf(this._activeElement);
+          if (document.activeElement && !this._isModal) {
+            let activeElementIndex = this._accessibleChildren.indexOf(document.activeElement);
             activeElementIndex =
               (activeElementIndex + (e.keyCode == KeyMap.DOWN ? 1 : -1) + this._accessibleChildren.length) % this._accessibleChildren.length;
             this._accessibleChildren[activeElementIndex].focus();
@@ -62,11 +61,11 @@ export const withKeyboardA11y: Function = (WrappedComponent: Component): typeof 
         case KeyMap.TAB:
           // hijack tab click to enforce accessibility only inside the modal
           if (this._isModal) {
-            if (!e.shiftKey && this._activeElement === this._accessibleChildren[this._accessibleChildren.length - 1]) {
+            if (!e.shiftKey && document.activeElement === this._accessibleChildren[this._accessibleChildren.length - 1]) {
               this._accessibleChildren[0].focus();
               e.preventDefault();
               e.stopPropagation();
-            } else if (e.shiftKey && this._activeElement === this._accessibleChildren[0]) {
+            } else if (e.shiftKey && document.activeElement === this._accessibleChildren[0]) {
               this._accessibleChildren[this._accessibleChildren.length - 1].focus();
               e.preventDefault();
               e.stopPropagation();
@@ -81,10 +80,6 @@ export const withKeyboardA11y: Function = (WrappedComponent: Component): typeof 
 
           break;
       }
-      // keep the new active element after the keydown
-      setTimeout(() => {
-        this._activeElement = document.activeElement;
-      }, 0);
     }
 
     /**
@@ -171,10 +166,13 @@ export const withKeyboardA11y: Function = (WrappedComponent: Component): typeof 
      * @memberof HOC
      */
     focusOnDefault(): void {
-      this._activeElement = this._defaultFocusedElement || (this._accessibleChildren.length && this._accessibleChildren[0]);
-      if (this._activeElement) {
-        this._previouslyActiveElement = document.activeElement;
-        this._activeElement.focus();
+      let _defaultElement = this._defaultFocusedElement || (this._accessibleChildren.length && this._accessibleChildren[0]);
+      if (_defaultElement) {
+        if (!this._previouslyActiveElement) {
+          this._previouslyActiveElement = document.activeElement;
+        }
+
+        _defaultElement.focus();
       }
     }
   };

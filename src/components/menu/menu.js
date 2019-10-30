@@ -133,23 +133,6 @@ class Menu extends Component {
   }
 
   /**
-   * when option selected, change the active prop immediately for instant ui change
-   * and call the onSelect callback with the option value
-   *
-   * @param {Object} option - option object
-   * @returns {void}
-   * @memberof Menu
-   */
-  onSelect(option: Object): void {
-    this.props.onMenuChosen(option.value);
-    // Instant select
-    this.props.options.filter(t => t.active).forEach(option => {
-      option.active = false;
-    });
-    this.props.options.filter(t => t.value === option.value)[0].active = true;
-  }
-
-  /**
    * get active option label
    *
    * @returns {string} active option label
@@ -214,7 +197,7 @@ class Menu extends Component {
             addAccessibleChild={props.addAccessibleChild}
             isSelected={this.isSelected}
             onSelect={option => {
-              this.onSelect(option);
+              this.props.onMenuChosen(option.value);
             }}
             key={index}
             data={o}

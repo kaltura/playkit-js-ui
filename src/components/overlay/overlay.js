@@ -98,9 +98,6 @@ class Overlay extends Component {
         className={overlayClass.join(' ')}
         role="dialog"
         onKeyDown={e => {
-          if (e.keyCode === KeyMap.ESC) {
-            props.onClose();
-          }
           if (props.handleKeyDown) {
             props.handleKeyDown(e);
           }

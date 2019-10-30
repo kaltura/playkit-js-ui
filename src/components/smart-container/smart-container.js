@@ -72,7 +72,15 @@ class SmartContainer extends Component {
    * @memberof SmartContainer
    */
   componentDidMount(): void {
-    this.props.setIsModal(this.props.isMobile || this.props.isSmallSize);
+    this.props.setIsModal(this.isPortal);
+  }
+
+  /**
+   * calc to show in portal mode
+   * @returns {boolean} - is portal
+   */
+  get isPortal(): boolean {
+    return this.props.isMobile || this.props.isSmallSize;
   }
 
   /**
@@ -86,7 +94,7 @@ class SmartContainer extends Component {
   render(props: any): React$Element<any> {
     const portalSelector = `#${this.props.targetId} .overlay-portal`;
     props.clearAccessibleChildren();
-    return this.props.isMobile || this.props.isSmallSize ? (
+    return this.isPortal ? (
       <Portal
         into={portalSelector}
         ref={ref =>
