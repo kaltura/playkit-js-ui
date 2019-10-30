@@ -38,6 +38,8 @@ export const KEYBOARD_DEFAULT_SEEK_JUMP: number = 5;
 export const KEYBOARD_DEFAULT_VOLUME_JUMP: number = 5;
 
 const COMPONENT_NAME = 'Keyboard';
+//unhandled keyboard event result
+const UNHANDLED_KEYBOARD_EVENT_RESULT: KeyboardEventResult = {preventDefault: false, payload: null};
 
 @connect(
   mapStateToProps,
@@ -235,7 +237,7 @@ class Keyboard extends Component {
         }
         return {preventDefault: true, payload: null};
       }
-      return this.unhandledKeyboardEventResult;
+      return UNHANDLED_KEYBOARD_EVENT_RESULT;
     },
     [KeyMap.PERIOD]: (event: KeyboardEvent): KeyboardEventResult => {
       if (event.shiftKey) {
@@ -249,7 +251,7 @@ class Keyboard extends Component {
         }
         return {preventDefault: true, payload: null};
       }
-      return this.unhandledKeyboardEventResult;
+      return UNHANDLED_KEYBOARD_EVENT_RESULT;
     },
     [KeyMap.COMMA]: (event: KeyboardEvent): KeyboardEventResult => {
       if (event.shiftKey) {
@@ -263,12 +265,12 @@ class Keyboard extends Component {
         }
         return {preventDefault: true, payload: null};
       }
-      return this.unhandledKeyboardEventResult;
+      return UNHANDLED_KEYBOARD_EVENT_RESULT;
     },
     [KeyMap.C]: (event: KeyboardEvent): KeyboardEventResult => {
       let activeTextTrack = this.props.player.getActiveTracks().text;
       //if key is combined then exit
-      if (event.altKey || event.shiftKey || event.ctrlKey || event.metaKey) return this.unhandledKeyboardEventResult;
+      if (event.altKey || event.shiftKey || event.ctrlKey || event.metaKey) return UNHANDLED_KEYBOARD_EVENT_RESULT;
       if (activeTextTrack) {
         if (activeTextTrack.language === 'off' && this._lastActiveTextLanguage) {
           this.props.logger.debug(`Changing text track to language`, this._lastActiveTextLanguage);
@@ -302,15 +304,6 @@ class Keyboard extends Component {
       this.props.updatePlayerHoverState(false);
       this.props.notifyHoverChange({hover: false});
     }, CONTROL_BAR_HOVER_DEFAULT_TIMEOUT);
-  }
-
-  /** get unhandled value for keyboard event
-   *
-   * @returns {KeyboardEventResult} - default result
-   * @memberof Keyboard
-   */
-  get unhandledKeyboardEventResult(): KeyboardEventResult {
-    return {preventDefault: false, payload: null};
   }
 }
 
