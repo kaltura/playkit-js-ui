@@ -273,7 +273,7 @@ class Shell extends Component {
       !this.props.seekbarHoverActive &&
       !this.props.volumeHoverActive &&
       !this.props.smartContainerOpen &&
-      !this.props.player.paused
+      (!this.props.player.paused || this.props.adBreak)
     );
   }
 
@@ -318,7 +318,12 @@ class Shell extends Component {
   componentDidUpdate(prevProps: Object): void {
     // Update the hover state if the transition was from pre playback screen
     // or after an ad break
-    if ((!this.props.prePlayback && prevProps.prePlayback) || (!this.props.adBreak && prevProps.adBreak)) {
+    // or in ad break
+    if (
+      (!this.props.prePlayback && prevProps.prePlayback) ||
+      (!this.props.adBreak && prevProps.adBreak) ||
+      (this.props.adBreak && !prevProps.adBreak)
+    ) {
       this._updatePlayerHoverState();
     }
   }
