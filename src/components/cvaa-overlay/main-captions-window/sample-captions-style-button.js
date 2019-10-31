@@ -2,7 +2,7 @@
 import {KeyMap} from 'utils/key-map';
 import {Text} from 'preact-i18n';
 import isEqual from 'utils/is-equal';
-import style from '../../../styles/style.scss';
+import style from '../../styles/style.scss';
 import {default as Icon, IconType} from 'components/icon';
 import {h} from 'preact';
 

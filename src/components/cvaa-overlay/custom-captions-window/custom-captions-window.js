@@ -1,6 +1,6 @@
 //@flow
-import {Component} from 'preact/src/preact';
-import style from '../../../styles/style.scss';
+import {Component} from 'preact';
+import style from '../../styles/style.scss';
 import {KeyMap} from 'utils/key-map';
 import {Text} from 'preact-i18n';
 import {h} from 'preact';
