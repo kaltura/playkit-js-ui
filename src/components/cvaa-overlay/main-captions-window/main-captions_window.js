@@ -4,7 +4,7 @@ import style from '../../../styles/style.scss';
 import {Text} from 'preact-i18n';
 import {KeyMap} from 'utils/key-map';
 import {default as Icon, IconType} from 'components/icon';
-import {PresetStyleButton} from 'components/cvaa-overlay/main-captions-window/preset-captions-style-button';
+import {SampleCaptionsStyleButton} from 'components/cvaa-overlay/main-captions-window/sample-captions-style-button';
 import {h} from 'preact';
 import {withPlayer} from 'components/player';
 import isEqual from 'utils/is-equal';
@@ -13,10 +13,10 @@ import isEqual from 'utils/is-equal';
 
 /**
  * MainWindow component
- * @class MainWindow
+ * @class MainCaptionsWindow
  * @extends {Component}
  */
-class MainWindow extends Component {
+class MainCaptionsWindow extends Component {
   captionsStyleDefault: Object;
   captionsStyleYellow: Object;
   captionsStyleBlackBG: Object;
@@ -59,21 +59,21 @@ class MainWindow extends Component {
           <Text id={'cvaa.title'} />
         </div>
         <div>
-          <PresetStyleButton
+          <SampleCaptionsStyleButton
             addAccessibleChild={props.addAccessibleChild}
             classNames={[style.sample]}
             changeCaptionsStyle={props.changeCaptionsStyle}
             captionsStyle={this.captionsStyleDefault}
             player={props.player}
           />
-          <PresetStyleButton
+          <SampleCaptionsStyleButton
             addAccessibleChild={props.addAccessibleChild}
             classNames={[style.sample, style.blackBg]}
             changeCaptionsStyle={props.changeCaptionsStyle}
             captionsStyle={this.captionsStyleBlackBG}
             player={props.player}
           />
-          <PresetStyleButton
+          <SampleCaptionsStyleButton
             addAccessibleChild={props.addAccessibleChild}
             classNames={[style.sample, style.yellowText]}
             changeCaptionsStyle={props.changeCaptionsStyle}
@@ -138,4 +138,4 @@ class MainWindow extends Component {
     );
   }
 }
-export {MainWindow};
+export {MainCaptionsWindow};

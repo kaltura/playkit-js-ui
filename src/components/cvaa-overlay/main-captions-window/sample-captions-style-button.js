@@ -11,7 +11,7 @@ import {h} from 'preact';
  * @param {*} props - component props
  * @returns {React$Element} - component element
  */
-const PresetStyleButton = (props: any): React$Element<any> => {
+const SampleCaptionsStyleButton = (props: any): React$Element<any> => {
   return (
     <div
       tabIndex="0"
@@ -36,4 +36,4 @@ const PresetStyleButton = (props: any): React$Element<any> => {
     </div>
   );
 };
-export {PresetStyleButton};
+export {SampleCaptionsStyleButton};

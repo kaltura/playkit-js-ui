@@ -22,6 +22,7 @@ export const withKeyboardA11y: Function = (WrappedComponent: Component): typeof 
      */
     componentDidMount() {
       this.focusOnDefault();
+      this._previouslyActiveElement = document.activeElement;
     }
 
     /**
@@ -166,13 +167,9 @@ export const withKeyboardA11y: Function = (WrappedComponent: Component): typeof 
      * @memberof HOC
      */
     focusOnDefault(): void {
-      let _defaultElement = this._defaultFocusedElement || (this._accessibleChildren.length && this._accessibleChildren[0]);
-      if (_defaultElement) {
-        if (!this._previouslyActiveElement) {
-          this._previouslyActiveElement = document.activeElement;
-        }
-
-        _defaultElement.focus();
+      const defaultElement = this._defaultFocusedElement || (this._accessibleChildren.length && this._accessibleChildren[0]);
+      if (defaultElement) {
+        defaultElement.focus();
       }
     }
   };

@@ -10,7 +10,7 @@ import {withPlayer} from '../player';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {withLogger} from 'components/logger';
 import {CustomCaptionsWindow} from 'components/cvaa-overlay/custom-captions-window/custom-captions-window';
-import {MainWindow} from 'components/cvaa-overlay/main-captions-window/main-captions_window';
+import {MainCaptionsWindow} from 'components/cvaa-overlay/main-captions-window/main-captions_window';
 
 /**
  * mapping state to props
@@ -141,7 +141,7 @@ class CVAAOverlay extends Component {
         onClose={() => props.onClose()}
         type="cvaa">
         {this.state.activeWindow === cvaaOverlayState.Main ? (
-          <MainWindow
+          <MainCaptionsWindow
             cvaaOverlayState={cvaaOverlayState}
             addAccessibleChild={props.addAccessibleChild}
             captionsStyleDefault={this.captionsStyleDefault}
