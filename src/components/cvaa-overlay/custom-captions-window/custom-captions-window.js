@@ -130,6 +130,7 @@ class CustomCaptionsWindow extends Component {
           />
           <div className={style.formGroupRow}>
             <a
+              role="button"
               tabIndex="0"
               ref={el => {
                 props.addAccessibleChild(el);

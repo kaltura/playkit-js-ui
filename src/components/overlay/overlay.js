@@ -57,6 +57,7 @@ class Overlay extends Component {
       return (
         <Localizer>
           <a
+            role="button"
             ref={el => {
               if (props.addAccessibleChild) {
                 props.addAccessibleChild(el);

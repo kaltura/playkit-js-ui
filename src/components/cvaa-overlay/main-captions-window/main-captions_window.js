@@ -83,6 +83,8 @@ class MainCaptionsWindow extends Component {
         </div>
         {!this.isAdvancedStyleApplied() ? (
           <a
+            role="button"
+            aria-haspopup="true"
             tabIndex="0"
             className={style.buttonSaveCvaa}
             onClick={() => props.transitionToState(props.cvaaOverlayState.CustomCaptions)}
@@ -105,7 +107,9 @@ class MainCaptionsWindow extends Component {
               </div>
             </div>
             <a
+              role="button"
               tabIndex="0"
+              aria-haspopup="true"
               onClick={() => props.transitionToState(props.cvaaOverlayState.CustomCaptions)}
               ref={el => {
                 props.addAccessibleChild(el);

@@ -14,6 +14,7 @@ import {h} from 'preact';
 const SampleCaptionsStyleButton = (props: any): React$Element<any> => {
   return (
     <div
+      role="button"
       tabIndex="0"
       ref={el => {
         props.addAccessibleChild(el);

@@ -122,12 +122,20 @@ class DropDown extends Component {
 
   /**
    * render for menu only which will render a native select element in this case (mobile)
-   *
+   * @param {string} labelledby - the label id the describes the dropdown (for screen reader)
    * @returns {React$Element} - component element
    * @memberof DropDown
    */
-  renderNativeSelect(): React$Element<any> {
-    return <Menu pushRef={this.props.pushRef} options={this.props.options} onMenuChosen={o => this.onMenuChosen(o)} onClose={() => this.onClose()} />;
+  renderNativeSelect(labelledby: string): React$Element<any> {
+    return (
+      <Menu
+        labelledby={labelledby}
+        pushRef={this.props.pushRef}
+        options={this.props.options}
+        onMenuChosen={o => this.onMenuChosen(o)}
+        onClose={() => this.onClose()}
+      />
+    );
   }
 
   /**
@@ -138,8 +146,9 @@ class DropDown extends Component {
    * @memberof DropDown
    */
   render(props: any): React$Element<any> {
+    const activeOptionId = props.name + 'Active';
     return props.isMobile || props.isSmallSize ? (
-      this.renderNativeSelect()
+      this.renderNativeSelect(props.name)
     ) : (
       <div
         name={props.name}
@@ -152,6 +161,10 @@ class DropDown extends Component {
               props.pushRef(el);
             }
           }}
+          role="menuitem"
+          aria-haspopup="true"
+          aria-expanded={this.state.dropMenuActive ? 'true' : 'false'}
+          aria-labelledby={[props.name, activeOptionId].join(' ')}
           className={style.dropdownButton}
           onClick={() => this.toggleDropDown()}
           onKeyDown={e => {
@@ -162,14 +175,14 @@ class DropDown extends Component {
                 break;
             }
           }}>
-          <span>{this.getActiveOptionLabel()}</span>
+          <span id={activeOptionId}>{this.getActiveOptionLabel()}</span>
           <Icon type={IconType.ArrowDown} />
+          {!this.state.dropMenuActive ? (
+            undefined
+          ) : (
+            <Menu parentEl={this._el} options={props.options} onMenuChosen={o => this.onMenuChosen(o)} onClose={() => this.onClose()} />
+          )}
         </div>
-        {!this.state.dropMenuActive ? (
-          undefined
-        ) : (
-          <Menu parentEl={this._el} options={props.options} onMenuChosen={o => this.onMenuChosen(o)} onClose={() => this.onClose()} />
-        )}
       </div>
     );
   }

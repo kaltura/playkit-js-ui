@@ -11,10 +11,11 @@ import {h} from 'preact';
 const DropDownCaptionsStyle = (props: Object): React$Element<any> => {
   return (
     <div className={props.classNames.join(' ')}>
-      <label>
+      <label id={props.styleName}>
         <Text id={props.labelId} />
       </label>
       <DropDown
+        name={props.styleName}
         pushRef={el => {
           props.addAccessibleChild(el);
         }}
