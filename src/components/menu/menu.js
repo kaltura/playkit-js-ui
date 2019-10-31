@@ -4,7 +4,6 @@ import {h, Component} from 'preact';
 import {default as Icon, IconType} from '../icon';
 import {connect} from 'preact-redux';
 import {bindMethod} from '../../utils/bind-method';
-import {PLAYER_SIZE} from '../shell/shell';
 import {withKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
 import {KeyMap} from 'utils/key-map';
 
@@ -15,8 +14,8 @@ import {KeyMap} from 'utils/key-map';
  */
 const mapStateToProps = state => ({
   isMobile: state.shell.isMobile,
-  playerClientRect: state.shell.playerClientRect,
-  playerSize: state.shell.playerSize
+  isSmallSize: state.shell.isSmallSize,
+  playerClientRect: state.shell.playerClientRect
 });
 
 const COMPONENT_NAME = 'Menu';
@@ -66,7 +65,7 @@ class Menu extends Component {
    */
   componentDidMount() {
     document.addEventListener('click', this.handleClickOutside, true);
-    if (!this.props.isMobile && ![PLAYER_SIZE.SMALL, PLAYER_SIZE.EXTRA_SMALL].includes(this.props.playerSize)) {
+    if (!this.props.isMobile && !this.props.isSmallSize) {
       this.setState({position: this.getPosition()});
     }
   }
@@ -116,12 +115,7 @@ class Menu extends Component {
    * @memberof Menu
    */
   handleClickOutside(e: any) {
-    if (
-      !this.props.isMobile &&
-      ![PLAYER_SIZE.SMALL, PLAYER_SIZE.EXTRA_SMALL].includes(this.props.playerSize) &&
-      this._menuElement &&
-      !this._menuElement.contains(e.target)
-    ) {
+    if (!this.props.isMobile && !this.props.isSmallSize && this._menuElement && !this._menuElement.contains(e.target)) {
       this.props.onClose();
       e.stopPropagation();
     }
@@ -176,7 +170,14 @@ class Menu extends Component {
     let classes = this.props.hideSelect ? style.mobileHiddenSelect : '';
     classes += ` ${style.dropdown}`;
     return (
-      <select className={classes} onChange={e => this.onSelect(this.props.options[e.target.value])}>
+      <select
+        ref={el => {
+          if (this.props.pushRef) {
+            this.props.pushRef(el);
+          }
+        }}
+        className={classes}
+        onChange={e => this.onSelect(this.props.options[e.target.value])}>
         {this.props.options.map((o, index) => (
           <option selected={this.isSelected(o)} value={index} key={index}>
             {o.label}
@@ -195,7 +196,8 @@ class Menu extends Component {
    * @memberof Menu
    */
   render(props: any): React$Element<any> {
-    return props.isMobile || [PLAYER_SIZE.SMALL, PLAYER_SIZE.EXTRA_SMALL].includes(this.props.playerSize) ? (
+    props.clearAccessibleChildren();
+    return props.isMobile || props.isSmallSize ? (
       this.renderNativeSelect()
     ) : (
       <div
@@ -208,7 +210,7 @@ class Menu extends Component {
         className={[style.dropdownMenu, ...this.state.position].join(' ')}>
         {props.options.map((o, index) => (
           <MenuItem
-            setFirstFocusedElement={props.setFirstFocusedElement}
+            setDefaultFocusedElement={props.setDefaultFocusedElement}
             addAccessibleChild={props.addAccessibleChild}
             isSelected={this.isSelected}
             onSelect={option => {
@@ -233,18 +235,6 @@ export {Menu};
  * @extends {Component}
  */
 class MenuItem extends Component {
-  _element: HTMLElement;
-
-  /**
-   * after component mounted, call parent to mark this as accessible child
-   *
-   * @returns {void}
-   * @memberof MenuItem
-   */
-  componentDidMount(): void {
-    this.props.addAccessibleChild(this._element);
-  }
-
   /**
    * the menu item jsx
    * @param {any} props - MenuItem props
@@ -255,10 +245,10 @@ class MenuItem extends Component {
     return (
       <div
         tabIndex="-1"
-        ref={se => {
-          this._element = se;
+        ref={element => {
+          this.props.addAccessibleChild(element);
           if (props.isSelected(props.data)) {
-            props.setFirstFocusedElement(se);
+            props.setDefaultFocusedElement(element);
           }
         }}
         className={props.isSelected(props.data) ? [style.dropdownMenuItem, style.active].join(' ') : style.dropdownMenuItem}

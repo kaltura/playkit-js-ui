@@ -11,8 +11,11 @@
     padding: 0 31px;
     display: inline-block;
     margin: 0 12px;
-    cursor: pointer;
     position: relative;
+
+    &:not(.custom){
+      cursor: pointer;
+    }
 
     &.black-bg {
       background-color: #000;

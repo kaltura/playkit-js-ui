@@ -10,6 +10,8 @@ import {default as Icon, IconType} from '../icon';
 import style from '../../styles/style.scss';
 import {CopyButton} from '../copy-button/copy-button';
 import {withLogger} from 'components/logger';
+import {withKeyboardA11y} from 'utils/popup-keyboard-accessibility';
+import {KeyMap} from 'utils/key-map';
 
 /**
  * mapping state to props
@@ -52,11 +54,11 @@ const ShareButton = (props: Object): React$Element<any> => {
 
   return (
     <button
-      href={props.config.shareUrl}
-      target="_blank"
-      rel="noopener noreferrer"
+      ref={el => {
+        props.addAccessibleChild(el);
+      }}
       title={props.config.title}
-      role="button"
+      role="link"
       aria-label={props.config.ariaLabel}
       className={[style.btnRounded, style[props.config.iconType], props.config.iconType].join(' ')}
       onClick={() => share()}>
@@ -96,10 +98,10 @@ const ShareUrl = (props: Object): React$Element<any> => {
   return (
     <div className={props.copy ? style.copyUrlRow : ''}>
       <div className={[style.formGroup, style.hasIcon, style.inputCopyUrl].join(' ')} style="width: 350px;">
-        <input type="text" ref={c => (_ref = c)} className={style.formControl} value={props.shareUrl} readOnly />
+        <input tabIndex="-1" type="text" ref={c => (_ref = c)} className={style.formControl} value={props.shareUrl} readOnly />
         <Icon type={IconType.Link} />
       </div>
-      {props.copy && <CopyButton copy={() => copyUrl(_ref, props.isIos)} />}
+      {props.copy && <CopyButton addAccessibleChild={props.addAccessibleChild} copy={() => copyUrl(_ref, props.isIos)} />}
     </div>
   );
 };
@@ -113,14 +115,32 @@ const ShareUrl = (props: Object): React$Element<any> => {
 const VideoStartOptions = (props: Object): React$Element<any> => {
   return (
     <div className={style.videoStartOptionsRow}>
-      <div className={[style.checkbox, style.dInlineBlock].join(' ')}>
-        <input type="checkbox" id="start-from" checked={props.startFrom} onClick={() => props.toggleStartFrom()} />
+      <div
+        ref={el => {
+          props.addAccessibleChild(el);
+        }}
+        tabIndex="0"
+        onClick={e => {
+          e.preventDefault();
+          props.toggleStartFrom();
+        }}
+        onKeyDown={e => {
+          if (e.keyCode === KeyMap.ENTER) {
+            e.preventDefault();
+            props.toggleStartFrom();
+          }
+        }}
+        className={[style.checkbox, style.dInlineBlock].join(' ')}>
+        <input type="checkbox" id="start-from" checked={props.startFrom} />
         <label htmlFor="start-from">
           <Text id={'share.start_video_at'} />
         </label>
       </div>
       <div className={[style.formGroup, style.dInlineBlock].join(' ')}>
         <input
+          ref={el => {
+            props.addAccessibleChild(el);
+          }}
           type="text"
           className={style.formControl}
           onChange={e => props.handleStartFromChange(e)}
@@ -139,6 +159,7 @@ const COMPONENT_NAME = 'ShareOverlay';
   bindActions(actions)
 )
 @withLogger(COMPONENT_NAME)
+@withKeyboardA11y
 /**
  * ShareOverlay component
  *
@@ -159,6 +180,29 @@ class ShareOverlay extends Component {
       startFrom: false,
       startFromValue: Math.floor(this.props.player.currentTime)
     });
+  }
+
+  /**
+   * when component did update and change its view state then focus on default
+   *
+   * @param {Object} previousProps - previous props
+   * @param {Object} previousState - previous state
+   * @returns {void}
+   * @memberof ShareOverlay
+   */
+  componentDidUpdate(previousProps: Object, previousState: Object): void {
+    if (previousState.view != this.state.view) {
+      this.props.focusOnDefault();
+    }
+  }
+
+  /**
+   * after component mounted, set popup to behave as modal
+   * @returns {void}
+   * @memberof ShareOverlay
+   */
+  componentDidMount(): void {
+    this.props.setIsModal(true);
   }
 
   /**
@@ -247,6 +291,7 @@ class ShareOverlay extends Component {
   /**
    * render the partial social network DOM
    * @param {Array<Object>} socialNetworksConfig - the social network config
+   * @param {Function} addAccessibleChild - pass the addAccessibleChild so the share button can add its accessible elements
    * @returns {React$Element<*>[]} partial social network DOM
    * @private
    */
@@ -256,7 +301,7 @@ class ShareOverlay extends Component {
         social.iconType = social.name;
         social.shareUrl = this.props.shareUrl;
       }
-      return <ShareButton key={social.name} config={social} />;
+      return <ShareButton key={social.name} config={social} addAccessibleChild={this.props.addAccessibleChild} />;
     });
   }
 
@@ -276,12 +321,21 @@ class ShareOverlay extends Component {
           <div className={style.shareIcons}>
             {this._createSocialNetworks(this.props.socialNetworks)}
             <Localizer>
-              <a className={[style.btnRounded, style.emailShareBtn].join(' ')} href={this._getEmailTemplate()} title={<Text id="share.email" />}>
+              <a
+                ref={el => {
+                  this.props.addAccessibleChild(el);
+                }}
+                className={[style.btnRounded, style.emailShareBtn].join(' ')}
+                href={this._getEmailTemplate()}
+                title={<Text id="share.email" />}>
                 <Icon type={IconType.Email} />
               </a>
             </Localizer>
             <Localizer>
               <button
+                ref={el => {
+                  this.props.addAccessibleChild(el);
+                }}
                 className={[style.btnRounded, style.embedShareBtn].join(' ')}
                 onClick={() => this._transitionToState(shareOverlayView.EmbedOptions)}
                 title={<Text id="share.embed" />}>
@@ -290,9 +344,10 @@ class ShareOverlay extends Component {
             </Localizer>
           </div>
           <div className={style.linkOptionsContainer}>
-            <ShareUrl shareUrl={this.getShareUrl()} copy={true} isIos={this.isIos} />
+            <ShareUrl addAccessibleChild={this.props.addAccessibleChild} shareUrl={this.getShareUrl()} copy={true} isIos={this.isIos} />
             {this.props.enableTimeOffset ? (
               <VideoStartOptions
+                addAccessibleChild={this.props.addAccessibleChild}
                 startFrom={this.state.startFrom}
                 startFromValue={this.state.startFromValue}
                 handleStartFromChange={e => this._handleStartFromChange(e)}
@@ -318,9 +373,10 @@ class ShareOverlay extends Component {
       <div className={this.state.view === shareOverlayView.EmbedOptions ? 'overlay-screen active' : 'overlay-screen'}>
         <div className={style.title}>{props.title}</div>
         <div className={style.linkOptionsContainer}>
-          <ShareUrl shareUrl={props.shareUrl} copy={true} isIos={this.isIos} />
+          <ShareUrl addAccessibleChild={this.props.addAccessibleChild} shareUrl={props.shareUrl} copy={true} isIos={this.isIos} />
           {this.props.enableTimeOffset ? (
             <VideoStartOptions
+              addAccessibleChild={this.props.addAccessibleChild}
               startFrom={this.state.startFrom}
               startFromValue={this.state.startFromValue}
               handleStartFromChange={e => this._handleStartFromChange(e)}
@@ -341,6 +397,7 @@ class ShareOverlay extends Component {
    * @memberof ShareOverlay
    */
   renderStateContent(): React$Element<any> {
+    this.props.clearAccessibleChildren();
     switch (this.state.view) {
       case shareOverlayView.EmbedOptions:
         return this.renderOptionsState({title: <Text id="share.embed_options" />, shareUrl: this.getEmbedCode()});
@@ -360,7 +417,12 @@ class ShareOverlay extends Component {
    */
   render(props: any): React$Element<any> {
     return (
-      <Overlay open onClose={() => props.onClose()} type="share">
+      <Overlay
+        addAccessibleChild={this.props.addAccessibleChild}
+        handleKeyDown={e => this.props.handleKeyDown(e)}
+        open
+        onClose={() => props.onClose()}
+        type="share">
         {this.renderStateContent()}
       </Overlay>
     );

@@ -5,7 +5,6 @@ import {connect} from 'preact-redux';
 import {Menu} from '../menu';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
-import {PLAYER_SIZE} from '../shell/shell';
 
 /**
  * mapping state to props
@@ -14,7 +13,7 @@ import {PLAYER_SIZE} from '../shell/shell';
  */
 const mapStateToProps = state => ({
   isMobile: state.shell.isMobile,
-  playerSize: state.shell.playerSize
+  isSmallSize: state.shell.isSmallSize
 });
 
 const COMPONENT_NAME = 'DropDown';
@@ -128,7 +127,7 @@ class DropDown extends Component {
    * @memberof DropDown
    */
   renderNativeSelect(): React$Element<any> {
-    return <Menu options={this.props.options} onMenuChosen={o => this.onMenuChosen(o)} onClose={() => this.onClose()} />;
+    return <Menu pushRef={this.props.pushRef} options={this.props.options} onMenuChosen={o => this.onMenuChosen(o)} onClose={() => this.onClose()} />;
   }
 
   /**
@@ -139,7 +138,7 @@ class DropDown extends Component {
    * @memberof DropDown
    */
   render(props: any): React$Element<any> {
-    return props.isMobile || [PLAYER_SIZE.SMALL, PLAYER_SIZE.EXTRA_SMALL].includes(this.props.playerSize) ? (
+    return props.isMobile || props.isSmallSize ? (
       this.renderNativeSelect()
     ) : (
       <div
