@@ -105,7 +105,7 @@ class Share extends Component {
             />
           </Portal>
         ) : (
-          <button className={style.controlButton} onClick={() => this.toggleOverlay()} aria-label="Share">
+          <button aria-haspopup="true" className={style.controlButton} onClick={() => this.toggleOverlay()} aria-label="Share">
             <Icon type={IconType.Share} />
           </button>
         )}

@@ -162,15 +162,17 @@ class Menu extends Component {
 
   /**
    * render native select element
-   *
+   * @param {string} labelledby - the label id the describes the dropdown (for screen reader)
    * @returns {React$Element} - component element
    * @memberof Menu
    */
-  renderNativeSelect(): React$Element<any> {
+  renderNativeSelect(labelledby: string): React$Element<any> {
     let classes = this.props.hideSelect ? style.mobileHiddenSelect : '';
     classes += ` ${style.dropdown}`;
     return (
       <select
+        aria-labelledby={labelledby}
+        role="listbox"
         ref={el => {
           if (this.props.pushRef) {
             this.props.pushRef(el);
@@ -179,7 +181,7 @@ class Menu extends Component {
         className={classes}
         onChange={e => this.onSelect(this.props.options[e.target.value])}>
         {this.props.options.map((o, index) => (
-          <option selected={this.isSelected(o)} value={index} key={index}>
+          <option role="option" aria-selected={this.isSelected(o) ? 'true' : ''} selected={this.isSelected(o)} value={index} key={index}>
             {o.label}
           </option>
         ))}
@@ -198,9 +200,10 @@ class Menu extends Component {
   render(props: any): React$Element<any> {
     props.clearAccessibleChildren();
     return props.isMobile || props.isSmallSize ? (
-      this.renderNativeSelect()
+      this.renderNativeSelect(props.labelledby)
     ) : (
       <div
+        role="menu"
         onKeyDown={e => {
           props.handleKeyDown(e);
         }}
@@ -244,7 +247,9 @@ class MenuItem extends Component {
   render(props: any): React$Element<any> {
     return (
       <div
+        role="menuitemradio"
         tabIndex="-1"
+        aria-checked={props.isSelected(props.data) ? 'true' : 'false'}
         ref={element => {
           this.props.addAccessibleChild(element);
           if (props.isSelected(props.data)) {

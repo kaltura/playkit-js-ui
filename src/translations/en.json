@@ -10,6 +10,7 @@
     "forward": "Forward",
     "vrStereo": "vrStereo",
     "live": "Live",
+    "mute": "Mute",
     "unmute": "Unmute",
     "next": "Next",
     "prev": "Prev",
@@ -21,7 +22,7 @@
     "unmute": "Unmute"
   },
   "copy": {
-    "button": "Copy"
+    "button": "Copy URL"
   },
   "settings": {
     "title": "Settings",

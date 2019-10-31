@@ -24,7 +24,7 @@ class SmartContainerItem extends Component {
     const label = props.label && props.label.toLowerCase();
     return (
       <div className={[style.smartContainerItem, style.selectMenuItem].join(' ')}>
-        <label htmlFor={label}>
+        <label id={label} htmlFor={label}>
           {props.icon ? (
             <div className={style.labelIcon}>
               <Icon type={props.icon} />

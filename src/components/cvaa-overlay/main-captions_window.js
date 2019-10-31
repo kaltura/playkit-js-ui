@@ -2,12 +2,12 @@
 import {Component} from 'preact';
 import style from '../../styles/style.scss';
 import {Text} from 'preact-i18n';
-import {KeyMap} from 'utils/key-map';
-import {default as Icon, IconType} from 'components/icon';
-import {SampleCaptionsStyleButton} from 'components/cvaa-overlay/main-captions-window/sample-captions-style-button';
+import {KeyMap} from '../../utils/key-map';
+import {default as Icon, IconType} from '../icon';
+import {SampleCaptionsStyleButton} from './sample-captions-style-button';
 import {h} from 'preact';
-import {withPlayer} from 'components/player';
-import isEqual from 'utils/is-equal';
+import {withPlayer} from '../player';
+import isEqual from '../../utils/is-equal';
 
 @withPlayer
 
@@ -83,6 +83,8 @@ class MainCaptionsWindow extends Component {
         </div>
         {!this.isAdvancedStyleApplied() ? (
           <a
+            role="button"
+            aria-haspopup="true"
             tabIndex="0"
             className={style.buttonSaveCvaa}
             onClick={() => props.transitionToState(props.cvaaOverlayState.CustomCaptions)}
@@ -105,7 +107,9 @@ class MainCaptionsWindow extends Component {
               </div>
             </div>
             <a
+              role="button"
               tabIndex="0"
+              aria-haspopup="true"
               onClick={() => props.transitionToState(props.cvaaOverlayState.CustomCaptions)}
               ref={el => {
                 props.addAccessibleChild(el);

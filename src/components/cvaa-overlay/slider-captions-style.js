@@ -1,7 +1,7 @@
 //@flow
 import {Text} from 'preact-i18n';
 import {h} from 'preact';
-import {Slider} from 'components/slider';
+import {Slider} from '../slider';
 
 /**
  * renders a custom slider style option
@@ -17,10 +17,11 @@ import {Slider} from 'components/slider';
 const SliderCaptionsStyle = (props: Object): React$Element<any> => {
   return (
     <div className={props.classNames.join(' ')}>
-      <label>
+      <label id={props.styleName}>
         <Text id={props.labelId} />
       </label>
       <Slider
+        name={props.styleName}
         pushRef={el => {
           props.addAccessibleChild(el);
         }}

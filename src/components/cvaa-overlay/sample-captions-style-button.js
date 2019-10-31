@@ -1,9 +1,9 @@
 //@flow
-import {KeyMap} from 'utils/key-map';
+import {KeyMap} from '../../utils/key-map';
 import {Text} from 'preact-i18n';
-import isEqual from 'utils/is-equal';
+import isEqual from '../../utils/is-equal';
 import style from '../../styles/style.scss';
-import {default as Icon, IconType} from 'components/icon';
+import {default as Icon, IconType} from '../icon';
 import {h} from 'preact';
 
 /**
@@ -14,6 +14,7 @@ import {h} from 'preact';
 const SampleCaptionsStyleButton = (props: any): React$Element<any> => {
   return (
     <div
+      role="button"
       tabIndex="0"
       ref={el => {
         props.addAccessibleChild(el);

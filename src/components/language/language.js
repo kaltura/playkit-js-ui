@@ -165,6 +165,7 @@ class Language extends Component {
       <div ref={c => (this._controlLanguageElement = c)} className={[style.controlButtonContainer, style.controlLanguage].join(' ')}>
         <button
           tabIndex="0"
+          aria-haspopup="true"
           aria-label={this.props.buttonAriaLabel}
           className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
           onClick={() => this.onControlButtonClick()}>
@@ -268,6 +269,8 @@ class AdvancedCaptionsAnchor extends Component {
     return (
       <div className={style.smartContainerItem}>
         <a
+          role="button"
+          aria-haspopup="true"
           tabIndex={props.isPortal ? '0' : '-1'}
           ref={el => {
             if (props.pushRef) {

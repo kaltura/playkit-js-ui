@@ -220,6 +220,11 @@ class Slider extends Component {
   render(props: any): React$Element<any> {
     return (
       <div
+        role="slider"
+        aria-valuemin={this.state.min}
+        aria-valuenow={this.state.value}
+        aria-valuemax={this.state.max}
+        aria-labelledby={props.name}
         tabIndex="0"
         ref={c => {
           this._sliderElement = c;
