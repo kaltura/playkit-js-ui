@@ -116,6 +116,8 @@ const VideoStartOptions = (props: Object): React$Element<any> => {
   return (
     <div className={style.videoStartOptionsRow}>
       <div
+        role="checkbox"
+        aria-checked={props.startFrom ? 'true' : 'false'}
         ref={el => {
           props.addAccessibleChild(el);
         }}
@@ -132,12 +134,13 @@ const VideoStartOptions = (props: Object): React$Element<any> => {
         }}
         className={[style.checkbox, style.dInlineBlock].join(' ')}>
         <input type="checkbox" id="start-from" checked={props.startFrom} />
-        <label htmlFor="start-from">
+        <label id="start-from-label" htmlFor="start-from">
           <Text id={'share.start_video_at'} />
         </label>
       </div>
       <div className={[style.formGroup, style.dInlineBlock].join(' ')}>
         <input
+          aria-labelledby="start-from-label"
           ref={el => {
             props.addAccessibleChild(el);
           }}
@@ -322,6 +325,8 @@ class ShareOverlay extends Component {
             {this._createSocialNetworks(this.props.socialNetworks)}
             <Localizer>
               <a
+                role="button"
+                tabIndex="0"
                 ref={el => {
                   this.props.addAccessibleChild(el);
                 }}
@@ -333,6 +338,7 @@ class ShareOverlay extends Component {
             </Localizer>
             <Localizer>
               <button
+                aria-haspopup="true"
                 ref={el => {
                   this.props.addAccessibleChild(el);
                 }}

@@ -70,6 +70,7 @@ class CopyButton extends Component {
     return (
       <Localizer>
         <a
+          role="button"
           tabIndex="0"
           ref={el => {
             if (props.addAccessibleChild) {

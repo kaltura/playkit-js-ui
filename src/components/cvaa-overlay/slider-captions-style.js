@@ -1,8 +1,7 @@
 //@flow
 import {Text} from 'preact-i18n';
 import {h} from 'preact';
-import {Slider} from 'components/slider';
-import {DropDown} from 'components/dropdown';
+import {Slider} from '../slider';
 
 /**
  * renders a custom slider style option

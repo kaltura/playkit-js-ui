@@ -21,8 +21,8 @@ export const withKeyboardA11y: Function = (WrappedComponent: Component): typeof 
      * @memberof HOC
      */
     componentDidMount() {
-      this.focusOnDefault();
       this._previouslyActiveElement = document.activeElement;
+      this.focusOnDefault();
     }
 
     /**

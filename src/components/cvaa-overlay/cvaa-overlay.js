@@ -9,8 +9,8 @@ import {withKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {withLogger} from 'components/logger';
-import {CustomCaptionsWindow} from 'components/cvaa-overlay/custom-captions-window/custom-captions-window';
-import {MainCaptionsWindow} from 'components/cvaa-overlay/main-captions-window/main-captions_window';
+import {MainCaptionsWindow} from 'components/cvaa-overlay/main-captions_window';
+import {CustomCaptionsWindow} from 'components/cvaa-overlay/custom-captions-window';
 
 /**
  * mapping state to props

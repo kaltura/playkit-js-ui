@@ -1,6 +1,6 @@
 //@flow
 import {Text} from 'preact-i18n';
-import {DropDown} from 'components/dropdown';
+import {DropDown} from '../dropdown';
 import {h} from 'preact';
 
 /**
