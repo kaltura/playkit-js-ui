@@ -64,7 +64,7 @@ class Cast extends Component {
           onKeyDown={e => {
             if (e.keyCode === KeyMap.ENTER) {
               this.props.updateBackdropVisibility(true);
-              this.player.startCasting().catch(() => this.props.updateBackdropVisibility(false));
+              this.props.player.startCasting().catch(() => this.props.updateBackdropVisibility(false));
             }
           }}>
           <google-cast-launcher className={style.castButton} tabIndex="0" />
