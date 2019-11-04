@@ -1,10 +1,12 @@
 //@flow
+
 export const types = {
   ADD_PLAYER_CLASS: 'shell/ADD_PLAYER_CLASS',
   REMOVE_PLAYER_CLASS: 'shell/REMOVE_PLAYER_CLASS',
   UPDATE_IS_MOBILE: 'shell/UPDATE_IS_MOBILE',
   UPDATE_PLAYER_SIZE: 'shell/UPDATE_PLAYER_SIZE',
   UPDATE_PRESET_CLIENT_RECT: 'shell/UPDATE_PRESET_CLIENT_RECT',
+  UPDATE_IS_SMALL_SIZE: 'shell/UPDATE_IS_SMALL_SIZE',
   UPDATE_PLAYER_CLIENT_RECT: 'shell/UPDATE_PLAYER_CLIENT_RECT',
   UPDATE_DOCUMENT_WIDTH: 'shell/UPDATE_DOCUMENT_WIDTH',
   UPDATE_PLAYER_HOVER_STATE: 'shell/UPDATE_PLAYER_HOVER_STATE',
@@ -93,6 +95,12 @@ export default (state: Object = initialState, action: Object) => {
       return {
         ...state,
         playerSize: action.playerSize
+      };
+
+    case types.UPDATE_IS_SMALL_SIZE:
+      return {
+        ...state,
+        isSmallSize: action.isSmallSize
       };
 
     case types.UPDATE_PRESET_CLIENT_RECT:
@@ -188,6 +196,7 @@ export const actions = {
   removePlayerClass: (className: string) => ({type: types.REMOVE_PLAYER_CLASS, className}),
   updateIsMobile: (isMobile: boolean) => ({type: types.UPDATE_IS_MOBILE, isMobile}),
   updatePlayerSize: (playerSize: string) => ({type: types.UPDATE_PLAYER_SIZE, playerSize}),
+  updateIsSmallSize: (isSmallSize: boolean) => ({type: types.UPDATE_IS_SMALL_SIZE, isSmallSize}),
   updatePresetClientRect: (presetClientRect: Object) => ({type: types.UPDATE_PRESET_CLIENT_RECT, presetClientRect}),
   updatePlayerClientRect: (playerClientRect: Object) => ({type: types.UPDATE_PLAYER_CLIENT_RECT, playerClientRect}),
   updateDocumentWidth: (documentWidth: number) => ({type: types.UPDATE_DOCUMENT_WIDTH, documentWidth}),

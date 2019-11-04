@@ -8,7 +8,6 @@ import {actions} from '../../reducers/settings';
 import {SmartContainer} from '../smart-container';
 import {SmartContainerItem} from '../smart-container/smart-container-item';
 import {default as Icon, IconType} from '../icon';
-import {PLAYER_SIZE} from '../shell/shell';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withEventDispatcher} from 'components/event-dispatcher';
@@ -22,8 +21,8 @@ import {withLogger} from 'components/logger';
 const mapStateToProps = state => ({
   videoTracks: state.engine.videoTracks,
   isMobile: state.shell.isMobile,
-  isLive: state.engine.isLive,
-  playerSize: state.shell.playerSize
+  isSmallSize: state.shell.isSmallSize,
+  isLive: state.engine.isLive
 });
 
 const COMPONENT_NAME = 'Settings';
@@ -82,7 +81,7 @@ class Settings extends Component {
   handleClickOutside(e: any) {
     if (
       !this.props.isMobile &&
-      ![PLAYER_SIZE.SMALL, PLAYER_SIZE.EXTRA_SMALL].includes(this.props.playerSize) &&
+      !this.props.isSmallSize &&
       !!this._controlSettingsElement &&
       !this._controlSettingsElement.contains(e.target) &&
       this.state.smartContainerOpen

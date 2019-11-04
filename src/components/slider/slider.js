@@ -213,15 +213,25 @@ class Slider extends Component {
 
   /**
    * component render function
-   *
+   * @param {*} props - component props
    * @returns {React$Element<any>} component element
    * @memberof Slider
    */
-  render(): React$Element<any> {
+  render(props: any): React$Element<any> {
     return (
       <div
+        role="slider"
+        aria-valuemin={this.state.min}
+        aria-valuenow={this.state.value}
+        aria-valuemax={this.state.max}
+        aria-labelledby={props.name}
         tabIndex="0"
-        ref={c => (this._sliderElement = c)}
+        ref={c => {
+          this._sliderElement = c;
+          if (props.pushRef) {
+            props.pushRef(c);
+          }
+        }}
         className={style.slider}
         onMouseDown={e => this.mouseDownHandler(e)}
         onTouchStart={e => this.mouseDownHandler(e)}

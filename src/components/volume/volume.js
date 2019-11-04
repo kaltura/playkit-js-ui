@@ -13,6 +13,7 @@ import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withLogger} from 'components/logger';
 import {withEventDispatcher} from 'components/event-dispatcher';
+import {withText} from 'preact-i18n';
 
 /**
  * mapping state to props
@@ -36,6 +37,10 @@ const COMPONENT_NAME = 'Volume';
 @withEventManager
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
+@withText({
+  muteAriaLabel: 'controls.mute',
+  unmuteAriaLabel: 'controls.unmute'
+})
 /**
  * Volume component
  *
@@ -290,7 +295,7 @@ class Volume extends Component {
         onMouseOut={() => this.onMouseOut()}>
         <button
           tabIndex="0"
-          aria-label="Volume"
+          aria-label={muted ? this.props.unmuteAriaLabel : this.props.muteAriaLabel}
           className={style.controlButton}
           onMouseUp={() => this.toggleMute()}
           onTouchEnd={e => e.stopImmediatePropagation()}

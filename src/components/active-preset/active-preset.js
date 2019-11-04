@@ -4,6 +4,7 @@ import {connect} from 'preact-redux';
 import {bindActions} from '../../utils';
 import {actions} from '../../reducers/shell';
 import getLogger from '../../utils/logger';
+import {withEventDispatcher} from 'components/event-dispatcher';
 
 /**
  * mapping state to props
@@ -26,15 +27,18 @@ const mapStateToProps = state => ({
 });
 
 const logger = getLogger('ActivePreset');
+const COMPONENT_NAME = 'ActivePreset';
 
 @connect(
   mapStateToProps,
   bindActions(actions)
 )
+@withEventDispatcher(COMPONENT_NAME)
+
 /**
  * Active preset
  *
- * @class PlayerGUI
+ * @class ActivePreset
  * @extends {Component}
  */
 class ActivePreset extends Component {
@@ -44,7 +48,7 @@ class ActivePreset extends Component {
    * @param {Array<any>} uis - UIs array with conditions
    * @param {Object} state - state to be used in the condition check
    * @returns {*} - matched UI
-   * @memberof PlayerGUI
+   * @memberof ActivePreset
    */
   getMatchedUI(uis: Array<any>, state: Object): any {
     let matchedUI;
@@ -63,7 +67,7 @@ class ActivePreset extends Component {
    *
    * @param {*} props - component props
    * @returns {React$Element} - component element
-   * @memberof PlayerGUI
+   * @memberof ActivePreset
    */
   render(props: any): React$Element<any> | void {
     let uiToRender;
@@ -74,6 +78,7 @@ class ActivePreset extends Component {
       const presetName = uiComponent ? uiComponent.nodeName.displayName || '' : '';
 
       if (activePresetName !== presetName) {
+        props.notifyChange({from: activePresetName, to: presetName});
         props.updateActivePresetName(presetName);
         props.updatePresetSettings(null);
         logger.debug(`update active preset to '${activePresetName}' and reset preset settings`);

@@ -280,7 +280,7 @@ class Shell extends Component {
       !this.props.seekbarHoverActive &&
       !this.props.volumeHoverActive &&
       !this.props.smartContainerOpen &&
-      !this.props.player.paused
+      (!this.props.player.paused || this.props.adBreak)
     );
   }
 
@@ -325,7 +325,12 @@ class Shell extends Component {
   componentDidUpdate(prevProps: Object): void {
     // Update the hover state if the transition was from pre playback screen
     // or after an ad break
-    if ((!this.props.prePlayback && prevProps.prePlayback) || (!this.props.adBreak && prevProps.adBreak)) {
+    // or in ad break
+    if (
+      (!this.props.prePlayback && prevProps.prePlayback) ||
+      (!this.props.adBreak && prevProps.adBreak) ||
+      (this.props.adBreak && !prevProps.adBreak)
+    ) {
       this._updatePlayerHoverState();
     }
   }
@@ -371,6 +376,11 @@ class Shell extends Component {
       } else {
         this.props.updatePlayerSize(PLAYER_SIZE.EXTRA_LARGE);
       }
+
+      this.props.updateIsSmallSize(
+        // in Tiny the ui is minimal and therefore this check is not relevant - left it this way to maintain current logic
+        [PLAYER_SIZE.SMALL, PLAYER_SIZE.EXTRA_SMALL].includes(this.props.playerSize)
+      );
     }
 
     playerClasses = playerClasses.join(' ');

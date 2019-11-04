@@ -57,6 +57,12 @@ class Overlay extends Component {
       return (
         <Localizer>
           <a
+            role="button"
+            ref={el => {
+              if (props.addAccessibleChild) {
+                props.addAccessibleChild(el);
+              }
+            }}
             tabIndex="0"
             onClick={() => props.onClose()}
             onKeyDown={e => {
@@ -93,8 +99,8 @@ class Overlay extends Component {
         className={overlayClass.join(' ')}
         role="dialog"
         onKeyDown={e => {
-          if (e.keyCode === KeyMap.ESC) {
-            props.onClose();
+          if (props.handleKeyDown) {
+            props.handleKeyDown(e);
           }
         }}>
         <div className={style.overlayContents}>{props.children}</div>
