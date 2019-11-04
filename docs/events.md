@@ -54,9 +54,9 @@
 
 #
 
-> ### <a name="ACTIVE_PRESET_RESIZE"></a>ACTIVE_PRESET_RESIZE
+> ### <a name="UI_PRESET_RESIZE"></a>UI_PRESET_RESIZE
 >
-> Fires when the active preset is resized.
+> Fires when the preset resize.
 > <br><br>_payload parameters:_
 >
 > | Name      | Type      | Description                                            |

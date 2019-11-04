@@ -7,7 +7,7 @@ import {CaptionsStyleSelectedEvent} from '../event/events/captions-style-selecte
 import {QualitySelectedEvent} from '../event/events/quality-selected-event';
 import {SeekedEvent} from '../event/events/seeked-event';
 import {SpeedSelectedEvent} from '../event/events/speed-selected-event';
-import {ActivePresetResizeEvent} from '../event/events/active-preset-resize-event';
+import {UIPresetResizeEvent} from '../event/events/ui-preset-resize-event';
 import {UIVisibilityChangedEvent} from '../event/events/ui-visibility-changed-event';
 import {RewindClickedEvent} from '../event/events/rewind-clicked';
 import {ForwardClickedEvent} from '../event/events/forward-clicked';
@@ -48,7 +48,7 @@ const eventDispatcherMiddleware = (player: Object) => (store: Object) => (next: 
 
   switch (action.type) {
     case shell.UPDATE_PRESET_CLIENT_RECT:
-      onActivePresetResizeHandler(store, action, player);
+      onUIPresetResizeHandler(store, action, player);
       break;
 
     default:
@@ -63,9 +63,9 @@ const eventDispatcherMiddleware = (player: Object) => (store: Object) => (next: 
  * @param {Object} player - The video player.
  * @returns {void}
  */
-function onActivePresetResizeHandler(store: any, action: Object, player: Object): void {
+function onUIPresetResizeHandler(store: any, action: Object, player: Object): void {
   const presetClientRect = store.getState().shell.presetClientRect;
-  player.dispatchEvent(new ActivePresetResizeEvent(presetClientRect));
+  player.dispatchEvent(new UIPresetResizeEvent(presetClientRect));
 }
 
 /**
