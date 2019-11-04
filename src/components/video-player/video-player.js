@@ -3,6 +3,7 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {withPlayer} from '../player';
 import {VideoAreaContainer} from '../video-area-container';
+import {VideoResizeEvent} from 'event/events/video-resize-event';
 
 @withPlayer
 /**
@@ -34,6 +35,10 @@ class VideoPlayer extends Component {
     this._el.appendChild(this.props.player.getView());
   };
 
+  _onResize = (size: {width: number, height: number}) => {
+    this.props.player.dispatchEvent(new VideoResizeEvent(size));
+  }
+
   /**
    * render component
    *
@@ -42,7 +47,7 @@ class VideoPlayer extends Component {
    */
   render(): React$Element<any> {
     return (
-      <VideoAreaContainer>
+      <VideoAreaContainer onResize={this._onResize}>
         {context => <div className={context.className + ' ' + style.videoPlayer} style={context.style} ref={this._setRef} />}
       </VideoAreaContainer>
     );
