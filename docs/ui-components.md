@@ -1,5 +1,10 @@
 # UI Components
 
+:heavy_exclamation_mark: BETA NOTICE  
+this feature is considered BETA and might change during next couple of releases, API is considered stable and changes will most likely be to availble containers.  
+Please check in release notes for official release notice.  
+
+
 > See detailed examples on how to create and use your own components [here](create-ui-component.md)
 
 ## General

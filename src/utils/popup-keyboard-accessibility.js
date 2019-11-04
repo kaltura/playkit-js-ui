@@ -9,10 +9,10 @@ import {KeyMap} from '../utils/key-map';
  */
 export const withKeyboardA11y: Function = (WrappedComponent: Component): typeof Component =>
   class KeyBoardAccessibility extends Component {
-    _firstFocusedElement: HTMLElement;
+    _defaultFocusedElement: HTMLElement;
     _accessibleChildren: Array<HTMLElement> = [];
-    _activeElement: ?HTMLElement;
     _previouslyActiveElement: ?HTMLElement;
+    _isModal: boolean = false;
 
     /**
      * after component mounted, focus on relevant element
@@ -21,13 +21,18 @@ export const withKeyboardA11y: Function = (WrappedComponent: Component): typeof 
      * @memberof HOC
      */
     componentDidMount() {
-      this._activeElement = this._firstFocusedElement || (this._accessibleChildren.length && this._accessibleChildren[0]);
-      if (this._activeElement) {
-        this._previouslyActiveElement = document.activeElement;
-        this._activeElement.focus();
-      }
+      this._previouslyActiveElement = document.activeElement;
+      this.focusOnDefault();
     }
 
+    /**
+     * setter to change to modal state
+     * @param {boolean} value - the modal state
+     * @memberOf HOC
+     */
+    set isModal(value: boolean): void {
+      this._isModal = value;
+    }
     /**
      * handles keydown events
      * @param {KeyboardEvent} e - the keyboard event
@@ -44,22 +49,36 @@ export const withKeyboardA11y: Function = (WrappedComponent: Component): typeof 
           break;
         case KeyMap.DOWN:
         case KeyMap.UP:
-          if (this._activeElement) {
-            let activeElementIndex = this._accessibleChildren.indexOf(this._activeElement);
+          if (document.activeElement && !this._isModal) {
+            let activeElementIndex = this._accessibleChildren.indexOf(document.activeElement);
             activeElementIndex =
               (activeElementIndex + (e.keyCode == KeyMap.DOWN ? 1 : -1) + this._accessibleChildren.length) % this._accessibleChildren.length;
-            this._activeElement = this._accessibleChildren[activeElementIndex];
-            this._activeElement.focus();
+            this._accessibleChildren[activeElementIndex].focus();
+            e.preventDefault();
+            e.stopPropagation();
           }
-          e.preventDefault();
-          e.stopPropagation();
 
           break;
         case KeyMap.TAB:
-          this._previouslyActiveElement = null;
-          if (this.props.onClose) {
-            this.props.onClose();
+          // hijack tab click to enforce accessibility only inside the modal
+          if (this._isModal) {
+            if (!e.shiftKey && document.activeElement === this._accessibleChildren[this._accessibleChildren.length - 1]) {
+              this._accessibleChildren[0].focus();
+              e.preventDefault();
+              e.stopPropagation();
+            } else if (e.shiftKey && document.activeElement === this._accessibleChildren[0]) {
+              this._accessibleChildren[this._accessibleChildren.length - 1].focus();
+              e.preventDefault();
+              e.stopPropagation();
+            }
+          } else {
+            // if not a modal, tabbing should close the window and continue with default behaviour
+            this._previouslyActiveElement = null;
+            if (this.props.onClose) {
+              this.props.onClose();
+            }
           }
+
           break;
       }
     }
@@ -87,14 +106,23 @@ export const withKeyboardA11y: Function = (WrappedComponent: Component): typeof 
       return (
         <WrappedComponent
           {...props}
-          setFirstFocusedElement={el => {
-            this.setFirstFocusedElement(el);
+          setDefaultFocusedElement={el => {
+            this.setDefaultFocusedElement(el);
+          }}
+          focusOnDefault={() => {
+            this.focusOnDefault();
           }}
           addAccessibleChild={el => {
             this.addAccessibleChild(el);
           }}
+          clearAccessibleChildren={() => {
+            this.clearAccessibleChildren();
+          }}
           handleKeyDown={e => {
             this.onKeyDown(e);
+          }}
+          setIsModal={val => {
+            this.isModal = val;
           }}
         />
       );
@@ -106,8 +134,10 @@ export const withKeyboardA11y: Function = (WrappedComponent: Component): typeof 
      * @returns {void}
      * @memberof HOC
      */
-    setFirstFocusedElement(element: HTMLElement): void {
-      this._firstFocusedElement = element;
+    setDefaultFocusedElement(element: HTMLElement): void {
+      if (element) {
+        this._defaultFocusedElement = element;
+      }
     }
 
     /**
@@ -117,6 +147,29 @@ export const withKeyboardA11y: Function = (WrappedComponent: Component): typeof 
      * @memberof HOC
      */
     addAccessibleChild(element: HTMLElement): void {
-      this._accessibleChildren.push(element);
+      if (element && this._accessibleChildren.indexOf(element) == -1) {
+        this._accessibleChildren.push(element);
+      }
+    }
+
+    /**
+     * clears the the accessible children array
+     * @returns {void}
+     * @memberof HOC
+     */
+    clearAccessibleChildren(): void {
+      this._accessibleChildren = [];
+    }
+
+    /**
+     * focuses on the default accessible element (either an explicitly given default element or the first)
+     * @returns {void}
+     * @memberof HOC
+     */
+    focusOnDefault(): void {
+      const defaultElement = this._defaultFocusedElement || (this._accessibleChildren.length && this._accessibleChildren[0]);
+      if (defaultElement) {
+        defaultElement.focus();
+      }
     }
   };
