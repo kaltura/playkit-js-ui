@@ -30,7 +30,7 @@ export {OverlayAction} from './overlay-action';
 export {OverlayPortal} from './overlay-portal';
 export * from './player';
 export {PrePlaybackPlayOverlay} from './pre-playback-play-overlay';
-export {Forward} from './forward';
+export {Forward, Forward as ForwardControl} from './forward';
 export {SeekBarLivePlaybackContainer} from './seekbar-live-playback-container';
 export {SeekBarPlaybackContainer} from './seekbar-playback-container';
 export * from './logger';
