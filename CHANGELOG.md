@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.48.1"></a>
+## [0.48.1](https://github.com/kaltura/playkit-js-ui/compare/v0.48.0...v0.48.1) (2019-11-12)
+
+
+### Bug Fixes
+
+* **FEC-9407:** forward button is missing when casting ([#452](https://github.com/kaltura/playkit-js-ui/issues/452)) ([fc32169](https://github.com/kaltura/playkit-js-ui/commit/fc32169))
+
+
+
 <a name="0.48.0"></a>
 # [0.48.0](https://github.com/kaltura/playkit-js-ui/compare/v0.47.6...v0.48.0) (2019-10-31)
 
