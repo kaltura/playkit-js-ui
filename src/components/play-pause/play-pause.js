@@ -62,11 +62,19 @@ class PlayPause extends Component {
           <button
             tabIndex="0"
             aria-label={
-              <Text id={props.isPlaybackEnded ? 'controls.startOver' : this.props.isPlayingAdOrPlayback ? 'controls.pause' : 'controls.play'} />
+              <Text
+                id={
+                  props.isPlaybackEnded && !this.props.adBreak
+                    ? 'controls.startOver'
+                    : this.props.isPlayingAdOrPlayback
+                      ? 'controls.pause'
+                      : 'controls.play'
+                }
+              />
             }
             className={controlButtonClass}
             onClick={() => this.togglePlayPause()}>
-            {props.isPlaybackEnded ? (
+            {props.isPlaybackEnded && !this.props.adBreak ? (
               <Icon type={IconType.StartOver} />
             ) : (
               <div>
