@@ -38,13 +38,28 @@ const COMPONENT_NAME = 'PlaylistNextScreen';
  * @extends {Component}
  */
 class PlaylistNextScreen extends Component {
+  focusElement: HTMLElement;
+
+  /**
+   * after component updated, if was renderd and now should then focus for keyboard a11y
+   * @param {Object} previousProps - previous props
+   * @returns {void}
+   * @memberof PlaylistCountdownPopup
+   */
+  componentDidUpdate(previousProps: Object): void {
+    if (!this._shouldRender(previousProps) && this._shouldRender(this.props)) {
+      if (this.focusElement) {
+        this.focusElement.focus();
+      }
+    }
+  }
   /**
    * should render component
    * @param {*} props - component props
    * @returns {boolean} - component element
    */
   _shouldRender(props: any): boolean {
-    return props.playlist && props.playlist.next && props.playlist.next.sources;
+    return props.playlist && props.playlist.next && props.playlist.next.sources && props.isPlaybackEnded;
   }
 
   /**
@@ -84,10 +99,10 @@ class PlaylistNextScreen extends Component {
       return undefined;
     }
     const next = props.playlist.next;
-    return props.isPlaybackEnded ? (
+    return (
       <div className={style.playlistNextScreenOverlay}>
         <div className={style.playlistNextScreenContent}>
-          <div className={style.playlistNextScreenText}>
+          <div id="playlistNextScreenTextId" className={style.playlistNextScreenText}>
             <Localizer>
               <div className={style.playlistNextScreenTextTitle}>
                 <Text id="playlist.next" />
@@ -98,6 +113,11 @@ class PlaylistNextScreen extends Component {
           <div className={style.playlistNextScreenPosterPlaceholder}>
             <div className={style.playlistNextScreenPosterAspectRatio}>
               <div
+                role="button"
+                aria-labelledby="playlistNextScreenTextId"
+                ref={el => {
+                  this.focusElement = el;
+                }}
                 tabIndex="0"
                 className={style.playlistNextScreenPoster}
                 onClick={() => this.onPosterClick()}
@@ -113,8 +133,6 @@ class PlaylistNextScreen extends Component {
           </div>
         </div>
       </div>
-    ) : (
-      undefined
     );
   }
 }

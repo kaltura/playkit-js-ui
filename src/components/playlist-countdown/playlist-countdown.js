@@ -1,14 +1,11 @@
 //@flow
-import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
-import {Localizer, Text} from 'preact-i18n';
-import {default as Icon, IconType} from '../icon';
-import {KeyMap} from '../../utils/key-map';
 import {connect} from 'preact-redux';
 import {withPlayer} from '../player';
 import {withLogger} from 'components/logger';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from 'reducers/playlist';
+import {PlaylistCountdownPopup} from 'components/playlist-countdown/playlist-countdown-popup';
 
 /**
  * mapping state to props
@@ -37,7 +34,6 @@ const COMPONENT_NAME = 'PlaylistCountdown';
  * PlaylistCountdown component
  *
  * @class PlaylistCountdown
- * @example <PlaylistCountdown type="next"/>
  * @extends {Component}
  */
 class PlaylistCountdown extends Component {
@@ -149,70 +145,28 @@ class PlaylistCountdown extends Component {
     if (!this._shouldRender(props)) {
       return undefined;
     }
-    const next = props.playlist.next;
-    if (!(next && next.sources)) {
-      return undefined;
-    }
+
     const countdown = this.props.player.playlist.countdown;
     const timeToShow = this._getTimeToShow();
     const progressTime = props.currentTime - timeToShow;
     const progressDuration = Math.min(countdown.duration, props.duration - timeToShow);
     const progressWidth = `${progressTime > 0 ? (progressTime / progressDuration) * 104 : 0}%`;
-    const className = [style.playlistCountdown];
     const isHidden = !this.state.timeToShow || countdown.duration >= props.duration;
     const isCanceled = this.props.countdownCanceled;
 
-    if (isHidden) {
-      className.push(style.hidden);
-    } else if (isCanceled) {
-      className.push(style.canceled);
-    }
-
-    return (
-      <div
-        tabIndex={isHidden || isCanceled ? -1 : 0}
-        className={className.join(' ')}
-        onKeyDown={e => {
-          if (e.keyCode === KeyMap.ENTER) {
-            this.onClick();
-          }
+    return isHidden || isCanceled ? (
+      undefined
+    ) : (
+      <PlaylistCountdownPopup
+        progressWidth={progressWidth}
+        next={props.playlist.next}
+        onClick={() => {
+          this.onClick();
         }}
-        onClick={() => this.onClick()}>
-        <div className={style.playlistCountdownPoster} style={`background-image: url(${next.sources.poster});`} />
-        <div className={style.playlistCountdownContentPlaceholder}>
-          <div className={style.playlistCountdownContentBackground}>
-            <div className={style.playlistCountdownContent}>
-              <Localizer>
-                <div className={style.playlistCountdownText}>
-                  <div className={style.playlistCountdownTextTitle}>
-                    <Text id="playlist.up_next" />
-                  </div>
-                  <div className={style.playlistCountdownTextName}>{`${next.sources.metadata ? next.sources.metadata.name : ''}`}</div>
-                </div>
-              </Localizer>
-              <div className={[style.controlButtonContainer, style.playlistCountdownCancel].join(' ')}>
-                <Localizer>
-                  <button
-                    tabIndex={isHidden || isCanceled ? -1 : 0}
-                    aria-label={<Text id="playlist.cancel" />}
-                    className={[style.controlButton, style.playlistCountdownCancelButton].join(' ')}
-                    onClick={e => this.cancelNext(e)}
-                    onKeyDown={e => {
-                      if (e.keyCode === KeyMap.ENTER) {
-                        this.cancelNext(e);
-                      }
-                    }}>
-                    <Icon type={IconType.Close} />
-                  </button>
-                </Localizer>
-              </div>
-              <div className={style.playlistCountdownIndicatorBar}>
-                <div className={style.playlistCountdownIndicatorProgress} style={{width: progressWidth}} />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        cancelNext={e => {
+          this.cancelNext(e);
+        }}
+      />
     );
   }
 }
