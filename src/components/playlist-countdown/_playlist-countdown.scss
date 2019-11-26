@@ -25,6 +25,11 @@
       }
     }
 
+    &.canceled {
+      bottom: -50px;
+      opacity: 0;
+    }
+
     .playlist-countdown-poster {
       width: 120px;
       height: inherit;

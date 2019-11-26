@@ -44,13 +44,11 @@ class PlaylistNextScreen extends Component {
    * after component updated, if was renderd and now should then focus for keyboard a11y
    * @param {Object} previousProps - previous props
    * @returns {void}
-   * @memberof PlaylistCountdownPopup
+   * @memberof PlaylistNextScreen
    */
   componentDidUpdate(previousProps: Object): void {
-    if (!this._shouldRender(previousProps) && this._shouldRender(this.props)) {
-      if (this.focusElement) {
-        this.focusElement.focus();
-      }
+    if (!this._shouldRender(previousProps) && this._shouldRender(this.props) && this.focusElement) {
+      this.focusElement.focus();
     }
   }
   /**
@@ -59,7 +57,7 @@ class PlaylistNextScreen extends Component {
    * @returns {boolean} - component element
    */
   _shouldRender(props: any): boolean {
-    return props.playlist && props.playlist.next && props.playlist.next.sources && props.isPlaybackEnded;
+    return !!props.playlist && !!props.playlist.next && !!props.playlist.next.sources && props.isPlaybackEnded;
   }
 
   /**
