@@ -2,21 +2,6 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-<a name="0.49.0"></a>
-# [0.49.0](https://github.com/kaltura/playkit-js-ui/compare/v0.48.1...v0.49.0) (2019-11-26)
-
-
-### Bug Fixes
-
-* **FEC-9433:** timer on seek preview displayed as NaN:NaN:NaN ([#453](https://github.com/kaltura/playkit-js-ui/issues/453)) ([df3aeba](https://github.com/kaltura/playkit-js-ui/commit/df3aeba))
-
-
-### Features
-
-* **FEC-9479:** auto focus on preview popup and screen ([5d7c054](https://github.com/kaltura/playkit-js-ui/commit/5d7c054))
-
-
-
 <a name="0.48.1"></a>
 ## [0.48.1](https://github.com/kaltura/playkit-js-ui/compare/v0.48.0...v0.48.1) (2019-11-12)
 
