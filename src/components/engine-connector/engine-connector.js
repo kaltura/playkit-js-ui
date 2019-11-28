@@ -121,6 +121,10 @@ class EngineConnector extends Component {
       this.props.updatePrePlayback(true);
     });
 
+    eventManager.listen(player, player.Event.FIRST_PLAY, () => {
+      this.props.updatePrePlayback(false);
+    });
+
     eventManager.listen(player, player.Event.PLAY, () => {
       this.props.updateIsPlaying(true);
       this.props.updateIsEnded(false);
