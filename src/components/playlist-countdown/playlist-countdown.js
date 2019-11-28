@@ -129,7 +129,7 @@ class PlaylistCountdown extends Component {
       }
     }
 
-    if (prevState.isHiddenOrCanceled && !this.state.isHiddenOrCanceled && this.focusElement) {
+    if (!prevState.show && this.state.show && this.focusElement) {
       this.focusElement.focus();
     }
   }
@@ -167,7 +167,7 @@ class PlaylistCountdown extends Component {
     const className = [style.playlistCountdown];
     const isHidden = !this.state.timeToShow || countdown.duration >= props.duration;
     const isCanceled = this.props.countdownCanceled;
-    this.setState({isHiddenOrCanceled: isHidden || isCanceled});
+    this.setState({show: !isHidden && !isCanceled});
 
     if (isHidden) {
       className.push(style.hidden);
