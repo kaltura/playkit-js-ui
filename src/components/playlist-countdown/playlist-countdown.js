@@ -41,6 +41,8 @@ const COMPONENT_NAME = 'PlaylistCountdown';
  * @extends {Component}
  */
 class PlaylistCountdown extends Component {
+  focusElement: HTMLElement;
+
   /**
    * should render component
    * @param {*} props - component props
@@ -94,7 +96,6 @@ class PlaylistCountdown extends Component {
 
   /**
    * component will update handler
-
    * @param {Object} nextProps - the props that will replace the current props
    * @returns {void}
    */
@@ -112,9 +113,10 @@ class PlaylistCountdown extends Component {
    * component did update handler
    *
    * @param {Object} prevProps - previous component props
+   * @param {Object} prevState - previous component state
    * @returns {void}
    */
-  componentDidUpdate(prevProps: Object): void {
+  componentDidUpdate(prevProps: Object, prevState: Object): void {
     if (this._shouldRender(prevProps)) {
       const timeToShow = this._getTimeToShow();
       const countdown = this.props.player.playlist.countdown;
@@ -125,6 +127,10 @@ class PlaylistCountdown extends Component {
       ) {
         this.props.player.playlist.playNext();
       }
+    }
+
+    if (!prevState.show && this.state.show && this.focusElement) {
+      this.focusElement.focus();
     }
   }
 
@@ -161,6 +167,7 @@ class PlaylistCountdown extends Component {
     const className = [style.playlistCountdown];
     const isHidden = !this.state.timeToShow || countdown.duration >= props.duration;
     const isCanceled = this.props.countdownCanceled;
+    this.setState({show: !isHidden && !isCanceled});
 
     if (isHidden) {
       className.push(style.hidden);
@@ -170,11 +177,19 @@ class PlaylistCountdown extends Component {
 
     return (
       <div
+        role="button"
+        aria-labelledby="playlistCountdownTextId"
+        ref={el => (this.focusElement = el)}
         tabIndex={isHidden || isCanceled ? -1 : 0}
         className={className.join(' ')}
         onKeyDown={e => {
-          if (e.keyCode === KeyMap.ENTER) {
-            this.onClick();
+          switch (e.keyCode) {
+            case KeyMap.ENTER:
+              this.onClick();
+              break;
+            case KeyMap.ESC:
+              this.cancelNext(e);
+              break;
           }
         }}
         onClick={() => this.onClick()}>
@@ -183,7 +198,7 @@ class PlaylistCountdown extends Component {
           <div className={style.playlistCountdownContentBackground}>
             <div className={style.playlistCountdownContent}>
               <Localizer>
-                <div className={style.playlistCountdownText}>
+                <div id="playlistCountdownTextId" className={style.playlistCountdownText}>
                   <div className={style.playlistCountdownTextTitle}>
                     <Text id="playlist.up_next" />
                   </div>
