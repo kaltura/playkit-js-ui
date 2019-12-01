@@ -101,7 +101,7 @@ class MainCaptionsWindow extends Component {
         ) : (
           <div className={style.customCaptionsApplied}>
             <div className={[style.sample, style.custom].join(' ')} style={props.customTextStyle.toCSS()}>
-              <span>Custom captions</span>
+              <Text id={'cvaa.sample_custom_caption_tag'} />
               <div className={style.activeTick}>
                 <Icon type={IconType.Check} />
               </div>
