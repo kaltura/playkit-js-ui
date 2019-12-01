@@ -78,7 +78,7 @@ class SeekBarLivePlaybackContainer extends Component {
         updateCurrentTime={data => this.props.updateCurrentTime(data)}
         isDvr={this.props.isDvr}
         currentTime={this.props.currentTime}
-        duration={this.props.player.isOnLiveEdge() ? this.props.currentTime : this.props.duration}
+        duration={this.props.player.isOnLiveEdge() ? this.props.currentTime : Math.max(this.props.duration, this.props.currentTime)}
         isDraggingActive={this.props.isDraggingActive}
         isMobile={this.props.isMobile}
         notifyChange={payload => this.props.notifyChange(payload)}
