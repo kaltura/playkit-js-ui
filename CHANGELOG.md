@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.49.0"></a>
+# [0.49.0](https://github.com/kaltura/playkit-js-ui/compare/v0.48.1...v0.49.0) (2019-12-01)
+
+
+### Bug Fixes
+
+* **FEC-8890:** captions menu was not aligned correct in ie11 with bootstrap.css ([#451](https://github.com/kaltura/playkit-js-ui/issues/451)) ([0c6093e](https://github.com/kaltura/playkit-js-ui/commit/0c6093e))
+* **FEC-9281:** ignore shortcut handling if focused on editable node ([#400](https://github.com/kaltura/playkit-js-ui/issues/400)) ([23bc7b9](https://github.com/kaltura/playkit-js-ui/commit/23bc7b9))
+* **FEC-9433:** timer on seek preview displayed as NaN:NaN:NaN ([#453](https://github.com/kaltura/playkit-js-ui/issues/453)) ([df3aeba](https://github.com/kaltura/playkit-js-ui/commit/df3aeba))
+* **FEC-9493:** ima - dragging to the end causes the midroll to play with replay button ([#454](https://github.com/kaltura/playkit-js-ui/issues/454)) ([35e814f](https://github.com/kaltura/playkit-js-ui/commit/35e814f))
+* **FEC-9505:** Add i18n support for custom captions ([#460](https://github.com/kaltura/playkit-js-ui/issues/460)) ([5603d9e](https://github.com/kaltura/playkit-js-ui/commit/5603d9e))
+* **FEC-9511:** the large play button gets stuck when auto play is failed ([#458](https://github.com/kaltura/playkit-js-ui/issues/458)) ([d7a27e7](https://github.com/kaltura/playkit-js-ui/commit/d7a27e7))
+
+
+### Features
+
+* **FEC-9479:** auto focus on playlist preview popup and screen ([#455](https://github.com/kaltura/playkit-js-ui/issues/455)) ([0faee6f](https://github.com/kaltura/playkit-js-ui/commit/0faee6f))
+* **FEC-9491:** blur video when overlay active ([#456](https://github.com/kaltura/playkit-js-ui/issues/456)) ([ccaff97](https://github.com/kaltura/playkit-js-ui/commit/ccaff97))
+
+
+
 <a name="0.48.1"></a>
 ## [0.48.1](https://github.com/kaltura/playkit-js-ui/compare/v0.48.0...v0.48.1) (2019-11-12)
 
