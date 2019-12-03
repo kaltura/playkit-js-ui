@@ -42,7 +42,8 @@ const COMPONENT_NAME = 'PlaylistCountdown';
  */
 class PlaylistCountdown extends Component {
   focusElement: HTMLElement;
-
+  isHidden: boolean = true;
+  isCanceled: boolean = false;
   /**
    * should render component
    * @param {*} props - component props
@@ -107,6 +108,9 @@ class PlaylistCountdown extends Component {
       this.setState({timeToShow: false});
       this.props.updatePlaylistCountdownCanceled(false);
     }
+
+    this.isHidden = !this.state.timeToShow || nextProps.player.playlist.countdown.duration >= nextProps.duration;
+    this.isCanceled = nextProps.countdownCanceled;
   }
 
   /**
@@ -132,6 +136,9 @@ class PlaylistCountdown extends Component {
     if (!prevState.show && this.state.show && this.focusElement) {
       this.focusElement.focus();
     }
+
+    this.setState({show: !this.isHidden && !this.isCanceled});
+
   }
 
   /**
@@ -165,13 +172,10 @@ class PlaylistCountdown extends Component {
     const progressDuration = Math.min(countdown.duration, props.duration - timeToShow);
     const progressWidth = `${progressTime > 0 ? (progressTime / progressDuration) * 104 : 0}%`;
     const className = [style.playlistCountdown];
-    const isHidden = !this.state.timeToShow || countdown.duration >= props.duration;
-    const isCanceled = this.props.countdownCanceled;
-    this.setState({show: !isHidden && !isCanceled});
 
-    if (isHidden) {
+    if (this.isHidden) {
       className.push(style.hidden);
-    } else if (isCanceled) {
+    } else if (this.isCanceled) {
       className.push(style.canceled);
     }
 
@@ -180,7 +184,7 @@ class PlaylistCountdown extends Component {
         role="button"
         aria-labelledby="playlistCountdownTextId"
         ref={el => (this.focusElement = el)}
-        tabIndex={isHidden || isCanceled ? -1 : 0}
+        tabIndex={this.isHidden || this.isCanceled ? -1 : 0}
         className={className.join(' ')}
         onKeyDown={e => {
           switch (e.keyCode) {
@@ -208,7 +212,7 @@ class PlaylistCountdown extends Component {
               <div className={[style.controlButtonContainer, style.playlistCountdownCancel].join(' ')}>
                 <Localizer>
                   <button
-                    tabIndex={isHidden || isCanceled ? -1 : 0}
+                    tabIndex={this.isHidden || this.isCanceled ? -1 : 0}
                     aria-label={<Text id="playlist.cancel" />}
                     className={[style.controlButton, style.playlistCountdownCancelButton].join(' ')}
                     onClick={e => this.cancelNext(e)}
