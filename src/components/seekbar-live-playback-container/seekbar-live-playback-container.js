@@ -71,19 +71,33 @@ class SeekBarLivePlaybackContainer extends Component {
       <SeekBar
         playerElement={this.props.playerContainer}
         showTimeBubble={this.props.showTimeBubble}
-        changeCurrentTime={time => (this.props.player.currentTime = time)}
+        changeCurrentTime={time => {
+          // avoiding exiting live edge by mistake in case currenttime is just a bit smaller than duration
+          if (!(this.props.player.isOnLiveEdge() && time === this.duration)) {
+            this.props.player.currentTime = time;
+          }
+        }}
         playerPoster={this.props.poster}
         updateSeekbarDraggingStatus={data => this.props.updateSeekbarDraggingStatus(data)}
         updateSeekbarHoverActive={data => this.props.updateSeekbarHoverActive(data)}
         updateCurrentTime={data => this.props.updateCurrentTime(data)}
         isDvr={this.props.isDvr}
         currentTime={this.props.currentTime}
-        duration={this.props.duration}
+        duration={this.duration}
         isDraggingActive={this.props.isDraggingActive}
         isMobile={this.props.isMobile}
         notifyChange={payload => this.props.notifyChange(payload)}
       />
     );
+  }
+
+  /**
+   *
+   * @returns {number} - the duration of the video to show
+   * @memberof SeekBarLivePlaybackContainer
+   */
+  get duration(): number {
+    return this.props.player.isOnLiveEdge() ? this.props.currentTime : Math.max(this.props.duration, this.props.currentTime);
   }
 }
 
