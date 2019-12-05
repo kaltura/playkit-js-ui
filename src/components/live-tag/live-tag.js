@@ -35,13 +35,13 @@ const COMPONENT_NAME = 'LiveTag';
  */
 class LiveTag extends Component {
   /**
-   * returns a boolean to detect if player is on live edge with buffer of 1 second
+   * returns a boolean to detect if player is on live edge
    *
    * @returns {boolean} - is player on live edge
    * @memberof LiveTag
    */
   isOnLiveEdge(): boolean {
-    return this.props.currentTime >= this.props.duration - 1;
+    return this.props.player.isOnLiveEdge();
   }
 
   /**
