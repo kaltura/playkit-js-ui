@@ -9,6 +9,7 @@ import {withEventDispatcher} from 'components/event-dispatcher';
 import {withLogger} from 'components/logger';
 import {withKeyboardEvent} from 'components/keyboard';
 import {KeyMap} from 'utils/key-map';
+import {FakeEvent} from 'event/fake-event';
 
 /**
  * mapping state to props
@@ -40,14 +41,17 @@ class Fullscreen extends Component {
    * @memberof Fullscreen
    */
   componentDidMount() {
+    const {player} = this.props;
     this.props.addKeyboardHandler(KeyMap.F, () => {
-      if (!this.props.player.isFullscreen()) {
-        this.props.player.enterFullscreen();
+      if (!player.isFullscreen()) {
+        player.enterFullscreen();
+        player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_ENTERED_FULL_SCREEN));
       }
     });
     this.props.addKeyboardHandler(KeyMap.ESC, () => {
-      if (this.props.player.isFullscreen()) {
-        this.props.player.exitFullscreen();
+      if (player.isFullscreen()) {
+        player.exitFullscreen();
+        player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_EXITED_FULL_SCREEN));
       }
     });
   }
