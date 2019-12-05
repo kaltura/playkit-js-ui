@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.49.1"></a>
+## [0.49.1](https://github.com/kaltura/playkit-js-ui/compare/v0.49.0...v0.49.1) (2019-12-05)
+
+
+### Bug Fixes
+
+* **FEC-9471:** slider progress bar exceeds 100% ([#459](https://github.com/kaltura/playkit-js-ui/issues/459)) ([469329a](https://github.com/kaltura/playkit-js-ui/commit/469329a))
+* **FEC-9513:** endless spinner when auto play is failed ([#463](https://github.com/kaltura/playkit-js-ui/issues/463)) ([75dc146](https://github.com/kaltura/playkit-js-ui/commit/75dc146))
+* **FEC-9521:** countdown is stuck open after next video started ([#461](https://github.com/kaltura/playkit-js-ui/issues/461)) ([4e34983](https://github.com/kaltura/playkit-js-ui/commit/4e34983))
+* **FEC-9522:** overlay background should be with 0.7 opacity ([#462](https://github.com/kaltura/playkit-js-ui/issues/462)) ([e7893fa](https://github.com/kaltura/playkit-js-ui/commit/e7893fa))
+
+
+
 <a name="0.49.0"></a>
 # [0.49.0](https://github.com/kaltura/playkit-js-ui/compare/v0.48.1...v0.49.0) (2019-12-01)
 
