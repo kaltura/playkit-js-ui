@@ -7,6 +7,9 @@ import {connect} from 'preact-redux';
 import {PLAYER_SIZE} from '../shell/shell';
 import {withPlayer} from '../player';
 import {withLogger} from 'components/logger';
+import {KeyMap} from 'utils/key-map';
+import {withKeyboardEvent} from 'components/keyboard';
+import {FakeEvent} from 'event/fake-event';
 
 /**
  * mapping state to props
@@ -22,6 +25,7 @@ const COMPONENT_NAME = 'PictureInPicture';
 
 @connect(mapStateToProps)
 @withPlayer
+@withKeyboardEvent
 @withLogger(COMPONENT_NAME)
 /**
  * PictureInPicture component
@@ -30,6 +34,24 @@ const COMPONENT_NAME = 'PictureInPicture';
  * @extends {Component}
  */
 class PictureInPicture extends Component {
+  /**
+   * @returns {void}
+   * @memberof PictureInPicture
+   */
+  componentDidMount() {
+    this.props.addKeyboardHandler(KeyMap.P, () => {
+      const {player} = this.props;
+      if (!player.isInPictureInPicture()) {
+        this.props.logger.debug('Enter Picture In Picture');
+        player.enterPictureInPicture();
+        player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_ENTERED_PICTURE_IN_PICTURE));
+      } else {
+        this.props.logger.debug('Exit Picture In Picture');
+        player.exitPictureInPicture();
+        player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_EXITED_PICTURE_IN_PICTURE));
+      }
+    });
+  }
   /**
    * On PIP icon clicked
    * @returns {void}

@@ -8,6 +8,11 @@ import {isPlayingAdOrPlayback} from '../../reducers/getters';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {withLogger} from 'components/logger';
+import {KeyMap} from 'utils/key-map';
+import {withKeyboardEvent} from 'components/keyboard';
+import {bindActions} from 'utils/bind-actions';
+import {actions} from 'reducers/settings';
+import {actions as overlayIconActions} from 'reducers/overlay-action';
 
 /**
  * mapping state to props
@@ -23,8 +28,12 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'PlayPause';
 
-@connect(mapStateToProps)
+@connect(
+  mapStateToProps,
+  bindActions(Object.assign({}, actions, overlayIconActions))
+)
 @withPlayer
+@withKeyboardEvent
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
 /**
@@ -35,6 +44,17 @@ const COMPONENT_NAME = 'PlayPause';
  * @extends {Component}
  */
 class PlayPause extends Component {
+  /**
+   * @returns {void}
+   * @memberof PlayPause
+   */
+  componentDidMount() {
+    this.props.addKeyboardHandler(KeyMap.SPACE, () => {
+      this.props.isPlayingAdOrPlayback ? this.props.updateOverlayActionIcon(IconType.Pause) : this.props.updateOverlayActionIcon(IconType.Play);
+      this.togglePlayPause();
+    });
+  }
+
   /**
    * toggle play / pause
    *

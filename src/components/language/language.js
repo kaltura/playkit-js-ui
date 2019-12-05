@@ -15,6 +15,7 @@ import {withEventManager} from 'event/with-event-manager';
 import {withLogger} from 'components/logger';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {KeyMap} from 'utils/key-map';
+import {withKeyboardEvent} from 'components/keyboard';
 
 /**
  * mapping state to props
@@ -37,6 +38,7 @@ const COMPONENT_NAME = 'Language';
 )
 @withPlayer
 @withEventManager
+@withKeyboardEvent
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
 @withText({
@@ -55,6 +57,7 @@ const COMPONENT_NAME = 'Language';
 class Language extends Component {
   state: Object;
   _controlLanguageElement: any;
+  _lastActiveTextLanguage: string = '';
   // ie11 fix (FEC-7312) - don't remove
   _portal: any;
 
@@ -76,6 +79,38 @@ class Language extends Component {
    */
   componentDidMount() {
     this.props.eventManager.listen(document, 'click', e => this.handleClickOutside(e));
+    this.props.addKeyboardHandler(KeyMap.C, event => {
+      let activeTextTrack = this.props.player.getActiveTracks().text;
+      //if key is combined then exit
+      if (event.altKey || event.shiftKey || event.ctrlKey || event.metaKey) return;
+      if (activeTextTrack) {
+        if (activeTextTrack.language === 'off' && this._lastActiveTextLanguage) {
+          this.props.logger.debug(`Changing text track to language`, this._lastActiveTextLanguage);
+          const selectedTextTrack = this.props.player.getTracks('text').find(track => track.language === this._lastActiveTextLanguage);
+          this.props.player.selectTrack(selectedTextTrack);
+        } else if (activeTextTrack.language !== 'off' && !this._lastActiveTextLanguage) {
+          this.props.logger.debug(`Hiding text track`);
+          this._lastActiveTextLanguage = activeTextTrack.language;
+          this.props.player.hideTextTrack();
+        }
+      }
+    });
+  }
+
+  /**
+   * We update the last language selected here upon trackTracks props change. This is done to make sure we update the
+   * last text track lanague upon language menu selection and using the (C) keyboard key.
+   * @param {Object} nextProps - the props that will replace the current props
+   * @returns {void}
+   */
+  componentWillReceiveProps(nextProps: Object): void {
+    const currActiveTrack = this.props.textTracks.find(track => track.active);
+    const nextActiveTrack = nextProps.textTracks.find(track => track.active);
+    if (currActiveTrack && currActiveTrack.language !== 'off' && nextActiveTrack && nextActiveTrack.language === 'off') {
+      this._lastActiveTextLanguage = currActiveTrack.language;
+    } else if (nextActiveTrack && nextActiveTrack.language !== 'off') {
+      this._lastActiveTextLanguage = '';
+    }
   }
 
   /**

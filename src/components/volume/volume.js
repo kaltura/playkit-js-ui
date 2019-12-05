@@ -7,13 +7,14 @@ import {actions} from '../../reducers/volume';
 import {actions as engineActions} from '../../reducers/engine';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
-import {KEYBOARD_DEFAULT_VOLUME_JUMP} from '../keyboard/keyboard';
 import {FakeEvent} from '../../event/fake-event';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withLogger} from 'components/logger';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {withText} from 'preact-i18n';
+import {withKeyboardEvent} from 'components/keyboard';
+import {actions as overlayIconActions} from 'reducers/overlay-action';
 
 /**
  * mapping state to props
@@ -29,18 +30,27 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'Volume';
 
+/**
+ * Default volume jump
+ * @type {number}
+ * @const
+ */
+const KEYBOARD_DEFAULT_VOLUME_JUMP: number = 5;
+
 @connect(
   mapStateToProps,
-  bindActions({...actions, ...engineActions})
+  bindActions({...actions, ...engineActions, ...overlayIconActions})
 )
 @withPlayer
 @withEventManager
+@withKeyboardEvent
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
 @withText({
   muteAriaLabel: 'controls.mute',
   unmuteAriaLabel: 'controls.unmute'
 })
+
 /**
  * Volume component
  *
@@ -71,6 +81,7 @@ class Volume extends Component {
     });
     this.props.eventManager.listen(document, 'mouseup', e => this.onVolumeProgressBarMouseUp(e));
     this.props.eventManager.listen(document, 'mousemove', e => this.onVolumeProgressBarMouseMove(e));
+    this.handleKeyDown();
   }
 
   /**
@@ -136,12 +147,11 @@ class Volume extends Component {
   /**
    * on volume control key down, update the volume in case of up/down keys
    *
-   * @param {KeyboardEvent} e - keyboardEvent event
-   * @method onKeyDown
+   * @method handleKeyDown
    * @returns {void}
    * @memberof Volume
    */
-  onKeyDown(e: KeyboardEvent): void {
+  handleKeyDown(): void {
     const {player} = this.props;
     /**
      * Change volume operations.
@@ -149,7 +159,6 @@ class Volume extends Component {
      * @returns {void}
      */
     const changeVolume = (newVolume: number) => {
-      this.setState({hover: true});
       if (newVolume > 100 || newVolume < 0) {
         return;
       }
@@ -157,13 +166,36 @@ class Volume extends Component {
       player.volume = newVolume / 100;
       this.props.notifyChange({volume: player.volume});
     };
+    this.props.addKeyboardHandler(KeyMap.UP, () => {
+      this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWaves]);
+      changeVolume(Math.round(player.volume * 100) + KEYBOARD_DEFAULT_VOLUME_JUMP);
+    });
+    this.props.addKeyboardHandler(KeyMap.DOWN, () => {
+      const newVolume = Math.round(player.volume * 100) - KEYBOARD_DEFAULT_VOLUME_JUMP;
+      if (newVolume === 0) {
+        this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeMute]);
+      } else {
+        this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWave]);
+      }
+      changeVolume(newVolume);
+    });
+    this.props.addKeyboardHandler(KeyMap.M, () => {
+      this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeMute]);
+      this.toggleMute();
+    });
+  }
+
+  /**
+   * on volume control key down, update the volume in case of up/down keys
+   *
+   * @param {KeyboardEvent} e - keyboardEvent event
+   * @method onKeyDown
+   * @method handleKeyDown
+   * @returns {void}
+   * @memberof Volume
+   */
+  onKeyDown(e: KeyboardEvent): void {
     switch (e.keyCode) {
-      case KeyMap.UP:
-        changeVolume(Math.round(player.volume * 100) + KEYBOARD_DEFAULT_VOLUME_JUMP);
-        break;
-      case KeyMap.DOWN:
-        changeVolume(Math.round(player.volume * 100) - KEYBOARD_DEFAULT_VOLUME_JUMP);
-        break;
       case KeyMap.ENTER:
       case KeyMap.SPACE:
         this.toggleMute();
@@ -173,7 +205,6 @@ class Volume extends Component {
         break;
     }
   }
-
   /**
    * on volume progress bar mouse up, update the volume and change the dragging status to false
    *

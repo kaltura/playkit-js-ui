@@ -7,6 +7,8 @@ import {default as Icon, IconType} from '../icon';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {withLogger} from 'components/logger';
+import {withKeyboardEvent} from 'components/keyboard';
+import {KeyMap} from 'utils/key-map';
 
 /**
  * mapping state to props
@@ -22,6 +24,7 @@ const COMPONENT_NAME = 'Fullscreen';
 
 @connect(mapStateToProps)
 @withPlayer
+@withKeyboardEvent
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
 /**
@@ -32,6 +35,22 @@ const COMPONENT_NAME = 'Fullscreen';
  * @extends {Component}
  */
 class Fullscreen extends Component {
+  /**
+   * @returns {void}
+   * @memberof Fullscreen
+   */
+  componentDidMount() {
+    this.props.addKeyboardHandler(KeyMap.F, () => {
+      if (!this.props.player.isFullscreen()) {
+        this.props.player.enterFullscreen();
+      }
+    });
+    this.props.addKeyboardHandler(KeyMap.ESC, () => {
+      if (this.props.player.isFullscreen()) {
+        this.props.player.exitFullscreen();
+      }
+    });
+  }
   /**
    * toggle fullscreen based on current fullscreen state in store
    *

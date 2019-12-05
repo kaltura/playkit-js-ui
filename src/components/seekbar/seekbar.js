@@ -6,9 +6,11 @@ import {KeyMap} from '../../utils/key-map';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
-import {KEYBOARD_DEFAULT_SEEK_JUMP} from '../keyboard/keyboard';
 import {bindMethod} from '../../utils/bind-method';
 import {withPlayer} from '../player';
+import {withKeyboardEvent} from 'components/keyboard';
+import {actions as overlayIconActions} from 'reducers/overlay-action';
+import {IconType} from '../icon';
 
 /**
  * mapping state to props
@@ -22,11 +24,19 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'SeekBar';
 
+/**
+ * Default seek jump
+ * @type {number}
+ * @const
+ */
+const KEYBOARD_DEFAULT_SEEK_JUMP: number = 5;
+
 @connect(
   mapStateToProps,
-  bindActions(actions)
+  bindActions(Object.assign({}, actions, overlayIconActions))
 )
 @withPlayer
+@withKeyboardEvent
 /**
  * SeekBar component
  *
@@ -69,6 +79,7 @@ class SeekBar extends Component {
   componentDidMount(): void {
     document.addEventListener('mouseup', this.onPlayerMouseUp);
     document.addEventListener('mousemove', this.onPlayerMouseMove);
+    this.seekbarKeydownHandler();
   }
 
   /**
@@ -192,15 +203,11 @@ class SeekBar extends Component {
   /**
    * seekbar key down handler
    *
-   * @param {KeyboardEvent} e - keyboard event
    * @returns {void}
    * @memberof SeekBar
    */
-  onSeekbarKeyDown(e: KeyboardEvent): void {
-    if (this.props.adBreak) {
-      return;
-    }
-    const {player} = this.props;
+  seekbarKeydownHandler(): void {
+    const {player, adBreak} = this.props;
     /**
      * Do seek operations.
      * @param {number} from - Seek start point.
@@ -208,24 +215,36 @@ class SeekBar extends Component {
      * @returns {void}
      */
     const seek = (from: number, to: number) => {
-      player.currentTime = to;
-      this.updateSeekBarProgress(player.currentTime, this.props.duration, true);
-      this.props.notifyChange({
-        from: from,
-        to: to
-      });
+      if (!adBreak && !(player.isLive() && !player.isDvr())) {
+        player.currentTime = to;
+        // this.updateSeekBarProgress(player.currentTime, this.props.duration, true);
+        this.props.notifyChange({
+          from: from,
+          to: to
+        });
+      }
     };
     let newTime;
-    switch (e.keyCode) {
-      case KeyMap.LEFT:
-        newTime = player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP > 0 ? player.currentTime - 5 : 0;
-        seek(player.currentTime, newTime);
-        break;
-      case KeyMap.RIGHT:
-        newTime = player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP > player.duration ? player.duration : player.currentTime + 5;
-        seek(player.currentTime, newTime);
-        break;
-    }
+    this.props.addKeyboardHandler(KeyMap.LEFT, () => {
+      newTime = player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP > 0 ? player.currentTime - 5 : 0;
+      seek(player.currentTime, newTime);
+      this.props.updateOverlayActionIcon(IconType.Rewind);
+    });
+    this.props.addKeyboardHandler(KeyMap.RIGHT, () => {
+      newTime = player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP > player.duration ? player.duration : player.currentTime + 5;
+      seek(player.currentTime, newTime);
+      this.props.updateOverlayActionIcon(IconType.Forward);
+    });
+    this.props.addKeyboardHandler(KeyMap.HOME, () => {
+      newTime = 0;
+      seek(player.currentTime, newTime);
+      this.props.updateOverlayActionIcon(IconType.StartOver);
+    });
+    this.props.addKeyboardHandler(KeyMap.END, () => {
+      newTime = player.duration;
+      seek(player.currentTime, newTime);
+      this.props.updateOverlayActionIcon(IconType.SeekEnd);
+    });
   }
 
   /**
@@ -522,8 +541,7 @@ class SeekBar extends Component {
         onMouseDown={e => this.onSeekbarMouseDown(e)}
         onTouchStart={e => this.onSeekbarTouchStart(e)}
         onTouchMove={e => this.onSeekbarTouchMove(e)}
-        onTouchEnd={e => this.onSeekbarTouchEnd(e)}
-        onKeyDown={e => this.onSeekbarKeyDown(e)}>
+        onTouchEnd={e => this.onSeekbarTouchEnd(e)}>
         <div className={style.progressBar}>
           {this.renderFramePreview()}
           {this.renderTimeBubble()}

@@ -12,6 +12,9 @@ import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {withLogger} from 'components/logger';
+import {withKeyboardEvent} from 'components/keyboard';
+import {KeyMap} from 'utils/key-map';
+import {actions as overlayIconActions} from 'reducers/overlay-action';
 
 /**
  * mapping state to props
@@ -29,7 +32,7 @@ const COMPONENT_NAME = 'Settings';
 
 @connect(
   mapStateToProps,
-  bindActions(actions)
+  bindActions(Object.assign({}, actions, overlayIconActions))
 )
 @withText({
   qualityLabelText: 'settings.quality',
@@ -38,6 +41,7 @@ const COMPONENT_NAME = 'Settings';
 })
 @withPlayer
 @withEventManager
+@withKeyboardEvent
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
 /**
@@ -69,6 +73,37 @@ class Settings extends Component {
    */
   componentDidMount() {
     this.props.eventManager.listen(document, 'click', e => this.handleClickOutside(e));
+    this.props.addKeyboardHandler(KeyMap.PERIOD, event => {
+      if (event.shiftKey) {
+        const playbackRate = this.props.player.playbackRate;
+        const index = this.props.player.playbackRates.indexOf(playbackRate);
+        if (index < this.props.player.playbackRates.length - 1) {
+          this.props.logger.debug(`Changing playback rate. ${playbackRate} => ${this.props.player.playbackRates[index + 1]}`);
+          this.props.player.playbackRate = this.props.player.playbackRates[index + 1];
+          this.props.updateOverlayActionIcon(IconType.SpeedUp);
+        }
+      }
+    });
+    this.props.addKeyboardHandler(KeyMap.SEMI_COLON, event => {
+      if (event.shiftKey) {
+        if (this.props.player.playbackRate !== this.props.player.defaultPlaybackRate) {
+          this.props.logger.debug(`Changing playback rate. ${this.props.player.playbackRate} => ${this.props.player.defaultPlaybackRate}`);
+          this.props.player.playbackRate = this.props.player.defaultPlaybackRate;
+          this.props.updateOverlayActionIcon(IconType.Speed);
+        }
+      }
+    });
+    this.props.addKeyboardHandler(KeyMap.COMMA, event => {
+      if (event.shiftKey) {
+        const playbackRate = this.props.player.playbackRate;
+        const index = this.props.player.playbackRates.indexOf(playbackRate);
+        if (index > 0) {
+          this.props.logger.debug(`Changing playback rate. ${playbackRate} => ${this.props.player.playbackRates[index - 1]}`);
+          this.props.player.playbackRate = this.props.player.playbackRates[index - 1];
+          this.props.updateOverlayActionIcon(IconType.SpeedDown);
+        }
+      }
+    });
   }
 
   /**

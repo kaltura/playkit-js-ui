@@ -10,7 +10,6 @@ import {UIVisibilityChangedEvent} from 'event/events/ui-visibility-changed-event
 import {RewindClickedEvent} from 'event/events/rewind-clicked';
 import {ForwardClickedEvent} from 'event/events/forward-clicked';
 import {VolumeChangedEvent} from 'event/events/volume-changed';
-import {KeyMap} from 'utils/key-map';
 import {Component} from 'preact';
 
 /**
@@ -116,10 +115,6 @@ function onChangeableComponentsHandler(store: any, action: Object, player: Objec
  */
 function onClickableComponentsHandler(store: any, action: Object, player: Object): void {
   switch (action.name) {
-    case 'Keyboard':
-      keyboardHandlers[action.payload.key](store, action, player);
-      break;
-
     case 'OverlayAction':
       onOverlayActionClicked(store, action, player);
       break;
@@ -230,19 +225,6 @@ function onFullScreenClicked(store: any, action: Object, player: Object): void {
 }
 
 /**
- * Handler for PictureInPicture clicked actions.
- * @param {any} store - The redux store.
- * @param {Object} action - The action object.
- * @param {Object} player - The video player.
- * @returns {void}
- */
-function onPictureInPictureClicked(store: any, action: Object, player: Object): void {
-  player.isInPictureInPicture()
-    ? player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_EXITED_PICTURE_IN_PICTURE))
-    : player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_ENTERED_PICTURE_IN_PICTURE));
-}
-
-/**
  * Handler for settings menu clicked actions.
  * @param {any} store - The redux store.
  * @param {Object} action - The action object.
@@ -271,56 +253,3 @@ function onOverlayActionClicked(store: any, action: Object, player: Object): voi
     onFullScreenClicked(store, action, player);
   }
 }
-
-/**
- * Keyboard handler object.
- * Maps key code to its event dispatching logic.
- * @type {Object}
- */
-const keyboardHandlers: {[key: number]: Function} = {
-  [KeyMap.SPACE]: (store, action, player) => {
-    onPlayPauseClicked(store, action, player);
-  },
-  [KeyMap.UP]: (store, action, player) => {
-    player.dispatchEvent(new VolumeChangedEvent(action.payload.volume));
-  },
-  [KeyMap.DOWN]: (store, action, player) => {
-    player.dispatchEvent(new VolumeChangedEvent(action.payload.volume));
-  },
-  [KeyMap.F]: (store, action, player) => {
-    onFullScreenClicked(store, action, player);
-  },
-  [KeyMap.P]: (store, action, player) => {
-    onPictureInPictureClicked(store, action, player);
-  },
-  [KeyMap.ESC]: (store, action, player) => {
-    onFullScreenClicked(store, action, player);
-  },
-  [KeyMap.LEFT]: (store, action, player) => {
-    player.dispatchEvent(new SeekedEvent(action.payload.from, action.payload.to));
-  },
-  [KeyMap.RIGHT]: (store, action, player) => {
-    player.dispatchEvent(new SeekedEvent(action.payload.from, action.payload.to));
-  },
-  [KeyMap.HOME]: (store, action, player) => {
-    player.dispatchEvent(new SeekedEvent(action.payload.from, action.payload.to));
-  },
-  [KeyMap.END]: (store, action, player) => {
-    player.dispatchEvent(new SeekedEvent(action.payload.from, action.payload.to));
-  },
-  [KeyMap.M]: (store, action, player) => {
-    onVolumeClicked(store, action, player);
-  },
-  [KeyMap.SEMI_COLON]: (store, action, player) => {
-    player.dispatchEvent(new SpeedSelectedEvent(action.payload.speed));
-  },
-  [KeyMap.PERIOD]: (store, action, player) => {
-    player.dispatchEvent(new SpeedSelectedEvent(action.payload.speed));
-  },
-  [KeyMap.COMMA]: (store, action, player) => {
-    player.dispatchEvent(new SpeedSelectedEvent(action.payload.speed));
-  },
-  [KeyMap.C]: (store, action, player) => {
-    player.dispatchEvent(new CaptionSelectedEvent(action.payload.track));
-  }
-};
