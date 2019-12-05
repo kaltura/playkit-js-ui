@@ -11,7 +11,6 @@ import {Language} from '../components/language';
 import {Fullscreen} from '../components/fullscreen';
 import {BottomBar} from '../components/bottom-bar';
 import {OverlayPortal} from '../components/overlay-portal';
-import {Keyboard} from '../components/keyboard';
 import {LiveTag} from '../components/live-tag';
 import {UnmuteIndication} from '../components/unmute-indication';
 import {Watermark} from '../components/watermark/watermark';
@@ -38,7 +37,6 @@ const PRESET_NAME = 'Live';
 export function LiveUI(props: any): React$Element<any> {
   return (
     <Container className={style.playbackGuiWWrapper} name={'VideoOverlay'} preAppendTo={'Backdrop'}>
-      <Keyboard config={props.config} />
       <Loading />
       <Container className={style.playerGui} name={'PlayerGUI'} id="player-gui">
         <OverlayPortal />

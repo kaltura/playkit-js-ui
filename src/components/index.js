@@ -1,6 +1,5 @@
 import {Cast} from './cast';
 import {Fullscreen} from './fullscreen';
-import {Keyboard} from './keyboard';
 import {Language} from './language';
 import {PlayPause} from './play-pause';
 import {Rewind} from './rewind';
@@ -57,7 +56,6 @@ export {PlaybackControls} from './playback-controls';
 
 export {Cast, Cast as CastControl};
 export {Fullscreen, Fullscreen as FullscreenControl};
-export {Keyboard, Keyboard as KeyboardControl};
 export {Language, Language as LanguageControl};
 export {PlayPause, PlayPause as PlayPauseControl};
 export {Rewind, Rewind as RewindControl};

@@ -16,7 +16,6 @@ import {VrStereo} from '../components/vr-stereo';
 import {TimeDisplayPlaybackContainer} from '../components/time-display-playback-container';
 import {BottomBar} from '../components/bottom-bar';
 import {OverlayPortal} from '../components/overlay-portal';
-import {Keyboard} from '../components/keyboard';
 import {UnmuteIndication} from '../components/unmute-indication';
 import {Watermark} from '../components/watermark/watermark';
 import {Cast} from '../components/cast';
@@ -43,7 +42,6 @@ const PRESET_NAME = 'Playback';
 function PlaybackUI(props: any): React$Element<any> {
   return (
     <Container className={style.playbackGuiWWrapper} name={'VideoOverlay'} preAppendTo={'Backdrop'}>
-      <Keyboard config={props.config} />
       <Loading />
       <Container className={style.playerGui} name={'PlayerGUI'} id="player-gui">
         <OverlayPortal />
