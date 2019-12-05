@@ -33,7 +33,7 @@ const KEYBOARD_DEFAULT_SEEK_JUMP: number = 5;
 
 @connect(
   mapStateToProps,
-  bindActions(Object.assign({}, actions, overlayIconActions))
+  bindActions({...actions, ...overlayIconActions})
 )
 @withPlayer
 @withKeyboardEvent

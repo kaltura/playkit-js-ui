@@ -30,7 +30,7 @@ const COMPONENT_NAME = 'PlayPause';
 
 @connect(
   mapStateToProps,
-  bindActions(Object.assign({}, actions, overlayIconActions))
+  bindActions({...actions, ...overlayIconActions})
 )
 @withPlayer
 @withKeyboardEvent

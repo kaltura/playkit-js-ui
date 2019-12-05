@@ -18,7 +18,7 @@ const mapStateToProps = state => ({
 
 @connect(
   mapStateToProps,
-  bindActions(Object.assign({}, actions, overlayIconActions))
+  bindActions({...actions, ...overlayIconActions})
 )
 @withEventManager
 /**

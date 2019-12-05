@@ -26,7 +26,7 @@ const COMPONENT_NAME = 'VrStereo';
 
 @connect(
   mapStateToProps,
-  bindActions(Object.assign({}, actions, engineActions))
+  bindActions({ ...actions, ...engineActions})
 )
 @withPlayer
 @withLogger(COMPONENT_NAME)

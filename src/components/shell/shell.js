@@ -67,7 +67,7 @@ const COMPONENT_NAME = 'Shell';
 
 @connect(
   mapStateToProps,
-  bindActions(Object.assign({}, shellActions, engineActions))
+  bindActions({...shellActions, ...engineActions})
 )
 @withPlayer
 @withEventManager

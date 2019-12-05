@@ -33,7 +33,7 @@ const COMPONENT_NAME = 'Settings';
 
 @connect(
   mapStateToProps,
-  bindActions(Object.assign({}, actions, overlayIconActions))
+  bindActions({...actions, ...overlayIconActions})
 )
 @withText({
   qualityLabelText: 'settings.quality',
