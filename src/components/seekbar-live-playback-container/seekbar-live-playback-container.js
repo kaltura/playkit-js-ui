@@ -72,7 +72,8 @@ class SeekBarLivePlaybackContainer extends Component {
         playerElement={this.props.playerContainer}
         showTimeBubble={this.props.showTimeBubble}
         changeCurrentTime={time => {
-          if (!this.props.player.isOnLiveEdge() || time < this.duration) {
+          // avoiding exiting live edge by mistake in case currenttime is just a bit smaller than duration
+          if (!(this.props.player.isOnLiveEdge() && time === this.duration)) {
             this.props.player.currentTime = time;
           }
         }}
