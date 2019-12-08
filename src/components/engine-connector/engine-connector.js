@@ -121,6 +121,10 @@ class EngineConnector extends Component {
       this.props.updatePrePlayback(true);
     });
 
+    eventManager.listen(player, player.Event.FIRST_PLAY, () => {
+      this.props.updatePrePlayback(false);
+    });
+
     eventManager.listen(player, player.Event.PLAY, () => {
       this.props.updateIsPlaying(true);
       this.props.updateIsEnded(false);
@@ -205,6 +209,7 @@ class EngineConnector extends Component {
     eventManager.listen(player, player.Event.AD_STARTED, () => {
       this.props.updateLoadingSpinnerState(false);
       this.props.updateAdIsPlaying(true);
+      this.props.updatePrePlayback(false);
     });
 
     eventManager.listen(player, player.Event.AD_RESUMED, () => {

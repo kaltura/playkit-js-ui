@@ -71,7 +71,6 @@ class Keyboard extends Component {
       return;
     }
     playerContainer.onkeydown = (e: KeyboardEvent) => {
-      // TODO [es] remove once merged in https://github.com/kaltura/playkit-js-ui/pull/400
       const nodeName = e.target instanceof Node ? e.target.nodeName || '' : '';
       const isEditableNode = ['INPUT', 'SELECT', 'TEXTAREA'].indexOf(nodeName) !== -1;
       if (!isEditableNode && !this.props.shareOverlay && !this.props.playerNav && typeof this.keyboardHandlers[e.keyCode] === 'function') {
