@@ -5,6 +5,7 @@ import engine from './reducers/engine';
 import shell from './reducers/shell';
 import seekbar from './reducers/seekbar';
 import volume from './reducers/volume';
+import keyboard from './reducers/keyboard';
 import loading from './reducers/loading';
 import share from './reducers/share';
 import cvaa from './reducers/cvaa';
@@ -19,6 +20,7 @@ const reducer = combineReducers({
   shell,
   seekbar,
   volume,
+  keyboard,
   loading,
   share,
   cvaa,

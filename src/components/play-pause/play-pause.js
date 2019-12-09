@@ -11,7 +11,7 @@ import {withLogger} from 'components/logger';
 import {KeyMap} from 'utils/key-map';
 import {withKeyboardEvent} from 'components/keyboard';
 import {bindActions} from 'utils/bind-actions';
-import {actions} from 'reducers/settings';
+import {actions as settingActions} from 'reducers/settings';
 import {actions as overlayIconActions} from 'reducers/overlay-action';
 
 /**
@@ -30,7 +30,7 @@ const COMPONENT_NAME = 'PlayPause';
 
 @connect(
   mapStateToProps,
-  bindActions({...actions, ...overlayIconActions})
+  bindActions({...settingActions, ...overlayIconActions})
 )
 @withPlayer
 @withKeyboardEvent

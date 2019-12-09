@@ -12,8 +12,7 @@ import {actions as overlayIconActions} from 'reducers/overlay-action';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  shareOverlay: state.share.overlayOpen,
-  playerNav: state.shell.playerNav
+  isKeyboardEnable: state.keyboard.isKeyboardEnable
 });
 
 @connect(
@@ -47,16 +46,15 @@ class KeyboardEventProvider extends Component {
     const nodeName = event.target instanceof Node ? event.target.nodeName || '' : '';
     const isEditableNode = ['INPUT', 'SELECT', 'TEXTAREA'].indexOf(nodeName) !== -1;
     const keyCombine = this._createKeyCode({
-      code: event.code,
+      code: event.keyCode,
       altKey: event.altKey,
       ctrlKey: event.ctrlKey,
       metaKey: event.metaKey,
       shiftKey: event.shiftKey
     });
-    if (!isEditableNode && !this._keyboardListeners[keyCombine]) return;
-    this._keyboardListeners[keyCombine].forEach(callback => {
-      callback(event);
-    });
+    if (!isEditableNode && this.props.isKeyboardEnable && typeof this._keyboardListeners[keyCombine] === 'function') {
+      this._keyboardListeners[keyCombine](event);
+    }
   }
   /**
    * add keyboard event handler
@@ -70,6 +68,7 @@ class KeyboardEventProvider extends Component {
     if (!this._keyboardListeners[keyCode]) {
       this._keyboardListeners[keyCode] = callback;
     }
+    window.console.log(this._keyboardListeners[keyCode]);
   };
   /**
    * create key code from sequence of controls
