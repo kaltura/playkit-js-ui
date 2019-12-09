@@ -42,14 +42,16 @@ class Fullscreen extends Component {
    */
   componentDidMount() {
     const {player} = this.props;
-    this.props.addKeyboardHandler(KeyMap.F, () => {
+    this.props.addKeyboardHandler({code: KeyMap.F}, event => {
       if (!player.isFullscreen()) {
+        event.preventDefault();
         player.enterFullscreen();
         player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_ENTERED_FULL_SCREEN));
       }
     });
-    this.props.addKeyboardHandler(KeyMap.ESC, () => {
+    this.props.addKeyboardHandler({code: KeyMap.ESC}, event => {
       if (player.isFullscreen()) {
+        event.preventDefault();
         player.exitFullscreen();
         player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_EXITED_FULL_SCREEN));
       }

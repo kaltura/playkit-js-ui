@@ -166,11 +166,13 @@ class Volume extends Component {
       player.volume = newVolume / 100;
       this.props.notifyChange({volume: player.volume});
     };
-    this.props.addKeyboardHandler(KeyMap.UP, () => {
+    this.props.addKeyboardHandler({code: KeyMap.UP}, event => {
+      event.preventDefault();
       this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWaves]);
       changeVolume(Math.round(player.volume * 100) + KEYBOARD_DEFAULT_VOLUME_JUMP);
     });
-    this.props.addKeyboardHandler(KeyMap.DOWN, () => {
+    this.props.addKeyboardHandler({code: KeyMap.DOWN}, event => {
+      event.preventDefault();
       const newVolume = Math.round(player.volume * 100) - KEYBOARD_DEFAULT_VOLUME_JUMP;
       if (newVolume === 0) {
         this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeMute]);
@@ -179,7 +181,8 @@ class Volume extends Component {
       }
       changeVolume(newVolume);
     });
-    this.props.addKeyboardHandler(KeyMap.M, () => {
+    this.props.addKeyboardHandler({code: KeyMap.M}, event => {
+      event.preventDefault();
       this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeMute]);
       this.toggleMute();
     });

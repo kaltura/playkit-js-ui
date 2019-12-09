@@ -39,8 +39,9 @@ class PictureInPicture extends Component {
    * @memberof PictureInPicture
    */
   componentDidMount() {
-    this.props.addKeyboardHandler(KeyMap.P, () => {
+    this.props.addKeyboardHandler({code: KeyMap.P}, event => {
       const {player} = this.props;
+      event.preventDefault();
       if (!player.isInPictureInPicture()) {
         this.props.logger.debug('Enter Picture In Picture');
         player.enterPictureInPicture();

@@ -79,10 +79,10 @@ class Language extends Component {
    */
   componentDidMount() {
     this.props.eventManager.listen(document, 'click', e => this.handleClickOutside(e));
-    this.props.addKeyboardHandler(KeyMap.C, event => {
+    this.props.addKeyboardHandler({code: KeyMap.C}, event => {
+      event.preventDefault();
       let activeTextTrack = this.props.player.getActiveTracks().text;
       //if key is combined then exit
-      if (event.altKey || event.shiftKey || event.ctrlKey || event.metaKey) return;
       if (activeTextTrack) {
         if (activeTextTrack.language === 'off' && this._lastActiveTextLanguage) {
           this.props.logger.debug(`Changing text track to language`, this._lastActiveTextLanguage);

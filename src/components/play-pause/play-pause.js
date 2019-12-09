@@ -49,7 +49,8 @@ class PlayPause extends Component {
    * @memberof PlayPause
    */
   componentDidMount() {
-    this.props.addKeyboardHandler(KeyMap.SPACE, () => {
+    this.props.addKeyboardHandler({code: KeyMap.SPACE}, event => {
+      event.preventDefault();
       this.props.isPlayingAdOrPlayback ? this.props.updateOverlayActionIcon(IconType.Pause) : this.props.updateOverlayActionIcon(IconType.Play);
       this.togglePlayPause();
     });

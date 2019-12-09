@@ -16,7 +16,7 @@ const withKeyboardEvent = (WrappedComponent: Component) => {
      *
      * @memberof EventDispatcherComponent
      */
-    addKeyboardHandler(keyCode: number, callback: Function): void {
+    addKeyboardHandler(keyCode: KeyboardKey, callback: Function): void {
       this.context.addKeyboardHandler(keyCode, callback);
     }
 

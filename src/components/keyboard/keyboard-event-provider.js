@@ -28,7 +28,7 @@ const mapStateToProps = state => ({
  * @extends {Component}
  */
 class KeyboardEventProvider extends Component {
-  _keyboardHandlers = [];
+  _keyboardListeners = [];
   /**
    * constructor
    * @return {void}
@@ -39,32 +39,51 @@ class KeyboardEventProvider extends Component {
   }
   /**
    * handles keydown events
-   * @param {KeyboardEvent} e - the keyboard event
+   * @param {KeyboardEvent} event - the keyboard event
    * @returns {void}
    * @memberof HOC
    */
-  onKeyDown(e: KeyboardEvent) {
-    const nodeName = e.target instanceof Node ? e.target.nodeName || '' : '';
+  onKeyDown(event: KeyboardEvent) {
+    const nodeName = event.target instanceof Node ? event.target.nodeName || '' : '';
     const isEditableNode = ['INPUT', 'SELECT', 'TEXTAREA'].indexOf(nodeName) !== -1;
-    if (!isEditableNode && !this.props.shareOverlay && !this.props.playerNav && !this._keyboardHandlers[e.keyCode]) return;
-    this._keyboardHandlers[e.keyCode].forEach(callback => {
-      callback(e);
+    const keyCombine = this._createKeyCode({
+      code: event.code,
+      altKey: event.altKey,
+      ctrlKey: event.ctrlKey,
+      metaKey: event.metaKey,
+      shiftKey: event.shiftKey
+    });
+    if (!isEditableNode && !this._keyboardListeners[keyCombine]) return;
+    this._keyboardListeners[keyCombine].forEach(callback => {
+      callback(event);
     });
   }
   /**
    * add keyboard event handler
-   * @param {number} key - the click data payload
+   * @param {KeyboardKey} key - the click data payload
    * @param {Function} callback - the click data payload
    * @returns {void}
    * @private
    */
-  _addKeyboardHandler = (key: number, callback: Function) => {
-    if (Array.isArray(this._keyboardHandlers[key])) {
-      this._keyboardHandlers[key].push(callback);
-    } else {
-      this._keyboardHandlers[key] = [callback];
+  _addKeyboardHandler = (key: KeyboardKey, callback: Function) => {
+    const keyCode = this._createKeyCode(key);
+    if (!this._keyboardListeners[keyCode]) {
+      this._keyboardListeners[keyCode] = callback;
     }
   };
+  /**
+   * create key code from sequence of controls
+   * @param {KeyboardKey} key - the key to register for
+   * @returns {number} the key for handler
+   * @private
+   */
+  _createKeyCode(key: KeyboardKey): number {
+    const altKey = key.altKey ? 1 : 0;
+    const ctrlKey = key.ctrlKey ? 1 : 0;
+    const metaKey = key.metaKey ? 1 : 0;
+    const shiftKey = key.shiftKey ? 1 : 0;
+    return parseInt('' + key.code + altKey + ctrlKey + metaKey + shiftKey);
+  }
   /**
    * create context player
    * @returns {void}

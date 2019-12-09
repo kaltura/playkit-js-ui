@@ -225,22 +225,26 @@ class SeekBar extends Component {
       }
     };
     let newTime;
-    this.props.addKeyboardHandler(KeyMap.LEFT, () => {
+    this.props.addKeyboardHandler({code: KeyMap.LEFT}, event => {
+      event.preventDefault();
       newTime = player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP > 0 ? player.currentTime - 5 : 0;
       seek(player.currentTime, newTime);
       this.props.updateOverlayActionIcon(IconType.Rewind);
     });
-    this.props.addKeyboardHandler(KeyMap.RIGHT, () => {
+    this.props.addKeyboardHandler({code: KeyMap.RIGHT}, event => {
+      event.preventDefault();
       newTime = player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP > player.duration ? player.duration : player.currentTime + 5;
       seek(player.currentTime, newTime);
       this.props.updateOverlayActionIcon(IconType.Forward);
     });
-    this.props.addKeyboardHandler(KeyMap.HOME, () => {
+    this.props.addKeyboardHandler({code: KeyMap.HOME}, event => {
+      event.preventDefault();
       newTime = 0;
       seek(player.currentTime, newTime);
       this.props.updateOverlayActionIcon(IconType.StartOver);
     });
-    this.props.addKeyboardHandler(KeyMap.END, () => {
+    this.props.addKeyboardHandler({code: KeyMap.END}, event => {
+      event.preventDefault();
       newTime = player.duration;
       seek(player.currentTime, newTime);
       this.props.updateOverlayActionIcon(IconType.SeekEnd);
