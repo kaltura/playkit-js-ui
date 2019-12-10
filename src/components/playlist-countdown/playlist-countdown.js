@@ -9,6 +9,7 @@ import {withPlayer} from '../player';
 import {withLogger} from 'components/logger';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from 'reducers/playlist';
+import {withEventManager} from 'event/with-event-manager';
 
 /**
  * mapping state to props
@@ -32,6 +33,7 @@ const COMPONENT_NAME = 'PlaylistCountdown';
   bindActions(actions)
 )
 @withPlayer
+@withEventManager
 @withLogger(COMPONENT_NAME)
 /**
  * PlaylistCountdown component
@@ -152,7 +154,12 @@ class PlaylistCountdown extends Component {
     }
 
     if (!prevState.shown && this.state.shown && this.focusElement) {
-      this.focusElement.focus();
+      this.props.eventManager.listen(this.focusElement, 'transitionend', e => {
+        if (e.propertyName === 'right') {
+          this.focusElement.focus();
+          this.props.eventManager.unlisten(this.focusElement, 'transitionend');
+        }
+      });
     }
 
     if (this.isShown !== this.state.shown) this.setState({shown: this.isShown});
