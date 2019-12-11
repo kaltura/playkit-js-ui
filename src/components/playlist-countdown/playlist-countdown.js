@@ -152,7 +152,8 @@ class PlaylistCountdown extends Component {
     }
 
     if (!prevState.shown && this.state.shown && this.focusElement) {
-      this.focusElement.focus({preventScroll: true});
+      // deprecated for now due to scrolling bug in portrait android
+      // this.focusElement.focus({preventScroll: true});
     }
 
     if (this.isShown !== this.state.shown) this.setState({shown: this.isShown});
