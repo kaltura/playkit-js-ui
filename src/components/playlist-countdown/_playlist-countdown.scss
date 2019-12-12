@@ -1,5 +1,10 @@
 .player {
-
+  .playlistCountdownYOffset {
+    transform: translateY(0px);
+    transition: transform ease-in 100ms;
+    width: 100%;
+    height: 100%;
+  }
   .playlist-countdown {
     font-family: $font-family;
     height: 72px;
@@ -7,12 +12,13 @@
     bottom: 0;
     right: 0;
     margin: 16px;
-    transform: translateY(0px);
-    transition: transform ease-in 100ms, right 500ms 500ms, opacity 400ms, bottom 300ms;
+    transform: translateX(0px);
+    transition: transform 500ms 500ms, opacity 400ms, bottom 300ms;
     cursor: pointer;
 
     &.hidden {
-      right: -160px;
+      transform: translateX(160px);
+      transition: opacity 0ms;
       pointer-events: none;
       opacity: 0;
       .playlist-countdown-content-placeholder {
@@ -109,7 +115,7 @@
     &.state-paused,
     &.state-idle,
     &.hover {
-      .playlist-countdown {
+      .playlistCountdownYOffset {
         transform: translateY(-50px);
       }
     }
@@ -127,9 +133,7 @@
         width: 152px;
 
         .playlist-countdown-content-background {
-
           .playlist-countdown-content {
-
             .playlist-countdown-text {
               padding: 8px;
 
@@ -168,7 +172,6 @@
           border-radius: 2px;
 
           .playlist-countdown-content {
-
             .playlist-countdown-text {
               width: 90%;
               padding: 3px 0 0 4px;

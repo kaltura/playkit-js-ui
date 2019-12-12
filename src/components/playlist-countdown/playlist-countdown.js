@@ -152,8 +152,7 @@ class PlaylistCountdown extends Component {
     }
 
     if (!prevState.shown && this.state.shown && this.focusElement) {
-      // deprecated for now due to scrolling bug in portrait android
-      // this.focusElement.focus({preventScroll: true});
+      this.focusElement.focus({preventScroll: true});
     }
 
     if (this.isShown !== this.state.shown) this.setState({shown: this.isShown});
@@ -198,53 +197,55 @@ class PlaylistCountdown extends Component {
     }
 
     return (
-      <div
-        role="button"
-        aria-labelledby="playlistCountdownTextId"
-        ref={el => (this.focusElement = el)}
-        tabIndex={this.isShown ? 0 : -1}
-        className={className.join(' ')}
-        onKeyDown={e => {
-          switch (e.keyCode) {
-            case KeyMap.ENTER:
-              this.onClick();
-              break;
-            case KeyMap.ESC:
-              this.cancelNext(e);
-              break;
-          }
-        }}
-        onClick={() => this.onClick()}>
-        <div className={style.playlistCountdownPoster} style={`background-image: url(${next.sources.poster});`} />
-        <div className={style.playlistCountdownContentPlaceholder}>
-          <div className={style.playlistCountdownContentBackground}>
-            <div className={style.playlistCountdownContent}>
-              <Localizer>
-                <div id="playlistCountdownTextId" className={style.playlistCountdownText}>
-                  <div className={style.playlistCountdownTextTitle}>
-                    <Text id="playlist.up_next" />
-                  </div>
-                  <div className={style.playlistCountdownTextName}>{`${next.sources.metadata ? next.sources.metadata.name : ''}`}</div>
-                </div>
-              </Localizer>
-              <div className={[style.controlButtonContainer, style.playlistCountdownCancel].join(' ')}>
+      <div className={className.join(' ')}>
+        <div
+          className={style.playlistCountdownYOffset}
+          role="button"
+          aria-labelledby="playlistCountdownTextId"
+          ref={el => (this.focusElement = el)}
+          tabIndex={this.isShown ? 0 : -1}
+          onKeyDown={e => {
+            switch (e.keyCode) {
+              case KeyMap.ENTER:
+                this.onClick();
+                break;
+              case KeyMap.ESC:
+                this.cancelNext(e);
+                break;
+            }
+          }}
+          onClick={() => this.onClick()}>
+          <div className={style.playlistCountdownPoster} style={`background-image: url(${next.sources.poster});`} />
+          <div className={style.playlistCountdownContentPlaceholder}>
+            <div className={style.playlistCountdownContentBackground}>
+              <div className={style.playlistCountdownContent}>
                 <Localizer>
-                  <button
-                    tabIndex={this.isShown ? 0 : -1}
-                    aria-label={<Text id="playlist.cancel" />}
-                    className={[style.controlButton, style.playlistCountdownCancelButton].join(' ')}
-                    onClick={e => this.cancelNext(e)}
-                    onKeyDown={e => {
-                      if (e.keyCode === KeyMap.ENTER) {
-                        this.cancelNext(e);
-                      }
-                    }}>
-                    <Icon type={IconType.Close} />
-                  </button>
+                  <div id="playlistCountdownTextId" className={style.playlistCountdownText}>
+                    <div className={style.playlistCountdownTextTitle}>
+                      <Text id="playlist.up_next" />
+                    </div>
+                    <div className={style.playlistCountdownTextName}>{`${next.sources.metadata ? next.sources.metadata.name : ''}`}</div>
+                  </div>
                 </Localizer>
-              </div>
-              <div className={style.playlistCountdownIndicatorBar}>
-                <div className={style.playlistCountdownIndicatorProgress} style={{width: progressWidth}} />
+                <div className={[style.controlButtonContainer, style.playlistCountdownCancel].join(' ')}>
+                  <Localizer>
+                    <button
+                      tabIndex={this.isShown ? 0 : -1}
+                      aria-label={<Text id="playlist.cancel" />}
+                      className={[style.controlButton, style.playlistCountdownCancelButton].join(' ')}
+                      onClick={e => this.cancelNext(e)}
+                      onKeyDown={e => {
+                        if (e.keyCode === KeyMap.ENTER) {
+                          this.cancelNext(e);
+                        }
+                      }}>
+                      <Icon type={IconType.Close} />
+                    </button>
+                  </Localizer>
+                </div>
+                <div className={style.playlistCountdownIndicatorBar}>
+                  <div className={style.playlistCountdownIndicatorProgress} style={{width: progressWidth}} />
+                </div>
               </div>
             </div>
           </div>
