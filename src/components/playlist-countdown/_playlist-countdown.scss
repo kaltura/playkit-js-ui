@@ -1,5 +1,18 @@
+@keyframes slideIn {
+  0% {
+    right: 0px;
+  }
+  10%{
+    right: -160px;
+  }
+  50%{
+    right: -160px;
+  }
+  100% {
+    right: 0;
+  }
+}
 .player {
-
   .playlist-countdown {
     font-family: $font-family;
     height: 72px;
@@ -8,11 +21,16 @@
     right: 0;
     margin: 16px;
     transform: translateY(0px);
-    transition: transform ease-in 100ms, right 500ms 500ms, opacity 400ms, bottom 300ms;
+    transition: transform ease-in 100ms, opacity 400ms, bottom 300ms;
     cursor: pointer;
 
+    &.slideIn{
+      right: 0px;
+      animation: slideIn 1000ms
+    }
+
     &.hidden {
-      right: -160px;
+      transition: opacity 50ms;
       pointer-events: none;
       opacity: 0;
       .playlist-countdown-content-placeholder {

@@ -152,8 +152,7 @@ class PlaylistCountdown extends Component {
     }
 
     if (!prevState.shown && this.state.shown && this.focusElement) {
-      // deprecated for now due to scrolling bug in portrait android
-      // this.focusElement.focus({preventScroll: true});
+      this.focusElement.focus();
     }
 
     if (this.isShown !== this.state.shown) this.setState({shown: this.isShown});
@@ -195,6 +194,8 @@ class PlaylistCountdown extends Component {
       className.push(style.hidden);
     } else if (this.isCanceled) {
       className.push(style.canceled);
+    } else {
+      className.push(style.slideIn);
     }
 
     return (
