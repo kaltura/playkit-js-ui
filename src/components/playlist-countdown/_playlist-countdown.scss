@@ -1,5 +1,5 @@
 .player {
-  .playlist-countdown-yOffset {
+  .playlistCountdownYOffset {
     transform: translateY(0px);
     transition: transform ease-in 100ms;
     width: 100%;
@@ -115,7 +115,7 @@
     &.state-paused,
     &.state-idle,
     &.hover {
-      .playlist-countdown-yOffset {
+      .playlistCountdownYOffset {
         transform: translateY(-50px);
       }
     }
