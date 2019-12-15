@@ -1,11 +1,8 @@
 @keyframes slideIn {
   0% {
-    right: 0px;
-  }
-  10%{
     right: -160px;
   }
-  50%{
+  50% {
     right: -160px;
   }
   100% {
@@ -25,7 +22,6 @@
     cursor: pointer;
 
     &.slideIn{
-      right: 0px;
       animation: slideIn 1000ms
     }
 
