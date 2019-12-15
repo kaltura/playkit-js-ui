@@ -26,7 +26,6 @@
     }
 
     &.hidden {
-      transition: opacity 50ms;
       pointer-events: none;
       opacity: 0;
       .playlist-countdown-content-placeholder {
