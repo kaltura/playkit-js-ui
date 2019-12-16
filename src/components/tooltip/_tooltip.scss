@@ -1,31 +1,82 @@
-@import '~styles/variables';
-
-.tooltip {
+.player .tooltip {
+  position: relative;
   display: inline-block;
-  height: 22px;
-  border-radius: 4px;
-  background-color: $tooltip-bg-color;
-  padding: 3px 13px;
-  color: $tooltip-color;
-  font-size: 13px;
-  font-weight: bold;
-  line-height: 16px;
-  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.3);
-  position: absolute;
-  transform: translate3d(-50%, 0, 0);
-  left: 50%;
-  bottom: 15px;
-
-  &:after {
-    content: ' ';
-    display: block;
+  .tooltip-label {
+    visibility: hidden;
+    background-color: $tooltip-bg-color;
+    color: $tooltip-color;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.45);
+    text-align: center;
+    padding: 3px 13px;
+    border-radius: 5px;
     position: absolute;
-    width: 10px;
-    height: 10px;
-    background-color: #fff;
-    border-radius: 3px;
-    transform: rotate(45deg) translate3d(0%, 50%, 0);
-    left: 50%;
-    bottom: -1px;
+    min-width: max-content;
+    line-height: 16px;
+    font-weight: bold;
+    font-size: 13px;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 1s;
+    &:after {
+      content: '';
+      position: absolute;
+      border-width: 5px;
+      border-style: solid;
+    }
+    &.tooltip-top {
+      bottom: 110%;
+      left: 45%;
+      margin-left: -60px;
+      &:after {
+        top: 100%;
+        left: 55%;
+        margin-left: -5px;
+        border-color: $tooltip-bg-color transparent transparent transparent;
+      }
+    }
+    &.tooltip-bottom {
+      top: 120%;
+      left: 50%;
+      margin-left: -60px;
+      &:after {
+        bottom: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-color: transparent transparent $tooltip-bg-color transparent;
+      }
+    }
+    &.tooltip-left {
+      top: 5px;
+      right: 120%;
+      &:after {
+        top: 50%;
+        left: 100%;
+        margin-top: -5px;
+        border-color: transparent transparent transparent $tooltip-bg-color;
+      }
+    }
+    &.tooltip-right {
+      top: -5px;
+      left: 110%;
+      &:after {
+        top: 50%;
+        right: 100%;
+        margin-top: -5px;
+        border-color: transparent $tooltip-bg-color transparent transparent;
+      }
+    }
+  }
+}
+
+.player .tooltip .tooltip-label {
+  &.show {
+    visibility: visible;
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  &.hide {
+    transform: translate3d(0, -10px, 0);
+    transition: all 0.15s ease-in-out;
   }
 }
