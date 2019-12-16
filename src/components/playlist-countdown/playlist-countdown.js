@@ -9,6 +9,7 @@ import {withPlayer} from '../player';
 import {withLogger} from 'components/logger';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from 'reducers/playlist';
+import {withEventManager} from 'event/with-event-manager';
 
 /**
  * mapping state to props
@@ -32,6 +33,7 @@ const COMPONENT_NAME = 'PlaylistCountdown';
   bindActions(actions)
 )
 @withPlayer
+@withEventManager
 @withLogger(COMPONENT_NAME)
 /**
  * PlaylistCountdown component
@@ -42,6 +44,19 @@ const COMPONENT_NAME = 'PlaylistCountdown';
  */
 class PlaylistCountdown extends Component {
   focusElement: HTMLElement;
+  nextShown: any;
+
+  /**
+   * constructor
+   * @param {*} props props
+   * @param {*} context context
+   * @return {void}
+   */
+  constructor(props: Object) {
+    super(props);
+    this.setState({focusable: false});
+  }
+
   /**
    * should render component
    * @param {*} props - component props
@@ -151,9 +166,17 @@ class PlaylistCountdown extends Component {
       }
     }
 
-    if (!prevState.shown && this.state.shown && this.focusElement) {
-      // deprecated for now due to scrolling bug in portrait android
-      // this.focusElement.focus({preventScroll: true});
+    if (!prevState.shown && this.state.shown) {
+      if (this.focusElement) {
+        this.props.eventManager.listenOnce(this.focusElement, 'animationend', () => {
+          if (this.isShown) {
+            this.focusElement.focus();
+            this.setState({focusable: true});
+          }
+        });
+      }
+    } else if (prevState.shown && !this.state.shown) {
+      this.setState({focusable: false});
     }
 
     if (this.isShown !== this.state.shown) this.setState({shown: this.isShown});
@@ -177,13 +200,15 @@ class PlaylistCountdown extends Component {
    * @memberof PlaylistCountdown
    */
   render(props: any): React$Element<any> | void {
+    this.isShown && (this.nextShown = props.playlist.next);
+
     if (!this._shouldRender(props)) {
       return undefined;
     }
-    const next = props.playlist.next;
-    if (!(next && next.sources)) {
+    if (!(props.playlist.next && props.playlist.next.sources && this.nextShown)) {
       return undefined;
     }
+
     const countdown = this.props.player.playlist.countdown;
     const timeToShow = this._getTimeToShow();
     const progressTime = props.currentTime - timeToShow;
@@ -195,6 +220,8 @@ class PlaylistCountdown extends Component {
       className.push(style.hidden);
     } else if (this.isCanceled) {
       className.push(style.canceled);
+    } else {
+      className.push(style.slideIn);
     }
 
     return (
@@ -202,7 +229,7 @@ class PlaylistCountdown extends Component {
         role="button"
         aria-labelledby="playlistCountdownTextId"
         ref={el => (this.focusElement = el)}
-        tabIndex={this.isShown ? 0 : -1}
+        tabIndex={this.state.focusable ? 0 : -1}
         className={className.join(' ')}
         onKeyDown={e => {
           switch (e.keyCode) {
@@ -215,7 +242,7 @@ class PlaylistCountdown extends Component {
           }
         }}
         onClick={() => this.onClick()}>
-        <div className={style.playlistCountdownPoster} style={`background-image: url(${next.sources.poster});`} />
+        <div className={style.playlistCountdownPoster} style={`background-image: url(${this.nextShown.sources.poster});`} />
         <div className={style.playlistCountdownContentPlaceholder}>
           <div className={style.playlistCountdownContentBackground}>
             <div className={style.playlistCountdownContent}>
@@ -224,13 +251,15 @@ class PlaylistCountdown extends Component {
                   <div className={style.playlistCountdownTextTitle}>
                     <Text id="playlist.up_next" />
                   </div>
-                  <div className={style.playlistCountdownTextName}>{`${next.sources.metadata ? next.sources.metadata.name : ''}`}</div>
+                  <div className={style.playlistCountdownTextName}>{`${
+                    this.nextShown.sources.metadata ? this.nextShown.sources.metadata.name : ''
+                  }`}</div>
                 </div>
               </Localizer>
               <div className={[style.controlButtonContainer, style.playlistCountdownCancel].join(' ')}>
                 <Localizer>
                   <button
-                    tabIndex={this.isShown ? 0 : -1}
+                    tabIndex={this.state.focusable ? 0 : -1}
                     aria-label={<Text id="playlist.cancel" />}
                     className={[style.controlButton, style.playlistCountdownCancelButton].join(' ')}
                     onClick={e => this.cancelNext(e)}
