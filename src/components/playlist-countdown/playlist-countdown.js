@@ -205,7 +205,7 @@ class PlaylistCountdown extends Component {
     if (!this._shouldRender(props)) {
       return undefined;
     }
-    if (!(props.playlist.next && props.playlist.next && this.nextShown)) {
+    if (!(props.playlist.next && props.playlist.next.sources && this.nextShown)) {
       return undefined;
     }
 
