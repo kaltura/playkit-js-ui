@@ -44,7 +44,7 @@ const COMPONENT_NAME = 'PlaylistCountdown';
  */
 class PlaylistCountdown extends Component {
   focusElement: HTMLElement;
-  next: any;
+  nextShown: any;
 
   /**
    * constructor
@@ -56,6 +56,7 @@ class PlaylistCountdown extends Component {
     super(props);
     this.setState({focusable: false});
   }
+
   /**
    * should render component
    * @param {*} props - component props
@@ -199,13 +200,14 @@ class PlaylistCountdown extends Component {
    * @memberof PlaylistCountdown
    */
   render(props: any): React$Element<any> | void {
+    this.isShown && (this.nextShown = props.playlist.next);
+
     if (!this._shouldRender(props)) {
       return undefined;
     }
-    if (!(props.playlist.next && props.playlist.next)) {
+    if (!(props.playlist.next && props.playlist.next && this.nextShown)) {
       return undefined;
     }
-    this.next = !this.next || this.isShown ? props.playlist.next : this.next;
 
     const countdown = this.props.player.playlist.countdown;
     const timeToShow = this._getTimeToShow();
@@ -240,7 +242,7 @@ class PlaylistCountdown extends Component {
           }
         }}
         onClick={() => this.onClick()}>
-        <div className={style.playlistCountdownPoster} style={`background-image: url(${this.next.sources.poster});`} />
+        <div className={style.playlistCountdownPoster} style={`background-image: url(${this.nextShown.sources.poster});`} />
         <div className={style.playlistCountdownContentPlaceholder}>
           <div className={style.playlistCountdownContentBackground}>
             <div className={style.playlistCountdownContent}>
@@ -249,7 +251,9 @@ class PlaylistCountdown extends Component {
                   <div className={style.playlistCountdownTextTitle}>
                     <Text id="playlist.up_next" />
                   </div>
-                  <div className={style.playlistCountdownTextName}>{`${this.next.sources.metadata ? this.next.sources.metadata.name : ''}`}</div>
+                  <div className={style.playlistCountdownTextName}>{`${
+                    this.nextShown.sources.metadata ? this.nextShown.sources.metadata.name : ''
+                  }`}</div>
                 </div>
               </Localizer>
               <div className={[style.controlButtonContainer, style.playlistCountdownCancel].join(' ')}>
