@@ -5,13 +5,12 @@
     visibility: hidden;
     background-color: $tooltip-bg-color;
     color: $tooltip-color;
-    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.45);
     text-align: center;
-    padding: 3px 13px;
-    border-radius: 5px;
+    padding: 4px 6px;
+    border-radius: 4px;
     position: absolute;
     min-width: max-content;
-    line-height: 16px;
+    line-height: normal;
     font-weight: bold;
     font-size: 13px;
     z-index: 2;
@@ -22,47 +21,90 @@
       position: absolute;
       border-width: 5px;
       border-style: solid;
+      border-radius: 3px;
+      color: $tooltip-bg-color;
+      z-index: -1;
     }
     &.tooltip-top {
-      bottom: 110%;
-      left: 45%;
-      margin-left: -60px;
+      bottom: calc(100% + 10px);
+      left: 50%;
       &:after {
-        top: 100%;
-        left: 55%;
+        bottom: -4px;
+        left: 50%;
         margin-left: -5px;
-        border-color: $tooltip-bg-color transparent transparent transparent;
+        transform: rotate(45deg) skew(5deg, 5deg);
+      }
+    }
+    &.tooltip-top-left {
+      bottom: calc(100% + 10px);
+      left: 50%;
+      &:after {
+        bottom: -4px;
+        right: 0;
+        margin-right: 11px;
+        transform: rotate(45deg) skew(5deg, 5deg);
+      }
+    }
+    &.tooltip-top-right {
+      bottom: calc(100% + 10px);
+      left: 50%;
+      &:after {
+        bottom: -4px;
+        left: 0;
+        margin-left: 11px;
+        transform: rotate(45deg) skew(5deg, 5deg);
       }
     }
     &.tooltip-bottom {
-      top: 120%;
+      top: calc(100% + 10px);
       left: 50%;
-      margin-left: -60px;
       &:after {
-        bottom: 100%;
+        top: -4px;
         left: 50%;
         margin-left: -5px;
-        border-color: transparent transparent $tooltip-bg-color transparent;
+        transform: rotate(45deg) skew(5deg, 5deg);
+      }
+    }
+    &.tooltip-bottom-right {
+      top: calc(100% + 10px);
+      left: 50%;
+      &:after {
+        top: -4px;
+        left: 0;
+        margin-left: 11px;
+        transform: rotate(45deg) skew(5deg, 5deg);
+      }
+    }
+    &.tooltip-bottom-left {
+      top: calc(100% + 10px);
+      left: 50%;
+      &:after {
+        top: -4px;
+        right: 0;
+        margin-right: 11px;
+        transform: rotate(45deg) skew(5deg, 5deg);
       }
     }
     &.tooltip-left {
-      top: 5px;
+      top: 50%;
       right: 120%;
       &:after {
         top: 50%;
         left: 100%;
+        margin-left: -6px;
         margin-top: -5px;
-        border-color: transparent transparent transparent $tooltip-bg-color;
+        transform: rotate(135deg) skew(10deg, 10deg);
       }
     }
     &.tooltip-right {
-      top: -5px;
-      left: 110%;
+      top: 50%;
+      left: 120%;
       &:after {
         top: 50%;
         right: 100%;
         margin-top: -5px;
-        border-color: transparent $tooltip-bg-color transparent transparent;
+        margin-right: -6px;
+        transform: rotate(135deg) skew(10deg, 10deg);
       }
     }
   }
@@ -72,11 +114,9 @@
   &.show {
     visibility: visible;
     opacity: 1;
-    transform: translate3d(0, 0, 0);
   }
 
   &.hide {
-    transform: translate3d(0, -10px, 0);
     transition: all 0.15s ease-in-out;
   }
 }

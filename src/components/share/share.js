@@ -10,6 +10,9 @@ import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {withPlayer} from '../player';
 import {withLogger} from 'components/logger';
+import {Localizer, Text} from 'preact-i18n';
+import {Tooltip} from 'components/tooltip';
+import {ToolTipType} from 'components/tooltip/tooltip';
 
 /**
  * mapping state to props
@@ -105,9 +108,17 @@ class Share extends Component {
             />
           </Portal>
         ) : (
-          <button aria-haspopup="true" className={style.controlButton} onClick={() => this.toggleOverlay()} aria-label="Share">
-            <Icon type={IconType.Share} />
-          </button>
+          <Localizer>
+            <Tooltip label={<Text id={'controls.share'} />} type={ToolTipType.BottomLeft}>
+              <button
+                aria-haspopup="true"
+                className={style.controlButton}
+                onClick={() => this.toggleOverlay()}
+                aria-label={<Text id={'controls.share'} />}>
+                <Icon type={IconType.Share} />
+              </button>
+            </Tooltip>
+          </Localizer>
         )}
       </div>
     );

@@ -2,8 +2,23 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 
-export const TOOLTIP_SHOW_TIMEOUT: number = 800;
+export const TOOLTIP_SHOW_TIMEOUT: number = 250;
+const ToolTipType = {
+  Top: 'top',
+  TopRight: 'top-right',
+  TopLeft: 'top-left',
+  Left: 'left',
+  Right: 'right',
+  Bottom: 'bottom',
+  BottomRight: 'bottom-right',
+  BottomLeft: 'bottom-left'
+};
 
+type CalculatedStyling = {
+  className: String,
+  marginLeft: Number,
+  marginTop: Number
+};
 /**
  * Tooltip component
  *
@@ -14,6 +29,7 @@ export const TOOLTIP_SHOW_TIMEOUT: number = 800;
 class Tooltip extends Component {
   state: Object;
   _hoverTimeout: ?number;
+  textElement: HTMLSpanElement;
 
   /**
    * default component props
@@ -21,15 +37,16 @@ class Tooltip extends Component {
    * @memberof Tooltip
    */
   static defaultProps = {
-    position: 'top'
+    type: ToolTipType.TopRight
   };
 
   /**
    * @constructor
+   * @param {*} props props
    * @memberof Tooltip
    */
-  constructor() {
-    super();
+  constructor(props: Object) {
+    super(props);
     this.setState({showTooltip: false});
   }
 
@@ -39,18 +56,43 @@ class Tooltip extends Component {
    * @returns {string} - position style class
    * @memberof Tooltip
    */
-  getTooltipPosition(): string {
-    switch (this.props.position) {
-      case 'left':
-        return style.tooltipLeft;
-      case 'right':
-        return style.tooltipRight;
-      case 'bottom':
-        return style.tooltipBottom;
-      case 'top':
-      default:
-        return style.tooltipTop;
+  calcTooltipStyling(): CalculatedStyling {
+    let calculatedStyling: CalculatedStyling = {};
+    switch (this.props.type) {
+      case ToolTipType.Top:
+        calculatedStyling.className = style.tooltipTop;
+        calculatedStyling.marginLeft = this.textElement ? -this.textElement.getBoundingClientRect().width / 2 : 0;
+        break;
+      case ToolTipType.TopLeft:
+        calculatedStyling.className = style.tooltipTopLeft;
+        calculatedStyling.marginLeft = this.textElement ? -this.textElement.getBoundingClientRect().width + 16 : 0;
+        break;
+      case ToolTipType.TopRight:
+        calculatedStyling.className = style.tooltipTopRight;
+        calculatedStyling.marginLeft = -16;
+        break;
+      case ToolTipType.Left:
+        calculatedStyling.className = style.tooltipLeft;
+        calculatedStyling.marginTop = this.textElement ? -this.textElement.getBoundingClientRect().height / 2 : 0;
+        break;
+      case ToolTipType.Right:
+        calculatedStyling.className = style.tooltipRight;
+        calculatedStyling.marginTop = this.textElement ? -this.textElement.getBoundingClientRect().height / 2 : 0;
+        break;
+      case ToolTipType.Bottom:
+        calculatedStyling.className = style.tooltipBottom;
+        calculatedStyling.marginLeft = this.textElement ? -this.textElement.getBoundingClientRect().width / 2 : 0;
+        break;
+      case ToolTipType.BottomRight:
+        calculatedStyling.className = style.tooltipBottomRight;
+        calculatedStyling.marginLeft = -16;
+        break;
+      case ToolTipType.BottomLeft:
+        calculatedStyling.className = style.tooltipBottomLeft;
+        calculatedStyling.marginLeft = this.textElement ? -this.textElement.getBoundingClientRect().width + 16 : 0;
+        break;
     }
+    return calculatedStyling;
   }
 
   /**
@@ -87,16 +129,24 @@ class Tooltip extends Component {
    * @memberof Tooltip
    */
   render(props: any): React$Element<any> {
-    const className = [style.tooltipLabel, this.getTooltipPosition()];
+    const calcStyle = this.calcTooltipStyling();
+    const className = [style.tooltipLabel, calcStyle.className];
     this.state.showTooltip ? className.push(style.show) : className.push(style.hide);
 
     return (
       <div className={style.tooltip} onMouseOver={() => this.onMouseOver()} onMouseLeave={() => this.onMouseLeave()}>
-        <span className={className.join(' ')}>{props.label}</span>
+        <span
+          style={{marginLeft: calcStyle.marginLeft, marginTop: calcStyle.marginTop}}
+          ref={el => {
+            this.textElement = el;
+          }}
+          className={className.join(' ')}>
+          {props.label}
+        </span>
         {props.children}
       </div>
     );
   }
 }
 
-export {Tooltip};
+export {Tooltip, ToolTipType};
