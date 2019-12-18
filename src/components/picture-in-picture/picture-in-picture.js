@@ -7,6 +7,7 @@ import {connect} from 'preact-redux';
 import {PLAYER_SIZE} from '../shell/shell';
 import {withPlayer} from '../player';
 import {withLogger} from 'components/logger';
+import {Tooltip} from 'components/tooltip';
 
 /**
  * mapping state to props
@@ -55,13 +56,15 @@ class PictureInPicture extends Component {
       return (
         <div className={[style.controlButtonContainer, style.pictureInPicture].join(' ')}>
           <Localizer>
-            <button
-              tabIndex="0"
-              aria-label={<Text id={'controls.pictureInPicture'} />}
-              className={`${style.controlButton} ${this.state.animation ? style.rotate : ''}`}
-              onClick={() => this._onClick()}>
-              <Icon type={IconType.PictureInPicture} />
-            </button>
+            <Tooltip label={<Text id={'controls.pictureInPicture'} />}>
+              <button
+                tabIndex="0"
+                aria-label={<Text id={'controls.pictureInPicture'} />}
+                className={`${style.controlButton} ${this.state.animation ? style.rotate : ''}`}
+                onClick={() => this._onClick()}>
+                <Icon type={IconType.PictureInPicture} />
+              </button>
+            </Tooltip>
           </Localizer>
         </div>
       );

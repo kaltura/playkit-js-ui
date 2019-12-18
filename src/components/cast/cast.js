@@ -7,6 +7,8 @@ import {KeyMap} from '../../utils/key-map';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withLogger} from 'components/logger';
+import {Tooltip} from 'components/tooltip';
+import {Localizer, Text} from 'preact-i18n';
 
 /**
  * mapping state to props
@@ -58,17 +60,23 @@ class Cast extends Component {
   render(props: any): ?React$Element<any> {
     if (props.isCasting || props.isCastAvailable) {
       return (
-        <div
-          className={style.controlButtonContainer}
-          onClick={() => this.onClick()}
-          onKeyDown={e => {
-            if (e.keyCode === KeyMap.ENTER) {
-              this.props.updateBackdropVisibility(true);
-              this.props.player.startCasting().catch(() => this.props.updateBackdropVisibility(false));
-            }
-          }}>
-          <google-cast-launcher className={style.castButton} tabIndex="0" />
-        </div>
+        <Localizer>
+          <Tooltip label={<Text id={'cast.play_on_tv'} />}>
+            <div
+              role="button"
+              aria-label={<Text id={'cast.play_on_tv'} />}
+              className={style.controlButtonContainer}
+              onClick={() => this.onClick()}
+              onKeyDown={e => {
+                if (e.keyCode === KeyMap.ENTER) {
+                  this.props.updateBackdropVisibility(true);
+                  this.props.player.startCasting().catch(() => this.props.updateBackdropVisibility(false));
+                }
+              }}>
+              <google-cast-launcher className={style.castButton} tabIndex="0" />
+            </div>
+          </Tooltip>
+        </Localizer>
       );
     }
   }

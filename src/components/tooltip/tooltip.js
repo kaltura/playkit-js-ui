@@ -37,7 +37,7 @@ class Tooltip extends Component {
    * @memberof Tooltip
    */
   static defaultProps = {
-    type: ToolTipType.TopRight
+    type: ToolTipType.Top
   };
 
   /**

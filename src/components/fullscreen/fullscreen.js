@@ -7,6 +7,7 @@ import {default as Icon, IconType} from '../icon';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {withLogger} from 'components/logger';
+import {Tooltip} from 'components/tooltip';
 
 /**
  * mapping state to props
@@ -58,14 +59,16 @@ class Fullscreen extends Component {
     return (
       <div className={[style.controlButtonContainer, style.controlFullscreen].join(' ')}>
         <Localizer>
-          <button
-            tabIndex="0"
-            aria-label={<Text id="controls.fullscreen" />}
-            className={this.props.fullscreen ? [style.controlButton, style.isFullscreen].join(' ') : style.controlButton}
-            onClick={() => this.toggleFullscreen()}>
-            <Icon type={IconType.Maximize} />
-            <Icon type={IconType.Minimize} />
-          </button>
+          <Tooltip label={<Text id={'controls.fullscreen'} />}>
+            <button
+              tabIndex="0"
+              aria-label={<Text id="controls.fullscreen" />}
+              className={this.props.fullscreen ? [style.controlButton, style.isFullscreen].join(' ') : style.controlButton}
+              onClick={() => this.toggleFullscreen()}>
+              <Icon type={IconType.Maximize} />
+              <Icon type={IconType.Minimize} />
+            </button>
+          </Tooltip>
         </Localizer>
       </div>
     );

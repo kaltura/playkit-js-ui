@@ -8,6 +8,7 @@ import {isPlayingAdOrPlayback} from '../../reducers/getters';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {withLogger} from 'components/logger';
+import {Tooltip} from 'components/tooltip';
 
 /**
  * mapping state to props
@@ -57,23 +58,22 @@ class PlayPause extends Component {
   render(props: any): React$Element<any> | void {
     const controlButtonClass = this.props.isPlayingAdOrPlayback ? [style.controlButton, style.isPlaying].join(' ') : style.controlButton;
     const isStartOver = props.isPlaybackEnded && !this.props.adBreak;
+    const localizationId = isStartOver ? 'controls.startOver' : this.props.isPlayingAdOrPlayback ? 'controls.pause' : 'controls.play';
     return (
       <div className={[style.controlButtonContainer, style.controlPlayPause].join(' ')}>
         <Localizer>
-          <button
-            tabIndex="0"
-            aria-label={<Text id={isStartOver ? 'controls.startOver' : this.props.isPlayingAdOrPlayback ? 'controls.pause' : 'controls.play'} />}
-            className={controlButtonClass}
-            onClick={() => this.togglePlayPause()}>
-            {isStartOver ? (
-              <Icon type={IconType.StartOver} />
-            ) : (
-              <div>
-                <Icon type={IconType.Play} />
-                <Icon type={IconType.Pause} />
-              </div>
-            )}
-          </button>
+          <Tooltip label={<Text id={localizationId} />}>
+            <button tabIndex="0" aria-label={<Text id={localizationId} />} className={controlButtonClass} onClick={() => this.togglePlayPause()}>
+              {isStartOver ? (
+                <Icon type={IconType.StartOver} />
+              ) : (
+                <div>
+                  <Icon type={IconType.Play} />
+                  <Icon type={IconType.Pause} />
+                </div>
+              )}
+            </button>
+          </Tooltip>
         </Localizer>
       </div>
     );

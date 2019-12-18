@@ -5,6 +5,7 @@ import {Localizer, Text} from 'preact-i18n';
 import {default as Icon, IconType} from '../icon';
 import {connect} from 'preact-redux';
 import {withPlayer} from '../player';
+import {Tooltip} from 'components/tooltip';
 
 /**
  * mapping state to props
@@ -64,22 +65,24 @@ class PlaylistButton extends Component {
           undefined
         )}
         <Localizer>
-          <button
-            disabled={!item}
-            tabIndex="0"
-            aria-label={<Text id={`controls.${props.type}`} />}
-            className={`${style.controlButton}`}
-            onClick={() => this.onClick()}>
-            {props.type === 'prev' ? (
-              <div>
-                <Icon type={IconType.Prev} />
-              </div>
-            ) : (
-              <div>
-                <Icon type={IconType.Next} />
-              </div>
-            )}
-          </button>
+          <Tooltip label={<Text id={`controls.${props.type}`} />}>
+            <button
+              disabled={!item}
+              tabIndex="0"
+              aria-label={<Text id={`controls.${props.type}`} />}
+              className={`${style.controlButton}`}
+              onClick={() => this.onClick()}>
+              {props.type === 'prev' ? (
+                <div>
+                  <Icon type={IconType.Prev} />
+                </div>
+              ) : (
+                <div>
+                  <Icon type={IconType.Next} />
+                </div>
+              )}
+            </button>
+          </Tooltip>
         </Localizer>
       </div>
     );
