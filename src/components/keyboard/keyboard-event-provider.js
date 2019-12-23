@@ -12,6 +12,8 @@ import {actions as overlayIconActions} from 'reducers/overlay-action';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
+  playerNav: state.shell.playerNav,
+  shareOverlay: state.share.overlayOpen,
   isKeyboardEnable: state.keyboard.isKeyboardEnable
 });
 
@@ -33,8 +35,16 @@ class KeyboardEventProvider extends Component {
    * @return {void}
    */
   componentDidMount() {
-    const {eventManager} = this.props;
-    eventManager.listen(this.props.playerContainer, 'keydown', e => this.onKeyDown(e));
+    const {eventManager, playerContainer} = this.props;
+    eventManager.listen(playerContainer, 'keydown', e => this.onKeyDown(e));
+  }
+  /**
+   *
+   * @returns {boolean} should not rerender
+   * @memberof KeyboardEventProvider
+   */
+  shouldComponentUpdate(): boolean {
+    return false;
   }
   /**
    * handles keydown events
@@ -52,9 +62,17 @@ class KeyboardEventProvider extends Component {
       metaKey: event.metaKey,
       shiftKey: event.shiftKey
     });
-    if (!isEditableNode && this.props.isKeyboardEnable && typeof this._keyboardListeners[keyCombine] === 'function') {
+    if (!isEditableNode && this._shouldHandledKeyboardEvent() && typeof this._keyboardListeners[keyCombine] === 'function') {
       this._keyboardListeners[keyCombine](event);
     }
+  }
+  /**
+   * check if keyboard handler should be used
+   * @returns {boolean} - handler should be used
+   * @private
+   */
+  _shouldHandledKeyboardEvent(): boolean {
+    return this.props.isKeyboardEnable && !this.props.shareOverlay && !this.props.playerNav;
   }
   /**
    * add keyboard event handler

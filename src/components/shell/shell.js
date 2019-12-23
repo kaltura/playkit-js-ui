@@ -5,7 +5,6 @@ import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions as shellActions} from '../../reducers/shell';
 import {actions as engineActions} from '../../reducers/engine';
-import {actions as keyboardActions} from '../../reducers/keyboard';
 import {KeyMap} from '../../utils/key-map';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
@@ -68,7 +67,7 @@ const COMPONENT_NAME = 'Shell';
 
 @connect(
   mapStateToProps,
-  bindActions({...shellActions, ...engineActions, ...keyboardActions})
+  bindActions({...shellActions, ...engineActions})
 )
 @withPlayer
 @withEventManager
@@ -99,7 +98,6 @@ class Shell extends Component {
     if (this.state.nav) {
       this.setState({nav: false});
       this.props.updatePlayerNavState(false);
-      this.props.updateKeyboardEnable(true);
     }
     if (!this.props.bottomBarHoverActive) {
       this._updatePlayerHoverState();
@@ -186,7 +184,6 @@ class Shell extends Component {
     if (!this.state.nav && e.keyCode === KeyMap.TAB) {
       this.setState({nav: true});
       this.props.updatePlayerNavState(true);
-      this.props.updateKeyboardEnable(false);
     }
   }
 
