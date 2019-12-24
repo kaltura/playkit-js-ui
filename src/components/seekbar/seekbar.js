@@ -216,8 +216,8 @@ class SeekBar extends Component {
      */
     const seek = (from: number, to: number) => {
       if (!adBreak && !(player.isLive() && !player.isDvr())) {
-        player.currentTime = to;
-        // this.updateSeekBarProgress(player.currentTime, this.props.duration, true);
+        this.props.changeCurrentTime(to);
+        this.updateSeekBarProgress(player.currentTime, this.props.duration, true);
         this.props.notifyChange({
           from: from,
           to: to
@@ -384,9 +384,9 @@ class SeekBar extends Component {
    */
   getBufferedPercent(): number {
     const {player} = this.props;
-    if (player.duration > 0 && player.buffered.length > 0) {
+    if (this.props.duration > 0 && player.buffered.length > 0) {
       const buffered = player.isLive() ? player.buffered.end(0) - player.getStartTimeOfDvrWindow() : player.buffered.end(0);
-      const bufferedPercent = (buffered / player.duration) * 100;
+      const bufferedPercent = (buffered / this.props.duration) * 100;
       return bufferedPercent < 100 ? bufferedPercent : 100;
     }
     return 0;

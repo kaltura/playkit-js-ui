@@ -9,6 +9,7 @@ import {withPlayer} from '../player';
 import {withLogger} from 'components/logger';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from 'reducers/playlist';
+import {withEventManager} from 'event/with-event-manager';
 
 /**
  * mapping state to props
@@ -32,6 +33,7 @@ const COMPONENT_NAME = 'PlaylistCountdown';
   bindActions(actions)
 )
 @withPlayer
+@withEventManager
 @withLogger(COMPONENT_NAME)
 /**
  * PlaylistCountdown component
@@ -42,6 +44,18 @@ const COMPONENT_NAME = 'PlaylistCountdown';
  */
 class PlaylistCountdown extends Component {
   focusElement: HTMLElement;
+  nextShown: any;
+
+  /**
+   * constructor
+   * @param {*} props props
+   * @param {*} context context
+   * @return {void}
+   */
+  constructor(props: Object) {
+    super(props);
+    this.setState({focusable: false});
+  }
 
   /**
    * should render component
@@ -110,6 +124,29 @@ class PlaylistCountdown extends Component {
   }
 
   /**
+   * checks if the component is hidden
+   * @returns {boolean} - is component hidden
+   */
+  get isHidden(): boolean {
+    return !this.state.timeToShow || this.props.player.playlist.countdown.duration >= this.props.duration;
+  }
+
+  /**
+   * checks if the component is canceled
+   * @returns {boolean} - is component canceled
+   */
+  get isCanceled(): boolean {
+    return this.props.countdownCanceled;
+  }
+
+  /**
+   * checks if the component is shown
+   * @returns {boolean} - is component shown
+   */
+  get isShown(): boolean {
+    return !this.isHidden && !this.isCanceled;
+  }
+  /**
    * component did update handler
    *
    * @param {Object} prevProps - previous component props
@@ -129,9 +166,20 @@ class PlaylistCountdown extends Component {
       }
     }
 
-    if (!prevState.show && this.state.show && this.focusElement) {
-      this.focusElement.focus();
+    if (!prevState.shown && this.state.shown) {
+      if (this.focusElement) {
+        this.props.eventManager.listenOnce(this.focusElement, 'animationend', () => {
+          if (this.isShown) {
+            this.focusElement.focus();
+            this.setState({focusable: true});
+          }
+        });
+      }
+    } else if (prevState.shown && !this.state.shown) {
+      this.setState({focusable: false});
     }
+
+    if (this.isShown !== this.state.shown) this.setState({shown: this.isShown});
   }
 
   /**
@@ -152,27 +200,28 @@ class PlaylistCountdown extends Component {
    * @memberof PlaylistCountdown
    */
   render(props: any): React$Element<any> | void {
+    this.isShown && (this.nextShown = props.playlist.next);
+
     if (!this._shouldRender(props)) {
       return undefined;
     }
-    const next = props.playlist.next;
-    if (!(next && next.sources)) {
+    if (!(props.playlist.next && props.playlist.next.sources && this.nextShown)) {
       return undefined;
     }
+
     const countdown = this.props.player.playlist.countdown;
     const timeToShow = this._getTimeToShow();
     const progressTime = props.currentTime - timeToShow;
     const progressDuration = Math.min(countdown.duration, props.duration - timeToShow);
     const progressWidth = `${progressTime > 0 ? (progressTime / progressDuration) * 104 : 0}%`;
     const className = [style.playlistCountdown];
-    const isHidden = !this.state.timeToShow || countdown.duration >= props.duration;
-    const isCanceled = this.props.countdownCanceled;
-    this.setState({show: !isHidden && !isCanceled});
 
-    if (isHidden) {
+    if (this.isHidden) {
       className.push(style.hidden);
-    } else if (isCanceled) {
+    } else if (this.isCanceled) {
       className.push(style.canceled);
+    } else {
+      className.push(style.slideIn);
     }
 
     return (
@@ -180,7 +229,7 @@ class PlaylistCountdown extends Component {
         role="button"
         aria-labelledby="playlistCountdownTextId"
         ref={el => (this.focusElement = el)}
-        tabIndex={isHidden || isCanceled ? -1 : 0}
+        tabIndex={this.state.focusable ? 0 : -1}
         className={className.join(' ')}
         onKeyDown={e => {
           switch (e.keyCode) {
@@ -193,7 +242,7 @@ class PlaylistCountdown extends Component {
           }
         }}
         onClick={() => this.onClick()}>
-        <div className={style.playlistCountdownPoster} style={`background-image: url(${next.sources.poster});`} />
+        <div className={style.playlistCountdownPoster} style={`background-image: url(${this.nextShown.sources.poster});`} />
         <div className={style.playlistCountdownContentPlaceholder}>
           <div className={style.playlistCountdownContentBackground}>
             <div className={style.playlistCountdownContent}>
@@ -202,13 +251,15 @@ class PlaylistCountdown extends Component {
                   <div className={style.playlistCountdownTextTitle}>
                     <Text id="playlist.up_next" />
                   </div>
-                  <div className={style.playlistCountdownTextName}>{`${next.sources.metadata ? next.sources.metadata.name : ''}`}</div>
+                  <div className={style.playlistCountdownTextName}>{`${
+                    this.nextShown.sources.metadata ? this.nextShown.sources.metadata.name : ''
+                  }`}</div>
                 </div>
               </Localizer>
               <div className={[style.controlButtonContainer, style.playlistCountdownCancel].join(' ')}>
                 <Localizer>
                   <button
-                    tabIndex={isHidden || isCanceled ? -1 : 0}
+                    tabIndex={this.state.focusable ? 0 : -1}
                     aria-label={<Text id="playlist.cancel" />}
                     className={[style.controlButton, style.playlistCountdownCancelButton].join(' ')}
                     onClick={e => this.cancelNext(e)}
