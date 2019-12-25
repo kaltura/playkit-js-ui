@@ -1,7 +1,7 @@
 //@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
-import {Localizer, Text} from 'preact-i18n';
+import {withText} from 'preact-i18n';
 import {connect} from 'preact-redux';
 import {default as Icon, IconType} from '../icon';
 import {isPlayingAdOrPlayback} from '../../reducers/getters';
@@ -28,6 +28,11 @@ const COMPONENT_NAME = 'PlayPause';
 @withPlayer
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
+@withText({
+  startOverText: 'controls.startOver',
+  pauseText: 'controls.pause',
+  playText: 'controls.play'
+})
 /**
  * PlayPause component
  *
@@ -58,23 +63,21 @@ class PlayPause extends Component {
   render(props: any): React$Element<any> | void {
     const controlButtonClass = this.props.isPlayingAdOrPlayback ? [style.controlButton, style.isPlaying].join(' ') : style.controlButton;
     const isStartOver = props.isPlaybackEnded && !this.props.adBreak;
-    const localizationId = isStartOver ? 'controls.startOver' : this.props.isPlayingAdOrPlayback ? 'controls.pause' : 'controls.play';
+    const localization = isStartOver ? this.props.startOverText : this.props.isPlayingAdOrPlayback ? this.props.pauseText : this.props.playText;
     return (
       <div className={[style.controlButtonContainer, style.controlPlayPause].join(' ')}>
-        <Localizer>
-          <Tooltip label={<Text id={localizationId} />}>
-            <button tabIndex="0" aria-label={<Text id={localizationId} />} className={controlButtonClass} onClick={() => this.togglePlayPause()}>
-              {isStartOver ? (
-                <Icon type={IconType.StartOver} />
-              ) : (
-                <div>
-                  <Icon type={IconType.Play} />
-                  <Icon type={IconType.Pause} />
-                </div>
-              )}
-            </button>
-          </Tooltip>
-        </Localizer>
+        <Tooltip label={localization}>
+          <button tabIndex="0" aria-label={localization} className={controlButtonClass} onClick={() => this.togglePlayPause()}>
+            {isStartOver ? (
+              <Icon type={IconType.StartOver} />
+            ) : (
+              <div>
+                <Icon type={IconType.Play} />
+                <Icon type={IconType.Pause} />
+              </div>
+            )}
+          </button>
+        </Tooltip>
       </div>
     );
   }

@@ -25,12 +25,6 @@ const ToolTipType = {
   Right: 'right'
 };
 
-type CalculatedStyling = {
-  className: string,
-  marginLeft: number,
-  marginTop: number
-};
-
 @connect(mapStateToProps)
 
 /**
@@ -64,56 +58,43 @@ class Tooltip extends Component {
    */
   constructor(props: Object) {
     super(props);
-    this.setState({showTooltip: false});
+    this.setState({showTooltip: false, marginTop: 0, marginLeft: 0});
   }
 
   /**
    * gets the tooltip position based on component prop
    *
-   * @returns {string} - position style class
+   * @returns {void}
    * @memberof Tooltip
    */
-  calcTooltipStyling(): CalculatedStyling {
-    let calculatedStyling: CalculatedStyling = {
-      marginLeft: 0,
-      marginTop: 0
-    };
+  setMargins() {
     const tooltipBoundingRect = this.textElement ? this.textElement.getBoundingClientRect() : null;
     switch (this.state.type) {
       case ToolTipType.Top:
-        calculatedStyling.className = style.tooltipTop;
-        calculatedStyling.marginLeft = tooltipBoundingRect ? -tooltipBoundingRect.width / 2 : 0;
+        this.setState({marginLeft: tooltipBoundingRect ? -tooltipBoundingRect.width / 2 : 0, marginTop: 0});
         break;
       case ToolTipType.TopLeft:
-        calculatedStyling.className = style.tooltipTopLeft;
-        calculatedStyling.marginLeft = tooltipBoundingRect ? -tooltipBoundingRect.width + 16 : 0;
+        this.setState({marginLeft: tooltipBoundingRect ? -tooltipBoundingRect.width + 16 : 0, marginTop: 0});
         break;
       case ToolTipType.TopRight:
-        calculatedStyling.className = style.tooltipTopRight;
-        calculatedStyling.marginLeft = -16;
+        this.setState({marginLeft: -16, marginTop: 0});
         break;
       case ToolTipType.Left:
-        calculatedStyling.className = style.tooltipLeft;
-        calculatedStyling.marginTop = tooltipBoundingRect ? -tooltipBoundingRect.height / 2 : 0;
+        this.setState({marginTop: tooltipBoundingRect ? -tooltipBoundingRect.height / 2 : 0, marginLeft: 0});
         break;
       case ToolTipType.Right:
-        calculatedStyling.className = style.tooltipRight;
-        calculatedStyling.marginTop = tooltipBoundingRect ? -tooltipBoundingRect.height / 2 : 0;
+        this.setState({marginTop: tooltipBoundingRect ? -tooltipBoundingRect.height / 2 : 0, marginLeft: 0});
         break;
       case ToolTipType.Bottom:
-        calculatedStyling.className = style.tooltipBottom;
-        calculatedStyling.marginLeft = tooltipBoundingRect ? -tooltipBoundingRect.width / 2 : 0;
+        this.setState({marginLeft: tooltipBoundingRect ? -tooltipBoundingRect.width / 2 : 0, marginTop: 0});
         break;
       case ToolTipType.BottomRight:
-        calculatedStyling.className = style.tooltipBottomRight;
-        calculatedStyling.marginLeft = -16;
+        this.setState({marginLeft: -16, marginTop: 0});
         break;
       case ToolTipType.BottomLeft:
-        calculatedStyling.className = style.tooltipBottomLeft;
-        calculatedStyling.marginLeft = tooltipBoundingRect ? -tooltipBoundingRect.width + 16 : 0;
+        this.setState({marginLeft: tooltipBoundingRect ? -tooltipBoundingRect.width + 16 : 0, marginTop: 0});
         break;
     }
-    return calculatedStyling;
   }
 
   /**
@@ -187,18 +168,23 @@ class Tooltip extends Component {
   /**
    * checks if after the render the tooltip is within boundaries of the player
    * if not it will try to set a new type which will be checked after the next render
+   * @param {Object} prevProps - previous component props
+   * @param {Object} prevState - previous component state
    * @memberof Tooltip
    * @returns {void}
    */
-  componentDidUpdate(): void {
+  componentDidUpdate(prevProps: Object, prevState: Object): void {
     if (this.state.showTooltip && !this.isToolTipInBoundaries()) {
       if (this.nonValidTypes.indexOf(this.state.type) === -1) {
         this.nonValidTypes.push(this.state.type);
       }
       const alternateType = this.getAlternateType();
-      if (alternateType != this.state.type) {
+      if (alternateType !== this.state.type) {
         this.setState({type: alternateType});
       }
+    }
+    if (prevProps.label !== this.props.label || prevState.type !== this.state.type) {
+      this.setMargins();
     }
   }
 
@@ -210,15 +196,13 @@ class Tooltip extends Component {
    * @memberof Tooltip
    */
   render(props: any): React$Element<any> {
-    let calcStyle = this.calcTooltipStyling();
-
-    const className = [style.tooltipLabel, calcStyle.className];
+    const className = [style.tooltipLabel, style[`tooltip-${this.state.type}`]];
     this.state.showTooltip ? className.push(style.show) : className.push(style.hide);
 
     return (
       <div className={style.tooltip} onMouseOver={() => this.onMouseOver()} onMouseLeave={() => this.onMouseLeave()}>
         <span
-          style={{marginLeft: calcStyle.marginLeft, marginTop: calcStyle.marginTop, maxWidth: this.props.isMultiline ? this.props.maxWidth : 'none'}}
+          style={{marginLeft: this.state.marginLeft, marginTop: this.state.marginTop, maxWidth: props.isMultiline ? props.maxWidth : 'none'}}
           ref={el => {
             this.textElement = el;
           }}
