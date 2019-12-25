@@ -1,7 +1,7 @@
 //@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
-import {Localizer, Text} from 'preact-i18n';
+import {withText} from 'preact-i18n';
 import {default as Icon, IconType} from '../icon';
 import {connect} from 'preact-redux';
 import {withPlayer} from '../player';
@@ -20,6 +20,12 @@ const COMPONENT_NAME = 'PlaylistButton';
 
 @connect(mapStateToProps)
 @withPlayer
+@withText({
+  prevControlsText: 'controls.prev',
+  nextControlsText: 'controls.next',
+  playlistPrevText: 'playlist.prev',
+  playlistUpNextText: 'playlist.up_next'
+})
 /**
  * PlaylistButton component
  *
@@ -47,16 +53,15 @@ class PlaylistButton extends Component {
    */
   render(props: any): React$Element<any> | void {
     const item = props.playlist[props.type];
+    const showPreview = item && item.sources && (item.sources.poster || (item.sources.metadata && item.sources.metadata.name));
     return (
       <div className={[style.controlButtonContainer, style.controlPlaylistButton].join(' ')}>
-        {item && item.sources && (item.sources.poster || (item.sources.metadata && item.sources.metadata.name)) ? (
+        {showPreview ? (
           <div className={style.posterPreview}>
             <div className={style.posterPreviewText}>
-              <Localizer>
-                <div className={style.posterPreviewTextTitle}>
-                  <Text id={props.type === 'prev' ? 'playlist.prev' : 'playlist.up_next'} />
-                </div>
-              </Localizer>
+              <div className={style.posterPreviewTextTitle}>
+                {props.type === 'prev' ? this.props.playlistPrevText : this.props.playlistUpNextText}
+              </div>
               <div className={style.posterPreviewTextName}>{`${item.sources.metadata ? item.sources.metadata.name : ''}`}</div>
             </div>
             <div className={style.posterPreviewImg} style={`background-image: url(${item.sources.poster});`} />
@@ -64,27 +69,39 @@ class PlaylistButton extends Component {
         ) : (
           undefined
         )}
-        <Localizer>
-          <Tooltip label={<Text id={`controls.${props.type}`} />}>
-            <button
-              disabled={!item}
-              tabIndex="0"
-              aria-label={<Text id={`controls.${props.type}`} />}
-              className={`${style.controlButton}`}
-              onClick={() => this.onClick()}>
-              {props.type === 'prev' ? (
-                <div>
-                  <Icon type={IconType.Prev} />
-                </div>
-              ) : (
-                <div>
-                  <Icon type={IconType.Next} />
-                </div>
-              )}
-            </button>
-          </Tooltip>
-        </Localizer>
+        {showPreview ? (
+          this.bottomBarButton(item, props.type)
+        ) : (
+          <Tooltip label={this.props[`${props.type}ControlsText`]}>{this.bottomBarButton(item, props.type)}</Tooltip>
+        )}
       </div>
+    );
+  }
+
+  /**
+   * bottom bar button jsx
+   * @param {any} item - the playlist item
+   * @param {string }type - the type of the button (prev / next)
+   * @returns {React$Element} - the button jsx
+   */
+  bottomBarButton(item: any, type: string): React$Element {
+    return (
+      <button
+        disabled={!item}
+        tabIndex="0"
+        aria-label={this.props[`${type}ControlsText`]}
+        className={`${style.controlButton}`}
+        onClick={() => this.onClick()}>
+        {type === 'prev' ? (
+          <div>
+            <Icon type={IconType.Prev} />
+          </div>
+        ) : (
+          <div>
+            <Icon type={IconType.Next} />
+          </div>
+        )}
+      </button>
     );
   }
 }

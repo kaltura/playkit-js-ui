@@ -2,6 +2,7 @@
   position: relative;
   display: inline-block;
   .tooltip-label {
+    width: max-content;
     visibility: hidden;
     background-color: $tooltip-bg-color;
     color: $tooltip-color;
@@ -9,7 +10,6 @@
     padding: 4px 6px;
     border-radius: 4px;
     position: absolute;
-    min-width: max-content;
     line-height: normal;
     font-weight: bold;
     font-size: 13px;
@@ -87,7 +87,7 @@
     }
     &.tooltip-left {
       top: 50%;
-      right: 120%;
+      right: calc(100% + 10px);
       &:after {
         top: 50%;
         left: 100%;
@@ -98,7 +98,7 @@
     }
     &.tooltip-right {
       top: 50%;
-      left: 120%;
+      left: calc(100% + 10px);
       &:after {
         top: 50%;
         right: 100%;

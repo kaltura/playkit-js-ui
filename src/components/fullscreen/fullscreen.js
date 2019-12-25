@@ -1,7 +1,7 @@
 //@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
-import {Localizer, Text} from 'preact-i18n';
+import {withText} from 'preact-i18n';
 import {connect} from 'preact-redux';
 import {default as Icon, IconType} from '../icon';
 import {withPlayer} from '../player';
@@ -25,6 +25,7 @@ const COMPONENT_NAME = 'Fullscreen';
 @withPlayer
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
+@withText({fullscreenText: 'controls.fullscreen'})
 /**
  * Fullscreen component
  *
@@ -58,18 +59,16 @@ class Fullscreen extends Component {
   render(): React$Element<any> {
     return (
       <div className={[style.controlButtonContainer, style.controlFullscreen].join(' ')}>
-        <Localizer>
-          <Tooltip label={<Text id={'controls.fullscreen'} />}>
-            <button
-              tabIndex="0"
-              aria-label={<Text id="controls.fullscreen" />}
-              className={this.props.fullscreen ? [style.controlButton, style.isFullscreen].join(' ') : style.controlButton}
-              onClick={() => this.toggleFullscreen()}>
-              <Icon type={IconType.Maximize} />
-              <Icon type={IconType.Minimize} />
-            </button>
-          </Tooltip>
-        </Localizer>
+        <Tooltip label={this.props.fullscreenText}>
+          <button
+            tabIndex="0"
+            aria-label={this.props.fullscreenText}
+            className={this.props.fullscreen ? [style.controlButton, style.isFullscreen].join(' ') : style.controlButton}
+            onClick={() => this.toggleFullscreen()}>
+            <Icon type={IconType.Maximize} />
+            <Icon type={IconType.Minimize} />
+          </button>
+        </Tooltip>
       </div>
     );
   }
