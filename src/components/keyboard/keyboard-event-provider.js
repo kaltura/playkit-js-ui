@@ -4,7 +4,6 @@ import {withEventManager} from 'event/with-event-manager';
 import {connect} from 'preact-redux';
 import {bindActions} from 'utils/bind-actions';
 import {actions} from 'reducers/settings';
-import {actions as overlayIconActions} from 'reducers/overlay-action';
 
 /**
  * mapping state to props
@@ -19,7 +18,7 @@ const mapStateToProps = state => ({
 
 @connect(
   mapStateToProps,
-  bindActions({...actions, ...overlayIconActions})
+  bindActions({...actions})
 )
 @withEventManager
 /**
@@ -53,8 +52,6 @@ class KeyboardEventProvider extends Component {
    * @memberof HOC
    */
   onKeyDown(event: KeyboardEvent) {
-    const nodeName = event.target instanceof Node ? event.target.nodeName || '' : '';
-    const isEditableNode = ['INPUT', 'SELECT', 'TEXTAREA'].indexOf(nodeName) !== -1;
     const keyCombine = this._createKeyCode({
       code: event.keyCode,
       altKey: event.altKey,
@@ -62,7 +59,7 @@ class KeyboardEventProvider extends Component {
       metaKey: event.metaKey,
       shiftKey: event.shiftKey
     });
-    if (!isEditableNode && this._shouldHandledKeyboardEvent() && typeof this._keyboardListeners[keyCombine] === 'function') {
+    if (this._shouldHandledKeyboardEvent() && typeof this._keyboardListeners[keyCombine] === 'function') {
       this._keyboardListeners[keyCombine](event);
     }
   }
@@ -86,7 +83,6 @@ class KeyboardEventProvider extends Component {
     if (!this._keyboardListeners[keyCode]) {
       this._keyboardListeners[keyCode] = callback;
     }
-    window.console.log(this._keyboardListeners[keyCode]);
   };
   /**
    * create key code from sequence of controls
