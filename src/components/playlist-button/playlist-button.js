@@ -84,7 +84,7 @@ class PlaylistButton extends Component {
    * @param {string }type - the type of the button (prev / next)
    * @returns {React$Element} - the button jsx
    */
-  bottomBarButton(item: any, type: string): React$Element<any>{
+  bottomBarButton(item: any, type: string): React$Element<any> {
     return (
       <button
         disabled={!item}
