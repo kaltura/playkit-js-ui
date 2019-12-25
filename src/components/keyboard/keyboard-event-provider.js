@@ -18,7 +18,7 @@ const mapStateToProps = state => ({
 
 @connect(
   mapStateToProps,
-  bindActions({...actions})
+  bindActions(actions)
 )
 @withEventManager
 /**
