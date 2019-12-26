@@ -26,68 +26,74 @@
       z-index: -1;
     }
     &.tooltip-top {
-      bottom: calc(100% + 10px);
+      bottom: $tooltip-margin;
       left: 50%;
+      transform: translate(-50%);
       &:after {
-        bottom: -4px;
+        bottom: -$tooltip-arrow-height;
         left: 50%;
-        margin-left: -5px;
-        transform: rotate(45deg) skew(5deg, 5deg);
+        transform: translate(-50%) rotate(45deg) skew(5deg, 5deg);
       }
     }
     &.tooltip-top-left {
-      bottom: calc(100% + 10px);
+      bottom: $tooltip-margin;
       left: 50%;
+      transform: translate(calc(-100% + #{$tooltip-semi-side-margin} + #{$tooltip-arrow-width}));
       &:after {
-        bottom: -4px;
+        bottom: -$tooltip-arrow-height;
         right: 0;
-        margin-right: 11px;
+        margin-right: $tooltip-semi-side-margin;
         transform: rotate(45deg) skew(5deg, 5deg);
       }
     }
     &.tooltip-top-right {
-      bottom: calc(100% + 10px);
+      bottom: $tooltip-margin;
       left: 50%;
+      transform: translate(calc(-#{$tooltip-semi-side-margin} - #{$tooltip-arrow-width}));
       &:after {
-        bottom: -4px;
+        bottom: -$tooltip-arrow-height;
         left: 0;
-        margin-left: 11px;
+        margin-left: $tooltip-semi-side-margin;
         transform: rotate(45deg) skew(5deg, 5deg);
       }
     }
     &.tooltip-bottom {
-      top: calc(100% + 10px);
+      top: $tooltip-margin;
       left: 50%;
+      transform: translate(-50%);
       &:after {
-        top: -4px;
+        top: -$tooltip-arrow-height;
         left: 50%;
         margin-left: -5px;
         transform: rotate(45deg) skew(5deg, 5deg);
       }
     }
     &.tooltip-bottom-right {
-      top: calc(100% + 10px);
+      top: $tooltip-margin;
       left: 50%;
+      transform: translate(calc(-#{$tooltip-semi-side-margin} - #{$tooltip-arrow-width}));
       &:after {
-        top: -4px;
+        top: -$tooltip-arrow-height;
         left: 0;
-        margin-left: 11px;
+        margin-left: $tooltip-semi-side-margin;
         transform: rotate(45deg) skew(5deg, 5deg);
       }
     }
     &.tooltip-bottom-left {
-      top: calc(100% + 10px);
+      top: $tooltip-margin;
       left: 50%;
+      transform: translate(calc(-100% + #{$tooltip-semi-side-margin} + #{$tooltip-arrow-width}));
       &:after {
-        top: -4px;
+        top: -$tooltip-arrow-height;
         right: 0;
-        margin-right: 11px;
+        margin-right: $tooltip-semi-side-margin;
         transform: rotate(45deg) skew(5deg, 5deg);
       }
     }
     &.tooltip-left {
       top: 50%;
-      right: calc(100% + 10px);
+      right: $tooltip-margin;
+      transform: translate(0, -50%);
       &:after {
         top: 50%;
         left: 100%;
@@ -98,7 +104,8 @@
     }
     &.tooltip-right {
       top: 50%;
-      left: calc(100% + 10px);
+      left: $tooltip-margin;
+      transform: translate(0, -50%);
       &:after {
         top: 50%;
         right: 100%;

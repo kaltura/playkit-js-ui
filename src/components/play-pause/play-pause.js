@@ -63,11 +63,12 @@ class PlayPause extends Component {
   render(props: any): React$Element<any> | void {
     const controlButtonClass = this.props.isPlayingAdOrPlayback ? [style.controlButton, style.isPlaying].join(' ') : style.controlButton;
     const isStartOver = props.isPlaybackEnded && !this.props.adBreak;
-    const localization = isStartOver ? this.props.startOverText : this.props.isPlayingAdOrPlayback ? this.props.pauseText : this.props.playText;
+    const playbackStateText = this.props.isPlayingAdOrPlayback ? this.props.pauseText : this.props.playText;
+    const labelText = isStartOver ? this.props.startOverText : playbackStateText;
     return (
       <div className={[style.controlButtonContainer, style.controlPlayPause].join(' ')}>
-        <Tooltip label={localization}>
-          <button tabIndex="0" aria-label={localization} className={controlButtonClass} onClick={() => this.togglePlayPause()}>
+        <Tooltip label={labelText}>
+          <button tabIndex="0" aria-label={labelText} className={controlButtonClass} onClick={() => this.togglePlayPause()}>
             {isStartOver ? (
               <Icon type={IconType.StartOver} />
             ) : (

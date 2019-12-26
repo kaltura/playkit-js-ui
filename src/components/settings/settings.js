@@ -212,7 +212,7 @@ class Settings extends Component {
     if (isLive && qualityOptions.length <= 1) return undefined;
     return (
       <div ref={c => (this._controlSettingsElement = c)} className={[style.controlButtonContainer, style.controlSettings].join(' ')}>
-        <Tooltip label={this.props.buttonLabel}>
+        <Tooltip label={props.buttonLabel}>
           <button
             tabIndex="0"
             aria-label={props.buttonLabel}
