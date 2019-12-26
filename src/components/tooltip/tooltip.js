@@ -2,7 +2,7 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
-const MARGIN = 10;
+const PLAYER_MARGIN = 10;
 
 /**
  * mapping state to props
@@ -112,10 +112,10 @@ class Tooltip extends Component {
     const playerContainerRect = this.props.playerClientRect;
 
     return (
-      tooltipBoundingRect.top > playerContainerRect.top + MARGIN &&
-      tooltipBoundingRect.bottom < playerContainerRect.bottom - MARGIN &&
-      tooltipBoundingRect.right < playerContainerRect.right - MARGIN &&
-      tooltipBoundingRect.left > playerContainerRect.left + MARGIN
+      tooltipBoundingRect.top > playerContainerRect.top + PLAYER_MARGIN &&
+      tooltipBoundingRect.bottom < playerContainerRect.bottom - PLAYER_MARGIN &&
+      tooltipBoundingRect.right < playerContainerRect.right - PLAYER_MARGIN &&
+      tooltipBoundingRect.left > playerContainerRect.left + PLAYER_MARGIN
     );
   }
 
