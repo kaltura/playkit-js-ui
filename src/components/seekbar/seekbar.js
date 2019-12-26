@@ -211,7 +211,7 @@ class SeekBar extends Component {
    * @memberof SeekBar
    */
   seekbarKeydownHandler(): void {
-    const {player, adBreak} = this.props;
+    const {player} = this.props;
     /**
      * Do seek operations.
      * @param {number} from - Seek start point.
