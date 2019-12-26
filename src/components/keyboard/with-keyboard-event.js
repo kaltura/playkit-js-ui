@@ -14,7 +14,7 @@ const withKeyboardEvent = (WrappedComponent: Component) => {
      * @param {Function} callback - Optional payload.
      * @returns {void}
      *
-     * @memberof EventDispatcherComponent
+     * @memberof withKeyboardEvent
      */
     addKeyboardHandler(keyCode: KeyboardKey, callback: Function): void {
       this.context.addKeyboardHandler(keyCode, callback);
@@ -24,7 +24,7 @@ const withKeyboardEvent = (WrappedComponent: Component) => {
      * render component
      *
      * @returns {React$Element} - component element
-     * @memberof LoggerComponent
+     * @memberof withKeyboardEvent
      */
     render(): React$Element<any> | void {
       return <WrappedComponent {...this.props} addKeyboardHandler={(keyCode, callback) => this.addKeyboardHandler(keyCode, callback)} />;

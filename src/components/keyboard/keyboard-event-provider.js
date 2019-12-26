@@ -49,7 +49,7 @@ class KeyboardEventProvider extends Component {
    * handles keydown events
    * @param {KeyboardEvent} event - the keyboard event
    * @returns {void}
-   * @memberof HOC
+   * @memberof KeyboardEventProvider
    */
   onKeyDown(event: KeyboardEvent) {
     const keyCombine = this._createKeyCode({
@@ -98,7 +98,7 @@ class KeyboardEventProvider extends Component {
     return parseInt('' + key.code + altKey + ctrlKey + metaKey + shiftKey);
   }
   /**
-   * create context player
+   * create context for keyboard event handler
    * @returns {void}
    */
   getChildContext() {
@@ -111,7 +111,7 @@ class KeyboardEventProvider extends Component {
    * render component
    *
    * @returns {React$Element} - component element
-   * @memberof EventDispatcherProvider
+   * @memberof KeyboardEventProvider
    */
   render(): React$Element<any> | null {
     return (this.props.children && this.props.children[0]) || null;
