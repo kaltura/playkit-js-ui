@@ -53,6 +53,16 @@ class PictureInPicture extends Component {
       }
     });
   }
+
+  /**
+   * Before component is unmounted remove all event manager listeners.
+   * @returns {void}
+   *
+   * @memberof PictureInPicture
+   */
+  componentWillUnmount(): void {
+    this.props.removeKeyboardHandler({code: KeyMap.P});
+  }
   /**
    * On PIP icon clicked
    * @returns {void}

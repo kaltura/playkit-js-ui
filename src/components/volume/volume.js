@@ -85,6 +85,18 @@ class Volume extends Component {
   }
 
   /**
+   * before component unmounted, remove event listeners
+   *
+   * @returns {void}
+   * @memberof Volume
+   */
+  componentWillUnmount(): void {
+    this.props.removeKeyboardHandler({code: KeyMap.UP});
+    this.props.removeKeyboardHandler({code: KeyMap.DOWN});
+    this.props.removeKeyboardHandler({code: KeyMap.M});
+  }
+
+  /**
    * get the volume progress bar height percentage string
    *
    * @method getVolumeProgessHeight

@@ -91,6 +91,10 @@ class SeekBar extends Component {
   componentWillUnmount(): void {
     document.removeEventListener('mouseup', this.onPlayerMouseUp);
     document.removeEventListener('mousemove', this.onPlayerMouseMove);
+    this.props.removeKeyboardHandler({code: KeyMap.LEFT});
+    this.props.removeKeyboardHandler({code: KeyMap.RIGHT});
+    this.props.removeKeyboardHandler({code: KeyMap.HOME});
+    this.props.removeKeyboardHandler({code: KeyMap.END});
   }
 
   /**

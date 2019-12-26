@@ -4,6 +4,9 @@ import {withEventManager} from 'event/with-event-manager';
 import {connect} from 'preact-redux';
 import {bindActions} from 'utils/bind-actions';
 import {actions} from 'reducers/settings';
+import {withLogger} from 'components/logger';
+
+const COMPONENT_NAME = 'KEYBOARD_PROVIDER';
 
 /**
  * mapping state to props
@@ -21,6 +24,7 @@ const mapStateToProps = state => ({
   bindActions(actions)
 )
 @withEventManager
+@withLogger(COMPONENT_NAME)
 /**
  * KeyboardEventProvider component
  *
@@ -82,6 +86,21 @@ class KeyboardEventProvider extends Component {
     const keyCode = this._createKeyCode(key);
     if (!this._keyboardListeners[keyCode]) {
       this._keyboardListeners[keyCode] = callback;
+    } else {
+      this.props.logger.warn(`Combination of key ${key.code} altKey ${(!!key.altKey).toString()} ctrlKey ${(!!key.ctrlKey).toString()} 
+      metaKey ${(!!key.metaKey).toString()} shiftKey ${(!!key.shiftKey).toString()} already exist`);
+    }
+  };
+  /**
+   * remove keyboard event handler
+   * @param {KeyboardKey} key - the click data payload
+   * @returns {void}
+   * @private
+   */
+  _removeKeyboardHandler = (key: KeyboardKey) => {
+    const keyCode = this._createKeyCode(key);
+    if (this._keyboardListeners[keyCode]) {
+      delete this._keyboardListeners[keyCode];
     }
   };
   /**
@@ -103,7 +122,8 @@ class KeyboardEventProvider extends Component {
    */
   getChildContext() {
     return {
-      addKeyboardHandler: this._addKeyboardHandler
+      addKeyboardHandler: this._addKeyboardHandler,
+      removeKeyboardHandler: this._removeKeyboardHandler
     };
   }
 

@@ -98,6 +98,16 @@ class Language extends Component {
   }
 
   /**
+   * Before component is unmounted remove all event manager listeners.
+   * @returns {void}
+   *
+   * @memberof Language
+   */
+  componentWillUnmount(): void {
+    this.props.removeKeyboardHandler({code: KeyMap.C});
+  }
+
+  /**
    * We update the last language selected here upon trackTracks props change. This is done to make sure we update the
    * last text track lanague upon language menu selection and using the (C) keyboard key.
    * @param {Object} nextProps - the props that will replace the current props

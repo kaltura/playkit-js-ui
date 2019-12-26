@@ -109,6 +109,18 @@ class Settings extends Component {
   }
 
   /**
+   * before component unmounted, remove event listeners
+   *
+   * @returns {void}
+   * @memberof Settings
+   */
+  componentWillUnmount(): void {
+    this.props.removeKeyboardHandler({code: KeyMap.COMMA, shiftKey: true});
+    this.props.removeKeyboardHandler({code: KeyMap.SEMI_COLON, shiftKey: true});
+    this.props.removeKeyboardHandler({code: KeyMap.PERIOD, shiftKey: true});
+  }
+
+  /**
    * event listener for clicking outside handler.
    *
    * @param {*} e - click event

@@ -21,13 +21,30 @@ const withKeyboardEvent = (WrappedComponent: Component) => {
     }
 
     /**
+     * add keyboard handler
+     * @param {number} keyCode - Optional payload.
+     * @returns {void}
+     *
+     * @memberof withKeyboardEvent
+     */
+    removeKeyboardHandler(keyCode: KeyboardKey): void {
+      this.context.removeKeyboardHandler(keyCode);
+    }
+
+    /**
      * render component
      *
      * @returns {React$Element} - component element
      * @memberof withKeyboardEvent
      */
     render(): React$Element<any> | void {
-      return <WrappedComponent {...this.props} addKeyboardHandler={(keyCode, callback) => this.addKeyboardHandler(keyCode, callback)} />;
+      return (
+        <WrappedComponent
+          {...this.props}
+          addKeyboardHandler={(keyCode, callback) => this.addKeyboardHandler(keyCode, callback)}
+          removeKeyboardHandler={keyCode => this.removeKeyboardHandler(keyCode)}
+        />
+      );
     }
   };
 };

@@ -58,6 +58,17 @@ class Fullscreen extends Component {
     });
   }
   /**
+   * Before component is unmounted remove all event manager listeners.
+   * @returns {void}
+   *
+   * @memberof Fullscreen
+   */
+  componentWillUnmount(): void {
+    this.props.removeKeyboardHandler({code: KeyMap.F});
+    this.props.removeKeyboardHandler({code: KeyMap.ESC});
+  }
+
+  /**
    * toggle fullscreen based on current fullscreen state in store
    *
    * @returns {void}

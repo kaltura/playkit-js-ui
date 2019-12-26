@@ -57,6 +57,16 @@ class PlayPause extends Component {
   }
 
   /**
+   * Before component is unmounted remove all event manager listeners.
+   * @returns {void}
+   *
+   * @memberof PlayPause
+   */
+  componentWillUnmount(): void {
+    this.props.removeKeyboardHandler({code: KeyMap.SPACE});
+  }
+
+  /**
    * toggle play / pause
    *
    * @returns {void}
