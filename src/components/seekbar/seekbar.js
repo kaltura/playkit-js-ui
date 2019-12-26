@@ -219,14 +219,12 @@ class SeekBar extends Component {
      * @returns {void}
      */
     const seek = (from: number, to: number) => {
-      if (!adBreak && !(player.isLive() && !player.isDvr())) {
-        this.props.changeCurrentTime(to);
-        this.updateSeekBarProgress(player.currentTime, this.props.duration, true);
-        this.props.notifyChange({
-          from: from,
-          to: to
-        });
-      }
+      this.props.changeCurrentTime(to);
+      this.updateSeekBarProgress(player.currentTime, this.props.duration, true);
+      this.props.notifyChange({
+        from: from,
+        to: to
+      });
     };
     let newTime;
     this.props.addKeyboardHandler({code: KeyMap.LEFT}, event => {
