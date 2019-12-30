@@ -50,7 +50,7 @@ class SeekBar extends Component {
   _seekBarElement: HTMLElement;
   _framePreviewElement: HTMLElement;
   _timeBubbleElement: HTMLElement;
-  _keyboardEventHandler: Array<KeyboardHandlers> = [
+  _keyboardEventHandler: Array<KeyboardEventHandler> = [
     {
       eventType: 'keydown',
       handlers: [

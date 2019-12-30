@@ -9,13 +9,13 @@ import {h, Component} from 'preact';
  */
 const withKeyboardEvent: Function = (name: string) => (WrappedComponent: Component) => {
   return class KeyboardComponent extends Component {
-    keyboardEventHandlers: Array<KeyboardHandlers>;
+    keyboardEventHandlers: Array<KeyboardEventHandler>;
     /**
      *
      * @param {Array<KeyboardHandlers>} eventHandlers - Events of keyboard
      * @returns {void}
      */
-    registerEvents(eventHandlers: Array<KeyboardHandlers>) {
+    registerEvents(eventHandlers: Array<KeyboardEventHandler>) {
       this.keyboardEventHandlers = eventHandlers;
       this.keyboardEventHandlers.forEach(eventHandler => {
         const {eventType, handlers} = eventHandler;

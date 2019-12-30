@@ -36,7 +36,7 @@ const COMPONENT_NAME = 'Fullscreen';
  * @extends {Component}
  */
 class Fullscreen extends Component {
-  _keyboardEventHandler: Array<KeyboardHandlers> = [
+  _keyboardEventHandler: Array<KeyboardEventHandler> = [
     {
       eventType: 'keydown',
       handlers: [

@@ -55,7 +55,7 @@ const COMPONENT_NAME = 'Settings';
 class Settings extends Component {
   state: Object;
   _controlSettingsElement: any;
-  _keyboardEventHandler: Array<KeyboardHandlers> = [
+  _keyboardEventHandler: Array<KeyboardEventHandler> = [
     {
       eventType: 'keydown',
       handlers: [

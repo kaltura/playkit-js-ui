@@ -61,7 +61,7 @@ const KEYBOARD_DEFAULT_VOLUME_JUMP: number = 5;
 class Volume extends Component {
   _volumeControlElement: HTMLElement;
   _volumeProgressBarElement: HTMLElement;
-  _keyboardEventHandler: Array<KeyboardHandlers> = [
+  _keyboardEventHandler: Array<KeyboardEventHandler> = [
     {
       eventType: 'keydown',
       handlers: [

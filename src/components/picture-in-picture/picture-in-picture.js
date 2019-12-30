@@ -36,7 +36,7 @@ const COMPONENT_NAME = 'PictureInPicture';
  * @extends {Component}
  */
 class PictureInPicture extends Component {
-  _keyboardEventHandler: Array<KeyboardHandlers> = [
+  _keyboardEventHandler: Array<KeyboardEventHandler> = [
     {
       eventType: 'keydown',
       handlers: [

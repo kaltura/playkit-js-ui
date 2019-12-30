@@ -1,5 +1,5 @@
 // @flow
-declare type KeyboardHandlers = {
+declare type KeyboardEventHandler = {
   eventType: string,
   handlers: Array<KeyboardHandler>
 };
