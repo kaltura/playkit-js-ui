@@ -124,6 +124,6 @@
   }
 
   &.hide {
-    transition: all 0.15s ease-in-out;
+    transition: opacity 0.15s ease-in-out;
   }
 }

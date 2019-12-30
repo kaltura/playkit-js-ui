@@ -39,7 +39,7 @@ class Tooltip extends Component {
   state: Object;
   _hoverTimeout: ?number;
   textElement: HTMLSpanElement;
-  nonValidTypes: string[] = [];
+  lastAlternativeTypeIndex: number = -1;
 
   /**
    * default component props
@@ -48,7 +48,6 @@ class Tooltip extends Component {
    */
   static defaultProps = {
     type: ToolTipType.Top,
-    isMultiline: true,
     maxWidth: '240px'
   };
 
@@ -93,13 +92,14 @@ class Tooltip extends Component {
    * @returns {string} tooltip type
    */
   getAlternateType(): string {
-    for (const key in ToolTipType) {
-      const toolTipType = ToolTipType[key];
-      if (this.nonValidTypes.indexOf(toolTipType) === -1) {
-        return toolTipType;
+    let nextAlternativeType: string = null;
+    Object.keys(ToolTipType).forEach((key, index) => {
+      if (!nextAlternativeType && index > this.lastAlternativeTypeIndex && ToolTipType[key] !== this.state.type) {
+        this.lastAlternativeTypeIndex = index;
+        nextAlternativeType = ToolTipType[key];
       }
-    }
-    return this.state.type;
+    });
+    return nextAlternativeType;
   }
 
   /**
@@ -125,23 +125,30 @@ class Tooltip extends Component {
    * @returns {void}
    */
   componentWillMount(): void {
-    this.setState({type: this.props.type});
+    this.setState({valid: false, type: this.props.type});
   }
 
   /**
    * checks if after the render the tooltip is within boundaries of the player
    * if not it will try to set a new type which will be checked after the next render
+   * @param {Object} prevProps - previous component props
    * @memberof Tooltip
    * @returns {void}
    */
-  componentDidUpdate(): void {
-    if (this.state.showTooltip && !this.isToolTipInBoundaries()) {
-      if (this.nonValidTypes.indexOf(this.state.type) === -1) {
-        this.nonValidTypes.push(this.state.type);
-      }
-      const alternateType = this.getAlternateType();
-      if (alternateType !== this.state.type) {
-        this.setState({type: alternateType});
+  componentDidUpdate(prevProps: Object): void {
+    if (this.props.playerClientRect !== prevProps.playerClientRect) {
+      this.lastAlternativeTypeIndex = -1;
+      this.setState({type: this.props.type});
+    } else if (this.state.showTooltip) {
+      if (this.isToolTipInBoundaries()) {
+        if (!this.state.valid) {
+          this.setState({valid: true});
+        }
+      } else {
+        const alternateType = this.getAlternateType();
+        if (alternateType) {
+          this.setState({valid: false, type: alternateType});
+        }
       }
     }
   }
@@ -155,12 +162,12 @@ class Tooltip extends Component {
    */
   render(props: any): React$Element<any> {
     const className = [style.tooltipLabel, style[`tooltip-${this.state.type}`]];
-    this.state.showTooltip ? className.push(style.show) : className.push(style.hide);
+    this.state.showTooltip && this.state.valid ? className.push(style.show) : className.push(style.hide);
 
     return (
       <div className={style.tooltip} onMouseOver={() => this.onMouseOver()} onMouseLeave={() => this.onMouseLeave()}>
         <span
-          style={{maxWidth: props.isMultiline ? props.maxWidth : 'none'}}
+          style={{maxWidth: props.maxWidth}}
           ref={el => {
             this.textElement = el;
           }}
