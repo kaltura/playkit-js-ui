@@ -38,7 +38,7 @@ const COMPONENT_NAME = 'Language';
 )
 @withPlayer
 @withEventManager
-@withKeyboardEvent
+@withKeyboardEvent(COMPONENT_NAME)
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
 @withText({
@@ -60,7 +60,33 @@ class Language extends Component {
   _lastActiveTextLanguage: string = '';
   // ie11 fix (FEC-7312) - don't remove
   _portal: any;
-
+  _keyboardEventHandler: Array<KeyboardHandlers> = [
+    {
+      eventType: 'keydown',
+      handlers: [
+        {
+          key: {
+            code: KeyMap.C
+          },
+          action: () => {
+            const {player, logger} = this.props;
+            let activeTextTrack = player.getActiveTracks().text;
+            if (activeTextTrack) {
+              if (activeTextTrack.language === 'off' && this._lastActiveTextLanguage) {
+                logger.debug(`Changing text track to language`, this._lastActiveTextLanguage);
+                const selectedTextTrack = player.getTracks('text').find(track => track.language === this._lastActiveTextLanguage);
+                player.selectTrack(selectedTextTrack);
+              } else if (activeTextTrack.language !== 'off' && !this._lastActiveTextLanguage) {
+                logger.debug(`Hiding text track`);
+                this._lastActiveTextLanguage = activeTextTrack.language;
+                player.hideTextTrack();
+              }
+            }
+          }
+        }
+      ]
+    }
+  ];
   /**
    * before component mounted, set initial state
    *
@@ -79,32 +105,7 @@ class Language extends Component {
    */
   componentDidMount() {
     this.props.eventManager.listen(document, 'click', e => this.handleClickOutside(e));
-    this.props.addKeyboardHandler({code: KeyMap.C}, event => {
-      event.preventDefault();
-      let activeTextTrack = this.props.player.getActiveTracks().text;
-      //if key is combined then exit
-      if (activeTextTrack) {
-        if (activeTextTrack.language === 'off' && this._lastActiveTextLanguage) {
-          this.props.logger.debug(`Changing text track to language`, this._lastActiveTextLanguage);
-          const selectedTextTrack = this.props.player.getTracks('text').find(track => track.language === this._lastActiveTextLanguage);
-          this.props.player.selectTrack(selectedTextTrack);
-        } else if (activeTextTrack.language !== 'off' && !this._lastActiveTextLanguage) {
-          this.props.logger.debug(`Hiding text track`);
-          this._lastActiveTextLanguage = activeTextTrack.language;
-          this.props.player.hideTextTrack();
-        }
-      }
-    });
-  }
-
-  /**
-   * Before component is unmounted remove all event manager listeners.
-   * @returns {void}
-   *
-   * @memberof Language
-   */
-  componentWillUnmount(): void {
-    this.props.removeKeyboardHandler({code: KeyMap.C});
+    this.props.registerEvents(this._keyboardEventHandler);
   }
 
   /**

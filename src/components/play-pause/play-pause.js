@@ -33,7 +33,7 @@ const COMPONENT_NAME = 'PlayPause';
   bindActions({...settingActions, ...overlayIconActions})
 )
 @withPlayer
-@withKeyboardEvent
+@withKeyboardEvent(COMPONENT_NAME)
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
 /**
@@ -44,26 +44,30 @@ const COMPONENT_NAME = 'PlayPause';
  * @extends {Component}
  */
 class PlayPause extends Component {
+  _keyboardEventHandler: Array<KeyboardHandlers> = [
+    {
+      eventType: 'keydown',
+      handlers: [
+        {
+          key: {
+            code: KeyMap.SPACE
+          },
+          action: () => {
+            this.props.isPlayingAdOrPlayback ? this.props.updateOverlayActionIcon(IconType.Pause) : this.props.updateOverlayActionIcon(IconType.Play);
+            this.togglePlayPause();
+          }
+        }
+      ]
+    }
+  ];
   /**
-   * @returns {void}
-   * @memberof PlayPause
-   */
-  componentDidMount() {
-    this.props.addKeyboardHandler({code: KeyMap.SPACE}, event => {
-      event.preventDefault();
-      this.props.isPlayingAdOrPlayback ? this.props.updateOverlayActionIcon(IconType.Pause) : this.props.updateOverlayActionIcon(IconType.Play);
-      this.togglePlayPause();
-    });
-  }
-
-  /**
-   * Before component is unmounted remove all event manager listeners.
-   * @returns {void}
+   * on component mount, bind mouseup and mousemove events to top player element
    *
+   * @returns {void}
    * @memberof PlayPause
    */
-  componentWillUnmount(): void {
-    this.props.removeKeyboardHandler({code: KeyMap.SPACE});
+  componentDidMount(): void {
+    this.props.registerEvents(this._keyboardEventHandler);
   }
 
   /**

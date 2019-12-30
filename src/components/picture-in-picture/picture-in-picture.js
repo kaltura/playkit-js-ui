@@ -9,7 +9,7 @@ import {withPlayer} from '../player';
 import {withLogger} from 'components/logger';
 import {KeyMap} from 'utils/key-map';
 import {withKeyboardEvent} from 'components/keyboard';
-import {FakeEvent} from 'event/fake-event';
+import {withEventDispatcher} from 'components/event-dispatcher';
 
 /**
  * mapping state to props
@@ -25,8 +25,10 @@ const COMPONENT_NAME = 'PictureInPicture';
 
 @connect(mapStateToProps)
 @withPlayer
-@withKeyboardEvent
+@withKeyboardEvent(COMPONENT_NAME)
 @withLogger(COMPONENT_NAME)
+@withEventDispatcher(COMPONENT_NAME)
+
 /**
  * PictureInPicture component
  *
@@ -34,45 +36,45 @@ const COMPONENT_NAME = 'PictureInPicture';
  * @extends {Component}
  */
 class PictureInPicture extends Component {
+  _keyboardEventHandler: Array<KeyboardHandlers> = [
+    {
+      eventType: 'keydown',
+      handlers: [
+        {
+          key: {
+            code: KeyMap.P
+          },
+          action: () => {
+            this.togglePip();
+          }
+        }
+      ]
+    }
+  ];
   /**
+   * after component mounted, set event listener to click outside of the component
+   *
    * @returns {void}
    * @memberof PictureInPicture
    */
   componentDidMount() {
-    this.props.addKeyboardHandler({code: KeyMap.P}, event => {
-      const {player} = this.props;
-      event.preventDefault();
-      if (!player.isInPictureInPicture()) {
-        this.props.logger.debug('Enter Picture In Picture');
-        player.enterPictureInPicture();
-        player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_ENTERED_PICTURE_IN_PICTURE));
-      } else {
-        this.props.logger.debug('Exit Picture In Picture');
-        player.exitPictureInPicture();
-        player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_EXITED_PICTURE_IN_PICTURE));
-      }
-    });
+    this.props.registerEvents(this._keyboardEventHandler);
   }
-
   /**
-   * Before component is unmounted remove all event manager listeners.
+   * toggle pip
    * @returns {void}
    *
    * @memberof PictureInPicture
    */
-  componentWillUnmount(): void {
-    this.props.removeKeyboardHandler({code: KeyMap.P});
-  }
-  /**
-   * On PIP icon clicked
-   * @returns {void}
-   * @private
-   */
-  _onClick(): void {
+  togglePip(): void {
     const {player} = this.props;
     if (player.isInPictureInPicture()) {
+      this.props.logger.debug('Exit Picture In Picture');
+      this.props.notifyClick();
       player.exitPictureInPicture();
     } else {
+      this.props.logger.debug('Enter Picture In Picture');
+      this.props.notifyClick();
       player.enterPictureInPicture();
     }
   }
@@ -92,7 +94,7 @@ class PictureInPicture extends Component {
               tabIndex="0"
               aria-label={<Text id={'controls.pictureInPicture'} />}
               className={`${style.controlButton} ${this.state.animation ? style.rotate : ''}`}
-              onClick={() => this._onClick()}>
+              onClick={() => this.togglePip()}>
               <Icon type={IconType.PictureInPicture} />
             </button>
           </Localizer>

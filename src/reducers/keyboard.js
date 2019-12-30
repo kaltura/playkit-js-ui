@@ -1,11 +1,13 @@
 //@flow
 
 export const types = {
-  UPDATE_KEYBOARD_ENABLE: 'keyboard/UPDATE_KEYBOARD_ENABLE'
+  UPDATE_KEYBOARD_ENABLE: 'keyboard/UPDATE_KEYBOARD_ENABLE',
+  UPDATE_PRIORITY_COMPONENT: 'keyboard/UPDATE_PRIORITY_COMPONENT'
 };
 
 export const initialState = {
-  isKeyboardEnable: true
+  isKeyboardEnable: false,
+  priorityComponent: null
 };
 
 export default (state: Object = initialState, action: Object) => {
@@ -15,6 +17,11 @@ export default (state: Object = initialState, action: Object) => {
         ...state,
         isKeyboardEnable: action.isEnable
       };
+    case types.UPDATE_PRIORITY_COMPONENT:
+      return {
+        ...state,
+        priorityComponent: action.component
+      };
 
     default:
       return state;
@@ -22,5 +29,6 @@ export default (state: Object = initialState, action: Object) => {
 };
 
 export const actions = {
-  updateKeyboardEnable: (isEnable: boolean) => ({type: types.UPDATE_KEYBOARD_ENABLE, isEnable})
+  updateKeyboardEnable: (isEnable: boolean) => ({type: types.UPDATE_KEYBOARD_ENABLE, isEnable}),
+  updatePriorityComponent: (component: string) => ({type: types.UPDATE_PRIORITY_COMPONENT, component})
 };

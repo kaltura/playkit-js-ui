@@ -3,32 +3,67 @@ import {h, Component} from 'preact';
 
 /**
  *
- * @param {Component} WrappedComponent - the component to wrap
+ * @param {string} name - the component to wrap
+ // * @param {Component} WrappedComponent - the component to wrap
  * @returns {React$Element} - component element
  */
-const withKeyboardEvent = (WrappedComponent: Component) => {
+const withKeyboardEvent: Function = (name: string) => (WrappedComponent: Component) => {
   return class KeyboardComponent extends Component {
+    keyboardEventHandlers: Array<KeyboardHandlers>;
+    /**
+     *
+     * @param {Array<KeyboardHandlers>} eventHandlers - Events of keyboard
+     * @returns {void}
+     */
+    registerEvents(eventHandlers: Array<KeyboardHandlers>) {
+      this.keyboardEventHandlers = eventHandlers;
+      this.keyboardEventHandlers.forEach(eventHandler => {
+        const {eventType, handlers} = eventHandler;
+        if (Array.isArray(handlers)) {
+          handlers.forEach(handler => {
+            this._addKeyboardHandler(name, eventType, handler.key, handler.action);
+          });
+        }
+      });
+    }
+    /**
+     * Before component is unmounted remove all event manager listeners.
+     * @returns {void}
+     */
+    componentWillUnmount(): void {
+      this.keyboardEventHandlers.forEach(eventHandler => {
+        const {eventType, handlers} = eventHandler;
+        if (Array.isArray(handlers)) {
+          handlers.forEach(handler => {
+            this._removeKeyboardHandler(eventType, handler.key);
+          });
+        }
+      });
+    }
     /**
      * add keyboard handler
-     * @param {number} keyCode - Optional payload.
+     * @param {string} componentName - component name
+     * @param {string} eventType - event type to handle
+     * @param {number} keyCode - key code to handle
      * @param {Function} callback - Optional payload.
      * @returns {void}
      *
      * @memberof withKeyboardEvent
      */
-    addKeyboardHandler(keyCode: KeyboardKey, callback: Function): void {
-      this.context.addKeyboardHandler(keyCode, callback);
+    _addKeyboardHandler(componentName: string, eventType: string, keyCode: KeyboardKey, callback: Function): void {
+      this.context.addKeyboardHandler(componentName, eventType, keyCode, callback);
     }
 
     /**
      * add keyboard handler
+     * @param {string} eventType - event type
      * @param {number} keyCode - Optional payload.
      * @returns {void}
      *
      * @memberof withKeyboardEvent
      */
-    removeKeyboardHandler(keyCode: KeyboardKey): void {
-      this.context.removeKeyboardHandler(keyCode);
+    _removeKeyboardHandler(eventType: string, keyCode: KeyboardKey): void {
+      this.context.removeKeyboardHandler(eventType, keyCode);
     }
 
     /**
@@ -38,13 +73,7 @@ const withKeyboardEvent = (WrappedComponent: Component) => {
      * @memberof withKeyboardEvent
      */
     render(): React$Element<any> | void {
-      return (
-        <WrappedComponent
-          {...this.props}
-          addKeyboardHandler={(keyCode, callback) => this.addKeyboardHandler(keyCode, callback)}
-          removeKeyboardHandler={keyCode => this.removeKeyboardHandler(keyCode)}
-        />
-      );
+      return <WrappedComponent {...this.props} registerEvents={eventHandlers => this.registerEvents(eventHandlers)} />;
     }
   };
 };

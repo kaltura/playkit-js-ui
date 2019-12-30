@@ -29,6 +29,8 @@ import {PictureInPictureOverlay} from '../components/picture-in-picture-overlay'
 import {Share} from '../components/share';
 import {TopBar} from '../components/top-bar';
 import {Logo} from '../components/logo/logo';
+import {actions} from 'reducers/keyboard';
+import {connect} from 'preact-redux';
 
 const PRESET_NAME = 'Playback';
 
@@ -40,6 +42,7 @@ const PRESET_NAME = 'Playback';
  * @returns {React$Element} player ui tree
  */
 function PlaybackUI(props: any): React$Element<any> {
+  props.updateKeyboardEnable(true);
   return (
     <Container className={style.playbackGuiWWrapper} name={'VideoOverlay'} preAppendTo={'Backdrop'}>
       <Loading />
@@ -86,7 +89,10 @@ function PlaybackUI(props: any): React$Element<any> {
 }
 
 PlaybackUI.displayName = PRESET_NAME;
-
+const PlaybackUIComponent = connect(
+  null,
+  actions
+)(PlaybackUI);
 /**
  * Playback ui interface
  *
@@ -95,5 +101,5 @@ PlaybackUI.displayName = PRESET_NAME;
  * @returns {React$Element} player ui tree
  */
 export function playbackUI(props: any): React$Element<any> {
-  return <PlaybackUI {...props} />;
+  return <PlaybackUIComponent {...props} />;
 }

@@ -25,6 +25,8 @@ import {Share} from '../components/share';
 import {Container} from '../components/container';
 import {TopBar} from '../components/top-bar';
 import {Logo} from '../components/logo/logo';
+import {connect} from 'preact-redux';
+import {actions} from 'reducers/keyboard';
 
 const PRESET_NAME = 'Live';
 
@@ -35,6 +37,7 @@ const PRESET_NAME = 'Live';
  * @returns {React$Element<any>} player ui tree
  */
 export function LiveUI(props: any): React$Element<any> {
+  props.updateKeyboardEnable(true);
   return (
     <Container className={style.playbackGuiWWrapper} name={'VideoOverlay'} preAppendTo={'Backdrop'}>
       <Loading />
@@ -77,7 +80,10 @@ export function LiveUI(props: any): React$Element<any> {
 }
 
 LiveUI.displayName = PRESET_NAME;
-
+const LiveUIComponent = connect(
+  null,
+  actions
+)(LiveUI);
 /**
  * Live ui interface
  *
@@ -86,5 +92,5 @@ LiveUI.displayName = PRESET_NAME;
  * @returns {React$Element<any>} player ui tree
  */
 export function liveUI(props: any): React$Element<any> {
-  return <LiveUI {...props} />;
+  return <LiveUIComponent {...props} />;
 }

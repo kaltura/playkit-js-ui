@@ -14,9 +14,8 @@ const COMPONENT_NAME = 'KEYBOARD_PROVIDER';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  playerNav: state.shell.playerNav,
-  shareOverlay: state.share.overlayOpen,
-  isKeyboardEnable: state.keyboard.isKeyboardEnable
+  isKeyboardEnable: state.keyboard.isKeyboardEnable,
+  priorityComponent: state.keyboard.priorityComponent
 });
 
 @connect(
@@ -32,15 +31,31 @@ const mapStateToProps = state => ({
  * @extends {Component}
  */
 class KeyboardEventProvider extends Component {
+  _events: Object = {keydown: 1, keyup: 2, keypress: 3};
   _keyboardListeners = [];
+  keyEventHandler: Function;
   /**
    * constructor
    * @return {void}
    */
   componentDidMount() {
     const {eventManager, playerContainer} = this.props;
-    eventManager.listen(playerContainer, 'keydown', e => this.onKeyDown(e));
+    this.keyEventHandler = this._keyEventHandler.bind(this);
+    Object.keys(this._events).forEach(event => {
+      eventManager.listen(playerContainer, event, this.keyEventHandler);
+    });
   }
+  /**
+   * Before component is unmounted remove all event manager listeners.
+   * @returns {void}
+   */
+  componentWillUnmount(): void {
+    const {eventManager, playerContainer} = this.props;
+    Object.keys(this._events).forEach(event => {
+      eventManager.unlisten(playerContainer, event, this.keyEventHandler);
+    });
+  }
+
   /**
    *
    * @returns {boolean} should not rerender
@@ -50,42 +65,46 @@ class KeyboardEventProvider extends Component {
     return false;
   }
   /**
-   * handles keydown events
+   * handles key events
    * @param {KeyboardEvent} event - the keyboard event
    * @returns {void}
    * @memberof KeyboardEventProvider
    */
-  onKeyDown(event: KeyboardEvent) {
-    const keyCombine = this._createKeyCode({
+  _keyEventHandler(event: KeyboardEvent) {
+    const keyCombine = this._createKeyCode(event.type, {
       code: event.keyCode,
       altKey: event.altKey,
       ctrlKey: event.ctrlKey,
       metaKey: event.metaKey,
       shiftKey: event.shiftKey
     });
-    if (this._shouldHandledKeyboardEvent() && typeof this._keyboardListeners[keyCombine] === 'function') {
-      this._keyboardListeners[keyCombine](event);
+    const nodeName = event.target instanceof Node ? event.target.nodeName || '' : '';
+    const isEditableNode = ['INPUT', 'SELECT', 'TEXTAREA'].indexOf(nodeName) !== -1;
+    if (
+      !isEditableNode &&
+      this.props.isKeyboardEnable &&
+      this._keyboardListeners[keyCombine] &&
+      typeof this._keyboardListeners[keyCombine].callback === 'function' &&
+      (!this.props.priorityComponent || this._keyboardListeners[keyCombine].componentName === this.props.priorityComponent)
+    ) {
+      event.preventDefault();
+      event.stopPropagation();
+      this._keyboardListeners[keyCombine].callback(event);
     }
   }
   /**
-   * check if keyboard handler should be used
-   * @returns {boolean} - handler should be used
-   * @private
-   */
-  _shouldHandledKeyboardEvent(): boolean {
-    return this.props.isKeyboardEnable && !this.props.shareOverlay && !this.props.playerNav;
-  }
-  /**
    * add keyboard event handler
+   * @param {string} componentName - event type
+   * @param {string} eventType - event type
    * @param {KeyboardKey} key - the click data payload
    * @param {Function} callback - the click data payload
    * @returns {void}
    * @private
    */
-  _addKeyboardHandler = (key: KeyboardKey, callback: Function) => {
-    const keyCode = this._createKeyCode(key);
+  _addKeyboardHandler = (componentName: string, eventType: string, key: KeyboardKey, callback: Function) => {
+    const keyCode = this._createKeyCode(eventType, key);
     if (!this._keyboardListeners[keyCode]) {
-      this._keyboardListeners[keyCode] = callback;
+      this._keyboardListeners[keyCode] = {callback, componentName};
     } else {
       this.props.logger.warn(`Combination of key ${key.code} altKey ${(!!key.altKey).toString()} ctrlKey ${(!!key.ctrlKey).toString()} 
       metaKey ${(!!key.metaKey).toString()} shiftKey ${(!!key.shiftKey).toString()} already exist`);
@@ -93,28 +112,31 @@ class KeyboardEventProvider extends Component {
   };
   /**
    * remove keyboard event handler
+   * @param {string} eventType - event type
    * @param {KeyboardKey} key - the click data payload
    * @returns {void}
    * @private
    */
-  _removeKeyboardHandler = (key: KeyboardKey) => {
-    const keyCode = this._createKeyCode(key);
+  _removeKeyboardHandler = (eventType: string, key: KeyboardKey) => {
+    const keyCode = this._createKeyCode(eventType, key);
     if (this._keyboardListeners[keyCode]) {
       delete this._keyboardListeners[keyCode];
     }
   };
   /**
    * create key code from sequence of controls
+   * @param {string} eventType - keyboard event type
    * @param {KeyboardKey} key - the key to register for
    * @returns {number} the key for handler
    * @private
    */
-  _createKeyCode(key: KeyboardKey): number {
+  _createKeyCode(eventType: string, key: KeyboardKey): number {
+    const eventTypeCode = this._events[eventType];
     const altKey = key.altKey ? 1 : 0;
     const ctrlKey = key.ctrlKey ? 1 : 0;
     const metaKey = key.metaKey ? 1 : 0;
     const shiftKey = key.shiftKey ? 1 : 0;
-    return parseInt('' + key.code + altKey + ctrlKey + metaKey + shiftKey);
+    return parseInt('' + eventTypeCode + key.code + altKey + ctrlKey + metaKey + shiftKey);
   }
   /**
    * create context for keyboard event handler

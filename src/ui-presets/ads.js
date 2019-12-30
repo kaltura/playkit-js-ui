@@ -12,6 +12,8 @@ import {BottomBar} from '../components/bottom-bar';
 import {UnmuteIndication} from '../components/unmute-indication';
 import {AdNotice} from '../components/ad-notice/ad-notice';
 import {PlaybackControls} from '../components/playback-controls';
+import {connect} from 'preact-redux';
+import {actions} from 'reducers/keyboard';
 
 const PRESET_NAME = 'Ads';
 
@@ -23,6 +25,7 @@ const PRESET_NAME = 'Ads';
  * @returns {?HTMLElement} player ui tree
  */
 function AdsUI(props: any, context: any): ?React$Element<any> {
+  props.updateKeyboardEnable(true);
   if (useDefaultAdsUi(props, context)) {
     return (
       <div className={style.adGuiWrapper}>
@@ -65,6 +68,10 @@ function AdsUI(props: any, context: any): ?React$Element<any> {
 
 AdsUI.displayName = PRESET_NAME;
 
+const AdsUIComponent = connect(
+  null,
+  actions
+)(AdsUI);
 /**
  * Ads ui interface
  *
@@ -73,7 +80,7 @@ AdsUI.displayName = PRESET_NAME;
  * @returns {?HTMLElement} player ui tree
  */
 export function adsUI(props: any): ?React$Element<any> {
-  return <AdsUI {...props} />;
+  return <AdsUIComponent {...props} />;
 }
 
 /**

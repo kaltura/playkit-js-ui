@@ -16,22 +16,24 @@ const withKeyboardEvent = KalturaPlayer.ui.components.withKeyboardEvent;
 const Component = KalturaPlayer.ui.preact.Component;
 
 class SampleComponent extends Component {
+  _keyboardEventHandler: Array<KeyboardHandlers> = [
+    {
+      eventType: 'keydown',
+      handlers: [
+        {
+          key: {
+            code: KeyMap.F,
+            shiftKey: true
+          },
+          action: () => {
+            console.log('F and shiftKey registered')
+          }
+        }
+      ]
+    }
+  ];
   componentDidMount() {
-    this.props.addKeyboardHandler(
-      {
-        code: KeyMap.F,
-        altKey: false,
-        ctrlKey: false,
-        metaKey: false,
-        shiftKey: true
-      },
-      event => console.log('F and shiftKey registered')
-    );
-  }
-
-  componentWillUnount() {
-    this.props.removeKeyboardHandler({code: KeyMap.F});
-    console.log('F and shiftKey handler removed')
+    this.props.registerEvents(this._keyboardEventHandler);
   }
 
   render(props) {
@@ -53,22 +55,25 @@ const Component = KalturaPlayer.ui.preact.Component;
 
 @withKeyboardEvent
 class DumbComponent extends Component {
-  componentDidMount() {
-    this.props.addKeyboardHandler(
-      {
-        code: KeyMap.F,
-        altKey: false,
-        ctrlKey: false,
-        metaKey: false,
-        shiftKey: true
-      },
-      event => console.log('F and shiftKey registered')
-    );
-  }
+  _keyboardEventHandler: Array<KeyboardHandlers> = [
+    {
+      eventType: 'keydown',
+      handlers: [
+        {
+          key: {
+            code: KeyMap.F,
+            shiftKey: true
+          },
+          action: () => {
+            console.log('F and shiftKey registered')
+          }
+        }
+      ]
+    }
+  ];
 
-  componentWillUnount() {
-    this.props.removeKeyboardHandler({code: KeyMap.F});
-    console.log('F and shiftKey handler removed')
+  componentDidMount() {
+    this.props.registerEvents(this._keyboardEventHandler);
   }
 
   render(props) {

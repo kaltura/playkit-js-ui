@@ -42,7 +42,7 @@ const COMPONENT_NAME = 'Settings';
 })
 @withPlayer
 @withEventManager
-@withKeyboardEvent
+@withKeyboardEvent(COMPONENT_NAME)
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
 /**
@@ -55,6 +55,40 @@ const COMPONENT_NAME = 'Settings';
 class Settings extends Component {
   state: Object;
   _controlSettingsElement: any;
+  _keyboardEventHandler: Array<KeyboardHandlers> = [
+    {
+      eventType: 'keydown',
+      handlers: [
+        {
+          key: {
+            code: KeyMap.PERIOD,
+            shiftKey: true
+          },
+          action: event => {
+            this.handleKeydown(event);
+          }
+        },
+        {
+          key: {
+            code: KeyMap.SEMI_COLON,
+            shiftKey: true
+          },
+          action: event => {
+            this.handleKeydown(event);
+          }
+        },
+        {
+          key: {
+            code: KeyMap.COMMA,
+            shiftKey: true
+          },
+          action: event => {
+            this.handleKeydown(event);
+          }
+        }
+      ]
+    }
+  ];
 
   /**
    * before component mounted, set initial state
@@ -73,53 +107,53 @@ class Settings extends Component {
    * @memberof Settings
    */
   componentDidMount() {
-    const {player, eventManager, addKeyboardHandler, logger} = this.props;
+    const {eventManager} = this.props;
     eventManager.listen(document, 'click', e => this.handleClickOutside(e));
-    addKeyboardHandler({code: KeyMap.PERIOD, shiftKey: true}, event => {
-      event.preventDefault();
-      const playbackRate = player.playbackRate;
-      const index = player.playbackRates.indexOf(playbackRate);
-      if (index < player.playbackRates.length - 1) {
-        logger.debug(`Changing playback rate. ${playbackRate} => ${player.playbackRates[index + 1]}`);
-        player.playbackRate = player.playbackRates[index + 1];
-        this.props.updateOverlayActionIcon(IconType.SpeedUp);
-        player.dispatchEvent(new SpeedSelectedEvent(player.playbackRate));
-      }
-    });
-    addKeyboardHandler({code: KeyMap.SEMI_COLON, shiftKey: true}, event => {
-      event.preventDefault();
-      if (player.playbackRate !== player.defaultPlaybackRate) {
-        logger.debug(`Changing playback rate. ${player.playbackRate} => ${player.defaultPlaybackRate}`);
-        player.playbackRate = player.defaultPlaybackRate;
-        this.props.updateOverlayActionIcon(IconType.Speed);
-        player.dispatchEvent(new SpeedSelectedEvent(player.playbackRate));
-      }
-    });
-    addKeyboardHandler({code: KeyMap.COMMA, shiftKey: true}, event => {
-      event.preventDefault();
-      const playbackRate = player.playbackRate;
-      const index = player.playbackRates.indexOf(playbackRate);
-      if (index > 0) {
-        logger.debug(`Changing playback rate. ${playbackRate} => ${player.playbackRates[index - 1]}`);
-        player.playbackRate = player.playbackRates[index - 1];
-        this.props.updateOverlayActionIcon(IconType.SpeedDown);
-        player.dispatchEvent(new SpeedSelectedEvent(player.playbackRate));
-      }
-    });
+    this.props.registerEvents(this._keyboardEventHandler);
   }
 
   /**
-   * before component unmounted, remove event listeners
+   * on settings control key down, update the settings in case of up/down keys
    *
+   * @method handleKeydown
+   * @param {KeyboardEvent} event - keyboardEvent event
    * @returns {void}
    * @memberof Settings
    */
-  componentWillUnmount(): void {
-    this.props.removeKeyboardHandler({code: KeyMap.COMMA, shiftKey: true});
-    this.props.removeKeyboardHandler({code: KeyMap.SEMI_COLON, shiftKey: true});
-    this.props.removeKeyboardHandler({code: KeyMap.PERIOD, shiftKey: true});
+  handleKeydown(event: KeyboardEvent): void {
+    const {player, logger} = this.props;
+    let playbackRate, index;
+    switch (event.keyCode) {
+      case KeyMap.PERIOD:
+        playbackRate = player.playbackRate;
+        index = player.playbackRates.indexOf(playbackRate);
+        if (index < player.playbackRates.length - 1) {
+          logger.debug(`Changing playback rate. ${playbackRate} => ${player.playbackRates[index + 1]}`);
+          player.playbackRate = player.playbackRates[index + 1];
+          this.props.updateOverlayActionIcon(IconType.SpeedUp);
+          player.dispatchEvent(new SpeedSelectedEvent(player.playbackRate));
+        }
+        break;
+      case KeyMap.SEMI_COLON:
+        if (player.playbackRate !== player.defaultPlaybackRate) {
+          logger.debug(`Changing playback rate. ${player.playbackRate} => ${player.defaultPlaybackRate}`);
+          player.playbackRate = player.defaultPlaybackRate;
+          this.props.updateOverlayActionIcon(IconType.Speed);
+          player.dispatchEvent(new SpeedSelectedEvent(player.playbackRate));
+        }
+        break;
+      case KeyMap.COMMA:
+        playbackRate = player.playbackRate;
+        index = player.playbackRates.indexOf(playbackRate);
+        if (index > 0) {
+          logger.debug(`Changing playback rate. ${playbackRate} => ${player.playbackRates[index - 1]}`);
+          player.playbackRate = player.playbackRates[index - 1];
+          this.props.updateOverlayActionIcon(IconType.SpeedDown);
+          player.dispatchEvent(new SpeedSelectedEvent(player.playbackRate));
+        }
+        break;
+    }
   }
-
   /**
    * event listener for clicking outside handler.
    *

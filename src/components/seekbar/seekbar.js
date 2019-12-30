@@ -36,7 +36,7 @@ const KEYBOARD_DEFAULT_SEEK_JUMP: number = 5;
   bindActions({...actions, ...overlayIconActions})
 )
 @withPlayer
-@withKeyboardEvent
+@withKeyboardEvent(COMPONENT_NAME)
 /**
  * SeekBar component
  *
@@ -50,6 +50,45 @@ class SeekBar extends Component {
   _seekBarElement: HTMLElement;
   _framePreviewElement: HTMLElement;
   _timeBubbleElement: HTMLElement;
+  _keyboardEventHandler: Array<KeyboardHandlers> = [
+    {
+      eventType: 'keydown',
+      handlers: [
+        {
+          key: {
+            code: KeyMap.LEFT
+          },
+          action: event => {
+            this.handleKeydown(event);
+          }
+        },
+        {
+          key: {
+            code: KeyMap.RIGHT
+          },
+          action: event => {
+            this.handleKeydown(event);
+          }
+        },
+        {
+          key: {
+            code: KeyMap.HOME
+          },
+          action: event => {
+            this.handleKeydown(event);
+          }
+        },
+        {
+          key: {
+            code: KeyMap.END
+          },
+          action: event => {
+            this.handleKeydown(event);
+          }
+        }
+      ]
+    }
+  ];
   /**
    * Creates an instance of SeekBar.
    * @memberof SeekBar
@@ -79,7 +118,7 @@ class SeekBar extends Component {
   componentDidMount(): void {
     document.addEventListener('mouseup', this.onPlayerMouseUp);
     document.addEventListener('mousemove', this.onPlayerMouseMove);
-    this.seekbarKeydownHandler();
+    this.props.registerEvents(this._keyboardEventHandler);
   }
 
   /**
@@ -91,10 +130,6 @@ class SeekBar extends Component {
   componentWillUnmount(): void {
     document.removeEventListener('mouseup', this.onPlayerMouseUp);
     document.removeEventListener('mousemove', this.onPlayerMouseMove);
-    this.props.removeKeyboardHandler({code: KeyMap.LEFT});
-    this.props.removeKeyboardHandler({code: KeyMap.RIGHT});
-    this.props.removeKeyboardHandler({code: KeyMap.HOME});
-    this.props.removeKeyboardHandler({code: KeyMap.END});
   }
 
   /**
@@ -208,9 +243,10 @@ class SeekBar extends Component {
    * seekbar key down handler
    *
    * @returns {void}
+   * @param {KeyboardEvent} event - keyboardEvent event
    * @memberof SeekBar
    */
-  seekbarKeydownHandler(): void {
+  handleKeydown(event: KeyboardEvent): void {
     const {player} = this.props;
     /**
      * Do seek operations.
@@ -227,30 +263,28 @@ class SeekBar extends Component {
       });
     };
     let newTime;
-    this.props.addKeyboardHandler({code: KeyMap.LEFT}, event => {
-      event.preventDefault();
-      newTime = player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP > 0 ? player.currentTime - 5 : 0;
-      seek(player.currentTime, newTime);
-      this.props.updateOverlayActionIcon(IconType.Rewind);
-    });
-    this.props.addKeyboardHandler({code: KeyMap.RIGHT}, event => {
-      event.preventDefault();
-      newTime = player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP > player.duration ? player.duration : player.currentTime + 5;
-      seek(player.currentTime, newTime);
-      this.props.updateOverlayActionIcon(IconType.Forward);
-    });
-    this.props.addKeyboardHandler({code: KeyMap.HOME}, event => {
-      event.preventDefault();
-      newTime = 0;
-      seek(player.currentTime, newTime);
-      this.props.updateOverlayActionIcon(IconType.StartOver);
-    });
-    this.props.addKeyboardHandler({code: KeyMap.END}, event => {
-      event.preventDefault();
-      newTime = player.duration;
-      seek(player.currentTime, newTime);
-      this.props.updateOverlayActionIcon(IconType.SeekEnd);
-    });
+    switch (event.keyCode) {
+      case KeyMap.LEFT:
+        newTime = player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP > 0 ? player.currentTime - 5 : 0;
+        seek(player.currentTime, newTime);
+        this.props.updateOverlayActionIcon(IconType.Rewind);
+        break;
+      case KeyMap.RIGHT:
+        newTime = player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP > player.duration ? player.duration : player.currentTime + 5;
+        seek(player.currentTime, newTime);
+        this.props.updateOverlayActionIcon(IconType.Forward);
+        break;
+      case KeyMap.HOME:
+        newTime = 0;
+        seek(player.currentTime, newTime);
+        this.props.updateOverlayActionIcon(IconType.StartOver);
+        break;
+      case KeyMap.END:
+        newTime = player.duration;
+        seek(player.currentTime, newTime);
+        this.props.updateOverlayActionIcon(IconType.SeekEnd);
+        break;
+    }
   }
 
   /**
