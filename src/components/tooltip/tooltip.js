@@ -13,7 +13,8 @@ const mapStateToProps = state => ({
   playerClientRect: state.shell.playerClientRect
 });
 
-export const TOOLTIP_SHOW_TIMEOUT: number = 250;
+const TOOLTIP_SHOW_TIMEOUT: number = 250;
+
 // notice the order represents the order of the alternative fallback
 const ToolTipType = {
   Top: 'top',
@@ -92,14 +93,11 @@ class Tooltip extends Component {
    * @returns {string} tooltip type
    */
   getAlternateType(): string {
-    let nextAlternativeType: string = null;
-    Object.keys(ToolTipType).forEach((key, index) => {
-      if (!nextAlternativeType && index > this.lastAlternativeTypeIndex && ToolTipType[key] !== this.state.type) {
-        this.lastAlternativeTypeIndex = index;
-        nextAlternativeType = ToolTipType[key];
-      }
+    const alternatives = Object.values(ToolTipType).filter(item => {
+      return item != this.props.type;
     });
-    return nextAlternativeType;
+    this.lastAlternativeTypeIndex = Math.min(this.lastAlternativeTypeIndex + 1, alternatives.length - 1);
+    return alternatives[this.lastAlternativeTypeIndex];
   }
 
   /**
@@ -145,10 +143,7 @@ class Tooltip extends Component {
           this.setState({valid: true});
         }
       } else {
-        const alternateType = this.getAlternateType();
-        if (alternateType) {
-          this.setState({valid: false, type: alternateType});
-        }
+        this.setState({valid: false, type: this.getAlternateType()});
       }
     }
   }
