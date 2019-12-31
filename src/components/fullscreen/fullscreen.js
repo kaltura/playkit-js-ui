@@ -9,7 +9,6 @@ import {withPlayer} from '../player';
 import {withKeyboardEvent} from 'components/keyboard';
 import {withLogger} from 'components/logger';
 import {withEventDispatcher} from 'components/event-dispatcher';
-import keyboard from 'reducers/keyboard';
 
 /**
  * mapping state to props
@@ -36,7 +35,7 @@ const COMPONENT_NAME = 'Fullscreen';
  * @extends {Component}
  */
 class Fullscreen extends Component {
-  _keyboardEventHandler: Array<KeyboardEventHandler> = [
+  _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
       eventType: 'keydown',
       handlers: [
@@ -66,7 +65,7 @@ class Fullscreen extends Component {
    * @memberof Fullscreen
    */
   componentDidMount(): void {
-    this.props.registerEvents(this._keyboardEventHandler);
+    this.props.registerEvents(this._keyboardEventHandlers);
   }
 
   /**

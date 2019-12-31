@@ -44,7 +44,7 @@ const COMPONENT_NAME = 'PlayPause';
  * @extends {Component}
  */
 class PlayPause extends Component {
-  _keyboardEventHandler: Array<KeyboardEventHandler> = [
+  _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
       eventType: 'keydown',
       handlers: [
@@ -67,7 +67,7 @@ class PlayPause extends Component {
    * @memberof PlayPause
    */
   componentDidMount(): void {
-    this.props.registerEvents(this._keyboardEventHandler);
+    this.props.registerEvents(this._keyboardEventHandlers);
   }
 
   /**

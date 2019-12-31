@@ -61,7 +61,7 @@ const KEYBOARD_DEFAULT_VOLUME_JUMP: number = 5;
 class Volume extends Component {
   _volumeControlElement: HTMLElement;
   _volumeProgressBarElement: HTMLElement;
-  _keyboardEventHandler: Array<KeyboardEventHandler> = [
+  _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
       eventType: 'keydown',
       handlers: [
@@ -70,7 +70,7 @@ class Volume extends Component {
             code: KeyMap.UP
           },
           action: event => {
-            this.handleKeydown(event);
+            this.handleKeydown(event, false);
           }
         },
         {
@@ -78,7 +78,7 @@ class Volume extends Component {
             code: KeyMap.DOWN
           },
           action: event => {
-            this.handleKeydown(event);
+            this.handleKeydown(event, false);
           }
         },
         {
@@ -86,7 +86,7 @@ class Volume extends Component {
             code: KeyMap.M
           },
           action: event => {
-            this.handleKeydown(event);
+            this.handleKeydown(event, false);
           }
         }
       ]
@@ -112,7 +112,7 @@ class Volume extends Component {
     });
     this.props.eventManager.listen(document, 'mouseup', e => this.onVolumeProgressBarMouseUp(e));
     this.props.eventManager.listen(document, 'mousemove', e => this.onVolumeProgressBarMouseMove(e));
-    this.props.registerEvents(this._keyboardEventHandler);
+    this.props.registerEvents(this._keyboardEventHandlers);
   }
 
   /**
@@ -180,10 +180,11 @@ class Volume extends Component {
    *
    * @method handleKeydown
    * @param {KeyboardEvent} event - keyboardEvent event
+   * @param {boolean} isAccessabilityHandler - accessability handler
    * @returns {void}
    * @memberof Volume
    */
-  handleKeydown(event: KeyboardEvent): void {
+  handleKeydown(event: KeyboardEvent, isAccessabilityHandler: boolean): void {
     const {player} = this.props;
     /**
      * Change volume operations.
@@ -201,21 +202,31 @@ class Volume extends Component {
     let newVolume;
     switch (event.keyCode) {
       case KeyMap.UP:
+        if (isAccessabilityHandler) {
+          this.setState({hover: true});
+        } else {
+          this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWaves]);
+        }
         newVolume = Math.round(player.volume * 100) + KEYBOARD_DEFAULT_VOLUME_JUMP;
-        this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWaves]);
         changeVolume(newVolume);
         break;
       case KeyMap.DOWN:
         newVolume = Math.round(player.volume * 100) - KEYBOARD_DEFAULT_VOLUME_JUMP;
-        if (newVolume === 0) {
-          this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeMute]);
+        if (isAccessabilityHandler) {
+          this.setState({hover: true});
         } else {
-          this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWave]);
+          if (newVolume === 0) {
+            this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeMute]);
+          } else {
+            this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWave]);
+          }
         }
         changeVolume(newVolume);
         break;
       case KeyMap.M:
-        this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeMute]);
+        if (!isAccessabilityHandler) {
+          this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeMute]);
+        }
         this.toggleMute();
         break;
       case KeyMap.ENTER:
@@ -241,7 +252,7 @@ class Volume extends Component {
       case KeyMap.DOWN:
       case KeyMap.ENTER:
       case KeyMap.SPACE:
-        this.handleKeydown(event);
+        this.handleKeydown(event, true);
         break;
       default:
         this.setState({hover: false});

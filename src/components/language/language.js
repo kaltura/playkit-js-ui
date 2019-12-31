@@ -60,7 +60,7 @@ class Language extends Component {
   _lastActiveTextLanguage: string = '';
   // ie11 fix (FEC-7312) - don't remove
   _portal: any;
-  _keyboardEventHandler: Array<KeyboardEventHandler> = [
+  _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
       eventType: 'keydown',
       handlers: [
@@ -105,7 +105,7 @@ class Language extends Component {
    */
   componentDidMount() {
     this.props.eventManager.listen(document, 'click', e => this.handleClickOutside(e));
-    this.props.registerEvents(this._keyboardEventHandler);
+    this.props.registerEvents(this._keyboardEventHandlers);
   }
 
   /**

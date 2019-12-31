@@ -36,7 +36,7 @@ const COMPONENT_NAME = 'PictureInPicture';
  * @extends {Component}
  */
 class PictureInPicture extends Component {
-  _keyboardEventHandler: Array<KeyboardEventHandler> = [
+  _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
       eventType: 'keydown',
       handlers: [
@@ -58,7 +58,7 @@ class PictureInPicture extends Component {
    * @memberof PictureInPicture
    */
   componentDidMount() {
-    this.props.registerEvents(this._keyboardEventHandler);
+    this.props.registerEvents(this._keyboardEventHandlers);
   }
   /**
    * toggle pip

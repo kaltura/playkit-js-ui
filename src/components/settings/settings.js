@@ -55,7 +55,7 @@ const COMPONENT_NAME = 'Settings';
 class Settings extends Component {
   state: Object;
   _controlSettingsElement: any;
-  _keyboardEventHandler: Array<KeyboardEventHandler> = [
+  _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
       eventType: 'keydown',
       handlers: [
@@ -109,7 +109,7 @@ class Settings extends Component {
   componentDidMount() {
     const {eventManager} = this.props;
     eventManager.listen(document, 'click', e => this.handleClickOutside(e));
-    this.props.registerEvents(this._keyboardEventHandler);
+    this.props.registerEvents(this._keyboardEventHandlers);
   }
 
   /**

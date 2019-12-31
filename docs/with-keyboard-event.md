@@ -16,7 +16,7 @@ const withKeyboardEvent = KalturaPlayer.ui.components.withKeyboardEvent;
 const Component = KalturaPlayer.ui.preact.Component;
 
 class SampleComponent extends Component {
-  _keyboardEventHandler: Array<KeyboardEventHandler> = [
+  _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
       eventType: 'keydown',
       handlers: [
@@ -33,7 +33,7 @@ class SampleComponent extends Component {
     }
   ];
   componentDidMount() {
-    this.props.registerEvents(this._keyboardEventHandler);
+    this.props.registerEvents(this._keyboardEventHandlers);
   }
 
   render(props) {
@@ -55,7 +55,7 @@ const Component = KalturaPlayer.ui.preact.Component;
 
 @withKeyboardEvent
 class DumbComponent extends Component {
-  _keyboardEventHandler: Array<KeyboardEventHandler> = [
+  _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
       eventType: 'keydown',
       handlers: [
@@ -73,7 +73,7 @@ class DumbComponent extends Component {
   ];
 
   componentDidMount() {
-    this.props.registerEvents(this._keyboardEventHandler);
+    this.props.registerEvents(this._keyboardEventHandlers);
   }
 
   render(props) {
