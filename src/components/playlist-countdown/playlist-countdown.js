@@ -200,11 +200,10 @@ class PlaylistCountdown extends Component {
    * @memberof PlaylistCountdown
    */
   render(props: any): React$Element<any> | void {
-    this.isShown && (this.nextShown = props.playlist.next);
-
     if (!this._shouldRender(props)) {
       return undefined;
     }
+    this.isShown && (this.nextShown = props.playlist.next);
     if (!(props.playlist.next && props.playlist.next.sources && this.nextShown)) {
       return undefined;
     }
