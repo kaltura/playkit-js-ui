@@ -13,7 +13,6 @@
     line-height: normal;
     font-weight: bold;
     font-size: 13px;
-    z-index: 2;
     opacity: 0;
     transition: opacity 1s;
     &:after {
@@ -23,7 +22,6 @@
       border-style: solid;
       border-radius: 3px;
       color: $tooltip-bg-color;
-      z-index: -1;
     }
     &.tooltip-top {
       bottom: $tooltip-margin;

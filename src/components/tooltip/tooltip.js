@@ -161,6 +161,7 @@ class Tooltip extends Component {
 
     return (
       <div className={style.tooltip} onMouseOver={() => this.onMouseOver()} onMouseLeave={() => this.onMouseLeave()}>
+        {props.children}
         <span
           style={{maxWidth: props.maxWidth}}
           ref={el => {
@@ -169,7 +170,6 @@ class Tooltip extends Component {
           className={className.join(' ')}>
           {props.label}
         </span>
-        {props.children}
       </div>
     );
   }
