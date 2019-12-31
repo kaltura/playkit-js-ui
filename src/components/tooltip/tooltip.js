@@ -97,7 +97,7 @@ class Tooltip extends Component {
       return item != this.props.type;
     });
     this.lastAlternativeTypeIndex = Math.min(this.lastAlternativeTypeIndex + 1, alternatives.length - 1);
-    return alternatives[this.lastAlternativeTypeIndex];
+    return ((alternatives[this.lastAlternativeTypeIndex]: any): string);
   }
 
   /**
