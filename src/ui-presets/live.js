@@ -79,11 +79,12 @@ export function LiveUI(props: any): React$Element<any> {
   );
 }
 
-LiveUI.displayName = PRESET_NAME;
 const LiveUIComponent = connect(
   null,
   actions
 )(LiveUI);
+
+LiveUIComponent.displayName = PRESET_NAME;
 /**
  * Live ui interface
  *

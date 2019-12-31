@@ -88,11 +88,11 @@ function PlaybackUI(props: any): React$Element<any> {
   );
 }
 
-PlaybackUI.displayName = PRESET_NAME;
 const PlaybackUIComponent = connect(
   null,
   actions
 )(PlaybackUI);
+PlaybackUIComponent.displayName = PRESET_NAME;
 /**
  * Playback ui interface
  *

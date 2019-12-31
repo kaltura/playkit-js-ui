@@ -66,12 +66,12 @@ function AdsUI(props: any, context: any): ?React$Element<any> {
   );
 }
 
-AdsUI.displayName = PRESET_NAME;
-
 const AdsUIComponent = connect(
   null,
   actions
 )(AdsUI);
+
+AdsUIComponent.displayName = PRESET_NAME;
 /**
  * Ads ui interface
  *
