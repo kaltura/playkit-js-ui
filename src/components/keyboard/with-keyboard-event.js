@@ -10,22 +10,7 @@ import {h, Component} from 'preact';
 const withKeyboardEvent: Function = (name: string) => (WrappedComponent: Component) => {
   return class KeyboardComponent extends Component {
     keyboardEventHandlers: Array<KeyboardEventHandlers>;
-    /**
-     *
-     * @param {Array<KeyboardHandlers>} eventHandlers - Events of keyboard
-     * @returns {void}
-     */
-    registerEvents(eventHandlers: Array<KeyboardEventHandlers>) {
-      this.keyboardEventHandlers = eventHandlers;
-      this.keyboardEventHandlers.forEach(eventHandler => {
-        const {eventType, handlers} = eventHandler;
-        if (Array.isArray(handlers)) {
-          handlers.forEach(handler => {
-            this._addKeyboardHandler(name, eventType, handler.key, handler.action);
-          });
-        }
-      });
-    }
+
     /**
      * Before component is unmounted remove all event manager listeners.
      * @returns {void}
@@ -40,6 +25,24 @@ const withKeyboardEvent: Function = (name: string) => (WrappedComponent: Compone
         }
       });
     }
+
+    /**
+     * register keyboard events
+     * @param {Array<KeyboardHandlers>} eventHandlers - Events of keyboard
+     * @returns {void}
+     */
+    registerEvents(eventHandlers: Array<KeyboardEventHandlers>) {
+      this.keyboardEventHandlers = eventHandlers;
+      this.keyboardEventHandlers.forEach(eventHandler => {
+        const {eventType, handlers} = eventHandler;
+        if (Array.isArray(handlers)) {
+          handlers.forEach(handler => {
+            this._addKeyboardHandler(name, eventType, handler.key, handler.action);
+          });
+        }
+      });
+    }
+
     /**
      * add keyboard handler
      * @param {string} componentName - component name

@@ -59,7 +59,7 @@ class Fullscreen extends Component {
     }
   ];
   /**
-   * on component mount, bind mouseup and mousemove events to top player element
+   * on component mount
    *
    * @returns {void}
    * @memberof Fullscreen

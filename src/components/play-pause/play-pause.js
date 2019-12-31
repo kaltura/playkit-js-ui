@@ -61,7 +61,7 @@ class PlayPause extends Component {
     }
   ];
   /**
-   * on component mount, bind mouseup and mousemove events to top player element
+   * component mounted
    *
    * @returns {void}
    * @memberof PlayPause

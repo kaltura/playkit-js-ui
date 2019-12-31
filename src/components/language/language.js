@@ -60,7 +60,7 @@ class Language extends Component {
   _lastActiveTextLanguage: string = '';
   // ie11 fix (FEC-7312) - don't remove
   _portal: any;
-  _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
+      _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
       eventType: 'keydown',
       handlers: [

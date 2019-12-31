@@ -52,7 +52,7 @@ class PictureInPicture extends Component {
     }
   ];
   /**
-   * after component mounted, set event listener to click outside of the component
+   * component mounted
    *
    * @returns {void}
    * @memberof PictureInPicture
