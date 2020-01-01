@@ -2,11 +2,23 @@
 import {Component} from 'preact';
 import {withEventManager} from 'event/with-event-manager';
 import {withLogger} from 'components/logger';
+import {connect} from 'preact-redux';
 
 const COMPONENT_NAME = 'KEYBOARD_PROVIDER';
 
-export const keyboardEvents: Object = {keydown: 1, keyup: 2};
+export const KEYBOARD_EVENTS = ['keydown', 'keyup'];
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
+const mapStateToProps = state => ({
+  playerNav: state.shell.playerNav,
+  shareOverlay: state.share.overlayOpen
+});
+
+@connect(mapStateToProps)
 @withEventManager
 @withLogger(COMPONENT_NAME)
 /**
@@ -27,7 +39,7 @@ class KeyboardEventProvider extends Component {
   componentDidMount() {
     const {eventManager, playerContainer} = this.props;
     this.keyEventHandler = this._keyEventHandler.bind(this);
-    Object.keys(keyboardEvents).forEach(event => {
+    KEYBOARD_EVENTS.forEach(event => {
       eventManager.listen(playerContainer, event, this.keyEventHandler);
     });
   }
@@ -58,7 +70,7 @@ class KeyboardEventProvider extends Component {
     const isEditableNode = ['INPUT', 'SELECT', 'TEXTAREA'].indexOf(nodeName) !== -1;
     if (
       !isEditableNode &&
-      this._isKeyboardEnable &&
+      this._shouldHandleKeyboardEvents() &&
       this._keyboardListeners[keyCombine] &&
       typeof this._keyboardListeners[keyCombine].callback === 'function' &&
       (!this._componentToHandle || this._keyboardListeners[keyCombine].componentName === this._componentToHandle)
@@ -68,6 +80,16 @@ class KeyboardEventProvider extends Component {
       this._keyboardListeners[keyCombine].callback(event);
     }
   }
+
+  /**
+   * check if keyboard handlers are relevant
+   * @returns {boolean} - if keyboard handlers are relevant
+   * @private
+   */
+  _shouldHandleKeyboardEvents(): boolean {
+    return this._isKeyboardEnable && !this.props.playerNav && !this.props.shareOverlay;
+  }
+
   /**
    * add keyboard event handler
    * @param {string} componentName - event type
@@ -101,22 +123,22 @@ class KeyboardEventProvider extends Component {
   };
 
   /**
-   * update the listners status
+   * update the listeners status
    * @param {boolean} isEnable - keyboard status listeners
    * @returns {void}
    * @private
    */
-  _updateIsKeyboardEnable = (isEnable: boolean) => {
+  _updateIsKeyboardEnabled = (isEnable: boolean) => {
     this._isKeyboardEnable = isEnable;
   };
 
   /**
    * update specific component to handle
-   * @param {?string} componentName - Component to handle
+   * @param {?string} componentName - component is scoped and only this component handler should work
    * @returns {void}
    * @private
    */
-  _updateComponentToHandler = (componentName: ?string) => {
+  _setKeyboardEventToScope = (componentName: ?string) => {
     this._componentToHandle = componentName;
   };
 
@@ -128,7 +150,7 @@ class KeyboardEventProvider extends Component {
    * @private
    */
   _createKeyCode(eventType: string, key: KeyboardKey): number {
-    const eventTypeCode = keyboardEvents[eventType];
+    const eventTypeCode = KEYBOARD_EVENTS.indexOf(eventType);
     const altKey = key.altKey ? 1 : 0;
     const ctrlKey = key.ctrlKey ? 1 : 0;
     const metaKey = key.metaKey ? 1 : 0;
@@ -143,8 +165,8 @@ class KeyboardEventProvider extends Component {
     return {
       addKeyboardHandler: this._addKeyboardHandler,
       removeKeyboardHandler: this._removeKeyboardHandler,
-      updateIsKeyboardEnable: this._updateIsKeyboardEnable,
-      updateComponentToHandler: this._updateComponentToHandler
+      updateIsKeyboardEnabled: this._updateIsKeyboardEnabled,
+      setKeyboardEventToScope: this._setKeyboardEventToScope
     };
   }
 

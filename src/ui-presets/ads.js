@@ -24,7 +24,7 @@ const PRESET_NAME = 'Ads';
  * @returns {?HTMLElement} player ui tree
  */
 function AdsUI(props: any, context: any): ?React$Element<any> {
-  props.updateIsKeyboardEnable(true);
+  props.updateIsKeyboardEnabled(true);
   if (useDefaultAdsUi(props, context)) {
     return (
       <div className={style.adGuiWrapper}>

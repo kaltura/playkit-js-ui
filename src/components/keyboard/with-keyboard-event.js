@@ -1,6 +1,6 @@
 //@flow
 import {h, Component} from 'preact';
-import {keyboardEvents} from './keyboard-event-provider';
+import {KEYBOARD_EVENTS} from './keyboard-event-provider';
 /**
  *
  * @param {string} name - the component to wrap
@@ -19,7 +19,7 @@ const withKeyboardEvent: Function = (name: string) => (WrappedComponent: Compone
      */
     componentDidMount(): void {
       this.keyboardEventHandlers.forEach(eventHandler => {
-        const eventType = eventHandler.eventType ? eventHandler.eventType : Object.keys(keyboardEvents)[0];
+        const eventType = eventHandler.eventType ? eventHandler.eventType : KEYBOARD_EVENTS[0];
         this._addKeyboardHandler(name, eventType, eventHandler.key, eventHandler.action);
       });
     }
@@ -32,7 +32,7 @@ const withKeyboardEvent: Function = (name: string) => (WrappedComponent: Compone
      */
     componentWillUnmount(): void {
       this.keyboardEventHandlers.forEach(eventHandler => {
-        const eventType = eventHandler.eventType ? eventHandler.eventType : Object.keys(keyboardEvents)[0];
+        const eventType = eventHandler.eventType ? eventHandler.eventType : KEYBOARD_EVENTS[0];
         this._removeKeyboardHandler(eventType, eventHandler.key);
       });
     }
@@ -79,18 +79,18 @@ const withKeyboardEvent: Function = (name: string) => (WrappedComponent: Compone
      *
      * @memberof withKeyboardEvent
      */
-    _updateIsKeyboardEnable = (isEnable: boolean) => {
-      this.context.updateIsKeyboardEnable(isEnable);
+    _updateIsKeyboardEnabled = (isEnable: boolean) => {
+      this.context.updateIsKeyboardEnabled(isEnable);
     };
 
     /**
      * update specific component to handle
-     * @param {?string} componentName - Component to handle
+     * @param {boolean} isScoped - component is scoped and only this component handler should work
      * @returns {void}
      * @private
      */
-    _updateComponentToHandler = (componentName: ?string) => {
-      this.context.updateComponentToHandler(componentName);
+    _setKeyboardEventToScope = (isScoped: boolean) => {
+      isScoped ? this.context.setKeyboardEventToScope(name) : this.context.setKeyboardEventToScope(null);
     };
     /**
      * render component
@@ -102,8 +102,8 @@ const withKeyboardEvent: Function = (name: string) => (WrappedComponent: Compone
       return (
         <WrappedComponent
           {...this.props}
-          updateComponentToHandler={componentName => this._updateComponentToHandler(componentName)}
-          updateIsKeyboardEnable={isEnable => this._updateIsKeyboardEnable(isEnable)}
+          setKeyboardEventToScope={isScoped => this._setKeyboardEventToScope(isScoped)}
+          updateIsKeyboardEnabled={isEnable => this._updateIsKeyboardEnabled(isEnable)}
           registerKeyboardEvents={eventHandlers => this.registerKeyboardEvents(eventHandlers)}
         />
       );

@@ -78,7 +78,7 @@ For using only this component keyboard handlers
 const h = KalturaPlayer.ui.h;
 const withKeyboardEvent = KalturaPlayer.ui.components.withKeyboardEvent;
 const Component = KalturaPlayer.ui.preact.Component;
-const componentName = 'DUMB_COMPONENT'
+const componentName = 'DUMB_COMPONENT';
 
 @withKeyboardEvent(componentName)
 class DumbComponent extends Component {
@@ -96,7 +96,7 @@ class DumbComponent extends Component {
 
   componentDidMount() {
     this.props.registerKeyboardEvents(this._keyboardEventHandlers);
-    this.props.updateComponentToHandler(componentName)
+    this.props.setKeyboardEventToScope(true);
   }
 
   render(props) {
@@ -113,12 +113,12 @@ For disabling the keyboard handler
 const h = KalturaPlayer.ui.h;
 const withKeyboardEvent = KalturaPlayer.ui.components.withKeyboardEvent;
 const Component = KalturaPlayer.ui.preact.Component;
-const componentName = 'DUMB_COMPONENT'
+const componentName = 'DUMB_COMPONENT';
 
 @withKeyboardEvent(componentName)
 class DumbComponent extends Component {
   componentDidMount() {
-    this.props.updateIsKeyboardEnable(false)
+    this.props.updateIsKeyboardEnabled(false);
   }
 
   render(props) {
@@ -128,6 +128,7 @@ class DumbComponent extends Component {
 
 export default DumbComponent;
 ```
+
 The usage of this component will be:
 
 ```javascript

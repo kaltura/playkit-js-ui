@@ -52,7 +52,6 @@ class Share extends Component {
   toggleOverlay(): void {
     this.setState({overlay: !this.state.overlay});
     this.props.toggleShareOverlay(this.state.overlay);
-    this.props.updateComponentToHandler(this.state.overlay ? COMPONENT_NAME : null);
     if (this.props.isPlaying || this.state.previousIsPlaying) {
       this.setState({previousIsPlaying: true});
     } else {

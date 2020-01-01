@@ -100,7 +100,6 @@ class Shell extends Component {
     if (this.state.nav) {
       this.setState({nav: false});
       this.props.updatePlayerNavState(false);
-      this.props.updateComponentToHandler(null);
     }
     if (!this.props.bottomBarHoverActive) {
       this._updatePlayerHoverState();
@@ -187,7 +186,6 @@ class Shell extends Component {
     if (!this.state.nav && e.keyCode === KeyMap.TAB) {
       this.setState({nav: true});
       this.props.updatePlayerNavState(true);
-      this.props.updateComponentToHandler(COMPONENT_NAME);
     }
   }
 
