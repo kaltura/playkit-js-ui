@@ -217,7 +217,7 @@ class Shell extends Component {
     this.props.eventManager.listen(window, 'resize', () => {
       this._onWindowResize();
     });
-    // this.props.eventManager.listen(player, player.Event.RESIZE, () => this._onWindowResize());
+    this.props.eventManager.listen(player, player.Event.RESIZE, () => this._onWindowResize());
     this.props.eventManager.listen(player, player.Event.FIRST_PLAY, () => this._onWindowResize());
   }
 
