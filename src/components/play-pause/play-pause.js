@@ -46,18 +46,13 @@ const COMPONENT_NAME = 'PlayPause';
 class PlayPause extends Component {
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
-      eventType: 'keydown',
-      handlers: [
-        {
-          key: {
-            code: KeyMap.SPACE
-          },
-          action: () => {
-            this.props.isPlayingAdOrPlayback ? this.props.updateOverlayActionIcon(IconType.Pause) : this.props.updateOverlayActionIcon(IconType.Play);
-            this.togglePlayPause();
-          }
-        }
-      ]
+      key: {
+        code: KeyMap.SPACE
+      },
+      action: () => {
+        this.props.isPlayingAdOrPlayback ? this.props.updateOverlayActionIcon(IconType.Pause) : this.props.updateOverlayActionIcon(IconType.Play);
+        this.togglePlayPause();
+      }
     }
   ];
   /**
@@ -67,7 +62,7 @@ class PlayPause extends Component {
    * @memberof PlayPause
    */
   componentDidMount(): void {
-    this.props.registerEvents(this._keyboardEventHandlers);
+    this.props.registerKeyboardEvents(this._keyboardEventHandlers);
   }
 
   /**

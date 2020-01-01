@@ -11,4 +11,3 @@ export * as setting from './settings';
 export * as share from './share';
 export * as shell from './shell';
 export * as volume from './volume';
-export * as keyboard from './keyboard';

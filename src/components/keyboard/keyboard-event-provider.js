@@ -1,27 +1,12 @@
 // @flow
 import {Component} from 'preact';
 import {withEventManager} from 'event/with-event-manager';
-import {connect} from 'preact-redux';
-import {bindActions} from 'utils/bind-actions';
-import {actions} from 'reducers/settings';
 import {withLogger} from 'components/logger';
 
 const COMPONENT_NAME = 'KEYBOARD_PROVIDER';
 
-/**
- * mapping state to props
- * @param {*} state - redux store state
- * @returns {Object} - mapped state to this component
- */
-const mapStateToProps = state => ({
-  isKeyboardEnable: state.keyboard.isKeyboardEnable,
-  priorityComponent: state.keyboard.priorityComponent
-});
+export const keyboardEvents: Object = {keydown: 1, keyup: 2};
 
-@connect(
-  mapStateToProps,
-  bindActions(actions)
-)
 @withEventManager
 @withLogger(COMPONENT_NAME)
 /**
@@ -31,8 +16,9 @@ const mapStateToProps = state => ({
  * @extends {Component}
  */
 class KeyboardEventProvider extends Component {
-  _events: Object = {keydown: 1, keyup: 2, keypress: 3};
   _keyboardListeners = [];
+  _isKeyboardEnable: boolean = false;
+  _componentToHandle: ?string = null;
   keyEventHandler: Function;
   /**
    * constructor
@@ -41,7 +27,7 @@ class KeyboardEventProvider extends Component {
   componentDidMount() {
     const {eventManager, playerContainer} = this.props;
     this.keyEventHandler = this._keyEventHandler.bind(this);
-    Object.keys(this._events).forEach(event => {
+    Object.keys(keyboardEvents).forEach(event => {
       eventManager.listen(playerContainer, event, this.keyEventHandler);
     });
   }
@@ -51,7 +37,7 @@ class KeyboardEventProvider extends Component {
    */
   componentWillUnmount(): void {
     const {eventManager, playerContainer} = this.props;
-    Object.keys(this._events).forEach(event => {
+    Object.keys(keyboardEvents).forEach(event => {
       eventManager.unlisten(playerContainer, event, this.keyEventHandler);
     });
   }
@@ -82,10 +68,10 @@ class KeyboardEventProvider extends Component {
     const isEditableNode = ['INPUT', 'SELECT', 'TEXTAREA'].indexOf(nodeName) !== -1;
     if (
       !isEditableNode &&
-      this.props.isKeyboardEnable &&
+      this._isKeyboardEnable &&
       this._keyboardListeners[keyCombine] &&
       typeof this._keyboardListeners[keyCombine].callback === 'function' &&
-      (!this.props.priorityComponent || this._keyboardListeners[keyCombine].componentName === this.props.priorityComponent)
+      (!this._componentToHandle || this._keyboardListeners[keyCombine].componentName === this._componentToHandle)
     ) {
       event.preventDefault();
       event.stopPropagation();
@@ -123,6 +109,27 @@ class KeyboardEventProvider extends Component {
       delete this._keyboardListeners[keyCode];
     }
   };
+
+  /**
+   * update the listners status
+   * @param {boolean} isEnable - keyboard status listeners
+   * @returns {void}
+   * @private
+   */
+  _updateIsKeyboardEnable = (isEnable: boolean) => {
+    this._isKeyboardEnable = isEnable;
+  };
+
+  /**
+   * update specific component to handle
+   * @param {?string} componentName - Component to handle
+   * @returns {void}
+   * @private
+   */
+  _updateComponentToHandler = (componentName: ?string) => {
+    this._componentToHandle = componentName;
+  };
+
   /**
    * create key code from sequence of controls
    * @param {string} eventType - keyboard event type
@@ -131,7 +138,7 @@ class KeyboardEventProvider extends Component {
    * @private
    */
   _createKeyCode(eventType: string, key: KeyboardKey): number {
-    const eventTypeCode = this._events[eventType];
+    const eventTypeCode = keyboardEvents[eventType];
     const altKey = key.altKey ? 1 : 0;
     const ctrlKey = key.ctrlKey ? 1 : 0;
     const metaKey = key.metaKey ? 1 : 0;
@@ -145,7 +152,9 @@ class KeyboardEventProvider extends Component {
   getChildContext() {
     return {
       addKeyboardHandler: this._addKeyboardHandler,
-      removeKeyboardHandler: this._removeKeyboardHandler
+      removeKeyboardHandler: this._removeKeyboardHandler,
+      updateIsKeyboardEnable: this._updateIsKeyboardEnable,
+      updateComponentToHandler: this._updateComponentToHandler
     };
   }
 

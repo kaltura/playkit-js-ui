@@ -57,36 +57,31 @@ class Settings extends Component {
   _controlSettingsElement: any;
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
-      eventType: 'keydown',
-      handlers: [
-        {
-          key: {
-            code: KeyMap.PERIOD,
-            shiftKey: true
-          },
-          action: event => {
-            this.handleKeydown(event);
-          }
-        },
-        {
-          key: {
-            code: KeyMap.SEMI_COLON,
-            shiftKey: true
-          },
-          action: event => {
-            this.handleKeydown(event);
-          }
-        },
-        {
-          key: {
-            code: KeyMap.COMMA,
-            shiftKey: true
-          },
-          action: event => {
-            this.handleKeydown(event);
-          }
-        }
-      ]
+      key: {
+        code: KeyMap.PERIOD,
+        shiftKey: true
+      },
+      action: event => {
+        this.handleKeydown(event);
+      }
+    },
+    {
+      key: {
+        code: KeyMap.SEMI_COLON,
+        shiftKey: true
+      },
+      action: event => {
+        this.handleKeydown(event);
+      }
+    },
+    {
+      key: {
+        code: KeyMap.COMMA,
+        shiftKey: true
+      },
+      action: event => {
+        this.handleKeydown(event);
+      }
     }
   ];
 
@@ -109,7 +104,7 @@ class Settings extends Component {
   componentDidMount() {
     const {eventManager} = this.props;
     eventManager.listen(document, 'click', e => this.handleClickOutside(e));
-    this.props.registerEvents(this._keyboardEventHandlers);
+    this.props.registerKeyboardEvents(this._keyboardEventHandlers);
   }
 
   /**

@@ -5,12 +5,12 @@ import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions as shellActions} from '../../reducers/shell';
 import {actions as engineActions} from '../../reducers/engine';
-import {actions as keyboardActions} from '../../reducers/keyboard';
 import {KeyMap} from '../../utils/key-map';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {withLogger} from 'components/logger';
+import {withKeyboardEvent} from 'components/keyboard';
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -68,9 +68,10 @@ const COMPONENT_NAME = 'Shell';
 
 @connect(
   mapStateToProps,
-  bindActions({...shellActions, ...engineActions, ...keyboardActions})
+  bindActions({...shellActions, ...engineActions})
 )
 @withPlayer
+@withKeyboardEvent(COMPONENT_NAME)
 @withEventManager
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
@@ -99,7 +100,7 @@ class Shell extends Component {
     if (this.state.nav) {
       this.setState({nav: false});
       this.props.updatePlayerNavState(false);
-      this.props.updatePriorityComponent(null);
+      this.props.updateComponentToHandler(null);
     }
     if (!this.props.bottomBarHoverActive) {
       this._updatePlayerHoverState();
@@ -186,7 +187,7 @@ class Shell extends Component {
     if (!this.state.nav && e.keyCode === KeyMap.TAB) {
       this.setState({nav: true});
       this.props.updatePlayerNavState(true);
-      this.props.updatePriorityComponent(COMPONENT_NAME);
+      this.props.updateComponentToHandler(COMPONENT_NAME);
     }
   }
 

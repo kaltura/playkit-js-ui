@@ -38,17 +38,12 @@ const COMPONENT_NAME = 'PictureInPicture';
 class PictureInPicture extends Component {
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
-      eventType: 'keydown',
-      handlers: [
-        {
-          key: {
-            code: KeyMap.P
-          },
-          action: () => {
-            this.togglePip();
-          }
-        }
-      ]
+      key: {
+        code: KeyMap.P
+      },
+      action: () => {
+        this.togglePip();
+      }
     }
   ];
   /**
@@ -58,7 +53,7 @@ class PictureInPicture extends Component {
    * @memberof PictureInPicture
    */
   componentDidMount() {
-    this.props.registerEvents(this._keyboardEventHandlers);
+    this.props.registerKeyboardEvents(this._keyboardEventHandlers);
   }
   /**
    * toggle pip

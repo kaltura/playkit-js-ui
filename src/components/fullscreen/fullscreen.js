@@ -37,25 +37,20 @@ const COMPONENT_NAME = 'Fullscreen';
 class Fullscreen extends Component {
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
-      eventType: 'keydown',
-      handlers: [
-        {
-          key: {
-            code: KeyMap.F
-          },
-          action: event => {
-            this.handleKeydown(event);
-          }
-        },
-        {
-          key: {
-            code: KeyMap.ESC
-          },
-          action: event => {
-            this.handleKeydown(event);
-          }
-        }
-      ]
+      key: {
+        code: KeyMap.F
+      },
+      action: event => {
+        this.handleKeydown(event);
+      }
+    },
+    {
+      key: {
+        code: KeyMap.ESC
+      },
+      action: event => {
+        this.handleKeydown(event);
+      }
     }
   ];
   /**
@@ -65,7 +60,7 @@ class Fullscreen extends Component {
    * @memberof Fullscreen
    */
   componentDidMount(): void {
-    this.props.registerEvents(this._keyboardEventHandlers);
+    this.props.registerKeyboardEvents(this._keyboardEventHandlers);
   }
 
   /**

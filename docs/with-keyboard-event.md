@@ -18,28 +18,21 @@ const Component = KalturaPlayer.ui.preact.Component;
 class SampleComponent extends Component {
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
-      eventType: 'keydown',
-      handlers: [
-        {
-          key: {
-            code: KeyMap.F,
-            shiftKey: true
-          },
-          action: () => {
-            console.log('F and shiftKey registered')
-          }
-        }
-      ]
+      key: {
+        code: KeyMap.F,
+        shiftKey: true
+      },
+      action: () => {
+        console.log('F and shiftKey registered');
+      }
     }
   ];
   componentDidMount() {
-    this.props.registerEvents(this._keyboardEventHandlers);
+    this.props.registerKeyboardEvents(this._keyboardEventHandlers);
   }
 
   render(props) {
-    return h(
-      props.children
-    );
+    return h(props.children);
   }
 }
 
@@ -57,35 +50,84 @@ const Component = KalturaPlayer.ui.preact.Component;
 class DumbComponent extends Component {
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
-      eventType: 'keydown',
-      handlers: [
-        {
-          key: {
-            code: KeyMap.F,
-            shiftKey: true
-          },
-          action: () => {
-            console.log('F and shiftKey registered')
-          }
-        }
-      ]
+      key: {
+        code: KeyMap.F,
+        shiftKey: true
+      },
+      action: () => {
+        console.log('F and shiftKey registered');
+      }
     }
   ];
 
   componentDidMount() {
-    this.props.registerEvents(this._keyboardEventHandlers);
+    this.props.registerKeyboardEvents(this._keyboardEventHandlers);
   }
 
   render(props) {
-    return <div>
-      {props.children}
-    </div>;
+    return <div>{props.children}</div>;
   }
 }
 
 export default DumbComponent;
 ```
 
+For using only this component keyboard handlers
+
+```javascript
+const h = KalturaPlayer.ui.h;
+const withKeyboardEvent = KalturaPlayer.ui.components.withKeyboardEvent;
+const Component = KalturaPlayer.ui.preact.Component;
+const componentName = 'DUMB_COMPONENT'
+
+@withKeyboardEvent(componentName)
+class DumbComponent extends Component {
+  _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
+    {
+      key: {
+        code: KeyMap.F,
+        shiftKey: true
+      },
+      action: () => {
+        console.log('F and shiftKey registered');
+      }
+    }
+  ];
+
+  componentDidMount() {
+    this.props.registerKeyboardEvents(this._keyboardEventHandlers);
+    this.props.updateComponentToHandler(componentName)
+  }
+
+  render(props) {
+    return <div>{props.children}</div>;
+  }
+}
+
+export default DumbComponent;
+```
+
+For disabling the keyboard handler
+
+```javascript
+const h = KalturaPlayer.ui.h;
+const withKeyboardEvent = KalturaPlayer.ui.components.withKeyboardEvent;
+const Component = KalturaPlayer.ui.preact.Component;
+const componentName = 'DUMB_COMPONENT'
+
+@withKeyboardEvent(componentName)
+class DumbComponent extends Component {
+  componentDidMount() {
+    this.props.updateIsKeyboardEnable(false)
+  }
+
+  render(props) {
+    return <div>{props.children}</div>;
+  }
+}
+
+export default DumbComponent;
+```
 The usage of this component will be:
 
 ```javascript

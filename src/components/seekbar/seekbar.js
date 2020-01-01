@@ -52,41 +52,36 @@ class SeekBar extends Component {
   _timeBubbleElement: HTMLElement;
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
-      eventType: 'keydown',
-      handlers: [
-        {
-          key: {
-            code: KeyMap.LEFT
-          },
-          action: event => {
-            this.handleKeydown(event, false);
-          }
-        },
-        {
-          key: {
-            code: KeyMap.RIGHT
-          },
-          action: event => {
-            this.handleKeydown(event, false);
-          }
-        },
-        {
-          key: {
-            code: KeyMap.HOME
-          },
-          action: event => {
-            this.handleKeydown(event, false);
-          }
-        },
-        {
-          key: {
-            code: KeyMap.END
-          },
-          action: event => {
-            this.handleKeydown(event, false);
-          }
-        }
-      ]
+      key: {
+        code: KeyMap.LEFT
+      },
+      action: event => {
+        this.handleKeydown(event, false);
+      }
+    },
+    {
+      key: {
+        code: KeyMap.RIGHT
+      },
+      action: event => {
+        this.handleKeydown(event, false);
+      }
+    },
+    {
+      key: {
+        code: KeyMap.HOME
+      },
+      action: event => {
+        this.handleKeydown(event, false);
+      }
+    },
+    {
+      key: {
+        code: KeyMap.END
+      },
+      action: event => {
+        this.handleKeydown(event, false);
+      }
     }
   ];
   /**
@@ -118,7 +113,7 @@ class SeekBar extends Component {
   componentDidMount(): void {
     document.addEventListener('mouseup', this.onPlayerMouseUp);
     document.addEventListener('mousemove', this.onPlayerMouseMove);
-    this.props.registerEvents(this._keyboardEventHandlers);
+    this.props.registerKeyboardEvents(this._keyboardEventHandlers);
   }
 
   /**

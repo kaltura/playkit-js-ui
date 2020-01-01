@@ -62,29 +62,24 @@ class Language extends Component {
   _portal: any;
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
-      eventType: 'keydown',
-      handlers: [
-        {
-          key: {
-            code: KeyMap.C
-          },
-          action: () => {
-            const {player, logger} = this.props;
-            let activeTextTrack = player.getActiveTracks().text;
-            if (activeTextTrack) {
-              if (activeTextTrack.language === 'off' && this._lastActiveTextLanguage) {
-                logger.debug(`Changing text track to language`, this._lastActiveTextLanguage);
-                const selectedTextTrack = player.getTracks('text').find(track => track.language === this._lastActiveTextLanguage);
-                player.selectTrack(selectedTextTrack);
-              } else if (activeTextTrack.language !== 'off' && !this._lastActiveTextLanguage) {
-                logger.debug(`Hiding text track`);
-                this._lastActiveTextLanguage = activeTextTrack.language;
-                player.hideTextTrack();
-              }
-            }
+      key: {
+        code: KeyMap.C
+      },
+      action: () => {
+        const {player, logger} = this.props;
+        let activeTextTrack = player.getActiveTracks().text;
+        if (activeTextTrack) {
+          if (activeTextTrack.language === 'off' && this._lastActiveTextLanguage) {
+            logger.debug(`Changing text track to language`, this._lastActiveTextLanguage);
+            const selectedTextTrack = player.getTracks('text').find(track => track.language === this._lastActiveTextLanguage);
+            player.selectTrack(selectedTextTrack);
+          } else if (activeTextTrack.language !== 'off' && !this._lastActiveTextLanguage) {
+            logger.debug(`Hiding text track`);
+            this._lastActiveTextLanguage = activeTextTrack.language;
+            player.hideTextTrack();
           }
         }
-      ]
+      }
     }
   ];
   /**
@@ -105,7 +100,7 @@ class Language extends Component {
    */
   componentDidMount() {
     this.props.eventManager.listen(document, 'click', e => this.handleClickOutside(e));
-    this.props.registerEvents(this._keyboardEventHandlers);
+    this.props.registerKeyboardEvents(this._keyboardEventHandlers);
   }
 
   /**

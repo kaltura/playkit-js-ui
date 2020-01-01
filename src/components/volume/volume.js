@@ -63,33 +63,28 @@ class Volume extends Component {
   _volumeProgressBarElement: HTMLElement;
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
-      eventType: 'keydown',
-      handlers: [
-        {
-          key: {
-            code: KeyMap.UP
-          },
-          action: event => {
-            this.handleKeydown(event, false);
-          }
-        },
-        {
-          key: {
-            code: KeyMap.DOWN
-          },
-          action: event => {
-            this.handleKeydown(event, false);
-          }
-        },
-        {
-          key: {
-            code: KeyMap.M
-          },
-          action: event => {
-            this.handleKeydown(event, false);
-          }
-        }
-      ]
+      key: {
+        code: KeyMap.UP
+      },
+      action: event => {
+        this.handleKeydown(event, false);
+      }
+    },
+    {
+      key: {
+        code: KeyMap.DOWN
+      },
+      action: event => {
+        this.handleKeydown(event, false);
+      }
+    },
+    {
+      key: {
+        code: KeyMap.M
+      },
+      action: event => {
+        this.handleKeydown(event, false);
+      }
     }
   ];
 
@@ -112,7 +107,7 @@ class Volume extends Component {
     });
     this.props.eventManager.listen(document, 'mouseup', e => this.onVolumeProgressBarMouseUp(e));
     this.props.eventManager.listen(document, 'mousemove', e => this.onVolumeProgressBarMouseMove(e));
-    this.props.registerEvents(this._keyboardEventHandlers);
+    this.props.registerKeyboardEvents(this._keyboardEventHandlers);
   }
 
   /**

@@ -1,6 +1,6 @@
 //@flow
 import {h, Component} from 'preact';
-
+import {keyboardEvents} from './keyboard-event-provider';
 /**
  *
  * @param {string} name - the component to wrap
@@ -12,34 +12,15 @@ const withKeyboardEvent: Function = (name: string) => (WrappedComponent: Compone
     keyboardEventHandlers: Array<KeyboardEventHandlers>;
 
     /**
-     * Before component is unmounted remove all event manager listeners.
-     * @returns {void}
-     */
-    componentWillUnmount(): void {
-      this.keyboardEventHandlers.forEach(eventHandler => {
-        const {eventType, handlers} = eventHandler;
-        if (Array.isArray(handlers)) {
-          handlers.forEach(handler => {
-            this._removeKeyboardHandler(eventType, handler.key);
-          });
-        }
-      });
-    }
-
-    /**
      * register keyboard events
      * @param {Array<KeyboardHandlers>} eventHandlers - Events of keyboard
      * @returns {void}
      */
-    registerEvents(eventHandlers: Array<KeyboardEventHandlers>) {
+    registerKeyboardEvents(eventHandlers: Array<KeyboardEventHandlers>) {
       this.keyboardEventHandlers = eventHandlers;
       this.keyboardEventHandlers.forEach(eventHandler => {
-        const {eventType, handlers} = eventHandler;
-        if (Array.isArray(handlers)) {
-          handlers.forEach(handler => {
-            this._addKeyboardHandler(name, eventType, handler.key, handler.action);
-          });
-        }
+        const eventType = eventHandler.eventType ? eventHandler.eventType : Object.keys(keyboardEvents)[0];
+        this._addKeyboardHandler(name, eventType, eventHandler.key, eventHandler.action);
       });
     }
 
@@ -70,13 +51,40 @@ const withKeyboardEvent: Function = (name: string) => (WrappedComponent: Compone
     }
 
     /**
+     * update the listners status
+     * @param {boolean} isEnable - keyboard status listeners
+     * @returns {void}
+     *
+     * @memberof withKeyboardEvent
+     */
+    _updateIsKeyboardEnable = (isEnable: boolean) => {
+      this.context.updateIsKeyboardEnable(isEnable);
+    };
+
+    /**
+     * update specific component to handle
+     * @param {?string} componentName - Component to handle
+     * @returns {void}
+     * @private
+     */
+    _updateComponentToHandler = (componentName: ?string) => {
+      this.context.updateComponentToHandler(componentName);
+    };
+    /**
      * render component
      *
      * @returns {React$Element} - component element
      * @memberof withKeyboardEvent
      */
     render(): React$Element<any> | void {
-      return <WrappedComponent {...this.props} registerEvents={eventHandlers => this.registerEvents(eventHandlers)} />;
+      return (
+        <WrappedComponent
+          {...this.props}
+          updateComponentToHandler={componentName => this._updateComponentToHandler(componentName)}
+          updateIsKeyboardEnable={isEnable => this._updateIsKeyboardEnable(isEnable)}
+          registerKeyboardEvents={eventHandlers => this.registerKeyboardEvents(eventHandlers)}
+        />
+      );
     }
   };
 };
