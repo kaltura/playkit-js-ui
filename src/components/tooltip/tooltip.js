@@ -92,12 +92,15 @@ class Tooltip extends Component {
    * @memberof Tooltip
    * @returns {string} tooltip type
    */
-  getAlternateType(): string {
-    const alternatives = Object.values(ToolTipType).filter(item => {
-      return item != this.props.type;
-    });
-    this.lastAlternativeTypeIndex = Math.min(this.lastAlternativeTypeIndex + 1, alternatives.length - 1);
-    return ((alternatives[this.lastAlternativeTypeIndex]: any): string);
+  getAlternateType(): ?string {
+    return ((Object.values(ToolTipType).find((item, index) => {
+      if (index > this.lastAlternativeTypeIndex && item != this.props.type) {
+        this.lastAlternativeTypeIndex = index;
+        return true;
+      } else {
+        return false;
+      }
+    }): any): string);
   }
 
   /**
@@ -143,7 +146,10 @@ class Tooltip extends Component {
           this.setState({valid: true});
         }
       } else {
-        this.setState({valid: false, type: this.getAlternateType()});
+        const alternative = this.getAlternateType();
+        if (alternative) {
+          this.setState({valid: false, type: alternative});
+        }
       }
     }
   }

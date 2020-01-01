@@ -22,6 +22,7 @@
       border-style: solid;
       border-radius: 3px;
       color: $tooltip-bg-color;
+      z-index: -1;
     }
     &.tooltip-top {
       bottom: $tooltip-margin;
