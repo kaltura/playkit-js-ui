@@ -13,7 +13,7 @@
     margin: 0 12px;
     position: relative;
 
-    &:not(.custom){
+    &:not(.custom) {
       cursor: pointer;
     }
 
@@ -60,6 +60,9 @@
   }
   .custom-captions-applied {
     margin-top: 50px;
+    a {
+      color: #01accd;
+    }
   }
 
   .custom-caption-form {
@@ -117,6 +120,12 @@
   }
 }
 
-.font-size, .font-color, .font-family, .font-style, .font-opacity, .background-color, .background-opacity{
+.font-size,
+.font-color,
+.font-family,
+.font-style,
+.font-opacity,
+.background-color,
+.background-opacity {
   background: initial;
 }
