@@ -9,19 +9,41 @@ import {keyboardEvents} from './keyboard-event-provider';
  */
 const withKeyboardEvent: Function = (name: string) => (WrappedComponent: Component) => {
   return class KeyboardComponent extends Component {
-    keyboardEventHandlers: Array<KeyboardEventHandlers>;
+    keyboardEventHandlers: Array<KeyboardEventHandlers> = [];
 
     /**
-     * register keyboard events
-     * @param {Array<KeyboardHandlers>} eventHandlers - Events of keyboard
+     * on component mount
+     *
      * @returns {void}
+     * @memberof withKeyboardEvent
      */
-    registerKeyboardEvents(eventHandlers: Array<KeyboardEventHandlers>) {
-      this.keyboardEventHandlers = eventHandlers;
+    componentDidMount(): void {
       this.keyboardEventHandlers.forEach(eventHandler => {
         const eventType = eventHandler.eventType ? eventHandler.eventType : Object.keys(keyboardEvents)[0];
         this._addKeyboardHandler(name, eventType, eventHandler.key, eventHandler.action);
       });
+    }
+
+    /**
+     * on component unmount
+     *
+     * @returns {void}
+     * @memberof withKeyboardEvent
+     */
+    componentWillUnmount(): void {
+      this.keyboardEventHandlers.forEach(eventHandler => {
+        const eventType = eventHandler.eventType ? eventHandler.eventType : Object.keys(keyboardEvents)[0];
+        this._removeKeyboardHandler(eventType, eventHandler.key);
+      });
+    }
+
+    /**
+     * register keyboard events
+     * @param {Array<KeyboardEventHandlers>} eventHandlers - Events of keyboard
+     * @returns {void}
+     */
+    registerKeyboardEvents(eventHandlers: Array<KeyboardEventHandlers>) {
+      this.keyboardEventHandlers = eventHandlers;
     }
 
     /**

@@ -31,16 +31,6 @@ class KeyboardEventProvider extends Component {
       eventManager.listen(playerContainer, event, this.keyEventHandler);
     });
   }
-  /**
-   * Before component is unmounted remove all event manager listeners.
-   * @returns {void}
-   */
-  componentWillUnmount(): void {
-    const {eventManager, playerContainer} = this.props;
-    Object.keys(keyboardEvents).forEach(event => {
-      eventManager.unlisten(playerContainer, event, this.keyEventHandler);
-    });
-  }
 
   /**
    *
