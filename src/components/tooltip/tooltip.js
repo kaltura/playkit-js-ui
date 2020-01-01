@@ -139,7 +139,7 @@ class Tooltip extends Component {
   componentDidUpdate(prevProps: Object): void {
     if (this.props.playerClientRect !== prevProps.playerClientRect) {
       this.lastAlternativeTypeIndex = -1;
-      this.setState({type: this.props.type});
+      this.setState({valid: false, type: this.props.type});
     } else if (this.state.showTooltip) {
       if (this.isToolTipInBoundaries()) {
         if (!this.state.valid) {
