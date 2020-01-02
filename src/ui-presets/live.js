@@ -11,7 +11,6 @@ import {Language} from '../components/language';
 import {Fullscreen} from '../components/fullscreen';
 import {BottomBar} from '../components/bottom-bar';
 import {OverlayPortal} from '../components/overlay-portal';
-import {Keyboard} from '../components/keyboard';
 import {LiveTag} from '../components/live-tag';
 import {UnmuteIndication} from '../components/unmute-indication';
 import {Watermark} from '../components/watermark/watermark';
@@ -26,6 +25,7 @@ import {Share} from '../components/share';
 import {Container} from '../components/container';
 import {TopBar} from '../components/top-bar';
 import {Logo} from '../components/logo/logo';
+import {withKeyboardEvent} from 'components/keyboard';
 
 const PRESET_NAME = 'Live';
 
@@ -36,9 +36,9 @@ const PRESET_NAME = 'Live';
  * @returns {React$Element<any>} player ui tree
  */
 export function LiveUI(props: any): React$Element<any> {
+  props.updateIsKeyboardEnabled(true);
   return (
     <Container className={style.playbackGuiWWrapper} name={'VideoOverlay'} preAppendTo={'Backdrop'}>
-      <Keyboard config={props.config} />
       <Loading />
       <Container className={style.playerGui} name={'PlayerGUI'} id="player-gui">
         <OverlayPortal />
@@ -78,7 +78,8 @@ export function LiveUI(props: any): React$Element<any> {
   );
 }
 
-LiveUI.displayName = PRESET_NAME;
+const LiveUIComponent = withKeyboardEvent(PRESET_NAME)(LiveUI);
+LiveUIComponent.displayName = PRESET_NAME;
 
 /**
  * Live ui interface
@@ -88,5 +89,5 @@ LiveUI.displayName = PRESET_NAME;
  * @returns {React$Element<any>} player ui tree
  */
 export function liveUI(props: any): React$Element<any> {
-  return <LiveUI {...props} />;
+  return <LiveUIComponent {...props} />;
 }

@@ -7,6 +7,9 @@ import {connect} from 'preact-redux';
 import {PLAYER_SIZE} from '../shell/shell';
 import {withPlayer} from '../player';
 import {withLogger} from 'components/logger';
+import {KeyMap} from 'utils/key-map';
+import {withKeyboardEvent} from 'components/keyboard';
+import {withEventDispatcher} from 'components/event-dispatcher';
 import {Tooltip} from 'components/tooltip';
 
 /**
@@ -23,8 +26,11 @@ const COMPONENT_NAME = 'PictureInPicture';
 
 @connect(mapStateToProps)
 @withPlayer
+@withKeyboardEvent(COMPONENT_NAME)
 @withLogger(COMPONENT_NAME)
+@withEventDispatcher(COMPONENT_NAME)
 @withText({pipText: 'controls.pictureInPicture'})
+
 /**
  * PictureInPicture component
  *
@@ -32,16 +38,40 @@ const COMPONENT_NAME = 'PictureInPicture';
  * @extends {Component}
  */
 class PictureInPicture extends Component {
+  _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
+    {
+      key: {
+        code: KeyMap.P
+      },
+      action: () => {
+        this.togglePip();
+      }
+    }
+  ];
   /**
-   * On PIP icon clicked
+   * component mounted
+   *
    * @returns {void}
-   * @private
+   * @memberof PictureInPicture
    */
-  _onClick(): void {
+  componentDidMount() {
+    this.props.registerKeyboardEvents(this._keyboardEventHandlers);
+  }
+  /**
+   * toggle pip
+   * @returns {void}
+   *
+   * @memberof PictureInPicture
+   */
+  togglePip(): void {
     const {player} = this.props;
     if (player.isInPictureInPicture()) {
+      this.props.logger.debug('Exit Picture In Picture');
+      this.props.notifyClick();
       player.exitPictureInPicture();
     } else {
+      this.props.logger.debug('Enter Picture In Picture');
+      this.props.notifyClick();
       player.enterPictureInPicture();
     }
   }
@@ -61,7 +91,7 @@ class PictureInPicture extends Component {
               tabIndex="0"
               aria-label={this.props.pipText}
               className={`${style.controlButton} ${this.state.animation ? style.rotate : ''}`}
-              onClick={() => this._onClick()}>
+              onClick={() => this.togglePip()}>
               <Icon type={IconType.PictureInPicture} />
             </button>
           </Tooltip>

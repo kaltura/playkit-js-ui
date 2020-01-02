@@ -7,13 +7,14 @@ import {actions} from '../../reducers/volume';
 import {actions as engineActions} from '../../reducers/engine';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
-import {KEYBOARD_DEFAULT_VOLUME_JUMP} from '../keyboard/keyboard';
 import {FakeEvent} from '../../event/fake-event';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withLogger} from 'components/logger';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {withText} from 'preact-i18n';
+import {withKeyboardEvent} from 'components/keyboard';
+import {actions as overlayIconActions} from 'reducers/overlay-action';
 import {Tooltip} from 'components/tooltip';
 import {ToolTipType} from 'components/tooltip/tooltip';
 
@@ -31,18 +32,27 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'Volume';
 
+/**
+ * Default volume jump
+ * @type {number}
+ * @const
+ */
+const KEYBOARD_DEFAULT_VOLUME_JUMP: number = 5;
+
 @connect(
   mapStateToProps,
-  bindActions({...actions, ...engineActions})
+  bindActions({...actions, ...engineActions, ...overlayIconActions})
 )
 @withPlayer
 @withEventManager
+@withKeyboardEvent(COMPONENT_NAME)
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
 @withText({
   muteAriaLabel: 'controls.mute',
   unmuteAriaLabel: 'controls.unmute'
 })
+
 /**
  * Volume component
  *
@@ -53,6 +63,32 @@ const COMPONENT_NAME = 'Volume';
 class Volume extends Component {
   _volumeControlElement: HTMLElement;
   _volumeProgressBarElement: HTMLElement;
+  _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
+    {
+      key: {
+        code: KeyMap.UP
+      },
+      action: event => {
+        this.handleKeydown(event, false);
+      }
+    },
+    {
+      key: {
+        code: KeyMap.DOWN
+      },
+      action: event => {
+        this.handleKeydown(event, false);
+      }
+    },
+    {
+      key: {
+        code: KeyMap.M
+      },
+      action: event => {
+        this.handleKeydown(event, false);
+      }
+    }
+  ];
 
   /**
    * after component mounted, update initial volume and muted value and listen to volume change
@@ -73,6 +109,7 @@ class Volume extends Component {
     });
     this.props.eventManager.listen(document, 'mouseup', e => this.onVolumeProgressBarMouseUp(e));
     this.props.eventManager.listen(document, 'mousemove', e => this.onVolumeProgressBarMouseMove(e));
+    this.props.registerKeyboardEvents(this._keyboardEventHandlers);
   }
 
   /**
@@ -138,12 +175,13 @@ class Volume extends Component {
   /**
    * on volume control key down, update the volume in case of up/down keys
    *
-   * @param {KeyboardEvent} e - keyboardEvent event
-   * @method onKeyDown
+   * @method handleKeydown
+   * @param {KeyboardEvent} event - keyboardEvent event
+   * @param {boolean} isAccessabilityHandler - accessability handler
    * @returns {void}
    * @memberof Volume
    */
-  onKeyDown(e: KeyboardEvent): void {
+  handleKeydown(event: KeyboardEvent, isAccessabilityHandler: boolean): void {
     const {player} = this.props;
     /**
      * Change volume operations.
@@ -151,7 +189,6 @@ class Volume extends Component {
      * @returns {void}
      */
     const changeVolume = (newVolume: number) => {
-      this.setState({hover: true});
       if (newVolume > 100 || newVolume < 0) {
         return;
       }
@@ -159,16 +196,60 @@ class Volume extends Component {
       player.volume = newVolume / 100;
       this.props.notifyChange({volume: player.volume});
     };
-    switch (e.keyCode) {
+    let newVolume;
+    switch (event.keyCode) {
       case KeyMap.UP:
-        changeVolume(Math.round(player.volume * 100) + KEYBOARD_DEFAULT_VOLUME_JUMP);
+        if (isAccessabilityHandler) {
+          this.setState({hover: true});
+        } else {
+          this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWaves]);
+        }
+        newVolume = Math.round(player.volume * 100) + KEYBOARD_DEFAULT_VOLUME_JUMP;
+        changeVolume(newVolume);
         break;
       case KeyMap.DOWN:
-        changeVolume(Math.round(player.volume * 100) - KEYBOARD_DEFAULT_VOLUME_JUMP);
+        newVolume = Math.round(player.volume * 100) - KEYBOARD_DEFAULT_VOLUME_JUMP;
+        if (isAccessabilityHandler) {
+          this.setState({hover: true});
+        } else {
+          if (newVolume === 0) {
+            this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeMute]);
+          } else {
+            this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWave]);
+          }
+        }
+        changeVolume(newVolume);
+        break;
+      case KeyMap.M:
+        if (!isAccessabilityHandler) {
+          this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeMute]);
+        }
+        this.toggleMute();
         break;
       case KeyMap.ENTER:
       case KeyMap.SPACE:
         this.toggleMute();
+        break;
+      default:
+        break;
+    }
+  }
+
+  /**
+   * on volume control key down, update the volume in case of up/down keys
+   *
+   * @param {KeyboardEvent} event - keyboardEvent event
+   * @method onKeyDown
+   * @returns {void}
+   * @memberof Volume
+   */
+  onKeyDown(event: KeyboardEvent): void {
+    switch (event.keyCode) {
+      case KeyMap.UP:
+      case KeyMap.DOWN:
+      case KeyMap.ENTER:
+      case KeyMap.SPACE:
+        this.handleKeydown(event, true);
         break;
       default:
         this.setState({hover: false});

@@ -3,11 +3,13 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {withText} from 'preact-i18n';
 import {connect} from 'preact-redux';
+import {KeyMap} from '../../utils/key-map';
 import {default as Icon, IconType} from '../icon';
 import {withPlayer} from '../player';
-import {withEventDispatcher} from 'components/event-dispatcher';
+import {withKeyboardEvent} from 'components/keyboard';
 import {withLogger} from 'components/logger';
 import {Tooltip} from 'components/tooltip';
+import {withEventDispatcher} from 'components/event-dispatcher';
 
 /**
  * mapping state to props
@@ -24,6 +26,7 @@ const COMPONENT_NAME = 'Fullscreen';
 @connect(mapStateToProps)
 @withPlayer
 @withLogger(COMPONENT_NAME)
+@withKeyboardEvent(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
 @withText({fullscreenText: 'controls.fullscreen'})
 /**
@@ -34,6 +37,57 @@ const COMPONENT_NAME = 'Fullscreen';
  * @extends {Component}
  */
 class Fullscreen extends Component {
+  _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
+    {
+      key: {
+        code: KeyMap.F
+      },
+      action: event => {
+        this.handleKeydown(event);
+      }
+    },
+    {
+      key: {
+        code: KeyMap.ESC
+      },
+      action: event => {
+        this.handleKeydown(event);
+      }
+    }
+  ];
+  /**
+   * on component mount
+   *
+   * @returns {void}
+   * @memberof Fullscreen
+   */
+  componentDidMount(): void {
+    this.props.registerKeyboardEvents(this._keyboardEventHandlers);
+  }
+
+  /**
+   * handle keyboard events
+   *
+   * @param {KeyboardEvent} event - keyboard event
+   * @returns {void}
+   * @memberof Fullscreen
+   */
+  handleKeydown(event: KeyboardEvent): void {
+    switch (event.keyCode) {
+      case KeyMap.F:
+        if (!this.props.player.isFullscreen()) {
+          this.toggleFullscreen();
+        }
+        break;
+      case KeyMap.ESC:
+        if (this.props.player.isFullscreen()) {
+          this.toggleFullscreen();
+        }
+        break;
+      default:
+        break;
+    }
+  }
   /**
    * toggle fullscreen based on current fullscreen state in store
    *
@@ -41,9 +95,10 @@ class Fullscreen extends Component {
    * @memberof Fullscreen
    */
   toggleFullscreen(): void {
-    this.props.logger.debug(`Toggle fullscreen`);
-    const playerContainer: HTMLElement | null = document.getElementById(this.props.targetId);
-    this.props.fullscreen ? this.props.player.exitFullscreen() : this.props.player.enterFullscreen();
+    const {targetId, logger, player} = this.props;
+    logger.debug(`Toggle fullscreen`);
+    const playerContainer: HTMLElement | null = document.getElementById(targetId);
+    player.isFullscreen ? player.enterFullscreen() : player.exitFullscreen();
     if (playerContainer) {
       playerContainer.focus();
     }
