@@ -53,15 +53,6 @@ class Tooltip extends Component {
   };
 
   /**
-   * @constructor
-   * @param {*} props props
-   * @memberof Tooltip
-   */
-  constructor(props: Object) {
-    super(props);
-  }
-
-  /**
    * on mouse over handler.
    * @memberof Tooltip
    * @returns {void}
