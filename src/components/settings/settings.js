@@ -16,6 +16,7 @@ import {withKeyboardEvent} from 'components/keyboard';
 import {KeyMap} from 'utils/key-map';
 import {SpeedSelectedEvent} from 'event/events/speed-selected-event';
 import {actions as overlayIconActions} from 'reducers/overlay-action';
+import {Tooltip} from 'components/tooltip';
 
 /**
  * mapping state to props
@@ -38,7 +39,7 @@ const COMPONENT_NAME = 'Settings';
 @withText({
   qualityLabelText: 'settings.quality',
   speedLabelText: 'settings.speed',
-  buttonAriaLabel: 'controls.settings'
+  buttonLabel: 'controls.settings'
 })
 @withPlayer
 @withEventManager
@@ -289,13 +290,15 @@ class Settings extends Component {
     if (isLive && qualityOptions.length <= 1) return undefined;
     return (
       <div ref={c => (this._controlSettingsElement = c)} className={[style.controlButtonContainer, style.controlSettings].join(' ')}>
-        <button
-          tabIndex="0"
-          aria-label={props.buttonAriaLabel}
-          className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
-          onClick={() => this.onControlButtonClick()}>
-          <Icon type={IconType.Settings} />
-        </button>
+        <Tooltip label={props.buttonLabel}>
+          <button
+            tabIndex="0"
+            aria-label={props.buttonLabel}
+            className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
+            onClick={() => this.onControlButtonClick()}>
+            <Icon type={IconType.Settings} />
+          </button>
+        </Tooltip>
         {!this.state.smartContainerOpen ? (
           ''
         ) : (

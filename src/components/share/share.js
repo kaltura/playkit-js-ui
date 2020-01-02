@@ -5,12 +5,14 @@ import {ShareOverlay} from '../share-overlay';
 import Portal from 'preact-portal';
 import style from '../../styles/style.scss';
 import {defaultConfig} from './default-config';
-import {actions as shareActions} from '../../reducers/share';
+import {actions} from '../../reducers/share';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {withPlayer} from '../player';
 import {withLogger} from 'components/logger';
-import {withKeyboardEvent} from 'components/keyboard';
+import {withText} from 'preact-i18n';
+import {Tooltip} from 'components/tooltip';
+import {ToolTipType} from 'components/tooltip/tooltip';
 
 /**
  * mapping state to props
@@ -27,11 +29,11 @@ const COMPONENT_NAME = 'Share';
 
 @connect(
   mapStateToProps,
-  bindActions(shareActions)
+  bindActions(actions)
 )
 @withPlayer
-@withKeyboardEvent(COMPONENT_NAME)
 @withLogger(COMPONENT_NAME)
+@withText({shareTxt: 'controls.share'})
 /**
  * Share component
  *
@@ -107,9 +109,11 @@ class Share extends Component {
             />
           </Portal>
         ) : (
-          <button aria-haspopup="true" className={style.controlButton} onClick={() => this.toggleOverlay()} aria-label="Share">
-            <Icon type={IconType.Share} />
-          </button>
+          <Tooltip label={this.props.shareTxt} type={ToolTipType.BottomLeft}>
+            <button aria-haspopup="true" className={style.controlButton} onClick={() => this.toggleOverlay()} aria-label={this.props.shareTxt}>
+              <Icon type={IconType.Share} />
+            </button>
+          </Tooltip>
         )}
       </div>
     );

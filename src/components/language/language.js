@@ -16,6 +16,7 @@ import {withLogger} from 'components/logger';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {KeyMap} from 'utils/key-map';
 import {withKeyboardEvent} from 'components/keyboard';
+import {Tooltip} from 'components/tooltip';
 
 /**
  * mapping state to props
@@ -44,7 +45,7 @@ const COMPONENT_NAME = 'Language';
 @withText({
   audioLabelText: 'language.audio',
   captionsLabelText: 'language.captions',
-  buttonAriaLabel: 'controls.language'
+  buttonLabel: 'controls.language'
 })
 
 /**
@@ -204,14 +205,16 @@ class Language extends Component {
     const portalSelector = `#${this.props.player.config.targetId} .overlay-portal`;
     return (
       <div ref={c => (this._controlLanguageElement = c)} className={[style.controlButtonContainer, style.controlLanguage].join(' ')}>
-        <button
-          tabIndex="0"
-          aria-haspopup="true"
-          aria-label={this.props.buttonAriaLabel}
-          className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
-          onClick={() => this.onControlButtonClick()}>
-          <Icon type={IconType.Language} />
-        </button>
+        <Tooltip label={this.props.buttonLabel}>
+          <button
+            tabIndex="0"
+            aria-haspopup="true"
+            aria-label={this.props.buttonLabel}
+            className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
+            onClick={() => this.onControlButtonClick()}>
+            <Icon type={IconType.Language} />
+          </button>
+        </Tooltip>
         {!this.state.smartContainerOpen || this.state.cvaaOverlay ? (
           undefined
         ) : (

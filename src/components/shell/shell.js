@@ -10,7 +10,7 @@ import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {withLogger} from 'components/logger';
-import {withKeyboardEvent} from 'components/keyboard';
+import {debounce} from 'utils/debounce';
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -46,6 +46,7 @@ const mapStateToProps = state => ({
  * @const
  */
 const CONTROL_BAR_HOVER_DEFAULT_TIMEOUT: number = 3000;
+const ON_WINDOW_RESIZE_DEBOUNCE_DELAY: number = 100;
 
 const PLAYER_SIZE: {[size: string]: string} = {
   TINY: 'tiny',
@@ -71,7 +72,6 @@ const COMPONENT_NAME = 'Shell';
   bindActions({...shellActions, ...engineActions})
 )
 @withPlayer
-@withKeyboardEvent(COMPONENT_NAME)
 @withEventManager
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
@@ -216,7 +216,20 @@ class Shell extends Component {
     const {isIPadOS, isTablet, isMobile} = player.env;
     this.props.updateIsMobile(isIPadOS || isTablet || isMobile || forceTouchUI);
     this._onWindowResize();
-    this.props.eventManager.listen(player, player.Event.RESIZE, () => this._onWindowResize());
+    this.props.eventManager.listen(
+      window,
+      'resize',
+      debounce(() => {
+        this._onWindowResize();
+      }, ON_WINDOW_RESIZE_DEBOUNCE_DELAY)
+    );
+    this.props.eventManager.listen(
+      player,
+      player.Event.RESIZE,
+      debounce(() => {
+        this._onWindowResize();
+      }, ON_WINDOW_RESIZE_DEBOUNCE_DELAY)
+    );
     this.props.eventManager.listen(player, player.Event.FIRST_PLAY, () => this._onWindowResize());
   }
 
