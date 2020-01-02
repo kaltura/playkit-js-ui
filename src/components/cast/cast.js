@@ -7,6 +7,8 @@ import {KeyMap} from '../../utils/key-map';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withLogger} from 'components/logger';
+import {Tooltip} from 'components/tooltip';
+import {withText} from 'preact-i18n';
 
 /**
  * mapping state to props
@@ -27,6 +29,7 @@ const COMPONENT_NAME = 'Cast';
 @withPlayer
 @withEventManager
 @withLogger(COMPONENT_NAME)
+@withText({castText: 'cast.play_on_tv'})
 /**
  * Cast component
  *
@@ -58,17 +61,21 @@ class Cast extends Component {
   render(props: any): ?React$Element<any> {
     if (props.isCasting || props.isCastAvailable) {
       return (
-        <div
-          className={style.controlButtonContainer}
-          onClick={() => this.onClick()}
-          onKeyDown={e => {
-            if (e.keyCode === KeyMap.ENTER) {
-              this.props.updateBackdropVisibility(true);
-              this.props.player.startCasting().catch(() => this.props.updateBackdropVisibility(false));
-            }
-          }}>
-          <google-cast-launcher className={style.castButton} tabIndex="0" />
-        </div>
+        <Tooltip label={this.props.castText}>
+          <div
+            role="button"
+            aria-label={this.props.castText}
+            className={style.controlButtonContainer}
+            onClick={() => this.onClick()}
+            onKeyDown={e => {
+              if (e.keyCode === KeyMap.ENTER) {
+                this.props.updateBackdropVisibility(true);
+                this.props.player.startCasting().catch(() => this.props.updateBackdropVisibility(false));
+              }
+            }}>
+            <google-cast-launcher className={style.castButton} tabIndex="0" />
+          </div>
+        </Tooltip>
       );
     }
   }

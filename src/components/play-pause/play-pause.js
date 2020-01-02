@@ -1,13 +1,14 @@
 //@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
-import {Localizer, Text} from 'preact-i18n';
+import {withText} from 'preact-i18n';
 import {connect} from 'preact-redux';
 import {default as Icon, IconType} from '../icon';
 import {isPlayingAdOrPlayback} from '../../reducers/getters';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {withLogger} from 'components/logger';
+import {Tooltip} from 'components/tooltip';
 
 /**
  * mapping state to props
@@ -27,6 +28,11 @@ const COMPONENT_NAME = 'PlayPause';
 @withPlayer
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
+@withText({
+  startOverText: 'controls.startOver',
+  pauseText: 'controls.pause',
+  playText: 'controls.play'
+})
 /**
  * PlayPause component
  *
@@ -57,14 +63,12 @@ class PlayPause extends Component {
   render(props: any): React$Element<any> | void {
     const controlButtonClass = this.props.isPlayingAdOrPlayback ? [style.controlButton, style.isPlaying].join(' ') : style.controlButton;
     const isStartOver = props.isPlaybackEnded && !this.props.adBreak;
+    const playbackStateText = this.props.isPlayingAdOrPlayback ? this.props.pauseText : this.props.playText;
+    const labelText = isStartOver ? this.props.startOverText : playbackStateText;
     return (
       <div className={[style.controlButtonContainer, style.controlPlayPause].join(' ')}>
-        <Localizer>
-          <button
-            tabIndex="0"
-            aria-label={<Text id={isStartOver ? 'controls.startOver' : this.props.isPlayingAdOrPlayback ? 'controls.pause' : 'controls.play'} />}
-            className={controlButtonClass}
-            onClick={() => this.togglePlayPause()}>
+        <Tooltip label={labelText}>
+          <button tabIndex="0" aria-label={labelText} className={controlButtonClass} onClick={() => this.togglePlayPause()}>
             {isStartOver ? (
               <Icon type={IconType.StartOver} />
             ) : (
@@ -74,7 +78,7 @@ class PlayPause extends Component {
               </div>
             )}
           </button>
-        </Localizer>
+        </Tooltip>
       </div>
     );
   }

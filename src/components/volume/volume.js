@@ -14,6 +14,8 @@ import {withEventManager} from 'event/with-event-manager';
 import {withLogger} from 'components/logger';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {withText} from 'preact-i18n';
+import {Tooltip} from 'components/tooltip';
+import {ToolTipType} from 'components/tooltip/tooltip';
 
 /**
  * mapping state to props
@@ -293,17 +295,19 @@ class Volume extends Component {
         className={controlButtonClass.join(' ')}
         onMouseOver={() => this.onMouseOver()}
         onMouseOut={() => this.onMouseOut()}>
-        <button
-          tabIndex="0"
-          aria-label={muted ? this.props.unmuteAriaLabel : this.props.muteAriaLabel}
-          className={style.controlButton}
-          onMouseUp={() => this.toggleMute()}
-          onTouchEnd={e => e.stopImmediatePropagation()}
-          onKeyDown={e => this.onKeyDown(e)}>
-          <Icon type={IconType.VolumeBase} />
-          <Icon type={IconType.VolumeWaves} />
-          <Icon type={IconType.VolumeMute} />
-        </button>
+        <Tooltip label={muted ? this.props.unmuteAriaLabel : this.props.muteAriaLabel} type={ToolTipType.Left}>
+          <button
+            tabIndex="0"
+            aria-label={muted ? this.props.unmuteAriaLabel : this.props.muteAriaLabel}
+            className={style.controlButton}
+            onMouseUp={() => this.toggleMute()}
+            onTouchEnd={e => e.stopImmediatePropagation()}
+            onKeyDown={e => this.onKeyDown(e)}>
+            <Icon type={IconType.VolumeBase} />
+            <Icon type={IconType.VolumeWaves} />
+            <Icon type={IconType.VolumeMute} />
+          </button>
+        </Tooltip>
         <div
           className={style.volumeControlBar}
           role="slider"
