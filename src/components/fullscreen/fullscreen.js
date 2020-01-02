@@ -98,7 +98,7 @@ class Fullscreen extends Component {
     const {targetId, logger, player} = this.props;
     logger.debug(`Toggle fullscreen`);
     const playerContainer: HTMLElement | null = document.getElementById(targetId);
-    player.isFullscreen ? player.enterFullscreen() : player.exitFullscreen();
+    player.isFullscreen() ? player.exitFullscreen() : player.enterFullscreen();
     if (playerContainer) {
       playerContainer.focus();
     }
