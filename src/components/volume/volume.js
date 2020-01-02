@@ -221,7 +221,7 @@ class Volume extends Component {
       case KeyMap.M:
         if (!isAccessabilityHandler) {
           player.muted
-            ? this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWave])
+            ? this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWaves])
             : this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeMute]);
         }
         this.toggleMute();
