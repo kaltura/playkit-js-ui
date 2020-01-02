@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.51.0"></a>
+# [0.51.0](https://github.com/kaltura/playkit-js-ui/compare/v0.50.1...v0.51.0) (2020-01-02)
+
+
+### Bug Fixes
+
+* **FEC-9302:** advanced captions edit link to be visible in high contrast a11y ([#471](https://github.com/kaltura/playkit-js-ui/issues/471)) ([02f99e9](https://github.com/kaltura/playkit-js-ui/commit/02f99e9))
+
+
+### Features
+
+* **FEC-7804:** implement tooltips ([#468](https://github.com/kaltura/playkit-js-ui/issues/468)) ([1180ad1](https://github.com/kaltura/playkit-js-ui/commit/1180ad1))
+* **FEC-9481:** distributed keyboard handler to decorator ([#464](https://github.com/kaltura/playkit-js-ui/issues/464)) ([af71c20](https://github.com/kaltura/playkit-js-ui/commit/af71c20))
+
+
+
 <a name="0.50.1"></a>
 ## [0.50.1](https://github.com/kaltura/playkit-js-ui/compare/v0.50.0...v0.50.1) (2019-12-31)
 
