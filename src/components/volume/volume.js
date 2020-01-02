@@ -189,7 +189,7 @@ class Volume extends Component {
      * @returns {void}
      */
     const changeVolume = (newVolume: number) => {
-      if (newVolume > 100 || newVolume < 0) {
+      if (newVolume === player.volume || newVolume > 100 || newVolume < 0) {
         return;
       }
       player.muted = newVolume < KEYBOARD_DEFAULT_VOLUME_JUMP;
