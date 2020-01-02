@@ -12,6 +12,7 @@ import {withPlayer} from '../player';
 import {withLogger} from 'components/logger';
 import {withText} from 'preact-i18n';
 import {Tooltip} from 'components/tooltip';
+import {ToolTipType} from 'components/tooltip/tooltip';
 
 /**
  * mapping state to props
@@ -108,7 +109,7 @@ class Share extends Component {
             />
           </Portal>
         ) : (
-          <Tooltip label={this.props.shareTxt}>
+          <Tooltip label={this.props.shareTxt} type={ToolTipType.BottomLeft}>
             <button aria-haspopup="true" className={style.controlButton} onClick={() => this.toggleOverlay()} aria-label={this.props.shareTxt}>
               <Icon type={IconType.Share} />
             </button>

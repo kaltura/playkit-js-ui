@@ -4,6 +4,14 @@
  * @param {Component} origFunc - the original function to be called
  * @param {Function} time - the time frame to allow only one function call
  * @returns {Function} the wrapped debounce function
+ * @example
+ * this.props.eventManager.listen(
+ *  window,
+ *  'resize',
+ *  debounce(e => {
+ *    this._onWindowResize(e);
+ *  }, ON_WINDOW_RESIZE_DEBOUNCE_DELAY)
+ * );
  */
 export const debounce: Function = (origFunc: Function, time: number) => {
   let timeout;
