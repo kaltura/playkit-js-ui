@@ -223,7 +223,13 @@ class Shell extends Component {
         this._onWindowResize();
       }, ON_WINDOW_RESIZE_DEBOUNCE_DELAY)
     );
-    this.props.eventManager.listen(player, player.Event.RESIZE, () => this._onWindowResize());
+    this.props.eventManager.listen(
+      player,
+      player.Event.RESIZE,
+      debounce(() => {
+        this._onWindowResize();
+      }, ON_WINDOW_RESIZE_DEBOUNCE_DELAY)
+    );
     this.props.eventManager.listen(player, player.Event.FIRST_PLAY, () => this._onWindowResize());
   }
 

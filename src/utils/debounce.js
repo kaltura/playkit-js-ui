@@ -8,8 +8,10 @@
 export const debounce: Function = (origFunc: Function, time: number) => {
   let timeout;
 
-  return function() {
+  return (...args) => {
     clearTimeout(timeout);
-    timeout = setTimeout(() => origFunc.apply(this, arguments), time);
+    timeout = setTimeout(() => {
+      origFunc.apply(this, args);
+    }, time);
   };
 };
