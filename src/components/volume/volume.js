@@ -204,25 +204,25 @@ class Volume extends Component {
         } else {
           this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWaves]);
         }
-        newVolume = Math.round(player.volume * 100) + KEYBOARD_DEFAULT_VOLUME_JUMP;
+        newVolume = Math.min(Math.round(player.volume * 100) + KEYBOARD_DEFAULT_VOLUME_JUMP, 100);
         changeVolume(newVolume);
         break;
       case KeyMap.DOWN:
-        newVolume = Math.round(player.volume * 100) - KEYBOARD_DEFAULT_VOLUME_JUMP;
+        newVolume = Math.max(Math.round(player.volume * 100) - KEYBOARD_DEFAULT_VOLUME_JUMP, 0);
         if (isAccessabilityHandler) {
           this.setState({hover: true});
         } else {
-          if (newVolume === 0) {
-            this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeMute]);
-          } else {
-            this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWave]);
-          }
+          newVolume === 0
+            ? this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeMute])
+            : this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWave]);
         }
         changeVolume(newVolume);
         break;
       case KeyMap.M:
         if (!isAccessabilityHandler) {
-          this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeMute]);
+          player.muted
+            ? this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWave])
+            : this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeMute]);
         }
         this.toggleMute();
         break;
