@@ -258,7 +258,10 @@ class MenuItem extends Component {
           }
         }}
         className={props.isSelected(props.data) ? [style.dropdownMenuItem, style.active].join(' ') : style.dropdownMenuItem}
-        onClick={() => this.props.onSelect(props.data)}
+        onClick={e => {
+          e.stopPropagation();
+          this.props.onSelect(props.data);
+        }}
         onKeyDown={e => {
           switch (e.keyCode) {
             case KeyMap.ENTER:

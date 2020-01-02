@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.50.0"></a>
+# [0.50.0](https://github.com/kaltura/playkit-js-ui/compare/v0.49.2...v0.50.0) (2019-12-29)
+
+
+### Features
+
+* **FEC-9479:** focus on countdown without scrolling issue ([#467](https://github.com/kaltura/playkit-js-ui/issues/467)) ([08732ca](https://github.com/kaltura/playkit-js-ui/commit/08732ca))
+
+
+
+<a name="0.49.2"></a>
+## [0.49.2](https://github.com/kaltura/playkit-js-ui/compare/v0.49.1...v0.49.2) (2019-12-11)
+
+
+### Bug Fixes
+
+* **FEC-9555:** in mobile devices portrait mode when countdown shows the player jumps to the left ([#466](https://github.com/kaltura/playkit-js-ui/issues/466)) ([ac0e205](https://github.com/kaltura/playkit-js-ui/commit/ac0e205))
+* **FEC-9556:** menu remains open after selecting with mouse ([#465](https://github.com/kaltura/playkit-js-ui/issues/465)) ([43ebcb2](https://github.com/kaltura/playkit-js-ui/commit/43ebcb2))
+
+
+
 <a name="0.49.1"></a>
 ## [0.49.1](https://github.com/kaltura/playkit-js-ui/compare/v0.49.0...v0.49.1) (2019-12-05)
 
