@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.51.1"></a>
+## [0.51.1](https://github.com/kaltura/playkit-js-ui/compare/v0.51.0...v0.51.1) (2020-01-05)
+
+
+### Bug Fixes
+
+* fullscreen doesn't response correctly ([#473](https://github.com/kaltura/playkit-js-ui/issues/473)) ([8bee15d](https://github.com/kaltura/playkit-js-ui/commit/8bee15d))
+* overlay indication wasn't fit to keyboard keys ([#472](https://github.com/kaltura/playkit-js-ui/issues/472)) ([57636c4](https://github.com/kaltura/playkit-js-ui/commit/57636c4))
+* **FEC-9548:** not enough blur on overlay ([#474](https://github.com/kaltura/playkit-js-ui/issues/474)) ([6e1f316](https://github.com/kaltura/playkit-js-ui/commit/6e1f316))
+
+
+
 <a name="0.51.0"></a>
 # [0.51.0](https://github.com/kaltura/playkit-js-ui/compare/v0.50.1...v0.51.0) (2020-01-02)
 
