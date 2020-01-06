@@ -15,6 +15,8 @@ import {withEventManager} from 'event/with-event-manager';
 import {withLogger} from 'components/logger';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {KeyMap} from 'utils/key-map';
+import {withKeyboardEvent} from 'components/keyboard';
+import {Tooltip} from 'components/tooltip';
 
 /**
  * mapping state to props
@@ -37,12 +39,13 @@ const COMPONENT_NAME = 'Language';
 )
 @withPlayer
 @withEventManager
+@withKeyboardEvent(COMPONENT_NAME)
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
 @withText({
   audioLabelText: 'language.audio',
   captionsLabelText: 'language.captions',
-  buttonAriaLabel: 'controls.language'
+  buttonLabel: 'controls.language'
 })
 
 /**
@@ -55,9 +58,31 @@ const COMPONENT_NAME = 'Language';
 class Language extends Component {
   state: Object;
   _controlLanguageElement: any;
+  _lastActiveTextLanguage: string = '';
   // ie11 fix (FEC-7312) - don't remove
   _portal: any;
-
+  _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
+    {
+      key: {
+        code: KeyMap.C
+      },
+      action: () => {
+        const {player, logger} = this.props;
+        let activeTextTrack = player.getActiveTracks().text;
+        if (activeTextTrack) {
+          if (activeTextTrack.language === 'off' && this._lastActiveTextLanguage) {
+            logger.debug(`Changing text track to language`, this._lastActiveTextLanguage);
+            const selectedTextTrack = player.getTracks('text').find(track => track.language === this._lastActiveTextLanguage);
+            player.selectTrack(selectedTextTrack);
+          } else if (activeTextTrack.language !== 'off' && !this._lastActiveTextLanguage) {
+            logger.debug(`Hiding text track`);
+            this._lastActiveTextLanguage = activeTextTrack.language;
+            player.hideTextTrack();
+          }
+        }
+      }
+    }
+  ];
   /**
    * before component mounted, set initial state
    *
@@ -76,6 +101,23 @@ class Language extends Component {
    */
   componentDidMount() {
     this.props.eventManager.listen(document, 'click', e => this.handleClickOutside(e));
+    this.props.registerKeyboardEvents(this._keyboardEventHandlers);
+  }
+
+  /**
+   * We update the last language selected here upon trackTracks props change. This is done to make sure we update the
+   * last text track lanague upon language menu selection and using the (C) keyboard key.
+   * @param {Object} nextProps - the props that will replace the current props
+   * @returns {void}
+   */
+  componentWillReceiveProps(nextProps: Object): void {
+    const currActiveTrack = this.props.textTracks.find(track => track.active);
+    const nextActiveTrack = nextProps.textTracks.find(track => track.active);
+    if (currActiveTrack && currActiveTrack.language !== 'off' && nextActiveTrack && nextActiveTrack.language === 'off') {
+      this._lastActiveTextLanguage = currActiveTrack.language;
+    } else if (nextActiveTrack && nextActiveTrack.language !== 'off') {
+      this._lastActiveTextLanguage = '';
+    }
   }
 
   /**
@@ -163,14 +205,16 @@ class Language extends Component {
     const portalSelector = `#${this.props.player.config.targetId} .overlay-portal`;
     return (
       <div ref={c => (this._controlLanguageElement = c)} className={[style.controlButtonContainer, style.controlLanguage].join(' ')}>
-        <button
-          tabIndex="0"
-          aria-haspopup="true"
-          aria-label={this.props.buttonAriaLabel}
-          className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
-          onClick={() => this.onControlButtonClick()}>
-          <Icon type={IconType.Language} />
-        </button>
+        <Tooltip label={this.props.buttonLabel}>
+          <button
+            tabIndex="0"
+            aria-haspopup="true"
+            aria-label={this.props.buttonLabel}
+            className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
+            onClick={() => this.onControlButtonClick()}>
+            <Icon type={IconType.Language} />
+          </button>
+        </Tooltip>
         {!this.state.smartContainerOpen || this.state.cvaaOverlay ? (
           undefined
         ) : (

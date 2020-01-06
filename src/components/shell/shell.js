@@ -11,8 +11,7 @@ import {withEventManager} from 'event/with-event-manager';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {withLogger} from 'components/logger';
 import {utils as playkitUtils, CustomEventType} from '@playkit-js/playkit-js';
-import {throttle} from '../../utils/throttle';
-
+import {debounce} from 'utils/debounce';
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -48,6 +47,7 @@ const mapStateToProps = state => ({
  * @const
  */
 const CONTROL_BAR_HOVER_DEFAULT_TIMEOUT: number = 3000;
+const ON_WINDOW_RESIZE_DEBOUNCE_DELAY: number = 100;
 
 const PLAYER_SIZE: {[size: string]: string} = {
   TINY: 'tiny',
@@ -70,7 +70,7 @@ const COMPONENT_NAME = 'Shell';
 
 @connect(
   mapStateToProps,
-  bindActions(Object.assign({}, shellActions, engineActions))
+  bindActions({...shellActions, ...engineActions})
 )
 @withPlayer
 @withEventManager
@@ -217,6 +217,16 @@ class Shell extends Component {
     const {player, forceTouchUI} = this.props;
     const {isIPadOS, isTablet, isMobile} = player.env;
     this.props.updateIsMobile(isIPadOS || isTablet || isMobile || forceTouchUI);
+    this._onPlayerResize();
+    this.props.eventManager.listen(
+      window,
+      'resize',
+      debounce(() => {
+        this._onPlayerResize();
+      }, ON_WINDOW_RESIZE_DEBOUNCE_DELAY)
+    );
+
+    this.props.eventManager.listen(player, player.Event.FIRST_PLAY, () => this._onWindowResize());
 
     this._playerResizeWatcher = new playkitUtils.ResizeWatcher();
     this._playerResizeWatcher.init(document.getElementById(this.props.targetId));

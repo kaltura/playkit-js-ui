@@ -7,13 +7,16 @@ import {actions} from '../../reducers/volume';
 import {actions as engineActions} from '../../reducers/engine';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
-import {KEYBOARD_DEFAULT_VOLUME_JUMP} from '../keyboard/keyboard';
 import {FakeEvent} from '../../event/fake-event';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withLogger} from 'components/logger';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {withText} from 'preact-i18n';
+import {withKeyboardEvent} from 'components/keyboard';
+import {actions as overlayIconActions} from 'reducers/overlay-action';
+import {Tooltip} from 'components/tooltip';
+import {ToolTipType} from 'components/tooltip/tooltip';
 
 /**
  * mapping state to props
@@ -29,18 +32,27 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'Volume';
 
+/**
+ * Default volume jump
+ * @type {number}
+ * @const
+ */
+const KEYBOARD_DEFAULT_VOLUME_JUMP: number = 5;
+
 @connect(
   mapStateToProps,
-  bindActions({...actions, ...engineActions})
+  bindActions({...actions, ...engineActions, ...overlayIconActions})
 )
 @withPlayer
 @withEventManager
+@withKeyboardEvent(COMPONENT_NAME)
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
 @withText({
   muteAriaLabel: 'controls.mute',
   unmuteAriaLabel: 'controls.unmute'
 })
+
 /**
  * Volume component
  *
@@ -51,6 +63,32 @@ const COMPONENT_NAME = 'Volume';
 class Volume extends Component {
   _volumeControlElement: HTMLElement;
   _volumeProgressBarElement: HTMLElement;
+  _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
+    {
+      key: {
+        code: KeyMap.UP
+      },
+      action: event => {
+        this.handleKeydown(event, false);
+      }
+    },
+    {
+      key: {
+        code: KeyMap.DOWN
+      },
+      action: event => {
+        this.handleKeydown(event, false);
+      }
+    },
+    {
+      key: {
+        code: KeyMap.M
+      },
+      action: event => {
+        this.handleKeydown(event, false);
+      }
+    }
+  ];
 
   /**
    * after component mounted, update initial volume and muted value and listen to volume change
@@ -71,6 +109,7 @@ class Volume extends Component {
     });
     this.props.eventManager.listen(document, 'mouseup', e => this.onVolumeProgressBarMouseUp(e));
     this.props.eventManager.listen(document, 'mousemove', e => this.onVolumeProgressBarMouseMove(e));
+    this.props.registerKeyboardEvents(this._keyboardEventHandlers);
   }
 
   /**
@@ -136,12 +175,13 @@ class Volume extends Component {
   /**
    * on volume control key down, update the volume in case of up/down keys
    *
-   * @param {KeyboardEvent} e - keyboardEvent event
-   * @method onKeyDown
+   * @method handleKeydown
+   * @param {KeyboardEvent} event - keyboardEvent event
+   * @param {boolean} isAccessabilityHandler - accessability handler
    * @returns {void}
    * @memberof Volume
    */
-  onKeyDown(e: KeyboardEvent): void {
+  handleKeydown(event: KeyboardEvent, isAccessabilityHandler: boolean): void {
     const {player} = this.props;
     /**
      * Change volume operations.
@@ -149,24 +189,67 @@ class Volume extends Component {
      * @returns {void}
      */
     const changeVolume = (newVolume: number) => {
-      this.setState({hover: true});
-      if (newVolume > 100 || newVolume < 0) {
+      if (newVolume === player.volume || newVolume > 100 || newVolume < 0) {
         return;
       }
       player.muted = newVolume < KEYBOARD_DEFAULT_VOLUME_JUMP;
       player.volume = newVolume / 100;
       this.props.notifyChange({volume: player.volume});
     };
-    switch (e.keyCode) {
+    let newVolume;
+    switch (event.keyCode) {
       case KeyMap.UP:
-        changeVolume(Math.round(player.volume * 100) + KEYBOARD_DEFAULT_VOLUME_JUMP);
+        if (isAccessabilityHandler) {
+          this.setState({hover: true});
+        } else {
+          this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWaves]);
+        }
+        newVolume = Math.min(Math.round(player.volume * 100) + KEYBOARD_DEFAULT_VOLUME_JUMP, 100);
+        changeVolume(newVolume);
         break;
       case KeyMap.DOWN:
-        changeVolume(Math.round(player.volume * 100) - KEYBOARD_DEFAULT_VOLUME_JUMP);
+        newVolume = Math.max(Math.round(player.volume * 100) - KEYBOARD_DEFAULT_VOLUME_JUMP, 0);
+        if (isAccessabilityHandler) {
+          this.setState({hover: true});
+        } else {
+          newVolume === 0
+            ? this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeMute])
+            : this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWave]);
+        }
+        changeVolume(newVolume);
+        break;
+      case KeyMap.M:
+        if (!isAccessabilityHandler) {
+          player.muted
+            ? this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWaves])
+            : this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeMute]);
+        }
+        this.toggleMute();
         break;
       case KeyMap.ENTER:
       case KeyMap.SPACE:
         this.toggleMute();
+        break;
+      default:
+        break;
+    }
+  }
+
+  /**
+   * on volume control key down, update the volume in case of up/down keys
+   *
+   * @param {KeyboardEvent} event - keyboardEvent event
+   * @method onKeyDown
+   * @returns {void}
+   * @memberof Volume
+   */
+  onKeyDown(event: KeyboardEvent): void {
+    switch (event.keyCode) {
+      case KeyMap.UP:
+      case KeyMap.DOWN:
+      case KeyMap.ENTER:
+      case KeyMap.SPACE:
+        this.handleKeydown(event, true);
         break;
       default:
         this.setState({hover: false});
@@ -293,17 +376,19 @@ class Volume extends Component {
         className={controlButtonClass.join(' ')}
         onMouseOver={() => this.onMouseOver()}
         onMouseOut={() => this.onMouseOut()}>
-        <button
-          tabIndex="0"
-          aria-label={muted ? this.props.unmuteAriaLabel : this.props.muteAriaLabel}
-          className={style.controlButton}
-          onMouseUp={() => this.toggleMute()}
-          onTouchEnd={e => e.stopImmediatePropagation()}
-          onKeyDown={e => this.onKeyDown(e)}>
-          <Icon type={IconType.VolumeBase} />
-          <Icon type={IconType.VolumeWaves} />
-          <Icon type={IconType.VolumeMute} />
-        </button>
+        <Tooltip label={muted ? this.props.unmuteAriaLabel : this.props.muteAriaLabel} type={ToolTipType.Left}>
+          <button
+            tabIndex="0"
+            aria-label={muted ? this.props.unmuteAriaLabel : this.props.muteAriaLabel}
+            className={style.controlButton}
+            onMouseUp={() => this.toggleMute()}
+            onTouchEnd={e => e.stopImmediatePropagation()}
+            onKeyDown={e => this.onKeyDown(e)}>
+            <Icon type={IconType.VolumeBase} />
+            <Icon type={IconType.VolumeWaves} />
+            <Icon type={IconType.VolumeMute} />
+          </button>
+        </Tooltip>
         <div
           className={style.volumeControlBar}
           role="slider"

@@ -1,12 +1,13 @@
 //@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
-import {Localizer, Text} from 'preact-i18n';
+import {withText} from 'preact-i18n';
 import {default as Icon, IconType} from '../icon';
 import {withAnimation} from '../../utils/with-animation';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {withLogger} from 'components/logger';
+import {Tooltip} from 'components/tooltip';
 
 const COMPONENT_NAME = 'Rewind';
 
@@ -21,6 +22,7 @@ export const REWIND_DEFAULT_STEP = 10;
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
 @withAnimation(style.rotate)
+@withText({rewindText: 'controls.rewind'})
 /**
  * Rewind component
  *
@@ -74,16 +76,16 @@ class Rewind extends Component {
   render(props: any): React$Element<any> | void {
     return (
       <div className={[style.controlButtonContainer, style.noIdleControl].join(' ')}>
-        <Localizer>
+        <Tooltip label={this.props.rewindText}>
           <button
             tabIndex="0"
-            aria-label={<Text id={'controls.rewind'} />}
+            aria-label={this.props.rewindText}
             className={`${style.controlButton}`}
             ref={this.props.innerRef}
             onClick={() => this.onClick()}>
             <Icon type={!props.step || props.step === REWIND_DEFAULT_STEP ? IconType.Rewind10 : IconType.Rewind} />
           </button>
-        </Localizer>
+        </Tooltip>
       </div>
     );
   }

@@ -56,7 +56,7 @@ const COMPONENT_NAME = 'OverlayAction';
 
 @connect(
   mapStateToProps,
-  bindActions(Object.assign({}, actions, shellActions))
+  bindActions({...actions, ...shellActions})
 )
 @withPlayer
 @withLogger(COMPONENT_NAME)

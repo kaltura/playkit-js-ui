@@ -27,7 +27,7 @@ const COMPONENT_NAME = 'PrePlaybackPlayOverlay';
 
 @connect(
   mapStateToProps,
-  bindActions(Object.assign({}, loadingActions))
+  bindActions(loadingActions)
 )
 @withPlayer
 @withLogger(COMPONENT_NAME)

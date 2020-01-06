@@ -7,7 +7,7 @@ import {KeyMap} from '../../utils/key-map';
 import {actions as engineActions} from '../../reducers/engine';
 import {bindActions} from '../../utils/bind-actions';
 import {connect} from 'preact-redux';
-import {actions} from '../../reducers/shell';
+import {actions as shellActions} from '../../reducers/shell';
 import {withPlayer} from '../player';
 import {withLogger} from 'components/logger';
 
@@ -26,7 +26,7 @@ const COMPONENT_NAME = 'VrStereo';
 
 @connect(
   mapStateToProps,
-  bindActions(Object.assign({}, actions, engineActions))
+  bindActions({...shellActions, ...engineActions})
 )
 @withPlayer
 @withLogger(COMPONENT_NAME)

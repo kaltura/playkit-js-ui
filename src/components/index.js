@@ -1,6 +1,5 @@
 import {Cast} from './cast';
 import {Fullscreen} from './fullscreen';
-import {Keyboard} from './keyboard';
 import {Language} from './language';
 import {PlayPause} from './play-pause';
 import {Rewind} from './rewind';
@@ -22,6 +21,7 @@ export {DropDown} from './dropdown';
 export {EngineConnector} from './engine-connector';
 export {ErrorOverlay} from './error-overlay';
 export * from './event-dispatcher';
+export * from './keyboard';
 export {Icon, IconType} from './icon';
 export {LiveTag} from './live-tag';
 export {Loading} from './loading';
@@ -55,9 +55,9 @@ export {PlaylistNextScreen} from './playlist-next-screen';
 export {PictureInPicture} from './picture-in-picture';
 export {PlaybackControls} from './playback-controls';
 
+export {Keyboard as KeyboardControl} from './keyboard';
 export {Cast, Cast as CastControl};
 export {Fullscreen, Fullscreen as FullscreenControl};
-export {Keyboard, Keyboard as KeyboardControl};
 export {Language, Language as LanguageControl};
 export {PlayPause, PlayPause as PlayPauseControl};
 export {Rewind, Rewind as RewindControl};

@@ -27,6 +27,7 @@ import {middleware} from './middlewares';
 
 import './styles/style.scss';
 import {EventDispatcherProvider} from 'components/event-dispatcher';
+import {KeyboardEventProvider} from 'components/keyboard/keyboard-event-provider';
 
 /**
  * API used for building UIs based on state conditions
@@ -190,11 +191,13 @@ class UIManager {
             <IntlProvider definition={this._translations[this._locale]}>
               <PlayerProvider player={this.player}>
                 <EventDispatcherProvider player={this.player} store={this.store}>
-                  <Shell>
-                    <EngineConnector />
-                    <VideoPlayer />
-                    <PlayerGUI uis={uis} />
-                  </Shell>
+                  <KeyboardEventProvider playerContainer={this.container}>
+                    <Shell>
+                      <EngineConnector />
+                      <VideoPlayer />
+                      <PlayerGUI uis={uis} />
+                    </Shell>
+                  </KeyboardEventProvider>
                 </EventDispatcherProvider>
               </PlayerProvider>
             </IntlProvider>

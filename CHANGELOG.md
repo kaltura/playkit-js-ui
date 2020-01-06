@@ -2,6 +2,44 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.51.1"></a>
+## [0.51.1](https://github.com/kaltura/playkit-js-ui/compare/v0.51.0...v0.51.1) (2020-01-05)
+
+
+### Bug Fixes
+
+* fullscreen doesn't response correctly ([#473](https://github.com/kaltura/playkit-js-ui/issues/473)) ([8bee15d](https://github.com/kaltura/playkit-js-ui/commit/8bee15d))
+* overlay indication wasn't fit to keyboard keys ([#472](https://github.com/kaltura/playkit-js-ui/issues/472)) ([57636c4](https://github.com/kaltura/playkit-js-ui/commit/57636c4))
+* **FEC-9548:** not enough blur on overlay ([#474](https://github.com/kaltura/playkit-js-ui/issues/474)) ([6e1f316](https://github.com/kaltura/playkit-js-ui/commit/6e1f316))
+
+
+
+<a name="0.51.0"></a>
+# [0.51.0](https://github.com/kaltura/playkit-js-ui/compare/v0.50.1...v0.51.0) (2020-01-02)
+
+
+### Bug Fixes
+
+* **FEC-9302:** advanced captions edit link to be visible in high contrast a11y ([#471](https://github.com/kaltura/playkit-js-ui/issues/471)) ([02f99e9](https://github.com/kaltura/playkit-js-ui/commit/02f99e9))
+
+
+### Features
+
+* **FEC-7804:** implement tooltips ([#468](https://github.com/kaltura/playkit-js-ui/issues/468)) ([1180ad1](https://github.com/kaltura/playkit-js-ui/commit/1180ad1))
+* **FEC-9481:** distributed keyboard handler to decorator ([#464](https://github.com/kaltura/playkit-js-ui/issues/464)) ([af71c20](https://github.com/kaltura/playkit-js-ui/commit/af71c20))
+
+
+
+<a name="0.50.1"></a>
+## [0.50.1](https://github.com/kaltura/playkit-js-ui/compare/v0.50.0...v0.50.1) (2019-12-31)
+
+
+### Bug Fixes
+
+* null pointer possible exception ([#470](https://github.com/kaltura/playkit-js-ui/issues/470)) ([b124be0](https://github.com/kaltura/playkit-js-ui/commit/b124be0))
+
+
+
 <a name="0.50.0"></a>
 # [0.50.0](https://github.com/kaltura/playkit-js-ui/compare/v0.49.2...v0.50.0) (2019-12-29)
 

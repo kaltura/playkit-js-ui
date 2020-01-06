@@ -12,6 +12,11 @@ import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {withLogger} from 'components/logger';
+import {withKeyboardEvent} from 'components/keyboard';
+import {KeyMap} from 'utils/key-map';
+import {SpeedSelectedEvent} from 'event/events/speed-selected-event';
+import {actions as overlayIconActions} from 'reducers/overlay-action';
+import {Tooltip} from 'components/tooltip';
 
 /**
  * mapping state to props
@@ -29,15 +34,16 @@ const COMPONENT_NAME = 'Settings';
 
 @connect(
   mapStateToProps,
-  bindActions(actions)
+  bindActions({...actions, ...overlayIconActions})
 )
 @withText({
   qualityLabelText: 'settings.quality',
   speedLabelText: 'settings.speed',
-  buttonAriaLabel: 'controls.settings'
+  buttonLabel: 'controls.settings'
 })
 @withPlayer
 @withEventManager
+@withKeyboardEvent(COMPONENT_NAME)
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
 /**
@@ -50,6 +56,35 @@ const COMPONENT_NAME = 'Settings';
 class Settings extends Component {
   state: Object;
   _controlSettingsElement: any;
+  _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
+    {
+      key: {
+        code: KeyMap.PERIOD,
+        shiftKey: true
+      },
+      action: event => {
+        this.handleKeydown(event);
+      }
+    },
+    {
+      key: {
+        code: KeyMap.SEMI_COLON,
+        shiftKey: true
+      },
+      action: event => {
+        this.handleKeydown(event);
+      }
+    },
+    {
+      key: {
+        code: KeyMap.COMMA,
+        shiftKey: true
+      },
+      action: event => {
+        this.handleKeydown(event);
+      }
+    }
+  ];
 
   /**
    * before component mounted, set initial state
@@ -68,9 +103,53 @@ class Settings extends Component {
    * @memberof Settings
    */
   componentDidMount() {
-    this.props.eventManager.listen(document, 'click', e => this.handleClickOutside(e));
+    const {eventManager} = this.props;
+    eventManager.listen(document, 'click', e => this.handleClickOutside(e));
+    this.props.registerKeyboardEvents(this._keyboardEventHandlers);
   }
 
+  /**
+   * on settings control key down, update the settings in case of up/down keys
+   *
+   * @method handleKeydown
+   * @param {KeyboardEvent} event - keyboardEvent event
+   * @returns {void}
+   * @memberof Settings
+   */
+  handleKeydown(event: KeyboardEvent): void {
+    const {player, logger} = this.props;
+    let playbackRate, index;
+    switch (event.keyCode) {
+      case KeyMap.PERIOD:
+        playbackRate = player.playbackRate;
+        index = player.playbackRates.indexOf(playbackRate);
+        if (index < player.playbackRates.length - 1) {
+          logger.debug(`Changing playback rate. ${playbackRate} => ${player.playbackRates[index + 1]}`);
+          player.playbackRate = player.playbackRates[index + 1];
+          this.props.updateOverlayActionIcon(IconType.SpeedUp);
+          player.dispatchEvent(new SpeedSelectedEvent(player.playbackRate));
+        }
+        break;
+      case KeyMap.SEMI_COLON:
+        if (player.playbackRate !== player.defaultPlaybackRate) {
+          logger.debug(`Changing playback rate. ${player.playbackRate} => ${player.defaultPlaybackRate}`);
+          player.playbackRate = player.defaultPlaybackRate;
+          this.props.updateOverlayActionIcon(IconType.Speed);
+          player.dispatchEvent(new SpeedSelectedEvent(player.playbackRate));
+        }
+        break;
+      case KeyMap.COMMA:
+        playbackRate = player.playbackRate;
+        index = player.playbackRates.indexOf(playbackRate);
+        if (index > 0) {
+          logger.debug(`Changing playback rate. ${playbackRate} => ${player.playbackRates[index - 1]}`);
+          player.playbackRate = player.playbackRates[index - 1];
+          this.props.updateOverlayActionIcon(IconType.SpeedDown);
+          player.dispatchEvent(new SpeedSelectedEvent(player.playbackRate));
+        }
+        break;
+    }
+  }
   /**
    * event listener for clicking outside handler.
    *
@@ -211,13 +290,15 @@ class Settings extends Component {
     if (isLive && qualityOptions.length <= 1) return undefined;
     return (
       <div ref={c => (this._controlSettingsElement = c)} className={[style.controlButtonContainer, style.controlSettings].join(' ')}>
-        <button
-          tabIndex="0"
-          aria-label={props.buttonAriaLabel}
-          className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
-          onClick={() => this.onControlButtonClick()}>
-          <Icon type={IconType.Settings} />
-        </button>
+        <Tooltip label={props.buttonLabel}>
+          <button
+            tabIndex="0"
+            aria-label={props.buttonLabel}
+            className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
+            onClick={() => this.onControlButtonClick()}>
+            <Icon type={IconType.Settings} />
+          </button>
+        </Tooltip>
         {!this.state.smartContainerOpen ? (
           ''
         ) : (

@@ -6,9 +6,11 @@ import {KeyMap} from '../../utils/key-map';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
-import {KEYBOARD_DEFAULT_SEEK_JUMP} from '../keyboard/keyboard';
 import {bindMethod} from '../../utils/bind-method';
 import {withPlayer} from '../player';
+import {withKeyboardEvent} from 'components/keyboard';
+import {actions as overlayIconActions} from 'reducers/overlay-action';
+import {IconType} from '../icon';
 
 /**
  * mapping state to props
@@ -22,11 +24,19 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'SeekBar';
 
+/**
+ * Default seek jump
+ * @type {number}
+ * @const
+ */
+const KEYBOARD_DEFAULT_SEEK_JUMP: number = 5;
+
 @connect(
   mapStateToProps,
-  bindActions(actions)
+  bindActions({...actions, ...overlayIconActions})
 )
 @withPlayer
+@withKeyboardEvent(COMPONENT_NAME)
 /**
  * SeekBar component
  *
@@ -40,6 +50,40 @@ class SeekBar extends Component {
   _seekBarElement: HTMLElement;
   _framePreviewElement: HTMLElement;
   _timeBubbleElement: HTMLElement;
+  _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
+    {
+      key: {
+        code: KeyMap.LEFT
+      },
+      action: event => {
+        this.handleKeydown(event, false);
+      }
+    },
+    {
+      key: {
+        code: KeyMap.RIGHT
+      },
+      action: event => {
+        this.handleKeydown(event, false);
+      }
+    },
+    {
+      key: {
+        code: KeyMap.HOME
+      },
+      action: event => {
+        this.handleKeydown(event, false);
+      }
+    },
+    {
+      key: {
+        code: KeyMap.END
+      },
+      action: event => {
+        this.handleKeydown(event, false);
+      }
+    }
+  ];
   /**
    * Creates an instance of SeekBar.
    * @memberof SeekBar
@@ -69,6 +113,7 @@ class SeekBar extends Component {
   componentDidMount(): void {
     document.addEventListener('mouseup', this.onPlayerMouseUp);
     document.addEventListener('mousemove', this.onPlayerMouseMove);
+    this.props.registerKeyboardEvents(this._keyboardEventHandlers);
   }
 
   /**
@@ -192,14 +237,12 @@ class SeekBar extends Component {
   /**
    * seekbar key down handler
    *
-   * @param {KeyboardEvent} e - keyboard event
    * @returns {void}
+   * @param {KeyboardEvent} event - keyboardEvent event
+   * @param {boolean} isAccessibility - accessibility handler
    * @memberof SeekBar
    */
-  onSeekbarKeyDown(e: KeyboardEvent): void {
-    if (this.props.adBreak) {
-      return;
-    }
+  handleKeydown(event: KeyboardEvent, isAccessibility: boolean): void {
     const {player} = this.props;
     /**
      * Do seek operations.
@@ -216,18 +259,52 @@ class SeekBar extends Component {
       });
     };
     let newTime;
-    switch (e.keyCode) {
+    switch (event.keyCode) {
       case KeyMap.LEFT:
+        if (!isAccessibility) {
+          this.props.updateOverlayActionIcon(IconType.Rewind);
+        }
         newTime = player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP > 0 ? player.currentTime - 5 : 0;
         seek(player.currentTime, newTime);
         break;
       case KeyMap.RIGHT:
-        newTime = player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP > this.props.duration ? this.props.duration : player.currentTime + 5;
+        if (!isAccessibility) {
+          this.props.updateOverlayActionIcon(IconType.Forward);
+        }
+        newTime = player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP > player.duration ? player.duration : player.currentTime + 5;
+        seek(player.currentTime, newTime);
+        break;
+      case KeyMap.HOME:
+        if (!isAccessibility) {
+          this.props.updateOverlayActionIcon(IconType.StartOver);
+        }
+        newTime = 0;
+        seek(player.currentTime, newTime);
+        break;
+      case KeyMap.END:
+        if (!isAccessibility) {
+          this.props.updateOverlayActionIcon(IconType.SeekEnd);
+        }
+        newTime = player.duration;
         seek(player.currentTime, newTime);
         break;
     }
   }
-
+  /**
+   * seekbar keydown accessibility handler
+   *
+   * @param {Event} e - mouse end event
+   * @returns {void}
+   * @memberof SeekBar
+   */
+  onKeyDown(e: KeyboardEvent): void {
+    switch (e.keyCode) {
+      case KeyMap.LEFT:
+      case KeyMap.RIGHT:
+        this.handleKeydown(e, true);
+        break;
+    }
+  }
   /**
    * seekbar touch end handler
    *
@@ -523,7 +600,7 @@ class SeekBar extends Component {
         onTouchStart={e => this.onSeekbarTouchStart(e)}
         onTouchMove={e => this.onSeekbarTouchMove(e)}
         onTouchEnd={e => this.onSeekbarTouchEnd(e)}
-        onKeyDown={e => this.onSeekbarKeyDown(e)}>
+        onKeyDown={e => this.onKeyDown(e)}>
         <div className={style.progressBar}>
           {this.renderFramePreview()}
           {this.renderTimeBubble()}

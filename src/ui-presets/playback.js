@@ -16,7 +16,6 @@ import {VrStereo} from '../components/vr-stereo';
 import {TimeDisplayPlaybackContainer} from '../components/time-display-playback-container';
 import {BottomBar} from '../components/bottom-bar';
 import {OverlayPortal} from '../components/overlay-portal';
-import {Keyboard} from '../components/keyboard';
 import {UnmuteIndication} from '../components/unmute-indication';
 import {Watermark} from '../components/watermark/watermark';
 import {Cast} from '../components/cast';
@@ -33,6 +32,7 @@ import {Logo} from '../components/logo/logo';
 import {InteractiveArea} from '../components/interactive-area';
 import {PresetArea} from '../components/preset-area';
 import {PresetSettings} from '../components/preset-settings';
+import {withKeyboardEvent} from 'components/keyboard';
 
 const PRESET_NAME = 'Playback';
 
@@ -44,10 +44,10 @@ const PRESET_NAME = 'Playback';
  * @returns {React$Element} player ui tree
  */
 function PlaybackUI(props: any): React$Element<any> {
+  props.updateIsKeyboardEnabled(true);
   return (
     <PresetArea preAppendTo={'Backdrop'} className={style.playbackGuiWWrapper}>
       <PresetSettings allowSidePanels={true} allowPlayerArea={true} allowVideoArea={true} />
-      <Keyboard config={props.config} />
       <Loading />
       <Container className={style.playerGui} name={'BarsArea'} id="player-gui">
         <OverlayPortal />
@@ -92,7 +92,8 @@ function PlaybackUI(props: any): React$Element<any> {
   );
 }
 
-PlaybackUI.displayName = PRESET_NAME;
+const PlaybackComponent = withKeyboardEvent(PRESET_NAME)(PlaybackUI);
+PlaybackComponent.displayName = PRESET_NAME;
 
 /**
  * Playback ui interface
@@ -102,5 +103,5 @@ PlaybackUI.displayName = PRESET_NAME;
  * @returns {React$Element} player ui tree
  */
 export function playbackUI(props: any): React$Element<any> {
-  return <PlaybackUI {...props} />;
+  return <PlaybackComponent {...props} />;
 }

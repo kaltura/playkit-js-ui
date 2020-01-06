@@ -164,6 +164,10 @@ function onClickableComponentsHandler(store: any, action: Object, player: Object
     case 'Volume':
       onVolumeClicked(store, action, player);
       break;
+
+    case 'PictureInPicture':
+      onPictureInPictureClicked(store, action, player);
+      break;
   }
 }
 
