@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.51.2"></a>
+## [0.51.2](https://github.com/kaltura/playkit-js-ui/compare/v0.51.1...v0.51.2) (2020-01-06)
+
+
+### Bug Fixes
+
+* **FEC-9591:** change tooltip texts of rewind and forward ([#477](https://github.com/kaltura/playkit-js-ui/issues/477)) ([6da631f](https://github.com/kaltura/playkit-js-ui/commit/6da631f))
+* **FEC-9592:** css issue in tooltips in safari ([#475](https://github.com/kaltura/playkit-js-ui/issues/475)) ([b7b04d3](https://github.com/kaltura/playkit-js-ui/commit/b7b04d3))
+* **FEC-9595:** tooltip is shown in mobile ([#476](https://github.com/kaltura/playkit-js-ui/issues/476)) ([0a38156](https://github.com/kaltura/playkit-js-ui/commit/0a38156))
+* **FEC-9597:** tooltip support in ie11 ([#478](https://github.com/kaltura/playkit-js-ui/issues/478)) ([982eda8](https://github.com/kaltura/playkit-js-ui/commit/982eda8))
+
+
+
 <a name="0.51.1"></a>
 ## [0.51.1](https://github.com/kaltura/playkit-js-ui/compare/v0.51.0...v0.51.1) (2020-01-05)
 
