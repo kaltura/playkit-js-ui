@@ -36,22 +36,23 @@
     &.tooltip-top-left {
       bottom: $tooltip-margin;
       left: 50%;
-      transform: translate(calc(-100% + #{$tooltip-semi-side-margin} + #{$tooltip-arrow-width}));
+      transform: translate(-100%);
+      margin-left: $tooltip-semi-side-margin;
       &:after {
         bottom: -$tooltip-arrow-height;
         right: 0;
-        margin-right: $tooltip-semi-side-margin;
+        margin-right: $tooltip-semi-side-arrow-margin;
         transform: rotate(45deg) skew(5deg, 5deg);
       }
     }
     &.tooltip-top-right {
       bottom: $tooltip-margin;
       left: 50%;
-      transform: translate(calc(-#{$tooltip-semi-side-margin} - #{$tooltip-arrow-width}));
+      transform: translate(-$tooltip-semi-side-margin);
       &:after {
         bottom: -$tooltip-arrow-height;
         left: 0;
-        margin-left: $tooltip-semi-side-margin;
+        margin-left: $tooltip-semi-side-arrow-margin;
         transform: rotate(45deg) skew(5deg, 5deg);
       }
     }
@@ -69,22 +70,23 @@
     &.tooltip-bottom-right {
       top: $tooltip-margin;
       left: 50%;
-      transform: translate(calc(-#{$tooltip-semi-side-margin} - #{$tooltip-arrow-width}));
+      transform: translate(-$tooltip-semi-side-margin);
       &:after {
         top: -$tooltip-arrow-height;
         left: 0;
-        margin-left: $tooltip-semi-side-margin;
+        margin-left: $tooltip-semi-side-arrow-margin;
         transform: rotate(45deg) skew(5deg, 5deg);
       }
     }
     &.tooltip-bottom-left {
       top: $tooltip-margin;
+      transform: translate(-100%);
       left: 50%;
-      transform: translate(calc(-100% + #{$tooltip-semi-side-margin} + #{$tooltip-arrow-width}));
+      margin-left: $tooltip-semi-side-margin;
       &:after {
         top: -$tooltip-arrow-height;
         right: 0;
-        margin-right: $tooltip-semi-side-margin;
+        margin-right: $tooltip-semi-side-arrow-margin;
         transform: rotate(45deg) skew(5deg, 5deg);
       }
     }
