@@ -1,3 +1,9 @@
+.IE.player .tooltip {
+  .tooltip-label {
+    white-space: nowrap;
+  }
+}
+
 .player .tooltip {
   position: relative;
   display: inline-block;
@@ -14,6 +20,9 @@
     font-size: 13px;
     opacity: 0;
     transition: opacity 1s;
+    width: max-content;
+    display: table;
+
     &:after {
       content: '';
       position: absolute;
