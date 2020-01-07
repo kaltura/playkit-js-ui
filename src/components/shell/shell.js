@@ -235,21 +235,21 @@ class Shell extends Component {
   }
 
   /**
-   * handle player wrapper resize
-   * @type {Function}
-   * @private
+   * window resize handler
+   *
+   * @returns {void}
+   * @memberof Shell
    */
-  _onPlayerResize = throttle(() => {
+  _onWindowResize(): void {
     const playerContainer = document.getElementById(this.props.targetId);
     if (playerContainer) {
-      const {width, height} = playerContainer.getBoundingClientRect();
-      this.props.updatePlayerClientRect({width, height});
+      this.props.updatePlayerClientRect(playerContainer.getBoundingClientRect());
     }
 
     if (document.body) {
       this.props.updateDocumentWidth(document.body.clientWidth);
     }
-  }, 500);
+  }
 
   /**
    * before component mounted, remove event listeners
