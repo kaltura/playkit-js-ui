@@ -217,12 +217,12 @@ class Shell extends Component {
     const {player, forceTouchUI} = this.props;
     const {isIPadOS, isTablet, isMobile} = player.env;
     this.props.updateIsMobile(isIPadOS || isTablet || isMobile || forceTouchUI);
-    this._onPlayerResize();
+    this._onWindowResize();
     this.props.eventManager.listen(
       window,
       'resize',
       debounce(() => {
-        this._onPlayerResize();
+        this._onWindowResize();
       }, ON_WINDOW_RESIZE_DEBOUNCE_DELAY)
     );
 
@@ -230,8 +230,8 @@ class Shell extends Component {
 
     this._playerResizeWatcher = new playkitUtils.ResizeWatcher();
     this._playerResizeWatcher.init(document.getElementById(this.props.targetId));
-    this._playerResizeWatcher.addEventListener(CustomEventType.RESIZE, this._onPlayerResize);
-    this._onPlayerResize();
+    this._playerResizeWatcher.addEventListener(CustomEventType.RESIZE, this._onWindowResize);
+    this._onWindowResize();
   }
 
   /**
