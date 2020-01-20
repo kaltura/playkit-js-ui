@@ -20,6 +20,7 @@
   * {
     box-sizing: border-box;
     outline: none;
+    font-family: $font-family;
   }
   ::selection {
     background-color: rgba(0, 0, 0, 0.1);
@@ -31,15 +32,9 @@
     opacity: 0;
     overflow: hidden;
     font-size: 0;
-    font-family: $font-family;
 
     label {
       margin-bottom: 0;
-    }
-
-    input,
-    textarea {
-      font-family: $font-family;
     }
   }
   :global(.overlay-portal) {
@@ -64,7 +59,7 @@
 }
 
 .player.nav {
-* {
+  * {
     &:focus {
       outline: 1px solid $tab-focus-color !important;
     }

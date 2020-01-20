@@ -7,6 +7,8 @@
 .player .tooltip {
   position: relative;
   display: inline-block;
+  height: 100%;
+  width: 100%;
   .tooltip-label {
     visibility: hidden;
     background-color: $tooltip-bg-color;
@@ -22,6 +24,7 @@
     transition: opacity 1s;
     width: max-content;
     display: table;
+
 
     &:after {
       content: '';
