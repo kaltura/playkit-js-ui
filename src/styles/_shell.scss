@@ -12,6 +12,10 @@
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 
+  .playback-gui-wrapper {
+    font-family: $font-family;
+  }
+
   &:-webkit-full-screen {
     width: 100%;
     height: 100%;
@@ -20,7 +24,6 @@
   * {
     box-sizing: border-box;
     outline: none;
-    font-family: $font-family;
   }
   ::selection {
     background-color: rgba(0, 0, 0, 0.1);
