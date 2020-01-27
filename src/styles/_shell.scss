@@ -12,6 +12,10 @@
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 
+  .playback-gui-wrapper {
+    font-family: $font-family;
+  }
+
   &:-webkit-full-screen {
     width: 100%;
     height: 100%;
@@ -31,15 +35,9 @@
     opacity: 0;
     overflow: hidden;
     font-size: 0;
-    font-family: $font-family;
 
     label {
       margin-bottom: 0;
-    }
-
-    input,
-    textarea {
-      font-family: $font-family;
     }
   }
   :global(.overlay-portal) {
@@ -64,7 +62,7 @@
 }
 
 .player.nav {
-* {
+  * {
     &:focus {
       outline: 1px solid $tab-focus-color !important;
     }

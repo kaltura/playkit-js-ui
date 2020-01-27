@@ -43,7 +43,7 @@ const PRESET_NAME = 'Playback';
 function PlaybackUI(props: any): React$Element<any> {
   props.updateIsKeyboardEnabled(true);
   return (
-    <Container className={style.playbackGuiWWrapper} name={'VideoOverlay'} preAppendTo={'Backdrop'}>
+    <Container className={style.playbackGuiWrapper} name={'VideoOverlay'} preAppendTo={'Backdrop'}>
       <Loading />
       <Container className={style.playerGui} name={'PlayerGUI'} id="player-gui">
         <OverlayPortal />
