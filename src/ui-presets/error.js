@@ -13,7 +13,7 @@ const PRESET_NAME = 'Error';
  */
 export function ErrorUI(): React$Element<any> {
   return (
-    <div className={style.playbackGuiWWrapper}>
+    <div className={style.playbackGuiWrapper}>
       <ErrorOverlay />
     </div>
   );

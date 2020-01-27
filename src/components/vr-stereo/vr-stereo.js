@@ -1,7 +1,7 @@
 //@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
-import {Localizer, Text} from 'preact-i18n';
+import {withText} from 'preact-i18n';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {actions as engineActions} from '../../reducers/engine';
@@ -10,6 +10,7 @@ import {connect} from 'preact-redux';
 import {actions as shellActions} from '../../reducers/shell';
 import {withPlayer} from '../player';
 import {withLogger} from 'components/logger';
+import {Tooltip} from 'components/tooltip';
 
 /**
  * mapping state to props
@@ -30,6 +31,9 @@ const COMPONENT_NAME = 'VrStereo';
 )
 @withPlayer
 @withLogger(COMPONENT_NAME)
+@withText({
+  vrStereoText: 'controls.vrStereo'
+})
 /**
  * VrStereo component
  *
@@ -79,10 +83,10 @@ class VrStereo extends Component {
     }
     return (
       <div className={[style.controlButtonContainer, style.controlVrStereo].join(' ')}>
-        <Localizer>
+        <Tooltip label={this.props.vrStereoText}>
           <button
             tabIndex="0"
-            aria-label={<Text id={'controls.vrStereo'} />}
+            aria-label={this.props.vrStereoText}
             className={this.props.vrStereoMode ? [style.controlButton, style.vrStereoMode].join(' ') : style.controlButton}
             onClick={() => this.onClick()}
             onKeyDown={e => {
@@ -93,7 +97,7 @@ class VrStereo extends Component {
             <Icon type={IconType.vrStereo} />
             <Icon type={IconType.vrStereoFull} />
           </button>
-        </Localizer>
+        </Tooltip>
       </div>
     );
   }

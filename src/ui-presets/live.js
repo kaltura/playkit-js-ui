@@ -38,7 +38,7 @@ const PRESET_NAME = 'Live';
 export function LiveUI(props: any): React$Element<any> {
   props.updateIsKeyboardEnabled(true);
   return (
-    <Container className={style.playbackGuiWWrapper} name={'VideoOverlay'} preAppendTo={'Backdrop'}>
+    <Container className={style.playbackGuiWrapper} name={'VideoOverlay'} preAppendTo={'Backdrop'}>
       <Loading />
       <Container className={style.playerGui} name={'PlayerGUI'} id="player-gui">
         <OverlayPortal />
