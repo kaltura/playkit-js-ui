@@ -144,7 +144,9 @@ class EngineConnector extends Component {
     eventManager.listen(player, player.Event.SEEKED, () => {
       this.props.updateIsSeeking(false);
       this.props.updateLastSeekPoint(player.currentTime);
-      this.props.updateIsPlaybackEnded(false);
+      if (player.currentTime < Math.floor(player.duration)) {
+        this.props.updateIsPlaybackEnded(false);
+      }
     });
 
     eventManager.listen(player, player.Event.ENDED, () => {
