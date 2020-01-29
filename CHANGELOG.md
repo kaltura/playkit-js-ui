@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.52.0"></a>
+# [0.52.0](https://github.com/kaltura/playkit-js-ui/compare/v0.51.2...v0.52.0) (2020-01-29)
+
+
+### Bug Fixes
+
+* **FEC-9604:** some texts were hard coded and not from localization json ([#479](https://github.com/kaltura/playkit-js-ui/issues/479)) ([c6e4380](https://github.com/kaltura/playkit-js-ui/commit/c6e4380))
+
+
+### Features
+
+* **FEC-9596:** add missing tooltips in replay overlay and vrStereo ([#480](https://github.com/kaltura/playkit-js-ui/issues/480)) ([bd983ee](https://github.com/kaltura/playkit-js-ui/commit/bd983ee))
+
+
+
 <a name="0.51.2"></a>
 ## [0.51.2](https://github.com/kaltura/playkit-js-ui/compare/v0.51.1...v0.51.2) (2020-01-06)
 
