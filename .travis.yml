@@ -2,7 +2,6 @@ conditions: v1
 sudo: required
 dist: xenial
 language: node_js
-version: 1.0
 node_js:
   - "9.11.1"
 
@@ -47,6 +46,7 @@ jobs:
             branch: master
             tags: true
         - provider: npm
+          edge: true
           api_key: $NPM_TOKEN
           email: $NPM_EMAIL
           skip_cleanup: true
@@ -58,7 +58,6 @@ jobs:
       if: (branch = master) AND (type != pull_request) AND commit_message !~ /^chore\(release\)/
       env: TRAVIS_MODE=releaseCanary
       deploy:
-        edge: true
         provider: npm
         api_key: $NPM_TOKEN
         email: $NPM_EMAIL
