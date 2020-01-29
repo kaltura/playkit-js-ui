@@ -16,7 +16,8 @@
     "prev": "Prev",
     "startOver": "Start over",
     "pictureInPicture": "Picture in picture",
-    "logo": "Logo"
+    "logo": "Logo",
+    "seekBarSlider": "Seek slider"
   },
   "unmute": {
     "unmute": "Unmute"
@@ -27,7 +28,8 @@
   "settings": {
     "title": "Settings",
     "quality": "Quality",
-    "speed": "Speed"
+    "speed": "Speed",
+    "speedNormal" : "Normal"
   },
   "language": {
     "title": "Language",

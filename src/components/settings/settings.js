@@ -39,7 +39,8 @@ const COMPONENT_NAME = 'Settings';
 @withText({
   qualityLabelText: 'settings.quality',
   speedLabelText: 'settings.speed',
-  buttonLabel: 'controls.settings'
+  buttonLabel: 'controls.settings',
+  speedNormalLabelText: 'settings.speedNormal'
 })
 @withPlayer
 @withEventManager
@@ -253,7 +254,7 @@ class Settings extends Component {
     const speedOptions = player.playbackRates.reduce((acc, speed) => {
       let speedOption = {
         value: speed,
-        label: speed === 1 ? 'Normal' : speed,
+        label: speed === 1 ? props.speedNormalLabelText : speed,
         active: false
       };
       if (speed === player.playbackRate) {
