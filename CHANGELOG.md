@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.52.3"></a>
+## [0.52.3](https://github.com/kaltura/playkit-js-ui/compare/v0.52.2...v0.52.3) (2020-02-03)
+
+
+### Bug Fixes
+
+* **FEC-9634:** cast button messes up bottom bar ([#482](https://github.com/kaltura/playkit-js-ui/issues/482)) ([c813674](https://github.com/kaltura/playkit-js-ui/commit/c813674))
+
+
+
 <a name="0.52.2"></a>
 ## [0.52.2](https://github.com/kaltura/playkit-js-ui/compare/v0.52.1...v0.52.2) (2020-01-29)
 
