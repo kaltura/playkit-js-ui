@@ -64,7 +64,7 @@ class Menu extends Component {
    * @memberof Menu
    */
   componentDidMount() {
-    document.addEventListener('click', this.handleClickOutside, true);
+    document.addEventListener('click', this.handleClickOutside);
     if (!this.props.isMobile && !this.props.isSmallSize) {
       this.setState({position: this.getPosition()});
     }
@@ -117,7 +117,6 @@ class Menu extends Component {
   handleClickOutside(e: any) {
     if (!this.props.isMobile && !this.props.isSmallSize && this._menuElement && !this._menuElement.contains(e.target)) {
       this.props.onClose();
-      e.stopPropagation();
     }
   }
 
