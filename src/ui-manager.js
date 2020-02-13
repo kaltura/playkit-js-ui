@@ -39,7 +39,7 @@ class UIManager {
   store: any;
   container: ?HTMLElement;
   root: React$Component<any, any, any>;
-  _translations: {[langKey: string]: Object} = {en: en_translations};
+  _translations: {[langKey: string]: Object} = {en: en_translations['en']};
   _locale: string = 'en';
   _uiComponents: Array<PKUIComponent>;
 
