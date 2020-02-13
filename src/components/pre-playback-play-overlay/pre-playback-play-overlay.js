@@ -71,7 +71,7 @@ class PrePlaybackPlayOverlay extends Component {
     const labelText = props.isPlaybackEnded ? props.startOverText : props.playText;
     return (
       <div className={style.prePlaybackPlayOverlay} onMouseOver={e => e.stopPropagation()} onClick={() => this.handleClick()}>
-        <a
+        <button
           className={style.prePlaybackPlayButton}
           tabIndex="0"
           aria-label={labelText}
@@ -81,7 +81,7 @@ class PrePlaybackPlayOverlay extends Component {
             }
           }}>
           <Tooltip label={labelText}>{props.isPlaybackEnded ? <Icon type={IconType.StartOver} /> : <Icon type={IconType.Play} />}</Tooltip>
-        </a>
+        </button>
       </div>
     );
   }
