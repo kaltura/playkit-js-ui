@@ -64,20 +64,11 @@ class Menu extends Component {
    * @memberof Menu
    */
   componentDidMount() {
-    document.addEventListener('click', this.handleClickOutside);
+    this.props.eventManager.listen(document, 'click', this.handleClickOutside);
+
     if (!this.props.isMobile && !this.props.isSmallSize) {
       this.setState({position: this.getPosition()});
     }
-  }
-
-  /**
-   * before component unmount, remove the event listener
-   *
-   * @returns {void}
-   * @memberof Menu
-   */
-  componentWillUnmount() {
-    document.removeEventListener('click', this.handleClickOutside);
   }
 
   /**
