@@ -20,7 +20,7 @@ var uiManager = new playkit.ui.UIManager(player, config);
   components?: Object, // optional
   uiComponents: Array<Object>, //optional
   translations: Object, // optional
-  locale: Object // optional  
+  locale: string // optional  
 }
 ```
 
