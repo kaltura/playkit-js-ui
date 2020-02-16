@@ -10,7 +10,7 @@ import {EventType} from './event/event-type';
 import {setEnv} from './utils/key-map';
 import {ContainerProvider} from './components/container';
 import reducer from './store';
-import en_translations from './translations/en.json';
+import en_translations from '../translations/en.i18n.json';
 import {actions as configActions} from './reducers/config';
 
 // core components for the UI
@@ -39,7 +39,7 @@ class UIManager {
   store: any;
   container: ?HTMLElement;
   root: React$Component<any, any, any>;
-  _translations: {[langKey: string]: Object} = {en: en_translations};
+  _translations: {[langKey: string]: Object} = {en: en_translations['en']};
   _locale: string = 'en';
   _uiComponents: Array<PKUIComponent>;
 
