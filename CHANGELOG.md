@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.53.0"></a>
+# [0.53.0](https://github.com/kaltura/playkit-js-ui/compare/v0.52.3...v0.53.0) (2020-02-16)
+
+
+### Bug Fixes
+
+* **FEC-9648:** space bar doesn't play video on pre-play button ([#483](https://github.com/kaltura/playkit-js-ui/issues/483)) ([7251c4d](https://github.com/kaltura/playkit-js-ui/commit/7251c4d))
+
+
+### Features
+
+* **FEC-9465:** internationalization (i18n) - player localization ([#485](https://github.com/kaltura/playkit-js-ui/issues/485)) ([4aae5a8](https://github.com/kaltura/playkit-js-ui/commit/4aae5a8))
+
+
+
 <a name="0.52.3"></a>
 ## [0.52.3](https://github.com/kaltura/playkit-js-ui/compare/v0.52.2...v0.52.3) (2020-02-03)
 
