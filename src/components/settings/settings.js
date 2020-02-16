@@ -166,9 +166,6 @@ class Settings extends Component {
       !this._controlSettingsElement.contains(e.target) &&
       this.state.smartContainerOpen
     ) {
-      if (e.target.classList.contains(style.overlayPlay)) {
-        e.stopPropagation();
-      }
       this.setState({smartContainerOpen: false});
     }
   }
