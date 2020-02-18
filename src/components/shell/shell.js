@@ -154,6 +154,12 @@ class Shell extends Component {
     this.props.notifyClick();
   }
 
+  /**
+   * if the ui is in fallback to muted autoplay mode, unmute the player
+   *
+   * @returns {void}
+   * @memberof Shell
+   */
   unMuteFallback(): void {
     if (this.props.fallbackToMutedAutoPlay) {
       this.props.player.muted = false;
