@@ -6,6 +6,7 @@ import {connect} from 'preact-redux';
 import {bindMethod} from '../../utils/bind-method';
 import {withKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
 import {KeyMap} from 'utils/key-map';
+import {withEventManager} from 'event/with-event-manager';
 
 /**
  * mapping state to props
@@ -21,6 +22,7 @@ const mapStateToProps = state => ({
 const COMPONENT_NAME = 'Menu';
 
 @connect(mapStateToProps)
+@withEventManager
 @withKeyboardA11y
 /**
  * Menu component
