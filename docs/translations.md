@@ -49,7 +49,7 @@ A sample English dictionary may look like:
     "retry": "Retry"
   },
   "ads": {
-    "advertisement": "Advertisement",
+    "ad_notice": "Advertisement",
     "learn_more": "Learn more",
     "skip_ad": "Skip ad",
     "skip_in": "Skip in"
@@ -72,7 +72,7 @@ A sample English dictionary may look like:
 }
 ```
 
-For complete translation reference see [here](../translations/en.json).
+For complete translation reference see [here](/translations//en.i18n.json).
 
 Default locale is English.
 
