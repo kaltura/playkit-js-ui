@@ -72,7 +72,7 @@ A sample English dictionary may look like:
 }
 ```
 
-For complete translation reference see [here](/translations//en.i18n.json).
+For complete translation reference see [here](/translations/en.i18n.json).
 
 Default locale is English.
 
