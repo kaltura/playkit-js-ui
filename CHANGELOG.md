@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.53.1"></a>
+## [0.53.1](https://github.com/kaltura/playkit-js-ui/compare/v0.53.0...v0.53.1) (2020-02-24)
+
+
+### Bug Fixes
+
+* **FEC-9601:** when pressing key enter on play button there is no exit from fallback state ([#486](https://github.com/kaltura/playkit-js-ui/issues/486)) ([4cf6ab9](https://github.com/kaltura/playkit-js-ui/commit/4cf6ab9))
+* **FEC-9647:** menu doesnt close in cvaa settings ([#487](https://github.com/kaltura/playkit-js-ui/issues/487)) ([e3ce7eb](https://github.com/kaltura/playkit-js-ui/commit/e3ce7eb))
+* **FEC-9746:** menu bar buttons ignores clicking if another menu is open ([#484](https://github.com/kaltura/playkit-js-ui/issues/484)) ([ba42283](https://github.com/kaltura/playkit-js-ui/commit/ba42283))
+* add german (de) translation file ([#488](https://github.com/kaltura/playkit-js-ui/issues/488)) ([9e7ae28](https://github.com/kaltura/playkit-js-ui/commit/9e7ae28))
+
+
+
 <a name="0.53.0"></a>
 # [0.53.0](https://github.com/kaltura/playkit-js-ui/compare/v0.52.3...v0.53.0) (2020-02-16)
 
