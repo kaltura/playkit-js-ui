@@ -49,7 +49,7 @@
       "close": "Close"
     },
     "error": {
-      "default_error": "Something went wrong",
+      "default_error": "No internet",
       "default_session_text": "Session ID",
       "retry": "Retry"
     },

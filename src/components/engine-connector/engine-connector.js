@@ -135,6 +135,8 @@ class EngineConnector extends Component {
     eventManager.listen(player, player.Event.PAUSE, () => {
       this.props.updateIsPlaying(false);
       this.props.updateIsPaused(true);
+      this.props.updateHasError(true);
+
     });
 
     eventManager.listen(player, player.Event.SEEKING, () => {
