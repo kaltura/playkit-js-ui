@@ -40,7 +40,8 @@ const COMPONENT_NAME = 'Settings';
   qualityLabelText: 'settings.quality',
   speedLabelText: 'settings.speed',
   buttonLabel: 'controls.settings',
-  speedNormalLabelText: 'settings.speedNormal'
+  speedNormalLabelText: 'settings.speedNormal',
+  qualityAutoLabelText: 'settings.qualityAuto'
 })
 @withPlayer
 @withEventManager
@@ -151,6 +152,7 @@ class Settings extends Component {
         break;
     }
   }
+
   /**
    * event listener for clicking outside handler.
    *
@@ -278,7 +280,7 @@ class Settings extends Component {
     // Progressive playback doesn't support auto
     if (qualityOptions.length > 1 && player.streamType !== 'progressive') {
       qualityOptions.unshift({
-        label: 'Auto',
+        label: this.props.qualityAutoLabelText,
         active: player.isAdaptiveBitrateEnabled(),
         value: 'auto'
       });
