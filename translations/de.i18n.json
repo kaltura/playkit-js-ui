@@ -30,7 +30,8 @@
       "title": "Einstellungen",
       "quality": "Qualität",
       "speed": "Geschwindigkeit",
-      "speedNormal": "Normal"
+      "speedNormal": "Normal",
+      "qualityAuto": "Auto"
     },
     "language": {
       "title": "Sprache",
