@@ -56,7 +56,9 @@
 
   .retry-btn {
     height: 36px;
-    width: 120px;
+    width: auto;
+    min-width: 120px;
+    padding: 0 8px;
     border: 2px solid $grayscale1;
     border-radius: 18px;
     background-color: black;
