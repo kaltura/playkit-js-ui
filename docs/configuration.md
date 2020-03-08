@@ -76,7 +76,7 @@ var uiManager = new playkit.ui.UIManager(player, config);
 >
 > ##### Type: `{[langKey: string]: Object}`
 >
-> ##### Default: `see en.json`
+> ##### Default: see [`en.i18n.json`](../translations/en.i18n.json)
 >
 > ##### Description: Defines the ui translation dictionary configuration.
 >
