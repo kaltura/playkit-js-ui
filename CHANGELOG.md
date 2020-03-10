@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.53.2"></a>
+## [0.53.2](https://github.com/kaltura/playkit-js-ui/compare/v0.53.1...v0.53.2) (2020-03-10)
+
+
+### Bug Fixes
+
+* remove french (fr) translation file ([#491](https://github.com/kaltura/playkit-js-ui/issues/491)) ([01ae2ad](https://github.com/kaltura/playkit-js-ui/commit/01ae2ad))
+* **FEC-7969:** when there is an http error in IE11, the error page is not displaying session ID ([#493](https://github.com/kaltura/playkit-js-ui/issues/493)) ([d3a08a3](https://github.com/kaltura/playkit-js-ui/commit/d3a08a3))
+* **FEC-9654:** error screen - the text for retry button on Spanish exceeds the button boundary ([#490](https://github.com/kaltura/playkit-js-ui/issues/490)) ([68fdbb2](https://github.com/kaltura/playkit-js-ui/commit/68fdbb2))
+* **FEC-9657:** 'Auto' quality option is hardcoded and not translatable ([#492](https://github.com/kaltura/playkit-js-ui/issues/492)) ([7eb8c5a](https://github.com/kaltura/playkit-js-ui/commit/7eb8c5a))
+* **FEC-9682:** scss preprocessor is not encapsulating 'playkit-' prefix on video controls CSS ([#494](https://github.com/kaltura/playkit-js-ui/issues/494)) ([fde8697](https://github.com/kaltura/playkit-js-ui/commit/fde8697))
+
+
+
 <a name="0.53.1"></a>
 ## [0.53.1](https://github.com/kaltura/playkit-js-ui/compare/v0.53.0...v0.53.1) (2020-02-24)
 
