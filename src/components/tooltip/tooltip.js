@@ -10,7 +10,8 @@ const PLAYER_MARGIN = 10;
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  playerClientRect: state.shell.playerClientRect
+  playerClientRect: state.shell.playerClientRect,
+  isMobile: state.shell.isMobile
 });
 
 const TOOLTIP_SHOW_TIMEOUT: number = 250;
@@ -155,8 +156,9 @@ class Tooltip extends Component {
   render(props: any): React$Element<any> {
     const className = [style.tooltipLabel, style[`tooltip-${this.state.type}`]];
     this.state.showTooltip && this.state.valid ? className.push(style.show) : className.push(style.hide);
-
-    return (
+    return props.isMobile ? (
+      props.children[0]
+    ) : (
       <div className={style.tooltip} onMouseOver={() => this.onMouseOver()} onMouseLeave={() => this.onMouseLeave()}>
         {props.children}
         <span

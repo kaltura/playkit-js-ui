@@ -6,10 +6,11 @@ import {bindActions} from '../../utils/bind-actions';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {actions as loadingActions} from '../../reducers/loading';
-import {Localizer, Text} from 'preact-i18n';
+import {withText} from 'preact-i18n';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {withLogger} from 'components/logger';
+import {Tooltip} from 'components/tooltip';
 
 /**
  * mapping state to props
@@ -32,6 +33,10 @@ const COMPONENT_NAME = 'PrePlaybackPlayOverlay';
 @withPlayer
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
+@withText({
+  startOverText: 'controls.startOver',
+  playText: 'controls.play'
+})
 /**
  * PrePlaybackPlayOverlay component
  *
@@ -63,23 +68,20 @@ class PrePlaybackPlayOverlay extends Component {
     if ((!props.prePlayback && (!props.isPlaybackEnded || (props.playlist && props.playlist.next))) || props.loading) {
       return undefined;
     }
+    const labelText = props.isPlaybackEnded ? props.startOverText : props.playText;
     return (
       <div className={style.prePlaybackPlayOverlay} onMouseOver={e => e.stopPropagation()} onClick={() => this.handleClick()}>
-        {
-          <Localizer>
-            <a
-              className={style.prePlaybackPlayButton}
-              tabIndex="0"
-              aria-label={<Text id={props.isPlaybackEnded ? 'controls.startOver' : 'controls.play'} />}
-              onKeyDown={e => {
-                if (e.keyCode === KeyMap.ENTER) {
-                  this.handleClick();
-                }
-              }}>
-              {props.isPlaybackEnded ? <Icon type={IconType.StartOver} /> : <Icon type={IconType.Play} />}
-            </a>
-          </Localizer>
-        }
+        <button
+          className={style.prePlaybackPlayButton}
+          tabIndex="0"
+          aria-label={labelText}
+          onKeyDown={e => {
+            if (e.keyCode === KeyMap.ENTER) {
+              this.handleClick();
+            }
+          }}>
+          <Tooltip label={labelText}>{props.isPlaybackEnded ? <Icon type={IconType.StartOver} /> : <Icon type={IconType.Play} />}</Tooltip>
+        </button>
       </div>
     );
   }

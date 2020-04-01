@@ -152,12 +152,21 @@ class Shell extends Component {
    * @memberof Shell
    */
   onMouseUp(): void {
-    if (this.props.fallbackToMutedAutoPlay) {
-      this.props.player.muted = false;
-    }
+    this.unMuteFallback();
     this.props.notifyClick();
   }
 
+  /**
+   * if the ui is in fallback to muted autoplay mode, unmute the player
+   *
+   * @returns {void}
+   * @memberof Shell
+   */
+  unMuteFallback(): void {
+    if (this.props.fallbackToMutedAutoPlay) {
+      this.props.player.muted = false;
+    }
+  }
   /**
    * on touch end handler
    * @param {TouchEvent} e - touch event
@@ -188,6 +197,10 @@ class Shell extends Component {
     if (!this.state.nav && e.keyCode === KeyMap.TAB) {
       this.setState({nav: true});
       this.props.updatePlayerNavState(true);
+    }
+
+    if (this.state.nav && (e.keyCode === KeyMap.ENTER || e.keyCode === KeyMap.SPACE)) {
+      this.unMuteFallback();
     }
   }
 

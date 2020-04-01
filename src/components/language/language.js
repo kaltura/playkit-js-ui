@@ -136,9 +136,6 @@ class Language extends Component {
       !this.state.cvaaOverlay &&
       !this.props.isSmallSize
     ) {
-      if (e.target.classList.contains('overlay-action')) {
-        e.stopPropagation();
-      }
       this.setState({smartContainerOpen: false});
     }
   }

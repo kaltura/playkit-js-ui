@@ -61,21 +61,21 @@ class Cast extends Component {
   render(props: any): ?React$Element<any> {
     if (props.isCasting || props.isCastAvailable) {
       return (
-        <Tooltip label={this.props.castText}>
-          <div
-            role="button"
-            aria-label={this.props.castText}
-            className={style.controlButtonContainer}
-            onClick={() => this.onClick()}
-            onKeyDown={e => {
-              if (e.keyCode === KeyMap.ENTER) {
-                this.props.updateBackdropVisibility(true);
-                this.props.player.startCasting().catch(() => this.props.updateBackdropVisibility(false));
-              }
-            }}>
+        <div
+          role="button"
+          aria-label={this.props.castText}
+          className={style.controlButtonContainer}
+          onClick={() => this.onClick()}
+          onKeyDown={e => {
+            if (e.keyCode === KeyMap.ENTER) {
+              this.props.updateBackdropVisibility(true);
+              this.props.player.startCasting().catch(() => this.props.updateBackdropVisibility(false));
+            }
+          }}>
+          <Tooltip label={this.props.castText}>
             <google-cast-launcher className={style.castButton} tabIndex="0" />
-          </div>
-        </Tooltip>
+          </Tooltip>
+        </div>
       );
     }
   }
