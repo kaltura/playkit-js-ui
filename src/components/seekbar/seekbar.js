@@ -3,7 +3,7 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {toHHMMSS} from '../../utils/time-format';
 import {KeyMap} from '../../utils/key-map';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
 import {bindMethod} from '../../utils/bind-method';
@@ -104,7 +104,9 @@ class SeekBar extends Component {
    * @memberof SeekBar
    */
   componentWillMount(): void {
-    this.setState({virtualTime: 0});
+    this.setState(() => {
+      return {virtualTime: 0};
+    });
   }
 
   /**
@@ -363,7 +365,9 @@ class SeekBar extends Component {
    */
   updateSeekBarProgress(currentTime: number, duration: number, virtual: boolean = false): void {
     if (virtual) {
-      this.setState({virtualTime: currentTime});
+      this.setState(() => {
+        return {virtualTime: currentTime};
+      });
     } else {
       this.props.updateCurrentTime(currentTime);
     }

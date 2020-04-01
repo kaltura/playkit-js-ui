@@ -1,6 +1,6 @@
 //@flow
 import {h, Component} from 'preact';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions as cvaaActions} from '../../reducers/cvaa';
 import {actions as shellActions} from '../../reducers/shell';
@@ -54,8 +54,10 @@ class CVAAOverlay extends Component {
    * @memberof CVAAOverlay
    */
   componentWillUnmount() {
-    this.setState({
-      activeWindow: cvaaOverlayState.Main
+    this.setState(() => {
+      return {
+        activeWindow: cvaaOverlayState.Main
+      };
     });
   }
 
@@ -67,9 +69,11 @@ class CVAAOverlay extends Component {
    */
   componentWillMount() {
     const {player} = this.props;
-    this.setState({
-      activeWindow: cvaaOverlayState.Main,
-      customTextStyle: player.textStyle
+    this.setState(() => {
+      return {
+        activeWindow: cvaaOverlayState.Main,
+        customTextStyle: player.textStyle
+      };
     });
 
     this.props.setIsModal(true);
@@ -83,7 +87,9 @@ class CVAAOverlay extends Component {
    * @memberof CVAAOverlay
    */
   transitionToState(stateName: CvaaOverlayStateType): void {
-    this.setState({activeWindow: stateName});
+    this.setState(() => {
+      return {activeWindow: stateName};
+    });
   }
 
   /**
@@ -122,7 +128,9 @@ class CVAAOverlay extends Component {
    * @memberof CVAAOverlay
    */
   changeCustomStyle(styleChanges: Object): void {
-    this.setState({customTextStyle: Object.assign(this.state.customTextStyle, styleChanges)});
+    this.setState(() => {
+      return {customTextStyle: Object.assign(this.state.customTextStyle, styleChanges)};
+    });
   }
 
   /**

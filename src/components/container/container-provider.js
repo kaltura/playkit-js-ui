@@ -1,4 +1,4 @@
-import {Component} from 'preact';
+import {Component, toChildArray} from 'preact';
 import getLogger from '../../utils/logger';
 
 const logger = getLogger('ContainerProvider');
@@ -109,7 +109,7 @@ class ContainerProvider extends Component {
    * @returns {void}
    */
   render(props) {
-    return props.children[0];
+    return toChildArray(props.children)[0];
   }
 }
 

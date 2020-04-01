@@ -1,7 +1,7 @@
 //@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/loading';
 import {withPlayer} from '../player';
@@ -43,7 +43,9 @@ class Loading extends Component {
    */
   constructor() {
     super();
-    this.setState({afterPlayingEvent: false});
+    this.setState(() => {
+      return {afterPlayingEvent: false};
+    });
   }
 
   /**
@@ -87,12 +89,16 @@ class Loading extends Component {
     });
 
     eventManager.listen(player, player.Event.PLAYING, () => {
-      this.setState({afterPlayingEvent: true});
+      this.setState(() => {
+        return {afterPlayingEvent: true};
+      });
       this.props.updateLoadingSpinnerState(false);
     });
 
     eventManager.listen(player, player.Event.CHANGE_SOURCE_STARTED, () => {
-      this.setState({afterPlayingEvent: false});
+      this.setState(() => {
+        return {afterPlayingEvent: false};
+      });
     });
   }
 

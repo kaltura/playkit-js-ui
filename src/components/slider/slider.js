@@ -42,11 +42,13 @@ class Slider extends Component {
    * @memberof Slider
    */
   componentWillMount(): void {
-    this.setState({
-      value: this.props.value || 0,
-      min: this.props.min || 0,
-      max: this.props.max || 100,
-      dragging: false
+    this.setState(() => {
+      return {
+        value: this.props.value || 0,
+        min: this.props.min || 0,
+        max: this.props.max || 100,
+        dragging: false
+      };
     });
 
     document.addEventListener('mouseup', this.mouseUpHandler);
@@ -89,9 +91,11 @@ class Slider extends Component {
   mouseDownHandler(e: any): void {
     this._sliderElementOffsetLeft = this._sliderElement.getBoundingClientRect().left;
     if (!this.state.dragging) {
-      this.setState({
-        dragging: true,
-        value: this.mouseEventToValue(e)
+      this.setState(() => {
+        return {
+          dragging: true,
+          value: this.mouseEventToValue(e)
+        };
       });
       this.props.onChange(this.mouseEventToValue(e));
     }
@@ -124,9 +128,11 @@ class Slider extends Component {
         break;
       }
     }
-    this.setState({
-      value: newValue,
-      dragging: false
+    this.setState(() => {
+      return {
+        value: newValue,
+        dragging: false
+      };
     });
     this.props.onChange(newValue);
   }
@@ -140,8 +146,10 @@ class Slider extends Component {
    */
   mouseMoveHandler(e: any): void {
     if (this.state.dragging) {
-      this.setState({
-        value: this.mouseEventToValue(e)
+      this.setState(() => {
+        return {
+          value: this.mouseEventToValue(e)
+        };
       });
       this.props.onChange(this.mouseEventToValue(e));
     }
@@ -156,9 +164,11 @@ class Slider extends Component {
    */
   mouseUpHandler(e: any): void {
     if (this.state.dragging) {
-      this.setState({
-        value: this.mouseEventToValue(e),
-        dragging: false
+      this.setState(() => {
+        return {
+          value: this.mouseEventToValue(e),
+          dragging: false
+        };
       });
       this.props.onChange(this.mouseEventToValue(e));
     }

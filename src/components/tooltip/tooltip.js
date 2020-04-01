@@ -1,7 +1,7 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
-import {connect} from 'preact-redux';
+import {h, Component, toChildArray} from 'preact';
+import {connect} from 'react-redux';
 const PLAYER_MARGIN = 10;
 
 /**
@@ -64,7 +64,9 @@ class Tooltip extends Component {
       this._hoverTimeout = null;
     }
     this._hoverTimeout = setTimeout(() => {
-      this.setState({showTooltip: true});
+      this.setState(() => {
+        return {showTooltip: true};
+      });
     }, TOOLTIP_SHOW_TIMEOUT);
   }
 
@@ -74,7 +76,9 @@ class Tooltip extends Component {
    * @returns {void}
    */
   onMouseLeave(): void {
-    this.setState({showTooltip: false});
+    this.setState(() => {
+      return {showTooltip: false};
+    });
     clearTimeout(this._hoverTimeout);
     this._hoverTimeout = null;
   }
@@ -118,7 +122,9 @@ class Tooltip extends Component {
    * @returns {void}
    */
   componentWillMount(): void {
-    this.setState({valid: false, type: this.props.type});
+    this.setState(() => {
+      return {valid: false, type: this.props.type};
+    });
   }
 
   /**
@@ -131,16 +137,22 @@ class Tooltip extends Component {
   componentDidUpdate(prevProps: Object): void {
     if (this.props.playerClientRect !== prevProps.playerClientRect) {
       this.lastAlternativeTypeIndex = -1;
-      this.setState({valid: false, type: this.props.type});
+      this.setState(() => {
+        return {valid: false, type: this.props.type};
+      });
     } else if (this.state.showTooltip) {
       if (this.isToolTipInBoundaries()) {
         if (!this.state.valid) {
-          this.setState({valid: true});
+          this.setState(() => {
+            return {valid: true};
+          });
         }
       } else {
         const alternative = this.getAlternateType();
         if (alternative) {
-          this.setState({valid: false, type: alternative});
+          this.setState(() => {
+            return {valid: false, type: alternative};
+          });
         }
       }
     }
@@ -157,7 +169,7 @@ class Tooltip extends Component {
     const className = [style.tooltipLabel, style[`tooltip-${this.state.type}`]];
     this.state.showTooltip && this.state.valid ? className.push(style.show) : className.push(style.hide);
     return props.isMobile ? (
-      props.children[0]
+      toChildArray(props.children)[0]
     ) : (
       <div className={style.tooltip} onMouseOver={() => this.onMouseOver()} onMouseLeave={() => this.onMouseLeave()}>
         {props.children}

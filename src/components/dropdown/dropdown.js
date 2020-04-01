@@ -1,7 +1,7 @@
 //@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 import {Menu} from '../menu';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
@@ -37,7 +37,9 @@ class DropDown extends Component {
    * @memberof DropDown
    */
   componentWillMount() {
-    this.setState({dropMenuActive: false});
+    this.setState(() => {
+      return {dropMenuActive: false};
+    });
   }
   /**
    * after component mounted, set the callback to be called when parent selected
@@ -70,7 +72,9 @@ class DropDown extends Component {
    */
   onMenuChosen(option: Object): void {
     this.props.onMenuChosen(option);
-    this.setState({dropMenuActive: false});
+    this.setState(() => {
+      return {dropMenuActive: false};
+    });
   }
 
   /**
@@ -83,7 +87,9 @@ class DropDown extends Component {
   onKeyDown(e: KeyboardEvent): void {
     switch (e.keyCode) {
       case KeyMap.ENTER:
-        this.setState({dropMenuActive: !this.state.dropMenuActive});
+        this.setState(() => {
+          return {dropMenuActive: !this.state.dropMenuActive};
+        });
         break;
       case KeyMap.ESC:
         if (this.state.dropMenuActive) {
@@ -102,7 +108,9 @@ class DropDown extends Component {
    * @memberof DropDown
    */
   onClose(): void {
-    this.setState({dropMenuActive: false});
+    this.setState(() => {
+      return {dropMenuActive: false};
+    });
   }
 
   /**
@@ -166,7 +174,10 @@ class DropDown extends Component {
           aria-expanded={this.state.dropMenuActive ? 'true' : 'false'}
           aria-labelledby={[props.name, activeOptionId].join(' ')}
           className={style.dropdownButton}
-          onClick={() => this.toggleDropDown()}
+          onClick={e => {
+            e.stopPropagation();
+            this.toggleDropDown();
+          }}
           onKeyDown={e => {
             switch (e.keyCode) {
               case KeyMap.ENTER:
@@ -193,7 +204,9 @@ class DropDown extends Component {
    * @memberof DropDown
    */
   toggleDropDown(): void {
-    this.setState({dropMenuActive: !this.state.dropMenuActive});
+    this.setState(() => {
+      return {dropMenuActive: !this.state.dropMenuActive};
+    });
   }
 }
 

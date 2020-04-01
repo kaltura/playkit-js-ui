@@ -1,7 +1,7 @@
 //@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withLogger} from 'components/logger';
@@ -40,7 +40,9 @@ class Watermark extends Component {
    */
   constructor() {
     super();
-    this.setState({show: true});
+    this.setState(() => {
+      return {show: true};
+    });
   }
 
   /**
@@ -56,14 +58,22 @@ class Watermark extends Component {
      */
     const onPlaying = () => {
       if (this.props.config.timeout > 0) {
-        setTimeout(() => this.setState({show: false}), this.props.config.timeout);
+        setTimeout(
+          () =>
+            this.setState(() => {
+              return {show: false};
+            }),
+          this.props.config.timeout
+        );
       }
     };
 
     const {player} = this.props;
     this.props.eventManager.listenOnce(player, player.Event.PLAYING, onPlaying);
     this.props.eventManager.listen(player, player.Event.CHANGE_SOURCE_ENDED, () => {
-      this.setState({show: true});
+      this.setState(() => {
+        return {show: true};
+      });
       this.props.eventManager.listenOnce(player, player.Event.PLAYING, onPlaying);
     });
   }

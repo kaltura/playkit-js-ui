@@ -2,7 +2,7 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {withText, Text} from 'preact-i18n';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/settings';
 import {SmartContainer} from '../smart-container';
@@ -95,7 +95,9 @@ class Settings extends Component {
    * @memberof Settings
    */
   componentWillMount() {
-    this.setState({smartContainerOpen: false});
+    this.setState(() => {
+      return {smartContainerOpen: false};
+    });
   }
 
   /**
@@ -168,7 +170,9 @@ class Settings extends Component {
       !this._controlSettingsElement.contains(e.target) &&
       this.state.smartContainerOpen
     ) {
-      this.setState({smartContainerOpen: false});
+      this.setState(() => {
+        return {smartContainerOpen: false};
+      });
     }
   }
 
@@ -179,7 +183,9 @@ class Settings extends Component {
    * @memberof Settings
    */
   onControlButtonClick(): void {
-    this.setState({smartContainerOpen: !this.state.smartContainerOpen});
+    this.setState(() => {
+      return {smartContainerOpen: !this.state.smartContainerOpen};
+    });
   }
 
   /**

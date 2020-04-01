@@ -1,6 +1,6 @@
 //@flow
 import {h, Component} from 'preact';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 import {TimeDisplay} from '../time-display';
 import {withLogger} from 'components/logger';
 

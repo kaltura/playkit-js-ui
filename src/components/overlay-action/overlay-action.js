@@ -1,7 +1,7 @@
 //@flow
 import {h, Component} from 'preact';
 import style from '../../styles/style.scss';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/overlay-action';
 import {actions as shellActions} from '../../reducers/shell';
@@ -240,12 +240,18 @@ class OverlayAction extends Component {
     if (this._iconTimeout !== null) {
       clearTimeout(this._iconTimeout);
       this._iconTimeout = null;
-      this.setState({animation: false});
+      this.setState(() => {
+        return {animation: false};
+      });
       this.forceUpdate();
     }
-    this.setState({animation: true, iconType: iconType});
+    this.setState(() => {
+      return {animation: true, iconType: iconType};
+    });
     this._iconTimeout = setTimeout(() => {
-      this.setState({animation: false});
+      this.setState(() => {
+        return {animation: false};
+      });
     }, OVERLAY_ACTION_DEFAULT_TIMEOUT);
   }
 

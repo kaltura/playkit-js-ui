@@ -61,9 +61,13 @@ class Rewind extends Component {
    * @memberof Rewind
    */
   animate(): void {
-    this.setState({animation: false});
+    this.setState(() => {
+      return {animation: false};
+    });
     this.forceUpdate();
-    this.setState({animation: true});
+    this.setState(() => {
+      return {animation: true};
+    });
   }
 
   /**

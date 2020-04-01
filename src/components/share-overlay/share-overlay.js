@@ -1,7 +1,7 @@
 //@flow
 import {h, Component} from 'preact';
 import {Text, Localizer} from 'preact-i18n';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/share';
 import {toHHMMSS, toSecondsFromHHMMSS} from '../../utils/time-format';
@@ -178,10 +178,12 @@ class ShareOverlay extends Component {
    */
   componentWillMount() {
     this.isIos = this.props.player.env.os.name === 'iOS';
-    this.setState({
-      view: shareOverlayView.Main,
-      startFrom: false,
-      startFromValue: Math.floor(this.props.player.currentTime)
+    this.setState(() => {
+      return {
+        view: shareOverlayView.Main,
+        startFrom: false,
+        startFromValue: Math.floor(this.props.player.currentTime)
+      };
     });
   }
 
@@ -216,7 +218,9 @@ class ShareOverlay extends Component {
    * @memberof ShareOverlay
    */
   _transitionToState(stateName: string): void {
-    this.setState({view: stateName});
+    this.setState(() => {
+      return {view: stateName};
+    });
   }
 
   /**
@@ -272,7 +276,9 @@ class ShareOverlay extends Component {
    * @memberof ShareOverlay
    */
   _toggleStartFrom(): void {
-    this.setState({startFrom: !this.state.startFrom});
+    this.setState(() => {
+      return {startFrom: !this.state.startFrom};
+    });
   }
 
   /**
@@ -286,9 +292,13 @@ class ShareOverlay extends Component {
   _handleStartFromChange(e: any): void {
     let seconds = toSecondsFromHHMMSS(e.target.value);
     if (seconds >= this.props.player.duration) {
-      this.setState({startFromValue: 1});
+      this.setState(() => {
+        return {startFromValue: 1};
+      });
     }
-    this.setState({startFromValue: seconds});
+    this.setState(() => {
+      return {startFromValue: seconds};
+    });
   }
 
   /**

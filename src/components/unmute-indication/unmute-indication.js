@@ -1,7 +1,7 @@
 //@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {Localizer, Text} from 'preact-i18n';
@@ -65,7 +65,9 @@ class UnmuteIndication extends Component {
    */
   _iconOnlyTimeout(): void {
     setTimeout(() => {
-      this.setState({iconOnly: true});
+      this.setState(() => {
+        return {iconOnly: true};
+      });
     }, MUTED_AUTOPLAY_ICON_ONLY_DEFAULT_TIMEOUT);
   }
 
@@ -101,8 +103,16 @@ class UnmuteIndication extends Component {
           tabIndex="0"
           aria-label={<Text id="controls.unmute" />}
           className={styleClass.join(' ')}
-          onMouseOver={() => this.setState({iconOnly: false})}
-          onMouseOut={() => this.setState({iconOnly: true})}
+          onMouseOver={() =>
+            this.setState(() => {
+              return {iconOnly: false};
+            })
+          }
+          onMouseOut={() =>
+            this.setState(() => {
+              return {iconOnly: true};
+            })
+          }
           onMouseUp={() => (this.props.player.muted = !this.props.player.muted)}
           onTouchEnd={e => e.stopImmediatePropagation()}
           onKeyDown={e => this._keyDownHandler(e)}>

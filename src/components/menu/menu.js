@@ -2,7 +2,7 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {default as Icon, IconType} from '../icon';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 import {bindMethod} from '../../utils/bind-method';
 import {withKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
 import {KeyMap} from 'utils/key-map';
@@ -57,7 +57,9 @@ class Menu extends Component {
    * @memberof Menu
    */
   componentWillMount() {
-    this.setState({position: [style.top, style.left]});
+    this.setState(() => {
+      return {position: [style.top, style.left]};
+    });
   }
 
   /**
@@ -69,7 +71,9 @@ class Menu extends Component {
     this.props.eventManager.listen(document, 'click', this.handleClickOutside);
 
     if (!this.props.isMobile && !this.props.isSmallSize) {
-      this.setState({position: this.getPosition()});
+      this.setState(() => {
+        return {position: this.getPosition()};
+      });
     }
   }
 

@@ -1,7 +1,7 @@
 //@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 import {PlaylistButton} from '../playlist-button';
 import {PlayPause} from '../play-pause';
 

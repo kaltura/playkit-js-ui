@@ -1,7 +1,7 @@
 //@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/volume';
 import {actions as engineActions} from '../../reducers/engine';
@@ -157,7 +157,9 @@ class Volume extends Component {
   onMouseOver(): void {
     if (this.props.isMobile) return;
     this.props.updateVolumeHover(true);
-    this.setState({hover: true});
+    this.setState(() => {
+      return {hover: true};
+    });
   }
 
   /**
@@ -169,7 +171,9 @@ class Volume extends Component {
   onMouseOut(): void {
     if (this.props.isMobile) return;
     this.props.updateVolumeHover(false);
-    this.setState({hover: false});
+    this.setState(() => {
+      return {hover: false};
+    });
   }
 
   /**
@@ -200,7 +204,9 @@ class Volume extends Component {
     switch (event.keyCode) {
       case KeyMap.UP:
         if (isAccessabilityHandler) {
-          this.setState({hover: true});
+          this.setState(() => {
+            return {hover: true};
+          });
         } else {
           this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeWaves]);
         }
@@ -210,7 +216,9 @@ class Volume extends Component {
       case KeyMap.DOWN:
         newVolume = Math.max(Math.round(player.volume * 100) - KEYBOARD_DEFAULT_VOLUME_JUMP, 0);
         if (isAccessabilityHandler) {
-          this.setState({hover: true});
+          this.setState(() => {
+            return {hover: true};
+          });
         } else {
           newVolume === 0
             ? this.props.updateOverlayActionIcon([IconType.VolumeBase, IconType.VolumeMute])
@@ -252,7 +260,9 @@ class Volume extends Component {
         this.handleKeydown(event, true);
         break;
       default:
-        this.setState({hover: false});
+        this.setState(() => {
+          return {hover: false};
+        });
         break;
     }
   }

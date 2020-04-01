@@ -4,7 +4,7 @@ import {h, Component} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 import {withPlayer} from '../player';
 import {withLogger} from 'components/logger';
 import {bindActions} from '../../utils/bind-actions';
@@ -54,7 +54,9 @@ class PlaylistCountdown extends Component {
    */
   constructor(props: Object) {
     super(props);
-    this.setState({focusable: false});
+    this.setState(() => {
+      return {focusable: false};
+    });
   }
 
   /**
@@ -116,9 +118,13 @@ class PlaylistCountdown extends Component {
   componentWillUpdate(nextProps: Object) {
     const timeToShow = this._getTimeToShow();
     if (nextProps.currentTime >= timeToShow) {
-      this.setState({timeToShow: true});
+      this.setState(() => {
+        return {timeToShow: true};
+      });
     } else {
-      this.setState({timeToShow: false});
+      this.setState(() => {
+        return {timeToShow: false};
+      });
       this.props.updatePlaylistCountdownCanceled(false);
     }
   }
@@ -171,15 +177,22 @@ class PlaylistCountdown extends Component {
         this.props.eventManager.listenOnce(this.focusElement, 'animationend', () => {
           if (this.isShown) {
             this.focusElement.focus();
-            this.setState({focusable: true});
+            this.setState(() => {
+              return {focusable: true};
+            });
           }
         });
       }
     } else if (prevState.shown && !this.state.shown) {
-      this.setState({focusable: false});
+      this.setState(() => {
+        return {focusable: false};
+      });
     }
 
-    if (this.isShown !== this.state.shown) this.setState({shown: this.isShown});
+    if (this.isShown !== this.state.shown)
+      this.setState(() => {
+        return {shown: this.isShown};
+      });
   }
 
   /**
