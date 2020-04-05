@@ -6,7 +6,6 @@ import {actions} from '../../reducers/shell';
 import {SidePanelsContainer} from '../side-panels-container';
 import {withPresetAreas} from '../preset-areas';
 import {ActivePreset} from '../active-preset';
-import {VideoArea} from '../video-area';
 import {PlayerArea} from '../player-area';
 import style from '../../styles/style.scss';
 
@@ -76,7 +75,7 @@ class PlayerGUI extends Component {
     }
 
     return (
-      <SidePanelsContainer before={<VideoArea />} after={<PlayerArea />}>
+      <SidePanelsContainer after={<PlayerArea />}>
         <div ref={this._setPresetContainerRef} style={areaProperties.style} className={style.activePresetContainer}>
           <ActivePreset uis={uis} playerContainer={this._presetContainerRef} />
         </div>

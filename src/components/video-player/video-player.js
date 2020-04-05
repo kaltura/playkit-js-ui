@@ -1,11 +1,19 @@
 //@flow
+import { CustomEventType, utils as playkitUtils } from '@playkit-js/playkit-js';
+import { h, Component } from 'preact';
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
-import {withPlayer} from '../player';
-import {VideoAreaContainer} from '../video-area-container';
-import {VideoResizeEvent} from 'event/events/video-resize-event';
+import { withPlayer } from '../player';
+import { VideoArea } from '../video-area';
+import { VideoAreaContainer } from '../video-area-container';
+import {connect} from 'preact-redux';
+import {bindActions} from '../../utils/bind-actions';
+import {actions as shellActions} from '../../reducers/shell';
 
 @withPlayer
+@connect(
+  null,
+  bindActions({updateVideoClientRect: shellActions.updateVideoClientRect})
+)
 /**
  * VideoPlayer component
  *
@@ -15,6 +23,7 @@ import {VideoResizeEvent} from 'event/events/video-resize-event';
  */
 class VideoPlayer extends Component {
   _el: HTMLElement;
+  _videoResizeWatcher: ResizeWatcher;
 
   /**
    * this component should not render itself when player object changes.
@@ -26,18 +35,28 @@ class VideoPlayer extends Component {
     return false;
   }
 
+  _onVideoResize = (e) => {
+    const videoElement = e.target._el; // TODO sakal check for better api
+    this.props.updateVideoClientRect(videoElement.getBoundingClientRect());
+  }
   _setRef = ref => {
+    if (this._videoResizeWatcher) {
+      this._videoResizeWatcher.removeEventListener(CustomEventType.RESIZE, this._onVideoResize);
+      this._videoResizeWatcher = null;
+    }
+
     this._el = ref;
 
     if (!this._el) {
       return;
     }
-    this._el.appendChild(this.props.player.getView());
-  };
 
-  _onResize = (size: {width: number, height: number}) => {
-    this.props.player.dispatchEvent(new VideoResizeEvent(size));
-  }
+    this._el.appendChild(this.props.player.getView());
+
+    this._videoResizeWatcher = new playkitUtils.ResizeWatcher();
+    this._videoResizeWatcher.init(this._el);
+    this._videoResizeWatcher.addEventListener(CustomEventType.RESIZE, this._onVideoResize);
+  };
 
   /**
    * render component
@@ -47,11 +66,17 @@ class VideoPlayer extends Component {
    */
   render(): React$Element<any> {
     return (
-      <VideoAreaContainer onResize={this._onResize}>
-        {context => <div className={context.className + ' ' + style.videoPlayer} style={context.style} ref={this._setRef} />}
+      <VideoAreaContainer >
+        {context => 
+        <div>
+        <div className={context.className + ' ' + style.videoPlayer} style={context.style} ref={this._setRef} />
+        <VideoArea />
+        </div>
+        }
       </VideoAreaContainer>
     );
   }
 }
 
-export {VideoPlayer};
+export { VideoPlayer };
+

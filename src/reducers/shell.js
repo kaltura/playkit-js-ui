@@ -8,6 +8,7 @@ export const types = {
   UPDATE_PRESET_CLIENT_RECT: 'shell/UPDATE_PRESET_CLIENT_RECT',
   UPDATE_IS_SMALL_SIZE: 'shell/UPDATE_IS_SMALL_SIZE',
   UPDATE_PLAYER_CLIENT_RECT: 'shell/UPDATE_PLAYER_CLIENT_RECT',
+  UPDATE_VIDEO_CLIENT_RECT: 'shell/UPDATE_VIDEO_CLIENT_RECT',
   UPDATE_DOCUMENT_WIDTH: 'shell/UPDATE_DOCUMENT_WIDTH',
   UPDATE_PLAYER_HOVER_STATE: 'shell/UPDATE_PLAYER_HOVER_STATE',
   UPDATE_PLAYER_NAV_STATE: 'shell/UPDATE_PLAYER_NAV_STATE',
@@ -53,6 +54,7 @@ export const initialState = {
   playerClasses: [],
   presetClientRect: {width: 0, height: 0},
   playerClientRect: {width: 0, height: 0},
+  videoClientRect: {width: 0, height: 0},
   playerHover: false,
   playerNav: false,
   smartContainerOpen: false,
@@ -113,6 +115,12 @@ export default (state: Object = initialState, action: Object) => {
       return {
         ...state,
         playerClientRect: action.playerClientRect
+      };
+
+    case types.UPDATE_VIDEO_CLIENT_RECT:
+      return {
+        ...state,
+        videoClientRect: action.videoClientRect
       };
 
     case types.UPDATE_DOCUMENT_WIDTH:
@@ -199,6 +207,7 @@ export const actions = {
   updateIsSmallSize: (isSmallSize: boolean) => ({type: types.UPDATE_IS_SMALL_SIZE, isSmallSize}),
   updatePresetClientRect: (presetClientRect: Object) => ({type: types.UPDATE_PRESET_CLIENT_RECT, presetClientRect}),
   updatePlayerClientRect: (playerClientRect: Object) => ({type: types.UPDATE_PLAYER_CLIENT_RECT, playerClientRect}),
+  updateVideoClientRect: (videoClientRect: Object) => ({type: types.UPDATE_VIDEO_CLIENT_RECT, videoClientRect}),
   updateDocumentWidth: (documentWidth: number) => ({type: types.UPDATE_DOCUMENT_WIDTH, documentWidth}),
   updatePlayerHoverState: (hover: boolean) => ({type: types.UPDATE_PLAYER_HOVER_STATE, hover}),
   updatePlayerNavState: (nav: boolean) => ({type: types.UPDATE_PLAYER_NAV_STATE, nav}),

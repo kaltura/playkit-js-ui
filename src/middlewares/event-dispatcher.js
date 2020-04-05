@@ -8,6 +8,7 @@ import {QualitySelectedEvent} from '../event/events/quality-selected-event';
 import {SeekedEvent} from '../event/events/seeked-event';
 import {SpeedSelectedEvent} from '../event/events/speed-selected-event';
 import {UIPresetResizeEvent} from '../event/events/ui-preset-resize-event';
+import {VideoResizeEvent} from '../event/events/video-resize-event';
 import {UIVisibilityChangedEvent} from '../event/events/ui-visibility-changed-event';
 import {RewindClickedEvent} from '../event/events/rewind-clicked';
 import {ForwardClickedEvent} from '../event/events/forward-clicked';
@@ -50,6 +51,9 @@ const eventDispatcherMiddleware = (player: Object) => (store: Object) => (next: 
     case shell.UPDATE_PRESET_CLIENT_RECT:
       onUIPresetResizeHandler(store, action, player);
       break;
+    case shell.UPDATE_VIDEO_CLIENT_RECT:
+      onVideoResizeHandler(store, action, player);
+      break;
 
     default:
       break;
@@ -66,6 +70,18 @@ const eventDispatcherMiddleware = (player: Object) => (store: Object) => (next: 
 function onUIPresetResizeHandler(store: any, action: Object, player: Object): void {
   const presetClientRect = store.getState().shell.presetClientRect;
   player.dispatchEvent(new UIPresetResizeEvent(presetClientRect));
+}
+
+/**
+ * Handler for video resize change action
+ * @param {any} store - The redux store.
+ * @param {Object} action - The action object.
+ * @param {Object} player - The video player.
+ * @returns {void}
+ */
+function onVideoResizeHandler(store: any, action: Object, player: Object): void {
+  const videoClientRect = store.getState().shell.videoClientRect;
+  player.dispatchEvent(new VideoResizeEvent(videoClientRect));
 }
 
 /**
