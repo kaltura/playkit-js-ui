@@ -55,22 +55,6 @@ class Rewind extends Component {
   }
 
   /**
-   * toggles the animation state to activate the rotate animation
-   *
-   * @returns {void}
-   * @memberof Rewind
-   */
-  animate(): void {
-    this.setState(() => {
-      return {animation: false};
-    });
-    this.forceUpdate();
-    this.setState(() => {
-      return {animation: true};
-    });
-  }
-
-  /**
    * render component
    *
    * @param {*} props - component props
