@@ -30,7 +30,8 @@ function getPositionedContainerItem(dictionary, componentName) {
 
 const initialState = {
   containerComponents: null,
-  hasPositionedComponents: false
+  hasPositionedComponents: false,
+  presetComponentsOnlyMode: true
 };
 
 /**
@@ -46,13 +47,12 @@ function getComponentName(component: any) {
   return component.nodeName.displayName;
 }
 
-@connect(mapStateToProps)
 @withLogger('Container')
+@connect(mapStateToProps)
 /**
  * A video container enabling injecting components by preset, container and position
  */
 class Container extends Component {
-  presetComponentsOnlyMode = false;
 
   static defaultProps = {
     show: true
@@ -68,56 +68,25 @@ class Container extends Component {
     this.setState(initialState);
   }
 
-  /**
-   * component did mount
-   * @return {void}
-   */
-  componentDidMount(): void {
-    if (!this.context.presetComponentsStore) {
-      return;
+  componentDidUpdate(prevProps) {
+    if (prevProps.activePresetName !== this.props.activePresetName) {
+      this._updateAreaComponents();
     }
-    const {activePresetName, name} = this.props;
-
-    if (!activePresetName) {
-      this.presetComponentsOnlyMode = true;
-      return;
-    }
-
-    this.props.logger.debug(`container name '${name}' mount (active preset '${activePresetName}') - handle injected components`);
-    this.context.presetComponentsStore.listen(this._onPresetsComponentsChange);
   }
 
-  /**
-   * componentWillUnmount
-   *
-   * @returns {void}
-   */
-  componentWillUnmount(): void {
-    if (!this.context.presetComponentsStore) {
+  _updateAreaComponents = (): void => {
+   
+    const { activePresetName, name } = this.props;
+    const presetComponentsStore = this.context.presetComponentsStore;
+    const presetsComponents = presetComponentsStore ? presetComponentsStore.getPresetComponents() : null;
+
+    if (!presetComponentsStore || !activePresetName || !presetsComponents) {
+      this.props.logger.debug(`container name '${name}' is limited to self components only`);
+      this.setState(initialState);
       return;
     }
 
-    if (this.presetComponentsOnlyMode) {
-      return;
-    }
-
-    this.context.presetComponentsStore.unlisten(this._onPresetsComponentsChange);
-
-    const {activePresetName} = this.props;
-    this.props.logger.debug(`container name '${name}' un-mount (active preset '${activePresetName}')`);
-  }
-
-  /**
-   * update container components
-   * @param {*} presetsComponents presetsComponents
-   * @return {void}
-   */
-  _onPresetsComponentsChange = (presetsComponents: any) => {
-    if (!presetsComponents) {
-      return;
-    }
-
-    const {activePresetName} = this.props;
+    this.props.logger.debug(`container name '${name}' allows injections for preset '${activePresetName}'`);
 
     const nextContainerComponents = {
       appendedComponents: [],
@@ -145,9 +114,31 @@ class Container extends Component {
 
     this.setState({
       containerComponents: nextContainerComponents,
-      hasPositionedComponents
+      hasPositionedComponents,
+      presetComponentsOnlyMode: false
     });
-  };
+  
+  }
+
+  /**
+   * component did mount
+   * @return {void}
+   */
+  componentDidMount(): void {
+    this.props.logger.debug(`container name '${this.props.name}' mounted`);
+    this.context.presetComponentsStore.listen(this._updateAreaComponents);
+  }
+
+  /**
+   * componentWillUnmount
+   *
+   * @returns {void}
+   */
+  componentWillUnmount(): void {
+    const { name } = this.props;
+    this.props.logger.debug(`container name '${this.props.name}' will-unmount`);
+    this.context.presetComponentsStore.unlisten(this._updateAreaComponents);
+  }
 
   /**
    *  render preset component
@@ -187,7 +178,7 @@ class Container extends Component {
     const {children, show, preAppendTo} = this.props;
     const {containerComponents, hasPositionedComponents} = this.state;
 
-    if (this.presetComponentsOnlyMode) {
+    if (this.state.presetComponentsOnlyMode) {
       return this.renderContent(this.props.children);
     }
 

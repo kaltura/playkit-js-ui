@@ -29,12 +29,11 @@ const mapStateToProps = state => ({
 const logger = getLogger('ActivePreset');
 const COMPONENT_NAME = 'ActivePreset';
 
+@withEventDispatcher(COMPONENT_NAME)
 @connect(
   mapStateToProps,
   bindActions(actions)
 )
-@withEventDispatcher(COMPONENT_NAME)
-
 /**
  * Active preset
  *

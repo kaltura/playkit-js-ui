@@ -1,16 +1,16 @@
 //@flow
 import { CustomEventType, utils as playkitUtils } from '@playkit-js/playkit-js';
 import { h, Component } from 'preact';
+import { connect } from 'preact-redux';
+import { actions as shellActions } from '../../reducers/shell';
 import style from '../../styles/style.scss';
+import { bindActions } from '../../utils/bind-actions';
+import { Container } from '../container';
 import { withPlayer } from '../player';
-import { VideoArea } from '../video-area';
-import { VideoAreaContainer } from '../video-area-container';
-import {connect} from 'preact-redux';
-import {bindActions} from '../../utils/bind-actions';
-import {actions as shellActions} from '../../reducers/shell';
-import {Container} from '../container';
+import {withPresetAreas} from '../preset-areas';
 
 @withPlayer
+@withPresetAreas
 @connect(
   null,
   bindActions({updateVideoClientRect: shellActions.updateVideoClientRect})
@@ -32,8 +32,8 @@ class VideoPlayer extends Component {
    * @returns {void}
    * @memberof VideoPlayer
    */
-  shouldComponentUpdate() {
-    return false;
+  shouldComponentUpdate(nextProps: PropsType): boolean {
+    return nextProps.presetAreasService !== this.props.presetAreasService;
   }
 
   _onVideoResize = (e) => {
@@ -66,16 +66,15 @@ class VideoPlayer extends Component {
    * @memberof VideoPlayer
    */
   render(): React$Element<any> {
+    const { presetAreasService } = this.props;
+    const styleValue = presetAreasService.calculateVideoStyles();
+
     return (
-      <VideoAreaContainer >
-        {context => 
-        <div>
-          <div className={context.className + ' ' + style.videoPlayer} style={context.style} ref={this._setRef} />
-          <Container name={'PreVideoArea'}  />
-          <VideoArea />
-        </div>
-        }
-      </VideoAreaContainer>
+      <div>
+        <div className={style.videoPlayer} style={styleValue} ref={this._setRef} />
+        <Container name={'PreVideoArea'} style={styleValue} />
+        <Container name={'VideoArea'} style={styleValue} />
+     </div>
     );
   }
 }

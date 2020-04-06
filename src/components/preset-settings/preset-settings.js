@@ -5,13 +5,14 @@ import {bindActions} from 'utils/bind-actions';
 import {actions} from 'reducers/shell';
 import {withPlayer} from '../player';
 
+
+@withPlayer
 @connect(
   state => ({
     activePresetName: state.shell.activePresetName
   }),
   bindActions(actions)
 )
-@withPlayer
 export class PresetSettings extends Component {
 
   _removePreVideoAreaComponent = null;

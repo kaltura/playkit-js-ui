@@ -26,7 +26,7 @@ export class PlayerArea extends Component {
     const {children, className, preAppendTo, activePresetName, allowPlayerArea} = this.props;
 
     return allowPlayerArea ? (
-      <Container key={activePresetName} className={className} name={'PlayerArea'} preAppendTo={preAppendTo}>
+      <Container className={className} name={'PlayerArea'} preAppendTo={preAppendTo}>
         {children}
       </Container>
     ) : null;

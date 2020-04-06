@@ -84,11 +84,11 @@ class ContainerProvider extends Component {
     });
 
     return () => {
-      this._removeFromPreVideoArea(clonedComponentData);
+      this._removeNewComponent(clonedComponentData);
     }
   }
 
-  _removeFromPreVideoArea = (componentData) => {
+  _removeNewComponent = (componentData) => {
     if (!this._validateComponentData(componentData)) {
       return;
     }
@@ -150,6 +150,9 @@ class ContainerProvider extends Component {
     this._listeners.splice(index, 1);
   };
 
+  _getPresetComponents = () => {
+    return this._presetsComponents;
+  }
   /**
    *
    * @returns {void}
@@ -161,7 +164,8 @@ class ContainerProvider extends Component {
       presetComponentsStore: {
         listen: this._listen,
         unlisten: this._unlisten,
-        addNewComponent: this._addNewComponentAndUpdateListeners
+        addNewComponent: this._addNewComponentAndUpdateListeners,
+        getPresetComponents: this._getPresetComponents
       }
     };
   }
