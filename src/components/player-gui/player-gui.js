@@ -77,7 +77,9 @@ class PlayerGUI extends Component {
     return (
       <SidePanelsContainer after={<PlayerArea />}>
         <div ref={this._setPresetContainerRef} style={areaProperties.style} className={style.activePresetContainer}>
-          <ActivePreset uis={uis} playerContainer={this._presetContainerRef} />
+          <div className={style.activePresetContent} >
+            <ActivePreset uis={uis} playerContainer={this._presetContainerRef} />
+          </div>
         </div>
       </SidePanelsContainer>
     );

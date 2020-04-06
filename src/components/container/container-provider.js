@@ -7,6 +7,7 @@ const logger = getLogger('ContainerProvider');
  * container provider
  */
 class ContainerProvider extends Component {
+
   /**
    * constructor
    * @return {void}
@@ -14,7 +15,7 @@ class ContainerProvider extends Component {
   constructor() {
     super();
     this._listeners = [];
-    this._presetsComponents = null;
+    this._presetsComponents = {};
   }
 
   /**
@@ -23,30 +24,91 @@ class ContainerProvider extends Component {
    * @return {void}
    */
   _initializePresetComponents() {
-    const presetsComponents = {};
-    (this.props.uiComponents || []).forEach(component => {
-      if (!component.get || !component.container || !component.presets) {
-        logger.warn(
-          `preset with label '${component.label ||
-            ''}' configuration is invalid, missing required configuration (did you remember to set 'get', 'presets' and 'render'?)`
-        );
+    let shouldTriggerListeners = false;
+    (this.props.uiComponents || []).forEach(componentData => {
+      const componentAdded = !!this._addNewComponent(componentData);
+      shouldTriggerListeners = shouldTriggerListeners || componentAdded;
+    });
+
+    if (!shouldTriggerListeners) {
+      return;
+    }
+
+    this._updateListeners();
+  }
+
+  _updateListeners() {
+    setTimeout(() => {
+      // use timeout to make sure redux store is in sync
+      this._listeners.forEach(cb => {
+        try {
+          cb(this._presetsComponents);
+        } catch (e) {
+          logger.error(`error occurred with one of the containers handling preset components.`, e);
+        }
+      });
+    }, 200);
+  }
+
+  _validateComponentData = (componentData) => {
+    if (!componentData.get || !componentData.container || !componentData.presets) {
+      logger.warn(
+        `component data with label '${component.label ||
+          ''}' is invalid (did you remember to set 'get', 'presets' and 'container'?)`
+      );
+      return false;
+    }
+
+    return true;
+  }
+
+  _addNewComponentAndUpdateListeners = (componentData) => {
+    const result = this._addNewComponent(componentData);
+
+    if (!!result) {
+      this._updateListeners();
+    }
+
+    return result;
+  }
+
+  _addNewComponent = (componentData) => {
+    // use cloned component just in case someone will mutate the object in another place
+    const clonedComponentData = Object.assign({}, componentData);
+    if (!this._validateComponentData(clonedComponentData)) {
+      return () => {};
+    }
+
+    clonedComponentData.presets.forEach(preset => {
+      (this._presetsComponents[preset] || (this._presetsComponents[preset] = [])).push(clonedComponentData);
+    });
+
+    return () => {
+      this._removeFromPreVideoArea(clonedComponentData);
+    }
+  }
+
+  _removeFromPreVideoArea = (componentData) => {
+    if (!this._validateComponentData(componentData)) {
+      return;
+    }
+
+    let shouldUpdateListeners = false;
+    componentData.presets.forEach(preset => {
+      const presetComponents = (this._presetsComponents[preset] || []);
+      const index = presetComponents.indexOf(componentData);
+      if (index === -1) {
         return;
       }
-
-      component.presets.forEach(preset => {
-        (presetsComponents[preset] || (presetsComponents[preset] = [])).push(component);
-      });
+      presetComponents.splice(index, 1);
+      shouldUpdateListeners = true;
     });
 
-    this._presetsComponents = presetsComponents;
+    if (!shouldUpdateListeners) {
+      return;
+    }
 
-    this._listeners.forEach(cb => {
-      try {
-        cb(this._presetsComponents);
-      } catch (e) {
-        logger.error(`error occurred with one of the containers handling preset components.`, e);
-      }
-    });
+    this._updateListeners();
   }
 
   /**
@@ -98,7 +160,8 @@ class ContainerProvider extends Component {
     return {
       presetComponentsStore: {
         listen: this._listen,
-        unlisten: this._unlisten
+        unlisten: this._unlisten,
+        addNewComponent: this._addNewComponentAndUpdateListeners
       }
     };
   }

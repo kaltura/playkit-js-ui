@@ -1,3 +1,8 @@
 .active-preset-container {
+  pointer-events: none;
   transition: width $default-transition-time, left $default-transition-time, right $default-transition-time, bottom $default-transition-time,  top $default-transition-time;
+}
+
+.active-preset-content {
+  pointer-events: initial;
 }

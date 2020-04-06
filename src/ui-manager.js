@@ -112,7 +112,7 @@ class UIManager {
   buildDefaultUI(): void {
     const uis = [
       {template: props => presets.idleUI(props), condition: state => state.engine.isIdle},
-      {template: props => presets.errorUI(props), condition: state => state.engine.hasError},
+      {template: props => presets.errorUI(props), condition: state => window.sakal === 'error' || state.engine.hasError},
       {template: props => presets.adsUI(props), condition: state => state.engine.adBreak},
       {template: props => presets.liveUI(props), condition: state => window.sakal === 'live' || state.engine.isLive},
       {template: props => presets.playbackUI(props)}

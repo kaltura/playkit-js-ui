@@ -8,6 +8,7 @@ import { VideoAreaContainer } from '../video-area-container';
 import {connect} from 'preact-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions as shellActions} from '../../reducers/shell';
+import {Container} from '../container';
 
 @withPlayer
 @connect(
@@ -69,8 +70,9 @@ class VideoPlayer extends Component {
       <VideoAreaContainer >
         {context => 
         <div>
-        <div className={context.className + ' ' + style.videoPlayer} style={context.style} ref={this._setRef} />
-        <VideoArea />
+          <div className={context.className + ' ' + style.videoPlayer} style={context.style} ref={this._setRef} />
+          <Container name={'PreVideoArea'}  />
+          <VideoArea />
         </div>
         }
       </VideoAreaContainer>

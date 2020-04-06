@@ -11,7 +11,7 @@ export class VideoAreaContainer extends Component {
   }
 
   render() {
-    const {children, presetAreasService, onResize} = this.props;
+    const {children, presetAreasService} = this.props;
     const videoStyle = presetAreasService.calculateVideoStyles();
 
     return children[0]({className: style.videoSize, style: videoStyle});

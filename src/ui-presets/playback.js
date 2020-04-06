@@ -47,12 +47,11 @@ function PlaybackUI(props: any): React$Element<any> {
   props.updateIsKeyboardEnabled(true);
   return (
     <PresetArea preAppendTo={'Backdrop'} className={style.playbackGuiWWrapper}>
-      <PresetSettings allowSidePanels={true} allowPlayerArea={true} allowVideoArea={true} />
+      <PresetSettings preVideoArea={<OverlayAction />}  allowSidePanels={true} allowPlayerArea={true} allowVideoArea={true} />
       <Loading />
       <Container className={style.playerGui} name={'BarsArea'} id="player-gui">
         <OverlayPortal />
         <UnmuteIndication />
-        <OverlayAction />
         <PictureInPictureOverlay />
         <PlaybackControls />
         <PlaylistNextScreen />
