@@ -4,6 +4,7 @@ import {connect} from 'preact-redux';
 import {bindActions} from 'utils/bind-actions';
 import {actions} from 'reducers/shell';
 import {withPlayer} from '../player';
+import {Container} from '../container';
 
 
 @withPlayer
@@ -13,7 +14,7 @@ import {withPlayer} from '../player';
   }),
   bindActions(actions)
 )
-export class PresetSettings extends Component {
+export class PlayerPreset extends Component {
 
   _removePreVideoAreaComponent = null;
 
@@ -63,6 +64,12 @@ export class PresetSettings extends Component {
   }
 
   render() {
-    return null;
+    const {children, className, preAppendTo} = this.props;
+
+    return (
+    <Container className={className} name={'PresetArea'} preAppendTo={preAppendTo}>
+      {children}
+    </Container>
+    )
   }
 }

@@ -30,8 +30,7 @@ import {Share} from '../components/share';
 import {TopBar} from '../components/top-bar';
 import {Logo} from '../components/logo/logo';
 import {InteractiveArea} from '../components/interactive-area';
-import {PresetArea} from '../components/preset-area';
-import {PresetSettings} from '../components/preset-settings';
+import {PlayerPreset} from '../components/player-preset';
 import {withKeyboardEvent} from 'components/keyboard';
 
 const PRESET_NAME = 'Playback';
@@ -46,8 +45,8 @@ const PRESET_NAME = 'Playback';
 function PlaybackUI(props: any): React$Element<any> {
   props.updateIsKeyboardEnabled(true);
   return (
-    <PresetArea preAppendTo={'Backdrop'} className={style.playbackGuiWWrapper}>
-      <PresetSettings preVideoArea={<OverlayAction />}  allowSidePanels={true} allowPlayerArea={true} allowVideoArea={true} />
+    <PlayerPreset preAppendTo={'Backdrop'} className={style.playbackGuiWWrapper}
+    preVideoArea={<OverlayAction />}  allowSidePanels={true} allowPlayerArea={true} allowVideoArea={true}>
       <Loading />
       <Container className={style.playerGui} name={'BarsArea'} id="player-gui">
         <OverlayPortal />
@@ -87,7 +86,7 @@ function PlaybackUI(props: any): React$Element<any> {
       <PrePlaybackPlayOverlay />
       <CastBeforePlay />
       <Backdrop />
-    </PresetArea>
+    </PlayerPreset>
   );
 }
 

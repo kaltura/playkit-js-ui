@@ -25,9 +25,8 @@ import {Share} from '../components/share';
 import {Container} from '../components/container';
 import {TopBar} from '../components/top-bar';
 import {Logo} from '../components/logo/logo';
-import {PresetArea} from 'components/preset-area';
 import {InteractiveArea} from 'components/interactive-area';
-import {PresetSettings} from 'components/preset-settings';
+import {PlayerPreset} from 'components/player-preset';
 import {withKeyboardEvent} from 'components/keyboard';
 
 const PRESET_NAME = 'Live';
@@ -41,8 +40,8 @@ const PRESET_NAME = 'Live';
 export function LiveUI(props: any): React$Element<any> {
   props.updateIsKeyboardEnabled(true);
   return (
-    <PresetArea preAppendTo={'Backdrop'} className={style.playbackGuiWWrapper}>
-      <PresetSettings allowSidePanels={true} allowPlayerArea={true} allowVideoArea={true} />
+    <PlayerPreset preAppendTo={'Backdrop'} className={style.playbackGuiWWrapper}
+    allowSidePanels={true} allowPlayerArea={true} allowVideoArea={true}>
       <Loading />
       <Container className={style.playerGui} name={'BarsArea'} id="player-gui">
         <OverlayPortal />
@@ -79,7 +78,7 @@ export function LiveUI(props: any): React$Element<any> {
       <CastBeforePlay />
       <PictureInPictureOverlay />
       <Backdrop />
-    </PresetArea>
+    </PlayerPreset>
   );
 }
 

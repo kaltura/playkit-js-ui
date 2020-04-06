@@ -21,7 +21,9 @@ export const types = {
 };
 
 type PresetSettings = {|
-  allowSidePanels: boolean
+  allowSidePanels: boolean,
+  allowPlayerArea: boolean,
+  allowVideoArea: boolean
 |};
 
 export const SidePanelOrientation = {
