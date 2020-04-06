@@ -5,7 +5,7 @@ import { connect } from 'preact-redux';
 import { actions as shellActions } from '../../reducers/shell';
 import style from '../../styles/style.scss';
 import { bindActions } from '../../utils/bind-actions';
-import { Container } from '../container';
+import {PresetArea} from '../preset-area';
 import { withPlayer } from '../player';
 import {withPresetAreas} from '../preset-areas';
 
@@ -72,8 +72,8 @@ class VideoPlayer extends Component {
     return (
       <div>
         <div className={style.videoPlayer} style={styleValue} ref={this._setRef} />
-        <Container name={'PreVideoArea'} style={styleValue} />
-        <Container name={'VideoArea'} style={styleValue} />
+        <PresetArea name={'PreVideoArea'} style={styleValue} />
+        <PresetArea name={'VideoArea'} style={styleValue} />
      </div>
     );
   }

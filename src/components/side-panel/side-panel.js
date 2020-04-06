@@ -3,7 +3,7 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
 import {withPresetAreas} from '../preset-areas';
-import {Container} from '../container';
+import {PresetArea} from '../preset-area';
 import {SidePanelPositions} from '../../reducers/shell';
 
 /**
@@ -79,7 +79,7 @@ class SidePanel extends Component {
 
     return (
       <div style={sidePanelStyles} className={styleClass.join(' ')} ref={c => (this._el = c)}>
-        <Container className={style.sidePanelContent} name={containerName} />
+        <PresetArea className={style.sidePanelContent} name={containerName} />
       </div>
     );
   }

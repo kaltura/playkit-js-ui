@@ -22,7 +22,7 @@ import {PlaybackControls} from '../components/playback-controls';
 import {PictureInPicture} from '../components/picture-in-picture';
 import {PictureInPictureOverlay} from '../components/picture-in-picture-overlay';
 import {Share} from '../components/share';
-import {Container} from '../components/container';
+import {PresetArea} from '../components/preset-area';
 import {TopBar} from '../components/top-bar';
 import {Logo} from '../components/logo/logo';
 import {InteractiveArea} from 'components/interactive-area';
@@ -43,25 +43,25 @@ export function LiveUI(props: any): React$Element<any> {
     <PlayerPreset preAppendTo={'Backdrop'} className={style.playbackGuiWWrapper}
     allowSidePanels={true} allowPlayerArea={true} allowVideoArea={true}>
       <Loading />
-      <Container className={style.playerGui} name={'BarsArea'} id="player-gui">
+      <PresetArea className={style.playerGui} name={'BarsArea'} id="player-gui">
         <OverlayPortal />
         <UnmuteIndication />
         <OverlayAction />
         <PlaybackControls />
         <InteractiveArea />
         <TopBar>
-          <Container className={style.leftControls} name={'TopBarLeftControls'} />
-          <Container className={style.rightControls} name={'TopBarRightControls'}>
+          <PresetArea className={style.leftControls} name={'TopBarLeftControls'} />
+          <PresetArea className={style.rightControls} name={'TopBarRightControls'}>
             <Share />
-          </Container>
+          </PresetArea>
         </TopBar>
         <BottomBar>
           <SeekBarLivePlaybackContainer showFramePreview showTimeBubble playerContainer={props.playerContainer} />
-          <Container className={style.leftControls} name={'BottomBarLeftControls'}>
+          <PresetArea className={style.leftControls} name={'BottomBarLeftControls'}>
             <PlaybackControls />
             <LiveTag />
-          </Container>
-          <Container className={style.rightControls} name={'BottomBarRightControls'}>
+          </PresetArea>
+          <PresetArea className={style.rightControls} name={'BottomBarRightControls'}>
             <VrStereo />
             <Volume />
             <Language />
@@ -70,9 +70,9 @@ export function LiveUI(props: any): React$Element<any> {
             <PictureInPicture />
             <Fullscreen />
             <Logo />
-          </Container>
+          </PresetArea>
         </BottomBar>
-      </Container>
+      </PresetArea>
       <Watermark />
       <PrePlaybackPlayOverlay />
       <CastBeforePlay />

@@ -1,7 +1,7 @@
 //@flow
 import {h, Component} from 'preact';
 import {connect} from 'preact-redux';
-import {Container} from '../container';
+import {PresetArea} from '../preset-area';
 import {bindActions} from 'utils/bind-actions';
 import {actions} from 'reducers/shell';
 
@@ -26,9 +26,9 @@ export class PlayerArea extends Component {
     const {children, className, preAppendTo, activePresetName, allowPlayerArea} = this.props;
 
     return allowPlayerArea ? (
-      <Container className={className} name={'PlayerArea'} preAppendTo={preAppendTo}>
+      <PresetArea className={className} name={'PlayerArea'} preAppendTo={preAppendTo}>
         {children}
-      </Container>
+      </PresetArea>
     ) : null;
   }
 }
