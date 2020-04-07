@@ -52,23 +52,20 @@ class Share extends Component {
    * @memberof Share
    */
   toggleOverlay(): void {
-    const overlay = !this.state.overlay;
-    this.setState(() => {
-      this.props.toggleShareOverlay(overlay);
-      return {overlay};
-    });
-    const previousIsPlaying = this.props.isPlaying || this.state.previousIsPlaying;
-    this.setState(() => {
-      return {previousIsPlaying};
-    });
-    if (overlay) {
-      this.props.player.pause();
-    } else if (previousIsPlaying) {
-      this.props.player.play();
-      this.setState(() => {
-        return {previousIsPlaying: false};
-      });
-    }
+    this.setState(
+      prevState => {
+        return {overlay: !prevState.overlay, previousIsPlaying: this.props.isPlaying || prevState.previousIsPlaying};
+      },
+      () => {
+        this.props.toggleShareOverlay(this.state.overlay);
+        if (this.state.overlay) {
+          this.props.player.pause();
+        } else if (this.state.previousIsPlaying) {
+          this.props.player.play();
+          this.setState({previousIsPlaying: false});
+        }
+      }
+    );
   }
 
   /**

@@ -237,22 +237,23 @@ class OverlayAction extends Component {
    * @memberof OverlayAction
    */
   toggleOverlayActionIcon(iconType: string | Array<string>): void {
+    const showIcon = () => {
+      this.setState({animation: true, iconType: iconType});
+      this._iconTimeout = setTimeout(() => {
+        this._iconTimeout = null;
+        this.setState({animation: false});
+      }, OVERLAY_ACTION_DEFAULT_TIMEOUT);
+    };
     if (this._iconTimeout !== null) {
       clearTimeout(this._iconTimeout);
       this._iconTimeout = null;
-      this.setState(() => {
-        return {animation: false};
+      this.setState({animation: false}, () => {
+        this.forceUpdate();
+        showIcon();
       });
-      this.forceUpdate();
+    } else {
+      showIcon();
     }
-    this.setState(() => {
-      return {animation: true, iconType: iconType};
-    });
-    this._iconTimeout = setTimeout(() => {
-      this.setState(() => {
-        return {animation: false};
-      });
-    }, OVERLAY_ACTION_DEFAULT_TIMEOUT);
   }
 
   /**
