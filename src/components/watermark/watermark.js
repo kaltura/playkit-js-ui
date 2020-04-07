@@ -56,11 +56,7 @@ class Watermark extends Component {
      */
     const onPlaying = () => {
       if (this.props.config.timeout > 0) {
-        setTimeout(
-          () =>
-            this.setState({show: false}),
-          this.props.config.timeout
-        );
+        setTimeout(() => this.setState({show: false}), this.props.config.timeout);
       }
     };
 

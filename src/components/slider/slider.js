@@ -42,7 +42,7 @@ class Slider extends Component {
    * @memberof Slider
    */
   componentWillMount(): void {
-    this.setState( {
+    this.setState({
       value: this.props.value || 0,
       min: this.props.min || 0,
       max: this.props.max || 100,
@@ -90,11 +90,9 @@ class Slider extends Component {
     this._sliderElementOffsetLeft = this._sliderElement.getBoundingClientRect().left;
     if (!this.state.dragging) {
       this.setState(
-        () => {
-          return {
-            dragging: true,
-            value: this.mouseEventToValue(e)
-          };
+        {
+          dragging: true,
+          value: this.mouseEventToValue(e)
         },
         () => {
           this.props.onChange(this.mouseEventToValue(e));
@@ -131,11 +129,9 @@ class Slider extends Component {
       }
     }
     this.setState(
-      () => {
-        return {
-          value: newValue,
-          dragging: false
-        };
+      {
+        value: newValue,
+        dragging: false
       },
       () => {
         this.props.onChange(newValue);
@@ -153,10 +149,8 @@ class Slider extends Component {
   mouseMoveHandler(e: any): void {
     if (this.state.dragging) {
       this.setState(
-        () => {
-          return {
-            value: this.mouseEventToValue(e)
-          };
+        {
+          value: this.mouseEventToValue(e)
         },
         () => {
           this.props.onChange(this.mouseEventToValue(e));
@@ -175,11 +169,9 @@ class Slider extends Component {
   mouseUpHandler(e: any): void {
     if (this.state.dragging) {
       this.setState(
-        () => {
-          return {
-            value: this.mouseEventToValue(e),
-            dragging: false
-          };
+        {
+          value: this.mouseEventToValue(e),
+          dragging: false
         },
         () => {
           this.props.onChange(this.mouseEventToValue(e));
