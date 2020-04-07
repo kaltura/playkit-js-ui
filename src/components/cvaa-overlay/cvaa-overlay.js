@@ -54,7 +54,9 @@ class CVAAOverlay extends Component {
    * @memberof CVAAOverlay
    */
   componentWillUnmount() {
-    this.setState({activeWindow: cvaaOverlayState.Main});
+    this.setState({
+      activeWindow: cvaaOverlayState.Main
+    });
   }
 
   /**

@@ -102,7 +102,7 @@ class DropDown extends Component {
    * @memberof DropDown
    */
   onClose(): void {
-    this.setState( {dropMenuActive: false});
+    this.setState({dropMenuActive: false});
   }
 
   /**

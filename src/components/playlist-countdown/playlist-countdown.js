@@ -179,8 +179,7 @@ class PlaylistCountdown extends Component {
       this.setState({focusable: false});
     }
 
-    if (this.isShown !== this.state.shown)
-      this.setState({shown: this.isShown});
+    if (this.isShown !== this.state.shown) this.setState({shown: this.isShown});
   }
 
   /**

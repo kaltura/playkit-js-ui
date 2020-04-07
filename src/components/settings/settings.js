@@ -95,7 +95,7 @@ class Settings extends Component {
    * @memberof Settings
    */
   componentWillMount() {
-    this.setState( {smartContainerOpen: false});
+    this.setState({smartContainerOpen: false});
   }
 
   /**
@@ -168,7 +168,7 @@ class Settings extends Component {
       !this._controlSettingsElement.contains(e.target) &&
       this.state.smartContainerOpen
     ) {
-      this.setState( {smartContainerOpen: false});
+      this.setState({smartContainerOpen: false});
     }
   }
 
