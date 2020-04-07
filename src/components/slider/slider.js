@@ -91,13 +91,17 @@ class Slider extends Component {
   mouseDownHandler(e: any): void {
     this._sliderElementOffsetLeft = this._sliderElement.getBoundingClientRect().left;
     if (!this.state.dragging) {
-      this.setState(() => {
-        return {
-          dragging: true,
-          value: this.mouseEventToValue(e)
-        };
-      });
-      this.props.onChange(this.mouseEventToValue(e));
+      this.setState(
+        () => {
+          return {
+            dragging: true,
+            value: this.mouseEventToValue(e)
+          };
+        },
+        () => {
+          this.props.onChange(this.mouseEventToValue(e));
+        }
+      );
     }
   }
 
@@ -128,13 +132,17 @@ class Slider extends Component {
         break;
       }
     }
-    this.setState(() => {
-      return {
-        value: newValue,
-        dragging: false
-      };
-    });
-    this.props.onChange(newValue);
+    this.setState(
+      () => {
+        return {
+          value: newValue,
+          dragging: false
+        };
+      },
+      () => {
+        this.props.onChange(newValue);
+      }
+    );
   }
 
   /**
@@ -146,12 +154,16 @@ class Slider extends Component {
    */
   mouseMoveHandler(e: any): void {
     if (this.state.dragging) {
-      this.setState(() => {
-        return {
-          value: this.mouseEventToValue(e)
-        };
-      });
-      this.props.onChange(this.mouseEventToValue(e));
+      this.setState(
+        () => {
+          return {
+            value: this.mouseEventToValue(e)
+          };
+        },
+        () => {
+          this.props.onChange(this.mouseEventToValue(e));
+        }
+      );
     }
   }
 
@@ -164,13 +176,17 @@ class Slider extends Component {
    */
   mouseUpHandler(e: any): void {
     if (this.state.dragging) {
-      this.setState(() => {
-        return {
-          value: this.mouseEventToValue(e),
-          dragging: false
-        };
-      });
-      this.props.onChange(this.mouseEventToValue(e));
+      this.setState(
+        () => {
+          return {
+            value: this.mouseEventToValue(e),
+            dragging: false
+          };
+        },
+        () => {
+          this.props.onChange(this.mouseEventToValue(e));
+        }
+      );
     }
   }
 

@@ -237,6 +237,9 @@ class OverlayAction extends Component {
    * @memberof OverlayAction
    */
   toggleOverlayActionIcon(iconType: string | Array<string>): void {
+    /**
+     * @returns {void}
+     */
     const showIcon = () => {
       this.setState({animation: true, iconType: iconType});
       this._iconTimeout = setTimeout(() => {
