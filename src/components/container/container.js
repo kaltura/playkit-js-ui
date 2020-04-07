@@ -65,9 +65,7 @@ class Container extends Component {
    */
   constructor(props: Object) {
     super(props);
-    this.setState(() => {
-      return initialState;
-    });
+    this.setState(initialState);
   }
 
   /**
@@ -145,11 +143,9 @@ class Container extends Component {
       }
     });
 
-    this.setState(() => {
-      return {
-        containerComponents: nextContainerComponents,
-        hasPositionedComponents
-      };
+    this.setState({
+      containerComponents: nextContainerComponents,
+      hasPositionedComponents
     });
   };
 

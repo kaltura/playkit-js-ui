@@ -40,9 +40,7 @@ class Watermark extends Component {
    */
   constructor() {
     super();
-    this.setState(() => {
-      return {show: true};
-    });
+    this.setState({show: true});
   }
 
   /**
@@ -60,9 +58,7 @@ class Watermark extends Component {
       if (this.props.config.timeout > 0) {
         setTimeout(
           () =>
-            this.setState(() => {
-              return {show: false};
-            }),
+            this.setState({show: false}),
           this.props.config.timeout
         );
       }
@@ -71,9 +67,7 @@ class Watermark extends Component {
     const {player} = this.props;
     this.props.eventManager.listenOnce(player, player.Event.PLAYING, onPlaying);
     this.props.eventManager.listen(player, player.Event.CHANGE_SOURCE_ENDED, () => {
-      this.setState(() => {
-        return {show: true};
-      });
+      this.setState({show: true});
       this.props.eventManager.listenOnce(player, player.Event.PLAYING, onPlaying);
     });
   }

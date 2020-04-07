@@ -64,9 +64,7 @@ class Tooltip extends Component {
       this._hoverTimeout = null;
     }
     this._hoverTimeout = setTimeout(() => {
-      this.setState(() => {
-        return {showTooltip: true};
-      });
+      this.setState({showTooltip: true});
     }, TOOLTIP_SHOW_TIMEOUT);
   }
 
@@ -76,9 +74,7 @@ class Tooltip extends Component {
    * @returns {void}
    */
   onMouseLeave(): void {
-    this.setState(() => {
-      return {showTooltip: false};
-    });
+    this.setState({showTooltip: false});
     clearTimeout(this._hoverTimeout);
     this._hoverTimeout = null;
   }
@@ -122,9 +118,7 @@ class Tooltip extends Component {
    * @returns {void}
    */
   componentWillMount(): void {
-    this.setState(() => {
-      return {valid: false, type: this.props.type};
-    });
+    this.setState({valid: false, type: this.props.type});
   }
 
   /**
@@ -137,22 +131,16 @@ class Tooltip extends Component {
   componentDidUpdate(prevProps: Object): void {
     if (this.props.playerClientRect !== prevProps.playerClientRect) {
       this.lastAlternativeTypeIndex = -1;
-      this.setState(() => {
-        return {valid: false, type: this.props.type};
-      });
+      this.setState({valid: false, type: this.props.type});
     } else if (this.state.showTooltip) {
       if (this.isToolTipInBoundaries()) {
         if (!this.state.valid) {
-          this.setState(() => {
-            return {valid: true};
-          });
+          this.setState({valid: true});
         }
       } else {
         const alternative = this.getAlternateType();
         if (alternative) {
-          this.setState(() => {
-            return {valid: false, type: alternative};
-          });
+          this.setState({valid: false, type: alternative});
         }
       }
     }

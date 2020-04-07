@@ -90,9 +90,7 @@ class Language extends Component {
    * @memberof Language
    */
   componentWillMount() {
-    this.setState(() => {
-      return {smartContainerOpen: false};
-    });
+    this.setState({smartContainerOpen: false});
   }
 
   /**
@@ -138,9 +136,7 @@ class Language extends Component {
       !this.state.cvaaOverlay &&
       !this.props.isSmallSize
     ) {
-      this.setState(() => {
-        return {smartContainerOpen: false};
-      });
+      this.setState({smartContainerOpen: false});
     }
   }
 
@@ -151,9 +147,7 @@ class Language extends Component {
    * @memberof Language
    */
   onControlButtonClick(): void {
-    this.setState(() => {
-      return {smartContainerOpen: !this.state.smartContainerOpen};
-    });
+    this.setState({smartContainerOpen: !this.state.smartContainerOpen});
   }
 
   /**
@@ -193,9 +187,7 @@ class Language extends Component {
    * @memberof Language
    */
   toggleCVAAOverlay(): void {
-    this.setState(() => {
-      return {cvaaOverlay: !this.state.cvaaOverlay};
-    });
+    this.setState({cvaaOverlay: !this.state.cvaaOverlay});
   }
 
   /**

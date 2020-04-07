@@ -38,9 +38,7 @@ class CopyButton extends Component {
    */
   constructor(props: Object) {
     super(props);
-    this.setState(() => {
-      return {copySuccess: false};
-    });
+    this.setState({copySuccess: false});
   }
 
   /**
@@ -50,18 +48,12 @@ class CopyButton extends Component {
   copy() {
     try {
       this.props.copy();
-      this.setState(() => {
-        return {copySuccess: true};
-      });
+      this.setState({copySuccess: true});
       setTimeout(() => {
-        this.setState(() => {
-          return {copySuccess: false};
-        });
+        this.setState({copySuccess: false});
       }, TIMEOUT);
     } catch (e) {
-      this.setState(() => {
-        return {copySuccess: false};
-      });
+      this.setState({copySuccess: false});
     }
   }
 

@@ -64,9 +64,7 @@ class CastBeforePlay extends Component {
    */
   componentDidMount(): void {
     setTimeout(() => {
-      this.setState(() => {
-        return {show: true};
-      });
+      this.setState({show: true});
     }, 700);
   }
 

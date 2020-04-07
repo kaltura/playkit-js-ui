@@ -65,9 +65,7 @@ class UnmuteIndication extends Component {
    */
   _iconOnlyTimeout(): void {
     setTimeout(() => {
-      this.setState(() => {
-        return {iconOnly: true};
-      });
+      this.setState({iconOnly: true});
     }, MUTED_AUTOPLAY_ICON_ONLY_DEFAULT_TIMEOUT);
   }
 
@@ -103,16 +101,8 @@ class UnmuteIndication extends Component {
           tabIndex="0"
           aria-label={<Text id="controls.unmute" />}
           className={styleClass.join(' ')}
-          onMouseOver={() =>
-            this.setState(() => {
-              return {iconOnly: false};
-            })
-          }
-          onMouseOut={() =>
-            this.setState(() => {
-              return {iconOnly: true};
-            })
-          }
+          onMouseOver={() => this.setState({iconOnly: false})}
+          onMouseOut={() => this.setState({iconOnly: true})}
           onMouseUp={() => (this.props.player.muted = !this.props.player.muted)}
           onTouchEnd={e => e.stopImmediatePropagation()}
           onKeyDown={e => this._keyDownHandler(e)}>

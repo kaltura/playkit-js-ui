@@ -37,9 +37,7 @@ class DropDown extends Component {
    * @memberof DropDown
    */
   componentWillMount() {
-    this.setState(() => {
-      return {dropMenuActive: false};
-    });
+    this.setState({dropMenuActive: false});
   }
   /**
    * after component mounted, set the callback to be called when parent selected
@@ -72,9 +70,7 @@ class DropDown extends Component {
    */
   onMenuChosen(option: Object): void {
     this.props.onMenuChosen(option);
-    this.setState(() => {
-      return {dropMenuActive: false};
-    });
+    this.setState({dropMenuActive: false});
   }
 
   /**
@@ -87,9 +83,7 @@ class DropDown extends Component {
   onKeyDown(e: KeyboardEvent): void {
     switch (e.keyCode) {
       case KeyMap.ENTER:
-        this.setState(() => {
-          return {dropMenuActive: !this.state.dropMenuActive};
-        });
+        this.setState({dropMenuActive: !this.state.dropMenuActive});
         break;
       case KeyMap.ESC:
         if (this.state.dropMenuActive) {
@@ -108,9 +102,7 @@ class DropDown extends Component {
    * @memberof DropDown
    */
   onClose(): void {
-    this.setState(() => {
-      return {dropMenuActive: false};
-    });
+    this.setState( {dropMenuActive: false});
   }
 
   /**
@@ -204,9 +196,7 @@ class DropDown extends Component {
    * @memberof DropDown
    */
   toggleDropDown(): void {
-    this.setState(() => {
-      return {dropMenuActive: !this.state.dropMenuActive};
-    });
+    this.setState({dropMenuActive: !this.state.dropMenuActive});
   }
 }
 

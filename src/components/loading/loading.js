@@ -43,9 +43,7 @@ class Loading extends Component {
    */
   constructor() {
     super();
-    this.setState(() => {
-      return {afterPlayingEvent: false};
-    });
+    this.setState({afterPlayingEvent: false});
   }
 
   /**
@@ -89,16 +87,12 @@ class Loading extends Component {
     });
 
     eventManager.listen(player, player.Event.PLAYING, () => {
-      this.setState(() => {
-        return {afterPlayingEvent: true};
-      });
+      this.setState({afterPlayingEvent: true});
       this.props.updateLoadingSpinnerState(false);
     });
 
     eventManager.listen(player, player.Event.CHANGE_SOURCE_STARTED, () => {
-      this.setState(() => {
-        return {afterPlayingEvent: false};
-      });
+      this.setState({afterPlayingEvent: false});
     });
   }
 

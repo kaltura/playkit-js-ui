@@ -54,9 +54,7 @@ class PlaylistCountdown extends Component {
    */
   constructor(props: Object) {
     super(props);
-    this.setState(() => {
-      return {focusable: false};
-    });
+    this.setState({focusable: false});
   }
 
   /**
@@ -118,13 +116,9 @@ class PlaylistCountdown extends Component {
   componentWillUpdate(nextProps: Object) {
     const timeToShow = this._getTimeToShow();
     if (nextProps.currentTime >= timeToShow) {
-      this.setState(() => {
-        return {timeToShow: true};
-      });
+      this.setState({timeToShow: true});
     } else {
-      this.setState(() => {
-        return {timeToShow: false};
-      });
+      this.setState({timeToShow: false});
       this.props.updatePlaylistCountdownCanceled(false);
     }
   }
@@ -177,22 +171,16 @@ class PlaylistCountdown extends Component {
         this.props.eventManager.listenOnce(this.focusElement, 'animationend', () => {
           if (this.isShown) {
             this.focusElement.focus();
-            this.setState(() => {
-              return {focusable: true};
-            });
+            this.setState({focusable: true});
           }
         });
       }
     } else if (prevState.shown && !this.state.shown) {
-      this.setState(() => {
-        return {focusable: false};
-      });
+      this.setState({focusable: false});
     }
 
     if (this.isShown !== this.state.shown)
-      this.setState(() => {
-        return {shown: this.isShown};
-      });
+      this.setState({shown: this.isShown});
   }
 
   /**

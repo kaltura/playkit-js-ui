@@ -57,9 +57,7 @@ class Menu extends Component {
    * @memberof Menu
    */
   componentWillMount() {
-    this.setState(() => {
-      return {position: [style.top, style.left]};
-    });
+    this.setState({position: [style.top, style.left]});
   }
 
   /**
@@ -71,9 +69,7 @@ class Menu extends Component {
     this.props.eventManager.listen(document, 'click', this.handleClickOutside);
 
     if (!this.props.isMobile && !this.props.isSmallSize) {
-      this.setState(() => {
-        return {position: this.getPosition()};
-      });
+      this.setState({position: this.getPosition()});
     }
   }
 

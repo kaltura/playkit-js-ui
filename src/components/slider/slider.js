@@ -42,13 +42,11 @@ class Slider extends Component {
    * @memberof Slider
    */
   componentWillMount(): void {
-    this.setState(() => {
-      return {
-        value: this.props.value || 0,
-        min: this.props.min || 0,
-        max: this.props.max || 100,
-        dragging: false
-      };
+    this.setState( {
+      value: this.props.value || 0,
+      min: this.props.min || 0,
+      max: this.props.max || 100,
+      dragging: false
     });
 
     document.addEventListener('mouseup', this.mouseUpHandler);

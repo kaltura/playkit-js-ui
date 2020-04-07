@@ -54,11 +54,7 @@ class CVAAOverlay extends Component {
    * @memberof CVAAOverlay
    */
   componentWillUnmount() {
-    this.setState(() => {
-      return {
-        activeWindow: cvaaOverlayState.Main
-      };
-    });
+    this.setState({activeWindow: cvaaOverlayState.Main});
   }
 
   /**
@@ -69,11 +65,9 @@ class CVAAOverlay extends Component {
    */
   componentWillMount() {
     const {player} = this.props;
-    this.setState(() => {
-      return {
-        activeWindow: cvaaOverlayState.Main,
-        customTextStyle: player.textStyle
-      };
+    this.setState({
+      activeWindow: cvaaOverlayState.Main,
+      customTextStyle: player.textStyle
     });
 
     this.props.setIsModal(true);
@@ -87,9 +81,7 @@ class CVAAOverlay extends Component {
    * @memberof CVAAOverlay
    */
   transitionToState(stateName: CvaaOverlayStateType): void {
-    this.setState(() => {
-      return {activeWindow: stateName};
-    });
+    this.setState({activeWindow: stateName});
   }
 
   /**
@@ -128,9 +120,7 @@ class CVAAOverlay extends Component {
    * @memberof CVAAOverlay
    */
   changeCustomStyle(styleChanges: Object): void {
-    this.setState(() => {
-      return {customTextStyle: Object.assign(this.state.customTextStyle, styleChanges)};
-    });
+    this.setState({customTextStyle: Object.assign(this.state.customTextStyle, styleChanges)});
   }
 
   /**

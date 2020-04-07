@@ -62,9 +62,7 @@ class CastAfterPlay extends Component {
    */
   componentDidMount(): void {
     setTimeout(() => {
-      this.setState(() => {
-        return {show: true};
-      });
+      this.setState({show: true});
     }, 700);
   }
 

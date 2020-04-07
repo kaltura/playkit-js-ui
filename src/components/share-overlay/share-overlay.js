@@ -178,12 +178,10 @@ class ShareOverlay extends Component {
    */
   componentWillMount() {
     this.isIos = this.props.player.env.os.name === 'iOS';
-    this.setState(() => {
-      return {
-        view: shareOverlayView.Main,
-        startFrom: false,
-        startFromValue: Math.floor(this.props.player.currentTime)
-      };
+    this.setState({
+      view: shareOverlayView.Main,
+      startFrom: false,
+      startFromValue: Math.floor(this.props.player.currentTime)
     });
   }
 
@@ -218,9 +216,7 @@ class ShareOverlay extends Component {
    * @memberof ShareOverlay
    */
   _transitionToState(stateName: string): void {
-    this.setState(() => {
-      return {view: stateName};
-    });
+    this.setState({view: stateName});
   }
 
   /**
@@ -276,9 +272,7 @@ class ShareOverlay extends Component {
    * @memberof ShareOverlay
    */
   _toggleStartFrom(): void {
-    this.setState(() => {
-      return {startFrom: !this.state.startFrom};
-    });
+    this.setState({startFrom: !this.state.startFrom});
   }
 
   /**
@@ -292,13 +286,9 @@ class ShareOverlay extends Component {
   _handleStartFromChange(e: any): void {
     let seconds = toSecondsFromHHMMSS(e.target.value);
     if (seconds >= this.props.player.duration) {
-      this.setState(() => {
-        return {startFromValue: 1};
-      });
+      this.setState({startFromValue: 1});
     }
-    this.setState(() => {
-      return {startFromValue: seconds};
-    });
+    this.setState({startFromValue: seconds});
   }
 
   /**

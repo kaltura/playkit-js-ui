@@ -98,9 +98,7 @@ class Shell extends Component {
       return;
     }
     if (this.state.nav) {
-      this.setState(() => {
-        return {nav: false};
-      });
+      this.setState({nav: false});
       this.props.updatePlayerNavState(false);
     }
     if (!this.props.bottomBarHoverActive) {
@@ -126,9 +124,7 @@ class Shell extends Component {
       return;
     }
     if (this.state.hover) {
-      this.setState(() => {
-        return {hover: false};
-      });
+      this.setState({hover: false});
       this.props.updatePlayerHoverState(false);
       this.props.notifyHoverChange({hover: false});
     }
@@ -197,9 +193,7 @@ class Shell extends Component {
    */
   onKeyDown(e: KeyboardEvent): void {
     if (!this.state.nav && e.keyCode === KeyMap.TAB) {
-      this.setState(() => {
-        return {nav: true};
-      });
+      this.setState({nav: true});
       this.props.updatePlayerNavState(true);
     }
 
@@ -290,9 +284,7 @@ class Shell extends Component {
     if (!this.state.hover) {
       this.props.updatePlayerHoverState(true);
       this.props.notifyHoverChange({hover: true});
-      this.setState(() => {
-        return {hover: true};
-      });
+      this.setState({hover: true});
     }
     this._startHoverTimeout();
   }
@@ -325,9 +317,7 @@ class Shell extends Component {
       if (this._canEndHoverState()) {
         this.props.updatePlayerHoverState(false);
         this.props.notifyHoverChange({hover: false});
-        this.setState(() => {
-          return {hover: false};
-        });
+        this.setState({hover: false});
       }
     }, this.props.hoverTimeout || CONTROL_BAR_HOVER_DEFAULT_TIMEOUT);
   }

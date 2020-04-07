@@ -104,9 +104,7 @@ class SeekBar extends Component {
    * @memberof SeekBar
    */
   componentWillMount(): void {
-    this.setState(() => {
-      return {virtualTime: 0};
-    });
+    this.setState({virtualTime: 0});
   }
 
   /**
@@ -365,9 +363,7 @@ class SeekBar extends Component {
    */
   updateSeekBarProgress(currentTime: number, duration: number, virtual: boolean = false): void {
     if (virtual) {
-      this.setState(() => {
-        return {virtualTime: currentTime};
-      });
+      this.setState({virtualTime: currentTime});
     } else {
       this.props.updateCurrentTime(currentTime);
     }
