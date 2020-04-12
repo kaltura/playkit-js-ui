@@ -125,26 +125,28 @@ class PlaylistCountdown extends Component {
 
   /**
    * checks if the component is hidden
+   * @param {Object} state - current component state
    * @returns {boolean} - is component hidden
    */
-  get isHidden(): boolean {
-    return !this.state.timeToShow || this.props.player.playlist.countdown.duration >= this.props.duration;
+  isHidden(state: Object): boolean {
+    return !state.timeToShow || this.props.player.playlist.countdown.duration >= this.props.duration;
   }
 
   /**
    * checks if the component is canceled
    * @returns {boolean} - is component canceled
    */
-  get isCanceled(): boolean {
+  isCanceled(): boolean {
     return this.props.countdownCanceled;
   }
 
   /**
    * checks if the component is shown
+   * @param {Object} state - current component state
    * @returns {boolean} - is component shown
    */
-  get isShown(): boolean {
-    return !this.isHidden && !this.isCanceled;
+  isShown(state: Object): boolean {
+    return !this.isHidden(state) && !this.isCanceled();
   }
   /**
    * component did update handler
@@ -169,7 +171,7 @@ class PlaylistCountdown extends Component {
     if (!prevState.shown && this.state.shown) {
       if (this.focusElement) {
         this.props.eventManager.listenOnce(this.focusElement, 'animationend', () => {
-          if (this.isShown) {
+          if (this.isShown(this.state)) {
             this.focusElement.focus();
             this.setState({focusable: true});
           }
@@ -179,7 +181,11 @@ class PlaylistCountdown extends Component {
       this.setState({focusable: false});
     }
 
-    if (this.isShown !== this.state.shown) this.setState({shown: this.isShown});
+    if (this.isShown(this.state) !== this.state.shown) {
+      this.setState(prevState => {
+        return {shown: this.isShown(prevState)};
+      });
+    }
   }
 
   /**
@@ -203,7 +209,7 @@ class PlaylistCountdown extends Component {
     if (!this._shouldRender(props)) {
       return undefined;
     }
-    this.isShown && (this.nextShown = props.playlist.next);
+    this.isShown(this.state) && (this.nextShown = props.playlist.next);
     if (!(props.playlist.next && props.playlist.next.sources && this.nextShown)) {
       return undefined;
     }
@@ -215,9 +221,9 @@ class PlaylistCountdown extends Component {
     const progressWidth = `${progressTime > 0 ? (progressTime / progressDuration) * 104 : 0}%`;
     const className = [style.playlistCountdown];
 
-    if (this.isHidden) {
+    if (this.isHidden(this.state)) {
       className.push(style.hidden);
-    } else if (this.isCanceled) {
+    } else if (this.isCanceled()) {
       className.push(style.canceled);
     } else {
       className.push(style.slideIn);

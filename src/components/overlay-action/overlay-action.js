@@ -241,11 +241,12 @@ class OverlayAction extends Component {
      * @returns {void}
      */
     const showIcon = () => {
-      this.setState({animation: true, iconType: iconType});
-      this._iconTimeout = setTimeout(() => {
-        this._iconTimeout = null;
-        this.setState({animation: false});
-      }, OVERLAY_ACTION_DEFAULT_TIMEOUT);
+      this.setState({animation: true, iconType: iconType}, () => {
+        this._iconTimeout = setTimeout(() => {
+          this._iconTimeout = null;
+          this.setState({animation: false});
+        }, OVERLAY_ACTION_DEFAULT_TIMEOUT);
+      });
     };
     if (this._iconTimeout !== null) {
       clearTimeout(this._iconTimeout);

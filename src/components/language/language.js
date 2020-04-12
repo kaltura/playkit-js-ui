@@ -147,7 +147,9 @@ class Language extends Component {
    * @memberof Language
    */
   onControlButtonClick(): void {
-    this.setState({smartContainerOpen: !this.state.smartContainerOpen});
+    this.setState(prevState => {
+      return {smartContainerOpen: !prevState.smartContainerOpen};
+    });
   }
 
   /**
@@ -187,7 +189,9 @@ class Language extends Component {
    * @memberof Language
    */
   toggleCVAAOverlay(): void {
-    this.setState({cvaaOverlay: !this.state.cvaaOverlay});
+    this.setState(prevState => {
+      return {cvaaOverlay: !prevState.cvaaOverlay};
+    });
   }
 
   /**

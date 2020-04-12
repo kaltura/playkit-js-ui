@@ -83,7 +83,9 @@ class DropDown extends Component {
   onKeyDown(e: KeyboardEvent): void {
     switch (e.keyCode) {
       case KeyMap.ENTER:
-        this.setState({dropMenuActive: !this.state.dropMenuActive});
+        this.setState(prevState => {
+          return {dropMenuActive: !prevState.dropMenuActive};
+        });
         break;
       case KeyMap.ESC:
         if (this.state.dropMenuActive) {
@@ -196,7 +198,9 @@ class DropDown extends Component {
    * @memberof DropDown
    */
   toggleDropDown(): void {
-    this.setState({dropMenuActive: !this.state.dropMenuActive});
+    this.setState(prevState => {
+      return {dropMenuActive: !prevState.dropMenuActive};
+    });
   }
 }
 

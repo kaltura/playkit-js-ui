@@ -122,7 +122,9 @@ class CVAAOverlay extends Component {
    * @memberof CVAAOverlay
    */
   changeCustomStyle(styleChanges: Object): void {
-    this.setState({customTextStyle: Object.assign(this.state.customTextStyle, styleChanges)});
+    this.setState(prevState => {
+      return {customTextStyle: Object.assign(prevState.customTextStyle, styleChanges)};
+    });
   }
 
   /**

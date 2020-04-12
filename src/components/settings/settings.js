@@ -179,7 +179,9 @@ class Settings extends Component {
    * @memberof Settings
    */
   onControlButtonClick(): void {
-    this.setState({smartContainerOpen: !this.state.smartContainerOpen});
+    this.setState(prevState => {
+      return {smartContainerOpen: !prevState.smartContainerOpen};
+    });
   }
 
   /**

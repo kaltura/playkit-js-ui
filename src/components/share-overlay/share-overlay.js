@@ -272,7 +272,9 @@ class ShareOverlay extends Component {
    * @memberof ShareOverlay
    */
   _toggleStartFrom(): void {
-    this.setState({startFrom: !this.state.startFrom});
+    this.setState(prevState => {
+      return {startFrom: !prevState.startFrom};
+    });
   }
 
   /**
