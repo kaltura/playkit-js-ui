@@ -2,6 +2,83 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.53.2"></a>
+## [0.53.2](https://github.com/kaltura/playkit-js-ui/compare/v0.53.1...v0.53.2) (2020-03-10)
+
+
+### Bug Fixes
+
+* remove french (fr) translation file ([#491](https://github.com/kaltura/playkit-js-ui/issues/491)) ([01ae2ad](https://github.com/kaltura/playkit-js-ui/commit/01ae2ad))
+* **FEC-7969:** when there is an http error in IE11, the error page is not displaying session ID ([#493](https://github.com/kaltura/playkit-js-ui/issues/493)) ([d3a08a3](https://github.com/kaltura/playkit-js-ui/commit/d3a08a3))
+* **FEC-9654:** error screen - the text for retry button on Spanish exceeds the button boundary ([#490](https://github.com/kaltura/playkit-js-ui/issues/490)) ([68fdbb2](https://github.com/kaltura/playkit-js-ui/commit/68fdbb2))
+* **FEC-9657:** 'Auto' quality option is hardcoded and not translatable ([#492](https://github.com/kaltura/playkit-js-ui/issues/492)) ([7eb8c5a](https://github.com/kaltura/playkit-js-ui/commit/7eb8c5a))
+* **FEC-9682:** scss preprocessor is not encapsulating 'playkit-' prefix on video controls CSS ([#494](https://github.com/kaltura/playkit-js-ui/issues/494)) ([fde8697](https://github.com/kaltura/playkit-js-ui/commit/fde8697))
+
+
+
+<a name="0.53.1"></a>
+## [0.53.1](https://github.com/kaltura/playkit-js-ui/compare/v0.53.0...v0.53.1) (2020-02-24)
+
+
+### Bug Fixes
+
+* **FEC-9601:** when pressing key enter on play button there is no exit from fallback state ([#486](https://github.com/kaltura/playkit-js-ui/issues/486)) ([4cf6ab9](https://github.com/kaltura/playkit-js-ui/commit/4cf6ab9))
+* **FEC-9647:** menu doesnt close in cvaa settings ([#487](https://github.com/kaltura/playkit-js-ui/issues/487)) ([e3ce7eb](https://github.com/kaltura/playkit-js-ui/commit/e3ce7eb))
+* **FEC-9746:** menu bar buttons ignores clicking if another menu is open ([#484](https://github.com/kaltura/playkit-js-ui/issues/484)) ([ba42283](https://github.com/kaltura/playkit-js-ui/commit/ba42283))
+* add german (de) translation file ([#488](https://github.com/kaltura/playkit-js-ui/issues/488)) ([9e7ae28](https://github.com/kaltura/playkit-js-ui/commit/9e7ae28))
+
+
+
+<a name="0.53.0"></a>
+# [0.53.0](https://github.com/kaltura/playkit-js-ui/compare/v0.52.3...v0.53.0) (2020-02-16)
+
+
+### Bug Fixes
+
+* **FEC-9648:** space bar doesn't play video on pre-play button ([#483](https://github.com/kaltura/playkit-js-ui/issues/483)) ([7251c4d](https://github.com/kaltura/playkit-js-ui/commit/7251c4d))
+
+
+### Features
+
+* **FEC-9465:** internationalization (i18n) - player localization ([#485](https://github.com/kaltura/playkit-js-ui/issues/485)) ([4aae5a8](https://github.com/kaltura/playkit-js-ui/commit/4aae5a8))
+
+
+
+<a name="0.52.3"></a>
+## [0.52.3](https://github.com/kaltura/playkit-js-ui/compare/v0.52.2...v0.52.3) (2020-02-03)
+
+
+### Bug Fixes
+
+* **FEC-9634:** cast button messes up bottom bar ([#482](https://github.com/kaltura/playkit-js-ui/issues/482)) ([c813674](https://github.com/kaltura/playkit-js-ui/commit/c813674))
+
+
+
+<a name="0.52.2"></a>
+## [0.52.2](https://github.com/kaltura/playkit-js-ui/compare/v0.52.1...v0.52.2) (2020-01-29)
+
+
+
+<a name="0.52.1"></a>
+## [0.52.1](https://github.com/kaltura/playkit-js-ui/compare/v0.52.0...v0.52.1) (2020-01-29)
+
+
+
+<a name="0.52.0"></a>
+# [0.52.0](https://github.com/kaltura/playkit-js-ui/compare/v0.51.2...v0.52.0) (2020-01-29)
+
+
+### Bug Fixes
+
+* **FEC-9604:** some texts were hard coded and not from localization json ([#479](https://github.com/kaltura/playkit-js-ui/issues/479)) ([c6e4380](https://github.com/kaltura/playkit-js-ui/commit/c6e4380))
+
+
+### Features
+
+* **FEC-9596:** add missing tooltips in replay overlay and vrStereo ([#480](https://github.com/kaltura/playkit-js-ui/issues/480)) ([bd983ee](https://github.com/kaltura/playkit-js-ui/commit/bd983ee))
+
+
+
 <a name="0.51.2"></a>
 ## [0.51.2](https://github.com/kaltura/playkit-js-ui/compare/v0.51.1...v0.51.2) (2020-01-06)
 

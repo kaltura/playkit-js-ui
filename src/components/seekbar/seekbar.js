@@ -11,6 +11,7 @@ import {withPlayer} from '../player';
 import {withKeyboardEvent} from 'components/keyboard';
 import {actions as overlayIconActions} from 'reducers/overlay-action';
 import {IconType} from '../icon';
+import {withText} from 'preact-i18n';
 
 /**
  * mapping state to props
@@ -37,6 +38,8 @@ const KEYBOARD_DEFAULT_SEEK_JUMP: number = 5;
 )
 @withPlayer
 @withKeyboardEvent(COMPONENT_NAME)
+@withText({sliderAriaLabel: 'controls.seekBarSlider'})
+
 /**
  * SeekBar component
  *
@@ -588,7 +591,7 @@ class SeekBar extends Component {
         className={seekbarStyleClass.join(' ')}
         ref={c => (this._seekBarElement = c)}
         role="slider"
-        aria-label="Seek slider"
+        aria-label={props.sliderAriaLabel}
         aria-valuemin="0"
         aria-valuemax={Math.round(this.props.duration)}
         aria-valuenow={Math.round(this.props.currentTime)}

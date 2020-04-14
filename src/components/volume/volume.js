@@ -393,7 +393,7 @@ class Volume extends Component {
           className={style.volumeControlBar}
           role="slider"
           aria-valuemin="0"
-          aria-valuemaz="100"
+          aria-valuemax="100"
           aria-valuenow={player.volume * 100}
           aria-valuetext={`${player.volume * 100}% volume ${player.muted ? 'muted' : ''}`}>
           <div className={style.bar} ref={c => (this._volumeProgressBarElement = c)} onMouseDown={() => this.onVolumeProgressBarMouseDown()}>

@@ -12,7 +12,7 @@ const PRESET_NAME = 'Idle';
  */
 export function IdleUI(): React$Element<any> {
   return (
-    <div className={style.playbackGuiWWrapper}>
+    <div className={style.playbackGuiWrapper}>
       <Loading />
     </div>
   );

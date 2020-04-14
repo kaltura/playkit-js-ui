@@ -6,6 +6,7 @@ import {connect} from 'preact-redux';
 import {bindMethod} from '../../utils/bind-method';
 import {withKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
 import {KeyMap} from 'utils/key-map';
+import {withEventManager} from 'event/with-event-manager';
 
 /**
  * mapping state to props
@@ -21,6 +22,7 @@ const mapStateToProps = state => ({
 const COMPONENT_NAME = 'Menu';
 
 @connect(mapStateToProps)
+@withEventManager
 @withKeyboardA11y
 /**
  * Menu component
@@ -64,20 +66,11 @@ class Menu extends Component {
    * @memberof Menu
    */
   componentDidMount() {
-    document.addEventListener('click', this.handleClickOutside, true);
+    this.props.eventManager.listen(document, 'click', this.handleClickOutside);
+
     if (!this.props.isMobile && !this.props.isSmallSize) {
       this.setState({position: this.getPosition()});
     }
-  }
-
-  /**
-   * before component unmount, remove the event listener
-   *
-   * @returns {void}
-   * @memberof Menu
-   */
-  componentWillUnmount() {
-    document.removeEventListener('click', this.handleClickOutside);
   }
 
   /**
@@ -117,7 +110,6 @@ class Menu extends Component {
   handleClickOutside(e: any) {
     if (!this.props.isMobile && !this.props.isSmallSize && this._menuElement && !this._menuElement.contains(e.target)) {
       this.props.onClose();
-      e.stopPropagation();
     }
   }
 

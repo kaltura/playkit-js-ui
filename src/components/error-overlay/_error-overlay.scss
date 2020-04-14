@@ -16,7 +16,6 @@
   align-items: center;
   flex-direction: column;
   height: 100%;
-  font-family: $font-family;
 
   .copy-url-row{
     display: flex;
@@ -48,7 +47,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    flex: 1;
+    flex: 1 1 auto;
   }
 
   .control-button-container {
@@ -57,7 +56,9 @@
 
   .retry-btn {
     height: 36px;
-    width: 120px;
+    width: auto;
+    min-width: 120px;
+    padding: 0 8px;
     border: 2px solid $grayscale1;
     border-radius: 18px;
     background-color: black;

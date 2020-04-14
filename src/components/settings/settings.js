@@ -39,7 +39,9 @@ const COMPONENT_NAME = 'Settings';
 @withText({
   qualityLabelText: 'settings.quality',
   speedLabelText: 'settings.speed',
-  buttonLabel: 'controls.settings'
+  buttonLabel: 'controls.settings',
+  speedNormalLabelText: 'settings.speedNormal',
+  qualityAutoLabelText: 'settings.qualityAuto'
 })
 @withPlayer
 @withEventManager
@@ -150,6 +152,7 @@ class Settings extends Component {
         break;
     }
   }
+
   /**
    * event listener for clicking outside handler.
    *
@@ -165,9 +168,6 @@ class Settings extends Component {
       !this._controlSettingsElement.contains(e.target) &&
       this.state.smartContainerOpen
     ) {
-      if (e.target.classList.contains(style.overlayPlay)) {
-        e.stopPropagation();
-      }
       this.setState({smartContainerOpen: false});
     }
   }
@@ -253,7 +253,7 @@ class Settings extends Component {
     const speedOptions = player.playbackRates.reduce((acc, speed) => {
       let speedOption = {
         value: speed,
-        label: speed === 1 ? 'Normal' : speed,
+        label: speed === 1 ? props.speedNormalLabelText : speed,
         active: false
       };
       if (speed === player.playbackRate) {
@@ -280,7 +280,7 @@ class Settings extends Component {
     // Progressive playback doesn't support auto
     if (qualityOptions.length > 1 && player.streamType !== 'progressive') {
       qualityOptions.unshift({
-        label: 'Auto',
+        label: this.props.qualityAutoLabelText,
         active: player.isAdaptiveBitrateEnabled(),
         value: 'auto'
       });
