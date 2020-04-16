@@ -123,7 +123,8 @@ class CVAAOverlay extends Component {
    */
   changeCustomStyle(styleChanges: Object): void {
     this.setState(prevState => {
-      return {customTextStyle: Object.assign(prevState.customTextStyle, styleChanges)};
+      const clonedStyle = prevState.customTextStyle.clone();
+      return {customTextStyle: Object.assign(clonedStyle, prevState.customTextStyle, styleChanges)};
     });
   }
 
