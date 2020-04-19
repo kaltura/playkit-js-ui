@@ -412,7 +412,6 @@ class Shell extends Component {
         className={playerClasses}
         onTouchEnd={e => this.onTouchEnd(e)}
         onMouseUp={() => this.onMouseUp()}
-        onMouseOver={() => this.onMouseOver()}
         onMouseMove={() => this.onMouseMove()}
         onMouseLeave={event => this.onMouseLeave(event)}
         onKeyDown={e => this.onKeyDown(e)}>
