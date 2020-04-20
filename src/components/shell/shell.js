@@ -101,9 +101,6 @@ class Shell extends Component {
       this.setState({nav: false});
       this.props.updatePlayerNavState(false);
     }
-    if (!this.props.bottomBarHoverActive) {
-      this._updatePlayerHoverState();
-    }
   }
 
   /**
@@ -412,6 +409,7 @@ class Shell extends Component {
         className={playerClasses}
         onTouchEnd={e => this.onTouchEnd(e)}
         onMouseUp={() => this.onMouseUp()}
+        onMouseOver={() => this.onMouseOver()}
         onMouseMove={() => this.onMouseMove()}
         onMouseLeave={event => this.onMouseLeave(event)}
         onKeyDown={e => this.onKeyDown(e)}>
