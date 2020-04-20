@@ -2,11 +2,11 @@
 import {h, Component} from 'preact';
 import {default as Icon, IconType} from '../icon';
 import {ShareOverlay} from '../share-overlay';
-import Portal from 'preact-portal';
+import {createPortal} from 'preact/compat';
 import style from '../../styles/style.scss';
 import {defaultConfig} from './default-config';
 import {actions} from '../../reducers/share';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {withPlayer} from '../player';
 import {withLogger} from 'components/logger';
@@ -52,19 +52,20 @@ class Share extends Component {
    * @memberof Share
    */
   toggleOverlay(): void {
-    this.setState({overlay: !this.state.overlay});
-    this.props.toggleShareOverlay(this.state.overlay);
-    if (this.props.isPlaying || this.state.previousIsPlaying) {
-      this.setState({previousIsPlaying: true});
-    } else {
-      this.setState({previousIsPlaying: false});
-    }
-    if (this.state.overlay) {
-      this.props.player.pause();
-    } else if (this.state.previousIsPlaying) {
-      this.props.player.play();
-      this.setState({previousIsPlaying: false});
-    }
+    this.setState(
+      prevState => {
+        return {overlay: !prevState.overlay, previousIsPlaying: this.props.isPlaying || prevState.previousIsPlaying};
+      },
+      () => {
+        this.props.toggleShareOverlay(this.state.overlay);
+        if (this.state.overlay) {
+          this.props.player.pause();
+        } else if (this.state.previousIsPlaying) {
+          this.props.player.play();
+          this.setState({previousIsPlaying: false});
+        }
+      }
+    );
   }
 
   /**
@@ -93,12 +94,7 @@ class Share extends Component {
     return (
       <div>
         {this.state.overlay ? (
-          <Portal
-            into={portalSelector}
-            ref={ref =>
-              // ie11 fix (FEC-7312) - don't remove
-              (this._portal = ref)
-            }>
+          createPortal(
             <ShareOverlay
               shareUrl={shareUrl}
               embedUrl={embedUrl}
@@ -106,8 +102,9 @@ class Share extends Component {
               socialNetworks={shareConfig}
               player={this.props.player}
               onClose={() => this.toggleOverlay()}
-            />
-          </Portal>
+            />,
+            document.querySelector(portalSelector)
+          )
         ) : (
           <Tooltip label={this.props.shareTxt} type={ToolTipType.BottomLeft}>
             <button aria-haspopup="true" className={style.controlButton} onClick={() => this.toggleOverlay()} aria-label={this.props.shareTxt}>

@@ -1,6 +1,6 @@
 //@flow
 import {h, Component} from 'preact';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions as cvaaActions} from '../../reducers/cvaa';
 import {actions as shellActions} from '../../reducers/shell';
@@ -122,7 +122,10 @@ class CVAAOverlay extends Component {
    * @memberof CVAAOverlay
    */
   changeCustomStyle(styleChanges: Object): void {
-    this.setState({customTextStyle: Object.assign(this.state.customTextStyle, styleChanges)});
+    this.setState(prevState => {
+      const clonedStyle = prevState.customTextStyle.clone();
+      return {customTextStyle: Object.assign(clonedStyle, styleChanges)};
+    });
   }
 
   /**

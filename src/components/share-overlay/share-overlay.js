@@ -1,7 +1,7 @@
 //@flow
 import {h, Component} from 'preact';
 import {Text, Localizer} from 'preact-i18n';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/share';
 import {toHHMMSS, toSecondsFromHHMMSS} from '../../utils/time-format';
@@ -272,7 +272,9 @@ class ShareOverlay extends Component {
    * @memberof ShareOverlay
    */
   _toggleStartFrom(): void {
-    this.setState({startFrom: !this.state.startFrom});
+    this.setState(prevState => {
+      return {startFrom: !prevState.startFrom};
+    });
   }
 
   /**

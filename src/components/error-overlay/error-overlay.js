@@ -1,7 +1,7 @@
 //@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 import {Overlay} from '../overlay';
 import {Text} from 'preact-i18n';
 import {bindActions} from '../../utils/bind-actions';

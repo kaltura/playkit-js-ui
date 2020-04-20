@@ -1,7 +1,7 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
-import {connect} from 'preact-redux';
+import {h, Component, toChildArray} from 'preact';
+import {connect} from 'react-redux';
 const PLAYER_MARGIN = 10;
 
 /**
@@ -157,7 +157,7 @@ class Tooltip extends Component {
     const className = [style.tooltipLabel, style[`tooltip-${this.state.type}`]];
     this.state.showTooltip && this.state.valid ? className.push(style.show) : className.push(style.hide);
     return props.isMobile ? (
-      props.children[0]
+      toChildArray(props.children)[0]
     ) : (
       <div className={style.tooltip} onMouseOver={() => this.onMouseOver()} onMouseLeave={() => this.onMouseLeave()}>
         {props.children}

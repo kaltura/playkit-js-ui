@@ -90,7 +90,9 @@ module.exports = {
       components: path.resolve(__dirname, 'src/components/'),
       reducers: path.resolve(__dirname, 'src/reducers/'),
       utils: path.resolve(__dirname, 'src/utils/'),
-      event: path.resolve(__dirname, 'src/event')
+      event: path.resolve(__dirname, 'src/event'),
+      react: 'preact/compat',
+      'react-dom': 'preact/compat'
     }
   },
   externals: {

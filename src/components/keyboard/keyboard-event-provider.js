@@ -1,8 +1,8 @@
 // @flow
-import {Component} from 'preact';
+import {Component, toChildArray} from 'preact';
 import {withEventManager} from 'event/with-event-manager';
 import {withLogger} from 'components/logger';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 
 const COMPONENT_NAME = 'KEYBOARD_PROVIDER';
 
@@ -177,7 +177,7 @@ class KeyboardEventProvider extends Component {
    * @memberof KeyboardEventProvider
    */
   render(): React$Element<any> | null {
-    return (this.props.children && this.props.children[0]) || null;
+    return (this.props.children && toChildArray(this.props.children)[0]) || null;
   }
 }
 

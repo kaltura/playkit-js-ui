@@ -1,6 +1,6 @@
 //@flow
 import {h, render} from 'preact';
-import {Provider} from 'preact-redux';
+import {Provider} from 'react-redux';
 import {IntlProvider} from 'preact-i18n';
 import {createStore} from 'redux';
 import {copyDeep} from './utils/copy-deep';
