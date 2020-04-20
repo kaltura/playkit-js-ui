@@ -1,9 +1,9 @@
 //@flow
 import {Component} from 'preact';
-import {connect} from 'preact-redux';
-import {bindActions} from '../../utils';
-import {actions} from '../../reducers/shell';
-import getLogger from '../../utils/logger';
+import {connect} from 'react-redux';
+import {bindActions} from './utils';
+import {actions} from './reducers/shell';
+import getLogger from './utils/logger';
 import {withEventDispatcher} from 'components/event-dispatcher';
 
 /**
@@ -74,7 +74,7 @@ class ActivePreset extends Component {
     if (this.props.uis.length > 0) {
       uiToRender = this.getMatchedUI(props.uis, props.state);
       const uiComponent = uiToRender ? uiToRender.template(props) : this.props.uis[this.props.uis.length - 1].template(props);
-      const presetName = uiComponent ? uiComponent.nodeName.displayName || '' : '';
+      const presetName = uiComponent ? uiComponent.type.displayName || '' : '';
 
       if (activePresetName !== presetName) {
         props.notifyChange({from: activePresetName, to: presetName});

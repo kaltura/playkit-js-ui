@@ -1,7 +1,7 @@
 //@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 import {Menu} from '../menu';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
@@ -83,7 +83,9 @@ class DropDown extends Component {
   onKeyDown(e: KeyboardEvent): void {
     switch (e.keyCode) {
       case KeyMap.ENTER:
-        this.setState({dropMenuActive: !this.state.dropMenuActive});
+        this.setState(prevState => {
+          return {dropMenuActive: !prevState.dropMenuActive};
+        });
         break;
       case KeyMap.ESC:
         if (this.state.dropMenuActive) {
@@ -166,7 +168,10 @@ class DropDown extends Component {
           aria-expanded={this.state.dropMenuActive ? 'true' : 'false'}
           aria-labelledby={[props.name, activeOptionId].join(' ')}
           className={style.dropdownButton}
-          onClick={() => this.toggleDropDown()}
+          onClick={e => {
+            e.stopPropagation();
+            this.toggleDropDown();
+          }}
           onKeyDown={e => {
             switch (e.keyCode) {
               case KeyMap.ENTER:
@@ -193,7 +198,9 @@ class DropDown extends Component {
    * @memberof DropDown
    */
   toggleDropDown(): void {
-    this.setState({dropMenuActive: !this.state.dropMenuActive});
+    this.setState(prevState => {
+      return {dropMenuActive: !prevState.dropMenuActive};
+    });
   }
 }
 

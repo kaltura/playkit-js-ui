@@ -1,6 +1,6 @@
 //@flow
 import {Component} from 'preact';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 import {actions as shellActions} from '../../reducers/shell';
 import {actions as overlayIconActions} from '../../reducers/overlay-action';
 import {bindActions} from '../../utils/bind-actions';

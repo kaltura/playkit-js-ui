@@ -1,5 +1,5 @@
 //@flow
-import {Component} from 'preact';
+import {Component, toChildArray} from 'preact';
 
 /**
  * PlayerProvider component
@@ -26,7 +26,7 @@ class PlayerProvider extends Component {
    * @memberof PlayerProvider
    */
   render(): React$Element<any> | null {
-    return (this.props.children && this.props.children[0]) || null;
+    return (this.props.children && toChildArray(this.props.children)[0]) || null;
   }
 }
 export {PlayerProvider};

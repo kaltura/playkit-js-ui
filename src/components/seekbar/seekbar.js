@@ -3,7 +3,7 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {toHHMMSS} from '../../utils/time-format';
 import {KeyMap} from '../../utils/key-map';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
 import {bindMethod} from '../../utils/bind-method';

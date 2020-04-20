@@ -1,6 +1,6 @@
 //@flow
-import {h, Component} from 'preact';
-import {connect} from 'preact-redux';
+import {h, Component, toChildArray} from 'preact';
+import {connect} from 'react-redux';
 import {withLogger} from 'components/logger';
 
 /**
@@ -40,11 +40,11 @@ const initialState = {
  * @returns {*} component name
  */
 function getComponentName(component: any) {
-  if (!component || !component.nodeName) {
+  if (!component || !component.type) {
     return null;
   }
 
-  return component.nodeName.displayName;
+  return component.type.displayName;
 }
 
 @withLogger('PresetArea')
@@ -189,7 +189,7 @@ class PresetArea extends Component {
     const newChildren = [];
 
     if (hasPositionedComponents) {
-      children.forEach(child => {
+      toChildArray(children).forEach(child => {
         let childName = getComponentName(child);
         if (!childName) {
           newChildren.push(child);
@@ -218,7 +218,7 @@ class PresetArea extends Component {
         }
       });
     } else {
-      newChildren.push(...children);
+      newChildren.push(...toChildArray(children));
     }
 
     const appendedChildren = presetAreaComponents.appendedComponents.map(component => {

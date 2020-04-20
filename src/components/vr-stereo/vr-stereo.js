@@ -6,7 +6,7 @@ import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 import {actions as engineActions} from '../../reducers/engine';
 import {bindActions} from '../../utils/bind-actions';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 import {actions as shellActions} from '../../reducers/shell';
 import {withPlayer} from '../player';
 import {withLogger} from 'components/logger';

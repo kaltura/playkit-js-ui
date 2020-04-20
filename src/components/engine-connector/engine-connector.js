@@ -1,6 +1,6 @@
 //@flow
 import {h, Component} from 'preact';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {default as reduce, actions} from '../../reducers/engine';
 import {actions as loadingActions} from '../../reducers/loading';

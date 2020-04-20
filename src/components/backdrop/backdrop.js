@@ -2,7 +2,7 @@
 import style from '../../styles/style.scss';
 import {h} from 'preact';
 import {Component} from 'preact';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 
 /**
  * mapping state to props

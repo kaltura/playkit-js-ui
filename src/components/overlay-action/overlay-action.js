@@ -1,7 +1,7 @@
 //@flow
 import {h, Component} from 'preact';
 import style from '../../styles/style.scss';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/overlay-action';
 import {actions as shellActions} from '../../reducers/shell';
@@ -237,16 +237,27 @@ class OverlayAction extends Component {
    * @memberof OverlayAction
    */
   toggleOverlayActionIcon(iconType: string | Array<string>): void {
+    /**
+     * @returns {void}
+     */
+    const showIcon = () => {
+      this.setState({animation: true, iconType: iconType}, () => {
+        this._iconTimeout = setTimeout(() => {
+          this._iconTimeout = null;
+          this.setState({animation: false});
+        }, OVERLAY_ACTION_DEFAULT_TIMEOUT);
+      });
+    };
     if (this._iconTimeout !== null) {
       clearTimeout(this._iconTimeout);
       this._iconTimeout = null;
-      this.setState({animation: false});
-      this.forceUpdate();
+      this.setState({animation: false}, () => {
+        this.forceUpdate();
+        showIcon();
+      });
+    } else {
+      showIcon();
     }
-    this.setState({animation: true, iconType: iconType});
-    this._iconTimeout = setTimeout(() => {
-      this.setState({animation: false});
-    }, OVERLAY_ACTION_DEFAULT_TIMEOUT);
   }
 
   /**

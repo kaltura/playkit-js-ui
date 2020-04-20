@@ -1,10 +1,10 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h, Component, cloneElement} from 'preact';
-import {connect} from 'preact-redux';
+import {h, Component, cloneElement, toChildArray} from 'preact';
+import {connect} from 'react-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
-import Portal from 'preact-portal';
+import {createPortal} from 'preact/compat';
 import {Overlay} from '../overlay';
 import {withKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
 
@@ -95,12 +95,7 @@ class SmartContainer extends Component {
     const portalSelector = `#${this.props.targetId} .overlay-portal`;
     props.clearAccessibleChildren();
     return this.isPortal ? (
-      <Portal
-        into={portalSelector}
-        ref={ref =>
-          // ie11 fix (FEC-7312) - don't remove
-          (this._portal = ref)
-        }>
+      createPortal(
         <Overlay
           open
           onClose={() => props.onClose()}
@@ -108,8 +103,9 @@ class SmartContainer extends Component {
           addAccessibleChild={this.props.addAccessibleChild}>
           <div className={style.title}>{props.title}</div>
           {this.renderChildren(props)}
-        </Overlay>
-      </Portal>
+        </Overlay>,
+        document.querySelector(portalSelector)
+      )
     ) : (
       <div
         onKeyDown={e => {
@@ -128,7 +124,7 @@ class SmartContainer extends Component {
    * @returns {React$Element<any>} the rendered jsx
    */
   renderChildren(props: any): React$Element<any> {
-    const children = props.children.map(child => {
+    const children = toChildArray(props.children).map(child => {
       if (child) {
         return cloneElement(
           child,
