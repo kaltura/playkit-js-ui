@@ -101,9 +101,6 @@ class Shell extends Component {
       this.setState({nav: false});
       this.props.updatePlayerNavState(false);
     }
-    if (!this.props.bottomBarHoverActive) {
-      this._updatePlayerHoverState();
-    }
   }
 
   /**
