@@ -1,6 +1,6 @@
 // @flow
 import {Component, h} from 'preact';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 import * as utils from './preset-areas-utils';
 
 /**

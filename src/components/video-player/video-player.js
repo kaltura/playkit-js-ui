@@ -1,7 +1,7 @@
 //@flow
 import { CustomEventType, utils as playkitUtils } from '@playkit-js/playkit-js';
 import { h, Component } from 'preact';
-import { connect } from 'preact-redux';
+import { connect } from 'react-redux';
 import { actions as shellActions } from '../../reducers/shell';
 import style from '../../styles/style.scss';
 import { bindActions } from '../../utils/bind-actions';

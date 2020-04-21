@@ -3,7 +3,7 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {withText} from 'preact-i18n';
 import {default as Icon, IconType} from '../icon';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 import {PLAYER_SIZE} from '../shell/shell';
 import {withPlayer} from '../player';
 import {withLogger} from 'components/logger';

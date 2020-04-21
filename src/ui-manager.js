@@ -1,6 +1,6 @@
 //@flow
 import {h, render} from 'preact';
-import {Provider} from 'preact-redux';
+import {Provider} from 'react-redux';
 import {IntlProvider} from 'preact-i18n';
 import {createStore} from 'redux';
 import {copyDeep} from './utils/copy-deep';
@@ -206,7 +206,7 @@ class UIManager {
       );
 
       // render the player
-      this.root = render(template, this.container, this.root);
+      this.root = render(template, this.container);
     }
   }
 
@@ -217,7 +217,7 @@ class UIManager {
   destroy(): void {
     if (this.container) {
       this.container.prepend(this.player.getView());
-      render('', this.container, this.root);
+      render('', this.container);
     }
   }
 

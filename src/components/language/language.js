@@ -2,14 +2,14 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {Text, withText} from 'preact-i18n';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/cvaa';
 import {SmartContainer} from '../smart-container';
 import {SmartContainerItem} from '../smart-container/smart-container-item';
 import {default as Icon, IconType} from '../icon';
 import {CVAAOverlay} from '../cvaa-overlay';
-import Portal from 'preact-portal';
+import {createPortal} from 'preact/compat';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withLogger} from 'components/logger';
@@ -147,7 +147,9 @@ class Language extends Component {
    * @memberof Language
    */
   onControlButtonClick(): void {
-    this.setState({smartContainerOpen: !this.state.smartContainerOpen});
+    this.setState(prevState => {
+      return {smartContainerOpen: !prevState.smartContainerOpen};
+    });
   }
 
   /**
@@ -187,7 +189,9 @@ class Language extends Component {
    * @memberof Language
    */
   toggleCVAAOverlay(): void {
-    this.setState({cvaaOverlay: !this.state.cvaaOverlay});
+    this.setState(prevState => {
+      return {cvaaOverlay: !prevState.cvaaOverlay};
+    });
   }
 
   /**
@@ -251,19 +255,15 @@ class Language extends Component {
           </SmartContainer>
         )}
         {this.state.cvaaOverlay ? (
-          <Portal
-            into={portalSelector}
-            ref={ref =>
-              // ie11 fix (FEC-7312) - don't remove
-              (this._portal = ref)
-            }>
+          createPortal(
             <CVAAOverlay
               onClose={() => {
                 this.toggleCVAAOverlay();
                 this.onControlButtonClick();
               }}
-            />
-          </Portal>
+            />,
+            document.querySelector(portalSelector)
+          )
         ) : (
           <div />
         )}

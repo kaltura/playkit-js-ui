@@ -11,7 +11,7 @@ import {RewindClickedEvent} from 'event/events/rewind-clicked';
 import {ForwardClickedEvent} from 'event/events/forward-clicked';
 import {VolumeChangedEvent} from 'event/events/volume-changed';
 import {KeyMap} from 'utils/key-map';
-import {Component} from 'preact';
+import {Component, toChildArray} from 'preact';
 
 /**
  * PlayerProvider component
@@ -61,7 +61,7 @@ class EventDispatcherProvider extends Component {
    * @memberof EventDispatcherProvider
    */
   render(): React$Element<any> | null {
-    return (this.props.children && this.props.children[0]) || null;
+    return (this.props.children && toChildArray(this.props.children)[0]) || null;
   }
 }
 export {EventDispatcherProvider};

@@ -2,7 +2,7 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {default as Icon, IconType} from '../icon';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 import {bindMethod} from '../../utils/bind-method';
 import {withKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
 import {KeyMap} from 'utils/key-map';

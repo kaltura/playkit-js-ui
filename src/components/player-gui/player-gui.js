@@ -1,6 +1,6 @@
 //@flow
 import {h, Component} from 'preact';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
 import {actions} from '../../reducers/shell';
 import {SidePanelsContainer} from '../side-panels-container';

@@ -1,7 +1,7 @@
 //@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 import {Localizer, Text} from 'preact-i18n';
 import {withPlayer} from '../player';
 import {withLogger} from 'components/logger';

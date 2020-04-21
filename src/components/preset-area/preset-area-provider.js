@@ -176,7 +176,7 @@ class PresetAreaProvider extends Component {
    * @returns {void}
    */
   render(props) {
-    return props.children[0];
+    return props.children;
   }
 }
 
