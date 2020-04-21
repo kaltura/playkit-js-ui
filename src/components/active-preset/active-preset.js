@@ -1,9 +1,9 @@
 //@flow
 import {Component} from 'preact';
 import {connect} from 'react-redux';
-import {bindActions} from './utils';
-import {actions} from './reducers/shell';
-import getLogger from './utils/logger';
+import {bindActions} from '../../utils';
+import {actions} from '../../reducers/shell';
+import getLogger from '../../utils/logger';
 import {withEventDispatcher} from 'components/event-dispatcher';
 
 /**

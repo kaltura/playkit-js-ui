@@ -1,6 +1,6 @@
 //@flow
 import {h, Component} from 'preact';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 import {withPlayer} from 'components/player';
 import style from '../../styles/style.scss';
 import {PresetArea} from 'components/preset-area';

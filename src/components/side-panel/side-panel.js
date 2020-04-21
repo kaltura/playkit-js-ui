@@ -1,7 +1,7 @@
 //@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
-import {connect} from 'preact-redux';
+import {connect} from 'react-redux';
 import {withPresetAreas} from '../preset-areas';
 import {PresetArea} from '../preset-area';
 import {SidePanelPositions} from '../../reducers/shell';
