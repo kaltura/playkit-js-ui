@@ -1,4 +1,4 @@
-import {Component, toChildArray} from 'preact';
+import {Component} from 'preact';
 import getLogger from '../../utils/logger';
 
 const logger = getLogger('PresetAreaProvider');
@@ -176,7 +176,7 @@ class PresetAreaProvider extends Component {
    * @returns {void}
    */
   render(props) {
-    return toChildArray(props.children[0]);
+    return props.children;
   }
 }
 
