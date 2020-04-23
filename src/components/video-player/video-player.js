@@ -5,12 +5,12 @@ import { connect } from 'react-redux';
 import { actions as shellActions } from '../../reducers/shell';
 import style from '../../styles/style.scss';
 import { bindActions } from '../../utils/bind-actions';
-import {PresetArea} from '../preset-area';
+import {PlayerArea} from '../player-area';
 import { withPlayer } from '../player';
-import {withPresetAreas} from '../preset-areas';
+import {withPlayerAreas} from '../player-areas';
 
 @withPlayer
-@withPresetAreas
+@withPlayerAreas
 @connect(
   null,
   bindActions({updateVideoClientRect: shellActions.updateVideoClientRect})
@@ -33,7 +33,7 @@ class VideoPlayer extends Component {
    * @memberof VideoPlayer
    */
   shouldComponentUpdate(nextProps: PropsType): boolean {
-    return nextProps.presetAreasService !== this.props.presetAreasService;
+    return nextProps.PlayerAreasService !== this.props.PlayerAreasService;
   }
 
   _onVideoResize = (e) => {
@@ -66,14 +66,14 @@ class VideoPlayer extends Component {
    * @memberof VideoPlayer
    */
   render(): React$Element<any> {
-    const { presetAreasService } = this.props;
-    const styleValue = presetAreasService.calculateVideoStyles();
+    const { PlayerAreasService } = this.props;
+    const styleValue = PlayerAreasService.calculateVideoStyles();
 
     return (
       <div>
         <div className={style.videoPlayer} style={styleValue} ref={this._setRef} />
-        <PresetArea name={'PreVideoArea'} style={styleValue} />
-        <PresetArea name={'VideoArea'} style={styleValue} />
+        <PlayerArea name={'PreVideoArea'} style={styleValue} />
+        <PlayerArea name={'VideoArea'} style={styleValue} />
      </div>
     );
   }

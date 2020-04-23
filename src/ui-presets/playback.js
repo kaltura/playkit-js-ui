@@ -1,7 +1,7 @@
 //@flow
 import style from '../styles/style.scss';
 import {h} from 'preact';
-import {PresetArea} from '../components/preset-area';
+import {PlayerArea} from '../components/player-area';
 import {OverlayAction} from '../components/overlay-action';
 import {PrePlaybackPlayOverlay} from '../components/pre-playback-play-overlay';
 import {Loading} from '../components/loading';
@@ -48,7 +48,7 @@ function PlaybackUI(props: any): React$Element<any> {
     <PlayerPreset preAppendTo={'Backdrop'} className={style.playbackGuiWWrapper}
     preVideoArea={<OverlayAction />}  allowSidePanels={true} allowPlayerArea={true} allowVideoArea={true}>
       <Loading />
-      <PresetArea className={style.playerGui} name={'BarsArea'} id="player-gui">
+      <PlayerArea className={style.playerGui} name={'BarsArea'} id="player-gui">
         <OverlayPortal />
         <UnmuteIndication />
         <PictureInPictureOverlay />
@@ -56,20 +56,20 @@ function PlaybackUI(props: any): React$Element<any> {
         <PlaylistNextScreen />
         <InteractiveArea />
         <TopBar>
-          <PresetArea className={style.leftControls} name={'TopBarLeftControls'} />
-          <PresetArea className={style.rightControls} name={'TopBarRightControls'}>
+          <PlayerArea className={style.leftControls} name={'TopBarLeftControls'} />
+          <PlayerArea className={style.rightControls} name={'TopBarRightControls'}>
             <Share />
-          </PresetArea>
+          </PlayerArea>
         </TopBar>
         <BottomBar>
           <SeekBarPlaybackContainer showFramePreview showTimeBubble playerContainer={props.playerContainer} />
-          <PresetArea className={style.leftControls} name={'BottomBarLeftControls'}>
+          <PlayerArea className={style.leftControls} name={'BottomBarLeftControls'}>
             <PlaybackControls />
             <Rewind step={10} />
             <Forward step={10} />
             <TimeDisplayPlaybackContainer format="current / total" />
-          </PresetArea>
-          <PresetArea className={style.rightControls} name={'BottomBarRightControls'}>
+          </PlayerArea>
+          <PlayerArea className={style.rightControls} name={'BottomBarRightControls'}>
             <VrStereo />
             <Volume />
             <Language />
@@ -78,9 +78,9 @@ function PlaybackUI(props: any): React$Element<any> {
             <PictureInPicture />
             <Fullscreen />
             <Logo />
-          </PresetArea>
+          </PlayerArea>
         </BottomBar>
-      </PresetArea>
+      </PlayerArea>
       <Watermark />
       <PlaylistCountdown />
       <PrePlaybackPlayOverlay />

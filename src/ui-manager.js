@@ -8,7 +8,7 @@ import {mergeDeep} from './utils/merge-deep';
 import {LogLevel, getLogLevel, setLogLevel, setLogHandler} from './utils/logger';
 import {EventType} from './event/event-type';
 import {setEnv} from './utils/key-map';
-import {PresetAreaProvider} from './components/preset-area';
+import {PlayerAreaProvider} from './components/player-area';
 import reducer from './store';
 import en_translations from '../translations/en.i18n.json';
 import {actions as configActions} from './reducers/config';
@@ -187,7 +187,7 @@ class UIManager {
       // i18n, redux and initial player-to-store connector setup
       const template = (
         <Provider store={this.store}>
-          <PresetAreaProvider uiComponents={this._uiComponents}>
+          <PlayerAreaProvider uiComponents={this._uiComponents}>
             <IntlProvider definition={this._translations[this._locale]}>
               <PlayerProvider player={this.player}>
                 <EventDispatcherProvider player={this.player} store={this.store}>
@@ -201,7 +201,7 @@ class UIManager {
                 </EventDispatcherProvider>
               </PlayerProvider>
             </IntlProvider>
-          </PresetAreaProvider>
+          </PlayerAreaProvider>
         </Provider>
       );
 

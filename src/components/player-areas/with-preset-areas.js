@@ -1,7 +1,7 @@
 // @flow
 import {Component, h} from 'preact';
 import {connect} from 'react-redux';
-import * as utils from './preset-areas-utils';
+import * as utils from './player-areas-utils';
 
 /**
  * validate common options
@@ -51,13 +51,13 @@ function createCalculateVideoStyles(options) {
  * @param {string} options options
  * @return {*} function
  */
-function createCalculatePresetAreaStyles(options) {
+function createCalculatePlayerAreaStyles(options) {
   return () => {
     if (!options.allowSidePanels || !validateCommonOptions(options)) {
       return {};
     }
 
-    const result = utils.calculatePresetAreaStyles(options);
+    const result = utils.calculatePlayerAreaStyles(options);
 
     return result;
   };
@@ -79,11 +79,11 @@ const mapStateToProps = state => ({
  * connect decorator
  * @returns {function(*): *} connect
  */
-const withPresetAreas = InnerComponent => {
-  return @connect(mapStateToProps)
+const withPlayerAreas = InnerComponent => {
   /**
-   * store hocwithPresetAreas
+   * store hocwithPlayerAreas
    */
+  @connect(mapStateToProps)
   class SidePanelWrapper extends Component {
     /**
      * create side panels store
@@ -91,7 +91,7 @@ const withPresetAreas = InnerComponent => {
      * @param {*} propsSnapshot propsSnapshot
      * @return {void}
      */
-    createPresetAreasService(propsSnapshot) {
+    createPlayerAreasService(propsSnapshot) {
       const options = {
         sidePanelsModes: propsSnapshot.sidePanelsModes,
         sidePanelsSizes: propsSnapshot.sidePanelsSizes,
@@ -100,7 +100,7 @@ const withPresetAreas = InnerComponent => {
       };
 
       return {
-        calculatePresetAreaStyles: createCalculatePresetAreaStyles(options),
+        calculatePlayerAreaStyles: createCalculatePlayerAreaStyles(options),
         calculateVideoStyles: createCalculateVideoStyles(options),
         calculateSidePanelStyles: createCalculateSidePanelStyles(options)
       };
@@ -108,7 +108,7 @@ const withPresetAreas = InnerComponent => {
 
     componentDidMount(): void {
       this.setState({
-        presetAreasService: this.createPresetAreasService(this.props)
+        PlayerAreasService: this.createPlayerAreasService(this.props)
       });
     }
 
@@ -125,7 +125,7 @@ const withPresetAreas = InnerComponent => {
       }
 
       this.setState({
-        presetAreasService: this.createPresetAreasService(this.props)
+        PlayerAreasService: this.createPlayerAreasService(this.props)
       });
     }
 
@@ -134,16 +134,17 @@ const withPresetAreas = InnerComponent => {
      * @returns {*} component
      */
     render() {
-      const {presetAreasService} = this.state;
+      const {PlayerAreasService} = this.state;
 
-      if (!presetAreasService) {
+      if (!PlayerAreasService) {
         return null;
       }
       // eslint-disable-next-line no-unused-vars
       const {playerClientRect, sidePanelsModes, allowSidePanels, ...restProps} = this.props;
-      return <InnerComponent {...restProps} presetAreasService={presetAreasService} />;
+      return <InnerComponent {...restProps} PlayerAreasService={PlayerAreasService} />;
     }
   };
+  return SidePanelWrapper;
 };
 
-export {withPresetAreas};
+export {withPlayerAreas};

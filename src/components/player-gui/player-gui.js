@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
 import {actions} from '../../reducers/shell';
 import {SidePanelsContainer} from '../side-panels-container';
-import {withPresetAreas} from '../preset-areas';
+import {withPlayerAreas} from '../player-areas';
 import {ActivePreset} from '../active-preset';
 import {PlayerArea} from '../player-area';
 import style from '../../styles/style.scss';
@@ -18,7 +18,17 @@ const mapStateToProps = state => ({
   presetClientRect: state.shell.presetClientRect
 });
 
-@withPresetAreas
+class PlayerModalArea extends Component {
+  render() {
+    const {children, className, preAppendTo, activePresetName, allowPlayerArea} = this.props;
+
+    return <PlayerArea className={className} name={'PlayerArea'} preAppendTo={preAppendTo}>
+        {children}
+      </PlayerArea>
+  }
+}
+
+@withPlayerAreas
 @connect(
   mapStateToProps,
   bindActions({
@@ -64,10 +74,10 @@ class PlayerGUI extends Component {
    * @memberof PlayerGUI
    */
   render(): React$Element<any> | void {
-    const {presetAreasService, uis} = this.props;
+    const {PlayerAreasService, uis} = this.props;
 
     const {width: currentWidth, height: currentHeight} = this.props.presetClientRect;
-    const areaProperties = presetAreasService.calculatePresetAreaStyles();
+    const areaProperties = PlayerAreasService.calculatePlayerAreaStyles();
 
     if (currentWidth !== areaProperties.width || currentHeight !== areaProperties.height) {
       const newPresetSize = {width: areaProperties.width, height: areaProperties.height};
@@ -75,7 +85,7 @@ class PlayerGUI extends Component {
     }
 
     return (
-      <SidePanelsContainer after={<PlayerArea />}>
+      <SidePanelsContainer after={<PlayerModalArea />}>
         <div ref={this._setPresetContainerRef} style={areaProperties.style} className={style.activePresetContainer}>
           <div className={style.activePresetContent} >
             <ActivePreset uis={uis} playerContainer={this._presetContainerRef} />

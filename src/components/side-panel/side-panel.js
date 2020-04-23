@@ -2,8 +2,8 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'react-redux';
-import {withPresetAreas} from '../preset-areas';
-import {PresetArea} from '../preset-area';
+import {withPlayerAreas} from '../player-areas';
+import {PlayerArea} from '../player-area';
 import {SidePanelPositions} from '../../reducers/shell';
 
 /**
@@ -27,7 +27,7 @@ function toUpperCamelCase(word) {
   return word ? `${word[0].toUpperCase()}${word.substring(1).toLowerCase()}` : '';
 }
 
-@withPresetAreas
+@withPlayerAreas
 @connect(mapStateToProps)
 /**
  * SidePanel component
@@ -63,7 +63,7 @@ class SidePanel extends Component {
    * @memberof SidePanel
    */
   render(props): React$Element<any> {
-    const {activePresetName, position, allowSidePanels, presetAreasService} = props;
+    const {activePresetName, position, allowSidePanels, PlayerAreasService} = props;
 
     const isVertical = [SidePanelPositions.RIGHT, SidePanelPositions.LEFT].indexOf(position) !== -1;
     const stylePrefix = isVertical ? 'verticalSidePanel' : 'horizontalSidePanel';
@@ -75,11 +75,11 @@ class SidePanel extends Component {
 
     const containerName = `SidePanel${position.charAt(0).toUpperCase() + position.slice(1).toLowerCase()}`;
 
-    const sidePanelStyles = presetAreasService.calculateSidePanelStyles(props.position);
+    const sidePanelStyles = PlayerAreasService.calculateSidePanelStyles(props.position);
 
     return (
       <div style={sidePanelStyles} className={styleClass.join(' ')} ref={c => (this._el = c)}>
-        <PresetArea className={style.sidePanelContent} name={containerName} />
+        <PlayerArea className={style.sidePanelContent} name={containerName} />
       </div>
     );
   }

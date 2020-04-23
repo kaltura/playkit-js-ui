@@ -3,7 +3,7 @@ import {h, Component} from 'preact';
 import {connect} from 'react-redux';
 import {withPlayer} from 'components/player';
 import style from '../../styles/style.scss';
-import {PresetArea} from 'components/preset-area';
+import {PlayerArea} from 'components/player-area';
 const mapStateToProps = state => ({
   playerHover: state.shell.playerHover,
   seekbarDraggingActive: state.seekbar.draggingActive,
@@ -49,7 +49,7 @@ export class InteractiveArea extends Component {
 
     return (
       <div className={style.interactiveArea} style={containerStyle}>
-        <PresetArea style={{pointerEvents: 'auto'}} name={'InteractiveArea'} />
+        <PlayerArea style={{pointerEvents: 'auto'}} name={'InteractiveArea'} />
       </div>
     );
   }

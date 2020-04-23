@@ -108,7 +108,7 @@ export function calculateVideoStyles(options) {
  * @param {*} options player state
  * @return {Object} styles as hashtable
  */
-export function calculatePresetAreaStyles(options) {
+export function calculatePlayerAreaStyles(options) {
   const {sidePanelsModes, playerClientRect} = options;
   const areaStyle = {position: 'absolute', left: 0, right: 0, top: 0, bottom: 0};
   let areaWidth = playerClientRect.width;

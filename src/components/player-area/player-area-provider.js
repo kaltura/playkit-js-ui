@@ -1,12 +1,12 @@
 import {Component} from 'preact';
 import getLogger from '../../utils/logger';
 
-const logger = getLogger('PresetAreaProvider');
+const logger = getLogger('PlayerAreaProvider');
 
 /**
- * presetArea provider
+ * PlayerArea provider
  */
-class PresetAreaProvider extends Component {
+class PlayerAreaProvider extends Component {
 
   /**
    * constructor
@@ -44,7 +44,7 @@ class PresetAreaProvider extends Component {
         try {
           cb(this._presetsComponents);
         } catch (e) {
-          logger.error(`error occurred with one of the presetAreas handling preset components.`, e);
+          logger.error(`error occurred with one of the PlayerAreas handling preset components.`, e);
         }
       });
     }, 200);
@@ -180,4 +180,4 @@ class PresetAreaProvider extends Component {
   }
 }
 
-export {PresetAreaProvider};
+export {PlayerAreaProvider};

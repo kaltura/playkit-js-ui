@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {bindActions} from 'utils/bind-actions';
 import {actions} from 'reducers/shell';
 import {withPlayer} from '../player';
-import {PresetArea} from '../preset-area';
+import {PlayerArea} from '../player-area';
 
 @withPlayer
 @connect(
@@ -66,9 +66,9 @@ export class PlayerPreset extends Component {
     const {children, className, preAppendTo} = this.props;
 
     return (
-    <PresetArea className={className} name={'PresetArea'} preAppendTo={preAppendTo}>
+    <PlayerArea className={className} name={'PlayerArea'} preAppendTo={preAppendTo}>
       {children}
-    </PresetArea>
+    </PlayerArea>
     )
   }
 }
