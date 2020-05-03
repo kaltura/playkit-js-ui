@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.54.0"></a>
+# [0.54.0](https://github.com/kaltura/playkit-js-ui/compare/v0.53.2...v0.54.0) (2020-05-03)
+
+
+### Bug Fixes
+
+* **FEC-9980:** custom preset controls are continuously blinking on hovering the bottom bar ([#497](https://github.com/kaltura/playkit-js-ui/issues/497)) ([936bbda](https://github.com/kaltura/playkit-js-ui/commit/936bbda))
+
+
+### Features
+
+* **FEC-9621:** translate player labels to default languages ([#500](https://github.com/kaltura/playkit-js-ui/issues/500)) ([5d5c4e4](https://github.com/kaltura/playkit-js-ui/commit/5d5c4e4))
+* **FEC-9953:** upgrade to Preact X ([#495](https://github.com/kaltura/playkit-js-ui/issues/495)) ([8347d9e](https://github.com/kaltura/playkit-js-ui/commit/8347d9e))
+
+
+
 <a name="0.53.2"></a>
 ## [0.53.2](https://github.com/kaltura/playkit-js-ui/compare/v0.53.1...v0.53.2) (2020-03-10)
 
