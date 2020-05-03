@@ -28,25 +28,26 @@ export class PresetSettings extends Component {
   }
 
   componentDidMount(): void {
-    const {activePresetName, allowSidePanels, allowPlayerArea, allowVideoArea, preVideoArea} = this.props;
+    const {activePresetName, allowSidePanels, allowPlayerArea, allowVideoArea, preVideoAreaRenderer} = this.props;
     this.props.updatePresetSettings({
       allowSidePanels,
       allowPlayerArea,
       allowVideoArea
     });
 
-    if (!preVideoArea || !activePresetName) {
+    if (!preVideoAreaRenderer || !activePresetName) {
       return null;
     }
 
     this._removePreVideoAreaComponent = this.context.presetComponentsStore.addNewComponent(
       {
         label: 'active-preset-pre-video-content',
-        container: 'PreVideoArea',
-        get: () => preVideoArea,  
+        area: 'PreVideoArea',
+        get: () => preVideoAreaRenderer,  
         presets: [activePresetName]
       }
     )
+
   }
 
   /**

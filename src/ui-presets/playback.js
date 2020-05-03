@@ -47,7 +47,7 @@ function PlaybackUI(props: any): React$Element<any> {
   return (
     <Fragment>
       <PresetSettings 
-        preVideoArea={<OverlayAction />} 
+        preVideoAreaRenderer={<OverlayAction />} 
         allowSidePanels={true} 
         allowPlayerArea={true} 
         allowVideoArea={true} />

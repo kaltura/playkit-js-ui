@@ -42,13 +42,13 @@ export function LiveUI(props: any): React$Element<any> {
   return (
     <Fragment>
     <PresetSettings 
+            preVideoAreaRenderer={<OverlayAction />} 
     allowSidePanels={true} allowPlayerArea={true} allowVideoArea={true} />
        <PlayerArea preAppendTo={'Backdrop'} name={'PresetArea'} className={style.playbackGuiWrapper}> 
       <Loading />
       <div className={style.playerGui} id="player-gui">
         <OverlayPortal />
-        <UnmuteIndication />
-        <OverlayAction /> 
+        <UnmuteIndication /> 
         <PlaybackControls />
         <InteractiveArea />
         <TopBar>

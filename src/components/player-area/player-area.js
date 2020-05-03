@@ -96,7 +96,7 @@ class PlayerArea extends Component {
     let hasPositionedComponents = false;
 
     const presetComponents = presetsComponents[activePresetName] || [];
-    const PlayerAreaComponents = presetComponents.filter(component => component.container === this.props.name);
+    const PlayerAreaComponents = presetComponents.filter(component => component.area === this.props.name);
     PlayerAreaComponents.forEach(component => {
       if (component.beforeComponent) {
         getPositionedPlayerAreaItem(positionedComponentMap, component.beforeComponent).before.push(component);
@@ -162,7 +162,7 @@ class PlayerArea extends Component {
   renderContent(children: Array<any>) {
     const {className, id, name, style} = this.props;
     return (
-      <div style={style} className={className} id={id} data-kp-container={name}>
+      <div style={style} className={className} id={id} data-kp-area={name}>
         {children}
       </div>
     );

@@ -51,10 +51,12 @@ class PlayerAreaProvider extends Component {
   }
 
   _validateComponentData = (componentData) => {
-    if (!componentData.get || !componentData.container || !componentData.presets) {
+    // we keep option `container` for backward compatibility. documentation are showing `area` property
+    const hasAreaProperty = componentData.container || componentData.area;
+    if (!componentData.get || !componentData.presets || !hasAreaProperty) {
       logger.warn(
         `component data with label '${component.label ||
-          ''}' is invalid (did you remember to set 'get', 'presets' and 'container'?)`
+          ''}' is invalid (did you remember to set 'get', 'presets' and 'area'?)`
       );
       return false;
     }
@@ -67,16 +69,21 @@ class PlayerAreaProvider extends Component {
 
     if (!!result) {
       this._updateListeners();
+      return result;
     }
 
-    return result;
+    return () => {};
   }
 
   _addNewComponent = (componentData) => {
     // use cloned component just in case someone will mutate the object in another place
     const clonedComponentData = Object.assign({}, componentData);
+    if (clonedComponentData.container) {
+      clonedComponentData.area = clonedComponentData.area || clonedComponentData.container;
+      delete clonedComponentData.container;
+    }
     if (!this._validateComponentData(clonedComponentData)) {
-      return () => {};
+      return null;
     }
 
     clonedComponentData.presets.forEach(preset => {
