@@ -1,6 +1,6 @@
 //@flow
 import style from '../styles/style.scss';
-import {h} from 'preact';
+import {Fragment, h} from 'preact';
 import {PlayerArea} from '../components/player-area';
 import {OverlayAction} from '../components/overlay-action';
 import {PrePlaybackPlayOverlay} from '../components/pre-playback-play-overlay';
@@ -30,7 +30,7 @@ import {Share} from '../components/share';
 import {TopBar} from '../components/top-bar';
 import {Logo} from '../components/logo/logo';
 import {InteractiveArea} from '../components/interactive-area';
-import {PlayerPreset} from '../components/player-preset';
+import {PresetSettings} from '../components/preset-settings';
 import {withKeyboardEvent} from 'components/keyboard';
 
 const PRESET_NAME = 'Playback';
@@ -45,48 +45,54 @@ const PRESET_NAME = 'Playback';
 function PlaybackUI(props: any): React$Element<any> {
   props.updateIsKeyboardEnabled(true);
   return (
-    <PlayerPreset preAppendTo={'Backdrop'} className={style.playbackGuiWWrapper}
-    preVideoArea={<OverlayAction />}  allowSidePanels={true} allowPlayerArea={true} allowVideoArea={true}>
-      <Loading />
-      <PlayerArea className={style.playerGui} name={'BarsArea'} id="player-gui">
-        <OverlayPortal />
-        <UnmuteIndication />
-        <PictureInPictureOverlay />
-        <PlaybackControls />
-        <PlaylistNextScreen />
-        <InteractiveArea />
-        <TopBar>
-          <PlayerArea className={style.leftControls} name={'TopBarLeftControls'} />
-          <PlayerArea className={style.rightControls} name={'TopBarRightControls'}>
-            <Share />
-          </PlayerArea>
-        </TopBar>
-        <BottomBar>
-          <SeekBarPlaybackContainer showFramePreview showTimeBubble playerContainer={props.playerContainer} />
-          <PlayerArea className={style.leftControls} name={'BottomBarLeftControls'}>
-            <PlaybackControls />
-            <Rewind step={10} />
-            <Forward step={10} />
-            <TimeDisplayPlaybackContainer format="current / total" />
-          </PlayerArea>
-          <PlayerArea className={style.rightControls} name={'BottomBarRightControls'}>
-            <VrStereo />
-            <Volume />
-            <Language />
-            <Settings />
-            <Cast />
-            <PictureInPicture />
-            <Fullscreen />
-            <Logo />
-          </PlayerArea>
-        </BottomBar>
+    <Fragment>
+      <PresetSettings 
+        preVideoArea={<OverlayAction />} 
+        allowSidePanels={true} 
+        allowPlayerArea={true} 
+        allowVideoArea={true} />
+      <PlayerArea preAppendTo={'Backdrop'} name={'PresetArea'} className={style.playbackGuiWrapper}>
+        <Loading />
+        <div className={style.playerGui} id="player-gui">
+          <OverlayPortal />
+          <UnmuteIndication />
+          <PictureInPictureOverlay />
+          <PlaybackControls />
+          <PlaylistNextScreen />
+          <InteractiveArea />
+          <TopBar>
+            <PlayerArea className={style.leftControls} name={'TopBarLeftControls'} />
+            <PlayerArea className={style.rightControls} name={'TopBarRightControls'}>
+              <Share />
+            </PlayerArea>
+          </TopBar>
+          <BottomBar>
+            <SeekBarPlaybackContainer showFramePreview showTimeBubble playerContainer={props.playerContainer} />
+            <PlayerArea className={style.leftControls} name={'BottomBarLeftControls'}>
+              <PlaybackControls />
+              <Rewind step={10} />
+              <Forward step={10} />
+              <TimeDisplayPlaybackContainer format="current / total" />
+            </PlayerArea>
+            <PlayerArea className={style.rightControls} name={'BottomBarRightControls'}>
+              <VrStereo />
+              <Volume />
+              <Language />
+              <Settings />
+              <Cast />
+              <PictureInPicture />
+              <Fullscreen />
+              <Logo />
+            </PlayerArea>
+          </BottomBar>
+        </div>
+        <Watermark />
+        <PlaylistCountdown />
+        <PrePlaybackPlayOverlay />
+        <CastBeforePlay />
+        <Backdrop />
       </PlayerArea>
-      <Watermark />
-      <PlaylistCountdown />
-      <PrePlaybackPlayOverlay />
-      <CastBeforePlay />
-      <Backdrop />
-    </PlayerPreset>
+    </Fragment>
   );
 }
 

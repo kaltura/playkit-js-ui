@@ -51,13 +51,13 @@ function createCalculateVideoStyles(options) {
  * @param {string} options options
  * @return {*} function
  */
-function createCalculatePlayerAreaStyles(options) {
+function createCalculatePresetContainerStyles(options) {
   return () => {
     if (!options.allowSidePanels || !validateCommonOptions(options)) {
       return {};
     }
 
-    const result = utils.calculatePlayerAreaStyles(options);
+    const result = utils.calculatePresetContainerStyles(options);
 
     return result;
   };
@@ -82,7 +82,7 @@ const mapStateToProps = state => ({
 const withPlayerAreas = InnerComponent => {
   @connect(mapStateToProps)
   /**
-   * store hocwithPlayerAreas
+   * store hoc withPlayerAreas
    */
   class SidePanelWrapper extends Component {
     /**
@@ -100,7 +100,7 @@ const withPlayerAreas = InnerComponent => {
       };
 
       return {
-        calculatePlayerAreaStyles: createCalculatePlayerAreaStyles(options),
+        calculatePresetContainerStyles: createCalculatePresetContainerStyles(options),
         calculateVideoStyles: createCalculateVideoStyles(options),
         calculateSidePanelStyles: createCalculateSidePanelStyles(options)
       };

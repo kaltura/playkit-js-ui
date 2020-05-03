@@ -1,14 +1,14 @@
 //@flow
-import {h, Component} from 'preact';
+import {h, Fragment, Component} from 'preact';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
 import {actions} from '../../reducers/shell';
-import {SidePanelsContainer} from '../side-panels-container';
 import {withPlayerAreas} from '../player-areas';
 import {ActivePreset} from '../active-preset';
 import {PlayerArea} from '../player-area';
 import style from '../../styles/style.scss';
-
+import {SidePanelPositions} from '../../reducers/shell';
+import {SidePanel} from '../side-panel';
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -17,16 +17,6 @@ import style from '../../styles/style.scss';
 const mapStateToProps = state => ({
   presetClientRect: state.shell.presetClientRect
 });
-
-class PlayerModalArea extends Component {
-  render() {
-    const {children, className, preAppendTo, activePresetName, allowPlayerArea} = this.props;
-
-    return <PlayerArea className={className} name={'PlayerArea'} preAppendTo={preAppendTo}>
-        {children}
-      </PlayerArea>
-  }
-}
 
 @withPlayerAreas
 @connect(
@@ -44,9 +34,6 @@ class PlayerModalArea extends Component {
 class PlayerGUI extends Component {
   _presetContainerRef: React$Element;
 
-  _setPresetContainerRef = ref => {
-    this._presetContainerRef = ref;
-  };
   /**
    * get the single matched UI to render based on the UIs and it's conditions
    *
@@ -77,21 +64,26 @@ class PlayerGUI extends Component {
     const {PlayerAreasService, uis} = this.props;
 
     const {width: currentWidth, height: currentHeight} = this.props.presetClientRect;
-    const areaProperties = PlayerAreasService.calculatePlayerAreaStyles();
+    const presetContainerStyles = PlayerAreasService.calculatePresetContainerStyles();
 
-    if (currentWidth !== areaProperties.width || currentHeight !== areaProperties.height) {
-      const newPresetSize = {width: areaProperties.width, height: areaProperties.height};
+    if (currentWidth !== presetContainerStyles.width || currentHeight !== presetContainerStyles.height) {
+      const newPresetSize = {width: presetContainerStyles.width, height: presetContainerStyles.height};
       this.props.updatePresetClientRect(newPresetSize);
     }
 
     return (
-      <SidePanelsContainer after={<PlayerModalArea />}>
-        <div ref={this._setPresetContainerRef} style={areaProperties.style} className={style.activePresetContainer}>
+      <Fragment>
+        <div style={presetContainerStyles.style} className={style.activePresetContainer}>
           <div className={style.activePresetContent} >
-            <ActivePreset uis={uis} playerContainer={this._presetContainerRef} />
+            <ActivePreset uis={uis} />
           </div>
         </div>
-      </SidePanelsContainer>
+        <SidePanel position={SidePanelPositions.RIGHT} />
+        <SidePanel position={SidePanelPositions.LEFT} />
+        <SidePanel position={SidePanelPositions.TOP} />
+        <SidePanel position={SidePanelPositions.BOTTOM} />
+        <PlayerArea name={'PlayerArea'} />
+      </Fragment>
     );
   }
 }

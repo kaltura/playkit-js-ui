@@ -13,7 +13,7 @@ import {PlayerArea} from '../player-area';
   }),
   bindActions(actions)
 )
-export class PlayerPreset extends Component {
+export class PresetSettings extends Component {
 
   _removePreVideoAreaComponent = null;
 
@@ -63,6 +63,12 @@ export class PlayerPreset extends Component {
   }
 
   render() {
-    return null;
+    const {children, className, preAppendTo} = this.props;
+
+    return (
+    <PlayerArea className={className} name={'PlayerArea'} preAppendTo={preAppendTo}>
+      {children}
+    </PlayerArea>
+    )
   }
 }
