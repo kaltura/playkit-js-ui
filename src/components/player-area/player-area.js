@@ -75,7 +75,7 @@ class PlayerArea extends Component {
   }
 
   _updateAreaComponents = (): void => {
-   
+
     const { activePresetName, name } = this.props;
     const presetComponentsStore = this.context.presetComponentsStore;
     const presetsComponents = presetComponentsStore ? presetComponentsStore.getPresetComponents() : null;
@@ -117,7 +117,7 @@ class PlayerArea extends Component {
       hasPositionedComponents,
       presetComponentsOnlyMode: false
     });
-  
+
   }
 
   /**
@@ -169,6 +169,50 @@ class PlayerArea extends Component {
   }
 
   /**
+   * get positioned components
+   * @param {*} children children
+   * @returns {*} new children
+   */
+  _getPositionedComponents(children: Array<any>): Array<any> {
+    const {PlayerAreaComponents} = this.state;
+    const newChildren = [];
+    toChildArray(children).forEach(child => {
+      if (child.type === 'div') {
+        child.props.children = this._getPositionedComponents(child.props.children);
+        newChildren.push(child);
+        return;
+      }
+      let childName = getComponentName(child);
+      if (!childName) {
+        newChildren.push(child);
+        return;
+      }
+      const positionedComponent = PlayerAreaComponents.positionedComponentMap[childName];
+      if (!positionedComponent) {
+        newChildren.push(child);
+        return;
+      }
+      const {replace, before, after} = positionedComponent;
+      if (replace) {
+        newChildren.push(this._renderUIComponent(replace));
+        return;
+      }
+      if (before.length) {
+        before.forEach(component => {
+          newChildren.push(this._renderUIComponent(component));
+        });
+      }
+      newChildren.push(child);
+      if (after.length) {
+        after.forEach(component => {
+          newChildren.push(this._renderUIComponent(component));
+        });
+      }
+    });
+    return newChildren;
+  }
+
+  /**
    * render component
    *
    * @returns {null | *} - component
@@ -186,37 +230,10 @@ class PlayerArea extends Component {
       return null;
     }
 
-    const newChildren = [];
+    let newChildren = [];
 
     if (hasPositionedComponents) {
-      toChildArray(children).forEach(child => {
-        let childName = getComponentName(child);
-        if (!childName) {
-          newChildren.push(child);
-          return;
-        }
-        const positionedComponent = PlayerAreaComponents.positionedComponentMap[childName];
-        if (!positionedComponent) {
-          newChildren.push(child);
-          return;
-        }
-        const {replace, before, after} = positionedComponent;
-        if (replace) {
-          newChildren.push(this._renderUIComponent(replace));
-          return;
-        }
-        if (before.length) {
-          before.forEach(component => {
-            newChildren.push(this._renderUIComponent(component));
-          });
-        }
-        newChildren.push(child);
-        if (after.length) {
-          after.forEach(component => {
-            newChildren.push(this._renderUIComponent(component));
-          });
-        }
-      });
+      newChildren = this._getPositionedComponents(children);
     } else {
       newChildren.push(...toChildArray(children));
     }
