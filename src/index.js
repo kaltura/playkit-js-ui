@@ -3,6 +3,7 @@ import {UIManager} from './ui-manager';
 import * as preact from 'preact';
 import {EventType} from './event/event-type';
 import * as redux from 'react-redux';
+import * as preacti18n from 'preact-i18n';
 // ui reducers
 import * as Reducers from './reducers';
 // ui presets
@@ -19,6 +20,7 @@ declare var __NAME__: string;
 export {h} from 'preact';
 export {preact};
 export {redux};
+export {preacti18n};
 
 export {style};
 
