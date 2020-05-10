@@ -38,7 +38,7 @@ export * from './logger';
 export {ShareOverlay} from './share-overlay';
 export {Shell} from './shell';
 export {Slider} from './slider';
-export {SmartContainer} from './smart-container';
+export {SmartContainer, SmartContainerItem} from './smart-container';
 export {TimeDisplay} from './time-display';
 export {TimeDisplayAdsContainer} from './time-display-ads-container';
 export {TimeDisplayPlaybackContainer} from './time-display-playback-container';
