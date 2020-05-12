@@ -4,6 +4,7 @@ import {h, Component} from 'preact';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
 import {connect} from 'react-redux';
+import {PlayerArea} from 'components/player-area';
 
 /**
  * mapping state to props
@@ -37,6 +38,8 @@ class BottomBar extends Component {
    * @memberof BottomBar
    */
   render(props: any): ?React$Element<any> {
+    const {leftControls, rightControls} = props;
+
     const styleClass = [style.bottomBar];
     if (props.isCasting && props.isPlaybackEnded) {
       styleClass.push(style.hide);
@@ -47,6 +50,12 @@ class BottomBar extends Component {
         onMouseOver={() => this.props.updateBottomBarHoverActive(true)}
         onMouseLeave={() => this.props.updateBottomBarHoverActive(false)}>
         {props.children}
+        <PlayerArea className={style.leftControls} name={'BottomBarLeftControls'}>
+          {leftControls}
+        </PlayerArea>
+        <PlayerArea className={style.rightControls} name={'BottomBarRightControls'}>
+          {rightControls}
+        </PlayerArea>
       </div>
     );
   }

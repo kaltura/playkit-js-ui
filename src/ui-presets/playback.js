@@ -46,11 +46,7 @@ function PlaybackUI(props: any): React$Element<any> {
   props.updateIsKeyboardEnabled(true);
   return (
     <Fragment>
-      <PresetSettings
-        allowSidePanels={true}
-        allowPlayerArea={true}
-        allowVideoArea={true}
-      />
+      <PresetSettings allowSidePanels={true} allowPlayerArea={true} allowVideoArea={true} />
       <PlayerArea preAppendTo={'Backdrop'} name={'PresetArea'} className={style.playbackGuiWrapper}>
         <Loading />
         <div className={style.playerGui} id="player-gui">
@@ -61,30 +57,29 @@ function PlaybackUI(props: any): React$Element<any> {
           <PlaybackControls />
           <PlaylistNextScreen />
           <InteractiveArea />
-          <TopBar>
-            <PlayerArea className={style.leftControls} name={'TopBarLeftControls'} />
-            <PlayerArea className={style.rightControls} name={'TopBarRightControls'}>
-              <Share />
-            </PlayerArea>
-          </TopBar>
-          <BottomBar>
+          <TopBar rightControls={<Share />} />
+          <BottomBar
+            leftControls={
+              <Fragment>
+                <PlaybackControls />
+                <Rewind step={10} />
+                <Forward step={10} />
+                <TimeDisplayPlaybackContainer format="current / total" />
+              </Fragment>
+            }
+            rightControls={
+              <Fragment>
+                <VrStereo />
+                <Volume />
+                <Language />
+                <Settings />
+                <Cast />
+                <PictureInPicture />
+                <Fullscreen />
+                <Logo />
+              </Fragment>
+            }>
             <SeekBarPlaybackContainer showFramePreview showTimeBubble playerContainer={props.playerContainer} />
-            <PlayerArea className={style.leftControls} name={'BottomBarLeftControls'}>
-              <PlaybackControls />
-              <Rewind step={10} />
-              <Forward step={10} />
-              <TimeDisplayPlaybackContainer format="current / total" />
-            </PlayerArea>
-            <PlayerArea className={style.rightControls} name={'BottomBarRightControls'}>
-              <VrStereo />
-              <Volume />
-              <Language />
-              <Settings />
-              <Cast />
-              <PictureInPicture />
-              <Fullscreen />
-              <Logo />
-            </PlayerArea>
           </BottomBar>
         </div>
         <Watermark />
