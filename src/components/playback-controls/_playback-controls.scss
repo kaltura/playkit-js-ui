@@ -1,6 +1,7 @@
 .player-gui > .playback-controls {
   display: none;
   position: absolute;
+  z-index: 1;
   top: 50%;
   left: 50%;
   margin-top: -32px;
