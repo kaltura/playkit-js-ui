@@ -1,12 +1,12 @@
 //@flow
-import { CustomEventType, utils as playkitUtils } from '@playkit-js/playkit-js';
-import { h, Component } from 'preact';
-import { connect } from 'react-redux';
-import { actions as shellActions } from '../../reducers/shell';
+import {CustomEventType, utils as playkitUtils} from '@playkit-js/playkit-js';
+import {h, Component} from 'preact';
+import {connect} from 'react-redux';
+import {actions as shellActions} from '../../reducers/shell';
 import style from '../../styles/style.scss';
-import { bindActions } from '../../utils/bind-actions';
+import {bindActions} from '../../utils/bind-actions';
 import {PlayerArea} from '../player-area';
-import { withPlayer } from '../player';
+import {withPlayer} from '../player';
 import {withPlayerAreas} from '../player-areas';
 
 @withPlayer
@@ -36,10 +36,10 @@ class VideoPlayer extends Component {
     return nextProps.PlayerAreasService !== this.props.PlayerAreasService;
   }
 
-  _onVideoResize = (e) => {
+  _onVideoResize = e => {
     const videoElement = e.target._el; // TODO sakal check for better api
     this.props.updateVideoClientRect(videoElement.getBoundingClientRect());
-  }
+  };
   _setRef = ref => {
     if (this._videoResizeWatcher) {
       this._videoResizeWatcher.removeEventListener(CustomEventType.RESIZE, this._onVideoResize);
@@ -66,18 +66,16 @@ class VideoPlayer extends Component {
    * @memberof VideoPlayer
    */
   render(): React$Element<any> {
-    const { PlayerAreasService } = this.props;
+    const {PlayerAreasService} = this.props;
     const styleValue = PlayerAreasService.calculateVideoStyles();
 
     return (
       <div>
         <div className={style.videoPlayer} style={styleValue} ref={this._setRef} />
-        <PlayerArea name={'PreVideoArea'} style={styleValue} />
         <PlayerArea name={'VideoArea'} style={styleValue} />
-     </div>
+      </div>
     );
   }
 }
 
-export { VideoPlayer };
-
+export {VideoPlayer};

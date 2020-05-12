@@ -1,6 +1,6 @@
 //@flow
 import style from '../styles/style.scss';
-import {h} from 'preact';
+import {Fragment, h} from 'preact';
 import {OverlayAction} from '../components/overlay-action';
 import {PrePlaybackPlayOverlay} from '../components/pre-playback-play-overlay';
 import {Loading} from '../components/loading';
@@ -41,46 +41,45 @@ export function LiveUI(props: any): React$Element<any> {
   props.updateIsKeyboardEnabled(true);
   return (
     <Fragment>
-    <PresetSettings 
-            preVideoAreaRenderer={<OverlayAction />} 
-    allowSidePanels={true} allowPlayerArea={true} allowVideoArea={true} />
-       <PlayerArea preAppendTo={'Backdrop'} name={'PresetArea'} className={style.playbackGuiWrapper}> 
-      <Loading />
-      <div className={style.playerGui} id="player-gui">
-        <OverlayPortal />
-        <UnmuteIndication /> 
-        <PlaybackControls />
-        <InteractiveArea />
-        <TopBar>
-          <PlayerArea className={style.leftControls} name={'TopBarLeftControls'} />
-          <PlayerArea className={style.rightControls} name={'TopBarRightControls'}>
-            <Share />
-          </PlayerArea>
-        </TopBar>
-        <BottomBar>
-          <SeekBarLivePlaybackContainer showFramePreview showTimeBubble playerContainer={props.playerContainer} />
-          <PlayerArea className={style.leftControls} name={'BottomBarLeftControls'}>
-            <PlaybackControls />
-            <LiveTag />
-          </PlayerArea>
-          <PlayerArea className={style.rightControls} name={'BottomBarRightControls'}>
-            <VrStereo />
-            <Volume />
-            <Language />
-            <Settings />
-            <Cast />
-            <PictureInPicture />
-            <Fullscreen />
-            <Logo />
-          </PlayerArea>
-        </BottomBar>
-      </div>
-      <Watermark />
-      <PrePlaybackPlayOverlay />
-      <CastBeforePlay />
-      <PictureInPictureOverlay />
-      <Backdrop />
-    </PlayerArea>
+      <PresetSettings allowSidePanels={true} allowPlayerArea={true} allowVideoArea={true} />
+      <PlayerArea preAppendTo={'Backdrop'} name={'PresetArea'} className={style.playbackGuiWrapper}>
+        <Loading />
+        <div className={style.playerGui} id="player-gui">
+          <OverlayPortal />
+          <UnmuteIndication />
+          <OverlayAction />
+          <PlaybackControls />
+          <InteractiveArea />
+          <TopBar>
+            <PlayerArea className={style.leftControls} name={'TopBarLeftControls'} />
+            <PlayerArea className={style.rightControls} name={'TopBarRightControls'}>
+              <Share />
+            </PlayerArea>
+          </TopBar>
+          <BottomBar>
+            <SeekBarLivePlaybackContainer showFramePreview showTimeBubble playerContainer={props.playerContainer} />
+            <PlayerArea className={style.leftControls} name={'BottomBarLeftControls'}>
+              <PlaybackControls />
+              <LiveTag />
+            </PlayerArea>
+            <PlayerArea className={style.rightControls} name={'BottomBarRightControls'}>
+              <VrStereo />
+              <Volume />
+              <Language />
+              <Settings />
+              <Cast />
+              <PictureInPicture />
+              <Fullscreen />
+              <Logo />
+            </PlayerArea>
+          </BottomBar>
+        </div>
+        <Watermark />
+        <PrePlaybackPlayOverlay />
+        <CastBeforePlay />
+        <PictureInPictureOverlay />
+        <Backdrop />
+      </PlayerArea>
     </Fragment>
   );
 }
