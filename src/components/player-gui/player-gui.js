@@ -74,8 +74,12 @@ class PlayerGUI extends Component {
     return (
       <Fragment>
         <div style={presetContainerStyles.style} className={style.activePresetContainer}>
-          <div className={style.activePresetContent} >
-            <ActivePreset uis={uis} />
+          <div
+            className={style.activePresetContent}
+            ref={el => {
+              this._presetContainerRef = el;
+            }}>
+            <ActivePreset uis={uis} presetContainer={this._presetContainerRef} />
           </div>
         </div>
         <SidePanel position={SidePanelPositions.RIGHT} />

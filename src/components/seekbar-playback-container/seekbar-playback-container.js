@@ -64,7 +64,7 @@ class SeekBarPlaybackContainer extends Component {
   render(): React$Element<any> {
     return (
       <SeekBar
-        playerElement={this.props.playerContainer}
+        presetContainer={this.props.presetContainer}
         showFramePreview={this.props.showFramePreview}
         showTimeBubble={this.props.showTimeBubble}
         changeCurrentTime={time => (this.props.player.currentTime = time)}

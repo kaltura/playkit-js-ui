@@ -80,7 +80,7 @@ function PlaybackUI(props: any): React$Element<any> {
                   <Logo />
                 </Fragment>
               }>
-              <SeekBarPlaybackContainer showFramePreview showTimeBubble playerContainer={props.playerContainer} />
+              <SeekBarPlaybackContainer showFramePreview showTimeBubble presetContainer={props.presetContainer} />
             </BottomBar>
           </div>
           <Watermark />
