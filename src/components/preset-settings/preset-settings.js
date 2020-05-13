@@ -32,12 +32,6 @@ export class PresetSettings extends Component {
   }
 
   render() {
-    const {children, className, preAppendTo} = this.props;
-
-    return (
-      <PlayerArea className={className} name={'PlayerArea'} preAppendTo={preAppendTo}>
-        {children}
-      </PlayerArea>
-    );
+    return null;
   }
 }

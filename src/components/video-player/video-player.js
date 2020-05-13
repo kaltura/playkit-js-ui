@@ -70,9 +70,8 @@ class VideoPlayer extends Component {
     const styleValue = PlayerAreasService.calculateVideoStyles();
 
     return (
-      <div>
-        <div className={style.videoPlayer} style={styleValue} ref={this._setRef} />
-        <PlayerArea name={'VideoArea'} style={styleValue} />
+      <div className={style.videoPlayer} style={styleValue} ref={this._setRef}>
+        <PlayerArea name={'VideoArea'} />
       </div>
     );
   }

@@ -1,5 +1,5 @@
 //@flow
-import {h, Component, toChildArray} from 'preact';
+import {h, Component, toChildArray, Fragment} from 'preact';
 import {connect} from 'react-redux';
 import {withLogger} from 'components/logger';
 
@@ -53,7 +53,6 @@ function getComponentName(component: any) {
  * A video PlayerArea enabling injecting components by preset, PlayerArea and position
  */
 class PlayerArea extends Component {
-
   static defaultProps = {
     show: true
   };
@@ -75,8 +74,7 @@ class PlayerArea extends Component {
   }
 
   _updateAreaComponents = (): void => {
-
-    const { activePresetName, name } = this.props;
+    const {activePresetName, name} = this.props;
     const presetComponentsStore = this.context.presetComponentsStore;
     const presetsComponents = presetComponentsStore ? presetComponentsStore.getPresetComponents() : null;
 
@@ -117,8 +115,7 @@ class PlayerArea extends Component {
       hasPositionedComponents,
       presetComponentsOnlyMode: false
     });
-
-  }
+  };
 
   /**
    * component did mount
@@ -135,7 +132,7 @@ class PlayerArea extends Component {
    * @returns {void}
    */
   componentWillUnmount(): void {
-    const { name } = this.props;
+    const {name} = this.props;
     this.props.logger.debug(`PlayerArea name '${this.props.name}' will-unmount`);
     this.context.presetComponentsStore.unlisten(this._updateAreaComponents);
   }
@@ -160,12 +157,7 @@ class PlayerArea extends Component {
    * @returns {*} component
    */
   renderContent(children: Array<any>) {
-    const {className, id, name, style} = this.props;
-    return (
-      <div style={style} className={className} id={id} data-kp-area={name}>
-        {children}
-      </div>
-    );
+    return <Fragment>{children}</Fragment>;
   }
 
   /**

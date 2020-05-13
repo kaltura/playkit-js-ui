@@ -79,7 +79,9 @@ class SidePanel extends Component {
 
     return (
       <div style={sidePanelStyles} className={styleClass.join(' ')} ref={c => (this._el = c)}>
-        <PlayerArea className={style.sidePanelContent} name={containerName} />
+        <div className={style.sidePanelContent}>
+          <PlayerArea name={containerName} />
+        </div>
       </div>
     );
   }

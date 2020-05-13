@@ -49,7 +49,9 @@ export class InteractiveArea extends Component {
 
     return (
       <div className={style.interactiveArea} style={containerStyle}>
-        <PlayerArea style={{pointerEvents: 'auto'}} name={'InteractiveArea'} />
+        <div style={{pointerEvents: 'auto'}}>
+          <PlayerArea name={'InteractiveArea'} />
+        </div>
       </div>
     );
   }

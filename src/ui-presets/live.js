@@ -42,44 +42,45 @@ export function LiveUI(props: any): React$Element<any> {
   return (
     <Fragment>
       <PresetSettings allowSidePanels={true} allowPlayerArea={true} allowVideoArea={true} />
-      <PlayerArea preAppendTo={'Backdrop'} name={'PresetArea'} className={style.playbackGuiWrapper}>
-        <Loading />
-        <div className={style.playerGui} id="player-gui">
-          <OverlayPortal />
-          <UnmuteIndication />
-          <OverlayAction />
-          <PlaybackControls />
-          <InteractiveArea />
-          <TopBar>
-            <PlayerArea className={style.leftControls} name={'TopBarLeftControls'} />
-            <PlayerArea className={style.rightControls} name={'TopBarRightControls'}>
-              <Share />
-            </PlayerArea>
-          </TopBar>
-          <BottomBar>
-            <SeekBarLivePlaybackContainer showFramePreview showTimeBubble playerContainer={props.playerContainer} />
-            <PlayerArea className={style.leftControls} name={'BottomBarLeftControls'}>
-              <PlaybackControls />
-              <LiveTag />
-            </PlayerArea>
-            <PlayerArea className={style.rightControls} name={'BottomBarRightControls'}>
-              <VrStereo />
-              <Volume />
-              <Language />
-              <Settings />
-              <Cast />
-              <PictureInPicture />
-              <Fullscreen />
-              <Logo />
-            </PlayerArea>
-          </BottomBar>
-        </div>
-        <Watermark />
-        <PrePlaybackPlayOverlay />
-        <CastBeforePlay />
-        <PictureInPictureOverlay />
-        <Backdrop />
-      </PlayerArea>
+      <div className={style.playbackGuiWrapper}>
+        <PlayerArea preAppendTo={'Backdrop'} name={'PresetArea'}>
+          <Loading />
+          <div className={style.playerGui} id="player-gui">
+            <OverlayPortal />
+            <UnmuteIndication />
+            <OverlayAction />
+            <PlaybackControls />
+            <InteractiveArea />
+            <TopBar rightControls={<Share />} />
+            <BottomBar
+              leftControls={
+                <Fragment>
+                  <PlaybackControls />
+                  <LiveTag />
+                </Fragment>
+              }
+              rightControls={
+                <Fragment>
+                  <VrStereo />
+                  <Volume />
+                  <Language />
+                  <Settings />
+                  <Cast />
+                  <PictureInPicture />
+                  <Fullscreen />
+                  <Logo />
+                </Fragment>
+              }>
+              <SeekBarLivePlaybackContainer showFramePreview showTimeBubble playerContainer={props.playerContainer} />
+            </BottomBar>
+          </div>
+          <Watermark />
+          <PrePlaybackPlayOverlay />
+          <CastBeforePlay />
+          <PictureInPictureOverlay />
+          <Backdrop />
+        </PlayerArea>
+      </div>
     </Fragment>
   );
 }
