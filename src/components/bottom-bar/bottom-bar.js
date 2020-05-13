@@ -41,14 +41,7 @@ class BottomBar extends Component {
     if (props.isCasting && props.isPlaybackEnded) {
       styleClass.push(style.hide);
     }
-    return (
-      <div
-        className={styleClass.join(' ')}
-        onMouseOver={() => this.props.updateBottomBarHoverActive(true)}
-        onMouseLeave={() => this.props.updateBottomBarHoverActive(false)}>
-        {props.children}
-      </div>
-    );
+    return <div className={styleClass.join(' ')}>{props.children}</div>;
   }
 }
 
