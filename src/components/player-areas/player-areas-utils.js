@@ -142,7 +142,15 @@ export function calculatePresetContainerStyles(options) {
 
   areaWidth = areaWidth - areaStyle['right'] - areaStyle['left'];
   areaHeight = areaHeight - areaStyle['top'] - areaStyle['bottom'];
-  return {style: areaStyle, height: areaHeight, width: areaWidth};
+  return {
+    style: areaStyle,
+    height: areaHeight,
+    width: areaWidth,
+    top: playerClientRect.top + (topSidePanelMode !== SidePanelModes.HIDDEN ? areaStyle['top'] : 0),
+    right: playerClientRect.right + (rightSidePanelMode !== SidePanelModes.HIDDEN ? areaStyle['right'] : 0),
+    bottom: playerClientRect.bottom + (bottomSidePanelMode !== SidePanelModes.HIDDEN ? areaStyle['bottom'] : 0),
+    left: playerClientRect.left + (leftSidePanelMode !== SidePanelModes.HIDDEN ? areaStyle['left'] : 0)
+  };
 }
 
 /**

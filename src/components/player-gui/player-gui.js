@@ -67,8 +67,8 @@ class PlayerGUI extends Component {
     const presetContainerStyles = PlayerAreasService.calculatePresetContainerStyles();
 
     if (currentWidth !== presetContainerStyles.width || currentHeight !== presetContainerStyles.height) {
-      const newPresetSize = {width: presetContainerStyles.width, height: presetContainerStyles.height};
-      this.props.updatePresetClientRect(newPresetSize);
+      const {width, height, top, right, bottom, left} = presetContainerStyles;
+      this.props.updatePresetClientRect({width, height, top, right, bottom, left});
     }
 
     return (
