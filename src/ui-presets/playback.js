@@ -47,47 +47,49 @@ function PlaybackUI(props: any): React$Element<any> {
   return (
     <Fragment>
       <PresetSettings allowSidePanels={true} allowPlayerArea={true} allowVideoArea={true} />
-      <PlayerArea preAppendTo={'Backdrop'} name={'PresetArea'} className={style.playbackGuiWrapper}>
-        <Loading />
-        <div className={style.playerGui} id="player-gui">
-          <OverlayPortal />
-          <UnmuteIndication />
-          <OverlayAction />
-          <PictureInPictureOverlay />
-          <PlaybackControls />
-          <PlaylistNextScreen />
-          <InteractiveArea />
-          <TopBar rightControls={<Share />} />
-          <BottomBar
-            leftControls={
-              <Fragment>
-                <PlaybackControls />
-                <Rewind step={10} />
-                <Forward step={10} />
-                <TimeDisplayPlaybackContainer format="current / total" />
-              </Fragment>
-            }
-            rightControls={
-              <Fragment>
-                <VrStereo />
-                <Volume />
-                <Language />
-                <Settings />
-                <Cast />
-                <PictureInPicture />
-                <Fullscreen />
-                <Logo />
-              </Fragment>
-            }>
-            <SeekBarPlaybackContainer showFramePreview showTimeBubble playerContainer={props.playerContainer} />
-          </BottomBar>
-        </div>
-        <Watermark />
-        <PlaylistCountdown />
-        <PrePlaybackPlayOverlay />
-        <CastBeforePlay />
-        <Backdrop />
-      </PlayerArea>
+      <div className={style.playbackGuiWrapper}>
+        <PlayerArea preAppendTo={'Backdrop'} name={'PresetArea'}>
+          <Loading />
+          <div className={style.playerGui} id="player-gui">
+            <OverlayPortal />
+            <UnmuteIndication />
+            <OverlayAction />
+            <PictureInPictureOverlay />
+            <PlaybackControls />
+            <PlaylistNextScreen />
+            <InteractiveArea />
+            <TopBar rightControls={<Share />} />
+            <BottomBar
+              leftControls={
+                <Fragment>
+                  <PlaybackControls />
+                  <Rewind step={10} />
+                  <Forward step={10} />
+                  <TimeDisplayPlaybackContainer format="current / total" />
+                </Fragment>
+              }
+              rightControls={
+                <Fragment>
+                  <VrStereo />
+                  <Volume />
+                  <Language />
+                  <Settings />
+                  <Cast />
+                  <PictureInPicture />
+                  <Fullscreen />
+                  <Logo />
+                </Fragment>
+              }>
+              <SeekBarPlaybackContainer showFramePreview showTimeBubble playerContainer={props.playerContainer} />
+            </BottomBar>
+          </div>
+          <Watermark />
+          <PlaylistCountdown />
+          <PrePlaybackPlayOverlay />
+          <CastBeforePlay />
+          <Backdrop />
+        </PlayerArea>
+      </div>
     </Fragment>
   );
 }

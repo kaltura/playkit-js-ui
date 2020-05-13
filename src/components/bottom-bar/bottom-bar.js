@@ -49,12 +49,14 @@ class BottomBar extends Component {
         className={styleClass.join(' ')}
         onMouseOver={() => this.props.updateBottomBarHoverActive(true)}
         onMouseLeave={() => this.props.updateBottomBarHoverActive(false)}>
-        {props.children}
-        <PlayerArea className={style.leftControls} name={'BottomBarLeftControls'}>
-          {leftControls}
-        </PlayerArea>
-        <PlayerArea className={style.rightControls} name={'BottomBarRightControls'}>
-          {rightControls}
+        <PlayerArea name={'BottomBar'}>
+          {props.children}
+          <div className={style.leftControls}>
+            <PlayerArea name={'BottomBarLeftControls'}>{leftControls}</PlayerArea>
+          </div>
+          <div className={style.rightControls}>
+            <PlayerArea name={'BottomBarRightControls'}>{rightControls}</PlayerArea>
+          </div>
         </PlayerArea>
       </div>
     );

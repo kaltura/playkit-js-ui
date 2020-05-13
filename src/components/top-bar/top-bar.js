@@ -46,12 +46,14 @@ class TopBar extends Component {
 
     return (
       <div className={styleClass.join(' ')}>
-        {props.children}
-        <PlayerArea className={style.leftControls} name={'TopBarLeftControls'}>
-          {leftControls}
-        </PlayerArea>
-        <PlayerArea className={style.rightControls} name={'TopBarRightControls'}>
-          {rightControls}
+        <PlayerArea name={'TopBar'}>
+          {props.children}
+          <div className={style.leftControls}>
+            <PlayerArea name={'TopBarLeftControls'}>{leftControls}</PlayerArea>
+          </div>
+          <div className={style.rightControls}>
+            <PlayerArea name={'TopBarRightControls'}>{rightControls}</PlayerArea>
+          </div>
         </PlayerArea>
       </div>
     );
