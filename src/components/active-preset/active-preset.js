@@ -64,6 +64,10 @@ class ActivePreset extends Component {
     return matchedUI;
   }
 
+  onPresetRef = (el) => {
+    this._presetContainerRef = el;
+  }
+
   /**
    * render component based on the matched UI.
    * if no matched UI found, it will choose the first UI configured in the UI array
@@ -96,14 +100,7 @@ class ActivePreset extends Component {
         this.props.updatePresetClientRect({width, height, top, right, bottom, left});
       }
 
-      return (
-        <div
-          style={presetContainerStyles.style}
-          ref={el => {
-            this._presetContainerRef = el;
-          }}>
-          {h(uiComponent.type, {uis, presetContainer: this._presetContainerRef})}
-        </div>
+      return h(uiComponent.type, { presetRef: this.onPresetRef, playerContainer: this._presetContainerRef,  style: presetContainerStyles.style }
       );
     } else {
       return undefined;

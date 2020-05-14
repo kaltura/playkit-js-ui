@@ -1,7 +1,7 @@
 //@flow
 import style from '../styles/style.scss';
 import {Fragment, h} from 'preact';
-import {PlayerArea} from '../components/player-area';
+import {PlayerArea, withPlayerPreset} from '../components/player-area';
 import {OverlayAction} from '../components/overlay-action';
 import {PrePlaybackPlayOverlay} from '../components/pre-playback-play-overlay';
 import {Loading} from '../components/loading';
@@ -30,7 +30,6 @@ import {Share} from '../components/share';
 import {TopBar} from '../components/top-bar';
 import {Logo} from '../components/logo/logo';
 import {InteractiveArea} from '../components/interactive-area';
-import {PresetSettings} from '../components/preset-settings';
 import {withKeyboardEvent} from 'components/keyboard';
 
 const PRESET_NAME = 'Playback';
@@ -39,15 +38,12 @@ const PRESET_NAME = 'Playback';
  * Playback ui interface component
  *
  * @export
- * @param {*} props component props
+ * @param {*} props component props 
  * @returns {React$Element} player ui tree
  */
 function PlaybackUI(props: any): React$Element<any> {
   props.updateIsKeyboardEnabled(true);
   return (
-    <Fragment>
-      <PresetSettings allowSidePanels={true} allowPlayerArea={true} allowVideoArea={true} />
-      <div className={style.playbackGuiWrapper}>
         <PlayerArea preAppendTo={'Backdrop'} name={'PresetArea'}>
           <Loading />
           <div className={style.playerGui} id="player-gui">
@@ -80,7 +76,7 @@ function PlaybackUI(props: any): React$Element<any> {
                   <Logo />
                 </Fragment>
               }>
-              <SeekBarPlaybackContainer showFramePreview showTimeBubble presetContainer={props.presetContainer} />
+              <SeekBarPlaybackContainer showFramePreview showTimeBubble presetContainer={props.playerContainer} />
             </BottomBar>
           </div>
           <Watermark />
@@ -89,12 +85,17 @@ function PlaybackUI(props: any): React$Element<any> {
           <CastBeforePlay />
           <Backdrop />
         </PlayerArea>
-      </div>
-    </Fragment>
   );
 }
 
-const PlaybackComponent = withKeyboardEvent(PRESET_NAME)(PlaybackUI);
+const PlaybackComponent = withPlayerPreset({
+  allowSidePanels: true,
+  allowPlayerArea: true,
+  allowVideoArea: true,
+  className: style.playbackGuiWrapper
+})(
+withKeyboardEvent(PRESET_NAME)(PlaybackUI)
+);
 PlaybackComponent.displayName = PRESET_NAME;
 
 /**

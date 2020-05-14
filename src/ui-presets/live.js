@@ -26,7 +26,6 @@ import {PlayerArea} from '../components/player-area';
 import {TopBar} from '../components/top-bar';
 import {Logo} from '../components/logo/logo';
 import {InteractiveArea} from 'components/interactive-area';
-import {PresetSettings} from '../components/preset-settings';
 import {withKeyboardEvent} from 'components/keyboard';
 
 const PRESET_NAME = 'Live';
@@ -41,7 +40,6 @@ export function LiveUI(props: any): React$Element<any> {
   props.updateIsKeyboardEnabled(true);
   return (
     <Fragment>
-      <PresetSettings allowSidePanels={true} allowPlayerArea={true} allowVideoArea={true} />
       <div className={style.playbackGuiWrapper}>
         <PlayerArea preAppendTo={'Backdrop'} name={'PresetArea'}>
           <Loading />
