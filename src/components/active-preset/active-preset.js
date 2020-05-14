@@ -97,14 +97,12 @@ class ActivePreset extends Component {
       }
 
       return (
-        <div style={presetContainerStyles.style} className={style.activePresetContainer}>
-          <div
-            className={style.activePresetContent}
-            ref={el => {
-              this._presetContainerRef = el;
-            }}>
-            {h(uiComponent.type, {uis, presetContainer: this._presetContainerRef})};
-          </div>
+        <div
+          style={presetContainerStyles.style}
+          ref={el => {
+            this._presetContainerRef = el;
+          }}>
+          {h(uiComponent.type, {uis, presetContainer: this._presetContainerRef})}
         </div>
       );
     } else {
