@@ -100,7 +100,12 @@ class ActivePreset extends Component {
         this.props.updatePresetClientRect({width, height, top, right, bottom, left});
       }
 
-      return h(uiComponent.type, {presetRef: this.onPresetRef, playerContainer: this._presetContainerRef, style: presetContainerStyles.style});
+      return h(uiComponent.type, {
+        presetRef: this.onPresetRef,
+        playerContainer: this._presetContainerRef,
+        style: presetContainerStyles.style,
+        ...props
+      });
     } else {
       return undefined;
     }
