@@ -143,7 +143,7 @@ const withPlayerAreas = InnerComponent => {
       const {playerClientRect, sidePanelsModes, allowSidePanels, ...restProps} = this.props;
       return <InnerComponent {...restProps} PlayerAreasService={PlayerAreasService} />;
     }
-  };
+  }
   return SidePanelWrapper;
 };
 

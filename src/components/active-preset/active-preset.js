@@ -5,7 +5,6 @@ import {bindActions} from '../../utils';
 import {actions} from '../../reducers/shell';
 import getLogger from '../../utils/logger';
 import {withEventDispatcher} from 'components/event-dispatcher';
-import style from '../../styles/style.scss';
 import {withPlayerAreas} from 'components/player-areas';
 
 /**

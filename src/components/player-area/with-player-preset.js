@@ -14,7 +14,7 @@ const defaultProps = {
  * connect decorator
  * @returns {function(*): *} connect
  */
-const withPlayerPreset = (options) =>  InnerComponent => {
+const withPlayerPreset = options => InnerComponent => {
   @connect(
     null,
     bindActions(actions)
@@ -23,8 +23,6 @@ const withPlayerPreset = (options) =>  InnerComponent => {
    * store hoc withPlayerAreas
    */
   class PlayerPreset extends Component {
-   
-
     componentDidMount(): void {
       const enhancedOptions = Object.assign({}, defaultProps, options);
       const {allowSidePanels, allowPlayerArea, allowVideoArea} = enhancedOptions;
@@ -34,18 +32,20 @@ const withPlayerPreset = (options) =>  InnerComponent => {
         allowVideoArea
       });
     }
-    
+
     /**
      * render
      * @returns {*} component
      */
     render() {
-      const { presetRef, style, ...props } = this.props;
-      return <div ref={presetRef} style={style}  className={options.className}>
-        <InnerComponent {...props} />
-      </div> 
+      const {presetRef, style, ...props} = this.props;
+      return (
+        <div ref={presetRef} style={style} className={options.className}>
+          <InnerComponent {...props} />
+        </div>
+      );
     }
-  };
+  }
   return PlayerPreset;
 };
 

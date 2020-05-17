@@ -7,7 +7,6 @@ const logger = getLogger('PlayerAreaProvider');
  * PlayerArea provider
  */
 class PlayerAreaProvider extends Component {
-
   /**
    * constructor
    * @return {void}
@@ -50,32 +49,29 @@ class PlayerAreaProvider extends Component {
     }, 200);
   }
 
-  _validateComponentData = (componentData) => {
+  _validateComponentData = componentData => {
     // we keep option `container` for backward compatibility. documentation are showing `area` property
     const hasAreaProperty = componentData.container || componentData.area;
     if (!componentData.get || !componentData.presets || !hasAreaProperty) {
-      logger.warn(
-        `component data with label '${component.label ||
-          ''}' is invalid (did you remember to set 'get', 'presets' and 'area'?)`
-      );
+      logger.warn(`component data with label '${componentData.label || ''}' is invalid (did you remember to set 'get', 'presets' and 'area'?)`);
       return false;
     }
 
     return true;
-  }
+  };
 
-  _addNewComponentAndUpdateListeners = (componentData) => {
+  _addNewComponentAndUpdateListeners = componentData => {
     const result = this._addNewComponent(componentData);
 
-    if (!!result) {
+    if (result) {
       this._updateListeners();
       return result;
     }
 
     return () => {};
-  }
+  };
 
-  _addNewComponent = (componentData) => {
+  _addNewComponent = componentData => {
     // use cloned component just in case someone will mutate the object in another place
     const clonedComponentData = Object.assign({}, componentData);
     if (clonedComponentData.container) {
@@ -92,17 +88,17 @@ class PlayerAreaProvider extends Component {
 
     return () => {
       this._removeNewComponent(clonedComponentData);
-    }
-  }
+    };
+  };
 
-  _removeNewComponent = (componentData) => {
+  _removeNewComponent = componentData => {
     if (!this._validateComponentData(componentData)) {
       return;
     }
 
     let shouldUpdateListeners = false;
     componentData.presets.forEach(preset => {
-      const presetComponents = (this._presetsComponents[preset] || []);
+      const presetComponents = this._presetsComponents[preset] || [];
       const index = presetComponents.indexOf(componentData);
       if (index === -1) {
         return;
@@ -116,7 +112,7 @@ class PlayerAreaProvider extends Component {
     }
 
     this._updateListeners();
-  }
+  };
 
   /**
    * component did mount
@@ -159,7 +155,7 @@ class PlayerAreaProvider extends Component {
 
   _getPresetComponents = () => {
     return this._presetsComponents;
-  }
+  };
   /**
    *
    * @returns {void}

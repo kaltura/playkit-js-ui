@@ -67,17 +67,16 @@ class PlayerArea extends Component {
     this.setState(initialState);
   }
 
-
-    /**
-  * should component update handler
-  *
-  * @returns {boolean} - always update component
-  * @param {Object} nextProps - next props of the component
-  * @memberof OverlayAction
-  */
- shouldComponentUpdate(nextProps: Object): boolean {
-  return (!this.state.bla || nextProps.activePresetName !== this.props.activePresetName)
-} 
+  /**
+   * should component update handler
+   *
+   * @returns {boolean} - always update component
+   * @param {Object} nextProps - next props of the component
+   * @memberof OverlayAction
+   */
+  shouldComponentUpdate(nextProps: Object): boolean {
+    return !this.state.bla || nextProps.activePresetName !== this.props.activePresetName;
+  }
 
   componentDidUpdate(prevProps) {
     if (prevProps.activePresetName !== this.props.activePresetName) {
@@ -146,7 +145,7 @@ class PlayerArea extends Component {
    */
   componentWillUnmount(): void {
     const {name} = this.props;
-    this.props.logger.debug(`PlayerArea name '${this.props.name}' will-unmount`);
+    this.props.logger.debug(`PlayerArea name '${name}' will-unmount`);
     this.context.presetComponentsStore.unlisten(this._updateAreaComponents);
   }
 
@@ -217,7 +216,6 @@ class PlayerArea extends Component {
     return newChildren;
   }
 
-
   /**
    * render component
    *
@@ -227,7 +225,7 @@ class PlayerArea extends Component {
   render(): React$Element<any> | null {
     const {children, show, preAppendTo} = this.props;
     const {PlayerAreaComponents, hasPositionedComponents} = this.state;
-    console.log('sakal render')
+    console.log('sakal render');
     if (this.state.presetComponentsOnlyMode) {
       return this.renderContent(this.props.children);
     }
