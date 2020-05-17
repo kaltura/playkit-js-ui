@@ -9,10 +9,19 @@ import {PlayerArea} from '../player-area';
 import {withPlayer} from '../player';
 import {withPlayerAreas} from '../player-areas';
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
+const mapStateToProps = state => ({
+  allowVideoArea: state.shell.presetSettings.allowVideoArea
+});
+
 @withPlayer
 @withPlayerAreas
 @connect(
-  null,
+  mapStateToProps,
   bindActions({updateVideoClientRect: shellActions.updateVideoClientRect})
 )
 /**
@@ -66,12 +75,12 @@ class VideoPlayer extends Component {
    * @memberof VideoPlayer
    */
   render(): React$Element<any> {
-    const {PlayerAreasService} = this.props;
+    const {PlayerAreasService, allowVideoArea} = this.props;
     const styleValue = PlayerAreasService.calculateVideoStyles();
 
     return (
       <div className={style.videoPlayer} style={styleValue} ref={this._setRef}>
-        <PlayerArea name={'VideoArea'} />
+        {allowVideoArea ? <PlayerArea name={'VideoArea'} /> : undefined}
       </div>
     );
   }
