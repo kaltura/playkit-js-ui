@@ -1,11 +1,22 @@
 import {Component} from 'preact';
-import getLogger from '../../utils/logger';
+import {connect} from 'react-redux';
+import {withLogger} from 'components/logger';
 
-const logger = getLogger('PlayerAreaProvider');
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
+const mapStateToProps = state => ({
+  activePresetName: state.shell.activePresetName
+});
+
 
 /**
  * PlayerArea provider
  */
+@withLogger('sakal PlayerAreaProvider')
+@connect(mapStateToProps)
 class PlayerAreaProvider extends Component {
 
   /**
@@ -15,7 +26,7 @@ class PlayerAreaProvider extends Component {
   constructor() {
     super();
     this._listeners = [];
-    this._presetsComponents = {};
+    this._componentsByPreset = {};
   }
 
   /**
@@ -23,7 +34,7 @@ class PlayerAreaProvider extends Component {
    * @private
    * @return {void}
    */
-  _initializePresetComponents() {
+  _initializePlayerComponents() {
     let shouldTriggerListeners = false;
     (this.props.uiComponents || []).forEach(componentData => {
       const componentAdded = !!this._addNewComponent(componentData);
@@ -34,19 +45,27 @@ class PlayerAreaProvider extends Component {
       return;
     }
 
-    this._updateListeners();
+    this._emitAllListeners();
   }
 
-  _updateListeners() {
+  _emitListeners(listeners) {
+    const { activePresetName } = this.props;
+
+    (listeners || []).forEach(listener => {
+      const components = listener.presetName === activePresetName ? this._getAreaComponents(activePresetName, listener.areaName) : [];
+    
+      try {
+        listener.callback(components);
+      } catch (e) {
+        this.props.logger.error(`Error occurred when handling player area ${listener.areaName} of preset ${listener.presetName}.`, e);
+      }
+    });
+  }
+
+  _emitAllListeners() {
     setTimeout(() => {
-      // use timeout to make sure redux store is in sync
-      this._listeners.forEach(cb => {
-        try {
-          cb(this._presetsComponents);
-        } catch (e) {
-          logger.error(`error occurred with one of the PlayerAreas handling preset components.`, e);
-        }
-      });
+      // use timeout to make sure redux store is in sync  
+      this._emitListeners(this._listeners);
     }, 200);
   }
 
@@ -54,7 +73,7 @@ class PlayerAreaProvider extends Component {
     // we keep option `container` for backward compatibility. documentation are showing `area` property
     const hasAreaProperty = componentData.container || componentData.area;
     if (!componentData.get || !componentData.presets || !hasAreaProperty) {
-      logger.warn(
+      this.props.logger.warn(
         `component data with label '${component.label ||
           ''}' is invalid (did you remember to set 'get', 'presets' and 'area'?)`
       );
@@ -65,17 +84,10 @@ class PlayerAreaProvider extends Component {
   }
 
   _addNewComponentAndUpdateListeners = (componentData) => {
-    const result = this._addNewComponent(componentData);
-
-    if (!!result) {
-      this._updateListeners();
-      return result;
-    }
-
-    return () => {};
+    return this._addNewComponent(componentData, true);
   }
 
-  _addNewComponent = (componentData) => {
+  _addNewComponent = (componentData, shouldUpdateImmediately) => {
     // use cloned component just in case someone will mutate the object in another place
     const clonedComponentData = Object.assign({}, componentData);
     if (clonedComponentData.container) {
@@ -83,11 +95,18 @@ class PlayerAreaProvider extends Component {
       delete clonedComponentData.container;
     }
     if (!this._validateComponentData(clonedComponentData)) {
-      return null;
+      return () => {};
     }
 
-    clonedComponentData.presets.forEach(preset => {
-      (this._presetsComponents[preset] || (this._presetsComponents[preset] = [])).push(clonedComponentData);
+    const areaName = clonedComponentData.area;
+
+    clonedComponentData.presets.forEach(presetName => {
+      (this._componentsByPreset[presetName] || (this._componentsByPreset[presetName] = [])).push(clonedComponentData);
+
+      if (shouldUpdateImmediately) {
+        const listeners = this._findListeners(areaName,presetName);
+        this._emitListeners(listeners);
+      }
     });
 
     return () => {
@@ -100,22 +119,17 @@ class PlayerAreaProvider extends Component {
       return;
     }
 
-    let shouldUpdateListeners = false;
-    componentData.presets.forEach(preset => {
-      const presetComponents = (this._presetsComponents[preset] || []);
+    componentData.presets.forEach(presetName => {
+      const presetComponents = (this._componentsByPreset[presetName] || []);
       const index = presetComponents.indexOf(componentData);
       if (index === -1) {
         return;
       }
       presetComponents.splice(index, 1);
-      shouldUpdateListeners = true;
+      
+      const listeners = this._findListeners(componentData.area, componentData.presetName);
+      this._emitListeners(listeners);
     });
-
-    if (!shouldUpdateListeners) {
-      return;
-    }
-
-    this._updateListeners();
   }
 
   /**
@@ -123,7 +137,21 @@ class PlayerAreaProvider extends Component {
    * @return {void}
    */
   componentDidMount() {
-    this._initializePresetComponents();
+    this._initializePlayerComponents();
+  }
+
+  _findListeners = (areaName, optionalPresetName) => {
+    if (!areaName) {
+      return [];
+    }
+    return this._listeners.filter(listener => (!optionalPresetName || listener.presetName === optionalPresetName) &&
+     listener.areaName === areaName);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.activePresetName !== this.props.activePresetName) {
+      this._emitAllListeners();
+    }
   }
 
   /**
@@ -132,15 +160,27 @@ class PlayerAreaProvider extends Component {
    * @return {void}
    * @private
    */
-  _listen = cb => {
-    if (this._presetsComponents) {
-      try {
-        cb(this._presetsComponents);
-      } catch (e) {
-        // do nothing
-      }
+  _listen = (presetName, areaName, callback) => {
+    if (!presetName || !areaName || !callback) {
+      return () => {};
     }
-    this._listeners.push(cb);
+
+    const currentAreaListener = this._findListeners(areaName, presetName);
+
+    if (currentAreaListener && currentAreaListener.length > 0) {
+      this.props.logger.warn(`Another component is already registered to updates for player area '${areaName}' in preset '${presetName}'. Unlisten to previous listener`);
+      currentAreaListener.forEach(listener => {
+        this._unlisten(listener);
+
+      });
+    }
+
+    const newListener = {presetName: presetName, areaName: areaName, callback: callback};
+    this._listeners.push(newListener);
+    this._emitListeners([newListener]);
+    return () => {
+      this._unlisten(newListener);
+    }
   };
 
   /**
@@ -154,11 +194,19 @@ class PlayerAreaProvider extends Component {
     if (index === -1) {
       return;
     }
+    
     this._listeners.splice(index, 1);
   };
 
-  _getPresetComponents = () => {
-    return this._presetsComponents;
+  _getAreaComponents = (presetName, areaName) => {
+    if (!areaName || !presetName) {
+      return [];
+    }
+
+    const presetComponents = this._componentsByPreset[presetName];
+    const areaComponents = presetComponents ? presetComponents.filter(component => component.area === areaName) : [];
+   
+    return areaComponents || []
   }
   /**
    *
@@ -168,11 +216,10 @@ class PlayerAreaProvider extends Component {
     // Notice: the listen/unlisten methods are used instead of passing the data directly
     // as it appears that context changes doesnt re-render the components.
     return {
-      presetComponentsStore: {
+      playerAreaComponentsStore: {
         listen: this._listen,
-        unlisten: this._unlisten,
         addNewComponent: this._addNewComponentAndUpdateListeners,
-        getPresetComponents: this._getPresetComponents
+        getAreaComponents: this._getAreaComponents
       }
     };
   }

@@ -29,9 +29,9 @@ function getPositionedPlayerAreaItem(dictionary, componentName) {
 }
 
 const initialState = {
-  PlayerAreaComponents: null,
+  playerAreaComponents: null,
   hasPositionedComponents: false,
-  presetComponentsOnlyMode: true
+  presetComponentsOnlyMode: true,
 };
 
 /**
@@ -47,7 +47,7 @@ function getComponentName(component: any) {
   return component.type.displayName;
 }
 
-@withLogger('PlayerArea')
+@withLogger('sakal PlayerArea')
 @connect(mapStateToProps)
 /**
  * A video PlayerArea enabling injecting components by preset, PlayerArea and position
@@ -56,6 +56,8 @@ class PlayerArea extends Component {
   static defaultProps = {
     show: true
   };
+  _unregisterListenerCallback = null;
+
   /**
    * constructor
    * @param {*} props props
@@ -68,46 +70,63 @@ class PlayerArea extends Component {
   }
 
 
-//     /**
-//   * should component update handler
-//   *
-//   * @returns {boolean} - always update component
-//   * @param {Object} nextProps - next props of the component
-//   * @memberof OverlayAction
-//   */
-//  shouldComponentUpdate(nextProps: Object): boolean {
-//   return (!this.state.bla || nextProps.activePresetName !== this.props.activePresetName)
-// } 
+    /**
+  * should component update handler
+  *
+  * @returns {boolean} - always update component
+  * @param {Object} nextProps - next props of the component
+  * @memberof OverlayAction
+  */
+ shouldComponentUpdate(nextProps: Object, nextState: Object): boolean {
+  return (this.state.playerAreaComponents !== nextState.playerAreaComponents
+    || nextProps.activePresetName !== this.props.activePresetName)
+} 
 
   componentDidUpdate(prevProps) {
     if (prevProps.activePresetName !== this.props.activePresetName) {
-      this._updateAreaComponents();
+      this._registerListener();
     }
   }
 
-  _updateAreaComponents = (): void => {
-    const {activePresetName, name} = this.props;
-    const presetComponentsStore = this.context.presetComponentsStore;
-    const presetsComponents = presetComponentsStore ? presetComponentsStore.getPresetComponents() : null;
+  _unregisterListener() {
+    if (this._unregisterListenerCallback) {
+      this.props.logger.debug(`Player area '${this.props.name}' - unregister to changes`);
+      this._unregisterListenerCallback();
+      this._unregisterListenerCallback = null;
+    }
+  }
+  _registerListener() {
+    const {activePresetName, name: playerAreaName} = this.props;
 
-    if (!presetComponentsStore || !activePresetName || !presetsComponents) {
-      this.props.logger.debug(`PlayerArea name '${name}' is limited to self components only`);
-      this.setState(initialState);
+    this._unregisterListener();
+
+    if (!activePresetName || !playerAreaName) {
       return;
     }
 
-    this.props.logger.debug(`PlayerArea name '${name}' allows injections for preset '${activePresetName}'`);
+    this.props.logger.debug(`Player area '${playerAreaName}' in preset '${activePresetName}' - register to changes`);
 
+    this._unregisterListenerCallback = this.context.playerAreaComponentsStore.listen(activePresetName, playerAreaName, this._updateAreaComponents);
+  }
+
+  _updateAreaComponents = (playerAreaComponents): void => {
+    const {activePresetName, name: playerAreaName} = this.props;
+    
+    if (!playerAreaComponents) {
+      return;
+    }
+
+    this.props.logger.debug(`Player area '${playerAreaName}' in preset '${activePresetName}' - update children components`);
+    
+    const positionedComponentMap = {};
     const nextPlayerAreaComponents = {
       appendedComponents: [],
-      positionedComponentMap: {}
+      positionedComponentMap
     };
-    const positionedComponentMap = nextPlayerAreaComponents.positionedComponentMap;
+    
     let hasPositionedComponents = false;
 
-    const presetComponents = presetsComponents[activePresetName] || [];
-    const PlayerAreaComponents = presetComponents.filter(component => component.area === this.props.name);
-    PlayerAreaComponents.forEach(component => {
+    playerAreaComponents.forEach(component => {
       if (component.beforeComponent) {
         getPositionedPlayerAreaItem(positionedComponentMap, component.beforeComponent).before.push(component);
         hasPositionedComponents = true;
@@ -123,8 +142,7 @@ class PlayerArea extends Component {
     });
 
     this.setState({
-      bla: true,
-      PlayerAreaComponents: nextPlayerAreaComponents,
+      playerAreaComponents: nextPlayerAreaComponents,
       hasPositionedComponents,
       presetComponentsOnlyMode: false
     });
@@ -135,8 +153,8 @@ class PlayerArea extends Component {
    * @return {void}
    */
   componentDidMount(): void {
-    this.props.logger.debug(`PlayerArea name '${this.props.name}' mounted`);
-    this.context.presetComponentsStore.listen(this._updateAreaComponents);
+    this.props.logger.debug(`Player area '${this.props.name}' - handle did mount`);
+    this._registerListener();
   }
 
   /**
@@ -146,8 +164,8 @@ class PlayerArea extends Component {
    */
   componentWillUnmount(): void {
     const {name} = this.props;
-    this.props.logger.debug(`PlayerArea name '${this.props.name}' will-unmount`);
-    this.context.presetComponentsStore.unlisten(this._updateAreaComponents);
+    this.props.logger.debug(`Player area '${this.props.name}' - handle will unmount`);
+    this._unregisterListener();
   }
 
   /**
@@ -179,7 +197,7 @@ class PlayerArea extends Component {
    * @returns {*} new children
    */
   _getPositionedComponents(children: Array<any>): Array<any> {
-    const {PlayerAreaComponents} = this.state;
+    const {playerAreaComponents} = this.state;
     const newChildren = [];
     toChildArray(children).forEach(child => {
       if (child.type === 'div') {
@@ -192,7 +210,7 @@ class PlayerArea extends Component {
         newChildren.push(child);
         return;
       }
-      const positionedComponent = PlayerAreaComponents.positionedComponentMap[childName];
+      const positionedComponent = playerAreaComponents.positionedComponentMap[childName];
       if (!positionedComponent) {
         newChildren.push(child);
         return;
@@ -225,14 +243,16 @@ class PlayerArea extends Component {
    * @memberof PlayerArea
    */
   render(): React$Element<any> | null {
-    const {children, show, preAppendTo} = this.props;
-    const {PlayerAreaComponents, hasPositionedComponents} = this.state;
-    console.log('sakal render')
+    const {children, show, preAppendTo, name} = this.props;
+    const {playerAreaComponents, hasPositionedComponents} = this.state;
+    this.props.logger.debug(`Player area '${this.props.name}' - render`);
+
+  
     if (this.state.presetComponentsOnlyMode) {
       return this.renderContent(this.props.children);
     }
 
-    if (!PlayerAreaComponents || !show) {
+    if (!playerAreaComponents || !show) {
       return null;
     }
 
@@ -244,7 +264,7 @@ class PlayerArea extends Component {
       newChildren.push(...toChildArray(children));
     }
 
-    const appendedChildren = PlayerAreaComponents.appendedComponents.map(component => {
+    const appendedChildren = playerAreaComponents.appendedComponents.map(component => {
       return this._renderUIComponent(component);
     });
 
