@@ -31,7 +31,7 @@ function getPositionedPlayerAreaItem(dictionary, componentName) {
 const initialState = {
   playerAreaComponents: null,
   hasPositionedComponents: false,
-  presetComponentsOnlyMode: true,
+  presetComponentsOnlyMode: true
 };
 
 /**
@@ -59,28 +59,15 @@ class PlayerArea extends Component {
   _unregisterListenerCallback = null;
 
   /**
-   * constructor
-   * @param {*} props props
-   * @param {*} context context
-   * @return {void}
+   * should component update handler
+   *
+   * @returns {boolean} - always update component
+   * @param {Object} nextProps - next props of the component
+   * @memberof OverlayAction
    */
-  constructor(props: Object) {
-    super(props);
-    this.setState(initialState);
+  shouldComponentUpdate(nextProps: Object, nextState: Object): boolean {
+    return this.state.playerAreaComponents !== nextState.playerAreaComponents || nextProps.activePresetName !== this.props.activePresetName;
   }
-
-
-    /**
-  * should component update handler
-  *
-  * @returns {boolean} - always update component
-  * @param {Object} nextProps - next props of the component
-  * @memberof OverlayAction
-  */
- shouldComponentUpdate(nextProps: Object, nextState: Object): boolean {
-  return (this.state.playerAreaComponents !== nextState.playerAreaComponents
-    || nextProps.activePresetName !== this.props.activePresetName)
-}
 
   componentDidUpdate(prevProps) {
     if (prevProps.activePresetName !== this.props.activePresetName) {
@@ -154,6 +141,7 @@ class PlayerArea extends Component {
    */
   componentDidMount(): void {
     this.props.logger.debug(`Player area '${this.props.name}' - handle did mount`);
+    this.setState(initialState);
     this._registerListener();
   }
 
@@ -245,7 +233,6 @@ class PlayerArea extends Component {
     const {children, show, preAppendTo, name} = this.props;
     const {playerAreaComponents, hasPositionedComponents} = this.state;
     this.props.logger.debug(`Player area '${this.props.name}' - render`);
-
 
     if (this.state.presetComponentsOnlyMode) {
       return this.renderContent(this.props.children);
