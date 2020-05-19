@@ -363,9 +363,8 @@ class Shell extends Component {
    * @memberof Shell
    */
   render(props: any): React$Element<any> {
-    let playerClasses = [style.player, style.skinDefault, ...this._environmentClasses]
-    .concat(props.playerClasses);
-    
+    let playerClasses = [style.player, style.skinDefault, ...this._environmentClasses].concat(props.playerClasses);
+
     if (this.props.prePlayback) playerClasses.push(style.prePlayback);
     if (this.props.isCasting) playerClasses.push(`${__CSS_MODULE_PREFIX__}-casting`);
     if (this.props.isMobile) playerClasses.push(style.touch);

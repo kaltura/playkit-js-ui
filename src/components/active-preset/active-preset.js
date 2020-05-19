@@ -5,7 +5,6 @@ import {bindActions} from '../../utils';
 import {actions} from '../../reducers/shell';
 import getLogger from '../../utils/logger';
 import {withEventDispatcher} from 'components/event-dispatcher';
-import style from '../../styles/style.scss';
 import {withPlayerAreas} from 'components/player-areas';
 
 /**
@@ -64,9 +63,9 @@ class ActivePreset extends Component {
     return matchedUI;
   }
 
-  onPresetRef = (el) => {
+  onPresetRef = el => {
     this._presetContainerRef = el;
-  }
+  };
 
   /**
    * render component based on the matched UI.
@@ -78,10 +77,11 @@ class ActivePreset extends Component {
    */
   render(props: any): React$Element<any> | void {
     let uiToRender;
-    const {activePresetName, presetClientRect} = this.props.state.shell;
-    if (this.props.uis.length > 0) {
-      uiToRender = this.getMatchedUI(props.uis, props.state);
-      const uiComponent = uiToRender ? uiToRender.template(props) : this.props.uis[this.props.uis.length - 1].template(props);
+    const {PlayerAreasService, uis, state} = this.props;
+    const {activePresetName, presetClientRect} = state.shell;
+    if (uis.length > 0) {
+      uiToRender = this.getMatchedUI(uis, props.state);
+      const uiComponent = uiToRender ? uiToRender.template(props) : uis[uis.length - 1].template(props);
       const presetName = uiComponent ? uiComponent.type.displayName || '' : '';
 
       if (activePresetName !== presetName) {
@@ -90,7 +90,6 @@ class ActivePreset extends Component {
         props.updatePresetSettings(null);
         logger.debug(`update active preset to '${activePresetName}' and reset preset settings`);
       }
-      const {PlayerAreasService, uis} = this.props;
 
       const {width: currentWidth, height: currentHeight} = presetClientRect;
       const presetContainerStyles = PlayerAreasService.calculatePresetContainerStyles();
@@ -100,8 +99,12 @@ class ActivePreset extends Component {
         this.props.updatePresetClientRect({width, height, top, right, bottom, left});
       }
 
-      return h(uiComponent.type, { presetRef: this.onPresetRef, playerContainer: this._presetContainerRef,  style: presetContainerStyles.style }
-      );
+      return h(uiComponent.type, {
+        presetRef: this.onPresetRef,
+        playerContainer: this._presetContainerRef,
+        style: presetContainerStyles.style,
+        ...props
+      });
     } else {
       return undefined;
     }

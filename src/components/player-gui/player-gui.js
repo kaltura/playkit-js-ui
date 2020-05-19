@@ -1,10 +1,22 @@
 //@flow
 import {h, Fragment, Component} from 'preact';
+import {connect} from 'react-redux';
 import {ActivePreset} from '../active-preset';
 import {PlayerArea} from '../player-area';
 import {SidePanelPositions} from '../../reducers/shell';
 import {SidePanel} from '../side-panel';
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
+const mapStateToProps = state => ({
+  allowSidePanels: state.shell.presetSettings.allowSidePanels,
+  allowPlayerArea: state.shell.presetSettings.allowPlayerArea
+});
+
+@connect(mapStateToProps)
 /**
  * Player GUI component
  *
@@ -20,15 +32,21 @@ class PlayerGUI extends Component {
    * @memberof PlayerGUI
    */
   render(): React$Element<any> | void {
-    const {uis} = this.props;
+    const {uis, allowSidePanels, allowPlayerArea} = this.props;
     return (
       <Fragment>
         <ActivePreset uis={uis} />
-        <SidePanel position={SidePanelPositions.RIGHT} />
-        <SidePanel position={SidePanelPositions.LEFT} />
-        <SidePanel position={SidePanelPositions.TOP} />
-        <SidePanel position={SidePanelPositions.BOTTOM} />
-        <PlayerArea name={'PlayerArea'} />
+        {allowSidePanels ? (
+          <Fragment>
+            <SidePanel position={SidePanelPositions.RIGHT} />
+            <SidePanel position={SidePanelPositions.LEFT} />
+            <SidePanel position={SidePanelPositions.TOP} />
+            <SidePanel position={SidePanelPositions.BOTTOM} />
+          </Fragment>
+        ) : (
+          undefined
+        )}
+        {allowPlayerArea ? <PlayerArea name={'PlayerArea'} /> : undefined}
       </Fragment>
     );
   }

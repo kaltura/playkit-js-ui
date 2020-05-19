@@ -80,7 +80,7 @@ class PlayerArea extends Component {
  shouldComponentUpdate(nextProps: Object, nextState: Object): boolean {
   return (this.state.playerAreaComponents !== nextState.playerAreaComponents
     || nextProps.activePresetName !== this.props.activePresetName)
-} 
+}
 
   componentDidUpdate(prevProps) {
     if (prevProps.activePresetName !== this.props.activePresetName) {
@@ -111,19 +111,19 @@ class PlayerArea extends Component {
 
   _updateAreaComponents = (playerAreaComponents): void => {
     const {activePresetName, name: playerAreaName} = this.props;
-    
+
     if (!playerAreaComponents) {
       return;
     }
 
     this.props.logger.debug(`Player area '${playerAreaName}' in preset '${activePresetName}' - update children components`);
-    
+
     const positionedComponentMap = {};
     const nextPlayerAreaComponents = {
       appendedComponents: [],
       positionedComponentMap
     };
-    
+
     let hasPositionedComponents = false;
 
     playerAreaComponents.forEach(component => {
@@ -235,7 +235,6 @@ class PlayerArea extends Component {
     return newChildren;
   }
 
-
   /**
    * render component
    *
@@ -247,7 +246,7 @@ class PlayerArea extends Component {
     const {playerAreaComponents, hasPositionedComponents} = this.state;
     this.props.logger.debug(`Player area '${this.props.name}' - render`);
 
-  
+
     if (this.state.presetComponentsOnlyMode) {
       return this.renderContent(this.props.children);
     }

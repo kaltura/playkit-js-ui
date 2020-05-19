@@ -38,53 +38,53 @@ const PRESET_NAME = 'Playback';
  * Playback ui interface component
  *
  * @export
- * @param {*} props component props 
+ * @param {*} props component props
  * @returns {React$Element} player ui tree
  */
 function PlaybackUI(props: any): React$Element<any> {
   props.updateIsKeyboardEnabled(true);
   return (
-        <PlayerArea preAppendTo={'Backdrop'} name={'PresetArea'}>
-          <Loading />
-          <div className={style.playerGui} id="player-gui">
-            <OverlayPortal />
-            <UnmuteIndication />
-            <OverlayAction />
-            <PictureInPictureOverlay />
-            <PlaybackControls />
-            <PlaylistNextScreen />
-            <InteractiveArea />
-            <TopBar rightControls={<Share />} />
-            <BottomBar
-              leftControls={
-                <Fragment>
-                  <PlaybackControls />
-                  <Rewind step={10} />
-                  <Forward step={10} />
-                  <TimeDisplayPlaybackContainer format="current / total" />
-                </Fragment>
-              }
-              rightControls={
-                <Fragment>
-                  <VrStereo />
-                  <Volume />
-                  <Language />
-                  <Settings />
-                  <Cast />
-                  <PictureInPicture />
-                  <Fullscreen />
-                  <Logo />
-                </Fragment>
-              }>
-              <SeekBarPlaybackContainer showFramePreview showTimeBubble presetContainer={props.playerContainer} />
-            </BottomBar>
-          </div>
-          <Watermark />
-          <PlaylistCountdown />
-          <PrePlaybackPlayOverlay />
-          <CastBeforePlay />
-          <Backdrop />
-        </PlayerArea>
+    <PlayerArea preAppendTo={'Backdrop'} name={'PresetArea'}>
+      <Loading />
+      <div className={style.playerGui} id="player-gui">
+        <OverlayPortal />
+        <UnmuteIndication />
+        <OverlayAction />
+        <PictureInPictureOverlay />
+        <PlaybackControls />
+        <PlaylistNextScreen />
+        <InteractiveArea />
+        <TopBar rightControls={<Share />} />
+        <BottomBar
+          leftControls={
+            <Fragment>
+              <PlaybackControls />
+              <Rewind step={10} />
+              <Forward step={10} />
+              <TimeDisplayPlaybackContainer format="current / total" />
+            </Fragment>
+          }
+          rightControls={
+            <Fragment>
+              <VrStereo />
+              <Volume />
+              <Language />
+              <Settings />
+              <Cast />
+              <PictureInPicture />
+              <Fullscreen />
+              <Logo />
+            </Fragment>
+          }>
+          <SeekBarPlaybackContainer showFramePreview showTimeBubble presetContainer={props.playerContainer} />
+        </BottomBar>
+      </div>
+      <Watermark />
+      <PlaylistCountdown />
+      <PrePlaybackPlayOverlay />
+      <CastBeforePlay />
+      <Backdrop />
+    </PlayerArea>
   );
 }
 
@@ -93,9 +93,7 @@ const PlaybackComponent = withPlayerPreset({
   allowPlayerArea: true,
   allowVideoArea: true,
   className: style.playbackGuiWrapper
-})(
-withKeyboardEvent(PRESET_NAME)(PlaybackUI)
-);
+})(withKeyboardEvent(PRESET_NAME)(PlaybackUI));
 PlaybackComponent.displayName = PRESET_NAME;
 
 /**

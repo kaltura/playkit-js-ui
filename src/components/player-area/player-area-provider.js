@@ -15,10 +15,9 @@ const mapStateToProps = state => ({
 /**
  * PlayerArea provider
  */
-@withLogger('sakal PlayerAreaProvider')
+@withLogger('PlayerAreaProvider')
 @connect(mapStateToProps)
 class PlayerAreaProvider extends Component {
-
   /**
    * constructor
    * @return {void}
@@ -53,7 +52,7 @@ class PlayerAreaProvider extends Component {
 
     (listeners || []).forEach(listener => {
       const components = listener.presetName === activePresetName ? this._getAreaComponents(activePresetName, listener.areaName) : [];
-    
+
       try {
         listener.callback(components);
       } catch (e) {
@@ -64,12 +63,12 @@ class PlayerAreaProvider extends Component {
 
   _emitAllListeners() {
     setTimeout(() => {
-      // use timeout to make sure redux store is in sync  
+      // use timeout to make sure redux store is in sync
       this._emitListeners(this._listeners);
     }, 200);
   }
 
-  _validateComponentData = (componentData) => {
+  _validateComponentData = componentData => {
     // we keep option `container` for backward compatibility. documentation are showing `area` property
     const hasAreaProperty = componentData.container || componentData.area;
     if (!componentData.get || !componentData.presets || !hasAreaProperty) {
@@ -81,7 +80,7 @@ class PlayerAreaProvider extends Component {
     }
 
     return true;
-  }
+  };
 
   _addNewComponentAndUpdateListeners = (componentData) => {
     return this._addNewComponent(componentData, true);
@@ -111,10 +110,10 @@ class PlayerAreaProvider extends Component {
 
     return () => {
       this._removeNewComponent(clonedComponentData);
-    }
-  }
+    };
+  };
 
-  _removeNewComponent = (componentData) => {
+  _removeNewComponent = componentData => {
     if (!this._validateComponentData(componentData)) {
       return;
     }
@@ -126,7 +125,7 @@ class PlayerAreaProvider extends Component {
         return;
       }
       presetComponents.splice(index, 1);
-      
+
       const listeners = this._findListeners(componentData.area, componentData.presetName);
       this._emitListeners(listeners);
     });
@@ -194,7 +193,7 @@ class PlayerAreaProvider extends Component {
     if (index === -1) {
       return;
     }
-    
+
     this._listeners.splice(index, 1);
   };
 
@@ -205,7 +204,7 @@ class PlayerAreaProvider extends Component {
 
     const presetComponents = this._componentsByPreset[presetName];
     const areaComponents = presetComponents ? presetComponents.filter(component => component.area === areaName) : [];
-   
+
     return areaComponents || []
   }
   /**
