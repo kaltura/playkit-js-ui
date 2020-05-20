@@ -1,6 +1,7 @@
-import {Component} from 'preact';
+import {Component, h, Fragment} from 'preact';
 import {connect} from 'react-redux';
 import {withLogger} from 'components/logger';
+import {StylesStoreAdapter} from './styles-store-adapter';
 
 /**
  * mapping state to props
@@ -229,7 +230,10 @@ class PlayerAreaProvider extends Component {
    * @returns {void}
    */
   render(props) {
-    return props.children;
+    return <Fragment>
+      <StylesStoreAdapter />
+      {props.children}
+    </Fragment>;
   }
 }
 

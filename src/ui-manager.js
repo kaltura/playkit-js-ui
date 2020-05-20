@@ -195,7 +195,7 @@ class UIManager {
                     <Shell>
                       <EngineConnector />
                       <VideoPlayer />
-                      <PlayerGUI uis={uis} />
+                      <PlayerGUI uis={uis} playerContainer={this.container} />
                     </Shell>
                   </KeyboardEventProvider>
                 </EventDispatcherProvider>

@@ -1,6 +1,6 @@
 //@flow
 import style from '../styles/style.scss';
-import {Fragment, h} from 'preact';
+import {Fragment, h, Component} from 'preact';
 import {PlayerArea, withPlayerPreset} from '../components/player-area';
 import {OverlayAction} from '../components/overlay-action';
 import {PrePlaybackPlayOverlay} from '../components/pre-playback-play-overlay';
@@ -31,7 +31,7 @@ import {TopBar} from '../components/top-bar';
 import {Logo} from '../components/logo/logo';
 import {InteractiveArea} from '../components/interactive-area';
 import {withKeyboardEvent} from 'components/keyboard';
-
+import {PresetContainer} from '../components/preset-container';
 const PRESET_NAME = 'Playback';
 
 /**
@@ -41,58 +41,70 @@ const PRESET_NAME = 'Playback';
  * @param {*} props component props
  * @returns {React$Element} player ui tree
  */
-function PlaybackUI(props: any): React$Element<any> {
-  props.updateIsKeyboardEnabled(true);
+class PlaybackUI extends Component {
+
+  _ref = null;
+  _setRef = (ref) => {
+    this._ref = ref;
+  }
+ render() {
+   const props = this.props;
+  props.updateIsKeyboardEnabled(true); // TODO yair consider moving this line to component did mount
   return (
-    <PlayerArea preAppendTo={'Backdrop'} name={'PresetArea'}>
+    <div className={style.playbackGuiWrapper}>
+      <OverlayPortal />
+      <UnmuteIndication />
+      <OverlayAction />
+      <PlayerArea name={'VideoArea'} />
       <Loading />
-      <div className={style.playerGui} id="player-gui">
-        <OverlayPortal />
-        <UnmuteIndication />
-        <OverlayAction />
-        <PictureInPictureOverlay />
-        <PlaybackControls />
-        <PlaylistNextScreen />
-        <InteractiveArea />
-        <TopBar rightControls={<Share />} />
-        <BottomBar
-          leftControls={
-            <Fragment>
-              <PlaybackControls />
-              <Rewind step={10} />
-              <Forward step={10} />
-              <TimeDisplayPlaybackContainer format="current / total" />
-            </Fragment>
-          }
-          rightControls={
-            <Fragment>
-              <VrStereo />
-              <Volume />
-              <Language />
-              <Settings />
-              <Cast />
-              <PictureInPicture />
-              <Fullscreen />
-              <Logo />
-            </Fragment>
-          }>
-          <SeekBarPlaybackContainer showFramePreview showTimeBubble presetContainer={props.playerContainer} />
-        </BottomBar>
-      </div>
-      <Watermark />
-      <PlaylistCountdown />
-      <PrePlaybackPlayOverlay />
-      <CastBeforePlay />
-      <Backdrop />
-    </PlayerArea>
+      <PresetContainer>
+      <PlayerArea preAppendTo={'Backdrop'} name={'PresetArea'}>
+        <div ref={this._setRef} className={style.playerGui} id="player-gui">
+          <PictureInPictureOverlay />
+          <PlaybackControls />
+          <PlaylistNextScreen />
+          <InteractiveArea />
+          <TopBar rightControls={<Share />} />
+          <BottomBar
+            leftControls={
+              <Fragment>
+                <PlaybackControls />
+                <Rewind step={10} />
+                <Forward step={10} />
+                <TimeDisplayPlaybackContainer format="current / total" />
+              </Fragment>
+            }
+            rightControls={
+              <Fragment>
+                <VrStereo />
+                <Volume />
+                <Language />
+                <Settings />
+                <Cast />
+                <PictureInPicture />
+                <Fullscreen />
+                <Logo />
+              </Fragment>
+            }>
+            <SeekBarPlaybackContainer showFramePreview showTimeBubble presetContainer={this._ref} />
+          </BottomBar>
+        </div>
+        <Watermark />
+        <PlaylistCountdown />
+        <PrePlaybackPlayOverlay />
+        <CastBeforePlay />
+        <Backdrop />
+      </PlayerArea>
+      </PresetContainer>
+    </div>
   );
+ }
 }
 
 const PlaybackComponent = withPlayerPreset({
   allowSidePanels: true,
   allowPlayerArea: true,
-  allowVideoArea: true,
-  className: style.playbackGuiWrapper
+  allowVideoArea: true
 })(withKeyboardEvent(PRESET_NAME)(PlaybackUI));
 PlaybackComponent.displayName = PRESET_NAME;
 

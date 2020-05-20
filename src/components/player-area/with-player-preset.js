@@ -20,7 +20,7 @@ const withPlayerPreset = options => InnerComponent => {
     bindActions(actions)
   )
   /**
-   * store hoc withPlayerAreas
+   * store hoc withPlayerPreset
    */
   class PlayerPreset extends Component {
     componentDidMount(): void {
@@ -38,11 +38,13 @@ const withPlayerPreset = options => InnerComponent => {
      * @returns {*} component
      */
     render() {
-      const {presetRef, style, ...props} = this.props;
+      const {presetContainerRef, setPresetContainerRef, presetContainerStyle, ...props} = this.props;
+      const presetContainerProps = {
+        style: presetContainerStyle,
+        setRef: setPresetContainerRef
+      }
       return (
-        <div ref={presetRef} style={style} className={options.className}>
-          <InnerComponent {...props} />
-        </div>
+        <InnerComponent {...props} presetContainerProps={presetContainerProps} />
       );
     }
   }
