@@ -73,7 +73,7 @@ class PlayerAreaProvider extends Component {
     const hasAreaProperty = componentData.container || componentData.area;
     if (!componentData.get || !componentData.presets || !hasAreaProperty) {
       this.props.logger.warn(
-        `component data with label '${component.label ||
+        `component data with label '${componentData.label ||
           ''}' is invalid (did you remember to set 'get', 'presets' and 'area'?)`
       );
       return false;
