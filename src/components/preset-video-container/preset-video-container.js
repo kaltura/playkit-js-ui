@@ -10,7 +10,7 @@ import {PlayerArea} from 'components/player-area';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  presetStyles: state.shell.layoutStyles.preset
+  videoStyles: state.shell.layoutStyles.video
 });
 
 @connect(mapStateToProps)
@@ -21,7 +21,7 @@ const mapStateToProps = state => ({
  * @example <PresetContainer>...</PresetContainer>
  * @extends {Component}
  */
-class PresetContainer extends Component {
+class PresetVideoContainer extends Component {
   /**
    * this component should not render itself when player object changes.
    *
@@ -29,14 +29,8 @@ class PresetContainer extends Component {
    * @memberof VideoPlayer
    */
   shouldComponentUpdate(nextProps: PropsType): boolean {
-    return nextProps.presetStyles !== this.props.presetStyles;
+    return nextProps.videoStyles !== this.props.videoStyles;
   }
-
-  _ref = null;
-  _setRef = ref => {
-    this._ref = ref;
-    this.setState(prevState => ({render: !prevState.render}));
-  };
 
   /*
    * render component
@@ -45,18 +39,16 @@ class PresetContainer extends Component {
    * @memberof VideoPlayer
    */
   render(): React$Element<any> {
-    const {presetStyles, children} = this.props;
-    const presetStyle = {...presetStyles, pointerEvents: 'none'};
+    const {videoStyles, children} = this.props;
+    const presetVideoStyle = {...videoStyles, pointerEvents: 'none'};
     return (
-      <div style={presetStyle}>
+      <div style={presetVideoStyle}>
         <div style={{pointerEvents: 'auto'}}>
-          <div ref={this._setRef} id="player-gui" className={style.playerGui}>
-            <PlayerArea name={'PresetArea'}>{this._ref && children({containerRef: this._ref})}</PlayerArea>
-          </div>
+          <PlayerArea name={'VideoArea'}>{children}</PlayerArea>
         </div>
       </div>
     );
   }
 }
 
-export {PresetContainer};
+export {PresetVideoContainer};

@@ -32,6 +32,7 @@ import {Logo} from '../components/logo/logo';
 import {InteractiveArea} from '../components/interactive-area';
 import {withKeyboardEvent} from 'components/keyboard';
 import {PresetContainer} from '../components/preset-container';
+import {PresetVideoContainer} from '../components/preset-video-container';
 const PRESET_NAME = 'Playback';
 
 /**
@@ -42,63 +43,58 @@ const PRESET_NAME = 'Playback';
  * @returns {React$Element} player ui tree
  */
 class PlaybackUI extends Component {
-
-  _ref = null;
-  _setRef = (ref) => {
-    this._ref = ref;
-  }
- render() {
-   const props = this.props;
-  props.updateIsKeyboardEnabled(true); // TODO yair consider moving this line to component did mount
-  return (
-    <div className={style.playbackGuiWrapper}>
-      <OverlayPortal />
-      <UnmuteIndication />
-      <OverlayAction />
-      <PlayerArea name={'VideoArea'} />
-      <Loading />
-      <PresetContainer>
-      <PlayerArea preAppendTo={'Backdrop'} name={'PresetArea'}>
-        <div ref={this._setRef} className={style.playerGui} id="player-gui">
-          <PictureInPictureOverlay />
-          <PlaybackControls />
-          <PlaylistNextScreen />
-          <InteractiveArea />
-          <TopBar rightControls={<Share />} />
-          <BottomBar
-            leftControls={
-              <Fragment>
-                <PlaybackControls />
-                <Rewind step={10} />
-                <Forward step={10} />
-                <TimeDisplayPlaybackContainer format="current / total" />
-              </Fragment>
-            }
-            rightControls={
-              <Fragment>
-                <VrStereo />
-                <Volume />
-                <Language />
-                <Settings />
-                <Cast />
-                <PictureInPicture />
-                <Fullscreen />
-                <Logo />
-              </Fragment>
-            }>
-            <SeekBarPlaybackContainer showFramePreview showTimeBubble presetContainer={this._ref} />
-          </BottomBar>
-        </div>
+  render() {
+    const props = this.props;
+    props.updateIsKeyboardEnabled(true); // TODO yair consider moving this line to component did mount
+    return (
+      <div className={style.playbackGuiWrapper}>
+        <OverlayPortal />
+        <UnmuteIndication />
+        <OverlayAction />
+        <PresetVideoContainer />
+        <Loading />
+        <PresetContainer>
+          {({containerRef}) => (
+            <Fragment>
+              <PictureInPictureOverlay />
+              <PlaybackControls />
+              <PlaylistNextScreen />
+              <InteractiveArea />
+              <TopBar rightControls={<Share />} />
+              <BottomBar
+                leftControls={
+                  <Fragment>
+                    <PlaybackControls />
+                    <Rewind step={10} />
+                    <Forward step={10} />
+                    <TimeDisplayPlaybackContainer format="current / total" />
+                  </Fragment>
+                }
+                rightControls={
+                  <Fragment>
+                    <VrStereo />
+                    <Volume />
+                    <Language />
+                    <Settings />
+                    <Cast />
+                    <PictureInPicture />
+                    <Fullscreen />
+                    <Logo />
+                  </Fragment>
+                }>
+                <SeekBarPlaybackContainer showFramePreview showTimeBubble presetContainer={containerRef} />
+              </BottomBar>
+            </Fragment>
+          )}
+        </PresetContainer>
         <Watermark />
         <PlaylistCountdown />
         <PrePlaybackPlayOverlay />
         <CastBeforePlay />
         <Backdrop />
-      </PlayerArea>
-      </PresetContainer>
-    </div>
-  );
- }
+      </div>
+    );
+  }
 }
 
 const PlaybackComponent = withPlayerPreset({
