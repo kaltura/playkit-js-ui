@@ -32,10 +32,10 @@ class PlayerGUI extends Component {
    * @memberof PlayerGUI
    */
   render(): React$Element<any> | void {
-    const {uis, allowSidePanels, allowPlayerArea} = this.props;
+    const {uis, playerContainer, allowSidePanels, allowPlayerArea} = this.props;
     return (
       <Fragment>
-        <ActivePreset uis={uis} />
+        <ActivePreset uis={uis} playerContainer={playerContainer} />
         {allowSidePanels ? (
           <Fragment>
             <SidePanel position={SidePanelPositions.RIGHT} />

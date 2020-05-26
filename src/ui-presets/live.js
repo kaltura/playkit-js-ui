@@ -69,7 +69,7 @@ export function LiveUI(props: any): React$Element<any> {
                   <Logo />
                 </Fragment>
               }>
-              <SeekBarLivePlaybackContainer showFramePreview showTimeBubble presetContainer={props.presetContainer} />
+              <SeekBarLivePlaybackContainer showFramePreview showTimeBubble playerContainer={props.playerContainer} />
             </BottomBar>
           </div>
           <Watermark />
