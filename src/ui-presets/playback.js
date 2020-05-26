@@ -82,7 +82,7 @@ class PlaybackUI extends Component {
                     <Logo />
                   </Fragment>
                 }>
-                <SeekBarPlaybackContainer showFramePreview showTimeBubble presetContainer={containerRef} />
+                <SeekBarPlaybackContainer showFramePreview showTimeBubble playerContainer={containerRef} />
               </BottomBar>
             </Fragment>
           )}

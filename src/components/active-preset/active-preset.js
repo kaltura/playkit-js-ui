@@ -83,10 +83,7 @@ class ActivePreset extends Component {
         props.updatePresetSettings(null);
         logger.debug(`update active preset to '${activePresetName}' and reset preset settings`);
       }
-
-      return h(uiComponent.type, {
-        playerContainer: props.playerContainer
-      });
+      return uiComponent;
     } else {
       return undefined;
     }
