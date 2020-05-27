@@ -400,7 +400,7 @@ class Shell extends Component {
         [PLAYER_SIZE.SMALL, PLAYER_SIZE.EXTRA_SMALL].includes(this.props.playerSize)
       );
     }
-    playerClasses.push("notranslate")
+    playerClasses.push('notranslate');
     playerClasses = playerClasses.join(' ');
 
     return (
