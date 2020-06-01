@@ -2,7 +2,7 @@
 import style from '../../styles/style.scss';
 import {h, Component, toChildArray} from 'preact';
 import {connect} from 'react-redux';
-const PLAYER_MARGIN = 10;
+const PLAYER_MARGIN = 5;
 
 /**
  * mapping state to props

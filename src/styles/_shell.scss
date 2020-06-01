@@ -12,7 +12,8 @@
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 
-  .playback-gui-wrapper {
+  .playback-gui-wrapper,
+  .ad-gui-wrapper {
     font-family: $font-family;
   }
 

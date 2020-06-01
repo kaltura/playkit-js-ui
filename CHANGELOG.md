@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.55.0"></a>
+# [0.55.0](https://github.com/kaltura/playkit-js-ui/compare/v0.54.0...v0.55.0) (2020-05-10)
+
+
+### Bug Fixes
+
+* **FEC-10018:** in Hindi language, the mute/unmute label overlapped by volume scale ([#501](https://github.com/kaltura/playkit-js-ui/issues/501)) ([2e1eb79](https://github.com/kaltura/playkit-js-ui/commit/2e1eb79))
+* **FEC-10027:** missed export of UI components in V7- SmartContainerItem ([#502](https://github.com/kaltura/playkit-js-ui/issues/502)) ([5745c3e](https://github.com/kaltura/playkit-js-ui/commit/5745c3e))
+
+
+### Features
+
+* **FEC-10028:** export preacti18n in KalturaPlayer ([#503](https://github.com/kaltura/playkit-js-ui/issues/503)) ([06b3523](https://github.com/kaltura/playkit-js-ui/commit/06b3523))
+
+
+
 <a name="0.54.0"></a>
 # [0.54.0](https://github.com/kaltura/playkit-js-ui/compare/v0.53.2...v0.54.0) (2020-05-03)
 
