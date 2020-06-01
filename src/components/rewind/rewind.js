@@ -66,6 +66,7 @@ class Rewind extends Component {
       <div className={[style.controlButtonContainer, style.noIdleControl].join(' ')}>
         <Tooltip label={this.props.rewindText}>
           <button
+            type={'button'}
             tabIndex="0"
             aria-label={this.props.rewindText}
             className={`${style.controlButton}`}

@@ -10,6 +10,7 @@ import {withKeyboardEvent} from 'components/keyboard';
 import {withLogger} from 'components/logger';
 import {Tooltip} from 'components/tooltip';
 import {withEventDispatcher} from 'components/event-dispatcher';
+import {Button} from 'components/button';
 
 /**
  * mapping state to props
@@ -115,14 +116,14 @@ class Fullscreen extends Component {
     return (
       <div className={[style.controlButtonContainer, style.controlFullscreen].join(' ')}>
         <Tooltip label={this.props.fullscreenText}>
-          <button
+          <Button
             tabIndex="0"
             aria-label={this.props.fullscreenText}
             className={this.props.fullscreen ? [style.controlButton, style.isFullscreen].join(' ') : style.controlButton}
             onClick={() => this.toggleFullscreen()}>
             <Icon type={IconType.Maximize} />
             <Icon type={IconType.Minimize} />
-          </button>
+          </Button>
         </Tooltip>
       </div>
     );

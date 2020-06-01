@@ -10,7 +10,7 @@ import {withLogger} from 'components/logger';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from 'reducers/playlist';
 import {withEventManager} from 'event/with-event-manager';
-
+import {Button} from 'components/button';
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -263,7 +263,7 @@ class PlaylistCountdown extends Component {
               </Localizer>
               <div className={[style.controlButtonContainer, style.playlistCountdownCancel].join(' ')}>
                 <Localizer>
-                  <button
+                  <Button
                     tabIndex={this.state.focusable ? 0 : -1}
                     aria-label={<Text id="playlist.cancel" />}
                     className={[style.controlButton, style.playlistCountdownCancelButton].join(' ')}
@@ -274,7 +274,7 @@ class PlaylistCountdown extends Component {
                       }
                     }}>
                     <Icon type={IconType.Close} />
-                  </button>
+                  </Button>
                 </Localizer>
               </div>
               <div className={style.playlistCountdownIndicatorBar}>

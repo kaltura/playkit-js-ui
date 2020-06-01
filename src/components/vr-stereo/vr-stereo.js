@@ -11,7 +11,7 @@ import {actions as shellActions} from '../../reducers/shell';
 import {withPlayer} from '../player';
 import {withLogger} from 'components/logger';
 import {Tooltip} from 'components/tooltip';
-
+import {Button} from 'components/button';
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -84,7 +84,7 @@ class VrStereo extends Component {
     return (
       <div className={[style.controlButtonContainer, style.controlVrStereo].join(' ')}>
         <Tooltip label={this.props.vrStereoText}>
-          <button
+          <Button
             tabIndex="0"
             aria-label={this.props.vrStereoText}
             className={this.props.vrStereoMode ? [style.controlButton, style.vrStereoMode].join(' ') : style.controlButton}
@@ -96,7 +96,7 @@ class VrStereo extends Component {
             }}>
             <Icon type={IconType.vrStereo} />
             <Icon type={IconType.vrStereoFull} />
-          </button>
+          </Button>
         </Tooltip>
       </div>
     );

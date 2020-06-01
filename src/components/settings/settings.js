@@ -17,6 +17,7 @@ import {KeyMap} from 'utils/key-map';
 import {SpeedSelectedEvent} from 'event/events/speed-selected-event';
 import {actions as overlayIconActions} from 'reducers/overlay-action';
 import {Tooltip} from 'components/tooltip';
+import {Button} from 'components/button';
 
 /**
  * mapping state to props
@@ -293,13 +294,13 @@ class Settings extends Component {
     return (
       <div ref={c => (this._controlSettingsElement = c)} className={[style.controlButtonContainer, style.controlSettings].join(' ')}>
         <Tooltip label={props.buttonLabel}>
-          <button
+          <Button
             tabIndex="0"
             aria-label={props.buttonLabel}
             className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
             onClick={() => this.onControlButtonClick()}>
             <Icon type={IconType.Settings} />
-          </button>
+          </Button>
         </Tooltip>
         {!this.state.smartContainerOpen ? (
           ''

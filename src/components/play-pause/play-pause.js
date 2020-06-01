@@ -14,6 +14,7 @@ import {bindActions} from 'utils/bind-actions';
 import {actions as settingActions} from 'reducers/settings';
 import {actions as overlayIconActions} from 'reducers/overlay-action';
 import {Tooltip} from 'components/tooltip';
+import {Button} from 'components/button';
 
 /**
  * mapping state to props
@@ -98,7 +99,7 @@ class PlayPause extends Component {
     return (
       <div className={[style.controlButtonContainer, style.controlPlayPause].join(' ')}>
         <Tooltip label={labelText}>
-          <button tabIndex="0" aria-label={labelText} className={controlButtonClass} onClick={() => this.togglePlayPause()}>
+          <Button tabIndex="0" aria-label={labelText} className={controlButtonClass} onClick={() => this.togglePlayPause()}>
             {isStartOver ? (
               <Icon type={IconType.StartOver} />
             ) : (
@@ -107,7 +108,7 @@ class PlayPause extends Component {
                 <Icon type={IconType.Pause} />
               </div>
             )}
-          </button>
+          </Button>
         </Tooltip>
       </div>
     );
