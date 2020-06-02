@@ -182,8 +182,8 @@ class OverlayAction extends Component {
     if (this.props.isSmartContainerOpen) {
       return;
     }
-    const {disableByDoubleClick} = this.props.fullscreenConfig;
-    if (!disableByDoubleClick) {
+    const {disableDoubleClick} = this.props.fullscreenConfig;
+    if (!disableDoubleClick) {
       const now = Date.now();
       if (now - this._firstClickTime < PLAY_PAUSE_BUFFER_TIME) {
         this.cancelClickTimeout();

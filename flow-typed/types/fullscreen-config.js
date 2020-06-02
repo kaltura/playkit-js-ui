@@ -1,4 +1,4 @@
 // @flow
 declare type FullscreenConfig = {
-  disableByDoubleClick: boolean
+  disableDoubleClick: boolean
 };
