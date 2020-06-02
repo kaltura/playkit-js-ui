@@ -14,7 +14,8 @@ export const initialState = {
     seekbar: {},
     vrStereo: {},
     share: {},
-    logo: {}
+    logo: {},
+    fullscreen: {}
   }
 };
 
