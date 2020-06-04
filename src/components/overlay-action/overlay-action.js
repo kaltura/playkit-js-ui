@@ -21,8 +21,9 @@ const mapStateToProps = state => ({
   iconType: state.overlayAction.iconType,
   playerHover: state.shell.playerHover,
   isMobile: state.shell.isMobile,
+  presetStyles: state.shell.layoutStyles.preset,
   isSmartContainerOpen: state.shell.smartContainerOpen,
-  presetStyles: state.shell.layoutStyles.preset
+  fullscreenConfig: state.config.components.fullscreen
 });
 
 /**
@@ -182,21 +183,24 @@ class OverlayAction extends Component {
     if (this.props.isSmartContainerOpen) {
       return;
     }
-    const now = Date.now();
-    if (now - this._firstClickTime < PLAY_PAUSE_BUFFER_TIME) {
-      this.cancelClickTimeout();
-      this.toggleFullscreen();
-      return;
-    }
-    if (now - this._firstClickTime < DOUBLE_CLICK_MAX_BUFFER_TIME) {
-      this.cancelClickTimeout();
-      this.togglePlayPause();
-      this.toggleFullscreen();
-      this._firstClickTime = 0;
-      return;
-    }
+    const {disableDoubleClick} = this.props.fullscreenConfig;
+    if (!disableDoubleClick) {
+      const now = Date.now();
+      if (now - this._firstClickTime < PLAY_PAUSE_BUFFER_TIME) {
+        this.cancelClickTimeout();
+        this.toggleFullscreen();
+        return;
+      }
+      if (now - this._firstClickTime < DOUBLE_CLICK_MAX_BUFFER_TIME) {
+        this.cancelClickTimeout();
+        this.togglePlayPause();
+        this.toggleFullscreen();
+        this._firstClickTime = 0;
+        return;
+      }
 
-    this._firstClickTime = now;
+      this._firstClickTime = now;
+    }
     this._clickTimeout = setTimeout(() => {
       this._clickTimeout = null;
       this.togglePlayPause();
