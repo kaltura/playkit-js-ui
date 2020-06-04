@@ -33,8 +33,9 @@ class PlaybackControls extends Component {
    * @memberof PlaybackControls
    */
   render(props: any): React$Element<any> {
+    const {className} = props;
     return (
-      <div className={[style.playbackControls]}>
+      <div className={[style.playbackControls, className ? className : ''].join(' ')}>
         {props.playlist ? <PlaylistButton type="prev" /> : undefined}
         <PlayPause />
         {props.playlist ? <PlaylistButton type="next" /> : undefined}

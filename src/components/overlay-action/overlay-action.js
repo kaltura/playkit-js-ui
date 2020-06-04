@@ -21,7 +21,8 @@ const mapStateToProps = state => ({
   iconType: state.overlayAction.iconType,
   playerHover: state.shell.playerHover,
   isMobile: state.shell.isMobile,
-  isSmartContainerOpen: state.shell.smartContainerOpen
+  isSmartContainerOpen: state.shell.smartContainerOpen,
+  presetStyles: state.shell.layoutStyles.preset
 });
 
 /**
@@ -267,8 +268,10 @@ class OverlayAction extends Component {
    * @memberof OverlayAction
    */
   render(): React$Element<any> {
+    const {presetStyles} = this.props;
     return (
       <div
+        style={presetStyles}
         className={`${style.overlayAction} ${this.state.animation ? style.in : ''}`}
         onMouseDown={e => this.onOverlayPointerDown(e)}
         onTouchStart={e => this.onOverlayPointerDown(e)}

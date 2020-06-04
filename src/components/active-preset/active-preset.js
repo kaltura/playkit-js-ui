@@ -5,7 +5,6 @@ import {bindActions} from '../../utils';
 import {actions} from '../../reducers/shell';
 import getLogger from '../../utils/logger';
 import {withEventDispatcher} from 'components/event-dispatcher';
-import {withPlayerAreas} from 'components/player-areas';
 
 /**
  * mapping state to props
@@ -31,7 +30,6 @@ const logger = getLogger('ActivePreset');
 const COMPONENT_NAME = 'ActivePreset';
 
 @withEventDispatcher(COMPONENT_NAME)
-@withPlayerAreas
 @connect(
   mapStateToProps,
   bindActions(actions)
@@ -43,7 +41,6 @@ const COMPONENT_NAME = 'ActivePreset';
  * @extends {Component}
  */
 class ActivePreset extends Component {
-  _presetContainerRef: React$Element;
   /**
    * get the single matched UI to render based on the UIs and it's conditions
    *
@@ -63,10 +60,6 @@ class ActivePreset extends Component {
     return matchedUI;
   }
 
-  onPresetRef = el => {
-    this._presetContainerRef = el;
-  };
-
   /**
    * render component based on the matched UI.
    * if no matched UI found, it will choose the first UI configured in the UI array
@@ -77,8 +70,8 @@ class ActivePreset extends Component {
    */
   render(props: any): React$Element<any> | void {
     let uiToRender;
-    const {PlayerAreasService, uis, state} = this.props;
-    const {activePresetName, presetClientRect} = state.shell;
+    const {uis, state} = this.props;
+    const {activePresetName, presetClientRect, layoutStyles} = state.shell;
     if (uis.length > 0) {
       uiToRender = this.getMatchedUI(uis, props.state);
       const uiComponent = uiToRender ? uiToRender.template(props) : uis[uis.length - 1].template(props);
@@ -90,25 +83,7 @@ class ActivePreset extends Component {
         props.updatePresetSettings(null);
         logger.debug(`update active preset to '${activePresetName}' and reset preset settings`);
       }
-
-      const {width: currentWidth, height: currentHeight} = presetClientRect;
-      const presetContainerStyles = PlayerAreasService.calculatePresetContainerStyles();
-
-      if (currentWidth !== presetContainerStyles.width || currentHeight !== presetContainerStyles.height) {
-        const {width, height, top, right, bottom, left} = presetContainerStyles;
-        this.props.updatePresetClientRect({width, height, top, right, bottom, left});
-      }
-
-      if (typeof uiComponent.type === 'function') {
-        return h(uiComponent.type, {
-          presetRef: this.onPresetRef,
-          presetContainer: this._presetContainerRef,
-          style: presetContainerStyles.style,
-          ...props
-        });
-      } else {
-        return uiComponent;
-      }
+      return uiComponent;
     } else {
       return undefined;
     }

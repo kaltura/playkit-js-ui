@@ -44,7 +44,6 @@
     }
   }
   .player-gui {
-    opacity: 0;
     overflow: hidden;
     font-size: 0;
 
@@ -63,16 +62,6 @@
   &.overlay-active :global(.overlay-portal) {
     z-index: 11;
     pointer-events: initial;
-  }
-
-  &.casting .player-gui,
-  &.metadata-loaded .player-gui,
-  &.state-paused .player-gui,
-  &.state-idle .player-gui,
-  &.ad-break .player-gui,
-  &.overlay-active .player-gui,
-  &.menu-active .player-gui {
-    opacity: 1;
   }
 }
 

@@ -1,6 +1,5 @@
 @mixin side-panel {
   position: absolute;
-  z-index: 1;
   overflow: hidden;
   transition: left $default-transition-time, opacity $default-transition-time, right $default-transition-time, bottom $default-transition-time,  top $default-transition-time;
   opacity: 0;

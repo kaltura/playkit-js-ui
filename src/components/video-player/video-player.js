@@ -5,9 +5,8 @@ import {connect} from 'react-redux';
 import {actions as shellActions} from '../../reducers/shell';
 import style from '../../styles/style.scss';
 import {bindActions} from '../../utils/bind-actions';
-import {PlayerArea} from '../player-area';
+import {FragmentContainer} from '../player-area';
 import {withPlayer} from '../player';
-import {withPlayerAreas} from '../player-areas';
 
 /**
  * mapping state to props
@@ -15,11 +14,10 @@ import {withPlayerAreas} from '../player-areas';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  allowVideoArea: state.shell.presetSettings.allowVideoArea
+  videoStyles: state.shell.layoutStyles.video
 });
 
 @withPlayer
-@withPlayerAreas
 @connect(
   mapStateToProps,
   bindActions({updateVideoClientRect: shellActions.updateVideoClientRect})
@@ -42,7 +40,7 @@ class VideoPlayer extends Component {
    * @memberof VideoPlayer
    */
   shouldComponentUpdate(nextProps: PropsType): boolean {
-    return nextProps.PlayerAreasService !== this.props.PlayerAreasService;
+    return nextProps.videoStyles !== this.props.videoStyles;
   }
 
   _onVideoResize = e => {
@@ -75,12 +73,11 @@ class VideoPlayer extends Component {
    * @memberof VideoPlayer
    */
   render(): React$Element<any> {
-    const {PlayerAreasService, allowVideoArea} = this.props;
-    const styleValue = PlayerAreasService.calculateVideoStyles();
+    const {videoStyles} = this.props;
 
     return (
-      <div className={style.videoPlayer} style={styleValue} ref={this._setRef}>
-        {allowVideoArea ? <PlayerArea name={'VideoArea'} /> : undefined}
+      <div className={style.videoPlayer} style={videoStyles} ref={this._setRef}>
+       
       </div>
     );
   }

@@ -15,7 +15,7 @@ export {AdSkip} from './ad-skip';
 export {AdNotice} from './ad-notice';
 export {BaseComponent} from './base';
 export {BottomBar} from './bottom-bar';
-export {PlayerArea, PlayerAreaProvider} from './player-area';
+export {FragmentContainer, PlayerAreaProvider} from './player-area';
 export {CVAAOverlay} from './cvaa-overlay';
 export {DropDown} from './dropdown';
 export {EngineConnector} from './engine-connector';

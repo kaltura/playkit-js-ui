@@ -1,7 +1,5 @@
 import {SidePanelModes, SidePanelOrientation, SidePanelPositions} from '../../reducers/shell';
 
-const minimumVideoWidth = 150; // TODO sakal get actual width from Oren
-const minimumVideoHeight = 150; // TODO sakal get actual width from Oren
 
 /**
  * Calculate dimensions of video based on vertical side panels
@@ -27,10 +25,6 @@ function calculateVerticalDimensions(options) {
 
   let videoWidth = playerWidth - verticalPanelCount * verticalPanelWidth;
 
-  if (videoWidth < minimumVideoWidth) {
-    videoWidth = minimumVideoWidth;
-    verticalPanelWidth = (playerWidth - videoWidth) / verticalPanelCount;
-  }
   return {verticalPanelWidth, videoWidth, verticalPanelCount};
 }
 
@@ -57,11 +51,6 @@ function calculateHorizontalDimensions(options) {
   }
 
   let videoHeight = playerHeight - horizontalPanelCount * horizontalPanelHeight;
-
-  if (videoHeight < minimumVideoHeight) {
-    videoHeight = minimumVideoHeight;
-    horizontalPanelHeight = (playerHeight - videoHeight) / horizontalPanelCount;
-  }
 
   return {horizontalPanelHeight, videoHeight, horizontalPanelCount};
 }
@@ -144,12 +133,14 @@ export function calculatePresetContainerStyles(options) {
   areaHeight = areaHeight - areaStyle['top'] - areaStyle['bottom'];
   return {
     style: areaStyle,
-    height: areaHeight,
-    width: areaWidth,
-    top: playerClientRect.top + (topSidePanelMode !== SidePanelModes.HIDDEN ? areaStyle['top'] : 0),
-    right: playerClientRect.right + (rightSidePanelMode !== SidePanelModes.HIDDEN ? areaStyle['right'] : 0),
-    bottom: playerClientRect.bottom + (bottomSidePanelMode !== SidePanelModes.HIDDEN ? areaStyle['bottom'] : 0),
-    left: playerClientRect.left + (leftSidePanelMode !== SidePanelModes.HIDDEN ? areaStyle['left'] : 0)
+    rect: {
+      height: areaHeight,
+      width: areaWidth,
+      top: playerClientRect.top + (topSidePanelMode !== SidePanelModes.HIDDEN ? areaStyle['top'] : 0),
+      right: playerClientRect.right + (rightSidePanelMode !== SidePanelModes.HIDDEN ? areaStyle['right'] : 0),
+      bottom: playerClientRect.bottom + (bottomSidePanelMode !== SidePanelModes.HIDDEN ? areaStyle['bottom'] : 0),
+      left: playerClientRect.left + (leftSidePanelMode !== SidePanelModes.HIDDEN ? areaStyle['left'] : 0)
+    }
   };
 }
 
