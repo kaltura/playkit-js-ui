@@ -4,7 +4,7 @@ import {h, Component} from 'preact';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
 import {connect} from 'react-redux';
-import {PlayerArea} from 'components/player-area';
+import {FragmentContainer} from 'components/player-area';
 
 /**
  * mapping state to props
@@ -49,15 +49,15 @@ class BottomBar extends Component {
         className={styleClass.join(' ')}
         onMouseOver={() => this.props.updateBottomBarHoverActive(true)}
         onMouseLeave={() => this.props.updateBottomBarHoverActive(false)}>
-        <PlayerArea name={'BottomBar'}>
+        <FragmentContainer name={'BottomBar'}>
           {props.children}
           <div className={style.leftControls}>
-            <PlayerArea name={'BottomBarLeftControls'}>{leftControls}</PlayerArea>
+            <FragmentContainer name={'BottomBarLeftControls'}>{leftControls}</FragmentContainer>
           </div>
           <div className={style.rightControls}>
-            <PlayerArea name={'BottomBarRightControls'}>{rightControls}</PlayerArea>
+            <FragmentContainer name={'BottomBarRightControls'}>{rightControls}</FragmentContainer>
           </div>
-        </PlayerArea>
+        </FragmentContainer>
       </div>
     );
   }

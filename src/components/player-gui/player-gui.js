@@ -2,7 +2,7 @@
 import {h, Fragment, Component} from 'preact';
 import {connect} from 'react-redux';
 import {ActivePreset} from '../active-preset';
-import {PlayerArea} from '../player-area';
+import {FragmentContainer} from '../player-area';
 import {SidePanelPositions} from '../../reducers/shell';
 import {SidePanel} from '../side-panel';
 
@@ -46,7 +46,7 @@ class PlayerGUI extends Component {
         ) : (
           undefined
         )}
-        {allowPlayerArea ? <PlayerArea name={'PlayerArea'} /> : undefined}
+        {allowPlayerArea ? <FragmentContainer name={'PlayerArea'} /> : undefined}
       </Fragment>
     );
   }

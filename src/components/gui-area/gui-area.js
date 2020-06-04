@@ -1,8 +1,8 @@
 //@flow
 import {h, Component} from 'preact';
 import {connect} from 'react-redux';
+import {FragmentContainer} from 'components/player-area';
 import style from '../../styles/style.scss';
-import {PlayerArea} from 'components/player-area';
 
 /**
  * mapping state to props
@@ -17,11 +17,13 @@ const mapStateToProps = state => ({
 /**
  * PresetContainer component
  *
- * @class PresetContainer
+ * @class PresetArea
  * @example <PresetContainer>...</PresetContainer>
  * @extends {Component}
  */
-class PresetContainer extends Component {
+class GuiArea extends Component {
+  _ref: HTMLElement = null;
+
   /**
    * this component should not render itself when player object changes.
    *
@@ -32,7 +34,6 @@ class PresetContainer extends Component {
     return nextProps.presetStyles !== this.props.presetStyles;
   }
 
-  _ref = null;
   _setRef = ref => {
     this._ref = ref;
     this.setState(prevState => ({render: !prevState.render}));
@@ -46,17 +47,16 @@ class PresetContainer extends Component {
    */
   render(): React$Element<any> {
     const {presetStyles, children} = this.props;
-    const presetStyle = {...presetStyles, pointerEvents: 'none'};
     return (
-      <div style={presetStyle}>
+      <div ref={this._setRef} style={presetStyles} className={style.guiArea}>
         <div style={{pointerEvents: 'auto'}}>
-          <div ref={this._setRef} id="player-gui" className={style.playerGui}>
-            <PlayerArea name={'PresetArea'}>{this._ref && children({containerRef: this._ref})}</PlayerArea>
-          </div>
+          <FragmentContainer name={'GuiArea'} {...this.props}>
+            {typeof children === 'function' ? children({containerRef: this._ref}) : children}
+          </FragmentContainer>
         </div>
       </div>
     );
   }
 }
 
-export {PresetContainer};
+export {GuiArea};

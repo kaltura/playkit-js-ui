@@ -1,4 +1,5 @@
-.player-gui > .playback-controls {
+.player-gui > .playback-controls,
+.center-playback-controls {
   display: none;
   position: absolute;
   z-index: 1;
@@ -9,7 +10,8 @@
 }
 
 .player.playlist {
-  .player-gui > .playback-controls {
+  .player-gui > .playback-controls,
+  .center-playback-controls {
     margin-left: -144px;
   }
 }
@@ -32,7 +34,8 @@
       }
 
       &.hover {
-        .player-gui > .playback-controls {
+        .player-gui > .playback-controls,
+        .center-playback-controls {
           display: block;
 
           .control-button {

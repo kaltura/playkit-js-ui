@@ -1,8 +1,8 @@
 //@flow
 import {h, Component} from 'preact';
 import {connect} from 'react-redux';
+import {FragmentContainer} from 'components/player-area';
 import style from '../../styles/style.scss';
-import {PlayerArea} from 'components/player-area';
 
 /**
  * mapping state to props
@@ -17,11 +17,11 @@ const mapStateToProps = state => ({
 /**
  * PresetContainer component
  *
- * @class PresetContainer
+ * @class PresetArea
  * @example <PresetContainer>...</PresetContainer>
  * @extends {Component}
  */
-class PresetVideoContainer extends Component {
+class VideoArea extends Component {
   /**
    * this component should not render itself when player object changes.
    *
@@ -40,15 +40,16 @@ class PresetVideoContainer extends Component {
    */
   render(): React$Element<any> {
     const {videoStyles, children} = this.props;
-    const presetVideoStyle = {...videoStyles, pointerEvents: 'none'};
     return (
-      <div style={presetVideoStyle}>
+      <div style={videoStyles} className={style.videoArea}>
         <div style={{pointerEvents: 'auto'}}>
-          <PlayerArea name={'VideoArea'}>{children}</PlayerArea>
+          <FragmentContainer name={'VideoArea'} {...this.props}>
+            {children}
+          </FragmentContainer>
         </div>
       </div>
     );
   }
 }
 
-export {PresetVideoContainer};
+export {VideoArea};

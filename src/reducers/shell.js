@@ -36,8 +36,7 @@ type LayoutStyles = {};
 
 type PresetSettings = {|
   allowSidePanels: boolean,
-    allowPlayerArea: boolean,
-      allowVideoArea: boolean
+    allowPlayerArea: boolean
         |};
 
 export const SidePanelOrientation = {
@@ -61,8 +60,7 @@ export const SidePanelModes = {
 function createDefaultPresetSettings(): PresetSettings {
   return {
     allowSidePanels: false,
-    allowPlayerArea: false,
-    allowVideoArea: false
+    allowPlayerArea: false
   };
 }
 

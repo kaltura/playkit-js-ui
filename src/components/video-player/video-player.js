@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {actions as shellActions} from '../../reducers/shell';
 import style from '../../styles/style.scss';
 import {bindActions} from '../../utils/bind-actions';
-import {PlayerArea} from '../player-area';
+import {FragmentContainer} from '../player-area';
 import {withPlayer} from '../player';
 
 /**
@@ -14,8 +14,7 @@ import {withPlayer} from '../player';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  videoStyles: state.shell.layoutStyles.video,
-  allowVideoArea: state.shell.presetSettings.allowVideoArea
+  videoStyles: state.shell.layoutStyles.video
 });
 
 @withPlayer
@@ -74,10 +73,8 @@ class VideoPlayer extends Component {
    * @memberof VideoPlayer
    */
   render(): React$Element<any> {
-    const {allowVideoArea, videoStyles} = this.props;
+    const {videoStyles} = this.props;
 
-    // TODO yair can remove allow video area
-    //  {allowVideoArea ? <PlayerArea name={'VideoAreaOld'} /> : undefined}
     return (
       <div className={style.videoPlayer} style={videoStyles} ref={this._setRef}>
        
