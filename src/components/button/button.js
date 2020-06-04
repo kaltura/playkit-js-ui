@@ -8,7 +8,6 @@ const COMPONENT_NAME = 'Button';
  *
  * @const Button
  * @example <Button/>
- * @extends {Component}
  */
 const Button = forwardRef((props, ref) => <button type="button" ref={ref} {...props} />);
 

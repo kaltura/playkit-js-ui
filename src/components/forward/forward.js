@@ -68,7 +68,6 @@ class Forward extends Component {
       <div className={[style.controlButtonContainer, style.noIdleControl].join(' ')}>
         <Tooltip label={this.props.forwardText}>
           <Button
-            type={'button'}
             tabIndex="0"
             aria-label={this.props.forwardText}
             className={`${style.controlButton}`}
