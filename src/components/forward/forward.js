@@ -8,6 +8,7 @@ import {withPlayer} from '../player';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {withLogger} from 'components/logger';
 import {Tooltip} from 'components/tooltip';
+import {Button} from 'components/button';
 
 const COMPONENT_NAME = 'Forward';
 
@@ -66,7 +67,7 @@ class Forward extends Component {
     return (
       <div className={[style.controlButtonContainer, style.noIdleControl].join(' ')}>
         <Tooltip label={this.props.forwardText}>
-          <button
+          <Button
             type={'button'}
             tabIndex="0"
             aria-label={this.props.forwardText}
@@ -74,7 +75,7 @@ class Forward extends Component {
             ref={this.props.innerRef}
             onClick={() => this.onClick()}>
             <Icon type={!props.step || props.step === FORWARD_DEFAULT_STEP ? IconType.Forward10 : IconType.Forward} />
-          </button>
+          </Button>
         </Tooltip>
       </div>
     );
