@@ -21,7 +21,6 @@ export const types = {
 
 };
 
-// TODO YAIR - I have no idea how to set it correctly in Flow
 type LayoutStyles = {};
 // type LayoutStyles = {|
 //   sidePanels: {|

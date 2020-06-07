@@ -43,8 +43,8 @@ class VideoPlayer extends Component {
     return nextProps.videoStyles !== this.props.videoStyles;
   }
 
-  _onVideoResize = e => {
-    const videoElement = e.target._el; // TODO sakal check for better api
+  _onVideoResize = () => {
+    const videoElement = this.props.player.getVideoElement();
     this.props.updateVideoClientRect(videoElement.getBoundingClientRect());
   };
   _setRef = ref => {
@@ -75,11 +75,7 @@ class VideoPlayer extends Component {
   render(): React$Element<any> {
     const {videoStyles} = this.props;
 
-    return (
-      <div className={style.videoPlayer} style={videoStyles} ref={this._setRef}>
-       
-      </div>
-    );
+    return <div className={style.videoPlayer} style={videoStyles} ref={this._setRef} />;
   }
 }
 

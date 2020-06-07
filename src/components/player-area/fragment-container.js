@@ -47,7 +47,7 @@ function getComponentName(component: any) {
   return component.type.displayName;
 }
 
-@withLogger('sakal PlayerArea')
+@withLogger('PlayerArea')
 @connect(mapStateToProps)
 /**
  * A video PlayerArea enabling injecting components by preset, PlayerArea and position
@@ -152,7 +152,7 @@ class FragmentContainer extends Component {
    */
   componentWillUnmount(): void {
     const {name} = this.props;
-    this.props.logger.debug(`Player area '${this.props.name}' - handle will unmount`);
+    this.props.logger.debug(`Player area '${name}' - handle will unmount`);
     this._unregisterListener();
   }
 
