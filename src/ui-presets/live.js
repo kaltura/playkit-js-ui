@@ -47,7 +47,7 @@ class LiveUI extends Component {
 
   render() {
     return (
-      <PresetArea className={style.playbackGuiWrapper}>
+      <PresetArea>
         <div className={style.playerGui} id="player-gui">
           <OverlayAction />
           <VideoArea />
