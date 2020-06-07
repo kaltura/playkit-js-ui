@@ -14,7 +14,7 @@ const defaultProps = {
  * @param {Object} options - options
  * @returns {function(*): *} connect
  */
-const withPlayerPreset = options => InnerComponent => {
+const withPlayerPreset = (options: Object) => (InnerComponent: Component) => {
   @connect(
     null,
     bindActions(actions)
@@ -43,7 +43,7 @@ const withPlayerPreset = options => InnerComponent => {
      * @param {any} props - params
      * @returns {*} component
      */
-    render(props) {
+    render(props: any) {
       return <InnerComponent {...props} />;
     }
   }

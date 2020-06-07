@@ -1,5 +1,5 @@
 //@flow
-import {h, Component} from 'preact/src/index';
+import {h, Component} from 'preact';
 import {PlayerArea} from '../player-area';
 import style from '../../styles/style.scss';
 
@@ -14,7 +14,7 @@ class PresetArea extends Component {
    * @returns {null | *} - component
    * @memberof PlayerArea
    */
-  render(props): React$Element<any> | null {
+  render(props: any): React$Element<any> | null {
     const {children} = props;
     return (
       <div className={style.playbackGuiWrapper}>

@@ -48,7 +48,7 @@ const eventDispatcherMiddleware = (player: Object) => (store: Object) => (next: 
   next(action);
 
   switch (action.type) {
-    case shell.UPDATE_PRESET_CLIENT_RECT:
+    case shell.UPDATE_PLAYER_CLIENT_RECT:
       onUIPresetResizeHandler(store, action, player);
       break;
     case shell.UPDATE_VIDEO_CLIENT_RECT:

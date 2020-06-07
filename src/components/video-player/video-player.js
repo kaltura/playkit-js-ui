@@ -39,7 +39,7 @@ class VideoPlayer extends Component {
    * @returns {void}
    * @memberof VideoPlayer
    */
-  shouldComponentUpdate(nextProps: PropsType): boolean {
+  shouldComponentUpdate(nextProps: Object): boolean {
     return nextProps.videoStyles !== this.props.videoStyles;
   }
 
@@ -58,7 +58,7 @@ class VideoPlayer extends Component {
    * @return {void}
    * @private
    */
-  _setRef = ref => {
+  _setRef = (ref: HTMLElement) => {
     if (this._videoResizeWatcher) {
       this._videoResizeWatcher.removeEventListener(CustomEventType.RESIZE, this._onVideoResize);
       this._videoResizeWatcher = null;

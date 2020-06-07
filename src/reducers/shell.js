@@ -20,17 +20,16 @@ export const types = {
   UPDATE_LAYOUT_STYLES: 'shell/UPDATE_LAYOUT_STYLES'
 };
 
-type LayoutStyles = {};
-// type LayoutStyles = {|
-//   sidePanels: {|
-//     TOP: {},
-//     Bottom: {},
-//     LEFT: {},
-//     RIGHT: {},
-//   },
-//   video: {},
-//   preset: {}
-// };
+type LayoutStyles = {
+  sidePanels: {
+    TOP: Object,
+    Bottom: Object,
+    LEFT: Object,
+    RIGHT: Object
+  },
+  video: Object,
+  preset: Object
+};
 
 type PresetSettings = {|
   allowSidePanels: boolean,
@@ -241,16 +240,16 @@ export const actions = {
   updateBottomBarHoverActive: (active: boolean) => ({type: types.UPDATE_BOTTOM_BAR_HOVER_ACTIVE, active}),
   updateSmartContainerOpen: (open: boolean) => ({type: types.UPDATE_SMART_CONTAINER_OPEN, open}),
   updateActivePresetName: (activePresetName: string) => ({type: types.UPDATE_ACTIVE_PRESET_NAME, activePresetName}),
-  updateSidePanelMode: (position: SidePanelPositions, sidePanelMode: SidePanelModes) => ({
+  updateSidePanelMode: (position: string, sidePanelMode: string) => ({
     type: types.UPDATE_SIDE_PANEL_MODE,
     position,
     sidePanelMode
   }),
-  updateSidePanelSize: (orientation: SidePanelOrientation, options) => ({
+  updateSidePanelSize: (orientation: string, options: Object) => ({
     type: types.UPDATE_SIDE_PANEL_SIZE,
     orientation,
     options
   }),
   updatePresetSettings: (presetSettings: PresetSettings) => ({type: types.UPDATE_PRESET_SETTINGS, presetSettings}),
-  updateLayoutStyles: (layoutStyles: LayoutStyles, presetRect) => ({type: types.UPDATE_LAYOUT_STYLES, layoutStyles, presetRect})
+  updateLayoutStyles: (layoutStyles: LayoutStyles, presetRect: Object) => ({type: types.UPDATE_LAYOUT_STYLES, layoutStyles, presetRect})
 };

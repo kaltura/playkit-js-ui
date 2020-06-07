@@ -25,7 +25,7 @@ class VideoArea extends Component {
    * @returns {void}
    * @memberof VideoPlayer
    */
-  shouldComponentUpdate(nextProps: PropsType): boolean {
+  shouldComponentUpdate(nextProps: Object): boolean {
     return nextProps.videoStyles !== this.props.videoStyles;
   }
 

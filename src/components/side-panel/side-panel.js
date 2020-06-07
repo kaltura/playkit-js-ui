@@ -43,7 +43,7 @@ class SidePanel extends Component {
    * @returns {void}
    * @memberof VideoPlayer
    */
-  shouldComponentUpdate(nextProps: PropsType): boolean {
+  shouldComponentUpdate(nextProps: Object): boolean {
     return nextProps.sidePanelsStyles !== this.props.sidePanelsStyles;
   }
 
@@ -54,7 +54,7 @@ class SidePanel extends Component {
    * @returns {React$Element} - component element
    * @memberof SidePanel
    */
-  render(props): React$Element<any> {
+  render(props: any): React$Element<any> {
     const {position, sidePanelsStyles} = props;
 
     const isVertical = [SidePanelPositions.RIGHT, SidePanelPositions.LEFT].indexOf(position) !== -1;

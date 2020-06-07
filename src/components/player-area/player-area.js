@@ -57,7 +57,8 @@ class PlayerArea extends Component {
   static defaultProps = {
     show: true
   };
-  _unregisterListenerCallback = null;
+
+  _unregisterListenerCallback: ?Function;
 
   /**
    * should component update handler
@@ -78,7 +79,7 @@ class PlayerArea extends Component {
    * @returns {void}
    * @memberof OverlayAction
    */
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Object) {
     if (prevProps.activePresetName !== this.props.activePresetName) {
       this._registerListener();
     }
@@ -88,8 +89,8 @@ class PlayerArea extends Component {
    * @returns {void}
    */
   _unregisterListener() {
-    if (this._unregisterListenerCallback) {
-      this.props.logger.debug(`Player area '${this.props.name}' - unregister to changes`);
+    this.props.logger.debug(`Player area '${this.props.name}' - unregister to changes`);
+    if (typeof this._unregisterListenerCallback === 'function') {
       this._unregisterListenerCallback();
       this._unregisterListenerCallback = null;
     }
@@ -117,7 +118,7 @@ class PlayerArea extends Component {
    * @returns {void}
    * @private
    */
-  _updateAreaComponents = (playerAreaComponents): void => {
+  _updateAreaComponents = (playerAreaComponents: Array<Object>): void => {
     const {activePresetName, name: playerAreaName} = this.props;
 
     if (!playerAreaComponents) {

@@ -21,7 +21,7 @@ const mapStateToProps = state => ({
  * @extends {Component}
  */
 class GuiArea extends Component {
-  _ref: HTMLElement = null;
+  _ref: ?HTMLElement = null;
 
   /**
    * this component should not render itself when player object changes.
@@ -30,7 +30,7 @@ class GuiArea extends Component {
    * @returns {void}
    * @memberof VideoPlayer
    */
-  shouldComponentUpdate(nextProps: PropsType): boolean {
+  shouldComponentUpdate(nextProps: Object): boolean {
     return nextProps.presetStyles !== this.props.presetStyles;
   }
 
