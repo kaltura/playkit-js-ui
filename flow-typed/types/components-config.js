@@ -2,5 +2,8 @@
 declare type ComponentsConfig = {
   seekbar?: SeekbarConfig,
   watermark?: WatermarkConfig,
-  share?: ShareConfig
+  share?: ShareConfig,
+  vrStereo?: VrStereoConfig,
+  logo?: LogoConfig,
+  fullscreen?: FullscreenConfig
 };

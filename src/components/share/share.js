@@ -13,6 +13,7 @@ import {withLogger} from 'components/logger';
 import {withText} from 'preact-i18n';
 import {Tooltip} from 'components/tooltip';
 import {ToolTipType} from 'components/tooltip/tooltip';
+import {Button} from 'components/button';
 
 /**
  * mapping state to props
@@ -107,9 +108,9 @@ class Share extends Component {
           )
         ) : (
           <Tooltip label={this.props.shareTxt} type={ToolTipType.BottomLeft}>
-            <button aria-haspopup="true" className={style.controlButton} onClick={() => this.toggleOverlay()} aria-label={this.props.shareTxt}>
+            <Button aria-haspopup="true" className={style.controlButton} onClick={() => this.toggleOverlay()} aria-label={this.props.shareTxt}>
               <Icon type={IconType.Share} />
-            </button>
+            </Button>
           </Tooltip>
         )}
       </div>

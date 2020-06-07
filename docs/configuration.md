@@ -220,15 +220,13 @@ var uiManager = new playkit.ui.UIManager(player, config);
 
 ##
 
-> > ### config.components.fullscreen (Deprecated)
-> >
-> > #### Moved under playback.inBrowserFullscreen
+> > ### config.components.fullscreen
 > >
 > > ##### Type: `Object`
 > >
 > > ```js
 > > {
-> >   inBrowserFullscreenForIOS: boolean;
+> >   disableDoubleClick: boolean;
 > > }
 > > ```
 > >
@@ -236,19 +234,25 @@ var uiManager = new playkit.ui.UIManager(player, config);
 > >
 > > ```js
 > > {
-> >   inBrowserFullscreenForIOS: false;
+> >   disableDoubleClick: false;
 > > }
 > > ```
 > >
 > > ##### Description: Defines a fullscreen component.
 > >
-> > > ### config.components.fullscreen.inBrowserFullscreenForIOS
+> > > ### config.components.fullscreen.inBrowserFullscreenForIOS (Deprecated)
+> > >
+> > > #### Moved to [playback.inBrowserFullscreen](https://github.com/kaltura/playkit-js/blob/master/docs/configuration.md#configplaybackinbrowserfullscreen)
+> > > 
+> > > ##
+> > >
+> > > ### config.components.fullscreen.disableDoubleClick
 > > >
 > > > ##### Type: `boolean`
 > > >
 > > > ##### Default: `false`
 > > >
-> > > ##### Description: Gives the ability to choose an in-browser fullscreen experience on iOS devices which will replace the native fullscreen of the AV player.
+> > > ##### Description: Disable entering to full screen by double clicking the player.
 
 ##
 

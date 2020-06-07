@@ -11,6 +11,7 @@ import {KeyMap} from 'utils/key-map';
 import {withKeyboardEvent} from 'components/keyboard';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {Tooltip} from 'components/tooltip';
+import {Button} from 'components/button';
 
 /**
  * mapping state to props
@@ -87,13 +88,13 @@ class PictureInPicture extends Component {
       return (
         <div className={[style.controlButtonContainer, style.pictureInPicture].join(' ')}>
           <Tooltip label={this.props.pipText}>
-            <button
+            <Button
               tabIndex="0"
               aria-label={this.props.pipText}
               className={`${style.controlButton} ${this.state.animation ? style.rotate : ''}`}
               onClick={() => this.togglePip()}>
               <Icon type={IconType.PictureInPicture} />
-            </button>
+            </Button>
           </Tooltip>
         </div>
       );
