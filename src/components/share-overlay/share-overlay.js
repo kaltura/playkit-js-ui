@@ -12,6 +12,7 @@ import {CopyButton} from '../copy-button/copy-button';
 import {withLogger} from 'components/logger';
 import {withKeyboardA11y} from 'utils/popup-keyboard-accessibility';
 import {KeyMap} from 'utils/key-map';
+import {Button} from 'components/button';
 
 /**
  * mapping state to props
@@ -53,7 +54,7 @@ const ShareButton = (props: Object): React$Element<any> => {
   };
 
   return (
-    <button
+    <Button
       ref={el => {
         props.addAccessibleChild(el);
       }}
@@ -63,7 +64,7 @@ const ShareButton = (props: Object): React$Element<any> => {
       className={[style.btnRounded, style[props.config.iconType], props.config.iconType].join(' ')}
       onClick={() => share()}>
       <Icon style={props.config.iconType === 'svg' ? `background-image: url(${props.config.svg})` : ``} type={props.config.iconType} />
-    </button>
+    </Button>
   );
 };
 
@@ -339,7 +340,7 @@ class ShareOverlay extends Component {
               </a>
             </Localizer>
             <Localizer>
-              <button
+              <Button
                 aria-haspopup="true"
                 ref={el => {
                   this.props.addAccessibleChild(el);
@@ -348,7 +349,7 @@ class ShareOverlay extends Component {
                 onClick={() => this._transitionToState(shareOverlayView.EmbedOptions)}
                 title={<Text id="share.embed" />}>
                 <Icon type={IconType.Embed} />
-              </button>
+              </Button>
             </Localizer>
           </div>
           <div className={style.linkOptionsContainer}>

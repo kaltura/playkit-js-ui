@@ -8,6 +8,7 @@ import {Icon} from '../icon/icon';
 import {Localizer, Text} from 'preact-i18n';
 import {withPlayer} from '../player';
 import {withLogger} from 'components/logger';
+import {Button} from 'components/button';
 
 /**
  * mapping state to props
@@ -86,7 +87,7 @@ class CastBeforePlay extends Component {
         <div>
           <div className={rootStyle.join(' ')}>
             <Localizer>
-              <button
+              <Button
                 tabIndex="0"
                 aria-label={<Text id={'cast.play_on_tv'} />}
                 onClick={() => this.onClick()}
@@ -97,7 +98,7 @@ class CastBeforePlay extends Component {
                 <span>
                   <Text id="cast.play_on_tv" />
                 </span>
-              </button>
+              </Button>
             </Localizer>
           </div>
         </div>

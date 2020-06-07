@@ -54,6 +54,7 @@ export {PlaylistButton} from './playlist-button';
 export {PlaylistNextScreen} from './playlist-next-screen';
 export {PictureInPicture} from './picture-in-picture';
 export {PlaybackControls} from './playback-controls';
+export {Button} from './button';
 
 export {Keyboard as KeyboardControl} from './keyboard';
 export {Cast, Cast as CastControl};

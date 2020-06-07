@@ -9,6 +9,7 @@ import {actions} from '../../reducers/engine';
 import {CopyButton} from '../copy-button';
 import {withLogger} from 'components/logger';
 import {withPlayer} from 'components/player';
+import {Button} from 'components/button';
 
 /**
  * mapping state to props
@@ -101,9 +102,9 @@ class ErrorOverlay extends Component {
     if (this.props.player.getMediaInfo()) {
       return (
         <div className={style.controlButtonContainer} onClick={() => this.handleClick()}>
-          <button className={[style.controlButton, style.retryBtn].join(' ')}>
+          <Button className={[style.controlButton, style.retryBtn].join(' ')}>
             <Text id="error.retry" />
-          </button>
+          </Button>
         </div>
       );
     }
