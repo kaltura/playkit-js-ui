@@ -2,7 +2,7 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'react-redux';
-import {FragmentContainer} from 'components/player-area';
+import {PlayerArea} from 'components/player-area';
 
 /**
  * mapping state to props
@@ -46,15 +46,15 @@ class TopBar extends Component {
 
     return (
       <div className={styleClass.join(' ')}>
-        <FragmentContainer name={'TopBar'}>
+        <PlayerArea name={'TopBar'}>
           {props.children}
           <div className={style.leftControls}>
-            <FragmentContainer name={'TopBarLeftControls'}>{leftControls}</FragmentContainer>
+            <PlayerArea name={'TopBarLeftControls'}>{leftControls}</PlayerArea>
           </div>
           <div className={style.rightControls}>
-            <FragmentContainer name={'TopBarRightControls'}>{rightControls}</FragmentContainer>
+            <PlayerArea name={'TopBarRightControls'}>{rightControls}</PlayerArea>
           </div>
-        </FragmentContainer>
+        </PlayerArea>
       </div>
     );
   }

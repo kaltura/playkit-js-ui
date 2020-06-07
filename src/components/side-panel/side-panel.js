@@ -1,7 +1,7 @@
 //@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
-import {FragmentContainer} from '../player-area';
+import {PlayerArea} from '../player-area';
 import {SidePanelPositions} from '../../reducers/shell';
 import {connect} from 'react-redux';
 
@@ -67,7 +67,7 @@ class SidePanel extends Component {
     return (
       <div style={sidePanelStyles} className={styleClass.join(' ')}>
         <div className={style.sidePanelContent}>
-          <FragmentContainer name={containerName} />
+          <PlayerArea name={containerName} />
         </div>
       </div>
     );

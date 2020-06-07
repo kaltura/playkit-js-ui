@@ -1,7 +1,7 @@
 //@flow
 import {h, Component} from 'preact';
 import {connect} from 'react-redux';
-import {FragmentContainer} from 'components/player-area';
+import {PlayerArea} from 'components/player-area';
 import style from '../../styles/style.scss';
 
 /**
@@ -50,9 +50,9 @@ class GuiArea extends Component {
     return (
       <div ref={this._setRef} style={presetStyles} className={style.guiArea}>
         <div style={{pointerEvents: 'auto'}}>
-          <FragmentContainer name={'GuiArea'} {...this.props}>
+          <PlayerArea name={'GuiArea'} {...this.props}>
             {typeof children === 'function' ? children({containerRef: this._ref}) : children}
-          </FragmentContainer>
+          </PlayerArea>
         </div>
       </div>
     );

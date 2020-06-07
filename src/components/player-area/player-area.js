@@ -52,7 +52,7 @@ function getComponentName(component: any) {
 /**
  * A video PlayerArea enabling injecting components by preset, PlayerArea and position
  */
-class FragmentContainer extends Component {
+class PlayerArea extends Component {
   static defaultProps = {
     show: true
   };
@@ -266,4 +266,4 @@ class FragmentContainer extends Component {
   }
 }
 
-export {FragmentContainer};
+export {PlayerArea};

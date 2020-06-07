@@ -1,6 +1,6 @@
 //@flow
 import {h, Component} from 'preact/src/index';
-import {FragmentContainer} from '../player-area';
+import {PlayerArea} from '../player-area';
 
 class PresetArea extends Component {
   /**
@@ -13,9 +13,9 @@ class PresetArea extends Component {
     const {className, children, style} = props;
     return (
       <div className={className} style={style}>
-        <FragmentContainer name={'PresetArea'} {...this.props}>
+        <PlayerArea name={'PresetArea'} {...this.props}>
           {children}
-        </FragmentContainer>
+        </PlayerArea>
       </div>
     );
   }

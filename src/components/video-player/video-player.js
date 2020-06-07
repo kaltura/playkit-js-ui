@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {actions as shellActions} from '../../reducers/shell';
 import style from '../../styles/style.scss';
 import {bindActions} from '../../utils/bind-actions';
-import {FragmentContainer} from '../player-area';
+import {PlayerArea} from '../player-area';
 import {withPlayer} from '../player';
 
 /**
