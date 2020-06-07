@@ -45,21 +45,21 @@ module.exports = {
         ],
         exclude: [/node_modules/]
       },
-      // {
-      //   test: /\.js$/,
-      //   exclude: [/node_modules/],
-      //   enforce: 'pre',
-      //   use: [
-      //     {
-      //       loader: 'eslint-loader',
-      //       options: {
-      //         rules: {
-      //           semi: 0
-      //         }
-      //       }
-      //     }
-      //   ]
-      // },
+      {
+        test: /\.js$/,
+        exclude: [/node_modules/],
+        enforce: 'pre',
+        use: [
+          {
+            loader: 'eslint-loader',
+            options: {
+              rules: {
+                semi: 0
+              }
+            }
+          }
+        ]
+      },
       {
         test: /\.scss$/,
         use: [

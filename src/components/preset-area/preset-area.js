@@ -3,10 +3,14 @@ import {h, Component} from 'preact/src/index';
 import {PlayerArea} from '../player-area';
 import style from '../../styles/style.scss';
 
+/**
+ * PresetArea
+ */
 class PresetArea extends Component {
   /**
    * render component
    *
+   * @param {any} props - params
    * @returns {null | *} - component
    * @memberof PlayerArea
    */

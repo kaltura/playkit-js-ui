@@ -1,5 +1,5 @@
 //@flow
-import {Component, h} from 'preact';
+import {Component} from 'preact';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
 import {actions} from '../../reducers/shell';
@@ -71,7 +71,7 @@ class ActivePreset extends Component {
   render(props: any): React$Element<any> | void {
     let uiToRender;
     const {uis, state} = this.props;
-    const {activePresetName, presetClientRect, layoutStyles} = state.shell;
+    const {activePresetName} = state.shell;
     if (uis.length > 0) {
       uiToRender = this.getMatchedUI(uis, props.state);
       const uiComponent = uiToRender ? uiToRender.template(props) : uis[uis.length - 1].template(props);

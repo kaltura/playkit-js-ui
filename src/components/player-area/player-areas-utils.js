@@ -1,6 +1,5 @@
 import {SidePanelModes, SidePanelOrientation, SidePanelPositions} from '../../reducers/shell';
 
-
 /**
  * Calculate dimensions of video based on vertical side panels
  *

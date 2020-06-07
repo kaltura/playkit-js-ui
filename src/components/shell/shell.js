@@ -12,6 +12,7 @@ import {withEventDispatcher} from 'components/event-dispatcher';
 import {withLogger} from 'components/logger';
 import {utils as playkitUtils, CustomEventType} from '@playkit-js/playkit-js';
 import {debounce} from 'utils/debounce';
+
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -164,6 +165,7 @@ class Shell extends Component {
       this.props.player.muted = false;
     }
   }
+
   /**
    * on touch end handler
    * @param {TouchEvent} e - touch event

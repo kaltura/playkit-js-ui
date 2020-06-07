@@ -1,8 +1,8 @@
 // @flow
-import { Component } from 'preact';
-import { connect } from 'react-redux';
-import { actions, SidePanelPositions } from '../../reducers/shell';
-import { bindActions } from '../../utils/bind-actions';
+import {Component} from 'preact';
+import {connect} from 'react-redux';
+import {actions, SidePanelPositions} from '../../reducers/shell';
+import {bindActions} from '../../utils/bind-actions';
 import * as utils from './player-areas-utils';
 
 /**
@@ -22,21 +22,21 @@ function validateCommonOptions(options) {
  * @return {*} function
  */
 function calculateSidePanelStyles(options) {
-    if (!options.allowSidePanels || !validateCommonOptions(options)) {
-      return {
-          [SidePanelPositions.TOP]: {},
-          [SidePanelPositions.BOTTOM]: {},
-          [SidePanelPositions.RIGHT]: {},
-          [SidePanelPositions.LEFT]: {}
-      };
-    }
-
+  if (!options.allowSidePanels || !validateCommonOptions(options)) {
     return {
-        [SidePanelPositions.TOP]: utils.calculateSidePanelStyles({...options, position: 'TOP'}),
-        [SidePanelPositions.BOTTOM]: utils.calculateSidePanelStyles({...options, position: 'BOTTOM'}),
-        [SidePanelPositions.RIGHT]: utils.calculateSidePanelStyles({...options, position: 'RIGHT'}),
-        [SidePanelPositions.LEFT]: utils.calculateSidePanelStyles({...options, position: 'LEFT'}),
+      [SidePanelPositions.TOP]: {},
+      [SidePanelPositions.BOTTOM]: {},
+      [SidePanelPositions.RIGHT]: {},
+      [SidePanelPositions.LEFT]: {}
     };
+  }
+
+  return {
+    [SidePanelPositions.TOP]: utils.calculateSidePanelStyles({...options, position: 'TOP'}),
+    [SidePanelPositions.BOTTOM]: utils.calculateSidePanelStyles({...options, position: 'BOTTOM'}),
+    [SidePanelPositions.RIGHT]: utils.calculateSidePanelStyles({...options, position: 'RIGHT'}),
+    [SidePanelPositions.LEFT]: utils.calculateSidePanelStyles({...options, position: 'LEFT'})
+  };
 }
 
 /**
@@ -46,11 +46,11 @@ function calculateSidePanelStyles(options) {
  * @return {*} function
  */
 function calculateVideoStyles(options) {
-    if (!options.allowSidePanels || !validateCommonOptions(options)) {
-      return {};
-    }
+  if (!options.allowSidePanels || !validateCommonOptions(options)) {
+    return {};
+  }
 
-    return utils.calculateVideoStyles(options);
+  return utils.calculateVideoStyles(options);
 }
 
 /**
@@ -60,13 +60,13 @@ function calculateVideoStyles(options) {
  * @return {*} function
  */
 function calculatePresetContainerStyles(options) {
-    if (!options.allowSidePanels || !validateCommonOptions(options)) {
-      return {};
-    }
+  if (!options.allowSidePanels || !validateCommonOptions(options)) {
+    return {};
+  }
 
-    const result = utils.calculatePresetContainerStyles(options);
+  const result = utils.calculatePresetContainerStyles(options);
 
-    return result;
+  return result;
 }
 
 /**
@@ -82,15 +82,14 @@ const mapStateToProps = state => ({
 });
 
 @connect(
-    mapStateToProps,
-    bindActions(actions)
-    )
+  mapStateToProps,
+  bindActions(actions)
+)
 /**
  * StylesStoreAdapter
  */
 class StylesStoreAdapter extends Component {
-
-    /**
+  /**
    * should component update handler
    *
    * @param {Object} nextProps - the props that will replace the current props
@@ -102,29 +101,30 @@ class StylesStoreAdapter extends Component {
     if (sidePanelsModes === prevSidePanelsModes && allowSidePanels === prevAllowSidePanels && playerClientRect === prevplayerClientRect) {
       return;
     }
-
   }
 
   /**
    * component did update
-   * @param {*} prevProps prevProps
    * @return {void}
    */
-  componentDidUpdate(prevProps): void {
+  componentDidUpdate(): void {
     const options = {
-        sidePanelsModes: this.props.sidePanelsModes,
-        sidePanelsSizes: this.props.sidePanelsSizes,
-        playerClientRect: this.props.playerClientRect,
-        allowSidePanels: this.props.allowSidePanels
-      };
-  
-      const {style: presetStyle, rect: presetRect} = calculatePresetContainerStyles(options);
-    this.props.updateLayoutStyles({
+      sidePanelsModes: this.props.sidePanelsModes,
+      sidePanelsSizes: this.props.sidePanelsSizes,
+      playerClientRect: this.props.playerClientRect,
+      allowSidePanels: this.props.allowSidePanels
+    };
+
+    const {style: presetStyle, rect: presetRect} = calculatePresetContainerStyles(options);
+    this.props.updateLayoutStyles(
+      {
         preset: presetStyle,
         video: calculateVideoStyles(options),
         sidePanels: calculateSidePanelStyles(options)
-    }, presetRect);
-}
+      },
+      presetRect
+    );
+  }
 
   /**
    * render
@@ -135,5 +135,4 @@ class StylesStoreAdapter extends Component {
   }
 }
 
-export { StylesStoreAdapter };
-
+export {StylesStoreAdapter};

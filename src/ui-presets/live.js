@@ -40,11 +40,20 @@ const PRESET_NAME = 'Live';
  * @returns {React$Element<any>} player ui tree
  */
 class LiveUI extends Component {
+  /**
+   * @returns {void}
+   */
   componentDidMount(): void {
     const props = this.props;
     props.updateIsKeyboardEnabled(true);
   }
 
+  /**
+   * render component
+   *
+   * @returns {React$Element} - component element
+   * @memberof LiveUI
+   */
   render() {
     return (
       <PresetArea>

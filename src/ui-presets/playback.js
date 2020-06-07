@@ -44,11 +44,20 @@ const PRESET_NAME = 'Playback';
  * @returns {React$Element} player ui tree
  */
 class PlaybackUI extends Component {
+  /**
+   * @returns {void}
+   */
   componentDidMount(): void {
     const props = this.props;
     props.updateIsKeyboardEnabled(true);
   }
 
+  /**
+   * render component
+   *
+   * @returns {React$Element} - component element
+   * @memberof PlaybackUI
+   */
   render() {
     return (
       <PresetArea>

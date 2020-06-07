@@ -15,10 +15,9 @@ const mapStateToProps = state => ({
 
 @connect(mapStateToProps)
 /**
- * PresetContainer component
+ * GuiArea component
  *
- * @class PresetArea
- * @example <PresetContainer>...</PresetContainer>
+ * @class GuiArea
  * @extends {Component}
  */
 class GuiArea extends Component {
@@ -26,6 +25,7 @@ class GuiArea extends Component {
 
   /**
    * this component should not render itself when player object changes.
+   * @param {Object} nextProps - next props of the component
    *
    * @returns {void}
    * @memberof VideoPlayer
@@ -34,12 +34,18 @@ class GuiArea extends Component {
     return nextProps.presetStyles !== this.props.presetStyles;
   }
 
-  _setRef = ref => {
+  /**
+   *
+   * @param {HTMLElement} ref - ref
+   * @returns {void}
+   * @private
+   */
+  _setRef = (ref: HTMLElement) => {
     this._ref = ref;
     this.setState(prevState => ({render: !prevState.render}));
   };
 
-  /*
+  /**
    * render component
    *
    * @returns {React$Element} - component element

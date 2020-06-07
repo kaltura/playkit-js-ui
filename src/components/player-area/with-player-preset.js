@@ -11,6 +11,7 @@ const defaultProps = {
 
 /**
  * connect decorator
+ * @param {Object} options - options
  * @returns {function(*): *} connect
  */
 const withPlayerPreset = options => InnerComponent => {
@@ -19,9 +20,15 @@ const withPlayerPreset = options => InnerComponent => {
     bindActions(actions)
   )
   /**
-   * store hoc withPlayerPreset
+   * hoc withPlayerPreset
    */
   class PlayerPreset extends Component {
+    /**
+     * on component mount
+     *
+     * @returns {void}
+     * @memberof Fullscreen
+     */
     componentDidMount(): void {
       const enhancedOptions = Object.assign({}, defaultProps, options);
       const {allowSidePanels, allowPlayerArea} = enhancedOptions;
@@ -33,6 +40,7 @@ const withPlayerPreset = options => InnerComponent => {
 
     /**
      * render
+     * @param {any} props - params
      * @returns {*} component
      */
     render(props) {

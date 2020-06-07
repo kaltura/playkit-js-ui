@@ -5,7 +5,6 @@ import {connect} from 'react-redux';
 import {actions as shellActions} from '../../reducers/shell';
 import style from '../../styles/style.scss';
 import {bindActions} from '../../utils/bind-actions';
-import {PlayerArea} from '../player-area';
 import {withPlayer} from '../player';
 
 /**
@@ -36,6 +35,7 @@ class VideoPlayer extends Component {
   /**
    * this component should not render itself when player object changes.
    *
+   * @param {Object} nextProps - next props of the component
    * @returns {void}
    * @memberof VideoPlayer
    */
@@ -43,10 +43,21 @@ class VideoPlayer extends Component {
     return nextProps.videoStyles !== this.props.videoStyles;
   }
 
+  /**
+   * @return {void}
+   * @private
+   */
   _onVideoResize = () => {
     const videoElement = this.props.player.getVideoElement();
     this.props.updateVideoClientRect(videoElement.getBoundingClientRect());
   };
+
+  /**
+   *
+   * @param {HTMLElement} ref - ref
+   * @return {void}
+   * @private
+   */
   _setRef = ref => {
     if (this._videoResizeWatcher) {
       this._videoResizeWatcher.removeEventListener(CustomEventType.RESIZE, this._onVideoResize);

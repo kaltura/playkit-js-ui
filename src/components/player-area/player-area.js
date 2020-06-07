@@ -49,6 +49,7 @@ function getComponentName(component: any) {
 
 @withLogger('PlayerArea')
 @connect(mapStateToProps)
+
 /**
  * A video PlayerArea enabling injecting components by preset, PlayerArea and position
  */
@@ -63,18 +64,29 @@ class PlayerArea extends Component {
    *
    * @returns {boolean} - always update component
    * @param {Object} nextProps - next props of the component
+   * @param {Object} nextState - next state of the component
    * @memberof OverlayAction
    */
   shouldComponentUpdate(nextProps: Object, nextState: Object): boolean {
     return this.state.playerAreaComponents !== nextState.playerAreaComponents || nextProps.activePresetName !== this.props.activePresetName;
   }
 
+  /**
+   * component did update handler
+   *
+   * @param {Object} prevProps - prev props of the component
+   * @returns {void}
+   * @memberof OverlayAction
+   */
   componentDidUpdate(prevProps) {
     if (prevProps.activePresetName !== this.props.activePresetName) {
       this._registerListener();
     }
   }
 
+  /**
+   * @returns {void}
+   */
   _unregisterListener() {
     if (this._unregisterListenerCallback) {
       this.props.logger.debug(`Player area '${this.props.name}' - unregister to changes`);
@@ -82,6 +94,10 @@ class PlayerArea extends Component {
       this._unregisterListenerCallback = null;
     }
   }
+
+  /**
+   * @returns {void}
+   */
   _registerListener() {
     const {activePresetName, name: playerAreaName} = this.props;
 
@@ -96,6 +112,11 @@ class PlayerArea extends Component {
     this._unregisterListenerCallback = this.context.playerAreaComponentsStore.listen(activePresetName, playerAreaName, this._updateAreaComponents);
   }
 
+  /**
+   * @param {Array<Object>} playerAreaComponents - playerAreaComponents
+   * @returns {void}
+   * @private
+   */
   _updateAreaComponents = (playerAreaComponents): void => {
     const {activePresetName, name: playerAreaName} = this.props;
 
@@ -232,7 +253,7 @@ class PlayerArea extends Component {
   render(): React$Element<any> | null {
     const {children, show, preAppendTo, name} = this.props;
     const {playerAreaComponents, hasPositionedComponents} = this.state;
-    this.props.logger.debug(`Player area '${this.props.name}' - render`);
+    this.props.logger.debug(`Player area '${name}' - render`);
 
     if (this.state.presetComponentsOnlyMode) {
       return this.renderContent(this.props.children);

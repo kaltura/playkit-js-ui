@@ -18,7 +18,6 @@ export const types = {
   UPDATE_SIDE_PANEL_SIZE: 'shell/UPDATE_SIDE_PANEL_SIZE',
   UPDATE_PRESET_SETTINGS: 'shell/UPDATE_PRESET_SETTINGS',
   UPDATE_LAYOUT_STYLES: 'shell/UPDATE_LAYOUT_STYLES'
-
 };
 
 type LayoutStyles = {};
@@ -27,7 +26,7 @@ type LayoutStyles = {};
 //     TOP: {},
 //     Bottom: {},
 //     LEFT: {},
-//     RIGHT: {}, 
+//     RIGHT: {},
 //   },
 //   video: {},
 //   preset: {}
@@ -35,8 +34,8 @@ type LayoutStyles = {};
 
 type PresetSettings = {|
   allowSidePanels: boolean,
-    allowPlayerArea: boolean
-        |};
+  allowPlayerArea: boolean
+|};
 
 export const SidePanelOrientation = {
   VERTICAL: 'VERTICAL',
@@ -56,6 +55,9 @@ export const SidePanelModes = {
   OVER_THE_VIDEO: 'OVER_THE_VIDEO'
 };
 
+/**
+ * @return {Object} - preset settings
+ */
 function createDefaultPresetSettings(): PresetSettings {
   return {
     allowSidePanels: false,
@@ -63,7 +65,7 @@ function createDefaultPresetSettings(): PresetSettings {
   };
 }
 
-const initialRectAndStyle = { width: 0, height: 0, top: 0, right: 0, bottom: 0, left: 0 };
+const initialRectAndStyle = {width: 0, height: 0, top: 0, right: 0, bottom: 0, left: 0};
 
 export const initialState = {
   playerClasses: [],
@@ -91,8 +93,8 @@ export const initialState = {
     [SidePanelPositions.BOTTOM]: SidePanelModes.HIDDEN
   },
   sidePanelsSizes: {
-    [SidePanelOrientation.VERTICAL]: { min: 240, max: 480, ratio: 0.33 },
-    [SidePanelOrientation.HORIZONTAL]: { min: 144, max: 288, ratio: 0.33 }
+    [SidePanelOrientation.VERTICAL]: {min: 240, max: 480, ratio: 0.33},
+    [SidePanelOrientation.HORIZONTAL]: {min: 144, max: 288, ratio: 0.33}
   },
   presetSettings: createDefaultPresetSettings()
 };
@@ -141,7 +143,7 @@ export default (state: Object = initialState, action: Object) => {
         ...state,
         layoutStyles: action.layoutStyles,
         presetClientRect: action.presetRect
-      }
+      };
 
     case types.UPDATE_VIDEO_CLIENT_RECT:
       return {
@@ -195,7 +197,7 @@ export default (state: Object = initialState, action: Object) => {
       };
 
     case types.UPDATE_SIDE_PANEL_SIZE: {
-      const { ratio, min, max } = action.options;
+      const {ratio, min, max} = action.options;
       const prevValues = state.sidePanelsSizes[action.orientation];
       const newSizes = {
         ratio: typeof ratio === 'number' && ratio <= 1 ? ratio : prevValues.ratio,
@@ -226,19 +228,19 @@ export default (state: Object = initialState, action: Object) => {
 };
 
 export const actions = {
-  addPlayerClass: (className: string) => ({ type: types.ADD_PLAYER_CLASS, className }),
-  removePlayerClass: (className: string) => ({ type: types.REMOVE_PLAYER_CLASS, className }),
-  updateIsMobile: (isMobile: boolean) => ({ type: types.UPDATE_IS_MOBILE, isMobile }),
-  updatePlayerSize: (playerSize: string) => ({ type: types.UPDATE_PLAYER_SIZE, playerSize }),
-  updateIsSmallSize: (isSmallSize: boolean) => ({ type: types.UPDATE_IS_SMALL_SIZE, isSmallSize }),
-  updatePlayerClientRect: (playerClientRect: Object) => ({ type: types.UPDATE_PLAYER_CLIENT_RECT, playerClientRect }),
-  updateVideoClientRect: (videoClientRect: Object) => ({ type: types.UPDATE_VIDEO_CLIENT_RECT, videoClientRect }),
-  updateDocumentWidth: (documentWidth: number) => ({ type: types.UPDATE_DOCUMENT_WIDTH, documentWidth }),
-  updatePlayerHoverState: (hover: boolean) => ({ type: types.UPDATE_PLAYER_HOVER_STATE, hover }),
-  updatePlayerNavState: (nav: boolean) => ({ type: types.UPDATE_PLAYER_NAV_STATE, nav }),
-  updateBottomBarHoverActive: (active: boolean) => ({ type: types.UPDATE_BOTTOM_BAR_HOVER_ACTIVE, active }),
-  updateSmartContainerOpen: (open: boolean) => ({ type: types.UPDATE_SMART_CONTAINER_OPEN, open }),
-  updateActivePresetName: (activePresetName: string) => ({ type: types.UPDATE_ACTIVE_PRESET_NAME, activePresetName }),
+  addPlayerClass: (className: string) => ({type: types.ADD_PLAYER_CLASS, className}),
+  removePlayerClass: (className: string) => ({type: types.REMOVE_PLAYER_CLASS, className}),
+  updateIsMobile: (isMobile: boolean) => ({type: types.UPDATE_IS_MOBILE, isMobile}),
+  updatePlayerSize: (playerSize: string) => ({type: types.UPDATE_PLAYER_SIZE, playerSize}),
+  updateIsSmallSize: (isSmallSize: boolean) => ({type: types.UPDATE_IS_SMALL_SIZE, isSmallSize}),
+  updatePlayerClientRect: (playerClientRect: Object) => ({type: types.UPDATE_PLAYER_CLIENT_RECT, playerClientRect}),
+  updateVideoClientRect: (videoClientRect: Object) => ({type: types.UPDATE_VIDEO_CLIENT_RECT, videoClientRect}),
+  updateDocumentWidth: (documentWidth: number) => ({type: types.UPDATE_DOCUMENT_WIDTH, documentWidth}),
+  updatePlayerHoverState: (hover: boolean) => ({type: types.UPDATE_PLAYER_HOVER_STATE, hover}),
+  updatePlayerNavState: (nav: boolean) => ({type: types.UPDATE_PLAYER_NAV_STATE, nav}),
+  updateBottomBarHoverActive: (active: boolean) => ({type: types.UPDATE_BOTTOM_BAR_HOVER_ACTIVE, active}),
+  updateSmartContainerOpen: (open: boolean) => ({type: types.UPDATE_SMART_CONTAINER_OPEN, open}),
+  updateActivePresetName: (activePresetName: string) => ({type: types.UPDATE_ACTIVE_PRESET_NAME, activePresetName}),
   updateSidePanelMode: (position: SidePanelPositions, sidePanelMode: SidePanelModes) => ({
     type: types.UPDATE_SIDE_PANEL_MODE,
     position,
@@ -249,6 +251,6 @@ export const actions = {
     orientation,
     options
   }),
-  updatePresetSettings: (presetSettings: PresetSettings) => ({ type: types.UPDATE_PRESET_SETTINGS, presetSettings }),
-  updateLayoutStyles: (layoutStyles: LayoutStyles, presetRect) => ({ type: types.UPDATE_LAYOUT_STYLES, layoutStyles, presetRect }),
+  updatePresetSettings: (presetSettings: PresetSettings) => ({type: types.UPDATE_PRESET_SETTINGS, presetSettings}),
+  updateLayoutStyles: (layoutStyles: LayoutStyles, presetRect) => ({type: types.UPDATE_LAYOUT_STYLES, layoutStyles, presetRect})
 };

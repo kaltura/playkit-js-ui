@@ -4,6 +4,12 @@ import {connect} from 'react-redux';
 import {withPlayer} from 'components/player';
 import style from '../../styles/style.scss';
 import {PlayerArea} from 'components/player-area';
+
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 const mapStateToProps = state => ({
   playerHover: state.shell.playerHover,
   seekbarDraggingActive: state.seekbar.draggingActive,
@@ -20,7 +26,13 @@ const barHeight = 60;
   mapStateToProps,
   null
 )
-export class InteractiveArea extends Component {
+/**
+ * InteractiveArea component
+ *
+ * @class InteractiveArea
+ * @extends {Component}
+ */
+class InteractiveArea extends Component {
   /**
    * checks if bars are visible
    * @returns {boolean} - if hover state can be ended
@@ -39,6 +51,9 @@ export class InteractiveArea extends Component {
     );
   }
 
+  /**
+   * @returns {void}
+   */
   render() {
     const containerStyle = {};
 
@@ -56,3 +71,5 @@ export class InteractiveArea extends Component {
     );
   }
 }
+
+export {InteractiveArea};

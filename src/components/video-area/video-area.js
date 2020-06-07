@@ -15,16 +15,13 @@ const mapStateToProps = state => ({
 
 @connect(mapStateToProps)
 /**
- * PresetContainer component
- *
- * @class PresetArea
- * @example <PresetContainer>...</PresetContainer>
- * @extends {Component}
+ * VideoArea
  */
 class VideoArea extends Component {
   /**
    * this component should not render itself when player object changes.
    *
+   * @param {Object} nextProps - next props of the component
    * @returns {void}
    * @memberof VideoPlayer
    */
@@ -32,7 +29,7 @@ class VideoArea extends Component {
     return nextProps.videoStyles !== this.props.videoStyles;
   }
 
-  /*
+  /**
    * render component
    *
    * @returns {React$Element} - component element
