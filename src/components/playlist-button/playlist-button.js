@@ -6,7 +6,7 @@ import {default as Icon, IconType} from '../icon';
 import {connect} from 'react-redux';
 import {withPlayer} from '../player';
 import {Tooltip} from 'components/tooltip';
-
+import {Button} from 'components/button';
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -86,7 +86,7 @@ class PlaylistButton extends Component {
    */
   bottomBarButton(item: any, type: string): React$Element<any> {
     return (
-      <button
+      <Button
         disabled={!item}
         tabIndex="0"
         aria-label={this.props[`${type}ControlsText`]}
@@ -101,7 +101,7 @@ class PlaylistButton extends Component {
             <Icon type={IconType.Next} />
           </div>
         )}
-      </button>
+      </Button>
     );
   }
 }

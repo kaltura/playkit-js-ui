@@ -53,6 +53,7 @@ export {PlaylistButton} from './playlist-button';
 export {PlaylistNextScreen} from './playlist-next-screen';
 export {PictureInPicture} from './picture-in-picture';
 export {PlaybackControls} from './playback-controls';
+export {Button} from './button';
 
 export * from './player-area';
 export {PresetArea} from './preset-area';

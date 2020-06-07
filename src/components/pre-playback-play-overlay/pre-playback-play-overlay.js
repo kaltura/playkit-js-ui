@@ -11,6 +11,7 @@ import {withPlayer} from '../player';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {withLogger} from 'components/logger';
 import {Tooltip} from 'components/tooltip';
+import {Button} from 'components/button';
 
 /**
  * mapping state to props
@@ -71,7 +72,7 @@ class PrePlaybackPlayOverlay extends Component {
     const labelText = props.isPlaybackEnded ? props.startOverText : props.playText;
     return (
       <div className={style.prePlaybackPlayOverlay} onMouseOver={e => e.stopPropagation()} onClick={() => this.handleClick()}>
-        <button
+        <Button
           className={style.prePlaybackPlayButton}
           tabIndex="0"
           aria-label={labelText}
@@ -81,7 +82,7 @@ class PrePlaybackPlayOverlay extends Component {
             }
           }}>
           <Tooltip label={labelText}>{props.isPlaybackEnded ? <Icon type={IconType.StartOver} /> : <Icon type={IconType.Play} />}</Tooltip>
-        </button>
+        </Button>
       </div>
     );
   }

@@ -17,6 +17,7 @@ import {withKeyboardEvent} from 'components/keyboard';
 import {actions as overlayIconActions} from 'reducers/overlay-action';
 import {Tooltip} from 'components/tooltip';
 import {ToolTipType} from 'components/tooltip/tooltip';
+import {Button} from 'components/button';
 
 /**
  * mapping state to props
@@ -377,7 +378,7 @@ class Volume extends Component {
         onMouseOver={() => this.onMouseOver()}
         onMouseOut={() => this.onMouseOut()}>
         <Tooltip label={muted ? this.props.unmuteAriaLabel : this.props.muteAriaLabel} type={ToolTipType.Left}>
-          <button
+          <Button
             tabIndex="0"
             aria-label={muted ? this.props.unmuteAriaLabel : this.props.muteAriaLabel}
             className={style.controlButton}
@@ -387,7 +388,7 @@ class Volume extends Component {
             <Icon type={IconType.VolumeBase} />
             <Icon type={IconType.VolumeWaves} />
             <Icon type={IconType.VolumeMute} />
-          </button>
+          </Button>
         </Tooltip>
         <div
           className={style.volumeControlBar}

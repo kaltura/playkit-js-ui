@@ -8,6 +8,7 @@ import {withPlayer} from '../player';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {withLogger} from 'components/logger';
 import {Tooltip} from 'components/tooltip';
+import {Button} from 'components/button';
 
 const COMPONENT_NAME = 'Rewind';
 
@@ -65,14 +66,14 @@ class Rewind extends Component {
     return (
       <div className={[style.controlButtonContainer, style.noIdleControl].join(' ')}>
         <Tooltip label={this.props.rewindText}>
-          <button
+          <Button
             tabIndex="0"
             aria-label={this.props.rewindText}
             className={`${style.controlButton}`}
             ref={this.props.innerRef}
             onClick={() => this.onClick()}>
             <Icon type={!props.step || props.step === REWIND_DEFAULT_STEP ? IconType.Rewind10 : IconType.Rewind} />
-          </button>
+          </Button>
         </Tooltip>
       </div>
     );
