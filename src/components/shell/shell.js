@@ -30,7 +30,6 @@ const mapStateToProps = state => ({
   playerNav: state.shell.playerNav,
   seekbarDraggingActive: state.seekbar.draggingActive,
   seekbarHoverActive: state.seekbar.hoverActive,
-  bottomBarHoverActive: state.shell.bottomBarHoverActive,
   volumeHoverActive: state.volume.hover,
   adBreak: state.engine.adBreak,
   prePlayback: state.engine.prePlayback,
