@@ -6,6 +6,7 @@ export const types = {
   UPDATE_IS_MOBILE: 'shell/UPDATE_IS_MOBILE',
   UPDATE_PLAYER_SIZE: 'shell/UPDATE_PLAYER_SIZE',
   UPDATE_IS_SMALL_SIZE: 'shell/UPDATE_IS_SMALL_SIZE',
+  UPDATE_GUI_CLIENT_RECT: 'shell/UPDATE_GUI_CLIENT_RECT',
   UPDATE_PLAYER_CLIENT_RECT: 'shell/UPDATE_PLAYER_CLIENT_RECT',
   UPDATE_VIDEO_CLIENT_RECT: 'shell/UPDATE_VIDEO_CLIENT_RECT',
   UPDATE_DOCUMENT_WIDTH: 'shell/UPDATE_DOCUMENT_WIDTH',
@@ -28,13 +29,13 @@ type LayoutStyles = {
     RIGHT: Object
   },
   video: Object,
-  preset: Object
+  gui: Object
 };
 
-type PresetSettings = {|
+type PresetSettings = {
   allowSidePanels: boolean,
   allowPlayerArea: boolean
-|};
+};
 
 export const SidePanelOrientation = {
   VERTICAL: 'VERTICAL',
@@ -64,16 +65,17 @@ function createDefaultPresetSettings(): PresetSettings {
   };
 }
 
-const initialRectAndStyle = {width: 0, height: 0, top: 0, right: 0, bottom: 0, left: 0};
+const initialRect = {x: 0, y: 0, width: 0, height: 0, top: 0, right: 0, bottom: 0, left: 0};
+const initialLayoutStyle = {position: 'absolute', left: 0, right: 0, top: 0, bottom: 0};
 
 export const initialState = {
   playerClasses: [],
-  presetClientRect: initialRectAndStyle,
-  playerClientRect: initialRectAndStyle,
-  videoClientRect: initialRectAndStyle,
+  guiClientRect: initialRect,
+  playerClientRect: initialRect,
+  videoClientRect: initialRect,
   layoutStyles: {
-    video: initialRectAndStyle,
-    preset: initialRectAndStyle,
+    video: initialLayoutStyle,
+    gui: initialLayoutStyle,
     sidePanels: {
       [SidePanelPositions.LEFT]: {},
       [SidePanelPositions.RIGHT]: {},
@@ -131,6 +133,12 @@ export default (state: Object = initialState, action: Object) => {
         isSmallSize: action.isSmallSize
       };
 
+    case types.UPDATE_GUI_CLIENT_RECT:
+      return {
+        ...state,
+        guiClientRect: action.guiClientRect
+      };
+
     case types.UPDATE_PLAYER_CLIENT_RECT:
       return {
         ...state,
@@ -140,8 +148,7 @@ export default (state: Object = initialState, action: Object) => {
     case types.UPDATE_LAYOUT_STYLES:
       return {
         ...state,
-        layoutStyles: action.layoutStyles,
-        presetClientRect: action.presetRect
+        layoutStyles: action.layoutStyles
       };
 
     case types.UPDATE_VIDEO_CLIENT_RECT:
@@ -232,6 +239,7 @@ export const actions = {
   updateIsMobile: (isMobile: boolean) => ({type: types.UPDATE_IS_MOBILE, isMobile}),
   updatePlayerSize: (playerSize: string) => ({type: types.UPDATE_PLAYER_SIZE, playerSize}),
   updateIsSmallSize: (isSmallSize: boolean) => ({type: types.UPDATE_IS_SMALL_SIZE, isSmallSize}),
+  updateGuiClientRect: (guiClientRect: Object) => ({type: types.UPDATE_GUI_CLIENT_RECT, guiClientRect}),
   updatePlayerClientRect: (playerClientRect: Object) => ({type: types.UPDATE_PLAYER_CLIENT_RECT, playerClientRect}),
   updateVideoClientRect: (videoClientRect: Object) => ({type: types.UPDATE_VIDEO_CLIENT_RECT, videoClientRect}),
   updateDocumentWidth: (documentWidth: number) => ({type: types.UPDATE_DOCUMENT_WIDTH, documentWidth}),
@@ -251,5 +259,8 @@ export const actions = {
     options
   }),
   updatePresetSettings: (presetSettings: PresetSettings) => ({type: types.UPDATE_PRESET_SETTINGS, presetSettings}),
-  updateLayoutStyles: (layoutStyles: LayoutStyles, presetRect: Object) => ({type: types.UPDATE_LAYOUT_STYLES, layoutStyles, presetRect})
+  updateLayoutStyles: (layoutStyles: LayoutStyles) => ({
+    type: types.UPDATE_LAYOUT_STYLES,
+    layoutStyles
+  })
 };

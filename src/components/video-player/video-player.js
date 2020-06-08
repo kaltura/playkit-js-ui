@@ -6,6 +6,7 @@ import {actions as shellActions} from '../../reducers/shell';
 import style from '../../styles/style.scss';
 import {bindActions} from '../../utils/bind-actions';
 import {withPlayer} from '../player';
+import {withEventManager} from 'event/with-event-manager';
 
 /**
  * mapping state to props
@@ -17,6 +18,7 @@ const mapStateToProps = state => ({
 });
 
 @withPlayer
+@withEventManager
 @connect(
   mapStateToProps,
   bindActions({updateVideoClientRect: shellActions.updateVideoClientRect})
@@ -41,6 +43,14 @@ class VideoPlayer extends Component {
    */
   shouldComponentUpdate(nextProps: Object): boolean {
     return nextProps.videoStyles !== this.props.videoStyles;
+  }
+
+  /**
+   * @return {void}
+   */
+  componentDidMount(): void {
+    const {eventManager, player} = this.props;
+    eventManager.listen(player, player.Event.SOURCE_SELECTED, () => this._onVideoResize());
   }
 
   /**

@@ -68,8 +68,8 @@ const eventDispatcherMiddleware = (player: Object) => (store: Object) => (next: 
  * @returns {void}
  */
 function onUIPresetResizeHandler(store: any, action: Object, player: Object): void {
-  const presetClientRect = store.getState().shell.presetClientRect;
-  player.dispatchEvent(new UIPresetResizeEvent(presetClientRect));
+  const guiClientRect = store.getState().shell.guiClientRect;
+  player.dispatchEvent(new UIPresetResizeEvent(guiClientRect));
 }
 
 /**

@@ -27,7 +27,7 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile,
   playerSize: state.shell.playerSize,
   isCasting: state.engine.isCasting,
-  presetClientRect: state.shell.presetClientRect,
+  guiClientRect: state.shell.guiClientRect,
   playerHover: state.shell.playerHover,
   playerNav: state.shell.playerNav,
   seekbarDraggingActive: state.seekbar.draggingActive,
@@ -378,20 +378,20 @@ class Shell extends Component {
     if (this.props.seekbarDraggingActive) playerClasses.push(style.hover);
     if (this.props.fullscreen) playerClasses.push(style.fullscreen);
     if (this.props.playlist) playerClasses.push(style.playlist);
-    if (this.props.presetClientRect) {
-      if (this.props.presetClientRect.width <= PLAYER_BREAK_POINTS.TINY) {
+    if (this.props.guiClientRect) {
+      if (this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.TINY) {
         playerClasses.push(style.sizeTy);
         this.props.updatePlayerSize(PLAYER_SIZE.TINY);
-      } else if (this.props.presetClientRect.width <= PLAYER_BREAK_POINTS.EXTRA_SMALL) {
+      } else if (this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.EXTRA_SMALL) {
         playerClasses.push(style.sizeXs);
         this.props.updatePlayerSize(PLAYER_SIZE.EXTRA_SMALL);
-      } else if (this.props.presetClientRect.width <= PLAYER_BREAK_POINTS.SMALL) {
+      } else if (this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.SMALL) {
         playerClasses.push(style.sizeSm);
         this.props.updatePlayerSize(PLAYER_SIZE.SMALL);
-      } else if (this.props.presetClientRect.width <= PLAYER_BREAK_POINTS.MEDIUM) {
+      } else if (this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.MEDIUM) {
         playerClasses.push(style.sizeMd);
         this.props.updatePlayerSize(PLAYER_SIZE.MEDIUM);
-      } else if (this.props.presetClientRect.width <= PLAYER_BREAK_POINTS.LARGE) {
+      } else if (this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.LARGE) {
         playerClasses.push(style.sizeLg);
         this.props.updatePlayerSize(PLAYER_SIZE.LARGE);
       } else {

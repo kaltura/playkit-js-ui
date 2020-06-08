@@ -60,15 +60,15 @@ function calculateHorizontalDimensions(options) {
  * @param {*} options player state
  * @return {Object} styles as hashtable
  */
-export function calculateVideoStyles(options) {
+export function calculateVideoContainerStyles(options) {
   // Video element cares only for side panels that are side to video
 
-  const {sidePanelsModes} = options;
-  const result = {};
-  const leftSidePanelMode = sidePanelsModes[SidePanelPositions.LEFT];
-  const rightSidePanelMode = sidePanelsModes[SidePanelPositions.RIGHT];
-  const topSidePanelMode = sidePanelsModes[SidePanelPositions.TOP];
-  const bottomSidePanelMode = sidePanelsModes[SidePanelPositions.BOTTOM];
+  const {sidePanelsModes, allowSidePanels} = options;
+  const result = {position: 'absolute', left: 0, right: 0, top: 0, bottom: 0};
+  const leftSidePanelMode = allowSidePanels ? sidePanelsModes[SidePanelPositions.LEFT] : SidePanelModes.HIDDEN;
+  const rightSidePanelMode = allowSidePanels ? sidePanelsModes[SidePanelPositions.RIGHT] : SidePanelModes.HIDDEN;
+  const topSidePanelMode = allowSidePanels ? sidePanelsModes[SidePanelPositions.TOP] : SidePanelModes.HIDDEN;
+  const bottomSidePanelMode = allowSidePanels ? sidePanelsModes[SidePanelPositions.BOTTOM] : SidePanelModes.HIDDEN;
 
   if (leftSidePanelMode === SidePanelModes.ALONG_SIDE_THE_VIDEO || rightSidePanelMode === SidePanelModes.ALONG_SIDE_THE_VIDEO) {
     const {verticalPanelWidth, videoWidth} = calculateVerticalDimensions({...options, isVideo: true});
@@ -91,20 +91,20 @@ export function calculateVideoStyles(options) {
 }
 
 /**
- * Calculate styles of preset element based on side panels mode
+ * Calculate styles of gui element based on side panels mode
  *
  * @param {*} options player state
  * @return {Object} styles as hashtable
  */
-export function calculatePresetContainerStyles(options) {
-  const {sidePanelsModes, playerClientRect} = options;
+export function calculateGuiContainerStyles(options) {
+  const {sidePanelsModes, playerClientRect, allowSidePanels} = options;
   const areaStyle = {position: 'absolute', left: 0, right: 0, top: 0, bottom: 0};
   let areaWidth = playerClientRect.width;
   let areaHeight = playerClientRect.height;
-  const leftSidePanelMode = sidePanelsModes[SidePanelPositions.LEFT];
-  const rightSidePanelMode = sidePanelsModes[SidePanelPositions.RIGHT];
-  const topSidePanelMode = sidePanelsModes[SidePanelPositions.TOP];
-  const bottomSidePanelMode = sidePanelsModes[SidePanelPositions.BOTTOM];
+  const leftSidePanelMode = allowSidePanels ? sidePanelsModes[SidePanelPositions.LEFT] : SidePanelModes.HIDDEN;
+  const rightSidePanelMode = allowSidePanels ? sidePanelsModes[SidePanelPositions.RIGHT] : SidePanelModes.HIDDEN;
+  const topSidePanelMode = allowSidePanels ? sidePanelsModes[SidePanelPositions.TOP] : SidePanelModes.HIDDEN;
+  const bottomSidePanelMode = allowSidePanels ? sidePanelsModes[SidePanelPositions.BOTTOM] : SidePanelModes.HIDDEN;
 
   if (leftSidePanelMode !== SidePanelModes.HIDDEN || rightSidePanelMode !== SidePanelModes.HIDDEN) {
     const {verticalPanelWidth} = calculateVerticalDimensions(options);
@@ -130,15 +130,20 @@ export function calculatePresetContainerStyles(options) {
 
   areaWidth = areaWidth - areaStyle['right'] - areaStyle['left'];
   areaHeight = areaHeight - areaStyle['top'] - areaStyle['bottom'];
+
+  const left = playerClientRect.left + (leftSidePanelMode !== SidePanelModes.HIDDEN ? areaStyle['left'] : 0);
+  const top = playerClientRect.top + (topSidePanelMode !== SidePanelModes.HIDDEN ? areaStyle['top'] : 0);
   return {
     style: areaStyle,
     rect: {
-      height: areaHeight,
+      x: left,
+      y: top,
       width: areaWidth,
-      top: playerClientRect.top + (topSidePanelMode !== SidePanelModes.HIDDEN ? areaStyle['top'] : 0),
+      height: areaHeight,
+      top,
       right: playerClientRect.right + (rightSidePanelMode !== SidePanelModes.HIDDEN ? areaStyle['right'] : 0),
       bottom: playerClientRect.bottom + (bottomSidePanelMode !== SidePanelModes.HIDDEN ? areaStyle['bottom'] : 0),
-      left: playerClientRect.left + (leftSidePanelMode !== SidePanelModes.HIDDEN ? areaStyle['left'] : 0)
+      left
     }
   };
 }

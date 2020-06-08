@@ -10,7 +10,7 @@ import style from '../../styles/style.scss';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  presetStyles: state.shell.layoutStyles.preset
+  guiStyles: state.shell.layoutStyles.gui
 });
 
 @connect(mapStateToProps)
@@ -31,7 +31,7 @@ class GuiArea extends Component {
    * @memberof VideoPlayer
    */
   shouldComponentUpdate(nextProps: Object): boolean {
-    return nextProps.presetStyles !== this.props.presetStyles;
+    return nextProps.guiStyles !== this.props.guiStyles;
   }
 
   /**
@@ -52,9 +52,9 @@ class GuiArea extends Component {
    * @memberof VideoPlayer
    */
   render(): React$Element<any> {
-    const {presetStyles, children} = this.props;
+    const {guiStyles, children} = this.props;
     return (
-      <div ref={this._setRef} style={presetStyles} className={style.guiArea}>
+      <div ref={this._setRef} style={guiStyles} className={style.guiArea}>
         <div style={{pointerEvents: 'auto'}}>
           <PlayerArea name={'GuiArea'} {...this.props}>
             {typeof children === 'function' ? children({containerRef: this._ref}) : children}
