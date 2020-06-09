@@ -4,7 +4,6 @@ declare type ComponentsConfig = {
   watermark?: WatermarkConfig,
   share?: ShareConfig,
   sidePanels?: SidePanelsConfig,
-  share?: ShareConfig,
   vrStereo?: VrStereoConfig,
   logo?: LogoConfig,
   fullscreen?: FullscreenConfig
