@@ -426,7 +426,7 @@ class SeekBar extends Component {
     let xPosition = typeof e.clientX === 'number' ? e.clientX : e.changedTouches && e.changedTouches[0] && e.changedTouches[0].clientX;
     let time =
       this.props.duration *
-      ((xPosition - this._seekBarElement.offsetLeft - this.getOffset(this.props.playerContainer).left) / this._seekBarElement.clientWidth);
+      ((xPosition - this._seekBarElement.offsetLeft - this.getOffset(this.props.playerElement).left) / this._seekBarElement.clientWidth);
     time = parseFloat(time.toFixed(2));
     if (time < 0) return 0;
     if (time > this.props.duration) return this.props.duration;

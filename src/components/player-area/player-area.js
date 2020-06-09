@@ -253,10 +253,10 @@ class PlayerArea extends Component {
    */
   render(): React$Element<any> | null {
     const {children, show, preAppendTo, name} = this.props;
-    const {playerAreaComponents, hasPositionedComponents} = this.state;
+    const {playerAreaComponents, hasPositionedComponents, presetComponentsOnlyMode} = this.state;
     this.props.logger.debug(`Player area '${name}' - render`);
 
-    if (this.state.presetComponentsOnlyMode) {
+    if (presetComponentsOnlyMode) {
       return this.renderContent(this.props.children);
     }
 

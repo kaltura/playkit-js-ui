@@ -408,7 +408,6 @@ class Shell extends Component {
 
     return (
       <div
-        ref={this._setShellRef}
         tabIndex="0"
         className={playerClasses}
         onTouchEnd={e => this.onTouchEnd(e)}
