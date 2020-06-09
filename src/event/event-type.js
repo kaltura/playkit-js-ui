@@ -25,7 +25,8 @@ const EventType: {[event: string]: string} = {
   USER_EXITED_PICTURE_IN_PICTURE: `${namespace}-userexitedpictureinpicture`,
   USER_SELECTED_CAPTIONS_STYLE: `${namespace}-userselectedcaptionsstyle`,
   USER_SELECTED_SPEED: `${namespace}-userselectedspeed`,
-  USER_SEEKED: `${namespace}-userseeked`
+  USER_SEEKED: `${namespace}-userseeked`,
+  RESIZE: `${namespace}-resize`
 };
 
 export {EventType};

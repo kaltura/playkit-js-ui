@@ -10,8 +10,9 @@ import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {withLogger} from 'components/logger';
-import {utils as playkitUtils, CustomEventType} from '@playkit-js/playkit-js';
+import {ResizeWatcher} from '../../utils/resize-watcher';
 import {debounce} from 'utils/debounce';
+import {FakeEvent} from 'event/fake-event';
 
 /**
  * mapping state to props
@@ -240,9 +241,9 @@ class Shell extends Component {
 
     this.props.eventManager.listen(player, player.Event.FIRST_PLAY, () => this._onWindowResize());
 
-    this._playerResizeWatcher = new playkitUtils.ResizeWatcher();
+    this._playerResizeWatcher = new ResizeWatcher();
     this._playerResizeWatcher.init(document.getElementById(this.props.targetId));
-    this._playerResizeWatcher.addEventListener(CustomEventType.RESIZE, this._onWindowResize);
+    this._playerResizeWatcher.addEventListener(FakeEvent.Type.RESIZE, this._onWindowResize);
     this._onWindowResize();
   }
 
