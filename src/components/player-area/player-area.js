@@ -252,7 +252,7 @@ class PlayerArea extends Component {
    * @memberof PlayerArea
    */
   render(): React$Element<any> | null {
-    const {children, show, preAppendTo, name} = this.props;
+    const {children, show, name} = this.props;
     const {playerAreaComponents, hasPositionedComponents, presetComponentsOnlyMode} = this.state;
     this.props.logger.debug(`Player area '${name}' - render`);
 
@@ -277,10 +277,6 @@ class PlayerArea extends Component {
     });
 
     let startIndex = newChildren.length;
-    if (preAppendTo) {
-      const defaultIndex = newChildren.findIndex(item => getComponentName(item) === preAppendTo);
-      startIndex = defaultIndex !== -1 ? defaultIndex : startIndex;
-    }
 
     newChildren.splice(startIndex, 0, ...appendedChildren);
 

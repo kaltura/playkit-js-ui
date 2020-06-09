@@ -38,6 +38,10 @@ const withPlayerPreset = (options: Object) => (InnerComponent: Component) => {
       });
     }
 
+    shouldComponentUpdate(): boolean {
+      return false;
+    }
+
     /**
      * render
      * @param {any} props - params

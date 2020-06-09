@@ -55,6 +55,7 @@ class InteractiveArea extends Component {
    * @returns {void}
    */
   render() {
+    const {children} = this.props;
     const containerStyle = {};
 
     if (this.areBarsVisible()) {
@@ -65,7 +66,7 @@ class InteractiveArea extends Component {
     return (
       <div className={style.interactiveArea} style={containerStyle}>
         <div style={{pointerEvents: 'auto'}}>
-          <PlayerArea name={'InteractiveArea'} />
+          <PlayerArea name={'InteractiveArea'}>{children}</PlayerArea>
         </div>
       </div>
     );

@@ -8,6 +8,7 @@ import {bindActions} from '../../utils/bind-actions';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {FakeEvent} from 'event/fake-event';
+import {debounce} from 'utils/debounce';
 
 /**
  * mapping state to props
@@ -17,6 +18,8 @@ import {FakeEvent} from 'event/fake-event';
 const mapStateToProps = state => ({
   videoStyles: state.shell.layoutStyles.video
 });
+
+const ON_VIDEO_RESIZE_DEBOUNCE_DELAY: number = 100;
 
 @withPlayer
 @withEventManager
@@ -71,8 +74,7 @@ class VideoPlayer extends Component {
    */
   _setRef = (ref: HTMLElement) => {
     if (this._videoResizeWatcher) {
-      this._videoResizeWatcher.removeEventListener(FakeEvent.Type.RESIZE, this._onVideoResize);
-      this._videoResizeWatcher = null;
+      this._videoResizeWatcher.destroy();
     }
 
     this._el = ref;
@@ -85,9 +87,25 @@ class VideoPlayer extends Component {
 
     const videoResizeWatcher = new ResizeWatcher();
     videoResizeWatcher.init(this._el);
-    videoResizeWatcher.addEventListener(FakeEvent.Type.RESIZE, this._onVideoResize);
     this._videoResizeWatcher = videoResizeWatcher;
+    this.props.eventManager.listen(
+      this._videoResizeWatcher,
+      FakeEvent.Type.RESIZE,
+      debounce(() => {
+        this._onVideoResize();
+      }, ON_VIDEO_RESIZE_DEBOUNCE_DELAY)
+    );
   };
+
+  /**
+   * before component mounted, remove event listeners
+   *
+   * @returns {void}
+   * @memberof Shell
+   */
+  componentWillUnmount(): void {
+    this._videoResizeWatcher.destroy();
+  }
 
   /**
    * render component

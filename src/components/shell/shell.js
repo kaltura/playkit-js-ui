@@ -227,23 +227,27 @@ class Shell extends Component {
    * @memberof Shell
    */
   componentDidMount() {
-    const {player, forceTouchUI} = this.props;
+    const {player, forceTouchUI, eventManager} = this.props;
     const {isIPadOS, isTablet, isMobile} = player.env;
     this.props.updateIsMobile(isIPadOS || isTablet || isMobile || forceTouchUI);
     this._onWindowResize();
-    this.props.eventManager.listen(
+    eventManager.listen(
       window,
       'resize',
       debounce(() => {
         this._onWindowResize();
       }, ON_WINDOW_RESIZE_DEBOUNCE_DELAY)
     );
-
-    this.props.eventManager.listen(player, player.Event.FIRST_PLAY, () => this._onWindowResize());
-
     this._playerResizeWatcher = new ResizeWatcher();
     this._playerResizeWatcher.init(document.getElementById(this.props.targetId));
-    this._playerResizeWatcher.addEventListener(FakeEvent.Type.RESIZE, this._onWindowResize);
+    eventManager.listen(
+      this._playerResizeWatcher,
+      FakeEvent.Type.RESIZE,
+      debounce(() => {
+        this._onWindowResize();
+      }, ON_WINDOW_RESIZE_DEBOUNCE_DELAY)
+    );
+    eventManager.listen(player, player.Event.FIRST_PLAY, () => this._onWindowResize());
     this._onWindowResize();
   }
 
@@ -272,6 +276,7 @@ class Shell extends Component {
    */
   componentWillUnmount(): void {
     this._clearHoverTimeout();
+    this._playerResizeWatcher.destroy();
   }
 
   /**

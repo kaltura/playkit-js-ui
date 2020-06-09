@@ -40,9 +40,7 @@ class VideoArea extends Component {
     return (
       <div style={videoStyles} className={style.videoArea}>
         <div style={{pointerEvents: 'auto'}}>
-          <PlayerArea name={'VideoArea'} {...this.props}>
-            {children}
-          </PlayerArea>
+          <PlayerArea name={'VideoArea'}>{children}</PlayerArea>
         </div>
       </div>
     );
