@@ -32,6 +32,11 @@ import {GuiArea} from 'components/gui-area';
 
 const PRESET_NAME = 'Live';
 
+@withPlayerPreset({
+  allowSidePanels: true,
+  allowPlayerArea: true
+})
+@withKeyboardEvent(PRESET_NAME)
 /**
  * Live ui interface component
  *
@@ -105,11 +110,7 @@ class LiveUI extends Component {
   }
 }
 
-const LiveUIComponent = withPlayerPreset({
-  allowSidePanels: true,
-  allowPlayerArea: true
-})(withKeyboardEvent(PRESET_NAME)(LiveUI));
-LiveUIComponent.displayName = PRESET_NAME;
+LiveUI.displayName = PRESET_NAME;
 
 /**
  * Live ui interface
@@ -119,5 +120,5 @@ LiveUIComponent.displayName = PRESET_NAME;
  * @returns {React$Element<any>} player ui tree
  */
 export function liveUI(props: any): React$Element<any> {
-  return <LiveUIComponent {...props} />;
+  return <LiveUI {...props} />;
 }

@@ -1,36 +1,18 @@
-@mixin side-panel {
+.side-panel {
   position: absolute;
   overflow: hidden;
   transition: all $default-transition-time;
   transition-property: left, right, bottom, top, opacity;
-  opacity: 0;
 }
 
 .vertical-side-panel {
-  @include side-panel;
   height: 100%;
 }
 
 .horizontal-side-panel {
-  @include side-panel;
   height: 0;
   left: 0;
   right: 0;
-}
-
-.side-panel-top {
-  top: 0;
-}
-
-.side-panel-bottom {
-  bottom: 0;
-}
-
-.side-panel-right {
-
-}
-
-.side-panel-left {
 }
 
 .side-panel-content {

@@ -33,8 +33,14 @@ import {InteractiveArea} from '../components/interactive-area';
 import {withKeyboardEvent} from 'components/keyboard';
 import {VideoArea} from '../components/video-area';
 import {GuiArea} from '../components/gui-area';
+
 const PRESET_NAME = 'Playback';
 
+@withPlayerPreset({
+  allowSidePanels: true,
+  allowPlayerArea: true
+})
+@withKeyboardEvent(PRESET_NAME)
 /**
  * Playback ui interface component
  *
@@ -113,11 +119,7 @@ class PlaybackUI extends Component {
   }
 }
 
-const PlaybackComponent = withPlayerPreset({
-  allowSidePanels: true,
-  allowPlayerArea: true
-})(withKeyboardEvent(PRESET_NAME)(PlaybackUI));
-PlaybackComponent.displayName = PRESET_NAME;
+PlaybackUI.displayName = PRESET_NAME;
 
 /**
  * Playback ui interface
@@ -127,5 +129,5 @@ PlaybackComponent.displayName = PRESET_NAME;
  * @returns {React$Element} player ui tree
  */
 export function playbackUI(props: any): React$Element<any> {
-  return <PlaybackComponent {...props} />;
+  return <PlaybackUI {...props} />;
 }

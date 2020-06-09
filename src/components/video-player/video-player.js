@@ -63,7 +63,9 @@ class VideoPlayer extends Component {
    */
   _onVideoResize = () => {
     const videoElement = this.props.player.getVideoElement();
-    this.props.updateVideoClientRect(videoElement.getBoundingClientRect());
+    if (videoElement) {
+      this.props.updateVideoClientRect(videoElement.getBoundingClientRect());
+    }
   };
 
   /**
