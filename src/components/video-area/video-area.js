@@ -23,7 +23,6 @@ class VideoArea extends Component {
    *
    * @param {Object} nextProps - next props of the component
    * @returns {void}
-   * @memberof VideoPlayer
    */
   shouldComponentUpdate(nextProps: Object): boolean {
     return nextProps.videoStyles !== this.props.videoStyles;
@@ -33,7 +32,6 @@ class VideoArea extends Component {
    * render component
    *
    * @returns {React$Element} - component element
-   * @memberof VideoPlayer
    */
   render(): React$Element<any> {
     const {videoStyles, children} = this.props;

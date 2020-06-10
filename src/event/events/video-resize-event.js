@@ -11,11 +11,13 @@ class VideoResizeEvent extends FakeEvent {
   /**
    * @constructor
    *
-   * @param {{width: number, height: number}} size - The new size.
+   * @param {number} videoSize - The new volume.
    */
-  constructor(size: {width: number, height: number}) {
+  constructor(videoSize: string) {
     super(FakeEvent.Type.VIDEO_RESIZE);
-    this.payload = size;
+    this.payload = {
+      videoSize
+    };
   }
 }
 

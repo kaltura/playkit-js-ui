@@ -2,7 +2,7 @@
 import {ResizeWatcher} from '../../utils/resize-watcher';
 import {h, Component} from 'preact';
 import {connect} from 'react-redux';
-import {actions as shellActions} from '../../reducers/shell';
+import {actions} from '../../reducers/shell';
 import style from '../../styles/style.scss';
 import {bindActions} from '../../utils/bind-actions';
 import {withPlayer} from '../player';
@@ -22,7 +22,7 @@ const mapStateToProps = state => ({
 @withEventManager
 @connect(
   mapStateToProps,
-  bindActions({updateVideoClientRect: shellActions.updateVideoClientRect})
+  bindActions(actions)
 )
 /**
  * VideoPlayer component
@@ -73,12 +73,14 @@ class VideoPlayer extends Component {
    */
   _setRef = (ref: HTMLElement) => {
     if (this._videoResizeWatcher) {
+      this.props.eventManager.unlisten(this._videoResizeWatcher, FakeEvent.Type.RESIZE, this._onVideoResize);
       this._videoResizeWatcher.destroy();
     }
 
     this._el = ref;
 
     if (!this._el) {
+      this.props.updateVideoClientRect({x: 0, y: 0, width: 0, height: 0, top: 0, right: 0, bottom: 0, left: 0});
       return;
     }
 
@@ -87,7 +89,8 @@ class VideoPlayer extends Component {
     const videoResizeWatcher = new ResizeWatcher();
     videoResizeWatcher.init(this._el);
     this._videoResizeWatcher = videoResizeWatcher;
-    this.props.eventManager.listen(this._videoResizeWatcher, FakeEvent.Type.RESIZE, () => this._onVideoResize());
+    // do not use debounce here since it breaks the video resizing animation
+    this.props.eventManager.listen(this._videoResizeWatcher, FakeEvent.Type.RESIZE, this._onVideoResize);
   };
 
   /**

@@ -72,14 +72,14 @@ class SidePanel extends Component {
     const stylePrefix = isVertical ? 'verticalSidePanel' : 'horizontalSidePanel';
     const styleClass = [style.sidePanel, style[stylePrefix]];
 
-    const containerName = `SidePanel${position.charAt(0).toUpperCase() + position.slice(1).toLowerCase()}`;
+    const areaName = `SidePanel${position.charAt(0).toUpperCase() + position.slice(1).toLowerCase()}`;
 
     const sidePanelStyles = sidePanelsStyles[props.position];
 
     return (
       <div style={sidePanelStyles} className={styleClass.join(' ')}>
         <div className={style.sidePanelContent}>
-          <PlayerArea name={containerName} />
+          <PlayerArea name={areaName} />
         </div>
       </div>
     );

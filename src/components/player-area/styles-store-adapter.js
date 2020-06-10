@@ -56,9 +56,19 @@ class StylesStoreAdapter extends Component {
    * @returns {boolean} shouldComponentUpdate
    */
   shouldComponentUpdate(nextProps: Object): boolean {
-    const {sidePanelsModes, allowSidePanels, playerClientRect} = this.props;
-    const {sidePanelsModes: prevSidePanelsModes, allowSidePanels: prevAllowSidePanels, playerClientRect: prevPlayerClientRect} = nextProps;
-    return !(sidePanelsModes === prevSidePanelsModes && allowSidePanels === prevAllowSidePanels && playerClientRect === prevPlayerClientRect);
+    const {sidePanelsModes, sidePanelsSizes, allowSidePanels, playerClientRect} = this.props;
+    const {
+      sidePanelsModes: prevSidePanelsModes,
+      sidePanelsSizes: prevSidePanelsSizes,
+      allowSidePanels: prevAllowSidePanels,
+      playerClientRect: prevPlayerClientRect
+    } = nextProps;
+    return !(
+      sidePanelsModes === prevSidePanelsModes &&
+      sidePanelsSizes === prevSidePanelsSizes &&
+      allowSidePanels === prevAllowSidePanels &&
+      playerClientRect === prevPlayerClientRect
+    );
   }
 
   /**
