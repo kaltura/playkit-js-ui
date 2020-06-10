@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.56.0"></a>
+# [0.56.0](https://github.com/kaltura/playkit-js-ui/compare/v0.55.0...v0.56.0) (2020-06-10)
+
+
+### Bug Fixes
+
+* **FEC-10071:** ad preset is missing the font family ([#508](https://github.com/kaltura/playkit-js-ui/issues/508)) ([893aad5](https://github.com/kaltura/playkit-js-ui/commit/893aad5))
+* **FEC-10121:** google translate duplicate texts with Preact ([#510](https://github.com/kaltura/playkit-js-ui/issues/510)) ([7057e62](https://github.com/kaltura/playkit-js-ui/commit/7057e62))
+* **FEC-10144:** player causes form submit on button click ([#512](https://github.com/kaltura/playkit-js-ui/issues/512)) ([3982da6](https://github.com/kaltura/playkit-js-ui/commit/3982da6))
+* **FEC-10173:** bottomBarHoverActive state is unused ([b1868de](https://github.com/kaltura/playkit-js-ui/commit/b1868de))
+
+
+### Features
+
+* **FEC-9613:** allow application to disable double-click to fullscreen ([#513](https://github.com/kaltura/playkit-js-ui/issues/513)) ([2d9df3b](https://github.com/kaltura/playkit-js-ui/commit/2d9df3b))
+
+
+
 <a name="0.55.0"></a>
 # [0.55.0](https://github.com/kaltura/playkit-js-ui/compare/v0.54.0...v0.55.0) (2020-05-10)
 
