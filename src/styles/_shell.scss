@@ -85,9 +85,9 @@
   &.hover :global([id^='playkit-ads-container']),
   &.state-paused :global([id^='playkit-ads-container']),
   &.state-idle :global([id^='playkit-ads-container']) {
-    transform: translateY(-60px);
-    -webkit-transform: translateY(-60px);
-    -ms-transform: translateY(-60px);
+    transform: translateY(-$default-hovering-offset);
+    -webkit-transform: translateY(-$default-hovering-offset);
+    -ms-transform: translateY(-$default-hovering-offset);
   }
 }
 

@@ -28,10 +28,9 @@ class GuiArea extends Component {
    * @param {Object} nextProps - next props of the component
    *
    * @returns {void}
-   * @memberof VideoPlayer
    */
   shouldComponentUpdate(nextProps: Object): boolean {
-    return nextProps.guiStyles !== this.props.guiStyles;
+    return nextProps.guiStyles !== this.props.guiStyles || nextProps.render !== this.props.render;
   }
 
   /**
@@ -49,7 +48,6 @@ class GuiArea extends Component {
    * render component
    *
    * @returns {React$Element} - component element
-   * @memberof VideoPlayer
    */
   render(): React$Element<any> {
     const {guiStyles, children} = this.props;

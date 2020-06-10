@@ -39,7 +39,6 @@ class UIManager {
   targetId: string;
   store: any;
   container: ?HTMLElement;
-  root: React$Component<any, any, any>;
   _translations: {[langKey: string]: Object} = {en: en_translations['en']};
   _locale: string = 'en';
   _uiComponents: Array<PKUIComponent>;
@@ -195,7 +194,7 @@ class UIManager {
       );
 
       // render the player
-      this.root = render(template, this.container);
+      render(template, this.container);
     }
   }
 
