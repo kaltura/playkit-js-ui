@@ -2,17 +2,9 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {PlayerArea} from '../player-area';
-import {SidePanelPositions} from '../../reducers/shell';
+import {bindActions} from '../../utils/bind-actions';
+import {actions, SidePanelOrientation, SidePanelPositions} from '../../reducers/shell';
 import {connect} from 'react-redux';
-
-/**
- * convert word to upper camel case
- * @param {string} word word
- * @returns {string} word
- */
-function toUpperCamelCase(word) {
-  return word ? `${word[0].toUpperCase()}${word.substring(1).toLowerCase()}` : '';
-}
 
 /**
  * mapping state to props
@@ -20,7 +12,8 @@ function toUpperCamelCase(word) {
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  sidePanelsStyles: state.shell.layoutStyles.sidePanels
+  sidePanelsStyles: state.shell.layoutStyles.sidePanels,
+  sidePanelsConfig: state.config.components.sidePanels
 });
 
 /**
@@ -30,7 +23,10 @@ const mapStateToProps = state => ({
  * @example <SidePanel>...</SidePanel>
  * @extends {Component}
  */
-@connect(mapStateToProps)
+@connect(
+  mapStateToProps,
+  bindActions(actions)
+)
 
 /**
  * SidePanel
@@ -44,7 +40,22 @@ class SidePanel extends Component {
    * @memberof VideoPlayer
    */
   shouldComponentUpdate(nextProps: Object): boolean {
-    return nextProps.sidePanelsStyles !== this.props.sidePanelsStyles;
+    return nextProps.sidePanelsStyles !== this.props.sidePanelsStyles || nextProps.sidePanelsConfig !== this.props.sidePanelsConfig;
+  }
+
+  /**
+   * component did update
+   * @return {void}
+   */
+  componentDidUpdate(): void {
+    const {verticalSizes, horizontalSizes} = this.props.sidePanelsConfig;
+    if (verticalSizes) {
+      this.props.updateSidePanelSize(SidePanelOrientation.VERTICAL, verticalSizes);
+    }
+
+    if (horizontalSizes) {
+      this.props.updateSidePanelSize(SidePanelOrientation.HORIZONTAL, horizontalSizes);
+    }
   }
 
   /**

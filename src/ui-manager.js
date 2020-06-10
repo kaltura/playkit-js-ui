@@ -89,17 +89,6 @@ class UIManager {
       this.store.dispatch(configActions.updateComponentConfig(componentAlias, config));
     } else {
       this.store.dispatch(configActions.updateConfig(config));
-
-      if (config.components && config.components.sidePanels) {
-        const {verticalSizes, horizontalSizes} = config.components.sidePanels;
-        if (verticalSizes) {
-          this.store.dispatch(shellActions.updateSidePanelSize(SidePanelOrientation.VERTICAL, verticalSizes));
-        }
-
-        if (horizontalSizes) {
-          this.store.dispatch(shellActions.updateSidePanelSize(SidePanelOrientation.HORIZONTAL, horizontalSizes));
-        }
-      }
     }
   }
 
