@@ -9,10 +9,6 @@ class ResizeWatcher extends FakeEventTarget {
   _observer: ?Object;
   _el: ?HTMLElement;
 
-  constructor() {
-    super();
-  }
-
   /**
    * Removes resize listeners.
    * @returns {void}
@@ -41,6 +37,10 @@ class ResizeWatcher extends FakeEventTarget {
     }
   }
 
+  /**
+   *
+   * @returns {void}
+   */
   _createNativeObserver() {
     this._observer = new window.ResizeObserver(entries => {
       entries.forEach(() => {
@@ -49,10 +49,18 @@ class ResizeWatcher extends FakeEventTarget {
     });
   }
 
+  /**
+   *
+   * @returns {void}
+   */
   _createIframeObserver() {
     this._observer = new IFrameObserver(this._triggerResize.bind(this));
   }
 
+  /**
+   *
+   * @returns {void}
+   */
   _triggerResize() {
     this.dispatchEvent(new FakeEvent(FakeEvent.Type.RESIZE));
   }
@@ -70,6 +78,10 @@ class IFrameObserver {
   _observersStore: Object = {};
   _onChangeCallback: Function;
 
+  /**
+   *
+   * @param {Function} callback - on change callback
+   */
   constructor(callback: Function) {
     this._onChangeCallback = callback;
   }
@@ -103,6 +115,10 @@ class IFrameObserver {
     }
   }
 
+  /**
+   *
+   * @returns {HTMLIFrameElement} - iframe
+   */
   _createIframe(): HTMLIFrameElement {
     let iframe = document.createElement('iframe');
     iframe.className = IFRAME_CLASS_NAME;

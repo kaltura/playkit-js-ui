@@ -12,7 +12,6 @@ import {PlayerAreaProvider} from './components/player-area';
 import reducer from './store';
 import en_translations from '../translations/en.i18n.json';
 import {actions as configActions} from './reducers/config';
-import {actions as shellActions, SidePanelOrientation} from './reducers/shell';
 
 // core components for the UI
 import {EngineConnector} from './components/engine-connector';

@@ -64,7 +64,9 @@ class LiveUI extends Component {
         <PlayerArea name={'PresetArea'}>
           <div className={style.playerGui} id="player-gui">
             <OverlayAction />
-            <VideoArea />
+            <VideoArea>
+              <Watermark />
+            </VideoArea>
             <GuiArea>
               {({containerRef}) => (
                 <Fragment>
@@ -96,7 +98,6 @@ class LiveUI extends Component {
                     }>
                     <SeekBarLivePlaybackContainer showFramePreview showTimeBubble playerContainer={containerRef} />
                   </BottomBar>
-                  <Watermark />
                   <PrePlaybackPlayOverlay />
                   <CastBeforePlay />
                   <Backdrop />

@@ -16,8 +16,7 @@ function calculateVerticalDimensions(options) {
   const rightSidePanelMode = sidePanelsModes[SidePanelPositions.RIGHT];
   let verticalPanelCount;
   if (isVideo) {
-    verticalPanelCount =
-      leftSidePanelMode === SidePanelModes.ALONG_SIDE_THE_VIDEO && rightSidePanelMode === SidePanelModes.ALONG_SIDE_THE_VIDEO ? 2 : 1;
+    verticalPanelCount = leftSidePanelMode === SidePanelModes.ALONGSIDE && rightSidePanelMode === SidePanelModes.ALONGSIDE ? 2 : 1;
   } else {
     verticalPanelCount = leftSidePanelMode !== SidePanelModes.HIDDEN && rightSidePanelMode !== SidePanelModes.HIDDEN ? 2 : 1;
   }
@@ -43,8 +42,7 @@ function calculateHorizontalDimensions(options) {
   const bottomSidePanelMode = sidePanelsModes[SidePanelPositions.BOTTOM];
   let horizontalPanelCount;
   if (isVideo) {
-    horizontalPanelCount =
-      topSidePanelMode === SidePanelModes.ALONG_SIDE_THE_VIDEO && bottomSidePanelMode === SidePanelModes.ALONG_SIDE_THE_VIDEO ? 2 : 1;
+    horizontalPanelCount = topSidePanelMode === SidePanelModes.ALONGSIDE && bottomSidePanelMode === SidePanelModes.ALONGSIDE ? 2 : 1;
   } else {
     horizontalPanelCount = topSidePanelMode !== SidePanelModes.HIDDEN && bottomSidePanelMode !== SidePanelModes.HIDDEN ? 2 : 1;
   }
@@ -70,20 +68,20 @@ export function calculateVideoContainerStyles(options) {
   const topSidePanelMode = allowSidePanels ? sidePanelsModes[SidePanelPositions.TOP] : SidePanelModes.HIDDEN;
   const bottomSidePanelMode = allowSidePanels ? sidePanelsModes[SidePanelPositions.BOTTOM] : SidePanelModes.HIDDEN;
 
-  if (leftSidePanelMode === SidePanelModes.ALONG_SIDE_THE_VIDEO || rightSidePanelMode === SidePanelModes.ALONG_SIDE_THE_VIDEO) {
+  if (leftSidePanelMode === SidePanelModes.ALONGSIDE || rightSidePanelMode === SidePanelModes.ALONGSIDE) {
     const {verticalPanelWidth, videoWidth} = calculateVerticalDimensions({...options, isVideo: true});
 
-    result['left'] = leftSidePanelMode === SidePanelModes.ALONG_SIDE_THE_VIDEO ? verticalPanelWidth : 0;
-    result['right'] = rightSidePanelMode === SidePanelModes.ALONG_SIDE_THE_VIDEO ? verticalPanelWidth : 0;
+    result['left'] = leftSidePanelMode === SidePanelModes.ALONGSIDE ? verticalPanelWidth : 0;
+    result['right'] = rightSidePanelMode === SidePanelModes.ALONGSIDE ? verticalPanelWidth : 0;
     result['width'] = videoWidth;
     result['position'] = 'absolute';
   }
 
-  if (topSidePanelMode === SidePanelModes.ALONG_SIDE_THE_VIDEO || bottomSidePanelMode === SidePanelModes.ALONG_SIDE_THE_VIDEO) {
+  if (topSidePanelMode === SidePanelModes.ALONGSIDE || bottomSidePanelMode === SidePanelModes.ALONGSIDE) {
     const {horizontalPanelHeight, videoHeight} = calculateHorizontalDimensions({...options, isVideo: true});
 
-    result['top'] = topSidePanelMode === SidePanelModes.ALONG_SIDE_THE_VIDEO ? horizontalPanelHeight : 0;
-    result['bottom'] = bottomSidePanelMode === SidePanelModes.ALONG_SIDE_THE_VIDEO ? horizontalPanelHeight : 0;
+    result['top'] = topSidePanelMode === SidePanelModes.ALONGSIDE ? horizontalPanelHeight : 0;
+    result['bottom'] = bottomSidePanelMode === SidePanelModes.ALONGSIDE ? horizontalPanelHeight : 0;
     result['height'] = videoHeight;
     result['position'] = 'absolute';
   }

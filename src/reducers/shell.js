@@ -38,21 +38,21 @@ type PresetSettings = {
 };
 
 export const SidePanelOrientation = {
-  VERTICAL: 'VERTICAL',
-  HORIZONTAL: 'HORIZONTAL'
+  VERTICAL: 'vertical',
+  HORIZONTAL: 'horizontal'
 };
 
 export const SidePanelPositions = {
-  LEFT: 'LEFT',
-  TOP: 'TOP',
-  BOTTOM: 'BOTTOM',
-  RIGHT: 'RIGHT'
+  LEFT: 'left',
+  TOP: 'top',
+  BOTTOM: 'bottom',
+  RIGHT: 'right'
 };
 
 export const SidePanelModes = {
-  ALONG_SIDE_THE_VIDEO: 'ALONG_SIDE_THE_VIDEO',
-  HIDDEN: 'HIDDEN',
-  OVER_THE_VIDEO: 'OVER_THE_VIDEO'
+  ALONGSIDE: 'alongside',
+  HIDDEN: 'hidden',
+  OVER: 'over'
 };
 
 /**

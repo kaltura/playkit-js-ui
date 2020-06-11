@@ -22,10 +22,10 @@ function calculateSidePanelStyles(options) {
   }
 
   return {
-    [SidePanelPositions.TOP]: utils.calculateSidePanelStyles({...options, position: 'TOP'}),
-    [SidePanelPositions.BOTTOM]: utils.calculateSidePanelStyles({...options, position: 'BOTTOM'}),
-    [SidePanelPositions.RIGHT]: utils.calculateSidePanelStyles({...options, position: 'RIGHT'}),
-    [SidePanelPositions.LEFT]: utils.calculateSidePanelStyles({...options, position: 'LEFT'})
+    [SidePanelPositions.TOP]: utils.calculateSidePanelStyles({...options, position: SidePanelPositions.TOP}),
+    [SidePanelPositions.BOTTOM]: utils.calculateSidePanelStyles({...options, position: SidePanelPositions.BOTTOM}),
+    [SidePanelPositions.RIGHT]: utils.calculateSidePanelStyles({...options, position: SidePanelPositions.RIGHT}),
+    [SidePanelPositions.LEFT]: utils.calculateSidePanelStyles({...options, position: SidePanelPositions.LEFT})
   };
 }
 

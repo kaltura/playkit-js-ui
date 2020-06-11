@@ -69,7 +69,9 @@ class PlaybackUI extends Component {
         <PlayerArea name={'PresetArea'}>
           <div className={style.playerGui} id="player-gui">
             <OverlayAction />
-            <VideoArea />
+            <VideoArea>
+              <Watermark />
+            </VideoArea>
             <GuiArea>
               {({containerRef}) => (
                 <Fragment>
@@ -104,7 +106,6 @@ class PlaybackUI extends Component {
                     }>
                     <SeekBarPlaybackContainer showFramePreview showTimeBubble playerContainer={containerRef} />
                   </BottomBar>
-                  <Watermark />
                   <PlaylistCountdown />
                   <PrePlaybackPlayOverlay />
                   <CastBeforePlay />

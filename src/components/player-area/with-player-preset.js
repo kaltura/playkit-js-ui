@@ -38,6 +38,11 @@ const withPlayerPreset = (options: Object) => (InnerComponent: Component) => {
       });
     }
 
+    /**
+     * should component update handler
+     * @returns {boolean} - should update
+     *
+     */
     shouldComponentUpdate(): boolean {
       return false;
     }

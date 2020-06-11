@@ -16,6 +16,9 @@ class FakeEventTarget {
   _listeners: MultiMap<ListenerType>;
   dispatchTarget: FakeEventTarget;
 
+  /**
+   *
+   */
   constructor() {
     /**
      * @private {!MultiMap.<FakeEventTarget.ListenerType>}
