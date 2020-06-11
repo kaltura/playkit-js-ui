@@ -23,10 +23,10 @@ export const types = {
 
 type LayoutStyles = {
   sidePanels: {
-    TOP: Object,
-    Bottom: Object,
-    LEFT: Object,
-    RIGHT: Object
+    top: Object,
+    bottom: Object,
+    left: Object,
+    right: Object
   },
   video: Object,
   gui: Object
