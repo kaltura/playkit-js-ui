@@ -33,7 +33,7 @@ const mapStateToProps = state => ({
  */
 class VideoPlayer extends Component {
   _el: HTMLElement;
-  _videoResizeWatcher: ?ResizeWatcher;
+  _videoResizeWatcher: ResizeWatcher;
 
   /**
    * this component should not render itself when player object changes.

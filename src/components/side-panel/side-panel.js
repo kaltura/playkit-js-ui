@@ -43,8 +43,10 @@ class SidePanel extends Component {
    * @memberof VideoPlayer
    */
   shouldComponentUpdate(nextProps: Object): boolean {
-    const currentStyle = this.props.sidePanelsStyles[this.props.position];
-    const nextStyle = nextProps.sidePanelsStyles[nextProps.position];
+    const {sidePanelsStyles, position} = this.props;
+    const {sidePanelsStyles: nextSidePanelsStyles, position: nextPosition} = nextProps;
+    const currentStyle = sidePanelsStyles[position];
+    const nextStyle = nextSidePanelsStyles[nextPosition];
     return !(isEqual(currentStyle, nextStyle) && isEqual(this.props.sidePanelsConfig, nextProps.sidePanelsConfig));
   }
 
