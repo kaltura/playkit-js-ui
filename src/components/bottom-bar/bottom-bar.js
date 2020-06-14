@@ -45,10 +45,7 @@ class BottomBar extends Component {
       styleClass.push(style.hide);
     }
     return (
-      <div
-        className={styleClass.join(' ')}
-        onMouseOver={() => this.props.updateBottomBarHoverActive(true)}
-        onMouseLeave={() => this.props.updateBottomBarHoverActive(false)}>
+      <div className={styleClass.join(' ')}>
         <PlayerArea name={'BottomBar'}>
           {props.children}
           <div className={style.leftControls}>
