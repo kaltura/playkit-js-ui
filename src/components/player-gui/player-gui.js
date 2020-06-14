@@ -6,7 +6,6 @@ import {PlayerArea} from '../player-area';
 import {actions, SidePanelOrientation, SidePanelPositions} from '../../reducers/shell';
 import {SidePanel} from '../side-panel';
 import {bindActions} from '../../utils/bind-actions';
-import isEqual from '../../utils/is-equal';
 
 /**
  * mapping state to props
