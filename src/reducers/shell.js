@@ -1,4 +1,5 @@
 //@flow
+import isEqual from '../utils/is-equal';
 
 export const types = {
   ADD_PLAYER_CLASS: 'shell/ADD_PLAYER_CLASS',
@@ -145,11 +146,31 @@ export default (state: Object = initialState, action: Object) => {
         playerClientRect: action.playerClientRect
       };
 
-    case types.UPDATE_LAYOUT_STYLES:
+    case types.UPDATE_LAYOUT_STYLES: {
+      const {sidePanels: currentSidePanelsStyle, video: currentVideoStyle, gui: currentGuiStyle} = state.layoutStyles;
+      const {sidePanels: nextSidePanelsStyle, video: nextVideoStyle, gui: nextGuiStyle} = action.layoutStyles;
       return {
         ...state,
-        layoutStyles: action.layoutStyles
+        layoutStyles: {
+          sidePanels: {
+            [SidePanelPositions.LEFT]: isEqual(currentSidePanelsStyle[SidePanelPositions.LEFT], nextSidePanelsStyle[SidePanelPositions.LEFT])
+              ? currentSidePanelsStyle[SidePanelPositions.LEFT]
+              : nextSidePanelsStyle[SidePanelPositions.LEFT],
+            [SidePanelPositions.RIGHT]: isEqual(currentSidePanelsStyle[SidePanelPositions.RIGHT], nextSidePanelsStyle[SidePanelPositions.RIGHT])
+              ? currentSidePanelsStyle[SidePanelPositions.RIGHT]
+              : nextSidePanelsStyle[SidePanelPositions.RIGHT],
+            [SidePanelPositions.TOP]: isEqual(currentSidePanelsStyle[SidePanelPositions.TOP], nextSidePanelsStyle[SidePanelPositions.TOP])
+              ? currentSidePanelsStyle[SidePanelPositions.TOP]
+              : nextSidePanelsStyle[SidePanelPositions.TOP],
+            [SidePanelPositions.BOTTOM]: isEqual(currentSidePanelsStyle[SidePanelPositions.BOTTOM], nextSidePanelsStyle[SidePanelPositions.BOTTOM])
+              ? currentSidePanelsStyle[SidePanelPositions.BOTTOM]
+              : nextSidePanelsStyle[SidePanelPositions.BOTTOM]
+          },
+          video: isEqual(currentVideoStyle, nextVideoStyle) ? currentVideoStyle : nextVideoStyle,
+          gui: isEqual(currentGuiStyle, nextGuiStyle) ? currentGuiStyle : nextGuiStyle
+        }
       };
+    }
 
     case types.UPDATE_VIDEO_CLIENT_RECT:
       return {

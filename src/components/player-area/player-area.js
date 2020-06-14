@@ -119,11 +119,10 @@ class PlayerArea extends Component {
    * @private
    */
   _updateAreaComponents = (playerAreaComponents: Array<Object>): void => {
-    const {activePresetName, name: playerAreaName} = this.props;
-
-    if (!playerAreaComponents) {
+    if (playerAreaComponents.length < 1) {
       return;
     }
+    const {activePresetName, name: playerAreaName} = this.props;
 
     this.props.logger.debug(`Player area '${playerAreaName}' in preset '${activePresetName}' - update children components`);
 

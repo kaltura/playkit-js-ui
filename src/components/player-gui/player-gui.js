@@ -3,8 +3,10 @@ import {h, Fragment, Component} from 'preact';
 import {connect} from 'react-redux';
 import {ActivePreset} from '../active-preset';
 import {PlayerArea} from '../player-area';
-import {SidePanelPositions} from '../../reducers/shell';
+import {actions, SidePanelOrientation, SidePanelPositions} from '../../reducers/shell';
 import {SidePanel} from '../side-panel';
+import {bindActions} from '../../utils/bind-actions';
+import isEqual from '../../utils/is-equal';
 
 /**
  * mapping state to props
@@ -13,10 +15,14 @@ import {SidePanel} from '../side-panel';
  */
 const mapStateToProps = state => ({
   allowSidePanels: state.shell.presetSettings.allowSidePanels,
-  allowPlayerArea: state.shell.presetSettings.allowPlayerArea
+  allowPlayerArea: state.shell.presetSettings.allowPlayerArea,
+  sidePanelsConfig: state.config.components.sidePanels
 });
 
-@connect(mapStateToProps)
+@connect(
+  mapStateToProps,
+  bindActions(actions)
+)
 /**
  * Player GUI component
  *
@@ -24,6 +30,36 @@ const mapStateToProps = state => ({
  * @extends {Component}
  */
 class PlayerGUI extends Component {
+  /**
+   * should component update handler
+   *
+   * @returns {boolean} - always update component
+   * @param {Object} nextProps - next props of the component
+   * @memberof OverlayAction
+   */
+  shouldComponentUpdate(nextProps: Object): boolean {
+    return (
+      !isEqual(this.props.sidePanelsConfig, nextProps.sidePanelsConfig) ||
+      this.props.allowSidePanels !== nextProps.allowSidePanels ||
+      this.props.allowPlayerArea !== nextProps.allowPlayerArea
+    );
+  }
+
+  /**
+   * component did update
+   * @return {void}
+   */
+  componentDidUpdate(): void {
+    const {verticalSizes, horizontalSizes} = this.props.sidePanelsConfig;
+    if (verticalSizes) {
+      this.props.updateSidePanelSize(SidePanelOrientation.VERTICAL, verticalSizes);
+    }
+
+    if (horizontalSizes) {
+      this.props.updateSidePanelSize(SidePanelOrientation.HORIZONTAL, horizontalSizes);
+    }
+  }
+
   /**
    * render component based on the matched UI.
    * if no matched UI found, it will choose the first UI configured in the UI array

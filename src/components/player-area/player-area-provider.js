@@ -41,17 +41,10 @@ class PlayerAreaProvider extends Component {
    * @return {void}
    */
   _initializePlayerComponents() {
-    let shouldTriggerListeners = false;
-    (this.props.uiComponents || []).forEach(componentData => {
-      const componentAdded = !!this._addNewComponent(componentData);
-      shouldTriggerListeners = shouldTriggerListeners || componentAdded;
-    });
-
-    if (!shouldTriggerListeners) {
-      return;
+    if (this.props.uiComponents && this.props.uiComponents.length > 0) {
+      this.props.uiComponents.forEach(this._addNewComponent);
+      this._emitAllListeners();
     }
-
-    this._emitAllListeners();
   }
 
   /**
@@ -78,10 +71,7 @@ class PlayerAreaProvider extends Component {
    * @private
    */
   _emitAllListeners() {
-    setTimeout(() => {
-      // use timeout to make sure redux store is in sync
-      this._emitListeners(this._listeners);
-    }, 200);
+    this._emitListeners(this._listeners);
   }
 
   /**

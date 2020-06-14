@@ -2,11 +2,8 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {PlayerArea} from '../player-area';
-import {bindActions} from '../../utils/bind-actions';
-import {actions, SidePanelModes, SidePanelOrientation, SidePanelPositions} from '../../reducers/shell';
+import {SidePanelPositions} from '../../reducers/shell';
 import {connect} from 'react-redux';
-import isEqual from '../../utils/is-equal';
-import {withLogger} from 'components/logger';
 
 /**
  * mapping state to props
@@ -15,17 +12,10 @@ import {withLogger} from 'components/logger';
  */
 const mapStateToProps = state => ({
   sidePanelsStyles: state.shell.layoutStyles.sidePanels,
-  sidePanelsConfig: state.config.components.sidePanels,
   playerClientRect: state.shell.playerClientRect
 });
 
-const COMPONENT_NAME = 'SidePanel';
-
-@connect(
-  mapStateToProps,
-  bindActions(actions)
-)
-@withLogger(COMPONENT_NAME)
+@connect(mapStateToProps)
 
 /**
  * SidePanel component
@@ -47,35 +37,7 @@ class SidePanel extends Component {
     const {sidePanelsStyles: nextSidePanelsStyles, position: nextPosition} = nextProps;
     const currentStyle = sidePanelsStyles[position];
     const nextStyle = nextSidePanelsStyles[nextPosition];
-    return !(isEqual(currentStyle, nextStyle) && isEqual(this.props.sidePanelsConfig, nextProps.sidePanelsConfig));
-  }
-
-  /**
-   * component did update
-   * @return {void}
-   */
-  componentDidUpdate(): void {
-    const {verticalSizes, horizontalSizes} = this.props.sidePanelsConfig;
-    if (verticalSizes) {
-      this.props.updateSidePanelSize(SidePanelOrientation.VERTICAL, verticalSizes);
-    }
-
-    if (horizontalSizes) {
-      this.props.updateSidePanelSize(SidePanelOrientation.HORIZONTAL, horizontalSizes);
-    }
-  }
-
-  /**
-   * Make sure the side panel is fit the player dimensions
-   * @returns {void}
-   */
-  _validateSidePanelSize() {
-    const {position, sidePanelsStyles, playerClientRect, logger} = this.props;
-    const sidePanelStyles = sidePanelsStyles[position];
-    if (sidePanelStyles.width > playerClientRect.width || sidePanelStyles.height > playerClientRect.height) {
-      this.props.updateSidePanelMode(position, SidePanelModes.HIDDEN);
-      logger.warn(`There is no room to open the side panel`);
-    }
+    return currentStyle !== nextStyle;
   }
 
   /**
@@ -86,8 +48,6 @@ class SidePanel extends Component {
    * @memberof SidePanel
    */
   render(props: any): React$Element<any> {
-    this._validateSidePanelSize();
-
     const {position, sidePanelsStyles} = props;
 
     const isVertical = [SidePanelPositions.RIGHT, SidePanelPositions.LEFT].indexOf(position) !== -1;
