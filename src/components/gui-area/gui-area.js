@@ -26,11 +26,12 @@ class GuiArea extends Component {
   /**
    * this component should not render itself when player object changes.
    * @param {Object} nextProps - next props of the component
+   * @param {Object} nextState - next state of the component
    *
    * @returns {void}
    */
-  shouldComponentUpdate(nextProps: Object): boolean {
-    return nextProps.guiStyles !== this.props.guiStyles || nextProps.render !== this.props.render;
+  shouldComponentUpdate(nextProps: Object, nextState: Object): boolean {
+    return nextProps.guiStyles !== this.props.guiStyles || nextState.render !== this.state.render;
   }
 
   /**
