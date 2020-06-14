@@ -31,21 +31,6 @@ const mapStateToProps = state => ({
  */
 class PlayerGUI extends Component {
   /**
-   * should component update handler
-   *
-   * @returns {boolean} - always update component
-   * @param {Object} nextProps - next props of the component
-   * @memberof OverlayAction
-   */
-  shouldComponentUpdate(nextProps: Object): boolean {
-    return (
-      !isEqual(this.props.sidePanelsConfig, nextProps.sidePanelsConfig) ||
-      this.props.allowSidePanels !== nextProps.allowSidePanels ||
-      this.props.allowPlayerArea !== nextProps.allowPlayerArea
-    );
-  }
-
-  /**
    * component did update
    * @return {void}
    */
