@@ -11,6 +11,7 @@ const PLAYER_MARGIN = 5;
  */
 const mapStateToProps = state => ({
   playerClientRect: state.shell.playerClientRect,
+  guiClientRect: state.shell.guiClientRect,
   isMobile: state.shell.isMobile
 });
 
@@ -129,7 +130,7 @@ class Tooltip extends Component {
    * @returns {void}
    */
   componentDidUpdate(prevProps: Object): void {
-    if (this.props.playerClientRect !== prevProps.playerClientRect) {
+    if (this.props.guiClientRect !== prevProps.guiClientRect) {
       this.lastAlternativeTypeIndex = -1;
       this.setState({valid: false, type: this.props.type});
     } else if (this.state.showTooltip) {

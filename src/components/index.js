@@ -15,7 +15,6 @@ export {AdSkip} from './ad-skip';
 export {AdNotice} from './ad-notice';
 export {BaseComponent} from './base';
 export {BottomBar} from './bottom-bar';
-export {Container, ContainerProvider} from './container';
 export {CVAAOverlay} from './cvaa-overlay';
 export {DropDown} from './dropdown';
 export {EngineConnector} from './engine-connector';
@@ -55,6 +54,11 @@ export {PlaylistNextScreen} from './playlist-next-screen';
 export {PictureInPicture} from './picture-in-picture';
 export {PlaybackControls} from './playback-controls';
 export {Button} from './button';
+
+export {PlayerArea, withPlayerPreset} from './player-area';
+export {VideoArea} from './video-area';
+export {GuiArea} from './gui-area';
+export {InteractiveArea} from './interactive-area';
 
 export {Keyboard as KeyboardControl} from './keyboard';
 export {Cast, Cast as CastControl};

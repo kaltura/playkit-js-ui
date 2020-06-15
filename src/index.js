@@ -18,6 +18,7 @@ declare var __VERSION__: string;
 declare var __NAME__: string;
 
 export {h} from 'preact';
+export {createPortal} from 'preact/compat';
 export {preact};
 export {redux};
 export {preacti18n};

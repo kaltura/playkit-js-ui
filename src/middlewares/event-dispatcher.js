@@ -7,6 +7,9 @@ import {CaptionsStyleSelectedEvent} from '../event/events/captions-style-selecte
 import {QualitySelectedEvent} from '../event/events/quality-selected-event';
 import {SeekedEvent} from '../event/events/seeked-event';
 import {SpeedSelectedEvent} from '../event/events/speed-selected-event';
+import {PlayerResizeEvent} from 'event/events/player-resize-event';
+import {GuiResizeEvent} from 'event/events/gui-resize-event';
+import {VideoResizeEvent} from '../event/events/video-resize-event';
 import {UIVisibilityChangedEvent} from '../event/events/ui-visibility-changed-event';
 import {RewindClickedEvent} from '../event/events/rewind-clicked';
 import {ForwardClickedEvent} from '../event/events/forward-clicked';
@@ -42,8 +45,60 @@ const eventDispatcherMiddleware = (player: Object) => (store: Object) => (next: 
     default:
       break;
   }
+
   next(action);
+
+  switch (action.type) {
+    case shell.UPDATE_GUI_CLIENT_RECT:
+      onGuiResizeHandler(store, action, player);
+      break;
+    case shell.UPDATE_PLAYER_CLIENT_RECT:
+      onPlayerResizeHandler(store, action, player);
+      break;
+    case shell.UPDATE_VIDEO_CLIENT_RECT:
+      onVideoResizeHandler(store, action, player);
+      break;
+
+    default:
+      break;
+  }
 };
+
+/**
+ * Handler for gui resize change action
+ * @param {any} store - The redux store.
+ * @param {Object} action - The action object.
+ * @param {Object} player - The video player.
+ * @returns {void}
+ */
+function onGuiResizeHandler(store: any, action: Object, player: Object): void {
+  const guiClientRect = store.getState().shell.guiClientRect;
+  player.dispatchEvent(new GuiResizeEvent(guiClientRect));
+}
+
+/**
+ * Handler for player resize change action
+ * @param {any} store - The redux store.
+ * @param {Object} action - The action object.
+ * @param {Object} player - The video player.
+ * @returns {void}
+ */
+function onPlayerResizeHandler(store: any, action: Object, player: Object): void {
+  const playerClientRect = store.getState().shell.playerClientRect;
+  player.dispatchEvent(new PlayerResizeEvent(playerClientRect));
+}
+
+/**
+ * Handler for video resize change action
+ * @param {any} store - The redux store.
+ * @param {Object} action - The action object.
+ * @param {Object} player - The video player.
+ * @returns {void}
+ */
+function onVideoResizeHandler(store: any, action: Object, player: Object): void {
+  const videoClientRect = store.getState().shell.videoClientRect;
+  player.dispatchEvent(new VideoResizeEvent(videoClientRect));
+}
 
 /**
  * Handler for hover state change action.
@@ -77,7 +132,7 @@ function onChangeableComponentsHandler(store: any, action: Object, player: Objec
       player.dispatchEvent(new SeekedEvent(action.payload.from, action.payload.to));
       break;
 
-    case 'PlayerGui':
+    case 'ActivePreset':
       player.dispatchEvent(new FakeEvent(FakeEvent.Type.UI_PRESET_CHANGE, action.payload));
       break;
     default:

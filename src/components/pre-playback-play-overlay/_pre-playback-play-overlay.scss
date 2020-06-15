@@ -32,13 +32,6 @@
   }
 }
 
-.pre-playback {
-  .player-gui {
-    opacity: 0 !important;
-    display: none;
-  }
-}
-
 .player{
   &.size-ty {
     .pre-playback-play-button {

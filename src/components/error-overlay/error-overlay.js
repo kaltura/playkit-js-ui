@@ -41,7 +41,7 @@ class ErrorOverlay extends Component {
    * copy input text based on input element.
    * on success, set success internal component state for 2 seconds
    * @returns {void}
-   * @memberof ShareOverlay
+   * @memberof ErrorOverlay
    */
   copyError(): void {
     let selection = window.getSelection();
@@ -56,7 +56,7 @@ class ErrorOverlay extends Component {
    * play on click
    *
    * @returns {void}
-   * @memberof PrePlaybackPlayOverlay
+   * @memberof ErrorOverlay
    */
   handleClick(): void {
     const mediaInfo = this.props.player.getMediaInfo();

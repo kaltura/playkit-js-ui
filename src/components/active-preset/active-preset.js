@@ -1,9 +1,9 @@
 //@flow
 import {Component} from 'preact';
 import {connect} from 'react-redux';
-import {bindActions} from './utils';
-import {actions} from './reducers/shell';
-import getLogger from './utils/logger';
+import {bindActions} from '../../utils';
+import {actions} from '../../reducers/shell';
+import getLogger from '../../utils/logger';
 import {withEventDispatcher} from 'components/event-dispatcher';
 
 /**
@@ -26,29 +26,28 @@ const mapStateToProps = state => ({
   config: state.config
 });
 
-const logger = getLogger('PlayerGUI');
-const COMPONENT_NAME = 'PlayerGui';
+const logger = getLogger('ActivePreset');
+const COMPONENT_NAME = 'ActivePreset';
 
+@withEventDispatcher(COMPONENT_NAME)
 @connect(
   mapStateToProps,
   bindActions(actions)
 )
-@withEventDispatcher(COMPONENT_NAME)
-
 /**
- * Player GUI component
+ * Active preset
  *
- * @class PlayerGUI
+ * @class ActivePreset
  * @extends {Component}
  */
-class PlayerGUI extends Component {
+class ActivePreset extends Component {
   /**
    * get the single matched UI to render based on the UIs and it's conditions
    *
    * @param {Array<any>} uis - UIs array with conditions
    * @param {Object} state - state to be used in the condition check
    * @returns {*} - matched UI
-   * @memberof PlayerGUI
+   * @memberof ActivePreset
    */
   getMatchedUI(uis: Array<any>, state: Object): any {
     let matchedUI;
@@ -67,22 +66,23 @@ class PlayerGUI extends Component {
    *
    * @param {*} props - component props
    * @returns {React$Element} - component element
-   * @memberof PlayerGUI
+   * @memberof ActivePreset
    */
   render(props: any): React$Element<any> | void {
     let uiToRender;
-    const {activePresetName} = this.props.state.shell;
-    if (this.props.uis.length > 0) {
-      uiToRender = this.getMatchedUI(props.uis, props.state);
-      const uiComponent = uiToRender ? uiToRender.template(props) : this.props.uis[this.props.uis.length - 1].template(props);
+    const {uis, state} = this.props;
+    const {activePresetName} = state.shell;
+    if (uis.length > 0) {
+      uiToRender = this.getMatchedUI(uis, props.state);
+      const uiComponent = uiToRender ? uiToRender.template(props) : uis[uis.length - 1].template(props);
       const presetName = uiComponent ? uiComponent.type.displayName || '' : '';
 
       if (activePresetName !== presetName) {
         props.notifyChange({from: activePresetName, to: presetName});
         props.updateActivePresetName(presetName);
-        logger.debug(`set active preset '${presetName}'`);
+        props.updatePresetSettings(null);
+        logger.debug(`update active preset to '${activePresetName}' and reset preset settings`);
       }
-
       return uiComponent;
     } else {
       return undefined;
@@ -90,4 +90,4 @@ class PlayerGUI extends Component {
   }
 }
 
-export {PlayerGUI};
+export {ActivePreset};

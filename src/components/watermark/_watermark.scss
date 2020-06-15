@@ -26,7 +26,7 @@
     &.state-idle,
     &.hover {
       .watermark.bottom {
-        transform: translateY(-60px);
+        transform: translateY(-$default-hovering-offset);
       }
     }
   }

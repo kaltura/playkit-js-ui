@@ -45,7 +45,6 @@
     }
   }
   .player-gui {
-    opacity: 0;
     overflow: hidden;
     font-size: 0;
 
@@ -59,18 +58,11 @@
     left: 0;
     width: 100%;
     height: 100%;
+    pointer-events: none;
   }
   &.overlay-active :global(.overlay-portal) {
     z-index: 11;
-  }
-  &.casting .player-gui,
-  &.metadata-loaded .player-gui,
-  &.state-paused .player-gui,
-  &.state-idle .player-gui,
-  &.ad-break .player-gui,
-  &.overlay-active .player-gui,
-  &.menu-active .player-gui {
-    opacity: 1;
+    pointer-events: initial;
   }
 }
 
@@ -93,9 +85,9 @@
   &.hover :global([id^='playkit-ads-container']),
   &.state-paused :global([id^='playkit-ads-container']),
   &.state-idle :global([id^='playkit-ads-container']) {
-    transform: translateY(-60px);
-    -webkit-transform: translateY(-60px);
-    -ms-transform: translateY(-60px);
+    transform: translateY(-$default-hovering-offset);
+    -webkit-transform: translateY(-$default-hovering-offset);
+    -ms-transform: translateY(-$default-hovering-offset);
   }
 }
 
