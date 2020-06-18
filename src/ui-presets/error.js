@@ -2,6 +2,8 @@
 import style from '../styles/style.scss';
 import {h} from 'preact';
 import {ErrorOverlay} from '../components/error-overlay';
+import {PlayerArea} from 'components/player-area';
+import {GuiArea} from 'components/gui-area';
 
 const PRESET_NAME = 'Error';
 
@@ -14,7 +16,11 @@ const PRESET_NAME = 'Error';
 export function ErrorUI(): React$Element<any> {
   return (
     <div className={style.playbackGuiWrapper}>
-      <ErrorOverlay />
+      <PlayerArea name={'PresetArea'}>
+        <GuiArea>
+          <ErrorOverlay />
+        </GuiArea>
+      </PlayerArea>
     </div>
   );
 }
