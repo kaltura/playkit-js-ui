@@ -209,7 +209,7 @@ class PlayerArea extends Component {
     const {playerAreaComponents} = this.state;
     const newChildren = [];
     toChildArray(children).forEach(child => {
-      if (child.type === 'div') {
+      if (child.type === 'div' || child.type === Fragment) {
         child.props.children = this._getPositionedComponents(child.props.children);
         newChildren.push(child);
         return;

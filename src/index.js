@@ -13,6 +13,8 @@ import * as Components from './components';
 //Utils
 import * as Utils from './utils';
 import style from './styles/style.scss';
+//Enums
+import {SidePanelPositions, SidePanelModes} from './reducers/shell';
 
 declare var __VERSION__: string;
 declare var __NAME__: string;
@@ -31,3 +33,5 @@ export {Reducers as reducers, Presets as presets, Components as components, Util
 export {EventType};
 export {UIManager};
 export {__VERSION__ as VERSION, __NAME__ as NAME};
+
+export {SidePanelPositions, SidePanelModes};

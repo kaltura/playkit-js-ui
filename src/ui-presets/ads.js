@@ -1,6 +1,6 @@
 //@flow
 import style from '../styles/style.scss';
-import {h} from 'preact';
+import {Fragment, h} from 'preact';
 import {Loading} from '../components/loading';
 import {Volume} from '../components/volume';
 import {Fullscreen} from '../components/fullscreen';
@@ -13,6 +13,8 @@ import {UnmuteIndication} from '../components/unmute-indication';
 import {AdNotice} from '../components/ad-notice/ad-notice';
 import {PlaybackControls} from '../components/playback-controls';
 import {withKeyboardEvent} from 'components/keyboard';
+import {PlayerArea} from 'components/player-area';
+import {GuiArea} from 'components/gui-area';
 
 const PRESET_NAME = 'Ads';
 
@@ -28,39 +30,50 @@ function AdsUI(props: any, context: any): ?React$Element<any> {
   if (useDefaultAdsUi(props, context)) {
     return (
       <div className={style.adGuiWrapper}>
-        <Loading />
-        <div className={style.playerGui} id="player-gui">
-          <UnmuteIndication hasTopBar />
-          <TopBar disabled={true}>
-            <div className={style.leftControls}>{isBumper(props, context) ? undefined : <AdNotice />}</div>
-          </TopBar>
-        </div>
+        <PlayerArea name={'PresetArea'}>
+          <div className={style.playerGui} id="player-gui">
+            <GuiArea>
+              <Loading />
+              <UnmuteIndication hasTopBar />
+              <TopBar disabled={true} leftControls={isBumper(props, context) ? undefined : <AdNotice />} />
+            </GuiArea>
+          </div>
+        </PlayerArea>
       </div>
     );
   }
   const adsUiCustomization = getAdsUiCustomization();
   return (
     <div className={style.adGuiWrapper}>
-      <Loading />
-      <div className={style.playerGui} id="player-gui">
-        <UnmuteIndication hasTopBar />
-        <TopBar disabled={true}>
-          <div className={style.leftControls}>{isBumper(props, context) ? undefined : <AdNotice />}</div>
-          <div className={style.rightControls}>{adsUiCustomization.learnMoreButton ? <AdLearnMore /> : undefined}</div>
-        </TopBar>
-        {adsUiCustomization.skipButton ? <AdSkip /> : undefined}
-        <PlaybackControls />
-        <BottomBar>
-          <div className={style.leftControls}>
-            <PlaybackControls />
-            <TimeDisplayAdsContainer />
-          </div>
-          <div className={style.rightControls}>
-            <Volume />
-            <Fullscreen />
-          </div>
-        </BottomBar>
-      </div>
+      <PlayerArea name={'PresetArea'}>
+        <div className={style.playerGui} id="player-gui">
+          <GuiArea>
+            <Loading />
+            <UnmuteIndication hasTopBar />
+            <TopBar
+              disabled={true}
+              leftControls={isBumper(props, context) ? undefined : <AdNotice />}
+              rightControls={adsUiCustomization.learnMoreButton ? <AdLearnMore /> : undefined}
+            />
+            {adsUiCustomization.skipButton ? <AdSkip /> : undefined}
+            <PlaybackControls className={style.centerPlaybackControls} />
+            <BottomBar
+              leftControls={
+                <Fragment>
+                  <PlaybackControls />
+                  <TimeDisplayAdsContainer />
+                </Fragment>
+              }
+              rightControls={
+                <Fragment>
+                  <Volume />
+                  <Fullscreen />
+                </Fragment>
+              }
+            />
+          </GuiArea>
+        </div>
+      </PlayerArea>
     </div>
   );
 }
