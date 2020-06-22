@@ -32,8 +32,8 @@ class Overlay extends Component {
    * @returns {void}
    * @memberof Overlay
    */
-  componentWillMount(): void {
-    this.props.addPlayerClass(style.overlayActive);
+  componentDidMount(): void {
+    setTimeout(() => this.props.addPlayerClass(style.overlayActive));
   }
 
   /**
