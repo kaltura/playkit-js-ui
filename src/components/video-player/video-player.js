@@ -15,7 +15,8 @@ import {FakeEvent} from 'event/fake-event';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  videoStyles: state.shell.layoutStyles.video
+  videoStyles: state.shell.layoutStyles.video,
+  targetId: state.config.targetId
 });
 
 @withPlayer
@@ -52,6 +53,12 @@ class VideoPlayer extends Component {
   componentDidMount(): void {
     const {eventManager, player} = this.props;
     eventManager.listen(player, player.Event.SOURCE_SELECTED, () => this._onVideoResize());
+
+    const videoResizeWatcher = new ResizeWatcher();
+    videoResizeWatcher.init(this._el);
+    this._videoResizeWatcher = videoResizeWatcher;
+    // do not use debounce here since it breaks the video resizing animation
+    this.props.eventManager.listen(this._videoResizeWatcher, FakeEvent.Type.RESIZE, this._onVideoResize);
   }
 
   /**
@@ -85,12 +92,6 @@ class VideoPlayer extends Component {
     }
 
     this._el.appendChild(this.props.player.getView());
-
-    const videoResizeWatcher = new ResizeWatcher();
-    videoResizeWatcher.init(this._el);
-    this._videoResizeWatcher = videoResizeWatcher;
-    // do not use debounce here since it breaks the video resizing animation
-    this.props.eventManager.listen(this._videoResizeWatcher, FakeEvent.Type.RESIZE, this._onVideoResize);
   };
 
   /**
@@ -110,9 +111,9 @@ class VideoPlayer extends Component {
    * @memberof VideoPlayer
    */
   render(): React$Element<any> {
-    const {videoStyles} = this.props;
+    const {videoStyles, targetId} = this.props;
 
-    return <div className={style.videoPlayer} style={videoStyles} ref={this._setRef} />;
+    return <div id={`${targetId}-video`} className={style.videoPlayer} style={videoStyles} ref={this._setRef} />;
   }
 }
 
