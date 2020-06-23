@@ -4,15 +4,10 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  margin-top: -32px;
-  margin-left: -51px;
-}
-
-.player.playlist {
-  .player-gui > .playback-controls,
-  .center-playback-controls {
-    margin-left: -153px;
-  }
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  white-space: nowrap;
 }
 
 .bottom-bar .playback-controls {
