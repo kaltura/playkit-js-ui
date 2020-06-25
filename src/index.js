@@ -4,6 +4,7 @@ import * as preact from 'preact';
 import {EventType} from './event/event-type';
 import * as redux from 'react-redux';
 import * as preacti18n from 'preact-i18n';
+import * as preactHooks from 'preact/hooks';
 // ui reducers
 import * as Reducers from './reducers';
 // ui presets
@@ -24,6 +25,7 @@ export {createPortal} from 'preact/compat';
 export {preact};
 export {redux};
 export {preacti18n};
+export {preactHooks};
 
 export {style};
 
