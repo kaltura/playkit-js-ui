@@ -1,13 +1,12 @@
 .player .top-bar {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
-  padding: 14px 16px;
+  padding: 6px 16px;
   color: #fff;
   opacity: 0;
   visibility: hidden;
   transition: 100ms opacity;
-  display: flex;
-  justify-content: space-between;
   width: 100%;
+  margin-top: auto;
   position: absolute;
   top: 0;
   left: 0;
@@ -21,10 +20,12 @@
   }
 
   .left-controls {
+    float: left;
     text-align: left;
     min-width: 0;
   }
   .right-controls {
+    float: right;
     text-align: left;
 
     .control-button-container {
