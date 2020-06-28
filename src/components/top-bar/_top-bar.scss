@@ -1,12 +1,11 @@
 .player .top-bar {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
-  padding: 6px 16px;
+  padding: 14px 16px;
   color: #fff;
   opacity: 0;
   visibility: hidden;
   transition: 100ms opacity;
   width: 100%;
-  margin-top: auto;
   position: absolute;
   top: 0;
   left: 0;
