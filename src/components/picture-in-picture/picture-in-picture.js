@@ -20,6 +20,7 @@ import {Button} from 'components/button';
  */
 const mapStateToProps = state => ({
   isPictureInPictureSupported: state.engine.isPictureInPictureSupported,
+  isInPictureInPicture: state.engine.isInPictureInPicture,
   playerSize: state.shell.playerSize
 });
 
@@ -91,9 +92,10 @@ class PictureInPicture extends Component {
             <Button
               tabIndex="0"
               aria-label={this.props.pipText}
-              className={`${style.controlButton} ${this.state.animation ? style.rotate : ''}`}
+              className={this.props.isInPictureInPicture ? [style.controlButton, style.isInPictureInPicture].join(' ') : style.controlButton}
               onClick={() => this.togglePip()}>
-              <Icon type={IconType.PictureInPicture} />
+              <Icon type={IconType.PictureInPictureStart} />
+              <Icon type={IconType.PictureInPictureStop} />
             </Button>
           </Tooltip>
         </div>
