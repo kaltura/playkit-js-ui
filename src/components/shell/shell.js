@@ -354,6 +354,7 @@ class Shell extends Component {
     // or after an ad break
     // or in ad break
     if (
+      (this.props.currentState === 'playing' && prevProps.currentState === 'paused') ||
       (!this.props.prePlayback && prevProps.prePlayback) ||
       (!this.props.adBreak && prevProps.adBreak) ||
       (this.props.adBreak && !prevProps.adBreak)
