@@ -351,6 +351,7 @@ class Shell extends Component {
    */
   componentDidUpdate(prevProps: Object): void {
     // Update the hover state if the transition was from pre playback screen
+    // or from paused to playing
     // or after an ad break
     // or in ad break
     if (
