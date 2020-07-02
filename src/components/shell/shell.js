@@ -10,7 +10,10 @@ import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {withLogger} from 'components/logger';
+import {ResizeWatcher} from '../../utils/resize-watcher';
 import {debounce} from 'utils/debounce';
+import {FakeEvent} from 'event/fake-event';
+
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -25,7 +28,7 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile,
   playerSize: state.shell.playerSize,
   isCasting: state.engine.isCasting,
-  playerClientRect: state.shell.playerClientRect,
+  guiClientRect: state.shell.guiClientRect,
   playerHover: state.shell.playerHover,
   playerNav: state.shell.playerNav,
   seekbarDraggingActive: state.seekbar.draggingActive,
@@ -85,6 +88,7 @@ class Shell extends Component {
   state: Object;
   hoverTimeout: ?number;
   _environmentClasses: Array<string>;
+  _playerResizeWatcher: ResizeWatcher;
 
   /**
    * on mouse over, add hover class (shows the player ui) and timeout of 3 seconds bt default or what pass as prop configuration to component
@@ -161,6 +165,7 @@ class Shell extends Component {
       this.props.player.muted = false;
     }
   }
+
   /**
    * on touch end handler
    * @param {TouchEvent} e - touch event
@@ -221,25 +226,28 @@ class Shell extends Component {
    * @memberof Shell
    */
   componentDidMount() {
-    const {player, forceTouchUI} = this.props;
+    const {player, forceTouchUI, eventManager} = this.props;
     const {isIPadOS, isTablet, isMobile} = player.env;
     this.props.updateIsMobile(isIPadOS || isTablet || isMobile || forceTouchUI);
     this._onWindowResize();
-    this.props.eventManager.listen(
+    eventManager.listen(
       window,
       'resize',
       debounce(() => {
         this._onWindowResize();
       }, ON_WINDOW_RESIZE_DEBOUNCE_DELAY)
     );
-    this.props.eventManager.listen(
-      player,
-      player.Event.RESIZE,
+    this._playerResizeWatcher = new ResizeWatcher();
+    this._playerResizeWatcher.init(document.getElementById(this.props.targetId));
+    eventManager.listen(
+      this._playerResizeWatcher,
+      FakeEvent.Type.RESIZE,
       debounce(() => {
         this._onWindowResize();
       }, ON_WINDOW_RESIZE_DEBOUNCE_DELAY)
     );
-    this.props.eventManager.listen(player, player.Event.FIRST_PLAY, () => this._onWindowResize());
+    eventManager.listen(player, player.Event.FIRST_PLAY, () => this._onWindowResize());
+    this._onWindowResize();
   }
 
   /**
@@ -253,6 +261,7 @@ class Shell extends Component {
     if (playerContainer) {
       this.props.updatePlayerClientRect(playerContainer.getBoundingClientRect());
     }
+
     if (document.body) {
       this.props.updateDocumentWidth(document.body.clientWidth);
     }
@@ -266,6 +275,7 @@ class Shell extends Component {
    */
   componentWillUnmount(): void {
     this._clearHoverTimeout();
+    this._playerResizeWatcher.destroy();
   }
 
   /**
@@ -341,9 +351,11 @@ class Shell extends Component {
    */
   componentDidUpdate(prevProps: Object): void {
     // Update the hover state if the transition was from pre playback screen
+    // or from paused to playing
     // or after an ad break
     // or in ad break
     if (
+      (this.props.currentState === 'playing' && prevProps.currentState === 'paused') ||
       (!this.props.prePlayback && prevProps.prePlayback) ||
       (!this.props.adBreak && prevProps.adBreak) ||
       (this.props.adBreak && !prevProps.adBreak)
@@ -360,8 +372,7 @@ class Shell extends Component {
    * @memberof Shell
    */
   render(props: any): React$Element<any> {
-    let playerClasses = [style.player, style.skinDefault, ...this._environmentClasses];
-    playerClasses.push(props.playerClasses);
+    let playerClasses = [style.player, style.skinDefault, ...this._environmentClasses].concat(props.playerClasses);
 
     if (this.props.prePlayback) playerClasses.push(style.prePlayback);
     if (this.props.isCasting) playerClasses.push(`${__CSS_MODULE_PREFIX__}-casting`);
@@ -374,20 +385,20 @@ class Shell extends Component {
     if (this.props.seekbarDraggingActive) playerClasses.push(style.hover);
     if (this.props.fullscreen) playerClasses.push(style.fullscreen);
     if (this.props.playlist) playerClasses.push(style.playlist);
-    if (this.props.playerClientRect) {
-      if (this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.TINY) {
+    if (this.props.guiClientRect) {
+      if (this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.TINY) {
         playerClasses.push(style.sizeTy);
         this.props.updatePlayerSize(PLAYER_SIZE.TINY);
-      } else if (this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.EXTRA_SMALL) {
+      } else if (this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.EXTRA_SMALL) {
         playerClasses.push(style.sizeXs);
         this.props.updatePlayerSize(PLAYER_SIZE.EXTRA_SMALL);
-      } else if (this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.SMALL) {
+      } else if (this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.SMALL) {
         playerClasses.push(style.sizeSm);
         this.props.updatePlayerSize(PLAYER_SIZE.SMALL);
-      } else if (this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.MEDIUM) {
+      } else if (this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.MEDIUM) {
         playerClasses.push(style.sizeMd);
         this.props.updatePlayerSize(PLAYER_SIZE.MEDIUM);
-      } else if (this.props.playerClientRect.width <= PLAYER_BREAK_POINTS.LARGE) {
+      } else if (this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.LARGE) {
         playerClasses.push(style.sizeLg);
         this.props.updatePlayerSize(PLAYER_SIZE.LARGE);
       } else {

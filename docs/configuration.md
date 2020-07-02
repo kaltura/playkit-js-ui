@@ -217,9 +217,9 @@ var uiManager = new playkit.ui.UIManager(player, config);
 > > > ##### Default: `-`
 > > >
 > > > ##### Description: The amount of slices that the preview thumbnail image will divided into.
-
-##
-
+> >
+> > ##
+> >
 > > ### config.components.fullscreen
 > >
 > > ##### Type: `Object`
@@ -242,7 +242,7 @@ var uiManager = new playkit.ui.UIManager(player, config);
 > >
 > > > ### config.components.fullscreen.inBrowserFullscreenForIOS (Deprecated)
 > > >
-> > > #### Moved to [playback.inBrowserFullscreen](https://github.com/kaltura/playkit-js/blob/master/docs/configuration.md#configplaybackinbrowserfullscreen)
+> > > #### Moved to [`playback.inBrowserFullscreen`](https://github.com/kaltura/playkit-js/blob/master/docs/configuration.md#configplaybackinbrowserfullscreen)
 > > > 
 > > > ##
 > > >

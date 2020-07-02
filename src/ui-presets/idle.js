@@ -2,6 +2,8 @@
 import {h} from 'preact';
 import style from '../styles/style.scss';
 import {Loading} from '../components/loading';
+import {PlayerArea} from 'components/player-area';
+import {GuiArea} from 'components/gui-area';
 
 const PRESET_NAME = 'Idle';
 
@@ -13,7 +15,11 @@ const PRESET_NAME = 'Idle';
 export function IdleUI(): React$Element<any> {
   return (
     <div className={style.playbackGuiWrapper}>
-      <Loading />
+      <PlayerArea name={'PresetArea'}>
+        <GuiArea>
+          <Loading />
+        </GuiArea>
+      </PlayerArea>
     </div>
   );
 }

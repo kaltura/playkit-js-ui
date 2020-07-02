@@ -4,6 +4,9 @@ const namespace = 'playkit-ui';
 const EventType: {[event: string]: string} = {
   UI_CLICKED: `${namespace}-uiclicked`,
   UI_VISIBILITY_CHANGED: `${namespace}-uivisibilitychanged`,
+  GUI_RESIZE: `${namespace}-guiresize`,
+  PLAYER_RESIZE: `${namespace}-playerresize`,
+  VIDEO_RESIZE: `${namespace}-videoresize`,
   UI_PRESET_CHANGE: `${namespace}-uipresetchange`,
   USER_CLICKED_PLAY: `${namespace}-userclickedplay`,
   USER_CLICKED_PAUSE: `${namespace}-userclickedpause`,
@@ -22,7 +25,8 @@ const EventType: {[event: string]: string} = {
   USER_EXITED_PICTURE_IN_PICTURE: `${namespace}-userexitedpictureinpicture`,
   USER_SELECTED_CAPTIONS_STYLE: `${namespace}-userselectedcaptionsstyle`,
   USER_SELECTED_SPEED: `${namespace}-userselectedspeed`,
-  USER_SEEKED: `${namespace}-userseeked`
+  USER_SEEKED: `${namespace}-userseeked`,
+  RESIZE: `${namespace}-resize`
 };
 
 export {EventType};

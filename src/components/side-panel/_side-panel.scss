@@ -1,0 +1,22 @@
+.side-panel {
+  position: absolute;
+  overflow: hidden;
+  transition: all $default-transition-time;
+  transition-property: left, right, bottom, top, opacity;
+}
+
+.vertical-side-panel {
+  height: 100%;
+}
+
+.horizontal-side-panel {
+  height: 0;
+  left: 0;
+  right: 0;
+}
+
+.side-panel-content {
+  width: 100%;
+  height: 100%;
+}
+

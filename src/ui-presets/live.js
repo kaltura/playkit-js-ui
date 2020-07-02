@@ -1,6 +1,6 @@
 //@flow
 import style from '../styles/style.scss';
-import {h} from 'preact';
+import {Component, Fragment, h} from 'preact';
 import {OverlayAction} from '../components/overlay-action';
 import {PrePlaybackPlayOverlay} from '../components/pre-playback-play-overlay';
 import {Loading} from '../components/loading';
@@ -22,64 +22,96 @@ import {PlaybackControls} from '../components/playback-controls';
 import {PictureInPicture} from '../components/picture-in-picture';
 import {PictureInPictureOverlay} from '../components/picture-in-picture-overlay';
 import {Share} from '../components/share';
-import {Container} from '../components/container';
+import {PlayerArea, withPlayerPreset} from '../components/player-area';
 import {TopBar} from '../components/top-bar';
 import {Logo} from '../components/logo/logo';
+import {InteractiveArea} from 'components/interactive-area';
 import {withKeyboardEvent} from 'components/keyboard';
+import {VideoArea} from 'components/video-area';
+import {GuiArea} from 'components/gui-area';
 
 const PRESET_NAME = 'Live';
 
+@withPlayerPreset({
+  allowSidePanels: true,
+  allowPlayerArea: true
+})
+@withKeyboardEvent(PRESET_NAME)
 /**
  * Live ui interface component
  *
  * @param {*} props component props
  * @returns {React$Element<any>} player ui tree
  */
-export function LiveUI(props: any): React$Element<any> {
-  props.updateIsKeyboardEnabled(true);
-  return (
-    <Container className={style.playbackGuiWrapper} name={'VideoOverlay'} preAppendTo={'Backdrop'}>
-      <Loading />
-      <Container className={style.playerGui} name={'PlayerGUI'} id="player-gui">
-        <OverlayPortal />
-        <UnmuteIndication />
-        <OverlayAction />
-        <PlaybackControls />
-        <TopBar>
-          <Container className={style.leftControls} name={'TopBarLeftControls'} />
-          <Container className={style.rightControls} name={'TopBarRightControls'}>
-            <Share />
-          </Container>
-        </TopBar>
-        <BottomBar>
-          <SeekBarLivePlaybackContainer showFramePreview showTimeBubble playerContainer={props.playerContainer} />
-          <Container className={style.leftControls} name={'BottomBarLeftControls'}>
-            <PlaybackControls />
-            <LiveTag />
-          </Container>
-          <Container className={style.rightControls} name={'BottomBarRightControls'}>
-            <VrStereo />
-            <Volume />
-            <Language />
-            <Settings />
-            <Cast />
-            <PictureInPicture />
-            <Fullscreen />
-            <Logo />
-          </Container>
-        </BottomBar>
-      </Container>
-      <Watermark />
-      <PrePlaybackPlayOverlay />
-      <CastBeforePlay />
-      <PictureInPictureOverlay />
-      <Backdrop />
-    </Container>
-  );
+class LiveUI extends Component {
+  /**
+   * @returns {void}
+   */
+  componentDidMount(): void {
+    const props = this.props;
+    props.updateIsKeyboardEnabled(true);
+  }
+
+  /**
+   * render component
+   *
+   * @returns {React$Element} - component element
+   * @memberof LiveUI
+   */
+  render() {
+    return (
+      <div className={style.playbackGuiWrapper}>
+        <PlayerArea name={'PresetArea'}>
+          <div className={style.playerGui} id="player-gui">
+            <OverlayAction />
+            <VideoArea>
+              <Watermark />
+            </VideoArea>
+            <GuiArea>
+              {({containerRef}) => (
+                <Fragment>
+                  <Loading />
+                  <OverlayPortal />
+                  <UnmuteIndication />
+                  <PictureInPictureOverlay />
+                  <PlaybackControls className={style.centerPlaybackControls} />
+                  <InteractiveArea />
+                  <TopBar rightControls={<Share />} />
+                  <BottomBar
+                    leftControls={
+                      <Fragment>
+                        <PlaybackControls />
+                        <LiveTag />
+                      </Fragment>
+                    }
+                    rightControls={
+                      <Fragment>
+                        <VrStereo />
+                        <Volume />
+                        <Language />
+                        <Settings />
+                        <Cast />
+                        <PictureInPicture />
+                        <Fullscreen />
+                        <Logo />
+                      </Fragment>
+                    }>
+                    <SeekBarLivePlaybackContainer showFramePreview showTimeBubble playerContainer={containerRef} />
+                  </BottomBar>
+                  <PrePlaybackPlayOverlay />
+                  <CastBeforePlay />
+                  <Backdrop />
+                </Fragment>
+              )}
+            </GuiArea>
+          </div>
+        </PlayerArea>
+      </div>
+    );
+  }
 }
 
-const LiveUIComponent = withKeyboardEvent(PRESET_NAME)(LiveUI);
-LiveUIComponent.displayName = PRESET_NAME;
+LiveUI.displayName = PRESET_NAME;
 
 /**
  * Live ui interface
@@ -89,5 +121,5 @@ LiveUIComponent.displayName = PRESET_NAME;
  * @returns {React$Element<any>} player ui tree
  */
 export function liveUI(props: any): React$Element<any> {
-  return <LiveUIComponent {...props} />;
+  return <LiveUI {...props} />;
 }

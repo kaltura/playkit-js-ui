@@ -92,27 +92,25 @@ class Share extends Component {
     }
     const shareConfig = this._getMergedShareConfig();
     const portalSelector = `#${this.props.player.config.targetId} .overlay-portal`;
-    return (
-      <div>
-        {this.state.overlay ? (
-          createPortal(
-            <ShareOverlay
-              shareUrl={shareUrl}
-              embedUrl={embedUrl}
-              enableTimeOffset={enableTimeOffset}
-              socialNetworks={shareConfig}
-              player={this.props.player}
-              onClose={() => this.toggleOverlay()}
-            />,
-            document.querySelector(portalSelector)
-          )
-        ) : (
-          <Tooltip label={this.props.shareTxt} type={ToolTipType.BottomLeft}>
-            <Button aria-haspopup="true" className={style.controlButton} onClick={() => this.toggleOverlay()} aria-label={this.props.shareTxt}>
-              <Icon type={IconType.Share} />
-            </Button>
-          </Tooltip>
-        )}
+    return this.state.overlay ? (
+      createPortal(
+        <ShareOverlay
+          shareUrl={shareUrl}
+          embedUrl={embedUrl}
+          enableTimeOffset={enableTimeOffset}
+          socialNetworks={shareConfig}
+          player={this.props.player}
+          onClose={() => this.toggleOverlay()}
+        />,
+        document.querySelector(portalSelector)
+      )
+    ) : (
+      <div className={style.controlButtonContainer}>
+        <Tooltip label={this.props.shareTxt} type={ToolTipType.BottomLeft}>
+          <Button aria-haspopup="true" className={style.controlButton} onClick={() => this.toggleOverlay()} aria-label={this.props.shareTxt}>
+            <Icon type={IconType.Share} />
+          </Button>
+        </Tooltip>
       </div>
     );
   }

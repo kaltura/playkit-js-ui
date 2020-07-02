@@ -1,16 +1,13 @@
-.player-gui > .playback-controls {
+.player-gui > .playback-controls,
+.center-playback-controls {
   display: none;
   position: absolute;
   top: 50%;
   left: 50%;
-  margin-top: -32px;
-  margin-left: -48px;
-}
-
-.player.playlist {
-  .player-gui > .playback-controls {
-    margin-left: -144px;
-  }
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  white-space: nowrap;
 }
 
 .bottom-bar .playback-controls {
@@ -31,7 +28,8 @@
       }
 
       &.hover {
-        .player-gui > .playback-controls {
+        .player-gui > .playback-controls,
+        .center-playback-controls {
           display: block;
 
           .control-button {

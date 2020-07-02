@@ -1,0 +1,5 @@
+.gui-area {
+  pointer-events: none;
+  transition: all $default-transition-time;
+  transition-property: left, right, bottom, top;
+}

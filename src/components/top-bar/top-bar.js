@@ -2,6 +2,7 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'react-redux';
+import {PlayerArea} from 'components/player-area';
 
 /**
  * mapping state to props
@@ -32,7 +33,7 @@ class TopBar extends Component {
    * @memberof TopBar
    */
   render(props: any): ?React$Element<any> {
-    const {disabled, isPlaybackEnded, isCasting} = props;
+    const {disabled, isPlaybackEnded, isCasting, leftControls, rightControls} = props;
 
     const styleClass = [style.topBar];
 
@@ -43,7 +44,19 @@ class TopBar extends Component {
       styleClass.push(style.hide);
     }
 
-    return <div className={styleClass.join(' ')}>{props.children}</div>;
+    return (
+      <div className={styleClass.join(' ')}>
+        <PlayerArea name={'TopBar'}>
+          {props.children}
+          <div className={style.leftControls}>
+            <PlayerArea name={'TopBarLeftControls'}>{leftControls}</PlayerArea>
+          </div>
+          <div className={style.rightControls}>
+            <PlayerArea name={'TopBarRightControls'}>{rightControls}</PlayerArea>
+          </div>
+        </PlayerArea>
+      </div>
+    );
   }
 }
 

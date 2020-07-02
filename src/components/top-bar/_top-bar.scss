@@ -5,8 +5,6 @@
   opacity: 0;
   visibility: hidden;
   transition: 100ms opacity;
-  display: flex;
-  justify-content: space-between;
   width: 100%;
   position: absolute;
   top: 0;
@@ -21,10 +19,12 @@
   }
 
   .left-controls {
+    float: left;
     text-align: left;
     min-width: 0;
   }
   .right-controls {
+    float: right;
     text-align: left;
 
     .control-button-container {
@@ -38,7 +38,7 @@
 }
 
 .player.casting .top-bar,
-.player.hover .top-bar,
+.player.metadata-loaded.hover .top-bar,
 .player.state-paused .top-bar,
 .player.state-idle .top-bar,
 .player.ad-break .top-bar,

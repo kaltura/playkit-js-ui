@@ -15,7 +15,8 @@ export const initialState = {
     vrStereo: {},
     share: {},
     logo: {},
-    fullscreen: {}
+    fullscreen: {},
+    sidePanels: {}
   }
 };
 

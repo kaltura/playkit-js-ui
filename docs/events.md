@@ -54,6 +54,39 @@
 
 #
 
+> ### <a name="GUI_RESIZE"></a>GUI_RESIZE
+>
+> Fires when the gui resize.
+> <br><br>_payload parameters:_
+>
+> | Name      | Type      | Description                                            |
+> | --------- | --------- | ------------------------------------------------------ |
+> 
+
+#
+
+> ### <a name="PLAYER_RESIZE"></a>PLAYER_RESIZE
+>
+> Fires when the player resize.
+> <br><br>_payload parameters:_
+>
+> | Name      | Type      | Description                                            |
+> | --------- | --------- | ------------------------------------------------------ |
+> 
+
+#
+
+> ### <a name="VIDEO_RESIZE"></a>VIDEO_RESIZE
+>
+> Fires when the video resize.
+> <br><br>_payload parameters:_
+>
+> | Name      | Type      | Description                                            |
+> | --------- | --------- | ------------------------------------------------------ |
+> 
+
+#
+
 > ### <a name="USER_CLICKED_PLAY"></a>USER_CLICKED_PLAY
 >
 > Fires when the user initiated play by the UI.<br>
