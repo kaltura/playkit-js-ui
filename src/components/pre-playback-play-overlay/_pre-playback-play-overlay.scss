@@ -32,6 +32,14 @@
   }
 }
 
+.pre-playback {
+  .bottom-bar,
+  .top-bar {
+    opacity: 0;
+    display: none;
+  }
+}
+
 .player{
   &.size-ty {
     .pre-playback-play-button {
