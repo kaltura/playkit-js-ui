@@ -92,8 +92,7 @@
       "cancel": "Cancel"
     },
     "pictureInPicture": {
-      "overlay_text": "Playing in Picture In Picture mode",
-      "overlay_button": "Play Here"
+      "overlay_text": "Playing in Picture In Picture mode"
     }
   }
 }
