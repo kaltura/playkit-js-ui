@@ -147,7 +147,7 @@ class Language extends Component {
    * @returns {void}
    * @memberof Language
    */
-  onControlButtonClick(): void {
+  toggleSmartContainerOpen(): void {
     this.setState(prevState => {
       return {smartContainerOpen: !prevState.smartContainerOpen};
     });
@@ -213,7 +213,7 @@ class Language extends Component {
             aria-haspopup="true"
             aria-label={this.props.buttonLabel}
             className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
-            onClick={() => this.onControlButtonClick()}>
+            onClick={() => this.toggleSmartContainerOpen()}>
             <Icon type={IconType.Language} />
           </Button>
         </Tooltip>
@@ -223,7 +223,7 @@ class Language extends Component {
           <SmartContainer
             targetId={this.props.player.config.targetId}
             title={<Text id="language.title" />}
-            onClose={() => this.onControlButtonClick()}>
+            onClose={() => this.toggleSmartContainerOpen()}>
             {audioOptions.length <= 1 ? (
               undefined
             ) : (
@@ -250,7 +250,7 @@ class Language extends Component {
               <AdvancedCaptionsAnchor
                 isPortal={this.props.isMobile || this.props.isSmallSize}
                 onMenuChosen={() => this.toggleCVAAOverlay()}
-                onClose={() => this.onControlButtonClick()}
+                onClose={() => this.toggleSmartContainerOpen()}
               />
             )}
           </SmartContainer>
@@ -260,7 +260,7 @@ class Language extends Component {
             <CVAAOverlay
               onClose={() => {
                 this.toggleCVAAOverlay();
-                this.onControlButtonClick();
+                this.toggleSmartContainerOpen();
               }}
             />,
             document.querySelector(portalSelector)
