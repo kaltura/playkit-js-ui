@@ -4,7 +4,7 @@
 
 If your components require a keyboard event, then the UI supplies a keyboard event registration as a service.
 The keyboard event registration enables to add and remove keyboard events for our player.
-The registration is for a specfic component - when the component will be removed, the relevant keyboard events would be removed.
+The registration is for a specific component - when the component will be removed, the relevant keyboard events would be removed.
 For a combination of a Key code + altKey + ctrlKey + metaKey + shiftKey, one handler can be used.
 Let's see an example:
 
