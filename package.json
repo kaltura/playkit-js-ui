@@ -39,7 +39,7 @@
     "redux": "^3.6.0"
   },
   "devDependencies": {
-    "@playkit-js/playkit-js": "^0.59.5",
+    "kaltura-player-js": "https://github.com/kaltura/kaltura-player-js.git#FEC-10057",
     "babel-cli": "^6.18.0",
     "babel-core": "^6.24.1",
     "babel-eslint": "^7.1.1",

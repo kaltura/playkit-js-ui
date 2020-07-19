@@ -40,7 +40,7 @@ class UIManager {
   container: ?HTMLElement;
   _translations: {[langKey: string]: Object} = {en: en_translations['en']};
   _locale: string = 'en';
-  _uiComponents: Array<PKUIComponent>;
+  _uiComponents: Array<KPUIComponent>;
 
   /**
    * Creates an instance of UIManager.
