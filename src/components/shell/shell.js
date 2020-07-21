@@ -239,7 +239,6 @@ class Shell extends Component {
    */
   componentDidMount() {
     const {player, eventManager} = this.props;
-    this._onWindowResize();
     eventManager.listen(
       window,
       'resize',
