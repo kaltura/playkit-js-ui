@@ -34,7 +34,6 @@ export const withAnimation: Function = (cssClass: string) => (WrappedComponent: 
 
       /**
        * adds the animation class
-       *innerRef
        * @returns {void}
        * @memberof AnimationComponent
        */
