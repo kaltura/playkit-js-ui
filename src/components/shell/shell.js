@@ -91,6 +91,18 @@ class Shell extends Component {
   _playerResizeWatcher: ResizeWatcher;
 
   /**
+   * Creates an instance of Shell.
+   * @param {Object} props object
+   * @memberof Shell
+   */
+  constructor(props: any) {
+    super(props);
+    const {forceTouchUI} = props;
+    const {isIPadOS, isTablet, isMobile} = props.player.env;
+    this.props.updateIsMobile(isIPadOS || isTablet || isMobile || forceTouchUI);
+  }
+
+  /**
    * on mouse over, add hover class (shows the player ui) and timeout of 3 seconds bt default or what pass as prop configuration to component
    *
    * @returns {void}
@@ -226,9 +238,7 @@ class Shell extends Component {
    * @memberof Shell
    */
   componentDidMount() {
-    const {player, forceTouchUI, eventManager} = this.props;
-    const {isIPadOS, isTablet, isMobile} = player.env;
-    this.props.updateIsMobile(isIPadOS || isTablet || isMobile || forceTouchUI);
+    const {player, eventManager} = this.props;
     this._onWindowResize();
     eventManager.listen(
       window,
