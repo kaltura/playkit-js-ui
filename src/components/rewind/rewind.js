@@ -19,11 +19,6 @@ const COMPONENT_NAME = 'Rewind';
  */
 export const REWIND_DEFAULT_STEP = 10;
 
-@withPlayer
-@withLogger(COMPONENT_NAME)
-@withEventDispatcher(COMPONENT_NAME)
-@withAnimation(style.rotate)
-@withText({rewindText: 'controls.rewind'})
 /**
  * Rewind component
  *
@@ -31,6 +26,11 @@ export const REWIND_DEFAULT_STEP = 10;
  * @example <Rewind step={5} />
  * @extends {Component}
  */
+@withPlayer
+@withLogger(COMPONENT_NAME)
+@withEventDispatcher(COMPONENT_NAME)
+@withAnimation(style.rotate)
+@withText({rewindText: 'controls.rewind'})
 class Rewind extends Component {
   /**
    * rewind click handler

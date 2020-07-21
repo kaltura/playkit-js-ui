@@ -19,12 +19,6 @@ const mapStateToProps = state => ({
   targetId: state.config.targetId
 });
 
-@withPlayer
-@withEventManager
-@connect(
-  mapStateToProps,
-  bindActions(actions)
-)
 /**
  * VideoPlayer component
  *
@@ -32,8 +26,11 @@ const mapStateToProps = state => ({
  * @example <VideoPlayer>...</VideoPlayer>
  * @extends {Component}
  */
+@withPlayer
+@withEventManager
+@connect(mapStateToProps, bindActions(actions))
 class VideoPlayer extends Component {
-  _el: HTMLElement;
+  _el: HTMLDivElement;
   _videoResizeWatcher: ResizeWatcher;
 
   /**
@@ -74,11 +71,11 @@ class VideoPlayer extends Component {
 
   /**
    *
-   * @param {HTMLElement} ref - ref
+   * @param {HTMLDivElement} ref - ref
    * @return {void}
    * @private
    */
-  _setRef = (ref: HTMLElement) => {
+  _setRef = (ref: HTMLDivElement) => {
     if (this._videoResizeWatcher) {
       this.props.eventManager.unlisten(this._videoResizeWatcher, FakeEvent.Type.RESIZE, this._onVideoResize);
       this._videoResizeWatcher.destroy();
@@ -113,7 +110,7 @@ class VideoPlayer extends Component {
   render(): React$Element<any> {
     const {videoStyles, targetId} = this.props;
 
-    return <div id={`${targetId}-video`} className={style.videoPlayer} style={videoStyles} ref={this._setRef} />;
+    return <div id={`${targetId}-video`} className={style.videoPlayer} style={videoStyles} ref={ref => (ref ? this._setRef(ref) : undefined)} />;
   }
 }
 

@@ -20,12 +20,6 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'CastAfterPlay';
 
-@connect(
-  mapStateToProps,
-  null
-)
-@withPlayer
-@withLogger(COMPONENT_NAME)
 /**
  * CastAfterPlay component
  *
@@ -33,6 +27,9 @@ const COMPONENT_NAME = 'CastAfterPlay';
  * @example <CastAfterPlay />
  * @extends {Component}
  */
+@connect(mapStateToProps, null)
+@withPlayer
+@withLogger(COMPONENT_NAME)
 class CastAfterPlay extends Component {
   /**
    * @static

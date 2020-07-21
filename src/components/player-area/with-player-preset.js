@@ -15,13 +15,10 @@ const defaultProps = {
  * @returns {function(*): *} connect
  */
 const withPlayerPreset = (options: Object) => (InnerComponent: Component) => {
-  @connect(
-    null,
-    bindActions(actions)
-  )
   /**
    * hoc withPlayerPreset
    */
+  @connect(null, bindActions(actions))
   class PlayerPreset extends Component {
     /**
      * on component mount

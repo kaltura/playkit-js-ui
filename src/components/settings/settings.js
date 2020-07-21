@@ -33,10 +33,14 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'Settings';
 
-@connect(
-  mapStateToProps,
-  bindActions({...actions, ...overlayIconActions})
-)
+/**
+ * Settings component
+ *
+ * @class Settings
+ * @example <Settings />
+ * @extends {Component}
+ */
+@connect(mapStateToProps, bindActions({...actions, ...overlayIconActions}))
 @withText({
   qualityLabelText: 'settings.quality',
   speedLabelText: 'settings.speed',
@@ -49,13 +53,6 @@ const COMPONENT_NAME = 'Settings';
 @withKeyboardEvent(COMPONENT_NAME)
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
-/**
- * Settings component
- *
- * @class Settings
- * @example <Settings />
- * @extends {Component}
- */
 class Settings extends Component {
   state: Object;
   _controlSettingsElement: any;

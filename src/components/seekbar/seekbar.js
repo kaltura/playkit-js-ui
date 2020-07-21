@@ -32,27 +32,23 @@ const COMPONENT_NAME = 'SeekBar';
  */
 const KEYBOARD_DEFAULT_SEEK_JUMP: number = 5;
 
-@connect(
-  mapStateToProps,
-  bindActions({...actions, ...overlayIconActions})
-)
-@withPlayer
-@withKeyboardEvent(COMPONENT_NAME)
-@withText({sliderAriaLabel: 'controls.seekBarSlider'})
-
 /**
  * SeekBar component
  *
  * @class SeekBar
  * @extends {Component}
  */
+@connect(mapStateToProps, bindActions({...actions, ...overlayIconActions}))
+@withPlayer
+@withKeyboardEvent(COMPONENT_NAME)
+@withText({sliderAriaLabel: 'controls.seekBarSlider'})
 class SeekBar extends Component {
   state: Object;
   onPlayerMouseUp: Function;
   onPlayerMouseMove: Function;
-  _seekBarElement: HTMLElement;
-  _framePreviewElement: HTMLElement;
-  _timeBubbleElement: HTMLElement;
+  _seekBarElement: HTMLDivElement;
+  _framePreviewElement: HTMLDivElement;
+  _timeBubbleElement: HTMLDivElement;
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
       key: {
@@ -520,7 +516,7 @@ class SeekBar extends Component {
       return undefined;
 
     return (
-      <div className={style.framePreview} style={this._getFramePreviewStyle()} ref={c => (this._framePreviewElement = c)}>
+      <div className={style.framePreview} style={this._getFramePreviewStyle()} ref={c => (c ? (this._framePreviewElement = c) : undefined)}>
         <div className={style.framePreviewImg} style={this._getFramePreviewImgStyle()} />
       </div>
     );
@@ -562,7 +558,7 @@ class SeekBar extends Component {
     const timeBubbleStyle = `left: ${this.getTimeBubbleOffset()}px`;
     const timeBubbleValue = this.props.isDvr ? '-' + toHHMMSS(this.props.duration - this.state.virtualTime) : toHHMMSS(this.state.virtualTime);
     return (
-      <div className={style.timePreview} style={timeBubbleStyle} ref={c => (this._timeBubbleElement = c)}>
+      <div className={style.timePreview} style={timeBubbleStyle} ref={c => (c ? (this._timeBubbleElement = c) : undefined)}>
         {timeBubbleValue}
       </div>
     );
@@ -589,7 +585,7 @@ class SeekBar extends Component {
       <div
         tabIndex="0"
         className={seekbarStyleClass.join(' ')}
-        ref={c => (this._seekBarElement = c)}
+        ref={c => (c ? (this._seekBarElement = c) : undefined)}
         role="slider"
         aria-label={props.sliderAriaLabel}
         aria-valuemin="0"

@@ -15,10 +15,6 @@ let plugins = [
   })
 ];
 
-if (PROD) {
-  plugins.push(new webpack.optimize.UglifyJsPlugin({sourceMap: true}));
-}
-
 module.exports = {
   context: __dirname + '/src',
   entry: {
@@ -34,6 +30,9 @@ module.exports = {
   },
   devtool: 'source-map',
   plugins: plugins,
+  optimization: {
+    minimize: PROD
+  },
   module: {
     rules: [
       {

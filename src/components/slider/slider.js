@@ -20,7 +20,7 @@ class Slider extends Component {
   sliderWidth: number;
   mouseUpHandler: Function;
   mouseMoveHandler: Function;
-  _sliderElement: HTMLElement;
+  _sliderElement: HTMLDivElement;
   _sliderElementOffsetLeft: number;
 
   /**
@@ -250,9 +250,11 @@ class Slider extends Component {
         aria-labelledby={props.name}
         tabIndex="0"
         ref={c => {
-          this._sliderElement = c;
-          if (props.pushRef) {
-            props.pushRef(c);
+          if (c) {
+            this._sliderElement = c;
+            if (props.pushRef) {
+              props.pushRef(c);
+            }
           }
         }}
         className={style.slider}

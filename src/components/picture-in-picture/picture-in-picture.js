@@ -25,19 +25,18 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'PictureInPicture';
 
-@connect(mapStateToProps)
-@withPlayer
-@withKeyboardEvent(COMPONENT_NAME)
-@withLogger(COMPONENT_NAME)
-@withEventDispatcher(COMPONENT_NAME)
-@withText({pipText: 'controls.pictureInPicture'})
-
 /**
  * PictureInPicture component
  *
  * @class PictureInPicture
  * @extends {Component}
  */
+@connect(mapStateToProps)
+@withPlayer
+@withKeyboardEvent(COMPONENT_NAME)
+@withLogger(COMPONENT_NAME)
+@withEventDispatcher(COMPONENT_NAME)
+@withText({pipText: 'controls.pictureInPicture'})
 class PictureInPicture extends Component {
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {

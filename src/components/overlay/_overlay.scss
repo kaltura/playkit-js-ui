@@ -79,7 +79,8 @@
 }
 
 .player {
-  &.size-sm, &.size-xs {
+  &.size-sm,
+  &.size-xs {
     .overlay {
       .overlay-contents {
         padding: 16px 24px;

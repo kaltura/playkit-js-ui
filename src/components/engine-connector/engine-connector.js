@@ -11,13 +11,6 @@ import {withLogger} from 'components/logger';
 
 const COMPONENT_NAME = 'EngineConnector';
 
-@connect(
-  reduce,
-  bindActions({...actions, ...loadingActions, ...shellActions})
-)
-@withPlayer
-@withEventManager
-@withLogger(COMPONENT_NAME)
 /**
  * EngineConnector component
  *
@@ -25,6 +18,10 @@ const COMPONENT_NAME = 'EngineConnector';
  * @example <EngineConnector />
  * @extends {Component}
  */
+@connect(reduce, bindActions({...actions, ...loadingActions, ...shellActions}))
+@withPlayer
+@withEventManager
+@withLogger(COMPONENT_NAME)
 class EngineConnector extends Component {
   /**
    * after component mounted, set event listeners and update redux store

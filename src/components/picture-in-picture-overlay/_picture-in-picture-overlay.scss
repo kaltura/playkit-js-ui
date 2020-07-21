@@ -1,6 +1,6 @@
 @import '~styles/variables';
 
-.picture-in-picture-overlay{
+.picture-in-picture-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -55,7 +55,7 @@
     cursor: pointer;
     margin-top: 20px;
     align-self: center;
-    &:hover{
+    &:hover {
       background-color: $grayscale2;
     }
   }

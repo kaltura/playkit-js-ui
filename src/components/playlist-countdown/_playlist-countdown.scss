@@ -17,7 +17,7 @@
     transition: transform ease-in 100ms, opacity 400ms, bottom 300ms;
     cursor: pointer;
 
-    &.slideIn{
+    &.slideIn {
       right: -160px;
       animation: slideIn 500ms 500ms forwards;
     }
@@ -137,9 +137,7 @@
         width: 152px;
 
         .playlist-countdown-content-background {
-
           .playlist-countdown-content {
-
             .playlist-countdown-text {
               padding: 8px;
 
@@ -178,7 +176,6 @@
           border-radius: 2px;
 
           .playlist-countdown-content {
-
             .playlist-countdown-text {
               width: 90%;
               padding: 3px 0 0 4px;

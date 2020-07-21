@@ -16,7 +16,6 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'PlaybackControls';
 
-@connect(mapStateToProps)
 /**
  * PlaybackControls component
  *
@@ -24,6 +23,7 @@ const COMPONENT_NAME = 'PlaybackControls';
  * @example <PlaybackControls>...</PlaybackControls>
  * @extends {Component}
  */
+@connect(mapStateToProps)
 class PlaybackControls extends Component {
   /**
    * render component

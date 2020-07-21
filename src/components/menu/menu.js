@@ -21,9 +21,6 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'Menu';
 
-@connect(mapStateToProps)
-@withEventManager
-@withKeyboardA11y
 /**
  * Menu component
  *
@@ -35,6 +32,9 @@ const COMPONENT_NAME = 'Menu';
  * />
  * @extends {Component}
  */
+@connect(mapStateToProps)
+@withEventManager
+@withKeyboardA11y
 class Menu extends Component {
   state: Object;
   handleClickOutside: Function;
@@ -135,9 +135,11 @@ class Menu extends Component {
   onSelect(option: Object): void {
     this.props.onMenuChosen(option.value);
     // Instant select
-    this.props.options.filter(t => t.active).forEach(option => {
-      option.active = false;
-    });
+    this.props.options
+      .filter(t => t.active)
+      .forEach(option => {
+        option.active = false;
+      });
     this.props.options.filter(t => t.value === option.value)[0].active = true;
   }
 

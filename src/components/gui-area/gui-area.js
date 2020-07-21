@@ -13,15 +13,15 @@ const mapStateToProps = state => ({
   guiStyles: state.shell.layoutStyles.gui
 });
 
-@connect(mapStateToProps)
 /**
  * GuiArea component
  *
  * @class GuiArea
  * @extends {Component}
  */
+@connect(mapStateToProps)
 class GuiArea extends Component {
-  _ref: ?HTMLElement = null;
+  _ref: HTMLDivElement;
 
   /**
    * this component should not render itself when player object changes.
@@ -36,11 +36,11 @@ class GuiArea extends Component {
 
   /**
    *
-   * @param {HTMLElement} ref - ref
+   * @param {HTMLDivElement} ref - ref
    * @returns {void}
    * @private
    */
-  _setRef = (ref: HTMLElement) => {
+  _setRef = (ref: HTMLDivElement) => {
     this._ref = ref;
     this.setState(prevState => ({render: !prevState.render}));
   };
@@ -53,7 +53,7 @@ class GuiArea extends Component {
   render(): React$Element<any> {
     const {guiStyles, children} = this.props;
     return (
-      <div ref={this._setRef} style={guiStyles} className={style.guiArea}>
+      <div ref={ref => (ref ? this._setRef(ref) : undefined)} style={guiStyles} className={style.guiArea}>
         <div style={{pointerEvents: 'auto'}}>
           <PlayerArea name={'GuiArea'}>{typeof children === 'function' ? children({containerRef: this._ref}) : children}</PlayerArea>
         </div>

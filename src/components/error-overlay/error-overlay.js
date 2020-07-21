@@ -22,18 +22,15 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'ErrorOverlay';
 
-@connect(
-  mapStateToProps,
-  bindActions(actions)
-)
-@withPlayer
-@withLogger(COMPONENT_NAME)
 /**
  * errorOverlay component
  *
  * @class errorOverlay
  * @extends {Component}
  */
+@connect(mapStateToProps, bindActions(actions))
+@withPlayer
+@withLogger(COMPONENT_NAME)
 class ErrorOverlay extends Component {
   sessionEl: HTMLDivElement;
 
@@ -78,7 +75,7 @@ class ErrorOverlay extends Component {
           <div className={style.copyUrlRow}>
             <div
               ref={el => {
-                this.sessionEl = el;
+                el ? (this.sessionEl = el) : undefined;
               }}
               className={style.errorSession}>
               <Text id="error.default_session_text" /> {' ' + sessionId}

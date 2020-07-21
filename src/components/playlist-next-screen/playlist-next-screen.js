@@ -27,9 +27,6 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'PlaylistNextScreen';
 
-@connect(mapStateToProps)
-@withPlayer
-@withLogger(COMPONENT_NAME)
 /**
  * PlaylistNextScreen component
  *
@@ -37,8 +34,11 @@ const COMPONENT_NAME = 'PlaylistNextScreen';
  * @example <PlaylistNextScreen type="next"/>
  * @extends {Component}
  */
+@connect(mapStateToProps)
+@withPlayer
+@withLogger(COMPONENT_NAME)
 class PlaylistNextScreen extends Component {
-  focusElement: HTMLElement;
+  focusElement: HTMLDivElement;
 
   /**
    * after component updated, if was renderd and now should then focus for keyboard a11y
@@ -114,7 +114,7 @@ class PlaylistNextScreen extends Component {
                 role="button"
                 aria-labelledby="playlistNextScreenTextId"
                 ref={el => {
-                  this.focusElement = el;
+                  el ? (this.focusElement = el) : undefined;
                 }}
                 tabIndex="0"
                 className={style.playlistNextScreenPoster}

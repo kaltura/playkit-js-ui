@@ -8,5 +8,8 @@ declare type UIOptionsObject = {
   components?: ComponentsConfig,
   uiComponents?: Array<PKUIComponent>,
   translations?: {[langKey: string]: Object},
-  locale?: string
+  locale?: string,
+  disable?: boolean,
+  css?: string,
+  customPreset?: Array<{template: Function, condition: Function}>
 };

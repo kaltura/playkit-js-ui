@@ -69,14 +69,6 @@ const PLAYER_BREAK_POINTS: {[size: string]: number} = {
 
 const COMPONENT_NAME = 'Shell';
 
-@connect(
-  mapStateToProps,
-  bindActions({...shellActions, ...engineActions})
-)
-@withPlayer
-@withEventManager
-@withLogger(COMPONENT_NAME)
-@withEventDispatcher(COMPONENT_NAME)
 /**
  * Shell component
  *
@@ -84,9 +76,14 @@ const COMPONENT_NAME = 'Shell';
  * @example <Shell />
  * @extends {Component}
  */
+@connect(mapStateToProps, bindActions({...shellActions, ...engineActions}))
+@withPlayer
+@withEventManager
+@withLogger(COMPONENT_NAME)
+@withEventDispatcher(COMPONENT_NAME)
 class Shell extends Component {
   state: Object;
-  hoverTimeout: ?number;
+  hoverTimeout: ?TimeoutID;
   _environmentClasses: Array<string>;
   _playerResizeWatcher: ResizeWatcher;
 
@@ -117,7 +114,7 @@ class Shell extends Component {
      * a hack to fix 'mouseleave' bug in chrome - the event is called sometimes on a click inside the div.
      * https://bugs.chromium.org/p/chromium/issues/detail?id=798535
      */
-    if (!event.toElement) {
+    if (!Object.prototype.hasOwnProperty.call(event, 'toElement')) {
       return;
     }
     if (this.props.isMobile) {
