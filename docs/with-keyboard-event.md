@@ -2,13 +2,13 @@
 
 ### withKeyboardEvent HoC
 
-If your components requires a keyboard event then UI supplies a keyboard event registration as a service.  
-The keyboard event registration enables add and remove keyboard event for our player.
-The registration is for component - when component will be removed the relevant keyboard event should be removed.
-For combination of code + altKey + ctrlKey + metaKey + shiftKey could be one handler.
+If your components require a keyboard event, then the UI supplies a keyboard event registration as a service.
+The keyboard event registration enables to add and remove keyboard events for our player.
+The registration is for a specific component - when the component will be removed, the relevant keyboard events would be removed.
+For a combination of a Key code + altKey + ctrlKey + metaKey + shiftKey, one handler can be used.
 Let's see an example:
 
-> This sample will add listener for combination of F + shiftKey and remove on unmount
+> This sample will add a listener for the combination of F + shiftKey and will be removed on unmount
 
 ```javascript
 const h = KalturaPlayer.ui.h;
@@ -39,7 +39,7 @@ class SampleComponent extends Component {
 export default withKeyboardEvent(SampleComponent);
 ```
 
-And if you want to use it as a decorator:
+Same can be done with the use of decorators:
 
 ```javascript
 const h = KalturaPlayer.ui.h;
@@ -72,7 +72,9 @@ class DumbComponent extends Component {
 export default DumbComponent;
 ```
 
-For using only this component keyboard handlers
+For using only this component keyboard handlers `setKeyboardEventToScope` can used.
+This method will enable only keyboard event handlers of this component to be invoked.
+All other component keyboard events will be temporarily disabled.
 
 ```javascript
 const h = KalturaPlayer.ui.h;
@@ -107,7 +109,8 @@ class DumbComponent extends Component {
 export default DumbComponent;
 ```
 
-For disabling the keyboard handler
+For disabling ALL components keyboard handlers, `updateIsKeyboardEnabled` method can be used (set to false).
+A clear use case for that would be for example, when creating a component with an input text field.
 
 ```javascript
 const h = KalturaPlayer.ui.h;
