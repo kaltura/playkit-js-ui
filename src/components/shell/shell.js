@@ -210,11 +210,13 @@ class Shell extends Component {
    * @memberof Shell
    */
   componentWillMount() {
-    const {player} = this.props;
+    const {player, forceTouchUI} = this.props;
     this._environmentClasses = [
       `${__CSS_MODULE_PREFIX__}-${player.env.os.name.replace(/ /g, '-')}`,
       `${__CSS_MODULE_PREFIX__}-${player.env.browser.name.replace(/ /g, '-')}`
     ];
+    const {isIPadOS, isTablet, isMobile} = player.env;
+    this.props.updateIsMobile(isIPadOS || isTablet || isMobile || forceTouchUI);
   }
 
   /**
@@ -226,10 +228,7 @@ class Shell extends Component {
    * @memberof Shell
    */
   componentDidMount() {
-    const {player, forceTouchUI, eventManager} = this.props;
-    const {isIPadOS, isTablet, isMobile} = player.env;
-    this.props.updateIsMobile(isIPadOS || isTablet || isMobile || forceTouchUI);
-    this._onWindowResize();
+    const {player, eventManager} = this.props;
     eventManager.listen(
       window,
       'resize',
