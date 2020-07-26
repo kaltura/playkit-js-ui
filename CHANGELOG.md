@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.57.0"></a>
+# [0.57.0](https://github.com/kaltura/playkit-js-ui/compare/v0.56.0...v0.57.0) (2020-07-07)
+
+
+### Bug Fixes
+
+* add preset and gui area to all presets ([#516](https://github.com/kaltura/playkit-js-ui/issues/516)) ([363ce25](https://github.com/kaltura/playkit-js-ui/commit/363ce25))
+* **FEC-10052:** the bottom toolbar not hiding after return from background on mobile devices ([#523](https://github.com/kaltura/playkit-js-ui/issues/523)) ([87bd41e](https://github.com/kaltura/playkit-js-ui/commit/87bd41e))
+* **FEC-10227:** advanced captions setting window cut when opened in floating player ([#517](https://github.com/kaltura/playkit-js-ui/issues/517)) ([b01a2ea](https://github.com/kaltura/playkit-js-ui/commit/b01a2ea))
+* **FEC-10229:** player failed to be loaded on MAC Safari and IE 11 - Regression ([#518](https://github.com/kaltura/playkit-js-ui/issues/518)) ([6326ee7](https://github.com/kaltura/playkit-js-ui/commit/6326ee7))
+* **FEC-10235:** Play/Pause button is not accurately centered in small player ([#519](https://github.com/kaltura/playkit-js-ui/issues/519)) ([f2f608f](https://github.com/kaltura/playkit-js-ui/commit/f2f608f))
+* **FEC-10241:** preact hooks doesn't exported from core ([#521](https://github.com/kaltura/playkit-js-ui/issues/521)) ([bb4819f](https://github.com/kaltura/playkit-js-ui/commit/bb4819f))
+* **FEC-10247:** top bar element located in the middle instead of right side ([#522](https://github.com/kaltura/playkit-js-ui/issues/522)) ([b1af61a](https://github.com/kaltura/playkit-js-ui/commit/b1af61a))
+* **FEC-10268:** bottom bar displayed before Play button clicked when preload=auto ([#524](https://github.com/kaltura/playkit-js-ui/issues/524)) ([4e2565c](https://github.com/kaltura/playkit-js-ui/commit/4e2565c))
+
+
+### Features
+
+* **FEC-9282:** player support for side panels ([#434](https://github.com/kaltura/playkit-js-ui/issues/434)) ([899f267](https://github.com/kaltura/playkit-js-ui/commit/899f267))
+* **FEC-9972:** floating player ([#515](https://github.com/kaltura/playkit-js-ui/issues/515)) ([258df2d](https://github.com/kaltura/playkit-js-ui/commit/258df2d))
+
+
+
 <a name="0.56.0"></a>
 # [0.56.0](https://github.com/kaltura/playkit-js-ui/compare/v0.55.0...v0.56.0) (2020-06-10)
 
