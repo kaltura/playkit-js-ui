@@ -1,5 +1,5 @@
 //@flow
-import {h, Component} from 'preact';
+import {h, Component, createRef} from 'preact';
 import {withEventManager} from 'event/with-event-manager';
 
 /**
@@ -9,7 +9,7 @@ import {withEventManager} from 'event/with-event-manager';
 export const withAnimation: Function = (cssClass: string) => (WrappedComponent: Component): typeof Component =>
   withEventManager(
     class AnimationComponent extends Component {
-      element: HTMLElement;
+      ref = createRef();
 
       /**
        * When component is mounted create event manager instance.
@@ -18,8 +18,8 @@ export const withAnimation: Function = (cssClass: string) => (WrappedComponent: 
        * @memberof AnimationComponent
        */
       componentDidMount(): void {
-        this.props.eventManager.listen(this.element, 'animationend', () => {
-          this.element.classList.remove(cssClass);
+        this.props.eventManager.listen(this.ref.current, 'animationend', () => {
+          this.ref.current.classList.remove(cssClass);
         });
       }
       /**
@@ -29,17 +29,16 @@ export const withAnimation: Function = (cssClass: string) => (WrappedComponent: 
        * @memberof AnimationComponent
        */
       componentWillUnmount(): void {
-        this.element.classList.remove(cssClass);
+        this.ref.current.classList.remove(cssClass);
       }
 
       /**
        * adds the animation class
-       *
        * @returns {void}
        * @memberof AnimationComponent
        */
       animate(): void {
-        this.element.classList.add(cssClass);
+        this.ref.current.classList.add(cssClass);
       }
 
       /**
@@ -52,7 +51,7 @@ export const withAnimation: Function = (cssClass: string) => (WrappedComponent: 
         return (
           <WrappedComponent
             {...this.props}
-            innerRef={ref => (this.element = ref)}
+            innerRef={this.ref}
             animate={() => {
               this.animate();
             }}

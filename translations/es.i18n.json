@@ -91,8 +91,7 @@
       "cancel": "Cancelar"
     },
     "pictureInPicture": {
-      "overlay_text": "Reproducido en modo imagen dentro de la imagen",
-      "overlay_button": "Reproducir aquí"
+      "overlay_text": "Reproducido en modo imagen dentro de la imagen"
     }
   }
 }

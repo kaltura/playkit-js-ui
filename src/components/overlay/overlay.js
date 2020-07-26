@@ -64,6 +64,7 @@ class Overlay extends Component {
             onClick={() => props.onClose()}
             onKeyDown={e => {
               if (e.keyCode === KeyMap.ENTER) {
+                e.preventDefault();
                 props.onClose();
               }
             }}

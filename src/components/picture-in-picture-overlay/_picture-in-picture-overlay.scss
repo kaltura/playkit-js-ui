@@ -33,6 +33,16 @@
     position: absolute;
     display: flex;
     flex-direction: column;
+    height: 100%;
+  }
+
+  .picture-in-picture-control::after {
+    content: '';
+    flex: 3;
+  }
+  .picture-in-picture-control::before {
+    content: '';
+    flex: 1;
   }
 
   .picture-in-picture-text {
