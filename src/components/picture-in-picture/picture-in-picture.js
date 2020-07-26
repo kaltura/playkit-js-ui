@@ -32,9 +32,8 @@ const COMPONENT_NAME = 'PictureInPicture';
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
 @withText({
-  pipCloseText: 'controls.pictureInPicture',
-  pipOpenTooltipText: 'controls.pictureInPictureOpenToolTip',
-  pipOpenAriaLabelText: 'controls.pictureInPictureOpenAriaLabel'
+  pictureInPictureText: 'controls.pictureInPicture',
+  pictureInPictureExitText: 'controls.pictureInPictureExit'
 })
 
 /**
@@ -92,10 +91,10 @@ class PictureInPicture extends Component {
     if (this.props.isPictureInPictureSupported && this.props.playerSize !== PLAYER_SIZE.EXTRA_SMALL) {
       return (
         <div className={[style.controlButtonContainer, style.pictureInPicture].join(' ')}>
-          <Tooltip label={this.props.isInPictureInPicture ? this.props.pipOpenTooltipText : this.props.pipCloseText}>
+          <Tooltip label={this.props.isInPictureInPicture ? this.props.pictureInPictureExitText : this.props.pictureInPictureText}>
             <Button
               tabIndex="0"
-              aria-label={this.props.isInPictureInPicture ? this.props.pipOpenAriaLabelText : this.props.pipCloseText}
+              aria-label={this.props.isInPictureInPicture ? this.props.pictureInPictureExitText : this.props.pictureInPictureText}
               className={this.props.isInPictureInPicture ? [style.controlButton, style.isInPictureInPicture].join(' ') : style.controlButton}
               onClick={() => this.togglePip()}>
               <Icon type={IconType.PictureInPictureStart} />

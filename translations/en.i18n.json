@@ -17,8 +17,7 @@
       "prev": "Prev",
       "startOver": "Start over",
       "pictureInPicture": "Picture in picture",
-      "pictureInPictureOpenToolTip": "Expand",
-      "pictureInPictureOpenAriaLabel": "Close picture in picture",
+      "pictureInPictureExit": "Exit picture in picture",
       "logo": "Logo",
       "seekBarSlider": "Seek slider"
     },
