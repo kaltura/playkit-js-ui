@@ -1,6 +1,6 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, createRef} from 'preact';
 import {connect} from 'react-redux';
 import {Menu} from '../menu';
 import {default as Icon, IconType} from '../icon';
@@ -28,7 +28,7 @@ const COMPONENT_NAME = 'DropDown';
 @connect(mapStateToProps)
 class DropDown extends Component {
   state: Object;
-  _el: HTMLDivElement;
+  _el: HTMLDivElement = createRef();
 
   /**
    * before component mounted, set initial internal state
@@ -152,10 +152,7 @@ class DropDown extends Component {
     return props.isMobile || props.isSmallSize ? (
       this.renderNativeSelect(props.name)
     ) : (
-      <div
-        name={props.name}
-        className={this.state.dropMenuActive ? [style.dropdown, style.active].join(' ') : style.dropdown}
-        ref={el => (el ? (this._el = el) : undefined)}>
+      <div name={props.name} className={this.state.dropMenuActive ? [style.dropdown, style.active].join(' ') : style.dropdown} ref={this._el}>
         <div
           tabIndex={props.tabbable ? 0 : -1}
           ref={el => {

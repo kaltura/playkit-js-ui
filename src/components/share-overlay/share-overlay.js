@@ -1,5 +1,5 @@
 //@flow
-import {h, Component} from 'preact';
+import {h, Component, createRef} from 'preact';
 import {Text, Localizer} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils/bind-actions';
@@ -75,7 +75,7 @@ const ShareButton = (props: Object): React$Element<any> => {
  * @constructor
  */
 const ShareUrl = (props: Object): React$Element<any> => {
-  let _ref;
+  let _ref = createRef();
 
   /**
    * copy input text based on input element.
@@ -99,7 +99,7 @@ const ShareUrl = (props: Object): React$Element<any> => {
   return (
     <div className={props.copy ? style.copyUrlRow : ''}>
       <div className={[style.formGroup, style.hasIcon, style.inputCopyUrl].join(' ')} style="width: 350px;">
-        <input tabIndex="-1" type="text" ref={c => (c ? (_ref = c) : undefined)} className={style.formControl} value={props.shareUrl} readOnly />
+        <input tabIndex="-1" type="text" ref={_ref} className={style.formControl} value={props.shareUrl} readOnly />
         <Icon type={IconType.Link} />
       </div>
       {props.copy && <CopyButton addAccessibleChild={props.addAccessibleChild} copy={() => copyUrl(_ref, props.isIos)} />}

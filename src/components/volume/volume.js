@@ -1,6 +1,6 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, createRef} from 'preact';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/volume';
@@ -58,8 +58,8 @@ const KEYBOARD_DEFAULT_VOLUME_JUMP: number = 5;
   unmuteAriaLabel: 'controls.unmute'
 })
 class Volume extends Component {
-  _volumeControlElement: HTMLDivElement;
-  _volumeProgressBarElement: HTMLDivElement;
+  _volumeControlElement: HTMLDivElement = createRef();
+  _volumeProgressBarElement: HTMLDivElement = createRef();
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
       key: {
@@ -369,7 +369,7 @@ class Volume extends Component {
 
     return (
       <div
-        ref={c => (c ? (this._volumeControlElement = c) : undefined)}
+        ref={this._volumeControlElement}
         className={controlButtonClass.join(' ')}
         onMouseOver={() => this.onMouseOver()}
         onMouseOut={() => this.onMouseOut()}>
@@ -393,10 +393,7 @@ class Volume extends Component {
           aria-valuemax="100"
           aria-valuenow={player.volume * 100}
           aria-valuetext={`${player.volume * 100}% volume ${player.muted ? 'muted' : ''}`}>
-          <div
-            className={style.bar}
-            ref={c => (c ? (this._volumeProgressBarElement = c) : undefined)}
-            onMouseDown={() => this.onVolumeProgressBarMouseDown()}>
+          <div className={style.bar} ref={this._volumeProgressBarElement} onMouseDown={() => this.onVolumeProgressBarMouseDown()}>
             <div className={style.progress} style={{height: this.getVolumeProgressHeight()}} />
           </div>
         </div>

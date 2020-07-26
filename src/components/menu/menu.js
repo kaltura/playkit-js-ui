@@ -1,6 +1,6 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, createRef} from 'preact';
 import {default as Icon, IconType} from '../icon';
 import {connect} from 'react-redux';
 import {bindMethod} from '../../utils/bind-method';
@@ -38,7 +38,7 @@ const COMPONENT_NAME = 'Menu';
 class Menu extends Component {
   state: Object;
   handleClickOutside: Function;
-  _menuElement: any;
+  _menuElement: HTMLDivElement = createRef();
 
   /**
    * Creates an instance of Menu.
@@ -201,9 +201,7 @@ class Menu extends Component {
         onKeyDown={e => {
           props.handleKeyDown(e);
         }}
-        ref={c => {
-          this._menuElement = c;
-        }}
+        ref={this._menuElement}
         className={[style.dropdownMenu, ...this.state.position].join(' ')}>
         {props.options.map((o, index) => (
           <MenuItem

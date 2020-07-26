@@ -1,6 +1,6 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, createRef} from 'preact';
 import {connect} from 'react-redux';
 import {Overlay} from '../overlay';
 import {Text} from 'preact-i18n';
@@ -32,7 +32,7 @@ const COMPONENT_NAME = 'ErrorOverlay';
 @withPlayer
 @withLogger(COMPONENT_NAME)
 class ErrorOverlay extends Component {
-  sessionEl: HTMLDivElement;
+  sessionEl: HTMLDivElement = createRef();
 
   /**
    * copy input text based on input element.
@@ -73,11 +73,7 @@ class ErrorOverlay extends Component {
       return (
         <div className={style.linkOptionsContainer}>
           <div className={style.copyUrlRow}>
-            <div
-              ref={el => {
-                el ? (this.sessionEl = el) : undefined;
-              }}
-              className={style.errorSession}>
+            <div ref={this.sessionEl} className={style.errorSession}>
               <Text id="error.default_session_text" /> {' ' + sessionId}
             </div>
             <CopyButton copy={() => this.copyError()} />

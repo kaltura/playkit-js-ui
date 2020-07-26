@@ -1,6 +1,6 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, createRef} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {default as Icon, IconType} from '../icon';
@@ -38,7 +38,7 @@ const COMPONENT_NAME = 'PlaylistNextScreen';
 @withPlayer
 @withLogger(COMPONENT_NAME)
 class PlaylistNextScreen extends Component {
-  focusElement: HTMLDivElement;
+  focusElement: HTMLDivElement = createRef();
 
   /**
    * after component updated, if was renderd and now should then focus for keyboard a11y
@@ -113,9 +113,7 @@ class PlaylistNextScreen extends Component {
               <div
                 role="button"
                 aria-labelledby="playlistNextScreenTextId"
-                ref={el => {
-                  el ? (this.focusElement = el) : undefined;
-                }}
+                ref={this.focusElement}
                 tabIndex="0"
                 className={style.playlistNextScreenPoster}
                 onClick={() => this.onPosterClick()}

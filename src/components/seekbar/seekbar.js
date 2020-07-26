@@ -1,6 +1,6 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, createRef} from 'preact';
 import {toHHMMSS} from '../../utils/time-format';
 import {KeyMap} from '../../utils/key-map';
 import {connect} from 'react-redux';
@@ -46,9 +46,9 @@ class SeekBar extends Component {
   state: Object;
   onPlayerMouseUp: Function;
   onPlayerMouseMove: Function;
-  _seekBarElement: HTMLDivElement;
-  _framePreviewElement: HTMLDivElement;
-  _timeBubbleElement: HTMLDivElement;
+  _seekBarElement: HTMLDivElement = createRef();
+  _framePreviewElement: HTMLDivElement = createRef();
+  _timeBubbleElement: HTMLDivElement = createRef();
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
       key: {
@@ -516,7 +516,7 @@ class SeekBar extends Component {
       return undefined;
 
     return (
-      <div className={style.framePreview} style={this._getFramePreviewStyle()} ref={c => (c ? (this._framePreviewElement = c) : undefined)}>
+      <div className={style.framePreview} style={this._getFramePreviewStyle()} ref={this._framePreviewElement}>
         <div className={style.framePreviewImg} style={this._getFramePreviewImgStyle()} />
       </div>
     );
@@ -558,7 +558,7 @@ class SeekBar extends Component {
     const timeBubbleStyle = `left: ${this.getTimeBubbleOffset()}px`;
     const timeBubbleValue = this.props.isDvr ? '-' + toHHMMSS(this.props.duration - this.state.virtualTime) : toHHMMSS(this.state.virtualTime);
     return (
-      <div className={style.timePreview} style={timeBubbleStyle} ref={c => (c ? (this._timeBubbleElement = c) : undefined)}>
+      <div className={style.timePreview} style={timeBubbleStyle} ref={this._timeBubbleElement}>
         {timeBubbleValue}
       </div>
     );
@@ -585,7 +585,7 @@ class SeekBar extends Component {
       <div
         tabIndex="0"
         className={seekbarStyleClass.join(' ')}
-        ref={c => (c ? (this._seekBarElement = c) : undefined)}
+        ref={this._seekBarElement}
         role="slider"
         aria-label={props.sliderAriaLabel}
         aria-valuemin="0"

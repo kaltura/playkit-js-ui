@@ -1,6 +1,6 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, createRef} from 'preact';
 import {Text, withText} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils/bind-actions';
@@ -54,7 +54,7 @@ const COMPONENT_NAME = 'Language';
 })
 class Language extends Component {
   state: Object;
-  _controlLanguageElement: any;
+  _controlLanguageElement: HTMLDivElement = createRef();
   _lastActiveTextLanguage: string = '';
   // ie11 fix (FEC-7312) - don't remove
   _portal: any;
@@ -202,7 +202,7 @@ class Language extends Component {
   renderAll(audioOptions: Array<Object>, textOptions: Array<Object>): React$Element<any> {
     const portalSelector = `#${this.props.player.config.targetId} .overlay-portal`;
     return (
-      <div ref={c => (this._controlLanguageElement = c)} className={[style.controlButtonContainer, style.controlLanguage].join(' ')}>
+      <div ref={this._controlLanguageElement} className={[style.controlButtonContainer, style.controlLanguage].join(' ')}>
         <Tooltip label={this.props.buttonLabel}>
           <Button
             tabIndex="0"

@@ -1,6 +1,6 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, createRef} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
@@ -40,7 +40,7 @@ const COMPONENT_NAME = 'PlaylistCountdown';
 @withEventManager
 @withLogger(COMPONENT_NAME)
 class PlaylistCountdown extends Component {
-  focusElement: HTMLElement;
+  focusElement: HTMLElement = createRef();
   nextShown: any;
 
   /**
@@ -230,7 +230,7 @@ class PlaylistCountdown extends Component {
       <div
         role="button"
         aria-labelledby="playlistCountdownTextId"
-        ref={el => (el ? (this.focusElement = el) : undefined)}
+        ref={this.focusElement}
         tabIndex={this.state.focusable ? 0 : -1}
         className={className.join(' ')}
         onKeyDown={e => {

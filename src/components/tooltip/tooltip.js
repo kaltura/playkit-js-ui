@@ -1,7 +1,8 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h, Component, toChildArray} from 'preact';
+import {h, Component, toChildArray, createRef} from 'preact';
 import {connect} from 'react-redux';
+
 const PLAYER_MARGIN = 5;
 
 /**
@@ -40,7 +41,7 @@ const ToolTipType = {
 class Tooltip extends Component {
   state: Object;
   _hoverTimeout: ?TimeoutID;
-  textElement: HTMLSpanElement;
+  textElement: HTMLSpanElement = createRef();
   lastAlternativeTypeIndex: number = -1;
 
   /**
@@ -161,12 +162,7 @@ class Tooltip extends Component {
     ) : (
       <div className={style.tooltip} onMouseOver={() => this.onMouseOver()} onMouseLeave={() => this.onMouseLeave()}>
         {props.children}
-        <span
-          style={{maxWidth: props.maxWidth}}
-          ref={el => {
-            el ? (this.textElement = el) : undefined;
-          }}
-          className={className.join(' ')}>
+        <span style={{maxWidth: props.maxWidth}} ref={this.textElement} className={className.join(' ')}>
           {props.label}
         </span>
       </div>

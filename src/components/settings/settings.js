@@ -1,6 +1,6 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, createRef} from 'preact';
 import {withText, Text} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils/bind-actions';
@@ -55,7 +55,7 @@ const COMPONENT_NAME = 'Settings';
 @withEventDispatcher(COMPONENT_NAME)
 class Settings extends Component {
   state: Object;
-  _controlSettingsElement: any;
+  _controlSettingsElement: HTMLDivElement = createRef();
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
       key: {
@@ -289,7 +289,7 @@ class Settings extends Component {
     if (qualityOptions.length <= 1 && speedOptions.length <= 1) return undefined;
     if (isLive && qualityOptions.length <= 1) return undefined;
     return (
-      <div ref={c => (this._controlSettingsElement = c)} className={[style.controlButtonContainer, style.controlSettings].join(' ')}>
+      <div ref={this._controlSettingsElement} className={[style.controlButtonContainer, style.controlSettings].join(' ')}>
         <Tooltip label={props.buttonLabel}>
           <Button
             tabIndex="0"
