@@ -56,10 +56,7 @@ const DRAGGING_THRESHOLD: number = 5;
 
 const COMPONENT_NAME = 'OverlayAction';
 
-@connect(
-  mapStateToProps,
-  bindActions({...actions, ...shellActions})
-)
+@connect(mapStateToProps, bindActions({...actions, ...shellActions}))
 @withPlayer
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)

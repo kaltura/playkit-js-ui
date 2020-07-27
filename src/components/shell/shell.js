@@ -69,10 +69,7 @@ const PLAYER_BREAK_POINTS: {[size: string]: number} = {
 
 const COMPONENT_NAME = 'Shell';
 
-@connect(
-  mapStateToProps,
-  bindActions({...shellActions, ...engineActions})
-)
+@connect(mapStateToProps, bindActions({...shellActions, ...engineActions}))
 @withPlayer
 @withEventManager
 @withLogger(COMPONENT_NAME)

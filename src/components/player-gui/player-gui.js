@@ -18,10 +18,7 @@ const mapStateToProps = state => ({
   sidePanelsConfig: state.config.components.sidePanels
 });
 
-@connect(
-  mapStateToProps,
-  bindActions(actions)
-)
+@connect(mapStateToProps, bindActions(actions))
 /**
  * Player GUI component
  *
@@ -63,9 +60,7 @@ class PlayerGUI extends Component {
             <SidePanel position={SidePanelPositions.TOP} />
             <SidePanel position={SidePanelPositions.BOTTOM} />
           </Fragment>
-        ) : (
-          undefined
-        )}
+        ) : undefined}
         {allowPlayerArea ? <PlayerArea name={'PlayerArea'} /> : undefined}
       </Fragment>
     );

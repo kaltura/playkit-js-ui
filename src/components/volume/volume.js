@@ -40,10 +40,7 @@ const COMPONENT_NAME = 'Volume';
  */
 const KEYBOARD_DEFAULT_VOLUME_JUMP: number = 5;
 
-@connect(
-  mapStateToProps,
-  bindActions({...actions, ...engineActions, ...overlayIconActions})
-)
+@connect(mapStateToProps, bindActions({...actions, ...engineActions, ...overlayIconActions}))
 @withPlayer
 @withEventManager
 @withKeyboardEvent(COMPONENT_NAME)

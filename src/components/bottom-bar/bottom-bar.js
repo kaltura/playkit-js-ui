@@ -18,10 +18,7 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'BottomBar';
 
-@connect(
-  mapStateToProps,
-  bindActions(actions)
-)
+@connect(mapStateToProps, bindActions(actions))
 /**
  * BottomBar component
  *

@@ -20,10 +20,7 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'CastAfterPlay';
 
-@connect(
-  mapStateToProps,
-  null
-)
+@connect(mapStateToProps, null)
 @withPlayer
 @withLogger(COMPONENT_NAME)
 /**

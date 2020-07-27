@@ -41,10 +41,7 @@ const COMPONENT_NAME = 'Keyboard';
 //unhandled keyboard event result
 const UNHANDLED_KEYBOARD_EVENT_RESULT: KeyboardEventResult = {preventDefault: false, payload: null};
 
-@connect(
-  mapStateToProps,
-  bindActions(Object.assign({}, shellActions, overlayIconActions))
-)
+@connect(mapStateToProps, bindActions(Object.assign({}, shellActions, overlayIconActions)))
 @withPlayer
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)

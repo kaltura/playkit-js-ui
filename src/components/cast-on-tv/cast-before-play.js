@@ -24,10 +24,7 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'CastBeforePlay';
 
-@connect(
-  mapStateToProps,
-  actions
-)
+@connect(mapStateToProps, actions)
 @withPlayer
 @withLogger(COMPONENT_NAME)
 /**

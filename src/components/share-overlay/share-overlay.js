@@ -158,10 +158,7 @@ const VideoStartOptions = (props: Object): React$Element<any> => {
 
 const COMPONENT_NAME = 'ShareOverlay';
 
-@connect(
-  mapStateToProps,
-  bindActions(actions)
-)
+@connect(mapStateToProps, bindActions(actions))
 @withLogger(COMPONENT_NAME)
 @withKeyboardA11y
 /**
@@ -362,9 +359,7 @@ class ShareOverlay extends Component {
                 handleStartFromChange={e => this._handleStartFromChange(e)}
                 toggleStartFrom={() => this._toggleStartFrom()}
               />
-            ) : (
-              undefined
-            )}
+            ) : undefined}
           </div>
         </div>
       </div>
@@ -391,9 +386,7 @@ class ShareOverlay extends Component {
               handleStartFromChange={e => this._handleStartFromChange(e)}
               toggleStartFrom={() => this._toggleStartFrom()}
             />
-          ) : (
-            undefined
-          )}
+          ) : undefined}
         </div>
       </div>
     );

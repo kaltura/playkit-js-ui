@@ -25,10 +25,7 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'VrStereo';
 
-@connect(
-  mapStateToProps,
-  bindActions({...shellActions, ...engineActions})
-)
+@connect(mapStateToProps, bindActions({...shellActions, ...engineActions}))
 @withPlayer
 @withLogger(COMPONENT_NAME)
 @withText({

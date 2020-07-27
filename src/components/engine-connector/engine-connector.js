@@ -11,10 +11,7 @@ import {withLogger} from 'components/logger';
 
 const COMPONENT_NAME = 'EngineConnector';
 
-@connect(
-  reduce,
-  bindActions({...actions, ...loadingActions, ...shellActions})
-)
+@connect(reduce, bindActions({...actions, ...loadingActions, ...shellActions}))
 @withPlayer
 @withEventManager
 @withLogger(COMPONENT_NAME)

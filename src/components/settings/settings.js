@@ -33,10 +33,7 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'Settings';
 
-@connect(
-  mapStateToProps,
-  bindActions({...actions, ...overlayIconActions})
-)
+@connect(mapStateToProps, bindActions({...actions, ...overlayIconActions}))
 @withText({
   qualityLabelText: 'settings.quality',
   speedLabelText: 'settings.speed',

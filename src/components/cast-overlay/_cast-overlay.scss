@@ -18,12 +18,7 @@
 
     .cast-black-cover {
       all: inherit;
-      background: linear-gradient(
-          to top,
-          rgba(0, 0, 0, 0.9),
-          rgba(0, 0, 0, 0) 72%,
-          rgba(0, 0, 0, 0) 100%
-      );
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0) 72%, rgba(0, 0, 0, 0) 100%);
     }
   }
 
@@ -45,7 +40,7 @@
     .cast-connecting-spinner {
       height: 21px;
       width: 21px;
-      -webkit-animation: spin .9s infinite linear;
+      -webkit-animation: spin 0.9s infinite linear;
       border: 3px solid rgba(255, 255, 255, 0.4);
       border-top-color: rgba(255, 255, 255, 0.8);
       border-radius: 100%;
@@ -72,8 +67,8 @@
         display: inline-block;
         font-weight: inherit;
         font-size: 25px;
-        color: #FFFFFF;
-        line-height: 40px
+        color: #ffffff;
+        line-height: 40px;
       }
     }
   }

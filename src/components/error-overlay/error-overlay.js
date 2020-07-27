@@ -22,10 +22,7 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'ErrorOverlay';
 
-@connect(
-  mapStateToProps,
-  bindActions(actions)
-)
+@connect(mapStateToProps, bindActions(actions))
 @withPlayer
 @withLogger(COMPONENT_NAME)
 /**

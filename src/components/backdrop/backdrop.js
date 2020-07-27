@@ -15,10 +15,7 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'Backdrop';
 
-@connect(
-  mapStateToProps,
-  null
-)
+@connect(mapStateToProps, null)
 /**
  * Backdrop component
  *

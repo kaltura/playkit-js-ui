@@ -66,9 +66,7 @@ class PlaylistButton extends Component {
             </div>
             <div className={style.posterPreviewImg} style={`background-image: url(${item.sources.poster});`} />
           </div>
-        ) : (
-          undefined
-        )}
+        ) : undefined}
         {showPreview ? (
           this.bottomBarButton(item, props.type)
         ) : (

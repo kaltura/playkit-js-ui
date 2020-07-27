@@ -21,10 +21,7 @@ const mapStateToProps = state => ({
 
 @withPlayer
 @withEventManager
-@connect(
-  mapStateToProps,
-  bindActions(actions)
-)
+@connect(mapStateToProps, bindActions(actions))
 /**
  * VideoPlayer component
  *

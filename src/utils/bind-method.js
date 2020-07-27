@@ -7,7 +7,7 @@
  * @public
  */
 function bindMethod(thisObj: any, fn: Function): Function {
-  return function() {
+  return function () {
     fn.apply(thisObj, arguments);
   };
 }

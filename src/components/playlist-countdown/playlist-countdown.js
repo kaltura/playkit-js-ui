@@ -28,10 +28,7 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'PlaylistCountdown';
 
-@connect(
-  mapStateToProps,
-  bindActions(actions)
-)
+@connect(mapStateToProps, bindActions(actions))
 @withPlayer
 @withEventManager
 @withLogger(COMPONENT_NAME)

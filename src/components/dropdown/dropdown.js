@@ -182,9 +182,7 @@ class DropDown extends Component {
           }}>
           <span id={activeOptionId}>{this.getActiveOptionLabel()}</span>
           <Icon type={IconType.ArrowDown} />
-          {!this.state.dropMenuActive ? (
-            undefined
-          ) : (
+          {!this.state.dropMenuActive ? undefined : (
             <Menu parentEl={this._el} options={props.options} onMenuChosen={o => this.onMenuChosen(o)} onClose={() => this.onClose()} />
           )}
         </div>

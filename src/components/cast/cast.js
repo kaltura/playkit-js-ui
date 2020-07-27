@@ -22,10 +22,7 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'Cast';
 
-@connect(
-  mapStateToProps,
-  actions
-)
+@connect(mapStateToProps, actions)
 @withPlayer
 @withEventManager
 @withLogger(COMPONENT_NAME)

@@ -22,10 +22,7 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'Loading';
 
-@connect(
-  mapStateToProps,
-  bindActions(actions)
-)
+@connect(mapStateToProps, bindActions(actions))
 @withPlayer
 @withEventManager
 @withLogger(COMPONENT_NAME)
@@ -109,7 +106,11 @@ class Loading extends Component {
     return (
       <div className={[style.loadingBackdrop, style.show].join(' ')}>
         <div className={style.spinnerContainer}>
-          <div className={style.spinner}>{[...Array(8)].map(i => <span key={i} />)}</div>
+          <div className={style.spinner}>
+            {[...Array(8)].map(i => (
+              <span key={i} />
+            ))}
+          </div>
         </div>
       </div>
     );

@@ -25,10 +25,7 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'SeekBarLivePlaybackContainer';
 
-@connect(
-  mapStateToProps,
-  bindActions(actions)
-)
+@connect(mapStateToProps, bindActions(actions))
 @withPlayer
 @withEventManager
 @withEventDispatcher(COMPONENT_NAME)

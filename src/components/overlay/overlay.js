@@ -10,10 +10,7 @@ import {KeyMap} from '../../utils/key-map';
 
 const COMPONENT_NAME = 'Overlay';
 
-@connect(
-  null,
-  bindActions(actions)
-)
+@connect(null, bindActions(actions))
 /**
  * Overlay component
  * @class Overlay

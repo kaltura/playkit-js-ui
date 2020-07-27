@@ -31,10 +31,7 @@ type CvaaOverlayStateType = 'main' | 'custom-captions';
 
 const COMPONENT_NAME = 'CVAAOverlay';
 
-@connect(
-  mapStateToProps,
-  bindActions({...cvaaActions, ...shellActions})
-)
+@connect(mapStateToProps, bindActions({...cvaaActions, ...shellActions}))
 @withPlayer
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)

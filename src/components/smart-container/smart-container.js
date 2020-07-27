@@ -20,10 +20,7 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'SmartContainer';
 
-@connect(
-  mapStateToProps,
-  bindActions(actions)
-)
+@connect(mapStateToProps, bindActions(actions))
 @withKeyboardA11y
 /**
  * SmartContainer component

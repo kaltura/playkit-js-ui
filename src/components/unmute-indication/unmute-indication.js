@@ -27,10 +27,7 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'UnmuteIndication';
 
-@connect(
-  mapStateToProps,
-  null
-)
+@connect(mapStateToProps, null)
 @withPlayer
 @withEventManager
 @withLogger(COMPONENT_NAME)

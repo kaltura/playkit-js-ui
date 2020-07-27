@@ -41,10 +41,7 @@ const mapStateToProps = state => ({
   playerClientRect: state.shell.playerClientRect
 });
 
-@connect(
-  mapStateToProps,
-  bindActions(actions)
-)
+@connect(mapStateToProps, bindActions(actions))
 /**
  * StylesStoreAdapter
  */

@@ -30,10 +30,7 @@ const logger = getLogger('ActivePreset');
 const COMPONENT_NAME = 'ActivePreset';
 
 @withEventDispatcher(COMPONENT_NAME)
-@connect(
-  mapStateToProps,
-  bindActions(actions)
-)
+@connect(mapStateToProps, bindActions(actions))
 /**
  * Active preset
  *

@@ -28,10 +28,7 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'Share';
 
-@connect(
-  mapStateToProps,
-  bindActions(actions)
-)
+@connect(mapStateToProps, bindActions(actions))
 @withPlayer
 @withLogger(COMPONENT_NAME)
 @withText({shareTxt: 'controls.share'})
