@@ -22,10 +22,6 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'LiveTag';
 
-@connect(mapStateToProps)
-@withPlayer
-@withLogger(COMPONENT_NAME)
-@withEventDispatcher(COMPONENT_NAME)
 /**
  * LiveTag component
  *
@@ -33,6 +29,10 @@ const COMPONENT_NAME = 'LiveTag';
  * @example <LiveTag />
  * @extends {Component}
  */
+@connect(mapStateToProps)
+@withPlayer
+@withLogger(COMPONENT_NAME)
+@withEventDispatcher(COMPONENT_NAME)
 class LiveTag extends Component {
   /**
    * returns a boolean to detect if player is on live edge

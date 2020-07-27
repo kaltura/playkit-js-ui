@@ -34,6 +34,13 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'Language';
 
+/**
+ * Language component
+ *
+ * @class Language
+ * @example <Language />
+ * @extends {Component}
+ */
 @connect(mapStateToProps, bindActions(actions))
 @withPlayer
 @withEventManager
@@ -45,17 +52,9 @@ const COMPONENT_NAME = 'Language';
   captionsLabelText: 'language.captions',
   buttonLabel: 'controls.language'
 })
-
-/**
- * Language component
- *
- * @class Language
- * @example <Language />
- * @extends {Component}
- */
 class Language extends Component {
   state: Object;
-  _controlLanguageElement: any;
+  _controlLanguageElement: HTMLDivElement;
   _lastActiveTextLanguage: string = '';
   // ie11 fix (FEC-7312) - don't remove
   _portal: any;
@@ -203,7 +202,9 @@ class Language extends Component {
   renderAll(audioOptions: Array<Object>, textOptions: Array<Object>): React$Element<any> {
     const portalSelector = `#${this.props.player.config.targetId} .overlay-portal`;
     return (
-      <div ref={c => (this._controlLanguageElement = c)} className={[style.controlButtonContainer, style.controlLanguage].join(' ')}>
+      <div
+        ref={c => (c ? (this._controlLanguageElement = c) : undefined)}
+        className={[style.controlButtonContainer, style.controlLanguage].join(' ')}>
         <Tooltip label={this.props.buttonLabel}>
           <Button
             tabIndex="0"
@@ -239,7 +240,7 @@ class Language extends Component {
               <AdvancedCaptionsAnchor
                 isPortal={this.props.isMobile || this.props.isSmallSize}
                 onMenuChosen={() => this.toggleCVAAOverlay()}
-                onClose={() => this.onControlButtonClick()}
+                onClose={() => this.toggleSmartContainerOpen()}
               />
             )}
           </SmartContainer>
@@ -249,7 +250,7 @@ class Language extends Component {
             <CVAAOverlay
               onClose={() => {
                 this.toggleCVAAOverlay();
-                this.onControlButtonClick();
+                this.toggleSmartContainerOpen();
               }}
             />,
             document.querySelector(portalSelector)

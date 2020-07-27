@@ -27,6 +27,13 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'PrePlaybackPlayOverlay';
 
+/**
+ * PrePlaybackPlayOverlay component
+ *
+ * @class PrePlaybackPlayOverlay
+ * @example <PrePlaybackPlayOverlay />
+ * @extends {Component}
+ */
 @connect(mapStateToProps, bindActions(loadingActions))
 @withPlayer
 @withLogger(COMPONENT_NAME)
@@ -35,13 +42,6 @@ const COMPONENT_NAME = 'PrePlaybackPlayOverlay';
   startOverText: 'controls.startOver',
   playText: 'controls.play'
 })
-/**
- * PrePlaybackPlayOverlay component
- *
- * @class PrePlaybackPlayOverlay
- * @example <PrePlaybackPlayOverlay />
- * @extends {Component}
- */
 class PrePlaybackPlayOverlay extends Component {
   /**
    * play on click

@@ -27,10 +27,6 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'UnmuteIndication';
 
-@connect(mapStateToProps, null)
-@withPlayer
-@withEventManager
-@withLogger(COMPONENT_NAME)
 /**
  * UnmuteIndication component
  *
@@ -38,6 +34,10 @@ const COMPONENT_NAME = 'UnmuteIndication';
  * @example <UnmuteIndication />
  * @extends {Component}
  */
+@connect(mapStateToProps, null)
+@withPlayer
+@withEventManager
+@withLogger(COMPONENT_NAME)
 class UnmuteIndication extends Component {
   /**
    * after component updated, check the fallbackToMutedAutoPlay prop for updating the state of the component

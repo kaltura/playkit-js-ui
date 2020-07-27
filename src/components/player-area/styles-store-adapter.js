@@ -41,10 +41,10 @@ const mapStateToProps = state => ({
   playerClientRect: state.shell.playerClientRect
 });
 
-@connect(mapStateToProps, bindActions(actions))
 /**
  * StylesStoreAdapter
  */
+@connect(mapStateToProps, bindActions(actions))
 class StylesStoreAdapter extends Component {
   /**
    * should component update handler

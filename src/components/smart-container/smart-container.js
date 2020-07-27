@@ -20,8 +20,6 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'SmartContainer';
 
-@connect(mapStateToProps, bindActions(actions))
-@withKeyboardA11y
 /**
  * SmartContainer component
  *
@@ -37,6 +35,8 @@ const COMPONENT_NAME = 'SmartContainer';
  * </SmartContainer>
  * @extends {Component}
  */
+@connect(mapStateToProps, bindActions(actions))
+@withKeyboardA11y
 class SmartContainer extends Component {
   // ie11 fix (FEC-7312) - don't remove
   _portal: any;

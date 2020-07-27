@@ -41,16 +41,16 @@ const COMPONENT_NAME = 'Keyboard';
 //unhandled keyboard event result
 const UNHANDLED_KEYBOARD_EVENT_RESULT: KeyboardEventResult = {preventDefault: false, payload: null};
 
-@connect(mapStateToProps, bindActions(Object.assign({}, shellActions, overlayIconActions)))
-@withPlayer
-@withLogger(COMPONENT_NAME)
-@withEventDispatcher(COMPONENT_NAME)
 /**
  * Keyboard component
  *
  * @class Keyboard
  * @extends {Component}
  */
+@connect(mapStateToProps, bindActions(Object.assign({}, shellActions, overlayIconActions)))
+@withPlayer
+@withLogger(COMPONENT_NAME)
+@withEventDispatcher(COMPONENT_NAME)
 class Keyboard extends Component {
   _lastActiveTextLanguage: string = '';
   _hoverTimeout: ?TimeoutID = null;

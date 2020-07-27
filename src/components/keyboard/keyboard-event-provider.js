@@ -18,15 +18,15 @@ const mapStateToProps = state => ({
   shareOverlay: state.share.overlayOpen
 });
 
-@connect(mapStateToProps)
-@withEventManager
-@withLogger(COMPONENT_NAME)
 /**
  * KeyboardEventProvider component
  *
  * @class KeyboardEventProvider
  * @extends {Component}
  */
+@connect(mapStateToProps)
+@withEventManager
+@withLogger(COMPONENT_NAME)
 class KeyboardEventProvider extends Component {
   _keyboardListeners = [];
   _isKeyboardEnable: boolean = false;

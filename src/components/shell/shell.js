@@ -69,11 +69,6 @@ const PLAYER_BREAK_POINTS: {[size: string]: number} = {
 
 const COMPONENT_NAME = 'Shell';
 
-@connect(mapStateToProps, bindActions({...shellActions, ...engineActions}))
-@withPlayer
-@withEventManager
-@withLogger(COMPONENT_NAME)
-@withEventDispatcher(COMPONENT_NAME)
 /**
  * Shell component
  *
@@ -81,6 +76,11 @@ const COMPONENT_NAME = 'Shell';
  * @example <Shell />
  * @extends {Component}
  */
+@connect(mapStateToProps, bindActions({...shellActions, ...engineActions}))
+@withPlayer
+@withEventManager
+@withLogger(COMPONENT_NAME)
+@withEventDispatcher(COMPONENT_NAME)
 class Shell extends Component {
   state: Object;
   hoverTimeout: ?TimeoutID;

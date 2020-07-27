@@ -9,13 +9,12 @@ import {h} from 'preact';
 import {withPlayer} from '../player';
 import isEqual from '../../utils/is-equal';
 
-@withPlayer
-
 /**
  * MainWindow component
  * @class MainCaptionsWindow
  * @extends {Component}
  */
+@withPlayer
 class MainCaptionsWindow extends Component {
   captionsStyleDefault: Object;
   captionsStyleYellow: Object;

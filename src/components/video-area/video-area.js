@@ -13,10 +13,10 @@ const mapStateToProps = state => ({
   videoStyles: state.shell.layoutStyles.video
 });
 
-@connect(mapStateToProps)
 /**
  * VideoArea
  */
+@connect(mapStateToProps)
 class VideoArea extends Component {
   /**
    * this component should not render itself when player object changes.

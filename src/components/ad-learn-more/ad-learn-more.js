@@ -15,7 +15,6 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'AdLearnMore';
 
-@connect(mapStateToProps)
 /**
  * AdLearnMore component
  *
@@ -23,6 +22,7 @@ const COMPONENT_NAME = 'AdLearnMore';
  * @example <AdLearnMore />
  * @extends {Component}
  */
+@connect(mapStateToProps)
 class AdLearnMore extends Component {
   /**
    * render component

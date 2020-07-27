@@ -40,6 +40,13 @@ const COMPONENT_NAME = 'Volume';
  */
 const KEYBOARD_DEFAULT_VOLUME_JUMP: number = 5;
 
+/**
+ * Volume component
+ *
+ * @class Volume
+ * @example <Volume />
+ * @extends {Component}
+ */
 @connect(mapStateToProps, bindActions({...actions, ...engineActions, ...overlayIconActions}))
 @withPlayer
 @withEventManager
@@ -50,14 +57,6 @@ const KEYBOARD_DEFAULT_VOLUME_JUMP: number = 5;
   muteAriaLabel: 'controls.mute',
   unmuteAriaLabel: 'controls.unmute'
 })
-
-/**
- * Volume component
- *
- * @class Volume
- * @example <Volume />
- * @extends {Component}
- */
 class Volume extends Component {
   _volumeControlElement: HTMLElement;
   _volumeProgressBarElement: HTMLElement;

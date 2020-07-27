@@ -29,8 +29,6 @@ const ToolTipType = {
   Right: 'right'
 };
 
-@connect(mapStateToProps)
-
 /**
  * Tooltip component
  *
@@ -38,6 +36,7 @@ const ToolTipType = {
  * @example <Tooltip>...</Tooltip>
  * @extends {Component}
  */
+@connect(mapStateToProps)
 class Tooltip extends Component {
   state: Object;
   _hoverTimeout: ?TimeoutID;

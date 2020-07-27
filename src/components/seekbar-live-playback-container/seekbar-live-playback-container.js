@@ -25,11 +25,6 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'SeekBarLivePlaybackContainer';
 
-@connect(mapStateToProps, bindActions(actions))
-@withPlayer
-@withEventManager
-@withEventDispatcher(COMPONENT_NAME)
-@withLogger(COMPONENT_NAME)
 /**
  * SeekBarLivePlaybackContainer component
  *
@@ -37,6 +32,11 @@ const COMPONENT_NAME = 'SeekBarLivePlaybackContainer';
  * @example <SeekBarLivePlaybackContainer />
  * @extends {Component}
  */
+@connect(mapStateToProps, bindActions(actions))
+@withPlayer
+@withEventManager
+@withEventDispatcher(COMPONENT_NAME)
+@withLogger(COMPONENT_NAME)
 class SeekBarLivePlaybackContainer extends Component {
   /**
    * after component mounted, listen to time update event and if dragging not active,

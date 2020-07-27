@@ -27,9 +27,6 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'PlaylistNextScreen';
 
-@connect(mapStateToProps)
-@withPlayer
-@withLogger(COMPONENT_NAME)
 /**
  * PlaylistNextScreen component
  *
@@ -37,6 +34,9 @@ const COMPONENT_NAME = 'PlaylistNextScreen';
  * @example <PlaylistNextScreen type="next"/>
  * @extends {Component}
  */
+@connect(mapStateToProps)
+@withPlayer
+@withLogger(COMPONENT_NAME)
 class PlaylistNextScreen extends Component {
   focusElement: HTMLElement;
 

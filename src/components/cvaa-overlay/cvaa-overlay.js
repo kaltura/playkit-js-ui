@@ -31,18 +31,17 @@ type CvaaOverlayStateType = 'main' | 'custom-captions';
 
 const COMPONENT_NAME = 'CVAAOverlay';
 
-@connect(mapStateToProps, bindActions({...cvaaActions, ...shellActions}))
-@withPlayer
-@withLogger(COMPONENT_NAME)
-@withEventDispatcher(COMPONENT_NAME)
-@withKeyboardA11y
-
 /**
  * CVAAOverlay component
  *
  * @class CVAAOverlay
  * @extends {Component}
  */
+@connect(mapStateToProps, bindActions({...cvaaActions, ...shellActions}))
+@withPlayer
+@withLogger(COMPONENT_NAME)
+@withEventDispatcher(COMPONENT_NAME)
+@withKeyboardA11y
 class CVAAOverlay extends Component {
   /**
    * componentWillUnmount

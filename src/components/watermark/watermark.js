@@ -23,16 +23,16 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'Watermark';
 
-@connect(mapStateToProps)
-@withPlayer
-@withEventManager
-@withLogger(COMPONENT_NAME)
 /**
  * Watermark component
  * @class Watermark
  * @example <Watermark />
  * @extends {Component}
  */
+@connect(mapStateToProps)
+@withPlayer
+@withEventManager
+@withLogger(COMPONENT_NAME)
 class Watermark extends Component {
   /**
    * Creates an instance of Watermark.

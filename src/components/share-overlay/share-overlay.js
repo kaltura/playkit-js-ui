@@ -158,15 +158,15 @@ const VideoStartOptions = (props: Object): React$Element<any> => {
 
 const COMPONENT_NAME = 'ShareOverlay';
 
-@connect(mapStateToProps, bindActions(actions))
-@withLogger(COMPONENT_NAME)
-@withKeyboardA11y
 /**
  * ShareOverlay component
  *
  * @class ShareOverlay
  * @extends {Component}
  */
+@connect(mapStateToProps, bindActions(actions))
+@withLogger(COMPONENT_NAME)
+@withKeyboardA11y
 class ShareOverlay extends Component {
   /**
    * before component mount, set initial state

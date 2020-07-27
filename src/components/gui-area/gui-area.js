@@ -13,15 +13,15 @@ const mapStateToProps = state => ({
   guiStyles: state.shell.layoutStyles.gui
 });
 
-@connect(mapStateToProps)
 /**
  * GuiArea component
  *
  * @class GuiArea
  * @extends {Component}
  */
+@connect(mapStateToProps)
 class GuiArea extends Component {
-  _ref: ?HTMLElement = null;
+  _ref: ?HTMLDivElement;
 
   /**
    * this component should not render itself when player object changes.
@@ -36,11 +36,11 @@ class GuiArea extends Component {
 
   /**
    *
-   * @param {HTMLElement} ref - ref
+   * @param {HTMLDivElement} ref - ref
    * @returns {void}
    * @private
    */
-  _setRef = (ref: HTMLElement | null) => {
+  _setRef = (ref: HTMLDivElement | null) => {
     if (ref) {
       this._ref = ref;
       this.setState(prevState => ({render: !prevState.render}));

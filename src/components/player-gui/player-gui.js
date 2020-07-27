@@ -18,13 +18,13 @@ const mapStateToProps = state => ({
   sidePanelsConfig: state.config.components.sidePanels
 });
 
-@connect(mapStateToProps, bindActions(actions))
 /**
  * Player GUI component
  *
  * @class PlayerGUI
  * @extends {Component}
  */
+@connect(mapStateToProps, bindActions(actions))
 class PlayerGUI extends Component {
   /**
    * component did update

@@ -32,17 +32,16 @@ const COMPONENT_NAME = 'SeekBar';
  */
 const KEYBOARD_DEFAULT_SEEK_JUMP: number = 5;
 
-@connect(mapStateToProps, bindActions({...actions, ...overlayIconActions}))
-@withPlayer
-@withKeyboardEvent(COMPONENT_NAME)
-@withText({sliderAriaLabel: 'controls.seekBarSlider'})
-
 /**
  * SeekBar component
  *
  * @class SeekBar
  * @extends {Component}
  */
+@connect(mapStateToProps, bindActions({...actions, ...overlayIconActions}))
+@withPlayer
+@withKeyboardEvent(COMPONENT_NAME)
+@withText({sliderAriaLabel: 'controls.seekBarSlider'})
 class SeekBar extends Component {
   state: Object;
   onPlayerMouseUp: Function;

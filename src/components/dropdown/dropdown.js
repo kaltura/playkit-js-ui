@@ -18,7 +18,6 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'DropDown';
 
-@connect(mapStateToProps)
 /**
  * DropDown component
  *
@@ -26,6 +25,7 @@ const COMPONENT_NAME = 'DropDown';
  * @example <DropDown options={this.videoTrackOptions} />
  * @extends {Component}
  */
+@connect(mapStateToProps)
 class DropDown extends Component {
   state: Object;
   _el: HTMLDivElement;

@@ -19,9 +19,6 @@ const mapStateToProps = state => ({
   targetId: state.config.targetId
 });
 
-@withPlayer
-@withEventManager
-@connect(mapStateToProps, bindActions(actions))
 /**
  * VideoPlayer component
  *
@@ -29,6 +26,9 @@ const mapStateToProps = state => ({
  * @example <VideoPlayer>...</VideoPlayer>
  * @extends {Component}
  */
+@withPlayer
+@withEventManager
+@connect(mapStateToProps, bindActions(actions))
 class VideoPlayer extends Component {
   _el: HTMLElement;
   _videoResizeWatcher: ResizeWatcher;

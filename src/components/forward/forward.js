@@ -19,11 +19,6 @@ const COMPONENT_NAME = 'Forward';
  */
 export const FORWARD_DEFAULT_STEP = 10;
 
-@withPlayer
-@withLogger(COMPONENT_NAME)
-@withEventDispatcher(COMPONENT_NAME)
-@withAnimation(style.reverseRotate)
-@withText({forwardText: 'controls.forward'})
 /**
  * Forward component
  *
@@ -31,6 +26,11 @@ export const FORWARD_DEFAULT_STEP = 10;
  * @example <Forward step={5} />
  * @extends {Component}
  */
+@withPlayer
+@withLogger(COMPONENT_NAME)
+@withEventDispatcher(COMPONENT_NAME)
+@withAnimation(style.reverseRotate)
+@withText({forwardText: 'controls.forward'})
 class Forward extends Component {
   /**
    * forward click handler

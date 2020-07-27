@@ -18,6 +18,13 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'PlaylistButton';
 
+/**
+ * PlaylistButton component
+ *
+ * @class PlaylistButton
+ * @example <PlaylistButton type="next"/>
+ * @extends {Component}
+ */
 @connect(mapStateToProps)
 @withPlayer
 @withText({
@@ -26,13 +33,6 @@ const COMPONENT_NAME = 'PlaylistButton';
   playlistPrevText: 'playlist.prev',
   playlistUpNextText: 'playlist.up_next'
 })
-/**
- * PlaylistButton component
- *
- * @class PlaylistButton
- * @example <PlaylistButton type="next"/>
- * @extends {Component}
- */
 class PlaylistButton extends Component {
   /**
    * playlist button click handler

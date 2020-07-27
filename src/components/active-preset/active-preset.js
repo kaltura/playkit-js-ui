@@ -29,14 +29,14 @@ const mapStateToProps = state => ({
 const logger = getLogger('ActivePreset');
 const COMPONENT_NAME = 'ActivePreset';
 
-@withEventDispatcher(COMPONENT_NAME)
-@connect(mapStateToProps, bindActions(actions))
 /**
  * Active preset
  *
  * @class ActivePreset
  * @extends {Component}
  */
+@withEventDispatcher(COMPONENT_NAME)
+@connect(mapStateToProps, bindActions(actions))
 class ActivePreset extends Component {
   /**
    * get the single matched UI to render based on the UIs and it's conditions

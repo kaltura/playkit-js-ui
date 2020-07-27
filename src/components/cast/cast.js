@@ -22,11 +22,6 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'Cast';
 
-@connect(mapStateToProps, actions)
-@withPlayer
-@withEventManager
-@withLogger(COMPONENT_NAME)
-@withText({castText: 'cast.play_on_tv'})
 /**
  * Cast component
  *
@@ -34,6 +29,11 @@ const COMPONENT_NAME = 'Cast';
  * @example <Cast />
  * @extends {Component}
  */
+@connect(mapStateToProps, actions)
+@withPlayer
+@withEventManager
+@withLogger(COMPONENT_NAME)
+@withText({castText: 'cast.play_on_tv'})
 class Cast extends Component {
   /**
    * On click set the backdrop to visible.
