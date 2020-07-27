@@ -4,3 +4,4 @@ CHANGELOG.md
 yarn.lock
 yarn-error.log
 LICENSE
+coverage
