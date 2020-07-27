@@ -61,7 +61,7 @@
     "chai": "^4.2.0",
     "cross-env": "^7.0.2",
     "rimraf": "^3.0.2",
-    "css-loader": "2.1.1",
+    "css-loader": "3.6.0",
     "eslint": "^4.1.1",
     "eslint-config-prettier": "^6.11.0",
     "eslint-config-standard-preact": "^1.1.6",

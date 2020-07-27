@@ -6,7 +6,8 @@
   },
   "settings": {
     "react": {
-      "pragma": "h"
+      "pragma": "h",
+      "version": "16.0"
     }
   },
   "plugins": ["prettier", "import", "flowtype", "mocha-no-only", "react"],
