@@ -143,7 +143,7 @@ class Language extends Component {
    * @returns {void}
    * @memberof Language
    */
-  onControlButtonClick(): void {
+  toggleSmartContainerOpen(): void {
     this.setState(prevState => {
       return {smartContainerOpen: !prevState.smartContainerOpen};
     });
@@ -211,7 +211,7 @@ class Language extends Component {
             aria-haspopup="true"
             aria-label={this.props.buttonLabel}
             className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
-            onClick={() => this.onControlButtonClick()}>
+            onClick={() => this.toggleSmartContainerOpen()}>
             <Icon type={IconType.Language} />
           </Button>
         </Tooltip>
@@ -219,7 +219,7 @@ class Language extends Component {
           <SmartContainer
             targetId={this.props.player.config.targetId}
             title={<Text id="language.title" />}
-            onClose={() => this.onControlButtonClick()}>
+            onClose={() => this.toggleSmartContainerOpen()}>
             {audioOptions.length <= 1 ? undefined : (
               <SmartContainerItem
                 icon="audio"
