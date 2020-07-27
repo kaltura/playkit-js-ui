@@ -40,9 +40,11 @@ class GuiArea extends Component {
    * @returns {void}
    * @private
    */
-  _setRef = (ref: HTMLElement) => {
-    this._ref = ref;
-    this.setState(prevState => ({render: !prevState.render}));
+  _setRef = (ref: HTMLElement | null) => {
+    if (ref) {
+      this._ref = ref;
+      this.setState(prevState => ({render: !prevState.render}));
+    }
   };
 
   /**

@@ -517,7 +517,7 @@ class SeekBar extends Component {
       return undefined;
 
     return (
-      <div className={style.framePreview} style={this._getFramePreviewStyle()} ref={c => (this._framePreviewElement = c)}>
+      <div className={style.framePreview} style={this._getFramePreviewStyle()} ref={c => (c ? (this._framePreviewElement = c) : undefined)}>
         <div className={style.framePreviewImg} style={this._getFramePreviewImgStyle()} />
       </div>
     );
@@ -559,7 +559,7 @@ class SeekBar extends Component {
     const timeBubbleStyle = `left: ${this.getTimeBubbleOffset()}px`;
     const timeBubbleValue = this.props.isDvr ? '-' + toHHMMSS(this.props.duration - this.state.virtualTime) : toHHMMSS(this.state.virtualTime);
     return (
-      <div className={style.timePreview} style={timeBubbleStyle} ref={c => (this._timeBubbleElement = c)}>
+      <div className={style.timePreview} style={timeBubbleStyle} ref={c => (c ? (this._timeBubbleElement = c) : undefined)}>
         {timeBubbleValue}
       </div>
     );
@@ -586,7 +586,7 @@ class SeekBar extends Component {
       <div
         tabIndex="0"
         className={seekbarStyleClass.join(' ')}
-        ref={c => (this._seekBarElement = c)}
+        ref={c => (c ? (this._seekBarElement = c) : undefined)}
         role="slider"
         aria-label={props.sliderAriaLabel}
         aria-valuemin="0"

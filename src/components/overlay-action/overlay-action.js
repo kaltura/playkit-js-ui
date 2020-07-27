@@ -69,11 +69,11 @@ const COMPONENT_NAME = 'OverlayAction';
  */
 class OverlayAction extends Component {
   state: Object;
-  _iconTimeout: ?number = null;
+  _iconTimeout: ?TimeoutID = null;
   _pointerDownPosX: number = NaN;
   _pointerDownPosY: number = NaN;
   _firstClickTime: number = 0;
-  _clickTimeout: ?number = 0;
+  _clickTimeout: ?TimeoutID = null;
 
   /**
    * toggle play pause and set animation to icon change

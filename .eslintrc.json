@@ -1,6 +1,10 @@
 {
   "parser": "babel-eslint",
-  "extends": ["eslint:recommended", "plugin:flowtype/recommended", "plugin:react/recommended"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:flowtype/recommended",
+    "plugin:react/recommended"
+  ],
   "parserOptions": {
     "sourceType": "module"
   },
@@ -10,7 +14,13 @@
       "version": "16.0"
     }
   },
-  "plugins": ["prettier", "import", "flowtype", "mocha-no-only", "react"],
+  "plugins": [
+    "prettier",
+    "import",
+    "flowtype",
+    "mocha-no-only",
+    "react"
+  ],
   "env": {
     "browser": true,
     "es6": true,
@@ -32,6 +42,20 @@
     "mocha-no-only/mocha-no-only": "off",
     "flowtype/define-flow-type": 2,
     "react/prop-types": 0,
+    "require-jsdoc": [
+      "error",
+      {
+        "require": {
+          "FunctionDeclaration": true,
+          "MethodDefinition": true,
+          "ClassDeclaration": true,
+          "ArrowFunctionExpression": true
+        }
+      }
+    ],
+    "valid-jsdoc": [
+      "error"
+    ],
     "react/no-deprecated": "off"
   }
 }

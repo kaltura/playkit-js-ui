@@ -53,7 +53,7 @@ const UNHANDLED_KEYBOARD_EVENT_RESULT: KeyboardEventResult = {preventDefault: fa
  */
 class Keyboard extends Component {
   _lastActiveTextLanguage: string = '';
-  _hoverTimeout: ?number = null;
+  _hoverTimeout: ?TimeoutID = null;
 
   /**
    * creates an instance of Keyboard

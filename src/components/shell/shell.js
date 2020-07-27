@@ -83,7 +83,7 @@ const COMPONENT_NAME = 'Shell';
  */
 class Shell extends Component {
   state: Object;
-  hoverTimeout: ?number;
+  hoverTimeout: ?TimeoutID;
   _environmentClasses: Array<string>;
   _playerResizeWatcher: ResizeWatcher;
 
@@ -114,7 +114,7 @@ class Shell extends Component {
      * a hack to fix 'mouseleave' bug in chrome - the event is called sometimes on a click inside the div.
      * https://bugs.chromium.org/p/chromium/issues/detail?id=798535
      */
-    if (!event.toElement) {
+    if (!Object.prototype.hasOwnProperty.call(event, 'toElement')) {
       return;
     }
     if (this.props.isMobile) {

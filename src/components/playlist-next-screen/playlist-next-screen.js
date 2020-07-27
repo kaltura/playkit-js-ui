@@ -113,9 +113,7 @@ class PlaylistNextScreen extends Component {
               <div
                 role="button"
                 aria-labelledby="playlistNextScreenTextId"
-                ref={el => {
-                  this.focusElement = el;
-                }}
+                ref={el => (el ? (this.focusElement = el) : undefined)}
                 tabIndex="0"
                 className={style.playlistNextScreenPoster}
                 onClick={() => this.onPosterClick()}

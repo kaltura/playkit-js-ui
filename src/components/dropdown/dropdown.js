@@ -39,6 +39,7 @@ class DropDown extends Component {
   componentWillMount() {
     this.setState({dropMenuActive: false});
   }
+
   /**
    * after component mounted, set the callback to be called when parent selected
    * @returns {void}
@@ -155,7 +156,7 @@ class DropDown extends Component {
       <div
         name={props.name}
         className={this.state.dropMenuActive ? [style.dropdown, style.active].join(' ') : style.dropdown}
-        ref={el => (this._el = el)}>
+        ref={el => (el ? (this._el = el) : undefined)}>
         <div
           tabIndex={props.tabbable ? 0 : -1}
           ref={el => {

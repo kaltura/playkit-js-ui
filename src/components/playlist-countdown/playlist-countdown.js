@@ -230,7 +230,7 @@ class PlaylistCountdown extends Component {
       <div
         role="button"
         aria-labelledby="playlistCountdownTextId"
-        ref={el => (this.focusElement = el)}
+        ref={el => (el ? (this.focusElement = el) : undefined)}
         tabIndex={this.state.focusable ? 0 : -1}
         className={className.join(' ')}
         onKeyDown={e => {

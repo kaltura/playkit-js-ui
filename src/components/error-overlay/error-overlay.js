@@ -73,11 +73,7 @@ class ErrorOverlay extends Component {
       return (
         <div className={style.linkOptionsContainer}>
           <div className={style.copyUrlRow}>
-            <div
-              ref={el => {
-                this.sessionEl = el;
-              }}
-              className={style.errorSession}>
+            <div ref={el => (el ? (this.sessionEl = el) : undefined)} className={style.errorSession}>
               <Text id="error.default_session_text" /> {' ' + sessionId}
             </div>
             <CopyButton copy={() => this.copyError()} />
