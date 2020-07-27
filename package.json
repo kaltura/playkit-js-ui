@@ -31,12 +31,11 @@
     "access": "public"
   },
   "dependencies": {
-    "empty": "^0.10.1",
     "js-logger": "^1.6.0",
     "preact": "^10.3.4",
     "preact-i18n": "^2.0.0-preactx.2",
     "react-redux": "^7.2.0",
-    "redux": "^3.6.0"
+    "redux": "^4.0.5"
   },
   "devDependencies": {
     "@playkit-js/playkit-js": "^0.59.5",

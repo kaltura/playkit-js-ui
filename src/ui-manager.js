@@ -2,7 +2,7 @@
 import {h, render} from 'preact';
 import {Provider} from 'react-redux';
 import {IntlProvider} from 'preact-i18n';
-import {createStore} from 'redux';
+import {createStore, compose} from 'redux';
 import {copyDeep} from './utils/copy-deep';
 import {mergeDeep} from './utils/merge-deep';
 import {LogLevel, getLogLevel, setLogLevel, setLogHandler} from './utils/logger';
@@ -149,15 +149,8 @@ class UIManager {
    * @returns {void}
    */
   _createStore(config: UIOptionsObject): void {
-    this.store = createStore(
-      reducer,
-      window.devToolsExtension &&
-        window.devToolsExtension({
-          name: `playkit #${this.targetId}`,
-          instanceId: this.targetId
-        }),
-      middleware(this.player, config)
-    );
+    const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+    this.store = createStore(reducer, composeEnhancers(middleware(this.player, config)));
   }
 
   /**
