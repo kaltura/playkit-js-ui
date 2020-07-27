@@ -15,7 +15,8 @@
     "eslint": "eslint . --color",
     "flow": "flow check",
     "docs:components": "jsdoc -c component.jsdocs.json -r",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "prettier:fix": "prettier --write ."
   },
   "lint-staged": {
     "*.{js,jsx}": [
@@ -38,7 +39,7 @@
     "redux": "^4.0.5"
   },
   "devDependencies": {
-    "@playkit-js/playkit-js": "^0.59.5",
+    "@playkit-js/playkit-js": "0.62.1-canary.2264c8f",
     "@babel/cli": "^7.10.5",
     "@babel/core": "^7.10.5",
     "@babel/plugin-proposal-class-properties": "^7.10.4",

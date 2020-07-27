@@ -1,10 +1,6 @@
 {
   "parser": "babel-eslint",
-  "extends": [
-    "eslint:recommended",
-    "plugin:flowtype/recommended",
-    "plugin:react/recommended"
-  ],
+  "extends": ["eslint:recommended", "plugin:flowtype/recommended", "plugin:react/recommended"],
   "parserOptions": {
     "sourceType": "module"
   },
@@ -13,13 +9,7 @@
       "pragma": "h"
     }
   },
-  "plugins": [
-    "prettier",
-    "import",
-    "flowtype",
-    "mocha-no-only",
-    "react"
-  ],
+  "plugins": ["prettier", "import", "flowtype", "mocha-no-only", "react"],
   "env": {
     "browser": true,
     "es6": true,
