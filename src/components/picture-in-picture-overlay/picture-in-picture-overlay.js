@@ -18,9 +18,6 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'PictureInPictureOverlay';
 
-@connect(mapStateToProps)
-@withPlayer
-@withLogger(COMPONENT_NAME)
 /**
  * PictureInPictureOverlay component
  *
@@ -28,6 +25,9 @@ const COMPONENT_NAME = 'PictureInPictureOverlay';
  * @example <PictureInPictureOverlay />
  * @extends {Component}
  */
+@connect(mapStateToProps)
+@withPlayer
+@withLogger(COMPONENT_NAME)
 class PictureInPictureOverlay extends Component {
   /**
    * The button is clicked, play the video in the player instead of in picture in picture

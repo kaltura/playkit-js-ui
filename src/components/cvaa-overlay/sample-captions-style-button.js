@@ -31,9 +31,7 @@ const SampleCaptionsStyleButton = (props: any): React$Element<any> => {
         <div className={style.activeTick}>
           <Icon type={IconType.Check} />
         </div>
-      ) : (
-        undefined
-      )}
+      ) : undefined}
     </div>
   );
 };

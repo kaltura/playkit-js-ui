@@ -7,8 +7,7 @@
   background: black;
   transition: all $default-transition-time;
   transition-property: left, right, bottom, top, width, height;
-  .overlay-active &{
+  .overlay-active & {
     filter: blur(16px);
-  };
-
+  }
 }

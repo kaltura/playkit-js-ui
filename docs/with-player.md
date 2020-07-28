@@ -1,11 +1,11 @@
 ## Using the player API in your component
 
-### withPlayer HoC 
+### withPlayer HoC
 
 Sometimes you just need a presentational component or you are hooking up a UI component but it doesn't require any data of the playback state.  
 In this case you can create your component in isolation from the player API and inject it to the UI.  
 But in the cases where player API is required in order to add UI interaction that acts on the player API you may use the withPlayer HoC and get access to the player in your component.
-Once used, the player will be accessible via the component props, i.e. `this.props.player`.   
+Once used, the player will be accessible via the component props, i.e. `this.props.player`.
 
 Let's see an example:
 
@@ -20,14 +20,14 @@ class SampleComponent extends Component {
   componentDidMount() {
     // register to event handlers and other stuff here
   }
-  
+
   componentWillUnount() {
     // free resources here
   }
-  
+
   render(props) {
     return h(
-      'div', 
+      'div',
       {
         className: 'dumb-component',
         style: {
@@ -38,7 +38,7 @@ class SampleComponent extends Component {
         onClick: () => {
           console.info(this.props.player.currentTime);
         }
-      }, 
+      },
       props.children
     );
   }
@@ -56,19 +56,20 @@ const Component = KalturaPlayer.ui.preact.Component;
 
 class DumbComponent extends Component {
   render(props) {
-    return <div 
-      className="dumb-component"
-      style= {{
-        width: '40px',
-        height: '40px',
-        backgroundColor: 'red'
-      }}
-      onClick = {() => {
-        console.info(this.props.player.currentTime);
-      }}
-    >
-      {props.children}
-    </div>;
+    return (
+      <div
+        className="dumb-component"
+        style={{
+          width: '40px',
+          height: '40px',
+          backgroundColor: 'red'
+        }}
+        onClick={() => {
+          console.info(this.props.player.currentTime);
+        }}>
+        {props.children}
+      </div>
+    );
   }
 }
 
@@ -85,7 +86,7 @@ const Component = KalturaPlayer.ui.preact.Component;
 @withPlayer
 class DumbComponent extends Component {
   render(props) {
-    return <div 
+    return <div
       className="dumb-component"
       style= {{
         width: '40px',

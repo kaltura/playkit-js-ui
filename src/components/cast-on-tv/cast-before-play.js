@@ -24,12 +24,6 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'CastBeforePlay';
 
-@connect(
-  mapStateToProps,
-  actions
-)
-@withPlayer
-@withLogger(COMPONENT_NAME)
 /**
  * CastBeforePlay component
  *
@@ -37,6 +31,9 @@ const COMPONENT_NAME = 'CastBeforePlay';
  * @example <CastBeforePlay />
  * @extends {Component}
  */
+@connect(mapStateToProps, actions)
+@withPlayer
+@withLogger(COMPONENT_NAME)
 class CastBeforePlay extends Component {
   /**
    * @static

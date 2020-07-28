@@ -35,19 +35,8 @@ this is a UI preset that will define the look of fullscreen state, which uses th
 //fullscreen-preset.js
 const h = KalturaPlayer.ui.h;
 const components = KalturaPlayer.ui.components;
-const fullscreenUI = function(props){
-  return h(
-    'div',
-    { className: "playback-gui-wrapper" },
-    h(
-      components.BottomBar,
-      h(
-        components.Fullscreen, 
-        {},
-        { className: "playkit-left-controls" }
-      )
-    )
-  )
+const fullscreenUI = function (props) {
+  return h('div', {className: 'playback-gui-wrapper'}, h(components.BottomBar, h(components.Fullscreen, {}, {className: 'playkit-left-controls'})));
 };
 ```
 
@@ -82,7 +71,7 @@ npm install --save-dev babel-plugin-transform-react-jsx
 ```javascript
 //fullscreen-preset.js
 const components = KalturaPlayer.ui.components;
-const fullscreenUI = function(props) {
+const fullscreenUI = function (props) {
   return (
     <div className="playback-gui-wrapper" style="height: 100%">
       <BottomBar>
@@ -102,22 +91,23 @@ const fullscreenUI = function(props) {
 ```javascript
 //fullscreen-preset.js
 //@flow
-import { h, BottomBar, Fullscreen  } from 'playkit-js-ui';
+import {h, BottomBar, Fullscreen} from 'playkit-js-ui';
 
 export default function fullscreenUI(props: any) {
-return (
-<div className='playback-gui-wrapper' style='height: 100%'>
-<BottomBar>
-<Fullscreen />
-</BottomBar>
-</div>
-)
+  return (
+    <div className="playback-gui-wrapper" style="height: 100%">
+      <BottomBar>
+        <Fullscreen />
+      </BottomBar>
+    </div>
+  );
 }
+```
 
-````
 </details>
 
 ## Attaching the preset to the fullscreen state
+
 In order to use a preset we pass our custom preset function to the UI manager.
 
 ```javascript
@@ -138,44 +128,50 @@ const config = {
 };
 //Call th eplayer with the new UI presets
 const kalturaPlayer = KalturaPlayer.setup(config);
-````
+```
 
 <details>
   <summary>Example if importing the UI in standalone mode</summary>
 
 ```javascript
 //@flow
-import { default as PlaykitUI, Presets } from 'playkit-js-ui';
+import {default as PlaykitUI, Presets} from 'playkit-js-ui';
 
 // the new preset we created
 import fullscreenUI from './fullscreen-preset.js';
 
 function buildUI(player: Player, config: Object): void {
-const uis = [
-{ template: props => fullscreenUI(props), condition: state => state.fullscreen.fullscreen },
-{ template: props => Presets.playbackUI(props) }
-];
+  const uis = [
+    {template: props => fullscreenUI(props), condition: state => state.fullscreen.fullscreen},
+    {template: props => Presets.playbackUI(props)}
+  ];
 
-let playerUIManager = new PlaykitUI(player, config);
-playerUIManager.buildCustomUI(uis);
+  let playerUIManager = new PlaykitUI(player, config);
+  playerUIManager.buildCustomUI(uis);
 }
-
 ```
+
 </details>
 
 ## Defining UI conditions
+
 A preset condition is a simple method that returns a boolean.
 
 Once a boolean is returned, either `true` or `false`, the UI will be rendered.
 
 The UI Manager has three pre-defined conditions:
+
 1. Error state: `state.engine.hasError`
 2. Ad break state: `state.engine.adBreak`
 3. Live state: `state.engine.isLive`
 4. Idle state: `state.engine.isIdle`
 
 ## Using custom components
+
 Presets can be created by using the player default library components, but you can also create and use your own components to define the layout.
 
 See example on how to create and use your own components [here](create-ui-component.md)
+
+```
+
 ```

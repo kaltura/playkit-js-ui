@@ -40,10 +40,14 @@ const COMPONENT_NAME = 'Volume';
  */
 const KEYBOARD_DEFAULT_VOLUME_JUMP: number = 5;
 
-@connect(
-  mapStateToProps,
-  bindActions({...actions, ...engineActions, ...overlayIconActions})
-)
+/**
+ * Volume component
+ *
+ * @class Volume
+ * @example <Volume />
+ * @extends {Component}
+ */
+@connect(mapStateToProps, bindActions({...actions, ...engineActions, ...overlayIconActions}))
 @withPlayer
 @withEventManager
 @withKeyboardEvent(COMPONENT_NAME)
@@ -53,14 +57,6 @@ const KEYBOARD_DEFAULT_VOLUME_JUMP: number = 5;
   muteAriaLabel: 'controls.mute',
   unmuteAriaLabel: 'controls.unmute'
 })
-
-/**
- * Volume component
- *
- * @class Volume
- * @example <Volume />
- * @extends {Component}
- */
 class Volume extends Component {
   _volumeControlElement: HTMLElement;
   _volumeProgressBarElement: HTMLElement;
@@ -373,7 +369,7 @@ class Volume extends Component {
 
     return (
       <div
-        ref={c => (this._volumeControlElement = c)}
+        ref={c => (c ? (this._volumeControlElement = c) : undefined)}
         className={controlButtonClass.join(' ')}
         onMouseOver={() => this.onMouseOver()}
         onMouseOut={() => this.onMouseOut()}>
@@ -397,7 +393,10 @@ class Volume extends Component {
           aria-valuemax="100"
           aria-valuenow={player.volume * 100}
           aria-valuetext={`${player.volume * 100}% volume ${player.muted ? 'muted' : ''}`}>
-          <div className={style.bar} ref={c => (this._volumeProgressBarElement = c)} onMouseDown={() => this.onVolumeProgressBarMouseDown()}>
+          <div
+            className={style.bar}
+            ref={c => (c ? (this._volumeProgressBarElement = c) : undefined)}
+            onMouseDown={() => this.onVolumeProgressBarMouseDown()}>
             <div className={style.progress} style={{height: this.getVolumeProgressHeight()}} />
           </div>
         </div>

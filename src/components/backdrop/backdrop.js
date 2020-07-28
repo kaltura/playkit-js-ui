@@ -15,10 +15,6 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'Backdrop';
 
-@connect(
-  mapStateToProps,
-  null
-)
 /**
  * Backdrop component
  *
@@ -26,6 +22,7 @@ const COMPONENT_NAME = 'Backdrop';
  * @example <Backdrop/>
  * @extends {Component}
  */
+@connect(mapStateToProps, null)
 class Backdrop extends Component {
   /**
    * render component

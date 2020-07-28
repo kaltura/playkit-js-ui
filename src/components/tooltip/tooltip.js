@@ -29,8 +29,6 @@ const ToolTipType = {
   Right: 'right'
 };
 
-@connect(mapStateToProps)
-
 /**
  * Tooltip component
  *
@@ -38,9 +36,10 @@ const ToolTipType = {
  * @example <Tooltip>...</Tooltip>
  * @extends {Component}
  */
+@connect(mapStateToProps)
 class Tooltip extends Component {
   state: Object;
-  _hoverTimeout: ?number;
+  _hoverTimeout: ?TimeoutID;
   textElement: HTMLSpanElement;
   lastAlternativeTypeIndex: number = -1;
 
@@ -162,12 +161,7 @@ class Tooltip extends Component {
     ) : (
       <div className={style.tooltip} onMouseOver={() => this.onMouseOver()} onMouseLeave={() => this.onMouseLeave()}>
         {props.children}
-        <span
-          style={{maxWidth: props.maxWidth}}
-          ref={el => {
-            this.textElement = el;
-          }}
-          className={className.join(' ')}>
+        <span style={{maxWidth: props.maxWidth}} ref={el => (el ? (this.textElement = el) : undefined)} className={className.join(' ')}>
           {props.label}
         </span>
       </div>

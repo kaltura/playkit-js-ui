@@ -1,25 +1,16 @@
 {
   "parser": "babel-eslint",
-  "extends": [
-    "eslint:recommended",
-    "plugin:flowtype/recommended",
-    "plugin:react/recommended"
-  ],
+  "extends": ["eslint:recommended", "plugin:flowtype/recommended", "plugin:react/recommended"],
   "parserOptions": {
     "sourceType": "module"
   },
   "settings": {
     "react": {
-      "pragma": "h"
+      "pragma": "h",
+      "version": "16.0"
     }
   },
-  "plugins": [
-    "prettier",
-    "import",
-    "flowtype",
-    "mocha-no-only",
-    "react"
-  ],
+  "plugins": ["prettier", "import", "flowtype", "mocha-no-only", "react"],
   "env": {
     "browser": true,
     "es6": true,
@@ -52,8 +43,7 @@
         }
       }
     ],
-    "valid-jsdoc": [
-      "error"
-    ]
+    "valid-jsdoc": ["error"],
+    "react/no-deprecated": "off"
   }
 }

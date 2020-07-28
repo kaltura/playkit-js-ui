@@ -4,7 +4,6 @@
 [libs]
 node_modules/@playkit-js/playkit-js/flow-typed/
 [options]
-unsafe.enable_getters_and_setters=true
 esproposal.decorators=ignore
 module.name_mapper.extension='scss' -> 'empty/object'
 module.name_mapper='^utils\/\(.*\)$' -> '<PROJECT_ROOT>/src/utils/\1'

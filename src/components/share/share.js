@@ -28,13 +28,6 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'Share';
 
-@connect(
-  mapStateToProps,
-  bindActions(actions)
-)
-@withPlayer
-@withLogger(COMPONENT_NAME)
-@withText({shareTxt: 'controls.share'})
 /**
  * Share component
  *
@@ -42,6 +35,10 @@ const COMPONENT_NAME = 'Share';
  * @example <Share />
  * @extends {Component}
  */
+@connect(mapStateToProps, bindActions(actions))
+@withPlayer
+@withLogger(COMPONENT_NAME)
+@withText({shareTxt: 'controls.share'})
 class Share extends Component {
   // ie11 fix (FEC-7312) - don't remove
   _portal: any;

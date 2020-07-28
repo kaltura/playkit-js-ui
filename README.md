@@ -25,17 +25,17 @@ PlayKit JS UI is written in [ECMAScript6], statically analysed using [Flow] and 
 
 ## Table of Contents
 
-* [Getting Started](#getting-started)
-  * [Prerequisites](#prerequisites)
-  * [Installing](#installing)
-  * [Building](#building)
-  * [Embed the Player In Your Test Page](#embed-the-player-in-your-test-page)
-* [Documentation](#documentation)
-* [Running the Tests](#running-the-tests)
-* [Compatibility](#compatibility)
-* [Contributing](#contributing)
-* [Versioning](#versioning)
-* [License](#license)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installing](#installing)
+  - [Building](#building)
+  - [Embed the Player In Your Test Page](#embed-the-player-in-your-test-page)
+- [Documentation](#documentation)
+- [Running the Tests](#running-the-tests)
+- [Compatibility](#compatibility)
+- [Contributing](#contributing)
+- [Versioning](#versioning)
+- [License](#license)
 
 ## Getting Started
 
@@ -77,23 +77,24 @@ Finally, add the bundle as a script tag in your page, and initialize the player
 <script type="text/javascript" src="/PATH/TO/FILE/playkit.js"></script>
 <script type="text/javascript" src="/PATH/TO/FILE/playkit-ui.js"></script>
 <div id="player-placeholder" style="height:360px;width:640px">
-<script type="text/javascript">
-var playerConfig = {...};
-var uiConfig = {targetId: "player-placeholder"};
-var player = playkit.core.loadPlayer(playerConfig);
-var uiManager = new playkit.ui.UIManager(player, uiConfig);
-uiManager.buildDefaultUI();
-player.play();
-</script>
+  <script type="text/javascript">
+    var playerConfig = {...};
+    var uiConfig = {targetId: "player-placeholder"};
+    var player = playkit.core.loadPlayer(playerConfig);
+    var uiManager = new playkit.ui.UIManager(player, uiConfig);
+    uiManager.buildDefaultUI();
+    player.play();
+  </script>
+</div>
 ```
 
 ## Documentation
 
-* **[Configuration](docs/configuration.md)**
-* **API**
-* **[Events](docs/events.md)**
-* **[UI Customization](docs/ui-customization.md)**
-* **[Components](docs/components.md)**
+- **[Configuration](docs/configuration.md)**
+- **API**
+- **[Events](docs/events.md)**
+- **[UI Customization](docs/ui-customization.md)**
+- **[Components](docs/components.md)**
 
 ## Running the Tests
 

@@ -1,25 +1,31 @@
 {
-  "presets": [
-    "es2015",
-    "stage-1"
-  ],
+  "env": {
+    "test": {
+      "plugins": ["istanbul"]
+    }
+  },
+  "ignore": ["node_modules/**/*"],
   "plugins": [
-    "transform-flow-strip-types",
-    "transform-class-properties",
-    "transform-decorators-legacy",
-    "transform-object-rest-spread",
+    "@babel/plugin-proposal-export-namespace-from",
+    "@babel/plugin-proposal-export-default-from",
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-transform-flow-strip-types",
+    "@babel/plugin-transform-property-mutators",
+    "@babel/plugin-proposal-object-rest-spread",
     [
-      "transform-react-jsx",
+      "@babel/plugin-proposal-decorators",
+      {
+        "legacy": true
+      }
+    ],
+    "@babel/plugin-proposal-class-properties",
+    [
+      "@babel/plugin-transform-react-jsx",
       {
         "pragma": "h"
       }
-    ]
+    ],
+    "@babel/plugin-transform-classes"
   ],
-  "env": {
-    "test": {
-      "plugins": [
-        "istanbul"
-      ]
-    }
-  }
+  "presets": ["@babel/preset-env"]
 }

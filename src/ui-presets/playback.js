@@ -36,11 +36,6 @@ import {GuiArea} from '../components/gui-area';
 
 const PRESET_NAME = 'Playback';
 
-@withPlayerPreset({
-  allowSidePanels: true,
-  allowPlayerArea: true
-})
-@withKeyboardEvent(PRESET_NAME)
 /**
  * Playback ui interface component
  *
@@ -48,6 +43,11 @@ const PRESET_NAME = 'Playback';
  * @param {*} props component props
  * @returns {React$Element} player ui tree
  */
+@withPlayerPreset({
+  allowSidePanels: true,
+  allowPlayerArea: true
+})
+@withKeyboardEvent(PRESET_NAME)
 class PlaybackUI extends Component {
   /**
    * @returns {void}

@@ -20,7 +20,7 @@ var uiManager = new playkit.ui.UIManager(player, config);
   components?: Object, // optional
   uiComponents: Array<Object>, //optional
   translations: Object, // optional
-  locale: string // optional  
+  locale: string // optional
 }
 ```
 
@@ -243,7 +243,7 @@ var uiManager = new playkit.ui.UIManager(player, config);
 > > > ### config.components.fullscreen.inBrowserFullscreenForIOS (Deprecated)
 > > >
 > > > #### Moved to [`playback.inBrowserFullscreen`](https://github.com/kaltura/playkit-js/blob/master/docs/configuration.md#configplaybackinbrowserfullscreen)
-> > > 
+> > >
 > > > ##
 > > >
 > > > ### config.components.fullscreen.disableDoubleClick
@@ -265,14 +265,13 @@ var uiManager = new playkit.ui.UIManager(player, config);
 >  label: string,
 >  presets: Array<string>,
 >  container: string,
->  get: Function 
->  props?: {} 
+>  get: Function
+>  props?: {}
 >  beforeComponent?: string,
 >  afterComponent?: string,
 >  replaceComponent?: string
 >  }>
->  ```
->
+> ```
 >
 > ##### Description: Defines ui components to be injected into the player ui.
 >

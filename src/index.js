@@ -20,6 +20,9 @@ import {SidePanelPositions, SidePanelModes} from './reducers/shell';
 declare var __VERSION__: string;
 declare var __NAME__: string;
 
+const VERSION = __VERSION__;
+const NAME = __NAME__;
+
 export {h} from 'preact';
 export {createPortal} from 'preact/compat';
 export {preact};
@@ -34,6 +37,6 @@ export {Reducers, Presets, Components, Utils};
 export {Reducers as reducers, Presets as presets, Components as components, Utils as utils};
 export {EventType};
 export {UIManager};
-export {__VERSION__ as VERSION, __NAME__ as NAME};
+export {VERSION, NAME};
 
 export {SidePanelPositions, SidePanelModes};
