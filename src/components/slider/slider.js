@@ -250,9 +250,11 @@ class Slider extends Component {
         aria-labelledby={props.name}
         tabIndex="0"
         ref={c => {
-          this._sliderElement = c;
-          if (props.pushRef) {
-            props.pushRef(c);
+          if (c) {
+            this._sliderElement = c;
+            if (props.pushRef) {
+              props.pushRef(c);
+            }
           }
         }}
         className={style.slider}

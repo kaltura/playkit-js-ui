@@ -19,12 +19,6 @@ const mapStateToProps = state => ({
   targetId: state.config.targetId
 });
 
-@withPlayer
-@withEventManager
-@connect(
-  mapStateToProps,
-  bindActions(actions)
-)
 /**
  * VideoPlayer component
  *
@@ -32,6 +26,9 @@ const mapStateToProps = state => ({
  * @example <VideoPlayer>...</VideoPlayer>
  * @extends {Component}
  */
+@withPlayer
+@withEventManager
+@connect(mapStateToProps, bindActions(actions))
 class VideoPlayer extends Component {
   _el: HTMLElement;
   _videoResizeWatcher: ResizeWatcher;
@@ -78,13 +75,15 @@ class VideoPlayer extends Component {
    * @return {void}
    * @private
    */
-  _setRef = (ref: HTMLElement) => {
+  _setRef = (ref: HTMLElement | null) => {
     if (this._videoResizeWatcher) {
       this.props.eventManager.unlisten(this._videoResizeWatcher, FakeEvent.Type.RESIZE, this._onVideoResize);
       this._videoResizeWatcher.destroy();
     }
 
-    this._el = ref;
+    if (ref) {
+      this._el = ref;
+    }
 
     if (!this._el) {
       this.props.updateVideoClientRect({x: 0, y: 0, width: 0, height: 0, top: 0, right: 0, bottom: 0, left: 0});

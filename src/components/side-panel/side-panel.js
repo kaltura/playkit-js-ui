@@ -15,8 +15,6 @@ const mapStateToProps = state => ({
   playerClientRect: state.shell.playerClientRect
 });
 
-@connect(mapStateToProps)
-
 /**
  * SidePanel component
  *
@@ -24,6 +22,7 @@ const mapStateToProps = state => ({
  * @example <SidePanel>...</SidePanel>
  * @extends {Component}
  */
+@connect(mapStateToProps)
 class SidePanel extends Component {
   /**
    * this component should not render itself when player object changes.

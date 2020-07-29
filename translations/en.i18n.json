@@ -17,6 +17,7 @@
       "prev": "Prev",
       "startOver": "Start over",
       "pictureInPicture": "Picture in picture",
+      "pictureInPictureExit": "Exit picture in picture",
       "logo": "Logo",
       "seekBarSlider": "Seek slider"
     },
@@ -92,8 +93,7 @@
       "cancel": "Cancel"
     },
     "pictureInPicture": {
-      "overlay_text": "Playing in Picture In Picture mode",
-      "overlay_button": "Play Here"
+      "overlay_text": "Playing in Picture In Picture mode"
     }
   }
 }

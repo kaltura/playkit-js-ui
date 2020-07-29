@@ -10,10 +10,6 @@ import {KeyMap} from '../../utils/key-map';
 
 const COMPONENT_NAME = 'Overlay';
 
-@connect(
-  null,
-  bindActions(actions)
-)
 /**
  * Overlay component
  * @class Overlay
@@ -25,6 +21,7 @@ const COMPONENT_NAME = 'Overlay';
  * </Overlay>
  * @extends {Component}
  */
+@connect(null, bindActions(actions))
 class Overlay extends Component {
   /**
    * componentWillMount
@@ -67,6 +64,7 @@ class Overlay extends Component {
             onClick={() => props.onClose()}
             onKeyDown={e => {
               if (e.keyCode === KeyMap.ENTER) {
+                e.preventDefault();
                 props.onClose();
               }
             }}

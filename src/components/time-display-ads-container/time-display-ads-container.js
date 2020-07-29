@@ -15,8 +15,6 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'TimeDisplayAdsContainer';
 
-@connect(mapStateToProps)
-@withLogger(COMPONENT_NAME)
 /**
  * TimeDisplayAdsContainer component
  *
@@ -24,6 +22,8 @@ const COMPONENT_NAME = 'TimeDisplayAdsContainer';
  * @example <TimeDisplayAdsContainer format='-left seconds left' />
  * @extends {Component}
  */
+@connect(mapStateToProps)
+@withLogger(COMPONENT_NAME)
 class TimeDisplayAdsContainer extends Component {
   /**
    * render component

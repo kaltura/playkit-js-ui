@@ -25,15 +25,6 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'VrStereo';
 
-@connect(
-  mapStateToProps,
-  bindActions({...shellActions, ...engineActions})
-)
-@withPlayer
-@withLogger(COMPONENT_NAME)
-@withText({
-  vrStereoText: 'controls.vrStereo'
-})
 /**
  * VrStereo component
  *
@@ -41,6 +32,12 @@ const COMPONENT_NAME = 'VrStereo';
  * @example <VrStereo />
  * @extends {Component}
  */
+@connect(mapStateToProps, bindActions({...shellActions, ...engineActions}))
+@withPlayer
+@withLogger(COMPONENT_NAME)
+@withText({
+  vrStereoText: 'controls.vrStereo'
+})
 class VrStereo extends Component {
   /**
    * should render component

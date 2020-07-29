@@ -1,5 +1,6 @@
 //@flow
-import {MultiMap} from '../utils/multi-map';
+import {MultiMap} from 'utils/multi-map';
+import {FakeEventTarget} from 'event/fake-event-target';
 import {FakeEvent} from './fake-event';
 
 /**
@@ -38,31 +39,32 @@ class EventManager {
    * Attaches an event listener to an event target for only one time.
    * @param {EventTarget} target - The event target.
    * @param {string} type - The event type.
-   * @param {EventManager.ListenerType} listener - The event listener.
+   * @param {ListenerType} listener - The event listener.
+   * @param {?Object} options - The event options.
    * @returns {void}
    */
-  listenOnce(target: any, type: string, listener: ListenerType): void {
+  listenOnce(target: EventTarget | FakeEventTarget, type: string, listener: ListenerType, options: ?Object): void {
     /**
-     * Unlisten to the current event and executing the handler.
-     * @param {Object} event - event
+     * @param {Event | FakeEvent} event -
      * @returns {void}
      */
-    let oneListener = (event: Object) => {
+    const oneListener = (event: Event | FakeEvent) => {
       this.unlisten(target, type, oneListener);
-      listener.call(this, event);
+      (listener: Function).call(this, event);
     };
-    this.listen(target, type, oneListener);
+    this.listen(target, type, oneListener, options);
   }
 
   /**
    * Attaches an event listener to an event target.
    * @param {EventTarget} target The event target.
    * @param {string} type The event type.
-   * @param {EventManager.ListenerType} listener The event listener.
+   * @param {ListenerType} listener The event listener.
+   * @param {?Object} options The event options.
    * @returns {void}
    */
-  listen(target: any, type: string, listener: ListenerType): void {
-    let binding = new Binding_(target, type, listener);
+  listen(target: EventTarget | FakeEventTarget, type: string, listener: ListenerType, options: ?Object): void {
+    let binding = new Binding_(target, type, listener, options);
     if (this._bindingMap) {
       this._bindingMap.push(type, binding);
     }
@@ -72,7 +74,7 @@ class EventManager {
    * Detaches an event listener from an event target.
    * @param {EventTarget} target The event target.
    * @param {string} type The event type.
-   * @param {EventManager.ListenerType} [listener] The event listener to detach. If no given, detaches all event listeners of the target and type.
+   * @param {ListenerType} [listener] The event listener to detach. If no given, detaches all event listeners of the target and type.
    * @returns {void}
    */
   unlisten(target: any, type: string, listener: ?ListenerType): void {
@@ -113,37 +115,43 @@ class EventManager {
 /**
  * @typedef {function(!Event)}
  */
-type ListenerType = (event: FakeEvent) => any;
+type ListenerType = EventListener | ((event: FakeEvent) => any);
 
 /**
  * Creates a new Binding_ and attaches the event listener to the event target.
  * @param {EventTarget} target The event target.
  * @param {string} type The event type.
- * @param {EventManager.ListenerType} listener The event listener.
+ * @param {ListenerType} listener The event listener.
  * @constructor
  * @private
  */
 class Binding_ {
   target: any;
   type: string;
-  listener: ?ListenerType;
+  listener: ListenerType | null;
+  options: ?Object;
 
   /**
-   * @constructor
-   * @param {EventTarget} target - The event target.
-   * @param {string} type - The event type.
-   * @param {ListenerType} listener - The event listener.
+   *
+   * @param {EventTarget | FakeEventTarget} target -
+   * @param {string} type -
+   * @param {ListenerType} listener -
+   * @param {?Object} options -
    */
-  constructor(target, type, listener) {
+  constructor(target: EventTarget | FakeEventTarget, type: string, listener: ListenerType, options: ?Object) {
     /** @type {EventTarget} */
     this.target = target;
 
     /** @type {string} */
     this.type = type;
 
-    /** @type {?EventManager.ListenerType} */
+    /** @type {?ListenerType} */
     this.listener = listener;
 
+    /** @type {?Object} */
+    this.options = options;
+
+    //$FlowFixMe
     this.target.addEventListener(type, listener, false);
   }
 
@@ -155,10 +163,11 @@ class Binding_ {
   unlisten(): void {
     if (!this.target) return;
 
-    this.target.removeEventListener(this.type, this.listener, false);
+    this.target.removeEventListener(this.type, this.listener, this.options);
 
     this.target = null;
     this.listener = null;
+    this.options = null;
   }
 }
 

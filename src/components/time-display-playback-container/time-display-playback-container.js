@@ -16,8 +16,6 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'TimeDisplayPlaybackContainer';
 
-@connect(mapStateToProps)
-@withLogger(COMPONENT_NAME)
 /**
  * TimeDisplayPlaybackContainer component
  *
@@ -25,6 +23,8 @@ const COMPONENT_NAME = 'TimeDisplayPlaybackContainer';
  * @example <TimeDisplayPlaybackContainer format='currentTime / duration' />
  * @extends {Component}
  */
+@connect(mapStateToProps)
+@withLogger(COMPONENT_NAME)
 class TimeDisplayPlaybackContainer extends Component {
   /**
    * render component

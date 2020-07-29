@@ -28,13 +28,6 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'PlaylistCountdown';
 
-@connect(
-  mapStateToProps,
-  bindActions(actions)
-)
-@withPlayer
-@withEventManager
-@withLogger(COMPONENT_NAME)
 /**
  * PlaylistCountdown component
  *
@@ -42,6 +35,10 @@ const COMPONENT_NAME = 'PlaylistCountdown';
  * @example <PlaylistCountdown type="next"/>
  * @extends {Component}
  */
+@connect(mapStateToProps, bindActions(actions))
+@withPlayer
+@withEventManager
+@withLogger(COMPONENT_NAME)
 class PlaylistCountdown extends Component {
   focusElement: HTMLElement;
   nextShown: any;
@@ -233,7 +230,7 @@ class PlaylistCountdown extends Component {
       <div
         role="button"
         aria-labelledby="playlistCountdownTextId"
-        ref={el => (this.focusElement = el)}
+        ref={el => (el ? (this.focusElement = el) : undefined)}
         tabIndex={this.state.focusable ? 0 : -1}
         className={className.join(' ')}
         onKeyDown={e => {

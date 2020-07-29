@@ -4,19 +4,14 @@ Component that shows black overlay with loading spinner when player is not in `i
 
 ## Props
 
-| Prop | Description |
-|--- |--- |
+| Prop   | Description            |
+| ------ | ---------------------- |
 | player | Player engine instance |
 
 ## Usage Example
 
 ```html
-//@flow
-import { h, Loading } from 'playkit-js-ui';
-
-export default function customUIPreset(props: any) {
-  return (
-    <Loading />
-  )
-}
+//@flow import { h, Loading } from 'playkit-js-ui'; export default function customUIPreset(props: any) { return (
+<Loading />
+) }
 ```

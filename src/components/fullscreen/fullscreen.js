@@ -24,12 +24,6 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'Fullscreen';
 
-@connect(mapStateToProps)
-@withPlayer
-@withLogger(COMPONENT_NAME)
-@withKeyboardEvent(COMPONENT_NAME)
-@withEventDispatcher(COMPONENT_NAME)
-@withText({fullscreenText: 'controls.fullscreen'})
 /**
  * Fullscreen component
  *
@@ -37,6 +31,12 @@ const COMPONENT_NAME = 'Fullscreen';
  * @example <Fullscreen />
  * @extends {Component}
  */
+@connect(mapStateToProps)
+@withPlayer
+@withLogger(COMPONENT_NAME)
+@withKeyboardEvent(COMPONENT_NAME)
+@withEventDispatcher(COMPONENT_NAME)
+@withText({fullscreenText: 'controls.fullscreen'})
 class Fullscreen extends Component {
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {

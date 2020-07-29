@@ -18,7 +18,6 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'DropDown';
 
-@connect(mapStateToProps)
 /**
  * DropDown component
  *
@@ -26,6 +25,7 @@ const COMPONENT_NAME = 'DropDown';
  * @example <DropDown options={this.videoTrackOptions} />
  * @extends {Component}
  */
+@connect(mapStateToProps)
 class DropDown extends Component {
   state: Object;
   _el: HTMLDivElement;
@@ -39,6 +39,7 @@ class DropDown extends Component {
   componentWillMount() {
     this.setState({dropMenuActive: false});
   }
+
   /**
    * after component mounted, set the callback to be called when parent selected
    * @returns {void}
@@ -155,7 +156,7 @@ class DropDown extends Component {
       <div
         name={props.name}
         className={this.state.dropMenuActive ? [style.dropdown, style.active].join(' ') : style.dropdown}
-        ref={el => (this._el = el)}>
+        ref={el => (el ? (this._el = el) : undefined)}>
         <div
           tabIndex={props.tabbable ? 0 : -1}
           ref={el => {
@@ -182,9 +183,7 @@ class DropDown extends Component {
           }}>
           <span id={activeOptionId}>{this.getActiveOptionLabel()}</span>
           <Icon type={IconType.ArrowDown} />
-          {!this.state.dropMenuActive ? (
-            undefined
-          ) : (
+          {!this.state.dropMenuActive ? undefined : (
             <Menu parentEl={this._el} options={props.options} onMenuChosen={o => this.onMenuChosen(o)} onClose={() => this.onClose()} />
           )}
         </div>

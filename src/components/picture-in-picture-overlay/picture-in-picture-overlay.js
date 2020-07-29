@@ -5,7 +5,6 @@ import {connect} from 'react-redux';
 import {Localizer, Text} from 'preact-i18n';
 import {withPlayer} from '../player';
 import {withLogger} from 'components/logger';
-import {Button} from 'components/button';
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -19,9 +18,6 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'PictureInPictureOverlay';
 
-@connect(mapStateToProps)
-@withPlayer
-@withLogger(COMPONENT_NAME)
 /**
  * PictureInPictureOverlay component
  *
@@ -29,6 +25,9 @@ const COMPONENT_NAME = 'PictureInPictureOverlay';
  * @example <PictureInPictureOverlay />
  * @extends {Component}
  */
+@connect(mapStateToProps)
+@withPlayer
+@withLogger(COMPONENT_NAME)
 class PictureInPictureOverlay extends Component {
   /**
    * The button is clicked, play the video in the player instead of in picture in picture
@@ -72,11 +71,6 @@ class PictureInPictureOverlay extends Component {
               <span className={style.pictureInPictureText}>
                 <Text id="pictureInPicture.overlay_text" />
               </span>
-            </Localizer>
-            <Localizer>
-              <Button tabIndex="0" className={[style.pictureInPictureButton, style.controlButton].join(' ')} onClick={() => this._handleClick()}>
-                <Text id="pictureInPicture.overlay_button" />
-              </Button>
             </Localizer>
           </div>
         </div>
