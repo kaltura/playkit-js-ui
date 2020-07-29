@@ -13,6 +13,12 @@
     "@babel/plugin-transform-property-mutators",
     "@babel/plugin-proposal-object-rest-spread",
     [
+      "@babel/plugin-transform-spread",
+      {
+        "loose": true
+      }
+    ],
+    [
       "@babel/plugin-proposal-decorators",
       {
         "legacy": true
@@ -22,10 +28,11 @@
     [
       "@babel/plugin-transform-react-jsx",
       {
-        "pragma": "h"
+        "pragma": "h",
+        "pragmaFrag": "Fragment"
       }
     ],
     "@babel/plugin-transform-classes"
   ],
-  "presets": ["@babel/preset-env"]
+  "presets": ["@babel/preset-env", "@babel/preset-flow"]
 }
