@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.57.1"></a>
+## [0.57.1](https://github.com/kaltura/playkit-js-ui/compare/v0.57.0...v0.57.1) (2020-07-27)
+
+
+### Bug Fixes
+
+* **FEC-10326:** customPreset breaks UI ([#530](https://github.com/kaltura/playkit-js-ui/issues/530)) ([7e94110](https://github.com/kaltura/playkit-js-ui/commit/7e94110))
+
+
+
 <a name="0.57.0"></a>
 # [0.57.0](https://github.com/kaltura/playkit-js-ui/compare/v0.56.0...v0.57.0) (2020-07-07)
 
