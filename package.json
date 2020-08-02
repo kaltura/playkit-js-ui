@@ -52,6 +52,7 @@
     "@babel/plugin-transform-modules-commonjs": "^7.10.4",
     "@babel/plugin-transform-property-mutators": "^7.10.4",
     "@babel/plugin-transform-react-jsx": "^7.10.4",
+    "@babel/plugin-transform-spread": "^7.10.4",
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-flow": "^7.10.4",
     "@babel/register": "^7.10.5",
