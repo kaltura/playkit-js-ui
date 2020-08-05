@@ -47,12 +47,11 @@ function getComponentName(component: any) {
   return component.type.displayName;
 }
 
-@withLogger('PlayerArea')
-@connect(mapStateToProps)
-
 /**
  * A video PlayerArea enabling injecting components by preset, PlayerArea and position
  */
+@withLogger('PlayerArea')
+@connect(mapStateToProps)
 class PlayerArea extends Component {
   static defaultProps = {
     show: true

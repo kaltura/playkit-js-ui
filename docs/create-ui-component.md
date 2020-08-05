@@ -1,6 +1,6 @@
 ## Create UI Component
 
-### Dumb component 
+### Dumb component
 
 > Use this technique for simple use-cases when you don't need to manage state or intercept mounting/destroying of the component.
 
@@ -20,7 +20,7 @@ If you want to use JSX follow this [guide](./custom-ui-preset.md#using-jsx), and
 const h = KalturaPlayer.ui.h;
 
 const DumpComponent = <div className="dumb-component"></div>;
-  
+
 export default DumpComponent;
 ```
 
@@ -38,11 +38,11 @@ class SampleComponent extends Component {
   componentDidMount() {
     // register to event handlers and other stuff here
   }
-  
+
   componentWillUnount() {
     // free resources here
   }
-  
+
   render(props) {
     return h('div', {className: 'dumb-component'}, props.children);
   }
@@ -82,21 +82,22 @@ Or again, if using JSX:
 ```
 
 ## (P)React component
+
 Any component that is added to the player is exposed to internal API of the player.
 
 This shouldn't bother you unless you are trying to add (P)React components. If this is the case you have two options:
+
 1. The player exposes the bundled PReact instance it is using, use that one instead of your own. This might work fine for simple use-cases.
 2. In more advanced use-cases you might want to bundle your own version of PReact or in cases that you are using React, you must isolate your component from the player PReact tree:
 
    [ ] create new component that is using (extending) the PReact instance exposed by the player `KalturaPlayer.ui.preact.Component`
-   
-   [ ] inject the new component to the player 
-   
-   [ ] use `shouldComponentUpdate` to always prevent updating
-   
-   [ ] render a div and append render your PReact component into that div on `ComponentDidMount`  
 
- 
+   [ ] inject the new component to the player
+
+   [ ] use `shouldComponentUpdate` to always prevent updating
+
+   [ ] render a div and append render your PReact component into that div on `ComponentDidMount`
+
 ### Redux-Store Connected Component
 
 This component will log all player state changes (based on the redux store) and print them as a log.
@@ -130,7 +131,7 @@ class PlayerStateLog extends Component {
     return h(
       'ul',
       {className: className},
-      this.log.map(function(playerState) {
+      this.log.map(function (playerState) {
         return h('li', null, playerState);
       })
     );
@@ -152,13 +153,19 @@ Or again, if using JSX:
 change the `render` method above to
 
 ```javascript
-return <ul className={className}>{this.log.map(playerState => <li>{playerState}</li>)}</ul>;
+return (
+  <ul className={className}>
+    {this.log.map(playerState => (
+      <li>{playerState}</li>
+    ))}
+  </ul>
+);
 ```
 
 And the usage of this component will be:
 
 ```html
-<PlayerStateLog additionalClass='red-list' />
+<PlayerStateLog additionalClass="red-list" />
 ```
 
 ### Creating a component to be included in the core library

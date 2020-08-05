@@ -8,13 +8,12 @@ import {DropDownCaptionsStyle} from './drop-down-captions-style';
 import {SliderCaptionsStyle} from './slider-captions-style';
 import {withPlayer} from '../player';
 
-@withPlayer
-
 /**
  * CustomCaptionsWindow component
  * @class CustomCaptionsWindow
  * @extends {Component}
  */
+@withPlayer
 class CustomCaptionsWindow extends Component {
   /**
    * after component mounted, set focus on default

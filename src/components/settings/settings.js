@@ -33,10 +33,14 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'Settings';
 
-@connect(
-  mapStateToProps,
-  bindActions({...actions, ...overlayIconActions})
-)
+/**
+ * Settings component
+ *
+ * @class Settings
+ * @example <Settings />
+ * @extends {Component}
+ */
+@connect(mapStateToProps, bindActions({...actions, ...overlayIconActions}))
 @withText({
   qualityLabelText: 'settings.quality',
   speedLabelText: 'settings.speed',
@@ -49,16 +53,9 @@ const COMPONENT_NAME = 'Settings';
 @withKeyboardEvent(COMPONENT_NAME)
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
-/**
- * Settings component
- *
- * @class Settings
- * @example <Settings />
- * @extends {Component}
- */
 class Settings extends Component {
   state: Object;
-  _controlSettingsElement: any;
+  _controlSettingsElement: HTMLDivElement;
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
       key: {
@@ -292,7 +289,9 @@ class Settings extends Component {
     if (qualityOptions.length <= 1 && speedOptions.length <= 1) return undefined;
     if (isLive && qualityOptions.length <= 1) return undefined;
     return (
-      <div ref={c => (this._controlSettingsElement = c)} className={[style.controlButtonContainer, style.controlSettings].join(' ')}>
+      <div
+        ref={c => (c ? (this._controlSettingsElement = c) : undefined)}
+        className={[style.controlButtonContainer, style.controlSettings].join(' ')}>
         <Tooltip label={props.buttonLabel}>
           <Button
             tabIndex="0"

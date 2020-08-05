@@ -20,17 +20,11 @@ import {Button} from 'components/button';
  */
 const mapStateToProps = state => ({
   isPictureInPictureSupported: state.engine.isPictureInPictureSupported,
+  isInPictureInPicture: state.engine.isInPictureInPicture,
   playerSize: state.shell.playerSize
 });
 
 const COMPONENT_NAME = 'PictureInPicture';
-
-@connect(mapStateToProps)
-@withPlayer
-@withKeyboardEvent(COMPONENT_NAME)
-@withLogger(COMPONENT_NAME)
-@withEventDispatcher(COMPONENT_NAME)
-@withText({pipText: 'controls.pictureInPicture'})
 
 /**
  * PictureInPicture component
@@ -38,6 +32,15 @@ const COMPONENT_NAME = 'PictureInPicture';
  * @class PictureInPicture
  * @extends {Component}
  */
+@connect(mapStateToProps)
+@withPlayer
+@withKeyboardEvent(COMPONENT_NAME)
+@withLogger(COMPONENT_NAME)
+@withEventDispatcher(COMPONENT_NAME)
+@withText({
+  pictureInPictureText: 'controls.pictureInPicture',
+  pictureInPictureExitText: 'controls.pictureInPictureExit'
+})
 class PictureInPicture extends Component {
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
@@ -87,13 +90,14 @@ class PictureInPicture extends Component {
     if (this.props.isPictureInPictureSupported && this.props.playerSize !== PLAYER_SIZE.EXTRA_SMALL) {
       return (
         <div className={[style.controlButtonContainer, style.pictureInPicture].join(' ')}>
-          <Tooltip label={this.props.pipText}>
+          <Tooltip label={this.props.isInPictureInPicture ? this.props.pictureInPictureExitText : this.props.pictureInPictureText}>
             <Button
               tabIndex="0"
-              aria-label={this.props.pipText}
-              className={`${style.controlButton} ${this.state.animation ? style.rotate : ''}`}
+              aria-label={this.props.isInPictureInPicture ? this.props.pictureInPictureExitText : this.props.pictureInPictureText}
+              className={this.props.isInPictureInPicture ? [style.controlButton, style.isInPictureInPicture].join(' ') : style.controlButton}
               onClick={() => this.togglePip()}>
-              <Icon type={IconType.PictureInPicture} />
+              <Icon type={IconType.PictureInPictureStart} />
+              <Icon type={IconType.PictureInPictureStop} />
             </Button>
           </Tooltip>
         </div>

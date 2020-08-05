@@ -29,9 +29,7 @@ class SmartContainerItem extends Component {
             <div className={style.labelIcon}>
               <Icon type={props.icon} />
             </div>
-          ) : (
-            undefined
-          )}
+          ) : undefined}
           {props.label}
         </label>
         <DropDown

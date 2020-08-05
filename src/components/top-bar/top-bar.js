@@ -16,7 +16,6 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'TopBar';
 
-@connect(mapStateToProps)
 /**
  * TopBar component
  *
@@ -24,6 +23,7 @@ const COMPONENT_NAME = 'TopBar';
  * @example <TopBar>...</TopBar>
  * @extends {Component}
  */
+@connect(mapStateToProps)
 class TopBar extends Component {
   /**
    * render component

@@ -4,13 +4,13 @@ import {withPlayer} from 'components/player';
 import style from '../../styles/style.scss';
 import {PlayerArea} from 'components/player-area';
 
-@withPlayer
 /**
  * InteractiveArea component
  *
  * @class InteractiveArea
  * @extends {Component}
  */
+@withPlayer
 class InteractiveArea extends Component {
   /**
    * should component update handler

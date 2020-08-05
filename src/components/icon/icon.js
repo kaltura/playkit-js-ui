@@ -43,7 +43,8 @@ const IconType = {
   CastBrand: 'cast-brand',
   Next: 'next',
   Prev: 'prev',
-  PictureInPicture: 'picture-in-picture'
+  PictureInPictureStart: 'picture-in-picture-start',
+  PictureInPictureStop: 'picture-in-picture-stop'
 };
 
 /**
@@ -183,8 +184,11 @@ class Icon extends Component {
       case IconType.Prev:
         return <i className={[style.icon, style.iconPrev].join(' ')} />;
 
-      case IconType.PictureInPicture:
-        return <i className={[style.icon, style.iconPictureInPicture].join(' ')} />;
+      case IconType.PictureInPictureStart:
+        return <i className={[style.icon, style.iconPictureInPictureStart].join(' ')} />;
+
+      case IconType.PictureInPictureStop:
+        return <i className={[style.icon, style.iconPictureInPictureStop].join(' ')} />;
 
       default:
         break;

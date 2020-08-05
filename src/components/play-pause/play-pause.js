@@ -30,10 +30,14 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'PlayPause';
 
-@connect(
-  mapStateToProps,
-  bindActions({...settingActions, ...overlayIconActions})
-)
+/**
+ * PlayPause component
+ *
+ * @class PlayPause
+ * @example <PlayPause />
+ * @extends {Component}
+ */
+@connect(mapStateToProps, bindActions({...settingActions, ...overlayIconActions}))
 @withPlayer
 @withKeyboardEvent(COMPONENT_NAME)
 @withLogger(COMPONENT_NAME)
@@ -43,13 +47,6 @@ const COMPONENT_NAME = 'PlayPause';
   pauseText: 'controls.pause',
   playText: 'controls.play'
 })
-/**
- * PlayPause component
- *
- * @class PlayPause
- * @example <PlayPause />
- * @extends {Component}
- */
 class PlayPause extends Component {
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {

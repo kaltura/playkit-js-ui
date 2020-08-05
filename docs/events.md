@@ -47,10 +47,10 @@
 > Fires when preset change.
 > <br><br>_payload parameters:_
 >
-> | Name   | Type     | Description                        |
-> | ------ | -------- | ---------------------------------- |
-> | `from` | `string` | Preset name before change          |
-> | `to`   | `string` | Preset name after change           |
+> | Name   | Type     | Description               |
+> | ------ | -------- | ------------------------- |
+> | `from` | `string` | Preset name before change |
+> | `to`   | `string` | Preset name after change  |
 
 #
 
@@ -59,9 +59,9 @@
 > Fires when the gui resize.
 > <br><br>_payload parameters:_
 >
-> | Name      | Type      | Description                                            |
-> | --------- | --------- | ------------------------------------------------------ |
-> 
+> | Name | Type | Description |
+> | ---- | ---- | ----------- |
+>
 
 #
 
@@ -70,9 +70,9 @@
 > Fires when the player resize.
 > <br><br>_payload parameters:_
 >
-> | Name      | Type      | Description                                            |
-> | --------- | --------- | ------------------------------------------------------ |
-> 
+> | Name | Type | Description |
+> | ---- | ---- | ----------- |
+>
 
 #
 
@@ -81,9 +81,9 @@
 > Fires when the video resize.
 > <br><br>_payload parameters:_
 >
-> | Name      | Type      | Description                                            |
-> | --------- | --------- | ------------------------------------------------------ |
-> 
+> | Name | Type | Description |
+> | ---- | ---- | ----------- |
+>
 
 #
 

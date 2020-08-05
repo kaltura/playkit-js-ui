@@ -19,8 +19,9 @@ More information on how to build custom components and composing your own UI lay
 In addition, specific UI components can be defined and/or override instead of defining an entire UI preset
 
 More information on how to build UI components and injecting them to UI see:
-* [Create UI Component](./create-ui-component.md)
-* [Inject UI Component](./ui-components.md)
+
+- [Create UI Component](./create-ui-component.md)
+- [Inject UI Component](./ui-components.md)
 
 ## Removing style settings from the captions menu
 

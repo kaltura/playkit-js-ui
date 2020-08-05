@@ -30,7 +30,7 @@
       "title": "Einstellungen",
       "quality": "Qualität",
       "speed": "Geschwindigkeit",
-      "speedNormal" : "Normal"
+      "speedNormal": "Normal"
     },
     "language": {
       "title": "Sprache",
@@ -91,8 +91,7 @@
       "cancel": "Abbrechen"
     },
     "pictureInPicture": {
-      "overlay_text": "Wiedergabe im Bild-im-Bild-Modus",
-      "overlay_button": "Hier abspielen"
+      "overlay_text": "Wiedergabe im Bild-im-Bild-Modus"
     }
   }
 }

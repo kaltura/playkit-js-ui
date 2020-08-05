@@ -24,8 +24,6 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'CastOverlay';
 
-@connect(mapStateToProps)
-@withLogger(COMPONENT_NAME)
 /**
  * CastOverlay component
  *
@@ -33,6 +31,8 @@ const COMPONENT_NAME = 'CastOverlay';
  * @example <CastOverlay />
  * @extends {Component}
  */
+@connect(mapStateToProps)
+@withLogger(COMPONENT_NAME)
 class CastOverlay extends Component {
   /**
    * @static

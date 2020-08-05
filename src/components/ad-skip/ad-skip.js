@@ -20,9 +20,6 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'AdSkip';
 
-@connect(mapStateToProps)
-@withPlayer
-@withLogger(COMPONENT_NAME)
 /**
  * AdSkip component
  *
@@ -30,6 +27,9 @@ const COMPONENT_NAME = 'AdSkip';
  * @example <AdSkip />
  * @extends {Component}
  */
+@connect(mapStateToProps)
+@withPlayer
+@withLogger(COMPONENT_NAME)
 class AdSkip extends Component {
   /**
    * getting the number value of seconds left to be able to skip ad

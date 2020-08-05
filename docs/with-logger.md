@@ -1,6 +1,6 @@
 ## Using a logger in your component
 
-### withLogger HoC 
+### withLogger HoC
 
 If your components requires a logger then UI supplies a logger as a service.  
 The logger enables printing using log levels `DEBUG`, `INFO`, `WARN` and `ERROR`, and allowed log level can be set to disable logging.  
@@ -19,7 +19,7 @@ const Component = KalturaPlayer.ui.preact.Component;
 class SampleComponent extends Component {
   render(props) {
     return h(
-      'div', 
+      'div',
       {
         className: 'dumb-component',
         style: {
@@ -30,7 +30,7 @@ class SampleComponent extends Component {
         onClick: () => {
           this.props.logger.info(this.props.player.currentTime);
         }
-      }, 
+      },
       props.children
     );
   }
@@ -49,19 +49,20 @@ const Component = KalturaPlayer.ui.preact.Component;
 
 class DumbComponent extends Component {
   render(props) {
-    return <div 
-      className="dumb-component"
-      style= {{
-        width: '40px',
-        height: '40px',
-        backgroundColor: 'red'
-      }}
-      onClick = {() => {
-        this.props.logger.info(this.props.player.currentTime);
-      }}
-    >
-      {props.children}
-    </div>;
+    return (
+      <div
+        className="dumb-component"
+        style={{
+          width: '40px',
+          height: '40px',
+          backgroundColor: 'red'
+        }}
+        onClick={() => {
+          this.props.logger.info(this.props.player.currentTime);
+        }}>
+        {props.children}
+      </div>
+    );
   }
 }
 
@@ -80,7 +81,7 @@ const Component = KalturaPlayer.ui.preact.Component;
 @withLogger
 class DumbComponent extends Component {
   render(props) {
-    return <div 
+    return <div
       className="dumb-component"
       style= {{
         width: '40px',

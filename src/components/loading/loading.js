@@ -22,13 +22,6 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'Loading';
 
-@connect(
-  mapStateToProps,
-  bindActions(actions)
-)
-@withPlayer
-@withEventManager
-@withLogger(COMPONENT_NAME)
 /**
  * Loading component
  *
@@ -36,6 +29,10 @@ const COMPONENT_NAME = 'Loading';
  * @example <Loading />
  * @extends {Component}
  */
+@connect(mapStateToProps, bindActions(actions))
+@withPlayer
+@withEventManager
+@withLogger(COMPONENT_NAME)
 class Loading extends Component {
   /**
    * Creates an instance of Loading.
@@ -109,7 +106,11 @@ class Loading extends Component {
     return (
       <div className={[style.loadingBackdrop, style.show].join(' ')}>
         <div className={style.spinnerContainer}>
-          <div className={style.spinner}>{[...Array(8)].map(i => <span key={i} />)}</div>
+          <div className={style.spinner}>
+            {[...Array(8)].map(i => (
+              <span key={i} />
+            ))}
+          </div>
         </div>
       </div>
     );

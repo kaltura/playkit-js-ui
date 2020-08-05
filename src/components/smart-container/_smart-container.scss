@@ -96,7 +96,9 @@
 }
 
 .player {
-  &.touch, &.size-sm, &.size-xs{
+  &.touch,
+  &.size-sm,
+  &.size-xs {
     .smart-container-item {
       width: 300px;
       max-width: 100%;
@@ -133,7 +135,7 @@
       }
     }
     &.Windows {
-      select{
+      select {
         option {
           color: black;
           background-color: white;

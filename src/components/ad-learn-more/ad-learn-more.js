@@ -15,7 +15,6 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'AdLearnMore';
 
-@connect(mapStateToProps)
 /**
  * AdLearnMore component
  *
@@ -23,6 +22,7 @@ const COMPONENT_NAME = 'AdLearnMore';
  * @example <AdLearnMore />
  * @extends {Component}
  */
+@connect(mapStateToProps)
 class AdLearnMore extends Component {
   /**
    * render component
@@ -33,7 +33,7 @@ class AdLearnMore extends Component {
    */
   render(props: any): React$Element<any> {
     return (
-      <a href={props.url} target="_blank" className={[style.btn, style.btnDarkTransparent, style.learnMore].join(' ')}>
+      <a href={props.url} target="_blank" rel="noreferrer" className={[style.btn, style.btnDarkTransparent, style.learnMore].join(' ')}>
         <Text id={'ads.learn_more'} />
       </a>
     );

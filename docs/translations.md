@@ -76,9 +76,9 @@ For complete translation reference see [here](/translations/en.i18n.json).
 
 Default locale is English.
 
-A translation file may contain all the keys in the English translation, and any key not found in the new translation will fallback to using the English one.  
+A translation file may contain all the keys in the English translation, and any key not found in the new translation will fallback to using the English one.
 
-## Choosing the display language 
+## Choosing the display language
 
 Setting the display language is done by defining the `locale` config option, where English is the default one.
 
@@ -86,10 +86,14 @@ Setting the display language is done by defining the `locale` config option, whe
 
 ```json5
 {
-  "locale": "es", //set the desired locale
-  "translations": {
-    "en": {/*English dictionary*/},
-    "es": {/*Spanish dictionary*/}
+  locale: 'es', //set the desired locale
+  translations: {
+    en: {
+      /*English dictionary*/
+    },
+    es: {
+      /*Spanish dictionary*/
+    }
   }
 }
 ```

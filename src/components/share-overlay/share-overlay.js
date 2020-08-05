@@ -99,7 +99,7 @@ const ShareUrl = (props: Object): React$Element<any> => {
   return (
     <div className={props.copy ? style.copyUrlRow : ''}>
       <div className={[style.formGroup, style.hasIcon, style.inputCopyUrl].join(' ')} style="width: 350px;">
-        <input tabIndex="-1" type="text" ref={c => (_ref = c)} className={style.formControl} value={props.shareUrl} readOnly />
+        <input tabIndex="-1" type="text" ref={c => (c ? (_ref = c) : undefined)} className={style.formControl} value={props.shareUrl} readOnly />
         <Icon type={IconType.Link} />
       </div>
       {props.copy && <CopyButton addAccessibleChild={props.addAccessibleChild} copy={() => copyUrl(_ref, props.isIos)} />}
@@ -158,18 +158,15 @@ const VideoStartOptions = (props: Object): React$Element<any> => {
 
 const COMPONENT_NAME = 'ShareOverlay';
 
-@connect(
-  mapStateToProps,
-  bindActions(actions)
-)
-@withLogger(COMPONENT_NAME)
-@withKeyboardA11y
 /**
  * ShareOverlay component
  *
  * @class ShareOverlay
  * @extends {Component}
  */
+@connect(mapStateToProps, bindActions(actions))
+@withLogger(COMPONENT_NAME)
+@withKeyboardA11y
 class ShareOverlay extends Component {
   /**
    * before component mount, set initial state
@@ -362,9 +359,7 @@ class ShareOverlay extends Component {
                 handleStartFromChange={e => this._handleStartFromChange(e)}
                 toggleStartFrom={() => this._toggleStartFrom()}
               />
-            ) : (
-              undefined
-            )}
+            ) : undefined}
           </div>
         </div>
       </div>
@@ -391,9 +386,7 @@ class ShareOverlay extends Component {
               handleStartFromChange={e => this._handleStartFromChange(e)}
               toggleStartFrom={() => this._toggleStartFrom()}
             />
-          ) : (
-            undefined
-          )}
+          ) : undefined}
         </div>
       </div>
     );
