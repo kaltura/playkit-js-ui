@@ -178,11 +178,11 @@ class PlayerArea extends Component {
 
   /**
    *  render preset component
-   * @param {UIComponent} uiComponent uiComponent
+   * @param {KPUIComponent} uiComponent uiComponent
    * @returns {*} component
    * @private
    */
-  _renderUIComponent(uiComponent: PKUIComponent): React$Element<any> | null {
+  _renderUIComponent(uiComponent: KPUIComponent): React$Element<any> | null {
     if (!uiComponent.get) {
       return null;
     }
