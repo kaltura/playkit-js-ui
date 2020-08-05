@@ -959,9 +959,10 @@
   resolved "https://registry.yarnpkg.com/@playkit-js/playkit-js-hls/-/playkit-js-hls-1.20.0-canary.4f901e3.tgz#0c131439aa87742e4f0c4cccb82340da296676f8"
   integrity sha512-pIczr0745n08+Bym0cu8fxmR0B8cgpqctzpNJM9zAeSgX42EH57BzFHp2TwwFcjxoRtSau8u5rSxvVilVJOsTA==
 
-"@playkit-js/playkit-js-ui@https://github.com/kaltura/playkit-js-ui.git#master":
-  version "0.57.1"
-  resolved "https://github.com/kaltura/playkit-js-ui.git#167726a40fda499dd41a8ee2d93f6628e3ee48a0"
+"@playkit-js/playkit-js-ui@0.57.2-canary.2d69920":
+  version "0.57.2-canary.2d69920"
+  resolved "https://registry.yarnpkg.com/@playkit-js/playkit-js-ui/-/playkit-js-ui-0.57.2-canary.2d69920.tgz#d35c7bd70ce3b5c2c21a15ad42b5fe156ffa5746"
+  integrity sha512-fYlKrTYXmbvEM3O0vlc6nntzVsLfIa92hpzkVDn1AmXmef/uCdtvW6kAV3nmd/OXjsyBS92SeQEcMpSsumIs/Q==
   dependencies:
     js-logger "^1.6.0"
     preact "^10.3.4"
@@ -5442,15 +5443,15 @@ just-extend@^4.0.2:
   resolved "https://registry.yarnpkg.com/just-extend/-/just-extend-4.1.0.tgz#7278a4027d889601640ee0ce0e5a00b992467da4"
   integrity sha512-ApcjaOdVTJ7y4r08xI5wIqpvwS48Q0PBG4DJROcEkH1f8MdAiNFyFxz3xoL0LWAVwjrwPYZdVHHxhRHcx/uGLA==
 
-"kaltura-player-js@https://github.com/kaltura/kaltura-player-js.git#FEC-10057":
+"kaltura-player-js@https://github.com/kaltura/kaltura-player-js.git#master":
   version "0.55.1"
-  resolved "https://github.com/kaltura/kaltura-player-js.git#0102a1f5c9f24ed1bc091a3ca0e3518bb119cbbe"
+  resolved "https://github.com/kaltura/kaltura-player-js.git#5139798baae6796e13ddbe20f934c0e9dbc2dd55"
   dependencies:
     "@babel/polyfill" "^7.0.0"
     "@playkit-js/playkit-js" "0.62.1-canary.59026c0"
     "@playkit-js/playkit-js-dash" "1.19.0-canary.136926f"
     "@playkit-js/playkit-js-hls" "1.20.0-canary.4f901e3"
-    "@playkit-js/playkit-js-ui" "https://github.com/kaltura/playkit-js-ui.git#master"
+    "@playkit-js/playkit-js-ui" "0.57.2-canary.2d69920"
     hls.js "^0.13.1"
     js-logger "^1.6.0"
     playkit-js-providers "https://github.com/kaltura/playkit-js-providers.git#master"
