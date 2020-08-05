@@ -1,6 +1,25 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [0.58.0](https://github.com/kaltura/playkit-js-ui/compare/v0.57.0...v0.58.0) (2020-08-05)
+
+
+### Bug Fixes
+
+* **FEC-10226:** in a small player in the captions menu ,menu doesn't close with keyboard navigation ([#525](https://github.com/kaltura/playkit-js-ui/issues/525)) ([d0f815d](https://github.com/kaltura/playkit-js-ui/commit/d0f815d))
+* **FEC-10326:** customPreset breaks UI ([#530](https://github.com/kaltura/playkit-js-ui/issues/530)) ([0d52ad3](https://github.com/kaltura/playkit-js-ui/commit/0d52ad3))
+* **FEC-10354:** Languages and Settings menus failed to be opened by click ([#534](https://github.com/kaltura/playkit-js-ui/issues/534)) ([6378e73](https://github.com/kaltura/playkit-js-ui/commit/6378e73))
+* **FEC-10392:** Exit from PiP mode icon invisible ([#535](https://github.com/kaltura/playkit-js-ui/issues/535)) ([fb72a6b](https://github.com/kaltura/playkit-js-ui/commit/fb72a6b))
+
+
+### Features
+
+* **FEC-10057:** move the plugin manager to kaltura player ([#529](https://github.com/kaltura/playkit-js-ui/issues/529)) ([167726a](https://github.com/kaltura/playkit-js-ui/commit/167726a))
+* **FEC-10290:** upgrade NPM packages ([#533](https://github.com/kaltura/playkit-js-ui/issues/533)) ([c2b66d2](https://github.com/kaltura/playkit-js-ui/commit/c2b66d2))
+* **FEC-9951:** pip play here ([#526](https://github.com/kaltura/playkit-js-ui/issues/526)) ([af58754](https://github.com/kaltura/playkit-js-ui/commit/af58754))
+
+
 
 <a name="0.57.1"></a>
 ## [0.57.1](https://github.com/kaltura/playkit-js-ui/compare/v0.57.0...v0.57.1) (2020-07-27)
