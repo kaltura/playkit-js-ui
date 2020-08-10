@@ -1,6 +1,6 @@
 .player .control-button {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   background: transparent;
   display: inline-block;
   opacity: 0.8;
@@ -9,8 +9,8 @@
   cursor: pointer;
 
   i {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
   }
 
   &.active {
@@ -31,9 +31,12 @@
 
 .player:not(.touch) {
   .control-button:not(:disabled) {
+    &.active {
+      background-color: rgba(0, 0, 0, 1);
+      border-radius: 4px;
+    }
     &:hover {
-      opacity: 1;
-      background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), linear-gradient(rgba(1, 172, 205, 1), rgba(1, 172, 205, 1));
+      background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), linear-gradient(rgba($brand-color, 1), rgba($brand-color, 1));
       border-radius: 4px;
     }
 
