@@ -9,8 +9,9 @@
   cursor: pointer;
 
   i {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
+    display: block;
   }
 
   &.active {
@@ -29,13 +30,23 @@
   }
 }
 
+
 .player:not(.touch) {
+  // exclude playback and bottom bar buttons from background color effects
+  .bottom-bar .control-button-container .control-button:not(:disabled) {
+    background: none;
+  }
+  .playback-controls .control-button-container .control-button:not(:disabled) {
+    background: none;
+  }
+
   .control-button:not(:disabled) {
     &.active {
-      background-color: rgba(0, 0, 0, 1);
+      background-color: rgba(0, 0, 0, 0.8);
       border-radius: 4px;
     }
     &:hover {
+      opacity: 1;
       background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), linear-gradient(rgba($brand-color, 1), rgba($brand-color, 1));
       border-radius: 4px;
     }

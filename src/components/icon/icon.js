@@ -64,9 +64,6 @@ class Icon extends Component {
    */
   render(props: any): React$Element<any> | void {
     let classes = [style.icon, style[`icon-${props.type}`]];
-    if (props.isActive) {
-      classes.push(style.active);
-    }
     return <i className={classes.join(' ')} />;
   }
 }

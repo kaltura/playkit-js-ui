@@ -298,7 +298,7 @@ class Settings extends Component {
             aria-label={props.buttonLabel}
             className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
             onClick={() => this.onControlButtonClick()}>
-            <Icon type={IconType.Settings} isActive={this.state.smartContainerOpen} />
+            <Icon type={IconType.Settings} />
           </Button>
         </Tooltip>
         {!this.state.smartContainerOpen ? (

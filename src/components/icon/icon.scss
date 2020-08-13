@@ -174,9 +174,6 @@
 
 .icon-settings {
   background-image: icon(settings, '#fff');
-  &.active {
-    background-image: icon(settings, $brand-color);
-  }
 }
 
 .icon-check {
@@ -185,9 +182,6 @@
 
 .icon-language {
   background-image: icon(language, '#fff');
-  &.active {
-    background-image: icon(language, $brand-color);
-  }
 }
 
 .icon-quality {

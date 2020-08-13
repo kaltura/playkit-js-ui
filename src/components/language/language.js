@@ -212,7 +212,7 @@ class Language extends Component {
             aria-label={this.props.buttonLabel}
             className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
             onClick={() => this.toggleSmartContainerOpen()}>
-            <Icon type={IconType.Language} isActive={this.state.smartContainerOpen} />
+            <Icon type={IconType.Language} />
           </Button>
         </Tooltip>
         {!this.state.smartContainerOpen || this.state.cvaaOverlay ? undefined : (
