@@ -41,6 +41,14 @@ class UIManager {
   _translations: {[langKey: string]: Object} = {en: en_translations['en']};
   _locale: string = 'en';
   _uiComponents: Array<KPUIComponent>;
+  /**
+   * Add a component dynamically
+   *
+   * @param {KPUIComponent} component - The component to add
+   * @returns {Function} - Removal function
+   * @memberof UIManager
+   */
+  addComponent: (component: KPUIComponent) => Function<void>;
 
   /**
    * Creates an instance of UIManager.
@@ -167,7 +175,11 @@ class UIManager {
       // i18n, redux and initial player-to-store connector setup
       const template = (
         <Provider store={this.store}>
-          <PlayerAreaProvider uiComponents={this._uiComponents}>
+          <PlayerAreaProvider
+            uiComponents={this._uiComponents}
+            setApi={api => {
+              this.addComponent = api;
+            }}>
             <IntlProvider definition={this._translations[this._locale]}>
               <PlayerProvider player={this.player}>
                 <EventDispatcherProvider player={this.player} store={this.store}>
