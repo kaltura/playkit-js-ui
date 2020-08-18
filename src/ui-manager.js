@@ -48,7 +48,7 @@ class UIManager {
    * @returns {Function} - Removal function
    * @memberof UIManager
    */
-  addComponent: (component: KPUIComponent) => Function<void>;
+  addComponent: (component: KPUIComponent) => Function;
 
   /**
    * Creates an instance of UIManager.
