@@ -58,6 +58,7 @@ class PlayerArea extends Component {
   };
 
   _unregisterListenerCallback: ?Function;
+  _actualChildren: Array<any>;
 
   /**
    * should component update handler
@@ -118,9 +119,6 @@ class PlayerArea extends Component {
    * @private
    */
   _updateAreaComponents = (playerAreaComponents: Array<Object>): void => {
-    if (playerAreaComponents.length < 1) {
-      return;
-    }
     const {activePresetName, name: playerAreaName} = this.props;
 
     this.props.logger.debug(`Player area '${playerAreaName}' in preset '${activePresetName}' - update children components`);
@@ -163,6 +161,17 @@ class PlayerArea extends Component {
     this.props.logger.debug(`Player area '${this.props.name}' - handle did mount`);
     this.setState(initialState);
     this._registerListener();
+    this._actualChildren = [];
+  }
+
+  /**
+   * component will update
+   * @param {Object} nextProps - the next props
+   * @return {void}
+   */
+  componentWillUpdate(nextProps: Object): void {
+    const {children} = nextProps;
+    this._actualChildren = children && children.type === Fragment ? children.props.children : children;
   }
 
   /**
@@ -250,12 +259,12 @@ class PlayerArea extends Component {
    * @memberof PlayerArea
    */
   render(): React$Element<any> | null {
-    const {children, show, name} = this.props;
+    const {show, name} = this.props;
     const {playerAreaComponents, hasPositionedComponents, presetComponentsOnlyMode} = this.state;
     this.props.logger.debug(`Player area '${name}' - render`);
 
     if (presetComponentsOnlyMode) {
-      return this.renderContent(this.props.children);
+      return this.renderContent(this._actualChildren);
     }
 
     if (!playerAreaComponents || !show) {
@@ -265,9 +274,9 @@ class PlayerArea extends Component {
     let newChildren = [];
 
     if (hasPositionedComponents) {
-      newChildren = this._getPositionedComponents(children);
+      newChildren = this._getPositionedComponents(this._actualChildren);
     } else {
-      newChildren.push(...toChildArray(children));
+      newChildren.push(...toChildArray(this._actualChildren));
     }
 
     const appendedChildren = playerAreaComponents.appendedComponents.map(component => {

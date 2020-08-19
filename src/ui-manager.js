@@ -1,4 +1,5 @@
 //@flow
+/* eslint-disable no-unused-vars */
 import {h, render} from 'preact';
 import {Provider} from 'react-redux';
 import {IntlProvider} from 'preact-i18n';
@@ -41,6 +42,7 @@ class UIManager {
   _translations: {[langKey: string]: Object} = {en: en_translations['en']};
   _locale: string = 'en';
   _uiComponents: Array<KPUIComponent>;
+  addComponent: (component: KPUIComponent) => Function;
 
   /**
    * Creates an instance of UIManager.
@@ -88,6 +90,17 @@ class UIManager {
     } else {
       this.store.dispatch(configActions.updateConfig(config));
     }
+  }
+
+  /**
+   * Add a component dynamically
+   *
+   * @param {KPUIComponent} component - The component to add
+   * @returns {Function} - Removal function
+   * @memberof UIManager
+   */
+  addComponent(component: KPUIComponent): Function {
+    return () => {};
   }
 
   /**
@@ -167,7 +180,13 @@ class UIManager {
       // i18n, redux and initial player-to-store connector setup
       const template = (
         <Provider store={this.store}>
-          <PlayerAreaProvider uiComponents={this._uiComponents}>
+          <PlayerAreaProvider
+            uiComponents={this._uiComponents}
+            setApi={api => {
+              if (api) {
+                this.addComponent = api;
+              }
+            }}>
             <IntlProvider definition={this._translations[this._locale]}>
               <PlayerProvider player={this.player}>
                 <EventDispatcherProvider player={this.player} store={this.store}>

@@ -177,6 +177,30 @@ export class MyCustomPlugin extends KalturaPlayer.core.BasePlugin {
 }
 ```
 
+## Injecting and removing a UI component dynamically  
+
+The `UiManager` exposes an api `addComponent` to add a UI component dynamically.  
+This method returns a function for removing the injected component.
+
+The UI component declaration is the same as describe above.
+
+```javascript
+const removeFunc = uiManager.addComponent({
+  label: 'niceComponent',
+  presets: ['Playback', 'Live'],
+  container: 'BottomBarRightControls',
+  get: customComponent,
+  beforeComponent: '',
+  afterComponent: '',
+  replaceComponent: 'Volume',
+  props: {myProp: true}
+});
+...
+...
+...
+removeFunc(); // remove customComponent ('Volume' will back to its place)
+```
+
 ### Useful tips
 
 1. The player will add your component only once matching a relevant preset and container. If you fail to see your components review again the configuration and make sure the preset and container names are correct.

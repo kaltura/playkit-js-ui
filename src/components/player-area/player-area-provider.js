@@ -162,6 +162,7 @@ class PlayerAreaProvider extends Component {
    * @return {void}
    */
   componentDidMount() {
+    this.props.setApi(this._addNewComponentAndUpdateListeners);
     this._initializePlayerComponents();
   }
 
