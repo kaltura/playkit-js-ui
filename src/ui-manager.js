@@ -42,6 +42,7 @@ class UIManager {
   _translations: {[langKey: string]: Object} = {en: en_translations['en']};
   _locale: string = 'en';
   _uiComponents: Array<KPUIComponent>;
+  addComponent: (component: KPUIComponent) => Function;
 
   /**
    * Creates an instance of UIManager.
