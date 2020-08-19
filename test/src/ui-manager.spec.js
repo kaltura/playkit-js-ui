@@ -173,8 +173,8 @@ describe('UIManager', function () {
           removeFunc();
           setTimeout(() => {
             leftControls.children[forwardIndex - 1].className.should.equals('playkit-control-button-container playkit-no-idle-control');
+            done();
           });
-          done();
         } catch (e) {
           done(e);
         }
