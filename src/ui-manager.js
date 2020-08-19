@@ -1,4 +1,5 @@
 //@flow
+/* eslint-disable no-unused-vars */
 import {h, render} from 'preact';
 import {Provider} from 'react-redux';
 import {IntlProvider} from 'preact-i18n';
@@ -41,14 +42,6 @@ class UIManager {
   _translations: {[langKey: string]: Object} = {en: en_translations['en']};
   _locale: string = 'en';
   _uiComponents: Array<KPUIComponent>;
-  /**
-   * Add a component dynamically
-   *
-   * @param {KPUIComponent} component - The component to add
-   * @returns {Function} - Removal function
-   * @memberof UIManager
-   */
-  addComponent: (component: KPUIComponent) => Function;
 
   /**
    * Creates an instance of UIManager.
@@ -96,6 +89,17 @@ class UIManager {
     } else {
       this.store.dispatch(configActions.updateConfig(config));
     }
+  }
+
+  /**
+   * Add a component dynamically
+   *
+   * @param {KPUIComponent} component - The component to add
+   * @returns {Function} - Removal function
+   * @memberof UIManager
+   */
+  addComponent(component: KPUIComponent): Function {
+    return () => {};
   }
 
   /**
@@ -178,7 +182,9 @@ class UIManager {
           <PlayerAreaProvider
             uiComponents={this._uiComponents}
             setApi={api => {
-              this.addComponent = api;
+              if (api) {
+                this.addComponent = api;
+              }
             }}>
             <IntlProvider definition={this._translations[this._locale]}>
               <PlayerProvider player={this.player}>
