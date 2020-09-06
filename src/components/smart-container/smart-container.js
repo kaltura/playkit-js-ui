@@ -123,15 +123,12 @@ class SmartContainer extends Component {
   renderChildren(props: any): React$Element<any> {
     const children = toChildArray(props.children).map(child => {
       if (child) {
-        return cloneElement(
-          child,
-          {
-            pushRef: ref => {
-              props.addAccessibleChild(ref);
-            }
+        return cloneElement(child, {
+          pushRef: ref => {
+            props.addAccessibleChild(ref);
           },
           ...this.props
-        );
+        });
       }
     });
     return children;
