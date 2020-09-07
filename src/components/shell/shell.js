@@ -121,9 +121,7 @@ class Shell extends Component {
       return;
     }
     if (this.state.hover) {
-      this.setState({hover: false});
-      this.props.updatePlayerHoverState(false);
-      this.props.notifyHoverChange({hover: false});
+      this._updatePlayerHover(false);
     }
   }
 
@@ -284,11 +282,15 @@ class Shell extends Component {
       return;
     }
     if (!this.state.hover) {
-      this.props.updatePlayerHoverState(true);
-      this.props.notifyHoverChange({hover: true});
-      this.setState({hover: true});
+      this._updatePlayerHover(true);
     }
     this._startHoverTimeout();
+  }
+
+  _updatePlayerHover(hover: boolean): void {
+    this.props.updatePlayerHoverState(hover);
+    this.props.notifyHoverChange({hover});
+    this.setState({hover});
   }
 
   /**
@@ -317,9 +319,7 @@ class Shell extends Component {
     this._clearHoverTimeout();
     this.hoverTimeout = setTimeout(() => {
       if (this._canEndHoverState()) {
-        this.props.updatePlayerHoverState(false);
-        this.props.notifyHoverChange({hover: false});
-        this.setState({hover: false});
+        this._updatePlayerHover(false);
       }
     }, this.props.hoverTimeout || CONTROL_BAR_HOVER_DEFAULT_TIMEOUT);
   }
@@ -347,10 +347,12 @@ class Shell extends Component {
    */
   componentDidUpdate(prevProps: Object): void {
     // Update the hover state if the transition was from pre playback screen
+    // or hover state changed from different component - should be handled in shell
     // or from paused to playing
     // or after an ad break
     // or in ad break
     if (
+      this.state.hover !== this.props.playerHover ||
       (this.props.currentState === 'playing' && prevProps.currentState === 'paused') ||
       (!this.props.prePlayback && prevProps.prePlayback) ||
       (!this.props.adBreak && prevProps.adBreak) ||

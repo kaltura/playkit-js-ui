@@ -114,7 +114,7 @@ class Keyboard extends Component {
         this.props.player.play();
         this.props.updateOverlayActionIcon(IconType.Play);
       }
-      this.toggleHoverState();
+      this.props.updatePlayerHoverState(true);
       return {preventDefault: true, payload: true};
     },
     [KeyMap.UP]: (): KeyboardEventResult => {
@@ -157,7 +157,7 @@ class Keyboard extends Component {
         this.props.logger.debug('Exit Picture In Picture');
         this.props.player.exitPictureInPicture();
       }
-      this.toggleHoverState();
+      this.props.updatePlayerHoverState(true);
       return {preventDefault: true, payload: true};
     },
     [KeyMap.ESC]: (): KeyboardEventResult => {
@@ -176,7 +176,7 @@ class Keyboard extends Component {
         this.props.logger.debug(`Seek. ${from} => ${to}`);
         this.props.player.currentTime = to;
         this.props.updateOverlayActionIcon(IconType.Rewind);
-        this.toggleHoverState();
+        this.props.updatePlayerHoverState(true);
         return {preventDefault: true, payload: {from: from, to: to}};
       }
       return {preventDefault: true, payload: null};
@@ -189,7 +189,7 @@ class Keyboard extends Component {
         this.props.logger.debug(`Seek. ${from} => ${to}`);
         this.props.player.currentTime = newTime > this.props.player.duration ? this.props.player.duration : newTime;
         this.props.updateOverlayActionIcon(IconType.Forward);
-        this.toggleHoverState();
+        this.props.updatePlayerHoverState(true);
         return {preventDefault: true, payload: {from: from, to: to}};
       }
       return {preventDefault: true, payload: null};
@@ -201,7 +201,7 @@ class Keyboard extends Component {
         this.props.logger.debug(`Seek. ${from} => ${to}`);
         this.props.player.currentTime = to;
         this.props.updateOverlayActionIcon(IconType.StartOver);
-        this.toggleHoverState();
+        this.props.updatePlayerHoverState(true);
         return {preventDefault: true, payload: {from: from, to: to}};
       }
       return {preventDefault: true, payload: null};
@@ -213,7 +213,7 @@ class Keyboard extends Component {
         this.props.logger.debug(`Seek. ${from} => ${to}`);
         this.props.player.currentTime = to;
         this.props.updateOverlayActionIcon(IconType.SeekEnd);
-        this.toggleHoverState();
+        this.props.updatePlayerHoverState(true);
         return {preventDefault: true, payload: {from: from, to: to}};
       }
       return {preventDefault: true, payload: null};
@@ -285,25 +285,6 @@ class Keyboard extends Component {
       return {preventDefault: true, payload: null};
     }
   };
-
-  /**
-   * toggles the shell hover state
-   *
-   * @returns {void}
-   * @memberof Keyboard
-   */
-  toggleHoverState(): void {
-    if (this._hoverTimeout !== null) {
-      clearTimeout(this._hoverTimeout);
-      this._hoverTimeout = null;
-    }
-    this.props.updatePlayerHoverState(true);
-    this.props.notifyHoverChange({hover: true});
-    this._hoverTimeout = setTimeout(() => {
-      this.props.updatePlayerHoverState(false);
-      this.props.notifyHoverChange({hover: false});
-    }, CONTROL_BAR_HOVER_DEFAULT_TIMEOUT);
-  }
 }
 
 export {Keyboard};
