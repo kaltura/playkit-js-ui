@@ -287,6 +287,14 @@ class Shell extends Component {
     this._startHoverTimeout();
   }
 
+  /**
+   * update hover as atomic change - all props for hover change at one place
+   * to be able to know to handle outside changes for player hover
+   * @returns {void} - if hover state can be ended
+   * @param {boolean} hover - is needed to update to hover or not
+   * @private
+   * @memberof Shell
+   */
   _updatePlayerHover(hover: boolean): void {
     this.props.updatePlayerHoverState(hover);
     this.props.notifyHoverChange({hover});

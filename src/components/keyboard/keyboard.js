@@ -6,7 +6,6 @@ import {actions as overlayIconActions} from '../../reducers/overlay-action';
 import {bindActions} from '../../utils/bind-actions';
 import {KeyMap, getKeyName} from '../../utils/key-map';
 import {IconType} from '../icon';
-import {CONTROL_BAR_HOVER_DEFAULT_TIMEOUT} from '../shell/shell';
 import {isPlayingAdOrPlayback} from '../../reducers/getters';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from 'components/event-dispatcher';
