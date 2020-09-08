@@ -1,11 +1,13 @@
-.icon-picture-in-picture-stop {
-  display: none;
-}
-.is-in-picture-in-picture {
-  .icon-picture-in-picture-start {
+.player .control-button{
+  .icon-picture-in-picture-stop {
     display: none;
   }
-  .icon-picture-in-picture-stop {
-    display: block;
+  &.is-in-picture-in-picture {
+    .icon-picture-in-picture-start {
+      display: none;
+    }
+    .icon-picture-in-picture-stop {
+      display: block;
+    }
   }
 }

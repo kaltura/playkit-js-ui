@@ -1,6 +1,6 @@
 .player .control-button {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   background: transparent;
   display: inline-block;
   opacity: 0.8;
@@ -11,6 +11,7 @@
   i {
     width: 32px;
     height: 32px;
+    display: block;
   }
 
   &.active {
@@ -31,8 +32,16 @@
 
 .player:not(.touch) {
   .control-button:not(:disabled) {
+    &.active.activeBackgroundEnabled {
+      background-color: rgba(0, 0, 0, 0.8);
+      border-radius: 4px;
+    }
     &:hover {
       opacity: 1;
+      &.hoverBackgroundEnabled {
+        background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), linear-gradient(rgba($brand-color, 1), rgba($brand-color, 1));
+        border-radius: 4px;
+      }
     }
 
     &.control-button-rounded:hover {
