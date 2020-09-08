@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.59.1](https://github.com/kaltura/playkit-js-ui/compare/v0.59.0...v0.59.1) (2020-09-08)
+
+
+
+## [0.59.0](https://github.com/kaltura/playkit-js-ui/compare/v0.58.1...v0.59.0) (2020-09-07)
+
+
+### Bug Fixes
+
+* **FEC-10472:** spinner doesn't show up ([#541](https://github.com/kaltura/playkit-js-ui/issues/541)) ([56a6ea7](https://github.com/kaltura/playkit-js-ui/commit/56a6ea7))
+* remove redux warning message ([#536](https://github.com/kaltura/playkit-js-ui/issues/536)) ([b767a8d](https://github.com/kaltura/playkit-js-ui/commit/b767a8d))
+
+
+### Build System
+
+* **FEC-10064:** add automatic release notes ([#540](https://github.com/kaltura/playkit-js-ui/issues/540)) ([03ed799](https://github.com/kaltura/playkit-js-ui/commit/03ed799))
+
+
+### Features
+
+* **FEC-10076:** add support for dynamic injection ([#538](https://github.com/kaltura/playkit-js-ui/issues/538)) ([f180721](https://github.com/kaltura/playkit-js-ui/commit/f180721))
+
+
+### Tests
+
+* faster unit tests ([#539](https://github.com/kaltura/playkit-js-ui/issues/539)) ([6472029](https://github.com/kaltura/playkit-js-ui/commit/6472029))
+
+
+
 ### [0.58.1](https://github.com/kaltura/playkit-js-ui/compare/v0.58.0...v0.58.1) (2020-08-05)
 
 
