@@ -366,6 +366,10 @@ class Shell extends Component {
       (!this.props.adBreak && prevProps.adBreak) ||
       (this.props.adBreak && !prevProps.adBreak)
     ) {
+      // hover updated from different component should notify this change.
+      if (this.state.hover !== this.props.playerHover) {
+        this.props.notifyHoverChange({hover: this.props.playerHover});
+      }
       this._updatePlayerHoverState();
     }
   }
