@@ -13,6 +13,7 @@ import {PlayerAreaProvider} from './components/player-area';
 import reducer from './store';
 import en_translations from '../translations/en.i18n.json';
 import {actions as configActions} from './reducers/config';
+import {Managers} from './components/managers';
 
 // core components for the UI
 import {EngineConnector} from './components/engine-connector';
@@ -43,6 +44,7 @@ class UIManager {
   _locale: string = 'en';
   _uiComponents: Array<KPUIComponent>;
   addComponent: (component: KPUIComponent) => Function;
+  _managers: Managers;
 
   /**
    * Creates an instance of UIManager.
@@ -65,6 +67,7 @@ class UIManager {
     this.setConfig(config);
     this._setLocaleTranslations(config);
     setEnv(this.player.env);
+    this._managers = new Managers(this, this.store);
   }
 
   /**
@@ -218,6 +221,7 @@ class UIManager {
       this.container.prepend(this.player.getView());
       render('', this.container);
     }
+    this._managers.destroy();
   }
 
   /**
@@ -255,6 +259,10 @@ class UIManager {
    */
   get Event(): {[event: string]: string} {
     return EventType;
+  }
+
+  get managers(): Managers {
+    return this._managers;
   }
 }
 

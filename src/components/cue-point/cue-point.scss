@@ -1,0 +1,29 @@
+@import '~styles/variables';
+
+.cue-point-container {
+  position: absolute;
+  padding: 12px 0 16px 0;
+  margin: -12px 0;
+  height: inherit;
+  border-radius: inherit;
+  //transition: all $default-transition-time;
+
+  &:hover {
+    .cue-point-preview-container {
+      display: block;
+    }
+  }
+}
+
+.cue-point {
+  height: inherit;
+  width: $progress-bar-height;
+  background-color: $white;
+  border-radius: inherit;
+}
+
+.cue-point-preview-container {
+  display: none;
+  position: absolute;
+  bottom: $progress-bar-height + 24px;
+}

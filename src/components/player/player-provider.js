@@ -26,7 +26,7 @@ class PlayerProvider extends Component {
    * @memberof PlayerProvider
    */
   render(): React$Element<any> | null {
-    return (this.props.children && toChildArray(this.props.children)[0]) || null;
+    return (this.props.children && toChildArray(this.props.children)) || null;
   }
 }
 export {PlayerProvider};

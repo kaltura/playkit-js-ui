@@ -2,6 +2,9 @@
 export const types = {
   UPDATE_SEEKBAR_DRAGGING_STATUS: 'seekbar/UPDATE_SEEKBAR_DRAGGING_STATUS',
   UPDATE_SEEKBAR_HOVER_ACTIVE: 'seekbar/UPDATE_SEEKBAR_HOVER_ACTIVE',
+  UPDATE_SEEKBAR_CLIENT_RECT: 'seekbar/UPDATE_SEEKBAR_CLIENT_RECT',
+  UPDATE_CUE_POINT_ACTIVE: 'seekbar/UPDATE_CUE_POINT_ACTIVE',
+  UPDATE_HIDE_TIME_BUBBLE: 'seekbar/UPDATE_HIDE_TIME_BUBBLE',
   UPDATE_CURRENT_TIME: 'seekbar/UPDATE_CURRENT_TIME',
   UPDATE_DURATION: 'seekbar/UPDATE_DURATION'
 };
@@ -10,7 +13,10 @@ export const initialState = {
   currentTime: 0,
   duration: 0,
   draggingActive: false,
-  hoverActive: false
+  hoverActive: false,
+  clientRect: {x: 0, y: 0, width: 0, height: 0, top: 0, right: 0, bottom: 0, left: 0},
+  cuePointActive: false,
+  hideTimeBubble: false
 };
 
 export default (state: Object = initialState, action: Object) => {
@@ -25,6 +31,24 @@ export default (state: Object = initialState, action: Object) => {
       return {
         ...state,
         hoverActive: action.hoverActive
+      };
+
+    case types.UPDATE_SEEKBAR_CLIENT_RECT:
+      return {
+        ...state,
+        clientRect: action.clientRect
+      };
+
+    case types.UPDATE_CUE_POINT_ACTIVE:
+      return {
+        ...state,
+        cuePointActive: action.cuePointActive
+      };
+
+    case types.UPDATE_HIDE_TIME_BUBBLE:
+      return {
+        ...state,
+        hideTimeBubble: action.hideTimeBubble
       };
 
     case types.UPDATE_CURRENT_TIME:
@@ -52,6 +76,15 @@ export const actions = {
   updateSeekbarHoverActive: (hoverActive: boolean) => ({
     type: types.UPDATE_SEEKBAR_HOVER_ACTIVE,
     hoverActive
+  }),
+  updateSeekbarClientRect: (clientRect: Object) => ({type: types.UPDATE_SEEKBAR_CLIENT_RECT, clientRect}),
+  updateCuePointActive: (cuePointActive: boolean) => ({
+    type: types.UPDATE_CUE_POINT_ACTIVE,
+    cuePointActive
+  }),
+  updateHideTimeBubble: (hideTimeBubble: boolean) => ({
+    type: types.UPDATE_HIDE_TIME_BUBBLE,
+    hideTimeBubble
   }),
   updateDuration: (duration: number) => ({type: types.UPDATE_DURATION, duration}),
   updateCurrentTime: (currentTime: number) => ({type: types.UPDATE_CURRENT_TIME, currentTime})

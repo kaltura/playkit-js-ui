@@ -12,6 +12,10 @@ import {withKeyboardEvent} from 'components/keyboard';
 import {actions as overlayIconActions} from 'reducers/overlay-action';
 import {IconType} from '../icon';
 import {withText} from 'preact-i18n';
+import {PlayerArea} from '../player-area';
+import {withEventManager} from 'event/with-event-manager';
+import {FakeEvent} from 'event/fake-event';
+import {SeekBarPreview} from '../seekbar-preview';
 
 /**
  * mapping state to props
@@ -20,7 +24,9 @@ import {withText} from 'preact-i18n';
  */
 const mapStateToProps = state => ({
   config: state.config.components.seekbar,
-  isMobile: state.shell.isMobile
+  isMobile: state.shell.isMobile,
+  cuePointActive: state.seekbar.cuePointActive,
+  hideTimeBubble: state.seekbar.hideTimeBubble
 });
 
 const COMPONENT_NAME = 'SeekBar';
@@ -40,6 +46,7 @@ const KEYBOARD_DEFAULT_SEEK_JUMP: number = 5;
  */
 @connect(mapStateToProps, bindActions({...actions, ...overlayIconActions}))
 @withPlayer
+@withEventManager
 @withKeyboardEvent(COMPONENT_NAME)
 @withText({sliderAriaLabel: 'controls.seekBarSlider'})
 class SeekBar extends Component {
@@ -83,6 +90,7 @@ class SeekBar extends Component {
       }
     }
   ];
+
   /**
    * Creates an instance of SeekBar.
    * @memberof SeekBar
@@ -104,12 +112,27 @@ class SeekBar extends Component {
   }
 
   /**
+   * after component updated, update the rect in store
+   * @return {void}
+   * @memberof SeekBar
+   */
+  componentDidUpdate(): void {
+    const clientRect = this._seekBarElement.getBoundingClientRect();
+    this.props.updateSeekbarClientRect(clientRect);
+  }
+
+  /**
    * on component mount, bind mouseup and mousemove events to top player element
    *
    * @returns {void}
    * @memberof SeekBar
    */
   componentDidMount(): void {
+    const {player, eventManager} = this.props;
+    eventManager.listen(player, FakeEvent.Type.GUI_RESIZE, () => {
+      const clientRect = this._seekBarElement.getBoundingClientRect();
+      this.props.updateSeekbarClientRect(clientRect);
+    });
     document.addEventListener('mouseup', this.onPlayerMouseUp);
     document.addEventListener('mousemove', this.onPlayerMouseMove);
     this.props.registerKeyboardEvents(this._keyboardEventHandlers);
@@ -289,6 +312,7 @@ class SeekBar extends Component {
         break;
     }
   }
+
   /**
    * seekbar keydown accessibility handler
    *
@@ -304,6 +328,7 @@ class SeekBar extends Component {
         break;
     }
   }
+
   /**
    * seekbar touch end handler
    *
@@ -446,18 +471,6 @@ class SeekBar extends Component {
   }
 
   /**
-   * utility function to get the thumb sprite background position
-   *
-   * @returns {string} background-position string value
-   * @memberof SeekBar
-   */
-  getThumbSpriteOffset(): string {
-    const percent = this.state.virtualTime / this.props.duration;
-    const sliceIndex = Math.ceil(this.props.config.thumbsSlices * percent);
-    return -(sliceIndex * this.props.config.thumbsWidth) + 'px 0px';
-  }
-
-  /**
    * get the left position the frame preview element should be in
    *
    * @returns {number} left position
@@ -511,28 +524,21 @@ class SeekBar extends Component {
       !this.props.config.thumbsSlices ||
       !this.props.config.thumbsWidth ||
       !this.props.showFramePreview ||
-      this.props.isMobile
+      this.props.isMobile ||
+      this.props.cuePointActive
     )
       return undefined;
 
     return (
       <div className={style.framePreview} style={this._getFramePreviewStyle()} ref={c => (c ? (this._framePreviewElement = c) : undefined)}>
-        <div className={style.framePreviewImg} style={this._getFramePreviewImgStyle()} />
+        <SeekBarPreview
+          virtualTime={this.state.virtualTime}
+          thumbsSlices={this.props.config.thumbsSlices}
+          thumbsWidth={this.props.config.thumbsWidth}
+          thumbsSprite={this.props.config.thumbsSprite}
+        />
       </div>
     );
-  }
-
-  /**
-   * Gets the style of the frame preview image.
-   * @returns {string} - The css style string.
-   * @memberof SeekBar
-   * @private
-   */
-  _getFramePreviewImgStyle(): string {
-    let framePreviewImgStyle = `background-image: url(${this.props.config.thumbsSprite});`;
-    framePreviewImgStyle += `background-position: ${this.getThumbSpriteOffset()};`;
-    framePreviewImgStyle += `background-size: ${this.props.config.thumbsSlices * this.props.config.thumbsWidth}px 100%;`;
-    return framePreviewImgStyle;
   }
 
   /**
@@ -543,7 +549,6 @@ class SeekBar extends Component {
    */
   _getFramePreviewStyle(): string {
     let framePreviewStyle = `left: ${this.getFramePreviewOffset()}px;`;
-    framePreviewStyle += `width: ${this.props.config.thumbsWidth}px;`;
     return framePreviewStyle;
   }
 
@@ -554,7 +559,7 @@ class SeekBar extends Component {
    * @memberof SeekBar
    */
   renderTimeBubble(): React$Element<any> | void {
-    if (!this.props.showTimeBubble || this.props.isMobile) return undefined;
+    if (this.props.hideTimeBubble || !this.props.showTimeBubble || this.props.isMobile) return undefined;
     const timeBubbleStyle = `left: ${this.getTimeBubbleOffset()}px`;
     const timeBubbleValue = this.props.isDvr ? '-' + toHHMMSS(this.props.duration - this.state.virtualTime) : toHHMMSS(this.state.virtualTime);
     return (
@@ -601,13 +606,15 @@ class SeekBar extends Component {
         onTouchEnd={e => this.onSeekbarTouchEnd(e)}
         onKeyDown={e => this.onKeyDown(e)}>
         <div className={style.progressBar}>
-          {this.renderFramePreview()}
-          {this.renderTimeBubble()}
-          <div className={style.virtualProgress} style={{width: virtualProgressWidth}} />
-          <div className={style.buffered} style={{width: bufferedWidth}} />
-          <div className={style.progress} style={{width: progressWidth}}>
-            {props.adBreak ? undefined : <a className={style.scrubber} />}
-          </div>
+          <PlayerArea name={'SeekBar'} shouldUpdate={true}>
+            {this.renderFramePreview()}
+            {this.renderTimeBubble()}
+            <div className={style.virtualProgress} style={{width: virtualProgressWidth}} />
+            <div className={style.buffered} style={{width: bufferedWidth}} />
+            <div className={style.progress} style={{width: progressWidth}}>
+              {props.adBreak ? undefined : <a className={style.scrubber} />}
+            </div>
+          </PlayerArea>
         </div>
       </div>
     );

@@ -50,7 +50,7 @@ const eventDispatcherMiddleware = (player: Object) => (store: Object) => (next: 
 
   switch (action.type) {
     case shell.UPDATE_GUI_CLIENT_RECT:
-      onGuiResizeHandler(store, action, player);
+      setTimeout(() => onGuiResizeHandler(store, action, player), 500);
       break;
     case shell.UPDATE_PLAYER_CLIENT_RECT:
       onPlayerResizeHandler(store, action, player);

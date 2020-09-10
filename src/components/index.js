@@ -54,6 +54,7 @@ export {PlaylistNextScreen} from './playlist-next-screen';
 export {PictureInPicture} from './picture-in-picture';
 export {PlaybackControls} from './playback-controls';
 export {Button} from './button';
+export {CuePoint} from './cue-point';
 
 export {PlayerArea, withPlayerPreset} from './player-area';
 export {VideoArea} from './video-area';
