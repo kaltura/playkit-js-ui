@@ -266,7 +266,7 @@ export default (state: Object = initialState, action: Object) => {
         adUrl: action.adUrl
       };
 
-      case types.UPDATE_AD_IS_BUMPER:
+    case types.UPDATE_AD_IS_BUMPER:
       return {
         ...state,
         adIsBumper: action.adIsBumper
