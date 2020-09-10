@@ -44,7 +44,9 @@ const IconType = {
   Next: 'next',
   Prev: 'prev',
   PictureInPictureStart: 'picture-in-picture-start',
-  PictureInPictureStop: 'picture-in-picture-stop'
+  PictureInPictureStop: 'picture-in-picture-stop',
+  AirPlay: 'airplay',
+  AirPlayActive: 'airplayActive'
 };
 
 /**
@@ -189,6 +191,12 @@ class Icon extends Component {
 
       case IconType.PictureInPictureStop:
         return <i className={[style.icon, style.iconPictureInPictureStop].join(' ')} />;
+
+      case IconType.AirPlay:
+        return <i className={[style.icon, style.iconAirplay].join(' ')} />;
+
+      case IconType.AirPlayActive:
+        return <i className={[style.icon, style.iconAirplayActive].join(' ')} />;
 
       default:
         break;
