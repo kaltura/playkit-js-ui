@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {withPlayer} from 'components/player';
 import {bindActions} from '../../utils/bind-actions';
 import {actions as seekbarActions} from '../../reducers/seekbar';
+import variables from '../../styles/_variables.scss';
 
 /**
  * mapping state to props
@@ -12,6 +13,7 @@ import {actions as seekbarActions} from '../../reducers/seekbar';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
+  config: state.config.components.seekbar,
   duration: state.engine.duration,
   seekbarClientRect: state.seekbar.clientRect,
   hideTimeBubble: state.seekbar.hideTimeBubble
@@ -67,22 +69,30 @@ class CuePoint extends Component {
     return left;
   }
 
-  onMouseOver() {
+  onMarkerMouseOver() {
     if (this.props.preview) {
       this.props.updateCuePointActive(true);
-      if (!this.props.hideTimeBubble && this.props.preview.displayTime === false) {
+      if (!this.props.hideTimeBubble && this.props.preview.hideTime) {
         this._hideTimeBubble = true;
         this.props.updateHideTimeBubble(true);
       }
     }
   }
 
-  onMouseLeave() {
+  onMarkerMouseLeave() {
     this.props.updateCuePointActive(false);
     if (this._hideTimeBubble) {
       this._hideTimeBubble = false;
       this.props.updateHideTimeBubble(false);
     }
+  }
+
+  onPreviewMouseOver() {
+    this.props.updateSeekbarPreviewHoverActive(true);
+  }
+
+  onPreviewMouseLeave() {
+    this.props.updateSeekbarPreviewHoverActive(false);
   }
 
   componentDidMount(): void {
@@ -110,47 +120,54 @@ class CuePoint extends Component {
   };
 
   render(props: any): React$Element<any> | void {
-    const previewWidth = props.preview.width || 160;
-    const previewHeight = props.preview.height || 90;
-    const markerStyle = {backgroundColor: props.marker.color, width: props.marker.width};
+    const {marker, preview, config} = props;
+
+    const markerStyle = {backgroundColor: marker.color, width: marker.width};
     let markerProps = {
-      style: markerStyle
+      className: marker.className ? [style.cuePoint, marker.className].join(' ') : style.cuePoint,
+      style: marker.props ? {...markerStyle, ...marker.props.style} : markerStyle
     };
-    if (props.marker.className) {
-      markerProps.className = props.marker.className;
-    }
-    markerProps = {...markerProps, ...props.marker.props};
+    markerProps = {...marker.props, ...markerProps};
+
+    const previewWidth = preview.width || variables.framePreviewImgWidth;
+    const previewHeight = preview.height || variables.framePreviewImgHeight;
     const previewStyle = {
       width: `${previewWidth}px`,
       height: `${previewHeight}px`
     };
     let previewProps = {
-      style: previewStyle
+      style: preview.props ? {...previewStyle, ...preview.props.style} : previewStyle
     };
-    if (props.preview.className) {
-      previewProps.className = props.preview.className;
+    if (preview.className) {
+      previewProps.className = preview.className;
     }
-    previewProps = {...previewProps, ...props.preview.props};
+    previewProps = {
+      ...preview.props,
+      ...previewProps,
+      seekbarProps: {
+        virtualTime: this.context.getVirtualTime(),
+        thumbsSlices: config.thumbsSlices,
+        thumbsWidth: config.thumbsWidth,
+        thumbsSprite: config.thumbsSprite
+      }
+    };
     return (
       <div
-        onMouseOver={() => this.onMouseOver()}
-        onMouseLeave={() => this.onMouseLeave()}
+        onMouseOver={() => this.onMarkerMouseOver()}
+        onMouseLeave={() => this.onMarkerMouseLeave()}
         className={style.cuePointContainer}
         style={{left: `${this._getMarkerPosition()}px`}}
         ref={this._setMarkerRef}>
-        {props.marker.get ? (
-          h(props.marker.get, markerProps)
-        ) : (
-          <div style={markerStyle} className={[style.cuePoint, props.marker.className].join(' ')} />
-        )}
-        {this._markerRef && props.preview.get ? (
+        {marker.get ? h(marker.get, markerProps) : <div style={markerStyle} className={[style.cuePoint, marker.className].join(' ')} />}
+        {this._markerRef && preview.get ? (
           <div
-            className={[style.cuePointPreviewContainer].join(' ')}
+            onMouseOver={() => this.onPreviewMouseOver()}
+            onMouseLeave={() => this.onPreviewMouseLeave()}
+            className={preview.sticky === false ? [style.cuePointPreviewContainer, style.nonSticky].join(' ') : style.cuePointPreviewContainer}
             style={{
-              left: `${this._getPreviewPosition(previewWidth)}px`,
-              zIndex: props.preview.displayTime === false ? 'initial' : -1
+              left: `${this._getPreviewPosition(previewWidth)}px`
             }}>
-            {h(props.preview.get, previewProps)}
+            {h(preview.get, previewProps)}
           </div>
         ) : undefined}
       </div>

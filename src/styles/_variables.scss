@@ -24,5 +24,14 @@ $progress-bar-border-radius: $progress-bar-height / 2;
 $spinner-circle-radius: 4px;
 $spinner-colors: rgb(218, 31, 38), rgb(6, 168, 133), rgb(0, 147, 68), rgb(248, 166, 26), rgb(27, 74, 151), rgb(0, 171, 204), rgb(177, 210, 56),
   rgb(252, 210, 3);
-$default-transition-time: 500ms;
+$default-transition-time: 500;
 $default-hovering-offset: 60px;
+$frame-preview-img-width: 160;
+$frame-preview-img-height: 90;
+
+
+:export {
+  framePreviewImgWidth: $frame-preview-img-width;
+  framePreviewImgHeight: $frame-preview-img-height;
+  defaultTransitionTime: $default-transition-time;
+}

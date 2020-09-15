@@ -2,6 +2,7 @@
 export const types = {
   UPDATE_SEEKBAR_DRAGGING_STATUS: 'seekbar/UPDATE_SEEKBAR_DRAGGING_STATUS',
   UPDATE_SEEKBAR_HOVER_ACTIVE: 'seekbar/UPDATE_SEEKBAR_HOVER_ACTIVE',
+  UPDATE_SEEKBAR_PREVIEW_HOVER_ACTIVE: 'seekbar/UPDATE_SEEKBAR_PREVIEW_HOVER_ACTIVE',
   UPDATE_SEEKBAR_CLIENT_RECT: 'seekbar/UPDATE_SEEKBAR_CLIENT_RECT',
   UPDATE_CUE_POINT_ACTIVE: 'seekbar/UPDATE_CUE_POINT_ACTIVE',
   UPDATE_HIDE_TIME_BUBBLE: 'seekbar/UPDATE_HIDE_TIME_BUBBLE',
@@ -14,6 +15,7 @@ export const initialState = {
   duration: 0,
   draggingActive: false,
   hoverActive: false,
+  previewHoverActive: false,
   clientRect: {x: 0, y: 0, width: 0, height: 0, top: 0, right: 0, bottom: 0, left: 0},
   cuePointActive: false,
   hideTimeBubble: false
@@ -31,6 +33,12 @@ export default (state: Object = initialState, action: Object) => {
       return {
         ...state,
         hoverActive: action.hoverActive
+      };
+
+    case types.UPDATE_SEEKBAR_PREVIEW_HOVER_ACTIVE:
+      return {
+        ...state,
+        previewHoverActive: action.previewHoverActive
       };
 
     case types.UPDATE_SEEKBAR_CLIENT_RECT:
@@ -76,6 +84,10 @@ export const actions = {
   updateSeekbarHoverActive: (hoverActive: boolean) => ({
     type: types.UPDATE_SEEKBAR_HOVER_ACTIVE,
     hoverActive
+  }),
+  updateSeekbarPreviewHoverActive: (previewHoverActive: boolean) => ({
+    type: types.UPDATE_SEEKBAR_PREVIEW_HOVER_ACTIVE,
+    previewHoverActive
   }),
   updateSeekbarClientRect: (clientRect: Object) => ({type: types.UPDATE_SEEKBAR_CLIENT_RECT, clientRect}),
   updateCuePointActive: (cuePointActive: boolean) => ({

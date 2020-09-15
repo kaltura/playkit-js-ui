@@ -1,8 +1,9 @@
 //@flow
+import style from '../../styles/style.scss';
 import {UIManager} from '../../ui-manager';
 import {CuePoint} from 'components/cue-point';
-import {Component} from 'preact';
 import {actions as seekbarActions} from '../../reducers/seekbar';
+import variables from '../../styles/_variables.scss';
 
 class TimelineManager {
   _cuePointsRemoveMap: Object;
@@ -20,7 +21,7 @@ class TimelineManager {
       return null;
     }
     const id = (this._counter++).toString();
-    const component = {
+    this._cuePointsRemoveMap[id] = this._uiManager.addComponent({
       presets: newCuePoint.presets || [this._store.getState().shell.activePresetName],
       area: 'SeekBar',
       get: CuePoint,
@@ -29,8 +30,7 @@ class TimelineManager {
         marker: newCuePoint.marker || {},
         preview: newCuePoint.preview || {}
       }
-    };
-    this._cuePointsRemoveMap[id] = this._uiManager.addComponent(component);
+    });
     return {id};
   }
 
@@ -43,20 +43,38 @@ class TimelineManager {
 
   setSeekbarPreview(preview) {
     const presets = preview.presets || [this._store.getState().shell.activePresetName];
-    const component = {
+    const className = [];
+    if (preview.className) {
+      className.push(preview.className);
+    }
+    if (preview.sticky === false) {
+      className.push(style.nonSticky);
+    }
+    const previewStyle = {
+      width: `${preview.width || variables.framePreviewImgWidth}px`,
+      height: `${preview.height || variables.framePreviewImgHeight}px`
+    };
+    const removePreview = this._uiManager.addComponent({
       presets,
       area: 'SeekBar',
       get: preview.get,
       props: {
-        style: {width: `${preview.width || 160}px`, height: `${preview.height || 90}px`}
+        ...preview.props,
+        style: preview.props ? {...previewStyle, ...preview.props.style} : previewStyle,
+        className: className.join(' '),
+        onMouseOver: () => {
+          typeof preview.props.onMouseOver === 'function' && preview.props.onMouseOver();
+          this._store.dispatch(seekbarActions.updateSeekbarPreviewHoverActive(true));
+        },
+        onMouseLeave: () => {
+          typeof preview.props.onMouseLeave === 'function' && preview.props.onMouseLeave();
+          this._store.dispatch(seekbarActions.updateSeekbarPreviewHoverActive(false));
+        }
       },
       replaceComponent: 'SeekBarPreview'
-    };
-    if (preview.className) {
-      component.props.className = preview.className;
-    }
-    const removePreview = this._uiManager.addComponent(component);
-    if (preview.displayTime === false) {
+    });
+    this._store.dispatch(seekbarActions.updateHideTimeBubble(false));
+    if (preview.hideTime) {
       this._store.dispatch(seekbarActions.updateHideTimeBubble(true));
     }
     return () => {

@@ -31,13 +31,13 @@ class SeekBarPreview extends Component {
     let framePreviewImgStyle = `background-image: url(${this.props.thumbsSprite});`;
     framePreviewImgStyle += `background-position: ${this.getThumbSpriteOffset()};`;
     framePreviewImgStyle += `background-size: ${this.props.thumbsSlices * this.props.thumbsWidth}px 100%;`;
-    framePreviewImgStyle += `width: ${this.props.thumbsWidth}px;`;
     return framePreviewImgStyle;
   }
 
   render() {
+    if (!this.props.thumbsSprite || !this.props.thumbsSlices || !this.props.thumbsWidth) return undefined;
     return (
-      <div className={style.framePreviewImgContainer}>
+      <div className={[style.framePreviewImgContainer, style.nonSticky].join(' ')}>
         <div className={style.framePreviewImg} style={this._getFramePreviewImgStyle()} />
       </div>
     );
@@ -45,4 +45,4 @@ class SeekBarPreview extends Component {
 }
 
 SeekBarPreview.displayName = 'SeekBarPreview';
-export {SeekBarPreview}
+export {SeekBarPreview};

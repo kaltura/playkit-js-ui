@@ -16,6 +16,7 @@ import {PlayerArea} from '../player-area';
 import {withEventManager} from 'event/with-event-manager';
 import {FakeEvent} from 'event/fake-event';
 import {SeekBarPreview} from '../seekbar-preview';
+import variables from '../../styles/_variables.scss';
 
 /**
  * mapping state to props
@@ -26,6 +27,7 @@ const mapStateToProps = state => ({
   config: state.config.components.seekbar,
   isMobile: state.shell.isMobile,
   cuePointActive: state.seekbar.cuePointActive,
+  previewHoverActive: state.seekbar.previewHoverActive,
   hideTimeBubble: state.seekbar.hideTimeBubble
 });
 
@@ -130,8 +132,12 @@ class SeekBar extends Component {
   componentDidMount(): void {
     const {player, eventManager} = this.props;
     eventManager.listen(player, FakeEvent.Type.GUI_RESIZE, () => {
-      const clientRect = this._seekBarElement.getBoundingClientRect();
-      this.props.updateSeekbarClientRect(clientRect);
+      this.setState({resizing: true});
+      setTimeout(() => {
+        const clientRect = this._seekBarElement.getBoundingClientRect();
+        this.props.updateSeekbarClientRect(clientRect);
+        this.setState({resizing: false});
+      }, variables.defaultTransitionTime);
     });
     document.addEventListener('mouseup', this.onPlayerMouseUp);
     document.addEventListener('mousemove', this.onPlayerMouseMove);
@@ -157,7 +163,7 @@ class SeekBar extends Component {
    * @memberof SeekBar
    */
   onSeekbarMouseDown(e: Event): void {
-    if (this.props.isMobile) {
+    if (this.props.isMobile || this.props.previewHoverActive) {
       return;
     }
     e.preventDefault(); // fixes firefox mouseup not firing after dragging the scrubber
@@ -176,7 +182,7 @@ class SeekBar extends Component {
    * @memberof SeekBar
    */
   onPlayerMouseUp(e: Event): void {
-    if (this.props.isMobile) {
+    if (this.props.isMobile || this.props.previewHoverActive) {
       return;
     }
     if (this.props.isDraggingActive) {
@@ -218,7 +224,7 @@ class SeekBar extends Component {
    * @memberof SeekBar
    */
   onSeekbarMouseMove(e: Event): void {
-    if (this.props.isMobile) {
+    if (this.props.isMobile || this.props.previewHoverActive) {
       return;
     }
     let time = this.getTime(e);
@@ -519,16 +525,7 @@ class SeekBar extends Component {
    * @memberof SeekBar
    */
   renderFramePreview(): React$Element<any> | void {
-    if (
-      !this.props.config.thumbsSprite ||
-      !this.props.config.thumbsSlices ||
-      !this.props.config.thumbsWidth ||
-      !this.props.showFramePreview ||
-      this.props.isMobile ||
-      this.props.cuePointActive
-    )
-      return undefined;
-
+    if (!this.props.showFramePreview || this.props.cuePointActive || this.props.isMobile) return undefined;
     return (
       <div className={style.framePreview} style={this._getFramePreviewStyle()} ref={c => (c ? (this._framePreviewElement = c) : undefined)}>
         <SeekBarPreview
@@ -569,15 +566,22 @@ class SeekBar extends Component {
     );
   }
 
+  getChildContext() {
+    return {
+      getVirtualTime: () => this.state.virtualTime
+    };
+  }
+
   /**
    * render component
    *
    * @param {*} props - component props
+   * @param {Object} state - component state
    * @returns {React$Element} - component
    * @memberof SeekBar
    */
-  render(props: any): React$Element<any> {
-    const virtualProgressWidth = `${(this.state.virtualTime / props.duration) * 100}%`;
+  render(props: any, state: Object): React$Element<any> {
+    const virtualProgressWidth = `${(state.virtualTime / props.duration) * 100}%`;
     const progressWidth = `${(props.currentTime / props.duration) * 100}%`;
     const bufferedWidth = `${Math.round(this.getBufferedPercent())}%`;
     const seekbarStyleClass = [style.seekBar];
@@ -585,6 +589,7 @@ class SeekBar extends Component {
     if (props.isDvr) seekbarStyleClass.push(style.live);
     if (props.isMobile) seekbarStyleClass.push(style.hover);
     if (props.isDraggingActive) seekbarStyleClass.push(style.hover);
+    if (state.resizing) seekbarStyleClass.push(style.resizing);
 
     return (
       <div

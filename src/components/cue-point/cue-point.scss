@@ -2,11 +2,9 @@
 
 .cue-point-container {
   position: absolute;
-  padding: 12px 0 16px 0;
-  margin: -12px 0;
   height: inherit;
-  border-radius: inherit;
-  //transition: all $default-transition-time;
+  padding: 12px 0 12px + $progress-bar-height 0;
+  margin: -12px 0;
 
   &:hover {
     .cue-point-preview-container {
@@ -18,8 +16,8 @@
 .cue-point {
   height: inherit;
   width: $progress-bar-height;
+  border-radius: $progress-bar-border-radius;
   background-color: $white;
-  border-radius: inherit;
 }
 
 .cue-point-preview-container {
@@ -27,3 +25,10 @@
   position: absolute;
   bottom: $progress-bar-height + 24px;
 }
+
+.seek-bar.resizing {
+  .cue-point-container {
+    display: none;
+  }
+}
+
