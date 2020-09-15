@@ -104,26 +104,6 @@ class SeekBar extends Component {
   }
 
   /**
-   * before component mounted, set initial state
-   *
-   * @returns {void}
-   * @memberof SeekBar
-   */
-  componentWillMount(): void {
-    this.setState({virtualTime: 0});
-  }
-
-  /**
-   * after component updated, update the rect in store
-   * @return {void}
-   * @memberof SeekBar
-   */
-  componentDidUpdate(): void {
-    const clientRect = this._seekBarElement.getBoundingClientRect();
-    this.props.updateSeekbarClientRect(clientRect);
-  }
-
-  /**
    * on component mount, bind mouseup and mousemove events to top player element
    *
    * @returns {void}
@@ -390,7 +370,7 @@ class SeekBar extends Component {
    */
   updateSeekBarProgress(currentTime: number, duration: number, virtual: boolean = false): void {
     if (virtual) {
-      this.setState({virtualTime: currentTime});
+      this.props.updateVirtualTime(currentTime);
     } else {
       this.props.updateCurrentTime(currentTime);
     }
@@ -484,7 +464,7 @@ class SeekBar extends Component {
    */
   getFramePreviewOffset(): number {
     if (this._seekBarElement && this._framePreviewElement) {
-      let leftOffset = (this.state.virtualTime / this.props.duration) * this._seekBarElement.clientWidth - this._framePreviewElement.clientWidth / 2;
+      let leftOffset = (this.props.virtualTime / this.props.duration) * this._seekBarElement.clientWidth - this._framePreviewElement.clientWidth / 2;
       if (leftOffset < 0) {
         return 0;
       } else if (leftOffset > this._seekBarElement.clientWidth - this._framePreviewElement.clientWidth) {
@@ -505,7 +485,7 @@ class SeekBar extends Component {
    */
   getTimeBubbleOffset(): number {
     if (this._timeBubbleElement) {
-      let leftOffset = (this.state.virtualTime / this.props.duration) * this._seekBarElement.clientWidth - this._timeBubbleElement.clientWidth / 2;
+      let leftOffset = (this.props.virtualTime / this.props.duration) * this._seekBarElement.clientWidth - this._timeBubbleElement.clientWidth / 2;
       if (leftOffset < 0) {
         return 0;
       } else if (leftOffset > this._seekBarElement.clientWidth - this._timeBubbleElement.clientWidth) {
@@ -529,7 +509,7 @@ class SeekBar extends Component {
     return (
       <div className={style.framePreview} style={this._getFramePreviewStyle()} ref={c => (c ? (this._framePreviewElement = c) : undefined)}>
         <SeekBarPreview
-          virtualTime={this.state.virtualTime}
+          virtualTime={this.props.virtualTime}
           thumbsSlices={this.props.config.thumbsSlices}
           thumbsWidth={this.props.config.thumbsWidth}
           thumbsSprite={this.props.config.thumbsSprite}
@@ -558,18 +538,12 @@ class SeekBar extends Component {
   renderTimeBubble(): React$Element<any> | void {
     if (this.props.hideTimeBubble || !this.props.showTimeBubble || this.props.isMobile) return undefined;
     const timeBubbleStyle = `left: ${this.getTimeBubbleOffset()}px`;
-    const timeBubbleValue = this.props.isDvr ? '-' + toHHMMSS(this.props.duration - this.state.virtualTime) : toHHMMSS(this.state.virtualTime);
+    const timeBubbleValue = this.props.isDvr ? '-' + toHHMMSS(this.props.duration - this.props.virtualTime) : toHHMMSS(this.props.virtualTime);
     return (
       <div className={style.timePreview} style={timeBubbleStyle} ref={c => (c ? (this._timeBubbleElement = c) : undefined)}>
         {timeBubbleValue}
       </div>
     );
-  }
-
-  getChildContext() {
-    return {
-      getVirtualTime: () => this.state.virtualTime
-    };
   }
 
   /**
@@ -581,7 +555,7 @@ class SeekBar extends Component {
    * @memberof SeekBar
    */
   render(props: any, state: Object): React$Element<any> {
-    const virtualProgressWidth = `${(state.virtualTime / props.duration) * 100}%`;
+    const virtualProgressWidth = `${(props.virtualTime / props.duration) * 100}%`;
     const progressWidth = `${(props.currentTime / props.duration) * 100}%`;
     const bufferedWidth = `${Math.round(this.getBufferedPercent())}%`;
     const seekbarStyleClass = [style.seekBar];

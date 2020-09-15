@@ -16,6 +16,7 @@ import {withEventDispatcher} from 'components/event-dispatcher';
  */
 const mapStateToProps = state => ({
   currentTime: state.seekbar.currentTime,
+  virtualTime: state.seekbar.virtualTime,
   duration: state.engine.duration,
   isDraggingActive: state.seekbar.draggingActive,
   isMobile: state.shell.isMobile,
@@ -70,7 +71,9 @@ class SeekBarPlaybackContainer extends Component {
         updateSeekbarHoverActive={data => this.props.updateSeekbarHoverActive(data)}
         updateSeekbarClientRect={data => this.props.updateSeekbarClientRect(data)}
         updateCurrentTime={data => this.props.updateCurrentTime(data)}
+        updateVirtualTime={data => this.props.updateVirtualTime(data)}
         currentTime={this.props.currentTime}
+        virtualTime={this.props.virtualTime}
         duration={this.props.duration}
         isDraggingActive={this.props.isDraggingActive}
         isMobile={this.props.isMobile}

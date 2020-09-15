@@ -16,7 +16,8 @@ const mapStateToProps = state => ({
   config: state.config.components.seekbar,
   duration: state.engine.duration,
   seekbarClientRect: state.seekbar.clientRect,
-  hideTimeBubble: state.seekbar.hideTimeBubble
+  hideTimeBubble: state.seekbar.hideTimeBubble,
+  virtualTime: state.seekbar.virtualTime
 });
 
 const COMPONENT_NAME = 'CuePoint';
@@ -120,7 +121,7 @@ class CuePoint extends Component {
   };
 
   render(props: any): React$Element<any> | void {
-    const {marker, preview, config} = props;
+    const {marker, preview, virtualTime, config} = props;
 
     const markerStyle = {backgroundColor: marker.color, width: marker.width};
     let markerProps = {
@@ -145,7 +146,7 @@ class CuePoint extends Component {
       ...preview.props,
       ...previewProps,
       seekbarProps: {
-        virtualTime: this.context.getVirtualTime(),
+        virtualTime,
         thumbsSlices: config.thumbsSlices,
         thumbsWidth: config.thumbsWidth,
         thumbsSprite: config.thumbsSprite
@@ -155,6 +156,7 @@ class CuePoint extends Component {
       <div
         onMouseOver={() => this.onMarkerMouseOver()}
         onMouseLeave={() => this.onMarkerMouseLeave()}
+        onMouseMove={() => this.forceUpdate()}
         className={style.cuePointContainer}
         style={{left: `${this._getMarkerPosition()}px`}}
         ref={this._setMarkerRef}>
