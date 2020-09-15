@@ -11,6 +11,10 @@ class Managers {
   get timeline(): TimelineManager {
     return this._timeline;
   }
+
+  destroy() {
+    this._timeline.destroy();
+  }
 }
 
 export {Managers};

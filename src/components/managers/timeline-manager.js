@@ -82,6 +82,8 @@ class TimelineManager {
       this._store.dispatch(seekbarActions.updateHideTimeBubble(false));
     };
   }
+
+  destroy() {}
 }
 
 export {TimelineManager};
