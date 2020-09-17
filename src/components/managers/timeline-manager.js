@@ -4,6 +4,9 @@ import {UIManager} from '../../ui-manager';
 import {CuePoint} from 'components/cue-point';
 import {actions as seekbarActions} from '../../reducers/seekbar';
 import variables from '../../styles/_variables.scss';
+import getLogger from '../../utils/logger';
+
+const logger = getLogger('TimelineManager');
 
 class TimelineManager {
   _cuePointsRemoveMap: Object;
@@ -16,8 +19,13 @@ class TimelineManager {
     this._counter = 0;
   }
 
-  addCuePoint(newCuePoint): {id: string} {
-    if (this._store.getState().engine.isLive || typeof newCuePoint.time !== 'number') {
+  addCuePoint(newCuePoint): {id: string} | null {
+    if (this._store.getState().engine.isLive) {
+      logger.warn('Impossible to add cue points while LIVE playback');
+      return null;
+    }
+    if (typeof newCuePoint.time !== 'number') {
+      logger.warn('Cue point time is missing');
       return null;
     }
     const id = (this._counter++).toString();
