@@ -8,10 +8,20 @@ import getLogger from '../../utils/logger';
 
 const logger = getLogger('TimelineManager');
 
+/**
+ * @class TimelineManager
+ */
 class TimelineManager {
+  _uiManager: UIManager;
+  _store: any;
   _cuePointsRemoveMap: Object;
   _counter: number;
 
+  /**
+   * @constructor
+   * @param {UIManager} uiManager - The UI manager.
+   * @param {any} store - The store.
+   */
   constructor(uiManager: UIManager, store: any) {
     this._uiManager = uiManager;
     this._store = store;
@@ -19,7 +29,11 @@ class TimelineManager {
     this._counter = 0;
   }
 
-  addCuePoint(newCuePoint): {id: string} | null {
+  /**
+   * @param {CuePointOptionsObject} newCuePoint - The cue point options
+   * @return {null|{id: string}} - An object contains the cue point id
+   */
+  addCuePoint(newCuePoint: CuePointOptionsObject): {id: string} | null {
     if (this._store.getState().engine.isLive) {
       logger.warn('Impossible to add cue points while LIVE playback');
       return null;
@@ -30,6 +44,7 @@ class TimelineManager {
     }
     const id = (this._counter++).toString();
     this._cuePointsRemoveMap[id] = this._uiManager.addComponent({
+      label: `Cue Point - ${id}`,
       presets: newCuePoint.presets || [this._store.getState().shell.activePresetName],
       area: 'SeekBar',
       get: CuePoint,
@@ -42,14 +57,22 @@ class TimelineManager {
     return {id};
   }
 
-  removeCuePoint(cuePoint) {
+  /**
+   * @param {{id: string}} cuePoint - An object contains the cue point id
+   * @returns {void}
+   */
+  removeCuePoint(cuePoint: {id: string}): void {
     const {id} = cuePoint;
     if (this._cuePointsRemoveMap.hasOwnProperty(id)) {
       this._cuePointsRemoveMap[id]();
     }
   }
 
-  setSeekbarPreview(preview) {
+  /**
+   * @param {SeekbarPreviewOptionsObject} preview - The seekbar preview options
+   * @return {Function} - Removal function
+   */
+  setSeekbarPreview(preview: SeekbarPreviewOptionsObject): Function {
     const presets = preview.presets || [this._store.getState().shell.activePresetName];
     const className = [];
     if (preview.className) {
@@ -63,6 +86,7 @@ class TimelineManager {
       height: `${preview.height || variables.framePreviewImgHeight}px`
     };
     const removePreview = this._uiManager.addComponent({
+      label: 'SeekBar Preview',
       presets,
       area: 'SeekBar',
       get: preview.get,
@@ -71,11 +95,11 @@ class TimelineManager {
         style: preview.props ? {...previewStyle, ...preview.props.style} : previewStyle,
         className: className.join(' '),
         onMouseOver: () => {
-          typeof preview.props.onMouseOver === 'function' && preview.props.onMouseOver();
+          preview.props && typeof preview.props.onMouseOver === 'function' && preview.props.onMouseOver();
           this._store.dispatch(seekbarActions.updateSeekbarPreviewHoverActive(true));
         },
         onMouseLeave: () => {
-          typeof preview.props.onMouseLeave === 'function' && preview.props.onMouseLeave();
+          preview.props && typeof preview.props.onMouseLeave === 'function' && preview.props.onMouseLeave();
           this._store.dispatch(seekbarActions.updateSeekbarPreviewHoverActive(false));
         }
       },
@@ -91,6 +115,9 @@ class TimelineManager {
     };
   }
 
+  /**
+   * @returns {void}
+   */
   destroy() {}
 }
 

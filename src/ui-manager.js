@@ -261,6 +261,11 @@ class UIManager {
     return EventType;
   }
 
+  /**
+   * Gets the ui manager managers.
+   * @returns {Managers} - The ui manager managers.
+   * @public
+   */
   get managers(): Managers {
     return this._managers;
   }

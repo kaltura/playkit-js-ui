@@ -3,17 +3,26 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'react-redux';
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 const mapStateToProps = state => ({
   duration: state.engine.duration
 });
 
+/**
+ * SeekBarPreview component
+ *
+ * @class SeekBarPreview
+ * @extends {Component}
+ */
 @connect(mapStateToProps)
 class SeekBarPreview extends Component {
   /**
    * utility function to get the thumb sprite background position
-   *
    * @returns {string} background-position string value
-   * @memberof SeekBar
    */
   getThumbSpriteOffset(): string {
     const percent = this.props.virtualTime / this.props.duration;
@@ -24,7 +33,6 @@ class SeekBarPreview extends Component {
   /**
    * Gets the style of the frame preview image.
    * @returns {string} - The css style string.
-   * @memberof SeekBar
    * @private
    */
   _getFramePreviewImgStyle(): string {
@@ -34,6 +42,10 @@ class SeekBarPreview extends Component {
     return framePreviewImgStyle;
   }
 
+  /**
+   * render component
+   * @returns {React$Element} - component element
+   */
   render() {
     if (!this.props.thumbsSprite || !this.props.thumbsSlices || !this.props.thumbsWidth) return undefined;
     return (

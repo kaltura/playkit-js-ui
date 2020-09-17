@@ -22,13 +22,23 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'CuePoint';
 
+/**
+ * CuePoint component
+ *
+ * @class CuePoint
+ * @extends {Component}
+ */
 @connect(mapStateToProps, bindActions(seekbarActions))
 @withPlayer
 class CuePoint extends Component {
   _markerRef: ?HTMLDivElement;
   _hideTimeBubble: boolean;
 
-  _getMarkerPosition() {
+  /**
+   * @returns {number} - the marker left position
+   * @private
+   */
+  _getMarkerPosition(): number {
     let left = 0;
     if (this._markerRef && this.props.duration) {
       const markerRect = this._markerRef.getBoundingClientRect();
@@ -47,7 +57,12 @@ class CuePoint extends Component {
     return left;
   }
 
-  _getPreviewPosition(previewWidth) {
+  /**
+   * @param {number} previewWidth - the preview width
+   * @returns {number} - the preview left position
+   * @private
+   */
+  _getPreviewPosition(previewWidth: number): number {
     let left = 0;
     if (this._markerRef) {
       const markerRect = this._markerRef.getBoundingClientRect();
@@ -70,7 +85,11 @@ class CuePoint extends Component {
     return left;
   }
 
-  onMarkerMouseOver() {
+  /**
+   * on marker mouse over handler.
+   * @returns {void}
+   */
+  onMarkerMouseOver(): void {
     if (this.props.preview) {
       this.props.updateCuePointActive(true);
       if (!this.props.hideTimeBubble && this.props.preview.hideTime) {
@@ -80,7 +99,11 @@ class CuePoint extends Component {
     }
   }
 
-  onMarkerMouseLeave() {
+  /**
+   * on marker mouse leave handler.
+   * @returns {void}
+   */
+  onMarkerMouseLeave(): void {
     this.props.updateCuePointActive(false);
     if (this._hideTimeBubble) {
       this._hideTimeBubble = false;
@@ -88,18 +111,34 @@ class CuePoint extends Component {
     }
   }
 
-  onPreviewMouseOver() {
+  /**
+   * on preview mouse over handler.
+   * @returns {void}
+   */
+  onPreviewMouseOver(): void {
     this.props.updateSeekbarPreviewHoverActive(true);
   }
 
-  onPreviewMouseLeave() {
+  /**
+   * on preview mouse leave handler.
+   * @returns {void}
+   */
+  onPreviewMouseLeave(): void {
     this.props.updateSeekbarPreviewHoverActive(false);
   }
 
+  /**
+   * componentDidMount
+   * @returns {void}
+   */
   componentDidMount(): void {
     this._hideTimeBubble = false;
   }
 
+  /**
+   * componentWillUnmount
+   * @returns {void}
+   */
   componentWillUnmount(): void {
     this.props.updateCuePointActive(false);
     if (this._hideTimeBubble) {
@@ -120,6 +159,11 @@ class CuePoint extends Component {
     }
   };
 
+  /**
+   * render component
+   * @param {*} props - component props
+   * @returns {React$Element} - component element
+   */
   render(props: any): React$Element<any> | void {
     const {marker, preview, virtualTime, config} = props;
 
@@ -136,7 +180,7 @@ class CuePoint extends Component {
       width: `${previewWidth}px`,
       height: `${previewHeight}px`
     };
-    let previewProps = {
+    let previewProps: Object = {
       style: preview.props ? {...previewStyle, ...preview.props.style} : previewStyle
     };
     if (preview.className) {
