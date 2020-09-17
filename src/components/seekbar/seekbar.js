@@ -17,7 +17,6 @@ import {withEventManager} from 'event/with-event-manager';
 import {FakeEvent} from 'event/fake-event';
 import {SeekBarPreview} from '../seekbar-preview';
 import variables from '../../styles/_variables.scss';
-import {debounce} from 'utils/debounce';
 
 /**
  * mapping state to props
@@ -31,8 +30,6 @@ const mapStateToProps = state => ({
   previewHoverActive: state.seekbar.previewHoverActive,
   hideTimeBubble: state.seekbar.hideTimeBubble
 });
-
-const UPDATE_VIRTUAL_TIME_DEBOUNCE_DELAY: number = 10;
 
 const COMPONENT_NAME = 'SeekBar';
 
@@ -58,7 +55,6 @@ class SeekBar extends Component {
   state: Object;
   onPlayerMouseUp: Function;
   onPlayerMouseMove: Function;
-  _updateVirtualTimeDebounce: Function;
   _seekBarElement: HTMLElement;
   _framePreviewElement: HTMLElement;
   _timeBubbleElement: HTMLElement;
@@ -105,7 +101,6 @@ class SeekBar extends Component {
     super();
     this.onPlayerMouseUp = bindMethod(this, this.onPlayerMouseUp);
     this.onPlayerMouseMove = bindMethod(this, this.onPlayerMouseMove);
-    this._updateVirtualTimeDebounce = debounce(virtualTime => this.props.updateVirtualTime(virtualTime), UPDATE_VIRTUAL_TIME_DEBOUNCE_DELAY);
   }
 
   /**
@@ -375,7 +370,7 @@ class SeekBar extends Component {
    */
   updateSeekBarProgress(currentTime: number, duration: number, virtual: boolean = false): void {
     if (virtual) {
-      this._updateVirtualTimeDebounce(currentTime);
+      this.props.updateVirtualTime(currentTime);
     } else {
       this.props.updateCurrentTime(currentTime);
     }
