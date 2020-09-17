@@ -156,7 +156,6 @@ class CuePoint extends Component {
       <div
         onMouseOver={() => this.onMarkerMouseOver()}
         onMouseLeave={() => this.onMarkerMouseLeave()}
-        onMouseMove={() => this.forceUpdate()}
         className={style.cuePointContainer}
         style={{left: `${this._getMarkerPosition()}px`}}
         ref={this._setMarkerRef}>
