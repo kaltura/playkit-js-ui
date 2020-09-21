@@ -26,3 +26,8 @@ $spinner-colors: rgb(218, 31, 38), rgb(6, 168, 133), rgb(0, 147, 68), rgb(248, 1
   rgb(252, 210, 3);
 $default-transition-time: 500ms;
 $default-hovering-offset: 60px;
+
+:export {
+  brandColor: $brand-color;
+  white: $white;
+}
