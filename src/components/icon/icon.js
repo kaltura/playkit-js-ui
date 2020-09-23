@@ -58,6 +58,26 @@ const IconType = {
  */
 class Icon extends Component {
   /**
+   * Creates an icon class with background images settings
+   *
+   * @param {string} name - class name
+   * @param {string} rules - class styling rules
+   * @returns {void}
+   * @memberof Icon
+   */
+  createIconClass = (name: string, rules: string) => {
+    const css = `.${name} { ${rules} }`;
+    const style = document.createElement('style');
+    style.type = 'text/css';
+    document.getElementsByTagName('head')[0].appendChild(style);
+    if (style.styleSheet) {
+      style.styleSheet.cssText = css;
+    } else {
+      style.appendChild(document.createTextNode(css));
+    }
+  };
+
+  /**
    * Generates the encoded svg url for a certain svg path
    *
    * @param {string} path - svg path
@@ -95,10 +115,10 @@ class Icon extends Component {
    */
   render(props: any): React$Element<any> | void {
     if (props.path) {
-      const backgroundStyle = {
-        backgroundImage: this.svgUrl(props.path)
-      };
-      return <i style={backgroundStyle} className={style.icon} />;
+      const className = `playkit-icon-${props.id}`;
+      const svgUrl = this.svgUrl(props.path);
+      this.createIconClass(className, `background-image: ${svgUrl};`);
+      return <i className={[style.icon, className].join(' ')} />;
     } else {
       switch (props.type) {
         case IconType.Maximize:
