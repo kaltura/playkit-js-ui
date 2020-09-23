@@ -44,9 +44,7 @@ const IconType = {
   Next: 'next',
   Prev: 'prev',
   PictureInPictureStart: 'picture-in-picture-start',
-  PictureInPictureStop: 'picture-in-picture-stop',
-  AirPlay: 'airplay',
-  AirPlayActive: 'airplayActive'
+  PictureInPictureStop: 'picture-in-picture-stop'
 };
 
 /**
