@@ -47,6 +47,11 @@ const IconType = {
   PictureInPictureStop: 'picture-in-picture-stop'
 };
 
+const IconState: {[state: string]: number} = {
+  INACTIVE: 0,
+  ACTIVE: 1
+};
+
 /**
  * Icon component
  *
@@ -55,24 +60,43 @@ const IconType = {
  * @extends {Component}
  */
 class Icon extends Component {
+  defaultColor: string = style.white;
+  activeColor: string = style.brandColor;
+  className: string = '';
+
   /**
-   * Creates an icon class with background images settings
+   * @constructor
+   * @param {Object} props - component props
+   */
+  constructor(props: Object) {
+    super(props);
+    if (props.path) {
+      const {id} = props;
+      this.className = `playkit-icon-${id}`;
+      // Avoid from override existing classes
+      if (!document.getElementsByClassName(this.className).length) {
+        this.createDynamicIconClass(props);
+      }
+    }
+  }
+
+  /**
+   * Creates a dynamic icon class with background image settings
    *
-   * @param {string} name - class name
-   * @param {string} rules - class styling rules
+   * @param {Object} props - component props
    * @returns {void}
    * @memberof Icon
    */
-  createIconClass = (name: string, rules: string) => {
-    const css = `.${name} { ${rules} }`;
+  createDynamicIconClass = (props: Object) => {
+    const {path, state, color, activeColor} = props;
+    const fillColor = this.getFillColor(state, color, activeColor);
+    const pathTag = this.getPathTag(path, fillColor);
+    const svgUrl = this.getSVGUrl(pathTag);
+    const css = `.${this.className} { background-image: ${svgUrl}; }`;
     const style = document.createElement('style');
     style.type = 'text/css';
     document.getElementsByTagName('head')[0].appendChild(style);
-    if (style.styleSheet) {
-      style.styleSheet.cssText = css;
-    } else {
-      style.appendChild(document.createTextNode(css));
-    }
+    style.appendChild(document.createTextNode(css));
   };
 
   /**
@@ -82,7 +106,7 @@ class Icon extends Component {
    * @returns {string} - encoded svg url
    * @memberof Icon
    */
-  svgUrl = (path: string) => {
+  getSVGUrl = (path: string): string => {
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1024 1024" width="36" height="36">${path}</svg>`;
     const slice = 2000;
     const loops = Math.ceil(svg.length / slice);
@@ -105,6 +129,48 @@ class Icon extends Component {
   };
 
   /**
+   * @param {?number} state - icon state
+   * @param {?string} color - external default color
+   * @param {?string} activeColor - external active color
+   * @returns {string} - svg fill color
+   * @memberof Icon
+   */
+  getFillColor = (state: ?number, color: ?string, activeColor: ?string): string => {
+    if (!state || state === IconState.INACTIVE) {
+      return color || this.defaultColor;
+    } else if (state === IconState.ACTIVE) {
+      return activeColor || this.activeColor;
+    }
+    return this.defaultColor;
+  };
+
+  /**
+   * @param {string | Array<string>} path - svg path or paths (if an icon contains multiple paths)
+   * @param {string} fillColor - icon fill color
+   * @returns {string} - icon path tag
+   * @memberof Icon
+   */
+  getPathTag = (path: string | Array<string>, fillColor: string): string => {
+    if (typeof path === 'string') {
+      path = [path];
+    }
+    return path.map(p => `<path fill="${fillColor}" d="${p}"/>`).join(' ');
+  };
+
+  /**
+   * component will update
+   * @param {Object} nextProps - the next props
+   * @memberof Icon
+   * @return {void}
+   */
+  componentWillUpdate(nextProps: Object) {
+    if (this.className && this.props.state !== nextProps.state) {
+      // Override icon class with the new state color
+      this.createDynamicIconClass(nextProps);
+    }
+  }
+
+  /**
    * render icon based on props.type
    *
    * @param {*} props - component props
@@ -112,11 +178,8 @@ class Icon extends Component {
    * @memberof Icon
    */
   render(props: any): React$Element<any> | void {
-    if (props.path) {
-      const className = `playkit-icon-${props.id}`;
-      const svgUrl = this.svgUrl(props.path);
-      this.createIconClass(className, `background-image: ${svgUrl};`);
-      return <i className={[style.icon, className].join(' ')} />;
+    if (this.className) {
+      return <i className={[style.icon, this.className].join(' ')} />;
     } else {
       switch (props.type) {
         case IconType.Maximize:
@@ -245,12 +308,6 @@ class Icon extends Component {
         case IconType.PictureInPictureStop:
           return <i className={[style.icon, style.iconPictureInPictureStop].join(' ')} />;
 
-        case IconType.AirPlay:
-          return <i className={[style.icon, style.iconAirplay].join(' ')} />;
-
-        case IconType.AirPlayActive:
-          return <i className={[style.icon, style.iconAirplayActive].join(' ')} />;
-
         default:
           break;
       }
@@ -259,4 +316,4 @@ class Icon extends Component {
 }
 
 export default Icon;
-export {Icon, IconType};
+export {Icon, IconType, IconState};
