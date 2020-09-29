@@ -1,37 +1,37 @@
 //@flow
-import * as JsLogger from 'js-logger';
-
 export type LogLevelObject = {value: number, name: string};
 export type LogLevelType = {[level: string]: LogLevelObject};
 
-const LogLevel: LogLevelType = {
-  DEBUG: JsLogger.DEBUG,
-  INFO: JsLogger.INFO,
-  TIME: JsLogger.TIME,
-  WARN: JsLogger.WARN,
-  ERROR: JsLogger.ERROR,
-  OFF: JsLogger.OFF
+let JsLogger = {
+  get: () => ({
+    trace: () => {},
+    debug: () => {},
+    info: () => {},
+    log: () => {},
+    warn: () => {},
+    error: () => {},
+    time: () => {},
+    timeEnd: () => {}
+  })
 };
 
-JsLogger.useDefaults({defaultLevel: JsLogger.ERROR});
-
 /**
- * sets the logger handler
- * @param {LogHandlerType} handler - the log level
+ * get a logger
+ * @param {function} getLogger - the logger
  * @returns {void}
  */
-function setLogHandler(handler: LogHandlerType): void {
-  JsLogger.setHandler((messages, context) => handler(messages, context));
+function setLogger(getLogger: function): void {
+  if (typeof getLogger === 'function') {
+    JsLogger.get = getLogger;
+  }
 }
+
 /**
  * get a logger
  * @param {?string} name - the logger name
  * @returns {Object} - the logger class
  */
 function getLogger(name?: string): Object {
-  if (!name) {
-    return JsLogger;
-  }
   return JsLogger.get(name);
 }
 
@@ -55,4 +55,4 @@ function setLogLevel(level: LogLevelObject, name?: string): void {
 }
 
 export default getLogger;
-export {LogLevel, getLogLevel, setLogLevel, setLogHandler};
+export {getLogLevel, setLogLevel, setLogger};

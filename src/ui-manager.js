@@ -6,7 +6,7 @@ import {IntlProvider} from 'preact-i18n';
 import {createStore, compose} from 'redux';
 import {copyDeep} from './utils/copy-deep';
 import {mergeDeep} from './utils/merge-deep';
-import {LogLevel, getLogLevel, setLogLevel, setLogHandler} from './utils/logger';
+import {getLogLevel, setLogLevel, setLogger} from './utils/logger';
 import {EventType} from './event/event-type';
 import {setEnv} from './utils/key-map';
 import {PlayerAreaProvider} from './components/player-area';
@@ -48,16 +48,11 @@ class UIManager {
    * Creates an instance of UIManager.
    * @param {Object} player - player instance
    * @param {UIOptionsObject} config - ui config
+   * @param {function} logger - get logger instance
    * @memberof UIManager
    */
-  constructor(player: Object, config: UIOptionsObject) {
-    if (config.log && config.log.level && this.LogLevel[config.log.level]) {
-      setLogLevel(this.LogLevel[config.log.level]);
-    }
-    if (config.log && typeof config.log.handler === 'function') {
-      setLogHandler(config.log.handler);
-    }
-
+  constructor(player: Object, config: UIOptionsObject, logger?: function) {
+    setLogger(logger);
     this._uiComponents = [...(config.uiComponents || [])];
     this.player = player;
     this.targetId = config.targetId;
@@ -237,15 +232,6 @@ class UIManager {
    */
   setLogLevel(level: Object, name?: string) {
     setLogLevel(level, name);
-  }
-
-  /**
-   * Get the ui manager log level.
-   * @returns {Object} - The log levels of the player.
-   * @public
-   */
-  get LogLevel(): {[level: string]: Object} {
-    return LogLevel;
   }
 
   /**
