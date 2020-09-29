@@ -2,20 +2,20 @@
 export type LogLevelObject = {value: number, name: string};
 export type LogLevelType = {[level: string]: LogLevelObject};
 export type loggerFunctionType = {
-  trace: function,
-  debug: function,
-  info: function,
-  log: function,
-  warn: function,
-  error: function,
-  time: function,
-  timeEnd: function,
-  getLevel: function,
-  setLevel: function
+  trace: Function,
+  debug: Function,
+  info: Function,
+  log: Function,
+  warn: Function,
+  error: Function,
+  time: Function,
+  timeEnd: Function,
+  getLevel: Function,
+  setLevel: Function
 };
 
 let JsLogger = {
-  get: (name?: string) => ({
+  get: () => ({
     trace: () => {},
     debug: () => {},
     info: () => {},
@@ -31,10 +31,10 @@ let JsLogger = {
 
 /**
  * get a logger
- * @param {function} getLogger - the logger
+ * @param {Function} getLogger - the logger
  * @returns {void}
  */
-function setLogger(getLogger: function): void {
+function setLogger(getLogger: Function): void {
   if (typeof getLogger === 'function') {
     JsLogger.get = getLogger;
   }
@@ -46,6 +46,7 @@ function setLogger(getLogger: function): void {
  * @returns {Object} - the logger class
  */
 function getLogger(name?: string): Object {
+  //$FlowFixMe
   return JsLogger.get(name);
 }
 
