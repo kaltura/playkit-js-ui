@@ -48,11 +48,10 @@ class UIManager {
    * Creates an instance of UIManager.
    * @param {Object} player - player instance
    * @param {UIOptionsObject} config - ui config
-   * @param {function} logger - get logger instance
    * @memberof UIManager
    */
-  constructor(player: Object, config: UIOptionsObject, logger?: function) {
-    setLogger(logger);
+  constructor(player: Object, config: UIOptionsObject) {
+    setLogger(config.logger);
     this._uiComponents = [...(config.uiComponents || [])];
     this.player = player;
     this.targetId = config.targetId;

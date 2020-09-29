@@ -1,9 +1,21 @@
 //@flow
 export type LogLevelObject = {value: number, name: string};
 export type LogLevelType = {[level: string]: LogLevelObject};
+export type loggerFunctionType = {
+  trace: function,
+  debug: function,
+  info: function,
+  log: function,
+  warn: function,
+  error: function,
+  time: function,
+  timeEnd: function,
+  getLevel: function,
+  setLevel: function
+};
 
 let JsLogger = {
-  get: () => ({
+  get: (name?: string) => ({
     trace: () => {},
     debug: () => {},
     info: () => {},
@@ -11,7 +23,9 @@ let JsLogger = {
     warn: () => {},
     error: () => {},
     time: () => {},
-    timeEnd: () => {}
+    timeEnd: () => {},
+    getLevel: () => {},
+    setLevel: () => {}
   })
 };
 
