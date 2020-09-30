@@ -108,20 +108,25 @@ class Icon extends Component {
    */
   getSVGUrl = (path: string): string => {
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1024 1024" width="36" height="36">${path}</svg>`;
+    const replaces = [
+      ['"', "'"],
+      ['%', '%25'],
+      ['&', '%26'],
+      ['#', '%23'],
+      ['{', '%7B'],
+      ['}', '%7D'],
+      ['<', '%3C'],
+      ['>', '%3E']
+    ];
     const slice = 2000;
     const loops = Math.ceil(svg.length / slice);
     let index = 0;
     let encoded = '';
     for (let i = 0; i < loops; i++) {
       let chunk = svg.slice(index, index + slice - 1);
-      chunk = chunk.split('"').join("'");
-      chunk = chunk.split('%').join('%25');
-      chunk = chunk.split('&').join('%26');
-      chunk = chunk.split('#').join('%23');
-      chunk = chunk.split('{').join('%7B');
-      chunk = chunk.split('}').join('%7D');
-      chunk = chunk.split('<').join('%3C');
-      chunk = chunk.split('>').join('%3E');
+      for (let j = 0; j < replaces.length; j++) {
+        chunk = chunk.split(replaces[j][0]).join(replaces[j][1]);
+      }
       encoded = `${encoded}${chunk}`;
       index += slice;
     }
