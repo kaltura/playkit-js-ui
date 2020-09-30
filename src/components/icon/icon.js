@@ -60,9 +60,9 @@ const IconState: {[state: string]: number} = {
  * @extends {Component}
  */
 class Icon extends Component {
-  defaultColor: string = style.white;
-  activeColor: string = style.brandColor;
-  className: string = '';
+  _defaultColor: string = style.white;
+  _activeColor: string = style.brandColor;
+  _className: string = '';
 
   /**
    * @constructor
@@ -70,11 +70,11 @@ class Icon extends Component {
    */
   constructor(props: Object) {
     super(props);
-    if (props.path) {
-      const {id} = props;
-      this.className = `playkit-icon-${id}`;
+    const {path, id} = props;
+    if (path && id) {
+      this._className = `playkit-icon-${id}`;
       // Avoid from override existing classes
-      if (!document.getElementsByClassName(this.className).length) {
+      if (!document.getElementsByClassName(this._className).length) {
         this.createDynamicIconClass(props);
       }
     }
@@ -92,7 +92,7 @@ class Icon extends Component {
     const fillColor = this.getFillColor(state, color, activeColor);
     const pathTag = this.getPathTag(path, fillColor);
     const svgUrl = this.getSVGUrl(pathTag);
-    const css = `.${this.className} { background-image: ${svgUrl}; }`;
+    const css = `.${this._className} { background-image: ${svgUrl}; }`;
     const style = document.createElement('style');
     style.type = 'text/css';
     document.getElementsByTagName('head')[0].appendChild(style);
@@ -136,12 +136,10 @@ class Icon extends Component {
    * @memberof Icon
    */
   getFillColor = (state: ?number, color: ?string, activeColor: ?string): string => {
-    if (!state || state === IconState.INACTIVE) {
-      return color || this.defaultColor;
-    } else if (state === IconState.ACTIVE) {
-      return activeColor || this.activeColor;
+    if (state === IconState.ACTIVE) {
+      return activeColor || this._activeColor;
     }
-    return this.defaultColor;
+    return color || this._defaultColor;
   };
 
   /**
@@ -164,7 +162,7 @@ class Icon extends Component {
    * @return {void}
    */
   componentWillUpdate(nextProps: Object) {
-    if (this.className && this.props.state !== nextProps.state) {
+    if (this._className && this.props.state !== nextProps.state) {
       // Override icon class with the new state color
       this.createDynamicIconClass(nextProps);
     }
@@ -178,8 +176,8 @@ class Icon extends Component {
    * @memberof Icon
    */
   render(props: any): React$Element<any> | void {
-    if (this.className) {
-      return <i className={[style.icon, this.className].join(' ')} />;
+    if (this._className) {
+      return <i className={[style.icon, this._className].join(' ')} />;
     } else {
       switch (props.type) {
         case IconType.Maximize:
