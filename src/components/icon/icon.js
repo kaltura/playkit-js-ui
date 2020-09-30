@@ -1,6 +1,7 @@
 //@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
+import {NAME as packageName} from '../../index';
 
 const IconType = {
   Maximize: 'maximize',
@@ -93,10 +94,8 @@ class Icon extends Component {
     const pathTag = this.getPathTag(path, fillColor);
     const svgUrl = this.getSVGUrl(pathTag);
     const css = `.${this._className} { background-image: ${svgUrl}; }`;
-    const style = document.createElement('style');
-    style.type = 'text/css';
-    document.getElementsByTagName('head')[0].appendChild(style);
-    style.appendChild(document.createTextNode(css));
+    const style = document.getElementById(packageName);
+    style && style.appendChild(document.createTextNode(css));
   };
 
   /**
