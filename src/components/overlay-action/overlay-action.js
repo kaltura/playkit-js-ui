@@ -177,6 +177,7 @@ class OverlayAction extends Component {
    * @memberof OverlayAction
    */
   overlayClick(): void {
+    window.console.log('click');
     if (this.props.isSmartContainerOpen) {
       return;
     }

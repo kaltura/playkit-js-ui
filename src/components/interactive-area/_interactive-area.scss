@@ -2,7 +2,7 @@
   pointer-events: none;
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: relative;
   top: 0;
   transition: top $default-transition-time, height $default-transition-time;
 }
@@ -13,8 +13,8 @@
     &.state-idle,
     &.hover {
       .interactive-area {
-        height: calc(100% - #{2 * $default-hovering-offset});
-        top: $default-hovering-offset;
+        //height: calc(100% - #{2 * $default-hovering-offset});
+        //top: $default-hovering-offset;
       }
     }
   }

@@ -2,15 +2,15 @@
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
   padding: 6px 16px;
   color: #fff;
-  opacity: 0;
-  visibility: hidden;
   transition: 100ms opacity;
   width: 100%;
   margin-top: auto;
-  position: absolute;
+  position: relative;
+  align-items: flex-end;
   bottom: 0;
   left: 0;
   z-index: 1;
+  display: none;
 
   &.hide {
     display: none;
@@ -70,13 +70,11 @@
 .player.state-idle .bottom-bar,
 .player.ad-break .bottom-bar,
 .player.menu-active .bottom-bar {
-  opacity: 1;
-  visibility: visible;
+  display: block;
 }
 
 .player.overlay-active .bottom-bar {
-  opacity: 0;
-  visibility: hidden;
+  display: none;
 }
 
 .player.size-sm {
