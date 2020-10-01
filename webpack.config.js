@@ -40,14 +40,15 @@ module.exports = {
         test: /\.scss$/,
         use: [
           {
-            loader: 'style-loader'
+            loader: 'style-loader',
+            options: {attributes: {id: `${packageData.name}`}}
           },
           {
             loader: 'css-loader',
             options: {
               localsConvention: 'camelCase',
               modules: {
-                localIdentName: CSS_MODULE_PREFIX + '-[local]'
+                localIdentName: `${CSS_MODULE_PREFIX}-[local]`
               }
             }
           },
