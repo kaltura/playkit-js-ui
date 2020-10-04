@@ -16,7 +16,7 @@ var uiManager = new playkit.ui.UIManager(player, config);
   targetId: string,
   debugActions?: boolean, // optional
   forceTouchUI?: boolean, // optional
-  logger?: function, // optional
+  logger?: loggerFunctionType, // optional
   components?: Object, // optional
   uiComponents: Array<Object>, //optional
   translations: Object, // optional
