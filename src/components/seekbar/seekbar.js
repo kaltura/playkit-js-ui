@@ -5,7 +5,7 @@ import {toHHMMSS} from '../../utils/time-format';
 import {KeyMap} from '../../utils/key-map';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils/bind-actions';
-import {actions} from '../../reducers/shell';
+import {actions as shellActions} from '../../reducers/shell';
 import {bindMethod} from '../../utils/bind-method';
 import {withPlayer} from '../player';
 import {withKeyboardEvent} from 'components/keyboard';
@@ -38,7 +38,7 @@ const KEYBOARD_DEFAULT_SEEK_JUMP: number = 5;
  * @class SeekBar
  * @extends {Component}
  */
-@connect(mapStateToProps, bindActions({...actions, ...overlayIconActions}))
+@connect(mapStateToProps, bindActions({...shellActions, ...overlayIconActions}))
 @withPlayer
 @withKeyboardEvent(COMPONENT_NAME)
 @withText({sliderAriaLabel: 'controls.seekBarSlider'})
@@ -258,6 +258,7 @@ class SeekBar extends Component {
       });
     };
     let newTime;
+    this.props.updatePlayerHoverState(true);
     switch (event.keyCode) {
       case KeyMap.LEFT:
         if (!isAccessibility) {
