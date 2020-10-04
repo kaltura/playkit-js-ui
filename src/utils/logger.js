@@ -40,11 +40,11 @@ let LogLevel: LogLevelType = {};
  * @param {LoggerType} logger - the logger
  * @returns {void}
  */
-function setLogger(logger: LoggerType): void {
-  if (typeof logger.getLogger === 'function') {
+function setLogger(logger: ?LoggerType): void {
+  if (logger && typeof logger.getLogger === 'function') {
     JsLogger.get = logger.getLogger;
   }
-  if (logger.LogLevel) {
+  if (logger && logger.LogLevel) {
     LogLevel = logger.LogLevel;
   }
 }

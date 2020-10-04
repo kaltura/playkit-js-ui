@@ -6,7 +6,7 @@ import {IntlProvider} from 'preact-i18n';
 import {createStore, compose} from 'redux';
 import {copyDeep} from './utils/copy-deep';
 import {mergeDeep} from './utils/merge-deep';
-import {getLogLevel, setLogLevel, setLogger, LogLevelType, LogLevel} from './utils/logger';
+import {getLogLevel, setLogLevel, setLogger, type LogLevelType, LogLevel} from './utils/logger';
 import {EventType} from './event/event-type';
 import {setEnv} from './utils/key-map';
 import {PlayerAreaProvider} from './components/player-area';
