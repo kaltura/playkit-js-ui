@@ -14,6 +14,11 @@ export type loggerFunctionType = {
   setLevel: Function
 };
 
+export type LoggerType = {
+  getLogger: loggerFunctionType,
+  LogLevel: LogLevelType
+};
+
 let JsLogger = {
   get: () => ({
     trace: () => {},
@@ -29,14 +34,18 @@ let JsLogger = {
   })
 };
 
+let LogLevel: LogLevelType = {};
 /**
  * set logger
- * @param {Function} getLogger - the logger
+ * @param {LoggerType} logger - the logger
  * @returns {void}
  */
-function setLogger(getLogger: Function): void {
-  if (typeof getLogger === 'function') {
-    JsLogger.get = getLogger;
+function setLogger(logger: LoggerType): void {
+  if (typeof logger.getLogger === 'function') {
+    JsLogger.get = logger.getLogger;
+  }
+  if (logger.LogLevel) {
+    LogLevel = logger.LogLevel;
   }
 }
 
@@ -70,4 +79,4 @@ function setLogLevel(level: LogLevelObject, name?: string): void {
 }
 
 export default getLogger;
-export {getLogLevel, setLogLevel, setLogger};
+export {getLogLevel, setLogLevel, setLogger, LogLevel};

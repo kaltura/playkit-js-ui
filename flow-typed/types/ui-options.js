@@ -1,11 +1,11 @@
 // @flow
-import {loggerFunctionType} from '../../src/utils/logger';
+import {loggerType} from '../../src/utils/logger';
 
 declare type UIOptionsObject = {
   targetId: string,
   debugActions?: boolean,
   forceTouchUI?: boolean,
-  logger?: loggerFunctionType,
+  logger?: loggerType,
   components?: ComponentsConfig,
   uiComponents?: Array<KPUIComponent>,
   translations?: {[langKey: string]: Object},
