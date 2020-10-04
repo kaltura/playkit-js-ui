@@ -30,7 +30,7 @@ let JsLogger = {
 };
 
 /**
- * get a logger
+ * set logger
  * @param {Function} getLogger - the logger
  * @returns {void}
  */
