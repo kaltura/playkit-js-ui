@@ -177,7 +177,7 @@ export class MyCustomPlugin extends KalturaPlayer.core.BasePlugin {
 }
 ```
 
-## Injecting and removing a UI component dynamically  
+## Injecting and removing a UI component dynamically
 
 The `UiManager` exposes an api `addComponent` to add a UI component dynamically.  
 This method returns a function for removing the injected component.
