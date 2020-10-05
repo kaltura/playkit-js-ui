@@ -33,9 +33,9 @@ function AdsUI(props: any, context: any): ?React$Element<any> {
         <PlayerArea name={'PresetArea'}>
           <div className={style.playerGui} id="player-gui">
             <GuiArea>
-              <Loading />
-              <UnmuteIndication hasTopBar />
-              <TopBar disabled={true} leftControls={isBumper(props) ? undefined : <AdNotice />} />
+              <Loading/>
+              <UnmuteIndication hasTopBar/>
+              <TopBar disabled={true} leftControls={<AdNotice/>}/>
             </GuiArea>
           </div>
         </PlayerArea>
@@ -48,26 +48,26 @@ function AdsUI(props: any, context: any): ?React$Element<any> {
       <PlayerArea name={'PresetArea'}>
         <div className={style.playerGui} id="player-gui">
           <GuiArea>
-            <Loading />
-            <UnmuteIndication hasTopBar />
+            <Loading/>
+            <UnmuteIndication hasTopBar/>
             <TopBar
               disabled={true}
-              leftControls={isBumper(props) ? undefined : <AdNotice />}
-              rightControls={adsUiCustomization.learnMoreButton ? <AdLearnMore /> : undefined}
+              leftControls={<AdNotice/>}
+              rightControls={adsUiCustomization.learnMoreButton ? <AdLearnMore/> : undefined}
             />
-            {adsUiCustomization.skipButton ? <AdSkip /> : undefined}
-            <PlaybackControls className={style.centerPlaybackControls} />
+            {adsUiCustomization.skipButton ? <AdSkip/> : undefined}
+            <PlaybackControls className={style.centerPlaybackControls}/>
             <BottomBar
               leftControls={
                 <Fragment>
-                  <PlaybackControls />
-                  <TimeDisplayAdsContainer />
+                  <PlaybackControls/>
+                  <TimeDisplayAdsContainer/>
                 </Fragment>
               }
               rightControls={
                 <Fragment>
-                  <Volume />
-                  <Fullscreen />
+                  <Volume/>
+                  <Fullscreen/>
                 </Fragment>
               }
             />
@@ -80,6 +80,7 @@ function AdsUI(props: any, context: any): ?React$Element<any> {
 
 const AdsUIComponent = withKeyboardEvent(PRESET_NAME)(AdsUI);
 AdsUIComponent.displayName = PRESET_NAME;
+
 /**
  * Ads ui interface
  *
@@ -118,15 +119,6 @@ function useDefaultAdsUi(props: any, context: any): boolean {
     // Do nothing
   }
   return isMobileUI || useStyledLinearAds;
-}
-
-/**
- * Whether the current ad is a bumper.
- * @param {any} props - component props
- * @returns {boolean} - Whether is bumper.
- */
-function isBumper(props: any): boolean {
-  return props.state.engine.adIsBumper;
 }
 
 /**
