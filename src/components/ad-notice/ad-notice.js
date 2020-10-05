@@ -2,7 +2,7 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {Text} from 'preact-i18n';
-import {connect} from "react-redux";
+import {connect} from 'react-redux';
 
 const COMPONENT_NAME = 'AdNotice';
 
@@ -31,7 +31,7 @@ class AdNotice extends Component {
     }
     return (
       <span className={style.adNotice}>
-        <Text id={'ads.ad_notice'}/>
+        <Text id={'ads.ad_notice'} />
       </span>
     );
   }

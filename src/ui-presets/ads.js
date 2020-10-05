@@ -33,9 +33,9 @@ function AdsUI(props: any, context: any): ?React$Element<any> {
         <PlayerArea name={'PresetArea'}>
           <div className={style.playerGui} id="player-gui">
             <GuiArea>
-              <Loading/>
-              <UnmuteIndication hasTopBar/>
-              <TopBar disabled={true} leftControls={<AdNotice/>}/>
+              <Loading />
+              <UnmuteIndication hasTopBar />
+              <TopBar disabled={true} leftControls={<AdNotice />} />
             </GuiArea>
           </div>
         </PlayerArea>
@@ -48,26 +48,22 @@ function AdsUI(props: any, context: any): ?React$Element<any> {
       <PlayerArea name={'PresetArea'}>
         <div className={style.playerGui} id="player-gui">
           <GuiArea>
-            <Loading/>
-            <UnmuteIndication hasTopBar/>
-            <TopBar
-              disabled={true}
-              leftControls={<AdNotice/>}
-              rightControls={adsUiCustomization.learnMoreButton ? <AdLearnMore/> : undefined}
-            />
-            {adsUiCustomization.skipButton ? <AdSkip/> : undefined}
-            <PlaybackControls className={style.centerPlaybackControls}/>
+            <Loading />
+            <UnmuteIndication hasTopBar />
+            <TopBar disabled={true} leftControls={<AdNotice />} rightControls={adsUiCustomization.learnMoreButton ? <AdLearnMore /> : undefined} />
+            {adsUiCustomization.skipButton ? <AdSkip /> : undefined}
+            <PlaybackControls className={style.centerPlaybackControls} />
             <BottomBar
               leftControls={
                 <Fragment>
-                  <PlaybackControls/>
-                  <TimeDisplayAdsContainer/>
+                  <PlaybackControls />
+                  <TimeDisplayAdsContainer />
                 </Fragment>
               }
               rightControls={
                 <Fragment>
-                  <Volume/>
-                  <Fullscreen/>
+                  <Volume />
+                  <Fullscreen />
                 </Fragment>
               }
             />
