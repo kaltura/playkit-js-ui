@@ -1,4 +1,5 @@
 .player .watermark {
+  z-index: 1;
   position: absolute;
   padding: 5px;
   transition: visibility 0s 1s, opacity 1s linear, transform ease-out 100ms;

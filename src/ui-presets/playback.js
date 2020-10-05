@@ -68,7 +68,6 @@ class PlaybackUI extends Component {
       <div className={style.playbackGuiWrapper}>
         <PlayerArea name={'PresetArea'}>
           <div className={style.playerGui} id="player-gui">
-            <OverlayAction />
             <VideoArea />
             <GuiArea>
               {({containerRef}) => (
@@ -113,6 +112,7 @@ class PlaybackUI extends Component {
                 </Fragment>
               )}
             </GuiArea>
+            <OverlayAction />
           </div>
         </PlayerArea>
       </div>
