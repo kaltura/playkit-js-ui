@@ -41,9 +41,6 @@ class BottomBar extends Component {
     if (props.isCasting && props.isPlaybackEnded) {
       styleClass.push(style.hide);
     }
-    if (leftControls || rightControls || props.children) {
-      styleClass.push(style.notEmpty);
-    }
     return (
       <div className={styleClass.join(' ')}>
         <PlayerArea name={'BottomBar'}>
