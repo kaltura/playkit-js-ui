@@ -84,9 +84,9 @@ class Share extends Component {
    */
   render(): React$Element<any> | void {
     const {embedUrl, enable, shareUrl, enableTimeOffset} = this.props.config;
-    // if (!(enable && shareUrl && embedUrl)) {
-    //   return undefined;
-    // }
+    if (!(enable && shareUrl && embedUrl)) {
+      return undefined;
+    }
     const shareConfig = this._getMergedShareConfig();
     const portalSelector = `#${this.props.player.config.targetId} .overlay-portal`;
     return this.state.overlay ? (
