@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.60.0](https://github.com/kaltura/playkit-js-ui/compare/v0.59.1...v0.60.0) (2020-10-06)
+
+
+### Bug Fixes
+
+* **FEC-10289:** controls disappear using keyboard ([#542](https://github.com/kaltura/playkit-js-ui/issues/542)) ([e2ba5b4](https://github.com/kaltura/playkit-js-ui/commit/e2ba5b4))
+* **FEC-10481:** "advertisement" title displays during bumper, when using new Ad layout ([#544](https://github.com/kaltura/playkit-js-ui/issues/544)) ([1019e6e](https://github.com/kaltura/playkit-js-ui/commit/1019e6e))
+* **FEC-10524:** stub logger and get logger from Kaltura player. ([#547](https://github.com/kaltura/playkit-js-ui/issues/547)) ([e1196e3](https://github.com/kaltura/playkit-js-ui/commit/e1196e3))
+
+
+### Features
+
+* **FEC-10405:** Support inject external icons ([#545](https://github.com/kaltura/playkit-js-ui/issues/545)) ([4c2254d](https://github.com/kaltura/playkit-js-ui/commit/4c2254d))
+
+
+
 ### [0.59.1](https://github.com/kaltura/playkit-js-ui/compare/v0.59.0...v0.59.1) (2020-09-08)
 
 
