@@ -1,37 +1,61 @@
 //@flow
-import * as JsLogger from 'js-logger';
-
 export type LogLevelObject = {value: number, name: string};
 export type LogLevelType = {[level: string]: LogLevelObject};
-
-const LogLevel: LogLevelType = {
-  DEBUG: JsLogger.DEBUG,
-  INFO: JsLogger.INFO,
-  TIME: JsLogger.TIME,
-  WARN: JsLogger.WARN,
-  ERROR: JsLogger.ERROR,
-  OFF: JsLogger.OFF
+export type loggerFunctionType = {
+  trace: Function,
+  debug: Function,
+  info: Function,
+  log: Function,
+  warn: Function,
+  error: Function,
+  time: Function,
+  timeEnd: Function,
+  getLevel: Function,
+  setLevel: Function
 };
 
-JsLogger.useDefaults({defaultLevel: JsLogger.ERROR});
+export type LoggerType = {
+  getLogger: loggerFunctionType,
+  LogLevel: LogLevelType
+};
 
+let JsLogger = {
+  get: () => ({
+    trace: () => {},
+    debug: () => {},
+    info: () => {},
+    log: () => {},
+    warn: () => {},
+    error: () => {},
+    time: () => {},
+    timeEnd: () => {},
+    getLevel: () => {},
+    setLevel: () => {}
+  })
+};
+
+let LogLevel: LogLevelType = {};
 /**
- * sets the logger handler
- * @param {LogHandlerType} handler - the log level
+ * set logger
+ * @param {LoggerType} logger - the logger
  * @returns {void}
  */
-function setLogHandler(handler: LogHandlerType): void {
-  JsLogger.setHandler((messages, context) => handler(messages, context));
+function setLogger(logger: ?LoggerType): void {
+  if (logger && typeof logger.getLogger === 'function') {
+    JsLogger.get = logger.getLogger;
+  }
+  if (logger && logger.LogLevel) {
+    LogLevel = logger.LogLevel;
+  }
 }
+
 /**
  * get a logger
  * @param {?string} name - the logger name
  * @returns {Object} - the logger class
  */
 function getLogger(name?: string): Object {
-  if (!name) {
-    return JsLogger;
-  }
+  //$FlowFixMe
   return JsLogger.get(name);
 }
 
@@ -55,4 +79,4 @@ function setLogLevel(level: LogLevelObject, name?: string): void {
 }
 
 export default getLogger;
-export {LogLevel, getLogLevel, setLogLevel, setLogHandler};
+export {getLogLevel, setLogLevel, setLogger, LogLevel};

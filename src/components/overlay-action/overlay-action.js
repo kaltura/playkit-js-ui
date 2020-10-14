@@ -90,7 +90,6 @@ class OverlayAction extends Component {
       this.props.updateOverlayActionIcon(IconType.Play);
     }
     this.props.updatePlayerHoverState(true);
-    this.props.notifyHoverChange({hover: true});
     this.props.notifyClick({
       type: 'PlayPause'
     });
