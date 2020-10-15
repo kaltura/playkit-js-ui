@@ -21,7 +21,7 @@ export {EngineConnector} from './engine-connector';
 export {ErrorOverlay} from './error-overlay';
 export * from './event-dispatcher';
 export * from './keyboard';
-export {Icon, IconType} from './icon';
+export {Icon, IconType, IconState} from './icon';
 export {LiveTag} from './live-tag';
 export {Loading} from './loading';
 export {Menu} from './menu';

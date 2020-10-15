@@ -15,6 +15,7 @@ import {actions as settingActions} from 'reducers/settings';
 import {actions as overlayIconActions} from 'reducers/overlay-action';
 import {Tooltip} from 'components/tooltip';
 import {Button} from 'components/button';
+import {actions as shellActions} from 'reducers/shell';
 
 /**
  * mapping state to props
@@ -37,7 +38,7 @@ const COMPONENT_NAME = 'PlayPause';
  * @example <PlayPause />
  * @extends {Component}
  */
-@connect(mapStateToProps, bindActions({...settingActions, ...overlayIconActions}))
+@connect(mapStateToProps, bindActions({...shellActions, ...settingActions, ...overlayIconActions}))
 @withPlayer
 @withKeyboardEvent(COMPONENT_NAME)
 @withLogger(COMPONENT_NAME)
@@ -56,6 +57,7 @@ class PlayPause extends Component {
       action: () => {
         this.props.isPlayingAdOrPlayback ? this.props.updateOverlayActionIcon(IconType.Pause) : this.props.updateOverlayActionIcon(IconType.Play);
         this.togglePlayPause();
+        this.props.updatePlayerHoverState(true);
       }
     }
   ];

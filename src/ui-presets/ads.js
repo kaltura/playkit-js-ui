@@ -35,7 +35,7 @@ function AdsUI(props: any, context: any): ?React$Element<any> {
             <GuiArea>
               <Loading />
               <UnmuteIndication hasTopBar />
-              <TopBar disabled={true} leftControls={isBumper(props, context) ? undefined : <AdNotice />} />
+              <TopBar disabled={true} leftControls={isBumper(props) ? undefined : <AdNotice />} />
             </GuiArea>
           </div>
         </PlayerArea>
@@ -52,7 +52,7 @@ function AdsUI(props: any, context: any): ?React$Element<any> {
             <UnmuteIndication hasTopBar />
             <TopBar
               disabled={true}
-              leftControls={isBumper(props, context) ? undefined : <AdNotice />}
+              leftControls={isBumper(props) ? undefined : <AdNotice />}
               rightControls={adsUiCustomization.learnMoreButton ? <AdLearnMore /> : undefined}
             />
             {adsUiCustomization.skipButton ? <AdSkip /> : undefined}
@@ -123,12 +123,10 @@ function useDefaultAdsUi(props: any, context: any): boolean {
 /**
  * Whether the current ad is a bumper.
  * @param {any} props - component props
- * @param {any} context - component context
  * @returns {boolean} - Whether is bumper.
  */
-function isBumper(props: any, context: any): boolean {
-  const ad = context.player.ads.getAd();
-  return ad && ad.bumper;
+function isBumper(props: any): boolean {
+  return props.state.engine.adIsBumper;
 }
 
 /**

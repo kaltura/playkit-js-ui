@@ -4,7 +4,7 @@ $white: #ffffff;
 $grayscale1: #333;
 $grayscale2: #424242;
 $grayscale3: #999;
-$grayscale4: #ccc;
+$grayscale4: #cccccc;
 $headline-font-size: 18px;
 $subheadline-font-size: 14px;
 $success-color: #009444;
@@ -31,6 +31,8 @@ $frame-preview-img-height: 90;
 
 
 :export {
+  brandColor: $brand-color;
+  white: $white;
   framePreviewImgWidth: $frame-preview-img-width;
   framePreviewImgHeight: $frame-preview-img-height;
   defaultTransitionTime: $default-transition-time;
