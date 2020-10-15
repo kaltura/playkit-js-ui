@@ -5,7 +5,6 @@ import {connect} from 'react-redux';
 import {withPlayer} from 'components/player';
 import {bindActions} from '../../utils/bind-actions';
 import {actions as seekbarActions} from '../../reducers/seekbar';
-import variables from '../../styles/_variables.scss';
 
 /**
  * mapping state to props
@@ -174,8 +173,8 @@ class CuePoint extends Component {
     };
     markerProps = {...marker.props, ...markerProps};
 
-    const previewWidth = preview.width || variables.framePreviewImgWidth;
-    const previewHeight = preview.height || variables.framePreviewImgHeight;
+    const previewWidth = preview.width || style.framePreviewImgWidth;
+    const previewHeight = preview.height || style.framePreviewImgHeight;
     const previewStyle = {
       width: `${previewWidth}px`,
       height: `${previewHeight}px`

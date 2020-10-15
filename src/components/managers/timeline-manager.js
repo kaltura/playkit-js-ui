@@ -3,7 +3,6 @@ import style from '../../styles/style.scss';
 import {UIManager} from '../../ui-manager';
 import {CuePoint} from 'components/cue-point';
 import {actions as seekbarActions} from '../../reducers/seekbar';
-import variables from '../../styles/_variables.scss';
 import getLogger from '../../utils/logger';
 
 const logger = getLogger('TimelineManager');
@@ -82,8 +81,8 @@ class TimelineManager {
       className.push(style.nonSticky);
     }
     const previewStyle = {
-      width: `${preview.width || variables.framePreviewImgWidth}px`,
-      height: `${preview.height || variables.framePreviewImgHeight}px`
+      width: `${preview.width || style.framePreviewImgWidth}px`,
+      height: `${preview.height || style.framePreviewImgHeight}px`
     };
     const removePreview = this._uiManager.addComponent({
       label: 'SeekBar Preview',

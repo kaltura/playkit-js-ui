@@ -5,7 +5,7 @@
 node_modules/kaltura-player-js/flow-typed/
 [options]
 esproposal.decorators=ignore
-module.name_mapper.extension='scss' -> '<PROJECT_ROOT>/scssflowstub.js.flow'
+module.name_mapper.extension='scss' -> 'empty/object'
 module.name_mapper='^utils\/\(.*\)$' -> '<PROJECT_ROOT>/src/utils/\1'
 module.name_mapper='^utils$' -> '<PROJECT_ROOT>/src/utils'
 module.name_mapper='^reducers\/\(.*\)$' -> '<PROJECT_ROOT>/src/reducers/\1'

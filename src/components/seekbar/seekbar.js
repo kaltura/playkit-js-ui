@@ -16,7 +16,6 @@ import {PlayerArea} from '../player-area';
 import {withEventManager} from 'event/with-event-manager';
 import {FakeEvent} from 'event/fake-event';
 import {SeekBarPreview} from '../seekbar-preview';
-import variables from '../../styles/_variables.scss';
 
 /**
  * mapping state to props
@@ -117,7 +116,7 @@ class SeekBar extends Component {
         const clientRect = this._seekBarElement.getBoundingClientRect();
         this.props.updateSeekbarClientRect(clientRect);
         this.setState({resizing: false});
-      }, variables.defaultTransitionTime);
+      }, style.defaultTransitionTime);
     });
     document.addEventListener('mouseup', this.onPlayerMouseUp);
     document.addEventListener('mousemove', this.onPlayerMouseMove);
