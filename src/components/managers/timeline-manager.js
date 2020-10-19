@@ -5,12 +5,11 @@ import {CuePoint} from 'components/cue-point';
 import {actions as seekbarActions} from '../../reducers/seekbar';
 import getLogger from '../../utils/logger';
 
-const logger = getLogger('TimelineManager');
-
 /**
  * @class TimelineManager
  */
 class TimelineManager {
+  static _logger: any;
   _uiManager: UIManager;
   _store: any;
   _cuePointsRemoveMap: Object;
@@ -22,6 +21,7 @@ class TimelineManager {
    * @param {any} store - The store.
    */
   constructor(uiManager: UIManager, store: any) {
+    TimelineManager._logger = getLogger('TimelineManager');
     this._uiManager = uiManager;
     this._store = store;
     this._cuePointsRemoveMap = {};
@@ -32,13 +32,13 @@ class TimelineManager {
    * @param {CuePointOptionsObject} newCuePoint - The cue point options
    * @return {null|{id: string}} - An object contains the cue point id
    */
-  addCuePoint(newCuePoint: CuePointOptionsObject): {id: string} | null {
+  addCuePoint(newCuePoint: CuePointOptionsObject = {}): {id: string} | null {
     if (this._store.getState().engine.isLive) {
-      logger.warn('Impossible to add cue points while LIVE playback');
+      TimelineManager._logger.warn('Impossible to add cue points while LIVE playback');
       return null;
     }
     if (typeof newCuePoint.time !== 'number') {
-      logger.warn('Cue point time is missing');
+      TimelineManager._logger.warn('Cue point time is missing');
       return null;
     }
     const id = (this._counter++).toString();
@@ -71,7 +71,7 @@ class TimelineManager {
    * @param {SeekbarPreviewOptionsObject} preview - The seekbar preview options
    * @return {Function} - Removal function
    */
-  setSeekbarPreview(preview: SeekbarPreviewOptionsObject): Function {
+  setSeekbarPreview(preview: SeekbarPreviewOptionsObject = {}): Function {
     const presets = preview.presets || [this._store.getState().shell.activePresetName];
     const className = [];
     if (preview.className) {

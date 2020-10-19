@@ -238,8 +238,8 @@ class PlayerArea extends Component {
       }
       const {replace, before, after} = positionedComponent;
       if (replace) {
-        if (replace.get instanceof Component.constructor) {
-          // if the replace component it's a preact component pass the replaced component props
+        if (typeof replace.get !== 'string') {
+          // pass the replaced component props to the override one (if it's not an html element e.g. "div")
           replace.props = replace.props || {};
           replace.props.replacedComponentProps = child.props;
         }

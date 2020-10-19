@@ -1,12 +1,14 @@
 //@flow
 import {TimelineManager} from './timeline-manager';
 import {UIManager} from '../../index';
+import getLogger from '../../utils/logger';
 
 /**
  * @class CuePoint
  */
 class Managers {
-  _timeline: TimelineManager;
+  static _logger: any;
+  _managerRegistry: Map<(name: string) => Object | null> = new Map();
 
   /**
    * @constructor
@@ -14,21 +16,48 @@ class Managers {
    * @param {any} store - The store.
    */
   constructor(uiManager: UIManager, store: any) {
-    this._timeline = new TimelineManager(uiManager, store);
+    Managers._logger = getLogger('Managers');
+    this.registerManager('timeline', new TimelineManager(uiManager, store));
   }
 
   /**
-   * @returns {TimelineManager} - The timeline manager
+   * @param {string} name - the manager name
+   * @param {Object} manager - the manager object
+   * @returns {void}
    */
-  get timeline(): TimelineManager {
-    return this._timeline;
+  registerManager(name: string, manager: Object): void {
+    if (this._managerRegistry.has(name)) {
+      Managers._logger.debug(`${name} manager already exists`);
+    } else {
+      this._managerRegistry.set(name, manager);
+      Managers._logger.debug(`${name} manager registered`);
+    }
+  }
+
+  /**
+   *
+   * @param {string} name - the manager name
+   * @returns {Object} - the manager object
+   */
+  getManager(name: string): Object | void {
+    return this._managerRegistry.get(name);
+  }
+
+  /**
+   *
+   * @param {string} name - the manager name
+   * @returns {boolean} - if the manager exist
+   */
+  hasManager(name: string): boolean {
+    return this._managerRegistry.has(name);
   }
 
   /**
    * @returns {void}
    */
   destroy() {
-    this._timeline.destroy();
+    this._managerRegistry.forEach((name, manager) => typeof manager.destroy === 'function' && manager.destroy());
+    this._managerRegistry.clear();
   }
 }
 
