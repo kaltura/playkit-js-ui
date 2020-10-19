@@ -27,7 +27,6 @@ const mapStateToProps = state => ({
   config: state.config
 });
 
-const logger = getLogger('ActivePreset');
 const COMPONENT_NAME = 'ActivePreset';
 
 /**
@@ -39,6 +38,16 @@ const COMPONENT_NAME = 'ActivePreset';
 @withEventDispatcher(COMPONENT_NAME)
 @connect(mapStateToProps, bindActions(actions))
 class ActivePreset extends Component {
+  static logger: any;
+
+  /**
+   * Creates an instance of ActivePreset.
+   * @memberof ActivePreset
+   */
+  constructor() {
+    super();
+    ActivePreset.logger = getLogger('ActivePreset');
+  }
   /**
    * get the single matched UI to render based on the UIs and it's conditions
    *
@@ -79,7 +88,7 @@ class ActivePreset extends Component {
         props.notifyChange({from: activePresetName, to: presetName});
         props.updateActivePresetName(presetName);
         props.updatePresetSettings(null);
-        logger.debug(`update active preset to '${activePresetName}' and reset preset settings`);
+        ActivePreset.logger.debug(`update active preset to '${activePresetName}' and reset preset settings`);
       }
       return uiComponent;
     } else {
