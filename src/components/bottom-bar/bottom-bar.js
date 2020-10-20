@@ -2,7 +2,8 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {bindActions} from '../../utils/bind-actions';
-import {actions} from '../../reducers/shell';
+import {actions as shellActions} from '../../reducers/shell';
+import {actions as bottomBarActions} from '../../reducers/bottom-bar';
 import {connect} from 'react-redux';
 import {PlayerArea} from 'components/player-area';
 
@@ -13,7 +14,8 @@ import {PlayerArea} from 'components/player-area';
  */
 const mapStateToProps = state => ({
   isCasting: state.engine.isCasting,
-  isPlaybackEnded: state.engine.isPlaybackEnded
+  isPlaybackEnded: state.engine.isPlaybackEnded,
+  playerHover: state.shell.playerHover
 });
 
 const COMPONENT_NAME = 'BottomBar';
@@ -25,8 +27,33 @@ const COMPONENT_NAME = 'BottomBar';
  * @example <BottomBar>...</BottomBar>
  * @extends {Component}
  */
-@connect(mapStateToProps, bindActions(actions))
+@connect(mapStateToProps, bindActions({...shellActions, ...bottomBarActions}))
 class BottomBar extends Component {
+  _ref: ?HTMLDivElement;
+
+  /**
+   * this component should not render itself when player object changes.
+   * @param {Object} nextProps - next props of the component
+   * @param {Object} nextState - next state of the component
+   *
+   * @returns {boolean}
+   */
+  shouldComponentUpdate(nextProps: Object, nextState: Object): boolean {
+    if (this.props.playerHover !== nextProps.playerHover) {
+      this._updateBottomBarSize(nextProps.playerHover);
+      return false;
+    }
+    return true;
+  }
+
+  _updateBottomBarSize(bottomBarExist: boolean): void {
+    if (this._ref && bottomBarExist) {
+      const boundingRect = this._ref.getBoundingClientRect();
+      this.props.updateBottomBarSize(boundingRect.height);
+    } else {
+      this.props.updateBottomBarSize(0);
+    }
+  }
   /**
    * render component
    *
@@ -42,7 +69,11 @@ class BottomBar extends Component {
       styleClass.push(style.hide);
     }
     return (
-      <div className={styleClass.join(' ')}>
+      <div
+        className={styleClass.join(' ')}
+        ref={el => {
+          this._ref = el;
+        }}>
         <PlayerArea name={'BottomBar'}>
           {props.children}
           <div className={style.leftControls}>

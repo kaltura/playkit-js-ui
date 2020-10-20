@@ -3,12 +3,9 @@
   color: #fff;
   opacity: 0;
   visibility: hidden;
-  height: 0;
   transition: 100ms opacity;
   width: 100%;
-  position: relative;
-  -ms-align-self: flex-end;
-  align-self: flex-end;
+  position: absolute;
   top: 0;
   left: 0;
   z-index: 1;
@@ -24,7 +21,7 @@
     float: left;
     text-align: left;
     min-width: 0;
-    margin: 14px 0 0 16px;
+    margin: 14px 0 14px 16px;
     &:empty {
       margin: 0;
     }
@@ -32,7 +29,7 @@
   .right-controls {
     float: right;
     text-align: left;
-    margin: 14px 16px 0 0;
+    margin: 14px 16px 14px 0;
     &:empty {
       margin: 0;
     }
@@ -55,13 +52,11 @@
 .player.menu-active .top-bar {
   opacity: 1;
   visibility: visible;
-  height: auto;
 }
 
 .player.overlay-active .top-bar {
   opacity: 0;
   visibility: hidden;
-  height: 0;
 }
 
 .player.size-sm {

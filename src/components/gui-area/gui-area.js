@@ -56,7 +56,7 @@ class GuiArea extends Component {
     const {guiStyles, children} = this.props;
     return (
       <div ref={this._setRef} style={guiStyles} className={style.guiArea}>
-        <div style={{pointerEvents: 'auto'}} className={style.flexContainer}>
+        <div style={{pointerEvents: 'auto'}}>
           <PlayerArea name={'GuiArea'}>{typeof children === 'function' ? children({containerRef: this._ref}) : children}</PlayerArea>
         </div>
       </div>

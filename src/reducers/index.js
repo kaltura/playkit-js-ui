@@ -11,3 +11,5 @@ export * as setting from './settings';
 export * as share from './share';
 export * as shell from './shell';
 export * as volume from './volume';
+export * as topBar from './top-bar';
+export * as bottomBar from './bottom-bar';

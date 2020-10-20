@@ -3,6 +3,8 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'react-redux';
 import {PlayerArea} from 'components/player-area';
+import {bindActions} from 'utils/bind-actions';
+import {actions} from 'reducers/top-bar';
 
 /**
  * mapping state to props
@@ -11,7 +13,8 @@ import {PlayerArea} from 'components/player-area';
  */
 const mapStateToProps = state => ({
   isCasting: state.engine.isCasting,
-  isPlaybackEnded: state.engine.isPlaybackEnded
+  isPlaybackEnded: state.engine.isPlaybackEnded,
+  playerHover: state.shell.playerHover
 });
 
 const COMPONENT_NAME = 'TopBar';
@@ -23,8 +26,33 @@ const COMPONENT_NAME = 'TopBar';
  * @example <TopBar>...</TopBar>
  * @extends {Component}
  */
-@connect(mapStateToProps)
+@connect(mapStateToProps, bindActions(actions))
 class TopBar extends Component {
+  _ref: ?HTMLDivElement;
+
+  /**
+   * this component should not render itself when player object changes.
+   * @param {Object} nextProps - next props of the component
+   * @param {Object} nextState - next state of the component
+   *
+   * @returns {boolean}
+   */
+  shouldComponentUpdate(nextProps: Object, nextState: Object): boolean {
+    if (this.props.playerHover !== nextProps.playerHover) {
+      this._updateTopBarSize(nextProps.playerHover);
+      return false;
+    }
+    return true;
+  }
+
+  _updateTopBarSize(topBarExist: boolean): void {
+    if (this._ref && topBarExist) {
+      const boundingRect = this._ref.getBoundingClientRect();
+      this.props.updateTopBarSize(boundingRect.height);
+    } else {
+      this.props.updateTopBarSize(0);
+    }
+  }
   /**
    * render component
    *
@@ -44,7 +72,12 @@ class TopBar extends Component {
       styleClass.push(style.hide);
     }
     return (
-      <div className={styleClass.join(' ')}>
+      <div
+        className={styleClass.join(' ')}
+        ref={el => {
+          this._ref = el;
+        }}>
+        >
         <PlayerArea name={'TopBar'}>
           {props.children}
           <div className={style.leftControls}>

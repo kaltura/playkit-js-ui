@@ -3,13 +3,10 @@
   color: #fff;
   opacity: 0;
   visibility: hidden;
-  height: 0;
   transition: 100ms opacity;
   width: 100%;
   margin-top: auto;
-  position: relative;
-  -ms-align-self: flex-end;
-  align-self: flex-end;
+  position: absolute;
   bottom: 0;
   left: 0;
   z-index: 1;
@@ -74,7 +71,6 @@
 .player.menu-active .bottom-bar {
   opacity: 1;
   visibility: visible;
-  height: auto;
   padding: 6px 16px;
 
   &.not-empty {
@@ -85,7 +81,6 @@
 .player.overlay-active .bottom-bar {
   opacity: 0;
   visibility: hidden;
-  height: 0;
 }
 
 .player.size-sm {
