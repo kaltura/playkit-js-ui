@@ -1,6 +1,6 @@
 //@flow
 import {TimelineManager} from './timeline-manager';
-import {UIManager} from '../../index';
+import {UIManager} from '../../ui-manager';
 import getLogger from '../../utils/logger';
 
 /**
