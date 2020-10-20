@@ -38,9 +38,9 @@ class InteractiveArea extends Component {
 
   /**
    * calculate the interactive container size
-   * @returns {void}
+   * @returns {Object} - top and height calculated values
    */
-  _calcSize(): void {
+  _calcSize(): Object {
     const {guiClientRect, topBarSize, bottomBarSize} = this.props;
     let top = 0;
     let {height} = guiClientRect;
