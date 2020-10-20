@@ -279,7 +279,8 @@ class EngineConnector extends Component {
     });
 
     eventManager.listen(player, player.Event.PRESENTATION_MODE_CHANGED, () => {
-      player.isInPictureInPicture() ? this.props.updateIsInPictureInPicture(true) : this.props.updateIsInPictureInPicture(false);
+      this.props.updateIsInPictureInPicture(player.isInPictureInPicture());
+      this.props.updateFullscreen(player.isFullscreen());
     });
 
     eventManager.listen(player, player.Event.ENTER_FULLSCREEN, () => {
