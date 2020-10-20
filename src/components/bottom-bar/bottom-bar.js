@@ -34,11 +34,9 @@ class BottomBar extends Component {
   /**
    * this component should not render itself when player object changes.
    * @param {Object} nextProps - next props of the component
-   * @param {Object} nextState - next state of the component
-   *
-   * @returns {boolean}
+   * @returns {boolean} - should rerender state
    */
-  shouldComponentUpdate(nextProps: Object, nextState: Object): boolean {
+  shouldComponentUpdate(nextProps: Object): boolean {
     if (this.props.playerHover !== nextProps.playerHover) {
       this._updateBottomBarSize(nextProps.playerHover);
       return false;
@@ -46,8 +44,13 @@ class BottomBar extends Component {
     return true;
   }
 
-  _updateBottomBarSize(bottomBarExist: boolean): void {
-    if (this._ref && bottomBarExist) {
+  /**
+   * update the bottom bar size
+   * @param {boolean} bottomBarVisible - if bottom bar visible on ui or not
+   * @returns {void}
+   */
+  _updateBottomBarSize(bottomBarVisible: boolean): void {
+    if (this._ref && bottomBarVisible) {
       const boundingRect = this._ref.getBoundingClientRect();
       this.props.updateBottomBarSize(boundingRect.height);
     } else {

@@ -33,11 +33,9 @@ class TopBar extends Component {
   /**
    * this component should not render itself when player object changes.
    * @param {Object} nextProps - next props of the component
-   * @param {Object} nextState - next state of the component
-   *
-   * @returns {boolean}
+   * @returns {boolean} - should rerender state
    */
-  shouldComponentUpdate(nextProps: Object, nextState: Object): boolean {
+  shouldComponentUpdate(nextProps: Object): boolean {
     if (this.props.playerHover !== nextProps.playerHover) {
       this._updateTopBarSize(nextProps.playerHover);
       return false;
@@ -45,8 +43,13 @@ class TopBar extends Component {
     return true;
   }
 
-  _updateTopBarSize(topBarExist: boolean): void {
-    if (this._ref && topBarExist) {
+  /**
+   * update the top bar size
+   * @param {boolean} topBarVisible - if top bar visible on ui or not
+   * @returns {void}
+   */
+  _updateTopBarSize(topBarVisible: boolean): void {
+    if (this._ref && topBarVisible) {
       const boundingRect = this._ref.getBoundingClientRect();
       this.props.updateTopBarSize(boundingRect.height);
     } else {
@@ -77,7 +80,6 @@ class TopBar extends Component {
         ref={el => {
           this._ref = el;
         }}>
-        >
         <PlayerArea name={'TopBar'}>
           {props.children}
           <div className={style.leftControls}>

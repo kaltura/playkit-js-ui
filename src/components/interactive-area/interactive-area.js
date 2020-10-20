@@ -28,20 +28,19 @@ class InteractiveArea extends Component {
   /**
    * this component should not render itself when player object changes.
    * @param {Object} nextProps - next props of the component
-   * @param {Object} nextState - next state of the component
-   *
-   * @returns {boolean}
-   */
-  shouldComponentUpdate(nextProps: Object, nextState: Object): boolean {
+   * @returns {boolean} - should rerender state
+   * */
+  shouldComponentUpdate(nextProps: Object): boolean {
     const {guiClientRect, topBarSize, bottomBarSize} = this.props;
     const {nextPropsGuiStyles, nextPropsTopBarSize, nextPropsBottomBarSize} = nextProps;
-    if (guiClientRect !== nextPropsGuiStyles || topBarSize !== nextPropsTopBarSize || bottomBarSize !== nextPropsBottomBarSize) {
-      return true;
-    }
-    return false;
+    return guiClientRect !== nextPropsGuiStyles || topBarSize !== nextPropsTopBarSize || bottomBarSize !== nextPropsBottomBarSize;
   }
 
-  _calcSize() {
+  /**
+   * calculate the interactive container size
+   * @returns {void}
+   */
+  _calcSize(): void {
     const {guiClientRect, topBarSize, bottomBarSize} = this.props;
     let top = 0;
     let {height} = guiClientRect;
@@ -54,6 +53,7 @@ class InteractiveArea extends Component {
     }
     return {top, height};
   }
+
   /**
    * @returns {void}
    */
