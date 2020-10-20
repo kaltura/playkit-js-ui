@@ -8,7 +8,7 @@ import getLogger from '../../utils/logger';
  */
 class Managers {
   static _logger: any;
-  _managerRegistry: Map<(name: string) => Object | null> = new Map();
+  _managerRegistry: Map<string, Object> = new Map();
 
   /**
    * @constructor
@@ -56,7 +56,7 @@ class Managers {
    * @returns {void}
    */
   destroy() {
-    this._managerRegistry.forEach((name, manager) => typeof manager.destroy === 'function' && manager.destroy());
+    this._managerRegistry.forEach(manager => typeof manager.destroy === 'function' && manager.destroy());
     this._managerRegistry.clear();
   }
 }
