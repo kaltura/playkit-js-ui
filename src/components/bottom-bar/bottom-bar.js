@@ -38,7 +38,7 @@ class BottomBar extends Component {
    */
   shouldComponentUpdate(nextProps: Object): boolean {
     if (this.props.playerHover !== nextProps.playerHover) {
-      this._updateBottomBarSize(nextProps.playerHover);
+      this._updateBottomBarHeight(nextProps.playerHover);
       return false;
     }
     return true;
@@ -49,12 +49,12 @@ class BottomBar extends Component {
    * @param {boolean} bottomBarVisible - if bottom bar visible on ui or not
    * @returns {void}
    */
-  _updateBottomBarSize(bottomBarVisible: boolean): void {
+  _updateBottomBarHeight(bottomBarVisible: boolean): void {
     if (this._ref && bottomBarVisible) {
       const boundingRect = this._ref.getBoundingClientRect();
-      this.props.updateBottomBarSize(boundingRect.height);
+      this.props.updateBottomBarHeight(boundingRect.height);
     } else {
-      this.props.updateBottomBarSize(0);
+      this.props.updateBottomBarHeight(0);
     }
   }
   /**

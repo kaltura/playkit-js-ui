@@ -37,7 +37,7 @@ class TopBar extends Component {
    */
   shouldComponentUpdate(nextProps: Object): boolean {
     if (this.props.playerHover !== nextProps.playerHover) {
-      this._updateTopBarSize(nextProps.playerHover);
+      this._updateTopBarHeight(nextProps.playerHover);
       return false;
     }
     return true;
@@ -48,12 +48,12 @@ class TopBar extends Component {
    * @param {boolean} topBarVisible - if top bar visible on ui or not
    * @returns {void}
    */
-  _updateTopBarSize(topBarVisible: boolean): void {
+  _updateTopBarHeight(topBarVisible: boolean): void {
     if (this._ref && topBarVisible) {
       const boundingRect = this._ref.getBoundingClientRect();
-      this.props.updateTopBarSize(boundingRect.height);
+      this.props.updateTopBarHeight(boundingRect.height);
     } else {
-      this.props.updateTopBarSize(0);
+      this.props.updateTopBarHeight(0);
     }
   }
   /**

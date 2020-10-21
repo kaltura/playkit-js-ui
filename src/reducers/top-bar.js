@@ -1,18 +1,18 @@
 //@flow
 export const types = {
-  UPDATE_TOP_BAR_SIZE: 'top-bar/UPDATE_TOP_BAR_SIZE'
+  UPDATE_TOP_BAR_HEIGHT: 'top-bar/UPDATE_TOP_BAR_HEIGHT'
 };
 
 export const initialState = {
-  topBarSize: 0
+  topBarHeight: 0
 };
 
 export default (state: Object = initialState, action: Object) => {
   switch (action.type) {
-    case types.UPDATE_TOP_BAR_SIZE:
+    case types.UPDATE_TOP_BAR_HEIGHT:
       return {
         ...state,
-        topBarSize: action.topBarSize
+        topBarHeight: action.topBarHeight
       };
 
     default:
@@ -21,8 +21,8 @@ export default (state: Object = initialState, action: Object) => {
 };
 
 export const actions = {
-  updateTopBarSize: (topBarSize: boolean) => ({
-    type: types.UPDATE_TOP_BAR_SIZE,
-    topBarSize
+  updateTopBarHeight: (topBarHeight: boolean) => ({
+    type: types.UPDATE_TOP_BAR_HEIGHT,
+    topBarHeight
   })
 };

@@ -12,8 +12,8 @@ import {connect} from 'react-redux';
  */
 const mapStateToProps = state => ({
   guiClientRect: state.shell.guiClientRect,
-  topBarSize: state.topBar.topBarSize,
-  bottomBarSize: state.bottomBar.bottomBarSize
+  topBarHeight: state.topBar.topBarHeight,
+  bottomBarHeight: state.bottomBar.bottomBarHeight
 });
 
 /**
@@ -30,15 +30,15 @@ class InteractiveArea extends Component {
    * @returns {Object} - top and height calculated values
    */
   _calcSize(): Object {
-    const {guiClientRect, topBarSize, bottomBarSize} = this.props;
+    const {guiClientRect, topBarHeight, bottomBarHeight} = this.props;
     let top = 0;
     let {height} = guiClientRect;
-    if (topBarSize) {
-      top += topBarSize;
-      height -= topBarSize;
+    if (topBarHeight) {
+      top += topBarHeight;
+      height -= topBarHeight;
     }
-    if (bottomBarSize) {
-      height -= bottomBarSize;
+    if (bottomBarHeight) {
+      height -= bottomBarHeight;
     }
     return {top, height};
   }
