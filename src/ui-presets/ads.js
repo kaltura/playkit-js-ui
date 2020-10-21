@@ -53,31 +53,31 @@ function AdsUI(props: any, context: any): ?React$Element<any> {
         <div className={style.playerGui} id="player-gui">
           <GuiArea>
             <Fragment>
-            <Loading />
-            <UnmuteIndication hasTopBar />
-            {adsUiCustomization.skipButton ? <AdSkip /> : undefined}
-            <PlaybackControls className={style.centerPlaybackControls} />
+              <Loading />
+              <UnmuteIndication hasTopBar />
+              {adsUiCustomization.skipButton ? <AdSkip /> : undefined}
+              <PlaybackControls className={style.centerPlaybackControls} />
             </Fragment>
             <Fragment>
-            <TopBar
-              disabled={true}
-              leftControls={isBumper(props) ? undefined : <AdNotice />}
-              rightControls={adsUiCustomization.learnMoreButton ? <AdLearnMore /> : undefined}
-            />
-            <BottomBar
-              leftControls={
-                <Fragment>
-                  <PlaybackControls />
-                  <TimeDisplayAdsContainer />
-                </Fragment>
-              }
-              rightControls={
-                <Fragment>
-                  <Volume />
-                  <Fullscreen />
-                </Fragment>
-              }
-            />
+              <TopBar
+                disabled={true}
+                leftControls={isBumper(props) ? undefined : <AdNotice />}
+                rightControls={adsUiCustomization.learnMoreButton ? <AdLearnMore /> : undefined}
+              />
+              <BottomBar
+                leftControls={
+                  <Fragment>
+                    <PlaybackControls />
+                    <TimeDisplayAdsContainer />
+                  </Fragment>
+                }
+                rightControls={
+                  <Fragment>
+                    <Volume />
+                    <Fullscreen />
+                  </Fragment>
+                }
+              />
             </Fragment>
           </GuiArea>
         </div>
