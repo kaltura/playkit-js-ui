@@ -12,6 +12,8 @@ import {withKeyboardEvent} from 'components/keyboard';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {Tooltip} from 'components/tooltip';
 import {Button} from 'components/button';
+import {bindActions} from 'utils/bind-actions';
+import {actions as shellActions} from 'reducers/shell';
 
 /**
  * mapping state to props
@@ -32,7 +34,7 @@ const COMPONENT_NAME = 'PictureInPicture';
  * @class PictureInPicture
  * @extends {Component}
  */
-@connect(mapStateToProps)
+@connect(mapStateToProps, bindActions(shellActions))
 @withPlayer
 @withKeyboardEvent(COMPONENT_NAME)
 @withLogger(COMPONENT_NAME)
@@ -49,6 +51,7 @@ class PictureInPicture extends Component {
       },
       action: () => {
         this.togglePip();
+        this.props.updatePlayerHoverState(true);
       }
     }
   ];

@@ -38,7 +38,7 @@ function AdsUI(props: any, context: any): ?React$Element<any> {
                 <UnmuteIndication hasTopBar />
               </Fragment>
               <Fragment>
-                <TopBar disabled={true} leftControls={isBumper(props, context) ? undefined : <AdNotice />} />
+                <TopBar disabled={true} leftControls={isBumper(props) ? undefined : <AdNotice />} />
               </Fragment>
             </GuiArea>
           </div>
@@ -52,15 +52,18 @@ function AdsUI(props: any, context: any): ?React$Element<any> {
       <PlayerArea name={'PresetArea'}>
         <div className={style.playerGui} id="player-gui">
           <GuiArea>
+            <Fragment>
             <Loading />
             <UnmuteIndication hasTopBar />
-            <TopBar
-              disabled={true}
-              leftControls={isBumper(props, context) ? undefined : <AdNotice />}
-              rightControls={adsUiCustomization.learnMoreButton ? <AdLearnMore /> : undefined}
-            />
             {adsUiCustomization.skipButton ? <AdSkip /> : undefined}
             <PlaybackControls className={style.centerPlaybackControls} />
+            </Fragment>
+            <Fragment>
+            <TopBar
+              disabled={true}
+              leftControls={isBumper(props) ? undefined : <AdNotice />}
+              rightControls={adsUiCustomization.learnMoreButton ? <AdLearnMore /> : undefined}
+            />
             <BottomBar
               leftControls={
                 <Fragment>
@@ -75,6 +78,7 @@ function AdsUI(props: any, context: any): ?React$Element<any> {
                 </Fragment>
               }
             />
+            </Fragment>
           </GuiArea>
         </div>
       </PlayerArea>
@@ -127,12 +131,10 @@ function useDefaultAdsUi(props: any, context: any): boolean {
 /**
  * Whether the current ad is a bumper.
  * @param {any} props - component props
- * @param {any} context - component context
  * @returns {boolean} - Whether is bumper.
  */
-function isBumper(props: any, context: any): boolean {
-  const ad = context.player.ads.getAd();
-  return ad && ad.bumper;
+function isBumper(props: any): boolean {
+  return props.state.engine.adIsBumper;
 }
 
 /**

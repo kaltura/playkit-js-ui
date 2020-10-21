@@ -230,6 +230,7 @@ class EngineConnector extends Component {
     eventManager.listen(player, player.Event.AD_LOADED, e => {
       const ad = e.payload.ad;
       this.props.updateAdIsLinear(ad.linear);
+      this.props.updateAdIsBumper(ad.bumper);
       this.props.updateAdClickUrl(ad.clickThroughUrl);
       this.props.updateAdSkipTimeOffset(ad.skipOffset);
       this.props.updateAdSkippableState(ad.skippable);
@@ -278,7 +279,8 @@ class EngineConnector extends Component {
     });
 
     eventManager.listen(player, player.Event.PRESENTATION_MODE_CHANGED, () => {
-      player.isInPictureInPicture() ? this.props.updateIsInPictureInPicture(true) : this.props.updateIsInPictureInPicture(false);
+      this.props.updateIsInPictureInPicture(player.isInPictureInPicture());
+      this.props.updateFullscreen(player.isFullscreen());
     });
 
     eventManager.listen(player, player.Event.ENTER_FULLSCREEN, () => {
