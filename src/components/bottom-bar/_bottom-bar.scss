@@ -13,6 +13,7 @@
   bottom: 0;
   left: 0;
   z-index: 1;
+  pointer-events: auto;
 
   &.hide {
     display: none;
@@ -74,7 +75,7 @@
 .player.menu-active .bottom-bar {
   opacity: 1;
   visibility: visible;
-  height: auto;
+  height: initial;
   padding: 6px 16px;
 
   &.not-empty {

@@ -63,15 +63,21 @@ class LiveUI extends Component {
       <div className={style.playbackGuiWrapper}>
         <PlayerArea name={'PresetArea'}>
           <div className={style.playerGui} id="player-gui">
+            <OverlayAction />
             <VideoArea />
             <GuiArea>
+              <Fragment>
+                <Loading />
+                <OverlayPortal />
+                <UnmuteIndication />
+                <PictureInPictureOverlay />
+                <PlaybackControls className={style.centerPlaybackControls} />
+                <PrePlaybackPlayOverlay />
+                <CastBeforePlay />
+                <Backdrop />
+              </Fragment>
               {({containerRef}) => (
                 <Fragment>
-                  <Loading />
-                  <OverlayPortal />
-                  <UnmuteIndication />
-                  <PictureInPictureOverlay />
-                  <PlaybackControls className={style.centerPlaybackControls} />
                   <TopBar rightControls={<Share />} />
                   <InteractiveArea>
                     <Watermark />
@@ -97,13 +103,9 @@ class LiveUI extends Component {
                     }>
                     <SeekBarLivePlaybackContainer showFramePreview showTimeBubble playerContainer={containerRef} />
                   </BottomBar>
-                  <PrePlaybackPlayOverlay />
-                  <CastBeforePlay />
-                  <Backdrop />
                 </Fragment>
               )}
             </GuiArea>
-            <OverlayAction />
           </div>
         </PlayerArea>
       </div>
