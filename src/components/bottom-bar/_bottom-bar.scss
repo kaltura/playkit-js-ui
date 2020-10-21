@@ -7,7 +7,6 @@
   transition: 100ms opacity;
   width: 100%;
   margin-top: auto;
-  position: relative;
   -ms-align-self: flex-end;
   align-self: flex-end;
   bottom: 0;
@@ -77,10 +76,6 @@
   visibility: visible;
   height: initial;
   padding: 6px 16px;
-
-  &.not-empty {
-    padding: 6px 16px;
-  }
 }
 
 .player.overlay-active .bottom-bar {
