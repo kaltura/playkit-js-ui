@@ -26,17 +26,6 @@ const mapStateToProps = state => ({
 @withPlayer
 class InteractiveArea extends Component {
   /**
-   * this component should not render itself when player object changes.
-   * @param {Object} nextProps - next props of the component
-   * @returns {boolean} - should rerender state
-   * */
-  shouldComponentUpdate(nextProps: Object): boolean {
-    const {guiClientRect, topBarSize, bottomBarSize} = this.props;
-    const {nextPropsGuiStyles, nextPropsTopBarSize, nextPropsBottomBarSize} = nextProps;
-    return guiClientRect !== nextPropsGuiStyles || topBarSize !== nextPropsTopBarSize || bottomBarSize !== nextPropsBottomBarSize;
-  }
-
-  /**
    * calculate the interactive container size
    * @returns {Object} - top and height calculated values
    */
