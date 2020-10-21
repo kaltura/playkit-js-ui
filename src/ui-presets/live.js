@@ -73,6 +73,7 @@ class LiveUI extends Component {
                   <UnmuteIndication />
                   <PictureInPictureOverlay />
                   <PlaybackControls className={style.centerPlaybackControls} />
+                  <PrePlaybackPlayOverlay />
                   <TopBar rightControls={<Share />} />
                   <InteractiveArea>
                     <Watermark />
@@ -98,7 +99,6 @@ class LiveUI extends Component {
                     }>
                     <SeekBarLivePlaybackContainer showFramePreview showTimeBubble playerContainer={containerRef} />
                   </BottomBar>
-                  <PrePlaybackPlayOverlay />
                   <CastBeforePlay />
                   <Backdrop />
                 </Fragment>
