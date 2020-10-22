@@ -214,11 +214,13 @@ describe('Timeline Manager', function () {
       try {
         setTimeout(() => {
           const framePreview = document.querySelector('.playkit-frame-preview');
-          framePreview.lastElementChild.className.should.equals('custom-preview');
-          framePreview.lastElementChild.getAttribute('key3').should.equals('value3');
-          framePreview.lastElementChild.style.width.should.equals('100px');
-          framePreview.lastElementChild.style.height.should.equals('50px');
-          (framePreview.lastElementChild.getAttribute('replacedcomponentprops') === null).should.be.true;
+          const customPreview = framePreview.lastElementChild;
+          customPreview.className.should.equals('');
+          customPreview.lastElementChild.className.should.equals('custom-preview');
+          customPreview.lastElementChild.getAttribute('key3').should.equals('value3');
+          customPreview.lastElementChild.style.width.should.equals('100px');
+          customPreview.lastElementChild.style.height.should.equals('50px');
+          (customPreview.lastElementChild.getAttribute('defaultPreviewProps') === null).should.be.true;
           player.ui._uiManager.store.getState().seekbar.hideTimeBubble.should.be.false;
           done();
         });
@@ -242,11 +244,13 @@ describe('Timeline Manager', function () {
       try {
         setTimeout(() => {
           const framePreview = document.querySelector('.playkit-frame-preview');
-          framePreview.lastElementChild.className.should.equals('custom-seekbar-preview playkit-non-sticky');
-          framePreview.lastElementChild.getAttribute('key3').should.equals('value3');
-          framePreview.lastElementChild.style.width.should.equals('100px');
-          framePreview.lastElementChild.style.height.should.equals('50px');
-          framePreview.lastElementChild.getAttribute('replacedcomponentprops').should.exist;
+          const customPreview = framePreview.lastElementChild;
+          customPreview.className.should.equals('playkit-non-sticky');
+          customPreview.lastElementChild.className.should.equals('custom-seekbar-preview');
+          customPreview.lastElementChild.getAttribute('key3').should.equals('value3');
+          customPreview.lastElementChild.style.width.should.equals('100px');
+          customPreview.lastElementChild.style.height.should.equals('50px');
+          customPreview.lastElementChild.getAttribute('defaultPreviewProps').should.exist;
           player.ui._uiManager.store.getState().seekbar.hideTimeBubble.should.be.true;
           done();
         });
@@ -258,12 +262,13 @@ describe('Timeline Manager', function () {
     it('Should restore the default seekbar preview', function (done) {
       const restoreFunc = player.ui.managers.getManager('timeline').setSeekbarPreview({
         get: 'div',
-        className: 'custom-preview'
+        className: 'custom-preview',
+        sticky: false
       });
       try {
         setTimeout(() => {
           const framePreview = document.querySelector('.playkit-frame-preview');
-          framePreview.lastElementChild.className.should.equals('custom-preview');
+          framePreview.lastElementChild.className.should.equals('playkit-non-sticky');
           restoreFunc();
           setTimeout(() => {
             (framePreview.lastElementChild === null).should.be.true;

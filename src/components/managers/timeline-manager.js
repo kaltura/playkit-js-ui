@@ -4,6 +4,7 @@ import {UIManager} from '../../ui-manager';
 import {CuePoint} from 'components/cue-point';
 import {actions as seekbarActions} from '../../reducers/seekbar';
 import getLogger from '../../utils/logger';
+import {h} from 'preact';
 
 /**
  * @class TimelineManager
@@ -73,13 +74,6 @@ class TimelineManager {
    */
   setSeekbarPreview(preview: SeekbarPreviewOptionsObject = {}): Function {
     const presets = preview.presets || [this._store.getState().shell.activePresetName];
-    const className = [];
-    if (preview.className) {
-      className.push(preview.className);
-    }
-    if (preview.sticky === false) {
-      className.push(style.nonSticky);
-    }
     const previewStyle = {
       width: `${preview.width || style.framePreviewImgWidth}px`,
       height: `${preview.height || style.framePreviewImgHeight}px`
@@ -88,19 +82,23 @@ class TimelineManager {
       label: 'SeekBar Preview',
       presets,
       area: 'SeekBar',
-      get: preview.get,
-      props: {
-        ...preview.props,
-        style: preview.props ? {...previewStyle, ...preview.props.style} : previewStyle,
-        className: className.join(' '),
-        onMouseOver: () => {
-          preview.props && typeof preview.props.onMouseOver === 'function' && preview.props.onMouseOver();
-          this._store.dispatch(seekbarActions.updateSeekbarPreviewHoverActive(true));
-        },
-        onMouseLeave: () => {
-          preview.props && typeof preview.props.onMouseLeave === 'function' && preview.props.onMouseLeave();
-          this._store.dispatch(seekbarActions.updateSeekbarPreviewHoverActive(false));
-        }
+      // eslint-disable-next-line react/display-name
+      get: props => {
+        const previewProps: Object = {
+          ...preview.props,
+          style: preview.props ? {...previewStyle, ...preview.props.style} : previewStyle,
+          className: preview.className,
+          onMouseOver: () => {
+            preview.props && typeof preview.props.onMouseOver === 'function' && preview.props.onMouseOver();
+            this._store.dispatch(seekbarActions.updateSeekbarPreviewHoverActive(true));
+          },
+          onMouseLeave: () => {
+            preview.props && typeof preview.props.onMouseLeave === 'function' && preview.props.onMouseLeave();
+            this._store.dispatch(seekbarActions.updateSeekbarPreviewHoverActive(false));
+          }
+        };
+        typeof preview.get !== 'string' && (previewProps.defaultPreviewProps = props.replacedComponentProps);
+        return <div className={preview.sticky === false ? style.nonSticky : undefined}>{h(preview.get, previewProps)}</div>;
       },
       replaceComponent: 'SeekBarPreview'
     });
