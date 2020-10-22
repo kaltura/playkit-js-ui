@@ -1,7 +1,5 @@
 // @flow
 
-import {Component} from 'preact';
-
 declare type CuePointOptionsObject = {
   time: number,
   presets?: Array<string>,
@@ -10,7 +8,7 @@ declare type CuePointOptionsObject = {
 };
 
 declare type MarkerOptionsObject = {
-  get: Component | string,
+  get: Function | string,
   props?: Object,
   color?: string,
   width?: number,
@@ -18,7 +16,7 @@ declare type MarkerOptionsObject = {
 };
 
 declare type PreviewOptionsObject = {
-  get: Component | string,
+  get: Function | string,
   props?: Object,
   width?: number,
   height?: number,

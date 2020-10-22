@@ -1,9 +1,7 @@
 // @flow
 
-import {Component} from 'preact';
-
 declare type SeekbarPreviewOptionsObject = {
-  get: Component | string,
+  get: Function | string,
   props?: Object,
   presets?: Array<string>,
   width?: number,

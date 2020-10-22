@@ -16,6 +16,12 @@ describe('Timeline Manager', function () {
     }
   }
 
+  class customSeekbarPreview extends Component {
+    render(props) {
+      return <div {...props} />;
+    }
+  }
+
   let player, sandbox;
   const config = {
     targetId,
@@ -187,6 +193,82 @@ describe('Timeline Manager', function () {
             progressBar.lastElementChild.className.should.not.equals('playkit-cue-point-container');
             done();
           });
+        });
+      } catch (e) {
+        done(e);
+      }
+    });
+  });
+
+  describe('setSeekbarPreview', function () {
+    it('Should override the seekbar preview with a simple div element', function (done) {
+      player.ui.managers.getManager('timeline').setSeekbarPreview({
+        get: 'div',
+        props: {
+          key3: 'value3'
+        },
+        width: 100,
+        height: 50,
+        className: 'custom-preview'
+      });
+      try {
+        setTimeout(() => {
+          const framePreview = document.querySelector('.playkit-frame-preview');
+          framePreview.lastElementChild.className.should.equals('custom-preview');
+          framePreview.lastElementChild.getAttribute('key3').should.equals('value3');
+          framePreview.lastElementChild.style.width.should.equals('100px');
+          framePreview.lastElementChild.style.height.should.equals('50px');
+          (framePreview.lastElementChild.getAttribute('replacedcomponentprops') === null).should.be.true;
+          player.ui._uiManager.store.getState().seekbar.hideTimeBubble.should.be.false;
+          done();
+        });
+      } catch (e) {
+        done(e);
+      }
+    });
+
+    it('Should override the seekbar preview with preact component', function (done) {
+      player.ui.managers.getManager('timeline').setSeekbarPreview({
+        get: customSeekbarPreview,
+        props: {
+          key3: 'value3'
+        },
+        width: 100,
+        height: 50,
+        className: 'custom-seekbar-preview',
+        hideTime: true,
+        sticky: false
+      });
+      try {
+        setTimeout(() => {
+          const framePreview = document.querySelector('.playkit-frame-preview');
+          framePreview.lastElementChild.className.should.equals('custom-seekbar-preview playkit-non-sticky');
+          framePreview.lastElementChild.getAttribute('key3').should.equals('value3');
+          framePreview.lastElementChild.style.width.should.equals('100px');
+          framePreview.lastElementChild.style.height.should.equals('50px');
+          framePreview.lastElementChild.getAttribute('replacedcomponentprops').should.exist;
+          player.ui._uiManager.store.getState().seekbar.hideTimeBubble.should.be.true;
+          done();
+        });
+      } catch (e) {
+        done(e);
+      }
+    });
+
+    it('Should restore the default seekbar preview', function (done) {
+      const restoreFunc = player.ui.managers.getManager('timeline').setSeekbarPreview({
+        get: 'div',
+        className: 'custom-preview'
+      });
+      try {
+        setTimeout(() => {
+          const framePreview = document.querySelector('.playkit-frame-preview');
+          framePreview.lastElementChild.className.should.equals('custom-preview');
+          restoreFunc();
+          setTimeout(() => {
+            (framePreview.lastElementChild === null).should.be.true;
+            done();
+          }, 500);
         });
       } catch (e) {
         done(e);
