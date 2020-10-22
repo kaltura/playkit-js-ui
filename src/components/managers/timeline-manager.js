@@ -86,19 +86,22 @@ class TimelineManager {
       get: props => {
         const previewProps: Object = {
           ...preview.props,
-          style: preview.props ? {...previewStyle, ...preview.props.style} : previewStyle,
           className: preview.className,
-          onMouseOver: () => {
-            preview.props && typeof preview.props.onMouseOver === 'function' && preview.props.onMouseOver();
-            this._store.dispatch(seekbarActions.updateSeekbarPreviewHoverActive(true));
-          },
-          onMouseLeave: () => {
-            preview.props && typeof preview.props.onMouseLeave === 'function' && preview.props.onMouseLeave();
-            this._store.dispatch(seekbarActions.updateSeekbarPreviewHoverActive(false));
-          }
+          style: preview.props ? {...previewStyle, ...preview.props.style} : previewStyle
         };
         typeof preview.get !== 'string' && (previewProps.defaultPreviewProps = props.replacedComponentProps);
-        return <div className={preview.sticky === false ? style.nonSticky : undefined}>{h(preview.get, previewProps)}</div>;
+        return (
+          <div
+            className={preview.sticky === false ? style.nonSticky : undefined}
+            onMouseOver={() => {
+              this._store.dispatch(seekbarActions.updateSeekbarPreviewHoverActive(true));
+            }}
+            onMouseLeave={() => {
+              this._store.dispatch(seekbarActions.updateSeekbarPreviewHoverActive(false));
+            }}>
+            {h(preview.get, previewProps)}
+          </div>
+        );
       },
       replaceComponent: 'SeekBarPreview'
     });
