@@ -59,8 +59,6 @@ class LiveUI extends Component {
    * @memberof LiveUI
    */
   render() {
-    // first child of gui area contain the elements of gui area.
-    // second child of gui area will contain only the bars and interactive area
     return (
       <div className={style.playbackGuiWrapper}>
         <PlayerArea name={'PresetArea'}>
