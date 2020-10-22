@@ -54,15 +54,17 @@ class GuiArea extends Component {
    */
   render(): React$Element<any> {
     const {guiStyles, children} = this.props;
-    // first container contain the elements in gui area.
-    // second child will contain only the bars and interactive area.
+    // first container contain the elements of gui area.
+    // second child will contain only the bars and interactive area and use flex positioning from gui area
     const childArray = toChildArray(children);
+    const guiElements = childArray[0];
+    const barsAndInteractive = childArray[1];
     return (
-      <div ref={this._setRef} style={guiStyles} className={[style.guiArea, style.flexContainer].join(' ')}>
+      <div ref={this._setRef} style={guiStyles} className={style.guiArea}>
         <div style={{pointerEvents: 'auto'}}>
-          <PlayerArea name={'GuiArea'}>{childArray[0]}</PlayerArea>
+          <PlayerArea name={'GuiArea'}>{guiElements}</PlayerArea>
         </div>
-        {typeof childArray[1] === 'function' ? childArray[1]({containerRef: this._ref}) : childArray[1]}
+        {typeof barsAndInteractive === 'function' ? barsAndInteractive({containerRef: this._ref}) : barsAndInteractive}
       </div>
     );
   }

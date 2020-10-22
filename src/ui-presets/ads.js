@@ -27,6 +27,8 @@ const PRESET_NAME = 'Ads';
  */
 function AdsUI(props: any, context: any): ?React$Element<any> {
   props.updateIsKeyboardEnabled(true);
+  // first child of gui area contain the elements of gui area.
+  // second child of gui area will contain only the bars and interactive area
   if (useDefaultAdsUi(props, context)) {
     return (
       <div className={style.adGuiWrapper}>

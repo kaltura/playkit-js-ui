@@ -2,11 +2,6 @@
   pointer-events: none;
   transition: all $default-transition-time;
   transition-property: left, right, bottom, top;
-}
-
-.flex-container {
   display: flex;
   flex-flow: column nowrap;
-  height: 100%;
-  width: 100%;
 }
