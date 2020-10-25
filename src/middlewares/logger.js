@@ -2,8 +2,7 @@
 /* eslint-disable no-unused-vars */
 import getLogger from '../utils/logger';
 
-const logger = getLogger('UILoggerMiddleware');
-
+let logger;
 /**
  * The logger middleware.
  * Prints action logs in case of received debug=true from the UI config.
@@ -11,6 +10,9 @@ const logger = getLogger('UILoggerMiddleware');
  * @returns {void}
  */
 const loggerMiddleware = (config: UIOptionsObject) => (store: Object) => (next: Function) => (action: Object) => {
+  if (!logger) {
+    logger = getLogger('UILoggerMiddleware');
+  }
   if (config.debugActions) {
     logger.debug('Action fired', action);
   }
