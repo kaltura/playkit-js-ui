@@ -10,7 +10,7 @@
   &.hover,
   &.dragging-active {
     .time-preview,
-    .frame-preview {
+    .frame-preview:not(.cue-point-active) {
       display: block;
     }
     .progress-bar {

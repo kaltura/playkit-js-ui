@@ -505,9 +505,12 @@ class SeekBar extends Component {
    * @memberof SeekBar
    */
   renderFramePreview(): React$Element<any> | void {
-    if (!this.props.showFramePreview || this.props.cuePointActive || this.props.isMobile) return undefined;
+    if (!this.props.showFramePreview || this.props.isMobile) return undefined;
     return (
-      <div className={style.framePreview} style={this._getFramePreviewStyle()} ref={c => (c ? (this._framePreviewElement = c) : undefined)}>
+      <div
+        className={this.props.cuePointActive ? [style.framePreview, style.cuePointActive].join(' ') : style.framePreview}
+        style={this._getFramePreviewStyle()}
+        ref={c => (c ? (this._framePreviewElement = c) : undefined)}>
         <SeekBarPreview
           virtualTime={this.props.virtualTime}
           thumbsSlices={this.props.config.thumbsSlices}
