@@ -37,8 +37,8 @@ class CuePoint extends Component {
    * @returns {number} - the marker left position
    * @private
    */
-  _getMarkerPosition(): number {
-    let left = 0;
+  _getMarkerPositionStyle(): {left: string, borderRadius: string} {
+    const styleObj = {left: '0', borderRadius: `${style.progressBarBorderRadius} 0 0 ${style.progressBarBorderRadius}`};
     if (this._markerRef && this.props.duration) {
       const markerRect = this._markerRef.getBoundingClientRect();
       const seekbarRect = this.props.seekbarClientRect;
@@ -47,13 +47,15 @@ class CuePoint extends Component {
       const markerPosition = (this.props.time < this.props.duration ? this.props.time / this.props.duration : 1) * seekbarWidth;
       if (markerPosition - markerWidth / 2 > 0) {
         if (markerPosition + markerWidth / 2 > seekbarWidth) {
-          left = seekbarWidth - markerWidth;
+          styleObj.left = `${seekbarWidth - markerWidth}px`;
+          styleObj.borderRadius = `0 ${style.progressBarBorderRadius} ${style.progressBarBorderRadius} 0`;
         } else {
-          left = markerPosition - markerWidth / 2;
+          styleObj.left = `${markerPosition - markerWidth / 2}px`;
+          styleObj.borderRadius = '0';
         }
       }
     }
-    return left;
+    return styleObj;
   }
 
   /**
@@ -165,8 +167,9 @@ class CuePoint extends Component {
    */
   render(props: any): React$Element<any> | void {
     const {marker, preview, virtualTime, config} = props;
+    const {borderRadius, left} = this._getMarkerPositionStyle();
 
-    const markerStyle = {backgroundColor: marker.color, width: marker.width};
+    const markerStyle = {backgroundColor: marker.color, width: marker.width, borderRadius};
     let markerProps = {
       className: marker.className ? [style.cuePoint, marker.className].join(' ') : style.cuePoint,
       style: marker.props ? {...markerStyle, ...marker.props.style} : markerStyle
@@ -200,7 +203,7 @@ class CuePoint extends Component {
         onMouseOver={() => this.onMarkerMouseOver()}
         onMouseLeave={() => this.onMarkerMouseLeave()}
         className={style.cuePointContainer}
-        style={{left: `${this._getMarkerPosition()}px`}}
+        style={{left}}
         ref={this._setMarkerRef}>
         {marker.get ? h(marker.get, markerProps) : <div style={markerStyle} className={[style.cuePoint, marker.className].join(' ')} />}
         {this._markerRef && preview.get ? (
