@@ -4,6 +4,7 @@ import {h} from 'preact';
 import {ErrorOverlay} from '../components/error-overlay';
 import {PlayerArea} from 'components/player-area';
 import {GuiArea} from 'components/gui-area';
+import {Fragment} from 'preact';
 
 const PRESET_NAME = 'Error';
 
@@ -18,7 +19,9 @@ export function ErrorUI(): React$Element<any> {
     <div className={style.playbackGuiWrapper}>
       <PlayerArea name={'PresetArea'}>
         <GuiArea>
-          <ErrorOverlay />
+          <Fragment>
+            <ErrorOverlay />
+          </Fragment>
         </GuiArea>
       </PlayerArea>
     </div>

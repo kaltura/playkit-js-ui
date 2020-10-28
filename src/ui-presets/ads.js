@@ -33,9 +33,13 @@ function AdsUI(props: any, context: any): ?React$Element<any> {
         <PlayerArea name={'PresetArea'}>
           <div className={style.playerGui} id="player-gui">
             <GuiArea>
-              <Loading />
-              <UnmuteIndication hasTopBar />
-              <TopBar disabled={true} leftControls={isBumper(props) ? undefined : <AdNotice />} />
+              <Fragment>
+                <Loading />
+                <UnmuteIndication hasTopBar />
+              </Fragment>
+              <Fragment>
+                <TopBar disabled={true} leftControls={isBumper(props) ? undefined : <AdNotice />} />
+              </Fragment>
             </GuiArea>
           </div>
         </PlayerArea>
@@ -48,29 +52,33 @@ function AdsUI(props: any, context: any): ?React$Element<any> {
       <PlayerArea name={'PresetArea'}>
         <div className={style.playerGui} id="player-gui">
           <GuiArea>
-            <Loading />
-            <UnmuteIndication hasTopBar />
-            <TopBar
-              disabled={true}
-              leftControls={isBumper(props) ? undefined : <AdNotice />}
-              rightControls={adsUiCustomization.learnMoreButton ? <AdLearnMore /> : undefined}
-            />
-            {adsUiCustomization.skipButton ? <AdSkip /> : undefined}
-            <PlaybackControls className={style.centerPlaybackControls} />
-            <BottomBar
-              leftControls={
-                <Fragment>
-                  <PlaybackControls />
-                  <TimeDisplayAdsContainer />
-                </Fragment>
-              }
-              rightControls={
-                <Fragment>
-                  <Volume />
-                  <Fullscreen />
-                </Fragment>
-              }
-            />
+            <Fragment>
+              <Loading />
+              <UnmuteIndication hasTopBar />
+              {adsUiCustomization.skipButton ? <AdSkip /> : undefined}
+              <PlaybackControls className={style.centerPlaybackControls} />
+            </Fragment>
+            <Fragment>
+              <TopBar
+                disabled={true}
+                leftControls={isBumper(props) ? undefined : <AdNotice />}
+                rightControls={adsUiCustomization.learnMoreButton ? <AdLearnMore /> : undefined}
+              />
+              <BottomBar
+                leftControls={
+                  <Fragment>
+                    <PlaybackControls />
+                    <TimeDisplayAdsContainer />
+                  </Fragment>
+                }
+                rightControls={
+                  <Fragment>
+                    <Volume />
+                    <Fullscreen />
+                  </Fragment>
+                }
+              />
+            </Fragment>
           </GuiArea>
         </div>
       </PlayerArea>
