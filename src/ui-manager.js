@@ -256,12 +256,30 @@ class UIManager {
   }
 
   /**
-   * Gets the ui manager managers.
-   * @returns {Managers} - The ui manager managers.
-   * @public
+   * @param {string} name - the manager name
+   * @param {Object} manager - the manager object
+   * @returns {void}
    */
-  get managers(): Managers {
-    return this._managers;
+  registerManager(name: string, manager: Object): void {
+    this._managers.registerManager(name, manager);
+  }
+
+  /**
+   *
+   * @param {string} name - the manager name
+   * @returns {Object} - the manager object
+   */
+  getManager(name: string): Object | void {
+    return this._managers.getManager(name);
+  }
+
+  /**
+   *
+   * @param {string} name - the manager name
+   * @returns {boolean} - if the manager exist
+   */
+  hasManager(name: string): boolean {
+    return this._managers.hasManager(name);
   }
 }
 

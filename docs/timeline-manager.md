@@ -1,0 +1,168 @@
+## Timeline Manager
+
+The Timeline Manager exposes simple API's to manage custom components on the player seekbar element.  
+
+By the Timeline Manager the app can add cue points to indicate specific points on the seekbar (e.g. ads). 
+As well as to custom the thumbnail preview shown on seekbar hovering.
+
+## API
+
+#### addCuePoint
+Returns an object with the id for removal.
+
+<table>
+    <thead>
+        <tr>
+            <th>Param</th>
+            <th>Sub Param</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Mandatory</th>
+            <th>Default Value</th>
+            <th>Notese</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>time</code></td>
+            <td></td>
+            <td><code>number</code></td>
+            <td>The cue point time</td>
+            <td>Yes</td>
+            <td></td>
+            <td>In seconds</td>
+        </tr>
+        <tr>
+            <td><code>presets</code></td>
+            <td></td>
+            <td><code>array[string]</code></td>
+            <td>The presets the cue point should be displayed</td>
+            <td>No</td>
+            <td>the currently active preset</td>
+        </tr>
+        <tr>
+            <td rowspan=5><code>marker</code></td>
+            <td><code>get</code></td>
+            <td><code>Function|string</code></td>
+            <td>preact component or html tag (e.g "div")</td>
+            <td>No</td>
+            <td></td>
+            <td>for custom marker</td>
+        </tr>
+        <tr>
+            <td><code>props</code></td>
+            <td><code>Object</code></td>
+            <td>props for custom marker</td>
+            <td>No</td>
+            <td></td>
+            <td>if <code>get</code> property used</td>
+        </tr>
+        <tr>
+            <td><code>color</code></td>
+            <td><code>string</code></td>
+            <td>The marker color</td>
+            <td>No</td>
+            <td><code>#FFFFFFF</code></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>width</code></td>
+            <td><code>number</code></td>
+            <td>custom width</td>
+            <td>No</td>
+            <td><code>2px</code></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>className</code></td>
+            <td><code>string</code></td>
+            <td>The marker custom classes</td>
+            <td>No</td>
+            <td></td>
+            <td>don't use it for width</td>
+        </tr>
+        <tr>
+            <td rowspan=7><code>preview</code></td>
+            <td><code>get</code></td>
+            <td><code>Function|string</code></td>
+            <td>preact component or html tag (e.g "div")</td>
+            <td>No</td>
+            <td>the default seekbar preview</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>props</code></td>
+            <td><code>Object</code></td>
+            <td>props for custom preview</td>
+            <td>No</td>
+            <td></td>
+            <td>if <code>get</code> property used</td>
+        </tr>
+        <tr>
+            <td><code>width</code></td>
+            <td><code>number</code></td>
+            <td>the preview width</td>
+            <td>No</td>
+            <td><code>160px</code></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>height</code></td>
+            <td><code>number</code></td>
+            <td>the preview height</td>
+            <td>No</td>
+            <td><code>90px</code></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>className</code></td>
+            <td><code>string</code></td>
+            <td>The preview custom classes</td>
+            <td>No</td>
+            <td></td>
+            <td>don't use it for width</td>
+        </tr>
+        <tr>
+            <td><code>hideTime</code></td>
+            <td><code>boolean</code></td>
+            <td>whether to hide the time bubble</td>
+            <td>No</td>
+            <td><code>false</code></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>sticky</code></td>
+            <td><code>boolean</code></td>
+            <td>whether the preview is shown on hovering</td>
+            <td>No</td>
+            <td><code>true</code></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+
+#### removeCuePoint
+
+| Param 	| Type     	| Description      	| Mandatory 	| Notes 	|
+|-------	|----------	|------------------	|-----------	|-------	|
+| `id`  	| `string` 	| The cue point id 	| Yes       	|       	|
+
+
+
+#### setSeekbarPreview
+
+Returns a function for restoring the default.
+
+| Param       	| Type               	| Description                                 	| Default Value               	| Notes                                                                                                                	|
+|-------------	|--------------------	|---------------------------------------------	|-----------------------------	|----------------------------------------------------------------------------------------------------------------------	|
+| `get`       	| `Function\string` 	| preact component or html tag (e.g 'div')    	|                             	| this component is replacing the default preview and getting its props (thumbnailURL, virtualTime so on)             	|
+| `props`     	| `Object`           	| props for custom preview                    	|                             	|                                                                                                                      	|
+| `presets`   	| `array[string]`    	| The presets the preview should be displayed 	| the currently active preset 	|                                                                                                                      	|
+| `width`     	| `number`           	| the preview width                           	| `160px`                     	|                                                                                                                      	|
+| `height`    	| `number`           	| the preview height                          	| `90px`                      	|                                                                                                                      	|
+| `className` 	| `string`           	| The preview custom classes                  	|                             	| don't use it for width                                                                                               	|
+| `hideTime`  	| `boolean`          	| whether to hide the time bubble             	| `false`                     	|                                                                                                                      	|
+| `sticky`    	| `boolean`          	| whether the preview is shown on hovering    	| `true`                      	|                                                                                                                      	|
+
+
+## Examples 
