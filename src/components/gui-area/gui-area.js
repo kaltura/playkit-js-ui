@@ -1,5 +1,5 @@
 //@flow
-import {h, Component} from 'preact';
+import {h, Component, toChildArray} from 'preact';
 import {connect} from 'react-redux';
 import {PlayerArea} from 'components/player-area';
 import style from '../../styles/style.scss';
@@ -54,11 +54,17 @@ class GuiArea extends Component {
    */
   render(): React$Element<any> {
     const {guiStyles, children} = this.props;
+    // first container contain the elements of gui area.
+    // second child will contain only the bars and interactive area and use flex positioning from gui area
+    const childArray = toChildArray(children);
+    const guiElements = childArray[0];
+    const barsAndInteractive = childArray[1];
     return (
       <div ref={this._setRef} style={guiStyles} className={style.guiArea}>
         <div style={{pointerEvents: 'auto'}}>
-          <PlayerArea name={'GuiArea'}>{typeof children === 'function' ? children({containerRef: this._ref}) : children}</PlayerArea>
+          <PlayerArea name={'GuiArea'}>{guiElements}</PlayerArea>
         </div>
+        {typeof barsAndInteractive === 'function' ? barsAndInteractive({containerRef: this._ref}) : barsAndInteractive}
       </div>
     );
   }

@@ -43,7 +43,6 @@ class TopBar extends Component {
     if (isCasting && isPlaybackEnded) {
       styleClass.push(style.hide);
     }
-
     return (
       <div className={styleClass.join(' ')}>
         <PlayerArea name={'TopBar'}>
