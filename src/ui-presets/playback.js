@@ -69,20 +69,26 @@ class PlaybackUI extends Component {
         <PlayerArea name={'PresetArea'}>
           <div className={style.playerGui} id="player-gui">
             <OverlayAction />
-            <VideoArea>
-              <Watermark />
-            </VideoArea>
+            <VideoArea />
             <GuiArea>
+              <Fragment>
+                <Loading />
+                <OverlayPortal />
+                <UnmuteIndication />
+                <PictureInPictureOverlay />
+                <PlaybackControls className={style.centerPlaybackControls} />
+                <PlaylistNextScreen />
+                <PlaylistCountdown />
+                <PrePlaybackPlayOverlay />
+                <CastBeforePlay />
+                <Backdrop />
+              </Fragment>
               {({containerRef}) => (
                 <Fragment>
-                  <Loading />
-                  <OverlayPortal />
-                  <UnmuteIndication />
-                  <PictureInPictureOverlay />
-                  <PlaybackControls className={style.centerPlaybackControls} />
-                  <PlaylistNextScreen />
-                  <InteractiveArea />
                   <TopBar rightControls={<Share />} />
+                  <InteractiveArea>
+                    <Watermark />
+                  </InteractiveArea>
                   <BottomBar
                     leftControls={
                       <Fragment>
@@ -106,10 +112,6 @@ class PlaybackUI extends Component {
                     }>
                     <SeekBarPlaybackContainer showFramePreview showTimeBubble playerContainer={containerRef} />
                   </BottomBar>
-                  <PlaylistCountdown />
-                  <PrePlaybackPlayOverlay />
-                  <CastBeforePlay />
-                  <Backdrop />
                 </Fragment>
               )}
             </GuiArea>
