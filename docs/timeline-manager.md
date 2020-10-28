@@ -39,6 +39,7 @@ Returns an object with the id for removal.
             <td>The presets the cue point should be displayed</td>
             <td>No</td>
             <td>the currently active preset</td>
+            <td></td>
         </tr>
         <tr>
             <td rowspan=5><code>marker</code></td>
@@ -143,9 +144,9 @@ Returns an object with the id for removal.
 
 #### removeCuePoint
 
-| Param 	| Type     	| Description      	| Mandatory 	| Notes 	|
-|-------	|----------	|------------------	|-----------	|-------	|
-| `id`  	| `string` 	| The cue point id 	| Yes       	|       	|
+| Param 	| Type     	| Description      	| Mandatory 	| Notes                   	|
+|-------	|----------	|------------------	|-----------	|-------------------------	|
+| `id`  	| `string` 	| The cue point id 	| Yes       	| returned by `addCuePoint`	|
 
 
 
@@ -155,7 +156,7 @@ Returns a function for restoring the default.
 
 | Param       	| Type               	| Description                                 	| Default Value               	| Notes                                                                                                                	|
 |-------------	|--------------------	|---------------------------------------------	|-----------------------------	|----------------------------------------------------------------------------------------------------------------------	|
-| `get`       	| `Function\string` 	| preact component or html tag (e.g 'div')    	|                             	| this component is replacing the default preview and getting its props (thumbnailURL, virtualTime so on)             	|
+| `get`       	| `Function\string` 	| preact component or html tag (e.g 'div')    	|                             	| this component is replacing the default preview and getting its props (`thumbnailURL`, `virtualTime` so on)             	|
 | `props`     	| `Object`           	| props for custom preview                    	|                             	|                                                                                                                      	|
 | `presets`   	| `array[string]`    	| The presets the preview should be displayed 	| the currently active preset 	|                                                                                                                      	|
 | `width`     	| `number`           	| the preview width                           	| `160px`                     	|                                                                                                                      	|
