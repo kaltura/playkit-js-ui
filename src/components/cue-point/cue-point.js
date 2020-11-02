@@ -93,10 +93,10 @@ class CuePoint extends Component {
   onMarkerMouseOver(): void {
     if (this.props.preview.get) {
       this.props.updateCuePointActive(true);
-      if (!this.props.hideTimeBubble && this.props.preview.hideTime) {
-        this._hideTimeBubble = true;
-        this.props.updateHideTimeBubble(true);
-      }
+    }
+    if (!this.props.hideTimeBubble && this.props.preview.hideTime) {
+      this._hideTimeBubble = true;
+      this.props.updateHideTimeBubble(true);
     }
   }
 
