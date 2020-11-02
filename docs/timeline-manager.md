@@ -168,9 +168,10 @@ Returns a function for restoring the default.
 
 ## Examples 
 
-Example of a simple cue point without custom preview:
-![simple cue point](./images/simpleCP.gif)  
-Code:
+1. Simple cue point without custom preview:
+
+![simple cue point](./images/simpleCP.gif)
+  
 ```js
 kalturaPlayer.ui.getManager("timeline").addCuePoint({
   time: 100
