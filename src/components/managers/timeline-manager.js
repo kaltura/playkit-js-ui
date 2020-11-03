@@ -13,7 +13,7 @@ class TimelineManager {
   static _logger: any;
   _uiManager: UIManager;
   _store: any;
-  _cuePointsRemoveMap: Object;
+  _cuePointsRemoveMap: {[id: string]: Function};
   _counter: number;
 
   /**
@@ -133,7 +133,7 @@ class TimelineManager {
    * @returns {void}
    */
   _removeAllCuePoints() {
-    Object.values(this._cuePointsRemoveMap).forEach(func => func());
+    Object.values(this._cuePointsRemoveMap).forEach((func: Function) => func());
   }
 }
 
