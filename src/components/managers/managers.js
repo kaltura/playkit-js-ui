@@ -2,6 +2,7 @@
 import {TimelineManager} from './timeline-manager';
 import {UIManager} from '../../ui-manager';
 import getLogger from '../../utils/logger';
+import {EventManager} from 'event/event-manager';
 
 /**
  * @class CuePoint
@@ -9,14 +10,18 @@ import getLogger from '../../utils/logger';
 class Managers {
   static _logger: any;
   _managerRegistry: Map<string, Object> = new Map();
+  _eventManager: EventManager;
 
   /**
    * @constructor
    * @param {UIManager} uiManager - The UI manager.
    * @param {any} store - The store.
+   * @param {any} player - The player.
    */
-  constructor(uiManager: UIManager, store: any) {
+  constructor(uiManager: UIManager, store: any, player: any) {
     Managers._logger = getLogger('Managers');
+    this._eventManager = new EventManager();
+    this._eventManager.listen(player, player.Event.Core.PLAYER_RESET, () => this.reset());
     this.registerManager('timeline', new TimelineManager(uiManager, store));
   }
 
@@ -55,8 +60,16 @@ class Managers {
   /**
    * @returns {void}
    */
+  reset() {
+    this._managerRegistry.forEach(manager => typeof manager.reset === 'function' && manager.reset());
+  }
+
+  /**
+   * @returns {void}
+   */
   destroy() {
     this._managerRegistry.forEach(manager => typeof manager.destroy === 'function' && manager.destroy());
+    this._eventManager.removeAll();
     this._managerRegistry.clear();
   }
 }

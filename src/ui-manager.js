@@ -61,7 +61,7 @@ class UIManager {
     this.setConfig(config);
     this._setLocaleTranslations(config);
     setEnv(this.player.env);
-    this._managers = new Managers(this, this.store);
+    this._managers = new Managers(this, this.store, this.player);
   }
 
   /**

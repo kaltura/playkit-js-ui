@@ -118,7 +118,23 @@ class TimelineManager {
   /**
    * @returns {void}
    */
-  destroy() {}
+  reset() {
+    this._removeAllCuePoints();
+  }
+
+  /**
+   * @returns {void}
+   */
+  destroy() {
+    this._removeAllCuePoints();
+  }
+
+  /**
+   * @returns {void}
+   */
+  _removeAllCuePoints() {
+    Object.values(this._cuePointsRemoveMap).forEach(func => func());
+  }
 }
 
 export {TimelineManager};
