@@ -38,7 +38,7 @@ class CuePoint extends Component {
    * @private
    */
   _getMarkerPositionStyle(): {left: string, borderRadius: string} {
-    const styleObj = {left: '0', borderRadius: `${style.progressBarBorderRadius} 0 0 ${style.progressBarBorderRadius}`};
+    const styleObj = {left: '0', borderRadius: 'left'};
     if (this._markerRef && this.props.duration) {
       const markerRect = this._markerRef.getBoundingClientRect();
       const seekbarRect = this.props.seekbarClientRect;
@@ -48,10 +48,10 @@ class CuePoint extends Component {
       if (markerPosition - markerWidth / 2 > 0) {
         if (markerPosition + markerWidth / 2 > seekbarWidth) {
           styleObj.left = `${seekbarWidth - markerWidth}px`;
-          styleObj.borderRadius = `0 ${style.progressBarBorderRadius} ${style.progressBarBorderRadius} 0`;
+          styleObj.borderRadius = 'right';
         } else {
           styleObj.left = `${markerPosition - markerWidth / 2}px`;
-          styleObj.borderRadius = '0';
+          styleObj.borderRadius = 'none';
         }
       }
     }
@@ -169,9 +169,10 @@ class CuePoint extends Component {
     const {marker, preview, virtualTime, config} = props;
     const {borderRadius, left} = this._getMarkerPositionStyle();
 
-    const markerStyle = {backgroundColor: marker.color, width: marker.width, borderRadius};
+    const markerStyle = {backgroundColor: marker.color, width: marker.width};
+    const cuePointClassName = [style.cuePoint, borderRadius !== 'none' ? style[`${borderRadius}BorderRadius`] : ''];
     let markerProps = {
-      className: marker.className ? [style.cuePoint, marker.className].join(' ') : style.cuePoint,
+      className: (marker.className ? [...cuePointClassName, marker.className] : cuePointClassName).join(' '),
       style: marker.props ? {...markerStyle, ...marker.props.style} : markerStyle
     };
     markerProps = {...marker.props, ...markerProps};
@@ -205,7 +206,7 @@ class CuePoint extends Component {
         className={style.cuePointContainer}
         style={{left}}
         ref={this._setMarkerRef}>
-        {marker.get ? h(marker.get, markerProps) : <div style={markerStyle} className={[style.cuePoint, marker.className].join(' ')} />}
+        {marker.get ? h(marker.get, markerProps) : <div style={markerStyle} className={[...cuePointClassName, marker.className].join(' ')} />}
         {this._markerRef && preview.get ? (
           <div
             onMouseOver={() => this.onPreviewMouseOver()}

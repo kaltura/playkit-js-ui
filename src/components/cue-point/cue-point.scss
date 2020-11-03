@@ -19,6 +19,14 @@
   background-color: $white;
 }
 
+.left-border-radius {
+  border-radius: $progress-bar-border-radius 0 0 $progress-bar-border-radius;
+}
+
+.right-border-radius {
+  border-radius: 0 $progress-bar-border-radius $progress-bar-border-radius 0;
+}
+
 .cue-point-preview-container {
   display: none;
   position: absolute;
