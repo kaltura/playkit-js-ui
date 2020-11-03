@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.60.1](https://github.com/kaltura/playkit-js-ui/compare/v0.60.0...v0.60.1) (2020-11-03)
+
+
+### Bug Fixes
+
+* **FEC-10481:** "advertisement" title displays during bumper, when using new ad layout ([#555](https://github.com/kaltura/playkit-js-ui/issues/555)) ([0a68502](https://github.com/kaltura/playkit-js-ui/commit/0a68502))
+* **FEC-10503:** watermark doesn't show up correctly on top and doesn't clickable. ([#553](https://github.com/kaltura/playkit-js-ui/issues/553)) ([50ecc53](https://github.com/kaltura/playkit-js-ui/commit/50ecc53))
+* **FEC-10526:** iPad iOS11 - wrong full screen button state when PiP active ([#548](https://github.com/kaltura/playkit-js-ui/issues/548)) ([3bab3b7](https://github.com/kaltura/playkit-js-ui/commit/3bab3b7))
+* **FEC-10535:** getLogger called before initilized ([#552](https://github.com/kaltura/playkit-js-ui/issues/552)) ([57da6ce](https://github.com/kaltura/playkit-js-ui/commit/57da6ce))
+* **FEC-10577:** the player bars displayed when overlay is open ([#554](https://github.com/kaltura/playkit-js-ui/issues/554)) ([c80c68e](https://github.com/kaltura/playkit-js-ui/commit/c80c68e))
+
+
+### Build System
+
+* remove plugins that already exist on preset-env ([#550](https://github.com/kaltura/playkit-js-ui/issues/550)) ([8550100](https://github.com/kaltura/playkit-js-ui/commit/8550100))
+
+
+
 ## [0.60.0](https://github.com/kaltura/playkit-js-ui/compare/v0.59.1...v0.60.0) (2020-10-06)
 
 
