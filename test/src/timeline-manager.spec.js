@@ -130,7 +130,7 @@ describe('Timeline Manager', function () {
           previewEl.className.should.equals('playkit-cue-point-preview-container playkit-non-sticky');
           previewEl.children[0].className.should.equals('custom-preview-class');
           previewEl.children[0].getAttribute('key2').should.equals('value2');
-          previewEl.children[0].getAttribute('seekbarprops').should.be.exist;
+          previewEl.children[0].getAttribute('defaultpreviewprops').should.be.exist;
           previewEl.children[0].style.width.should.equals('50px');
           previewEl.children[0].style.height.should.equals('40px');
           done();

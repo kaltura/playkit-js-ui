@@ -89,7 +89,7 @@ Returns an object with the id for removal.
             <td>preact component or html tag (e.g "div")</td>
             <td>No</td>
             <td>the default seekbar preview</td>
-            <td></td>
+            <td>this component is replacing the default preview and getting its props (<code>thumbnailURL, virtualTime</code> so on) as <code>props.defaultPreviewProps</code></td>
         </tr>
         <tr>
             <td><code>props</code></td>
@@ -154,16 +154,16 @@ Returns an object with the id for removal.
 
 Returns a function for restoring the default.
 
-| Param       	| Type               	| Description                                 	| Default Value               	| Notes                                                                                                                	|
-|-------------	|--------------------	|---------------------------------------------	|-----------------------------	|----------------------------------------------------------------------------------------------------------------------	|
-| `get`       	| `Function\string` 	| preact component or html tag (e.g 'div')    	|                             	| this component is replacing the default preview and getting its props (`thumbnailURL`, `virtualTime` so on)             	|
-| `props`     	| `Object`           	| props for custom preview                    	|                             	|                                                                                                                      	|
-| `presets`   	| `array[string]`    	| The presets the preview should be displayed 	| the currently active preset 	|                                                                                                                      	|
-| `width`     	| `number`           	| the preview width                           	| `160px`                     	|                                                                                                                      	|
-| `height`    	| `number`           	| the preview height                          	| `90px`                      	|                                                                                                                      	|
-| `className` 	| `string`           	| The preview custom classes                  	|                             	| don't use it for width                                                                                               	|
-| `hideTime`  	| `boolean`          	| whether to hide the time bubble             	| `false`                     	|                                                                                                                      	|
-| `sticky`    	| `boolean`          	| whether the preview is shown on hovering    	| `true`                      	|                                                                                                                      	|
+| Param       	| Type               	| Description                                 	| Default Value               	| Notes                                                                                                                	                    |
+|-------------	|--------------------	|---------------------------------------------	|-----------------------------	|-----------------------------------------------------------------------------------------------------------------------------------------	|
+| `get`       	| `Function\string` 	| preact component or html tag (e.g 'div')    	|                             	| this component is replacing the default preview and getting its props (`thumbnailURL`, `virtualTime` so on) as `props.defaultPreviewProps`|
+| `props`     	| `Object`           	| props for custom preview                    	|                             	|                                                                                                                                         	|
+| `presets`   	| `array[string]`    	| The presets the preview should be displayed 	| the currently active preset 	|                                                                                                                                         	|
+| `width`     	| `number`           	| the preview width                           	| `160px`                     	|                                                                                                                                         	|
+| `height`    	| `number`           	| the preview height                          	| `90px`                      	|                                                                                                                                         	|
+| `className` 	| `string`           	| The preview custom classes                  	|                             	| don't use it for width                                                                                                                  	|
+| `hideTime`  	| `boolean`          	| whether to hide the time bubble             	| `false`                     	|                                                                                                                                         	|
+| `sticky`    	| `boolean`          	| whether the preview is shown on hovering    	| `true`                      	|                                                                                                                                         	|
 
 
 ## Examples 

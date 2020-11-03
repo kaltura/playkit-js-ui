@@ -192,7 +192,7 @@ class CuePoint extends Component {
     previewProps = {
       ...preview.props,
       ...previewProps,
-      seekbarProps: {
+      defaultPreviewProps: {
         virtualTime,
         thumbsSlices: config.thumbsSlices,
         thumbsWidth: config.thumbsWidth,
