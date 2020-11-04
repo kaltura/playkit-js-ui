@@ -604,7 +604,9 @@ class SeekBar extends Component {
         <div className={style.progressBar}>
           {this.renderFramePreview()}
           {this.renderTimeBubble()}
-          <div className={style.virtualProgress} style={{width: virtualProgressWidth}} />
+          <div className={style.virtualProgress} style={{width: virtualProgressWidth}}>
+            <div className={style.virtualProgressIndicator} />
+          </div>
           <div className={style.buffered} style={{width: bufferedWidth}} />
           <div className={style.progress} style={{width: progressWidth}}>
             {props.adBreak ? undefined : <a className={style.scrubber} />}

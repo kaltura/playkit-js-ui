@@ -1,8 +1,8 @@
 @import '~styles/variables';
 
 .player .seek-bar {
-  padding: 12px 0;
-  margin: -6px 0;
+  padding: 12px 0 16px 0;
+  margin: -2px 0;
   cursor: pointer;
   position: relative;
 
@@ -14,6 +14,9 @@
       display: block;
     }
     .progress-bar {
+      height: 2 * $progress-bar-height;
+      border-radius: 2 * $progress-bar-border-radius;
+
       .scrubber {
         transform: scale(1);
       }
@@ -38,17 +41,19 @@
   }
 
   .progress-bar {
+    width: 100%;
     height: $progress-bar-height;
     background-color: rgba(255, 255, 255, 0.3);
     border-radius: $progress-bar-border-radius;
-    position: relative;
+    position: absolute;
+    transition: height 100ms;
 
     .progress {
       position: absolute;
       top: 0;
       left: 0;
       height: 100%;
-      border-radius: $progress-bar-border-radius 0 0 $progress-bar-border-radius;
+      border-radius: inherit;
       background-color: $brand-color;
     }
     .virtual-progress {
@@ -60,14 +65,25 @@
       top: 0;
       left: 0;
       height: 100%;
-      border-radius: $progress-bar-border-radius 0 0 $progress-bar-border-radius;
+      border-radius: inherit;
+    }
+
+    .buffered {
       background-color: rgba(255, 255, 255, 0.3);
     }
+
+    .virtual-progress-indicator {
+      width: 1px;
+      height: 100%;
+      background-color: $white;
+      float: right;
+    }
+
     .scrubber {
       position: absolute;
       cursor: pointer;
       display: block;
-      top: -8px + $progress-bar-height / 2;
+      top: -8px + $progress-bar-height;
       right: -8px;
       border-radius: 8px;
       height: 16px;
@@ -86,7 +102,7 @@
 
   .frame-preview {
     position: absolute;
-    bottom: $progress-bar-height + 12px;
+    bottom: $progress-bar-height + 16px;
     left: 0;
     height: 94px;
     width: 164px;
@@ -107,7 +123,7 @@
 
   .time-preview {
     position: absolute;
-    bottom: $progress-bar-height + 18px;
+    bottom: $progress-bar-height + 22px;
     left: 0;
     height: 22px;
     min-width: 48px;
