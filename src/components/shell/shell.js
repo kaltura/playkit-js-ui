@@ -426,6 +426,7 @@ class Shell extends Component {
     return (
       <div
         tabIndex="0"
+        aria-label="video player"
         className={playerClasses}
         onTouchEnd={e => this.onTouchEnd(e)}
         onMouseUp={() => this.onMouseUp()}
