@@ -7,16 +7,12 @@
   position: relative;
 
   &:hover,
-  &.hover,
-  &.dragging-active {
+  &.hover {
     .time-preview,
     .frame-preview {
       display: block;
     }
     .progress-bar {
-      height: 2 * $progress-bar-height;
-      border-radius: 2 * $progress-bar-border-radius;
-
       .scrubber {
         transform: scale(1);
       }
@@ -83,7 +79,7 @@
       position: absolute;
       cursor: pointer;
       display: block;
-      top: -8px + $progress-bar-height;
+      top: -8px + $progress-bar-height / 2;
       right: -8px;
       border-radius: 8px;
       height: 16px;
@@ -143,15 +139,21 @@
   }
 }
 
-.touch {
-  .virtual-progress,
-  .time-preview,
-  .frame-preview {
-    display: none !important;
+.player:not(.touch):not(.size-ty) .seek-bar {
+  &:hover,
+  &.hover {
+    .progress-bar {
+      height: 2 * $progress-bar-height;
+      border-radius: 2 * $progress-bar-border-radius;
+
+      .scrubber {
+        top: -8px + $progress-bar-height;
+      }
+    }
   }
 }
 
-.player.size-sm {
+.player.touch .seek-bar .progress-bar {
   .virtual-progress,
   .time-preview,
   .frame-preview {
@@ -169,5 +171,9 @@
 
   .frame-preview {
     display: none;
+  }
+
+  .time-preview {
+    bottom: $progress-bar-height + 12px;
   }
 }
