@@ -142,30 +142,6 @@ Returns an object with the id for removal.
     </tbody>
 </table>
 
-#### removeCuePoint
-
-| Param 	| Type     	| Description      	| Mandatory 	| Notes                   	|
-|-------	|----------	|------------------	|-----------	|-------------------------	|
-| `id`  	| `string` 	| The cue point id 	| Yes       	| returned by `addCuePoint`	|
-
-
-
-#### setSeekbarPreview
-
-Returns a function for restoring the default.
-
-| Param       	| Type               	| Description                                 	| Default Value               	| Notes                                                                                                                	          |
-|-------------	|--------------------	|---------------------------------------------	|-----------------------------	|--------------------------------------------------------------------------------------------------------------------------------	|
-| `get`       	| `Function\string` 	| preact component or html tag (e.g 'div')    	|                             	| this component replaces the default preview and gets its props (e.g. `thumbnailURL, virtualTime`) as `props.defaultPreviewProps`|
-| `props`     	| `Object`           	| props for custom preview                    	|                             	|                                                                                                                                	|
-| `presets`   	| `array[string]`    	| The presets the preview should be displayed 	| the currently active preset 	|                                                                                                                                	|
-| `width`     	| `number`           	| the preview width                           	| `160px`                     	|                                                                                                                                	|
-| `height`    	| `number`           	| the preview height                          	| `90px`                      	|                                                                                                                                	|
-| `className` 	| `string`           	| The preview custom classes                  	|                             	| don't use it for width                                                                                                         	|
-| `hideTime`  	| `boolean`          	| whether to hide the time bubble             	| `false`                     	|                                                                                                                                	|
-| `sticky`    	| `boolean`          	| whether the preview is shown on hovering    	| `true`                      	|                                                                                                                                	|
-
-
 ## Examples 
 
 1. Simple cue point without custom preview:
@@ -253,3 +229,27 @@ kalturaPlayer.ui.getManager('timeline').addCuePoint({
 ```
 ##
 
+
+
+#### removeCuePoint
+
+| Param 	| Type     	| Description      	| Mandatory 	| Notes                   	|
+|-------	|----------	|------------------	|-----------	|-------------------------	|
+| `id`  	| `string` 	| The cue point id 	| Yes       	| returned by `addCuePoint`	|
+
+
+
+#### setSeekbarPreview
+
+Returns a function for restoring the default.
+
+| Param       	| Type               	| Description                                 	| Default Value               	| Notes                                                                                                                	          |
+|-------------	|--------------------	|---------------------------------------------	|-----------------------------	|--------------------------------------------------------------------------------------------------------------------------------	|
+| `get`       	| `Function\string` 	| preact component or html tag (e.g 'div')    	|                             	| this component replaces the default preview and gets its props (e.g. `thumbnailURL, virtualTime`) as `props.defaultPreviewProps`|
+| `props`     	| `Object`           	| props for custom preview                    	|                             	|                                                                                                                                	|
+| `presets`   	| `array[string]`    	| The presets the preview should be displayed 	| the currently active preset 	|                                                                                                                                	|
+| `width`     	| `number`           	| the preview width                           	| `160px`                     	|                                                                                                                                	|
+| `height`    	| `number`           	| the preview height                          	| `90px`                      	|                                                                                                                                	|
+| `className` 	| `string`           	| The preview custom classes                  	|                             	| don't use it for width                                                                                                         	|
+| `hideTime`  	| `boolean`          	| whether to hide the time bubble             	| `false`                     	|                                                                                                                                	|
+| `sticky`    	| `boolean`          	| whether the preview is shown on hovering    	| `true`                      	|                                                                                                                                	|
