@@ -155,7 +155,7 @@ kalturaPlayer.ui.getManager('timeline').addCuePoint({
 ```
 ##
 
-2. Custom cue point with sticky preview:
+2. Custom cue point with sticky preview and show time:
 
 ![simple cue point](./images/custom-cue-point.gif)
   
