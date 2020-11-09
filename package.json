@@ -1,6 +1,6 @@
 {
   "name": "@playkit-js/playkit-js-ui",
-  "version": "0.60.0",
+  "version": "0.60.1",
   "description": "",
   "main": "dist/playkit-ui.js",
   "scripts": {
@@ -44,12 +44,8 @@
     "@babel/plugin-proposal-decorators": "^7.10.5",
     "@babel/plugin-proposal-export-default-from": "^7.10.4",
     "@babel/plugin-proposal-export-namespace-from": "^7.10.4",
-    "@babel/plugin-proposal-object-rest-spread": "^7.10.4",
-    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
-    "@babel/plugin-transform-classes": "^7.10.4",
     "@babel/plugin-transform-flow-strip-types": "^7.10.4",
     "@babel/plugin-transform-modules-commonjs": "^7.10.4",
-    "@babel/plugin-transform-property-mutators": "^7.10.4",
     "@babel/plugin-transform-react-jsx": "^7.10.4",
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-flow": "^7.10.4",

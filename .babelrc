@@ -8,10 +8,7 @@
   "plugins": [
     "@babel/plugin-proposal-export-namespace-from",
     "@babel/plugin-proposal-export-default-from",
-    "@babel/plugin-syntax-dynamic-import",
     "@babel/plugin-transform-flow-strip-types",
-    "@babel/plugin-transform-property-mutators",
-    "@babel/plugin-proposal-object-rest-spread",
     [
       "@babel/plugin-proposal-decorators",
       {
@@ -25,8 +22,19 @@
         "pragma": "h",
         "pragmaFrag": "Fragment"
       }
-    ],
-    "@babel/plugin-transform-classes"
+    ]
   ],
-  "presets": ["@babel/preset-env", "@babel/preset-flow"]
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "loose": true,
+        "bugfixes": true,
+        "targets": {
+          "browsers": ["chrome >= 47", "firefox >= 51", "ie >= 11", "safari >= 8", "ios >= 8", "android >= 4"]
+        }
+      }
+    ],
+    "@babel/preset-flow"
+  ]
 }

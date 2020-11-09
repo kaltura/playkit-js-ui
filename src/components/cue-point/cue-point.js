@@ -91,6 +91,7 @@ class CuePoint extends Component {
    * @returns {void}
    */
   onMarkerMouseOver(): void {
+    this.setState({hover: true});
     if (this.props.preview.get) {
       this.props.updateCuePointActive(true);
     }
@@ -105,6 +106,7 @@ class CuePoint extends Component {
    * @returns {void}
    */
   onMarkerMouseLeave(): void {
+    this.setState({hover: false});
     this.props.updateCuePointActive(false);
     if (this._hideTimeBubble) {
       this._hideTimeBubble = false;
@@ -170,7 +172,11 @@ class CuePoint extends Component {
     const {borderRadius, left} = this._getMarkerPositionStyle();
 
     const markerStyle = {backgroundColor: marker.color, width: marker.width};
-    const cuePointClassName = [style.cuePoint, borderRadius !== 'none' ? style[`${borderRadius}BorderRadius`] : ''];
+    const cuePointClassName = [
+      style.cuePoint,
+      this.state.hover ? style.hover : '',
+      borderRadius !== 'none' ? style[`${borderRadius}BorderRadius`] : ''
+    ];
     let markerProps = {
       className: (marker.className ? [...cuePointClassName, marker.className] : cuePointClassName).join(' '),
       style: marker.props ? {...markerStyle, ...marker.props.style} : markerStyle

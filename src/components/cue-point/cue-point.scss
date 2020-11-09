@@ -3,7 +3,7 @@
 .cue-point-container {
   position: absolute;
   height: inherit;
-  padding: 12px 0 12px + $progress-bar-height 0;
+  padding: 12px 2px 12px + $progress-bar-height 2px;
   margin: -12px 0;
 
   &:hover {
@@ -15,16 +15,22 @@
 
 .cue-point {
   height: inherit;
-  width: $progress-bar-height;
+  width: 2px;
   background-color: $white;
+  transition: transform 100ms;
+
+  &.hover {
+    transform: scale(2);
+    border-radius: 1px;
+  }
 }
 
 .left-border-radius {
-  border-radius: $progress-bar-border-radius 0 0 $progress-bar-border-radius;
+  border-radius: 2*$progress-bar-border-radius 0 0 2*$progress-bar-border-radius;
 }
 
 .right-border-radius {
-  border-radius: 0 $progress-bar-border-radius $progress-bar-border-radius 0;
+  border-radius: 0 2*$progress-bar-border-radius 2*$progress-bar-border-radius 0;
 }
 
 .cue-point-preview-container {

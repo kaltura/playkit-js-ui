@@ -19,15 +19,3 @@
     left: 0;
   }
 }
-
-.player {
-  &:not(.pre-playback):not(.overlay-active) {
-    &.state-paused,
-    &.state-idle,
-    &.hover {
-      .watermark.bottom {
-        transform: translateY(-$default-hovering-offset);
-      }
-    }
-  }
-}

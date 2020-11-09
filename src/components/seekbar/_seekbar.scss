@@ -1,14 +1,13 @@
 @import '~styles/variables';
 
 .player .seek-bar {
-  padding: 12px 0;
-  margin: -6px 0;
+  padding: 12px 0 16px 0;
+  margin: -2px 0;
   cursor: pointer;
   position: relative;
 
   &:hover,
-  &.hover,
-  &.dragging-active {
+  &.hover {
     .time-preview,
     .frame-preview:not(.cue-point-active) {
       display: block;
@@ -38,17 +37,19 @@
   }
 
   .progress-bar {
+    width: 100%;
     height: $progress-bar-height;
     background-color: rgba(255, 255, 255, 0.3);
     border-radius: $progress-bar-border-radius;
-    position: relative;
+    position: absolute;
+    transition: height 100ms;
 
     .progress {
       position: absolute;
       top: 0;
       left: 0;
       height: 100%;
-      border-radius: $progress-bar-border-radius 0 0 $progress-bar-border-radius;
+      border-radius: inherit;
       background-color: $brand-color;
     }
     .virtual-progress {
@@ -60,8 +61,18 @@
       top: 0;
       left: 0;
       height: 100%;
-      border-radius: $progress-bar-border-radius 0 0 $progress-bar-border-radius;
+      border-radius: inherit;
+    }
+
+    .buffered {
       background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .virtual-progress-indicator {
+      width: 1px;
+      height: 100%;
+      background-color: $white;
+      float: right;
     }
 
     .scrubber {
@@ -73,7 +84,7 @@
       border-radius: 8px;
       height: 16px;
       width: 16px;
-      background-color: #ffffff;
+      background-color: $white;
       box-shadow: 0 0 31px 0 rgba(0, 0, 0, 0.3);
       transform: scale(0);
       transition: 100ms transform;
@@ -89,13 +100,13 @@
 
   .frame-preview {
     position: absolute;
-    bottom: $progress-bar-height + 12px;
+    bottom: $progress-bar-height + 16px;
     left: 0;
   }
 
   .time-preview {
     position: absolute;
-    bottom: $progress-bar-height + 18px;
+    bottom: $progress-bar-height + 22px;
     left: 0;
     height: 22px;
     min-width: 48px;
@@ -121,15 +132,21 @@
   }
 }
 
-.touch {
-  .virtual-progress,
-  .time-preview,
-  .frame-preview {
-    display: none !important;
+.player:not(.touch):not(.size-ty) .seek-bar {
+  &:hover,
+  &.hover {
+    .progress-bar {
+      height: 2 * $progress-bar-height;
+      border-radius: 2 * $progress-bar-border-radius;
+
+      .scrubber {
+        top: -8px + $progress-bar-height;
+      }
+    }
   }
 }
 
-.player.size-sm {
+.player.touch .seek-bar .progress-bar {
   .virtual-progress,
   .time-preview,
   .frame-preview {
@@ -144,4 +161,12 @@
   float: left;
   width: calc(100% - 45px);
   margin: 1px 0;
+
+  .frame-preview {
+    display: none;
+  }
+
+  .time-preview {
+    bottom: $progress-bar-height + 12px;
+  }
 }
