@@ -142,7 +142,7 @@ Returns an object with the id for removal.
     </tbody>
 </table>
 
-## Examples 
+###### Examples 
 
 1. Simple cue point without custom preview:
 
