@@ -45,7 +45,10 @@ class Forward extends Component {
     const step = this.props.step || FORWARD_DEFAULT_STEP;
     const from = player.currentTime;
     if (player.currentTime + step > player.duration) {
-      to = player.duration;
+      // if user is already on live edge then dont even attempt to move forward in time
+      if (!player.isOnLiveEdge()) {
+        to = player.duration;
+      }
     } else {
       to = player.currentTime + step;
     }

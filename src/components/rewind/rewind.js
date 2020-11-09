@@ -9,6 +9,7 @@ import {withEventDispatcher} from 'components/event-dispatcher';
 import {withLogger} from 'components/logger';
 import {Tooltip} from 'components/tooltip';
 import {Button} from 'components/button';
+import {connect} from 'react-redux';
 
 const COMPONENT_NAME = 'Rewind';
 
@@ -19,6 +20,16 @@ const COMPONENT_NAME = 'Rewind';
  */
 export const REWIND_DEFAULT_STEP = 10;
 
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
+const mapStateToProps = state => ({
+  isDvr: state.engine.isDvr
+});
+
+@connect(mapStateToProps)
 /**
  * Rewind component
  *
@@ -44,7 +55,10 @@ class Rewind extends Component {
     const step = this.props.step || REWIND_DEFAULT_STEP;
     const from = this.props.player.currentTime;
     if (this.props.player.currentTime - step < 0) {
-      to = 0;
+      // In dvr when close to beginning dont rewind
+      if (!this.props.isDvr) {
+        to = 0;
+      }
     } else {
       to = this.props.player.currentTime - step;
     }
