@@ -6,6 +6,12 @@ By the Timeline Manager the app can add cue points to indicate specific points o
 As well as to custom the thumbnail preview shown on seekbar hovering.
 
 ## API
+[`addCuePoint`](#addcuepoint)  
+- [Examples](#examples)  
+  
+[`removeCuePoint`](#removecuepoint)  
+[`setSeekbarPreview`](#setseekbarpreview)  
+- [Examples](#examples-1)
 
 #### addCuePoint
 Enables to add cue point to a specific position on the timeline seekbar.  
