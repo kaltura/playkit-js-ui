@@ -8,7 +8,8 @@ As well as to custom the thumbnail preview shown on seekbar hovering.
 ## API
 
 #### addCuePoint
-Returns an object with the id for removal.
+Enables to add cue point to a specific position on the timeline seekbar.  
+Returns an object with the cue point id, to remove the cue point by `removeCuePoint`.
 
 <table>
     <thead>
@@ -232,6 +233,7 @@ kalturaPlayer.ui.getManager('timeline').addCuePoint({
 
 
 #### removeCuePoint
+Enables to remove a cue point from the timeline seekbar by the cue point id returned by `addCuePoint`.
 
 | Param 	| Type     	| Description      	| Mandatory 	| Notes                   	|
 |-------	|----------	|------------------	|-----------	|-------------------------	|
@@ -240,7 +242,7 @@ kalturaPlayer.ui.getManager('timeline').addCuePoint({
 
 
 #### setSeekbarPreview
-
+Enables to override the default seekbar preview thumbnail.  
 Returns a function for restoring the default.
 
 | Param       	| Type               	| Description                                 	| Default Value               	| Notes                                                                                                                	          |
@@ -253,3 +255,64 @@ Returns a function for restoring the default.
 | `className` 	| `string`           	| The preview custom classes                  	|                             	| don't use it for width                                                                                                         	|
 | `hideTime`  	| `boolean`          	| whether to hide the time bubble             	| `false`                     	|                                                                                                                                	|
 | `sticky`    	| `boolean`          	| whether the preview is shown on hovering    	| `true`                      	|                                                                                                                                	|
+
+###### Examples 
+
+1. Sticky preview and show time:
+
+![simple cue point](./images/sticky-preview.gif)
+
+```js
+.preview {
+  background-color: white;
+  color: black;
+  font-size: 20px;
+  text-align: center;
+}
+
+class preview extends kalturaPlayer.ui.preact.Component {
+  render(props) {
+    return <div {...props} />;
+  }
+}
+
+kalturaPlayer.ui.getManager('timeline').setSeekbarPreview({
+  get: preview,
+  props: {
+    style: {paddingTop: '15%'},
+    innerText: 'Seekbar Preview'
+  },
+  className: 'preview'
+});
+```
+##
+
+2. Non-sticky preview and hide time:
+
+![simple cue point](./images/non-sticky-preview.gif)
+
+```js
+.preview {
+  background-color: white;
+  color: black;
+  font-size: 20px;
+  text-align: center;
+}
+
+class preview extends kalturaPlayer.ui.preact.Component {
+  render(props) {
+    return <div {...props}>{toTime(props.defaultPreviewProps.virtualTime)}</div>;
+  }
+}
+
+kalturaPlayer.ui.getManager('timeline').setSeekbarPreview({
+  get: preview,
+  props: {
+    style: {paddingTop: '15%'}
+  },
+  className: 'preview',
+  hideTime: true,
+  sticky: false
+});
+```
+##
