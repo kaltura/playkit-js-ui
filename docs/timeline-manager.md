@@ -170,11 +170,85 @@ Returns a function for restoring the default.
 
 1. Simple cue point without custom preview:
 
-![simple cue point](./images/simpleCP.gif)
+![simple cue point](./images/simple-cue-point.gif)
   
 ```js
-kalturaPlayer.ui.getManager("timeline").addCuePoint({
-  time: 100
+kalturaPlayer.ui.getManager('timeline').addCuePoint({
+  time: 400
+});
+```
+##
+
+2. Custom cue point with sticky preview:
+
+![simple cue point](./images/custom-cue-point.gif)
+  
+```js
+.marker {
+  border-radius: 4px;
+}
+.preview {
+  background-color: white;
+  color: black;
+  font-size: 20px;
+  text-align: center;
+}
+
+class preview extends kalturaPlayer.ui.preact.Component {
+  render(props) {
+    return <div {...props} />;
+  }
+}
+
+kalturaPlayer.ui.getManager('timeline').addCuePoint({
+  time: 300,
+  marker: {
+    width: 8,
+    color: 'yellow',
+    className: 'marker'
+  },
+  preview: {
+    get: preview,
+    props: {
+      innerText: 'Cue Point Preview'
+    },
+    className: 'preview',
+    width: 100
+  }
+})
+```
+##
+
+3. Simple cue point with non-sticky preview and hide time:
+
+![simple cue point](./images/non-sticky-cue-point.gif)
+  
+```js
+.preview {
+  background-color: white;
+  color: black;
+  font-size: 20px;
+  text-align: center;
+}
+
+class preview extends kalturaPlayer.ui.preact.Component {
+  render(props) {
+    return <div {...props}>{toTime(props.defaultPreviewProps.virtualTime)}</div>;
+  }
+}
+
+kalturaPlayer.ui.getManager('timeline').addCuePoint({
+  time: 200,
+  preview: {
+    get: preview,
+    props: {
+      style: {paddingTop: '33%'}
+    },
+    className: 'preview',
+    width: 100,
+    hideTime: true,
+    sticky: false
+  }
 });
 ```
 ##
