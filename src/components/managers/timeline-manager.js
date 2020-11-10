@@ -82,27 +82,28 @@ class TimelineManager {
       label: 'SeekBar Preview',
       presets,
       area: 'SeekBar',
-      // eslint-disable-next-line react/display-name
-      get: props => {
-        const previewProps: Object = {
-          ...preview.props,
-          className: preview.className,
-          style: preview.props ? {...previewStyle, ...preview.props.style} : previewStyle
-        };
-        typeof preview.get !== 'string' && (previewProps.defaultPreviewProps = props.replacedComponentProps);
-        return (
-          <div
-            className={preview.sticky === false ? style.nonSticky : undefined}
-            onMouseOver={() => {
-              this._store.dispatch(seekbarActions.updateSeekbarPreviewHoverActive(true));
-            }}
-            onMouseLeave={() => {
-              this._store.dispatch(seekbarActions.updateSeekbarPreviewHoverActive(false));
-            }}>
-            {h(preview.get, previewProps)}
-          </div>
-        );
-      },
+      get: preview.get
+        ? props => {
+            const previewProps: Object = {
+              ...preview.props,
+              className: preview.className,
+              style: preview.props ? {...previewStyle, ...preview.props.style} : previewStyle
+            };
+            typeof preview.get !== 'string' && (previewProps.defaultPreviewProps = props.replacedComponentProps);
+            return (
+              <div
+                className={preview.sticky === false ? style.nonSticky : undefined}
+                onMouseOver={() => {
+                  this._store.dispatch(seekbarActions.updateSeekbarPreviewHoverActive(true));
+                }}
+                onMouseLeave={() => {
+                  this._store.dispatch(seekbarActions.updateSeekbarPreviewHoverActive(false));
+                }}>
+                {h(preview.get, previewProps)}
+              </div>
+            );
+          }
+        : undefined,
       replaceComponent: 'SeekBarPreview'
     });
     this._store.dispatch(seekbarActions.updateHideTimeBubble(false));
