@@ -17,6 +17,8 @@ As well as to custom the thumbnail preview shown on seekbar hovering.
 Enables to add cue point to a specific position on the timeline seekbar.  
 Returns an object with the cue point id, to remove the cue point by `removeCuePoint`.
 
+> It's impossible to add cue points while LIVE playback. Returned `null`.
+
 <table>
     <thead>
         <tr>
@@ -250,6 +252,8 @@ Enables to remove a cue point from the timeline seekbar by the cue point id retu
 #### setSeekbarPreview
 Enables to override the default seekbar preview thumbnail.  
 Returns a function for restoring the default.
+
+> Seekbar preview does not shown while LIVE playback.
 
 | Param       	| Type               	| Description                                 	| Default Value               	| Notes                                                                                                                	          |
 |-------------	|--------------------	|---------------------------------------------	|-----------------------------	|--------------------------------------------------------------------------------------------------------------------------------	|
