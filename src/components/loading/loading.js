@@ -110,7 +110,7 @@ class Loading extends Component {
             {Array(8)
               .fill(0)
               .map((val, i) => (
-                <span key={i} />
+                <span key={i + 1} />
               ))}
           </div>
         </div>
