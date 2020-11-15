@@ -1,5 +1,4 @@
 //@flow
-import {TimelineManager} from './timeline-manager';
 import {UIManager} from '../../ui-manager';
 import getLogger from '../../utils/logger';
 import {EventManager} from 'event/event-manager';
@@ -22,7 +21,6 @@ class Managers {
     Managers._logger = getLogger('Managers');
     this._eventManager = new EventManager();
     this._eventManager.listen(player, player.Event.Core.PLAYER_RESET, () => this.reset());
-    this.registerManager('timeline', new TimelineManager(uiManager, store));
   }
 
   /**
