@@ -29,11 +29,6 @@ describe('Managers', function () {
     TestUtils.removeVideoElementsFromTestPage();
   });
 
-  it('should register timeline manager by default', function () {
-    player.ui.managers.hasManager('timeline').should.be.true;
-    player.ui.managers.getManager('timeline').should.be.exist;
-  });
-
   it('should register custom manager', function () {
     player.ui.managers.hasManager('custom').should.be.false;
     player.ui.managers.registerManager('custom', {key: 1});
