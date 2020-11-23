@@ -15,7 +15,7 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile
 });
 
-const TOOLTIP_SHOW_TIMEOUT: number = 250;
+const TOOLTIP_SHOW_TIMEOUT: number = 750;
 
 // notice the order represents the order of the alternative fallback
 const ToolTipType = {
