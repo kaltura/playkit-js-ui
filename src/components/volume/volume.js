@@ -373,7 +373,9 @@ class Volume extends Component {
         className={controlButtonClass.join(' ')}
         onMouseOver={() => this.onMouseOver()}
         onMouseOut={() => this.onMouseOut()}>
-        <Tooltip label={muted ? this.props.unmuteAriaLabel : this.props.muteAriaLabel} type={ToolTipType.Left}>
+        <Tooltip
+          label={muted ? this.props.unmuteAriaLabel : this.props.muteAriaLabel}
+          type={this.props.toolTipType ? this.props.toolTipType : ToolTipType.Left}>
           <Button
             tabIndex="0"
             aria-label={muted ? this.props.unmuteAriaLabel : this.props.muteAriaLabel}
