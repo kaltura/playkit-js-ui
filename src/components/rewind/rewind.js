@@ -9,6 +9,7 @@ import {withEventDispatcher} from 'components/event-dispatcher';
 import {withLogger} from 'components/logger';
 import {Tooltip} from 'components/tooltip';
 import {Button} from 'components/button';
+import {connect} from 'react-redux';
 
 const COMPONENT_NAME = 'Rewind';
 
@@ -20,12 +21,23 @@ const COMPONENT_NAME = 'Rewind';
 export const REWIND_DEFAULT_STEP = 10;
 
 /**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
+const mapStateToProps = state => ({
+  isDvr: state.engine.isDvr,
+  isLive: state.engine.isLive
+});
+
+/**
  * Rewind component
  *
  * @class Rewind
  * @example <Rewind step={5} />
  * @extends {Component}
  */
+@connect(mapStateToProps)
 @withPlayer
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
@@ -44,7 +56,10 @@ class Rewind extends Component {
     const step = this.props.step || REWIND_DEFAULT_STEP;
     const from = this.props.player.currentTime;
     if (this.props.player.currentTime - step < 0) {
-      to = 0;
+      // In dvr when close to beginning dont rewind
+      if (!this.props.isDvr) {
+        to = 0;
+      }
     } else {
       to = this.props.player.currentTime - step;
     }
@@ -63,7 +78,7 @@ class Rewind extends Component {
    * @memberof Rewind
    */
   render(props: any): React$Element<any> | void {
-    return (
+    return props.isLive && !props.isDvr ? undefined : (
       <div className={[style.controlButtonContainer, style.noIdleControl].join(' ')}>
         <Tooltip label={this.props.rewindText}>
           <Button

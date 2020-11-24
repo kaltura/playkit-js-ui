@@ -29,7 +29,8 @@ import {InteractiveArea} from 'components/interactive-area';
 import {withKeyboardEvent} from 'components/keyboard';
 import {VideoArea} from 'components/video-area';
 import {GuiArea} from 'components/gui-area';
-
+import {Rewind} from 'components/rewind';
+import {Forward} from 'components/forward';
 const PRESET_NAME = 'Live';
 
 /**
@@ -86,6 +87,8 @@ class LiveUI extends Component {
                     leftControls={
                       <Fragment>
                         <PlaybackControls />
+                        <Rewind step={10} />
+                        <Forward step={10} />
                         <LiveTag />
                       </Fragment>
                     }
