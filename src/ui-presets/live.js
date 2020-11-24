@@ -31,31 +31,19 @@ import {VideoArea} from 'components/video-area';
 import {GuiArea} from 'components/gui-area';
 import {Rewind} from 'components/rewind';
 import {Forward} from 'components/forward';
-import {connect} from 'react-redux';
-
 const PRESET_NAME = 'Live';
 
-/**
- * mapping state to props
- * @param {*} state - redux store state
- * @returns {Object} - mapped state to this component
- */
-const mapStateToProps = state => ({
-  isDvr: state.engine.isDvr
-});
-
-@connect(mapStateToProps)
-@withPlayerPreset({
-  allowSidePanels: true,
-  allowPlayerArea: true
-})
-@withKeyboardEvent(PRESET_NAME)
 /**
  * Live ui interface component
  *
  * @param {*} props component props
  * @returns {React$Element<any>} player ui tree
  */
+@withPlayerPreset({
+  allowSidePanels: true,
+  allowPlayerArea: true
+})
+@withKeyboardEvent(PRESET_NAME)
 class LiveUI extends Component {
   /**
    * @returns {void}
@@ -99,8 +87,8 @@ class LiveUI extends Component {
                     leftControls={
                       <Fragment>
                         <PlaybackControls />
-                        {this.props.isDvr ? <Rewind step={10} /> : null}
-                        {this.props.isDvr ? <Forward step={10} /> : null}
+                        <Rewind step={10} />
+                        <Forward step={10} />
                         <LiveTag />
                       </Fragment>
                     }

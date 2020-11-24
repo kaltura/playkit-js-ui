@@ -26,10 +26,10 @@ export const REWIND_DEFAULT_STEP = 10;
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  isDvr: state.engine.isDvr
+  isDvr: state.engine.isDvr,
+  isLive: state.engine.isLive
 });
 
-@connect(mapStateToProps)
 /**
  * Rewind component
  *
@@ -37,6 +37,7 @@ const mapStateToProps = state => ({
  * @example <Rewind step={5} />
  * @extends {Component}
  */
+@connect(mapStateToProps)
 @withPlayer
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
@@ -77,7 +78,7 @@ class Rewind extends Component {
    * @memberof Rewind
    */
   render(props: any): React$Element<any> | void {
-    return (
+    return props.isLive && !props.isDvr ? undefined : (
       <div className={[style.controlButtonContainer, style.noIdleControl].join(' ')}>
         <Tooltip label={this.props.rewindText}>
           <Button

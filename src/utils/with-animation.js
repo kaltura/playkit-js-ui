@@ -18,6 +18,7 @@ export const withAnimation: Function = (cssClass: string) => (WrappedComponent: 
        * @memberof AnimationComponent
        */
       componentDidMount(): void {
+        if (!this.ref.current) return;
         this.props.eventManager.listen(this.ref.current, 'animationend', () => {
           this.ref.current.classList.remove(cssClass);
         });

@@ -9,6 +9,7 @@ import {withEventDispatcher} from 'components/event-dispatcher';
 import {withLogger} from 'components/logger';
 import {Tooltip} from 'components/tooltip';
 import {Button} from 'components/button';
+import {connect} from 'react-redux';
 
 const COMPONENT_NAME = 'Forward';
 
@@ -20,12 +21,22 @@ const COMPONENT_NAME = 'Forward';
 export const FORWARD_DEFAULT_STEP = 10;
 
 /**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
+const mapStateToProps = state => ({
+  isDvr: state.engine.isDvr,
+  isLive: state.engine.isLive
+});
+/**
  * Forward component
  *
  * @class Forward
  * @example <Forward step={5} />
  * @extends {Component}
  */
+@connect(mapStateToProps)
 @withPlayer
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
@@ -67,7 +78,7 @@ class Forward extends Component {
    * @memberof Forward
    */
   render(props: any): React$Element<any> | void {
-    return (
+    return props.isLive && !props.isDvr ? undefined : (
       <div className={[style.controlButtonContainer, style.noIdleControl].join(' ')}>
         <Tooltip label={this.props.forwardText}>
           <Button
