@@ -75,7 +75,7 @@ class CastBeforePlay extends Component {
    * @memberof CastBeforePlay
    */
   componentWillUnmount(): void {
-    if (this._timeoutId !== null) {
+    if (this._timeoutId) {
       clearTimeout(this._timeoutId);
       this._timeoutId = null;
     }

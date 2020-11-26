@@ -71,7 +71,7 @@ class CastAfterPlay extends Component {
    * @memberof CastAfterPlay
    */
   componentWillUnmount(): void {
-    if (this._timeoutId !== null) {
+    if (this._timeoutId) {
       clearTimeout(this._timeoutId);
       this._timeoutId = null;
     }
