@@ -23,6 +23,7 @@ const COMPONENT_NAME = 'Overlay';
  */
 @connect(null, bindActions(actions))
 class Overlay extends Component {
+  _timeoutId: ?TimeoutID = null;
   /**
    * componentWillMount
    *
@@ -30,7 +31,7 @@ class Overlay extends Component {
    * @memberof Overlay
    */
   componentDidMount(): void {
-    this.timeoutId = setTimeout(() => this.props.addPlayerClass(style.overlayActive), 0);
+    this._timeoutId = setTimeout(() => this.props.addPlayerClass(style.overlayActive), 0);
   }
 
   /**
@@ -40,8 +41,10 @@ class Overlay extends Component {
    * @memberof Overlay
    */
   componentWillUnmount(): void {
-    clearTimeout(this.timeoutId);
-    this.timeoutId = null;
+    if (this._timeoutId) {
+      clearTimeout(this._timeoutId);
+      this._timeoutId = null;
+    }
     this.props.removePlayerClass(style.overlayActive);
   }
 

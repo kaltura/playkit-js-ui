@@ -23,6 +23,7 @@ const COMPONENT_NAME = 'CopyButton';
  * @extends {Component}
  */
 class CopyButton extends Component {
+  _timeoutId: ?TimeoutID = null;
   /**
    * @static
    * @type {Object} - Component default props
@@ -42,6 +43,19 @@ class CopyButton extends Component {
   }
 
   /**
+   * after component unmount, clear timeouts
+   *
+   * @returns {void}
+   * @memberof CopyButton
+   */
+  componentWillUnmount(): void {
+    if (this._timeoutId !== null) {
+      clearTimeout(this._timeoutId);
+      this._timeoutId = null;
+    }
+  }
+
+  /**
    * copy and update the state
    * @returns {void}
    */
@@ -49,7 +63,7 @@ class CopyButton extends Component {
     try {
       this.props.copy();
       this.setState({copySuccess: true});
-      setTimeout(() => {
+      this._timeoutId = setTimeout(() => {
         this.setState({copySuccess: false});
       }, TIMEOUT);
     } catch (e) {

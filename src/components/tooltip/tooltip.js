@@ -39,7 +39,7 @@ const ToolTipType = {
 @connect(mapStateToProps)
 class Tooltip extends Component {
   state: Object;
-  _hoverTimeout: ?TimeoutID;
+  _hoverTimeout: ?TimeoutID = null;
   textElement: HTMLSpanElement;
   lastAlternativeTypeIndex: number = -1;
 
@@ -54,15 +54,25 @@ class Tooltip extends Component {
   };
 
   /**
+   * clear hover timeout
+   *
+   * @returns {void}
+   * @memberof Tooltip
+   */
+  _clearHoverTimeout(): void {
+    if (this._hoverTimeout) {
+      clearTimeout(this._hoverTimeout);
+      this._hoverTimeout = null;
+    }
+  }
+
+  /**
    * on mouse over handler.
    * @memberof Tooltip
    * @returns {void}
    */
   onMouseOver(): void {
-    if (this._hoverTimeout) {
-      clearTimeout(this._hoverTimeout);
-      this._hoverTimeout = null;
-    }
+    this._clearHoverTimeout();
     this._hoverTimeout = setTimeout(() => {
       this.setState({showTooltip: true});
     }, TOOLTIP_SHOW_TIMEOUT);
@@ -75,8 +85,7 @@ class Tooltip extends Component {
    */
   onMouseLeave(): void {
     this.setState({showTooltip: false});
-    clearTimeout(this._hoverTimeout);
-    this._hoverTimeout = null;
+    this._clearHoverTimeout();
   }
 
   /**
@@ -144,6 +153,16 @@ class Tooltip extends Component {
         }
       }
     }
+  }
+
+  /**
+   * after component unmount, clear timeouts
+   *
+   * @returns {void}
+   * @memberof Tooltip
+   */
+  componentWillUnmount(): void {
+    this._clearHoverTimeout();
   }
 
   /**

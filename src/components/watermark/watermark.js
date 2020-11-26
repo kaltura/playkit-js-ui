@@ -34,6 +34,7 @@ const COMPONENT_NAME = 'Watermark';
 @withEventManager
 @withLogger(COMPONENT_NAME)
 class Watermark extends Component {
+  _timeoutId: ?TimeoutID = null;
   /**
    * Creates an instance of Watermark.
    * @memberof Watermark
@@ -56,7 +57,7 @@ class Watermark extends Component {
      */
     const onPlaying = () => {
       if (this.props.config.timeout > 0) {
-        setTimeout(() => this.setState({show: false}), this.props.config.timeout);
+        this._timeoutId = setTimeout(() => this.setState({show: false}), this.props.config.timeout);
       }
     };
 
@@ -66,6 +67,19 @@ class Watermark extends Component {
       this.setState({show: true});
       this.props.eventManager.listenOnce(player, player.Event.PLAYING, onPlaying);
     });
+  }
+
+  /**
+   * componentWillUnmount
+   *
+   * @returns {void}
+   * @memberof Watermark
+   */
+  componentWillUnmount(): void {
+    if (this._timeoutId) {
+      clearTimeout(this._timeoutId);
+      this._timeoutId = null;
+    }
   }
 
   /**
