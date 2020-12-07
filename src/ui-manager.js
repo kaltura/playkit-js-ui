@@ -52,7 +52,6 @@ class UIManager {
    */
   constructor(player: Object, config: UIOptionsObject) {
     setLogger(config.logger);
-    this._uiComponents = [...(config.uiComponents || [])];
     this.player = player;
     this.targetId = config.targetId;
     this._createStore(config);
@@ -94,7 +93,10 @@ class UIManager {
    * @memberof UIManager
    */
   addComponent(component: KPUIComponent): Function {
-    return () => {};
+    this._uiComponents.push(component);
+    return uiComponent => {
+      this._uiComponents = this._uiComponents.filter(component => component !== uiComponent);
+    };
   }
 
   /**
