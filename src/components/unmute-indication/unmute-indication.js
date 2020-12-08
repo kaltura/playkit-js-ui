@@ -39,6 +39,7 @@ const COMPONENT_NAME = 'UnmuteIndication';
 @withEventManager
 @withLogger(COMPONENT_NAME)
 class UnmuteIndication extends Component {
+  _iconTimeout: ?TimeoutID = null;
   /**
    * after component updated, check the fallbackToMutedAutoPlay prop for updating the state of the component
    *
@@ -55,13 +56,26 @@ class UnmuteIndication extends Component {
   }
 
   /**
+   * after component unmount, clear timeouts
+   *
+   * @returns {void}
+   * @memberof UnmuteIndication
+   */
+  componentWillUnmount(): void {
+    if (this._iconTimeout) {
+      clearTimeout(this._iconTimeout);
+      this._iconTimeout = null;
+    }
+  }
+
+  /**
    * The icon only timeout handler
    * @private
    * @memberof UnmuteIndication
    * @returns {void}
    */
   _iconOnlyTimeout(): void {
-    setTimeout(() => {
+    this._iconTimeout = setTimeout(() => {
       this.setState({iconOnly: true});
     }, MUTED_AUTOPLAY_ICON_ONLY_DEFAULT_TIMEOUT);
   }

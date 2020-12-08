@@ -76,6 +76,17 @@ class OverlayAction extends Component {
   _clickTimeout: ?TimeoutID = null;
 
   /**
+   * after component unmount, clear timeouts
+   *
+   * @returns {void}
+   * @memberof OverlayAction
+   */
+  componentWillUnmount(): void {
+    this.cancelClickTimeout();
+    this.cancelIconTimeout();
+  }
+
+  /**
    * toggle play pause and set animation to icon change
    *
    * @returns {void}
@@ -217,6 +228,19 @@ class OverlayAction extends Component {
   }
 
   /**
+   * cancel the clickTimeout
+   *
+   * @returns {void}
+   * @memberof OverlayAction
+   */
+  cancelIconTimeout(): void {
+    if (this._iconTimeout) {
+      clearTimeout(this._iconTimeout);
+      this._iconTimeout = null;
+    }
+  }
+
+  /**
    * should component update handler
    *
    * @returns {boolean} - always update component
@@ -250,8 +274,7 @@ class OverlayAction extends Component {
       });
     };
     if (this._iconTimeout !== null) {
-      clearTimeout(this._iconTimeout);
-      this._iconTimeout = null;
+      this.cancelIconTimeout();
       this.setState({animation: false}, () => {
         this.forceUpdate();
         showIcon();
