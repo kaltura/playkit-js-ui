@@ -4,7 +4,7 @@ import getLogger from '../../utils/logger';
 import {EventManager} from 'event/event-manager';
 
 /**
- * @class CuePoint
+ * @class Managers
  */
 class Managers {
   static _logger: any;
@@ -28,7 +28,7 @@ class Managers {
    * @param {Object} manager - the manager object
    * @returns {void}
    */
-  registerManager(name: string, manager: Object): void {
+  register(name: string, manager: Object): void {
     if (this._managerRegistry.has(name)) {
       Managers._logger.debug(`${name} manager already exists`);
     } else {
@@ -42,7 +42,7 @@ class Managers {
    * @param {string} name - the manager name
    * @returns {Object} - the manager object
    */
-  getManager(name: string): Object | void {
+  get(name: string): Object | void {
     return this._managerRegistry.get(name);
   }
 
@@ -51,7 +51,7 @@ class Managers {
    * @param {string} name - the manager name
    * @returns {boolean} - if the manager exist
    */
-  hasManager(name: string): boolean {
+  has(name: string): boolean {
     return this._managerRegistry.has(name);
   }
 

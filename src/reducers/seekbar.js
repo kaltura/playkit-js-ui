@@ -4,8 +4,8 @@ export const types = {
   UPDATE_SEEKBAR_HOVER_ACTIVE: 'seekbar/UPDATE_SEEKBAR_HOVER_ACTIVE',
   UPDATE_SEEKBAR_PREVIEW_HOVER_ACTIVE: 'seekbar/UPDATE_SEEKBAR_PREVIEW_HOVER_ACTIVE',
   UPDATE_SEEKBAR_CLIENT_RECT: 'seekbar/UPDATE_SEEKBAR_CLIENT_RECT',
-  UPDATE_CUE_POINT_ACTIVE: 'seekbar/UPDATE_CUE_POINT_ACTIVE',
-  UPDATE_HIDE_TIME_BUBBLE: 'seekbar/UPDATE_HIDE_TIME_BUBBLE',
+  UPDATE_HIDE_SEEKBAR_PREVIEW: 'seekbar/UPDATE_HIDE_SEEKBAR_PREVIEW',
+  UPDATE_HIDE_SEEKBAR_TIME_BUBBLE: 'seekbar/UPDATE_HIDE_SEEKBAR_TIME_BUBBLE',
   UPDATE_CURRENT_TIME: 'seekbar/UPDATE_CURRENT_TIME',
   UPDATE_VIRTUAL_TIME: 'seekbar/UPDATE_VIRTUAL_TIME',
   UPDATE_DURATION: 'seekbar/UPDATE_DURATION'
@@ -19,7 +19,7 @@ export const initialState = {
   hoverActive: false,
   previewHoverActive: false,
   clientRect: {x: 0, y: 0, width: 0, height: 0, top: 0, right: 0, bottom: 0, left: 0},
-  cuePointActive: false,
+  hidePreview: false,
   hideTimeBubble: false
 };
 
@@ -49,13 +49,13 @@ export default (state: Object = initialState, action: Object) => {
         clientRect: action.clientRect
       };
 
-    case types.UPDATE_CUE_POINT_ACTIVE:
+    case types.UPDATE_HIDE_SEEKBAR_PREVIEW:
       return {
         ...state,
-        cuePointActive: action.cuePointActive
+        hidePreview: action.hidePreview
       };
 
-    case types.UPDATE_HIDE_TIME_BUBBLE:
+    case types.UPDATE_HIDE_SEEKBAR_TIME_BUBBLE:
       return {
         ...state,
         hideTimeBubble: action.hideTimeBubble
@@ -98,12 +98,12 @@ export const actions = {
     previewHoverActive
   }),
   updateSeekbarClientRect: (clientRect: Object) => ({type: types.UPDATE_SEEKBAR_CLIENT_RECT, clientRect}),
-  updateCuePointActive: (cuePointActive: boolean) => ({
-    type: types.UPDATE_CUE_POINT_ACTIVE,
-    cuePointActive
+  updateHideSeekbarPreview: (hidePreview: boolean) => ({
+    type: types.UPDATE_HIDE_SEEKBAR_PREVIEW,
+    hidePreview
   }),
-  updateHideTimeBubble: (hideTimeBubble: boolean) => ({
-    type: types.UPDATE_HIDE_TIME_BUBBLE,
+  updateHideSeekbarTimeBubble: (hideTimeBubble: boolean) => ({
+    type: types.UPDATE_HIDE_SEEKBAR_TIME_BUBBLE,
     hideTimeBubble
   }),
   updateDuration: (duration: number) => ({type: types.UPDATE_DURATION, duration}),

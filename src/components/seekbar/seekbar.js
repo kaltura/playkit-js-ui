@@ -25,8 +25,8 @@ import {SeekBarPreview} from '../seekbar-preview';
 const mapStateToProps = state => ({
   config: state.config.components.seekbar,
   isMobile: state.shell.isMobile,
-  cuePointActive: state.seekbar.cuePointActive,
   previewHoverActive: state.seekbar.previewHoverActive,
+  hidePreview: state.seekbar.hidePreview,
   hideTimeBubble: state.seekbar.hideTimeBubble
 });
 
@@ -508,7 +508,7 @@ class SeekBar extends Component {
     if (!this.props.showFramePreview || this.props.isMobile) return undefined;
     return (
       <div
-        className={this.props.cuePointActive ? [style.framePreview, style.cuePointActive].join(' ') : style.framePreview}
+        className={this.props.hidePreview ? [style.framePreview, style.hideFramePreview].join(' ') : style.framePreview}
         style={this._getFramePreviewStyle()}
         ref={c => (c ? (this._framePreviewElement = c) : undefined)}>
         <SeekBarPreview

@@ -261,7 +261,7 @@ class UIManager {
    * @returns {void}
    */
   registerManager(name: string, manager: Object): void {
-    this._managers.registerManager(name, manager);
+    this._managers.register(name, manager);
   }
 
   /**
@@ -270,7 +270,7 @@ class UIManager {
    * @returns {Object} - the manager object
    */
   getManager(name: string): Object | void {
-    return this._managers.getManager(name);
+    return this._managers.get(name);
   }
 
   /**
@@ -279,7 +279,7 @@ class UIManager {
    * @returns {boolean} - if the manager exist
    */
   hasManager(name: string): boolean {
-    return this._managers.hasManager(name);
+    return this._managers.has(name);
   }
 }
 

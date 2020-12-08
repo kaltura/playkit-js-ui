@@ -9,7 +9,7 @@
   &:hover,
   &.hover {
     .time-preview,
-    .frame-preview:not(.cue-point-active) {
+    .frame-preview:not(.hide-frame-preview) {
       display: block;
     }
     .progress-bar {

@@ -30,20 +30,20 @@ describe('Managers', function () {
   });
 
   it('should register custom manager', function () {
-    player.ui.managers.hasManager('custom').should.be.false;
-    player.ui.managers.registerManager('custom', {key: 1});
-    player.ui.managers.hasManager('custom').should.be.true;
-    player.ui.managers.getManager('custom').key.should.equals(1);
+    player.ui.managers.has('custom').should.be.false;
+    player.ui.managers.register('custom', {key: 1});
+    player.ui.managers.has('custom').should.be.true;
+    player.ui.managers.get('custom').key.should.equals(1);
   });
 
   it('should not register custom manager if already registered', function () {
-    player.ui.managers.registerManager('custom', {key: 1});
-    player.ui.managers.registerManager('custom', {key: 2});
-    player.ui.managers.getManager('custom').key.should.equals(1);
+    player.ui.managers.register('custom', {key: 1});
+    player.ui.managers.register('custom', {key: 2});
+    player.ui.managers.get('custom').key.should.equals(1);
   });
 
   it('should call to manager destroy on player destroy', function (done) {
-    player.ui.managers.registerManager('custom', {destroy: () => done()});
+    player.ui.managers.register('custom', {destroy: () => done()});
     player.destroy();
   });
 });
