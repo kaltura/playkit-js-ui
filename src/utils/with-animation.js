@@ -30,6 +30,7 @@ export const withAnimation: Function = (cssClass: string) => (WrappedComponent: 
        * @memberof AnimationComponent
        */
       componentWillUnmount(): void {
+        if (!this.ref.current) return;
         this.ref.current.classList.remove(cssClass);
       }
 
@@ -39,6 +40,7 @@ export const withAnimation: Function = (cssClass: string) => (WrappedComponent: 
        * @memberof AnimationComponent
        */
       animate(): void {
+        if (!this.ref.current) return;
         this.ref.current.classList.add(cssClass);
       }
 
