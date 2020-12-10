@@ -5642,7 +5642,7 @@ just-extend@^4.0.2:
 
 "kaltura-player-js@https://github.com/kaltura/kaltura-player-js.git#master":
   version "1.2.0"
-  resolved "https://github.com/kaltura/kaltura-player-js.git#1c89e525100e7b0c806b22e0e1115bc28d20c449"
+  resolved "https://github.com/kaltura/kaltura-player-js.git#f207263efaac944943b2b29c52bab5e90c9f71a0"
   dependencies:
     "@babel/polyfill" "^7.0.0"
     "@playkit-js/playkit-js" "0.65.0"
