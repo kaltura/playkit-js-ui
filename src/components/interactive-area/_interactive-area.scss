@@ -4,5 +4,5 @@
   height: 100%;
   position: relative;
   top: 0;
-  transition: top $default-transition-time, height $default-transition-time;
+  transition: top #{$default-transition-time}ms, height #{$default-transition-time}ms;
 }

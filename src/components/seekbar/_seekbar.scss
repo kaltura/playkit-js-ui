@@ -1,16 +1,15 @@
 @import '~styles/variables';
 
 .player .seek-bar {
-  padding: 12px 0;
-  margin: -6px 0;
+  padding: 12px 0 16px 0;
+  margin: -2px 0;
   cursor: pointer;
   position: relative;
 
   &:hover,
-  &.hover,
-  &.dragging-active {
+  &.hover {
     .time-preview,
-    .frame-preview {
+    .frame-preview:not(.hide-frame-preview) {
       display: block;
     }
     .progress-bar {
@@ -38,17 +37,19 @@
   }
 
   .progress-bar {
+    width: 100%;
     height: $progress-bar-height;
     background-color: rgba(255, 255, 255, 0.3);
     border-radius: $progress-bar-border-radius;
-    position: relative;
+    position: absolute;
+    transition: height 100ms;
 
     .progress {
       position: absolute;
       top: 0;
       left: 0;
       height: 100%;
-      border-radius: $progress-bar-border-radius 0 0 $progress-bar-border-radius;
+      border-radius: inherit;
       background-color: $brand-color;
     }
     .virtual-progress {
@@ -60,9 +61,20 @@
       top: 0;
       left: 0;
       height: 100%;
-      border-radius: $progress-bar-border-radius 0 0 $progress-bar-border-radius;
+      border-radius: inherit;
+    }
+
+    .buffered {
       background-color: rgba(255, 255, 255, 0.3);
     }
+
+    .virtual-progress-indicator {
+      width: 1px;
+      height: 100%;
+      background-color: $white;
+      float: right;
+    }
+
     .scrubber {
       position: absolute;
       cursor: pointer;
@@ -72,10 +84,12 @@
       border-radius: 8px;
       height: 16px;
       width: 16px;
-      background-color: #ffffff;
+      background-color: $white;
       box-shadow: 0 0 31px 0 rgba(0, 0, 0, 0.3);
       transform: scale(0);
       transition: 100ms transform;
+      z-index: 1;
+      pointer-events: none;
 
       &:active {
         opacity: 1;
@@ -86,28 +100,13 @@
 
   .frame-preview {
     position: absolute;
-    bottom: $progress-bar-height + 12px;
+    bottom: $progress-bar-height + 16px;
     left: 0;
-    height: 94px;
-    width: 164px;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 4px;
-
-    &:hover {
-      display: none !important;
-    }
-
-    .frame-preview-img {
-      background-size: auto 100%;
-      width: 100%;
-      height: 100%;
-      position: relative;
-    }
   }
 
   .time-preview {
     position: absolute;
-    bottom: $progress-bar-height + 18px;
+    bottom: $progress-bar-height + 22px;
     left: 0;
     height: 22px;
     min-width: 48px;
@@ -119,23 +118,35 @@
     font-weight: bold;
     line-height: 22px;
     color: #fff;
+    z-index: 1;
+    pointer-events: none;
   }
 
   .time-preview,
   .frame-preview {
     display: none;
   }
-}
 
-.touch {
-  .virtual-progress,
-  .time-preview,
-  .frame-preview {
-    display: none !important;
+  .non-sticky:hover {
+    display: none;
   }
 }
 
-.player.size-sm {
+.player:not(.touch):not(.size-ty) .seek-bar {
+  &:hover,
+  &.hover {
+    .progress-bar {
+      height: 2 * $progress-bar-height;
+      border-radius: 2 * $progress-bar-border-radius;
+
+      .scrubber {
+        top: -8px + $progress-bar-height;
+      }
+    }
+  }
+}
+
+.player.touch .seek-bar .progress-bar {
   .virtual-progress,
   .time-preview,
   .frame-preview {
@@ -150,4 +161,12 @@
   float: left;
   width: calc(100% - 45px);
   margin: 1px 0;
+
+  .frame-preview {
+    display: none;
+  }
+
+  .time-preview {
+    bottom: $progress-bar-height + 12px;
+  }
 }
