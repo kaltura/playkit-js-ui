@@ -9,7 +9,7 @@
   &:hover,
   &.hover {
     .time-preview,
-    .frame-preview {
+    .frame-preview:not(.hide-frame-preview) {
       display: block;
     }
     .progress-bar {
@@ -88,6 +88,8 @@
       box-shadow: 0 0 31px 0 rgba(0, 0, 0, 0.3);
       transform: scale(0);
       transition: 100ms transform;
+      z-index: 1;
+      pointer-events: none;
 
       &:active {
         opacity: 1;
@@ -100,21 +102,6 @@
     position: absolute;
     bottom: $progress-bar-height + 16px;
     left: 0;
-    height: 94px;
-    width: 164px;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 4px;
-
-    &:hover {
-      display: none !important;
-    }
-
-    .frame-preview-img {
-      background-size: auto 100%;
-      width: 100%;
-      height: 100%;
-      position: relative;
-    }
   }
 
   .time-preview {
@@ -131,10 +118,16 @@
     font-weight: bold;
     line-height: 22px;
     color: #fff;
+    z-index: 1;
+    pointer-events: none;
   }
 
   .time-preview,
   .frame-preview {
+    display: none;
+  }
+
+  .non-sticky:hover {
     display: none;
   }
 }
