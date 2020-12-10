@@ -103,7 +103,7 @@ class Share extends Component {
       )
     ) : (
       <div className={style.controlButtonContainer}>
-        <Tooltip label={this.props.shareTxt} type={ToolTipType.BottomLeft}>
+        <Tooltip label={this.props.shareTxt} type={this.props.toolTipType ? this.props.toolTipType : ToolTipType.BottomLeft}>
           <Button aria-haspopup="true" className={style.controlButton} onClick={() => this.toggleOverlay()} aria-label={this.props.shareTxt}>
             <Icon type={IconType.Share} />
           </Button>

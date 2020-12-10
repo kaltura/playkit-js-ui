@@ -35,6 +35,8 @@ const COMPONENT_NAME = 'CastBeforePlay';
 @withPlayer
 @withLogger(COMPONENT_NAME)
 class CastBeforePlay extends Component {
+  _timeoutId: ?TimeoutID = null;
+
   /**
    * @static
    * @type {Object} - Component default props
@@ -61,9 +63,22 @@ class CastBeforePlay extends Component {
    * @memberof CastBeforePlay
    */
   componentDidMount(): void {
-    setTimeout(() => {
+    this._timeoutId = setTimeout(() => {
       this.setState({show: true});
     }, 700);
+  }
+
+  /**
+   * after component unmount, clear timeouts
+   *
+   * @returns {void}
+   * @memberof CastBeforePlay
+   */
+  componentWillUnmount(): void {
+    if (this._timeoutId) {
+      clearTimeout(this._timeoutId);
+      this._timeoutId = null;
+    }
   }
 
   /**

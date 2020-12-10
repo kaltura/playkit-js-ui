@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.61.0](https://github.com/kaltura/playkit-js-ui/compare/v0.60.1...v0.61.0) (2020-12-07)
+
+
+### Bug Fixes
+
+* **FEC-10055:** tooltip default position prop should be of the wrapper control instead of the tooltip to enable overriding ([#558](https://github.com/kaltura/playkit-js-ui/issues/558)) ([f4c1a1e](https://github.com/kaltura/playkit-js-ui/commit/f4c1a1e))
+* **FEC-10445:** voice over unable to play media ([#556](https://github.com/kaltura/playkit-js-ui/issues/556)) ([4386e29](https://github.com/kaltura/playkit-js-ui/commit/4386e29))
+* **FEC-10660:** loading spinner is not showing ([#561](https://github.com/kaltura/playkit-js-ui/issues/561)) ([490e4e9](https://github.com/kaltura/playkit-js-ui/commit/490e4e9))
+
+
+### Features
+
+* **FEC-10102:** delay the tooltip showing ([#559](https://github.com/kaltura/playkit-js-ui/issues/559)) ([df64d0b](https://github.com/kaltura/playkit-js-ui/commit/df64d0b))
+* **FEC-10527:** add RW/FF controls to live preset ([#560](https://github.com/kaltura/playkit-js-ui/issues/560)) ([3c3b157](https://github.com/kaltura/playkit-js-ui/commit/3c3b157))
+
+
+
 ### [0.60.1](https://github.com/kaltura/playkit-js-ui/compare/v0.60.0...v0.60.1) (2020-11-03)
 
 

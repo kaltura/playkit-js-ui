@@ -39,6 +39,7 @@ class CastAfterPlay extends Component {
     icon: IconType.CastBrand
   };
 
+  _timeoutId: ?TimeoutID = null;
   /**
    * on click call the stop casting API.
    *
@@ -58,9 +59,22 @@ class CastAfterPlay extends Component {
    * @memberof CastAfterPlay
    */
   componentDidMount(): void {
-    setTimeout(() => {
+    this._timeoutId = setTimeout(() => {
       this.setState({show: true});
     }, 700);
+  }
+
+  /**
+   * after component unmount, clear timeouts
+   *
+   * @returns {void}
+   * @memberof CastAfterPlay
+   */
+  componentWillUnmount(): void {
+    if (this._timeoutId) {
+      clearTimeout(this._timeoutId);
+      this._timeoutId = null;
+    }
   }
 
   /**
