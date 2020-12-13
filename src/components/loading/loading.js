@@ -40,7 +40,6 @@ class Loading extends Component {
    */
   constructor() {
     super();
-    this.setState({afterPlayingEvent: false});
   }
 
   /**
@@ -52,7 +51,6 @@ class Loading extends Component {
   componentDidMount() {
     const {player, eventManager} = this.props;
     eventManager.listen(player, player.Event.PLAYER_STATE_CHANGED, e => {
-      if (!this.state.afterPlayingEvent) return;
       const StateType = player.State;
       if (
         e.payload.newState.type === StateType.IDLE ||
@@ -84,12 +82,7 @@ class Loading extends Component {
     });
 
     eventManager.listen(player, player.Event.PLAYING, () => {
-      this.setState({afterPlayingEvent: true});
       this.props.updateLoadingSpinnerState(false);
-    });
-
-    eventManager.listen(player, player.Event.CHANGE_SOURCE_STARTED, () => {
-      this.setState({afterPlayingEvent: false});
     });
   }
 
