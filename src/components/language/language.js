@@ -204,7 +204,7 @@ class Language extends Component {
     return (
       <div
         ref={c => (c ? (this._controlLanguageElement = c) : undefined)}
-        className={[style.controlButtonContainer, style.controlLanguage].join(' ')}>
+        className={style.controlButtonContainer}>
         <Tooltip label={this.props.buttonLabel}>
           <Button
             tabIndex="0"

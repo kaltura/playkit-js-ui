@@ -291,7 +291,7 @@ class Settings extends Component {
     return (
       <div
         ref={c => (c ? (this._controlSettingsElement = c) : undefined)}
-        className={[style.controlButtonContainer, style.controlSettings].join(' ')}>
+        className={style.controlButtonContainer}>
         <Tooltip label={props.buttonLabel}>
           <Button
             tabIndex="0"

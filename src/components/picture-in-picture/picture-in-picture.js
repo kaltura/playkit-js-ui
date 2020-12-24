@@ -92,7 +92,7 @@ class PictureInPicture extends Component {
   render(): React$Element<any> | void {
     if (this.props.isPictureInPictureSupported && this.props.playerSize !== PLAYER_SIZE.EXTRA_SMALL) {
       return (
-        <div className={[style.controlButtonContainer, style.pictureInPicture].join(' ')}>
+        <div className={style.controlButtonContainer}>
           <Tooltip label={this.props.isInPictureInPicture ? this.props.pictureInPictureExitText : this.props.pictureInPictureText}>
             <Button
               tabIndex="0"
