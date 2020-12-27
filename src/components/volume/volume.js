@@ -18,6 +18,7 @@ import {actions as overlayIconActions} from 'reducers/overlay-action';
 import {Tooltip} from 'components/tooltip';
 import {ToolTipType} from 'components/tooltip/tooltip';
 import {Button} from 'components/button';
+import {controlButton} from 'utils/control-button';
 
 /**
  * mapping state to props
@@ -50,6 +51,7 @@ const KEYBOARD_DEFAULT_VOLUME_JUMP: number = 5;
 @connect(mapStateToProps, bindActions({...actions, ...engineActions, ...overlayIconActions}))
 @withPlayer
 @withEventManager
+@controlButton(COMPONENT_NAME)
 @withKeyboardEvent(COMPONENT_NAME)
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
@@ -355,24 +357,34 @@ class Volume extends Component {
   }
 
   /**
+   * Added the necessary classes to the volume control.
+   * @private
+   * @returns {void}
+   */
+  _handleControlButtonClasses() {
+    if (this.props.buttonElement) {
+      const {isDraggingActive, muted, volume, smartContainerOpen} = this.props;
+      const controlButtonClassToAdd = [];
+      const controlButtonClassToRemove = [];
+      isDraggingActive ? controlButtonClassToAdd.push(style.draggingActive) : controlButtonClassToRemove.push(style.draggingActive);
+      muted || volume === 0 ? controlButtonClassToAdd.push(style.isMuted) : controlButtonClassToRemove.push(style.isMuted);
+      this.state.hover && !smartContainerOpen ? controlButtonClassToAdd.push(style.hover) : controlButtonClassToRemove.push(style.hover);
+      controlButtonClassToAdd.forEach(c => this.props.buttonElement.classList.add(c));
+      controlButtonClassToRemove.forEach(c => this.props.buttonElement.classList.remove(c));
+    }
+  }
+
+  /**
    * render component
    *
    * @returns {React$Element} - component element
    * @memberof Volume
    */
   render(): React$Element<any> {
-    const {player, isDraggingActive, muted, volume, smartContainerOpen} = this.props;
-    const controlButtonClass = [style.controlButtonContainer, style.volumeControl];
-    if (isDraggingActive) controlButtonClass.push(style.draggingActive);
-    if (muted || volume === 0) controlButtonClass.push(style.isMuted);
-    if (this.state.hover && !smartContainerOpen) controlButtonClass.push(style.hover);
-
+    const {player, muted} = this.props;
+    this._handleControlButtonClasses();
     return (
-      <div
-        ref={c => (c ? (this._volumeControlElement = c) : undefined)}
-        className={controlButtonClass.join(' ')}
-        onMouseOver={() => this.onMouseOver()}
-        onMouseOut={() => this.onMouseOut()}>
+      <div onMouseOver={() => this.onMouseOver()} onMouseOut={() => this.onMouseOut()}>
         <Tooltip
           label={muted ? this.props.unmuteAriaLabel : this.props.muteAriaLabel}
           type={this.props.toolTipType ? this.props.toolTipType : ToolTipType.Left}>

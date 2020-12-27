@@ -18,6 +18,7 @@ import {KeyMap} from 'utils/key-map';
 import {withKeyboardEvent} from 'components/keyboard';
 import {Tooltip} from 'components/tooltip';
 import {Button} from 'components/button';
+import {controlButton} from 'utils/control-button';
 
 /**
  * mapping state to props
@@ -44,6 +45,7 @@ const COMPONENT_NAME = 'Language';
 @connect(mapStateToProps, bindActions(actions))
 @withPlayer
 @withEventManager
+@controlButton(COMPONENT_NAME)
 @withKeyboardEvent(COMPONENT_NAME)
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
@@ -54,7 +56,6 @@ const COMPONENT_NAME = 'Language';
 })
 class Language extends Component {
   state: Object;
-  _controlLanguageElement: HTMLDivElement;
   _lastActiveTextLanguage: string = '';
   // ie11 fix (FEC-7312) - don't remove
   _portal: any;
@@ -126,9 +127,9 @@ class Language extends Component {
    */
   handleClickOutside(e: any): void {
     if (
-      this._controlLanguageElement &&
+      this.props.buttonElement &&
       !this.props.isMobile &&
-      !this._controlLanguageElement.contains(e.target) &&
+      !this.props.buttonElement.contains(e.target) &&
       this.state.smartContainerOpen &&
       !this.state.cvaaOverlay &&
       !this.props.isSmallSize
@@ -202,9 +203,7 @@ class Language extends Component {
   renderAll(audioOptions: Array<Object>, textOptions: Array<Object>): React$Element<any> {
     const portalSelector = `#${this.props.player.config.targetId} .overlay-portal`;
     return (
-      <div
-        ref={c => (c ? (this._controlLanguageElement = c) : undefined)}
-        className={style.controlButtonContainer}>
+      <div>
         <Tooltip label={this.props.buttonLabel}>
           <Button
             tabIndex="0"

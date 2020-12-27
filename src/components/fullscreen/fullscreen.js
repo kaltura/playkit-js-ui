@@ -11,6 +11,7 @@ import {withLogger} from 'components/logger';
 import {Tooltip} from 'components/tooltip';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {Button} from 'components/button';
+import {controlButton} from 'utils/control-button';
 
 /**
  * mapping state to props
@@ -36,6 +37,7 @@ const COMPONENT_NAME = 'Fullscreen';
 @withLogger(COMPONENT_NAME)
 @withKeyboardEvent(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
+@controlButton(COMPONENT_NAME)
 @withText({fullscreenText: 'controls.fullscreen'})
 class Fullscreen extends Component {
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
@@ -114,7 +116,7 @@ class Fullscreen extends Component {
    */
   render(): React$Element<any> {
     return (
-      <div className={[style.controlButtonContainer, style.controlFullscreen].join(' ')}>
+      <div>
         <Tooltip label={this.props.fullscreenText}>
           <Button
             tabIndex="0"

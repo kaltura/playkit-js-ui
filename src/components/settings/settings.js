@@ -18,6 +18,7 @@ import {SpeedSelectedEvent} from 'event/events/speed-selected-event';
 import {actions as overlayIconActions} from 'reducers/overlay-action';
 import {Tooltip} from 'components/tooltip';
 import {Button} from 'components/button';
+import {controlButton} from 'utils/control-button';
 
 /**
  * mapping state to props
@@ -50,6 +51,7 @@ const COMPONENT_NAME = 'Settings';
 })
 @withPlayer
 @withEventManager
+@controlButton(COMPONENT_NAME)
 @withKeyboardEvent(COMPONENT_NAME)
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
@@ -289,9 +291,7 @@ class Settings extends Component {
     if (qualityOptions.length <= 1 && speedOptions.length <= 1) return undefined;
     if (isLive && qualityOptions.length <= 1) return undefined;
     return (
-      <div
-        ref={c => (c ? (this._controlSettingsElement = c) : undefined)}
-        className={style.controlButtonContainer}>
+      <div ref={c => (c ? (this._controlSettingsElement = c) : undefined)}>
         <Tooltip label={props.buttonLabel}>
           <Button
             tabIndex="0"

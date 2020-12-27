@@ -16,6 +16,7 @@ import {actions as overlayIconActions} from 'reducers/overlay-action';
 import {Tooltip} from 'components/tooltip';
 import {Button} from 'components/button';
 import {actions as shellActions} from 'reducers/shell';
+import {controlButton} from 'utils/control-button';
 
 /**
  * mapping state to props
@@ -43,6 +44,7 @@ const COMPONENT_NAME = 'PlayPause';
 @withKeyboardEvent(COMPONENT_NAME)
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
+@controlButton(COMPONENT_NAME)
 @withText({
   startOverText: 'controls.startOver',
   pauseText: 'controls.pause',
@@ -96,7 +98,7 @@ class PlayPause extends Component {
     const playbackStateText = this.props.isPlayingAdOrPlayback ? this.props.pauseText : this.props.playText;
     const labelText = isStartOver ? this.props.startOverText : playbackStateText;
     return (
-      <div className={[style.controlButtonContainer, style.controlPlayPause].join(' ')}>
+      <div>
         <Tooltip label={labelText}>
           <Button tabIndex="0" aria-label={labelText} className={controlButtonClass} onClick={() => this.togglePlayPause()}>
             {isStartOver ? (

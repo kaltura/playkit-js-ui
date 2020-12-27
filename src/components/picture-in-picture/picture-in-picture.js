@@ -14,6 +14,7 @@ import {Tooltip} from 'components/tooltip';
 import {Button} from 'components/button';
 import {bindActions} from 'utils/bind-actions';
 import {actions as shellActions} from 'reducers/shell';
+import {controlButton} from 'utils/control-button';
 
 /**
  * mapping state to props
@@ -39,6 +40,7 @@ const COMPONENT_NAME = 'PictureInPicture';
 @withKeyboardEvent(COMPONENT_NAME)
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
+@controlButton(COMPONENT_NAME)
 @withText({
   pictureInPictureText: 'controls.pictureInPicture',
   pictureInPictureExitText: 'controls.pictureInPictureExit'
@@ -92,7 +94,7 @@ class PictureInPicture extends Component {
   render(): React$Element<any> | void {
     if (this.props.isPictureInPictureSupported && this.props.playerSize !== PLAYER_SIZE.EXTRA_SMALL) {
       return (
-        <div className={style.controlButtonContainer}>
+        <div>
           <Tooltip label={this.props.isInPictureInPicture ? this.props.pictureInPictureExitText : this.props.pictureInPictureText}>
             <Button
               tabIndex="0"

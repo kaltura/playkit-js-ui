@@ -10,6 +10,7 @@ import {withLogger} from 'components/logger';
 import {Tooltip} from 'components/tooltip';
 import {Button} from 'components/button';
 import {connect} from 'react-redux';
+import {controlButton} from 'utils/control-button';
 
 const COMPONENT_NAME = 'Rewind';
 
@@ -41,6 +42,7 @@ const mapStateToProps = state => ({
 @withPlayer
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
+@controlButton(COMPONENT_NAME)
 @withAnimation(style.rotate)
 @withText({rewindText: 'controls.rewind'})
 class Rewind extends Component {
@@ -78,8 +80,14 @@ class Rewind extends Component {
    * @memberof Rewind
    */
   render(props: any): React$Element<any> | void {
-    return props.isLive && !props.isDvr ? undefined : (
-      <div className={[style.controlButtonContainer, style.noIdleControl].join(' ')}>
+    if (props.isLive && !props.isDvr) {
+      return undefined;
+    }
+    if (this.props.buttonElement) {
+      this.props.buttonElement.add(style.noIdleControl);
+    }
+    return (
+      <div>
         <Tooltip label={this.props.rewindText}>
           <Button
             tabIndex="0"
