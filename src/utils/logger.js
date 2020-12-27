@@ -2,16 +2,29 @@
 export type LogLevelObject = {value: number, name: string};
 export type LogLevelType = {[level: string]: LogLevelObject};
 export type loggerFunctionType = {
-  trace: Function,
+  VERSION: String,
+  DEBUG: LogLevelObject,
+  ERROR: LogLevelObject,
+  INFO: LogLevelObject,
+  OFF: LogLevelObject,
+  TIME: LogLevelObject,
+  TRACE: LogLevelObject,
+  WARN: LogLevelObject,
+  createDefaultHandler: Function,
   debug: Function,
+  enabledFor: Function,
+  error: Function,
+  get: Function,
+  getLevel: Function,
   info: Function,
   log: Function,
-  warn: Function,
-  error: Function,
+  setHandler: Function,
+  setLevel: Function,
   time: Function,
   timeEnd: Function,
-  getLevel: Function,
-  setLevel: Function
+  trace: Function,
+  useDefaults: Function,
+  warn: Function
 };
 
 export type LoggerType = {
@@ -21,16 +34,29 @@ export type LoggerType = {
 
 let JsLogger = {
   get: () => ({
-    trace: () => {},
+    VERSION: '',
+    DEBUG: {value: '', name: ''},
+    ERROR: {value: '', name: ''},
+    INFO: {value: '', name: ''},
+    OFF: {value: '', name: ''},
+    TIME: {value: '', name: ''},
+    TRACE: {value: '', name: ''},
+    WARN: {value: '', name: ''},
+    createDefaultHandler: () => {},
     debug: () => {},
+    enabledFor: () => {},
+    error: () => {},
+    get: () => {},
+    getLevel: () => {},
     info: () => {},
     log: () => {},
-    warn: () => {},
-    error: () => {},
+    setHandler: () => {},
+    setLevel: () => {},
     time: () => {},
     timeEnd: () => {},
-    getLevel: () => {},
-    setLevel: () => {}
+    trace: () => {},
+    useDefaults: () => {},
+    warn: () => {}
   })
 };
 
