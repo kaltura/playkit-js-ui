@@ -69,7 +69,11 @@ class PlayerArea extends Component {
    * @memberof OverlayAction
    */
   shouldComponentUpdate(nextProps: Object, nextState: Object): boolean {
-    return this.state.playerAreaComponents !== nextState.playerAreaComponents || nextProps.activePresetName !== this.props.activePresetName;
+    return (
+      nextProps.shouldUpdate ||
+      this.state.playerAreaComponents !== nextState.playerAreaComponents ||
+      nextProps.activePresetName !== this.props.activePresetName
+    );
   }
 
   /**
@@ -234,6 +238,11 @@ class PlayerArea extends Component {
       }
       const {replace, before, after} = positionedComponent;
       if (replace) {
+        if (typeof replace.get !== 'string') {
+          // pass the replaced component props to the override one (if it's not an html element e.g. "div")
+          replace.props = replace.props || {};
+          replace.props.replacedComponentProps = child.props;
+        }
         newChildren.push(this._renderUIComponent(replace));
         return;
       }
@@ -259,9 +268,8 @@ class PlayerArea extends Component {
    * @memberof PlayerArea
    */
   render(): React$Element<any> | null {
-    const {show, name} = this.props;
+    const {show} = this.props;
     const {playerAreaComponents, hasPositionedComponents, presetComponentsOnlyMode} = this.state;
-    this.props.logger.debug(`Player area '${name}' - render`);
 
     if (presetComponentsOnlyMode) {
       return this.renderContent(this._actualChildren);

@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.61.1](https://github.com/kaltura/playkit-js-ui/compare/v0.61.0...v0.61.1) (2020-12-10)
+
+
+### Bug Fixes
+
+* **FEC-10782:** spinner is shown while Imadai live ad ([#565](https://github.com/kaltura/playkit-js-ui/issues/565)) ([bdfce4d](https://github.com/kaltura/playkit-js-ui/commit/bdfce4d))
+
+
+
 ## [0.61.0](https://github.com/kaltura/playkit-js-ui/compare/v0.60.1...v0.61.0) (2020-12-07)
 
 

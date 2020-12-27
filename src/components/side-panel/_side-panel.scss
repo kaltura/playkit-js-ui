@@ -1,7 +1,7 @@
 .side-panel {
   position: absolute;
   overflow: hidden;
-  transition: all $default-transition-time;
+  transition: all #{$default-transition-time}ms;
   transition-property: left, right, bottom, top, opacity;
 }
 
