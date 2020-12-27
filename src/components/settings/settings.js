@@ -57,7 +57,6 @@ const COMPONENT_NAME = 'Settings';
 @withEventDispatcher(COMPONENT_NAME)
 class Settings extends Component {
   state: Object;
-  _controlSettingsElement: HTMLDivElement;
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
       key: {
@@ -164,8 +163,8 @@ class Settings extends Component {
     if (
       !this.props.isMobile &&
       !this.props.isSmallSize &&
-      !!this._controlSettingsElement &&
-      !this._controlSettingsElement.contains(e.target) &&
+      !!this.props.buttonElement &&
+      !this.props.buttonElement.contains(e.target) &&
       this.state.smartContainerOpen
     ) {
       this.setState({smartContainerOpen: false});
@@ -291,7 +290,7 @@ class Settings extends Component {
     if (qualityOptions.length <= 1 && speedOptions.length <= 1) return undefined;
     if (isLive && qualityOptions.length <= 1) return undefined;
     return (
-      <div ref={c => (c ? (this._controlSettingsElement = c) : undefined)}>
+      <div>
         <Tooltip label={props.buttonLabel}>
           <Button
             tabIndex="0"
