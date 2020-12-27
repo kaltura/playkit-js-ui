@@ -63,7 +63,8 @@ class PrePlaybackPlayOverlay extends Component {
    * @memberof PrePlaybackPlayOverlay
    */
   render(props: any): React$Element<any> | void {
-    if ((!props.prePlayback && (!props.isPlaybackEnded || (props.playlist && props.playlist.next))) || props.loading) {
+    const isStartOver = props.isPlaybackEnded && !props.player.config.playback.loop && !(props.playlist && props.playlist.next);
+    if (!(props.prePlayback || isStartOver) || props.loading) {
       return undefined;
     }
     const labelText = props.isPlaybackEnded ? props.startOverText : props.playText;
