@@ -203,10 +203,11 @@ class EngineConnector extends Component {
       this.props.updateAdBreakCompleted();
     });
 
-    eventManager.listen(player, player.Event.AD_STARTED, () => {
+    eventManager.listen(player, player.Event.AD_STARTED, e => {
       this.props.updateLoadingSpinnerState(false);
       this.props.updateAdIsPlaying(true);
       this.props.updatePrePlayback(false);
+      this.props.updateAdIsBumper(e.payload.ad.bumper);
     });
 
     eventManager.listen(player, player.Event.AD_RESUMED, () => {
@@ -230,7 +231,6 @@ class EngineConnector extends Component {
     eventManager.listen(player, player.Event.AD_LOADED, e => {
       const ad = e.payload.ad;
       this.props.updateAdIsLinear(ad.linear);
-      this.props.updateAdIsBumper(ad.bumper);
       this.props.updateAdClickUrl(ad.clickThroughUrl);
       this.props.updateAdSkipTimeOffset(ad.skipOffset);
       this.props.updateAdSkippableState(ad.skippable);
