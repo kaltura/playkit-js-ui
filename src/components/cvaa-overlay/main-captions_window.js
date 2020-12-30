@@ -28,16 +28,16 @@ class MainCaptionsWindow extends Component {
   componentWillMount() {
     const {player} = this.props;
 
-    this.captionsStyleDefault = Object.assign(new player.TextStyle(), {
+    this.captionsStyleDefault = player.TextStyle.fromJson({
       backgroundOpacity: player.TextStyle.StandardOpacities.TRANSPARENT
     });
 
-    this.captionsStyleYellow = Object.assign(new player.TextStyle(), {
+    this.captionsStyleYellow = player.TextStyle.fromJson({
       backgroundOpacity: player.TextStyle.StandardOpacities.TRANSPARENT,
       fontColor: player.TextStyle.StandardColors.YELLOW
     });
 
-    this.captionsStyleBlackBG = Object.assign(new player.TextStyle(), {
+    this.captionsStyleBlackBG = player.TextStyle.fromJson({
       backgroundColor: player.TextStyle.StandardColors.BLACK,
       fontColor: player.TextStyle.StandardColors.WHITE
     });
