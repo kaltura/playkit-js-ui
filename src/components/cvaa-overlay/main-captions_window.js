@@ -7,7 +7,6 @@ import {default as Icon, IconType} from '../icon';
 import {SampleCaptionsStyleButton} from './sample-captions-style-button';
 import {h} from 'preact';
 import {withPlayer} from '../player';
-import isEqual from '../../utils/is-equal';
 
 /**
  * MainWindow component
@@ -135,9 +134,9 @@ class MainCaptionsWindow extends Component {
   isAdvancedStyleApplied(): boolean {
     const {player} = this.props;
     return (
-      !isEqual(player.textStyle, this.captionsStyleDefault) &&
-      !isEqual(player.textStyle, this.captionsStyleBlackBG) &&
-      !isEqual(player.textStyle, this.captionsStyleYellow)
+      !player.textStyle.isEqual(this.captionsStyleDefault) &&
+      !player.textStyle.isEqual(this.captionsStyleBlackBG) &&
+      !player.textStyle.isEqual(this.captionsStyleYellow)
     );
   }
 }

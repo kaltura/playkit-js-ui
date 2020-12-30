@@ -1,7 +1,6 @@
 //@flow
 import {KeyMap} from '../../utils/key-map';
 import {Text} from 'preact-i18n';
-import isEqual from '../../utils/is-equal';
 import style from '../../styles/style.scss';
 import {default as Icon, IconType} from '../icon';
 import {h} from 'preact';
@@ -27,7 +26,7 @@ const SampleCaptionsStyleButton = (props: any): React$Element<any> => {
         }
       }}>
       <Text id={'cvaa.sample_caption_tag'} />
-      {isEqual(props.player.textStyle, props.captionsStyle) ? (
+      {props.player.textStyle.isEqual(props.captionsStyle) ? (
         <div className={style.activeTick}>
           <Icon type={IconType.Check} />
         </div>
