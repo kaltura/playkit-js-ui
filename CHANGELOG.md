@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.62.0](https://github.com/kaltura/playkit-js-ui/compare/v0.61.0...v0.62.0) (2021-01-07)
+
+
+### Bug Fixes
+
+* **FEC-10275:** bumper incorrectly recognized as ad ([#571](https://github.com/kaltura/playkit-js-ui/issues/571)) ([6d35952](https://github.com/kaltura/playkit-js-ui/commit/6d35952))
+* **FEC-10675:** V3 - Replay button displayed for half of seconds after the media finished when loopback enabled ([#567](https://github.com/kaltura/playkit-js-ui/issues/567)) ([3ffa2dc](https://github.com/kaltura/playkit-js-ui/commit/3ffa2dc))
+* **FEC-10702:** Make sure all timers are cleaned on component unmount ([#562](https://github.com/kaltura/playkit-js-ui/issues/562)) ([43a878c](https://github.com/kaltura/playkit-js-ui/commit/43a878c))
+* **FEC-10779:** add the all JSLogger for stubbing ([#564](https://github.com/kaltura/playkit-js-ui/issues/564)) ([afa194d](https://github.com/kaltura/playkit-js-ui/commit/afa194d))
+* **FEC-10782:** spinner is shown while Imadai live ad ([#565](https://github.com/kaltura/playkit-js-ui/issues/565)) ([50f19ca](https://github.com/kaltura/playkit-js-ui/commit/50f19ca))
+* **FEC-10784:** No spinner between the preroll and the playback when disableMediaPreload is true ([#568](https://github.com/kaltura/playkit-js-ui/issues/568)) ([33ec02e](https://github.com/kaltura/playkit-js-ui/commit/33ec02e))
+* **FEC-10844:** advanced caption settings custom caption is always marked even when choose sample ([#570](https://github.com/kaltura/playkit-js-ui/issues/570)) ([4d31f3f](https://github.com/kaltura/playkit-js-ui/commit/4d31f3f))
+
+
+### Features
+
+* **FEC-10311:** timeline scrubber design update ([#557](https://github.com/kaltura/playkit-js-ui/issues/557)) ([dcad062](https://github.com/kaltura/playkit-js-ui/commit/dcad062))
+
+
+
 ### [0.61.1](https://github.com/kaltura/playkit-js-ui/compare/v0.61.0...v0.61.1) (2020-12-10)
 
 
