@@ -18,6 +18,7 @@ import {SpeedSelectedEvent} from 'event/events/speed-selected-event';
 import {actions as overlayIconActions} from 'reducers/overlay-action';
 import {Tooltip} from 'components/tooltip';
 import {Button} from 'components/button';
+import {ButtonControl} from 'components/button-control';
 
 /**
  * mapping state to props
@@ -289,9 +290,7 @@ class Settings extends Component {
     if (qualityOptions.length <= 1 && speedOptions.length <= 1) return undefined;
     if (isLive && qualityOptions.length <= 1) return undefined;
     return (
-      <div
-        ref={c => (c ? (this._controlSettingsElement = c) : undefined)}
-        className={[style.controlButtonContainer, style.controlSettings].join(' ')}>
+      <ButtonControl name={COMPONENT_NAME} ref={c => (c ? (this._controlSettingsElement = c) : undefined)}>
         <Tooltip label={props.buttonLabel}>
           <Button
             tabIndex="0"
@@ -322,7 +321,7 @@ class Settings extends Component {
             )}
           </SmartContainer>
         )}
-      </div>
+      </ButtonControl>
     );
   }
 }

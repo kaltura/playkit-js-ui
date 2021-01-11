@@ -11,6 +11,7 @@ import {withLogger} from 'components/logger';
 import {Tooltip} from 'components/tooltip';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {Button} from 'components/button';
+import {ButtonControl} from 'components/button-control';
 
 /**
  * mapping state to props
@@ -114,7 +115,7 @@ class Fullscreen extends Component {
    */
   render(): React$Element<any> {
     return (
-      <div className={[style.controlButtonContainer, style.controlFullscreen].join(' ')}>
+      <ButtonControl name={COMPONENT_NAME}>
         <Tooltip label={this.props.fullscreenText}>
           <Button
             tabIndex="0"
@@ -125,7 +126,7 @@ class Fullscreen extends Component {
             <Icon type={IconType.Minimize} />
           </Button>
         </Tooltip>
-      </div>
+      </ButtonControl>
     );
   }
 }

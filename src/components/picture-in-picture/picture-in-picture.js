@@ -14,6 +14,7 @@ import {Tooltip} from 'components/tooltip';
 import {Button} from 'components/button';
 import {bindActions} from 'utils/bind-actions';
 import {actions as shellActions} from 'reducers/shell';
+import {ButtonControl} from 'components/button-control';
 
 /**
  * mapping state to props
@@ -92,7 +93,7 @@ class PictureInPicture extends Component {
   render(): React$Element<any> | void {
     if (this.props.isPictureInPictureSupported && this.props.playerSize !== PLAYER_SIZE.EXTRA_SMALL) {
       return (
-        <div className={[style.controlButtonContainer, style.pictureInPicture].join(' ')}>
+        <ButtonControl name={COMPONENT_NAME}>
           <Tooltip label={this.props.isInPictureInPicture ? this.props.pictureInPictureExitText : this.props.pictureInPictureText}>
             <Button
               tabIndex="0"
@@ -103,7 +104,7 @@ class PictureInPicture extends Component {
               <Icon type={IconType.PictureInPictureStop} />
             </Button>
           </Tooltip>
-        </div>
+        </ButtonControl>
       );
     }
   }

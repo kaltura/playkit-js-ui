@@ -16,6 +16,7 @@ import {actions as overlayIconActions} from 'reducers/overlay-action';
 import {Tooltip} from 'components/tooltip';
 import {Button} from 'components/button';
 import {actions as shellActions} from 'reducers/shell';
+import {ButtonControl} from 'components/button-control';
 
 /**
  * mapping state to props
@@ -96,7 +97,7 @@ class PlayPause extends Component {
     const playbackStateText = this.props.isPlayingAdOrPlayback ? this.props.pauseText : this.props.playText;
     const labelText = isStartOver ? this.props.startOverText : playbackStateText;
     return (
-      <div className={[style.controlButtonContainer, style.controlPlayPause].join(' ')}>
+      <ButtonControl name={COMPONENT_NAME}>
         <Tooltip label={labelText}>
           <Button tabIndex="0" aria-label={labelText} className={controlButtonClass} onClick={() => this.togglePlayPause()}>
             {isStartOver ? (
@@ -109,7 +110,7 @@ class PlayPause extends Component {
             )}
           </Button>
         </Tooltip>
-      </div>
+      </ButtonControl>
     );
   }
 }
