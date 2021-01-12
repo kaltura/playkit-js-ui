@@ -1,8 +1,8 @@
 //@flow
-import {h} from 'preact';
+import {Component, h} from 'preact';
 import style from '../styles/style.scss';
 import {Loading} from '../components/loading';
-import {PlayerArea} from 'components/player-area';
+import {PlayerArea, withPlayerPreset} from '../components/player-area';
 import {GuiArea} from 'components/gui-area';
 
 const PRESET_NAME = 'Idle';
@@ -12,16 +12,28 @@ const PRESET_NAME = 'Idle';
  *
  * @returns {React$Element} player ui tree
  */
-export function IdleUI(): React$Element<any> {
-  return (
-    <div className={style.playbackGuiWrapper}>
-      <PlayerArea name={'PresetArea'}>
-        <GuiArea>
-          <Loading />
-        </GuiArea>
-      </PlayerArea>
-    </div>
-  );
+@withPlayerPreset({
+  allowSidePanels: true,
+  allowPlayerArea: true
+})
+class IdleUI extends Component {
+  /**
+   * render component
+   *
+   * @returns {React$Element} - component element
+   * @memberof IdleUI
+   */
+  render() {
+    return (
+      <div className={style.playbackGuiWrapper}>
+        <PlayerArea name={'PresetArea'}>
+          <GuiArea>
+            <Loading />
+          </GuiArea>
+        </PlayerArea>
+      </div>
+    );
+  }
 }
 
 IdleUI.displayName = PRESET_NAME;
