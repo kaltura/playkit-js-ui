@@ -365,7 +365,7 @@ class Volume extends Component {
     const {player, isDraggingActive, muted, volume, smartContainerOpen} = this.props;
     const controlButtonClasses = [
       // for backward compatibility
-      `${__CSS_MODULE_PREFIX__}-${COMPONENT_NAME.toLowerCase()}-control`
+      style.volumeControl
     ];
     if (isDraggingActive) controlButtonClasses.push(style.draggingActive);
     if (muted || volume === 0) controlButtonClasses.push(style.isMuted);
