@@ -2,21 +2,42 @@
   "name": "@playkit-js/playkit-js-ui",
   "version": "0.62.0",
   "description": "",
+  "keywords": [
+    "kaltura",
+    "player",
+    "playkit-js",
+    "playkit-js-ui",
+    "html5 player"
+  ],
+  "homepage": "https://github.com/kaltura/playkit-js-ui#readme",
+  "bugs": {
+    "url": "https://github.com/kaltura/playkit-js-ui/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaltura/playkit-js-ui.git"
+  },
+  "license": "AGPL-3.0",
   "main": "dist/playkit-ui.js",
   "scripts": {
-    "clean": "rimraf ./dist",
     "prebuild": "npm run clean",
     "build": "NODE_ENV=production webpack --mode production",
+    "clean": "rimraf ./dist",
     "dev": "webpack-dev-server --mode development",
-    "watch": "webpack --progress --colors --watch --mode development",
-    "test": "cross-env NODE_ENV=test karma start --color --mode development",
-    "release": "standard-version",
-    "pushTaggedRelease": "git push --follow-tags --no-verify origin master",
+    "docs:components": "jsdoc -c component.jsdocs.json -r",
     "eslint": "eslint . --color",
     "flow": "flow check",
-    "docs:components": "jsdoc -c component.jsdocs.json -r",
     "precommit": "lint-staged",
-    "prettier:fix": "prettier --write ."
+    "prettier:fix": "prettier --write .",
+    "pushTaggedRelease": "git push --follow-tags --no-verify origin master",
+    "release": "standard-version",
+    "test": "cross-env NODE_ENV=test karma start --color --mode development",
+    "watch": "webpack --progress --colors --watch --mode development"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "lint-staged": {
     "*.{js,jsx}": [
@@ -27,9 +48,6 @@
       "prettier --write",
       "git add"
     ]
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "dependencies": {
     "preact": "^10.3.4",
@@ -100,22 +118,9 @@
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
   },
-  "keywords": [
-    "kaltura",
-    "player",
-    "playkit-js",
-    "playkit-js-ui",
-    "html5 player"
-  ],
-  "license": "AGPL-3.0",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kaltura/playkit-js-ui.git"
+  "publishConfig": {
+    "access": "public"
   },
-  "bugs": {
-    "url": "https://github.com/kaltura/playkit-js-ui/issues"
-  },
-  "homepage": "https://github.com/kaltura/playkit-js-ui#readme",
   "kcc": {
     "name": "playkit-ui"
   }

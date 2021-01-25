@@ -12,6 +12,7 @@ import {withPlayer} from '../player';
 import {withLogger} from 'components/logger';
 import {Tooltip} from 'components/tooltip';
 import {Button} from 'components/button';
+import {ButtonControl} from 'components/button-control';
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -79,7 +80,7 @@ class VrStereo extends Component {
       return undefined;
     }
     return (
-      <div className={[style.controlButtonContainer, style.controlVrStereo].join(' ')}>
+      <ButtonControl name={COMPONENT_NAME}>
         <Tooltip label={this.props.vrStereoText}>
           <Button
             tabIndex="0"
@@ -95,7 +96,7 @@ class VrStereo extends Component {
             <Icon type={IconType.vrStereoFull} />
           </Button>
         </Tooltip>
-      </div>
+      </ButtonControl>
     );
   }
 }

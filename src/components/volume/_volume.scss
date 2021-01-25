@@ -1,53 +1,61 @@
 @import '~styles/variables';
 
-.control-button-container.volume-control {
-  display: inline-block !important;
-  &.hover {
-    .volume-control-bar {
-      display: block !important;
-    }
-  }
+.control-button-container {
+  &.control-volume,
+  &.volume-control {
+    display: inline-block !important;
 
-  &.is-muted {
-    .icon-volume-waves {
-      opacity: 0;
-      -webkit-transform: translateX(-5px);
-      -ms-transform: translateX(-5px);
-      transform: translateX(-5px);
+    &.hover {
+      .volume-control-bar {
+        display: block !important;
+      }
     }
+
+    &.is-muted {
+      .icon-volume-waves {
+        opacity: 0;
+        -webkit-transform: translateX(-5px);
+        -ms-transform: translateX(-5px);
+        transform: translateX(-5px);
+      }
+
+      .icon-volume-mute {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        -ms-transform: scale(1);
+        transform: scale(1);
+      }
+    }
+
+    &.dragging-active {
+      .volume-control-bar {
+        display: block;
+      }
+    }
+
+    .icon-volume-waves {
+      -webkit-transform: translateX(0px);
+      -ms-transform: translateX(0px);
+      transform: translateX(0px);
+    }
+
     .icon-volume-mute {
       opacity: 1;
-      -webkit-transform: scale(1);
-      -ms-transform: scale(1);
-      transform: scale(1);
+      -webkit-transform: scale(0);
+      -ms-transform: scale(0);
+      transform: scale(0);
     }
-  }
 
-  &.dragging-active {
-    .volume-control-bar {
-      display: block;
+    .icon-volume-waves,
+    .icon-volume-mute {
+      transition: 300ms transform, 300ms opacity;
     }
-  }
 
-  .icon-volume-waves {
-    -webkit-transform: translateX(0px);
-    -ms-transform: translateX(0px);
-    transform: translateX(0px);
-  }
-  .icon-volume-mute {
-    opacity: 1;
-    -webkit-transform: scale(0);
-    -ms-transform: scale(0);
-    transform: scale(0);
-  }
-  .icon-volume-waves,
-  .icon-volume-mute {
-    transition: 300ms transform, 300ms opacity;
-  }
-  i {
-    position: absolute;
-    top: 0;
-    left: 0;
+    i {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
   }
 }
 
@@ -80,6 +88,7 @@
     position: relative;
     cursor: pointer;
   }
+
   .progress {
     position: absolute;
     bottom: 0;
@@ -90,12 +99,43 @@
   }
 }
 
-.player.smart-container-open .control-button-container.volume-control.hover .volume-control-bar,
-.size-ty .control-button-container.volume-control.hover .volume-control-bar {
-  display: none !important;
+.player {
+  &.smart-container-open {
+    .control-button-container {
+      &.control-volume,
+      &.volume-control {
+        &.hover {
+          .control-volume-bar {
+            display: none !important;
+          }
+        }
+      }
+    }
+  }
 }
 
-.touch .control-button-container.volume-control.hover .volume-control-bar,
-.size-ty .control-button-container.volume-control.hover .volume-control-bar {
-  display: none !important;
+.size-ty {
+  .control-button-container {
+    &.control-volume,
+    &.volume-control {
+      &.hover {
+        .control-volume-bar {
+          display: none !important;
+        }
+      }
+    }
+  }
+}
+
+.touch {
+  .control-button-container {
+    &.control-volume,
+    &.volume-control {
+      &.hover {
+        .control-volume-bar {
+          display: none !important;
+        }
+      }
+    }
+  }
 }

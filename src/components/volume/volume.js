@@ -18,6 +18,7 @@ import {actions as overlayIconActions} from 'reducers/overlay-action';
 import {Tooltip} from 'components/tooltip';
 import {ToolTipType} from 'components/tooltip/tooltip';
 import {Button} from 'components/button';
+import {ButtonControl} from 'components/button-control';
 
 /**
  * mapping state to props
@@ -151,11 +152,11 @@ class Volume extends Component {
    * @returns {void}
    * @memberof Volume
    */
-  onMouseOver(): void {
+  onMouseOver = (): void => {
     if (this.props.isMobile) return;
     this.props.updateVolumeHover(true);
     this.setState({hover: true});
-  }
+  };
 
   /**
    * volume mouse over handler
@@ -163,11 +164,11 @@ class Volume extends Component {
    * @returns {void}
    * @memberof Volume
    */
-  onMouseOut(): void {
+  onMouseOut = (): void => {
     if (this.props.isMobile) return;
     this.props.updateVolumeHover(false);
     this.setState({hover: false});
-  }
+  };
 
   /**
    * on volume control key down, update the volume in case of up/down keys
@@ -362,17 +363,21 @@ class Volume extends Component {
    */
   render(): React$Element<any> {
     const {player, isDraggingActive, muted, volume, smartContainerOpen} = this.props;
-    const controlButtonClass = [style.controlButtonContainer, style.volumeControl];
-    if (isDraggingActive) controlButtonClass.push(style.draggingActive);
-    if (muted || volume === 0) controlButtonClass.push(style.isMuted);
-    if (this.state.hover && !smartContainerOpen) controlButtonClass.push(style.hover);
+    const controlButtonClasses = [
+      // for backward compatibility
+      style.volumeControl
+    ];
+    if (isDraggingActive) controlButtonClasses.push(style.draggingActive);
+    if (muted || volume === 0) controlButtonClasses.push(style.isMuted);
+    if (this.state.hover && !smartContainerOpen) controlButtonClasses.push(style.hover);
 
     return (
-      <div
+      <ButtonControl
+        name={COMPONENT_NAME}
         ref={c => (c ? (this._volumeControlElement = c) : undefined)}
-        className={controlButtonClass.join(' ')}
-        onMouseOver={() => this.onMouseOver()}
-        onMouseOut={() => this.onMouseOut()}>
+        className={controlButtonClasses}
+        onMouseOver={this.onMouseOver}
+        onMouseOut={this.onMouseOut}>
         <Tooltip
           label={muted ? this.props.unmuteAriaLabel : this.props.muteAriaLabel}
           type={this.props.toolTipType ? this.props.toolTipType : ToolTipType.Left}>
@@ -402,7 +407,7 @@ class Volume extends Component {
             <div className={style.progress} style={{height: this.getVolumeProgressHeight()}} />
           </div>
         </div>
-      </div>
+      </ButtonControl>
     );
   }
 }

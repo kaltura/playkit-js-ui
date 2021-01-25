@@ -10,6 +10,7 @@ import {withLogger} from 'components/logger';
 import {Tooltip} from 'components/tooltip';
 import {Button} from 'components/button';
 import {connect} from 'react-redux';
+import {ButtonControl} from 'components/button-control';
 
 const COMPONENT_NAME = 'Rewind';
 
@@ -79,7 +80,7 @@ class Rewind extends Component {
    */
   render(props: any): React$Element<any> | void {
     return props.isLive && !props.isDvr ? undefined : (
-      <div className={[style.controlButtonContainer, style.noIdleControl].join(' ')}>
+      <ButtonControl name={COMPONENT_NAME} className={style.noIdleControl}>
         <Tooltip label={this.props.rewindText}>
           <Button
             tabIndex="0"
@@ -90,7 +91,7 @@ class Rewind extends Component {
             <Icon type={!props.step || props.step === REWIND_DEFAULT_STEP ? IconType.Rewind10 : IconType.Rewind} />
           </Button>
         </Tooltip>
-      </div>
+      </ButtonControl>
     );
   }
 }

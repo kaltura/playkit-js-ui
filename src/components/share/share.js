@@ -14,6 +14,7 @@ import {withText} from 'preact-i18n';
 import {Tooltip} from 'components/tooltip';
 import {ToolTipType} from 'components/tooltip/tooltip';
 import {Button} from 'components/button';
+import {ButtonControl} from 'components/button-control';
 
 /**
  * mapping state to props
@@ -102,13 +103,13 @@ class Share extends Component {
         document.querySelector(portalSelector)
       )
     ) : (
-      <div className={style.controlButtonContainer}>
+      <ButtonControl name={COMPONENT_NAME}>
         <Tooltip label={this.props.shareTxt} type={this.props.toolTipType ? this.props.toolTipType : ToolTipType.BottomLeft}>
           <Button aria-haspopup="true" className={style.controlButton} onClick={() => this.toggleOverlay()} aria-label={this.props.shareTxt}>
             <Icon type={IconType.Share} />
           </Button>
         </Tooltip>
-      </div>
+      </ButtonControl>
     );
   }
 }

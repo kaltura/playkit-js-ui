@@ -18,6 +18,7 @@ import {KeyMap} from 'utils/key-map';
 import {withKeyboardEvent} from 'components/keyboard';
 import {Tooltip} from 'components/tooltip';
 import {Button} from 'components/button';
+import {ButtonControl} from 'components/button-control';
 
 /**
  * mapping state to props
@@ -202,9 +203,7 @@ class Language extends Component {
   renderAll(audioOptions: Array<Object>, textOptions: Array<Object>): React$Element<any> {
     const portalSelector = `#${this.props.player.config.targetId} .overlay-portal`;
     return (
-      <div
-        ref={c => (c ? (this._controlLanguageElement = c) : undefined)}
-        className={[style.controlButtonContainer, style.controlLanguage].join(' ')}>
+      <ButtonControl name={COMPONENT_NAME} ref={c => (c ? (this._controlLanguageElement = c) : undefined)}>
         <Tooltip label={this.props.buttonLabel}>
           <Button
             tabIndex="0"
@@ -258,7 +257,7 @@ class Language extends Component {
         ) : (
           <div />
         )}
-      </div>
+      </ButtonControl>
     );
   }
 
