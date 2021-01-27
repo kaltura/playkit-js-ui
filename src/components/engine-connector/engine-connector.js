@@ -8,6 +8,7 @@ import {actions as shellActions} from '../../reducers/shell';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withLogger} from 'components/logger';
+import {AutoPlayType} from '@playkit-js/playkit-js';
 
 const COMPONENT_NAME = 'EngineConnector';
 
@@ -32,7 +33,7 @@ class EngineConnector extends Component {
   componentDidMount() {
     const {player, eventManager} = this.props;
     const TrackType = player.Track;
-    this.props.updatePrePlayback(!player.config.playback.autoplay);
+    this.props.updatePrePlayback(player.config.playback.autoplay !== AutoPlayType.TRUE);
 
     eventManager.listen(player, player.Event.PLAYER_RESET, () => {
       this.props.updateCurrentTime(0);
@@ -43,7 +44,7 @@ class EngineConnector extends Component {
     eventManager.listen(player, player.Event.SOURCE_SELECTED, () => {
       this.props.updateIsVr(player.isVr());
       this.props.updateIsInPictureInPicture(player.isInPictureInPicture());
-      if (player.config.playback.autoplay) {
+      if (player.config.playback.autoplay === AutoPlayType.TRUE) {
         this.props.updateLoadingSpinnerState(true);
       } else {
         this.props.updateLoadingSpinnerState(false);
@@ -51,7 +52,7 @@ class EngineConnector extends Component {
     });
 
     eventManager.listen(player, player.Event.CHANGE_SOURCE_STARTED, () => {
-      this.props.updatePrePlayback(!player.config.playback.autoplay && !this.props.engine.isPlaybackStarted);
+      this.props.updatePrePlayback(player.config.playback.autoplay !== AutoPlayType.TRUE && !this.props.engine.isPlaybackStarted);
       this.props.updateIsChangingSource(true);
       this.props.updateFallbackToMutedAutoPlay(false);
       this.props.updateAdBreak(false);
