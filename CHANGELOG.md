@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.63.0](https://github.com/kaltura/playkit-js-ui/compare/v0.62.0...v0.63.0) (2021-01-28)
+
+
+### Bug Fixes
+
+* **FEC-10670:** Add missing class names ([#572](https://github.com/kaltura/playkit-js-ui/issues/572)) ([042ee40](https://github.com/kaltura/playkit-js-ui/commit/042ee40))
+
+
+### Features
+
+* allow side panel and player area on the idle preset ([#574](https://github.com/kaltura/playkit-js-ui/issues/574)) ([c5ea46a](https://github.com/kaltura/playkit-js-ui/commit/c5ea46a))
+* **FEC-10798:** support ima-dai ad breaks cue points ([#573](https://github.com/kaltura/playkit-js-ui/issues/573)) ([fed94c3](https://github.com/kaltura/playkit-js-ui/commit/fed94c3))
+
+
+
 ## [0.62.0](https://github.com/kaltura/playkit-js-ui/compare/v0.61.0...v0.62.0) (2021-01-07)
 
 
