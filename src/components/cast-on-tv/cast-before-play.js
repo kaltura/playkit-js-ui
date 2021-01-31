@@ -96,23 +96,21 @@ class CastBeforePlay extends Component {
         rootStyle.push(style.showCastOnTv);
       }
       return (
-        <div>
-          <div className={rootStyle.join(' ')}>
-            <Localizer>
-              <Button
-                tabIndex="0"
-                aria-label={<Text id={'cast.play_on_tv'} />}
-                onClick={() => this.onClick()}
-                className={[style.btn, style.btnDarkTransparent, style.castOnTvButton].join(' ')}>
-                <div className={style.castOnTvIconContainer}>
-                  <Icon type={props.icon} />
-                </div>
-                <span>
-                  <Text id="cast.play_on_tv" />
-                </span>
-              </Button>
-            </Localizer>
-          </div>
+        <div className={rootStyle.join(' ')}>
+          <Localizer>
+            <Button
+              tabIndex="0"
+              aria-label={<Text id={'cast.play_on_tv'} />}
+              onClick={() => this.onClick()}
+              className={[style.btn, style.btnDarkTransparent, style.castOnTvButton].join(' ')}>
+              <div className={style.castOnTvIconContainer}>
+                <Icon type={props.icon} />
+              </div>
+              <span>
+                <Text id="cast.play_on_tv" />
+              </span>
+            </Button>
+          </Localizer>
         </div>
       );
     }
