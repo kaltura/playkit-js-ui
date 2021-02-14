@@ -22,6 +22,7 @@ import {FakeEvent} from 'event/fake-event';
 const mapStateToProps = state => ({
   targetId: state.config.targetId,
   forceTouchUI: state.config.forceTouchUI,
+  controlBarHoverTimeout: state.config.controlBarHoverTimeout,
   metadataLoaded: state.engine.metadataLoaded,
   currentState: state.engine.playerState.currentState,
   playerClasses: state.shell.playerClasses,
@@ -325,11 +326,13 @@ class Shell extends Component {
    */
   _startHoverTimeout(): void {
     this._clearHoverTimeout();
-    this.hoverTimeout = setTimeout(() => {
-      if (this._canEndHoverState()) {
-        this._updatePlayerHover(false);
-      }
-    }, this.props.hoverTimeout || CONTROL_BAR_HOVER_DEFAULT_TIMEOUT);
+    if (this.props.controlBarHoverTimeout) {
+      this.hoverTimeout = setTimeout(() => {
+        if (this._canEndHoverState()) {
+          this._updatePlayerHover(false);
+        }
+      }, this.props.controlBarHoverTimeout);
+    }
   }
 
   /**
