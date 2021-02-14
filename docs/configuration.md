@@ -16,7 +16,7 @@ var uiManager = new playkit.ui.UIManager(player, config);
   targetId: string,
   debugActions?: boolean, // optional
   forceTouchUI?: boolean, // optional
-  controlBarHoverTimeout?: number, // optional
+  hoverTimeout?: number, // optional
   logger?: loggerType, // optional
   components?: Object, // optional
   uiComponents: Array<Object>, //optional
@@ -61,7 +61,7 @@ var uiManager = new playkit.ui.UIManager(player, config);
 
 ##
 
-> ### config.controlBarHoverTimeout
+> ### config.hoverTimeout
 >
 > ##### Type: `number`
 >

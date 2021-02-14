@@ -10,7 +10,7 @@ export const types = {
 
 export const initialState = {
   forceTouchUI: false,
-  controlBarHoverTimeout: CONTROL_BAR_HOVER_DEFAULT_TIMEOUT,
+  hoverTimeout: CONTROL_BAR_HOVER_DEFAULT_TIMEOUT,
   components: {
     watermark: {},
     seekbar: {},
