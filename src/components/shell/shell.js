@@ -43,12 +43,6 @@ const mapStateToProps = state => ({
   playlist: state.engine.playlist
 });
 
-/**
- * The default control bar hover time rendering timeout value
- * @type {number}
- * @const
- */
-const CONTROL_BAR_HOVER_DEFAULT_TIMEOUT: number = 3000;
 const ON_WINDOW_RESIZE_DEBOUNCE_DELAY: number = 100;
 
 const PLAYER_SIZE: {[size: string]: string} = {
@@ -443,4 +437,4 @@ class Shell extends Component {
   }
 }
 
-export {Shell, CONTROL_BAR_HOVER_DEFAULT_TIMEOUT, PLAYER_SIZE};
+export {Shell, PLAYER_SIZE};

@@ -1,6 +1,5 @@
 //@flow
 import {mergeDeep} from '../utils/merge-deep';
-import {CONTROL_BAR_HOVER_DEFAULT_TIMEOUT} from 'components/shell/shell';
 
 export const types = {
   UPDATE: 'config/UPDATE',
@@ -10,7 +9,7 @@ export const types = {
 
 export const initialState = {
   forceTouchUI: false,
-  hoverTimeout: CONTROL_BAR_HOVER_DEFAULT_TIMEOUT,
+  hoverTimeout: 3000,
   components: {
     watermark: {},
     seekbar: {},
