@@ -67,9 +67,9 @@ var uiManager = new playkit.ui.UIManager(player, config);
 >
 > ##### Default: `3000`
 >
-> ##### Description: Defines the timeout for control bar hover, 0 - don't hide.
+> ##### Description: Defines the timeout for control bar hover, 0 - always show.
 >
-> Useful for applications that wants to set different value for bar hover display.
+> Useful for applications that wants to set different hover timeout duration for player controls.
 
 ##
 
