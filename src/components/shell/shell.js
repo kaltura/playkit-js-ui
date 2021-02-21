@@ -22,6 +22,7 @@ import {FakeEvent} from 'event/fake-event';
 const mapStateToProps = state => ({
   targetId: state.config.targetId,
   forceTouchUI: state.config.forceTouchUI,
+  hoverTimeout: state.config.hoverTimeout,
   metadataLoaded: state.engine.metadataLoaded,
   currentState: state.engine.playerState.currentState,
   playerClasses: state.shell.playerClasses,
@@ -42,12 +43,6 @@ const mapStateToProps = state => ({
   playlist: state.engine.playlist
 });
 
-/**
- * The default control bar hover time rendering timeout value
- * @type {number}
- * @const
- */
-const CONTROL_BAR_HOVER_DEFAULT_TIMEOUT: number = 3000;
 const ON_WINDOW_RESIZE_DEBOUNCE_DELAY: number = 100;
 
 const PLAYER_SIZE: {[size: string]: string} = {
@@ -325,11 +320,13 @@ class Shell extends Component {
    */
   _startHoverTimeout(): void {
     this._clearHoverTimeout();
-    this.hoverTimeout = setTimeout(() => {
-      if (this._canEndHoverState()) {
-        this._updatePlayerHover(false);
-      }
-    }, this.props.hoverTimeout || CONTROL_BAR_HOVER_DEFAULT_TIMEOUT);
+    if (this.props.hoverTimeout) {
+      this.hoverTimeout = setTimeout(() => {
+        if (this._canEndHoverState()) {
+          this._updatePlayerHover(false);
+        }
+      }, this.props.hoverTimeout);
+    }
   }
 
   /**
@@ -440,4 +437,4 @@ class Shell extends Component {
   }
 }
 
-export {Shell, CONTROL_BAR_HOVER_DEFAULT_TIMEOUT, PLAYER_SIZE};
+export {Shell, PLAYER_SIZE};
