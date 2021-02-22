@@ -104,7 +104,7 @@ class LiveUI extends Component {
                         <Logo />
                       </Fragment>
                     }>
-                    <SeekBarLivePlaybackContainer showTimeBubble playerContainer={containerRef} />
+                    <SeekBarLivePlaybackContainer showFramePreview showTimeBubble playerContainer={containerRef} />
                   </BottomBar>
                 </Fragment>
               )}

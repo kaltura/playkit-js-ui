@@ -9,6 +9,7 @@ export const types = {
 
 export const initialState = {
   forceTouchUI: false,
+  hoverTimeout: 3000,
   components: {
     watermark: {},
     seekbar: {},

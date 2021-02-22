@@ -16,6 +16,7 @@ var uiManager = new playkit.ui.UIManager(player, config);
   targetId: string,
   debugActions?: boolean, // optional
   forceTouchUI?: boolean, // optional
+  hoverTimeout?: number, // optional
   logger?: loggerType, // optional
   components?: Object, // optional
   uiComponents: Array<Object>, //optional
@@ -57,6 +58,18 @@ var uiManager = new playkit.ui.UIManager(player, config);
 > ##### Description: Defines the view type of the UI (mobile or desktop).
 >
 > Useful for applications that wants to force mobile view of player UI.
+
+##
+
+> ### config.hoverTimeout
+>
+> ##### Type: `number`
+>
+> ##### Default: `3000`
+>
+> ##### Description: Defines the timeout for control bar hover, 0 - always show.
+>
+> Useful for applications that wants to set different hover timeout duration for player controls.
 
 ##
 

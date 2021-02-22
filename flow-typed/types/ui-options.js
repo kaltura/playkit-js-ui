@@ -5,6 +5,7 @@ declare type UIOptionsObject = {
   targetId: string,
   debugActions?: boolean,
   forceTouchUI?: boolean,
+  hoverTimeout?: number,
   logger?: loggerType,
   components?: ComponentsConfig,
   uiComponents?: Array<KPUIComponent>,
