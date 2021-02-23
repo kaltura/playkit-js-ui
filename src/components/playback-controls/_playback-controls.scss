@@ -51,4 +51,9 @@
       }
     }
   }
+
+  &.overlay-active .gui-area .playback-controls {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
