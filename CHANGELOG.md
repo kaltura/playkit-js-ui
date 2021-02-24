@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.64.0](https://github.com/kaltura/playkit-js-ui/compare/v0.63.0...v0.64.0) (2021-02-24)
+
+
+### Bug Fixes
+
+* **FEC-10409:** when overlay is displayed - all elements of the player should disappear ([#581](https://github.com/kaltura/playkit-js-ui/issues/581)) ([f3099ed](https://github.com/kaltura/playkit-js-ui/commit/f3099ed))
+* **FEC-10957:** CastBeforePlay button is not aligned to the center ([#577](https://github.com/kaltura/playkit-js-ui/issues/577)) ([e52f990](https://github.com/kaltura/playkit-js-ui/commit/e52f990))
+
+
+### Features
+
+* **FEC-10667:** control-bar auto-hide timeout configuration ([#579](https://github.com/kaltura/playkit-js-ui/issues/579)) ([8293d7b](https://github.com/kaltura/playkit-js-ui/commit/8293d7b))
+* **FEC-10768:** add thumbsHeight to SeekbarConfig ([#580](https://github.com/kaltura/playkit-js-ui/issues/580)) ([482e1c2](https://github.com/kaltura/playkit-js-ui/commit/482e1c2))
+* **FEC-10961:** show the thumbnail preview in live ([#578](https://github.com/kaltura/playkit-js-ui/issues/578)) ([2a240fd](https://github.com/kaltura/playkit-js-ui/commit/2a240fd))
+
+
+
 ## [0.63.0](https://github.com/kaltura/playkit-js-ui/compare/v0.62.0...v0.63.0) (2021-01-28)
 
 
