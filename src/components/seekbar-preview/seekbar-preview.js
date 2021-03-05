@@ -2,6 +2,9 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'react-redux';
+import {withPlayer} from 'components';
+
+const FRAME_PREVIEW_IMG_CONTAINER_OFFSET: number = 4;
 
 /**
  * mapping state to props
@@ -18,28 +21,30 @@ const mapStateToProps = state => ({
  * @class SeekBarPreview
  * @extends {Component}
  */
+@withPlayer
 @connect(mapStateToProps)
 class SeekBarPreview extends Component {
-  /**
-   * utility function to get the thumb sprite background position
-   * @returns {string} background-position string value
-   */
-  getThumbSpriteOffset(): string {
-    const percent = this.props.virtualTime / this.props.duration;
-    const sliceIndex = Math.ceil(this.props.thumbsSlices * percent);
-    return -(sliceIndex * this.props.thumbsWidth) + 'px 0px';
-  }
-
   /**
    * Gets the style of the frame preview image.
    * @returns {string} - The css style string.
    * @private
    */
-  _getFramePreviewImgStyle(): string {
-    let framePreviewImgStyle = `background-image: url(${this.props.thumbsSprite});`;
-    framePreviewImgStyle += `background-position: ${this.getThumbSpriteOffset()};`;
-    framePreviewImgStyle += `background-size: ${this.props.thumbsSlices * this.props.thumbsWidth}px 100%;`;
+  _getFramePreviewImgStyle(thumbnailInfo: Object): string {
+    let framePreviewImgStyle = `background: url(${thumbnailInfo.url});`;
+    framePreviewImgStyle += `background-position: -${thumbnailInfo.x}px -${thumbnailInfo.y}px;`;
     return framePreviewImgStyle;
+  }
+
+  /**
+   * Gets the style of the frame preview image container.
+   * @returns {string} - The css style string.
+   * @private
+   */
+  _getFramePreviewImgContainerStyle(thumbnailInfo: Object): string {
+    return {
+      height: `${thumbnailInfo.height + FRAME_PREVIEW_IMG_CONTAINER_OFFSET}px`,
+      width: `${thumbnailInfo.width + FRAME_PREVIEW_IMG_CONTAINER_OFFSET}px`
+    };
   }
 
   /**
@@ -47,12 +52,14 @@ class SeekBarPreview extends Component {
    * @returns {React$Element} - component element
    */
   render() {
-    if (!this.props.thumbsSprite || !this.props.thumbsSlices || !this.props.thumbsWidth) return undefined;
-    return (
-      <div className={[style.framePreviewImgContainer, style.nonSticky].join(' ')}>
-        <div className={style.framePreviewImg} style={this._getFramePreviewImgStyle()} />
-      </div>
-    );
+    const thumbnailInfo = this.props.player.getThumbnail(this.props.virtualTime);
+    if (thumbnailInfo) {
+      return (
+        <div style={this._getFramePreviewImgContainerStyle(thumbnailInfo)} className={[style.framePreviewImgContainer, style.nonSticky].join(' ')}>
+          <div className={style.framePreviewImg} style={this._getFramePreviewImgStyle(thumbnailInfo)} />
+        </div>
+      );
+    }
   }
 }
 

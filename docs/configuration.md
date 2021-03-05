@@ -189,50 +189,6 @@ var uiManager = new playkit.ui.UIManager(player, config);
 > >
 > > ##
 > >
-> > ### config.components.seekbar
-> >
-> > ##### Type: `Object`
-> >
-> > ```js
-> > {
-> >    thumbsSprite: string,
-> >    thumbsWidth: number,
-> >    thumbsSlices: number
-> > }
-> > ```
-> >
-> > ##### Description: Defines the seekbar component optional configuration.
-> >
-> > > ### config.components.seekbar.thumbsSprite
-> > >
-> > > ##### Type: `string`
-> > >
-> > > ##### Default: `-`
-> > >
-> > > ##### Description: The URL for the preview thumbnail image.
-> > >
-> > > ##
-> > >
-> > > ### config.components.seekbar.thumbsWidth
-> > >
-> > > ##### Type: `number`
-> > >
-> > > ##### Default: `-`
-> > >
-> > > ##### Description: The width of each preview thumbnail slice.
-> > >
-> > > ##
-> > >
-> > > ### config.components.watermark.thumbsSlices
-> > >
-> > > ##### Type: `number`
-> > >
-> > > ##### Default: `-`
-> > >
-> > > ##### Description: The amount of slices that the preview thumbnail image will divided into.
-> >
-> > ##
-> >
 > > ### config.components.fullscreen
 > >
 > > ##### Type: `Object`
