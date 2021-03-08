@@ -26,6 +26,7 @@ const mapStateToProps = state => ({
 class SeekBarPreview extends Component {
   /**
    * Gets the style of the frame preview image.
+   * @param {Object} thumbnailInfo  - The thumbnail info data.
    * @returns {string} - The css style string.
    * @private
    */
@@ -37,10 +38,11 @@ class SeekBarPreview extends Component {
 
   /**
    * Gets the style of the frame preview image container.
-   * @returns {string} - The css style string.
+   * @param {Object} thumbnailInfo  - The thumbnail info data.
+   * @returns {Object} - The css object style.
    * @private
    */
-  _getFramePreviewImgContainerStyle(thumbnailInfo: Object): string {
+  _getFramePreviewImgContainerStyle(thumbnailInfo: Object): Object {
     return {
       height: `${thumbnailInfo.height + FRAME_PREVIEW_IMG_CONTAINER_OFFSET}px`,
       width: `${thumbnailInfo.width + FRAME_PREVIEW_IMG_CONTAINER_OFFSET}px`
