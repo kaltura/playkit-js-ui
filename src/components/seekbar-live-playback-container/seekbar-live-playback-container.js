@@ -55,6 +55,15 @@ class SeekBarLivePlaybackContainer extends Component {
   }
 
   /**
+   *
+   * @returns {number} - the currentTime of the video to show
+   * @memberof SeekBarLivePlaybackContainer
+   */
+  get currentTime(): number {
+    return Math.min(this.props.currentTime, this.props.duration);
+  }
+
+  /**
    * render component
    *
    * @param {*} props - component props
@@ -71,8 +80,8 @@ class SeekBarLivePlaybackContainer extends Component {
         showFramePreview={this.props.showFramePreview}
         showTimeBubble={this.props.showTimeBubble}
         changeCurrentTime={time => {
-          // avoiding exiting live edge by mistake in case currenttime is just a bit smaller than duration
-          if (!(this.props.player.isOnLiveEdge() && time === this.duration)) {
+          // avoiding exiting live edge by mistake in case currentTime is just a bit smaller than duration
+          if (!(this.props.player.isOnLiveEdge() && time === this.props.duration)) {
             this.props.player.currentTime = time;
           }
         }}
@@ -83,23 +92,14 @@ class SeekBarLivePlaybackContainer extends Component {
         updateCurrentTime={data => this.props.updateCurrentTime(data)}
         updateVirtualTime={data => this.props.updateVirtualTime(data)}
         isDvr={this.props.isDvr}
-        currentTime={this.props.currentTime}
+        currentTime={this.currentTime}
         virtualTime={this.props.virtualTime}
-        duration={this.duration}
+        duration={this.props.duration}
         isDraggingActive={this.props.isDraggingActive}
         isMobile={this.props.isMobile}
         notifyChange={payload => this.props.notifyChange(payload)}
       />
     );
-  }
-
-  /**
-   *
-   * @returns {number} - the duration of the video to show
-   * @memberof SeekBarLivePlaybackContainer
-   */
-  get duration(): number {
-    return this.props.player.isOnLiveEdge() ? this.props.currentTime : Math.max(this.props.duration, this.props.currentTime);
   }
 }
 

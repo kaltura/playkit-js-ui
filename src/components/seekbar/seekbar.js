@@ -513,12 +513,7 @@ class SeekBar extends Component {
         className={this.props.hidePreview ? [style.framePreview, style.hideFramePreview].join(' ') : style.framePreview}
         style={this._getFramePreviewStyle()}
         ref={c => (c ? (this._framePreviewElement = c) : undefined)}>
-        <SeekBarPreview
-          virtualTime={this.props.virtualTime}
-          thumbsSlices={this.props.config.thumbsSlices}
-          thumbsWidth={this.props.config.thumbsWidth}
-          thumbsSprite={this.props.config.thumbsSprite}
-        />
+        <SeekBarPreview virtualTime={this.props.virtualTime} />
       </div>
     );
   }
@@ -530,8 +525,7 @@ class SeekBar extends Component {
    * @private
    */
   _getFramePreviewStyle(): string {
-    let framePreviewStyle = `left: ${this.getFramePreviewOffset()}px;`;
-    return framePreviewStyle;
+    return `left: ${this.getFramePreviewOffset()}px;`;
   }
 
   /**

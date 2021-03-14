@@ -1,9 +1,5 @@
-@import '~styles/variables';
-
 .frame-preview {
   .frame-preview-img-container {
-    height: $frame-preview-img-height + 4px;
-    width: $frame-preview-img-width + 4px;
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 4px;
 
