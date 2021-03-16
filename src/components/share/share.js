@@ -50,7 +50,7 @@ class Share extends Component {
    * @returns {void}
    * @memberof Share
    */
-  toggleOverlay(): void {
+  toggleOverlay = (): void => {
     this.setState(
       prevState => {
         return {overlay: !prevState.overlay, previousIsPlaying: this.props.isPlaying || prevState.previousIsPlaying};
@@ -65,7 +65,7 @@ class Share extends Component {
         }
       }
     );
-  }
+  };
 
   /**
    * returns the merged share config
@@ -98,14 +98,14 @@ class Share extends Component {
           enableTimeOffset={enableTimeOffset}
           socialNetworks={shareConfig}
           player={this.props.player}
-          onClose={() => this.toggleOverlay()}
+          onClose={this.toggleOverlay}
         />,
         document.querySelector(portalSelector)
       )
     ) : (
       <ButtonControl name={COMPONENT_NAME}>
         <Tooltip label={this.props.shareTxt} type={this.props.toolTipType ? this.props.toolTipType : ToolTipType.BottomLeft}>
-          <Button aria-haspopup="true" className={style.controlButton} onClick={() => this.toggleOverlay()} aria-label={this.props.shareTxt}>
+          <Button aria-haspopup="true" className={style.controlButton} onClick={this.toggleOverlay} aria-label={this.props.shareTxt}>
             <Icon type={IconType.Share} />
           </Button>
         </Tooltip>

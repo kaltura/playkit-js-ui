@@ -45,13 +45,26 @@ class LiveTag extends Component {
   }
 
   /**
+   * on key down handler
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @returns {void}
+   * @memberof LiveTag
+   */
+  onKeyDown = (e: KeyboardEvent): void => {
+    if (e.keyCode === KeyMap.ENTER) {
+      this.onClick();
+    }
+  };
+
+  /**
    * click handler to live tag
    * if not on live edge, seeking to live edge and if paused, call play method
    *
    * @returns {void}
    * @memberof LiveTag
    */
-  onClick(): void {
+  onClick = (): void => {
     if (!this.isOnLiveEdge()) {
       this.props.player.seekToLiveEdge();
       if (this.props.player.paused) {
@@ -59,7 +72,7 @@ class LiveTag extends Component {
       }
     }
     this.props.notifyClick();
-  }
+  };
 
   /**
    * render live tag component
@@ -73,15 +86,7 @@ class LiveTag extends Component {
     if (props.isDvr && !this.isOnLiveEdge()) tagStyleClass.push(style.nonLivePlayhead);
 
     return (
-      <div
-        tabIndex="0"
-        className={tagStyleClass.join(' ')}
-        onClick={() => this.onClick()}
-        onKeyDown={e => {
-          if (e.keyCode === KeyMap.ENTER) {
-            this.onClick();
-          }
-        }}>
+      <div tabIndex="0" className={tagStyleClass.join(' ')} onClick={this.onClick} onKeyDown={this.onKeyDown}>
         <Text id={'controls.live'} />
       </div>
     );

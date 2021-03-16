@@ -96,7 +96,7 @@ class Fullscreen extends Component {
    * @returns {void}
    * @memberof Fullscreen
    */
-  toggleFullscreen(): void {
+  toggleFullscreen = (): void => {
     const {targetId, logger, player} = this.props;
     logger.debug(`Toggle fullscreen`);
     const playerContainer: HTMLElement | null = document.getElementById(targetId);
@@ -105,7 +105,7 @@ class Fullscreen extends Component {
       playerContainer.focus();
     }
     this.props.notifyClick();
-  }
+  };
 
   /**
    * render component
@@ -121,7 +121,7 @@ class Fullscreen extends Component {
             tabIndex="0"
             aria-label={this.props.fullscreenText}
             className={this.props.fullscreen ? [style.controlButton, style.isFullscreen].join(' ') : style.controlButton}
-            onClick={() => this.toggleFullscreen()}>
+            onClick={this.toggleFullscreen}>
             <Icon type={IconType.Maximize} />
             <Icon type={IconType.Minimize} />
           </Button>

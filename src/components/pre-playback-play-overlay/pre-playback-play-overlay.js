@@ -49,11 +49,35 @@ class PrePlaybackPlayOverlay extends Component {
    * @returns {void}
    * @memberof PrePlaybackPlayOverlay
    */
-  handleClick(): void {
+  handleClick = (): void => {
     this.props.player.getView().focus();
     this.props.playlist && this.props.isPlaybackEnded ? this.props.player.playlist.playNext() : this.props.player.play();
     this.props.notifyClick();
-  }
+  };
+
+  /**
+   * on key down handler
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @returns {void}
+   * @memberof PrePlaybackPlayOverlay
+   */
+  onKeyDown = (e: KeyboardEvent): void => {
+    if (e.keyCode === KeyMap.ENTER) {
+      this.handleClick();
+    }
+  };
+
+  /**
+   * on mouse over handler
+   *
+   * @param {Event} e - event
+   * @returns {void}
+   * @memberof PrePlaybackPlayOverlay
+   */
+  onMouseOver = (e: Event): void => {
+    e.stopPropagation();
+  };
 
   /**
    * render component
@@ -69,16 +93,8 @@ class PrePlaybackPlayOverlay extends Component {
     }
     const labelText = props.isPlaybackEnded ? props.startOverText : props.playText;
     return (
-      <div className={style.prePlaybackPlayOverlay} onMouseOver={e => e.stopPropagation()} onClick={() => this.handleClick()}>
-        <Button
-          className={style.prePlaybackPlayButton}
-          tabIndex="0"
-          aria-label={labelText}
-          onKeyDown={e => {
-            if (e.keyCode === KeyMap.ENTER) {
-              this.handleClick();
-            }
-          }}>
+      <div className={style.prePlaybackPlayOverlay} onMouseOver={this.onMouseOver} onClick={this.handleClick}>
+        <Button className={style.prePlaybackPlayButton} tabIndex="0" aria-label={labelText} onKeyDown={this.onKeyDown}>
           <Tooltip label={labelText}>{props.isPlaybackEnded ? <Icon type={IconType.StartOver} /> : <Icon type={IconType.Play} />}</Tooltip>
         </Button>
       </div>

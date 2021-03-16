@@ -40,6 +40,7 @@ const COMPONENT_NAME = 'UnmuteIndication';
 @withLogger(COMPONENT_NAME)
 class UnmuteIndication extends Component {
   _iconTimeout: ?TimeoutID = null;
+
   /**
    * after component updated, check the fallbackToMutedAutoPlay prop for updating the state of the component
    *
@@ -86,11 +87,36 @@ class UnmuteIndication extends Component {
    * @memberof UnmuteIndication
    * @returns {void}
    */
-  _keyDownHandler(e: KeyboardEvent): void {
+  onKeyDown = (e: KeyboardEvent): void => {
     if (e.keyCode === KeyMap.ENTER) {
       this.props.player.muted = !this.props.player.muted;
     }
-  }
+  };
+  /**
+   * @private
+   * @memberof UnmuteIndication
+   * @returns {void}
+   */
+  onMouseOver = () => this.setState({iconOnly: false});
+  /**
+   * @private
+   * @memberof UnmuteIndication
+   * @returns {void}
+   */
+  onMouseOut = () => this.setState({iconOnly: true});
+  /**
+   * @private
+   * @memberof UnmuteIndication
+   * @returns {void}
+   */
+  onMouseUp = () => (this.props.player.muted = !this.props.player.muted);
+  /**
+   * @param {Event} e - the touch end event
+   * @private
+   * @memberof UnmuteIndication
+   * @returns {void}
+   */
+  onTouchEnd = (e: Event) => e.stopImmediatePropagation();
 
   /**
    * render component
@@ -112,11 +138,11 @@ class UnmuteIndication extends Component {
           tabIndex="0"
           aria-label={<Text id="controls.unmute" />}
           className={styleClass.join(' ')}
-          onMouseOver={() => this.setState({iconOnly: false})}
-          onMouseOut={() => this.setState({iconOnly: true})}
-          onMouseUp={() => (this.props.player.muted = !this.props.player.muted)}
-          onTouchEnd={e => e.stopImmediatePropagation()}
-          onKeyDown={e => this._keyDownHandler(e)}>
+          onMouseOver={this.onMouseOver}
+          onMouseOut={this.onMouseOut}
+          onMouseUp={this.onMouseUp}
+          onTouchEnd={this.onTouchEnd}
+          onKeyDown={this.onKeyDown}>
           <a className={[style.btn, style.btnDarkTransparent, style.unmuteButton].join(' ')}>
             <div className={style.unmuteIconContainer}>
               <Icon type={IconType.VolumeBase} />

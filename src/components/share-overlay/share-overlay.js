@@ -62,7 +62,7 @@ const ShareButton = (props: Object): React$Element<any> => {
       role="link"
       aria-label={props.config.ariaLabel}
       className={[style.btnRounded, style[props.config.iconType], props.config.iconType].join(' ')}
-      onClick={() => share()}>
+      onClick={share}>
       <Icon style={props.config.iconType === 'svg' ? `background-image: url(${props.config.svg})` : ``} type={props.config.iconType} />
     </Button>
   );
@@ -81,19 +81,19 @@ const ShareUrl = (props: Object): React$Element<any> => {
    * copy input text based on input element.
    * on success, set success internal component state for 2 seconds
    *
-   * @param {HTMLInputElement} inputElement - start from input element
-   * @param {boolean} isIos - if UA is on iOS device
    * @returns {void}
    * @memberof ShareOverlay
    */
-  const copyUrl = (inputElement: HTMLInputElement, isIos: boolean) => {
-    if (isIos) {
-      inputElement.setSelectionRange(0, 9999);
-    } else {
-      inputElement.select();
+  const copyUrl = (): void => {
+    if (_ref) {
+      if (props.isIos) {
+        _ref.setSelectionRange(0, 9999);
+      } else {
+        _ref.select();
+      }
+      document.execCommand('copy');
+      _ref.blur();
     }
-    document.execCommand('copy');
-    inputElement.blur();
   };
 
   return (
@@ -102,7 +102,7 @@ const ShareUrl = (props: Object): React$Element<any> => {
         <input tabIndex="-1" type="text" ref={c => (c ? (_ref = c) : undefined)} className={style.formControl} value={props.shareUrl} readOnly />
         <Icon type={IconType.Link} />
       </div>
-      {props.copy && <CopyButton addAccessibleChild={props.addAccessibleChild} copy={() => copyUrl(_ref, props.isIos)} />}
+      {props.copy && <CopyButton addAccessibleChild={props.addAccessibleChild} copy={copyUrl} />}
     </div>
   );
 };
@@ -114,6 +114,32 @@ const ShareUrl = (props: Object): React$Element<any> => {
  * @constructor
  */
 const VideoStartOptions = (props: Object): React$Element<any> => {
+  /**
+   * on click handler
+   *
+   * @param {Event} e - event
+   * @returns {void}
+   * @memberof VideoStartOptions
+   */
+  const onClick = (e: Event): void => {
+    e.preventDefault();
+    props.toggleStartFrom();
+  };
+
+  /**
+   * on key down handler
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @returns {void}
+   * @memberof VideoStartOptions
+   */
+  const onKeyDown = (e: KeyboardEvent): void => {
+    if (e.keyCode === KeyMap.ENTER) {
+      e.preventDefault();
+      props.toggleStartFrom();
+    }
+  };
+
   return (
     <div className={style.videoStartOptionsRow}>
       <div
@@ -123,16 +149,8 @@ const VideoStartOptions = (props: Object): React$Element<any> => {
           props.addAccessibleChild(el);
         }}
         tabIndex="0"
-        onClick={e => {
-          e.preventDefault();
-          props.toggleStartFrom();
-        }}
-        onKeyDown={e => {
-          if (e.keyCode === KeyMap.ENTER) {
-            e.preventDefault();
-            props.toggleStartFrom();
-          }
-        }}
+        onClick={onClick}
+        onKeyDown={onKeyDown}
         className={[style.checkbox, style.dInlineBlock].join(' ')}>
         <input type="checkbox" id="start-from" checked={props.startFrom} />
         <label id="start-from-label" htmlFor="start-from">
@@ -147,7 +165,7 @@ const VideoStartOptions = (props: Object): React$Element<any> => {
           }}
           type="text"
           className={style.formControl}
-          onChange={e => props.handleStartFromChange(e)}
+          onChange={props.handleStartFromChange}
           value={toHHMMSS(props.startFromValue)}
           style="width: 72px;"
         />
@@ -218,6 +236,16 @@ class ShareOverlay extends Component {
   }
 
   /**
+   * on click handler
+   *
+   * @returns {void}
+   * @memberof ShareOverlay
+   */
+  onClick = (): void => {
+    this._transitionToState(shareOverlayView.EmbedOptions);
+  };
+
+  /**
    * get share url method
    *
    * @returns {string} - share url
@@ -269,11 +297,11 @@ class ShareOverlay extends Component {
    * @returns {void}
    * @memberof ShareOverlay
    */
-  _toggleStartFrom(): void {
+  _toggleStartFrom = (): void => {
     this.setState(prevState => {
       return {startFrom: !prevState.startFrom};
     });
-  }
+  };
 
   /**
    * start from input change handler.
@@ -283,13 +311,13 @@ class ShareOverlay extends Component {
    * @returns {void}
    * @memberof ShareOverlay
    */
-  _handleStartFromChange(e: any): void {
+  _handleStartFromChange = (e: any): void => {
     let seconds = toSecondsFromHHMMSS(e.target.value);
     if (seconds >= this.props.player.duration) {
       this.setState({startFromValue: 1});
     }
     this.setState({startFromValue: seconds});
-  }
+  };
 
   /**
    * render the partial social network DOM
@@ -343,7 +371,7 @@ class ShareOverlay extends Component {
                   this.props.addAccessibleChild(el);
                 }}
                 className={[style.btnRounded, style.embedShareBtn].join(' ')}
-                onClick={() => this._transitionToState(shareOverlayView.EmbedOptions)}
+                onClick={this.onClick}
                 title={<Text id="share.embed" />}>
                 <Icon type={IconType.Embed} />
               </Button>
@@ -356,8 +384,8 @@ class ShareOverlay extends Component {
                 addAccessibleChild={this.props.addAccessibleChild}
                 startFrom={this.state.startFrom}
                 startFromValue={this.state.startFromValue}
-                handleStartFromChange={e => this._handleStartFromChange(e)}
-                toggleStartFrom={() => this._toggleStartFrom()}
+                handleStartFromChange={this._handleStartFromChange}
+                toggleStartFrom={this._toggleStartFrom}
               />
             ) : undefined}
           </div>
@@ -383,8 +411,8 @@ class ShareOverlay extends Component {
               addAccessibleChild={this.props.addAccessibleChild}
               startFrom={this.state.startFrom}
               startFromValue={this.state.startFromValue}
-              handleStartFromChange={e => this._handleStartFromChange(e)}
-              toggleStartFrom={() => this._toggleStartFrom()}
+              handleStartFromChange={this._handleStartFromChange}
+              toggleStartFrom={this._toggleStartFrom}
             />
           ) : undefined}
         </div>
@@ -419,12 +447,7 @@ class ShareOverlay extends Component {
    */
   render(props: any): React$Element<any> {
     return (
-      <Overlay
-        addAccessibleChild={this.props.addAccessibleChild}
-        handleKeyDown={e => this.props.handleKeyDown(e)}
-        open
-        onClose={() => props.onClose()}
-        type="share">
+      <Overlay addAccessibleChild={this.props.addAccessibleChild} handleKeyDown={this.props.handleKeyDown} open onClose={props.onClose} type="share">
         {this.renderStateContent()}
       </Overlay>
     );

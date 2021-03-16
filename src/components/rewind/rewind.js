@@ -51,7 +51,7 @@ class Rewind extends Component {
    * @returns {void}
    * @memberof Rewind
    */
-  onClick(): void {
+  onClick = (): void => {
     this.props.animate();
     let to;
     const step = this.props.step || REWIND_DEFAULT_STEP;
@@ -69,7 +69,7 @@ class Rewind extends Component {
       from: from,
       to: to
     });
-  }
+  };
 
   /**
    * render component
@@ -87,7 +87,7 @@ class Rewind extends Component {
             aria-label={this.props.rewindText}
             className={`${style.controlButton}`}
             ref={this.props.innerRef}
-            onClick={() => this.onClick()}>
+            onClick={this.onClick}>
             <Icon type={!props.step || props.step === REWIND_DEFAULT_STEP ? IconType.Rewind10 : IconType.Rewind} />
           </Button>
         </Tooltip>

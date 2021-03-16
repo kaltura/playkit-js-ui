@@ -86,7 +86,7 @@ class Slider extends Component {
    * @returns {void}
    * @memberof Slider
    */
-  mouseDownHandler(e: any): void {
+  mouseDownHandler = (e: any): void => {
     this._sliderElementOffsetLeft = this._sliderElement.getBoundingClientRect().left;
     if (!this.state.dragging) {
       this.setState(
@@ -101,7 +101,20 @@ class Slider extends Component {
         }
       );
     }
-  }
+  };
+
+  /**
+   * on key down handler
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @returns {void}
+   * @memberof Slider
+   */
+  onKeyDown = (e: KeyboardEvent): void => {
+    if (e.keyCode === KeyMap.LEFT || e.keyCode === KeyMap.RIGHT) {
+      this.onKeyboardDragging(e);
+    }
+  };
 
   /**
    * key down handler if dragging via keyboard
@@ -225,12 +238,12 @@ class Slider extends Component {
   }
 
   /**
-   * get progress presentage by slider value
+   * get progress percentage by slider value
    *
-   * @returns {number} presentage
+   * @returns {number} percentage
    * @memberof Slider
    */
-  getPersentageByValue(): number {
+  getPercentageByValue(): number {
     return Math.round((this.state.value / this.state.max) * 100);
   }
 
@@ -258,15 +271,11 @@ class Slider extends Component {
           }
         }}
         className={style.slider}
-        onMouseDown={e => this.mouseDownHandler(e)}
-        onTouchStart={e => this.mouseDownHandler(e)}
-        onKeyDown={e => {
-          if (e.keyCode === KeyMap.LEFT || e.keyCode === KeyMap.RIGHT) {
-            this.onKeyboardDragging(e);
-          }
-        }}>
-        <div className={style.progress} style={{width: this.getPersentageByValue() + '%'}}>
-          <div className={style.handle} onMouseDown={e => this.mouseDownHandler(e)} onTouchStart={e => this.mouseDownHandler(e)} />
+        onMouseDown={this.mouseDownHandler}
+        onTouchStart={this.mouseDownHandler}
+        onKeyDown={this.onKeyDown}>
+        <div className={style.progress} style={{width: this.getPercentageByValue() + '%'}}>
+          <div className={style.handle} onMouseDown={this.mouseDownHandler} onTouchStart={this.mouseDownHandler} />
         </div>
       </div>
     );

@@ -50,7 +50,7 @@ class Forward extends Component {
    * @returns {void}
    * @memberof Forward
    */
-  onClick(): void {
+  onClick = (): void => {
     const {player} = this.props;
     this.props.animate();
     let to;
@@ -69,7 +69,7 @@ class Forward extends Component {
       from: from,
       to: to
     });
-  }
+  };
 
   /**
    * render component
@@ -87,7 +87,7 @@ class Forward extends Component {
             aria-label={this.props.forwardText}
             className={`${style.controlButton}`}
             ref={this.props.innerRef}
-            onClick={() => this.onClick()}>
+            onClick={this.onClick}>
             <Icon type={!props.step || props.step === FORWARD_DEFAULT_STEP ? IconType.Forward10 : IconType.Forward} />
           </Button>
         </Tooltip>

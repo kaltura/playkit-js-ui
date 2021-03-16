@@ -69,10 +69,22 @@ class DropDown extends Component {
    * @returns {void}
    * @memberof DropDown
    */
-  onMenuChosen(option: Object): void {
+  onMenuChosen = (option: Object): void => {
     this.props.onMenuChosen(option);
     this.setState({dropMenuActive: false});
-  }
+  };
+
+  /**
+   * on click handler
+   *
+   * @param {Event} e - keyboard event
+   * @returns {void}
+   * @memberof DropDown
+   */
+  onClick = (e: Event): void => {
+    e.stopPropagation();
+    this.toggleDropDown();
+  };
 
   /**
    * on key down handler - on enter open toggle drop down menu
@@ -81,12 +93,10 @@ class DropDown extends Component {
    * @returns {void}
    * @memberof DropDown
    */
-  onKeyDown(e: KeyboardEvent): void {
+  onKeyDown = (e: KeyboardEvent): void => {
     switch (e.keyCode) {
       case KeyMap.ENTER:
-        this.setState(prevState => {
-          return {dropMenuActive: !prevState.dropMenuActive};
-        });
+        this.toggleDropDown();
         break;
       case KeyMap.ESC:
         if (this.state.dropMenuActive) {
@@ -95,7 +105,7 @@ class DropDown extends Component {
         }
         break;
     }
-  }
+  };
 
   /**
    * listener function from Menu component to close the dropdown menu.
@@ -104,9 +114,9 @@ class DropDown extends Component {
    * @returns {void}
    * @memberof DropDown
    */
-  onClose(): void {
+  onClose = (): void => {
     this.setState({dropMenuActive: false});
-  }
+  };
 
   /**
    * get active option label or first option's label
@@ -135,8 +145,8 @@ class DropDown extends Component {
         labelledby={labelledby}
         pushRef={this.props.pushRef}
         options={this.props.options}
-        onMenuChosen={o => this.onMenuChosen(o)}
-        onClose={() => this.onClose()}
+        onMenuChosen={this.onMenuChosen}
+        onClose={this.onClose}
       />
     );
   }
@@ -169,22 +179,12 @@ class DropDown extends Component {
           aria-expanded={this.state.dropMenuActive ? 'true' : 'false'}
           aria-labelledby={[props.name, activeOptionId].join(' ')}
           className={style.dropdownButton}
-          onClick={e => {
-            e.stopPropagation();
-            this.toggleDropDown();
-          }}
-          onKeyDown={e => {
-            switch (e.keyCode) {
-              case KeyMap.ENTER:
-                this.toggleDropDown();
-                e.stopPropagation();
-                break;
-            }
-          }}>
+          onClick={this.onClick}
+          onKeyDown={this.onKeyDown}>
           <span id={activeOptionId}>{this.getActiveOptionLabel()}</span>
           <Icon type={IconType.ArrowDown} />
           {!this.state.dropMenuActive ? undefined : (
-            <Menu parentEl={this._el} options={props.options} onMenuChosen={o => this.onMenuChosen(o)} onClose={() => this.onClose()} />
+            <Menu parentEl={this._el} options={props.options} onMenuChosen={this.onMenuChosen} onClose={this.onClose} />
           )}
         </div>
       </div>

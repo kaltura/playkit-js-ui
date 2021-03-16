@@ -26,6 +26,29 @@ class CustomCaptionsWindow extends Component {
   }
 
   /**
+   * change captions style handler
+   *
+   * @returns {void}
+   * @memberof CustomCaptionsWindow
+   */
+  changeCaptionsStyle = (): void => {
+    this.props.changeCaptionsStyle(this.props.customTextStyle);
+  };
+
+  /**
+   * on key down handler
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @returns {void}
+   * @memberof CustomCaptionsWindow
+   */
+  onKeyDown = (e: KeyboardEvent): void => {
+    if (e.keyCode === KeyMap.ENTER) {
+      this.changeCaptionsStyle();
+    }
+  };
+
+  /**
    * render component
    *
    * @param {*} props - component props
@@ -134,12 +157,8 @@ class CustomCaptionsWindow extends Component {
               ref={el => {
                 props.addAccessibleChild(el);
               }}
-              onClick={() => props.changeCaptionsStyle(props.customTextStyle)}
-              onKeyDown={e => {
-                if (e.keyCode === KeyMap.ENTER) {
-                  props.changeCaptionsStyle(props.customTextStyle);
-                }
-              }}
+              onClick={this.changeCaptionsStyle}
+              onKeyDown={this.onKeyDown}
               className={[style.btn, style.btnBranded, style.btnBlock].join(' ')}>
               <Text id={'cvaa.apply'} />
             </a>

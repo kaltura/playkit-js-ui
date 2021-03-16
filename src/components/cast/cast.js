@@ -41,12 +41,26 @@ class Cast extends Component {
    * @memberof Cast
    * @returns {void}
    */
-  onClick(): void {
+  onClick = (): void => {
     this.props.updateBackdropVisibility(true);
     this.props.eventManager.listenOnce(this.props.player, this.props.player.Event.Cast.CAST_SESSION_START_FAILED, () =>
       this.props.updateBackdropVisibility(false)
     );
-  }
+  };
+
+  /**
+   * on key down handler - on enter open toggle drop down menu
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @returns {void}
+   * @memberof Cast
+   */
+  onKeyDown = (e: KeyboardEvent): void => {
+    if (e.keyCode === KeyMap.ENTER) {
+      this.props.updateBackdropVisibility(true);
+      this.props.player.startCasting().catch(() => this.props.updateBackdropVisibility(false));
+    }
+  };
 
   /**
    * render component
@@ -62,13 +76,8 @@ class Cast extends Component {
           role="button"
           aria-label={this.props.castText}
           className={style.controlButtonContainer}
-          onClick={() => this.onClick()}
-          onKeyDown={e => {
-            if (e.keyCode === KeyMap.ENTER) {
-              this.props.updateBackdropVisibility(true);
-              this.props.player.startCasting().catch(() => this.props.updateBackdropVisibility(false));
-            }
-          }}>
+          onClick={this.onClick}
+          onKeyDown={this.onKeyDown}>
           <Tooltip label={this.props.castText}>
             <google-cast-launcher className={style.castButton} tabIndex="0" />
           </Tooltip>

@@ -51,10 +51,10 @@ class CastBeforePlay extends Component {
    * @returns {void}
    * @memberof CastBeforePlay
    */
-  onClick(): void {
+  onClick = (): void => {
     this.props.updateBackdropVisibility(true);
     this.props.player.startCasting().catch(() => this.props.updateBackdropVisibility(false));
-  }
+  };
 
   /**
    * after component did mount, show the cast before play button.
@@ -101,7 +101,7 @@ class CastBeforePlay extends Component {
             <Button
               tabIndex="0"
               aria-label={<Text id={'cast.play_on_tv'} />}
-              onClick={() => this.onClick()}
+              onClick={this.onClick}
               className={[style.btn, style.btnDarkTransparent, style.castOnTvButton].join(' ')}>
               <div className={style.castOnTvIconContainer}>
                 <Icon type={props.icon} />

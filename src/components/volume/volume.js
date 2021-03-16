@@ -105,8 +105,8 @@ class Volume extends Component {
       this.props.updateMuted(player.muted);
       this.props.updateVolume(player.volume);
     });
-    this.props.eventManager.listen(document, 'mouseup', e => this.onVolumeProgressBarMouseUp(e));
-    this.props.eventManager.listen(document, 'mousemove', e => this.onVolumeProgressBarMouseMove(e));
+    this.props.eventManager.listen(document, 'mouseup', this.onVolumeProgressBarMouseUp);
+    this.props.eventManager.listen(document, 'mousemove', this.onVolumeProgressBarMouseMove);
     this.props.registerKeyboardEvents(this._keyboardEventHandlers);
   }
 
@@ -128,9 +128,9 @@ class Volume extends Component {
    * @returns {void}
    * @memberof Volume
    */
-  onVolumeProgressBarMouseDown(): void {
+  onVolumeProgressBarMouseDown = (): void => {
     this.props.updateVolumeDraggingStatus(true);
-  }
+  };
 
   /**
    * on volume progress bar mouse move, update the volume if dragging is active
@@ -140,11 +140,11 @@ class Volume extends Component {
    * @returns {void}
    * @memberof Volume
    */
-  onVolumeProgressBarMouseMove(e: FakeEvent): void {
+  onVolumeProgressBarMouseMove = (e: FakeEvent): void => {
     if (this.props.isDraggingActive) {
       this.changeVolume(e);
     }
-  }
+  };
 
   /**
    * volume mouse over handler
@@ -241,7 +241,7 @@ class Volume extends Component {
    * @returns {void}
    * @memberof Volume
    */
-  onKeyDown(event: KeyboardEvent): void {
+  onKeyDown = (event: KeyboardEvent): void => {
     switch (event.keyCode) {
       case KeyMap.UP:
       case KeyMap.DOWN:
@@ -253,7 +253,18 @@ class Volume extends Component {
         this.setState({hover: false});
         break;
     }
-  }
+  };
+
+  /**
+   * on touch end handler
+   *
+   * @param {Event} e - event
+   * @returns {void}
+   * @memberof Volume
+   */
+  onTouchEnd = (e: Event): void => {
+    e.stopImmediatePropagation();
+  };
 
   /**
    * on volume progress bar mouse up, update the volume and change the dragging status to false
@@ -263,12 +274,12 @@ class Volume extends Component {
    * @returns {void}
    * @memberof Volume
    */
-  onVolumeProgressBarMouseUp(e: FakeEvent): void {
+  onVolumeProgressBarMouseUp = (e: FakeEvent): void => {
     if (this.props.isDraggingActive) {
       this.props.updateVolumeDraggingStatus(false);
       this.changeVolume(e);
     }
-  }
+  };
 
   /**
    * on volume control button Mouse Down, toggle mute in player and store state
@@ -277,7 +288,7 @@ class Volume extends Component {
    * @returns {void}
    * @memberof Volume
    */
-  toggleMute(): void {
+  toggleMute = (): void => {
     const {player} = this.props;
     if (player.volume === 0) {
       this.props.logger.debug(`Toggle mute. Volume is 0, set mute to false & volume to 0.5`);
@@ -288,7 +299,7 @@ class Volume extends Component {
       player.muted = !player.muted;
     }
     this.props.notifyClick();
-  }
+  };
 
   /**
    * change volume based on event mouse position compared to volume progress bar element
@@ -385,9 +396,9 @@ class Volume extends Component {
             tabIndex="0"
             aria-label={muted ? this.props.unmuteAriaLabel : this.props.muteAriaLabel}
             className={style.controlButton}
-            onMouseUp={() => this.toggleMute()}
-            onTouchEnd={e => e.stopImmediatePropagation()}
-            onKeyDown={e => this.onKeyDown(e)}>
+            onMouseUp={this.toggleMute}
+            onTouchEnd={this.onTouchEnd}
+            onKeyDown={this.onKeyDown}>
             <Icon type={IconType.VolumeBase} />
             <Icon type={IconType.VolumeWaves} />
             <Icon type={IconType.VolumeMute} />
@@ -403,7 +414,7 @@ class Volume extends Component {
           <div
             className={style.bar}
             ref={c => (c ? (this._volumeProgressBarElement = c) : undefined)}
-            onMouseDown={() => this.onVolumeProgressBarMouseDown()}>
+            onMouseDown={this.onVolumeProgressBarMouseDown}>
             <div className={style.progress} style={{height: this.getVolumeProgressHeight()}} />
           </div>
         </div>

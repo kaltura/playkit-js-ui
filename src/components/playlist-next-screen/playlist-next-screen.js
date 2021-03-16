@@ -66,9 +66,22 @@ class PlaylistNextScreen extends Component {
    * @returns {void}
    * @memberof PlaylistNextScreen
    */
-  onPosterClick() {
+  onPosterClick = (): void => {
     this.props.player.playlist.playNext();
-  }
+  };
+
+  /**
+   * on key down handler
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @returns {void}
+   * @memberof PlaylistNextScreen
+   */
+  onKeyDown = (e: KeyboardEvent): void => {
+    if (e.keyCode === KeyMap.ENTER) {
+      this.onPosterClick();
+    }
+  };
 
   /**
    * @private
@@ -116,12 +129,8 @@ class PlaylistNextScreen extends Component {
                 ref={el => (el ? (this.focusElement = el) : undefined)}
                 tabIndex="0"
                 className={style.playlistNextScreenPoster}
-                onClick={() => this.onPosterClick()}
-                onKeyDown={e => {
-                  if (e.keyCode === KeyMap.ENTER) {
-                    this.onPosterClick();
-                  }
-                }}>
+                onClick={this.onPosterClick}
+                onKeyDown={this.onKeyDown}>
                 <div className={style.playlistNextScreenPosterImg} style={`background-image: url(${this._getPosterUrl()});`} />
                 <Icon type={IconType.Play} />
               </div>
