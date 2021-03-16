@@ -49,7 +49,7 @@ class Cast extends Component {
   };
 
   /**
-   * on key down handler - on enter open toggle drop down menu
+   * on key down handler
    *
    * @param {KeyboardEvent} e - keyboard event
    * @returns {void}
