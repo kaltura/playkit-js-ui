@@ -2,7 +2,6 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {KeyMap} from '../../utils/key-map';
-import {bindMethod} from '../../utils/bind-method';
 
 const KEYBOARD_DRAG_STEP = 5;
 
@@ -18,22 +17,8 @@ const COMPONENT_NAME = 'Slider';
 class Slider extends Component {
   state: Object;
   sliderWidth: number;
-  mouseUpHandler: Function;
-  mouseMoveHandler: Function;
   _sliderElement: HTMLElement;
   _sliderElementOffsetLeft: number;
-
-  /**
-   * Creates an instance of Slider.
-   *
-   * @constructor
-   * @memberof Slider
-   */
-  constructor() {
-    super();
-    this.mouseUpHandler = bindMethod(this, this.mouseUpHandler);
-    this.mouseMoveHandler = bindMethod(this, this.mouseMoveHandler);
-  }
 
   /**
    * before component mounted, set initial state of the slider
@@ -161,7 +146,7 @@ class Slider extends Component {
    * @returns {void}
    * @memberof Slider
    */
-  mouseMoveHandler(e: any): void {
+  mouseMoveHandler = (e: any): void => {
     if (this.state.dragging) {
       this.setState(
         prevState => {
@@ -174,7 +159,7 @@ class Slider extends Component {
         }
       );
     }
-  }
+  };
 
   /**
    * document mouseup handler if dragging active
@@ -183,7 +168,7 @@ class Slider extends Component {
    * @returns {void}
    * @memberof Slider
    */
-  mouseUpHandler(e: any): void {
+  mouseUpHandler = (e: any): void => {
     if (this.state.dragging) {
       this.setState(
         prevState => {
@@ -197,7 +182,7 @@ class Slider extends Component {
         }
       );
     }
-  }
+  };
 
   /**
    * get slider value based on mouse event

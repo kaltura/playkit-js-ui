@@ -3,7 +3,6 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {default as Icon, IconType} from '../icon';
 import {connect} from 'react-redux';
-import {bindMethod} from '../../utils/bind-method';
 import {withKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
 import {KeyMap} from 'utils/key-map';
 import {withEventManager} from 'event/with-event-manager';
@@ -37,19 +36,7 @@ const COMPONENT_NAME = 'Menu';
 @withKeyboardA11y
 class Menu extends Component {
   state: Object;
-  handleClickOutside: Function;
   _menuElement: HTMLDivElement;
-
-  /**
-   * Creates an instance of Menu.
-   *
-   * @constructor
-   * @memberof Menu
-   */
-  constructor() {
-    super();
-    this.handleClickOutside = bindMethod(this, this.handleClickOutside);
-  }
 
   /**
    * before component mounted, set initial state of the menu position
@@ -107,11 +94,11 @@ class Menu extends Component {
    * @returns {void}
    * @memberof Menu
    */
-  handleClickOutside(e: any) {
+  handleClickOutside = (e: any) => {
     if (!this.props.isMobile && !this.props.isSmallSize && this._menuElement && !this._menuElement.contains(e.target)) {
       this.props.onClose();
     }
-  }
+  };
 
   /**
    * indication if option is active or not

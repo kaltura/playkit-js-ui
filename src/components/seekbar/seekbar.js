@@ -6,7 +6,6 @@ import {KeyMap} from '../../utils/key-map';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions as shellActions} from '../../reducers/shell';
-import {bindMethod} from '../../utils/bind-method';
 import {withPlayer} from '../player';
 import {withKeyboardEvent} from 'components/keyboard';
 import {actions as overlayIconActions} from 'reducers/overlay-action';
@@ -52,8 +51,6 @@ const KEYBOARD_DEFAULT_SEEK_JUMP: number = 5;
 @withText({sliderAriaLabel: 'controls.seekBarSlider'})
 class SeekBar extends Component {
   state: Object;
-  onPlayerMouseUp: Function;
-  onPlayerMouseMove: Function;
   _seekBarElement: HTMLElement;
   _framePreviewElement: HTMLElement;
   _timeBubbleElement: HTMLElement;
@@ -91,16 +88,6 @@ class SeekBar extends Component {
       }
     }
   ];
-
-  /**
-   * Creates an instance of SeekBar.
-   * @memberof SeekBar
-   */
-  constructor() {
-    super();
-    this.onPlayerMouseUp = bindMethod(this, this.onPlayerMouseUp);
-    this.onPlayerMouseMove = bindMethod(this, this.onPlayerMouseMove);
-  }
 
   /**
    * on component mount, bind mouseup and mousemove events to top player element
@@ -162,7 +149,7 @@ class SeekBar extends Component {
    * @returns {void}
    * @memberof SeekBar
    */
-  onPlayerMouseUp(e: Event): void {
+  onPlayerMouseUp = (e: Event): void => {
     if (this.props.isMobile || this.props.previewHoverActive) {
       return;
     }
@@ -177,7 +164,7 @@ class SeekBar extends Component {
         to: newTime
       });
     }
-  }
+  };
 
   /**
    * player mouse move handler for seekbar porpuses
@@ -186,7 +173,7 @@ class SeekBar extends Component {
    * @returns {void}
    * @memberof SeekBar
    */
-  onPlayerMouseMove(e: Event): void {
+  onPlayerMouseMove = (e: Event): void => {
     if (this.props.isMobile) {
       return;
     }
@@ -195,7 +182,7 @@ class SeekBar extends Component {
       this.updateSeekBarProgress(time, this.props.duration);
       this.updateSeekBarProgress(time, this.props.duration, true);
     }
-  }
+  };
 
   /**
    * seekbar mouse move handler
