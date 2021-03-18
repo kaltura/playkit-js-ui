@@ -96,7 +96,7 @@ class DropDown extends Component {
   onKeyDown = (e: KeyboardEvent): void => {
     switch (e.keyCode) {
       case KeyMap.ENTER:
-        this.toggleDropDown();
+        this.onClick();
         break;
       case KeyMap.ESC:
         if (this.state.dropMenuActive) {
