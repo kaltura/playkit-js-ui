@@ -6,7 +6,6 @@ import {KeyMap} from '../../utils/key-map';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions as shellActions} from '../../reducers/shell';
-import {bindMethod} from '../../utils/bind-method';
 import {withPlayer} from '../player';
 import {withKeyboardEvent} from 'components/keyboard';
 import {actions as overlayIconActions} from 'reducers/overlay-action';
@@ -52,8 +51,6 @@ const KEYBOARD_DEFAULT_SEEK_JUMP: number = 5;
 @withText({sliderAriaLabel: 'controls.seekBarSlider'})
 class SeekBar extends Component {
   state: Object;
-  onPlayerMouseUp: Function;
-  onPlayerMouseMove: Function;
   _seekBarElement: HTMLElement;
   _framePreviewElement: HTMLElement;
   _timeBubbleElement: HTMLElement;
@@ -91,16 +88,6 @@ class SeekBar extends Component {
       }
     }
   ];
-
-  /**
-   * Creates an instance of SeekBar.
-   * @memberof SeekBar
-   */
-  constructor() {
-    super();
-    this.onPlayerMouseUp = bindMethod(this, this.onPlayerMouseUp);
-    this.onPlayerMouseMove = bindMethod(this, this.onPlayerMouseMove);
-  }
 
   /**
    * on component mount, bind mouseup and mousemove events to top player element
@@ -143,7 +130,7 @@ class SeekBar extends Component {
    * @returns {void}
    * @memberof SeekBar
    */
-  onSeekbarMouseDown(e: Event): void {
+  onSeekbarMouseDown = (e: Event): void => {
     if (this.props.isMobile || this.props.previewHoverActive) {
       return;
     }
@@ -153,7 +140,7 @@ class SeekBar extends Component {
       let time = this.getTime(e);
       this.updateSeekBarProgress(time, this.props.duration);
     }
-  }
+  };
 
   /**
    * player mouse up handler for seekbar porpuses
@@ -162,7 +149,7 @@ class SeekBar extends Component {
    * @returns {void}
    * @memberof SeekBar
    */
-  onPlayerMouseUp(e: Event): void {
+  onPlayerMouseUp = (e: Event): void => {
     if (this.props.isMobile || this.props.previewHoverActive) {
       return;
     }
@@ -177,7 +164,7 @@ class SeekBar extends Component {
         to: newTime
       });
     }
-  }
+  };
 
   /**
    * player mouse move handler for seekbar porpuses
@@ -186,7 +173,7 @@ class SeekBar extends Component {
    * @returns {void}
    * @memberof SeekBar
    */
-  onPlayerMouseMove(e: Event): void {
+  onPlayerMouseMove = (e: Event): void => {
     if (this.props.isMobile) {
       return;
     }
@@ -195,7 +182,7 @@ class SeekBar extends Component {
       this.updateSeekBarProgress(time, this.props.duration);
       this.updateSeekBarProgress(time, this.props.duration, true);
     }
-  }
+  };
 
   /**
    * seekbar mouse move handler
@@ -204,13 +191,13 @@ class SeekBar extends Component {
    * @returns {void}
    * @memberof SeekBar
    */
-  onSeekbarMouseMove(e: Event): void {
+  onSeekbarMouseMove = (e: Event): void => {
     if (this.props.isMobile || this.props.previewHoverActive) {
       return;
     }
     let time = this.getTime(e);
     this.updateSeekBarProgress(time, this.props.duration, true);
-  }
+  };
 
   /**
    * seekbar touch start handler
@@ -219,13 +206,13 @@ class SeekBar extends Component {
    * @returns {void}
    * @memberof SeekBar
    */
-  onSeekbarTouchStart(e: Event): void {
+  onSeekbarTouchStart = (e: Event): void => {
     this.props.updateSeekbarDraggingStatus(true);
     if (this.props.isDraggingActive) {
       let time = this.getTime(e);
       this.updateSeekBarProgress(time, this.props.duration);
     }
-  }
+  };
 
   /**
    * seekbar touch move handler
@@ -234,14 +221,14 @@ class SeekBar extends Component {
    * @returns {void}
    * @memberof SeekBar
    */
-  onSeekbarTouchMove(e: Event): void {
+  onSeekbarTouchMove = (e: Event): void => {
     let time = this.getTime(e);
     this.updateSeekBarProgress(time, this.props.duration, true);
     if (this.props.isDraggingActive) {
       this.updateSeekBarProgress(time, this.props.duration);
     }
     e.preventDefault();
-  }
+  };
 
   /**
    * seekbar key down handler
@@ -308,14 +295,14 @@ class SeekBar extends Component {
    * @returns {void}
    * @memberof SeekBar
    */
-  onKeyDown(e: KeyboardEvent): void {
+  onKeyDown = (e: KeyboardEvent): void => {
     switch (e.keyCode) {
       case KeyMap.LEFT:
       case KeyMap.RIGHT:
         this.handleKeydown(e, true);
         break;
     }
-  }
+  };
 
   /**
    * seekbar touch end handler
@@ -324,7 +311,7 @@ class SeekBar extends Component {
    * @returns {void}
    * @memberof SeekBar
    */
-  onSeekbarTouchEnd(e: Event): void {
+  onSeekbarTouchEnd = (e: Event): void => {
     if (this.props.isDraggingActive) {
       let time = this.getTime(e);
       const oldTime = this.props.player.currentTime;
@@ -337,7 +324,7 @@ class SeekBar extends Component {
       });
     }
     this.props.updateSeekbarDraggingStatus(false);
-  }
+  };
 
   /**
    * seekbar mouse over handler
@@ -345,10 +332,10 @@ class SeekBar extends Component {
    * @returns {void}
    * @memberof SeekBar
    */
-  onSeekbarMouseOver(): void {
+  onSeekbarMouseOver = (): void => {
     if (this.props.isMobile) return;
     this.props.updateSeekbarHoverActive(true);
-  }
+  };
 
   /**
    * seekbar mouse leave handler
@@ -356,10 +343,10 @@ class SeekBar extends Component {
    * @returns {void}
    * @memberof SeekBar
    */
-  onSeekbarMouseLeave(): void {
+  onSeekbarMouseLeave = (): void => {
     if (this.props.isMobile) return;
     this.props.updateSeekbarHoverActive(false);
-  }
+  };
 
   /**
    * abstract function to update virtual progress ui using component state or report to upper component of time change
@@ -575,14 +562,14 @@ class SeekBar extends Component {
         aria-valuemax={Math.round(this.props.duration)}
         aria-valuenow={Math.round(this.props.currentTime)}
         aria-valuetext={`${toHHMMSS(this.props.currentTime)} of ${toHHMMSS(this.props.duration)}`}
-        onMouseOver={() => this.onSeekbarMouseOver()}
-        onMouseLeave={() => this.onSeekbarMouseLeave()}
-        onMouseMove={e => this.onSeekbarMouseMove(e)}
-        onMouseDown={e => this.onSeekbarMouseDown(e)}
-        onTouchStart={e => this.onSeekbarTouchStart(e)}
-        onTouchMove={e => this.onSeekbarTouchMove(e)}
-        onTouchEnd={e => this.onSeekbarTouchEnd(e)}
-        onKeyDown={e => this.onKeyDown(e)}>
+        onMouseOver={this.onSeekbarMouseOver}
+        onMouseLeave={this.onSeekbarMouseLeave}
+        onMouseMove={this.onSeekbarMouseMove}
+        onMouseDown={this.onSeekbarMouseDown}
+        onTouchStart={this.onSeekbarTouchStart}
+        onTouchMove={this.onSeekbarTouchMove}
+        onTouchEnd={this.onSeekbarTouchEnd}
+        onKeyDown={this.onKeyDown}>
         <div className={style.progressBar}>
           <PlayerArea name={'SeekBar'} shouldUpdate={true}>
             {this.renderFramePreview()}

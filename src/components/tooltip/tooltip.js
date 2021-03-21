@@ -71,22 +71,22 @@ class Tooltip extends Component {
    * @memberof Tooltip
    * @returns {void}
    */
-  onMouseOver(): void {
+  onMouseOver = (): void => {
     this._clearHoverTimeout();
     this._hoverTimeout = setTimeout(() => {
       this.setState({showTooltip: true});
     }, TOOLTIP_SHOW_TIMEOUT);
-  }
+  };
 
   /**
    * on mouse leave handler.
    * @memberof Tooltip
    * @returns {void}
    */
-  onMouseLeave(): void {
+  onMouseLeave = (): void => {
     this.setState({showTooltip: false});
     this._clearHoverTimeout();
-  }
+  };
 
   /**
    * brings another tooltip type which hasn't been marked as invalid
@@ -178,7 +178,7 @@ class Tooltip extends Component {
     return props.isMobile ? (
       toChildArray(props.children)[0]
     ) : (
-      <div className={style.tooltip} onMouseOver={() => this.onMouseOver()} onMouseLeave={() => this.onMouseLeave()}>
+      <div className={style.tooltip} onMouseOver={this.onMouseOver} onMouseLeave={this.onMouseLeave}>
         {props.children}
         <span style={{maxWidth: props.maxWidth}} ref={el => (el ? (this.textElement = el) : undefined)} className={className.join(' ')}>
           {props.label}

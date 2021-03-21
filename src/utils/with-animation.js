@@ -39,10 +39,10 @@ export const withAnimation: Function = (cssClass: string) => (WrappedComponent: 
        * @returns {void}
        * @memberof AnimationComponent
        */
-      animate(): void {
+      animate = (): void => {
         if (!this.ref.current) return;
         this.ref.current.classList.add(cssClass);
-      }
+      };
 
       /**
        * render component
@@ -51,15 +51,7 @@ export const withAnimation: Function = (cssClass: string) => (WrappedComponent: 
        * @memberof HOC
        */
       render(): React$Element<any> | void {
-        return (
-          <WrappedComponent
-            {...this.props}
-            innerRef={this.ref}
-            animate={() => {
-              this.animate();
-            }}
-          />
-        );
+        return <WrappedComponent {...this.props} innerRef={this.ref} animate={this.animate} />;
       }
     }
   );

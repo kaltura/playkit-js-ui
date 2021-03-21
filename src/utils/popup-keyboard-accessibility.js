@@ -32,13 +32,14 @@ export const withKeyboardA11y: Function = (WrappedComponent: Component): typeof 
     set isModal(value: boolean): void {
       this._isModal = value;
     }
+
     /**
      * handles keydown events
      * @param {KeyboardEvent} e - the keyboard event
      * @returns {void}
      * @memberof HOC
      */
-    onKeyDown(e: KeyboardEvent): void {
+    onKeyDown = (e: KeyboardEvent): void => {
       switch (e.keyCode) {
         case KeyMap.ESC:
           if (this.props.onClose) {
@@ -80,7 +81,7 @@ export const withKeyboardA11y: Function = (WrappedComponent: Component): typeof 
 
           break;
       }
-    }
+    };
 
     /**
      * before component unmounted, remove event listeners
@@ -105,24 +106,12 @@ export const withKeyboardA11y: Function = (WrappedComponent: Component): typeof 
       return (
         <WrappedComponent
           {...props}
-          setDefaultFocusedElement={el => {
-            this.setDefaultFocusedElement(el);
-          }}
-          focusOnDefault={() => {
-            this.focusOnDefault();
-          }}
-          addAccessibleChild={el => {
-            this.addAccessibleChild(el);
-          }}
-          clearAccessibleChildren={() => {
-            this.clearAccessibleChildren();
-          }}
-          handleKeyDown={e => {
-            this.onKeyDown(e);
-          }}
-          setIsModal={val => {
-            this.isModal = val;
-          }}
+          setDefaultFocusedElement={this.setDefaultFocusedElement}
+          focusOnDefault={this.focusOnDefault}
+          addAccessibleChild={this.addAccessibleChild}
+          clearAccessibleChildren={this.clearAccessibleChildren}
+          handleKeyDown={this.onKeyDown}
+          setIsModal={this.setIsModel}
         />
       );
     }
@@ -133,11 +122,11 @@ export const withKeyboardA11y: Function = (WrappedComponent: Component): typeof 
      * @returns {void}
      * @memberof HOC
      */
-    setDefaultFocusedElement(element: HTMLElement): void {
+    setDefaultFocusedElement = (element: HTMLElement): void => {
       if (element) {
         this._defaultFocusedElement = element;
       }
-    }
+    };
 
     /**
      * sets the accessible children elements
@@ -145,31 +134,41 @@ export const withKeyboardA11y: Function = (WrappedComponent: Component): typeof 
      * @returns {void}
      * @memberof HOC
      */
-    addAccessibleChild(element: HTMLElement): void {
+    addAccessibleChild = (element: HTMLElement): void => {
       if (element && this._accessibleChildren.indexOf(element) == -1) {
         this._accessibleChildren.push(element);
       }
-    }
+    };
 
     /**
      * clears the the accessible children array
      * @returns {void}
      * @memberof HOC
      */
-    clearAccessibleChildren(): void {
+    clearAccessibleChildren = (): void => {
       this._accessibleChildren = [];
-    }
+    };
 
     /**
      * focuses on the default accessible element (either an explicitly given default element or the first)
      * @returns {void}
      * @memberof HOC
      */
-    focusOnDefault(): void {
+    focusOnDefault = (): void => {
       const defaultElement = this._defaultFocusedElement || (this._accessibleChildren.length && this._accessibleChildren[0]);
       if (defaultElement) {
         this._previouslyActiveElement = document.activeElement;
         defaultElement.focus();
       }
-    }
+    };
+
+    /**
+     * sets is model value
+     * @param {boolean} isModel - whether is a model or not
+     * @returns {void}
+     * @memberof HOC
+     */
+    setIsModel = (isModel: boolean): void => {
+      this.isModal = isModel;
+    };
   };

@@ -47,10 +47,10 @@ class CastAfterPlay extends Component {
    * @returns {void}
    * @memberof CastAfterPlay
    */
-  onClick(e: Event): void {
+  onClick = (e: Event): void => {
     e.stopPropagation();
     this.props.player.stopCasting();
-  }
+  };
 
   /**
    * after component did mount, show the cast after play button.
@@ -92,7 +92,7 @@ class CastAfterPlay extends Component {
     }
     return (
       <div>
-        <div className={rootStyle.join(' ')} onClick={e => this.onClick(e)}>
+        <div className={rootStyle.join(' ')} onClick={this.onClick}>
           <a className={[style.btn, style.btnDarkTransparent, style.castOnTvButton].join(' ')}>
             <div className={style.castOnTvIconContainer}>
               <Icon type={props.icon} />

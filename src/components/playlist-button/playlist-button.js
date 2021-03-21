@@ -40,9 +40,9 @@ class PlaylistButton extends Component {
    * @returns {void}
    * @memberof PlaylistButton
    */
-  onClick(): void {
+  onClick = (): void => {
     this.props.type === 'prev' ? this.props.player.playlist.playPrev() : this.props.player.playlist.playNext();
-  }
+  };
 
   /**
    * render component
@@ -89,7 +89,7 @@ class PlaylistButton extends Component {
         tabIndex="0"
         aria-label={this.props[`${type}ControlsText`]}
         className={`${style.controlButton}`}
-        onClick={() => this.onClick()}>
+        onClick={this.onClick}>
         {type === 'prev' ? (
           <div>
             <Icon type={IconType.Prev} />

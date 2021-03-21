@@ -11,6 +11,23 @@ import {h} from 'preact';
  * @returns {React$Element} - component element
  */
 const SampleCaptionsStyleButton = (props: any): React$Element<any> => {
+  /**
+   * @returns {void}
+   */
+  const changeCaptionsStyle = (): void => {
+    props.changeCaptionsStyle(props.captionsStyle);
+  };
+
+  /**
+   * @param {KeyboardEvent} e - keyboard event
+   * @returns {void}
+   */
+  const onKeyDown = (e: KeyboardEvent): void => {
+    if (e.keyCode === KeyMap.ENTER) {
+      changeCaptionsStyle();
+    }
+  };
+
   return (
     <div
       role="button"
@@ -19,12 +36,8 @@ const SampleCaptionsStyleButton = (props: any): React$Element<any> => {
         props.addAccessibleChild(el);
       }}
       className={props.classNames.join(' ')}
-      onClick={() => props.changeCaptionsStyle(props.captionsStyle)}
-      onKeyDown={e => {
-        if (e.keyCode === KeyMap.ENTER) {
-          props.changeCaptionsStyle(props.captionsStyle);
-        }
-      }}>
+      onClick={changeCaptionsStyle}
+      onKeyDown={onKeyDown}>
       <Text id={'cvaa.sample_caption_tag'} />
       {props.player.textStyle.isEqual(props.captionsStyle) ? (
         <div className={style.activeTick}>

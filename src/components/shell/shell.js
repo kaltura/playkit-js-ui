@@ -88,7 +88,7 @@ class Shell extends Component {
    * @returns {void}
    * @memberof Shell
    */
-  onMouseOver(): void {
+  onMouseOver = (): void => {
     if (this.props.isMobile) {
       return;
     }
@@ -96,7 +96,7 @@ class Shell extends Component {
       this.setState({nav: false});
       this.props.updatePlayerNavState(false);
     }
-  }
+  };
 
   /**
    * on mouse leave, remove the hover class (hide the player gui)
@@ -104,7 +104,7 @@ class Shell extends Component {
    * @returns {void}
    * @memberof Shell
    */
-  onMouseLeave(event: Event): void {
+  onMouseLeave = (event: Event): void => {
     /**
      * a hack to fix 'mouseleave' bug in chrome - the event is called sometimes on a click inside the div.
      * https://bugs.chromium.org/p/chromium/issues/detail?id=798535
@@ -118,7 +118,7 @@ class Shell extends Component {
     if (this.state.hover) {
       this._updatePlayerHover(false);
     }
-  }
+  };
 
   /**
    * if ui hidden and mouse move, show the ui by adding the hover class
@@ -126,12 +126,12 @@ class Shell extends Component {
    * @returns {void}
    * @memberof Shell
    */
-  onMouseMove(): void {
+  onMouseMove = (): void => {
     if (this.props.isMobile) {
       return;
     }
     this._updatePlayerHoverState();
-  }
+  };
 
   /**
    * if the ui is in fallback to muted autoplay mode, unmute the player on any mouse down
@@ -139,10 +139,10 @@ class Shell extends Component {
    * @returns {void}
    * @memberof Shell
    */
-  onMouseUp(): void {
+  onMouseUp = (): void => {
     this.unMuteFallback();
     this.props.notifyClick();
-  }
+  };
 
   /**
    * if the ui is in fallback to muted autoplay mode, unmute the player
@@ -163,7 +163,7 @@ class Shell extends Component {
    * @returns {void}
    * @memberof Shell
    */
-  onTouchEnd(e: TouchEvent): void {
+  onTouchEnd = (e: TouchEvent): void => {
     if (this.props.prePlayback) {
       return;
     }
@@ -174,7 +174,7 @@ class Shell extends Component {
       e.stopPropagation();
     }
     this._updatePlayerHoverState();
-  }
+  };
 
   /**
    * key down handler
@@ -182,7 +182,7 @@ class Shell extends Component {
    * @param {KeyboardEvent} e - event object
    * @returns {void}
    */
-  onKeyDown(e: KeyboardEvent): void {
+  onKeyDown = (e: KeyboardEvent): void => {
     if (!this.state.nav && e.keyCode === KeyMap.TAB) {
       this.setState({nav: true});
       this.props.updatePlayerNavState(true);
@@ -191,7 +191,7 @@ class Shell extends Component {
     if (this.state.nav && (e.keyCode === KeyMap.ENTER || e.keyCode === KeyMap.SPACE)) {
       this.unMuteFallback();
     }
-  }
+  };
 
   /**
    * componentWillMount
@@ -425,12 +425,12 @@ class Shell extends Component {
         tabIndex="0"
         aria-label="Video Player"
         className={playerClasses}
-        onTouchEnd={e => this.onTouchEnd(e)}
-        onMouseUp={() => this.onMouseUp()}
-        onMouseOver={() => this.onMouseOver()}
-        onMouseMove={() => this.onMouseMove()}
-        onMouseLeave={event => this.onMouseLeave(event)}
-        onKeyDown={e => this.onKeyDown(e)}>
+        onTouchEnd={this.onTouchEnd}
+        onMouseUp={this.onMouseUp}
+        onMouseOver={this.onMouseOver}
+        onMouseMove={this.onMouseMove}
+        onMouseLeave={this.onMouseLeave}
+        onKeyDown={this.onKeyDown}>
         {props.children}
       </div>
     );

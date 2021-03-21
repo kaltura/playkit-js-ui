@@ -54,10 +54,23 @@ class VrStereo extends Component {
    * @returns {void}
    * @memberof VrStereo
    */
-  onClick(): void {
+  onClick = (): void => {
     this.props.player.toggleVrStereoMode();
     this.props.updateVrStereoMode(!this.props.vrStereoMode);
-  }
+  };
+
+  /**
+   * on key down handler
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @returns {void}
+   * @memberof DropDown
+   */
+  onKeyDown = (e: KeyboardEvent): void => {
+    if (e.keyCode === KeyMap.ENTER) {
+      this.onClick();
+    }
+  };
 
   /**
    * before component mounted, set initial state
@@ -86,12 +99,8 @@ class VrStereo extends Component {
             tabIndex="0"
             aria-label={this.props.vrStereoText}
             className={this.props.vrStereoMode ? [style.controlButton, style.vrStereoMode].join(' ') : style.controlButton}
-            onClick={() => this.onClick()}
-            onKeyDown={e => {
-              if (e.keyCode === KeyMap.ENTER) {
-                this.onClick();
-              }
-            }}>
+            onClick={this.onClick}
+            onKeyDown={this.onKeyDown}>
             <Icon type={IconType.vrStereo} />
             <Icon type={IconType.vrStereoFull} />
           </Button>

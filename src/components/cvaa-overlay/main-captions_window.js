@@ -44,6 +44,29 @@ class MainCaptionsWindow extends Component {
   }
 
   /**
+   * transition to state handler
+   *
+   * @returns {void}
+   * @memberof MainWindow
+   */
+  transitionToState = (): void => {
+    this.props.transitionToState(this.props.cvaaOverlayState.CustomCaptions);
+  };
+
+  /**
+   * on key down handler
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @returns {void}
+   * @memberof MainWindow
+   */
+  onKeyDown = (e: KeyboardEvent): void => {
+    if (e.keyCode === KeyMap.ENTER) {
+      this.transitionToState();
+    }
+  };
+
+  /**
    * render component
    *
    * @param {*} props - component props
@@ -85,15 +108,11 @@ class MainCaptionsWindow extends Component {
             aria-haspopup="true"
             tabIndex="0"
             className={style.buttonSaveCvaa}
-            onClick={() => props.transitionToState(props.cvaaOverlayState.CustomCaptions)}
+            onClick={this.transitionToState}
             ref={el => {
               props.addAccessibleChild(el);
             }}
-            onKeyDown={e => {
-              if (e.keyCode === KeyMap.ENTER) {
-                props.transitionToState(props.cvaaOverlayState.CustomCaptions);
-              }
-            }}>
+            onKeyDown={this.onKeyDown}>
             <Text id={'cvaa.set_custom_caption'} />
           </a>
         ) : (
@@ -108,15 +127,11 @@ class MainCaptionsWindow extends Component {
               role="button"
               tabIndex="0"
               aria-haspopup="true"
-              onClick={() => props.transitionToState(props.cvaaOverlayState.CustomCaptions)}
+              onClick={this.transitionToState}
               ref={el => {
                 props.addAccessibleChild(el);
               }}
-              onKeyDown={e => {
-                if (e.keyCode === KeyMap.ENTER) {
-                  props.transitionToState(props.cvaaOverlayState.CustomCaptions);
-                }
-              }}>
+              onKeyDown={this.onKeyDown}>
               <Text id={'cvaa.edit_caption'} />
             </a>
           </div>
@@ -140,4 +155,5 @@ class MainCaptionsWindow extends Component {
     );
   }
 }
+
 export {MainCaptionsWindow};

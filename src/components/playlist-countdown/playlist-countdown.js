@@ -11,6 +11,7 @@ import {bindActions} from '../../utils/bind-actions';
 import {actions} from 'reducers/playlist';
 import {withEventManager} from 'event/with-event-manager';
 import {Button} from 'components/button';
+
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -75,9 +76,9 @@ class PlaylistCountdown extends Component {
    * @returns {void}
    * @memberof PlaylistCountdown
    */
-  onClick(): void {
+  onClick = (): void => {
     this.props.player.playlist.playNext();
-  }
+  };
 
   /**
    * playlist countdown click handler
@@ -86,11 +87,42 @@ class PlaylistCountdown extends Component {
    * @returns {void}
    * @memberof PlaylistCountdown
    */
-  cancelNext(e: any): void {
+  cancelNext = (e: any): void => {
     this.props.logger.debug('Cancel auto play next item');
     e.stopPropagation();
     this.props.updatePlaylistCountdownCanceled(true);
-  }
+  };
+
+  /**
+   * on key down handler
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @returns {void}
+   * @memberof PlaylistCountdown
+   */
+  onKeyDown = (e: KeyboardEvent): void => {
+    switch (e.keyCode) {
+      case KeyMap.ENTER:
+        this.onClick();
+        break;
+      case KeyMap.ESC:
+        this.cancelNext(e);
+        break;
+    }
+  };
+
+  /**
+   * on cancel button key down handler
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @returns {void}
+   * @memberof PlaylistCountdown
+   */
+  onCancelButtonKeyDown = (e: KeyboardEvent): void => {
+    if (e.keyCode === KeyMap.ENTER) {
+      this.cancelNext(e);
+    }
+  };
 
   /**
    * @returns {number} - time to show the countdown
@@ -145,6 +177,7 @@ class PlaylistCountdown extends Component {
   isShown(state: Object): boolean {
     return !this.isHidden(state) && !this.isCanceled();
   }
+
   /**
    * component did update handler
    *
@@ -233,17 +266,8 @@ class PlaylistCountdown extends Component {
         ref={el => (el ? (this.focusElement = el) : undefined)}
         tabIndex={this.state.focusable ? 0 : -1}
         className={className.join(' ')}
-        onKeyDown={e => {
-          switch (e.keyCode) {
-            case KeyMap.ENTER:
-              this.onClick();
-              break;
-            case KeyMap.ESC:
-              this.cancelNext(e);
-              break;
-          }
-        }}
-        onClick={() => this.onClick()}>
+        onKeyDown={this.onKeyDown}
+        onClick={this.onClick}>
         <div className={style.playlistCountdownPoster} style={`background-image: url(${this.nextShown.sources.poster});`} />
         <div className={style.playlistCountdownContentPlaceholder}>
           <div className={style.playlistCountdownContentBackground}>
@@ -264,12 +288,8 @@ class PlaylistCountdown extends Component {
                     tabIndex={this.state.focusable ? 0 : -1}
                     aria-label={<Text id="playlist.cancel" />}
                     className={[style.controlButton, style.playlistCountdownCancelButton].join(' ')}
-                    onClick={e => this.cancelNext(e)}
-                    onKeyDown={e => {
-                      if (e.keyCode === KeyMap.ENTER) {
-                        this.cancelNext(e);
-                      }
-                    }}>
+                    onClick={this.cancelNext}
+                    onKeyDown={this.onCancelButtonKeyDown}>
                     <Icon type={IconType.Close} />
                   </Button>
                 </Localizer>

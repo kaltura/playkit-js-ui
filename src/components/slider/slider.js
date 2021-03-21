@@ -2,7 +2,6 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {KeyMap} from '../../utils/key-map';
-import {bindMethod} from '../../utils/bind-method';
 
 const KEYBOARD_DRAG_STEP = 5;
 
@@ -18,22 +17,8 @@ const COMPONENT_NAME = 'Slider';
 class Slider extends Component {
   state: Object;
   sliderWidth: number;
-  mouseUpHandler: Function;
-  mouseMoveHandler: Function;
   _sliderElement: HTMLElement;
   _sliderElementOffsetLeft: number;
-
-  /**
-   * Creates an instance of Slider.
-   *
-   * @constructor
-   * @memberof Slider
-   */
-  constructor() {
-    super();
-    this.mouseUpHandler = bindMethod(this, this.mouseUpHandler);
-    this.mouseMoveHandler = bindMethod(this, this.mouseMoveHandler);
-  }
 
   /**
    * before component mounted, set initial state of the slider
@@ -86,7 +71,7 @@ class Slider extends Component {
    * @returns {void}
    * @memberof Slider
    */
-  mouseDownHandler(e: any): void {
+  mouseDownHandler = (e: any): void => {
     this._sliderElementOffsetLeft = this._sliderElement.getBoundingClientRect().left;
     if (!this.state.dragging) {
       this.setState(
@@ -101,7 +86,20 @@ class Slider extends Component {
         }
       );
     }
-  }
+  };
+
+  /**
+   * on key down handler
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @returns {void}
+   * @memberof Slider
+   */
+  onKeyDown = (e: KeyboardEvent): void => {
+    if (e.keyCode === KeyMap.LEFT || e.keyCode === KeyMap.RIGHT) {
+      this.onKeyboardDragging(e);
+    }
+  };
 
   /**
    * key down handler if dragging via keyboard
@@ -148,7 +146,7 @@ class Slider extends Component {
    * @returns {void}
    * @memberof Slider
    */
-  mouseMoveHandler(e: any): void {
+  mouseMoveHandler = (e: any): void => {
     if (this.state.dragging) {
       this.setState(
         prevState => {
@@ -161,7 +159,7 @@ class Slider extends Component {
         }
       );
     }
-  }
+  };
 
   /**
    * document mouseup handler if dragging active
@@ -170,7 +168,7 @@ class Slider extends Component {
    * @returns {void}
    * @memberof Slider
    */
-  mouseUpHandler(e: any): void {
+  mouseUpHandler = (e: any): void => {
     if (this.state.dragging) {
       this.setState(
         prevState => {
@@ -184,7 +182,7 @@ class Slider extends Component {
         }
       );
     }
-  }
+  };
 
   /**
    * get slider value based on mouse event
@@ -225,12 +223,12 @@ class Slider extends Component {
   }
 
   /**
-   * get progress presentage by slider value
+   * get progress percentage by slider value
    *
-   * @returns {number} presentage
+   * @returns {number} percentage
    * @memberof Slider
    */
-  getPersentageByValue(): number {
+  getPercentageByValue(): number {
     return Math.round((this.state.value / this.state.max) * 100);
   }
 
@@ -258,15 +256,11 @@ class Slider extends Component {
           }
         }}
         className={style.slider}
-        onMouseDown={e => this.mouseDownHandler(e)}
-        onTouchStart={e => this.mouseDownHandler(e)}
-        onKeyDown={e => {
-          if (e.keyCode === KeyMap.LEFT || e.keyCode === KeyMap.RIGHT) {
-            this.onKeyboardDragging(e);
-          }
-        }}>
-        <div className={style.progress} style={{width: this.getPersentageByValue() + '%'}}>
-          <div className={style.handle} onMouseDown={e => this.mouseDownHandler(e)} onTouchStart={e => this.mouseDownHandler(e)} />
+        onMouseDown={this.mouseDownHandler}
+        onTouchStart={this.mouseDownHandler}
+        onKeyDown={this.onKeyDown}>
+        <div className={style.progress} style={{width: this.getPercentageByValue() + '%'}}>
+          <div className={style.handle} onMouseDown={this.mouseDownHandler} onTouchStart={this.mouseDownHandler} />
         </div>
       </div>
     );

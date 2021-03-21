@@ -93,23 +93,14 @@ class SmartContainer extends Component {
     props.clearAccessibleChildren();
     return this.isPortal ? (
       createPortal(
-        <Overlay
-          open
-          onClose={() => props.onClose()}
-          handleKeyDown={e => this.props.handleKeyDown(e)}
-          addAccessibleChild={this.props.addAccessibleChild}>
+        <Overlay open onClose={props.onClose} handleKeyDown={this.props.handleKeyDown} addAccessibleChild={this.props.addAccessibleChild}>
           <div className={style.title}>{props.title}</div>
           {this.renderChildren(props)}
         </Overlay>,
         document.querySelector(portalSelector)
       )
     ) : (
-      <div
-        onKeyDown={e => {
-          props.handleKeyDown(e);
-        }}
-        tabIndex="-1"
-        className={[style.smartContainer, style.top, style.left].join(' ')}>
+      <div onKeyDown={props.handleKeyDown} tabIndex="-1" className={[style.smartContainer, style.top, style.left].join(' ')}>
         {this.renderChildren(props)}
       </div>
     );

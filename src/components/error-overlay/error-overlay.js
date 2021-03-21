@@ -40,14 +40,14 @@ class ErrorOverlay extends Component {
    * @returns {void}
    * @memberof ErrorOverlay
    */
-  copyError(): void {
+  copyError = (): void => {
     let selection = window.getSelection();
     let range = document.createRange();
     range.selectNode(this.sessionEl);
     selection.removeAllRanges();
     selection.addRange(range);
     document.execCommand('copy');
-  }
+  };
 
   /**
    * play on click
@@ -55,10 +55,10 @@ class ErrorOverlay extends Component {
    * @returns {void}
    * @memberof ErrorOverlay
    */
-  handleClick(): void {
+  handleClick = (): void => {
     const mediaInfo = this.props.player.getMediaInfo();
     this.props.player.loadMedia(mediaInfo);
-  }
+  };
 
   /**
    * render the sessionID line
@@ -76,7 +76,7 @@ class ErrorOverlay extends Component {
             <div ref={el => (el ? (this.sessionEl = el) : undefined)} className={style.errorSession}>
               <Text id="error.default_session_text" /> {' ' + sessionId}
             </div>
-            <CopyButton copy={() => this.copyError()} />
+            <CopyButton copy={this.copyError} />
           </div>
         </div>
       );
@@ -94,7 +94,7 @@ class ErrorOverlay extends Component {
   renderRetryButton(): React$Element<any> | void {
     if (this.props.player.getMediaInfo()) {
       return (
-        <div className={style.controlButtonContainer} onClick={() => this.handleClick()}>
+        <div className={style.controlButtonContainer} onClick={this.handleClick}>
           <Button className={[style.controlButton, style.retryBtn].join(' ')}>
             <Text id="error.retry" />
           </Button>

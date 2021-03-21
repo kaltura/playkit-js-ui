@@ -92,7 +92,7 @@ class OverlayAction extends Component {
    * @returns {void}
    * @memberof OverlayAction
    */
-  togglePlayPause(): void {
+  togglePlayPause = (): void => {
     if (this.props.isPlayingAdOrPlayback) {
       this.props.player.pause();
       this.props.updateOverlayActionIcon(IconType.Pause);
@@ -104,7 +104,7 @@ class OverlayAction extends Component {
     this.props.notifyClick({
       type: 'PlayPause'
     });
-  }
+  };
 
   /**
    * toggle exit-enter fullscreen
@@ -132,10 +132,10 @@ class OverlayAction extends Component {
    * @returns {void}
    * @memberof OverlayAction
    */
-  onOverlayPointerDown(event: any): void {
+  onOverlayPointerDown = (event: any): void => {
     this._pointerDownPosX = event.clientX || (event.changedTouches && event.changedTouches[0] && event.changedTouches[0].clientX);
     this._pointerDownPosY = event.clientY || (event.changedTouches && event.changedTouches[0] && event.changedTouches[0].clientY);
-  }
+  };
 
   /**
    * Handler for overlay mouse up
@@ -144,11 +144,11 @@ class OverlayAction extends Component {
    * @returns {void}
    * @memberof OverlayAction
    */
-  onOverlayMouseUp(event: any): void {
+  onOverlayMouseUp = (event: any): void => {
     if (!this.isDragging(event)) {
       this.overlayClick();
     }
-  }
+  };
 
   /**
    * handler for overlay touch end
@@ -157,12 +157,12 @@ class OverlayAction extends Component {
    * @returns {void}
    * @memberof OverlayAction
    */
-  onOverlayTouchEnd(event: any): void {
+  onOverlayTouchEnd = (event: any): void => {
     event.preventDefault();
     if (this.props.playerHover && !this.isDragging(event)) {
       this.togglePlayPause();
     }
-  }
+  };
 
   /**
    * Whether the user is dragging
@@ -296,10 +296,10 @@ class OverlayAction extends Component {
       <div
         style={guiStyles}
         className={`${style.overlayAction} ${this.state.animation ? style.in : ''}`}
-        onMouseDown={e => this.onOverlayPointerDown(e)}
-        onTouchStart={e => this.onOverlayPointerDown(e)}
-        onMouseUp={e => this.onOverlayMouseUp(e)}
-        onTouchEnd={e => this.onOverlayTouchEnd(e)}>
+        onMouseDown={this.onOverlayPointerDown}
+        onTouchStart={this.onOverlayPointerDown}
+        onMouseUp={this.onOverlayMouseUp}
+        onTouchEnd={this.onOverlayTouchEnd}>
         {this.state.animation ? this.renderIcons() : undefined}
       </div>
     );

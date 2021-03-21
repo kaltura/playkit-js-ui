@@ -62,6 +62,7 @@ class PlayPause extends Component {
       }
     }
   ];
+
   /**
    * component mounted
    *
@@ -78,11 +79,11 @@ class PlayPause extends Component {
    * @returns {void}
    * @memberof PlayPause
    */
-  togglePlayPause(): void {
+  togglePlayPause = (): void => {
     this.props.logger.debug('Toggle play');
     this.props.isPlayingAdOrPlayback ? this.props.player.pause() : this.props.player.play();
     this.props.notifyClick();
-  }
+  };
 
   /**
    * render component
@@ -99,7 +100,7 @@ class PlayPause extends Component {
     return (
       <ButtonControl name={COMPONENT_NAME}>
         <Tooltip label={labelText}>
-          <Button tabIndex="0" aria-label={labelText} className={controlButtonClass} onClick={() => this.togglePlayPause()}>
+          <Button tabIndex="0" aria-label={labelText} className={controlButtonClass} onClick={this.togglePlayPause}>
             {isStartOver ? (
               <Icon type={IconType.StartOver} />
             ) : (

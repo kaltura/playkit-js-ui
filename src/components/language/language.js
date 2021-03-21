@@ -81,6 +81,7 @@ class Language extends Component {
       }
     }
   ];
+
   /**
    * before component mounted, set initial state
    *
@@ -144,11 +145,11 @@ class Language extends Component {
    * @returns {void}
    * @memberof Language
    */
-  toggleSmartContainerOpen(): void {
+  toggleSmartContainerOpen = (): void => {
     this.setState(prevState => {
       return {smartContainerOpen: !prevState.smartContainerOpen};
     });
-  }
+  };
 
   /**
    * call to player selectTrack method and change audio track
@@ -186,11 +187,22 @@ class Language extends Component {
    * @returns {void}
    * @memberof Language
    */
-  toggleCVAAOverlay(): void {
+  toggleCVAAOverlay = (): void => {
     this.setState(prevState => {
       return {cvaaOverlay: !prevState.cvaaOverlay};
     });
-  }
+  };
+
+  /**
+   * on cvaa overlay close handler
+   *
+   * @returns {void}
+   * @memberof Language
+   */
+  onCVAAOverlayClose = (): void => {
+    this.toggleCVAAOverlay();
+    this.toggleSmartContainerOpen();
+  };
 
   /**
    * render smart container with both audio and text options if exist
@@ -210,15 +222,12 @@ class Language extends Component {
             aria-haspopup="true"
             aria-label={this.props.buttonLabel}
             className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
-            onClick={() => this.toggleSmartContainerOpen()}>
+            onClick={this.toggleSmartContainerOpen}>
             <Icon type={IconType.Language} />
           </Button>
         </Tooltip>
         {!this.state.smartContainerOpen || this.state.cvaaOverlay ? undefined : (
-          <SmartContainer
-            targetId={this.props.player.config.targetId}
-            title={<Text id="language.title" />}
-            onClose={() => this.toggleSmartContainerOpen()}>
+          <SmartContainer targetId={this.props.player.config.targetId} title={<Text id="language.title" />} onClose={this.toggleSmartContainerOpen}>
             {audioOptions.length <= 1 ? undefined : (
               <SmartContainerItem
                 icon="audio"
@@ -238,25 +247,13 @@ class Language extends Component {
             {textOptions.length <= 1 ? undefined : (
               <AdvancedCaptionsAnchor
                 isPortal={this.props.isMobile || this.props.isSmallSize}
-                onMenuChosen={() => this.toggleCVAAOverlay()}
-                onClose={() => this.toggleSmartContainerOpen()}
+                onMenuChosen={this.toggleCVAAOverlay}
+                onClose={this.toggleSmartContainerOpen}
               />
             )}
           </SmartContainer>
         )}
-        {this.state.cvaaOverlay ? (
-          createPortal(
-            <CVAAOverlay
-              onClose={() => {
-                this.toggleCVAAOverlay();
-                this.toggleSmartContainerOpen();
-              }}
-            />,
-            document.querySelector(portalSelector)
-          )
-        ) : (
-          <div />
-        )}
+        {this.state.cvaaOverlay ? createPortal(<CVAAOverlay onClose={this.onCVAAOverlayClose} />, document.querySelector(portalSelector)) : <div />}
       </ButtonControl>
     );
   }
@@ -269,7 +266,13 @@ class Language extends Component {
    * @memberof Language
    */
   render(props: any): React$Element<any> | void {
-    const audioOptions = props.audioTracks.filter(t => t.label || t.language).map(t => ({label: t.label || t.language, active: t.active, value: t}));
+    const audioOptions = props.audioTracks
+      .filter(t => t.label || t.language)
+      .map(t => ({
+        label: t.label || t.language,
+        active: t.active,
+        value: t
+      }));
     const textOptions = props.textTracks.map(t => ({
       label: t.label || t.language,
       active: t.active,
@@ -291,6 +294,22 @@ class Language extends Component {
  */
 class AdvancedCaptionsAnchor extends Component {
   /**
+   * on key down handler
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @returns {void}
+   * @memberof Language
+   */
+  onKeyDown = (e: KeyboardEvent): void => {
+    switch (e.keyCode) {
+      case KeyMap.ENTER:
+        this.props.onMenuChosen();
+        e.stopPropagation();
+        break;
+    }
+  };
+
+  /**
    * rendered AdvancedCaptionsAnchor jsx
    * @param {*} props - component props
    * @returns {?React$Element} - main state element
@@ -309,15 +328,8 @@ class AdvancedCaptionsAnchor extends Component {
             }
           }}
           className={style.advancedCaptionsMenuLink}
-          onClick={() => this.props.onMenuChosen()}
-          onKeyDown={e => {
-            switch (e.keyCode) {
-              case KeyMap.ENTER:
-                this.props.onMenuChosen();
-                e.stopPropagation();
-                break;
-            }
-          }}>
+          onClick={this.props.onMenuChosen}
+          onKeyDown={this.onKeyDown}>
           <Text id="language.advanced_captions_settings" />
         </a>
       </div>

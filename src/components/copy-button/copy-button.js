@@ -58,8 +58,9 @@ class CopyButton extends Component {
   /**
    * copy and update the state
    * @returns {void}
+   * @memberof CopyButton
    */
-  copy() {
+  copy = () => {
     try {
       this.props.copy();
       this.setState({copySuccess: true});
@@ -69,7 +70,20 @@ class CopyButton extends Component {
     } catch (e) {
       this.setState({copySuccess: false});
     }
-  }
+  };
+
+  /**
+   * on key down handler
+   *
+   * @param {KeyboardEvent} e - the keyboard event
+   * @returns {void}
+   * @memberof CopyButton
+   */
+  onKeyDown = (e: KeyboardEvent): void => {
+    if (e.keyCode === KeyMap.ENTER) {
+      this.copy();
+    }
+  };
 
   /**
    * render component
@@ -92,12 +106,8 @@ class CopyButton extends Component {
             }
           }}
           className={copyUrlClasses}
-          onClick={() => this.copy()}
-          onKeyDown={e => {
-            if (e.keyCode === KeyMap.ENTER) {
-              this.copy();
-            }
-          }}
+          onClick={this.copy}
+          onKeyDown={this.onKeyDown}
           title={<Text id="copy.button" />}>
           <Icon type={IconType.Copy} />
           <Icon type={IconType.Check} />

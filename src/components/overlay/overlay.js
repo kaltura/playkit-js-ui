@@ -49,6 +49,33 @@ class Overlay extends Component {
   }
 
   /**
+   * on close button key down handler
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @returns {void}
+   * @memberof Overlay
+   */
+  onCloseButtonKeyDown = (e: KeyboardEvent): void => {
+    if (e.keyCode === KeyMap.ENTER) {
+      e.preventDefault();
+      this.props.onClose();
+    }
+  };
+
+  /**
+   * on key down handler
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @returns {void}
+   * @memberof Overlay
+   */
+  onKeyDown = (e: KeyboardEvent): void => {
+    if (this.props.handleKeyDown) {
+      this.props.handleKeyDown(e);
+    }
+  };
+
+  /**
    * closeButton
    * @param {any} props - props
    * @returns {React$Element | void} close button element
@@ -66,13 +93,8 @@ class Overlay extends Component {
               }
             }}
             tabIndex="0"
-            onClick={() => props.onClose()}
-            onKeyDown={e => {
-              if (e.keyCode === KeyMap.ENTER) {
-                e.preventDefault();
-                props.onClose();
-              }
-            }}
+            onClick={props.onClose}
+            onKeyDown={this.onCloseButtonKeyDown}
             aria-label={<Text id="overlay.close" />}
             className={style.closeOverlay}>
             <Icon type={IconType.Close} />
@@ -97,15 +119,7 @@ class Overlay extends Component {
     if (props.open) overlayClass.push(style.active);
 
     return (
-      <div
-        tabIndex="-1"
-        className={overlayClass.join(' ')}
-        role="dialog"
-        onKeyDown={e => {
-          if (props.handleKeyDown) {
-            props.handleKeyDown(e);
-          }
-        }}>
+      <div tabIndex="-1" className={overlayClass.join(' ')} role="dialog" onKeyDown={this.onKeyDown}>
         <div className={style.overlayContents}>{props.children}</div>
         {this.renderCloseButton(props)}
       </div>

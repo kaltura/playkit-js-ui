@@ -78,9 +78,9 @@ class CVAAOverlay extends Component {
    * @returns {void}
    * @memberof CVAAOverlay
    */
-  transitionToState(stateName: CvaaOverlayStateType): void {
+  transitionToState = (stateName: CvaaOverlayStateType): void => {
     this.setState({activeWindow: stateName});
-  }
+  };
 
   /**
    * changing the captions style
@@ -89,26 +89,26 @@ class CVAAOverlay extends Component {
    * @returns {void}
    * @memberof CVAAOverlay
    */
-  changeCaptionsStyle(textStyle: Object): void {
+  changeCaptionsStyle = (textStyle: Object): void => {
     this.props.updateCaptionsStyle(textStyle);
     this.props.player.textStyle = textStyle;
     this.props.onClose();
     this.props.notifyClick({
       textStyle: textStyle
     });
-  }
+  };
 
   /**
    * get the css style of the preview element
    * @return {string} the css string
    * @private
    */
-  _getPreviewStyle(): string {
+  getPreviewStyle = (): string => {
     // style does not compute the font size.
     const fontSize = this.state.customTextStyle.implicitFontScale * 100 + '%';
     const style = this.state.customTextStyle.toCSS();
     return `font-size: ${fontSize}!important; ${style}`;
-  }
+  };
 
   /**
    * change one or more properties in customTextStyle object in the internal state
@@ -117,12 +117,12 @@ class CVAAOverlay extends Component {
    * @returns {void}
    * @memberof CVAAOverlay
    */
-  changeCustomStyle(styleChanges: Object): void {
+  changeCustomStyle = (styleChanges: Object): void => {
     this.setState(prevState => {
       const clonedStyle = prevState.customTextStyle.clone();
       return {customTextStyle: Object.assign(clonedStyle, styleChanges)};
     });
-  }
+  };
 
   /**
    * render component
@@ -133,12 +133,7 @@ class CVAAOverlay extends Component {
   render(props: any): React$Element<any> {
     props.clearAccessibleChildren();
     return (
-      <Overlay
-        handleKeyDown={e => this.props.handleKeyDown(e)}
-        addAccessibleChild={this.props.addAccessibleChild}
-        open
-        onClose={() => props.onClose()}
-        type="cvaa">
+      <Overlay handleKeyDown={this.props.handleKeyDown} addAccessibleChild={this.props.addAccessibleChild} open onClose={props.onClose} type="cvaa">
         {this.state.activeWindow === cvaaOverlayState.Main ? (
           <MainCaptionsWindow
             cvaaOverlayState={cvaaOverlayState}
@@ -146,17 +141,17 @@ class CVAAOverlay extends Component {
             captionsStyleDefault={this.captionsStyleDefault}
             captionsStyleBlackBG={this.captionsStyleBlackBG}
             captionsStyleYellow={this.captionsStyleYellow}
-            changeCaptionsStyle={this.changeCaptionsStyle.bind(this)}
-            transitionToState={this.transitionToState.bind(this)}
+            changeCaptionsStyle={this.changeCaptionsStyle}
+            transitionToState={this.transitionToState}
             customTextStyle={this.state.customTextStyle}
           />
         ) : (
           <CustomCaptionsWindow
             addAccessibleChild={props.addAccessibleChild}
             focusOnDefault={this.props.focusOnDefault}
-            changeCaptionsStyle={this.changeCaptionsStyle.bind(this)}
-            changeCustomStyle={this.changeCustomStyle.bind(this)}
-            getPreviewStyle={this._getPreviewStyle.bind(this)}
+            changeCaptionsStyle={this.changeCaptionsStyle}
+            changeCustomStyle={this.changeCustomStyle}
+            getPreviewStyle={this.getPreviewStyle}
             customTextStyle={this.state.customTextStyle}
           />
         )}

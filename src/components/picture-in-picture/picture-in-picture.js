@@ -56,6 +56,7 @@ class PictureInPicture extends Component {
       }
     }
   ];
+
   /**
    * component mounted
    *
@@ -65,13 +66,14 @@ class PictureInPicture extends Component {
   componentDidMount() {
     this.props.registerKeyboardEvents(this._keyboardEventHandlers);
   }
+
   /**
    * toggle pip
    * @returns {void}
    *
    * @memberof PictureInPicture
    */
-  togglePip(): void {
+  togglePip = (): void => {
     const {player} = this.props;
     if (player.isInPictureInPicture()) {
       this.props.logger.debug('Exit Picture In Picture');
@@ -82,7 +84,7 @@ class PictureInPicture extends Component {
       this.props.notifyClick();
       player.enterPictureInPicture();
     }
-  }
+  };
 
   /**
    * render component
@@ -99,7 +101,7 @@ class PictureInPicture extends Component {
               tabIndex="0"
               aria-label={this.props.isInPictureInPicture ? this.props.pictureInPictureExitText : this.props.pictureInPictureText}
               className={this.props.isInPictureInPicture ? [style.controlButton, style.isInPictureInPicture].join(' ') : style.controlButton}
-              onClick={() => this.togglePip()}>
+              onClick={this.togglePip}>
               <Icon type={IconType.PictureInPictureStart} />
               <Icon type={IconType.PictureInPictureStop} />
             </Button>

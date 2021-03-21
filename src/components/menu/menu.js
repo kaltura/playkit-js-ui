@@ -3,7 +3,6 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {default as Icon, IconType} from '../icon';
 import {connect} from 'react-redux';
-import {bindMethod} from '../../utils/bind-method';
 import {withKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
 import {KeyMap} from 'utils/key-map';
 import {withEventManager} from 'event/with-event-manager';
@@ -37,19 +36,7 @@ const COMPONENT_NAME = 'Menu';
 @withKeyboardA11y
 class Menu extends Component {
   state: Object;
-  handleClickOutside: Function;
   _menuElement: HTMLDivElement;
-
-  /**
-   * Creates an instance of Menu.
-   *
-   * @constructor
-   * @memberof Menu
-   */
-  constructor() {
-    super();
-    this.handleClickOutside = bindMethod(this, this.handleClickOutside);
-  }
 
   /**
    * before component mounted, set initial state of the menu position
@@ -107,11 +94,11 @@ class Menu extends Component {
    * @returns {void}
    * @memberof Menu
    */
-  handleClickOutside(e: any) {
+  handleClickOutside = (e: any) => {
     if (!this.props.isMobile && !this.props.isSmallSize && this._menuElement && !this._menuElement.contains(e.target)) {
       this.props.onClose();
     }
-  }
+  };
 
   /**
    * indication if option is active or not
@@ -144,15 +131,14 @@ class Menu extends Component {
   }
 
   /**
-   * get active option label
-   *
-   * @returns {string} active option label
+   * on change handler
+   * @param {Event} e - event
+   * @returns {void}
    * @memberof Menu
    */
-  getActiveOptionLabel(): string {
-    let activeOptions = this.props.options.filter(t => t.active);
-    return activeOptions.length > 0 ? activeOptions[0].label : this.props.options[0].label;
-  }
+  onChange = (e: {...Event, target: HTMLInputElement}): void => {
+    this.onSelect(this.props.options[e.target.value]);
+  };
 
   /**
    * render native select element
@@ -173,7 +159,7 @@ class Menu extends Component {
           }
         }}
         className={classes}
-        onChange={e => this.onSelect(this.props.options[e.target.value])}>
+        onChange={this.onChange}>
         {this.props.options.map((o, index) => (
           <option role="option" aria-selected={this.isSelected(o) ? 'true' : ''} selected={this.isSelected(o)} value={index} key={index}>
             {o.label}
@@ -198,9 +184,7 @@ class Menu extends Component {
     ) : (
       <div
         role="menu"
-        onKeyDown={e => {
-          props.handleKeyDown(e);
-        }}
+        onKeyDown={props.handleKeyDown}
         ref={c => (c ? (this._menuElement = c) : undefined)}
         className={[style.dropdownMenu, ...this.state.position].join(' ')}>
         {props.options.map((o, index) => (
@@ -231,6 +215,34 @@ export {Menu};
  */
 class MenuItem extends Component {
   /**
+   * on click handler
+   *
+   * @param {Event} e - event
+   * @returns {void}
+   * @memberof MenuItem
+   */
+  onClick = (e: Event): void => {
+    e.stopPropagation();
+    this.props.onSelect(this.props.data);
+  };
+
+  /**
+   * on key down handler
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @returns {void}
+   * @memberof MenuItem
+   */
+  onKeyDown = (e: KeyboardEvent): void => {
+    switch (e.keyCode) {
+      case KeyMap.ENTER:
+        this.props.onSelect(this.props.data);
+        e.stopPropagation();
+        break;
+    }
+  };
+
+  /**
    * the menu item jsx
    * @param {any} props - MenuItem props
    * @returns {React$Element<any>} - rendered jsx
@@ -249,18 +261,8 @@ class MenuItem extends Component {
           }
         }}
         className={props.isSelected(props.data) ? [style.dropdownMenuItem, style.active].join(' ') : style.dropdownMenuItem}
-        onClick={e => {
-          e.stopPropagation();
-          this.props.onSelect(props.data);
-        }}
-        onKeyDown={e => {
-          switch (e.keyCode) {
-            case KeyMap.ENTER:
-              props.onSelect(props.data);
-              e.stopPropagation();
-              break;
-          }
-        }}>
+        onClick={this.onClick}
+        onKeyDown={this.onKeyDown}>
         <span>{props.data.label}</span>
         <span className={[style.menuIconContainer, style.active].join(' ')}>
           <Icon type={IconType.Check} />
