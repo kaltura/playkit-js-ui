@@ -136,7 +136,7 @@ class Menu extends Component {
    * @returns {void}
    * @memberof Menu
    */
-  onChange = (e: Event): void => {
+  onChange = (e: {...Event, target: HTMLInputElement}): void => {
     this.onSelect(this.props.options[e.target.value]);
   };
 
