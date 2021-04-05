@@ -49,7 +49,7 @@ class SeekBarLivePlaybackContainer extends Component {
   componentDidMount() {
     this.props.eventManager.listen(this.props.player, this.props.player.Event.TIME_UPDATE, () => {
       if (!this.props.isDraggingActive) {
-        this.props.updateCurrentTime(this.props.player.currentTime);
+        this.props.updateCurrentTime(this.props.player.liveTime);
       }
     });
   }
@@ -82,7 +82,7 @@ class SeekBarLivePlaybackContainer extends Component {
         changeCurrentTime={time => {
           // avoiding exiting live edge by mistake in case currentTime is just a bit smaller than duration
           if (!(this.props.player.isOnLiveEdge() && time === this.props.duration)) {
-            this.props.player.currentTime = time;
+            this.props.player.liveTime = time;
           }
         }}
         playerPoster={this.props.poster}
