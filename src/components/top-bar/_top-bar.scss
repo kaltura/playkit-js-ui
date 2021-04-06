@@ -1,3 +1,5 @@
+@import '../ad-notice/ad-notice';
+
 .player .top-bar {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
   color: #fff;
@@ -28,6 +30,10 @@
     &:empty {
       margin: 0;
     }
+
+    .ad-notice {
+      pointer-events: none;
+    }
   }
   .right-controls {
     float: right;
@@ -44,6 +50,11 @@
         margin-right: 0;
       }
     }
+  }
+
+  .left-controls *,
+  .right-controls * {
+    pointer-events: auto;
   }
 }
 
