@@ -28,6 +28,7 @@
     &:empty {
       margin: 0;
     }
+    pointer-events: none;
   }
   .right-controls {
     float: right;
@@ -36,6 +37,7 @@
     &:empty {
       margin: 0;
     }
+    pointer-events: none;
 
     .control-button-container {
       margin: 0 6px;
@@ -67,5 +69,13 @@
 .player.size-sm {
   .player .top-bar {
     padding: 8px 8px 20px 8px;
+  }
+}
+
+.top-bar,
+.left-controls,
+.right-controls {
+  * {
+    pointer-events: auto;
   }
 }
