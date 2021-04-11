@@ -21,7 +21,8 @@ const mapStateToProps = state => ({
   isDraggingActive: state.seekbar.draggingActive,
   isMobile: state.shell.isMobile,
   poster: state.engine.poster,
-  isDvr: state.engine.isDvr
+  isDvr: state.engine.isDvr,
+  isCasting: state.engine.isCasting
 });
 
 const COMPONENT_NAME = 'SeekBarLivePlaybackContainer';
@@ -71,7 +72,7 @@ class SeekBarLivePlaybackContainer extends Component {
    * @memberof SeekBarLivePlaybackContainer
    */
   render(props: any) {
-    if (!props.isDvr) {
+    if (!props.isDvr || props.isCasting) {
       return undefined;
     }
     return (
