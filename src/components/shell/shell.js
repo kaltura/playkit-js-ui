@@ -219,29 +219,11 @@ class Shell extends Component {
    */
   componentDidMount() {
     const {player, eventManager} = this.props;
-    eventManager.listen(
-      document,
-      'scroll',
-      debounce(() => {
-        this._onDocumentScroll();
-      }, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY)
-    );
-    eventManager.listen(
-      window,
-      'resize',
-      debounce(() => {
-        this._onWindowResize();
-      }, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY)
-    );
+    eventManager.listen(document, 'scroll', debounce(this._onDocumentScroll, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
+    eventManager.listen(window, 'resize', debounce(this._onWindowResize, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
     this._playerResizeWatcher = new ResizeWatcher();
     this._playerResizeWatcher.init(document.getElementById(this.props.targetId));
-    eventManager.listen(
-      this._playerResizeWatcher,
-      FakeEvent.Type.RESIZE,
-      debounce(() => {
-        this._onWindowResize();
-      }, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY)
-    );
+    eventManager.listen(this._playerResizeWatcher, FakeEvent.Type.RESIZE, debounce(this._onWindowResize, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
     eventManager.listen(player, player.Event.FIRST_PLAY, () => this._onWindowResize());
     this._onWindowResize();
   }
@@ -252,12 +234,12 @@ class Shell extends Component {
    * @returns {void}
    * @memberof Shell
    */
-  _onWindowResize(): void {
+  _onWindowResize = () => {
     this._updatePlayerClientRect();
     if (document.body) {
       this.props.updateDocumentWidth(document.body.clientWidth);
     }
-  }
+  };
 
   /**
    * document scroll handler
@@ -265,9 +247,9 @@ class Shell extends Component {
    * @returns {void}
    * @memberof Shell
    */
-  _onDocumentScroll(): void {
+  _onDocumentScroll = () => {
     this._updatePlayerClientRect();
-  }
+  };
 
   /**
    * update the player rect
