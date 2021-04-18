@@ -43,7 +43,7 @@ const mapStateToProps = state => ({
   playlist: state.engine.playlist
 });
 
-const ON_WINDOW_RESIZE_DEBOUNCE_DELAY: number = 100;
+const ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY: number = 100;
 
 const PLAYER_SIZE: {[size: string]: string} = {
   TINY: 'tiny',
@@ -220,11 +220,18 @@ class Shell extends Component {
   componentDidMount() {
     const {player, eventManager} = this.props;
     eventManager.listen(
+      document,
+      'scroll',
+      debounce(() => {
+        this._onDocumentScroll();
+      }, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY)
+    );
+    eventManager.listen(
       window,
       'resize',
       debounce(() => {
         this._onWindowResize();
-      }, ON_WINDOW_RESIZE_DEBOUNCE_DELAY)
+      }, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY)
     );
     this._playerResizeWatcher = new ResizeWatcher();
     this._playerResizeWatcher.init(document.getElementById(this.props.targetId));
@@ -233,7 +240,7 @@ class Shell extends Component {
       FakeEvent.Type.RESIZE,
       debounce(() => {
         this._onWindowResize();
-      }, ON_WINDOW_RESIZE_DEBOUNCE_DELAY)
+      }, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY)
     );
     eventManager.listen(player, player.Event.FIRST_PLAY, () => this._onWindowResize());
     this._onWindowResize();
@@ -246,13 +253,32 @@ class Shell extends Component {
    * @memberof Shell
    */
   _onWindowResize(): void {
+    this._updatePlayerClientRect();
+    if (document.body) {
+      this.props.updateDocumentWidth(document.body.clientWidth);
+    }
+  }
+
+  /**
+   * document scroll handler
+   *
+   * @returns {void}
+   * @memberof Shell
+   */
+  _onDocumentScroll(): void {
+    this._updatePlayerClientRect();
+  }
+
+  /**
+   * update the player rect
+   *
+   * @returns {void}
+   * @memberof Shell
+   */
+  _updatePlayerClientRect(): void {
     const playerContainer = document.getElementById(this.props.targetId);
     if (playerContainer) {
       this.props.updatePlayerClientRect(playerContainer.getBoundingClientRect());
-    }
-
-    if (document.body) {
-      this.props.updateDocumentWidth(document.body.clientWidth);
     }
   }
 
