@@ -219,8 +219,8 @@ class Shell extends Component {
    */
   componentDidMount() {
     const {player, eventManager} = this.props;
-    eventManager.listen(document, 'scroll', debounce(this._onDocumentScroll, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
     eventManager.listen(window, 'resize', debounce(this._onWindowResize, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
+    eventManager.listen(document, 'scroll', debounce(this._updatePlayerClientRect, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
     this._playerResizeWatcher = new ResizeWatcher();
     this._playerResizeWatcher.init(document.getElementById(this.props.targetId));
     eventManager.listen(this._playerResizeWatcher, FakeEvent.Type.RESIZE, debounce(this._onWindowResize, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
@@ -242,27 +242,17 @@ class Shell extends Component {
   };
 
   /**
-   * document scroll handler
-   *
-   * @returns {void}
-   * @memberof Shell
-   */
-  _onDocumentScroll = () => {
-    this._updatePlayerClientRect();
-  };
-
-  /**
    * update the player rect
    *
    * @returns {void}
    * @memberof Shell
    */
-  _updatePlayerClientRect(): void {
+  _updatePlayerClientRect = () => {
     const playerContainer = document.getElementById(this.props.targetId);
     if (playerContainer) {
       this.props.updatePlayerClientRect(playerContainer.getBoundingClientRect());
     }
-  }
+  };
 
   /**
    * before component mounted, remove event listeners
