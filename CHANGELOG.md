@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.65.3](https://github.com/kaltura/playkit-js-ui/compare/v0.65.2...v0.65.3) (2021-04-28)
+
+
+### Build System
+
+* failed with node version 16, set to node version 15. ([#594](https://github.com/kaltura/playkit-js-ui/issues/594)) ([8b55b55](https://github.com/kaltura/playkit-js-ui/commit/8b55b55))
+
+
+
 ### [0.65.2](https://github.com/kaltura/playkit-js-ui/compare/v0.65.1...v0.65.2) (2021-04-28)
 
 
