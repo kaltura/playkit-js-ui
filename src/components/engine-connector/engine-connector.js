@@ -198,7 +198,7 @@ class EngineConnector extends Component {
       let duration = e.payload.adProgress.duration;
 
       this.props.updateAdBreakProgress(currentTime, duration);
-    }); 
+    });
 
     eventManager.listen(player, player.Event.AD_COMPLETED, () => {
       this.props.updateAdBreakCompleted();
