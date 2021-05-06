@@ -2,4 +2,5 @@
 
 .ad-notice {
   @extend .font-size-base;
+  pointer-events: none;
 }

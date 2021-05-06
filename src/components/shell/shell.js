@@ -43,7 +43,7 @@ const mapStateToProps = state => ({
   playlist: state.engine.playlist
 });
 
-const ON_WINDOW_RESIZE_DEBOUNCE_DELAY: number = 100;
+const ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY: number = 100;
 
 const PLAYER_SIZE: {[size: string]: string} = {
   TINY: 'tiny',
@@ -219,22 +219,11 @@ class Shell extends Component {
    */
   componentDidMount() {
     const {player, eventManager} = this.props;
-    eventManager.listen(
-      window,
-      'resize',
-      debounce(() => {
-        this._onWindowResize();
-      }, ON_WINDOW_RESIZE_DEBOUNCE_DELAY)
-    );
+    eventManager.listen(window, 'resize', debounce(this._onWindowResize, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
+    eventManager.listen(document, 'scroll', debounce(this._updatePlayerClientRect, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
     this._playerResizeWatcher = new ResizeWatcher();
     this._playerResizeWatcher.init(document.getElementById(this.props.targetId));
-    eventManager.listen(
-      this._playerResizeWatcher,
-      FakeEvent.Type.RESIZE,
-      debounce(() => {
-        this._onWindowResize();
-      }, ON_WINDOW_RESIZE_DEBOUNCE_DELAY)
-    );
+    eventManager.listen(this._playerResizeWatcher, FakeEvent.Type.RESIZE, debounce(this._onWindowResize, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
     eventManager.listen(player, player.Event.FIRST_PLAY, () => this._onWindowResize());
     this._onWindowResize();
   }
@@ -245,16 +234,25 @@ class Shell extends Component {
    * @returns {void}
    * @memberof Shell
    */
-  _onWindowResize(): void {
+  _onWindowResize = () => {
+    this._updatePlayerClientRect();
+    if (document.body) {
+      this.props.updateDocumentWidth(document.body.clientWidth);
+    }
+  };
+
+  /**
+   * update the player rect
+   *
+   * @returns {void}
+   * @memberof Shell
+   */
+  _updatePlayerClientRect = () => {
     const playerContainer = document.getElementById(this.props.targetId);
     if (playerContainer) {
       this.props.updatePlayerClientRect(playerContainer.getBoundingClientRect());
     }
-
-    if (document.body) {
-      this.props.updateDocumentWidth(document.body.clientWidth);
-    }
-  }
+  };
 
   /**
    * before component mounted, remove event listeners

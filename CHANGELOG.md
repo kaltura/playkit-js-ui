@@ -2,6 +2,46 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.65.3](https://github.com/kaltura/playkit-js-ui/compare/v0.65.2...v0.65.3) (2021-04-28)
+
+
+### Build System
+
+* failed with node version 16, set to node version 15. ([#594](https://github.com/kaltura/playkit-js-ui/issues/594)) ([8b55b55](https://github.com/kaltura/playkit-js-ui/commit/8b55b55))
+
+
+
+### [0.65.2](https://github.com/kaltura/playkit-js-ui/compare/v0.65.1...v0.65.2) (2021-04-28)
+
+
+
+### [0.65.1](https://github.com/kaltura/playkit-js-ui/compare/v0.65.0...v0.65.1) (2021-04-28)
+
+
+### Bug Fixes
+
+* **FEC-11151:** quality dropdown is cropped when user clicks on ‘Quality’ settings on the player after scrolling down ([#592](https://github.com/kaltura/playkit-js-ui/issues/592)) ([0901670](https://github.com/kaltura/playkit-js-ui/commit/0901670))
+
+
+
+## [0.65.0](https://github.com/kaltura/playkit-js-ui/compare/v0.64.0...v0.65.0) (2021-04-06)
+
+
+### Bug Fixes
+
+* **FEC-10281:** chromecast does not work after playing it once and trying it on another video ([#582](https://github.com/kaltura/playkit-js-ui/issues/582)) ([a377d60](https://github.com/kaltura/playkit-js-ui/commit/a377d60))
+* **FEC-11100:** [bumper]advertisement text appears for second when bumper starts ([#586](https://github.com/kaltura/playkit-js-ui/issues/586)) ([a7a8ccd](https://github.com/kaltura/playkit-js-ui/commit/a7a8ccd))
+* **FEC-11122:** chromecast - pre-roll ad failed to be skipped during the casting ([#588](https://github.com/kaltura/playkit-js-ui/issues/588)) ([7c0acd7](https://github.com/kaltura/playkit-js-ui/commit/7c0acd7))
+* **FEC-11128:** X button on floating player not working ([#590](https://github.com/kaltura/playkit-js-ui/issues/590)) ([6e3916b](https://github.com/kaltura/playkit-js-ui/commit/6e3916b))
+
+
+### Features
+
+* **FEC-10941:** Use In-Stream DASH thumbnails on the timeline ([#583](https://github.com/kaltura/playkit-js-ui/issues/583)) ([1c4fd36](https://github.com/kaltura/playkit-js-ui/commit/1c4fd36))
+* **FEC-10947:** change all events callbacks from anonymous to bound functions ([#585](https://github.com/kaltura/playkit-js-ui/issues/585)) ([4f26455](https://github.com/kaltura/playkit-js-ui/commit/4f26455))
+
+
+
 ## [0.64.0](https://github.com/kaltura/playkit-js-ui/compare/v0.63.0...v0.64.0) (2021-02-24)
 
 

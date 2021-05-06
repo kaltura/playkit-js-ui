@@ -41,6 +41,10 @@ class AdSkip extends Component {
     return Math.ceil(this.props.adSkipTimeOffset - this.props.currentTime);
   }
 
+  skipAd = () => {
+    this.props.player.ads.skipAd();
+  };
+
   /**
    * render component
    *
@@ -51,7 +55,7 @@ class AdSkip extends Component {
     if (this.props.adSkippableState) {
       return this.getSkipTimeOffset() <= 0 ? (
         <Localizer>
-          <a className={[style.btn, style.btnBranded, style.btnSkipAd].join(' ')} onClick={this.props.player.ads.skipAd}>
+          <a className={[style.btn, style.btnBranded, style.btnSkipAd].join(' ')} onClick={this.skipAd}>
             <Text id="ads.skip_ad" />
           </a>
         </Localizer>
