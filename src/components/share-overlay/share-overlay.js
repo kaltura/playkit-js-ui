@@ -54,17 +54,19 @@ const ShareButton = (props: Object): React$Element<any> => {
   };
 
   return (
-    <Button
-      ref={el => {
-        props.addAccessibleChild(el);
-      }}
-      title={props.config.title}
-      role="link"
-      aria-label={props.config.ariaLabel}
-      className={[style.btnRounded, style[props.config.iconType], props.config.iconType].join(' ')}
-      onClick={share}>
-      <Icon style={props.config.iconType === 'svg' ? `background-image: url(${props.config.svg})` : ``} type={props.config.iconType} />
-    </Button>
+    <Localizer>
+      <Button
+        ref={el => {
+          props.addAccessibleChild(el);
+        }}
+        title={<Text id={props.config.title} />}
+        role="link"
+        aria-label={props.config.ariaLabel}
+        className={[style.btnRounded, style[props.config.iconType], props.config.iconType].join(' ')}
+        onClick={share}>
+        <Icon style={props.config.iconType === 'svg' ? `background-image: url(${props.config.svg})` : ``} type={props.config.iconType} />
+      </Button>
+    </Localizer>
   );
 };
 
