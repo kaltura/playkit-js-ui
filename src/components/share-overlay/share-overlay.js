@@ -61,7 +61,7 @@ const ShareButton = (props: Object): React$Element<any> => {
         }}
         title={<Text id={props.config.title} />}
         role="link"
-        aria-label={props.config.ariaLabel}
+        aria-label={<Text id={props.config.ariaLabel} />}
         className={[style.btnRounded, style[props.config.iconType], props.config.iconType].join(' ')}
         onClick={share}>
         <Icon style={props.config.iconType === 'svg' ? `background-image: url(${props.config.svg})` : ``} type={props.config.iconType} />
