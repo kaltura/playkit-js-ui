@@ -43,7 +43,10 @@
       "embed_options": "Options intégrées",
       "start_video_at": "Commencer la vidéo à",
       "email": "Partager par mail",
-      "embed": "Obtenir le code intégré"
+      "embed": "Obtenir le code intégré",
+      "share-on-facebook": "Partager sur Facebook",
+      "share-on-twitter": "Partager sur Twitter",
+      "share-on-linkedin": "Partager sur Linkedin"
     },
     "overlay": {
       "close": "Fermer"

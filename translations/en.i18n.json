@@ -46,9 +46,9 @@
       "start_video_at": "Start video at",
       "email": "Share on Email",
       "embed": "Get embed code",
-      "facebook": "Share on Facebook",
-      "linkedin": "Share on Linkedin",
-      "twitter": "Share on Twitter"
+      "share-on-facebook": "Share on Facebook",
+      "share-on-linkedin": "Share on Linkedin",
+      "share-on-twitter": "Share on Twitter"
     },
     "overlay": {
       "close": "Close"
