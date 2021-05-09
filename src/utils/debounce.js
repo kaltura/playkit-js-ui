@@ -19,11 +19,15 @@ export const debounce: Function = (origFunc: Function, time: number, immediate: 
 
   return (...args) => {
     const context = this;
-    if (immediate && !timeout) origFunc.apply(context, args);
+    if (immediate && !timeout) {
+      origFunc.apply(context, args);
+    }
     clearTimeout(timeout);
     timeout = setTimeout(function () {
       timeout = null;
-      if (!immediate) origFunc.apply(context, args);
+      if (!immediate) {
+        origFunc.apply(context, args);
+      }
     }, time);
   };
 };
