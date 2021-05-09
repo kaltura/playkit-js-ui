@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.65.6](https://github.com/kaltura/playkit-js-ui/compare/v0.65.5...v0.65.6) (2021-05-09)
+
+
+### Bug Fixes
+
+* encode share url ([#600](https://github.com/kaltura/playkit-js-ui/issues/600)) ([c8a4bfe](https://github.com/kaltura/playkit-js-ui/commit/c8a4bfe))
+
+
+
+### [0.65.5](https://github.com/kaltura/playkit-js-ui/compare/v0.65.4...v0.65.5) (2021-05-09)
+
+
+
 ### [0.65.3](https://github.com/kaltura/playkit-js-ui/compare/v0.65.2...v0.65.3) (2021-04-28)
 
 

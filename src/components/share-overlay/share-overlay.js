@@ -48,23 +48,29 @@ const ShareButton = (props: Object): React$Element<any> => {
     const templateUrl = props.config.templateUrl;
     let href = shareUrl;
     if (templateUrl) {
-      href = templateUrl.replace('{shareUrl}', shareUrl);
+      try {
+        href = templateUrl.replace('{shareUrl}', encodeURIComponent(shareUrl));
+      } catch (e) {
+        href = templateUrl.replace('{shareUrl}', shareUrl);
+      }
     }
     window.open(href, '_blank', 'width=580,height=580');
   };
 
   return (
-    <Button
-      ref={el => {
-        props.addAccessibleChild(el);
-      }}
-      title={props.config.title}
-      role="link"
-      aria-label={props.config.ariaLabel}
-      className={[style.btnRounded, style[props.config.iconType], props.config.iconType].join(' ')}
-      onClick={share}>
-      <Icon style={props.config.iconType === 'svg' ? `background-image: url(${props.config.svg})` : ``} type={props.config.iconType} />
-    </Button>
+    <Localizer>
+      <Button
+        ref={el => {
+          props.addAccessibleChild(el);
+        }}
+        title={<Text id={props.config.title} />}
+        role="link"
+        aria-label={<Text id={props.config.ariaLabel} />}
+        className={[style.btnRounded, style[props.config.iconType], props.config.iconType].join(' ')}
+        onClick={share}>
+        <Icon style={props.config.iconType === 'svg' ? `background-image: url(${props.config.svg})` : ``} type={props.config.iconType} />
+      </Button>
+    </Localizer>
   );
 };
 
