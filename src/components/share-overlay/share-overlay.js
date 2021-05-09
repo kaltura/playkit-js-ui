@@ -48,7 +48,11 @@ const ShareButton = (props: Object): React$Element<any> => {
     const templateUrl = props.config.templateUrl;
     let href = shareUrl;
     if (templateUrl) {
-      href = templateUrl.replace('{shareUrl}', shareUrl);
+      try {
+        href = templateUrl.replace('{shareUrl}', encodeURIComponent(shareUrl));
+      } catch (e) {
+        href = templateUrl.replace('{shareUrl}', shareUrl);
+      }
     }
     window.open(href, '_blank', 'width=580,height=580');
   };
