@@ -236,6 +236,7 @@ class Settings extends Component {
       if (currentTrack.bandwidth > previousTrack.bandwidth) {
         qualities[arrLength] = currentTrack;
       }
+      qualities[arrLength].active = previousTrack.active || currentTrack.active;
     } else {
       qualities.push(currentTrack);
     }
