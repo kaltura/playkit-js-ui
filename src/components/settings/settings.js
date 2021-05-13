@@ -233,7 +233,7 @@ class Settings extends Component {
     const arrLength = qualities.length - 1;
     const previousTrack = qualities[arrLength];
     if (arrLength > -1 && currentTrack.label === previousTrack.label) {
-      currentTrack.active = previousTrack.active || currentTrack.active;
+      currentTrack.active = currentTrack.active || previousTrack.active;
       if (currentTrack.bandwidth > previousTrack.bandwidth) {
         qualities[arrLength] = currentTrack;
       }
