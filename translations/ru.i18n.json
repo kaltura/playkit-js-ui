@@ -17,6 +17,7 @@
       "prev": "Назад",
       "startOver": "Запустить заново",
       "pictureInPicture": "Картинка в картинке",
+      "pictureInPictureExit": "Выйти из второго канала",
       "logo": "Логотип",
       "seekBarSlider": "Слайдер навигации"
     },
@@ -30,7 +31,8 @@
       "title": "Настройки",
       "quality": "Качество",
       "speed": "Скорость",
-      "speedNormal": "Нормальная"
+      "speedNormal": "Нормальная",
+      "qualityAuto": "Авто"
     },
     "language": {
       "title": "Язык",

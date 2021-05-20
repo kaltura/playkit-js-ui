@@ -17,6 +17,7 @@
       "prev": "Vorige",
       "startOver": "Opnieuw beginnen",
       "pictureInPicture": "Beeld in beeld",
+      "pictureInPictureExit": "Beeld in beeld afsluiten",
       "logo": "Logo",
       "seekBarSlider": "Zoekschuifregelaar"
     },
@@ -30,7 +31,8 @@
       "title": "Instellingen",
       "quality": "Kwaliteit",
       "speed": "Snelheid",
-      "speedNormal": "Normaal"
+      "speedNormal": "Normaal",
+      "qualityAuto": "Automatisch"
     },
     "language": {
       "title": "Taal",
