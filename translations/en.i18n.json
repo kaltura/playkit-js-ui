@@ -3,7 +3,6 @@
     "controls": {
       "play": "Play",
       "pause": "Pause",
-      "share": "Share",
       "language": "Language",
       "settings": "Settings",
       "fullscreen": "Fullscreen",
@@ -39,16 +38,6 @@
       "audio": "Audio",
       "captions": "Captions",
       "advanced_captions_settings": "Advanced captions settings"
-    },
-    "share": {
-      "title": "Share",
-      "embed_options": "Embed Options",
-      "start_video_at": "Start video at",
-      "email": "Share on Email",
-      "embed": "Get embed code",
-      "share-on-facebook": "Share on Facebook",
-      "share-on-linkedin": "Share on Linkedin",
-      "share-on-twitter": "Share on Twitter"
     },
     "overlay": {
       "close": "Close"

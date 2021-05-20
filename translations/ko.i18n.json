@@ -3,7 +3,6 @@
     "controls": {
       "play": "재생",
       "pause": "중지",
-      "share": "공유",
       "language": "언어",
       "settings": "설정",
       "fullscreen": "전체 화면",
@@ -39,16 +38,6 @@
       "audio": "오디오",
       "captions": "자막",
       "advanced_captions_settings": "고급 자막 설정"
-    },
-    "share": {
-      "title": "공유",
-      "embed_options": "옵션 포함",
-      "start_video_at": "비디오 재생",
-      "email": "이메일로 공유하기",
-      "embed": "임베드 코드",
-      "share-on-facebook": "페이스북에 공유",
-      "share-on-twitter": "트위터에 공유",
-      "share-on-linkedin": "링크드인에 공유"
     },
     "overlay": {
       "close": "닫기"

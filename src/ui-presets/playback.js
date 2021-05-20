@@ -26,7 +26,6 @@ import {PlaylistCountdown} from '../components/playlist-countdown';
 import {PlaylistNextScreen} from '../components/playlist-next-screen';
 import {PictureInPicture} from '../components/picture-in-picture';
 import {PictureInPictureOverlay} from '../components/picture-in-picture-overlay';
-import {Share} from '../components/share';
 import {TopBar} from '../components/top-bar';
 import {Logo} from '../components/logo/logo';
 import {InteractiveArea} from '../components/interactive-area';
@@ -85,7 +84,7 @@ class PlaybackUI extends Component {
               </Fragment>
               {({containerRef}) => (
                 <Fragment>
-                  <TopBar rightControls={<Share />} />
+                  <TopBar />
                   <InteractiveArea>
                     <Watermark />
                   </InteractiveArea>

@@ -3,7 +3,6 @@
     "controls": {
       "play": "播放",
       "pause": "暫停",
-      "share": "分享",
       "language": "語言",
       "settings": "設定",
       "fullscreen": "全螢幕",
@@ -37,13 +36,6 @@
       "audio": "音訊",
       "captions": "字幕",
       "advanced_captions_settings": "進階字幕設定"
-    },
-    "share": {
-      "title": "分享",
-      "embed_options": "内嵌選項",
-      "start_video_at": "影片開始時間",
-      "email": "以電子郵件分享",
-      "embed": "獲得嵌入代碼"
     },
     "overlay": {
       "close": "關閉"

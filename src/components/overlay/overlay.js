@@ -11,6 +11,15 @@ import {KeyMap} from '../../utils/key-map';
 const COMPONENT_NAME = 'Overlay';
 
 /**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
+const mapStateToProps = state => ({
+  overlayOpen: state.shell.overlayOpen
+});
+
+/**
  * Overlay component
  * @class Overlay
  * @example <Overlay
@@ -21,7 +30,7 @@ const COMPONENT_NAME = 'Overlay';
  * </Overlay>
  * @extends {Component}
  */
-@connect(null, bindActions(actions))
+@connect(mapStateToProps, bindActions(actions))
 class Overlay extends Component {
   _timeoutId: ?TimeoutID = null;
   /**
@@ -31,6 +40,7 @@ class Overlay extends Component {
    * @memberof Overlay
    */
   componentDidMount(): void {
+    this.props.updateOverlay(true);
     this._timeoutId = setTimeout(() => this.props.addPlayerClass(style.overlayActive), 0);
   }
 
@@ -93,7 +103,10 @@ class Overlay extends Component {
               }
             }}
             tabIndex="0"
-            onClick={props.onClose}
+            onClick={() => {
+              props.updateOverlay(false);
+              props.onClose();
+            }}
             onKeyDown={this.onCloseButtonKeyDown}
             aria-label={<Text id="overlay.close" />}
             className={style.closeOverlay}>
@@ -115,8 +128,13 @@ class Overlay extends Component {
    */
   render(props: any): React$Element<any> {
     const overlayClass = [style.overlay];
-    if (props.type) overlayClass.push(style[props.type + '-overlay']);
-    if (props.open) overlayClass.push(style.active);
+    if (props.type) {
+      const classType = style[props.type + '-overlay'] ? style[props.type + '-overlay'] : props.type + '-overlay';
+      overlayClass.push(classType);
+    }
+    if (props.overlayOpen) {
+      overlayClass.push(style.active);
+    }
 
     return (
       <div tabIndex="-1" className={overlayClass.join(' ')} role="dialog" onKeyDown={this.onKeyDown}>

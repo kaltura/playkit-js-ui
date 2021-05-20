@@ -13,7 +13,6 @@ const IconType = {
   VolumeWave: 'volume-wave',
   VolumeMute: 'volume-mute',
   Close: 'close',
-  Share: 'share',
   Settings: 'settings',
   Check: 'check',
   Language: 'language',
@@ -210,9 +209,6 @@ class Icon extends Component {
 
         case IconType.Close:
           return <i className={[style.icon, style.iconClose].join(' ')} />;
-
-        case IconType.Share:
-          return <i className={[style.icon, style.iconShare].join(' ')} />;
 
         case IconType.Settings:
           return <i className={[style.icon, style.iconSettings].join(' ')} />;

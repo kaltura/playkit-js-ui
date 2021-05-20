@@ -3,7 +3,6 @@
     "controls": {
       "play": "再生",
       "pause": "一時停止",
-      "share": "共有する",
       "language": "言語",
       "settings": "設定",
       "fullscreen": "フルスクリーン",
@@ -37,13 +36,6 @@
       "audio": "オーディオ",
       "captions": "キャプション",
       "advanced_captions_settings": "キャプションの詳細設定"
-    },
-    "share": {
-      "title": "共有する",
-      "embed_options": "オプションの埋め込み",
-      "start_video_at": "ビデオ再生開始地点",
-      "email": "メールで共有する",
-      "embed": "埋め込みコードを取得する"
     },
     "overlay": {
       "close": "閉じる"

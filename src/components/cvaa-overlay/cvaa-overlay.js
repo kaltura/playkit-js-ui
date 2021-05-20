@@ -1,16 +1,16 @@
 //@flow
 import {h, Component} from 'preact';
 import {connect} from 'react-redux';
-import {bindActions} from '../../utils/bind-actions';
+import {bindActions} from 'utils';
 import {actions as cvaaActions} from '../../reducers/cvaa';
 import {actions as shellActions} from '../../reducers/shell';
-import {Overlay} from '../overlay';
-import {withKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
+import {withKeyboardA11y} from 'utils/popup-keyboard-accessibility';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {withLogger} from 'components/logger';
 import {MainCaptionsWindow} from 'components/cvaa-overlay/main-captions_window';
 import {CustomCaptionsWindow} from 'components/cvaa-overlay/custom-captions-window';
+import {Overlay} from 'components';
 
 /**
  * mapping state to props
@@ -18,7 +18,6 @@ import {CustomCaptionsWindow} from 'components/cvaa-overlay/custom-captions-wind
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  open: state.cvaa.overlayOpen,
   style: state.cvaa.style
 });
 
@@ -133,7 +132,7 @@ class CVAAOverlay extends Component {
   render(props: any): React$Element<any> {
     props.clearAccessibleChildren();
     return (
-      <Overlay handleKeyDown={this.props.handleKeyDown} addAccessibleChild={this.props.addAccessibleChild} open onClose={props.onClose} type="cvaa">
+      <Overlay handleKeyDown={this.props.handleKeyDown} addAccessibleChild={this.props.addAccessibleChild} onClose={props.onClose} type="cvaa">
         {this.state.activeWindow === cvaaOverlayState.Main ? (
           <MainCaptionsWindow
             cvaaOverlayState={cvaaOverlayState}

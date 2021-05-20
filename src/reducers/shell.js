@@ -14,6 +14,7 @@ export const types = {
   UPDATE_PLAYER_HOVER_STATE: 'shell/UPDATE_PLAYER_HOVER_STATE',
   UPDATE_PLAYER_NAV_STATE: 'shell/UPDATE_PLAYER_NAV_STATE',
   UPDATE_SMART_CONTAINER_OPEN: 'shell/UPDATE_SMART_CONTAINER_OPEN',
+  UPDATE_OVERLAY: 'shell/UPDATE_OVERLAY',
   UPDATE_ACTIVE_PRESET_NAME: 'shell/UPDATE_ACTIVE_PRESET_NAME',
   UPDATE_SIDE_PANEL_MODE: 'shell/UPDATE_SIDE_PANEL_MODE',
   UPDATE_SIDE_PANEL_SIZE: 'shell/UPDATE_SIDE_PANEL_SIZE',
@@ -86,6 +87,7 @@ export const initialState = {
   playerHover: false,
   playerNav: false,
   smartContainerOpen: false,
+  overlayOpen: false,
   activePresetName: '',
   sidePanelsModes: {
     [SidePanelPositions.LEFT]: SidePanelModes.HIDDEN,
@@ -201,6 +203,12 @@ export default (state: Object = initialState, action: Object) => {
         smartContainerOpen: action.open
       };
 
+    case types.UPDATE_OVERLAY:
+      return {
+        ...state,
+        overlayOpen: action.open
+      };
+
     case types.UPDATE_ACTIVE_PRESET_NAME:
       return {
         ...state,
@@ -260,6 +268,7 @@ export const actions = {
   updatePlayerHoverState: (hover: boolean) => ({type: types.UPDATE_PLAYER_HOVER_STATE, hover}),
   updatePlayerNavState: (nav: boolean) => ({type: types.UPDATE_PLAYER_NAV_STATE, nav}),
   updateSmartContainerOpen: (open: boolean) => ({type: types.UPDATE_SMART_CONTAINER_OPEN, open}),
+  updateOverlay: (open: boolean) => ({type: types.UPDATE_OVERLAY, open}),
   updateActivePresetName: (activePresetName: string) => ({type: types.UPDATE_ACTIVE_PRESET_NAME, activePresetName}),
   updateSidePanelMode: (position: string, sidePanelMode: string) => ({
     type: types.UPDATE_SIDE_PANEL_MODE,

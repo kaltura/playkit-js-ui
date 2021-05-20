@@ -3,7 +3,6 @@
     "controls": {
       "play": "تشغيل",
       "pause": "إيقاف مؤقت",
-      "share": "مشاركة",
       "language": "اللغة",
       "settings": "الإعدادات",
       "fullscreen": "ملء الشاشة",
@@ -37,13 +36,6 @@
       "audio": "الصوت",
       "captions": "التسميات التوضيحية",
       "advanced_captions_settings": "الإعدادات المتقدمة للتسميات التوضيحية"
-    },
-    "share": {
-      "title": "مشاركة",
-      "embed_options": "خيارات التضمين",
-      "start_video_at": "بدء الفيديو عند",
-      "email": "مشاركة على البريد الإلكتروني",
-      "embed": "الحصول على رمز التضمين"
     },
     "overlay": {
       "close": "إغلاق"

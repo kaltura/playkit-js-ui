@@ -6,7 +6,6 @@ import shell from './reducers/shell';
 import seekbar from './reducers/seekbar';
 import volume from './reducers/volume';
 import loading from './reducers/loading';
-import share from './reducers/share';
 import cvaa from './reducers/cvaa';
 import settings from './reducers/settings';
 import overlayAction from './reducers/overlay-action';
@@ -20,7 +19,6 @@ const reducer = combineReducers({
   seekbar,
   volume,
   loading,
-  share,
   cvaa,
   settings,
   overlayAction,
