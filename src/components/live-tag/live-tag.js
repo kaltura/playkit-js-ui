@@ -83,7 +83,9 @@ class LiveTag extends Component {
    */
   render(props: any): React$Element<any> {
     const tagStyleClass = [style.liveTag];
-    if (props.isDvr && !this.isOnLiveEdge()) tagStyleClass.push(style.nonLivePlayhead);
+    if (!this.isOnLiveEdge()) {
+      tagStyleClass.push(style.nonLivePlayhead);
+    }
 
     return (
       <div tabIndex="0" className={tagStyleClass.join(' ')} onClick={this.onClick} onKeyDown={this.onKeyDown}>
