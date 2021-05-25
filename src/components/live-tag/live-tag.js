@@ -77,11 +77,10 @@ class LiveTag extends Component {
   /**
    * render live tag component
    *
-   * @param {*} props - component props
    * @returns {React$Element} component element
    * @memberof LiveTag
    */
-  render(props: any): React$Element<any> {
+  render(): React$Element<any> {
     const tagStyleClass = [style.liveTag];
     if (!this.isOnLiveEdge()) {
       tagStyleClass.push(style.nonLivePlayhead);
