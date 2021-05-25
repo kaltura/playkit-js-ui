@@ -17,6 +17,7 @@
       "prev": "السابق",
       "startOver": "البدء من جديد",
       "pictureInPicture": "صورة داخل صورة",
+      "pictureInPictureExit": "الخروج من وضع صورة داخل صورة",
       "logo": "الشعار",
       "seekBarSlider": "شريط تمرير الانتقال"
     },
@@ -30,7 +31,8 @@
       "title": "الإعدادات",
       "quality": "الجودة",
       "speed": "السرعة",
-      "speedNormal": "عادي"
+      "speedNormal": "عادي",
+      "qualityAuto": "تلقائية"
     },
     "language": {
       "title": "اللغة",
