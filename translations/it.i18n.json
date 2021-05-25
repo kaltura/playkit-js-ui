@@ -17,6 +17,7 @@
       "prev": "Prec",
       "startOver": "Riavvia",
       "pictureInPicture": "Immagine nell’immagine",
+      "pictureInPictureExit": "Esci dall'immagine nell'immagine",
       "logo": "Logo",
       "seekBarSlider": "Cursore di ricerca"
     },
@@ -30,7 +31,8 @@
       "title": "Impostazioni",
       "quality": "Qualità",
       "speed": "Velocità",
-      "speedNormal": "Normale"
+      "speedNormal": "Normale",
+      "qualityAuto": "Automatica"
     },
     "language": {
       "title": "Lingua",
