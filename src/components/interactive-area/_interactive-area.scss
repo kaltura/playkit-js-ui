@@ -1,8 +1,42 @@
+@import '~styles/variables';
+.player.overlay-active .interactive-area {
+  filter: blur($blur);
+}
 .interactive-area {
   pointer-events: none;
-  width: 100%;
-  height: 100%;
   position: relative;
   top: 0;
-  transition: top #{$default-transition-time}ms, height #{$default-transition-time}ms;
+  margin: $gui-gutter;
+  transition: margin #{$hover-animation-time}ms ease-in-out;
+  flex: 1;
+}
+.player.size-sm {
+  .interactive-area {
+    margin: $gui-small-gutter;
+  }
+  &.casting,
+  &.metadata-loaded.hover,
+  &.state-paused,
+  &.state-idle,
+  &.ad-break,
+  &.menu-active {
+    &:not(.overlay-active) {
+      .interactive-area {
+        margin: 0px $gui-small-gutter;
+      }
+    }
+  }
+}
+
+.player.casting,
+.player.metadata-loaded.hover,
+.player.state-paused,
+.player.state-idle,
+.player.ad-break,
+.player.menu-active {
+  &:not(.overlay-active) {
+    .interactive-area {
+      margin: 0px $gui-gutter;
+    }
+  }
 }

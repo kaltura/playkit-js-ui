@@ -1,9 +1,14 @@
 $color: #ffffff;
-
+.interactive-area {
+  .unmute-button-container {
+    top: 0;
+    left: 0;
+  }
+}
 .unmute-button-container {
   display: inline-block;
   position: absolute;
-  top: 13px;
+  top: 16px;
   left: 16px;
   z-index: 15;
 

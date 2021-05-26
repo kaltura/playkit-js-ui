@@ -1,8 +1,8 @@
 @import '~styles/variables';
 
 .player .seek-bar {
-  padding: 12px 0 16px 0;
-  margin: -2px 0;
+  padding: 12px 0 12px 0;
+  //margin: -2px 0;
   cursor: pointer;
   position: relative;
 
@@ -42,7 +42,7 @@
     background-color: rgba(255, 255, 255, 0.3);
     border-radius: $progress-bar-border-radius;
     position: absolute;
-    transition: height 100ms;
+    transition: height 200ms ease, transform 200ms ease;
 
     .progress {
       position: absolute;
@@ -138,6 +138,7 @@
     .progress-bar {
       height: 2 * $progress-bar-height;
       border-radius: 2 * $progress-bar-border-radius;
+      transform: translateY(-$progress-bar-height / 2);
 
       .scrubber {
         top: -8px + $progress-bar-height;

@@ -1,10 +1,12 @@
+@import '~styles/variables';
+
 .player .bottom-bar {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
   color: #fff;
-  opacity: 0;
   visibility: hidden;
-  height: 0;
-  transition: 100ms opacity;
+  height: auto;
+  max-height: 0;
+  transition: #{$hover-animation-time}ms max-height ease-in-out, #{$hover-animation-time}ms visibility ease-in-out;
   width: 100%;
   margin-top: auto;
   -ms-align-self: flex-end;
@@ -14,6 +16,7 @@
   z-index: 1;
   pointer-events: auto;
   position: relative;
+  padding: 0 $gui-gutter 4px;
 
   &.hide {
     display: none;
@@ -67,27 +70,26 @@
   }
 }
 
-.player.casting .bottom-bar,
-.player.metadata-loaded.hover .bottom-bar,
-.player.state-paused .bottom-bar,
-.player.state-idle .bottom-bar,
-.player.ad-break .bottom-bar,
-.player.menu-active .bottom-bar {
-  opacity: 1;
-  visibility: visible;
-  height: auto;
-  padding: 6px 16px;
-}
-
-.player.overlay-active .gui-area .bottom-bar {
-  opacity: 0;
-  visibility: hidden;
-  height: 0;
+.player.casting,
+.player.metadata-loaded.hover,
+.player.state-paused,
+.player.state-idle,
+.player.ad-break,
+.player.menu-active {
+  &:not(.overlay-active){
+    .bottom-bar {
+      visibility: visible;
+      max-height: #{$bottom-bar-max-height}px;
+      &.line-break {
+        max-height: 92px;
+      }
+    }
+  }
 }
 
 .player.size-sm {
   .bottom-bar {
-    padding: 6px 8px;
+    padding: 0 $gui-small-gutter 4px;
 
     .time-display {
       padding-left: 0;

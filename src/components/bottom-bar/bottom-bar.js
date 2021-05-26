@@ -1,6 +1,6 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, createRef} from 'preact';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
 import {connect} from 'react-redux';
@@ -13,7 +13,8 @@ import {PlayerArea} from 'components/player-area';
  */
 const mapStateToProps = state => ({
   isCasting: state.engine.isCasting,
-  isPlaybackEnded: state.engine.isPlaybackEnded
+  isPlaybackEnded: state.engine.isPlaybackEnded,
+  guiClientRect: state.shell.guiClientRect
 });
 
 const COMPONENT_NAME = 'BottomBar';
@@ -27,6 +28,21 @@ const COMPONENT_NAME = 'BottomBar';
  */
 @connect(mapStateToProps, bindActions(actions))
 class BottomBar extends Component {
+  _ref = createRef();
+
+  /**
+   * when component did update
+   *
+   * @returns {void}
+   * @memberof BottomBar
+   */
+  componentDidUpdate(): void {
+    const lineBreak = this._ref.current.scrollHeight > style.bottomBarMaxHeight;
+    if (this.state.lineBreak !== lineBreak) {
+      this.setState({lineBreak});
+    }
+  }
+
   /**
    * render component
    *
@@ -41,8 +57,11 @@ class BottomBar extends Component {
     if (props.isCasting && props.isPlaybackEnded) {
       styleClass.push(style.hide);
     }
+    if (this.state.lineBreak) {
+      styleClass.push(style.lineBreak);
+    }
     return (
-      <div className={styleClass.join(' ')}>
+      <div ref={this._ref} className={styleClass.join(' ')}>
         <PlayerArea name={'BottomBar'}>
           {props.children}
           <div className={style.leftControls}>

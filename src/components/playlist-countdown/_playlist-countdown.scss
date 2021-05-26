@@ -12,8 +12,6 @@
     position: absolute;
     right: 0;
     bottom: 0;
-    margin: 16px;
-    transform: translateY(0px);
     transition: transform ease-in 100ms, opacity 400ms, bottom 300ms;
     cursor: pointer;
 
@@ -115,15 +113,6 @@
     }
   }
 
-  &:not(.overlay-active) {
-    &.state-paused,
-    &.state-idle,
-    &.hover {
-      .playlist-countdown {
-        transform: translateY(-50px);
-      }
-    }
-  }
 
   &.size-md {
     .playlist-countdown {
