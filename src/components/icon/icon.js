@@ -75,8 +75,8 @@ class Icon extends Component {
     if (path && id) {
       this._className = `playkit-icon-${id}`;
       // Avoid from override existing classes
-      const styleSheet = Array.from(document.styleSheets).find(styleSheet => styleSheet.ownerNode.id === packageName);
-      const classCssExists = Array.from(styleSheet.rules).find(rule => rule.selectorText === `.${this._className}`);
+      const styleSheet: any = Array.from(document.styleSheets).find((styleSheet: any) => styleSheet.ownerNode.id === packageName);
+      const classCssExists = styleSheet ? Array.from(styleSheet.rules).find((rule: any) => rule.selectorText === `.${this._className}`) : false;
       if (!classCssExists) {
         this.createDynamicIconClass(props);
       }
@@ -104,12 +104,12 @@ class Icon extends Component {
    * Generates the encoded svg url for a certain svg path
    *
    * @param {string} path - svg path
-   * @param {?number} width - svg width
-   * @param {?number} height - svg height
+   * @param {number} width - svg width
+   * @param {number} height - svg height
    * @returns {string} - encoded svg url
    * @memberof Icon
    */
-  getSVGUrl = (path: string, width: ?number = 36, height: ?number = 36): string => {
+  getSVGUrl = (path: string, width: number = 36, height: number = 36): string => {
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}">${path}</svg>`;
     const replaces = [
       ['"', "'"],
