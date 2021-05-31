@@ -62,15 +62,17 @@ class BottomBar extends Component {
     }
     return (
       <div ref={this._ref} className={styleClass.join(' ')}>
-        <PlayerArea name={'BottomBar'}>
-          {props.children}
-          <div className={style.leftControls}>
-            <PlayerArea name={'BottomBarLeftControls'}>{leftControls}</PlayerArea>
-          </div>
-          <div className={style.rightControls}>
-            <PlayerArea name={'BottomBarRightControls'}>{rightControls}</PlayerArea>
-          </div>
-        </PlayerArea>
+        <div className={style.bottomBarArea}>
+          <PlayerArea name={'BottomBar'} />
+        </div>
+        {props.children}
+
+        <div className={style.leftControls}>
+          <PlayerArea name={'BottomBarLeftControls'}>{leftControls}</PlayerArea>
+        </div>
+        <div className={style.rightControls}>
+          <PlayerArea name={'BottomBarRightControls'}>{rightControls}</PlayerArea>
+        </div>
       </div>
     );
   }

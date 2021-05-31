@@ -9,14 +9,12 @@
   transition: #{$hover-animation-time}ms max-height ease-in-out, #{$hover-animation-time}ms visibility ease-in-out;
   width: 100%;
   margin-top: auto;
-  -ms-align-self: flex-end;
-  align-self: flex-end;
   bottom: 0;
   left: 0;
   z-index: 1;
   pointer-events: auto;
   position: relative;
-  padding: 0 $gui-gutter 4px;
+  padding: 0 #{$gui-gutter}px #{$bottom-bar-bottom-gutter}px;
 
   &.hide {
     display: none;
@@ -30,7 +28,14 @@
       margin-left: 0px;
     }
   }
-
+  .bottom-bar-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100% - #{2 * $gui-gutter}px);
+    height: calc(100% - #{$bottom-bar-bottom-gutter}px);
+    margin: 0 #{$gui-gutter}px #{$bottom-bar-bottom-gutter}px;
+  }
   .right-controls {
     float: right;
     text-align: left;
@@ -76,7 +81,7 @@
 .player.state-idle,
 .player.ad-break,
 .player.menu-active {
-  &:not(.overlay-active){
+  &:not(.overlay-active) {
     .bottom-bar {
       visibility: visible;
       max-height: #{$bottom-bar-max-height}px;
@@ -89,7 +94,12 @@
 
 .player.size-sm {
   .bottom-bar {
-    padding: 0 $gui-small-gutter 4px;
+    padding: 0 #{$gui-small-gutter}px #{$bottom-bar-bottom-gutter}px;
+
+    .bottom-bar-area {
+      width: calc(100% - #{2 * $gui-small-gutter}px);
+      margin: 0 #{$gui-small-gutter}px #{$bottom-bar-bottom-gutter}px;
+    }
 
     .time-display {
       padding-left: 0;
