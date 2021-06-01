@@ -80,8 +80,8 @@ class LiveUI extends Component {
                 <Fragment>
                   <TopBar rightControls={<Share />} />
                   <InteractiveArea>
-                    <UnmuteIndication />
                     <Watermark />
+                    <UnmuteIndication />
                   </InteractiveArea>
                   <BottomBar
                     leftControls={

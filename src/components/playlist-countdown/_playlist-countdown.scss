@@ -12,7 +12,7 @@
     position: absolute;
     right: 0;
     bottom: 0;
-    transition: transform ease-in 100ms, opacity 400ms, bottom 300ms;
+    transition: opacity 400ms, bottom 300ms;
     cursor: pointer;
 
     &.slideIn {

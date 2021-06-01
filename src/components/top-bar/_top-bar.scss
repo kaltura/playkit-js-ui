@@ -4,11 +4,10 @@
   background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
   color: #fff;
   visibility: hidden;
+  position: relative;
   height: auto;
-  max-height: 0;
   transform: translateY(#{-$top-bar-max-height}px);
-  transition: #{$hover-animation-time}ms max-height ease-in-out, #{$hover-animation-time}ms visibility ease-in-out,
-    #{$hover-animation-time}ms transform ease-in-out;
+  transition: #{$hover-animation-time}ms visibility ease-in-out, #{$hover-animation-time}ms transform ease-in-out;
   width: 100%;
   padding: #{$top-bar-top-bottom-gutter}px #{$gui-gutter}px;
   top: 0;
@@ -66,7 +65,6 @@
   &:not(.overlay-active) {
     .top-bar {
       visibility: visible;
-      max-height: #{$top-bar-max-height}px;
       transform: translateY(0);
     }
   }

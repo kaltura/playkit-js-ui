@@ -85,8 +85,8 @@ class PlaybackUI extends Component {
                 <Fragment>
                   <TopBar rightControls={<Share />} />
                   <InteractiveArea>
-                    <UnmuteIndication />
                     <Watermark />
+                    <UnmuteIndication />
                     <PlaylistCountdown />
                   </InteractiveArea>
                   <BottomBar
