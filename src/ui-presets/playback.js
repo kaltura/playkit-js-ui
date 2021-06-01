@@ -74,11 +74,9 @@ class PlaybackUI extends Component {
               <Fragment>
                 <Loading />
                 <OverlayPortal />
-                <UnmuteIndication />
                 <PictureInPictureOverlay />
                 <PlaybackControls className={style.centerPlaybackControls} />
                 <PlaylistNextScreen />
-                <PlaylistCountdown />
                 <PrePlaybackPlayOverlay />
                 <CastBeforePlay />
                 <Backdrop />
@@ -88,6 +86,8 @@ class PlaybackUI extends Component {
                   <TopBar rightControls={<Share />} />
                   <InteractiveArea>
                     <Watermark />
+                    <UnmuteIndication />
+                    <PlaylistCountdown />
                   </InteractiveArea>
                   <BottomBar
                     leftControls={

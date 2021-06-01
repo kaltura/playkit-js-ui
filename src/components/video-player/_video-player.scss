@@ -1,3 +1,5 @@
+@import '~styles/variables';
+
 .video-player {
   position: absolute;
   top: 0;
@@ -8,6 +10,7 @@
   transition: all #{$default-transition-time}ms;
   transition-property: left, right, bottom, top, width, height;
   .overlay-active & {
-    filter: blur(16px);
+    filter: blur($blur);
   }
+  display: flex;
 }
