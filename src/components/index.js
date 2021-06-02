@@ -35,7 +35,7 @@ export {SeekBarPlaybackContainer} from './seekbar-playback-container';
 export * from './logger';
 
 export {ShareOverlay} from './share-overlay';
-export {Shell, PLAYER_SIZE} from './shell';
+export {Shell} from './shell';
 export {Slider} from './slider';
 export {SmartContainer, SmartContainerItem} from './smart-container';
 export {TimeDisplay} from './time-display';

@@ -8,7 +8,6 @@ import {bindActions} from '../../utils/bind-actions';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {FakeEvent} from 'event/fake-event';
-import {PlayerArea} from 'components/player-area';
 
 /**
  * mapping state to props
@@ -113,11 +112,7 @@ class VideoPlayer extends Component {
   render(): React$Element<any> {
     const {videoStyles, targetId} = this.props;
 
-    return (
-      <div id={`${targetId}-video`} className={style.videoPlayer} style={videoStyles} ref={this._setRef}>
-        <PlayerArea name={'VideoContainer'} />
-      </div>
-    );
+    return <div id={`${targetId}-video`} className={style.videoPlayer} style={videoStyles} ref={this._setRef} />;
   }
 }
 
