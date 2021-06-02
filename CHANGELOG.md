@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.66.1](https://github.com/kaltura/playkit-js-ui/compare/v0.66.0...v0.66.1) (2021-06-02)
+
+
+
 ## [0.66.0](https://github.com/kaltura/playkit-js-ui/compare/v0.65.3...v0.66.0) (2021-06-01)
 
 
@@ -18,7 +22,6 @@ All notable changes to this project will be documented in this file. See [standa
 ### Features
 
 * **FEC-10613:** add Hebrew/Canadian French translations for player ([#604](https://github.com/kaltura/playkit-js-ui/issues/604)) ([3b251e6](https://github.com/kaltura/playkit-js-ui/commit/3b251e6))
-* **FEC-11284:** dual screen core changes ([#606](https://github.com/kaltura/playkit-js-ui/issues/606)) ([e3df209](https://github.com/kaltura/playkit-js-ui/commit/e3df209))
 
 
 
