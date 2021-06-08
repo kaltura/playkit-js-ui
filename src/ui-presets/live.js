@@ -70,7 +70,6 @@ class LiveUI extends Component {
               <Fragment>
                 <Loading />
                 <OverlayPortal />
-                <UnmuteIndication />
                 <PictureInPictureOverlay />
                 <PlaybackControls className={style.centerPlaybackControls} />
                 <PrePlaybackPlayOverlay />
@@ -82,6 +81,7 @@ class LiveUI extends Component {
                   <TopBar rightControls={<Share />} />
                   <InteractiveArea>
                     <Watermark />
+                    <UnmuteIndication />
                   </InteractiveArea>
                   <BottomBar
                     leftControls={

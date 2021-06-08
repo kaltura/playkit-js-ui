@@ -1,18 +1,27 @@
+@import '~styles/variables';
+
 .player .top-bar {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
   color: #fff;
-  opacity: 0;
   visibility: hidden;
-  height: 0;
-  transition: 100ms opacity;
+  position: relative;
+  height: auto;
+  transform: translateY(#{-$top-bar-max-height}px);
+  transition: #{$hover-animation-time}ms visibility ease-in-out, #{$hover-animation-time}ms transform ease-in-out;
   width: 100%;
-  -ms-align-self: flex-start;
-  align-self: flex-start;
+  padding: #{$top-bar-top-bottom-gutter}px #{$gui-gutter}px;
   top: 0;
   left: 0;
   z-index: 1;
   pointer-events: auto;
-
+  .top-bar-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: calc(100% - #{2 * $top-bar-top-bottom-gutter}px);
+    width: calc(100% - #{2 * $gui-gutter}px);
+    margin: #{$top-bar-top-bottom-gutter}px #{$gui-gutter}px;
+  }
   &.disabled {
     pointer-events: none;
   }
@@ -24,7 +33,6 @@
     float: left;
     text-align: left;
     min-width: 0;
-    margin: 14px 0 14px 16px;
     &:empty {
       margin: 0;
     }
@@ -33,7 +41,6 @@
   .right-controls {
     float: right;
     text-align: left;
-    margin: 14px 16px 14px 0;
     &:empty {
       margin: 0;
     }
@@ -49,26 +56,17 @@
   }
 }
 
-.player.casting .top-bar,
-.player.metadata-loaded.hover .top-bar,
-.player.state-paused .top-bar,
-.player.state-idle .top-bar,
-.player.ad-break .top-bar,
-.player.menu-active .top-bar {
-  opacity: 1;
-  visibility: visible;
-  height: auto;
-}
-
-.player.overlay-active .gui-area .top-bar {
-  opacity: 0;
-  visibility: hidden;
-  height: 0;
-}
-
-.player.size-sm {
-  .player .top-bar {
-    padding: 8px 8px 20px 8px;
+.player.casting,
+.player.metadata-loaded.hover,
+.player.state-paused,
+.player.state-idle,
+.player.ad-break,
+.player.menu-active {
+  &:not(.overlay-active) {
+    .top-bar {
+      visibility: visible;
+      transform: translateY(0);
+    }
   }
 }
 
@@ -77,5 +75,14 @@
 .right-controls {
   * {
     pointer-events: auto;
+  }
+}
+
+.player.size-sm .top-bar {
+  padding: #{$top-bar-top-bottom-gutter}px #{$gui-small-gutter}px;
+
+  .top-bar-area {
+    width: calc(100% - #{2 * $gui-small-gutter}px);
+    margin: #{$top-bar-top-bottom-gutter}px #{$gui-small-gutter}px;
   }
 }
