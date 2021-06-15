@@ -26,6 +26,14 @@ $spinner-colors: rgb(218, 31, 38), rgb(6, 168, 133), rgb(0, 147, 68), rgb(248, 1
   rgb(252, 210, 3);
 $default-transition-time: 500;
 $default-hovering-offset: 60px;
+$hover-animation-time: 300;
+$top-bar-max-height: 60;
+$top-bar-top-bottom-gutter: 14;
+$bottom-bar-max-height: 60;
+$bottom-bar-bottom-gutter: 4;
+$gui-gutter: 16;
+$gui-small-gutter: 8;
+$blur: 16px;
 
 :export {
   brandColor: $brand-color;
@@ -33,4 +41,5 @@ $default-hovering-offset: 60px;
   progressBarHeight: $progress-bar-height;
   progressBarBorderRadius: $progress-bar-border-radius;
   defaultTransitionTime: $default-transition-time;
+  bottomBarMaxHeight: $bottom-bar-max-height;
 }
