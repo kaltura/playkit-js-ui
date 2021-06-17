@@ -6,7 +6,7 @@
   visibility: hidden;
   height: auto;
   max-height: 0;
-  transition: #{$hover-animation-time}ms max-height ease-in-out, #{$hover-animation-time}ms visibility ease-in-out;
+  transition: #{$hover-animation-time}ms max-height ease-in-out, #{$hover-animation-time}ms visibility ease-in-out, 0ms padding linear #{$hover-animation-time}ms;
   width: 100%;
   margin-top: auto;
   bottom: 0;
@@ -14,7 +14,7 @@
   z-index: 1;
   pointer-events: auto;
   position: relative;
-  padding: 0 #{$gui-gutter}px #{$bottom-bar-bottom-gutter}px;
+  padding: 0;
 
   &.hide {
     display: none;
@@ -84,7 +84,9 @@
   &:not(.overlay-active) {
     .bottom-bar {
       visibility: visible;
+      padding: 0 #{$gui-gutter}px #{$bottom-bar-bottom-gutter}px;
       max-height: #{$bottom-bar-max-height}px;
+      transition: #{$hover-animation-time}ms max-height ease-in-out, #{$hover-animation-time}ms visibility ease-in-out;
       &.line-break {
         max-height: 92px;
       }
