@@ -4,13 +4,13 @@ import {connect} from 'react-redux';
 import {bindActions} from 'utils';
 import {actions as cvaaActions} from '../../reducers/cvaa';
 import {actions as shellActions} from '../../reducers/shell';
+import {Overlay} from 'components';
 import {withKeyboardA11y} from 'utils/popup-keyboard-accessibility';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {withLogger} from 'components/logger';
 import {MainCaptionsWindow} from 'components/cvaa-overlay/main-captions_window';
 import {CustomCaptionsWindow} from 'components/cvaa-overlay/custom-captions-window';
-import {Overlay} from 'components';
 
 /**
  * mapping state to props
