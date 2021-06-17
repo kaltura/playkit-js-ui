@@ -77,6 +77,7 @@ class LiveTag extends Component {
   /**
    * render live tag component
    *
+   * @param {*} props - component props
    * @returns {React$Element} component element
    * @memberof LiveTag
    */
