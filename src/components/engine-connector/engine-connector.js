@@ -83,6 +83,9 @@ class EngineConnector extends Component {
 
     eventManager.listen(player, player.Event.DURATION_CHANGE, () => {
       this.props.updateDuration(player.duration);
+      if (player.isLive()) {
+        this.props.updateLiveDuration(player.liveDuration);
+      }
     });
 
     eventManager.listen(player, player.Event.LOADED_DATA, () => {

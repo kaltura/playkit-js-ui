@@ -17,7 +17,7 @@ const mapStateToProps = state => ({
   isLive: state.engine.isLive,
   isDvr: state.engine.isDvr,
   currentTime: state.engine.currentTime,
-  duration: state.engine.duration
+  duration: state.engine.liveDuration
 });
 
 const COMPONENT_NAME = 'LiveTag';
