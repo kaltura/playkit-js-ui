@@ -1,1 +1,1 @@
-export {Shell} from './shell';
+export {Shell, PLAYER_SIZE} from './shell';
