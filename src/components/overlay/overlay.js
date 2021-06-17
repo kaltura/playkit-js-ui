@@ -40,7 +40,6 @@ class Overlay extends Component {
    * @memberof Overlay
    */
   componentDidMount(): void {
-    this.props.updateOverlay(true);
     this._timeoutId = setTimeout(() => this.props.addPlayerClass(style.overlayActive), 0);
   }
 
@@ -132,7 +131,9 @@ class Overlay extends Component {
       const classType = style[props.type + '-overlay'] ? style[props.type + '-overlay'] : props.type + '-overlay';
       overlayClass.push(classType);
     }
-    if (props.overlayOpen) {
+
+    if (props.open) {
+      this.props.updateOverlay(props.open);
       overlayClass.push(style.active);
     }
 

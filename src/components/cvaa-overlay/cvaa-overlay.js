@@ -132,7 +132,7 @@ class CVAAOverlay extends Component {
   render(props: any): React$Element<any> {
     props.clearAccessibleChildren();
     return (
-      <Overlay handleKeyDown={this.props.handleKeyDown} addAccessibleChild={this.props.addAccessibleChild} onClose={props.onClose} type="cvaa">
+      <Overlay open handleKeyDown={this.props.handleKeyDown} addAccessibleChild={this.props.addAccessibleChild} onClose={props.onClose} type="cvaa">
         {this.state.activeWindow === cvaaOverlayState.Main ? (
           <MainCaptionsWindow
             cvaaOverlayState={cvaaOverlayState}
