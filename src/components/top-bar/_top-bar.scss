@@ -6,10 +6,9 @@
   visibility: hidden;
   position: relative;
   height: auto;
-  transform: translateY(#{-$top-bar-max-height}px);
-  transition: #{$hover-animation-time}ms visibility ease-in-out, #{$hover-animation-time}ms transform ease-in-out;
+  margin-top: #{-$top-bar-max-height}px;
+  transition: #{$hover-animation-time}ms visibility ease-in-out, #{$hover-animation-time}ms margin-top ease-in-out;
   width: 100%;
-  padding: #{$top-bar-top-bottom-gutter}px #{$gui-gutter}px;
   top: 0;
   left: 0;
   z-index: 1;
@@ -21,6 +20,11 @@
     height: calc(100% - #{2 * $top-bar-top-bottom-gutter}px);
     width: calc(100% - #{2 * $gui-gutter}px);
     margin: #{$top-bar-top-bottom-gutter}px #{$gui-gutter}px;
+    &:empty {
+      margin: 0 0 #{$gui-gutter}px 0;
+      height: 0;
+      width: 0;
+    }
   }
   &.disabled {
     pointer-events: none;
@@ -33,16 +37,19 @@
     float: left;
     text-align: left;
     min-width: 0;
+    margin: #{$top-bar-top-bottom-gutter}px 0 #{$top-bar-top-bottom-gutter}px #{$gui-gutter}px;
     &:empty {
-      margin: 0;
+      margin: 0 0 #{$gui-gutter}px 0;
     }
     pointer-events: none;
   }
   .right-controls {
     float: right;
     text-align: left;
+    margin: #{$top-bar-top-bottom-gutter}px #{$gui-gutter}px #{$top-bar-top-bottom-gutter}px 0;
     &:empty {
-      margin: 0;
+      margin: 0 0 #{$gui-gutter}px 0;
+
     }
     pointer-events: none;
 
@@ -65,7 +72,8 @@
   &:not(.overlay-active) {
     .top-bar {
       visibility: visible;
-      transform: translateY(0);
+      margin-top: 0;
+
     }
   }
 }
@@ -81,6 +89,14 @@
 .player.size-sm .top-bar {
   padding: #{$top-bar-top-bottom-gutter}px #{$gui-small-gutter}px;
 
+  .left-controls {
+    margin: #{$top-bar-top-bottom-gutter}px 0 #{$top-bar-top-bottom-gutter}px #{$gui-small-gutter}px;
+  }
+
+  .right-controls {
+    margin: #{$top-bar-top-bottom-gutter}px #{$gui-small-gutter}px #{$top-bar-top-bottom-gutter}px 0;
+
+  }
   .top-bar-area {
     width: calc(100% - #{2 * $gui-small-gutter}px);
     margin: #{$top-bar-top-bottom-gutter}px #{$gui-small-gutter}px;
