@@ -6,7 +6,8 @@
   visibility: hidden;
   height: auto;
   max-height: 0;
-  transition: #{$hover-animation-time}ms max-height ease-in-out, #{$hover-animation-time}ms visibility ease-in-out, 0ms padding linear #{$hover-animation-time}ms;
+  transition: #{$hover-animation-time}ms max-height ease-in-out, #{$hover-animation-time}ms visibility ease-in-out,
+    0ms padding linear #{$hover-animation-time}ms;
   width: 100%;
   margin-top: auto;
   bottom: 0;
@@ -36,6 +37,7 @@
     width: calc(100% - #{2 * $gui-gutter}px);
     height: calc(100% - #{$bottom-bar-bottom-gutter}px);
     margin: 0 #{$gui-gutter}px #{$bottom-bar-bottom-gutter}px;
+    pointer-events: none;
   }
   .right-controls {
     float: right;
@@ -113,8 +115,11 @@
 .player {
   .bottom-bar {
     .left-controls,
-    .right-controls > * {
-      pointer-events: auto;
+    .right-controls,
+    .bottom-bar-area {
+      & > * {
+        pointer-events: auto;
+      }
     }
   }
 }

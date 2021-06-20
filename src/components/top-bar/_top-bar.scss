@@ -20,6 +20,7 @@
     height: calc(100% - #{2 * $top-bar-top-bottom-gutter}px);
     width: calc(100% - #{2 * $gui-gutter}px);
     margin: #{$top-bar-top-bottom-gutter}px #{$gui-gutter}px;
+    pointer-events: none;
     &:empty {
       margin: 0 0 #{$gui-gutter}px 0;
       height: 0;
@@ -77,11 +78,15 @@
     }
   }
 }
-.player{
+
+.player {
   .top-bar {
     .left-controls,
-    .right-controls > * {
-      pointer-events: auto;
+    .right-controls,
+    .top-bar-area {
+      & > * {
+        pointer-events: auto;
+      }
     }
   }
 }
