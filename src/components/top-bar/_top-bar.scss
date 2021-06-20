@@ -21,6 +21,10 @@
     height: calc(100% - #{2 * $top-bar-top-bottom-gutter}px);
     width: calc(100% - #{2 * $gui-gutter}px);
     margin: #{$top-bar-top-bottom-gutter}px #{$gui-gutter}px;
+    pointer-events: none;
+    * {
+      pointer-events: auto;
+    }
   }
   &.disabled {
     pointer-events: none;

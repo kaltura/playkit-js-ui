@@ -35,6 +35,10 @@
     width: calc(100% - #{2 * $gui-gutter}px);
     height: calc(100% - #{$bottom-bar-bottom-gutter}px);
     margin: 0 #{$gui-gutter}px #{$bottom-bar-bottom-gutter}px;
+    pointer-events: none;
+    * {
+      pointer-events: auto;
+    }
   }
   .right-controls {
     float: right;
