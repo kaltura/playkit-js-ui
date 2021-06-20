@@ -23,6 +23,7 @@
   .left-controls {
     float: left;
     text-align: left;
+    pointer-events: none;
 
     .control-button-container:first-child {
       margin-left: 0px;
@@ -39,6 +40,7 @@
   .right-controls {
     float: right;
     text-align: left;
+    pointer-events: none;
 
     .control-button-container:last-child {
       margin-right: 0px;
@@ -105,6 +107,14 @@
 
     .time-display {
       padding-left: 0;
+    }
+  }
+}
+.player {
+  .bottom-bar {
+    .left-controls,
+    .right-controls > * {
+      pointer-events: auto;
     }
   }
 }

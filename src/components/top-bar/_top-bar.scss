@@ -38,20 +38,20 @@
     text-align: left;
     min-width: 0;
     margin: #{$top-bar-top-bottom-gutter}px 0 #{$top-bar-top-bottom-gutter}px #{$gui-gutter}px;
+    pointer-events: none;
     &:empty {
       margin: 0 0 #{$gui-gutter}px 0;
     }
-    pointer-events: none;
   }
   .right-controls {
     float: right;
     text-align: left;
     margin: #{$top-bar-top-bottom-gutter}px #{$gui-gutter}px #{$top-bar-top-bottom-gutter}px 0;
+    pointer-events: none;
     &:empty {
       margin: 0 0 #{$gui-gutter}px 0;
 
     }
-    pointer-events: none;
 
     .control-button-container {
       margin: 0 6px;
@@ -77,12 +77,12 @@
     }
   }
 }
-
-.top-bar,
-.left-controls,
-.right-controls {
-  * {
-    pointer-events: auto;
+.player{
+  .top-bar {
+    .left-controls,
+    .right-controls > * {
+      pointer-events: auto;
+    }
   }
 }
 
