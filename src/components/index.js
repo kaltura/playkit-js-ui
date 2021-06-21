@@ -33,7 +33,7 @@ export {SeekBarLivePlaybackContainer} from './seekbar-live-playback-container';
 export {SeekBarPlaybackContainer} from './seekbar-playback-container';
 export * from './logger';
 
-export {Shell} from './shell';
+export {Shell, PLAYER_SIZE} from './shell';
 export {Slider} from './slider';
 export {SmartContainer, SmartContainerItem} from './smart-container';
 export {TimeDisplay} from './time-display';

@@ -23,13 +23,6 @@ const IconType = {
   SpeedUp: 'speed-up',
   Audio: 'audio',
   Copy: 'copy',
-  Facebook: 'facebook',
-  Twitter: 'twitter',
-  GooglePlus: 'google-plus',
-  Linkedin: 'linkedin',
-  Email: 'email',
-  Embed: 'embed',
-  Link: 'link',
   ArrowDown: 'arrow-down',
   StartOver: 'start-over',
   SeekEnd: 'seek-end',
@@ -74,7 +67,9 @@ class Icon extends Component {
     if (path && id) {
       this._className = `playkit-icon-${id}`;
       // Avoid from override existing classes
-      if (!document.getElementsByClassName(this._className).length) {
+      const styleSheet: any = Array.from(document.styleSheets).find((styleSheet: any) => styleSheet.ownerNode.id === packageName);
+      const classCssExists = styleSheet ? Array.from(styleSheet.rules).find((rule: any) => rule.selectorText === `.${this._className}`) : false;
+      if (!classCssExists) {
         this.createDynamicIconClass(props);
       }
     }
@@ -88,10 +83,10 @@ class Icon extends Component {
    * @memberof Icon
    */
   createDynamicIconClass = (props: Object) => {
-    const {path, state, color, activeColor} = props;
+    const {path, state, color, activeColor, width, height} = props;
     const fillColor = this.getFillColor(state, color, activeColor);
     const pathTag = this.getPathTag(path, fillColor);
-    const svgUrl = this.getSVGUrl(pathTag);
+    const svgUrl = this.getSVGUrl(pathTag, width, height);
     const css = `.${this._className} { background-image: ${svgUrl}; }`;
     const style = document.getElementById(packageName);
     style && style.appendChild(document.createTextNode(css));
@@ -101,11 +96,13 @@ class Icon extends Component {
    * Generates the encoded svg url for a certain svg path
    *
    * @param {string} path - svg path
+   * @param {number} width - svg width
+   * @param {number} height - svg height
    * @returns {string} - encoded svg url
    * @memberof Icon
    */
-  getSVGUrl = (path: string): string => {
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1024 1024" width="36" height="36">${path}</svg>`;
+  getSVGUrl = (path: string, width: number = 36, height: number = 36): string => {
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1024 1024" width="${width}" height="${height}">${path}</svg>`;
     const replaces = [
       ['"', "'"],
       ['%', '%25'],
@@ -239,27 +236,6 @@ class Icon extends Component {
 
         case IconType.Copy:
           return <i className={[style.icon, style.iconCopy].join(' ')} />;
-
-        case IconType.Facebook:
-          return <i className={[style.icon, style.iconFacebook].join(' ')} />;
-
-        case IconType.Twitter:
-          return <i className={[style.icon, style.iconTwitter].join(' ')} />;
-
-        case IconType.GooglePlus:
-          return <i className={[style.icon, style.iconGooglePlus].join(' ')} />;
-
-        case IconType.Linkedin:
-          return <i className={[style.icon, style.iconLinkedin].join(' ')} />;
-
-        case IconType.Email:
-          return <i className={[style.icon, style.iconEmail].join(' ')} />;
-
-        case IconType.Embed:
-          return <i className={[style.icon, style.iconEmbed].join(' ')} />;
-
-        case IconType.Link:
-          return <i className={[style.icon, style.iconLink].join(' ')} />;
 
         case IconType.ArrowDown:
           return <i className={[style.icon, style.iconArrowDown].join(' ')} />;

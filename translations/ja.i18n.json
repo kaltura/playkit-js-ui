@@ -16,6 +16,7 @@
       "prev": "前へ",
       "startOver": "最初から再生する",
       "pictureInPicture": "ピクチャーインピクチャー",
+      "pictureInPictureExit": "ピクチャーインピクチャーを終了",
       "logo": "ロゴ",
       "seekBarSlider": "シーク スライダー"
     },
@@ -29,7 +30,8 @@
       "title": "設定",
       "quality": "画質",
       "speed": "速度",
-      "speedNormal": "通常"
+      "speedNormal": "通常",
+      "qualityAuto": "自動"
     },
     "language": {
       "title": "言語",

@@ -16,6 +16,7 @@
       "prev": "पिछला",
       "startOver": "प्रारंभ करें",
       "pictureInPicture": "पिक्चर इन पिक्चर",
+      "pictureInPictureExit": "तस्वीर में प्रस्थान तस्वीर",
       "logo": "लोगो",
       "seekBarSlider": "स्लाइडर के लिए प्रयास करें"
     },
@@ -29,7 +30,8 @@
       "title": "सेंटिंग",
       "quality": "गुणवत्ता",
       "speed": "गति",
-      "speedNormal": "सामान्य"
+      "speedNormal": "सामान्य",
+      "qualityAuto": "ऑटो"
     },
     "language": {
       "title": "भाषा",

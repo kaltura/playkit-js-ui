@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.66.2](https://github.com/kaltura/playkit-js-ui/compare/v0.66.0...v0.66.2) (2021-06-02)
+
+
+
+### [0.66.1](https://github.com/kaltura/playkit-js-ui/compare/v0.66.0...v0.66.1) (2021-06-02)
+
+
+
+## [0.66.0](https://github.com/kaltura/playkit-js-ui/compare/v0.65.3...v0.66.0) (2021-06-01)
+
+
+### Bug Fixes
+
+* **FEC-11260:** if set abrEnabled=false, auto mode still remains enabled - HLS ([#608](https://github.com/kaltura/playkit-js-ui/issues/608)) ([009c85f](https://github.com/kaltura/playkit-js-ui/commit/009c85f))
+* remove unexpected token s in json ([6095748](https://github.com/kaltura/playkit-js-ui/commit/6095748))
+* **FEC-10811:** floating show two bottom bar for second ([#599](https://github.com/kaltura/playkit-js-ui/issues/599)) ([ca8e2f2](https://github.com/kaltura/playkit-js-ui/commit/ca8e2f2))
+* **FEC-10980:** Video tracks selection miss active flag ([#602](https://github.com/kaltura/playkit-js-ui/issues/602)) ([ff00c9a](https://github.com/kaltura/playkit-js-ui/commit/ff00c9a))
+* encode share url ([#600](https://github.com/kaltura/playkit-js-ui/issues/600)) ([3532881](https://github.com/kaltura/playkit-js-ui/commit/3532881))
+* **FEC-11219:** share tooltip not localized ([#595](https://github.com/kaltura/playkit-js-ui/issues/595)) ([e436218](https://github.com/kaltura/playkit-js-ui/commit/e436218))
+
+
+### Features
+
+* **FEC-10613:** add Hebrew/Canadian French translations for player ([#604](https://github.com/kaltura/playkit-js-ui/issues/604)) ([3b251e6](https://github.com/kaltura/playkit-js-ui/commit/3b251e6))
+
+
+
 ### [0.65.6](https://github.com/kaltura/playkit-js-ui/compare/v0.65.5...v0.65.6) (2021-05-09)
 
 

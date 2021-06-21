@@ -17,6 +17,7 @@ export const types = {
   UPDATE_IS_PLAYBACK_ENDED: `${component}/UPDATE_IS_PLAYBACK_ENDED`,
   UPDATE_CURRENT_TIME: `${component}/UPDATE_CURRENT_TIME`,
   UPDATE_DURATION: `${component}/UPDATE_DURATION`,
+  UPDATE_LIVE_DURATION: `${component}/UPDATE_LIVE_DURATION`,
   UPDATE_VOLUME: `${component}/UPDATE_VOLUME`,
   UPDATE_MUTED: `${component}/UPDATE_MUTED`,
   UPDATE_METADATA_LOADING_STATUS: `${component}/UPDATE_METADATA_LOADING_STATUS`,
@@ -69,6 +70,7 @@ export const initialState = {
   currentTime: 0,
   lastSeekPoint: 0,
   duration: 0,
+  liveDuration: 0,
   volume: 1,
   muted: false,
   videoTracks: [],
@@ -177,6 +179,12 @@ export default (state: Object = initialState, action: Object) => {
       return {
         ...state,
         duration: action.duration
+      };
+
+    case types.UPDATE_LIVE_DURATION:
+      return {
+        ...state,
+        liveDuration: action.liveDuration
       };
 
     case types.UPDATE_VOLUME:
@@ -383,6 +391,7 @@ export const actions = {
   updateIsPlaybackEnded: (isPlaybackEnded: boolean) => ({type: types.UPDATE_IS_PLAYBACK_ENDED, isPlaybackEnded}),
   updateCurrentTime: (currentTime: number) => ({type: types.UPDATE_CURRENT_TIME, currentTime}),
   updateDuration: (duration: number) => ({type: types.UPDATE_DURATION, duration}),
+  updateLiveDuration: (liveDuration: number) => ({type: types.UPDATE_LIVE_DURATION, liveDuration}),
   updateVolume: (volume: number) => ({type: types.UPDATE_VOLUME, volume}),
   updateMuted: (muted: boolean) => ({type: types.UPDATE_MUTED, muted}),
   updateMetadataLoadingStatus: (metadataLoaded: boolean) => ({

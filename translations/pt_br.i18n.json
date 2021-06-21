@@ -16,6 +16,7 @@
       "prev": "Anterior",
       "startOver": "Começar de novo",
       "pictureInPicture": "Picture in picture",
+      "pictureInPictureExit": "Sair do Picture in picture",
       "logo": "Logo",
       "seekBarSlider": "Controle deslizante"
     },
@@ -29,7 +30,8 @@
       "title": "Configurações",
       "quality": "Qualidade",
       "speed": "Velocidade",
-      "speedNormal": "Normal"
+      "speedNormal": "Normal",
+      "qualityAuto": "Automático"
     },
     "language": {
       "title": "Idioma",

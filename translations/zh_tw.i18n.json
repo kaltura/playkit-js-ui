@@ -16,6 +16,7 @@
       "prev": "上一個",
       "startOver": "重頭",
       "pictureInPicture": "圖片中的圖片",
+      "pictureInPictureExit": "退出圖片中的圖片",
       "logo": "圖標",
       "seekBarSlider": "進行輪播"
     },
@@ -29,7 +30,8 @@
       "title": "設定",
       "quality": "畫質",
       "speed": "播放速度",
-      "speedNormal": "一般"
+      "speedNormal": "一般",
+      "qualityAuto": "自動"
     },
     "language": {
       "title": "語言",

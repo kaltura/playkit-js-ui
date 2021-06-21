@@ -1,18 +1,21 @@
+@import '~styles/variables';
+
 .player .bottom-bar {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
   color: #fff;
-  opacity: 0;
   visibility: hidden;
-  height: 0;
-  transition: 100ms opacity;
+  height: auto;
+  max-height: 0;
+  transition: #{$hover-animation-time}ms max-height ease-in-out, #{$hover-animation-time}ms visibility ease-in-out,
+    0ms padding linear #{$hover-animation-time}ms;
   width: 100%;
   margin-top: auto;
-  -ms-align-self: flex-end;
-  align-self: flex-end;
   bottom: 0;
   left: 0;
   z-index: 1;
   pointer-events: auto;
+  position: relative;
+  padding: 0;
 
   &.hide {
     display: none;
@@ -21,15 +24,25 @@
   .left-controls {
     float: left;
     text-align: left;
+    pointer-events: none;
 
     .control-button-container:first-child {
       margin-left: 0px;
     }
   }
-
+  .bottom-bar-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100% - #{2 * $gui-gutter}px);
+    height: calc(100% - #{$bottom-bar-bottom-gutter}px);
+    margin: 0 #{$gui-gutter}px #{$bottom-bar-bottom-gutter}px;
+    pointer-events: none;
+  }
   .right-controls {
     float: right;
     text-align: left;
+    pointer-events: none;
 
     .control-button-container:last-child {
       margin-right: 0px;
@@ -66,30 +79,47 @@
   }
 }
 
-.player.casting .bottom-bar,
-.player.metadata-loaded.hover .bottom-bar,
-.player.state-paused .bottom-bar,
-.player.state-idle .bottom-bar,
-.player.ad-break .bottom-bar,
-.player.menu-active .bottom-bar {
-  opacity: 1;
-  visibility: visible;
-  height: auto;
-  padding: 6px 16px;
-}
-
-.player.overlay-active .gui-area .bottom-bar {
-  opacity: 0;
-  visibility: hidden;
-  height: 0;
+.player.casting,
+.player.metadata-loaded.hover,
+.player.state-paused,
+.player.state-idle,
+.player.ad-break,
+.player.menu-active {
+  &:not(.overlay-active) {
+    .bottom-bar {
+      visibility: visible;
+      padding: 0 #{$gui-gutter}px #{$bottom-bar-bottom-gutter}px;
+      max-height: #{$bottom-bar-max-height}px;
+      transition: #{$hover-animation-time}ms max-height ease-in-out, #{$hover-animation-time}ms visibility ease-in-out;
+      &.line-break {
+        max-height: 92px;
+      }
+    }
+  }
 }
 
 .player.size-sm {
   .bottom-bar {
-    padding: 6px 8px;
+    padding: 0 #{$gui-small-gutter}px #{$bottom-bar-bottom-gutter}px;
+
+    .bottom-bar-area {
+      width: calc(100% - #{2 * $gui-small-gutter}px);
+      margin: 0 #{$gui-small-gutter}px #{$bottom-bar-bottom-gutter}px;
+    }
 
     .time-display {
       padding-left: 0;
+    }
+  }
+}
+.player {
+  .bottom-bar {
+    .left-controls,
+    .right-controls,
+    .bottom-bar-area {
+      & > * {
+        pointer-events: auto;
+      }
     }
   }
 }
