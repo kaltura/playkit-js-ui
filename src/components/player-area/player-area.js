@@ -22,7 +22,8 @@ function getPositionedPlayerAreaItem(dictionary, componentName) {
   dictionary[componentName] = dictionary[componentName] || {
     before: [],
     after: [],
-    replace: null
+    replace: null,
+    remove: null
   };
 
   return dictionary[componentName];
@@ -145,6 +146,9 @@ class PlayerArea extends Component {
       } else if (component.replaceComponent) {
         getPositionedPlayerAreaItem(positionedComponentMap, component.replaceComponent).replace = component;
         hasPositionedComponents = true;
+      } else if (component.removeComponent) {
+        getPositionedPlayerAreaItem(positionedComponentMap, component.removeComponent).remove = component;
+        hasPositionedComponents = true;
       } else {
         nextPlayerAreaComponents.appendedComponents.push(component);
       }
@@ -236,7 +240,11 @@ class PlayerArea extends Component {
         newChildren.push(child);
         return;
       }
-      const {replace, before, after} = positionedComponent;
+      const {replace, before, after, remove} = positionedComponent;
+      // if remove component was given then don't add the component to the newChildren array - hence it will be removed
+      if (remove) {
+        return;
+      }
       if (replace) {
         if (typeof replace.get !== 'string') {
           // pass the replaced component props to the override one (if it's not an html element e.g. "div")

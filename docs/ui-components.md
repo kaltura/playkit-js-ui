@@ -1,16 +1,16 @@
 # UI Components
 
-:heavy_exclamation_mark: BETA NOTICE  
-this feature is considered BETA and might change during next couple of releases, API is considered stable and changes will most likely be to availble containers.  
+:heavy_exclamation_mark: BETA NOTICE
+this feature is considered BETA and might change during next couple of releases, API is considered stable and changes will most likely be to available areas.
 Please check in release notes for official release notice.
 
 > See detailed examples on how to create and use your own components [here](create-ui-component.md)
 
 ## General
 
-UI components are used to extend the player UI presets.  
-Every preset layout contains logical `containers` that allow injecting components into.
-For example- a `Playback` and `Live` presets have the following containers:
+UI components are used to extend the player UI presets.
+Every preset layout contains logical `areas` that allow injecting components into.
+For example- a `Playback` and `Live` presets have the following areas:
 
 - `VideoOverlay`
 - `PlayerGUI`
@@ -23,7 +23,7 @@ Injecting new component into preset means:
 
 - Runtime customization of the preset by adding new components or replacing existing components with new ones.
 - A developer can define ui components from the configuration provided to the player or as part of a plugin.
-- Any component must be associated to one or more presets and given a valid container name it will be injected once that preset/container is available in the player dom.
+- Any component must be associated to one or more presets and given a valid area name it will be injected once that preset/area is available in the player dom.
 
 > :information_source:
 > This guide assumes you are using the [Kaltura Player].</br>
@@ -37,13 +37,13 @@ A UI component can be anything that transpile to valid DOM element (using plain 
 
 See [here](configuration.md#configuicomponents) detailed documentation about the available options.
 
-### Injecting a component into preset container
+### Injecting a component into preset area
 
-Let's say that we want to add new component into the bottom-bar in preset 'playback'. Navigate to the preset sources to figure out the name of the preset and of the container you want to inject into:
+Let's say that we want to add new component into the bottom-bar in preset 'playback'. Navigate to the preset sources to figure out the name of the preset and of the area you want to inject into:
 
 1. Open [playback.js](../src/ui-presets/playback.js).
 2. Search for `displayName` property assignment (usually at the bottom of the file) - this is the preset name
-3. Search for the container you want to inject into and find its' `name` property - this is the container name
+3. Search for the area you want to inject into and find its' `name` property - this is the area name
 4. add new item into ui configuration > property `uiComponent` as shown below.
 
 ```javascript
@@ -53,7 +53,7 @@ Let's say that we want to add new component into the bottom-bar in preset 'playb
       {
         label: 'niceComponent',
         presets: ['Playback'],
-        container: 'TopBarRightControls',
+        area: 'TopBarRightControls',
         get: customComponent // see notes below
       }
     ];
@@ -71,8 +71,8 @@ Let's say that you want to inject the component also to `live` preset.
 
 1. open [live.js](../src/ui-presets/live.js).
 2. Search for `displayName` property assignment (usually at the bottom of the file) - this is the preset name
-3. Search for the container you want to inject into and find its' `name` property - this is the container name
-4. Assuming that preset `live` also have a container with the same name - extend the configuration as shown below.
+3. Search for the area you want to inject into and find its' `name` property - this is the area name
+4. Assuming that preset `live` also have a area with the same name - extend the configuration as shown below.
 
 ```javascript
 {
@@ -81,7 +81,7 @@ Let's say that you want to inject the component also to `live` preset.
       {
         label: 'niceComponent',
         presets: ['Playback', 'Live'],
-        container: 'TopBarRightControls',
+        area: 'TopBarRightControls',
         get: customComponent
       }
     ];
@@ -95,7 +95,7 @@ Let's say that you want to inject the component also to `live` preset.
 
 ### Injecting a component relative to existing component
 
-> The section is optional, if you don't provide any of the properties above the container will append your custom component after all the other components in the container.
+> The section is optional, if you don't provide any of the properties above the area will append your custom component after all the other components in the area.
 
 Let's say that you want to position a component before/after an existing component, or you want to replace it with your own component, continuing from previous examples
 
@@ -112,7 +112,7 @@ The example below will replace the volume component with your own component:
       {
         label: 'niceComponent',
         presets: ['Playback', 'Live'],
-        container: 'TopBarRightControls',
+        area: 'TopBarRightControls',
         get: customComponent,
         beforeComponent: '', // use this property to inject your component BEFORE the mentioned one
         afterComponent: '',
@@ -127,7 +127,36 @@ The example below will replace the volume component with your own component:
 
 - the name of the component is the name of the class. so for `<Volume ...` the name is `Volume`.
 - you should set only of the properties above, if for example you want to set your component before and not instead the volume control, use `beforeComponent` instead of `replaceComponent`.
-- This is optional, if you don't provide any of the properties above the container will append your custom component after all the other components.
+- This is optional, if you don't provide any of the properties above the area will append your custom component after all the other components.
+
+### Removing an existing component
+Let's say that you want to remove a an existing component
+
+1. open the preset you want to remove the component.
+2. find the relevant component.
+3. adjust the configuration as shown below
+
+The example below will remove the settings component:
+
+```javascript
+{
+  ui: {
+    uiComponents: [
+      {
+        presets: ['Playback', 'Live'],
+        area: 'BottomBarRightControls',
+        removeComponent: 'Settings'
+      }
+    ];
+  }
+}
+```
+
+**Notes**
+
+- the name of the component is the name of the class. so for `<Settings ...` the name is `Settings`.
+- you should set only of the properties above.
+
 
 ### Passing props to an injected component
 
@@ -145,7 +174,7 @@ Let's say that you want to pass `props` to a component, continuing from previous
       {
         label: 'niceComponent',
         presets: ['Playback', 'Live'],
-        container: 'TopBarRightControls',
+        area: 'TopBarRightControls',
         get: customComponent,
         props: {myProp: true}
       }
@@ -169,7 +198,7 @@ export class MyCustomPlugin extends KalturaPlayer.core.BasePlugin {
       {
           label: 'niceComponent',
           presets: ['Playback', 'Live'],
-          container: 'TopBarRightControls',
+          area: 'TopBarRightControls',
           get: customComponent
         }
     ];
@@ -179,7 +208,7 @@ export class MyCustomPlugin extends KalturaPlayer.core.BasePlugin {
 
 ## Injecting and removing a UI component dynamically
 
-The `UiManager` exposes an api `addComponent` to add a UI component dynamically.  
+The `UiManager` exposes an api `addComponent` to add a UI component dynamically.
 This method returns a function for removing the injected component.
 
 The UI component declaration is the same as describe above.
@@ -188,7 +217,7 @@ The UI component declaration is the same as describe above.
 const removeFunc = uiManager.addComponent({
   label: 'niceComponent',
   presets: ['Playback', 'Live'],
-  container: 'BottomBarRightControls',
+  area: 'BottomBarRightControls',
   get: customComponent,
   beforeComponent: '',
   afterComponent: '',
@@ -203,6 +232,6 @@ removeFunc(); // remove customComponent ('Volume' will back to its place)
 
 ### Useful tips
 
-1. The player will add your component only once matching a relevant preset and container. If you fail to see your components review again the configuration and make sure the preset and container names are correct.
+1. The player will add your component only once matching a relevant preset and area. If you fail to see your components review again the configuration and make sure the preset and area names are correct.
 2. Your component will probably be added and removed multiple times so you sould avoid storing persist state in your component. If using global configuration, use the page to persist state. If using a plugin, use the plugin instance to persist state.
 3. See detailed examples on how to create and use your own components [here](create-ui-component.md)
