@@ -82,7 +82,7 @@ class PlayerAreaProvider extends Component {
   _validateComponentData = componentData => {
     // we keep option `container` for backward compatibility. documentation are showing `area` property
     const hasAreaProperty = componentData.container || componentData.area;
-    if ((!componentData.get && !componentData.removeComponent) || !componentData.presets || !hasAreaProperty) {
+    if (!componentData.get || !componentData.presets || !hasAreaProperty) {
       this.props.logger.warn(
         `component data with label '${componentData.label || ''}' is invalid (did you remember to set 'get', 'presets' and 'area'?)`
       );

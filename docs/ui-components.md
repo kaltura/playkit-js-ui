@@ -130,7 +130,9 @@ The example below will replace the volume component with your own component:
 - This is optional, if you don't provide any of the properties above the area will append your custom component after all the other components.
 
 ### Removing an existing component
-Let's say that you want to remove a an existing component
+
+Let's say that you want to remove a an existing component.
+The trick here is to replace the existing component with the special "remove" string instead of a new component.
 
 1. open the preset you want to remove the component.
 2. find the relevant component.
@@ -145,7 +147,8 @@ The example below will remove the settings component:
       {
         presets: ['Playback', 'Live'],
         area: 'BottomBarRightControls',
-        removeComponent: 'Settings'
+        replaceComponent: 'Settings',
+        get: KalturaPlayer.ui.components.Remove
       }
     ];
   }
@@ -156,7 +159,6 @@ The example below will remove the settings component:
 
 - the name of the component is the name of the class. so for `<Settings ...` the name is `Settings`.
 - you should set only of the properties above.
-
 
 ### Passing props to an injected component
 
