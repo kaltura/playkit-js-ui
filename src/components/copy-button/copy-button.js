@@ -2,7 +2,7 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {IconType} from '../icon/index';
-import {Icon, IconState} from '../icon/icon';
+import {Icon} from '../icon/icon';
 import {Tooltip} from 'components/tooltip';
 import {Text, Localizer} from 'preact-i18n';
 import {KeyMap} from 'utils/key-map';
