@@ -22,7 +22,6 @@ const IconType = {
   SpeedDown: 'speed-down',
   SpeedUp: 'speed-up',
   Audio: 'audio',
-  Copy: 'copy',
   ArrowDown: 'arrow-down',
   StartOver: 'start-over',
   SeekEnd: 'seek-end',
@@ -83,10 +82,10 @@ class Icon extends Component {
    * @memberof Icon
    */
   createDynamicIconClass = (props: Object) => {
-    const {path, state, color, activeColor, width, height} = props;
+    const {path, state, color, activeColor, width, height, viewBox} = props;
     const fillColor = this.getFillColor(state, color, activeColor);
     const pathTag = this.getPathTag(path, fillColor);
-    const svgUrl = this.getSVGUrl(pathTag, width, height);
+    const svgUrl = this.getSVGUrl(pathTag, width, height, viewBox);
     const css = `.${this._className} { background-image: ${svgUrl}; }`;
     const style = document.getElementById(packageName);
     style && style.appendChild(document.createTextNode(css));
@@ -98,11 +97,12 @@ class Icon extends Component {
    * @param {string} path - svg path
    * @param {number} width - svg width
    * @param {number} height - svg height
+   * @param {string} viewBox - svg height
    * @returns {string} - encoded svg url
    * @memberof Icon
    */
-  getSVGUrl = (path: string, width: number = 36, height: number = 36): string => {
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1024 1024" width="${width}" height="${height}">${path}</svg>`;
+  getSVGUrl = (path: string, width: number = 36, height: number = 36, viewBox: string = '0 0 1024 1024'): string => {
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="${viewBox}" width="${width}" height="${height}">${path}</svg>`;
     const replaces = [
       ['"', "'"],
       ['%', '%25'],
@@ -143,16 +143,25 @@ class Icon extends Component {
   };
 
   /**
-   * @param {string | Array<string>} path - svg path or paths (if an icon contains multiple paths)
+   * @param {string | Array<string>} pathProps - svg path or paths (if an icon contains multiple paths)
    * @param {string} fillColor - icon fill color
    * @returns {string} - icon path tag
    * @memberof Icon
    */
-  getPathTag = (path: string | Array<string>, fillColor: string): string => {
-    if (typeof path === 'string') {
-      path = [path];
+  getPathTag = (pathProps: any | Array<any>, fillColor: string): string => {
+    if (!Array.isArray(pathProps)) {
+      pathProps = [pathProps];
     }
-    return path.map(p => `<path fill="${fillColor}" d="${p}"/>`).join(' ');
+
+    return pathProps
+      .map(prop => {
+        const attributes = typeof prop === 'string' ? {d: prop, fill: fillColor} : {...prop, fill: fillColor};
+        const parsedAttributes = Object.keys(attributes)
+          .map(key => `${key}="${attributes[key]}"`)
+          .join(' ');
+        return `<path ${parsedAttributes} />`;
+      })
+      .join(' ');
   };
 
   /**
@@ -233,9 +242,6 @@ class Icon extends Component {
 
         case IconType.Audio:
           return <i className={[style.icon, style.iconAudio].join(' ')} />;
-
-        case IconType.Copy:
-          return <i className={[style.icon, style.iconCopy].join(' ')} />;
 
         case IconType.ArrowDown:
           return <i className={[style.icon, style.iconArrowDown].join(' ')} />;
