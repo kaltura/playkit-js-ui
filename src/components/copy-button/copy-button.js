@@ -17,7 +17,7 @@ const TIMEOUT = 2000;
 
 const COMPONENT_NAME = 'CopyButton';
 
-const ICON_COPY_SVG = [
+const ICON_COPY_PATH = [
   {
     'fill-rule': 'evenodd',
     'clip-rule': 'evenodd',
@@ -111,7 +111,6 @@ class CopyButton extends Component {
         <ButtonControl name={COMPONENT_NAME}>
           <Tooltip label={<Text id="copy.button" />}>
             <Button
-              role="link"
               tabIndex="0"
               ref={el => {
                 if (props.addAccessibleChild) {
@@ -121,7 +120,7 @@ class CopyButton extends Component {
               className={copyUrlClasses}
               onClick={this.copy}
               onKeyDown={this.onKeyDown}>
-              <Icon id="copy" color="#fff" path={ICON_COPY_SVG} state={IconState.INACTIVE} width="24" height="24" viewBox="0 0 24 24" />
+              <Icon id="copy" color="#fff" path={ICON_COPY_PATH} width="24" height="24" viewBox="0 0 24 24" />
               <Icon type={IconType.Check} />
             </Button>
           </Tooltip>
