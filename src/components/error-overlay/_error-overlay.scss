@@ -19,6 +19,7 @@
 
   .copy-url-row {
     display: flex;
+    margin-bottom: 10px;
   }
 
   .svg-container {
@@ -38,7 +39,7 @@
   .error-session {
     font-size: $subheadline-font-size;
     color: $grayscale4;
-    margin-bottom: 20px;
+    margin: auto;
     user-select: text;
     -webkit-user-select: text;
     -moz-user-select: text;
