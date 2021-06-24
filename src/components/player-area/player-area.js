@@ -286,19 +286,27 @@ class PlayerArea extends Component {
 
     let newChildren = [];
 
-    if (hasPositionedComponents) {
-      newChildren = this._getPositionedComponents(this._actualChildren);
-    } else {
-      newChildren.push(...toChildArray(this._actualChildren));
-    }
-
     const appendedChildren = playerAreaComponents.appendedComponents.map(component => {
       return this._renderUIComponent(component);
     });
 
-    let startIndex = newChildren.length;
+    if (hasPositionedComponents) {
+      const actualChildren = Array.isArray(this._actualChildren) ? this._actualChildren.concat(appendedChildren) : appendedChildren;
+      newChildren = this._getPositionedComponents(actualChildren);
+    } else {
+      newChildren.push(...toChildArray(this._actualChildren));
 
-    newChildren.splice(startIndex, 0, ...appendedChildren);
+      let startIndex = newChildren.length;
+      newChildren.splice(startIndex, 0, ...appendedChildren);
+    }
+
+    // const appendedChildren = playerAreaComponents.appendedComponents.map(component => {
+    //   return this._renderUIComponent(component);
+    // });
+
+    // let startIndex = newChildren.length;
+
+    // newChildren.splice(startIndex, 0, ...appendedChildren);
 
     return this.renderContent(newChildren);
   }
