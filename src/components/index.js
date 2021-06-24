@@ -55,7 +55,7 @@ export {CopyButton} from './copy-button';
 export {ButtonControl} from './button-control';
 export {Button} from './button';
 
-export {PlayerArea, withPlayerPreset} from './player-area';
+export {PlayerArea, withPlayerPreset, Remove} from './player-area';
 export {VideoArea} from './video-area';
 export {GuiArea} from './gui-area';
 export {InteractiveArea} from './interactive-area';
