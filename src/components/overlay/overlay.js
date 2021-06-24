@@ -4,7 +4,8 @@ import {h, Component} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils/bind-actions';
-import {actions} from '../../reducers/shell';
+import {actions as overlayActions} from '../../reducers/overlay';
+import {actions as shellActions} from '../../reducers/shell';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 
@@ -16,7 +17,7 @@ const COMPONENT_NAME = 'Overlay';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  overlayOpen: state.shell.overlayOpen
+  overlayOpen: state.overlay.isOpen
 });
 
 /**
@@ -30,7 +31,7 @@ const mapStateToProps = state => ({
  * </Overlay>
  * @extends {Component}
  */
-@connect(mapStateToProps, bindActions(actions))
+@connect(mapStateToProps, bindActions({...shellActions, ...overlayActions}))
 class Overlay extends Component {
   _timeoutId: ?TimeoutID = null;
   /**

@@ -20,7 +20,7 @@ const mapStateToProps = state => ({
   isPlayingAdOrPlayback: isPlayingAdOrPlayback(state.engine),
   playerNav: state.shell.playerNav,
   textTracks: state.engine.textTracks,
-  overlayOpen: state.shell.overlayOpen
+  overlayOpen: state.overlay.isOpen
 });
 
 /**

@@ -15,7 +15,7 @@ export const KEYBOARD_EVENTS = ['keydown', 'keyup'];
  */
 const mapStateToProps = state => ({
   playerNav: state.shell.playerNav,
-  overlayOpen: state.shell.overlayOpen
+  overlayOpen: state.overlay.isOpen
 });
 
 /**

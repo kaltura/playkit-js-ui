@@ -10,3 +10,4 @@ export * as seekbar from './seekbar';
 export * as setting from './settings';
 export * as shell from './shell';
 export * as volume from './volume';
+export * as overlay from './overlay';

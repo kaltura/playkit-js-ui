@@ -11,6 +11,7 @@ import settings from './reducers/settings';
 import overlayAction from './reducers/overlay-action';
 import backdrop from './reducers/backdrop';
 import playlist from 'reducers/playlist';
+import overlay from 'reducers/overlay';
 
 const reducer = combineReducers({
   config,
@@ -23,7 +24,8 @@ const reducer = combineReducers({
   settings,
   overlayAction,
   backdrop,
-  playlist
+  playlist,
+  overlay
 });
 
 export default reducer;
