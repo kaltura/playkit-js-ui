@@ -12,6 +12,7 @@ const mapStateToProps = state => ({
   activePresetName: state.shell.activePresetName
 });
 
+export const Remove = 'remove';
 /**
  * get PlayerArea component item by key
  * @param {*} dictionary dictionary
@@ -238,6 +239,10 @@ class PlayerArea extends Component {
       }
       const {replace, before, after} = positionedComponent;
       if (replace) {
+        // if remove string was given then don't add the component to the newChildren array - hence it will be removed
+        if (replace.get === Remove) {
+          return;
+        }
         if (typeof replace.get !== 'string') {
           // pass the replaced component props to the override one (if it's not an html element e.g. "div")
           replace.props = replace.props || {};

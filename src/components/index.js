@@ -55,7 +55,7 @@ export {PictureInPicture} from './picture-in-picture';
 export {PlaybackControls} from './playback-controls';
 export {Button} from './button';
 
-export {PlayerArea, withPlayerPreset} from './player-area';
+export {PlayerArea, withPlayerPreset, Remove} from './player-area';
 export {VideoArea} from './video-area';
 export {GuiArea} from './gui-area';
 export {InteractiveArea} from './interactive-area';
