@@ -3,7 +3,6 @@
     "controls": {
       "play": "चलाएं",
       "pause": "विराम दें",
-      "share": "साझा करें",
       "language": "भाषा",
       "settings": "सेंटिंग",
       "fullscreen": "पूर्णस्क्रीन",
@@ -39,13 +38,6 @@
       "audio": "ऑडियो",
       "captions": "कैप्शन",
       "advanced_captions_settings": "उन्नत कैप्शन सेंटिंग"
-    },
-    "share": {
-      "title": "साझा करें",
-      "embed_options": "एम्बेड विकल्प",
-      "start_video_at": "इस पर वीडियो शुरू करें",
-      "email": "ईमेल पर साझा करें",
-      "embed": "एम्बेड कोड प्राप्त करें"
     },
     "overlay": {
       "close": "बंद करें"

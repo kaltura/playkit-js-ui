@@ -3,7 +3,6 @@
     "controls": {
       "play": "Reproduzir",
       "pause": "Pausar",
-      "share": "Compartilhar",
       "language": "Idioma",
       "settings": "Configurações",
       "fullscreen": "Tela inteira",
@@ -39,13 +38,6 @@
       "audio": "Áudio",
       "captions": "Legendas",
       "advanced_captions_settings": "Configurações avançadas de legendas"
-    },
-    "share": {
-      "title": "Compartilhar",
-      "embed_options": "Opções de incorporação",
-      "start_video_at": "Começar vídeo em",
-      "email": "Compartilhar no e-mail",
-      "embed": "Obter código incorporado"
     },
     "overlay": {
       "close": "Fechar"

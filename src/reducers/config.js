@@ -14,7 +14,6 @@ export const initialState = {
     watermark: {},
     seekbar: {},
     vrStereo: {},
-    share: {},
     logo: {},
     fullscreen: {},
     sidePanels: {}

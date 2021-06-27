@@ -3,7 +3,6 @@
     "controls": {
       "play": "Abspielen",
       "pause": "Pause",
-      "share": "Teilen",
       "language": "Sprache",
       "settings": "Einstellungen",
       "fullscreen": "Vollbild",
@@ -39,16 +38,6 @@
       "audio": "Audio",
       "captions": "Untertitel",
       "advanced_captions_settings": "Erweiterte Einstellungen für Untertitel"
-    },
-    "share": {
-      "title": "Teilen",
-      "embed_options": "Einbettungsoptionen",
-      "start_video_at": "Startzeitpunkt Video",
-      "email": "Per E-Mail teilen",
-      "embed": "Einbettungscode generieren",
-      "share-on-facebook": "Auf Facebook teilen",
-      "share-on-twitter": "Auf Twitter teilen",
-      "share-on-linkedin": "Auf Linkedin teilen"
     },
     "overlay": {
       "close": "Schließen"

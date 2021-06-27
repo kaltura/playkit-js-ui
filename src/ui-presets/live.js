@@ -21,7 +21,6 @@ import {Backdrop} from '../components/backdrop/backdrop';
 import {PlaybackControls} from '../components/playback-controls';
 import {PictureInPicture} from '../components/picture-in-picture';
 import {PictureInPictureOverlay} from '../components/picture-in-picture-overlay';
-import {Share} from '../components/share';
 import {PlayerArea, withPlayerPreset} from '../components/player-area';
 import {TopBar} from '../components/top-bar';
 import {Logo} from '../components/logo/logo';
@@ -78,7 +77,7 @@ class LiveUI extends Component {
               </Fragment>
               {({containerRef}) => (
                 <Fragment>
-                  <TopBar rightControls={<Share />} />
+                  <TopBar />
                   <InteractiveArea>
                     <Watermark />
                     <UnmuteIndication />

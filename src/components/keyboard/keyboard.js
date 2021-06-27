@@ -20,7 +20,7 @@ const mapStateToProps = state => ({
   isPlayingAdOrPlayback: isPlayingAdOrPlayback(state.engine),
   playerNav: state.shell.playerNav,
   textTracks: state.engine.textTracks,
-  shareOverlay: state.share.overlayOpen
+  overlayOpen: state.overlay.isOpen
 });
 
 /**
@@ -69,7 +69,7 @@ class Keyboard extends Component {
     playerContainer.onkeydown = (e: KeyboardEvent) => {
       const nodeName = e.target instanceof Node ? e.target.nodeName || '' : '';
       const isEditableNode = ['INPUT', 'SELECT', 'TEXTAREA'].indexOf(nodeName) !== -1;
-      if (!isEditableNode && !this.props.shareOverlay && !this.props.playerNav && typeof this.keyboardHandlers[e.keyCode] === 'function') {
+      if (!isEditableNode && !this.props.overlayOpen && !this.props.playerNav && typeof this.keyboardHandlers[e.keyCode] === 'function') {
         this.props.logger.debug(`KeyDown -> keyName: ${getKeyName(e.keyCode)}, shiftKey: ${e.shiftKey.toString()}`);
         const {preventDefault, payload} = this.keyboardHandlers[e.keyCode](e);
         if (preventDefault) {

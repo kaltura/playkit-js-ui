@@ -3,7 +3,6 @@
     "controls": {
       "play": "Reproducir",
       "pause": "Pausar",
-      "share": "Compartir",
       "language": "Idioma",
       "settings": "Configuración",
       "fullscreen": "Pantalla completa",
@@ -39,16 +38,6 @@
       "audio": "Audio",
       "captions": "Subtítulos",
       "advanced_captions_settings": "Configuración avanzada de los subtítulos"
-    },
-    "share": {
-      "title": "Compartir",
-      "embed_options": "Insertar opciones",
-      "start_video_at": "Iniciar vídeo en el",
-      "email": "Compartir por correo electrónico",
-      "embed": "Obtener código de inserción",
-      "share-on-facebook": "Compartir en Facebook",
-      "share-on-twitter": "Compartir en Twitter",
-      "share-on-linkedin": "Compartir en Linkedin"
     },
     "overlay": {
       "close": "Cerrar"

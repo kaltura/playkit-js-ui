@@ -3,7 +3,6 @@
     "controls": {
       "play": "Afspelen",
       "pause": "Pause",
-      "share": "Delen",
       "language": "Taal",
       "settings": "Instellingen",
       "fullscreen": "Volledig scherm",
@@ -39,13 +38,6 @@
       "audio": "Audio",
       "captions": "Onderschriften",
       "advanced_captions_settings": "Geavanceerde instellingen voor onderschriften"
-    },
-    "share": {
-      "title": "Delen",
-      "embed_options": "Insluitopties",
-      "start_video_at": "Video starten op",
-      "email": "Delen via e-mail",
-      "embed": "Ingebouwde code verkrijgen"
     },
     "overlay": {
       "close": "Sluiten"

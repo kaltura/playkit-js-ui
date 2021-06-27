@@ -3,7 +3,6 @@
     "controls": {
       "play": "הפעל",
       "pause": "השהה",
-      "share": "שתף",
       "language": "שפה",
       "settings": "הגדרות",
       "fullscreen": "מסך מלא",
@@ -39,13 +38,6 @@
       "audio": "אודיו",
       "captions": "כתוביות",
       "advanced_captions_settings": "הגדרות כתוביות מתקדמות"
-    },
-    "share": {
-      "title": "שתף",
-      "embed_options": "אפשרויות מוטבעות",
-      "start_video_at": "התחל וידאו ב",
-      "email": "שתף באמצעות דוא“ל",
-      "embed": "קבל קוד מוטבע"
     },
     "overlay": {
       "close": "סגור"

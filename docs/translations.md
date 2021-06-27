@@ -1,6 +1,6 @@
 # Adding translations and choosing locale language
 
-The UI locale can be customized by adding translations to the dictionary object.  
+The UI locale can be customized by adding translations to the dictionary object.
 Dictionaries can be added via the config object and the UI language, can be set via the locale config.
 
 ## Defining a new language
@@ -16,7 +16,6 @@ A sample English dictionary may look like:
   "controls": {
     "play": "Play",
     "pause": "Pause",
-    "share": "Share",
     "language": "Language",
     "settings": "Settings",
     "fullscreen": "Fullscreen",
@@ -35,10 +34,6 @@ A sample English dictionary may look like:
     "audio": "Audio",
     "captions": "Captions",
     "advanced_captions_settings": "Advanced captions settings"
-  },
-  "share": {
-    "share_title": "Share",
-    "link_options": "Link options"
   },
   "overlay": {
     "close": "Close"

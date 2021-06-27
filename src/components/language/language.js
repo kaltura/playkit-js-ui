@@ -28,7 +28,6 @@ import {ButtonControl} from 'components/button-control';
 const mapStateToProps = state => ({
   audioTracks: state.engine.audioTracks,
   textTracks: state.engine.textTracks,
-  overlayOpen: state.cvaa.overlayOpen,
   isMobile: state.shell.isMobile,
   isSmallSize: state.shell.isSmallSize
 });

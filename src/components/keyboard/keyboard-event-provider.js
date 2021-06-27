@@ -15,7 +15,7 @@ export const KEYBOARD_EVENTS = ['keydown', 'keyup'];
  */
 const mapStateToProps = state => ({
   playerNav: state.shell.playerNav,
-  shareOverlay: state.share.overlayOpen
+  overlayOpen: state.overlay.isOpen
 });
 
 /**
@@ -87,7 +87,7 @@ class KeyboardEventProvider extends Component {
    * @private
    */
   _shouldHandleKeyboardEvents(): boolean {
-    return this._isKeyboardEnable && !this.props.playerNav && !this.props.shareOverlay;
+    return this._isKeyboardEnable && !this.props.playerNav && !this.props.overlayOpen;
   }
 
   /**
@@ -104,7 +104,7 @@ class KeyboardEventProvider extends Component {
     if (!this._keyboardListeners[keyCode]) {
       this._keyboardListeners[keyCode] = {callback, componentName};
     } else {
-      this.props.logger.warn(`Combination of key ${key.code} altKey ${(!!key.altKey).toString()} ctrlKey ${(!!key.ctrlKey).toString()} 
+      this.props.logger.warn(`Combination of key ${key.code} altKey ${(!!key.altKey).toString()} ctrlKey ${(!!key.ctrlKey).toString()}
       metaKey ${(!!key.metaKey).toString()} shiftKey ${(!!key.shiftKey).toString()} already exist`);
     }
   };

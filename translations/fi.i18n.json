@@ -3,7 +3,6 @@
     "controls": {
       "play": "Toista",
       "pause": "Keskeytä",
-      "share": "Jaa",
       "language": "Kieli",
       "settings": "Asetukset",
       "fullscreen": "Koko näyttö",
@@ -39,13 +38,6 @@
       "audio": "Ääni",
       "captions": "Tekstitykset",
       "advanced_captions_settings": "Tekstityksen lisäasetukset"
-    },
-    "share": {
-      "title": "Jaa",
-      "embed_options": "Upotusvaihtoehdot",
-      "start_video_at": "Aloita video",
-      "email": "Jaa sähköpostitse",
-      "embed": "Hanki upotuskoodi"
     },
     "overlay": {
       "close": "Sulje"

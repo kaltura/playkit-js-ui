@@ -1,19 +1,18 @@
 //@flow
-
 export const types = {
-  UPDATE_CAPTIONS_STYLE: 'cvaa/UPDATE_CAPTIONS_STYLE'
+  UPDATE_OVERLAY: 'overlay/UPDATE_OVERLAY'
 };
 
 export const initialState = {
-  style: 'default'
+  isOpen: false
 };
 
 export default (state: Object = initialState, action: Object) => {
   switch (action.type) {
-    case types.UPDATE_CAPTIONS_STYLE:
+    case types.UPDATE_OVERLAY:
       return {
         ...state,
-        style: action.style
+        isOpen: action.isOpen
       };
 
     default:
@@ -22,5 +21,5 @@ export default (state: Object = initialState, action: Object) => {
 };
 
 export const actions = {
-  updateCaptionsStyle: (style: string) => ({type: types.UPDATE_CAPTIONS_STYLE, style})
+  updateOverlay: (isOpen: boolean) => ({type: types.UPDATE_OVERLAY, isOpen})
 };
