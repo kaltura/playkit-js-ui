@@ -536,7 +536,11 @@ class SeekBar extends Component {
     );
   }
 
-  getPlayerTimeOffset(): void {
+  /**
+   * gets the player time offset from the start depends on the media type
+   * @return {number} - time offset
+   */
+  getPlayerTimeOffset(): number {
     return this.props.player.isLive() ? this.props.player.getStartTimeOfDvrWindow() : 0;
   }
 
