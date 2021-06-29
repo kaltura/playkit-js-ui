@@ -62,24 +62,24 @@
 
   padding: 8px 12px 8px 8px;
   width: 82px;
-  height: 32px;
+  height: 40px;
   background-color: transparent;
 
   &.only-icon {
     padding: 4px;
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
   }
 
   &.only-label {
     padding: 8px;
     width: 50px;
-    height: 32px;
+    height: 40px;
   }
 
   i {
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
   }
 
   label {
@@ -88,5 +88,29 @@
 
   &:hover {
     background-color: $color-tone4;
+  }
+}
+
+.player.size-sm,
+.player.size-xs {
+  .btn-borderless {
+    height: 32px;
+
+    i {
+      width: 24px;
+      height: 24px;
+    }
+
+    &.only-icon {
+      padding: 4px;
+      width: 32px;
+      height: 32px;
+    }
+
+    &.only-label {
+      padding: 8px;
+      width: 50px;
+      height: 32px;
+    }
   }
 }
