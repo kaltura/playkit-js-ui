@@ -98,6 +98,8 @@
   }
   input:checked + label:before {
     content: '✔';
+    text-align: center;
+    font-size: 14px;
   }
 }
 
