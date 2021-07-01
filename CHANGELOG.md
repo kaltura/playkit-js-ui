@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.67.0](https://github.com/kaltura/playkit-js-ui/compare/v0.66.2...v0.67.0) (2021-07-01)
+
+
+### Bug Fixes
+
+* **FEC-11284:** empty top bar fix ([#610](https://github.com/kaltura/playkit-js-ui/issues/610)) ([92f690c](https://github.com/kaltura/playkit-js-ui/commit/92f690c))
+* **FEC-11338:** update share ui ([#614](https://github.com/kaltura/playkit-js-ui/issues/614)) ([d9b8f37](https://github.com/kaltura/playkit-js-ui/commit/d9b8f37))
+* **FEC-11359:** playlist - the seekbar over bottom left controls doesn't available for the cursor ([#612](https://github.com/kaltura/playkit-js-ui/issues/612)) ([078688d](https://github.com/kaltura/playkit-js-ui/commit/078688d))
+* **FEC-11364:** Live Dvr - if seek back, the scrubber "jumps" too far back and after return to correct point ([#615](https://github.com/kaltura/playkit-js-ui/issues/615)) ([6bc4651](https://github.com/kaltura/playkit-js-ui/commit/6bc4651))
+
+
+### Features
+
+* **FEC-10785:** add support to remove ui element ([#613](https://github.com/kaltura/playkit-js-ui/issues/613)) ([0e505e3](https://github.com/kaltura/playkit-js-ui/commit/0e505e3))
+* **FEC-10817:** expose the current time of the video element in live streams ([#589](https://github.com/kaltura/playkit-js-ui/issues/589)) ([d257ef9](https://github.com/kaltura/playkit-js-ui/commit/d257ef9))
+* **FEC-10835:** expose share to plugin ([#603](https://github.com/kaltura/playkit-js-ui/issues/603)) ([74b187f](https://github.com/kaltura/playkit-js-ui/commit/74b187f))
+* **FEC-11284:** dual screen core changes ([#606](https://github.com/kaltura/playkit-js-ui/issues/606)) ([376e54b](https://github.com/kaltura/playkit-js-ui/commit/376e54b))
+
+
+
 ### [0.66.2](https://github.com/kaltura/playkit-js-ui/compare/v0.66.0...v0.66.2) (2021-06-02)
 
 
