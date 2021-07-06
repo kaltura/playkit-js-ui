@@ -6,6 +6,7 @@
       "language": "Language",
       "settings": "Settings",
       "fullscreen": "Fullscreen",
+      "fullscreenExit": "Exit fullscreen",
       "rewind": "Seek backwards",
       "forward": "Seek forward",
       "vrStereo": "vrStereo",

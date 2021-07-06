@@ -20,7 +20,8 @@ import {ButtonControl} from 'components/button-control';
  */
 const mapStateToProps = state => ({
   fullscreen: state.engine.fullscreen,
-  targetId: state.config.targetId
+  targetId: state.config.targetId,
+  isInFullscreen: state.engine.fullscreen
 });
 
 const COMPONENT_NAME = 'Fullscreen';
@@ -37,7 +38,10 @@ const COMPONENT_NAME = 'Fullscreen';
 @withLogger(COMPONENT_NAME)
 @withKeyboardEvent(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
-@withText({fullscreenText: 'controls.fullscreen'})
+@withText({
+  fullscreenText: 'controls.fullscreen',
+  fullscreenExitText: 'controls.fullscreenExit'
+})
 class Fullscreen extends Component {
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
@@ -116,10 +120,10 @@ class Fullscreen extends Component {
   render(): React$Element<any> {
     return (
       <ButtonControl name={COMPONENT_NAME}>
-        <Tooltip label={this.props.fullscreenText}>
+        <Tooltip label={this.props.isInFullscreen ? this.props.fullscreenExitText : this.props.fullscreenText}>
           <Button
             tabIndex="0"
-            aria-label={this.props.fullscreenText}
+            aria-label={this.props.isInFullscreen ? this.props.fullscreenExitText : this.props.fullscreenText}
             className={this.props.fullscreen ? [style.controlButton, style.isFullscreen].join(' ') : style.controlButton}
             onClick={this.toggleFullscreen}>
             <Icon type={IconType.Maximize} />
