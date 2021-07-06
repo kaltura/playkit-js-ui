@@ -212,7 +212,7 @@ class Language extends Component {
    * @memberof Language
    */
   renderAll(audioOptions: Array<Object>, textOptions: Array<Object>): React$Element<any> {
-    const targetId = document.getElementById(this.props.player.config.targetId);
+    const targetId = document.getElementById(this.props.player.config.targetId) || document;
     const portalSelector = `.overlay-portal`;
     return (
       <ButtonControl name={COMPONENT_NAME} ref={c => (c ? (this._controlLanguageElement = c) : undefined)}>

@@ -89,7 +89,7 @@ class SmartContainer extends Component {
    * @memberof SmartContainer
    */
   render(props: any): React$Element<any> {
-    const targetId = document.getElementById(this.props.targetId);
+    const targetId = document.getElementById(this.props.targetId) || document;
     const portalSelector = `.overlay-portal`;
     props.clearAccessibleChildren();
     return this.isPortal ? (
