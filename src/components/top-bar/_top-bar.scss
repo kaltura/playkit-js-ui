@@ -6,8 +6,10 @@
   visibility: hidden;
   position: relative;
   height: auto;
+  min-height: #{$top-bar-max-height}px;
   margin-top: #{-$top-bar-max-height}px;
-  transition: #{$hover-animation-time}ms visibility ease-in-out, #{$hover-animation-time}ms margin-top ease-in-out;
+  transition: #{$hover-animation-time}ms visibility ease-in-out, #{$hover-animation-time}ms margin-top ease-in-out,
+    #{$hover-animation-time}ms min-height ease-in-out;
   width: 100%;
   top: 0;
   left: 0;
@@ -73,6 +75,7 @@
     .top-bar {
       visibility: visible;
       margin-top: 0;
+      min-height: #{$gui-gutter}px;
     }
   }
 }
@@ -90,17 +93,24 @@
 }
 
 .player.size-sm .top-bar {
-  padding: #{$top-bar-top-bottom-gutter}px #{$gui-small-gutter}px;
-
   .left-controls {
     margin: #{$top-bar-top-bottom-gutter}px 0 #{$top-bar-top-bottom-gutter}px #{$gui-small-gutter}px;
+    &:empty {
+      margin: 0 0 #{$gui-gutter}px 0;
+    }
   }
 
   .right-controls {
     margin: #{$top-bar-top-bottom-gutter}px #{$gui-small-gutter}px #{$top-bar-top-bottom-gutter}px 0;
+    &:empty {
+      margin: 0 0 #{$gui-gutter}px 0;
+    }
   }
   .top-bar-area {
     width: calc(100% - #{2 * $gui-small-gutter}px);
     margin: #{$top-bar-top-bottom-gutter}px #{$gui-small-gutter}px;
+    &:empty {
+      margin: 0 0 #{$gui-gutter}px 0;
+    }
   }
 }
