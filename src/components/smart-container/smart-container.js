@@ -89,7 +89,8 @@ class SmartContainer extends Component {
    * @memberof SmartContainer
    */
   render(props: any): React$Element<any> {
-    const portalSelector = `#${this.props.targetId} .overlay-portal`;
+    const targetId = document.getElementById(this.props.targetId) || document;
+    const portalSelector = `.overlay-portal`;
     props.clearAccessibleChildren();
     return this.isPortal ? (
       createPortal(
@@ -97,7 +98,7 @@ class SmartContainer extends Component {
           <div className={style.title}>{props.title}</div>
           {this.renderChildren(props)}
         </Overlay>,
-        document.querySelector(portalSelector)
+        targetId.querySelector(portalSelector)
       )
     ) : (
       <div onKeyDown={props.handleKeyDown} tabIndex="-1" className={[style.smartContainer, style.top, style.left].join(' ')}>
