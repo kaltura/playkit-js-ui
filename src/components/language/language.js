@@ -212,7 +212,8 @@ class Language extends Component {
    * @memberof Language
    */
   renderAll(audioOptions: Array<Object>, textOptions: Array<Object>): React$Element<any> {
-    const portalSelector = `#${this.props.player.config.targetId} .overlay-portal`;
+    const targetId = document.getElementById(this.props.player.config.targetId) || document;
+    const portalSelector = `.overlay-portal`;
     return (
       <ButtonControl name={COMPONENT_NAME} ref={c => (c ? (this._controlLanguageElement = c) : undefined)}>
         <Tooltip label={this.props.buttonLabel}>
@@ -252,7 +253,7 @@ class Language extends Component {
             )}
           </SmartContainer>
         )}
-        {this.state.cvaaOverlay ? createPortal(<CVAAOverlay onClose={this.onCVAAOverlayClose} />, document.querySelector(portalSelector)) : <div />}
+        {this.state.cvaaOverlay ? createPortal(<CVAAOverlay onClose={this.onCVAAOverlayClose} />, targetId.querySelector(portalSelector)) : <div />}
       </ButtonControl>
     );
   }
