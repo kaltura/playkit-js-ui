@@ -19,7 +19,6 @@ import {ButtonControl} from 'components/button-control';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  fullscreen: state.engine.fullscreen,
   targetId: state.config.targetId,
   isInFullscreen: state.engine.fullscreen
 });
@@ -124,7 +123,7 @@ class Fullscreen extends Component {
           <Button
             tabIndex="0"
             aria-label={this.props.isInFullscreen ? this.props.fullscreenExitText : this.props.fullscreenText}
-            className={this.props.fullscreen ? [style.controlButton, style.isFullscreen].join(' ') : style.controlButton}
+            className={this.props.isInFullscreen ? [style.controlButton, style.isFullscreen].join(' ') : style.controlButton}
             onClick={this.toggleFullscreen}>
             <Icon type={IconType.Maximize} />
             <Icon type={IconType.Minimize} />
