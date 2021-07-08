@@ -6,6 +6,7 @@
       "language": "Idioma",
       "settings": "Configuración",
       "fullscreen": "Pantalla completa",
+      "fullscreenExit": "Salir del modo de pantalla completa",
       "rewind": "Buscar hacia atrás",
       "forward": "Buscar hacia delante",
       "vrStereo": "vrStereo",

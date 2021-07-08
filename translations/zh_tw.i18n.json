@@ -6,6 +6,7 @@
       "language": "語言",
       "settings": "設定",
       "fullscreen": "全螢幕",
+      "fullscreenExit": "退出全螢幕",
       "rewind": "進行回放",
       "forward": "進行快轉",
       "vrStereo": "vrStereo",

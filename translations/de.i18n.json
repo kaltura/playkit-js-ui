@@ -6,6 +6,7 @@
       "language": "Sprache",
       "settings": "Einstellungen",
       "fullscreen": "Vollbild",
+      "fullscreenExit": "Vollbild beenden",
       "rewind": "Zurückspulen",
       "forward": "Vorspulen",
       "vrStereo": "vrStereo",
