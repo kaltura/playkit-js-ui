@@ -7,6 +7,7 @@
   position: relative;
   height: auto;
   min-height: #{$top-bar-max-height}px;
+  max-height: #{$top-bar-max-height}px;
   margin-top: #{-$top-bar-max-height}px;
   transition: #{$hover-animation-time}ms visibility ease-in-out, #{$hover-animation-time}ms margin-top ease-in-out,
     #{$hover-animation-time}ms min-height ease-in-out;
@@ -24,7 +25,7 @@
     margin: #{$top-bar-top-bottom-gutter}px #{$gui-gutter}px;
     pointer-events: none;
     &:empty {
-      margin: 0 0 #{$gui-gutter}px 0;
+      margin: 0;
       height: 0;
       width: 0;
     }
@@ -43,7 +44,7 @@
     margin: #{$top-bar-top-bottom-gutter}px 0 #{$top-bar-top-bottom-gutter}px #{$gui-gutter}px;
     pointer-events: none;
     &:empty {
-      margin: 0 0 #{$gui-gutter}px 0;
+      margin: 0;
     }
   }
   .right-controls {
@@ -52,7 +53,7 @@
     margin: #{$top-bar-top-bottom-gutter}px #{$gui-gutter}px #{$top-bar-top-bottom-gutter}px 0;
     pointer-events: none;
     &:empty {
-      margin: 0 0 #{$gui-gutter}px 0;
+      margin: 0;
     }
 
     .control-button-container {
@@ -96,21 +97,21 @@
   .left-controls {
     margin: #{$top-bar-top-bottom-gutter}px 0 #{$top-bar-top-bottom-gutter}px #{$gui-small-gutter}px;
     &:empty {
-      margin: 0 0 #{$gui-gutter}px 0;
+      margin: 0;
     }
   }
 
   .right-controls {
     margin: #{$top-bar-top-bottom-gutter}px #{$gui-small-gutter}px #{$top-bar-top-bottom-gutter}px 0;
     &:empty {
-      margin: 0 0 #{$gui-gutter}px 0;
+      margin: 0;
     }
   }
   .top-bar-area {
     width: calc(100% - #{2 * $gui-small-gutter}px);
     margin: #{$top-bar-top-bottom-gutter}px #{$gui-small-gutter}px;
     &:empty {
-      margin: 0 0 #{$gui-gutter}px 0;
+      margin: 0;
     }
   }
 }
