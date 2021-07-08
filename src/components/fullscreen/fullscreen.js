@@ -19,8 +19,8 @@ import {ButtonControl} from 'components/button-control';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  targetId: state.config.targetId,
-  isInFullscreen: state.engine.fullscreen
+  isInFullscreen: state.engine.fullscreen,
+  targetId: state.config.targetId
 });
 
 const COMPONENT_NAME = 'Fullscreen';
