@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.67.1](https://github.com/kaltura/playkit-js-ui/compare/v0.67.0...v0.67.1) (2021-07-08)
+
+
+### Bug Fixes
+
+* **FEC-11393:** unmute button are cut off when not on hover/there's no top bar ([#620](https://github.com/kaltura/playkit-js-ui/issues/620)) ([7e05ecf](https://github.com/kaltura/playkit-js-ui/commit/7e05ecf))
+
+
+
 ## [0.67.0](https://github.com/kaltura/playkit-js-ui/compare/v0.66.2...v0.67.0) (2021-07-01)
 
 
