@@ -17,7 +17,7 @@ import {withEventDispatcher} from 'components/event-dispatcher';
 const mapStateToProps = state => ({
   currentTime: state.seekbar.currentTime,
   virtualTime: state.seekbar.virtualTime,
-  liveDuration: state.engine.liveDuration,
+  duration: state.engine.duration,
   isDraggingActive: state.seekbar.draggingActive,
   isMobile: state.shell.isMobile,
   poster: state.engine.poster,
@@ -55,6 +55,15 @@ class SeekBarLivePlaybackContainer extends Component {
   }
 
   /**
+   *
+   * @returns {number} - the currentTime of the video to show
+   * @memberof SeekBarLivePlaybackContainer
+   */
+  get currentTime(): number {
+    return Math.min(this.props.currentTime, this.props.duration);
+  }
+
+  /**
    * render component
    *
    * @param {*} props - component props
@@ -72,9 +81,8 @@ class SeekBarLivePlaybackContainer extends Component {
         showTimeBubble={this.props.showTimeBubble}
         changeCurrentTime={time => {
           // avoiding exiting live edge by mistake in case currentTime is just a bit smaller than duration
-          const origTime = time + this.props.player.getStartTimeOfDvrWindow();
-          if (!(this.props.player.isOnLiveEdge() && origTime === this.props.liveDuration)) {
-            this.props.player.currentTime = origTime;
+          if (!(this.props.player.isOnLiveEdge() && time === this.props.duration)) {
+            this.props.player.currentTime = time;
           }
         }}
         playerPoster={this.props.poster}
@@ -84,13 +92,12 @@ class SeekBarLivePlaybackContainer extends Component {
         updateCurrentTime={data => this.props.updateCurrentTime(data)}
         updateVirtualTime={data => this.props.updateVirtualTime(data)}
         isDvr={this.props.isDvr}
-        currentTime={this.props.currentTime - this.props.player.getStartTimeOfDvrWindow()}
+        currentTime={this.currentTime}
         virtualTime={this.props.virtualTime}
-        duration={this.props.liveDuration - this.props.player.getStartTimeOfDvrWindow()}
+        duration={this.props.duration}
         isDraggingActive={this.props.isDraggingActive}
         isMobile={this.props.isMobile}
         notifyChange={payload => this.props.notifyChange(payload)}
-        forceFullProgress={this.props.player.isOnLiveEdge()}
       />
     );
   }
