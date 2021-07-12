@@ -419,17 +419,13 @@ class SeekBar extends Component {
    * @memberof SeekBar
    */
   getTime(e: any): number {
-    const xPosition = typeof e.clientX === 'number' ? e.clientX : e.changedTouches && e.changedTouches[0] && e.changedTouches[0].clientX;
+    let xPosition = typeof e.clientX === 'number' ? e.clientX : e.changedTouches && e.changedTouches[0] && e.changedTouches[0].clientX;
     let time =
       this.props.duration *
       ((xPosition - this._seekBarElement.offsetLeft - this.getOffset(this.props.playerElement).left) / this._seekBarElement.clientWidth);
     time = parseFloat(time.toFixed(2));
-    const playerTimeOffset = this.getPlayerTimeOffset();
-    if (time < playerTimeOffset) {
-      return playerTimeOffset;
-    } else if (time > this.props.duration) {
-      return this.props.duration;
-    }
+    if (time < 0) return 0;
+    if (time > this.props.duration) return this.props.duration;
     return time;
   }
 
@@ -537,14 +533,6 @@ class SeekBar extends Component {
   }
 
   /**
-   * gets the player time offset from the start depends on the media type
-   * @return {number} - time offset
-   */
-  getPlayerTimeOffset(): number {
-    return this.props.player.isLive() ? this.props.player.getStartTimeOfDvrWindow() : 0;
-  }
-
-  /**
    * render component
    *
    * @param {*} props - component props
@@ -570,7 +558,7 @@ class SeekBar extends Component {
         ref={c => (c ? (this._seekBarElement = c) : undefined)}
         role="slider"
         aria-label={props.sliderAriaLabel}
-        aria-valuemin={this.getPlayerTimeOffset()}
+        aria-valuemin="0"
         aria-valuemax={Math.round(this.props.duration)}
         aria-valuenow={Math.round(this.props.currentTime)}
         aria-valuetext={`${toHHMMSS(this.props.currentTime)} of ${toHHMMSS(this.props.duration)}`}
