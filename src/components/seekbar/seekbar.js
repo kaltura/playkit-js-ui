@@ -548,7 +548,7 @@ class SeekBar extends Component {
    */
   render(props: any, state: Object): React$Element<any> {
     const virtualProgressWidth = `${(props.virtualTime / props.duration) * 100}%`;
-    const progressWidth = `${(props.currentTime / props.duration) * 100}%`;
+    const progressWidth = `${props.forceFullProgress ? 100 : (props.currentTime / props.duration) * 100}%`;
     const bufferedWidth = `${Math.round(this.getBufferedPercent())}%`;
     const seekbarStyleClass = [style.seekBar];
     if (props.adBreak) seekbarStyleClass.push(style.adBreak);
