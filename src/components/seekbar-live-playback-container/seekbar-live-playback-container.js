@@ -17,7 +17,7 @@ import {withEventDispatcher} from 'components/event-dispatcher';
 const mapStateToProps = state => ({
   currentTime: state.seekbar.currentTime,
   virtualTime: state.seekbar.virtualTime,
-  duration: state.seekbar.duration,
+  duration: state.engine.duration,
   isDraggingActive: state.seekbar.draggingActive,
   isMobile: state.shell.isMobile,
   poster: state.engine.poster,
@@ -47,14 +47,10 @@ class SeekBarLivePlaybackContainer extends Component {
    * @memberof SeekBarLivePlaybackContainer
    */
   componentDidMount() {
-    const {player} = this.props;
-    this.props.eventManager.listen(player, player.Event.TIME_UPDATE, () => {
+    this.props.eventManager.listen(this.props.player, this.props.player.Event.TIME_UPDATE, () => {
       if (!this.props.isDraggingActive) {
-        this.props.updateCurrentTime(player.currentTime - player.getStartTimeOfDvrWindow());
+        this.props.updateCurrentTime(this.props.player.currentTime);
       }
-    });
-    this.props.eventManager.listen(player, player.Event.DURATION_CHANGE, () => {
-      this.props.updateDuration(player.liveDuration - player.getStartTimeOfDvrWindow());
     });
   }
 
@@ -86,7 +82,7 @@ class SeekBarLivePlaybackContainer extends Component {
         changeCurrentTime={time => {
           // avoiding exiting live edge by mistake in case currentTime is just a bit smaller than duration
           if (!(this.props.player.isOnLiveEdge() && time === this.props.duration)) {
-            this.props.player.currentTime = time + this.props.player.getStartTimeOfDvrWindow();
+            this.props.player.currentTime = time;
           }
         }}
         playerPoster={this.props.poster}
