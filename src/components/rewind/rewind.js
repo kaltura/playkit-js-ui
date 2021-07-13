@@ -52,19 +52,21 @@ class Rewind extends Component {
    * @memberof Rewind
    */
   onClick = (): void => {
+    const {player} = this.props;
     this.props.animate();
     let to;
     const step = this.props.step || REWIND_DEFAULT_STEP;
-    const from = this.props.player.currentTime;
-    if (this.props.player.currentTime - step < 0) {
+    const from = player.currentTime;
+    const basePosition = player.isLive() ? player.getStartTimeOfDvrWindow() : 0;
+    if (player.currentTime - step < basePosition) {
       // In dvr when close to beginning dont rewind
       if (!this.props.isDvr) {
-        to = 0;
+        to = basePosition;
       }
     } else {
-      to = this.props.player.currentTime - step;
+      to = player.currentTime - step;
     }
-    this.props.player.currentTime = to;
+    player.currentTime = to;
     this.props.notifyClick({
       from: from,
       to: to
