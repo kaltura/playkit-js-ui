@@ -247,7 +247,7 @@ class SeekBar extends Component {
      * @returns {void}
      */
     const seek = (from: number, to: number) => {
-      this.props.changeCurrentTime(to);
+      player.currentTime = to;
       this.updateSeekBarProgress(player.currentTime, this.props.duration, true);
       this.props.notifyChange({
         from: from,
@@ -419,7 +419,7 @@ class SeekBar extends Component {
    * @memberof SeekBar
    */
   getTime(e: any): number {
-    let xPosition = typeof e.clientX === 'number' ? e.clientX : e.changedTouches && e.changedTouches[0] && e.changedTouches[0].clientX;
+    const xPosition = typeof e.clientX === 'number' ? e.clientX : e.changedTouches && e.changedTouches[0] && e.changedTouches[0].clientX;
     let time =
       this.props.duration *
       ((xPosition - this._seekBarElement.offsetLeft - this.getOffset(this.props.playerElement).left) / this._seekBarElement.clientWidth);
