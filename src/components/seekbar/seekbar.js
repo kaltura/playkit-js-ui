@@ -256,34 +256,40 @@ class SeekBar extends Component {
     };
     let newTime;
     this.props.updatePlayerHoverState(true);
+    const basePosition = player.isLive() ? player.getStartTimeOfDvrWindow() : 0;
+    const duration = player.isLive() ? player.liveDuration : player.duration;
     switch (event.keyCode) {
       case KeyMap.LEFT:
         if (!isAccessibility) {
           this.props.updateOverlayActionIcon(IconType.Rewind);
         }
-        newTime = player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP > 0 ? player.currentTime - 5 : 0;
+        newTime = player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP > basePosition ? player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP : basePosition;
         seek(player.currentTime, newTime);
         break;
       case KeyMap.RIGHT:
         if (!isAccessibility) {
           this.props.updateOverlayActionIcon(IconType.Forward);
         }
-        newTime = player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP > player.duration ? player.duration : player.currentTime + 5;
+        newTime = player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP > duration ? duration : player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP;
         seek(player.currentTime, newTime);
         break;
       case KeyMap.HOME:
         if (!isAccessibility) {
           this.props.updateOverlayActionIcon(IconType.StartOver);
         }
-        newTime = 0;
+        newTime = basePosition;
         seek(player.currentTime, newTime);
         break;
       case KeyMap.END:
         if (!isAccessibility) {
           this.props.updateOverlayActionIcon(IconType.SeekEnd);
         }
-        newTime = player.duration;
-        seek(player.currentTime, newTime);
+        if (player.isLive()) {
+          player.seekToLiveEdge();
+        } else {
+          newTime = duration;
+          seek(player.currentTime, newTime);
+        }
         break;
     }
   }
