@@ -247,7 +247,7 @@ class SeekBar extends Component {
      * @returns {void}
      */
     const seek = (from: number, to: number) => {
-      player.currentTime = to;
+      this.props.changeCurrentTime(to);
       this.updateSeekBarProgress(player.currentTime, this.props.duration, true);
       this.props.notifyChange({
         from: from,
