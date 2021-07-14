@@ -86,7 +86,7 @@ class EngineConnector extends Component {
     });
 
     eventManager.listen(player, player.Event.LOADED_DATA, () => {
-      this.props.updateDuration(player.duration);
+      this.props.updateDuration(player.isLive() ? player.liveDuration : player.duration);
       this.props.updatePictureInPictureSupport(player.isPictureInPictureSupported());
     });
 

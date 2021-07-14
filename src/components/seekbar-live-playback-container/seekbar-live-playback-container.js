@@ -17,7 +17,7 @@ import {withEventDispatcher} from 'components/event-dispatcher';
 const mapStateToProps = state => ({
   currentTime: state.seekbar.currentTime,
   virtualTime: state.seekbar.virtualTime,
-  duration: state.seekbar.duration,
+  duration: state.engine.duration,
   isDraggingActive: state.seekbar.draggingActive,
   isMobile: state.shell.isMobile,
   poster: state.engine.poster,
@@ -47,14 +47,11 @@ class SeekBarLivePlaybackContainer extends Component {
    * @memberof SeekBarLivePlaybackContainer
    */
   componentDidMount() {
-    const {eventManager, player, isDraggingActive, updateCurrentTime, updateDuration} = this.props;
+    const {eventManager, player, isDraggingActive, updateCurrentTime} = this.props;
     eventManager.listen(player, player.Event.TIME_UPDATE, () => {
       if (!isDraggingActive) {
         updateCurrentTime(player.currentTime - player.getStartTimeOfDvrWindow());
       }
-    });
-    eventManager.listen(player, player.Event.DURATION_CHANGE, () => {
-      updateDuration(player.liveDuration - player.getStartTimeOfDvrWindow());
     });
   }
 
@@ -65,6 +62,15 @@ class SeekBarLivePlaybackContainer extends Component {
    */
   get currentTime(): number {
     return Math.min(this.props.currentTime, this.props.duration);
+  }
+
+  /**
+   *
+   * @returns {number} - the duration of the video to show
+   * @memberof SeekBarLivePlaybackContainer
+   */
+  get duration(): number {
+    return this.props.duration - this.props.player.getStartTimeOfDvrWindow();
   }
 
   /**
@@ -85,7 +91,7 @@ class SeekBarLivePlaybackContainer extends Component {
         showTimeBubble={this.props.showTimeBubble}
         changeCurrentTime={time => {
           // avoiding exiting live edge by mistake in case currentTime is just a bit smaller than duration
-          if (!(this.props.player.isOnLiveEdge() && time === this.props.duration)) {
+          if (!(this.props.player.isOnLiveEdge() && time === this.duration)) {
             this.props.player.currentTime = time + this.props.player.getStartTimeOfDvrWindow();
           }
         }}
@@ -98,7 +104,7 @@ class SeekBarLivePlaybackContainer extends Component {
         isDvr={this.props.isDvr}
         currentTime={this.currentTime}
         virtualTime={this.props.virtualTime}
-        duration={this.props.duration}
+        duration={this.duration}
         isDraggingActive={this.props.isDraggingActive}
         isMobile={this.props.isMobile}
         notifyChange={payload => this.props.notifyChange(payload)}
