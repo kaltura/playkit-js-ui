@@ -372,7 +372,7 @@ class SeekBar extends Component {
    * @returns {{ top: number, left: number }} - object with offset in both asixs
    * @memberof SeekBar
    */
-  getOffset(element: any): { top: number, left: number } {
+  getOffset(element: any): {top: number, left: number} {
     let _x = 0;
     let _y = 0;
     while (element && !isNaN(element.offsetLeft) && !isNaN(element.offsetTop)) {
@@ -504,7 +504,7 @@ class SeekBar extends Component {
         className={this.props.hidePreview ? [style.framePreview, style.hideFramePreview].join(' ') : style.framePreview}
         style={this._getFramePreviewStyle()}
         ref={c => (c ? (this._framePreviewElement = c) : undefined)}>
-        <SeekBarPreview virtualTime={this.props.virtualTime}/>
+        <SeekBarPreview virtualTime={this.props.virtualTime} />
       </div>
     );
   }
@@ -530,8 +530,7 @@ class SeekBar extends Component {
     const timeBubbleStyle = `left: ${this.getTimeBubbleOffset()}px`;
     const timeBubbleValue = this.props.isDvr ? '-' + toHHMMSS(this.props.duration - this.props.virtualTime) : toHHMMSS(this.props.virtualTime);
     return (
-      <div className={style.timePreview} style={timeBubbleStyle}
-           ref={c => (c ? (this._timeBubbleElement = c) : undefined)}>
+      <div className={style.timePreview} style={timeBubbleStyle} ref={c => (c ? (this._timeBubbleElement = c) : undefined)}>
         {timeBubbleValue}
       </div>
     );
@@ -547,7 +546,7 @@ class SeekBar extends Component {
    */
   render(props: any, state: Object): React$Element<any> {
     const virtualProgressWidth = `${(props.virtualTime / props.duration) * 100}%`;
-    const progressWidth = `${(props.currentTime / props.duration) * 100}%`;
+    const progressWidth = `${props.forceFullProgress ? 100 : (props.currentTime / props.duration) * 100}%`;
     const bufferedWidth = `${Math.round(this.getBufferedPercent())}%`;
     const seekbarStyleClass = [style.seekBar];
     if (props.adBreak) seekbarStyleClass.push(style.adBreak);
@@ -579,12 +578,12 @@ class SeekBar extends Component {
           <PlayerArea name={'SeekBar'} shouldUpdate={true}>
             {this.renderFramePreview()}
             {this.renderTimeBubble()}
-            <div className={style.buffered} style={{width: bufferedWidth}}/>
+            <div className={style.buffered} style={{width: bufferedWidth}} />
             <div className={style.progress} style={{width: progressWidth}}>
-              {props.adBreak ? undefined : <a className={style.scrubber}/>}
+              {props.adBreak ? undefined : <a className={style.scrubber} />}
             </div>
             <div className={style.virtualProgress} style={{width: virtualProgressWidth}}>
-              <div className={style.virtualProgressIndicator}/>
+              <div className={style.virtualProgressIndicator} />
             </div>
           </PlayerArea>
         </div>

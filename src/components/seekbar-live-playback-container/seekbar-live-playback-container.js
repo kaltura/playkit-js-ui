@@ -47,14 +47,14 @@ class SeekBarLivePlaybackContainer extends Component {
    * @memberof SeekBarLivePlaybackContainer
    */
   componentDidMount() {
-    const {player} = this.props;
-    this.props.eventManager.listen(player, player.Event.TIME_UPDATE, () => {
-      if (!this.props.isDraggingActive) {
-        this.props.updateCurrentTime(player.currentTime - player.getStartTimeOfDvrWindow());
+    const {eventManager, player, isDraggingActive, updateCurrentTime, updateDuration} = this.props;
+    eventManager.listen(player, player.Event.TIME_UPDATE, () => {
+      if (!isDraggingActive) {
+        updateCurrentTime(player.currentTime - player.getStartTimeOfDvrWindow());
       }
     });
-    this.props.eventManager.listen(player, player.Event.DURATION_CHANGE, () => {
-      this.props.updateDuration(player.liveDuration - player.getStartTimeOfDvrWindow());
+    eventManager.listen(player, player.Event.DURATION_CHANGE, () => {
+      updateDuration(player.liveDuration - player.getStartTimeOfDvrWindow());
     });
   }
 
@@ -102,6 +102,7 @@ class SeekBarLivePlaybackContainer extends Component {
         isDraggingActive={this.props.isDraggingActive}
         isMobile={this.props.isMobile}
         notifyChange={payload => this.props.notifyChange(payload)}
+        forceFullProgress={this.props.player.isOnLiveEdge()}
       />
     );
   }
