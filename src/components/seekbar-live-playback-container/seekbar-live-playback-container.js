@@ -61,7 +61,7 @@ class SeekBarLivePlaybackContainer extends Component {
    * @memberof SeekBarLivePlaybackContainer
    */
   get currentTime(): number {
-    return Math.min(this.props.currentTime, this.props.duration);
+    return Math.min(this.props.currentTime, this.duration);
   }
 
   /**
