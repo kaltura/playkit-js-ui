@@ -21,6 +21,12 @@ import {Button} from 'components/button';
 import {ButtonControl} from 'components/button-control';
 import {Badge} from 'components/badge';
 
+const HeightResolution = {
+  HD: 720,
+  UHD_4K: 2160,
+  UHD_8K: 4320
+};
+
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -245,22 +251,22 @@ class Settings extends Component {
   }
 
   /**
-   * Prepares the badge of the quality option according to the height of its resolution
+   * Prepares the badge of the quality option according to the height of its resolution.
    *
-   * @param {number} videoTrackHeight - video track
-   * @returns {Component<Badge>}
+   * @param {number} videoTrackHeight - video track quality height.
+   * @returns {Component<Badge>} - the badge withe the appropriate value.
    * @memberof Settings
    */
   getBadge(videoTrackHeight: number): Component<Badge> {
     let badgeContent = '';
-    if (videoTrackHeight >= 720 && videoTrackHeight < 2160) {
+    if (videoTrackHeight >= HeightResolution.HD && videoTrackHeight < HeightResolution.UHD_4K) {
       badgeContent = 'HD';
-    } else if (videoTrackHeight >= 2160 && videoTrackHeight < 4320) {
+    } else if (videoTrackHeight >= HeightResolution.UHD_4K && videoTrackHeight < HeightResolution.UHD_8K) {
       badgeContent = '4K';
-    } else if (videoTrackHeight >= 4320) {
+    } else if (videoTrackHeight >= HeightResolution.UHD_8K) {
       badgeContent = '8K';
     }
-    return videoTrackHeight >= 720 ? <Badge content={badgeContent} /> : null;
+    return videoTrackHeight >= HeightResolution.HD ? <Badge content={badgeContent} /> : null;
   }
 
   /**

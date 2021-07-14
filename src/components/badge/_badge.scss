@@ -1,7 +1,5 @@
-$base-height: 10px;
-
 .badge {
-  height: $base-height;
+  height: 10px;
   width: 15px;
   background-color: white;
   color: black;
@@ -9,7 +7,9 @@ $base-height: 10px;
   font-size: 9px;
   text-transform: uppercase;
   margin-left: 3px;
-  line-height: $base-height !important;
-  text-align: center;
-  vertical-align: top !important;
+  margin-top: 2px;
+  align-self: start;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
