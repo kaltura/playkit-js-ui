@@ -263,14 +263,14 @@ class SeekBar extends Component {
         if (!isAccessibility) {
           this.props.updateOverlayActionIcon(IconType.Rewind);
         }
-        newTime = player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP > basePosition ? player.currentTime - 5 : basePosition;
+        newTime = player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP > basePosition ? player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP : basePosition;
         seek(player.currentTime, newTime);
         break;
       case KeyMap.RIGHT:
         if (!isAccessibility) {
           this.props.updateOverlayActionIcon(IconType.Forward);
         }
-        newTime = player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP > duration ? duration : player.currentTime + 5;
+        newTime = player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP > duration ? duration : player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP;
         seek(player.currentTime, newTime);
         break;
       case KeyMap.HOME:
