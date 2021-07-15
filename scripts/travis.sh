@@ -24,7 +24,8 @@ elif [ "${TRAVIS_MODE}" = "release" ] || [ "${TRAVIS_MODE}" = "releaseCanary" ];
     rm CHANGELOG.mdE
   else
     echo "Run conventional-github-releaser"
-    conventional-github-releaser -p angular -t $GH_TOKEN
+    #ignore error to make sure release won't get stuck
+    conventional-github-releaser -p angular -t $GH_TOKEN || true
   fi
   echo "Building..."
   yarn run build
