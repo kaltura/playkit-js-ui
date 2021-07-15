@@ -7,14 +7,12 @@ export const types = {
   UPDATE_HIDE_SEEKBAR_PREVIEW: 'seekbar/UPDATE_HIDE_SEEKBAR_PREVIEW',
   UPDATE_HIDE_SEEKBAR_TIME_BUBBLE: 'seekbar/UPDATE_HIDE_SEEKBAR_TIME_BUBBLE',
   UPDATE_CURRENT_TIME: 'seekbar/UPDATE_CURRENT_TIME',
-  UPDATE_VIRTUAL_TIME: 'seekbar/UPDATE_VIRTUAL_TIME',
-  UPDATE_DURATION: 'seekbar/UPDATE_DURATION'
+  UPDATE_VIRTUAL_TIME: 'seekbar/UPDATE_VIRTUAL_TIME'
 };
 
 export const initialState = {
   currentTime: 0,
   virtualTime: 0,
-  duration: 0,
   draggingActive: false,
   hoverActive: false,
   previewHoverActive: false,
@@ -73,12 +71,6 @@ export default (state: Object = initialState, action: Object) => {
         virtualTime: action.virtualTime
       };
 
-    case types.UPDATE_DURATION:
-      return {
-        ...state,
-        duration: action.duration
-      };
-
     default:
       return state;
   }
@@ -106,7 +98,6 @@ export const actions = {
     type: types.UPDATE_HIDE_SEEKBAR_TIME_BUBBLE,
     hideTimeBubble
   }),
-  updateDuration: (duration: number) => ({type: types.UPDATE_DURATION, duration}),
   updateCurrentTime: (currentTime: number) => ({type: types.UPDATE_CURRENT_TIME, currentTime}),
   updateVirtualTime: (virtualTime: number) => ({type: types.UPDATE_VIRTUAL_TIME, virtualTime})
 };
