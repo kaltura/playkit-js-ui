@@ -247,7 +247,7 @@ class SeekBar extends Component {
      * @returns {void}
      */
     const seek = (from: number, to: number) => {
-      this.props.changeCurrentTime(to);
+      player.currentTime = to;
       this.updateSeekBarProgress(player.currentTime, this.props.duration, true);
       this.props.notifyChange({
         from: from,
@@ -256,34 +256,40 @@ class SeekBar extends Component {
     };
     let newTime;
     this.props.updatePlayerHoverState(true);
+    const basePosition = player.isLive() ? player.getStartTimeOfDvrWindow() : 0;
+    const duration = player.isLive() ? player.liveDuration : player.duration;
     switch (event.keyCode) {
       case KeyMap.LEFT:
         if (!isAccessibility) {
           this.props.updateOverlayActionIcon(IconType.Rewind);
         }
-        newTime = player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP > 0 ? player.currentTime - 5 : 0;
+        newTime = player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP > basePosition ? player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP : basePosition;
         seek(player.currentTime, newTime);
         break;
       case KeyMap.RIGHT:
         if (!isAccessibility) {
           this.props.updateOverlayActionIcon(IconType.Forward);
         }
-        newTime = player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP > player.duration ? player.duration : player.currentTime + 5;
+        newTime = player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP > duration ? duration : player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP;
         seek(player.currentTime, newTime);
         break;
       case KeyMap.HOME:
         if (!isAccessibility) {
           this.props.updateOverlayActionIcon(IconType.StartOver);
         }
-        newTime = 0;
+        newTime = basePosition;
         seek(player.currentTime, newTime);
         break;
       case KeyMap.END:
         if (!isAccessibility) {
           this.props.updateOverlayActionIcon(IconType.SeekEnd);
         }
-        newTime = player.duration;
-        seek(player.currentTime, newTime);
+        if (player.isLive()) {
+          player.seekToLiveEdge();
+        } else {
+          newTime = duration;
+          seek(player.currentTime, newTime);
+        }
         break;
     }
   }
@@ -424,10 +430,10 @@ class SeekBar extends Component {
       this.props.duration *
       ((xPosition - this._seekBarElement.offsetLeft - this.getOffset(this.props.playerElement).left) / this._seekBarElement.clientWidth);
     time = parseFloat(time.toFixed(2));
-    const playerTimeOffset = this.getPlayerTimeOffset();
-    if (time < playerTimeOffset) {
-      return playerTimeOffset;
-    } else if (time > this.props.duration) {
+    if (time < 0) {
+      return 0;
+    }
+    if (time > this.props.duration) {
       return this.props.duration;
     }
     return time;
@@ -537,14 +543,6 @@ class SeekBar extends Component {
   }
 
   /**
-   * gets the player time offset from the start depends on the media type
-   * @return {number} - time offset
-   */
-  getPlayerTimeOffset(): number {
-    return this.props.player.isLive() ? this.props.player.getStartTimeOfDvrWindow() : 0;
-  }
-
-  /**
    * render component
    *
    * @param {*} props - component props
@@ -570,7 +568,7 @@ class SeekBar extends Component {
         ref={c => (c ? (this._seekBarElement = c) : undefined)}
         role="slider"
         aria-label={props.sliderAriaLabel}
-        aria-valuemin={this.getPlayerTimeOffset()}
+        aria-valuemin="0"
         aria-valuemax={Math.round(this.props.duration)}
         aria-valuenow={Math.round(this.props.currentTime)}
         aria-valuetext={`${toHHMMSS(this.props.currentTime)} of ${toHHMMSS(this.props.duration)}`}
