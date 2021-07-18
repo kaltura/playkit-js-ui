@@ -266,7 +266,7 @@ class Settings extends Component {
     } else if (videoTrackHeight >= HeightResolution.UHD_8K) {
       badgeContent = '8K';
     }
-    return videoTrackHeight >= HeightResolution.HD ? <Badge content={badgeContent} /> : null;
+    return badgeContent ? <Badge content={badgeContent} /> : null;
   }
 
   /**
