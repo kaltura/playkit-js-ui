@@ -21,6 +21,7 @@ export {ErrorOverlay} from './error-overlay';
 export * from './event-dispatcher';
 export * from './keyboard';
 export {Icon, IconType, IconState} from './icon';
+export {Badge} from './badge';
 export {LiveTag} from './live-tag';
 export {Loading} from './loading';
 export {Menu} from './menu';

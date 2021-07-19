@@ -264,6 +264,7 @@ class MenuItem extends Component {
         onClick={this.onClick}
         onKeyDown={this.onKeyDown}>
         <span>{props.data.label}</span>
+        {props.data.badge ? props.data.badge : null}
         <span className={[style.menuIconContainer, style.active].join(' ')}>
           <Icon type={IconType.Check} />
         </span>

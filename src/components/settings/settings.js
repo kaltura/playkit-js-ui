@@ -19,6 +19,13 @@ import {actions as overlayIconActions} from 'reducers/overlay-action';
 import {Tooltip} from 'components/tooltip';
 import {Button} from 'components/button';
 import {ButtonControl} from 'components/button-control';
+import {Badge} from 'components/badge';
+
+const HeightResolution = {
+  HD: 720,
+  UHD_4K: 2160,
+  UHD_8K: 4320
+};
 
 /**
  * mapping state to props
@@ -244,6 +251,25 @@ class Settings extends Component {
   }
 
   /**
+   * Prepares the badge of the quality option according to the height of its resolution.
+   *
+   * @param {number} videoTrackHeight - video track quality height.
+   * @returns {Component<Badge>} - the badge withe the appropriate value.
+   * @memberof Settings
+   */
+  getBadge(videoTrackHeight: number): Component<Badge> {
+    let badgeContent = '';
+    if (videoTrackHeight >= HeightResolution.HD && videoTrackHeight < HeightResolution.UHD_4K) {
+      badgeContent = 'HD';
+    } else if (videoTrackHeight >= HeightResolution.UHD_4K && videoTrackHeight < HeightResolution.UHD_8K) {
+      badgeContent = '4K';
+    } else if (videoTrackHeight >= HeightResolution.UHD_8K) {
+      badgeContent = '8K';
+    }
+    return badgeContent ? <Badge content={badgeContent} /> : null;
+  }
+
+  /**
    * render component
    *
    * @param {*} props - component props
@@ -276,7 +302,8 @@ class Settings extends Component {
       .map(t => ({
         label: t.label,
         active: !player.isAdaptiveBitrateEnabled() && t.active,
-        value: t
+        value: t,
+        badge: this.getBadge(t.height)
       }));
 
     // Progressive playback doesn't support auto
