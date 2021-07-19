@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.67.3](https://github.com/kaltura/playkit-js-ui/compare/v0.67.2...v0.67.3) (2021-07-15)
+
+
+### Build System
+
+* ignore errors from conventional-github-releaser ([74d3d6b](https://github.com/kaltura/playkit-js-ui/commit/74d3d6b))
+
+
+
+### [0.67.2](https://github.com/kaltura/playkit-js-ui/compare/v0.67.1...v0.67.2) (2021-07-15)
+
+
+### Bug Fixes
+
+* **FEC-11400:** live seekbar doesn't work properly - regression ([#622](https://github.com/kaltura/playkit-js-ui/issues/622)) ([0d62026](https://github.com/kaltura/playkit-js-ui/commit/0d62026))
+* **FEC-11401:** End key jumps over the live edge - regression ([#623](https://github.com/kaltura/playkit-js-ui/issues/623)) ([cf418fc](https://github.com/kaltura/playkit-js-ui/commit/cf418fc))
+* **FEC-11413:** live time is 0 in wrong place ([#624](https://github.com/kaltura/playkit-js-ui/issues/624)) ([9f0be8b](https://github.com/kaltura/playkit-js-ui/commit/9f0be8b))
+
+
+
 ### [0.67.1](https://github.com/kaltura/playkit-js-ui/compare/v0.67.0...v0.67.1) (2021-07-08)
 
 
