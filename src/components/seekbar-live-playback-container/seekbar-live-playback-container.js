@@ -50,7 +50,7 @@ class SeekBarLivePlaybackContainer extends Component {
     const {eventManager, player, isDraggingActive, updateCurrentTime} = this.props;
     eventManager.listen(player, player.Event.TIME_UPDATE, () => {
       if (!isDraggingActive) {
-        updateCurrentTime(player.currentTime - player.getStartTimeOfDvrWindow());
+        updateCurrentTime(Math.max(player.currentTime - player.getStartTimeOfDvrWindow(), 0));
       }
     });
   }
