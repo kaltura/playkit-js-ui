@@ -154,7 +154,7 @@ class SeekBar extends Component {
       return;
     }
     if (this.props.isDraggingActive) {
-      const oldTime = this.props.player.currentTime;
+      const oldTime = this.props.currentTime;
       const newTime = this.getTime(e);
       this.props.changeCurrentTime(newTime);
       this.updateSeekBarProgress(newTime, this.props.duration);
@@ -239,7 +239,7 @@ class SeekBar extends Component {
    * @memberof SeekBar
    */
   handleKeydown(event: KeyboardEvent, isAccessibility: boolean): void {
-    const {player} = this.props;
+    const {duration, currentTime} = this.props;
     /**
      * Do seek operations.
      * @param {number} from - Seek start point.
@@ -247,8 +247,8 @@ class SeekBar extends Component {
      * @returns {void}
      */
     const seek = (from: number, to: number) => {
-      player.currentTime = to;
-      this.updateSeekBarProgress(player.currentTime, this.props.duration, true);
+      this.props.changeCurrentTime(to);
+      this.updateSeekBarProgress(to, duration, true);
       this.props.notifyChange({
         from: from,
         to: to
@@ -256,40 +256,34 @@ class SeekBar extends Component {
     };
     let newTime;
     this.props.updatePlayerHoverState(true);
-    const basePosition = player.isLive() ? player.getStartTimeOfDvrWindow() : 0;
-    const duration = player.isLive() ? player.liveDuration : player.duration;
     switch (event.keyCode) {
       case KeyMap.LEFT:
         if (!isAccessibility) {
           this.props.updateOverlayActionIcon(IconType.Rewind);
         }
-        newTime = player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP > basePosition ? player.currentTime - KEYBOARD_DEFAULT_SEEK_JUMP : basePosition;
-        seek(player.currentTime, newTime);
+        newTime = currentTime - KEYBOARD_DEFAULT_SEEK_JUMP > 0 ? currentTime - KEYBOARD_DEFAULT_SEEK_JUMP : 0;
+        seek(currentTime, newTime);
         break;
       case KeyMap.RIGHT:
         if (!isAccessibility) {
           this.props.updateOverlayActionIcon(IconType.Forward);
         }
-        newTime = player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP > duration ? duration : player.currentTime + KEYBOARD_DEFAULT_SEEK_JUMP;
-        seek(player.currentTime, newTime);
+        newTime = currentTime + KEYBOARD_DEFAULT_SEEK_JUMP > duration ? duration : currentTime + KEYBOARD_DEFAULT_SEEK_JUMP;
+        seek(currentTime, newTime);
         break;
       case KeyMap.HOME:
         if (!isAccessibility) {
           this.props.updateOverlayActionIcon(IconType.StartOver);
         }
-        newTime = basePosition;
-        seek(player.currentTime, newTime);
+        newTime = 0;
+        seek(currentTime, newTime);
         break;
       case KeyMap.END:
         if (!isAccessibility) {
           this.props.updateOverlayActionIcon(IconType.SeekEnd);
         }
-        if (player.isLive()) {
-          player.seekToLiveEdge();
-        } else {
-          newTime = duration;
-          seek(player.currentTime, newTime);
-        }
+        newTime = duration;
+        seek(currentTime, newTime);
         break;
     }
   }
@@ -320,7 +314,7 @@ class SeekBar extends Component {
   onSeekbarTouchEnd = (e: Event): void => {
     if (this.props.isDraggingActive) {
       let time = this.getTime(e);
-      const oldTime = this.props.player.currentTime;
+      const oldTime = this.props.currentTime;
       const newTime = time;
       this.props.changeCurrentTime(newTime);
       this.updateSeekBarProgress(newTime, this.props.duration);
