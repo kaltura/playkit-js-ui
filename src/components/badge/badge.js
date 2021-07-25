@@ -15,11 +15,32 @@ class Badge extends Component {
   /**
    * render component
    *
+   * @param {*} classMAp - css classes
+   * @returns {string}  - the active classes
+   * @memberof Badge
+   */
+  getClasses(classMAp) {
+    return Object.entries(classMAp)
+      .filter(([, value]) => value)
+      .map(([key]) => key)
+      .join(' ');
+  }
+
+  /**
+   * render component
+   *
    * @returns {React$Element}  - component
    * @memberof Badge
    */
   render(): React$Element<any> {
-    return <span className={style.badge}>{this.props.content}</span>;
+    const classes = {
+      [style.badge]: true,
+      [style.badgeActive]: this.props.active,
+      [style.iconBadge]: this.props.iconBadge
+    };
+
+    const activeClasses = this.getClasses(classes);
+    return <span className={activeClasses}>{this.props.content}</span>;
   }
 }
 

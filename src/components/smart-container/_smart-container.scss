@@ -82,9 +82,10 @@
       .dropdown {
         span {
           max-width: 100px;
-          overflow: hidden;
           text-overflow: ellipsis;
           vertical-align: middle;
+          display: flex;
+          position: relative;
         }
       }
       select {

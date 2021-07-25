@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import {withKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
 import {KeyMap} from 'utils/key-map';
 import {withEventManager} from 'event/with-event-manager';
+import {Badge} from 'components/badge';
 
 /**
  * mapping state to props
@@ -263,8 +264,11 @@ class MenuItem extends Component {
         className={props.isSelected(props.data) ? [style.dropdownMenuItem, style.active].join(' ') : style.dropdownMenuItem}
         onClick={this.onClick}
         onKeyDown={this.onKeyDown}>
-        <span>{props.data.label}</span>
-        {props.data.badge ? props.data.badge : null}
+        <span>
+          {props.data.label}
+          {props.data.badgeContent ? <Badge content={props.data.badgeContent} active={props.isSelected(props.data)} /> : null}
+        </span>
+
         <span className={[style.menuIconContainer, style.active].join(' ')}>
           <Icon type={IconType.Check} />
         </span>

@@ -251,13 +251,13 @@ class Settings extends Component {
   }
 
   /**
-   * Prepares the badge of the quality option according to the height of its resolution.
+   * Prepares the badge content of the quality option according to the height of its resolution.
    *
    * @param {number} videoTrackHeight - video track quality height.
    * @returns {Component<Badge>} - the badge withe the appropriate value.
    * @memberof Settings
    */
-  getBadge(videoTrackHeight: number): Component<Badge> {
+  getBadgeContent(videoTrackHeight: number): string {
     let badgeContent = '';
     if (videoTrackHeight >= HeightResolution.HD && videoTrackHeight < HeightResolution.UHD_4K) {
       badgeContent = 'HD';
@@ -266,7 +266,23 @@ class Settings extends Component {
     } else if (videoTrackHeight >= HeightResolution.UHD_8K) {
       badgeContent = '8K';
     }
-    return badgeContent ? <Badge content={badgeContent} /> : null;
+    return badgeContent ? badgeContent : null;
+  }
+
+  /**
+   * returns The badge of the active quality option according to the height of its resolution
+   *
+   * @param {*} qualityOptions - qualityOptions
+   * @returns {Component<Badge> | null} - the badge withe the appropriate value.
+   * @memberof DropDown
+   */
+  getBadge(qualityOptions): Component<Badge> | null {
+    const activeOption: VideoTrack = qualityOptions.find(t => t.active);
+    if (activeOption.badgeContent) {
+      return <Badge content={activeOption.badgeContent} active={true} iconBadge={true} />;
+    } else {
+      return null;
+    }
   }
 
   /**
@@ -303,15 +319,17 @@ class Settings extends Component {
         label: t.label,
         active: !player.isAdaptiveBitrateEnabled() && t.active,
         value: t,
-        badge: this.getBadge(t.height)
+        badgeContent: this.getBadgeContent(t.height)
       }));
 
     // Progressive playback doesn't support auto
     if (qualityOptions.length > 1 && player.streamType !== 'progressive') {
+      const activeTrack: VideoTrack = qualityOptions.find(track => track.value.active === true).value;
       qualityOptions.unshift({
-        label: this.props.qualityAutoLabelText,
+        label: this.props.qualityAutoLabelText + ' - ' + qualityOptions.find(track => track.value.active === true).label,
         active: player.isAdaptiveBitrateEnabled(),
-        value: 'auto'
+        value: 'auto',
+        badgeContent: this.getBadgeContent(activeTrack.height)
       });
     }
 
@@ -326,6 +344,7 @@ class Settings extends Component {
             className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
             onClick={this.onControlButtonClick}>
             <Icon type={IconType.Settings} />
+            {this.getBadge(qualityOptions)}
           </Button>
         </Tooltip>
         {!this.state.smartContainerOpen ? (

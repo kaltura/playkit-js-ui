@@ -6,10 +6,19 @@
   border-radius: 1px;
   font-size: 9px;
   text-transform: uppercase;
-  margin-left: 3px;
-  margin-top: 2px;
-  align-self: flex-start;
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
+  top: -3px;
+  right: -3px;
+
+  &.badge-active {
+    background-color: $brand-color;
+  }
+
+  &.icon-badge {
+    top: 3px;
+    right: -1px;
+  }
 }

@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {Menu} from '../menu';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
+import {Badge} from 'components/badge';
 
 /**
  * mapping state to props
@@ -134,6 +135,21 @@ class DropDown extends Component {
   }
 
   /**
+   * returns The badge of the active quality option according to the height of its resolution
+   *
+   * @returns {Component<Badge> | null} - the badge withe the appropriate value.
+   * @memberof DropDown
+   */
+  getBadge(): Component<Badge> | null {
+    const activeOption: VideoTrack = this.props.options.find(t => t.active);
+    if (activeOption.badgeContent) {
+      return <Badge content={activeOption.badgeContent} active={false} />;
+    } else {
+      return null;
+    }
+  }
+
+  /**
    * render for menu only which will render a native select element in this case (mobile)
    * @param {string} labelledby - the label id the describes the dropdown (for screen reader)
    * @returns {React$Element} - component element
@@ -181,7 +197,10 @@ class DropDown extends Component {
           className={style.dropdownButton}
           onClick={this.onClick}
           onKeyDown={this.onKeyDown}>
-          <span id={activeOptionId}>{this.getActiveOptionLabel()}</span>
+          <span id={activeOptionId}>
+            {this.getActiveOptionLabel()}
+            {props.name === 'quality' ? this.getBadge() : null}
+          </span>
           <Icon type={IconType.ArrowDown} />
           {!this.state.dropMenuActive ? undefined : (
             <Menu parentEl={this._el} options={props.options} onMenuChosen={this.onMenuChosen} onClose={this.onClose} />
