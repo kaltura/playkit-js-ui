@@ -17,7 +17,8 @@
       "prev": "Назад",
       "startOver": "Запустить заново",
       "pictureInPicture": "Картинка в картинке",
-      "pictureInPictureExit": "Выйти из второго канала",
+      "pictureInPictureExit": "Выйти из режима «картинка в картинке»",
+      "pictureInPictureExpand": "Развернуть",
       "logo": "Логотип",
       "seekBarSlider": "Слайдер навигации"
     },

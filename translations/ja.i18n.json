@@ -17,7 +17,8 @@
       "prev": "前へ",
       "startOver": "最初から再生する",
       "pictureInPicture": "ピクチャーインピクチャー",
-      "pictureInPictureExit": "ピクチャーインピクチャーを終了",
+      "pictureInPictureExit": "ピクチャーインピクチャーを終了する",
+      "pictureInPictureExpand": "拡大",
       "logo": "ロゴ",
       "seekBarSlider": "シーク スライダー"
     },

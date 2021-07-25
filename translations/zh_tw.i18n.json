@@ -17,7 +17,8 @@
       "prev": "上一個",
       "startOver": "重頭",
       "pictureInPicture": "圖片中的圖片",
-      "pictureInPictureExit": "退出圖片中的圖片",
+      "pictureInPictureExit": "退出畫中畫",
+      "pictureInPictureExpand": "擴展",
       "logo": "圖標",
       "seekBarSlider": "進行輪播"
     },
