@@ -257,7 +257,7 @@ class Settings extends Component {
    * @returns {Component<Badge>} - the badge value.
    * @memberof Settings
    */
-  getLabelBadgeValue(videoTrackHeight: number): string {
+  getLabelBadgeValue(videoTrackHeight: number): string | null {
     let badgeContent = '';
     if (videoTrackHeight >= HeightResolution.HD && videoTrackHeight < HeightResolution.UHD_4K) {
       badgeContent = 'HD';
@@ -276,7 +276,7 @@ class Settings extends Component {
    * @returns {string} - the badge value.
    * @memberof DropDown
    */
-  getIconBadgeValue(qualityOptions): string | null {
+  getIconBadgeValue(qualityOptions: Object[]): string | null {
     const activeOption: Object = qualityOptions.find(track => track.active);
     return activeOption.badgeContent;
   }
@@ -320,7 +320,7 @@ class Settings extends Component {
 
     // Progressive playback doesn't support auto
     if (qualityOptions.length > 1 && player.streamType !== 'progressive') {
-      const activeTrack: VideoTrack = qualityOptions.find(track => track.value.active === true).value;
+      const activeTrack: Object = qualityOptions.find(track => track.value.active === true).value;
       qualityOptions.unshift({
         label: this.props.qualityAutoLabelText + ' - ' + activeTrack.label,
         active: player.isAdaptiveBitrateEnabled(),
