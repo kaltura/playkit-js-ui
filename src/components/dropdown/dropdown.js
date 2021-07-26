@@ -142,11 +142,7 @@ class DropDown extends Component {
    */
   getBadgeContent(): string | null {
     const activeOption: Object = this.props.options.find(track => track.active);
-    if (activeOption.badgeContent) {
-      return activeOption.badgeContent;
-    } else {
-      return null;
-    }
+    return activeOption.badgeContent;
   }
 
   /**

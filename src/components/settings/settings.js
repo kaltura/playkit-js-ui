@@ -257,7 +257,7 @@ class Settings extends Component {
    * @returns {Component<Badge>} - the badge value.
    * @memberof Settings
    */
-  getBadgeContent(videoTrackHeight: number): string {
+  getLabelBadgeValue(videoTrackHeight: number): string {
     let badgeContent = '';
     if (videoTrackHeight >= HeightResolution.HD && videoTrackHeight < HeightResolution.UHD_4K) {
       badgeContent = 'HD';
@@ -270,19 +270,15 @@ class Settings extends Component {
   }
 
   /**
-   * returns The badge of the active quality option according to the height of its resolution
+   * returns The badge content of the active quality option according to the height of its resolution
    *
    * @param {*} qualityOptions - qualityOptions
-   * @returns {Component<Badge> | null} - the badge withe the appropriate value.
+   * @returns {string} - the badge value.
    * @memberof DropDown
    */
-  getBadge(qualityOptions): Component<Badge> | null {
-    const activeOption: VideoTrack = qualityOptions.find(t => t.active);
-    if (activeOption.badgeContent) {
-      return <Badge content={activeOption.badgeContent} active={true} iconBadge={true} />;
-    } else {
-      return null;
-    }
+  getIconBadgeValue(qualityOptions): string | null {
+    const activeOption: Object = qualityOptions.find(track => track.active);
+    return activeOption.badgeContent;
   }
 
   /**
@@ -319,7 +315,7 @@ class Settings extends Component {
         label: t.label,
         active: !player.isAdaptiveBitrateEnabled() && t.active,
         value: t,
-        badgeContent: this.getBadgeContent(t.height)
+        badgeContent: this.getLabelBadgeValue(t.height)
       }));
 
     // Progressive playback doesn't support auto
@@ -329,12 +325,13 @@ class Settings extends Component {
         label: this.props.qualityAutoLabelText + ' - ' + activeTrack.label,
         active: player.isAdaptiveBitrateEnabled(),
         value: 'auto',
-        badgeContent: this.getBadgeContent(activeTrack.height)
+        badgeContent: this.getLabelBadgeValue(activeTrack.height)
       });
     }
 
     if (qualityOptions.length <= 1 && speedOptions.length <= 1) return undefined;
     if (isLive && qualityOptions.length <= 1) return undefined;
+    const iconBadgeContent = this.getIconBadgeValue(qualityOptions);
     return (
       <ButtonControl name={COMPONENT_NAME} ref={c => (c ? (this._controlSettingsElement = c) : undefined)}>
         <Tooltip label={props.buttonLabel}>
@@ -344,7 +341,7 @@ class Settings extends Component {
             className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
             onClick={this.onControlButtonClick}>
             <Icon type={IconType.Settings} />
-            {this.getBadge(qualityOptions)}
+            {iconBadgeContent ? <Badge content={iconBadgeContent} active={true} iconBadge={true} /> : null}
           </Button>
         </Tooltip>
         {!this.state.smartContainerOpen ? (
