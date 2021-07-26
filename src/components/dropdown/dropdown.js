@@ -137,10 +137,10 @@ class DropDown extends Component {
   /**
    * returns The badge content of the active quality option according to the height of its resolution
    *
-   * @returns {string | null} - the badge value.
+   * @returns {string | null} - the badge content.
    * @memberof DropDown
    */
-  getBadgeContent(): string | null {
+  getBadgeValue(): string | null {
     const activeOption: Object = this.props.options.find(track => track.active);
     return activeOption.badgeContent;
   }
@@ -172,7 +172,7 @@ class DropDown extends Component {
    */
   render(props: any): React$Element<any> {
     const activeOptionId = props.name + 'Active';
-    const badgeContent = this.getBadgeContent();
+    const badgeContent = this.getBadgeValue();
     return props.isMobile || props.isSmallSize ? (
       this.renderNativeSelect(props.name)
     ) : (
