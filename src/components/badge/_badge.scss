@@ -1,4 +1,6 @@
 .badge {
+  position: absolute;
+  display: flex;
   height: 10px;
   width: 15px;
   background-color: white;
@@ -7,15 +9,16 @@
   font-size: 9px;
   font-weight: 900;
   text-transform: uppercase;
-  position: absolute;
-  display: flex;
   justify-content: center;
   align-items: center;
-  top: -3px;
-  right: -3px;
 
   &.badge-active {
     background-color: $brand-color;
+  }
+
+  &.label-badge {
+    top: -3px;
+    right: -3px;
   }
 
   &.icon-badge {

@@ -135,15 +135,15 @@ class DropDown extends Component {
   }
 
   /**
-   * returns The badge of the active quality option according to the height of its resolution
+   * returns The badge content of the active quality option according to the height of its resolution
    *
-   * @returns {Component<Badge> | null} - the badge withe the appropriate value.
+   * @returns {string | null} - the badge value.
    * @memberof DropDown
    */
-  getBadge(): Component<Badge> | null {
-    const activeOption: VideoTrack = this.props.options.find(t => t.active);
+  getBadgeContent(): string | null {
+    const activeOption: Object = this.props.options.find(track => track.active);
     if (activeOption.badgeContent) {
-      return <Badge content={activeOption.badgeContent} active={false} />;
+      return activeOption.badgeContent;
     } else {
       return null;
     }
@@ -176,6 +176,7 @@ class DropDown extends Component {
    */
   render(props: any): React$Element<any> {
     const activeOptionId = props.name + 'Active';
+    const badgeContent = this.getBadgeContent();
     return props.isMobile || props.isSmallSize ? (
       this.renderNativeSelect(props.name)
     ) : (
@@ -199,7 +200,7 @@ class DropDown extends Component {
           onKeyDown={this.onKeyDown}>
           <span id={activeOptionId}>
             {this.getActiveOptionLabel()}
-            {props.name === 'quality' ? this.getBadge() : null}
+            {props.name === 'quality' ? badgeContent ? <Badge content={badgeContent} active={false} /> : null : null}
           </span>
           <Icon type={IconType.ArrowDown} />
           {!this.state.dropMenuActive ? undefined : (

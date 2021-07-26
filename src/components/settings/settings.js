@@ -254,7 +254,7 @@ class Settings extends Component {
    * Prepares the badge content of the quality option according to the height of its resolution.
    *
    * @param {number} videoTrackHeight - video track quality height.
-   * @returns {Component<Badge>} - the badge withe the appropriate value.
+   * @returns {Component<Badge>} - the badge value.
    * @memberof Settings
    */
   getBadgeContent(videoTrackHeight: number): string {
@@ -326,7 +326,7 @@ class Settings extends Component {
     if (qualityOptions.length > 1 && player.streamType !== 'progressive') {
       const activeTrack: VideoTrack = qualityOptions.find(track => track.value.active === true).value;
       qualityOptions.unshift({
-        label: this.props.qualityAutoLabelText + ' - ' + qualityOptions.find(track => track.value.active === true).label,
+        label: this.props.qualityAutoLabelText + ' - ' + activeTrack.label,
         active: player.isAdaptiveBitrateEnabled(),
         value: 'auto',
         badgeContent: this.getBadgeContent(activeTrack.height)
