@@ -120,29 +120,18 @@ class DropDown extends Component {
   };
 
   /**
-   * get active option label or first option's label
+   * get active option or first option
    *
-   * @returns {string} - active option label
+   * @returns {Object} - active option
    * @memberof DropDown
    */
-  getActiveOptionLabel(): string {
-    let activeOptions = this.props.options.filter(t => t.active);
+  getActiveOptionLabel(): Object {
+    const activeOptions = this.props.options.filter(option => option.active);
     try {
-      return activeOptions[0].label;
+      return activeOptions[0];
     } catch (e) {
-      return this.props.options[0].label || 'Unlabled';
+      return this.props.options[0] || {label: 'Unlabled'};
     }
-  }
-
-  /**
-   * returns The badge content of the active quality option according to the height of its resolution
-   *
-   * @returns {string | null} - the badge content.
-   * @memberof DropDown
-   */
-  getBadgeValue(): string | null {
-    const activeOption: Object = this.props.options.find(track => track.active);
-    return activeOption.badgeContent;
   }
 
   /**
@@ -172,7 +161,7 @@ class DropDown extends Component {
    */
   render(props: any): React$Element<any> {
     const activeOptionId = props.name + 'Active';
-    const badgeContent = this.getBadgeValue();
+    const activeOption = this.getActiveOptionLabel();
     return props.isMobile || props.isSmallSize ? (
       this.renderNativeSelect(props.name)
     ) : (
@@ -195,8 +184,8 @@ class DropDown extends Component {
           onClick={this.onClick}
           onKeyDown={this.onKeyDown}>
           <span id={activeOptionId}>
-            {this.getActiveOptionLabel()}
-            {props.name === 'quality' ? badgeContent ? <Badge content={badgeContent} active={false} /> : null : null}
+            {activeOption.label}
+            {activeOption.badgeContent ? <Badge content={activeOption.badgeContent} active={false} /> : null}
           </span>
           <Icon type={IconType.ArrowDown} />
           {!this.state.dropMenuActive ? undefined : (

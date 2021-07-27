@@ -27,6 +27,7 @@
   }
 
   .dropdown-button {
+    font-weight: bold;
     line-height: 18px;
     color: #fff;
     cursor: pointer;
@@ -58,6 +59,7 @@
   overflow-y: auto;
   font-size: 15px;
   text-align: left;
+  font-weight: normal;
 
   &.top {
     margin-bottom: 10px;
