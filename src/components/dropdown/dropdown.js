@@ -125,7 +125,7 @@ class DropDown extends Component {
    * @returns {Object} - active option
    * @memberof DropDown
    */
-  getActiveOptionLabel(): Object {
+  getActiveOption(): Object {
     const activeOptions = this.props.options.filter(option => option.active);
     try {
       return activeOptions[0];
@@ -161,7 +161,7 @@ class DropDown extends Component {
    */
   render(props: any): React$Element<any> {
     const activeOptionId = props.name + 'Active';
-    const activeOption = this.getActiveOptionLabel();
+    const activeOption = this.getActiveOption();
     return props.isMobile || props.isSmallSize ? (
       this.renderNativeSelect(props.name)
     ) : (
