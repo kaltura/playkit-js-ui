@@ -184,7 +184,7 @@ class DropDown extends Component {
           onClick={this.onClick}
           onKeyDown={this.onKeyDown}>
           <span id={activeOptionId}>
-            {activeOption.label}
+            {activeOption.dropdownLabel || activeOption.label}
             {activeOption.badgeContent ? <Badge content={activeOption.badgeContent} active={false} /> : null}
           </span>
           <Icon type={IconType.ArrowDown} />

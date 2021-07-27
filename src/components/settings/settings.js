@@ -320,8 +320,10 @@ class Settings extends Component {
 
     // Progressive playback doesn't support auto
     if (qualityOptions.length > 1 && player.streamType !== 'progressive') {
+      const activeTrack: Object = qualityOptions.find(track => track.value.active === true).value;
       qualityOptions.unshift({
         label: this.props.qualityAutoLabelText,
+        dropdownLabel: this.props.qualityAutoLabelText + ' - ' + activeTrack.label,
         active: player.isAdaptiveBitrateEnabled(),
         value: 'auto'
       });
