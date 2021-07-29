@@ -272,13 +272,12 @@ class Settings extends Component {
   /**
    * returns The badge content of the active quality option according to the height of its resolution
    *
-   * @param {*} qualityOptions - qualityOptions
    * @returns {string} - the badge value.
    * @memberof DropDown
    */
-  getIconBadgeValue(qualityOptions: Object[]): string | null {
-    const activeOption: Object = qualityOptions.find(track => track.active);
-    return activeOption.badgeContent;
+  getIconBadgeValue(): string | null {
+    const activeVideoTrackHeightResolution: number = this.props.player.getActiveTracks().video.height;
+    return this.getLabelBadgeValue(activeVideoTrackHeightResolution);
   }
 
   /**
@@ -323,7 +322,10 @@ class Settings extends Component {
       const activeTrack: Object = qualityOptions.find(track => track.value.active === true).value;
       qualityOptions.unshift({
         label: this.props.qualityAutoLabelText,
-        dropdownLabel: this.props.qualityAutoLabelText + ' - ' + activeTrack.label,
+        dropdownOptions: {
+          label: this.props.qualityAutoLabelText + ' - ' + activeTrack.label,
+          badgeContent: this.getLabelBadgeValue(activeTrack.height)
+        },
         active: player.isAdaptiveBitrateEnabled(),
         value: 'auto'
       });
@@ -331,7 +333,7 @@ class Settings extends Component {
 
     if (qualityOptions.length <= 1 && speedOptions.length <= 1) return undefined;
     if (isLive && qualityOptions.length <= 1) return undefined;
-    const iconBadgeContent = this.getIconBadgeValue(qualityOptions);
+    const iconBadgeContent = this.getIconBadgeValue();
     return (
       <ButtonControl name={COMPONENT_NAME} ref={c => (c ? (this._controlSettingsElement = c) : undefined)}>
         <Tooltip label={props.buttonLabel}>
