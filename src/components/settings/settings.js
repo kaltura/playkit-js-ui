@@ -251,7 +251,7 @@ class Settings extends Component {
   }
 
   /**
-   * Prepares the badge content of the quality option according to the height of its resolution.
+   * Determines the badge value of the quality option based of the height resolution.
    *
    * @param {number} videoTrackHeight - video track quality height.
    * @returns {Component<Badge>} - the badge value.
@@ -270,14 +270,16 @@ class Settings extends Component {
   }
 
   /**
-   * returns The badge content of the active quality option according to the height of its resolution
+   * returns The badge content of the active quality option based of the height resolution
    *
    * @returns {string} - the badge value.
    * @memberof DropDown
    */
   getIconBadgeValue(): string | null {
-    const activeVideoTrackHeightResolution: number = this.props.player.getActiveTracks().video.height;
-    return this.getLabelBadgeValue(activeVideoTrackHeightResolution);
+    const activeVideoTrack: Object = this.props.player.getActiveTracks().video;
+    // Video track is not available in Safari
+    const heightResolution: number = activeVideoTrack ? activeVideoTrack.height : this.props.player.getVideoElement().videoHeight;
+    return this.getLabelBadgeValue(heightResolution);
   }
 
   /**
