@@ -276,10 +276,8 @@ class Settings extends Component {
    * @memberof DropDown
    */
   getIconBadgeValue(): string | null {
-    const activeVideoTrack: Object = this.props.player.getActiveTracks().video;
-    // Video track is not available in Safari
-    const heightResolution: number = activeVideoTrack ? activeVideoTrack.height : this.props.player.getVideoElement().videoHeight;
-    return this.getLabelBadgeValue(heightResolution);
+    const activeVideoTrackHeight: Object = this.props.player.getActiveTracks().video.height;
+    return activeVideoTrackHeight ? this.getLabelBadgeValue(activeVideoTrackHeight) : null;
   }
 
   /**
