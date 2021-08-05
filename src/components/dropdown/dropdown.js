@@ -126,12 +126,8 @@ class DropDown extends Component {
    * @memberof DropDown
    */
   getActiveOption(): Object {
-    const activeOptions = this.props.options.filter(option => option.active);
-    try {
-      return activeOptions[0];
-    } catch (e) {
-      return this.props.options[0] || {label: 'Unlabled'};
-    }
+    const activeOption = this.props.options.find(option => option.active);
+    return activeOption ? activeOption : {label: 'Unlabled'};
   }
 
   /**
@@ -162,6 +158,7 @@ class DropDown extends Component {
   render(props: any): React$Element<any> {
     const activeOptionId = props.name + 'Active';
     const activeOption = this.getActiveOption();
+    const label = activeOption?.dropdownOptions?.label || activeOption.label;
     const badgeContent = activeOption.badgeContent || activeOption?.dropdownOptions?.badgeContent;
     return props.isMobile || props.isSmallSize ? (
       this.renderNativeSelect(props.name)
@@ -185,7 +182,7 @@ class DropDown extends Component {
           onClick={this.onClick}
           onKeyDown={this.onKeyDown}>
           <span id={activeOptionId}>
-            {activeOption?.dropdownOptions?.label || activeOption.label}
+            {label}
             {badgeContent ? <Badge content={badgeContent} active={false} /> : null}
           </span>
           <Icon type={IconType.ArrowDown} />
