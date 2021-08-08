@@ -3,11 +3,11 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {withText, Text} from 'preact-i18n';
 import {connect} from 'react-redux';
-import {bindActions} from '../../utils/bind-actions';
-import {actions} from '../../reducers/settings';
-import {SmartContainer} from '../smart-container';
-import {SmartContainerItem} from '../smart-container/smart-container-item';
-import {default as Icon, IconType} from '../icon';
+import {bindActions} from 'utils';
+import {actions} from 'reducers/settings';
+import {SmartContainer} from 'components';
+import {SmartContainerItem} from 'components';
+import {default as Icon, IconType, BadgeType} from '../icon';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withEventDispatcher} from 'components/event-dispatcher';
@@ -19,7 +19,6 @@ import {actions as overlayIconActions} from 'reducers/overlay-action';
 import {Tooltip} from 'components/tooltip';
 import {Button} from 'components/button';
 import {ButtonControl} from 'components/button-control';
-import {Badge} from 'components/badge';
 
 const HeightResolution = {
   HD: 720,
@@ -251,33 +250,33 @@ class Settings extends Component {
   }
 
   /**
-   * Determines the badge value of the quality option based of the height resolution.
+   * Determines the badge icon type of the quality option based of the height resolution.
    *
    * @param {number} videoTrackHeight - video track quality height.
-   * @returns {Component<Badge>} - the badge value.
+   * @returns {Component<Badge>} - the badge icon type.
    * @memberof Settings
    */
-  getLabelBadgeValue(videoTrackHeight: number): string | null {
-    let badgeContent = '';
+  getLabelBadgeType(videoTrackHeight: number): string | null {
+    let badgeType = '';
     if (videoTrackHeight >= HeightResolution.HD && videoTrackHeight < HeightResolution.UHD_4K) {
-      badgeContent = 'HD';
+      badgeType = 'qualityHd';
     } else if (videoTrackHeight >= HeightResolution.UHD_4K && videoTrackHeight < HeightResolution.UHD_8K) {
-      badgeContent = '4K';
+      badgeType = 'quality4k';
     } else if (videoTrackHeight >= HeightResolution.UHD_8K) {
-      badgeContent = '8K';
+      badgeType = 'quality8k';
     }
-    return badgeContent ? badgeContent : null;
+    return badgeType ? badgeType : null;
   }
 
   /**
-   * returns The badge content of the active quality option based of the height resolution
+   * returns The badge icon type of the active quality option based of the height resolution
    *
-   * @returns {string} - the badge value.
+   * @returns {string} - the badge icon type.
    * @memberof DropDown
    */
-  getIconBadgeValue(): string | null {
+  getButtonBadgeType(): string | null {
     const activeVideoTrackHeight: Object = this.props.player.getActiveTracks().video.height;
-    return activeVideoTrackHeight ? this.getLabelBadgeValue(activeVideoTrackHeight) : null;
+    return activeVideoTrackHeight ? this.getLabelBadgeType(activeVideoTrackHeight) : null;
   }
 
   /**
@@ -314,7 +313,7 @@ class Settings extends Component {
         label: t.label,
         active: !player.isAdaptiveBitrateEnabled() && t.active,
         value: t,
-        badgeContent: this.getLabelBadgeValue(t.height)
+        badgeType: this.getLabelBadgeType(t.height)
       }));
 
     // Progressive playback doesn't support auto
@@ -324,7 +323,7 @@ class Settings extends Component {
         label: this.props.qualityAutoLabelText,
         dropdownOptions: {
           label: this.props.qualityAutoLabelText + ' - ' + activeTrack.label,
-          badgeContent: this.getLabelBadgeValue(activeTrack.height)
+          badgeType: this.getLabelBadgeType(activeTrack.height)
         },
         active: player.isAdaptiveBitrateEnabled(),
         value: 'auto'
@@ -333,17 +332,21 @@ class Settings extends Component {
 
     if (qualityOptions.length <= 1 && speedOptions.length <= 1) return undefined;
     if (isLive && qualityOptions.length <= 1) return undefined;
-    const iconBadgeContent = this.getIconBadgeValue();
+    const buttonBadgeType = this.getButtonBadgeType();
     return (
       <ButtonControl name={COMPONENT_NAME} ref={c => (c ? (this._controlSettingsElement = c) : undefined)}>
         <Tooltip label={props.buttonLabel}>
           <Button
             tabIndex="0"
             aria-label={props.buttonLabel}
-            className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
+            className={[
+              style.controlButton,
+              style.buttonBadge,
+              BadgeType[buttonBadgeType + 'Active'],
+              this.state.smartContainerOpen ? style.active : ''
+            ].join(' ')}
             onClick={this.onControlButtonClick}>
             <Icon type={IconType.Settings} />
-            {iconBadgeContent ? <Badge content={iconBadgeContent} active={true} iconBadge={true} /> : null}
           </Button>
         </Tooltip>
         {!this.state.smartContainerOpen ? (

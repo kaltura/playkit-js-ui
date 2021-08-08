@@ -12,8 +12,22 @@
 }
 
 .dropdown {
-  position: relative;
   font-size: 15px;
+
+  .label-badge {
+    position: relative;
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: -5px;
+      right: -18px;
+      height: 16px;
+      width: 16px;
+      border-radius: 1px;
+      line-height: normal;
+    }
+  }
 
   &.active {
     .dropdown-menu {
@@ -41,6 +55,12 @@
       margin-left: 6px;
       transition: 150ms transform;
       will-change: transform;
+    }
+
+    .label-badge {
+      &[class*='badge-icon'] {
+        margin-right: 13px;
+      }
     }
   }
 }
@@ -114,6 +134,12 @@
 
     .menu-icon-container {
       opacity: 0;
+    }
+
+    .label-badge {
+      &[class*='badge-icon'] {
+        margin-right: 5px;
+      }
     }
   }
 }

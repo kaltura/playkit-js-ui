@@ -3,9 +3,8 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'react-redux';
 import {Menu} from '../menu';
-import {default as Icon, IconType} from '../icon';
+import {BadgeType, default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
-import {Badge} from 'components/badge';
 
 /**
  * mapping state to props
@@ -159,7 +158,7 @@ class DropDown extends Component {
     const activeOptionId = props.name + 'Active';
     const activeOption = this.getActiveOption();
     const label = activeOption?.dropdownOptions?.label || activeOption.label;
-    const badgeContent = activeOption.badgeContent || activeOption?.dropdownOptions?.badgeContent;
+    const badgeType = activeOption.badgeType || activeOption?.dropdownOptions?.badgeType;
     return props.isMobile || props.isSmallSize ? (
       this.renderNativeSelect(props.name)
     ) : (
@@ -181,9 +180,8 @@ class DropDown extends Component {
           className={style.dropdownButton}
           onClick={this.onClick}
           onKeyDown={this.onKeyDown}>
-          <span id={activeOptionId}>
+          <span id={activeOptionId} className={[style.labelBadge, BadgeType[badgeType]].join(' ')}>
             {label}
-            {badgeContent ? <Badge content={badgeContent} active={false} /> : null}
           </span>
           <Icon type={IconType.ArrowDown} />
           {!this.state.dropMenuActive ? undefined : (
