@@ -332,7 +332,7 @@ class Settings extends Component {
 
     if (qualityOptions.length <= 1 && speedOptions.length <= 1) return undefined;
     if (isLive && qualityOptions.length <= 1) return undefined;
-    const buttonBadgeType = this.getButtonBadgeType();
+    const buttonBadgeType: string = this.getButtonBadgeType() || '';
     return (
       <ButtonControl name={COMPONENT_NAME} ref={c => (c ? (this._controlSettingsElement = c) : undefined)}>
         <Tooltip label={props.buttonLabel}>
