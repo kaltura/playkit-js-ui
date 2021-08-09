@@ -257,15 +257,15 @@ class Settings extends Component {
    * @memberof Settings
    */
   getLabelBadgeType(videoTrackHeight: number): string | null {
-    let badgeType = '';
+    const [QHD, , Q4K, , Q8k] = Object.keys(BadgeType);
     if (videoTrackHeight >= HeightResolution.HD && videoTrackHeight < HeightResolution.UHD_4K) {
-      badgeType = 'qualityHd';
+      return QHD;
     } else if (videoTrackHeight >= HeightResolution.UHD_4K && videoTrackHeight < HeightResolution.UHD_8K) {
-      badgeType = 'quality4k';
+      return Q4K;
     } else if (videoTrackHeight >= HeightResolution.UHD_8K) {
-      badgeType = 'quality8k';
+      return Q8k;
     }
-    return badgeType ? badgeType : null;
+    return null;
   }
 
   /**

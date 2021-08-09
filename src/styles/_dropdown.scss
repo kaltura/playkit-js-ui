@@ -55,8 +55,8 @@
       will-change: transform;
     }
 
-    .label-badge {
-      &[class*='badge-icon'] {
+    & > .label-badge {
+      &.badge-icon {
         margin-right: 13px;
       }
     }
@@ -134,8 +134,8 @@
       opacity: 0;
     }
 
-    .label-badge {
-      &[class*='badge-icon'] {
+    & > .label-badge {
+      &.badge-icon {
         margin-right: 5px;
       }
     }

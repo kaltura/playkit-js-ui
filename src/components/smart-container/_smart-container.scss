@@ -80,8 +80,9 @@
         align-self: flex-end;
       }
       .dropdown {
-        span {
+        span:not(.badge-icon) {
           max-width: 100px;
+          overflow: hidden;
           text-overflow: ellipsis;
           vertical-align: middle;
         }

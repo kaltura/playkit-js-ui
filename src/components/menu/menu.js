@@ -3,7 +3,7 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {BadgeType, default as Icon, IconType} from '../icon';
 import {connect} from 'react-redux';
-import {withKeyboardA11y} from 'utils';
+import {withKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
 import {KeyMap} from 'utils/key-map';
 import {withEventManager} from 'event/with-event-manager';
 
