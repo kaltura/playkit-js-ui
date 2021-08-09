@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.68.0](https://github.com/kaltura/playkit-js-ui/compare/v0.67.0...v0.68.0) (2021-07-27)
+
+
+### Bug Fixes
+
+* **FEC-11292:** when in full screen, button tool tip should state "Exit Full Screen" ([#619](https://github.com/kaltura/playkit-js-ui/issues/619)) ([bfaf431](https://github.com/kaltura/playkit-js-ui/commit/bfaf431))
+* **FEC-11392:** document.querySelector breaks ([#618](https://github.com/kaltura/playkit-js-ui/issues/618)) ([f86a73a](https://github.com/kaltura/playkit-js-ui/commit/f86a73a))
+* **FEC-11393:** unmute button are cut off when not on hover/there's no top bar ([#620](https://github.com/kaltura/playkit-js-ui/issues/620)) ([726cd8a](https://github.com/kaltura/playkit-js-ui/commit/726cd8a))
+* **FEC-11400:** live seekbar doesn't work properly - regression ([#622](https://github.com/kaltura/playkit-js-ui/issues/622)) ([12dcac3](https://github.com/kaltura/playkit-js-ui/commit/12dcac3))
+* **FEC-11401:** End key jumps over the live edge - regression ([#623](https://github.com/kaltura/playkit-js-ui/issues/623)) ([b446895](https://github.com/kaltura/playkit-js-ui/commit/b446895))
+* **FEC-11413:** live time is 0 in wrong place ([#624](https://github.com/kaltura/playkit-js-ui/issues/624)) ([23cecec](https://github.com/kaltura/playkit-js-ui/commit/23cecec))
+* **FEC-11419:** explore why Live Start over starts with few seconds delay ([#626](https://github.com/kaltura/playkit-js-ui/issues/626)) ([2892bac](https://github.com/kaltura/playkit-js-ui/commit/2892bac))
+* **FEC-11427:** incorrect translations for 15/16 languages ([#627](https://github.com/kaltura/playkit-js-ui/issues/627)) ([369859c](https://github.com/kaltura/playkit-js-ui/commit/369859c))
+* **FEC-9070:** mouse stays as a cursor when hovering over borderless buttons ([#617](https://github.com/kaltura/playkit-js-ui/issues/617)) ([579e764](https://github.com/kaltura/playkit-js-ui/commit/579e764))
+
+
+### Build System
+
+* ignore errors from conventional-github-releaser ([f3871aa](https://github.com/kaltura/playkit-js-ui/commit/f3871aa))
+* **FEC-11389:** reduce builds from travis ([460c85a](https://github.com/kaltura/playkit-js-ui/commit/460c85a))
+
+
+### Features
+
+* **FEC-10287:** on 'Picture in picture' mode, the tooltip shall be "expand” instead of "Exit pictures in pictures" ([#625](https://github.com/kaltura/playkit-js-ui/issues/625)) ([1c9c1d6](https://github.com/kaltura/playkit-js-ui/commit/1c9c1d6))
+* **FEC-10666:** add HD/4K indication in quality selector ([#621](https://github.com/kaltura/playkit-js-ui/issues/621)) ([a81f08f](https://github.com/kaltura/playkit-js-ui/commit/a81f08f))
+
+
+
 ### [0.67.3](https://github.com/kaltura/playkit-js-ui/compare/v0.67.2...v0.67.3) (2021-07-15)
 
 
