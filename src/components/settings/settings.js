@@ -21,7 +21,7 @@ import {Button} from 'components/button';
 import {ButtonControl} from 'components/button-control';
 
 const HeightResolution = {
-  HD: 720,
+  HD: 1080,
   UHD_4K: 2160,
   UHD_8K: 4320
 };
