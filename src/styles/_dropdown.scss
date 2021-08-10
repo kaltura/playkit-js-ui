@@ -18,12 +18,8 @@
     position: relative;
 
     &:after {
-      content: '';
-      position: absolute;
       top: -5px;
       right: -18px;
-      height: 16px;
-      width: 16px;
     }
   }
 

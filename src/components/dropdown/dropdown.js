@@ -158,7 +158,7 @@ class DropDown extends Component {
     const activeOptionId = props.name + 'Active';
     const activeOption = this.getActiveOption();
     const label = activeOption?.dropdownOptions?.label || activeOption.label;
-    const badgeType = activeOption.badgeType || activeOption?.dropdownOptions?.badgeType;
+    const badgeType = BadgeType[activeOption.badgeType || activeOption?.dropdownOptions?.badgeType];
     return props.isMobile || props.isSmallSize ? (
       this.renderNativeSelect(props.name)
     ) : (
@@ -180,7 +180,7 @@ class DropDown extends Component {
           className={style.dropdownButton}
           onClick={this.onClick}
           onKeyDown={this.onKeyDown}>
-          <span id={activeOptionId} className={[style.labelBadge, BadgeType[badgeType]].join(' ')}>
+          <span id={activeOptionId} className={badgeType ? [style.labelBadge, badgeType].join(' ') : ''}>
             {label}
           </span>
           <Icon type={IconType.ArrowDown} />

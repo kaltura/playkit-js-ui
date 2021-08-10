@@ -12,12 +12,8 @@
     position: relative;
 
     &:after {
-      content: '';
-      position: absolute;
       top: -4px;
       right: -1px;
-      height: 16px;
-      width: 16px;
     }
   }
 

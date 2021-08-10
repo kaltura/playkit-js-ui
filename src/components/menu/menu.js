@@ -249,7 +249,8 @@ class MenuItem extends Component {
    * @memberof MenuItem
    */
   render(props: any): React$Element<any> {
-    const badgeType: string | null = !props.isSelected(props.data) ? BadgeType[props.data.badgeType] : BadgeType[props.data.badgeType + 'Active'];
+    const badgeType: string | null =
+      props.data.badgeType && !props.isSelected(props.data) ? BadgeType[props.data.badgeType] : BadgeType[props.data.badgeType + 'Active'];
     return (
       <div
         role="menuitemradio"
@@ -264,7 +265,7 @@ class MenuItem extends Component {
         className={props.isSelected(props.data) ? [style.dropdownMenuItem, style.active].join(' ') : style.dropdownMenuItem}
         onClick={this.onClick}
         onKeyDown={this.onKeyDown}>
-        <span className={[style.labelBadge, badgeType].join(' ')}>{props.data.label}</span>
+        <span className={badgeType ? [style.labelBadge, badgeType].join(' ') : ''}>{props.data.label}</span>
         <span className={[style.menuIconContainer, style.active].join(' ')}>
           <Icon type={IconType.Check} />
         </span>
