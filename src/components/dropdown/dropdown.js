@@ -3,7 +3,7 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'react-redux';
 import {Menu} from '../menu';
-import {default as Icon, IconType} from '../icon';
+import {BadgeType, default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 
 /**
@@ -119,18 +119,14 @@ class DropDown extends Component {
   };
 
   /**
-   * get active option label or first option's label
+   * get active option or first option
    *
-   * @returns {string} - active option label
+   * @returns {Object} - active option
    * @memberof DropDown
    */
-  getActiveOptionLabel(): string {
-    let activeOptions = this.props.options.filter(t => t.active);
-    try {
-      return activeOptions[0].label;
-    } catch (e) {
-      return this.props.options[0].label || 'Unlabled';
-    }
+  getActiveOption(): Object {
+    const activeOption = this.props.options.find(option => option.active);
+    return activeOption ? activeOption : {label: 'Unlabled'};
   }
 
   /**
@@ -160,6 +156,9 @@ class DropDown extends Component {
    */
   render(props: any): React$Element<any> {
     const activeOptionId = props.name + 'Active';
+    const activeOption = this.getActiveOption();
+    const label = activeOption?.dropdownOptions?.label || activeOption.label;
+    const badgeType = BadgeType[activeOption.badgeType || activeOption?.dropdownOptions?.badgeType];
     return props.isMobile || props.isSmallSize ? (
       this.renderNativeSelect(props.name)
     ) : (
@@ -181,7 +180,9 @@ class DropDown extends Component {
           className={style.dropdownButton}
           onClick={this.onClick}
           onKeyDown={this.onKeyDown}>
-          <span id={activeOptionId}>{this.getActiveOptionLabel()}</span>
+          <span id={activeOptionId} className={badgeType ? [style.labelBadge, badgeType].join(' ') : ''}>
+            {label}
+          </span>
           <Icon type={IconType.ArrowDown} />
           {!this.state.dropMenuActive ? undefined : (
             <Menu parentEl={this._el} options={props.options} onMenuChosen={this.onMenuChosen} onClose={this.onClose} />
