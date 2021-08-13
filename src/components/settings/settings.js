@@ -250,10 +250,10 @@ class Settings extends Component {
   }
 
   /**
-   * Determines the badge icon type of the quality option based of the height resolution.
+   * Determines the badge icon type of the quality option based on the height of the resolution.
    *
-   * @param {number} videoTrackHeight - video track quality height.
-   * @returns {Component<Badge>} - the badge icon type.
+   * @param {number} videoTrackHeight - video track resolution height.
+   * @returns {string | null} - the badge icon type or null depends on the resolution height.
    * @memberof Settings
    */
   getLabelBadgeType(videoTrackHeight: number): string | null {
@@ -269,13 +269,13 @@ class Settings extends Component {
   }
 
   /**
-   * returns The badge icon type of the active quality option based of the height resolution
+   * returns The badge icon type of the active quality option based on the height of the resolution
    *
-   * @returns {string} - the badge icon type.
-   * @memberof DropDown
+   * @returns {string | null} - the badge icon type or null depends on the resolution height.
+   * @memberof Settings
    */
   getButtonBadgeType(): string | null {
-    const activeVideoTrackHeight: Object = this.props.player.getActiveTracks().video.height;
+    const activeVideoTrackHeight: Object = this.props.player.getActiveTracks()?.video?.height;
     return activeVideoTrackHeight ? this.getLabelBadgeType(activeVideoTrackHeight) : null;
   }
 
