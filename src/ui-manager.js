@@ -13,7 +13,6 @@ import {PlayerAreaProvider} from './components/player-area';
 import reducer from './store';
 import en_translations from '../translations/en.i18n.json';
 import {actions as configActions} from './reducers/config';
-import {Managers} from './components/managers';
 
 // core components for the UI
 import {EngineConnector} from './components/engine-connector';
@@ -44,7 +43,6 @@ class UIManager {
   _locale: string = 'en';
   _uiComponents: Array<KPUIComponent>;
   addComponent: (component: KPUIComponent) => Function;
-  _managers: Managers;
 
   /**
    * Creates an instance of UIManager.
@@ -61,7 +59,6 @@ class UIManager {
     this.setConfig(config);
     this._setLocaleTranslations(config);
     setEnv(this.player.env);
-    this._managers = new Managers(this, this.store, this.player);
   }
 
   /**
@@ -215,7 +212,6 @@ class UIManager {
       this.container.prepend(this.player.getView());
       render('', this.container);
     }
-    this._managers.destroy();
   }
 
   /**
@@ -253,33 +249,6 @@ class UIManager {
    */
   get Event(): {[event: string]: string} {
     return EventType;
-  }
-
-  /**
-   * @param {string} name - the manager name
-   * @param {Object} manager - the manager object
-   * @returns {void}
-   */
-  registerManager(name: string, manager: Object): void {
-    this._managers.register(name, manager);
-  }
-
-  /**
-   *
-   * @param {string} name - the manager name
-   * @returns {Object} - the manager object
-   */
-  getManager(name: string): Object | void {
-    return this._managers.get(name);
-  }
-
-  /**
-   *
-   * @param {string} name - the manager name
-   * @returns {boolean} - if the manager exist
-   */
-  hasManager(name: string): boolean {
-    return this._managers.has(name);
   }
 }
 
