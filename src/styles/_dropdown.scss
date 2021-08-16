@@ -12,8 +12,16 @@
 }
 
 .dropdown {
-  position: relative;
   font-size: 15px;
+
+  .label-badge {
+    position: relative;
+
+    &:after {
+      top: -5px;
+      right: -18px;
+    }
+  }
 
   &.active {
     .dropdown-menu {
@@ -32,6 +40,7 @@
     color: #fff;
     cursor: pointer;
     padding-left: 20px;
+    display: flex;
 
     .icon {
       width: 16px;
@@ -40,6 +49,12 @@
       margin-left: 6px;
       transition: 150ms transform;
       will-change: transform;
+    }
+
+    & > .label-badge {
+      &.badge-icon {
+        margin-right: 13px;
+      }
     }
   }
 }
@@ -58,6 +73,7 @@
   overflow-y: auto;
   font-size: 15px;
   text-align: left;
+  font-weight: normal;
 
   &.top {
     margin-bottom: 10px;
@@ -112,6 +128,12 @@
 
     .menu-icon-container {
       opacity: 0;
+    }
+
+    & > .label-badge {
+      &.badge-icon {
+        margin-right: 5px;
+      }
     }
   }
 }

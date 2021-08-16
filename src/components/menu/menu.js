@@ -1,7 +1,7 @@
 //@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
-import {default as Icon, IconType} from '../icon';
+import {BadgeType, default as Icon, IconType} from '../icon';
 import {connect} from 'react-redux';
 import {withKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
 import {KeyMap} from 'utils/key-map';
@@ -249,6 +249,8 @@ class MenuItem extends Component {
    * @memberof MenuItem
    */
   render(props: any): React$Element<any> {
+    const badgeType: string | null =
+      props.data.badgeType && !props.isSelected(props.data) ? BadgeType[props.data.badgeType] : BadgeType[props.data.badgeType + 'Active'];
     return (
       <div
         role="menuitemradio"
@@ -263,8 +265,7 @@ class MenuItem extends Component {
         className={props.isSelected(props.data) ? [style.dropdownMenuItem, style.active].join(' ') : style.dropdownMenuItem}
         onClick={this.onClick}
         onKeyDown={this.onKeyDown}>
-        <span>{props.data.label}</span>
-        {props.data.badge ? props.data.badge : null}
+        <span className={badgeType ? [style.labelBadge, badgeType].join(' ') : ''}>{props.data.label}</span>
         <span className={[style.menuIconContainer, style.active].join(' ')}>
           <Icon type={IconType.Check} />
         </span>

@@ -8,6 +8,15 @@
   padding: 0;
   cursor: pointer;
 
+  &.button-badge {
+    position: relative;
+
+    &:after {
+      top: -4px;
+      right: -1px;
+    }
+  }
+
   i {
     width: 32px;
     height: 32px;
