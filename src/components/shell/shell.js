@@ -226,6 +226,8 @@ class Shell extends Component {
     eventManager.listen(this._playerResizeWatcher, FakeEvent.Type.RESIZE, debounce(this._onWindowResize, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
     eventManager.listen(player, player.Event.FIRST_PLAY, () => this._onWindowResize());
     this._onWindowResize();
+    eventManager.listen(player, FakeEvent.Type.USER_CLICKED_FORWARD, () => this._startHoverTimeout())
+    eventManager.listen(player, FakeEvent.Type.USER_CLICKED_REWIND, () => this._startHoverTimeout());
   }
 
   /**
