@@ -32,6 +32,7 @@ export const types = {
   UPDATE_AD_URL: `${component}/UPDATE_AD_URL`,
   UPDATE_AD_IS_LINEAR: `${component}/UPDATE_AD_IS_LINEAR`,
   UPDATE_AD_IS_BUMPER: `${component}/UPDATE_AD_IS_BUMPER`,
+  UPDATE_AD_CONTENT_TYPE: `${component}/UPDATE_AD_CONTENT_TYPE`,
   UPDATE_PLAYER_POSTER: `${component}/UPDATE_PLAYER_POSTER`,
   UPDATE_IS_LIVE: `${component}/UPDATE_IS_LIVE`,
   UPDATE_IS_DVR: `${component}/UPDATE_IS_DVR`,
@@ -80,6 +81,7 @@ export const initialState = {
   adSkipTimeOffset: 0,
   adSkippableState: false,
   adIsBumper: false,
+  adContentType: null,
   isLive: false,
   isDvr: false,
   adProgress: {
@@ -272,6 +274,12 @@ export default (state: Object = initialState, action: Object) => {
         adIsBumper: action.adIsBumper
       };
 
+    case types.UPDATE_AD_CONTENT_TYPE:
+      return {
+        ...state,
+        adContentType: action.adContentType
+      };
+
     case types.UPDATE_PLAYER_POSTER:
       return {
         ...state,
@@ -404,6 +412,7 @@ export const actions = {
   updateAdClickUrl: (adUrl: string) => ({type: types.UPDATE_AD_URL, adUrl}),
   updateAdIsLinear: (adIsLinear: boolean) => ({type: types.UPDATE_AD_IS_LINEAR, adIsLinear}),
   updateAdIsBumper: (adIsBumper: boolean) => ({type: types.UPDATE_AD_IS_BUMPER, adIsBumper}),
+  updateAdContentType: (adContentType: string) => ({type: types.UPDATE_AD_CONTENT_TYPE, adContentType}),
   updatePlayerPoster: (poster: string) => ({type: types.UPDATE_PLAYER_POSTER, poster}),
   updateIsLive: (isLive: boolean) => ({type: types.UPDATE_IS_LIVE, isLive}),
   updateIsDvr: (isDvr: boolean) => ({type: types.UPDATE_IS_DVR, isDvr}),

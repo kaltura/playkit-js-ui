@@ -205,10 +205,12 @@ class EngineConnector extends Component {
     });
 
     eventManager.listen(player, player.Event.AD_STARTED, e => {
+      const ad = e.payload.ad;
       this.props.updateLoadingSpinnerState(false);
       this.props.updateAdIsPlaying(true);
       this.props.updatePrePlayback(false);
-      this.props.updateAdIsBumper(e.payload.ad.bumper);
+      this.props.updateAdIsBumper(ad.bumper);
+      this.props.updateAdContentType(ad.contentType);
     });
 
     eventManager.listen(player, player.Event.AD_RESUMED, () => {

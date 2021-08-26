@@ -64,20 +64,22 @@ function AdsUI(props: any, context: any): ?React$Element<any> {
                 leftControls={<AdLeftControls />}
                 rightControls={adsUiCustomization.learnMoreButton ? <AdLearnMore /> : undefined}
               />
-              <BottomBar
-                leftControls={
-                  <Fragment>
-                    <PlaybackControls />
-                    <TimeDisplayAdsContainer />
-                  </Fragment>
-                }
-                rightControls={
-                  <Fragment>
-                    <Volume />
-                    <Fullscreen />
-                  </Fragment>
-                }
-              />
+              {displayBottomBar(props) ? (
+                <BottomBar
+                  leftControls={
+                    <Fragment>
+                      <PlaybackControls />
+                      <TimeDisplayAdsContainer />
+                    </Fragment>
+                  }
+                  rightControls={
+                    <Fragment>
+                      <Volume />
+                      <Fullscreen />
+                    </Fragment>
+                  }
+                />
+              ) : undefined}
             </Fragment>
           </GuiArea>
         </div>
@@ -142,4 +144,13 @@ function useCustomSkipButton(): boolean {
 function useCustomLearnMoreButton(): boolean {
   //TODO: false until we develop are own ads manager
   return false;
+}
+
+/**
+ * @param {any} props - component props
+ * @returns {boolean} - Whether to display bottom bar or not.
+ */
+function displayBottomBar(props: any): boolean {
+  const {adIsLinear, adContentType} = props.state.engine;
+  return !(adIsLinear && adContentType && !adContentType.startsWith('video'));
 }
