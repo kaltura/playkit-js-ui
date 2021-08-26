@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.69.0](https://github.com/kaltura/playkit-js-ui/compare/v0.68.0...v0.69.0) (2021-08-26)
+
+
+### Bug Fixes
+
+* **FEC-11489:** V3 - the bottom bar broken for next media in the playlist - regression bug ([#631](https://github.com/kaltura/playkit-js-ui/issues/631)) ([af3c2c9](https://github.com/kaltura/playkit-js-ui/commit/af3c2c9))
+
+
+### Features
+
+* **FEC-10666:** add HD/4K indication in quality selector ([#628](https://github.com/kaltura/playkit-js-ui/issues/628)) ([0535fb0](https://github.com/kaltura/playkit-js-ui/commit/0535fb0))
+* **FEC-11475:** create service manager that allows registration and accessing of services ([#630](https://github.com/kaltura/playkit-js-ui/issues/630)) ([00ce161](https://github.com/kaltura/playkit-js-ui/commit/00ce161)), closes [kaltura/kaltura-player-js#477](https://github.com/kaltura/playkit-js-ui/issues/477)
+
+
+
 ## [0.68.0](https://github.com/kaltura/playkit-js-ui/compare/v0.67.0...v0.68.0) (2021-07-27)
 
 
