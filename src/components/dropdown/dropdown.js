@@ -126,7 +126,7 @@ class DropDown extends Component {
    */
   getActiveOption(): Object {
     const activeOption = this.props.options.find(option => option.active);
-    return activeOption ? activeOption : {label: 'Unlabled'};
+    return activeOption ? activeOption : this.props.options[0] || {label: 'Unlabled'};
   }
 
   /**
