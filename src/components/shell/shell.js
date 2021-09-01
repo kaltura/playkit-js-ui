@@ -142,6 +142,7 @@ class Shell extends Component {
   onMouseUp = (): void => {
     this.unMuteFallback();
     this.props.notifyClick();
+    this._startHoverTimeout();
   };
 
   /**
@@ -226,7 +227,6 @@ class Shell extends Component {
     eventManager.listen(this._playerResizeWatcher, FakeEvent.Type.RESIZE, debounce(this._onWindowResize, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
     eventManager.listen(player, player.Event.FIRST_PLAY, () => this._onWindowResize());
     this._onWindowResize();
-    eventManager.listen(player, FakeEvent.Type.UI_CLICKED, () => this._startHoverTimeout());
   }
 
   /**
