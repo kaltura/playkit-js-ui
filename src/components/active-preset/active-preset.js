@@ -16,8 +16,6 @@ const mapStateToProps = state => ({
     shell: state.shell,
     engine: {
       adBreak: state.engine.adBreak,
-      adIsLinear: state.engine.adIsLinear,
-      adContentType: state.engine.adContentType,
       isLive: state.engine.isLive,
       hasError: state.engine.hasError,
       isIdle: state.engine.isIdle,

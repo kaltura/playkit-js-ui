@@ -1,6 +1,7 @@
 //@flow
 import style from '../styles/style.scss';
 import {Fragment, h} from 'preact';
+import {connect} from 'react-redux';
 import {Loading} from '../components/loading';
 import {Volume} from '../components/volume';
 import {Fullscreen} from '../components/fullscreen';
@@ -88,7 +89,22 @@ function AdsUI(props: any, context: any): ?React$Element<any> {
   );
 }
 
-const AdsUIComponent = withKeyboardEvent(PRESET_NAME)(AdsUI);
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
+const mapStateToProps = state => ({
+  state: {
+    shell: state.shell,
+    engine: {
+      adIsLinear: state.engine.adIsLinear,
+      adContentType: state.engine.adContentType
+    }
+  }
+});
+
+const AdsUIComponent = connect(mapStateToProps)(withKeyboardEvent(PRESET_NAME)(AdsUI));
 AdsUIComponent.displayName = PRESET_NAME;
 /**
  * Ads ui interface
