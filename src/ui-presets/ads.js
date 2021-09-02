@@ -48,6 +48,32 @@ function AdsUI(props: any, context: any): ?React$Element<any> {
     );
   }
   const adsUiCustomization = getAdsUiCustomization();
+  const bottomBar = (
+    <BottomBar
+      leftControls={
+        <Fragment>
+          <PlaybackControls />
+          <TimeDisplayAdsContainer />
+        </Fragment>
+      }
+      rightControls={
+        <Fragment>
+          <Volume />
+          <Fullscreen />
+        </Fragment>
+      }
+    />
+  );
+  const onlyFullscreenBottomBar = (
+    <BottomBar
+      rightControls={
+        <Fragment>
+          <Fullscreen />
+        </Fragment>
+      }
+    />
+  );
+
   return (
     <div className={style.adGuiWrapper}>
       <PlayerArea name={'PresetArea'}>
@@ -65,22 +91,7 @@ function AdsUI(props: any, context: any): ?React$Element<any> {
                 leftControls={<AdLeftControls />}
                 rightControls={adsUiCustomization.learnMoreButton ? <AdLearnMore /> : undefined}
               />
-              {displayBottomBar(props) ? (
-                <BottomBar
-                  leftControls={
-                    <Fragment>
-                      <PlaybackControls />
-                      <TimeDisplayAdsContainer />
-                    </Fragment>
-                  }
-                  rightControls={
-                    <Fragment>
-                      <Volume />
-                      <Fullscreen />
-                    </Fragment>
-                  }
-                />
-              ) : undefined}
+              {displayBottomBar(props) ? bottomBar : onlyFullscreenBottomBar}
             </Fragment>
           </GuiArea>
         </div>
