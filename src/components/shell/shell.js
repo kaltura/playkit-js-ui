@@ -142,6 +142,7 @@ class Shell extends Component {
   onMouseUp = (): void => {
     this.unMuteFallback();
     this.props.notifyClick();
+    this._startHoverTimeout();
   };
 
   /**
