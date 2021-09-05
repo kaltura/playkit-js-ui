@@ -1,6 +1,7 @@
 //@flow
 import style from '../styles/style.scss';
 import {Fragment, h} from 'preact';
+import {connect} from 'react-redux';
 import {Loading} from '../components/loading';
 import {Volume} from '../components/volume';
 import {Fullscreen} from '../components/fullscreen';
@@ -47,6 +48,32 @@ function AdsUI(props: any, context: any): ?React$Element<any> {
     );
   }
   const adsUiCustomization = getAdsUiCustomization();
+  const bottomBar = (
+    <BottomBar
+      leftControls={
+        <Fragment>
+          <PlaybackControls />
+          <TimeDisplayAdsContainer />
+        </Fragment>
+      }
+      rightControls={
+        <Fragment>
+          <Volume />
+          <Fullscreen />
+        </Fragment>
+      }
+    />
+  );
+  const onlyFullscreenBottomBar = (
+    <BottomBar
+      rightControls={
+        <Fragment>
+          <Fullscreen />
+        </Fragment>
+      }
+    />
+  );
+
   return (
     <div className={style.adGuiWrapper}>
       <PlayerArea name={'PresetArea'}>
@@ -64,20 +91,7 @@ function AdsUI(props: any, context: any): ?React$Element<any> {
                 leftControls={<AdLeftControls />}
                 rightControls={adsUiCustomization.learnMoreButton ? <AdLearnMore /> : undefined}
               />
-              <BottomBar
-                leftControls={
-                  <Fragment>
-                    <PlaybackControls />
-                    <TimeDisplayAdsContainer />
-                  </Fragment>
-                }
-                rightControls={
-                  <Fragment>
-                    <Volume />
-                    <Fullscreen />
-                  </Fragment>
-                }
-              />
+              {displayBottomBar(props) ? bottomBar : onlyFullscreenBottomBar}
             </Fragment>
           </GuiArea>
         </div>
@@ -86,7 +100,22 @@ function AdsUI(props: any, context: any): ?React$Element<any> {
   );
 }
 
-const AdsUIComponent = withKeyboardEvent(PRESET_NAME)(AdsUI);
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
+const mapStateToProps = state => ({
+  state: {
+    shell: state.shell,
+    engine: {
+      adIsLinear: state.engine.adIsLinear,
+      adContentType: state.engine.adContentType
+    }
+  }
+});
+
+const AdsUIComponent = connect(mapStateToProps)(withKeyboardEvent(PRESET_NAME)(AdsUI));
 AdsUIComponent.displayName = PRESET_NAME;
 /**
  * Ads ui interface
@@ -142,4 +171,13 @@ function useCustomSkipButton(): boolean {
 function useCustomLearnMoreButton(): boolean {
   //TODO: false until we develop are own ads manager
   return false;
+}
+
+/**
+ * @param {any} props - component props
+ * @returns {boolean} - Whether to display bottom bar or not.
+ */
+function displayBottomBar(props: any): boolean {
+  const {adIsLinear, adContentType} = props.state.engine;
+  return !(adIsLinear && adContentType && !adContentType.startsWith('video'));
 }
