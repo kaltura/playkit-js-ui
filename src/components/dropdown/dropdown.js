@@ -51,10 +51,6 @@ class DropDown extends Component {
     }
   }
 
-  componentWillUnmount(): void {
-    console.error('');
-  }
-
   /**
    * is given option selected
    *
@@ -81,11 +77,10 @@ class DropDown extends Component {
   /**
    * on click handler
    *
-   * @param {Event} e - keyboard event
    * @returns {void}
    * @memberof DropDown
    */
-  onClick = (e: Event): void => {
+  onClick = (): void => {
     this.toggleDropDown();
     setTimeout(() => this.toggleDropDown(), 0);
   };
