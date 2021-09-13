@@ -135,6 +135,7 @@ class SeekBar extends Component {
       return;
     }
     e.preventDefault(); // fixes firefox mouseup not firing after dragging the scrubber
+    e.stopPropagation(); // prevent other dragging effects
     this.props.updateSeekbarDraggingStatus(true);
     if (this.props.isDraggingActive) {
       let time = this.getTime(e);
