@@ -61,10 +61,10 @@ class CustomCaptionsWindow extends Component {
     const edgeStyles = player.TextStyle.EdgeStyles;
     const standardColors = player.TextStyle.StandardColors;
 
-    const fontScaleOptions = player.TextStyle.FontSizes.map(scale => ({
-      value: scale.label,
-      label: scale.label,
-      active: props.customTextStyle.fontSize === scale.label
+    const fontSizeOptions = player.TextStyle.FontSizes.map(size => ({
+      value: size.label,
+      label: size.label,
+      active: props.customTextStyle.fontSize === size.label
     }));
 
     const fontColorOptions = Object.keys(standardColors).map(key => ({
@@ -97,7 +97,7 @@ class CustomCaptionsWindow extends Component {
           <DropDownCaptionsStyle
             addAccessibleChild={props.addAccessibleChild}
             labelId="cvaa.size_label"
-            options={fontScaleOptions}
+            options={fontSizeOptions}
             classNames={[style.formGroupRow, style.fontSize]}
             styleName="fontSize"
             changeCustomStyle={props.changeCustomStyle}
