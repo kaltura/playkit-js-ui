@@ -81,7 +81,6 @@ class DropDown extends Component {
    * @memberof DropDown
    */
   onClick = (): void => {
-    this.toggleDropDown();
     setTimeout(() => this.toggleDropDown(), 0);
   };
 
