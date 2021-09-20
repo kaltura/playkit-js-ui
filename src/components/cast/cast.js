@@ -42,6 +42,7 @@ class Cast extends Component {
    * @returns {void}
    */
   onClick = (): void => {
+    this.props.player.setIsCastInitiator(true);
     this.props.updateBackdropVisibility(true);
     this.props.eventManager.listenOnce(this.props.player, this.props.player.Event.Cast.CAST_SESSION_START_FAILED, () =>
       this.props.updateBackdropVisibility(false)
