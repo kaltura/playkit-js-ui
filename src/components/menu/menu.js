@@ -53,8 +53,6 @@ class Menu extends Component {
    * @memberof Menu
    */
   componentDidMount() {
-    this.props.eventManager.listen(document, 'click', this.handleClickOutside);
-
     if (!this.props.isMobile && !this.props.isSmallSize) {
       this.setState({position: this.getPosition()});
     }
@@ -85,20 +83,6 @@ class Menu extends Component {
       return [style.stickBottom, style.left];
     }
   }
-
-  /**
-   * handler to click outside of the component event listener.
-   * if not mobile device and clicked outside the component, call the onClose callback
-   *
-   * @param {*} e click event
-   * @returns {void}
-   * @memberof Menu
-   */
-  handleClickOutside = (e: any) => {
-    if (!this.props.isMobile && !this.props.isSmallSize && this._menuElement && !this._menuElement.contains(e.target)) {
-      this.props.onClose();
-    }
-  };
 
   /**
    * indication if option is active or not
