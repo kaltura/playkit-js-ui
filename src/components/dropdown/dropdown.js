@@ -129,7 +129,6 @@ class DropDown extends Component {
    * @memberof Menu
    */
   handleClickOutside = (e: Event) => {
-    console.log(e.timeStamp, this.dropDownId);
     if (this.dropDownId !== e.timeStamp) {
       if (!this.props.isMobile && !this.props.isSmallSize) {
         this.onClose();
@@ -203,9 +202,7 @@ class DropDown extends Component {
             {label}
           </span>
           <Icon type={IconType.ArrowDown} />
-          {!this.state.dropMenuActive ? undefined : (
-            <Menu parentEl={this._el} options={props.options} onMenuChosen={this.onMenuChosen} />
-          )}
+          {!this.state.dropMenuActive ? undefined : <Menu parentEl={this._el} options={props.options} onMenuChosen={this.onMenuChosen} />}
         </div>
       </div>
     );
