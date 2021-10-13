@@ -29,6 +29,7 @@ const COMPONENT_NAME = 'DropDown';
 class DropDown extends Component {
   state: Object;
   _el: HTMLDivElement;
+  dropDownId: number;
 
   /**
    * before component mounted, set initial internal state
@@ -49,6 +50,7 @@ class DropDown extends Component {
     if (this.props.registerParentSelectedCallback) {
       this.props.registerParentSelectedCallback(this.toggleDropDown.bind(this));
     }
+    document.addEventListener('click', this.handleClickOutside);
   }
 
   /**
@@ -77,11 +79,13 @@ class DropDown extends Component {
   /**
    * on click handler
    *
+   * @param {Event} e - keyboard event
    * @returns {void}
    * @memberof DropDown
    */
-  onClick = (): void => {
-    setTimeout(() => this.toggleDropDown());
+  onClick = (e: Event): void => {
+    this.dropDownId = e.timeStamp;
+    this.toggleDropDown();
   };
 
   /**
@@ -114,6 +118,22 @@ class DropDown extends Component {
    */
   onClose = (): void => {
     this.setState({dropMenuActive: false});
+  };
+
+  /**
+   * handler to click outside of the component event listener.
+   * if not mobile device and clicked outside the component, call the onClose callback
+   *
+   * @param {*} e click event
+   * @returns {void}
+   * @memberof Menu
+   */
+  handleClickOutside = (e: Event) => {
+    if (this.dropDownId !== e.timeStamp) {
+      if (!this.props.isMobile && !this.props.isSmallSize) {
+        this.onClose();
+      }
+    }
   };
 
   /**
@@ -182,9 +202,7 @@ class DropDown extends Component {
             {label}
           </span>
           <Icon type={IconType.ArrowDown} />
-          {!this.state.dropMenuActive ? undefined : (
-            <Menu parentEl={this._el} options={props.options} onMenuChosen={this.onMenuChosen} onClose={this.onClose} />
-          )}
+          {!this.state.dropMenuActive ? undefined : <Menu parentEl={this._el} options={props.options} onMenuChosen={this.onMenuChosen} />}
         </div>
       </div>
     );
