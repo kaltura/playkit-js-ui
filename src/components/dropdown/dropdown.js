@@ -29,7 +29,7 @@ const COMPONENT_NAME = 'DropDown';
 class DropDown extends Component {
   state: Object;
   _el: HTMLDivElement;
-  dropDownId: number;
+  _dropDownId: number;
 
   /**
    * before component mounted, set initial internal state
@@ -84,7 +84,7 @@ class DropDown extends Component {
    * @memberof DropDown
    */
   onClick = (e: Event): void => {
-    this.dropDownId = e.timeStamp;
+    this._dropDownId = e.timeStamp;
     this.toggleDropDown();
   };
 
@@ -129,7 +129,7 @@ class DropDown extends Component {
    * @memberof Menu
    */
   handleClickOutside = (e: Event) => {
-    if (this.dropDownId !== e.timeStamp) {
+    if (this._dropDownId !== e.timeStamp) {
       if (!this.props.isMobile && !this.props.isSmallSize) {
         this.onClose();
       }
