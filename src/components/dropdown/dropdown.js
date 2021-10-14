@@ -82,6 +82,7 @@ class DropDown extends Component {
    */
   onClick = (): void => {
     if (!this.state.dropMenuActive) {
+      // Prevents the menu from closing again by the handleClickOutside event (in the menu component)
       setTimeout(() => this.toggleDropDown());
     }
   };
