@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.69.3](https://github.com/kaltura/playkit-js-ui/compare/v0.69.2...v0.69.3) (2021-10-27)
+
+
+### Bug Fixes
+
+* **FEC-11520:** Multi dropdowns are openable in cvaa overlay ([#638](https://github.com/kaltura/playkit-js-ui/issues/638)) ([54d1224](https://github.com/kaltura/playkit-js-ui/commit/54d1224))
+
+
+
 ### [0.69.2](https://github.com/kaltura/playkit-js-ui/compare/v0.69.1...v0.69.2) (2021-09-30)
 
 
