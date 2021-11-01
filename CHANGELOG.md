@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.69.3](https://github.com/kaltura/playkit-js-ui/compare/v0.69.2...v0.69.3) (2021-10-27)
+
+
+### Bug Fixes
+
+* **FEC-11520:** Multi dropdowns are openable in cvaa overlay ([#638](https://github.com/kaltura/playkit-js-ui/issues/638)) ([54d1224](https://github.com/kaltura/playkit-js-ui/commit/54d1224))
+
+
+
+### [0.69.2](https://github.com/kaltura/playkit-js-ui/compare/v0.69.1...v0.69.2) (2021-09-30)
+
+
+### Bug Fixes
+
+* **FEC-10583:** fix linear image ads ([#634](https://github.com/kaltura/playkit-js-ui/issues/634)) ([77c70c7](https://github.com/kaltura/playkit-js-ui/commit/77c70c7)), closes [kaltura/playkit-js-ima#209](https://github.com/kaltura/playkit-js-ui/issues/209)
+* **FEC-11510:** No default font size selected in cvaa ([#639](https://github.com/kaltura/playkit-js-ui/issues/639)) ([c9ad30c](https://github.com/kaltura/playkit-js-ui/commit/c9ad30c)), closes [kaltura/playkit-js#603](https://github.com/kaltura/playkit-js-ui/issues/603) [kaltura/kaltura-player-js#491](https://github.com/kaltura/playkit-js-ui/issues/491)
+
+
+
 ### [0.69.1](https://github.com/kaltura/playkit-js-ui/compare/v0.69.0...v0.69.1) (2021-08-30)
 
 

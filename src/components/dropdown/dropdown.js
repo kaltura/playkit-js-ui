@@ -77,13 +77,14 @@ class DropDown extends Component {
   /**
    * on click handler
    *
-   * @param {Event} e - keyboard event
    * @returns {void}
    * @memberof DropDown
    */
-  onClick = (e: Event): void => {
-    e.stopPropagation();
-    this.toggleDropDown();
+  onClick = (): void => {
+    if (!this.state.dropMenuActive) {
+      // Prevents the menu from closing again by the handleClickOutside event (in the menu component)
+      setTimeout(() => this.toggleDropDown());
+    }
   };
 
   /**
@@ -96,7 +97,7 @@ class DropDown extends Component {
   onKeyDown = (e: KeyboardEvent): void => {
     switch (e.keyCode) {
       case KeyMap.ENTER:
-        this.onClick(e);
+        this.onClick();
         break;
       case KeyMap.ESC:
         if (this.state.dropMenuActive) {
