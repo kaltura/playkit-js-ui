@@ -52,7 +52,6 @@ class CastBeforePlay extends Component {
    * @memberof CastBeforePlay
    */
   onClick = (): void => {
-    this.props.player.setIsCastInitiator(true);
     this.props.updateBackdropVisibility(true);
     this.props.player.startCasting().catch(() => this.props.updateBackdropVisibility(false));
   };
