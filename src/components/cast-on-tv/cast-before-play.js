@@ -53,7 +53,8 @@ class CastBeforePlay extends Component {
    */
   onClick = (): void => {
     this.props.updateBackdropVisibility(true);
-    this.props.player.startCasting(this.props.player.RemotePlayerType.CHROMECAST).catch(() => this.props.updateBackdropVisibility(false));
+    const castType = window.KalturaPlayer.cast.RemotePlayerType.CHROMECAST;
+    this.props.player.startCasting(castType).catch(() => this.props.updateBackdropVisibility(false));
   };
 
   /**
