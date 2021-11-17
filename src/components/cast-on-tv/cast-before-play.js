@@ -53,7 +53,7 @@ class CastBeforePlay extends Component {
    */
   onClick = (): void => {
     this.props.updateBackdropVisibility(true);
-    this.props.player.startCasting().catch(() => this.props.updateBackdropVisibility(false));
+    this.props.player.startCasting(this.props.player.RemotePlayerType.CHROMECAST).catch(() => this.props.updateBackdropVisibility(false));
   };
 
   /**

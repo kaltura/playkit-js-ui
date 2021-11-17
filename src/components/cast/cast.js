@@ -42,7 +42,7 @@ class Cast extends Component {
    * @returns {void}
    */
   onClick = (): void => {
-    this.props.player.setIsCastInitiator(true);
+    this.props.player.setIsCastInitiator(this.props.player.RemotePlayerType.CHROMECAST, true);
     this.props.updateBackdropVisibility(true);
     this.props.eventManager.listenOnce(this.props.player, this.props.player.Event.Cast.CAST_SESSION_START_FAILED, () =>
       this.props.updateBackdropVisibility(false)
@@ -59,7 +59,7 @@ class Cast extends Component {
   onKeyDown = (e: KeyboardEvent): void => {
     if (e.keyCode === KeyMap.ENTER) {
       this.props.updateBackdropVisibility(true);
-      this.props.player.startCasting().catch(() => this.props.updateBackdropVisibility(false));
+      this.props.player.startCasting(this.props.player.RemotePlayerType.CHROMECAST).catch(() => this.props.updateBackdropVisibility(false));
     }
   };
 
