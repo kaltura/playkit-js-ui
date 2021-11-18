@@ -9,7 +9,7 @@ import {withEventManager} from 'event/with-event-manager';
 import {withLogger} from 'components/logger';
 import {Tooltip} from 'components/tooltip';
 import {withText} from 'preact-i18n';
-import {cast} from 'kaltura-player-js';
+import {RemotePlayerType} from './remote-player-type';
 
 /**
  * mapping state to props
@@ -43,7 +43,7 @@ class Cast extends Component {
    * @returns {void}
    */
   onClick = (): void => {
-    this.props.player.setIsCastInitiator(cast.RemotePlayerType.CHROMECAST, true);
+    this.props.player.setIsCastInitiator(RemotePlayerType.CHROMECAST, true);
     this.props.updateBackdropVisibility(true);
     this.props.eventManager.listenOnce(this.props.player, this.props.player.Event.Cast.CAST_SESSION_START_FAILED, () =>
       this.props.updateBackdropVisibility(false)
@@ -60,7 +60,7 @@ class Cast extends Component {
   onKeyDown = (e: KeyboardEvent): void => {
     if (e.keyCode === KeyMap.ENTER) {
       this.props.updateBackdropVisibility(true);
-      this.props.player.startCasting(cast.RemotePlayerType.CHROMECAST).catch(() => this.props.updateBackdropVisibility(false));
+      this.props.player.startCasting(RemotePlayerType.CHROMECAST).catch(() => this.props.updateBackdropVisibility(false));
     }
   };
 
