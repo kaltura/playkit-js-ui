@@ -9,6 +9,7 @@ import {Localizer, Text} from 'preact-i18n';
 import {withPlayer} from '../player';
 import {withLogger} from 'components/logger';
 import {Button} from 'components/button';
+import {cast} from 'kaltura-player-js';
 
 /**
  * mapping state to props
@@ -53,8 +54,7 @@ class CastBeforePlay extends Component {
    */
   onClick = (): void => {
     this.props.updateBackdropVisibility(true);
-    const castType = window.KalturaPlayer.cast.RemotePlayerType.CHROMECAST;
-    this.props.player.startCasting(castType).catch(() => this.props.updateBackdropVisibility(false));
+    this.props.player.startCasting(cast.RemotePlayerType.CHROMECAST).catch(() => this.props.updateBackdropVisibility(false));
   };
 
   /**
