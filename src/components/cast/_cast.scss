@@ -8,12 +8,21 @@
     background-color: rgba(255, 255, 255, 0);
     border: none;
     cursor: pointer;
-    --connected-color: rgba(1, 172, 205, 0.8);
     --disconnected-color: #{$grayscale4};
+    --connected-color: #{$grayscale4};
+
+    &:hover {
+      --disconnected-color: #{$white};
+      --connected-color: #{$white};
+    }
   }
 
-  .cast-button:hover {
-    --disconnected-color: #{$white};
-    --connected-color: #{$brand-color};
+  .cast-button-active {
+    @extend .cast-button;
+    --connected-color: rgba(1, 172, 205, 0.8);
+
+    &:hover {
+      --connected-color: #{$brand-color};
+    }
   }
 }
