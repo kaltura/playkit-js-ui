@@ -8,21 +8,22 @@
     background-color: rgba(255, 255, 255, 0);
     border: none;
     cursor: pointer;
-    --disconnected-color: #{$grayscale4};
     --connected-color: #{$grayscale4};
+    --disconnected-color: #{$grayscale4};
 
     &:hover {
-      --disconnected-color: #{$white};
       --connected-color: #{$white};
+      --disconnected-color: #{$white};
     }
   }
 
-  .cast-button-active {
-    @extend .cast-button;
+  .cast-button.cast-button-active {
     --connected-color: rgba(1, 172, 205, 0.8);
+    --disconnected-color: #{$grayscale4};
 
     &:hover {
-      --connected-color: #{$brand-color};
+      --connected-color: #{$brand-color};  
+      --disconnected-color: #{$white};
     }
   }
 }

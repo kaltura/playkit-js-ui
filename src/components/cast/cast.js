@@ -73,7 +73,7 @@ class Cast extends Component {
    */
   render(props: any): ?React$Element<any> {
     if (props.isCasting || props.isCastAvailable) {
-      const className = props.isCasting ? style.castButtonActive : style.castButton;
+      const className = props.isCasting ? `${style.castButton} ${style.castButtonActive}` : style.castButton;
       return (
         <div
           role="button"
