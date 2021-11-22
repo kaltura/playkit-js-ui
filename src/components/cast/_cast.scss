@@ -15,15 +15,13 @@
       --connected-color: #{$white};
       --disconnected-color: #{$white};
     }
-  }
 
-  .cast-button.cast-button-active {
-    --connected-color: rgba(1, 172, 205, 0.8);
-    --disconnected-color: #{$grayscale4};
-
-    &:hover {
-      --connected-color: #{$brand-color};  
-      --disconnected-color: #{$white};
+    &.cast-button-active {
+      --connected-color: rgba(1, 172, 205, 0.8);
+  
+      &:hover {
+        --connected-color: #{$brand-color};  
+      }
     }
   }
 }
