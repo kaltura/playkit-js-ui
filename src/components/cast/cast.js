@@ -2,7 +2,6 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'react-redux';
-import {actions} from '../../reducers/backdrop';
 import {KeyMap} from '../../utils/key-map';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
@@ -30,24 +29,19 @@ const COMPONENT_NAME = 'Cast';
  * @example <Cast />
  * @extends {Component}
  */
-@connect(mapStateToProps, actions)
+@connect(mapStateToProps)
 @withPlayer
 @withEventManager
 @withLogger(COMPONENT_NAME)
 @withText({castText: 'cast.play_on_tv'})
 class Cast extends Component {
   /**
-   * On click set the backdrop to visible.
-   * If cast session start failed remove the backdrop.
+   * On click, mark the player which initiated the cast
    * @memberof Cast
    * @returns {void}
    */
   onClick = (): void => {
     this.props.player.setIsCastInitiator(RemotePlayerType.CHROMECAST, true);
-    this.props.updateBackdropVisibility(true);
-    this.props.eventManager.listenOnce(this.props.player, this.props.player.Event.Cast.CAST_SESSION_START_FAILED, () =>
-      this.props.updateBackdropVisibility(false)
-    );
   };
 
   /**
@@ -59,8 +53,7 @@ class Cast extends Component {
    */
   onKeyDown = (e: KeyboardEvent): void => {
     if (e.keyCode === KeyMap.ENTER) {
-      this.props.updateBackdropVisibility(true);
-      this.props.player.startCasting(RemotePlayerType.CHROMECAST).catch(() => this.props.updateBackdropVisibility(false));
+      this.props.player.startCasting(RemotePlayerType.CHROMECAST);
     }
   };
 
