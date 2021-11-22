@@ -42,6 +42,9 @@ class Cast extends Component {
    */
   onClick = (): void => {
     this.props.player.setIsCastInitiator(RemotePlayerType.CHROMECAST, true);
+    this.props.eventManager.listenOnce(this.props.player, this.props.player.Event.Cast.CAST_SESSION_START_FAILED, () =>
+      this.props.player.setIsCastInitiator(RemotePlayerType.CHROMECAST, false)
+    );
   };
 
   /**
