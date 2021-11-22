@@ -303,7 +303,7 @@ class Settings extends Component {
 
     const qualityOptions = props.videoTracks
       .sort((a, b) => {
-        return a.bandwidth < b.bandwidth ? 1 : -1;
+        return a.height < b.height ? 1 : -1;
       })
       .filter(t => {
         return t.bandwidth || t.height;
