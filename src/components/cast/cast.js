@@ -73,6 +73,7 @@ class Cast extends Component {
    */
   render(props: any): ?React$Element<any> {
     if (props.isCasting || props.isCastAvailable) {
+      const className = props.isCasting ? `${style.castButton} ${style.castButtonActive}` : style.castButton;
       return (
         <div
           role="button"
@@ -81,7 +82,7 @@ class Cast extends Component {
           onClick={this.onClick}
           onKeyDown={this.onKeyDown}>
           <Tooltip label={this.props.castText}>
-            <google-cast-launcher className={style.castButton} tabIndex="0" />
+            <google-cast-launcher className={className} tabIndex="0" />
           </Tooltip>
         </div>
       );
