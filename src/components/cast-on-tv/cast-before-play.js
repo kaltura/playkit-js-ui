@@ -3,7 +3,6 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'react-redux';
 import {IconType} from '../icon/index';
-import {actions} from '../../reducers/backdrop';
 import {Icon} from '../icon/icon';
 import {Localizer, Text} from 'preact-i18n';
 import {withPlayer} from '../player';
@@ -32,7 +31,7 @@ const COMPONENT_NAME = 'CastBeforePlay';
  * @example <CastBeforePlay />
  * @extends {Component}
  */
-@connect(mapStateToProps, actions)
+@connect(mapStateToProps)
 @withPlayer
 @withLogger(COMPONENT_NAME)
 class CastBeforePlay extends Component {
@@ -53,8 +52,7 @@ class CastBeforePlay extends Component {
    * @memberof CastBeforePlay
    */
   onClick = (): void => {
-    this.props.updateBackdropVisibility(true);
-    this.props.player.startCasting(RemotePlayerType.CHROMECAST).catch(() => this.props.updateBackdropVisibility(false));
+    this.props.player.startCasting(RemotePlayerType.CHROMECAST);
   };
 
   /**

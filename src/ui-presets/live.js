@@ -17,7 +17,6 @@ import {Watermark} from '../components/watermark/watermark';
 import {VrStereo} from '../components/vr-stereo';
 import {Cast} from '../components/cast';
 import {CastBeforePlay} from '../components/cast-on-tv/cast-before-play';
-import {Backdrop} from '../components/backdrop/backdrop';
 import {PlaybackControls} from '../components/playback-controls';
 import {PictureInPicture} from '../components/picture-in-picture';
 import {PictureInPictureOverlay} from '../components/picture-in-picture-overlay';
@@ -73,7 +72,6 @@ class LiveUI extends Component {
                 <PlaybackControls className={style.centerPlaybackControls} />
                 <PrePlaybackPlayOverlay />
                 <CastBeforePlay />
-                <Backdrop />
               </Fragment>
               {({containerRef}) => (
                 <Fragment>
