@@ -20,7 +20,6 @@ import {UnmuteIndication} from '../components/unmute-indication';
 import {Watermark} from '../components/watermark/watermark';
 import {Cast} from '../components/cast';
 import {CastBeforePlay} from '../components/cast-on-tv/cast-before-play';
-import {Backdrop} from '../components/backdrop/backdrop';
 import {PlaybackControls} from '../components/playback-controls';
 import {PlaylistCountdown} from '../components/playlist-countdown';
 import {PlaylistNextScreen} from '../components/playlist-next-screen';
@@ -78,7 +77,6 @@ class PlaybackUI extends Component {
                 <PlaylistNextScreen />
                 <PrePlaybackPlayOverlay />
                 <CastBeforePlay />
-                <Backdrop />
               </Fragment>
               {({containerRef}) => (
                 <Fragment>

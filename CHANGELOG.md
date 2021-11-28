@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.69.4](https://github.com/kaltura/playkit-js-ui/compare/v0.69.3...v0.69.4) (2021-11-24)
+
+
+### Bug Fixes
+
+* **FEC-11156:** cast button appears for one player only when multiple players configured on the page and casting failed ([#640](https://github.com/kaltura/playkit-js-ui/issues/640)) ([3f561a0](https://github.com/kaltura/playkit-js-ui/commit/3f561a0))
+* **FEC-11707:** V3 - cast on multiple players - when casting started by some player, "Cast" buttons become enabled on all players ([#642](https://github.com/kaltura/playkit-js-ui/issues/642)) ([0f0a708](https://github.com/kaltura/playkit-js-ui/commit/0f0a708))
+* **FEC-11708:** V3 - cast on multiple players - if try to cast when other player are casting, the player will be disabled ([#643](https://github.com/kaltura/playkit-js-ui/issues/643)) ([cc1e421](https://github.com/kaltura/playkit-js-ui/commit/cc1e421))
+
+
+
 ### [0.69.3](https://github.com/kaltura/playkit-js-ui/compare/v0.69.2...v0.69.3) (2021-10-27)
 
 
