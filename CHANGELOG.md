@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.69.5](https://github.com/kaltura/playkit-js-ui/compare/v0.69.4...v0.69.5) (2021-12-21)
+
+
+### Bug Fixes
+
+* **FEC-11712:** quality selection should be sorted by resolution (quality) ([#644](https://github.com/kaltura/playkit-js-ui/issues/644)) ([b2f160c](https://github.com/kaltura/playkit-js-ui/commit/b2f160c))
+
+
+
 ### [0.69.4](https://github.com/kaltura/playkit-js-ui/compare/v0.69.3...v0.69.4) (2021-11-24)
 
 
