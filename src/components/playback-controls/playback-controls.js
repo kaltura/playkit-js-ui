@@ -1,9 +1,10 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, Fragment} from 'preact';
 import {connect} from 'react-redux';
 import {PlaylistButton} from '../playlist-button';
 import {PlayPause} from '../play-pause';
+import {PlayerArea} from 'components/player-area';
 
 /**
  * mapping state to props
@@ -26,6 +27,29 @@ const COMPONENT_NAME = 'PlaybackControls';
 @connect(mapStateToProps)
 class PlaybackControls extends Component {
   /**
+   * component did mount
+   * @return {void}
+   */
+  componentDidMount(): void {
+    this.setState({
+      shouldUpdate: false
+    });
+  }
+
+  /**
+   * component will update
+   * @param {Object} prevProps - the next props
+   * @return {void}
+   */
+  componentDidUpdate(prevProps: any) {
+    if (!!prevProps.playlist !== !!this.props.playlist) {
+      this.setState({
+        shouldUpdate: true
+      });
+    }
+  }
+
+  /**
    * render component
    *
    * @param {*} props - component props
@@ -33,12 +57,27 @@ class PlaybackControls extends Component {
    * @memberof PlaybackControls
    */
   render(props: any): React$Element<any> {
-    const {className} = props;
+    const {name, className} = props;
+    const shouldUpdate = this.state.shouldUpdate;
+    if (shouldUpdate) {
+      this.setState({
+        shouldUpdate: false
+      });
+    }
+
     return (
       <div className={[style.playbackControls, className].join(' ')}>
-        {props.playlist ? <PlaylistButton type="prev" /> : undefined}
-        <PlayPause />
-        {props.playlist ? <PlaylistButton type="next" /> : undefined}
+        <PlayerArea name={name} shouldUpdate={shouldUpdate}>
+          {props.playlist ? (
+            <Fragment>
+              <PlaylistButton type="prev" />
+              <PlayPause />
+              <PlaylistButton type="next" />
+            </Fragment>
+          ) : (
+            <PlayPause />
+          )}
+        </PlayerArea>
       </div>
     );
   }

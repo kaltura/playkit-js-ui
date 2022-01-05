@@ -69,7 +69,7 @@ class LiveUI extends Component {
                 <Loading />
                 <OverlayPortal />
                 <PictureInPictureOverlay />
-                <PlaybackControls className={style.centerPlaybackControls} />
+                <PlaybackControls name={'OverlayPlaybackControls'} className={style.centerPlaybackControls} />
                 <PrePlaybackPlayOverlay />
                 <CastBeforePlay />
               </Fragment>
@@ -83,7 +83,7 @@ class LiveUI extends Component {
                   <BottomBar
                     leftControls={
                       <Fragment>
-                        <PlaybackControls />
+                        <PlaybackControls name={'BottomBarPlaybackControls'} />
                         <Rewind step={10} />
                         <Forward step={10} />
                         <LiveTag />
