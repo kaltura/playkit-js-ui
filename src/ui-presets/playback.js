@@ -73,7 +73,7 @@ class PlaybackUI extends Component {
                 <Loading />
                 <OverlayPortal />
                 <PictureInPictureOverlay />
-                <PlaybackControls className={style.centerPlaybackControls} />
+                <PlaybackControls name={'OverlayPlaybackControls'} className={style.centerPlaybackControls} />
                 <PlaylistNextScreen />
                 <PrePlaybackPlayOverlay />
                 <CastBeforePlay />
@@ -89,7 +89,7 @@ class PlaybackUI extends Component {
                   <BottomBar
                     leftControls={
                       <Fragment>
-                        <PlaybackControls />
+                        <PlaybackControls name={'BottomBarPlaybackControls'} />
                         <Rewind step={10} />
                         <Forward step={10} />
                         <TimeDisplayPlaybackContainer format="current / total" />

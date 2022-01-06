@@ -52,7 +52,7 @@ function AdsUI(props: any, context: any): ?React$Element<any> {
     <BottomBar
       leftControls={
         <Fragment>
-          <PlaybackControls />
+          <PlaybackControls name={'BottomBarPlaybackControls'} />
           <TimeDisplayAdsContainer />
         </Fragment>
       }
@@ -83,7 +83,7 @@ function AdsUI(props: any, context: any): ?React$Element<any> {
               <Loading />
               <UnmuteIndication hasTopBar />
               {adsUiCustomization.skipButton ? <AdSkip /> : undefined}
-              <PlaybackControls className={style.centerPlaybackControls} />
+              <PlaybackControls name={'OverlayPlaybackControls'} className={style.centerPlaybackControls} />
             </Fragment>
             <Fragment>
               <TopBar

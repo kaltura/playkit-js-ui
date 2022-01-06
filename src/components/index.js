@@ -47,7 +47,7 @@ export {Watermark} from './watermark';
 export {Logo} from './logo';
 export {CastOverlay} from './cast-overlay';
 export {CastBeforePlay, CastAfterPlay} from './cast-on-tv';
-export {PlaylistButton} from './playlist-button';
+export {PlaylistButton, PrevNext} from './playlist-button';
 export {PlaylistNextScreen} from './playlist-next-screen';
 export {PictureInPicture} from './picture-in-picture';
 export {PlaybackControls} from './playback-controls';
