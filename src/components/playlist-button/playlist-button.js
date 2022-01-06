@@ -1,11 +1,7 @@
 //@flow
 import {h, Component} from 'preact';
-import {withText} from 'preact-i18n';
-import {default as Icon, IconType} from '../icon';
 import {connect} from 'react-redux';
 import {withPlayer} from '../player';
-import {Tooltip} from 'components/tooltip';
-import {Button} from 'components/button';
 import {PrevNext} from './prev-next';
 
 /**
