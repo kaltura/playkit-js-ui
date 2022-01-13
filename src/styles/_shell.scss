@@ -11,6 +11,7 @@
   -ms-user-select: none;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  cursor: none;
 
   .playback-gui-wrapper,
   .ad-gui-wrapper {
@@ -89,4 +90,14 @@
     -webkit-transform: translateY(-$default-hovering-offset);
     -ms-transform: translateY(-$default-hovering-offset);
   }
+}
+
+.player.casting,
+.player.metadata-loaded.hover,
+.player.state-paused,
+.player.state-idle,
+.player.ad-break,
+.player.menu-active,
+.player.overlay-active {
+    cursor: auto;
 }
