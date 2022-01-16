@@ -92,12 +92,16 @@
   }
 }
 
-.player.casting,
-.player.metadata-loaded.hover,
-.player.state-paused,
-.player.state-idle,
-.player.ad-break,
-.player.menu-active,
-.player.overlay-active {
+.player {
+  .pre-playback-play-overlay,
+  &.casting,
+  &.metadata-loaded.hover,
+  &.state-paused,
+  &.state-idle,
+  &.ad-break,
+  &.menu-active,
+  &.overlay-active {
     cursor: auto;
+  }
 }
+
