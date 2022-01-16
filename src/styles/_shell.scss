@@ -93,7 +93,7 @@
 }
 
 .player {
-  .pre-playback-play-overlay,
+  &.pre-playback,
   &.casting,
   &.metadata-loaded.hover,
   &.state-paused,
