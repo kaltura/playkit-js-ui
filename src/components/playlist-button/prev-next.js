@@ -22,7 +22,7 @@ class PrevNext extends Component {
     const previewTitle = type === 'prev' ? this.props.playlistPrevText : this.props.playlistUpNextText;
 
     const previewImage = item?.sources?.poster;
-    const previewText = item.sources?.metadata ? item.sources.metadata.name : '';
+    const previewText = item?.sources?.metadata ? item.sources.metadata.name : '';
 
     const button = (
       <Button disabled={!item} tabIndex="0" aria-label={tooltipText} className={`${style.controlButton}`} onClick={onClick}>
