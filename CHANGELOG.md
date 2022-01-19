@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.70.0](https://github.com/kaltura/playkit-js-ui/compare/v0.69.5...v0.70.0) (2022-01-19)
+
+
+### Bug Fixes
+
+* **FEC-11733:** fix mouse cursor not appear on pre-playback issue ([#649](https://github.com/kaltura/playkit-js-ui/issues/649)) ([e491c28](https://github.com/kaltura/playkit-js-ui/commit/e491c28))
+* **FEC-11733:** Hide mouse cursor when it's idle in fullscreen ([#647](https://github.com/kaltura/playkit-js-ui/issues/647)) ([171bfd5](https://github.com/kaltura/playkit-js-ui/commit/171bfd5))
+* **FEC-11872:** middle play button remains during play  ([a63f5d8](https://github.com/kaltura/playkit-js-ui/commit/a63f5d8))
+
+
+### Features
+
+* **FEC-11738:** Related Entries - Phase 1 ([#645](https://github.com/kaltura/playkit-js-ui/issues/645)) ([6a18a35](https://github.com/kaltura/playkit-js-ui/commit/6a18a35))
+
+
+
 ### [0.69.5](https://github.com/kaltura/playkit-js-ui/compare/v0.69.4...v0.69.5) (2021-12-21)
 
 
