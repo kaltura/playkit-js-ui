@@ -31,12 +31,7 @@
     }
   }
   .bottom-bar-area {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: calc(100% - #{2 * $gui-gutter}px);
-    height: calc(100% - #{$bottom-bar-bottom-gutter}px);
-    margin: 0 #{$gui-gutter}px #{$bottom-bar-bottom-gutter}px;
+    position: relative;
     pointer-events: none;
   }
   .right-controls {
@@ -103,7 +98,6 @@
     padding: 0 #{$gui-small-gutter}px #{$bottom-bar-bottom-gutter}px;
 
     .bottom-bar-area {
-      width: calc(100% - #{2 * $gui-small-gutter}px);
       margin: 0 #{$gui-small-gutter}px #{$bottom-bar-bottom-gutter}px;
     }
 
