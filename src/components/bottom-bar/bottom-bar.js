@@ -63,10 +63,8 @@ class BottomBar extends Component {
     return (
       <div ref={this._ref} className={styleClass.join(' ')}>
         <div className={style.bottomBarArea}>
-          <PlayerArea name={'BottomBar'} />
+          <PlayerArea name={'BottomBar'}>{props.children}</PlayerArea>
         </div>
-        {props.children}
-
         <div className={style.leftControls}>
           <PlayerArea name={'BottomBarLeftControls'}>{leftControls}</PlayerArea>
         </div>
