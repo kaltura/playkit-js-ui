@@ -17,7 +17,6 @@ import {withEventDispatcher} from 'components/event-dispatcher';
 const mapStateToProps = state => ({
   currentTime: state.seekbar.currentTime,
   virtualTime: state.seekbar.virtualTime,
-  duration: state.engine.duration,
   isDraggingActive: state.seekbar.draggingActive,
   isMobile: state.shell.isMobile,
   poster: state.engine.poster,
@@ -50,8 +49,19 @@ class SeekBarLivePlaybackContainer extends Component {
     const {eventManager, player, isDraggingActive, updateCurrentTime} = this.props;
     eventManager.listen(player, player.Event.TIME_UPDATE, () => {
       if (!isDraggingActive) {
-        updateCurrentTime(Math.max(player.currentTime - player.getStartTimeOfDvrWindow(), 0));
+        updateCurrentTime(Math.max(player.normalizedCurrentTime, 0));
       }
+    });
+    eventManager.listen(player, player.Event.LOADED_DATA, () => {
+      updateCurrentTime(Math.max(player.normalizedCurrentTime, 0));
+      this.setState({
+        show: true
+      });
+    });
+    eventManager.listen(player, player.Event.RESET, () => {
+      this.setState({
+        show: false
+      });
     });
   }
 
@@ -70,7 +80,7 @@ class SeekBarLivePlaybackContainer extends Component {
    * @memberof SeekBarLivePlaybackContainer
    */
   get duration(): number {
-    return this.props.duration - this.props.player.getStartTimeOfDvrWindow();
+    return this.props.player.normalizedDuration;
   }
 
   /**
@@ -81,7 +91,7 @@ class SeekBarLivePlaybackContainer extends Component {
    * @memberof SeekBarLivePlaybackContainer
    */
   render(props: any) {
-    if (!props.isDvr) {
+    if (!props.isDvr || !this.state.show) {
       return undefined;
     }
     return (
@@ -92,7 +102,7 @@ class SeekBarLivePlaybackContainer extends Component {
         changeCurrentTime={time => {
           // avoiding exiting live edge by mistake in case currentTime is just a bit smaller than duration
           if (!(this.props.player.isOnLiveEdge() && time === this.duration)) {
-            this.props.player.currentTime = time + this.props.player.getStartTimeOfDvrWindow();
+            this.props.player.normalizedCurrentTime = time;
           }
         }}
         playerPoster={this.props.poster}
