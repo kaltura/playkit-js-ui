@@ -84,7 +84,7 @@ class SeekBarLivePlaybackContainer extends Component {
    * @memberof SeekBarLivePlaybackContainer
    */
   render(props: any) {
-    if (!props.isDvr || !props.dataLoaded) {
+    if (!props.isDvr) {
       return undefined;
     }
     return (
@@ -112,6 +112,7 @@ class SeekBarLivePlaybackContainer extends Component {
         isMobile={this.props.isMobile}
         notifyChange={payload => this.props.notifyChange(payload)}
         forceFullProgress={this.props.player.isOnLiveEdge()}
+        dataLoaded={this.props.dataLoaded}
       />
     );
   }
