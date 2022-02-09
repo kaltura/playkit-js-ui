@@ -20,7 +20,8 @@ const mapStateToProps = state => ({
   duration: state.engine.duration,
   isDraggingActive: state.seekbar.draggingActive,
   isMobile: state.shell.isMobile,
-  poster: state.engine.poster
+  poster: state.engine.poster,
+  dataLoaded: state.engine.dataLoaded
 });
 
 const COMPONENT_NAME = 'SeekBarPlaybackContainer';
@@ -78,6 +79,7 @@ class SeekBarPlaybackContainer extends Component {
         isDraggingActive={this.props.isDraggingActive}
         isMobile={this.props.isMobile}
         notifyChange={payload => this.props.notifyChange(payload)}
+        dataLoaded={this.props.dataLoaded}
       />
     );
   }
