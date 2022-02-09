@@ -20,6 +20,7 @@ export const types = {
   UPDATE_VOLUME: `${component}/UPDATE_VOLUME`,
   UPDATE_MUTED: `${component}/UPDATE_MUTED`,
   UPDATE_METADATA_LOADING_STATUS: `${component}/UPDATE_METADATA_LOADING_STATUS`,
+  UPDATE_DATA_LOADING_STATUS: `${component}/UPDATE_DATA_LOADING_STATUS`,
   UPDATE_AUDIO_TRACKS: `${component}/UPDATE_AUDIO_TRACKS`,
   UPDATE_VIDEO_TRACKS: `${component}/UPDATE_VIDEO_TRACKS`,
   UPDATE_TEXT_TRACKS: `${component}/UPDATE_TEXT_TRACKS`,
@@ -61,6 +62,7 @@ export const initialState = {
   isChangingSource: false,
   prePlayback: true,
   metadataLoaded: false,
+  dataLoaded: false,
   playerState: {
     previousState: '',
     currentState: ''
@@ -197,6 +199,12 @@ export default (state: Object = initialState, action: Object) => {
       return {
         ...state,
         metadataLoaded: action.metadataLoaded
+      };
+
+    case types.UPDATE_DATA_LOADING_STATUS:
+      return {
+        ...state,
+        dataLoaded: action.dataLoaded
       };
 
     case types.UPDATE_AUDIO_TRACKS:
@@ -396,6 +404,10 @@ export const actions = {
   updateMetadataLoadingStatus: (metadataLoaded: boolean) => ({
     type: types.UPDATE_METADATA_LOADING_STATUS,
     metadataLoaded
+  }),
+  updateDataLoadingStatus: (dataLoaded: boolean) => ({
+    type: types.UPDATE_DATA_LOADING_STATUS,
+    dataLoaded
   }),
   updateAudioTracks: (tracks: Array<any>) => ({type: types.UPDATE_AUDIO_TRACKS, tracks}),
   updateVideoTracks: (tracks: Array<any>) => ({type: types.UPDATE_VIDEO_TRACKS, tracks}),

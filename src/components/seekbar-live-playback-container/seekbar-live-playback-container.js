@@ -20,7 +20,8 @@ const mapStateToProps = state => ({
   isDraggingActive: state.seekbar.draggingActive,
   isMobile: state.shell.isMobile,
   poster: state.engine.poster,
-  isDvr: state.engine.isDvr
+  isDvr: state.engine.isDvr,
+  dataLoaded: state.engine.dataLoaded
 });
 
 const COMPONENT_NAME = 'SeekBarLivePlaybackContainer';
@@ -54,14 +55,6 @@ class SeekBarLivePlaybackContainer extends Component {
     });
     eventManager.listen(player, player.Event.LOADED_DATA, () => {
       updateCurrentTime(Math.max(player.normalizedCurrentTime, 0));
-      this.setState({
-        show: true
-      });
-    });
-    eventManager.listen(player, player.Event.RESET, () => {
-      this.setState({
-        show: false
-      });
     });
   }
 
@@ -91,7 +84,7 @@ class SeekBarLivePlaybackContainer extends Component {
    * @memberof SeekBarLivePlaybackContainer
    */
   render(props: any) {
-    if (!props.isDvr || !this.state.show) {
+    if (!props.isDvr || !props.dataLoaded) {
       return undefined;
     }
     return (

@@ -38,6 +38,7 @@ class EngineConnector extends Component {
       this.props.updateCurrentTime(0);
       this.props.updateIsIdle(true);
       this.props.updateIsPlaybackStarted(false);
+      this.props.updateDataLoadingStatus(false);
     });
 
     eventManager.listen(player, player.Event.SOURCE_SELECTED, () => {
@@ -88,6 +89,7 @@ class EngineConnector extends Component {
     eventManager.listen(player, player.Event.LOADED_DATA, () => {
       this.props.updateDuration(player.isLive() ? player.liveDuration : player.duration);
       this.props.updatePictureInPictureSupport(player.isPictureInPictureSupported());
+      this.props.updateDataLoadingStatus(true);
     });
 
     eventManager.listen(player, player.Event.LOADED_METADATA, () => {
