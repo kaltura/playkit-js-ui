@@ -91,7 +91,7 @@
     "jsdoc": "^3.5.4",
     "jsdoc-babel": "^0.3.0",
     "kaltura-player-js": "https://github.com/kaltura/kaltura-player-js.git#master",
-    "karma": "^5.1.0",
+    "karma": "^6.3.14",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^3.1.0",
     "karma-cli": "^2.0.0",
