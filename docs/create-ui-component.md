@@ -4,17 +4,7 @@
 
 > Use this technique for simple use-cases when you don't need to manage state or intercept mounting/destroying of the component.
 
-This component will just be a div wrapper with a className.
-
-```javascript
-const h = KalturaPlayer.ui.h;
-
-const DumpComponent = h('div', {className: 'dumb-component'});
-
-export default DumpComponent;
-```
-
-If you want to use JSX follow this [guide](./custom-ui-preset.md#using-jsx), and use following JSX syntax:
+This component will just be a div wrapper with a className (To use JSX follow this [guide](./custom-ui-preset.md#using-jsx)).
 
 ```javascript
 const h = KalturaPlayer.ui.h;
