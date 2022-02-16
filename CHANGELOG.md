@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.70.1](https://github.com/kaltura/playkit-js-ui/compare/v0.70.0...v0.70.1) (2022-02-16)
+
+
+### Bug Fixes
+
+* **FEC-11886:** unable to remove SeekBarPlaybackContainer from player ([#653](https://github.com/kaltura/playkit-js-ui/issues/653)) ([71f5934](https://github.com/kaltura/playkit-js-ui/commit/71f5934))
+* **FEC-11922:** Live indicator on progress bar skips back and forward ([#659](https://github.com/kaltura/playkit-js-ui/issues/659)) ([d7ebec9](https://github.com/kaltura/playkit-js-ui/commit/d7ebec9))
+* **FEC-11933:** if seek with the mouse, the scrubber position doesn't match with the cursor ([#658](https://github.com/kaltura/playkit-js-ui/issues/658)) ([eba00e0](https://github.com/kaltura/playkit-js-ui/commit/eba00e0))
+
+
+
 ## [0.70.0](https://github.com/kaltura/playkit-js-ui/compare/v0.69.5...v0.70.0) (2022-01-19)
 
 
