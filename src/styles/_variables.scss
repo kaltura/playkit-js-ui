@@ -11,6 +11,7 @@ $success-color: #009444;
 $danger-color: #db1f26;
 $ads-color: #f9a71b;
 $live-color: #da1f26;
+$new-live-color: #e12437;
 $tooltip-bg-color: #fff;
 $tooltip-color: $grayscale1;
 $tooltip-margin: calc(100% + 10px);
@@ -41,6 +42,7 @@ $color-tone6: #444444;
 
 :export {
   brandColor: $brand-color;
+  liveColor: $new-live-color;
   white: $white;
   progressBarHeight: $progress-bar-height;
   progressBarBorderRadius: $progress-bar-border-radius;
