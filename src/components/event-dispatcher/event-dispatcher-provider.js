@@ -10,6 +10,7 @@ import {UIVisibilityChangedEvent} from 'event/events/ui-visibility-changed-event
 import {RewindClickedEvent} from 'event/events/rewind-clicked';
 import {ForwardClickedEvent} from 'event/events/forward-clicked';
 import {VolumeChangedEvent} from 'event/events/volume-changed';
+import {UIElementClickedEvent} from '../../event/events/ui-element-clicked-event';
 import {KeyMap} from 'utils/key-map';
 import {Component, toChildArray} from 'preact';
 
@@ -172,6 +173,9 @@ function onClickableComponentsHandler(store: any, action: Object, player: Object
     case 'PictureInPicture':
       onPictureInPictureClicked(store, action, player);
       break;
+
+    default:
+      player.dispatchEvent(new UIElementClickedEvent(action.name));
   }
 }
 

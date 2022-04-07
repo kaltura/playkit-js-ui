@@ -1,0 +1,14 @@
+.control-button-container.control-closed-captions .control-button {
+  .icon-closed-captions-on {
+    display: none;
+  }
+
+  &.cc-on {
+    .icon-closed-captions-off {
+      display: none;
+    }
+    .icon-closed-captions-on {
+      display: block;
+    }
+  }
+}

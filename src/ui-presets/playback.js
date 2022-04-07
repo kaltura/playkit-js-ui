@@ -31,6 +31,7 @@ import {InteractiveArea} from '../components/interactive-area';
 import {withKeyboardEvent} from 'components/keyboard';
 import {VideoArea} from '../components/video-area';
 import {GuiArea} from '../components/gui-area';
+import {ClosedCaptions} from '../components/closed-captions';
 
 const PRESET_NAME = 'Playback';
 
@@ -99,6 +100,7 @@ class PlaybackUI extends Component {
                       <Fragment>
                         <VrStereo />
                         <Volume />
+                        <ClosedCaptions />
                         <Language />
                         <Settings />
                         <Cast />

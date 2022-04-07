@@ -36,7 +36,9 @@ const IconType = {
   Next: 'next',
   Prev: 'prev',
   PictureInPictureStart: 'picture-in-picture-start',
-  PictureInPictureStop: 'picture-in-picture-stop'
+  PictureInPictureStop: 'picture-in-picture-stop',
+  ClosedCaptionsOn: 'closed-captions-on',
+  ClosedCaptionsOff: 'closed-captions-off'
 };
 
 const BadgeType = {
@@ -296,6 +298,12 @@ class Icon extends Component {
 
         case IconType.PictureInPictureStop:
           return <i className={[style.icon, style.iconPictureInPictureStop].join(' ')} />;
+
+        case IconType.ClosedCaptionsOn:
+          return <i className={[style.icon, style.iconClosedCaptionsOn].join(' ')} />;
+
+        case IconType.ClosedCaptionsOff:
+          return <i className={[style.icon, style.iconClosedCaptionsOff].join(' ')} />;
 
         default:
           break;

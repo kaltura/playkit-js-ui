@@ -8,6 +8,7 @@ import {SeekBar} from './seekbar';
 import {Settings} from './settings';
 import {Volume} from './volume';
 import {VrStereo} from './vr-stereo';
+import {ClosedCaptions} from './closed-captions';
 
 export {AdLearnMore} from './ad-learn-more';
 export {AdSkip} from './ad-skip';
@@ -71,3 +72,4 @@ export {SeekBar, SeekBar as SeekBarControl};
 export {Settings, Settings as SettingsControl};
 export {Volume, Volume as VolumeControl};
 export {VrStereo, VrStereo as VrStereoControl};
+export {ClosedCaptions, ClosedCaptions as ClosedCaptionsControl};
