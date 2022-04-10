@@ -52,7 +52,7 @@ function AdsUI(props: any, context: any): ?React$Element<any> {
     <BottomBar
       leftControls={
         <Fragment>
-          <PlaybackControls name={'BottomBarPlaybackControls'} />
+          <PlaybackControls name={'BottomBarPlaybackControls'} showPreview={true} />
           <TimeDisplayAdsContainer />
         </Fragment>
       }

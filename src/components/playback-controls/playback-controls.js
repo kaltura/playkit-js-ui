@@ -70,9 +70,9 @@ class PlaybackControls extends Component {
         <PlayerArea name={name} shouldUpdate={shouldUpdate}>
           {props.playlist ? (
             <Fragment>
-              <PlaylistButton type="prev" />
+              <PlaylistButton type="prev" showPreview={props.showPreview} />
               <PlayPause />
-              <PlaylistButton type="next" />
+              <PlaylistButton type="next" showPreview={props.showPreview} />
             </Fragment>
           ) : (
             <PlayPause />

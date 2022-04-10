@@ -34,7 +34,7 @@ class PrevNext extends Component {
 
     return (
       <div className={[style.controlButtonContainer, style.controlPlaylistButton].join(' ')}>
-        {previewImage || previewText ? (
+        {props.showPreview && (previewImage || previewText) ? (
           <Fragment>
             <div className={style.posterPreview}>
               <div className={style.posterPreviewText}>

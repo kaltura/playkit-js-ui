@@ -44,7 +44,7 @@ class PlaylistButton extends Component {
    */
   render(props: any): React$Element<any> | void {
     const item = props.playlist[props.type];
-    return <PrevNext type={props.type} item={item} onClick={this.onClick.bind(this)} />;
+    return <PrevNext type={props.type} item={item} onClick={this.onClick.bind(this)} showPreview={props.showPreview} />;
   }
 }
 
