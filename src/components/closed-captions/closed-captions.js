@@ -1,13 +1,10 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h} from 'preact';
+import {useEffect, useState} from 'preact/hooks';
 import {withText} from 'preact-i18n';
 import {default as Icon, IconType} from '../icon';
-import {actions as engineActions} from '../../reducers/engine';
-import {bindActions} from '../../utils/bind-actions';
 import {connect} from 'react-redux';
-import {actions as shellActions} from '../../reducers/shell';
-import {withPlayer} from '../player';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {withLogger} from 'components/logger';
 import {Tooltip} from 'components/tooltip';
@@ -32,82 +29,43 @@ const COMPONENT_NAME = 'ClosedCaptions';
  * @example <ClosedCaptions />
  * @extends {Component}
  */
-@connect(mapStateToProps, bindActions({...shellActions, ...engineActions}))
-@withPlayer
-@withLogger(COMPONENT_NAME)
-@withEventDispatcher(COMPONENT_NAME)
-@withText({
-  closedCaptionsOnText: 'controls.closedCaptionsOn',
-  closedCaptionsOffText: 'controls.closedCaptionsOff'
-})
-class ClosedCaptions extends Component {
-  /**
-   * component will update
-   * @param {Object} prevProps - the next props
-   * @return {void}
-   */
-  componentDidMount() {
-    this.setState({
-      ccOn: false
-    });
-  }
+const ClosedCaptions = connect(mapStateToProps)(
+  withLogger(COMPONENT_NAME)(
+    withEventDispatcher(COMPONENT_NAME)(
+      withText({
+        closedCaptionsOnText: 'controls.closedCaptionsOn',
+        closedCaptionsOffText: 'controls.closedCaptionsOff'
+      })((props, context) => {
+        const [ccOn, setCCOn] = useState(false);
+        const {textTracks} = props;
+        const {player} = context;
+        const activeTextTrack = textTracks.find(textTrack => textTrack.active);
 
-  /**
-   * component will update
-   * @param {Object} prevProps - the next props
-   * @return {void}
-   */
-  componentDidUpdate(prevProps: any) {
-    const {textTracks: prevTextTracks} = prevProps;
-    const {textTracks} = this.props;
-    const prevActiveTextTrack = prevTextTracks.find(textTrack => textTrack.active);
-    const activeTextTrack = textTracks.find(textTrack => textTrack.active);
-    if (prevActiveTextTrack !== activeTextTrack) {
-      this.setState({
-        ccOn: activeTextTrack.language !== 'off'
-      });
-    }
-  }
-  /**
-   * Vr-Stereo click handler§
-   *
-   * @returns {void}
-   * @memberof ClosedCaptions
-   */
-  onClick = (): void => {
-    this.props.notifyClick();
-    if (this.state.ccOn) {
-      this.props.player.hideTextTrack();
-    } else {
-      this.props.player.showTextTrack();
-    }
-  };
+        useEffect(() => {
+          setCCOn(activeTextTrack?.language !== 'off');
+        }, [activeTextTrack]);
 
-  /**
-   * render component
-   *
-   * @param {*} props - component props
-   * @returns {React$Element} - component element
-   * @memberof ClosedCaptions
-   */
-  render(): React$Element<any> | void {
-    return this.props.textTracks?.length && this.props.showCCButton ? (
-      <ButtonControl name={COMPONENT_NAME}>
-        <Tooltip label={this.state.ccOn ? this.props.closedCaptionsOnText : this.props.closedCaptionsOffText}>
-          <Button
-            tabIndex="0"
-            aria-label={this.state.ccOn ? this.props.closedCaptionsOnText : this.props.closedCaptionsOffText}
-            className={this.state.ccOn ? [style.controlButton, style.ccOn].join(' ') : style.controlButton}
-            onClick={this.onClick}
-            onKeyDown={this.onKeyDown}>
-            <Icon type={IconType.ClosedCaptionsOn} />
-            <Icon type={IconType.ClosedCaptionsOff} />
-          </Button>
-        </Tooltip>
-      </ButtonControl>
-    ) : undefined;
-  }
-}
+        return props.textTracks?.length && props.showCCButton ? (
+          <ButtonControl name={COMPONENT_NAME}>
+            <Tooltip label={ccOn ? props.closedCaptionsOnText : props.closedCaptionsOffText}>
+              <Button
+                tabIndex="0"
+                aria-label={ccOn ? props.closedCaptionsOnText : props.closedCaptionsOffText}
+                className={ccOn ? [style.controlButton, style.ccOn].join(' ') : style.controlButton}
+                onClick={() => {
+                  props.notifyClick();
+                  ccOn ? player.hideTextTrack() : player.showTextTrack();
+                }}>
+                <Icon type={IconType.ClosedCaptionsOn} />
+                <Icon type={IconType.ClosedCaptionsOff} />
+              </Button>
+            </Tooltip>
+          </ButtonControl>
+        ) : undefined;
+      })
+    )
+  )
+);
 
 ClosedCaptions.displayName = COMPONENT_NAME;
 export {ClosedCaptions};
