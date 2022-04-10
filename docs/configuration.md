@@ -16,6 +16,7 @@ var uiManager = new playkit.ui.UIManager(player, config);
   targetId: string,
   debugActions?: boolean, // optional
   forceTouchUI?: boolean, // optional
+  showCCButton?: boolean, // optional
   hoverTimeout?: number, // optional
   logger?: loggerType, // optional
   components?: Object, // optional
@@ -58,6 +59,16 @@ var uiManager = new playkit.ui.UIManager(player, config);
 > ##### Description: Defines the view type of the UI (mobile or desktop).
 >
 > Useful for applications that wants to force mobile view of player UI.
+
+##
+
+> ### config.showCCButton
+>
+> ##### Type: `boolean`
+>
+> ##### Default: `false`
+>
+> ##### Description: Whether to show enable/disable captions button in the bottom bar.
 
 ##
 
