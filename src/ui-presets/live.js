@@ -84,7 +84,7 @@ class LiveUI extends Component {
                   <BottomBar
                     leftControls={
                       <Fragment>
-                        <PlaybackControls name={'BottomBarPlaybackControls'} />
+                        <PlaybackControls name={'BottomBarPlaybackControls'} showPreview={true} />
                         <Rewind step={10} />
                         <Forward step={10} />
                         <LiveTag />

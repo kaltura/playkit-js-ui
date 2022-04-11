@@ -90,7 +90,7 @@ class PlaybackUI extends Component {
                   <BottomBar
                     leftControls={
                       <Fragment>
-                        <PlaybackControls name={'BottomBarPlaybackControls'} />
+                        <PlaybackControls name={'BottomBarPlaybackControls'} showPreview={true} />
                         <Rewind step={10} />
                         <Forward step={10} />
                         <TimeDisplayPlaybackContainer format="current / total" />
