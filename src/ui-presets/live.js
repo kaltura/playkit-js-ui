@@ -29,7 +29,7 @@ import {VideoArea} from 'components/video-area';
 import {GuiArea} from 'components/gui-area';
 import {Rewind} from 'components/rewind';
 import {Forward} from 'components/forward';
-import {ClosedCaptions} from "../components";
+import {ClosedCaptions} from '../components';
 const PRESET_NAME = 'Live';
 
 /**
