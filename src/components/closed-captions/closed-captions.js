@@ -45,23 +45,40 @@ const ClosedCaptions = connect(mapStateToProps)(
           setCCOn(activeTextTrack?.language !== 'off');
         }, [activeTextTrack]);
 
-        return props.textTracks?.length && props.showCCButton ? (
+        if (!(props.textTracks?.length && props.showCCButton)) {
+          return undefined;
+        }
+        return (
           <ButtonControl name={COMPONENT_NAME}>
-            <Tooltip label={ccOn ? props.closedCaptionsOnText : props.closedCaptionsOffText}>
-              <Button
-                tabIndex="0"
-                aria-label={ccOn ? props.closedCaptionsOnText : props.closedCaptionsOffText}
-                className={ccOn ? [style.controlButton, style.ccOn].join(' ') : style.controlButton}
-                onClick={() => {
-                  props.notifyClick();
-                  ccOn ? player.hideTextTrack() : player.showTextTrack();
-                }}>
-                <Icon type={IconType.ClosedCaptionsOn} />
-                <Icon type={IconType.ClosedCaptionsOff} />
-              </Button>
-            </Tooltip>
+            {ccOn ? (
+              <Tooltip label={props.closedCaptionsOnText}>
+                <Button
+                  tabIndex="0"
+                  aria-label={props.closedCaptionsOnText}
+                  className={[style.controlButton, style.ccOn].join(' ')}
+                  onClick={() => {
+                    props.notifyClick();
+                    player.hideTextTrack();
+                  }}>
+                  <Icon type={IconType.ClosedCaptionsOn} />
+                </Button>
+              </Tooltip>
+            ) : (
+              <Tooltip label={props.closedCaptionsOffText}>
+                <Button
+                  tabIndex="0"
+                  aria-label={props.closedCaptionsOffText}
+                  className={style.controlButton}
+                  onClick={() => {
+                    props.notifyClick();
+                    player.showTextTrack();
+                  }}>
+                  <Icon type={IconType.ClosedCaptionsOff} />
+                </Button>
+              </Tooltip>
+            )}
           </ButtonControl>
-        ) : undefined;
+        );
       })
     )
   )
