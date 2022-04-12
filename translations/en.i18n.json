@@ -10,6 +10,8 @@
       "rewind": "Seek backwards",
       "forward": "Seek forward",
       "vrStereo": "vrStereo",
+      "closedCaptionsOn": "Disable Captions",
+      "closedCaptionsOff": "Enable Captions",
       "live": "Live",
       "mute": "Mute",
       "unmute": "Unmute",

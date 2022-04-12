@@ -172,6 +172,10 @@ function onClickableComponentsHandler(store: any, action: Object, player: Object
     case 'PictureInPicture':
       onPictureInPictureClicked(store, action, player);
       break;
+
+    case 'ClosedCaptions':
+      onClosedCaptionsClicked(store, action, player);
+      break;
   }
 }
 
@@ -278,6 +282,20 @@ function onOverlayActionClicked(store: any, action: Object, player: Object): voi
   } else if (action.payload.type === 'Fullscreen') {
     onFullScreenClicked(store, action, player);
   }
+}
+
+/**
+ * Handler for CC clicked actions.
+ * @param {any} store - The redux store.
+ * @param {Object} action - The action object.
+ * @param {Object} player - The video player.
+ * @returns {void}
+ */
+function onClosedCaptionsClicked(store: any, action: Object, player: Object): void {
+  const {payload: ccOn} = action;
+  ccOn
+    ? player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_HID_CAPTIONS))
+    : player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_SHOWED_CAPTIONS));
 }
 
 /**

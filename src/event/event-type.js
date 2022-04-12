@@ -17,6 +17,8 @@ const EventType: {[event: string]: string} = {
   USER_CLICKED_UNMUTE: `${namespace}-userclickedunmute`,
   USER_CHANGED_VOLUME: `${namespace}-userchangedvolume`,
   USER_SELECTED_CAPTION_TRACK: `${namespace}-userselectedcaptiontrack`,
+  USER_SHOWED_CAPTIONS: `${namespace}-usershowedcaptions`,
+  USER_HID_CAPTIONS: `${namespace}-userhidcaptions`,
   USER_SELECTED_AUDIO_TRACK: `${namespace}-userselectedaudiotrack`,
   USER_SELECTED_QUALITY_TRACK: `${namespace}-userselectedqualitytrack`,
   USER_ENTERED_FULL_SCREEN: `${namespace}-userenteredfullscreen`,
