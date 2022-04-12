@@ -3,7 +3,6 @@ const namespace = 'playkit-ui';
 
 const EventType: {[event: string]: string} = {
   UI_CLICKED: `${namespace}-uiclicked`,
-  UI_ELEMENT_CLICKED: `${namespace}-uielementclicked`,
   UI_VISIBILITY_CHANGED: `${namespace}-uivisibilitychanged`,
   GUI_RESIZE: `${namespace}-guiresize`,
   PLAYER_RESIZE: `${namespace}-playerresize`,
@@ -18,6 +17,8 @@ const EventType: {[event: string]: string} = {
   USER_CLICKED_UNMUTE: `${namespace}-userclickedunmute`,
   USER_CHANGED_VOLUME: `${namespace}-userchangedvolume`,
   USER_SELECTED_CAPTION_TRACK: `${namespace}-userselectedcaptiontrack`,
+  USER_SHOW_CAPTIONS: `${namespace}-usershowcaptions`,
+  USER_HIDE_CAPTIONS: `${namespace}-userhidecaptions`,
   USER_SELECTED_AUDIO_TRACK: `${namespace}-userselectedaudiotrack`,
   USER_SELECTED_QUALITY_TRACK: `${namespace}-userselectedqualitytrack`,
   USER_ENTERED_FULL_SCREEN: `${namespace}-userenteredfullscreen`,

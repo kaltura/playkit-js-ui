@@ -10,7 +10,6 @@ import {UIVisibilityChangedEvent} from 'event/events/ui-visibility-changed-event
 import {RewindClickedEvent} from 'event/events/rewind-clicked';
 import {ForwardClickedEvent} from 'event/events/forward-clicked';
 import {VolumeChangedEvent} from 'event/events/volume-changed';
-import {UIElementClickedEvent} from '../../event/events/ui-element-clicked-event';
 import {KeyMap} from 'utils/key-map';
 import {Component, toChildArray} from 'preact';
 
@@ -174,8 +173,9 @@ function onClickableComponentsHandler(store: any, action: Object, player: Object
       onPictureInPictureClicked(store, action, player);
       break;
 
-    default:
-      player.dispatchEvent(new UIElementClickedEvent(action.name));
+    case 'ClosedCaptions':
+      onClosedCaptionsClicked(store, action, player);
+      break;
   }
 }
 
@@ -282,6 +282,20 @@ function onOverlayActionClicked(store: any, action: Object, player: Object): voi
   } else if (action.payload.type === 'Fullscreen') {
     onFullScreenClicked(store, action, player);
   }
+}
+
+/**
+ * Handler for CC clicked actions.
+ * @param {any} store - The redux store.
+ * @param {Object} action - The action object.
+ * @param {Object} player - The video player.
+ * @returns {void}
+ */
+function onClosedCaptionsClicked(store: any, action: Object, player: Object): void {
+  const {payload: ccOn} = action;
+  ccOn
+    ? player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_HIDE_CAPTIONS))
+    : player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_SHOW_CAPTIONS));
 }
 
 /**
