@@ -13,8 +13,8 @@
 | [`USER_CLICKED_UNMUTE`](#USER_CLICKED_UNMUTE)                   |
 | [`USER_CHANGED_VOLUME`](#USER_CHANGED_VOLUME)                   |
 | [`USER_SELECTED_CAPTION_TRACK`](#USER_SELECTED_CAPTION_TRACK)   |
-| [`USER_SHOW_CAPTIONS`](#USER_SHOW_CAPTIONS)                     |
-| [`USER_HIDE_CAPTIONS`](#USER_HIDE_CAPTIONS)                     |
+| [`USER_SHOWED_CAPTIONS`](#USER_SHOWED_CAPTIONS)                     |
+| [`USER_HID_CAPTIONS`](#USER_HID_CAPTIONS)                     |
 | [`USER_SELECTED_AUDIO_TRACK`](#USER_SELECTED_AUDIO_TRACK)       |
 | [`USER_SELECTED_QUALITY_TRACK`](#USER_SELECTED_QUALITY_TRACK)   |
 | [`USER_ENTERED_FULL_SCREEN`](#USER_ENTERED_FULL_SCREEN)         |
@@ -155,13 +155,13 @@
 
 #
 
-> ### <a name="USER_SHOW_CAPTIONS"></a>USER_SHOW_CAPTIONS
+> ### <a name="USER_SHOWED_CAPTIONS"></a>USER_SHOWED_CAPTIONS
 >
 > Fires when the user showed the captions by the CC button.
 
 #
 
-> ### <a name="USER_HIDE_CAPTIONS"></a>USER_HIDE_CAPTIONS
+> ### <a name="USER_HID_CAPTIONS"></a>USER_HID_CAPTIONS
 >
 > Fires when the user hid the captions by the CC button.
 

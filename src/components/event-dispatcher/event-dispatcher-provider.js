@@ -294,8 +294,8 @@ function onOverlayActionClicked(store: any, action: Object, player: Object): voi
 function onClosedCaptionsClicked(store: any, action: Object, player: Object): void {
   const {payload: ccOn} = action;
   ccOn
-    ? player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_HIDE_CAPTIONS))
-    : player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_SHOW_CAPTIONS));
+    ? player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_HID_CAPTIONS))
+    : player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_SHOWED_CAPTIONS));
 }
 
 /**
