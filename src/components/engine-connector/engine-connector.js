@@ -43,6 +43,7 @@ class EngineConnector extends Component {
 
     eventManager.listen(player, player.Event.SOURCE_SELECTED, () => {
       this.props.updateIsCastAvailable(player.isCastAvailable());
+      this.props.updateIsLive(player.isLive());
       this.props.updateIsVr(player.isVr());
       this.props.updateIsInPictureInPicture(player.isInPictureInPicture());
       if (player.config.playback.autoplay) {
