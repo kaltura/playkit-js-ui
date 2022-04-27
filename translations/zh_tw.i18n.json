@@ -10,6 +10,8 @@
       "rewind": "進行回放",
       "forward": "進行快轉",
       "vrStereo": "vrStereo",
+      "closedCaptionsOn": "停用字幕",
+      "closedCaptionsOff": "啟用字幕",
       "live": "直播",
       "mute": "靜音",
       "unmute": "終止靜音",

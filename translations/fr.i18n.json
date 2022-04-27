@@ -10,6 +10,8 @@
       "rewind": "Reculer",
       "forward": "Avancer",
       "vrStereo": "vrStereo",
+      "closedCaptionsOn": "Désactiver les légendes",
+      "closedCaptionsOff": "Activer les légendes",
       "live": "En direct",
       "mute": "Muet",
       "unmute": "Son",

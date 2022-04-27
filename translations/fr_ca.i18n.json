@@ -10,6 +10,8 @@
       "rewind": "Arrière",
       "forward": "Avant",
       "vrStereo": "vrStereo",
+      "closedCaptionsOn": "Désactiver les sous-titres",
+      "closedCaptionsOff": "Activer les sous-titres",
       "live": "En direct",
       "mute": "Muet",
       "unmute": "Réactiver",

@@ -10,6 +10,8 @@
       "rewind": "Siirry taaksepäin",
       "forward": "Siirry eteenpäin",
       "vrStereo": "vrStereo",
+      "closedCaptionsOn": "Poista tekstitykset käytöstä",
+      "closedCaptionsOff": "Ota tekstitykset käyttöön",
       "live": "Live",
       "mute": "Mykistä",
       "unmute": "Poista mykistys",
