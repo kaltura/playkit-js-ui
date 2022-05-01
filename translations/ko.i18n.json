@@ -10,6 +10,8 @@
       "rewind": "뒤로 가기",
       "forward": "앞으로 가기",
       "vrStereo": "vr스테레오",
+      "closedCaptionsOn": "캡션 비활성화",
+      "closedCaptionsOff": "캡션 활성화",
       "live": "라이브",
       "mute": "음소거",
       "unmute": "음소거 해제",

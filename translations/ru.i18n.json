@@ -10,6 +10,8 @@
       "rewind": "Искать назад",
       "forward": "Искать вперед",
       "vrStereo": "vrStereo",
+      "closedCaptionsOn": "Отключить субтитры",
+      "closedCaptionsOff": "Включить субтитры",
       "live": "Прямая трансляция",
       "mute": "Выключить звук",
       "unmute": "Включить звук",

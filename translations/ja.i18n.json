@@ -10,6 +10,8 @@
       "rewind": "後方シーク",
       "forward": "前方シーク",
       "vrStereo": "vrStereo",
+      "closedCaptionsOn": "キャプションを無効にする",
+      "closedCaptionsOff": "キャプションを有効にする",
       "live": "ライブ",
       "mute": "ミュート",
       "unmute": "ミュート解除",

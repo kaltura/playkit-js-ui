@@ -10,6 +10,8 @@
       "rewind": "Zurückspulen",
       "forward": "Vorspulen",
       "vrStereo": "vrStereo",
+      "closedCaptionsOn": "Ondertiteling uitschakelen",
+      "closedCaptionsOff": "Ondertiteling inschakelen",
       "live": "Live",
       "mute": "Ton aus",
       "unmute": "Ton an",
