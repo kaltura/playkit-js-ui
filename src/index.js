@@ -14,7 +14,8 @@ import * as Components from './components';
 import * as Utils from './utils';
 import style from './styles/style.scss';
 //Enums
-import {SidePanelPositions, SidePanelModes} from 'reducers/shell';
+import {SidePanelPositions, SidePanelModes, ReservedPresetNames, ReservedPresetAreas, RelativeToTypes} from 'reducers/shell';
+import {Managers} from './managers/managers';
 // Event
 import * as Event from './event';
 const {EventType} = Event;
@@ -41,4 +42,4 @@ export {Reducers as reducers, Presets as presets, Components as components, Util
 export {UIManager};
 export {VERSION, NAME};
 
-export {SidePanelPositions, SidePanelModes};
+export {SidePanelPositions, SidePanelModes, ReservedPresetNames, ReservedPresetAreas, RelativeToTypes, Managers};

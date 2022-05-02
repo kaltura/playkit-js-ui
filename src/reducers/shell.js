@@ -55,6 +55,33 @@ export const SidePanelModes = {
   OVER: 'over'
 };
 
+export const ReservedPresetNames = {
+  Playback: 'Playback',
+  Live: 'Live'
+};
+
+export const ReservedPresetAreas = {
+  PresetFloating: 'PresetFloating',
+  BottomBarLeftControls: 'BottomBarLeftControls',
+  BottomBarRightControls: 'BottomBarRightControls',
+  TopBarLeftControls: 'TopBarLeftControls',
+  TopBarRightControls: 'TopBarRightControls',
+  SidePanelTop: 'SidePanelTop',
+  SidePanelLeft: 'SidePanelLeft',
+  SidePanelRight: 'SidePanelRight',
+  SidePanelBottom: 'SidePanelBottom',
+  PresetArea: 'PresetArea',
+  InteractiveArea: 'InteractiveArea',
+  PlayerArea: 'PlayerArea',
+  VideoArea: 'VideoArea'
+};
+
+export const RelativeToTypes = {
+  Before: 'Before',
+  After: 'After',
+  Replace: 'Replace'
+};
+
 /**
  * @return {Object} - preset settings
  */
