@@ -41,4 +41,4 @@ export {Reducers as reducers, Presets as presets, Components as components, Util
 export {UIManager};
 export {VERSION, NAME};
 
-export {SidePanelPositions, SidePanelModes, ReservedPresetNames, ReservedPresetAreas, RelativeToTypes};
+export {SidePanelPositions, SidePanelModes, ReservedPresetNames, ReservedPresetAreas};

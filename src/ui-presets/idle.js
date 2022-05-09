@@ -36,7 +36,7 @@ class IdleUI extends Component {
   }
 }
 
-  IdleUI.displayName = IDLE_PRESET_NAME;
+IdleUI.displayName = IDLE_PRESET_NAME;
 
 /**
  * Idle ui interface
