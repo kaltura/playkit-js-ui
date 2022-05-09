@@ -17,7 +17,7 @@ import {PlayerArea} from 'components/player-area';
 import {GuiArea} from 'components/gui-area';
 import {AdLeftControls} from 'components/ad-left-controls';
 
-const PRESET_NAME = 'Ads';
+export const ABS_PRESET_NAME = 'Ads';
 
 /**
  * Ads ui interface component
@@ -115,8 +115,8 @@ const mapStateToProps = state => ({
   }
 });
 
-const AdsUIComponent = connect(mapStateToProps)(withKeyboardEvent(PRESET_NAME)(AdsUI));
-AdsUIComponent.displayName = PRESET_NAME;
+const AdsUIComponent = connect(mapStateToProps)(withKeyboardEvent(ABS_PRESET_NAME)(AdsUI));
+AdsUIComponent.displayName = ABS_PRESET_NAME;
 /**
  * Ads ui interface
  *

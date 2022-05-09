@@ -1,5 +1,10 @@
 //@flow
 import isEqual from '../utils/is-equal';
+import {ABS_PRESET_NAME} from '../ui-presets/ads';
+import {LIVE_PRESET_NAME} from '../ui-presets/live';
+import {PLAYBACK_PRESET_NAME} from '../ui-presets/playback';
+import {ERROR_PRESET_NAME} from '../ui-presets/error';
+import {IDLE_PRESET_NAME} from '../ui-presets/idle';
 
 export const types = {
   ADD_PLAYER_CLASS: 'shell/ADD_PLAYER_CLASS',
@@ -56,8 +61,11 @@ export const SidePanelModes = {
 };
 
 export const ReservedPresetNames = {
-  Playback: 'Playback',
-  Live: 'Live'
+  Playback: PLAYBACK_PRESET_NAME,
+  Live: LIVE_PRESET_NAME,
+  Abs: ABS_PRESET_NAME,
+  Error: ERROR_PRESET_NAME,
+  Ideal: IDLE_PRESET_NAME
 };
 
 export const ReservedPresetAreas = {
@@ -74,12 +82,6 @@ export const ReservedPresetAreas = {
   InteractiveArea: 'InteractiveArea',
   PlayerArea: 'PlayerArea',
   VideoArea: 'VideoArea'
-};
-
-export const RelativeToTypes = {
-  Before: 'Before',
-  After: 'After',
-  Replace: 'Replace'
 };
 
 /**

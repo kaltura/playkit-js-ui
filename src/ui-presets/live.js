@@ -30,7 +30,7 @@ import {GuiArea} from 'components/gui-area';
 import {Rewind} from 'components/rewind';
 import {Forward} from 'components/forward';
 import {ClosedCaptions} from '../components';
-const PRESET_NAME = 'Live';
+export const LIVE_PRESET_NAME = 'Live';
 
 /**
  * Live ui interface component
@@ -42,7 +42,7 @@ const PRESET_NAME = 'Live';
   allowSidePanels: true,
   allowPlayerArea: true
 })
-@withKeyboardEvent(PRESET_NAME)
+@withKeyboardEvent(LIVE_PRESET_NAME)
 class LiveUI extends Component {
   /**
    * @returns {void}
@@ -115,7 +115,7 @@ class LiveUI extends Component {
   }
 }
 
-LiveUI.displayName = PRESET_NAME;
+LiveUI.displayName = LIVE_PRESET_NAME;
 
 /**
  * Live ui interface

@@ -33,7 +33,7 @@ import {VideoArea} from '../components/video-area';
 import {GuiArea} from '../components/gui-area';
 import {ClosedCaptions} from '../components/closed-captions';
 
-const PRESET_NAME = 'Playback';
+export const PLAYBACK_PRESET_NAME = 'Playback';
 
 /**
  * Playback ui interface component
@@ -46,7 +46,7 @@ const PRESET_NAME = 'Playback';
   allowSidePanels: true,
   allowPlayerArea: true
 })
-@withKeyboardEvent(PRESET_NAME)
+@withKeyboardEvent(PLAYBACK_PRESET_NAME)
 class PlaybackUI extends Component {
   /**
    * @returns {void}
@@ -121,7 +121,7 @@ class PlaybackUI extends Component {
   }
 }
 
-PlaybackUI.displayName = PRESET_NAME;
+PlaybackUI.displayName = PLAYBACK_PRESET_NAME;
 
 /**
  * Playback ui interface
