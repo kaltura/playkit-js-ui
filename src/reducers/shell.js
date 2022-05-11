@@ -1,6 +1,6 @@
 //@flow
 import isEqual from '../utils/is-equal';
-import {ABS_PRESET_NAME} from '../ui-presets/ads';
+import {ADS_PRESET_NAME} from '../ui-presets/ads';
 import {LIVE_PRESET_NAME} from '../ui-presets/live';
 import {PLAYBACK_PRESET_NAME} from '../ui-presets/playback';
 import {ERROR_PRESET_NAME} from '../ui-presets/error';
