@@ -6,7 +6,7 @@ import {PlayerArea} from 'components/player-area';
 import {GuiArea} from 'components/gui-area';
 import {Fragment} from 'preact';
 
-export const ERROR_PRESET_NAME = 'Error';
+const PRESET_NAME = 'Error';
 
 /**
  * Error ui component
@@ -28,7 +28,7 @@ export function ErrorUI(): React$Element<any> {
   );
 }
 
-ErrorUI.displayName = ERROR_PRESET_NAME;
+ErrorUI.displayName = PRESET_NAME;
 
 /**
  * Error ui

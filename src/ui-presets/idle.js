@@ -5,7 +5,7 @@ import {Loading} from '../components/loading';
 import {PlayerArea, withPlayerPreset} from '../components/player-area';
 import {GuiArea} from 'components/gui-area';
 
-export const IDLE_PRESET_NAME = 'Idle';
+const PRESET_NAME = 'Idle';
 
 /**
  * Idle ui interface component
@@ -36,7 +36,7 @@ class IdleUI extends Component {
   }
 }
 
-IdleUI.displayName = IDLE_PRESET_NAME;
+IdleUI.displayName = PRESET_NAME;
 
 /**
  * Idle ui interface

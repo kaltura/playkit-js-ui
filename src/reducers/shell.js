@@ -1,10 +1,5 @@
 //@flow
 import isEqual from '../utils/is-equal';
-import {ADS_PRESET_NAME} from '../ui-presets/ads';
-import {LIVE_PRESET_NAME} from '../ui-presets/live';
-import {PLAYBACK_PRESET_NAME} from '../ui-presets/playback';
-import {ERROR_PRESET_NAME} from '../ui-presets/error';
-import {IDLE_PRESET_NAME} from '../ui-presets/idle';
 
 export const types = {
   ADD_PLAYER_CLASS: 'shell/ADD_PLAYER_CLASS',
@@ -47,6 +42,24 @@ export const SidePanelOrientation = {
   HORIZONTAL: 'horizontal'
 };
 
+export const SidePanelPositions = {
+  LEFT: 'left',
+  TOP: 'top',
+  BOTTOM: 'bottom',
+  RIGHT: 'right'
+};
+
+export const SidePanelModes = {
+  ALONGSIDE: 'alongside',
+  HIDDEN: 'hidden',
+  OVER: 'over'
+};
+
+export const ReservedPresetNames = {
+  Playback: 'Playback',
+  Live: 'Live'
+};
+
 export const ReservedPresetAreas = {
   PresetFloating: 'PresetFloating',
   BottomBarLeftControls: 'BottomBarLeftControls',
@@ -61,27 +74,6 @@ export const ReservedPresetAreas = {
   InteractiveArea: 'InteractiveArea',
   PlayerArea: 'PlayerArea',
   VideoArea: 'VideoArea'
-};
-
-export const SidePanelPositions = {
-  LEFT: ReservedPresetAreas.SidePanelLeft,
-  TOP: ReservedPresetAreas.SidePanelTop,
-  BOTTOM: ReservedPresetAreas.SidePanelBottom,
-  RIGHT: ReservedPresetAreas.SidePanelRight
-};
-
-export const SidePanelModes = {
-  ALONGSIDE: 'alongside',
-  HIDDEN: 'hidden',
-  OVER: 'over'
-};
-
-export const ReservedPresetNames = {
-  Playback: PLAYBACK_PRESET_NAME,
-  Live: LIVE_PRESET_NAME,
-  Abs: ABS_PRESET_NAME,
-  Error: ERROR_PRESET_NAME,
-  Ideal: IDLE_PRESET_NAME
 };
 
 /**
