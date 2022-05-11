@@ -47,27 +47,6 @@ export const SidePanelOrientation = {
   HORIZONTAL: 'horizontal'
 };
 
-export const SidePanelPositions = {
-  LEFT: 'left',
-  TOP: 'top',
-  BOTTOM: 'bottom',
-  RIGHT: 'right'
-};
-
-export const SidePanelModes = {
-  ALONGSIDE: 'alongside',
-  HIDDEN: 'hidden',
-  OVER: 'over'
-};
-
-export const ReservedPresetNames = {
-  Playback: PLAYBACK_PRESET_NAME,
-  Live: LIVE_PRESET_NAME,
-  Abs: ABS_PRESET_NAME,
-  Error: ERROR_PRESET_NAME,
-  Ideal: IDLE_PRESET_NAME
-};
-
 export const ReservedPresetAreas = {
   PresetFloating: 'PresetFloating',
   BottomBarLeftControls: 'BottomBarLeftControls',
@@ -82,6 +61,27 @@ export const ReservedPresetAreas = {
   InteractiveArea: 'InteractiveArea',
   PlayerArea: 'PlayerArea',
   VideoArea: 'VideoArea'
+};
+
+export const SidePanelPositions = {
+  LEFT: ReservedPresetAreas.SidePanelLeft,
+  TOP: ReservedPresetAreas.SidePanelTop,
+  BOTTOM: ReservedPresetAreas.SidePanelBottom,
+  RIGHT: ReservedPresetAreas.SidePanelRight
+};
+
+export const SidePanelModes = {
+  ALONGSIDE: 'alongside',
+  HIDDEN: 'hidden',
+  OVER: 'over'
+};
+
+export const ReservedPresetNames = {
+  Playback: PLAYBACK_PRESET_NAME,
+  Live: LIVE_PRESET_NAME,
+  Abs: ABS_PRESET_NAME,
+  Error: ERROR_PRESET_NAME,
+  Ideal: IDLE_PRESET_NAME
 };
 
 /**
