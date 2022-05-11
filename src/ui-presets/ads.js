@@ -17,7 +17,7 @@ import {PlayerArea} from 'components/player-area';
 import {GuiArea} from 'components/gui-area';
 import {AdLeftControls} from 'components/ad-left-controls';
 
-export const ABS_PRESET_NAME = 'Ads';
+export const ADS_PRESET_NAME = 'Ads';
 
 /**
  * Ads ui interface component
