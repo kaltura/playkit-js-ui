@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.71.0](https://github.com/kaltura/playkit-js-ui/compare/v0.70.1...v0.71.0) (2022-05-12)
+
+
+### Bug Fixes
+
+* **FEC-12154:** Playlist - Active Prev and Next buttons have no tooltip when player width <= 480px ([fb1a4c1](https://github.com/kaltura/playkit-js-ui/commit/fb1a4c1))
+* **FEC-12167:** UI updated to live/vod only after some time ([#672](https://github.com/kaltura/playkit-js-ui/issues/672)) ([3b22ffc](https://github.com/kaltura/playkit-js-ui/commit/3b22ffc))
+* **FEC-12212:** add i18n to CC button ([#673](https://github.com/kaltura/playkit-js-ui/issues/673)) ([22f5725](https://github.com/kaltura/playkit-js-ui/commit/22f5725))
+
+
+### Features
+
+* **FEC-11981:** Related Entries - p3 ([9f1ec16](https://github.com/kaltura/playkit-js-ui/commit/9f1ec16)), closes [kaltura/playkit-js-related#5](https://github.com/kaltura/playkit-js-ui/issues/5) [kaltura/kaltura-player-js#532](https://github.com/kaltura/playkit-js-ui/issues/532)
+* **FEC-12015:** CC button for on/off subtitles ([#670](https://github.com/kaltura/playkit-js-ui/issues/670)) ([b298776](https://github.com/kaltura/playkit-js-ui/commit/b298776))
+
+
+
 ### [0.70.1](https://github.com/kaltura/playkit-js-ui/compare/v0.70.0...v0.70.1) (2022-02-16)
 
 
