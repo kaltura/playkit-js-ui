@@ -57,7 +57,10 @@ export const SidePanelModes = {
 
 export const ReservedPresetNames = {
   Playback: 'Playback',
-  Live: 'Live'
+  Live: 'Live',
+  Ads: 'Ads',
+  Error: 'Error',
+  Idle: 'Idle'
 };
 
 export const ReservedPresetAreas = {
