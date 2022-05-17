@@ -37,11 +37,11 @@ class PrevNext extends Component {
         {props.showPreview && (previewImage || previewText) ? (
           <Fragment>
             <div className={style.posterPreview}>
+              {previewImage ? <div className={style.posterPreviewImg} style={`background-image: url(${previewImage});`} /> : undefined}
               <div className={style.posterPreviewText}>
                 <div className={style.posterPreviewTextTitle}>{previewTitle}</div>
                 <div className={style.posterPreviewTextName}>{`${previewText ? previewText : ''}`}</div>
               </div>
-              {previewImage ? <div className={style.posterPreviewImg} style={`background-image: url(${previewImage});`} /> : undefined}
             </div>
             {button}
           </Fragment>
