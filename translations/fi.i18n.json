@@ -86,6 +86,7 @@
       "prev": "Edellinen",
       "next": "Seuraava",
       "up_next": "Seuraava",
+      "up_next_in": "Seuraavana",
       "cancel": "Peruuta"
     },
     "pictureInPicture": {
