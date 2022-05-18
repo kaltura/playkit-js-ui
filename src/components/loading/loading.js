@@ -67,6 +67,10 @@ class Loading extends Component {
       this.props.updateLoadingSpinnerState(true);
     });
 
+    eventManager.listen(player, player.Event.AD_PROGRESS, () => {
+      this.props.updateLoadingSpinnerState(false);
+    });
+
     eventManager.listen(player, player.Event.AD_STARTED, () => {
       if (this.props.adIsLinear) {
         this.props.updateLoadingSpinnerState(false);
