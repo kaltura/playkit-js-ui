@@ -132,6 +132,74 @@ var uiManager = new playkit.ui.UIManager(player, config);
 
 ##
 
+> > ### config.components.seekbar
+> >
+> > ##### Type: `Object`
+> >
+> > ```js
+> > {
+> >    thumbsWidth: number,
+> >    thumbsHeight: number,
+> >    thumbsSlices: number,
+> >    thumbsSprite: string
+> > }
+> > ```
+> >
+> > ##### Default:
+> >
+> > ```js
+> > {
+> >    thumbsWidth: 164,
+> >    thumbsHeight: 92,
+> >    thumbsSlices: 100,
+> >    thumbsSprite: '{POSTER_URL}/p/{PID}/sp/{PID}00/thumbnail/entry_id/{ENTRY_ID}/version/100042/width/{THUMBS_WIDTH}/vid_slices/{THUMBS_SLICES}'
+> > }
+> > ```
+> >
+> > ##### Description: Defines a seekbar component.
+> >
+> > > ### config.components.seekbar.thumbsWidth
+> > >
+> > > ##### Type: `number`
+> > >
+> > > ##### Default: `164`
+> > >
+> > > ##### Description: The width of the thumbnail image.
+> > >
+> > > ##
+> > >
+> > > ### config.components.seekbar.thumbsHeight
+> > >
+> > > ##### Type: `number`
+> > >
+> > > ##### Default: `92`
+> > >
+> > > ##### Description: The height of the thumbnail image.
+> > >
+> > > ##
+> > >
+> > > ### config.components.seekbar.thumbsSlices
+> > >
+> > > ##### Type: `number`
+> > >
+> > > ##### Default: `100`
+> > >
+> > > ##### Description: The number of slices to cut from the thumbnail image.
+> > >
+> > > ##
+> > >
+> > > ### config.components.seekbar.thumbsSprite
+> > >
+> > > ##### Type: `string`
+> > >
+> > > ##### Default: '{POSTER_URL}/p/{PID}/sp/{PID}00/thumbnail/entry_id/{ENTRY_ID}/version/100042/width/{THUMBS_WIDTH}/vid_slices/{THUMBS_SLICES}'
+> > >
+> > > ##### Description: The url of the thumbnail image.
+> > >
+> > > Possible values: `'', custom url`
+> > > > Note: Passing empty string will disable thumbnail on the seekbar.
+> > ##
+> >
 > > ### config.components.watermark
 > >
 > > ##### Type: `Object`
