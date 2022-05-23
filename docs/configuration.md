@@ -197,7 +197,9 @@ var uiManager = new playkit.ui.UIManager(player, config);
 > > > ##### Description: The url of the thumbnail image.
 > > >
 > > > Possible values: `'', custom url`
-> > > > Note: Passing empty string will disable thumbnail on the seekbar.
+> > > > Notes:
+> > > > * Passing empty string will disable thumbnail on the seekbar.
+> > > > * The default value is for OVP only.
 > > ##
 > >
 > > ### config.components.watermark
