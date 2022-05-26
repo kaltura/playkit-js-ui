@@ -248,7 +248,7 @@ class PlaylistCountdown extends Component {
     const timeToShow = this._getTimeToShow();
     const progressTime = props.currentTime - timeToShow;
     const progressDuration = Math.min(countdown.duration, props.duration - timeToShow);
-    const progressWidth = `${progressTime > 0 ? (progressTime / progressDuration) * 104 : 0}%`;
+    const durationLeft = Math.ceil(progressDuration - (progressTime > 0 ? progressTime : 0));
     const className = [style.playlistCountdown];
 
     if (this.isHidden(this.state)) {
@@ -275,7 +275,8 @@ class PlaylistCountdown extends Component {
               <Localizer>
                 <div id="playlistCountdownTextId" className={style.playlistCountdownText}>
                   <div className={style.playlistCountdownTextTitle}>
-                    <Text id="playlist.up_next" />
+                    <Text id="playlist.up_next_in" />
+                    <div className={style.playlistCountdownTimeLeft}>{durationLeft}</div>
                   </div>
                   <div className={style.playlistCountdownTextName}>{`${
                     this.nextShown.sources.metadata ? this.nextShown.sources.metadata.name : ''
@@ -293,9 +294,6 @@ class PlaylistCountdown extends Component {
                     <Icon type={IconType.Close} />
                   </Button>
                 </Localizer>
-              </div>
-              <div className={style.playlistCountdownIndicatorBar}>
-                <div className={style.playlistCountdownIndicatorProgress} style={{width: progressWidth}} />
               </div>
             </div>
           </div>
