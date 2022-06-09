@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.72.0](https://github.com/kaltura/playkit-js-ui/compare/v0.71.0...v0.72.0) (2022-06-09)
+
+
+### Bug Fixes
+
+* **FEC-12236,FEC-FEC-12237:** VPAID ads part of the AD is cut ([#677](https://github.com/kaltura/playkit-js-ui/issues/677)) ([acb4af0](https://github.com/kaltura/playkit-js-ui/commit/acb4af0))
+* **FEC-12245:** add i18n to CC button: wrong tooltip for German (the same with Dutch) ([#675](https://github.com/kaltura/playkit-js-ui/issues/675)) ([596c875](https://github.com/kaltura/playkit-js-ui/commit/596c875))
+
+
+### Build System
+
+* set prerelease false ([5613a71](https://github.com/kaltura/playkit-js-ui/commit/5613a71))
+
+
+### Features
+
+* **FEC-12113:** Add Side Panels Management to player UI ([#674](https://github.com/kaltura/playkit-js-ui/issues/674)) ([60ee1d1](https://github.com/kaltura/playkit-js-ui/commit/60ee1d1)), closes [kaltura/playkit-js-ui-managers#1](https://github.com/kaltura/playkit-js-ui/issues/1) [kaltura/kaltura-player-js#544](https://github.com/kaltura/playkit-js-ui/issues/544)
+* **FEC-12255:** New design of "up next" popups ([#676](https://github.com/kaltura/playkit-js-ui/issues/676)) ([77e648e](https://github.com/kaltura/playkit-js-ui/commit/77e648e))
+
+
+
 ## [0.71.0](https://github.com/kaltura/playkit-js-ui/compare/v0.70.1...v0.71.0) (2022-05-12)
 
 
