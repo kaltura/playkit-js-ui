@@ -12,36 +12,16 @@ export const withAnimation: Function = (cssClass: string) => (WrappedComponent: 
       ref = createRef();
 
       /**
-       * When component is mounted create event manager instance.
-       * @returns {void}
-       *
-       * @memberof AnimationComponent
-       */
-      componentDidMount(): void {
-        if (!this.ref.current) return;
-        this.props.eventManager.listen(this.ref.current, 'animationend', () => {
-          this.ref.current.classList.remove(cssClass);
-        });
-      }
-      /**
-       * Before component is unmounted remove all event manager listeners.
-       * @returns {void}
-       *∏
-       * @memberof AnimationComponent
-       */
-      componentWillUnmount(): void {
-        if (!this.ref.current) return;
-        this.ref.current.classList.remove(cssClass);
-      }
-
-      /**
-       * adds the animation class
+       * add the animation class, then remove it on animation end
        * @returns {void}
        * @memberof AnimationComponent
        */
       animate = (): void => {
         if (!this.ref.current) return;
         this.ref.current.classList.add(cssClass);
+        this.props.eventManager.listenOnce(this.ref.current, 'animationend', () => {
+          this.ref.current.classList.remove(cssClass);
+        });
       };
 
       /**
