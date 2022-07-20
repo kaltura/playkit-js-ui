@@ -23,7 +23,8 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile,
   guiStyles: state.shell.layoutStyles.gui,
   isSmartContainerOpen: state.shell.smartContainerOpen,
-  fullscreenConfig: state.config.components.fullscreen
+  fullscreenConfig: state.config.components.fullscreen,
+  seekbarDraggingActive: state.seekbar.draggingActive
 });
 
 /**
@@ -176,7 +177,9 @@ class OverlayAction extends Component {
       clientY: event.clientY || (event.changedTouches && event.changedTouches[0] && event.changedTouches[0].clientY)
     };
     return (
-      Math.abs(points.clientX - this._pointerDownPosX) > DRAGGING_THRESHOLD || Math.abs(points.clientY - this._pointerDownPosY) > DRAGGING_THRESHOLD
+      this.props.seekbarDraggingActive ||
+      Math.abs(points.clientX - this._pointerDownPosX) > DRAGGING_THRESHOLD ||
+      Math.abs(points.clientY - this._pointerDownPosY) > DRAGGING_THRESHOLD
     );
   }
 
