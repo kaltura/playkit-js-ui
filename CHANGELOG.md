@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.72.1](https://github.com/kaltura/playkit-js-ui/compare/v0.72.0...v0.72.1) (2022-08-04)
+
+
+### Bug Fixes
+
+* **FEC-12372:** [WEB][UI] - [O2CZ] Autoplay_WEB - After seeking to the end of the program, the next program will not start playing automatically ([3e80d7b](https://github.com/kaltura/playkit-js-ui/commit/3e80d7b))
+* **FEC-12373:** Web][UI][Chrome][Safari] Seek buttons don't spin after clicking on it for the second time ([54d5dcc](https://github.com/kaltura/playkit-js-ui/commit/54d5dcc))
+
+
+
 ## [0.72.0](https://github.com/kaltura/playkit-js-ui/compare/v0.71.0...v0.72.0) (2022-06-09)
 
 
