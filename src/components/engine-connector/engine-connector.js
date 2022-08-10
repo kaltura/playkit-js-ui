@@ -36,7 +36,7 @@ class EngineConnector extends Component {
 
     eventManager.listen(player, player.Event.PLAYER_RESET, () => {
       this.props.updateCurrentTime(0);
-      this.props.updateIsIdle(true);
+      // this.props.updateIsIdle(true);
       this.props.updateIsPlaybackStarted(false);
       this.props.updateDataLoadingStatus(false);
     });
