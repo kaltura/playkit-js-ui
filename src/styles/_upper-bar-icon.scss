@@ -1,0 +1,23 @@
+.upper-bar-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  padding: 2px;
+  cursor: pointer;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: #888888;
+  }
+
+  &:focus {
+    background-color: #444444;
+  }
+
+  &:disabled {
+    background-color: #999999;
+  }
+}
