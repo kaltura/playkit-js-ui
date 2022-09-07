@@ -99,6 +99,10 @@ class DropDown extends Component {
       case KeyMap.ENTER:
         this.onClick();
         break;
+      case KeyMap.SPACE:
+        e.preventDefault();
+        this.onClick();
+        break;
       case KeyMap.ESC:
         if (this.state.dropMenuActive) {
           this.onClose();
