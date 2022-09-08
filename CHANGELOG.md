@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.72.2](https://github.com/kaltura/playkit-js-ui/compare/v0.72.1...v0.72.2) (2022-08-31)
+
+
+### Bug Fixes
+
+* **FEC-12335:** Side Panel Item gets refreshed in every 'change media'  ([#687](https://github.com/kaltura/playkit-js-ui/issues/687)) ([4f569d6](https://github.com/kaltura/playkit-js-ui/commit/4f569d6))
+
+
+
 ### [0.72.1](https://github.com/kaltura/playkit-js-ui/compare/v0.72.0...v0.72.1) (2022-08-04)
 
 

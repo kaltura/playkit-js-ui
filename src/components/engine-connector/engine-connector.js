@@ -34,9 +34,11 @@ class EngineConnector extends Component {
     const TrackType = player.Track;
     this.props.updatePrePlayback(!player.config.playback.autoplay);
 
-    eventManager.listen(player, player.Event.PLAYER_RESET, () => {
+    eventManager.listen(player, player.Event.PLAYER_RESET, event => {
       this.props.updateCurrentTime(0);
-      this.props.updateIsIdle(true);
+      if (!event.payload.isChangeMedia) {
+        this.props.updateIsIdle(true);
+      }
       this.props.updateIsPlaybackStarted(false);
       this.props.updateDataLoadingStatus(false);
     });
