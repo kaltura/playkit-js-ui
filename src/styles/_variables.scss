@@ -1,10 +1,26 @@
-$brand-color: #01accd;
-$tab-focus-color: #00cbff;
+$brand-color: #006bff;
+$brand-color-dark: #004bb3;
+$brand-color-light: #4d89ff;
+$brand-color-text-contrast: #ffffff;
+$tab-focus-color: $brand-color;
+
+// New version - upcoming
+$tone-1: #ffffff;
+$tone-2: #cccccc;
+$tone-3: #999999;
+$tone-4: #888888;
+$tone-5: #666666;
+$tone-6: #444444;
+$tone-7: #222222;
+$tone-8: #000000;
+
+// Old version - deprecated
 $white: #ffffff;
 $grayscale1: #333;
 $grayscale2: #424242;
 $grayscale3: #999;
 $grayscale4: #cccccc;
+
 $headline-font-size: 18px;
 $subheadline-font-size: 14px;
 $success-color: #009444;
