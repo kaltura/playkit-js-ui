@@ -10,9 +10,8 @@
   justify-content: center;
   opacity: 0.8;
 
-  //&:not(:last-child) {
-    margin-left: 8px;
-  //}
+  //&:not(:last-child) {} why the hell doesn't it work sass
+  margin: 0 4px;
 
   &:hover {
     background-color: $tone-4;
