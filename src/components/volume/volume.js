@@ -107,7 +107,21 @@ class Volume extends Component {
     });
     this.props.eventManager.listen(document, 'mouseup', this.onVolumeProgressBarMouseUp);
     this.props.eventManager.listen(document, 'mousemove', this.onVolumeProgressBarMouseMove);
+    this.props.eventManager.listen(document, 'click', e => this.handleClickOutside(e));
     this.props.registerKeyboardEvents(this._keyboardEventHandlers);
+  }
+
+  /**
+   * event listener for clicking outside handler.
+   *
+   * @param {*} e - click event
+   * @returns {void}
+   * @memberof Volume
+   */
+  handleClickOutside(e: any) {
+    if (!this.props.isMobile && !!this._volumeControlElement && !this._volumeControlElement.contains(e.target) && this.state.hover) {
+      this.setState({hover: false});
+    }
   }
 
   /**
@@ -247,6 +261,8 @@ class Volume extends Component {
       case KeyMap.DOWN:
       case KeyMap.ENTER:
       case KeyMap.SPACE:
+        event.preventDefault();
+        event.stopPropagation();
         this.handleKeydown(event, true);
         break;
       default:
