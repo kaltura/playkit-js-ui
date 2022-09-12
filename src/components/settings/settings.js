@@ -319,10 +319,16 @@ class Settings extends Component {
     // Progressive playback doesn't support auto
     if (qualityOptions.length > 1 && player.streamType !== 'progressive') {
       const activeTrack: Object = qualityOptions.find(track => track.value.active === true).value;
+      var qualityLabel;
+      if (this.props.player._localPlayer._config.ui.locale === 'ar' || this.props.player._localPlayer._config.ui.locale === 'he') {
+        qualityLabel = activeTrack.label + ' - ' + this.props.qualityAutoLabelText;
+      } else {
+        qualityLabel = this.props.qualityAutoLabelText + ' - ' + activeTrack.label;
+      }
       qualityOptions.unshift({
         label: this.props.qualityAutoLabelText,
         dropdownOptions: {
-          label: this.props.qualityAutoLabelText + ' - ' + activeTrack.label,
+          label: qualityLabel,
           badgeType: this.getLabelBadgeType(activeTrack.height)
         },
         active: player.isAdaptiveBitrateEnabled(),
