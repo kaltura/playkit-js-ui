@@ -319,8 +319,9 @@ class Settings extends Component {
     // Progressive playback doesn't support auto
     if (qualityOptions.length > 1 && player.streamType !== 'progressive') {
       const activeTrack: Object = qualityOptions.find(track => track.value.active === true).value;
+      var rtlLanguages = ['ae', 'ar', 'arc', 'bcc', 'bqi', 'ckb', 'dv', 'fa', 'glk', 'he', 'ku', 'mzn', 'nqo', 'pnb', 'ps', 'sd', 'ug', 'ur', 'yi'];
       var qualityLabel;
-      if (this.props.player._localPlayer._config.ui.locale === 'ar' || this.props.player._localPlayer._config.ui.locale === 'he') {
+      if (rtlLanguages.includes(this.props.player._localPlayer._config.ui.locale)) {
         qualityLabel = activeTrack.label + ' - ' + this.props.qualityAutoLabelText;
       } else {
         qualityLabel = this.props.qualityAutoLabelText + ' - ' + activeTrack.label;
