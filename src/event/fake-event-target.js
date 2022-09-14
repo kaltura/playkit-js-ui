@@ -31,7 +31,7 @@ class FakeEventTarget {
      * @type {FakeEventTarget}
      */
     this.dispatchTarget = this;
-    this.logger = getLogger(`UIFakeEventTarget`);
+    this.logger = getLogger(`UI FakeEventTarget`);
   }
 
   /**
