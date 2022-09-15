@@ -101,7 +101,7 @@ class FakeEventTarget {
         // Exceptions during event handlers should not affect the caller,
         // but should appear on the console as uncaught, according to MDN:
         // http://goo.gl/N6Ff27
-        this.logger.error(`Error occurred when handling event ${event}.`, exception);
+        this.logger.error(`Error occurred when handling event: ${event.type}.`, exception);
       }
 
       if (event.stopped) {
