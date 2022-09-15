@@ -1,7 +1,7 @@
 //@flow
 import {FakeEvent} from './fake-event';
 import {MultiMap} from 'utils/multi-map';
-import {getLogger} from '../utils';
+import getLogger from '../utils/logger';
 
 /**
  * A work-alike for EventTarget.  Only DOM elements may be true EventTargets,
