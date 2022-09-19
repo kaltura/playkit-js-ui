@@ -320,7 +320,7 @@ class Settings extends Component {
     // Progressive playback doesn't support auto
     if (qualityOptions.length > 1 && player.streamType !== 'progressive') {
       const activeTrack: Object = qualityOptions.find(track => track.value.active === true).value;
-      var qualityLabel;
+      let qualityLabel;
       if (rtlLanguages.includes(this.props.player._localPlayer._config.ui.locale)) {
         qualityLabel = activeTrack.label + ' - ' + this.props.qualityAutoLabelText;
       } else {
