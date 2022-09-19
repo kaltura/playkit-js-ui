@@ -19,6 +19,13 @@
   },
   "license": "AGPL-3.0",
   "main": "dist/playkit-ui.js",
+  "sass": "src/styles/exported.scss",
+  "files": [
+    "dist/**/*",
+    "src/styles/exported.scss",
+    "translations/**/*",
+    "flow-typed/**/*"
+  ],
   "scripts": {
     "prebuild": "npm run clean",
     "build": "NODE_ENV=production webpack --mode production",
