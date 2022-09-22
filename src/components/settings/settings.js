@@ -25,6 +25,7 @@ const HeightResolution = {
   UHD_4K: 2160,
   UHD_8K: 4320
 };
+const rtlLanguages = ['ae', 'ar', 'arc', 'bcc', 'bqi', 'ckb', 'dv', 'fa', 'glk', 'he', 'ku', 'mzn', 'nqo', 'pnb', 'ps', 'sd', 'ug', 'ur', 'yi'];
 
 /**
  * mapping state to props
@@ -319,10 +320,16 @@ class Settings extends Component {
     // Progressive playback doesn't support auto
     if (qualityOptions.length > 1 && player.streamType !== 'progressive') {
       const activeTrack: Object = qualityOptions.find(track => track.value.active === true).value;
+      let qualityLabel;
+      if (rtlLanguages.includes(this.props.player._localPlayer._config.ui.locale)) {
+        qualityLabel = activeTrack.label + ' - ' + this.props.qualityAutoLabelText;
+      } else {
+        qualityLabel = this.props.qualityAutoLabelText + ' - ' + activeTrack.label;
+      }
       qualityOptions.unshift({
         label: this.props.qualityAutoLabelText,
         dropdownOptions: {
-          label: this.props.qualityAutoLabelText + ' - ' + activeTrack.label,
+          label: qualityLabel,
           badgeType: this.getLabelBadgeType(activeTrack.height)
         },
         active: player.isAdaptiveBitrateEnabled(),
