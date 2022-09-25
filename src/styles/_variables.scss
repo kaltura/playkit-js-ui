@@ -1,10 +1,18 @@
-$brand-color: #01accd;
-$tab-focus-color: #00cbff;
+@import 'exported';
+
+$brand-color: #006bff;
+$brand-color-dark: #004bb3;
+$brand-color-light: #4d89ff;
+$brand-color-text-contrast: #ffffff;
+$tab-focus-color: $brand-color;
+
+// Old version - deprecated
 $white: #ffffff;
 $grayscale1: #333;
 $grayscale2: #424242;
 $grayscale3: #999;
 $grayscale4: #cccccc;
+
 $headline-font-size: 18px;
 $subheadline-font-size: 14px;
 $success-color: #009444;
@@ -12,14 +20,14 @@ $danger-color: #db1f26;
 $ads-color: #f9a71b;
 $live-color: #da1f26;
 $new-live-color: #e12437;
-$tooltip-bg-color: #fff;
-$tooltip-color: $grayscale1;
+$tooltip-bg-color: $tone-1;
+$tooltip-color: $tone-7;
 $tooltip-margin: calc(100% + 10px);
 $tooltip-arrow-height: 4px;
 $tooltip-arrow-width: 5px;
 $tooltip-semi-side-margin: 16px;
 $tooltip-semi-side-arrow-margin: 11px;
-$font-family: sans-serif;
+$font-family: Lato, Helvetica Neue, Segoe UI, sans-serif;
 $progress-bar-height: 4px;
 $progress-bar-border-radius: $progress-bar-height / 2;
 $spinner-circle-radius: 4px;

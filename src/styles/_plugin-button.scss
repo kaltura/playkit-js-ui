@@ -1,0 +1,29 @@
+.upper-bar-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  padding: 2px;
+  cursor: pointer;
+  color: $tone-1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+  border: none;
+  background-color: transparent;
+  margin: 0 4px;
+
+  &:hover {
+    background-color: $tone-4;
+    opacity: 1;
+  }
+
+  &:focus {
+    background-color: $tone-6;
+    opacity: 1;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+  }
+}

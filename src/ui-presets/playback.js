@@ -71,6 +71,7 @@ class PlaybackUI extends Component {
             <VideoArea />
             <GuiArea>
               <Fragment>
+                <UnmuteIndication />
                 <Loading />
                 <OverlayPortal />
                 <PictureInPictureOverlay />
@@ -84,7 +85,6 @@ class PlaybackUI extends Component {
                   <TopBar />
                   <InteractiveArea>
                     <Watermark />
-                    <UnmuteIndication />
                     <PlaylistCountdown />
                   </InteractiveArea>
                   <BottomBar
