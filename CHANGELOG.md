@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.72.3](https://github.com/kaltura/playkit-js-ui/compare/v0.72.2...v0.72.3) (2022-10-03)
+
+
+### Bug Fixes
+
+* **FEC-11978:** Live label style should be updated ([#692](https://github.com/kaltura/playkit-js-ui/issues/692)) ([1f5fdeb](https://github.com/kaltura/playkit-js-ui/commit/1f5fdeb))
+* **FEC-12097:** More plugins - Manage the UI & order of the plugin icons ([#688](https://github.com/kaltura/playkit-js-ui/issues/688)) ([01d2efa](https://github.com/kaltura/playkit-js-ui/commit/01d2efa)), closes [kaltura/playkit-js-ui-managers#10](https://github.com/kaltura/playkit-js-ui/issues/10)
+* **FEC-12155:** RTL languages translation are not supported correctly on the resolution labels ([#691](https://github.com/kaltura/playkit-js-ui/issues/691)) ([f6186f8](https://github.com/kaltura/playkit-js-ui/commit/f6186f8))
+* **FEC-12235:** accessibility: Not possible to change items for “Language“ and “Settings“ by space key ([#690](https://github.com/kaltura/playkit-js-ui/issues/690)) ([c0b2473](https://github.com/kaltura/playkit-js-ui/commit/c0b2473))
+* **FEC-12275:** [WEB][UI] Add log when exception happens ([#693](https://github.com/kaltura/playkit-js-ui/issues/693)) ([200dc0e](https://github.com/kaltura/playkit-js-ui/commit/200dc0e))
+* **FEC-12517:** [web v7] volume bar arrow keys accessibility ([#689](https://github.com/kaltura/playkit-js-ui/issues/689)) ([763c297](https://github.com/kaltura/playkit-js-ui/commit/763c297))
+* **FEC-12598:** Regression - in the quality dropdown there are 3 dots instead the complete word ([#696](https://github.com/kaltura/playkit-js-ui/issues/696)) ([e10264f](https://github.com/kaltura/playkit-js-ui/commit/e10264f))
+
+
+
 ### [0.72.2](https://github.com/kaltura/playkit-js-ui/compare/v0.72.1...v0.72.2) (2022-08-31)
 
 
