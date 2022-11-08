@@ -66,7 +66,7 @@ class Overlay extends Component {
    * @memberof Overlay
    */
   onCloseButtonKeyDown = (e: KeyboardEvent): void => {
-    if (e.keyCode === KeyMap.ENTER) {
+    if (e.keyCode === KeyMap.ENTER || e.keyCode === KeyMap.SPACE) {
       e.preventDefault();
       this.props.onClose();
     }
