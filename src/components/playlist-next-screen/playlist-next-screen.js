@@ -78,7 +78,8 @@ class PlaylistNextScreen extends Component {
    * @memberof PlaylistNextScreen
    */
   onKeyDown = (e: KeyboardEvent): void => {
-    if (e.keyCode === KeyMap.ENTER) {
+    if (e.keyCode === KeyMap.ENTER || e.keyCode === KeyMap.SPACE) {
+      e.preventDefault();
       this.onPosterClick();
     }
   };
