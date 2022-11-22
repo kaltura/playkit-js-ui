@@ -11,8 +11,8 @@
   width: 100%;
   .tooltip-label {
     visibility: hidden;
-    background-color: $tooltip-bg-color;
-    color: $tooltip-color;
+    background-color: var(--playkit-tooltip-background-color);
+    color: var(--playkit-tooltip-color);
     text-align: center;
     padding: 4px 6px;
     border-radius: 4px;
@@ -31,7 +31,7 @@
       border-width: 5px;
       border-style: solid;
       border-radius: 3px;
-      color: $tooltip-bg-color;
+      color: var(--playkit-tooltip-background-color);
       z-index: -1;
     }
     &.tooltip-top {

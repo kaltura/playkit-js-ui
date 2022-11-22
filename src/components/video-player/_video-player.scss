@@ -6,7 +6,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: black;
+  background: var(--playkit-player-background-color);
   transition: all #{$default-transition-time}ms;
   transition-property: left, right, bottom, top, width, height;
   .overlay-active & {

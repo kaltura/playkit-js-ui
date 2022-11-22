@@ -4,7 +4,7 @@
   border-radius: 4px;
   padding: 2px;
   cursor: pointer;
-  color: $tone-1;
+  color: var(--playkit-tone-1-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,12 +14,12 @@
   margin: 0 4px;
 
   &:hover {
-    background-color: $tone-4;
+    background-color: var(--playkit-tone-4-color);
     opacity: 1;
   }
 
   &:focus {
-    background-color: $tone-6;
+    background-color: var(--playkit-tone-6-color);
     opacity: 1;
   }
 

@@ -41,13 +41,15 @@ const IconType = {
   ClosedCaptionsOff: 'closed-captions-off'
 };
 
+const dynamicIconClass = 'playkit-dynamic-icon';
+
 const BadgeType = {
   qualityHd: `${style.badgeIcon} ${style.iconQualityHd}`,
-  qualityHdActive: `${style.badgeIcon} ${style.iconQualityHdActive}`,
+  qualityHdActive: `${style.badgeIcon} ${style.iconQualityHdActive} ${dynamicIconClass}`,
   quality4k: `${style.badgeIcon} ${style.iconQuality4K}`,
-  quality4kActive: `${style.badgeIcon} ${style.iconQuality4KActive}`,
+  quality4kActive: `${style.badgeIcon} ${style.iconQuality4KActive} ${dynamicIconClass}`,
   quality8k: `${style.badgeIcon} ${style.iconQuality8K}`,
-  quality8kActive: `${style.badgeIcon} ${style.iconQuality8KActive}`
+  quality8kActive: `${style.badgeIcon} ${style.iconQuality8KActive} ${dynamicIconClass}`
 };
 
 const IconState: {[state: string]: number} = {
@@ -231,7 +233,7 @@ class Icon extends Component {
           return <i className={[style.icon, style.iconSettings].join(' ')} />;
 
         case IconType.Check:
-          return <i className={[style.icon, style.iconCheck].join(' ')} />;
+          return <i className={[style.icon, style.iconCheck, dynamicIconClass].join(' ')} />;
 
         case IconType.Language:
           return <i className={[style.icon, style.iconLanguage].join(' ')} />;
@@ -279,13 +281,13 @@ class Icon extends Component {
           return <i className={[style.icon, style.iconVrStereo].join(' ')} />;
 
         case IconType.vrStereoFull:
-          return <i className={[style.icon, style.iconVrStereoFull].join(' ')} />;
+          return <i className={[style.icon, style.iconVrStereoFull, dynamicIconClass].join(' ')} />;
 
         case IconType.Cast:
           return <i className={[style.icon, style.iconChromecast].join(' ')} />;
 
         case IconType.CastBrand:
-          return <i className={[style.icon, style.iconChromecastBrand].join(' ')} />;
+          return <i className={[style.icon, style.iconChromecastBrand, dynamicIconClass].join(' ')} />;
 
         case IconType.Next:
           return <i className={[style.icon, style.iconNext].join(' ')} />;

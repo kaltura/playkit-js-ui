@@ -27,7 +27,7 @@
       height: 16px;
       width: 16px;
       border-radius: 8px;
-      background-color: $brand-color;
+      background-color: var(--playkit-primary-color);
       position: absolute;
       top: -5px;
       right: -5px;
@@ -61,7 +61,7 @@
   .custom-captions-applied {
     margin-top: 50px;
     a {
-      color: $brand-color-light;
+      color: var(--playkit-primary-brighter-color);
     }
   }
 

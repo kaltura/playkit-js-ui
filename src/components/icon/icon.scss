@@ -249,7 +249,8 @@
 }
 
 .icon-vr-stereo-full {
-  background-image: icon(vrStereoFull, $brand-color);
+  --playkit-icon-data-url: #{icon(vrStereoFull, $brand-color)};
+  background-image: var(--playkit-icon-data-url);
 }
 
 .icon-chromecast {
@@ -257,7 +258,8 @@
 }
 
 .icon-chromecast-brand {
-  background-image: icon(chromecast, $brand-color);
+  --playkit-icon-data-url: #{icon(chromecast, $brand-color)};
+  background-image: var(--playkit-icon-data-url);
 }
 
 .icon-next {
@@ -283,8 +285,9 @@
 }
 
 .icon-quality-hd-active {
+  --playkit-icon-data-url: #{icon(qualityHdActive, $brand-color, '16', '0 0 16 16')};
   &:after {
-    background-image: icon(qualityHdActive, $brand-color, '16', '0 0 16 16');
+    background-image: var(--playkit-icon-data-url);
   }
 }
 
@@ -295,8 +298,9 @@
 }
 
 .icon-quality-4k-active {
+  --playkit-icon-data-url: #{icon(quality4kActive, $brand-color, '16', '0 0 16 16')};
   &:after {
-    background-image: icon(quality4kActive, $brand-color, '16', '0 0 16 16');
+    background-image: var(--playkit-icon-data-url);
   }
 }
 
@@ -307,8 +311,9 @@
 }
 
 .icon-quality-8k-active {
+  --playkit-icon-data-url: #{icon(quality8kActive, $brand-color, '16', '0 0 16 16')};
   &:after {
-    background-image: icon(quality8kActive, $brand-color, '16', '0 0 16 16');
+    background-image: var(--playkit-icon-data-url);
   }
 }
 

@@ -2,7 +2,7 @@
 
 .live-tag {
   display: inline-block;
-  background-color: $new-live-color;
+  background-color: var(--playkit-live-color);
   color: #FFFFFF;
   border-radius: 4px;
   padding: 3px 4px;

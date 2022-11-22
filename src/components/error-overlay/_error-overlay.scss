@@ -1,7 +1,7 @@
 @import '~styles/variables';
 
 .overlay.error-overlay {
-  background-color: $grayscale1;
+  background-color: var(--playkit-tone-7-color);
   font-size: 0em;
 }
 
@@ -30,7 +30,7 @@
   }
 
   .headline {
-    color: $white;
+    color: var(--playkit-tone-1-color);
     font-size: $headline-font-size;
     margin: 10px 0 14px 0;
     flex: 1;
@@ -38,7 +38,7 @@
 
   .error-session {
     font-size: $subheadline-font-size;
-    color: $grayscale4;
+    color: var(--playkit-tone-2-color);
     margin: auto;
     user-select: text;
     -webkit-user-select: text;
@@ -60,10 +60,10 @@
     width: auto;
     min-width: 120px;
     padding: 0 8px;
-    border: 2px solid $grayscale1;
+    border: 2px solid var(--playkit-tone-7-color);
     border-radius: 18px;
     background-color: black;
-    color: $white;
+    color: var(--playkit-tone-1-color);
     font-size: 15px;
     font-weight: bold;
     line-height: 32px;

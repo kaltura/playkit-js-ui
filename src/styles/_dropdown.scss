@@ -112,7 +112,8 @@
       color: $brand-color;
 
       .icon-check {
-        background-image: icon(check, $brand-color);
+        --playkit-icon-data-url: #{icon(check, $brand-color)};
+        background-image: var(--playkit-icon-data-url);
       }
 
       .menu-icon-container {

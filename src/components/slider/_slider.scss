@@ -1,12 +1,10 @@
-@import '~styles/variables';
-
 .slider {
   height: 8px;
   border-radius: 4px;
   background-color: rgba(255, 255, 255, 0.2);
 
   .progress {
-    background-color: $brand-color;
+    background-color: var(--playkit-primary-color);
     height: 8px;
     border-radius: 4px;
     position: relative;
