@@ -267,7 +267,7 @@ class MenuItem extends Component {
         onKeyDown={this.onKeyDown}>
         <span className={badgeType ? [style.labelBadge, badgeType].join(' ') : ''}>{props.data.label}</span>
         <span className={[style.menuIconContainer, style.active].join(' ')}>
-          <Icon type={IconType.Check} />
+          <Icon type={IconType.CheckActive} />
         </span>
       </div>
     );

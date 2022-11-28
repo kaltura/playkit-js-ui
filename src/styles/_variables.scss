@@ -3,15 +3,7 @@
 // Static (Compile time) Variables
 $brand-color: #006bff;      // - refs in code and related-plugin
 $white: #ffffff;            // - refs in code and related-plugin
-//$grayscale1: #333         - deprecated - no refs;
-//$grayscale2: #424242      - deprecated - no refs;
-//$grayscale3: #999         - deprecated - no refs;
-//$grayscale4: #cccccc      - deprecated - no refs;
-//$success-color: #009444;  - deprecated - no refs
-//$danger-color: #db1f26;   - deprecated - no refs
-//$ads-color: #f9a71b;      - deprecated - no refs
 //$live-color: #da1f26;     - deprecated - related-plugin ref
-//$new-live-color: #e12437; - deprecated - no refs
 
 $headline-font-size: 18px;
 $subheadline-font-size: 14px;
@@ -38,7 +30,7 @@ $gui-small-gutter: 8;
 $blur: 16px;
 
 // Dynamic (Runtime) Variables
-:root {
+.player {
   // HSL args
   --playkit-primary-hsl-hue: #{hue($brand-color)};
   //--playkit-primary-hsl-hue: 215deg;
@@ -97,7 +89,6 @@ $blur: 16px;
 
 :export {
   brandColor: $brand-color;
-  //liveColor: $new-live-color;
   white: $white;
   progressBarHeight: $progress-bar-height;
   progressBarBorderRadius: $progress-bar-border-radius;

@@ -15,6 +15,7 @@ const IconType = {
   Close: 'close',
   Settings: 'settings',
   Check: 'check',
+  CheckActive: 'check-active',
   Language: 'language',
   Quality: 'quality',
   Captions: 'captions',
@@ -41,15 +42,13 @@ const IconType = {
   ClosedCaptionsOff: 'closed-captions-off'
 };
 
-const dynamicIconClass = 'playkit-dynamic-icon';
-
 const BadgeType = {
   qualityHd: `${style.badgeIcon} ${style.iconQualityHd}`,
-  qualityHdActive: `${style.badgeIcon} ${style.iconQualityHdActive} ${dynamicIconClass}`,
+  qualityHdActive: `${style.badgeIcon} ${style.iconQualityHdActive}`,
   quality4k: `${style.badgeIcon} ${style.iconQuality4K}`,
-  quality4kActive: `${style.badgeIcon} ${style.iconQuality4KActive} ${dynamicIconClass}`,
+  quality4kActive: `${style.badgeIcon} ${style.iconQuality4KActive}`,
   quality8k: `${style.badgeIcon} ${style.iconQuality8K}`,
-  quality8kActive: `${style.badgeIcon} ${style.iconQuality8KActive} ${dynamicIconClass}`
+  quality8kActive: `${style.badgeIcon} ${style.iconQuality8KActive}`
 };
 
 const IconState: {[state: string]: number} = {
@@ -233,7 +232,10 @@ class Icon extends Component {
           return <i className={[style.icon, style.iconSettings].join(' ')} />;
 
         case IconType.Check:
-          return <i className={[style.icon, style.iconCheck, dynamicIconClass].join(' ')} />;
+          return <i className={[style.icon, style.iconCheck].join(' ')} />;
+
+        case IconType.CheckActive:
+          return <i className={[style.icon, style.iconCheckActive].join(' ')} />;
 
         case IconType.Language:
           return <i className={[style.icon, style.iconLanguage].join(' ')} />;
@@ -281,13 +283,13 @@ class Icon extends Component {
           return <i className={[style.icon, style.iconVrStereo].join(' ')} />;
 
         case IconType.vrStereoFull:
-          return <i className={[style.icon, style.iconVrStereoFull, dynamicIconClass].join(' ')} />;
+          return <i className={[style.icon, style.iconVrStereoFull].join(' ')} />;
 
         case IconType.Cast:
           return <i className={[style.icon, style.iconChromecast].join(' ')} />;
 
         case IconType.CastBrand:
-          return <i className={[style.icon, style.iconChromecastBrand, dynamicIconClass].join(' ')} />;
+          return <i className={[style.icon, style.iconChromecastBrand].join(' ')} />;
 
         case IconType.Next:
           return <i className={[style.icon, style.iconNext].join(' ')} />;

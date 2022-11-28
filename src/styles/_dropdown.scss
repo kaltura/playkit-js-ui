@@ -109,18 +109,13 @@
     }
 
     &.active {
-      color: $brand-color;
-
-      .icon-check {
-        --playkit-icon-data-url: #{icon(check, $brand-color)};
-        background-image: var(--playkit-icon-data-url);
-      }
+      color: var(--playkit-primary-color);
 
       .menu-icon-container {
         opacity: 1;
       }
     }
-    .icon-check {
+    .icon-check-active {
       display: inline-block;
       margin-left: 16px;
       vertical-align: middle;
