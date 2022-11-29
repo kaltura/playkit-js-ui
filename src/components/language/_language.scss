@@ -1,7 +1,7 @@
 .player {
   a:not([href]) {
     &.advanced-captions-menu-link {
-      color: var(--playkit-primary-brighter-color);
+      color: $primary-brighter-color;
       text-decoration: underline;
     }
   }

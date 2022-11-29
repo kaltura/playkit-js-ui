@@ -109,7 +109,7 @@
     }
 
     &.active {
-      color: var(--playkit-primary-color);
+      color: $primary-color;
 
       .menu-icon-container {
         opacity: 1;

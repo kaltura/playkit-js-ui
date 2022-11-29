@@ -4,7 +4,7 @@
   background-color: rgba(255, 255, 255, 0.2);
 
   .progress {
-    background-color: var(--playkit-primary-color);
+    background-color: $primary-color;
     height: 8px;
     border-radius: 4px;
     position: relative;

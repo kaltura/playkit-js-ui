@@ -23,13 +23,13 @@
     cursor: initial;
 
     .progress-bar .progress {
-      background-color: var(--playkit-ads-color);
+      background-color: $ads-color;
     }
   }
 
   &.live {
     .progress-bar .progress {
-      background-color: var(--playkit-live-color);
+      background-color: $live-color;
     }
   }
 
@@ -47,7 +47,7 @@
       left: 0;
       height: 100%;
       border-radius: inherit;
-      background-color: var(--playkit-primary-color);
+      background-color: $primary-color;
     }
     .virtual-progress {
       display: none;
@@ -68,7 +68,7 @@
     .virtual-progress-indicator {
       width: 1px;
       height: 100%;
-      background-color: var(--playkit-tone-1-color);
+      background-color: $tone-1-color;
       float: right;
     }
 
@@ -81,7 +81,7 @@
       border-radius: 8px;
       height: 16px;
       width: 16px;
-      background-color: var(--playkit-tone-1-color);
+      background-color: $tone-1-color;
       box-shadow: 0 0 31px 0 rgba(0, 0, 0, 0.3);
       transform: scale(0);
       transition: 100ms transform;

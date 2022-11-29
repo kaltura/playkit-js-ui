@@ -1,2 +1,45 @@
 // Sass variables exported using the npm package for plugins usage
 
+// Accent Colors
+$primary-color: var(--playkit-primary-color);
+$primary-darker-color: var(--playkit-primary-darker-color);
+$primary-brighter-color: var(--playkit-primary-brighter-color);
+$primary-text-contrast-color: var(--playkit-primary-text-contrast-color);
+
+$secondary-color: var(--playkit-secondary-color);
+$secondary-darker-color: var(--playkit-secondary-darker-color);
+$secondary-brighter-color: var(--playkit-secondary-brighter-color);
+$secondary-text-contrast-color: var(--playkit-secondary-text-contrast-color);
+
+// Acknowledgement Colors
+$success-color: var(--playkit-success-color);
+$success-darker-color: var(--playkit-success-darker-color);
+$success-brighter-color: var(--playkit-success-brighter-color);
+$success-text-contrast-color: var(--playkit-success-text-contrast-color);
+
+$danger-color: var(--playkit-danger-color);
+$danger-darker-color: var(--playkit-danger-darker-color);
+$danger-brighter-color: var(--playkit-danger-brighter-color);
+$danger-text-contrast-color: var(--playkit-danger-text-contrast-color);
+
+$warning-color: var(--playkit-warning-color);
+$warning-darker-color: var(--playkit-warning-darker-color);
+$warning-brighter-color: var(--playkit-warning-brighter-color);
+$warning-text-contrast-color: var(--playkit-warning-text-contrast-color);
+
+// Tone Ramp
+$tone-1-color: var(--playkit-tone-1-color);
+$tone-2-color: var(--playkit-tone-2-color);
+$tone-3-color: var(--playkit-tone-3-color);
+$tone-4-color: var(--playkit-tone-4-color);
+$tone-5-color: var(--playkit-tone-5-color);
+$tone-6-color: var(--playkit-tone-6-color);
+$tone-7-color: var(--playkit-tone-7-color);
+$tone-8-color: var(--playkit-tone-8-color);
+
+$live-color: var(--playkit-live-color);
+$player-background-color: var(--playkit-player-background-color);
+$tab-focus-color: var(--playkit-tab-focus-color);
+$tooltip-background-color: var(--playkit-tooltip-background-color);
+$tooltip-color: var(--playkit-tooltip-color);
+$ads-color: var(--playkit-ads-color);

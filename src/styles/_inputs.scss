@@ -5,7 +5,7 @@
     max-width: 100%;
 
     &.has-error .form-control {
-      border-color: var(--playkit-danger-color);
+      border-color: $danger-color;
 
       &:focus {
         border-color: #fff;
@@ -48,14 +48,14 @@
     &:focus {
       background-color: #fff;
       border-color: #fff;
-      color: var(--playkit-tone-7-color);
+      color: $tone-7-color;
 
       &::-webkit-input-placeholder {
-        color: var(--playkit-tone-2-color);
+        color: $tone-2-color;
       }
 
       + .icon {
-        fill: var(--playkit-tone-3-color);
+        fill: $tone-3-color;
       }
     }
   }
