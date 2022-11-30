@@ -29,7 +29,11 @@ class OverlayPortal extends Component {
    * @memberof OverlayPortal
    */
   render(props: any): React$Element<any> {
-    return <div className="overlay-portal">{props.children}</div>;
+    return (
+      <div className="overlay-portal" aria-live="polite">
+        {props.children}
+      </div>
+    );
   }
 }
 
