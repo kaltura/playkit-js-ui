@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.72.4](https://github.com/kaltura/playkit-js-ui/compare/v0.72.3...v0.72.4) (2022-12-07)
+
+
+### Bug Fixes
+
+* **FEC-12718:** Player v7 | info v3.1.0-canary.7-c284265 | Accessibility | Space doesn't work for the X button inside info plugin. ([#699](https://github.com/kaltura/playkit-js-ui/issues/699)) ([e4f026b](https://github.com/kaltura/playkit-js-ui/commit/e4f026b))
+* **FEC-12772:** info content is not readable by screen reader ([#705](https://github.com/kaltura/playkit-js-ui/issues/705)) ([2359b00](https://github.com/kaltura/playkit-js-ui/commit/2359b00))
+
+
+
 ### [0.72.3](https://github.com/kaltura/playkit-js-ui/compare/v0.72.2...v0.72.3) (2022-10-03)
 
 
