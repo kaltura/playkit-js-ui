@@ -1,5 +1,5 @@
 
-#Customize the player colors
+# Customize the player colors
 
 in order to override the player default colors you can pass your own color (in HEX color format!) in the `ui` section in player config
 
