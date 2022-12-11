@@ -1,5 +1,9 @@
 // These color convertors based on https://www.npmjs.com/package/color-convert
-// eslint-disable-next-line require-jsdoc
+/**
+ * Convert css color form HEX to RGB format.
+ * @param {string} args  - css color in HEX format
+ * @returns {string} - css color in RGB format
+ */
 export function hexToRgb(args) {
   const match = args.toString().match(/[a-f0-9]{6}|[a-f0-9]{3}/i);
   if (!match) {
@@ -11,7 +15,7 @@ export function hexToRgb(args) {
   if (match[0].length === 3) {
     colorString = colorString
       .split('')
-      .map((char) => {
+      .map(char => {
         return char + char;
       })
       .join('');
@@ -25,7 +29,11 @@ export function hexToRgb(args) {
   return [r, g, b];
 }
 
-// eslint-disable-next-line require-jsdoc
+/**
+ * Convert css color form RGB to HSL format.
+ * @param {string} rgb  - css color in RGB format
+ * @returns {string} - css color in HSL format
+ */
 export function rgbToHsl(rgb) {
   const r = rgb[0] / 255;
   const g = rgb[1] / 255;
@@ -46,8 +54,6 @@ export function rgbToHsl(rgb) {
     h = 4 + (r - g) / delta;
   }
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   h = Math.min(h * 60, 360);
 
   if (h < 0) {
@@ -67,7 +73,21 @@ export function rgbToHsl(rgb) {
   return [h, s * 100, l * 100];
 }
 
-// eslint-disable-next-line require-jsdoc
-export function hexToHsl(hex) {
+/**
+ * Convert css color form HEX to HSL format.
+ * @param {string} hex  - css color in HEX format
+ * @returns {string} - css color in HSL format
+ */
+function hexToHsl(hex) {
   return rgbToHsl(hexToRgb(hex));
+}
+
+/**
+ * Extract the Hue parameter from HSL color format.
+ * @param {string} hex  - css color in HEX format
+ * @returns {void}
+ */
+export function getHueComponentOfHEXColorFormat(hex) {
+  const hsl = hexToHsl(hex);
+  return hsl[0];
 }

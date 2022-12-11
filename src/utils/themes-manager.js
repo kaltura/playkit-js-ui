@@ -1,6 +1,6 @@
 //@flow
 
-import {hexToHsl} from './color-format-convertors';
+import {getHueComponentOfHEXColorFormat} from './color-format-convertors';
 import {style} from '../index';
 
 const cssVarNames: ThemesManagerConfig = {
@@ -35,23 +35,23 @@ export class ThemesManager {
     this.config = config;
   }
 
-  // eslint-disable-next-line require-jsdoc
+  /**
+   * Apply the user theme from config (should be called only after the UI was build and the css vars are exist in the DOM).
+   * @returns {void}
+   */
   applyUserTheme(): void {
     if (this.config) {
       this.setColors(this.config);
     }
   }
 
-  // eslint-disable-next-line require-jsdoc
-  getHueComponent(hex: string): number {
-    const hsl = hexToHsl(hex);
-    return hsl[0];
-  }
-
-  // eslint-disable-next-line require-jsdoc
+  /**
+   * Override the colors from config.
+   * @param {ThemesManagerConfig} config  -
+   * @returns {void}
+   */
   setColors(config: ThemesManagerConfig): void {
     if (config.colors.primary) {
-      // this.setColor(cssVarNames.colors.primary, config.colors.primary);
       this.setSvgFillColor(config.colors.primary);
     }
 
@@ -60,13 +60,22 @@ export class ThemesManager {
     }
   }
 
-  // eslint-disable-next-line require-jsdoc
+  /**
+   * Override the specified css var value.
+   * @param {string} cssVarName -
+   * @param {string} color  -
+   * @returns {void}
+   */
   setColor(cssVarName: string, color: string): void {
-    const hue = this.getHueComponent(color);
-    document.querySelector<HTMLElement>('.playkit-player').style.setProperty(cssVarName, `${hue}deg`);
+    const hue = getHueComponentOfHEXColorFormat(color);
+    document.querySelector<HTMLElement>(`.${style.player}`).style.setProperty(cssVarName, `${hue}deg`);
   }
 
-  // eslint-disable-next-line require-jsdoc
+  /**
+   * Update the SVG url (of dynamic SVGs) with the new primary color.
+   * @param {string} color  -
+   * @returns {void}
+   */
   setSvgFillColor(color: string): void {
     for (const varName of dynamicColoredIconsSvgUrlVars) {
       const svgUrl = getComputedStyle(document.querySelector(`.${style.player}`)).getPropertyValue(varName);
