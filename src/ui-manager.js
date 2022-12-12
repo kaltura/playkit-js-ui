@@ -44,6 +44,7 @@ class UIManager {
   _locale: string = 'en';
   _uiComponents: Array<KPUIComponent>;
   addComponent: (component: KPUIComponent) => Function;
+  _themesManager: ThemesManager;
 
   /**
    * Creates an instance of UIManager.

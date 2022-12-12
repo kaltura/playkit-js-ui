@@ -3,7 +3,7 @@
 import {getHueComponentOfHEXColorFormat} from './color-format-convertors';
 import {style} from '../index';
 
-const cssVarNames: ThemesManagerConfig = {
+const cssVarNames = {
   colors: {
     primary: '--playkit-primary-hsl-hue',
     secondary: '--playkit-secondary-hsl-hue',
@@ -30,7 +30,7 @@ export class ThemesManager {
   config: Object;
 
   // eslint-disable-next-line require-jsdoc
-  constructor(player: Object, config: UserTheme) {
+  constructor(player: Object, config: ?UserTheme) {
     this.player = player;
     this.config = config;
   }
@@ -47,10 +47,10 @@ export class ThemesManager {
 
   /**
    * Override the colors from config.
-   * @param {ThemesManagerConfig} config  -
+   * @param {UserTheme} config  -
    * @returns {void}
    */
-  setColors(config: ThemesManagerConfig): void {
+  setColors(config: UserTheme): void {
     if (config.colors.primary) {
       this.setSvgFillColor(config.colors.primary);
     }
@@ -68,7 +68,7 @@ export class ThemesManager {
    */
   setColor(cssVarName: string, color: string): void {
     const hue = getHueComponentOfHEXColorFormat(color);
-    document.querySelector<HTMLElement>(`.${style.player}`).style.setProperty(cssVarName, `${hue}deg`);
+    document.querySelector(`.${style.player}`)?.style.setProperty(cssVarName, `${hue}deg`);
   }
 
   /**
@@ -78,11 +78,10 @@ export class ThemesManager {
    */
   setSvgFillColor(color: string): void {
     for (const varName of dynamicColoredIconsSvgUrlVars) {
-      const svgUrl = getComputedStyle(document.querySelector(`.${style.player}`)).getPropertyValue(varName);
+      // $FlowFixMe
+      const svgUrl = getComputedStyle(document.querySelector(`.${style.player}`))?.getPropertyValue(varName);
       const newColor = color.replace('#', '%23');
-      document
-        .querySelector<HTMLElement>(`.${style.player}`)
-        .style.setProperty(varName, svgUrl.replace(/fill='%23([a-f0-9]{3}){1,2}\b'/, `fill='${newColor}'`));
+      document.querySelector(`.${style.player}`)?.style.setProperty(varName, svgUrl.replace(/fill='%23([a-f0-9]{3}){1,2}\b'/, `fill='${newColor}'`));
     }
   }
 }
