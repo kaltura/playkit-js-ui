@@ -19,10 +19,10 @@ A value in a key-value may be a string or an object containing a list of key-val
 
 The application will set the "ui" configuration on the root level of the player's config
 
-```json
+```
 "ui": {
 	"translations": {
-			en: {
+			"en": {
 					    "controls": {
 						    "play": "Play",
 						    "pause": "Pause",
@@ -78,6 +78,7 @@ The application will set the "ui" configuration on the root level of the player'
 				}
 		}
 }
+
 ```
 
 For complete translation reference see [here](/translations/en.i18n.json).
@@ -93,20 +94,20 @@ Setting the display language is done by defining the `locale` config option, whe
 
 > Only a locale that exist in the translations dictionary may be set, and setting a locale that doesn't exist will result in keeping the default one set.
 
-```json
-ui: {
-  locale: 'es', //set the desired locale
-  translations: {
-    en: {
+```
+"ui": {
+  "locale": "es", //set the desired locale
+  "translations": {
+    "en": {
       /*English dictionary like the above example*/
     },
-    es: {
+    "es": {
       /*Spanish dictionary like the above example*/
     },
-    ar: {
+    "ar": {
       /*Arabic dictionary like the above example*/
     }
-    .....
+    ....
   }
 }
 ```
