@@ -1,27 +1,5 @@
-@import 'exported';
-
-$brand-color: #006bff;
-$brand-color-dark: #004bb3;
-$brand-color-light: #4d89ff;
-$brand-color-text-contrast: #ffffff;
-$tab-focus-color: $brand-color;
-
-// Old version - deprecated
-$white: #ffffff;
-$grayscale1: #333;
-$grayscale2: #424242;
-$grayscale3: #999;
-$grayscale4: #cccccc;
-
 $headline-font-size: 18px;
 $subheadline-font-size: 14px;
-$success-color: #009444;
-$danger-color: #db1f26;
-$ads-color: #f9a71b;
-$live-color: #da1f26;
-$new-live-color: #e12437;
-$tooltip-bg-color: $tone-1;
-$tooltip-color: $tone-7;
 $tooltip-margin: calc(100% + 10px);
 $tooltip-arrow-height: 4px;
 $tooltip-arrow-width: 5px;
@@ -32,7 +10,7 @@ $progress-bar-height: 4px;
 $progress-bar-border-radius: $progress-bar-height / 2;
 $spinner-circle-radius: 4px;
 $spinner-colors: rgb(218, 31, 38), rgb(6, 168, 133), rgb(0, 147, 68), rgb(248, 166, 26), rgb(27, 74, 151), rgb(0, 171, 204), rgb(177, 210, 56),
-  rgb(252, 210, 3);
+rgb(252, 210, 3);
 $default-transition-time: 500;
 $default-hovering-offset: 60px;
 $hover-animation-time: 100;
@@ -43,17 +21,52 @@ $bottom-bar-bottom-gutter: 4;
 $gui-gutter: 16;
 $gui-small-gutter: 8;
 $blur: 16px;
-
-$color-tone1: #ffffff;
-$color-tone4: #888888;
-$color-tone6: #444444;
+// ***************  Backward Compatibility - Deprecated  **************
+$brand-color: #006bff;     // - refs in playkit-ui and related-plugin
+$white: #ffffff;           // - refs in playkit-ui and related-plugin
+$new-live-color: #e12437;  // - refs in related-plugin
+// ********************************************************************
 
 :export {
-  brandColor: $brand-color;
-  liveColor: $new-live-color;
-  white: $white;
+  primaryColor: $primary-color;
+  primaryDarkerColor: $primary-darker-color;
+  primaryBrighterColor: $primary-brighter-color;
+  primaryTextContrastColor: $primary-text-contrast-color;
+  secondaryColor: $secondary-color;
+  secondaryDarkerColor: $secondary-darker-color;
+  secondaryBrighterColor: $secondary-brighter-color;
+  secondaryTextContrastColor: $secondary-text-contrast-color;
+  successDarkerColor: $success-darker-color;
+  successBrighterColor: $success-brighter-color;
+  successTextContrastColor: $success-text-contrast-color;
+  dangerColor: $danger-color;
+  dangerDarkerColor: $danger-darker-color;
+  dangerBrighterColor: $danger-brighter-color;
+  danger-text-contrast-color: $danger-text-contrast-color;
+  warningColor: $warning-color;
+  warningDarkerColor: $warning-darker-color;
+  warningBrighterColor: $warning-brighter-color;
+  warningTextContrastColor: $warning-text-contrast-color;
+  tone1Color: $tone-1-color;
+  tone2Color: $tone-2-color;
+  tone3Color: $tone-3-color;
+  tone4Color: $tone-4-color;
+  tone5Color: $tone-5-color;
+  tone6Color: $tone-6-color;
+  tone7Color: $tone-7-color;
+  tone8Color: $tone-8-color;
+  liveColor: $live-color;
+  playerBackgroundColor: $player-background-color;
+  tabFocusColor: $tab-focus-color;
+  tooltipBackgroundColor: $tooltip-background-color;
+  tooltipColor: $tooltip-color;
+  adsColor: $ads-color;
   progressBarHeight: $progress-bar-height;
   progressBarBorderRadius: $progress-bar-border-radius;
   defaultTransitionTime: $default-transition-time;
   bottomBarMaxHeight: $bottom-bar-max-height;
+  // ***************  Backward Compatibility - Deprecated  **************
+  brandColor: $brand-color;
+  white: $white;
+  // ********************************************************************
 }
