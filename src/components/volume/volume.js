@@ -400,6 +400,7 @@ class Volume extends Component {
 
     return (
       <ButtonControl
+        role="application"
         name={COMPONENT_NAME}
         ref={c => (c ? (this._volumeControlElement = c) : undefined)}
         className={controlButtonClasses}
