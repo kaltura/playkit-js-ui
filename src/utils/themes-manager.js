@@ -3,7 +3,7 @@
 import {getHueComponentOfHEXColorFormat} from './color-format-convertors';
 import {style} from '../index';
 
-const cssVarNames = {
+const cssVarNames: UserTheme = {
   colors: {
     primary: '--playkit-primary-hsl-hue',
     secondary: '--playkit-secondary-hsl-hue',
@@ -14,6 +14,8 @@ const cssVarNames = {
     playerBackground: '--playkit-player-background-color'
   }
 };
+
+const MAIN_COLORS = ['primary', 'secondary', 'success', 'danger', 'warning'];
 
 const dynamicColoredIconsSvgUrlVars = [
   '--playkit-icon-check-active-url',
@@ -56,7 +58,7 @@ export class ThemesManager {
     }
 
     for (const color in config.colors) {
-      if (['primary', 'secondary', 'success', 'danger', 'warning'].includes(color)) {
+      if (MAIN_COLORS.includes(color)) {
         this.setHueDeg(cssVarNames.colors[color], config.colors[color]);
       } else {
         this.setColor(cssVarNames.colors[color], config.colors[color]);
