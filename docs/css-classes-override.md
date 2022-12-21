@@ -41,7 +41,7 @@ And here are some of the classes you can override:
 ```
 
 
-* Modifing the elements can be done progrmatically in some more ways like querySelctor, gerElemetById and more
+* Modifing the elements can be done programmatically in some more ways like querySelctor, gerElemetById and more
 
 #### Example
 ```
