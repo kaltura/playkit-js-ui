@@ -59,7 +59,7 @@
     },
     "cvaa": {
       "title": "고급 자막 설정",
-      "sample_caption_tag": "샘플",
+      "sample_caption_tag": "샘플 {{number}}",
       "sample_custom_caption_tag": "자막 변경",
       "set_custom_caption": "자막 설정하기",
       "edit_caption": "자막 편집",

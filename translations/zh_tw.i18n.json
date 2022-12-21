@@ -59,7 +59,7 @@
     },
     "cvaa": {
       "title": "進階字幕設定",
-      "sample_caption_tag": "樣本",
+      "sample_caption_tag": "樣本 {{number}}",
       "sample_custom_caption_tag": "自訂字幕",
       "set_custom_caption": "設定自訂字幕",
       "edit_caption": "编辑字幕",

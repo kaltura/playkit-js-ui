@@ -59,7 +59,7 @@
     },
     "cvaa": {
       "title": "Configuración avanzada de los subtítulos",
-      "sample_caption_tag": "Ejemplo",
+      "sample_caption_tag": "Ejemplo {{number}}",
       "sample_custom_caption_tag": "Personalizar subtítulos",
       "set_custom_caption": "Configurar subtítulos personalizados",
       "edit_caption": "Editar subtítulo",
