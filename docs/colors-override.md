@@ -30,7 +30,8 @@ const player = KalturaPlayer.setup(config);
 
 [See here for full configuration options](https://github.com/kaltura/playkit-js-ui/tree/master/flow-typed/types/user-theme.js)
 
-  <style>
+
+<style>
     :root {
       --playkit-primary-hsl-hue: 215deg;
       --playkit-secondary-hsl-hue: 40deg;
@@ -107,7 +108,7 @@ const player = KalturaPlayer.setup(config);
       display: flex;
       padding: 20px 0 9px 0;
     }
-  </style>
+</style>
 
 <div class="container">
   <div class="col1">
@@ -183,14 +184,3 @@ const player = KalturaPlayer.setup(config);
     <div class="bbb">player background color</div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-f
