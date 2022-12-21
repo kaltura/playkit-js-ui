@@ -28,3 +28,7 @@ More information on how to build UI components and injecting them to UI see:
 The captions customizing level can be modified by removing settings from the captions setting menu.
 
 More information on removing settings from the menu can be found [here](cvaa-override.md).
+
+## Override Player Theme (Main colors)
+
+Some style (currently - mainly the player primary colors) can be configured

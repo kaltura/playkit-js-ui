@@ -2,9 +2,10 @@
   font-size: 15px;
   line-height: 18px;
   cursor: pointer;
+  --primary-hover-color: hsl(var(--playkit-primary-hsl-hue) var(--playkit-hsl-saturation) calc(var(--playkit-hsl-lightness) - 10%));
 
   &:hover {
-    color: darken($brand-color, 10%);
+    color: var(--primary-hover-color);
   }
   &:active {
     opacity: 0.7;

@@ -1,5 +1,3 @@
-@import '~styles/variables';
-
 @function svg-url($svg, $size, $viewBox) {
   $svg: '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="#{$viewBox}" width="#{$size}" height="#{$size}">#{$svg}</svg>';
 
@@ -144,6 +142,16 @@
   background-position: 50% 50%;
 }
 
+// Dynamic Colored Icons
+.player {
+  --playkit-icon-check-active-url: #{icon(check, $brand-color)};
+  --playkit-icon-vr-stereo-full-url: #{icon(vrStereoFull, $brand-color)};
+  --playkit-icon-chromecast-url: #{icon(chromecast, $brand-color)};
+  --playkit-icon-quality-HD-active-url: #{icon(qualityHdActive, $brand-color, '16', '0 0 16 16')};
+  --playkit-icon-quality-4K-active-url: #{icon(quality4kActive, $brand-color, '16', '0 0 16 16')};
+  --playkit-icon-quality-8K-active-url: #{icon(quality8kActive, $brand-color, '16', '0 0 16 16')};
+}
+
 .icon-maximize {
   background-image: icon(maximize, '#fff');
 }
@@ -186,6 +194,10 @@
 
 .icon-check {
   background-image: icon(check, '#fff');
+}
+
+.icon-check-active {
+  background-image: var(--playkit-icon-check-active-url);
 }
 
 .icon-language {
@@ -249,7 +261,7 @@
 }
 
 .icon-vr-stereo-full {
-  background-image: icon(vrStereoFull, $brand-color);
+  background-image: var(--playkit-icon-vr-stereo-full-url);
 }
 
 .icon-chromecast {
@@ -257,7 +269,7 @@
 }
 
 .icon-chromecast-brand {
-  background-image: icon(chromecast, $brand-color);
+  background-image: var(--playkit-icon-chromecast-url);
 }
 
 .icon-next {
@@ -284,7 +296,7 @@
 
 .icon-quality-hd-active {
   &:after {
-    background-image: icon(qualityHdActive, $brand-color, '16', '0 0 16 16');
+    background-image: var(--playkit-icon-quality-HD-active-url);
   }
 }
 
@@ -296,7 +308,7 @@
 
 .icon-quality-4k-active {
   &:after {
-    background-image: icon(quality4kActive, $brand-color, '16', '0 0 16 16');
+    background-image: var(--playkit-icon-quality-4K-active-url);
   }
 }
 
@@ -308,7 +320,7 @@
 
 .icon-quality-8k-active {
   &:after {
-    background-image: icon(quality8kActive, $brand-color, '16', '0 0 16 16');
+    background-image: var(--playkit-icon-quality-8K-active-url);
   }
 }
 

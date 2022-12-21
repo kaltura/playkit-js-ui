@@ -48,14 +48,14 @@
     &:focus {
       background-color: #fff;
       border-color: #fff;
-      color: $grayscale1;
+      color: $tone-7-color;
 
       &::-webkit-input-placeholder {
-        color: $grayscale4;
+        color: $tone-2-color;
       }
 
       + .icon {
-        fill: $grayscale3;
+        fill: $tone-3-color;
       }
     }
   }

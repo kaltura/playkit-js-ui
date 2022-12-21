@@ -25,7 +25,7 @@
   }
 
   &.btn-branded {
-    background-color: $brand-color;
+    background-color: $primary-color;
 
     &:hover {
       color: #fff;
@@ -84,11 +84,11 @@
   }
 
   label {
-    color: $color-tone1;
+    color: $tone-1-color;
   }
 
   &:hover {
-    background-color: $color-tone4;
+    background-color: $tone-4-color;
   }
 }
 
