@@ -59,7 +59,7 @@
     },
     "cvaa": {
       "title": "الإعدادات المتقدمة للتسميات التوضيحية",
-      "sample_caption_tag": "عينة",
+      "sample_caption_tag": "{{number}} عينة",
       "sample_custom_caption_tag": "تسميات توضيحية مخصصة",
       "set_custom_caption": "تعيين تسمية توضيحية مخصصة",
       "edit_caption": "تحرير تسمية توضيحية",

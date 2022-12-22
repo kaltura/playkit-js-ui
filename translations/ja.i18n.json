@@ -59,7 +59,7 @@
     },
     "cvaa": {
       "title": "キャプションの詳細設定",
-      "sample_caption_tag": "サンプル",
+      "sample_caption_tag": "サンプル {{number}}",
       "sample_custom_caption_tag": "カスタム キャプション",
       "set_custom_caption": "カスタム キャプションの設定",
       "edit_caption": "キャプションを編集する",

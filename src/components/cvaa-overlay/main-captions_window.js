@@ -86,6 +86,7 @@ class MainCaptionsWindow extends Component {
             changeCaptionsStyle={props.changeCaptionsStyle}
             captionsStyle={this.captionsStyleDefault}
             player={props.player}
+            sampleNumber={'1'}
           />
           <SampleCaptionsStyleButton
             addAccessibleChild={props.addAccessibleChild}
@@ -93,6 +94,7 @@ class MainCaptionsWindow extends Component {
             changeCaptionsStyle={props.changeCaptionsStyle}
             captionsStyle={this.captionsStyleBlackBG}
             player={props.player}
+            sampleNumber={'2'}
           />
           <SampleCaptionsStyleButton
             addAccessibleChild={props.addAccessibleChild}
@@ -100,6 +102,7 @@ class MainCaptionsWindow extends Component {
             changeCaptionsStyle={props.changeCaptionsStyle}
             captionsStyle={this.captionsStyleYellow}
             player={props.player}
+            sampleNumber={'3'}
           />
         </div>
         {!this.isAdvancedStyleApplied() ? (

@@ -59,7 +59,7 @@
     },
     "cvaa": {
       "title": "Paramètres avancés de sous-titres",
-      "sample_caption_tag": "Échantillon",
+      "sample_caption_tag": "Échantillon {{number}}",
       "sample_custom_caption_tag": "Sous-titres personnalisés",
       "set_custom_caption": "Régler les sous-titres personnalisées",
       "edit_caption": "Modifier le sous-titre",

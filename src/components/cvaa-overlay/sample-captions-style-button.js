@@ -38,7 +38,7 @@ const SampleCaptionsStyleButton = (props: any): React$Element<any> => {
       className={props.classNames.join(' ')}
       onClick={changeCaptionsStyle}
       onKeyDown={onKeyDown}>
-      <Text id={'cvaa.sample_caption_tag'} />
+      <Text id={'cvaa.sample_caption_tag'} fields={{number: props.sampleNumber}} />
       {props.player.textStyle.isEqual(props.captionsStyle) ? (
         <div className={style.activeTick}>
           <Icon type={IconType.Check} />

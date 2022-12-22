@@ -59,7 +59,7 @@
     },
     "cvaa": {
       "title": "הגדרות כתוביות מתקדמות",
-      "sample_caption_tag": "דוגמה",
+      "sample_caption_tag": "{{number}} דוגמה",
       "sample_custom_caption_tag": "כתוביות מותאמות אישית",
       "set_custom_caption": "הגדר כתוביות מותאמות אישית",
       "edit_caption": "ערוך כתוביות",
