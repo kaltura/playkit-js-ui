@@ -59,7 +59,7 @@
     },
     "cvaa": {
       "title": "高级字幕设置",
-      "sample_caption_tag": "范例",
+      "sample_caption_tag": "范例 {{number}}",
       "sample_custom_caption_tag": "自定义字幕",
       "set_custom_caption": "设置自定义字幕",
       "edit_caption": " 编辑字幕",

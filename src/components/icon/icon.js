@@ -15,6 +15,7 @@ const IconType = {
   Close: 'close',
   Settings: 'settings',
   Check: 'check',
+  CheckActive: 'check-active',
   Language: 'language',
   Quality: 'quality',
   Captions: 'captions',
@@ -232,6 +233,9 @@ class Icon extends Component {
 
         case IconType.Check:
           return <i className={[style.icon, style.iconCheck].join(' ')} />;
+
+        case IconType.CheckActive:
+          return <i className={[style.icon, style.iconCheckActive].join(' ')} />;
 
         case IconType.Language:
           return <i className={[style.icon, style.iconLanguage].join(' ')} />;

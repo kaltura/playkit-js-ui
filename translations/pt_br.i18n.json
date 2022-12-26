@@ -59,7 +59,7 @@
     },
     "cvaa": {
       "title": "Configurações avançadas de legendas",
-      "sample_caption_tag": "Amostra",
+      "sample_caption_tag": "Amostra {{number}}",
       "sample_custom_caption_tag": "Legendas personalizadas",
       "set_custom_caption": "Definir legenda personalizada",
       "edit_caption": "Editar legenda",

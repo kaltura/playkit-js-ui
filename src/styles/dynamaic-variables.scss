@@ -1,0 +1,56 @@
+.player {
+  // HSL args
+  //--playkit-primary-hsl-hue: #{hue($brand-color)};
+  --playkit-primary-hsl-hue: 215deg;
+  --playkit-secondary-hsl-hue: 40deg;
+  --playkit-success-hsl-hue: 136deg;
+  --playkit-danger-hsl-hue: 355deg;
+  --playkit-warning-hsl-hue: 21deg;
+
+  --playkit-hsl-saturation: 100%;
+  --playkit-hsl-lightness: 50%;
+
+  // Accent Colors
+  --playkit-primary-color: hsl(var(--playkit-primary-hsl-hue) var(--playkit-hsl-saturation) var(--playkit-hsl-lightness));
+  --playkit-primary-darker-color: hsl(var(--playkit-primary-hsl-hue) var(--playkit-hsl-saturation) calc(var(--playkit-hsl-lightness) - 15%));
+  --playkit-primary-brighter-color: hsl(var(--playkit-primary-hsl-hue) var(--playkit-hsl-saturation) calc(var(--playkit-hsl-lightness) + 15%));
+  --playkit-primary-text-contrast-color: #ffffff;
+
+  --playkit-secondary-color: hsl(var(--playkit-secondary-hsl-hue) var(--playkit-hsl-saturation) var(--playkit-hsl-lightness));
+  --playkit-secondary-darker-color: hsl(var(--playkit-secondary-hsl-hue) var(--playkit-hsl-saturation) calc(var(--playkit-hsl-lightness) - 15%));
+  --playkit-secondary-brighter-color: hsl(var(--playkit-secondary-hsl-hue) var(--playkit-hsl-saturation) calc(var(--playkit-hsl-lightness) + 15%));
+  --playkit-secondary-text-contrast-color: #ffffff;
+
+  // Acknowledgement Colors
+  --playkit-success-color: hsl(var(--playkit-success-hsl-hue) var(--playkit-hsl-saturation) var(--playkit-hsl-lightness));
+  --playkit-success-darker-color: hsl(var(--playkit-success-hsl-hue) var(--playkit-hsl-saturation) calc(var(--playkit-hsl-lightness) - 15%));
+  --playkit-success-brighter-color: hsl(var(--playkit-success-hsl-hue) var(--playkit-hsl-saturation) calc(var(--playkit-hsl-lightness) + 15%));
+  --playkit-success-text-contrast-color: #ffffff;
+
+  --playkit-danger-color: hsl(var(--playkit-danger-hsl-hue) var(--playkit-hsl-saturation) var(--playkit-hsl-lightness));
+  --playkit-danger-darker-color: hsl(var(--playkit-danger-hsl-hue) var(--playkit-hsl-saturation) calc(var(--playkit-hsl-lightness) - 15%));
+  --playkit-danger-brighter-color: hsl(var(--playkit-danger-hsl-hue) var(--playkit-hsl-saturation) calc(var(--playkit-hsl-lightness) + 15%));
+  --playkit-danger-text-contrast-color: #ffffff;
+
+  --playkit-warning-color: hsl(var(--playkit-warning-hsl-hue) var(--playkit-hsl-saturation) var(--playkit-hsl-lightness));
+  --playkit-warning-darker-color: hsl(var(--playkit-warning-hsl-hue) var(--playkit-hsl-saturation) calc(var(--playkit-hsl-lightness) - 15%));
+  --playkit-warning-brighter-color: hsl(var(--playkit-warning-hsl-hue) var(--playkit-hsl-saturation) calc(var(--playkit-hsl-lightness) + 15%));
+  --playkit-warning-text-contrast-color: #ffffff;
+
+  // Tone Ramp
+  --playkit-tone-1-color: #ffffff;
+  --playkit-tone-2-color: #cccccc;
+  --playkit-tone-3-color: #999999;
+  --playkit-tone-4-color: #888888;
+  --playkit-tone-5-color: #666666;
+  --playkit-tone-6-color: #444444;
+  --playkit-tone-7-color: #222222;
+  --playkit-tone-8-color: #000000;
+
+  --playkit-live-color: #e12536;
+  --playkit-player-background-color: #000000;
+  --playkit-tab-focus-color: var(--playkit-primary-color);
+  --playkit-tooltip-background-color: var(--playkit-tone-1-color);
+  --playkit-tooltip-color: var(--playkit-tone-7-color);
+  --playkit-ads-color: var(--playkit-secondary-color);
+}

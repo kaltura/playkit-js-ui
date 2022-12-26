@@ -28,6 +28,7 @@ import {middleware} from './middlewares';
 import './styles/style.scss';
 import {EventDispatcherProvider} from 'components/event-dispatcher';
 import {KeyboardEventProvider} from 'components/keyboard/keyboard-event-provider';
+import {ThemesManager} from 'utils/themes-manager';
 
 /**
  * API used for building UIs based on state conditions
@@ -43,6 +44,7 @@ class UIManager {
   _locale: string = 'en';
   _uiComponents: Array<KPUIComponent>;
   addComponent: (component: KPUIComponent) => Function;
+  _themesManager: ThemesManager;
 
   /**
    * Creates an instance of UIManager.
@@ -58,6 +60,7 @@ class UIManager {
     this._createStore(config);
     this.setConfig(config);
     this._setLocaleTranslations(config);
+    this._themesManager = new ThemesManager(player, config.userTheme);
     setEnv(this.player.env);
   }
 
@@ -112,6 +115,7 @@ class UIManager {
       {template: props => presets.playbackUI(props)}
     ];
     this._buildUI(uis);
+    this._themesManager.applyUserTheme();
   }
 
   /**

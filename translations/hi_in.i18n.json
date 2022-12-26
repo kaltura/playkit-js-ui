@@ -59,7 +59,7 @@
     },
     "cvaa": {
       "title": "उन्नत कैप्शन सेंटिंग",
-      "sample_caption_tag": "सैम्पल",
+      "sample_caption_tag": "सैम्पल {{number}}",
       "sample_custom_caption_tag": "कस्टम कैप्शन",
       "set_custom_caption": "कस्टम कैप्शन सेट करें",
       "edit_caption": "कैप्शन संपादित करें",

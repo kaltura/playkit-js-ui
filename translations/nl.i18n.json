@@ -59,7 +59,7 @@
     },
     "cvaa": {
       "title": "Geavanceerde instellingen voor onderschriften",
-      "sample_caption_tag": "Voorbeeld",
+      "sample_caption_tag": "Voorbeeld {{number}}",
       "sample_custom_caption_tag": "Aangepaste onderschriften",
       "set_custom_caption": "Aangepast onderschrift instellen",
       "edit_caption": "Onderschrift bewerken",

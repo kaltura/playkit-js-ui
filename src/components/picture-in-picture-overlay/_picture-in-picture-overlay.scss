@@ -1,5 +1,3 @@
-@import '~styles/variables';
-
 .picture-in-picture-overlay {
   position: absolute;
   top: 0;
@@ -46,7 +44,7 @@
   }
 
   .picture-in-picture-text {
-    color: $white;
+    color: $tone-1-color;
     font-size: $headline-font-size;
     white-space: nowrap;
     overflow: hidden;
@@ -55,10 +53,10 @@
   .picture-in-picture-button {
     height: 36px;
     width: 120px;
-    border: 2px solid $grayscale2;
+    border: 2px solid $tone-6-color;
     border-radius: 18px;
-    background-color: $grayscale1;
-    color: $white;
+    background-color: $tone-7-color;
+    color: $tone-1-color;
     font-size: 15px;
     font-weight: bold;
     line-height: 30px;
@@ -66,7 +64,7 @@
     margin-top: 20px;
     align-self: center;
     &:hover {
-      background-color: $grayscale2;
+      background-color: $tone-6-color;
     }
   }
 }
