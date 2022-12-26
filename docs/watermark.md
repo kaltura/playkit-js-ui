@@ -18,7 +18,7 @@ The playr UI top level customization exposes `components` configurations where a
 
 #### Example
 
-```json
+```
 "ui": {
 	"components": {
 		"watermark": {
