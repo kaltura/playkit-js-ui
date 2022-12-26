@@ -1,3 +1,5 @@
+@import '~styles/exported.scss';
+
 .player {
   .cast-button {
     display: block;
@@ -6,19 +8,19 @@
     background-color: rgba(255, 255, 255, 0);
     border: none;
     cursor: pointer;
-    --connected-color: $tone-2-color;
-    --disconnected-color: $tone-2-color;
+    --connected-color: #{$tone-2-color};
+    --disconnected-color: #{$tone-2-color};
 
     &:hover {
-      --connected-color: #FFFFFFFF;
-      --disconnected-color: #FFFFFFFF;
+      --connected-color: #ffffffff;
+      --disconnected-color: #ffffffff;
     }
 
     &.cast-button-active {
       --connected-color: rgba(1, 172, 205, 0.8);
 
       &:hover {
-        --connected-color: $primary-color;
+        --connected-color: #{$primary-color};
       }
     }
   }
