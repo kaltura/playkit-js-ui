@@ -59,7 +59,7 @@
     },
     "cvaa": {
       "title": "Advanced captions settings",
-      "sample_caption_tag": "Sample",
+      "sample_caption_tag": "Sample {{number}}",
       "sample_custom_caption_tag": "Custom captions",
       "set_custom_caption": "Set custom caption",
       "edit_caption": "Edit caption",

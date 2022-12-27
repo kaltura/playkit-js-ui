@@ -59,7 +59,7 @@
     },
     "cvaa": {
       "title": "Impostazioni didascalie avanzate",
-      "sample_caption_tag": "Campione",
+      "sample_caption_tag": "Campione {{number}}",
       "sample_custom_caption_tag": "Didascalie personalizzate",
       "set_custom_caption": "Imposta didascalia personalizzata",
       "edit_caption": "Modifica didascalia",

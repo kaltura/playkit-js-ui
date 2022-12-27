@@ -59,7 +59,7 @@
     },
     "cvaa": {
       "title": "Расширенные настройки субтитров",
-      "sample_caption_tag": "Образец",
+      "sample_caption_tag": "Образец {{number}}",
       "sample_custom_caption_tag": "Индивидуальные субтитры",
       "set_custom_caption": "Установить индивидуальные субтитры",
       "edit_caption": "Редактировать субтитры",

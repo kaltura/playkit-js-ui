@@ -59,7 +59,7 @@
     },
     "cvaa": {
       "title": "Erweiterte Einstellungen für Untertitel",
-      "sample_caption_tag": "Beispiel",
+      "sample_caption_tag": "Beispiel {{number}}",
       "sample_custom_caption_tag": "Benutzerdefinierte Untertitel",
       "set_custom_caption": "Benutzerdefinierte Untertitel auswählen",
       "edit_caption": "Untertitel bearbeiten",

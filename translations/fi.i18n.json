@@ -59,7 +59,7 @@
     },
     "cvaa": {
       "title": "Tekstityksen lisäasetukset",
-      "sample_caption_tag": "Esimerkki",
+      "sample_caption_tag": "Esimerkki {{number}}",
       "sample_custom_caption_tag": "Mukautetut tekstitykset",
       "set_custom_caption": "Aseta mukautettu tekstitys",
       "edit_caption": "Muokkaa tekstitystä",
