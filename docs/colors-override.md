@@ -18,7 +18,8 @@ const config = {
     userTheme: {
       colors: {
         primary: '#da3633',
-        secondary: '#c4da33'
+        live: '#ffff00',
+        playerBackground: '#ffa500'
       }
     }
   }
