@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.73.0](https://github.com/kaltura/playkit-js-ui/compare/v0.72.4...v0.73.0) (2022-12-28)
+
+
+### Bug Fixes
+
+* **FEC-12497:** Background color of plugin icon should not changed on focus state ([#707](https://github.com/kaltura/playkit-js-ui/issues/707)) ([276d30d](https://github.com/kaltura/playkit-js-ui/commit/276d30d))
+* **FEC-12719:** [WEB][UI]- Player v7 | playlist v3.0.1-canary.1-51e0b54 | Accessibility | After entry reaches the end, when tab navigate to the square next video in the middle of the player (autoContinue: false) "Space" doesn't work. ([#701](https://github.com/kaltura/playkit-js-ui/issues/701)) ([fdb92df](https://github.com/kaltura/playkit-js-ui/commit/fdb92df))
+* **FEC-12728:** Buttons for caption customization do not have descriptive names (they all say, "sample") ([#712](https://github.com/kaltura/playkit-js-ui/issues/712)) ([492dd9d](https://github.com/kaltura/playkit-js-ui/commit/492dd9d))
+* **FEC-12763:** Volume slider is inaccessible for JAWS screen reader ([#704](https://github.com/kaltura/playkit-js-ui/issues/704)) ([bb24f99](https://github.com/kaltura/playkit-js-ui/commit/bb24f99))
+* **FEC-12819:** live and background colors are not changed while configured ([#711](https://github.com/kaltura/playkit-js-ui/issues/711)) ([8d02ee8](https://github.com/kaltura/playkit-js-ui/commit/8d02ee8))
+* **FEC-12837:** UI colors - Cast icon is black instead of white ([#715](https://github.com/kaltura/playkit-js-ui/issues/715)) ([60179c5](https://github.com/kaltura/playkit-js-ui/commit/60179c5))
+
+
+### Features
+
+* **FEC-12700:** Make the player colors configurable from studio ([#703](https://github.com/kaltura/playkit-js-ui/issues/703)) ([321f4ae](https://github.com/kaltura/playkit-js-ui/commit/321f4ae))
+
+
+
 ### [0.72.4](https://github.com/kaltura/playkit-js-ui/compare/v0.72.3...v0.72.4) (2022-12-07)
 
 
