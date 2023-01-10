@@ -66,7 +66,8 @@ class PlaylistCountdown extends Component {
       props.playlist.next &&
       props.playlist.next.sources &&
       props.player.playlist.countdown.showing &&
-      (props.player.playlist.options.autoContinue || props.player.playlist.options.loop)
+      (props.player.playlist.options.autoContinue || props.player.playlist.options.loop) &&
+      props.currentTime > 0
     );
   }
 
