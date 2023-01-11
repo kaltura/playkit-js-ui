@@ -47,6 +47,7 @@ class EngineConnector extends Component {
       this.props.updateIsCastAvailable(player.isCastAvailable());
       this.props.updateIsLive(player.isLive());
       this.props.updateIsVr(player.isVr());
+      this.props.updateIsImg(player.isImg());
       this.props.updateIsInPictureInPicture(player.isInPictureInPicture());
       if (player.config.playback.autoplay) {
         this.props.updateLoadingSpinnerState(true);
