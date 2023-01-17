@@ -62,6 +62,7 @@ class PlaylistCountdown extends Component {
    */
   _shouldRender(props: any): boolean {
     return (
+      this.state.timeToShow &&
       props.playlist &&
       props.playlist.next &&
       props.playlist.next.sources &&
