@@ -12,11 +12,7 @@
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   cursor: none;
-
-  .playback-gui-wrapper,
-  .ad-gui-wrapper {
-    font-family: $font-family;
-  }
+  font-family: $font-family;
 
   &:-webkit-full-screen {
     width: 100%;
