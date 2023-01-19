@@ -10,7 +10,7 @@ import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withLogger} from 'components/logger';
 
-// Rename so it dosnet clash with the ex
+// Rename so it doesn't clash with the equivalent action in engine state
 const seekbarUpdateCurrentTime = seekbarActions.updateCurrentTime;
 
 const COMPONENT_NAME = 'EngineConnector';
