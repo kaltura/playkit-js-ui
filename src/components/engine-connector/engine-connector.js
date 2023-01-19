@@ -5,9 +5,13 @@ import {bindActions} from '../../utils/bind-actions';
 import {default as reduce, actions} from '../../reducers/engine';
 import {actions as loadingActions} from '../../reducers/loading';
 import {actions as shellActions} from '../../reducers/shell';
+import {actions as seekbarActions} from '../../reducers/seekbar';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withLogger} from 'components/logger';
+
+// Rename so it dosnet clash with the ex
+const seekbarUpdateCurrentTime = seekbarActions.updateCurrentTime;
 
 const COMPONENT_NAME = 'EngineConnector';
 
@@ -18,7 +22,7 @@ const COMPONENT_NAME = 'EngineConnector';
  * @example <EngineConnector />
  * @extends {Component}
  */
-@connect(reduce, bindActions({...actions, ...loadingActions, ...shellActions}))
+@connect(reduce, bindActions({...actions, ...loadingActions, ...shellActions, seekbarUpdateCurrentTime}))
 @withPlayer
 @withEventManager
 @withLogger(COMPONENT_NAME)
@@ -36,6 +40,7 @@ class EngineConnector extends Component {
 
     eventManager.listen(player, player.Event.PLAYER_RESET, event => {
       this.props.updateCurrentTime(0);
+      this.props.seekbarUpdateCurrentTime(0);
       if (!event.payload.isChangeMedia) {
         this.props.updateIsIdle(true);
       }
