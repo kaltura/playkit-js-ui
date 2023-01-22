@@ -9,7 +9,7 @@ const HSL_HUE_CSS_VAR = `--${PREFIX}-{name}-hsl-hue`;
 const HSL_SATURATION_CSS_VAR = `--${PREFIX}-{name}-hsl-saturation`;
 const HSL_LIGHTNESS_CSS_VAR = `--${PREFIX}-{name}-hsl-lightness`;
 
-const cssVarNames: UserTheme = {
+const cssVarNames = {
   colors: {
     live: '--playkit-live-color',
     playerBackground: '--playkit-player-background-color'
