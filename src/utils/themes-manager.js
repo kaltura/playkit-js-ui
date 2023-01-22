@@ -74,7 +74,6 @@ export class ThemesManager {
    * @returns {void}
    */
   setAccentOrAcknowledgementColor(colorTitle: string, color: string): void {
-    // eslint-disable-next-line no-unused-vars
     const [hue, saturation, lightness] = hexToHsl(color);
     document.querySelector(`.${style.player}`)?.style.setProperty(ACTUAL_USED_CSS_VAR.replace('{name}', colorTitle), color);
     document.querySelector(`.${style.player}`)?.style.setProperty(HSL_HUE_CSS_VAR.replace('{name}', colorTitle), `${Math.round(hue)}deg`);
