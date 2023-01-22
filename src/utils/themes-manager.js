@@ -1,21 +1,22 @@
 //@flow
 
-import {getHueComponentOfHEXColorFormat} from './color-format-convertors';
+import {hexToHsl} from './color-format-convertors';
 import {style} from '../index';
 
-const cssVarNames: UserTheme = {
+const PREFIX = 'playkit';
+const ACTUAL_USED_CSS_VAR = `--${PREFIX}-{name}-color`;
+const HSL_HUE_CSS_VAR = `--${PREFIX}-{name}-hsl-hue`;
+const HSL_SATURATION_CSS_VAR = `--${PREFIX}-{name}-hsl-saturation`;
+const HSL_LIGHTNESS_CSS_VAR = `--${PREFIX}-{name}-hsl-lightness`;
+
+const cssVarNames = {
   colors: {
-    primary: '--playkit-primary-hsl-hue',
-    secondary: '--playkit-secondary-hsl-hue',
-    success: '--playkit-success-hsl-hue',
-    danger: '--playkit-danger-hsl-hue',
-    warning: '--playkit-warning-hsl-hue',
     live: '--playkit-live-color',
     playerBackground: '--playkit-player-background-color'
   }
 };
 
-const MAIN_COLORS = ['primary', 'secondary', 'success', 'danger', 'warning'];
+const ACCENT_AND_ACKNOWLEDGEMENT_COLORS = ['primary', 'secondary', 'success', 'danger', 'warning'];
 
 const dynamicColoredIconsSvgUrlVars = [
   '--playkit-icon-check-active-url',
@@ -58,8 +59,8 @@ export class ThemesManager {
     }
 
     for (const color in config.colors) {
-      if (MAIN_COLORS.includes(color)) {
-        this.setHueDeg(cssVarNames.colors[color], config.colors[color]);
+      if (ACCENT_AND_ACKNOWLEDGEMENT_COLORS.includes(color)) {
+        this.setAccentOrAcknowledgementColor(color, config.colors[color]);
       } else {
         this.setColor(cssVarNames.colors[color], config.colors[color]);
       }
@@ -68,13 +69,16 @@ export class ThemesManager {
 
   /**
    * Override the specified css var value.
-   * @param {string} cssVarName -
+   * @param {string} colorTitle -
    * @param {string} color  -
    * @returns {void}
    */
-  setHueDeg(cssVarName: string, color: string): void {
-    const hue = getHueComponentOfHEXColorFormat(color);
-    document.querySelector(`.${style.player}`)?.style.setProperty(cssVarName, `${hue}deg`);
+  setAccentOrAcknowledgementColor(colorTitle: string, color: string): void {
+    const [hue, saturation, lightness] = hexToHsl(color);
+    document.querySelector(`.${style.player}`)?.style.setProperty(ACTUAL_USED_CSS_VAR.replace('{name}', colorTitle), color);
+    document.querySelector(`.${style.player}`)?.style.setProperty(HSL_HUE_CSS_VAR.replace('{name}', colorTitle), `${Math.round(hue)}deg`);
+    document.querySelector(`.${style.player}`)?.style.setProperty(HSL_SATURATION_CSS_VAR.replace('{name}', colorTitle), `${Math.round(saturation)}%`);
+    document.querySelector(`.${style.player}`)?.style.setProperty(HSL_LIGHTNESS_CSS_VAR.replace('{name}', colorTitle), `${Math.round(lightness)}%`);
   }
 
   /**
