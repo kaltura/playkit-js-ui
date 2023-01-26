@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.74.0](https://github.com/kaltura/playkit-js-ui/compare/v0.73.0...v0.74.0) (2023-01-26)
+
+
+### Bug Fixes
+
+* **FEC-12878:** V7 Player visual settings inconsistency ([#720](https://github.com/kaltura/playkit-js-ui/issues/720)) ([77ecb34](https://github.com/kaltura/playkit-js-ui/commit/77ecb34))
+* **FEV-1542:** countdown shows 10 sec after reaching to 0 and after seeking ([#717](https://github.com/kaltura/playkit-js-ui/issues/717)) ([2bbd07b](https://github.com/kaltura/playkit-js-ui/commit/2bbd07b))
+
+
+### Features
+
+* **FEC-12612:** Image Playback Options - Fake Video or Single Image Render, and Playlist ([#718](https://github.com/kaltura/playkit-js-ui/issues/718)) ([cbdb875](https://github.com/kaltura/playkit-js-ui/commit/cbdb875)), closes [kaltura/playkit-js-image-player#1](https://github.com/kaltura/playkit-js-ui/issues/1) [kaltura/playkit-js-providers#190](https://github.com/kaltura/playkit-js-ui/issues/190) [kaltura/kaltura-player-js#598](https://github.com/kaltura/playkit-js-ui/issues/598) [kaltura/playkit-js#697](https://github.com/kaltura/playkit-js-ui/issues/697)
+
+
+
 ## [0.73.0](https://github.com/kaltura/playkit-js-ui/compare/v0.72.4...v0.73.0) (2022-12-28)
 
 
