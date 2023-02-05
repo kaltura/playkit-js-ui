@@ -66,10 +66,7 @@ class ImgUI extends Component {
                 <UnmuteIndication />
                 <Loading />
                 <OverlayPortal />
-                <PictureInPictureOverlay />
                 <PlaybackControls name={'OverlayPlaybackControls'} className={style.centerPlaybackControls} />
-                <PlaylistNextScreen />
-                <PrePlaybackPlayOverlay />
                 <CastBeforePlay />
               </Fragment>
               {() => (
@@ -77,14 +74,12 @@ class ImgUI extends Component {
                   <TopBar />
                   <InteractiveArea>
                     <Watermark />
-                    <PlaylistCountdown />
                   </InteractiveArea>
                   <BottomBar
                     rightControls={
                       <Fragment>
                         <VrStereo />
                         <Cast />
-                        <PictureInPicture />
                         <Fullscreen />
                         <Logo />
                       </Fragment>
