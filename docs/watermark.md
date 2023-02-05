@@ -11,8 +11,8 @@ The playr UI top level customization exposes `components` configurations where a
 {
    img: string, // URL ro the watermark image
    url: string,  // Click thrugh URL to the website that you own
-   placement: string, // Watermark location - ["top-left", "top-right", "bottom-left", "bottom-right"]
-   timeout: number // miliseconds, if given the it will trigger a timer to remove the watermark once playbsack starts
+   placement: string, // Watermark location - ["top-left", "top-right", "bottom-left", "bottom-right"] default top-left
+   timeout: number // miliseconds, if given the it will trigger a timer to remove the watermark once playbsack starts - default 0 (not removed)
 }
 ```
 
