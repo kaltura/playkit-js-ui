@@ -37,6 +37,7 @@ export const types = {
   UPDATE_PLAYER_POSTER: `${component}/UPDATE_PLAYER_POSTER`,
   UPDATE_IS_LIVE: `${component}/UPDATE_IS_LIVE`,
   UPDATE_IS_DVR: `${component}/UPDATE_IS_DVR`,
+  UPDATE_IS_IMG: `${component}/UPDATE_IS_IMG`,
   UPDATE_ERROR: `${component}/ERROR`,
   UPDATE_IS_IDLE: `${component}/UPDATE_IS_IDLE`,
   UPDATE_FALLBACK_TO_MUTED_AUTOPLAY: `${component}/UPDATE_FALLBACK_TO_MUTED_AUTOPLAY`,
@@ -86,6 +87,7 @@ export const initialState = {
   adContentType: null,
   isLive: false,
   isDvr: false,
+  isImg: false,
   adProgress: {
     currentTime: 0,
     duration: 0
@@ -306,6 +308,12 @@ export default (state: Object = initialState, action: Object) => {
         isDvr: action.isDvr
       };
 
+    case types.UPDATE_IS_IMG:
+      return {
+        ...state,
+        isImg: action.isImg
+      };
+
     case types.UPDATE_IS_IDLE:
       return {
         ...state,
@@ -428,6 +436,7 @@ export const actions = {
   updatePlayerPoster: (poster: string) => ({type: types.UPDATE_PLAYER_POSTER, poster}),
   updateIsLive: (isLive: boolean) => ({type: types.UPDATE_IS_LIVE, isLive}),
   updateIsDvr: (isDvr: boolean) => ({type: types.UPDATE_IS_DVR, isDvr}),
+  updateIsImg: (isImg: boolean) => ({type: types.UPDATE_IS_IMG, isImg}),
   updateIsIdle: (IsIdle: boolean) => ({type: types.UPDATE_IS_IDLE, IsIdle: IsIdle}),
   updateFallbackToMutedAutoPlay: (fallback: boolean) => ({type: types.UPDATE_FALLBACK_TO_MUTED_AUTOPLAY, fallback}),
   updateIsVr: (isVr: boolean) => ({type: types.UPDATE_IS_VR, isVr}),

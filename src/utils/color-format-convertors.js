@@ -78,16 +78,6 @@ export function rgbToHsl(rgb) {
  * @param {string} hex  - css color in HEX format
  * @returns {string} - css color in HSL format
  */
-function hexToHsl(hex) {
+export function hexToHsl(hex) {
   return rgbToHsl(hexToRgb(hex));
-}
-
-/**
- * Extract the Hue parameter from HSL color format.
- * @param {string} hex  - css color in HEX format
- * @returns {void}
- */
-export function getHueComponentOfHEXColorFormat(hex) {
-  const hsl = hexToHsl(hex);
-  return hsl[0];
 }
