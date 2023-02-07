@@ -389,6 +389,7 @@ class Volume extends Component {
    * @memberof Volume
    */
   render(): React$Element<any> {
+    if (this.player.isImg()) return undefined;
     const {player, isDraggingActive, muted, volume, smartContainerOpen} = this.props;
     const controlButtonClasses = [
       // for backward compatibility
