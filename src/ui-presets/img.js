@@ -19,6 +19,7 @@ import {InteractiveArea} from '../components/interactive-area';
 import {withKeyboardEvent} from 'components/keyboard';
 import {VideoArea} from '../components/video-area';
 import {GuiArea} from '../components/gui-area';
+import {Spinner} from 'components/spinner';
 
 const PRESET_NAME = 'Img';
 
@@ -59,7 +60,7 @@ class ImgUI extends Component {
             <GuiArea>
               <Fragment>
                 <UnmuteIndication />
-                <Loading />
+                <Loading defaultSpinner={<Spinner />} />
                 <OverlayPortal />
                 <PlaybackControls name={'OverlayPlaybackControls'} className={style.centerPlaybackControls} />
                 <CastBeforePlay />

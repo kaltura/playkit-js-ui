@@ -7,6 +7,7 @@ import {actions} from '../../reducers/loading';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withLogger} from 'components/logger';
+import {PlayerArea} from 'components/player-area';
 
 /**
  * mapping state to props
@@ -103,13 +104,7 @@ class Loading extends Component {
     return (
       <div className={[style.loadingBackdrop, style.show].join(' ')}>
         <div className={style.spinnerContainer}>
-          <div className={style.spinner}>
-            {Array(8)
-              .fill(0)
-              .map((val, i) => (
-                <span key={i + 1} />
-              ))}
-          </div>
+          <PlayerArea name={'LoadingSpinner'}>{this.props.defaultSpinner}</PlayerArea>
         </div>
       </div>
     );

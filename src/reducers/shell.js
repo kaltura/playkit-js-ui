@@ -76,7 +76,8 @@ export const ReservedPresetAreas = {
   PresetArea: 'PresetArea',
   InteractiveArea: 'InteractiveArea',
   PlayerArea: 'PlayerArea',
-  VideoArea: 'VideoArea'
+  VideoArea: 'VideoArea',
+  LoadingSpinner: 'LoadingSpinner'
 };
 
 /**
