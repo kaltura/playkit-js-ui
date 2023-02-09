@@ -304,6 +304,7 @@ class AdvancedCaptionsAnchor extends Component {
     switch (e.keyCode) {
       case KeyMap.ENTER:
         this.props.onMenuChosen();
+        e.preventDefault();
         e.stopPropagation();
         break;
     }
