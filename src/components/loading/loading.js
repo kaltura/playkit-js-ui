@@ -2,12 +2,13 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'react-redux';
-import {bindActions} from '../../utils/bind-actions';
-import {actions} from '../../reducers/loading';
+import {bindActions} from 'utils';
+import {actions} from 'reducers/loading';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withLogger} from 'components/logger';
 import {PlayerArea} from 'components/player-area';
+import {Spinner} from 'components/spinner';
 
 /**
  * mapping state to props
@@ -104,7 +105,9 @@ class Loading extends Component {
     return (
       <div className={[style.loadingBackdrop, style.show].join(' ')}>
         <div className={style.spinnerContainer}>
-          <PlayerArea name={'LoadingSpinner'}>{this.props.defaultSpinner}</PlayerArea>
+          <PlayerArea name={'LoadingSpinner'}>
+            <Spinner />
+          </PlayerArea>
         </div>
       </div>
     );
