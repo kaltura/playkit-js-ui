@@ -1,9 +1,9 @@
 //@flow
 import {KeyMap} from '../../utils/key-map';
-import {Text} from 'preact-i18n';
 import style from '../../styles/style.scss';
 import {default as Icon, IconType} from '../icon';
 import {h} from 'preact';
+import {useEffect, useRef} from 'preact/compat';
 
 /**
  * renders a default style pick button
@@ -11,12 +11,7 @@ import {h} from 'preact';
  * @returns {React$Element} - component element
  */
 const SampleCaptionsStyleButton = (props: any): React$Element<any> => {
-  /**
-   * @returns {void}
-   */
-  const changeCaptionsStyle = (): void => {
-    props.changeCaptionsStyle(props.captionsStyle);
-  };
+  let _sampleCaptionsElRef = useRef(null);
 
   /**
    * @param {KeyboardEvent} e - keyboard event
@@ -24,22 +19,30 @@ const SampleCaptionsStyleButton = (props: any): React$Element<any> => {
    */
   const onKeyDown = (e: KeyboardEvent): void => {
     if (e.keyCode === KeyMap.ENTER) {
-      changeCaptionsStyle();
+      props.changeCaptionsStyle();
     }
   };
+
+  useEffect(() => {
+    // force focus to active sample button once mounted
+    if (props.isActive) {
+      _sampleCaptionsElRef?.focus();
+    }
+  }, []);
 
   return (
     <div
       role="button"
       tabIndex="0"
       ref={el => {
+        _sampleCaptionsElRef = el;
         props.addAccessibleChild(el);
       }}
       className={props.classNames.join(' ')}
-      onClick={changeCaptionsStyle}
+      onClick={props.changeCaptionsStyle}
       onKeyDown={onKeyDown}>
-      <Text id={'cvaa.sample_caption_tag'} fields={{number: props.sampleNumber}} />
-      {props.player.textStyle.isEqual(props.captionsStyle) ? (
+      {props.children}
+      {props.isActive ? (
         <div className={style.activeTick}>
           <Icon type={IconType.Check} />
         </div>
