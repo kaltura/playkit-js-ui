@@ -30,6 +30,7 @@ import {GuiArea} from 'components/gui-area';
 import {Rewind} from 'components/rewind';
 import {Forward} from 'components/forward';
 import {ClosedCaptions} from '../components';
+import {Spinner} from 'components/spinner';
 const PRESET_NAME = 'Live';
 
 /**
@@ -67,7 +68,7 @@ class LiveUI extends Component {
             <VideoArea />
             <GuiArea>
               <Fragment>
-                <Loading />
+                <Loading defaultSpinner={<Spinner />} />
                 <OverlayPortal />
                 <PictureInPictureOverlay />
                 <PlaybackControls name={'OverlayPlaybackControls'} className={style.centerPlaybackControls} />

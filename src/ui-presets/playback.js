@@ -32,6 +32,7 @@ import {withKeyboardEvent} from 'components/keyboard';
 import {VideoArea} from '../components/video-area';
 import {GuiArea} from '../components/gui-area';
 import {ClosedCaptions} from '../components/closed-captions';
+import {Spinner} from 'components/spinner';
 
 const PRESET_NAME = 'Playback';
 
@@ -72,7 +73,7 @@ class PlaybackUI extends Component {
             <GuiArea>
               <Fragment>
                 <UnmuteIndication />
-                <Loading />
+                <Loading defaultSpinner={<Spinner />} />
                 <OverlayPortal />
                 <PictureInPictureOverlay />
                 <PlaybackControls name={'OverlayPlaybackControls'} className={style.centerPlaybackControls} />
