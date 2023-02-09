@@ -46,12 +46,12 @@ function toSecondsFromHHMMSS(input: string): number {
 /**
  * Handling the time parts array
  *
- * @param {Array} parts the array
- * @param {Array} hasHours whether the parts array contains hours or not
+ * @param {Array<string>} parts the array
+ * @param {boolean} hasHours whether the parts array contains hours or not
  * @returns {number} number of seconds
  * @private
  */
-function _toSecondsFromArray(parts: Array, hasHours: boolean): number {
+function _toSecondsFromArray(parts: Array<string>, hasHours: boolean): number {
   const minutesIndex = hasHours ? 1 : 0;
   const secondsIndex = minutesIndex + 1;
   let seconds = 0;
