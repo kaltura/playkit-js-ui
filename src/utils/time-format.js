@@ -33,56 +33,20 @@ function toHHMMSS(input: number): string {
  */
 function toSecondsFromHHMMSS(input: string): number {
   const parts = input.split(':');
-  if (parts.length === 2) {
-    return _toSecondsFromArray(parts, false);
-  }
-  if (parts.length === 3) {
-    return _toSecondsFromArray(parts, true);
-  }
-
-  return 0;
-}
-
-/**
- * Handling the time parts array
- *
- * @param {Array<string>} parts the array
- * @param {boolean} hasHours whether the parts array contains hours or not
- * @returns {number} number of seconds
- * @private
- */
-function _toSecondsFromArray(parts: Array<string>, hasHours: boolean): number {
-  const minutesIndex = hasHours ? 1 : 0;
-  const secondsIndex = minutesIndex + 1;
   let seconds = 0;
+  let multiplier = 1;
 
-  const minutesPart = parseInt(parts[minutesIndex]);
-  const secondsPart = parseInt(parts[secondsIndex]);
+  for (let i = parts.length - 1; i >= 0; i--) {
+    const currentValue = parseInt(parts[i]);
+    if (isNaN(currentValue) || currentValue > 59) {
+      seconds = 0;
+      break;
+    }
+    seconds += currentValue * multiplier;
+    multiplier *= 60;
+  }
 
-  if (isNaN(minutesPart) || minutesPart > 59 || isNaN(secondsPart) || secondsPart > 59) {
-    return 0;
-  }
-  if (hasHours && !isNaN(parseInt(parts[0]))) {
-    seconds += parseInt(parts[0]) * 3600;
-  }
-  seconds += minutesPart * 60;
-  seconds += secondsPart;
   return seconds;
-}
-
-/**
- * Converting an input that represents seconds to valid time format (hh:mm:ss), i.e. 62 to 01:02
- *
- * @param {string} valInSeconds - the value in seconds to format
- * @returns {string} the formatted value
- */
-function convertSecondsToTimeFormat(valInSeconds: string): string {
-  const res = new Date(parseInt(valInSeconds) * 1000).toISOString().substr(11, 8);
-  if (res.slice(0, 3) === '00:') {
-    // check if we need to cut the hours part
-    return res.substr(3, 5);
-  }
-  return res;
 }
 
 /**
@@ -92,27 +56,15 @@ function convertSecondsToTimeFormat(valInSeconds: string): string {
  * @returns {string} the formatted value
  */
 function formatOnlyNumbersInput(val: string): string {
-  if (val.length === 1) {
+  const valueAsNumber = parseInt(val);
+  if (valueAsNumber < 10) {
     return '00:0' + val;
   }
-  if (val.length === 2 && parseInt(val) <= 59) {
+  if (valueAsNumber <= 59) {
     return '00:' + val;
   }
-  // treat as seconds and convert to time
-  return convertSecondsToTimeFormat(val);
+  // treat as seconds and convert to time format
+  return toHHMMSS(val);
 }
 
-/**
- * Checking whether the value parameter contains only numbers or not
- *
- * @param {any} value - the value to check
- * @returns {boolean} whether the value parameter contains only numbers or not
- */
-function hasOnlyNumbers(value: any): boolean {
-  if (typeof value === 'string') {
-    return /^\d+$/.test(value);
-  }
-  return false;
-}
-
-export {toHHMMSS, toSecondsFromHHMMSS, formatOnlyNumbersInput, convertSecondsToTimeFormat, hasOnlyNumbers};
+export {toHHMMSS, toSecondsFromHHMMSS, formatOnlyNumbersInput};
