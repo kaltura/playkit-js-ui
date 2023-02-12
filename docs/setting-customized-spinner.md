@@ -15,10 +15,8 @@ as you can see in the following full working example:
     <script src="https://cdnapisec.kaltura.com/p/<YOUR-PARTNER-ID>/embedPlaykitJs/uiconf_id/<YOUR-UICONF-ID>"></script>
     <style>
       .loading-spinner {
-        border: 6px solid purple;
-        border-right-color: red;
-        border-bottom-color: green;
-        border-left-color: yellow;
+        border: 6px solid;
+        border-color: red purple green yellow;
         border-radius: 50%;
         width: 50px;
         height: 50px;
