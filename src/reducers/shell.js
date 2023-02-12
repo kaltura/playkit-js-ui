@@ -64,19 +64,22 @@ export const ReservedPresetNames = {
 };
 
 export const ReservedPresetAreas = {
+  PresetArea: 'PresetArea',
+  InteractiveArea: 'InteractiveArea',
+  VideoArea: 'VideoArea',
+  GuiArea: 'GuiArea',
+  TopBar: 'TopBar',
+  BottomBar: 'BottomBar',
   PresetFloating: 'PresetFloating',
-  BottomBarLeftControls: 'BottomBarLeftControls',
-  BottomBarRightControls: 'BottomBarRightControls',
   TopBarLeftControls: 'TopBarLeftControls',
   TopBarRightControls: 'TopBarRightControls',
+  BottomBarLeftControls: 'BottomBarLeftControls',
+  BottomBarRightControls: 'BottomBarRightControls',
   SidePanelTop: 'SidePanelTop',
   SidePanelLeft: 'SidePanelLeft',
   SidePanelRight: 'SidePanelRight',
   SidePanelBottom: 'SidePanelBottom',
-  PresetArea: 'PresetArea',
-  InteractiveArea: 'InteractiveArea',
-  PlayerArea: 'PlayerArea',
-  VideoArea: 'VideoArea',
+  SeekBar: 'SeekBar',
   LoadingSpinner: 'LoadingSpinner'
 };
 

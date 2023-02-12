@@ -9,6 +9,7 @@ import {withEventManager} from 'event/with-event-manager';
 import {withLogger} from 'components/logger';
 import {PlayerArea} from 'components/player-area';
 import {Spinner} from 'components/spinner';
+import {ReservedPresetAreas} from 'reducers/shell';
 
 /**
  * mapping state to props
@@ -105,7 +106,7 @@ class Loading extends Component {
     return (
       <div className={[style.loadingBackdrop, style.show].join(' ')}>
         <div className={style.spinnerContainer}>
-          <PlayerArea name={'LoadingSpinner'}>
+          <PlayerArea name={ReservedPresetAreas.LoadingSpinner}>
             <Spinner />
           </PlayerArea>
         </div>
