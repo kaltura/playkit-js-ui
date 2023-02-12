@@ -12,7 +12,7 @@ as you can see in the following full working example:
   <head>
     <meta charset="UTF-8" />
     <title>Customized Spinner</title>
-    <script src="https://cdnapisec.kaltura.com/p/<YOUR-PARTNER-ID>/embedPlaykitJs/uiconf_id/<UICONF-ID>"></script>
+    <script src="https://cdnapisec.kaltura.com/p/<YOUR-PARTNER-ID>/embedPlaykitJs/uiconf_id/<YOUR-UICONF-ID>"></script>
     <style>
       .loading-spinner {
         border: 6px solid purple;
@@ -30,17 +30,17 @@ as you can see in the following full working example:
     <div id="player-placeholder" style="width: 640px; height: 360px"></div>
     <script>
 
-      // My Spinner Component
+      // ************** My Spinner Component *************
       const { h } = KalturaPlayer.ui;
 
-      function ExternalSpinner() {
+      function MySpinner() {
         return h('div', {className: 'loading-spinner'});
       }
+      // *************************************************
 
 
       // Player config
       const config = {
-        logLevel: 'DEBUG',
         targetId: 'player-placeholder',
         provider: {
           partnerId: <YOUR-PARTNER-ID>
@@ -51,7 +51,7 @@ as you can see in the following full working example:
               label: 'LoadingSpinner',
               presets: ['Playback', 'Live', 'Img'],
               area: 'LoadingSpinner',
-              get: ExternalSpinner,
+              get: MySpinner,
               replaceComponent: 'Spinner'
             }
           ]
