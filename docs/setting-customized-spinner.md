@@ -1,5 +1,5 @@
 
-# Setting Customized Loading Spinner
+# Setting Custom Loading Spinner
 
 Sometimes we want to change the default spinner to our custom spinner, for example with our logo or brand,
 
