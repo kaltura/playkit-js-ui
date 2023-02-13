@@ -12,12 +12,19 @@ UI components are used to extend the player UI presets.
 Every preset layout contains logical `areas` that allow injecting components into.
 For example- a `Playback` and `Live` presets have the following areas:
 
-- `VideoOverlay`
-- `PlayerGUI`
+- `PresetArea`
+- `VideoArea`
+- `GuiArea`
+- `InteractiveArea`
+- `BottomBar`
+- `TopBar`
 - `TopBarRightControls`
 - `TopBarLeftControls`
 - `BottomBarRightControls`
 - `BottomBarLeftControls`
+- `PresetFloating`
+- `SeekBar`
+- `LoadingSpinner`
 
 Injecting new component into preset means:
 
