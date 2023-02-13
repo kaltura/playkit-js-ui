@@ -3,8 +3,10 @@
 
 Sometimes we want to change the default spinner to our custom spinner, for example with our logo or brand,
 
-The player allows the change of the spinner in a simple and easy way through the [player's areas mechanism](./ui-components.md) that allows adding/removing/replacing components by area,
+The player allows the change of the spinner in a simple and easy way like any other components through the [Player Areas](./ui-components.md) feature that allows adding/removing/replacing components by area,
 as you can see in the following full working example:
+
+> f
 
 ```html
 <!DOCTYPE html>
@@ -21,6 +23,11 @@ as you can see in the following full working example:
         width: 50px;
         height: 50px;
         animation: spin 0.500s linear infinite;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
       }
     </style>
   </head>
@@ -64,7 +71,10 @@ as you can see in the following full working example:
 </html>
 ```
 
-You can read more about the UI customization and player's areas mechanism here:
+This example uses the [Preact.h() API](https://preactjs.com/guide/v8/api-reference/#preacth--preactcreateelement)
+but of curse you can do the same with [JSX](https://preactjs.com/guide/v8/getting-started#rendering-jsx) with the appropriate [Transpiler](https://preactjs.com/guide/v8/getting-started#global-pragma)
+
+You can read more about the UI customization and player's areas here:
 
 - [Player UI components](./ui-components.md)
 - [Create Player UI component](./create-ui-component.md)
