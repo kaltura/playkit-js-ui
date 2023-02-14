@@ -34,14 +34,37 @@ function toHHMMSS(input: number): string {
 function toSecondsFromHHMMSS(input: string): number {
   const parts = input.split(':');
   let seconds = 0;
-  if (parts.length === 2) {
-    if (parseInt(parts[0]) > 59 || parseInt(parts[1]) > 59) {
-      return 0;
+  let multiplier = 1;
+
+  for (let i = parts.length - 1; i >= 0; i--) {
+    const currentValue = parseInt(parts[i]);
+    if (isNaN(currentValue) || currentValue > 59) {
+      seconds = 0;
+      break;
     }
-    seconds += parseInt(parts[0]) * 60;
-    seconds += parseInt(parts[1]);
+    seconds += currentValue * multiplier;
+    multiplier *= 60;
   }
+
   return seconds;
 }
 
-export {toHHMMSS, toSecondsFromHHMMSS};
+/**
+ * Formatting input that has only numbers to valid time (hh:mm:ss), i.e. 1 to 00:01
+ *
+ * @param {string} val - the value to format
+ * @returns {string} the formatted value
+ */
+function formatOnlyNumbersInput(val: string): string {
+  const valueAsNumber = parseInt(val);
+  if (valueAsNumber < 10) {
+    return '00:0' + val;
+  }
+  if (valueAsNumber <= 59) {
+    return '00:' + val;
+  }
+  // treat as seconds and convert to time format
+  return toHHMMSS(valueAsNumber);
+}
+
+export {toHHMMSS, toSecondsFromHHMMSS, formatOnlyNumbersInput};
