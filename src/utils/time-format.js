@@ -64,7 +64,7 @@ function formatOnlyNumbersInput(val: string): string {
     return '00:' + val;
   }
   // treat as seconds and convert to time format
-  return toHHMMSS(val);
+  return toHHMMSS(parseInt(val));
 }
 
 export {toHHMMSS, toSecondsFromHHMMSS, formatOnlyNumbersInput};
