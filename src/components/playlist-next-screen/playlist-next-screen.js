@@ -57,7 +57,13 @@ class PlaylistNextScreen extends Component {
    * @returns {boolean} - component element
    */
   _shouldRender(props: any): boolean {
-    return !!(props.playlist && props.playlist.next && props.playlist.next.sources && props.isPlaybackEnded);
+    return !!(
+      props.playlist &&
+      props.playlist.next &&
+      props.playlist.next.sources &&
+      props.isPlaybackEnded &&
+      !props.player.playlist.options.autoContinue
+    );
   }
 
   /**
