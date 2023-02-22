@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.75.0](https://github.com/kaltura/playkit-js-ui/compare/v0.74.0...v0.75.0) (2023-02-22)
+
+
+### Bug Fixes
+
+* **FEC-12881:** Inside playlist when autoContinue is true, the square up next video in the middle of the screen is briefly displayed ([ddc0f13](https://github.com/kaltura/playkit-js-ui/commit/ddc0f13))
+* **FEC-12911:** keyboard Navigation - Advanced Captions modal ([#724](https://github.com/kaltura/playkit-js-ui/issues/724)) ([badb62f](https://github.com/kaltura/playkit-js-ui/commit/badb62f))
+* **FEC-12916:** share Plugin Keyboard Functionality ([#727](https://github.com/kaltura/playkit-js-ui/issues/727)) ([d1ff90b](https://github.com/kaltura/playkit-js-ui/commit/d1ff90b))
+* **FEC-12927:** Remove pre-playback overly screen and PIP from untimed img ([#722](https://github.com/kaltura/playkit-js-ui/issues/722)) ([e12c9b5](https://github.com/kaltura/playkit-js-ui/commit/e12c9b5))
+* **FEC-12972:** Remove the volume control on image playback ([#725](https://github.com/kaltura/playkit-js-ui/issues/725)) ([467664d](https://github.com/kaltura/playkit-js-ui/commit/467664d))
+* **FEV-1539:** inconsistency between the tool tips styles of the dualscreen buttons ([#721](https://github.com/kaltura/playkit-js-ui/issues/721)) ([e65b812](https://github.com/kaltura/playkit-js-ui/commit/e65b812))
+
+
+### Features
+
+* **FEC-12934:**  Add possibility to configure different spinner (loading.js) than the default one ([#728](https://github.com/kaltura/playkit-js-ui/issues/728)) ([91e1e13](https://github.com/kaltura/playkit-js-ui/commit/91e1e13))
+
+
+
 ## [0.74.0](https://github.com/kaltura/playkit-js-ui/compare/v0.73.0...v0.74.0) (2023-01-26)
 
 
