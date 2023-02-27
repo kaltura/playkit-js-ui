@@ -2,7 +2,6 @@
 import style from '../styles/style.scss';
 import {Fragment, h, Component} from 'preact';
 import {PlayerArea, withPlayerPreset} from '../components/player-area';
-import {OverlayAction} from '../components/overlay-action';
 import {Loading} from '../components/loading';
 import {Fullscreen} from '../components/fullscreen';
 import {VrStereo} from '../components/vr-stereo';
