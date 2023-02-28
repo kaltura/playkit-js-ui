@@ -64,6 +64,7 @@ export const ReservedPresetNames = {
 };
 
 export const ReservedPresetAreas = {
+  PlayerArea: 'PlayerArea',
   PresetArea: 'PresetArea',
   InteractiveArea: 'InteractiveArea',
   VideoArea: 'VideoArea',
