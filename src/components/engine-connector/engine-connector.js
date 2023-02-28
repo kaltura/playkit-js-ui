@@ -9,6 +9,7 @@ import {actions as seekbarActions} from '../../reducers/seekbar';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withLogger} from 'components/logger';
+import {AutoPlayType} from '@playkit-js/playkit-js';
 
 // Rename so it doesn't clash with the equivalent action in engine state
 const seekbarUpdateCurrentTime = seekbarActions.updateCurrentTime;
@@ -36,7 +37,7 @@ class EngineConnector extends Component {
   componentDidMount() {
     const {player, eventManager} = this.props;
     const TrackType = player.Track;
-    this.props.updatePrePlayback(!player.config.playback.autoplay);
+    this.props.updatePrePlayback(player.config.playback.autoplay !== AutoPlayType.TRUE);
 
     eventManager.listen(player, player.Event.PLAYER_RESET, event => {
       this.props.updateCurrentTime(0);
@@ -54,7 +55,7 @@ class EngineConnector extends Component {
       this.props.updateIsVr(player.isVr());
       this.props.updateIsImg(player.isUntimedImg());
       this.props.updateIsInPictureInPicture(player.isInPictureInPicture());
-      if (player.config.playback.autoplay) {
+      if (player.config.playback.autoplay === AutoPlayType.TRUE) {
         this.props.updateLoadingSpinnerState(true);
       } else {
         this.props.updateLoadingSpinnerState(false);
@@ -62,7 +63,7 @@ class EngineConnector extends Component {
     });
 
     eventManager.listen(player, player.Event.CHANGE_SOURCE_STARTED, () => {
-      this.props.updatePrePlayback(!player.config.playback.autoplay && !this.props.engine.isPlaybackStarted);
+      this.props.updatePrePlayback(player.config.playback.autoplay !== AutoPlayType.TRUE && !this.props.engine.isPlaybackStarted);
       this.props.updateIsChangingSource(true);
       this.props.updateFallbackToMutedAutoPlay(false);
       this.props.updateAdBreak(false);
