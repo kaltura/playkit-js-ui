@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.75.2](https://github.com/kaltura/playkit-js-ui/compare/v0.75.1...v0.75.2) (2023-02-28)
+
+
+### Bug Fixes
+
+* **FEC-12987:** Moderation - Nothing happens once clicking on the on the moderation button - Regression  ([#735](https://github.com/kaltura/playkit-js-ui/issues/735)) ([5c18b75](https://github.com/kaltura/playkit-js-ui/commit/5c18b75)), closes [kaltura/kaltura-player-js#608](https://github.com/kaltura/playkit-js-ui/issues/608)
+
+
+
 ### [0.75.1](https://github.com/kaltura/playkit-js-ui/compare/v0.75.0...v0.75.1) (2023-02-22)
 
 
