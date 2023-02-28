@@ -94,10 +94,10 @@ class Icon extends Component {
    * @memberof Icon
    */
   createDynamicIconClass = (props: Object) => {
-    const {path, state, color, activeColor, width, height, viewBox} = props;
+    const {path, state, color, activeColor, width, height, viewBox, fillRule} = props;
     const fillColor = this.getFillColor(state, color, activeColor);
     const pathTag = this.getPathTag(path, fillColor);
-    const svgUrl = this.getSVGUrl(pathTag, width, height, viewBox);
+    const svgUrl = this.getSVGUrl(pathTag, width, height, viewBox, fillRule);
     const css = `.${this._className} { background-image: ${svgUrl}; }`;
     const style = document.getElementById(packageName);
     style && style.appendChild(document.createTextNode(css));
@@ -110,11 +110,12 @@ class Icon extends Component {
    * @param {number} width - svg width
    * @param {number} height - svg height
    * @param {string} viewBox - svg viewBox
+   * @param {string} fillRule - svg fill-rule
    * @returns {string} - encoded svg url
    * @memberof Icon
    */
-  getSVGUrl = (path: string, width: number = 36, height: number = 36, viewBox: string = '0 0 1024 1024'): string => {
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="${viewBox}" width="${width}" height="${height}">${path}</svg>`;
+  getSVGUrl = (path: string, width: number = 36, height: number = 36, viewBox: string = '0 0 1024 1024', fillRule = 'nonzero'): string => {
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg"  xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="${viewBox}" width="${width}" height="${height}" fill-rule="${fillRule}">${path}</svg>`;
     const replaces = [
       ['"', "'"],
       ['%', '%25'],
