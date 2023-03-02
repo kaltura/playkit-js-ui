@@ -114,7 +114,7 @@ class Icon extends Component {
    * @returns {string} - encoded svg url
    * @memberof Icon
    */
-  getSVGUrl = (path: string, width: number = 36, height: number = 36, viewBox: string = '0 0 1024 1024', fillRule = 'nonzero'): string => {
+  getSVGUrl = (path: string, width: number = 36, height: number = 36, viewBox: string = '0 0 1024 1024', fillRule: string = 'nonzero'): string => {
     const svg = `<svg xmlns="http://www.w3.org/2000/svg"  xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="${viewBox}" width="${width}" height="${height}" fill-rule="${fillRule}">${path}</svg>`;
     const replaces = [
       ['"', "'"],
