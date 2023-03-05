@@ -15,6 +15,7 @@ import {PlayerArea} from '../player-area';
 import {withEventManager} from 'event/with-event-manager';
 import {FakeEvent} from 'event/fake-event';
 import {SeekBarPreview} from '../seekbar-preview';
+import {SidePanelModes} from 'reducers/shell';
 
 /**
  * mapping state to props
@@ -26,7 +27,9 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile,
   previewHoverActive: state.seekbar.previewHoverActive,
   hidePreview: state.seekbar.hidePreview,
-  hideTimeBubble: state.seekbar.hideTimeBubble
+  hideTimeBubble: state.seekbar.hideTimeBubble,
+  sidePanelsModes: state.shell.sidePanelsModes,
+  layoutStyles: state.shell.layoutStyles
 });
 
 const COMPONENT_NAME = 'SeekBar';
@@ -359,7 +362,11 @@ class SeekBar extends Component {
    * @memberof SeekBar
    */
   updateSeekBarProgress(currentTime: number, duration: number, virtual: boolean = false): void {
+    // eslint-disable-next-line no-console
+    console.log('fff', {currentTime, duration, virtual});
     if (virtual) {
+      // eslint-disable-next-line no-console
+      console.log('fff', 'enter virtual');
       this.props.updateVirtualTime(currentTime);
     } else {
       this.props.updateCurrentTime(currentTime);
@@ -420,7 +427,10 @@ class SeekBar extends Component {
    * @memberof SeekBar
    */
   getTime(e: any): number {
-    const xPosition = typeof e.clientX === 'number' ? e.clientX : e.changedTouches && e.changedTouches[0] && e.changedTouches[0].clientX;
+    let xPosition = typeof e.clientX === 'number' ? e.clientX : e.changedTouches && e.changedTouches[0] && e.changedTouches[0].clientX;
+    if (this.props.player.isFullscreen() && this.props.sidePanelsModes.left !== SidePanelModes.HIDDEN) {
+      xPosition -= this.props.layoutStyles.sidePanels.left.width;
+    }
     let time =
       this.props.duration *
       ((xPosition -
@@ -481,6 +491,7 @@ class SeekBar extends Component {
    * @memberof SeekBar
    */
   getTimeBubbleOffset(): number {
+    // this.props.virtualTime = 520;
     if (this._timeBubbleElement) {
       let leftOffset = (this.props.virtualTime / this.props.duration) * this._seekBarElement.clientWidth - this._timeBubbleElement.clientWidth / 2;
       if (leftOffset < 0) {
@@ -549,6 +560,8 @@ class SeekBar extends Component {
    * @memberof SeekBar
    */
   render(props: any, state: Object): React$Element<any> {
+    // eslint-disable-next-line no-console
+    console.log('ffffa', this.props.virtualTime);
     const virtualProgressWidth = `${(props.virtualTime / props.duration) * 100}%`;
     const progressWidth = `${props.forceFullProgress ? 100 : (props.currentTime / props.duration) * 100}%`;
     const bufferedWidth = `${Math.round(this.getBufferedPercent())}%`;
@@ -600,3 +613,19 @@ class SeekBar extends Component {
 
 SeekBar.displayName = COMPONENT_NAME;
 export {SeekBar};
+// <div className="playkit-virtual-progress" style="width: 90.6252%;">
+//   <div className="playkit-virtual-progress-indicator"></div>
+// </div>
+// <div className="playkit-time-preview" style="left: 200.002px;">111</div>
+//
+//
+//  noraml:                24   {Offset: 8}     {offsetLeft: 16}
+//  noraml+ sidbar:        264  {Offset: 248}   {offsetLeft: 16}   + 240
+// fullscreen:             16   {Offset: 0}     {offsetLeft: 16}
+// fullscreen + sidbar:    283  {Offset: 248}   {offsetLeft: 16}
+
+//            {clientX: 24}  {playerElementleft: 8}   {offsetLeft: 16} {clientWidth: 608}
+// with panel {clientX: 264} {playerElementleft: 248} {offsetLeft: 16} {clientWidth: 368}  (+240 | + 240 | same | -240)
+
+//            {clientX: 16}  {playerElementleft: 0}   {offsetLeft: 16} {clientWidth: 742}
+// with panel {clientX: 270} {playerElementleft: 0}   {offsetLeft: 16} {clientWidth: 487}
