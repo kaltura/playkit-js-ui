@@ -362,11 +362,7 @@ class SeekBar extends Component {
    * @memberof SeekBar
    */
   updateSeekBarProgress(currentTime: number, duration: number, virtual: boolean = false): void {
-    // eslint-disable-next-line no-console
-    console.log('fff', {currentTime, duration, virtual});
     if (virtual) {
-      // eslint-disable-next-line no-console
-      console.log('fff', 'enter virtual');
       this.props.updateVirtualTime(currentTime);
     } else {
       this.props.updateCurrentTime(currentTime);
@@ -560,8 +556,6 @@ class SeekBar extends Component {
    * @memberof SeekBar
    */
   render(props: any, state: Object): React$Element<any> {
-    // eslint-disable-next-line no-console
-    console.log('ffffa', this.props.virtualTime);
     const virtualProgressWidth = `${(props.virtualTime / props.duration) * 100}%`;
     const progressWidth = `${props.forceFullProgress ? 100 : (props.currentTime / props.duration) * 100}%`;
     const bufferedWidth = `${Math.round(this.getBufferedPercent())}%`;
