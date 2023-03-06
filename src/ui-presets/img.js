@@ -2,7 +2,6 @@
 import style from '../styles/style.scss';
 import {Fragment, h, Component} from 'preact';
 import {PlayerArea, withPlayerPreset} from '../components/player-area';
-import {OverlayAction} from '../components/overlay-action';
 import {Loading} from '../components/loading';
 import {Fullscreen} from '../components/fullscreen';
 import {VrStereo} from '../components/vr-stereo';
@@ -54,7 +53,6 @@ class ImgUI extends Component {
       <div className={style.playbackGuiWrapper}>
         <PlayerArea name={'PresetArea'}>
           <div className={style.playerGui} id="player-gui">
-            <OverlayAction />
             <VideoArea />
             <GuiArea>
               <Fragment>
