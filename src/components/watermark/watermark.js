@@ -96,6 +96,9 @@ class Watermark extends Component {
     props.config.placement.split('-').forEach(side => {
       styleClass.push(style[side]);
     });
+    if (!props.config.url) {
+      styleClass.push(style.emptyUrl);
+    }
     if (!this.state.show) {
       styleClass.push(style.hideWatermark);
     }

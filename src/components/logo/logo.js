@@ -54,7 +54,7 @@ class Logo extends Component {
     if (props.config.img && !invisibleMode) {
       return (
         <div
-          className={[style.controlButtonContainer, style.controlLogo].join(' ')}
+          className={[style.controlButtonContainer, !props.config.url ? style.emptyUrl : ''].join(' ')}
           aria-label={<Text id="controls.logo" />}
           title={props.config.text}>
           <a className={style.controlButton} href={props.config.url} target="_blank" rel="noopener noreferrer">
