@@ -1,4 +1,5 @@
 import {SidePanelModes, SidePanelOrientation, SidePanelPositions} from '../../reducers/shell';
+import {PLAYER_BREAK_POINTS} from 'components/shell/shell';
 
 /**
  * Calculate dimensions of video based on vertical side panels
@@ -22,6 +23,11 @@ function calculateVerticalDimensions(options) {
   }
 
   let videoWidth = playerWidth - verticalPanelCount * verticalPanelWidth;
+
+  if (playerWidth < PLAYER_BREAK_POINTS.SMALL) {
+    videoWidth = playerWidth;
+    verticalPanelWidth = playerWidth;
+  }
 
   return {verticalPanelWidth, videoWidth, verticalPanelCount};
 }
@@ -49,6 +55,11 @@ function calculateHorizontalDimensions(options) {
 
   let videoHeight = playerHeight - horizontalPanelCount * horizontalPanelHeight;
 
+  if (playerClientRect.width < PLAYER_BREAK_POINTS.SMALL) {
+    videoHeight = playerHeight;
+    horizontalPanelHeight = playerHeight;
+  }
+
   return {horizontalPanelHeight, videoHeight, horizontalPanelCount};
 }
 
@@ -67,23 +78,25 @@ export function calculateVideoContainerStyles(options) {
   const rightSidePanelMode = allowSidePanels ? sidePanelsModes[SidePanelPositions.RIGHT] : SidePanelModes.HIDDEN;
   const topSidePanelMode = allowSidePanels ? sidePanelsModes[SidePanelPositions.TOP] : SidePanelModes.HIDDEN;
   const bottomSidePanelMode = allowSidePanels ? sidePanelsModes[SidePanelPositions.BOTTOM] : SidePanelModes.HIDDEN;
+  const {playerClientRect} = options;
+  if (playerClientRect.width > PLAYER_BREAK_POINTS.SMALL) {
+    if (leftSidePanelMode === SidePanelModes.ALONGSIDE || rightSidePanelMode === SidePanelModes.ALONGSIDE) {
+      const {verticalPanelWidth, videoWidth} = calculateVerticalDimensions({...options, isVideo: true});
 
-  if (leftSidePanelMode === SidePanelModes.ALONGSIDE || rightSidePanelMode === SidePanelModes.ALONGSIDE) {
-    const {verticalPanelWidth, videoWidth} = calculateVerticalDimensions({...options, isVideo: true});
+      result['left'] = leftSidePanelMode === SidePanelModes.ALONGSIDE ? verticalPanelWidth : 0;
+      result['right'] = rightSidePanelMode === SidePanelModes.ALONGSIDE ? verticalPanelWidth : 0;
+      result['width'] = videoWidth;
+      result['position'] = 'absolute';
+    }
 
-    result['left'] = leftSidePanelMode === SidePanelModes.ALONGSIDE ? verticalPanelWidth : 0;
-    result['right'] = rightSidePanelMode === SidePanelModes.ALONGSIDE ? verticalPanelWidth : 0;
-    result['width'] = videoWidth;
-    result['position'] = 'absolute';
-  }
+    if (topSidePanelMode === SidePanelModes.ALONGSIDE || bottomSidePanelMode === SidePanelModes.ALONGSIDE) {
+      const {horizontalPanelHeight, videoHeight} = calculateHorizontalDimensions({...options, isVideo: true});
 
-  if (topSidePanelMode === SidePanelModes.ALONGSIDE || bottomSidePanelMode === SidePanelModes.ALONGSIDE) {
-    const {horizontalPanelHeight, videoHeight} = calculateHorizontalDimensions({...options, isVideo: true});
-
-    result['top'] = topSidePanelMode === SidePanelModes.ALONGSIDE ? horizontalPanelHeight : 0;
-    result['bottom'] = bottomSidePanelMode === SidePanelModes.ALONGSIDE ? horizontalPanelHeight : 0;
-    result['height'] = videoHeight;
-    result['position'] = 'absolute';
+      result['top'] = topSidePanelMode === SidePanelModes.ALONGSIDE ? horizontalPanelHeight : 0;
+      result['bottom'] = bottomSidePanelMode === SidePanelModes.ALONGSIDE ? horizontalPanelHeight : 0;
+      result['height'] = videoHeight;
+      result['position'] = 'absolute';
+    }
   }
   return result;
 }
@@ -104,30 +117,34 @@ export function calculateGuiContainerStyles(options) {
   const topSidePanelMode = allowSidePanels ? sidePanelsModes[SidePanelPositions.TOP] : SidePanelModes.HIDDEN;
   const bottomSidePanelMode = allowSidePanels ? sidePanelsModes[SidePanelPositions.BOTTOM] : SidePanelModes.HIDDEN;
 
-  if (leftSidePanelMode !== SidePanelModes.HIDDEN || rightSidePanelMode !== SidePanelModes.HIDDEN) {
-    const {verticalPanelWidth} = calculateVerticalDimensions(options);
+  if (playerClientRect.width > PLAYER_BREAK_POINTS.SMALL) {
+    if (leftSidePanelMode !== SidePanelModes.HIDDEN || rightSidePanelMode !== SidePanelModes.HIDDEN) {
+      const {verticalPanelWidth} = calculateVerticalDimensions(options);
 
-    if (leftSidePanelMode !== SidePanelModes.HIDDEN) {
-      areaStyle['left'] = verticalPanelWidth;
+      if (leftSidePanelMode !== SidePanelModes.HIDDEN) {
+        areaStyle['left'] = verticalPanelWidth;
+      }
+      if (rightSidePanelMode !== SidePanelModes.HIDDEN) {
+        areaStyle['right'] = verticalPanelWidth;
+      }
     }
-    if (rightSidePanelMode !== SidePanelModes.HIDDEN) {
-      areaStyle['right'] = verticalPanelWidth;
+
+    if (topSidePanelMode !== SidePanelModes.HIDDEN || bottomSidePanelMode !== SidePanelModes.HIDDEN) {
+      const {horizontalPanelHeight} = calculateHorizontalDimensions(options);
+
+      if (topSidePanelMode !== SidePanelModes.HIDDEN) {
+        areaStyle['top'] = horizontalPanelHeight;
+      }
+      if (bottomSidePanelMode !== SidePanelModes.HIDDEN) {
+        areaStyle['bottom'] = horizontalPanelHeight;
+      }
     }
   }
 
-  if (topSidePanelMode !== SidePanelModes.HIDDEN || bottomSidePanelMode !== SidePanelModes.HIDDEN) {
-    const {horizontalPanelHeight} = calculateHorizontalDimensions(options);
-
-    if (topSidePanelMode !== SidePanelModes.HIDDEN) {
-      areaStyle['top'] = horizontalPanelHeight;
-    }
-    if (bottomSidePanelMode !== SidePanelModes.HIDDEN) {
-      areaStyle['bottom'] = horizontalPanelHeight;
-    }
+  if (playerClientRect.width > PLAYER_BREAK_POINTS.SMALL) {
+    areaWidth = areaWidth - areaStyle['right'] - areaStyle['left'];
+    areaHeight = areaHeight - areaStyle['top'] - areaStyle['bottom'];
   }
-
-  areaWidth = areaWidth - areaStyle['right'] - areaStyle['left'];
-  areaHeight = areaHeight - areaStyle['top'] - areaStyle['bottom'];
 
   const left = playerClientRect.left + (leftSidePanelMode !== SidePanelModes.HIDDEN ? areaStyle['left'] : 0);
   const top = playerClientRect.top + (topSidePanelMode !== SidePanelModes.HIDDEN ? areaStyle['top'] : 0);
