@@ -3,7 +3,6 @@
   overflow: hidden;
   transition: all #{$default-transition-time}ms;
   transition-property: left, right, bottom, top, opacity;
-  z-index: 1;
 }
 
 .vertical-side-panel {
