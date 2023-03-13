@@ -27,6 +27,10 @@
     "unmute": {
       "unmute": "Unmute"
     },
+    "volume": {
+      "muted": "Muted. Click to unmute",
+      "unmuted": "{{vol}}% volume. Click to mute"
+    },
     "copy": {
       "button": "Copy URL"
     },
