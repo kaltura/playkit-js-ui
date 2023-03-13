@@ -139,9 +139,7 @@ export function calculateGuiContainerStyles(options) {
         areaStyle['bottom'] = horizontalPanelHeight;
       }
     }
-  }
 
-  if (playerClientRect.width > PLAYER_BREAK_POINTS.SMALL) {
     areaWidth = areaWidth - areaStyle['right'] - areaStyle['left'];
     areaHeight = areaHeight - areaStyle['top'] - areaStyle['bottom'];
   }
