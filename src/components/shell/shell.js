@@ -81,7 +81,7 @@ class Shell extends Component {
   hoverTimeout: ?TimeoutID;
   _environmentClasses: Array<string>;
   _playerResizeWatcher: ResizeWatcher;
-  _playerRef: HTMLDivElement;
+  _playerRef: ?HTMLDivElement;
 
   /**
    * on mouse over, add hover class (shows the player ui) and timeout of 3 seconds bt default or what pass as prop configuration to component
