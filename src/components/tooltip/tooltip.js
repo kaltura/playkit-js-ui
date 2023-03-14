@@ -1,6 +1,6 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h, Component, toChildArray} from 'preact';
+import {h, Component, toChildArray, cloneElement} from 'preact';
 import {connect} from 'react-redux';
 const PLAYER_MARGIN = 5;
 
@@ -67,6 +67,50 @@ class Tooltip extends Component {
   }
 
   /**
+   * displays tooltip.
+   * @memberof Tooltip
+   * @returns {void}
+   */
+  showTooltip = (): void => {
+    this.setState({showTooltip: true});
+  };
+
+  /**
+   * hide tooltip.
+   * @memberof Tooltip
+   * @returns {void}
+   */
+  hideTooltip = (): void => {
+    this.setState({showTooltip: false});
+  };
+
+  /**
+   * handle focus on wrapped element
+   * @memberof Tooltip
+   * @returns {void}
+   */
+  handleFocusOnChildren = (): void => {
+    const {onFocus} = this.props.children.props;
+    this.showTooltip();
+    if (onFocus) {
+      onFocus();
+    }
+  };
+
+  /**
+   * handle blur on wrapped element
+   * @memberof Tooltip
+   * @returns {void}
+   */
+  handleBlurOnChildren = (): void => {
+    const {onBlur} = this.props.children.props;
+    this.hideTooltip();
+    if (onBlur) {
+      onBlur();
+    }
+  };
+
+  /**
    * on mouse over handler.
    * @memberof Tooltip
    * @returns {void}
@@ -74,7 +118,7 @@ class Tooltip extends Component {
   onMouseOver = (): void => {
     this._clearHoverTimeout();
     this._hoverTimeout = setTimeout(() => {
-      this.setState({showTooltip: true});
+      this.showTooltip();
     }, TOOLTIP_SHOW_TIMEOUT);
   };
 
@@ -84,7 +128,7 @@ class Tooltip extends Component {
    * @returns {void}
    */
   onMouseLeave = (): void => {
-    this.setState({showTooltip: false});
+    this.hideTooltip();
     this._clearHoverTimeout();
   };
 
@@ -175,11 +219,16 @@ class Tooltip extends Component {
   render(props: any): React$Element<any> {
     const className = [style.tooltipLabel, style[`tooltip-${this.state.type}`]];
     this.state.showTooltip && this.state.valid ? className.push(style.show) : className.push(style.hide);
-    return props.isMobile ? (
-      toChildArray(props.children)[0]
-    ) : (
+    if (props.isMobile) {
+      return toChildArray(props.children)[0];
+    }
+    const children = cloneElement(props.children, {
+      onFocus: this.handleFocusOnChildren,
+      onBlur: this.handleBlurOnChildren
+    });
+    return (
       <div className={style.tooltip} onMouseOver={this.onMouseOver} onMouseLeave={this.onMouseLeave}>
-        {props.children}
+        {children}
         <span style={{maxWidth: props.maxWidth}} ref={el => (el ? (this.textElement = el) : undefined)} className={className.join(' ')}>
           {props.label}
         </span>
