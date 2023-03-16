@@ -54,7 +54,7 @@ const PLAYER_SIZE: {[size: string]: string} = {
   EXTRA_LARGE: 'extralarge'
 };
 
-const PLAYER_BREAK_POINTS: {[size: string]: number} = {
+export const PLAYER_BREAK_POINTS: {[size: string]: number} = {
   TINY: 280,
   EXTRA_SMALL: 380,
   SMALL: 480,
