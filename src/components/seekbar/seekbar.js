@@ -302,7 +302,22 @@ class SeekBar extends Component {
       case KeyMap.RIGHT:
         this.handleKeydown(e, true);
         break;
+      case KeyMap.ENTER:
+      case KeyMap.SPACE:
+        e.preventDefault();
+        this.togglePlayPause();
+        break;
     }
+  };
+
+  /**
+   * toggle play/pause
+   *
+   * @returns {void}
+   * @memberof SeekBar
+   */
+  togglePlayPause = (): void => {
+    this.props.player.paused ? this.props.player.play() : this.props.player.pause();
   };
 
   /**

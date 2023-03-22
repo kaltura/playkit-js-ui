@@ -81,6 +81,7 @@ class Shell extends Component {
   hoverTimeout: ?TimeoutID;
   _environmentClasses: Array<string>;
   _playerResizeWatcher: ResizeWatcher;
+  _playerRef: ?HTMLDivElement;
 
   /**
    * on mouse over, add hover class (shows the player ui) and timeout of 3 seconds bt default or what pass as prop configuration to component
@@ -191,6 +192,10 @@ class Shell extends Component {
 
     if (this.state.nav && (e.keyCode === KeyMap.ENTER || e.keyCode === KeyMap.SPACE)) {
       this.unMuteFallback();
+      if (e.srcElement.contains(this._playerRef)) {
+        e.preventDefault();
+        this.props.player.paused ? this.props.player.play() : this.props.player.pause();
+      }
     }
   };
 
@@ -422,6 +427,7 @@ class Shell extends Component {
     return (
       <div
         tabIndex="0"
+        ref={node => (this._playerRef = node)}
         aria-label="Video Player"
         className={playerClasses}
         onTouchEnd={this.onTouchEnd}

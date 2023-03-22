@@ -133,6 +133,7 @@ class UIManager {
       let fallbackUIs = [{template: props => presets.playbackUI(props)}];
       this._buildUI(fallbackUIs);
     }
+    this._themesManager.applyUserTheme();
   }
 
   /**

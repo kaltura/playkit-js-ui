@@ -19,7 +19,6 @@ const cssVarNames = {
 const ACCENT_AND_ACKNOWLEDGEMENT_COLORS = ['primary', 'secondary', 'success', 'danger', 'warning'];
 
 const dynamicColoredIconsSvgUrlVars = [
-  '--playkit-icon-check-active-url',
   '--playkit-icon-data-url',
   '--playkit-icon-chromecast-url',
   '--playkit-icon-quality-HD-active-url',

@@ -144,7 +144,6 @@
 
 // Dynamic Colored Icons
 .player {
-  --playkit-icon-check-active-url: #{icon(check, $brand-color)};
   --playkit-icon-vr-stereo-full-url: #{icon(vrStereoFull, $brand-color)};
   --playkit-icon-chromecast-url: #{icon(chromecast, $brand-color)};
   --playkit-icon-quality-HD-active-url: #{icon(qualityHdActive, $brand-color, '16', '0 0 16 16')};
@@ -197,7 +196,7 @@
 }
 
 .icon-check-active {
-  background-image: var(--playkit-icon-check-active-url);
+  background-image:  icon(check, '#fff');
 }
 
 .icon-language {
