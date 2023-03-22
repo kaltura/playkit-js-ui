@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.76.0](https://github.com/kaltura/playkit-js-ui/compare/v0.75.2...v0.76.0) (2023-03-22)
+
+
+### Bug Fixes
+
+* **FEC-12519:** Overlaid side panel should be over the player controls  ([#744](https://github.com/kaltura/playkit-js-ui/issues/744)) ([17b2556](https://github.com/kaltura/playkit-js-ui/commit/17b2556))
+* **FEC-12519:** Side panels should be overlaid the entire player when player size is "SMALL" (smaller then 480px) ([#738](https://github.com/kaltura/playkit-js-ui/issues/738)) ([9728af9](https://github.com/kaltura/playkit-js-ui/commit/9728af9))
+* **FEC-12614:** Add 'fill-rule' prop to the generic icon component ([#734](https://github.com/kaltura/playkit-js-ui/issues/734)) ([ea37c8b](https://github.com/kaltura/playkit-js-ui/commit/ea37c8b)), closes [kaltura/playkit-js-playlist#33](https://github.com/kaltura/playkit-js-ui/issues/33)
+* **FEC-12909:** volume control a11y ([#737](https://github.com/kaltura/playkit-js-ui/issues/737)) ([c11d7db](https://github.com/kaltura/playkit-js-ui/commit/c11d7db))
+* **FEC-12910:** allow play/pause using spacebar/enter when focused on player or seekbar ([#741](https://github.com/kaltura/playkit-js-ui/issues/741)) ([057576d](https://github.com/kaltura/playkit-js-ui/commit/057576d))
+* **FEC-12932:** watermark, Logo config - When "Click through URL" is empty new tab is open ([#731](https://github.com/kaltura/playkit-js-ui/issues/731)) ([a22e780](https://github.com/kaltura/playkit-js-ui/commit/a22e780))
+* **FEC-12979:** Image Player - overlay Play/Pause button is displayed on mobile ([#733](https://github.com/kaltura/playkit-js-ui/issues/733)) ([5d204d3](https://github.com/kaltura/playkit-js-ui/commit/5d204d3))
+* **FEC-13022:** fix link and selection accessibility ([#740](https://github.com/kaltura/playkit-js-ui/issues/740)) ([10ddcc8](https://github.com/kaltura/playkit-js-ui/commit/10ddcc8))
+* **FEC-13029:** Custom player colors theme are not inflected in the player while custom preset being used ([#742](https://github.com/kaltura/playkit-js-ui/issues/742)) ([fb7159a](https://github.com/kaltura/playkit-js-ui/commit/fb7159a))
+
+
+### Features
+
+* **FEC-12726:** Visual labels that appear on hover need to appear on keyboard focus as well ([#730](https://github.com/kaltura/playkit-js-ui/issues/730)) ([c3ee412](https://github.com/kaltura/playkit-js-ui/commit/c3ee412))
+
+
+
 ### [0.75.2](https://github.com/kaltura/playkit-js-ui/compare/v0.75.1...v0.75.2) (2023-02-28)
 
 
