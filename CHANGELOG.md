@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.76.1](https://github.com/kaltura/playkit-js-ui/compare/v0.76.0...v0.76.1) (2023-03-26)
+
+
+### Bug Fixes
+
+* **FEC-13054:** Top bar missing when using YouTube entries ([#745](https://github.com/kaltura/playkit-js-ui/issues/745)) ([f514ad1](https://github.com/kaltura/playkit-js-ui/commit/f514ad1))
+
+
+
 ## [0.76.0](https://github.com/kaltura/playkit-js-ui/compare/v0.75.2...v0.76.0) (2023-03-22)
 
 
