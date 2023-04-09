@@ -375,9 +375,6 @@ class Settings extends Component {
             ) : (
               <SmartContainerItem icon="speed" label={props.speedLabelText} options={speedOptions} onMenuChosen={this.onSpeedChange} />
             )}
-            {props.userSettingsMenus.map((menu, index) => (
-              <SmartContainerItem key={index} icon={menu.icon} label={menu.label} options={menu.options} onMenuChosen={menu.onMenuChosen} />
-            ))}
           </SmartContainer>
         )}
       </ButtonControl>
