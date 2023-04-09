@@ -12,5 +12,6 @@ declare type UIOptionsObject = {
   uiComponents?: Array<KPUIComponent>,
   translations?: {[langKey: string]: Object},
   locale?: string;
-  userTheme?: UserTheme
+  userTheme?: UserTheme,
+  userSettingsMenus: any[],
 };

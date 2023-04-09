@@ -36,7 +36,8 @@ const mapStateToProps = state => ({
   videoTracks: state.engine.videoTracks,
   isMobile: state.shell.isMobile,
   isSmallSize: state.shell.isSmallSize,
-  isLive: state.engine.isLive
+  isLive: state.engine.isLive,
+  userSettingsMenus: state.config.userSettingsMenus
 });
 
 const COMPONENT_NAME = 'Settings';
@@ -375,6 +376,9 @@ class Settings extends Component {
             ) : (
               <SmartContainerItem icon="speed" label={props.speedLabelText} options={speedOptions} onMenuChosen={this.onSpeedChange} />
             )}
+            {props.userSettingsMenus.map((menu, index) => (
+              <SmartContainerItem key={index} icon={menu.icon} label={menu.label} options={menu.options} onMenuChosen={menu.onMenuChosen} />
+            ))}
           </SmartContainer>
         )}
       </ButtonControl>

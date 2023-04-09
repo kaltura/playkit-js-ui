@@ -11,6 +11,7 @@ export const initialState = {
   forceTouchUI: false,
   showCCButton: false,
   hoverTimeout: 3000,
+  userSettingsMenus: [],
   components: {
     watermark: {},
     seekbar: {},
