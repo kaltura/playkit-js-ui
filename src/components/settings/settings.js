@@ -36,8 +36,7 @@ const mapStateToProps = state => ({
   videoTracks: state.engine.videoTracks,
   isMobile: state.shell.isMobile,
   isSmallSize: state.shell.isSmallSize,
-  isLive: state.engine.isLive,
-  userSettingsMenus: state.config.userSettingsMenus
+  isLive: state.engine.isLive
 });
 
 const COMPONENT_NAME = 'Settings';

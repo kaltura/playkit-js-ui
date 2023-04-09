@@ -26,7 +26,9 @@ class SmartContainerItem extends Component {
       <div className={[style.smartContainerItem, style.selectMenuItem].join(' ')}>
         <label id={label} htmlFor={label}>
           {props.icon ? (
-            <div className={style.labelIcon}>{typeof props.icon === 'string' ? <Icon type={props.icon} /> : <Icon {...props.icon} />}</div>
+            <div className={style.labelIcon}>
+              <Icon type={props.icon} />
+            </div>
           ) : undefined}
           {props.label}
         </label>
