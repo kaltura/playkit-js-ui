@@ -52,6 +52,7 @@ const COMPONENT_NAME = 'Settings';
 @withText({
   qualityLabelText: 'settings.quality',
   speedLabelText: 'settings.speed',
+  advancedAudioText: 'settings.AdvancedAudioDescription',
   buttonLabel: 'controls.settings',
   speedNormalLabelText: 'settings.speedNormal',
   qualityAutoLabelText: 'settings.qualityAuto'
@@ -360,6 +361,7 @@ class Settings extends Component {
           ''
         ) : (
           <SmartContainer targetId={player.config.targetId} title={<Text id="settings.title" />} onClose={this.onControlButtonClick}>
+            {<SmartContainerItem icon={IconType.AdvancedAudioDescription} label={props.advancedAudioText} onMenuChosen={this.onSpeedChange} />}
             {qualityOptions.length <= 1 ? (
               ''
             ) : (
