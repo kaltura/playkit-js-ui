@@ -202,8 +202,13 @@ class Settings extends Component {
     this.props.updateSpeed(playbackRate);
     this.props.player.playbackRate = playbackRate;
     this.props.notifyClick({
+      type: 'speed',
       speed: playbackRate
     });
+  };
+
+  onAdvancedAudioClick = (event: any): void => {
+    this.props.notifyClick({type: 'AdvancedAudioDescription', checked: event.target.checked + 1111});
   };
 
   /**
@@ -361,7 +366,7 @@ class Settings extends Component {
           ''
         ) : (
           <SmartContainer targetId={player.config.targetId} title={<Text id="settings.title" />} onClose={this.onControlButtonClick}>
-            {<SmartContainerItem icon={IconType.AdvancedAudioDescription} label={props.advancedAudioText} onMenuChosen={this.onSpeedChange} />}
+            {<SmartContainerItem icon={IconType.AdvancedAudioDescription} label={props.advancedAudioText} onMenuChosen={this.onAdvancedAudioClick} />}
             {qualityOptions.length <= 1 ? (
               ''
             ) : (
