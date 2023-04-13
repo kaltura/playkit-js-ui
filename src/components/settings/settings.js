@@ -36,7 +36,8 @@ const mapStateToProps = state => ({
   videoTracks: state.engine.videoTracks,
   isMobile: state.shell.isMobile,
   isSmallSize: state.shell.isSmallSize,
-  isLive: state.engine.isLive
+  isLive: state.engine.isLive,
+  isAdvancedAudioDescChecked: state.settings.advancedAudioDesc
 });
 
 const COMPONENT_NAME = 'Settings';
@@ -207,8 +208,9 @@ class Settings extends Component {
     });
   };
 
-  onAdvancedAudioClick = (event: any): void => {
-    this.props.notifyClick({type: 'AdvancedAudioDescription', checked: event.target.checked + 1111});
+  onAdvancedAudioClick = (isChecked: boolean): void => {
+    this.props.updateAdvancedAudioDesc(isChecked);
+    this.props.notifyClick({type: 'AdvancedAudioDescription', checked: isChecked});
   };
 
   /**
@@ -366,7 +368,7 @@ class Settings extends Component {
           ''
         ) : (
           <SmartContainer targetId={player.config.targetId} title={<Text id="settings.title" />} onClose={this.onControlButtonClick}>
-            {<SmartContainerItem icon={IconType.AdvancedAudioDescription} label={props.advancedAudioText} onMenuChosen={this.onAdvancedAudioClick} />}
+            {<SmartContainerItem icon={IconType.AdvancedAudioDescription} label={props.advancedAudioText} isChecked={props.isAdvancedAudioDescChecked} onMenuChosen={this.onAdvancedAudioClick} />}
             {qualityOptions.length <= 1 ? (
               ''
             ) : (

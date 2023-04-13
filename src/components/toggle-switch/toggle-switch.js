@@ -1,6 +1,7 @@
 //@flow
 import style from './_toggle-switch.scss';
 import {h, Component} from 'preact';
+import {KeyMap} from 'utils';
 
 const COMPONENT_NAME = 'ToggleSwitch';
 
@@ -12,6 +13,17 @@ const COMPONENT_NAME = 'ToggleSwitch';
  * @extends {Component}
  */
 class ToggleSwitch extends Component {
+  onChange = isChecked => {
+    this.props.onMenuChosen(isChecked);
+  };
+
+  handleOnKeyDown = (event: KeyboardEvent) => {
+    if (event.keyCode === KeyMap.ENTER || event.keyCode === KeyMap.SPACE) {
+      event.preventDefault();
+      this.onChange(!this.props.isChecked);
+    }
+  };
+
   /**
    * render Toggle Switch component
    *
@@ -21,18 +33,24 @@ class ToggleSwitch extends Component {
    */
   render(props: any): React$Element<any> {
     return (
-      <label className={style.switch}>
+      <label
+        onKeyDown={event => this.handleOnKeyDown(event)}
+        className={style.switch}
+        ref={el => {
+          if (props.pushRef) {
+            props.pushRef(el);
+          }
+        }}
+        aria-label={props.name}
+        role="switch"
+        aria-checked={props.isChecked}
+        tabIndex="-1">
         <input
+          name={props.name}
           className={style.toggleInput}
-          ref={el => {
-            if (props.pushRef) {
-              props.pushRef(el);
-            }
-          }}
-          // onChange={this.onChange}
-          onChange={props.onMenuChosen}
           type="checkbox"
-          checked
+          checked={props.isChecked}
+          onChange={e => this.onChange(e.target.checked)}
         />
         <span className={style.slider} />
       </label>

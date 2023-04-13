@@ -49,6 +49,7 @@ class SmartContainerItem extends Component {
                 props.pushRef(el);
               }}
               name={label}
+              isChecked={props.isChecked}
               onMenuChosen={o => props.onMenuChosen(o)}
             />
           </div>
