@@ -209,6 +209,13 @@ class Settings extends Component {
     });
   };
 
+  /**
+   * Toggle the Advanced Audio Description option and update it in the store state
+   *
+   * @param {boolean} isChecked - Whether the feature is enabled or not
+   * @returns {void}
+   * @memberof Settings
+   */
   onAdvancedAudioClick = (isChecked: boolean): void => {
     this.props.updateAdvancedAudioDesc(isChecked);
     this.props.notifyClick({type: 'AdvancedAudioDescription', checked: isChecked});

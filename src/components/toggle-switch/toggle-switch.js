@@ -1,5 +1,5 @@
 //@flow
-import style from './_toggle-switch.scss';
+import style from './toggle-switch.scss';
 import {h, Component} from 'preact';
 import {KeyMap} from 'utils';
 
@@ -13,10 +13,24 @@ const COMPONENT_NAME = 'ToggleSwitch';
  * @extends {Component}
  */
 class ToggleSwitch extends Component {
-  onChange = isChecked => {
+  /**
+   * render Toggle Switch component
+   *
+   * @param {boolean} isChecked - - Whether the input is checked or not
+   * @returns {void}
+   * @member ToggleSwitch
+   */
+  onChange = (isChecked: boolean) => {
     this.props.onMenuChosen(isChecked);
   };
 
+  /**
+   * render Toggle Switch component
+   *
+   * @param {KeyboardEvent} event - - Keyboard Event
+   * @returns {void}
+   * @member ToggleSwitch
+   */
   handleOnKeyDown = (event: KeyboardEvent) => {
     if (event.keyCode === KeyMap.ENTER || event.keyCode === KeyMap.SPACE) {
       event.preventDefault();
