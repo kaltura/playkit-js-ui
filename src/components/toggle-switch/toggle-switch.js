@@ -1,7 +1,7 @@
 //@flow
-import style from './toggle-switch.scss';
 import {h, Component} from 'preact';
 import {KeyMap} from 'utils';
+import style from '../../styles/style.scss';
 
 const COMPONENT_NAME = 'ToggleSwitch';
 
