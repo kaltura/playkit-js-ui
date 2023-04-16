@@ -37,6 +37,7 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile,
   isSmallSize: state.shell.isSmallSize,
   isLive: state.engine.isLive,
+  showAdvancedAudioDescButton: state.config.showAdvancedAudioDescButton,
   isAdvancedAudioDescChecked: state.settings.advancedAudioDesc
 });
 
@@ -368,7 +369,16 @@ class Settings extends Component {
           ''
         ) : (
           <SmartContainer targetId={player.config.targetId} title={<Text id="settings.title" />} onClose={this.onControlButtonClick}>
-            {<SmartContainerItem icon={IconType.AdvancedAudioDescription} label={props.advancedAudioText} isChecked={props.isAdvancedAudioDescChecked} onMenuChosen={this.onAdvancedAudioClick} />}
+            {!props.showAdvancedAudioDescButton ? (
+              ''
+            ) : (
+              <SmartContainerItem
+                icon={IconType.AdvancedAudioDescription}
+                label={props.advancedAudioText}
+                isChecked={props.isAdvancedAudioDescChecked}
+                onMenuChosen={this.onAdvancedAudioClick}
+              />
+            )}
             {qualityOptions.length <= 1 ? (
               ''
             ) : (

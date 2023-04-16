@@ -6,6 +6,7 @@ declare type UIOptionsObject = {
   debugActions?: boolean,
   forceTouchUI?: boolean,
   showCCButton?: boolean,
+  showAdvancedAudioDescButton?: boolean,
   hoverTimeout?: number,
   logger?: loggerType,
   components?: ComponentsConfig,
