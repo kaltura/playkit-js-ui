@@ -37,7 +37,9 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile,
   isSmallSize: state.shell.isSmallSize,
   isLive: state.engine.isLive,
-  showAdvancedAudioDescButton: state.config.showAdvancedAudioDescButton,
+  showQualityMenu: state.config.showQualityMenu,
+  showSpeedMenu: state.config.showSpeedMenu,
+  showAdvancedAudioDescToggle: state.config.showAdvancedAudioDescToggle,
   isAdvancedAudioDescChecked: state.settings.advancedAudioDesc
 });
 
@@ -355,6 +357,7 @@ class Settings extends Component {
 
     if (qualityOptions.length <= 1 && speedOptions.length <= 1) return undefined;
     if (isLive && qualityOptions.length <= 1) return undefined;
+    if (!(props.showSpeedMenu || props.showQualityMenu || props.showAdvancedAudioDescToggle)) return undefined;
     const buttonBadgeType: string = this.getButtonBadgeType() || '';
     return (
       <ButtonControl name={COMPONENT_NAME} ref={c => (c ? (this._controlSettingsElement = c) : undefined)}>
@@ -376,7 +379,7 @@ class Settings extends Component {
           ''
         ) : (
           <SmartContainer targetId={player.config.targetId} title={<Text id="settings.title" />} onClose={this.onControlButtonClick}>
-            {!props.showAdvancedAudioDescButton ? (
+            {!props.showAdvancedAudioDescToggle ? (
               ''
             ) : (
               <SmartContainerItem
@@ -386,7 +389,7 @@ class Settings extends Component {
                 onMenuChosen={this.onAdvancedAudioClick}
               />
             )}
-            {qualityOptions.length <= 1 ? (
+            {!props.showQualityMenu || qualityOptions.length <= 1 ? (
               ''
             ) : (
               <SmartContainerItem
@@ -396,7 +399,7 @@ class Settings extends Component {
                 onMenuChosen={o => this.onQualityChange(o)}
               />
             )}
-            {isLive || speedOptions.length <= 1 ? (
+            {!props.showSpeedMenu || isLive || speedOptions.length <= 1 ? (
               ''
             ) : (
               <SmartContainerItem icon="speed" label={props.speedLabelText} options={speedOptions} onMenuChosen={this.onSpeedChange} />
