@@ -3,6 +3,7 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {DropDown} from '../dropdown';
 import {default as Icon} from '../icon';
+import {ToggleSwitch} from 'components';
 
 const COMPONENT_NAME = 'SmartContainerItem';
 
@@ -32,14 +33,27 @@ class SmartContainerItem extends Component {
           ) : undefined}
           {props.label}
         </label>
-        <DropDown
-          pushRef={el => {
-            props.pushRef(el);
-          }}
-          name={label}
-          onMenuChosen={o => props.onMenuChosen(o)}
-          options={props.options}
-        />
+        {props.options && props.options.length ? (
+          <DropDown
+            pushRef={el => {
+              props.pushRef(el);
+            }}
+            name={label}
+            onMenuChosen={o => props.onMenuChosen(o)}
+            options={props.options}
+          />
+        ) : (
+          <div style={{paddingLeft: '20px'}}>
+            <ToggleSwitch
+              pushRef={el => {
+                props.pushRef(el);
+              }}
+              name={label}
+              isChecked={props.isChecked}
+              onMenuChosen={o => props.onMenuChosen(o)}
+            />
+          </div>
+        )}
       </div>
     );
   }

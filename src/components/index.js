@@ -55,6 +55,7 @@ export {PlaybackControls} from './playback-controls';
 export {CopyButton} from './copy-button';
 export {ButtonControl} from './button-control';
 export {Button} from './button';
+export {ToggleSwitch} from './toggle-switch';
 
 export {PlayerArea, withPlayerPreset, Remove} from './player-area';
 export {VideoArea} from './video-area';

@@ -264,8 +264,10 @@ function onPictureInPictureClicked(store: any, action: Object, player: Object): 
 function onSettingsClicked(store: any, action: Object, player: Object): void {
   if (action.payload.type === player.Track.VIDEO) {
     player.dispatchEvent(new QualitySelectedEvent(action.payload.track));
-  } else {
+  } else if (action.payload.type === 'speed') {
     player.dispatchEvent(new SpeedSelectedEvent(action.payload.speed));
+  } else if (action.payload.type === 'AdvancedAudioDescription') {
+    player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CLICKED_ADVANCED_AUDIO_DESCRIPTION, action.payload));
   }
 }
 

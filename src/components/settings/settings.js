@@ -36,7 +36,9 @@ const mapStateToProps = state => ({
   videoTracks: state.engine.videoTracks,
   isMobile: state.shell.isMobile,
   isSmallSize: state.shell.isSmallSize,
-  isLive: state.engine.isLive
+  isLive: state.engine.isLive,
+  showAdvancedAudioDescButton: state.config.showAdvancedAudioDescButton,
+  isAdvancedAudioDescChecked: state.settings.advancedAudioDesc
 });
 
 const COMPONENT_NAME = 'Settings';
@@ -52,6 +54,7 @@ const COMPONENT_NAME = 'Settings';
 @withText({
   qualityLabelText: 'settings.quality',
   speedLabelText: 'settings.speed',
+  advancedAudioText: 'settings.AdvancedAudioDescription',
   buttonLabel: 'controls.settings',
   speedNormalLabelText: 'settings.speedNormal',
   qualityAutoLabelText: 'settings.qualityAuto'
@@ -201,8 +204,21 @@ class Settings extends Component {
     this.props.updateSpeed(playbackRate);
     this.props.player.playbackRate = playbackRate;
     this.props.notifyClick({
+      type: 'speed',
       speed: playbackRate
     });
+  };
+
+  /**
+   * Toggle the Advanced Audio Description option and update it in the store state
+   *
+   * @param {boolean} isChecked - Whether the feature is enabled or not
+   * @returns {void}
+   * @memberof Settings
+   */
+  onAdvancedAudioClick = (isChecked: boolean): void => {
+    this.props.updateAdvancedAudioDesc(isChecked);
+    this.props.notifyClick({type: 'AdvancedAudioDescription', checked: isChecked});
   };
 
   /**
@@ -360,6 +376,16 @@ class Settings extends Component {
           ''
         ) : (
           <SmartContainer targetId={player.config.targetId} title={<Text id="settings.title" />} onClose={this.onControlButtonClick}>
+            {!props.showAdvancedAudioDescButton ? (
+              ''
+            ) : (
+              <SmartContainerItem
+                icon={IconType.AdvancedAudioDescription}
+                label={props.advancedAudioText}
+                isChecked={props.isAdvancedAudioDescChecked}
+                onMenuChosen={this.onAdvancedAudioClick}
+              />
+            )}
             {qualityOptions.length <= 1 ? (
               ''
             ) : (

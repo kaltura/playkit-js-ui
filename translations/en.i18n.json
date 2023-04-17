@@ -39,7 +39,8 @@
       "quality": "Quality",
       "speed": "Speed",
       "speedNormal": "Normal",
-      "qualityAuto": "Auto"
+      "qualityAuto": "Auto",
+      "AdvancedAudioDescription": "Advanced Audio Description"
     },
     "language": {
       "title": "Language",
