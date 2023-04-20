@@ -91,6 +91,20 @@
     },
     "pictureInPicture": {
       "overlay_text": "ピクチャーインピクチャー モードで再生中"
+    },
+    "volume": {
+      "muted_click_to_unmute": "ミュートになりましたミュート解除をクリック",
+      "volume_click_to_mute": "音量クリックしてミュートにする",
+      "ten_percent": "10パーセント",
+      "twenty_percent": "20パーセント",
+      "thirty_percent": "30パーセント",
+      "fourty_percent": "40パーセント",
+      "fifty_percent": "50パーセント",
+      "sixty_percent": "60パーセント",
+      "seventy_percent": "70パーセント",
+      "eighty_percent": "80パーセント",
+      "ninety_percent": "90パーセント",
+      "one_hundred_percent": "100パーセント"
     }
   }
 }

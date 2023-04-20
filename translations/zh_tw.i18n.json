@@ -91,6 +91,20 @@
     },
     "pictureInPicture": {
       "overlay_text": "在圖片中的圖片模式中播放"
+    },
+    "volume": {
+      "muted_click_to_unmute": "已靜音。點擊以取消靜音",
+      "volume_click_to_mute": "音量。點擊以靜音",
+      "ten_percent": "百分之十",
+      "twenty_percent": "百分之二十",
+      "thirty_percent": "百分之三十",
+      "fourty_percent": "百分之四十",
+      "fifty_percent": "百分之五十",
+      "sixty_percent": "百分之六十",
+      "seventy_percent": "百分之七十",
+      "eighty_percent": "百分之八十",
+      "ninety_percent": "百分之九十",
+      "one_hundred_percent": "百分之一百"
     }
   }
 }
