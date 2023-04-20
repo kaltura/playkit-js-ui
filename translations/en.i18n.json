@@ -28,8 +28,8 @@
       "unmute": "Unmute"
     },
     "volume": {
-      "muted": "Muted. Click to unmute",
-      "unmuted": "{{vol}}% volume. Click to mute",
+      "muted_click_to_unmute": "Muted. Click to unmute",
+      "volume_click_to_mute": "{{vol}}% volume. Click to mute",
       "ten_percent": "ten percent",
       "twenty_percent": "twenty percent",
       "thirty_percent": "thirty percent",
