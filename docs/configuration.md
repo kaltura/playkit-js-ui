@@ -17,6 +17,8 @@ var uiManager = new playkit.ui.UIManager(player, config);
   debugActions?: boolean, // optional
   forceTouchUI?: boolean, // optional
   showCCButton?: boolean, // optional
+  showQualityMenu?: boolean, // optional
+  showSpeedMenu?: boolean, // optional
   hoverTimeout?: number, // optional
   logger?: loggerType, // optional
   components?: Object, // optional
@@ -69,6 +71,26 @@ var uiManager = new playkit.ui.UIManager(player, config);
 > ##### Default: `false`
 >
 > ##### Description: Whether to show enable/disable captions button in the bottom bar.
+
+##
+
+> ### config.showQualityMenu
+>
+> ##### Type: `boolean`
+>
+> ##### Default: `true`
+>
+> ##### Description: Whether to show the quality options while pressing the settings (gear) button.
+
+##
+
+> ### config.showSpeedMenu
+>
+> ##### Type: `boolean`
+>
+> ##### Default: `true`
+>
+> ##### Description: Whether to show the speed options while pressing the settings (gear) button.
 
 ##
 
