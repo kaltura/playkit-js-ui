@@ -155,7 +155,7 @@ The example below will remove the settings component:
         presets: ['Playback', 'Live'],
         area: 'BottomBarRightControls',
         replaceComponent: 'Settings',
-        get: KalturaPlayer.ui.components.Remove
+        get: 'remove'
       }
     ];
   }
