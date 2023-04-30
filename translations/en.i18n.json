@@ -36,15 +36,14 @@
     },
     "settings": {
       "title": "Settings",
+      "audio": "Audio",
       "quality": "Quality",
       "speed": "Speed",
       "speedNormal": "Normal",
       "qualityAuto": "Auto",
-      "AdvancedAudioDescription": "Advanced Audio Description"
+      "advancedAudioDescription": "Advanced Audio Description"
     },
-    "language": {
-      "title": "Language",
-      "audio": "Audio",
+    "captions": {
       "captions": "Captions",
       "advanced_captions_settings": "Advanced captions settings"
     },

@@ -32,14 +32,13 @@
     },
     "settings": {
       "title": "Instellingen",
+      "audio": "Audio",
       "quality": "Kwaliteit",
       "speed": "Snelheid",
       "speedNormal": "Normaal",
       "qualityAuto": "Automatisch"
     },
-    "language": {
-      "title": "Taal",
-      "audio": "Audio",
+    "captions": {
       "captions": "Onderschriften",
       "advanced_captions_settings": "Geavanceerde instellingen voor onderschriften"
     },

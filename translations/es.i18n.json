@@ -33,13 +33,12 @@
     "settings": {
       "title": "Configuración",
       "quality": "Calidad",
+      "audio": "Audio",
       "speed": "Velocidad",
       "speedNormal": "Normal",
       "qualityAuto": "Automático"
     },
-    "language": {
-      "title": "Idioma",
-      "audio": "Audio",
+    "captions": {
       "captions": "Subtítulos",
       "advanced_captions_settings": "Configuración avanzada de los subtítulos"
     },

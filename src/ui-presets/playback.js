@@ -10,7 +10,6 @@ import {Forward} from '../components/forward';
 import {SeekBarPlaybackContainer} from '../components/seekbar-playback-container';
 import {Volume} from '../components/volume';
 import {Settings} from '../components/settings';
-import {Language} from '../components/language';
 import {Fullscreen} from '../components/fullscreen';
 import {VrStereo} from '../components/vr-stereo';
 import {TimeDisplayPlaybackContainer} from '../components/time-display-playback-container';
@@ -101,7 +100,6 @@ class PlaybackUI extends Component {
                         <VrStereo />
                         <Volume />
                         <ClosedCaptions />
-                        <Language />
                         <Settings />
                         <Cast />
                         <PictureInPicture />

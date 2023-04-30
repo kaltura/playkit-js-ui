@@ -2,6 +2,7 @@
 export const types = {
   UPDATE_QUALITY: 'settings/UPDATE_QUALITY',
   UPDATE_SPEED: 'settings/UPDATE_SPEED',
+  UPDATE_AUDIO: 'settings/UPDATE_AUDIO',
   UPDATE_ADVANCED_AUDIO_DESC: 'settings/UPDATE_ADVANCED_AUDIO_DESC'
 };
 
@@ -25,6 +26,12 @@ export default (state: Object = initialState, action: Object) => {
         speed: action.speed
       };
 
+    case types.UPDATE_AUDIO:
+      return {
+        ...state,
+        speed: action.audio
+      };
+
     case types.UPDATE_ADVANCED_AUDIO_DESC:
       return {
         ...state,
@@ -39,5 +46,6 @@ export default (state: Object = initialState, action: Object) => {
 export const actions = {
   updateQuality: (quality: string) => ({type: types.UPDATE_QUALITY, quality}),
   updateSpeed: (speed: string) => ({type: types.UPDATE_SPEED, speed}),
+  updateAudio: (audio: string) => ({type: types.UPDATE_AUDIO, audio}),
   updateAdvancedAudioDesc: (isChecked: boolean) => ({type: types.UPDATE_ADVANCED_AUDIO_DESC, isChecked})
 };

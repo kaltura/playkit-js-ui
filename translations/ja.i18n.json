@@ -32,14 +32,13 @@
     },
     "settings": {
       "title": "設定",
+      "audio": "オーディオ",
       "quality": "画質",
       "speed": "速度",
       "speedNormal": "通常",
       "qualityAuto": "自動"
     },
-    "language": {
-      "title": "言語",
-      "audio": "オーディオ",
+    "captions": {
       "captions": "キャプション",
       "advanced_captions_settings": "キャプションの詳細設定"
     },

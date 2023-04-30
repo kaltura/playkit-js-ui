@@ -32,14 +32,13 @@
     },
     "settings": {
       "title": "设置",
+      "audio": "音频",
       "quality": "质量",
       "speed": "速度",
       "speedNormal": "正常",
       "qualityAuto": "自动"
     },
-    "language": {
-      "title": "语言",
-      "audio": "音频",
+    "captions": {
       "captions": "字幕",
       "advanced_captions_settings": "高级字幕设置"
     },
