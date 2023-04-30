@@ -91,6 +91,20 @@
     },
     "pictureInPicture": {
       "overlay_text": "Reproduzindo no modo Picture In Picture"
+    },
+    "volume": {
+      "muted_click_to_unmute": "Silenciado. Clique para cancelar silenciamento",
+      "volume_click_to_mute": "volume. Clique para silenciar",
+      "ten_percent": "dez por cento",
+      "twenty_percent": "vinte por cento",
+      "thirty_percent": "trinta por cento",
+      "fourty_percent": "quarenta por cento",
+      "fifty_percent": "cinquenta por cento",
+      "sixty_percent": "sessenta por cento",
+      "seventy_percent": "setenta por cento",
+      "eighty_percent": "oitenta por cento",
+      "ninety_percent": "noventa por cento",
+      "one_hundred_percent": "cem por cento"
     }
   }
 }
