@@ -60,7 +60,7 @@ class UIManager {
     this._createStore(config);
     this.setConfig(config);
     this._setLocaleTranslations(config);
-    this._themesManager = new ThemesManager(player, config.userTheme);
+    this._themesManager = new ThemesManager(player, config.userTheme, config.targetId);
     setEnv(this.player.env);
   }
 
