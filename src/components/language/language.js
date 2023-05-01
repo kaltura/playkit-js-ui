@@ -1,4 +1,5 @@
 //@flow
+// eslint-disable-next-line no-unused-vars
 import {h, Component, Fragment} from 'preact';
 import {withText} from 'preact-i18n';
 import {connect} from 'react-redux';
