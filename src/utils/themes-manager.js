@@ -30,13 +30,13 @@ const dynamicColoredIconsSvgUrlVars = [
 export class ThemesManager {
   player: Object;
   config: Object;
-  playerElement: HTMLElement;
+  playerContainerElement: HTMLElement;
 
   // eslint-disable-next-line require-jsdoc
   constructor(player: Object, config: ?UserTheme, targetId: string) {
     this.player = player;
     this.config = config;
-    this.playerElement = document.querySelector(`#${targetId}`);
+    this.playerContainerElement = document.querySelector(`#${targetId}`);
   }
 
   /**
@@ -76,12 +76,14 @@ export class ThemesManager {
    */
   setAccentOrAcknowledgementColor(colorTitle: string, color: string): void {
     const [hue, saturation, lightness] = hexToHsl(color);
-    this.playerElement?.querySelector(`.${style.player}`)?.style.setProperty(ACTUAL_USED_CSS_VAR.replace('{name}', colorTitle), color);
-    this.playerElement?.querySelector(`.${style.player}`)?.style.setProperty(HSL_HUE_CSS_VAR.replace('{name}', colorTitle), `${Math.round(hue)}deg`);
-    this.playerElement
+    this.playerContainerElement?.querySelector(`.${style.player}`)?.style.setProperty(ACTUAL_USED_CSS_VAR.replace('{name}', colorTitle), color);
+    this.playerContainerElement
+      ?.querySelector(`.${style.player}`)
+      ?.style.setProperty(HSL_HUE_CSS_VAR.replace('{name}', colorTitle), `${Math.round(hue)}deg`);
+    this.playerContainerElement
       ?.querySelector(`.${style.player}`)
       ?.style.setProperty(HSL_SATURATION_CSS_VAR.replace('{name}', colorTitle), `${Math.round(saturation)}%`);
-    this.playerElement
+    this.playerContainerElement
       ?.querySelector(`.${style.player}`)
       ?.style.setProperty(HSL_LIGHTNESS_CSS_VAR.replace('{name}', colorTitle), `${Math.round(lightness)}%`);
   }
@@ -93,7 +95,7 @@ export class ThemesManager {
    * @returns {void}
    */
   setColor(cssVarName: string, color: string): void {
-    this.playerElement?.querySelector(`.${style.player}`)?.style.setProperty(cssVarName, color);
+    this.playerContainerElement?.querySelector(`.${style.player}`)?.style.setProperty(cssVarName, color);
   }
 
   /**
@@ -104,9 +106,9 @@ export class ThemesManager {
   setSvgFillColor(color: string): void {
     for (const varName of dynamicColoredIconsSvgUrlVars) {
       // $FlowFixMe
-      const svgUrl = getComputedStyle(this.playerElement?.querySelector(`.${style.player}`)).getPropertyValue(varName);
+      const svgUrl = getComputedStyle(this.playerContainerElement?.querySelector(`.${style.player}`)).getPropertyValue(varName);
       const newColor = color.replace('#', '%23');
-      this.playerElement
+      this.playerContainerElement
         ?.querySelector(`.${style.player}`)
         ?.style.setProperty(varName, svgUrl.replace(/fill='%23([a-f0-9]{3}){1,2}\b'/, `fill='${newColor}'`));
     }
