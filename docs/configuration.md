@@ -17,8 +17,13 @@ var uiManager = new playkit.ui.UIManager(player, config);
   debugActions?: boolean, // optional
   forceTouchUI?: boolean, // optional
   showCCButton?: boolean, // optional
-  showQualityMenu?: boolean, // optional
-  showSpeedMenu?: boolean, // optional
+  settings?: {            // optional
+    showAudioMenu?: boolean,               // optional
+    showCaptionsMenu?: boolean,            // optional
+    showQualityMenu?: boolean,             // optional
+    showSpeedMenu?: boolean,               // optional
+    showAdvancedCaptionsMenu?: boolean     // optional
+  },
   hoverTimeout?: number, // optional
   logger?: loggerType, // optional
   components?: Object, // optional

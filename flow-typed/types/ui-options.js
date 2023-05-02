@@ -6,9 +6,14 @@ declare type UIOptionsObject = {
   debugActions?: boolean,
   forceTouchUI?: boolean,
   showCCButton?: boolean,
-  showQualityMenu: boolean,
-  showSpeedMenu: boolean,
-  showAdvancedAudioDescButton?: boolean,
+  settings?: {
+    showAudioMenu?: boolean,
+    showCaptionsMenu?: boolean,
+    showQualityMenu?: boolean,
+    showSpeedMenu?: boolean,
+    showAdvancedAudioDescToggle?: boolean,
+    showAdvancedCaptionsMenu?: boolean
+  },
   hoverTimeout?: number,
   logger?: loggerType,
   components?: ComponentsConfig,

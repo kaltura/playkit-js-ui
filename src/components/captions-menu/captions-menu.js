@@ -25,16 +25,16 @@ const mapStateToProps = state => ({
   textTracks: state.engine.textTracks,
   isMobile: state.shell.isMobile,
   isSmallSize: state.shell.isSmallSize,
-  showCaptionsMenu: state.config.showCaptionsMenu
+  showAdvancedCaptionsMenu: state.config.settings.showAdvancedCaptionsMenu
 });
 
-const COMPONENT_NAME = 'Language';
+const COMPONENT_NAME = 'CaptionsMenu';
 
 /**
- * Language component
+ * CaptionsMenu component
  *
- * @class Language
- * @example <Language />
+ * @class CaptionsMenu
+ * @example <CaptionsMenu />
  * @extends {Component}
  */
 @connect(mapStateToProps, bindActions(actions))
@@ -47,7 +47,7 @@ const COMPONENT_NAME = 'Language';
   captionsLabelText: 'captions.captions',
   advancedCaptionsSettingsText: 'captions.advanced_captions_settings'
 })
-class Language extends Component {
+class CaptionsMenu extends Component {
   state: Object;
   _controlLanguageElement: HTMLDivElement;
   _lastActiveTextLanguage: string = '';
@@ -80,7 +80,7 @@ class Language extends Component {
    * before component mounted, set initial state
    *
    * @returns {void}
-   * @memberof Language
+   * @memberof CaptionsMenu
    */
   componentWillMount() {
     this.setState({smartContainerOpen: false});
@@ -90,7 +90,7 @@ class Language extends Component {
    * after component mounted, set event listener to click outside of the component
    *
    * @returns {void}
-   * @memberof Language
+   * @memberof CaptionsMenu
    */
   componentDidMount() {
     this.props.eventManager.listen(document, 'click', e => this.handleClickOutside(e));
@@ -118,7 +118,7 @@ class Language extends Component {
    *
    * @param {*} e - click event
    * @returns {void}
-   * @memberof Language
+   * @memberof CaptionsMenu
    */
   handleClickOutside(e: any): void {
     if (
@@ -137,7 +137,7 @@ class Language extends Component {
    * toggle smart container internal state on control button click
    *
    * @returns {void}
-   * @memberof Language
+   * @memberof CaptionsMenu
    */
   toggleSmartContainerOpen = (): void => {
     this.setState(prevState => {
@@ -150,7 +150,7 @@ class Language extends Component {
    *
    * @param {Object} textTrack - text track
    * @returns {void}
-   * @memberof Language
+   * @memberof CaptionsMenu
    */
   onCaptionsChange(textTrack: Object): void {
     if (textTrack === this.props.advancedCaptionsSettingsText) {
@@ -168,7 +168,7 @@ class Language extends Component {
    * toggle the internal state of cvaa overlay
    *
    * @returns {void}
-   * @memberof Language
+   * @memberof CaptionsMenu
    */
   toggleCVAAOverlay = (): void => {
     this.setState(prevState => {
@@ -180,7 +180,7 @@ class Language extends Component {
    * on cvaa overlay close handler
    *
    * @returns {void}
-   * @memberof Language
+   * @memberof CaptionsMenu
    */
   onCVAAOverlayClose = (): void => {
     this.toggleCVAAOverlay();
@@ -192,7 +192,7 @@ class Language extends Component {
    *
    * @param {*} props - component props
    * @returns {React$Element} - component
-   * @memberof Language
+   * @memberof CaptionsMenu
    */
   render(props: any): React$Element<any> | void {
     const targetId = document.getElementById(this.props.player.config.targetId) || document;
@@ -203,9 +203,11 @@ class Language extends Component {
       value: t
     }));
 
-    textOptions.push({label: props.advancedCaptionsSettingsText, value: props.advancedCaptionsSettingsText, active: false});
+    if (props.showAdvancedCaptionsMenu) {
+      textOptions.push({label: props.advancedCaptionsSettingsText, value: props.advancedCaptionsSettingsText, active: false});
+    }
 
-    return !props.showCaptionsMenu || textOptions.length <= 1 ? undefined : (
+    return (
       <>
         <SmartContainerItem
           pushRef={el => {
@@ -222,5 +224,5 @@ class Language extends Component {
   }
 }
 
-Language.displayName = COMPONENT_NAME;
-export {Language};
+CaptionsMenu.displayName = COMPONENT_NAME;
+export {CaptionsMenu};
