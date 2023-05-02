@@ -30,7 +30,7 @@ const dynamicColoredIconsSvgUrlVars = [
 export class ThemesManager {
   player: Object;
   config: Object;
-  playerContainerElement: HTMLElement;
+  playerContainerElement: HTMLElement | null;
 
   // eslint-disable-next-line require-jsdoc
   constructor(player: Object, config: ?UserTheme, targetId: string) {
