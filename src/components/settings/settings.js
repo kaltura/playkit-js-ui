@@ -5,7 +5,7 @@ import {withText, Text} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {bindActions} from 'utils';
 import {actions} from 'reducers/settings';
-import {SmartContainer} from 'components';
+import {Language, SmartContainer} from 'components';
 import {SmartContainerItem} from 'components';
 import {default as Icon, IconType, BadgeType} from '../icon';
 import {withPlayer} from '../player';
@@ -33,13 +33,12 @@ const rtlLanguages = ['ae', 'ar', 'arc', 'bcc', 'bqi', 'ckb', 'dv', 'fa', 'glk',
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
+  audioTracks: state.engine.audioTracks,
   videoTracks: state.engine.videoTracks,
   isMobile: state.shell.isMobile,
   isSmallSize: state.shell.isSmallSize,
   isLive: state.engine.isLive,
-  showQualityMenu: state.config.showQualityMenu,
-  showSpeedMenu: state.config.showSpeedMenu,
-  showAdvancedAudioDescToggle: state.config.showAdvancedAudioDescToggle,
+  showAdvancedAudioDescButton: state.config.showAdvancedAudioDescButton,
   isAdvancedAudioDescChecked: state.settings.advancedAudioDesc
 });
 
@@ -54,9 +53,10 @@ const COMPONENT_NAME = 'Settings';
  */
 @connect(mapStateToProps, bindActions({...actions, ...overlayIconActions}))
 @withText({
+  audioLabelText: 'settings.audio',
   qualityLabelText: 'settings.quality',
   speedLabelText: 'settings.speed',
-  advancedAudioText: 'settings.AdvancedAudioDescription',
+  advancedAudioText: 'settings.advancedAudioDescription',
   buttonLabel: 'controls.settings',
   speedNormalLabelText: 'settings.speedNormal',
   qualityAutoLabelText: 'settings.qualityAuto'
@@ -224,6 +224,22 @@ class Settings extends Component {
   };
 
   /**
+   * call to player selectTrack method and change audio track
+   *
+   * @param {Object} audioTrack - audio track
+   * @returns {void}
+   * @memberof Settings
+   */
+  onAudioChange(audioTrack: Object): void {
+    this.props.updateAudio(audioTrack);
+    this.props.player.selectTrack(audioTrack);
+    this.props.notifyClick({
+      type: this.props.player.Track.AUDIO,
+      track: audioTrack
+    });
+  }
+
+  /**
    * change quality track or if value is 'auto', enable player adaptive bitrate
    *
    * @param {(Object | string)} videoTrack - video track
@@ -231,6 +247,7 @@ class Settings extends Component {
    * @memberof Settings
    */
   onQualityChange(videoTrack: Object | string): void {
+    this.props.updateQuality(videoTrack);
     const {player} = this.props;
     if (videoTrack === 'auto') {
       player.enableAdaptiveBitrate();
@@ -307,6 +324,15 @@ class Settings extends Component {
    */
   render(props: any): React$Element<any> | void {
     const {player, isLive} = this.props;
+
+    const audioOptions = props.audioTracks
+      .filter(t => t.label || t.language)
+      .map(t => ({
+        label: t.label || t.language,
+        active: t.active,
+        value: t
+      }));
+
     const speedOptions = player.playbackRates.reduce((acc, speed) => {
       let speedOption = {
         value: speed,
@@ -355,9 +381,8 @@ class Settings extends Component {
       });
     }
 
-    if (qualityOptions.length <= 1 && speedOptions.length <= 1) return undefined;
+    if (qualityOptions.length <= 1 && speedOptions.length <= 1 && audioOptions.length <= 1) return undefined;
     if (isLive && qualityOptions.length <= 1) return undefined;
-    if (!(props.showSpeedMenu || props.showQualityMenu || props.showAdvancedAudioDescToggle)) return undefined;
     const buttonBadgeType: string = this.getButtonBadgeType() || '';
     return (
       <ButtonControl name={COMPONENT_NAME} ref={c => (c ? (this._controlSettingsElement = c) : undefined)}>
@@ -379,7 +404,7 @@ class Settings extends Component {
           ''
         ) : (
           <SmartContainer targetId={player.config.targetId} title={<Text id="settings.title" />} onClose={this.onControlButtonClick}>
-            {!props.showAdvancedAudioDescToggle ? (
+            {!props.showAdvancedAudioDescButton ? (
               ''
             ) : (
               <SmartContainerItem
@@ -389,7 +414,16 @@ class Settings extends Component {
                 onMenuChosen={this.onAdvancedAudioClick}
               />
             )}
-            {!props.showQualityMenu || qualityOptions.length <= 1 ? (
+            {audioOptions.length <= 1 ? undefined : (
+              <SmartContainerItem
+                icon="audio"
+                label={this.props.audioLabelText}
+                options={audioOptions}
+                onMenuChosen={audioTrack => this.onAudioChange(audioTrack)}
+              />
+            )}
+            <Language />
+            {qualityOptions.length <= 1 ? (
               ''
             ) : (
               <SmartContainerItem
@@ -399,7 +433,7 @@ class Settings extends Component {
                 onMenuChosen={o => this.onQualityChange(o)}
               />
             )}
-            {!props.showSpeedMenu || isLive || speedOptions.length <= 1 ? (
+            {isLive || speedOptions.length <= 1 ? (
               ''
             ) : (
               <SmartContainerItem icon="speed" label={props.speedLabelText} options={speedOptions} onMenuChosen={this.onSpeedChange} />

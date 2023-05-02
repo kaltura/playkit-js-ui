@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.77.0](https://github.com/kaltura/playkit-js-ui/compare/v0.76.1...v0.77.0) (2023-04-19)
+
+
+### Features
+
+* **FEC-13040:** Add an 'Advanced Audio Descriptions' settings option to the (“Gear”) settings ([#752](https://github.com/kaltura/playkit-js-ui/issues/752)) ([2149d98](https://github.com/kaltura/playkit-js-ui/commit/2149d98))
+
+
+
 ### [0.76.1](https://github.com/kaltura/playkit-js-ui/compare/v0.76.0...v0.76.1) (2023-03-26)
 
 

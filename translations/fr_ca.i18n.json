@@ -32,14 +32,13 @@
     },
     "settings": {
       "title": "Paramètres",
+      "audio": "Audio",
       "quality": "Qualité",
       "speed": "Vitesse",
       "speedNormal": "Normal",
       "qualityAuto": "Auto"
     },
-    "language": {
-      "title": "Langue",
-      "audio": "Audio",
+    "captions": {
       "captions": "Sous-titres",
       "advanced_captions_settings": "Paramètres avancés de sous-titres"
     },

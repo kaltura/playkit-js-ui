@@ -1,13 +1,12 @@
 //@flow
-import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
-import {Text, withText} from 'preact-i18n';
+// eslint-disable-next-line no-unused-vars
+import {h, Component, Fragment} from 'preact';
+import {withText} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/cvaa';
-import {SmartContainer} from '../smart-container';
 import {SmartContainerItem} from '../smart-container/smart-container-item';
-import {default as Icon, IconType} from '../icon';
+import {IconType} from '../icon';
 import {CVAAOverlay} from '../cvaa-overlay';
 import {createPortal} from 'preact/compat';
 import {withPlayer} from '../player';
@@ -16,9 +15,6 @@ import {withLogger} from 'components/logger';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {KeyMap} from 'utils/key-map';
 import {withKeyboardEvent} from 'components/keyboard';
-import {Tooltip} from 'components/tooltip';
-import {Button} from 'components/button';
-import {ButtonControl} from 'components/button-control';
 
 /**
  * mapping state to props
@@ -26,7 +22,6 @@ import {ButtonControl} from 'components/button-control';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  audioTracks: state.engine.audioTracks,
   textTracks: state.engine.textTracks,
   isMobile: state.shell.isMobile,
   isSmallSize: state.shell.isSmallSize
@@ -48,9 +43,8 @@ const COMPONENT_NAME = 'Language';
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
 @withText({
-  audioLabelText: 'language.audio',
-  captionsLabelText: 'language.captions',
-  buttonLabel: 'controls.language'
+  captionsLabelText: 'captions.captions',
+  advancedCaptionsSettingsText: 'captions.advanced_captions_settings'
 })
 class Language extends Component {
   state: Object;
@@ -151,21 +145,6 @@ class Language extends Component {
   };
 
   /**
-   * call to player selectTrack method and change audio track
-   *
-   * @param {Object} audioTrack - audio track
-   * @returns {void}
-   * @memberof Language
-   */
-  onAudioChange(audioTrack: Object): void {
-    this.props.player.selectTrack(audioTrack);
-    this.props.notifyClick({
-      type: this.props.player.Track.AUDIO,
-      track: audioTrack
-    });
-  }
-
-  /**
    * Select the given text track
    *
    * @param {Object} textTrack - text track
@@ -173,6 +152,10 @@ class Language extends Component {
    * @memberof Language
    */
   onCaptionsChange(textTrack: Object): void {
+    if (textTrack === this.props.advancedCaptionsSettingsText) {
+      this.toggleCVAAOverlay();
+      return;
+    }
     this.props.player.selectTrack(textTrack);
     this.props.notifyClick({
       type: this.props.player.Track.TEXT,
@@ -204,136 +187,36 @@ class Language extends Component {
   };
 
   /**
-   * render smart container with both audio and text options if exist
-   *
-   * @param {Array<Object>} audioOptions - audio tracks
-   * @param {Array<Object>} textOptions - text tracks
-   * @returns {React$Element} - component
-   * @memberof Language
-   */
-  renderAll(audioOptions: Array<Object>, textOptions: Array<Object>): React$Element<any> {
-    const targetId = document.getElementById(this.props.player.config.targetId) || document;
-    const portalSelector = `.overlay-portal`;
-    return (
-      <ButtonControl name={COMPONENT_NAME} ref={c => (c ? (this._controlLanguageElement = c) : undefined)}>
-        <Tooltip label={this.props.buttonLabel}>
-          <Button
-            tabIndex="0"
-            aria-haspopup="true"
-            aria-label={this.props.buttonLabel}
-            className={this.state.smartContainerOpen ? [style.controlButton, style.active].join(' ') : style.controlButton}
-            onClick={this.toggleSmartContainerOpen}>
-            <Icon type={IconType.Language} />
-          </Button>
-        </Tooltip>
-        {!this.state.smartContainerOpen || this.state.cvaaOverlay ? undefined : (
-          <SmartContainer targetId={this.props.player.config.targetId} title={<Text id="language.title" />} onClose={this.toggleSmartContainerOpen}>
-            {audioOptions.length <= 1 ? undefined : (
-              <SmartContainerItem
-                icon="audio"
-                label={this.props.audioLabelText}
-                options={audioOptions}
-                onMenuChosen={audioTrack => this.onAudioChange(audioTrack)}
-              />
-            )}
-            {textOptions.length <= 1 ? undefined : (
-              <SmartContainerItem
-                icon="captions"
-                label={this.props.captionsLabelText}
-                options={textOptions}
-                onMenuChosen={textTrack => this.onCaptionsChange(textTrack)}
-              />
-            )}
-            {textOptions.length <= 1 ? undefined : (
-              <AdvancedCaptionsAnchor
-                isPortal={this.props.isMobile || this.props.isSmallSize}
-                onMenuChosen={this.toggleCVAAOverlay}
-                onClose={this.toggleSmartContainerOpen}
-              />
-            )}
-          </SmartContainer>
-        )}
-        {this.state.cvaaOverlay ? createPortal(<CVAAOverlay onClose={this.onCVAAOverlayClose} />, targetId.querySelector(portalSelector)) : <div />}
-      </ButtonControl>
-    );
-  }
-
-  /**
-   * root render function. will decide to render audio only / text only or both based on the available options
+   * render function
    *
    * @param {*} props - component props
    * @returns {React$Element} - component
    * @memberof Language
    */
   render(props: any): React$Element<any> | void {
-    const audioOptions = props.audioTracks
-      .filter(t => t.label || t.language)
-      .map(t => ({
-        label: t.label || t.language,
-        active: t.active,
-        value: t
-      }));
+    const targetId = document.getElementById(this.props.player.config.targetId) || document;
+    const portalSelector = `.overlay-portal`;
     const textOptions = props.textTracks.map(t => ({
       label: t.label || t.language,
       active: t.active,
       value: t
     }));
 
-    if (audioOptions.length > 1 || textOptions.length > 1) {
-      return this.renderAll(audioOptions, textOptions);
-    } else {
-      return undefined;
-    }
-  }
-}
+    textOptions.push({label: props.advancedCaptionsSettingsText, value: props.advancedCaptionsSettingsText, active: false});
 
-/**
- * AdvancedCaptionsAnchor component
- * @class AdvancedCaptionsAnchor
- * @extends {Component}
- */
-class AdvancedCaptionsAnchor extends Component {
-  /**
-   * on key down handler
-   *
-   * @param {KeyboardEvent} e - keyboard event
-   * @returns {void}
-   * @memberof Language
-   */
-  onKeyDown = (e: KeyboardEvent): void => {
-    switch (e.keyCode) {
-      case KeyMap.ENTER:
-        this.props.onMenuChosen();
-        e.preventDefault();
-        e.stopPropagation();
-        break;
-    }
-  };
-
-  /**
-   * rendered AdvancedCaptionsAnchor jsx
-   * @param {*} props - component props
-   * @returns {?React$Element} - main state element
-   * @memberof AdvancedCaptionsAnchor
-   */
-  render(props: any): React$Element<any> {
-    return (
-      <div className={style.smartContainerItem}>
-        <a
-          role="button"
-          aria-haspopup="true"
-          tabIndex={props.isPortal ? '0' : '-1'}
-          ref={el => {
-            if (props.pushRef) {
-              props.pushRef(el);
-            }
+    return textOptions.length <= 1 ? undefined : (
+      <>
+        <SmartContainerItem
+          pushRef={el => {
+            props.pushRef(el);
           }}
-          className={style.advancedCaptionsMenuLink}
-          onClick={this.props.onMenuChosen}
-          onKeyDown={this.onKeyDown}>
-          <Text id="language.advanced_captions_settings" />
-        </a>
-      </div>
+          icon={IconType.Captions}
+          label={this.props.captionsLabelText}
+          options={textOptions}
+          onMenuChosen={textTrack => this.onCaptionsChange(textTrack)}
+        />
+        {this.state.cvaaOverlay ? createPortal(<CVAAOverlay onClose={this.onCVAAOverlayClose} />, targetId.querySelector(portalSelector)) : <div />}
+      </>
     );
   }
 }

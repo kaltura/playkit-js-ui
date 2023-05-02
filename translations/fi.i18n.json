@@ -32,14 +32,13 @@
     },
     "settings": {
       "title": "Asetukset",
+      "audio": "Ääni",
       "quality": "Laatu",
       "speed": "Nopeus",
       "speedNormal": "Normaali",
       "qualityAuto": "Automaattinen"
     },
-    "language": {
-      "title": "Kieli",
-      "audio": "Ääni",
+    "captions": {
       "captions": "Tekstitykset",
       "advanced_captions_settings": "Tekstityksen lisäasetukset"
     },

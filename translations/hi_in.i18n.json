@@ -32,14 +32,13 @@
     },
     "settings": {
       "title": "सेंटिंग",
+      "audio": "ऑडियो",
       "quality": "गुणवत्ता",
       "speed": "गति",
       "speedNormal": "सामान्य",
       "qualityAuto": "ऑटो"
     },
-    "language": {
-      "title": "भाषा",
-      "audio": "ऑडियो",
+    "captions": {
       "captions": "कैप्शन",
       "advanced_captions_settings": "उन्नत कैप्शन सेंटिंग"
     },
