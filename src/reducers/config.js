@@ -10,10 +10,11 @@ export const types = {
 export const initialState = {
   forceTouchUI: false,
   showCCButton: true,
+  showAudioMenu: true,
+  showCaptionsMenu: true,
   showQualityMenu: true,
   showSpeedMenu: true,
   showAdvancedAudioDescToggle: false,
-  showAdvancedAudioDescButton: false,
   hoverTimeout: 3000,
   components: {
     watermark: {},

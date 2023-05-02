@@ -24,7 +24,8 @@ import {withKeyboardEvent} from 'components/keyboard';
 const mapStateToProps = state => ({
   textTracks: state.engine.textTracks,
   isMobile: state.shell.isMobile,
-  isSmallSize: state.shell.isSmallSize
+  isSmallSize: state.shell.isSmallSize,
+  showCaptionsMenu: state.config.showCaptionsMenu
 });
 
 const COMPONENT_NAME = 'Language';
@@ -204,7 +205,7 @@ class Language extends Component {
 
     textOptions.push({label: props.advancedCaptionsSettingsText, value: props.advancedCaptionsSettingsText, active: false});
 
-    return textOptions.length <= 1 ? undefined : (
+    return !props.showCaptionsMenu || textOptions.length <= 1 ? undefined : (
       <>
         <SmartContainerItem
           pushRef={el => {

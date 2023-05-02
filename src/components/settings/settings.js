@@ -38,10 +38,13 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile,
   isSmallSize: state.shell.isSmallSize,
   isLive: state.engine.isLive,
-  showAdvancedAudioDescButton: state.config.showAdvancedAudioDescButton,
+  showQualityMenu: state.config.showQualityMenu,
+  showAudioMenu: state.config.showAudioMenu,
+  showCaptionsMenu: state.config.showCaptionsMenu,
+  showSpeedMenu: state.config.showSpeedMenu,
+  showAdvancedAudioDescToggle: state.config.showAdvancedAudioDescToggle,
   isAdvancedAudioDescChecked: state.settings.advancedAudioDesc
 });
-
 const COMPONENT_NAME = 'Settings';
 
 /**
@@ -382,6 +385,7 @@ class Settings extends Component {
     }
 
     if (qualityOptions.length <= 1 && speedOptions.length <= 1 && audioOptions.length <= 1) return undefined;
+    if (!(props.showAudioMenu || props.showQualityMenu || props.showSpeedMenu || props.showCaptionsMenu)) return undefined;
     if (isLive && qualityOptions.length <= 1) return undefined;
     const buttonBadgeType: string = this.getButtonBadgeType() || '';
     return (
@@ -404,40 +408,34 @@ class Settings extends Component {
           ''
         ) : (
           <SmartContainer targetId={player.config.targetId} title={<Text id="settings.title" />} onClose={this.onControlButtonClick}>
-            {!props.showAdvancedAudioDescButton ? (
-              ''
-            ) : (
+            {props.showAudioMenu && audioOptions.length > 1 && props.showAdvancedAudioDescToggle ? (
               <SmartContainerItem
                 icon={IconType.AdvancedAudioDescription}
                 label={props.advancedAudioText}
                 isChecked={props.isAdvancedAudioDescChecked}
                 onMenuChosen={this.onAdvancedAudioClick}
               />
-            )}
-            {audioOptions.length <= 1 ? undefined : (
+            ) : undefined}
+            {props.showAudioMenu && audioOptions.length > 1 ? (
               <SmartContainerItem
                 icon="audio"
                 label={this.props.audioLabelText}
                 options={audioOptions}
                 onMenuChosen={audioTrack => this.onAudioChange(audioTrack)}
               />
-            )}
+            ) : undefined}
             <Language />
-            {qualityOptions.length <= 1 ? (
-              ''
-            ) : (
+            {props.showQualityMenu && qualityOptions.length > 1 ? (
               <SmartContainerItem
                 icon="quality"
                 label={props.qualityLabelText}
                 options={qualityOptions}
                 onMenuChosen={o => this.onQualityChange(o)}
               />
-            )}
-            {isLive || speedOptions.length <= 1 ? (
-              ''
-            ) : (
+            ) : undefined}
+            {props.showSpeedMenu && speedOptions.length > 1 && !isLive ? (
               <SmartContainerItem icon="speed" label={props.speedLabelText} options={speedOptions} onMenuChosen={this.onSpeedChange} />
-            )}
+            ) : undefined}
           </SmartContainer>
         )}
       </ButtonControl>
