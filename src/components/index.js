@@ -1,6 +1,5 @@
 import {Cast} from './cast';
 import {Fullscreen} from './fullscreen';
-import {Language} from './language';
 import {PlayPause} from './play-pause';
 import {Rewind} from './rewind';
 import {Forward} from './forward';
