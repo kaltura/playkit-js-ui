@@ -90,6 +90,20 @@
     },
     "pictureInPicture": {
       "overlay_text": "Afspelen in de Beeld in beeld-modus"
+    },
+    "volume": {
+      "muted_click_to_unmute": "Gedempt. Klik om dempen ongedaan te maken",
+      "volume_click_to_mute": "te dempen. Klik om volume",
+      "ten_percent": "tien procent",
+      "twenty_percent": "twintig procent",
+      "thirty_percent": "dertig procent",
+      "fourty_percent": "veertig procent",
+      "fifty_percent": "vijftig procent",
+      "sixty_percent": "zestig procent",
+      "seventy_percent": "zeventig procent",
+      "eighty_percent": "tachtig procent",
+      "ninety_percent": "negentig procent",
+      "one_hundred_percent": "honderd procent"
     }
   }
 }

@@ -90,6 +90,20 @@
     },
     "pictureInPicture": {
       "overlay_text": "Lecture en mode Image dans l’image"
+    },
+    "volume": {
+      "muted_click_to_unmute": "Son coupé. Cliquez pour rétablir le son",
+      "volume_click_to_mute": "volume. Cliquez pour mettre en sourdine",
+      "ten_percent": "dix pour cent",
+      "twenty_percent": "vingt pour cent",
+      "thirty_percent": "trente pour cent",
+      "fourty_percent": "quarante pour cent",
+      "fifty_percent": "cinquante pour cent",
+      "sixty_percent": "soixante pour cent",
+      "seventy_percent": "soixante-dix pour cent",
+      "eighty_percent": "quatre-vingt pour cent",
+      "ninety_percent": "quatre-vingt-dix pour cent",
+      "one_hundred_percent": "cent pour cent"
     }
   }
 }

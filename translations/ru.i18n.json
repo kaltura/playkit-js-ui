@@ -90,6 +90,20 @@
     },
     "pictureInPicture": {
       "overlay_text": "Воспроизведение в режиме «картинка в картинке»"
+    },
+    "volume": {
+      "muted_click_to_unmute": "Звук отключен. Нажмите, чтобы включить звук",
+      "volume_click_to_mute": "громкость Нажмите, чтобы отключить звук",
+      "ten_percent": "десять процентов",
+      "twenty_percent": "двадцать процентов",
+      "thirty_percent": "тридцать процентов",
+      "fourty_percent": "сорок процентов",
+      "fifty_percent": "пятьдесят процентов",
+      "sixty_percent": "шестьдесят процентов",
+      "seventy_percent": "семьдесят процентов",
+      "eighty_percent": "восемьдесят процентов",
+      "ninety_percent": "девяносто процентов",
+      "one_hundred_percent": "сто процентов"
     }
   }
 }

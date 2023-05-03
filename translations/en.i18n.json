@@ -28,8 +28,18 @@
       "unmute": "Unmute"
     },
     "volume": {
-      "muted": "Muted. Click to unmute",
-      "unmuted": "{{vol}}% volume. Click to mute"
+      "muted_click_to_unmute": "Muted. Click to unmute",
+      "volume_click_to_mute": "{{vol}}% volume. Click to mute",
+      "ten_percent": "ten percent",
+      "twenty_percent": "twenty percent",
+      "thirty_percent": "thirty percent",
+      "fourty_percent": "forty percent",
+      "fifty_percent": "fifty percent",
+      "sixty_percent": "sixty percent",
+      "seventy_percent": "seventy percent",
+      "eighty_percent": "eighty percent",
+      "ninety_percent": "ninety percent",
+      "one_hundred_percent": "one hundred percent"
     },
     "copy": {
       "button": "Copy URL"

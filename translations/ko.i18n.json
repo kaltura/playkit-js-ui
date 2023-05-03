@@ -90,6 +90,20 @@
     },
     "pictureInPicture": {
       "overlay_text": "화면 속 화면 모드 실행 중"
+    },
+    "volume": {
+      "muted_click_to_unmute": "음소거 음소거를 해제하려면 클릭하세요.",
+      "volume_click_to_mute": "볼륨 음소거하려면 클릭하세요.",
+      "ten_percent": "10%",
+      "twenty_percent": "20%",
+      "thirty_percent": "30%",
+      "fourty_percent": "40%",
+      "fifty_percent": "50%",
+      "sixty_percent": "60%",
+      "seventy_percent": "70%",
+      "eighty_percent": "80%",
+      "ninety_percent": "90%",
+      "one_hundred_percent": "100%"
     }
   }
 }

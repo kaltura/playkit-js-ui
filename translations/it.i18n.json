@@ -90,6 +90,20 @@
     },
     "pictureInPicture": {
       "overlay_text": "Riproduzione in modalità Immagine nell’immagine"
+    },
+    "volume": {
+      "muted_click_to_unmute": "Audio disattivato. Fai clic per attivare l’audio",
+      "volume_click_to_mute": "volume. Fai clic per disattivare l’audio",
+      "ten_percent": "10%",
+      "twenty_percent": "20%",
+      "thirty_percent": "30%",
+      "fourty_percent": "40%",
+      "fifty_percent": "50%",
+      "sixty_percent": "60%",
+      "seventy_percent": "70%",
+      "eighty_percent": "80%",
+      "ninety_percent": "90%",
+      "one_hundred_percent": "100%"
     }
   }
 }
