@@ -151,7 +151,7 @@ class Language extends Component {
    * @returns {void}
    * @memberof Language
    */
-  onCaptionsChange(textTrack: Object): void {
+  onCaptionsChange(textTrack: Object | string): void {
     if (textTrack === this.props.advancedCaptionsSettingsText) {
       this.toggleCVAAOverlay();
       return;
