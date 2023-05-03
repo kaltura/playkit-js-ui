@@ -152,7 +152,7 @@ class CaptionsMenu extends Component {
    * @returns {void}
    * @memberof CaptionsMenu
    */
-  onCaptionsChange(textTrack: Object): void {
+  onCaptionsChange(textTrack: Object | string): void {
     if (textTrack === this.props.advancedCaptionsSettingsText) {
       this.toggleCVAAOverlay();
       return;
