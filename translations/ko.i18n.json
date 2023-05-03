@@ -32,14 +32,13 @@
     },
     "settings": {
       "title": "설정",
+      "audio": "오디오",
       "quality": "화질",
       "speed": "재생 속도",
       "speedNormal": "보통",
       "qualityAuto": "자동"
     },
-    "language": {
-      "title": "언어",
-      "audio": "오디오",
+    "captions": {
       "captions": "자막",
       "advanced_captions_settings": "고급 자막 설정"
     },

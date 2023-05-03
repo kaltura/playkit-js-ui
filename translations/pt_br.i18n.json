@@ -32,14 +32,13 @@
     },
     "settings": {
       "title": "Configurações",
+      "audio": "Áudio",
       "quality": "Qualidade",
       "speed": "Velocidade",
       "speedNormal": "Normal",
       "qualityAuto": "Automático"
     },
-    "language": {
-      "title": "Idioma",
-      "audio": "Áudio",
+    "captions": {
       "captions": "Legendas",
       "advanced_captions_settings": "Configurações avançadas de legendas"
     },

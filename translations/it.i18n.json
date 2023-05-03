@@ -32,14 +32,13 @@
     },
     "settings": {
       "title": "Impostazioni",
+      "audio": "Audio",
       "quality": "Qualità",
       "speed": "Velocità",
       "speedNormal": "Normale",
       "qualityAuto": "Automatica"
     },
-    "language": {
-      "title": "Lingua",
-      "audio": "Audio",
+    "captions": {
       "captions": "Didascalie",
       "advanced_captions_settings": "Impostazioni didascalie avanzate"
     },

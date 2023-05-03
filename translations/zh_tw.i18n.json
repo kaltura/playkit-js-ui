@@ -32,14 +32,13 @@
     },
     "settings": {
       "title": "設定",
+      "audio": "音訊",
       "quality": "畫質",
       "speed": "播放速度",
       "speedNormal": "一般",
       "qualityAuto": "自動"
     },
-    "language": {
-      "title": "語言",
-      "audio": "音訊",
+    "captions": {
       "captions": "字幕",
       "advanced_captions_settings": "進階字幕設定"
     },

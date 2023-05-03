@@ -32,14 +32,13 @@
     },
     "settings": {
       "title": "Настройки",
+      "audio": "Аудио",
       "quality": "Качество",
       "speed": "Скорость",
       "speedNormal": "Нормальная",
       "qualityAuto": "Авто"
     },
-    "language": {
-      "title": "Язык",
-      "audio": "Аудио",
+    "captions": {
       "captions": "Субтитры",
       "advanced_captions_settings": "Расширенные настройки субтитров"
     },

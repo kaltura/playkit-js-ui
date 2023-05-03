@@ -32,14 +32,13 @@
     },
     "settings": {
       "title": "הגדרות",
+      "audio": "אודיו",
       "quality": "איכות",
       "speed": "מהירות",
       "speedNormal": "רגיל",
       "qualityAuto": "אוטומטי"
     },
-    "language": {
-      "title": "שפה",
-      "audio": "אודיו",
+    "captions": {
       "captions": "כתוביות",
       "advanced_captions_settings": "הגדרות כתוביות מתקדמות"
     },

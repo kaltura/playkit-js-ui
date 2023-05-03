@@ -9,7 +9,7 @@ export const types = {
 
 export const initialState = {
   forceTouchUI: false,
-  showCCButton: false,
+  showCCButton: true,
   showAdvancedAudioDescButton: false,
   hoverTimeout: 3000,
   components: {
