@@ -5,27 +5,14 @@ import {withText, Text} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {bindActions} from 'utils';
 import {actions} from 'reducers/settings';
-import {Language, SmartContainer} from 'components';
-import {SmartContainerItem} from 'components';
+import {AdvancedAudioDescToggle, AudioMenu, CaptionsMenu, QualityMenu, SmartContainer, SpeedMenu, HeightResolution} from 'components';
 import {default as Icon, IconType, BadgeType} from '../icon';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
-import {withEventDispatcher} from 'components/event-dispatcher';
-import {withLogger} from 'components/logger';
-import {withKeyboardEvent} from 'components/keyboard';
-import {KeyMap} from 'utils/key-map';
-import {SpeedSelectedEvent} from 'event/events/speed-selected-event';
 import {actions as overlayIconActions} from 'reducers/overlay-action';
 import {Tooltip} from 'components/tooltip';
 import {Button} from 'components/button';
 import {ButtonControl} from 'components/button-control';
-
-const HeightResolution = {
-  HD: 1080,
-  UHD_4K: 2160,
-  UHD_8K: 4320
-};
-const rtlLanguages = ['ae', 'ar', 'arc', 'bcc', 'bqi', 'ckb', 'dv', 'fa', 'glk', 'he', 'ku', 'mzn', 'nqo', 'pnb', 'ps', 'sd', 'ug', 'ur', 'yi'];
 
 /**
  * mapping state to props
@@ -34,14 +21,17 @@ const rtlLanguages = ['ae', 'ar', 'arc', 'bcc', 'bqi', 'ckb', 'dv', 'fa', 'glk',
  */
 const mapStateToProps = state => ({
   audioTracks: state.engine.audioTracks,
+  textTracks: state.engine.textTracks,
   videoTracks: state.engine.videoTracks,
   isMobile: state.shell.isMobile,
   isSmallSize: state.shell.isSmallSize,
   isLive: state.engine.isLive,
-  showAdvancedAudioDescButton: state.config.showAdvancedAudioDescButton,
-  isAdvancedAudioDescChecked: state.settings.advancedAudioDesc
+  showQualityMenu: state.config.settings.showQualityMenu,
+  showAudioMenu: state.config.settings.showAudioMenu,
+  showCaptionsMenu: state.config.settings.showCaptionsMenu,
+  showSpeedMenu: state.config.settings.showSpeedMenu,
+  showAdvancedAudioDescToggle: state.config.settings.showAdvancedAudioDescToggle
 });
-
 const COMPONENT_NAME = 'Settings';
 
 /**
@@ -53,51 +43,13 @@ const COMPONENT_NAME = 'Settings';
  */
 @connect(mapStateToProps, bindActions({...actions, ...overlayIconActions}))
 @withText({
-  audioLabelText: 'settings.audio',
-  qualityLabelText: 'settings.quality',
-  speedLabelText: 'settings.speed',
-  advancedAudioText: 'settings.advancedAudioDescription',
-  buttonLabel: 'controls.settings',
-  speedNormalLabelText: 'settings.speedNormal',
-  qualityAutoLabelText: 'settings.qualityAuto'
+  buttonLabel: 'controls.settings'
 })
 @withPlayer
 @withEventManager
-@withKeyboardEvent(COMPONENT_NAME)
-@withLogger(COMPONENT_NAME)
-@withEventDispatcher(COMPONENT_NAME)
 class Settings extends Component {
   state: Object;
   _controlSettingsElement: HTMLDivElement;
-  _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
-    {
-      key: {
-        code: KeyMap.PERIOD,
-        shiftKey: true
-      },
-      action: event => {
-        this.handleKeydown(event);
-      }
-    },
-    {
-      key: {
-        code: KeyMap.SEMI_COLON,
-        shiftKey: true
-      },
-      action: event => {
-        this.handleKeydown(event);
-      }
-    },
-    {
-      key: {
-        code: KeyMap.COMMA,
-        shiftKey: true
-      },
-      action: event => {
-        this.handleKeydown(event);
-      }
-    }
-  ];
 
   /**
    * before component mounted, set initial state
@@ -118,50 +70,6 @@ class Settings extends Component {
   componentDidMount() {
     const {eventManager} = this.props;
     eventManager.listen(document, 'click', e => this.handleClickOutside(e));
-    this.props.registerKeyboardEvents(this._keyboardEventHandlers);
-  }
-
-  /**
-   * on settings control key down, update the settings in case of up/down keys
-   *
-   * @method handleKeydown
-   * @param {KeyboardEvent} event - keyboardEvent event
-   * @returns {void}
-   * @memberof Settings
-   */
-  handleKeydown(event: KeyboardEvent): void {
-    const {player, logger} = this.props;
-    let playbackRate, index;
-    switch (event.keyCode) {
-      case KeyMap.PERIOD:
-        playbackRate = player.playbackRate;
-        index = player.playbackRates.indexOf(playbackRate);
-        if (index < player.playbackRates.length - 1) {
-          logger.debug(`Changing playback rate. ${playbackRate} => ${player.playbackRates[index + 1]}`);
-          player.playbackRate = player.playbackRates[index + 1];
-          this.props.updateOverlayActionIcon(IconType.SpeedUp);
-          player.dispatchEvent(new SpeedSelectedEvent(player.playbackRate));
-        }
-        break;
-      case KeyMap.SEMI_COLON:
-        if (player.playbackRate !== player.defaultPlaybackRate) {
-          logger.debug(`Changing playback rate. ${player.playbackRate} => ${player.defaultPlaybackRate}`);
-          player.playbackRate = player.defaultPlaybackRate;
-          this.props.updateOverlayActionIcon(IconType.Speed);
-          player.dispatchEvent(new SpeedSelectedEvent(player.playbackRate));
-        }
-        break;
-      case KeyMap.COMMA:
-        playbackRate = player.playbackRate;
-        index = player.playbackRates.indexOf(playbackRate);
-        if (index > 0) {
-          logger.debug(`Changing playback rate. ${playbackRate} => ${player.playbackRates[index - 1]}`);
-          player.playbackRate = player.playbackRates[index - 1];
-          this.props.updateOverlayActionIcon(IconType.SpeedDown);
-          player.dispatchEvent(new SpeedSelectedEvent(player.playbackRate));
-        }
-        break;
-    }
   }
 
   /**
@@ -194,96 +102,6 @@ class Settings extends Component {
       return {smartContainerOpen: !prevState.smartContainerOpen};
     });
   };
-
-  /**
-   * change player playback rate and update it in the store state
-   *
-   * @param {number} playbackRate - playback rate value
-   * @returns {void}
-   * @memberof Settings
-   */
-  onSpeedChange = (playbackRate: number): void => {
-    this.props.updateSpeed(playbackRate);
-    this.props.player.playbackRate = playbackRate;
-    this.props.notifyClick({
-      type: 'speed',
-      speed: playbackRate
-    });
-  };
-
-  /**
-   * Toggle the Advanced Audio Description option and update it in the store state
-   *
-   * @param {boolean} isChecked - Whether the feature is enabled or not
-   * @returns {void}
-   * @memberof Settings
-   */
-  onAdvancedAudioClick = (isChecked: boolean): void => {
-    this.props.updateAdvancedAudioDesc(isChecked);
-    this.props.notifyClick({type: 'AdvancedAudioDescription', checked: isChecked});
-  };
-
-  /**
-   * call to player selectTrack method and change audio track
-   *
-   * @param {Object} audioTrack - audio track
-   * @returns {void}
-   * @memberof Settings
-   */
-  onAudioChange(audioTrack: Object): void {
-    this.props.updateAudio(audioTrack);
-    this.props.player.selectTrack(audioTrack);
-    this.props.notifyClick({
-      type: this.props.player.Track.AUDIO,
-      track: audioTrack
-    });
-  }
-
-  /**
-   * change quality track or if value is 'auto', enable player adaptive bitrate
-   *
-   * @param {(Object | string)} videoTrack - video track
-   * @returns {void}
-   * @memberof Settings
-   */
-  onQualityChange(videoTrack: Object | string): void {
-    this.props.updateQuality(videoTrack);
-    const {player} = this.props;
-    if (videoTrack === 'auto') {
-      player.enableAdaptiveBitrate();
-    } else {
-      player.selectTrack(videoTrack);
-    }
-    this.props.notifyClick({
-      type: player.Track.VIDEO,
-      track: videoTrack
-    });
-  }
-
-  /**
-   * This function gets an array and increases it if needed in each iteration. The function checks if the last element
-   * in the sorted array has the same label as the new current track element. If so, it compares their bandwidth
-   * and selects the one with the higher. If the resolution is different then it just adds it to the array
-   *
-   * @param {Array} qualities - sorted (!) video tracks array
-   * @param {object} currentTrack - a track
-   * @returns {Array<any>} - an array with unique values, compared by their height. if the new track (currenttrack) has
-   * the same height value, then we take the one with the higher bandwidth (replace it if needed)
-   * @memberof Settings
-   */
-  filterUniqueQualities(qualities: Array<any>, currentTrack: any): Array<any> {
-    const arrLength = qualities.length - 1;
-    const previousTrack = qualities[arrLength];
-    if (arrLength > -1 && currentTrack.label === previousTrack.label) {
-      if (currentTrack.bandwidth > previousTrack.bandwidth) {
-        qualities[arrLength] = currentTrack;
-      }
-      qualities[arrLength].active = currentTrack.active || previousTrack.active;
-    } else {
-      qualities.push(currentTrack);
-    }
-    return qualities;
-  }
 
   /**
    * Determines the badge icon type of the quality option based on the height of the resolution.
@@ -323,66 +141,14 @@ class Settings extends Component {
    * @memberof Settings
    */
   render(props: any): React$Element<any> | void {
-    const {player, isLive} = this.props;
+    const showAudioMenu = props.showAudioMenu && props.audioTracks.length > 1;
+    const showAdvancedAudioDescToggle = showAudioMenu && props.showAdvancedAudioDescToggle;
+    const showCaptionsMenu = props.showCaptionsMenu && props.textTracks.length > 1;
+    const showQualityMenu = props.showQualityMenu && props.videoTracks.length > 1;
+    const showSpeedMenu = props.showSpeedMenu && props.player.playbackRates.length > 1 && !props.isLive;
 
-    const audioOptions = props.audioTracks
-      .filter(t => t.label || t.language)
-      .map(t => ({
-        label: t.label || t.language,
-        active: t.active,
-        value: t
-      }));
-
-    const speedOptions = player.playbackRates.reduce((acc, speed) => {
-      let speedOption = {
-        value: speed,
-        label: speed === 1 ? props.speedNormalLabelText : speed,
-        active: false
-      };
-      if (speed === player.playbackRate) {
-        speedOption.active = true;
-      }
-      acc.push(speedOption);
-      return acc;
-    }, []);
-
-    const qualityOptions = props.videoTracks
-      .sort((a, b) => {
-        return a.height < b.height ? 1 : -1;
-      })
-      .filter(t => {
-        return t.bandwidth || t.height;
-      })
-      .reduce(this.filterUniqueQualities, [])
-      .map(t => ({
-        label: t.label,
-        active: !player.isAdaptiveBitrateEnabled() && t.active,
-        value: t,
-        badgeType: this.getLabelBadgeType(t.height)
-      }));
-
-    // Progressive playback doesn't support auto
-    if (qualityOptions.length > 1 && player.streamType !== 'progressive') {
-      const activeTrack: Object = qualityOptions.find(track => track.value.active === true).value;
-      let qualityLabel;
-      if (rtlLanguages.includes(this.props.player._localPlayer._config.ui.locale)) {
-        qualityLabel = activeTrack.label + ' - ' + this.props.qualityAutoLabelText;
-      } else {
-        qualityLabel = this.props.qualityAutoLabelText + ' - ' + activeTrack.label;
-      }
-      qualityOptions.unshift({
-        label: this.props.qualityAutoLabelText,
-        dropdownOptions: {
-          label: qualityLabel,
-          badgeType: this.getLabelBadgeType(activeTrack.height)
-        },
-        active: player.isAdaptiveBitrateEnabled(),
-        value: 'auto'
-      });
-    }
-
-    if (qualityOptions.length <= 1 && speedOptions.length <= 1 && audioOptions.length <= 1) return undefined;
-    if (isLive && qualityOptions.length <= 1) return undefined;
+    if (!(showAudioMenu || showCaptionsMenu || showQualityMenu || showSpeedMenu)) return undefined;
+    if (props.isLive && props.videoTracks.length <= 1) return undefined;
     const buttonBadgeType: string = this.getButtonBadgeType() || '';
     return (
       <ButtonControl name={COMPONENT_NAME} ref={c => (c ? (this._controlSettingsElement = c) : undefined)}>
@@ -403,41 +169,12 @@ class Settings extends Component {
         {!this.state.smartContainerOpen ? (
           ''
         ) : (
-          <SmartContainer targetId={player.config.targetId} title={<Text id="settings.title" />} onClose={this.onControlButtonClick}>
-            {!props.showAdvancedAudioDescButton ? (
-              ''
-            ) : (
-              <SmartContainerItem
-                icon={IconType.AdvancedAudioDescription}
-                label={props.advancedAudioText}
-                isChecked={props.isAdvancedAudioDescChecked}
-                onMenuChosen={this.onAdvancedAudioClick}
-              />
-            )}
-            {audioOptions.length <= 1 ? undefined : (
-              <SmartContainerItem
-                icon="audio"
-                label={this.props.audioLabelText}
-                options={audioOptions}
-                onMenuChosen={audioTrack => this.onAudioChange(audioTrack)}
-              />
-            )}
-            <Language />
-            {qualityOptions.length <= 1 ? (
-              ''
-            ) : (
-              <SmartContainerItem
-                icon="quality"
-                label={props.qualityLabelText}
-                options={qualityOptions}
-                onMenuChosen={o => this.onQualityChange(o)}
-              />
-            )}
-            {isLive || speedOptions.length <= 1 ? (
-              ''
-            ) : (
-              <SmartContainerItem icon="speed" label={props.speedLabelText} options={speedOptions} onMenuChosen={this.onSpeedChange} />
-            )}
+          <SmartContainer targetId={props.player.config.targetId} title={<Text id="settings.title" />} onClose={this.onControlButtonClick}>
+            {showAdvancedAudioDescToggle && <AdvancedAudioDescToggle />}
+            {showAudioMenu && <AudioMenu />}
+            {showCaptionsMenu && <CaptionsMenu />}
+            {showQualityMenu && <QualityMenu />}
+            {showSpeedMenu && <SpeedMenu />}
           </SmartContainer>
         )}
       </ButtonControl>
