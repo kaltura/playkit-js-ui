@@ -74,7 +74,7 @@ class UIManager {
   }
 
   /**
-   * sets the player and ui config in the store
+   * Sets the player and ui config in the store
    *
    * @param {Object} config - new config object
    * @param {string} componentAlias - component alias (optional)
@@ -204,7 +204,7 @@ class UIManager {
         </Provider>
       );
 
-      // render the player
+      // Render the player
       render(template, this.container);
     }
   }
