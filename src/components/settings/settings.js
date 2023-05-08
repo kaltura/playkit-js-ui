@@ -5,16 +5,7 @@ import {withText, Text} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {bindActions} from 'utils';
 import {actions} from 'reducers/settings';
-import {
-  AdvancedAudioDescToggle,
-  AudioMenu,
-  CaptionsMenu,
-  QualityMenu,
-  SmartContainer,
-  SpeedMenu,
-  CVAAOverlay,
-  getLabelBadgeType
-} from 'components';
+import {AdvancedAudioDescToggle, AudioMenu, CaptionsMenu, QualityMenu, SmartContainer, SpeedMenu, CVAAOverlay, getLabelBadgeType} from 'components';
 import {default as Icon, IconType, BadgeType} from '../icon';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
