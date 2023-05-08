@@ -32,14 +32,13 @@
     },
     "settings": {
       "title": "Paramètres",
+      "audio": "Audio",
       "quality": "Qualité",
       "speed": "Vitesse",
       "speedNormal": "Normal",
       "qualityAuto": "Auto"
     },
-    "language": {
-      "title": "Langue",
-      "audio": "Audio",
+    "captions": {
       "captions": "Sous-titres",
       "advanced_captions_settings": "Paramètres avancés de sous-titres"
     },
@@ -91,6 +90,20 @@
     },
     "pictureInPicture": {
       "overlay_text": "Lecture en mode Picture-in-picture"
+    },
+    "volume": {
+      "muted_click_to_unmute": "En sourdine. Cliquez pour activer le son",
+      "volume_click_to_mute": "volume. Cliquer pour mettre en sourdine",
+      "ten_percent": "dix pour cent",
+      "twenty_percent": "vingt pour cent",
+      "thirty_percent": "trente pour cent",
+      "fourty_percent": "quarante pour cent",
+      "fifty_percent": "cinquante pour cent",
+      "sixty_percent": "soixante pour cent",
+      "seventy_percent": "soixante-dix pour cent",
+      "eighty_percent": "quatre-vingt pour cent",
+      "ninety_percent": "quatre-vingt-dix pour cent",
+      "one_hundred_percent": "cent pour cent"
     }
   }
 }

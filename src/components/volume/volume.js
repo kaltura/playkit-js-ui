@@ -49,10 +49,10 @@ const KEYBOARD_DEFAULT_VOLUME_JUMP: number = 5;
 const translates = (props: any) => ({
   tooltipLabel: props.muted ? <Text id="controls.unmute">Unmute</Text> : <Text id="controls.mute">Mute</Text>,
   volBtnAriaLabel: props.muted ? (
-    <Text id={'volume.muted'}>Muted. Click to unmute</Text>
+    <Text id={'volume.muted_click_to_unmute'}>Muted. Click to unmute</Text>
   ) : (
-    <Text id={'volume.unmuted'} fields={{vol: (props.player.volume * 100).toFixed()}}>
-      Click to mute
+    <Text id={'volume.volume_click_to_mute'} fields={{vol: (props.player.volume * 100).toFixed()}}>
+      {`${props.player.volume * 100} volume. Click to mute`}
     </Text>
   )
 });

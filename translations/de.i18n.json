@@ -32,14 +32,13 @@
     },
     "settings": {
       "title": "Einstellungen",
+      "audio": "Audio",
       "quality": "Qualität",
       "speed": "Geschwindigkeit",
       "speedNormal": "Normal",
       "qualityAuto": "Automatisch"
     },
-    "language": {
-      "title": "Sprache",
-      "audio": "Audio",
+    "captions": {
       "captions": "Untertitel",
       "advanced_captions_settings": "Erweiterte Einstellungen für Untertitel"
     },
@@ -91,6 +90,20 @@
     },
     "pictureInPicture": {
       "overlay_text": "Wiedergabe im Bild-im-Bild-Modus"
+    },
+    "volume": {
+      "muted_click_to_unmute": "Stummgeschaltet. Zum Aufheben der Stummschaltung klicken",
+      "volume_click_to_mute": "Lautstärke. Zum Stummschalten klicken",
+      "ten_percent": "zehn Prozent",
+      "twenty_percent": "zwanzig Prozent",
+      "thirty_percent": "dreißig Prozent",
+      "fourty_percent": "vierzig Prozent",
+      "fifty_percent": "fünfzig Prozent",
+      "sixty_percent": "sechzig Prozent",
+      "seventy_percent": "siebzig Prozent",
+      "eighty_percent": "achtzig Prozent",
+      "ninety_percent": "neunzig Prozent",
+      "one_hundred_percent": "hundert Prozent"
     }
   }
 }

@@ -32,14 +32,13 @@
     },
     "settings": {
       "title": "Asetukset",
+      "audio": "Ääni",
       "quality": "Laatu",
       "speed": "Nopeus",
       "speedNormal": "Normaali",
       "qualityAuto": "Automaattinen"
     },
-    "language": {
-      "title": "Kieli",
-      "audio": "Ääni",
+    "captions": {
       "captions": "Tekstitykset",
       "advanced_captions_settings": "Tekstityksen lisäasetukset"
     },
@@ -91,6 +90,20 @@
     },
     "pictureInPicture": {
       "overlay_text": "Toistetaan kuva kuvassa -tilassa"
+    },
+    "volume": {
+      "muted_click_to_unmute": "Mykistetty. Klikkaa poistaaksesi mykistyksen",
+      "volume_click_to_mute": "äänenvoimakkuus. Klikkaa mykistääksesi",
+      "ten_percent": "kymmenen prosenttia",
+      "twenty_percent": "kaksikymmentä prosenttia",
+      "thirty_percent": "kolmekymmentä prosenttia",
+      "fourty_percent": "neljäkymmentä prosenttia",
+      "fifty_percent": "viisikymmentä prosenttia",
+      "sixty_percent": "kuusikymmentä prosenttia",
+      "seventy_percent": "seitsemänkymmentä prosenttia",
+      "eighty_percent": "kahdeksankymmentä prosenttia",
+      "ninety_percent": "yhdeksänkymmentä prosenttia",
+      "one_hundred_percent": "sata prosenttia"
     }
   }
 }

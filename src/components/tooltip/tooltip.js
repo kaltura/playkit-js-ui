@@ -2,6 +2,7 @@
 import style from '../../styles/style.scss';
 import {h, Component, toChildArray, cloneElement} from 'preact';
 import {connect} from 'react-redux';
+import {withEventManager} from 'event/with-event-manager';
 const PLAYER_MARGIN = 5;
 
 /**
@@ -37,10 +38,12 @@ const ToolTipType = {
  * @extends {Component}
  */
 @connect(mapStateToProps)
+@withEventManager
 class Tooltip extends Component {
   state: Object;
   _hoverTimeout: ?TimeoutID = null;
   textElement: HTMLSpanElement;
+  tooltipElement: HTMLDivElement;
   lastAlternativeTypeIndex: number = -1;
 
   /**
@@ -175,6 +178,30 @@ class Tooltip extends Component {
   }
 
   /**
+   * after component mounted, set event listener to click outside the component
+   *
+   * @returns {void}
+   * @memberof Tooltip
+   */
+  componentDidMount() {
+    const {eventManager} = this.props;
+    eventManager.listen(document, 'click', e => this.handleClickOutside(e));
+  }
+
+  /**
+   * event listener for clicking outside handler.
+   *
+   * @param {*} e - click event
+   * @returns {void}
+   * @memberof Tooltip
+   */
+  handleClickOutside(e: any) {
+    if (!this.tooltipElement?.contains(e.target) && this.state.showTooltip) {
+      this.hideTooltip();
+    }
+  }
+
+  /**
    * checks if after the render the tooltip is within boundaries of the player
    * if not it will try to set a new type which will be checked after the next render
    * @param {Object} prevProps - previous component props
@@ -227,7 +254,11 @@ class Tooltip extends Component {
       onBlur: this.handleBlurOnChildren
     });
     return (
-      <div className={style.tooltip} onMouseOver={this.onMouseOver} onMouseLeave={this.onMouseLeave}>
+      <div
+        className={style.tooltip}
+        onMouseOver={this.onMouseOver}
+        onMouseLeave={this.onMouseLeave}
+        ref={el => (el ? (this.tooltipElement = el) : undefined)}>
         {children}
         <span style={{maxWidth: props.maxWidth}} ref={el => (el ? (this.textElement = el) : undefined)} className={className.join(' ')}>
           {props.label}

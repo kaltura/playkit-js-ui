@@ -7,7 +7,6 @@ import {Loading} from '../components/loading';
 import {SeekBarLivePlaybackContainer} from '../components/seekbar-live-playback-container';
 import {Volume} from '../components/volume';
 import {Settings} from '../components/settings';
-import {Language} from '../components/language';
 import {Fullscreen} from '../components/fullscreen';
 import {BottomBar} from '../components/bottom-bar';
 import {OverlayPortal} from '../components/overlay-portal';
@@ -95,7 +94,6 @@ class LiveUI extends Component {
                         <VrStereo />
                         <Volume />
                         <ClosedCaptions />
-                        <Language />
                         <Settings />
                         <Cast />
                         <PictureInPicture />

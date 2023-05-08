@@ -33,13 +33,12 @@
     "settings": {
       "title": "الإعدادات",
       "quality": "الجودة",
+      "audio": "الصوت",
       "speed": "السرعة",
       "speedNormal": "عادي",
       "qualityAuto": "تلقائية"
     },
-    "language": {
-      "title": "اللغة",
-      "audio": "الصوت",
+    "captions": {
       "captions": "التسميات التوضيحية",
       "advanced_captions_settings": "الإعدادات المتقدمة للتسميات التوضيحية"
     },
