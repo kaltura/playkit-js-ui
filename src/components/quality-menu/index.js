@@ -1,1 +1,1 @@
-export {QualityMenu, HeightResolution} from './quality-menu';
+export {QualityMenu, HeightResolution, getLabelBadgeType} from './quality-menu';

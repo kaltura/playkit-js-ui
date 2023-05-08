@@ -5,7 +5,7 @@ import {withText, Text} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {bindActions} from 'utils';
 import {actions} from 'reducers/settings';
-import {AdvancedAudioDescToggle, AudioMenu, CaptionsMenu, QualityMenu, SmartContainer, SpeedMenu, HeightResolution} from 'components';
+import {AdvancedAudioDescToggle, AudioMenu, CaptionsMenu, QualityMenu, SmartContainer, SpeedMenu, CVAAOverlay, getLabelBadgeType} from 'components';
 import {default as Icon, IconType, BadgeType} from '../icon';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
@@ -13,6 +13,7 @@ import {actions as overlayIconActions} from 'reducers/overlay-action';
 import {Tooltip} from 'components/tooltip';
 import {Button} from 'components/button';
 import {ButtonControl} from 'components/button-control';
+import {createPortal} from 'preact/compat';
 
 /**
  * mapping state to props
@@ -58,7 +59,7 @@ class Settings extends Component {
    * @memberof Settings
    */
   componentWillMount() {
-    this.setState({smartContainerOpen: false});
+    this.setState({smartContainerOpen: false, cvaaOverlay: false});
   }
 
   /**
@@ -81,6 +82,7 @@ class Settings extends Component {
    */
   handleClickOutside(e: any) {
     if (
+      !this.state.cvaaOverlay &&
       !this.props.isMobile &&
       !this.props.isSmallSize &&
       !!this._controlSettingsElement &&
@@ -103,24 +105,16 @@ class Settings extends Component {
     });
   };
 
-  /**
-   * Determines the badge icon type of the quality option based on the height of the resolution.
-   *
-   * @param {number} videoTrackHeight - video track resolution height.
-   * @returns {string | null} - the badge icon type or null depends on the resolution height.
-   * @memberof Settings
-   */
-  getLabelBadgeType(videoTrackHeight: number): string | null {
-    const [QHD, , Q4K, , Q8k] = Object.keys(BadgeType);
-    if (videoTrackHeight >= HeightResolution.HD && videoTrackHeight < HeightResolution.UHD_4K) {
-      return QHD;
-    } else if (videoTrackHeight >= HeightResolution.UHD_4K && videoTrackHeight < HeightResolution.UHD_8K) {
-      return Q4K;
-    } else if (videoTrackHeight >= HeightResolution.UHD_8K) {
-      return Q8k;
-    }
-    return null;
-  }
+  toggleCVAAOverlay = (): void => {
+    this.setState(prevState => {
+      return {cvaaOverlay: !prevState.cvaaOverlay};
+    });
+  };
+
+  onCVAAOverlayClose = (): void => {
+    this.toggleCVAAOverlay();
+    this.onControlButtonClick();
+  };
 
   /**
    * returns The badge icon type of the active quality option based on the height of the resolution
@@ -130,7 +124,7 @@ class Settings extends Component {
    */
   getButtonBadgeType(): string | null {
     const activeVideoTrackHeight: Object = this.props.player.getActiveTracks()?.video?.height;
-    return activeVideoTrackHeight ? this.getLabelBadgeType(activeVideoTrackHeight) : null;
+    return activeVideoTrackHeight ? getLabelBadgeType(activeVideoTrackHeight) : null;
   }
 
   /**
@@ -150,6 +144,9 @@ class Settings extends Component {
     if (!(showAudioMenu || showCaptionsMenu || showQualityMenu || showSpeedMenu)) return undefined;
     if (props.isLive && props.videoTracks.length <= 1) return undefined;
     const buttonBadgeType: string = this.getButtonBadgeType() || '';
+
+    const targetId = document.getElementById(this.props.player.config.targetId) || document;
+    const portalSelector = `.overlay-portal`;
     return (
       <ButtonControl name={COMPONENT_NAME} ref={c => (c ? (this._controlSettingsElement = c) : undefined)}>
         <Tooltip label={props.buttonLabel}>
@@ -166,17 +163,16 @@ class Settings extends Component {
             <Icon type={IconType.Settings} />
           </Button>
         </Tooltip>
-        {!this.state.smartContainerOpen ? (
-          ''
-        ) : (
+        {this.state.smartContainerOpen && !this.state.cvaaOverlay && (
           <SmartContainer targetId={props.player.config.targetId} title={<Text id="settings.title" />} onClose={this.onControlButtonClick}>
             {showAdvancedAudioDescToggle && <AdvancedAudioDescToggle />}
             {showAudioMenu && <AudioMenu />}
-            {showCaptionsMenu && <CaptionsMenu />}
+            {showCaptionsMenu && <CaptionsMenu onAdvancedCaptionsClick={this.toggleCVAAOverlay} />}
             {showQualityMenu && <QualityMenu />}
             {showSpeedMenu && <SpeedMenu />}
           </SmartContainer>
         )}
+        {this.state.cvaaOverlay ? createPortal(<CVAAOverlay onClose={this.onCVAAOverlayClose} />, targetId.querySelector(portalSelector)) : <div />}
       </ButtonControl>
     );
   }

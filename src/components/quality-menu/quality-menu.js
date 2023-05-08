@@ -9,6 +9,30 @@ import {IconType} from '../icon';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from 'components/event-dispatcher';
 
+const HeightResolution = {
+  HD: 1080,
+  UHD_4K: 2160,
+  UHD_8K: 4320
+};
+
+/**
+ * Determines the badge icon type of the quality option based on the height of the resolution.
+ *
+ * @param {number} videoTrackHeight - video track resolution height.
+ * @returns {string | null} - the badge icon type or null depends on the resolution height.
+ */
+function getLabelBadgeType(videoTrackHeight: number): string | null {
+  const [QHD, , Q4K, , Q8k] = Object.keys(BadgeType);
+  if (videoTrackHeight >= HeightResolution.HD && videoTrackHeight < HeightResolution.UHD_4K) {
+    return QHD;
+  } else if (videoTrackHeight >= HeightResolution.UHD_4K && videoTrackHeight < HeightResolution.UHD_8K) {
+    return Q4K;
+  } else if (videoTrackHeight >= HeightResolution.UHD_8K) {
+    return Q8k;
+  }
+  return null;
+}
+
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -17,12 +41,6 @@ import {withEventDispatcher} from 'components/event-dispatcher';
 const mapStateToProps = state => ({
   videoTracks: state.engine.videoTracks
 });
-
-const HeightResolution = {
-  HD: 1080,
-  UHD_4K: 2160,
-  UHD_8K: 4320
-};
 
 const rtlLanguages = ['ae', 'ar', 'arc', 'bcc', 'bqi', 'ckb', 'dv', 'fa', 'glk', 'he', 'ku', 'mzn', 'nqo', 'pnb', 'ps', 'sd', 'ug', 'ur', 'yi'];
 
@@ -90,25 +108,6 @@ class QualityMenu extends Component {
   }
 
   /**
-   * Determines the badge icon type of the quality option based on the height of the resolution.
-   *
-   * @param {number} videoTrackHeight - video track resolution height.
-   * @returns {string | null} - the badge icon type or null depends on the resolution height.
-   * @memberof QualityMenu
-   */
-  getLabelBadgeType(videoTrackHeight: number): string | null {
-    const [QHD, , Q4K, , Q8k] = Object.keys(BadgeType);
-    if (videoTrackHeight >= HeightResolution.HD && videoTrackHeight < HeightResolution.UHD_4K) {
-      return QHD;
-    } else if (videoTrackHeight >= HeightResolution.UHD_4K && videoTrackHeight < HeightResolution.UHD_8K) {
-      return Q4K;
-    } else if (videoTrackHeight >= HeightResolution.UHD_8K) {
-      return Q8k;
-    }
-    return null;
-  }
-
-  /**
    * render function
    *
    * @param {*} props - component props
@@ -128,7 +127,7 @@ class QualityMenu extends Component {
         label: t.label,
         active: !props.player.isAdaptiveBitrateEnabled() && t.active,
         value: t,
-        badgeType: this.getLabelBadgeType(t.height)
+        badgeType: getLabelBadgeType(t.height)
       }));
 
     // Progressive playback doesn't support auto
@@ -144,7 +143,7 @@ class QualityMenu extends Component {
         label: this.props.qualityAutoLabelText,
         dropdownOptions: {
           label: qualityLabel,
-          badgeType: this.getLabelBadgeType(activeTrack.height)
+          badgeType: getLabelBadgeType(activeTrack.height)
         },
         active: props.player.isAdaptiveBitrateEnabled(),
         value: 'auto'
@@ -166,4 +165,4 @@ class QualityMenu extends Component {
 }
 
 QualityMenu.displayName = COMPONENT_NAME;
-export {QualityMenu, HeightResolution};
+export {QualityMenu, HeightResolution, getLabelBadgeType};
