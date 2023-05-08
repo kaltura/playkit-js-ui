@@ -58,7 +58,7 @@ export {ToggleSwitch} from './toggle-switch';
 export {AudioMenu} from './audio-menu';
 export {CaptionsMenu} from './captions-menu';
 export {SpeedMenu} from './speed-menu';
-export {QualityMenu, HeightResolution} from './quality-menu';
+export {QualityMenu, HeightResolution, getLabelBadgeType} from './quality-menu';
 export {AdvancedAudioDescToggle} from './advanced-audio-desc-toggle';
 
 export {PlayerArea, withPlayerPreset, Remove} from './player-area';
