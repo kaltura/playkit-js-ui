@@ -7,8 +7,6 @@ import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/cvaa';
 import {SmartContainerItem} from '../smart-container/smart-container-item';
 import {IconType} from '../icon';
-import {CVAAOverlay} from '../cvaa-overlay';
-import {createPortal} from 'preact/compat';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withLogger} from 'components/logger';
@@ -48,11 +46,7 @@ const COMPONENT_NAME = 'CaptionsMenu';
   advancedCaptionsSettingsText: 'captions.advanced_captions_settings'
 })
 class CaptionsMenu extends Component {
-  state: Object;
-  _controlLanguageElement: HTMLDivElement;
   _lastActiveTextLanguage: string = '';
-  // ie11 fix (FEC-7312) - don't remove
-  _portal: any;
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
       key: {
@@ -77,27 +71,6 @@ class CaptionsMenu extends Component {
   ];
 
   /**
-   * before component mounted, set initial state
-   *
-   * @returns {void}
-   * @memberof CaptionsMenu
-   */
-  componentWillMount() {
-    this.setState({smartContainerOpen: false});
-  }
-
-  /**
-   * after component mounted, set event listener to click outside of the component
-   *
-   * @returns {void}
-   * @memberof CaptionsMenu
-   */
-  componentDidMount() {
-    this.props.eventManager.listen(document, 'click', e => this.handleClickOutside(e));
-    this.props.registerKeyboardEvents(this._keyboardEventHandlers);
-  }
-
-  /**
    * We update the last language selected here upon trackTracks props change. This is done to make sure we update the
    * last text track lanague upon language menu selection and using the (C) keyboard key.
    * @param {Object} nextProps - the props that will replace the current props
@@ -114,38 +87,6 @@ class CaptionsMenu extends Component {
   }
 
   /**
-   * event listener for clicking outside handler.
-   *
-   * @param {*} e - click event
-   * @returns {void}
-   * @memberof CaptionsMenu
-   */
-  handleClickOutside(e: any): void {
-    if (
-      this._controlLanguageElement &&
-      !this.props.isMobile &&
-      !this._controlLanguageElement.contains(e.target) &&
-      this.state.smartContainerOpen &&
-      !this.state.cvaaOverlay &&
-      !this.props.isSmallSize
-    ) {
-      this.setState({smartContainerOpen: false});
-    }
-  }
-
-  /**
-   * toggle smart container internal state on control button click
-   *
-   * @returns {void}
-   * @memberof CaptionsMenu
-   */
-  toggleSmartContainerOpen = (): void => {
-    this.setState(prevState => {
-      return {smartContainerOpen: !prevState.smartContainerOpen};
-    });
-  };
-
-  /**
    * Select the given text track
    *
    * @param {Object} textTrack - text track
@@ -154,7 +95,7 @@ class CaptionsMenu extends Component {
    */
   onCaptionsChange(textTrack: Object | string): void {
     if (textTrack === this.props.advancedCaptionsSettingsText) {
-      this.toggleCVAAOverlay();
+      this.props.onAdvancedCaptionsClick();
       return;
     }
     this.props.player.selectTrack(textTrack);
@@ -165,29 +106,6 @@ class CaptionsMenu extends Component {
   }
 
   /**
-   * toggle the internal state of cvaa overlay
-   *
-   * @returns {void}
-   * @memberof CaptionsMenu
-   */
-  toggleCVAAOverlay = (): void => {
-    this.setState(prevState => {
-      return {cvaaOverlay: !prevState.cvaaOverlay};
-    });
-  };
-
-  /**
-   * on cvaa overlay close handler
-   *
-   * @returns {void}
-   * @memberof CaptionsMenu
-   */
-  onCVAAOverlayClose = (): void => {
-    this.toggleCVAAOverlay();
-    this.toggleSmartContainerOpen();
-  };
-
-  /**
    * render function
    *
    * @param {*} props - component props
@@ -195,8 +113,6 @@ class CaptionsMenu extends Component {
    * @memberof CaptionsMenu
    */
   render(props: any): React$Element<any> | void {
-    const targetId = document.getElementById(this.props.player.config.targetId) || document;
-    const portalSelector = `.overlay-portal`;
     const textOptions = props.textTracks.map(t => ({
       label: t.label || t.language,
       active: t.active,
@@ -208,18 +124,15 @@ class CaptionsMenu extends Component {
     }
 
     return (
-      <>
-        <SmartContainerItem
-          pushRef={el => {
-            props.pushRef(el);
-          }}
-          icon={IconType.Captions}
-          label={this.props.captionsLabelText}
-          options={textOptions}
-          onMenuChosen={textTrack => this.onCaptionsChange(textTrack)}
-        />
-        {this.state.cvaaOverlay ? createPortal(<CVAAOverlay onClose={this.onCVAAOverlayClose} />, targetId.querySelector(portalSelector)) : <div />}
-      </>
+      <SmartContainerItem
+        pushRef={el => {
+          props.pushRef(el);
+        }}
+        icon={IconType.Captions}
+        label={this.props.captionsLabelText}
+        options={textOptions}
+        onMenuChosen={textTrack => this.onCaptionsChange(textTrack)}
+      />
     );
   }
 }
