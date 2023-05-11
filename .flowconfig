@@ -2,7 +2,7 @@
 .*/node_modules
 [include]
 [libs]
-node_modules/kaltura-player-js/flow-typed/
+node_modules/@playkit-js/kaltura-player-js/flow-typed/
 [options]
 esproposal.decorators=ignore
 esproposal.optional_chaining=enable
