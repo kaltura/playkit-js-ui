@@ -39,6 +39,7 @@
     "pushTaggedRelease": "git push --follow-tags --no-verify origin master",
     "release": "standard-version",
     "test": "cross-env NODE_ENV=test karma start --color --mode development",
+    "test:watch": "NODE_ENV=test karma start --browsers=Chrome --single-run=false --auto-watch",
     "watch": "webpack --progress --colors --watch --mode development"
   },
   "husky": {
@@ -75,7 +76,8 @@
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-flow": "^7.10.4",
     "@babel/register": "^7.10.5",
-    "@playkit-js/playkit-js": "0.62.1-canary.2264c8f",
+    "@playkit-js/playkit-js": "canary",
+    "@playkit-js/kaltura-player-js": "canary",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "babel-plugin-istanbul": "^6.0.0",
@@ -97,7 +99,6 @@
     "istanbul": "^0.4.5",
     "jsdoc": "^3.5.4",
     "jsdoc-babel": "^0.3.0",
-    "kaltura-player-js": "https://github.com/kaltura/kaltura-player-js.git#master",
     "karma": "^5.1.0",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^3.1.0",

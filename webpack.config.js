@@ -74,10 +74,10 @@ module.exports = {
     }
   },
   externals: {
-    'kaltura-player-js': {
-      commonjs: 'kaltura-player-js',
-      commonjs2: 'kaltura-player-js',
-      amd: 'kaltura-player-js',
+    '@playkit-js/kaltura-player-js': {
+      commonjs: '@playkit-js/kaltura-player-js',
+      commonjs2: '@playkit-js/kaltura-player-js',
+      amd: '@playkit-js/kaltura-player-js',
       root: ['KalturaPlayer']
     }
   }
