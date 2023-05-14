@@ -98,7 +98,7 @@ describe('UIManager', function () {
         try {
           leftControls = document.querySelector('.playkit-bottom-bar .playkit-left-controls');
           const rewindIndex = Array.from(leftControls.children).findIndex(
-            child => child.className === 'playkit-control-button-container playkit-no-idle-control'
+            child => child.className === 'playkit-control-button-container playkit-control-rewind playkit-no-idle-control'
           );
           leftControls.children[rewindIndex - 1].className.should.equals('custom-component');
           done();
@@ -121,7 +121,7 @@ describe('UIManager', function () {
         try {
           leftControls = document.querySelector('.playkit-bottom-bar .playkit-left-controls');
           const rewindIndex = Array.from(leftControls.children).findIndex(
-            child => child.className === 'playkit-control-button-container playkit-no-idle-control'
+            child => child.className === 'playkit-control-button-container playkit-control-rewind playkit-no-idle-control'
           );
           leftControls.children[rewindIndex + 1].className.should.equals('custom-component');
           done();
@@ -144,7 +144,7 @@ describe('UIManager', function () {
         try {
           leftControls = document.querySelector('.playkit-bottom-bar .playkit-left-controls');
           const forwardIndex = Array.from(leftControls.children).findIndex(
-            child => child.className === 'playkit-control-button-container playkit-no-idle-control'
+            child => child.className === 'playkit-control-button-container playkit-control-forward playkit-no-idle-control'
           );
           leftControls.children[forwardIndex - 1].className.should.equals('custom-component');
           done();
@@ -167,12 +167,12 @@ describe('UIManager', function () {
         try {
           leftControls = document.querySelector('.playkit-bottom-bar .playkit-left-controls');
           const forwardIndex = Array.from(leftControls.children).findIndex(
-            child => child.className === 'playkit-control-button-container playkit-no-idle-control'
+            child => child.className === 'playkit-control-button-container playkit-control-forward playkit-no-idle-control'
           );
           leftControls.children[forwardIndex - 1].className.should.equals('custom-component');
           removeFunc();
           setTimeout(() => {
-            leftControls.children[forwardIndex - 1].className.should.equals('playkit-control-button-container playkit-no-idle-control');
+            leftControls.children[forwardIndex - 1].className.should.equals('playkit-control-button-container playkit-control-rewind playkit-no-idle-control');
             done();
           });
         } catch (e) {
