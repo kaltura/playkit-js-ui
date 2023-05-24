@@ -265,7 +265,7 @@ function onQualityClicked(store: any, action: Object, player: Object): void {
 }
 
 /**
- * Handler for Quality menu clicked actions.
+ * Handler for Speed menu clicked actions.
  * @param {any} store - The redux store.
  * @param {Object} action - The action object.
  * @param {Object} player - The video player.
