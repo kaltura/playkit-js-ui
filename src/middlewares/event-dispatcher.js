@@ -295,6 +295,7 @@ function onCaptionsClick(store: any, action: Object, player: Object): void {
 function onAudioClicked(store: any, action: Object, player: Object): void {
   if (action.payload.type === player.Track.AUDIO) {
     player.dispatchEvent(new AudioSelectedEvent(action.payload.track));
+  }
 }
 
 /**
@@ -307,6 +308,7 @@ function onAudioClicked(store: any, action: Object, player: Object): void {
 function onQualityClicked(store: any, action: Object, player: Object): void {
   if (action.payload.type === player.Track.VIDEO) {
     player.dispatchEvent(new QualitySelectedEvent(action.payload.track));
+  }
 }
 
 /**
@@ -322,18 +324,18 @@ function onSpeedClicked(store: any, action: Object, player: Object): void {
   }
 }
 
-  /**
-   * Handler for AdvancedAudioDescription menu clicked actions.
-   * @param {any} store - The redux store.
-   * @param {Object} action - The action object.
-   * @param {Object} player - The video player.
-   * @returns {void}
-   */
-  function onAdvancedAudioDescriptionClicked(store: any, action: Object, player: Object): void {
-    if (action.payload.type === 'AdvancedAudioDescription') {
-      player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CLICKED_ADVANCED_AUDIO_DESCRIPTION, action.payload));
-    }
+/**
+ * Handler for AdvancedAudioDescription menu clicked actions.
+ * @param {any} store - The redux store.
+ * @param {Object} action - The action object.
+ * @param {Object} player - The video player.
+ * @returns {void}
+ */
+function onAdvancedAudioDescriptionClicked(store: any, action: Object, player: Object): void {
+  if (action.payload.type === 'AdvancedAudioDescription') {
+    player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CLICKED_ADVANCED_AUDIO_DESCRIPTION, action.payload));
   }
+}
 
 /**
  * Handler for overlay clicked actions.

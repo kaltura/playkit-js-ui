@@ -251,7 +251,6 @@ function onAudioClicked(store: any, action: Object, player: Object): void {
   }
 }
 
-
 /**
  * Handler for Quality menu clicked actions.
  * @param {any} store - The redux store.
@@ -262,6 +261,7 @@ function onAudioClicked(store: any, action: Object, player: Object): void {
 function onQualityClicked(store: any, action: Object, player: Object): void {
   if (action.payload.type === player.Track.VIDEO) {
     player.dispatchEvent(new QualitySelectedEvent(action.payload.track));
+  }
 }
 
 /**
@@ -274,6 +274,7 @@ function onQualityClicked(store: any, action: Object, player: Object): void {
 function onSpeedClicked(store: any, action: Object, player: Object): void {
   if (action.payload.type === 'speed') {
     player.dispatchEvent(new SpeedSelectedEvent(action.payload.speed));
+  }
 }
 
 /**
