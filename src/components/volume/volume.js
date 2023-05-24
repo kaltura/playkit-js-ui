@@ -280,7 +280,7 @@ class Volume extends Component {
    * @memberof Volume
    */
   onFocus = (): void => {
-    if (!this.state.hover) {
+    if (!this.props.isMobile && !this.state.hover) {
       this.setState({hover: true});
     }
   };
