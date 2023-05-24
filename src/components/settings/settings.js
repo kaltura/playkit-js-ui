@@ -136,7 +136,7 @@ class Settings extends Component {
    */
   render(props: any): React$Element<any> | void {
     const showAudioMenu = props.showAudioMenu && props.audioTracks.length > 1;
-    const showAdvancedAudioDescToggle = showAudioMenu && props.showAdvancedAudioDescToggle;
+    const showAdvancedAudioDescToggle = props.showAdvancedAudioDescToggle;
     const showCaptionsMenu = props.showCaptionsMenu && props.textTracks.length > 1;
     const showQualityMenu = props.showQualityMenu && props.videoTracks.length > 1;
     const showSpeedMenu = props.showSpeedMenu && props.player.playbackRates.length > 1 && !props.isLive;
