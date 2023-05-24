@@ -22,6 +22,7 @@ var uiManager = new playkit.ui.UIManager(player, config);
     showCaptionsMenu?: boolean,            // optional
     showQualityMenu?: boolean,             // optional
     showSpeedMenu?: boolean,               // optional
+    showAdvancedAudioDescToggle?: boolean, // optional
     showAdvancedCaptionsMenu?: boolean     // optional
   },
   hoverTimeout?: number, // optional
