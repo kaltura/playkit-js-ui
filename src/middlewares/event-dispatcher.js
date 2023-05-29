@@ -157,8 +157,24 @@ function onClickableComponentsHandler(store: any, action: Object, player: Object
       onOverlayActionClicked(store, action, player);
       break;
 
-    case 'Settings':
-      onSettingsClicked(store, action, player);
+    case 'CaptionsMenu':
+      onCaptionsClick(store, action, player);
+      break;
+
+    case 'AudioMenu':
+      onAudioClicked(store, action, player);
+      break;
+
+    case 'QualityMenu':
+      onQualityClicked(store, action, player);
+      break;
+
+    case 'SpeedMenu':
+      onSpeedClicked(store, action, player);
+      break;
+
+    case 'AdvancedAudioDescToggle':
+      onAdvancedAudioDescriptionClicked(store, action, player);
       break;
 
     case 'CVAAOverlay':
@@ -167,10 +183,6 @@ function onClickableComponentsHandler(store: any, action: Object, player: Object
 
     case 'Fullscreen':
       onFullScreenClicked(store, action, player);
-      break;
-
-    case 'Language':
-      onLanguageClicked(store, action, player);
       break;
 
     case 'Shell':
@@ -235,21 +247,6 @@ function onVolumeClicked(store: any, action: Object, player: Object): void {
 }
 
 /**
- * Handler for language menu clicked actions.
- * @param {any} store - The redux store.
- * @param {Object} action - The action object.
- * @param {Object} player - The video player.
- * @returns {void}
- */
-function onLanguageClicked(store: any, action: Object, player: Object): void {
-  if (action.payload.type === player.Track.AUDIO) {
-    player.dispatchEvent(new AudioSelectedEvent(action.payload.track));
-  } else if (action.payload.type === player.Track.TEXT) {
-    player.dispatchEvent(new CaptionSelectedEvent(action.payload.track));
-  }
-}
-
-/**
  * Handler for fullscreen clicked actions.
  * @param {any} store - The redux store.
  * @param {Object} action - The action object.
@@ -276,17 +273,67 @@ function onPictureInPictureClicked(store: any, action: Object, player: Object): 
 }
 
 /**
- * Handler for settings menu clicked actions.
+ * Handler for captions menu clicked actions.
  * @param {any} store - The redux store.
  * @param {Object} action - The action object.
  * @param {Object} player - The video player.
  * @returns {void}
  */
-function onSettingsClicked(store: any, action: Object, player: Object): void {
+function onCaptionsClick(store: any, action: Object, player: Object): void {
+  if (action.payload.type === player.Track.TEXT) {
+    player.dispatchEvent(new CaptionSelectedEvent(action.payload.track));
+  }
+}
+
+/**
+ * Handler for audio menu clicked actions.
+ * @param {any} store - The redux store.
+ * @param {Object} action - The action object.
+ * @param {Object} player - The video player.
+ * @returns {void}
+ */
+function onAudioClicked(store: any, action: Object, player: Object): void {
+  if (action.payload.type === player.Track.AUDIO) {
+    player.dispatchEvent(new AudioSelectedEvent(action.payload.track));
+  }
+}
+
+/**
+ * Handler for Quality menu clicked actions.
+ * @param {any} store - The redux store.
+ * @param {Object} action - The action object.
+ * @param {Object} player - The video player.
+ * @returns {void}
+ */
+function onQualityClicked(store: any, action: Object, player: Object): void {
   if (action.payload.type === player.Track.VIDEO) {
     player.dispatchEvent(new QualitySelectedEvent(action.payload.track));
-  } else {
+  }
+}
+
+/**
+ * Handler for Speed menu clicked actions.
+ * @param {any} store - The redux store.
+ * @param {Object} action - The action object.
+ * @param {Object} player - The video player.
+ * @returns {void}
+ */
+function onSpeedClicked(store: any, action: Object, player: Object): void {
+  if (action.payload.type === 'speed') {
     player.dispatchEvent(new SpeedSelectedEvent(action.payload.speed));
+  }
+}
+
+/**
+ * Handler for AdvancedAudioDescription menu clicked actions.
+ * @param {any} store - The redux store.
+ * @param {Object} action - The action object.
+ * @param {Object} player - The video player.
+ * @returns {void}
+ */
+function onAdvancedAudioDescriptionClicked(store: any, action: Object, player: Object): void {
+  if (action.payload.type === 'AdvancedAudioDescription') {
+    player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CLICKED_ADVANCED_AUDIO_DESCRIPTION, action.payload));
   }
 }
 
