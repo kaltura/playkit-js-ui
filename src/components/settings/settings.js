@@ -142,7 +142,7 @@ class Settings extends Component {
     const showSpeedMenu = props.showSpeedMenu && props.player.playbackRates.length > 1 && !props.isLive;
 
     if (!(showAudioMenu || showCaptionsMenu || showQualityMenu || showSpeedMenu)) return undefined;
-    if (props.isLive && props.videoTracks.length <= 1) return undefined;
+    if (props.isLive && props.videoTracks.length <= 1 && !showAudioMenu && !showCaptionsMenu) return undefined;
     const buttonBadgeType: string = this.getButtonBadgeType() || '';
 
     const targetId = document.getElementById(this.props.player.config.targetId) || document;
