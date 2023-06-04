@@ -19,8 +19,7 @@ import {ButtonControl} from 'components/button-control';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  isInFullscreen: state.engine.fullscreen,
-  targetId: state.config.targetId
+  isInFullscreen: state.engine.fullscreen
 });
 
 const COMPONENT_NAME = 'Fullscreen';
@@ -100,13 +99,9 @@ class Fullscreen extends Component {
    * @memberof Fullscreen
    */
   toggleFullscreen = (): void => {
-    const {targetId, logger, player} = this.props;
+    const {logger, player} = this.props;
     logger.debug(`Toggle fullscreen`);
-    const playerContainer: HTMLElement | null = document.getElementById(targetId);
     player.isFullscreen() ? player.exitFullscreen() : player.enterFullscreen();
-    if (playerContainer) {
-      playerContainer.focus();
-    }
     this.props.notifyClick();
   };
 
