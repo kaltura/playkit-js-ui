@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.77.3 (2023-06-07)
+
+
+### Bug Fixes
+
+* **SUP-37634:** ADA Fullscreen button in V7 focus ([6bce5fb](https://github.com/kaltura/playkit-js-ui/commit/6bce5fb))
+
+
+
 ### 0.77.2 (2023-05-17)
 
 
