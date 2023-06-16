@@ -1,6 +1,6 @@
 //@flow
 
-import {hexToHsl} from './color-format-convertors';
+import {hexToHsl, hslToHex} from './color-format-convertors';
 import {style} from '../index';
 
 const PREFIX = 'playkit';
@@ -26,6 +26,8 @@ const dynamicColoredIconsSvgUrlVars = [
   '--playkit-icon-quality-8K-active-url'
 ];
 
+const textContrastSuffix = 'text-contrast';
+
 // eslint-disable-next-line require-jsdoc
 export class ThemesManager {
   player: Object;
@@ -50,6 +52,34 @@ export class ThemesManager {
   }
 
   /**
+   * Makes color value for text.
+   * @param {string} inputColor  - css color in HEX format
+   * @returns {string} hex  - css color in HEX format
+   */
+  makeTextContrastColor(inputColor: string) {
+    const hsl = hexToHsl(inputColor);
+    let hue = hsl[0];
+    let saturation = hsl[1];
+    let lightness = hsl[2];
+
+    if (hue < 30 || hue > 205) {
+      if (lightness < 70) {
+        lightness = 100;
+      } else {
+        lightness = 0;
+      }
+    }
+    if (hue > 30 && hue < 205) {
+      if (lightness < 40) {
+        lightness = 100;
+      } else {
+        lightness = 0;
+      }
+    }
+    return hslToHex(hue, saturation, lightness);
+  }
+
+  /**
    * Override the colors from config.
    * @param {UserTheme} config  -
    * @returns {void}
@@ -61,7 +91,9 @@ export class ThemesManager {
 
     for (const color in config.colors) {
       if (ACCENT_AND_ACKNOWLEDGEMENT_COLORS.includes(color)) {
-        this.setAccentOrAcknowledgementColor(color, config.colors[color]);
+        const colorValue = config.colors[color];
+        this.setAccentOrAcknowledgementColor(`${color}-${textContrastSuffix}`, this.makeTextContrastColor(colorValue));
+        this.setAccentOrAcknowledgementColor(color, colorValue);
       } else {
         this.setColor(cssVarNames.colors[color], config.colors[color]);
       }
