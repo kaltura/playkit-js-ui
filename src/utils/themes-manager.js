@@ -26,7 +26,7 @@ const dynamicColoredIconsSvgUrlVars = [
   '--playkit-icon-quality-8K-active-url'
 ];
 
-const textContrastSuffix = 'text-contrast';
+const TEXT_CONTRAST_SUFFIX = 'text-contrast';
 
 // eslint-disable-next-line require-jsdoc
 export class ThemesManager {
@@ -92,7 +92,7 @@ export class ThemesManager {
     for (const color in config.colors) {
       if (ACCENT_AND_ACKNOWLEDGEMENT_COLORS.includes(color)) {
         const colorValue = config.colors[color];
-        this.setAccentOrAcknowledgementColor(`${color}-${textContrastSuffix}`, this.makeTextContrastColor(colorValue));
+        this.setAccentOrAcknowledgementColor(`${color}-${TEXT_CONTRAST_SUFFIX}`, this.makeTextContrastColor(colorValue));
         this.setAccentOrAcknowledgementColor(color, colorValue);
       } else {
         this.setColor(cssVarNames.colors[color], config.colors[color]);
