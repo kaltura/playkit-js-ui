@@ -455,9 +455,7 @@ class Volume extends Component {
             onMouseUp={this.toggleMute}
             onTouchEnd={this.onTouchEnd}
             onKeyDown={this.onKeyDown}
-            onFocus={this.onFocus}
-            // onBlur={this.onBlur}
-          >
+            onFocus={this.onFocus}>
             <Icon type={IconType.VolumeBase} />
             <Icon type={IconType.VolumeWaves} />
             <Icon type={IconType.VolumeMute} />
