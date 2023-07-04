@@ -54,7 +54,8 @@ const translates = (props: any) => ({
     <Text id={'volume.volume_click_to_mute'} fields={{vol: (props.player.volume * 100).toFixed()}}>
       {`${props.player.volume * 100} volume. Click to mute`}
     </Text>
-  )
+  ),
+  sliderAriaLabel: <Text id="volume.volume_slider_aria_label">Volume control, use the arrows to control the volume</Text>
 });
 
 /**
@@ -267,6 +268,9 @@ class Volume extends Component {
         event.stopPropagation();
         this.handleKeydown(event);
         break;
+      case KeyMap.TAB:
+        // allow tabbing to progress bar
+        break;
       default:
         this.setState({hover: false});
         break;
@@ -397,6 +401,27 @@ class Volume extends Component {
   }
 
   /**
+   * on volume progress bar key down
+   *
+   * @param {KeyboardEvent} event - keyboardEvent event
+   * @method onProgressBarKeyDown
+   * @returns {void}
+   * @memberof Volume
+   */
+  onProgressBarKeyDown = (event: KeyboardEvent): void => {
+    switch (event.keyCode) {
+      case KeyMap.TAB:
+        this.setState({hover: false});
+        break;
+      default:
+        event.preventDefault();
+        event.stopPropagation();
+        this.handleKeydown(event);
+        break;
+    }
+  };
+
+  /**
    * render component
    *
    * @returns {React$Element} - component element
@@ -437,6 +462,9 @@ class Volume extends Component {
           </Button>
         </Tooltip>
         <div
+          tabIndex="0"
+          aria-label={this.props.sliderAriaLabel}
+          onKeyDown={this.onProgressBarKeyDown}
           className={style.volumeControlBar}
           role="slider"
           aria-valuemin="0"
