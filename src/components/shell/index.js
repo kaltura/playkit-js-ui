@@ -1,1 +1,1 @@
-export {Shell, PLAYER_SIZE} from './shell';
+export {Shell, PLAYER_SIZE, PLAYER_BREAK_POINTS} from './shell';
