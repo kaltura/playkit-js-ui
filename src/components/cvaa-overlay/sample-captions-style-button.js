@@ -32,8 +32,9 @@ const SampleCaptionsStyleButton = (props: any): React$Element<any> => {
 
   return (
     <div
-      role="button"
+      role="menuitemradio"
       tabIndex="0"
+      aria-checked={props.isActive ? 'true' : 'false'}
       ref={el => {
         _sampleCaptionsElRef = el;
         props.addAccessibleChild(el);
