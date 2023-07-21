@@ -58,7 +58,7 @@
     ]
   },
   "dependencies": {
-    "preact": "^10.3.4",
+    "preact": "^10.6.4",
     "preact-i18n": "^2.0.0-preactx.2",
     "react-redux": "^7.2.0",
     "redux": "^4.0.5"
