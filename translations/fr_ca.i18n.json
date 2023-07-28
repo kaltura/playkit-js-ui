@@ -47,8 +47,7 @@
     },
     "error": {
       "default_error": "Un problème est survenu",
-      "default_session_text": "ID de session",
-      "retry": "Réessayer"
+      "default_session_text": "ID de session"
     },
     "ads": {
       "ad_notice": "Publicité",

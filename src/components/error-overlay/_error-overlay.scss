@@ -3,8 +3,8 @@
   font-size: 0em;
 }
 
-.overlay-contents .error-overlay {
-  padding-top: 20px;
+.custom-error-slate .overlay.error-overlay .overlay-contents {
+  padding: 0;
 }
 
 .error-overlay {
@@ -14,53 +14,46 @@
   align-items: center;
   flex-direction: column;
   height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 
   .copy-url-row {
     display: flex;
-    margin-bottom: 10px;
-  }
-
-  .svg-container {
-    flex: 4;
-    display: flex;
-    justify-content: space-around;
-    flex-flow: column;
+    align-items: center;
+    margin-bottom: 16px;
   }
 
   .headline {
     color: $tone-1-color;
-    font-size: $headline-font-size;
-    margin: 10px 0 14px 0;
-    flex: 1;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 22px;
+    margin: 0 0 8px 0;
   }
 
   .error-session {
     font-size: $subheadline-font-size;
-    color: $tone-2-color;
-    margin: auto;
+    color: $tone-1-color;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
     user-select: text;
     -webkit-user-select: text;
     -moz-user-select: text;
     -ms-user-select: text;
-    max-width: 300px;
+    max-width: 310px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    flex: 1 1 auto;
-  }
-
-  .control-button-container {
-    flex: 5;
   }
 
   .retry-btn {
-    height: 36px;
+    height: 32px;
     width: auto;
     min-width: 120px;
     padding: 0 8px;
-    border: 2px solid $tone-7-color;
-    border-radius: 18px;
-    background-color: black;
+    border-radius: 4px;
     color: $tone-1-color;
     font-size: 15px;
     font-weight: bold;

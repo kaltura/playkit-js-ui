@@ -47,8 +47,7 @@
     },
     "error": {
       "default_error": "Etwas ist schiefgegangen",
-      "default_session_text": "Sitzungs-ID",
-      "retry": "Erneut versuchen"
+      "default_session_text": "Sitzungs-ID"
     },
     "ads": {
       "ad_notice": "Anzeige",

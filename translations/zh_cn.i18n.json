@@ -47,8 +47,7 @@
     },
     "error": {
       "default_error": "发生错误",
-      "default_session_text": "回话 ID",
-      "retry": "重试"
+      "default_session_text": "回话 ID"
     },
     "ads": {
       "ad_notice": "广告",

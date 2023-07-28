@@ -63,8 +63,9 @@
     },
     "error": {
       "default_error": "Something went wrong",
+      "network_error": "No internet connection check your network",
       "default_session_text": "Session ID",
-      "retry": "Retry"
+      "retry": "Try again"
     },
     "ads": {
       "ad_notice": "Advertisement",

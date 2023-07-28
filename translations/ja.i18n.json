@@ -47,8 +47,7 @@
     },
     "error": {
       "default_error": "問題が発生しました",
-      "default_session_text": "セッション ID",
-      "retry": "再試行"
+      "default_session_text": "セッション ID"
     },
     "ads": {
       "ad_notice": "広告",
