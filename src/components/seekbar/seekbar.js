@@ -596,9 +596,7 @@ class SeekBar extends Component {
             {this.renderTimeBubble()}
             <ProgressBar getBufferedPercent={() => this.getBufferedPercent} />
             {props.adBreak ? undefined : (
-              <div
-                id={'scrubber-container'}
-                style={`transform: translateX(${scrubberProgressPosition})`}>
+              <div id={'scrubber-container'} style={`transform: translateX(${scrubberProgressPosition})`}>
                 <div id={'scrubber'} className={style.scrubber} />
               </div>
             )}

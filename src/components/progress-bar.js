@@ -18,9 +18,9 @@ const mapStateToProps = state => ({
 });
 
 /**
- * SeekBar component
+ * ProgressBar component
  *
- * @class SeekBar
+ * @class ProgressBar
  * @extends {Component}
  */
 @connect(mapStateToProps)
