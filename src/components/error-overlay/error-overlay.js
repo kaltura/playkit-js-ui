@@ -95,7 +95,7 @@ class ErrorOverlay extends Component {
     if (this.props.player.getMediaInfo()) {
       return (
         <div className={style.controlButtonContainer} onClick={this.handleClick}>
-          <Button className={[style.btnBorderless, style.retryBtn].join(' ')}>
+          <Button className={style.retryBtn}>
             <Text id="error.retry" />
           </Button>
         </div>
@@ -107,17 +107,12 @@ class ErrorOverlay extends Component {
   /**
    * render the error head
    *
-   * @param {string | null} errorMessage - custom error message
    * @returns {React$Element} - main state element
    * @memberof ErrorOverlay
    */
-  renderErrorHead(errorMessage: string | null): React$Element<any> | void {
-    if (errorMessage === null) {
-      return undefined;
-    }
-    const defaultErrorMessage = navigator.onLine ? 'error.default_error' : 'error.network_error';
-    const errorContent = errorMessage || <Text id={defaultErrorMessage} />;
-    return <div className={style.headline}>{this.props.errorHead ? this.props.errorHead : errorContent}</div>;
+  renderErrorHead(): React$Element<any> | void {
+    const errorMessage = navigator.onLine ? 'error.default_error' : 'error.network_error';
+    return <div className={style.headline}>{this.props.errorHead ? this.props.errorHead : <Text id={errorMessage} />}</div>;
   }
 
   /**
@@ -130,14 +125,14 @@ class ErrorOverlay extends Component {
     if ((this.props && this.props.hasError) || this.props.permanent) {
       const {player} = this.props;
       const errorOverlaConfig = (player && player.config && player.config.ui && player.config.ui.errorOverlay) || {};
-      const {backgroundUrl, errorMessage} = errorOverlaConfig;
+      const {backgroundUrl} = errorOverlaConfig;
       const errorOverlayStyles = backgroundUrl ? {backgroundImage: `url(${backgroundUrl})`} : null;
       return (
         <div className={['overlay-portal', backgroundUrl ? style.customErrorSlate : ''].join(' ')}>
           <Overlay open permanent={true} type="error">
             <div className={style.errorOverlay} style={errorOverlayStyles}>
               <p className={style.errorText} />
-              {this.renderErrorHead(errorMessage)}
+              {this.renderErrorHead()}
               {this.renderSessionID()}
               {this.renderRetryButton()}
             </div>
