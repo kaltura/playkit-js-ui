@@ -37,10 +37,10 @@ class ProgressBar extends Component {
     const bufferedWidth = `${Math.round(props.getBufferedPercent())}%`;
     const progressWidth = `${props.player.isLive() && props.player.isOnLiveEdge() ? 100 : (props.currentTime / props.duration) * 100}%`;
     return (
-      <>
+      <Fragment>
         <div className={style.buffered} style={{width: bufferedWidth}} />
         {props.dataLoaded ? <div className={style.progress} style={{width: progressWidth}} /> : undefined}
-      </>
+      </Fragment>
     );
   }
 }
