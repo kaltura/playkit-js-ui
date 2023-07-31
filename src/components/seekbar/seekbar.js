@@ -563,6 +563,7 @@ class SeekBar extends Component {
    */
   render(props: any, state: Object): React$Element<any> {
     const virtualProgressWidth = `${(props.virtualTime / props.duration) * 100}%`;
+    const scrubberProgressPosition = `${(props.currentTime / props.duration) * this._seekBarElement?.clientWidth}px`;
     const seekbarStyleClass = [style.seekBar];
     if (props.adBreak) seekbarStyleClass.push(style.adBreak);
     if (props.isDvr) seekbarStyleClass.push(style.live);
@@ -597,7 +598,7 @@ class SeekBar extends Component {
             {props.adBreak ? undefined : (
               <div
                 id={'scrubber-container'}
-                style={`transform: translateX(${(props.currentTime / props.duration) * this._seekBarElement?.clientWidth}px)`}>
+                style={`transform: translateX(${scrubberProgressPosition})`}>
                 <div id={'scrubber'} className={style.scrubber} />
               </div>
             )}
