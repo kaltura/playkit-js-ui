@@ -47,8 +47,7 @@
     },
     "error": {
       "default_error": "कुछ गलत हुआ",
-      "default_session_text": "सत्र ID",
-      "retry": "पुनः प्रयास करें"
+      "default_session_text": "सत्र ID"
     },
     "ads": {
       "ad_notice": "विज्ञापन",

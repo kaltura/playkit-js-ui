@@ -47,8 +47,7 @@
     },
     "error": {
       "default_error": "出現錯誤",
-      "default_session_text": "作業階段 ID",
-      "retry": "重試"
+      "default_session_text": "作業階段 ID"
     },
     "ads": {
       "ad_notice": "廣告",

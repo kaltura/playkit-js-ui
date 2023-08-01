@@ -41,7 +41,8 @@ A sample English dictionary may look like:
   "error": {
     "default_error": "Something went wrong",
     "default_session_text": "Session ID",
-    "retry": "Retry"
+    "retry": "Try again",
+    "network_error": "No internet connection check your network"
   },
   "ads": {
     "ad_notice": "Advertisement",

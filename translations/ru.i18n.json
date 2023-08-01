@@ -47,8 +47,7 @@
     },
     "error": {
       "default_error": "Что-то пошло не так",
-      "default_session_text": "Идентификатор сессии",
-      "retry": "Повторить попытку"
+      "default_session_text": "Идентификатор сессии"
     },
     "ads": {
       "ad_notice": "Реклама",

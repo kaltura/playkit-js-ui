@@ -47,8 +47,7 @@
     },
     "error": {
       "default_error": "Jokin meni pieleen",
-      "default_session_text": "Istunnon tunnus",
-      "retry": "Yritä uudelleen"
+      "default_session_text": "Istunnon tunnus"
     },
     "ads": {
       "ad_notice": "Mainos",

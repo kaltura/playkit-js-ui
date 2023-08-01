@@ -47,8 +47,7 @@
     },
     "error": {
       "default_error": "Algo salió mal.",
-      "default_session_text": "ID de la sesión",
-      "retry": "Reintentar"
+      "default_session_text": "ID de la sesión"
     },
     "ads": {
       "ad_notice": "Anuncio",
