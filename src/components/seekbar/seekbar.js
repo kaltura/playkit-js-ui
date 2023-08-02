@@ -15,6 +15,7 @@ import {PlayerArea} from '../player-area';
 import {withEventManager} from 'event/with-event-manager';
 import {FakeEvent} from 'event/fake-event';
 import {SeekBarPreview} from '../seekbar-preview';
+import {ProgressIndicator} from '../progress-indicator';
 
 /**
  * mapping state to props
@@ -26,7 +27,8 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile,
   previewHoverActive: state.seekbar.previewHoverActive,
   hidePreview: state.seekbar.hidePreview,
-  hideTimeBubble: state.seekbar.hideTimeBubble
+  hideTimeBubble: state.seekbar.hideTimeBubble,
+  segments: state.seekbar.segments
 });
 
 const COMPONENT_NAME = 'SeekBar';
@@ -449,22 +451,6 @@ class SeekBar extends Component {
   }
 
   /**
-   * get current buffered percent from the player
-   *
-   * @returns {number} - current buffered percent
-   * @memberof SeekBar
-   */
-  getBufferedPercent(): number {
-    const {player} = this.props;
-    if (this.props.duration > 0 && player.buffered.length > 0) {
-      const buffered = player.isLive() ? player.buffered.end(0) - player.getStartTimeOfDvrWindow() : player.buffered.end(0);
-      const bufferedPercent = (buffered / this.props.duration) * 100;
-      return bufferedPercent < 100 ? bufferedPercent : 100;
-    }
-    return 0;
-  }
-
-  /**
    * get the left position the frame preview element should be in
    *
    * @returns {number} left position
@@ -561,8 +547,7 @@ class SeekBar extends Component {
    */
   render(props: any, state: Object): React$Element<any> {
     const virtualProgressWidth = `${(props.virtualTime / props.duration) * 100}%`;
-    const progressWidth = `${props.forceFullProgress ? 100 : (props.currentTime / props.duration) * 100}%`;
-    const bufferedWidth = `${Math.round(this.getBufferedPercent())}%`;
+    const scrubberProgressPosition = `${(props.currentTime / props.duration) * this._seekBarElement?.clientWidth}px`;
     const seekbarStyleClass = [style.seekBar];
     if (props.adBreak) seekbarStyleClass.push(style.adBreak);
     if (props.isDvr) seekbarStyleClass.push(style.live);
@@ -593,12 +578,12 @@ class SeekBar extends Component {
           <PlayerArea name={'SeekBar'} shouldUpdate={true}>
             {this.renderFramePreview()}
             {this.renderTimeBubble()}
-            <div className={style.buffered} style={{width: bufferedWidth}} />
-            {props.dataLoaded ? (
-              <div className={style.progress} style={{width: progressWidth}}>
-                {props.adBreak ? undefined : <a className={style.scrubber} />}
+            <ProgressIndicator />
+            {props.adBreak ? undefined : (
+              <div id={'scrubber-container'} style={`transform: translateX(${scrubberProgressPosition})`}>
+                <div id={'scrubber'} className={style.scrubber} />
               </div>
-            ) : undefined}
+            )}
             <div className={style.virtualProgress} style={{width: virtualProgressWidth}}>
               <div className={style.virtualProgressIndicator} />
             </div>

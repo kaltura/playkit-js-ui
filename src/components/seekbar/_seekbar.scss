@@ -21,16 +21,6 @@
 
   &.ad-break {
     cursor: initial;
-
-    .progress-bar .progress {
-      background-color: $ads-color;
-    }
-  }
-
-  &.live {
-    .progress-bar .progress {
-      background-color: $live-color;
-    }
   }
 
   .progress-bar {
@@ -40,29 +30,22 @@
     border-radius: $progress-bar-border-radius;
     position: absolute;
     transition: height 200ms ease, transform 200ms ease;
-
-    .progress {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      border-radius: inherit;
-      background-color: $primary-color;
+    &.chapters {
+      background-color: transparent;
+      .virtual-progress-indicator {
+        height: 8px;
+        transform: translateY(-2px);
+      }
     }
     .virtual-progress {
       display: none;
     }
-    .buffered,
     .virtual-progress {
       position: absolute;
       top: 0;
       left: 0;
       height: 100%;
       border-radius: inherit;
-    }
-
-    .buffered {
-      background-color: rgba(255, 255, 255, 0.3);
     }
 
     .virtual-progress-indicator {
@@ -77,7 +60,7 @@
       cursor: pointer;
       display: block;
       top: -8px + calc($progress-bar-height / 2);
-      right: -8px;
+      left: -6px;
       border-radius: 8px;
       height: 16px;
       width: 16px;
@@ -132,7 +115,7 @@
 .player:not(.touch):not(.size-ty) .seek-bar {
   &:hover,
   &.hover {
-    .progress-bar {
+    .progress-bar:not(.chapters) {
       height: 2 * $progress-bar-height;
       border-radius: 2 * $progress-bar-border-radius;
       transform: translateY(calc($progress-bar-height / -2));
