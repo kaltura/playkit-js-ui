@@ -1,8 +1,8 @@
 //@flow
 import {h, Fragment, Component} from 'preact';
-import style from '../styles/style.scss';
+import style from '../../styles/style.scss';
 import {connect} from 'react-redux';
-import {withPlayer} from './player';
+import {withPlayer} from '../player';
 
 /**
  * mapping state to props
@@ -20,21 +20,37 @@ const mapStateToProps = state => ({
 /**
  * ProgressBar component
  *
- * @class ProgressBar
+ * @class ProgressIndicator
  * @extends {Component}
  */
 @connect(mapStateToProps)
 @withPlayer
-class ProgressBar extends Component {
+class ProgressIndicator extends Component {
+  /**
+   * get current buffered percent from the player
+   *
+   * @returns {number} - current buffered percent
+   * @memberof ProgressIndicator
+   */
+  getBufferedPercent(): number {
+    const {player} = this.props;
+    if (this.props.duration > 0 && player.buffered.length > 0) {
+      const buffered = player.isLive() ? player.buffered.end(0) - player.getStartTimeOfDvrWindow() : player.buffered.end(0);
+      const bufferedPercent = (buffered / this.props.duration) * 100;
+      return bufferedPercent < 100 ? bufferedPercent : 100;
+    }
+    return 0;
+  }
+
   /**
    * render component
    *
    * @param {*} props - component props
    * @returns {React$Element} - component
-   * @memberof ProgressBar
+   * @memberof ProgressIndicator
    */
   render(props: any): React$Element<any> {
-    const bufferedWidth = `${Math.round(props.getBufferedPercent())}%`;
+    const bufferedWidth = `${Math.round(this.getBufferedPercent())}%`;
     const progressWidth = `${props.player.isLive() && props.player.isOnLiveEdge() ? 100 : (props.currentTime / props.duration) * 100}%`;
     return (
       <Fragment>
@@ -45,5 +61,5 @@ class ProgressBar extends Component {
   }
 }
 
-ProgressBar.displayName = 'ProgressBar';
-export {ProgressBar};
+ProgressIndicator.displayName = 'ProgressIndicator';
+export {ProgressIndicator};

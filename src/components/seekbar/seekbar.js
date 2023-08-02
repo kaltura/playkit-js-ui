@@ -15,7 +15,7 @@ import {PlayerArea} from '../player-area';
 import {withEventManager} from 'event/with-event-manager';
 import {FakeEvent} from 'event/fake-event';
 import {SeekBarPreview} from '../seekbar-preview';
-import {ProgressBar} from '../progress-bar';
+import {ProgressIndicator} from '../progress-indicator';
 
 /**
  * mapping state to props
@@ -451,22 +451,6 @@ class SeekBar extends Component {
   }
 
   /**
-   * get current buffered percent from the player
-   *
-   * @returns {number} - current buffered percent
-   * @memberof SeekBar
-   */
-  getBufferedPercent(): number {
-    const {player} = this.props;
-    if (this.props.duration > 0 && player.buffered.length > 0) {
-      const buffered = player.isLive() ? player.buffered.end(0) - player.getStartTimeOfDvrWindow() : player.buffered.end(0);
-      const bufferedPercent = (buffered / this.props.duration) * 100;
-      return bufferedPercent < 100 ? bufferedPercent : 100;
-    }
-    return 0;
-  }
-
-  /**
    * get the left position the frame preview element should be in
    *
    * @returns {number} left position
@@ -594,7 +578,7 @@ class SeekBar extends Component {
           <PlayerArea name={'SeekBar'} shouldUpdate={true}>
             {this.renderFramePreview()}
             {this.renderTimeBubble()}
-            <ProgressBar getBufferedPercent={() => this.getBufferedPercent} />
+            <ProgressIndicator />
             {props.adBreak ? undefined : (
               <div id={'scrubber-container'} style={`transform: translateX(${scrubberProgressPosition})`}>
                 <div id={'scrubber'} className={style.scrubber} />

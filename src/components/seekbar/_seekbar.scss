@@ -21,16 +21,6 @@
 
   &.ad-break {
     cursor: initial;
-
-    .progress-bar .progress {
-      background-color: $ads-color;
-    }
-  }
-
-  &.live {
-    .progress-bar .progress {
-      background-color: $live-color;
-    }
   }
 
   .progress-bar {
@@ -47,28 +37,15 @@
         transform: translateY(-2px);
       }
     }
-    .progress {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      border-radius: inherit;
-      background-color: $primary-color;
-    }
     .virtual-progress {
       display: none;
     }
-    .buffered,
     .virtual-progress {
       position: absolute;
       top: 0;
       left: 0;
       height: 100%;
       border-radius: inherit;
-    }
-
-    .buffered {
-      background-color: rgba(255, 255, 255, 0.3);
     }
 
     .virtual-progress-indicator {
