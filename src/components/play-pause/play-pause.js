@@ -57,12 +57,14 @@ class PlayPause extends Component {
    */
   componentDidMount(): void {
     const {eventManager, player} = this.props;
+    // $FlowFixMe.
+    const playerContainer: HTMLDivElement = document.getElementById(player.config.ui.targetId);
     eventManager.listen(player, player.Event.Core.PLAY, () => {
-      document.getElementById(player.config.ui.targetId).focus();
+      playerContainer.focus();
     });
     eventManager.listen(document, 'keydown', event => {
       if (event.code === 'Space') {
-        if (document.activeElement === document.getElementById(player.config.ui.targetId)) {
+        if (document.activeElement === playerContainer) {
           event.preventDefault();
           this.props.isPlayingAdOrPlayback ? this.props.updateOverlayActionIcon(IconType.Pause) : this.props.updateOverlayActionIcon(IconType.Play);
           this.togglePlayPause();
