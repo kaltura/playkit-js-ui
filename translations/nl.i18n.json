@@ -47,8 +47,7 @@
     },
     "error": {
       "default_error": "Er is iets fout gegaan",
-      "default_session_text": "Sessie-ID",
-      "retry": "Opnieuw proberen"
+      "default_session_text": "Sessie-ID"
     },
     "ads": {
       "ad_notice": "Advertentie",
