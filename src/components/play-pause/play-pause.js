@@ -8,8 +8,6 @@ import {isPlayingAdOrPlayback} from '../../reducers/getters';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from 'components/event-dispatcher';
 import {withLogger} from 'components/logger';
-import {KeyMap} from 'utils/key-map';
-import {withKeyboardEvent} from 'components/keyboard';
 import {bindActions} from 'utils/bind-actions';
 import {actions as settingActions} from 'reducers/settings';
 import {actions as overlayIconActions} from 'reducers/overlay-action';
@@ -17,6 +15,7 @@ import {Tooltip} from 'components/tooltip';
 import {Button} from 'components/button';
 import {actions as shellActions} from 'reducers/shell';
 import {ButtonControl} from 'components/button-control';
+import {withEventManager} from 'event';
 
 /**
  * mapping state to props
@@ -41,28 +40,15 @@ const COMPONENT_NAME = 'PlayPause';
  */
 @connect(mapStateToProps, bindActions({...shellActions, ...settingActions, ...overlayIconActions}))
 @withPlayer
-@withKeyboardEvent(COMPONENT_NAME)
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
+@withEventManager
 @withText({
   startOverText: 'controls.startOver',
   pauseText: 'controls.pause',
   playText: 'controls.play'
 })
 class PlayPause extends Component {
-  _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
-    {
-      key: {
-        code: KeyMap.SPACE
-      },
-      action: () => {
-        this.props.isPlayingAdOrPlayback ? this.props.updateOverlayActionIcon(IconType.Pause) : this.props.updateOverlayActionIcon(IconType.Play);
-        this.togglePlayPause();
-        this.props.updatePlayerHoverState(true);
-      }
-    }
-  ];
-
   /**
    * component mounted
    *
@@ -70,7 +56,22 @@ class PlayPause extends Component {
    * @memberof PlayPause
    */
   componentDidMount(): void {
-    this.props.registerKeyboardEvents(this._keyboardEventHandlers);
+    const {eventManager, player} = this.props;
+    // $FlowFixMe.
+    const playerContainer: HTMLDivElement = document.getElementById(player.config.ui.targetId);
+    eventManager.listen(player, player.Event.Core.PLAY, () => {
+      playerContainer.focus();
+    });
+    eventManager.listen(document, 'keydown', event => {
+      if (event.code === 'Space') {
+        if (document.activeElement === playerContainer) {
+          event.preventDefault();
+          this.props.isPlayingAdOrPlayback ? this.props.updateOverlayActionIcon(IconType.Pause) : this.props.updateOverlayActionIcon(IconType.Play);
+          this.togglePlayPause();
+          this.props.updatePlayerHoverState(true);
+        }
+      }
+    });
   }
 
   /**
