@@ -21,8 +21,10 @@ In order to override error-overlay background add `backgroundUrl` link to player
 const config = {
     ...
     ui: {
-        errorOverlay: {
-            backgroundUrl: "https://custom-error-overlay-image-url"
+        components: {
+            errorOverlay: {
+                backgroundUrl: "https://custom-error-overlay-image-url"
+            }
         }
     }
     ...

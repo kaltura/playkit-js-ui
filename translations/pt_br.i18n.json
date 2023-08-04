@@ -46,8 +46,7 @@
       "close": "Fechar"
     },
     "error": {
-      "default_error": "Ocorreu um erro",
-      "default_session_text": "ID da sessão"
+      "default_error": "Ocorreu um erro"
     },
     "ads": {
       "ad_notice": "Publicidade",

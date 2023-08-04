@@ -46,8 +46,7 @@
       "close": "关闭"
     },
     "error": {
-      "default_error": "发生错误",
-      "default_session_text": "回话 ID"
+      "default_error": "发生错误"
     },
     "ads": {
       "ad_notice": "广告",

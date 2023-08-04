@@ -46,8 +46,8 @@
       "close": "Schließen"
     },
     "error": {
-      "default_error": "Etwas ist schiefgegangen",
-      "default_session_text": "Sitzungs-ID"
+      "default_error": "Etwas ist schiefgegangen"
+    
     },
     "ads": {
       "ad_notice": "Anzeige",

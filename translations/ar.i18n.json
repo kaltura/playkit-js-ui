@@ -46,8 +46,7 @@
       "close": "إغلاق"
     },
     "error": {
-      "default_error": "حدث خطأ ما",
-      "default_session_text": "معرّف الجلسة"
+      "default_error": "حدث خطأ ما"
     },
     "ads": {
       "ad_notice": "إعلان",
