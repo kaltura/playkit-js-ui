@@ -107,6 +107,9 @@
     },
     "pictureInPicture": {
       "overlay_text": "Playing in Picture In Picture mode"
+    },
+    "watermark": {
+      "watermark_alt_text": "Watermark"
     }
   }
 }
