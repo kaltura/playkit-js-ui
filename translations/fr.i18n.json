@@ -46,8 +46,7 @@
       "close": "Fermer"
     },
     "error": {
-      "default_error": "Un problème est survenu",
-      "default_session_text": "ID de la session"
+      "default_error": "Un problème est survenu"
     },
     "ads": {
       "ad_notice": "Publicité",

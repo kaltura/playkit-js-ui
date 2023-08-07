@@ -88,8 +88,15 @@
   }
 
   &:hover {
-    background-color: $tone-4-color;
+    background-color: $tone-5-color;
   }
+}
+
+.btn-translucent {
+  background-color: rgba(0, 0, 0, 0.60);
+  &:hover {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
 }
 
 .player.size-sm,
