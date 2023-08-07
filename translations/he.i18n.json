@@ -46,8 +46,7 @@
       "close": "סגור"
     },
     "error": {
-      "default_error": "משהו השתבש",
-      "default_session_text": "מזהה הפעלה"
+      "default_error": "משהו השתבש"
     },
     "ads": {
       "ad_notice": "פרסומת",

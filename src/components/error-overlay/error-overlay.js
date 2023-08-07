@@ -17,7 +17,8 @@ import {Button} from 'components/button';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  hasError: state.engine.hasError
+  hasError: state.engine.hasError,
+  errorOverlaConfig: state.config.components?.errorOverlay
 });
 
 const COMPONENT_NAME = 'ErrorOverlay';
@@ -61,6 +62,17 @@ class ErrorOverlay extends Component {
   };
 
   /**
+   * get background url
+   *
+   * @returns {string | undefined} - custom background URL
+   * @memberof ErrorOverlay
+   */
+  getBackgroundUrl = (): ?string => {
+    const {errorOverlaConfig} = this.props;
+    return errorOverlaConfig?.backgroundUrl;
+  };
+
+  /**
    * render the sessionID line
    *
    * @returns {React$Element} - main state element
@@ -93,9 +105,10 @@ class ErrorOverlay extends Component {
    */
   renderRetryButton(): React$Element<any> | void {
     if (this.props.player.getMediaInfo()) {
+      const hasCustomBackground = Boolean(this.getBackgroundUrl());
       return (
         <div className={style.controlButtonContainer} onClick={this.handleClick}>
-          <Button className={style.retryBtn}>
+          <Button className={[hasCustomBackground ? style.btnTranslucent : style.btnBorderless, style.retryBtn].join(' ')}>
             <Text id="error.retry" />
           </Button>
         </div>
@@ -123,9 +136,7 @@ class ErrorOverlay extends Component {
    */
   render(): ?React$Element<any> {
     if ((this.props && this.props.hasError) || this.props.permanent) {
-      const {player} = this.props;
-      const errorOverlaConfig = (player && player.config && player.config.ui && player.config.ui.errorOverlay) || {};
-      const {backgroundUrl} = errorOverlaConfig;
+      const backgroundUrl = this.getBackgroundUrl();
       const errorOverlayStyles = backgroundUrl ? {backgroundImage: `url(${backgroundUrl})`} : null;
       return (
         <div className={['overlay-portal', backgroundUrl ? style.customErrorSlate : ''].join(' ')}>

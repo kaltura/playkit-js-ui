@@ -46,8 +46,7 @@
       "close": "Chiudi"
     },
     "error": {
-      "default_error": "Qualcosa è andato storto",
-      "default_session_text": "ID sessione"
+      "default_error": "Qualcosa è andato storto"
     },
     "ads": {
       "ad_notice": "Pubblicità",

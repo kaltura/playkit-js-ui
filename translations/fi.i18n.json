@@ -46,8 +46,7 @@
       "close": "Sulje"
     },
     "error": {
-      "default_error": "Jokin meni pieleen",
-      "default_session_text": "Istunnon tunnus"
+      "default_error": "Jokin meni pieleen"
     },
     "ads": {
       "ad_notice": "Mainos",

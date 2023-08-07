@@ -46,8 +46,7 @@
       "close": "關閉"
     },
     "error": {
-      "default_error": "出現錯誤",
-      "default_session_text": "作業階段 ID"
+      "default_error": "出現錯誤"
     },
     "ads": {
       "ad_notice": "廣告",

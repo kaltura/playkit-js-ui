@@ -46,8 +46,7 @@
       "close": "बंद करें"
     },
     "error": {
-      "default_error": "कुछ गलत हुआ",
-      "default_session_text": "सत्र ID"
+      "default_error": "कुछ गलत हुआ"
     },
     "ads": {
       "ad_notice": "विज्ञापन",

@@ -46,8 +46,7 @@
       "close": "닫기"
     },
     "error": {
-      "default_error": "오류가 발생했습니다",
-      "default_session_text": "강연 ID"
+      "default_error": "오류가 발생했습니다"
     },
     "ads": {
       "ad_notice": "광고",
