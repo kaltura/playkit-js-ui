@@ -2,6 +2,7 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'react-redux';
+import {Text, Localizer} from 'preact-i18n';
 import {withPlayer} from '../player';
 import {withEventManager} from 'event/with-event-manager';
 import {withLogger} from 'components/logger';
@@ -105,7 +106,9 @@ class Watermark extends Component {
     return (
       <div className={styleClass.join(' ')}>
         <a href={props.config.url} target="_blank" rel="noopener noreferrer">
-          <img src={props.config.img} />
+          <Localizer>
+            <img src={props.config.img} alt={<Text id="watermark.watermark_alt_text" />} />
+          </Localizer>
         </a>
       </div>
     );
