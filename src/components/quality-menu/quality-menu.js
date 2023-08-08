@@ -15,6 +15,8 @@ const HeightResolution = {
   UHD_8K: 4320
 };
 
+const DEFAULT_VIDEO_TRACK = 360;
+
 /**
  * Determines the badge icon type of the quality option based on the height of the resolution.
  *
@@ -132,18 +134,19 @@ class QualityMenu extends Component {
 
     // Progressive playback doesn't support auto
     if (qualityOptions.length > 1 && props.player.streamType !== 'progressive') {
-      const activeTrack: Object = qualityOptions.find(track => track.value.active === true).value;
+      const activeTrack: Object = qualityOptions.find(track => track.value.active === true)?.value;
+      const label = activeTrack?.label || `${DEFAULT_VIDEO_TRACK}p`;
       let qualityLabel;
       if (rtlLanguages.includes(this.props.player._localPlayer._config.ui.locale)) {
-        qualityLabel = activeTrack.label + ' - ' + this.props.qualityAutoLabelText;
+        qualityLabel = label + ' - ' + this.props.qualityAutoLabelText;
       } else {
-        qualityLabel = this.props.qualityAutoLabelText + ' - ' + activeTrack.label;
+        qualityLabel = this.props.qualityAutoLabelText + ' - ' + label;
       }
       qualityOptions.unshift({
         label: this.props.qualityAutoLabelText,
         dropdownOptions: {
           label: qualityLabel,
-          badgeType: getLabelBadgeType(activeTrack.height)
+          badgeType: getLabelBadgeType(activeTrack?.height || DEFAULT_VIDEO_TRACK)
         },
         active: props.player.isAdaptiveBitrateEnabled(),
         value: 'auto'
