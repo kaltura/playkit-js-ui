@@ -31,6 +31,7 @@ import {withKeyboardEvent} from 'components/keyboard';
 import {VideoArea} from '../components/video-area';
 import {GuiArea} from '../components/gui-area';
 import {ClosedCaptions} from '../components/closed-captions';
+import {AudioEntryDetails} from '../components/audio-entry-details';
 
 const PRESET_NAME = 'Playback';
 
@@ -70,6 +71,7 @@ class PlaybackUI extends Component {
             <VideoArea />
             <GuiArea>
               <Fragment>
+                <AudioEntryDetails />
                 <UnmuteIndication />
                 <Loading />
                 <OverlayPortal />

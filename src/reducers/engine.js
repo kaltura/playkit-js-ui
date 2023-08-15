@@ -35,6 +35,7 @@ export const types = {
   UPDATE_AD_IS_BUMPER: `${component}/UPDATE_AD_IS_BUMPER`,
   UPDATE_AD_CONTENT_TYPE: `${component}/UPDATE_AD_CONTENT_TYPE`,
   UPDATE_PLAYER_POSTER: `${component}/UPDATE_PLAYER_POSTER`,
+  UPDATE_IS_AUDIO: `${component}/UPDATE_IS_AUDIO`,
   UPDATE_IS_LIVE: `${component}/UPDATE_IS_LIVE`,
   UPDATE_IS_DVR: `${component}/UPDATE_IS_DVR`,
   UPDATE_IS_IMG: `${component}/UPDATE_IS_IMG`,
@@ -88,6 +89,7 @@ export const initialState = {
   isLive: false,
   isDvr: false,
   isImg: false,
+  isAudio: false,
   adProgress: {
     currentTime: 0,
     duration: 0
@@ -296,6 +298,12 @@ export default (state: Object = initialState, action: Object) => {
         poster: action.poster
       };
 
+    case types.UPDATE_IS_AUDIO:
+      return {
+        ...state,
+        isAudio: action.isAudio
+      };
+
     case types.UPDATE_IS_LIVE:
       return {
         ...state,
@@ -434,6 +442,7 @@ export const actions = {
   updateAdIsBumper: (adIsBumper: boolean) => ({type: types.UPDATE_AD_IS_BUMPER, adIsBumper}),
   updateAdContentType: (adContentType: string) => ({type: types.UPDATE_AD_CONTENT_TYPE, adContentType}),
   updatePlayerPoster: (poster: string) => ({type: types.UPDATE_PLAYER_POSTER, poster}),
+  updateIsAudio: (isAudio: boolean) => ({type: types.UPDATE_IS_AUDIO, isAudio}),
   updateIsLive: (isLive: boolean) => ({type: types.UPDATE_IS_LIVE, isLive}),
   updateIsDvr: (isDvr: boolean) => ({type: types.UPDATE_IS_DVR, isDvr}),
   updateIsImg: (isImg: boolean) => ({type: types.UPDATE_IS_IMG, isImg}),
