@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.77.6 (2023-08-21)
+
+
+### Bug Fixes
+
+* **SUP-38245:** The player seek scrubber thumbnail not showing inconsistently  on some browsers ([#781](https://github.com/kaltura/playkit-js-ui/issues/781)) ([b9dc8d6](https://github.com/kaltura/playkit-js-ui/commit/b9dc8d6))
+
+
+
 ### 0.77.5 (2023-07-26)
 
 
