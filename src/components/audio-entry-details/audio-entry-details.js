@@ -6,6 +6,8 @@ import {h, Component} from 'preact';
 import {PLAYER_SIZE} from '../shell/shell';
 import {withPlayer} from '../player';
 
+import {ExpandableText} from '../expandable-text/expandable-text';
+
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -64,10 +66,28 @@ class AudioEntryDetails extends Component {
       <div className={style.audioEntryBackdrop}>
         <div className={`${style.audioEntryDetails} ${sizeClass}`}>
           <div className={style.audioEntryTitle}>{name}</div>
-          <div className={style.audioEntryDescription}>{description ? description : ''}</div>
+          <div className={style.audioEntryDescription}>
+            <ExpandableText text={description} lines={3}>
+              {description}
+            </ExpandableText>
+          </div>
+
+          {/* <ExpandableText text={name} lines={3}>
+            <div className={style.audioEntryTitle}>{name}</div>
+            {description && <div className={style.audioEntryDescription}>{description}</div>}
+          </ExpandableText> */}
         </div>
       </div>
     );
+
+    // return (
+    //   <div className={style.audioEntryBackdrop}>
+    //     <div className={`${style.audioEntryDetails} ${sizeClass}`}>
+    //       <div className={style.audioEntryTitle}>{name}</div>
+    //       <div className={style.audioEntryDescription}>{description ? description : ''}</div>
+    //     </div>
+    //   </div>
+    // );
   }
 }
 

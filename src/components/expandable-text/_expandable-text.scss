@@ -1,0 +1,14 @@
+.player {
+    .text {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        display: -webkit-box; 
+    }
+
+    .more-button-text {
+        pointer-events: auto;
+        cursor: pointer;
+    }
+}
