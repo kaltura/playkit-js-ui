@@ -31,16 +31,11 @@
             }
             
             .audio-entry-title {
-                -webkit-line-clamp: 1; 
                 font-size: 32px; 
             }
             
-            .audio-entry-description {
-                -webkit-box-orient: vertical;
-                -webkit-line-clamp: 3; 
-                display: -webkit-box; 
+            .audio-entry-description { 
                 font-size: 14px; 
-                overflow: hidden; 
             }
         }
     }   

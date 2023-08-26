@@ -67,9 +67,7 @@ class AudioEntryDetails extends Component {
         <div className={`${style.audioEntryDetails} ${sizeClass}`}>
           <div className={style.audioEntryTitle}>{name}</div>
           <div className={style.audioEntryDescription}>
-            <ExpandableText text={description} lines={3}>
-              {description}
-            </ExpandableText>
+            <ExpandableText text={description} lines={3}></ExpandableText>
           </div>
 
           {/* <ExpandableText text={name} lines={3}>
