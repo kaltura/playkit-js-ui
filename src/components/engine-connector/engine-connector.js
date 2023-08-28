@@ -54,8 +54,7 @@ class EngineConnector extends Component {
       this.props.updateIsVr(player.isVr());
       this.props.updateIsImg(player.isUntimedImg());
 
-      // TODO use top level API
-      this.props.updateIsAudio(player._localPlayer.isAudio());
+      this.props.updateIsAudio(player.isAudio());
 
       this.props.updateIsInPictureInPicture(player.isInPictureInPicture());
       if (player.config.playback.autoplay) {
