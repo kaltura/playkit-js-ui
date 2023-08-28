@@ -2,11 +2,20 @@
 import style from '../../styles/style.scss';
 
 import {connect} from 'react-redux';
-import {h, Component} from 'preact';
+
+import {h} from 'preact';
+import {useState, useLayoutEffect, useRef} from 'preact/hooks';
+
 import {PLAYER_SIZE} from '../shell/shell';
 import {withPlayer} from '../player';
 
 import {ExpandableText} from '../expandable-text/expandable-text';
+
+interface AudioEntryDetailsProps {
+  player: any;
+  isAudio: boolean;
+  playerSize: typeof PLAYER_SIZE;
+}
 
 /**
  * mapping state to props
@@ -27,67 +36,73 @@ const COMPONENT_NAME = 'AudioEntryDetails';
  * @example <AudioEntryDetails />
  * @extends {Component}
  */
-@connect(mapStateToProps)
-@withPlayer
-class AudioEntryDetails extends Component {
-  // eslint-disable-next-line require-jsdoc
-  getSizeClass(playerSize: typeof PLAYER_SIZE) {
-    switch (playerSize) {
-      case PLAYER_SIZE.EXTRA_LARGE:
-      case PLAYER_SIZE.LARGE:
-        return style.audioEntryL;
-      case PLAYER_SIZE.MEDIUM:
-        return style.audioEntryM;
-      case PLAYER_SIZE.SMALL:
-      case PLAYER_SIZE.EXTRA_SMALL:
-        return style.audioEntryS;
-      case PLAYER_SIZE.TINY:
-      default:
-        return style.audioEntryT;
-    }
-  }
 
-  /**
-   * render component
-   *
-   * @param {*} props - component props
-   * @returns {?React$Element} - component element
-   * @memberof Cast
-   */
-  render(props: any): ?React$Element<any> {
-    if (!props.isAudio || !props.player.sources?.metadata?.name) {
+const AudioEntryDetails = connect(mapStateToProps)(
+  withPlayer((props: AudioEntryDetailsProps) => {
+    // eslint-disable-next-line require-jsdoc
+    const getSizeClass = (playerSize: typeof PLAYER_SIZE) => {
+      switch (playerSize) {
+        case PLAYER_SIZE.EXTRA_LARGE:
+        case PLAYER_SIZE.LARGE:
+          return style.audioEntryL;
+        case PLAYER_SIZE.MEDIUM:
+          return style.audioEntryM;
+        case PLAYER_SIZE.SMALL:
+        case PLAYER_SIZE.EXTRA_SMALL:
+          return style.audioEntryS;
+        case PLAYER_SIZE.TINY:
+        default:
+          return style.audioEntryT;
+      }
+    };
+
+    const textRef = useRef(null);
+    const comparisonTextRef = useRef(null);
+
+    const [isFinalized, setIsFinalized] = useState(false);
+    const [isTitleTrimmed, setIsTitleTrimmed] = useState(false);
+    const [forceShowMore, setForceShowMore] = useState(false);
+
+    useLayoutEffect(() => {
+      if (textRef?.current && comparisonTextRef?.current) {
+        setIsFinalized(true);
+        setIsTitleTrimmed(textRef?.current?.getBoundingClientRect().height > comparisonTextRef?.current?.getBoundingClientRect().height);
+      }
+
+      if (!forceShowMore) {
+        setForceShowMore(textRef?.current?.getBoundingClientRect().height > comparisonTextRef?.current?.getBoundingClientRect().height);
+      }
+    });
+
+    if (!props.isAudio || !(props.player.sources?.metadata?.name || props.player.sources?.metadata.description)) {
       return undefined;
     }
 
-    const {name, description} = props.player.sources.metadata;
-    const sizeClass = this.getSizeClass(props.playerSize);
+    const {name = '', description = ''} = props.player.sources.metadata;
+    const sizeClass = getSizeClass(props.playerSize);
+    const titleClass = `${style.audioEntryTitle} ${isTitleTrimmed ? style.audioEntryTitleTrimmed : ''}`;
 
     return (
       <div className={style.audioEntryBackdrop}>
         <div className={`${style.audioEntryDetails} ${sizeClass}`}>
-          <div className={style.audioEntryTitle}>{name}</div>
-          <div className={style.audioEntryDescription}>
-            <ExpandableText text={description} lines={3}></ExpandableText>
+          <div ref={textRef} className={titleClass}>
+            {name}
           </div>
-
-          {/* <ExpandableText text={name} lines={3}>
-            <div className={style.audioEntryTitle}>{name}</div>
-            {description && <div className={style.audioEntryDescription}>{description}</div>}
-          </ExpandableText> */}
+          {isFinalized ? undefined : (
+            <div ref={comparisonTextRef} className={`${style.audioEntryTitle} ${style.audioEntryTitleTrimmed}`}>
+              {name}
+            </div>
+          )}
+          <div className={style.audioEntryDescription}>
+            <ExpandableText text={description} lines={3} onClick={() => setIsTitleTrimmed(!isTitleTrimmed)} forceShowMore={forceShowMore}>
+              {description}
+            </ExpandableText>
+          </div>
         </div>
       </div>
     );
-
-    // return (
-    //   <div className={style.audioEntryBackdrop}>
-    //     <div className={`${style.audioEntryDetails} ${sizeClass}`}>
-    //       <div className={style.audioEntryTitle}>{name}</div>
-    //       <div className={style.audioEntryDescription}>{description ? description : ''}</div>
-    //     </div>
-    //   </div>
-    // );
-  }
-}
+  })
+);
 
 AudioEntryDetails.displayName = COMPONENT_NAME;
 export {AudioEntryDetails};

@@ -32,6 +32,14 @@
             
             .audio-entry-title {
                 font-size: 32px; 
+                
+                &.audio-entry-title-trimmed {
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 1;
+                    display: -webkit-box; 
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
             }
             
             .audio-entry-description { 

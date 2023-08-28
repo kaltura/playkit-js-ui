@@ -1,15 +1,27 @@
-/* eslint-disable no-console */
-/* eslint-disable require-jsdoc */
 //@flow
+import {h, ComponentChildren} from 'preact';
+import {withText} from 'preact-i18n';
 
-import {h} from 'preact';
 import {useState, useRef, useLayoutEffect} from 'preact/hooks';
 
 import styles from '../../styles/style.scss';
 
 const COMPONENT_NAME = 'ExpandableText';
 
-const ExpandableText = (props: any) => {
+interface ExpandableTextProps {
+  text: string;
+  lines: number;
+  forceShowMore: boolean;
+  onClick?: () => void;
+  readMoreLabel?: string;
+  readLessLabel?: string;
+  children: ComponentChildren;
+}
+
+const ExpandableText = withText({
+  readMoreLabel: 'controls.readMore',
+  readLessLabel: 'controls.readLess'
+})((props: ExpandableTextProps) => {
   const [isTextExpanded, setIsTextExpanded] = useState(false);
   const [isTextTrimmed, setIsTextTrimmed] = useState(false);
   const [isFinalized, setIsFinalized] = useState(false);
@@ -24,7 +36,16 @@ const ExpandableText = (props: any) => {
     }
   }, [isFinalized]);
 
-  if (!isTextTrimmed) {
+  // eslint-disable-next-line require-jsdoc
+  const onClick = () => {
+    if (props.onClick) {
+      props.onClick();
+    }
+
+    setIsTextExpanded(!isTextExpanded);
+  };
+
+  if (!isTextTrimmed && !props.forceShowMore) {
     return (
       <div className={styles.contentText}>
         <div className={styles.titleWrapper}>
@@ -44,18 +65,18 @@ const ExpandableText = (props: any) => {
   return (
     <div>
       {isTextExpanded ? (
-        props.text
+        props.children
       ) : (
         <div className={styles.expandableText} style={{'-webkit-line-clamp': props.lines}}>
           {props.text}
         </div>
       )}
-      <div className={styles.moreButtonText} onClick={() => setIsTextExpanded(!isTextExpanded)}>
-        {isTextExpanded ? 'Less' : 'More'}
+      <div className={styles.moreButtonText} onClick={onClick}>
+        {isTextExpanded ? props.readLessLabel : props.readMoreLabel}
       </div>
     </div>
   );
-};
+});
 
 ExpandableText.displayName = COMPONENT_NAME;
 export {ExpandableText};
