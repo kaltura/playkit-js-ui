@@ -47,10 +47,6 @@ const AudioEntryDetails = connect(mapStateToProps)(
           return style.audioEntryL;
         case PLAYER_SIZE.MEDIUM:
           return style.audioEntryM;
-        case PLAYER_SIZE.SMALL:
-        case PLAYER_SIZE.EXTRA_SMALL:
-          return style.audioEntryS;
-        case PLAYER_SIZE.TINY:
         default:
           return style.audioEntryT;
       }
