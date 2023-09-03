@@ -22,7 +22,9 @@
       "pictureInPictureExit": "Modus Afbeelding in afbeelding verlaten",
       "pictureInPictureExpand": "Uitbreiden",
       "logo": "Logo",
-      "seekBarSlider": "Zoekschuifregelaar"
+      "seekBarSlider": "Zoekschuifregelaar",
+      "readLess": "Minder",
+      "readMore": "Meer"
     },
     "unmute": {
       "unmute": "Dempen ongedaan maken"

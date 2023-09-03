@@ -22,7 +22,9 @@
       "pictureInPictureExit": "Quitter fenêtre dans fenêtre",
       "pictureInPictureExpand": "RETOUR (au mode normal)",
       "logo": "Logo",
-      "seekBarSlider": "Curseur"
+      "seekBarSlider": "Curseur",
+      "readLess": "Moins",
+      "readMore": "Plus"
     },
     "unmute": {
       "unmute": "Réactiver"

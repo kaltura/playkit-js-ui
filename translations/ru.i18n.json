@@ -22,7 +22,9 @@
       "pictureInPictureExit": "Выйти из режима «картинка в картинке»",
       "pictureInPictureExpand": "Развернуть",
       "logo": "Логотип",
-      "seekBarSlider": "Слайдер навигации"
+      "seekBarSlider": "Слайдер навигации",
+      "readLess": "Меньше",
+      "readMore": "Дополнительно"
     },
     "unmute": {
       "unmute": "Включить звук"

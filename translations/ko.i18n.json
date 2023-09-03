@@ -22,7 +22,9 @@
       "pictureInPictureExit": "화면 속 화면 끝내기",
       "pictureInPictureExpand": "확장",
       "logo": "로고",
-      "seekBarSlider": "슬라이더"
+      "seekBarSlider": "슬라이더",
+      "readLess": "간단히 보기",
+      "readMore": "자세히 보기"
     },
     "unmute": {
       "unmute": "음소거 해제"

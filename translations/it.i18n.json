@@ -22,7 +22,9 @@
       "pictureInPictureExit": "Esci dalla modalità Picture in Picture",
       "pictureInPictureExpand": "Ingrandisci",
       "logo": "Logo",
-      "seekBarSlider": "Cursore di ricerca"
+      "seekBarSlider": "Cursore di ricerca",
+      "readLess": "Meno",
+      "readMore": "Altro"
     },
     "unmute": {
       "unmute": "Annulla silenziamento"
