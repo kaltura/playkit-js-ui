@@ -24,6 +24,10 @@
 
             &.audio-entry-t {
                 max-width: 0px;
+
+                .audio-entry-description { 
+                    font-size: 0; 
+                }
             }
             
             .audio-entry-title {
