@@ -9,7 +9,8 @@ import {useState, useLayoutEffect, useRef} from 'preact/hooks';
 import {PLAYER_SIZE} from '../shell/shell';
 import {withPlayer} from '../player';
 
-import {ExpandableText} from '../expandable-text/expandable-text';
+import {ExpandableText} from '../expandable-text';
+import {Scrollable} from '../scrollable';
 
 interface AudioEntryDetailsProps {
   player: any;
@@ -78,22 +79,33 @@ const AudioEntryDetails = connect(mapStateToProps)(
     const sizeClass = getSizeClass(props.playerSize);
     const titleClass = `${style.audioEntryTitle} ${isTitleTrimmed ? style.audioEntryTitleTrimmed : ''}`;
 
+    let expandedClass = isTitleTrimmed ? '' : style.audioEntryExpanded;
+
+    // eslint-disable-next-line require-jsdoc
+    const onClick = () => {
+      setIsTitleTrimmed(!isTitleTrimmed);
+    };
+
     return (
       <div className={style.audioEntryBackdrop}>
-        <div className={`${style.audioEntryDetails} ${sizeClass}`}>
-          <div ref={textRef} className={titleClass}>
-            {name}
-          </div>
-          {isFinalized ? undefined : (
-            <div ref={comparisonTextRef} className={`${style.audioEntryTitle} ${style.audioEntryTitleTrimmed}`}>
-              {name}
+        <div className={`${style.audioEntryDetails} ${sizeClass} ${expandedClass}`}>
+          <Scrollable isVertical={true}>
+            <div className={style.audioEntryContent}>
+              <div ref={textRef} className={titleClass}>
+                {name}
+              </div>
+              {isFinalized ? undefined : (
+                <div ref={comparisonTextRef} className={`${style.audioEntryTitle} ${style.audioEntryTitleTrimmed}`}>
+                  {name}
+                </div>
+              )}
+              <div className={style.audioEntryDescription}>
+                <ExpandableText text={description} lines={3} onClick={onClick} forceShowMore={forceShowMore}>
+                  {description}
+                </ExpandableText>
+              </div>
             </div>
-          )}
-          <div className={style.audioEntryDescription}>
-            <ExpandableText text={description} lines={3} onClick={() => setIsTitleTrimmed(!isTitleTrimmed)} forceShowMore={forceShowMore}>
-              {description}
-            </ExpandableText>
-          </div>
+          </Scrollable>
         </div>
       </div>
     );
