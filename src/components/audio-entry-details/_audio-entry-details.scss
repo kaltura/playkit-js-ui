@@ -2,7 +2,6 @@
     .audio-entry-backdrop {
         background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
         bottom: 0; 
-        height: 100%;
         position: absolute; 
         width: 100%;
         pointer-events: none;
@@ -11,15 +10,12 @@
         justify-content: flex-end;
         
         .audio-entry-details {
-            margin: 60px 16px; 
+            margin: 128px 16px 60px 16px; 
             left: 16px; 
             color: white;
             max-height: 100%;
             pointer-events: auto;
-
-            &.audio-entry-expanded {                
-                overflow: auto;
-            }
+            z-index: 1;
             
             &.audio-entry-l {
                 max-width: 600px;
@@ -51,6 +47,17 @@
             
             .audio-entry-description { 
                 font-size: 14px; 
+            }
+        }
+
+        &.audio-entry-expanded {                
+            overflow: auto;
+            background: rgba(0, 0, 0, 0.7);
+            height: 100%;
+
+            .audio-entry-details {
+                overflow: auto;
+                margin: 60px 16px;
             }
         }
     }   

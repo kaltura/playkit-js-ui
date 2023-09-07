@@ -8,7 +8,6 @@ import {Settings} from './settings';
 import {Volume} from './volume';
 import {VrStereo} from './vr-stereo';
 import {ClosedCaptions} from './closed-captions';
-import {ExpandableText} from './expandable-text';
 
 export {AdLearnMore} from './ad-learn-more';
 export {AdSkip} from './ad-skip';
@@ -61,6 +60,8 @@ export {CaptionsMenu} from './captions-menu';
 export {SpeedMenu} from './speed-menu';
 export {QualityMenu, HeightResolution, getLabelBadgeType} from './quality-menu';
 export {AdvancedAudioDescToggle} from './advanced-audio-desc-toggle';
+export {ExpandableText} from './expandable-text';
+export {Scrollable} from './scrollable';
 
 export {PlayerArea, withPlayerPreset, Remove} from './player-area';
 export {VideoArea} from './video-area';
@@ -78,4 +79,3 @@ export {Settings, Settings as SettingsControl};
 export {Volume, Volume as VolumeControl};
 export {VrStereo, VrStereo as VrStereoControl};
 export {ClosedCaptions, ClosedCaptions as ClosedCaptionsControl};
-export {ExpandableText};

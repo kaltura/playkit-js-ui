@@ -87,8 +87,8 @@ const AudioEntryDetails = connect(mapStateToProps)(
     };
 
     return (
-      <div className={style.audioEntryBackdrop}>
-        <div className={`${style.audioEntryDetails} ${sizeClass} ${expandedClass}`}>
+      <div className={`${style.audioEntryBackdrop} ${expandedClass}`}>
+        <div className={`${style.audioEntryDetails} ${sizeClass}`}>
           <Scrollable isVertical={true}>
             <div className={style.audioEntryContent}>
               <div ref={textRef} className={titleClass}>
