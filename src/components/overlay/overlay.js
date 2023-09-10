@@ -139,7 +139,7 @@ class Overlay extends Component {
     }
 
     return (
-      <div tabIndex="-1" className={overlayClass.join(' ')} role="dialog" onKeyDown={this.onKeyDown}>
+      <div tabIndex="0" className={overlayClass.join(' ')} role="dialog" onKeyDown={this.onKeyDown} aria-labelledby="modal-title">
         <div className={style.overlayContents}>{props.children}</div>
         {this.renderCloseButton(props)}
       </div>

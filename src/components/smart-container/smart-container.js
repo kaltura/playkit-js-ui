@@ -95,7 +95,9 @@ class SmartContainer extends Component {
     return this.isPortal ? (
       createPortal(
         <Overlay open onClose={props.onClose} handleKeyDown={this.props.handleKeyDown} addAccessibleChild={this.props.addAccessibleChild}>
-          <div className={style.title}>{props.title}</div>
+          <div className={style.title} id="modal-title">
+            {props.title}
+          </div>
           {this.renderChildren(props)}
         </Overlay>,
         targetId.querySelector(portalSelector)
