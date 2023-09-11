@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.77.7 (2023-09-11)
+
+
+### Bug Fixes
+
+* **FEC-13320:** minimized dualscreen is overlaying seekbar preview ([#782](https://github.com/kaltura/playkit-js-ui/issues/782)) ([cc6f5a9](https://github.com/kaltura/playkit-js-ui/commit/cc6f5a9))
+
+
+
 ### 0.77.6 (2023-08-21)
 
 
