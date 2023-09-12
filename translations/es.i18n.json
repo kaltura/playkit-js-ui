@@ -23,8 +23,8 @@
       "pictureInPictureExpand": "Expandir",
       "logo": "Logotipo",
       "seekBarSlider": "Buscar control deslizante",
-      "read_less": "Menos",
-      "read_more": "Más"
+      "readLess": "Menos",
+      "readMore": "Más"
     },
     "unmute": {
       "unmute": "Dejar de silenciar"
