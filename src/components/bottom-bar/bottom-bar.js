@@ -23,15 +23,11 @@ import {
 } from 'components';
 import {withEventManager} from 'event';
 import {withPlayer} from '../player';
-// const LEFT_CONTROLS = ['PlaybackControls', 'Rewind', 'Forward', 'LiveTag', 'TimeDisplayPlaybackContainer'];
-// const RIGHT_CONTROLS = ['Cast', 'ClosedCaptions', 'Fullscreen', 'Logo', 'PictureInPicture', 'Settings', 'Volume', 'VrStereo'];
-// const CONTROLS = [...LEFT_CONTROLS, ...RIGHT_CONTROLS];
-const SPACE_BETWEEN_BARS = 16;
+import {calculateControlsSize, filterControlsByPriority} from './bettom-bar-utils';
+
 const LOWER_PRIORITY_CONTROLS = [['VrStereo'], ['Rewind', 'Forward'], ['ClosedCaptions'], ['PictureInPicture'], ['Cast']];
-const CONTROL_WIDTH = 32;
-const CONTROL_MARGIN = 12;
-const CONTROL_TOTAL_WIDTH = CONTROL_WIDTH + CONTROL_MARGIN;
-const SPATIAL_CONTROLS = {TimeDisplayPlaybackContainer: 107};
+const CRL_WIDTH = 32;
+const CRL_MARGIN = 12;
 
 /**
  * mapping state to props
@@ -49,6 +45,7 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'BottomBar';
 
+// eslint-disable-next-line valid-jsdoc
 /**
  * BottomBar component
  *
@@ -62,20 +59,15 @@ const COMPONENT_NAME = 'BottomBar';
 class BottomBar extends Component {
   bottomBarContainerRef: RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
   presetControls: {[controlName: string]: boolean} = {};
-  playbackControlsWidth: number;
   minBreakPointWidth: number;
   currentBarWidth: number = 0;
+  resizeObserver: ResizeObserver;
 
   // eslint-disable-next-line require-jsdoc
   constructor(props) {
     super();
-    [...props.leftControls, ...props.rightControls].forEach(controlName => (this.presetControls[controlName] = true));
-    this.state = {
-      currentMinBreakPointWidth: Infinity,
-      currentControlWidth: CONTROL_WIDTH + CONTROL_MARGIN,
-      fitInControls: this.presetControls,
-      activeControls: this.presetControls
-    };
+    props.leftControls.concat(props.rightControls).forEach(controlName => (this.presetControls[controlName] = true));
+    this.state = {fitInControls: this.presetControls, activeControls: this.presetControls};
   }
 
   /**
@@ -85,39 +77,26 @@ class BottomBar extends Component {
    * @memberof BottomBar
    */
   componentDidMount(): void {
-    const {totalWidth, playbackControlsWidth} = this.calculateControlsSize([...this.props.rightControls, ...this.props.leftControls]);
-    this.minBreakPointWidth = totalWidth;
-    this.playbackControlsWidth = playbackControlsWidth;
-    this.setState({currentMinBreakPointWidth: totalWidth + SPACE_BETWEEN_BARS});
-
-    const resizeObserver = new ResizeObserver(entry => {
-      const newWidth = entry[0].contentRect.width;
-      if (newWidth !== this.currentBarWidth) {
-        // eslint-disable-next-line no-console
-        console.log(`The width of the div changed to ${newWidth}px`);
-        this.currentBarWidth = newWidth;
-        this.reorderControls(newWidth);
-      }
-    });
-    // Start observing the div for changes in its size
-    resizeObserver.observe(this.bottomBarContainerRef.current);
+    this.resizeObserver = new ResizeObserver((entry: ResizeObserverEntry[]) => this.onBarWidthChange(entry));
+    this.resizeObserver.observe(this.bottomBarContainerRef.current);
   }
 
   // eslint-disable-next-line require-jsdoc
-  componentDidUpdate(prevProps): void {
-    if (prevProps.playerSize !== this.props.playerSize)
-      if (this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.SMALL) {
-        this.setState({
-          currentMinBreakPointWidth:
-            this.minBreakPointWidth +
-            SPACE_BETWEEN_BARS -
-            this.playbackControlsWidth -
-            (CONTROL_MARGIN / 2) * ([...this.props.leftControls, ...this.props.rightControls].length - 2),
-          currentControlWidth: CONTROL_WIDTH + CONTROL_MARGIN / 2
-        });
-      } else {
-        this.setState({currentMinBreakPointWidth: this.minBreakPointWidth + SPACE_BETWEEN_BARS, currentControlWidth: CONTROL_WIDTH + CONTROL_MARGIN});
-      }
+  onBarWidthChange(entry: ResizeObserverEntry[]): void {
+    const barWidth = entry[0].contentRect.width;
+    if (barWidth !== this.currentBarWidth) {
+      const activeControls = Object.keys(this.state.activeControls).filter(c => this.state.activeControls[c]);
+      const currentControlWidth = this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.SMALL ? CRL_WIDTH + CRL_MARGIN / 2 : CRL_WIDTH + CRL_MARGIN;
+      const currentMinBreakPointWidth = calculateControlsSize(
+        activeControls,
+        currentControlWidth,
+        this.props.guiClientRect.width,
+        this.props.playlist
+      );
+      const lowerPriorityControls = LOWER_PRIORITY_CONTROLS.filter(c => this.state.activeControls[c[0]]);
+      this.currentBarWidth = barWidth;
+      this.filterControls(barWidth, currentMinBreakPointWidth, currentControlWidth, lowerPriorityControls);
+    }
   }
 
   onToggleControl = (controlName, isActive): void => {
@@ -127,69 +106,16 @@ class BottomBar extends Component {
   };
 
   // eslint-disable-next-line require-jsdoc
-  reorderControls(currentBarWidth): void {
-    const isBreak = this.state.currentMinBreakPointWidth >= currentBarWidth;
+  filterControls(currentBarWidth: number, currentMinBreakPointWidth: number, currentControlWidth: number, lowerPriorityControls: string[]): void {
+    const isBreak = currentMinBreakPointWidth >= currentBarWidth;
     if (isBreak) {
-      const controlsToRemove = this.filterControlsByPriority(this.state.currentMinBreakPointWidth, currentBarWidth);
+      const controlsToRemove = filterControlsByPriority(currentMinBreakPointWidth, currentBarWidth, currentControlWidth, lowerPriorityControls);
       const removedControls = {};
       controlsToRemove.forEach(control => (removedControls[control] = false));
       this.setState({fitInControls: {...this.presetControls, ...removedControls}});
     } else {
       this.setState({fitInControls: {...this.presetControls}});
     }
-  }
-
-  // eslint-disable-next-line require-jsdoc
-  filterControlsByPriority(currentMinBreakPointWidth: number, currentBarWidth: number): number {
-    const lowerPriorityControls = [...LOWER_PRIORITY_CONTROLS];
-    let controlsToRemove = [];
-    let ffff = Object.entries(this.state.activeControls).filter(active => !active[1]);
-    let ggg = Object.entries(this.state.fitInControls).filter(active => !active[1]);
-    // eslint-disable-next-line no-console
-    console.log('###', [...ffff], [...ggg]);
-    // eslint-disable-next-line no-console
-    console.log('###@@@', [...ffff], [...ggg]);
-    let inActive = ffff.length * this.state.currentControlWidth;
-    let newWidth = currentMinBreakPointWidth - inActive;
-    // let newWidth = currentMinBreakPointWidth;
-    let index = 0;
-    while (newWidth >= currentBarWidth && index < lowerPriorityControls.length) {
-      let reducedWidth = 0;
-      lowerPriorityControls[index].forEach((control, subIndex) => {
-        controlsToRemove.push(control);
-        reducedWidth += this.state.currentControlWidth;
-        if (subIndex > 0) {
-          let restoredControl = controlsToRemove[index - subIndex];
-          if (typeof restoredControl === 'string') {
-            reducedWidth -= this.state.currentControlWidth;
-            controlsToRemove.splice(index - subIndex, 1);
-            lowerPriorityControls.splice(index + 1, 0, [restoredControl]);
-          }
-        }
-      });
-      newWidth -= reducedWidth;
-      index++;
-    }
-    return controlsToRemove;
-  }
-
-  // eslint-disable-next-line require-jsdoc
-  calculateControlsSize(controls: strign[]): {totalWidth: number, playbackControlsWidth: number} {
-    let totalWidth = 0;
-    let playbackControlsWidth = CONTROL_TOTAL_WIDTH;
-    let controlWidth = 0;
-    for (let control of controls) {
-      if (control in SPATIAL_CONTROLS) {
-        controlWidth = SPATIAL_CONTROLS[control];
-      } else if (control === 'PlaybackControls' && this.props.playlist) {
-        controlWidth = CONTROL_TOTAL_WIDTH * 3;
-        playbackControlsWidth = controlWidth;
-      } else {
-        controlWidth = CONTROL_TOTAL_WIDTH;
-      }
-      totalWidth += controlWidth;
-    }
-    return {totalWidth, playbackControlsWidth};
   }
 
   /**
