@@ -66,7 +66,7 @@ class PlaybackControls extends Component {
     }
 
     return (
-      <div className={[style.playbackControls, className].join(' ')}>
+      <div className={[style.playbackControls, className].join(' ')} ref={props.cbRef}>
         <PlayerArea name={name} shouldUpdate={shouldUpdate}>
           {props.playlist ? (
             <Fragment>

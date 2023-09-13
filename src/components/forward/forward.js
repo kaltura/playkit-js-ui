@@ -45,6 +45,15 @@ const mapStateToProps = state => ({
 @withText({forwardText: 'controls.forward'})
 class Forward extends Component {
   /**
+   * should render component
+   * @returns {boolean} - whether to render the component
+   */
+  _shouldRender(): boolean {
+    const isActive = !(this.props.isLive && !this.props.isDvr);
+    this.props.onToggle(COMPONENT_NAME, isActive);
+    return isActive;
+  }
+  /**
    * forward click handler
    *
    * @returns {void}
@@ -80,7 +89,7 @@ class Forward extends Component {
    * @memberof Forward
    */
   render(props: any): React$Element<any> | void {
-    return props.isLive && !props.isDvr ? undefined : (
+    return !this._shouldRender() ? undefined : (
       <ButtonControl name={COMPONENT_NAME} className={style.noIdleControl}>
         <Tooltip label={this.props.forwardText}>
           <Button

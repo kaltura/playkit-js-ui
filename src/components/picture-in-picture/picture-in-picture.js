@@ -69,6 +69,16 @@ class PictureInPicture extends Component {
   }
 
   /**
+   * should render component
+   * @returns {boolean} - whether to render the component
+   */
+  _shouldRender(): boolean {
+    const isActive = !!(this.props.isPictureInPictureSupported === undefined || this.props.isPictureInPictureSupported);
+    this.props.onToggle(COMPONENT_NAME, isActive);
+    return isActive;
+  }
+
+  /**
    * toggle pip
    * @returns {void}
    *
@@ -94,7 +104,7 @@ class PictureInPicture extends Component {
    * @memberof PictureInPicture
    */
   render(): React$Element<any> | void {
-    if (this.props.isPictureInPictureSupported && this.props.playerSize !== PLAYER_SIZE.EXTRA_SMALL) {
+    if (this._shouldRender()) {
       return (
         <ButtonControl name={COMPONENT_NAME}>
           <Tooltip label={this.props.isInPictureInPicture ? this.props.pictureInPictureExpandText : this.props.pictureInPictureText}>

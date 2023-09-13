@@ -34,7 +34,7 @@ class TimeDisplayPlaybackContainer extends Component {
    * @memberof TimeDisplayPlaybackContainer
    */
   render(props: any): React$Element<any> {
-    return <TimeDisplay currentTime={props.currentTime} duration={props.duration} {...props} />;
+    return <TimeDisplay currentTime={props.currentTime} duration={props.duration} cbRef={props.cbRef} {...props} />;
   }
 }
 

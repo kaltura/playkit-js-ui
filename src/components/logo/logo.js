@@ -36,7 +36,9 @@ class Logo extends Component {
    * @returns {boolean} - whether to render the component
    */
   _shouldRender(): boolean {
-    return !(Object.keys(this.props.config).length === 0 && this.props.config.constructor === Object);
+    const isActive = !(Object.keys(this.props.config).length === 0 && this.props.config.constructor === Object) && this.props.config.img;
+    this.props.onToggle(COMPONENT_NAME, isActive);
+    return isActive;
   }
 
   /**
@@ -50,19 +52,17 @@ class Logo extends Component {
     if (!this._shouldRender()) {
       return undefined;
     }
-    const invisibleMode = [PLAYER_SIZE.TINY, PLAYER_SIZE.EXTRA_SMALL, PLAYER_SIZE.SMALL].includes(this.props.playerSize);
-    if (props.config.img && !invisibleMode) {
-      return (
-        <div
-          className={[style.controlButtonContainer, !props.config.url ? style.emptyUrl : ''].join(' ')}
-          aria-label={<Text id="controls.logo" />}
-          title={props.config.text}>
-          <a className={style.controlButton} href={props.config.url} target="_blank" rel="noopener noreferrer">
-            <img className={style.icon} src={props.config.img} />
-          </a>
-        </div>
-      );
-    }
+    return (
+      <div
+        ref={this.props.cbRef}
+        className={[style.controlButtonContainer, !props.config.url ? style.emptyUrl : ''].join(' ')}
+        aria-label={<Text id="controls.logo" />}
+        title={props.config.text}>
+        <a className={style.controlButton} href={props.config.url} target="_blank" rel="noopener noreferrer">
+          <img className={style.icon} src={props.config.img} />
+        </a>
+      </div>
+    );
   }
 }
 

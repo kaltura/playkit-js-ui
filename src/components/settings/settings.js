@@ -148,7 +148,15 @@ class Settings extends Component {
     const targetId = document.getElementById(this.props.player.config.targetId) || document;
     const portalSelector = `.overlay-portal`;
     return (
-      <ButtonControl name={COMPONENT_NAME} ref={c => (c ? (this._controlSettingsElement = c) : undefined)}>
+      <ButtonControl
+        name={COMPONENT_NAME}
+        // ref={c => (c ? (this._controlSettingsElement = c) : undefined)}
+        ref={c => {
+          if (c) {
+            if (props.cbRef) props.cbRef.current = c;
+            this._controlSettingsElement = c;
+          }
+        }}>
         <Tooltip label={props.buttonLabel}>
           <Button
             tabIndex="0"

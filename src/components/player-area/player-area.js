@@ -69,13 +69,13 @@ class PlayerArea extends Component {
    * @param {Object} nextState - next state of the component
    * @memberof OverlayAction
    */
-  shouldComponentUpdate(nextProps: Object, nextState: Object): boolean {
-    return (
-      nextProps.shouldUpdate ||
-      this.state.playerAreaComponents !== nextState.playerAreaComponents ||
-      nextProps.activePresetName !== this.props.activePresetName
-    );
-  }
+  // shouldComponentUpdate(nextProps: Object, nextState: Object): boolean {
+  //   return (
+  //     nextProps.shouldUpdate ||
+  //     this.state.playerAreaComponents !== nextState.playerAreaComponents ||
+  //     nextProps.activePresetName !== this.props.activePresetName
+  //   );
+  // }
 
   /**
    * component did update handler

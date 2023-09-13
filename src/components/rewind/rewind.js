@@ -74,6 +74,16 @@ class Rewind extends Component {
   };
 
   /**
+   * should render component
+   * @returns {boolean} - whether to render the component
+   */
+  _shouldRender(): boolean {
+    const isActive = !(this.props.isLive && !this.props.isDvr);
+    this.props.onToggle(COMPONENT_NAME, isActive);
+    return isActive;
+  }
+
+  /**
    * render component
    *
    * @param {*} props - component props
@@ -81,7 +91,7 @@ class Rewind extends Component {
    * @memberof Rewind
    */
   render(props: any): React$Element<any> | void {
-    return props.isLive && !props.isDvr ? undefined : (
+    return !this._shouldRender() ? undefined : (
       <ButtonControl name={COMPONENT_NAME} className={style.noIdleControl}>
         <Tooltip label={this.props.rewindText}>
           <Button

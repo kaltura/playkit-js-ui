@@ -126,6 +126,16 @@ class Volume extends Component {
   }
 
   /**
+   * should render component
+   * @returns {boolean} - whether to render the component
+   */
+  _shouldRender(): boolean {
+    const isActive = !this.props.player.isImage();
+    this.props.onToggle(COMPONENT_NAME, isActive);
+    return isActive;
+  }
+
+  /**
    * event listener for clicking outside handler.
    *
    * @param {*} e - click event
@@ -428,7 +438,7 @@ class Volume extends Component {
    * @memberof Volume
    */
   render(): ?React$Element<any> {
-    if (this.props.player.isImage()) return undefined;
+    if (!this._shouldRender) return undefined;
     const {player, isDraggingActive, muted, volume, smartContainerOpen} = this.props;
     const controlButtonClasses = [
       // for backward compatibility
@@ -442,7 +452,12 @@ class Volume extends Component {
       <ButtonControl
         role="application"
         name={COMPONENT_NAME}
-        ref={c => (c ? (this._volumeControlElement = c) : undefined)}
+        ref={c => {
+          if (c) {
+            if (this.props.cbRef) this.props.cbRef.current = c;
+            this._volumeControlElement = c;
+          }
+        }}
         className={controlButtonClasses}
         onMouseOver={this.onMouseOver}
         onMouseOut={this.onMouseOut}>
