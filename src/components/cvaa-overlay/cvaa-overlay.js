@@ -91,7 +91,6 @@ class CVAAOverlay extends Component {
   changeCaptionsStyle = (textStyle: Object): void => {
     this.props.updateCaptionsStyle(textStyle);
     this.props.player.textStyle = textStyle;
-    this.props.onClose();
     this.props.notifyClick({
       textStyle: textStyle
     });
@@ -152,6 +151,8 @@ class CVAAOverlay extends Component {
             changeCustomStyle={this.changeCustomStyle}
             getPreviewStyle={this.getPreviewStyle}
             customTextStyle={this.state.customTextStyle}
+            transitionToState={this.transitionToState}
+            cvaaOverlayState={cvaaOverlayState}
           />
         )}
       </Overlay>
