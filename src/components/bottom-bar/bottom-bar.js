@@ -23,9 +23,9 @@ import {
 } from 'components';
 import {withEventManager} from 'event';
 import {withPlayer} from '../player';
-const LEFT_CONTROLS = ['PlaybackControls', 'Rewind', 'Forward', 'LiveTag', 'TimeDisplayPlaybackContainer'];
-const RIGHT_CONTROLS = ['Cast', 'ClosedCaptions', 'Fullscreen', 'Logo', 'PictureInPicture', 'Settings', 'Volume', 'VrStereo'];
-const CONTROLS = [...LEFT_CONTROLS, ...RIGHT_CONTROLS];
+// const LEFT_CONTROLS = ['PlaybackControls', 'Rewind', 'Forward', 'LiveTag', 'TimeDisplayPlaybackContainer'];
+// const RIGHT_CONTROLS = ['Cast', 'ClosedCaptions', 'Fullscreen', 'Logo', 'PictureInPicture', 'Settings', 'Volume', 'VrStereo'];
+// const CONTROLS = [...LEFT_CONTROLS, ...RIGHT_CONTROLS];
 const SPACE_BETWEEN_BARS = 16;
 const LOWER_PRIORITY_CONTROLS = [['VrStereo'], ['Rewind', 'Forward'], ['ClosedCaptions'], ['PictureInPicture'], ['Cast']];
 const CONTROL_WIDTH = 32;
@@ -72,6 +72,7 @@ class BottomBar extends Component {
     [...props.leftControls, ...props.rightControls].forEach(controlName => (this.presetControls[controlName] = true));
     this.state = {
       currentMinBreakPointWidth: Infinity,
+      currentControlWidth: CONTROL_WIDTH + CONTROL_MARGIN,
       fitInControls: this.presetControls,
       activeControls: this.presetControls
     };
@@ -111,10 +112,11 @@ class BottomBar extends Component {
             this.minBreakPointWidth +
             SPACE_BETWEEN_BARS -
             this.playbackControlsWidth -
-            (CONTROL_MARGIN / 2) * ([...this.props.leftControls, ...this.props.rightControls].length - 2)
+            (CONTROL_MARGIN / 2) * ([...this.props.leftControls, ...this.props.rightControls].length - 2),
+          currentControlWidth: CONTROL_WIDTH + CONTROL_MARGIN / 2
         });
       } else {
-        this.setState({currentMinBreakPointWidth: this.minBreakPointWidth + SPACE_BETWEEN_BARS});
+        this.setState({currentMinBreakPointWidth: this.minBreakPointWidth + SPACE_BETWEEN_BARS, currentControlWidth: CONTROL_WIDTH + CONTROL_MARGIN});
       }
   }
 
@@ -145,17 +147,21 @@ class BottomBar extends Component {
     let ggg = Object.entries(this.state.fitInControls).filter(active => !active[1]);
     // eslint-disable-next-line no-console
     console.log('###', [...ffff], [...ggg]);
-    let newWidth = currentMinBreakPointWidth;
+    // eslint-disable-next-line no-console
+    console.log('###@@@', [...ffff], [...ggg]);
+    let inActive = ffff.length * this.state.currentControlWidth;
+    let newWidth = currentMinBreakPointWidth - inActive;
+    // let newWidth = currentMinBreakPointWidth;
     let index = 0;
     while (newWidth >= currentBarWidth && index < lowerPriorityControls.length) {
       let reducedWidth = 0;
       lowerPriorityControls[index].forEach((control, subIndex) => {
         controlsToRemove.push(control);
-        reducedWidth += CONTROL_TOTAL_WIDTH;
+        reducedWidth += this.state.currentControlWidth;
         if (subIndex > 0) {
           let restoredControl = controlsToRemove[index - subIndex];
           if (typeof restoredControl === 'string') {
-            reducedWidth -= CONTROL_TOTAL_WIDTH;
+            reducedWidth -= this.state.currentControlWidth;
             controlsToRemove.splice(index - subIndex, 1);
             lowerPriorityControls.splice(index + 1, 0, [restoredControl]);
           }
