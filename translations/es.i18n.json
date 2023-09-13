@@ -22,7 +22,9 @@
       "pictureInPictureExit": "Salir de imagen en imagen",
       "pictureInPictureExpand": "Expandir",
       "logo": "Logotipo",
-      "seekBarSlider": "Buscar control deslizante"
+      "seekBarSlider": "Buscar control deslizante",
+      "readLess": "Menos",
+      "readMore": "Más"
     },
     "unmute": {
       "unmute": "Dejar de silenciar"

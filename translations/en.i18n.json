@@ -22,7 +22,9 @@
       "pictureInPictureExit": "Exit picture in picture",
       "pictureInPictureExpand": "Expand",
       "logo": "Logo",
-      "seekBarSlider": "Seek slider"
+      "seekBarSlider": "Seek slider",
+      "readLess": "Less",
+      "readMore": "More"
     },
     "unmute": {
       "unmute": "Unmute"
