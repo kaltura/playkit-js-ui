@@ -81,7 +81,6 @@ class Cast extends Component {
       const className = props.isCasting ? `${style.castButton} ${style.castButtonActive}` : style.castButton;
       return (
         <div
-          style={{background: 'yellow'}}
           role="button"
           aria-label={this.props.castText}
           className={style.controlButtonContainer}

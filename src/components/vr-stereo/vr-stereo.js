@@ -92,7 +92,7 @@ class VrStereo extends Component {
    */
   render(): React$Element<any> | void {
     return !this._shouldRender() ? undefined : (
-      <ButtonControl ref={this.props.cbRef} name={COMPONENT_NAME}>
+      <ButtonControl name={COMPONENT_NAME}>
         <Tooltip label={this.props.vrStereoText}>
           <Button
             tabIndex="0"

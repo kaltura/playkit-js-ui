@@ -5,22 +5,7 @@ import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
 import {connect} from 'react-redux';
 import {PlayerArea} from 'components/player-area';
-import {
-  Cast,
-  ClosedCaptions,
-  Forward,
-  Fullscreen,
-  LiveTag,
-  Logo,
-  PictureInPicture,
-  PlaybackControls,
-  PLAYER_BREAK_POINTS,
-  Rewind,
-  Settings,
-  TimeDisplayPlaybackContainer,
-  Volume,
-  VrStereo
-} from 'components';
+import {PLAYER_BREAK_POINTS} from 'components';
 import {withEventManager} from 'event';
 import {withPlayer} from '../player';
 import {calculateControlsSize, filterControlsByPriority} from './bettom-bar-utils';
@@ -36,7 +21,6 @@ const CRL_MARGIN = 12;
  */
 const mapStateToProps = state => ({
   isCasting: state.engine.isCasting,
-  isMobile: state.shell.isMobile,
   isPlaybackEnded: state.engine.isPlaybackEnded,
   guiClientRect: state.shell.guiClientRect,
   playerSize: state.shell.playerSize,
@@ -66,7 +50,10 @@ class BottomBar extends Component {
   // eslint-disable-next-line require-jsdoc
   constructor(props) {
     super();
-    props.leftControls.concat(props.rightControls).forEach(controlName => (this.presetControls[controlName] = true));
+    props.leftControls
+      .concat(props.rightControls)
+      .map(control => control.displayName)
+      .forEach(controlName => (this.presetControls[controlName] = true));
     this.state = {fitInControls: this.presetControls, activeControls: this.presetControls};
   }
 
@@ -131,48 +118,29 @@ class BottomBar extends Component {
     if (props.isCasting && props.isPlaybackEnded) {
       styleClass.push(style.hide);
     }
-    // Left Controls
-    const showPlaybackControls = this.presetControls[PlaybackControls.displayName] && this.state.fitInControls.PlaybackControls;
-    const showRewind = this.presetControls[Rewind.displayName] && this.state.fitInControls.Rewind;
-    const showForward = this.presetControls[Forward.displayName] && this.state.fitInControls.Forward;
-    const showLiveTag = this.presetControls[LiveTag.displayName] && this.state.fitInControls.LiveTag;
-    const showTimeDisplay = this.presetControls[TimeDisplayPlaybackContainer.displayName] && this.state.fitInControls.TimeDisplayPlaybackContainer;
-
-    // Right Controls
-    const showVrStereo = this.presetControls[VrStereo.displayName] && this.state.fitInControls.VrStereo;
-    const showVolume = this.presetControls[Volume.displayName] && this.state.fitInControls.Volume;
-    const showClosedCaptions = this.presetControls[ClosedCaptions.displayName] && this.state.fitInControls.ClosedCaptions;
-    const showSettings = this.presetControls[Settings.displayName] && this.state.fitInControls.Settings;
-    const showCast = this.presetControls[Cast.displayName] && this.state.fitInControls.Cast;
-    const showPIP = this.presetControls[PictureInPicture.displayName] && this.state.fitInControls.PictureInPicture;
-    const showFullscreen = this.presetControls[Fullscreen.displayName] && this.state.fitInControls.Fullscreen;
-    const showLogo = this.presetControls[Logo.displayName] && this.state.fitInControls.Logo;
 
     return (
       <div className={styleClass.join(' ')}>
         <div className={style.bottomBarArea}>
           <PlayerArea name={'BottomBar'}>{props.children}</PlayerArea>
         </div>
-        <div ref={this.bottomBarContainerRef} style={{display: 'flex', justifyContent: 'space-between', overflow: 'hidden'}}>
+        <div ref={this.bottomBarContainerRef} className={style.controlsContainer}>
           <div className={style.leftControls}>
             {/*<PlayerArea name={'BottomBarLeftControls'}>*/}
-            {showPlaybackControls && <PlaybackControls name={'BottomBarPlaybackControls'} showPreview={true} />}
-            {showRewind && <Rewind onToggle={this.onToggleControl} />}
-            {showForward && <Forward onToggle={this.onToggleControl} />}
-            {showTimeDisplay && <TimeDisplayPlaybackContainer onToggle={this.onToggleControl} />}
-            {showLiveTag && <LiveTag onToggle={this.onToggleControl} />}
+            {props.leftControls.map(
+              Control =>
+                this.presetControls[Control.displayName] &&
+                this.state.fitInControls[Control.displayName] && <Control key={Control.displayName} onToggle={this.onToggleControl} />
+            )}
             {/*</PlayerArea>*/}
           </div>
           <div className={style.rightControls}>
             {/*<PlayerArea name={'BottomBarRightControls'}>*/}
-            {showVrStereo && <VrStereo onToggle={this.onToggleControl} />}
-            {showVolume && <Volume onToggle={this.onToggleControl} />}
-            {showClosedCaptions && <ClosedCaptions onToggle={this.onToggleControl} />}
-            {showSettings && <Settings onToggle={this.onToggleControl} />}
-            {showCast && <Cast onToggle={this.onToggleControl} />}
-            {showPIP && <PictureInPicture onToggle={this.onToggleControl} />}
-            {showFullscreen && <Fullscreen onToggle={this.onToggleControl} />}
-            {showLogo && <Logo onToggle={this.onToggleControl} />}
+            {props.rightControls.map(
+              Control =>
+                this.presetControls[Control.displayName] &&
+                this.state.fitInControls[Control.displayName] && <Control key={Control.displayName} onToggle={this.onToggleControl} />
+            )}
             {/*</PlayerArea>*/}
           </div>
         </div>

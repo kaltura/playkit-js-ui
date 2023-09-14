@@ -452,12 +452,7 @@ class Volume extends Component {
       <ButtonControl
         role="application"
         name={COMPONENT_NAME}
-        ref={c => {
-          if (c) {
-            if (this.props.cbRef) this.props.cbRef.current = c;
-            this._volumeControlElement = c;
-          }
-        }}
+        ref={c => (c ? (this._volumeControlElement = c) : undefined)}
         className={controlButtonClasses}
         onMouseOver={this.onMouseOver}
         onMouseOut={this.onMouseOut}>

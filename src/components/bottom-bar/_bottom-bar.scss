@@ -21,27 +21,33 @@
     display: none;
   }
 
-  .left-controls {
-    //float: left;
-    text-align: left;
-    pointer-events: none;
-
-    .control-button-container:first-child {
-      margin-left: 0px;
-    }
-  }
   .bottom-bar-area {
     position: relative;
     pointer-events: none;
-    width: 100% ;
+    width: 100%;
   }
-  .right-controls {
-    //float: right;
-    text-align: left;
-    pointer-events: none;
 
-    .control-button-container:last-child {
-      margin-right: 0px;
+  .controls-container {
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+
+    .left-controls {
+      text-align: left;
+      pointer-events: none;
+
+      .control-button-container:first-child {
+        margin-left: 0px;
+      }
+    }
+
+    .right-controls {
+      text-align: left;
+      pointer-events: none;
+
+      .control-button-container:last-child {
+        margin-right: 0px;
+      }
     }
   }
 
@@ -90,9 +96,6 @@
       padding: 0 #{$gui-gutter}px #{$bottom-bar-bottom-gutter}px;
       max-height: #{$bottom-bar-max-height}px;
       transition: #{$hover-animation-time}ms max-height ease-in-out, #{$hover-animation-time}ms visibility ease-in-out;
-      //&.line-break {
-      //  max-height: 92px;
-      //}
     }
   }
 }
@@ -117,142 +120,3 @@
     }
   }
 }
-
-
-/**
- * when component did update
- *
- * @returns {void}
- * @memberof BottomBar
- */
-//componentDidUpdate(): void {
-// if (!this.FINISH) {
-//   if (
-//     [...this.props.leftControls, ...this.props.rightControls].every(controlName => {
-//       const controlEl = this.controls[controlName].ref.current;
-//       return controlEl?.clientWidth || controlEl?.getBoundingClientRect().width > 0;
-//     })
-//   ) {
-//     this.rightControlsTotalWidth = this.extracted(this.props.rightControls);
-//     this.leftControlsTotalWidth = this.extracted(this.props.leftControls);
-//     this.FINISH = true;
-//   }
-// }
-//}
-
-//{/*<div*/}
-//{/*  style={{*/}
-//{/*    width: '60px',*/}
-//{/*    height: '32px',*/}
-//{/*    background: 'blue',*/}
-//{/*    color: 'white',*/}
-//{/*    display: 'inline-block',*/}
-//{/*    fontSize: '15px'*/}
-//{/*  }}>{`state: ${this.state.totalBarWidth}`}</div>*/}
-//{/*</PlayerArea>*/}
-
-// eslint-disable-next-line no-console
-//console.log('111', {bulbul: this.state.bulbul}, showSettings, Settings.displayName, this.controls[Settings.displayName].isInPreset, this.state.controls.Settings);
-//console.log('stateeee', JSON.parse(JSON.stringify(this.state)));
-
-
-//const totalBarWidth = this._ref.current?.clientWidth;
-//// eslint-disable-next-line no-console
-//// console.log(this._ref, 'bottom-bar', totalBarWidth);
-//// let isbreak2 = this.containerMinWidthRequired > totalBarWidth;
-//if (this._ref.current?.clientWidth && this.state.totalBarWidth !== totalBarWidth) {
-//this.setState({totalBarWidth});
-//  const isbreak = this.containerMinWidthRequired > totalBarWidth;
-//// isbreak2 = isbreak;
-//
-//// eslint-disable-next-line no-console
-//console.log('break', isbreak);
-//  if (isbreak) {
-//this.setState({
-//  fitInControls: {
-//    ...this.state.fitInControls,
-//    Settings: false
-//  }
-//});
-//// console.log('sssssssss');
-//} else {
-//    this.setState({
-//    fitInControls: {
-//      ...this.state.fitInControls,
-//      Settings: true
-//    }
-//  });
-//  }
-//}
-
-// eslint-disable-next-line no-console
-// console.log('sssss', isbreak2, this.state.totalBarWidth, this.rightControlsTotalWidth + this.leftControlsTotalWidth + SPACE_BETWEEN_BARS,this.rightControlsTotalWidth, this.leftControlsTotalWidth);
-
-// eslint-disable-next-line no-console
-// console.log('121212121212', currentBarWidth, JSON.parse(JSON.stringify(controlsToRemove)));
-
-// eslint-disable-next-line no-console
-// console.log('!!!!', this.controlsRefs['PlaybackControls'].current);
-
-// eslint-disable-next-line no-console
-// console.log('#### ' + control, totalControlWidth);
-
-
-//if (this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.SMALL || this.props.isMobile) {
-//this.setState((state, props) => {
-//return {minBreakPointBarWidth: state.minBreakPointBarWidth - this.controlsSize[PlaybackControls.displayNam]};
-//});
-//} else {
-//    this.setState((state, props) => {
-//    return {minBreakPointBarWidth: state.minBreakPointBarWidth - this.controlsSize[PlaybackControls.displayNam]};
-//  });
-//  }
-
-//calculateControlsSize(
-//controls: strign[],
-//controlsRefs: RefObject<HTMLDivElement>[]
-//): {totalWidth: number, controlsSize: {[controlName: string]: number}} {
-//  let totalWidth = 0;
-//  const controlsSize: {[controlName: string]: number} = {};
-//  for (let control of controls) {
-//  const controlEl = controlsRefs[control].current;
-//  let totalMargingWidth;
-//  let controlWidth = controlEl?.clientWidth > 0 ? controlEl?.clientWidth : controlEl?.getBoundingClientRect().width;
-//  if (controlEl) {
-//  const computedStyle = getComputedStyle(controlEl);
-//  totalMargingWidth = parseInt(computedStyle.marginLeft) + parseInt(computedStyle.marginRight);
-//  totalWidth += controlWidth + totalMargingWidth;
-//}
-//  const totalControlWidth = controlWidth + totalMargingWidth;
-//controlsSize[control] = totalControlWidth;
-//}
-//return {totalWidth, controlsSize};
-//}
-//filterControlsByPriority(currentMinBreakPointWidth: number, currentBarWidth: number, controlsSize: {[controlName: string]: number}): number {
-//                                                                                                                                     const lowerPriorityControls = [...LOWER_PRIORITY_CONTROLS];
-//                                                                                                                                     let controlsToRemove = [];
-//                                                                                                                                     let newWidth = currentMinBreakPointWidth;
-//                                                                                                                                     let index = 0;
-//                                                                                                                                     while (newWidth > currentBarWidth && index < lowerPriorityControls.length) {
-//                                                                                                                                     let reducedWidth = 0;
-//                                                                                                                                     lowerPriorityControls[index].forEach((control, subIndex) => {
-//                                                                                                                                     controlsToRemove.push(control);
-//                                                                                                                                     reducedWidth += controlsSize[control];
-//                                                                                                                                     if (subIndex > 0) {
-//                                                                                                                                     let restoredControl = controlsToRemove[index - subIndex];
-//                                                                                                                                     if (typeof restoredControl === 'string') {
-//                                                                                                                                     reducedWidth -= controlsSize[restoredControl];
-//                                                                                                                                     controlsToRemove.splice(index - subIndex, 1);
-//                                                                                                                                     lowerPriorityControls.splice(index + 1, 0, [restoredControl]);
-//                                                                                                                                   }
-//                                                                                                                                   }
-//                                                                                                                                   });
-//                                                                                                                                     newWidth -= reducedWidth;
-//                                                                                                                                     index++;
-//                                                                                                                                   }
-//                                                                                                                                     // eslint-disable-next-line no-undef,no-console
-//                                                                                                                                     console.log('111111111', {controlsToRemove}, currentBarWidth, currentMinBreakPointWidth);
-//                                                                                                                                     return controlsToRemove;
-//                                                                                                                                   }
-// eslint-disable-next-line no-undef,no-console
-//console.log('111111111', {controlsToRemove}, currentBarWidth, currentMinBreakPointWidth);

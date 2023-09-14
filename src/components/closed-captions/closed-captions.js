@@ -45,11 +45,6 @@ const ClosedCaptions = connect(mapStateToProps)(
           setCCOn(activeTextTrack?.language !== 'off');
         }, [activeTextTrack]);
 
-        useEffect(() => {
-          // eslint-disable-next-line no-console
-          console.log('####', props.textTracks.length, props.textTracks);
-        }, [props.textTracks.length]);
-
         const shouldRender = !!(props.textTracks?.length && props.showCCButton);
         props.onToggle(COMPONENT_NAME, shouldRender);
         if (!shouldRender) return undefined;

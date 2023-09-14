@@ -3,7 +3,6 @@ import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'react-redux';
 import {Text} from 'preact-i18n';
-import {PLAYER_SIZE} from '../shell/shell';
 import {withPlayer} from '../player';
 import {withLogger} from 'components/logger';
 
@@ -54,7 +53,6 @@ class Logo extends Component {
     }
     return (
       <div
-        ref={this.props.cbRef}
         className={[style.controlButtonContainer, !props.config.url ? style.emptyUrl : ''].join(' ')}
         aria-label={<Text id="controls.logo" />}
         title={props.config.text}>

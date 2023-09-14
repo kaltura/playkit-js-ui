@@ -53,7 +53,6 @@ class PlaybackUI extends Component {
   componentDidMount(): void {
     const props = this.props;
     props.updateIsKeyboardEnabled(true);
-    this.setState({change: true});
   }
 
   /**
@@ -88,8 +87,8 @@ class PlaybackUI extends Component {
                     <PlaylistCountdown />
                   </InteractiveArea>
                   <BottomBar
-                    leftControls={['PlaybackControls', 'Rewind', 'Forward', 'TimeDisplayPlaybackContainer']}
-                    rightControls={['VrStereo', 'Volume', 'ClosedCaptions', 'Settings', 'Cast', 'PictureInPicture', 'Fullscreen', 'Logo']}>
+                    leftControls={[PlaybackControls, Rewind, Forward, TimeDisplayPlaybackContainer]}
+                    rightControls={[VrStereo, Volume, ClosedCaptions, Settings, Cast, PictureInPicture, Fullscreen, Logo]}>
                     <SeekBarPlaybackContainer showFramePreview showTimeBubble playerContainer={containerRef} />
                   </BottomBar>
                 </Fragment>
