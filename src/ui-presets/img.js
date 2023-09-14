@@ -68,16 +68,7 @@ class ImgUI extends Component {
                   <InteractiveArea>
                     <Watermark />
                   </InteractiveArea>
-                  <BottomBar
-                    rightControls={
-                      <Fragment>
-                        <VrStereo />
-                        <Cast />
-                        <Fullscreen />
-                        <Logo />
-                      </Fragment>
-                    }
-                  />
+                  <BottomBar rightControls={[VrStereo, Cast, Fullscreen, Logo]} leftControls={[]} />
                 </Fragment>
               )}
             </GuiArea>
