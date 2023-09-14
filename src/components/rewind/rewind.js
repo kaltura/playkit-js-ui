@@ -90,17 +90,12 @@ class Rewind extends Component {
    * @returns {React$Element} - component element
    * @memberof Rewind
    */
-  render(props: any): React$Element<any> | void {
+  render({step, rewindText, innerRef}: any): React$Element<any> | void {
     return !this._shouldRender() ? undefined : (
       <ButtonControl name={COMPONENT_NAME} className={style.noIdleControl}>
-        <Tooltip label={this.props.rewindText}>
-          <Button
-            tabIndex="0"
-            aria-label={this.props.rewindText}
-            className={`${style.controlButton}`}
-            ref={this.props.innerRef}
-            onClick={this.onClick}>
-            <Icon type={!props.step || props.step === REWIND_DEFAULT_STEP ? IconType.Rewind10 : IconType.Rewind} />
+        <Tooltip label={rewindText}>
+          <Button tabIndex="0" aria-label={rewindText} className={`${style.controlButton}`} ref={innerRef} onClick={this.onClick}>
+            <Icon type={!step || step === REWIND_DEFAULT_STEP ? IconType.Rewind10 : IconType.Rewind} />
           </Button>
         </Tooltip>
       </ButtonControl>

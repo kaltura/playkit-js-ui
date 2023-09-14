@@ -28,7 +28,7 @@ class TimeDisplay extends Component {
    * @memberof TimeDisplay
    */
   getTimeDisplay(currentTime: number, duration: number, format?: string): string {
-    let result = format ? format : 'current / total',
+    let result = format,
       current = toHHMMSS(currentTime),
       total = toHHMMSS(duration),
       left = toHHMMSS(duration - currentTime);
@@ -48,10 +48,10 @@ class TimeDisplay extends Component {
    * @returns {React$Element} - component
    * @memberof TimeDisplay
    */
-  render(props: any): React$Element<any> {
+  render({currentTime, duration, format = 'current / total'}: any): React$Element<any> {
     return (
-      <div ref={props.cbRef} className={style.timeDisplay}>
-        <span>{this.getTimeDisplay(props.currentTime, props.duration, props.format)}</span>
+      <div className={style.timeDisplay}>
+        <span>{this.getTimeDisplay(currentTime, duration, format)}</span>
       </div>
     );
   }

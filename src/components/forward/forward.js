@@ -88,17 +88,12 @@ class Forward extends Component {
    * @returns {React$Element} - component element
    * @memberof Forward
    */
-  render(props: any): React$Element<any> | void {
+  render({step, forwardText, innerRef}: any): React$Element<any> | void {
     return !this._shouldRender() ? undefined : (
       <ButtonControl name={COMPONENT_NAME} className={style.noIdleControl}>
-        <Tooltip label={this.props.forwardText}>
-          <Button
-            tabIndex="0"
-            aria-label={this.props.forwardText}
-            className={`${style.controlButton}`}
-            ref={this.props.innerRef}
-            onClick={this.onClick}>
-            <Icon type={!props.step || props.step === FORWARD_DEFAULT_STEP ? IconType.Forward10 : IconType.Forward} />
+        <Tooltip label={forwardText}>
+          <Button tabIndex="0" aria-label={forwardText} className={`${style.controlButton}`} ref={innerRef} onClick={this.onClick}>
+            <Icon type={!step || step === FORWARD_DEFAULT_STEP ? IconType.Forward10 : IconType.Forward} />
           </Button>
         </Tooltip>
       </ButtonControl>

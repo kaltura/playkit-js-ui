@@ -82,20 +82,20 @@ class BottomBar extends Component {
   }
 
   // eslint-disable-next-line require-jsdoc
+  componentWillUnmount(): void {
+    this.resizeObserver.disconnect();
+  }
+
+  // eslint-disable-next-line require-jsdoc
   onBarWidthChange(entry: ResizeObserverEntry[]): void {
     const barWidth = entry[0].contentRect.width;
     if (barWidth !== this.currentBarWidth) {
       const activeControls = Object.keys(this.state.activeControls).filter(c => this.state.activeControls[c]);
-      const currentControlWidth = this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.SMALL ? CRL_WIDTH + CRL_MARGIN / 2 : CRL_WIDTH + CRL_MARGIN;
-      const currentMinBreakPointWidth = calculateControlsSize(
-        activeControls,
-        currentControlWidth,
-        this.props.guiClientRect.width,
-        this.props.playlist
-      );
+      const currCrlWidth = this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.SMALL ? CRL_WIDTH + CRL_MARGIN / 2 : CRL_WIDTH + CRL_MARGIN;
+      const currentMinBreakPointWidth = calculateControlsSize(activeControls, currCrlWidth, this.props.guiClientRect.width, this.props.playlist);
       const lowerPriorityControls = LOWER_PRIORITY_CONTROLS.filter(c => this.state.activeControls[c[0]]);
       this.currentBarWidth = barWidth;
-      this.filterControls(barWidth, currentMinBreakPointWidth, currentControlWidth, lowerPriorityControls);
+      this.filterControls(barWidth, currentMinBreakPointWidth, currCrlWidth, lowerPriorityControls);
     }
   }
 
@@ -107,6 +107,7 @@ class BottomBar extends Component {
 
   // eslint-disable-next-line require-jsdoc
   filterControls(currentBarWidth: number, currentMinBreakPointWidth: number, currentControlWidth: number, lowerPriorityControls: string[]): void {
+    // move up
     const isBreak = currentMinBreakPointWidth >= currentBarWidth;
     if (isBreak) {
       const controlsToRemove = filterControlsByPriority(currentMinBreakPointWidth, currentBarWidth, currentControlWidth, lowerPriorityControls);
@@ -156,9 +157,9 @@ class BottomBar extends Component {
           <div className={style.leftControls}>
             {/*<PlayerArea name={'BottomBarLeftControls'}>*/}
             {showPlaybackControls && <PlaybackControls name={'BottomBarPlaybackControls'} showPreview={true} />}
-            {showRewind && <Rewind step={10} onToggle={this.onToggleControl} />}
-            {showForward && <Forward step={10} onToggle={this.onToggleControl} />}
-            {showTimeDisplay && <TimeDisplayPlaybackContainer format="current / total" onToggle={this.onToggleControl} />}
+            {showRewind && <Rewind onToggle={this.onToggleControl} />}
+            {showForward && <Forward onToggle={this.onToggleControl} />}
+            {showTimeDisplay && <TimeDisplayPlaybackContainer onToggle={this.onToggleControl} />}
             {showLiveTag && <LiveTag onToggle={this.onToggleControl} />}
             {/*</PlayerArea>*/}
           </div>
