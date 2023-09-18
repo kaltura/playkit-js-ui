@@ -10,7 +10,7 @@ import {withEventManager} from 'event';
 import {withPlayer} from '../player';
 import {calculateControlsSize, filterControlsByPriority} from './bettom-bar-utils';
 
-const LOWER_PRIORITY_CONTROLS = [['VrStereo'], ['Rewind', 'Forward'], ['ClosedCaptions'], ['PictureInPicture'], ['Cast']];
+const LOWER_PRIORITY_CONTROLS: string[][] = [['VrStereo'], ['Rewind', 'Forward'], ['ClosedCaptions'], ['PictureInPicture'], ['Cast']];
 const CRL_WIDTH = 32;
 const CRL_MARGIN = 12;
 
@@ -48,7 +48,7 @@ class BottomBar extends Component {
   resizeObserver: ResizeObserver;
 
   // eslint-disable-next-line require-jsdoc
-  constructor(props) {
+  constructor(props: any) {
     super();
     props.leftControls
       .concat(props.rightControls)
@@ -86,14 +86,14 @@ class BottomBar extends Component {
     }
   }
 
-  onToggleControl = (controlName, isActive): void => {
+  onToggleControl = (controlName: string, isActive: boolean): void => {
     if (controlName in this.state.activeControls && this.state.activeControls[controlName] !== isActive) {
       this.setState(state => ({activeControls: {...state.activeControls, ...{[controlName]: isActive}}}));
     }
   };
 
   // eslint-disable-next-line require-jsdoc
-  filterControls(currentBarWidth: number, currentMinBreakPointWidth: number, currentControlWidth: number, lowerPriorityControls: string[]): void {
+  filterControls(currentBarWidth: number, currentMinBreakPointWidth: number, currentControlWidth: number, lowerPriorityControls: string[][]): void {
     // move up
     const isBreak = currentMinBreakPointWidth >= currentBarWidth;
     if (isBreak) {

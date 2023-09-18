@@ -28,7 +28,7 @@ class TimeDisplay extends Component {
    * @memberof TimeDisplay
    */
   getTimeDisplay(currentTime: number, duration: number, format?: string): string {
-    let result = format,
+    let result = format ? format : 'current / total',
       current = toHHMMSS(currentTime),
       total = toHHMMSS(duration),
       left = toHHMMSS(duration - currentTime);
