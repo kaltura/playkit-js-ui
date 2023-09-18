@@ -122,26 +122,28 @@ class BottomBar extends Component {
     return (
       <div className={styleClass.join(' ')}>
         <div className={style.bottomBarArea}>
-          <PlayerArea name={'BottomBar'}>{props.children}</PlayerArea>
+          <PlayerArea shouldUpdate={true} name={'BottomBar'}>
+            {props.children}
+          </PlayerArea>
         </div>
         <div ref={this.bottomBarContainerRef} className={style.controlsContainer}>
           <div className={style.leftControls}>
-            {/*<PlayerArea name={'BottomBarLeftControls'}>*/}
-            {props.leftControls.map(
-              Control =>
-                this.presetControls[Control.displayName] &&
-                this.state.fitInControls[Control.displayName] && <Control key={Control.displayName} onToggle={this.onToggleControl} />
-            )}
-            {/*</PlayerArea>*/}
+            <PlayerArea shouldUpdate={true} name={'BottomBarLeftControls'}>
+              {props.leftControls.map(
+                Control =>
+                  this.presetControls[Control.displayName] &&
+                  this.state.fitInControls[Control.displayName] && <Control key={Control.displayName} onToggle={this.onToggleControl} />
+              )}
+            </PlayerArea>
           </div>
           <div className={style.rightControls}>
-            {/*<PlayerArea name={'BottomBarRightControls'}>*/}
-            {props.rightControls.map(
-              Control =>
-                this.presetControls[Control.displayName] &&
-                this.state.fitInControls[Control.displayName] && <Control key={Control.displayName} onToggle={this.onToggleControl} />
-            )}
-            {/*</PlayerArea>*/}
+            <PlayerArea shouldUpdate={true} name={'BottomBarRightControls'}>
+              {props.rightControls.map(
+                Control =>
+                  this.presetControls[Control.displayName] &&
+                  this.state.fitInControls[Control.displayName] && <Control key={Control.displayName} onToggle={this.onToggleControl} />
+              )}
+            </PlayerArea>
           </div>
         </div>
       </div>

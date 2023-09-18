@@ -1,6 +1,4 @@
 .player .bottom-bar {
-  display: flex;
-  flex-direction: column;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
   color: #fff;
   visibility: hidden;
@@ -21,18 +19,11 @@
     display: none;
   }
 
-  .bottom-bar-area {
-    position: relative;
-    pointer-events: none;
-    width: 100%;
-  }
-
   .controls-container {
-    display: flex;
-    justify-content: space-between;
-    overflow: hidden;
+    width: 100%;
 
     .left-controls {
+      float: left;
       text-align: left;
       pointer-events: none;
 
@@ -42,6 +33,7 @@
     }
 
     .right-controls {
+      float: right;
       text-align: left;
       pointer-events: none;
 
@@ -51,6 +43,11 @@
     }
   }
 
+  .bottom-bar-area {
+    position: relative;
+    pointer-events: none;
+  }
+
   .control-button-container {
     margin: 0 6px;
   }
@@ -58,15 +55,12 @@
 
 .player {
   &.size-ty {
-    .bottom-bar {
-      flex-direction: row;
-      .left-controls {
-        display: none;
-      }
-      .control-button-container {
-        display: none;
-        margin: 0;
-      }
+    .left-controls {
+      display: none;
+    }
+    .control-button-container {
+      display: none;
+      margin: 0;
     }
   }
   &.size-xs {
@@ -100,13 +94,18 @@
   }
 }
 
+.player {
+  &.size-sm,
+  &.size-xs {
+    .playback-controls + .time-display {
+      padding-left: 0;
+    }
+  }
+}
+
 .player.size-sm {
   .bottom-bar {
     padding: 0 #{$gui-small-gutter}px #{$bottom-bar-bottom-gutter}px;
-
-    .time-display {
-      padding-left: 0;
-    }
   }
 }
 .player {
