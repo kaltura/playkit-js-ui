@@ -36,6 +36,15 @@ const COMPONENT_NAME = 'Cast';
 @withText({castText: 'cast.play_on_tv'})
 class Cast extends Component {
   /**
+   * should render component
+   * @returns {boolean} - whether to render the component
+   */
+  _shouldRender(): boolean {
+    const isActive = this.props.isCasting || this.props.isCastAvailable;
+    this.props.onToggle(COMPONENT_NAME, isActive);
+    return isActive;
+  }
+  /**
    * On click, mark the player which initiated the cast
    * @memberof Cast
    * @returns {void}
@@ -68,7 +77,7 @@ class Cast extends Component {
    * @memberof Cast
    */
   render(props: any): ?React$Element<any> {
-    if (props.isCasting || props.isCastAvailable) {
+    if (this._shouldRender()) {
       const className = props.isCasting ? `${style.castButton} ${style.castButtonActive}` : style.castButton;
       return (
         <div

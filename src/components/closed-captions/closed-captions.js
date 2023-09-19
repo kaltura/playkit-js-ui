@@ -45,9 +45,9 @@ const ClosedCaptions = connect(mapStateToProps)(
           setCCOn(activeTextTrack?.language !== 'off');
         }, [activeTextTrack]);
 
-        if (!(props.textTracks?.length && props.showCCButton)) {
-          return undefined;
-        }
+        const shouldRender = !!(props.textTracks?.length && props.showCCButton);
+        props.onToggle(COMPONENT_NAME, shouldRender);
+        if (!shouldRender) return undefined;
         return (
           <ButtonControl name={COMPONENT_NAME}>
             {ccOn ? (
