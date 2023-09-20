@@ -30,6 +30,8 @@ import {EventDispatcherProvider} from 'components/event-dispatcher';
 import {KeyboardEventProvider} from 'components/keyboard/keyboard-event-provider';
 import {ThemesManager} from 'utils/themes-manager';
 
+import {PlayerArea} from 'components/player-area';
+
 /**
  * API used for building UIs based on state conditions
  *
@@ -193,7 +195,9 @@ class UIManager {
                   <KeyboardEventProvider playerContainer={this.container}>
                     <Shell>
                       <EngineConnector />
-                      <VideoPlayer />
+                      <PlayerArea name={'VideoPlayerArea'}>
+                        <VideoPlayer />
+                      </PlayerArea>
                       <PlayerGUI uis={uis} playerContainer={this.container} />
                     </Shell>
                   </KeyboardEventProvider>

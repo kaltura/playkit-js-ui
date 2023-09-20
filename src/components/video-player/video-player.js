@@ -121,4 +121,5 @@ class VideoPlayer extends Component {
   }
 }
 
+VideoPlayer.displayName = 'VideoPlayer';
 export {VideoPlayer};
