@@ -76,7 +76,7 @@ class MainCaptionsWindow extends Component {
   render(props: any): React$Element<any> {
     return (
       <div className={[style.overlayScreen, style.active].join(' ')}>
-        <div className={style.title} id="modal-title">
+        <div className={style.title}>
           <Text id={'cvaa.title'} />
         </div>
         <div>

@@ -11,6 +11,7 @@ import {withEventDispatcher} from 'components/event-dispatcher';
 import {withLogger} from 'components/logger';
 import {MainCaptionsWindow} from 'components/cvaa-overlay/main-captions_window';
 import {CustomCaptionsWindow} from 'components/cvaa-overlay/custom-captions-window';
+import {withText} from 'preact-i18n';
 
 /**
  * mapping state to props
@@ -41,6 +42,7 @@ const COMPONENT_NAME = 'CVAAOverlay';
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
 @withKeyboardA11y
+@withText({cvvaDialogText: 'cvaa.title'})
 class CVAAOverlay extends Component {
   /**
    * componentWillUnmount
@@ -132,7 +134,13 @@ class CVAAOverlay extends Component {
   render(props: any): React$Element<any> {
     props.clearAccessibleChildren();
     return (
-      <Overlay open handleKeyDown={this.props.handleKeyDown} addAccessibleChild={this.props.addAccessibleChild} onClose={props.onClose} type="cvaa">
+      <Overlay
+        open
+        handleKeyDown={this.props.handleKeyDown}
+        addAccessibleChild={this.props.addAccessibleChild}
+        onClose={props.onClose}
+        type="cvaa"
+        label={props.cvvaDialogText}>
         {this.state.activeWindow === cvaaOverlayState.Main ? (
           <MainCaptionsWindow
             cvaaOverlayState={cvaaOverlayState}
