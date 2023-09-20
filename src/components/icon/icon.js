@@ -200,20 +200,20 @@ class Icon extends Component {
    */
   render(props: any): React$Element<any> | void {
     if (this._className) {
-      return <i className={[style.icon, this._className].join(' ')} />;
+      return <i className={[style.icon, this._className].join(' ')} {...(props.hidden ? {'aria-hidden': 'true'} : {})} />;
     } else {
       switch (props.type) {
         case IconType.Maximize:
-          return <i className={[style.icon, style.iconMaximize].join(' ')} />;
+          return <i className={[style.icon, style.iconMaximize].join(' ')} aria-hidden="true" />;
 
         case IconType.Minimize:
-          return <i className={[style.icon, style.iconMinimize].join(' ')} />;
+          return <i className={[style.icon, style.iconMinimize].join(' ')} aria-hidden="true" />;
 
         case IconType.Play:
-          return <i className={[style.icon, style.iconPlay].join(' ')} />;
+          return <i className={[style.icon, style.iconPlay].join(' ')} aria-hidden="true" />;
 
         case IconType.Pause:
-          return <i className={[style.icon, style.iconPause].join(' ')} />;
+          return <i className={[style.icon, style.iconPause].join(' ')} aria-hidden="true" />;
 
         case IconType.VolumeBase:
           return <i className={[style.icon, style.iconVolumeBase].join(' ')} />;
@@ -231,7 +231,7 @@ class Icon extends Component {
           return <i className={[style.icon, style.iconClose].join(' ')} />;
 
         case IconType.Settings:
-          return <i className={[style.icon, style.iconSettings].join(' ')} />;
+          return <i className={[style.icon, style.iconSettings].join(' ')} aria-hidden="true" />;
 
         case IconType.Check:
           return <i className={[style.icon, style.iconCheck].join(' ')} />;
@@ -240,7 +240,7 @@ class Icon extends Component {
           return <i className={[style.icon, style.iconCheckActive].join(' ')} />;
 
         case IconType.Language:
-          return <i className={[style.icon, style.iconLanguage].join(' ')} />;
+          return <i className={[style.icon, style.iconLanguage].join(' ')} aria-hidden="true" />;
 
         case IconType.Quality:
           return <i className={[style.icon, style.iconQuality].join(' ')} />;
@@ -270,16 +270,16 @@ class Icon extends Component {
           return <i className={[style.icon, style.iconSeekEnd].join(' ')} />;
 
         case IconType.Rewind:
-          return <i className={[style.icon, style.iconRewind].join(' ')} />;
+          return <i className={[style.icon, style.iconRewind].join(' ')} aria-hidden="true" />;
 
         case IconType.Rewind10:
-          return <i className={[style.icon, style.iconRewind10].join(' ')} />;
+          return <i className={[style.icon, style.iconRewind10].join(' ')} aria-hidden="true" />;
 
         case IconType.Forward:
-          return <i className={[style.icon, style.iconForward].join(' ')} />;
+          return <i className={[style.icon, style.iconForward].join(' ')} aria-hidden="true" />;
 
         case IconType.Forward10:
-          return <i className={[style.icon, style.iconForward10].join(' ')} />;
+          return <i className={[style.icon, style.iconForward10].join(' ')} aria-hidden="true" />;
 
         case IconType.vrStereo:
           return <i className={[style.icon, style.iconVrStereo].join(' ')} />;
@@ -300,10 +300,10 @@ class Icon extends Component {
           return <i className={[style.icon, style.iconPrev].join(' ')} />;
 
         case IconType.PictureInPictureStart:
-          return <i className={[style.icon, style.iconPictureInPictureStart].join(' ')} />;
+          return <i className={[style.icon, style.iconPictureInPictureStart].join(' ')} aria-hidden="true" />;
 
         case IconType.PictureInPictureStop:
-          return <i className={[style.icon, style.iconPictureInPictureStop].join(' ')} />;
+          return <i className={[style.icon, style.iconPictureInPictureStop].join(' ')} aria-hidden="true" />;
 
         case IconType.ClosedCaptionsOn:
           return <i className={[style.icon, style.iconClosedCaptionsOn].join(' ')} />;
