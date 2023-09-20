@@ -60,6 +60,8 @@ export {CaptionsMenu} from './captions-menu';
 export {SpeedMenu} from './speed-menu';
 export {QualityMenu, HeightResolution, getLabelBadgeType} from './quality-menu';
 export {AdvancedAudioDescToggle} from './advanced-audio-desc-toggle';
+export {ExpandableText} from './expandable-text';
+export {Scrollable} from './scrollable';
 
 export {PlayerArea, withPlayerPreset, Remove} from './player-area';
 export {VideoArea} from './video-area';

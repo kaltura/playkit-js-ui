@@ -22,7 +22,9 @@
       "pictureInPictureExit": "ピクチャーインピクチャーを終了する",
       "pictureInPictureExpand": "拡大",
       "logo": "ロゴ",
-      "seekBarSlider": "シーク スライダー"
+      "seekBarSlider": "シーク スライダー",
+      "readLess": "折りたたみ表示",
+      "readMore": "詳細"
     },
     "unmute": {
       "unmute": "ミュート解除"

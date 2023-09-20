@@ -22,7 +22,9 @@
       "pictureInPictureExit": "Quitter le mode Image-dans-Image",
       "pictureInPictureExpand": "Agrandir",
       "logo": "Logo",
-      "seekBarSlider": "Diapositive"
+      "seekBarSlider": "Diapositive",
+      "readLess": "Moins",
+      "readMore": "Plus"
     },
     "unmute": {
       "unmute": "Son"

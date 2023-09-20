@@ -81,26 +81,8 @@ class LiveUI extends Component {
                     <UnmuteIndication />
                   </InteractiveArea>
                   <BottomBar
-                    leftControls={
-                      <Fragment>
-                        <PlaybackControls name={'BottomBarPlaybackControls'} showPreview={true} />
-                        <Rewind step={10} />
-                        <Forward step={10} />
-                        <LiveTag />
-                      </Fragment>
-                    }
-                    rightControls={
-                      <Fragment>
-                        <VrStereo />
-                        <Volume />
-                        <ClosedCaptions />
-                        <Settings />
-                        <Cast />
-                        <PictureInPicture />
-                        <Fullscreen />
-                        <Logo />
-                      </Fragment>
-                    }>
+                    leftControls={[PlaybackControls, Rewind, Forward, LiveTag]}
+                    rightControls={[VrStereo, Volume, ClosedCaptions, Settings, Cast, PictureInPicture, Fullscreen, Logo]}>
                     <SeekBarLivePlaybackContainer showFramePreview showTimeBubble playerContainer={containerRef} />
                   </BottomBar>
                 </Fragment>

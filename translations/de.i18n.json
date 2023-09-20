@@ -22,7 +22,9 @@
       "pictureInPictureExit": "Bild in Bild verlassen",
       "pictureInPictureExpand": "Erweitern",
       "logo": "Logo",
-      "seekBarSlider": "Suchleiste"
+      "seekBarSlider": "Suchleiste",
+      "readLess": "Weniger",
+      "readMore": "Mehr"
     },
     "unmute": {
       "unmute": "Ton an"
@@ -47,7 +49,6 @@
     },
     "error": {
       "default_error": "Etwas ist schiefgegangen"
-    
     },
     "ads": {
       "ad_notice": "Anzeige",

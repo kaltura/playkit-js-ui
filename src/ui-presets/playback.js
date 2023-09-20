@@ -31,6 +31,7 @@ import {withKeyboardEvent} from 'components/keyboard';
 import {VideoArea} from '../components/video-area';
 import {GuiArea} from '../components/gui-area';
 import {ClosedCaptions} from '../components/closed-captions';
+import {AudioEntryDetails} from '../components/audio-entry-details';
 
 const PRESET_NAME = 'Playback';
 
@@ -70,6 +71,7 @@ class PlaybackUI extends Component {
             <VideoArea />
             <GuiArea>
               <Fragment>
+                <AudioEntryDetails />
                 <UnmuteIndication />
                 <Loading />
                 <OverlayPortal />
@@ -87,26 +89,8 @@ class PlaybackUI extends Component {
                     <PlaylistCountdown />
                   </InteractiveArea>
                   <BottomBar
-                    leftControls={
-                      <Fragment>
-                        <PlaybackControls name={'BottomBarPlaybackControls'} showPreview={true} />
-                        <Rewind step={10} />
-                        <Forward step={10} />
-                        <TimeDisplayPlaybackContainer format="current / total" />
-                      </Fragment>
-                    }
-                    rightControls={
-                      <Fragment>
-                        <VrStereo />
-                        <Volume />
-                        <ClosedCaptions />
-                        <Settings />
-                        <Cast />
-                        <PictureInPicture />
-                        <Fullscreen />
-                        <Logo />
-                      </Fragment>
-                    }>
+                    leftControls={[PlaybackControls, Rewind, Forward, TimeDisplayPlaybackContainer]}
+                    rightControls={[VrStereo, Volume, ClosedCaptions, Settings, Cast, PictureInPicture, Fullscreen, Logo]}>
                     <SeekBarPlaybackContainer showFramePreview showTimeBubble playerContainer={containerRef} />
                   </BottomBar>
                 </Fragment>

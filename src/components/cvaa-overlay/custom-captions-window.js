@@ -36,6 +36,16 @@ class CustomCaptionsWindow extends Component {
   };
 
   /**
+   * transition to state handler
+   *
+   * @returns {void}
+   * @memberof MainWindow
+   */
+  transitionToState = (): void => {
+    this.props.transitionToState(this.props.cvaaOverlayState.Main);
+  };
+
+  /**
    * on key down handler
    *
    * @param {KeyboardEvent} e - keyboard event
@@ -157,7 +167,10 @@ class CustomCaptionsWindow extends Component {
               ref={el => {
                 props.addAccessibleChild(el);
               }}
-              onClick={this.changeCaptionsStyle}
+              onClick={() => {
+                this.changeCaptionsStyle();
+                this.transitionToState();
+              }}
               onKeyDown={this.onKeyDown}
               className={[style.btn, style.btnBranded, style.btnBlock].join(' ')}>
               <Text id={'cvaa.apply'} />

@@ -79,7 +79,7 @@ class MainCaptionsWindow extends Component {
         <div className={style.title}>
           <Text id={'cvaa.title'} />
         </div>
-        <div>
+        <div role="group">
           <SampleCaptionsStyleButton
             addAccessibleChild={props.addAccessibleChild}
             classNames={[style.sample]}

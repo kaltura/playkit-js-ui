@@ -22,7 +22,9 @@
       "pictureInPictureExit": "退出畫中畫",
       "pictureInPictureExpand": "擴展",
       "logo": "圖標",
-      "seekBarSlider": "進行輪播"
+      "seekBarSlider": "進行輪播",
+      "readLess": "更少",
+      "readMore": "更多"
     },
     "unmute": {
       "unmute": "終止靜音"

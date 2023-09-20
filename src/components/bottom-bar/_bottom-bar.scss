@@ -19,27 +19,33 @@
     display: none;
   }
 
-  .left-controls {
-    float: left;
-    text-align: left;
-    pointer-events: none;
+  .controls-container {
+    width: 100%;
 
-    .control-button-container:first-child {
-      margin-left: 0px;
+    .left-controls {
+      float: left;
+      text-align: left;
+      pointer-events: none;
+
+      .control-button-container:first-child {
+        margin-left: 0px;
+      }
+    }
+
+    .right-controls {
+      float: right;
+      text-align: left;
+      pointer-events: none;
+
+      .control-button-container:last-child {
+        margin-right: 0px;
+      }
     }
   }
+
   .bottom-bar-area {
     position: relative;
     pointer-events: none;
-  }
-  .right-controls {
-    float: right;
-    text-align: left;
-    pointer-events: none;
-
-    .control-button-container:last-child {
-      margin-right: 0px;
-    }
   }
 
   .control-button-container {
@@ -84,9 +90,15 @@
       padding: 0 #{$gui-gutter}px #{$bottom-bar-bottom-gutter}px;
       max-height: #{$bottom-bar-max-height}px;
       transition: #{$hover-animation-time}ms max-height ease-in-out, #{$hover-animation-time}ms visibility ease-in-out;
-      &.line-break {
-        max-height: 92px;
-      }
+    }
+  }
+}
+
+.player {
+  &.size-sm,
+  &.size-xs {
+    .playback-controls + .time-display {
+      padding-left: 0;
     }
   }
 }
@@ -94,10 +106,6 @@
 .player.size-sm {
   .bottom-bar {
     padding: 0 #{$gui-small-gutter}px #{$bottom-bar-bottom-gutter}px;
-
-    .time-display {
-      padding-left: 0;
-    }
   }
 }
 .player {

@@ -1,0 +1,16 @@
+.player {
+    .expandable-text {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        display: -webkit-box; 
+    }
+    
+    .more-button-text {
+        pointer-events: auto;
+        cursor: pointer;
+        position: relative;
+        z-index: 1;
+        width: fit-content;
+    }
+}

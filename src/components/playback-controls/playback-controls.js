@@ -56,23 +56,20 @@ class PlaybackControls extends Component {
    * @returns {React$Element} - component element
    * @memberof PlaybackControls
    */
-  render(props: any): React$Element<any> {
-    const {name, className} = props;
+  render({showPreview = true, playlist, className}: any): React$Element<any> {
     const shouldUpdate = this.state.shouldUpdate;
     if (shouldUpdate) {
-      this.setState({
-        shouldUpdate: false
-      });
+      this.setState({shouldUpdate: false});
     }
 
     return (
       <div className={[style.playbackControls, className].join(' ')}>
-        <PlayerArea name={name} shouldUpdate={shouldUpdate}>
-          {props.playlist ? (
+        <PlayerArea name={'BottomBarPlaybackControls'} shouldUpdate={shouldUpdate}>
+          {playlist ? (
             <Fragment>
-              <PlaylistButton type="prev" showPreview={props.showPreview} />
+              <PlaylistButton type="prev" showPreview={showPreview} />
               <PlayPause />
-              <PlaylistButton type="next" showPreview={props.showPreview} />
+              <PlaylistButton type="next" showPreview={showPreview} />
             </Fragment>
           ) : (
             <PlayPause />

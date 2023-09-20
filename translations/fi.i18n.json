@@ -22,7 +22,9 @@
       "pictureInPictureExit": "Poistu kuva-kuvassa-toiminnosta",
       "pictureInPictureExpand": "Laajenna",
       "logo": "Logo",
-      "seekBarSlider": "Hae liukusäädin"
+      "seekBarSlider": "Hae liukusäädin",
+      "readLess": "Vähemmän",
+      "readMore": "Lisää"
     },
     "unmute": {
       "unmute": "Poista mykistys"

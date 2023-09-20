@@ -48,10 +48,10 @@ class TimeDisplay extends Component {
    * @returns {React$Element} - component
    * @memberof TimeDisplay
    */
-  render(props: any): React$Element<any> {
+  render({currentTime, duration, format = 'current / total'}: any): React$Element<any> {
     return (
       <div className={style.timeDisplay}>
-        <span>{this.getTimeDisplay(props.currentTime, props.duration, props.format)}</span>
+        <span>{this.getTimeDisplay(currentTime, duration, format)}</span>
       </div>
     );
   }

@@ -46,7 +46,9 @@ class VrStereo extends Component {
    */
   _shouldRender(): boolean {
     const componentConfig = this.props.config;
-    return this.props.isVr && !(Object.keys(componentConfig).length === 0 && componentConfig.constructor === Object);
+    const isActive = this.props.isVr && !(Object.keys(componentConfig).length === 0 && componentConfig.constructor === Object);
+    this.props.onToggle(COMPONENT_NAME, isActive);
+    return isActive;
   }
   /**
    * Vr-Stereo click handler
@@ -89,10 +91,7 @@ class VrStereo extends Component {
    * @memberof VrStereo
    */
   render(): React$Element<any> | void {
-    if (!this._shouldRender()) {
-      return undefined;
-    }
-    return (
+    return !this._shouldRender() ? undefined : (
       <ButtonControl name={COMPONENT_NAME}>
         <Tooltip label={this.props.vrStereoText}>
           <Button

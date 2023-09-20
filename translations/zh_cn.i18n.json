@@ -22,7 +22,9 @@
       "pictureInPictureExit": "退出画中画",
       "pictureInPictureExpand": "扩展",
       "logo": "标识",
-      "seekBarSlider": "搜寻滑块"
+      "seekBarSlider": "搜寻滑块",
+      "readLess": "收起",
+      "readMore": "展开"
     },
     "unmute": {
       "unmute": "取消静音"
