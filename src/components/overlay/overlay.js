@@ -126,22 +126,22 @@ class Overlay extends Component {
    * @returns {React$Element} - component
    * @memberof Overlay
    */
-  render(props: any): React$Element<any> {
+  render({type, open, label = 'dialog'}: any): React$Element<any> {
     const overlayClass = [style.overlay];
-    if (props.type) {
-      const classType = style[props.type + '-overlay'] ? style[props.type + '-overlay'] : props.type + '-overlay';
+    if (type) {
+      const classType = style[type + '-overlay'] ? style[type + '-overlay'] : type + '-overlay';
       overlayClass.push(classType);
     }
 
-    if (props.open) {
-      this.props.updateOverlay(props.open);
+    if (open) {
+      this.props.updateOverlay(open);
       overlayClass.push(style.active);
     }
 
     return (
-      <div tabIndex="-1" className={overlayClass.join(' ')} role="dialog" onKeyDown={this.onKeyDown}>
-        <div className={style.overlayContents}>{props.children}</div>
-        {this.renderCloseButton(props)}
+      <div tabIndex="-1" className={overlayClass.join(' ')} role="dialog" onKeyDown={this.onKeyDown} aria-label={label}>
+        <div className={style.overlayContents}>{this.props.children}</div>
+        {this.renderCloseButton(this.props)}
       </div>
     );
   }

@@ -7,6 +7,7 @@ import {actions} from '../../reducers/shell';
 import {createPortal} from 'preact/compat';
 import {Overlay} from '../overlay';
 import {withKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
+import {withText} from 'preact-i18n';
 
 /**
  * mapping state to props
@@ -37,6 +38,7 @@ const COMPONENT_NAME = 'SmartContainer';
  */
 @connect(mapStateToProps, bindActions(actions))
 @withKeyboardA11y
+@withText({settingsText: 'settings.title'})
 class SmartContainer extends Component {
   // ie11 fix (FEC-7312) - don't remove
   _portal: any;
@@ -94,7 +96,12 @@ class SmartContainer extends Component {
     props.clearAccessibleChildren();
     return this.isPortal ? (
       createPortal(
-        <Overlay open onClose={props.onClose} handleKeyDown={this.props.handleKeyDown} addAccessibleChild={this.props.addAccessibleChild}>
+        <Overlay
+          open
+          onClose={props.onClose}
+          handleKeyDown={this.props.handleKeyDown}
+          addAccessibleChild={this.props.addAccessibleChild}
+          label={props.settingsText}>
           <div className={style.title}>{props.title}</div>
           {this.renderChildren(props)}
         </Overlay>,
