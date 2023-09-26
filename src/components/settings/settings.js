@@ -153,6 +153,7 @@ class Settings extends Component {
           <Button
             tabIndex="0"
             aria-label={props.buttonLabel}
+            aria-haspopup="true"
             className={[
               style.controlButton,
               style.buttonBadge,
