@@ -1,7 +1,7 @@
 //@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
-import {withText} from 'preact-i18n';
+import {Text, withText} from 'preact-i18n';
 import {default as Icon, IconType} from '../icon';
 import {withAnimation} from '../../utils/with-animation';
 import {withPlayer} from '../player';
@@ -32,6 +32,21 @@ const mapStateToProps = state => ({
 });
 
 /**
+ * translates
+ * @param {any} props - Props
+ * @returns {Object} - The object translations
+ */
+const translates = (props: any) => ({
+  rewindText: !props.step ? (
+    <Text id={'controls.rewind'}>Seek backwards</Text>
+  ) : (
+    <Text id={'controls.secondsRewind'} fields={{seconds: props.step}}>
+      {`Seek ${props.step} seconds backwards`}
+    </Text>
+  )
+});
+
+/**
  * Rewind component
  *
  * @class Rewind
@@ -43,7 +58,7 @@ const mapStateToProps = state => ({
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
 @withAnimation(style.rotate)
-@withText({rewindText: 'controls.rewind'})
+@withText(translates)
 class Rewind extends Component {
   /**
    * rewind click handler

@@ -41,7 +41,7 @@ const translates = (props: any) => ({
     <Text id={'controls.forward'}>Seek forward</Text>
   ) : (
     <Text id={'controls.secondsForward'} fields={{seconds: props.step}}>
-      `Seek forward`
+      {`Seek ${props.step} seconds forward`}
     </Text>
   )
 });
