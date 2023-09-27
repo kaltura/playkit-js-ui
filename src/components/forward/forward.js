@@ -1,7 +1,7 @@
 //@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
-import {withText} from 'preact-i18n';
+import {Text, withText} from 'preact-i18n';
 import {default as Icon, IconType} from '../icon';
 import {withAnimation} from '../../utils/with-animation';
 import {withPlayer} from '../player';
@@ -30,6 +30,22 @@ const mapStateToProps = state => ({
   isDvr: state.engine.isDvr,
   isLive: state.engine.isLive
 });
+
+/**
+ * translates
+ * @param {any} props - Props
+ * @returns {Object} - The object translations
+ */
+const translates = (props: any) => ({
+  forwardText: !props.step ? (
+    <Text id={'controls.forward'}>Seek forward</Text>
+  ) : (
+    <Text id={'controls.secondsForward'} fields={{seconds: props.step}}>
+      `Seek forward`
+    </Text>
+  )
+});
+
 /**
  * Forward component
  *
@@ -42,7 +58,7 @@ const mapStateToProps = state => ({
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
 @withAnimation(style.reverseRotate)
-@withText({forwardText: 'controls.forward'})
+@withText(translates)
 class Forward extends Component {
   /**
    * forward click handler
