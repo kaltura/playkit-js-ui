@@ -138,18 +138,20 @@ class SpeedMenu extends Component {
    * @memberof SpeedMenu
    */
   render(props: any): React$Element<any> | void {
-    const speedOptions = props.player.playbackRates.reduce((acc, speed) => {
-      let speedOption = {
-        value: speed,
-        label: speed === 1 ? props.speedNormalLabelText : speed,
-        active: false
-      };
-      if (speed === props.player.playbackRate) {
-        speedOption.active = true;
-      }
-      acc.push(speedOption);
-      return acc;
-    }, []);
+    const speedOptions = props.optionsRenderer
+      ? props.optionsRenderer(props.player.playbackRates)
+      : props.player.playbackRates.reduce((acc, speed) => {
+          let speedOption = {
+            value: speed,
+            label: speed === 1 ? props.speedNormalLabelText : speed,
+            active: false
+          };
+          if (speed === props.player.playbackRate) {
+            speedOption.active = true;
+          }
+          acc.push(speedOption);
+          return acc;
+        }, []);
 
     return (
       <SmartContainerItem
