@@ -59,7 +59,7 @@ class PlayPause extends Component {
     const {eventManager, player} = this.props;
     // $FlowFixMe.
     const playerContainer: HTMLDivElement = document.getElementById(player.config.ui.targetId);
-    eventManager.listen(player, player.Event.Core.PLAY, () => {
+    eventManager.listen(player, player.Event.UI.USER_CLICKED_PLAY, () => {
       playerContainer.focus();
     });
     eventManager.listen(document, 'keydown', event => {
