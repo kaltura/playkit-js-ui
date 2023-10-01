@@ -12,10 +12,14 @@ import {withPlayer} from '../player';
 import {ExpandableText} from '../expandable-text';
 import {Scrollable} from '../scrollable';
 
+import {withEventManager} from 'event/with-event-manager';
+import {EventManager} from '../../event/event-manager';
+
 interface AudioEntryDetailsProps {
   player: any;
   isAudio: boolean;
   playerSize: typeof PLAYER_SIZE;
+  eventManager: EventManager;
 }
 
 /**
@@ -39,77 +43,87 @@ const COMPONENT_NAME = 'AudioEntryDetails';
  */
 
 const AudioEntryDetails = connect(mapStateToProps)(
-  withPlayer((props: AudioEntryDetailsProps) => {
-    // eslint-disable-next-line require-jsdoc
-    const getSizeClass = (playerSize: typeof PLAYER_SIZE) => {
-      switch (playerSize) {
-        case PLAYER_SIZE.EXTRA_LARGE:
-        case PLAYER_SIZE.LARGE:
-          return style.audioEntryL;
-        case PLAYER_SIZE.MEDIUM:
-          return style.audioEntryM;
-        default:
-          return style.audioEntryT;
+  withEventManager(
+    withPlayer((props: AudioEntryDetailsProps) => {
+      // eslint-disable-next-line require-jsdoc
+      const getSizeClass = (playerSize: typeof PLAYER_SIZE) => {
+        switch (playerSize) {
+          case PLAYER_SIZE.EXTRA_LARGE:
+          case PLAYER_SIZE.LARGE:
+            return style.audioEntryL;
+          case PLAYER_SIZE.MEDIUM:
+            return style.audioEntryM;
+          default:
+            return style.audioEntryT;
+        }
+      };
+
+      const textRef = useRef(null);
+      const comparisonTextRef = useRef(null);
+
+      const [isReady, setIsReady] = useState(false);
+      const [isFinalized, setIsFinalized] = useState(false);
+      const [isTitleTrimmed, setIsTitleTrimmed] = useState(false);
+      const [forceShowMore, setForceShowMore] = useState(false);
+
+      useLayoutEffect(() => {
+        if (textRef?.current && comparisonTextRef?.current) {
+          setIsFinalized(true);
+          setIsTitleTrimmed(textRef?.current?.getBoundingClientRect().height > comparisonTextRef?.current?.getBoundingClientRect().height);
+        }
+
+        if (!forceShowMore) {
+          setForceShowMore(textRef?.current?.getBoundingClientRect().height > comparisonTextRef?.current?.getBoundingClientRect().height);
+        }
+
+        props.eventManager.listenOnce(props.player, props.player.Event.CHANGE_SOURCE_STARTED, () => {
+          setIsReady(false);
+        });
+        props.eventManager.listenOnce(props.player, props.player.Event.CHANGE_SOURCE_ENDED, () => {
+          setIsReady(true);
+        });
+      });
+
+      if (!isReady || !props.isAudio || !(props.player.sources?.metadata?.name || props.player.sources?.metadata.description)) {
+        return undefined;
       }
-    };
 
-    const textRef = useRef(null);
-    const comparisonTextRef = useRef(null);
+      const {name = '', description = ''} = props.player.sources.metadata;
+      const sizeClass = getSizeClass(props.playerSize);
+      const titleClass = `${style.audioEntryTitle} ${isTitleTrimmed ? style.audioEntryTitleTrimmed : ''}`;
 
-    const [isFinalized, setIsFinalized] = useState(false);
-    const [isTitleTrimmed, setIsTitleTrimmed] = useState(false);
-    const [forceShowMore, setForceShowMore] = useState(false);
+      let expandedClass = isTitleTrimmed ? '' : style.audioEntryExpanded;
 
-    useLayoutEffect(() => {
-      if (textRef?.current && comparisonTextRef?.current) {
-        setIsFinalized(true);
-        setIsTitleTrimmed(textRef?.current?.getBoundingClientRect().height > comparisonTextRef?.current?.getBoundingClientRect().height);
-      }
+      // eslint-disable-next-line require-jsdoc
+      const onClick = () => {
+        setIsTitleTrimmed(!isTitleTrimmed);
+      };
 
-      if (!forceShowMore) {
-        setForceShowMore(textRef?.current?.getBoundingClientRect().height > comparisonTextRef?.current?.getBoundingClientRect().height);
-      }
-    });
-
-    if (!props.isAudio || !(props.player.sources?.metadata?.name || props.player.sources?.metadata.description)) {
-      return undefined;
-    }
-
-    const {name = '', description = ''} = props.player.sources.metadata;
-    const sizeClass = getSizeClass(props.playerSize);
-    const titleClass = `${style.audioEntryTitle} ${isTitleTrimmed ? style.audioEntryTitleTrimmed : ''}`;
-
-    let expandedClass = isTitleTrimmed ? '' : style.audioEntryExpanded;
-
-    // eslint-disable-next-line require-jsdoc
-    const onClick = () => {
-      setIsTitleTrimmed(!isTitleTrimmed);
-    };
-
-    return (
-      <div className={`${style.audioEntryBackdrop} ${expandedClass}`}>
-        <div className={`${style.audioEntryDetails} ${sizeClass}`}>
-          <Scrollable isVertical={true}>
-            <div className={style.audioEntryContent}>
-              <div ref={textRef} className={titleClass}>
-                {name}
-              </div>
-              {isFinalized ? undefined : (
-                <div ref={comparisonTextRef} className={`${style.audioEntryTitle} ${style.audioEntryTitleTrimmed}`}>
+      return (
+        <div className={`${style.audioEntryBackdrop} ${expandedClass}`}>
+          <div className={`${style.audioEntryDetails} ${sizeClass}`}>
+            <Scrollable isVertical={true}>
+              <div className={style.audioEntryContent}>
+                <div ref={textRef} className={titleClass}>
                   {name}
                 </div>
-              )}
-              <div className={style.audioEntryDescription}>
-                <ExpandableText text={description} lines={3} onClick={onClick} forceShowMore={forceShowMore}>
-                  {description}
-                </ExpandableText>
+                {isFinalized ? undefined : (
+                  <div ref={comparisonTextRef} className={`${style.audioEntryTitle} ${style.audioEntryTitleTrimmed}`}>
+                    {name}
+                  </div>
+                )}
+                <div className={style.audioEntryDescription}>
+                  <ExpandableText text={description} lines={3} onClick={onClick} forceShowMore={forceShowMore}>
+                    {description}
+                  </ExpandableText>
+                </div>
               </div>
-            </div>
-          </Scrollable>
+            </Scrollable>
+          </div>
         </div>
-      </div>
-    );
-  })
+      );
+    })
+  )
 );
 
 AudioEntryDetails.displayName = COMPONENT_NAME;
