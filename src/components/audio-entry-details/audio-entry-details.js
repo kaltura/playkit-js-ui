@@ -75,14 +75,16 @@ const AudioEntryDetails = connect(mapStateToProps)(
         if (!forceShowMore) {
           setForceShowMore(textRef?.current?.getBoundingClientRect().height > comparisonTextRef?.current?.getBoundingClientRect().height);
         }
+      });
 
-        props.eventManager.listenOnce(props.player, props.player.Event.CHANGE_SOURCE_STARTED, () => {
+      useLayoutEffect(() => {
+        props.eventManager.listen(props.player, props.player.Event.CHANGE_SOURCE_STARTED, () => {
           setIsReady(false);
         });
-        props.eventManager.listenOnce(props.player, props.player.Event.CHANGE_SOURCE_ENDED, () => {
+        props.eventManager.listen(props.player, props.player.Event.CHANGE_SOURCE_ENDED, () => {
           setIsReady(true);
         });
-      });
+      }, []);
 
       if (!isReady || !props.isAudio || !(props.player.sources?.metadata?.name || props.player.sources?.metadata.description)) {
         return undefined;
