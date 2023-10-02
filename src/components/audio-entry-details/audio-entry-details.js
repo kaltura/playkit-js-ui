@@ -53,9 +53,16 @@ const AudioEntryDetails = connect(mapStateToProps)(
       }
     };
 
+    // eslint-disable-next-line require-jsdoc
+    const sanitizeText = text => {
+      const parsed = domParser.parseFromString(text, 'text/html');
+      return parsed.body.textContent || '';
+    };
+
     const textRef = useRef(null);
     const comparisonTextRef = useRef(null);
 
+    const [domParser, setDomParser] = useState(null);
     const [isFinalized, setIsFinalized] = useState(false);
     const [isTitleTrimmed, setIsTitleTrimmed] = useState(false);
     const [forceShowMore, setForceShowMore] = useState(false);
@@ -71,11 +78,19 @@ const AudioEntryDetails = connect(mapStateToProps)(
       }
     });
 
+    useLayoutEffect(() => {
+      // eslint-disable-next-line no-undef
+      setDomParser(new DOMParser());
+    }, []);
+
     if (!props.isAudio || !(props.player.sources?.metadata?.name || props.player.sources?.metadata.description)) {
       return undefined;
     }
 
-    const {name = '', description = ''} = props.player.sources.metadata;
+    let {name = '', description = ''} = props.player.sources.metadata;
+    name = sanitizeText(name);
+    description = sanitizeText(description);
+
     const sizeClass = getSizeClass(props.playerSize);
     const titleClass = `${style.audioEntryTitle} ${isTitleTrimmed ? style.audioEntryTitleTrimmed : ''}`;
 
