@@ -35,6 +35,7 @@
             
             .audio-entry-title {
                 font-size: 32px; 
+                line-height: 38px;
                 
                 &.audio-entry-title-trimmed {
                     -webkit-box-orient: vertical;
@@ -46,7 +47,8 @@
             }
             
             .audio-entry-description { 
-                font-size: 14px; 
+                font-size: 14px;
+                line-height: 18px;
             }
         }
 
