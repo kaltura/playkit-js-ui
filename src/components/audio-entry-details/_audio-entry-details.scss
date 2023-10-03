@@ -1,7 +1,8 @@
 .player { 
     .audio-entry-backdrop {
         background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
-        bottom: 0; 
+        bottom: 0;
+        left: 0;
         position: absolute; 
         width: 100%;
         pointer-events: none;
