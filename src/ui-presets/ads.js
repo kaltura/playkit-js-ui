@@ -48,31 +48,8 @@ function AdsUI(props: any, context: any): ?React$Element<any> {
     );
   }
   const adsUiCustomization = getAdsUiCustomization();
-  const bottomBar = (
-    <BottomBar
-      leftControls={
-        <Fragment>
-          <PlaybackControls name={'BottomBarPlaybackControls'} showPreview={true} />
-          <TimeDisplayAdsContainer />
-        </Fragment>
-      }
-      rightControls={
-        <Fragment>
-          <Volume />
-          <Fullscreen />
-        </Fragment>
-      }
-    />
-  );
-  const onlyFullscreenBottomBar = (
-    <BottomBar
-      rightControls={
-        <Fragment>
-          <Fullscreen />
-        </Fragment>
-      }
-    />
-  );
+  const bottomBar = <BottomBar leftControls={[PlaybackControls, TimeDisplayAdsContainer]} rightControls={[Volume, Fullscreen]} />;
+  const onlyFullscreenBottomBar = <BottomBar rightControls={[Fullscreen]} />;
 
   return (
     <div className={style.adGuiWrapper}>
