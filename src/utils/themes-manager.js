@@ -128,6 +128,28 @@ export class ThemesManager {
    */
   setColor(cssVarName: string, color: string): void {
     this.playerContainerElement?.querySelector(`.${style.player}`)?.style.setProperty(cssVarName, color);
+
+    if (color.startsWith('#') && (color.length === 4 || color.length === 7)) {
+      const colorRGBValues = this._getColorAsRGB(color);
+      if (colorRGBValues) {
+        this.playerContainerElement?.querySelector(`.${style.player}`)?.style.setProperty(`${cssVarName}-rgb`, colorRGBValues.join(','));
+      }
+    }
+  }
+
+  /**
+   * Return a hex color as an array of Red, Green and Blue values
+   * @param {string} color  - 3 or 6 digit hex color value
+   * @returns {number[]} array of RGB numeric values
+   */
+  _getColorAsRGB(color: string) {
+    let fullHexColor = color;
+    if (color.length === 4) {
+      fullHexColor = `#${color[1]}${color[1]}${color[2]}${color[2]}${color[3]}${color[3]}`;
+    }
+
+    const colorArr = fullHexColor.match(/^#?([\da-f]{2})([\da-f]{2})([\da-f]{2})$/i);
+    return colorArr ? [parseInt(colorArr[1], 16), parseInt(colorArr[2], 16), parseInt(colorArr[3], 16)] : null;
   }
 
   /**
