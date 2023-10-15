@@ -12,7 +12,9 @@ const HSL_LIGHTNESS_CSS_VAR = `--${PREFIX}-{name}-hsl-lightness`;
 const cssVarNames = {
   colors: {
     live: '--playkit-live-color',
-    playerBackground: '--playkit-player-background-color'
+    playerBackground: '--playkit-player-background-color',
+    paper: '--playkit-paper-color',
+    tone1: '--playkit-tone-1-color'
   }
 };
 
@@ -108,16 +110,10 @@ export class ThemesManager {
    */
   setAccentOrAcknowledgementColor(colorTitle: string, color: string): void {
     const [hue, saturation, lightness] = hexToHsl(color);
-    this.playerContainerElement?.querySelector(`.${style.player}`)?.style.setProperty(ACTUAL_USED_CSS_VAR.replace('{name}', colorTitle), color);
-    this.playerContainerElement
-      ?.querySelector(`.${style.player}`)
-      ?.style.setProperty(HSL_HUE_CSS_VAR.replace('{name}', colorTitle), `${Math.round(hue)}deg`);
-    this.playerContainerElement
-      ?.querySelector(`.${style.player}`)
-      ?.style.setProperty(HSL_SATURATION_CSS_VAR.replace('{name}', colorTitle), `${Math.round(saturation)}%`);
-    this.playerContainerElement
-      ?.querySelector(`.${style.player}`)
-      ?.style.setProperty(HSL_LIGHTNESS_CSS_VAR.replace('{name}', colorTitle), `${Math.round(lightness)}%`);
+    this.setCSSVariable(ACTUAL_USED_CSS_VAR.replace('{name}', colorTitle), color);
+    this.setCSSVariable(HSL_HUE_CSS_VAR.replace('{name}', colorTitle), `${Math.round(hue)}deg`);
+    this.setCSSVariable(HSL_SATURATION_CSS_VAR.replace('{name}', colorTitle), `${Math.round(saturation)}%`);
+    this.setCSSVariable(HSL_LIGHTNESS_CSS_VAR.replace('{name}', colorTitle), `${Math.round(lightness)}%`);
   }
 
   /**
@@ -127,29 +123,7 @@ export class ThemesManager {
    * @returns {void}
    */
   setColor(cssVarName: string, color: string): void {
-    this.playerContainerElement?.querySelector(`.${style.player}`)?.style.setProperty(cssVarName, color);
-
-    if (color.startsWith('#') && (color.length === 4 || color.length === 7)) {
-      const colorRGBValues = this._getColorAsRGB(color);
-      if (colorRGBValues) {
-        this.playerContainerElement?.querySelector(`.${style.player}`)?.style.setProperty(`${cssVarName}-rgb`, colorRGBValues.join(','));
-      }
-    }
-  }
-
-  /**
-   * Return a hex color as an array of Red, Green and Blue values
-   * @param {string} color  - 3 or 6 digit hex color value
-   * @returns {number[]} array of RGB numeric values
-   */
-  _getColorAsRGB(color: string) {
-    let fullHexColor = color;
-    if (color.length === 4) {
-      fullHexColor = `#${color[1]}${color[1]}${color[2]}${color[2]}${color[3]}${color[3]}`;
-    }
-
-    const colorArr = fullHexColor.match(/^#?([\da-f]{2})([\da-f]{2})([\da-f]{2})$/i);
-    return colorArr ? [parseInt(colorArr[1], 16), parseInt(colorArr[2], 16), parseInt(colorArr[3], 16)] : null;
+    this.setCSSVariable(cssVarName, color);
   }
 
   /**
@@ -160,11 +134,33 @@ export class ThemesManager {
   setSvgFillColor(color: string): void {
     for (const varName of dynamicColoredIconsSvgUrlVars) {
       // $FlowFixMe
-      const svgUrl = getComputedStyle(this.playerContainerElement?.querySelector(`.${style.player}`)).getPropertyValue(varName);
+      const svgUrl = this.getCSSVariable(varName);
       const newColor = color.replace('#', '%23');
-      this.playerContainerElement
-        ?.querySelector(`.${style.player}`)
-        ?.style.setProperty(varName, svgUrl.replace(/fill='%23([a-f0-9]{3}){1,2}\b'/, `fill='${newColor}'`));
+      this.setCSSVariable(varName, svgUrl.replace(/fill='%23([a-f0-9]{3}){1,2}\b'/, `fill='${newColor}'`));
     }
+  }
+
+  /**
+   * Return a css variable value
+   * @param {string} variableName - CSS variable name
+   * @returns {string} CSS variable value
+   */
+  getCSSVariable(variableName: string) {
+    // $FlowFixMe
+    return getComputedStyle(this.playerContainerElement?.querySelector(`.${style.player}`)).getPropertyValue(variableName) || '';
+  }
+
+  /**
+   * Return a css variable name
+   * @param {string} variableName - CSS variable name
+   * @param {string} value - CSS variable value
+   * @returns {void}
+   */
+  setCSSVariable(variableName: string, value: string) {
+    const playkitPlayerElement = this.playerContainerElement?.querySelector(`.${style.player}`);
+    // $FlowFixMe
+    const playkitPlayerElementStyle = playkitPlayerElement.style;
+
+    playkitPlayerElementStyle.setProperty(variableName, value);
   }
 }
