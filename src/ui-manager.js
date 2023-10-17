@@ -256,6 +256,25 @@ class UIManager {
   get Event(): {[event: string]: string} {
     return EventType;
   }
+
+  /**
+   * Return a css variable value
+   * @param {string} variableName - CSS variable name
+   * @returns {string} CSS variable value
+   */
+  getCSSVariable(variableName: string): string {
+    return this._themesManager.getCSSVariable(variableName);
+  }
+
+  /**
+   * Return a css variable name
+   * @param {string} variableName - CSS variable name
+   * @param {string} value - CSS variable value
+   * @returns {void}
+   */
+  setCSSVariable(variableName: string, value: string) {
+    this._themesManager.setCSSVariable(variableName, value);
+  }
 }
 
 export {UIManager};
