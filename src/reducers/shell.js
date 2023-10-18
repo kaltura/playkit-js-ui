@@ -61,7 +61,8 @@ export const ReservedPresetNames = {
   Ads: 'Ads',
   Error: 'Error',
   Idle: 'Idle',
-  Img: 'Img'
+  Img: 'Img',
+  Audio: 'Audio'
 };
 
 export const ReservedPresetAreas = {
