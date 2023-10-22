@@ -103,7 +103,8 @@
       "seventy_percent": "семьдесят процентов",
       "eighty_percent": "восемьдесят процентов",
       "ninety_percent": "девяносто процентов",
-      "one_hundred_percent": "сто процентов"
+      "one_hundred_percent": "сто процентов",
+      "volume_slider_aria_label": "Регулирование громкости; для управления громкостью используйте стрелки"
     }
   }
 }

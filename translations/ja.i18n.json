@@ -103,7 +103,8 @@
       "seventy_percent": "70パーセント",
       "eighty_percent": "80パーセント",
       "ninety_percent": "90パーセント",
-      "one_hundred_percent": "100パーセント"
+      "one_hundred_percent": "100パーセント",
+      "volume_slider_aria_label": "音量：矢印を使用して音量を制御する"
     }
   }
 }
