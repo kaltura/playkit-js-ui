@@ -103,7 +103,8 @@
       "seventy_percent": "setenta por cento",
       "eighty_percent": "oitenta por cento",
       "ninety_percent": "noventa por cento",
-      "one_hundred_percent": "cem por cento"
+      "one_hundred_percent": "cem por cento",
+      "volume_slider_aria_label": "Controle de volume, use as setas para controlar o volume"
     }
   }
 }

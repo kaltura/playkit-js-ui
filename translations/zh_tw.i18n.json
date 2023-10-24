@@ -103,7 +103,8 @@
       "seventy_percent": "百分之七十",
       "eighty_percent": "百分之八十",
       "ninety_percent": "百分之九十",
-      "one_hundred_percent": "百分之一百"
+      "one_hundred_percent": "百分之一百",
+      "volume_slider_aria_label": "音量控制，使用箭頭調整音量"
     }
   }
 }

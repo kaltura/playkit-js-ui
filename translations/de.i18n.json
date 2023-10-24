@@ -103,7 +103,8 @@
       "seventy_percent": "siebzig Prozent",
       "eighty_percent": "achtzig Prozent",
       "ninety_percent": "neunzig Prozent",
-      "one_hundred_percent": "hundert Prozent"
+      "one_hundred_percent": "hundert Prozent",
+      "volume_slider_aria_label": "Lautstärkeregler, verwenden Sie die Pfeile, um die Lautstärke zu regulieren"
     }
   }
 }
