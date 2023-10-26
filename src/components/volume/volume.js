@@ -473,6 +473,7 @@ class Volume extends Component {
         </Tooltip>
         <div
           tabIndex="0"
+          aria-orientation="vertical"
           aria-label={this.props.sliderAriaLabel}
           onKeyDown={this.onProgressBarKeyDown}
           className={style.volumeControlBar}
