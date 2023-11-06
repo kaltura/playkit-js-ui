@@ -62,6 +62,8 @@ export {QualityMenu, HeightResolution, getLabelBadgeType} from './quality-menu';
 export {AdvancedAudioDescToggle} from './advanced-audio-desc-toggle';
 export {ExpandableText} from './expandable-text';
 export {Scrollable} from './scrollable';
+export {ProgressIndicator} from './progress-indicator';
+export {SeekBarPreview} from './seekbar-preview';
 
 export {PlayerArea, withPlayerPreset, Remove} from './player-area';
 export {VideoArea} from './video-area';
