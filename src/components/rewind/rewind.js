@@ -37,13 +37,7 @@ const mapStateToProps = state => ({
  * @returns {Object} - The object translations
  */
 const translates = (props: any) => ({
-  rewindText: !props.step ? (
-    <Text id={'controls.rewind'}>Seek backwards</Text>
-  ) : (
-    <Text id={'controls.secondsRewind'} fields={{seconds: props.step}}>
-      {`Seek ${props.step} seconds backwards`}
-    </Text>
-  )
+  rewindText: !props.step ? <Text id={'controls.rewind'}></Text> : <Text id={'controls.secondsRewind'} fields={{seconds: props.step}}></Text>
 });
 /**
  * Rewind component
