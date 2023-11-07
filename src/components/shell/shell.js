@@ -426,9 +426,8 @@ class Shell extends Component {
 
     return (
       <div
-        tabIndex="0"
+        tabIndex="-1"
         ref={node => (this._playerRef = node)}
-        aria-label="Video Player"
         className={playerClasses}
         onTouchEnd={this.onTouchEnd}
         onMouseUp={this.onMouseUp}
