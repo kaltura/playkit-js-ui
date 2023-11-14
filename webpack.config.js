@@ -20,31 +20,32 @@ module.exports = (env, {mode}) => {
         })
       ]
     },
-    // devtool: 'source-map',
-    devtool: 'eval-source-map',
+    devtool: 'source-map',
+    // devtool: 'eval-source-map',
     module: {
       rules: [
-        // {
-        //   // test: /\.(ts|js)$/,
-        //   test: /\.ts$/,
-        //   exclude: /node_modules/,
-        //   use: {
-        //     loader: 'babel-loader',
-        //     options: {
-        //       presets: [['@babel/preset-env', {
-        //         loose: true,
-        //         bugfixes: true,
-        //         "targets": {
-        //           "browsers": ["chrome >= 47", "firefox >= 51", "ie >= 11", "safari >= 8", "ios >= 8", "android >= 4"]
-        //         }
-        //       }], '@babel/preset-typescript'],
-        //       plugins: [['@babel/plugin-transform-runtime']]
-        //     }
-        //   }
-        // },
+        {
+          // test: /\.(ts|js)$/,
+          // test: /\.ts$/,
+          test: /\.tsx?$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: [['@babel/preset-env', {
+                loose: true,
+                bugfixes: true,
+                targets: {
+                  browsers: ["chrome >= 47", "firefox >= 51", "ie >= 11", "safari >= 8", "ios >= 8", "android >= 4"]
+                }
+              }], '@babel/preset-typescript'],
+              plugins: [['@babel/plugin-transform-runtime']]
+            }
+          }
+        },
         {
           test: /\.js$/,
-          use: ['babel-loader', 'eslint-loader'],
+          use: ['babel-loader'],
           exclude: /node_modules/
         },
         {
@@ -71,7 +72,7 @@ module.exports = (env, {mode}) => {
       ]
     },
     resolve: {
-      extensions: ['.ts', '.js', '.scss', 'css'],
+      extensions: ['.ts', '.tsx','.js', '.scss', 'css'],
       alias: {
         components: path.resolve(__dirname, 'src/components/'),
         reducers: path.resolve(__dirname, 'src/reducers/'),

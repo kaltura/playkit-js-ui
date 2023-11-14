@@ -32,6 +32,9 @@
     "build:dev": "webpack --mode development",
     "build:prod": "webpack --mode production",
     "build": "yarn run build:prod && yarn run build:types",
+    "build:types": "tsc --build tsconfig-lib.json && mkdir -p lib && api-extractor run --local --diagnostics",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch",
     "prebuild": "npm run clean",
     "clean": "rimraf ./dist",
     "dev": "webpack-dev-server --mode development",
@@ -67,8 +70,6 @@
     "redux": "^4.0.5"
   },
   "devDependencies": {
-    "@babel/cli": "^7.10.5",
-    "@babel/core": "^7.10.5",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/plugin-proposal-decorators": "^7.10.5",
     "@babel/plugin-proposal-export-default-from": "^7.10.4",
@@ -82,7 +83,7 @@
     "@playkit-js/playkit-js": "canary",
     "@playkit-js/kaltura-player-js": "3.15.3-canary.0-51ca9be",
     "babel-eslint": "^10.1.0",
-    "babel-loader": "^8.1.0",
+    "babel-loader": "^9.1.3",
     "babel-plugin-istanbul": "^6.0.0",
     "chai": "^4.2.0",
     "conventional-github-releaser": "3.1.3",
@@ -125,9 +126,14 @@
     "sinon-chai": "^3.5.0",
     "standard-version": "^6.0.1",
     "style-loader": "^1.2.1",
-    "webpack": "^5.74.0",
-    "webpack-cli": "^4.10.0",
-    "webpack-dev-server": "^4.10.1"
+    "@babel/preset-typescript": "^7.22.15",
+    "@microsoft/api-extractor": "^7.38.0",
+    "@babel/core": "^7.22.20",
+    "@babel/plugin-transform-runtime": "^7.22.15",
+    "typescript": "^5.2.2",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
   },
   "publishConfig": {
     "cache": "~/.npm",

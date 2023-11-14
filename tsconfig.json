@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "baseUrl": ".",
+    "sourceMap": true,
+    "strict": false,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
+    "types": [],
+    "paths": {
+      "react": ["./node_modules/preact/compat/"],
+      "react-dom": ["./node_modules/preact/compat/"]
+    },
+    "lib": [
+      "dom",
+      "ESNext"
+    ],
+    "outDir": "./lib/",
+    "allowSyntheticDefaultImports": true,
+  },
+  "include": ["src/**/*"]
+}
