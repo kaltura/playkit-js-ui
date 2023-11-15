@@ -1,13 +1,12 @@
-//@flow
 import {h, Component} from 'preact';
-import getLogger from 'utils/logger';
+import getLogger from '../../utils/logger';
 
 /**
  * @param {string} name - the component display name
  * @returns {Component} - the wrapped component
  */
-export const withLogger: Function = (name: string) => (WrappedComponent: Component): typeof Component =>
-  class LoggerComponent extends Component {
+export const withLogger = (name: string) => (WrappedComponent) =>
+  class LoggerComponent extends Component<any, any> {
     logger: any;
 
     /**
@@ -28,7 +27,7 @@ export const withLogger: Function = (name: string) => (WrappedComponent: Compone
      * @returns {React$Element} - component element
      * @memberof LoggerComponent
      */
-    render(): React$Element<any> | void {
+    render() {
       return <WrappedComponent {...this.props} logger={this.logger} />;
     }
   };

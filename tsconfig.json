@@ -1,5 +1,13 @@
 {
   "compilerOptions": {
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules",
+        "options": {
+          "customMatcher": "\\.(css|scss)$"
+        }
+      }
+    ],
     "target": "esnext",
     "module": "commonjs",
     "baseUrl": ".",
@@ -9,10 +17,10 @@
     "strictPropertyInitialization": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "experimentalDecorators": true,
     "skipLibCheck": true,
     "jsx": "react-jsx",
     "jsxImportSource": "preact",
-    "types": [],
     "paths": {
       "react": ["./node_modules/preact/compat/"],
       "react-dom": ["./node_modules/preact/compat/"]

@@ -1,9 +1,12 @@
-//@flow
 import {h, Component} from 'preact';
 import {connect} from 'react-redux';
-import {AdNotice} from 'components/ad-notice/ad-notice';
+import {AdNotice} from '../ad-notice';
 
 const COMPONENT_NAME = 'AdLeftControls';
+
+type AdLeftControlsProps = {
+  isBumper: boolean;
+}
 
 /**
  * mapping state to props
@@ -22,14 +25,14 @@ const mapStateToProps = state => ({
  * @extends {Component}
  */
 @connect(mapStateToProps)
-class AdLeftControls extends Component {
+class AdLeftControls extends Component<AdLeftControlsProps, any> {
   /**
    * render component
    *
    * @returns {?React$Element} - component element
    * @memberof AdLeftControls
    */
-  render(): ?React$Element<any> {
+  render() {
     return this.props.isBumper ? null : <AdNotice />;
   }
 }

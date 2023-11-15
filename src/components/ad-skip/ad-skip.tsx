@@ -1,17 +1,16 @@
-//@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'react-redux';
 import {Localizer, Text} from 'preact-i18n';
 import {withPlayer} from '../player';
-import {withLogger} from 'components/logger';
+import {withLogger} from '../../components/logger';
 
 /**
  * mapping state to props
  * @param {*} state - redux store state
  * @returns {Object} - mapped state to this component
  */
-const mapStateToProps = state => ({
+const mapStateToProps = (state): any => ({
   currentTime: state.engine.adProgress.currentTime,
   duration: state.engine.adProgress.duration,
   adSkipTimeOffset: state.engine.adSkipTimeOffset,
@@ -30,7 +29,7 @@ const COMPONENT_NAME = 'AdSkip';
 @connect(mapStateToProps)
 @withPlayer
 @withLogger(COMPONENT_NAME)
-class AdSkip extends Component {
+class AdSkip extends Component<any, any> {
   /**
    * getting the number value of seconds left to be able to skip ad
    *
@@ -51,7 +50,7 @@ class AdSkip extends Component {
    * @returns {React$Element}  - component
    * @memberof AdSkip
    */
-  render(): React$Element<any> | void {
+  render() {
     if (this.props.adSkippableState) {
       return this.getSkipTimeOffset() <= 0 ? (
         <Localizer>

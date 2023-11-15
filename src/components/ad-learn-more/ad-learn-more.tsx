@@ -1,8 +1,11 @@
-//@flow
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'react-redux';
 import {Text} from 'preact-i18n';
+
+type AdLearnMoreProps = {
+  url: string;
+}
 
 /**
  * mapping state to props
@@ -23,7 +26,7 @@ const COMPONENT_NAME = 'AdLearnMore';
  * @extends {Component}
  */
 @connect(mapStateToProps)
-class AdLearnMore extends Component {
+class AdLearnMore extends Component<AdLearnMoreProps, {}> {
   /**
    * render component
    *
@@ -31,7 +34,7 @@ class AdLearnMore extends Component {
    * @returns {React$Element} - component element
    * @memberof AdLearnMore
    */
-  render(props: any): React$Element<any> {
+  render(props: any) {
     return (
       <a href={props.url} target="_blank" rel="noreferrer" className={[style.btn, style.btnDarkTransparent, style.learnMore].join(' ')}>
         <Text id={'ads.learn_more'} />

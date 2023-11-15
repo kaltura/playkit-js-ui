@@ -4,7 +4,25 @@ import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
 import {actions} from '../../reducers/shell';
 import getLogger from '../../utils/logger';
-import {withEventDispatcher} from 'components/event-dispatcher';
+import {withEventDispatcher} from '../../components/event-dispatcher';
+import {UIPreset} from '../../types';
+
+type ActivePresetPropsProps = {
+  uis: UIPreset[],
+  state: {
+    shell: any,
+    engine: {
+      adBreak: boolean,
+      isLive: boolean,
+      hasError: boolean,
+      isIdle: boolean,
+      isVr: boolean,
+      isImg: boolean,
+      playlist: any
+    }
+  },
+  config: any
+}
 
 /**
  * mapping state to props
@@ -37,7 +55,7 @@ const COMPONENT_NAME = 'ActivePreset';
  */
 @withEventDispatcher(COMPONENT_NAME)
 @connect(mapStateToProps, bindActions(actions))
-class ActivePreset extends Component {
+class ActivePreset extends Component<ActivePresetPropsProps, void> {
   static logger: any;
 
   /**
@@ -56,7 +74,7 @@ class ActivePreset extends Component {
    * @returns {*} - matched UI
    * @memberof ActivePreset
    */
-  getMatchedUI(uis: Array<any>, state: Object): any {
+  getMatchedUI(uis: Array<any>, state: any): any {
     let matchedUI;
     for (let ui of uis) {
       if (typeof ui.condition === 'undefined' || ui.condition(state)) {
@@ -75,7 +93,7 @@ class ActivePreset extends Component {
    * @returns {React$Element} - component element
    * @memberof ActivePreset
    */
-  render(props: any): React$Element<any> | void {
+  render(props: any){
     let uiToRender;
     const {uis, state} = this.props;
     const {activePresetName} = state.shell;
