@@ -1,8 +1,7 @@
-//@flow
 import {h, Component} from 'preact';
-import {withPlayer} from 'components/player';
+import {withPlayer} from '../../components/player';
 import style from '../../styles/style.scss';
-import {PlayerArea} from 'components/player-area';
+import {PlayerArea} from '../../components/player-area';
 
 /**
  * InteractiveArea component
@@ -11,7 +10,7 @@ import {PlayerArea} from 'components/player-area';
  * @extends {Component}
  */
 @withPlayer
-class InteractiveArea extends Component {
+class InteractiveArea extends Component<any, any> {
   /**
    * should component update handler
    *

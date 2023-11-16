@@ -1,12 +1,11 @@
-//@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {connect} from 'react-redux';
 import {KeyMap} from '../../utils/key-map';
 import {Text} from 'preact-i18n';
 import {withPlayer} from '../player';
-import {withEventDispatcher} from 'components/event-dispatcher';
-import {withLogger} from 'components/logger';
+import {withEventDispatcher} from '../../components/event-dispatcher';
+import {withLogger} from '../../components/logger';
 
 /**
  * mapping state to props
@@ -33,7 +32,7 @@ const COMPONENT_NAME = 'LiveTag';
 @withPlayer
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
-class LiveTag extends Component {
+class LiveTag extends Component<any, any> {
   /**
    * returns a boolean to detect if player is on live edge
    *
@@ -81,7 +80,7 @@ class LiveTag extends Component {
    * @returns {React$Element} component element
    * @memberof LiveTag
    */
-  render(props: any): React$Element<any> {
+  render(props: any): VNode<any> {
     const tagStyleClass = [style.liveTag];
     if (props.isDvr && !this.isOnLiveEdge()) tagStyleClass.push(style.nonLivePlayhead);
 
