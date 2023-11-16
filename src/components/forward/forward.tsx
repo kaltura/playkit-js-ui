@@ -1,7 +1,7 @@
 import style from '../../styles/style.scss';
 import {h, Component, VNode} from 'preact';
 import {Text, withText} from 'preact-i18n';
-import {default as Icon, IconType} from '../icon';
+import {Icon, IconType} from '../icon';
 import {withAnimation} from '../../utils/with-animation';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from '../../components/event-dispatcher';

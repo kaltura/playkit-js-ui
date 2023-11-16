@@ -1,6 +1,6 @@
 import {KeyMap} from '../../utils/key-map';
 import style from '../../styles/style.scss';
-import {default as Icon, IconType} from '../icon';
+import {Icon, IconType} from '../icon';
 import {h} from 'preact';
 import {useEffect, useRef} from 'preact/compat';
 

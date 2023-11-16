@@ -3,7 +3,7 @@ import {h, Component, VNode} from 'preact';
 import {withText} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {KeyMap} from '../../utils/key-map';
-import {default as Icon, IconType} from '../icon';
+import {Icon, IconType} from '../icon';
 import {withPlayer} from '../player';
 import {withKeyboardEvent} from '../../components/keyboard';
 import {withLogger, WithLoggerProps} from '../../components/logger';

@@ -2,7 +2,7 @@ import style from '../../styles/style.scss';
 import {h, Component, VNode} from 'preact';
 import {connect} from 'react-redux';
 import {Menu} from '../menu';
-import {BadgeType, default as Icon, IconType} from '../icon';
+import {BadgeType, Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
 
 /**

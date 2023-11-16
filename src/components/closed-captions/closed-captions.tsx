@@ -2,7 +2,7 @@ import style from '../../styles/style.scss';
 import {h} from 'preact';
 import {useEffect, useState} from 'preact/hooks';
 import {withText} from 'preact-i18n';
-import {default as Icon, IconType} from '../icon';
+import {Icon, IconType} from '../icon';
 import {connect} from 'react-redux';
 import {withEventDispatcher} from '../event-dispatcher';
 import {withLogger} from '../logger';

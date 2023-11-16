@@ -1,6 +1,5 @@
-//@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {NAME as packageName} from '../../index';
 
 const IconType = {
@@ -64,7 +63,7 @@ const IconState: {[state: string]: number} = {
  * @example <Icon type={IconType.Play} />
  * @extends {Component}
  */
-class Icon extends Component {
+class Icon extends Component<any, any> {
   _defaultColor: string = style.white;
   _activeColor: string = style.brandColor;
   _className: string = '';
@@ -73,7 +72,7 @@ class Icon extends Component {
    * @constructor
    * @param {Object} props - component props
    */
-  constructor(props: Object) {
+  constructor(props: any) {
     super(props);
     const {path, id} = props;
     if (path && id) {
@@ -94,7 +93,7 @@ class Icon extends Component {
    * @returns {void}
    * @memberof Icon
    */
-  createDynamicIconClass = (props: Object) => {
+  createDynamicIconClass = (props: any) => {
     const {path, state, color, activeColor, width, height, viewBox, fillRule} = props;
     const fillColor = this.getFillColor(state, color, activeColor);
     const pathTag = this.getPathTag(path, fillColor);
@@ -149,7 +148,7 @@ class Icon extends Component {
    * @returns {string} - svg fill color
    * @memberof Icon
    */
-  getFillColor = (state: ?number, color: ?string, activeColor: ?string): string => {
+  getFillColor = (state?: number, color?: string, activeColor?: string): string => {
     if (state === IconState.ACTIVE) {
       return activeColor || this._activeColor;
     }
@@ -184,7 +183,7 @@ class Icon extends Component {
    * @memberof Icon
    * @return {void}
    */
-  componentWillUpdate(nextProps: Object) {
+  componentWillUpdate(nextProps: any) {
     if (this._className && this.props.state !== nextProps.state) {
       // Override icon class with the new state color
       this.createDynamicIconClass(nextProps);
@@ -198,7 +197,7 @@ class Icon extends Component {
    * @returns {React$Element} - component element
    * @memberof Icon
    */
-  render(props: any): React$Element<any> | void {
+  render(props: any): VNode<any> | undefined {
     if (this._className) {
       return <i className={[style.icon, this._className].join(' ')} {...(props.hidden ? {'aria-hidden': 'true'} : {})} />;
     } else {

@@ -1,7 +1,6 @@
-//@flow
-import {h, Component, toChildArray} from 'preact';
+import {h, Component, toChildArray, VNode} from 'preact';
 import {connect} from 'react-redux';
-import {PlayerArea} from 'components/player-area';
+import {PlayerArea} from '../../components/player-area';
 import style from '../../styles/style.scss';
 
 /**
@@ -20,8 +19,8 @@ const mapStateToProps = state => ({
  * @extends {Component}
  */
 @connect(mapStateToProps)
-class GuiArea extends Component {
-  _ref: ?HTMLDivElement;
+class GuiArea extends Component<any, any> {
+  _ref!: HTMLDivElement;
 
   /**
    * this component should not render itself when player object changes.
@@ -30,7 +29,7 @@ class GuiArea extends Component {
    *
    * @returns {void}
    */
-  shouldComponentUpdate(nextProps: Object, nextState: Object): boolean {
+  shouldComponentUpdate(nextProps: any, nextState: any): boolean {
     return nextProps.guiStyles !== this.props.guiStyles || nextState.render !== this.state.render;
   }
 
@@ -52,7 +51,7 @@ class GuiArea extends Component {
    *
    * @returns {React$Element} - component element
    */
-  render(): React$Element<any> {
+  render(): VNode<any> {
     const {guiStyles, children} = this.props;
     // first container contain the elements of gui area.
     // second child will contain only the bars and interactive area and use flex positioning from gui area
@@ -64,6 +63,7 @@ class GuiArea extends Component {
         <div style={{pointerEvents: 'auto'}}>
           <PlayerArea name={'GuiArea'}>{guiElements}</PlayerArea>
         </div>
+        {/*@ts-ignore}*/}
         {typeof barsAndInteractive === 'function' ? barsAndInteractive({containerRef: this._ref}) : barsAndInteractive}
       </div>
     );
