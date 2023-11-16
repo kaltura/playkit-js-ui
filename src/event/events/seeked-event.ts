@@ -1,4 +1,5 @@
-import {FakeEvent} from '../fake-event';
+import {FakeEvent} from '@playkit-js/playkit-js';
+import {EventType} from '../event-type';
 
 /**
  * SeekedEvent event
@@ -14,7 +15,7 @@ class SeekedEvent extends FakeEvent {
    * @param {number} to - The target seek time.
    */
   constructor(from: number, to: number) {
-    super(FakeEvent.Type.USER_SEEKED);
+    super(EventType.USER_SEEKED);
     this.payload = {
       from: from,
       to: to

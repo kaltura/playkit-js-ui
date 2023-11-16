@@ -14,7 +14,7 @@ import * as Components from './components';
 import * as Utils from './utils';
 import style from './styles/style.scss';
 //Enums
-import {SidePanelPositions, SidePanelModes, ReservedPresetNames, ReservedPresetAreas} from 'reducers/shell';
+import {SidePanelPositions, SidePanelModes, ReservedPresetNames, ReservedPresetAreas} from './reducers/shell';
 // Event
 import * as Event from './event';
 const {EventType} = Event;

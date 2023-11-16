@@ -1,5 +1,5 @@
-// @flow
-import {FakeEvent} from '../fake-event';
+import {FakeEvent} from '@playkit-js/playkit-js';
+import {EventType} from '../event-type';
 
 /**
  * QualitySelectedEvent event
@@ -14,7 +14,7 @@ class QualitySelectedEvent extends FakeEvent {
    * @param {Object} qualityTrack - The selected quality track.
    */
   constructor(qualityTrack: Object) {
-    super(FakeEvent.Type.USER_SELECTED_QUALITY_TRACK);
+    super(EventType.USER_SELECTED_QUALITY_TRACK);
     this.payload = {
       qualityTrack: qualityTrack
     };

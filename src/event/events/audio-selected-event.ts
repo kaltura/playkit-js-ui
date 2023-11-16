@@ -1,4 +1,5 @@
-import {FakeEvent} from '../fake-event';
+import {FakeEvent} from '@playkit-js/playkit-js';
+import {EventType} from '../event-type';
 
 /**
  * AudioSelectedEvent event
@@ -12,8 +13,8 @@ class AudioSelectedEvent extends FakeEvent {
    *
    * @param {Object} audioTrack - The selected audio track.
    */
-  constructor(audioTrack: Object) {
-    super(FakeEvent.Type.USER_SELECTED_AUDIO_TRACK);
+  constructor(audioTrack: any) {
+    super(EventType.USER_SELECTED_AUDIO_TRACK);
     this.payload = {
       audioTrack: audioTrack
     };

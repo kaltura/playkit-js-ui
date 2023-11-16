@@ -1,6 +1,6 @@
-//@flow
-import {FakeEvent} from '../event/fake-event';
-import {FakeEventTarget} from '../event/fake-event-target';
+import {FakeEventTarget, FakeEvent} from '@playkit-js/playkit-js';
+import {EventType} from '../event';
+// import {FakeEvent} from '../event/fake-event';
 
 /**
  * A Factory class to create a resize observer for the player.
@@ -62,7 +62,7 @@ class ResizeWatcher extends FakeEventTarget {
    * @returns {void}
    */
   _triggerResize() {
-    this.dispatchEvent(new FakeEvent(FakeEvent.Type.RESIZE));
+    this.dispatchEvent(new FakeEvent(EventType.RESIZE));
   }
 }
 

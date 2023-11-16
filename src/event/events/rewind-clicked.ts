@@ -1,5 +1,5 @@
-// @flow
-import {FakeEvent} from '../fake-event';
+import {FakeEvent} from '@playkit-js/playkit-js';
+import {EventType} from '../event-type';
 
 /**
  * RewindClickedEvent event
@@ -15,7 +15,7 @@ class RewindClickedEvent extends FakeEvent {
    * @param {number} to - The target seek time.
    */
   constructor(from: number, to: number) {
-    super(FakeEvent.Type.USER_CLICKED_REWIND);
+    super(EventType.USER_CLICKED_REWIND);
     this.payload = {
       from: from,
       to: to

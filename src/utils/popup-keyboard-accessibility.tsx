@@ -6,7 +6,7 @@ import {KeyMap} from './key-map';
  * @param {Component} WrappedComponent - The popup component to implement keyboard accessibility
  * @returns {Component} - HOC that handles animation
  */
-export const withKeyboardA11y = (WrappedComponent) =>
+export const withKeyboardA11y = (WrappedComponent): any =>
   class KeyBoardAccessibility extends Component<any, any> {
     _defaultFocusedElement!: HTMLElement;
     _accessibleChildren: Array<HTMLElement> = [];

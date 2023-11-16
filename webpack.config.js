@@ -83,7 +83,12 @@ module.exports = (env, {mode}) => {
       }
     },
     externals: {
-      '@playkit-js/kaltura-player-js': ['KalturaPlayer']
+      '@playkit-js/kaltura-player-js': {
+        root: 'KalturaPlayer'
+      },
+      '@playkit-js/@playkit-js': {
+        root: ['KalturaPlayer', 'core']
+      }
     },
     output: {
       filename: 'playkit-ui.js',

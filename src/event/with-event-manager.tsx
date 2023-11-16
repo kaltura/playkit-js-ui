@@ -1,13 +1,17 @@
-import {h, Component, ComponentClass, ComponentChild} from 'preact';
-import {EventManager} from './event-manager';
+import {h, Component, ComponentChild, ComponentType} from 'preact';
+import {EventManager} from '@playkit-js/playkit-js';
+
+export type WithEventManagerProps = {
+  eventManager: EventManager;
+}
 
 /**
  * withEventManager component
  * @param {Component} ComponentToWrap - the component to wrap
  * @returns {React$Element} - component element
  */
-const withEventManager = (ComponentToWrap: ComponentClass)=> {
-  return class EventManagerComponent extends Component<any, any> {
+const withEventManager = <P extends object>(ComponentToWrap: ComponentType<P>): any => {
+  return class EventManagerComponent extends Component<P & WithEventManagerProps, any> {
     eventManager: EventManager | null = new EventManager();
     /**
      * Before component is unmounted remove all event manager listeners.

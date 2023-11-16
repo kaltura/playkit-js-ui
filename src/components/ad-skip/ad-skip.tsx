@@ -3,7 +3,16 @@ import {h, Component} from 'preact';
 import {connect} from 'react-redux';
 import {Localizer, Text} from 'preact-i18n';
 import {withPlayer} from '../player';
-import {withLogger} from '../../components/logger';
+import {withLogger, WithLoggerProps} from '../logger';
+import {WithPlayerProps} from '../player/with-player';
+
+type AdSkipProps = {
+  currentTime: number;
+  duration: number;
+  adSkipTimeOffset: number;
+  adSkippableState: boolean;
+}
+
 
 /**
  * mapping state to props
@@ -27,21 +36,23 @@ const COMPONENT_NAME = 'AdSkip';
  * @extends {Component}
  */
 @connect(mapStateToProps)
-@withPlayer
-@withLogger(COMPONENT_NAME)
-class AdSkip extends Component<any, any> {
+@withPlayer<AdSkipProps>
+@withLogger<AdSkipProps & WithPlayerProps>(COMPONENT_NAME)
+class AdSkip extends Component<AdSkipProps & WithPlayerProps & WithLoggerProps, any> {
+  constoctor
+
   /**
    * getting the number value of seconds left to be able to skip ad
    *
    * @returns {number} - number of seconds left to skip ad
    * @memberof AdSkip
    */
-  getSkipTimeOffset(): number {
+  private getSkipTimeOffset(): number {
     return Math.ceil(this.props.adSkipTimeOffset - this.props.currentTime);
   }
 
-  skipAd = () => {
-    this.props.player.ads.skipAd();
+  private skipAd = () => {
+    this.props.player.ads?.skipAd();
   };
 
   /**

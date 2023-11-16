@@ -1,4 +1,5 @@
-import {FakeEvent} from '../fake-event';
+import {FakeEvent} from '@playkit-js/playkit-js';
+import {EventType} from '../event-type';
 
 /**
  * VolumeChangedEvent event
@@ -13,7 +14,7 @@ class VolumeChangedEvent extends FakeEvent {
    * @param {number} volume - The new volume.
    */
   constructor(volume: number) {
-    super(FakeEvent.Type.USER_CHANGED_VOLUME);
+    super(EventType.USER_CHANGED_VOLUME);
     this.payload = {
       volume: volume
     };

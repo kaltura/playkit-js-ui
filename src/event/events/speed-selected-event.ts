@@ -1,4 +1,5 @@
-import {FakeEvent} from '../fake-event';
+import {FakeEvent} from '@playkit-js/playkit-js';
+import {EventType} from '../event-type';
 
 /**
  * SpeedSelectedEvent event
@@ -13,7 +14,7 @@ class SpeedSelectedEvent extends FakeEvent {
    * @param {number} speed - The selected speed.
    */
   constructor(speed: number) {
-    super(FakeEvent.Type.USER_SELECTED_SPEED);
+    super(EventType.USER_SELECTED_SPEED);
     this.payload = {
       speed: speed
     };

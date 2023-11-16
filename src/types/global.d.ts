@@ -1,3 +1,5 @@
+declare var __CSS_MODULE_PREFIX__: string;
+
 declare module '*.css' {
   const classes: { [key: string]: string };
   export default classes;

@@ -1,4 +1,5 @@
-import {FakeEvent} from '../fake-event';
+import {FakeEvent} from '@playkit-js/playkit-js';
+import {EventType} from '../event-type';
 
 /**
  * CaptionSelectedEvent event
@@ -12,8 +13,8 @@ class CaptionSelectedEvent extends FakeEvent {
    *
    * @param {Object} captionTrack - The selected caption track.
    */
-  constructor(captionTrack: Object) {
-    super(FakeEvent.Type.USER_SELECTED_CAPTION_TRACK);
+  constructor(captionTrack: any) {
+    super(EventType.USER_SELECTED_CAPTION_TRACK);
     this.payload = {
       captionTrack: captionTrack
     };

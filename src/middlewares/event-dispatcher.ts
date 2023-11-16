@@ -1,5 +1,5 @@
 // @flow
-import {FakeEvent} from '../event/fake-event';
+import {FakeEvent} from '@playkit-js/playkit-js';
 import {types as shell} from '../reducers/shell';
 import {AudioSelectedEvent} from '../event/events/audio-selected-event';
 import {CaptionSelectedEvent} from '../event/events/caption-selected-event';
@@ -15,6 +15,7 @@ import {RewindClickedEvent} from '../event/events/rewind-clicked';
 import {ForwardClickedEvent} from '../event/events/forward-clicked';
 import {VolumeChangedEvent} from '../event/events/volume-changed';
 import {KeyMap} from '../utils';
+import {EventType} from '../event';
 
 const namespace = 'event-dispatcher-middleware';
 
@@ -133,7 +134,7 @@ function onChangeableComponentsHandler(store: any, action: any, player: any): vo
       break;
 
     case 'ActivePreset':
-      player.dispatchEvent(new FakeEvent(FakeEvent.Type.UI_PRESET_CHANGE, action.payload));
+      player.dispatchEvent(new FakeEvent(EventType.UI_PRESET_CHANGE, action.payload));
       break;
     default:
       break;
@@ -186,7 +187,7 @@ function onClickableComponentsHandler(store: any, action: any, player: any): voi
       break;
 
     case 'Shell':
-      player.dispatchEvent(new FakeEvent(FakeEvent.Type.UI_CLICKED));
+      player.dispatchEvent(new FakeEvent(EventType.UI_CLICKED));
       break;
 
     case 'Rewind':
@@ -198,7 +199,7 @@ function onClickableComponentsHandler(store: any, action: any, player: any): voi
       break;
 
     case 'LiveTag':
-      player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CLICKED_LIVE_TAG));
+      player.dispatchEvent(new FakeEvent(EventType.USER_CLICKED_LIVE_TAG));
       break;
 
     case 'PrePlaybackPlayOverlay':
@@ -223,12 +224,12 @@ function onPlayPauseClicked(store: any, action: any, player: any): void {
   const engineState = store.getState().engine;
   if (engineState.adBreak) {
     engineState.adIsPlaying
-      ? player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CLICKED_PAUSE))
-      : player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CLICKED_PLAY));
+      ? player.dispatchEvent(new FakeEvent(EventType.USER_CLICKED_PAUSE))
+      : player.dispatchEvent(new FakeEvent(EventType.USER_CLICKED_PLAY));
   } else {
     engineState.isPlaying
-      ? player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CLICKED_PAUSE))
-      : player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CLICKED_PLAY));
+      ? player.dispatchEvent(new FakeEvent(EventType.USER_CLICKED_PAUSE))
+      : player.dispatchEvent(new FakeEvent(EventType.USER_CLICKED_PLAY));
   }
 }
 
@@ -242,8 +243,8 @@ function onPlayPauseClicked(store: any, action: any, player: any): void {
 function onVolumeClicked(store: any, action: any, player: any): void {
   const engineState = store.getState().engine;
   engineState.muted
-    ? player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CLICKED_MUTE))
-    : player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CLICKED_UNMUTE));
+    ? player.dispatchEvent(new FakeEvent(EventType.USER_CLICKED_MUTE))
+    : player.dispatchEvent(new FakeEvent(EventType.USER_CLICKED_UNMUTE));
 }
 
 /**
@@ -255,8 +256,8 @@ function onVolumeClicked(store: any, action: any, player: any): void {
  */
 function onFullScreenClicked(store: any, action: any, player: any): void {
   player.isFullscreen()
-    ? player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_EXITED_FULL_SCREEN))
-    : player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_ENTERED_FULL_SCREEN));
+    ? player.dispatchEvent(new FakeEvent(EventType.USER_EXITED_FULL_SCREEN))
+    : player.dispatchEvent(new FakeEvent(EventType.USER_ENTERED_FULL_SCREEN));
 }
 
 /**
@@ -268,8 +269,8 @@ function onFullScreenClicked(store: any, action: any, player: any): void {
  */
 function onPictureInPictureClicked(store: any, action: any, player: any): void {
   player.isInPictureInPicture()
-    ? player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_EXITED_PICTURE_IN_PICTURE))
-    : player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_ENTERED_PICTURE_IN_PICTURE));
+    ? player.dispatchEvent(new FakeEvent(EventType.USER_EXITED_PICTURE_IN_PICTURE))
+    : player.dispatchEvent(new FakeEvent(EventType.USER_ENTERED_PICTURE_IN_PICTURE));
 }
 
 /**
@@ -333,7 +334,7 @@ function onSpeedClicked(store: any, action: any, player: any): void {
  */
 function onAdvancedAudioDescriptionClicked(store: any, action: any, player: any): void {
   if (action.payload.type === 'AdvancedAudioDescription') {
-    player.dispatchEvent(new FakeEvent(FakeEvent.Type.USER_CLICKED_ADVANCED_AUDIO_DESCRIPTION, action.payload));
+    player.dispatchEvent(new FakeEvent(EventType.USER_CLICKED_ADVANCED_AUDIO_DESCRIPTION, action.payload));
   }
 }
 

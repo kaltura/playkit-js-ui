@@ -1,5 +1,5 @@
-// @flow
-import {FakeEvent} from '../fake-event';
+import {FakeEvent} from '@playkit-js/playkit-js';
+import {EventType} from '../event-type';
 
 /**
  * GuiResizeEvent event
@@ -14,7 +14,7 @@ class GuiResizeEvent extends FakeEvent {
    * @param {number} guiSize - The new volume.
    */
   constructor(guiSize: string) {
-    super(FakeEvent.Type.GUI_RESIZE);
+    super(EventType.GUI_RESIZE);
     this.payload = {
       guiSize
     };

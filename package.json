@@ -34,7 +34,7 @@
     "build": "yarn run build:prod && yarn run build:types",
     "build:types": "tsc --build tsconfig-lib.json && mkdir -p lib && api-extractor run --local --diagnostics",
     "type-check": "tsc --noEmit",
-    "type-check:watch": "npm run type-check -- --watch",
+    "type-check:watch": "yarn run type-check -- --watch",
     "prebuild": "npm run clean",
     "clean": "rimraf ./dist",
     "dev": "webpack-dev-server --mode development",
@@ -64,7 +64,7 @@
     ]
   },
   "dependencies": {
-    "preact": "^10.3.4",
+    "preact": "^10.19.2",
     "preact-i18n": "^2.0.0-preactx.2",
     "react-redux": "^7.2.0",
     "redux": "^4.0.5"
@@ -115,7 +115,7 @@
     "karma-firefox-launcher": "^1.3.0",
     "karma-ie-launcher": "^1.0.0",
     "karma-mocha": "^2.0.1",
-    "karma-mocha-reporter": "^2.2.5",
+    "karma-mocha-reporypeer": "^2.2.5",
     "karma-safari-launcher": "^1.0.0",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^4.0.2",

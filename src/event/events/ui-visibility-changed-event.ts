@@ -1,4 +1,5 @@
-import {FakeEvent} from '../fake-event';
+import {FakeEvent} from '@playkit-js/playkit-js';
+import {EventType} from '../event-type';
 
 /**
  * UIVisibilityChangedEvent event
@@ -13,7 +14,7 @@ class UIVisibilityChangedEvent extends FakeEvent {
    * @param {boolean} visible - The visible state.
    */
   constructor(visible: boolean) {
-    super(FakeEvent.Type.UI_VISIBILITY_CHANGED);
+    super(EventType.UI_VISIBILITY_CHANGED);
     this.payload = {
       visible: visible
     };

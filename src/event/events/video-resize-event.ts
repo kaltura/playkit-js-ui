@@ -1,4 +1,5 @@
-import {FakeEvent} from '../fake-event';
+import {FakeEvent} from '@playkit-js/playkit-js';
+import {EventType} from '../event-type';
 
 /**
  * ActivePresetResizeEvent event
@@ -13,7 +14,7 @@ class VideoResizeEvent extends FakeEvent {
    * @param {number} videoSize - The new volume.
    */
   constructor(videoSize: string) {
-    super(FakeEvent.Type.VIDEO_RESIZE);
+    super(EventType.VIDEO_RESIZE);
     this.payload = {
       videoSize
     };

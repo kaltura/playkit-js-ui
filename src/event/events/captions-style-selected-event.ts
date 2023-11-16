@@ -1,4 +1,6 @@
-import {FakeEvent} from '../fake-event';
+import {FakeEvent} from '@playkit-js/playkit-js';
+import {EventType} from '../event-type';
+
 
 /**
  * CaptionsStyleSelectedEvent event
@@ -13,7 +15,7 @@ class CaptionsStyleSelectedEvent extends FakeEvent {
    * @param {Object} captionsStyle - The selected captoons style.
    */
   constructor(captionsStyle: Object) {
-    super(FakeEvent.Type.USER_SELECTED_CAPTIONS_STYLE);
+    super(EventType.USER_SELECTED_CAPTIONS_STYLE);
     this.payload = {
       captionsStyle: captionsStyle
     };
