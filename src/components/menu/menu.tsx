@@ -1,11 +1,32 @@
-//@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, VNode, RefObject} from 'preact';
 import {BadgeType, default as Icon, IconType} from '../icon';
 import {connect} from 'react-redux';
-import {withKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
-import {KeyMap} from 'utils/key-map';
-import {withEventManager} from 'event/with-event-manager';
+import {withKeyboardA11y} from '../../utils';
+import {KeyMap} from '../../utils';
+import {withEventManager} from '../../event';
+import {WithEventManagerProps} from '../../event/with-event-manager';
+
+type OptionType = {
+  value: any; // Replace 'any' with a more specific type if possible
+  label: string;
+  active: boolean;
+  // Add other properties of options here if they exist
+};
+
+type MenuProps = {
+  isMobile?: boolean;
+  isSmallSize?: boolean;
+  guiClientRect?: DOMRect;
+  options: OptionType[];
+  labelledby?: string;
+  pushRef?: (HTMLElement) => void;
+  onMenuChosen: (value: any) => void; // Replace 'any' with the specific type of option value
+  onClose: () => void;
+  hideSelect?: boolean;
+  parentEl?: HTMLDivElement;
+  // Add any other props that Menu might use
+};
 
 /**
  * mapping state to props
@@ -34,9 +55,8 @@ const COMPONENT_NAME = 'Menu';
 @connect(mapStateToProps)
 @withEventManager
 @withKeyboardA11y
-class Menu extends Component {
-  state: Object;
-  _menuElement: HTMLDivElement;
+class Menu extends Component<MenuProps & WithEventManagerProps, any> {
+  _menuElement!: HTMLDivElement;
 
   /**
    * before component mounted, set initial state of the menu position
@@ -53,7 +73,7 @@ class Menu extends Component {
    * @memberof Menu
    */
   componentDidMount() {
-    this.props.eventManager.listen(document, 'click', this.handleClickOutside);
+    this.props.eventManager!.listen(document, 'click', this.handleClickOutside);
 
     if (!this.props.isMobile && !this.props.isSmallSize) {
       this.setState({position: this.getPosition()});
@@ -73,15 +93,15 @@ class Menu extends Component {
     // The menu is first rendered above its label.
     // top / bottom are determined from the top of the view port, if the menus top edge is lower than the top of the
     // player it means that menu.top is bigger than player.top.
-    if (menuElementRect.top >= guiClientRect.top) {
+    if (menuElementRect.top >= guiClientRect!.top) {
       return [style.top, style.left];
-    } else if (menuElementRect.bottom + menuElementRect.height < guiClientRect.bottom) {
+    } else if (menuElementRect.bottom + menuElementRect.height < guiClientRect!.bottom) {
       // menu.bottom + menu.height is the value of the bottom edge of the menu if its rendered below the label.
       return [style.bottom, style.left];
     } else {
       // If we cannot render it on top of the label or below it, we will reduce the height of the menu to be
       // 80% of the player height and put it at the bottom of the player.
-      this._menuElement.style.maxHeight = guiClientRect.height * 0.8 + 'px';
+      this._menuElement.style.maxHeight = guiClientRect!.height * 0.8 + 'px';
       return [style.stickBottom, style.left];
     }
   }
@@ -107,7 +127,7 @@ class Menu extends Component {
    * @returns {boolean} is option active boolean
    * @memberof Menu
    */
-  isSelected(option: Object): boolean {
+  isSelected(option: any): boolean {
     return option.active;
   }
 
@@ -119,7 +139,7 @@ class Menu extends Component {
    * @returns {void}
    * @memberof Menu
    */
-  onSelect(option: Object): void {
+  onSelect(option: OptionType): void {
     this.props.onMenuChosen(option.value);
     // Instant select
     this.props.options
@@ -136,8 +156,8 @@ class Menu extends Component {
    * @returns {void}
    * @memberof Menu
    */
-  onChange = (e: {...Event, target: HTMLInputElement}): void => {
-    this.onSelect(this.props.options[e.target.value]);
+  onChange = (e: Event): void => {
+    this.onSelect(this.props.options[(e.target as HTMLSelectElement).value]);
   };
 
   /**
@@ -146,7 +166,7 @@ class Menu extends Component {
    * @returns {React$Element} - component element
    * @memberof Menu
    */
-  renderNativeSelect(labelledby: string): React$Element<any> {
+  renderNativeSelect(labelledby: string): VNode<any> {
     let classes = this.props.hideSelect ? style.mobileHiddenSelect : '';
     classes += ` ${style.dropdown}`;
     return (
@@ -161,7 +181,7 @@ class Menu extends Component {
         className={classes}
         onChange={this.onChange}>
         {this.props.options.map((o, index) => (
-          <option role="option" aria-selected={this.isSelected(o) ? 'true' : ''} selected={this.isSelected(o)} value={index} key={index}>
+          <option role="option" aria-selected={this.isSelected(o)} selected={this.isSelected(o)} value={index} key={index}>
             {o.label}
           </option>
         ))}
@@ -177,7 +197,7 @@ class Menu extends Component {
    * @returns {React$Element} - component element
    * @memberof Menu
    */
-  render(props: any): React$Element<any> {
+  render(props: any): VNode<any> {
     props.clearAccessibleChildren();
     return props.isMobile || props.isSmallSize ? (
       this.renderNativeSelect(props.labelledby)
@@ -213,7 +233,7 @@ export {Menu};
  * @class MenuItem
  * @extends {Component}
  */
-class MenuItem extends Component {
+class MenuItem extends Component<any, any> {
   /**
    * on click handler
    *
@@ -235,10 +255,10 @@ class MenuItem extends Component {
    */
   onKeyDown = (e: KeyboardEvent): void => {
     switch (e.keyCode) {
-      case KeyMap.ENTER:
-        this.props.onSelect(this.props.data);
-        e.stopPropagation();
-        break;
+    case KeyMap.ENTER:
+      this.props.onSelect(this.props.data);
+      e.stopPropagation();
+      break;
     }
   };
 
@@ -248,13 +268,13 @@ class MenuItem extends Component {
    * @returns {React$Element<any>} - rendered jsx
    * @memberof MenuItem
    */
-  render(props: any): React$Element<any> {
+  render(props: any): VNode<any> {
     const badgeType: string | null =
       props.data.badgeType && !props.isSelected(props.data) ? BadgeType[props.data.badgeType] : BadgeType[props.data.badgeType + 'Active'];
     return (
       <div
         role="menuitemradio"
-        tabIndex="-1"
+        tabIndex={-1}
         aria-checked={props.isSelected(props.data) ? 'true' : 'false'}
         ref={element => {
           this.props.addAccessibleChild(element);

@@ -1,11 +1,10 @@
-//@flow
-import {h, Fragment, Component} from 'preact';
+import {h, Fragment, Component, VNode} from 'preact';
 import {connect} from 'react-redux';
 import {ActivePreset} from '../active-preset';
 import {PlayerArea} from '../player-area';
 import {actions, SidePanelOrientation, SidePanelPositions} from '../../reducers/shell';
 import {SidePanel} from '../side-panel';
-import {bindActions} from '../../utils/bind-actions';
+import {bindActions} from '../../utils';
 
 /**
  * mapping state to props
@@ -25,7 +24,7 @@ const mapStateToProps = state => ({
  * @extends {Component}
  */
 @connect(mapStateToProps, bindActions(actions))
-class PlayerGUI extends Component {
+class PlayerGUI extends Component<any, any> {
   /**
    * component did update
    * @return {void}
@@ -48,7 +47,7 @@ class PlayerGUI extends Component {
    * @returns {React$Element} - component element
    * @memberof PlayerGUI
    */
-  render(): React$Element<any> | void {
+  render(): VNode<any> | undefined {
     const {uis, playerContainer, allowSidePanels, allowPlayerArea} = this.props;
     return (
       <Fragment>

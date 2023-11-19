@@ -1,21 +1,20 @@
-//@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {withText} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {default as Icon, IconType} from '../icon';
 import {isPlayingAdOrPlayback} from '../../reducers/getters';
 import {withPlayer} from '../player';
-import {withEventDispatcher} from 'components/event-dispatcher';
-import {withLogger} from 'components/logger';
-import {bindActions} from 'utils/bind-actions';
-import {actions as settingActions} from 'reducers/settings';
-import {actions as overlayIconActions} from 'reducers/overlay-action';
-import {Tooltip} from 'components/tooltip';
-import {Button} from 'components/button';
-import {actions as shellActions} from 'reducers/shell';
-import {ButtonControl} from 'components/button-control';
-import {withEventManager} from 'event';
+import {withEventDispatcher} from '../event-dispatcher';
+import {withLogger} from '../logger';
+import {bindActions} from '../../utils';
+import {actions as settingActions} from '../../reducers/settings';
+import {actions as overlayIconActions} from '../../reducers/overlay-action';
+import {Tooltip} from '../../components/tooltip';
+import {Button} from '../button';
+import {actions as shellActions} from '../../reducers/shell';
+import {ButtonControl} from '../button-control';
+import {withEventManager} from '../../event';
 
 /**
  * mapping state to props
@@ -48,7 +47,7 @@ const COMPONENT_NAME = 'PlayPause';
   pauseText: 'controls.pause',
   playText: 'controls.play'
 })
-class PlayPause extends Component {
+class PlayPause extends Component<any, any> {
   /**
    * component mounted
    *
@@ -57,8 +56,7 @@ class PlayPause extends Component {
    */
   componentDidMount(): void {
     const {eventManager, player} = this.props;
-    // $FlowFixMe.
-    const playerContainer: HTMLDivElement = document.getElementById(player.config.ui.targetId);
+    const playerContainer: HTMLDivElement = document.getElementById(player.config.ui.targetId) as HTMLDivElement;
     eventManager.listen(player, player.Event.UI.USER_CLICKED_PLAY, () => {
       playerContainer.focus();
     });
@@ -93,7 +91,7 @@ class PlayPause extends Component {
    * @returns {React$Element} - component element
    * @memberof PlayPause
    */
-  render(props: any): React$Element<any> | void {
+  render(props: any): VNode<any> | undefined {
     const controlButtonClass = this.props.isPlayingAdOrPlayback ? [style.controlButton, style.isPlaying].join(' ') : style.controlButton;
     const isStartOver = props.isPlaybackEnded && !this.props.adBreak;
     const playbackStateText = this.props.isPlayingAdOrPlayback ? this.props.pauseText : this.props.playText;

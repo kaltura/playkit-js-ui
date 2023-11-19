@@ -85,7 +85,7 @@ class LiveTag extends Component<any, any> {
     if (props.isDvr && !this.isOnLiveEdge()) tagStyleClass.push(style.nonLivePlayhead);
 
     return (
-      <div tabIndex="0" className={tagStyleClass.join(' ')} onClick={this.onClick} onKeyDown={this.onKeyDown}>
+      <div tabIndex={0} className={tagStyleClass.join(' ')} onClick={this.onClick} onKeyDown={this.onKeyDown}>
         <Text id={'controls.live'} />
       </div>
     );

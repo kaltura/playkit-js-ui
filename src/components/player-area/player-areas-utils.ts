@@ -1,5 +1,5 @@
 import {SidePanelModes, SidePanelOrientation, SidePanelPositions} from '../../reducers/shell';
-import {PLAYER_BREAK_POINTS} from 'components/shell/shell';
+import {PLAYER_BREAK_POINTS} from '../../components/shell/shell';
 
 /**
  * Calculate dimensions of video based on vertical side panels
@@ -38,7 +38,7 @@ function calculateVerticalDimensions(options) {
  * @param {*} options player state
  * @return {Object} dimensions
  */
-function calculateHorizontalDimensions(options) {
+function calculateHorizontalDimensions(options: any) {
   const {sidePanelsSizes, sidePanelsModes, playerClientRect, isVideo} = options;
   const sizes = sidePanelsSizes[SidePanelOrientation.HORIZONTAL];
   const playerHeight = playerClientRect.height;
@@ -69,7 +69,7 @@ function calculateHorizontalDimensions(options) {
  * @param {*} options player state
  * @return {Object} styles as hashtable
  */
-export function calculateVideoContainerStyles(options) {
+export function calculateVideoContainerStyles(options: any) {
   // Video element cares only for side panels that are side to video
 
   const {sidePanelsModes, allowSidePanels} = options;
@@ -107,7 +107,7 @@ export function calculateVideoContainerStyles(options) {
  * @param {*} options player state
  * @return {Object} styles as hashtable
  */
-export function calculateGuiContainerStyles(options) {
+export function calculateGuiContainerStyles(options: any) {
   const {sidePanelsModes, playerClientRect, allowSidePanels} = options;
   const areaStyle = {position: 'absolute', left: 0, right: 0, top: 0, bottom: 0};
   let areaWidth = playerClientRect.width;
@@ -167,7 +167,7 @@ export function calculateGuiContainerStyles(options) {
  * @param {*} options player state
  * @return {Object} styles as hashtable
  */
-export function calculateSidePanelStyles(options) {
+export function calculateSidePanelStyles(options: any) {
   const {position, sidePanelsModes} = options;
   const leftSidePanelMode = sidePanelsModes[SidePanelPositions.LEFT];
   const rightSidePanelMode = sidePanelsModes[SidePanelPositions.RIGHT];

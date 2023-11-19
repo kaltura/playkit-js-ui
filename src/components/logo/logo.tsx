@@ -1,10 +1,9 @@
-//@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {connect} from 'react-redux';
 import {Text} from 'preact-i18n';
 import {withPlayer} from '../player';
-import {withLogger} from 'components/logger';
+import {withLogger} from '../logger';
 
 const COMPONENT_NAME = 'Logo';
 
@@ -29,7 +28,7 @@ const mapStateToProps = state => ({
 @connect(mapStateToProps)
 @withPlayer
 @withLogger(COMPONENT_NAME)
-class Logo extends Component {
+class Logo extends Component<any, any> {
   /**
    * should render component
    * @returns {boolean} - whether to render the component
@@ -47,11 +46,12 @@ class Logo extends Component {
    * @returns {?React$Element} - component
    * @memberof Logo
    */
-  render(props: any): ?React$Element<any> {
+  render(props: any): VNode<any> | undefined {
     if (!this._shouldRender()) {
       return undefined;
     }
     return (
+      // @ts-ignore
       <div
         className={[style.controlButtonContainer, !props.config.url ? style.emptyUrl : ''].join(' ')}
         aria-label={<Text id="controls.logo" />}

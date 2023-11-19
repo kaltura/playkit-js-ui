@@ -1,10 +1,9 @@
-//@flow
 import style from '../../styles/style.scss';
-import {h, Component, Fragment} from 'preact';
+import {h, Component, Fragment, VNode} from 'preact';
 import {connect} from 'react-redux';
 import {PlaylistButton} from '../playlist-button';
 import {PlayPause} from '../play-pause';
-import {PlayerArea} from 'components/player-area';
+import {PlayerArea} from '../../components/player-area';
 
 /**
  * mapping state to props
@@ -25,7 +24,7 @@ const COMPONENT_NAME = 'PlaybackControls';
  * @extends {Component}
  */
 @connect(mapStateToProps)
-class PlaybackControls extends Component {
+class PlaybackControls extends Component<any, any> {
   /**
    * component did mount
    * @return {void}
@@ -56,7 +55,7 @@ class PlaybackControls extends Component {
    * @returns {React$Element} - component element
    * @memberof PlaybackControls
    */
-  render({showPreview = true, playlist, className}: any): React$Element<any> {
+  render({showPreview = true, playlist, className}: any): VNode<any> {
     const shouldUpdate = this.state.shouldUpdate;
     if (shouldUpdate) {
       this.setState({shouldUpdate: false});

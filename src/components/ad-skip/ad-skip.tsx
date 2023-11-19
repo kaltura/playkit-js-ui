@@ -36,11 +36,9 @@ const COMPONENT_NAME = 'AdSkip';
  * @extends {Component}
  */
 @connect(mapStateToProps)
-@withPlayer<AdSkipProps>
+@withPlayer
 @withLogger<AdSkipProps & WithPlayerProps>(COMPONENT_NAME)
 class AdSkip extends Component<AdSkipProps & WithPlayerProps & WithLoggerProps, any> {
-  constoctor
-
   /**
    * getting the number value of seconds left to be able to skip ad
    *

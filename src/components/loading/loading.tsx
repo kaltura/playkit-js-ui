@@ -1,15 +1,16 @@
-//@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {connect} from 'react-redux';
-import {bindActions} from 'utils';
-import {actions} from 'reducers/loading';
+import {bindActions} from '../../utils';
+import {actions} from '../../reducers/loading';
 import {withPlayer} from '../player';
-import {withEventManager} from 'event/with-event-manager';
-import {withLogger} from 'components/logger';
-import {PlayerArea} from 'components/player-area';
-import {Spinner} from 'components/spinner';
-import {ReservedPresetAreas} from 'reducers/shell';
+import {withEventManager} from '../../event';
+import {withLogger, WithLoggerProps} from '../logger';
+import {PlayerArea} from '../../components/player-area';
+import {Spinner} from '../../components/spinner';
+import {ReservedPresetAreas} from '../../reducers/shell';
+import {WithPlayerProps} from '../player/with-player';
+import {WithEventManagerProps} from '../../event/with-event-manager';
 
 /**
  * mapping state to props
@@ -36,7 +37,8 @@ const COMPONENT_NAME = 'Loading';
 @withPlayer
 @withEventManager
 @withLogger(COMPONENT_NAME)
-class Loading extends Component {
+class Loading extends Component<any, any> {
+// class Loading extends Component<WithPlayerProps & WithEventManagerProps & WithLoggerProps, any> {
   /**
    * Creates an instance of Loading.
    * @memberof Loading
@@ -100,7 +102,7 @@ class Loading extends Component {
    * @returns {React$Element} - component element
    * @memberof Loading
    */
-  render(props: any): React$Element<any> | void {
+  render(props: any): VNode | undefined {
     if (!props.show) return undefined;
 
     return (

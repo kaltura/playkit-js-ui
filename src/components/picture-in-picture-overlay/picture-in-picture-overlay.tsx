@@ -1,10 +1,9 @@
-//@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {connect} from 'react-redux';
 import {Localizer, Text} from 'preact-i18n';
 import {withPlayer} from '../player';
-import {withLogger} from 'components/logger';
+import {withLogger} from '../logger';
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -28,7 +27,7 @@ const COMPONENT_NAME = 'PictureInPictureOverlay';
 @connect(mapStateToProps)
 @withPlayer
 @withLogger(COMPONENT_NAME)
-class PictureInPictureOverlay extends Component {
+class PictureInPictureOverlay extends Component<any, any> {
   /**
    * The button is clicked, play the video in the player instead of in picture in picture
    * @returns {void}
@@ -44,7 +43,7 @@ class PictureInPictureOverlay extends Component {
    * @returns {?React$Element} - component element
    * @memberof PictureInPictureOverlay
    */
-  render(): ?React$Element<any> {
+  render(): VNode<any> | undefined {
     if (!this.props.isInPictureInPicture) {
       return;
     }

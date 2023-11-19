@@ -2,7 +2,7 @@ import {h, Component, ComponentChild, ComponentType} from 'preact';
 import {EventManager} from '@playkit-js/playkit-js';
 
 export type WithEventManagerProps = {
-  eventManager: EventManager;
+  eventManager?: EventManager;
 }
 
 /**
@@ -10,7 +10,7 @@ export type WithEventManagerProps = {
  * @param {Component} ComponentToWrap - the component to wrap
  * @returns {React$Element} - component element
  */
-const withEventManager = <P extends object>(ComponentToWrap: ComponentType<P>): any => {
+const withEventManager = <P extends object>(ComponentToWrap: any): any => {
   return class EventManagerComponent extends Component<P & WithEventManagerProps, any> {
     eventManager: EventManager | null = new EventManager();
     /**

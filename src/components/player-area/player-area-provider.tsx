@@ -1,7 +1,24 @@
 import {Component, h, Fragment} from 'preact';
 import {connect} from 'react-redux';
-import {withLogger} from 'components/logger';
+import {withLogger, WithLoggerProps} from '../../components/logger';
 import {StylesStoreAdapter} from './styles-store-adapter';
+import {KPUIAddComponent, KPUIComponent, KPUIRemoveComponent} from '@playkit-js/kaltura-player-js';
+
+type PlayerAreaProviderProps = {
+  activePresetName?: string;
+  setApi: (fn: (componentData: KPUIAddComponent) => void) => void;
+  uiComponents: KPUIComponent[];
+}
+
+type ComponentListener = {
+  presetName: string;
+  areaName: string;
+  callback: (args?: any) => any;
+};
+
+// type SetApiFunction = ((componentData: KPUIAddComponent) => void) => void ;
+
+
 
 /**
  * mapping state to props
@@ -24,7 +41,9 @@ const mapStateToProps = state => ({
  * @class PlayerAreaProvider
  * @extends {Component}
  */
-class PlayerAreaProvider extends Component {
+class PlayerAreaProvider extends Component<WithLoggerProps & PlayerAreaProviderProps, any> {
+  private _listeners: ComponentListener[];
+  private _componentsByPreset: Record<string, KPUIAddComponent[]>;
   /**
    * constructor
    * @return {void}
@@ -42,6 +61,7 @@ class PlayerAreaProvider extends Component {
    */
   _initializePlayerComponents() {
     if (this.props.uiComponents && this.props.uiComponents.length > 0) {
+      // @ts-ignore
       this.props.uiComponents.forEach(this._addNewComponent);
       this._emitAllListeners();
     }
@@ -52,7 +72,7 @@ class PlayerAreaProvider extends Component {
    * @returns {void}
    * @private
    */
-  _emitListeners(listeners) {
+  _emitListeners(listeners: ComponentListener[]) {
     const {activePresetName} = this.props;
 
     (listeners || []).forEach(listener => {
@@ -79,7 +99,7 @@ class PlayerAreaProvider extends Component {
    * @returns {boolean} - is valid
    * @private
    */
-  _validateComponentData = componentData => {
+  _validateComponentData = (componentData: KPUIAddComponent) => {
     // we keep option `container` for backward compatibility. documentation are showing `area` property
     const hasAreaProperty = componentData.container || componentData.area;
     if (!componentData.get || !componentData.presets || !hasAreaProperty) {
@@ -97,7 +117,7 @@ class PlayerAreaProvider extends Component {
    * @returns {function} - remove function
    * @private
    */
-  _addNewComponentAndUpdateListeners = componentData => {
+  _addNewComponentAndUpdateListeners: (componentData: KPUIAddComponent) => (() => void) = (componentData: KPUIAddComponent): () => void => {
     return this._addNewComponent(componentData, true);
   };
 
@@ -107,7 +127,7 @@ class PlayerAreaProvider extends Component {
    * @returns {function} - remove function
    * @private
    */
-  _addNewComponent = (componentData, shouldUpdateImmediately) => {
+  _addNewComponent = (componentData: KPUIAddComponent, shouldUpdateImmediately: boolean): () => void => {
     // use cloned component just in case someone will mutate the object in another place
     const clonedComponentData = Object.assign({}, componentData);
     if (clonedComponentData.container) {
@@ -139,7 +159,7 @@ class PlayerAreaProvider extends Component {
    * @returns {void}
    * @private
    */
-  _removeNewComponent = componentData => {
+  _removeNewComponent = (componentData: KPUIAddComponent) => {
     if (!this._validateComponentData(componentData)) {
       return;
     }
@@ -152,7 +172,7 @@ class PlayerAreaProvider extends Component {
       }
       presetComponents.splice(index, 1);
 
-      const listeners = this._findListeners(componentData.area, componentData.presetName);
+      const listeners = this._findListeners(componentData.area, componentData['presetName']);
       this._emitListeners(listeners);
     });
   };
@@ -172,7 +192,7 @@ class PlayerAreaProvider extends Component {
    * @returns {Object} - listener
    * @private
    */
-  _findListeners = (areaName, optionalPresetName) => {
+  _findListeners = (areaName: string, optionalPresetName: string) => {
     if (!areaName) {
       return [];
     }
@@ -184,7 +204,7 @@ class PlayerAreaProvider extends Component {
    * @param {*} prevProps prevProps
    * @return {void}
    */
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: any) {
     if (prevProps.activePresetName !== this.props.activePresetName) {
       this._emitAllListeners();
     }
@@ -198,7 +218,7 @@ class PlayerAreaProvider extends Component {
    * @return {?function} - unlisten function
    * @private
    */
-  _listen = (presetName, areaName, callback) => {
+  _listen = (presetName: string, areaName: string, callback: (args?: any) => any) => {
     if (!presetName || !areaName || !callback) {
       return () => {};
     }
@@ -243,7 +263,7 @@ class PlayerAreaProvider extends Component {
    * @returns {Array<Object>} - area components
    * @private
    */
-  _getAreaComponents = (presetName, areaName) => {
+  _getAreaComponents = (presetName: string, areaName: string) => {
     if (!areaName || !presetName) {
       return [];
     }

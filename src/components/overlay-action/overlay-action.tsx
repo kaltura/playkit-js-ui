@@ -1,15 +1,14 @@
-//@flow
-import {h, Component} from 'preact';
+import {h, Component, VNode, ComponentChild} from 'preact';
 import style from '../../styles/style.scss';
 import {connect} from 'react-redux';
-import {bindActions} from '../../utils/bind-actions';
+import {bindActions} from '../../utils';
 import {actions} from '../../reducers/overlay-action';
 import {actions as shellActions} from '../../reducers/shell';
 import {default as Icon, IconType} from '../icon';
 import {isPlayingAdOrPlayback} from '../../reducers/getters';
 import {withPlayer} from '../player';
-import {withEventDispatcher} from 'components/event-dispatcher';
-import {withLogger} from 'components/logger';
+import {withEventDispatcher} from '../event-dispatcher';
+import {withLogger} from '../logger';
 
 /**
  * mapping state to props
@@ -68,13 +67,12 @@ const COMPONENT_NAME = 'OverlayAction';
 @withPlayer
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
-class OverlayAction extends Component {
-  state: Object;
-  _iconTimeout: ?TimeoutID = null;
+class OverlayAction extends Component<any, any> {
+  _iconTimeout: number | null = null;
   _pointerDownPosX: number = NaN;
   _pointerDownPosY: number = NaN;
   _firstClickTime: number = 0;
-  _clickTimeout: ?TimeoutID = null;
+  _clickTimeout: number | null = null;
 
   /**
    * after component unmount, clear timeouts
@@ -211,6 +209,7 @@ class OverlayAction extends Component {
 
       this._firstClickTime = now;
     }
+    // @ts-ignore
     this._clickTimeout = setTimeout(() => {
       this._clickTimeout = null;
       this.togglePlayPause();
@@ -250,7 +249,7 @@ class OverlayAction extends Component {
    * @param {Object} nextProps - next props of the component
    * @memberof OverlayAction
    */
-  shouldComponentUpdate(nextProps: Object): boolean {
+  shouldComponentUpdate(nextProps: any): boolean {
     if (nextProps.iconType) {
       this.toggleOverlayActionIcon(nextProps.iconType);
     }
@@ -270,6 +269,7 @@ class OverlayAction extends Component {
      */
     const showIcon = () => {
       this.setState({animation: true, iconType: iconType}, () => {
+        // @ts-ignore
         this._iconTimeout = setTimeout(() => {
           this._iconTimeout = null;
           this.setState({animation: false});
@@ -293,7 +293,7 @@ class OverlayAction extends Component {
    * @returns {React$Element} - component element
    * @memberof OverlayAction
    */
-  render(): React$Element<any> {
+  render(): VNode<any> {
     const {guiStyles} = this.props;
     return (
       <div
@@ -314,7 +314,7 @@ class OverlayAction extends Component {
    * @returns {React$Element} - icon element/s
    * @memberof OverlayAction
    */
-  renderIcons(): React$Element<any> {
+  renderIcons(): ComponentChild {
     if (Array.isArray(this.state.iconType)) {
       return this.state.iconType.map((i, x) => <Icon key={x} type={i} />);
     }

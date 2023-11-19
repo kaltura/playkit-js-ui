@@ -1,19 +1,19 @@
-//@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {withText} from 'preact-i18n';
 import {default as Icon, IconType} from '../icon';
 import {connect} from 'react-redux';
 import {withPlayer} from '../player';
-import {withLogger} from 'components/logger';
-import {KeyMap} from 'utils/key-map';
-import {withKeyboardEvent} from 'components/keyboard';
-import {withEventDispatcher} from 'components/event-dispatcher';
-import {Tooltip} from 'components/tooltip';
-import {Button} from 'components/button';
-import {bindActions} from 'utils/bind-actions';
-import {actions as shellActions} from 'reducers/shell';
-import {ButtonControl} from 'components/button-control';
+import {withLogger} from '../logger';
+import {KeyMap} from '../../utils';
+import {withKeyboardEvent} from '../keyboard';
+import {withEventDispatcher} from '../event-dispatcher';
+import {Tooltip} from '../../components/tooltip';
+import {Button} from '../button';
+import {bindActions} from '../../utils';
+import {actions as shellActions} from '../../reducers/shell';
+import {ButtonControl} from '../button-control';
+import {KeyboardEventHandlers} from '../../types';
 
 /**
  * mapping state to props
@@ -44,7 +44,7 @@ const COMPONENT_NAME = 'PictureInPicture';
   pictureInPictureExitText: 'controls.pictureInPictureExit',
   pictureInPictureExpandText: 'controls.pictureInPictureExpand'
 })
-class PictureInPicture extends Component {
+class PictureInPicture extends Component<any, any> {
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
       key: {
@@ -102,7 +102,7 @@ class PictureInPicture extends Component {
    * @returns {React$Element} - component element
    * @memberof PictureInPicture
    */
-  render(): React$Element<any> | void {
+  render(): VNode<any> | undefined {
     if (this._shouldRender()) {
       return (
         <ButtonControl name={COMPONENT_NAME}>

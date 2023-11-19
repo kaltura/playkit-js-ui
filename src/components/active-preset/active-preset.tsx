@@ -1,5 +1,5 @@
 //@flow
-import {Component} from 'preact';
+import {Component, VNode} from 'preact';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
 import {actions} from '../../reducers/shell';
@@ -8,8 +8,9 @@ import {withEventDispatcher} from '../../components/event-dispatcher';
 import {UIPreset} from '../../types';
 
 type ActivePresetPropsProps = {
+  playerContainer: HTMLDivElement;
   uis: UIPreset[],
-  state: {
+  state?: {
     shell: any,
     engine: {
       adBreak: boolean,
@@ -21,7 +22,7 @@ type ActivePresetPropsProps = {
       playlist: any
     }
   },
-  config: any
+  config?: any
 }
 
 /**
@@ -55,7 +56,7 @@ const COMPONENT_NAME = 'ActivePreset';
  */
 @withEventDispatcher(COMPONENT_NAME)
 @connect(mapStateToProps, bindActions(actions))
-class ActivePreset extends Component<ActivePresetPropsProps, void> {
+class ActivePreset extends Component<ActivePresetPropsProps, any> {
   static logger: any;
 
   /**
@@ -93,10 +94,10 @@ class ActivePreset extends Component<ActivePresetPropsProps, void> {
    * @returns {React$Element} - component element
    * @memberof ActivePreset
    */
-  render(props: any){
+  render(props: any): VNode<any> | undefined {
     let uiToRender;
     const {uis, state} = this.props;
-    const {activePresetName} = state.shell;
+    const {activePresetName} = state!.shell;
     if (uis.length > 0) {
       uiToRender = this.getMatchedUI(uis, props.state);
       const uiComponent = uiToRender ? uiToRender.template(props) : uis[uis.length - 1].template(props);

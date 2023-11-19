@@ -1,8 +1,7 @@
-// @flow
 import {Component} from 'preact';
 import {connect} from 'react-redux';
 import {actions, SidePanelPositions} from '../../reducers/shell';
-import {bindActions} from '../../utils/bind-actions';
+import {bindActions} from '../../utils';
 import * as utils from './player-areas-utils';
 
 /**
@@ -11,7 +10,7 @@ import * as utils from './player-areas-utils';
  * @param {string} options options
  * @return {*} function
  */
-function calculateSidePanelStyles(options) {
+function calculateSidePanelStyles(options: any) {
   if (!options.allowSidePanels) {
     return {
       [SidePanelPositions.TOP]: {},
@@ -45,14 +44,14 @@ const mapStateToProps = state => ({
  * StylesStoreAdapter
  */
 @connect(mapStateToProps, bindActions(actions))
-class StylesStoreAdapter extends Component {
+class StylesStoreAdapter extends Component<any, any> {
   /**
    * should component update handler
    *
    * @param {Object} nextProps - the props that will replace the current props
    * @returns {boolean} shouldComponentUpdate
    */
-  shouldComponentUpdate(nextProps: Object): boolean {
+  shouldComponentUpdate(nextProps: any): boolean {
     const {sidePanelsModes, sidePanelsSizes, allowSidePanels, playerClientRect} = this.props;
     const {
       sidePanelsModes: nextSidePanelsModes,

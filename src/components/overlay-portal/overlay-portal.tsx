@@ -1,5 +1,4 @@
-//@flow
-import {h, Component} from 'preact';
+import {h, Component, VNode} from 'preact';
 
 const COMPONENT_NAME = 'OverlayPortal';
 
@@ -10,7 +9,7 @@ const COMPONENT_NAME = 'OverlayPortal';
  * @example <OverlayPortal>...</OverlayPortal>
  * @extends {Component}
  */
-class OverlayPortal extends Component {
+class OverlayPortal extends Component<any, any> {
   /**
    * change in component props or state shouldn't render the component again
    *
@@ -28,7 +27,7 @@ class OverlayPortal extends Component {
    * @returns {React$Element} - component element
    * @memberof OverlayPortal
    */
-  render(props: any): React$Element<any> {
+  render(props: any): VNode<any> {
     return (
       <div className="overlay-portal" aria-live="polite">
         {props.children}

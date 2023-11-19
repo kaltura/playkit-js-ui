@@ -1,8 +1,7 @@
-// @flow
 import {Component, h} from 'preact';
 import {connect} from 'react-redux';
-import {actions} from 'reducers/shell';
-import {bindActions} from 'utils/bind-actions';
+import {actions} from '../../reducers/shell';
+import {bindActions} from '../../utils';
 
 const defaultProps = {
   allowSidePanels: false,
@@ -14,12 +13,12 @@ const defaultProps = {
  * @param {Object} options - options
  * @returns {function(*): *} connect
  */
-const withPlayerPreset = (options: Object) => (InnerComponent: Component) => {
+const withPlayerPreset = (options: any) => (InnerComponent: any) => {
   /**
    * hoc withPlayerPreset
    */
   @connect(null, bindActions(actions))
-  class PlayerPreset extends Component {
+  class PlayerPreset extends Component<any, any> {
     /**
      * on component mount
      *

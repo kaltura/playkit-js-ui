@@ -1,7 +1,7 @@
-//@flow
-import {h, Component, toChildArray, Fragment} from 'preact';
+import {h, Component, toChildArray, Fragment, VNode, ComponentChild, ComponentChildren} from 'preact';
 import {connect} from 'react-redux';
-import {withLogger} from 'components/logger';
+import {withLogger} from '../../components/logger';
+import {KPUIComponent} from '@playkit-js/kaltura-player-js';
 
 /**
  * mapping state to props
@@ -53,13 +53,13 @@ function getComponentName(component: any) {
  */
 @withLogger('PlayerArea')
 @connect(mapStateToProps)
-class PlayerArea extends Component {
+class PlayerArea extends Component<any, any> {
   static defaultProps = {
     show: true
   };
 
-  _unregisterListenerCallback: ?Function;
-  _actualChildren: Array<any>;
+  _unregisterListenerCallback!: ((args?: any) => any) | null;
+  _actualChildren: ComponentChildren;
 
   /**
    * should component update handler
@@ -69,7 +69,7 @@ class PlayerArea extends Component {
    * @param {Object} nextState - next state of the component
    * @memberof OverlayAction
    */
-  shouldComponentUpdate(nextProps: Object, nextState: Object): boolean {
+  shouldComponentUpdate(nextProps: any, nextState: any): boolean {
     return (
       nextProps.shouldUpdate ||
       this.state.playerAreaComponents !== nextState.playerAreaComponents ||
@@ -84,7 +84,7 @@ class PlayerArea extends Component {
    * @returns {void}
    * @memberof OverlayAction
    */
-  componentDidUpdate(prevProps: Object) {
+  componentDidUpdate(prevProps: any) {
     if (prevProps.activePresetName !== this.props.activePresetName) {
       this._registerListener();
     }
@@ -123,13 +123,13 @@ class PlayerArea extends Component {
    * @returns {void}
    * @private
    */
-  _updateAreaComponents = (playerAreaComponents: Array<Object>): void => {
+  _updateAreaComponents = (playerAreaComponents: Array<any>): void => {
     const {activePresetName, name: playerAreaName} = this.props;
 
     this.props.logger.debug(`Player area '${playerAreaName}' in preset '${activePresetName}' - update children components`);
 
     const positionedComponentMap = {};
-    const nextPlayerAreaComponents = {
+    const nextPlayerAreaComponents: any = {
       appendedComponents: [],
       positionedComponentMap
     };
@@ -174,7 +174,7 @@ class PlayerArea extends Component {
    * @param {Object} nextProps - the next props
    * @return {void}
    */
-  componentWillUpdate(nextProps: Object): void {
+  componentWillUpdate(nextProps: any): void {
     const {children} = nextProps;
     this._actualChildren = children && children.type === Fragment ? children.props.children : children;
   }
@@ -196,12 +196,12 @@ class PlayerArea extends Component {
    * @returns {*} component
    * @private
    */
-  _renderUIComponent(uiComponent: KPUIComponent): React$Element<any> | null {
+  _renderUIComponent(uiComponent: KPUIComponent): VNode<any> | null {
     if (!uiComponent.get) {
       return null;
     }
 
-    return h(uiComponent.get, uiComponent.props);
+    return h(uiComponent.get, uiComponent.props!);
   }
 
   /**
@@ -209,7 +209,7 @@ class PlayerArea extends Component {
    * @param {*} children children
    * @returns {*} component
    */
-  renderContent(children: Array<any>) {
+  renderContent(children: ComponentChildren) {
     return <Fragment>{children}</Fragment>;
   }
 
@@ -218,10 +218,10 @@ class PlayerArea extends Component {
    * @param {*} children children
    * @returns {*} new children
    */
-  _getPositionedComponents(children: Array<any>): Array<any> {
+  _getPositionedComponents(children: ComponentChildren): Array<any> {
     const {playerAreaComponents} = this.state;
-    const newChildren = [];
-    toChildArray(children).forEach(child => {
+    const newChildren: any[] = [];
+    toChildArray(children).forEach((child: VNode)  => {
       if (child.type === 'div' || child.type === Fragment) {
         child.props.children = this._getPositionedComponents(child.props.children);
         newChildren.push(child);
@@ -272,7 +272,7 @@ class PlayerArea extends Component {
    * @returns {null | *} - component
    * @memberof PlayerArea
    */
-  render(): React$Element<any> | null {
+  render(): ComponentChild {
     const {show} = this.props;
     const {playerAreaComponents, hasPositionedComponents, presetComponentsOnlyMode} = this.state;
 
@@ -284,7 +284,7 @@ class PlayerArea extends Component {
       return null;
     }
 
-    let newChildren = [];
+    let newChildren: any[] = [];
 
     if (hasPositionedComponents) {
       newChildren = this._getPositionedComponents(this._actualChildren);

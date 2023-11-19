@@ -1,13 +1,12 @@
-//@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {connect} from 'react-redux';
-import {bindActions} from '../../utils/bind-actions';
+import {bindActions} from '../../utils';
 import {actions as overlayActions} from '../../reducers/overlay';
 import {actions as shellActions} from '../../reducers/shell';
 import {default as Icon, IconType} from '../icon';
-import {KeyMap} from '../../utils/key-map';
+import {KeyMap} from '../../utils';
 
 const COMPONENT_NAME = 'Overlay';
 
@@ -32,8 +31,8 @@ const mapStateToProps = state => ({
  * @extends {Component}
  */
 @connect(mapStateToProps, bindActions({...shellActions, ...overlayActions}))
-class Overlay extends Component {
-  _timeoutId: ?TimeoutID = null;
+class Overlay extends Component<any, any> {
+  _timeoutId: number | null = null;
   /**
    * componentWillMount
    *
@@ -41,6 +40,7 @@ class Overlay extends Component {
    * @memberof Overlay
    */
   componentDidMount(): void {
+    // @ts-ignore
     this._timeoutId = setTimeout(() => this.props.addPlayerClass(style.overlayActive), 0);
   }
 
@@ -91,7 +91,7 @@ class Overlay extends Component {
    * @returns {React$Element | void} close button element
    * @memberof Overlay
    */
-  renderCloseButton(props: any): React$Element<any> | void {
+  renderCloseButton(props: any): VNode<any> | undefined {
     if (!props.permanent) {
       return (
         <Localizer>
@@ -102,13 +102,13 @@ class Overlay extends Component {
                 props.addAccessibleChild(el);
               }
             }}
-            tabIndex="0"
+            tabIndex={0}
             onClick={() => {
               props.updateOverlay(false);
               props.onClose();
             }}
             onKeyDown={this.onCloseButtonKeyDown}
-            aria-label={<Text id="overlay.close" />}
+            aria-label={(<Text id="overlay.close" />) as unknown as string}
             className={style.closeOverlay}>
             <Icon type={IconType.Close} />
           </a>
@@ -126,7 +126,7 @@ class Overlay extends Component {
    * @returns {React$Element} - component
    * @memberof Overlay
    */
-  render({type, open, label = 'dialog'}: any): React$Element<any> {
+  render({type, open, label = 'dialog'}: any): VNode<any> {
     const overlayClass = [style.overlay];
     if (type) {
       const classType = style[type + '-overlay'] ? style[type + '-overlay'] : type + '-overlay';
@@ -139,7 +139,7 @@ class Overlay extends Component {
     }
 
     return (
-      <div tabIndex="-1" className={overlayClass.join(' ')} role="dialog" onKeyDown={this.onKeyDown} aria-label={label}>
+      <div tabIndex={-1} className={overlayClass.join(' ')} role="dialog" onKeyDown={this.onKeyDown} aria-label={label}>
         <div className={style.overlayContents}>{this.props.children}</div>
         {this.renderCloseButton(this.props)}
       </div>
