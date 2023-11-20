@@ -1,11 +1,10 @@
-//@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {connect} from 'react-redux';
 import {Text, Localizer} from 'preact-i18n';
 import {withPlayer} from '../player';
-import {withEventManager} from 'event/with-event-manager';
-import {withLogger} from 'components/logger';
+import {withEventManager} from '../../event';
+import {withLogger} from '../logger';
 
 /**
  * mapping state to props
@@ -34,8 +33,8 @@ const COMPONENT_NAME = 'Watermark';
 @withPlayer
 @withEventManager
 @withLogger(COMPONENT_NAME)
-class Watermark extends Component {
-  _timeoutId: ?TimeoutID = null;
+class Watermark extends Component<any, any> {
+  _timeoutId: number | null = null;
   /**
    * Creates an instance of Watermark.
    * @memberof Watermark
@@ -58,7 +57,7 @@ class Watermark extends Component {
      */
     const onPlaying = () => {
       if (this.props.config.timeout > 0) {
-        this._timeoutId = setTimeout(() => this.setState({show: false}), this.props.config.timeout);
+        this._timeoutId = (setTimeout(() => this.setState({show: false}), this.props.config.timeout)) as unknown as number;
       }
     };
 
@@ -89,7 +88,7 @@ class Watermark extends Component {
    * @returns {?React$Element} - component element
    * @memberof Watermark
    */
-  render(props: any): ?React$Element<any> {
+  render(props: any): VNode<any> | undefined {
     if (!props.config.img) {
       return undefined;
     }
@@ -107,7 +106,7 @@ class Watermark extends Component {
       <div className={styleClass.join(' ')}>
         <a href={props.config.url} target="_blank" rel="noopener noreferrer">
           <Localizer>
-            <img src={props.config.img} alt={<Text id="watermark.watermark_alt_text" />} />
+            <img src={props.config.img} alt={<Text id="watermark.watermark_alt_text" /> as unknown as string} />
           </Localizer>
         </a>
       </div>

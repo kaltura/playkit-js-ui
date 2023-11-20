@@ -1,9 +1,8 @@
-//@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {DropDown} from '../dropdown';
 import {default as Icon} from '../icon';
-import {ToggleSwitch} from 'components';
+import {ToggleSwitch} from '../../components';
 
 const COMPONENT_NAME = 'SmartContainerItem';
 
@@ -13,7 +12,7 @@ const COMPONENT_NAME = 'SmartContainerItem';
  * @class SmartContainerItem
  * @extends {Component}
  */
-class SmartContainerItem extends Component {
+class SmartContainerItem extends Component<any, any> {
   /**
    * render component
    *
@@ -21,7 +20,7 @@ class SmartContainerItem extends Component {
    * @returns {React$Element} - component element
    * @memberof SmartContainer
    */
-  render(props: any): React$Element<any> {
+  render(props: any): VNode<any> {
     const label = props.label && props.label.toLowerCase();
     return (
       <div className={[style.smartContainerItem, style.selectMenuItem].join(' ')}>

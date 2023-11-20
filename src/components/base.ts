@@ -1,8 +1,8 @@
-//@flow
-import {Component} from 'preact';
+import {Component, RenderableProps, ComponentChild} from 'preact';
 import getLogger from '../utils/logger';
 import {types} from '../middlewares/event-dispatcher';
-import {EventManager} from '../event/event-manager';
+import {EventManager} from '@playkit-js/playkit-js';
+import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
 
 /**
  * Base component to be extended by other player UI components
@@ -10,9 +10,8 @@ import {EventManager} from '../event/event-manager';
  * @class BaseComponent
  * @extends {Component}
  */
-class BaseComponent extends Component {
-  state: Object;
-  player: Object;
+class BaseComponent extends Component<any, any> {
+  player: KalturaPlayer;
   name: string;
   config: Object;
   logger: any;
@@ -23,14 +22,14 @@ class BaseComponent extends Component {
    * @type {Object}
    * @static
    */
-  static defaultProps: Object = {};
+  static defaultProps: any = {};
 
   /**
    * Creates an instance of BaseComponent.
    * @param {Object} [obj={ config: {} }] obj
    * @memberof BaseComponent
    */
-  constructor(obj?: Object = {config: {}}) {
+  constructor(obj: any = {config: {}}) {
     super();
     this.name = obj.name;
     this.config = obj.config;
@@ -78,6 +77,10 @@ class BaseComponent extends Component {
    */
   componentWillUnmount(): void {
     this.eventManager.removeAll();
+  }
+
+  render(props?: RenderableProps<any>, state?: Readonly<any>, context?: any): ComponentChild {
+    return undefined;
   }
 }
 

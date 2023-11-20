@@ -1,6 +1,5 @@
-//@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, VNode} from 'preact';
 
 const COMPONENT_NAME = 'Spinner';
 
@@ -11,14 +10,14 @@ const COMPONENT_NAME = 'Spinner';
  * @example <Spinner />
  * @extends {Component}
  */
-class Spinner extends Component {
+class Spinner extends Component<any, any> {
   /**
    * render component
    *
    * @returns {React$Element} - component element
    * @memberof Spinner
    */
-  render(): React$Element<any> {
+  render(): VNode<any> {
     return (
       <div className={style.spinner}>
         {Array(8)

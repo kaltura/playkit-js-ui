@@ -1,9 +1,27 @@
-//@flow
 import style from '../../styles/style.scss';
-import {h, Component, toChildArray, cloneElement} from 'preact';
+import {h, Component, toChildArray, cloneElement, VNode} from 'preact';
 import {connect} from 'react-redux';
-import {withEventManager} from 'event/with-event-manager';
+import {withEventManager} from '../../event';
+import {WithEventManagerProps} from '../../event/with-event-manager';
+
+interface ReduxStateProps {
+  playerClientRect?: DOMRect;
+  guiClientRect?: DOMRect;
+  isMobile?: boolean;
+}
+
+type ToolTipPosition = 'top' | 'bottom' | 'top-right' | 'top-left' |  'bottom-right'| 'bottom-left' | 'left' | 'right'
+
+interface TooltipOwnProps {
+  type?: ToolTipPosition;
+  maxWidth?: string;
+  label: string;
+}
+
+type TooltipProps = ReduxStateProps & TooltipOwnProps;
+
 const PLAYER_MARGIN = 5;
+
 
 /**
  * mapping state to props
@@ -19,7 +37,7 @@ const mapStateToProps = state => ({
 const TOOLTIP_SHOW_TIMEOUT: number = 750;
 
 // notice the order represents the order of the alternative fallback
-const ToolTipType = {
+const ToolTipType: {[type: string]: ToolTipPosition} = {
   Top: 'top',
   Bottom: 'bottom',
   TopRight: 'top-right',
@@ -39,11 +57,10 @@ const ToolTipType = {
  */
 @connect(mapStateToProps)
 @withEventManager
-class Tooltip extends Component {
-  state: Object;
-  _hoverTimeout: ?TimeoutID = null;
-  textElement: HTMLSpanElement;
-  tooltipElement: HTMLDivElement;
+class Tooltip extends Component<TooltipProps & WithEventManagerProps, any> {
+  _hoverTimeout: number | null = null;
+  textElement!: HTMLSpanElement;
+  tooltipElement!: HTMLDivElement;
   lastAlternativeTypeIndex: number = -1;
 
   /**
@@ -93,7 +110,7 @@ class Tooltip extends Component {
    * @returns {void}
    */
   handleFocusOnChildren = (): void => {
-    const {onFocus} = this.props.children.props;
+    const {onFocus} = (this.props.children as VNode<any>).props
     this.showTooltip();
     if (onFocus) {
       onFocus();
@@ -106,7 +123,7 @@ class Tooltip extends Component {
    * @returns {void}
    */
   handleBlurOnChildren = (): void => {
-    const {onBlur} = this.props.children.props;
+    const {onBlur} = (this.props.children as VNode<any>).props
     this.hideTooltip();
     if (onBlur) {
       onBlur();
@@ -120,6 +137,7 @@ class Tooltip extends Component {
    */
   onMouseOver = (): void => {
     this._clearHoverTimeout();
+    // @ts-ignore
     this._hoverTimeout = setTimeout(() => {
       this.showTooltip();
     }, TOOLTIP_SHOW_TIMEOUT);
@@ -140,15 +158,15 @@ class Tooltip extends Component {
    * @memberof Tooltip
    * @returns {string} tooltip type
    */
-  getAlternateType(): ?string {
-    return ((Object.values(ToolTipType).find((item, index) => {
+  getAlternateType(): string | undefined {
+    return Object.values<string>(ToolTipType).find((item, index) => {
       if (index > this.lastAlternativeTypeIndex && item != this.props.type) {
         this.lastAlternativeTypeIndex = index;
         return true;
       } else {
         return false;
       }
-    }): any): string);
+    });
   }
 
   /**
@@ -161,10 +179,10 @@ class Tooltip extends Component {
     const playerContainerRect = this.props.playerClientRect;
 
     return (
-      tooltipBoundingRect.top > playerContainerRect.top + PLAYER_MARGIN &&
-      tooltipBoundingRect.bottom < playerContainerRect.bottom - PLAYER_MARGIN &&
-      tooltipBoundingRect.right < playerContainerRect.right - PLAYER_MARGIN &&
-      tooltipBoundingRect.left > playerContainerRect.left + PLAYER_MARGIN
+      tooltipBoundingRect.top > playerContainerRect!.top + PLAYER_MARGIN &&
+      tooltipBoundingRect.bottom < playerContainerRect!.bottom - PLAYER_MARGIN &&
+      tooltipBoundingRect.right < playerContainerRect!.right - PLAYER_MARGIN &&
+      tooltipBoundingRect.left > playerContainerRect!.left + PLAYER_MARGIN
     );
   }
 
@@ -185,7 +203,7 @@ class Tooltip extends Component {
    */
   componentDidMount() {
     const {eventManager} = this.props;
-    eventManager.listen(document, 'click', e => this.handleClickOutside(e));
+    eventManager!.listen(document, 'click', e => this.handleClickOutside(e));
   }
 
   /**
@@ -208,7 +226,7 @@ class Tooltip extends Component {
    * @memberof Tooltip
    * @returns {void}
    */
-  componentDidUpdate(prevProps: Object): void {
+  componentDidUpdate(prevProps: any): void {
     if (this.props.guiClientRect !== prevProps.guiClientRect) {
       this.lastAlternativeTypeIndex = -1;
       this.setState({valid: false, type: this.props.type});
@@ -243,11 +261,11 @@ class Tooltip extends Component {
    * @returns {React$Element} - component element
    * @memberof Tooltip
    */
-  render(props: any): React$Element<any> {
+  render(props: any): VNode<any> {
     const className = [style.tooltipLabel, style[`tooltip-${this.state.type}`]];
     this.state.showTooltip && this.state.valid ? className.push(style.show) : className.push(style.hide);
     if (props.isMobile) {
-      return toChildArray(props.children)[0];
+      return toChildArray(props.children)[0] as VNode<any>;
     }
     const children = cloneElement(props.children, {
       onFocus: this.handleFocusOnChildren,

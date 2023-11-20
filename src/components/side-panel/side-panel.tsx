@@ -1,6 +1,5 @@
-//@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {PlayerArea} from '../player-area';
 import {SidePanelPositions} from '../../reducers/shell';
 import {connect} from 'react-redux';
@@ -23,7 +22,7 @@ const mapStateToProps = state => ({
  * @extends {Component}
  */
 @connect(mapStateToProps)
-class SidePanel extends Component {
+class SidePanel extends Component<any, any> {
   /**
    * this component should not render itself when player object changes.
    *
@@ -31,7 +30,7 @@ class SidePanel extends Component {
    * @returns {void}
    * @memberof VideoPlayer
    */
-  shouldComponentUpdate(nextProps: Object): boolean {
+  shouldComponentUpdate(nextProps: any): boolean {
     const {sidePanelsStyles, position} = this.props;
     const {sidePanelsStyles: nextSidePanelsStyles, position: nextPosition} = nextProps;
     const currentStyle = sidePanelsStyles[position];
@@ -46,7 +45,7 @@ class SidePanel extends Component {
    * @returns {React$Element} - component element
    * @memberof SidePanel
    */
-  render(props: any): React$Element<any> {
+  render(props: any): VNode<any> {
     const {position, sidePanelsStyles} = props;
 
     const isVertical = [SidePanelPositions.RIGHT, SidePanelPositions.LEFT].indexOf(position) !== -1;

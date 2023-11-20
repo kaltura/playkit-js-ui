@@ -1,18 +1,17 @@
-//@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {withText, Text} from 'preact-i18n';
 import {connect} from 'react-redux';
-import {bindActions} from 'utils';
-import {actions} from 'reducers/settings';
-import {AdvancedAudioDescToggle, AudioMenu, CaptionsMenu, QualityMenu, SmartContainer, SpeedMenu, CVAAOverlay, getLabelBadgeType} from 'components';
+import {bindActions} from '../../utils';
+import {actions} from '../../reducers/settings';
+import {AdvancedAudioDescToggle, AudioMenu, CaptionsMenu, QualityMenu, SmartContainer, SpeedMenu, CVAAOverlay, getLabelBadgeType} from '../../components';
 import {default as Icon, IconType, BadgeType} from '../icon';
 import {withPlayer} from '../player';
-import {withEventManager} from 'event/with-event-manager';
-import {actions as overlayIconActions} from 'reducers/overlay-action';
-import {Tooltip} from 'components/tooltip';
-import {Button} from 'components/button';
-import {ButtonControl} from 'components/button-control';
+import {withEventManager} from '../../event';
+import {actions as overlayIconActions} from '../../reducers/overlay-action';
+import {Tooltip} from '../../components/tooltip';
+import {Button} from '../button';
+import {ButtonControl} from '../button-control';
 import {createPortal} from 'preact/compat';
 
 /**
@@ -48,9 +47,8 @@ const COMPONENT_NAME = 'Settings';
 })
 @withPlayer
 @withEventManager
-class Settings extends Component {
-  state: Object;
-  _controlSettingsElement: HTMLDivElement;
+class Settings extends Component<any, any> {
+  _controlSettingsElement!: HTMLDivElement;
 
   /**
    * before component mounted, set initial state
@@ -123,7 +121,7 @@ class Settings extends Component {
    * @memberof Settings
    */
   getButtonBadgeType(): string | null {
-    const activeVideoTrackHeight: Object = this.props.player.getActiveTracks()?.video?.height;
+    const activeVideoTrackHeight: number = this.props.player.getActiveTracks()?.video?.height;
     return activeVideoTrackHeight ? getLabelBadgeType(activeVideoTrackHeight) : null;
   }
 
@@ -134,7 +132,7 @@ class Settings extends Component {
    * @returns {React$Element} - component element
    * @memberof Settings
    */
-  render(props: any): React$Element<any> | void {
+  render(props: any): VNode<any> | undefined {
     const showAudioMenu = props.showAudioMenu && props.audioTracks.length > 1;
     const showAdvancedAudioDescToggle = props.showAdvancedAudioDescToggle;
     const showCaptionsMenu = props.showCaptionsMenu && props.textTracks.length > 1;
@@ -145,7 +143,7 @@ class Settings extends Component {
     if (props.isLive && props.videoTracks.length <= 1 && !showAudioMenu && !showCaptionsMenu) return undefined;
     const buttonBadgeType: string = this.getButtonBadgeType() || '';
 
-    const targetId = document.getElementById(this.props.player.config.targetId) || document;
+    const targetId: HTMLDivElement | Document = document.getElementById(this.props.player.config.targetId) as HTMLDivElement || document;
     const portalSelector = `.overlay-portal`;
     return (
       <ButtonControl name={COMPONENT_NAME} ref={c => (c ? (this._controlSettingsElement = c) : undefined)}>
@@ -173,7 +171,7 @@ class Settings extends Component {
             {showSpeedMenu && <SpeedMenu />}
           </SmartContainer>
         )}
-        {this.state.cvaaOverlay ? createPortal(<CVAAOverlay onClose={this.onCVAAOverlayClose} />, targetId.querySelector(portalSelector)) : <div />}
+        {this.state.cvaaOverlay ? createPortal(<CVAAOverlay onClose={this.onCVAAOverlayClose} />, targetId.querySelector(portalSelector)!) : <div />}
       </ButtonControl>
     );
   }

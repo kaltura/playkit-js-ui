@@ -1,18 +1,16 @@
-//@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {connect} from 'react-redux';
-import {bindActions} from '../../utils/bind-actions';
+import {bindActions} from '../../utils';
 import {actions as shellActions} from '../../reducers/shell';
 import {actions as engineActions} from '../../reducers/engine';
-import {KeyMap} from '../../utils/key-map';
+import {KeyMap} from '../../utils';
 import {withPlayer} from '../player';
-import {withEventManager} from 'event/with-event-manager';
-import {withEventDispatcher} from 'components/event-dispatcher';
-import {withLogger} from 'components/logger';
+import {EventType, withEventManager} from '../../event';
+import {withEventDispatcher} from '../event-dispatcher';
+import {withLogger} from '../logger';
 import {ResizeWatcher} from '../../utils/resize-watcher';
-import {debounce} from 'utils/debounce';
-import {FakeEvent} from 'event/fake-event';
+import {debounce} from '../../utils/debounce';
 
 /**
  * mapping state to props
@@ -76,12 +74,11 @@ const COMPONENT_NAME = 'Shell';
 @withEventManager
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
-class Shell extends Component {
-  state: Object;
-  hoverTimeout: ?TimeoutID;
-  _environmentClasses: Array<string>;
-  _playerResizeWatcher: ResizeWatcher;
-  _playerRef: ?HTMLDivElement;
+class Shell extends Component<any, any> {
+  hoverTimeout: number | null = null;
+  _environmentClasses!: string[];
+  _playerResizeWatcher!: ResizeWatcher;
+  _playerRef: HTMLDivElement | null = null;
 
   /**
    * on mouse over, add hover class (shows the player ui) and timeout of 3 seconds bt default or what pass as prop configuration to component
@@ -192,7 +189,8 @@ class Shell extends Component {
 
     if (this.state.nav && (e.keyCode === KeyMap.ENTER || e.keyCode === KeyMap.SPACE)) {
       this.unMuteFallback();
-      if (e.srcElement.contains(this._playerRef)) {
+      // @ts-ignore
+      if (e.srcElement!.contains(this._playerRef)) {
         e.preventDefault();
         this.props.player.paused ? this.props.player.play() : this.props.player.pause();
       }
@@ -228,8 +226,8 @@ class Shell extends Component {
     eventManager.listen(window, 'resize', debounce(this._onWindowResize, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
     eventManager.listen(document, 'scroll', debounce(this._updatePlayerClientRect, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
     this._playerResizeWatcher = new ResizeWatcher();
-    this._playerResizeWatcher.init(document.getElementById(this.props.targetId));
-    eventManager.listen(this._playerResizeWatcher, FakeEvent.Type.RESIZE, debounce(this._onWindowResize, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
+    this._playerResizeWatcher.init(document.getElementById(this.props.targetId)!);
+    eventManager.listen(this._playerResizeWatcher, EventType.RESIZE, debounce(this._onWindowResize, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
     eventManager.listen(player, player.Event.FIRST_PLAY, () => this._onWindowResize());
     this._onWindowResize();
   }
@@ -325,11 +323,11 @@ class Shell extends Component {
   _startHoverTimeout(): void {
     this._clearHoverTimeout();
     if (this.props.hoverTimeout) {
-      this.hoverTimeout = setTimeout(() => {
+      this.hoverTimeout = (setTimeout(() => {
         if (this._canEndHoverState()) {
           this._updatePlayerHover(false);
         }
-      }, this.props.hoverTimeout);
+      }, this.props.hoverTimeout)) as unknown as number;
     }
   }
 
@@ -354,7 +352,7 @@ class Shell extends Component {
    * @returns {void}
    * @memberof Shell
    */
-  componentDidUpdate(prevProps: Object): void {
+  componentDidUpdate(prevProps: any): void {
     // Update the hover state if the transition was from pre playback screen
     // or hover state changed from different component - should be handled in shell
     // or from paused to playing
@@ -382,7 +380,7 @@ class Shell extends Component {
    * @returns {React$Element} - component element
    * @memberof Shell
    */
-  render(props: any): React$Element<any> {
+  render(props: any): VNode<any> {
     let playerClasses = [style.player, style.skinDefault, ...this._environmentClasses].concat(props.playerClasses);
 
     if (this.props.prePlayback) playerClasses.push(style.prePlayback);
@@ -422,13 +420,13 @@ class Shell extends Component {
       );
     }
     playerClasses.push('notranslate');
-    playerClasses = playerClasses.join(' ');
+    const JoinedPlayerClasses = playerClasses.join(' ');
 
     return (
       <div
-        tabIndex="-1"
+        tabIndex={-1}
         ref={node => (this._playerRef = node)}
-        className={playerClasses}
+        className={JoinedPlayerClasses}
         onTouchEnd={this.onTouchEnd}
         onMouseUp={this.onMouseUp}
         onMouseOver={this.onMouseOver}

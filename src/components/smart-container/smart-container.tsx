@@ -1,12 +1,11 @@
-//@flow
 import style from '../../styles/style.scss';
-import {h, Component, cloneElement, toChildArray} from 'preact';
+import {h, Component, cloneElement, toChildArray, VNode} from 'preact';
 import {connect} from 'react-redux';
-import {bindActions} from '../../utils/bind-actions';
+import {bindActions} from '../../utils';
 import {actions} from '../../reducers/shell';
 import {createPortal} from 'preact/compat';
 import {Overlay} from '../overlay';
-import {withKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
+import {withKeyboardA11y} from '../../utils';
 import {withText} from 'preact-i18n';
 
 /**
@@ -39,7 +38,7 @@ const COMPONENT_NAME = 'SmartContainer';
 @connect(mapStateToProps, bindActions(actions))
 @withKeyboardA11y
 @withText({settingsText: 'settings.title'})
-class SmartContainer extends Component {
+class SmartContainer extends Component<any, any> {
   // ie11 fix (FEC-7312) - don't remove
   _portal: any;
 
@@ -90,7 +89,7 @@ class SmartContainer extends Component {
    * @returns {React$Element} - component element
    * @memberof SmartContainer
    */
-  render(props: any): React$Element<any> {
+  render(props: any): VNode<any> {
     const targetId = document.getElementById(this.props.targetId) || document;
     const portalSelector = `.overlay-portal`;
     props.clearAccessibleChildren();
@@ -105,10 +104,10 @@ class SmartContainer extends Component {
           <div className={style.title}>{props.title}</div>
           {this.renderChildren(props)}
         </Overlay>,
-        targetId.querySelector(portalSelector)
+        targetId.querySelector(portalSelector)!
       )
     ) : (
-      <div onKeyDown={props.handleKeyDown} tabIndex="-1" className={[style.smartContainer, style.top, style.left].join(' ')}>
+      <div onKeyDown={props.handleKeyDown} tabIndex={-1} className={[style.smartContainer, style.top, style.left].join(' ')}>
         {this.renderChildren(props)}
       </div>
     );
@@ -119,10 +118,10 @@ class SmartContainer extends Component {
    * @param {any} props - smart containers props
    * @returns {React$Element<any>} the rendered jsx
    */
-  renderChildren(props: any): React$Element<any> {
+  renderChildren(props: any):  Array<VNode | undefined> {
     const children = toChildArray(props.children).map(child => {
       if (child) {
-        return cloneElement(child, {
+        return cloneElement(child as VNode<any>, {
           pushRef: ref => {
             props.addAccessibleChild(ref);
           },

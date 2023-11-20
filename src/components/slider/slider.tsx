@@ -1,7 +1,6 @@
-//@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
-import {KeyMap} from '../../utils/key-map';
+import {h, Component, VNode} from 'preact';
+import {KeyMap} from '../../utils';
 
 const KEYBOARD_DRAG_STEP = 5;
 
@@ -14,11 +13,10 @@ const COMPONENT_NAME = 'Slider';
  * @example <Slider onChange={value => this.onOpacityChange(value)} value={this.initialOpacity} min={0} max={100} />
  * @extends {Component}
  */
-class Slider extends Component {
-  state: Object;
-  sliderWidth: number;
-  _sliderElement: HTMLElement;
-  _sliderElementOffsetLeft: number;
+class Slider extends Component<any, any> {
+  sliderWidth!: number;
+  _sliderElement!: HTMLElement;
+  _sliderElementOffsetLeft!: number;
 
   /**
    * before component mounted, set initial state of the slider
@@ -192,7 +190,7 @@ class Slider extends Component {
    * @returns {number} slider value
    * @memberof Slider
    */
-  mouseEventToValue(e: any, state: Object): number {
+  mouseEventToValue(e: any, state: any): number {
     let clientX;
     if (e.touches && e.touches.length > 0) {
       clientX = e.touches[0].clientX;
@@ -238,7 +236,7 @@ class Slider extends Component {
    * @returns {React$Element<any>} component element
    * @memberof Slider
    */
-  render(props: any): React$Element<any> {
+  render(props: any): VNode<any> {
     return (
       <div
         role="slider"
@@ -246,7 +244,7 @@ class Slider extends Component {
         aria-valuenow={this.state.value}
         aria-valuemax={this.state.max}
         aria-labelledby={props.name}
-        tabIndex="0"
+        tabIndex={0}
         ref={c => {
           if (c) {
             this._sliderElement = c;

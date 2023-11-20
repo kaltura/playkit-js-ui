@@ -113,7 +113,7 @@ class Fullscreen extends Component<FullscreenProps & WithPlayerProps & WithLogge
     const {logger, player} = this.props;
     logger.debug(`Toggle fullscreen`);
     player!.isFullscreen() ? player!.exitFullscreen() : player!.enterFullscreen();
-    this.props.notifyClick();
+    this.props.notifyClick!();
   };
 
   /**

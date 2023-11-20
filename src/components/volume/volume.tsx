@@ -1,24 +1,24 @@
-//@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {connect} from 'react-redux';
-import {bindActions} from '../../utils/bind-actions';
+import {bindActions} from '../../utils';
 import {actions} from '../../reducers/volume';
 import {actions as engineActions} from '../../reducers/engine';
-import {default as Icon, IconType} from '../icon';
-import {KeyMap} from '../../utils/key-map';
-import {FakeEvent} from '../../event/fake-event';
+import {Icon, IconType} from '../icon';
+import {KeyMap} from '../../utils';
 import {withPlayer} from '../player';
-import {withEventManager} from 'event/with-event-manager';
-import {withLogger} from 'components/logger';
-import {withEventDispatcher} from 'components/event-dispatcher';
+import {withEventManager} from '../../event';
+import {withLogger} from '../logger';
+import {withEventDispatcher} from '../event-dispatcher';
 import {Text, withText} from 'preact-i18n';
-import {withKeyboardEvent} from 'components/keyboard';
-import {actions as overlayIconActions} from 'reducers/overlay-action';
-import {Tooltip} from 'components/tooltip';
-import {ToolTipType} from 'components/tooltip/tooltip';
-import {Button} from 'components/button';
-import {ButtonControl} from 'components/button-control';
+import {withKeyboardEvent} from '../keyboard';
+import {actions as overlayIconActions} from '../../reducers/overlay-action';
+import {Tooltip} from '../tooltip';
+import {ToolTipType} from '../tooltip';
+import {Button} from '../button';
+import {ButtonControl} from '../button-control';
+import {KeyboardEventHandlers} from '../../types';
+import {FakeEvent} from '@playkit-js/playkit-js';
 
 /**
  * mapping state to props
@@ -72,9 +72,9 @@ const translates = (props: any) => ({
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
 @withText(translates)
-class Volume extends Component {
-  _volumeControlElement: HTMLElement;
-  _volumeProgressBarElement: HTMLElement;
+class Volume extends Component<any, any> {
+  _volumeControlElement!: HTMLDivElement;
+  _volumeProgressBarElement!: HTMLDivElement;
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
       key: {
@@ -178,7 +178,7 @@ class Volume extends Component {
    * @returns {void}
    * @memberof Volume
    */
-  onVolumeProgressBarMouseMove = (e: FakeEvent): void => {
+  onVolumeProgressBarMouseMove = (e: MouseEvent): void => {
     if (this.props.isDraggingActive) {
       this.changeVolume(e);
     }
@@ -318,7 +318,7 @@ class Volume extends Component {
    * @returns {void}
    * @memberof Volume
    */
-  onVolumeProgressBarMouseUp = (e: FakeEvent): void => {
+  onVolumeProgressBarMouseUp = (e: MouseEvent): void => {
     if (this.props.isDraggingActive) {
       this.props.updateVolumeDraggingStatus(false);
       this.changeVolume(e);
@@ -354,7 +354,7 @@ class Volume extends Component {
    * @returns {void}
    * @memberof Volume
    */
-  changeVolume(e: FakeEvent): void {
+  changeVolume(e: MouseEvent): void {
     const {player} = this.props;
     const dimensions = this._volumeProgressBarElement.getBoundingClientRect();
     let volume;
@@ -381,10 +381,10 @@ class Volume extends Component {
    * @return {number} - the volume of the player. a number in the range of 0 and 1.
    * @private
    */
-  _getHorizontalVolume(dimensions: Object, e: FakeEvent): number {
+  _getHorizontalVolume(dimensions: any, e: MouseEvent): number {
     let barWidth = dimensions.width;
     let left = dimensions.left;
-    let clickX = (e: any).clientX;
+    let clickX = e.clientX;
     if (barWidth != 0) {
       return (clickX - left) / barWidth;
     } else {
@@ -399,10 +399,10 @@ class Volume extends Component {
    * @return {number} - the volume of the player. a number in the range of 0 and 1.
    * @private
    */
-  _getVerticalVolume(dimensions: Object, e: FakeEvent): number {
+  _getVerticalVolume(dimensions: any, e: MouseEvent): number {
     let barHeight = dimensions.height;
     let top = dimensions.top;
-    let clickY = (e: any).clientY;
+    let clickY = e.clientY;
     if (barHeight != 0) {
       return 1 - (clickY - top) / barHeight;
     } else {
@@ -437,7 +437,7 @@ class Volume extends Component {
    * @returns {React$Element} - component element
    * @memberof Volume
    */
-  render(): ?React$Element<any> {
+  render(): VNode<any> | undefined{
     if (!this._shouldRender) return undefined;
     const {player, isDraggingActive, muted, volume, smartContainerOpen} = this.props;
     const controlButtonClasses = [
@@ -471,14 +471,14 @@ class Volume extends Component {
           </Button>
         </Tooltip>
         <div
-          tabIndex="0"
+          tabIndex={0}
           aria-orientation="vertical"
           aria-label={this.props.sliderAriaLabel}
           onKeyDown={this.onProgressBarKeyDown}
           className={style.volumeControlBar}
           role="slider"
-          aria-valuemin="0"
-          aria-valuemax="100"
+          aria-valuemin={0}
+          aria-valuemax={100}
           aria-valuenow={player.volume * 100}
           aria-valuetext={`${player.volume * 100}% volume ${player.muted ? 'muted' : ''}`}>
           <div

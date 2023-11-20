@@ -110,7 +110,7 @@ class CopyButton extends Component<any, any> {
     return (
       <Localizer>
         <ButtonControl name={COMPONENT_NAME}>
-          <Tooltip label={<Text id="copy.button" />}>
+          <Tooltip label={<Text id="copy.button" /> as unknown as string}>
             <Button
               tabIndex="0"
               ref={el => {

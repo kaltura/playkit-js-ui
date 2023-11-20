@@ -11,8 +11,8 @@ import {WithPlayerProps} from '../player/with-player';
 import {WithEventDispatcherProps} from '../event-dispatcher';
 
 type AudioMenuProps = {
-  audioTracks: any[];
-  audioLabelText: string;
+  audioTracks?: any[];
+  audioLabelText?: string;
 }
 
 /**
@@ -51,7 +51,7 @@ class AudioMenu extends Component<AudioMenuProps & WithPlayerProps & WithEventDi
     // @ts-ignore - store types
     this.props.updateAudio(audioTrack);
     this.props.player!.selectTrack(audioTrack);
-    this.props.notifyClick({
+    this.props.notifyClick!({
       type: this.props.player!.Track.AUDIO,
       track: audioTrack
     });

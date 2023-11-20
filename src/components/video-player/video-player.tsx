@@ -1,14 +1,12 @@
-//@flow
 import {ResizeWatcher} from '../../utils/resize-watcher';
-import {h, Component} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {connect} from 'react-redux';
 import {actions} from '../../reducers/shell';
 import style from '../../styles/style.scss';
-import {bindActions} from '../../utils/bind-actions';
+import {bindActions} from '../../utils';
 import {withPlayer} from '../player';
-import {withEventManager} from 'event/with-event-manager';
-import {FakeEvent} from 'event/fake-event';
-import {PlayerArea} from 'components/player-area';
+import {EventType, withEventManager} from '../../event';
+import {PlayerArea} from '../player-area';
 
 /**
  * mapping state to props
@@ -30,9 +28,9 @@ const mapStateToProps = state => ({
 @withPlayer
 @withEventManager
 @connect(mapStateToProps, bindActions(actions))
-class VideoPlayer extends Component {
-  _el: HTMLElement;
-  _videoResizeWatcher: ResizeWatcher;
+class VideoPlayer extends Component<any, any> {
+  _el!: HTMLDivElement;
+  _videoResizeWatcher!: ResizeWatcher;
 
   /**
    * this component should not render itself when player object changes.
@@ -41,7 +39,7 @@ class VideoPlayer extends Component {
    * @returns {void}
    * @memberof VideoPlayer
    */
-  shouldComponentUpdate(nextProps: Object): boolean {
+  shouldComponentUpdate(nextProps: any): boolean {
     return nextProps.videoStyles !== this.props.videoStyles;
   }
 
@@ -56,7 +54,7 @@ class VideoPlayer extends Component {
     videoResizeWatcher.init(this._el);
     this._videoResizeWatcher = videoResizeWatcher;
     // do not use debounce here since it breaks the video resizing animation
-    this.props.eventManager.listen(this._videoResizeWatcher, FakeEvent.Type.RESIZE, this._onVideoResize);
+    this.props.eventManager.listen(this._videoResizeWatcher, EventType.RESIZE, this._onVideoResize);
   }
 
   /**
@@ -76,9 +74,9 @@ class VideoPlayer extends Component {
    * @return {void}
    * @private
    */
-  _setRef = (ref: HTMLElement | null) => {
+  _setRef = (ref: HTMLDivElement | null) => {
     if (this._videoResizeWatcher) {
-      this.props.eventManager.unlisten(this._videoResizeWatcher, FakeEvent.Type.RESIZE, this._onVideoResize);
+      this.props.eventManager.unlisten(this._videoResizeWatcher, EventType.RESIZE, this._onVideoResize);
       this._videoResizeWatcher.destroy();
     }
 
@@ -110,7 +108,7 @@ class VideoPlayer extends Component {
    * @returns {React$Element} - component element
    * @memberof VideoPlayer
    */
-  render(): React$Element<any> {
+  render(): VNode<any> {
     const {videoStyles, targetId} = this.props;
 
     return (

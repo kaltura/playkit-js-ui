@@ -1,18 +1,17 @@
-//@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {withText} from 'preact-i18n';
 import {default as Icon, IconType} from '../icon';
-import {KeyMap} from '../../utils/key-map';
+import {KeyMap} from '../../utils';
 import {actions as engineActions} from '../../reducers/engine';
-import {bindActions} from '../../utils/bind-actions';
+import {bindActions} from '../../utils';
 import {connect} from 'react-redux';
 import {actions as shellActions} from '../../reducers/shell';
 import {withPlayer} from '../player';
-import {withLogger} from 'components/logger';
-import {Tooltip} from 'components/tooltip';
-import {Button} from 'components/button';
-import {ButtonControl} from 'components/button-control';
+import {withLogger} from '../logger';
+import {Tooltip} from '../tooltip';
+import {Button} from '../button';
+import {ButtonControl} from '../button-control';
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -39,7 +38,7 @@ const COMPONENT_NAME = 'VrStereo';
 @withText({
   vrStereoText: 'controls.vrStereo'
 })
-class VrStereo extends Component {
+class VrStereo extends Component<any, any> {
   /**
    * should render component
    * @returns {boolean} - whether to render the component
@@ -90,7 +89,7 @@ class VrStereo extends Component {
    * @returns {React$Element} - component element
    * @memberof VrStereo
    */
-  render(): React$Element<any> | void {
+  render(): VNode<any> | undefined {
     return !this._shouldRender() ? undefined : (
       <ButtonControl name={COMPONENT_NAME}>
         <Tooltip label={this.props.vrStereoText}>

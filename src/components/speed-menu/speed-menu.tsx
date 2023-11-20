@@ -1,16 +1,16 @@
-//@flow
-import {h, Component} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {withText} from 'preact-i18n';
 import {connect} from 'react-redux';
-import {bindActions, KeyMap} from 'utils';
-import {actions} from 'reducers/settings';
-import {SmartContainerItem} from 'components';
+import {bindActions, KeyMap} from '../../utils';
+import {actions} from '../../reducers/settings';
+import {SmartContainerItem} from '../../components';
 import {IconType} from '../icon';
 import {withPlayer} from '../player';
-import {withLogger} from 'components/logger';
-import {withEventDispatcher} from 'components/event-dispatcher';
-import {withKeyboardEvent} from 'components/keyboard';
-import {SpeedSelectedEvent} from 'event/events/speed-selected-event';
+import {withLogger} from '../logger';
+import {withEventDispatcher} from '../event-dispatcher';
+import {withKeyboardEvent} from '../keyboard';
+import {SpeedSelectedEvent} from '../../event/events/speed-selected-event';
+import {KeyboardEventHandlers} from '../../types';
 
 const COMPONENT_NAME = 'SpeedMenu';
 
@@ -30,7 +30,7 @@ const COMPONENT_NAME = 'SpeedMenu';
   speedLabelText: 'settings.speed',
   speedNormalLabelText: 'settings.speedNormal'
 })
-class SpeedMenu extends Component {
+class SpeedMenu extends Component<any, any> {
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
       key: {
@@ -137,7 +137,7 @@ class SpeedMenu extends Component {
    * @returns {React$Element} - component
    * @memberof SpeedMenu
    */
-  render(props: any): React$Element<any> | void {
+  render(props: any): VNode<any> | undefined {
     const speedOptions = props.optionsRenderer
       ? props.optionsRenderer(props.player.playbackRates)
       : props.player.playbackRates.reduce((acc, speed) => {

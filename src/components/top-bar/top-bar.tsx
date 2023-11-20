@@ -1,8 +1,7 @@
-//@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {connect} from 'react-redux';
-import {PlayerArea} from 'components/player-area';
+import {PlayerArea} from '../../components/player-area';
 
 /**
  * mapping state to props
@@ -24,7 +23,7 @@ const COMPONENT_NAME = 'TopBar';
  * @extends {Component}
  */
 @connect(mapStateToProps)
-class TopBar extends Component {
+class TopBar extends Component<any, any> {
   /**
    * render component
    *
@@ -32,7 +31,7 @@ class TopBar extends Component {
    * @returns {?React$Element} - component element
    * @memberof TopBar
    */
-  render(props: any): ?React$Element<any> {
+  render(props: any): VNode<any> {
     const {disabled, isPlaybackEnded, isCasting, leftControls, rightControls} = props;
 
     const styleClass = [style.topBar];

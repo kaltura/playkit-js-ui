@@ -1,7 +1,6 @@
-//@flow
-import {h, Component} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {connect} from 'react-redux';
-import {PlayerArea} from 'components/player-area';
+import {PlayerArea} from '../../components/player-area';
 import style from '../../styles/style.scss';
 
 /**
@@ -17,14 +16,14 @@ const mapStateToProps = state => ({
  * VideoArea
  */
 @connect(mapStateToProps)
-class VideoArea extends Component {
+class VideoArea extends Component<any, any> {
   /**
    * this component should not render itself when player object changes.
    *
    * @param {Object} nextProps - next props of the component
    * @returns {void}
    */
-  shouldComponentUpdate(nextProps: Object): boolean {
+  shouldComponentUpdate(nextProps: any): boolean {
     return nextProps.videoStyles !== this.props.videoStyles;
   }
 
@@ -33,7 +32,7 @@ class VideoArea extends Component {
    *
    * @returns {React$Element} - component element
    */
-  render(): React$Element<any> {
+  render(): VNode<any> {
     const {videoStyles, children} = this.props;
     return (
       <div style={videoStyles} className={style.videoArea}>

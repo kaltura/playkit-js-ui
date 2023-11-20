@@ -1,7 +1,6 @@
-//@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
-import {toHHMMSS} from '../../utils/time-format';
+import {h, Component, VNode} from 'preact';
+import {toHHMMSS} from '../../utils';
 
 const COMPONENT_NAME = 'TimeDisplay';
 
@@ -16,7 +15,7 @@ const COMPONENT_NAME = 'TimeDisplay';
  * />
  * @extends {Component}
  */
-class TimeDisplay extends Component {
+class TimeDisplay extends Component<any, any> {
   /**
    * get formatted time display based on defined format
    *
@@ -48,7 +47,7 @@ class TimeDisplay extends Component {
    * @returns {React$Element} - component
    * @memberof TimeDisplay
    */
-  render({currentTime, duration, format = 'current / total'}: any): React$Element<any> {
+  render({currentTime, duration, format = 'current / total'}: any): VNode<any> {
     return (
       <div className={style.timeDisplay}>
         <span>{this.getTimeDisplay(currentTime, duration, format)}</span>

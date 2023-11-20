@@ -14,7 +14,7 @@ import {WithEventManagerProps} from '../../event/with-event-manager';
 interface AudioEntryDetailsProps {
   player: any;
   isAudio: boolean;
-  playerSize: typeof PLAYER_SIZE;
+  playerSize: string;
   eventManager: EventManager;
 }
 
@@ -31,8 +31,7 @@ const mapStateToProps = state => ({
 const COMPONENT_NAME = 'AudioEntryDetails';
 
 const AudioEntryDetailsComp: FunctionComponent<AudioEntryDetailsProps> = (props: AudioEntryDetailsProps) => {
-  // eslint-disable-next-line require-jsdoc
-  const getSizeClass = (playerSize: typeof PLAYER_SIZE) => {
+  const getSizeClass = (playerSize: string) => {
     switch (playerSize) {
     case PLAYER_SIZE.EXTRA_LARGE:
     case PLAYER_SIZE.LARGE:

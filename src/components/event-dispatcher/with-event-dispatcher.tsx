@@ -1,9 +1,9 @@
 import {h, Component} from 'preact';
 
 export type WithEventDispatcherProps = {
-  notifyClick(payload?: any): void
-  notifyChange(payload?: any): void
-  notifyHoverChange(payload?: any): void
+  notifyClick?(payload?: any): void
+  notifyChange?(payload?: any): void
+  notifyHoverChange?(payload?: any): void
 }
 
 /**

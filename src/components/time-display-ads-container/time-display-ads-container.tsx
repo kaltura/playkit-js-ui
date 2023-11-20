@@ -1,8 +1,7 @@
-//@flow
-import {h, Component} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {connect} from 'react-redux';
 import {TimeDisplay} from '../time-display';
-import {withLogger} from 'components/logger';
+import {withLogger} from '../logger';
 
 /**
  * mapping state to props
@@ -24,7 +23,7 @@ const COMPONENT_NAME = 'TimeDisplayAdsContainer';
  */
 @connect(mapStateToProps)
 @withLogger(COMPONENT_NAME)
-class TimeDisplayAdsContainer extends Component {
+class TimeDisplayAdsContainer extends Component<any, any> {
   /**
    * render component
    *
@@ -32,7 +31,7 @@ class TimeDisplayAdsContainer extends Component {
    * @returns {React$Element} - component element
    * @memberof TimeDisplayAdsContainer
    */
-  render(props: any): React$Element<any> {
+  render(props: any): VNode<any> {
     return <TimeDisplay currentTime={Math.round(props.adProgress.currentTime)} duration={Math.round(props.adProgress.duration)} {...props} />;
   }
 }

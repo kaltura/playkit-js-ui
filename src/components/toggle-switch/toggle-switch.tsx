@@ -1,6 +1,5 @@
-//@flow
-import {h, Component} from 'preact';
-import {KeyMap} from 'utils';
+import {h, Component, VNode} from 'preact';
+import {KeyMap} from '../../utils';
 import style from '../../styles/style.scss';
 
 const COMPONENT_NAME = 'ToggleSwitch';
@@ -12,7 +11,7 @@ const COMPONENT_NAME = 'ToggleSwitch';
  * @example <ToggleSwitch />
  * @extends {Component}
  */
-class ToggleSwitch extends Component {
+class ToggleSwitch extends Component<any, any> {
   /**
    * render Toggle Switch component
    *
@@ -45,7 +44,7 @@ class ToggleSwitch extends Component {
    * @returns {React$Element} component element
    * @memberof ToggleSwitch
    */
-  render(props: any): React$Element<any> {
+  render(props: any): VNode<any> {
     return (
       <label
         onKeyDown={event => this.handleOnKeyDown(event)}
@@ -58,13 +57,13 @@ class ToggleSwitch extends Component {
         aria-label={props.name}
         role="switch"
         aria-checked={props.isChecked}
-        tabIndex="-1">
+        tabIndex={-1}>
         <input
           name={props.name}
           className={style.toggleInput}
           type="checkbox"
           checked={props.isChecked}
-          onChange={e => this.onChange(e.target.checked)}
+          onChange={e => this.onChange((e.target as HTMLInputElement).checked)}
         />
         <span className={style.slider} />
       </label>

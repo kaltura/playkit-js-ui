@@ -1,13 +1,12 @@
-//@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {connect} from 'react-redux';
 import {default as Icon, IconType} from '../icon';
-import {KeyMap} from '../../utils/key-map';
+import {KeyMap} from '../../utils';
 import {Localizer, Text} from 'preact-i18n';
 import {withPlayer} from '../player';
-import {withEventManager} from 'event/with-event-manager';
-import {withLogger} from 'components/logger';
+import {withEventManager} from '../../event';
+import {withLogger} from '../logger';
 
 /**
  * The icon only default timeout
@@ -38,8 +37,8 @@ const COMPONENT_NAME = 'UnmuteIndication';
 @withPlayer
 @withEventManager
 @withLogger(COMPONENT_NAME)
-class UnmuteIndication extends Component {
-  _iconTimeout: ?TimeoutID = null;
+class UnmuteIndication extends Component<any, any> {
+  _iconTimeout: number | null = null;
 
   /**
    * after component updated, check the fallbackToMutedAutoPlay prop for updating the state of the component
@@ -49,7 +48,7 @@ class UnmuteIndication extends Component {
    * @returns {void}
    * @memberof UnmuteIndication
    */
-  componentDidUpdate(prevProps: Object): void {
+  componentDidUpdate(prevProps: any): void {
     if (!prevProps.fallbackToMutedAutoPlay && this.props.fallbackToMutedAutoPlay) {
       this.props.eventManager.listenOnce(this.props.player, this.props.player.Event.PLAYING, () => this._iconOnlyTimeout());
       this.props.eventManager.listenOnce(this.props.player, this.props.player.Event.AD_STARTED, () => this._iconOnlyTimeout());
@@ -76,6 +75,7 @@ class UnmuteIndication extends Component {
    * @returns {void}
    */
   _iconOnlyTimeout(): void {
+    // @ts-ignore
     this._iconTimeout = setTimeout(() => {
       this.setState({iconOnly: true});
     }, MUTED_AUTOPLAY_ICON_ONLY_DEFAULT_TIMEOUT);
@@ -125,7 +125,7 @@ class UnmuteIndication extends Component {
    * @returns {?React$Element} component element
    * @memberof UnmuteIndication
    */
-  render(props: any): ?React$Element<any> {
+  render(props: any): VNode<any> | undefined {
     if (!this.props.fallbackToMutedAutoPlay) return undefined;
 
     const styleClass = [style.unmuteButtonContainer];
@@ -135,8 +135,8 @@ class UnmuteIndication extends Component {
     return (
       <Localizer>
         <div
-          tabIndex="0"
-          aria-label={<Text id="controls.unmute" />}
+          tabIndex={0}
+          aria-label={<Text id="controls.unmute" /> as unknown as string}
           className={styleClass.join(' ')}
           onMouseOver={this.onMouseOver}
           onMouseOut={this.onMouseOut}
