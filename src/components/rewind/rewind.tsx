@@ -1,16 +1,15 @@
-//@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {Text, withText} from 'preact-i18n';
 import {default as Icon, IconType} from '../icon';
 import {withAnimation} from '../../utils/with-animation';
 import {withPlayer} from '../player';
-import {withEventDispatcher} from 'components/event-dispatcher';
-import {withLogger} from 'components/logger';
-import {Tooltip} from 'components/tooltip';
-import {Button} from 'components/button';
+import {withEventDispatcher} from '../event-dispatcher';
+import {withLogger} from '../logger';
+import {Tooltip} from '../../components/tooltip';
+import {Button} from '../button';
 import {connect} from 'react-redux';
-import {ButtonControl} from 'components/button-control';
+import {ButtonControl} from '../button-control';
 
 const COMPONENT_NAME = 'Rewind';
 
@@ -52,7 +51,7 @@ const translates = (props: any) => ({
 @withEventDispatcher(COMPONENT_NAME)
 @withAnimation(style.rotate)
 @withText(translates)
-class Rewind extends Component {
+class Rewind extends Component<any, any> {
   /**
    * rewind click handler
    *
@@ -98,7 +97,7 @@ class Rewind extends Component {
    * @returns {React$Element} - component element
    * @memberof Rewind
    */
-  render({step, rewindText, innerRef}: any): React$Element<any> | void {
+  render({step, rewindText, innerRef}: any): VNode<any> | undefined {
     return !this._shouldRender() ? undefined : (
       <ButtonControl name={COMPONENT_NAME} className={style.noIdleControl}>
         <Tooltip label={rewindText}>

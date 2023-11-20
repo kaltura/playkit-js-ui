@@ -1,5 +1,4 @@
-//@flow
-import {h, Component} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {connect} from 'react-redux';
 import {withPlayer} from '../player';
 import {PrevNext} from './prev-next';
@@ -24,7 +23,7 @@ const COMPONENT_NAME = 'PlaylistButton';
  */
 @connect(mapStateToProps)
 @withPlayer
-class PlaylistButton extends Component {
+class PlaylistButton extends Component<any, any> {
   /**
    * playlist button click handler
    *
@@ -42,7 +41,7 @@ class PlaylistButton extends Component {
    * @returns {React$Element} - component element
    * @memberof PlaylistButton
    */
-  render(props: any): React$Element<any> | void {
+  render(props: any): VNode<any> | undefined {
     const item = props.playlist[props.type];
     return <PrevNext type={props.type} item={item} onClick={this.onClick.bind(this)} showPreview={props.showPreview} />;
   }

@@ -1,13 +1,12 @@
-//@flow
-import {h, Component} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {connect} from 'react-redux';
-import {bindActions} from '../../utils/bind-actions';
+import {bindActions} from '../../utils';
 import {actions} from '../../reducers/seekbar';
 import {SeekBar} from '../seekbar';
 import {withPlayer} from '../player';
-import {withEventManager} from 'event/with-event-manager';
-import {withLogger} from 'components/logger';
-import {withEventDispatcher} from 'components/event-dispatcher';
+import {withEventManager} from '../../event';
+import {withLogger} from '../logger';
+import {withEventDispatcher} from '../event-dispatcher';
 
 /**
  * mapping state to props
@@ -38,7 +37,7 @@ const COMPONENT_NAME = 'SeekBarPlaybackContainer';
 @withEventManager
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
-class SeekBarPlaybackContainer extends Component {
+class SeekBarPlaybackContainer extends Component<any, any> {
   /**
    * after component mounted, listen to time update event and if dragging not active,
    * update the current time in the store
@@ -60,7 +59,7 @@ class SeekBarPlaybackContainer extends Component {
    * @returns {React$Element} - component element
    * @memberof SeekBarPlaybackContainer
    */
-  render(): React$Element<any> {
+  render(): VNode<any> {
     return (
       <SeekBar
         playerElement={this.props.playerContainer}

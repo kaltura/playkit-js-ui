@@ -1,5 +1,4 @@
-//@flow
-import {h, Fragment, Component} from 'preact';
+import {h, Fragment, Component, VNode} from 'preact';
 import style from '../../styles/style.scss';
 import {connect} from 'react-redux';
 import {withPlayer} from '../player';
@@ -25,7 +24,7 @@ const mapStateToProps = state => ({
  */
 @connect(mapStateToProps)
 @withPlayer
-class ProgressIndicator extends Component {
+class ProgressIndicator extends Component<any, any> {
   /**
    * get current buffered percent from the player
    *
@@ -49,7 +48,7 @@ class ProgressIndicator extends Component {
    * @returns {React$Element} - component
    * @memberof ProgressIndicator
    */
-  render(props: any): React$Element<any> {
+  render(props: any): VNode<any> {
     const bufferedWidth = `${Math.round(this.getBufferedPercent())}%`;
     const progressWidth = `${props.player.isLive() && props.player.isOnLiveEdge() ? 100 : (props.currentTime / props.duration) * 100}%`;
     return (

@@ -1,7 +1,5 @@
-//@flow
-
 import {ComponentChildren, h} from 'preact';
-import {useState, useRef, useMemo} from 'preact/hooks';
+import {useState, useRef, useMemo, MutableRef} from 'preact/hooks';
 import styles from '../../styles/style.scss';
 
 const SCROLL_BAR_TIMEOUT = 250;
@@ -15,12 +13,11 @@ const SCROLL_BAR_TIMEOUT = 250;
  * @returns {any} Scrollable component
  */
 const Scrollable = ({children, isVertical}: {children: ComponentChildren, isVertical: boolean}) => {
-  const ref = useRef(null);
-  const [scrolling, setScrolling] = useState(false);
-  const [scrollTimeoutId, setScrollTimeoutId] = useState(-1);
+  const ref: MutableRef<HTMLDivElement | null> = useRef<HTMLDivElement | null>(null);
+  const [scrolling, setScrolling] = useState<boolean>(false);
+  const [scrollTimeoutId, setScrollTimeoutId] = useState<number>(-1);
 
-  // eslint-disable-next-line require-jsdoc
-  const handleScroll = () => {
+  const handleScroll = (): void => {
     clearTimeout(scrollTimeoutId);
     setScrolling(true);
     setScrollTimeoutId(
@@ -30,8 +27,7 @@ const Scrollable = ({children, isVertical}: {children: ComponentChildren, isVert
     );
   };
 
-  // eslint-disable-next-line require-jsdoc
-  const handleWheel = (e: WheelEvent) => {
+  const handleWheel = (e: WheelEvent): void => {
     e.preventDefault();
     if (ref?.current) {
       ref.current.scrollLeft += e.deltaY;

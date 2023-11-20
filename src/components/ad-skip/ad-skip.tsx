@@ -50,7 +50,7 @@ class AdSkip extends Component<AdSkipProps & WithPlayerProps & WithLoggerProps, 
   }
 
   private skipAd = () => {
-    this.props.player.ads?.skipAd();
+    this.props.player!.ads?.skipAd();
   };
 
   /**

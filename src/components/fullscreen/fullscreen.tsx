@@ -90,12 +90,12 @@ class Fullscreen extends Component<FullscreenProps & WithPlayerProps & WithLogge
   handleKeydown(event: KeyboardEvent): void {
     switch (event.keyCode) {
       case KeyMap.F:
-        if (!this.props.player.isFullscreen()) {
+        if (!this.props.player!.isFullscreen()) {
           this.toggleFullscreen();
         }
         break;
       case KeyMap.ESC:
-        if (this.props.player.isFullscreen()) {
+        if (this.props.player!.isFullscreen()) {
           this.toggleFullscreen();
         }
         break;
@@ -112,7 +112,7 @@ class Fullscreen extends Component<FullscreenProps & WithPlayerProps & WithLogge
   toggleFullscreen = (): void => {
     const {logger, player} = this.props;
     logger.debug(`Toggle fullscreen`);
-    player.isFullscreen() ? player.exitFullscreen() : player.enterFullscreen();
+    player!.isFullscreen() ? player!.exitFullscreen() : player!.enterFullscreen();
     this.props.notifyClick();
   };
 

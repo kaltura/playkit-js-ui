@@ -1,16 +1,15 @@
-//@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {default as Icon, IconType} from '../icon';
-import {KeyMap} from '../../utils/key-map';
+import {KeyMap} from '../../utils';
 import {connect} from 'react-redux';
 import {withPlayer} from '../player';
-import {withLogger} from 'components/logger';
-import {bindActions} from '../../utils/bind-actions';
-import {actions} from 'reducers/playlist';
-import {withEventManager} from 'event/with-event-manager';
-import {Button} from 'components/button';
+import {withLogger} from '../logger';
+import {bindActions} from '../../utils';
+import {actions} from '../../reducers/playlist';
+import {withEventManager} from '../../event';
+import {Button} from '../button';
 
 /**
  * mapping state to props
@@ -40,8 +39,8 @@ const COMPONENT_NAME = 'PlaylistCountdown';
 @withPlayer
 @withEventManager
 @withLogger(COMPONENT_NAME)
-class PlaylistCountdown extends Component {
-  focusElement: HTMLElement;
+class PlaylistCountdown extends Component<any, any> {
+  focusElement!: HTMLElement;
   nextShown: any;
 
   /**
@@ -50,7 +49,7 @@ class PlaylistCountdown extends Component {
    * @param {*} context context
    * @return {void}
    */
-  constructor(props: Object) {
+  constructor(props: any) {
     super(props);
     this.setState({focusable: false});
   }
@@ -143,7 +142,7 @@ class PlaylistCountdown extends Component {
    * @param {Object} nextProps - the props that will replace the current props
    * @returns {void}
    */
-  componentWillUpdate(nextProps: Object) {
+  componentWillUpdate(nextProps: any) {
     const timeToShow = this._getTimeToShow();
     if (nextProps.currentTime >= timeToShow) {
       this.setState({timeToShow: true});
@@ -158,7 +157,7 @@ class PlaylistCountdown extends Component {
    * @param {Object} state - current component state
    * @returns {boolean} - is component hidden
    */
-  isHidden(state: Object): boolean {
+  isHidden(state: any): boolean {
     return !state.timeToShow || this.props.player.playlist.countdown.duration >= this.props.duration;
   }
 
@@ -186,7 +185,7 @@ class PlaylistCountdown extends Component {
    * @param {Object} prevState - previous component state
    * @returns {void}
    */
-  componentDidUpdate(prevProps: Object, prevState: Object): void {
+  componentDidUpdate(prevProps: any, prevState: any): void {
     if (this._shouldRender(prevProps)) {
       const timeToShow = this._getTimeToShow();
       const countdown = this.props.player.playlist.countdown;
@@ -225,7 +224,7 @@ class PlaylistCountdown extends Component {
    * @param {Object} nextProps - the props that will replace the current props
    * @returns {boolean} shouldComponentUpdate
    */
-  shouldComponentUpdate(nextProps: Object): boolean {
+  shouldComponentUpdate(nextProps: any): boolean {
     return this.props.duration > 0 && !nextProps.isSeeking && !this.props.isPlaybackEnded;
   }
 
@@ -236,7 +235,7 @@ class PlaylistCountdown extends Component {
    * @returns {React$Element} - component element
    * @memberof PlaylistCountdown
    */
-  render(props: any): React$Element<any> | void {
+  render(props: any): VNode<any> | undefined {
     if (!this._shouldRender(props)) {
       return undefined;
     }

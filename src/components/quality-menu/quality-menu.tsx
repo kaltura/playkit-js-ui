@@ -1,13 +1,13 @@
 //@flow
-import {h, Component} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {withText} from 'preact-i18n';
 import {connect} from 'react-redux';
-import {bindActions} from 'utils';
-import {actions} from 'reducers/settings';
-import {BadgeType, SmartContainerItem} from 'components';
+import {bindActions} from '../../utils';
+import {actions} from '../../reducers/settings';
+import {BadgeType, SmartContainerItem} from '../../components';
 import {IconType} from '../icon';
 import {withPlayer} from '../player';
-import {withEventDispatcher} from 'components/event-dispatcher';
+import {withEventDispatcher} from '../event-dispatcher';
 
 const HeightResolution = {
   HD: 1080,
@@ -62,7 +62,7 @@ const COMPONENT_NAME = 'QualityMenu';
   qualityLabelText: 'settings.quality',
   qualityAutoLabelText: 'settings.qualityAuto'
 })
-class QualityMenu extends Component {
+class QualityMenu extends Component<any, any> {
   /**
    * change quality track or if value is 'auto', enable player adaptive bitrate
    *
@@ -70,7 +70,7 @@ class QualityMenu extends Component {
    * @returns {void}
    * @memberof QualityMenu
    */
-  onQualityChange(videoTrack: Object | string): void {
+  onQualityChange(videoTrack: any | string): void {
     this.props.updateQuality(videoTrack);
     const {player} = this.props;
     if (videoTrack === 'auto') {
@@ -116,7 +116,7 @@ class QualityMenu extends Component {
    * @returns {React$Element} - component
    * @memberof QualityMenu
    */
-  render(props: any): React$Element<any> | void {
+  render(props: any): VNode<any> | undefined {
     const qualityOptions = props.videoTracks
       .sort((a, b) => {
         return a.height < b.height ? 1 : -1;
@@ -134,7 +134,7 @@ class QualityMenu extends Component {
 
     // Progressive playback doesn't support auto
     if (qualityOptions.length > 1 && props.player.streamType !== 'progressive') {
-      const activeTrack: Object = qualityOptions.find(track => track.value.active === true)?.value;
+      const activeTrack: any = qualityOptions.find(track => track.value.active === true)?.value;
       const label = activeTrack?.label || `${DEFAULT_VIDEO_TRACK}p`;
       let qualityLabel;
       if (rtlLanguages.includes(this.props.player._localPlayer._config.ui.locale)) {

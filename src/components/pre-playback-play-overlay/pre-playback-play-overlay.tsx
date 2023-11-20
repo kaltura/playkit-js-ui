@@ -1,17 +1,16 @@
-//@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {connect} from 'react-redux';
-import {bindActions} from '../../utils/bind-actions';
+import {bindActions} from '../../utils';
 import {default as Icon, IconType} from '../icon';
-import {KeyMap} from '../../utils/key-map';
+import {KeyMap} from '../../utils';
 import {actions as loadingActions} from '../../reducers/loading';
 import {withText} from 'preact-i18n';
 import {withPlayer} from '../player';
-import {withEventDispatcher} from 'components/event-dispatcher';
-import {withLogger} from 'components/logger';
-import {Tooltip} from 'components/tooltip';
-import {Button} from 'components/button';
+import {withEventDispatcher} from '../event-dispatcher';
+import {withLogger} from '../logger';
+import {Tooltip} from '../../components/tooltip';
+import {Button} from '../button';
 
 /**
  * mapping state to props
@@ -42,7 +41,7 @@ const COMPONENT_NAME = 'PrePlaybackPlayOverlay';
   startOverText: 'controls.startOver',
   playText: 'controls.play'
 })
-class PrePlaybackPlayOverlay extends Component {
+class PrePlaybackPlayOverlay extends Component<any, any> {
   /**
    * play on click
    *
@@ -86,7 +85,7 @@ class PrePlaybackPlayOverlay extends Component {
    * @returns {React$Element} - component element
    * @memberof PrePlaybackPlayOverlay
    */
-  render(props: any): React$Element<any> | void {
+  render(props: any): VNode<any> | undefined {
     const isStartOver = props.isPlaybackEnded && !props.player.config.playback.loop && !(props.playlist && props.playlist.next);
     if (!(props.prePlayback || isStartOver) || props.loading) {
       return undefined;

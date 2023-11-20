@@ -2,7 +2,7 @@ import {h, Component, ComponentType} from 'preact';
 import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
 
 export type WithPlayerProps = {
-  player: KalturaPlayer
+  player?: KalturaPlayer
 }
 
 /**

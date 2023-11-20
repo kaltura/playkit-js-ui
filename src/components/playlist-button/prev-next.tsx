@@ -1,10 +1,9 @@
 /* eslint-disable require-jsdoc */
-//@flow
 import style from '../../styles/style.scss';
-import {h, Component, Fragment} from 'preact';
+import {h, Component, Fragment, VNode} from 'preact';
 import {withText} from 'preact-i18n';
-import {Button} from 'components/button';
-import {Tooltip} from 'components/tooltip';
+import {Button} from '../button';
+import {Tooltip} from '../../components/tooltip';
 import {default as Icon, IconType} from '../icon';
 
 @withText({
@@ -13,8 +12,8 @@ import {default as Icon, IconType} from '../icon';
   playlistPrevText: 'playlist.prev',
   playlistUpNextText: 'playlist.up_next'
 })
-class PrevNext extends Component {
-  render(props: any): React$Element<any> {
+class PrevNext extends Component<any, any> {
+  render(props: any): VNode<any> {
     const {type, item, onClick} = props;
 
     const iconType = type === 'next' ? IconType.Next : IconType.Prev;

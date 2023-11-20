@@ -1,12 +1,12 @@
 //@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {default as Icon, IconType} from '../icon';
-import {KeyMap} from '../../utils/key-map';
+import {KeyMap} from '../../utils';
 import {withPlayer} from '../player';
-import {withLogger} from 'components/logger';
+import {withLogger} from '../logger';
 
 /**
  * The maximum next item poster width
@@ -37,8 +37,8 @@ const COMPONENT_NAME = 'PlaylistNextScreen';
 @connect(mapStateToProps)
 @withPlayer
 @withLogger(COMPONENT_NAME)
-class PlaylistNextScreen extends Component {
-  focusElement: HTMLElement;
+class PlaylistNextScreen extends Component<any, any> {
+  focusElement!: HTMLDivElement;
 
   /**
    * after component updated, if was renderd and now should then focus for keyboard a11y
@@ -112,7 +112,7 @@ class PlaylistNextScreen extends Component {
    * @returns {React$Element} - component element
    * @memberof PlaylistNextScreen
    */
-  render(props: any): React$Element<any> | void {
+  render(props: any): VNode<any> | undefined {
     if (!this._shouldRender(props)) {
       return undefined;
     }
@@ -134,7 +134,7 @@ class PlaylistNextScreen extends Component {
                 role="button"
                 aria-labelledby="playlistNextScreenTextId"
                 ref={el => (el ? (this.focusElement = el) : undefined)}
-                tabIndex="0"
+                tabIndex={0}
                 className={style.playlistNextScreenPoster}
                 onClick={this.onPosterClick}
                 onKeyDown={this.onKeyDown}>

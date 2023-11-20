@@ -1,21 +1,20 @@
-//@flow
 import style from '../../styles/style.scss';
-import {h, Component} from 'preact';
-import {toHHMMSS} from '../../utils/time-format';
-import {KeyMap} from '../../utils/key-map';
+import {h, Component, VNode} from 'preact';
+import {toHHMMSS} from '../../utils';
+import {KeyMap} from '../../utils';
 import {connect} from 'react-redux';
-import {bindActions} from '../../utils/bind-actions';
+import {bindActions} from '../../utils';
 import {actions as shellActions} from '../../reducers/shell';
 import {withPlayer} from '../player';
-import {withKeyboardEvent} from 'components/keyboard';
-import {actions as overlayIconActions} from 'reducers/overlay-action';
+import {withKeyboardEvent} from '../keyboard';
+import {actions as overlayIconActions} from '../../reducers/overlay-action';
 import {IconType} from '../icon';
 import {withText} from 'preact-i18n';
 import {PlayerArea} from '../player-area';
-import {withEventManager} from 'event/with-event-manager';
-import {FakeEvent} from 'event/fake-event';
+import {EventType, withEventManager} from '../../event';
 import {SeekBarPreview} from '../seekbar-preview';
 import {ProgressIndicator} from '../progress-indicator';
+import {KeyboardEventHandlers} from '../../types';
 
 /**
  * mapping state to props
@@ -51,11 +50,10 @@ const KEYBOARD_DEFAULT_SEEK_JUMP: number = 5;
 @withEventManager
 @withKeyboardEvent(COMPONENT_NAME)
 @withText({sliderAriaLabel: 'controls.seekBarSlider'})
-class SeekBar extends Component {
-  state: Object;
-  _seekBarElement: HTMLElement;
-  _framePreviewElement: HTMLElement;
-  _timeBubbleElement: HTMLElement;
+class SeekBar extends Component<any, any> {
+  _seekBarElement!: HTMLDivElement;
+  _framePreviewElement!: HTMLDivElement;
+  _timeBubbleElement!: HTMLDivElement;
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
       key: {
@@ -101,13 +99,13 @@ class SeekBar extends Component {
     const {player, eventManager} = this.props;
     const clientRect = this._seekBarElement.getBoundingClientRect();
     this.props.updateSeekbarClientRect(clientRect);
-    eventManager.listen(player, FakeEvent.Type.GUI_RESIZE, () => {
+    eventManager.listen(player, EventType.GUI_RESIZE, () => {
       this.setState({resizing: true});
       setTimeout(() => {
         const clientRect = this._seekBarElement.getBoundingClientRect();
         this.props.updateSeekbarClientRect(clientRect);
         this.setState({resizing: false});
-      }, style.defaultTransitionTime);
+      }, Number(style.defaultTransitionTime));
     });
     document.addEventListener('mouseup', this.onPlayerMouseUp);
     document.addEventListener('mousemove', this.onPlayerMouseMove);
@@ -498,7 +496,7 @@ class SeekBar extends Component {
    * @returns {React$Element} - component
    * @memberof SeekBar
    */
-  renderFramePreview(): React$Element<any> | void {
+  renderFramePreview(): VNode<any> | undefined {
     if (!this.props.showFramePreview || this.props.isMobile) return undefined;
     return (
       <div
@@ -526,7 +524,7 @@ class SeekBar extends Component {
    * @returns {React$Element} - component
    * @memberof SeekBar
    */
-  renderTimeBubble(): React$Element<any> | void {
+  renderTimeBubble(): VNode<any> | undefined {
     if (this.props.hideTimeBubble || !this.props.showTimeBubble || this.props.isMobile) return undefined;
     const timeBubbleStyle = `left: ${this.getTimeBubbleOffset()}px`;
     const timeBubbleValue = this.props.isDvr ? '-' + toHHMMSS(this.props.duration - this.props.virtualTime) : toHHMMSS(this.props.virtualTime);
@@ -545,7 +543,7 @@ class SeekBar extends Component {
    * @returns {React$Element} - component
    * @memberof SeekBar
    */
-  render(props: any, state: Object): React$Element<any> {
+  render(props: any, state: any): VNode<any> {
     const virtualProgressWidth = `${(props.virtualTime / props.duration) * 100}%`;
     const scrubberProgressPosition = `${(props.currentTime / props.duration) * this._seekBarElement?.clientWidth}px`;
     const seekbarStyleClass = [style.seekBar];
@@ -557,12 +555,12 @@ class SeekBar extends Component {
 
     return (
       <div
-        tabIndex="0"
+        tabIndex={0}
         className={seekbarStyleClass.join(' ')}
         ref={c => (c ? (this._seekBarElement = c) : undefined)}
         role="slider"
         aria-label={props.sliderAriaLabel}
-        aria-valuemin="0"
+        aria-valuemin={0}
         aria-valuemax={Math.round(this.props.duration)}
         aria-valuenow={Math.round(this.props.currentTime)}
         aria-valuetext={`${toHHMMSS(this.props.currentTime)} of ${toHHMMSS(this.props.duration)}`}

@@ -50,9 +50,9 @@ class AudioMenu extends Component<AudioMenuProps & WithPlayerProps & WithEventDi
   onAudioChange(audioTrack: any): void {
     // @ts-ignore - store types
     this.props.updateAudio(audioTrack);
-    this.props.player.selectTrack(audioTrack);
+    this.props.player!.selectTrack(audioTrack);
     this.props.notifyClick({
-      type: this.props.player.Track.AUDIO,
+      type: this.props.player!.Track.AUDIO,
       track: audioTrack
     });
   }
