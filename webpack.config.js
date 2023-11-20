@@ -6,7 +6,7 @@ const CSS_MODULE_PREFIX = 'playkit';
 
 module.exports = (env, {mode}) => {
   return {
-    entry: './src/index.js',
+    entry: './src/index.ts',
     optimization: {
       minimize: mode !== 'development',
       minimizer: [
