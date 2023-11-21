@@ -32,11 +32,11 @@ const TEXT_CONTRAST_SUFFIX = 'text-contrast';
 // eslint-disable-next-line require-jsdoc
 export class ThemesManager {
   player: any;
-  config: UserTheme;
+  config?: UserTheme;
   playerContainerElement: HTMLElement | null;
 
   // eslint-disable-next-line require-jsdoc
-  constructor(player: any, config: UserTheme, targetId: string) {
+  constructor(player: any, config: UserTheme | undefined, targetId: string) {
     this.player = player;
     this.config = config;
     this.playerContainerElement = document.querySelector(`#${targetId}`);

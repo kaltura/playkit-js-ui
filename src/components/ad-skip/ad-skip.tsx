@@ -7,10 +7,10 @@ import {withLogger, WithLoggerProps} from '../logger';
 import {WithPlayerProps} from '../player/with-player';
 
 type AdSkipProps = {
-  currentTime: number;
-  duration: number;
-  adSkipTimeOffset: number;
-  adSkippableState: boolean;
+  currentTime?: number;
+  duration?: number;
+  adSkipTimeOffset?: number;
+  adSkippableState?: boolean;
 }
 
 
@@ -46,7 +46,7 @@ class AdSkip extends Component<AdSkipProps & WithPlayerProps & WithLoggerProps, 
    * @memberof AdSkip
    */
   private getSkipTimeOffset(): number {
-    return Math.ceil(this.props.adSkipTimeOffset - this.props.currentTime);
+    return Math.ceil(this.props.adSkipTimeOffset! - this.props.currentTime!);
   }
 
   private skipAd = () => {

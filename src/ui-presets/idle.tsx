@@ -1,9 +1,6 @@
-//@flow
-import {Component, h} from 'preact';
+import {Component, h, VNode} from 'preact';
 import style from '../styles/style.scss';
-import {Loading} from '../components/loading';
-import {PlayerArea, withPlayerPreset} from '../components/player-area';
-import {GuiArea} from 'components/gui-area';
+import {Loading, GuiArea, PlayerArea, withPlayerPreset} from '../components';
 
 const PRESET_NAME = 'Idle';
 
@@ -16,7 +13,7 @@ const PRESET_NAME = 'Idle';
   allowSidePanels: true,
   allowPlayerArea: true
 })
-class IdleUI extends Component {
+class IdleUI extends Component<any, any> {
   /**
    * render component
    *
@@ -45,6 +42,6 @@ IdleUI.displayName = PRESET_NAME;
  * @param {*} props component props
  * @returns {React$Element} player ui tree
  */
-export function idleUI(props: any): React$Element<any> {
+export function idleUI(props: any): VNode<any> {
   return <IdleUI {...props} />;
 }

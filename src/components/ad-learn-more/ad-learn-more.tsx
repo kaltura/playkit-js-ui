@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {Text} from 'preact-i18n';
 
 type AdLearnMoreProps = {
-  url: string;
+  url?: string;
 }
 
 /**

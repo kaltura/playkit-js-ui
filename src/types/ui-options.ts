@@ -20,7 +20,7 @@ export type UIOptionsObject = {
   logger?: LoggerType,
   components?: ComponentsConfig,
   uiComponents?: Array<KPUIComponent>,
-  translations?: {[langKey: string]: Object},
+  translations?: {[langKey: string]: any},
   locale?: string;
   userTheme?: UserTheme
 };

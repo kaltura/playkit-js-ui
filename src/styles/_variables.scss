@@ -1,4 +1,4 @@
-//@import '../styles/_variables.scss';
+@use 'sass:math';
 
 $headline-font-size: 18px;
 $subheadline-font-size: 14px;
@@ -9,7 +9,7 @@ $tooltip-semi-side-margin: 16px;
 $tooltip-semi-side-arrow-margin: 11px;
 $font-family: Lato, Helvetica Neue, Segoe UI, sans-serif;
 $progress-bar-height: 4px;
-$progress-bar-border-radius: calc($progress-bar-height / 2);
+$progress-bar-border-radius: math.div($progress-bar-height, 2);
 $spinner-circle-radius: 4px;
 $spinner-colors: rgb(218, 31, 38), rgb(6, 168, 133), rgb(0, 147, 68), rgb(248, 166, 26), rgb(27, 74, 151), rgb(0, 171, 204), rgb(177, 210, 56),
 rgb(252, 210, 3);

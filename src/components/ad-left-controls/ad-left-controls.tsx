@@ -5,7 +5,7 @@ import {AdNotice} from '../ad-notice';
 const COMPONENT_NAME = 'AdLeftControls';
 
 type AdLeftControlsProps = {
-  isBumper: boolean;
+  isBumper?: boolean;
 }
 
 /**

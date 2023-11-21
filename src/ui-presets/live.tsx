@@ -1,33 +1,32 @@
-//@flow
 import style from '../styles/style.scss';
-import {Component, Fragment, h} from 'preact';
-import {OverlayAction} from '../components/overlay-action';
-import {PrePlaybackPlayOverlay} from '../components/pre-playback-play-overlay';
-import {Loading} from '../components/loading';
-import {SeekBarLivePlaybackContainer} from '../components/seekbar-live-playback-container';
-import {Volume} from '../components/volume';
-import {Settings} from '../components/settings';
-import {Fullscreen} from '../components/fullscreen';
-import {BottomBar} from '../components/bottom-bar';
-import {OverlayPortal} from '../components/overlay-portal';
-import {LiveTag} from '../components/live-tag';
-import {UnmuteIndication} from '../components/unmute-indication';
-import {Watermark} from '../components/watermark/watermark';
-import {VrStereo} from '../components/vr-stereo';
-import {Cast} from '../components/cast';
-import {CastBeforePlay} from '../components/cast-on-tv/cast-before-play';
-import {PlaybackControls} from '../components/playback-controls';
-import {PictureInPicture} from '../components/picture-in-picture';
+import {Component, Fragment, h, VNode} from 'preact';
+import {OverlayAction} from '../components';
+import {PrePlaybackPlayOverlay} from '../components';
+import {Loading} from '../components';
+import {SeekBarLivePlaybackContainer} from '../components';
+import {Volume} from '../components';
+import {Settings} from '../components';
+import {Fullscreen} from '../components';
+import {BottomBar} from '../components';
+import {OverlayPortal} from '../components';
+import {LiveTag} from '../components';
+import {UnmuteIndication} from '../components';
+import {Watermark} from '../components';
+import {VrStereo} from '../components';
+import {Cast} from '../components';
+import {CastBeforePlay} from '../components';
+import {PlaybackControls} from '../components';
+import {PictureInPicture} from '../components';
 import {PictureInPictureOverlay} from '../components/picture-in-picture-overlay';
-import {PlayerArea, withPlayerPreset} from '../components/player-area';
-import {TopBar} from '../components/top-bar';
-import {Logo} from '../components/logo/logo';
-import {InteractiveArea} from 'components/interactive-area';
-import {withKeyboardEvent} from 'components/keyboard';
-import {VideoArea} from 'components/video-area';
-import {GuiArea} from 'components/gui-area';
-import {Rewind} from 'components/rewind';
-import {Forward} from 'components/forward';
+import {PlayerArea, withPlayerPreset} from '../components';
+import {TopBar} from '../components';
+import {Logo} from '../components';
+import {InteractiveArea} from '../components';
+import {withKeyboardEvent} from '../components';
+import {VideoArea} from '../components';
+import {GuiArea} from '../components';
+import {Rewind} from '../components';
+import {Forward} from '../components';
 import {ClosedCaptions} from '../components';
 const PRESET_NAME = 'Live';
 
@@ -42,7 +41,7 @@ const PRESET_NAME = 'Live';
   allowPlayerArea: true
 })
 @withKeyboardEvent(PRESET_NAME)
-class LiveUI extends Component {
+class LiveUI extends Component<any, any> {
   /**
    * @returns {void}
    */
@@ -104,6 +103,6 @@ LiveUI.displayName = PRESET_NAME;
  * @param {*} props component props
  * @returns {React$Element<any>} player ui tree
  */
-export function liveUI(props: any): React$Element<any> {
+export function liveUI(props: any): VNode<any> {
   return <LiveUI {...props} />;
 }

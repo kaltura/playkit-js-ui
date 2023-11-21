@@ -1,13 +1,12 @@
-//@flow
-/* eslint-disable no-unused-vars */
 import {h, render} from 'preact';
 import {Provider} from 'react-redux';
 import {IntlProvider} from 'preact-i18n';
 import {createStore, compose} from 'redux';
+// import {cconfigureStore} from '@reduxjs/toolkit';
 import {copyDeep} from './utils/copy-deep';
 import {mergeDeep} from './utils/merge-deep';
-import {getLogLevel, setLogLevel, setLogger, type LogLevelType, LogLevel} from './utils/logger';
-import {EventType} from './event/event-type';
+import {getLogLevel, setLogLevel, setLogger, LogLevelType, LogLevel} from './utils/logger';
+import {EventType} from './event';
 import {setEnv} from './utils/key-map';
 import {PlayerAreaProvider} from './components/player-area';
 import reducer from './store';
@@ -15,10 +14,10 @@ import en_translations from '../translations/en.i18n.json';
 import {actions as configActions} from './reducers/config';
 
 // core components for the UI
-import {EngineConnector} from './components/engine-connector';
-import {Shell} from './components/shell';
-import {PlayerProvider} from './components/player';
-import {VideoPlayer} from './components/video-player';
+import {EngineConnector} from './components';
+import {Shell} from './components';
+import {PlayerProvider} from './components';
+import {VideoPlayer} from './components';
 import {PlayerGUI} from './components/player-gui';
 // ui presets
 import * as presets from './ui-presets';
@@ -26,9 +25,11 @@ import * as presets from './ui-presets';
 import {middleware} from './middlewares';
 
 import './styles/style.scss';
-import {EventDispatcherProvider} from 'components/event-dispatcher';
-import {KeyboardEventProvider} from 'components/keyboard/keyboard-event-provider';
-import {ThemesManager} from 'utils/themes-manager';
+import {EventDispatcherProvider} from './components';
+import {KeyboardEventProvider} from './components';
+import {ThemesManager} from './utils/themes-manager';
+import {UIOptionsObject, UIPreset} from './types';
+import {KPUIAddComponent, KPUIComponent} from '@playkit-js/kaltura-player-js';
 
 /**
  * API used for building UIs based on state conditions
@@ -36,14 +37,13 @@ import {ThemesManager} from 'utils/themes-manager';
  * @class UIManager
  */
 class UIManager {
-  player: Object;
+  player: any;
   targetId: string;
   store: any;
-  container: ?HTMLElement;
-  _translations: {[langKey: string]: Object} = {en: en_translations['en']};
+  container!: HTMLDivElement;
+  _translations: {[langKey: string]: any} = {en: en_translations['en']};
   _locale: string = 'en';
   _uiComponents: Array<KPUIComponent>;
-  addComponent: (component: KPUIComponent) => Function;
   _themesManager: ThemesManager;
 
   /**
@@ -52,7 +52,7 @@ class UIManager {
    * @param {UIOptionsObject} config - ui config
    * @memberof UIManager
    */
-  constructor(player: Object, config: UIOptionsObject) {
+  constructor(player: any, config: UIOptionsObject) {
     setLogger(config.logger);
     this._uiComponents = [...(config.uiComponents || [])];
     this.player = player;
@@ -96,7 +96,7 @@ class UIManager {
    * @returns {Function} - Removal function
    * @memberof UIManager
    */
-  addComponent(component: KPUIComponent): Function {
+  addComponent(component: KPUIComponent): () => void {
     return () => {};
   }
 
@@ -163,6 +163,7 @@ class UIManager {
    */
   _createStore(config: UIOptionsObject): void {
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+    // @ts-ignore
     this.store = createStore(reducer, composeEnhancers(middleware(this.player, config)));
   }
 
@@ -175,7 +176,7 @@ class UIManager {
    */
   _buildUI(uis?: Array<UIPreset>): void {
     if (!this.player) return;
-    this.container = document.getElementById(this.targetId);
+    this.container = document.getElementById(this.targetId) as HTMLDivElement;
     if (this.container) {
       // i18n, redux and initial player-to-store connector setup
       const template = (
@@ -225,7 +226,7 @@ class UIManager {
    * @param {?string} name - the logger name
    * @returns {Object} - the log level
    */
-  getLogLevel(name?: string): Object {
+  getLogLevel(name?: string): any {
     return getLogLevel(name);
   }
 
@@ -235,7 +236,7 @@ class UIManager {
    * @param {?string} name - the logger name
    * @returns {void}
    */
-  setLogLevel(level: Object, name?: string) {
+  setLogLevel(level: any, name?: string) {
     setLogLevel(level, name);
   }
 

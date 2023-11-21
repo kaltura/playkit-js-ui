@@ -1,9 +1,8 @@
-//@flow
 import style from '../styles/style.scss';
-import {h} from 'preact';
+import {h, VNode} from 'preact';
 import {ErrorOverlay} from '../components/error-overlay';
-import {PlayerArea} from 'components/player-area';
-import {GuiArea} from 'components/gui-area';
+import {PlayerArea} from '../components/player-area';
+import {GuiArea} from '../components/gui-area';
 import {Fragment} from 'preact';
 
 const PRESET_NAME = 'Error';
@@ -14,7 +13,7 @@ const PRESET_NAME = 'Error';
  * @param {*} props component props
  * @returns {React$Element} player ui tree
  */
-export function ErrorUI(): React$Element<any> {
+export function ErrorUI(): VNode<any> {
   return (
     <div className={style.playbackGuiWrapper}>
       <PlayerArea name={'PresetArea'}>
@@ -37,6 +36,6 @@ ErrorUI.displayName = PRESET_NAME;
  * @param {*} props component props
  * @returns {React$Element} player ui tree
  */
-export function errorUI(props: any): React$Element<any> {
+export function errorUI(props: any): VNode<any> {
   return <ErrorUI {...props} />;
 }

@@ -1,7 +1,7 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'react-redux';
-import {withPlayer} from '../../components';
+import {withPlayer} from '../player';
 import {ThumbnailInfo} from '@playkit-js/playkit-js';
 import {WithPlayerProps} from '../player/with-player';
 

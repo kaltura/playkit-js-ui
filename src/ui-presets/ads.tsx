@@ -1,21 +1,8 @@
-//@flow
 import style from '../styles/style.scss';
-import {Fragment, h} from 'preact';
+import {Fragment, h, VNode} from 'preact';
 import {connect} from 'react-redux';
-import {Loading} from '../components/loading';
-import {Volume} from '../components/volume';
-import {Fullscreen} from '../components/fullscreen';
-import {TimeDisplayAdsContainer} from '../components/time-display-ads-container';
-import {AdSkip} from '../components/ad-skip';
-import {AdLearnMore} from '../components/ad-learn-more';
-import {TopBar} from '../components/top-bar';
-import {BottomBar} from '../components/bottom-bar';
-import {UnmuteIndication} from '../components/unmute-indication';
-import {PlaybackControls} from '../components/playback-controls';
-import {withKeyboardEvent} from 'components/keyboard';
-import {PlayerArea} from 'components/player-area';
-import {GuiArea} from 'components/gui-area';
-import {AdLeftControls} from 'components/ad-left-controls';
+import {Loading, Volume, Fullscreen, TimeDisplayAdsContainer,AdSkip, AdLearnMore, TopBar,BottomBar, UnmuteIndication,PlaybackControls,withKeyboardEvent,PlayerArea, GuiArea} from '../components';
+import {AdLeftControls} from '../components/ad-left-controls';
 
 const PRESET_NAME = 'Ads';
 
@@ -26,7 +13,7 @@ const PRESET_NAME = 'Ads';
  * @param {*} context component context
  * @returns {?HTMLElement} player ui tree
  */
-function AdsUI(props: any, context: any): ?React$Element<any> {
+function AdsUI(props: any, context: any): VNode<any> | undefined {
   props.updateIsKeyboardEnabled(true);
   if (useDefaultAdsUi(props, context)) {
     return (
@@ -101,7 +88,7 @@ AdsUIComponent.displayName = PRESET_NAME;
  * @param {*} props component props
  * @returns {?HTMLElement} player ui tree
  */
-export function adsUI(props: any): ?React$Element<any> {
+export function adsUI(props: any): VNode<any> | undefined {
   return <AdsUIComponent {...props} />;
 }
 
@@ -109,7 +96,7 @@ export function adsUI(props: any): ?React$Element<any> {
  * Gets the ads ui customization settings
  * @returns {Object} - Customization object
  */
-function getAdsUiCustomization(): Object {
+function getAdsUiCustomization(): { skipButton: boolean; learnMoreButton: boolean } {
   return {
     learnMoreButton: useCustomLearnMoreButton(),
     skipButton: useCustomSkipButton()

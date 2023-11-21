@@ -1,36 +1,35 @@
-//@flow
 import style from '../styles/style.scss';
-import {Fragment, h, Component} from 'preact';
-import {PlayerArea, withPlayerPreset} from '../components/player-area';
-import {OverlayAction} from '../components/overlay-action';
-import {PrePlaybackPlayOverlay} from '../components/pre-playback-play-overlay';
-import {Loading} from '../components/loading';
-import {Rewind} from '../components/rewind';
-import {Forward} from '../components/forward';
-import {SeekBarPlaybackContainer} from '../components/seekbar-playback-container';
-import {Volume} from '../components/volume';
-import {Settings} from '../components/settings';
-import {Fullscreen} from '../components/fullscreen';
-import {VrStereo} from '../components/vr-stereo';
-import {TimeDisplayPlaybackContainer} from '../components/time-display-playback-container';
-import {BottomBar} from '../components/bottom-bar';
-import {OverlayPortal} from '../components/overlay-portal';
-import {UnmuteIndication} from '../components/unmute-indication';
-import {Watermark} from '../components/watermark/watermark';
-import {Cast} from '../components/cast';
-import {CastBeforePlay} from '../components/cast-on-tv/cast-before-play';
-import {PlaybackControls} from '../components/playback-controls';
+import {Fragment, h, Component, VNode} from 'preact';
+import {PlayerArea, withPlayerPreset} from '../components';
+import {OverlayAction} from '../components';
+import {PrePlaybackPlayOverlay} from '../components';
+import {Loading} from '../components';
+import {Rewind} from '../components';
+import {Forward} from '../components';
+import {SeekBarPlaybackContainer} from '../components';
+import {Volume} from '../components';
+import {Settings} from '../components';
+import {Fullscreen} from '../components';
+import {VrStereo} from '../components';
+import {TimeDisplayPlaybackContainer} from '../components';
+import {BottomBar} from '../components';
+import {OverlayPortal} from '../components';
+import {UnmuteIndication} from '../components';
+import {Watermark} from '../components';
+import {Cast} from '../components';
+import {CastBeforePlay} from '../components';
+import {PlaybackControls} from '../components';
 import {PlaylistCountdown} from '../components/playlist-countdown';
-import {PlaylistNextScreen} from '../components/playlist-next-screen';
-import {PictureInPicture} from '../components/picture-in-picture';
+import {PlaylistNextScreen} from '../components';
+import {PictureInPicture} from '../components';
 import {PictureInPictureOverlay} from '../components/picture-in-picture-overlay';
-import {TopBar} from '../components/top-bar';
-import {Logo} from '../components/logo/logo';
-import {InteractiveArea} from '../components/interactive-area';
-import {withKeyboardEvent} from 'components/keyboard';
-import {VideoArea} from '../components/video-area';
-import {GuiArea} from '../components/gui-area';
-import {ClosedCaptions} from '../components/closed-captions';
+import {TopBar} from '../components';
+import {Logo} from '../components';
+import {InteractiveArea} from '../components';
+import {withKeyboardEvent} from '../components';
+import {VideoArea} from '../components';
+import {GuiArea} from '../components';
+import {ClosedCaptions} from '../components';
 import {AudioEntryDetails} from '../components/audio-entry-details';
 
 const PRESET_NAME = 'Playback';
@@ -47,7 +46,7 @@ const PRESET_NAME = 'Playback';
   allowPlayerArea: true
 })
 @withKeyboardEvent(PRESET_NAME)
-class PlaybackUI extends Component {
+class PlaybackUI extends Component<any, any> {
   /**
    * @returns {void}
    */
@@ -112,6 +111,6 @@ PlaybackUI.displayName = PRESET_NAME;
  * @param {*} props component props
  * @returns {React$Element} player ui tree
  */
-export function playbackUI(props: any): React$Element<any> {
+export function playbackUI(props: any): VNode<any> {
   return <PlaybackUI {...props} />;
 }

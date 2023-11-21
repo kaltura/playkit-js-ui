@@ -6,7 +6,7 @@ import {KPUIAddComponent, KPUIComponent, KPUIRemoveComponent} from '@playkit-js/
 
 type PlayerAreaProviderProps = {
   activePresetName?: string;
-  setApi: (fn: (componentData: KPUIAddComponent) => void) => void;
+  setApi: (fn: (componentData: KPUIAddComponent) => () => void) => void;
   uiComponents: KPUIComponent[];
 }
 

@@ -1,10 +1,12 @@
+@use 'sass:math';
+
 @function svg-url($svg, $size, $viewBox, $fillRule) {
   $svg: '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="#{$viewBox}" width="#{$size}" height="#{$size}" fill-rule="#{$fillRule}">#{$svg}</svg>';
 
   $encoded: '';
   $slice: 2000;
   $index: 0;
-  $loops: ceil(calc(str-length($svg) / $slice));
+  $loops: ceil(math.div(str-length($svg), $slice));
 
   @for $i from 1 through $loops {
     $chunk: str-slice($svg, $index, $index + $slice - 1);

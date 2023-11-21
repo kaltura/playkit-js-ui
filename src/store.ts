@@ -9,8 +9,8 @@ import loading from './reducers/loading';
 import cvaa from './reducers/cvaa';
 import settings from './reducers/settings';
 import overlayAction from './reducers/overlay-action';
-import playlist from 'reducers/playlist';
-import overlay from 'reducers/overlay';
+import playlist from './reducers/playlist';
+import overlay from './reducers/overlay';
 
 const reducer = combineReducers({
   config,

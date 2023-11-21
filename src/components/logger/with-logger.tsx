@@ -2,7 +2,7 @@ import {h, Component, ComponentType} from 'preact';
 import getLogger from '../../utils/logger';
 
 export type WithLoggerProps = {
-  logger: any
+  logger?: any
 }
 
 /**

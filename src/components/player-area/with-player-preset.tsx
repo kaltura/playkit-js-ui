@@ -13,7 +13,7 @@ const defaultProps = {
  * @param {Object} options - options
  * @returns {function(*): *} connect
  */
-const withPlayerPreset = (options: any) => (InnerComponent: any) => {
+const withPlayerPreset = (options: any) => (InnerComponent: any): any => {
   /**
    * hoc withPlayerPreset
    */
