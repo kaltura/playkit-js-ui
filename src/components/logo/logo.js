@@ -2,7 +2,7 @@
 import style from '../../styles/style.scss';
 import {h, Component} from 'preact';
 import {connect} from 'react-redux';
-import {Text} from 'preact-i18n';
+import {withText} from 'preact-i18n';
 import {withPlayer} from '../player';
 import {withLogger} from 'components/logger';
 
@@ -29,6 +29,7 @@ const mapStateToProps = state => ({
 @connect(mapStateToProps)
 @withPlayer
 @withLogger(COMPONENT_NAME)
+@withText({logoText: 'controls.logo'})
 class Logo extends Component {
   /**
    * should render component
@@ -54,7 +55,7 @@ class Logo extends Component {
     return (
       <div
         className={[style.controlButtonContainer, !props.config.url ? style.emptyUrl : ''].join(' ')}
-        aria-label={<Text id="controls.logo" />}
+        aria-label={props.logoText}
         title={props.config.text}>
         <a className={style.controlButton} href={props.config.url} target="_blank" rel="noopener noreferrer">
           <img className={style.icon} src={props.config.img} />
