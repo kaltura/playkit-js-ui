@@ -74,21 +74,13 @@ module.exports = (env, {mode}) => {
     resolve: {
       extensions: ['.ts', '.tsx','.js', '.scss', 'css'],
       alias: {
-        components: path.resolve(__dirname, 'src/components/'),
-        reducers: path.resolve(__dirname, 'src/reducers/'),
-        utils: path.resolve(__dirname, 'src/utils/'),
-        event: path.resolve(__dirname, 'src/event'),
         react: 'preact/compat',
         'react-dom': 'preact/compat'
       }
     },
     externals: {
-      '@playkit-js/kaltura-player-js': {
-        root: 'KalturaPlayer'
-      },
-      '@playkit-js/@playkit-js': {
-        root: ['KalturaPlayer', 'core']
-      }
+      '@playkit-js/kaltura-player-js': {root: 'KalturaPlayer'},
+      '@playkit-js/@playkit-js': {root: ['KalturaPlayer', 'core']}
     },
     output: {
       filename: 'playkit-ui.js',
