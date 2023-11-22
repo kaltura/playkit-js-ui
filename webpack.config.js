@@ -30,14 +30,24 @@ module.exports = (env, {mode}) => {
           use: {
             loader: 'babel-loader',
             options: {
-              presets: [['@babel/preset-env', {
-                loose: true,
-                bugfixes: true,
-                targets: {
-                  browsers: ["chrome >= 47", "firefox >= 51", "ie >= 11", "safari >= 8", "ios >= 8", "android >= 4"]
-                }
-              }], '@babel/preset-typescript'],
-              plugins: [['@babel/plugin-transform-runtime']]
+              presets: [
+                [
+                  '@babel/preset-env',
+                  {
+                    loose: true,
+                    bugfixes: true,
+                    targets: {
+                      browsers: ['chrome >= 47', 'firefox >= 51', 'ie >= 11', 'safari >= 8', 'ios >= 8', 'android >= 4']
+                    }
+                  }
+                ],
+                '@babel/preset-typescript'
+              ],
+              plugins: [
+                ['@babel/plugin-transform-runtime'],
+                ['@babel/plugin-proposal-decorators', {legacy: true}],
+                ['@babel/plugin-transform-react-jsx', {pragma: 'h', pragmaFrag: 'Fragment'}]
+              ]
             }
           }
         },
@@ -51,8 +61,8 @@ module.exports = (env, {mode}) => {
             {
               loader: 'css-loader',
               options: {
-                localsConvention: 'camelCase',
                 modules: {
+                  exportLocalsConvention: 'camelCase',
                   localIdentName: `${CSS_MODULE_PREFIX}-[local]`
                 }
               }
@@ -65,7 +75,7 @@ module.exports = (env, {mode}) => {
       ]
     },
     resolve: {
-      extensions: ['.ts', '.tsx','.js', '.scss', 'css'],
+      extensions: ['.ts', '.tsx', '.js', '.scss', 'css'],
       alias: {
         react: 'preact/compat',
         'react-dom': 'preact/compat'

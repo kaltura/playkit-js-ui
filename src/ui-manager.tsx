@@ -30,7 +30,7 @@ import {KeyboardEventProvider} from './components';
 import {ThemesManager} from './utils/themes-manager';
 import {UIOptionsObject, UIPreset} from './types';
 import {KalturaPlayer, KPUIAddComponent, KPUIComponent} from '@playkit-js/kaltura-player-js';
-import {RootState} from './types/reducers/root-state';
+import {RootState} from './types';
 
 /**
  * API used for building UIs based on state conditions

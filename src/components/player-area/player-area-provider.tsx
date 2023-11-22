@@ -1,6 +1,6 @@
 import {Component, h, Fragment} from 'preact';
 import {connect} from 'react-redux';
-import {withLogger, WithLoggerProps} from '../../components/logger';
+import {withLogger, WithLoggerProps} from '../logger';
 import {StylesStoreAdapter} from './styles-store-adapter';
 import {KPUIAddComponent, KPUIComponent, KPUIRemoveComponent} from '@playkit-js/kaltura-player-js';
 
@@ -16,8 +16,6 @@ type ComponentListener = {
   callback: (args?: any) => any;
 };
 
-// type SetApiFunction = ((componentData: KPUIAddComponent) => void) => void ;
-
 
 
 /**
@@ -30,17 +28,13 @@ const mapStateToProps = state => ({
 });
 
 /**
- * PlayerArea provider
- */
-@withLogger('PlayerAreaProvider')
-@connect(mapStateToProps)
-
-/**
  * PlayerAreaProvider component
  *
  * @class PlayerAreaProvider
  * @extends {Component}
  */
+@withLogger('PlayerAreaProvider')
+@connect(mapStateToProps)
 class PlayerAreaProvider extends Component<WithLoggerProps & PlayerAreaProviderProps, any> {
   private _listeners: ComponentListener[];
   private _componentsByPreset: Record<string, KPUIAddComponent[]>;
