@@ -37,7 +37,11 @@ const mapStateToProps = state => ({
  * @returns {Object} - The object translations
  */
 const translates = (props: any) => ({
-  forwardText: !props.step ? <Text id={'controls.forward'}></Text> : <Text id={'controls.secondsForward'} fields={{seconds: props.step}}></Text>
+  forwardText: !props.step ? (
+    <Text id={'controls.secondsForward'} fields={{seconds: FORWARD_DEFAULT_STEP}}></Text>
+  ) : (
+    <Text id={'controls.secondsForward'} fields={{seconds: props.step}}></Text>
+  )
 });
 /**
  * Forward component
