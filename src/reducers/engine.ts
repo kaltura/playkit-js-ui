@@ -1,5 +1,6 @@
 import {getComponentStateFromComponentConfig, getComponentStateFromConfig} from '../utils/component-config';
 import {types as configReducerTypes} from './config';
+import {EngineState} from '../types/reducers/engine';
 
 const component = 'engine';
 
@@ -106,7 +107,7 @@ export const initialState = {
   fullscreen: false
 };
 
-export default (state: any = initialState, action: any) => {
+export default (state: EngineState = initialState, action: any) => {
   switch (action.type) {
     case configReducerTypes.UPDATE:
       return getComponentStateFromConfig(component, state, action);

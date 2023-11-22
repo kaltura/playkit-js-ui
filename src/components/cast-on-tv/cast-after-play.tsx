@@ -34,7 +34,7 @@ class CastAfterPlay extends Component<any, any> {
    * @static
    * @type {Object} - Component default props
    */
-  static defaultProps: Object = {
+  static defaultProps: any = {
     icon: IconType.CastBrand
   };
 

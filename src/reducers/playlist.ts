@@ -6,7 +6,7 @@ export const initialState = {
   countdownCanceled: false
 };
 
-export default (state: any = initialState, action: any) => {
+export default (state: PlaylistState = initialState, action: any) => {
   switch (action.type) {
     case types.UPDATE_PLAYLIST_COUNTDOWN_CANCELED:
       return {

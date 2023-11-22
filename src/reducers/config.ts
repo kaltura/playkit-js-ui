@@ -1,5 +1,6 @@
-//@flow
 import {mergeDeep} from '../utils/merge-deep';
+import {UIOptionsObject} from '../types';
+import {ConfigState} from '../types/reducers/config';
 
 export const types = {
   UPDATE: 'config/UPDATE',
@@ -20,16 +21,16 @@ export const initialState = {
   },
   hoverTimeout: 3000,
   components: {
-    watermark: {},
-    seekbar: {},
-    vrStereo: {},
-    logo: {},
-    fullscreen: {},
-    sidePanels: {}
+    watermark: {} as any,
+    seekbar: {} as any,
+    vrStereo: {} as any,
+    logo: {} as any,
+    fullscreen: {} as any,
+    sidePanels: {} as any
   }
 };
 
-export default (state: any = initialState, action: any) => {
+export default (state: ConfigState = initialState, action: any) => {
   switch (action.type) {
     case types.UPDATE: {
       const config = mergeDeep({}, state, action.config);
@@ -53,8 +54,8 @@ export default (state: any = initialState, action: any) => {
 };
 
 export const actions = {
-  updateConfig: (config: Object) => ({type: types.UPDATE, config}),
-  updateComponentConfig: (componentAlias: string, config: Object) => ({
+  updateConfig: (config: any) => ({type: types.UPDATE, config}),
+  updateComponentConfig: (componentAlias: string, config: UIOptionsObject) => ({
     type: types.UPDATE_COMPONENT,
     componentAlias,
     config

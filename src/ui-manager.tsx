@@ -1,7 +1,7 @@
 import {h, render} from 'preact';
 import {Provider} from 'react-redux';
 import {IntlProvider} from 'preact-i18n';
-import {createStore, compose} from 'redux';
+import {createStore, compose, Store} from 'redux';
 // import {cconfigureStore} from '@reduxjs/toolkit';
 import {copyDeep} from './utils/copy-deep';
 import {mergeDeep} from './utils/merge-deep';
@@ -29,7 +29,8 @@ import {EventDispatcherProvider} from './components';
 import {KeyboardEventProvider} from './components';
 import {ThemesManager} from './utils/themes-manager';
 import {UIOptionsObject, UIPreset} from './types';
-import {KPUIAddComponent, KPUIComponent} from '@playkit-js/kaltura-player-js';
+import {KalturaPlayer, KPUIAddComponent, KPUIComponent} from '@playkit-js/kaltura-player-js';
+import {RootState} from './types/reducers/root-state';
 
 /**
  * API used for building UIs based on state conditions
@@ -37,9 +38,9 @@ import {KPUIAddComponent, KPUIComponent} from '@playkit-js/kaltura-player-js';
  * @class UIManager
  */
 class UIManager {
-  player: any;
+  player: KalturaPlayer;
   targetId: string;
-  store: any;
+  store!: Store<RootState, any>;
   container!: HTMLDivElement;
   _translations: {[langKey: string]: any} = {en: en_translations['en']};
   _locale: string = 'en';
@@ -56,11 +57,11 @@ class UIManager {
     setLogger(config.logger);
     this._uiComponents = [...(config.uiComponents || [])];
     this.player = player;
-    this.targetId = config.targetId;
+    this.targetId = config.targetId!;
     this._createStore(config);
     this.setConfig(config);
     this._setLocaleTranslations(config);
-    this._themesManager = new ThemesManager(player, config.userTheme, config.targetId);
+    this._themesManager = new ThemesManager(player, config.userTheme, config.targetId!);
     setEnv(this.player.env);
   }
 
@@ -81,7 +82,7 @@ class UIManager {
    * @returns {void}
    * @memberof UIManager
    */
-  setConfig(config: Object, componentAlias?: string): void {
+  setConfig(config: UIOptionsObject, componentAlias?: string): void {
     if (componentAlias) {
       this.store.dispatch(configActions.updateComponentConfig(componentAlias, config));
     } else {
@@ -164,7 +165,7 @@ class UIManager {
   _createStore(config: UIOptionsObject): void {
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
     // @ts-ignore
-    this.store = createStore(reducer, composeEnhancers(middleware(this.player, config)));
+    this.store = createStore<RootState, any>(reducer, composeEnhancers(middleware(this.player, config)));
   }
 
   /**

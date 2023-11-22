@@ -1,3 +1,5 @@
+import {CvaaState} from '../types/reducers/cvaa';
+
 export const types = {
   UPDATE_CAPTIONS_STYLE: 'cvaa/UPDATE_CAPTIONS_STYLE'
 };
@@ -6,7 +8,7 @@ export const initialState = {
   style: 'default'
 };
 
-export default (state: any = initialState, action: any) => {
+export default (state: CvaaState = initialState, action: any) => {
   switch (action.type) {
     case types.UPDATE_CAPTIONS_STYLE:
       return {

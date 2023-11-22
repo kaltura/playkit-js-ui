@@ -1,4 +1,3 @@
-//@flow
 import {combineReducers} from 'redux';
 import config from './reducers/config';
 import engine from './reducers/engine';
@@ -11,8 +10,9 @@ import settings from './reducers/settings';
 import overlayAction from './reducers/overlay-action';
 import playlist from './reducers/playlist';
 import overlay from './reducers/overlay';
+import {RootState} from './types';
 
-const reducer = combineReducers({
+const reducer = combineReducers<RootState>({
   config,
   engine,
   shell,

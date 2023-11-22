@@ -1,3 +1,5 @@
+import {SeekbarState} from '../types/reducers/seekbar';
+
 export const types = {
   UPDATE_SEEKBAR_DRAGGING_STATUS: 'seekbar/UPDATE_SEEKBAR_DRAGGING_STATUS',
   UPDATE_SEEKBAR_HOVER_ACTIVE: 'seekbar/UPDATE_SEEKBAR_HOVER_ACTIVE',
@@ -24,7 +26,7 @@ export const initialState = {
   segments: []
 };
 
-export default (state: any = initialState, action: any) => {
+export default (state: SeekbarState = initialState, action: any) => {
   switch (action.type) {
     case types.UPDATE_SEEKBAR_DRAGGING_STATUS:
       return {

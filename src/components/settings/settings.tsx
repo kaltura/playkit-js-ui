@@ -9,7 +9,7 @@ import {default as Icon, IconType, BadgeType} from '../icon';
 import {withPlayer} from '../player';
 import {withEventManager} from '../../event';
 import {actions as overlayIconActions} from '../../reducers/overlay-action';
-import {Tooltip} from '../../components/tooltip';
+import {Tooltip} from '../tooltip';
 import {Button} from '../button';
 import {ButtonControl} from '../button-control';
 import {createPortal} from 'preact/compat';

@@ -1,5 +1,6 @@
 import {types as configReducerTypes} from './config';
 import {getComponentStateFromConfig, getComponentStateFromComponentConfig} from '../utils/component-config';
+import {LoadingState} from '../types/reducers/loading';
 
 const component = 'loading';
 
@@ -11,7 +12,7 @@ export const initialState = {
   show: false
 };
 
-export default (state: any = initialState, action: any) => {
+export default (state: LoadingState = initialState, action: any) => {
   switch (action.type) {
     case configReducerTypes.UPDATE:
       return getComponentStateFromConfig(component, state, action);

@@ -1,3 +1,5 @@
+import {SettingsState} from '../types/reducers/settings';
+
 export const types = {
   UPDATE_QUALITY: 'settings/UPDATE_QUALITY',
   UPDATE_SPEED: 'settings/UPDATE_SPEED',
@@ -11,7 +13,7 @@ export const initialState = {
   advancedAudioDesc: false
 };
 
-export default (state: any = initialState, action: any) => {
+export default (state: SettingsState = initialState, action: any) => {
   switch (action.type) {
     case types.UPDATE_QUALITY:
       return {
@@ -28,7 +30,7 @@ export default (state: any = initialState, action: any) => {
     case types.UPDATE_AUDIO:
       return {
         ...state,
-        speed: action.audio
+        audio: action.audio
       };
 
     case types.UPDATE_ADVANCED_AUDIO_DESC:

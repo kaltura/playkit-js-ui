@@ -1,4 +1,5 @@
 import isEqual from '../utils/is-equal';
+import {LayoutStyles, PresetSettings, ShellState} from '../types/reducers/shell';
 
 export const types = {
   ADD_PLAYER_CLASS: 'shell/ADD_PLAYER_CLASS',
@@ -20,22 +21,6 @@ export const types = {
   UPDATE_LAYOUT_STYLES: 'shell/UPDATE_LAYOUT_STYLES'
 };
 
-type LayoutStyles = {
-  sidePanels: {
-    top: Object,
-    bottom: Object,
-    left: Object,
-    right: Object
-  },
-  video: Object,
-  gui: Object
-};
-
-type PresetSettings = {
-  allowSidePanels: boolean,
-  allowPlayerArea: boolean
-};
-
 export const SidePanelOrientation = {
   VERTICAL: 'vertical',
   HORIZONTAL: 'horizontal'
@@ -46,7 +31,7 @@ export const SidePanelPositions = {
   TOP: 'top',
   BOTTOM: 'bottom',
   RIGHT: 'right'
-};
+} as const;
 
 export const SidePanelModes = {
   ALONGSIDE: 'alongside',
@@ -106,10 +91,10 @@ export const initialState = {
     video: initialLayoutStyle,
     gui: initialLayoutStyle,
     sidePanels: {
-      [SidePanelPositions.LEFT]: {},
-      [SidePanelPositions.RIGHT]: {},
-      [SidePanelPositions.TOP]: {},
-      [SidePanelPositions.BOTTOM]: {}
+      [SidePanelPositions.LEFT]: {} as any,
+      [SidePanelPositions.RIGHT]: {} as any,
+      [SidePanelPositions.TOP]: {} as any,
+      [SidePanelPositions.BOTTOM]: {} as any
     }
   },
   playerHover: false,
@@ -129,7 +114,7 @@ export const initialState = {
   presetSettings: createDefaultPresetSettings()
 };
 
-export default (state: any = initialState, action: any) => {
+export default (state: ShellState = initialState, action: any) => {
   switch (action.type) {
     case types.ADD_PLAYER_CLASS:
       if (state.playerClasses.includes(action.className)) return state;
@@ -295,7 +280,7 @@ export const actions = {
     position,
     sidePanelMode
   }),
-  updateSidePanelSize: (orientation: string, options: Object) => ({
+  updateSidePanelSize: (orientation: string, options: any) => ({
     type: types.UPDATE_SIDE_PANEL_SIZE,
     orientation,
     options

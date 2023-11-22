@@ -13,7 +13,7 @@ import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
 class BaseComponent extends Component<any, any> {
   player: KalturaPlayer;
   name: string;
-  config: Object;
+  config: any;
   logger: any;
   eventManager: EventManager;
 

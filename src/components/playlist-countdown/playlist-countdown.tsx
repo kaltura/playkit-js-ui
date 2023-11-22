@@ -174,7 +174,7 @@ class PlaylistCountdown extends Component<any, any> {
    * @param {Object} state - current component state
    * @returns {boolean} - is component shown
    */
-  isShown(state: Object): boolean {
+  isShown(state: any): boolean {
     return !this.isHidden(state) && !this.isCanceled();
   }
 

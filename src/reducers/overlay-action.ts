@@ -1,3 +1,5 @@
+import {OverlayActionsState} from '../types/reducers/overlay-actions';
+
 export const types = {
   UPDATE_ACTION_ICON: 'overlay-action/UPDATE_ACTION_ICON'
 };
@@ -6,7 +8,7 @@ export const initialState = {
   iconType: null
 };
 
-export default (state: any = initialState, action: any) => {
+export default (state: OverlayActionsState = initialState, action: any) => {
   switch (action.type) {
     case types.UPDATE_ACTION_ICON:
       return {

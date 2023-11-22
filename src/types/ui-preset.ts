@@ -1,4 +1,6 @@
+import {ComponentChild} from 'preact';
+
 export type UIPreset = {
-  template: (props: Object) => any,
-  condition?: (state: Object) => boolean
+  template: (props: any) => ComponentChild,
+  condition?: (state: any) => boolean
 };

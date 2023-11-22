@@ -48,7 +48,7 @@ class CopyButton extends Component<any, any> {
    * @param {Object} props object
    * @memberof CopyButton
    */
-  constructor(props: Object) {
+  constructor(props: any) {
     super(props);
     this.setState({copySuccess: false});
   }

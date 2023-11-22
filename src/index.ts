@@ -1,4 +1,3 @@
-// @flow
 import {UIManager} from './ui-manager';
 import * as preact from 'preact';
 import * as redux from 'react-redux';
@@ -42,3 +41,4 @@ export {UIManager};
 export {VERSION, NAME};
 
 export {SidePanelPositions, SidePanelModes, ReservedPresetNames, ReservedPresetAreas};
+export * from './types'

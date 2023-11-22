@@ -3,8 +3,8 @@ import {ComponentsConfig} from './components-config';
 import {UserTheme} from './user-theme';
 import {KPUIComponent} from '@playkit-js/kaltura-player-js';
 
-export type UIOptionsObject = {
-  targetId: string,
+export interface UIOptionsObject {
+  targetId?: string,
   debugActions?: boolean,
   forceTouchUI?: boolean,
   showCCButton?: boolean,
@@ -18,7 +18,7 @@ export type UIOptionsObject = {
   },
   hoverTimeout?: number,
   logger?: LoggerType,
-  components?: ComponentsConfig,
+  components: ComponentsConfig,
   uiComponents?: Array<KPUIComponent>,
   translations?: {[langKey: string]: any},
   locale?: string;

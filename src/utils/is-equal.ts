@@ -5,7 +5,7 @@
  * @param {Object} objB object B
  * @returns {boolean} objects equal or not
  */
-function isEqual(objA: Object, objB: any): boolean {
+function isEqual(objA: any, objB: any): boolean {
   const keysA = Object.keys(objA);
   const keysB = Object.keys(objB);
 

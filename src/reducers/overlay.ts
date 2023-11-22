@@ -1,3 +1,5 @@
+import {OverlayState} from '../types/reducers/overlay';
+
 export const types = {
   UPDATE_OVERLAY: 'overlay/UPDATE_OVERLAY'
 };
@@ -6,7 +8,7 @@ export const initialState = {
   isOpen: false
 };
 
-export default (state: any = initialState, action: any) => {
+export default (state: OverlayState = initialState, action: any) => {
   switch (action.type) {
     case types.UPDATE_OVERLAY:
       return {

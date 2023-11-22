@@ -25,9 +25,7 @@ module.exports = (env, {mode}) => {
     module: {
       rules: [
         {
-          // test: /\.(ts|js)$/,
-          // test: /\.ts$/,
-          test: /\.tsx?$/,
+          test: /\.(tsx?|js)$/,
           exclude: /node_modules/,
           use: {
             loader: 'babel-loader',
@@ -42,11 +40,6 @@ module.exports = (env, {mode}) => {
               plugins: [['@babel/plugin-transform-runtime']]
             }
           }
-        },
-        {
-          test: /\.js$/,
-          use: ['babel-loader'],
-          exclude: /node_modules/
         },
         {
           test: /\.scss$/,

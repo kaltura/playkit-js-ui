@@ -6,7 +6,7 @@ import {mergeDeep} from './merge-deep';
  * @param {string} action - The action object.
  * @returns {Object} - The component updated state.
  */
-function getComponentStateFromConfig(component: string, oldState: any, action: any): Object {
+function getComponentStateFromConfig(component: string, oldState: any, action: any): any {
   const componentConfig = action.config.components && action.config.components[component];
   if (componentConfig) {
     return mergeDeep(oldState, componentConfig);
@@ -20,7 +20,7 @@ function getComponentStateFromConfig(component: string, oldState: any, action: a
  * @param {string} action - The action object.
  * @returns {Object} - The component updated state.
  */
-function getComponentStateFromComponentConfig(component: string, oldState: any, action: any): Object {
+function getComponentStateFromComponentConfig(component: string, oldState: any, action: any): any {
   if (action.componentAlias === component) {
     return mergeDeep(oldState, action.config);
   }

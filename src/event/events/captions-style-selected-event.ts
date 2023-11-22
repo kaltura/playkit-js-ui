@@ -14,7 +14,7 @@ class CaptionsStyleSelectedEvent extends FakeEvent {
    *
    * @param {Object} captionsStyle - The selected captoons style.
    */
-  constructor(captionsStyle: Object) {
+  constructor(captionsStyle: any) {
     super(EventType.USER_SELECTED_CAPTIONS_STYLE);
     this.payload = {
       captionsStyle: captionsStyle

@@ -1,3 +1,5 @@
+import {VolumeState} from '../types/reducers/voluem';
+
 export const types = {
   UPDATE_VOLUME_DRAGGING_STATUS: 'volume/UPDATE_VOLUME_DRAGGING_STATUS',
   UPDATE_HOVER: 'volume/UPDATE_HOVER'
@@ -8,7 +10,7 @@ export const initialState = {
   hover: false
 };
 
-export default (state: any = initialState, action: any) => {
+export default (state: VolumeState = initialState, action: any) => {
   switch (action.type) {
     case types.UPDATE_VOLUME_DRAGGING_STATUS:
       return {

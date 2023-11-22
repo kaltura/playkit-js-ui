@@ -46,7 +46,7 @@ class PlaylistNextScreen extends Component<any, any> {
    * @returns {void}
    * @memberof PlaylistNextScreen
    */
-  componentDidUpdate(previousProps: Object): void {
+  componentDidUpdate(previousProps: any): void {
     if (!this._shouldRender(previousProps) && this._shouldRender(this.props) && this.focusElement) {
       this.focusElement.focus();
     }
