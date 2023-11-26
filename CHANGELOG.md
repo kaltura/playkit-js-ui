@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.77.11 (2023-11-26)
+
+
+### Bug Fixes
+
+* **ADA-95:** Purpose of logo link on player is not clear in context ([#814](https://github.com/kaltura/playkit-js-ui/issues/814)) ([fef3444](https://github.com/kaltura/playkit-js-ui/commit/fef3444))
+
+
+
 ### 0.77.10 (2023-11-12)
 
 
