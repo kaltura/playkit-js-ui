@@ -33,5 +33,5 @@
     "outDir": "./lib/",
     "allowSyntheticDefaultImports": true,
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "tests/**/*"]
 }

@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
 import {actions} from '../../reducers/shell';
 import getLogger from '../../utils/logger';
-import {withEventDispatcher} from '../../components/event-dispatcher';
+import {withEventDispatcher} from '../event-dispatcher';
 import {UIPreset} from '../../types';
 
 type ActivePresetPropsProps = {

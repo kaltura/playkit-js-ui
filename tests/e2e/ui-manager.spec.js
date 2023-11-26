@@ -1,6 +1,6 @@
-import {setup} from '@playkit-js/kaltura-player-js';
-import * as TestUtils from './utils/test-utils';
 import {h, Component} from 'preact';
+import {setup} from '@playkit-js/kaltura-player-js';
+import * as TestUtils from '../utils/test-utils';
 
 describe('UIManager', function () {
   const targetId = 'player-placeholder_ui.spec';

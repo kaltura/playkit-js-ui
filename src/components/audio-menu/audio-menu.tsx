@@ -6,7 +6,7 @@ import {actions} from '../../reducers/settings';
 import {SmartContainerItem} from '../../components';
 import {IconType} from '../icon';
 import {withPlayer} from '../player';
-import {withEventDispatcher} from '../../components/event-dispatcher';
+import {withEventDispatcher} from '../event-dispatcher';
 import {WithPlayerProps} from '../player/with-player';
 import {WithEventDispatcherProps} from '../event-dispatcher';
 
