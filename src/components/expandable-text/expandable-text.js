@@ -12,7 +12,7 @@ interface ExpandableTextProps {
   text: string;
   lines: number;
   forceShowMore: boolean;
-  onClick?: () => void;
+  onClick?: (e: MouseEvent) => void;
   readMoreLabel?: string;
   readLessLabel?: string;
   children: ComponentChildren;
@@ -37,9 +37,9 @@ const ExpandableText = withText({
   }, [isFinalized]);
 
   // eslint-disable-next-line require-jsdoc
-  const onClick = () => {
+  const onClick = (e: MouseEvent) => {
     if (props.onClick) {
-      props.onClick();
+      props.onClick(e);
     }
 
     setIsTextExpanded(!isTextExpanded);
