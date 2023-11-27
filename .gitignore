@@ -44,3 +44,6 @@ jspm_packages
 
 dist/
 lib/
+api-extractor/report/
+api-extractor/report-temp/
+api-extractor/playkit-js-ui.api.json
