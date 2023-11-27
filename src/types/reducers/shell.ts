@@ -1,17 +1,17 @@
 export type LayoutStyles = {
   sidePanels: {
-    top: any,
-    bottom: any,
-    left: any,
-    right: any
-  },
-  video: any,
-  gui: any
+    top: any;
+    bottom: any;
+    left: any;
+    right: any;
+  };
+  video: any;
+  gui: any;
 };
 
 export type PresetSettings = {
-  allowSidePanels: boolean,
-  allowPlayerArea: boolean
+  allowSidePanels: boolean;
+  allowPlayerArea: boolean;
 };
 
 export interface ShellState {

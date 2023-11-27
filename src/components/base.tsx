@@ -11,18 +11,18 @@ import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
  * @extends {Component}
  */
 class BaseComponent extends Component<any, any> {
-  player: KalturaPlayer;
-  name: string;
-  config: any;
-  logger: any;
-  eventManager: EventManager;
+  protected player: KalturaPlayer;
+  protected name: string;
+  protected config: any;
+  protected logger: any;
+  protected eventManager: EventManager;
 
   /**
    * Components default props.
    * @type {Object}
    * @static
    */
-  static defaultProps: any = {};
+  public static defaultProps: any = {};
 
   /**
    * Creates an instance of BaseComponent.
@@ -36,7 +36,7 @@ class BaseComponent extends Component<any, any> {
     this.player = obj.player;
     this.eventManager = new EventManager();
     this.logger = getLogger(`UI ${this.name}`);
-    this.logger.debug(`Initialized`);
+    this.logger.debug('Initialized');
   }
 
   /**
@@ -46,7 +46,7 @@ class BaseComponent extends Component<any, any> {
    *
    * @memberof BaseComponent
    */
-  notifyClick(payload?: any): void {
+  public notifyClick(payload?: any): void {
     this.context.store.dispatch({
       type: types.COMPONENT_CLICKED,
       name: this.name,
@@ -61,7 +61,7 @@ class BaseComponent extends Component<any, any> {
    *
    * @memberof BaseComponent
    */
-  notifyChange(payload?: any): void {
+  public notifyChange(payload?: any): void {
     this.context.store.dispatch({
       type: types.COMPONENT_CHANGED,
       name: this.name,

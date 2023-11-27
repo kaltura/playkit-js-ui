@@ -31,22 +31,22 @@ const TEXT_CONTRAST_SUFFIX = 'text-contrast';
 
 // eslint-disable-next-line require-jsdoc
 export class ThemesManager {
-  player: any;
-  config?: UserTheme;
-  playerContainerElement: HTMLElement | null;
+  private player: any;
+  private readonly config?: UserTheme;
+  private playerContainerElement: HTMLElement;
 
   // eslint-disable-next-line require-jsdoc
   constructor(player: any, config: UserTheme | undefined, targetId: string) {
     this.player = player;
     this.config = config;
-    this.playerContainerElement = document.querySelector(`#${targetId}`);
+    this.playerContainerElement = document.querySelector<HTMLDivElement>(`#${targetId}`)!;
   }
 
   /**
    * Apply the user theme from config (should be called only after the UI was build and the css vars are exist in the DOM).
    * @returns {void}
    */
-  applyUserTheme(): void {
+  public applyUserTheme(): void {
     if (this.config) {
       this.setColors(this.config);
     }
@@ -57,10 +57,10 @@ export class ThemesManager {
    * @param {string} inputColor  - css color in HEX format
    * @returns {string} hex  - css color in HEX format
    */
-  makeTextContrastColor(inputColor: string) {
+  private makeTextContrastColor(inputColor: string): string {
     const hsl = hexToHsl(inputColor);
-    let hue = hsl[0];
-    let saturation = hsl[1];
+    const hue = hsl[0];
+    const saturation = hsl[1];
     let lightness = hsl[2];
 
     if (hue < 30 || hue > 205) {
@@ -85,7 +85,7 @@ export class ThemesManager {
    * @param {UserTheme} config  -
    * @returns {void}
    */
-  setColors(config: UserTheme): void {
+  private setColors(config: UserTheme): void {
     if (config.colors.primary) {
       this.setSvgFillColor(config.colors.primary);
     }
@@ -107,7 +107,7 @@ export class ThemesManager {
    * @param {string} color  -
    * @returns {void}
    */
-  setAccentOrAcknowledgementColor(colorTitle: string, color: string): void {
+  private setAccentOrAcknowledgementColor(colorTitle: string, color: string): void {
     const [hue, saturation, lightness] = hexToHsl(color);
     this.setCSSVariable(ACTUAL_USED_CSS_VAR.replace('{name}', colorTitle), color);
     this.setCSSVariable(HSL_HUE_CSS_VAR.replace('{name}', colorTitle), `${Math.round(hue)}deg`);
@@ -121,7 +121,7 @@ export class ThemesManager {
    * @param {string} color  -
    * @returns {void}
    */
-  setColor(cssVarName: string, color: string): void {
+  private setColor(cssVarName: string, color: string): void {
     this.setCSSVariable(cssVarName, color);
   }
 
@@ -130,7 +130,7 @@ export class ThemesManager {
    * @param {string} color  -
    * @returns {void}
    */
-  setSvgFillColor(color: string): void {
+  private setSvgFillColor(color: string): void {
     for (const varName of dynamicColoredIconsSvgUrlVars) {
       // $FlowFixMe
       const svgUrl = this.getCSSVariable(varName);
@@ -144,9 +144,8 @@ export class ThemesManager {
    * @param {string} variableName - CSS variable name
    * @returns {string} CSS variable value
    */
-  getCSSVariable(variableName: string) {
-    // @ts-ignore
-    return getComputedStyle(this.playerContainerElement?.querySelector(`.${style.player}`)).getPropertyValue(variableName) || '';
+  public getCSSVariable(variableName: string): string {
+    return getComputedStyle((this.playerContainerElement.querySelector<HTMLDivElement>(`.${style.player}`)) as HTMLDivElement).getPropertyValue(variableName) || '';
   }
 
   /**
@@ -155,9 +154,8 @@ export class ThemesManager {
    * @param {string} value - CSS variable value
    * @returns {void}
    */
-  setCSSVariable(variableName: string, value: string) {
-    const playkitPlayerElement = this.playerContainerElement?.querySelector(`.${style.player}`);
-    // @ts-ignore
+  public setCSSVariable(variableName: string, value: string): void {
+    const playkitPlayerElement = this.playerContainerElement.querySelector<HTMLDivElement>(`.${style.player}`)!;
     const playkitPlayerElementStyle = playkitPlayerElement.style;
 
     playkitPlayerElementStyle.setProperty(variableName, value);

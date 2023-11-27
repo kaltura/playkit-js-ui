@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import {FakeEvent} from '@playkit-js/playkit-js';
 import {EventType} from '../../event';
 import {AudioSelectedEvent} from '../../event/events/audio-selected-event';
@@ -28,26 +29,26 @@ class EventDispatcherProvider extends Component<any, any> {
    * @returns {void}
    * @private
    */
-  _notifyClick = (payload: any) => onClickableComponentsHandler(this.props.store, payload, this.props.player);
+  private _notifyClick = (payload: any): void => onClickableComponentsHandler(this.props.store, payload, this.props.player);
   /**
    * bounded component state change handler
    * @param {Object} payload - the click data payload
    * @returns {void}
    * @private
    */
-  _notifyChange = (payload: any) => onChangeableComponentsHandler(this.props.store, payload, this.props.player);
+  private _notifyChange = (payload: any): void => onChangeableComponentsHandler(this.props.store, payload, this.props.player);
   /**
    * bounded hover change  handler
    * @param {Object} payload - the click data payload
    * @returns {void}
    * @private
    */
-  _notifyHoverChange = (payload: any) => onPlayerHoverStateChangeHandler(this.props.store, payload, this.props.player);
+  private _notifyHoverChange = (payload: any): void => onPlayerHoverStateChangeHandler(this.props.store, payload, this.props.player);
   /**
    * create context player
    * @returns {void}
    */
-  getChildContext() {
+  public getChildContext() {
     return {
       notifyClick: this._notifyClick,
       notifyChange: this._notifyChange,
@@ -91,24 +92,24 @@ function onPlayerHoverStateChangeHandler(store: any, action: any, player: Kaltur
  */
 function onChangeableComponentsHandler(store: any, action: any, player: KalturaPlayer): void {
   switch (action.name) {
-    case 'Volume':
-      player.dispatchEvent(new VolumeChangedEvent(action.payload.volume));
-      break;
+  case 'Volume':
+    player.dispatchEvent(new VolumeChangedEvent(action.payload.volume));
+    break;
 
-    case 'SeekBarPlaybackContainer':
-      player.dispatchEvent(new SeekedEvent(action.payload.from, action.payload.to));
-      break;
+  case 'SeekBarPlaybackContainer':
+    player.dispatchEvent(new SeekedEvent(action.payload.from, action.payload.to));
+    break;
 
-    case 'SeekBarLivePlaybackContainer':
-      player.dispatchEvent(new SeekedEvent(action.payload.from, action.payload.to));
-      break;
+  case 'SeekBarLivePlaybackContainer':
+    player.dispatchEvent(new SeekedEvent(action.payload.from, action.payload.to));
+    break;
 
-    case 'ActivePreset':
-      player.dispatchEvent(new FakeEvent(EventType.UI_PRESET_CHANGE, action.payload));
-      break;
+  case 'ActivePreset':
+    player.dispatchEvent(new FakeEvent(EventType.UI_PRESET_CHANGE, action.payload));
+    break;
 
-    default:
-      break;
+  default:
+    break;
   }
 }
 
@@ -121,74 +122,74 @@ function onChangeableComponentsHandler(store: any, action: any, player: KalturaP
  */
 function onClickableComponentsHandler(store: any, action: any, player: KalturaPlayer): void {
   switch (action.name) {
-    case 'Keyboard':
-      keyboardHandlers[action.payload.key](store, action, player);
-      break;
+  case 'Keyboard':
+    keyboardHandlers[action.payload.key](store, action, player);
+    break;
 
-    case 'OverlayAction':
-      onOverlayActionClicked(store, action, player);
-      break;
+  case 'OverlayAction':
+    onOverlayActionClicked(store, action, player);
+    break;
 
-    case 'CVAAOverlay':
-      player.dispatchEvent(new CaptionsStyleSelectedEvent(action.payload.textStyle));
-      break;
+  case 'CVAAOverlay':
+    player.dispatchEvent(new CaptionsStyleSelectedEvent(action.payload.textStyle));
+    break;
 
-    case 'Fullscreen':
-      onFullScreenClicked(store, action, player);
-      break;
+  case 'Fullscreen':
+    onFullScreenClicked(store, action, player);
+    break;
 
-    case 'CaptionsMenu':
-      onCaptionsClick(store, action, player);
-      break;
+  case 'CaptionsMenu':
+    onCaptionsClick(store, action, player);
+    break;
 
-    case 'AudioMenu':
-      onAudioClicked(store, action, player);
-      break;
+  case 'AudioMenu':
+    onAudioClicked(store, action, player);
+    break;
 
-    case 'QualityMenu':
-      onQualityClicked(store, action, player);
-      break;
+  case 'QualityMenu':
+    onQualityClicked(store, action, player);
+    break;
 
-    case 'SpeedMenu':
-      onSpeedClicked(store, action, player);
-      break;
+  case 'SpeedMenu':
+    onSpeedClicked(store, action, player);
+    break;
 
-    case 'AdvancedAudioDescToggle':
-      onAdvancedAudioDescriptionClicked(store, action, player);
-      break;
+  case 'AdvancedAudioDescToggle':
+    onAdvancedAudioDescriptionClicked(store, action, player);
+    break;
 
-    case 'Shell':
-      player.dispatchEvent(new FakeEvent(EventType.UI_CLICKED));
-      break;
+  case 'Shell':
+    player.dispatchEvent(new FakeEvent(EventType.UI_CLICKED));
+    break;
 
-    case 'Rewind':
-      player.dispatchEvent(new RewindClickedEvent(action.payload.from, action.payload.to));
-      break;
+  case 'Rewind':
+    player.dispatchEvent(new RewindClickedEvent(action.payload.from, action.payload.to));
+    break;
 
-    case 'Forward':
-      player.dispatchEvent(new ForwardClickedEvent(action.payload.from, action.payload.to));
-      break;
+  case 'Forward':
+    player.dispatchEvent(new ForwardClickedEvent(action.payload.from, action.payload.to));
+    break;
 
-    case 'LiveTag':
-      player.dispatchEvent(new FakeEvent(EventType.USER_CLICKED_LIVE_TAG));
-      break;
+  case 'LiveTag':
+    player.dispatchEvent(new FakeEvent(EventType.USER_CLICKED_LIVE_TAG));
+    break;
 
-    case 'PrePlaybackPlayOverlay':
-    case 'PlayPause':
-      onPlayPauseClicked(store, action, player);
-      break;
+  case 'PrePlaybackPlayOverlay':
+  case 'PlayPause':
+    onPlayPauseClicked(store, action, player);
+    break;
 
-    case 'Volume':
-      onVolumeClicked(store, action, player);
-      break;
+  case 'Volume':
+    onVolumeClicked(store, action, player);
+    break;
 
-    case 'PictureInPicture':
-      onPictureInPictureClicked(store, action, player);
-      break;
+  case 'PictureInPicture':
+    onPictureInPictureClicked(store, action, player);
+    break;
 
-    case 'ClosedCaptions':
-      onClosedCaptionsClicked(store, action, player);
-      break;
+  case 'ClosedCaptions':
+    onClosedCaptionsClicked(store, action, player);
+    break;
   }
 }
 

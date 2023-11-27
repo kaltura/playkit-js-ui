@@ -1,49 +1,69 @@
 {
-  "parser": "babel-eslint",
-  "extends": ["eslint:recommended", "plugin:flowtype/recommended", "plugin:react/recommended"],
-  "parserOptions": {
-    "sourceType": "module"
-  },
-  "settings": {
-    "react": {
-      "pragma": "h",
-      "version": "16.0"
-    }
-  },
-  "plugins": ["prettier", "import", "flowtype", "mocha-no-only", "react"],
-  "env": {
-    "browser": true,
-    "es6": true,
-    "mocha": true,
-    "amd": true,
-    "commonjs": true
-  },
-  "globals": {
-    "should": true,
-    "sinon": true,
-    "process": true,
-    "__dirname": true,
-    "__VERSION__": true,
-    "__NAME__": true,
-    "__CSS_MODULE_PREFIX__": true
-  },
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "plugins": ["prettier", "@typescript-eslint"],
   "rules": {
-    "prettier/prettier": "error",
-    "mocha-no-only/mocha-no-only": "off",
-    "flowtype/define-flow-type": 2,
-    "react/prop-types": 0,
-    "require-jsdoc": [
+    "indent": ["error", 2],
+    "react/prefer-stateless-function": "off",
+    "max-len": ["warn", {"code": 500}],
+    "eol-last": "off",
+    "prettier/prettier": "off",
+    "@typescript-eslint/explicit-function-return-type": "warn",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/explicit-member-accessibility": [
       "error",
       {
-        "require": {
-          "FunctionDeclaration": true,
-          "MethodDefinition": true,
-          "ClassDeclaration": true,
-          "ArrowFunctionExpression": true
+        "accessibility": "explicit",
+        "overrides": {
+          "accessors": "explicit",
+          "constructors": "no-public",
+          "methods": "explicit",
+          "properties": "explicit",
+          "parameterProperties": "explicit"
         }
       }
     ],
-    "valid-jsdoc": ["error"],
-    "react/no-deprecated": "off"
+    "@typescript-eslint/ban-types": [
+      "error",
+      {
+        "extendDefaults": true,
+        "types": {
+          "Function": false // Overrides the rule for "Function" type only
+        }
+      }
+    ],
+    "block-scoped-var": "error",
+    "eqeqeq": "error",
+    "no-var": "error",
+    "no-console": "error",
+    "prefer-const": "error",
+    "prefer-arrow-callback": "error",
+    "no-trailing-spaces": "error",
+    "quotes": ["warn", "single", {"avoidEscape": true}],
+    "no-restricted-properties": [
+      "error",
+      {
+        "object": "describe",
+        "property": "only"
+      },
+      {
+        "object": "it",
+        "property": "only"
+      }
+    ]
+  },
+  "overrides": [],
+  "settings": {
+    "jest": {
+      "version": 26
+    }
+  },
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true
   }
 }

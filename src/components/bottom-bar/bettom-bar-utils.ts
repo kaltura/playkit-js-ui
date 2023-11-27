@@ -6,7 +6,7 @@ const SPATIAL_CONTROLS = {TimeDisplayPlaybackContainer: 107};
 export function calculateControlsSize(controls: string[], currentControlWidth: number, playerWidth: number, isPlaylist: boolean): number {
   let totalWidth = 0;
   let controlWidth = 0;
-  for (let control of controls) {
+  for (const control of controls) {
     if (control in SPATIAL_CONTROLS) {
       controlWidth = SPATIAL_CONTROLS[control];
     } else if (control === PlaybackControls.displayName) {

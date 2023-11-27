@@ -5,7 +5,7 @@
  * @template T
  */
 class MultiMap<T> {
-  _map: Map<string, T[]>;
+  private _map: Map<string, T[]>;
 
   /**
    * @constructor
@@ -21,9 +21,9 @@ class MultiMap<T> {
    * @param {T} value  -
    * @returns {void}
    */
-  push(key: string, value: T): void {
+  public push(key: string, value: T): void {
     if (this._map.has(key)) {
-      let list = this._map.get(key);
+      const list = this._map.get(key);
       if (Array.isArray(list)) {
         list.push(value);
         this._map.set(key, list);
@@ -39,7 +39,7 @@ class MultiMap<T> {
    * @param {!Array.<T>} values -
    * @returns {void}
    */
-  set(key: string, values: T[]): void {
+  public set(key: string, values: T[]): void {
     this._map.set(key, values);
   }
 
@@ -48,7 +48,7 @@ class MultiMap<T> {
    * @param {string} key -
    * @return {boolean} true if the key exists.
    */
-  has(key: string): boolean {
+  public has(key: string): boolean {
     return this._map.has(key);
   }
 
@@ -57,8 +57,8 @@ class MultiMap<T> {
    * @param {string} key -
    * @return {Array.<T>} or null if no suZch key exists.
    */
-  get(key: string): Array<T> {
-    let list = this._map.get(key);
+  public get(key: string): Array<T> {
+    const list = this._map.get(key);
     // slice() clones the list so that it and the map can each be modified
     // without affecting the other.
     return list ? list.slice() : [];
@@ -68,9 +68,9 @@ class MultiMap<T> {
    * Get a list of all values.
    * @returns {!Array.<T>} -
    */
-  getAll(): T[] {
+  public getAll(): T[] {
     let list: T[] = [];
-    for (var value of this._map.values()) {
+    for (const value of this._map.values()) {
       list = list.concat(value);
     }
     return list;
@@ -82,9 +82,9 @@ class MultiMap<T> {
    * @param {T} value -
    * @returns {void}
    */
-  remove(key: string, value: T): void {
+  public remove(key: string, value: T): void {
     if (!this._map.has(key)) return;
-    let list = this._map.get(key);
+    const list = this._map.get(key);
     if (Array.isArray(list)) {
       for (let i = 0; i < list.length; ++i) {
         if (list[i] === value) {
@@ -99,7 +99,7 @@ class MultiMap<T> {
    * Gets all keys from the multimap.
    * @return {!Array.<string>} - The map keys.
    */
-  keys(): Iterator<string> {
+  public keys(): Iterator<string> {
     return this._map.keys();
   }
 
@@ -107,7 +107,7 @@ class MultiMap<T> {
    * Clear all keys and values from the multimap.
    * @returns {void}
    */
-  clear(): void {
+  public clear(): void {
     this._map.clear();
   }
 }

@@ -7,7 +7,7 @@ import {PLAYER_BREAK_POINTS} from '../../components/shell/shell';
  * @param {*} options player state
  * @return {Object} dimensions
  */
-function calculateVerticalDimensions(options) {
+function calculateVerticalDimensions(options): any {
   const {sidePanelsSizes, sidePanelsModes, playerClientRect, isVideo} = options;
   const sizes = sidePanelsSizes[SidePanelOrientation.VERTICAL];
   const playerWidth = playerClientRect.width;
@@ -38,7 +38,7 @@ function calculateVerticalDimensions(options) {
  * @param {*} options player state
  * @return {Object} dimensions
  */
-function calculateHorizontalDimensions(options: any) {
+function calculateHorizontalDimensions(options: any): any {
   const {sidePanelsSizes, sidePanelsModes, playerClientRect, isVideo} = options;
   const sizes = sidePanelsSizes[SidePanelOrientation.HORIZONTAL];
   const playerHeight = playerClientRect.height;
@@ -69,7 +69,7 @@ function calculateHorizontalDimensions(options: any) {
  * @param {*} options player state
  * @return {Object} styles as hashtable
  */
-export function calculateVideoContainerStyles(options: any) {
+export function calculateVideoContainerStyles(options: any): any {
   // Video element cares only for side panels that are side to video
 
   const {sidePanelsModes, allowSidePanels} = options;
@@ -107,7 +107,7 @@ export function calculateVideoContainerStyles(options: any) {
  * @param {*} options player state
  * @return {Object} styles as hashtable
  */
-export function calculateGuiContainerStyles(options: any) {
+export function calculateGuiContainerStyles(options: any): any {
   const {sidePanelsModes, playerClientRect, allowSidePanels} = options;
   const areaStyle = {position: 'absolute', left: 0, right: 0, top: 0, bottom: 0};
   let areaWidth = playerClientRect.width;
@@ -167,7 +167,7 @@ export function calculateGuiContainerStyles(options: any) {
  * @param {*} options player state
  * @return {Object} styles as hashtable
  */
-export function calculateSidePanelStyles(options: any) {
+export function calculateSidePanelStyles(options: any): any {
   const {position, sidePanelsModes} = options;
   const leftSidePanelMode = sidePanelsModes[SidePanelPositions.LEFT];
   const rightSidePanelMode = sidePanelsModes[SidePanelPositions.RIGHT];

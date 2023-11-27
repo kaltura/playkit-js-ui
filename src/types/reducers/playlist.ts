@@ -1,3 +1,3 @@
-interface PlaylistState {
+export interface PlaylistState {
   countdownCanceled: boolean;
 }

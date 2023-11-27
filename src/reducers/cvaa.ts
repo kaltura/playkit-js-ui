@@ -1,3 +1,4 @@
+/* eslint-disable  @typescript-eslint/explicit-function-return-type */
 import {CvaaState} from '../types/reducers/cvaa';
 
 export const types = {
@@ -10,14 +11,14 @@ export const initialState = {
 
 export default (state: CvaaState = initialState, action: any) => {
   switch (action.type) {
-    case types.UPDATE_CAPTIONS_STYLE:
-      return {
-        ...state,
-        style: action.style
-      };
+  case types.UPDATE_CAPTIONS_STYLE:
+    return {
+      ...state,
+      style: action.style
+    };
 
-    default:
-      return state;
+  default:
+    return state;
   }
 };
 

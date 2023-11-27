@@ -1,3 +1,4 @@
+/* eslint-disable */
 // @ts-nocheck
 // These color convertors based on https://www.npmjs.com/package/color-convert
 /**

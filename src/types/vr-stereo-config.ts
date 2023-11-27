@@ -1,3 +1,3 @@
 export type VrStereoConfig = {
-  vrStereoMode: boolean
+  vrStereoMode: boolean;
 };

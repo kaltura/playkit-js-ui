@@ -2,7 +2,7 @@
  * @param {any} item - The item to check.
  * @returns {boolean} - Whether the item is an object.
  */
-function isObject(item: any) {
+function isObject(item: any): boolean {
   return item && typeof item === 'object' && !Array.isArray(item);
 }
 

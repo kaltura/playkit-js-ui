@@ -1,3 +1,3 @@
 export interface OverlayState {
-  isOpen: boolean
+  isOpen: boolean;
 }

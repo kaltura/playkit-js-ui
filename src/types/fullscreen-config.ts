@@ -1,3 +1,3 @@
 export type FullscreenConfig = {
-  disableDoubleClick: boolean
+  disableDoubleClick: boolean;
 };

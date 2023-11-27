@@ -1,5 +1,6 @@
-import {h, ComponentChildren} from 'preact';
+import { h, ComponentChildren } from "preact";
 import {withText} from 'preact-i18n';
+
 
 import {useState, useRef, useLayoutEffect} from 'preact/hooks';
 
@@ -17,7 +18,7 @@ interface ExpandableTextProps {
   children: ComponentChildren;
 }
 
-const ExpandableText = withText({
+const ExpandableText: new(props?: any, context?: any) => any = withText({
   readMoreLabel: 'controls.readMore',
   readLessLabel: 'controls.readLess'
 })((props: ExpandableTextProps) => {
@@ -78,4 +79,4 @@ const ExpandableText = withText({
 });
 // @ts-ignore
 ExpandableText.displayName = COMPONENT_NAME;
-export {ExpandableText};
+export { ExpandableText };

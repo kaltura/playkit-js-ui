@@ -1,3 +1,4 @@
+/* eslint-disable   @typescript-eslint/no-use-before-define */
 export const KeyMap: {[key: string]: number} = {
   TAB: 9,
   ENTER: 13,
@@ -33,7 +34,7 @@ export function setEnv(env: any): void {
  * @returns {string} - key name
  */
 export function getKeyName(keyCode: number): string {
-  for (let keyName in KeyMap) {
+  for (const keyName in KeyMap) {
     if (KeyMap[keyName] === keyCode) {
       return keyName;
     }

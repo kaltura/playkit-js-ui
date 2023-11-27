@@ -10,7 +10,8 @@ let logger;
  * @param {UIOptionsObject} config - The UI config.
  * @returns {void}
  */
-const loggerMiddleware = (config: UIOptionsObject) => (store: any) => (next: (...args: any) => any) => (action: any) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const loggerMiddleware = (config: UIOptionsObject) => (store: any) => (next: (...args: any) => any) => (action: any): void => {
   if (!logger) {
     logger = getLogger('UILoggerMiddleware');
   }

@@ -1,3 +1,4 @@
+/* eslint-disable  @typescript-eslint/explicit-function-return-type */
 import {VolumeState} from '../types/reducers/voluem';
 
 export const types = {
@@ -12,27 +13,27 @@ export const initialState = {
 
 export default (state: VolumeState = initialState, action: any) => {
   switch (action.type) {
-    case types.UPDATE_VOLUME_DRAGGING_STATUS:
-      return {
-        ...state,
-        draggingActive: action.draggingActive
-      };
+  case types.UPDATE_VOLUME_DRAGGING_STATUS:
+    return {
+      ...state,
+      draggingActive: action.draggingActive
+    };
 
-    case types.UPDATE_HOVER:
-      return {
-        ...state,
-        hover: action.hover
-      };
+  case types.UPDATE_HOVER:
+    return {
+      ...state,
+      hover: action.hover
+    };
 
-    default:
-      return state;
+  default:
+    return state;
   }
 };
 
 export const actions = {
-  updateVolumeDraggingStatus: (draggingActive: boolean) => ({
+  updateVolumeDraggingStatus: (draggingActive: boolean): any => ({
     type: types.UPDATE_VOLUME_DRAGGING_STATUS,
     draggingActive
   }),
-  updateVolumeHover: (hover: boolean) => ({type: types.UPDATE_HOVER, hover})
+  updateVolumeHover: (hover: boolean): any => ({type: types.UPDATE_HOVER, hover})
 };

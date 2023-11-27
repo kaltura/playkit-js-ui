@@ -8,17 +8,18 @@ import {OverlayState} from './overlay';
 import {CvaaState} from './cvaa';
 import {EngineState} from './engine';
 import {ConfigState} from './config';
+import { PlaylistState } from "./playlist";
 
 export interface RootState {
-  config: ConfigState,
-  engine: EngineState,
-  shell: ShellState,
-  seekbar: SeekbarState,
+  config: ConfigState;
+  engine: EngineState;
+  shell: ShellState;
+  seekbar: SeekbarState;
   volume: VolumeState;
-  loading: LoadingState,
-  cvaa: CvaaState,
-  settings: SettingsState,
-  overlayAction: OverlayActionsState,
-  playlist: PlaylistState,
-  overlay: OverlayState
+  loading: LoadingState;
+  cvaa: CvaaState;
+  settings: SettingsState;
+  overlayAction: OverlayActionsState;
+  playlist: PlaylistState;
+  overlay: OverlayState;
 }

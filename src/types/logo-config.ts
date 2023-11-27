@@ -1,5 +1,5 @@
 export type LogoConfig = {
-  text: string,
-  url: string,
-  img: string
+  text: string;
+  url: string;
+  img: string;
 };

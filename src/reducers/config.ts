@@ -1,3 +1,4 @@
+/* eslint-disable  @typescript-eslint/explicit-function-return-type */
 import {mergeDeep} from '../utils/merge-deep';
 import {UIOptionsObject} from '../types';
 import {ConfigState} from '../types/reducers/config';
@@ -32,24 +33,24 @@ export const initialState = {
 
 export default (state: ConfigState = initialState, action: any) => {
   switch (action.type) {
-    case types.UPDATE: {
-      const config = mergeDeep({}, state, action.config);
-      return {
-        ...state,
-        ...config
-      };
-    }
-    case types.UPDATE_COMPONENT: {
-      return {
-        ...state,
-        components: {
-          ...state.components,
-          [action.componentAlias]: mergeDeep({}, state.components[action.componentAlias], action.config)
-        }
-      };
-    }
-    default:
-      return state;
+  case types.UPDATE: {
+    const config = mergeDeep({}, state, action.config);
+    return {
+      ...state,
+      ...config
+    };
+  }
+  case types.UPDATE_COMPONENT: {
+    return {
+      ...state,
+      components: {
+        ...state.components,
+        [action.componentAlias]: mergeDeep({}, state.components[action.componentAlias], action.config)
+      }
+    };
+  }
+  default:
+    return state;
   }
 };
 

@@ -1,4 +1,3 @@
-// @flow
 /**
  * This function is built in order to limit the amount of times a function is called in a certain time frame
  * @param {Component} origFunc - the original function to be called
@@ -14,16 +13,17 @@
  *  }, ON_WINDOW_RESIZE_DEBOUNCE_DELAY)
  * );
  */
-export const debounce = (origFunc: (...args: any) => any, time: number, immediate: boolean = true) => {
+export const debounce = (origFunc: (...args: any) => any, time: number, immediate = true): (...args) => void => {
   let timeout;
 
-  return (...args) => {
+  return (...args): void => {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const context = this;
     if (immediate && !timeout) {
       origFunc.apply(context, args);
     }
     clearTimeout(timeout);
-    timeout = setTimeout(function () {
+    timeout = setTimeout(() => {
       timeout = null;
       if (!immediate) {
         origFunc.apply(context, args);

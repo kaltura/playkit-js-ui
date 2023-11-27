@@ -19,8 +19,8 @@ import * as Event from './event';
 const {EventType} = Event;
 export {Event, EventType};
 
-declare var __VERSION__: string;
-declare var __NAME__: string;
+declare let __VERSION__: string;
+declare let __NAME__: string;
 
 const VERSION = __VERSION__;
 const NAME = __NAME__;

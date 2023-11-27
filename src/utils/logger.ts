@@ -1,38 +1,40 @@
-export type LogLevelObject = {value: number, name: string};
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable  @typescript-eslint/no-unused-vars */
+export type LogLevelObject = {value: number; name: string};
 export type LogLevelType = {[level: string]: LogLevelObject};
 export type loggerFunctionType = {
-  VERSION: String,
-  DEBUG: LogLevelObject,
-  ERROR: LogLevelObject,
-  INFO: LogLevelObject,
-  OFF: LogLevelObject,
-  TIME: LogLevelObject,
-  TRACE: LogLevelObject,
-  WARN: LogLevelObject,
-  createDefaultHandler: Function,
-  debug: Function,
-  enabledFor: Function,
-  error: Function,
-  get: Function,
-  getLevel: Function,
-  info: Function,
-  log: Function,
-  setHandler: Function,
-  setLevel: Function,
-  time: Function,
-  timeEnd: Function,
-  trace: Function,
-  useDefaults: Function,
-  warn: Function
+  VERSION: string;
+  DEBUG: LogLevelObject;
+  ERROR: LogLevelObject;
+  INFO: LogLevelObject;
+  OFF: LogLevelObject;
+  TIME: LogLevelObject;
+  TRACE: LogLevelObject;
+  WARN: LogLevelObject;
+  createDefaultHandler: Function;
+  debug: Function;
+  enabledFor: Function;
+  error: Function;
+  get: Function;
+  getLevel: Function;
+  info: Function;
+  log: Function;
+  setHandler: Function;
+  setLevel: Function;
+  time: Function;
+  timeEnd: Function;
+  trace: Function;
+  useDefaults: Function;
+  warn: Function;
 };
 
 export type LoggerType = {
-  getLogger: loggerFunctionType,
-  LogLevel: LogLevelType
+  getLogger: loggerFunctionType;
+  LogLevel: LogLevelType;
 };
 
-let JsLogger = {
-  get: (name?:string) => ({
+const JsLogger: any = {
+  get: (name?: string) => ({
     VERSION: '',
     DEBUG: {value: '', name: ''},
     ERROR: {value: '', name: ''},
@@ -41,21 +43,21 @@ let JsLogger = {
     TIME: {value: '', name: ''},
     TRACE: {value: '', name: ''},
     WARN: {value: '', name: ''},
-    createDefaultHandler: () => {},
-    debug: () => {},
-    enabledFor: () => {},
-    error: () => {},
-    get: () => {},
-    getLevel: () => {},
-    info: () => {},
-    log: () => {},
-    setHandler: () => {},
-    setLevel: () => {},
-    time: () => {},
-    timeEnd: () => {},
-    trace: () => {},
-    useDefaults: () => {},
-    warn: () => {}
+    createDefaultHandler: (): any => {},
+    debug: (): any => {},
+    enabledFor: (): any => {},
+    error: (): any => {},
+    get: (): any => {},
+    getLevel: (): any => {},
+    info: (): any => {},
+    log: (): any => {},
+    setHandler: (): any => {},
+    setLevel: (): any => {},
+    time: (): any => {},
+    timeEnd: (): any => {},
+    trace: (): any => {},
+    useDefaults: (): any => {},
+    warn: (): any => {}
   })
 };
 

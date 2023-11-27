@@ -1,4 +1,4 @@
 export type KeyboardEventResult = {
-  preventDefault: boolean,
-  payload: any
+  preventDefault: boolean;
+  payload: any;
 };

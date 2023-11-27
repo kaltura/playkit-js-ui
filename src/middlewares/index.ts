@@ -9,6 +9,6 @@ import {UIOptionsObject} from '../types';
  * @param {UIOptionsObject} config - The UI config.
  * @return {GenericStoreEnhancer} - The redux middleware.
  */
-const middleware = (player: any, config: UIOptionsObject) => applyMiddleware<any, any>(loggerMiddleware(config), eventDispatcherMiddleware(player));
+const middleware = (player: any, config: UIOptionsObject): any => applyMiddleware<any, any>(loggerMiddleware(config), eventDispatcherMiddleware(player));
 
 export {middleware};
