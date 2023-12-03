@@ -63,7 +63,7 @@ class PlayPause extends Component {
       playerContainer.focus();
     });
     eventManager.listen(document, 'keydown', event => {
-      if (event.code === 'Space') {
+      if (event.code === 'Space' || event.code === 'Enter') {
         if (document.activeElement === playerContainer) {
           event.preventDefault();
           this.props.isPlayingAdOrPlayback ? this.props.updateOverlayActionIcon(IconType.Pause) : this.props.updateOverlayActionIcon(IconType.Play);
