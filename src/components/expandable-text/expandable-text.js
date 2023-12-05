@@ -3,20 +3,32 @@ import {h, ComponentChildren} from 'preact';
 import {withText} from 'preact-i18n';
 
 import {useState, useRef, useLayoutEffect} from 'preact/hooks';
+import {KeyMap} from '../../utils/key-map';
 
 import styles from '../../styles/style.scss';
 
 const COMPONENT_NAME = 'ExpandableText';
+const {ENTER, SPACE} = KeyMap;
 
 interface ExpandableTextProps {
   text: string;
   lines: number;
   forceShowMore: boolean;
-  onClick?: (e: MouseEvent) => void;
+  onClick?: (e: MouseEvent | KeyboardEvent) => void;
   readMoreLabel?: string;
   readLessLabel?: string;
+  buttonProps?: any;
   children: ComponentChildren;
 }
+
+// eslint-disable-next-line require-jsdoc
+const ReadMoreLessButton = ({isTextExpanded, readLessLabel, readMoreLabel, onClick, onKeyDown, ...otherProps}) => {
+  return (
+    <div className={styles.moreButtonText} onClick={onClick} onKeyDown={onKeyDown} {...otherProps}>
+      {isTextExpanded ? readLessLabel : readMoreLabel}
+    </div>
+  );
+};
 
 const ExpandableText = withText({
   readMoreLabel: 'controls.readMore',
@@ -45,6 +57,17 @@ const ExpandableText = withText({
     setIsTextExpanded(!isTextExpanded);
   };
 
+  // eslint-disable-next-line require-jsdoc
+  const onKeyDown = (e: KeyboardEvent) => {
+    if (e.keyCode === SPACE || e.keyCode === ENTER) {
+      if (props.onClick) {
+        props.onClick(e);
+      }
+
+      setIsTextExpanded(!isTextExpanded);
+    }
+  };
+
   if (!isTextTrimmed && !props.forceShowMore) {
     return (
       <div className={styles.contentText}>
@@ -71,12 +94,21 @@ const ExpandableText = withText({
           {props.text}
         </div>
       )}
-      <div className={styles.moreButtonText} onClick={onClick}>
-        {isTextExpanded ? props.readLessLabel : props.readMoreLabel}
-      </div>
+      <ReadMoreLessButton
+        onClick={onClick}
+        onKeyDown={onKeyDown}
+        isTextExpanded={isTextExpanded}
+        readLessLabel={props.readLessLabel}
+        readMoreLabel={props.readMoreLabel}
+        {...props.buttonProps}
+      />
     </div>
   );
 });
+
+ExpandableText.defaultProps = {
+  buttonProps: {}
+};
 
 ExpandableText.displayName = COMPONENT_NAME;
 export {ExpandableText};
