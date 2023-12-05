@@ -55,4 +55,13 @@
       padding: 15px;
     }
   }
+
+  &.overlay-active {
+    .gui-area {
+      .pre-playback-play-overlay {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+  }
 }
