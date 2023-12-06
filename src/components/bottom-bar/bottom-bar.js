@@ -50,6 +50,9 @@ class BottomBar extends Component {
   // eslint-disable-next-line require-jsdoc
   constructor(props: any) {
     super();
+    props.leftControls = props.leftControls || [];
+    props.rightControls = props.rightControls || [];
+
     props.leftControls
       .concat(props.rightControls)
       .map(control => control.displayName)
@@ -129,20 +132,22 @@ class BottomBar extends Component {
         <div ref={this.bottomBarContainerRef} className={style.controlsContainer}>
           <div className={style.leftControls}>
             <PlayerArea shouldUpdate={true} name={'BottomBarLeftControls'}>
-              {props.leftControls.map(
-                Control =>
-                  this.presetControls[Control.displayName] &&
-                  this.state.fitInControls[Control.displayName] && <Control key={Control.displayName} onToggle={this.onToggleControl} />
-              )}
+              {props.leftControls &&
+                props.leftControls.map(
+                  Control =>
+                    this.presetControls[Control.displayName] &&
+                    this.state.fitInControls[Control.displayName] && <Control key={Control.displayName} onToggle={this.onToggleControl} />
+                )}
             </PlayerArea>
           </div>
           <div className={style.rightControls}>
             <PlayerArea shouldUpdate={true} name={'BottomBarRightControls'}>
-              {props.rightControls.map(
-                Control =>
-                  this.presetControls[Control.displayName] &&
-                  this.state.fitInControls[Control.displayName] && <Control key={Control.displayName} onToggle={this.onToggleControl} />
-              )}
+              {props.rightControls &&
+                props.rightControls.map(
+                  Control =>
+                    this.presetControls[Control.displayName] &&
+                    this.state.fitInControls[Control.displayName] && <Control key={Control.displayName} onToggle={this.onToggleControl} />
+                )}
             </PlayerArea>
           </div>
         </div>
