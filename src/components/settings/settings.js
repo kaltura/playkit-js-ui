@@ -113,7 +113,7 @@ class Settings extends Component {
    * @returns {void}
    * @memberof Settings
    */
-  setButtonRef = (ref: HTMLButtonElement) => {
+  setButtonRef = (ref: HTMLButtonElement | null) => {
     this._buttonRef = ref;
   };
 
