@@ -69,6 +69,7 @@ class Overlay extends Component {
     if (e.keyCode === KeyMap.ENTER || e.keyCode === KeyMap.SPACE) {
       e.preventDefault();
       this.props.onClose();
+      this.props.focusButton && this.props.focusButton();
     }
   };
 

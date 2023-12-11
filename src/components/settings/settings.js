@@ -51,6 +51,7 @@ const COMPONENT_NAME = 'Settings';
 class Settings extends Component {
   state: Object;
   _controlSettingsElement: HTMLDivElement;
+  _buttonRef: HTMLButtonElement | null = null;
 
   /**
    * before component mounted, set initial state
@@ -105,6 +106,17 @@ class Settings extends Component {
     });
   };
 
+  /**
+   * set button reference
+   *
+   * @param {HTMLButtonElement} ref - button reference
+   * @returns {void}
+   * @memberof Settings
+   */
+  setButtonRef = (ref: HTMLButtonElement) => {
+    this._buttonRef = ref;
+  };
+
   toggleCVAAOverlay = (): void => {
     this.setState(prevState => {
       return {cvaaOverlay: !prevState.cvaaOverlay};
@@ -114,6 +126,12 @@ class Settings extends Component {
   onCVAAOverlayClose = (): void => {
     this.toggleCVAAOverlay();
     this.onControlButtonClick();
+  };
+
+  focusButton = (): void => {
+    setTimeout(() => {
+      this._buttonRef?.focus();
+    }, 100);
   };
 
   /**
@@ -151,6 +169,7 @@ class Settings extends Component {
       <ButtonControl name={COMPONENT_NAME} ref={c => (c ? (this._controlSettingsElement = c) : undefined)}>
         <Tooltip label={props.buttonLabel}>
           <Button
+            ref={this.setButtonRef}
             tabIndex="0"
             aria-label={props.buttonLabel}
             aria-haspopup="true"
@@ -165,7 +184,11 @@ class Settings extends Component {
           </Button>
         </Tooltip>
         {this.state.smartContainerOpen && !this.state.cvaaOverlay && (
-          <SmartContainer targetId={props.player.config.targetId} title={<Text id="settings.title" />} onClose={this.onControlButtonClick}>
+          <SmartContainer
+            targetId={props.player.config.targetId}
+            title={<Text id="settings.title" />}
+            onClose={this.onControlButtonClick}
+            focusButton={this.focusButton}>
             {showAdvancedAudioDescToggle && <AdvancedAudioDescToggle />}
             {showAudioMenu && <AudioMenu />}
             {showCaptionsMenu && <CaptionsMenu onAdvancedCaptionsClick={this.toggleCVAAOverlay} />}
@@ -173,7 +196,11 @@ class Settings extends Component {
             {showSpeedMenu && <SpeedMenu />}
           </SmartContainer>
         )}
-        {this.state.cvaaOverlay ? createPortal(<CVAAOverlay onClose={this.onCVAAOverlayClose} />, targetId.querySelector(portalSelector)) : <div />}
+        {this.state.cvaaOverlay ? (
+          createPortal(<CVAAOverlay onClose={this.onCVAAOverlayClose} focusButton={this.focusButton} />, targetId.querySelector(portalSelector))
+        ) : (
+          <div />
+        )}
       </ButtonControl>
     );
   }
