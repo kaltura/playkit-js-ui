@@ -35,9 +35,10 @@ module.exports = (env, {mode}) => {
                   {
                     loose: true,
                     bugfixes: true,
-                    targets: {
-                      browsers: ['chrome >= 47', 'firefox >= 51', 'ie >= 11', 'safari >= 8', 'ios >= 8', 'android >= 4']
-                    }
+                    targets: "defaults"
+                    // targets: {
+                    //   browsers: ['chrome >= 47', 'firefox >= 51', 'ie >= 11', 'safari >= 8', 'ios >= 8', 'android >= 4']
+                    // }
                   }
                 ],
                 '@babel/preset-typescript'
@@ -76,9 +77,11 @@ module.exports = (env, {mode}) => {
     resolve: {
       extensions: ['.ts', '.tsx', '.js', '.scss', 'css'],
       alias: {
-        react: 'preact/compat',
-        'react-dom': 'preact/compat'
-      }
+        "react": "preact/compat",
+        "react-dom/test-utils": "preact/test-utils",
+        "react-dom": "preact/compat",     // Must be below test-utils
+        "react/jsx-runtime": "preact/jsx-runtime"
+      },
     },
     externals: {
       '@playkit-js/kaltura-player-js': {root: 'KalturaPlayer'},

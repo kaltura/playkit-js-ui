@@ -24,7 +24,6 @@
     "paths": {
       "react": ["./node_modules/preact/compat/"],
       "react-dom": ["./node_modules/preact/compat/"],
-      "@playkit-js/playkit-js": ["./node_modules/@playkit-js/playkit-js/dist/playkit-js"]
     },
     "lib": [
       "dom",
