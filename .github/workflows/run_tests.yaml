@@ -23,6 +23,11 @@ jobs:
     with:
       node-version: '20.x'
       yarn-run-to-execute: 'type-check'
+  build-types:
+    uses: kaltura/ovp-pipelines-pub/.github/workflows/player_tests.yaml@master
+    with:
+      node-version: '20.x'
+      yarn-run-to-execute: 'build:types'
   lint:
     uses: kaltura/ovp-pipelines-pub/.github/workflows/player_tests.yaml@master
     with:

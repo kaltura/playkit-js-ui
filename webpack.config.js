@@ -20,8 +20,7 @@ module.exports = (env, {mode}) => {
         })
       ]
     },
-    devtool: 'source-map',
-    // devtool: 'eval-source-map',
+    devtool: mode === 'development' ? 'eval-source-map' : 'source-map',
     module: {
       rules: [
         {
