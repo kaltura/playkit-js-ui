@@ -41,7 +41,10 @@ module.exports = (env, {mode}) => {
                     // }
                   }
                 ],
-                '@babel/preset-typescript'
+                [
+                  '@babel/preset-typescript',
+                  { jsxPragma: "h" , jsxPragmaFrag:'Fragment'}
+                ]
               ],
               plugins: [
                 ['@babel/plugin-transform-runtime'],
@@ -111,7 +114,6 @@ module.exports = (env, {mode}) => {
         __VERSION__: JSON.stringify(packageData.version),
         __NAME__: JSON.stringify(packageData.name),
         __CSS_MODULE_PREFIX__: JSON.stringify(CSS_MODULE_PREFIX),
-        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
       })
     ]
   };
