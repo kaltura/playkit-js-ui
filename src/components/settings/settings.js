@@ -14,6 +14,7 @@ import {Tooltip} from 'components/tooltip';
 import {Button} from 'components/button';
 import {ButtonControl} from 'components/button-control';
 import {createPortal} from 'preact/compat';
+import {focusElement} from '../../utils/focus-element';
 
 /**
  * mapping state to props
@@ -97,13 +98,18 @@ class Settings extends Component {
   /**
    * toggle smart container internal state on control button click
    *
+   * @param {KeyboardEvent} e - keyboard event
+   * @param {boolean} byKeyboard - is keydown
    * @returns {void}
    * @memberof Settings
    */
-  onControlButtonClick = (): void => {
+  onControlButtonClick = (e?: KeyboardEvent, byKeyboard?: boolean): void => {
     this.setState(prevState => {
       return {smartContainerOpen: !prevState.smartContainerOpen};
     });
+    if (byKeyboard && this.state.smartContainerOpen) {
+      focusElement(this._buttonRef);
+    }
   };
 
   /**
@@ -123,15 +129,17 @@ class Settings extends Component {
     });
   };
 
-  onCVAAOverlayClose = (): void => {
+  /**
+   * handle the closure of cvaa overlay
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @param {boolean} byKeyboard - is keydown
+   * @returns {void}
+   * @memberof Settings
+   */
+  onCVAAOverlayClose = (e?: KeyboardEvent, byKeyboard?: boolean): void => {
     this.toggleCVAAOverlay();
-    this.onControlButtonClick();
-  };
-
-  focusButton = (): void => {
-    setTimeout(() => {
-      this._buttonRef?.focus();
-    }, 100);
+    this.onControlButtonClick(e, byKeyboard);
   };
 
   /**
@@ -184,11 +192,7 @@ class Settings extends Component {
           </Button>
         </Tooltip>
         {this.state.smartContainerOpen && !this.state.cvaaOverlay && (
-          <SmartContainer
-            targetId={props.player.config.targetId}
-            title={<Text id="settings.title" />}
-            onClose={this.onControlButtonClick}
-            focusButton={this.focusButton}>
+          <SmartContainer targetId={props.player.config.targetId} title={<Text id="settings.title" />} onClose={this.onControlButtonClick}>
             {showAdvancedAudioDescToggle && <AdvancedAudioDescToggle />}
             {showAudioMenu && <AudioMenu />}
             {showCaptionsMenu && <CaptionsMenu onAdvancedCaptionsClick={this.toggleCVAAOverlay} />}
@@ -196,11 +200,7 @@ class Settings extends Component {
             {showSpeedMenu && <SpeedMenu />}
           </SmartContainer>
         )}
-        {this.state.cvaaOverlay ? (
-          createPortal(<CVAAOverlay onClose={this.onCVAAOverlayClose} focusButton={this.focusButton} />, targetId.querySelector(portalSelector))
-        ) : (
-          <div />
-        )}
+        {this.state.cvaaOverlay ? createPortal(<CVAAOverlay onClose={this.onCVAAOverlayClose} />, targetId.querySelector(portalSelector)) : <div />}
       </ButtonControl>
     );
   }

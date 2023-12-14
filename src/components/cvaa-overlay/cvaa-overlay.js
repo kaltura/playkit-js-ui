@@ -135,7 +135,6 @@ class CVAAOverlay extends Component {
     return (
       <Overlay
         open
-        focusButton={this.props.focusButton}
         handleKeyDown={this.props.handleKeyDown}
         addAccessibleChild={this.props.addAccessibleChild}
         onClose={props.onClose}

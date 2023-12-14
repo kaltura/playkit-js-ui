@@ -98,7 +98,6 @@ class SmartContainer extends Component {
       createPortal(
         <Overlay
           open
-          focusButton={this.props.focusButton}
           onClose={props.onClose}
           handleKeyDown={this.props.handleKeyDown}
           addAccessibleChild={this.props.addAccessibleChild}
