@@ -14,6 +14,7 @@ import {Tooltip} from 'components/tooltip';
 import {Button} from 'components/button';
 import {ButtonControl} from 'components/button-control';
 import {createPortal} from 'preact/compat';
+import {focusElement} from '../../utils/focus-element';
 
 /**
  * mapping state to props
@@ -51,6 +52,7 @@ const COMPONENT_NAME = 'Settings';
 class Settings extends Component {
   state: Object;
   _controlSettingsElement: HTMLDivElement;
+  _buttonRef: HTMLButtonElement | null = null;
 
   /**
    * before component mounted, set initial state
@@ -96,13 +98,29 @@ class Settings extends Component {
   /**
    * toggle smart container internal state on control button click
    *
+   * @param {KeyboardEvent} e - keyboard event
+   * @param {boolean} byKeyboard - is keydown
    * @returns {void}
    * @memberof Settings
    */
-  onControlButtonClick = (): void => {
+  onControlButtonClick = (e?: KeyboardEvent, byKeyboard?: boolean): void => {
     this.setState(prevState => {
       return {smartContainerOpen: !prevState.smartContainerOpen};
     });
+    if (byKeyboard && this.state.smartContainerOpen) {
+      focusElement(this._buttonRef);
+    }
+  };
+
+  /**
+   * set button reference
+   *
+   * @param {HTMLButtonElement} ref - button reference
+   * @returns {void}
+   * @memberof Settings
+   */
+  setButtonRef = (ref: HTMLButtonElement | null) => {
+    this._buttonRef = ref;
   };
 
   toggleCVAAOverlay = (): void => {
@@ -111,9 +129,17 @@ class Settings extends Component {
     });
   };
 
-  onCVAAOverlayClose = (): void => {
+  /**
+   * handle the closure of cvaa overlay
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @param {boolean} byKeyboard - is keydown
+   * @returns {void}
+   * @memberof Settings
+   */
+  onCVAAOverlayClose = (e?: KeyboardEvent, byKeyboard?: boolean): void => {
     this.toggleCVAAOverlay();
-    this.onControlButtonClick();
+    this.onControlButtonClick(e, byKeyboard);
   };
 
   /**
@@ -151,6 +177,7 @@ class Settings extends Component {
       <ButtonControl name={COMPONENT_NAME} ref={c => (c ? (this._controlSettingsElement = c) : undefined)}>
         <Tooltip label={props.buttonLabel}>
           <Button
+            ref={this.setButtonRef}
             tabIndex="0"
             aria-label={props.buttonLabel}
             aria-haspopup="true"
