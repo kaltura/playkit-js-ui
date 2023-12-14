@@ -21,6 +21,8 @@
 
   .controls-container {
     width: 100%;
+    position: relative;
+    z-index: 1;
 
     .left-controls {
       float: left;
