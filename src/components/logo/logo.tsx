@@ -1,4 +1,3 @@
-//@flow
 import style from '../../styles/style.scss';
 import {h, Component, VNode} from 'preact';
 import {connect} from 'react-redux';
@@ -48,7 +47,7 @@ class Logo extends Component<any, any> {
    * @returns {?React$Element} - component
    * @memberof Logo
    */
-  render(props: any): ?React$Element<any> {
+  render(props: any): VNode<any> | undefined {
     if (!this._shouldRender()) {
       return undefined;
     }

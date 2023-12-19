@@ -1,4 +1,3 @@
-// @flow
 /**
  * focus element
  *

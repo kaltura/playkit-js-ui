@@ -1,5 +1,4 @@
-//@flow
-import {h, ComponentChildren} from 'preact';
+import { h, ComponentChildren } from "preact";
 import {withText} from 'preact-i18n';
 
 import {useState, useRef, useLayoutEffect} from 'preact/hooks';
@@ -21,7 +20,6 @@ interface ExpandableTextProps {
   children: ComponentChildren;
 }
 
-// eslint-disable-next-line require-jsdoc
 const ReadMoreLessButton = ({isTextExpanded, readLessLabel, readMoreLabel, onClick, onKeyDown, ...otherProps}) => {
   return (
     <div className={styles.moreButtonText} onClick={onClick} onKeyDown={onKeyDown} {...otherProps}>
@@ -30,7 +28,7 @@ const ReadMoreLessButton = ({isTextExpanded, readLessLabel, readMoreLabel, onCli
   );
 };
 
-const ExpandableText = withText({
+const ExpandableText: new(props?: any, context?: any) => any = withText({
   readMoreLabel: 'controls.readMore',
   readLessLabel: 'controls.readLess'
 })((props: ExpandableTextProps) => {
@@ -38,8 +36,8 @@ const ExpandableText = withText({
   const [isTextTrimmed, setIsTextTrimmed] = useState(false);
   const [isFinalized, setIsFinalized] = useState(false);
 
-  const comparisonTextRef = useRef(null);
-  const textRef = useRef(null);
+  const comparisonTextRef = useRef<HTMLDivElement | null>(null);
+  const textRef = useRef<HTMLDivElement | null>(null);
 
   useLayoutEffect(() => {
     if (textRef?.current && comparisonTextRef?.current) {
@@ -48,7 +46,6 @@ const ExpandableText = withText({
     }
   }, [isFinalized]);
 
-  // eslint-disable-next-line require-jsdoc
   const onClick = (e: MouseEvent) => {
     if (props.onClick) {
       props.onClick(e);
@@ -57,7 +54,6 @@ const ExpandableText = withText({
     setIsTextExpanded(!isTextExpanded);
   };
 
-  // eslint-disable-next-line require-jsdoc
   const onKeyDown = (e: KeyboardEvent) => {
     if (e.keyCode === SPACE || e.keyCode === ENTER) {
       if (props.onClick) {
@@ -105,10 +101,10 @@ const ExpandableText = withText({
     </div>
   );
 });
-
+// @ts-ignore
 ExpandableText.defaultProps = {
   buttonProps: {}
 };
-
+// @ts-ignore
 ExpandableText.displayName = COMPONENT_NAME;
 export {ExpandableText};
