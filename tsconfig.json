@@ -9,7 +9,8 @@
       }
     ],
     "target": "ESNext",
-    "module": "commonjs",
+    "module": "ESNext",
+    "moduleResolution": "Node",
     "baseUrl": ".",
     "sourceMap": true,
     "strict": false,

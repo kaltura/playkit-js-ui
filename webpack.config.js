@@ -7,20 +7,7 @@ const CSS_MODULE_PREFIX = 'playkit';
 module.exports = (env, {mode}) => {
   return {
     entry: './src/index.ts',
-    optimization: {
-      minimize: mode !== 'development',
-      minimizer: [
-        new TerserPlugin({
-          extractComments: false,
-          terserOptions: {
-            format: {
-              comments: false
-            }
-          }
-        })
-      ]
-    },
-    devtool: mode === 'development' ? 'eval-source-map' : 'source-map',
+    // devtool: mode === 'development' ? 'eval-source-map' : 'source-map',
     module: {
       rules: [
         {
@@ -33,12 +20,7 @@ module.exports = (env, {mode}) => {
                 [
                   '@babel/preset-env',
                   {
-                    loose: true,
                     bugfixes: true,
-                    targets: "defaults"
-                    // targets: {
-                    //   browsers: ['chrome >= 47', 'firefox >= 51', 'ie >= 11', 'safari >= 8', 'ios >= 8', 'android >= 4']
-                    // }
                   }
                 ],
                 [
@@ -88,7 +70,12 @@ module.exports = (env, {mode}) => {
     },
     externals: {
       '@playkit-js/kaltura-player-js': {root: 'KalturaPlayer'},
-      '@playkit-js/@playkit-js': {root: ['KalturaPlayer', 'core']}
+      '@playkit-js/playkit-js': {
+        commonjs: '@playkit-js/playkit-js',
+        commonjs2: '@playkit-js/playkit-js',
+        amd: 'playkit-js',
+        root: ['playkit', 'core']
+      },
     },
     output: {
       filename: 'playkit-ui.js',
@@ -97,7 +84,6 @@ module.exports = (env, {mode}) => {
         umdNamedDefine: true,
         name: ['playkit', 'ui'],
         type: 'umd'
-        // devtoolModuleFilenameTemplate: './ui/[resource-path]'
       },
       clean: true
     },
@@ -114,7 +100,7 @@ module.exports = (env, {mode}) => {
         __VERSION__: JSON.stringify(packageData.version),
         __NAME__: JSON.stringify(packageData.name),
         __CSS_MODULE_PREFIX__: JSON.stringify(CSS_MODULE_PREFIX),
-      })
+      }),
     ]
   };
 };
