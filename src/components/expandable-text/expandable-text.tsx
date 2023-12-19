@@ -1,24 +1,36 @@
-import { h, ComponentChildren } from "preact";
+//@flow
+import {h, ComponentChildren} from 'preact';
 import {withText} from 'preact-i18n';
 
-
 import {useState, useRef, useLayoutEffect} from 'preact/hooks';
+import {KeyMap} from '../../utils/key-map';
 
 import styles from '../../styles/style.scss';
 
 const COMPONENT_NAME = 'ExpandableText';
+const {ENTER, SPACE} = KeyMap;
 
 interface ExpandableTextProps {
   text: string;
   lines: number;
   forceShowMore: boolean;
-  onClick?: () => void;
+  onClick?: (e: MouseEvent | KeyboardEvent) => void;
   readMoreLabel?: string;
   readLessLabel?: string;
+  buttonProps?: any;
   children: ComponentChildren;
 }
 
-const ExpandableText: new(props?: any, context?: any) => any = withText({
+// eslint-disable-next-line require-jsdoc
+const ReadMoreLessButton = ({isTextExpanded, readLessLabel, readMoreLabel, onClick, onKeyDown, ...otherProps}) => {
+  return (
+    <div className={styles.moreButtonText} onClick={onClick} onKeyDown={onKeyDown} {...otherProps}>
+      {isTextExpanded ? readLessLabel : readMoreLabel}
+    </div>
+  );
+};
+
+const ExpandableText = withText({
   readMoreLabel: 'controls.readMore',
   readLessLabel: 'controls.readLess'
 })((props: ExpandableTextProps) => {
@@ -26,8 +38,8 @@ const ExpandableText: new(props?: any, context?: any) => any = withText({
   const [isTextTrimmed, setIsTextTrimmed] = useState(false);
   const [isFinalized, setIsFinalized] = useState(false);
 
-  const comparisonTextRef = useRef<HTMLDivElement | null>(null);
-  const textRef = useRef<HTMLDivElement | null>(null);
+  const comparisonTextRef = useRef(null);
+  const textRef = useRef(null);
 
   useLayoutEffect(() => {
     if (textRef?.current && comparisonTextRef?.current) {
@@ -37,12 +49,23 @@ const ExpandableText: new(props?: any, context?: any) => any = withText({
   }, [isFinalized]);
 
   // eslint-disable-next-line require-jsdoc
-  const onClick = () => {
+  const onClick = (e: MouseEvent) => {
     if (props.onClick) {
-      props.onClick();
+      props.onClick(e);
     }
 
     setIsTextExpanded(!isTextExpanded);
+  };
+
+  // eslint-disable-next-line require-jsdoc
+  const onKeyDown = (e: KeyboardEvent) => {
+    if (e.keyCode === SPACE || e.keyCode === ENTER) {
+      if (props.onClick) {
+        props.onClick(e);
+      }
+
+      setIsTextExpanded(!isTextExpanded);
+    }
   };
 
   if (!isTextTrimmed && !props.forceShowMore) {
@@ -71,12 +94,21 @@ const ExpandableText: new(props?: any, context?: any) => any = withText({
           {props.text}
         </div>
       )}
-      <div className={styles.moreButtonText} onClick={onClick}>
-        {isTextExpanded ? props.readLessLabel : props.readMoreLabel}
-      </div>
+      <ReadMoreLessButton
+        onClick={onClick}
+        onKeyDown={onKeyDown}
+        isTextExpanded={isTextExpanded}
+        readLessLabel={props.readLessLabel}
+        readMoreLabel={props.readMoreLabel}
+        {...props.buttonProps}
+      />
     </div>
   );
 });
-// @ts-ignore
+
+ExpandableText.defaultProps = {
+  buttonProps: {}
+};
+
 ExpandableText.displayName = COMPONENT_NAME;
-export { ExpandableText };
+export {ExpandableText};

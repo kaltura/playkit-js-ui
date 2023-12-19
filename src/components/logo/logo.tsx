@@ -1,3 +1,4 @@
+//@flow
 import style from '../../styles/style.scss';
 import {h, Component, VNode} from 'preact';
 import {connect} from 'react-redux';
@@ -47,17 +48,13 @@ class Logo extends Component<any, any> {
    * @returns {?React$Element} - component
    * @memberof Logo
    */
-  render(props: any): VNode<any> | undefined {
+  render(props: any): ?React$Element<any> {
     if (!this._shouldRender()) {
       return undefined;
     }
     return (
-      // @ts-ignore
-      <div
-        className={[style.controlButtonContainer, !props.config.url ? style.emptyUrl : ''].join(' ')}
-        aria-label={props.logoText}
-        title={props.config.text}>
-        <a className={style.controlButton} href={props.config.url} target="_blank" rel="noopener noreferrer">
+      <div className={[style.controlButtonContainer, !props.config.url ? style.emptyUrl : ''].join(' ')} title={props.config.text}>
+        <a className={style.controlButton} href={props.config.url} aria-label={props.logoText} target="_blank" rel="noopener noreferrer">
           <img className={style.icon} src={props.config.img} />
         </a>
       </div>

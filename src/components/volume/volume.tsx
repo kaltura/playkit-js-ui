@@ -47,14 +47,7 @@ const KEYBOARD_DEFAULT_VOLUME_JUMP: number = 5;
  * @returns {Object} - The object translations
  */
 const translates = (props: any) => ({
-  tooltipLabel: props.muted ? <Text id="controls.unmute">Unmute</Text> : <Text id="controls.mute">Mute</Text>,
-  volBtnAriaLabel: props.muted ? (
-    <Text id={'volume.muted_click_to_unmute'}>Muted. Click to unmute</Text>
-  ) : (
-    <Text id={'volume.volume_click_to_mute'} fields={{vol: (props.player.volume * 100).toFixed()}}>
-      {`${props.player.volume * 100} volume. Click to mute`}
-    </Text>
-  ),
+  volumeLabel: props.muted ? <Text id="controls.unmute">Unmute</Text> : <Text id="controls.mute">Mute</Text>,
   sliderAriaLabel: <Text id="volume.volume_slider_aria_label">Volume control, use the arrows to control the volume</Text>
 });
 
@@ -455,11 +448,11 @@ class Volume extends Component<any, any> {
         className={controlButtonClasses}
         onMouseOver={this.onMouseOver}
         onMouseOut={this.onMouseOut}>
-        <Tooltip label={this.props.tooltipLabel} type={this.props.toolTipType ? this.props.toolTipType : ToolTipType.Left}>
+        <Tooltip label={this.props.volumeLabel} type={this.props.toolTipType ? this.props.toolTipType : ToolTipType.Left}>
           <Button
             tabIndex="0"
             aria-live="polite"
-            aria-label={this.props.volBtnAriaLabel}
+            aria-label={this.props.volumeLabel}
             className={style.controlButton}
             onMouseUp={this.toggleMute}
             onTouchEnd={this.onTouchEnd}

@@ -1,23 +1,23 @@
 .player {
   // HSL args
   //--playkit-primary-hsl-hue: #{hue($brand-color)};
-  --playkit-primary-hsl-hue: 215deg;
+  --playkit-primary-hsl-hue: 214deg;
   --playkit-secondary-hsl-hue: 40deg;
-  --playkit-success-hsl-hue: 136deg;
-  --playkit-danger-hsl-hue: 355deg;
+  --playkit-success-hsl-hue: 135deg;
+  --playkit-danger-hsl-hue: 354deg;
   --playkit-warning-hsl-hue: 21deg;
 
   --playkit-primary-hsl-saturation: 100%;
   --playkit-secondary-hsl-saturation: 100%;
-  --playkit-success-hsl-saturation: 100%;
-  --playkit-danger-hsl-saturation: 100%;
-  --playkit-warning-hsl-saturation: 100%;
+  --playkit-success-hsl-saturation: 57%;
+  --playkit-danger-hsl-saturation: 76%;
+  --playkit-warning-hsl-saturation: 81%;
 
-  --playkit-primary-hsl-lightness: 50%;
+  --playkit-primary-hsl-lightness: 49%;
   --playkit-secondary-hsl-lightness: 50%;
-  --playkit-success-hsl-lightness: 50%;
-  --playkit-danger-hsl-lightness: 50%;
-  --playkit-warning-hsl-lightness: 50%;
+  --playkit-success-hsl-lightness: 30%;
+  --playkit-danger-hsl-lightness: 51%;
+  --playkit-warning-hsl-lightness: 53%;
 
   // Accent Colors
   --playkit-primary-color: hsl(var(--playkit-primary-hsl-hue) var(--playkit-primary-hsl-saturation) var(--playkit-primary-hsl-lightness));
