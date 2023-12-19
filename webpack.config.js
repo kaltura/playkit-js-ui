@@ -7,7 +7,7 @@ const CSS_MODULE_PREFIX = 'playkit';
 module.exports = (env, {mode}) => {
   return {
     entry: './src/index.ts',
-    // devtool: mode === 'development' ? 'eval-source-map' : 'source-map',
+    devtool: mode === 'development' ? 'eval-source-map' : 'source-map',
     module: {
       rules: [
         {
