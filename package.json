@@ -27,7 +27,7 @@
     "flow-typed/**/*"
   ],
   "scripts": {
-    "serve": "yarn run build:dev && webpack serve --open --mode development",
+    "serve": "webpack serve --open --mode development",
     "watch": "webpack --watch --mode development",
     "build:dev": "webpack --mode development",
     "build:prod": "webpack --mode production",

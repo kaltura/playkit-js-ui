@@ -1,13 +1,12 @@
 const webpack = require('webpack');
 const path = require('path');
 const packageData = require('./package.json');
-const TerserPlugin = require('terser-webpack-plugin');
 const CSS_MODULE_PREFIX = 'playkit';
 
 module.exports = (env, {mode}) => {
   return {
     entry: './src/index.ts',
-    devtool: mode === 'development' ? 'eval-source-map' : 'source-map',
+    devtool: 'source-map',
     module: {
       rules: [
         {
@@ -20,13 +19,10 @@ module.exports = (env, {mode}) => {
                 [
                   '@babel/preset-env',
                   {
-                    bugfixes: true,
+                    bugfixes: true
                   }
                 ],
-                [
-                  '@babel/preset-typescript',
-                  { jsxPragma: "h" , jsxPragmaFrag:'Fragment'}
-                ]
+                ['@babel/preset-typescript', {jsxPragma: 'h', jsxPragmaFrag: 'Fragment'}]
               ],
               plugins: [
                 ['@babel/plugin-transform-runtime'],
@@ -46,6 +42,7 @@ module.exports = (env, {mode}) => {
             {
               loader: 'css-loader',
               options: {
+                sourceMap: mode === 'development',
                 modules: {
                   exportLocalsConvention: 'camelCase',
                   localIdentName: `${CSS_MODULE_PREFIX}-[local]`
@@ -62,11 +59,11 @@ module.exports = (env, {mode}) => {
     resolve: {
       extensions: ['.ts', '.tsx', '.js', '.scss', 'css'],
       alias: {
-        "react": "preact/compat",
-        "react-dom/test-utils": "preact/test-utils",
-        "react-dom": "preact/compat",     // Must be below test-utils
-        "react/jsx-runtime": "preact/jsx-runtime"
-      },
+        react: 'preact/compat',
+        'react-dom/test-utils': 'preact/test-utils',
+        'react-dom': 'preact/compat', // Must be below test-utils
+        'react/jsx-runtime': 'preact/jsx-runtime'
+      }
     },
     externals: {
       '@playkit-js/kaltura-player-js': {root: 'KalturaPlayer'},
@@ -75,7 +72,7 @@ module.exports = (env, {mode}) => {
         commonjs2: '@playkit-js/playkit-js',
         amd: 'playkit-js',
         root: ['playkit', 'core']
-      },
+      }
     },
     output: {
       filename: 'playkit-ui.js',
@@ -99,8 +96,8 @@ module.exports = (env, {mode}) => {
       new webpack.DefinePlugin({
         __VERSION__: JSON.stringify(packageData.version),
         __NAME__: JSON.stringify(packageData.name),
-        __CSS_MODULE_PREFIX__: JSON.stringify(CSS_MODULE_PREFIX),
-      }),
+        __CSS_MODULE_PREFIX__: JSON.stringify(CSS_MODULE_PREFIX)
+      })
     ]
   };
 };
