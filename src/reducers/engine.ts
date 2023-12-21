@@ -465,4 +465,4 @@ export const actions = {
   }),
   updateIsInPictureInPicture: (isInPictureInPicture: boolean) => ({type: types.UPDATE_PICTURE_IN_PICTURE_MODE, isInPictureInPicture}),
   updateFullscreen: (fullscreen: boolean) => ({type: types.UPDATE_FULLSCREEN, fullscreen})
-};
+} as const;

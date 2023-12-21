@@ -63,7 +63,7 @@ class GuiArea extends Component<any, any> {
         <div style={{pointerEvents: 'auto'}}>
           <PlayerArea name={'GuiArea'}>{guiElements}</PlayerArea>
         </div>
-        {/*@ts-ignore}*/}
+        {/*@ts-expect-error - This expression is not callable. Type 'never' has no call signatures.*/}
         {typeof barsAndInteractive === 'function' ? barsAndInteractive({containerRef: this._ref}) : barsAndInteractive}
       </div>
     );

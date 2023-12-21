@@ -25,9 +25,8 @@ const SampleCaptionsStyleButton = (props: any) => {
   useEffect(() => {
     // force focus to active sample button once mounted
     if (props.isActive) {
-      // @ts-ignore
+      /* @ts-expect-error - error TS2339: Property 'focus' does not exist on type 'Ref<HTMLDivElement>' */
       _sampleCaptionsElRef.focus();
-      // _sampleCaptionsElRef.current?.focus();
     }
   }, []);
 
@@ -37,7 +36,7 @@ const SampleCaptionsStyleButton = (props: any) => {
       tabIndex={0}
       aria-checked={props.isActive ? 'true' : 'false'}
       ref={el => {
-        // @ts-ignore
+        /* @ts-expect-error - Type 'HTMLDivElement | null' is not assignable to type 'Ref<HTMLDivElement>' */
         _sampleCaptionsElRef = el;
         props.addAccessibleChild(el);
       }}

@@ -57,7 +57,7 @@ module.exports = (env, {mode}) => {
       ]
     },
     resolve: {
-      extensions: ['.ts', '.tsx', '.js', '.scss', 'css'],
+      extensions: ['.ts', '.tsx', '.js', '.scss', '.css'],
       alias: {
         react: 'preact/compat',
         'react-dom/test-utils': 'preact/test-utils',

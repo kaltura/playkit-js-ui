@@ -6,7 +6,7 @@ import {Icon, IconType} from '../icon';
 import {connect} from 'react-redux';
 import {withEventDispatcher} from '../event-dispatcher';
 import {withLogger} from '../logger';
-import {Tooltip} from '../../components/tooltip';
+import {Tooltip} from "../tooltip";
 import {Button} from '../button';
 import {ButtonControl} from '../button-control';
 /**
@@ -52,8 +52,7 @@ const ClosedCaptions = connect(mapStateToProps)(
             {ccOn ? (
               <Tooltip label={props.closedCaptionsOnText}>
                 <Button
-                  // @ts-ignore
-                  tabIndex="0"
+                  tabIndex={0}
                   aria-label={props.closedCaptionsOnText}
                   className={[style.controlButton, style.ccOn].join(' ')}
                   onClick={() => {
@@ -66,8 +65,7 @@ const ClosedCaptions = connect(mapStateToProps)(
             ) : (
               <Tooltip label={props.closedCaptionsOffText}>
                 <Button
-                  // @ts-ignore
-                  tabIndex="0"
+                  tabIndex={0}
                   aria-label={props.closedCaptionsOffText}
                   className={style.controlButton}
                   onClick={() => {

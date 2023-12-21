@@ -127,4 +127,4 @@ export const actions = {
   updateHoveredSegment: (id: string, isHovered: boolean) => ({type: types.UPDATE_HOVERED_SEGMENT, id, isHovered}),
   updateSegmentEndTime: (id: string, endTime: number) => ({type: types.UPDATE_SEGMENT_END_TIME, id, endTime}),
   updateSeekbarSegments: (segments: any[]) => ({type: types.UPDATE_SEEKBAR_SEGMENTS, segments})
-};
+} as const;

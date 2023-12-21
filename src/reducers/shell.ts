@@ -291,4 +291,4 @@ export const actions = {
     type: types.UPDATE_LAYOUT_STYLES,
     layoutStyles
   })
-};
+} as const;

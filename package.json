@@ -47,11 +47,6 @@
     "pushTaggedRelease": "git push --follow-tags --no-verify origin master",
     "release": "standard-version"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "dependencies": {
     "preact": "^10.19.2",
     "preact-i18n": "^2.0.0-preactx.2",

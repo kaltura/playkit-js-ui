@@ -3,13 +3,13 @@ import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
 import {actions as cvaaActions} from '../../reducers/cvaa';
 import {actions as shellActions} from '../../reducers/shell';
-import {Overlay} from '../../components';
-import {withKeyboardA11y} from '../../utils/popup-keyboard-accessibility';
+import {Overlay} from "../overlay";
+import {withKeyboardA11y} from "../../utils";
 import {withPlayer} from '../player';
-import {withEventDispatcher} from '../../components/event-dispatcher';
-import {withLogger} from '../../components/logger';
-import {MainCaptionsWindow} from '../../components/cvaa-overlay/main-captions_window';
-import {CustomCaptionsWindow} from '../../components/cvaa-overlay/custom-captions-window';
+import {withEventDispatcher} from "../event-dispatcher";
+import {withLogger} from "../logger";
+import {MainCaptionsWindow} from "./main-captions_window";
+import {CustomCaptionsWindow} from "./custom-captions-window";
 import {withText} from 'preact-i18n';
 
 /**
@@ -143,11 +143,11 @@ class CVAAOverlay extends Component<any, any> {
           <MainCaptionsWindow
             cvaaOverlayState={cvaaOverlayState}
             addAccessibleChild={props.addAccessibleChild}
-            // @ts-ignore
+            /*@ts-expect-error - Property 'captionsStyleDefault' does not exist on type 'CVAAOverlay' */
             captionsStyleDefault={this.captionsStyleDefault}
-            // @ts-ignore
+            /*@ts-expect-error - Property 'captionsStyleBlackBG' does not exist on type 'CVAAOverlay' */
             captionsStyleBlackBG={this.captionsStyleBlackBG}
-            // @ts-ignore
+            /*@ts-expect-error - Property 'captionsStyleYellow' does not exist on type 'CVAAOverlay' */
             captionsStyleYellow={this.captionsStyleYellow}
             changeCaptionsStyle={this.changeCaptionsStyle}
             transitionToState={this.transitionToState}

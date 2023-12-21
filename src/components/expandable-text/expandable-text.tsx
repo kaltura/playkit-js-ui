@@ -101,10 +101,10 @@ const ExpandableText: new(props?: any, context?: any) => any = withText({
     </div>
   );
 });
-// @ts-ignore
+/*@ts-expect-error - Property 'defaultProps' does not exist on type 'new (props?: any, context?: any) => any */
 ExpandableText.defaultProps = {
   buttonProps: {}
 };
-// @ts-ignore
+/*@ts-expect-error - Property 'displayName' does not exist on type 'new (props?: any, context?: any) => any'. */
 ExpandableText.displayName = COMPONENT_NAME;
 export {ExpandableText};

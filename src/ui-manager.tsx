@@ -1,8 +1,7 @@
 import {h, render} from 'preact';
 import {Provider} from 'react-redux';
 import {IntlProvider} from 'preact-i18n';
-import {createStore, compose, Store} from 'redux';
-// import {cconfigureStore} from '@reduxjs/toolkit';
+import {createStore, compose, Store} from 'redux'; // the former is deprecated, react docs recommends using import {cconfigureStore} from '@reduxjs/toolkit';
 import {copyDeep} from './utils/copy-deep';
 import {mergeDeep} from './utils/merge-deep';
 import {getLogLevel, setLogLevel, setLogger, LogLevelType, LogLevel} from './utils/logger';
@@ -194,6 +193,7 @@ class UIManager {
                 <EventDispatcherProvider player={this.player} store={this.store}>
                   <KeyboardEventProvider playerContainer={this.container}>
                     <Shell>
+                      {/* @ts-ignore*/}
                       <EngineConnector />
                       <VideoPlayer />
                       <PlayerGUI uis={uis} playerContainer={this.container} />

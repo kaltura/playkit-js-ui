@@ -9,8 +9,6 @@ export type WithLoggerProps = {
  * @param {string} name - the component display name
  * @returns {Component} - the wrapped component
  */
-// <P extends object>(ComponentToWrap: ComponentType<P>)
-// export const withLogger = <P extends object>(name: string) => (WrappedComponent: ComponentType<P>): ComponentType<P & withLoggerProps> =>
 export const withLogger = <P extends object>(name: string) => (WrappedComponent: any): any =>
   class LoggerComponent extends Component<P & WithLoggerProps, any> {
     logger: any;

@@ -1,3 +1,5 @@
+import { AudioTrack, PKTextTrack, VideoTrack } from "@playkit-js/playkit-js";
+
 export interface EngineState {
   isIdle: boolean;
   isPlaying: boolean;
@@ -21,9 +23,9 @@ export interface EngineState {
   duration: number;
   volume: number;
   muted: boolean;
-  videoTracks: any[]; // Specify a more detailed type if possible
-  audioTracks: any[]; // Specify a more detailed type if possible
-  textTracks: any[];  // Specify a more detailed type if possible
+  videoTracks: VideoTrack[];
+  audioTracks: AudioTrack[];
+  textTracks: PKTextTrack[];
   adIsLinear: boolean;
   adBreak: boolean;
   adIsPlaying: boolean;

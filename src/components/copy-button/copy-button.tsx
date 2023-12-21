@@ -2,7 +2,7 @@ import style from '../../styles/style.scss';
 import {h, Component, VNode} from 'preact';
 import {IconType} from '../icon';
 import {Icon} from '../icon/icon';
-import {Tooltip} from '../../components/tooltip';
+import {Tooltip} from "../tooltip";
 import {Text, Localizer} from 'preact-i18n';
 import {KeyMap} from '../../utils';
 import {Button, ButtonControl} from '../../components';
@@ -39,7 +39,7 @@ class CopyButton extends Component<any, any> {
    * @type {Object} - Component default props
    */
   static defaultProps: any = {
-    // @ts-ignore - how is it possible
+    // @ts-ignore - 'Copy' not seen in the area...
     icon: IconType.Copy
   };
 
@@ -110,7 +110,8 @@ class CopyButton extends Component<any, any> {
     return (
       <Localizer>
         <ButtonControl name={COMPONENT_NAME}>
-          <Tooltip label={<Text id="copy.button" /> as unknown as string}>
+          {/*@ts-expect-error - error TS2322: Type 'Element' is not assignable to type 'string'.*/}
+          <Tooltip label={<Text id="copy.button" />}>
             <Button
               tabIndex="0"
               ref={el => {

@@ -1,6 +1,5 @@
 import {FakeEventTarget, FakeEvent} from '@playkit-js/playkit-js';
 import {EventType} from '../event';
-// import {FakeEvent} from '../event/fake-event';
 
 /**
  * A Factory class to create a resize observer for the player.

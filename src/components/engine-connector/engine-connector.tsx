@@ -1,16 +1,28 @@
 import {h, Component, VNode} from 'preact';
 import {connect} from 'react-redux';
-import {bindActions} from '../../utils/bind-actions';
-import {default as reduce, actions} from '../../reducers/engine';
-import {actions as loadingActions} from '../../reducers/loading';
-import {actions as shellActions} from '../../reducers/shell';
-import {actions as seekbarActions} from '../../reducers/seekbar';
+import {bindActions} from '../../utils';
+import {default as reduce, actions as EngineActions} from '../../reducers/engine';
+import {actions as LoadingActions} from '../../reducers/loading';
+import {actions as ShellActions} from '../../reducers/shell';
+import {actions as SeekbarActions} from '../../reducers/seekbar';
 import {withPlayer} from '../player';
-import {withEventManager} from '../../event/with-event-manager';
-import {withLogger} from '../../components/logger';
+import {withEventManager} from '../../event';
+import {withLogger} from '../logger';
+import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
+import {EventManager} from '@playkit-js/playkit-js';
+import {EngineState} from '../../types/reducers/engine';
+
+type EngineConnectorProps = {
+  engine: EngineState;
+  player: KalturaPlayer;
+  eventManager: EventManager;
+} & typeof EngineActions
+  & typeof LoadingActions
+  & typeof ShellActions
+  & {seekbarUpdateCurrentTime: typeof SeekbarActions.updateCurrentTime};
 
 // Rename so it doesn't clash with the equivalent action in engine state
-const seekbarUpdateCurrentTime = seekbarActions.updateCurrentTime;
+const seekbarUpdateCurrentTime = SeekbarActions.updateCurrentTime;
 
 const COMPONENT_NAME = 'EngineConnector';
 
@@ -21,12 +33,11 @@ const COMPONENT_NAME = 'EngineConnector';
  * @example <EngineConnector />
  * @extends {Component}
  */
-@connect(reduce, bindActions({...actions, ...loadingActions, ...shellActions, seekbarUpdateCurrentTime}))
+@connect(reduce, bindActions({...EngineActions, ...LoadingActions, ...ShellActions, seekbarUpdateCurrentTime}))
 @withPlayer
 @withEventManager
 @withLogger(COMPONENT_NAME)
-// class EngineConnector extends Component<WithPlayerProps & WithEventDispatcherProps & WithLoggerProps, any> {
-class EngineConnector extends Component<any, any> {
+class EngineConnector extends Component<EngineConnectorProps, any> {
   /**
    * after component mounted, set event listeners and update redux store
    *
@@ -34,7 +45,7 @@ class EngineConnector extends Component<any, any> {
    * @memberof EngineConnector
    */
   componentDidMount() {
-    const {player, eventManager} = this.props;
+    const {player, eventManager} = this.props as EngineConnectorProps;
     const TrackType = player.Track;
     this.props.updatePrePlayback(!player.config.playback.autoplay);
 
@@ -91,21 +102,21 @@ class EngineConnector extends Component<any, any> {
     });
 
     eventManager.listen(player, player.Event.TIME_UPDATE, () => {
-      this.props.updateCurrentTime(player.currentTime);
+      this.props.updateCurrentTime(player.currentTime!);
     });
 
     eventManager.listen(player, player.Event.DURATION_CHANGE, () => {
-      this.props.updateDuration(player.isLive() ? player.liveDuration : player.duration);
+      this.props.updateDuration(player.isLive() ? player.liveDuration! : player.duration!);
     });
 
     eventManager.listen(player, player.Event.LOADED_DATA, () => {
-      this.props.updateDuration(player.isLive() ? player.liveDuration : player.duration);
+      this.props.updateDuration(player.isLive() ? player.liveDuration! : player.duration!);
       this.props.updatePictureInPictureSupport(player.isPictureInPictureSupported());
       this.props.updateDataLoadingStatus(true);
     });
 
     eventManager.listen(player, player.Event.LOADED_METADATA, () => {
-      this.props.updateMuted(player.muted);
+      this.props.updateMuted(player.muted!);
       this.props.updateMetadataLoadingStatus(true);
       this.props.updateIsLive(player.isLive());
       this.props.updateIsDvr(player.isDvr());
@@ -113,13 +124,13 @@ class EngineConnector extends Component<any, any> {
     });
 
     eventManager.listen(player, player.Event.VOLUME_CHANGE, () => {
-      this.props.updateVolume(player.volume);
+      this.props.updateVolume(player.volume!);
     });
 
     eventManager.listen(player, player.Event.MUTE_CHANGE, () => {
-      this.props.updateMuted(player.muted);
+      this.props.updateMuted(player.muted!);
       if (this.props.engine.fallbackToMutedAutoPlay) {
-        this.props.updateFallbackToMutedAutoPlay(player.muted);
+        this.props.updateFallbackToMutedAutoPlay(player.muted!);
       }
     });
 
@@ -155,7 +166,7 @@ class EngineConnector extends Component<any, any> {
 
     eventManager.listen(player, player.Event.SEEKED, () => {
       this.props.updateIsSeeking(false);
-      this.props.updateLastSeekPoint(player.currentTime);
+      this.props.updateLastSeekPoint(player.currentTime!);
       this.props.updateIsPlaybackEnded(false);
     });
 
