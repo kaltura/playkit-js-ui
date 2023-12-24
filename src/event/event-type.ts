@@ -1,6 +1,6 @@
 const namespace = 'playkit-ui';
 
-const EventType: {[event: string]: string} = {
+const EventType = {
   UI_CLICKED: `${namespace}-uiclicked`,
   UI_VISIBILITY_CHANGED: `${namespace}-uivisibilitychanged`,
   GUI_RESIZE: `${namespace}-guiresize`,
@@ -29,6 +29,6 @@ const EventType: {[event: string]: string} = {
   USER_SELECTED_SPEED: `${namespace}-userselectedspeed`,
   USER_SEEKED: `${namespace}-userseeked`,
   RESIZE: `${namespace}-resize`
-};
+} as const;
 
 export {EventType};

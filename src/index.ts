@@ -16,11 +16,11 @@ import style from './styles/style.scss';
 import {SidePanelPositions, SidePanelModes, ReservedPresetNames, ReservedPresetAreas} from './reducers/shell';
 // Event
 import * as Event from './event';
-const {EventType} = Event;
-export {Event, EventType};
+export { Event };
+export {EventType as UIEventType} from './event/event-type';
 
-declare let __VERSION__: string;
-declare let __NAME__: string;
+declare const __VERSION__: string;
+declare const __NAME__: string;
 
 const VERSION = __VERSION__;
 const NAME = __NAME__;

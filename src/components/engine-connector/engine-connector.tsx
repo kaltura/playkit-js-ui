@@ -49,7 +49,7 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
     const TrackType = player.Track;
     this.props.updatePrePlayback(!player.config.playback.autoplay);
 
-    eventManager.listen(player, player.Event.PLAYER_RESET, event => {
+    eventManager.listen(player, player.Event.Core.PLAYER_RESET, event => {
       this.props.updateCurrentTime(0);
       this.props.seekbarUpdateCurrentTime(0);
       if (!event.payload.isChangeMedia) {
@@ -59,7 +59,7 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
       this.props.updateDataLoadingStatus(false);
     });
 
-    eventManager.listen(player, player.Event.SOURCE_SELECTED, () => {
+    eventManager.listen(player, player.Event.Core.SOURCE_SELECTED, () => {
       this.props.updateIsCastAvailable(player.isCastAvailable());
       this.props.updateIsLive(player.isLive());
       this.props.updateIsVr(player.isVr());
@@ -75,7 +75,7 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
       }
     });
 
-    eventManager.listen(player, player.Event.CHANGE_SOURCE_STARTED, () => {
+    eventManager.listen(player, player.Event.Core.CHANGE_SOURCE_STARTED, () => {
       this.props.updatePrePlayback(!player.config.playback.autoplay && !this.props.engine.isPlaybackStarted);
       this.props.updateIsChangingSource(true);
       this.props.updateFallbackToMutedAutoPlay(false);
@@ -91,31 +91,31 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
       }
     });
 
-    eventManager.listen(player, player.Event.CHANGE_SOURCE_ENDED, () => {
+    eventManager.listen(player, player.Event.Core.CHANGE_SOURCE_ENDED, () => {
       this.props.updateIsChangingSource(false);
       this.props.updatePlayerPoster(player.poster);
       this.props.updateIsIdle(false);
     });
 
-    eventManager.listen(player, player.Event.PLAYER_STATE_CHANGED, e => {
+    eventManager.listen(player, player.Event.Core.PLAYER_STATE_CHANGED, e => {
       this.props.updatePlayerState(e.payload.oldState.type, e.payload.newState.type);
     });
 
-    eventManager.listen(player, player.Event.TIME_UPDATE, () => {
+    eventManager.listen(player, player.Event.Core.TIME_UPDATE, () => {
       this.props.updateCurrentTime(player.currentTime!);
     });
 
-    eventManager.listen(player, player.Event.DURATION_CHANGE, () => {
+    eventManager.listen(player, player.Event.Core.DURATION_CHANGE, () => {
       this.props.updateDuration(player.isLive() ? player.liveDuration! : player.duration!);
     });
 
-    eventManager.listen(player, player.Event.LOADED_DATA, () => {
+    eventManager.listen(player, player.Event.Core.LOADED_DATA, () => {
       this.props.updateDuration(player.isLive() ? player.liveDuration! : player.duration!);
       this.props.updatePictureInPictureSupport(player.isPictureInPictureSupported());
       this.props.updateDataLoadingStatus(true);
     });
 
-    eventManager.listen(player, player.Event.LOADED_METADATA, () => {
+    eventManager.listen(player, player.Event.Core.LOADED_METADATA, () => {
       this.props.updateMuted(player.muted!);
       this.props.updateMetadataLoadingStatus(true);
       this.props.updateIsLive(player.isLive());
@@ -123,64 +123,64 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
       this.props.updatePlayerPoster(player.poster);
     });
 
-    eventManager.listen(player, player.Event.VOLUME_CHANGE, () => {
+    eventManager.listen(player, player.Event.Core.VOLUME_CHANGE, () => {
       this.props.updateVolume(player.volume!);
     });
 
-    eventManager.listen(player, player.Event.MUTE_CHANGE, () => {
+    eventManager.listen(player, player.Event.Core.MUTE_CHANGE, () => {
       this.props.updateMuted(player.muted!);
       if (this.props.engine.fallbackToMutedAutoPlay) {
         this.props.updateFallbackToMutedAutoPlay(player.muted!);
       }
     });
 
-    eventManager.listen(player, player.Event.PLAYBACK_START, () => {
+    eventManager.listen(player, player.Event.Core.PLAYBACK_START, () => {
       this.props.updatePrePlayback(false);
       this.props.updateIsPlaybackStarted(true);
       this.props.updateLoadingSpinnerState(true);
     });
 
-    eventManager.listen(player, player.Event.AUTOPLAY_FAILED, () => {
+    eventManager.listen(player, player.Event.Core.AUTOPLAY_FAILED, () => {
       this.props.updatePrePlayback(true);
     });
 
-    eventManager.listen(player, player.Event.FIRST_PLAY, () => {
+    eventManager.listen(player, player.Event.Core.FIRST_PLAY, () => {
       this.props.updatePrePlayback(false);
     });
 
-    eventManager.listen(player, player.Event.PLAY, () => {
+    eventManager.listen(player, player.Event.Core.PLAY, () => {
       this.props.updateIsPlaying(true);
       this.props.updateIsEnded(false);
       this.props.updateIsPaused(false);
       this.props.updateIsPlaybackEnded(false);
     });
 
-    eventManager.listen(player, player.Event.PAUSE, () => {
+    eventManager.listen(player, player.Event.Core.PAUSE, () => {
       this.props.updateIsPlaying(false);
       this.props.updateIsPaused(true);
     });
 
-    eventManager.listen(player, player.Event.SEEKING, () => {
+    eventManager.listen(player, player.Event.Core.SEEKING, () => {
       this.props.updateIsSeeking(true);
     });
 
-    eventManager.listen(player, player.Event.SEEKED, () => {
+    eventManager.listen(player, player.Event.Core.SEEKED, () => {
       this.props.updateIsSeeking(false);
       this.props.updateLastSeekPoint(player.currentTime!);
       this.props.updateIsPlaybackEnded(false);
     });
 
-    eventManager.listen(player, player.Event.ENDED, () => {
+    eventManager.listen(player, player.Event.Core.ENDED, () => {
       this.props.updateIsEnded(true);
       this.props.updateIsPlaying(false);
       this.props.updateIsPaused(true);
     });
 
-    eventManager.listen(player, player.Event.PLAYBACK_ENDED, () => {
+    eventManager.listen(player, player.Event.Core.PLAYBACK_ENDED, () => {
       this.props.updateIsPlaybackEnded(true);
     });
 
-    eventManager.listen(player, player.Event.TRACKS_CHANGED, () => {
+    eventManager.listen(player, player.Event.Core.TRACKS_CHANGED, () => {
       let audioTracks = player.getTracks(TrackType.AUDIO);
       let videoTracks = player.getTracks(TrackType.VIDEO);
       let textTracks = player.getTracks(TrackType.TEXT);
@@ -190,46 +190,46 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
       this.props.updateTextTracks(textTracks);
     });
 
-    eventManager.listen(player, player.Event.TEXT_TRACK_CHANGED, () => {
+    eventManager.listen(player, player.Event.Core.TEXT_TRACK_CHANGED, () => {
       let tracks = player.getTracks(TrackType.TEXT);
       this.props.updateTextTracks(tracks);
     });
 
-    eventManager.listen(player, player.Event.AUDIO_TRACK_CHANGED, () => {
+    eventManager.listen(player, player.Event.Core.AUDIO_TRACK_CHANGED, () => {
       let tracks = player.getTracks(TrackType.AUDIO);
       this.props.updateAudioTracks(tracks);
     });
 
-    eventManager.listen(player, player.Event.VIDEO_TRACK_CHANGED, () => {
+    eventManager.listen(player, player.Event.Core.VIDEO_TRACK_CHANGED, () => {
       let tracks = player.getTracks(TrackType.VIDEO);
       this.props.updateVideoTracks(tracks);
     });
 
-    eventManager.listen(player, player.Event.AD_BREAK_START, () => {
+    eventManager.listen(player, player.Event.Core.AD_BREAK_START, () => {
       this.props.updateHasError(false);
       this.props.updateAdBreak(true);
     });
 
-    eventManager.listen(player, player.Event.AD_BREAK_END, () => {
+    eventManager.listen(player, player.Event.Core.AD_BREAK_END, () => {
       this.props.updateAdBreak(false);
     });
 
-    eventManager.listen(player, player.Event.ALL_ADS_COMPLETED, () => {
+    eventManager.listen(player, player.Event.Core.ALL_ADS_COMPLETED, () => {
       this.props.updateAdBreak(false);
     });
 
-    eventManager.listen(player, player.Event.AD_PROGRESS, e => {
+    eventManager.listen(player, player.Event.Core.AD_PROGRESS, e => {
       let currentTime = e.payload.adProgress.currentTime;
       let duration = e.payload.adProgress.duration;
 
       this.props.updateAdBreakProgress(currentTime, duration);
     });
 
-    eventManager.listen(player, player.Event.AD_COMPLETED, () => {
+    eventManager.listen(player, player.Event.Core.AD_COMPLETED, () => {
       this.props.updateAdBreakCompleted();
     });
 
-    eventManager.listen(player, player.Event.AD_STARTED, e => {
+    eventManager.listen(player, player.Event.Core.AD_STARTED, e => {
       const ad = e.payload.ad;
       this.props.updateLoadingSpinnerState(false);
       this.props.updateAdIsPlaying(true);
@@ -238,25 +238,25 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
       this.props.updateAdContentType(ad.contentType);
     });
 
-    eventManager.listen(player, player.Event.AD_RESUMED, () => {
+    eventManager.listen(player, player.Event.Core.AD_RESUMED, () => {
       this.props.updateAdIsPlaying(true);
     });
 
-    eventManager.listen(player, player.Event.AD_PAUSED, () => {
+    eventManager.listen(player, player.Event.Core.AD_PAUSED, () => {
       this.props.updateAdIsPlaying(false);
     });
 
-    eventManager.listen(player, player.Event.AD_ERROR, e => {
+    eventManager.listen(player, player.Event.Core.AD_ERROR, e => {
       if (e.payload.severity === player.Error.Severity.CRITICAL) {
         this.props.updateAdBreak(false);
       }
     });
 
-    eventManager.listen(player, player.Event.FALLBACK_TO_MUTED_AUTOPLAY, () => {
+    eventManager.listen(player, player.Event.Core.FALLBACK_TO_MUTED_AUTOPLAY, () => {
       this.props.updateFallbackToMutedAutoPlay(true);
     });
 
-    eventManager.listen(player, player.Event.AD_LOADED, e => {
+    eventManager.listen(player, player.Event.Core.AD_LOADED, e => {
       const ad = e.payload.ad;
       this.props.updateAdIsLinear(ad.linear);
       this.props.updateAdIsBumper(ad.bumper);
@@ -265,11 +265,11 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
       this.props.updateAdSkippableState(ad.skippable);
     });
 
-    eventManager.listen(player, player.Event.VR_STEREO_MODE_CHANGED, e => {
+    eventManager.listen(player, player.Event.Core.VR_STEREO_MODE_CHANGED, e => {
       this.props.updateVrStereoMode(e.payload.mode);
     });
 
-    eventManager.listen(player, player.Event.ERROR, e => {
+    eventManager.listen(player, player.Event.Core.ERROR, e => {
       if (e.payload.severity === player.Error.Severity.CRITICAL) {
         this.props.updateIsIdle(false);
         this.props.updateHasError(true);
@@ -299,24 +299,24 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
       this.props.updatePlaylist({next: player.playlist.next, prev: player.playlist.prev});
     });
 
-    eventManager.listen(player, player.Event.ENTER_PICTURE_IN_PICTURE, () => {
+    eventManager.listen(player, player.Event.Core.ENTER_PICTURE_IN_PICTURE, () => {
       this.props.updateIsInPictureInPicture(true);
     });
 
-    eventManager.listen(player, player.Event.LEAVE_PICTURE_IN_PICTURE, () => {
+    eventManager.listen(player, player.Event.Core.LEAVE_PICTURE_IN_PICTURE, () => {
       this.props.updateIsInPictureInPicture(false);
     });
 
-    eventManager.listen(player, player.Event.PRESENTATION_MODE_CHANGED, () => {
+    eventManager.listen(player, player.Event.Core.PRESENTATION_MODE_CHANGED, () => {
       this.props.updateIsInPictureInPicture(player.isInPictureInPicture());
       this.props.updateFullscreen(player.isFullscreen());
     });
 
-    eventManager.listen(player, player.Event.ENTER_FULLSCREEN, () => {
+    eventManager.listen(player, player.Event.Core.ENTER_FULLSCREEN, () => {
       this.props.updateFullscreen(true);
     });
 
-    eventManager.listen(player, player.Event.EXIT_FULLSCREEN, () => {
+    eventManager.listen(player, player.Event.Core.EXIT_FULLSCREEN, () => {
       this.props.updateFullscreen(false);
     });
   }
