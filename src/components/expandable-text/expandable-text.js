@@ -86,7 +86,7 @@ const ExpandableText = withText({
   }
 
   return (
-    <div>
+    <div className={['expandable-text-container', isTextExpanded ? 'text-expanded' : ''].join(' ')}>
       {isTextExpanded ? (
         props.children
       ) : (
