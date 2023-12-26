@@ -75,7 +75,7 @@ class UnmuteIndication extends Component<any, any> {
    * @returns {void}
    */
   _iconOnlyTimeout(): void {
-    // @ts-ignore
+    // @ts-expect-error - Type 'Timeout' is not assignable to type 'number'.
     this._iconTimeout = setTimeout(() => {
       this.setState({iconOnly: true});
     }, MUTED_AUTOPLAY_ICON_ONLY_DEFAULT_TIMEOUT);

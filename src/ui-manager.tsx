@@ -1,7 +1,8 @@
 import {h, render} from 'preact';
 import {Provider} from 'react-redux';
 import {IntlProvider} from 'preact-i18n';
-import {createStore, compose, Store} from 'redux'; // the former is deprecated, react docs recommends using import {cconfigureStore} from '@reduxjs/toolkit';
+// TODO the 'redux' lib is deprecated, react docs recommends using import {cconfigureStore} from '@reduxjs/toolkit';
+import {createStore, compose, Store} from 'redux';
 import {copyDeep} from './utils/copy-deep';
 import {mergeDeep} from './utils/merge-deep';
 import {getLogLevel, setLogLevel, setLogger, LogLevelType, LogLevel} from './utils/logger';
@@ -28,7 +29,7 @@ import {EventDispatcherProvider} from './components';
 import {KeyboardEventProvider} from './components';
 import {ThemesManager} from './utils/themes-manager';
 import {UIOptionsObject, UIPreset} from './types';
-import {KalturaPlayer, KPUIAddComponent, KPUIComponent} from '@playkit-js/kaltura-player-js';
+import {KalturaPlayer, KPUIComponent} from '@playkit-js/kaltura-player-js';
 import {RootState} from './types';
 
 /**
@@ -162,9 +163,10 @@ class UIManager {
    * @returns {void}
    */
   _createStore(config: UIOptionsObject): void {
-    const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-    // @ts-ignore
-    this.store = createStore<RootState, any>(reducer, composeEnhancers(middleware(this.player, config)));
+    // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+    // TODO - fix the window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    // TODO - Deprecated symbol used, consult docs for better alternative, React recommend using the configureStore method of the @reduxjs/toolkit packag
+    this.store = createStore<RootState, any, any, any>(reducer, compose(middleware(this.player, config)));
   }
 
   /**

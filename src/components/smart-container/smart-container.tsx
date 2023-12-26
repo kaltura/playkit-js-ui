@@ -39,9 +39,6 @@ const COMPONENT_NAME = 'SmartContainer';
 @withKeyboardA11y
 @withText({settingsText: 'settings.title'})
 class SmartContainer extends Component<any, any> {
-  // ie11 fix (FEC-7312) - don't remove
-  _portal: any;
-
   /**
    * before component mounted, add player css class
    *

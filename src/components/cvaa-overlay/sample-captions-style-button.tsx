@@ -1,4 +1,4 @@
-import {KeyMap} from '../../utils/key-map';
+import {KeyMap} from "../../utils";
 import style from '../../styles/style.scss';
 import {Icon, IconType} from '../icon';
 import {h} from 'preact';

@@ -1,28 +1,30 @@
-// eslint-disable-next-line  @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 /**
  * Formatting seconds input into time format
  *
  * @param {number} input number of seconds
  * @returns {string} formatted time string
  */
-function toHHMMSS(input: number): string {
-  const secNum = parseInt(input, 10);
-  let hours = Math.floor(secNum / 3600);
-  let minutes = Math.floor((secNum - hours * 3600) / 60);
-  let seconds = secNum - hours * 3600 - minutes * 60;
+function toHHMMSS(input: string | number): string {
+  const secNum = parseInt(input as string, 10);
+  const hours: number = Math.floor(secNum / 3600);
+  const minutes: number = Math.floor((secNum - hours * 3600) / 60);
+  const seconds: number = secNum - hours * 3600 - minutes * 60;
+
+  let hoursFormat = hours as unknown as string;
+  let minutesFormat = minutes as unknown as string;
+  let secondsFormat = seconds as unknown as string;
 
   if (hours < 10) {
-    hours = '0' + hours;
+    hoursFormat = '0' + hours;
   }
   if (minutes < 10) {
-    minutes = '0' + minutes;
+    minutesFormat = '0' + minutes;
   }
   if (seconds < 10) {
-    seconds = '0' + seconds;
+    secondsFormat = '0' + seconds;
   }
 
-  return `${hours !== '00' ? hours + ':' : ''}${minutes}:${seconds}`;
+  return `${hoursFormat !== '00' ? hoursFormat + ':' : ''}${minutesFormat}:${secondsFormat}`;
 }
 
 /**

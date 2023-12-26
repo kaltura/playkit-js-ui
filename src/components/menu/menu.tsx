@@ -8,10 +8,9 @@ import {withEventManager} from '../../event';
 import {WithEventManagerProps} from '../../event/with-event-manager';
 
 type OptionType = {
-  value: any; // Replace 'any' with a more specific type if possible
+  value: any;
   label: string;
   active: boolean;
-  // Add other properties of options here if they exist
 };
 
 type MenuProps = {
@@ -21,11 +20,10 @@ type MenuProps = {
   options: OptionType[];
   labelledby?: string;
   pushRef?: (HTMLElement) => void;
-  onMenuChosen: (value: any) => void; // Replace 'any' with the specific type of option value
+  onMenuChosen: (value: any) => void;
   onClose: () => void;
   hideSelect?: boolean;
   parentEl?: HTMLDivElement;
-  // Add any other props that Menu might use
 };
 
 /**

@@ -53,10 +53,10 @@ class PlayerAreaProvider extends Component<WithLoggerProps & PlayerAreaProviderP
    * @private
    * @return {void}
    */
-  _initializePlayerComponents() {
+  _initializePlayerComponents(): void {
     if (this.props.uiComponents && this.props.uiComponents.length > 0) {
-      // @ts-ignore
-      this.props.uiComponents.forEach(this._addNewComponent);
+      // @ts-ignore - TODO
+      this.props.uiComponents.forEach((c)=> this._addNewComponent(c));
       this._emitAllListeners();
     }
   }
@@ -66,7 +66,7 @@ class PlayerAreaProvider extends Component<WithLoggerProps & PlayerAreaProviderP
    * @returns {void}
    * @private
    */
-  _emitListeners(listeners: ComponentListener[]) {
+  _emitListeners(listeners: ComponentListener[]): void {
     const {activePresetName} = this.props;
 
     (listeners || []).forEach(listener => {
@@ -84,7 +84,7 @@ class PlayerAreaProvider extends Component<WithLoggerProps & PlayerAreaProviderP
    * @returns {void}
    * @private
    */
-  _emitAllListeners() {
+  _emitAllListeners(): void {
     this._emitListeners(this._listeners);
   }
 

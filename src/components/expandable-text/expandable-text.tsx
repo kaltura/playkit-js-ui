@@ -2,7 +2,7 @@ import { h, ComponentChildren } from "preact";
 import {withText} from 'preact-i18n';
 
 import {useState, useRef, useLayoutEffect} from 'preact/hooks';
-import {KeyMap} from '../../utils/key-map';
+import {KeyMap} from "../../utils";
 
 import styles from '../../styles/style.scss';
 
@@ -101,10 +101,8 @@ const ExpandableText: new(props?: any, context?: any) => any = withText({
     </div>
   );
 });
-/*@ts-expect-error - Property 'defaultProps' does not exist on type 'new (props?: any, context?: any) => any */
-ExpandableText.defaultProps = {
+ExpandableText['defaultProps'] = {
   buttonProps: {}
 };
-/*@ts-expect-error - Property 'displayName' does not exist on type 'new (props?: any, context?: any) => any'. */
-ExpandableText.displayName = COMPONENT_NAME;
+ExpandableText['displayName'] = COMPONENT_NAME;
 export {ExpandableText};

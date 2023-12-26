@@ -420,13 +420,13 @@ class Shell extends Component<any, any> {
       );
     }
     playerClasses.push('notranslate');
-    const JoinedPlayerClasses = playerClasses.join(' ');
+    const joinedPlayerClasses = playerClasses.join(' ');
 
     return (
       <div
         tabIndex={-1}
         ref={node => (this._playerRef = node)}
-        className={JoinedPlayerClasses}
+        className={joinedPlayerClasses}
         onTouchEnd={this.onTouchEnd}
         onMouseUp={this.onMouseUp}
         onMouseOver={this.onMouseOver}

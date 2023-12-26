@@ -82,7 +82,6 @@ function setLogger(logger?: LoggerType): void {
  * @returns {Object} - the logger class
  */
 function getLogger(name?: string): any {
-  //$FlowFixMe
   return JsLogger.get(name);
 }
 

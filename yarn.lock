@@ -1218,6 +1218,11 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@playkit-js/browserslist-config@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@playkit-js/browserslist-config/-/browserslist-config-1.0.5.tgz#7d4a7f7b087caa2620d9f89263a05bd4a0af99a4"
+  integrity sha512-aEx7S4nW1XakhTtx01Use7viuuZ61ho6FeL6iHtZMpclsjEPYf0N8jQt9e3aDBKhaZZ8pKl5250hI4pjWWBfAA==
+
 "@playkit-js/kaltura-player-js@canary":
   version "3.17.5-canary.0-50b07bd"
   resolved "https://registry.yarnpkg.com/@playkit-js/kaltura-player-js/-/kaltura-player-js-3.17.5-canary.0-50b07bd.tgz#1bdc2b7b0dfa2fb4a8ea7d72716b74df9dc5810f"
