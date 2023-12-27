@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 .player .seek-bar {
   padding: 12px 0 12px 0;
   cursor: pointer;
@@ -60,7 +62,7 @@
       position: absolute;
       cursor: pointer;
       display: block;
-      top: -8px + calc($progress-bar-height / 2);
+      top: -8px + math.div($progress-bar-height, 2);
       left: -6px;
       border-radius: 8px;
       height: 16px;
@@ -119,7 +121,7 @@
     .progress-bar:not(.chapters) {
       height: 2 * $progress-bar-height;
       border-radius: 2 * $progress-bar-border-radius;
-      transform: translateY(calc($progress-bar-height / -2));
+      transform: translateY(-(math.div($progress-bar-height, 2)));
 
       .scrubber {
         top: -8px + $progress-bar-height;
