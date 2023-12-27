@@ -26,6 +26,7 @@
     "paths": {
       "react": ["./node_modules/preact/compat/"],
       "react-dom": ["./node_modules/preact/compat/"],
+      "@playkit-js/kaltura-player-js": ["./kaltura-player-js.d.ts"] // tmep - should be removed after @playkit-js/kaltura-player-js is merged
     },
     "lib": [
       "dom",
