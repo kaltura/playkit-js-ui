@@ -61,7 +61,8 @@
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-typescript": "^7.22.15",
     "@microsoft/api-extractor": "^7.38.0",
-    "@playkit-js/kaltura-player-js": "canary",
+    "@playkit-js/browserslist-config": "^1.0.5",
+    "@playkit-js/kaltura-player-js": "file:./playkit-js-kaltura-player-js-3.17.4.tgz",
     "@playkit-js/playkit-js": "canary",
     "@types/chai": "^4.3.3",
     "@types/mocha": "^9.1.1",
@@ -98,8 +99,7 @@
     "typescript-plugin-css-modules": "^5.0.2",
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^4.15.1",
-    "@playkit-js/browserslist-config": "^1.0.5"
+    "webpack-dev-server": "^4.15.1"
   },
   "browserslist": [
     "extends @playkit-js/browserslist-config"
