@@ -52,7 +52,6 @@ const UNHANDLED_KEYBOARD_EVENT_RESULT: KeyboardEventResult = {preventDefault: fa
 @withPlayer
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
-//@ts-ignore
 class Keyboard extends Component<any, any> {
   _lastActiveTextLanguage: string = '';
   _hoverTimeout: number | null = null;
@@ -287,6 +286,10 @@ class Keyboard extends Component<any, any> {
       return {preventDefault: true, payload: null};
     }
   };
+
+  render(): undefined {
+    return undefined;
+  }
 }
 
 export {Keyboard};

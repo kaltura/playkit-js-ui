@@ -1,5 +1,5 @@
 import {hexToHsl, hslToHex} from './color-format-convertors';
-import {style} from '../index';
+import style from '../styles/style.scss';
 import {UserTheme} from '../types';
 
 const PREFIX = 'playkit';
