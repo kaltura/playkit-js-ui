@@ -41,6 +41,7 @@ import { TrackType } from '@playkit-js/playkit-js';
 import { TrackTypes } from '@playkit-js/playkit-js';
 import * as ui from '@playkit-js/playkit-js-ui';
 import { UIEventType } from '@playkit-js/playkit-js-ui';
+import { UIOptionsObject } from '@playkit-js/playkit-js-ui';
 
 /**
  * @class Ad
@@ -1130,7 +1131,7 @@ export declare type DeferredPromise = {
  * @property {number} isDRMSupported - Specifies DRM supported option by the browser
  * @property {Array<string>} supportedDRMs - List of supported DRMs (optional values: widevine; playready; fairplay)
  */
-declare type DRMSupportedObject = {
+export declare type DRMSupportedObject = {
     isDRMSupported: number;
     supportedDRMs: Array<string>;
 };
@@ -1159,7 +1160,7 @@ export declare function getPlayers(): Record<string, KalturaPlayer>;
  * @property {number} bitrate - Optional number of bits used to encode a second of video
  * @property {number} framerate - Optional number of frames used in one second
  */
-declare type HEVCConfigObject = {
+export declare type HEVCConfigObject = {
     width?: number;
     height?: number;
     bitrate?: number;
@@ -1171,7 +1172,7 @@ declare type HEVCConfigObject = {
  * @property {number} isHEVCSupported - Specifies HEVC supported option by the browser
  * @property {number} isPowerEfficient - Specifies power efficiency supported option
  */
-declare type HEVCSupportedObject = {
+export declare type HEVCSupportedObject = {
     isHEVCSupported: number;
     isPowerEfficient: number;
 };
@@ -1949,7 +1950,7 @@ export declare type KPThumbnailConfig = {
 };
 
 export declare interface KPUIAddComponent extends KPUIComponentOptions {
-    get: () => any;
+    get: (() => any) | string;
     props?: {};
 }
 
@@ -1995,7 +1996,7 @@ export declare interface LogConfig {
 /**
  * @typedef {Object} MediaCapabilitiesObject
  */
-declare type MediaCapabilitiesObject = HEVCSupportedObject & DRMSupportedObject;
+export declare type MediaCapabilitiesObject = HEVCSupportedObject & DRMSupportedObject;
 
 export declare interface MediaSourceOptionsObject {
     forceRedirectExternalStreams: boolean;
@@ -2744,146 +2745,152 @@ export declare interface SourcesConfig extends Omit<ProviderMediaConfigSourcesOb
     poster?: string;
 }
 
-declare class _TargetObserveredBinding {
-    lastVisible: boolean;
-    lastIntersectionRatio: number;
-    threshold: number;
-    listener: ListenerType;
-    constructor(threshold: number, listener: ListenerType);
-}
-
-declare class TextStyleConverter {
-    static toCastTextStyle(playerTextStyle: TextStyle): any;
-    static toPlayerTextStyle(castTextStyle: any): TextStyle;
-    static rgbToHex(rgb: Array<number>): string;
-    static hexToRGB(hex: string): [number, number, number];
-}
-
-export { ui }
-
-export declare interface UiConfig {
-    disable?: boolean;
-    css?: string;
-    customPreset?: {
-        template: () => any;
-        condition: () => any;
-    }[];
-    targetId: string;
-}
-
-declare class UIPreset {
-}
-
 /**
- * The logger of the UIWrapper class.
- * @private
- * @const
- */
-declare class UIWrapper {
-    private static _logger;
-    private _uiManager;
-    private readonly _disabled;
-    private _player;
-    constructor(player: KalturaPlayer, options: KalturaPlayerConfig);
-    destroy(): void;
-    reset(): void;
-    setConfig(config: any, componentAlias?: string): void;
-    /**
-     * Add a component dynamically
-     *
-     * @param {KPUIAddComponent} component - The component to add
-     * @returns {Function} - Removal function
+ * @typedef {Object.<string; number>} SupportedOptionsType
      */
-    addComponent(component: KPUIAddComponent): () => void;
-    /**
-     * Remove a component dynamically
-     *
-     * @param {KPUIRemoveComponent} component - The component to remove
-     * @returns {Function} - Undo removal function
-     */
-    removeComponent(component: KPUIRemoveComponent): () => void;
-    get store(): any;
-    /**
-     * Deprecated - left for backward compatibility - use instead registerService in KalturaPlayer
-     * @param {string} name - the manager name
-     * @param {Object} manager - the manager object
-     * @returns {void}
-     */
-    registerManager(name: string, manager: any): void;
-    /**
-     * Deprecated - left for backward compatibility - use instead getService in KalturaPlayer
-     * @param {string} name - the manager name
-     * @returns {Object} - the manager object
-     */
-    getManager(name: string): any | void;
-    /**
-     * Deprecated - left for backward compatibility - use instead hasService in KalturaPlayer
-     * @param {string} name - the manager name
-     * @returns {boolean} - if the manager exist
-     */
-    hasManager(name: string): boolean;
-    setLoadingSpinnerState(show: boolean): void;
-    private _resetErrorState;
-    private _handleExternalCSS;
-    private _handleVr;
-    private _setStereoConfig;
-}
+ export declare type SupportedOptionsType = {
+     [supportedOption: string]: number;
+ };
 
-export declare const VERSION: string;
+ declare class _TargetObserveredBinding {
+     lastVisible: boolean;
+     lastIntersectionRatio: number;
+     threshold: number;
+     listener: ListenerType;
+     constructor(threshold: number, listener: ListenerType);
+ }
 
-export declare interface ViewabilityConfig {
-    observedThresholds: Array<number>;
-    playerThreshold: number;
-}
+ declare class TextStyleConverter {
+     static toCastTextStyle(playerTextStyle: TextStyle): any;
+     static toPlayerTextStyle(castTextStyle: any): TextStyle;
+     static rgbToHex(rgb: Array<number>): string;
+     static hexToRGB(hex: string): [number, number, number];
+ }
 
-/**
- * A service class to observe viewability of elements in the view port.
- */
-declare class ViewabilityManager {
-    private readonly _observer;
-    private _targetsObserved;
-    private _config;
-    private _eventManager;
-    private _visibilityTabChangeEventName;
-    private _visibilityTabHiddenAttr;
-    /**
-     * Whether the player browser tab is active or not
-     * @type {boolean}
-     * @private
-     */
-    private _isTabVisible;
-    /**
-     * @param {number} viewabilityConfig - the configuration needed to create the manager
-     * @constructor
-     */
-    constructor(viewabilityConfig?: ViewabilityConfig);
-    private _intersectionChangedHandler;
-    private _handleTabVisibilityChange;
-    private _initTabVisibility;
-    /**
-     * @param {HTMLElement} target - the targeted element to check its visibility
-     * @param {Function} listener - the callback to be invoked when visibility is changed (and when starting to observe). The callback is called with a boolean param representing the visibility state
-     * @param {?number} optionalThreshold - a number between 0 to 100 that represents the minimum visible percentage considered as visible
-     * @returns {void}
-     */
-    observe(target: HTMLElement, listener: ListenerType, optionalThreshold?: number): void;
-    /**
-     * Remove the listener from the target
-     * @param {HTMLElement} target - the targeted element to remove the listener
-     * @param {Function} listener - the callback function to be removed
-     * @returns {void}
-     */
-    unObserve(target: HTMLElement, listener: _TargetObserveredBinding): void;
-    /**
-     * cleans all memory allocations.
-     * @override
-     */
-    destroy(): void;
-}
+ export { ui }
 
-declare const ViewabilityType: {
-    readonly VIEWPORT: "viewport";
-    readonly TAB: "tab";
-};
+ export declare interface UiConfig extends UIOptionsObject {
+     disable?: boolean;
+     css?: string;
+     customPreset?: {
+         template: () => any;
+         condition: () => any;
+     }[];
+ }
 
-export { }
+ declare class UIPreset {
+ }
+
+ /**
+  * The logger of the UIWrapper class.
+  * @private
+  * @const
+  */
+ declare class UIWrapper {
+     private static _logger;
+     private _uiManager;
+     private readonly _disabled;
+     private _player;
+     constructor(player: KalturaPlayer, options: KalturaPlayerConfig);
+     destroy(): void;
+     reset(): void;
+     setConfig(config: any, componentAlias?: string): void;
+     /**
+      * Add a component dynamically
+      *
+      * @param {KPUIAddComponent} component - The component to add
+      * @returns {Function} - Removal function
+      */
+     addComponent(component: KPUIAddComponent): () => void;
+     /**
+      * Remove a component dynamically
+      *
+      * @param {KPUIRemoveComponent} component - The component to remove
+      * @returns {Function} - Undo removal function
+      */
+     removeComponent(component: KPUIRemoveComponent): () => void;
+     get store(): any;
+     /**
+      * Deprecated - left for backward compatibility - use instead registerService in KalturaPlayer
+      * @param {string} name - the manager name
+      * @param {Object} manager - the manager object
+      * @returns {void}
+      */
+     registerManager(name: string, manager: any): void;
+     /**
+      * Deprecated - left for backward compatibility - use instead getService in KalturaPlayer
+      * @param {string} name - the manager name
+      * @returns {Object} - the manager object
+      */
+     getManager(name: string): any | void;
+     /**
+      * Deprecated - left for backward compatibility - use instead hasService in KalturaPlayer
+      * @param {string} name - the manager name
+      * @returns {boolean} - if the manager exist
+      */
+     hasManager(name: string): boolean;
+     setLoadingSpinnerState(show: boolean): void;
+     private _resetErrorState;
+     private _handleExternalCSS;
+     private _handleVr;
+     private _setStereoConfig;
+ }
+
+ export declare const VERSION: string;
+
+ export declare interface ViewabilityConfig {
+     observedThresholds: Array<number>;
+     playerThreshold: number;
+ }
+
+ /**
+  * A service class to observe viewability of elements in the view port.
+  */
+ declare class ViewabilityManager {
+     private readonly _observer;
+     private _targetsObserved;
+     private _config;
+     private _eventManager;
+     private _visibilityTabChangeEventName;
+     private _visibilityTabHiddenAttr;
+     /**
+      * Whether the player browser tab is active or not
+      * @type {boolean}
+      * @private
+      */
+     private _isTabVisible;
+     /**
+      * @param {number} viewabilityConfig - the configuration needed to create the manager
+      * @constructor
+      */
+     constructor(viewabilityConfig?: ViewabilityConfig);
+     private _intersectionChangedHandler;
+     private _handleTabVisibilityChange;
+     private _initTabVisibility;
+     /**
+      * @param {HTMLElement} target - the targeted element to check its visibility
+      * @param {Function} listener - the callback to be invoked when visibility is changed (and when starting to observe). The callback is called with a boolean param representing the visibility state
+      * @param {?number} optionalThreshold - a number between 0 to 100 that represents the minimum visible percentage considered as visible
+      * @returns {void}
+      */
+     observe(target: HTMLElement, listener: ListenerType, optionalThreshold?: number): void;
+     /**
+      * Remove the listener from the target
+      * @param {HTMLElement} target - the targeted element to remove the listener
+      * @param {Function} listener - the callback function to be removed
+      * @returns {void}
+      */
+     unObserve(target: HTMLElement, listener: _TargetObserveredBinding): void;
+     /**
+      * cleans all memory allocations.
+      * @override
+      */
+     destroy(): void;
+ }
+
+ declare const ViewabilityType: {
+     readonly VIEWPORT: "viewport";
+     readonly TAB: "tab";
+ };
+
+ export { }
