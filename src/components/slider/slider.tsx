@@ -256,7 +256,8 @@ class Slider extends Component<any, any> {
         className={style.slider}
         onMouseDown={this.mouseDownHandler}
         onTouchStart={this.mouseDownHandler}
-        onKeyDown={this.onKeyDown}>
+        onKeyDown={this.onKeyDown}
+      >
         <div className={style.progress} style={{width: this.getPercentageByValue() + '%'}}>
           <div className={style.handle} onMouseDown={this.mouseDownHandler} onTouchStart={this.mouseDownHandler} />
         </div>

@@ -84,7 +84,8 @@ class Cast extends Component<any, any> {
           aria-label={this.props.castText}
           className={style.controlButtonContainer}
           onClick={this.onClick}
-          onKeyDown={this.onKeyDown}>
+          onKeyDown={this.onKeyDown}
+        >
           <Tooltip label={this.props.castText}>
             {/* @ts-ignore */}
             <google-cast-launcher className={className} tabIndex="0" />

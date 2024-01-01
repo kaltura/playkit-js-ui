@@ -29,7 +29,7 @@ import {EventDispatcherProvider} from './components';
 import {KeyboardEventProvider} from './components';
 import {ThemesManager} from './utils/themes-manager';
 import {UIOptionsObject, UIPreset} from './types';
-import { KalturaPlayer, KPUIAddComponent, KPUIComponent } from "@playkit-js/kaltura-player-js";
+import {KalturaPlayer, KPUIAddComponent, KPUIComponent} from '@playkit-js/kaltura-player-js';
 import {RootState} from './types';
 
 /**
@@ -189,7 +189,8 @@ class UIManager {
               if (api) {
                 this.addComponent = api;
               }
-            }}>
+            }}
+          >
             <IntlProvider definition={this._translations[this._locale]}>
               <PlayerProvider player={this.player}>
                 <EventDispatcherProvider player={this.player} store={this.store}>

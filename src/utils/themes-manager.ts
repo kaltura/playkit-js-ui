@@ -145,7 +145,11 @@ export class ThemesManager {
    * @returns {string} CSS variable value
    */
   public getCSSVariable(variableName: string): string {
-    return getComputedStyle((this.playerContainerElement.querySelector<HTMLDivElement>(`.${style.player}`)) as HTMLDivElement).getPropertyValue(variableName) || '';
+    return (
+      getComputedStyle(this.playerContainerElement.querySelector<HTMLDivElement>(`.${style.player}`) as HTMLDivElement).getPropertyValue(
+        variableName
+      ) || ''
+    );
   }
 
   /**

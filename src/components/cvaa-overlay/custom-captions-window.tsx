@@ -171,7 +171,8 @@ class CustomCaptionsWindow extends Component<any, any> {
                 this.transitionToState();
               }}
               onKeyDown={this.onKeyDown}
-              className={[style.btn, style.btnBranded, style.btnBlock].join(' ')}>
+              className={[style.btn, style.btnBranded, style.btnBlock].join(' ')}
+            >
               <Text id={'cvaa.apply'} />
             </a>
           </div>

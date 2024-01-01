@@ -28,12 +28,9 @@
       "react-dom": ["./node_modules/preact/compat/"],
       "@playkit-js/kaltura-player-js": ["./kaltura-player-js.d.ts"] // tmep - should be removed after @playkit-js/kaltura-player-js is merged
     },
-    "lib": [
-      "dom",
-      "ESNext"
-    ],
+    "lib": ["dom", "ESNext"],
     "outDir": "./lib/",
-    "allowSyntheticDefaultImports": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src/**/*"]
 }

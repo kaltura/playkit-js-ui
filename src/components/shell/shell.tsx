@@ -323,11 +323,11 @@ class Shell extends Component<any, any> {
   _startHoverTimeout(): void {
     this._clearHoverTimeout();
     if (this.props.hoverTimeout) {
-      this.hoverTimeout = (setTimeout(() => {
+      this.hoverTimeout = setTimeout(() => {
         if (this._canEndHoverState()) {
           this._updatePlayerHover(false);
         }
-      }, this.props.hoverTimeout)) as unknown as number;
+      }, this.props.hoverTimeout) as unknown as number;
     }
   }
 
@@ -432,7 +432,8 @@ class Shell extends Component<any, any> {
         onMouseOver={this.onMouseOver}
         onMouseMove={this.onMouseMove}
         onMouseLeave={this.onMouseLeave}
-        onKeyDown={this.onKeyDown}>
+        onKeyDown={this.onKeyDown}
+      >
         {props.children}
       </div>
     );

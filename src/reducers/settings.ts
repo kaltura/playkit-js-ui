@@ -16,32 +16,32 @@ export const initialState = {
 
 export default (state: SettingsState = initialState, action: any) => {
   switch (action.type) {
-  case types.UPDATE_QUALITY:
-    return {
-      ...state,
-      quality: action.quality
-    };
+    case types.UPDATE_QUALITY:
+      return {
+        ...state,
+        quality: action.quality
+      };
 
-  case types.UPDATE_SPEED:
-    return {
-      ...state,
-      speed: action.speed
-    };
+    case types.UPDATE_SPEED:
+      return {
+        ...state,
+        speed: action.speed
+      };
 
-  case types.UPDATE_AUDIO:
-    return {
-      ...state,
-      audio: action.audio
-    };
+    case types.UPDATE_AUDIO:
+      return {
+        ...state,
+        audio: action.audio
+      };
 
-  case types.UPDATE_ADVANCED_AUDIO_DESC:
-    return {
-      ...state,
-      advancedAudioDesc: action.isChecked
-    };
+    case types.UPDATE_ADVANCED_AUDIO_DESC:
+      return {
+        ...state,
+        advancedAudioDesc: action.isChecked
+      };
 
-  default:
-    return state;
+    default:
+      return state;
   }
 };
 

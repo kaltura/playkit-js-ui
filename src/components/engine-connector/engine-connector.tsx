@@ -16,10 +16,9 @@ type EngineConnectorProps = {
   engine: EngineState;
   player: KalturaPlayer;
   eventManager: EventManager;
-} & typeof EngineActions
-  & typeof LoadingActions
-  & typeof ShellActions
-  & {seekbarUpdateCurrentTime: typeof SeekbarActions.updateCurrentTime};
+} & typeof EngineActions &
+  typeof LoadingActions &
+  typeof ShellActions & {seekbarUpdateCurrentTime: typeof SeekbarActions.updateCurrentTime};
 
 // Rename so it doesn't clash with the equivalent action in engine state
 const seekbarUpdateCurrentTime = SeekbarActions.updateCurrentTime;

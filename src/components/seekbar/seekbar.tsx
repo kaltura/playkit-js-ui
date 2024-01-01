@@ -388,7 +388,7 @@ class SeekBar extends Component<any, any> {
    * @returns {{ top: number, left: number }} - object with offset in both asixs
    * @memberof SeekBar
    */
-  getOffset(element: any): {top: number, left: number} {
+  getOffset(element: any): {top: number; left: number} {
     let _x = 0;
     let _y = 0;
     while (element && !isNaN(element.offsetLeft) && !isNaN(element.offsetTop)) {
@@ -502,7 +502,8 @@ class SeekBar extends Component<any, any> {
       <div
         className={this.props.hidePreview ? [style.framePreview, style.hideFramePreview].join(' ') : style.framePreview}
         style={this._getFramePreviewStyle()}
-        ref={c => (c ? (this._framePreviewElement = c) : undefined)}>
+        ref={c => (c ? (this._framePreviewElement = c) : undefined)}
+      >
         <SeekBarPreview virtualTime={this.props.virtualTime} />
       </div>
     );
@@ -571,7 +572,8 @@ class SeekBar extends Component<any, any> {
         onTouchStart={this.onSeekbarTouchStart}
         onTouchMove={this.onSeekbarTouchMove}
         onTouchEnd={this.onSeekbarTouchEnd}
-        onKeyDown={this.onKeyDown}>
+        onKeyDown={this.onKeyDown}
+      >
         <div className={style.progressBar}>
           <PlayerArea name={'SeekBar'} shouldUpdate={true}>
             {this.renderFramePreview()}

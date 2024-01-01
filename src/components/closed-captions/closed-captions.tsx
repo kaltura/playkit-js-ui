@@ -6,7 +6,7 @@ import {Icon, IconType} from '../icon';
 import {connect} from 'react-redux';
 import {withEventDispatcher} from '../event-dispatcher';
 import {withLogger} from '../logger';
-import {Tooltip} from "../tooltip";
+import {Tooltip} from '../tooltip';
 import {Button} from '../button';
 import {ButtonControl} from '../button-control';
 /**
@@ -58,7 +58,8 @@ const ClosedCaptions = connect(mapStateToProps)(
                   onClick={() => {
                     props.notifyClick(true);
                     player.hideTextTrack();
-                  }}>
+                  }}
+                >
                   <Icon type={IconType.ClosedCaptionsOn} />
                 </Button>
               </Tooltip>
@@ -71,7 +72,8 @@ const ClosedCaptions = connect(mapStateToProps)(
                   onClick={() => {
                     props.notifyClick(false);
                     player.showTextTrack();
-                  }}>
+                  }}
+                >
                   <Icon type={IconType.ClosedCaptionsOff} />
                 </Button>
               </Tooltip>

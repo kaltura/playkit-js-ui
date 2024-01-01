@@ -16,7 +16,7 @@ import style from './styles/style.scss';
 import {SidePanelPositions, SidePanelModes, ReservedPresetNames, ReservedPresetAreas} from './reducers/shell';
 // Event
 import * as Event from './event';
-export { Event };
+export {Event};
 export {EventType as UIEventType} from './event/event-type';
 
 declare const __VERSION__: string;
@@ -32,7 +32,7 @@ export {redux};
 export {preacti18n};
 export {preactHooks};
 // workaround to reslove css export issue
-const cssClasses: { [key: string]: string } = style;
+const cssClasses: {[key: string]: string} = style;
 export {cssClasses as style};
 export {Reducers, Presets, Components, Utils};
 
@@ -41,4 +41,4 @@ export {UIManager};
 export {VERSION, NAME};
 
 export {SidePanelPositions, SidePanelModes, ReservedPresetNames, ReservedPresetAreas};
-export * from './types'
+export * from './types';

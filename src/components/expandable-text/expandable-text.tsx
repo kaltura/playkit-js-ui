@@ -1,8 +1,8 @@
-import { h, ComponentChildren } from "preact";
+import {h, ComponentChildren} from 'preact';
 import {withText} from 'preact-i18n';
 
 import {useState, useRef, useLayoutEffect} from 'preact/hooks';
-import {KeyMap} from "../../utils";
+import {KeyMap} from '../../utils';
 
 import styles from '../../styles/style.scss';
 
@@ -28,7 +28,7 @@ const ReadMoreLessButton = ({isTextExpanded, readLessLabel, readMoreLabel, onCli
   );
 };
 
-const ExpandableText: new(props?: any, context?: any) => any = withText({
+const ExpandableText: new (props?: any, context?: any) => any = withText({
   readMoreLabel: 'controls.readMore',
   readLessLabel: 'controls.readLess'
 })((props: ExpandableTextProps) => {

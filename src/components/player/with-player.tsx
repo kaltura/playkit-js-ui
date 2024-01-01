@@ -2,8 +2,8 @@ import {h, Component, ComponentType} from 'preact';
 import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
 
 export type WithPlayerProps = {
-  player?: KalturaPlayer
-}
+  player?: KalturaPlayer;
+};
 
 /**
  * withPlayer component
@@ -12,8 +12,9 @@ export type WithPlayerProps = {
  */
 const withPlayer = <P extends object>(ComponentToWrap: any): any => {
   return class PlayerComponent extends Component<P & WithPlayerProps, any> {
-
-    constructor(props: P & WithPlayerProps) {super();}
+    constructor(props: P & WithPlayerProps) {
+      super();
+    }
     /**
      * render component
      *

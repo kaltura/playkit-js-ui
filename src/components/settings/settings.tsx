@@ -4,7 +4,16 @@ import {withText, Text} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
 import {actions} from '../../reducers/settings';
-import {AdvancedAudioDescToggle, AudioMenu, CaptionsMenu, QualityMenu, SmartContainer, SpeedMenu, CVAAOverlay, getLabelBadgeType} from '../../components';
+import {
+  AdvancedAudioDescToggle,
+  AudioMenu,
+  CaptionsMenu,
+  QualityMenu,
+  SmartContainer,
+  SpeedMenu,
+  CVAAOverlay,
+  getLabelBadgeType
+} from '../../components';
 import {default as Icon, IconType, BadgeType} from '../icon';
 import {withPlayer} from '../player';
 import {withEventManager} from '../../event';
@@ -169,7 +178,7 @@ class Settings extends Component<any, any> {
     if (props.isLive && props.videoTracks.length <= 1 && !showAudioMenu && !showCaptionsMenu) return undefined;
     const buttonBadgeType: string = this.getButtonBadgeType() || '';
 
-    const targetId: HTMLDivElement | Document = document.getElementById(this.props.player.config.targetId) as HTMLDivElement || document;
+    const targetId: HTMLDivElement | Document = (document.getElementById(this.props.player.config.targetId) as HTMLDivElement) || document;
     const portalSelector = `.overlay-portal`;
     return (
       <ButtonControl name={COMPONENT_NAME} ref={c => (c ? (this._controlSettingsElement = c) : undefined)}>
@@ -185,7 +194,8 @@ class Settings extends Component<any, any> {
               BadgeType[buttonBadgeType + 'Active'],
               this.state.smartContainerOpen ? style.active : ''
             ].join(' ')}
-            onClick={this.onControlButtonClick}>
+            onClick={this.onControlButtonClick}
+          >
             <Icon type={IconType.Settings} />
           </Button>
         </Tooltip>

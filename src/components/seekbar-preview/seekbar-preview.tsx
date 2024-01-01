@@ -8,7 +8,7 @@ import {WithPlayerProps} from '../player/with-player';
 type SeekBarPreviewProps = {
   duration?: number;
   virtualTime: number;
-}
+};
 
 const FRAME_PREVIEW_IMG_CONTAINER_OFFSET: number = 4;
 
@@ -48,7 +48,7 @@ class SeekBarPreview extends Component<WithPlayerProps & SeekBarPreviewProps, an
    * @returns {Object} - The css object style.
    * @private
    */
-  _getFramePreviewImgContainerStyle(thumbnailInfo: ThumbnailInfo): {height: string, width: string} {
+  _getFramePreviewImgContainerStyle(thumbnailInfo: ThumbnailInfo): {height: string; width: string} {
     return {
       height: `${thumbnailInfo.height + FRAME_PREVIEW_IMG_CONTAINER_OFFSET}px`,
       width: `${thumbnailInfo.width + FRAME_PREVIEW_IMG_CONTAINER_OFFSET}px`

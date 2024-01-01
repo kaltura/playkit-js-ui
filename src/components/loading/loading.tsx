@@ -38,7 +38,7 @@ const COMPONENT_NAME = 'Loading';
 @withEventManager
 @withLogger(COMPONENT_NAME)
 class Loading extends Component<any, any> {
-// class Loading extends Component<WithPlayerProps & WithEventManagerProps & WithLoggerProps, any> {
+  // class Loading extends Component<WithPlayerProps & WithEventManagerProps & WithLoggerProps, any> {
   /**
    * Creates an instance of Loading.
    * @memberof Loading

@@ -267,7 +267,8 @@ class PlaylistCountdown extends Component<any, any> {
         tabIndex={this.state.focusable ? 0 : -1}
         className={className.join(' ')}
         onKeyDown={this.onKeyDown}
-        onClick={this.onClick}>
+        onClick={this.onClick}
+      >
         <div className={style.playlistCountdownPoster} style={`background-image: url(${this.nextShown.sources.poster});`} />
         <div className={style.playlistCountdownContentPlaceholder}>
           <div className={style.playlistCountdownContentBackground}>
@@ -290,7 +291,8 @@ class PlaylistCountdown extends Component<any, any> {
                     aria-label={<Text id="playlist.cancel" />}
                     className={[style.controlButton, style.playlistCountdownCancelButton].join(' ')}
                     onClick={this.cancelNext}
-                    onKeyDown={this.onCancelButtonKeyDown}>
+                    onKeyDown={this.onCancelButtonKeyDown}
+                  >
                     <Icon type={IconType.Close} />
                   </Button>
                 </Localizer>

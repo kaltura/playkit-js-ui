@@ -137,7 +137,8 @@ class PlaylistNextScreen extends Component<any, any> {
                 tabIndex={0}
                 className={style.playlistNextScreenPoster}
                 onClick={this.onPosterClick}
-                onKeyDown={this.onKeyDown}>
+                onKeyDown={this.onKeyDown}
+              >
                 <div className={style.playlistNextScreenPosterImg} style={`background-image: url(${this._getPosterUrl()});`} />
                 <Icon type={IconType.Play} />
               </div>

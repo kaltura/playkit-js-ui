@@ -13,7 +13,7 @@ import {WithEventDispatcherProps} from '../event-dispatcher';
 type AudioMenuProps = {
   audioTracks?: any[];
   audioLabelText?: string;
-}
+};
 
 /**
  * mapping state to props

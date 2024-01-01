@@ -57,7 +57,8 @@ class ToggleSwitch extends Component<any, any> {
         aria-label={props.name}
         role="switch"
         aria-checked={props.isChecked}
-        tabIndex={-1}>
+        tabIndex={-1}
+      >
         <input
           name={props.name}
           className={style.toggleInput}

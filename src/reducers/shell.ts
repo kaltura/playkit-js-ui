@@ -117,148 +117,148 @@ export const initialState = {
 
 export default (state: ShellState = initialState, action: any) => {
   switch (action.type) {
-  case types.ADD_PLAYER_CLASS:
-    if (state.playerClasses.includes(action.className)) return state;
-    return {
-      ...state,
-      playerClasses: [...state.playerClasses, action.className]
-    };
+    case types.ADD_PLAYER_CLASS:
+      if (state.playerClasses.includes(action.className)) return state;
+      return {
+        ...state,
+        playerClasses: [...state.playerClasses, action.className]
+      };
 
-  case types.REMOVE_PLAYER_CLASS:
-    return {
-      ...state,
-      playerClasses: state.playerClasses.filter(c => c !== action.className)
-    };
+    case types.REMOVE_PLAYER_CLASS:
+      return {
+        ...state,
+        playerClasses: state.playerClasses.filter(c => c !== action.className)
+      };
 
-  case types.UPDATE_IS_MOBILE:
-    return {
-      ...state,
-      isMobile: action.isMobile
-    };
+    case types.UPDATE_IS_MOBILE:
+      return {
+        ...state,
+        isMobile: action.isMobile
+      };
 
-  case types.UPDATE_PLAYER_SIZE:
-    return {
-      ...state,
-      playerSize: action.playerSize
-    };
+    case types.UPDATE_PLAYER_SIZE:
+      return {
+        ...state,
+        playerSize: action.playerSize
+      };
 
-  case types.UPDATE_IS_SMALL_SIZE:
-    return {
-      ...state,
-      isSmallSize: action.isSmallSize
-    };
+    case types.UPDATE_IS_SMALL_SIZE:
+      return {
+        ...state,
+        isSmallSize: action.isSmallSize
+      };
 
-  case types.UPDATE_GUI_CLIENT_RECT:
-    return {
-      ...state,
-      guiClientRect: action.guiClientRect
-    };
+    case types.UPDATE_GUI_CLIENT_RECT:
+      return {
+        ...state,
+        guiClientRect: action.guiClientRect
+      };
 
-  case types.UPDATE_PLAYER_CLIENT_RECT:
-    return {
-      ...state,
-      playerClientRect: action.playerClientRect
-    };
+    case types.UPDATE_PLAYER_CLIENT_RECT:
+      return {
+        ...state,
+        playerClientRect: action.playerClientRect
+      };
 
-  case types.UPDATE_LAYOUT_STYLES: {
-    const {sidePanels: currentSidePanelsStyle, video: currentVideoStyle, gui: currentGuiStyle} = state.layoutStyles;
-    const {sidePanels: nextSidePanelsStyle, video: nextVideoStyle, gui: nextGuiStyle} = action.layoutStyles;
-    return {
-      ...state,
-      layoutStyles: {
-        sidePanels: {
-          [SidePanelPositions.LEFT]: isEqual(currentSidePanelsStyle[SidePanelPositions.LEFT], nextSidePanelsStyle[SidePanelPositions.LEFT])
-            ? currentSidePanelsStyle[SidePanelPositions.LEFT]
-            : nextSidePanelsStyle[SidePanelPositions.LEFT],
-          [SidePanelPositions.RIGHT]: isEqual(currentSidePanelsStyle[SidePanelPositions.RIGHT], nextSidePanelsStyle[SidePanelPositions.RIGHT])
-            ? currentSidePanelsStyle[SidePanelPositions.RIGHT]
-            : nextSidePanelsStyle[SidePanelPositions.RIGHT],
-          [SidePanelPositions.TOP]: isEqual(currentSidePanelsStyle[SidePanelPositions.TOP], nextSidePanelsStyle[SidePanelPositions.TOP])
-            ? currentSidePanelsStyle[SidePanelPositions.TOP]
-            : nextSidePanelsStyle[SidePanelPositions.TOP],
-          [SidePanelPositions.BOTTOM]: isEqual(currentSidePanelsStyle[SidePanelPositions.BOTTOM], nextSidePanelsStyle[SidePanelPositions.BOTTOM])
-            ? currentSidePanelsStyle[SidePanelPositions.BOTTOM]
-            : nextSidePanelsStyle[SidePanelPositions.BOTTOM]
-        },
-        video: isEqual(currentVideoStyle, nextVideoStyle) ? currentVideoStyle : nextVideoStyle,
-        gui: isEqual(currentGuiStyle, nextGuiStyle) ? currentGuiStyle : nextGuiStyle
-      }
-    };
-  }
+    case types.UPDATE_LAYOUT_STYLES: {
+      const {sidePanels: currentSidePanelsStyle, video: currentVideoStyle, gui: currentGuiStyle} = state.layoutStyles;
+      const {sidePanels: nextSidePanelsStyle, video: nextVideoStyle, gui: nextGuiStyle} = action.layoutStyles;
+      return {
+        ...state,
+        layoutStyles: {
+          sidePanels: {
+            [SidePanelPositions.LEFT]: isEqual(currentSidePanelsStyle[SidePanelPositions.LEFT], nextSidePanelsStyle[SidePanelPositions.LEFT])
+              ? currentSidePanelsStyle[SidePanelPositions.LEFT]
+              : nextSidePanelsStyle[SidePanelPositions.LEFT],
+            [SidePanelPositions.RIGHT]: isEqual(currentSidePanelsStyle[SidePanelPositions.RIGHT], nextSidePanelsStyle[SidePanelPositions.RIGHT])
+              ? currentSidePanelsStyle[SidePanelPositions.RIGHT]
+              : nextSidePanelsStyle[SidePanelPositions.RIGHT],
+            [SidePanelPositions.TOP]: isEqual(currentSidePanelsStyle[SidePanelPositions.TOP], nextSidePanelsStyle[SidePanelPositions.TOP])
+              ? currentSidePanelsStyle[SidePanelPositions.TOP]
+              : nextSidePanelsStyle[SidePanelPositions.TOP],
+            [SidePanelPositions.BOTTOM]: isEqual(currentSidePanelsStyle[SidePanelPositions.BOTTOM], nextSidePanelsStyle[SidePanelPositions.BOTTOM])
+              ? currentSidePanelsStyle[SidePanelPositions.BOTTOM]
+              : nextSidePanelsStyle[SidePanelPositions.BOTTOM]
+          },
+          video: isEqual(currentVideoStyle, nextVideoStyle) ? currentVideoStyle : nextVideoStyle,
+          gui: isEqual(currentGuiStyle, nextGuiStyle) ? currentGuiStyle : nextGuiStyle
+        }
+      };
+    }
 
-  case types.UPDATE_VIDEO_CLIENT_RECT:
-    return {
-      ...state,
-      videoClientRect: action.videoClientRect
-    };
+    case types.UPDATE_VIDEO_CLIENT_RECT:
+      return {
+        ...state,
+        videoClientRect: action.videoClientRect
+      };
 
-  case types.UPDATE_DOCUMENT_WIDTH:
-    return {
-      ...state,
-      documentWidth: action.documentWidth
-    };
+    case types.UPDATE_DOCUMENT_WIDTH:
+      return {
+        ...state,
+        documentWidth: action.documentWidth
+      };
 
-  case types.UPDATE_PLAYER_HOVER_STATE:
-    return {
-      ...state,
-      playerHover: action.hover
-    };
+    case types.UPDATE_PLAYER_HOVER_STATE:
+      return {
+        ...state,
+        playerHover: action.hover
+      };
 
-  case types.UPDATE_PLAYER_NAV_STATE:
-    return {
-      ...state,
-      playerNav: action.nav
-    };
+    case types.UPDATE_PLAYER_NAV_STATE:
+      return {
+        ...state,
+        playerNav: action.nav
+      };
 
-  case types.UPDATE_SMART_CONTAINER_OPEN:
-    return {
-      ...state,
-      smartContainerOpen: action.open
-    };
+    case types.UPDATE_SMART_CONTAINER_OPEN:
+      return {
+        ...state,
+        smartContainerOpen: action.open
+      };
 
-  case types.UPDATE_ACTIVE_PRESET_NAME:
-    return {
-      ...state,
-      activePresetName: action.activePresetName
-    };
+    case types.UPDATE_ACTIVE_PRESET_NAME:
+      return {
+        ...state,
+        activePresetName: action.activePresetName
+      };
 
-  case types.UPDATE_SIDE_PANEL_MODE:
-    return {
-      ...state,
-      sidePanelsModes: {
-        ...state.sidePanelsModes,
-        [action.position]: action.sidePanelMode
-      }
-    };
+    case types.UPDATE_SIDE_PANEL_MODE:
+      return {
+        ...state,
+        sidePanelsModes: {
+          ...state.sidePanelsModes,
+          [action.position]: action.sidePanelMode
+        }
+      };
 
-  case types.UPDATE_SIDE_PANEL_SIZE: {
-    const {ratio, min, max} = action.options;
-    const prevValues = state.sidePanelsSizes[action.orientation];
-    const newSizes = {
-      ratio: typeof ratio === 'number' && ratio <= 1 ? ratio : prevValues.ratio,
-      min: typeof min === 'number' ? min : prevValues.min,
-      max: typeof max === 'number' ? max : prevValues.max
-    };
-    return {
-      ...state,
-      sidePanelsSizes: {
-        ...state.sidePanelsSizes,
-        [action.orientation]: newSizes
-      }
-    };
-  }
+    case types.UPDATE_SIDE_PANEL_SIZE: {
+      const {ratio, min, max} = action.options;
+      const prevValues = state.sidePanelsSizes[action.orientation];
+      const newSizes = {
+        ratio: typeof ratio === 'number' && ratio <= 1 ? ratio : prevValues.ratio,
+        min: typeof min === 'number' ? min : prevValues.min,
+        max: typeof max === 'number' ? max : prevValues.max
+      };
+      return {
+        ...state,
+        sidePanelsSizes: {
+          ...state.sidePanelsSizes,
+          [action.orientation]: newSizes
+        }
+      };
+    }
 
-  case types.UPDATE_PRESET_SETTINGS:
-    return {
-      ...state,
-      presetSettings: {
-        ...createDefaultPresetSettings(),
-        ...(action.presetSettings || {})
-      }
-    };
+    case types.UPDATE_PRESET_SETTINGS:
+      return {
+        ...state,
+        presetSettings: {
+          ...createDefaultPresetSettings(),
+          ...(action.presetSettings || {})
+        }
+      };
 
-  default:
-    return state;
+    default:
+      return state;
   }
 };
 

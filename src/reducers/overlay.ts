@@ -11,14 +11,14 @@ export const initialState = {
 
 export default (state: OverlayState = initialState, action: any) => {
   switch (action.type) {
-  case types.UPDATE_OVERLAY:
-    return {
-      ...state,
-      isOpen: action.isOpen
-    };
+    case types.UPDATE_OVERLAY:
+      return {
+        ...state,
+        isOpen: action.isOpen
+      };
 
-  default:
-    return state;
+    default:
+      return state;
   }
 };
 

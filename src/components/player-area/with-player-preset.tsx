@@ -13,46 +13,48 @@ const defaultProps = {
  * @param {Object} options - options
  * @returns {function(*): *} connect
  */
-const withPlayerPreset = (options: any) => (InnerComponent: any): any => {
-  /**
-   * hoc withPlayerPreset
-   */
-  @connect(null, bindActions(actions))
-  class PlayerPreset extends Component<any, any> {
+const withPlayerPreset =
+  (options: any) =>
+  (InnerComponent: any): any => {
     /**
-     * on component mount
-     *
-     * @returns {void}
-     * @memberof Fullscreen
+     * hoc withPlayerPreset
      */
-    componentDidMount(): void {
-      const enhancedOptions = Object.assign({}, defaultProps, options);
-      const {allowSidePanels, allowPlayerArea} = enhancedOptions;
-      this.props.updatePresetSettings({
-        allowSidePanels,
-        allowPlayerArea
-      });
-    }
+    @connect(null, bindActions(actions))
+    class PlayerPreset extends Component<any, any> {
+      /**
+       * on component mount
+       *
+       * @returns {void}
+       * @memberof Fullscreen
+       */
+      componentDidMount(): void {
+        const enhancedOptions = Object.assign({}, defaultProps, options);
+        const {allowSidePanels, allowPlayerArea} = enhancedOptions;
+        this.props.updatePresetSettings({
+          allowSidePanels,
+          allowPlayerArea
+        });
+      }
 
-    /**
-     * should component update handler
-     * @returns {boolean} - should update
-     *
-     */
-    shouldComponentUpdate(): boolean {
-      return false;
-    }
+      /**
+       * should component update handler
+       * @returns {boolean} - should update
+       *
+       */
+      shouldComponentUpdate(): boolean {
+        return false;
+      }
 
-    /**
-     * render
-     * @param {any} props - params
-     * @returns {*} component
-     */
-    render(props: any) {
-      return <InnerComponent {...props} />;
+      /**
+       * render
+       * @param {any} props - params
+       * @returns {*} component
+       */
+      render(props: any) {
+        return <InnerComponent {...props} />;
+      }
     }
-  }
-  return PlayerPreset;
-};
+    return PlayerPreset;
+  };
 
 export {withPlayerPreset};

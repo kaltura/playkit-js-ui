@@ -136,13 +136,14 @@ class UnmuteIndication extends Component<any, any> {
       <Localizer>
         <div
           tabIndex={0}
-          aria-label={<Text id="controls.unmute" /> as unknown as string}
+          aria-label={(<Text id="controls.unmute" />) as unknown as string}
           className={styleClass.join(' ')}
           onMouseOver={this.onMouseOver}
           onMouseOut={this.onMouseOut}
           onMouseUp={this.onMouseUp}
           onTouchEnd={this.onTouchEnd}
-          onKeyDown={this.onKeyDown}>
+          onKeyDown={this.onKeyDown}
+        >
           <a className={[style.btn, style.btnDarkTransparent, style.unmuteButton].join(' ')}>
             <div className={style.unmuteIconContainer}>
               <Icon type={IconType.VolumeBase} />

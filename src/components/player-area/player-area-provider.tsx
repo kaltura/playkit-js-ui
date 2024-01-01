@@ -8,15 +8,13 @@ type PlayerAreaProviderProps = {
   activePresetName?: string;
   setApi: (fn: (componentData: KPUIAddComponent) => () => void) => void;
   uiComponents: KPUIComponent[];
-}
+};
 
 type ComponentListener = {
   presetName: string;
   areaName: string;
   callback: (args?: any) => any;
 };
-
-
 
 /**
  * mapping state to props
@@ -56,7 +54,7 @@ class PlayerAreaProvider extends Component<WithLoggerProps & PlayerAreaProviderP
   _initializePlayerComponents(): void {
     if (this.props.uiComponents && this.props.uiComponents.length > 0) {
       // @ts-ignore - TODO
-      this.props.uiComponents.forEach((c)=> this._addNewComponent(c));
+      this.props.uiComponents.forEach(c => this._addNewComponent(c));
       this._emitAllListeners();
     }
   }
@@ -111,7 +109,7 @@ class PlayerAreaProvider extends Component<WithLoggerProps & PlayerAreaProviderP
    * @returns {function} - remove function
    * @private
    */
-  _addNewComponentAndUpdateListeners: (componentData: KPUIAddComponent) => (() => void) = (componentData: KPUIAddComponent): () => void => {
+  _addNewComponentAndUpdateListeners: (componentData: KPUIAddComponent) => () => void = (componentData: KPUIAddComponent): (() => void) => {
     return this._addNewComponent(componentData, true);
   };
 
@@ -121,7 +119,7 @@ class PlayerAreaProvider extends Component<WithLoggerProps & PlayerAreaProviderP
    * @returns {function} - remove function
    * @private
    */
-  _addNewComponent = (componentData: KPUIAddComponent, shouldUpdateImmediately: boolean): () => void => {
+  _addNewComponent = (componentData: KPUIAddComponent, shouldUpdateImmediately: boolean): (() => void) => {
     // use cloned component just in case someone will mutate the object in another place
     const clonedComponentData = Object.assign({}, componentData);
     if (clonedComponentData.container) {

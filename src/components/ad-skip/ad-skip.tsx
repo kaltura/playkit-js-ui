@@ -11,8 +11,7 @@ type AdSkipProps = {
   duration?: number;
   adSkipTimeOffset?: number;
   adSkippableState?: boolean;
-}
-
+};
 
 /**
  * mapping state to props

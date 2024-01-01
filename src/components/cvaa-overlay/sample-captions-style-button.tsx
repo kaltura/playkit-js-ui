@@ -1,4 +1,4 @@
-import {KeyMap} from "../../utils";
+import {KeyMap} from '../../utils';
 import style from '../../styles/style.scss';
 import {Icon, IconType} from '../icon';
 import {h} from 'preact';
@@ -42,7 +42,8 @@ const SampleCaptionsStyleButton = (props: any) => {
       }}
       className={props.classNames.join(' ')}
       onClick={props.changeCaptionsStyle}
-      onKeyDown={onKeyDown}>
+      onKeyDown={onKeyDown}
+    >
       {props.children}
       {props.isActive ? (
         <div className={style.activeTick}>
