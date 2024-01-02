@@ -31,9 +31,9 @@ export {preact};
 export {redux};
 export {preacti18n};
 export {preactHooks};
-// workaround to reslove css export issue
-const cssClasses: { [key: string]: string } = style;
-export {cssClasses as style};
+
+export {style};
+
 export {Reducers, Presets, Components, Utils};
 
 export {Reducers as reducers, Presets as presets, Components as components, Utils as utils};

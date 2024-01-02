@@ -29,7 +29,7 @@ import {EventDispatcherProvider} from './components';
 import {KeyboardEventProvider} from './components';
 import {ThemesManager} from './utils/themes-manager';
 import {UIOptionsObject, UIPreset} from './types';
-import { KalturaPlayer, KPUIAddComponent, KPUIComponent } from "@playkit-js/kaltura-player-js";
+import {KalturaPlayer, KPUIComponent} from '@playkit-js/kaltura-player-js';
 import {RootState} from './types';
 
 /**
@@ -57,11 +57,11 @@ class UIManager {
     setLogger(config.logger);
     this._uiComponents = [...(config.uiComponents || [])];
     this.player = player;
-    this.targetId = config.targetId;
+    this.targetId = config.targetId!;
     this._createStore(config);
     this.setConfig(config);
     this._setLocaleTranslations(config);
-    this._themesManager = new ThemesManager(player, config.userTheme, config.targetId);
+    this._themesManager = new ThemesManager(player, config.userTheme, config.targetId!);
     setEnv(this.player.env);
   }
 
@@ -97,7 +97,7 @@ class UIManager {
    * @returns {Function} - Removal function
    * @memberof UIManager
    */
-  addComponent(component: KPUIAddComponent): () => void {
+  addComponent(component: KPUIComponent): () => void {
     return () => {};
   }
 

@@ -4,7 +4,7 @@ import {UserTheme} from './user-theme';
 import {KPUIComponent} from '@playkit-js/kaltura-player-js';
 
 export interface UIOptionsObject {
-  targetId: string;
+  targetId?: string;
   debugActions?: boolean;
   forceTouchUI?: boolean;
   showCCButton?: boolean;
@@ -18,7 +18,7 @@ export interface UIOptionsObject {
   };
   hoverTimeout?: number;
   logger?: LoggerType;
-  components?: ComponentsConfig;
+  components: ComponentsConfig;
   uiComponents?: Array<KPUIComponent>;
   translations?: {[langKey: string]: any};
   locale?: string;

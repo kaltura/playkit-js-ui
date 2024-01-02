@@ -10,7 +10,6 @@ export const types = {
 };
 
 export const initialState = {
-  targetId: undefined as unknown as string,
   forceTouchUI: false,
   showCCButton: true,
   settings: {
@@ -46,7 +45,7 @@ export default (state: ConfigState = initialState, action: any) => {
       ...state,
       components: {
         ...state.components,
-        [action.componentAlias]: mergeDeep({}, state.components![action.componentAlias], action.config)
+        [action.componentAlias]: mergeDeep({}, state.components[action.componentAlias], action.config)
       }
     };
   }

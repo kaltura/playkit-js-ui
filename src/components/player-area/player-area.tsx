@@ -201,7 +201,7 @@ class PlayerArea extends Component<any, any> {
       return null;
     }
 
-    return h(uiComponent.get as () => any, uiComponent.props!);
+    return h(uiComponent.get, uiComponent.props!);
   }
 
   /**
