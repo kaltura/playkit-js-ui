@@ -19,7 +19,6 @@
   },
   "license": "AGPL-3.0",
   "main": "dist/playkit-ui.js",
-  "typings": "dist/playkit-js-ui.d.ts",
   "sass": "src/styles/exported.scss",
   "files": [
     "dist/**/*",
