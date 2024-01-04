@@ -1,84 +1,100 @@
-'use strict';
-
 const webpack = require('webpack');
 const path = require('path');
 const packageData = require('./package.json');
 const CSS_MODULE_PREFIX = 'playkit';
 
-let plugins = [
-  new webpack.DefinePlugin({
-    __VERSION__: JSON.stringify(packageData.version),
-    __NAME__: JSON.stringify(packageData.name),
-    __CSS_MODULE_PREFIX__: JSON.stringify(CSS_MODULE_PREFIX),
-    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
-  })
-];
-
-module.exports = {
-  context: __dirname + '/src',
-  entry: {
-    'playkit-ui': 'index.js'
-  },
-  output: {
-    path: __dirname + '/dist',
-    filename: '[name].js',
-    library: ['playkit', 'ui'],
-    libraryTarget: 'umd',
-    umdNamedDefine: true,
-    devtoolModuleFilenameTemplate: './ui/[resource-path]'
-  },
-  devtool: 'source-map',
-  plugins,
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        use: ['babel-loader', 'eslint-loader'],
-        exclude: /node_modules/
-      },
-      {
-        test: /\.scss$/,
-        use: [
-          {
-            loader: 'style-loader',
-            options: {attributes: {id: `${packageData.name}`}}
-          },
-          {
-            loader: 'css-loader',
+module.exports = (env, {mode}) => {
+  return {
+    entry: './src/index.ts',
+    devtool: 'source-map',
+    module: {
+      rules: [
+        {
+          test: /\.(tsx?|js)$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader',
             options: {
-              localsConvention: 'camelCase',
-              modules: {
-                localIdentName: `${CSS_MODULE_PREFIX}-[local]`
-              }
+              presets: [
+                [
+                  '@babel/preset-env',
+                  {
+                    bugfixes: true
+                  }
+                ],
+                ['@babel/preset-typescript', { jsxPragma: 'h', jsxPragmaFrag: 'Fragment' }]
+              ],
+              plugins: [
+                ['@babel/plugin-transform-runtime'],
+                ['@babel/plugin-proposal-decorators', { legacy: true }],
+                ['@babel/plugin-transform-react-jsx', { pragma: 'h', pragmaFrag: 'Fragment' }]
+              ]
             }
-          },
-          {
-            loader: 'sass-loader'
           }
-        ]
+        },
+        {
+          test: /\.scss$/,
+          use: [
+            {
+              loader: 'style-loader',
+              options: { attributes: { id: `${packageData.name}` } }
+            },
+            {
+              loader: 'css-loader',
+              options: {
+                localsConvention: 'camelCase',
+                modules: {
+                  localIdentName: `${CSS_MODULE_PREFIX}-[local]`
+                }
+              }
+            },
+            {
+              loader: 'sass-loader'
+            }
+          ]
+        }
+      ]
+    },
+    output: {
+      filename: 'playkit-ui.js',
+      path: path.resolve(__dirname, 'dist'),
+      library: {
+        umdNamedDefine: true,
+        name: ['playkit', 'ui'],
+        type: 'umd'
+      },
+      clean: true
+    },
+    devServer: {
+      static: {
+        directory: path.join(__dirname, 'demo')
+      },
+      client: {
+        progress: true
       }
-    ]
-  },
-  devServer: {
-    contentBase: __dirname + '/src'
-  },
-  resolve: {
-    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
-    alias: {
-      components: path.resolve(__dirname, 'src/components/'),
-      reducers: path.resolve(__dirname, 'src/reducers/'),
-      utils: path.resolve(__dirname, 'src/utils/'),
-      event: path.resolve(__dirname, 'src/event'),
-      react: 'preact/compat',
-      'react-dom': 'preact/compat'
-    }
-  },
-  externals: {
-    '@playkit-js/kaltura-player-js': {
-      commonjs: '@playkit-js/kaltura-player-js',
-      commonjs2: '@playkit-js/kaltura-player-js',
-      amd: '@playkit-js/kaltura-player-js',
-      root: ['KalturaPlayer']
+    },
+    plugins: [
+      new webpack.DefinePlugin({
+        __VERSION__: JSON.stringify(packageData.version),
+        __NAME__: JSON.stringify(packageData.name),
+        __CSS_MODULE_PREFIX__: JSON.stringify(CSS_MODULE_PREFIX)
+      })
+    ],
+    resolve: {
+      extensions: ['.ts', '.tsx', '.js', '.scss', '.css'],
+      alias: {
+        react: 'preact/compat',
+        'react-dom': 'preact/compat'
+      }
+    },
+    externals: {
+      '@playkit-js/kaltura-player-js': { root: 'KalturaPlayer' },
+      '@playkit-js/playkit-js': {
+        commonjs: '@playkit-js/playkit-js',
+        commonjs2: '@playkit-js/playkit-js',
+        amd: 'playkit-js',
+        root: ['playkit', 'core']
+      }
     }
   }
 };
