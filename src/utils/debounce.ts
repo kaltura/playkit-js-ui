@@ -13,7 +13,7 @@
  *  }, ON_WINDOW_RESIZE_DEBOUNCE_DELAY)
  * );
  */
-export const debounce = (origFunc: (...args: any) => any, time: number, immediate = true): (...args) => void => {
+export const debounce = (origFunc: (...args: any) => any, time: number, immediate = true): ((...args) => void) => {
   let timeout;
 
   return (...args): void => {

@@ -430,7 +430,7 @@ class Volume extends Component<any, any> {
    * @returns {React$Element} - component element
    * @memberof Volume
    */
-  render(): VNode<any> | undefined{
+  render(): VNode<any> | undefined {
     if (!this._shouldRender) return undefined;
     const {player, isDraggingActive, muted, volume, smartContainerOpen} = this.props;
     const controlButtonClasses = [
@@ -447,7 +447,8 @@ class Volume extends Component<any, any> {
         ref={c => (c ? (this._volumeControlElement = c) : undefined)}
         className={controlButtonClasses}
         onMouseOver={this.onMouseOver}
-        onMouseOut={this.onMouseOut}>
+        onMouseOut={this.onMouseOut}
+      >
         <Tooltip label={this.props.volumeLabel} type={this.props.toolTipType ? this.props.toolTipType : ToolTipType.Left}>
           <Button
             tabIndex="0"
@@ -457,7 +458,8 @@ class Volume extends Component<any, any> {
             onMouseUp={this.toggleMute}
             onTouchEnd={this.onTouchEnd}
             onKeyDown={this.onKeyDown}
-            onFocus={this.onFocus}>
+            onFocus={this.onFocus}
+          >
             <Icon type={IconType.VolumeBase} />
             <Icon type={IconType.VolumeWaves} />
             <Icon type={IconType.VolumeMute} />
@@ -473,11 +475,13 @@ class Volume extends Component<any, any> {
           aria-valuemin={0}
           aria-valuemax={100}
           aria-valuenow={player.volume * 100}
-          aria-valuetext={`${player.volume * 100}% volume ${player.muted ? 'muted' : ''}`}>
+          aria-valuetext={`${player.volume * 100}% volume ${player.muted ? 'muted' : ''}`}
+        >
           <div
             className={style.bar}
             ref={c => (c ? (this._volumeProgressBarElement = c) : undefined)}
-            onMouseDown={this.onVolumeProgressBarMouseDown}>
+            onMouseDown={this.onVolumeProgressBarMouseDown}
+          >
             <div className={style.progress} style={{height: this.getVolumeProgressHeight()}} />
           </div>
         </div>

@@ -102,7 +102,7 @@ class ErrorOverlay extends Component<any, any> {
    * @returns {React$Element} - main state element
    * @memberof ErrorOverlay
    */
-  renderRetryButton():VNode<any> | undefined {
+  renderRetryButton(): VNode<any> | undefined {
     if (this.props.player.getMediaInfo()) {
       const hasCustomBackground = Boolean(this.getBackgroundUrl());
       return (

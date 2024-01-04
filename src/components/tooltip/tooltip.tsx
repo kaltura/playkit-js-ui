@@ -10,7 +10,7 @@ interface ReduxStateProps {
   isMobile?: boolean;
 }
 
-type ToolTipPosition = 'top' | 'bottom' | 'top-right' | 'top-left' |  'bottom-right'| 'bottom-left' | 'left' | 'right'
+type ToolTipPosition = 'top' | 'bottom' | 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'left' | 'right';
 
 interface TooltipOwnProps {
   type?: ToolTipPosition;
@@ -21,7 +21,6 @@ interface TooltipOwnProps {
 type TooltipProps = ReduxStateProps & TooltipOwnProps;
 
 const PLAYER_MARGIN = 5;
-
 
 /**
  * mapping state to props
@@ -110,7 +109,7 @@ class Tooltip extends Component<TooltipProps & WithEventManagerProps, any> {
    * @returns {void}
    */
   handleFocusOnChildren = (): void => {
-    const {onFocus} = (this.props.children as VNode<any>).props
+    const {onFocus} = (this.props.children as VNode<any>).props;
     this.showTooltip();
     if (onFocus) {
       onFocus();
@@ -123,7 +122,7 @@ class Tooltip extends Component<TooltipProps & WithEventManagerProps, any> {
    * @returns {void}
    */
   handleBlurOnChildren = (): void => {
-    const {onBlur} = (this.props.children as VNode<any>).props
+    const {onBlur} = (this.props.children as VNode<any>).props;
     this.hideTooltip();
     if (onBlur) {
       onBlur();
@@ -276,7 +275,8 @@ class Tooltip extends Component<TooltipProps & WithEventManagerProps, any> {
         className={style.tooltip}
         onMouseOver={this.onMouseOver}
         onMouseLeave={this.onMouseLeave}
-        ref={el => (el ? (this.tooltipElement = el) : undefined)}>
+        ref={el => (el ? (this.tooltipElement = el) : undefined)}
+      >
         {children}
         <span style={{maxWidth: props.maxWidth}} ref={el => (el ? (this.textElement = el) : undefined)} className={className.join(' ')}>
           {props.label}

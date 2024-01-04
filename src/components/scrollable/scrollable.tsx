@@ -1,4 +1,5 @@
 import {ComponentChildren, h} from 'preact';
+//@ts-ignore
 import {useState, useRef, useMemo, MutableRef} from 'preact/hooks';
 import styles from '../../styles/style.scss';
 
@@ -12,7 +13,7 @@ const SCROLL_BAR_TIMEOUT = 250;
  * @param {boolean} props.isVertical If true, scrollbar has vertical orientation, otherwise - it has horizontal orientation.
  * @returns {any} Scrollable component
  */
-const Scrollable = ({children, isVertical}: {children: ComponentChildren, isVertical: boolean}) => {
+const Scrollable = ({children, isVertical}: {children: ComponentChildren; isVertical: boolean}) => {
   const ref: MutableRef<HTMLDivElement | null> = useRef<HTMLDivElement | null>(null);
   const [scrolling, setScrolling] = useState<boolean>(false);
   const [scrollTimeoutId, setScrollTimeoutId] = useState<number>(-1);
@@ -40,7 +41,8 @@ const Scrollable = ({children, isVertical}: {children: ComponentChildren, isVert
   return (
     <div
       className={`${styles.scrollable} ${scrolling ? styles.scrolling : ''} ${isVertical ? styles.vertical : styles.horizontal}`}
-      {...scrollableParams}>
+      {...scrollableParams}
+    >
       {children}
     </div>
   );

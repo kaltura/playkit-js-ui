@@ -302,7 +302,8 @@ class OverlayAction extends Component<any, any> {
         onMouseDown={this.onOverlayPointerDown}
         onTouchStart={this.onOverlayPointerDown}
         onMouseUp={this.onOverlayMouseUp}
-        onTouchEnd={this.onOverlayTouchEnd}>
+        onTouchEnd={this.onOverlayTouchEnd}
+      >
         {this.state.animation ? this.renderIcons() : undefined}
       </div>
     );

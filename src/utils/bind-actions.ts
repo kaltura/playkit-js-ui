@@ -1,4 +1,4 @@
-import { bindActionCreators, Dispatch, ActionCreatorsMapObject } from 'redux';
+import {bindActionCreators, Dispatch, ActionCreatorsMapObject} from 'redux';
 
 /**
  * Binding redux actions to props utility
@@ -10,4 +10,3 @@ import { bindActionCreators, Dispatch, ActionCreatorsMapObject } from 'redux';
 export function bindActions<A, M extends ActionCreatorsMapObject<A>>(actions: M): (dispatch: Dispatch) => M {
   return (dispatch: Dispatch): M => bindActionCreators<A, M>(actions, dispatch);
 }
-

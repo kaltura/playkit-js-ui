@@ -97,7 +97,8 @@ class SmartContainer extends Component<any, any> {
           onClose={props.onClose}
           handleKeyDown={this.props.handleKeyDown}
           addAccessibleChild={this.props.addAccessibleChild}
-          label={props.settingsText}>
+          label={props.settingsText}
+        >
           <div className={style.title}>{props.title}</div>
           {this.renderChildren(props)}
         </Overlay>,
@@ -115,7 +116,7 @@ class SmartContainer extends Component<any, any> {
    * @param {any} props - smart containers props
    * @returns {React$Element<any>} the rendered jsx
    */
-  renderChildren(props: any):  Array<VNode | undefined> {
+  renderChildren(props: any): Array<VNode | undefined> {
     const children = toChildArray(props.children).map(child => {
       if (child) {
         return cloneElement(child as VNode<any>, {

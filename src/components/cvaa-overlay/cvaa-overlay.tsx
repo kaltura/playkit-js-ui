@@ -3,13 +3,13 @@ import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
 import {actions as cvaaActions} from '../../reducers/cvaa';
 import {actions as shellActions} from '../../reducers/shell';
-import {Overlay} from "../overlay";
-import {withKeyboardA11y} from "../../utils";
+import {Overlay} from '../overlay';
+import {withKeyboardA11y} from '../../utils';
 import {withPlayer} from '../player';
-import {withEventDispatcher} from "../event-dispatcher";
-import {withLogger} from "../logger";
-import {MainCaptionsWindow} from "./main-captions_window";
-import {CustomCaptionsWindow} from "./custom-captions-window";
+import {withEventDispatcher} from '../event-dispatcher';
+import {withLogger} from '../logger';
+import {MainCaptionsWindow} from './main-captions_window';
+import {CustomCaptionsWindow} from './custom-captions-window';
 import {withText} from 'preact-i18n';
 
 /**
@@ -138,7 +138,8 @@ class CVAAOverlay extends Component<any, any> {
         addAccessibleChild={this.props.addAccessibleChild}
         onClose={props.onClose}
         type="cvaa"
-        label={props.cvvaDialogText}>
+        label={props.cvvaDialogText}
+      >
         {this.state.activeWindow === cvaaOverlayState.Main ? (
           <MainCaptionsWindow
             cvaaOverlayState={cvaaOverlayState}

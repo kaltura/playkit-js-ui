@@ -92,24 +92,24 @@ function onPlayerHoverStateChangeHandler(store: any, action: any, player: Kaltur
  */
 function onChangeableComponentsHandler(store: any, action: any, player: KalturaPlayer): void {
   switch (action.name) {
-  case 'Volume':
-    player.dispatchEvent(new VolumeChangedEvent(action.payload.volume));
-    break;
+    case 'Volume':
+      player.dispatchEvent(new VolumeChangedEvent(action.payload.volume));
+      break;
 
-  case 'SeekBarPlaybackContainer':
-    player.dispatchEvent(new SeekedEvent(action.payload.from, action.payload.to));
-    break;
+    case 'SeekBarPlaybackContainer':
+      player.dispatchEvent(new SeekedEvent(action.payload.from, action.payload.to));
+      break;
 
-  case 'SeekBarLivePlaybackContainer':
-    player.dispatchEvent(new SeekedEvent(action.payload.from, action.payload.to));
-    break;
+    case 'SeekBarLivePlaybackContainer':
+      player.dispatchEvent(new SeekedEvent(action.payload.from, action.payload.to));
+      break;
 
-  case 'ActivePreset':
-    player.dispatchEvent(new FakeEvent(EventType.UI_PRESET_CHANGE, action.payload));
-    break;
+    case 'ActivePreset':
+      player.dispatchEvent(new FakeEvent(EventType.UI_PRESET_CHANGE, action.payload));
+      break;
 
-  default:
-    break;
+    default:
+      break;
   }
 }
 
@@ -122,74 +122,74 @@ function onChangeableComponentsHandler(store: any, action: any, player: KalturaP
  */
 function onClickableComponentsHandler(store: any, action: any, player: KalturaPlayer): void {
   switch (action.name) {
-  case 'Keyboard':
-    keyboardHandlers[action.payload.key](store, action, player);
-    break;
+    case 'Keyboard':
+      keyboardHandlers[action.payload.key](store, action, player);
+      break;
 
-  case 'OverlayAction':
-    onOverlayActionClicked(store, action, player);
-    break;
+    case 'OverlayAction':
+      onOverlayActionClicked(store, action, player);
+      break;
 
-  case 'CVAAOverlay':
-    player.dispatchEvent(new CaptionsStyleSelectedEvent(action.payload.textStyle));
-    break;
+    case 'CVAAOverlay':
+      player.dispatchEvent(new CaptionsStyleSelectedEvent(action.payload.textStyle));
+      break;
 
-  case 'Fullscreen':
-    onFullScreenClicked(store, action, player);
-    break;
+    case 'Fullscreen':
+      onFullScreenClicked(store, action, player);
+      break;
 
-  case 'CaptionsMenu':
-    onCaptionsClick(store, action, player);
-    break;
+    case 'CaptionsMenu':
+      onCaptionsClick(store, action, player);
+      break;
 
-  case 'AudioMenu':
-    onAudioClicked(store, action, player);
-    break;
+    case 'AudioMenu':
+      onAudioClicked(store, action, player);
+      break;
 
-  case 'QualityMenu':
-    onQualityClicked(store, action, player);
-    break;
+    case 'QualityMenu':
+      onQualityClicked(store, action, player);
+      break;
 
-  case 'SpeedMenu':
-    onSpeedClicked(store, action, player);
-    break;
+    case 'SpeedMenu':
+      onSpeedClicked(store, action, player);
+      break;
 
-  case 'AdvancedAudioDescToggle':
-    onAdvancedAudioDescriptionClicked(store, action, player);
-    break;
+    case 'AdvancedAudioDescToggle':
+      onAdvancedAudioDescriptionClicked(store, action, player);
+      break;
 
-  case 'Shell':
-    player.dispatchEvent(new FakeEvent(EventType.UI_CLICKED));
-    break;
+    case 'Shell':
+      player.dispatchEvent(new FakeEvent(EventType.UI_CLICKED));
+      break;
 
-  case 'Rewind':
-    player.dispatchEvent(new RewindClickedEvent(action.payload.from, action.payload.to));
-    break;
+    case 'Rewind':
+      player.dispatchEvent(new RewindClickedEvent(action.payload.from, action.payload.to));
+      break;
 
-  case 'Forward':
-    player.dispatchEvent(new ForwardClickedEvent(action.payload.from, action.payload.to));
-    break;
+    case 'Forward':
+      player.dispatchEvent(new ForwardClickedEvent(action.payload.from, action.payload.to));
+      break;
 
-  case 'LiveTag':
-    player.dispatchEvent(new FakeEvent(EventType.USER_CLICKED_LIVE_TAG));
-    break;
+    case 'LiveTag':
+      player.dispatchEvent(new FakeEvent(EventType.USER_CLICKED_LIVE_TAG));
+      break;
 
-  case 'PrePlaybackPlayOverlay':
-  case 'PlayPause':
-    onPlayPauseClicked(store, action, player);
-    break;
+    case 'PrePlaybackPlayOverlay':
+    case 'PlayPause':
+      onPlayPauseClicked(store, action, player);
+      break;
 
-  case 'Volume':
-    onVolumeClicked(store, action, player);
-    break;
+    case 'Volume':
+      onVolumeClicked(store, action, player);
+      break;
 
-  case 'PictureInPicture':
-    onPictureInPictureClicked(store, action, player);
-    break;
+    case 'PictureInPicture':
+      onPictureInPictureClicked(store, action, player);
+      break;
 
-  case 'ClosedCaptions':
-    onClosedCaptionsClicked(store, action, player);
-    break;
+    case 'ClosedCaptions':
+      onClosedCaptionsClicked(store, action, player);
+      break;
   }
 }
 
@@ -342,9 +342,7 @@ function onOverlayActionClicked(store: any, action: any, player: KalturaPlayer):
  */
 function onClosedCaptionsClicked(store: any, action: any, player: KalturaPlayer): void {
   const {payload: ccOn} = action;
-  ccOn
-    ? player.dispatchEvent(new FakeEvent(EventType.USER_HID_CAPTIONS))
-    : player.dispatchEvent(new FakeEvent(EventType.USER_SHOWED_CAPTIONS));
+  ccOn ? player.dispatchEvent(new FakeEvent(EventType.USER_HID_CAPTIONS)) : player.dispatchEvent(new FakeEvent(EventType.USER_SHOWED_CAPTIONS));
 }
 
 /**

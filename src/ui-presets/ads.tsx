@@ -1,7 +1,21 @@
 import style from '../styles/style.scss';
 import {Fragment, h, VNode} from 'preact';
 import {connect} from 'react-redux';
-import {Loading, Volume, Fullscreen, TimeDisplayAdsContainer,AdSkip, AdLearnMore, TopBar,BottomBar, UnmuteIndication,PlaybackControls,withKeyboardEvent,PlayerArea, GuiArea} from '../components';
+import {
+  Loading,
+  Volume,
+  Fullscreen,
+  TimeDisplayAdsContainer,
+  AdSkip,
+  AdLearnMore,
+  TopBar,
+  BottomBar,
+  UnmuteIndication,
+  PlaybackControls,
+  withKeyboardEvent,
+  PlayerArea,
+  GuiArea
+} from '../components';
 import {AdLeftControls} from '../components/ad-left-controls';
 
 const PRESET_NAME = 'Ads';
@@ -96,7 +110,7 @@ export function adsUI(props: any): VNode<any> | undefined {
  * Gets the ads ui customization settings
  * @returns {Object} - Customization object
  */
-function getAdsUiCustomization(): { skipButton: boolean; learnMoreButton: boolean } {
+function getAdsUiCustomization(): {skipButton: boolean; learnMoreButton: boolean} {
   return {
     learnMoreButton: useCustomLearnMoreButton(),
     skipButton: useCustomSkipButton()

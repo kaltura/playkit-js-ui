@@ -1,4 +1,4 @@
-import { AudioTrack, PKTextTrack, VideoTrack } from '@playkit-js/playkit-js';
+import {AudioTrack, PKTextTrack, VideoTrack} from '@playkit-js/playkit-js';
 
 export interface EngineState {
   isIdle: boolean;

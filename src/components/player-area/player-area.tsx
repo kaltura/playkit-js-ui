@@ -221,7 +221,7 @@ class PlayerArea extends Component<any, any> {
   _getPositionedComponents(children: ComponentChildren): Array<any> {
     const {playerAreaComponents} = this.state;
     const newChildren: any[] = [];
-    toChildArray(children).forEach((child: VNode)  => {
+    toChildArray(children).forEach((child: VNode) => {
       if (child.type === 'div' || child.type === Fragment) {
         child.props.children = this._getPositionedComponents(child.props.children);
         newChildren.push(child);

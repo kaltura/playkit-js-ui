@@ -111,7 +111,8 @@ class PictureInPicture extends Component<any, any> {
               tabIndex="0"
               aria-label={this.props.isInPictureInPicture ? this.props.pictureInPictureExitText : this.props.pictureInPictureText}
               className={this.props.isInPictureInPicture ? [style.controlButton, style.isInPictureInPicture].join(' ') : style.controlButton}
-              onClick={this.togglePip}>
+              onClick={this.togglePip}
+            >
               <Icon type={IconType.PictureInPictureStart} />
               <Icon type={IconType.PictureInPictureStop} />
             </Button>

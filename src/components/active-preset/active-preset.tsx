@@ -9,21 +9,21 @@ import {UIPreset} from '../../types';
 
 type ActivePresetPropsProps = {
   playerContainer: HTMLDivElement;
-  uis: UIPreset[],
+  uis: UIPreset[];
   state?: {
-    shell: any,
+    shell: any;
     engine: {
-      adBreak: boolean,
-      isLive: boolean,
-      hasError: boolean,
-      isIdle: boolean,
-      isVr: boolean,
-      isImg: boolean,
-      playlist: any
-    }
-  },
-  config?: any
-}
+      adBreak: boolean;
+      isLive: boolean;
+      hasError: boolean;
+      isIdle: boolean;
+      isVr: boolean;
+      isImg: boolean;
+      playlist: any;
+    };
+  };
+  config?: any;
+};
 
 /**
  * mapping state to props

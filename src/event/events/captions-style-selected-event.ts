@@ -1,7 +1,6 @@
 import {FakeEvent} from '@playkit-js/playkit-js';
 import {EventType} from '../event-type';
 
-
 /**
  * CaptionsStyleSelectedEvent event
  *

@@ -177,7 +177,8 @@ class Menu extends Component<MenuProps & WithEventManagerProps, any> {
           }
         }}
         className={classes}
-        onChange={this.onChange}>
+        onChange={this.onChange}
+      >
         {this.props.options.map((o, index) => (
           <option role="option" aria-selected={this.isSelected(o)} selected={this.isSelected(o)} value={index} key={index}>
             {o.label}
@@ -204,7 +205,8 @@ class Menu extends Component<MenuProps & WithEventManagerProps, any> {
         role="menu"
         onKeyDown={props.handleKeyDown}
         ref={c => (c ? (this._menuElement = c) : undefined)}
-        className={[style.dropdownMenu, ...this.state.position].join(' ')}>
+        className={[style.dropdownMenu, ...this.state.position].join(' ')}
+      >
         {props.options.map((o, index) => (
           <MenuItem
             setDefaultFocusedElement={props.setDefaultFocusedElement}
@@ -253,10 +255,10 @@ class MenuItem extends Component<any, any> {
    */
   onKeyDown = (e: KeyboardEvent): void => {
     switch (e.keyCode) {
-    case KeyMap.ENTER:
-      this.props.onSelect(this.props.data);
-      e.stopPropagation();
-      break;
+      case KeyMap.ENTER:
+        this.props.onSelect(this.props.data);
+        e.stopPropagation();
+        break;
     }
   };
 
@@ -282,7 +284,8 @@ class MenuItem extends Component<any, any> {
         }}
         className={props.isSelected(props.data) ? [style.dropdownMenuItem, style.active].join(' ') : style.dropdownMenuItem}
         onClick={this.onClick}
-        onKeyDown={this.onKeyDown}>
+        onKeyDown={this.onKeyDown}
+      >
         <span className={badgeType ? [style.labelBadge, badgeType].join(' ') : ''}>{props.data.label}</span>
         <span className={[style.menuIconContainer, style.active].join(' ')}>
           <Icon type={IconType.CheckActive} />

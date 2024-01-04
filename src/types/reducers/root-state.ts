@@ -8,7 +8,7 @@ import {OverlayState} from './overlay';
 import {CvaaState} from './cvaa';
 import {EngineState} from './engine';
 import {ConfigState} from './config';
-import { PlaylistState } from './playlist';
+import {PlaylistState} from './playlist';
 
 export interface RootState {
   config: ConfigState;

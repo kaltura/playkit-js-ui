@@ -17,12 +17,12 @@ import {WithKeyboardEventProps} from '../keyboard/with-keyboard-event';
 
 type TextProps = {
   fullscreenText: string;
-  fullscreenExitText:string;
-}
+  fullscreenExitText: string;
+};
 
 type FullscreenProps = {
   isInFullscreen: boolean;
-}
+};
 
 /**
  * mapping state to props
@@ -51,7 +51,10 @@ const COMPONENT_NAME = 'Fullscreen';
   fullscreenText: 'controls.fullscreen',
   fullscreenExitText: 'controls.fullscreenExit'
 })
-class Fullscreen extends Component<FullscreenProps & WithPlayerProps & WithLoggerProps & WithEventDispatcherProps & TextProps & WithKeyboardEventProps, any> {
+class Fullscreen extends Component<
+  FullscreenProps & WithPlayerProps & WithLoggerProps & WithEventDispatcherProps & TextProps & WithKeyboardEventProps,
+  any
+> {
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
       key: {
@@ -130,7 +133,8 @@ class Fullscreen extends Component<FullscreenProps & WithPlayerProps & WithLogge
             tabIndex="0"
             aria-label={this.props.isInFullscreen ? this.props.fullscreenExitText : this.props.fullscreenText}
             className={this.props.isInFullscreen ? [style.controlButton, style.isFullscreen].join(' ') : style.controlButton}
-            onClick={this.toggleFullscreen}>
+            onClick={this.toggleFullscreen}
+          >
             <Icon type={IconType.Maximize} />
             <Icon type={IconType.Minimize} />
           </Button>

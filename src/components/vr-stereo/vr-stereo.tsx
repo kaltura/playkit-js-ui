@@ -98,7 +98,8 @@ class VrStereo extends Component<any, any> {
             aria-label={this.props.vrStereoText}
             className={this.props.vrStereoMode ? [style.controlButton, style.vrStereoMode].join(' ') : style.controlButton}
             onClick={this.onClick}
-            onKeyDown={this.onKeyDown}>
+            onKeyDown={this.onKeyDown}
+          >
             <Icon type={IconType.vrStereo} />
             <Icon type={IconType.vrStereoFull} />
           </Button>

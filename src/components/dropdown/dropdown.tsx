@@ -168,7 +168,8 @@ class DropDown extends Component<any, any> {
       <div
         name={props.name}
         className={this.state.dropMenuActive ? [style.dropdown, style.active].join(' ') : style.dropdown}
-        ref={el => (el ? (this._el = el) : undefined)}>
+        ref={el => (el ? (this._el = el) : undefined)}
+      >
         <div
           tabIndex={props.tabbable ? 0 : -1}
           ref={el => {
@@ -182,7 +183,8 @@ class DropDown extends Component<any, any> {
           aria-labelledby={[props.name, activeOptionId].join(' ')}
           className={style.dropdownButton}
           onClick={this.onClick}
-          onKeyDown={this.onKeyDown}>
+          onKeyDown={this.onKeyDown}
+        >
           <span id={activeOptionId} className={badgeType ? [style.labelBadge, badgeType].join(' ') : ''}>
             {label}
           </span>

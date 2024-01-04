@@ -109,7 +109,8 @@ class Overlay extends Component<any, any> {
             }}
             onKeyDown={this.onCloseButtonKeyDown}
             aria-label={(<Text id="overlay.close" />) as unknown as string}
-            className={style.closeOverlay}>
+            className={style.closeOverlay}
+          >
             <Icon type={IconType.Close} />
           </a>
         </Localizer>

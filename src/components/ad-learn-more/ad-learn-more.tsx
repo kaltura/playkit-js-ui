@@ -5,7 +5,7 @@ import {Text} from 'preact-i18n';
 
 type AdLearnMoreProps = {
   url?: string;
-}
+};
 
 /**
  * mapping state to props

@@ -15,20 +15,20 @@ export const initialState = {
 
 export default (state: LoadingState = initialState, action: any) => {
   switch (action.type) {
-  case configReducerTypes.UPDATE:
-    return getComponentStateFromConfig(component, state, action);
+    case configReducerTypes.UPDATE:
+      return getComponentStateFromConfig(component, state, action);
 
-  case configReducerTypes.UPDATE_COMPONENT:
-    return getComponentStateFromComponentConfig(component, state, action);
+    case configReducerTypes.UPDATE_COMPONENT:
+      return getComponentStateFromComponentConfig(component, state, action);
 
-  case types.UPDATE_LOADING_SPINNER_STATE:
-    return {
-      ...state,
-      show: action.show
-    };
+    case types.UPDATE_LOADING_SPINNER_STATE:
+      return {
+        ...state,
+        show: action.show
+      };
 
-  default:
-    return state;
+    default:
+      return state;
   }
 };
 

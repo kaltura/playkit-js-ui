@@ -8,7 +8,6 @@ export type ColorType = {
   playerBackground: string;
 };
 
-
 export type UserTheme = {
   colors: ColorType;
 };

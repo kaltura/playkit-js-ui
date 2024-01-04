@@ -33,13 +33,13 @@ const COMPONENT_NAME = 'AudioEntryDetails';
 const AudioEntryDetailsComp: FunctionComponent<AudioEntryDetailsProps> = (props: AudioEntryDetailsProps) => {
   const getSizeClass = (playerSize: string) => {
     switch (playerSize) {
-    case PLAYER_SIZE.EXTRA_LARGE:
-    case PLAYER_SIZE.LARGE:
-      return style.audioEntryL;
-    case PLAYER_SIZE.MEDIUM:
-      return style.audioEntryM;
-    default:
-      return style.audioEntryT;
+      case PLAYER_SIZE.EXTRA_LARGE:
+      case PLAYER_SIZE.LARGE:
+        return style.audioEntryL;
+      case PLAYER_SIZE.MEDIUM:
+        return style.audioEntryM;
+      default:
+        return style.audioEntryT;
     }
   };
 
@@ -121,7 +121,7 @@ const AudioEntryDetailsComp: FunctionComponent<AudioEntryDetailsProps> = (props:
       </div>
     </div>
   );
-}
+};
 
 /**
  * AudioEntryDetails component
@@ -131,12 +131,10 @@ const AudioEntryDetailsComp: FunctionComponent<AudioEntryDetailsProps> = (props:
  * @extends {Component}
  */
 
-const AudioEntryDetails: ConnectedComponent<FunctionComponent<AudioEntryDetailsProps>, AudioEntryDetailsProps & WithPlayerProps & WithEventManagerProps> = connect(mapStateToProps)(
-  withEventManager<AudioEntryDetailsProps>(
-    withPlayer<AudioEntryDetailsProps>(AudioEntryDetailsComp)
-  )
-);
-
+const AudioEntryDetails: ConnectedComponent<
+  FunctionComponent<AudioEntryDetailsProps>,
+  AudioEntryDetailsProps & WithPlayerProps & WithEventManagerProps
+> = connect(mapStateToProps)(withEventManager<AudioEntryDetailsProps>(withPlayer<AudioEntryDetailsProps>(AudioEntryDetailsComp)));
 
 AudioEntryDetails.displayName = COMPONENT_NAME;
 export {AudioEntryDetails};

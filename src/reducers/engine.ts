@@ -110,293 +110,293 @@ export const initialState = {
 
 export default (state: EngineState = initialState, action: any) => {
   switch (action.type) {
-  case configReducerTypes.UPDATE:
-    return getComponentStateFromConfig(component, state, action);
+    case configReducerTypes.UPDATE:
+      return getComponentStateFromConfig(component, state, action);
 
-  case configReducerTypes.UPDATE_COMPONENT:
-    return getComponentStateFromComponentConfig(component, state, action);
+    case configReducerTypes.UPDATE_COMPONENT:
+      return getComponentStateFromComponentConfig(component, state, action);
 
-  case types.UPDATE_ERROR:
-    return {
-      ...state,
-      hasError: action.hasError
-    };
+    case types.UPDATE_ERROR:
+      return {
+        ...state,
+        hasError: action.hasError
+      };
 
-  case types.UPDATE_PLAYER_STATE:
-    return {
-      ...state,
-      playerState: action.playerState
-    };
+    case types.UPDATE_PLAYER_STATE:
+      return {
+        ...state,
+        playerState: action.playerState
+      };
 
-  case types.UPDATE_PRE_PLAYBACK:
-    return {
-      ...state,
-      prePlayback: action.prePlayback
-    };
+    case types.UPDATE_PRE_PLAYBACK:
+      return {
+        ...state,
+        prePlayback: action.prePlayback
+      };
 
-  case types.UPDATE_IS_PLAYING:
-    return {
-      ...state,
-      isPlaying: action.isPlaying
-    };
+    case types.UPDATE_IS_PLAYING:
+      return {
+        ...state,
+        isPlaying: action.isPlaying
+      };
 
-  case types.UPDATE_IS_PAUSED:
-    return {
-      ...state,
-      isPaused: action.isPaused
-    };
+    case types.UPDATE_IS_PAUSED:
+      return {
+        ...state,
+        isPaused: action.isPaused
+      };
 
-  case types.UPDATE_IS_SEEKING:
-    return {
-      ...state,
-      isSeeking: action.isSeeking
-    };
+    case types.UPDATE_IS_SEEKING:
+      return {
+        ...state,
+        isSeeking: action.isSeeking
+      };
 
-  case types.UPDATE_LAST_SEEK_POINT:
-    return {
-      ...state,
-      lastSeekPoint: action.lastSeekPoint
-    };
+    case types.UPDATE_LAST_SEEK_POINT:
+      return {
+        ...state,
+        lastSeekPoint: action.lastSeekPoint
+      };
 
-  case types.UPDATE_IS_ENDED:
-    return {
-      ...state,
-      isEnded: action.isEnded
-    };
+    case types.UPDATE_IS_ENDED:
+      return {
+        ...state,
+        isEnded: action.isEnded
+      };
 
-  case types.UPDATE_IS_PLAYBACK_STARTED:
-    return {
-      ...state,
-      isPlaybackStarted: action.isPlaybackStarted
-    };
+    case types.UPDATE_IS_PLAYBACK_STARTED:
+      return {
+        ...state,
+        isPlaybackStarted: action.isPlaybackStarted
+      };
 
-  case types.UPDATE_IS_PLAYBACK_ENDED:
-    return {
-      ...state,
-      isPlaybackEnded: action.isPlaybackEnded
-    };
+    case types.UPDATE_IS_PLAYBACK_ENDED:
+      return {
+        ...state,
+        isPlaybackEnded: action.isPlaybackEnded
+      };
 
-  case types.UPDATE_CURRENT_TIME:
-    return {
-      ...state,
-      currentTime: action.currentTime
-    };
+    case types.UPDATE_CURRENT_TIME:
+      return {
+        ...state,
+        currentTime: action.currentTime
+      };
 
-  case types.UPDATE_DURATION:
-    return {
-      ...state,
-      duration: action.duration
-    };
+    case types.UPDATE_DURATION:
+      return {
+        ...state,
+        duration: action.duration
+      };
 
-  case types.UPDATE_VOLUME:
-    return {
-      ...state,
-      volume: action.volume
-    };
+    case types.UPDATE_VOLUME:
+      return {
+        ...state,
+        volume: action.volume
+      };
 
-  case types.UPDATE_MUTED:
-    return {
-      ...state,
-      muted: action.muted
-    };
+    case types.UPDATE_MUTED:
+      return {
+        ...state,
+        muted: action.muted
+      };
 
-  case types.UPDATE_METADATA_LOADING_STATUS:
-    return {
-      ...state,
-      metadataLoaded: action.metadataLoaded
-    };
+    case types.UPDATE_METADATA_LOADING_STATUS:
+      return {
+        ...state,
+        metadataLoaded: action.metadataLoaded
+      };
 
-  case types.UPDATE_DATA_LOADING_STATUS:
-    return {
-      ...state,
-      dataLoaded: action.dataLoaded
-    };
+    case types.UPDATE_DATA_LOADING_STATUS:
+      return {
+        ...state,
+        dataLoaded: action.dataLoaded
+      };
 
-  case types.UPDATE_AUDIO_TRACKS:
-    return {
-      ...state,
-      audioTracks: action.tracks
-    };
+    case types.UPDATE_AUDIO_TRACKS:
+      return {
+        ...state,
+        audioTracks: action.tracks
+      };
 
-  case types.UPDATE_VIDEO_TRACKS:
-    return {
-      ...state,
-      videoTracks: action.tracks
-    };
+    case types.UPDATE_VIDEO_TRACKS:
+      return {
+        ...state,
+        videoTracks: action.tracks
+      };
 
-  case types.UPDATE_TEXT_TRACKS:
-    return {
-      ...state,
-      textTracks: action.tracks
-    };
+    case types.UPDATE_TEXT_TRACKS:
+      return {
+        ...state,
+        textTracks: action.tracks
+      };
 
-  case types.UPDATE_AD_BREAK:
-    return {
-      ...state,
-      adBreak: action.adBreak
-    };
+    case types.UPDATE_AD_BREAK:
+      return {
+        ...state,
+        adBreak: action.adBreak
+      };
 
-  case types.UPDATE_AD_BREAK_PROGRESS:
-    return {
-      ...state,
-      adProgress: action.adProgress
-    };
+    case types.UPDATE_AD_BREAK_PROGRESS:
+      return {
+        ...state,
+        adProgress: action.adProgress
+      };
 
-  case types.UPDATE_AD_BREAK_COMPLETED:
-    return {
-      ...state,
-      adProgress: {
-        currentTime: state.adProgress.duration,
-        duration: state.adProgress.duration
-      }
-    };
+    case types.UPDATE_AD_BREAK_COMPLETED:
+      return {
+        ...state,
+        adProgress: {
+          currentTime: state.adProgress.duration,
+          duration: state.adProgress.duration
+        }
+      };
 
-  case types.UPDATE_AD_IS_PLAYING:
-    return {
-      ...state,
-      adIsPlaying: action.adIsPlaying
-    };
+    case types.UPDATE_AD_IS_PLAYING:
+      return {
+        ...state,
+        adIsPlaying: action.adIsPlaying
+      };
 
-  case types.UPDATE_AD_IS_LINEAR:
-    return {
-      ...state,
-      adIsLinear: action.adIsLinear
-    };
+    case types.UPDATE_AD_IS_LINEAR:
+      return {
+        ...state,
+        adIsLinear: action.adIsLinear
+      };
 
-  case types.UPDATE_AD_SKIP_TIME_OFFSET:
-    return {
-      ...state,
-      adSkipTimeOffset: action.adSkipTimeOffset
-    };
+    case types.UPDATE_AD_SKIP_TIME_OFFSET:
+      return {
+        ...state,
+        adSkipTimeOffset: action.adSkipTimeOffset
+      };
 
-  case types.UPDATE_AD_SKIPPABLE_STATE:
-    return {
-      ...state,
-      adSkippableState: action.adSkippableState
-    };
+    case types.UPDATE_AD_SKIPPABLE_STATE:
+      return {
+        ...state,
+        adSkippableState: action.adSkippableState
+      };
 
-  case types.UPDATE_AD_URL:
-    return {
-      ...state,
-      adUrl: action.adUrl
-    };
+    case types.UPDATE_AD_URL:
+      return {
+        ...state,
+        adUrl: action.adUrl
+      };
 
-  case types.UPDATE_AD_IS_BUMPER:
-    return {
-      ...state,
-      adIsBumper: action.adIsBumper
-    };
+    case types.UPDATE_AD_IS_BUMPER:
+      return {
+        ...state,
+        adIsBumper: action.adIsBumper
+      };
 
-  case types.UPDATE_AD_CONTENT_TYPE:
-    return {
-      ...state,
-      adContentType: action.adContentType
-    };
+    case types.UPDATE_AD_CONTENT_TYPE:
+      return {
+        ...state,
+        adContentType: action.adContentType
+      };
 
-  case types.UPDATE_PLAYER_POSTER:
-    return {
-      ...state,
-      poster: action.poster
-    };
+    case types.UPDATE_PLAYER_POSTER:
+      return {
+        ...state,
+        poster: action.poster
+      };
 
-  case types.UPDATE_IS_AUDIO:
-    return {
-      ...state,
-      isAudio: action.isAudio
-    };
+    case types.UPDATE_IS_AUDIO:
+      return {
+        ...state,
+        isAudio: action.isAudio
+      };
 
-  case types.UPDATE_IS_LIVE:
-    return {
-      ...state,
-      isLive: action.isLive
-    };
+    case types.UPDATE_IS_LIVE:
+      return {
+        ...state,
+        isLive: action.isLive
+      };
 
-  case types.UPDATE_IS_DVR:
-    return {
-      ...state,
-      isDvr: action.isDvr
-    };
+    case types.UPDATE_IS_DVR:
+      return {
+        ...state,
+        isDvr: action.isDvr
+      };
 
-  case types.UPDATE_IS_IMG:
-    return {
-      ...state,
-      isImg: action.isImg
-    };
+    case types.UPDATE_IS_IMG:
+      return {
+        ...state,
+        isImg: action.isImg
+      };
 
-  case types.UPDATE_IS_IDLE:
-    return {
-      ...state,
-      isIdle: action.IsIdle
-    };
+    case types.UPDATE_IS_IDLE:
+      return {
+        ...state,
+        isIdle: action.IsIdle
+      };
 
-  case types.UPDATE_FALLBACK_TO_MUTED_AUTOPLAY:
-    return {
-      ...state,
-      fallbackToMutedAutoPlay: action.fallback
-    };
+    case types.UPDATE_FALLBACK_TO_MUTED_AUTOPLAY:
+      return {
+        ...state,
+        fallbackToMutedAutoPlay: action.fallback
+      };
 
-  case types.UPDATE_IS_VR:
-    return {
-      ...state,
-      isVr: action.isVr
-    };
+    case types.UPDATE_IS_VR:
+      return {
+        ...state,
+        isVr: action.isVr
+      };
 
-  case types.UPDATE_VR_STEREO_MODE:
-    return {
-      ...state,
-      vrStereoMode: action.vrStereoMode
-    };
+    case types.UPDATE_VR_STEREO_MODE:
+      return {
+        ...state,
+        vrStereoMode: action.vrStereoMode
+      };
 
-  case types.UPDATE_IS_CASTING:
-    return {
-      ...state,
-      isCasting: action.isCasting
-    };
+    case types.UPDATE_IS_CASTING:
+      return {
+        ...state,
+        isCasting: action.isCasting
+      };
 
-  case types.UPDATE_CAST_SESSION:
-    return {
-      ...state,
-      castSession: action.castSession
-    };
+    case types.UPDATE_CAST_SESSION:
+      return {
+        ...state,
+        castSession: action.castSession
+      };
 
-  case types.UPDATE_IS_CAST_AVAILABLE:
-    return {
-      ...state,
-      isCastAvailable: action.isCastAvailable
-    };
+    case types.UPDATE_IS_CAST_AVAILABLE:
+      return {
+        ...state,
+        isCastAvailable: action.isCastAvailable
+      };
 
-  case types.UPDATE_IS_CHANGING_SOURCE:
-    return {
-      ...state,
-      isChangingSource: action.isChangingSource
-    };
+    case types.UPDATE_IS_CHANGING_SOURCE:
+      return {
+        ...state,
+        isChangingSource: action.isChangingSource
+      };
 
-  case types.UPDATE_PLAYLIST:
-    return {
-      ...state,
-      playlist: action.playlist
-    };
+    case types.UPDATE_PLAYLIST:
+      return {
+        ...state,
+        playlist: action.playlist
+      };
 
-  case types.UPDATE_PICTURE_IN_PICTURE_SUPPORTED:
-    return {
-      ...state,
-      isPictureInPictureSupported: action.isPictureInPictureSupported
-    };
+    case types.UPDATE_PICTURE_IN_PICTURE_SUPPORTED:
+      return {
+        ...state,
+        isPictureInPictureSupported: action.isPictureInPictureSupported
+      };
 
-  case types.UPDATE_PICTURE_IN_PICTURE_MODE:
-    return {
-      ...state,
-      isInPictureInPicture: action.isInPictureInPicture
-    };
+    case types.UPDATE_PICTURE_IN_PICTURE_MODE:
+      return {
+        ...state,
+        isInPictureInPicture: action.isInPictureInPicture
+      };
 
-  case types.UPDATE_FULLSCREEN:
-    return {
-      ...state,
-      fullscreen: action.fullscreen
-    };
+    case types.UPDATE_FULLSCREEN:
+      return {
+        ...state,
+        fullscreen: action.fullscreen
+      };
 
-  default:
-    return state;
+    default:
+      return state;
   }
 };
 

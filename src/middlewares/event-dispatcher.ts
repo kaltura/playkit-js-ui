@@ -29,41 +29,45 @@ const types = {
  * @param {any} player - The video player.
  * @returns {void}
  */
-const eventDispatcherMiddleware = (player: any) => (store: any) => (next: (...args: any) => any) => (action: any): void => {
-  switch (action.type) {
-  case types.COMPONENT_CLICKED:
-    onClickableComponentsHandler(store, action, player);
-    break;
+const eventDispatcherMiddleware =
+  (player: any) =>
+  (store: any) =>
+  (next: (...args: any) => any) =>
+  (action: any): void => {
+    switch (action.type) {
+      case types.COMPONENT_CLICKED:
+        onClickableComponentsHandler(store, action, player);
+        break;
 
-  case types.COMPONENT_CHANGED:
-    onChangeableComponentsHandler(store, action, player);
-    break;
+      case types.COMPONENT_CHANGED:
+        onChangeableComponentsHandler(store, action, player);
+        break;
 
-  case shell.UPDATE_PLAYER_HOVER_STATE:
-    onPlayerHoverStateChangeHandler(store, action, player);
-    break;
+      case shell.UPDATE_PLAYER_HOVER_STATE:
+        onPlayerHoverStateChangeHandler(store, action, player);
+        break;
 
-  default:
-    break;
-  }
+      default:
+        break;
+    }
 
-  next(action);
+    next(action);
 
-  switch (action.type) {
-  case shell.UPDATE_GUI_CLIENT_RECT:
-    onGuiResizeHandler(store, action, player);
-    break;
-  case shell.UPDATE_PLAYER_CLIENT_RECT:
-    onPlayerResizeHandler(store, action, player);
-    break;
-  case shell.UPDATE_VIDEO_CLIENT_RECT:
-    onVideoResizeHandler(store, action, player);
-    break;
+    switch (action.type) {
+      case shell.UPDATE_GUI_CLIENT_RECT:
+        onGuiResizeHandler(store, action, player);
+        break;
+      case shell.UPDATE_PLAYER_CLIENT_RECT:
+        onPlayerResizeHandler(store, action, player);
+        break;
+      case shell.UPDATE_VIDEO_CLIENT_RECT:
+        onVideoResizeHandler(store, action, player);
+        break;
 
-  default:
-    break;
-  }
-};
+      default:
+        break;
+    }
+  };
 
 /**
  * Handler for gui resize change action
@@ -125,19 +129,19 @@ function onPlayerHoverStateChangeHandler(store: any, action: any, player: any): 
  */
 function onChangeableComponentsHandler(store: any, action: any, player: any): void {
   switch (action.name) {
-  case 'Volume':
-    player.dispatchEvent(new VolumeChangedEvent(action.payload.volume));
-    break;
+    case 'Volume':
+      player.dispatchEvent(new VolumeChangedEvent(action.payload.volume));
+      break;
 
-  case 'SeekBarPlaybackContainer':
-    player.dispatchEvent(new SeekedEvent(action.payload.from, action.payload.to));
-    break;
+    case 'SeekBarPlaybackContainer':
+      player.dispatchEvent(new SeekedEvent(action.payload.from, action.payload.to));
+      break;
 
-  case 'ActivePreset':
-    player.dispatchEvent(new FakeEvent(EventType.UI_PRESET_CHANGE, action.payload));
-    break;
-  default:
-    break;
+    case 'ActivePreset':
+      player.dispatchEvent(new FakeEvent(EventType.UI_PRESET_CHANGE, action.payload));
+      break;
+    default:
+      break;
   }
 }
 
@@ -150,66 +154,66 @@ function onChangeableComponentsHandler(store: any, action: any, player: any): vo
  */
 function onClickableComponentsHandler(store: any, action: any, player: any): void {
   switch (action.name) {
-  case 'Keyboard':
-    keyboardHandlers[action.payload.key](store, action, player);
-    break;
+    case 'Keyboard':
+      keyboardHandlers[action.payload.key](store, action, player);
+      break;
 
-  case 'OverlayAction':
-    onOverlayActionClicked(store, action, player);
-    break;
+    case 'OverlayAction':
+      onOverlayActionClicked(store, action, player);
+      break;
 
-  case 'CaptionsMenu':
-    onCaptionsClick(store, action, player);
-    break;
+    case 'CaptionsMenu':
+      onCaptionsClick(store, action, player);
+      break;
 
-  case 'AudioMenu':
-    onAudioClicked(store, action, player);
-    break;
+    case 'AudioMenu':
+      onAudioClicked(store, action, player);
+      break;
 
-  case 'QualityMenu':
-    onQualityClicked(store, action, player);
-    break;
+    case 'QualityMenu':
+      onQualityClicked(store, action, player);
+      break;
 
-  case 'SpeedMenu':
-    onSpeedClicked(store, action, player);
-    break;
+    case 'SpeedMenu':
+      onSpeedClicked(store, action, player);
+      break;
 
-  case 'AdvancedAudioDescToggle':
-    onAdvancedAudioDescriptionClicked(store, action, player);
-    break;
+    case 'AdvancedAudioDescToggle':
+      onAdvancedAudioDescriptionClicked(store, action, player);
+      break;
 
-  case 'CVAAOverlay':
-    player.dispatchEvent(new CaptionsStyleSelectedEvent(action.payload.textStyle));
-    break;
+    case 'CVAAOverlay':
+      player.dispatchEvent(new CaptionsStyleSelectedEvent(action.payload.textStyle));
+      break;
 
-  case 'Fullscreen':
-    onFullScreenClicked(store, action, player);
-    break;
+    case 'Fullscreen':
+      onFullScreenClicked(store, action, player);
+      break;
 
-  case 'Shell':
-    player.dispatchEvent(new FakeEvent(EventType.UI_CLICKED));
-    break;
+    case 'Shell':
+      player.dispatchEvent(new FakeEvent(EventType.UI_CLICKED));
+      break;
 
-  case 'Rewind':
-    player.dispatchEvent(new RewindClickedEvent(action.payload.from, action.payload.to));
-    break;
+    case 'Rewind':
+      player.dispatchEvent(new RewindClickedEvent(action.payload.from, action.payload.to));
+      break;
 
-  case 'Forward':
-    player.dispatchEvent(new ForwardClickedEvent(action.payload.from, action.payload.to));
-    break;
+    case 'Forward':
+      player.dispatchEvent(new ForwardClickedEvent(action.payload.from, action.payload.to));
+      break;
 
-  case 'LiveTag':
-    player.dispatchEvent(new FakeEvent(EventType.USER_CLICKED_LIVE_TAG));
-    break;
+    case 'LiveTag':
+      player.dispatchEvent(new FakeEvent(EventType.USER_CLICKED_LIVE_TAG));
+      break;
 
-  case 'PrePlaybackPlayOverlay':
-  case 'PlayPause':
-    onPlayPauseClicked(store, action, player);
-    break;
+    case 'PrePlaybackPlayOverlay':
+    case 'PlayPause':
+      onPlayPauseClicked(store, action, player);
+      break;
 
-  case 'Volume':
-    onVolumeClicked(store, action, player);
-    break;
+    case 'Volume':
+      onVolumeClicked(store, action, player);
+      break;
   }
 }
 

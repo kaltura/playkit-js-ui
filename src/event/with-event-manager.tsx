@@ -3,7 +3,7 @@ import {EventManager} from '@playkit-js/playkit-js';
 
 export type WithEventManagerProps = {
   eventManager?: EventManager;
-}
+};
 
 /**
  * withEventManager component

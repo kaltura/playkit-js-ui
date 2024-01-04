@@ -32,7 +32,9 @@
     background-color: rgba(255, 255, 255, 0.3);
     border-radius: $progress-bar-border-radius;
     position: absolute;
-    transition: height 200ms ease, transform 200ms ease;
+    transition:
+      height 200ms ease,
+      transform 200ms ease;
     &.chapters {
       background-color: transparent;
       .virtual-progress-indicator {

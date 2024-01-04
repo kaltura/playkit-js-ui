@@ -22,12 +22,12 @@ module.exports = (env, {mode}) => {
                     bugfixes: true
                   }
                 ],
-                ['@babel/preset-typescript', { jsxPragma: 'h', jsxPragmaFrag: 'Fragment' }]
+                ['@babel/preset-typescript', {jsxPragma: 'h', jsxPragmaFrag: 'Fragment'}]
               ],
               plugins: [
                 ['@babel/plugin-transform-runtime'],
-                ['@babel/plugin-proposal-decorators', { legacy: true }],
-                ['@babel/plugin-transform-react-jsx', { pragma: 'h', pragmaFrag: 'Fragment' }]
+                ['@babel/plugin-proposal-decorators', {legacy: true}],
+                ['@babel/plugin-transform-react-jsx', {pragma: 'h', pragmaFrag: 'Fragment'}]
               ]
             }
           }
@@ -37,7 +37,7 @@ module.exports = (env, {mode}) => {
           use: [
             {
               loader: 'style-loader',
-              options: { attributes: { id: `${packageData.name}` } }
+              options: {attributes: {id: `${packageData.name}`}}
             },
             {
               loader: 'css-loader',
@@ -88,7 +88,7 @@ module.exports = (env, {mode}) => {
       }
     },
     externals: {
-      '@playkit-js/kaltura-player-js': { root: 'KalturaPlayer' },
+      '@playkit-js/kaltura-player-js': {root: 'KalturaPlayer'},
       '@playkit-js/playkit-js': {
         commonjs: '@playkit-js/playkit-js',
         commonjs2: '@playkit-js/playkit-js',
@@ -96,5 +96,5 @@ module.exports = (env, {mode}) => {
         root: ['playkit', 'core']
       }
     }
-  }
+  };
 };

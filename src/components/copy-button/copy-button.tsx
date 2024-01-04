@@ -2,7 +2,7 @@ import style from '../../styles/style.scss';
 import {h, Component, VNode} from 'preact';
 import {IconType} from '../icon';
 import {Icon} from '../icon/icon';
-import {Tooltip} from "../tooltip";
+import {Tooltip} from '../tooltip';
 import {Text, Localizer} from 'preact-i18n';
 import {KeyMap} from '../../utils';
 import {Button, ButtonControl} from '../../components';
@@ -121,7 +121,8 @@ class CopyButton extends Component<any, any> {
               }}
               className={copyUrlClasses}
               onClick={this.copy}
-              onKeyDown={this.onKeyDown}>
+              onKeyDown={this.onKeyDown}
+            >
               <Icon id="copy" color="#fff" path={ICON_COPY_PATH} width="24" height="24" viewBox="0 0 24 24" />
               <Icon type={IconType.Check} />
             </Button>

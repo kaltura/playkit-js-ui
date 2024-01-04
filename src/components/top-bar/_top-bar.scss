@@ -7,7 +7,9 @@
   min-height: #{$top-bar-max-height}px;
   max-height: #{$top-bar-max-height}px;
   margin-top: #{-$top-bar-max-height}px;
-  transition: #{$hover-animation-time}ms visibility ease-in-out, #{$hover-animation-time}ms margin-top ease-in-out,
+  transition:
+    #{$hover-animation-time}ms visibility ease-in-out,
+    #{$hover-animation-time}ms margin-top ease-in-out,
     #{$hover-animation-time}ms min-height ease-in-out;
   width: 100%;
   top: 0;

@@ -29,74 +29,74 @@ export const initialState = {
 
 export default (state: SeekbarState = initialState, action: any) => {
   switch (action.type) {
-  case types.UPDATE_SEEKBAR_DRAGGING_STATUS:
-    return {
-      ...state,
-      draggingActive: action.draggingActive
-    };
+    case types.UPDATE_SEEKBAR_DRAGGING_STATUS:
+      return {
+        ...state,
+        draggingActive: action.draggingActive
+      };
 
-  case types.UPDATE_SEEKBAR_HOVER_ACTIVE:
-    return {
-      ...state,
-      hoverActive: action.hoverActive
-    };
+    case types.UPDATE_SEEKBAR_HOVER_ACTIVE:
+      return {
+        ...state,
+        hoverActive: action.hoverActive
+      };
 
-  case types.UPDATE_SEEKBAR_PREVIEW_HOVER_ACTIVE:
-    return {
-      ...state,
-      previewHoverActive: action.previewHoverActive
-    };
+    case types.UPDATE_SEEKBAR_PREVIEW_HOVER_ACTIVE:
+      return {
+        ...state,
+        previewHoverActive: action.previewHoverActive
+      };
 
-  case types.UPDATE_SEEKBAR_CLIENT_RECT:
-    return {
-      ...state,
-      clientRect: action.clientRect
-    };
+    case types.UPDATE_SEEKBAR_CLIENT_RECT:
+      return {
+        ...state,
+        clientRect: action.clientRect
+      };
 
-  case types.UPDATE_HIDE_SEEKBAR_PREVIEW:
-    return {
-      ...state,
-      hidePreview: action.hidePreview
-    };
+    case types.UPDATE_HIDE_SEEKBAR_PREVIEW:
+      return {
+        ...state,
+        hidePreview: action.hidePreview
+      };
 
-  case types.UPDATE_HIDE_SEEKBAR_TIME_BUBBLE:
-    return {
-      ...state,
-      hideTimeBubble: action.hideTimeBubble
-    };
+    case types.UPDATE_HIDE_SEEKBAR_TIME_BUBBLE:
+      return {
+        ...state,
+        hideTimeBubble: action.hideTimeBubble
+      };
 
-  case types.UPDATE_CURRENT_TIME:
-    return {
-      ...state,
-      currentTime: action.currentTime
-    };
+    case types.UPDATE_CURRENT_TIME:
+      return {
+        ...state,
+        currentTime: action.currentTime
+      };
 
-  case types.UPDATE_VIRTUAL_TIME:
-    return {
-      ...state,
-      virtualTime: action.virtualTime
-    };
+    case types.UPDATE_VIRTUAL_TIME:
+      return {
+        ...state,
+        virtualTime: action.virtualTime
+      };
 
-  case types.UPDATE_HOVERED_SEGMENT:
-    return {
-      ...state,
-      segments: state.segments.map(segment => (segment.id === action.id ? {...segment, isHovered: action.isHovered} : segment))
-    };
+    case types.UPDATE_HOVERED_SEGMENT:
+      return {
+        ...state,
+        segments: state.segments.map(segment => (segment.id === action.id ? {...segment, isHovered: action.isHovered} : segment))
+      };
 
-  case types.UPDATE_SEEKBAR_SEGMENTS:
-    return {
-      ...state,
-      segments: action.segments
-    };
+    case types.UPDATE_SEEKBAR_SEGMENTS:
+      return {
+        ...state,
+        segments: action.segments
+      };
 
-  case types.UPDATE_SEGMENT_END_TIME:
-    return {
-      ...state,
-      segments: state.segments.map(segment => (segment.id === action.id ? {...segment, endTime: action.endTime} : segment))
-    };
+    case types.UPDATE_SEGMENT_END_TIME:
+      return {
+        ...state,
+        segments: state.segments.map(segment => (segment.id === action.id ? {...segment, endTime: action.endTime} : segment))
+      };
 
-  default:
-    return state;
+    default:
+      return state;
   }
 };
 

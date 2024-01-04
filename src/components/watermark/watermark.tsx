@@ -57,7 +57,7 @@ class Watermark extends Component<any, any> {
      */
     const onPlaying = () => {
       if (this.props.config.timeout > 0) {
-        this._timeoutId = (setTimeout(() => this.setState({show: false}), this.props.config.timeout)) as unknown as number;
+        this._timeoutId = setTimeout(() => this.setState({show: false}), this.props.config.timeout) as unknown as number;
       }
     };
 
@@ -106,7 +106,7 @@ class Watermark extends Component<any, any> {
       <div className={styleClass.join(' ')}>
         <a href={props.config.url} target="_blank" rel="noopener noreferrer">
           <Localizer>
-            <img src={props.config.img} alt={<Text id="watermark.watermark_alt_text" /> as unknown as string} />
+            <img src={props.config.img} alt={(<Text id="watermark.watermark_alt_text" />) as unknown as string} />
           </Localizer>
         </a>
       </div>

@@ -6,7 +6,7 @@ const COMPONENT_NAME = 'AdLeftControls';
 
 type AdLeftControlsProps = {
   isBumper?: boolean;
-}
+};
 
 /**
  * mapping state to props

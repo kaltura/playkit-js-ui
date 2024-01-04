@@ -83,21 +83,24 @@ class MainCaptionsWindow extends Component<any, any> {
             addAccessibleChild={props.addAccessibleChild}
             classNames={[style.sample]}
             changeCaptionsStyle={() => props.changeCaptionsStyle(this.captionsStyleDefault)}
-            isActive={props.player.textStyle.isEqual(this.captionsStyleDefault)}>
+            isActive={props.player.textStyle.isEqual(this.captionsStyleDefault)}
+          >
             <Text id={'cvaa.sample_caption_tag'} fields={{number: '1'}} />
           </SampleCaptionsStyleButton>
           <SampleCaptionsStyleButton
             addAccessibleChild={props.addAccessibleChild}
             classNames={[style.sample, style.blackBg]}
             changeCaptionsStyle={() => props.changeCaptionsStyle(this.captionsStyleBlackBG)}
-            isActive={props.player.textStyle.isEqual(this.captionsStyleBlackBG)}>
+            isActive={props.player.textStyle.isEqual(this.captionsStyleBlackBG)}
+          >
             <Text id={'cvaa.sample_caption_tag'} fields={{number: '2'}} />
           </SampleCaptionsStyleButton>
           <SampleCaptionsStyleButton
             addAccessibleChild={props.addAccessibleChild}
             classNames={[style.sample, style.yellowText]}
             changeCaptionsStyle={() => props.changeCaptionsStyle(this.captionsStyleYellow)}
-            isActive={props.player.textStyle.isEqual(this.captionsStyleYellow)}>
+            isActive={props.player.textStyle.isEqual(this.captionsStyleYellow)}
+          >
             <Text id={'cvaa.sample_caption_tag'} fields={{number: '3'}} />
           </SampleCaptionsStyleButton>
         </div>
@@ -111,7 +114,8 @@ class MainCaptionsWindow extends Component<any, any> {
             ref={el => {
               props.addAccessibleChild(el);
             }}
-            onKeyDown={this.onKeyDown}>
+            onKeyDown={this.onKeyDown}
+          >
             <Text id={'cvaa.set_custom_caption'} />
           </a>
         ) : (
@@ -130,7 +134,8 @@ class MainCaptionsWindow extends Component<any, any> {
               ref={el => {
                 props.addAccessibleChild(el);
               }}
-              onKeyDown={this.onKeyDown}>
+              onKeyDown={this.onKeyDown}
+            >
               <Text id={'cvaa.edit_caption'} />
             </a>
           </div>
