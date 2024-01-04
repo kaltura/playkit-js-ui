@@ -63,7 +63,6 @@ class UIManager {
     this._setLocaleTranslations(config);
     this._themesManager = new ThemesManager(player, config.userTheme, config.targetId);
     setEnv(this.player.env);
-    console.log('@@8888')
   }
 
   /**
