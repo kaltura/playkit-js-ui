@@ -1,7 +1,7 @@
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
-  "extends": ["plugin:prettier/recommended", "plugin:@typescript-eslint/recommended", "prettier"],
+  "extends": ["plugin:prettier/recommended", "plugin:@typescript-eslint/recommended"],
   "plugins": ["prettier", "@typescript-eslint"],
   "rules": {
     "max-len": [
