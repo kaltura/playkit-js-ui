@@ -40,7 +40,6 @@ import { PKTextTrack } from '@playkit-js/playkit-js';
 import * as preact_2 from 'preact';
 import * as preactHooks from 'preact/hooks';
 import * as preacti18n from 'preact-i18n';
-import { PropsWithoutRef } from 'preact/compat';
 import { ProviderEntryListObject } from '@playkit-js/playkit-js-providers';
 import { ProviderMediaConfigSessionObject } from '@playkit-js/playkit-js-providers';
 import { ProviderMediaConfigSourcesObject } from '@playkit-js/playkit-js-providers';
@@ -50,13 +49,11 @@ import { ProviderPlaylistInfoObject } from '@playkit-js/playkit-js-providers';
 import { ProviderPlaylistMetadataObject } from '@playkit-js/playkit-js-providers';
 import { ProviderPlaylistObject } from '@playkit-js/playkit-js-providers';
 import * as redux from 'react-redux';
-import { Ref } from 'preact';
 import { RefObject } from 'preact';
 import { RenderableProps } from 'preact';
 import { StateType } from '@playkit-js/playkit-js';
 import { Store } from 'redux';
 import { StreamType } from '@playkit-js/playkit-js';
-import style from './styles/style.scss';
 import { TextStyle } from '@playkit-js/playkit-js';
 import { ThumbnailInfo } from '@playkit-js/playkit-js';
 import { TimedMetadata } from '@playkit-js/playkit-js';
@@ -64,6 +61,7 @@ import { Track } from '@playkit-js/playkit-js';
 import { TrackType } from '@playkit-js/playkit-js';
 import { TrackTypes } from '@playkit-js/playkit-js';
 import { UIEventType as UIEventType_2 } from '@playkit-js/playkit-js-ui';
+import { UIOptionsObject as UIOptionsObject_2 } from '@playkit-js/playkit-js-ui';
 import { VideoTrack } from '@playkit-js/playkit-js';
 import { VNode } from 'preact';
 
@@ -562,14 +560,10 @@ class BottomBar extends Component<any, any> {
 }
 
 // @public
-const Button: FunctionalComponent<PropsWithoutRef<any> & {
-ref?: Ref<HTMLButtonElement> | undefined;
-}>;
+const Button: FunctionalComponent<any>;
 
 // @public
-const ButtonControl: FunctionalComponent<PropsWithoutRef<any> & {
-ref?: Ref<HTMLDivElement> | undefined;
-}>;
+const ButtonControl: FunctionalComponent<any>;
 
 // @public
 class CaptionsMenu extends Component<any, any> {
@@ -1234,7 +1228,7 @@ function errorUI(props: any): VNode<any>;
 declare namespace Event_2 {
     export {
         withEventManager,
-        UIEventType as EventType
+        EventType
     }
 }
 export { Event_2 as Event }
@@ -1248,6 +1242,40 @@ class EventDispatcherProvider extends Component<any, any> {
     };
     render(): any;
 }
+
+// @public (undocumented)
+const EventType: {
+    readonly UI_CLICKED: "playkit-ui-uiclicked";
+    readonly UI_VISIBILITY_CHANGED: "playkit-ui-uivisibilitychanged";
+    readonly GUI_RESIZE: "playkit-ui-guiresize";
+    readonly PLAYER_RESIZE: "playkit-ui-playerresize";
+    readonly VIDEO_RESIZE: "playkit-ui-videoresize";
+    readonly UI_PRESET_CHANGE: "playkit-ui-uipresetchange";
+    readonly USER_CLICKED_PLAY: "playkit-ui-userclickedplay";
+    readonly USER_CLICKED_PAUSE: "playkit-ui-userclickedpause";
+    readonly USER_CLICKED_REWIND: "playkit-ui-userclickedrewind";
+    readonly USER_CLICKED_FORWARD: "playkit-ui-userclickedforward";
+    readonly USER_CLICKED_LIVE_TAG: "playkit-ui-userclickedlivetag";
+    readonly USER_CLICKED_MUTE: "playkit-ui-userclickedmute";
+    readonly USER_CLICKED_UNMUTE: "playkit-ui-userclickedunmute";
+    readonly USER_CLICKED_ADVANCED_AUDIO_DESCRIPTION: "playkit-ui-userclickedadvancedaudiodescription";
+    readonly USER_CHANGED_VOLUME: "playkit-ui-userchangedvolume";
+    readonly USER_SELECTED_CAPTION_TRACK: "playkit-ui-userselectedcaptiontrack";
+    readonly USER_SHOWED_CAPTIONS: "playkit-ui-usershowedcaptions";
+    readonly USER_HID_CAPTIONS: "playkit-ui-userhidcaptions";
+    readonly USER_SELECTED_AUDIO_TRACK: "playkit-ui-userselectedaudiotrack";
+    readonly USER_SELECTED_QUALITY_TRACK: "playkit-ui-userselectedqualitytrack";
+    readonly USER_ENTERED_FULL_SCREEN: "playkit-ui-userenteredfullscreen";
+    readonly USER_EXITED_FULL_SCREEN: "playkit-ui-userexitedfullscreen";
+    readonly USER_ENTERED_PICTURE_IN_PICTURE: "playkit-ui-userenteredpictureinpicture";
+    readonly USER_EXITED_PICTURE_IN_PICTURE: "playkit-ui-userexitedpictureinpicture";
+    readonly USER_SELECTED_CAPTIONS_STYLE: "playkit-ui-userselectedcaptionsstyle";
+    readonly USER_SELECTED_SPEED: "playkit-ui-userselectedspeed";
+    readonly USER_SEEKED: "playkit-ui-userseeked";
+    readonly RESIZE: "playkit-ui-resize";
+};
+export { EventType }
+export { EventType as UIEventType }
 
 // @public (undocumented)
 const ExpandableText: new (props?: any, context?: any) => any;
@@ -1388,6 +1416,7 @@ function imgUI(props: any): VNode<any>;
 
 // @public (undocumented)
 const initialState: {
+    targetId: string;
     forceTouchUI: boolean;
     showCCButton: boolean;
     settings: {
@@ -1620,6 +1649,8 @@ class Keyboard extends Component<any, any> {
     };
     // (undocumented)
     _lastActiveTextLanguage: string;
+    // (undocumented)
+    render(): undefined;
 }
 
 // @public (undocumented)
@@ -2280,7 +2311,10 @@ class SpeedMenu extends Component<any, any> {
     render(props: any): VNode<any> | undefined;
 }
 
-export { style }
+// @public (undocumented)
+export const style: {
+    [key: string]: string;
+};
 
 // @public
 class TimeDisplay extends Component<any, any> {
@@ -2486,42 +2520,11 @@ const types_9: {
     UPDATE_LAYOUT_STYLES: string;
 };
 
-// @public (undocumented)
-export const UIEventType: {
-    readonly UI_CLICKED: "playkit-ui-uiclicked";
-    readonly UI_VISIBILITY_CHANGED: "playkit-ui-uivisibilitychanged";
-    readonly GUI_RESIZE: "playkit-ui-guiresize";
-    readonly PLAYER_RESIZE: "playkit-ui-playerresize";
-    readonly VIDEO_RESIZE: "playkit-ui-videoresize";
-    readonly UI_PRESET_CHANGE: "playkit-ui-uipresetchange";
-    readonly USER_CLICKED_PLAY: "playkit-ui-userclickedplay";
-    readonly USER_CLICKED_PAUSE: "playkit-ui-userclickedpause";
-    readonly USER_CLICKED_REWIND: "playkit-ui-userclickedrewind";
-    readonly USER_CLICKED_FORWARD: "playkit-ui-userclickedforward";
-    readonly USER_CLICKED_LIVE_TAG: "playkit-ui-userclickedlivetag";
-    readonly USER_CLICKED_MUTE: "playkit-ui-userclickedmute";
-    readonly USER_CLICKED_UNMUTE: "playkit-ui-userclickedunmute";
-    readonly USER_CLICKED_ADVANCED_AUDIO_DESCRIPTION: "playkit-ui-userclickedadvancedaudiodescription";
-    readonly USER_CHANGED_VOLUME: "playkit-ui-userchangedvolume";
-    readonly USER_SELECTED_CAPTION_TRACK: "playkit-ui-userselectedcaptiontrack";
-    readonly USER_SHOWED_CAPTIONS: "playkit-ui-usershowedcaptions";
-    readonly USER_HID_CAPTIONS: "playkit-ui-userhidcaptions";
-    readonly USER_SELECTED_AUDIO_TRACK: "playkit-ui-userselectedaudiotrack";
-    readonly USER_SELECTED_QUALITY_TRACK: "playkit-ui-userselectedqualitytrack";
-    readonly USER_ENTERED_FULL_SCREEN: "playkit-ui-userenteredfullscreen";
-    readonly USER_EXITED_FULL_SCREEN: "playkit-ui-userexitedfullscreen";
-    readonly USER_ENTERED_PICTURE_IN_PICTURE: "playkit-ui-userenteredpictureinpicture";
-    readonly USER_EXITED_PICTURE_IN_PICTURE: "playkit-ui-userexitedpictureinpicture";
-    readonly USER_SELECTED_CAPTIONS_STYLE: "playkit-ui-userselectedcaptionsstyle";
-    readonly USER_SELECTED_SPEED: "playkit-ui-userselectedspeed";
-    readonly USER_SEEKED: "playkit-ui-userseeked";
-    readonly RESIZE: "playkit-ui-resize";
-};
-
 // @public
 export class UIManager {
     constructor(player: any, config: UIOptionsObject);
-    addComponent(component: KPUIComponent): () => void;
+    // Warning: (ae-forgotten-export) The symbol "KPUIAddComponent" needs to be exported by the entry point index.d.ts
+    addComponent(component: KPUIAddComponent): () => void;
     buildCustomUI(uis: Array<UIPreset>): void;
     buildDefaultUI(): void;
     _buildUI(uis?: Array<UIPreset>): void;
@@ -2564,7 +2567,7 @@ export class UIManager {
 // @public (undocumented)
 export interface UIOptionsObject {
     // (undocumented)
-    components: ComponentsConfig;
+    components?: ComponentsConfig;
     // (undocumented)
     debugActions?: boolean;
     // (undocumented)
@@ -2589,7 +2592,7 @@ export interface UIOptionsObject {
     // (undocumented)
     showCCButton?: boolean;
     // (undocumented)
-    targetId?: string;
+    targetId: string;
     // (undocumented)
     translations?: {
         [langKey: string]: any;
@@ -2772,7 +2775,7 @@ const withPlayerPreset: (options: any) => (InnerComponent: any) => any;
 
 // Warnings were encountered during analysis:
 //
-// src/components/tooltip/tooltip.tsx:72:7 - (ae-forgotten-export) The symbol "ToolTipPosition" needs to be exported by the entry point index.d.ts
+// src/components/tooltip/tooltip.tsx:71:7 - (ae-forgotten-export) The symbol "ToolTipPosition" needs to be exported by the entry point index.d.ts
 // src/reducers/seekbar.ts:30:64 - (ae-forgotten-export) The symbol "SeekbarClientRect" needs to be exported by the entry point index.d.ts
 // src/reducers/seekbar.ts:30:64 - (ae-forgotten-export) The symbol "SeekbarSegment" needs to be exported by the entry point index.d.ts
 // src/reducers/shell.ts:284:58 - (ae-forgotten-export) The symbol "PresetSettings" needs to be exported by the entry point index.d.ts

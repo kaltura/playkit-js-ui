@@ -1,7 +1,7 @@
 {
   "metadata": {
     "toolPackage": "@microsoft/api-extractor",
-    "toolVersion": "7.39.0",
+    "toolVersion": "7.39.1",
     "schemaVersion": 1011,
     "oldestForwardsCompatibleVersion": 1001,
     "tsdocConfig": {
@@ -220,7 +220,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -314,7 +314,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -382,7 +382,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -481,7 +481,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -596,7 +596,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -779,7 +779,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -1149,7 +1149,7 @@
                     {
                       "kind": "Reference",
                       "text": "RenderableProps",
-                      "canonicalReference": "preact!RenderableProps:type"
+                      "canonicalReference": "preact!preact.RenderableProps:type"
                     },
                     {
                       "kind": "Content",
@@ -1183,7 +1183,7 @@
                     {
                       "kind": "Reference",
                       "text": "ComponentChild",
-                      "canonicalReference": "preact!ComponentChild:type"
+                      "canonicalReference": "preact!preact.ComponentChild:type"
                     },
                     {
                       "kind": "Content",
@@ -1247,7 +1247,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -1308,7 +1308,7 @@
                     {
                       "kind": "Reference",
                       "text": "RefObject",
-                      "canonicalReference": "preact!RefObject:type"
+                      "canonicalReference": "preact!preact.RefObject:type"
                     },
                     {
                       "kind": "Content",
@@ -1744,38 +1744,11 @@
                 {
                   "kind": "Reference",
                   "text": "FunctionalComponent",
-                  "canonicalReference": "preact!FunctionalComponent:interface"
+                  "canonicalReference": "preact!preact.FunctionalComponent:interface"
                 },
                 {
                   "kind": "Content",
-                  "text": "<import(\"preact/compat\")."
-                },
-                {
-                  "kind": "Reference",
-                  "text": "PropsWithoutRef",
-                  "canonicalReference": "preact-compat!React.PropsWithoutRef:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": "<any> & {\n    ref?: import(\"preact\")."
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Ref",
-                  "canonicalReference": "preact!Ref:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": "<"
-                },
-                {
-                  "kind": "Reference",
-                  "text": "HTMLButtonElement",
-                  "canonicalReference": "!HTMLButtonElement:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": "> | undefined;\n}>"
+                  "text": "<any>"
                 }
               ],
               "fileUrlPath": "src/components/button/button.tsx",
@@ -1784,7 +1757,7 @@
               "name": "Button",
               "variableTypeTokenRange": {
                 "startIndex": 1,
-                "endIndex": 10
+                "endIndex": 4
               }
             },
             {
@@ -1803,38 +1776,11 @@
                 {
                   "kind": "Reference",
                   "text": "FunctionalComponent",
-                  "canonicalReference": "preact!FunctionalComponent:interface"
+                  "canonicalReference": "preact!preact.FunctionalComponent:interface"
                 },
                 {
                   "kind": "Content",
-                  "text": "<import(\"preact/compat\")."
-                },
-                {
-                  "kind": "Reference",
-                  "text": "PropsWithoutRef",
-                  "canonicalReference": "preact-compat!React.PropsWithoutRef:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": "<any> & {\n    ref?: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Ref",
-                  "canonicalReference": "preact!Ref:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": "<"
-                },
-                {
-                  "kind": "Reference",
-                  "text": "HTMLDivElement",
-                  "canonicalReference": "!HTMLDivElement:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": "> | undefined;\n}>"
+                  "text": "<any>"
                 }
               ],
               "fileUrlPath": "src/components/button-control/button-control.tsx",
@@ -1843,7 +1789,7 @@
               "name": "ButtonControl",
               "variableTypeTokenRange": {
                 "startIndex": 1,
-                "endIndex": 10
+                "endIndex": 4
               }
             },
             {
@@ -1858,7 +1804,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -2065,7 +2011,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -2117,7 +2063,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -2254,7 +2200,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -2306,7 +2252,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -2504,7 +2450,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -2556,7 +2502,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -2745,7 +2691,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -2797,7 +2743,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -2934,7 +2880,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -2986,7 +2932,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -3045,7 +2991,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -3081,7 +3027,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -3125,7 +3071,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -3223,7 +3169,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -3452,7 +3398,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -3504,7 +3450,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -3693,7 +3639,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -3784,7 +3730,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -4122,7 +4068,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -4175,7 +4121,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -4258,7 +4204,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -4327,7 +4273,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -4401,7 +4347,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -4520,7 +4466,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -4556,7 +4502,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -4592,7 +4538,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -4628,7 +4574,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -4702,7 +4648,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -4823,7 +4769,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -4921,7 +4867,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -4973,7 +4919,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -5071,7 +5017,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -5123,7 +5069,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -5330,7 +5276,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -5403,7 +5349,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -5610,7 +5556,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -5728,7 +5674,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -5827,7 +5773,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -5957,7 +5903,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -6293,7 +6239,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -6391,7 +6337,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -6490,7 +6436,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -6694,6 +6640,37 @@
                   "isStatic": false,
                   "isProtected": false,
                   "isAbstract": false
+                },
+                {
+                  "kind": "Method",
+                  "canonicalReference": "@playkit-js/playkit-js-ui!Components.Keyboard#render:member(1)",
+                  "docComment": "",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "render(): "
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "undefined"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isStatic": false,
+                  "returnTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  },
+                  "releaseTag": "Public",
+                  "isProtected": false,
+                  "overloadIndex": 1,
+                  "parameters": [],
+                  "isOptional": false,
+                  "isAbstract": false,
+                  "name": "render"
                 }
               ],
               "extendsTokenRange": {
@@ -6714,7 +6691,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -6918,6 +6895,37 @@
                   "isStatic": false,
                   "isProtected": false,
                   "isAbstract": false
+                },
+                {
+                  "kind": "Method",
+                  "canonicalReference": "@playkit-js/playkit-js-ui!Components.KeyboardControl#render:member(1)",
+                  "docComment": "",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "render(): "
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "undefined"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isStatic": false,
+                  "returnTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  },
+                  "releaseTag": "Public",
+                  "isProtected": false,
+                  "overloadIndex": 1,
+                  "parameters": [],
+                  "isOptional": false,
+                  "isAbstract": false,
+                  "name": "render"
                 }
               ],
               "extendsTokenRange": {
@@ -6938,7 +6946,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -7519,7 +7527,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -7656,7 +7664,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -7708,7 +7716,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -7791,7 +7799,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -7843,7 +7851,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -7911,7 +7919,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -7963,7 +7971,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -8313,7 +8321,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -8366,7 +8374,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -8418,7 +8426,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -8625,7 +8633,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -8678,7 +8686,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -8730,7 +8738,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -9202,7 +9210,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -9238,7 +9246,7 @@
                     {
                       "kind": "Reference",
                       "text": "ComponentChild",
-                      "canonicalReference": "preact!ComponentChild:type"
+                      "canonicalReference": "preact!preact.ComponentChild:type"
                     },
                     {
                       "kind": "Content",
@@ -9443,7 +9451,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -9480,7 +9488,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -9563,7 +9571,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -9698,7 +9706,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -9771,7 +9779,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -9887,7 +9895,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -9985,7 +9993,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -10014,7 +10022,7 @@
                     {
                       "kind": "Reference",
                       "text": "ComponentChildren",
-                      "canonicalReference": "preact!ComponentChildren:type"
+                      "canonicalReference": "preact!preact.ComponentChildren:type"
                     },
                     {
                       "kind": "Content",
@@ -10045,7 +10053,7 @@
                     {
                       "kind": "Reference",
                       "text": "ComponentChildren",
-                      "canonicalReference": "preact!ComponentChildren:type"
+                      "canonicalReference": "preact!preact.ComponentChildren:type"
                     },
                     {
                       "kind": "Content",
@@ -10139,7 +10147,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -10472,7 +10480,7 @@
                     {
                       "kind": "Reference",
                       "text": "ComponentChild",
-                      "canonicalReference": "preact!ComponentChild:type"
+                      "canonicalReference": "preact!preact.ComponentChild:type"
                     },
                     {
                       "kind": "Content",
@@ -10504,7 +10512,7 @@
                     {
                       "kind": "Reference",
                       "text": "ComponentChildren",
-                      "canonicalReference": "preact!ComponentChildren:type"
+                      "canonicalReference": "preact!preact.ComponentChildren:type"
                     },
                     {
                       "kind": "Content",
@@ -10625,7 +10633,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -10723,7 +10731,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -10790,7 +10798,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -10842,7 +10850,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -11106,7 +11114,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -11158,7 +11166,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -11226,7 +11234,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -11308,7 +11316,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -11376,7 +11384,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -11458,7 +11466,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -11603,7 +11611,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -11655,7 +11663,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -11692,7 +11700,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -11744,7 +11752,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -11812,7 +11820,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -11864,7 +11872,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -12023,7 +12031,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -12102,7 +12110,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -12200,7 +12208,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -12252,7 +12260,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -12350,7 +12358,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -12406,7 +12414,7 @@
                 {
                   "kind": "Reference",
                   "text": "ComponentChildren",
-                  "canonicalReference": "preact!ComponentChildren:type"
+                  "canonicalReference": "preact!preact.ComponentChildren:type"
                 },
                 {
                   "kind": "Content",
@@ -12439,7 +12447,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -13358,7 +13366,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -13411,7 +13419,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -13447,7 +13455,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -13600,7 +13608,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -14519,7 +14527,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -14572,7 +14580,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -14608,7 +14616,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -14761,7 +14769,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -14941,7 +14949,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -15001,7 +15009,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -15044,7 +15052,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -15231,7 +15239,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -15553,7 +15561,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -15674,7 +15682,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -15996,7 +16004,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -16117,7 +16125,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -16860,7 +16868,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -16943,7 +16951,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -17455,7 +17463,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -17537,7 +17545,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -17697,7 +17705,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -17759,7 +17767,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -17811,7 +17819,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -17848,7 +17856,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -17900,7 +17908,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -18091,7 +18099,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -18143,7 +18151,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -18260,7 +18268,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -18312,7 +18320,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -18349,7 +18357,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -18401,7 +18409,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -18438,7 +18446,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -18490,7 +18498,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -18596,7 +18604,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -18648,7 +18656,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -19234,7 +19242,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -19410,7 +19418,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -19447,7 +19455,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -19499,7 +19507,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -19844,7 +19852,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -19896,7 +19904,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -19925,7 +19933,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -20016,7 +20024,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -20238,7 +20246,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -20329,7 +20337,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -21148,7 +21156,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -21221,7 +21229,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -22040,7 +22048,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -22113,7 +22121,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -22273,7 +22281,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -22316,7 +22324,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -22476,7 +22484,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -22519,7 +22527,7 @@
                 {
                   "kind": "Reference",
                   "text": "Component",
-                  "canonicalReference": "preact!Component:class"
+                  "canonicalReference": "preact!preact.Component:class"
                 },
                 {
                   "kind": "Content",
@@ -22663,7 +22671,7 @@
                     {
                       "kind": "Reference",
                       "text": "VNode",
-                      "canonicalReference": "preact!VNode:interface"
+                      "canonicalReference": "preact!preact.VNode:interface"
                     },
                     {
                       "kind": "Content",
@@ -23002,6 +23010,29 @@
           ]
         },
         {
+          "kind": "Variable",
+          "canonicalReference": "@playkit-js/playkit-js-ui!EventType:var",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "EventType: "
+            },
+            {
+              "kind": "Content",
+              "text": "{\n    readonly UI_CLICKED: \"playkit-ui-uiclicked\";\n    readonly UI_VISIBILITY_CHANGED: \"playkit-ui-uivisibilitychanged\";\n    readonly GUI_RESIZE: \"playkit-ui-guiresize\";\n    readonly PLAYER_RESIZE: \"playkit-ui-playerresize\";\n    readonly VIDEO_RESIZE: \"playkit-ui-videoresize\";\n    readonly UI_PRESET_CHANGE: \"playkit-ui-uipresetchange\";\n    readonly USER_CLICKED_PLAY: \"playkit-ui-userclickedplay\";\n    readonly USER_CLICKED_PAUSE: \"playkit-ui-userclickedpause\";\n    readonly USER_CLICKED_REWIND: \"playkit-ui-userclickedrewind\";\n    readonly USER_CLICKED_FORWARD: \"playkit-ui-userclickedforward\";\n    readonly USER_CLICKED_LIVE_TAG: \"playkit-ui-userclickedlivetag\";\n    readonly USER_CLICKED_MUTE: \"playkit-ui-userclickedmute\";\n    readonly USER_CLICKED_UNMUTE: \"playkit-ui-userclickedunmute\";\n    readonly USER_CLICKED_ADVANCED_AUDIO_DESCRIPTION: \"playkit-ui-userclickedadvancedaudiodescription\";\n    readonly USER_CHANGED_VOLUME: \"playkit-ui-userchangedvolume\";\n    readonly USER_SELECTED_CAPTION_TRACK: \"playkit-ui-userselectedcaptiontrack\";\n    readonly USER_SHOWED_CAPTIONS: \"playkit-ui-usershowedcaptions\";\n    readonly USER_HID_CAPTIONS: \"playkit-ui-userhidcaptions\";\n    readonly USER_SELECTED_AUDIO_TRACK: \"playkit-ui-userselectedaudiotrack\";\n    readonly USER_SELECTED_QUALITY_TRACK: \"playkit-ui-userselectedqualitytrack\";\n    readonly USER_ENTERED_FULL_SCREEN: \"playkit-ui-userenteredfullscreen\";\n    readonly USER_EXITED_FULL_SCREEN: \"playkit-ui-userexitedfullscreen\";\n    readonly USER_ENTERED_PICTURE_IN_PICTURE: \"playkit-ui-userenteredpictureinpicture\";\n    readonly USER_EXITED_PICTURE_IN_PICTURE: \"playkit-ui-userexitedpictureinpicture\";\n    readonly USER_SELECTED_CAPTIONS_STYLE: \"playkit-ui-userselectedcaptionsstyle\";\n    readonly USER_SELECTED_SPEED: \"playkit-ui-userselectedspeed\";\n    readonly USER_SEEKED: \"playkit-ui-userseeked\";\n    readonly RESIZE: \"playkit-ui-resize\";\n}"
+            }
+          ],
+          "fileUrlPath": "src/event/event-type.ts",
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "EventType",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        },
+        {
           "kind": "TypeAlias",
           "canonicalReference": "@playkit-js/playkit-js-ui!FullscreenConfig:type",
           "docComment": "",
@@ -23202,7 +23233,7 @@
                 {
                   "kind": "Reference",
                   "text": "VNode",
-                  "canonicalReference": "preact!VNode:interface"
+                  "canonicalReference": "preact!preact.VNode:interface"
                 },
                 {
                   "kind": "Content",
@@ -23252,7 +23283,7 @@
                 {
                   "kind": "Reference",
                   "text": "VNode",
-                  "canonicalReference": "preact!VNode:interface"
+                  "canonicalReference": "preact!preact.VNode:interface"
                 },
                 {
                   "kind": "Content",
@@ -23302,7 +23333,7 @@
                 {
                   "kind": "Reference",
                   "text": "VNode",
-                  "canonicalReference": "preact!VNode:interface"
+                  "canonicalReference": "preact!preact.VNode:interface"
                 },
                 {
                   "kind": "Content",
@@ -23352,7 +23383,7 @@
                 {
                   "kind": "Reference",
                   "text": "VNode",
-                  "canonicalReference": "preact!VNode:interface"
+                  "canonicalReference": "preact!preact.VNode:interface"
                 },
                 {
                   "kind": "Content",
@@ -23402,7 +23433,7 @@
                 {
                   "kind": "Reference",
                   "text": "VNode",
-                  "canonicalReference": "preact!VNode:interface"
+                  "canonicalReference": "preact!preact.VNode:interface"
                 },
                 {
                   "kind": "Content",
@@ -23452,7 +23483,7 @@
                 {
                   "kind": "Reference",
                   "text": "VNode",
-                  "canonicalReference": "preact!VNode:interface"
+                  "canonicalReference": "preact!preact.VNode:interface"
                 },
                 {
                   "kind": "Content",
@@ -23588,7 +23619,7 @@
                     },
                     {
                       "kind": "Content",
-                      "text": "{\n    forceTouchUI: boolean;\n    showCCButton: boolean;\n    settings: {\n        showAudioMenu: boolean;\n        showCaptionsMenu: boolean;\n        showQualityMenu: boolean;\n        showSpeedMenu: boolean;\n        showAdvancedAudioDescToggle: boolean;\n        showAdvancedCaptionsMenu: boolean;\n    };\n    hoverTimeout: number;\n    components: {\n        watermark: any;\n        seekbar: any;\n        vrStereo: any;\n        logo: any;\n        fullscreen: any;\n        sidePanels: any;\n    };\n}"
+                      "text": "{\n    targetId: string;\n    forceTouchUI: boolean;\n    showCCButton: boolean;\n    settings: {\n        showAudioMenu: boolean;\n        showCaptionsMenu: boolean;\n        showQualityMenu: boolean;\n        showSpeedMenu: boolean;\n        showAdvancedAudioDescToggle: boolean;\n        showAdvancedCaptionsMenu: boolean;\n    };\n    hoverTimeout: number;\n    components: {\n        watermark: any;\n        seekbar: any;\n        vrStereo: any;\n        logo: any;\n        fullscreen: any;\n        sidePanels: any;\n    };\n}"
                     }
                   ],
                   "fileUrlPath": "src/reducers/config.ts",
@@ -25749,22 +25780,22 @@
         },
         {
           "kind": "Variable",
-          "canonicalReference": "@playkit-js/playkit-js-ui!UIEventType:var",
+          "canonicalReference": "@playkit-js/playkit-js-ui!style:var",
           "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "EventType: "
+              "text": "cssClasses: "
             },
             {
               "kind": "Content",
-              "text": "{\n    readonly UI_CLICKED: \"playkit-ui-uiclicked\";\n    readonly UI_VISIBILITY_CHANGED: \"playkit-ui-uivisibilitychanged\";\n    readonly GUI_RESIZE: \"playkit-ui-guiresize\";\n    readonly PLAYER_RESIZE: \"playkit-ui-playerresize\";\n    readonly VIDEO_RESIZE: \"playkit-ui-videoresize\";\n    readonly UI_PRESET_CHANGE: \"playkit-ui-uipresetchange\";\n    readonly USER_CLICKED_PLAY: \"playkit-ui-userclickedplay\";\n    readonly USER_CLICKED_PAUSE: \"playkit-ui-userclickedpause\";\n    readonly USER_CLICKED_REWIND: \"playkit-ui-userclickedrewind\";\n    readonly USER_CLICKED_FORWARD: \"playkit-ui-userclickedforward\";\n    readonly USER_CLICKED_LIVE_TAG: \"playkit-ui-userclickedlivetag\";\n    readonly USER_CLICKED_MUTE: \"playkit-ui-userclickedmute\";\n    readonly USER_CLICKED_UNMUTE: \"playkit-ui-userclickedunmute\";\n    readonly USER_CLICKED_ADVANCED_AUDIO_DESCRIPTION: \"playkit-ui-userclickedadvancedaudiodescription\";\n    readonly USER_CHANGED_VOLUME: \"playkit-ui-userchangedvolume\";\n    readonly USER_SELECTED_CAPTION_TRACK: \"playkit-ui-userselectedcaptiontrack\";\n    readonly USER_SHOWED_CAPTIONS: \"playkit-ui-usershowedcaptions\";\n    readonly USER_HID_CAPTIONS: \"playkit-ui-userhidcaptions\";\n    readonly USER_SELECTED_AUDIO_TRACK: \"playkit-ui-userselectedaudiotrack\";\n    readonly USER_SELECTED_QUALITY_TRACK: \"playkit-ui-userselectedqualitytrack\";\n    readonly USER_ENTERED_FULL_SCREEN: \"playkit-ui-userenteredfullscreen\";\n    readonly USER_EXITED_FULL_SCREEN: \"playkit-ui-userexitedfullscreen\";\n    readonly USER_ENTERED_PICTURE_IN_PICTURE: \"playkit-ui-userenteredpictureinpicture\";\n    readonly USER_EXITED_PICTURE_IN_PICTURE: \"playkit-ui-userexitedpictureinpicture\";\n    readonly USER_SELECTED_CAPTIONS_STYLE: \"playkit-ui-userselectedcaptionsstyle\";\n    readonly USER_SELECTED_SPEED: \"playkit-ui-userselectedspeed\";\n    readonly USER_SEEKED: \"playkit-ui-userseeked\";\n    readonly RESIZE: \"playkit-ui-resize\";\n}"
+              "text": "{\n    [key: string]: string;\n}"
             }
           ],
-          "fileUrlPath": "src/event/event-type.ts",
+          "fileUrlPath": "src/index.ts",
           "isReadonly": true,
           "releaseTag": "Public",
-          "name": "UIEventType",
+          "name": "style",
           "variableTypeTokenRange": {
             "startIndex": 1,
             "endIndex": 2
@@ -26141,8 +26172,8 @@
                 },
                 {
                   "kind": "Reference",
-                  "text": "KPUIComponent",
-                  "canonicalReference": "@playkit-js/playkit-js-ui!~KPUIComponent:interface"
+                  "text": "KPUIAddComponent",
+                  "canonicalReference": "@playkit-js/playkit-js-ui!~KPUIAddComponent:interface"
                 },
                 {
                   "kind": "Content",
@@ -26845,7 +26876,7 @@
               "excerptTokens": [
                 {
                   "kind": "Content",
-                  "text": "components: "
+                  "text": "components?: "
                 },
                 {
                   "kind": "Reference",
@@ -26858,7 +26889,7 @@
                 }
               ],
               "isReadonly": false,
-              "isOptional": false,
+              "isOptional": true,
               "releaseTag": "Public",
               "name": "components",
               "propertyTypeTokenRange": {
@@ -27063,7 +27094,7 @@
               "excerptTokens": [
                 {
                   "kind": "Content",
-                  "text": "targetId?: "
+                  "text": "targetId: "
                 },
                 {
                   "kind": "Content",
@@ -27075,7 +27106,7 @@
                 }
               ],
               "isReadonly": false,
-              "isOptional": true,
+              "isOptional": false,
               "releaseTag": "Public",
               "name": "targetId",
               "propertyTypeTokenRange": {
@@ -27198,7 +27229,7 @@
             {
               "kind": "Reference",
               "text": "ComponentChild",
-              "canonicalReference": "preact!ComponentChild:type"
+              "canonicalReference": "preact!preact.ComponentChild:type"
             },
             {
               "kind": "Content",

@@ -1,4 +1,5 @@
 import {ComponentChildren, h} from 'preact';
+//@ts-ignore
 import {useState, useRef, useMemo, MutableRef} from 'preact/hooks';
 import styles from '../../styles/style.scss';
 

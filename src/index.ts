@@ -17,7 +17,7 @@ import {SidePanelPositions, SidePanelModes, ReservedPresetNames, ReservedPresetA
 // Event
 import * as Event from './event';
 export {Event};
-export {EventType as UIEventType} from './event/event-type';
+export {EventType, EventType as UIEventType} from './event/event-type';
 
 declare const __VERSION__: string;
 declare const __NAME__: string;
