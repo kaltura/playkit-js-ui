@@ -1,5 +1,3 @@
-// @flow
-/* eslint-disable no-unused-vars */
 import getLogger from '../utils/logger';
 import {UIOptionsObject} from '../types';
 
