@@ -46,7 +46,9 @@
 
     .icon-volume-waves,
     .icon-volume-mute {
-      transition: 300ms transform, 300ms opacity;
+      transition:
+        300ms transform,
+        300ms opacity;
     }
 
     i {

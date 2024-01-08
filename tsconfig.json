@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules",
+        "options": {
+          "customMatcher": "\\.(css|scss)$"
+        }
+      }
+    ],
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "baseUrl": ".",
+    "sourceMap": true,
+    "strict": false,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "jsx": "preserve",
+    "jsxFactory": "h",
+    "jsxFragmentFactory": "Fragment",
+    "paths": {
+      "react": ["./node_modules/preact/compat/"],
+      "react-dom": ["./node_modules/preact/compat/"],
+      "@playkit-js/kaltura-player-js": ["./kaltura-player-js.d.ts"] // tmep - should be removed after @playkit-js/kaltura-player-js is merged
+    },
+    "lib": ["dom", "ESNext"],
+    "outDir": "./lib/",
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["src/**/*"]
+}
