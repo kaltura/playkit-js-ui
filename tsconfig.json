@@ -26,7 +26,7 @@
     "paths": {
       "react": ["./node_modules/preact/compat/"],
       "react-dom": ["./node_modules/preact/compat/"],
-      "@playkit-js/kaltura-player-js": ["./kaltura-player-js.d.ts"]
+      "@playkit-js/kaltura-player-js": ["./src/types/kaltura-player-js.d.ts"]
     },
     "lib": ["dom", "ESNext"],
     "outDir": "./lib/",
