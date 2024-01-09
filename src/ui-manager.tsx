@@ -28,9 +28,9 @@ import './styles/style.scss';
 import {EventDispatcherProvider} from './components';
 import {KeyboardEventProvider} from './components';
 import {ThemesManager} from './utils/themes-manager';
-import {UIOptionsObject, UIPreset} from './types';
-import {KalturaPlayer, KPUIAddComponent, KPUIComponent} from '@playkit-js/kaltura-player-js';
+import { KPUIAddComponent, KPUIComponent, UIOptionsObject, UIPreset } from "./types";
 import {RootState} from './types';
+import { KalturaPlayer } from "@playkit-js/kaltura-player-js";
 
 /**
  * API used for building UIs based on state conditions
