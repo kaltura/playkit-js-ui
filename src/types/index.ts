@@ -11,3 +11,5 @@ export * from './user-theme';
 export * from './vr-stereo-config';
 export * from './watermark-config';
 export * from './reducers/root-state';
+export * from './ui-component';
+export * from './ui-component-options';
