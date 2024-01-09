@@ -1,7 +1,7 @@
 import {LoggerType} from '../utils/logger';
 import {ComponentsConfig} from './components-config';
 import {UserTheme} from './user-theme';
-import { KPUIComponent } from "./ui-component";
+import {KPUIComponent} from './ui-component';
 
 export interface UIOptionsObject {
   targetId: string;
