@@ -2,7 +2,7 @@ import {Component, h, Fragment} from 'preact';
 import {connect} from 'react-redux';
 import {withLogger, WithLoggerProps} from '../logger';
 import {StylesStoreAdapter} from './styles-store-adapter';
-import {KPUIAddComponent, KPUIComponent, KPUIRemoveComponent} from '@playkit-js/kaltura-player-js';
+import { KPUIAddComponent, KPUIComponent } from "../../types";
 
 type PlayerAreaProviderProps = {
   activePresetName?: string;
