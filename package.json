@@ -46,13 +46,14 @@
     "prebuild": "npm run clean",
     "precommit": "npm run build:prod && npm run type-check && npm run lint:fix",
     "pushTaggedRelease": "git push --follow-tags --no-verify origin master",
-    "release": "standard-version"
+    "release": "standard-version",
+    "runn": "cp -Rf dist ../playkit-js-plugin-example/node_modules/@playkit-js/playkit-js-ui"
   },
   "dependencies": {
-    "preact": "^10.3.4",
-    "preact-i18n": "^2.0.0-preactx.2",
-    "react-redux": "^7.2.0",
-    "redux": "^4.0.5"
+    "preact": "10.4.6",
+    "preact-i18n": "2.0.0-preactx.2",
+    "react-redux": "7.2.1",
+    "redux": "4.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.22.20",
@@ -67,6 +68,7 @@
     "@playkit-js/playkit-js": "^0.84.3-canary.0-22c594e",
     "@types/chai": "^4.3.3",
     "@types/mocha": "^9.1.1",
+    "@types/preact-i18n": "1.2.0",
     "@types/sinon": "^10.0.20",
     "@types/sinon-chai": "^3.2.12",
     "@typescript-eslint/eslint-plugin": "^6.12.0",
