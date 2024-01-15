@@ -1611,6 +1611,7 @@ export declare class KalturaPlayer extends FakeEventTarget {
     isUntimedImg(): boolean;
     isImage(): boolean;
     isAudio(): boolean;
+    isDoc(): boolean;
     seekToLiveEdge(): void;
     getStartTimeOfDvrWindow(): number;
     getTracks(type?: TrackTypes): Array<Track>;

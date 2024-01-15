@@ -36,6 +36,7 @@ export interface EngineState {
   isLive: boolean;
   isDvr: boolean;
   isImg: boolean;
+  isDoc: boolean;
   isAudio: boolean;
   adProgress: {
     currentTime: number;
