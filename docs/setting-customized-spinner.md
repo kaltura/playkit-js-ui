@@ -54,7 +54,7 @@ as you can see in the following full working example:
           uiComponents: [
             {
               label: 'LoadingSpinner',
-              presets: ['Playback', 'Live', 'Img'],
+              presets: ['Playback', 'Live', 'Img', 'Doc'],
               area: 'LoadingSpinner',
               get: MySpinner,
               replaceComponent: 'Spinner'

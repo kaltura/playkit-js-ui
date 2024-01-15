@@ -63,7 +63,7 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
       this.props.updateIsLive(player.isLive());
       this.props.updateIsVr(player.isVr());
       this.props.updateIsImg(player.isUntimedImg());
-      this.props.updateIsDoc(player.isDoc());
+      this.props.updateIsDoc(player.isUntimedDoc());
 
       this.props.updateIsAudio(player.isAudio());
 

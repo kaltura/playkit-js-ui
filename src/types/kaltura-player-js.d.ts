@@ -1609,6 +1609,7 @@ export declare class KalturaPlayer extends FakeEventTarget {
     isOnLiveEdge(): boolean;
     isDvr(): boolean;
     isUntimedImg(): boolean;
+    isUntimedDoc(): boolean;
     isImage(): boolean;
     isAudio(): boolean;
     isDoc(): boolean;
