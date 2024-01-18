@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.77.14 (2024-01-18)
+
+
+### Bug Fixes
+
+* **FEC-13632:** Divert the kaltura-player-js types to be imported locally and not form node_modules (circular deps) ([#841](https://github.com/kaltura/playkit-js-ui/issues/841)) ([1a5779a](https://github.com/kaltura/playkit-js-ui/commit/1a5779a))
+
+
+
 ### 0.77.13 (2023-12-21)
 
 
