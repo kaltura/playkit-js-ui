@@ -19,7 +19,7 @@ type ActivePresetPropsProps = {
       isIdle: boolean;
       isVr: boolean;
       isImg: boolean;
-      isDoc: boolean;
+      isDocument: boolean;
       playlist: any;
     };
   };
@@ -41,7 +41,7 @@ const mapStateToProps = state => ({
       isIdle: state.engine.isIdle,
       isVr: state.engine.isVr,
       isImg: state.engine.isImg,
-      isDoc: state.engine.isDoc,
+      isDocument: state.engine.isDocument,
       playlist: state.engine.playlist
     }
   },

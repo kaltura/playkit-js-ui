@@ -91,7 +91,7 @@ export const initialState = {
   isLive: false,
   isDvr: false,
   isImg: false,
-  isDoc: false,
+  isDocument: false,
   isAudio: false,
   adProgress: {
     currentTime: 0,
@@ -328,7 +328,7 @@ export default (state: EngineState = initialState, action: any) => {
     case types.UPDATE_IS_DOC:
       return {
         ...state,
-        isDoc: action.isDoc
+        isDocument: action.isDocument
       };
 
     case types.UPDATE_IS_IDLE:
@@ -455,7 +455,7 @@ export const actions = {
   updateIsLive: (isLive: boolean) => ({type: types.UPDATE_IS_LIVE, isLive}),
   updateIsDvr: (isDvr: boolean) => ({type: types.UPDATE_IS_DVR, isDvr}),
   updateIsImg: (isImg: boolean) => ({type: types.UPDATE_IS_IMG, isImg}),
-  updateIsDoc: (isDoc: boolean) => ({type: types.UPDATE_IS_DOC, isDoc}),
+  updateIsDocument: (isDocument: boolean) => ({type: types.UPDATE_IS_DOC, isDocument}),
   updateIsIdle: (IsIdle: boolean) => ({type: types.UPDATE_IS_IDLE, IsIdle: IsIdle}),
   updateFallbackToMutedAutoPlay: (fallback: boolean) => ({type: types.UPDATE_FALLBACK_TO_MUTED_AUTOPLAY, fallback}),
   updateIsVr: (isVr: boolean) => ({type: types.UPDATE_IS_VR, isVr}),
