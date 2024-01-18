@@ -18,7 +18,7 @@ import {withKeyboardEvent} from '../components';
 import {VideoArea} from '../components';
 import {GuiArea} from '../components';
 
-const PRESET_NAME = 'Doc';
+const PRESET_NAME = 'Document';
 
 /**
  * Playback ui interface component

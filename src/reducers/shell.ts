@@ -47,7 +47,7 @@ export const ReservedPresetNames = {
   Error: 'Error',
   Idle: 'Idle',
   Img: 'Img',
-  Doc: 'Doc'
+  Document: 'Document'
 };
 
 export const ReservedPresetAreas = {
