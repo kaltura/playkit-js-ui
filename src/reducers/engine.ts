@@ -40,7 +40,7 @@ export const types = {
   UPDATE_IS_LIVE: `${component}/UPDATE_IS_LIVE`,
   UPDATE_IS_DVR: `${component}/UPDATE_IS_DVR`,
   UPDATE_IS_IMG: `${component}/UPDATE_IS_IMG`,
-  UPDATE_IS_DOC: `${component}/UPDATE_IS_DOC`,
+  UPDATE_IS_DOCUMENT: `${component}/UPDATE_IS_DOCUMENT`,
   UPDATE_ERROR: `${component}/ERROR`,
   UPDATE_IS_IDLE: `${component}/UPDATE_IS_IDLE`,
   UPDATE_FALLBACK_TO_MUTED_AUTOPLAY: `${component}/UPDATE_FALLBACK_TO_MUTED_AUTOPLAY`,
@@ -325,7 +325,7 @@ export default (state: EngineState = initialState, action: any) => {
         isImg: action.isImg
       };
 
-    case types.UPDATE_IS_DOC:
+    case types.UPDATE_IS_DOCUMENT:
       return {
         ...state,
         isDocument: action.isDocument
@@ -455,7 +455,7 @@ export const actions = {
   updateIsLive: (isLive: boolean) => ({type: types.UPDATE_IS_LIVE, isLive}),
   updateIsDvr: (isDvr: boolean) => ({type: types.UPDATE_IS_DVR, isDvr}),
   updateIsImg: (isImg: boolean) => ({type: types.UPDATE_IS_IMG, isImg}),
-  updateIsDocument: (isDocument: boolean) => ({type: types.UPDATE_IS_DOC, isDocument}),
+  updateIsDocument: (isDocument: boolean) => ({type: types.UPDATE_IS_DOCUMENT, isDocument}),
   updateIsIdle: (IsIdle: boolean) => ({type: types.UPDATE_IS_IDLE, IsIdle: IsIdle}),
   updateFallbackToMutedAutoPlay: (fallback: boolean) => ({type: types.UPDATE_FALLBACK_TO_MUTED_AUTOPLAY, fallback}),
   updateIsVr: (isVr: boolean) => ({type: types.UPDATE_IS_VR, isVr}),
