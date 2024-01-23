@@ -11,4 +11,5 @@ yarn.lock
 yarn-error.log
 LICENSE
 README.md
+src/types/kaltura-player-js.d.ts
 

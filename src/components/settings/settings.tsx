@@ -22,7 +22,7 @@ import {Tooltip} from '../tooltip';
 import {Button} from '../button';
 import {ButtonControl} from '../button-control';
 import {createPortal} from 'preact/compat';
-import {focusElement} from "../../utils";
+import {focusElement} from '../../utils';
 
 /**
  * mapping state to props
