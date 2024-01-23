@@ -123,7 +123,7 @@ class Volume extends Component<any, any> {
    * @returns {boolean} - whether to render the component
    */
   _shouldRender(): boolean {
-    const isActive = !this.props.player.isImage();
+    const isActive = !(this.props.player.isImage() || this.props.player.isDocument());
     this.props.onToggle(COMPONENT_NAME, isActive);
     return isActive;
   }

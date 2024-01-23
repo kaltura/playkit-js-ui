@@ -114,6 +114,7 @@ class UIManager {
       {template: props => presets.adsUI(props), condition: state => state.engine.adBreak},
       {template: props => presets.liveUI(props), condition: state => state.engine.isLive},
       {template: props => presets.imgUI(props), condition: state => state.engine.isImg},
+      {template: props => presets.docUI(props), condition: state => state.engine.isDocument},
       {template: props => presets.playbackUI(props)}
     ];
     this._buildUI(uis);
