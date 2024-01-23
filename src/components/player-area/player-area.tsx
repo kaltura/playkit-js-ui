@@ -1,7 +1,7 @@
 import {h, Component, toChildArray, Fragment, VNode, ComponentChild, ComponentChildren} from 'preact';
 import {connect} from 'react-redux';
-import {withLogger} from "../logger";
-import { KPUIComponent } from "../../types";
+import {withLogger} from '../logger';
+import {KPUIComponent} from '../../types';
 
 /**
  * mapping state to props
