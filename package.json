@@ -46,8 +46,7 @@
     "prebuild": "npm run clean",
     "precommit": "npm run build:prod && npm run type-check && npm run lint:fix",
     "pushTaggedRelease": "git push --follow-tags --no-verify origin master",
-    "release": "standard-version",
-    "runn": "cp -Rf dist ../playkit-js-plugin-example/node_modules/@playkit-js/playkit-js-ui"
+    "release": "standard-version"
   },
   "dependencies": {
     "preact": "10.4.6",
