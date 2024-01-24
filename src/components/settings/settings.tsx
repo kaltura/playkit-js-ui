@@ -36,6 +36,7 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile,
   isSmallSize: state.shell.isSmallSize,
   isLive: state.engine.isLive,
+  isAudio: state.engine.isAudio,
   showQualityMenu: state.config.settings.showQualityMenu,
   showAudioMenu: state.config.settings.showAudioMenu,
   showCaptionsMenu: state.config.settings.showCaptionsMenu,
@@ -171,7 +172,7 @@ class Settings extends Component<any, any> {
     const showAudioMenu = props.showAudioMenu && props.audioTracks.length > 1;
     const showAdvancedAudioDescToggle = props.showAdvancedAudioDescToggle;
     const showCaptionsMenu = props.showCaptionsMenu && props.textTracks.length > 1;
-    const showQualityMenu = props.showQualityMenu && props.videoTracks.length > 1;
+    const showQualityMenu = props.showQualityMenu && !props.isAudio && props.videoTracks.length > 1;
     const showSpeedMenu = props.showSpeedMenu && props.player.playbackRates.length > 1 && !props.isLive;
 
     if (!(showAudioMenu || showCaptionsMenu || showQualityMenu || showSpeedMenu)) return undefined;
@@ -194,8 +195,7 @@ class Settings extends Component<any, any> {
               BadgeType[buttonBadgeType + 'Active'],
               this.state.smartContainerOpen ? style.active : ''
             ].join(' ')}
-            onClick={this.onControlButtonClick}
-          >
+            onClick={this.onControlButtonClick}>
             <Icon type={IconType.Settings} />
           </Button>
         </Tooltip>
