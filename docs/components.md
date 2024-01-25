@@ -5,3 +5,4 @@
 - [Seekbar](./components/seekbar/README.md)
 - [Time Display](./components/time-display/README.md)
 - [Error Overlay](./components/error-overlay/README.md)
+- [Logo](./components/logo/README.md)

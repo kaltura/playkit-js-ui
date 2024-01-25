@@ -156,7 +156,7 @@ var uiManager = new playkit.ui.UIManager(player, config);
 >
 > ##### Description: Defines the ui components configuration.
 >
-> Optional components to configure: `watermark`,`seekbar`, `fullscreen`
+> Optional components to configure: `watermark`,`seekbar`, `fullscreen`, `logo`
 
 ##
 
