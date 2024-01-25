@@ -89,12 +89,12 @@ module.exports = (env, {mode}) => {
     },
     externals: {
       '@playkit-js/kaltura-player-js': {root: 'KalturaPlayer'},
-      // '@playkit-js/playkit-js': {
-      //   commonjs: '@playkit-js/playkit-js',
-      //   commonjs2: '@playkit-js/playkit-js',
-      //   amd: 'playkit-js',
-      //   root: ['playkit', 'core']
-      // }
+      '@playkit-js/playkit-js': {
+        commonjs: '@playkit-js/playkit-js',
+        commonjs2: '@playkit-js/playkit-js',
+        amd: 'playkit-js',
+        root: ['playkit', 'core']
+      }
     }
   };
 };
