@@ -16,7 +16,7 @@ Component that renders a logo image in the bottom bar area
 > >
 > > ##### Type: `string | undefined`
 > >
-> > ##### Default: `-`
+> > ##### Default: `undefined`
 > >
 > > ##### Description: Defines logo image url.
 >
@@ -24,7 +24,7 @@ Component that renders a logo image in the bottom bar area
 > >
 > > ##### Type: `string | undefined`
 > >
-> > ##### Default: `-`
+> > ##### Default: `undefined`
 > >
 > > ##### Description: Defines logo tooltip text.
 >
@@ -32,7 +32,7 @@ Component that renders a logo image in the bottom bar area
 > >
 > > ##### Type: `string | undefined`
 > >
-> > ##### Default: `-`
+> > ##### Default: `undefined`
 > >
 > > ##### Description: Defines logo image link url.
 >

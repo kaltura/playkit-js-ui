@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {withText} from 'preact-i18n';
 import {withPlayer} from '../player';
 import {withLogger} from '../logger';
+import {withEventManager} from '../../event';
 
 const COMPONENT_NAME = 'Logo';
 
@@ -29,6 +30,7 @@ const ENTRY_VAR = '${entryId}';
  */
 @connect(mapStateToProps)
 @withPlayer
+@withEventManager
 @withLogger(COMPONENT_NAME)
 @withText({logoText: 'controls.logo'})
 class Logo extends Component<any, any> {
@@ -54,8 +56,8 @@ class Logo extends Component<any, any> {
   private _handleLogoUrl(): void {
     const url = this.props.config.url;
     if (url.indexOf(ENTRY_VAR) !== -1) {
-      const {player} = this.props;
-      player.addEventListener(player.Event.CHANGE_SOURCE_ENDED, () => {
+      const {player, eventManager} = this.props;
+      eventManager.listen(player, player.Event.CHANGE_SOURCE_ENDED, () => {
         if (this._logoRef?.current) {
           this._logoRef.current.href = url.replace(ENTRY_VAR, player.sources.id);
         } else {
