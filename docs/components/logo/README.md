@@ -44,8 +44,6 @@ Component that renders a logo image in the bottom bar area
 
 [kaltura player]: https://github.com/kaltura/kaltura-player-js/
 
-In order to override error-overlay background add `backgroundUrl` link to player config
-
 ```js
 const config = {
     ...
