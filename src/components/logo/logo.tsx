@@ -56,7 +56,11 @@ class Logo extends Component<any, any> {
     if (url.indexOf(ENTRY_VAR) !== -1) {
       const {player} = this.props;
       player.addEventListener(player.Event.CHANGE_SOURCE_ENDED, () => {
-        this._logoRef!.current!.href = url.replace('${entryId}', player.sources.id);
+        if (this._logoRef?.current) {
+          this._logoRef.current.href = url.replace(ENTRY_VAR, player.sources.id);
+        } else {
+          this.props.logger.debug(`Logo url was not replaced, because ref is null. The url: '${url}'`);
+        }
       });
     }
   }
