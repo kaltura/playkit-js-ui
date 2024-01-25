@@ -53,7 +53,7 @@ class Logo extends Component<any, any> {
     }
     return (
       <div className={[style.controlButtonContainer, !props.config.url ? style.emptyUrl : ''].join(' ')} title={props.config.text}>
-        <a className={style.controlButton} href={props.config.url} aria-label={props.logoText} target="_blank" rel="noopener noreferrer">
+        <a className={style.controlButton} href={props.config.url} tabIndex={0} aria-label={props.logoText} target="_blank" rel="noopener noreferrer">
           <img className={style.icon} src={props.config.img} />
         </a>
       </div>

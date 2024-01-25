@@ -11,6 +11,7 @@ import {withEventDispatcher} from '../event-dispatcher';
 import {withLogger} from '../logger';
 import {ResizeWatcher} from '../../utils/resize-watcher';
 import {debounce} from '../../utils/debounce';
+import {focusElement} from '../../utils';
 
 /**
  * mapping state to props
@@ -344,6 +345,29 @@ class Shell extends Component<any, any> {
     }
   }
 
+  _setFocusOnPlayer(): void {
+    const {eventManager, player} = this.props;
+    eventManager.listen(player, player.Event.FIRST_PLAY, () => {
+      const playerContainer: HTMLDivElement = document.getElementById(this.props.targetId) as HTMLDivElement;
+      playerContainer.setAttribute('tabindex', '0');
+      playerContainer.setAttribute('aria-label', 'Player container');
+    });
+    eventManager.listen(document, 'keyup', event => {
+      if (event.code === 'Tab') {
+        this.props.updatePlayerHoverState(true);
+        if (this.state.hover && this.props.playerHover) {
+          if (document.activeElement?.firstElementChild === this._playerRef) {
+            if (event.shiftKey) {
+              const lastElementChild = this._playerRef?.getElementsByClassName('playkit-right-controls')[1].lastElementChild;
+              const elementToFocus = lastElementChild?.querySelectorAll('[tabIndex="0"]')[0] as HTMLElement;
+              focusElement(elementToFocus);
+            }
+          }
+        }
+      }
+    });
+  }
+
   /**
    * when component did update and change its props from prePlayback to !prePlayback
    * update the hover state
@@ -371,6 +395,7 @@ class Shell extends Component<any, any> {
       }
       this._updatePlayerHoverState();
     }
+    this._setFocusOnPlayer();
   }
 
   /**
