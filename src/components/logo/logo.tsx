@@ -57,7 +57,7 @@ class Logo extends Component<any, any> {
     const url = this.props.config.url;
     if (url.indexOf(ENTRY_VAR) !== -1) {
       const {player, eventManager} = this.props;
-      eventManager.listen(player, player.Event.CHANGE_SOURCE_ENDED, () => {
+      eventManager.listen(player, player.Event.MEDIA_LOADED, () => {
         if (this._logoRef?.current) {
           this._logoRef.current.href = url.replace(ENTRY_VAR, player.sources.id);
         } else {
