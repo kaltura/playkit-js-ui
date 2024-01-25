@@ -1,5 +1,5 @@
 import style from '../../styles/style.scss';
-import {h, Component, VNode} from 'preact';
+import {h, Component, VNode, RefObject, createRef} from 'preact';
 import {connect} from 'react-redux';
 import {withText} from 'preact-i18n';
 import {withPlayer} from '../player';
@@ -18,6 +18,8 @@ const mapStateToProps = state => ({
   config: state.config.components.logo
 });
 
+const ENTRY_VAR = '${entryId}';
+
 /**
  * Logo component
  *
@@ -30,11 +32,40 @@ const mapStateToProps = state => ({
 @withLogger(COMPONENT_NAME)
 @withText({logoText: 'controls.logo'})
 class Logo extends Component<any, any> {
+  private _logoRef: RefObject<HTMLAnchorElement> = createRef<HTMLAnchorElement>();
+
+  /**
+   * when component did mount
+   *
+   * @returns {void}
+   * @memberof Logo
+   */
+  public componentDidMount(): void {
+    this._handleLogoUrl();
+  }
+
+  /**
+   * handles the logo url
+   * if the url contains ${entryId}, then replace it with the played entry id
+   *
+   * @returns {void}
+   * @memberof Logo
+   */
+  private _handleLogoUrl(): void {
+    const url = this.props.config.url;
+    if (url.indexOf(ENTRY_VAR) !== -1) {
+      const {player} = this.props;
+      player.addEventListener(player.Event.CHANGE_SOURCE_ENDED, () => {
+        this._logoRef!.current!.href = url.replace('${entryId}', player.sources.id);
+      });
+    }
+  }
+
   /**
    * should render component
    * @returns {boolean} - whether to render the component
    */
-  _shouldRender(): boolean {
+  private _shouldRender(): boolean {
     const isActive = !(Object.keys(this.props.config).length === 0 && this.props.config.constructor === Object) && this.props.config.img;
     this.props.onToggle(COMPONENT_NAME, isActive);
     return isActive;
@@ -47,13 +78,19 @@ class Logo extends Component<any, any> {
    * @returns {?React$Element} - component
    * @memberof Logo
    */
-  render(props: any): VNode<any> | undefined {
+  public render(props: any): VNode<any> | undefined {
     if (!this._shouldRender()) {
       return undefined;
     }
     return (
       <div className={[style.controlButtonContainer, !props.config.url ? style.emptyUrl : ''].join(' ')} title={props.config.text}>
-        <a className={style.controlButton} href={props.config.url} aria-label={props.logoText} target="_blank" rel="noopener noreferrer">
+        <a
+          className={style.controlButton}
+          href={props.config.url}
+          aria-label={props.logoText}
+          target="_blank"
+          rel="noopener noreferrer"
+          ref={this._logoRef}>
           <img className={style.icon} src={props.config.img} />
         </a>
       </div>
