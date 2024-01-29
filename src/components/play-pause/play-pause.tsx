@@ -58,7 +58,9 @@ class PlayPause extends Component<any, any> {
     const {eventManager, player} = this.props;
     const playerContainer: HTMLDivElement = document.getElementById(player.config.ui.targetId) as HTMLDivElement;
     eventManager.listen(player, player.Event.UI.USER_CLICKED_PLAY, () => {
-      playerContainer.focus();
+      eventManager.listen(player, player.Event.Core.FIRST_PLAY, () => {
+        playerContainer.focus();
+      });
     });
     eventManager.listen(document, 'keydown', event => {
       if (event.code === 'Space' || event.code === 'Enter') {
