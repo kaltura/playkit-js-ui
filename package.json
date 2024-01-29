@@ -63,7 +63,7 @@
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-typescript": "^7.23.3",
     "@microsoft/api-extractor": "^7.38.0",
-    "@playkit-js/browserslist-config": "1.0.8-canary.0-f5791c1",
+    "@playkit-js/browserslist-config": "1.0.8",
     "@playkit-js/kaltura-player-js": "latest",
     "@playkit-js/playkit-js": "latest",
     "@types/chai": "^4.3.3",
