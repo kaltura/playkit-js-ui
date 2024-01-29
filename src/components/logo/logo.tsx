@@ -19,7 +19,7 @@ const mapStateToProps = state => ({
   config: state.config.components.logo
 });
 
-const ENTRY_VAR = '${entryId}';
+const ENTRY_VAR = '{entryId}';
 
 /**
  * Logo component
@@ -35,6 +35,16 @@ const ENTRY_VAR = '${entryId}';
 @withText({logoText: 'controls.logo'})
 class Logo extends Component<any, any> {
   private _logoRef: RefObject<HTMLAnchorElement> = createRef<HTMLAnchorElement>();
+
+  /**
+   * before component mounted, set initial state of the logo
+   *
+   * @returns {void}
+   * @memberof Logo
+   */
+  public componentWillMount(): void {
+    this.setState({isUrlClickable: true});
+  }
 
   /**
    * when component did mount
@@ -55,13 +65,15 @@ class Logo extends Component<any, any> {
    */
   private _handleLogoUrl(): void {
     const url = this.props.config.url;
-    if (url.indexOf(ENTRY_VAR) !== -1) {
+    if (url && url.indexOf(ENTRY_VAR) !== -1) {
       const {player, eventManager} = this.props;
       eventManager.listen(player, player.Event.MEDIA_LOADED, () => {
-        if (this._logoRef.current) {
-          this._logoRef.current.href = url.replace(ENTRY_VAR, player.sources.id);
+        const entryId = player.sources.id;
+        if (this._logoRef.current && typeof entryId === 'string') {
+          this._logoRef.current.href = url.replace(ENTRY_VAR, entryId);
         } else {
-          this.props.logger.debug(`Logo url was not replaced, because ref is null. The url: '${url}'`);
+          this.props.logger.debug(`Logo url was not replaced; the logo ref is null, or entry id was not found.`);
+          this.setState({isUrlClickable: false});
         }
       });
     }
@@ -89,7 +101,9 @@ class Logo extends Component<any, any> {
       return undefined;
     }
     return (
-      <div className={[style.controlButtonContainer, !props.config.url ? style.emptyUrl : ''].join(' ')} title={props.config.text}>
+      <div
+        className={[style.controlButtonContainer, !props.config.url || !this.state.isUrlClickable ? style.emptyUrl : ''].join(' ')}
+        title={props.config.text}>
         <a
           className={style.controlButton}
           href={props.config.url}
