@@ -1,5 +1,5 @@
 import style from '../../styles/style.scss';
-import {h, Component, VNode, RefObject, createRef} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {connect} from 'react-redux';
 import {withText} from 'preact-i18n';
 import {withPlayer} from '../player';
@@ -34,16 +34,13 @@ const ENTRY_VAR = '{entryId}';
 @withLogger(COMPONENT_NAME)
 @withText({logoText: 'controls.logo'})
 class Logo extends Component<any, any> {
-  private _logoRef: RefObject<HTMLAnchorElement> = createRef<HTMLAnchorElement>();
-
   /**
-   * before component mounted, set initial state of the logo
-   *
-   * @returns {void}
-   * @memberof Logo
+   * @constructor
+   * @param {*} props props
    */
-  public componentWillMount(): void {
-    this.setState({isUrlClickable: true});
+  constructor(props: any) {
+    super(props);
+    this.setState({isUrlClickable: true, urlLink: props.config.url});
   }
 
   /**
@@ -69,10 +66,10 @@ class Logo extends Component<any, any> {
       const {player, eventManager} = this.props;
       eventManager.listen(player, player.Event.MEDIA_LOADED, () => {
         const entryId = player.sources.id;
-        if (this._logoRef.current && typeof entryId === 'string') {
-          this._logoRef.current.href = url.replace(ENTRY_VAR, entryId);
+        if (typeof entryId === 'string') {
+          this.setState({urlLink: url.replace(ENTRY_VAR, entryId)});
         } else {
-          this.props.logger.debug(`Logo url was not replaced; the logo ref is null, or entry id was not found.`);
+          this.props.logger.debug(`Logo url was not replaced; entry id was not found.`);
           this.setState({isUrlClickable: false});
         }
       });
@@ -104,13 +101,7 @@ class Logo extends Component<any, any> {
       <div
         className={[style.controlButtonContainer, !props.config.url || !this.state.isUrlClickable ? style.emptyUrl : ''].join(' ')}
         title={props.config.text}>
-        <a
-          className={style.controlButton}
-          href={props.config.url}
-          aria-label={props.logoText}
-          target="_blank"
-          rel="noopener noreferrer"
-          ref={this._logoRef}>
+        <a className={style.controlButton} href={this.state.urlLink} aria-label={props.logoText} target="_blank" rel="noopener noreferrer">
           <img className={style.icon} src={props.config.img} />
         </a>
       </div>
