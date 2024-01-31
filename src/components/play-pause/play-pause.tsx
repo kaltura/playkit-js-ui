@@ -57,8 +57,8 @@ class PlayPause extends Component<any, any> {
   componentDidMount(): void {
     const {eventManager, player} = this.props;
     const playerContainer: HTMLDivElement = document.getElementById(player.config.ui.targetId) as HTMLDivElement;
-    eventManager.listen(player, player.Event.UI.USER_CLICKED_PLAY, () => {
-      eventManager.listen(player, player.Event.Core.FIRST_PLAY, () => {
+    eventManager.listenOnce(player, player.Event.UI.USER_CLICKED_PLAY, () => {
+      eventManager.listenOnce(player, player.Event.Core.FIRST_PLAY, () => {
         playerContainer.focus();
       });
     });
