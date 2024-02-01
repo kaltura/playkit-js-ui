@@ -64,15 +64,21 @@ class Logo extends Component<any, any> {
     const url = this.props.config.url;
     if (url && url.indexOf(ENTRY_VAR) !== -1) {
       const {player, eventManager} = this.props;
-      eventManager.listen(player, player.Event.MEDIA_LOADED, () => {
-        const entryId = player.sources.id;
-        if (typeof entryId === 'string') {
-          this.setState({urlLink: url.replace(ENTRY_VAR, entryId)});
-        } else {
-          this.props.logger.debug(`Logo url was not replaced; entry id was not found.`);
-          this.setState({isUrlClickable: false});
-        }
-      });
+      const entryId = player.sources.id;
+      if (typeof entryId === 'string') {
+        this.setState({urlLink: url.replace(ENTRY_VAR, entryId)});
+      } else {
+        this.setState({isUrlClickable: false});
+        eventManager.listen(player, player.Event.MEDIA_LOADED, () => {
+          const entryId = player.sources.id;
+          if (typeof entryId === 'string') {
+            this.setState({urlLink: url.replace(ENTRY_VAR, entryId), isUrlClickable: true});
+          } else {
+            this.props.logger.debug(`Logo url was not replaced; entry id was not found.`);
+            this.setState({isUrlClickable: false});
+          }
+        });
+      }
     }
   }
 
