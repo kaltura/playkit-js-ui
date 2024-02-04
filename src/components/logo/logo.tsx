@@ -64,9 +64,9 @@ class Logo extends Component<any, any> {
     const url = this.props.config.url;
     if (url && url.indexOf(ENTRY_VAR) !== -1) {
       const {player, eventManager} = this.props;
-      if (!this._maybeSetLogoUrlWithEntryId(url)) {
+      if (!this._setLogoUrlWithEntryId(url)) {
         eventManager.listen(player, player.Event.MEDIA_LOADED, () => {
-          this._maybeSetLogoUrlWithEntryId(url);
+          this._setLogoUrlWithEntryId(url);
         });
       }
     }
@@ -75,10 +75,10 @@ class Logo extends Component<any, any> {
   /**
    * sets the url with the entry id
    * @param {string} url - the url configured on the logo
-   * @returns {boolean} - whether the url was set with entry id
+   * @returns {boolean} - whether the url was set with entry id or not
    * @memberof Logo
    */
-  private _maybeSetLogoUrlWithEntryId(url: string): boolean {
+  private _setLogoUrlWithEntryId(url: string): boolean {
     const {player} = this.props;
     const entryId = player.sources.id;
     if (typeof entryId === 'string') {
@@ -87,8 +87,8 @@ class Logo extends Component<any, any> {
     } else {
       this.props.logger.debug(`Logo url was not replaced; entry id was not found.`);
       this.setState({isUrlClickable: false});
+      return false;
     }
-    return false;
   }
 
   /**
