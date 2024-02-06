@@ -75,9 +75,9 @@ class MainCaptionsWindow extends Component<any, any> {
   render(props: any): VNode<any> {
     return (
       <div className={[style.overlayScreen, style.active].join(' ')}>
-        <div className={style.title}>
+        <h2 className={style.title}>
           <Text id={'cvaa.title'} />
-        </div>
+        </h2>
         <div role="group">
           <SampleCaptionsStyleButton
             addAccessibleChild={props.addAccessibleChild}
