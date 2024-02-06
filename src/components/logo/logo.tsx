@@ -40,7 +40,7 @@ class Logo extends Component<any, any> {
    */
   constructor(props: any) {
     super(props);
-    this.setState({isUrlClickable: true, urlLink: props.config.url});
+    this.setState({isUrlClickable: typeof props.config.url === 'string', urlLink: props.config.url});
   }
 
   /**
@@ -64,15 +64,30 @@ class Logo extends Component<any, any> {
     const url = this.props.config.url;
     if (url && url.indexOf(ENTRY_VAR) !== -1) {
       const {player, eventManager} = this.props;
-      eventManager.listen(player, player.Event.MEDIA_LOADED, () => {
-        const entryId = player.sources.id;
-        if (typeof entryId === 'string') {
-          this.setState({urlLink: url.replace(ENTRY_VAR, entryId)});
-        } else {
-          this.props.logger.debug(`Logo url was not replaced; entry id was not found.`);
-          this.setState({isUrlClickable: false});
-        }
-      });
+      if (!this._setLogoUrlWithEntryId(url)) {
+        eventManager.listen(player, player.Event.MEDIA_LOADED, () => {
+          this._setLogoUrlWithEntryId(url);
+        });
+      }
+    }
+  }
+
+  /**
+   * sets the url with the entry id
+   * @param {string} url - the url configured on the logo
+   * @returns {boolean} - whether the url was set with entry id or not
+   * @memberof Logo
+   */
+  private _setLogoUrlWithEntryId(url: string): boolean {
+    const {player} = this.props;
+    const entryId = player.sources.id;
+    if (typeof entryId === 'string') {
+      this.setState({urlLink: url.replace(ENTRY_VAR, entryId), isUrlClickable: true});
+      return true;
+    } else {
+      this.props.logger.debug(`Logo url was not replaced; entry id was not found.`);
+      this.setState({isUrlClickable: false});
+      return false;
     }
   }
 
