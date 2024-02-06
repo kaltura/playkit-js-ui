@@ -19,7 +19,9 @@ const config = {
       colors: {
         primary: '#da3633',
         live: '#ffff00',
-        playerBackground: '#ffa500'
+        playerBackground: '#ffa500',
+        tone1: '#ffffff',
+        paperSurface: '#f5f5f5'
       }
     }
   }

@@ -12,8 +12,17 @@ const cssVarNames = {
   colors: {
     live: '--playkit-live-color',
     playerBackground: '--playkit-player-background-color',
-    paper: '--playkit-paper-color',
-    tone1: '--playkit-tone-1-color'
+    paperSurface: '--playkit-paper-color',
+    elevatedSurface: '--playkit-elevated-color',
+    protectionSurface: '--playkit-protection-color',
+    tone1: '--playkit-tone-1-color',
+    tone2: '--playkit-tone-2-color',
+    tone3: '--playkit-tone-3-color',
+    tone4: '--playkit-tone-4-color',
+    tone5: '--playkit-tone-5-color',
+    tone6: '--playkit-tone-6-color',
+    tone7: '--playkit-tone-7-color',
+    tone8: '--playkit-tone-8-color'
   }
 };
 
