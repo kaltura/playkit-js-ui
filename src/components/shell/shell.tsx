@@ -81,22 +81,6 @@ class Shell extends Component<any, any> {
   _playerRef: HTMLDivElement | null = null;
 
   /**
-   * on mouse over, add hover class (shows the player ui) and timeout of 3 seconds bt default or what pass as prop configuration to component
-   *
-   * @returns {void}
-   * @memberof Shell
-   */
-  onMouseOver = (): void => {
-    if (this.props.isMobile) {
-      return;
-    }
-    if (this.state.nav) {
-      this.setState({nav: false});
-      this.props.updatePlayerNavState(false);
-    }
-  };
-
-  /**
    * on mouse leave, remove the hover class (hide the player gui)
    * @param {Event} event - the mouse leave event
    * @returns {void}
