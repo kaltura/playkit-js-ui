@@ -11,7 +11,8 @@ import {connect} from 'react-redux';
  */
 const mapStateToProps = state => ({
   sidePanelsStyles: state.shell.layoutStyles.sidePanels,
-  playerClientRect: state.shell.playerClientRect
+  playerClientRect: state.shell.playerClientRect,
+  isSmallSize: state.shell.isSmallSize
 });
 
 /**
@@ -51,6 +52,9 @@ class SidePanel extends Component<any, any> {
     const isVertical = [SidePanelPositions.RIGHT, SidePanelPositions.LEFT].indexOf(position) !== -1;
     const stylePrefix = isVertical ? 'verticalSidePanel' : 'horizontalSidePanel';
     const styleClass = [style.sidePanel, style[stylePrefix]];
+    if (props.isSmallSize) {
+      styleClass.push(style.smallSize);
+    }
 
     const areaName = `SidePanel${position.charAt(0).toUpperCase() + position.slice(1).toLowerCase()}`;
 

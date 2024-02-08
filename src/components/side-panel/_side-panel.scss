@@ -1,9 +1,12 @@
 .side-panel {
   position: absolute;
-  overflow: hidden;
   transition: all #{$default-transition-time}ms;
   transition-property: left, right, bottom, top, opacity;
-  z-index: 1;
+  z-index: 0;
+  &.small-size {
+    // for small sizes the side panel should be over player controls
+    z-index: 1;
+  }
 }
 
 .vertical-side-panel {
@@ -19,4 +22,5 @@
 .side-panel-content {
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
