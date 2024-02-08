@@ -128,6 +128,10 @@ class Shell extends Component<any, any> {
     if (this.props.isMobile) {
       return;
     }
+    if (this.state.nav) {
+      this.setState({nav: false});
+      this.props.updatePlayerNavState(false);
+    }
     this._updatePlayerHoverState();
   };
 
@@ -429,7 +433,6 @@ class Shell extends Component<any, any> {
         className={joinedPlayerClasses}
         onTouchEnd={this.onTouchEnd}
         onMouseUp={this.onMouseUp}
-        onMouseOver={this.onMouseOver}
         onMouseMove={this.onMouseMove}
         onMouseLeave={this.onMouseLeave}
         onKeyDown={this.onKeyDown}
