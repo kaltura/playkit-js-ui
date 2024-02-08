@@ -14,9 +14,13 @@
     right: 0;
     bottom: 0;
     border-radius: 4px;
-    transition: opacity 400ms, bottom 300ms;
+    transition:
+      opacity 400ms,
+      bottom 300ms;
     cursor: pointer;
-    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.2), 0px 8px 60px -16px rgba(0, 0, 0, 0.2);
+    box-shadow:
+      0px 0px 0px 1px rgba(0, 0, 0, 0.2),
+      0px 8px 60px -16px rgba(0, 0, 0, 0.2);
 
     &.slideIn {
       right: -160px;

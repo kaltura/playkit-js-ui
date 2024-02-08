@@ -1,3 +1,1 @@
-/flow-typed/**/*.js
-/coverage
-/dist
+src/types/kaltura-player-js.d.ts

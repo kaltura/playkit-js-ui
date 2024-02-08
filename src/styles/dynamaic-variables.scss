@@ -21,29 +21,49 @@
 
   // Accent Colors
   --playkit-primary-color: hsl(var(--playkit-primary-hsl-hue) var(--playkit-primary-hsl-saturation) var(--playkit-primary-hsl-lightness));
-  --playkit-primary-darker-color: hsl(var(--playkit-primary-hsl-hue) var(--playkit-primary-hsl-saturation) calc(var(--playkit-primary-hsl-lightness) - 15%));
-  --playkit-primary-brighter-color: hsl(var(--playkit-primary-hsl-hue) var(--playkit-primary-hsl-saturation) calc(var(--playkit-primary-hsl-lightness) + 15%));
+  --playkit-primary-darker-color: hsl(
+    var(--playkit-primary-hsl-hue) var(--playkit-primary-hsl-saturation) calc(var(--playkit-primary-hsl-lightness) - 15%)
+  );
+  --playkit-primary-brighter-color: hsl(
+    var(--playkit-primary-hsl-hue) var(--playkit-primary-hsl-saturation) calc(var(--playkit-primary-hsl-lightness) + 15%)
+  );
   --playkit-primary-text-contrast-color: #ffffff;
 
   --playkit-secondary-color: hsl(var(--playkit-secondary-hsl-hue) var(--playkit-secondary-hsl-saturation) var(--playkit-secondary-hsl-lightness));
-  --playkit-secondary-darker-color: hsl(var(--playkit-secondary-hsl-hue) var(--playkit-secondary-hsl-saturation) calc(var(--playkit-secondary-hsl-lightness) - 15%));
-  --playkit-secondary-brighter-color: hsl(var(--playkit-secondary-hsl-hue) var(--playkit-secondary-hsl-saturation) calc(var(--playkit-secondary-hsl-lightness) + 15%));
+  --playkit-secondary-darker-color: hsl(
+    var(--playkit-secondary-hsl-hue) var(--playkit-secondary-hsl-saturation) calc(var(--playkit-secondary-hsl-lightness) - 15%)
+  );
+  --playkit-secondary-brighter-color: hsl(
+    var(--playkit-secondary-hsl-hue) var(--playkit-secondary-hsl-saturation) calc(var(--playkit-secondary-hsl-lightness) + 15%)
+  );
   --playkit-secondary-text-contrast-color: #ffffff;
 
   // Acknowledgement Colors
   --playkit-success-color: hsl(var(--playkit-success-hsl-hue) var(--playkit-success-hsl-saturation) var(--playkit-success-hsl-lightness));
-  --playkit-success-darker-color: hsl(var(--playkit-success-hsl-hue) var(--playkit-success-hsl-saturation) calc(var(--playkit-success-hsl-lightness) - 15%));
-  --playkit-success-brighter-color: hsl(var(--playkit-success-hsl-hue) var(--playkit-success-hsl-saturation) calc(var(--playkit-success-hsl-lightness) + 15%));
+  --playkit-success-darker-color: hsl(
+    var(--playkit-success-hsl-hue) var(--playkit-success-hsl-saturation) calc(var(--playkit-success-hsl-lightness) - 15%)
+  );
+  --playkit-success-brighter-color: hsl(
+    var(--playkit-success-hsl-hue) var(--playkit-success-hsl-saturation) calc(var(--playkit-success-hsl-lightness) + 15%)
+  );
   --playkit-success-text-contrast-color: #ffffff;
 
   --playkit-danger-color: hsl(var(--playkit-danger-hsl-hue) var(--playkit-danger-hsl-saturation) var(--playkit-danger-hsl-lightness));
-  --playkit-danger-darker-color: hsl(var(--playkit-danger-hsl-hue) var(--playkit-danger-hsl-saturation) calc(var(--playkit-danger-hsl-lightness) - 15%));
-  --playkit-danger-brighter-color: hsl(var(--playkit-danger-hsl-hue) var(--playkit-danger-hsl-saturation) calc(var(--playkit-danger-hsl-lightness) + 15%));
+  --playkit-danger-darker-color: hsl(
+    var(--playkit-danger-hsl-hue) var(--playkit-danger-hsl-saturation) calc(var(--playkit-danger-hsl-lightness) - 15%)
+  );
+  --playkit-danger-brighter-color: hsl(
+    var(--playkit-danger-hsl-hue) var(--playkit-danger-hsl-saturation) calc(var(--playkit-danger-hsl-lightness) + 15%)
+  );
   --playkit-danger-text-contrast-color: #ffffff;
 
   --playkit-warning-color: hsl(var(--playkit-warning-hsl-hue) var(--playkit-warning-hsl-saturation) var(--playkit-warning-hsl-lightness));
-  --playkit-warning-darker-color: hsl(var(--playkit-warning-hsl-hue) var(--playkit-warning-hsl-saturation) calc(var(--playkit-warning-hsl-lightness) - 15%));
-  --playkit-warning-brighter-color: hsl(var(--playkit-warning-hsl-hue) var(--playkit-warning-hsl-saturation) calc(var(--playkit-warning-hsl-lightness) + 15%));
+  --playkit-warning-darker-color: hsl(
+    var(--playkit-warning-hsl-hue) var(--playkit-warning-hsl-saturation) calc(var(--playkit-warning-hsl-lightness) - 15%)
+  );
+  --playkit-warning-brighter-color: hsl(
+    var(--playkit-warning-hsl-hue) var(--playkit-warning-hsl-saturation) calc(var(--playkit-warning-hsl-lightness) + 15%)
+  );
   --playkit-warning-text-contrast-color: #ffffff;
 
   // Tone Ramp

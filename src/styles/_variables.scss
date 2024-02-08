@@ -1,4 +1,4 @@
-@import '~styles/exported.scss';
+@use 'sass:math';
 
 $headline-font-size: 18px;
 $subheadline-font-size: 14px;
@@ -7,12 +7,16 @@ $tooltip-arrow-height: 4px;
 $tooltip-arrow-width: 5px;
 $tooltip-semi-side-margin: 16px;
 $tooltip-semi-side-arrow-margin: 11px;
-$font-family: Lato, Helvetica Neue, Segoe UI, sans-serif;
+$font-family:
+  Lato,
+  Helvetica Neue,
+  Segoe UI,
+  sans-serif;
 $progress-bar-height: 4px;
-$progress-bar-border-radius: calc($progress-bar-height / 2);
+$progress-bar-border-radius: math.div($progress-bar-height, 2);
 $spinner-circle-radius: 4px;
 $spinner-colors: rgb(218, 31, 38), rgb(6, 168, 133), rgb(0, 147, 68), rgb(248, 166, 26), rgb(27, 74, 151), rgb(0, 171, 204), rgb(177, 210, 56),
-rgb(252, 210, 3);
+  rgb(252, 210, 3);
 $default-transition-time: 500;
 $default-hovering-offset: 60px;
 $hover-animation-time: 100;
@@ -24,9 +28,9 @@ $gui-gutter: 16;
 $gui-small-gutter: 8;
 $blur: 16px;
 // ***************  Backward Compatibility - Deprecated  **************
-$brand-color: #006bff;     // - refs in playkit-ui and related-plugin
-$white: #ffffff;           // - refs in playkit-ui and related-plugin
-$new-live-color: #e12437;  // - refs in related-plugin
+$brand-color: #006bff; // - refs in playkit-ui and related-plugin
+$white: #ffffff; // - refs in playkit-ui and related-plugin
+$new-live-color: #e12437; // - refs in related-plugin
 // ********************************************************************
 
 :export {
