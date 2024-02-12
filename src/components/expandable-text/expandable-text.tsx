@@ -1,7 +1,7 @@
 import {h, ComponentChildren} from 'preact';
 import {withText} from 'preact-i18n';
 
-import {useState, useRef, useLayoutEffect} from 'preact/hooks';
+import {useState, useRef, useLayoutEffect, useEffect} from 'preact/hooks';
 import {KeyMap} from '../../utils';
 
 import styles from '../../styles/style.scss';
@@ -14,6 +14,9 @@ interface ExpandableTextProps {
   lines: number;
   forceShowMore: boolean;
   onClick?: (e: MouseEvent | KeyboardEvent) => void;
+  onExpand?: (isTextExpanded: boolean) => void;
+  className?: string;
+  classNameExpanded?: string;
   readMoreLabel?: string;
   readLessLabel?: string;
   buttonProps?: any;
@@ -45,6 +48,12 @@ const ExpandableText: new (props?: any, context?: any) => any = withText({
       setIsTextTrimmed(textRef?.current?.getBoundingClientRect().height < comparisonTextRef?.current?.getBoundingClientRect().height);
     }
   }, [isFinalized]);
+
+  useEffect(() => {
+    if (props.onExpand) {
+      props.onExpand(isTextExpanded);
+    }
+  }, [isTextExpanded]);
 
   const onClick = (e: MouseEvent) => {
     if (props.onClick) {
@@ -82,7 +91,7 @@ const ExpandableText: new (props?: any, context?: any) => any = withText({
   }
 
   return (
-    <div>
+    <div className={[props.className, isTextExpanded ? props.classNameExpanded : ''].join(' ')}>
       {isTextExpanded ? (
         props.children
       ) : (
