@@ -105,7 +105,7 @@ class SmartContainer extends Component<any, any> {
         targetId.querySelector(portalSelector)!
       )
     ) : (
-      <div onKeyDown={props.handleKeyDown} tabIndex={-1} className={[style.smartContainer, style.top, style.left].join(' ')}>
+      <div onKeyDown={props.handleKeyDown} tabIndex={-1} role="menu" className={[style.smartContainer, style.top, style.left].join(' ')}>
         {this.renderChildren(props)}
       </div>
     );
