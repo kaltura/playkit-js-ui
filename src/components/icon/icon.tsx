@@ -215,19 +215,19 @@ class Icon extends Component<any, any> {
           return <i className={[style.icon, style.iconPause].join(' ')} aria-hidden="true" />;
 
         case IconType.VolumeBase:
-          return <i className={[style.icon, style.iconVolumeBase].join(' ')} />;
+          return <i className={[style.icon, style.iconVolumeBase].join(' ')} aria-hidden="true" />;
 
         case IconType.VolumeWaves:
-          return <i className={[style.icon, style.iconVolumeWaves].join(' ')} />;
+          return <i className={[style.icon, style.iconVolumeWaves].join(' ')} aria-hidden="true" />;
 
         case IconType.VolumeWave:
-          return <i className={[style.icon, style.iconVolumeWave].join(' ')} />;
+          return <i className={[style.icon, style.iconVolumeWave].join(' ')} aria-hidden="true" />;
 
         case IconType.VolumeMute:
-          return <i className={[style.icon, style.iconVolumeMute].join(' ')} />;
+          return <i className={[style.icon, style.iconVolumeMute].join(' ')} aria-hidden="true" />;
 
         case IconType.Close:
-          return <i className={[style.icon, style.iconClose].join(' ')} />;
+          return <i className={[style.icon, style.iconClose].join(' ')} aria-hidden="true" />;
 
         case IconType.Settings:
           return <i className={[style.icon, style.iconSettings].join(' ')} aria-hidden="true" />;
@@ -305,10 +305,10 @@ class Icon extends Component<any, any> {
           return <i className={[style.icon, style.iconPictureInPictureStop].join(' ')} aria-hidden="true" />;
 
         case IconType.ClosedCaptionsOn:
-          return <i className={[style.icon, style.iconClosedCaptionsOn].join(' ')} />;
+          return <i className={[style.icon, style.iconClosedCaptionsOn].join(' ')} aria-hidden="true" />;
 
         case IconType.ClosedCaptionsOff:
-          return <i className={[style.icon, style.iconClosedCaptionsOff].join(' ')} />;
+          return <i className={[style.icon, style.iconClosedCaptionsOff].join(' ')} aria-hidden="true" />;
 
         case IconType.AdvancedAudioDescription:
           return <i className={[style.icon, style.iconAdvancedAudioDescription].join(' ')} />;
