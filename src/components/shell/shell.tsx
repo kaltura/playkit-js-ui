@@ -213,12 +213,30 @@ class Shell extends Component<any, any> {
     const {player, eventManager} = this.props;
     eventManager.listen(window, 'resize', debounce(this._onWindowResize, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
     eventManager.listen(document, 'scroll', debounce(this._updatePlayerClientRect, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
+    this.props.eventManager!.listen(document, 'click', this._handleClickOutside);
     this._playerResizeWatcher = new ResizeWatcher();
     this._playerResizeWatcher.init(document.getElementById(this.props.targetId)!);
     eventManager.listen(this._playerResizeWatcher, EventType.RESIZE, debounce(this._onWindowResize, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
     eventManager.listen(player, player.Event.FIRST_PLAY, () => this._onWindowResize());
     this._onWindowResize();
   }
+
+  /**
+   * handler to click outside the component event listener.
+   * if not mobile device and clicked outside the component, update nav state
+   *
+   * @param {*} e click event
+   * @returns {void}
+   * @memberof Menu
+   */
+  _handleClickOutside = (e: any) => {
+    if (!this.props.isMobile && !this.props.isSmallSize && this._playerRef && !this._playerRef.contains(e.target) && this.state.nav) {
+      this.setState({nav: false});
+      this.props.updatePlayerNavState(false);
+      // not necessary - trigger hover behavior, otherwise the bottom bar will disappear immediately
+      this._updatePlayerHover(true);
+    }
+  };
 
   /**
    * window resize handler
