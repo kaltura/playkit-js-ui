@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.78.1 (2024-02-25)
+
+
+### Bug Fixes
+
+* **ADA-490:** [V7-Acc] SVG icons need to be hidden from screen reader update ([#859](https://github.com/kaltura/playkit-js-ui/issues/859)) ([c070c00](https://github.com/kaltura/playkit-js-ui/commit/c070c00))
+
+
+
 ## 0.78.0 (2024-02-04)
 
 
