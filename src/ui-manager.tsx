@@ -164,11 +164,10 @@ class UIManager {
    * @returns {void}
    */
   _createStore(config: UIOptionsObject): void {
-    const reduxDevtoolExtension = (window as any).__REDUX_DEVTOOLS_EXTENSION__;
-    this.store = createStore<RootState, any, any, any>(
-      reducer,
-      compose(middleware(this.player, config), reduxDevtoolExtension ? reduxDevtoolExtension({trace: false}) : v => v)
-    );
+    // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+    // TODO - fix the window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    // TODO - Deprecated symbol used, consult docs for better alternative, React recommend using the configureStore method of the @reduxjs/toolkit packag
+    this.store = createStore<RootState, any, any, any>(reducer, compose(middleware(this.player, config)));
   }
 
   /**
@@ -191,7 +190,8 @@ class UIManager {
               if (api) {
                 this.addComponent = api;
               }
-            }}>
+            }}
+          >
             <IntlProvider definition={this._translations[this._locale]}>
               <PlayerProvider player={this.player}>
                 <EventDispatcherProvider player={this.player} store={this.store}>
