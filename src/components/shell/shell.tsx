@@ -213,12 +213,29 @@ class Shell extends Component<any, any> {
     const {player, eventManager} = this.props;
     eventManager.listen(window, 'resize', debounce(this._onWindowResize, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
     eventManager.listen(document, 'scroll', debounce(this._updatePlayerClientRect, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
+    eventManager.listen(document, 'click', debounce(this._handleClickOutside, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
     this._playerResizeWatcher = new ResizeWatcher();
     this._playerResizeWatcher.init(document.getElementById(this.props.targetId)!);
     eventManager.listen(this._playerResizeWatcher, EventType.RESIZE, debounce(this._onWindowResize, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
     eventManager.listen(player, player.Event.FIRST_PLAY, () => this._onWindowResize());
     this._onWindowResize();
   }
+
+  /**
+   * handler to click outside the component event listener.
+   * if not mobile device and clicked outside the component, update nav state
+   *
+   * @param {*} e click event
+   * @returns {void}
+   * @memberof Menu
+   */
+  _handleClickOutside = ({target}: MouseEvent) => {
+    const {isMobile, isSmallSize, updatePlayerNavState} = this.props;
+    if (!isMobile && !isSmallSize && !this._playerRef?.contains(target as Node) && this.state.nav) {
+      this.setState({nav: false});
+      updatePlayerNavState(false);
+    }
+  };
 
   /**
    * window resize handler
@@ -419,8 +436,7 @@ class Shell extends Component<any, any> {
         onMouseUp={this.onMouseUp}
         onMouseMove={this.onMouseMove}
         onMouseLeave={this.onMouseLeave}
-        onKeyDown={this.onKeyDown}
-      >
+        onKeyDown={this.onKeyDown}>
         {props.children}
       </div>
     );
