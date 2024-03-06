@@ -25,4 +25,5 @@ export interface SeekbarState {
   hidePreview: boolean;
   hideTimeBubble: boolean;
   segments: SeekbarSegment[];
+  seekbarClasses: string[];
 }
