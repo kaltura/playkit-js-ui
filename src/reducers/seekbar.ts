@@ -29,7 +29,7 @@ export const initialState: SeekbarState = {
   hidePreview: false,
   hideTimeBubble: false,
   segments: [],
-  seekbarClasses: [],
+  seekbarClasses: []
 };
 
 export default (state: SeekbarState = initialState, action: any) => {
