@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.78.2 (2024-03-14)
+
+
+### Bug Fixes
+
+* **ADA-190:** focus to player controls from outside (FEC-13712) ([#861](https://github.com/kaltura/playkit-js-ui/issues/861)) ([40e8c43](https://github.com/kaltura/playkit-js-ui/commit/40e8c43))
+
+
+
 ### 0.78.1 (2024-02-25)
 
 
