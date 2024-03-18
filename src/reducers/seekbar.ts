@@ -1,21 +1,25 @@
 /* eslint-disable  @typescript-eslint/explicit-function-return-type */
 import {SeekbarState} from '../types/reducers/seekbar';
 
+const entityName = 'seekbar';
+
 export const types = {
-  UPDATE_SEEKBAR_DRAGGING_STATUS: 'seekbar/UPDATE_SEEKBAR_DRAGGING_STATUS',
-  UPDATE_SEEKBAR_HOVER_ACTIVE: 'seekbar/UPDATE_SEEKBAR_HOVER_ACTIVE',
-  UPDATE_SEEKBAR_PREVIEW_HOVER_ACTIVE: 'seekbar/UPDATE_SEEKBAR_PREVIEW_HOVER_ACTIVE',
-  UPDATE_SEEKBAR_CLIENT_RECT: 'seekbar/UPDATE_SEEKBAR_CLIENT_RECT',
-  UPDATE_HIDE_SEEKBAR_PREVIEW: 'seekbar/UPDATE_HIDE_SEEKBAR_PREVIEW',
-  UPDATE_HIDE_SEEKBAR_TIME_BUBBLE: 'seekbar/UPDATE_HIDE_SEEKBAR_TIME_BUBBLE',
-  UPDATE_CURRENT_TIME: 'seekbar/UPDATE_CURRENT_TIME',
-  UPDATE_VIRTUAL_TIME: 'seekbar/UPDATE_VIRTUAL_TIME',
-  UPDATE_HOVERED_SEGMENT: 'seekbar/UPDATE_HOVERED_SEGMENT',
-  UPDATE_SEEKBAR_SEGMENTS: 'seekbar/UPDATE_SEEKBAR_SEGMENTS',
-  UPDATE_SEGMENT_END_TIME: 'seekbar/UPDATE_SEGMENT_END_TIME'
+  UPDATE_SEEKBAR_DRAGGING_STATUS: `${entityName}/UPDATE_SEEKBAR_DRAGGING_STATUS`,
+  UPDATE_SEEKBAR_HOVER_ACTIVE: `${entityName}/UPDATE_SEEKBAR_HOVER_ACTIVE`,
+  UPDATE_SEEKBAR_PREVIEW_HOVER_ACTIVE: `${entityName}/UPDATE_SEEKBAR_PREVIEW_HOVER_ACTIVE`,
+  UPDATE_SEEKBAR_CLIENT_RECT: `${entityName}/UPDATE_SEEKBAR_CLIENT_RECT`,
+  UPDATE_HIDE_SEEKBAR_PREVIEW: `${entityName}/UPDATE_HIDE_SEEKBAR_PREVIEW`,
+  UPDATE_HIDE_SEEKBAR_TIME_BUBBLE: `${entityName}/UPDATE_HIDE_SEEKBAR_TIME_BUBBLE`,
+  UPDATE_CURRENT_TIME: `${entityName}/UPDATE_CURRENT_TIME`,
+  UPDATE_VIRTUAL_TIME: `${entityName}/UPDATE_VIRTUAL_TIME`,
+  UPDATE_HOVERED_SEGMENT: `${entityName}/UPDATE_HOVERED_SEGMENT`,
+  UPDATE_SEEKBAR_SEGMENTS: `${entityName}/UPDATE_SEEKBAR_SEGMENTS`,
+  UPDATE_SEGMENT_END_TIME: `${entityName}/UPDATE_SEGMENT_END_TIME`,
+  ADD_SEEKBAR_CLASS: `${entityName}/ADD_SEEKBAR_CLASS`,
+  REMOVE_SEEKBAR_CLASS: `${entityName}/REMOVE_SEEKBAR_CLASS`
 };
 
-export const initialState = {
+export const initialState: SeekbarState = {
   currentTime: 0,
   virtualTime: 0,
   draggingActive: false,
@@ -24,7 +28,8 @@ export const initialState = {
   clientRect: {x: 0, y: 0, width: 0, height: 0, top: 0, right: 0, bottom: 0, left: 0},
   hidePreview: false,
   hideTimeBubble: false,
-  segments: []
+  segments: [],
+  seekbarClasses: []
 };
 
 export default (state: SeekbarState = initialState, action: any) => {
@@ -95,6 +100,20 @@ export default (state: SeekbarState = initialState, action: any) => {
         segments: state.segments.map(segment => (segment.id === action.id ? {...segment, endTime: action.endTime} : segment))
       };
 
+    case types.ADD_SEEKBAR_CLASS:
+      if (state.seekbarClasses.includes(action.className)) {
+        return state;
+      }
+      return {
+        ...state,
+        seekbarClasses: [...state.seekbarClasses, action.className]
+      };
+    case types.REMOVE_SEEKBAR_CLASS:
+      return {
+        ...state,
+        seekbarClasses: state.seekbarClasses.filter(c => c !== action.className)
+      };
+
     default:
       return state;
   }
@@ -126,5 +145,7 @@ export const actions = {
   updateVirtualTime: (virtualTime: number) => ({type: types.UPDATE_VIRTUAL_TIME, virtualTime}),
   updateHoveredSegment: (id: string, isHovered: boolean) => ({type: types.UPDATE_HOVERED_SEGMENT, id, isHovered}),
   updateSegmentEndTime: (id: string, endTime: number) => ({type: types.UPDATE_SEGMENT_END_TIME, id, endTime}),
-  updateSeekbarSegments: (segments: any[]) => ({type: types.UPDATE_SEEKBAR_SEGMENTS, segments})
+  updateSeekbarSegments: (segments: any[]) => ({type: types.UPDATE_SEEKBAR_SEGMENTS, segments}),
+  addSeekbarClass: (className: string) => ({type: types.ADD_SEEKBAR_CLASS, className}),
+  removeSeekbarClass: (className: string) => ({type: types.REMOVE_SEEKBAR_CLASS, className})
 } as const;

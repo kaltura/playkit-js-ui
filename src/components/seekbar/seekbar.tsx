@@ -27,7 +27,8 @@ const mapStateToProps = state => ({
   previewHoverActive: state.seekbar.previewHoverActive,
   hidePreview: state.seekbar.hidePreview,
   hideTimeBubble: state.seekbar.hideTimeBubble,
-  segments: state.seekbar.segments
+  segments: state.seekbar.segments,
+  seekbarClasses: state.seekbar.seekbarClasses
 });
 
 const COMPONENT_NAME = 'SeekBar';
@@ -547,7 +548,7 @@ class SeekBar extends Component<any, any> {
   render(props: any, state: any): VNode<any> {
     const virtualProgressWidth = `${(props.virtualTime / props.duration) * 100}%`;
     const scrubberProgressPosition = `${(props.currentTime / props.duration) * this._seekBarElement?.clientWidth}px`;
-    const seekbarStyleClass = [style.seekBar];
+    const seekbarStyleClass = [style.seekBar, ...props.seekbarClasses];
     if (props.adBreak) seekbarStyleClass.push(style.adBreak);
     if (props.isDvr) seekbarStyleClass.push(style.live);
     if (props.isMobile) seekbarStyleClass.push(style.hover);
