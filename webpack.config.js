@@ -93,7 +93,7 @@ module.exports = (env, {mode}) => {
       '@playkit-js/playkit-js': {
         commonjs: '@playkit-js/playkit-js',
         commonjs2: '@playkit-js/playkit-js',
-        amd: 'playkit-js',
+        amd: '@playkit-js/playkit-js',
         root: ['playkit', 'core']
       }
     }

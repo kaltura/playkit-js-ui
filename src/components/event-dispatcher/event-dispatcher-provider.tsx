@@ -173,6 +173,9 @@ function onClickableComponentsHandler(store: any, action: any, player: KalturaPl
     case 'LiveTag':
       player.dispatchEvent(new FakeEvent(EventType.USER_CLICKED_LIVE_TAG));
       break;
+    case 'Logo':
+      player.dispatchEvent(new FakeEvent(EventType.USER_CLICKED_LOGO, action.payload));
+      break;
 
     case 'PrePlaybackPlayOverlay':
     case 'PlayPause':

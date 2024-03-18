@@ -12,6 +12,7 @@ const EventType = {
   USER_CLICKED_REWIND: `${namespace}-userclickedrewind`,
   USER_CLICKED_FORWARD: `${namespace}-userclickedforward`,
   USER_CLICKED_LIVE_TAG: `${namespace}-userclickedlivetag`,
+  USER_CLICKED_LOGO: `${namespace}-userclickedlogo`,
   USER_CLICKED_MUTE: `${namespace}-userclickedmute`,
   USER_CLICKED_UNMUTE: `${namespace}-userclickedunmute`,
   USER_CLICKED_ADVANCED_AUDIO_DESCRIPTION: `${namespace}-userclickedadvancedaudiodescription`,
