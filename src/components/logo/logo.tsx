@@ -5,6 +5,7 @@ import {withText} from 'preact-i18n';
 import {withPlayer} from '../player';
 import {withLogger} from '../logger';
 import {withEventManager} from '../../event';
+import {withEventDispatcher} from '../event-dispatcher';
 
 const COMPONENT_NAME = 'Logo';
 
@@ -32,6 +33,7 @@ const ENTRY_VAR = '{entryId}';
 @withPlayer
 @withEventManager
 @withLogger(COMPONENT_NAME)
+@withEventDispatcher(COMPONENT_NAME)
 @withText({logoText: 'controls.logo'})
 class Logo extends Component<any, any> {
   /**
@@ -71,6 +73,10 @@ class Logo extends Component<any, any> {
       }
     }
   }
+
+  _handleOnClick = (): void => {
+    this.props.notifyClick({logoUrl: this.state.urlLink});
+  };
 
   /**
    * sets the url with the entry id
@@ -116,7 +122,13 @@ class Logo extends Component<any, any> {
       <div
         className={[style.controlButtonContainer, !props.config.url || !this.state.isUrlClickable ? style.emptyUrl : ''].join(' ')}
         title={props.config.text}>
-        <a className={style.controlButton} href={this.state.urlLink} aria-label={props.logoText} target="_blank" rel="noopener noreferrer">
+        <a
+          onClick={this._handleOnClick}
+          className={style.controlButton}
+          href={this.state.urlLink}
+          aria-label={props.logoText}
+          target="_blank"
+          rel="noopener noreferrer">
           <img className={style.icon} src={props.config.img} />
         </a>
       </div>
