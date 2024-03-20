@@ -16,7 +16,8 @@ export const types = {
   UPDATE_SEEKBAR_SEGMENTS: `${entityName}/UPDATE_SEEKBAR_SEGMENTS`,
   UPDATE_SEGMENT_END_TIME: `${entityName}/UPDATE_SEGMENT_END_TIME`,
   ADD_SEEKBAR_CLASS: `${entityName}/ADD_SEEKBAR_CLASS`,
-  REMOVE_SEEKBAR_CLASS: `${entityName}/REMOVE_SEEKBAR_CLASS`
+  REMOVE_SEEKBAR_CLASS: `${entityName}/REMOVE_SEEKBAR_CLASS`,
+  UPDATE_PREVENT_SEEK: `${entityName}/UPDATE_PREVENT_SEEK`
 };
 
 export const initialState: SeekbarState = {
@@ -29,7 +30,8 @@ export const initialState: SeekbarState = {
   hidePreview: false,
   hideTimeBubble: false,
   segments: [],
-  seekbarClasses: []
+  seekbarClasses: [],
+  isPreventSeek: false
 };
 
 export default (state: SeekbarState = initialState, action: any) => {
@@ -114,6 +116,12 @@ export default (state: SeekbarState = initialState, action: any) => {
         seekbarClasses: state.seekbarClasses.filter(c => c !== action.className)
       };
 
+    case types.UPDATE_PREVENT_SEEK:
+      return {
+        ...state,
+        isPreventSeek: action.isPreventSeek
+      };
+
     default:
       return state;
   }
@@ -147,5 +155,6 @@ export const actions = {
   updateSegmentEndTime: (id: string, endTime: number) => ({type: types.UPDATE_SEGMENT_END_TIME, id, endTime}),
   updateSeekbarSegments: (segments: any[]) => ({type: types.UPDATE_SEEKBAR_SEGMENTS, segments}),
   addSeekbarClass: (className: string) => ({type: types.ADD_SEEKBAR_CLASS, className}),
-  removeSeekbarClass: (className: string) => ({type: types.REMOVE_SEEKBAR_CLASS, className})
+  removeSeekbarClass: (className: string) => ({type: types.REMOVE_SEEKBAR_CLASS, className}),
+  updatePreventSeek: (isPreventSeek: boolean) => ({type: types.UPDATE_PREVENT_SEEK, isPreventSeek})
 } as const;
