@@ -28,7 +28,8 @@ const mapStateToProps = state => ({
   hidePreview: state.seekbar.hidePreview,
   hideTimeBubble: state.seekbar.hideTimeBubble,
   segments: state.seekbar.segments,
-  seekbarClasses: state.seekbar.seekbarClasses
+  seekbarClasses: state.seekbar.seekbarClasses,
+  isPreventSeek: state.seekbar.isPreventSeek
 });
 
 const COMPONENT_NAME = 'SeekBar';
@@ -498,7 +499,7 @@ class SeekBar extends Component<any, any> {
    * @memberof SeekBar
    */
   renderFramePreview(): VNode<any> | undefined {
-    if (!this.props.showFramePreview || this.props.isMobile) return undefined;
+    if (!this.props.showFramePreview || this.props.isMobile || this.props.isPreventSeek) return undefined;
     return (
       <div
         className={this.props.hidePreview ? [style.framePreview, style.hideFramePreview].join(' ') : style.framePreview}
