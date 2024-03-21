@@ -1,7 +1,8 @@
 import style from '../../styles/style.scss';
 import {h, Component, createRef, RefObject} from 'preact';
 import {bindActions} from '../../utils/bind-actions';
-import {actions} from '../../reducers/shell';
+import {actions as ShellActions} from '../../reducers/shell';
+import {actions as DisplayActions} from '../../reducers/display';
 import {connect} from 'react-redux';
 import {PlayerArea} from '../../components/player-area';
 import {PLAYER_BREAK_POINTS} from '../../components';
@@ -9,7 +10,14 @@ import {withEventManager} from '../../event';
 import {withPlayer} from '../player';
 import {calculateControlsSize, filterControlsByPriority} from './bettom-bar-utils';
 
-const LOWER_PRIORITY_CONTROLS: string[][] = [['VrStereo'], ['Rewind', 'Forward'], ['ClosedCaptions'], ['PictureInPicture'], ['Cast']];
+const LOWER_PRIORITY_CONTROLS: string[][] = [
+  ['AdvancedAudioDesc'],
+  ['VrStereo'],
+  ['Rewind', 'Forward'],
+  ['ClosedCaptions'],
+  ['PictureInPicture'],
+  ['Cast']
+];
 const CRL_WIDTH = 32;
 const CRL_MARGIN = 12;
 
@@ -38,7 +46,7 @@ const COMPONENT_NAME = 'BottomBar';
  */
 @withPlayer
 @withEventManager
-@connect(mapStateToProps, bindActions(actions))
+@connect(mapStateToProps, bindActions({...ShellActions, ...DisplayActions}))
 class BottomBar extends Component<any, any> {
   bottomBarContainerRef: RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
   presetControls: {[controlName: string]: boolean} = {};
@@ -84,6 +92,7 @@ class BottomBar extends Component<any, any> {
       const lowerPriorityControls = LOWER_PRIORITY_CONTROLS.filter(c => this.state.activeControls[c[0]]);
       this.currentBarWidth = barWidth;
       this.filterControls(barWidth, currentMinBreakPointWidth, currCrlWidth, lowerPriorityControls);
+      this.updateBottomBarDisplayStatus();
     }
   }
 
@@ -91,6 +100,7 @@ class BottomBar extends Component<any, any> {
     if (controlName in this.state.activeControls && this.state.activeControls[controlName] !== isActive) {
       this.setState(state => ({activeControls: {...state.activeControls, ...{[controlName]: isActive}}}));
     }
+    this.updateBottomBarDisplayStatus();
   };
 
   // eslint-disable-next-line require-jsdoc
@@ -105,6 +115,24 @@ class BottomBar extends Component<any, any> {
     } else {
       this.setState({fitInControls: {...this.presetControls}});
     }
+  }
+
+  updateBottomBarDisplayStatus(): void {
+    const currentlyDisplayedControls = {
+      leftControls: this.props.leftControls.reduce((displayed, control) => {
+        const controlName = control.displayName;
+        displayed[controlName] = this.state.fitInControls[controlName] && this.state.activeControls[control.displayName];
+        return displayed;
+      }, {}),
+      rightControls: this.props.rightControls.reduce((displayed, control) => {
+        const controlName = control.displayName;
+        displayed[controlName] = this.state.fitInControls[controlName] && this.state.activeControls[control.displayName];
+        return displayed;
+      }, {})
+    };
+
+    console.log(currentlyDisplayedControls);
+    this.props.updateBottomBarDisplayStatus(currentlyDisplayedControls);
   }
 
   /**

@@ -10,6 +10,7 @@ import settings from './reducers/settings';
 import overlayAction from './reducers/overlay-action';
 import playlist from './reducers/playlist';
 import overlay from './reducers/overlay';
+import display from './reducers/display';
 import {RootState} from './types';
 
 const reducer = combineReducers<RootState>({
@@ -23,7 +24,8 @@ const reducer = combineReducers<RootState>({
   settings,
   overlayAction,
   playlist,
-  overlay
+  overlay,
+  display
 });
 
 export default reducer;
