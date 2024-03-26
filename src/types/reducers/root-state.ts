@@ -9,7 +9,6 @@ import {CvaaState} from './cvaa';
 import {EngineState} from './engine';
 import {ConfigState} from './config';
 import {PlaylistState} from './playlist';
-import {DisplayState} from './display';
 
 export interface RootState {
   config: ConfigState;
@@ -23,5 +22,4 @@ export interface RootState {
   overlayAction: OverlayActionsState;
   playlist: PlaylistState;
   overlay: OverlayState;
-  diplay: DisplayState;
 }
