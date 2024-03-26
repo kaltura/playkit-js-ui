@@ -1,6 +1,6 @@
 import style from '../styles/style.scss';
 import {Fragment, h, Component, VNode} from 'preact';
-import {PlayerArea, withPlayerPreset} from '../components';
+import {AdvancedAudioDesc, PlayerArea, withPlayerPreset} from '../components';
 import {OverlayAction} from '../components';
 import {PrePlaybackPlayOverlay} from '../components';
 import {Loading} from '../components';
@@ -89,8 +89,7 @@ class PlaybackUI extends Component<any, any> {
                   </InteractiveArea>
                   <BottomBar
                     leftControls={[PlaybackControls, Rewind, Forward, TimeDisplayPlaybackContainer]}
-                    rightControls={[VrStereo, Volume, ClosedCaptions, Settings, Cast, PictureInPicture, Fullscreen, Logo]}
-                  >
+                    rightControls={[VrStereo, Volume, AdvancedAudioDesc, ClosedCaptions, Settings, Cast, PictureInPicture, Fullscreen, Logo]}>
                     <SeekBarPlaybackContainer showFramePreview showTimeBubble playerContainer={containerRef} />
                   </BottomBar>
                 </Fragment>

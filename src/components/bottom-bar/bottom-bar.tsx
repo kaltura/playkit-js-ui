@@ -9,7 +9,14 @@ import {withEventManager} from '../../event';
 import {withPlayer} from '../player';
 import {calculateControlsSize, filterControlsByPriority} from './bettom-bar-utils';
 
-const LOWER_PRIORITY_CONTROLS: string[][] = [['VrStereo'], ['Rewind', 'Forward'], ['ClosedCaptions'], ['PictureInPicture'], ['Cast']];
+const LOWER_PRIORITY_CONTROLS: string[][] = [
+  ['AdvancedAudioDesc'],
+  ['VrStereo'],
+  ['Rewind', 'Forward'],
+  ['ClosedCaptions'],
+  ['PictureInPicture'],
+  ['Cast']
+];
 const CRL_WIDTH = 32;
 const CRL_MARGIN = 12;
 

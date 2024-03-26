@@ -60,6 +60,7 @@ export {CaptionsMenu} from './captions-menu';
 export {SpeedMenu} from './speed-menu';
 export {QualityMenu, HeightResolution, getLabelBadgeType} from './quality-menu';
 export {AdvancedAudioDescToggle} from './advanced-audio-desc-toggle';
+export {AdvancedAudioDesc} from './advanced-audio-desc';
 export {ExpandableText} from './expandable-text';
 export {Scrollable} from './scrollable';
 export {ProgressIndicator} from './progress-indicator';
