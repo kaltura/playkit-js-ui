@@ -128,7 +128,9 @@ class Logo extends Component<any, any> {
           href={this.state.urlLink}
           aria-label={props.logoText}
           target="_blank"
-          rel="noopener noreferrer">
+          rel="noopener noreferrer"
+          tabIndex={0}
+          >
           <img className={style.icon} src={props.config.img} />
         </a>
       </div>

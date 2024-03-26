@@ -60,6 +60,7 @@ class PlayPause extends Component<any, any> {
     eventManager.listenOnce(player, player.Event.UI.USER_CLICKED_PLAY, () => {
       eventManager.listenOnce(player, player.Event.Core.FIRST_PLAY, () => {
         playerContainer.focus();
+        playerContainer.setAttribute('role', 'application'); // Set JAWS screen reader into 'forms' mode, where keys are passed through to the web-page.
       });
     });
     eventManager.listen(document, 'keydown', event => {
