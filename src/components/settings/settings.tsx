@@ -35,14 +35,13 @@ const mapStateToProps = state => ({
   videoTracks: state.engine.videoTracks,
   isMobile: state.shell.isMobile,
   isSmallSize: state.shell.isSmallSize,
-  isCVAAOverlayOpen: state.shell.isCVAAOverlayOpen,
   isLive: state.engine.isLive,
   isAudio: state.engine.isAudio,
   showQualityMenu: state.config.settings.showQualityMenu,
   showAudioMenu: state.config.settings.showAudioMenu,
   showCaptionsMenu: state.config.settings.showCaptionsMenu,
   showSpeedMenu: state.config.settings.showSpeedMenu,
-  showAdvancedAudioDescToggle: state.config.settings.showAdvancedAudioDescToggle,
+  showAdvancedAudioDescToggle: state.config.settings.showAdvancedAudioDescToggle
 });
 const COMPONENT_NAME = 'Settings';
 
@@ -70,7 +69,7 @@ class Settings extends Component<any, any> {
    * @memberof Settings
    */
   componentWillMount() {
-    this.setState({smartContainerOpen: false});
+    this.setState({smartContainerOpen: false, cvaaOverlay: false});
   }
 
   /**
@@ -82,7 +81,6 @@ class Settings extends Component<any, any> {
   componentDidMount() {
     const {eventManager} = this.props;
     eventManager.listen(document, 'click', e => this.handleClickOutside(e));
-    console.error(this.state.smartContainerOpen, 'settings => ', false);
   }
 
   /**
@@ -94,7 +92,7 @@ class Settings extends Component<any, any> {
    */
   handleClickOutside(e: any) {
     if (
-      !this.props.isCVAAOverlayOpen &&
+      !this.state.cvaaOverlay &&
       !this.props.isMobile &&
       !this.props.isSmallSize &&
       !!this._controlSettingsElement &&
@@ -131,6 +129,25 @@ class Settings extends Component<any, any> {
    */
   setButtonRef = (ref: HTMLButtonElement | null) => {
     this._buttonRef = ref;
+  };
+
+  toggleCVAAOverlay = (): void => {
+    this.setState(prevState => {
+      return {cvaaOverlay: !prevState.cvaaOverlay};
+    });
+  };
+
+  /**
+   * handle the closure of cvaa overlay
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @param {boolean} byKeyboard - is keydown
+   * @returns {void}
+   * @memberof Settings
+   */
+  onCVAAOverlayClose = (e?: KeyboardEvent, byKeyboard?: boolean): void => {
+    this.toggleCVAAOverlay();
+    this.onControlButtonClick(e, byKeyboard);
   };
 
   /**
@@ -182,15 +199,16 @@ class Settings extends Component<any, any> {
             <Icon type={IconType.Settings} />
           </Button>
         </Tooltip>
-        {this.state.smartContainerOpen && !this.props.isCVAAOverlayOpen && (
+        {this.state.smartContainerOpen && !this.state.cvaaOverlay && (
           <SmartContainer targetId={props.player.config.targetId} title={<Text id="settings.title" />} onClose={this.onControlButtonClick}>
             {showAdvancedAudioDescToggle && <AdvancedAudioDescToggle />}
             {showAudioMenu && <AudioMenu />}
-            {showCaptionsMenu && <CaptionsMenu asDropdown={true} onCVAAOverlayClose={() => this.setState({smartContainerOpen: false})} />}
+            {showCaptionsMenu && <CaptionsMenu asDropdown={true} onAdvancedCaptionsClick={this.toggleCVAAOverlay} />}
             {showQualityMenu && <QualityMenu />}
             {showSpeedMenu && <SpeedMenu />}
           </SmartContainer>
         )}
+        {this.state.cvaaOverlay ? createPortal(<CVAAOverlay onClose={this.onCVAAOverlayClose} />, targetId.querySelector(portalSelector)!) : <div />}
       </ButtonControl>
     );
   }

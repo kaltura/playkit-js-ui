@@ -11,6 +11,8 @@ import {SmartContainer} from '../smart-container';
 import {Text, withText} from 'preact-i18n';
 import {useRef, useState, useEffect, useCallback} from 'preact/hooks';
 import {focusElement} from '../../utils';
+import {createPortal} from 'preact/compat';
+import {CVAAOverlay} from '../cvaa-overlay';
 
 /**
  * mapping state to props
@@ -41,6 +43,7 @@ const CaptionsControl = connect(mapStateToProps)(
     advancedCaptionsSettingsText: 'captions.advanced_captions_settings'
   })((props, context) => {
     const [smartContainerOpen, setSmartContainerOpen] = useState(false);
+    const [cvaaOverlay, setCVAAOverlay] = useState(false);
     const [ccOn, setCCOn] = useState(false);
     const buttonRef = useRef<HTMLElement>(null);
     const controlCaptionsElement = useRef<HTMLElement>(null);
@@ -54,6 +57,15 @@ const CaptionsControl = connect(mapStateToProps)(
       if (byKeyboard && smartContainerOpen) {
         focusElement(buttonRef.current);
       }
+    };
+
+    const toggleCVAAOverlay = (): void => {
+      setCVAAOverlay(cvaaOverlay => !cvaaOverlay);
+    };
+
+    const onCVAAOverlayClose = (e?: KeyboardEvent, byKeyboard?: boolean): void => {
+      toggleCVAAOverlay();
+      onControlButtonClick(e, byKeyboard);
     };
 
     const handleClickOutside = (e: any) => {
@@ -75,6 +87,9 @@ const CaptionsControl = connect(mapStateToProps)(
     props.onToggle(COMPONENT_NAME, shouldRender);
     if (!shouldRender) return undefined;
 
+    const targetId: HTMLDivElement | Document = (document.getElementById(player.config.targetId) as HTMLDivElement) || document;
+    const portalSelector = `.overlay-portal`;
+
     return props.openMenuFromCCCButton ? (
       <ButtonControl name={COMPONENT_NAME} ref={controlCaptionsElement}>
         <Tooltip label={props.captionsLabelText}>
@@ -88,11 +103,12 @@ const CaptionsControl = connect(mapStateToProps)(
             <Icon type={ccOn ? IconType.ClosedCaptionsOn : IconType.ClosedCaptionsOff} />
           </Button>
         </Tooltip>
-        {smartContainerOpen && (
+        {smartContainerOpen && !cvaaOverlay && (
           <SmartContainer targetId={player.config.targetId} onClose={() => setSmartContainerOpen(false)} title={<Text id="controls.language" />}>
-            <CaptionsMenu asDropdown={false} onCVAAOverlayClose={() => setSmartContainerOpen(false)} />
+            <CaptionsMenu asDropdown={false} onAdvancedCaptionsClick={toggleCVAAOverlay} />
           </SmartContainer>
         )}
+        {cvaaOverlay ? createPortal(<CVAAOverlay onClose={onCVAAOverlayClose} />, targetId.querySelector(portalSelector)!) : <div />}
       </ButtonControl>
     ) : (
       <ClosedCaptions />

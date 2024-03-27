@@ -74,44 +74,6 @@ class CaptionsMenu extends Component<any, any> {
   ];
 
   /**
-   * before component mounted, set initial state
-   *
-   * @returns {void}
-   * @memberof Settings
-   */
-  componentWillMount(): void {
-    this.setState({cvaaOverlay: false});
-  }
-
-  // componentDidUpdate(previousProps: Readonly<any>, previousState: Readonly<any>, snapshot: any) {
-  //   if (previousState.cvaaOverlay !== this.state.cvaaOverlay) {
-  //     this.props.updateIsCVAAOverlayOpen(this.state.cvaaOverlay);
-  //   }
-  // }
-
-  toggleCVAAOverlay = (): void => {
-    this.setState(prevState => {
-      return {cvaaOverlay: !prevState.cvaaOverlay};
-    });
-    this.props.updateIsCVAAOverlayOpen(this.state.cvaaOverlay);
-  };
-
-  /**
-   * handle the closure of cvaa overlay
-   *
-   * @param {KeyboardEvent} e - keyboard event
-   * @param {boolean} byKeyboard - is keydown
-   * @returns {void}
-   * @memberof Settings
-   */
-  onCVAAOverlayClose = (e?: KeyboardEvent, byKeyboard?: boolean): void => {
-    this.toggleCVAAOverlay();
-    this.setState({cvaaOverlay: false});
-    this.props.onCVAAOverlayClose();
-    // this.props.updateIsCVAAOverlayOpen(false);
-  };
-
-  /**
    * We update the last language selected here upon trackTracks props change. This is done to make sure we update the
    * last text track lanague upon language menu selection and using the (C) keyboard key.
    * @param {Object} nextProps - the props that will replace the current props
@@ -136,7 +98,7 @@ class CaptionsMenu extends Component<any, any> {
    */
   onCaptionsChange(textTrack: any | string): void {
     if (textTrack === this.props.advancedCaptionsSettingsText) {
-      this.toggleCVAAOverlay();
+      this.props.onAdvancedCaptionsClick();
       return;
     }
     this.props.player.selectTrack(textTrack);
@@ -164,31 +126,21 @@ class CaptionsMenu extends Component<any, any> {
       textOptions.push({label: props.advancedCaptionsSettingsText, value: props.advancedCaptionsSettingsText, active: false});
     }
 
-    const targetId: HTMLDivElement | Document = (document.getElementById(this.props.player.config.targetId) as HTMLDivElement) || document;
-    const portalSelector = `.overlay-portal`;
-
-    return (
-      <>
-        {!this.state.cvaaOverlay && (
-          <>
-            {this.props.asDropdown ? (
-              <SmartContainerItem
-                pushRef={el => {
-                  props.pushRef(el);
-                }}
-                icon={IconType.Captions}
-                label={this.props.captionsLabelText}
-                options={textOptions}
-                onMenuChosen={textTrack => this.onCaptionsChange(textTrack)}
-              />
-            ) : (
-              <Menu options={textOptions} onMenuChosen={textTrack => this.onCaptionsChange(textTrack)} onClose={() => {}} />
-            )}
-          </>
-        )}
-        {this.state.cvaaOverlay ? createPortal(<CVAAOverlay onClose={this.onCVAAOverlayClose} />, targetId.querySelector(portalSelector)!) : <div />}
-      </>
-    );
+    if (this.props.asDropdown) {
+      return (
+        <SmartContainerItem
+          pushRef={el => {
+            props.pushRef(el);
+          }}
+          icon={IconType.Captions}
+          label={this.props.captionsLabelText}
+          options={textOptions}
+          onMenuChosen={textTrack => this.onCaptionsChange(textTrack)}
+        />
+      );
+    } else {
+      return <Menu options={textOptions} onMenuChosen={textTrack => this.onCaptionsChange(textTrack)} onClose={() => {}} />;
+    }
   }
 }
 
