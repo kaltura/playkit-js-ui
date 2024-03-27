@@ -16,7 +16,6 @@ import {ButtonControl} from '../button-control';
  */
 const mapStateToProps = state => ({
   textTracks: state.engine.textTracks,
-  showCCButton: state.config.showCCButton
 });
 
 const COMPONENT_NAME = 'ClosedCaptions';
@@ -44,9 +43,6 @@ const ClosedCaptions = connect(mapStateToProps)(
           setCCOn(activeTextTrack?.language !== 'off');
         }, [activeTextTrack]);
 
-        const shouldRender = !!(props.textTracks?.length && props.showCCButton);
-        props.onToggle(COMPONENT_NAME, shouldRender);
-        if (!shouldRender) return undefined;
         return (
           <ButtonControl name={COMPONENT_NAME}>
             {ccOn ? (

@@ -1,8 +1,9 @@
 import {h, Component, Fragment, VNode} from 'preact';
-import {withText} from 'preact-i18n';
+import {Text, withText} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
-import {actions} from '../../reducers/cvaa';
+import {actions as cvaaActions} from '../../reducers/cvaa';
+import {actions as shellActions} from '../../reducers/shell';
 import {SmartContainerItem} from '../smart-container/smart-container-item';
 import {IconType} from '../icon';
 import {withPlayer} from '../player';
@@ -12,6 +13,9 @@ import {withEventDispatcher} from '../event-dispatcher';
 import {KeyMap} from '../../utils';
 import {withKeyboardEvent} from '../../components/keyboard';
 import {KeyboardEventHandlers} from '../../types';
+import {createPortal} from 'react';
+import {CVAAOverlay} from '../cvaa-overlay';
+import {Menu} from '../menu';
 
 /**
  * mapping state to props
@@ -34,7 +38,7 @@ const COMPONENT_NAME = 'CaptionsMenu';
  * @example <CaptionsMenu />
  * @extends {Component}
  */
-@connect(mapStateToProps, bindActions(actions))
+@connect(mapStateToProps, bindActions({...cvaaActions, ...shellActions}))
 @withPlayer
 @withEventManager
 @withKeyboardEvent(COMPONENT_NAME)
@@ -70,6 +74,44 @@ class CaptionsMenu extends Component<any, any> {
   ];
 
   /**
+   * before component mounted, set initial state
+   *
+   * @returns {void}
+   * @memberof Settings
+   */
+  componentWillMount(): void {
+    this.setState({cvaaOverlay: false});
+  }
+
+  // componentDidUpdate(previousProps: Readonly<any>, previousState: Readonly<any>, snapshot: any) {
+  //   if (previousState.cvaaOverlay !== this.state.cvaaOverlay) {
+  //     this.props.updateIsCVAAOverlayOpen(this.state.cvaaOverlay);
+  //   }
+  // }
+
+  toggleCVAAOverlay = (): void => {
+    this.setState(prevState => {
+      return {cvaaOverlay: !prevState.cvaaOverlay};
+    });
+    this.props.updateIsCVAAOverlayOpen(this.state.cvaaOverlay);
+  };
+
+  /**
+   * handle the closure of cvaa overlay
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @param {boolean} byKeyboard - is keydown
+   * @returns {void}
+   * @memberof Settings
+   */
+  onCVAAOverlayClose = (e?: KeyboardEvent, byKeyboard?: boolean): void => {
+    this.toggleCVAAOverlay();
+    this.setState({cvaaOverlay: false});
+    this.props.onCVAAOverlayClose();
+    // this.props.updateIsCVAAOverlayOpen(false);
+  };
+
+  /**
    * We update the last language selected here upon trackTracks props change. This is done to make sure we update the
    * last text track lanague upon language menu selection and using the (C) keyboard key.
    * @param {Object} nextProps - the props that will replace the current props
@@ -94,7 +136,7 @@ class CaptionsMenu extends Component<any, any> {
    */
   onCaptionsChange(textTrack: any | string): void {
     if (textTrack === this.props.advancedCaptionsSettingsText) {
-      this.props.onAdvancedCaptionsClick();
+      this.toggleCVAAOverlay();
       return;
     }
     this.props.player.selectTrack(textTrack);
@@ -122,16 +164,30 @@ class CaptionsMenu extends Component<any, any> {
       textOptions.push({label: props.advancedCaptionsSettingsText, value: props.advancedCaptionsSettingsText, active: false});
     }
 
+    const targetId: HTMLDivElement | Document = (document.getElementById(this.props.player.config.targetId) as HTMLDivElement) || document;
+    const portalSelector = `.overlay-portal`;
+
     return (
-      <SmartContainerItem
-        pushRef={el => {
-          props.pushRef(el);
-        }}
-        icon={IconType.Captions}
-        label={this.props.captionsLabelText}
-        options={textOptions}
-        onMenuChosen={textTrack => this.onCaptionsChange(textTrack)}
-      />
+      <>
+        {!this.state.cvaaOverlay && (
+          <>
+            {this.props.asDropdown ? (
+              <SmartContainerItem
+                pushRef={el => {
+                  props.pushRef(el);
+                }}
+                icon={IconType.Captions}
+                label={this.props.captionsLabelText}
+                options={textOptions}
+                onMenuChosen={textTrack => this.onCaptionsChange(textTrack)}
+              />
+            ) : (
+              <Menu options={textOptions} onMenuChosen={textTrack => this.onCaptionsChange(textTrack)} onClose={() => {}} />
+            )}
+          </>
+        )}
+        {this.state.cvaaOverlay ? createPortal(<CVAAOverlay onClose={this.onCVAAOverlayClose} />, targetId.querySelector(portalSelector)!) : <div />}
+      </>
     );
   }
 }
