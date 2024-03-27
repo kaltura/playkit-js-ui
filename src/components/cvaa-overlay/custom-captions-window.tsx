@@ -100,11 +100,6 @@ class CustomCaptionsWindow extends Component<any, any> {
       active: props.customTextStyle.backgroundColor.every((value, index) => value === standardColors[key][index])
     }));
 
-    const fontAlignmentOption = player.TextStyle.FontAlignment.map(fontAlignment => ({
-      ...fontAlignment,
-      active: props.customTextStyle.textAlign === fontAlignment.value
-    }));
-
     return (
       <div className={[style.overlayScreen, style.active].join(' ')}>
         <form className={[style.form, style.customCaptionForm].join(' ')}>
@@ -114,14 +109,6 @@ class CustomCaptionsWindow extends Component<any, any> {
             options={fontSizeOptions}
             classNames={[style.formGroupRow, style.fontSize]}
             styleName="fontSize"
-            changeCustomStyle={props.changeCustomStyle}
-          />
-          <DropDownCaptionsStyle
-            addAccessibleChild={props.addAccessibleChild}
-            labelId="cvaa.font_alignment_label"
-            options={fontAlignmentOption}
-            classNames={[style.formGroupRow, style.fontAlignment]}
-            styleName="textAlign"
             changeCustomStyle={props.changeCustomStyle}
           />
           <DropDownCaptionsStyle
