@@ -1,8 +1,9 @@
 import {h, Component, Fragment, VNode} from 'preact';
-import {withText} from 'preact-i18n';
+import {Text, withText} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
-import {actions} from '../../reducers/cvaa';
+import {actions as cvaaActions} from '../../reducers/cvaa';
+import {actions as shellActions} from '../../reducers/shell';
 import {SmartContainerItem} from '../smart-container/smart-container-item';
 import {IconType} from '../icon';
 import {withPlayer} from '../player';
@@ -12,6 +13,9 @@ import {withEventDispatcher} from '../event-dispatcher';
 import {KeyMap} from '../../utils';
 import {withKeyboardEvent} from '../../components/keyboard';
 import {KeyboardEventHandlers} from '../../types';
+import {createPortal} from 'react';
+import {CVAAOverlay} from '../cvaa-overlay';
+import {Menu} from '../menu';
 
 /**
  * mapping state to props
@@ -34,7 +38,7 @@ const COMPONENT_NAME = 'CaptionsMenu';
  * @example <CaptionsMenu />
  * @extends {Component}
  */
-@connect(mapStateToProps, bindActions(actions))
+@connect(mapStateToProps, bindActions({...cvaaActions, ...shellActions}))
 @withPlayer
 @withEventManager
 @withKeyboardEvent(COMPONENT_NAME)
@@ -122,17 +126,21 @@ class CaptionsMenu extends Component<any, any> {
       textOptions.push({label: props.advancedCaptionsSettingsText, value: props.advancedCaptionsSettingsText, active: false});
     }
 
-    return (
-      <SmartContainerItem
-        pushRef={el => {
-          props.pushRef(el);
-        }}
-        icon={IconType.Captions}
-        label={this.props.captionsLabelText}
-        options={textOptions}
-        onMenuChosen={textTrack => this.onCaptionsChange(textTrack)}
-      />
-    );
+    if (this.props.asDropdown) {
+      return (
+        <SmartContainerItem
+          pushRef={el => {
+            props.pushRef(el);
+          }}
+          icon={IconType.Captions}
+          label={this.props.captionsLabelText}
+          options={textOptions}
+          onMenuChosen={textTrack => this.onCaptionsChange(textTrack)}
+        />
+      );
+    } else {
+      return <Menu options={textOptions} onMenuChosen={textTrack => this.onCaptionsChange(textTrack)} onClose={() => {}} />;
+    }
   }
 }
 

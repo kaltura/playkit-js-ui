@@ -13,6 +13,7 @@ export const initialState = {
   targetId: undefined as unknown as string,
   forceTouchUI: false,
   showCCButton: true,
+  openMenuFromCCCButton: false,
   settings: {
     showAudioMenu: true,
     showCaptionsMenu: true,

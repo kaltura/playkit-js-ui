@@ -81,3 +81,4 @@ export {Settings, Settings as SettingsControl};
 export {Volume, Volume as VolumeControl};
 export {VrStereo, VrStereo as VrStereoControl};
 export {ClosedCaptions, ClosedCaptions as ClosedCaptionsControl};
+export {CaptionsControl} from './captions-control';
