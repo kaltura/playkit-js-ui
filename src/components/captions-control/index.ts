@@ -1,1 +1,1 @@
-export {CaptionsControl} from './captions-control'
+export {CaptionsControl} from './captions-control';
