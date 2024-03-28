@@ -1,11 +1,12 @@
 import style from '../styles/style.scss';
 import {Fragment, h, Component, VNode} from 'preact';
-import {CaptionsControl, PlayerArea, withPlayerPreset} from '../components';
+import {PlayerArea, withPlayerPreset} from '../components';
 import {OverlayAction} from '../components';
 import {PrePlaybackPlayOverlay} from '../components';
 import {Loading} from '../components';
 import {Rewind} from '../components';
 import {Forward} from '../components';
+import {CaptionsControl} from '../components';
 import {SeekBarPlaybackContainer} from '../components';
 import {Volume} from '../components';
 import {Settings} from '../components';

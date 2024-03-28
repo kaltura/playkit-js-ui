@@ -31,5 +31,4 @@ export interface ShellState {
   sidePanelsSizes: {[key: string]: any}; // Consider defining a more specific type
   presetSettings: PresetSettings;
   documentWidth?: number;
-  isCVAAOverlayOpen: boolean;
 }

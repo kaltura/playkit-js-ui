@@ -19,8 +19,7 @@ export const types = {
   UPDATE_SIDE_PANEL_MODE: 'shell/UPDATE_SIDE_PANEL_MODE',
   UPDATE_SIDE_PANEL_SIZE: 'shell/UPDATE_SIDE_PANEL_SIZE',
   UPDATE_PRESET_SETTINGS: 'shell/UPDATE_PRESET_SETTINGS',
-  UPDATE_LAYOUT_STYLES: 'shell/UPDATE_LAYOUT_STYLES',
-  UPDATE_IS_CVAA_OVERLAY_OPEN: 'shell/UPDATE_IS_CVAA_OVERLAY_OPEN'
+  UPDATE_LAYOUT_STYLES: 'shell/UPDATE_LAYOUT_STYLES'
 };
 
 export const SidePanelOrientation = {
@@ -103,7 +102,6 @@ export const initialState = {
   playerHover: false,
   playerNav: false,
   smartContainerOpen: false,
-  isCVAAOverlayOpen: false,
   activePresetName: '',
   sidePanelsModes: {
     [SidePanelPositions.LEFT]: SidePanelModes.HIDDEN,
@@ -219,12 +217,6 @@ export default (state: ShellState = initialState, action: any) => {
         smartContainerOpen: action.open
       };
 
-    case types.UPDATE_IS_CVAA_OVERLAY_OPEN:
-      return {
-        ...state,
-        isCVAAOverlayOpen: action.open
-      };
-
     case types.UPDATE_ACTIVE_PRESET_NAME:
       return {
         ...state,
@@ -284,7 +276,6 @@ export const actions = {
   updatePlayerHoverState: (hover: boolean) => ({type: types.UPDATE_PLAYER_HOVER_STATE, hover}),
   updatePlayerNavState: (nav: boolean) => ({type: types.UPDATE_PLAYER_NAV_STATE, nav}),
   updateSmartContainerOpen: (open: boolean) => ({type: types.UPDATE_SMART_CONTAINER_OPEN, open}),
-  updateIsCVAAOverlayOpen: (open: boolean) => ({type: types.UPDATE_IS_CVAA_OVERLAY_OPEN, open}),
   updateActivePresetName: (activePresetName: string) => ({type: types.UPDATE_ACTIVE_PRESET_NAME, activePresetName}),
   updateSidePanelMode: (position: string, sidePanelMode: string) => ({
     type: types.UPDATE_SIDE_PANEL_MODE,

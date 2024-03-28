@@ -22,7 +22,7 @@ import {CVAAOverlay} from '../cvaa-overlay';
 const mapStateToProps = state => ({
   textTracks: state.engine.textTracks,
   showCCButton: state.config.showCCButton,
-  openMenuFromCCCButton: state.config.openMenuFromCCCButton,
+  openMenuFromCCCButton: state.config.openMenuFromCCButton,
   isMobile: state.shell.isMobile,
   isSmallSize: state.shell.isSmallSize,
   isCVAAOverlayOpen: state.shell.isCVAAOverlayOpen

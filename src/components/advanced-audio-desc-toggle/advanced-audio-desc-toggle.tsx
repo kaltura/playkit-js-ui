@@ -6,7 +6,6 @@ import {actions} from '../../reducers/settings';
 import {SmartContainerItem} from '../../components';
 import {IconType} from '../icon';
 import {withEventDispatcher} from '../../components/event-dispatcher';
-import {SmartContainerItemType} from '../smart-container';
 
 /**
  * mapping state to props
@@ -61,7 +60,6 @@ class AdvancedAudioDescToggle extends Component<any, any> {
         label={props.advancedAudioText}
         isChecked={props.isAdvancedAudioDescChecked}
         onMenuChosen={this.onAdvancedAudioClick}
-        type={SmartContainerItemType.ToggleSwitch}
       />
     );
   }

@@ -1,9 +1,8 @@
 import style from '../../styles/style.scss';
 import {h, Component, VNode} from 'preact';
 import {DropDown} from '../dropdown';
-import {default as Icon, IconType} from '../icon';
+import {default as Icon} from '../icon';
 import {ToggleSwitch} from '../../components';
-import {SmartContainerItemType} from './smart-container-item-type';
 
 const COMPONENT_NAME = 'SmartContainerItem';
 
@@ -44,21 +43,14 @@ class SmartContainerItem extends Component<any, any> {
           />
         ) : (
           <div style={{paddingLeft: '20px'}}>
-            {props.type === SmartContainerItemType.ToggleSwitch && (
-              <ToggleSwitch
-                pushRef={el => {
-                  props.pushRef(el);
-                }}
-                name={label}
-                isChecked={props.isChecked}
-                onMenuChosen={o => props.onMenuChosen(o)}
-              />
-            )}
-            {props.type === SmartContainerItemType.Menu && (
-              <span style={{width: '24px', height: '24px', display: 'block'}} className={[style.menuIconContainer, style.active].join(' ')}>
-                <Icon type={IconType.CheckActive} />
-              </span>
-            )}
+            <ToggleSwitch
+              pushRef={el => {
+                props.pushRef(el);
+              }}
+              name={label}
+              isChecked={props.isChecked}
+              onMenuChosen={o => props.onMenuChosen(o)}
+            />
           </div>
         )}
       </div>

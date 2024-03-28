@@ -1,9 +1,8 @@
 import {h, Component, Fragment, VNode} from 'preact';
-import {Text, withText} from 'preact-i18n';
+import {withText} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
-import {actions as cvaaActions} from '../../reducers/cvaa';
-import {actions as shellActions} from '../../reducers/shell';
+import {actions} from '../../reducers/cvaa';
 import {SmartContainerItem} from '../smart-container/smart-container-item';
 import {IconType} from '../icon';
 import {withPlayer} from '../player';
@@ -13,8 +12,6 @@ import {withEventDispatcher} from '../event-dispatcher';
 import {KeyMap} from '../../utils';
 import {withKeyboardEvent} from '../../components/keyboard';
 import {KeyboardEventHandlers} from '../../types';
-import {createPortal} from 'react';
-import {CVAAOverlay} from '../cvaa-overlay';
 import {Menu} from '../menu';
 
 /**
@@ -38,7 +35,7 @@ const COMPONENT_NAME = 'CaptionsMenu';
  * @example <CaptionsMenu />
  * @extends {Component}
  */
-@connect(mapStateToProps, bindActions({...cvaaActions, ...shellActions}))
+@connect(mapStateToProps, bindActions(actions))
 @withPlayer
 @withEventManager
 @withKeyboardEvent(COMPONENT_NAME)
