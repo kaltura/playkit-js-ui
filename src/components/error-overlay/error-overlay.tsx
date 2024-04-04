@@ -9,7 +9,7 @@ import {CopyButton} from '../copy-button';
 import {withLogger} from '../../components/logger';
 import {withPlayer} from '../../components/player';
 import {Button} from '../../components/button';
-import {getErrorMessageIdByCategory} from "./error-message-id-provider";
+import {errorsMap, getDefaultError} from "./error-message-provider";
 
 /**
  * mapping state to props
@@ -134,9 +134,9 @@ class ErrorOverlay extends Component<any, any> {
       errorMessageRes = errorMessage;
     } else {
       // error title and message are core related - get them by the error category
-      const {title, message} = getErrorMessageIdByCategory(errorCategory);
-      errorTitleRes = <Text id={`error.${title}`} />;
-      errorMessageRes = <Text id={`error.${message}`} />;
+      const error = errorsMap.get(errorCategory) || getDefaultError();
+      errorTitleRes = <Text id={`error.${error.title}`} />;
+      errorMessageRes = <Text id={`error.${error.message}`} />;
     }
 
     return (
