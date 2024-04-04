@@ -1,6 +1,6 @@
 type ErrorDetails = {
-  title: string,
-  message: string
+  title: string;
+  message: string;
 };
 
 export const getErrorMessageIdByCategory = (errorCategory: number | undefined): ErrorDetails => {

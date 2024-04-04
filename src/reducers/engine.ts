@@ -134,7 +134,7 @@ export default (state: EngineState = initialState, action: any) => {
       return {
         ...state,
         errorDetails: action.errorDetails
-      }
+      };
 
     case types.UPDATE_PLAYER_STATE:
       return {
