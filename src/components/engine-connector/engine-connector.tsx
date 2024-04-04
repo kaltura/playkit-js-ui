@@ -273,6 +273,7 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
       if (e.payload.severity === player.Error.Severity.CRITICAL) {
         this.props.updateIsIdle(false);
         this.props.updateHasError(true);
+        this.props.updateErrorDetails(e.payload.category || undefined, e.payload.errorDetails?.errorTitle, e.payload.errorDetails?.errorMessage);
       }
     });
 

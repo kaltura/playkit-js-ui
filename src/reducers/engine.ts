@@ -42,6 +42,7 @@ export const types = {
   UPDATE_IS_IMG: `${component}/UPDATE_IS_IMG`,
   UPDATE_IS_DOCUMENT: `${component}/UPDATE_IS_DOCUMENT`,
   UPDATE_ERROR: `${component}/ERROR`,
+  UPDATE_ERROR_DETAILS: `${component}/ERROR_DETAILS`,
   UPDATE_IS_IDLE: `${component}/UPDATE_IS_IDLE`,
   UPDATE_FALLBACK_TO_MUTED_AUTOPLAY: `${component}/UPDATE_FALLBACK_TO_MUTED_AUTOPLAY`,
   UPDATE_IS_VR: `${component}/UPDATE_IS_VR`,
@@ -99,6 +100,11 @@ export const initialState = {
   },
   adUrl: '',
   hasError: false,
+  errorDetails: {
+    errorCategory: undefined,
+    errorTitle: undefined,
+    errorMessage: undefined
+  },
   isVr: false,
   vrStereoMode: false,
   isCasting: false,
@@ -123,6 +129,12 @@ export default (state: EngineState = initialState, action: any) => {
         ...state,
         hasError: action.hasError
       };
+
+    case types.UPDATE_ERROR_DETAILS:
+      return {
+        ...state,
+        errorDetails: action.errorDetails
+      }
 
     case types.UPDATE_PLAYER_STATE:
       return {
@@ -410,6 +422,10 @@ export default (state: EngineState = initialState, action: any) => {
 
 export const actions = {
   updateHasError: (hasError: boolean) => ({type: types.UPDATE_ERROR, hasError: hasError}),
+  updateErrorDetails: (errorCategory: number, errorTitle = '', errorMessage = '') => ({
+    type: types.UPDATE_ERROR_DETAILS,
+    errorDetails: {errorCategory, errorTitle, errorMessage}
+  }),
   updatePlayerState: (prevoiusState: string, currentState: string) => ({
     type: types.UPDATE_PLAYER_STATE,
     playerState: {prevoiusState, currentState}
