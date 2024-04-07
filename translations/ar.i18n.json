@@ -46,7 +46,7 @@
       "close": "إغلاق"
     },
     "error": {
-      "default_error": "حدث خطأ ما"
+      "default_error_title": "حدث خطأ ما"
     },
     "ads": {
       "ad_notice": "إعلان",

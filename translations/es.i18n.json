@@ -48,7 +48,7 @@
       "close": "Cerrar"
     },
     "error": {
-      "default_error": "Algo salió mal."
+      "default_error_title": "Algo salió mal."
     },
     "ads": {
       "ad_notice": "Anuncio",

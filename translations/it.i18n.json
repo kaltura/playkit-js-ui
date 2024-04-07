@@ -48,7 +48,7 @@
       "close": "Chiudi"
     },
     "error": {
-      "default_error": "Qualcosa è andato storto"
+      "default_error_title": "Qualcosa è andato storto"
     },
     "ads": {
       "ad_notice": "Pubblicità",

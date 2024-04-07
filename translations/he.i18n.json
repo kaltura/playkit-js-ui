@@ -46,7 +46,7 @@
       "close": "סגור"
     },
     "error": {
-      "default_error": "משהו השתבש"
+      "default_error_title": "משהו השתבש"
     },
     "ads": {
       "ad_notice": "פרסומת",

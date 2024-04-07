@@ -48,7 +48,7 @@
       "close": "Sulje"
     },
     "error": {
-      "default_error": "Jokin meni pieleen"
+      "default_error_title": "Jokin meni pieleen"
     },
     "ads": {
       "ad_notice": "Mainos",

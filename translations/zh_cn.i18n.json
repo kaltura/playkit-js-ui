@@ -48,7 +48,7 @@
       "close": "关闭"
     },
     "error": {
-      "default_error": "发生错误"
+      "default_error_title": "发生错误"
     },
     "ads": {
       "ad_notice": "广告",

@@ -48,7 +48,7 @@
       "close": "닫기"
     },
     "error": {
-      "default_error": "오류가 발생했습니다"
+      "default_error_title": "오류가 발생했습니다"
     },
     "ads": {
       "ad_notice": "광고",
