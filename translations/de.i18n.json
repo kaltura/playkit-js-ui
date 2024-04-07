@@ -48,7 +48,7 @@
       "close": "Schließen"
     },
     "error": {
-      "default_error": "Etwas ist schiefgegangen"
+      "default_error_title": "Etwas ist schiefgegangen"
     },
     "ads": {
       "ad_notice": "Anzeige",

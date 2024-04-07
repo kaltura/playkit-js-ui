@@ -48,7 +48,7 @@
       "close": "Fermer"
     },
     "error": {
-      "default_error": "Un problème est survenu"
+      "default_error_title": "Un problème est survenu"
     },
     "ads": {
       "ad_notice": "Publicité",

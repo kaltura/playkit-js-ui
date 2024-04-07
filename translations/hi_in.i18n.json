@@ -46,7 +46,7 @@
       "close": "बंद करें"
     },
     "error": {
-      "default_error": "कुछ गलत हुआ"
+      "default_error_title": "कुछ गलत हुआ"
     },
     "ads": {
       "ad_notice": "विज्ञापन",

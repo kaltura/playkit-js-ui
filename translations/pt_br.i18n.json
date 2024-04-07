@@ -48,7 +48,7 @@
       "close": "Fechar"
     },
     "error": {
-      "default_error": "Ocorreu um erro"
+      "default_error_title": "Ocorreu um erro"
     },
     "ads": {
       "ad_notice": "Publicidade",

@@ -48,7 +48,7 @@
       "close": "Закрыть"
     },
     "error": {
-      "default_error": "Что-то пошло не так"
+      "default_error_title": "Что-то пошло не так"
     },
     "ads": {
       "ad_notice": "Реклама",
