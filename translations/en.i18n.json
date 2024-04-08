@@ -102,6 +102,7 @@
       "edit_caption": "Edit caption",
       "size_label": "Size",
       "font_color_label": "Font color",
+      "font_alignment_label": "Font alignment",
       "font_family_label": "Font family",
       "font_style_label": "Font style",
       "font_opacity_label": "Font opacity",
