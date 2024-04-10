@@ -47,7 +47,8 @@ export const ReservedPresetNames = {
   Error: 'Error',
   Idle: 'Idle',
   Img: 'Img',
-  Document: 'Document'
+  Document: 'Document',
+  MiniAudioUI: 'MiniAudioUI'
 };
 
 export const ReservedPresetAreas = {
