@@ -25,7 +25,7 @@
     width: max-content;
     display: table;
 
-    &:after {
+    &:before {
       content: '';
       position: absolute;
       border-width: 5px;
@@ -34,11 +34,16 @@
       color: $tooltip-background-color;
       z-index: -1;
     }
+    &:after {
+      content: '';
+      position: absolute;
+      inset: -1em;
+    }
     &.tooltip-top {
       bottom: $tooltip-margin;
       left: 50%;
       transform: translate(-50%);
-      &:after {
+      &:before {
         bottom: -$tooltip-arrow-height;
         left: 50%;
         transform: translate(-50%) rotate(45deg) skew(5deg, 5deg);
@@ -49,7 +54,7 @@
       left: 50%;
       transform: translate(-100%);
       margin-left: $tooltip-semi-side-margin;
-      &:after {
+      &:before {
         bottom: -$tooltip-arrow-height;
         right: 0;
         margin-right: $tooltip-semi-side-arrow-margin;
@@ -60,7 +65,7 @@
       bottom: $tooltip-margin;
       left: 50%;
       transform: translate(-$tooltip-semi-side-margin);
-      &:after {
+      &:before {
         bottom: -$tooltip-arrow-height;
         left: 0;
         margin-left: $tooltip-semi-side-arrow-margin;
@@ -71,7 +76,7 @@
       top: $tooltip-margin;
       left: 50%;
       transform: translate(-50%);
-      &:after {
+      &:before {
         top: -$tooltip-arrow-height;
         left: 50%;
         margin-left: -5px;
@@ -82,7 +87,7 @@
       top: $tooltip-margin;
       left: 50%;
       transform: translate(-$tooltip-semi-side-margin);
-      &:after {
+      &:before {
         top: -$tooltip-arrow-height;
         left: 0;
         margin-left: $tooltip-semi-side-arrow-margin;
@@ -94,7 +99,7 @@
       transform: translate(-100%);
       left: 50%;
       margin-left: $tooltip-semi-side-margin;
-      &:after {
+      &:before {
         top: -$tooltip-arrow-height;
         right: 0;
         margin-right: $tooltip-semi-side-arrow-margin;
@@ -105,7 +110,7 @@
       top: 50%;
       right: $tooltip-margin;
       transform: translate(0, -50%);
-      &:after {
+      &:before {
         top: 50%;
         left: 100%;
         margin-left: -6px;
@@ -117,7 +122,7 @@
       top: 50%;
       left: $tooltip-margin;
       transform: translate(0, -50%);
-      &:after {
+      &:before {
         top: 50%;
         right: 100%;
         margin-top: -5px;
