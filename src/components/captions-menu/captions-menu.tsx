@@ -112,11 +112,13 @@ class CaptionsMenu extends Component<any, any> {
    * @memberof CaptionsMenu
    */
   render(props: any): VNode<any> {
-    const textOptions = props.textTracks.map(t => ({
-      label: t.label || t.language,
-      active: t.active,
-      value: t
-    }));
+    const textOptions = props.textTracks
+      .map(t => ({
+        label: t.label || t.language,
+        active: t.active,
+        value: t
+      }))
+      .sort((a, b) => a.label > b.label || a.label === 'Off' ? 1 : -1);
 
     if (props.showAdvancedCaptionsMenu) {
       textOptions.push({label: props.advancedCaptionsSettingsText, value: props.advancedCaptionsSettingsText, active: false});
