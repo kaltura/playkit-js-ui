@@ -59,7 +59,7 @@ export const types = {
 export const initialState = {
   isIdle: false,
   isPlaying: false,
-  isPaused: false,
+  isPaused: true,
   isSeeking: false,
   isEnded: false,
   isPlaybackStarted: false,
