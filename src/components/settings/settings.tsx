@@ -2,7 +2,7 @@ import style from '../../styles/style.scss';
 import {h, Component, VNode} from 'preact';
 import {withText, Text} from 'preact-i18n';
 import {connect} from 'react-redux';
-import {bindActions} from '../../utils';
+import {bindActions, KeyMap} from '../../utils';
 import {actions} from '../../reducers/settings';
 import {
   AdvancedAudioDescToggle,
@@ -23,6 +23,9 @@ import {Button} from '../button';
 import {ButtonControl} from '../button-control';
 import {createPortal} from 'preact/compat';
 import {focusElement} from '../../utils';
+import {withKeyboardEvent} from '../../components/keyboard';
+import {KeyboardEventHandlers} from '../../types';
+import {withLogger} from '../logger';
 
 /**
  * mapping state to props
@@ -58,9 +61,34 @@ const COMPONENT_NAME = 'Settings';
 })
 @withPlayer
 @withEventManager
+@withKeyboardEvent(COMPONENT_NAME)
+@withLogger(COMPONENT_NAME)
 class Settings extends Component<any, any> {
   _controlSettingsElement!: HTMLDivElement;
   _buttonRef: HTMLButtonElement | null = null;
+  _lastActiveTextLanguage: string = '';
+  _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
+    {
+      key: {
+        code: KeyMap.C
+      },
+      action: () => {
+        const {player, logger} = this.props;
+        const activeTextTrack = player.getActiveTracks().text;
+        if (activeTextTrack) {
+          if (activeTextTrack.language === 'off' && this._lastActiveTextLanguage) {
+            logger.debug(`Changing text track to language`, this._lastActiveTextLanguage);
+            const selectedTextTrack = player.getTracks('text').find(track => track.language === this._lastActiveTextLanguage);
+            player.selectTrack(selectedTextTrack);
+          } else if (activeTextTrack.language !== 'off' && !this._lastActiveTextLanguage) {
+            logger.debug(`Hiding text track`);
+            this._lastActiveTextLanguage = activeTextTrack.language;
+            player.hideTextTrack();
+          }
+        }
+      }
+    }
+  ];
 
   /**
    * before component mounted, set initial state
@@ -81,6 +109,23 @@ class Settings extends Component<any, any> {
   componentDidMount() {
     const {eventManager} = this.props;
     eventManager.listen(document, 'click', e => this.handleClickOutside(e));
+    this.props.registerKeyboardEvents(this._keyboardEventHandlers);
+  }
+
+  /**
+   * We update the last language selected here upon trackTracks props change. This is done to make sure we update the
+   * last text track lanague upon language menu selection and using the (C) keyboard key.
+   * @param {Object} nextProps - the props that will replace the current props
+   * @returns {void}
+   */
+  componentWillReceiveProps(nextProps: any): void {
+    const currActiveTrack = this.props.textTracks.find(track => track.active);
+    const nextActiveTrack = nextProps.textTracks.find(track => track.active);
+    if (currActiveTrack && currActiveTrack.language !== 'off' && nextActiveTrack && nextActiveTrack.language === 'off') {
+      this._lastActiveTextLanguage = currActiveTrack.language;
+    } else if (nextActiveTrack && nextActiveTrack.language !== 'off') {
+      this._lastActiveTextLanguage = '';
+    }
   }
 
   /**
@@ -195,7 +240,8 @@ class Settings extends Component<any, any> {
               BadgeType[buttonBadgeType + 'Active'],
               this.state.smartContainerOpen ? style.active : ''
             ].join(' ')}
-            onClick={this.onControlButtonClick}>
+            onClick={this.onControlButtonClick}
+          >
             <Icon type={IconType.Settings} />
           </Button>
         </Tooltip>
