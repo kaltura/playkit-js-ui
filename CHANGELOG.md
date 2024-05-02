@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 0.79.0 (2024-05-02)
+
+
+### Features
+
+* **FEC-13728:** Add 'MiniAudioPreset handling ([#877](https://github.com/kaltura/playkit-js-ui/issues/877)) ([da9bbc3](https://github.com/kaltura/playkit-js-ui/commit/da9bbc3))
+
+
+
 ### 0.78.4 (2024-04-09)
 
 
