@@ -1,4 +1,3 @@
-// @flow
 import {types as shell} from '../reducers/shell';
 
 let timeoutId: any = null;
