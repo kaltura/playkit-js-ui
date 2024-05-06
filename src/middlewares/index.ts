@@ -2,7 +2,7 @@ import {applyMiddleware} from 'redux';
 import {eventDispatcherMiddleware} from './event-dispatcher';
 import {loggerMiddleware} from './logger';
 import {UIOptionsObject} from '../types';
-import {isPlayerSmallSizeMiddleware} from './is-player-small-size';
+import {debounceMiddleware} from './debounce-middleware';
 
 /**
  * Creates the redux middleware.
@@ -11,6 +11,6 @@ import {isPlayerSmallSizeMiddleware} from './is-player-small-size';
  * @return {GenericStoreEnhancer} - The redux middleware.
  */
 const middleware = (player: any, config: UIOptionsObject): any =>
-  applyMiddleware<any, any>(loggerMiddleware(config), eventDispatcherMiddleware(player), isPlayerSmallSizeMiddleware());
+  applyMiddleware<any, any>(loggerMiddleware(config), eventDispatcherMiddleware(player), debounceMiddleware());
 
 export {middleware};
