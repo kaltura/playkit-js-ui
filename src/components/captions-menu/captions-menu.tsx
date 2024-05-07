@@ -76,6 +76,10 @@ class CaptionsMenu extends Component<any, any> {
         active: t.active,
         value: t
       }))
+      .map(t => ({
+        ...t,
+        label: t.label.charAt(0).toUpperCase() + t.label.slice(1)
+      }))
       .sort((a, b) => (a.label > b.label || a.label === 'Off' ? 1 : -1));
 
     if (props.showAdvancedCaptionsMenu) {
