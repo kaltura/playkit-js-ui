@@ -9,9 +9,7 @@ import {withPlayer} from '../player';
 import {withEventManager} from '../../event';
 import {withLogger} from '../logger';
 import {withEventDispatcher} from '../event-dispatcher';
-import {KeyMap} from '../../utils';
 import {withKeyboardEvent} from '../../components/keyboard';
-import {KeyboardEventHandlers} from '../../types';
 
 /**
  * mapping state to props
@@ -45,46 +43,6 @@ const COMPONENT_NAME = 'CaptionsMenu';
   advancedCaptionsSettingsText: 'captions.advanced_captions_settings'
 })
 class CaptionsMenu extends Component<any, any> {
-  _lastActiveTextLanguage: string = '';
-  _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
-    {
-      key: {
-        code: KeyMap.C
-      },
-      action: () => {
-        const {player, logger} = this.props;
-        let activeTextTrack = player.getActiveTracks().text;
-        if (activeTextTrack) {
-          if (activeTextTrack.language === 'off' && this._lastActiveTextLanguage) {
-            logger.debug(`Changing text track to language`, this._lastActiveTextLanguage);
-            const selectedTextTrack = player.getTracks('text').find(track => track.language === this._lastActiveTextLanguage);
-            player.selectTrack(selectedTextTrack);
-          } else if (activeTextTrack.language !== 'off' && !this._lastActiveTextLanguage) {
-            logger.debug(`Hiding text track`);
-            this._lastActiveTextLanguage = activeTextTrack.language;
-            player.hideTextTrack();
-          }
-        }
-      }
-    }
-  ];
-
-  /**
-   * We update the last language selected here upon trackTracks props change. This is done to make sure we update the
-   * last text track lanague upon language menu selection and using the (C) keyboard key.
-   * @param {Object} nextProps - the props that will replace the current props
-   * @returns {void}
-   */
-  componentWillReceiveProps(nextProps: any): void {
-    const currActiveTrack = this.props.textTracks.find(track => track.active);
-    const nextActiveTrack = nextProps.textTracks.find(track => track.active);
-    if (currActiveTrack && currActiveTrack.language !== 'off' && nextActiveTrack && nextActiveTrack.language === 'off') {
-      this._lastActiveTextLanguage = currActiveTrack.language;
-    } else if (nextActiveTrack && nextActiveTrack.language !== 'off') {
-      this._lastActiveTextLanguage = '';
-    }
-  }
-
   /**
    * Select the given text track
    *
