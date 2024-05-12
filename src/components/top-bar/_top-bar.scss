@@ -93,6 +93,10 @@
   }
 }
 
+.player .top-bar:has(.left-controls:empty + .right-controls:empty) {
+  visibility: hidden;
+}
+
 .player.size-sm .top-bar {
   .left-controls {
     margin: #{$top-bar-top-bottom-gutter}px 0 #{$top-bar-top-bottom-gutter}px #{$gui-small-gutter}px;
