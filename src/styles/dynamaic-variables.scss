@@ -76,6 +76,16 @@
   --playkit-tone-7-color: #212121;
   --playkit-tone-8-color: #000000;
 
+  // Tone Ramp - rgb values
+  --playkit-tone-1-color-rgb: 255, 255, 255;
+  --playkit-tone-2-color-rgb: 204, 204, 204;
+  --playkit-tone-3-color-rgb: 153, 153, 153;
+  --playkit-tone-4-color-rgb: 102, 102, 102;
+  --playkit-tone-5-color-rgb: 82, 82, 82;
+  --playkit-tone-6-color-rgb: 56, 56, 56;
+  --playkit-tone-7-color-rgb: 33, 33, 33;
+  --playkit-tone-8-color-rgb: 0, 0, 0;
+
   --playkit-live-color: #e12437;
   --playkit-player-background-color: #000000;
   --playkit-tab-focus-color: var(--playkit-primary-color);
