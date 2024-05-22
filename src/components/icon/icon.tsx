@@ -39,7 +39,8 @@ const IconType = {
   PictureInPictureStop: 'picture-in-picture-stop',
   ClosedCaptionsOn: 'closed-captions-on',
   ClosedCaptionsOff: 'closed-captions-off',
-  AdvancedAudioDescription: 'advanced-audio-description'
+  AdvancedAudioDescription: 'advanced-audio-description',
+  AdvancedAudioDescriptionActive: 'advanced-audio-description-active'
 };
 
 const BadgeType = {
@@ -312,6 +313,9 @@ class Icon extends Component<any, any> {
 
         case IconType.AdvancedAudioDescription:
           return <i className={[style.icon, style.iconAdvancedAudioDescription].join(' ')} />;
+
+      case IconType.AdvancedAudioDescriptionActive:
+        return <i className={[style.icon, style.iconAdvancedAudioDescriptionActive].join(' ')} />;
 
         default:
           break;
