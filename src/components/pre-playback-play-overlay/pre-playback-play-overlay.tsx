@@ -49,7 +49,6 @@ class PrePlaybackPlayOverlay extends Component<any, any> {
    * @memberof PrePlaybackPlayOverlay
    */
   handleClick = (): void => {
-    this.props.player.getView().focus();
     this.props.playlist && this.props.isPlaybackEnded ? this.props.player.playlist.playNext() : this.props.player.play();
     this.props.notifyClick();
   };
