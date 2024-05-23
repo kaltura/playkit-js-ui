@@ -48,6 +48,8 @@ const COMPONENT_NAME = 'PlayPause';
   playText: 'controls.play'
 })
 class PlayPause extends Component<any, any> {
+  private _playPauseButtonRef?: HTMLButtonElement;
+
   /**
    * component mounted
    *
@@ -56,22 +58,10 @@ class PlayPause extends Component<any, any> {
    */
   componentDidMount(): void {
     const {eventManager, player} = this.props;
-    const playerContainer: HTMLDivElement = document.getElementById(player.config.ui.targetId) as HTMLDivElement;
     eventManager.listenOnce(player, player.Event.UI.USER_CLICKED_PLAY, () => {
       eventManager.listenOnce(player, player.Event.Core.FIRST_PLAY, () => {
-        playerContainer.focus();
-        playerContainer.setAttribute('role', 'application'); // Set JAWS screen reader into 'forms' mode, where keys are passed through to the web-page.
+        this._playPauseButtonRef?.focus();
       });
-    });
-    eventManager.listen(document, 'keydown', event => {
-      if (event.code === 'Space' || event.code === 'Enter') {
-        if (document.activeElement === playerContainer) {
-          event.preventDefault();
-          this.props.isPlayingAdOrPlayback ? this.props.updateOverlayActionIcon(IconType.Pause) : this.props.updateOverlayActionIcon(IconType.Play);
-          this.togglePlayPause();
-          this.props.updatePlayerHoverState(true);
-        }
-      }
     });
   }
 
@@ -102,7 +92,14 @@ class PlayPause extends Component<any, any> {
     return (
       <ButtonControl name={COMPONENT_NAME}>
         <Tooltip label={labelText}>
-          <Button tabIndex="0" aria-label={labelText} className={controlButtonClass} onClick={this.togglePlayPause}>
+          <Button
+            tabIndex="0"
+            aria-label={labelText}
+            className={controlButtonClass}
+            onClick={this.togglePlayPause}
+            ref={node => {
+              this._playPauseButtonRef = node;
+            }}>
             {isStartOver ? (
               <Icon type={IconType.StartOver} />
             ) : (
