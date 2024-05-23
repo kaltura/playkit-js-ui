@@ -22,7 +22,15 @@ const cssVarNames = {
     tone5: '--playkit-tone-5-color',
     tone6: '--playkit-tone-6-color',
     tone7: '--playkit-tone-7-color',
-    tone8: '--playkit-tone-8-color'
+    tone8: '--playkit-tone-8-color',
+    tone1RGB: '--playkit-tone-1-color-rgb',
+    tone2RGB: '--playkit-tone-2-color-rgb',
+    tone3RGB: '--playkit-tone-3-color-rgb',
+    tone4RGB: '--playkit-tone-4-color-rgb',
+    tone5RGB: '--playkit-tone-5-color-rgb',
+    tone6RGB: '--playkit-tone-6-color-rgb',
+    tone7RGB: '--playkit-tone-7-color-rgb',
+    tone8RGB: '--playkit-tone-8-color-rgb'
   }
 };
 
