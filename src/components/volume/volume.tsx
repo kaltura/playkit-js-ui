@@ -453,7 +453,7 @@ class Volume extends Component<any, any> {
           <Button
             tabIndex="0"
             aria-live="polite"
-            aria-label={this.props.volumeLabel}
+            aria-label={`${this.props.volumeLabel}. ${this.props.sliderAriaLabel}`}
             className={style.controlButton}
             onMouseUp={this.toggleMute}
             onTouchEnd={this.onTouchEnd}
