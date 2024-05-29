@@ -209,7 +209,7 @@ class Volume extends Component<any, any> {
    * @returns {void}
    * @memberof Volume
    */
-  handleKeydown(event: KeyboardEvent): void {
+  handleKeydown(event: KeyboardEvent, preventMute = false): void {
     const {player} = this.props;
     /**
      * Change volume operations.
@@ -246,7 +246,9 @@ class Volume extends Component<any, any> {
         break;
       case KeyMap.ENTER:
       case KeyMap.SPACE:
-        this.toggleMute();
+        if (!preventMute) {
+          this.toggleMute();
+        }
         break;
       default:
         break;
@@ -419,7 +421,7 @@ class Volume extends Component<any, any> {
       default:
         event.preventDefault();
         event.stopPropagation();
-        this.handleKeydown(event);
+        this.handleKeydown(event, true);
         break;
     }
   };
@@ -447,8 +449,7 @@ class Volume extends Component<any, any> {
         ref={c => (c ? (this._volumeControlElement = c) : undefined)}
         className={controlButtonClasses}
         onMouseOver={this.onMouseOver}
-        onMouseOut={this.onMouseOut}
-      >
+        onMouseOut={this.onMouseOut}>
         <Tooltip label={this.props.volumeLabel} type={this.props.toolTipType ? this.props.toolTipType : ToolTipType.Left}>
           <Button
             tabIndex="0"
@@ -457,9 +458,7 @@ class Volume extends Component<any, any> {
             className={style.controlButton}
             onMouseUp={this.toggleMute}
             onTouchEnd={this.onTouchEnd}
-            onKeyDown={this.onKeyDown}
-            onFocus={this.onFocus}
-          >
+            onKeyDown={this.onKeyDown}>
             <Icon type={IconType.VolumeBase} />
             <Icon type={IconType.VolumeWaves} />
             <Icon type={IconType.VolumeMute} />
@@ -471,17 +470,16 @@ class Volume extends Component<any, any> {
           aria-label={this.props.sliderAriaLabel}
           onKeyDown={this.onProgressBarKeyDown}
           className={style.volumeControlBar}
+          onFocus={this.onFocus}
           role="slider"
           aria-valuemin={0}
           aria-valuemax={100}
           aria-valuenow={player.volume * 100}
-          aria-valuetext={`${player.volume * 100}% volume ${player.muted ? 'muted' : ''}`}
-        >
+          aria-valuetext={`${player.volume * 100}% volume ${player.muted ? 'muted' : ''}`}>
           <div
             className={style.bar}
             ref={c => (c ? (this._volumeProgressBarElement = c) : undefined)}
-            onMouseDown={this.onVolumeProgressBarMouseDown}
-          >
+            onMouseDown={this.onVolumeProgressBarMouseDown}>
             <div className={style.progress} style={{height: this.getVolumeProgressHeight()}} />
           </div>
         </div>
