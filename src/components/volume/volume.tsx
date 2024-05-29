@@ -209,7 +209,7 @@ class Volume extends Component<any, any> {
    * @returns {void}
    * @memberof Volume
    */
-  handleKeydown(event: KeyboardEvent, preventMute?: boolean): void {
+  handleKeydown(event: KeyboardEvent, preventMute = false): void {
     const {player} = this.props;
     /**
      * Change volume operations.
