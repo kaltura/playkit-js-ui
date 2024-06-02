@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.79.2 (2024-06-02)
+
+
+### Bug Fixes
+
+* **FEC-13973:** volume control a11y changes ([#888](https://github.com/kaltura/playkit-js-ui/issues/888)) ([d99a896](https://github.com/kaltura/playkit-js-ui/commit/d99a896))
+
+
+
 ### 0.79.1 (2024-05-19)
 
 
