@@ -90,11 +90,11 @@ class CVAAOverlay extends Component<any, any> {
    * @memberof CVAAOverlay
    */
   changeCaptionsStyle = (textStyle: any): void => {
-    this.props.updateCaptionsStyle(textStyle);
-    this.props.player.textStyle = textStyle;
     this.props.notifyClick({
       textStyle: textStyle
     });
+    this.props.updateCaptionsStyle(textStyle);
+    this.props.player.textStyle = textStyle;
   };
 
   /**
@@ -138,8 +138,7 @@ class CVAAOverlay extends Component<any, any> {
         addAccessibleChild={this.props.addAccessibleChild}
         onClose={props.onClose}
         type="cvaa"
-        label={props.cvvaDialogText}
-      >
+        label={props.cvvaDialogText}>
         {this.state.activeWindow === cvaaOverlayState.Main ? (
           <MainCaptionsWindow
             cvaaOverlayState={cvaaOverlayState}

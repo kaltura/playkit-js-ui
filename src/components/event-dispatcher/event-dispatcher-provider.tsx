@@ -12,6 +12,7 @@ import {RewindClickedEvent} from '../../event/events/rewind-clicked';
 import {ForwardClickedEvent} from '../../event/events/forward-clicked';
 import {VolumeChangedEvent} from '../../event/events/volume-changed';
 import {KeyMap} from '../../utils';
+import isEqual from '../../utils/is-equal';
 import {Component, toChildArray} from 'preact';
 import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
 
@@ -83,6 +84,51 @@ function onPlayerHoverStateChangeHandler(store: any, action: any, player: Kaltur
   }
 }
 
+function onCaptionsStyleSelected(store: any, action: any, player: KalturaPlayer): void {
+  const currentStyles = player.textStyle;
+  const newStyles = action.payload?.textStyle;
+  if (currentStyles?.fontSize !== newStyles?.fontSize) {
+    player.dispatchEvent(new FakeEvent(EventType.USER_SELECTED_CAPTIONS_SIZE, newStyles?.fontSize));
+  }
+  // @ts-ignore
+  if (currentStyles?.textAlign !== newStyles?.textAlign) {
+    player.dispatchEvent(new FakeEvent(EventType.USER_SELECTED_CAPTIONS_ALIGNMENT, newStyles?.textAlign));
+  }
+  if (!isEqual(currentStyles?.fontColor, newStyles?.fontColor)) {
+    Object.keys(player.TextStyle.StandardColors).some(color => {
+      if (isEqual(player.TextStyle.StandardColors[color], newStyles?.fontColor)) {
+        player.dispatchEvent(new FakeEvent(EventType.USER_SELECTED_CAPTIONS_FONT_COLOR, color?.toLowerCase()));
+        return true;
+      }
+    });
+  }
+  if (currentStyles?.fontFamily !== newStyles?.fontFamily) {
+    player.dispatchEvent(new FakeEvent(EventType.USER_SELECTED_CAPTIONS_FONT_FAMILY, newStyles?.fontFamily));
+  }
+  if (!isEqual(currentStyles?.fontEdge, newStyles?.fontEdge)) {
+    Object.keys(player.TextStyle.EdgeStyles).some(edgeStyle => {
+      if (isEqual(player.TextStyle.EdgeStyles[edgeStyle], newStyles?.fontEdge)) {
+        player.dispatchEvent(new FakeEvent(EventType.USER_SELECTED_CAPTIONS_FONT_STYLE, edgeStyle?.toLowerCase()));
+        return true;
+      }
+    });
+  }
+  if (currentStyles?.fontOpacity !== newStyles?.fontOpacity) {
+    player.dispatchEvent(new FakeEvent(EventType.USER_SELECTED_CAPTIONS_FONT_OPACITY, newStyles?.fontOpacity));
+  }
+  if (!isEqual(currentStyles?.backgroundColor, newStyles?.backgroundColor)) {
+    Object.keys(player.TextStyle.StandardColors).some(backgroundColor => {
+      if (isEqual(player.TextStyle.StandardColors[backgroundColor], newStyles?.backgroundColor)) {
+        player.dispatchEvent(new FakeEvent(EventType.USER_SELECTED_CAPTIONS_BACKGROUND_COLOR, backgroundColor?.toLowerCase()));
+        return true;
+      }
+    });
+  }
+  if (currentStyles?.backgroundOpacity !== newStyles?.backgroundOpacity) {
+    player.dispatchEvent(new FakeEvent(EventType.USER_SELECTED_CAPTIONS_BACKGROUND_OPACITY, newStyles?.backgroundOpacity));
+  }
+}
+
 /**
  * Handler for changeable components actions.
  * @param {any} store - The redux store.
@@ -131,7 +177,7 @@ function onClickableComponentsHandler(store: any, action: any, player: KalturaPl
       break;
 
     case 'CVAAOverlay':
-      player.dispatchEvent(new CaptionsStyleSelectedEvent(action.payload.textStyle));
+      onCaptionsStyleSelected(store, action, player);
       break;
 
     case 'Fullscreen':
