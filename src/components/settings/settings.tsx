@@ -2,7 +2,7 @@ import style from '../../styles/style.scss';
 import {h, Component, VNode} from 'preact';
 import {withText, Text} from 'preact-i18n';
 import {connect} from 'react-redux';
-import {bindActions, KeyMap} from '../../utils';
+import {bindActions, KeyMap, KeyCode} from '../../utils';
 import {actions} from '../../reducers/settings';
 import {
   AdvancedAudioDescToggle,
@@ -23,7 +23,7 @@ import {Button} from '../button';
 import {ButtonControl} from '../button-control';
 import {createPortal} from 'preact/compat';
 import {focusElement} from '../../utils';
-import {withKeyboardEvent} from '../../components/keyboard';
+import {withKeyboardEvent} from '../keyboard';
 import {KeyboardEventHandlers} from '../../types';
 import {withLogger} from '../logger';
 import {SpeedSelectedEvent} from '../../event/events/speed-selected-event';
@@ -152,7 +152,7 @@ class Settings extends Component<any, any> {
     const {player, logger} = this.props;
     let playbackRate, index;
     switch (event.code) {
-      case 'Period':
+      case KeyCode.Period:
         playbackRate = player.playbackRate;
         index = player.playbackRates.indexOf(playbackRate);
         if (index < player.playbackRates.length - 1) {
@@ -162,7 +162,7 @@ class Settings extends Component<any, any> {
           player.dispatchEvent(new SpeedSelectedEvent(player.playbackRate));
         }
         break;
-      case 'Semicolon':
+      case KeyCode.Semicolon:
         if (player.playbackRate !== player.defaultPlaybackRate) {
           logger.debug(`Changing playback rate. ${player.playbackRate} => ${player.defaultPlaybackRate}`);
           player.playbackRate = player.defaultPlaybackRate;
@@ -170,7 +170,7 @@ class Settings extends Component<any, any> {
           player.dispatchEvent(new SpeedSelectedEvent(player.playbackRate));
         }
         break;
-      case 'Comma':
+      case KeyCode.Comma:
         playbackRate = player.playbackRate;
         index = player.playbackRates.indexOf(playbackRate);
         if (index > 0) {
