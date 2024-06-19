@@ -2,7 +2,7 @@ import style from '../../styles/style.scss';
 import {h, Component, VNode} from 'preact';
 import {withText, Text} from 'preact-i18n';
 import {connect} from 'react-redux';
-import {bindActions, KeyMap, KeyCode} from '../../utils';
+import {bindActions, KeyMap} from '../../utils';
 import {actions} from '../../reducers/settings';
 import {
   AdvancedAudioDescToggle,
@@ -151,8 +151,8 @@ class Settings extends Component<any, any> {
   handleKeydown(event: KeyboardEvent): void {
     const {player, logger} = this.props;
     let playbackRate, index;
-    switch (event.code) {
-      case KeyCode.Period:
+    switch (event.keyCode) {
+      case KeyMap.PERIOD:
         playbackRate = player.playbackRate;
         index = player.playbackRates.indexOf(playbackRate);
         if (index < player.playbackRates.length - 1) {
@@ -162,7 +162,7 @@ class Settings extends Component<any, any> {
           player.dispatchEvent(new SpeedSelectedEvent(player.playbackRate));
         }
         break;
-      case KeyCode.Semicolon:
+      case KeyMap.SEMI_COLON:
         if (player.playbackRate !== player.defaultPlaybackRate) {
           logger.debug(`Changing playback rate. ${player.playbackRate} => ${player.defaultPlaybackRate}`);
           player.playbackRate = player.defaultPlaybackRate;
@@ -170,7 +170,7 @@ class Settings extends Component<any, any> {
           player.dispatchEvent(new SpeedSelectedEvent(player.playbackRate));
         }
         break;
-      case KeyCode.Comma:
+      case KeyMap.COMMA:
         playbackRate = player.playbackRate;
         index = player.playbackRates.indexOf(playbackRate);
         if (index > 0) {
