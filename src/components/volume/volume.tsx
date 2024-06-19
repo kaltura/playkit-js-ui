@@ -474,8 +474,8 @@ class Volume extends Component<any, any> {
           role="slider"
           aria-valuemin={0}
           aria-valuemax={100}
-          aria-valuenow={player.volume * 100}
-          aria-valuetext={`${player.volume * 100}% volume ${player.muted ? 'muted' : ''}`}>
+          aria-valuenow={Math.round(player.volume * 100)}
+          aria-valuetext={`${Math.round(player.volume * 100)}% volume ${player.muted ? 'muted' : ''}`}>
           <div
             className={style.bar}
             ref={c => (c ? (this._volumeProgressBarElement = c) : undefined)}
