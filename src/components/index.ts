@@ -71,6 +71,8 @@ export {VideoArea} from './video-area';
 export {GuiArea} from './gui-area';
 export {InteractiveArea} from './interactive-area';
 
+export {SidePanel} from './side-panel';
+
 export {Keyboard as KeyboardControl} from './keyboard';
 export {Cast, Cast as CastControl};
 export {Fullscreen, Fullscreen as FullscreenControl};
