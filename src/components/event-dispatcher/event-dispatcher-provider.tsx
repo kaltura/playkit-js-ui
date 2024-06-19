@@ -90,7 +90,7 @@ function onCaptionsStyleSelected(store: any, action: any, player: KalturaPlayer)
   if (currentStyles?.fontSize !== newStyles?.fontSize) {
     player.dispatchEvent(new FakeEvent(EventType.USER_SELECTED_CAPTIONS_SIZE, newStyles?.fontSize));
   }
-  // @ts-ignore
+  /* @ts-expect-error - Property 'textAlign' does not exist on type 'TextStyle' */
   if (currentStyles?.textAlign !== newStyles?.textAlign) {
     player.dispatchEvent(new FakeEvent(EventType.USER_SELECTED_CAPTIONS_ALIGNMENT, newStyles?.textAlign));
   }
