@@ -12,6 +12,7 @@ import {RewindClickedEvent} from '../../event/events/rewind-clicked';
 import {ForwardClickedEvent} from '../../event/events/forward-clicked';
 import {VolumeChangedEvent} from '../../event/events/volume-changed';
 import {KeyMap} from '../../utils';
+import isEqual from '../../utils/is-equal';
 import {Component, toChildArray} from 'preact';
 import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
 
@@ -83,6 +84,32 @@ function onPlayerHoverStateChangeHandler(store: any, action: any, player: Kaltur
   }
 }
 
+function onCaptionsStyleSelected(store: any, action: any, player: KalturaPlayer): void {
+  const currentStyles = player.textStyle;
+  const newStyles = action.payload?.textStyle;
+  [
+    {key: "fontSize", eventType: EventType.USER_SELECTED_CAPTIONS_SIZE},
+    {key: "textAlign", eventType: EventType.USER_SELECTED_CAPTIONS_ALIGNMENT},
+    {key: "fontFamily", eventType: EventType.USER_SELECTED_CAPTIONS_FONT_FAMILY},
+    {key: "fontOpacity", eventType: EventType.USER_SELECTED_CAPTIONS_FONT_OPACITY},
+    {key: "backgroundOpacity", eventType: EventType.USER_SELECTED_CAPTIONS_BACKGROUND_OPACITY},
+    {key: "backgroundColor", eventType: EventType.USER_SELECTED_CAPTIONS_BACKGROUND_COLOR, collection: player.TextStyle.StandardColors},
+    {key: "fontColor", eventType: EventType.USER_SELECTED_CAPTIONS_FONT_COLOR, collection: player.TextStyle.StandardColors},
+    {key: "fontEdge", eventType: EventType.USER_SELECTED_CAPTIONS_FONT_STYLE, collection: player.TextStyle.EdgeStyles},
+  ].map(({ key, eventType, collection }) => {
+    if (collection && !isEqual(currentStyles?.[key], newStyles?.[key])) {
+      Object.keys(collection).some(collectionKey => {
+        if (isEqual(collection[collectionKey], newStyles?.[key])) {
+          player.dispatchEvent(new FakeEvent(eventType, collectionKey.toLowerCase()));
+          return true;
+        }
+      });
+    } else if (currentStyles?.[key] !== newStyles?.[key]) {
+      player.dispatchEvent(new FakeEvent(eventType, newStyles?.[key]));
+    }
+  });
+}
+
 /**
  * Handler for changeable components actions.
  * @param {any} store - The redux store.
@@ -131,7 +158,7 @@ function onClickableComponentsHandler(store: any, action: any, player: KalturaPl
       break;
 
     case 'CVAAOverlay':
-      player.dispatchEvent(new CaptionsStyleSelectedEvent(action.payload.textStyle));
+      onCaptionsStyleSelected(store, action, player);
       break;
 
     case 'Fullscreen':
