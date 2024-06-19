@@ -87,46 +87,27 @@ function onPlayerHoverStateChangeHandler(store: any, action: any, player: Kaltur
 function onCaptionsStyleSelected(store: any, action: any, player: KalturaPlayer): void {
   const currentStyles = player.textStyle;
   const newStyles = action.payload?.textStyle;
-  if (currentStyles?.fontSize !== newStyles?.fontSize) {
-    player.dispatchEvent(new FakeEvent(EventType.USER_SELECTED_CAPTIONS_SIZE, newStyles?.fontSize));
-  }
-  /* @ts-expect-error - Property 'textAlign' does not exist on type 'TextStyle' */
-  if (currentStyles?.textAlign !== newStyles?.textAlign) {
-    player.dispatchEvent(new FakeEvent(EventType.USER_SELECTED_CAPTIONS_ALIGNMENT, newStyles?.textAlign));
-  }
-  if (!isEqual(currentStyles?.fontColor, newStyles?.fontColor)) {
-    Object.keys(player.TextStyle.StandardColors).some(color => {
-      if (isEqual(player.TextStyle.StandardColors[color], newStyles?.fontColor)) {
-        player.dispatchEvent(new FakeEvent(EventType.USER_SELECTED_CAPTIONS_FONT_COLOR, color?.toLowerCase()));
-        return true;
-      }
-    });
-  }
-  if (currentStyles?.fontFamily !== newStyles?.fontFamily) {
-    player.dispatchEvent(new FakeEvent(EventType.USER_SELECTED_CAPTIONS_FONT_FAMILY, newStyles?.fontFamily));
-  }
-  if (!isEqual(currentStyles?.fontEdge, newStyles?.fontEdge)) {
-    Object.keys(player.TextStyle.EdgeStyles).some(edgeStyle => {
-      if (isEqual(player.TextStyle.EdgeStyles[edgeStyle], newStyles?.fontEdge)) {
-        player.dispatchEvent(new FakeEvent(EventType.USER_SELECTED_CAPTIONS_FONT_STYLE, edgeStyle?.toLowerCase()));
-        return true;
-      }
-    });
-  }
-  if (currentStyles?.fontOpacity !== newStyles?.fontOpacity) {
-    player.dispatchEvent(new FakeEvent(EventType.USER_SELECTED_CAPTIONS_FONT_OPACITY, newStyles?.fontOpacity));
-  }
-  if (!isEqual(currentStyles?.backgroundColor, newStyles?.backgroundColor)) {
-    Object.keys(player.TextStyle.StandardColors).some(backgroundColor => {
-      if (isEqual(player.TextStyle.StandardColors[backgroundColor], newStyles?.backgroundColor)) {
-        player.dispatchEvent(new FakeEvent(EventType.USER_SELECTED_CAPTIONS_BACKGROUND_COLOR, backgroundColor?.toLowerCase()));
-        return true;
-      }
-    });
-  }
-  if (currentStyles?.backgroundOpacity !== newStyles?.backgroundOpacity) {
-    player.dispatchEvent(new FakeEvent(EventType.USER_SELECTED_CAPTIONS_BACKGROUND_OPACITY, newStyles?.backgroundOpacity));
-  }
+  [
+    {key: "fontSize", eventType: EventType.USER_SELECTED_CAPTIONS_SIZE},
+    {key: "textAlign", eventType: EventType.USER_SELECTED_CAPTIONS_ALIGNMENT},
+    {key: "fontFamily", eventType: EventType.USER_SELECTED_CAPTIONS_FONT_FAMILY},
+    {key: "fontOpacity", eventType: EventType.USER_SELECTED_CAPTIONS_FONT_OPACITY},
+    {key: "backgroundOpacity", eventType: EventType.USER_SELECTED_CAPTIONS_BACKGROUND_OPACITY},
+    {key: "backgroundColor", eventType: EventType.USER_SELECTED_CAPTIONS_BACKGROUND_COLOR, collection: player.TextStyle.StandardColors},
+    {key: "fontColor", eventType: EventType.USER_SELECTED_CAPTIONS_FONT_COLOR, collection: player.TextStyle.StandardColors},
+    {key: "fontEdge", eventType: EventType.USER_SELECTED_CAPTIONS_FONT_STYLE, collection: player.TextStyle.EdgeStyles},
+  ].map(({ key, eventType, collection }) => {
+    if (collection && !isEqual(currentStyles?.[key], newStyles?.[key])) {
+      Object.keys(collection).some(collectionKey => {
+        if (isEqual(collection[collectionKey], newStyles?.[key])) {
+          player.dispatchEvent(new FakeEvent(eventType, collectionKey.toLowerCase()));
+          return true;
+        }
+      });
+    } else if (currentStyles?.[key] !== newStyles?.[key]) {
+      player.dispatchEvent(new FakeEvent(eventType, newStyles?.[key]));
+    }
+  });
 }
 
 /**
