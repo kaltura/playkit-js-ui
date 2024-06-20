@@ -140,7 +140,7 @@ class Overlay extends Component<any, any> {
     }
 
     return (
-      <div tabIndex={-1} className={overlayClass.join(' ')} role="dialog" onKeyDown={this.onKeyDown} aria-label={label}>
+      <div tabIndex={-1} className={overlayClass.join(' ')} role="dialog" onKeyDown={this.onKeyDown} aria-labelledby="captionsDialogTitle">
         <div className={style.overlayContents}>{this.props.children}</div>
         {this.renderCloseButton(this.props)}
       </div>
