@@ -6,6 +6,7 @@ import {PrePlaybackPlayOverlay} from '../components';
 import {Loading} from '../components';
 import {Rewind} from '../components';
 import {Forward} from '../components';
+import {CaptionsControl} from '../components';
 import {SeekBarPlaybackContainer} from '../components';
 import {Volume} from '../components';
 import {Settings} from '../components';
