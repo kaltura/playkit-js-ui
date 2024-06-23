@@ -20,7 +20,6 @@
       "startOver": "البدء من جديد",
       "pictureInPicture": "صورة داخل صورة",
       "pictureInPictureExit": "خروج من وضع صورة داخل صورة",
-      "pictureInPictureExpand": "توسيع",
       "logo": "الشعار",
       "seekBarSlider": "شريط تمرير الانتقال"
     },
@@ -46,7 +45,7 @@
       "close": "إغلاق"
     },
     "error": {
-      "default_error": "حدث خطأ ما"
+      "default_error_title": "حدث خطأ ما"
     },
     "ads": {
       "ad_notice": "إعلان",

@@ -20,7 +20,6 @@
       "startOver": "重新开始",
       "pictureInPicture": "画中画",
       "pictureInPictureExit": "退出画中画",
-      "pictureInPictureExpand": "扩展",
       "logo": "标识",
       "seekBarSlider": "搜寻滑块",
       "readLess": "收起",
@@ -48,7 +47,7 @@
       "close": "关闭"
     },
     "error": {
-      "default_error": "发生错误"
+      "default_error_title": "发生错误"
     },
     "ads": {
       "ad_notice": "广告",

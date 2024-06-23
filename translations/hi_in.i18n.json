@@ -20,7 +20,6 @@
       "startOver": "प्रारंभ करें",
       "pictureInPicture": "पिक्चर इन पिक्चर",
       "pictureInPictureExit": "पिक्चर इन पिक्चर से बाहर निकलें",
-      "pictureInPictureExpand": "विस्तृत करें",
       "logo": "लोगो",
       "seekBarSlider": "स्लाइडर के लिए प्रयास करें"
     },
@@ -46,7 +45,7 @@
       "close": "बंद करें"
     },
     "error": {
-      "default_error": "कुछ गलत हुआ"
+      "default_error_title": "कुछ गलत हुआ"
     },
     "ads": {
       "ad_notice": "विज्ञापन",

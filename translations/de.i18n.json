@@ -8,7 +8,9 @@
       "fullscreen": "Vollbild",
       "fullscreenExit": "Vollbild beenden",
       "rewind": "Zurückspulen",
+      "secondsRewind": "{{seconds}} Sekunden zurückspulen",
       "forward": "Vorspulen",
+      "secondsForward": "{{seconds}} Sekunden vorspulen",
       "vrStereo": "vrStereo",
       "closedCaptionsOn": "Untertitel deaktivieren",
       "closedCaptionsOff": "Untertitel aktivieren",
@@ -20,7 +22,6 @@
       "startOver": "Von vorne",
       "pictureInPicture": "Bild im Bild",
       "pictureInPictureExit": "Bild in Bild verlassen",
-      "pictureInPictureExpand": "Erweitern",
       "logo": "Logo",
       "seekBarSlider": "Suchleiste",
       "readLess": "Weniger",
@@ -48,7 +49,7 @@
       "close": "Schließen"
     },
     "error": {
-      "default_error": "Etwas ist schiefgegangen"
+      "default_error_title": "Etwas ist schiefgegangen"
     },
     "ads": {
       "ad_notice": "Anzeige",

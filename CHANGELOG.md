@@ -2,6 +2,46 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.79.2 (2024-06-02)
+
+
+### Bug Fixes
+
+* **FEC-13973:** volume control a11y changes ([#888](https://github.com/kaltura/playkit-js-ui/issues/888)) ([d99a896](https://github.com/kaltura/playkit-js-ui/commit/d99a896))
+
+
+
+### 0.79.1 (2024-05-19)
+
+
+### Bug Fixes
+
+* **FEC-13709:** remove player top bar if there is no content in it ([#883](https://github.com/kaltura/playkit-js-ui/issues/883)) ([75172c7](https://github.com/kaltura/playkit-js-ui/commit/75172c7))
+
+
+
+## 0.79.0 (2024-05-02)
+
+
+### Features
+
+* **FEC-13728:** Add 'MiniAudioPreset handling ([#877](https://github.com/kaltura/playkit-js-ui/issues/877)) ([da9bbc3](https://github.com/kaltura/playkit-js-ui/commit/da9bbc3))
+
+
+
+### 0.78.4 (2024-04-09)
+
+
+### Bug Fixes
+
+* **SUP-42158:** German translation for Player V7 ([#876](https://github.com/kaltura/playkit-js-ui/issues/876)) ([fa0437a](https://github.com/kaltura/playkit-js-ui/commit/fa0437a))
+
+
+
+### 0.78.3 (2024-03-31)
+
+
+
 ### 0.78.2 (2024-03-14)
 
 

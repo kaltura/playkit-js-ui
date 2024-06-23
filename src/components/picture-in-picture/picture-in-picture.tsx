@@ -41,8 +41,7 @@ const COMPONENT_NAME = 'PictureInPicture';
 @withEventDispatcher(COMPONENT_NAME)
 @withText({
   pictureInPictureText: 'controls.pictureInPicture',
-  pictureInPictureExitText: 'controls.pictureInPictureExit',
-  pictureInPictureExpandText: 'controls.pictureInPictureExpand'
+  pictureInPictureExitText: 'controls.pictureInPictureExit'
 })
 class PictureInPicture extends Component<any, any> {
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
@@ -106,7 +105,7 @@ class PictureInPicture extends Component<any, any> {
     if (this._shouldRender()) {
       return (
         <ButtonControl name={COMPONENT_NAME}>
-          <Tooltip label={this.props.isInPictureInPicture ? this.props.pictureInPictureExpandText : this.props.pictureInPictureText}>
+          <Tooltip label={this.props.isInPictureInPicture ? this.props.pictureInPictureExitText : this.props.pictureInPictureText}>
             <Button
               tabIndex="0"
               aria-label={this.props.isInPictureInPicture ? this.props.pictureInPictureExitText : this.props.pictureInPictureText}

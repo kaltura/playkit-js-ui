@@ -20,7 +20,6 @@
       "startOver": "Recommencer",
       "pictureInPicture": "Picture-in-picture",
       "pictureInPictureExit": "Quitter fenêtre dans fenêtre",
-      "pictureInPictureExpand": "RETOUR (au mode normal)",
       "logo": "Logo",
       "seekBarSlider": "Curseur",
       "readLess": "Moins",
@@ -48,7 +47,7 @@
       "close": "Fermer"
     },
     "error": {
-      "default_error": "Un problème est survenu"
+      "default_error_title": "Un problème est survenu"
     },
     "ads": {
       "ad_notice": "Publicité",

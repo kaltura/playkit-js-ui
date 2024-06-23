@@ -20,7 +20,6 @@
       "startOver": "Riavvia",
       "pictureInPicture": "Immagine nell’immagine",
       "pictureInPictureExit": "Esci dalla modalità Picture in Picture",
-      "pictureInPictureExpand": "Ingrandisci",
       "logo": "Logo",
       "seekBarSlider": "Cursore di ricerca",
       "readLess": "Meno",
@@ -48,7 +47,7 @@
       "close": "Chiudi"
     },
     "error": {
-      "default_error": "Qualcosa è andato storto"
+      "default_error_title": "Qualcosa è andato storto"
     },
     "ads": {
       "ad_notice": "Pubblicità",

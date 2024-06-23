@@ -9,6 +9,7 @@ import {CopyButton} from '../copy-button';
 import {withLogger} from '../../components/logger';
 import {withPlayer} from '../../components/player';
 import {Button} from '../../components/button';
+import {getErrorDetailsByCategory} from "./error-message-provider";
 
 /**
  * mapping state to props
@@ -17,7 +18,8 @@ import {Button} from '../../components/button';
  */
 const mapStateToProps = state => ({
   hasError: state.engine.hasError,
-  errorOverlaConfig: state.config.components?.errorOverlay
+  errorOverlaConfig: state.config.components?.errorOverlay,
+  errorDetails: state.engine.errorDetails
 });
 
 const COMPONENT_NAME = 'ErrorOverlay';
@@ -123,8 +125,26 @@ class ErrorOverlay extends Component<any, any> {
    * @memberof ErrorOverlay
    */
   renderErrorHead(): VNode<any> | undefined {
-    const errorMessage = navigator.onLine ? 'error.default_error' : 'error.network_error';
-    return <div className={style.headline}>{this.props.errorHead ? this.props.errorHead : <Text id={errorMessage} />}</div>;
+    const {errorCategory, errorTitle, errorMessage} = this.props.errorDetails;
+    let errorTitleRes: any = '',
+      errorMessageRes: any = '';
+    if (errorTitle && errorMessage) {
+      // error title and message were provided from an external resource
+      errorTitleRes = errorTitle;
+      errorMessageRes = errorMessage;
+    } else {
+      // error title and message are core related - get them by the error category
+      const error = getErrorDetailsByCategory(errorCategory);
+      errorTitleRes = <Text id={`error.${error.title}`} />;
+      errorMessageRes = <Text id={`error.${error.message}`} />;
+    }
+
+    return (
+      <div className={style.headline}>
+        <div className={style.errorTitle}>{this.props.errorHead || errorTitleRes}</div>
+        {errorMessageRes ? <div className={style.errorMessage}>{errorMessageRes}</div> : undefined}
+      </div>
+    );
   }
 
   /**

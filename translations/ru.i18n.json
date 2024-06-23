@@ -20,7 +20,6 @@
       "startOver": "Запустить заново",
       "pictureInPicture": "Картинка в картинке",
       "pictureInPictureExit": "Выйти из режима «картинка в картинке»",
-      "pictureInPictureExpand": "Развернуть",
       "logo": "Логотип",
       "seekBarSlider": "Слайдер навигации",
       "readLess": "Меньше",
@@ -48,7 +47,7 @@
       "close": "Закрыть"
     },
     "error": {
-      "default_error": "Что-то пошло не так"
+      "default_error_title": "Что-то пошло не так"
     },
     "ads": {
       "ad_notice": "Реклама",

@@ -6,6 +6,7 @@
     &.hover {
       .volume-control-bar {
         display: block !important;
+        opacity: 1;
       }
     }
 
@@ -28,6 +29,7 @@
     &.dragging-active {
       .volume-control-bar {
         display: block;
+        opacity: 1;
       }
     }
 
@@ -70,7 +72,7 @@
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.3);
   background-color: #333333;
   padding: 6px;
-  display: none;
+  opacity: 0;
 
   &:before {
     position: absolute;

@@ -20,7 +20,6 @@
       "startOver": "처음부터 재생",
       "pictureInPicture": "화면 속 화면",
       "pictureInPictureExit": "화면 속 화면 끝내기",
-      "pictureInPictureExpand": "확장",
       "logo": "로고",
       "seekBarSlider": "슬라이더",
       "readLess": "간단히 보기",
@@ -48,7 +47,7 @@
       "close": "닫기"
     },
     "error": {
-      "default_error": "오류가 발생했습니다"
+      "default_error_title": "오류가 발생했습니다"
     },
     "ads": {
       "ad_notice": "광고",

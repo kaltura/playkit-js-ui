@@ -20,7 +20,6 @@
       "startOver": "Opnieuw beginnen",
       "pictureInPicture": "Beeld in beeld",
       "pictureInPictureExit": "Modus Afbeelding in afbeelding verlaten",
-      "pictureInPictureExpand": "Uitbreiden",
       "logo": "Logo",
       "seekBarSlider": "Zoekschuifregelaar",
       "readLess": "Minder",
@@ -48,7 +47,7 @@
       "close": "Sluiten"
     },
     "error": {
-      "default_error": "Er is iets fout gegaan"
+      "default_error_title": "Er is iets fout gegaan"
     },
     "ads": {
       "ad_notice": "Advertentie",
