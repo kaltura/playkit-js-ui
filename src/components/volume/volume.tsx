@@ -442,6 +442,7 @@ class Volume extends Component<any, any> {
     if (isDraggingActive) controlButtonClasses.push(style.draggingActive);
     if (muted || volume === 0) controlButtonClasses.push(style.isMuted);
     if (this.state.hover && !smartContainerOpen) controlButtonClasses.push(style.hover);
+    const volumePercentage = Math.round(player.volume * 100);
 
     return (
       <ButtonControl
@@ -474,8 +475,8 @@ class Volume extends Component<any, any> {
           role="slider"
           aria-valuemin={0}
           aria-valuemax={100}
-          aria-valuenow={Math.round(player.volume * 100)}
-          aria-valuetext={`${Math.round(player.volume * 100)}% volume ${player.muted ? 'muted' : ''}`}>
+          aria-valuenow={volumePercentage}
+          aria-valuetext={`${volumePercentage}% volume ${player.muted ? 'muted' : ''}`}>
           <div
             className={style.bar}
             ref={c => (c ? (this._volumeProgressBarElement = c) : undefined)}
