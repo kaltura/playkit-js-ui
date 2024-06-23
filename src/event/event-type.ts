@@ -29,7 +29,15 @@ const EventType = {
   USER_SELECTED_CAPTIONS_STYLE: `${namespace}-userselectedcaptionsstyle`,
   USER_SELECTED_SPEED: `${namespace}-userselectedspeed`,
   USER_SEEKED: `${namespace}-userseeked`,
-  RESIZE: `${namespace}-resize`
+  RESIZE: `${namespace}-resize`,
+  USER_SELECTED_CAPTIONS_SIZE: `${namespace}-userselectedcaptionssize`,
+  USER_SELECTED_CAPTIONS_ALIGNMENT: `${namespace}-userselectedcaptionsalignment`,
+  USER_SELECTED_CAPTIONS_FONT_COLOR: `${namespace}-userselectedcaptionsfontcolor`,
+  USER_SELECTED_CAPTIONS_FONT_FAMILY: `${namespace}-userselectedcaptionsfontfamily`,
+  USER_SELECTED_CAPTIONS_FONT_STYLE: `${namespace}-userselectedcaptionsfontstyle`,
+  USER_SELECTED_CAPTIONS_FONT_OPACITY: `${namespace}-userselectedcaptionsfontopacity`,
+  USER_SELECTED_CAPTIONS_BACKGROUND_COLOR: `${namespace}-userselectedcaptionsbackgroundcolor`,
+  USER_SELECTED_CAPTIONS_BACKGROUND_OPACITY: `${namespace}-userselectedcaptionsbackgroundopacity`
 } as const;
 
 export {EventType};
