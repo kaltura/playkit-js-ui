@@ -90,7 +90,7 @@ class PlaybackUI extends Component<any, any> {
                   </InteractiveArea>
                   <BottomBar
                     leftControls={[PlaybackControls, Rewind, Forward, TimeDisplayPlaybackContainer]}
-                    rightControls={[VrStereo, Volume, AdvancedAudioDesc, ClosedCaptions, Settings, Cast, PictureInPicture, Fullscreen, Logo]}>
+                    rightControls={[VrStereo, Volume, AdvancedAudioDesc, CaptionsControl, Settings, Cast, PictureInPicture, Fullscreen, Logo]}>
                     <SeekBarPlaybackContainer showFramePreview showTimeBubble playerContainer={containerRef} />
                   </BottomBar>
                 </Fragment>
