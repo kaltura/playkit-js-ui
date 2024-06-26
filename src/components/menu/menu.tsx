@@ -271,9 +271,10 @@ class MenuItem extends Component<any, any> {
   render(props: any): VNode<any> {
     const badgeType: string | null =
       props.data.badgeType && !props.isSelected(props.data) ? BadgeType[props.data.badgeType] : BadgeType[props.data.badgeType + 'Active'];
+      const isAdvanced = props.data.value == "Advanced captions settings" ? true : false;
     return (
       <div
-        role="menuitemradio"
+        role={isAdvanced ? "menuitem" : "menuitemradio"}
         tabIndex={-1}
         aria-checked={props.isSelected(props.data) ? 'true' : 'false'}
         ref={element => {
