@@ -138,7 +138,6 @@ class CVAAOverlay extends Component<any, any> {
         addAccessibleChild={this.props.addAccessibleChild}
         onClose={props.onClose}
         type="cvaa"
-        label={props.cvvaDialogText}
       >
         {this.state.activeWindow === cvaaOverlayState.Main ? (
           <MainCaptionsWindow

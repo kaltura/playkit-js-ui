@@ -127,7 +127,7 @@ class Overlay extends Component<any, any> {
    * @returns {React$Element} - component
    * @memberof Overlay
    */
-  render({type, open, label = 'dialog'}: any): VNode<any> {
+  render({type, open}: any): VNode<any> {
     const overlayClass = [style.overlay];
     if (type) {
       const classType = style[type + '-overlay'] ? style[type + '-overlay'] : type + '-overlay';
