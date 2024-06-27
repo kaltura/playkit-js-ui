@@ -9,6 +9,7 @@ import {CvaaState} from './cvaa';
 import {EngineState} from './engine';
 import {ConfigState} from './config';
 import {PlaylistState} from './playlist';
+import {BottomBarState} from './bottom-bar';
 
 export interface RootState {
   config: ConfigState;
@@ -22,4 +23,5 @@ export interface RootState {
   overlayAction: OverlayActionsState;
   playlist: PlaylistState;
   overlay: OverlayState;
+  bottomBar: BottomBarState;
 }

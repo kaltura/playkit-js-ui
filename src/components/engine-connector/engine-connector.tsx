@@ -5,6 +5,7 @@ import {default as reduce, actions as EngineActions} from '../../reducers/engine
 import {actions as LoadingActions} from '../../reducers/loading';
 import {actions as ShellActions} from '../../reducers/shell';
 import {actions as SeekbarActions} from '../../reducers/seekbar';
+import {actions as SettingsActions} from '../../reducers/settings';
 import {withPlayer} from '../player';
 import {withEventManager} from '../../event';
 import {withLogger} from '../logger';
@@ -18,10 +19,11 @@ type EngineConnectorProps = {
   eventManager: EventManager;
 } & typeof EngineActions &
   typeof LoadingActions &
-  typeof ShellActions & {seekbarUpdateCurrentTime: typeof SeekbarActions.updateCurrentTime};
+  typeof ShellActions & {seekbarUpdateCurrentTime: typeof SeekbarActions.updateCurrentTime} & {updateIsTextOn: typeof SettingsActions.updateIsTextOn};
 
 // Rename so it doesn't clash with the equivalent action in engine state
 const seekbarUpdateCurrentTime = SeekbarActions.updateCurrentTime;
+const updateIsTextOn = SettingsActions.updateIsTextOn;
 
 const COMPONENT_NAME = 'EngineConnector';
 
@@ -32,7 +34,7 @@ const COMPONENT_NAME = 'EngineConnector';
  * @example <EngineConnector />
  * @extends {Component}
  */
-@connect(reduce, bindActions({...EngineActions, ...LoadingActions, ...ShellActions, seekbarUpdateCurrentTime}))
+@connect(reduce, bindActions({...EngineActions, ...LoadingActions, ...ShellActions, seekbarUpdateCurrentTime, updateIsTextOn}))
 @withPlayer
 @withEventManager
 @withLogger(COMPONENT_NAME)
@@ -193,6 +195,7 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
     eventManager.listen(player, player.Event.Core.TEXT_TRACK_CHANGED, () => {
       let tracks = player.getTracks(TrackType.TEXT);
       this.props.updateTextTracks(tracks);
+      this.props.updateIsTextOn(tracks.find(track => track.active)?.language !== 'off');
     });
 
     eventManager.listen(player, player.Event.Core.AUDIO_TRACK_CHANGED, () => {

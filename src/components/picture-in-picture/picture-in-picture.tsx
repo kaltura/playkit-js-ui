@@ -14,6 +14,7 @@ import {bindActions} from '../../utils';
 import {actions as shellActions} from '../../reducers/shell';
 import {ButtonControl} from '../button-control';
 import {KeyboardEventHandlers} from '../../types';
+import {registerToBottomBar, IconComponent} from '../bottom-bar';
 
 /**
  * mapping state to props
@@ -43,7 +44,7 @@ const COMPONENT_NAME = 'PictureInPicture';
   pictureInPictureText: 'controls.pictureInPicture',
   pictureInPictureExitText: 'controls.pictureInPictureExit'
 })
-class PictureInPicture extends Component<any, any> {
+class PictureInPicture extends Component<any, any> implements IconComponent {
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
       key: {
@@ -55,6 +56,39 @@ class PictureInPicture extends Component<any, any> {
       }
     }
   ];
+
+  /**
+   * Creates an instance of PictureInPicture.
+   * @memberof PictureInPicture
+   */
+  constructor(props: any) {
+    super(props);
+    registerToBottomBar(COMPONENT_NAME, props.player, () => this.registerComponent());
+  }
+
+  registerComponent(): any {
+    return {
+      ariaLabel: () => this.getComponentText(),
+      displayName: COMPONENT_NAME,
+      order: 5,
+      svgIcon: () => this.getSvgIcon(),
+      onClick: () => this.togglePip(),
+      component: () => {
+        return getComp({...this.props, classNames: [style.upperBarIcon]});
+      },
+      selfManagement: true
+    };
+  }
+
+  getSvgIcon = (): any => {
+    return {
+      type: this.props.player.isInPictureInPicture() ? IconType.PictureInPictureStop : IconType.PictureInPictureStart
+    };
+  }
+
+  getComponentText = (): string => {
+    return this.props.player.isInPictureInPicture() ? this.props.pictureInPictureExitText : this.props.pictureInPictureText;
+  }
 
   /**
    * component mounted
@@ -104,7 +138,7 @@ class PictureInPicture extends Component<any, any> {
   render(): VNode<any> | undefined {
     if (this._shouldRender()) {
       return (
-        <ButtonControl name={COMPONENT_NAME}>
+        <ButtonControl name={COMPONENT_NAME} className={this.props.classNames ? this.props.classNames.join(' ') : ''}>
           <Tooltip label={this.props.isInPictureInPicture ? this.props.pictureInPictureExitText : this.props.pictureInPictureText}>
             <Button
               tabIndex="0"
@@ -120,6 +154,10 @@ class PictureInPicture extends Component<any, any> {
       );
     }
   }
+}
+
+const getComp = (props: any): VNode => {
+  return <PictureInPicture {...props} />;
 }
 
 PictureInPicture.displayName = COMPONENT_NAME;
