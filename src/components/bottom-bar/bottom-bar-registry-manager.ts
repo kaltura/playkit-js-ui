@@ -12,7 +12,7 @@ export class BottomBarRegistry {
   }
 
   public register(component: string, componentIcon: any): void {
-    if(!this._registry.get(component)) {
+    if (!this._registry.get(component)) {
       this._registry.set(component, componentIcon);
     }
   }
@@ -35,8 +35,8 @@ export class BottomBarRegistry {
 export const bottomBarRegistryManager: string = 'bottomBarRegistryManager';
 
 export const registerToBottomBar = (compName: string, player: any, getIconDtoCallback: () => any): void => {
-  const bottomBarRegistry = player?.getService(bottomBarRegistryManager) as BottomBarRegistry || undefined;
+  const bottomBarRegistry = (player?.getService(bottomBarRegistryManager) as BottomBarRegistry) || undefined;
   if (bottomBarRegistry && !bottomBarRegistry.registry.get(compName)) {
     bottomBarRegistry.register(compName, getIconDtoCallback());
   }
-}
+};
