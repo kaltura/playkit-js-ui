@@ -133,9 +133,9 @@ export const withKeyboardA11y = (WrappedComponent): any =>
      * @returns {void}
      * @memberof HOC
      */
-    addAccessibleChild = (element: HTMLElement): void => {
+    addAccessibleChild = (element: HTMLElement, pushToBeginning?: boolean): void => {
       if (element && this._accessibleChildren.indexOf(element) == -1) {
-        this._accessibleChildren.push(element);
+        pushToBeginning ? this._accessibleChildren.unshift(element) : this._accessibleChildren.push(element);
       }
     };
 
