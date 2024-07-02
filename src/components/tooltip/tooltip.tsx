@@ -16,6 +16,7 @@ interface TooltipOwnProps {
   type?: ToolTipPosition;
   maxWidth?: string;
   label: string;
+  strictPosition?: boolean;
 }
 
 type TooltipProps = ReduxStateProps & TooltipOwnProps;
@@ -69,7 +70,8 @@ class Tooltip extends Component<TooltipProps & WithEventManagerProps, any> {
    */
   static defaultProps = {
     type: ToolTipType.Top,
-    maxWidth: '240px'
+    maxWidth: '240px',
+    strictPosition: false
   };
 
   /**
@@ -174,6 +176,9 @@ class Tooltip extends Component<TooltipProps & WithEventManagerProps, any> {
    * @returns {string} is in boundaries
    */
   isToolTipInBoundaries(): boolean {
+    if (this.props.strictPosition) {
+      return true;
+    }
     const tooltipBoundingRect = this.textElement.getBoundingClientRect();
     const playerContainerRect = this.props.playerClientRect;
 
@@ -275,8 +280,7 @@ class Tooltip extends Component<TooltipProps & WithEventManagerProps, any> {
         className={style.tooltip}
         onMouseOver={this.onMouseOver}
         onMouseLeave={this.onMouseLeave}
-        ref={el => (el ? (this.tooltipElement = el) : undefined)}
-      >
+        ref={el => (el ? (this.tooltipElement = el) : undefined)}>
         {children}
         <span style={{maxWidth: props.maxWidth}} ref={el => (el ? (this.textElement = el) : undefined)} className={className.join(' ')}>
           {props.label}
