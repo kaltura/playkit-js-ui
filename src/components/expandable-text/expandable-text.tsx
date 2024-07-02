@@ -49,18 +49,15 @@ const ExpandableText: new (props?: any, context?: any) => any = withText({
     }
   }, [isFinalized]);
 
-  useEffect(() => {
-    if (props.onExpand) {
-      props.onExpand(isTextExpanded);
-    }
-  }, [isTextExpanded]);
-
   const onClick = (e: MouseEvent) => {
     if (props.onClick) {
       props.onClick(e);
     }
 
     setIsTextExpanded(!isTextExpanded);
+    if (props.onExpand) {
+      props.onExpand(isTextExpanded);
+    }
   };
 
   const onKeyDown = (e: KeyboardEvent) => {
@@ -70,6 +67,9 @@ const ExpandableText: new (props?: any, context?: any) => any = withText({
       }
 
       setIsTextExpanded(!isTextExpanded);
+      if (props.onExpand) {
+        props.onExpand(isTextExpanded);
+      }
     }
   };
 
