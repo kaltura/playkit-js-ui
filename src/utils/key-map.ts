@@ -1,4 +1,9 @@
-/* eslint-disable   @typescript-eslint/no-use-before-define */
+/**
+ * @deprecated Use the `KeyCode` object instead.
+ * see here: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
+ * For more information on keyboard event codes, refer to the MDN documentation:
+ * https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code/code_values
+ */
 export const KeyMap: {[key: string]: number} = {
   TAB: 9,
   ENTER: 13,
@@ -17,6 +22,43 @@ export const KeyMap: {[key: string]: number} = {
   SEMI_COLON: 186,
   COMMA: 188,
   PERIOD: 190
+};
+
+export const KeyCode = {
+  Backspace: 'Backspace',
+  Tab: 'Tab',
+  Enter: 'Enter',
+  ShiftLeft: 'ShiftLeft',
+  ShiftRight: 'ShiftRight',
+  ControlLeft: 'ControlLeft',
+  ControlRight: 'ControlRight',
+  AltLeft: 'AltLeft',
+  AltRight: 'AltRight',
+  Pause: 'Pause',
+  CapsLock: 'CapsLock',
+  Escape: 'Escape',
+  Space: 'Space',
+  PageUp: 'PageUp',
+  PageDown: 'PageDown',
+  End: 'End',
+  Home: 'Home',
+  ArrowLeft: 'ArrowLeft',
+  ArrowUp: 'ArrowUp',
+  ArrowRight: 'ArrowRight',
+  ArrowDown: 'ArrowDown',
+  Insert: 'Insert',
+  Delete: 'Delete',
+  KeyP: 'KeyP',
+  KeyC: 'KeyC',
+  KeyF: 'KeyF',
+  KeyM: 'KeyM',
+  Numpad0: 'Numpad0',
+  Semicolon: 'Semicolon',
+  Equal: 'Equal',
+  Comma: 'Comma',
+  Minus: 'Minus',
+  Period: 'Period',
+  Slash: 'Slash'
 };
 
 /**
