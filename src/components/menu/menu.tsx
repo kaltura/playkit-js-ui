@@ -271,7 +271,7 @@ class MenuItem extends Component<any, any> {
   render(props: any): VNode<any> {
     const badgeType: string | null =
       props.data.badgeType && !props.isSelected(props.data) ? BadgeType[props.data.badgeType] : BadgeType[props.data.badgeType + 'Active'];
-      const isAdvanced = props.data.value == "Advanced captions settings" ? true : false;
+      const isAdvanced = props?.data?.key == "adv_captions" ? true : false;
     return (
       <div
         role={isAdvanced ? "menuitem" : "menuitemradio"}
