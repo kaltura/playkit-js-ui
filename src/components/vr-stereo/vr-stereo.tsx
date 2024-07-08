@@ -58,9 +58,9 @@ class VrStereo extends Component<any, any> implements IconComponent {
       svgIcon: () => this.getSvgIcon(),
       onClick: () => this.onClick(),
       component: () => {
-        return getComp({...this.props, classNames: [style.upperBarIcon]});
+        return getComponent({...this.props, classNames: [style.upperBarIcon]});
       },
-      selfManagement: true
+      shouldHandleOnClick: false
     };
   }
 
@@ -144,7 +144,7 @@ class VrStereo extends Component<any, any> implements IconComponent {
   }
 }
 
-const getComp = (props: any): VNode => {
+const getComponent = (props: any): VNode => {
   return <VrStereo {...props} />;
 }
 

@@ -24,7 +24,7 @@ const CaptionsControlMini = connect(mapStateToProps)((props, context) => {
 
   const {player} = context;
   const {controlsToMove} = props;
-  const targetId: HTMLDivElement | Document = (document.getElementById(player.config.targetId) as HTMLDivElement) || document;
+  const targetOverlayEl: HTMLDivElement | Document = (document.getElementById(player.config.targetId) as HTMLDivElement) || document;
   const portalSelector = `.overlay-portal`;
   let removeOverlay: any = null;
 
@@ -40,9 +40,9 @@ const CaptionsControlMini = connect(mapStateToProps)((props, context) => {
       svgIcon: {type: IconType.ClosedCaptionsOn},
       onClick: () => onButtonClick(),
       component: () => {
-        return getComp(props);
+        return getComponent(props);
       },
-      selfManagement: true
+      shouldHandleOnClick: false
     };
   };
 
@@ -50,8 +50,8 @@ const CaptionsControlMini = connect(mapStateToProps)((props, context) => {
     setShouldRender(controlsToMove.includes(CaptionsControl.displayName));
   }, [controlsToMove]);
 
-  const getIsTextOnFromStore = (): boolean => {
-    return redux.useStore().getState().settings.isTextOn;
+  const isCaptionsEnabled = (): boolean => {
+    return redux.useStore().getState().settings.isCaptionsEnabled;
   };
 
   const removeCaptionsOverlay = () => {
@@ -69,7 +69,7 @@ const CaptionsControlMini = connect(mapStateToProps)((props, context) => {
       presets: [ReservedPresetNames.Playback, ReservedPresetNames.Live],
       get: () => {
         return (
-          createPortal(<CVAAOverlay onClose={() => removeCaptionsOverlay()}/>, targetId.querySelector(portalSelector)!)
+          createPortal(<CVAAOverlay onClose={() => removeCaptionsOverlay()}/>, targetOverlayEl.querySelector(portalSelector)!)
         )}
     });
   };
@@ -97,14 +97,14 @@ const CaptionsControlMini = connect(mapStateToProps)((props, context) => {
           aria-haspopup="true"
           className={style.controlButton}
           onClick={onButtonClick}>
-          <Icon type={getIsTextOnFromStore() ? IconType.ClosedCaptionsOn : IconType.ClosedCaptionsOff} />
+          <Icon type={isCaptionsEnabled() ? IconType.ClosedCaptionsOn : IconType.ClosedCaptionsOff} />
         </Button>
       </Tooltip>
     </ButtonControl>
   ) : undefined;
 });
 
-const getComp = (props: any): VNode => {
+const getComponent = (props: any): VNode => {
   return <CaptionsControlMini {...props} />;
 }
 

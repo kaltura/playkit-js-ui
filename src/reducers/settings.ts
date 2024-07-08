@@ -6,14 +6,14 @@ export const types = {
   UPDATE_SPEED: 'settings/UPDATE_SPEED',
   UPDATE_AUDIO: 'settings/UPDATE_AUDIO',
   UPDATE_ADVANCED_AUDIO_DESC: 'settings/UPDATE_ADVANCED_AUDIO_DESC',
-  UPDATE_IS_TEXT_ON: 'settings/UPDATE_IS_TEXT_ON'
+  UPDATE_IS_CAPTIONS_ENABLED: 'settings/UPDATE_IS_CAPTIONS_ENABLED'
 };
 
 export const initialState = {
   quality: 1,
   speed: 2,
   advancedAudioDesc: false,
-  isTextOn: false
+  isCaptionsEnabled: false
 };
 
 export default (state: SettingsState = initialState, action: any) => {
@@ -42,10 +42,10 @@ export default (state: SettingsState = initialState, action: any) => {
         advancedAudioDesc: action.isChecked
       };
 
-    case types.UPDATE_IS_TEXT_ON:
+    case types.UPDATE_IS_CAPTIONS_ENABLED:
       return {
         ...state,
-        isTextOn: action.isTextOn
+        isCaptionsEnabled: action.isCaptionsEnabled
       };
 
     default:
@@ -58,5 +58,5 @@ export const actions = {
   updateSpeed: (speed: string) => ({type: types.UPDATE_SPEED, speed}),
   updateAudio: (audio: string) => ({type: types.UPDATE_AUDIO, audio}),
   updateAdvancedAudioDesc: (isChecked: boolean) => ({type: types.UPDATE_ADVANCED_AUDIO_DESC, isChecked}),
-  updateIsTextOn: (isTextOn: boolean) => ({type: types.UPDATE_IS_TEXT_ON, isTextOn})
+  updateIsCaptionsEnabled: (isCaptionsEnabled: boolean) => ({type: types.UPDATE_IS_CAPTIONS_ENABLED, isCaptionsEnabled})
 };

@@ -19,11 +19,11 @@ type EngineConnectorProps = {
   eventManager: EventManager;
 } & typeof EngineActions &
   typeof LoadingActions &
-  typeof ShellActions & {seekbarUpdateCurrentTime: typeof SeekbarActions.updateCurrentTime} & {updateIsTextOn: typeof SettingsActions.updateIsTextOn};
+  typeof ShellActions & {seekbarUpdateCurrentTime: typeof SeekbarActions.updateCurrentTime} & {updateIsCaptionsEnabled: typeof SettingsActions.updateIsCaptionsEnabled};
 
 // Rename so it doesn't clash with the equivalent action in engine state
 const seekbarUpdateCurrentTime = SeekbarActions.updateCurrentTime;
-const updateIsTextOn = SettingsActions.updateIsTextOn;
+const updateIsCaptionsEnabled = SettingsActions.updateIsCaptionsEnabled;
 
 const COMPONENT_NAME = 'EngineConnector';
 
@@ -34,7 +34,7 @@ const COMPONENT_NAME = 'EngineConnector';
  * @example <EngineConnector />
  * @extends {Component}
  */
-@connect(reduce, bindActions({...EngineActions, ...LoadingActions, ...ShellActions, seekbarUpdateCurrentTime, updateIsTextOn}))
+@connect(reduce, bindActions({...EngineActions, ...LoadingActions, ...ShellActions, seekbarUpdateCurrentTime, updateIsCaptionsEnabled}))
 @withPlayer
 @withEventManager
 @withLogger(COMPONENT_NAME)
@@ -195,7 +195,7 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
     eventManager.listen(player, player.Event.Core.TEXT_TRACK_CHANGED, () => {
       let tracks = player.getTracks(TrackType.TEXT);
       this.props.updateTextTracks(tracks);
-      this.props.updateIsTextOn(tracks.find(track => track.active)?.language !== 'off');
+      this.props.updateIsCaptionsEnabled(tracks.find(track => track.active)?.language !== 'off');
     });
 
     eventManager.listen(player, player.Event.Core.AUDIO_TRACK_CHANGED, () => {

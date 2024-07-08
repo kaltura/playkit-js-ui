@@ -60,28 +60,28 @@ const ClosedCaptions = connect(mapStateToProps)(
           svgIcon: () => getSvgIcon(),
           onClick: () => onClick(),
           component: () => {
-            return getComp({...props, classNames: [style.upperBarIcon]});
+            return getComponent({...props, classNames: [style.upperBarIcon]});
           },
-          selfManagement: true
+          shouldHandleOnClick: false
         };
       };
 
-      const getIsTextOnFromStore = (): boolean => {
-        return redux.useStore().getState().settings.isTextOn;
+      const isCaptionsEnabled = (): boolean => {
+        return redux.useStore().getState().settings.isCaptionsEnabled;
       };
 
       const getAriaLabel = (): any => {
-        return getIsTextOnFromStore() ? props.closedCaptionsOnText : props.closedCaptionsOffText;
+        return isCaptionsEnabled() ? props.closedCaptionsOnText : props.closedCaptionsOffText;
       };
 
       const getSvgIcon = (): any => {
         return {
-          type: getIsTextOnFromStore() ? IconType.ClosedCaptionsOn : IconType.ClosedCaptionsOff
+          type: isCaptionsEnabled() ? IconType.ClosedCaptionsOn : IconType.ClosedCaptionsOff
         };
       };
 
       const onClick = () => {
-        const isCCOn = getIsTextOnFromStore();
+        const isCCOn = isCaptionsEnabled();
         props.notifyClick(isCCOn);
         isCCOn ? player.hideTextTrack() : player.showTextTrack();
       };
@@ -128,7 +128,7 @@ const ClosedCaptions = connect(mapStateToProps)(
   )
 );
 
-const getComp = (props: any): VNode => {
+const getComponent = (props: any): VNode => {
   return <ClosedCaptions {...props} />;
 }
 

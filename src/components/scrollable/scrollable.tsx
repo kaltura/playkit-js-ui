@@ -38,8 +38,8 @@ const Scrollable = ({children, isVertical}: {children: ComponentChildren; isVert
   };
 
   useLayoutEffect(() => {
-    if (isVertical) {
-      const scrollableEl = document.getElementsByClassName('playkit-scrollable')[0];
+    if (isVertical && ref?.current) {
+      const scrollableEl = ref.current;
       const parentHeight = scrollableEl && scrollableEl.parentElement?.clientHeight;
       if (parentHeight) {
         const cs = getComputedStyle(scrollableEl.parentElement);
@@ -55,6 +55,7 @@ const Scrollable = ({children, isVertical}: {children: ComponentChildren; isVert
     <div
       className={`${styles.scrollable} ${scrolling ? styles.scrolling : ''} ${isVertical ? styles.vertical : styles.horizontal}`}
       style={`${isVertical && scrollableHeight ? `height: ${scrollableHeight}` : ''}`}
+      ref={ref}
       {...scrollableParams}
     >
       {children}
