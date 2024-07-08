@@ -130,12 +130,13 @@ export const withKeyboardA11y = (WrappedComponent): any =>
     /**
      * sets the accessible children elements
      * @param {HTMLElement} element - a child element to be accessible through keyboard nav
+     * @param {?boolean} pushToBeginning - push to beginning of the array or to the end
      * @returns {void}
      * @memberof HOC
      */
-    addAccessibleChild = (element: HTMLElement): void => {
+    addAccessibleChild = (element: HTMLElement, pushToBeginning?: boolean): void => {
       if (element && this._accessibleChildren.indexOf(element) == -1) {
-        this._accessibleChildren.push(element);
+        pushToBeginning ? this._accessibleChildren.unshift(element) : this._accessibleChildren.push(element);
       }
     };
 
