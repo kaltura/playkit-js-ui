@@ -40,7 +40,7 @@ const Scrollable = ({children, isVertical}: {children: ComponentChildren; isVert
   useLayoutEffect(() => {
     if (isVertical && ref?.current) {
       const scrollableEl = ref.current;
-      const parentHeight = scrollableEl && scrollableEl.parentElement?.clientHeight;
+      const parentHeight = scrollableEl.parentElement?.clientHeight;
       if (parentHeight) {
         const cs = getComputedStyle(scrollableEl.parentElement);
         const verticalPadding = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
