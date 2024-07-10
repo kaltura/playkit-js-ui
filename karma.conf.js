@@ -33,6 +33,10 @@ module.exports = function (config) {
       ChromeHeadlessWithFlags: {
         base: 'ChromeHeadless',
         flags: ['--no-sandbox', '--autoplay-policy=no-user-gesture-required', '--mute-audio', '--max-web-media-player-count=1000']
+      },
+      ChromeWithFlags: {
+        base: 'Chrome',
+        flags: ['--no-sandbox', '--autoplay-policy=no-user-gesture-required', '--mute-audio', '--max-web-media-player-count=1000']
       }
     },
     browsers: ['ChromeHeadlessWithFlags'],

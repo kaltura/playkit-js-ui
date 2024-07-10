@@ -4,7 +4,7 @@ export interface IconComponent {
   getComponentText(): any;
 }
 
-export class BottomBarRegistry {
+export class BottomBarRegistryManager {
   private _registry: Map<string, any>;
 
   constructor() {
@@ -35,7 +35,7 @@ export class BottomBarRegistry {
 export const bottomBarRegistryManager: string = 'bottomBarRegistryManager';
 
 export const registerToBottomBar = (compName: string, player: any, getIconDtoCallback: () => any): void => {
-  const bottomBarRegistry = (player?.getService(bottomBarRegistryManager) as BottomBarRegistry) || undefined;
+  const bottomBarRegistry = (player?.getService(bottomBarRegistryManager) as BottomBarRegistryManager) || undefined;
   if (bottomBarRegistry && !bottomBarRegistry.registry.get(compName)) {
     bottomBarRegistry.register(compName, getIconDtoCallback());
   }

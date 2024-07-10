@@ -1,4 +1,4 @@
-import {createPortal, useEffect} from 'preact/compat';
+import {createPortal} from 'preact/compat';
 import {registerToBottomBar} from '../bottom-bar';
 import {redux, ReservedPresetNames, style} from '../../index';
 import {Icon, IconType} from '../icon';
@@ -7,7 +7,7 @@ import {ButtonControl} from '../button-control';
 import {Tooltip} from '../tooltip';
 import {Button} from '../button';
 import {CVAAOverlay} from '../cvaa-overlay';
-import {useState} from 'preact/hooks';
+import {useState, useEffect} from 'preact/hooks';
 import {connect} from 'react-redux';
 import {Text} from 'preact-i18n';
 import {CaptionsMenu} from '../captions-menu';

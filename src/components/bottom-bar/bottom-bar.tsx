@@ -9,7 +9,7 @@ import {PLAYER_BREAK_POINTS, TimeDisplayPlaybackContainer} from '../../component
 import {withEventManager} from '../../event';
 import {withPlayer} from '../player';
 import {calculateControlsSize, filterControlsByPriority} from './bettom-bar-utils';
-import {BottomBarRegistry, bottomBarRegistryManager} from './bottom-bar-registry-manager';
+import {BottomBarRegistryManager, bottomBarRegistryManager} from './bottom-bar-registry-manager';
 
 
 const LOWER_PRIORITY_CONTROLS: string[][] = [
@@ -69,7 +69,7 @@ class BottomBar extends Component<any, any> {
       .map(control => control.displayName)
       .forEach(controlName => (this.presetControls[controlName] = true));
     this.state = {fitInControls: this.presetControls, activeControls: this.presetControls};
-    props.player.registerService(bottomBarRegistryManager, new BottomBarRegistry());
+    props.player.registerService(bottomBarRegistryManager, new BottomBarRegistryManager());
   }
 
   /**
