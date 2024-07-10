@@ -1,3 +1,13 @@
+@mixin hover {
+  display: block !important;
+  opacity: 1;
+  height: 112px;
+  padding: 6px;
+  &:before {
+    height: 14px;
+  }
+}
+
 .control-button-container {
   &.control-volume,
   &.volume-control {
@@ -5,8 +15,7 @@
 
     &.hover {
       .volume-control-bar {
-        display: block !important;
-        opacity: 1;
+        @include hover;
       }
     }
 
@@ -28,8 +37,7 @@
 
     &.dragging-active {
       .volume-control-bar {
-        display: block;
-        opacity: 1;
+        @include hover;
       }
     }
 
@@ -66,18 +74,18 @@
   z-index: 2;
   bottom: 38px;
   left: 0;
-  height: 112px;
+  height: 0px;
   width: 34px;
   border-radius: 4px;
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.3);
   background-color: #333333;
-  padding: 6px;
+  padding: 0px;
   opacity: 0;
 
   &:before {
     position: absolute;
     width: 34px;
-    height: 14px;
+    height: 0px;
     bottom: -8px;
     left: 0;
     content: ' ';

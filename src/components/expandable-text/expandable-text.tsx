@@ -49,27 +49,26 @@ const ExpandableText: new (props?: any, context?: any) => any = withText({
     }
   }, [isFinalized]);
 
-  useEffect(() => {
-    if (props.onExpand) {
-      props.onExpand(isTextExpanded);
-    }
-  }, [isTextExpanded]);
-
-  const onClick = (e: MouseEvent) => {
+  const handleExpand = (e: MouseEvent | KeyboardEvent) => {
     if (props.onClick) {
       props.onClick(e);
     }
+    setIsTextExpanded(prevState => {
+      const newState = !prevState;
+      if (props.onExpand) {
+        props.onExpand(newState);
+      }
+      return newState;
+    });
+  };
 
-    setIsTextExpanded(!isTextExpanded);
+  const onClick = (e: MouseEvent) => {
+    handleExpand(e);
   };
 
   const onKeyDown = (e: KeyboardEvent) => {
     if (e.keyCode === SPACE || e.keyCode === ENTER) {
-      if (props.onClick) {
-        props.onClick(e);
-      }
-
-      setIsTextExpanded(!isTextExpanded);
+      handleExpand(e);
     }
   };
 
