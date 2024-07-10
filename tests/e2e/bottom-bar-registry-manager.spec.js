@@ -3,7 +3,7 @@ import {BottomBarRegistryManager} from '../../src/components/bottom-bar';
 
 describe('BottomBarRegistryManager', () => {
   const myComponentName = 'MyComponent';
-  const iconDto = {
+  const iconDtoObj = {
     ariaLabel: 'aria label',
     displayName: myComponentName,
     order: 5,
@@ -25,26 +25,33 @@ describe('BottomBarRegistryManager', () => {
 
   describe('register API', () => {
     it('Should register a component to the manager', () => {
-      bottomBarRegistryManager.register(myComponentName, iconDto);
-      bottomBarRegistryManager.registry.size.should.equal(1);
+      bottomBarRegistryManager.register(myComponentName, iconDtoObj);
+      bottomBarRegistryManager._registry.size.should.equal(1);
     });
   });
 
   describe('unregister API', () => {
     it('Should unregister a component from the manager', () => {
-      bottomBarRegistryManager.register(myComponentName, iconDto);
-      bottomBarRegistryManager.registry.size.should.equal(1);
+      bottomBarRegistryManager.register(myComponentName, iconDtoObj);
+      bottomBarRegistryManager._registry.size.should.equal(1);
       bottomBarRegistryManager.unregister(myComponentName);
-      bottomBarRegistryManager.registry.size.should.equal(0);
+      bottomBarRegistryManager._registry.size.should.equal(0);
     });
   });
 
   describe('clear API', () => {
     it('Should clear the registry of the manager', () => {
-      bottomBarRegistryManager.register(myComponentName, iconDto);
-      bottomBarRegistryManager.registry.size.should.equal(1);
+      bottomBarRegistryManager.register(myComponentName, iconDtoObj);
+      bottomBarRegistryManager._registry.size.should.equal(1);
       bottomBarRegistryManager.clear();
-      bottomBarRegistryManager.registry.size.should.equal(0);
+      bottomBarRegistryManager._registry.size.should.equal(0);
+    });
+  });
+
+  describe('getComponentItem API', () => {
+    it('Should get the added component item from the manager', () => {
+      bottomBarRegistryManager.register(myComponentName, iconDtoObj);
+      bottomBarRegistryManager.getComponentItem(myComponentName).should.equal(iconDtoObj);
     });
   });
 });

@@ -11,20 +11,20 @@ export class BottomBarRegistryManager {
     this._registry = new Map();
   }
 
-  public register(component: string, componentIcon: any): void {
-    if (!this._registry.get(component)) {
-      this._registry.set(component, componentIcon);
+  public register(componentName: string, componentIcon: any): void {
+    if (!this.getComponentItem(componentName)) {
+      this._registry.set(componentName, componentIcon);
     }
   }
 
-  public unregister(component: string): void {
-    if (this._registry.get(component)) {
-      this._registry.delete(component);
+  public unregister(componentName: string): void {
+    if (this.getComponentItem(componentName)) {
+      this._registry.delete(componentName);
     }
   }
 
-  public get registry(): Map<string, any> {
-    return this._registry;
+  public getComponentItem(componentName: string): any {
+    return this._registry.get(componentName);
   }
 
   public clear(): void {
@@ -34,9 +34,9 @@ export class BottomBarRegistryManager {
 
 export const bottomBarRegistryManager: string = 'bottomBarRegistryManager';
 
-export const registerToBottomBar = (compName: string, player: any, getIconDtoCallback: () => any): void => {
+export const registerToBottomBar = (componentName: string, player: any, getIconDtoCallback: () => any): void => {
   const bottomBarRegistry = (player?.getService(bottomBarRegistryManager) as BottomBarRegistryManager) || undefined;
-  if (bottomBarRegistry && !bottomBarRegistry.registry.get(compName)) {
-    bottomBarRegistry.register(compName, getIconDtoCallback());
+  if (bottomBarRegistry && !bottomBarRegistry.getComponentItem(componentName)) {
+    bottomBarRegistry.register(componentName, getIconDtoCallback());
   }
 };
