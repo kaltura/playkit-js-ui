@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.79.5 (2024-07-11)
+
+
+### Bug Fixes
+
+* **FEC-14034:** Player v7 | Safari | Opening the CC menu cause size a… ([#905](https://github.com/kaltura/playkit-js-ui/issues/905)) ([be28ea2](https://github.com/kaltura/playkit-js-ui/commit/be28ea2)), closes [#871](https://github.com/kaltura/playkit-js-ui/issues/871)
+
+
+
 ### 0.79.4 (2024-07-04)
 
 
