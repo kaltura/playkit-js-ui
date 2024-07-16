@@ -1,5 +1,5 @@
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {h, VNode} from 'preact';
 import {useEffect, useState} from 'preact/hooks';
 import {withText} from 'preact-i18n';
 import {Icon, IconType} from '../icon';
@@ -9,6 +9,9 @@ import {withLogger} from '../logger';
 import {Tooltip} from '../tooltip';
 import {Button} from '../button';
 import {ButtonControl} from '../button-control';
+import {registerToBottomBar} from '../bottom-bar';
+import {redux} from '../../index';
+
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -16,6 +19,8 @@ import {ButtonControl} from '../button-control';
  */
 const mapStateToProps = state => ({
   textTracks: state.engine.textTracks,
+  showCCButton: state.config.showCCButton,
+  openMenuFromCCButton: state.config.openMenuFromCCButton
 });
 
 const COMPONENT_NAME = 'ClosedCaptions';
@@ -43,8 +48,50 @@ const ClosedCaptions = connect(mapStateToProps)(
           setCCOn(activeTextTrack?.language !== 'off');
         }, [activeTextTrack]);
 
+        useEffect(() => {
+          registerToBottomBar(COMPONENT_NAME, player, () => registerComponent());
+        }, []);
+
+      const registerComponent = (): any => {
+        return {
+          ariaLabel: () => getAriaLabel(),
+          displayName: COMPONENT_NAME,
+          order: 5,
+          svgIcon: () => getSvgIcon(),
+          onClick: () => onClick(),
+          component: () => {
+            return getComponent({...props, classNames: [style.upperBarIcon]});
+          },
+          shouldHandleOnClick: false
+        };
+      };
+
+      const isCaptionsEnabled = (): boolean => {
+        return redux.useStore().getState().settings.isCaptionsEnabled;
+      };
+
+      const getAriaLabel = (): any => {
+        return isCaptionsEnabled() ? props.closedCaptionsOnText : props.closedCaptionsOffText;
+      };
+
+      const getSvgIcon = (): any => {
+        return {
+          type: isCaptionsEnabled() ? IconType.ClosedCaptionsOn : IconType.ClosedCaptionsOff
+        };
+      };
+
+      const onClick = () => {
+        const isCCOn = isCaptionsEnabled();
+        props.notifyClick(isCCOn);
+        isCCOn ? player.hideTextTrack() : player.showTextTrack();
+      };
+
+        const shouldRender = !!textTracks?.length && props.showCCButton && !props.openMenuFromCCButton;
+        props.onToggle(COMPONENT_NAME, shouldRender);
+        if (!shouldRender) return undefined;
+
         return (
-          <ButtonControl name={COMPONENT_NAME}>
+          <ButtonControl name={COMPONENT_NAME} className={props.classNames ? props.classNames.join(' ') : ''}>
             {ccOn ? (
               <Tooltip label={props.closedCaptionsOnText}>
                 <Button
@@ -80,6 +127,10 @@ const ClosedCaptions = connect(mapStateToProps)(
     )
   )
 );
+
+const getComponent = (props: any): VNode => {
+  return <ClosedCaptions {...props} />;
+}
 
 ClosedCaptions.displayName = COMPONENT_NAME;
 export {ClosedCaptions};

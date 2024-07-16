@@ -5,13 +5,15 @@ export const types = {
   UPDATE_QUALITY: 'settings/UPDATE_QUALITY',
   UPDATE_SPEED: 'settings/UPDATE_SPEED',
   UPDATE_AUDIO: 'settings/UPDATE_AUDIO',
-  UPDATE_ADVANCED_AUDIO_DESC: 'settings/UPDATE_ADVANCED_AUDIO_DESC'
+  UPDATE_ADVANCED_AUDIO_DESC: 'settings/UPDATE_ADVANCED_AUDIO_DESC',
+  UPDATE_IS_CAPTIONS_ENABLED: 'settings/UPDATE_IS_CAPTIONS_ENABLED'
 };
 
 export const initialState = {
   quality: 1,
   speed: 2,
-  advancedAudioDesc: false
+  advancedAudioDesc: false,
+  isCaptionsEnabled: false
 };
 
 export default (state: SettingsState = initialState, action: any) => {
@@ -40,6 +42,12 @@ export default (state: SettingsState = initialState, action: any) => {
         advancedAudioDesc: action.isChecked
       };
 
+    case types.UPDATE_IS_CAPTIONS_ENABLED:
+      return {
+        ...state,
+        isCaptionsEnabled: action.isCaptionsEnabled
+      };
+
     default:
       return state;
   }
@@ -49,5 +57,6 @@ export const actions = {
   updateQuality: (quality: string) => ({type: types.UPDATE_QUALITY, quality}),
   updateSpeed: (speed: string) => ({type: types.UPDATE_SPEED, speed}),
   updateAudio: (audio: string) => ({type: types.UPDATE_AUDIO, audio}),
-  updateAdvancedAudioDesc: (isChecked: boolean) => ({type: types.UPDATE_ADVANCED_AUDIO_DESC, isChecked})
+  updateAdvancedAudioDesc: (isChecked: boolean) => ({type: types.UPDATE_ADVANCED_AUDIO_DESC, isChecked}),
+  updateIsCaptionsEnabled: (isCaptionsEnabled: boolean) => ({type: types.UPDATE_IS_CAPTIONS_ENABLED, isCaptionsEnabled})
 };

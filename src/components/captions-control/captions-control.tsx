@@ -1,6 +1,5 @@
-import {h} from 'preact';
-import {connect, useSelector} from 'react-redux';
-import {ClosedCaptions} from '../closed-captions';
+import {h, Fragment} from 'preact';
+import {connect} from 'react-redux';
 import {CaptionsMenu} from '../captions-menu';
 import {ButtonControl} from '../button-control';
 import {Tooltip} from '../tooltip';
@@ -9,10 +8,11 @@ import style from '../../styles/style.scss';
 import {Icon, IconType} from '../icon';
 import {SmartContainer} from '../smart-container';
 import {Text, withText} from 'preact-i18n';
-import {useRef, useState, useEffect, useCallback} from 'preact/hooks';
+import {useRef, useState, useEffect} from 'preact/hooks';
 import {focusElement} from '../../utils';
 import {createPortal} from 'preact/compat';
 import {CVAAOverlay} from '../cvaa-overlay';
+import {CaptionsControlMini} from './captions-control-mini';
 
 /**
  * mapping state to props
@@ -22,7 +22,7 @@ import {CVAAOverlay} from '../cvaa-overlay';
 const mapStateToProps = state => ({
   textTracks: state.engine.textTracks,
   showCCButton: state.config.showCCButton,
-  openMenuFromCCCButton: state.config.openMenuFromCCButton,
+  openMenuFromCCButton: state.config.openMenuFromCCButton,
   isMobile: state.shell.isMobile,
   isSmallSize: state.shell.isSmallSize,
   isCVAAOverlayOpen: state.shell.isCVAAOverlayOpen
@@ -39,8 +39,7 @@ const COMPONENT_NAME = 'CaptionsControl';
  */
 const CaptionsControl = connect(mapStateToProps)(
   withText({
-    captionsLabelText: 'captions.captions',
-    advancedCaptionsSettingsText: 'captions.advanced_captions_settings'
+    captionsLabelText: 'captions.captions'
   })((props, context) => {
     const [smartContainerOpen, setSmartContainerOpen] = useState(false);
     const [cvaaOverlay, setCVAAOverlay] = useState(false);
@@ -83,35 +82,36 @@ const CaptionsControl = connect(mapStateToProps)(
       setCCOn(activeTextTrack?.language !== 'off');
     }, [activeTextTrack]);
 
-    const shouldRender = !!textTracks?.length && props.showCCButton;
+    const shouldRender = !!textTracks?.length && props.showCCButton && props.openMenuFromCCButton;
     props.onToggle(COMPONENT_NAME, shouldRender);
     if (!shouldRender) return undefined;
 
     const targetId: HTMLDivElement | Document = (document.getElementById(player.config.targetId) as HTMLDivElement) || document;
     const portalSelector = `.overlay-portal`;
 
-    return props.openMenuFromCCCButton ? (
-      <ButtonControl name={COMPONENT_NAME} ref={controlCaptionsElement}>
-        <Tooltip label={props.captionsLabelText}>
-          <Button
-            ref={buttonRef}
-            tabIndex="0"
-            aria-label={props.captionsLabelText}
-            aria-haspopup="true"
-            className={[style.controlButton, smartContainerOpen ? style.active : ''].join(' ')}
-            onClick={onControlButtonClick}>
-            <Icon type={ccOn ? IconType.ClosedCaptionsOn : IconType.ClosedCaptionsOff} />
-          </Button>
-        </Tooltip>
-        {smartContainerOpen && !cvaaOverlay && (
-          <SmartContainer targetId={player.config.targetId} onClose={() => setSmartContainerOpen(false)} title={<Text id="controls.language" />}>
-            <CaptionsMenu asDropdown={false} onAdvancedCaptionsClick={toggleCVAAOverlay} />
-          </SmartContainer>
-        )}
-        {cvaaOverlay ? createPortal(<CVAAOverlay onClose={onCVAAOverlayClose} />, targetId.querySelector(portalSelector)!) : <div />}
-      </ButtonControl>
-    ) : (
-      <ClosedCaptions />
+    return (
+      <>
+        <ButtonControl name={COMPONENT_NAME} ref={controlCaptionsElement}>
+          <Tooltip label={props.captionsLabelText}>
+            <Button
+              ref={buttonRef}
+              tabIndex="0"
+              aria-label={props.captionsLabelText}
+              aria-haspopup="true"
+              className={[style.controlButton, smartContainerOpen ? style.active : ''].join(' ')}
+              onClick={onControlButtonClick}>
+              <Icon type={ccOn ? IconType.ClosedCaptionsOn : IconType.ClosedCaptionsOff} />
+            </Button>
+          </Tooltip>
+          {smartContainerOpen && !cvaaOverlay && (
+            <SmartContainer targetId={player.config.targetId} onClose={() => setSmartContainerOpen(false)} title={<Text id="controls.language" />}>
+              <CaptionsMenu asDropdown={false} onAdvancedCaptionsClick={toggleCVAAOverlay} />
+            </SmartContainer>
+          )}
+          {cvaaOverlay ? createPortal(<CVAAOverlay onClose={onCVAAOverlayClose} />, targetId.querySelector(portalSelector)!) : <div />}
+        </ButtonControl>
+        <CaptionsControlMini {...props}/>
+      </>
     );
   })
 );

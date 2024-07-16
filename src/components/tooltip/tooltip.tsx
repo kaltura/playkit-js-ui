@@ -17,6 +17,7 @@ interface TooltipOwnProps {
   maxWidth?: string;
   label: string;
   strictPosition?: boolean;
+  className?: string;
 }
 
 type TooltipProps = ReduxStateProps & TooltipOwnProps;
@@ -267,6 +268,9 @@ class Tooltip extends Component<TooltipProps & WithEventManagerProps, any> {
    */
   render(props: any): VNode<any> {
     const className = [style.tooltipLabel, style[`tooltip-${this.state.type}`]];
+    if (props.className) {
+      className.push(props.className);
+    }
     this.state.showTooltip && this.state.valid ? className.push(style.show) : className.push(style.hide);
     if (props.isMobile) {
       return toChildArray(props.children)[0] as VNode<any>;

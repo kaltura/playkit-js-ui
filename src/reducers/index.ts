@@ -10,5 +10,6 @@ import * as setting from './settings';
 import * as shell from './shell';
 import * as volume from './volume';
 import * as overlay from './overlay';
+import * as bottomBar from './bottom-bar';
 
-export {config, cvaa, engine, getters, loading, overlayAction, playlist, seekbar, setting, shell, volume, overlay};
+export {config, cvaa, engine, getters, loading, overlayAction, playlist, seekbar, setting, shell, volume, overlay, bottomBar};
