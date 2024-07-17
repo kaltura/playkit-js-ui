@@ -85,7 +85,7 @@ class CaptionsMenu extends Component<any, any> {
       .sort((a, b) => (a.label > b.label || a.label === 'Off' ? 1 : -1));
 
     if (props.showAdvancedCaptionsMenu) {
-      textOptions.push({label: props.advancedCaptionsSettingsText, value: props.advancedCaptionsSettingsText, active: false, key: 'adv_captions'});
+      textOptions.push({label: props.advancedCaptionsSettingsText, value: props.advancedCaptionsSettingsText, active: false, isAdvanced: true});
     }
 
     if (this.props.asDropdown) {
