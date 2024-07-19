@@ -63,6 +63,8 @@ class PlayPause extends Component<any, any> {
         this._playPauseButtonRef?.focus();
       });
     });
+    const myPlayerContainer = document.querySelector('.kaltura-player-container');
+    eventManager.listen(myPlayerContainer,'keydown', this.handleSpaceKey);
   }
 
   /**
@@ -76,6 +78,13 @@ class PlayPause extends Component<any, any> {
     this.props.isPlayingAdOrPlayback ? this.props.player.pause() : this.props.player.play();
     this.props.notifyClick();
   };
+
+  handleSpaceKey = (event) => {
+    if (event.code === 'Space') {
+      this.togglePlayPause();
+      event.preventDefault();
+    }
+  }
 
   /**
    * render component
