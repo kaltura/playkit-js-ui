@@ -131,6 +131,9 @@ class CVAAOverlay extends Component<any, any> {
    */
   render(props: any): VNode<any> {
     props.clearAccessibleChildren();
+    const isMainOverlay = this.state.activeWindow === cvaaOverlayState.Main;
+    const ariaProps = isMainOverlay ? { ariaLabelledBy: 'captionsDialogTitle' } : { ariaLabel: 'Custom Captions Settings' };
+
     return (
       <Overlay
         open
@@ -138,6 +141,7 @@ class CVAAOverlay extends Component<any, any> {
         addAccessibleChild={this.props.addAccessibleChild}
         onClose={props.onClose}
         type="cvaa"
+        {...ariaProps}
       >
         {this.state.activeWindow === cvaaOverlayState.Main ? (
           <MainCaptionsWindow
