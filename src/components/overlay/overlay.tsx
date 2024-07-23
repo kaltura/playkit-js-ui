@@ -128,6 +128,7 @@ class Overlay extends Component<any, any> {
    * @memberof Overlay
    */
   render({type, open, ariaLabel, ariaLabelledBy}: any): VNode<any> {
+    const ariaProps = ariaLabelledBy ? { 'aria-labelledby': ariaLabelledBy } : { 'aria-label': ariaLabel }
     const overlayClass = [style.overlay];
     if (type) {
       const classType = style[type + '-overlay'] ? style[type + '-overlay'] : type + '-overlay';
@@ -140,7 +141,7 @@ class Overlay extends Component<any, any> {
     }
 
     return (
-      <div tabIndex={-1} className={overlayClass.join(' ')} role="dialog" onKeyDown={this.onKeyDown} {...(ariaLabelledBy ? { 'aria-labelledby': ariaLabelledBy } : { 'aria-label': ariaLabel })}>
+      <div tabIndex={-1} className={overlayClass.join(' ')} role="dialog" onKeyDown={this.onKeyDown} {...ariaProps}>
         <div className={style.overlayContents}>{this.props.children}</div>
         {this.renderCloseButton(this.props)}
       </div>

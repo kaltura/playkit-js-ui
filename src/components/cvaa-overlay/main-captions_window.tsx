@@ -75,7 +75,7 @@ class MainCaptionsWindow extends Component<any, any> {
   render(props: any): VNode<any> {
     return (
       <div className={[style.overlayScreen, style.active].join(' ')}>
-        <h2 className={style.title} id="captionsDialogTitle">
+        <h2 className={style.title} id={this.props.captionsTitleId}>
           <Text id={'cvaa.title'} />
         </h2>
         <div role="group">
