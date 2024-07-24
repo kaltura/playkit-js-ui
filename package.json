@@ -1,6 +1,6 @@
 {
   "name": "@playkit-js/playkit-js-ui",
-  "version": "0.79.2",
+  "version": "0.79.5",
   "description": "",
   "keywords": [
     "kaltura",
@@ -41,7 +41,7 @@
     "prettier": "prettier --write .",
     "test": "karma start karma.conf.js",
     "test:debug": "DEBUG_UNIT_TESTS=1 karma start karma.conf.js --auto-watch --no-single-run --browsers Chrome",
-    "test:watch": "karma start karma.conf.js --auto-watch --no-single-run",
+    "test:watch": "karma start karma.conf.js --auto-watch --no-single-run --browsers ChromeWithFlags",
     "clean": "rimraf ./dist",
     "prebuild": "npm run clean",
     "precommit": "npm run build:prod && npm run type-check && npm run lint:fix",

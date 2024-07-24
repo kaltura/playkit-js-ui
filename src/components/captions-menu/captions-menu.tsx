@@ -10,6 +10,8 @@ import {withEventManager} from '../../event';
 import {withLogger} from '../logger';
 import {withEventDispatcher} from '../event-dispatcher';
 import {withKeyboardEvent} from '../../components/keyboard';
+import {KeyboardEventHandlers} from '../../types';
+import {Menu} from '../menu';
 
 /**
  * mapping state to props
@@ -86,17 +88,21 @@ class CaptionsMenu extends Component<any, any> {
       textOptions.push({label: props.advancedCaptionsSettingsText, value: props.advancedCaptionsSettingsText, active: false});
     }
 
-    return (
-      <SmartContainerItem
-        pushRef={el => {
-          props.pushRef(el);
-        }}
-        icon={IconType.Captions}
-        label={this.props.captionsLabelText}
-        options={textOptions}
-        onMenuChosen={textTrack => this.onCaptionsChange(textTrack)}
-      />
-    );
+    if (this.props.asDropdown) {
+      return (
+        <SmartContainerItem
+          pushRef={el => {
+            props.pushRef(el);
+          }}
+          icon={IconType.Captions}
+          label={this.props.captionsLabelText}
+          options={textOptions}
+          onMenuChosen={textTrack => this.onCaptionsChange(textTrack)}
+        />
+      );
+    } else {
+      return <Menu options={textOptions} onMenuChosen={textTrack => this.onCaptionsChange(textTrack)} onClose={() => {}} />;
+    }
   }
 }
 

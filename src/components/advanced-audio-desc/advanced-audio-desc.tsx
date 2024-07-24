@@ -9,6 +9,9 @@ import {connect} from 'react-redux';
 import {ButtonControl} from '../button-control';
 import {bindActions} from '../../utils';
 import {actions} from '../../reducers/settings';
+import {IconComponent, registerToBottomBar} from '../bottom-bar';
+import {redux} from '../../index';
+import {withPlayer} from '../player';
 
 const COMPONENT_NAME = 'AdvancedAudioDesc';
 
@@ -29,12 +32,38 @@ const mapStateToProps = state => ({
  * @extends {Component}
  */
 @connect(mapStateToProps, bindActions(actions))
+@withPlayer
 @withEventDispatcher(COMPONENT_NAME)
 @withText({AdvancedAudioDescText: 'settings.advancedAudioDescription'})
-class AdvancedAudioDesc extends Component<any, any> {
+class AdvancedAudioDesc extends Component<any, any> implements IconComponent {
   constructor(props: any) {
     super();
     this.state = {toggle: false};
+    registerToBottomBar(COMPONENT_NAME, props.player, () => this.registerComponent());
+  }
+
+  registerComponent(): any {
+    return {
+      ariaLabel: () => this.getComponentText(),
+      displayName: COMPONENT_NAME,
+      order: 5,
+      svgIcon: () => this.getSvgIcon(),
+      onClick: () => this.onClick(),
+      component: () => {
+        return getComponent({...this.props, classNames: [style.upperBarIcon]});
+      },
+      shouldHandleOnClick: false
+    };
+  }
+
+  getComponentText = (): any => {
+    return this.props.AdvancedAudioDescText;
+  }
+
+  getSvgIcon = (): any => {
+    return {
+      type: redux.useStore().getState().settings.advancedAudioDesc ? IconType.AdvancedAudioDescriptionActive : IconType.AdvancedAudioDescription
+    };
   }
 
   /**
@@ -69,7 +98,7 @@ class AdvancedAudioDesc extends Component<any, any> {
    */
   render({AdvancedAudioDescText, innerRef}: any): VNode<any> | undefined {
     return !this._shouldRender() ? undefined : (
-      <ButtonControl name={COMPONENT_NAME} className={style.noIdleControl}>
+      <ButtonControl name={COMPONENT_NAME} className={[style.noIdleControl, this.props.classNames ? this.props.classNames.join(' ') : ''].join(' ')}>
         <Tooltip label={AdvancedAudioDescText}>
           <Button tabIndex="0" aria-label={AdvancedAudioDescText} className={`${style.controlButton}`} ref={innerRef} onClick={this.onClick}>
             <Icon type={this.state.toggle ? IconType.AdvancedAudioDescriptionActive : IconType.AdvancedAudioDescription} />
@@ -78,6 +107,10 @@ class AdvancedAudioDesc extends Component<any, any> {
       </ButtonControl>
     );
   }
+}
+
+const getComponent = (props: any): VNode => {
+  return <AdvancedAudioDesc {...props} />;
 }
 
 AdvancedAudioDesc.displayName = COMPONENT_NAME;

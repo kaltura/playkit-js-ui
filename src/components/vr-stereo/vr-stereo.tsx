@@ -12,6 +12,8 @@ import {withLogger} from '../logger';
 import {Tooltip} from '../tooltip';
 import {Button} from '../button';
 import {ButtonControl} from '../button-control';
+import {IconComponent, registerToBottomBar} from '../bottom-bar';
+import {redux} from '../../index';
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -38,7 +40,40 @@ const COMPONENT_NAME = 'VrStereo';
 @withText({
   vrStereoText: 'controls.vrStereo'
 })
-class VrStereo extends Component<any, any> {
+class VrStereo extends Component<any, any> implements IconComponent {
+  /**
+   * Creates an instance of PictureInPicture.
+   * @memberof VrStereo
+   */
+  constructor(props: any) {
+    super(props);
+    registerToBottomBar(COMPONENT_NAME, props.player, () => this.registerComponent());
+  }
+
+  registerComponent(): any {
+    return {
+      ariaLabel: () => this.getComponentText(),
+      displayName: COMPONENT_NAME,
+      order: 5,
+      svgIcon: () => this.getSvgIcon(),
+      onClick: () => this.onClick(),
+      component: () => {
+        return getComponent({...this.props, classNames: [style.upperBarIcon]});
+      },
+      shouldHandleOnClick: false
+    };
+  }
+
+  getComponentText = (): any => {
+    return this.props.vrStereoText;
+  }
+
+  getSvgIcon(): any {
+    return {
+      type: redux.useStore().getState().engine.vrStereoMode ? IconType.vrStereoFull : IconType.vrStereo
+    };
+  }
+
   /**
    * should render component
    * @returns {boolean} - whether to render the component
@@ -91,7 +126,7 @@ class VrStereo extends Component<any, any> {
    */
   render(): VNode<any> | undefined {
     return !this._shouldRender() ? undefined : (
-      <ButtonControl name={COMPONENT_NAME}>
+      <ButtonControl name={COMPONENT_NAME} className={this.props.classNames ? this.props.classNames.join(' ') : ''}>
         <Tooltip label={this.props.vrStereoText}>
           <Button
             tabIndex="0"
@@ -107,6 +142,10 @@ class VrStereo extends Component<any, any> {
       </ButtonControl>
     );
   }
+}
+
+const getComponent = (props: any): VNode => {
+  return <VrStereo {...props} />;
 }
 
 VrStereo.displayName = COMPONENT_NAME;

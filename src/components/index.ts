@@ -71,6 +71,8 @@ export {VideoArea} from './video-area';
 export {GuiArea} from './gui-area';
 export {InteractiveArea} from './interactive-area';
 
+export {SidePanel} from './side-panel';
+
 export {Keyboard as KeyboardControl} from './keyboard';
 export {Cast, Cast as CastControl};
 export {Fullscreen, Fullscreen as FullscreenControl};
@@ -82,3 +84,4 @@ export {Settings, Settings as SettingsControl};
 export {Volume, Volume as VolumeControl};
 export {VrStereo, VrStereo as VrStereoControl};
 export {ClosedCaptions, ClosedCaptions as ClosedCaptionsControl};
+export {CaptionsControl} from './captions-control';

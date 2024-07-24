@@ -1,6 +1,6 @@
 import style from '../styles/style.scss';
 import {Component, Fragment, h, VNode} from 'preact';
-import {OverlayAction} from '../components';
+import {CaptionsControl, OverlayAction} from '../components';
 import {PrePlaybackPlayOverlay} from '../components';
 import {Loading} from '../components';
 import {SeekBarLivePlaybackContainer} from '../components';
@@ -81,7 +81,7 @@ class LiveUI extends Component<any, any> {
                   </InteractiveArea>
                   <BottomBar
                     leftControls={[PlaybackControls, Rewind, Forward, LiveTag]}
-                    rightControls={[VrStereo, Volume, ClosedCaptions, Settings, Cast, PictureInPicture, Fullscreen, Logo]}
+                    rightControls={[VrStereo, Volume, ClosedCaptions, CaptionsControl, Settings, Cast, PictureInPicture, Fullscreen, Logo]}
                   >
                     <SeekBarLivePlaybackContainer showFramePreview showTimeBubble playerContainer={containerRef} />
                   </BottomBar>

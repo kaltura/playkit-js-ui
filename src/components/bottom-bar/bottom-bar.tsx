@@ -2,23 +2,29 @@ import style from '../../styles/style.scss';
 import {h, Component, createRef, RefObject} from 'preact';
 import {bindActions} from '../../utils/bind-actions';
 import {actions} from '../../reducers/shell';
+import {actions as bottomBarActions} from '../../reducers/bottom-bar';
 import {connect} from 'react-redux';
 import {PlayerArea} from '../../components/player-area';
-import {PLAYER_BREAK_POINTS} from '../../components';
+import {PLAYER_BREAK_POINTS, TimeDisplayPlaybackContainer} from '../../components';
 import {withEventManager} from '../../event';
 import {withPlayer} from '../player';
 import {calculateControlsSize, filterControlsByPriority} from './bettom-bar-utils';
+import {BottomBarRegistryManager, bottomBarRegistryManager} from './bottom-bar-registry-manager';
+
 
 const LOWER_PRIORITY_CONTROLS: string[][] = [
-  ['AdvancedAudioDesc'],
-  ['VrStereo'],
-  ['Rewind', 'Forward'],
-  ['ClosedCaptions'],
   ['PictureInPicture'],
+  ['VrStereo'],
+  ['TimeDisplayPlaybackContainer'],
+  ['AdvancedAudioDesc'],
+  ['ClosedCaptions'],
+  ['CaptionsControl'],
   ['Cast']
 ];
 const CRL_WIDTH = 32;
 const CRL_MARGIN = 12;
+
+const TIME_DISPLAY_COMP: string = 'TimeDisplayPlaybackContainer';
 
 /**
  * mapping state to props
@@ -45,7 +51,7 @@ const COMPONENT_NAME = 'BottomBar';
  */
 @withPlayer
 @withEventManager
-@connect(mapStateToProps, bindActions(actions))
+@connect(mapStateToProps, bindActions({...actions, ...bottomBarActions}))
 class BottomBar extends Component<any, any> {
   bottomBarContainerRef: RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
   presetControls: {[controlName: string]: boolean} = {};
@@ -63,6 +69,7 @@ class BottomBar extends Component<any, any> {
       .map(control => control.displayName)
       .forEach(controlName => (this.presetControls[controlName] = true));
     this.state = {fitInControls: this.presetControls, activeControls: this.presetControls};
+    props.player.registerService(bottomBarRegistryManager, new BottomBarRegistryManager());
   }
 
   /**
@@ -108,9 +115,11 @@ class BottomBar extends Component<any, any> {
       const controlsToRemove = filterControlsByPriority(currentMinBreakPointWidth, currentBarWidth, currentControlWidth, lowerPriorityControls);
       const removedControls = {};
       controlsToRemove.forEach(control => (removedControls[control] = false));
+      this.props.updateControlsToMove(controlsToRemove);
       this.setState({fitInControls: {...this.presetControls, ...removedControls}});
     } else {
       this.setState({fitInControls: {...this.presetControls}});
+      this.props.updateControlsToMove([]);
     }
   }
 
@@ -127,10 +136,12 @@ class BottomBar extends Component<any, any> {
       styleClass.push(style.hide);
     }
 
+    const shouldRenderTimeDisplay: boolean = this.presetControls[TIME_DISPLAY_COMP] && !this.state.fitInControls[TIME_DISPLAY_COMP];
     return (
       <div className={styleClass.join(' ')}>
         <div className={style.bottomBarArea}>
           <PlayerArea shouldUpdate={true} name={'BottomBar'}>
+            {shouldRenderTimeDisplay && <TimeDisplayPlaybackContainer/>}
             {props.children}
           </PlayerArea>
         </div>

@@ -94,11 +94,11 @@ class CVAAOverlay extends Component<any, any> {
    * @memberof CVAAOverlay
    */
   changeCaptionsStyle = (textStyle: any): void => {
-    this.props.updateCaptionsStyle(textStyle);
-    this.props.player.textStyle = textStyle;
     this.props.notifyClick({
       textStyle: textStyle
     });
+    this.props.updateCaptionsStyle(textStyle);
+    this.props.player.textStyle = textStyle;
   };
 
   /**

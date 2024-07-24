@@ -1,16 +1,13 @@
 import {h, Component, VNode} from 'preact';
 import {withText} from 'preact-i18n';
 import {connect} from 'react-redux';
-import {bindActions, KeyMap} from '../../utils';
+import {bindActions} from '../../utils';
 import {actions} from '../../reducers/settings';
 import {SmartContainerItem} from '../../components';
 import {IconType} from '../icon';
 import {withPlayer} from '../player';
 import {withLogger} from '../logger';
 import {withEventDispatcher} from '../event-dispatcher';
-import {withKeyboardEvent} from '../keyboard';
-import {SpeedSelectedEvent} from '../../event/events/speed-selected-event';
-import {KeyboardEventHandlers} from '../../types';
 
 const COMPONENT_NAME = 'SpeedMenu';
 
@@ -23,7 +20,6 @@ const COMPONENT_NAME = 'SpeedMenu';
  */
 @connect(null, bindActions(actions))
 @withPlayer
-@withKeyboardEvent(COMPONENT_NAME)
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
 @withText({
@@ -31,89 +27,6 @@ const COMPONENT_NAME = 'SpeedMenu';
   speedNormalLabelText: 'settings.speedNormal'
 })
 class SpeedMenu extends Component<any, any> {
-  _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
-    {
-      key: {
-        code: KeyMap.PERIOD,
-        shiftKey: true
-      },
-      action: event => {
-        this.handleKeydown(event);
-      }
-    },
-    {
-      key: {
-        code: KeyMap.SEMI_COLON,
-        shiftKey: true
-      },
-      action: event => {
-        this.handleKeydown(event);
-      }
-    },
-    {
-      key: {
-        code: KeyMap.COMMA,
-        shiftKey: true
-      },
-      action: event => {
-        this.handleKeydown(event);
-      }
-    }
-  ];
-
-  /**
-   * after component mounted, set event listener to click outside of the component
-   *
-   * @returns {void}
-   * @memberof SpeedMenu
-   */
-  componentDidMount() {
-    this.props.registerKeyboardEvents(this._keyboardEventHandlers);
-  }
-
-  /**
-   * on settings control key down, update the settings in case of up/down keys
-   *
-   * @method handleKeydown
-   * @param {KeyboardEvent} event - keyboardEvent event
-   * @returns {void}
-   * @memberof SpeedMenu
-   */
-  handleKeydown(event: KeyboardEvent): void {
-    const {player, logger} = this.props;
-    let playbackRate, index;
-    switch (event.keyCode) {
-      case KeyMap.PERIOD:
-        playbackRate = player.playbackRate;
-        index = player.playbackRates.indexOf(playbackRate);
-        if (index < player.playbackRates.length - 1) {
-          logger.debug(`Changing playback rate. ${playbackRate} => ${player.playbackRates[index + 1]}`);
-          player.playbackRate = player.playbackRates[index + 1];
-          this.props.updateOverlayActionIcon(IconType.SpeedUp);
-          player.dispatchEvent(new SpeedSelectedEvent(player.playbackRate));
-        }
-        break;
-      case KeyMap.SEMI_COLON:
-        if (player.playbackRate !== player.defaultPlaybackRate) {
-          logger.debug(`Changing playback rate. ${player.playbackRate} => ${player.defaultPlaybackRate}`);
-          player.playbackRate = player.defaultPlaybackRate;
-          this.props.updateOverlayActionIcon(IconType.Speed);
-          player.dispatchEvent(new SpeedSelectedEvent(player.playbackRate));
-        }
-        break;
-      case KeyMap.COMMA:
-        playbackRate = player.playbackRate;
-        index = player.playbackRates.indexOf(playbackRate);
-        if (index > 0) {
-          logger.debug(`Changing playback rate. ${playbackRate} => ${player.playbackRates[index - 1]}`);
-          player.playbackRate = player.playbackRates[index - 1];
-          this.props.updateOverlayActionIcon(IconType.SpeedDown);
-          player.dispatchEvent(new SpeedSelectedEvent(player.playbackRate));
-        }
-        break;
-    }
-  }
-
   /**
    * change player playback rate and update it in the store state
    *

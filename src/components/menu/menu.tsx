@@ -279,7 +279,7 @@ class MenuItem extends Component<any, any> {
         ref={element => {
           this.props.addAccessibleChild(element);
           if (props.isSelected(props.data)) {
-            props.setDefaultFocusedElement(element);
+            setTimeout(() => props.setDefaultFocusedElement(element))
           }
         }}
         className={props.isSelected(props.data) ? [style.dropdownMenuItem, style.active].join(' ') : style.dropdownMenuItem}

@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.79.5 (2024-07-11)
+
+
+### Bug Fixes
+
+* **FEC-14034:** Player v7 | Safari | Opening the CC menu cause size a… ([#905](https://github.com/kaltura/playkit-js-ui/issues/905)) ([be28ea2](https://github.com/kaltura/playkit-js-ui/commit/be28ea2)), closes [#871](https://github.com/kaltura/playkit-js-ui/issues/871)
+
+
+
+### 0.79.4 (2024-07-04)
+
+
+### Bug Fixes
+
+* **FEC-14023:** add strictPosition property to tooltip ([#901](https://github.com/kaltura/playkit-js-ui/issues/901)) ([7a9a78f](https://github.com/kaltura/playkit-js-ui/commit/7a9a78f))
+
+
+
+### 0.79.3 (2024-06-30)
+
+
+### Bug Fixes
+
+* **FEC-13506_REG:** fix PR [#871](https://github.com/kaltura/playkit-js-ui/issues/871) regression ([#895](https://github.com/kaltura/playkit-js-ui/issues/895)) ([97b1aa4](https://github.com/kaltura/playkit-js-ui/commit/97b1aa4))
+
+
+
 ### 0.79.2 (2024-06-02)
 
 

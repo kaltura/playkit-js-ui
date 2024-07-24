@@ -6,6 +6,7 @@ import {PrePlaybackPlayOverlay} from '../components';
 import {Loading} from '../components';
 import {Rewind} from '../components';
 import {Forward} from '../components';
+import {CaptionsControl} from '../components';
 import {SeekBarPlaybackContainer} from '../components';
 import {Volume} from '../components';
 import {Settings} from '../components';
@@ -89,7 +90,7 @@ class PlaybackUI extends Component<any, any> {
                   </InteractiveArea>
                   <BottomBar
                     leftControls={[PlaybackControls, Rewind, Forward, TimeDisplayPlaybackContainer]}
-                    rightControls={[VrStereo, Volume, AdvancedAudioDesc, ClosedCaptions, Settings, Cast, PictureInPicture, Fullscreen, Logo]}>
+                    rightControls={[VrStereo, Volume, AdvancedAudioDesc, ClosedCaptions, CaptionsControl, Settings, Cast, PictureInPicture, Fullscreen, Logo]}>
                     <SeekBarPlaybackContainer showFramePreview showTimeBubble playerContainer={containerRef} />
                   </BottomBar>
                 </Fragment>
