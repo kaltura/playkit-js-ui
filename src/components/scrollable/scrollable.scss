@@ -2,14 +2,26 @@
   display: flex;
   width: 100%;
 
+  .items-container {
+    display: flex;
+    width: 100%;
+    height: fit-content;
+  }
+
   &.horizontal {
     flex-direction: row;
     overflow: auto hidden;
+    .items-container {
+      flex-direction: row;
+    }
   }
   &.vertical {
     flex-direction: column;
     height: 100%;
     overflow: hidden auto;
+    .items-container {
+      flex-direction: column;
+    }
   }
   &::-webkit-scrollbar {
     height: 4px;
