@@ -49,6 +49,13 @@ const mapStateToProps = state => ({
 });
 const COMPONENT_NAME = 'Settings';
 
+const translates = () => ({
+  buttonLabel: <Text id="controls.settings">Settings</Text>,
+  qualityHdLabel: <Text id="settings.qualityHdLabel">Quality is HD</Text>,
+  quality4kLabel: <Text id="settings.quality4kLabel">Quality is 4k</Text>,
+  quality8kLabel: <Text id="settings.quality8kLabel">Quality is 8k</Text>
+});
+
 /**
  * Settings component
  *
@@ -57,9 +64,7 @@ const COMPONENT_NAME = 'Settings';
  * @extends {Component}
  */
 @connect(mapStateToProps, bindActions({...actions, ...overlayIconActions}))
-@withText({
-  buttonLabel: 'controls.settings'
-})
+@withText(translates)
 @withPlayer
 @withEventManager
 @withKeyboardEvent(COMPONENT_NAME)
@@ -277,6 +282,19 @@ class Settings extends Component<any, any> {
     return activeVideoTrackHeight ? getLabelBadgeType(activeVideoTrackHeight) : null;
   }
 
+  getQualityLabel(buttonBadgeType): string {
+    switch (buttonBadgeType) {
+      case 'qualityHd':
+        return this.props.qualityHdLabel;
+      case 'quality4k':
+        return this.props.quality4kLabel;
+      case 'quality8k':
+        return this.props.quality8kLabel;
+      default:
+        return '';
+    }
+  }
+
   /**
    * render component
    *
@@ -297,13 +315,14 @@ class Settings extends Component<any, any> {
 
     const targetId: HTMLDivElement | Document = (document.getElementById(this.props.player.config.targetId) as HTMLDivElement) || document;
     const portalSelector = `.overlay-portal`;
+    const buttonAriaLabel = props.buttonLabel + ' ' + this.getQualityLabel(buttonBadgeType);
     return (
       <ButtonControl name={COMPONENT_NAME} ref={c => (c ? (this._controlSettingsElement = c) : undefined)}>
         <Tooltip label={props.buttonLabel}>
           <Button
             ref={this.setButtonRef}
             tabIndex="0"
-            aria-label={props.buttonLabel}
+            aria-label={buttonAriaLabel}
             aria-haspopup="true"
             className={[
               style.controlButton,
@@ -311,7 +330,8 @@ class Settings extends Component<any, any> {
               BadgeType[buttonBadgeType + 'Active'],
               this.state.smartContainerOpen ? style.active : ''
             ].join(' ')}
-            onClick={this.onControlButtonClick}>
+            onClick={this.onControlButtonClick}
+          >
             <Icon type={IconType.Settings} />
           </Button>
         </Tooltip>
