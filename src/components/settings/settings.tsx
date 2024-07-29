@@ -330,8 +330,7 @@ class Settings extends Component<any, any> {
               BadgeType[buttonBadgeType + 'Active'],
               this.state.smartContainerOpen ? style.active : ''
             ].join(' ')}
-            onClick={this.onControlButtonClick}
-          >
+            onClick={this.onControlButtonClick}>
             <Icon type={IconType.Settings} />
           </Button>
         </Tooltip>
