@@ -32,11 +32,11 @@ class SidePanel extends Component<any, any> {
    * @memberof VideoPlayer
    */
   shouldComponentUpdate(nextProps: any): boolean {
-    const {sidePanelsStyles, position} = this.props;
+    const {sidePanelsStyles, position, isSmallSize} = this.props;
     const {sidePanelsStyles: nextSidePanelsStyles, position: nextPosition} = nextProps;
     const currentStyle = sidePanelsStyles[position];
     const nextStyle = nextSidePanelsStyles[nextPosition];
-    return currentStyle !== nextStyle;
+    return currentStyle !== nextStyle || isSmallSize !== nextProps.isSmallSize;
   }
 
   /**
