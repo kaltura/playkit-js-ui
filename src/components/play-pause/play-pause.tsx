@@ -63,8 +63,9 @@ class PlayPause extends Component<any, any> {
         this._playPauseButtonRef?.focus();
       });
     });
-    const myPlayerContainer = document.querySelector('.kaltura-player-container');
-    eventManager.listen(myPlayerContainer,'keydown', this.handleSpaceKey);
+    const targetId: HTMLDivElement | Document = (document.getElementById(this.props.player.config.targetId) as HTMLDivElement) || document;
+    //const myPlayerContainer = document.querySelector('.kaltura-player-container');
+    eventManager.listen(targetId,'keydown', this.handleSpaceKey);
   }
 
   /**
