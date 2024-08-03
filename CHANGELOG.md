@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.79.6 (2024-08-03)
+
+
+### Bug Fixes
+
+* **FEC-14055:** fix update of side-panel ([#912](https://github.com/kaltura/playkit-js-ui/issues/912)) ([de8a1f8](https://github.com/kaltura/playkit-js-ui/commit/de8a1f8))
+
+
+
 ### 0.79.5 (2024-07-11)
 
 
