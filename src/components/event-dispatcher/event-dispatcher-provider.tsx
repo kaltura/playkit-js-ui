@@ -182,6 +182,7 @@ function onClickableComponentsHandler(store: any, action: any, player: KalturaPl
       break;
 
     case 'AdvancedAudioDescToggle':
+    case 'AdvancedAudioDesc':
       onAdvancedAudioDescriptionClicked(store, action, player);
       break;
 
