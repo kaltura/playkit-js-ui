@@ -11,6 +11,7 @@ import {withLogger} from '../logger';
 import {MainCaptionsWindow} from './main-captions_window';
 import {CustomCaptionsWindow} from './custom-captions-window';
 import {withText} from 'preact-i18n';
+import { Utils } from '@playkit-js/playkit-js';
 
 /**
  * mapping state to props
@@ -41,7 +42,10 @@ const COMPONENT_NAME = 'CVAAOverlay';
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
 @withKeyboardA11y
-@withText({cvvaDialogText: 'cvaa.title'})
+@withText({
+  cvvaDialogText: 'cvaa.title',
+  cvvaSetCustomCaptionsText: 'cvaa.set_custom_caption',
+})
 class CVAAOverlay extends Component<any, any> {
   /**
    * componentWillUnmount
@@ -131,6 +135,10 @@ class CVAAOverlay extends Component<any, any> {
    */
   render(props: any): VNode<any> {
     props.clearAccessibleChildren();
+    const isMainOverlay = this.state.activeWindow === cvaaOverlayState.Main;
+    const titleId = `captions_title_${Utils.Generator.guid()}`;
+    const ariaProps = isMainOverlay ? { ariaLabelledBy: titleId } : { ariaLabel: this.props.cvvaSetCustomCaptionsText };
+
     return (
       <Overlay
         open
@@ -138,9 +146,11 @@ class CVAAOverlay extends Component<any, any> {
         addAccessibleChild={this.props.addAccessibleChild}
         onClose={props.onClose}
         type="cvaa"
-        label={props.cvvaDialogText}>
+        {...ariaProps}
+      >
         {this.state.activeWindow === cvaaOverlayState.Main ? (
           <MainCaptionsWindow
+            captionsTitleId={titleId}
             cvaaOverlayState={cvaaOverlayState}
             addAccessibleChild={props.addAccessibleChild}
             /*@ts-expect-error - Property 'captionsStyleDefault' does not exist on type 'CVAAOverlay' */
