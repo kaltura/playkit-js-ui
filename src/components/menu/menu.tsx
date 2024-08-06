@@ -198,6 +198,8 @@ class Menu extends Component<MenuProps & WithEventManagerProps, any> {
    */
   render(props: any): VNode<any> {
     props.clearAccessibleChildren();
+    const menuItemRole = "menuitem";
+    const menuItemRadioRole = "menuitemradio";
     return props.isMobile || props.isSmallSize ? (
       this.renderNativeSelect(props.labelledby)
     ) : (
@@ -217,6 +219,7 @@ class Menu extends Component<MenuProps & WithEventManagerProps, any> {
             }}
             key={index}
             data={o}
+            role={o?.isAdvanced ? menuItemRole : menuItemRadioRole}
           />
         ))}
       </div>
@@ -273,7 +276,7 @@ class MenuItem extends Component<any, any> {
       props.data.badgeType && !props.isSelected(props.data) ? BadgeType[props.data.badgeType] : BadgeType[props.data.badgeType + 'Active'];
     return (
       <div
-        role="menuitemradio"
+        role={props?.role}
         tabIndex={-1}
         aria-checked={props.isSelected(props.data) ? 'true' : 'false'}
         ref={element => {
