@@ -55,6 +55,9 @@
       "speed": "Speed",
       "speedNormal": "Normal",
       "qualityAuto": "Auto",
+      "qualityHdLabel": "Quality is HD",
+      "quality4kLabel": "Quality is 4k",
+      "quality8kLabel": "Quality is 8k",
       "advancedAudioDescription": "Advanced Audio Description"
     },
     "captions": {
