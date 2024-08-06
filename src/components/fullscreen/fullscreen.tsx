@@ -58,6 +58,14 @@ class Fullscreen extends Component<
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
       key: {
+        code: KeyMap.ENTER
+      },
+      action: event => {
+        this.handleKeydown(event);
+      }
+    },
+    {
+      key: {
         code: KeyMap.F
       },
       action: event => {
@@ -92,6 +100,10 @@ class Fullscreen extends Component<
    */
   handleKeydown(event: KeyboardEvent): void {
     switch (event.keyCode) {
+      case KeyMap.ENTER:
+        if (!event.repeat) {
+          this.toggleFullscreen();
+        }
       case KeyMap.F:
         if (!this.props.player!.isFullscreen()) {
           this.toggleFullscreen();
