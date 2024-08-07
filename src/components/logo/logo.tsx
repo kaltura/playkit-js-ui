@@ -126,7 +126,7 @@ class Logo extends Component<any, any> {
           onClick={this._handleOnClick}
           className={style.controlButton}
           href={this.state.urlLink}
-          aria-label={props.logoText}
+          aria-label={props.config.text || props.logoText}
           target="_blank"
           rel="noopener noreferrer"
           tabIndex={0}
