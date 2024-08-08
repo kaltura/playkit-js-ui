@@ -110,8 +110,12 @@ export class ThemesManager {
     for (const color in config.colors) {
       if (ACCENT_AND_ACKNOWLEDGEMENT_COLORS.includes(color)) {
         const colorValue = config.colors[color];
-        this.setAccentOrAcknowledgementColor(`${color}-${TEXT_CONTRAST_SUFFIX}`, this.makeTextContrastColor(colorValue));
+        const textContrastColor = this.makeTextContrastColor(colorValue);
+        this.setAccentOrAcknowledgementColor(`${color}-${TEXT_CONTRAST_SUFFIX}`, textContrastColor);
         this.setAccentOrAcknowledgementColor(color, colorValue);
+        if (color === 'primary') {
+          this.setSvgFillColor(textContrastColor, true);
+        }
       } else {
         this.setColor(cssVarNames.colors[color], config.colors[color]);
       }
@@ -143,16 +147,20 @@ export class ThemesManager {
   }
 
   /**
-   * Update the SVG url (of dynamic SVGs) with the new primary color.
+   * Update the SVG url (of dynamic SVGs) with the new primary color and contrast text color.
    * @param {string} color  -
    * @returns {void}
    */
-  private setSvgFillColor(color: string): void {
+  private setSvgFillColor(color: string, contrastColor?: boolean): void {
     for (const varName of dynamicColoredIconsSvgUrlVars) {
       // $FlowFixMe
       const svgUrl = this.getCSSVariable(varName);
       const newColor = color.replace('#', '%23');
-      this.setCSSVariable(varName, svgUrl.replace(/fill='%23([a-f0-9]{3}){1,2}\b'/, `fill='${newColor}'`));
+      let regex = /fill='%23([a-f0-9]{3}){1,2}\b'/g;
+      if (contrastColor) {
+        regex = /fill='textColor'/g;
+      }
+      this.setCSSVariable(varName, svgUrl.replaceAll(regex, `fill='${newColor}'`));
     }
   }
 
