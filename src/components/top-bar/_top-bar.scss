@@ -3,8 +3,8 @@
   color: #fff;
   visibility: hidden;
   position: relative;
-  height: auto;
-  min-height: #{$top-bar-max-height}px;
+  height: 50%;
+  
   max-height: #{$top-bar-max-height}px;
   margin-top: #{-$top-bar-max-height}px;
   transition:
