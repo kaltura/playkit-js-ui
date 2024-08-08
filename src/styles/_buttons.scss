@@ -44,6 +44,10 @@
   padding: 2px;
 }
 
+.pre-playback-play-overlay button.pre-playback-play-button:focus{
+  outline: 1px solid $tab-focus-color;
+}
+
 .player {
   button {
     &:focus {
