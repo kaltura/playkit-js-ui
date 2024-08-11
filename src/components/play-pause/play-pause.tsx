@@ -63,8 +63,6 @@ class PlayPause extends Component<any, any> {
         this._playPauseButtonRef?.focus();
       });
     });
-    const targetId: HTMLDivElement | Document = (document.getElementById(this.props.player.config.targetId) as HTMLDivElement) || document;
-    eventManager.listen(targetId,'keydown', this.handleSpaceKey);
   }
 
   /**
@@ -78,13 +76,6 @@ class PlayPause extends Component<any, any> {
     this.props.isPlayingAdOrPlayback ? this.props.player.pause() : this.props.player.play();
     this.props.notifyClick();
   };
-
-  handleSpaceKey = (event) => {
-    if (event.code === 'Space') {
-      this.togglePlayPause();
-      event.preventDefault();
-    }
-  }
 
   /**
    * render component
