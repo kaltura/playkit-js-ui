@@ -151,7 +151,7 @@ export class ThemesManager {
    * @param {string} color  -
    * @returns {void}
    */
-  private setSvgFillColor(color: string, contrastColor?: boolean): void {
+  private setSvgFillColor(color: string, contrastColor: boolean = false): void {
     for (const varName of dynamicColoredIconsSvgUrlVars) {
       // $FlowFixMe
       const svgUrl = this.getCSSVariable(varName);
