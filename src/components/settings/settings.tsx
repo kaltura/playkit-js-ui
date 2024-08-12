@@ -76,26 +76,6 @@ class Settings extends Component<any, any> {
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
       key: {
-        code: KeyMap.C
-      },
-      action: () => {
-        const {player, logger} = this.props;
-        const activeTextTrack = player.getActiveTracks().text;
-        if (activeTextTrack) {
-          if (activeTextTrack.language === 'off' && this._lastActiveTextLanguage) {
-            logger.debug(`Changing text track to language`, this._lastActiveTextLanguage);
-            const selectedTextTrack = player.getTracks('text').find(track => track.language === this._lastActiveTextLanguage);
-            player.selectTrack(selectedTextTrack);
-          } else if (activeTextTrack.language !== 'off' && !this._lastActiveTextLanguage) {
-            logger.debug(`Hiding text track`);
-            this._lastActiveTextLanguage = activeTextTrack.language;
-            player.hideTextTrack();
-          }
-        }
-      }
-    },
-    {
-      key: {
         code: KeyMap.PERIOD,
         shiftKey: true
       },
@@ -142,6 +122,7 @@ class Settings extends Component<any, any> {
   componentDidMount() {
     const {eventManager} = this.props;
     eventManager.listen(document, 'click', e => this.handleClickOutside(e));
+    eventManager.listen(document, 'keydown', e => this.handleCCToggle(e));
     this.props.registerKeyboardEvents(this._keyboardEventHandlers);
   }
 
@@ -185,6 +166,24 @@ class Settings extends Component<any, any> {
           player.dispatchEvent(new SpeedSelectedEvent(player.playbackRate));
         }
         break;
+    }
+  }
+
+  handleCCToggle(event: KeyboardEvent) {
+    if (event.key === 'c' || event.key === 'C') {
+      const {player, logger} = this.props;
+      const activeTextTrack = player.getActiveTracks().text;
+      if (activeTextTrack) {
+        if (activeTextTrack.language === 'off' && this._lastActiveTextLanguage) {
+          logger.debug(`Changing text track to language`, this._lastActiveTextLanguage);
+          const selectedTextTrack = player.getTracks('text').find(track => track.language === this._lastActiveTextLanguage);
+          player.selectTrack(selectedTextTrack);
+        } else if (activeTextTrack.language !== 'off' && !this._lastActiveTextLanguage) {
+          logger.debug(`Hiding text track`);
+          this._lastActiveTextLanguage = activeTextTrack.language;
+          player.hideTextTrack();
+        }
+      }
     }
   }
 
