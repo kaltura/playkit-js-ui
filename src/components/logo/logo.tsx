@@ -138,7 +138,6 @@ class Logo extends Component<any, any> {
           <span
             className={style.controlButton}
             aria-label={props.config.text || props.logoText}
-            tabIndex={0}
           >
             <img className={style.icon} src={props.config.img} />
           </span>
@@ -146,7 +145,6 @@ class Logo extends Component<any, any> {
       </div>
     );
   }
-  
 }
 
 Logo.displayName = COMPONENT_NAME;
