@@ -89,13 +89,11 @@ export const withKeyboardA11y = (WrappedComponent): any =>
      * @memberof HOC
      */
     componentWillUnmount(): void {
-      if (this._previouslyActiveElement) {
         setTimeout(() => {
           if (this._previouslyActiveElement && document.contains(this._previouslyActiveElement)) {
             this._previouslyActiveElement.focus();
           }
         }, 100);
-      }
     }
 
     /**
