@@ -1,5 +1,5 @@
-import {h, Component} from 'preact';
-import {KeyMap} from './key-map';
+import { h, Component } from 'preact';
+import { KeyMap } from './key-map';
 
 /**
  * wraps a component and handles all key navigation and focus
@@ -90,7 +90,11 @@ export const withKeyboardA11y = (WrappedComponent): any =>
      */
     componentWillUnmount(): void {
       if (this._previouslyActiveElement) {
-        this._previouslyActiveElement.focus();
+        setTimeout(() => {
+          if (this._previouslyActiveElement && document.contains(this._previouslyActiveElement)) {
+            this._previouslyActiveElement.focus();
+          }
+        }, 100);
       }
     }
 
