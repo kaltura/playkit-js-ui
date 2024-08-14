@@ -122,6 +122,7 @@ class Logo extends Component<any, any> {
       <div
         className={[style.controlButtonContainer, !props.config.url || !this.state.isUrlClickable ? style.emptyUrl : ''].join(' ')}
         title={props.config.text}>
+        {this.state.isUrlClickable ? (
         <a
           onClick={this._handleOnClick}
           className={style.controlButton}
@@ -133,9 +134,19 @@ class Logo extends Component<any, any> {
           >
           <img className={style.icon} src={props.config.img} />
         </a>
+        ) : (
+          <span
+            className={style.controlButton}
+            aria-label={props.config.text || props.logoText}
+            tabIndex={0}
+          >
+            <img className={style.icon} src={props.config.img} />
+          </span>
+        )}
       </div>
     );
   }
+  
 }
 
 Logo.displayName = COMPONENT_NAME;
