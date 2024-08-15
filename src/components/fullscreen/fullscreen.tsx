@@ -98,9 +98,10 @@ class Fullscreen extends Component<
    * @returns {void}
    * @memberof Fullscreen
    */
-  handleKeydown(event: KeyboardEvent): void {
+  handleKeydown = (event: KeyboardEvent): void => {
     switch (event.keyCode) {
       case KeyMap.ENTER:
+        event.preventDefault();
         if (!event.repeat) {
           this.toggleFullscreen();
         }
@@ -117,7 +118,7 @@ class Fullscreen extends Component<
       default:
         break;
     }
-  }
+  };
   /**
    * toggle fullscreen based on current fullscreen state in store
    *
@@ -145,6 +146,7 @@ class Fullscreen extends Component<
             tabIndex="0"
             aria-label={this.props.isInFullscreen ? this.props.fullscreenExitText : this.props.fullscreenText}
             className={this.props.isInFullscreen ? [style.controlButton, style.isFullscreen].join(' ') : style.controlButton}
+            onKeyDown={this.handleKeydown}
             onClick={this.toggleFullscreen}
           >
             <Icon type={IconType.Maximize} />
