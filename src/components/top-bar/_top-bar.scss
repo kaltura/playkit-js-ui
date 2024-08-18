@@ -1,9 +1,9 @@
 .player .top-bar {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
   color: #fff;
+  height: auto;
   visibility: hidden;
   position: relative;
-  height: 50%;
   
   max-height: #{$top-bar-max-height}px;
   margin-top: #{-$top-bar-max-height}px;
