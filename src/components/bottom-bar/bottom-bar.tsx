@@ -143,7 +143,6 @@ class BottomBar extends Component<any, any> {
     const shouldRenderTimeDisplay: boolean = this.presetControls[TIME_DISPLAY_COMP] && !this.state.fitInControls[TIME_DISPLAY_COMP];
     return (
       <div className={styleClass.join(' ')}>
-        <div className={style.gradientSpacer}></div>
         <div className={style.bottomBarArea}>
           <PlayerArea shouldUpdate={true} name={'BottomBar'}>
             {shouldRenderTimeDisplay && <TimeDisplayPlaybackContainer />}
