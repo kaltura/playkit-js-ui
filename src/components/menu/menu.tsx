@@ -259,8 +259,10 @@ class MenuItem extends Component<any, any> {
   onKeyDown = (e: KeyboardEvent): void => {
     switch (e.keyCode) {
       case KeyMap.ENTER:
+      case KeyMap.SPACE:
         this.props.onSelect(this.props.data);
         e.stopPropagation();
+        e.preventDefault();
         break;
     }
   };
