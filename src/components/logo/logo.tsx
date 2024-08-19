@@ -6,6 +6,7 @@ import {withPlayer} from '../player';
 import {withLogger} from '../logger';
 import {withEventManager} from '../../event';
 import {withEventDispatcher} from '../event-dispatcher';
+import {KeyMap} from '../../utils';
 
 const COMPONENT_NAME = 'Logo';
 
@@ -74,6 +75,14 @@ class Logo extends Component<any, any> {
     }
   }
 
+  _handleKeyDown = (e: KeyboardEvent): void => {
+    if (e.keyCode === KeyMap.ENTER || e.keyCode === KeyMap.SPACE) {
+      window.open(this.state.urlLink, '_blank');
+      e.preventDefault();
+      this._handleOnClick();
+    }
+  }
+
   _handleOnClick = (): void => {
     this.props.notifyClick({logoUrl: this.state.urlLink});
   };
@@ -124,6 +133,7 @@ class Logo extends Component<any, any> {
         title={props.config.text}>
         <a
           onClick={this._handleOnClick}
+          onKeyDown={this._handleKeyDown}
           className={style.controlButton}
           href={this.state.urlLink}
           aria-label={props.config.text || props.logoText}
