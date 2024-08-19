@@ -9,6 +9,7 @@ import {withPlayer} from '../player';
 import {withLogger} from '../logger';
 import {Button} from '../button';
 import {RemotePlayerType} from '../cast';
+import {KeyMap} from '../../utils';
 
 /**
  * mapping state to props
@@ -53,6 +54,13 @@ class CastBeforePlay extends Component<any, any> {
    */
   onClick = (): void => {
     this.props.player.startCasting(RemotePlayerType.CHROMECAST);
+  };
+
+  _handleKeydown = (e: KeyboardEvent): void => {
+    if (e.keyCode === KeyMap.ENTER || e.keyCode === KeyMap.SPACE) {
+      e.preventDefault();
+      this.onClick();
+    }
   };
 
   /**
@@ -103,8 +111,8 @@ class CastBeforePlay extends Component<any, any> {
               tabIndex="0"
               aria-label={<Text id={'cast.play_on_tv'} />}
               onClick={this.onClick}
-              className={[style.btn, style.btnDarkTransparent, style.castOnTvButton].join(' ')}
-            >
+              onKeyDown={this._handleKeydown}
+              className={[style.btn, style.btnDarkTransparent, style.castOnTvButton].join(' ')}>
               <div className={style.castOnTvIconContainer}>
                 <Icon type={props.icon} />
               </div>
