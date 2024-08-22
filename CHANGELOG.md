@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.79.7 (2024-08-22)
+
+
+### Bug Fixes
+
+* **FEC-14108:** handle keydown on logo component ([#926](https://github.com/kaltura/playkit-js-ui/issues/926)) ([c458c5e](https://github.com/kaltura/playkit-js-ui/commit/c458c5e))
+
+
+
 ### 0.79.6 (2024-08-03)
 
 
