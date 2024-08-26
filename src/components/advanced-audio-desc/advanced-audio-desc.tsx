@@ -20,8 +20,9 @@ const COMPONENT_NAME = 'AdvancedAudioDesc';
  * @param {*} state - redux store state
  * @returns {Object} - mapped state to this component
  */
-const mapStateToProps = state => ({
-  showAdvancedAudioDescToggle: state.config.settings.showAdvancedAudioDescToggle
+const mapStateToProps = ({config, settings}) => ({
+  showAdvancedAudioDescToggle: config.settings.showAdvancedAudioDescToggle,
+  advancedAudioDescEnabled: settings.advancedAudioDesc
 });
 
 /**
@@ -38,7 +39,6 @@ const mapStateToProps = state => ({
 class AdvancedAudioDesc extends Component<any, any> implements IconComponent {
   constructor(props: any) {
     super();
-    this.state = {toggle: false};
     registerToBottomBar(COMPONENT_NAME, props.player, () => this.registerComponent());
   }
 
@@ -58,13 +58,13 @@ class AdvancedAudioDesc extends Component<any, any> implements IconComponent {
 
   getComponentText = (): any => {
     return this.props.AdvancedAudioDescText;
-  }
+  };
 
   getSvgIcon = (): any => {
     return {
       type: redux.useStore().getState().settings.advancedAudioDesc ? IconType.AdvancedAudioDescriptionActive : IconType.AdvancedAudioDescription
     };
-  }
+  };
 
   /**
    * should render component
@@ -80,13 +80,9 @@ class AdvancedAudioDesc extends Component<any, any> implements IconComponent {
    * @memberof AdvancedAudioDesc
    */
   onClick = (): void => {
-    this.setState(state => {
-      this.props.updateAdvancedAudioDesc(!state.toggle);
-      this.props.notifyClick({type: 'AdvancedAudioDescription', checked: !state.toggle});
-      return {
-        toggle: !state.toggle
-      };
-    });
+    const checked = !this.props.advancedAudioDescEnabled;
+    this.props.updateAdvancedAudioDesc(checked);
+    this.props.notifyClick({type: 'AdvancedAudioDescription', checked});
   };
 
   /**
@@ -101,7 +97,7 @@ class AdvancedAudioDesc extends Component<any, any> implements IconComponent {
       <ButtonControl name={COMPONENT_NAME} className={[style.noIdleControl, this.props.classNames ? this.props.classNames.join(' ') : ''].join(' ')}>
         <Tooltip label={AdvancedAudioDescText}>
           <Button tabIndex="0" aria-label={AdvancedAudioDescText} className={`${style.controlButton}`} ref={innerRef} onClick={this.onClick}>
-            <Icon type={this.state.toggle ? IconType.AdvancedAudioDescriptionActive : IconType.AdvancedAudioDescription} />
+            <Icon type={this.props.advancedAudioDescEnabled ? IconType.AdvancedAudioDescriptionActive : IconType.AdvancedAudioDescription} />
           </Button>
         </Tooltip>
       </ButtonControl>
@@ -111,7 +107,7 @@ class AdvancedAudioDesc extends Component<any, any> implements IconComponent {
 
 const getComponent = (props: any): VNode => {
   return <AdvancedAudioDesc {...props} />;
-}
+};
 
 AdvancedAudioDesc.displayName = COMPONENT_NAME;
 export {AdvancedAudioDesc};
