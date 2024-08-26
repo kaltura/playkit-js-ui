@@ -8,7 +8,7 @@ import {PlayerArea} from '../../components/player-area';
 import {PLAYER_BREAK_POINTS, TimeDisplayPlaybackContainer} from '../../components';
 import {withEventManager} from '../../event';
 import {withPlayer} from '../player';
-import {calculateControlsSize, filterControlsByPriority} from './bettom-bar-utils';
+import {calculateControlsSize, filterControlsByPriority} from './bottom-bar-utils';
 import {BottomBarRegistryManager, bottomBarRegistryManager} from './bottom-bar-registry-manager';
 
 

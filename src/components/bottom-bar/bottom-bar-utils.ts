@@ -31,6 +31,8 @@ export function filterControlsByPriority(
   const numOfOverflowControls = Math.ceil((currentMinBreakPointWidth - currentBarWidth) / currentControlWidth);
   const controlsToRemove = lowerPriorityControls.flat().slice(0, numOfOverflowControls);
   const priorityPair: string[] = [...lowerPriorityControls].reverse().find(p => p.length > 1)!;
-  if (controlsToRemove[controlsToRemove.length - 1] === priorityPair?.[0]) controlsToRemove.push(priorityPair[1]);
+  if (controlsToRemove[controlsToRemove.length - 1] === priorityPair?.[0]) {
+    controlsToRemove.push(priorityPair[1]);
+  }
   return controlsToRemove;
 }
