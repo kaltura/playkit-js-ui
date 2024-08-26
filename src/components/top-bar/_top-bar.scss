@@ -72,7 +72,7 @@
 .player.ad-break,
 .player.menu-active {
   &:not(.overlay-active) {
-    :global(.playkit-video-filter) {
+    :global(.#{$video-filter}) {
       &:before {
         @include bottom-bar-gradient();
 
@@ -128,7 +128,7 @@
   }
 }
 
-:global(.playkit-video-filter) {
+:global(.#{$video-filter}) {
   &:before {
     transition: #{$hover-animation-time}ms opacity ease-in-out;
     opacity: 0;

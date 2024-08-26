@@ -27,6 +27,7 @@ $bottom-bar-bottom-gutter: 4;
 $gui-gutter: 16;
 $gui-small-gutter: 8;
 $blur: 16px;
+$video-filter: playkit-video-filter;
 // ***************  Backward Compatibility - Deprecated  **************
 $brand-color: #006bff; // - refs in playkit-ui and related-plugin
 $white: #ffffff; // - refs in playkit-ui and related-plugin
@@ -72,6 +73,7 @@ $new-live-color: #e12437; // - refs in related-plugin
   defaultTransitionTime: $default-transition-time;
   bottomBarMaxHeight: $bottom-bar-max-height;
   topBarMaxHeight: $top-bar-max-height;
+  videoFilter: $video-filter;
   // ***************  Backward Compatibility - Deprecated  **************
   brandColor: $brand-color;
   white: $white;
