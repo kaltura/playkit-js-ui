@@ -21,12 +21,16 @@
   }
 
   .controls-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
     width: 100%;
     position: relative;
     z-index: 1;
 
     .left-controls {
-      float: left;
+      flex-shrink: 0;
       text-align: left;
       pointer-events: none;
 
@@ -36,7 +40,9 @@
     }
 
     .right-controls {
-      float: right;
+      display: flex;
+      flex-wrap: nowrap;
+      flex-grow: 0;
       text-align: left;
       pointer-events: none;
 
@@ -67,8 +73,15 @@
 
 .player {
   &.size-ty {
-    .left-controls {
-      display: none;
+    .controls-container {
+      display: block;
+      .left-controls {
+        display: none;
+      }
+      .right-controls {
+        display: block;
+        float: right;
+      }
     }
     .control-button-container {
       display: none;

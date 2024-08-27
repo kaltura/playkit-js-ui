@@ -56,8 +56,7 @@ class BottomBar extends Component<any, any> {
   presetControls: {[controlName: string]: boolean} = {};
   currentBarWidth: number = 0;
   resizeObserver!: ResizeObserver;
-
-  currentMinBreakPointWidth = 0;
+  _maxControlsWidth = 0;
 
   // eslint-disable-next-line require-jsdoc
   constructor(props: any) {
@@ -87,6 +86,7 @@ class BottomBar extends Component<any, any> {
   // eslint-disable-next-line require-jsdoc
   componentWillUnmount(): void {
     this.resizeObserver.disconnect();
+    this._maxControlsWidth = 0;
   }
 
   private _getControlsWidth = (element: HTMLElement) => {
@@ -95,18 +95,14 @@ class BottomBar extends Component<any, any> {
 
   // eslint-disable-next-line require-jsdoc
   onBarWidthChange(resizeObserverEntry: ResizeObserverEntry): void {
-    // @ts-ignore
-    if (!this.currentMinBreakPointWidth) {
-      // @ts-ignore
-      // this.currentMinBreakPointWidth = Object.values(barRef.target.childNodes).reduce((total, i: HTMLElement) => total + i.offsetWidth, 0));
-      this.currentMinBreakPointWidth = this._getControlsWidth(resizeObserverEntry.target);
-    }
     const barWidth = resizeObserverEntry.contentRect.width;
+    const currentControlsWidth = this._getControlsWidth(resizeObserverEntry.target as HTMLElement);
+    this._maxControlsWidth = Math.max(this._maxControlsWidth, currentControlsWidth);
     if (barWidth !== this.currentBarWidth) {
       this.currentBarWidth = barWidth;
       const currCrlWidth = this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.SMALL ? CRL_WIDTH + CRL_MARGIN / 2 : CRL_WIDTH + CRL_MARGIN;
       const lowerPriorityControls = LOWER_PRIORITY_CONTROLS.filter(c => this.state.activeControls[c[0]]);
-      this.filterControls(barWidth, this.currentMinBreakPointWidth, currCrlWidth, lowerPriorityControls);
+      this.filterControls(barWidth, this._maxControlsWidth, currCrlWidth, lowerPriorityControls);
     }
   }
 
