@@ -8,9 +8,8 @@ import {PlayerArea} from '../../components/player-area';
 import {PLAYER_BREAK_POINTS, TimeDisplayPlaybackContainer} from '../../components';
 import {withEventManager} from '../../event';
 import {withPlayer} from '../player';
-import {calculateControlsSize, filterControlsByPriority} from './bottom-bar-utils';
+import {filterControlsByPriority} from './bottom-bar-utils';
 import {BottomBarRegistryManager, bottomBarRegistryManager} from './bottom-bar-registry-manager';
-
 
 const LOWER_PRIORITY_CONTROLS: string[][] = [
   ['PictureInPicture'],
@@ -58,6 +57,8 @@ class BottomBar extends Component<any, any> {
   currentBarWidth: number = 0;
   resizeObserver!: ResizeObserver;
 
+  currentMinBreakPointWidth = 0;
+
   // eslint-disable-next-line require-jsdoc
   constructor(props: any) {
     super();
@@ -88,16 +89,28 @@ class BottomBar extends Component<any, any> {
     this.resizeObserver.disconnect();
   }
 
+  calculateOriginalWidths() {}
+
   // eslint-disable-next-line require-jsdoc
   onBarWidthChange(entry: ResizeObserverEntry[]): void {
-    const barWidth = entry[0].contentRect.width;
+    const barRef = entry[0];
+
+    // @ts-ignore
+    if (!this.currentMinBreakPointWidth) {
+      // @ts-ignore
+      // this.currentMinBreakPointWidth = Object.values(barRef.target.childNodes).reduce((total, i: HTMLElement) => total + i.offsetWidth, 0));
+      this.currentMinBreakPointWidth = this.currentMinBreakPointWidth = Array.from(barRef.target.childNodes).reduce(
+        (total, child: HTMLElement) => total + child.offsetWidth,
+        0
+      );
+    }
+    const barWidth = barRef.contentRect.width;
     if (barWidth !== this.currentBarWidth) {
-      const activeControls = Object.keys(this.state.activeControls).filter(c => this.state.activeControls[c]);
-      const currCrlWidth = this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.SMALL ? CRL_WIDTH + CRL_MARGIN / 2 : CRL_WIDTH + CRL_MARGIN;
-      const currentMinBreakPointWidth = calculateControlsSize(activeControls, currCrlWidth, this.props.guiClientRect.width, this.props.playlist);
-      const lowerPriorityControls = LOWER_PRIORITY_CONTROLS.filter(c => this.state.activeControls[c[0]]);
       this.currentBarWidth = barWidth;
-      this.filterControls(barWidth, currentMinBreakPointWidth, currCrlWidth, lowerPriorityControls);
+      const currCrlWidth = this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.SMALL ? CRL_WIDTH + CRL_MARGIN / 2 : CRL_WIDTH + CRL_MARGIN;
+      // const currentMinBreakPointWidth = Object.values(barRef.target.childNodes).reduce((total, i: HTMLElement) => total + i.offsetWidth, 0);
+      const lowerPriorityControls = LOWER_PRIORITY_CONTROLS.filter(c => this.state.activeControls[c[0]]);
+      this.filterControls(barWidth, this.currentMinBreakPointWidth, currCrlWidth, lowerPriorityControls);
     }
   }
 
@@ -109,7 +122,6 @@ class BottomBar extends Component<any, any> {
 
   // eslint-disable-next-line require-jsdoc
   filterControls(currentBarWidth: number, currentMinBreakPointWidth: number, currentControlWidth: number, lowerPriorityControls: string[][]): void {
-    // move up
     const isBreak = currentMinBreakPointWidth >= currentBarWidth;
     if (isBreak) {
       const controlsToRemove = filterControlsByPriority(currentMinBreakPointWidth, currentBarWidth, currentControlWidth, lowerPriorityControls);
@@ -141,7 +153,7 @@ class BottomBar extends Component<any, any> {
       <div className={styleClass.join(' ')}>
         <div className={style.bottomBarArea}>
           <PlayerArea shouldUpdate={true} name={'BottomBar'}>
-            {shouldRenderTimeDisplay && <TimeDisplayPlaybackContainer/>}
+            {shouldRenderTimeDisplay && <TimeDisplayPlaybackContainer />}
             {props.children}
           </PlayerArea>
         </div>
