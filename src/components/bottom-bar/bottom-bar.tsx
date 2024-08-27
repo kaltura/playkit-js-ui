@@ -80,7 +80,7 @@ class BottomBar extends Component<any, any> {
    * @memberof BottomBar
    */
   componentDidMount(): void {
-    this.resizeObserver = new ResizeObserver((entry: ResizeObserverEntry[]) => this.onBarWidthChange(entry));
+    this.resizeObserver = new ResizeObserver((entry: ResizeObserverEntry[]) => this.onBarWidthChange(entry[0]));
     this.resizeObserver.observe(this.bottomBarContainerRef.current!);
   }
 
@@ -89,26 +89,22 @@ class BottomBar extends Component<any, any> {
     this.resizeObserver.disconnect();
   }
 
-  calculateOriginalWidths() {}
+  private _getControlsWidth = (element: HTMLElement) => {
+    return Array.from(element.childNodes).reduce((total, child: HTMLElement) => total + child.offsetWidth, 0);
+  };
 
   // eslint-disable-next-line require-jsdoc
-  onBarWidthChange(entry: ResizeObserverEntry[]): void {
-    const barRef = entry[0];
-
+  onBarWidthChange(resizeObserverEntry: ResizeObserverEntry): void {
     // @ts-ignore
     if (!this.currentMinBreakPointWidth) {
       // @ts-ignore
       // this.currentMinBreakPointWidth = Object.values(barRef.target.childNodes).reduce((total, i: HTMLElement) => total + i.offsetWidth, 0));
-      this.currentMinBreakPointWidth = this.currentMinBreakPointWidth = Array.from(barRef.target.childNodes).reduce(
-        (total, child: HTMLElement) => total + child.offsetWidth,
-        0
-      );
+      this.currentMinBreakPointWidth = this._getControlsWidth(resizeObserverEntry.target);
     }
-    const barWidth = barRef.contentRect.width;
+    const barWidth = resizeObserverEntry.contentRect.width;
     if (barWidth !== this.currentBarWidth) {
       this.currentBarWidth = barWidth;
       const currCrlWidth = this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.SMALL ? CRL_WIDTH + CRL_MARGIN / 2 : CRL_WIDTH + CRL_MARGIN;
-      // const currentMinBreakPointWidth = Object.values(barRef.target.childNodes).reduce((total, i: HTMLElement) => total + i.offsetWidth, 0);
       const lowerPriorityControls = LOWER_PRIORITY_CONTROLS.filter(c => this.state.activeControls[c[0]]);
       this.filterControls(barWidth, this.currentMinBreakPointWidth, currCrlWidth, lowerPriorityControls);
     }
