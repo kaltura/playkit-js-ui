@@ -1,5 +1,16 @@
-.player .bottom-bar {
+@mixin bottom-bar-gradient {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  max-height: 200px;
+  opacity: 1;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
+  content: "";
+}
+
+.player .bottom-bar {
   color: #fff;
   height: auto;
   width: 100%;
@@ -91,6 +102,12 @@
 .player.ad-break,
 .player.menu-active {
   &:not(.overlay-active) {
+    :global(.#{$video-filter}) {
+      &:after {
+        @include bottom-bar-gradient();
+      }
+    }
+
     .bottom-bar {
       position: relative;
       opacity: 1;
@@ -123,5 +140,12 @@
         pointer-events: auto;
       }
     }
+  }
+}
+
+:global(.#{$video-filter}) {
+  &:after {
+    transition: #{$hover-animation-time}ms opacity ease-in-out;
+    opacity: 0;
   }
 }
