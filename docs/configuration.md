@@ -112,6 +112,16 @@ var uiManager = new playkit.ui.UIManager(player, config);
 
 ##
 
+> ### config.tinySizeDisabled
+>
+> ##### Type: `boolean`
+>
+> ##### Default: `false`
+>
+> ##### Description: Disable tiny size of player (../src/components/shell/shell.tsx)
+
+##
+
 > ### config.logLevel
 >
 > ##### Type: `string`
