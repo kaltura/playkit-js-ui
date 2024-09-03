@@ -49,7 +49,7 @@ const KEYBOARD_DEFAULT_VOLUME_JUMP: number = 5;
 const translates = (props: any) => ({
   volumeLabel: props.muted ? <Text id="controls.unmute">Unmute</Text> : <Text id="controls.mute">Mute</Text>,
   sliderAriaLabel: <Text id="volume.volume_slider_aria_label">Volume</Text>, 
-  sliderAriaDescription: <Text id="volume.volume_slider_aria_label">Use the arrows to control the volume</Text>
+  sliderAriaDescription: <Text id="volume.volume_slider_description">Use the arrows to control the volume</Text>
 });
 
 /**
