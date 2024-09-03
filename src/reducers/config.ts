@@ -23,6 +23,7 @@ export const initialState = {
     showAdvancedCaptionsMenu: true
   },
   hoverTimeout: 3000,
+  tinySizeDisabled: false,
   components: {
     watermark: {} as any,
     seekbar: {} as any,

@@ -38,7 +38,8 @@ const mapStateToProps = state => ({
   smartContainerOpen: state.shell.smartContainerOpen,
   fullscreen: state.engine.fullscreen,
   fallbackToMutedAutoPlay: state.engine.fallbackToMutedAutoPlay,
-  playlist: state.engine.playlist
+  playlist: state.engine.playlist,
+  tinySizeDisabled: state.config.tinySizeDisabled
 });
 
 const ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY: number = 100;
@@ -400,7 +401,7 @@ class Shell extends Component<any, any> {
     if (this.props.fullscreen) playerClasses.push(style.fullscreen);
     if (this.props.playlist) playerClasses.push(style.playlist);
     if (this.props.guiClientRect) {
-      if (this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.TINY) {
+      if (this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.TINY && !this.props.tinySizeDisabled) {
         playerClasses.push(style.sizeTy);
         this.props.updatePlayerSize(PLAYER_SIZE.TINY);
       } else if (this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.EXTRA_SMALL) {
