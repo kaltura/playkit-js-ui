@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.79.8 (2024-09-05)
+
+
+### Bug Fixes
+
+* **FEC-14091:** disable tiny player configuration ([#935](https://github.com/kaltura/playkit-js-ui/issues/935)) ([42f5600](https://github.com/kaltura/playkit-js-ui/commit/42f5600))
+
+
+
 ### 0.79.7 (2024-08-22)
 
 
