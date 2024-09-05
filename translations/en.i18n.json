@@ -87,6 +87,7 @@
       "media_not_ready_error_message": "Media is processing, check back soon.",
       "geo_location_error_title": "Geo location unavailable",
       "geo_location_error_message": "This content is unavailable in your region.",
+      "ip_restricted_error_message": "This media has been restricted to certain IP addresses.",
       "default_session_text": "Copy for customer care: session ID",
       "retry": "Try again"
     },
