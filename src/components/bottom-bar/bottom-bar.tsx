@@ -11,6 +11,7 @@ import {withPlayer} from '../player';
 import {calculateControlsSize, filterControlsByPriority} from './bettom-bar-utils';
 import {BottomBarRegistryManager, bottomBarRegistryManager} from './bottom-bar-registry-manager';
 
+
 const LOWER_PRIORITY_CONTROLS: string[][] = [
   ['PictureInPicture'],
   ['VrStereo'],
@@ -52,10 +53,10 @@ const COMPONENT_NAME = 'BottomBar';
 @withEventManager
 @connect(mapStateToProps, bindActions({...actions, ...bottomBarActions}))
 class BottomBar extends Component<any, any> {
-  private bottomBarContainerRef: RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
-  private presetControls: {[controlName: string]: boolean} = {};
-  private currentBarWidth: number = 0;
-  private resizeObserver!: ResizeObserver;
+  bottomBarContainerRef: RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
+  presetControls: {[controlName: string]: boolean} = {};
+  currentBarWidth: number = 0;
+  resizeObserver!: ResizeObserver;
 
   // eslint-disable-next-line require-jsdoc
   constructor(props: any) {
@@ -77,18 +78,18 @@ class BottomBar extends Component<any, any> {
    * @returns {void}
    * @memberof BottomBar
    */
-  public componentDidMount(): void {
+  componentDidMount(): void {
     this.resizeObserver = new ResizeObserver((entry: ResizeObserverEntry[]) => this.onBarWidthChange(entry));
     this.resizeObserver.observe(this.bottomBarContainerRef.current!);
   }
 
   // eslint-disable-next-line require-jsdoc
-  public componentWillUnmount(): void {
+  componentWillUnmount(): void {
     this.resizeObserver.disconnect();
   }
 
   // eslint-disable-next-line require-jsdoc
-  private onBarWidthChange(entry: ResizeObserverEntry[]): void {
+  onBarWidthChange(entry: ResizeObserverEntry[]): void {
     const barWidth = entry[0].contentRect.width;
     if (barWidth !== this.currentBarWidth) {
       const activeControls = Object.keys(this.state.activeControls).filter(c => this.state.activeControls[c]);
@@ -100,19 +101,14 @@ class BottomBar extends Component<any, any> {
     }
   }
 
-  private onToggleControl = (controlName: string, isActive: boolean): void => {
+  onToggleControl = (controlName: string, isActive: boolean): void => {
     if (controlName in this.state.activeControls && this.state.activeControls[controlName] !== isActive) {
       this.setState(state => ({activeControls: {...state.activeControls, ...{[controlName]: isActive}}}));
     }
   };
 
   // eslint-disable-next-line require-jsdoc
-  private filterControls(
-    currentBarWidth: number,
-    currentMinBreakPointWidth: number,
-    currentControlWidth: number,
-    lowerPriorityControls: string[][]
-  ): void {
+  filterControls(currentBarWidth: number, currentMinBreakPointWidth: number, currentControlWidth: number, lowerPriorityControls: string[][]): void {
     // move up
     const isBreak = currentMinBreakPointWidth >= currentBarWidth;
     if (isBreak) {
@@ -134,7 +130,7 @@ class BottomBar extends Component<any, any> {
    * @returns {?React$Element} - component element
    * @memberof BottomBar
    */
-  public render(props: any) {
+  render(props: any) {
     const styleClass = [style.bottomBar];
     if (props.isCasting && props.isPlaybackEnded) {
       styleClass.push(style.hide);
@@ -145,7 +141,7 @@ class BottomBar extends Component<any, any> {
       <div className={styleClass.join(' ')}>
         <div className={style.bottomBarArea}>
           <PlayerArea shouldUpdate={true} name={'BottomBar'}>
-            {shouldRenderTimeDisplay && <TimeDisplayPlaybackContainer />}
+            {shouldRenderTimeDisplay && <TimeDisplayPlaybackContainer/>}
             {props.children}
           </PlayerArea>
         </div>
