@@ -27,7 +27,9 @@ const errorsMap: Map<number, ErrorDetails> = new Map<number, ErrorDetails>([
   /** GEOLOCATION */
   [13, {title: 'geo_location_error_title', message: 'geo_location_error_message'}],
   /** KS RESTRICTION */
-  [14, {title: 'media_unavailable_error_title', message: 'media_unavailable_error_message'}]
+  [14, {title: 'media_unavailable_error_title', message: 'media_unavailable_error_message'}],
+  /** IP RESTRICTION */
+  [15, {title: 'media_unavailable_error_title', message: 'ip_restricted_error_message'}]
 ]);
 
 const defaultError: ErrorDetails = {
