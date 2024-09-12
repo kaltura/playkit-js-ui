@@ -25,7 +25,7 @@ interface ExpandableTextProps {
 
 const ReadMoreLessButton = ({isTextExpanded, readLessLabel, readMoreLabel, onClick, onKeyDown, ...otherProps}) => {
   return (
-    <div className={styles.moreButtonText} onClick={onClick} onKeyDown={onKeyDown} {...otherProps}>
+    <div tabIndex={0} className={styles.moreButtonText} onClick={onClick} onKeyDown={onKeyDown} {...otherProps}>
       {isTextExpanded ? readLessLabel : readMoreLabel}
     </div>
   );
