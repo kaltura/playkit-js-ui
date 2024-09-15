@@ -15,6 +15,7 @@ import {EventType, withEventManager} from '../../event';
 import {SeekBarPreview} from '../seekbar-preview';
 import {ProgressIndicator} from '../progress-indicator';
 import {KeyboardEventHandlers} from '../../types';
+import {PLAYER_BREAK_POINTS} from '../shell';
 
 /**
  * mapping state to props
@@ -29,7 +30,8 @@ const mapStateToProps = state => ({
   hideTimeBubble: state.seekbar.hideTimeBubble,
   segments: state.seekbar.segments,
   seekbarClasses: state.seekbar.seekbarClasses,
-  isPreventSeek: state.seekbar.isPreventSeek
+  isPreventSeek: state.seekbar.isPreventSeek,
+  guiClientRect: state.shell.guiClientRect
 });
 
 const COMPONENT_NAME = 'SeekBar';
@@ -109,6 +111,13 @@ class SeekBar extends Component<any, any> {
         this.setState({resizing: false});
       }, Number(style.defaultTransitionTime));
     });
+    if (this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.SMALL) {
+      eventManager.listenOnce(player, player.Event.UI.USER_CLICKED_PLAY, () => {
+        eventManager.listenOnce(player, player.Event.Core.FIRST_PLAY, () => {
+          this._seekBarElement?.focus();
+        });
+      });
+    }
     document.addEventListener('mouseup', this.onPlayerMouseUp);
     document.addEventListener('mousemove', this.onPlayerMouseMove);
     this.props.registerKeyboardEvents(this._keyboardEventHandlers);
