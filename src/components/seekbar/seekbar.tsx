@@ -15,7 +15,7 @@ import {EventType, withEventManager} from '../../event';
 import {SeekBarPreview} from '../seekbar-preview';
 import {ProgressIndicator} from '../progress-indicator';
 import {KeyboardEventHandlers} from '../../types';
-import {PLAYER_BREAK_POINTS} from '../shell';
+import {PLAYER_SIZE} from '../shell';
 
 /**
  * mapping state to props
@@ -31,7 +31,7 @@ const mapStateToProps = state => ({
   segments: state.seekbar.segments,
   seekbarClasses: state.seekbar.seekbarClasses,
   isPreventSeek: state.seekbar.isPreventSeek,
-  guiClientRect: state.shell.guiClientRect
+  playerSize: state.shell.playerSize
 });
 
 const COMPONENT_NAME = 'SeekBar';
@@ -100,7 +100,7 @@ class SeekBar extends Component<any, any> {
    * @memberof SeekBar
    */
   componentDidMount(): void {
-    const {player, eventManager} = this.props;
+    const {player, eventManager, playerSize} = this.props;
     const clientRect = this._seekBarElement.getBoundingClientRect();
     this.props.updateSeekbarClientRect(clientRect);
     eventManager.listen(player, EventType.GUI_RESIZE, () => {
@@ -111,7 +111,8 @@ class SeekBar extends Component<any, any> {
         this.setState({resizing: false});
       }, Number(style.defaultTransitionTime));
     });
-    if (this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.SMALL) {
+    const smallSizes = [PLAYER_SIZE.TINY, PLAYER_SIZE.EXTRA_SMALL, PLAYER_SIZE.SMALL];
+    if (smallSizes.includes(playerSize)) {
       eventManager.listenOnce(player, player.Event.UI.USER_CLICKED_PLAY, () => {
         eventManager.listenOnce(player, player.Event.Core.FIRST_PLAY, () => {
           this._seekBarElement?.focus();
