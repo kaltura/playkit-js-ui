@@ -232,7 +232,7 @@ class Tooltip extends Component<TooltipProps & WithEventManagerProps, any> {
     const {eventManager} = this.props;
     eventManager!.listen(document, 'click', e => this.handleClickOutside(e));
     if (this._buttonRef?.addEventListener) {
-      this._buttonRef.addEventListener('keydown', this.handleKeyDown);
+      eventManager!.listen(this._buttonRef, 'keydown', this.handleKeyDown);
     }
   }
 
@@ -281,9 +281,10 @@ class Tooltip extends Component<TooltipProps & WithEventManagerProps, any> {
    * @memberof Tooltip
    */
   componentWillUnmount(): void {
+    const {eventManager} = this.props;
     this._clearHoverTimeout();
     if (this._buttonRef?.removeEventListener) {
-      this._buttonRef.removeEventListener('keydown', this.handleKeyDown);
+      eventManager!.unlisten(this._buttonRef, 'keydown', this.handleKeyDown);
     }
   }
 
