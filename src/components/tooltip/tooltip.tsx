@@ -281,11 +281,7 @@ class Tooltip extends Component<TooltipProps & WithEventManagerProps, any> {
    * @memberof Tooltip
    */
   componentWillUnmount(): void {
-    const {eventManager} = this.props;
     this._clearHoverTimeout();
-    if (this._buttonRef?.removeEventListener) {
-      eventManager!.unlisten(this._buttonRef, 'keydown', this.handleKeyDown);
-    }
   }
 
   /**
