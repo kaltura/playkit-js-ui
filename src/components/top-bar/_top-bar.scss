@@ -73,6 +73,15 @@
 .player.ad-break,
 .player.menu-active {
   &:not(.overlay-active) {
+    :global(.#{$video-filter}) {
+      &:before {
+        @include bottom-bar-gradient();
+
+        top: 0;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
+      }
+    }
+
     .top-bar {
       visibility: visible;
       margin-top: 0;
@@ -117,5 +126,12 @@
     &:empty {
       margin: 0;
     }
+  }
+}
+
+:global(.#{$video-filter}) {
+  &:before {
+    transition: #{$hover-animation-time}ms opacity ease-in-out;
+    opacity: 0;
   }
 }
