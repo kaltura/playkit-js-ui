@@ -4,9 +4,6 @@ import {connect} from 'react-redux';
 import {withEventManager} from '../../event';
 import {WithEventManagerProps} from '../../event/with-event-manager';
 import {KeyMap} from '../../utils/key-map';
-import {withKeyboardEvent} from '../../components/keyboard';
-import {KeyboardEventHandlers} from '../../types';
-import {WithKeyboardEventProps} from '../keyboard/with-keyboard-event';
 
 interface ReduxStateProps {
   playerClientRect?: DOMRect;
@@ -53,7 +50,6 @@ const ToolTipType: {[type: string]: ToolTipPosition} = {
   Right: 'right'
 };
 
-const COMPONENT_NAME = 'Tooltip';
 
 /**
  * Tooltip component
@@ -64,8 +60,7 @@ const COMPONENT_NAME = 'Tooltip';
  */
 @connect(mapStateToProps)
 @withEventManager
-@withKeyboardEvent(COMPONENT_NAME)
-class Tooltip extends Component<TooltipProps & WithEventManagerProps & WithKeyboardEventProps, any> {
+class Tooltip extends Component<TooltipProps & WithEventManagerProps, any> {
   _hoverTimeout: number | null = null;
   textElement!: HTMLSpanElement;
   tooltipElement!: HTMLDivElement;
@@ -319,8 +314,7 @@ class Tooltip extends Component<TooltipProps & WithEventManagerProps & WithKeybo
         className={style.tooltip}
         onMouseOver={this.onMouseOver}
         onMouseLeave={this.onMouseLeave}
-        ref={el => (el ? (this.tooltipElement = el) : undefined)}
-      >
+        ref={el => (el ? (this.tooltipElement = el) : undefined)}>
         {children}
         <span style={{maxWidth: props.maxWidth}} ref={el => (el ? (this.textElement = el) : undefined)} className={className.join(' ')}>
           {props.label}
