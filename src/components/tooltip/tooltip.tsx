@@ -3,6 +3,10 @@ import {h, Component, toChildArray, cloneElement, VNode} from 'preact';
 import {connect} from 'react-redux';
 import {withEventManager} from '../../event';
 import {WithEventManagerProps} from '../../event/with-event-manager';
+import {KeyMap} from '../../utils/key-map';
+import {withKeyboardEvent} from '../../components/keyboard';
+import {KeyboardEventHandlers} from '../../types';
+import {WithKeyboardEventProps} from '../keyboard/with-keyboard-event';
 
 interface ReduxStateProps {
   playerClientRect?: DOMRect;
@@ -49,6 +53,8 @@ const ToolTipType: {[type: string]: ToolTipPosition} = {
   Right: 'right'
 };
 
+const COMPONENT_NAME = 'Tooltip';
+
 /**
  * Tooltip component
  *
@@ -58,11 +64,13 @@ const ToolTipType: {[type: string]: ToolTipPosition} = {
  */
 @connect(mapStateToProps)
 @withEventManager
-class Tooltip extends Component<TooltipProps & WithEventManagerProps, any> {
+@withKeyboardEvent(COMPONENT_NAME)
+class Tooltip extends Component<TooltipProps & WithEventManagerProps & WithKeyboardEventProps, any> {
   _hoverTimeout: number | null = null;
   textElement!: HTMLSpanElement;
   tooltipElement!: HTMLDivElement;
   lastAlternativeTypeIndex: number = -1;
+  _buttonRef: HTMLButtonElement | null = null;
 
   /**
    * default component props
@@ -104,6 +112,26 @@ class Tooltip extends Component<TooltipProps & WithEventManagerProps, any> {
    */
   hideTooltip = (): void => {
     this.setState({showTooltip: false});
+  };
+
+  /**
+   * handle keyDown
+   * @memberof Tooltip
+   * @returns {void}
+   */
+  handleKeyDown = (event: KeyboardEvent): void => {
+    if (event.keyCode === KeyMap.ESC) {
+      this.hideTooltip();
+    }
+  };
+
+  /**
+   * set button ref
+   * @memberof Tooltip
+   * @returns {void}
+   */
+  setButtonRef = (element: HTMLButtonElement | null) => {
+    this._buttonRef = element;
   };
 
   /**
@@ -209,6 +237,9 @@ class Tooltip extends Component<TooltipProps & WithEventManagerProps, any> {
   componentDidMount() {
     const {eventManager} = this.props;
     eventManager!.listen(document, 'click', e => this.handleClickOutside(e));
+    if (this._buttonRef?.addEventListener) {
+      this._buttonRef.addEventListener('keydown', this.handleKeyDown);
+    }
   }
 
   /**
@@ -257,6 +288,9 @@ class Tooltip extends Component<TooltipProps & WithEventManagerProps, any> {
    */
   componentWillUnmount(): void {
     this._clearHoverTimeout();
+    if (this._buttonRef?.removeEventListener) {
+      this._buttonRef.removeEventListener('keydown', this.handleKeyDown);
+    }
   }
 
   /**
@@ -277,14 +311,16 @@ class Tooltip extends Component<TooltipProps & WithEventManagerProps, any> {
     }
     const children = cloneElement(props.children, {
       onFocus: this.handleFocusOnChildren,
-      onBlur: this.handleBlurOnChildren
+      onBlur: this.handleBlurOnChildren,
+      ref: this.setButtonRef
     });
     return (
       <div
         className={style.tooltip}
         onMouseOver={this.onMouseOver}
         onMouseLeave={this.onMouseLeave}
-        ref={el => (el ? (this.tooltipElement = el) : undefined)}>
+        ref={el => (el ? (this.tooltipElement = el) : undefined)}
+      >
         {children}
         <span style={{maxWidth: props.maxWidth}} ref={el => (el ? (this.textElement = el) : undefined)} className={className.join(' ')}>
           {props.label}
