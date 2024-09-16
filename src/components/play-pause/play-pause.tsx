@@ -15,6 +15,7 @@ import {Button} from '../button';
 import {actions as shellActions} from '../../reducers/shell';
 import {ButtonControl} from '../button-control';
 import {withEventManager} from '../../event';
+import {PLAYER_SIZE} from '../shell';
 
 /**
  * mapping state to props
@@ -25,7 +26,8 @@ const mapStateToProps = state => ({
   isPlayingAdOrPlayback: isPlayingAdOrPlayback(state.engine),
   isPlaying: state.engine.isPlaying,
   adBreak: state.engine.adBreak,
-  isPlaybackEnded: state.engine.isPlaybackEnded
+  isPlaybackEnded: state.engine.isPlaybackEnded,
+  playerSize: state.shell.playerSize
 });
 
 const COMPONENT_NAME = 'PlayPause';
@@ -57,12 +59,15 @@ class PlayPause extends Component<any, any> {
    * @memberof PlayPause
    */
   componentDidMount(): void {
-    const {eventManager, player} = this.props;
-    eventManager.listenOnce(player, player.Event.UI.USER_CLICKED_PLAY, () => {
-      eventManager.listenOnce(player, player.Event.Core.FIRST_PLAY, () => {
-        this._playPauseButtonRef?.focus();
+    const {eventManager, player, playerSize} = this.props;
+    const smallSizes = [PLAYER_SIZE.TINY, PLAYER_SIZE.EXTRA_SMALL, PLAYER_SIZE.SMALL];
+    if (!smallSizes.includes(playerSize)) {
+      eventManager.listenOnce(player, player.Event.UI.USER_CLICKED_PLAY, () => {
+        eventManager.listenOnce(player, player.Event.Core.FIRST_PLAY, () => {
+          this._playPauseButtonRef?.focus();
+        });
       });
-    });
+    }
   }
 
   /**
