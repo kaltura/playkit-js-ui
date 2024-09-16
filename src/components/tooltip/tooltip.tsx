@@ -3,6 +3,7 @@ import {h, Component, toChildArray, cloneElement, VNode} from 'preact';
 import {connect} from 'react-redux';
 import {withEventManager} from '../../event';
 import {WithEventManagerProps} from '../../event/with-event-manager';
+import {KeyMap} from '../../utils/key-map';
 
 interface ReduxStateProps {
   playerClientRect?: DOMRect;
@@ -63,6 +64,7 @@ class Tooltip extends Component<TooltipProps & WithEventManagerProps, any> {
   textElement!: HTMLSpanElement;
   tooltipElement!: HTMLDivElement;
   lastAlternativeTypeIndex: number = -1;
+  _buttonRef: HTMLButtonElement | null = null;
 
   /**
    * default component props
@@ -104,6 +106,26 @@ class Tooltip extends Component<TooltipProps & WithEventManagerProps, any> {
    */
   hideTooltip = (): void => {
     this.setState({showTooltip: false});
+  };
+
+  /**
+   * handle keyDown
+   * @memberof Tooltip
+   * @returns {void}
+   */
+  handleKeyDown = (event: KeyboardEvent): void => {
+    if (event.keyCode === KeyMap.ESC) {
+      this.hideTooltip();
+    }
+  };
+
+  /**
+   * set button ref
+   * @memberof Tooltip
+   * @returns {void}
+   */
+  setButtonRef = (element: HTMLButtonElement | null) => {
+    this._buttonRef = element;
   };
 
   /**
@@ -209,6 +231,9 @@ class Tooltip extends Component<TooltipProps & WithEventManagerProps, any> {
   componentDidMount() {
     const {eventManager} = this.props;
     eventManager!.listen(document, 'click', e => this.handleClickOutside(e));
+    if (this._buttonRef?.addEventListener) {
+      eventManager!.listen(this._buttonRef, 'keydown', this.handleKeyDown);
+    }
   }
 
   /**
@@ -277,7 +302,8 @@ class Tooltip extends Component<TooltipProps & WithEventManagerProps, any> {
     }
     const children = cloneElement(props.children, {
       onFocus: this.handleFocusOnChildren,
-      onBlur: this.handleBlurOnChildren
+      onBlur: this.handleBlurOnChildren,
+      ref: this.setButtonRef
     });
     return (
       <div
