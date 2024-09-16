@@ -50,7 +50,6 @@ const ToolTipType: {[type: string]: ToolTipPosition} = {
   Right: 'right'
 };
 
-
 /**
  * Tooltip component
  *
