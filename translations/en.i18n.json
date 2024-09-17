@@ -58,6 +58,7 @@
       "qualityHdLabel": "Quality is HD",
       "quality4kLabel": "Quality is 4k",
       "quality8kLabel": "Quality is 8k",
+      "advanced_audio_description": "Extended Audio Description",
       "advanced_audio_description_enabled": "Disable Extended Audio Description",
       "advanced_audio_description_disabled": "Enable Extended Audio Description"
     },
