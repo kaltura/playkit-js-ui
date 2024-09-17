@@ -8,9 +8,8 @@ import {PlayerArea} from '../../components/player-area';
 import {PLAYER_BREAK_POINTS, TimeDisplayPlaybackContainer} from '../../components';
 import {withEventManager} from '../../event';
 import {withPlayer} from '../player';
-import {calculateControlsSize, filterControlsByPriority} from './bettom-bar-utils';
+import {filterControlsByPriority} from './bottom-bar-utils';
 import {BottomBarRegistryManager, bottomBarRegistryManager} from './bottom-bar-registry-manager';
-
 
 const LOWER_PRIORITY_CONTROLS: string[][] = [
   ['PictureInPicture'],
@@ -57,6 +56,7 @@ class BottomBar extends Component<any, any> {
   presetControls: {[controlName: string]: boolean} = {};
   currentBarWidth: number = 0;
   resizeObserver!: ResizeObserver;
+  _maxControlsWidth = 0;
 
   // eslint-disable-next-line require-jsdoc
   constructor(props: any) {
@@ -79,25 +79,30 @@ class BottomBar extends Component<any, any> {
    * @memberof BottomBar
    */
   componentDidMount(): void {
-    this.resizeObserver = new ResizeObserver((entry: ResizeObserverEntry[]) => this.onBarWidthChange(entry));
+    this.resizeObserver = new ResizeObserver((entry: ResizeObserverEntry[]) => this.onBarWidthChange(entry[0]));
     this.resizeObserver.observe(this.bottomBarContainerRef.current!);
   }
 
   // eslint-disable-next-line require-jsdoc
   componentWillUnmount(): void {
     this.resizeObserver.disconnect();
+    this._maxControlsWidth = 0;
   }
 
+  private _getControlsWidth = (element: HTMLElement) => {
+    return Array.from(element.childNodes).reduce((total, child: HTMLElement) => total + child.offsetWidth, 0);
+  };
+
   // eslint-disable-next-line require-jsdoc
-  onBarWidthChange(entry: ResizeObserverEntry[]): void {
-    const barWidth = entry[0].contentRect.width;
+  onBarWidthChange(resizeObserverEntry: ResizeObserverEntry): void {
+    const barWidth = resizeObserverEntry.contentRect.width;
+    const currentControlsWidth = this._getControlsWidth(resizeObserverEntry.target as HTMLElement);
+    this._maxControlsWidth = Math.max(this._maxControlsWidth, currentControlsWidth);
     if (barWidth !== this.currentBarWidth) {
-      const activeControls = Object.keys(this.state.activeControls).filter(c => this.state.activeControls[c]);
-      const currCrlWidth = this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.SMALL ? CRL_WIDTH + CRL_MARGIN / 2 : CRL_WIDTH + CRL_MARGIN;
-      const currentMinBreakPointWidth = calculateControlsSize(activeControls, currCrlWidth, this.props.guiClientRect.width, this.props.playlist);
-      const lowerPriorityControls = LOWER_PRIORITY_CONTROLS.filter(c => this.state.activeControls[c[0]]);
       this.currentBarWidth = barWidth;
-      this.filterControls(barWidth, currentMinBreakPointWidth, currCrlWidth, lowerPriorityControls);
+      const currCrlWidth = this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.SMALL ? CRL_WIDTH + CRL_MARGIN / 2 : CRL_WIDTH + CRL_MARGIN;
+      const lowerPriorityControls = LOWER_PRIORITY_CONTROLS.filter(c => this.state.activeControls[c[0]]);
+      this.filterControls(barWidth, this._maxControlsWidth, currCrlWidth, lowerPriorityControls);
     }
   }
 
@@ -109,7 +114,6 @@ class BottomBar extends Component<any, any> {
 
   // eslint-disable-next-line require-jsdoc
   filterControls(currentBarWidth: number, currentMinBreakPointWidth: number, currentControlWidth: number, lowerPriorityControls: string[][]): void {
-    // move up
     const isBreak = currentMinBreakPointWidth >= currentBarWidth;
     if (isBreak) {
       const controlsToRemove = filterControlsByPriority(currentMinBreakPointWidth, currentBarWidth, currentControlWidth, lowerPriorityControls);
@@ -141,7 +145,7 @@ class BottomBar extends Component<any, any> {
       <div className={styleClass.join(' ')}>
         <div className={style.bottomBarArea}>
           <PlayerArea shouldUpdate={true} name={'BottomBar'}>
-            {shouldRenderTimeDisplay && <TimeDisplayPlaybackContainer/>}
+            {shouldRenderTimeDisplay && <TimeDisplayPlaybackContainer />}
             {props.children}
           </PlayerArea>
         </div>
