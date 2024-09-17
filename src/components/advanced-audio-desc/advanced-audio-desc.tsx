@@ -1,6 +1,6 @@
 import style from '../../styles/style.scss';
 import {h, Component, VNode} from 'preact';
-import {Text, withText} from 'preact-i18n';
+import {withText} from 'preact-i18n';
 import {Icon, IconType} from '../icon';
 import {withEventDispatcher} from '../event-dispatcher';
 import {Tooltip} from '../tooltip';
@@ -35,14 +35,17 @@ const mapStateToProps = ({config, settings}) => ({
 @connect(mapStateToProps, bindActions(actions))
 @withPlayer
 @withEventDispatcher(COMPONENT_NAME)
-@withText({AdvancedAudioDescText: 'settings.advancedAudioDescription'})
+@withText({
+  advancedAudioDescEnabledText: 'settings.advanced_audio_description_enabled',
+  advancedAudioDescDisabledText: 'settings.advanced_audio_description_disabled'
+})
 class AdvancedAudioDesc extends Component<any, any> implements IconComponent {
   constructor(props: any) {
     super();
     registerToBottomBar(COMPONENT_NAME, props.player, () => this.registerComponent());
   }
 
-  registerComponent(): any {
+  public registerComponent(): any {
     return {
       ariaLabel: () => this.getComponentText(),
       displayName: COMPONENT_NAME,
@@ -56,11 +59,11 @@ class AdvancedAudioDesc extends Component<any, any> implements IconComponent {
     };
   }
 
-  getComponentText = (): any => {
-    return this.props.AdvancedAudioDescText;
+  public getComponentText = (): any => {
+    return this.props.advancedAudioDescEnabled ? this.props.advancedAudioDescEnabledText : this.props.advancedAudioDescDisabledText;
   };
 
-  getSvgIcon = (): any => {
+  public getSvgIcon = (): any => {
     return {
       type: redux.useStore().getState().settings.advancedAudioDesc ? IconType.AdvancedAudioDescriptionActive : IconType.AdvancedAudioDescription
     };
@@ -70,7 +73,7 @@ class AdvancedAudioDesc extends Component<any, any> implements IconComponent {
    * should render component
    * @returns {boolean} - whether to render the component
    */
-  _shouldRender(): boolean {
+  private _shouldRender(): boolean {
     return this.props.showAdvancedAudioDescToggle;
   }
   /**
@@ -79,7 +82,7 @@ class AdvancedAudioDesc extends Component<any, any> implements IconComponent {
    * @returns {void}
    * @memberof AdvancedAudioDesc
    */
-  onClick = (): void => {
+  private onClick = (): void => {
     const checked = !this.props.advancedAudioDescEnabled;
     this.props.updateAdvancedAudioDesc(checked);
     this.props.notifyClick({type: 'AdvancedAudioDescription', checked});
@@ -92,11 +95,11 @@ class AdvancedAudioDesc extends Component<any, any> implements IconComponent {
    * @returns {React$Element} - component element
    * @memberof AdvancedAudioDesc
    */
-  render({AdvancedAudioDescText, innerRef}: any): VNode<any> | undefined {
+  public render({innerRef}: any): VNode<any> | undefined {
     return !this._shouldRender() ? undefined : (
       <ButtonControl name={COMPONENT_NAME} className={[style.noIdleControl, this.props.classNames ? this.props.classNames.join(' ') : ''].join(' ')}>
-        <Tooltip label={AdvancedAudioDescText}>
-          <Button tabIndex="0" aria-label={AdvancedAudioDescText} className={`${style.controlButton}`} ref={innerRef} onClick={this.onClick}>
+        <Tooltip label={this.getComponentText()}>
+          <Button tabIndex="0" aria-label={this.getComponentText()} className={`${style.controlButton}`} ref={innerRef} onClick={this.onClick}>
             <Icon type={this.props.advancedAudioDescEnabled ? IconType.AdvancedAudioDescriptionActive : IconType.AdvancedAudioDescription} />
           </Button>
         </Tooltip>
