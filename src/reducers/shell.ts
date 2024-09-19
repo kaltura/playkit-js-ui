@@ -101,7 +101,7 @@ export const initialState = {
     }
   },
   playerHover: false,
-  playerNav: true,
+  playerNav: false,
   smartContainerOpen: false,
   activePresetName: '',
   sidePanelsModes: {
