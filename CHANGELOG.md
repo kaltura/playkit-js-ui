@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.79.10 (2024-09-19)
+
+
+### Bug Fixes
+
+* **FEC-14095:** bottom bar size calculation ([#933](https://github.com/kaltura/playkit-js-ui/issues/933)) ([35747d0](https://github.com/kaltura/playkit-js-ui/commit/35747d0))
+
+
+
 ### 0.79.9 (2024-09-08)
 
 
