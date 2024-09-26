@@ -28,7 +28,7 @@ const COMPONENT_NAME = 'AdvancedAudioDescToggle';
 @connect(mapStateToProps, bindActions(actions))
 @withEventDispatcher(COMPONENT_NAME)
 @withText({
-  advancedAudioText: 'settings.advancedAudioDescription'
+  advancedAudioText: 'settings.advanced_audio_description'
 })
 class AdvancedAudioDescToggle extends Component<any, any> {
   /**
