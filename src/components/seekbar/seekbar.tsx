@@ -112,13 +112,13 @@ class SeekBar extends Component<any, any> {
       }, Number(style.defaultTransitionTime));
     });
     const smallSizes = [PLAYER_SIZE.TINY, PLAYER_SIZE.EXTRA_SMALL, PLAYER_SIZE.SMALL];
-    if (smallSizes.includes(playerSize)) {
-      eventManager.listenOnce(player, player.Event.UI.USER_CLICKED_PLAY, () => {
-        eventManager.listenOnce(player, player.Event.Core.FIRST_PLAY, () => {
+    eventManager.listenOnce(player, player.Event.UI.USER_CLICKED_PLAY, () => {
+      eventManager.listenOnce(player, player.Event.Core.FIRST_PLAY, () => {
+        if (smallSizes.includes(this.props.playerSize)) {
           this._seekBarElement?.focus();
-        });
+        }
       });
-    }
+    });
     document.addEventListener('mouseup', this.onPlayerMouseUp);
     document.addEventListener('mousemove', this.onPlayerMouseMove);
     this.props.registerKeyboardEvents(this._keyboardEventHandlers);
