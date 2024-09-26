@@ -1,5 +1,5 @@
 import style from '../../styles/style.scss';
-import {h, Component, VNode, RefObject, createRef} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
@@ -36,7 +36,6 @@ const mapStateToProps = state => ({
 @withPlayer
 class Overlay extends Component<any, any> {
   _timeoutId: number | null = null;
-  overlayRef: RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
   /**
    * componentWillMount
    *
@@ -149,7 +148,7 @@ class Overlay extends Component<any, any> {
     }
 
     return (
-      <div tabIndex={-1} className={overlayClass.join(' ')} role="dialog" onKeyDown={this.onKeyDown} {...ariaProps} ref={this.overlayRef}>
+      <div tabIndex={-1} className={overlayClass.join(' ')} role="dialog" onKeyDown={this.onKeyDown} {...ariaProps}>
         <div className={style.overlayContents}>{this.props.children}</div>
         {this.renderCloseButton(this.props)}
       </div>
