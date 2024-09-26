@@ -13,6 +13,7 @@ import {focusElement} from '../../utils';
 import {createPortal} from 'preact/compat';
 import {CVAAOverlay} from '../cvaa-overlay';
 import {CaptionsControlMini} from './captions-control-mini';
+import {getOverlayPortalElement} from '../overlay-portal';
 
 /**
  * mapping state to props
@@ -86,9 +87,6 @@ const CaptionsControl = connect(mapStateToProps)(
     props.onToggle(COMPONENT_NAME, shouldRender);
     if (!shouldRender) return undefined;
 
-    const targetId: HTMLDivElement | Document = (document.getElementById(player.config.targetId) as HTMLDivElement) || document;
-    const portalSelector = `.overlay-portal`;
-
     return (
       <>
         <ButtonControl name={COMPONENT_NAME} ref={controlCaptionsElement}>
@@ -108,7 +106,7 @@ const CaptionsControl = connect(mapStateToProps)(
               <CaptionsMenu asDropdown={false} onAdvancedCaptionsClick={toggleCVAAOverlay} />
             </SmartContainer>
           )}
-          {cvaaOverlay ? createPortal(<CVAAOverlay onClose={onCVAAOverlayClose} />, targetId.querySelector(portalSelector)!) : <div />}
+          {cvaaOverlay ? createPortal(<CVAAOverlay onClose={onCVAAOverlayClose} />, getOverlayPortalElement(player)!) : <div />}
         </ButtonControl>
         <CaptionsControlMini {...props}/>
       </>

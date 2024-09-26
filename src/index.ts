@@ -16,8 +16,12 @@ import style from './styles/style.scss';
 import {SidePanelPositions, SidePanelModes, ReservedPresetNames, ReservedPresetAreas} from './reducers/shell';
 // Event
 import * as Event from './event';
-export {Event};
+// Overlay portal utils
+import {getOverlayPortalElement} from './components/overlay-portal';
+
 export {EventType, EventType as UIEventType} from './event/event-type';
+export {Event};
+export {getOverlayPortalElement};
 
 declare const __VERSION__: string;
 declare const __NAME__: string;

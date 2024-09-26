@@ -27,6 +27,7 @@ import {withKeyboardEvent} from '../keyboard';
 import {KeyboardEventHandlers} from '../../types';
 import {withLogger} from '../logger';
 import {SpeedSelectedEvent} from '../../event/events/speed-selected-event';
+import {getOverlayPortalElement} from '../overlay-portal';
 
 /**
  * mapping state to props
@@ -312,8 +313,6 @@ class Settings extends Component<any, any> {
     if (props.isLive && props.videoTracks.length <= 1 && !showAudioMenu && !showCaptionsMenu) return undefined;
     const buttonBadgeType: string = this.getButtonBadgeType() || '';
 
-    const targetId: HTMLDivElement | Document = (document.getElementById(this.props.player.config.targetId) as HTMLDivElement) || document;
-    const portalSelector = `.overlay-portal`;
     const buttonAriaLabel = props.buttonLabel + ' ' + this.getQualityLabel(buttonBadgeType);
     return (
       <ButtonControl name={COMPONENT_NAME} ref={c => (c ? (this._controlSettingsElement = c) : undefined)}>
@@ -334,7 +333,7 @@ class Settings extends Component<any, any> {
           </Button>
         </Tooltip>
         {this.state.smartContainerOpen && !this.state.cvaaOverlay && (
-          <SmartContainer targetId={props.player.config.targetId} title={<Text id="settings.title" />} onClose={this.onControlButtonClick}>
+          <SmartContainer title={<Text id="settings.title" />} onClose={this.onControlButtonClick}>
             {showAdvancedAudioDescToggle && <AdvancedAudioDescToggle />}
             {showAudioMenu && <AudioMenu />}
             {showCaptionsMenu && <CaptionsMenu asDropdown={true} onAdvancedCaptionsClick={this.toggleCVAAOverlay} />}
@@ -342,7 +341,7 @@ class Settings extends Component<any, any> {
             {showSpeedMenu && <SpeedMenu />}
           </SmartContainer>
         )}
-        {this.state.cvaaOverlay ? createPortal(<CVAAOverlay onClose={this.onCVAAOverlayClose} />, targetId.querySelector(portalSelector)!) : <div />}
+        {this.state.cvaaOverlay ? createPortal(<CVAAOverlay onClose={this.onCVAAOverlayClose} />, getOverlayPortalElement(props.player)!) : <div />}
       </ButtonControl>
     );
   }
