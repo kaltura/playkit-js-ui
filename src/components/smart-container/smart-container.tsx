@@ -7,6 +7,8 @@ import {createPortal} from 'preact/compat';
 import {Overlay} from '../overlay';
 import {withKeyboardA11y} from '../../utils';
 import {withText} from 'preact-i18n';
+import {withPlayer} from '../player';
+import {getOverlayPortalElement} from '../overlay-portal';
 
 /**
  * mapping state to props
@@ -37,6 +39,7 @@ const COMPONENT_NAME = 'SmartContainer';
  */
 @connect(mapStateToProps, bindActions(actions))
 @withKeyboardA11y
+@withPlayer
 @withText({settingsText: 'settings.title'})
 class SmartContainer extends Component<any, any> {
   /**
@@ -87,8 +90,6 @@ class SmartContainer extends Component<any, any> {
    * @memberof SmartContainer
    */
   render(props: any): VNode<any> {
-    const targetId = document.getElementById(this.props.targetId) || document;
-    const portalSelector = `.overlay-portal`;
     props.clearAccessibleChildren();
     return this.isPortal ? (
       createPortal(
@@ -102,7 +103,7 @@ class SmartContainer extends Component<any, any> {
           <div className={style.title}>{props.title}</div>
           {this.renderChildren(props)}
         </Overlay>,
-        targetId.querySelector(portalSelector)!
+        getOverlayPortalElement(props.player)!
       )
     ) : (
       <div onKeyDown={props.handleKeyDown} tabIndex={-1} role="menu" className={[style.smartContainer, style.top, style.left].join(' ')}>

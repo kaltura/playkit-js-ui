@@ -7,6 +7,8 @@ import {actions as overlayActions} from '../../reducers/overlay';
 import {actions as shellActions} from '../../reducers/shell';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils';
+import {withPlayer} from '../player';
+import {getOverlayPortalElement} from '../overlay-portal';
 
 const COMPONENT_NAME = 'Overlay';
 
@@ -31,6 +33,7 @@ const mapStateToProps = state => ({
  * @extends {Component}
  */
 @connect(mapStateToProps, bindActions({...shellActions, ...overlayActions}))
+@withPlayer
 class Overlay extends Component<any, any> {
   _timeoutId: number | null = null;
   /**
@@ -55,7 +58,11 @@ class Overlay extends Component<any, any> {
       clearTimeout(this._timeoutId);
       this._timeoutId = null;
     }
-    this.props.removePlayerClass(style.overlayActive);
+    // Remove the overlay-active class only when there is a single child
+    const overlayPortalEl = getOverlayPortalElement(this.props.player);
+    if (overlayPortalEl?.childElementCount === 1) {
+      this.props.removePlayerClass(style.overlayActive);
+    }
   }
 
   /**

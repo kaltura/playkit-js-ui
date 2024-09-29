@@ -13,6 +13,7 @@ import {Text} from 'preact-i18n';
 import {CaptionsMenu} from '../captions-menu';
 import {SmartContainer} from '../smart-container';
 import {CaptionsControl} from './captions-control';
+import {getOverlayPortalElement} from '../overlay-portal';
 
 const mapStateToProps = state => ({
   controlsToMove: state.bottomBar.controlsToMove
@@ -24,8 +25,6 @@ const CaptionsControlMini = connect(mapStateToProps)((props, context) => {
 
   const {player} = context;
   const {controlsToMove} = props;
-  const targetOverlayEl: HTMLDivElement | Document = (document.getElementById(player.config.targetId) as HTMLDivElement) || document;
-  const portalSelector = `.overlay-portal`;
   let removeOverlay: any = null;
 
   useEffect(() => {
@@ -69,7 +68,7 @@ const CaptionsControlMini = connect(mapStateToProps)((props, context) => {
       presets: [ReservedPresetNames.Playback, ReservedPresetNames.Live],
       get: () => {
         return (
-          createPortal(<CVAAOverlay onClose={() => removeCaptionsOverlay()}/>, targetOverlayEl.querySelector(portalSelector)!)
+          createPortal(<CVAAOverlay onClose={() => removeCaptionsOverlay()}/>, getOverlayPortalElement(player)!)
         )}
     });
   };
