@@ -58,10 +58,14 @@ class Overlay extends Component<any, any> {
       clearTimeout(this._timeoutId);
       this._timeoutId = null;
     }
-    // Remove the overlay-active class only when there is a single child
-    const overlayPortalEl = getOverlayPortalElement(this.props.player);
-    if (overlayPortalEl?.childElementCount === 1) {
+    if (this.props.dontCheckOverlayPortal) {
       this.props.removePlayerClass(style.overlayActive);
+    } else {
+      // Remove the overlay-active class only when overlay portal has a single child
+      const overlayPortalEl = getOverlayPortalElement(this.props.player);
+      if (overlayPortalEl!.childElementCount <= 1) {
+        this.props.removePlayerClass(style.overlayActive);
+      }
     }
   }
 
