@@ -29,7 +29,9 @@ const errorsMap: Map<number, ErrorDetails> = new Map<number, ErrorDetails>([
   /** KS RESTRICTION */
   [14, {title: 'media_unavailable_error_title', message: 'media_unavailable_error_message'}],
   /** IP RESTRICTION */
-  [15, {title: 'media_unavailable_error_title', message: 'ip_restricted_error_message'}]
+  [15, {title: 'media_unavailable_error_title', message: 'ip_restricted_error_message'}],
+  /** SCHEDULED RESTRICTED */
+  [16, {title: 'media_unavailable_error_title', message: 'scheduled_restricted_error_message'}]
 ]);
 
 const defaultError: ErrorDetails = {

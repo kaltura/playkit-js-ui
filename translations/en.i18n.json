@@ -91,6 +91,7 @@
       "geo_location_error_title": "Geo location unavailable",
       "geo_location_error_message": "This content is unavailable in your region.",
       "ip_restricted_error_message": "This media has been restricted to certain IP addresses.",
+      "scheduled_restricted_error_message": "This media is out of scheduling, this content is currently unavailable",
       "default_session_text": "Copy for customer care: session ID",
       "retry": "Try again"
     },
