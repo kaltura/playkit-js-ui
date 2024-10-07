@@ -1,0 +1,137 @@
+{
+  "ca": {
+    "controls": {
+      "play": "Reproduir",
+      "pause": "Pausa",
+      "language": "Llenguatge",
+      "settings": "Configuració",
+      "fullscreen": "Pantalla completa",
+      "fullscreenExit": "Sortir de pantalla completa",
+      "rewind": "Rebobinar",
+      "secondsRewind": "Busca {{segons}} segons cap enrere",
+      "forward": "Busca endavant",
+      "secondsForward": "Busca {{segons}} segons endavant",
+      "vrStereo": "vrStereo",
+      "closedCaptionsOn": "Activa els subtítols",
+      "closedCaptionsOff": "Desactiva els subtítols",
+      "live": "Viu",
+      "mute": "Mut",
+      "unmute": "Desactiva el so",
+      "next": "Següent",
+      "prev": "Anterior",
+      "startOver": "Comença de nou",
+      "pictureInPicture": "Imatge en imatge",
+      "pictureInPictureExit": "Surt de la imatge a la imatge",
+      "pictureInPictureExpand": "Ampliar",
+      "logo": "Logotip",
+      "seekBarSlider": "Barra de cerca",
+      "readLess": "Menys",
+      "readMore": "Més"
+    },
+    "unmute": {
+      "unmute": "Unmute"
+    },
+    "volume": {
+      "muted_click_to_unmute": "Silenciat. Feu clic per desactivar el silenci",
+      "volume_click_to_mute": "{{vol}}% volum. Feu clic per silenciar",
+      "ten_percent": "deu per cent",
+      "twenty_percent": "vint per cent",
+      "thirty_percent": "trenta per cent",
+      "fourty_percent": "quaranta per cent",
+      "fifty_percent": "cinquanta per cent",
+      "sixty_percent": "seixanta per cent",
+      "seventy_percent": "setanta per cent",
+      "eighty_percent": "vuitanta per cent",
+      "ninety_percent": "noranta per cent",
+      "one_hundred_percent": "cent per cent",
+      "volume_slider_aria_label": "Control de volum, utilitza les fletxes per controlar el volum"
+    },
+    "copy": {
+      "button": "Copia l'URL"
+    },
+    "settings": {
+      "title": "Configuració",
+      "audio": "Àudio",
+      "quality": "Qualitat",
+      "speed": "Velocitat",
+      "speedNormal": "Normal",
+      "qualityAuto": "Automàtic",
+      "advancedAudioDescription": "Descripció d'àudio avançada"
+    },
+    "captions": {
+      "captions": "Subtítols",
+      "advanced_captions_settings": "Configuració avançada de subtítols"
+    },
+    "overlay": {
+      "close": "Tanca"
+    },
+    "error": {
+      "default_error_title": "Alguna cosa ha anat malament",
+      "default_error_message": "Hi ha hagut un error. Siusplau, torni a intentar-ho més tard.",
+      "network_error_title": "Hi ha un problema amb la vostra xarxa",
+      "network_error_message": "Si us plau, comproveu la vostra connexió de xarxa i torneu-ho a provar.",
+      "media_unavailable_error_title": "Els mitjans no estan disponibles",
+      "media_unavailable_error_message": "Aquest mitjà s'ha restringit. Si us plau, obteniu els permisos pertinents per accedir al contingut.",
+      "text_error_title": "Error de flux de text",
+      "text_error_message": "S'ha produït un error de flux de text",
+      "media_error_title": "Error de flux multimèdia",
+      "media_error_message": "Un o més fluxos multimèdia han fallat.",
+      "manifest_error_title": "Error de manifest de reproducció",
+      "manifest_error_message": "S'ha produït un error en processar el manifest de reproducció.",
+      "streaming_error_title": "No es pot carregar el flux",
+      "streaming_error_message": "S'ha produït un error de protocol de transmissió.",
+      "drm_error_message": "No tens permisos per veure aquest mitjà.",
+      "media_not_ready_error_title": "Els mitjans s'estan processant",
+      "media_not_ready_error_message": "Els mitjans s'estan processant, torneu a comprovar-ho aviat.",
+      "geo_location_error_title": "Ubicació geogràfica no disponible",
+      "geo_location_error_message": "Aquest contingut no està disponible a la vostra regió.",
+      "default_session_text": "Còpia per a l'atenció al client: identificador de sessió",
+      "retry": "Torna-ho a provar"
+    },
+    "ads": {
+      "ad_notice": "Anunci",
+      "learn_more": "Aprèn més",
+      "skip_ad": "Saltar anunci",
+      "skip_in": "Saltar-te"
+    },
+    "cvaa": {
+      "title": "Configuració avançada de subtítols",
+      "sample_caption_tag": "Mostra {{nombre}}",
+      "sample_custom_caption_tag": "Títols personalitzats",
+      "set_custom_caption": "Estableix un subtítol personalitzat",
+      "edit_caption": "Edita el subtítol",
+      "size_label": "Mida",
+      "font_color_label": "Color de la lletra",
+      "font_alignment_label": "Alineació del tipus de lletra",
+      "font_family_label": "Família de fonts",
+      "font_style_label": "Estil de lletra",
+      "font_opacity_label": "Opacitat de la font",
+      "background_color_label": "Color de fons",
+      "background_opacity_label": "Opacitat del fons",
+      "apply": "Aplica",
+      "caption_preview": "Aquesta és la vista prèvia dels subtítols"
+    },
+    "cast": {
+      "play_on_tv": "Reprodueix a la televisió",
+      "disconnect_from_tv": "Desconnecta de la televisió",
+      "status": {
+        "connecting_to": "Connexió a",
+        "connected_to": "Connectat a",
+        "playing_on": "Jugant"
+      }
+    },
+    "playlist": {
+      "prev": "Anterior",
+      "next": "Següent",
+      "up_next": "A continuació",
+      "up_next_in": "Pròximment",
+      "cancel": "Cancel · lar"
+    },
+    "pictureInPicture": {
+      "overlay_text": "Reproduint en mode Picture In Picture"
+    },
+    "watermark": {
+      "watermark_alt_text": "Filigrana"
+    }
+  }
+}
