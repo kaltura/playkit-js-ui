@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.79.12 (2024-10-13)
+
+
+### Bug Fixes
+
+* **FEC-14185:** Add Catalan locale to player - Core Side ([#951](https://github.com/kaltura/playkit-js-ui/issues/951)) ([92c6ddc](https://github.com/kaltura/playkit-js-ui/commit/92c6ddc))
+
+
+
 ### 0.79.11 (2024-09-19)
 
 
