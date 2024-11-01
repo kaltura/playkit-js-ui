@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.79.13 (2024-11-01)
+
+
+### Bug Fixes
+
+* **ADA-1789:** [ORS] - Firefox playerkit - "Read more" button in the navigation overlay is not read by screen reader (NVDA) ([#952](https://github.com/kaltura/playkit-js-ui/issues/952)) ([9dca8a2](https://github.com/kaltura/playkit-js-ui/commit/9dca8a2))
+
+
+
 ### 0.79.12 (2024-10-13)
 
 
