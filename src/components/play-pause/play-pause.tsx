@@ -47,7 +47,8 @@ const COMPONENT_NAME = 'PlayPause';
 @withText({
   startOverText: 'controls.startOver',
   pauseText: 'controls.pause',
-  playText: 'controls.play'
+  playText: 'controls.play',
+  title: 'controls.title'
 })
 class PlayPause extends Component<any, any> {
   private _playPauseButtonRef?: HTMLButtonElement;
@@ -92,7 +93,8 @@ class PlayPause extends Component<any, any> {
   render(props: any): VNode<any> | undefined {
     const controlButtonClass = this.props.isPlayingAdOrPlayback ? [style.controlButton, style.isPlaying].join(' ') : style.controlButton;
     const isStartOver = props.isPlaybackEnded && !this.props.adBreak;
-    const playbackStateText = this.props.isPlayingAdOrPlayback ? this.props.pauseText : this.props.playText;
+    const entryName = `, ${this.props.title}: ${this.props.player.sources.metadata?.name}`;
+    const playbackStateText = `${this.props.isPlayingAdOrPlayback ? this.props.pauseText : this.props.playText}${entryName}`;
     const labelText = isStartOver ? this.props.startOverText : playbackStateText;
     return (
       <ButtonControl name={COMPONENT_NAME}>
