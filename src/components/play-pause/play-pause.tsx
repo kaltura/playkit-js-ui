@@ -94,14 +94,14 @@ class PlayPause extends Component<any, any> {
     const controlButtonClass = this.props.isPlayingAdOrPlayback ? [style.controlButton, style.isPlaying].join(' ') : style.controlButton;
     const isStartOver = props.isPlaybackEnded && !this.props.adBreak;
     const entryName = `, ${this.props.title}: ${this.props.player.sources.metadata?.name}`;
-    const playbackStateText = `${this.props.isPlayingAdOrPlayback ? this.props.pauseText : this.props.playText}${entryName}`;
+    const playbackStateText = this.props.isPlayingAdOrPlayback ? this.props.pauseText : this.props.playText;
     const labelText = isStartOver ? this.props.startOverText : playbackStateText;
     return (
       <ButtonControl name={COMPONENT_NAME}>
         <Tooltip label={labelText}>
           <Button
             tabIndex="0"
-            aria-label={labelText}
+            aria-label={labelText+ entryName}
             className={controlButtonClass}
             onClick={this.togglePlayPause}
             ref={node => {
