@@ -93,7 +93,7 @@ class PlayPause extends Component<any, any> {
   render(props: any): VNode<any> | undefined {
     const controlButtonClass = this.props.isPlayingAdOrPlayback ? [style.controlButton, style.isPlaying].join(' ') : style.controlButton;
     const isStartOver = props.isPlaybackEnded && !this.props.adBreak;
-    const entryName = `, ${this.props.title}: ${this.props.player.sources.metadata?.name}`;
+    const entryName = `${this.props.title}: ${this.props.player.sources.metadata?.name}`;
     const playbackStateText = this.props.isPlayingAdOrPlayback ? this.props.pauseText : this.props.playText;
     const labelText = isStartOver ? this.props.startOverText : playbackStateText;
     return (
@@ -101,7 +101,7 @@ class PlayPause extends Component<any, any> {
         <Tooltip label={labelText}>
           <Button
             tabIndex="0"
-            aria-label={labelText+ entryName}
+            aria-label={`${labelText}, ${entryName}`}
             className={controlButtonClass}
             onClick={this.togglePlayPause}
             ref={node => {
