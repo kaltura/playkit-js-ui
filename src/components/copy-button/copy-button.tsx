@@ -35,14 +35,6 @@ const ICON_COPY_PATH = [
 @withText({copyButtonLabel: 'copy.button'})
 class CopyButton extends Component<any, any> {
   _timeoutId: number | null = null;
-  /**
-   * @static
-   * @type {Object} - Component default props
-   */
-  static defaultProps: any = {
-    // @ts-ignore - 'Copy' not seen in the area...
-    icon: IconType.Copy
-  };
 
   /**
    * Creates an instance of CopyButton.
@@ -111,7 +103,6 @@ class CopyButton extends Component<any, any> {
     return (
       <Localizer>
         <ButtonControl name={COMPONENT_NAME}>
-          {/*@ts-expect-error - error TS2322: Type 'Element' is not assignable to type 'string'.*/}
           <Tooltip label={this.props.copyButtonLabel}>
             <Button
               tabIndex="0"
@@ -123,8 +114,7 @@ class CopyButton extends Component<any, any> {
               }}
               className={copyUrlClasses}
               onClick={this.copy}
-              onKeyDown={this.onKeyDown}
-            >
+              onKeyDown={this.onKeyDown}>
               <Icon id="copy" color="#fff" path={ICON_COPY_PATH} width="24" height="24" viewBox="0 0 24 24" />
               <Icon type={IconType.Check} />
             </Button>
