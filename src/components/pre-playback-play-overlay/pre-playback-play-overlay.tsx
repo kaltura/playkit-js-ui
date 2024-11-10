@@ -39,7 +39,8 @@ const COMPONENT_NAME = 'PrePlaybackPlayOverlay';
 @withEventDispatcher(COMPONENT_NAME)
 @withText({
   startOverText: 'controls.startOver',
-  playText: 'controls.play'
+  playText: 'controls.play',
+  title: 'controls.title'
 })
 class PrePlaybackPlayOverlay extends Component<any, any> {
   /**
@@ -89,10 +90,11 @@ class PrePlaybackPlayOverlay extends Component<any, any> {
     if (!(props.prePlayback || isStartOver) || props.loading) {
       return undefined;
     }
+    const entryName = `${this.props.title}: ${this.props.player.sources.metadata?.name}`;
     const labelText = props.isPlaybackEnded ? props.startOverText : props.playText;
     return (
       <div className={style.prePlaybackPlayOverlay} onMouseOver={this.onMouseOver} onClick={this.handleClick}>
-        <Button className={style.prePlaybackPlayButton} tabIndex="0" aria-label={labelText} onKeyDown={this.onKeyDown}>
+        <Button className={style.prePlaybackPlayButton} tabIndex="0" aria-label={`${labelText}, ${entryName}`} onKeyDown={this.onKeyDown}>
           <Tooltip label={labelText}>{props.isPlaybackEnded ? <Icon type={IconType.StartOver} /> : <Icon type={IconType.Play} />}</Tooltip>
         </Button>
       </div>
