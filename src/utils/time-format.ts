@@ -28,6 +28,22 @@ function toHHMMSS(input: string | number): string {
 }
 
 /**
+ * Convert seconds into hours, minutes and seconds
+ *
+ * @param {number} input number of seconds
+ * @returns {Array} array with hours, minutes and seconds
+ */
+function convertToHMS(input: string | number): Array<number> {
+  const secNum = parseInt(input as string, 10);
+  const hours: number = Math.floor(secNum / 3600);
+  const minutes: number = Math.floor((secNum - hours * 3600) / 60);
+  const seconds: number = secNum - hours * 3600 - minutes * 60;
+  const times = [hours, minutes, seconds];
+
+  return times;
+}
+
+/**
  * Converting formatted time into seconds
  *
  * @param {string} input formatted time
@@ -69,4 +85,4 @@ function formatOnlyNumbersInput(val: string): string {
   return toHHMMSS(valueAsNumber);
 }
 
-export {toHHMMSS, toSecondsFromHHMMSS, formatOnlyNumbersInput};
+export {toHHMMSS, convertToHMS, toSecondsFromHHMMSS, formatOnlyNumbersInput};

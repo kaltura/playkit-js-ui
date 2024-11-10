@@ -1,6 +1,6 @@
 import style from '../../styles/style.scss';
 import {h, Component, VNode} from 'preact';
-import {toHHMMSS} from '../../utils';
+import {toHHMMSS, convertToHMS} from '../../utils';
 import {KeyMap} from '../../utils';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
@@ -9,7 +9,7 @@ import {withPlayer} from '../player';
 import {withKeyboardEvent} from '../keyboard';
 import {actions as overlayIconActions} from '../../reducers/overlay-action';
 import {IconType} from '../icon';
-import {withText} from 'preact-i18n';
+import {Text, withText} from 'preact-i18n';
 import {PlayerArea} from '../player-area';
 import {EventType, withEventManager} from '../../event';
 import {SeekBarPreview} from '../seekbar-preview';
@@ -43,6 +43,16 @@ const COMPONENT_NAME = 'SeekBar';
  */
 const KEYBOARD_DEFAULT_SEEK_JUMP: number = 5;
 
+const translates = {
+  hours: <Text id="times.hours">hours</Text>,
+  minutes: <Text id="times.minutes">minutes</Text>,
+  seconds: <Text id="times.seconds">seconds</Text>,
+  hour: <Text id="times.hour">hour</Text>,
+  minute: <Text id="times.minute">minute</Text>,
+  second: <Text id="times.second">second</Text>,
+  sliderAriaLabel: <Text id="controls.seekBarSlider">Seek bar</Text>
+};
+
 /**
  * SeekBar component
  *
@@ -53,7 +63,7 @@ const KEYBOARD_DEFAULT_SEEK_JUMP: number = 5;
 @withPlayer
 @withEventManager
 @withKeyboardEvent(COMPONENT_NAME)
-@withText({sliderAriaLabel: 'controls.seekBarSlider'})
+@withText(translates)
 class SeekBar extends Component<any, any> {
   _seekBarElement!: HTMLDivElement;
   _framePreviewElement!: HTMLDivElement;
@@ -549,6 +559,25 @@ class SeekBar extends Component<any, any> {
   }
 
   /**
+   * convert to time and add relevant labels
+   *
+   * @returns {string} - The times with labels
+   * @memberof SeekBar
+   */
+  convertTime(input: string | number): string {
+    const formatUnit = (value, singular, plural): string => {
+      return `${value < 10 ? '0' : ''}${value} ${value === 1 ? singular : plural}`;
+    };
+    const [hours, minutes, seconds] = convertToHMS(input);
+    const timeLabel = `${formatUnit(hours, this.props.hour, this.props.hours)} ${formatUnit(
+      minutes,
+      this.props.minute,
+      this.props.minutes
+    )} ${formatUnit(seconds, this.props.second, this.props.seconds)}`;
+    return timeLabel;
+  }
+
+  /**
    * render component
    *
    * @param {*} props - component props
@@ -576,7 +605,7 @@ class SeekBar extends Component<any, any> {
         aria-valuemin={0}
         aria-valuemax={Math.round(this.props.duration)}
         aria-valuenow={Math.round(this.props.currentTime)}
-        aria-valuetext={`${toHHMMSS(this.props.currentTime)} of ${toHHMMSS(this.props.duration)}`}
+        aria-valuetext={`${this.convertTime(this.props.currentTime)} of ${this.convertTime(this.props.duration)}`}
         onMouseOver={this.onSeekbarMouseOver}
         onMouseLeave={this.onSeekbarMouseLeave}
         onMouseMove={this.onSeekbarMouseMove}

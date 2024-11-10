@@ -139,6 +139,14 @@
     },
     "watermark": {
       "watermark_alt_text": "Watermark"
+    },
+    "times": {
+      "hour": "hour",
+      "hours": "hours",
+      "minute": "minute",
+      "minutes": "minutes",
+      "second": "second",
+      "seconds": "seconds"
     }
   }
 }
