@@ -7,7 +7,7 @@ import {Tooltip} from '../tooltip';
 import {Button} from '../button';
 import {connect} from 'react-redux';
 import {ButtonControl} from '../button-control';
-import {bindActions} from '../../utils';
+import {bindActions, KeyCode} from '../../utils';
 import {actions} from '../../reducers/settings';
 import {IconComponent, registerToBottomBar} from '../bottom-bar';
 import {redux} from '../../index';
@@ -89,6 +89,19 @@ class AdvancedAudioDesc extends Component<any, any> implements IconComponent {
   };
 
   /**
+   * on key down handler
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @returns {void}
+   * @memberof AdvancedAudioDesc
+   */
+  onKeyDown = (e: KeyboardEvent): void => {
+    if ([KeyCode.Enter, KeyCode.Space].includes(e.code)) {
+      this.onClick();
+    }
+  };
+
+  /**
    * render component
    *
    * @param {*} props - component props
@@ -99,7 +112,7 @@ class AdvancedAudioDesc extends Component<any, any> implements IconComponent {
     return !this._shouldRender() ? undefined : (
       <ButtonControl name={COMPONENT_NAME} className={[style.noIdleControl, this.props.classNames ? this.props.classNames.join(' ') : ''].join(' ')}>
         <Tooltip label={this.getComponentText()}>
-          <Button tabIndex="0" aria-label={this.getComponentText()} className={`${style.controlButton}`} ref={innerRef} onClick={this.onClick}>
+          <Button tabIndex="0" aria-label={this.getComponentText()} className={`${style.controlButton}`} ref={innerRef} onClick={this.onClick} onKeyDown={this.onKeyDown}>
             <Icon type={this.props.advancedAudioDescEnabled ? IconType.AdvancedAudioDescriptionActive : IconType.AdvancedAudioDescription} />
           </Button>
         </Tooltip>

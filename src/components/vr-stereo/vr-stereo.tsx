@@ -2,7 +2,7 @@ import style from '../../styles/style.scss';
 import {h, Component, VNode} from 'preact';
 import {withText} from 'preact-i18n';
 import {default as Icon, IconType} from '../icon';
-import {KeyMap} from '../../utils';
+import {KeyCode} from '../../utils';
 import {actions as engineActions} from '../../reducers/engine';
 import {bindActions} from '../../utils';
 import {connect} from 'react-redux';
@@ -100,10 +100,10 @@ class VrStereo extends Component<any, any> implements IconComponent {
    *
    * @param {KeyboardEvent} e - keyboard event
    * @returns {void}
-   * @memberof DropDown
+   * @memberof VrStereo
    */
   onKeyDown = (e: KeyboardEvent): void => {
-    if (e.keyCode === KeyMap.ENTER) {
+    if ([KeyCode.Enter, KeyCode.Space].includes(e.code)) {
       this.onClick();
     }
   };
