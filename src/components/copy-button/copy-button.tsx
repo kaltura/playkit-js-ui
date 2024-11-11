@@ -3,7 +3,7 @@ import {h, Component, VNode} from 'preact';
 import {IconType} from '../icon';
 import {Icon} from '../icon/icon';
 import {Tooltip} from '../tooltip';
-import {Text, Localizer} from 'preact-i18n';
+import {Localizer, withText} from 'preact-i18n';
 import {KeyMap} from '../../utils';
 import {Button, ButtonControl} from '../../components';
 
@@ -32,16 +32,9 @@ const ICON_COPY_PATH = [
  * @example <CopyButton/>
  * @extends {Component}
  */
+@withText({copyButtonLabel: 'copy.button'})
 class CopyButton extends Component<any, any> {
   _timeoutId: number | null = null;
-  /**
-   * @static
-   * @type {Object} - Component default props
-   */
-  static defaultProps: any = {
-    // @ts-ignore - 'Copy' not seen in the area...
-    icon: IconType.Copy
-  };
 
   /**
    * Creates an instance of CopyButton.
@@ -110,10 +103,10 @@ class CopyButton extends Component<any, any> {
     return (
       <Localizer>
         <ButtonControl name={COMPONENT_NAME}>
-          {/*@ts-expect-error - error TS2322: Type 'Element' is not assignable to type 'string'.*/}
-          <Tooltip label={<Text id="copy.button" />}>
+          <Tooltip label={this.props.copyButtonLabel}>
             <Button
               tabIndex="0"
+              aria-label={this.props.copyButtonLabel}
               ref={el => {
                 if (props.addAccessibleChild) {
                   props.addAccessibleChild(el);
@@ -121,8 +114,7 @@ class CopyButton extends Component<any, any> {
               }}
               className={copyUrlClasses}
               onClick={this.copy}
-              onKeyDown={this.onKeyDown}
-            >
+              onKeyDown={this.onKeyDown}>
               <Icon id="copy" color="#fff" path={ICON_COPY_PATH} width="24" height="24" viewBox="0 0 24 24" />
               <Icon type={IconType.Check} />
             </Button>
