@@ -97,6 +97,7 @@ class AdvancedAudioDesc extends Component<any, any> implements IconComponent {
    */
   onKeyDown = (e: KeyboardEvent): void => {
     if ([KeyCode.Enter, KeyCode.Space].includes(e.code)) {
+      e.preventDefault();
       this.onClick();
     }
   };

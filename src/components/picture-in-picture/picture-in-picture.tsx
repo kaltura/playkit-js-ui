@@ -109,6 +109,7 @@ class PictureInPicture extends Component<any, any> implements IconComponent {
    */
   onKeyDown = (e: KeyboardEvent): void => {
     if ([KeyCode.Enter, KeyCode.Space].includes(e.code)) {
+      e.preventDefault();
       this.togglePip();
       this.props.updatePlayerHoverState(true);
     }
