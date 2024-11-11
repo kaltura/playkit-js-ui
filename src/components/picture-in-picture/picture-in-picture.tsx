@@ -5,7 +5,7 @@ import {default as Icon, IconType} from '../icon';
 import {connect} from 'react-redux';
 import {withPlayer} from '../player';
 import {withLogger} from '../logger';
-import {KeyMap} from '../../utils';
+import {KeyCode, KeyMap} from '../../utils';
 import {withKeyboardEvent} from '../keyboard';
 import {withEventDispatcher} from '../event-dispatcher';
 import {Tooltip} from '../../components/tooltip';
@@ -101,6 +101,20 @@ class PictureInPicture extends Component<any, any> implements IconComponent {
   }
 
   /**
+   * on key down handler
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @returns {void}
+   * @memberof PictureInPicture
+   */
+  onKeyDown = (e: KeyboardEvent): void => {
+    if ([KeyCode.Enter, KeyCode.Space].includes(e.code)) {
+      this.togglePip();
+      this.props.updatePlayerHoverState(true);
+    }
+  };
+
+  /**
    * should render component
    * @returns {boolean} - whether to render the component
    */
@@ -145,6 +159,7 @@ class PictureInPicture extends Component<any, any> implements IconComponent {
               aria-label={this.props.isInPictureInPicture ? this.props.pictureInPictureExitText : this.props.pictureInPictureText}
               className={this.props.isInPictureInPicture ? [style.controlButton, style.isInPictureInPicture].join(' ') : style.controlButton}
               onClick={this.togglePip}
+              onKeyDown={this.onKeyDown}
             >
               <Icon type={IconType.PictureInPictureStart} />
               <Icon type={IconType.PictureInPictureStop} />
