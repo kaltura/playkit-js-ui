@@ -11,6 +11,7 @@ const getTimeInText = (seconds: number, uiConfig: any) => {
       }
     }
   } catch (e: any) {
+    // eslint-disable-next-line no-console
     console.log(e);
   }
 };
