@@ -106,14 +106,6 @@
       "ninety_percent": "neunzig Prozent",
       "one_hundred_percent": "hundert Prozent",
       "volume_slider_aria_label": "Lautstärkeregler, verwenden Sie die Pfeile, um die Lautstärke zu regulieren"
-    },
-    "times": {
-      "hour": "Stunde",
-      "hours": "Stunden",
-      "minute": "Minute",
-      "minutes": "Minuten",
-      "second": "Sekunde",
-      "seconds": "Sekunden"
     }
   }
 }
