@@ -13,7 +13,7 @@ export const withKeyboardA11y = (WrappedComponent): any =>
     _accessibleChildren: Array<HTMLElement> = [];
     _previouslyActiveElement?: HTMLElement | null;
     _isModal: boolean = false;
-    _morePluginButton: HTMLButtonElement | null;
+    _morePluginButton: HTMLButtonElement | null = null;
 
     /**
      * after component mounted, focus on relevant element
