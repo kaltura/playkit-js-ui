@@ -580,7 +580,7 @@ class SeekBar extends Component<any, any> {
         aria-valuemin={0}
         aria-valuemax={Math.round(this.props.duration)}
         aria-valuenow={Math.round(this.props.currentTime)}
-        aria-valuetext={`${getTimeInText(props.currentTime, props.player.config.ui)} of ${getTimeInText(props.duration, props.player.config.ui)}`}
+        aria-valuetext={`${getTimeInText(props.currentTime, props.player.config.ui, true)} of ${getTimeInText(props.duration, props.player.config.ui, true)}`}
         onMouseOver={this.onSeekbarMouseOver}
         onMouseLeave={this.onSeekbarMouseLeave}
         onMouseMove={this.onSeekbarMouseMove}
