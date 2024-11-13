@@ -18,10 +18,13 @@ import {SidePanelPositions, SidePanelModes, ReservedPresetNames, ReservedPresetA
 import * as Event from './event';
 // Overlay portal utils
 import {getOverlayPortalElement} from './components/overlay-portal';
+//get time in humanize duration
+import {getTimeInText} from './utils';
 
 export {EventType, EventType as UIEventType} from './event/event-type';
 export {Event};
 export {getOverlayPortalElement};
+export {getTimeInText};
 
 declare const __VERSION__: string;
 declare const __NAME__: string;

@@ -1,11 +1,11 @@
 import * as humanizeDuration from 'humanize-duration';
 
-const getTimeInText = (seconds: number, uiConfig: any) => {
+const getTimeInText = (seconds: number, uiConfig: any, round: boolean = false) => {
   try {
     const durationHumanizer = getDurationHumanizer(uiConfig);
     if (durationHumanizer) {
       try {
-        return seconds ? durationHumanizer(seconds * 1000, {round: true}) : '0';
+        return seconds ? durationHumanizer(seconds * 1000, {round: round}) : '0';
       } catch (e: any) {
         return `${seconds}`;
       }
