@@ -318,7 +318,7 @@ class Settings extends Component<any, any> {
       <ButtonControl name={COMPONENT_NAME} ref={c => (c ? (this._controlSettingsElement = c) : undefined)}>
         <Tooltip label={props.buttonLabel}>
           <Button
-            ref={this.setButtonRef}
+            setRef={this.setButtonRef}
             tabIndex="0"
             aria-label={buttonAriaLabel}
             aria-haspopup="true"

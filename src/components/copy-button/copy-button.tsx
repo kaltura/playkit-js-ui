@@ -107,7 +107,7 @@ class CopyButton extends Component<any, any> {
             <Button
               tabIndex="0"
               aria-label={this.props.copyButtonLabel}
-              ref={el => {
+              setRef={el => {
                 if (props.addAccessibleChild) {
                   props.addAccessibleChild(el);
                 }
