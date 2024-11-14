@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.79.14 (2024-11-14)
+
+
+### Bug Fixes
+
+* **FEC-14177:** a11y fixes ([#957](https://github.com/kaltura/playkit-js-ui/issues/957)) ([aecdbdd](https://github.com/kaltura/playkit-js-ui/commit/aecdbdd))
+
+
+
 ### 0.79.13 (2024-11-01)
 
 
