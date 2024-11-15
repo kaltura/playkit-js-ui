@@ -1,5 +1,6 @@
-import style from '../../styles/style.scss';
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {h, Component, VNode} from 'preact';
+import style from '../../styles/style.scss';
 import {Localizer, Text} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
@@ -11,6 +12,23 @@ import {withPlayer} from '../player';
 import {getOverlayPortalElement} from '../overlay-portal';
 
 const COMPONENT_NAME = 'Overlay';
+
+interface OverlayProps {
+  type?: string;
+  open?: boolean;
+  ariaLabel: string;
+  ariaLabelledBy?: string;
+  onClose: (e?: KeyboardEvent, byKeyboard?: true) => void;
+  handleKeyDown: (e: KeyboardEvent) => void;
+  addPlayerClass: (className: string) => void;
+  removePlayerClass: (className: string) => void;
+  updateOverlay: (isOpen: boolean) => void;
+  overlayOpen: boolean;
+  dontCheckOverlayPortal?: boolean;
+  permanent?: boolean;
+  player: any;
+  pauseOnOpen?: boolean;
+}
 
 /**
  * mapping state to props
@@ -34,16 +52,18 @@ const mapStateToProps = state => ({
  */
 @connect(mapStateToProps, bindActions({...shellActions, ...overlayActions}))
 @withPlayer
-class Overlay extends Component<any, any> {
-  _timeoutId: number | null = null;
+class Overlay extends Component<OverlayProps, any> {
+  private _timeoutId: NodeJS.Timeout | null = null;
+  private _wasPlayed = false; // keep state of the player so we can resume if needed
+
   /**
    * componentWillMount
    *
    * @returns {void}
    * @memberof Overlay
    */
+  /* eslint-disable @typescript-eslint/explicit-member-accessibility */
   componentDidMount(): void {
-    // @ts-ignore
     this._timeoutId = setTimeout(() => this.props.addPlayerClass(style.overlayActive), 0);
   }
 
@@ -53,6 +73,7 @@ class Overlay extends Component<any, any> {
    * @returns {void}
    * @memberof Overlay
    */
+  /* eslint-disable @typescript-eslint/explicit-member-accessibility */
   componentWillUnmount(): void {
     if (this._timeoutId) {
       clearTimeout(this._timeoutId);
@@ -67,6 +88,20 @@ class Overlay extends Component<any, any> {
         this.props.removePlayerClass(style.overlayActive);
       }
     }
+    if (this.props.overlayOpen && this._wasPlayed) {
+      this._wasPlayed = false;
+      this.props.player.play();
+    }
+  }
+
+  componentDidUpdate(previousProps: Readonly<OverlayProps>): void {
+    const {player, pauseOnOpen} = this.props;
+    if (this.props.overlayOpen && !previousProps.overlayOpen) {
+      if (pauseOnOpen && !player.paused) {
+        this._wasPlayed = true;
+        player.pause();
+      }
+    }
   }
 
   /**
@@ -76,7 +111,7 @@ class Overlay extends Component<any, any> {
    * @returns {void}
    * @memberof Overlay
    */
-  onCloseButtonKeyDown = (e: KeyboardEvent): void => {
+  private onCloseButtonKeyDown = (e: KeyboardEvent): void => {
     if (e.keyCode === KeyMap.ENTER || e.keyCode === KeyMap.SPACE) {
       e.preventDefault();
       this.props.onClose(e, true);
@@ -90,7 +125,7 @@ class Overlay extends Component<any, any> {
    * @returns {void}
    * @memberof Overlay
    */
-  onKeyDown = (e: KeyboardEvent): void => {
+  private onKeyDown = (e: KeyboardEvent): void => {
     if (this.props.handleKeyDown) {
       this.props.handleKeyDown(e);
     }
@@ -102,7 +137,7 @@ class Overlay extends Component<any, any> {
    * @returns {React$Element | void} close button element
    * @memberof Overlay
    */
-  renderCloseButton(props: any): VNode<any> | undefined {
+  private renderCloseButton(props: any): VNode<any> | undefined {
     if (!props.permanent) {
       return (
         <Localizer>
@@ -120,8 +155,7 @@ class Overlay extends Component<any, any> {
             }}
             onKeyDown={this.onCloseButtonKeyDown}
             aria-label={(<Text id="overlay.close" />) as unknown as string}
-            className={style.closeOverlay}
-          >
+            className={style.closeOverlay}>
             <Icon type={IconType.Close} />
           </a>
         </Localizer>
@@ -139,7 +173,7 @@ class Overlay extends Component<any, any> {
    * @memberof Overlay
    */
   render({type, open, ariaLabel, ariaLabelledBy}: any): VNode<any> {
-    const ariaProps = ariaLabelledBy ? { 'aria-labelledby': ariaLabelledBy } : { 'aria-label': ariaLabel }
+    const ariaProps = ariaLabelledBy ? {'aria-labelledby': ariaLabelledBy} : {'aria-label': ariaLabel};
     const overlayClass = [style.overlay];
     if (type) {
       const classType = style[type + '-overlay'] ? style[type + '-overlay'] : type + '-overlay';
