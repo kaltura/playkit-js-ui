@@ -16,17 +16,18 @@ const COMPONENT_NAME = 'Overlay';
 interface OverlayProps {
   type?: string;
   open?: boolean;
-  ariaLabel: string;
+  ariaLabel?: string;
   ariaLabelledBy?: string;
-  onClose: (e?: KeyboardEvent, byKeyboard?: true) => void;
-  handleKeyDown: (e: KeyboardEvent) => void;
-  addPlayerClass: (className: string) => void;
-  removePlayerClass: (className: string) => void;
-  updateOverlay: (isOpen: boolean) => void;
-  overlayOpen: boolean;
+  onClose?: (e?: KeyboardEvent, byKeyboard?: true) => void;
+  handleKeyDown?: (e: KeyboardEvent) => void;
+  addPlayerClass?: (className: string) => void;
+  removePlayerClass?: (className: string) => void;
+  updateOverlay?: (isOpen: boolean) => void;
+  overlayOpen?: boolean;
   dontCheckOverlayPortal?: boolean;
   permanent?: boolean;
-  player: any;
+  player?: any;
+  addAccessibleChild?: (el: HTMLElement) => void;
   pauseOnOpen?: boolean;
 }
 
@@ -64,7 +65,7 @@ class Overlay extends Component<OverlayProps, any> {
    */
   /* eslint-disable @typescript-eslint/explicit-member-accessibility */
   componentDidMount(): void {
-    this._timeoutId = setTimeout(() => this.props.addPlayerClass(style.overlayActive), 0);
+    this._timeoutId = setTimeout(() => this.props.addPlayerClass!(style.overlayActive), 0);
   }
 
   /**
@@ -80,12 +81,12 @@ class Overlay extends Component<OverlayProps, any> {
       this._timeoutId = null;
     }
     if (this.props.dontCheckOverlayPortal) {
-      this.props.removePlayerClass(style.overlayActive);
+      this.props.removePlayerClass!(style.overlayActive);
     } else {
       // Remove the overlay-active class only when overlay portal has a single child
       const overlayPortalEl = getOverlayPortalElement(this.props.player);
       if (overlayPortalEl!.childElementCount <= 1) {
-        this.props.removePlayerClass(style.overlayActive);
+        this.props.removePlayerClass!(style.overlayActive);
       }
     }
     if (this.props.overlayOpen && this._wasPlayed) {
@@ -114,7 +115,7 @@ class Overlay extends Component<OverlayProps, any> {
   private onCloseButtonKeyDown = (e: KeyboardEvent): void => {
     if (e.keyCode === KeyMap.ENTER || e.keyCode === KeyMap.SPACE) {
       e.preventDefault();
-      this.props.onClose(e, true);
+      this.props.onClose?.(e, true);
     }
   };
 
@@ -181,7 +182,7 @@ class Overlay extends Component<OverlayProps, any> {
     }
 
     if (open) {
-      this.props.updateOverlay(open);
+      this.props.updateOverlay!(open);
       overlayClass.push(style.active);
     }
 

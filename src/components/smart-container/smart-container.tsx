@@ -98,7 +98,7 @@ class SmartContainer extends Component<any, any> {
           onClose={props.onClose}
           handleKeyDown={this.props.handleKeyDown}
           addAccessibleChild={this.props.addAccessibleChild}
-          label={props.settingsText}
+          ariaLabel={props.settingsText}
         >
           <div className={style.title}>{props.title}</div>
           {this.renderChildren(props)}
