@@ -51,11 +51,7 @@ const COMPONENT_NAME = 'PlayPause';
   title: 'controls.title'
 })
 class PlayPause extends Component<any, any> {
-  private _playPauseButtonRef?: HTMLButtonElement | null;
-
-  setButtonRef = (node: HTMLButtonElement | null) => {
-    this._playPauseButtonRef = node;
-  };
+  private _playPauseButtonRef?: HTMLButtonElement;
 
   /**
    * component mounted
@@ -108,7 +104,9 @@ class PlayPause extends Component<any, any> {
             aria-label={`${labelText}, ${entryName}`}
             className={controlButtonClass}
             onClick={this.togglePlayPause}
-            setRef={this.setButtonRef}
+            setRef={node => {
+              this._playPauseButtonRef = node;
+            }}
           >
             {isStartOver ? (
               <Icon type={IconType.StartOver} />

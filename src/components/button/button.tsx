@@ -20,7 +20,7 @@ const Button = (props) => {
     if (ref && 'current' in ref && buttonRef.current) {
       ref.current = buttonRef.current;
     }
-  }, [setRef, ref]);
+  },[buttonRef]);
 
   return <button type="button" ref={buttonRef} {...otherProps}/>;
 };
