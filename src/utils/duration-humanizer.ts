@@ -1,6 +1,6 @@
 import * as humanizeDuration from 'humanize-duration';
 
-const getTimeInText = (seconds: number, uiConfig: any, round: boolean = false) => {
+const getTimeInText = (seconds: number, uiConfig: any, round: boolean = false): string => {
   try {
     const durationHumanizer = getDurationHumanizer(uiConfig);
     if (durationHumanizer) {
@@ -16,7 +16,7 @@ const getTimeInText = (seconds: number, uiConfig: any, round: boolean = false) =
   }
 };
 
-const getDurationHumanizer = ({locale}: any) => {
+const getDurationHumanizer = ({locale}: any): any => {
   const languages = ['en'];
   if (locale) {
     if (locale.match('_')) {
