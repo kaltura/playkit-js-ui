@@ -1,8 +1,8 @@
 import * as humanizeDuration from 'humanize-duration';
 
-const getTimeInText = (seconds: number, uiConfig: any, round: boolean = false): string | undefined => {
+const getDurationAsText = (seconds: number, locale: string, round: boolean = false): string | undefined => {
   try {
-    const durationHumanizer = getDurationHumanizer(uiConfig);
+    const durationHumanizer = getDurationHumanizer(locale);
     if (durationHumanizer) {
       try {
         return seconds ? durationHumanizer(seconds * 1000, {round: round}) : '0';
@@ -16,7 +16,7 @@ const getTimeInText = (seconds: number, uiConfig: any, round: boolean = false): 
   }
 };
 
-const getDurationHumanizer = ({locale}: any): any => {
+const getDurationHumanizer = (locale: string): any => {
   const languages = ['en'];
   if (locale) {
     if (locale.match('_')) {
@@ -37,4 +37,4 @@ const getDurationHumanizer = ({locale}: any): any => {
   return null;
 };
 
-export {getTimeInText};
+export {getDurationAsText};

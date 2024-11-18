@@ -1,6 +1,6 @@
 import style from '../../styles/style.scss';
 import {h, Component, VNode} from 'preact';
-import {toHHMMSS, getTimeInText} from '../../utils';
+import {toHHMMSS, getDurationAsText} from '../../utils';
 import {KeyMap} from '../../utils';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
@@ -580,7 +580,11 @@ class SeekBar extends Component<any, any> {
         aria-valuemin={0}
         aria-valuemax={Math.round(this.props.duration)}
         aria-valuenow={Math.round(this.props.currentTime)}
-        aria-valuetext={`${getTimeInText(props.currentTime, props.player.config.ui, true)} of ${getTimeInText(props.duration, props.player.config.ui, true)}`}
+        aria-valuetext={`${getDurationAsText(props.currentTime, props.player.config.ui.locale, true)} of ${getDurationAsText(
+          props.duration,
+          props.player.config.ui.locale,
+          true
+        )}`}
         onMouseOver={this.onSeekbarMouseOver}
         onMouseLeave={this.onSeekbarMouseLeave}
         onMouseMove={this.onSeekbarMouseMove}

@@ -4,4 +4,4 @@ export {KeyMap, KeyCode} from './key-map';
 export {default as getLogger} from './logger';
 export {withKeyboardA11y} from './popup-keyboard-accessibility';
 export * from './time-format';
-export {getTimeInText} from './duration-humanizer';
+export {getDurationAsText} from './duration-humanizer';
