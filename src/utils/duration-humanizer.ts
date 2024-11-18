@@ -1,6 +1,6 @@
 import * as humanizeDuration from 'humanize-duration';
 
-const getTimeInText = (seconds: number, uiConfig: any, round: boolean = false): string => {
+const getTimeInText = (seconds: number, uiConfig: any, round: boolean = false): string | undefined => {
   try {
     const durationHumanizer = getDurationHumanizer(uiConfig);
     if (durationHumanizer) {
