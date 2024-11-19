@@ -1,6 +1,8 @@
 import * as humanizeDuration from 'humanize-duration';
+import getLogger from './logger';
 
 const getDurationAsText = (seconds: number, locale: string, round: boolean = false): string | undefined => {
+  const logger = getLogger('DurationHumanizer');
   try {
     const durationHumanizer = getDurationHumanizer(locale);
     if (durationHumanizer) {
@@ -11,8 +13,7 @@ const getDurationAsText = (seconds: number, locale: string, round: boolean = fal
       }
     }
   } catch (e: any) {
-    // eslint-disable-next-line no-console
-    console.log(e);
+    logger.log(e);
   }
 };
 
