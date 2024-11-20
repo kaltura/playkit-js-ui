@@ -1,6 +1,6 @@
 import style from '../../styles/style.scss';
 import {h, Component, VNode} from 'preact';
-import {toHHMMSS} from '../../utils';
+import {toHHMMSS, getDurationAsText} from '../../utils';
 import {KeyMap} from '../../utils';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
@@ -9,7 +9,7 @@ import {withPlayer} from '../player';
 import {withKeyboardEvent} from '../keyboard';
 import {actions as overlayIconActions} from '../../reducers/overlay-action';
 import {IconType} from '../icon';
-import {withText} from 'preact-i18n';
+import {Text, withText} from 'preact-i18n';
 import {PlayerArea} from '../player-area';
 import {EventType, withEventManager} from '../../event';
 import {SeekBarPreview} from '../seekbar-preview';
@@ -43,6 +43,10 @@ const COMPONENT_NAME = 'SeekBar';
  */
 const KEYBOARD_DEFAULT_SEEK_JUMP: number = 5;
 
+const translates = {
+  sliderAriaLabel: <Text id="controls.seekBarSlider">Seek bar</Text>
+};
+
 /**
  * SeekBar component
  *
@@ -53,7 +57,7 @@ const KEYBOARD_DEFAULT_SEEK_JUMP: number = 5;
 @withPlayer
 @withEventManager
 @withKeyboardEvent(COMPONENT_NAME)
-@withText({sliderAriaLabel: 'controls.seekBarSlider'})
+@withText(translates)
 class SeekBar extends Component<any, any> {
   _seekBarElement!: HTMLDivElement;
   _framePreviewElement!: HTMLDivElement;
@@ -576,7 +580,11 @@ class SeekBar extends Component<any, any> {
         aria-valuemin={0}
         aria-valuemax={Math.round(this.props.duration)}
         aria-valuenow={Math.round(this.props.currentTime)}
-        aria-valuetext={`${toHHMMSS(this.props.currentTime)} of ${toHHMMSS(this.props.duration)}`}
+        aria-valuetext={`${getDurationAsText(props.currentTime, props.player.config.ui.locale, true)} of ${getDurationAsText(
+          props.duration,
+          props.player.config.ui.locale,
+          true
+        )}`}
         onMouseOver={this.onSeekbarMouseOver}
         onMouseLeave={this.onSeekbarMouseLeave}
         onMouseMove={this.onSeekbarMouseMove}
