@@ -1,5 +1,5 @@
 import style from '../../styles/style.scss';
-import {h, Component, VNode} from 'preact';
+import { h, Component, VNode, RefObject, createRef } from 'preact';
 import {withText} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {default as Icon, IconType} from '../icon';
@@ -51,7 +51,7 @@ const COMPONENT_NAME = 'PlayPause';
   title: 'controls.title'
 })
 class PlayPause extends Component<any, any> {
-  private _playPauseButtonRef?: HTMLButtonElement;
+  private _playPauseButtonRef?: RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
 
   /**
    * component mounted
@@ -65,7 +65,7 @@ class PlayPause extends Component<any, any> {
     eventManager.listenOnce(player, player.Event.UI.USER_CLICKED_PLAY, () => {
       eventManager.listenOnce(player, player.Event.Core.FIRST_PLAY, () => {
         if (!smallSizes.includes(this.props.playerSize)) {
-          this._playPauseButtonRef?.focus();
+          this._playPauseButtonRef?.current?.querySelector("button")?.focus();
         }
       });
     });
@@ -97,27 +97,27 @@ class PlayPause extends Component<any, any> {
     const playbackStateText = this.props.isPlayingAdOrPlayback ? this.props.pauseText : this.props.playText;
     const labelText = isStartOver ? this.props.startOverText : playbackStateText;
     return (
-      <ButtonControl name={COMPONENT_NAME}>
-        <Tooltip label={labelText}>
-          <Button
-            tabIndex="0"
-            aria-label={`${labelText}, ${entryName}`}
-            className={controlButtonClass}
-            onClick={this.togglePlayPause}
-            ref={node => {
-              this._playPauseButtonRef = node;
-            }}>
-            {isStartOver ? (
-              <Icon type={IconType.StartOver} />
-            ) : (
-              <div>
-                <Icon type={IconType.Play} />
-                <Icon type={IconType.Pause} />
-              </div>
-            )}
-          </Button>
-        </Tooltip>
-      </ButtonControl>
+      <div ref={this._playPauseButtonRef}>
+        <ButtonControl name={COMPONENT_NAME}>
+          <Tooltip label={labelText}>
+            <Button
+              tabIndex="0"
+              aria-label={`${labelText}, ${entryName}`}
+              className={controlButtonClass}
+              onClick={this.togglePlayPause}
+            >
+              {isStartOver ? (
+                <Icon type={IconType.StartOver} />
+              ) : (
+                <div>
+                  <Icon type={IconType.Play} />
+                  <Icon type={IconType.Pause} />
+                </div>
+              )}
+            </Button>
+          </Tooltip>
+        </ButtonControl>
+      </div>
     );
   }
 }
