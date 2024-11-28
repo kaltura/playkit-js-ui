@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.79.16 (2024-11-28)
+
+
+### Bug Fixes
+
+* **FEC-14200:** pause when overlay opened ([#960](https://github.com/kaltura/playkit-js-ui/issues/960)) ([62cb9bc](https://github.com/kaltura/playkit-js-ui/commit/62cb9bc))
+
+
+
 ### 0.79.15 (2024-11-17)
 
 
