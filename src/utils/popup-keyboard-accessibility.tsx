@@ -1,6 +1,6 @@
-import { h, Component } from 'preact';
-import { KeyMap } from './key-map';
-import { focusElement } from './focus-element';
+import {h, Component} from 'preact';
+import {KeyMap} from './key-map';
+import {focusElement} from './focus-element';
 
 /**
  * wraps a component and handles all key navigation and focus
@@ -13,6 +13,7 @@ export const withKeyboardA11y = (WrappedComponent): any =>
     _accessibleChildren: Array<HTMLElement> = [];
     _previouslyActiveElement?: HTMLElement | null;
     _isModal: boolean = false;
+    _morePluginButton: HTMLButtonElement | null = null;
 
     /**
      * after component mounted, focus on relevant element
@@ -31,6 +32,15 @@ export const withKeyboardA11y = (WrappedComponent): any =>
      */
     set isModal(value: boolean) {
       this._isModal = value;
+    }
+
+    /**
+     * setter to change to more button state
+     * @param {boolean} value - the modal state
+     * @memberOf HOC
+     */
+    set morePluginButton(button: HTMLButtonElement | null) {
+      this._morePluginButton = button;
     }
 
     /**
@@ -92,6 +102,8 @@ export const withKeyboardA11y = (WrappedComponent): any =>
     componentWillUnmount(): void {
       if (this._previouslyActiveElement && document.contains(this._previouslyActiveElement)) {
         focusElement(this._previouslyActiveElement);
+      } else if (this._previouslyActiveElement?.classList.contains('playkit-dropdown-item_kw')) {
+        focusElement(this._morePluginButton);
       }
     }
 
@@ -112,6 +124,7 @@ export const withKeyboardA11y = (WrappedComponent): any =>
           clearAccessibleChildren={this.clearAccessibleChildren}
           handleKeyDown={this.onKeyDown}
           setIsModal={this.setIsModel}
+          setMoreButton={this.setMoreButton}
         />
       );
     }
@@ -171,5 +184,9 @@ export const withKeyboardA11y = (WrappedComponent): any =>
      */
     setIsModel = (isModel: boolean): void => {
       this.isModal = isModel;
+    };
+
+    setMoreButton = (moreButton: HTMLButtonElement | null): void => {
+      this.morePluginButton = moreButton;
     };
   };
