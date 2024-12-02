@@ -97,8 +97,9 @@ class PlayPause extends Component<any, any> {
     const playbackStateText = this.props.isPlayingAdOrPlayback ? this.props.pauseText : this.props.playText;
     const labelText = isStartOver ? this.props.startOverText : playbackStateText;
     return (
-      <div ref={this._playPauseButtonRef} style={{ display: 'contents' }}>
-        <ButtonControl name={COMPONENT_NAME}>
+
+      <ButtonControl name={COMPONENT_NAME}>
+        <div ref={this._playPauseButtonRef} >
           <Tooltip label={labelText}>
             <Button
               tabIndex="0"
@@ -116,9 +117,11 @@ class PlayPause extends Component<any, any> {
               )}
             </Button>
           </Tooltip>
-        </ButtonControl>
-      </div>
-    );
+        </div>
+      </ButtonControl>
+
+  )
+    ;
   }
 }
 
