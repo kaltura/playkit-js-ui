@@ -104,7 +104,7 @@ class SeekBar extends Component<any, any> {
    * @memberof SeekBar
    */
   componentDidMount(): void {
-    const {player, eventManager, playerSize} = this.props;
+    const {player, eventManager} = this.props;
     const clientRect = this._seekBarElement.getBoundingClientRect();
     this.props.updateSeekbarClientRect(clientRect);
     eventManager.listen(player, EventType.GUI_RESIZE, () => {
