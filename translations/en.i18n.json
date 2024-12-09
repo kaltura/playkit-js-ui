@@ -26,7 +26,8 @@
       "logo": "Logo",
       "seekBarSlider": "Seek bar",
       "readLess": "Less",
-      "readMore": "More"
+      "readMore": "More",
+      "valuetextLabel": "of"
     },
     "unmute": {
       "unmute": "Unmute"
