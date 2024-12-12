@@ -44,7 +44,8 @@ const COMPONENT_NAME = 'SeekBar';
 const KEYBOARD_DEFAULT_SEEK_JUMP: number = 5;
 
 const translates = {
-  sliderAriaLabel: <Text id="controls.seekBarSlider">Seek bar</Text>
+  sliderAriaLabel: <Text id="controls.seekBarSlider">Seek bar</Text>,
+  valuetextLabel: <Text id="controls.valuetextLabel">of</Text>
 };
 
 /**
@@ -580,11 +581,9 @@ class SeekBar extends Component<any, any> {
         aria-valuemin={0}
         aria-valuemax={Math.round(this.props.duration)}
         aria-valuenow={Math.round(this.props.currentTime)}
-        aria-valuetext={`${getDurationAsText(props.currentTime, props.player.config.ui.locale, true)} of ${getDurationAsText(
-          props.duration,
-          props.player.config.ui.locale,
-          true
-        )}`}
+        aria-valuetext={`${getDurationAsText(props.currentTime, props.player.config.ui.locale, true)} ${
+          this.props.valuetextLabel
+        } ${getDurationAsText(props.duration, props.player.config.ui.locale, true)}`}
         onMouseOver={this.onSeekbarMouseOver}
         onMouseLeave={this.onSeekbarMouseLeave}
         onMouseMove={this.onSeekbarMouseMove}

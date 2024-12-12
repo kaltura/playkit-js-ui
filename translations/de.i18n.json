@@ -25,7 +25,8 @@
       "logo": "Logo",
       "seekBarSlider": "Suchleiste",
       "readLess": "Weniger",
-      "readMore": "Mehr"
+      "readMore": "Mehr",
+      "valuetextLabel": "von"
     },
     "unmute": {
       "unmute": "Ton an"
