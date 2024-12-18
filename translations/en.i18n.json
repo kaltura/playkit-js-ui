@@ -70,7 +70,7 @@
       "advanced_captions_settings": "Advanced captions settings"
     },
     "overlay": {
-      "close": "Close"
+      "close": "Close dialog"
     },
     "error": {
       "default_error_title": "Something went wrong",
@@ -140,6 +140,10 @@
     },
     "watermark": {
       "watermark_alt_text": "Watermark"
+    },
+    "spinner": {
+      "loading": "Loading",
+      "playbackStarted": "Playback started"
     }
   }
 }
