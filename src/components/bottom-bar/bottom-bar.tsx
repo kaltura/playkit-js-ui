@@ -160,6 +160,7 @@ class BottomBar extends Component<any, any> {
                 )}
             </PlayerArea>
           </div>
+          <PlayerArea shouldUpdate={true} name={'BottomBarCenterControls'} />
           <div className={style.rightControls}>
             <PlayerArea shouldUpdate={true} name={'BottomBarRightControls'}>
               {props.rightControls &&
