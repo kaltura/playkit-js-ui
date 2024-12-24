@@ -20,11 +20,13 @@ class Spinner extends Component<any, any> {
   loadingSpan: RefObject<HTMLElement> = createRef<HTMLElement>();
 
   componentDidMount() {
-    setTimeout(() => {
-      if (this.loadingSpan.current) {
-        this.loadingSpan.current.innerText = this.props.loading;
-      }
-    }, 1000);
+    if (this.loadingSpan.current && getComputedStyle(this.loadingSpan.current).visibility !== 'hidden') {
+      setTimeout(() => {
+        if (this.loadingSpan.current) {
+          this.loadingSpan.current.innerText = this.props.loading;
+        }
+      }, 1000);
+    }
   }
 
   /**
