@@ -29,6 +29,12 @@
       opacity: 0.7;
       transform: scale(1) translate(-50%, -50%);
     }
+
+    &:focus {
+      outline: 3px solid $tab-focus-color !important;
+      box-shadow: 0 0 0 3px white !important;
+      outline-offset: 3px;
+    }
   }
 }
 
