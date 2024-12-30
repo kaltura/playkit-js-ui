@@ -142,6 +142,9 @@
     },
     "watermark": {
       "watermark_alt_text": "Watermark"
+    },
+    "spinner": {
+      "loading": "Loading"
     }
   }
 }
