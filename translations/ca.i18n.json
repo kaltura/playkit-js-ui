@@ -8,32 +8,31 @@
       "fullscreen": "Pantalla completa",
       "fullscreenExit": "Sortir de pantalla completa",
       "rewind": "Rebobinar",
-      "secondsRewind": "Busca {{segons}} segons cap enrere",
+      "secondsRewind": "Busca {{seconds}} segons enrere",
       "forward": "Busca endavant",
-      "secondsForward": "Busca {{segons}} segons endavant",
+      "secondsForward": "Busca {{seconds}} segons endavant",
       "vrStereo": "vrStereo",
-      "closedCaptionsOn": "Activa els subtítols",
-      "closedCaptionsOff": "Desactiva els subtítols",
+      "closedCaptionsOn": "Desactivar subtítols",
+      "closedCaptionsOff": "Activar subtítols",
       "live": "Viu",
       "mute": "Mut",
-      "unmute": "Desactiva el so",
+      "unmute": "Activar el so",
       "next": "Següent",
       "prev": "Anterior",
-      "startOver": "Comença de nou",
+      "startOver": "Començar de nou",
       "pictureInPicture": "Imatge en imatge",
-      "pictureInPictureExit": "Surt de la imatge a la imatge",
-      "pictureInPictureExpand": "Ampliar",
+      "pictureInPictureExit": "Sortir d'Imatge en imatge",
       "logo": "Logotip",
       "seekBarSlider": "Barra de cerca",
       "readLess": "Menys",
       "readMore": "Més"
     },
     "unmute": {
-      "unmute": "Unmute"
+      "unmute": "Activar el so"
     },
     "volume": {
-      "muted_click_to_unmute": "Silenciat. Feu clic per desactivar el silenci",
-      "volume_click_to_mute": "{{vol}}% volum. Feu clic per silenciar",
+      "muted_click_to_unmute": "Silenciat. Fes clic per activar el so",
+      "volume_click_to_mute": "{{vol}}% de volum. Fes clic per silenciar",
       "ten_percent": "deu per cent",
       "twenty_percent": "vint per cent",
       "thirty_percent": "trenta per cent",
@@ -44,10 +43,11 @@
       "eighty_percent": "vuitanta per cent",
       "ninety_percent": "noranta per cent",
       "one_hundred_percent": "cent per cent",
-      "volume_slider_aria_label": "Control de volum, utilitza les fletxes per controlar el volum"
+      "volume_slider_aria_label": "Volum",
+      "volume_slider_description": "Utilitza les fletxes per controlar el volum"
     },
     "copy": {
-      "button": "Copia l'URL"
+      "button": "Copiar URL"
     },
     "settings": {
       "title": "Configuració",
@@ -56,68 +56,74 @@
       "speed": "Velocitat",
       "speedNormal": "Normal",
       "qualityAuto": "Automàtic",
-      "advancedAudioDescription": "Descripció d'àudio avançada"
+      "qualityHdLabel": "La qualitat és HD",
+      "quality4kLabel": "La qualitat és 4k",
+      "quality8kLabel": "La qualitat és 8k",
+      "advanced_audio_description": "Descripció d'àudio ampliada",
+      "advanced_audio_description_enabled": "Desactivar descripció d'àudio ampliada",
+      "advanced_audio_description_disabled": "Activar descripció d'àudio ampliada"
     },
     "captions": {
       "captions": "Subtítols",
-      "advanced_captions_settings": "Configuració avançada de subtítols"
+      "advanced_captions_settings": "Configuració avançada dels subtítols"
     },
     "overlay": {
-      "close": "Tanca"
+      "close": "Tancar"
     },
     "error": {
-      "default_error_title": "Alguna cosa ha anat malament",
-      "default_error_message": "Hi ha hagut un error. Siusplau, torni a intentar-ho més tard.",
-      "network_error_title": "Hi ha un problema amb la vostra xarxa",
-      "network_error_message": "Si us plau, comproveu la vostra connexió de xarxa i torneu-ho a provar.",
-      "media_unavailable_error_title": "Els mitjans no estan disponibles",
-      "media_unavailable_error_message": "Aquest mitjà s'ha restringit. Si us plau, obteniu els permisos pertinents per accedir al contingut.",
-      "text_error_title": "Error de flux de text",
-      "text_error_message": "S'ha produït un error de flux de text",
-      "media_error_title": "Error de flux multimèdia",
-      "media_error_message": "Un o més fluxos multimèdia han fallat.",
-      "manifest_error_title": "Error de manifest de reproducció",
-      "manifest_error_message": "S'ha produït un error en processar el manifest de reproducció.",
+      "default_error_title": "S'ha produït un error",
+      "default_error_message": "Hi ha hagut un error, si us plau, torna-ho a intentar més tard.",
+      "network_error_title": "Hi ha un problema amb la teva xarxa",
+      "network_error_message": "Si us plau, comprova la connexió de xarxa i torna-ho a intentar.",
+      "media_unavailable_error_title": "Mitjà no disponible",
+      "media_unavailable_error_message": "Aquest contingut ha estat restringit. Obteniu els permisos necessaris per accedir al contingut.",
+      "text_error_title": "Error en el flux de text",
+      "text_error_message": "S'ha produït un error en el flux de text",
+      "media_error_title": "Error en el flux de mitjans",
+      "media_error_message": "Un o més fluxos de mitjans han fallat.",
+      "manifest_error_title": "Error en el manifest de reproducció",
+      "manifest_error_message": "Error en processar el manifest de reproducció.",
       "streaming_error_title": "No es pot carregar el flux",
-      "streaming_error_message": "S'ha produït un error de protocol de transmissió.",
-      "drm_error_message": "No tens permisos per veure aquest mitjà.",
-      "media_not_ready_error_title": "Els mitjans s'estan processant",
-      "media_not_ready_error_message": "Els mitjans s'estan processant, torneu a comprovar-ho aviat.",
+      "streaming_error_message": "S'ha produït un error en el protocol de transmissió.",
+      "drm_error_message": "No tens permisos per veure aquest contingut.",
+      "media_not_ready_error_title": "Mitjà en procés",
+      "media_not_ready_error_message": "El contingut està en procés, torna-ho a provar en breu.",
       "geo_location_error_title": "Ubicació geogràfica no disponible",
-      "geo_location_error_message": "Aquest contingut no està disponible a la vostra regió.",
-      "default_session_text": "Còpia per a l'atenció al client: identificador de sessió",
-      "retry": "Torna-ho a provar"
+      "geo_location_error_message": "Aquest contingut no està disponible a la teva regió.",
+      "ip_restricted_error_message": "Aquest contingut ha estat restringit a certes adreces IP.",
+      "default_session_text": "Còpia per atenció al client: ID de sessió",
+      "retry": "Torna-ho a intentar"
     },
     "ads": {
-      "ad_notice": "Anunci",
-      "learn_more": "Aprèn més",
-      "skip_ad": "Saltar anunci",
-      "skip_in": "Saltar-te"
+      "ad_notice": "Publicitat",
+      "learn_more": "Més informació",
+      "skip_ad": "Ometre anunci",
+      "skip_in": "Ometre en"
     },
     "cvaa": {
-      "title": "Configuració avançada de subtítols",
-      "sample_caption_tag": "Mostra {{nombre}}",
-      "sample_custom_caption_tag": "Títols personalitzats",
-      "set_custom_caption": "Estableix un subtítol personalitzat",
-      "edit_caption": "Edita el subtítol",
+      "title": "Configuració avançada dels subtítols",
+      "sample_caption_tag": "Subtítol exemple {{number}}",
+      "sample_custom_caption_tag": "Subtítols personalitzats",
+      "set_custom_caption": "Establir subtítol personalitzat",
+      "edit_caption": "Editar subtítol",
       "size_label": "Mida",
-      "font_color_label": "Color de la lletra",
-      "font_alignment_label": "Alineació del tipus de lletra",
-      "font_family_label": "Família de fonts",
-      "font_style_label": "Estil de lletra",
+      "font_color_label": "Color de la font",
+      "font_alignment_label": "Alineació de la font",
+      "font_family_label": "Tipus de lletra",
+      "font_style_label": "Estil de la font",
       "font_opacity_label": "Opacitat de la font",
       "background_color_label": "Color de fons",
       "background_opacity_label": "Opacitat del fons",
-      "apply": "Aplica",
-      "caption_preview": "Aquesta és la vista prèvia dels subtítols"
+      "apply": "Aplicar",
+      "caption_preview": "Aquesta és la previsualització del teu subtítol"
     },
     "cast": {
-      "play_on_tv": "Reprodueix a la televisió",
-      "disconnect_from_tv": "Desconnecta de la televisió",
+      "play_on_tv": "Reproduir a la TV",
+      "disconnect_from_tv": "Desconnectar de la TV",
       "status": {
-        "connecting_to": "Connexió a",
+        "connecting_to": "Connectant a",
         "connected_to": "Connectat a",
-        "playing_on": "Jugant"
+        "playing_on": "Reproduint a"
       }
     },
     "playlist": {
@@ -125,10 +131,10 @@
       "next": "Següent",
       "up_next": "A continuació",
       "up_next_in": "Pròximment",
-      "cancel": "Cancel · lar"
+      "cancel": "Cancel·lar"
     },
     "pictureInPicture": {
-      "overlay_text": "Reproduint en mode Picture In Picture"
+      "overlay_text": "Reproduint en mode Imatge en imatge"
     },
     "watermark": {
       "watermark_alt_text": "Filigrana"
