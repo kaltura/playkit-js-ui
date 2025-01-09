@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.79.19 (2025-01-09)
+
+
+### Bug Fixes
+
+* **ADA-1751:** [TR] ADA Loading play not announced ([#968](https://github.com/kaltura/playkit-js-ui/issues/968)) ([26f22f4](https://github.com/kaltura/playkit-js-ui/commit/26f22f4))
+
+
+
 ### 0.79.18 (2024-12-19)
 
 
