@@ -312,7 +312,7 @@ class Tooltip extends Component<TooltipProps & WithEventManagerProps, any> {
         onMouseLeave={this.onMouseLeave}
         ref={el => (el ? (this.tooltipElement = el) : undefined)}>
         {children}
-        <span style={{maxWidth: props.maxWidth}} ref={el => (el ? (this.textElement = el) : undefined)} className={className.join(' ')}>
+        <span style={{maxWidth: props.maxWidth}} ref={el => (el ? (this.textElement = el) : undefined)} className={className.join(' ')} aria-hidden="true">
           {props.label}
         </span>
       </div>
