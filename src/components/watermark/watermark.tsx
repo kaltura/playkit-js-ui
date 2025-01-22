@@ -22,6 +22,7 @@ const mapStateToProps = state => ({
 });
 
 const COMPONENT_NAME = 'Watermark';
+const ENTRY_VAR = '{entryId}';
 
 /**
  * Watermark component
@@ -39,9 +40,9 @@ class Watermark extends Component<any, any> {
    * Creates an instance of Watermark.
    * @memberof Watermark
    */
-  constructor() {
-    super();
-    this.setState({show: true});
+  constructor(props: any) {
+    super(props);
+    this.setState({show: true, urlLink: props.config.url});
   }
 
   /**
@@ -67,6 +68,46 @@ class Watermark extends Component<any, any> {
       this.setState({show: true});
       this.props.eventManager.listenOnce(player, player.Event.PLAYING, onPlaying);
     });
+    this._handleLogoUrl();
+  }
+
+  
+  /**
+   * handles the logo url
+   * if the url contains ${entryId}, then replace it with the played entry id
+   *
+   * @returns {void}
+   * @memberof Logo
+   */
+  private _handleLogoUrl(): void {
+    const url = this.props.config.url;
+    if (url && url.indexOf(ENTRY_VAR) !== -1) {
+      const {player, eventManager} = this.props;
+      if (!this._setLogoUrlWithEntryId(url)) {
+        eventManager.listen(player, player.Event.MEDIA_LOADED, () => {
+          this._setLogoUrlWithEntryId(url);
+        });
+      }
+    }
+  }
+  
+  /**
+   * sets the url with the entry id
+   * @param {string} url - the url configured on the logo
+   * @returns {boolean} - whether the url was set with entry id or not
+   * @memberof Logo
+   */
+  private _setLogoUrlWithEntryId(url: string): boolean {
+    const {player} = this.props;
+    const entryId = player.sources.id;
+    if (typeof entryId === 'string') {
+      this.setState({urlLink: url.replace(ENTRY_VAR, entryId), show: true});
+      return true;
+    } else {
+      this.props.logger.debug(`Logo url was not replaced; entry id was not found.`);
+      this.setState({show: false});
+      return false;
+    }
   }
 
   /**
@@ -104,7 +145,7 @@ class Watermark extends Component<any, any> {
     }
     return (
       <div className={styleClass.join(' ')}>
-        <a href={props.config.url} target="_blank" rel="noopener noreferrer">
+        <a href={this.state.urlLink} target="_blank" rel="noopener noreferrer">
           <Localizer>
             <img src={props.config.img} alt={(<Text id="watermark.watermark_alt_text" />) as unknown as string} />
           </Localizer>
