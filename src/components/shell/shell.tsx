@@ -258,11 +258,17 @@ class Shell extends Component<any, any> {
    * @memberof Shell
    */
   _updatePlayerClientRect = () => {
-    const playerContainer = document.getElementById(this.props.targetId);
-    if (playerContainer) {
-      this.props.updatePlayerClientRect(playerContainer.getBoundingClientRect());
-    }
+    const updateClientRect = () => {
+      const playerContainer = document.getElementById(this.props.targetId);
+      if (playerContainer) {
+        this.props.updatePlayerClientRect(playerContainer.getBoundingClientRect());
+      }
+    };
+
+    const animationFrameId = requestAnimationFrame(updateClientRect);
+    return () => cancelAnimationFrame(animationFrameId);
   };
+
 
   /**
    * before component mounted, remove event listeners
