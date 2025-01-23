@@ -43,6 +43,7 @@ const mapStateToProps = state => ({
 });
 
 const ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY: number = 100;
+const RESIZE_DEBOUNCE_DELAY: number = 0;
 
 const PLAYER_SIZE: {[size: string]: string} = {
   TINY: 'tiny',
@@ -212,7 +213,7 @@ class Shell extends Component<any, any> {
    */
   componentDidMount() {
     const {player, eventManager} = this.props;
-    eventManager.listen(window, 'resize', debounce(this._onWindowResize, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
+    eventManager.listen(window, 'resize', debounce(this._onWindowResize, RESIZE_DEBOUNCE_DELAY));
     eventManager.listen(document, 'scroll', debounce(this._updatePlayerClientRect, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
     eventManager.listen(document, 'click', debounce(this._handleClickOutside, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
     this._playerResizeWatcher = new ResizeWatcher();
@@ -258,17 +259,23 @@ class Shell extends Component<any, any> {
    * @memberof Shell
    */
   _updatePlayerClientRect = () => {
-    const updateClientRect = () => {
-      const playerContainer = document.getElementById(this.props.targetId);
-      if (playerContainer) {
-        this.props.updatePlayerClientRect(playerContainer.getBoundingClientRect());
-      }
-    };
-
-    const animationFrameId = requestAnimationFrame(updateClientRect);
-    return () => cancelAnimationFrame(animationFrameId);
+    const playerContainer = document.getElementById(this.props.targetId);
+    if (playerContainer) {
+      this.props.updatePlayerClientRect(playerContainer.getBoundingClientRect());
+    }
   };
 
+  // _updatePlayerClientRect = () => {
+  //   const updateClientRect = () => {
+  //     const playerContainer = document.getElementById(this.props.targetId);
+  //     if (playerContainer) {
+  //       this.props.updatePlayerClientRect(playerContainer.getBoundingClientRect());
+  //     }
+  //   };
+  //   setTimeout(() => {
+  //     updateClientRect();
+  //   }, 100);
+  // };
 
   /**
    * before component mounted, remove event listeners
