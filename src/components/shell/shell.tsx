@@ -265,18 +265,6 @@ class Shell extends Component<any, any> {
     }
   };
 
-  // _updatePlayerClientRect = () => {
-  //   const updateClientRect = () => {
-  //     const playerContainer = document.getElementById(this.props.targetId);
-  //     if (playerContainer) {
-  //       this.props.updatePlayerClientRect(playerContainer.getBoundingClientRect());
-  //     }
-  //   };
-  //   setTimeout(() => {
-  //     updateClientRect();
-  //   }, 100);
-  // };
-
   /**
    * before component mounted, remove event listeners
    *
