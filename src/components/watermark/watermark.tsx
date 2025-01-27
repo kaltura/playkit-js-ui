@@ -41,7 +41,7 @@ class Watermark extends Component<any, any> {
    * @memberof Watermark
    */
   constructor(props: any) {
-    super(props);
+    super();
     this.setState({show: true, urlLink: props.config.url});
   }
 
@@ -68,24 +68,24 @@ class Watermark extends Component<any, any> {
       this.setState({show: true});
       this.props.eventManager.listenOnce(player, player.Event.PLAYING, onPlaying);
     });
-    this._handleLogoUrl();
+    this._handleWatermarkUrl();
   }
 
   
   /**
-   * handles the logo url
+   * handles the watermark url
    * if the url contains ${entryId}, then replace it with the played entry id
    *
    * @returns {void}
-   * @memberof Logo
+   * @memberof Watermark
    */
-  private _handleLogoUrl(): void {
+  private _handleWatermarkUrl(): void {
     const url = this.props.config.url;
     if (url && url.indexOf(ENTRY_VAR) !== -1) {
       const {player, eventManager} = this.props;
-      if (!this._setLogoUrlWithEntryId(url)) {
+      if (!this._setWatermarkUrlWithEntryId(url)) {
         eventManager.listen(player, player.Event.MEDIA_LOADED, () => {
-          this._setLogoUrlWithEntryId(url);
+          this._setWatermarkUrlWithEntryId(url);
         });
       }
     }
@@ -93,21 +93,20 @@ class Watermark extends Component<any, any> {
   
   /**
    * sets the url with the entry id
-   * @param {string} url - the url configured on the logo
+   * @param {string} url - the url configured on the watermark
    * @returns {boolean} - whether the url was set with entry id or not
-   * @memberof Logo
+   * @memberof Watermark
    */
-  private _setLogoUrlWithEntryId(url: string): boolean {
+  private _setWatermarkUrlWithEntryId(url: string): boolean {
     const {player} = this.props;
     const entryId = player.sources.id;
     if (typeof entryId === 'string') {
       this.setState({urlLink: url.replace(ENTRY_VAR, entryId), show: true});
       return true;
-    } else {
-      this.props.logger.debug(`Logo url was not replaced; entry id was not found.`);
-      this.setState({show: false});
-      return false;
     }
+    this.props.logger.debug(`Watermark url was not replaced; entry id was not found.`);
+    this.setState({show: false});
+    return false;
   }
 
   /**
