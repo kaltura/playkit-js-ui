@@ -59,6 +59,16 @@ class ErrorOverlay extends Component<any, any> {
    */
   handleClick = (): void => {
     const mediaInfo = this.props.player.getMediaInfo();
+    const config = this.props.player.config;
+
+    // Destroy the existing player
+    this.props.player.destroy();
+    this.props.player = null;
+
+    // Setup player again
+    this.props.player = KalturaPlayer.setup(config);
+
+    // Load the media again
     this.props.player.loadMedia(mediaInfo);
   };
 
