@@ -33,6 +33,9 @@
     "outDir": "./lib/",
     "allowSyntheticDefaultImports": true
   },
-  "files": ["./src/types/kaltura-player-js.d.ts"],
+  "files": [
+    "./src/types/kaltura-player-js.d.ts",
+    "node_modules/@playkit-js/kaltura-player-js/ts-typed/kaltura-player.d.ts"
+  ],
   "include": ["src/**/*"]
 }
