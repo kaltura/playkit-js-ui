@@ -10,6 +10,7 @@ import {withLogger} from '../../components/logger';
 import {withPlayer} from '../../components/player';
 import {Button} from '../../components/button';
 import {getErrorDetailsByCategory} from "./error-message-provider";
+import {actions as overlayActions} from '../../reducers/overlay';
 
 /**
  * mapping state to props
@@ -30,7 +31,7 @@ const COMPONENT_NAME = 'ErrorOverlay';
  * @class errorOverlay
  * @extends {Component}
  */
-@connect(mapStateToProps, bindActions(actions))
+@connect(mapStateToProps, bindActions({...actions, ...overlayActions}))
 @withPlayer
 @withLogger(COMPONENT_NAME)
 class ErrorOverlay extends Component<any, any> {
@@ -59,6 +60,7 @@ class ErrorOverlay extends Component<any, any> {
    */
   handleClick = (): void => {
     const mediaInfo = this.props.player.getMediaInfo();
+    this.props.updateOverlay(false);
     this.props.player.loadMedia(mediaInfo);
   };
 
