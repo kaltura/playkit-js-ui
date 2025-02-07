@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 0.80.0 (2025-02-07)
+
+
+### Features
+
+* **FEC-13837:** Add dynamic link support ([#975](https://github.com/kaltura/playkit-js-ui/issues/975)) ([5c8a392](https://github.com/kaltura/playkit-js-ui/commit/5c8a392))
+
+
+
 ### 0.79.20 (2025-01-23)
 
 
