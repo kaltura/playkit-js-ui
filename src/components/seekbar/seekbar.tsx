@@ -98,6 +98,11 @@ class SeekBar extends Component<any, any> {
     }
   ];
 
+  updateSeekBarClientRect = () => {
+    const clientRect = this._seekBarElement.getBoundingClientRect();
+    this.props.updateSeekbarClientRect(clientRect);
+  };
+
   /**
    * on component mount, bind mouseup and mousemove events to top player element
    *
@@ -108,14 +113,7 @@ class SeekBar extends Component<any, any> {
     const {player, eventManager} = this.props;
     const clientRect = this._seekBarElement.getBoundingClientRect();
     this.props.updateSeekbarClientRect(clientRect);
-    eventManager.listen(player, EventType.GUI_RESIZE, () => {
-      this.setState({resizing: true});
-      setTimeout(() => {
-        const clientRect = this._seekBarElement.getBoundingClientRect();
-        this.props.updateSeekbarClientRect(clientRect);
-        this.setState({resizing: false});
-      }, Number(style.defaultTransitionTime));
-    });
+
     const smallSizes = [PLAYER_SIZE.TINY, PLAYER_SIZE.EXTRA_SMALL, PLAYER_SIZE.SMALL];
     eventManager.listenOnce(player, player.Event.UI.USER_CLICKED_PLAY, () => {
       eventManager.listenOnce(player, player.Event.Core.FIRST_PLAY, () => {
@@ -124,6 +122,8 @@ class SeekBar extends Component<any, any> {
         }
       });
     });
+
+    window.addEventListener('bottomBarClientRectUpdated', this.updateSeekBarClientRect);
     document.addEventListener('mouseup', this.onPlayerMouseUp);
     document.addEventListener('mousemove', this.onPlayerMouseMove);
     this.props.registerKeyboardEvents(this._keyboardEventHandlers);
@@ -138,6 +138,7 @@ class SeekBar extends Component<any, any> {
   componentWillUnmount(): void {
     document.removeEventListener('mouseup', this.onPlayerMouseUp);
     document.removeEventListener('mousemove', this.onPlayerMouseMove);
+    window.removeEventListener('updateSeekBar', this.updateSeekBarClientRect);
   }
 
   /**
@@ -519,8 +520,7 @@ class SeekBar extends Component<any, any> {
       <div
         className={this.props.hidePreview ? [style.framePreview, style.hideFramePreview].join(' ') : style.framePreview}
         style={this._getFramePreviewStyle()}
-        ref={c => (c ? (this._framePreviewElement = c) : undefined)}
-      >
+        ref={c => (c ? (this._framePreviewElement = c) : undefined)}>
         <SeekBarPreview virtualTime={this.props.virtualTime} />
       </div>
     );
@@ -591,8 +591,7 @@ class SeekBar extends Component<any, any> {
         onTouchStart={this.onSeekbarTouchStart}
         onTouchMove={this.onSeekbarTouchMove}
         onTouchEnd={this.onSeekbarTouchEnd}
-        onKeyDown={this.onKeyDown}
-      >
+        onKeyDown={this.onKeyDown}>
         <div className={style.progressBar}>
           <PlayerArea name={'SeekBar'} shouldUpdate={true}>
             {this.renderFramePreview()}
