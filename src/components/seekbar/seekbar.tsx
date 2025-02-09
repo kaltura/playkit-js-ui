@@ -99,7 +99,6 @@ class SeekBar extends Component<any, any> {
   ];
 
   handleUpdateSeekBarClientRect = () => {
-    console.log('hi');
     const clientRect = this._seekBarElement.getBoundingClientRect();
     this.props.updateSeekbarClientRect(clientRect);
   };
@@ -124,7 +123,7 @@ class SeekBar extends Component<any, any> {
       });
     });
 
-    eventManager.listen(player, EventType.BOTTOM_BAR_CLIENT_RECT_CHANGED, () => this.handleUpdateSeekBarClientRect());
+    eventManager.listen(player, EventType.BOTTOM_BAR_CLIENT_RECT_CHANGED, this.handleUpdateSeekBarClientRect);
     document.addEventListener('mouseup', this.onPlayerMouseUp);
     document.addEventListener('mousemove', this.onPlayerMouseMove);
     this.props.registerKeyboardEvents(this._keyboardEventHandlers);
