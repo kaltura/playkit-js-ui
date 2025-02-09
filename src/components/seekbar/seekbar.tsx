@@ -139,9 +139,7 @@ class SeekBar extends Component<any, any> {
   componentWillUnmount(): void {
     document.removeEventListener('mouseup', this.onPlayerMouseUp);
     document.removeEventListener('mousemove', this.onPlayerMouseMove);
-    //window.removeEventListener('updateSeekBar', this.updateSeekBarClientRect);
     this.props.eventManager.unlisten(window, 'bottomBarClientRectChanged', this.updateSeekBarClientRect);
-    //  this.props.eventManager?.unlisten(document, 'click', this._closePupup);
   }
 
   /**
