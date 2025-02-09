@@ -99,7 +99,6 @@ class SeekBar extends Component<any, any> {
   ];
 
   handleUpdateSeekBarClientRect = () => {
-    console.log('hi');
     const clientRect = this._seekBarElement.getBoundingClientRect();
     this.props.updateSeekbarClientRect(clientRect);
   };
