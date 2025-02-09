@@ -11,7 +11,7 @@ import {actions as overlayIconActions} from '../../reducers/overlay-action';
 import {IconType} from '../icon';
 import {Text, withText} from 'preact-i18n';
 import {PlayerArea} from '../player-area';
-import {withEventManager} from '../../event';
+import {EventType, withEventManager} from '../../event';
 import {SeekBarPreview} from '../seekbar-preview';
 import {ProgressIndicator} from '../progress-indicator';
 import {KeyboardEventHandlers} from '../../types';
@@ -99,6 +99,7 @@ class SeekBar extends Component<any, any> {
   ];
 
   handleUpdateSeekBarClientRect = () => {
+    console.log('hi');
     const clientRect = this._seekBarElement.getBoundingClientRect();
     this.props.updateSeekbarClientRect(clientRect);
   };
@@ -123,7 +124,7 @@ class SeekBar extends Component<any, any> {
       });
     });
 
-    this.props.eventManager.listen(document, 'bottomBarClientRectChanged', () => this.handleUpdateSeekBarClientRect());
+    eventManager.listen(player, EventType.BOTTOM_BAR_CLIENT_RECT_CHANGED, () => this.handleUpdateSeekBarClientRect());
     document.addEventListener('mouseup', this.onPlayerMouseUp);
     document.addEventListener('mousemove', this.onPlayerMouseMove);
     this.props.registerKeyboardEvents(this._keyboardEventHandlers);
