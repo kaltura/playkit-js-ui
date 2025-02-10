@@ -262,6 +262,9 @@ class Shell extends Component<any, any> {
     if (playerContainer) {
       this.props.updatePlayerClientRect(playerContainer.getBoundingClientRect());
     }
+    setTimeout(() => {
+      this.props.updatePlayerClientRect(playerContainer.getBoundingClientRect());
+    }, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY);
   };
 
   /**
