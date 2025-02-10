@@ -37,7 +37,8 @@ const EventType = {
   USER_SELECTED_CAPTIONS_FONT_STYLE: `${namespace}-userselectedcaptionsfontstyle`,
   USER_SELECTED_CAPTIONS_FONT_OPACITY: `${namespace}-userselectedcaptionsfontopacity`,
   USER_SELECTED_CAPTIONS_BACKGROUND_COLOR: `${namespace}-userselectedcaptionsbackgroundcolor`,
-  USER_SELECTED_CAPTIONS_BACKGROUND_OPACITY: `${namespace}-userselectedcaptionsbackgroundopacity`
+  USER_SELECTED_CAPTIONS_BACKGROUND_OPACITY: `${namespace}-userselectedcaptionsbackgroundopacity`,
+  BOTTOM_BAR_CLIENT_RECT_CHANGED: `${namespace}-bottombarclientrectchanged`
 } as const;
 
 export {EventType};
