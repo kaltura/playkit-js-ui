@@ -43,7 +43,6 @@ const mapStateToProps = state => ({
 });
 
 const ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY: number = 100;
-const DOM_UPDATE_DELAY = 50;
 
 const PLAYER_SIZE: {[size: string]: string} = {
   TINY: 'tiny',
@@ -259,12 +258,13 @@ class Shell extends Component<any, any> {
    * @memberof Shell
    */
   _updatePlayerClientRect = () => {
+    const playerContainer = document.getElementById(this.props.targetId);
+    if (playerContainer) {
+      this.props.updatePlayerClientRect(playerContainer.getBoundingClientRect());
+    }
     setTimeout(() => {
-      const playerContainer = document.getElementById(this.props.targetId);
-      if (playerContainer) {
-        this.props.updatePlayerClientRect(playerContainer.getBoundingClientRect());
-      }
-    }, DOM_UPDATE_DELAY);
+      this.props.updatePlayerClientRect(playerContainer.getBoundingClientRect());
+    }, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY);
   };
 
   /**
