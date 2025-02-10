@@ -43,7 +43,7 @@ const mapStateToProps = state => ({
 });
 
 const ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY: number = 100;
-const RESIZE_DEBOUNCE_DELAY: number = 0;
+const DOM_UPDATE_DELAY = 50;
 
 const PLAYER_SIZE: {[size: string]: string} = {
   TINY: 'tiny',
@@ -213,7 +213,7 @@ class Shell extends Component<any, any> {
    */
   componentDidMount() {
     const {player, eventManager} = this.props;
-    eventManager.listen(window, 'resize', debounce(this._onWindowResize, RESIZE_DEBOUNCE_DELAY));
+    eventManager.listen(window, 'resize', debounce(this._onWindowResize, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
     eventManager.listen(document, 'scroll', debounce(this._updatePlayerClientRect, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
     eventManager.listen(document, 'click', debounce(this._handleClickOutside, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
     this._playerResizeWatcher = new ResizeWatcher();
@@ -259,10 +259,12 @@ class Shell extends Component<any, any> {
    * @memberof Shell
    */
   _updatePlayerClientRect = () => {
-    const playerContainer = document.getElementById(this.props.targetId);
-    if (playerContainer) {
-      this.props.updatePlayerClientRect(playerContainer.getBoundingClientRect());
-    }
+    setTimeout(() => {
+      const playerContainer = document.getElementById(this.props.targetId);
+      if (playerContainer) {
+        this.props.updatePlayerClientRect(playerContainer.getBoundingClientRect());
+      }
+    }, DOM_UPDATE_DELAY);
   };
 
   /**
