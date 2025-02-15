@@ -20,12 +20,10 @@ const COMPONENT_NAME = 'AdvancedAudioDesc';
  * @param {*} state - redux store state
  * @returns {Object} - mapped state to this component
  */
-const mapStateToProps = ({config, settings}) => {
-  return {
-    showAdvancedAudioDescToggle: config.settings.showAdvancedAudioDescToggle,
-    advancedAudioDescEnabled: settings.advancedAudioDesc
-  };
-};
+const mapStateToProps = ({config, settings}) => ({
+  showAdvancedAudioDescToggle: config.settings.showAdvancedAudioDescToggle,
+  advancedAudioDescEnabled: settings.advancedAudioDesc
+});
 
 /**
  * AdvancedAudioDesc component
