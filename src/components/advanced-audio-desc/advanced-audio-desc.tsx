@@ -20,9 +20,10 @@ const COMPONENT_NAME = 'AdvancedAudioDesc';
  * @param {*} state - redux store state
  * @returns {Object} - mapped state to this component
  */
-const mapStateToProps = ({config}) => {
+const mapStateToProps = ({config, settings}) => {
   return {
-    showAdvancedAudioDescToggle: config.settings.showAdvancedAudioDescToggle
+    showAdvancedAudioDescToggle: config.settings.showAdvancedAudioDescToggle,
+    advancedAudioDescEnabled: settings.advancedAudioDesc
   };
 };
 
@@ -125,7 +126,7 @@ class AdvancedAudioDesc extends Component<any, any> implements IconComponent {
             ref={innerRef}
             onClick={this.onClick}
             onKeyDown={this.onKeyDown}>
-            <Icon type={this.advancedAudioDesc ? IconType.AdvancedAudioDescriptionActive : IconType.AdvancedAudioDescription} />
+            <Icon type={this.props.advancedAudioDescEnabled ? IconType.AdvancedAudioDescriptionActive : IconType.AdvancedAudioDescription} />
           </Button>
         </Tooltip>
       </ButtonControl>
