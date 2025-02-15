@@ -20,10 +20,11 @@ const COMPONENT_NAME = 'AdvancedAudioDesc';
  * @param {*} state - redux store state
  * @returns {Object} - mapped state to this component
  */
-const mapStateToProps = ({config, settings}) => ({
-  showAdvancedAudioDescToggle: config.settings.showAdvancedAudioDescToggle,
-  advancedAudioDescEnabled: settings.advancedAudioDesc
-});
+const mapStateToProps = ({config}) => {
+  return {
+    showAdvancedAudioDescToggle: config.settings.showAdvancedAudioDescToggle
+  };
+};
 
 /**
  * AdvancedAudioDesc component
@@ -45,6 +46,10 @@ class AdvancedAudioDesc extends Component<any, any> implements IconComponent {
     registerToBottomBar(COMPONENT_NAME, props.player, () => this.registerComponent());
   }
 
+  get advancedAudioDesc(): boolean {
+    return redux.useStore().getState().settings.advancedAudioDesc;
+  }
+
   public registerComponent(): any {
     return {
       ariaLabel: () => this.getComponentText(),
@@ -60,7 +65,7 @@ class AdvancedAudioDesc extends Component<any, any> implements IconComponent {
   }
 
   public getComponentText = (): any => {
-    return this.props.advancedAudioDescEnabled ? this.props.advancedAudioDescEnabledText : this.props.advancedAudioDescDisabledText;
+    return this.advancedAudioDesc ? this.props.advancedAudioDescEnabledText : this.props.advancedAudioDescDisabledText;
   };
 
   public getSvgIcon = (): any => {
@@ -83,7 +88,7 @@ class AdvancedAudioDesc extends Component<any, any> implements IconComponent {
    * @memberof AdvancedAudioDesc
    */
   private onClick = (): void => {
-    const checked = !this.props.advancedAudioDescEnabled;
+    const checked = !this.advancedAudioDesc;
     this.props.updateAdvancedAudioDesc(checked);
     this.props.notifyClick({type: 'AdvancedAudioDescription', checked});
   };
@@ -113,8 +118,14 @@ class AdvancedAudioDesc extends Component<any, any> implements IconComponent {
     return !this._shouldRender() ? undefined : (
       <ButtonControl name={COMPONENT_NAME} className={[style.noIdleControl, this.props.classNames ? this.props.classNames.join(' ') : ''].join(' ')}>
         <Tooltip label={this.getComponentText()}>
-          <Button tabIndex="0" aria-label={this.getComponentText()} className={`${style.controlButton}`} ref={innerRef} onClick={this.onClick} onKeyDown={this.onKeyDown}>
-            <Icon type={this.props.advancedAudioDescEnabled ? IconType.AdvancedAudioDescriptionActive : IconType.AdvancedAudioDescription} />
+          <Button
+            tabIndex="0"
+            aria-label={this.getComponentText()}
+            className={`${style.controlButton}`}
+            ref={innerRef}
+            onClick={this.onClick}
+            onKeyDown={this.onKeyDown}>
+            <Icon type={this.advancedAudioDesc ? IconType.AdvancedAudioDescriptionActive : IconType.AdvancedAudioDescription} />
           </Button>
         </Tooltip>
       </ButtonControl>
