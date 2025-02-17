@@ -10,6 +10,7 @@ import {withEventManager} from '../../event';
 import {withPlayer} from '../player';
 import {filterControlsByPriority} from './bottom-bar-utils';
 import {BottomBarRegistryManager, bottomBarRegistryManager} from './bottom-bar-registry-manager';
+import {BottomBarClientRectEvent} from '../../event/events/bottom-bar-client-rect-event';
 
 const LOWER_PRIORITY_CONTROLS: string[][] = [
   ['PictureInPicture'],
@@ -99,6 +100,8 @@ class BottomBar extends Component<any, any> {
     const currentControlsWidth = this._getControlsWidth(resizeObserverEntry.target as HTMLElement);
     this._maxControlsWidth = Math.max(this._maxControlsWidth, currentControlsWidth);
     if (barWidth !== this.currentBarWidth) {
+      const {player} = this.props;
+      player.dispatchEvent(new BottomBarClientRectEvent());
       this.currentBarWidth = barWidth;
       const currCrlWidth = this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.SMALL ? CRL_WIDTH + CRL_MARGIN / 2 : CRL_WIDTH + CRL_MARGIN;
       const lowerPriorityControls = LOWER_PRIORITY_CONTROLS.filter(c => this.state.activeControls[c[0]]);
