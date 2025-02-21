@@ -155,7 +155,10 @@ class Overlay extends Component<OverlayProps, any> {
               props.onClose();
             }}
             onKeyDown={this.onCloseButtonKeyDown}
-            aria-label={(<Text id="overlay.close" />) as unknown as string}
+            aria-label={
+              props.closeAriaLabel || 
+              ((<Text id="overlay.close" />) as unknown as string)
+            }
             className={style.closeOverlay}>
             <Icon type={IconType.Close} />
           </a>
