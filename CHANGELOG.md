@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.80.2 (2025-02-24)
+
+
+### Bug Fixes
+
+* **CR-317:** player crushes on reload ([#985](https://github.com/kaltura/playkit-js-ui/issues/985)) ([d09dbb3](https://github.com/kaltura/playkit-js-ui/commit/d09dbb3))
+
+
+
 ### 0.80.1 (2025-02-20)
 
 
