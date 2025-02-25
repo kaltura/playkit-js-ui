@@ -39,7 +39,7 @@ const EventType = {
   USER_SELECTED_CAPTIONS_BACKGROUND_COLOR: `${namespace}-userselectedcaptionsbackgroundcolor`,
   USER_SELECTED_CAPTIONS_BACKGROUND_OPACITY: `${namespace}-userselectedcaptionsbackgroundopacity`,
   BOTTOM_BAR_CLIENT_RECT_CHANGED: `${namespace}-bottombarclientrectchanged`,
-  PLAYER_HOVER_STATE_CHANGED: `${namespace}-playerhoverstatechanged`
+  PLAYER_HOVERED: `${namespace}-playerhovered`
 } as const;
 
 export {EventType};
