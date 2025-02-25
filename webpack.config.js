@@ -38,7 +38,17 @@ module.exports = (env, {mode}) => {
           use: [
             {
               loader: 'style-loader',
-              options: {attributes: {id: `${packageData.name}`}}
+              options: {
+                attributes: {
+                  id: `${packageData.name}`
+                },
+                insert: function insertStylesWithNonce(styleElement) {
+                  if (typeof window.kalturaGlobalConfig?.stylesNonce === 'string') {
+                    styleElement.setAttribute('nonce', window.kalturaGlobalConfig.stylesNonce);
+                  }
+                  document.head.appendChild(styleElement);
+                }
+              }
             },
             {
               loader: 'css-loader',
