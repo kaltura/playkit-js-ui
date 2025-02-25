@@ -1,6 +1,7 @@
 import style from '../../styles/style.scss';
 import {h, Component, createRef, RefObject} from 'preact';
 import {bindActions} from '../../utils/bind-actions';
+import {debounce} from '../../utils/debounce';
 import {actions} from '../../reducers/shell';
 import {actions as bottomBarActions} from '../../reducers/bottom-bar';
 import {connect} from 'react-redux';
@@ -80,7 +81,7 @@ class BottomBar extends Component<any, any> {
    * @memberof BottomBar
    */
   componentDidMount(): void {
-    this.resizeObserver = new ResizeObserver((entry: ResizeObserverEntry[]) => this.onBarWidthChange(entry[0]));
+    this.resizeObserver = new ResizeObserver((entry: ResizeObserverEntry[]) => this._debouncedOnBarWidthChange(entry[0]));
     this.resizeObserver.observe(this.bottomBarContainerRef.current!);
   }
 
@@ -93,6 +94,9 @@ class BottomBar extends Component<any, any> {
   private _getControlsWidth = (element: HTMLElement) => {
     return Array.from(element.childNodes).reduce((total, child: HTMLElement) => total + child.offsetWidth, 0);
   };
+
+  // debounce the resize event
+  private _debouncedOnBarWidthChange = debounce(this.onBarWidthChange.bind(this), 250, false);
 
   // eslint-disable-next-line require-jsdoc
   onBarWidthChange(resizeObserverEntry: ResizeObserverEntry): void {
