@@ -219,6 +219,10 @@ class Shell extends Component<any, any> {
     this._playerResizeWatcher.init(document.getElementById(this.props.targetId)!);
     eventManager.listen(this._playerResizeWatcher, EventType.RESIZE, debounce(this._onWindowResize, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
     eventManager.listen(player, player.Event.FIRST_PLAY, () => this._onWindowResize());
+    eventManager.listen(player, EventType.PLAYER_HOVERED, () => {
+      this._updatePlayerHover(true);
+    });
+
     this._onWindowResize();
   }
 
