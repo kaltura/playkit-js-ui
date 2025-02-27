@@ -29,6 +29,7 @@ interface OverlayProps {
   player?: any;
   addAccessibleChild?: (el: HTMLElement) => void;
   pauseOnOpen?: boolean;
+  closeAriaLabel?: string;
 }
 
 /**
