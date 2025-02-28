@@ -144,7 +144,13 @@ class CVAAOverlay extends Component<any, any> {
         open
         handleKeyDown={this.props.handleKeyDown}
         addAccessibleChild={this.props.addAccessibleChild}
-        onClose={props.onClose}
+        onClose={() => {
+          props.onClose();
+          setTimeout(() => {
+            const button = document.querySelector('.playkit-button-badge') as HTMLElement;
+            if (button) button.focus();
+          }, 0);
+        }}
         type="cvaa"
         {...ariaProps}
       >
