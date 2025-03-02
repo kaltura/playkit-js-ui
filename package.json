@@ -63,7 +63,7 @@
     "@babel/plugin-transform-runtime": "^7.23.7",
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-typescript": "^7.23.3",
-    "@microsoft/api-extractor": "^7.38.0",
+    "@microsoft/api-extractor": "7.51.1",
     "@playkit-js/browserslist-config": "1.0.8",
     "@playkit-js/kaltura-player-js": "latest",
     "@playkit-js/playkit-js": "latest",
