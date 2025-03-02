@@ -49,7 +49,6 @@
     "release": "standard-version"
   },
   "dependencies": {
-    "@playkit-js/webpack-common": "^1.0.1-canary.0-fc299af",
     "preact": "10.4.6",
     "preact-i18n": "2.0.0-preactx.2",
     "react-redux": "7.2.1",
@@ -63,7 +62,7 @@
     "@babel/plugin-transform-runtime": "^7.23.7",
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-typescript": "^7.23.3",
-    "@microsoft/api-extractor": "7.39.1",
+    "@microsoft/api-extractor": "^7.38.0",
     "@playkit-js/browserslist-config": "1.0.8",
     "@playkit-js/kaltura-player-js": "latest",
     "@playkit-js/playkit-js": "latest",
@@ -95,7 +94,6 @@
     "karma-webpack": "^5.0.0",
     "mini-css-extract-plugin": "^2.7.6",
     "mocha": "^10.0.0",
-    "playkit-js-webpack-common": "^1.0.0",
     "prettier": "^3.1.1",
     "sass": "^1.58.0",
     "sass-loader": "^9.0.2",
