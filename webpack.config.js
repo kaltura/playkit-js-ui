@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const packageData = require('./package.json');
 const CSS_MODULE_PREFIX = 'playkit';
+const {insertStylesWithNonce} = require('@playkit-js/webpack-common');
 
 module.exports = (env, {mode}) => {
   return {
@@ -42,12 +43,7 @@ module.exports = (env, {mode}) => {
                 attributes: {
                   id: `${packageData.name}`
                 },
-                insert: function insertStylesWithNonce(styleElement) {
-                  if (typeof window.kalturaGlobalConfig?.stylesNonce === 'string') {
-                    styleElement.setAttribute('nonce', window.kalturaGlobalConfig.stylesNonce);
-                  }
-                  document.head.appendChild(styleElement);
-                }
+                insert: insertStylesWithNonce
               }
             },
             {
