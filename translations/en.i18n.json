@@ -119,7 +119,8 @@
       "background_color_label": "Background color",
       "background_opacity_label": "Background opacity",
       "apply": "Apply",
-      "caption_preview": "This is your caption preview"
+      "caption_preview": "This is your caption preview",
+      "close_label": "Close Advanced captions settings"
     },
     "cast": {
       "play_on_tv": "Play on TV",

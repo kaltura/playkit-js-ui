@@ -45,6 +45,7 @@ const COMPONENT_NAME = 'CVAAOverlay';
 @withText({
   cvvaDialogText: 'cvaa.title',
   cvvaSetCustomCaptionsText: 'cvaa.set_custom_caption',
+  cvaaCloseLabel: 'cvaa.close_label'
 })
 class CVAAOverlay extends Component<any, any> {
   /**
@@ -147,6 +148,7 @@ class CVAAOverlay extends Component<any, any> {
         onClose={props.onClose}
         type="cvaa"
         {...ariaProps}
+        closeAriaLabel={this.props.cvaaCloseLabel}
       >
         {this.state.activeWindow === cvaaOverlayState.Main ? (
           <MainCaptionsWindow
