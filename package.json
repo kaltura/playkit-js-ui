@@ -49,6 +49,7 @@
     "release": "standard-version"
   },
   "dependencies": {
+    "@playkit-js/webpack-common": "^1.0.1-canary.0-dfd24a9",
     "preact": "10.4.6",
     "preact-i18n": "2.0.0-preactx.2",
     "react-redux": "7.2.1",
