@@ -112,7 +112,6 @@ class Watermark extends Component<any, any> {
 
   updateImageProportion = () => {
     const playerContainer = document.getElementById(this.props.targetId);
-    console.log('update 1 ' + playerContainer + ' ' + this._aspectRatio);
     if (playerContainer && this._aspectRatio) {
       const {width} = playerContainer.getBoundingClientRect();
       let scaleMultiplier = 0.3;
