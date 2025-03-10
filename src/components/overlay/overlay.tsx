@@ -85,7 +85,7 @@ class Overlay extends Component<OverlayProps, any> {
     } else {
       // Remove the overlay-active class only when overlay portal has a single child
       const overlayPortalEl = getOverlayPortalElement(this.props.player);
-      if (overlayPortalEl!.childElementCount <= 1) {
+      if (overlayPortalEl && overlayPortalEl?.childElementCount <= 1) {
         this.props.removePlayerClass!(style.overlayActive);
       }
     }
