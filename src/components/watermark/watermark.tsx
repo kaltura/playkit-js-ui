@@ -48,6 +48,10 @@ class Watermark extends Component<any, any> {
     this.setState({show: true, urlLink: props.config.url});
   }
 
+  componentWillMount(): void {
+    this._loadImageDimension();
+  }
+
   /**
    * After component mounted, listen to relevant player event for updating the state of the component
    * @method componentDidMount
@@ -72,9 +76,11 @@ class Watermark extends Component<any, any> {
       this.props.eventManager.listenOnce(player, player.Event.PLAYING, onPlaying);
     });
 
-    this.props.eventManager.listen(player, EventType.RESIZE, this.updateImageProportion);
+    this.props.eventManager.listen(player, EventType.RESIZE, () => {
+      console.log('update from event');
+      this.updateImageProportion();
+    });
     this._handleWatermarkUrl();
-    this._loadImageDimension();
   }
   /**
    * handles the watermark url
@@ -96,17 +102,20 @@ class Watermark extends Component<any, any> {
   }
 
   private _loadImageDimension(): void {
+    console.log('load');
     if (this._aspectRatio) return;
     const img = new Image();
     img.src = this.props.config.img;
     img.onload = () => {
+      console.log('finish loading');
       this._aspectRatio = img.naturalWidth / img.naturalHeight;
+      this.updateImageProportion();
     };
   }
 
   updateImageProportion = () => {
-    this._loadImageDimension();
     const playerContainer = document.getElementById(this.props.targetId);
+    console.log('update 1 ' + playerContainer + ' ' + this._aspectRatio);
     if (playerContainer && this._aspectRatio) {
       const {width} = playerContainer.getBoundingClientRect();
       let scaleMultiplier = 0.3;
@@ -118,7 +127,6 @@ class Watermark extends Component<any, any> {
 
       let newWidth = width * scaleMultiplier;
       let newHeight = newWidth / this._aspectRatio;
-
       this.setState({newWidth, newHeight});
     }
   };
@@ -178,14 +186,16 @@ class Watermark extends Component<any, any> {
       <div className={styleClass.join(' ')}>
         <a href={this.state.urlLink} target="_blank" rel="noopener noreferrer">
           <Localizer>
-            <img
-              src={props.config.img}
-              alt={(<Text id="watermark.watermark_alt_text" />) as unknown as string}
-              style={{
-                width: this.state.newWidth ? `${this.state.newWidth}px` : '100%',
-                height: this.state.newHeight ? `${this.state.newHeight}px` : 'auto'
-              }}
-            />
+            {this.state.newWidth && this.state.newHeight && (
+              <img
+                src={props.config.img}
+                alt={(<Text id="watermark.watermark_alt_text" />) as unknown as string}
+                style={{
+                  width: this.state.newWidth ? `${this.state.newWidth}px` : '100%',
+                  height: this.state.newHeight ? `${this.state.newHeight}px` : 'auto'
+                }}
+              />
+            )}
           </Localizer>
         </a>
       </div>
