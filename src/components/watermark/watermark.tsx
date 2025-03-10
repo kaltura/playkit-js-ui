@@ -115,8 +115,10 @@ class Watermark extends Component<any, any> {
     if (playerContainer && this._aspectRatio) {
       const {width} = playerContainer.getBoundingClientRect();
       let scaleMultiplier = 0.3;
+      // image is wider than it is tall
       if (this._aspectRatio > 1) {
         scaleMultiplier = 0.6;
+        // image is taller than it is wide
       } else if (this._aspectRatio < 1) {
         scaleMultiplier = 0.3;
       }
