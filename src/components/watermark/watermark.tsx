@@ -77,7 +77,6 @@ class Watermark extends Component<any, any> {
     });
 
     this.props.eventManager.listen(player, EventType.RESIZE, () => {
-      console.log('update from event');
       this.updateImageProportion();
     });
     this._handleWatermarkUrl();
