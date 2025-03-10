@@ -102,12 +102,10 @@ class Watermark extends Component<any, any> {
   }
 
   private _loadImageDimension(): void {
-    console.log('load');
     if (this._aspectRatio) return;
     const img = new Image();
     img.src = this.props.config.img;
     img.onload = () => {
-      console.log('finish loading');
       this._aspectRatio = img.naturalWidth / img.naturalHeight;
       this.updateImageProportion();
     };
