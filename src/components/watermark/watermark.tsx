@@ -5,6 +5,7 @@ import {Text, Localizer} from 'preact-i18n';
 import {withPlayer} from '../player';
 import {withEventManager} from '../../event';
 import {withLogger} from '../logger';
+import {EventType} from '@playkit-js/playkit-js';
 
 /**
  * mapping state to props
@@ -18,7 +19,8 @@ const mapStateToProps = state => ({
       timeout: 0
     },
     state.config.components.watermark
-  )
+  ),
+  targetId: state.config.targetId
 });
 
 const COMPONENT_NAME = 'Watermark';
@@ -36,6 +38,7 @@ const ENTRY_VAR = '{entryId}';
 @withLogger(COMPONENT_NAME)
 class Watermark extends Component<any, any> {
   _timeoutId: number | null = null;
+  _aspectRatio: number | null = null;
   /**
    * Creates an instance of Watermark.
    * @memberof Watermark
@@ -43,6 +46,10 @@ class Watermark extends Component<any, any> {
   constructor(props: any) {
     super();
     this.setState({show: true, urlLink: props.config.url});
+  }
+
+  componentWillMount(): void {
+    this._loadImageDimension();
   }
 
   /**
@@ -68,10 +75,12 @@ class Watermark extends Component<any, any> {
       this.setState({show: true});
       this.props.eventManager.listenOnce(player, player.Event.PLAYING, onPlaying);
     });
+
+    this.props.eventManager.listen(player, EventType.RESIZE, () => {
+      this.updateImageProportion();
+    });
     this._handleWatermarkUrl();
   }
-
-  
   /**
    * handles the watermark url
    * if the url contains ${entryId}, then replace it with the played entry id
@@ -90,7 +99,36 @@ class Watermark extends Component<any, any> {
       }
     }
   }
-  
+
+  private _loadImageDimension(): void {
+    if (this._aspectRatio) return;
+    const img = new Image();
+    img.src = this.props.config.img;
+    img.onload = () => {
+      this._aspectRatio = img.naturalWidth / img.naturalHeight;
+      this.updateImageProportion();
+    };
+  }
+
+  updateImageProportion = () => {
+    const playerContainer = document.getElementById(this.props.targetId);
+    if (playerContainer && this._aspectRatio) {
+      const {width} = playerContainer.getBoundingClientRect();
+      let scaleMultiplier = 0.3;
+      // image is wider than it is tall
+      if (this._aspectRatio > 1) {
+        scaleMultiplier = 0.6;
+        // image is taller than it is wide
+      } else if (this._aspectRatio < 1) {
+        scaleMultiplier = 0.3;
+      }
+
+      let newWidth = width * scaleMultiplier;
+      let newHeight = newWidth / this._aspectRatio;
+      this.setState({newWidth, newHeight});
+    }
+  };
+
   /**
    * sets the url with the entry id
    * @param {string} url - the url configured on the watermark
@@ -146,7 +184,16 @@ class Watermark extends Component<any, any> {
       <div className={styleClass.join(' ')}>
         <a href={this.state.urlLink} target="_blank" rel="noopener noreferrer">
           <Localizer>
-            <img src={props.config.img} alt={(<Text id="watermark.watermark_alt_text" />) as unknown as string} />
+            {this.state.newWidth && this.state.newHeight && (
+              <img
+                src={props.config.img}
+                alt={(<Text id="watermark.watermark_alt_text" />) as unknown as string}
+                style={{
+                  width: `${this.state.newWidth}px`,
+                  height: `${this.state.newHeight}px`
+                }}
+              />
+            )}
           </Localizer>
         </a>
       </div>
