@@ -191,8 +191,8 @@ class Watermark extends Component<any, any> {
                 src={props.config.img}
                 alt={(<Text id="watermark.watermark_alt_text" />) as unknown as string}
                 style={{
-                  width: this.state.newWidth ? `${this.state.newWidth}px` : '100%',
-                  height: this.state.newHeight ? `${this.state.newHeight}px` : 'auto'
+                  width: `${this.state.newWidth}px`,
+                  height: `${this.state.newHeight}px`
                 }}
               />
             )}
