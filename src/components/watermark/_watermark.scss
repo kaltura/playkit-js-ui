@@ -5,11 +5,6 @@
     opacity 1s linear,
     transform ease-out 100ms;
 
-  img {
-    width: 100%;
-    height: auto;
-  }
-
   &.hide-watermark {
     visibility: hidden;
     opacity: 0;
