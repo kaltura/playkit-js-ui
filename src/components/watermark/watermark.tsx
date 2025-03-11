@@ -5,6 +5,7 @@ import {Text, Localizer} from 'preact-i18n';
 import {withPlayer} from '../player';
 import {withEventManager} from '../../event';
 import {withLogger} from '../logger';
+import {EventType} from '@playkit-js/playkit-js';
 
 /**
  * mapping state to props
@@ -18,7 +19,8 @@ const mapStateToProps = state => ({
       timeout: 0
     },
     state.config.components.watermark
-  )
+  ),
+  targetId: state.config.targetId
 });
 
 const COMPONENT_NAME = 'Watermark';
@@ -36,6 +38,11 @@ const ENTRY_VAR = '{entryId}';
 @withLogger(COMPONENT_NAME)
 class Watermark extends Component<any, any> {
   _timeoutId: number | null = null;
+  _imgAspectRatio: number | null = null;
+  _originalImgWidth: number | null = null;
+  _originalImgHeight: number | null = null;
+  _playerHeight: number | null = null;
+  _playerWidth: number | null = null;
   /**
    * Creates an instance of Watermark.
    * @memberof Watermark
@@ -43,6 +50,11 @@ class Watermark extends Component<any, any> {
   constructor(props: any) {
     super();
     this.setState({show: true, urlLink: props.config.url});
+  }
+
+  componentWillMount(): void {
+    this._loadPlayerDimension();
+    this._loadImageDimension();
   }
 
   /**
@@ -68,10 +80,12 @@ class Watermark extends Component<any, any> {
       this.setState({show: true});
       this.props.eventManager.listenOnce(player, player.Event.PLAYING, onPlaying);
     });
+
+    this.props.eventManager.listen(player, EventType.RESIZE, () => {
+      this.onPlayerResize();
+    });
     this._handleWatermarkUrl();
   }
-
-  
   /**
    * handles the watermark url
    * if the url contains ${entryId}, then replace it with the played entry id
@@ -90,7 +104,39 @@ class Watermark extends Component<any, any> {
       }
     }
   }
-  
+
+  private _loadImageDimension(): void {
+    const img = new Image();
+    img.src = this.props.config.img;
+    img.onload = () => {
+      this._originalImgWidth = img.naturalWidth;
+      this._originalImgHeight = img.naturalHeight;
+      this._imgAspectRatio = img.naturalWidth / img.naturalHeight;
+      this.setState({imgWidth: img.naturalWidth, imgHeight: img.naturalHeight});
+    };
+  }
+
+  private _loadPlayerDimension(): void {
+    const playerContainer = document.getElementById(this.props.targetId);
+    if (playerContainer) {
+      const {width, height} = playerContainer.getBoundingClientRect();
+      this._playerWidth = width;
+      this._playerHeight = height;
+    }
+  }
+
+  private onPlayerResize(): void {
+    const playerContainer = document.getElementById(this.props.targetId);
+    if (!playerContainer || !this._imgAspectRatio || !this._originalImgWidth || !this._originalImgHeight) return;
+
+    const {width: newPlayerWidth} = playerContainer.getBoundingClientRect();
+
+    const scalingFactor = newPlayerWidth / (this._playerWidth || newPlayerWidth);
+    const newImageWidth = this._originalImgWidth * scalingFactor;
+    const newImageHeight = newImageWidth / this._imgAspectRatio;
+    this.setState({imgWidth: newImageWidth, imgHeight: newImageHeight});
+  }
+
   /**
    * sets the url with the entry id
    * @param {string} url - the url configured on the watermark
@@ -146,7 +192,16 @@ class Watermark extends Component<any, any> {
       <div className={styleClass.join(' ')}>
         <a href={this.state.urlLink} target="_blank" rel="noopener noreferrer">
           <Localizer>
-            <img src={props.config.img} alt={(<Text id="watermark.watermark_alt_text" />) as unknown as string} />
+            {this.state.imgWidth && this.state.imgHeight && (
+              <img
+                src={props.config.img}
+                alt={(<Text id="watermark.watermark_alt_text" />) as unknown as string}
+                style={{
+                  width: `${this.state.imgWidth}px`,
+                  height: `${this.state.imgHeight}px`
+                }}
+              />
+            )}
           </Localizer>
         </a>
       </div>
