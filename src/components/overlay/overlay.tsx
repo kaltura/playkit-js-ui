@@ -56,6 +56,7 @@ const mapStateToProps = state => ({
 class Overlay extends Component<OverlayProps, any> {
   private _timeoutId: NodeJS.Timeout | null = null;
   private _wasPlayed = false; // keep state of the player so we can resume if needed
+  static defaultProps = {closeAriaLabel: (<Text id="overlay.close" />) as unknown as string};
 
   /**
    * componentWillMount
@@ -155,10 +156,7 @@ class Overlay extends Component<OverlayProps, any> {
               props.onClose();
             }}
             onKeyDown={this.onCloseButtonKeyDown}
-            aria-label={
-              props.closeAriaLabel || 
-              ((<Text id="overlay.close" />) as unknown as string)
-            }
+            aria-label={props.closeAriaLabel}
             className={style.closeOverlay}>
             <Icon type={IconType.Close} />
           </a>
