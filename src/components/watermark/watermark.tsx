@@ -38,7 +38,11 @@ const ENTRY_VAR = '{entryId}';
 @withLogger(COMPONENT_NAME)
 class Watermark extends Component<any, any> {
   _timeoutId: number | null = null;
-  _aspectRatio: number | null = null;
+  _imgAspectRatio: number | null = null;
+  _imgWidth: number | null = null;
+  _imgHeight: number | null;
+  _playerHeight: number | null;
+  _playerWidth: number | null;
   /**
    * Creates an instance of Watermark.
    * @memberof Watermark
@@ -49,6 +53,7 @@ class Watermark extends Component<any, any> {
   }
 
   componentWillMount(): void {
+    this._loadPlayerDimension();
     this._loadImageDimension();
   }
 
@@ -77,7 +82,8 @@ class Watermark extends Component<any, any> {
     });
 
     this.props.eventManager.listen(player, EventType.RESIZE, () => {
-      this.updateImageProportion();
+      console.log('resize');
+      this.onPlayerResize();
     });
     this._handleWatermarkUrl();
   }
@@ -101,33 +107,37 @@ class Watermark extends Component<any, any> {
   }
 
   private _loadImageDimension(): void {
-    if (this._aspectRatio) return;
+    if (this._imgAspectRatio) return;
     const img = new Image();
     img.src = this.props.config.img;
     img.onload = () => {
-      this._aspectRatio = img.naturalWidth / img.naturalHeight;
-      this.updateImageProportion();
+      this._imgWidth = img.naturalWidth;
+      this._imgHeight = img.naturalHeight;
+      this._imgAspectRatio = img.naturalWidth / img.naturalHeight;
+      this.setState({imgWidth: img.naturalWidth, imgHeight: img.naturalHeight});
     };
   }
 
-  updateImageProportion = () => {
+  private _loadPlayerDimension(): void {
     const playerContainer = document.getElementById(this.props.targetId);
-    if (playerContainer && this._aspectRatio) {
-      const {width} = playerContainer.getBoundingClientRect();
-      let scaleMultiplier = 0.3;
-      // image is wider than it is tall
-      if (this._aspectRatio > 1) {
-        scaleMultiplier = 0.6;
-        // image is taller than it is wide
-      } else if (this._aspectRatio < 1) {
-        scaleMultiplier = 0.3;
-      }
-
-      let newWidth = width * scaleMultiplier;
-      let newHeight = newWidth / this._aspectRatio;
-      this.setState({newWidth, newHeight});
+    if (playerContainer) {
+      const {width, height} = playerContainer.getBoundingClientRect();
+      this._playerWidth = width;
+      this._playerHeight = height;
     }
-  };
+  }
+
+  private onPlayerResize(): void {
+    const playerContainer = document.getElementById(this.props.targetId);
+    if (!playerContainer || !this._imgAspectRatio || !this._imgWidth || !this._imgHeight) return;
+
+    const {width: newPlayerWidth} = playerContainer.getBoundingClientRect();
+
+    const scalingFactor = newPlayerWidth / (this._playerWidth || newPlayerWidth);
+    const newImageWidth = this._imgWidth * scalingFactor;
+    const newImageHeight = newImageWidth / this._imgAspectRatio;
+    this.setState({imgWidth: newImageWidth, imgHeight: newImageHeight});
+  }
 
   /**
    * sets the url with the entry id
@@ -184,13 +194,13 @@ class Watermark extends Component<any, any> {
       <div className={styleClass.join(' ')}>
         <a href={this.state.urlLink} target="_blank" rel="noopener noreferrer">
           <Localizer>
-            {this.state.newWidth && this.state.newHeight && (
+            {this.state.imgWidth && this.state.imgHeight && (
               <img
                 src={props.config.img}
                 alt={(<Text id="watermark.watermark_alt_text" />) as unknown as string}
                 style={{
-                  width: `${this.state.newWidth}px`,
-                  height: `${this.state.newHeight}px`
+                  width: `${this.state.imgWidth}px`,
+                  height: `${this.state.imgHeight}px`
                 }}
               />
             )}
