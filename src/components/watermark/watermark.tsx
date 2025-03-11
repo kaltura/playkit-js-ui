@@ -40,9 +40,9 @@ class Watermark extends Component<any, any> {
   _timeoutId: number | null = null;
   _imgAspectRatio: number | null = null;
   _imgWidth: number | null = null;
-  _imgHeight: number | null;
-  _playerHeight: number | null;
-  _playerWidth: number | null;
+  _imgHeight: number | null = null;
+  _playerHeight: number | null = null;
+  _playerWidth: number | null = null;
   /**
    * Creates an instance of Watermark.
    * @memberof Watermark
