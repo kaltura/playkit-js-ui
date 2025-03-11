@@ -39,8 +39,8 @@ const ENTRY_VAR = '{entryId}';
 class Watermark extends Component<any, any> {
   _timeoutId: number | null = null;
   _imgAspectRatio: number | null = null;
-  _imgWidth: number | null = null;
-  _imgHeight: number | null = null;
+  _originalImgWidth: number | null = null;
+  _originalImgHeight: number | null = null;
   _playerHeight: number | null = null;
   _playerWidth: number | null = null;
   /**
@@ -109,8 +109,8 @@ class Watermark extends Component<any, any> {
     const img = new Image();
     img.src = this.props.config.img;
     img.onload = () => {
-      this._imgWidth = img.naturalWidth;
-      this._imgHeight = img.naturalHeight;
+      this._originalImgWidth = img.naturalWidth;
+      this._originalImgHeight = img.naturalHeight;
       this._imgAspectRatio = img.naturalWidth / img.naturalHeight;
       this.setState({imgWidth: img.naturalWidth, imgHeight: img.naturalHeight});
     };
@@ -127,12 +127,12 @@ class Watermark extends Component<any, any> {
 
   private onPlayerResize(): void {
     const playerContainer = document.getElementById(this.props.targetId);
-    if (!playerContainer || !this._imgAspectRatio || !this._imgWidth || !this._imgHeight) return;
+    if (!playerContainer || !this._imgAspectRatio || !this._originalImgWidth || !this._originalImgHeight) return;
 
     const {width: newPlayerWidth} = playerContainer.getBoundingClientRect();
 
     const scalingFactor = newPlayerWidth / (this._playerWidth || newPlayerWidth);
-    const newImageWidth = this._imgWidth * scalingFactor;
+    const newImageWidth = this._originalImgWidth * scalingFactor;
     const newImageHeight = newImageWidth / this._imgAspectRatio;
     this.setState({imgWidth: newImageWidth, imgHeight: newImageHeight});
   }
