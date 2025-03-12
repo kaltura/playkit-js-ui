@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 0.81.0 (2025-03-06)
+
+
+### Features
+
+* **FEC-14367:** add webpack common ([b07b142](https://github.com/kaltura/playkit-js-ui/commit/b07b142))
+
+
+
 ### 0.80.2 (2025-02-24)
 
 
