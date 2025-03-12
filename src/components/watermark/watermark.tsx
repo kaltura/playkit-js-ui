@@ -106,6 +106,9 @@ class Watermark extends Component<any, any> {
   }
 
   private _loadImageDimension(): void {
+    if (!this.props.config.img) {
+      return;
+    }
     const img = new Image();
     img.src = this.props.config.img;
     img.onload = () => {
