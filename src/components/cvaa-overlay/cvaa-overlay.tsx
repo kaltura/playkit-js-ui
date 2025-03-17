@@ -129,25 +129,23 @@ class CVAAOverlay extends Component<any, any> {
   };
 
   focusPlayerButtonBadge = (): void => {
-    requestAnimationFrame(() => {
-      const { player } = this.props;
-      if (!player) return;
+    const { player } = this.props;
+    if (!player) return;
   
-      let currentElement = player.getView();
-      if (!currentElement) return;
+    let currentElement = player.getView();
+    if (!currentElement) return;
   
-      let settingsButton: HTMLElement | null = null;
+    let settingsButton: HTMLElement | null = null;
   
-      while (currentElement && currentElement !== document.body) {
-        settingsButton = currentElement.querySelector('.playkit-button-badge');
-        if (settingsButton) break;
-        currentElement = currentElement.parentElement;
-      }
+    while (currentElement && currentElement !== document.body) {
+      settingsButton = currentElement.querySelector('.playkit-button-badge');
+      if (settingsButton) break;
+      currentElement = currentElement.parentElement;
+    }
   
-      if (settingsButton) {
-        focusElement(settingsButton);
-      }
-    });
+    if (settingsButton) {
+      focusElement(settingsButton);
+    }
   };
   
   /**
