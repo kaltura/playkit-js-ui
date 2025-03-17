@@ -87,7 +87,7 @@ class Cast extends Component<any, any> {
           onClick={this.onClick}
           onKeyDown={this.onKeyDown}
         >
-          <Tooltip label={this.props.castText}>
+          <Tooltip label={this.props.castText} type={props.classNames?.includes(style.upperBarIcon) ? 'bottom-left' : 'top'} strictPosition>
             {/* @ts-ignore */}
             <google-cast-launcher className={className} tabIndex="0" />
           </Tooltip>

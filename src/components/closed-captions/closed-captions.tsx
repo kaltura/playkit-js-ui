@@ -93,7 +93,7 @@ const ClosedCaptions = connect(mapStateToProps)(
         return (
           <ButtonControl name={COMPONENT_NAME} className={props.classNames ? props.classNames.join(' ') : ''}>
             {ccOn ? (
-              <Tooltip label={props.closedCaptionsOnText}>
+      <Tooltip label={props.closedCaptionsOnText} type={props.classNames?.includes(style.upperBarIcon) ? 'bottom-left' : 'top'} strictPosition>
                 <Button
                   tabIndex={0}
                   aria-label={props.closedCaptionsOnText}
@@ -107,7 +107,7 @@ const ClosedCaptions = connect(mapStateToProps)(
                 </Button>
               </Tooltip>
             ) : (
-              <Tooltip label={props.closedCaptionsOffText}>
+              <Tooltip label={props.closedCaptionsOffText} type={props.classNames?.includes(style.upperBarIcon) ? 'bottom-left' : 'top'} strictPosition>
                 <Button
                   tabIndex={0}
                   aria-label={props.closedCaptionsOffText}

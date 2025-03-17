@@ -116,7 +116,7 @@ class AdvancedAudioDesc extends Component<any, any> implements IconComponent {
   public render({innerRef}: any): VNode<any> | undefined {
     return !this._shouldRender() ? undefined : (
       <ButtonControl name={COMPONENT_NAME} className={[style.noIdleControl, this.props.classNames ? this.props.classNames.join(' ') : ''].join(' ')}>
-        <Tooltip label={this.getComponentText()}>
+        <Tooltip label={this.getComponentText()} type={this.props.classNames?.includes(style.upperBarIcon) ? 'bottom-left' : 'top'} strictPosition>
           <Button
             tabIndex="0"
             aria-label={this.getComponentText()}
