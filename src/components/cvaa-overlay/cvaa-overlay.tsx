@@ -12,6 +12,7 @@ import {MainCaptionsWindow} from './main-captions_window';
 import {CustomCaptionsWindow} from './custom-captions-window';
 import {withText} from 'preact-i18n';
 import { Utils } from '@playkit-js/playkit-js';
+import { focusElement } from '../../utils';
 
 /**
  * mapping state to props
@@ -128,6 +129,26 @@ class CVAAOverlay extends Component<any, any> {
     });
   };
 
+  focusPlayerButtonBadge = (): void => {
+    const { player } = this.props;
+    if (!player) return;
+  
+    let currentElement = player.getView();
+    if (!currentElement) return;
+  
+    let settingsButton: HTMLElement | null = null;
+  
+    while (currentElement && currentElement !== document.body) {
+      settingsButton = currentElement.querySelector('.playkit-button-badge');
+      if (settingsButton) break;
+      currentElement = currentElement.parentElement;
+    }
+  
+    if (settingsButton) {
+      focusElement(settingsButton);
+    }
+  };
+  
   /**
    * render component
    * @param {*} props - component props
@@ -145,7 +166,10 @@ class CVAAOverlay extends Component<any, any> {
         open
         handleKeyDown={this.props.handleKeyDown}
         addAccessibleChild={this.props.addAccessibleChild}
-        onClose={props.onClose}
+        onClose={() => {
+          props.onClose();
+          this.focusPlayerButtonBadge();
+        }}
         type="cvaa"
         {...ariaProps}
         closeAriaLabel={this.props.cvaaCloseLabel}
