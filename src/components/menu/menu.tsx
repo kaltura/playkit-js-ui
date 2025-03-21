@@ -291,7 +291,12 @@ class MenuItem extends Component<any, any> {
         onClick={this.onClick}
         onKeyDown={this.onKeyDown}
       >
-        <span className={badgeType ? [style.labelBadge, badgeType].join(' ') : ''}>{props.data.label}</span>
+        <span
+          className={badgeType ? [style.labelBadge, badgeType].join(' ') : ''}
+          aria-label={badgeType?.includes("quality-hd") ? `${props.data.label} HD` : props.data.label}
+        >
+          {props.data.label}
+        </span>
         <span className={[style.menuIconContainer, style.active].join(' ')}>
           <Icon type={IconType.CheckActive} />
         </span>
