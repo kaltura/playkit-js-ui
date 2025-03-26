@@ -61,7 +61,7 @@ class PlaybackControls extends Component<any, any> {
     if (shouldUpdate) {
       this.setState({shouldUpdate: false});
     }
-    const imageClass = this.props.image ? 'playkit-image' : '';
+    const imageClass = this.props.image ? style.image : '';
 
     return (
       <div className={[style.playbackControls, className, imageClass].join(' ')}>
