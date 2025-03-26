@@ -11,7 +11,8 @@ import {PlayerArea} from '../../components/player-area';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  playlist: state.engine.playlist
+  playlist: state.engine.playlist,
+  image: state.engine.isImg
 });
 
 const COMPONENT_NAME = 'PlaybackControls';
@@ -60,9 +61,10 @@ class PlaybackControls extends Component<any, any> {
     if (shouldUpdate) {
       this.setState({shouldUpdate: false});
     }
+    const imageClass = this.props.image ? style.image : '';
 
     return (
-      <div className={[style.playbackControls, className].join(' ')}>
+      <div className={[style.playbackControls, className, imageClass].join(' ')}>
         <PlayerArea name={'BottomBarPlaybackControls'} shouldUpdate={shouldUpdate}>
           {playlist ? (
             <Fragment>
