@@ -90,7 +90,7 @@ const CaptionsControl = connect(mapStateToProps)(
     return (
       <>
         <ButtonControl name={COMPONENT_NAME} ref={controlCaptionsElement}>
-          <Tooltip label={props.captionsLabelText}>
+          <Tooltip label={props.captionsLabelText} type={props.classNames?.includes(style.upperBarIcon) ? 'bottom-left' : 'top'} strictPosition>
             <Button
               ref={buttonRef}
               tabIndex="0"

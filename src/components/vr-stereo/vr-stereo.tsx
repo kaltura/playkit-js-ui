@@ -128,7 +128,7 @@ class VrStereo extends Component<any, any> implements IconComponent {
   render(): VNode<any> | undefined {
     return !this._shouldRender() ? undefined : (
       <ButtonControl name={COMPONENT_NAME} className={this.props.classNames ? this.props.classNames.join(' ') : ''}>
-        <Tooltip label={this.props.vrStereoText}>
+        <Tooltip label={this.props.vrStereoText} type={this.props.classNames?.includes(style.upperBarIcon) ? 'bottom-left' : 'top'} strictPosition>
           <Button
             tabIndex="0"
             aria-label={this.props.vrStereoText}
