@@ -48,8 +48,9 @@ const KEYBOARD_DEFAULT_VOLUME_JUMP: number = 5;
  */
 const translates = (props: any) => ({
   volumeLabel: props.muted ? <Text id="controls.unmute">Unmute</Text> : <Text id="controls.mute">Mute</Text>,
-  sliderAriaLabel: <Text id="volume.volume_slider_aria_label">Volume</Text>, 
-  sliderAriaDescription: <Text id="volume.volume_slider_description">Use the arrows to control the volume</Text>
+  volumeButtonAriaLabel: <Text id="volume.volume_button_aria_label">Volume</Text>,
+  volumeButtonAriaDescription: <Text id="volume.volume_button_description">Click to volume control</Text>,
+  sliderAriaLabel: <Text id="volume.volume_slider_aria_label">Volume control, use the arrows to control the volume</Text>
 });
 
 /**
@@ -68,6 +69,7 @@ const translates = (props: any) => ({
 @withText(translates)
 class Volume extends Component<any, any> {
   _volumeControlElement!: HTMLDivElement;
+  _volumeSliderElement!: HTMLDivElement;
   _volumeProgressBarElement!: HTMLDivElement;
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
@@ -427,6 +429,12 @@ class Volume extends Component<any, any> {
     }
   };
 
+  handleClickOnVolumeButton = (e: Event): void => {
+    e.stopPropagation?.();
+    e.preventDefault?.();
+    this._volumeSliderElement?.focus();
+  };
+
   /**
    * render component
    *
@@ -466,11 +474,21 @@ class Volume extends Component<any, any> {
             <Icon type={IconType.VolumeMute} />
           </Button>
         </Tooltip>
+        <span
+          /* a11y element to reach volume seekbar with speech recognition */
+          className={style.volumeButton}
+          hidden={this.state.hover}
+          role="button"
+          tabIndex={-1}
+          onClick={this.handleClickOnVolumeButton}
+          aria-label={this.props.volumeButtonAriaLabel}
+          aria-description={this.props.volumeButtonAriaDescription}
+        />
         <div
+          ref={node => (node ? (this._volumeSliderElement = node) : undefined)}
           tabIndex={0}
           aria-orientation="vertical"
           aria-label={this.props.sliderAriaLabel}
-          aria-description={this.props.sliderAriaDescription}
           onKeyDown={this.onProgressBarKeyDown}
           className={style.volumeControlBar}
           onFocus={this.onFocus}

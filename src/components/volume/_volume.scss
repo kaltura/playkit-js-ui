@@ -41,6 +41,15 @@
       }
     }
 
+    .volume-button {
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 2px;
+      height: 2px;
+      background: transparent;
+    }
+
     .icon-volume-waves {
       -webkit-transform: translateX(0px);
       -ms-transform: translateX(0px);
