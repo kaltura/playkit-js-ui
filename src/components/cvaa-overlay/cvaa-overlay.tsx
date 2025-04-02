@@ -12,7 +12,6 @@ import {MainCaptionsWindow} from './main-captions_window';
 import {CustomCaptionsWindow} from './custom-captions-window';
 import {withText} from 'preact-i18n';
 import { Utils } from '@playkit-js/playkit-js';
-import { focusElement } from '../../utils';
 
 /**
  * mapping state to props
@@ -129,23 +128,23 @@ class CVAAOverlay extends Component<any, any> {
   };
 
   focusPlayerButtonBadge = (): void => {
-    const { player } = this.props;
-    if (!player) return;
+    const selector = '.playkit-button-badge';
+    const delay = 100;
+    const maxAttempts = 10;
+    let attempts = 0;
   
-    let currentElement = player.getView();
-    if (!currentElement) return;
+    const interval = setInterval(() => {
+      const element = document.querySelector<HTMLElement>(selector);
+      if (element && getComputedStyle(element).visibility !== 'hidden') {
+        element.focus();
+        clearInterval(interval);
+        return;
+      }
   
-    let settingsButton: HTMLElement | null = null;
-  
-    while (currentElement && currentElement !== document.body) {
-      settingsButton = currentElement.querySelector('.playkit-button-badge');
-      if (settingsButton) break;
-      currentElement = currentElement.parentElement;
-    }
-  
-    if (settingsButton) {
-      focusElement(settingsButton);
-    }
+      if (++attempts >= maxAttempts) {
+        clearInterval(interval);
+      }
+    }, delay);
   };
   
   /**
