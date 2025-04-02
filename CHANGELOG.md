@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.81.2 (2025-04-02)
+
+
+### Bug Fixes
+
+* **ADA-2120:** volume control a11y voice recognition fix ([#1003](https://github.com/kaltura/playkit-js-ui/issues/1003)) ([11e49fd](https://github.com/kaltura/playkit-js-ui/commit/11e49fd))
+
+
+
 ### 0.81.1 (2025-03-20)
 
 
