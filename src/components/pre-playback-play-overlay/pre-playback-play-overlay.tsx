@@ -92,8 +92,12 @@ class PrePlaybackPlayOverlay extends Component<any, any> {
     }
     const entryName = `${this.props.title}: ${this.props.player.sources.metadata?.name}`;
     const labelText = props.isPlaybackEnded ? props.startOverText : props.playText;
+    const prePlaybackPlayOverlayClassName = [style.prePlaybackPlayOverlay];
+    if (props.player.engineType === props.player.EngineType.YOUTUBE) {
+      prePlaybackPlayOverlayClassName.push(style.prePlaybackPlayOverlayYoutube);
+    }
     return (
-      <div className={style.prePlaybackPlayOverlay} onMouseOver={this.onMouseOver} onClick={this.handleClick}>
+      <div className={prePlaybackPlayOverlayClassName.join(' ')} onMouseOver={this.onMouseOver} onClick={this.handleClick}>
         <Button className={style.prePlaybackPlayButton} tabIndex="0" aria-label={`${labelText}, ${entryName}`} onKeyDown={this.onKeyDown}>
           <Tooltip label={labelText}>{props.isPlaybackEnded ? <Icon type={IconType.StartOver} /> : <Icon type={IconType.Play} />}</Tooltip>
         </Button>

@@ -5,6 +5,10 @@
   width: 100%;
   height: 100%;
 
+  &.prePlaybackPlayOverlayYoutube {
+    z-index: 2; // prevent click-through
+  }
+
   .pre-playback-play-button {
     z-index: 2;
     position: absolute;
