@@ -89,7 +89,7 @@ class AdvancedAudioDesc extends Component<any, any> implements IconComponent {
   private onClick = (): void => {
     const checked = !this.advancedAudioDesc;
     this.props.updateAdvancedAudioDesc(checked);
-    this.props.notifyClick({type: 'AdvancedAudioDescription', checked});
+    this.props.notifyClick({type: 'AdvancedAudioDescription', checked, settings: false});
   };
 
   /**

@@ -40,7 +40,7 @@ class AdvancedAudioDescToggle extends Component<any, any> {
    */
   onAdvancedAudioClick = (isChecked: boolean): void => {
     this.props.updateAdvancedAudioDesc(isChecked);
-    this.props.notifyClick({type: 'AdvancedAudioDescription', checked: isChecked});
+    this.props.notifyClick({type: 'AdvancedAudioDescription', checked: isChecked, settings: true});
   };
 
   /**
