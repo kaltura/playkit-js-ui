@@ -128,6 +128,26 @@ class CVAAOverlay extends Component<any, any> {
     });
   };
 
+  focusPlayerButtonBadge = (): void => {
+    const selector = '.playkit-button-badge';
+    const delay = 100;
+    const maxAttempts = 10;
+    let attempts = 0;
+  
+    const interval = setInterval(() => {
+      const element = document.querySelector<HTMLElement>(selector);
+      if (element && getComputedStyle(element).visibility !== 'hidden') {
+        element.focus();
+        clearInterval(interval);
+        return;
+      }
+  
+      if (++attempts >= maxAttempts) {
+        clearInterval(interval);
+      }
+    }, delay);
+  };
+  
   /**
    * render component
    * @param {*} props - component props
@@ -145,7 +165,10 @@ class CVAAOverlay extends Component<any, any> {
         open
         handleKeyDown={this.props.handleKeyDown}
         addAccessibleChild={this.props.addAccessibleChild}
-        onClose={props.onClose}
+        onClose={() => {
+          props.onClose();
+          this.focusPlayerButtonBadge();
+        }}
         type="cvaa"
         {...ariaProps}
         closeAriaLabel={this.props.cvaaCloseLabel}
