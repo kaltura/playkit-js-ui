@@ -53,11 +53,11 @@ const COMPONENT_NAME = 'BottomBar';
 @withEventManager
 @connect(mapStateToProps, bindActions({...actions, ...bottomBarActions}))
 class BottomBar extends Component<any, any> {
-  bottomBarContainerRef: RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
-  presetControls: {[controlName: string]: boolean} = {};
-  currentBarWidth: number = 0;
-  resizeObserver!: ResizeObserver;
-  _maxControlsWidth = 0;
+  private bottomBarContainerRef: RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
+  private presetControls: {[controlName: string]: boolean} = {};
+  private currentBarWidth: number = 0;
+  private resizeObserver!: ResizeObserver;
+  private _maxControlsWidth = 0;
 
   // eslint-disable-next-line require-jsdoc
   constructor(props: any) {
@@ -79,44 +79,55 @@ class BottomBar extends Component<any, any> {
    * @returns {void}
    * @memberof BottomBar
    */
-  componentDidMount(): void {
+  public componentDidMount(): void {
     this.resizeObserver = new ResizeObserver((entry: ResizeObserverEntry[]) => this.onBarWidthChange(entry[0]));
     this.resizeObserver.observe(this.bottomBarContainerRef.current!);
   }
 
   // eslint-disable-next-line require-jsdoc
-  componentWillUnmount(): void {
+  public componentWillUnmount(): void {
     this.resizeObserver.disconnect();
     this._maxControlsWidth = 0;
   }
 
-  private _getControlsWidth = (element: HTMLElement) => {
+  private _getControlsWidth = (element: HTMLElement): number => {
     return Array.from(element.childNodes).reduce((total, child: HTMLElement) => total + child.offsetWidth, 0);
   };
 
   // eslint-disable-next-line require-jsdoc
-  onBarWidthChange(resizeObserverEntry: ResizeObserverEntry): void {
+  private onBarWidthChange(resizeObserverEntry: ResizeObserverEntry): void {
+    const {player} = this.props;
+
     const barWidth = resizeObserverEntry.contentRect.width;
     const currentControlsWidth = this._getControlsWidth(resizeObserverEntry.target as HTMLElement);
-    this._maxControlsWidth = Math.max(this._maxControlsWidth, currentControlsWidth);
+
+    const maxControlsWidth = Math.max(this._maxControlsWidth, currentControlsWidth);
+    if (!player.isFullscreen()) {
+      this._maxControlsWidth = maxControlsWidth;
+    }
+
     if (barWidth !== this.currentBarWidth) {
-      const {player} = this.props;
       player.dispatchEvent(new BottomBarClientRectEvent());
       this.currentBarWidth = barWidth;
       const currCrlWidth = this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.SMALL ? CRL_WIDTH + CRL_MARGIN / 2 : CRL_WIDTH + CRL_MARGIN;
       const lowerPriorityControls = LOWER_PRIORITY_CONTROLS.filter(c => this.state.activeControls[c[0]]);
-      this.filterControls(barWidth, this._maxControlsWidth, currCrlWidth, lowerPriorityControls);
+      this.filterControls(barWidth, maxControlsWidth, currCrlWidth, lowerPriorityControls);
     }
   }
 
-  onToggleControl = (controlName: string, isActive: boolean): void => {
+  private onToggleControl = (controlName: string, isActive: boolean): void => {
     if (controlName in this.state.activeControls && this.state.activeControls[controlName] !== isActive) {
       this.setState(state => ({activeControls: {...state.activeControls, ...{[controlName]: isActive}}}));
     }
   };
 
   // eslint-disable-next-line require-jsdoc
-  filterControls(currentBarWidth: number, currentMinBreakPointWidth: number, currentControlWidth: number, lowerPriorityControls: string[][]): void {
+  private filterControls(
+    currentBarWidth: number,
+    currentMinBreakPointWidth: number,
+    currentControlWidth: number,
+    lowerPriorityControls: string[][]
+  ): void {
     const isBreak = currentMinBreakPointWidth >= currentBarWidth;
     if (isBreak) {
       const controlsToRemove = filterControlsByPriority(currentMinBreakPointWidth, currentBarWidth, currentControlWidth, lowerPriorityControls);
@@ -137,7 +148,7 @@ class BottomBar extends Component<any, any> {
    * @returns {?React$Element} - component element
    * @memberof BottomBar
    */
-  render(props: any) {
+  public render(props: any): any {
     const styleClass = [style.bottomBar];
     if (props.isCasting && props.isPlaybackEnded) {
       styleClass.push(style.hide);
