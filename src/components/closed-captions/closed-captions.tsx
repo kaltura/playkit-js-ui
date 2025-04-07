@@ -113,8 +113,8 @@ const ClosedCaptions = connect(mapStateToProps)(
                   aria-label={props.closedCaptionsOffText}
                   className={style.controlButton}
                   onClick={() => {
-                    props.notifyClick(false);
                     player.showTextTrack();
+                    props.notifyClick(false);
                   }}
                 >
                   <Icon type={IconType.ClosedCaptionsOff} />

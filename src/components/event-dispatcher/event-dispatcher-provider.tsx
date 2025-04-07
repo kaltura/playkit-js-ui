@@ -373,7 +373,8 @@ function onOverlayActionClicked(store: any, action: any, player: KalturaPlayer):
  */
 function onClosedCaptionsClicked(store: any, action: any, player: KalturaPlayer): void {
   const {payload: ccOn} = action;
-  ccOn ? player.dispatchEvent(new FakeEvent(EventType.USER_HID_CAPTIONS)) : player.dispatchEvent(new FakeEvent(EventType.USER_SHOWED_CAPTIONS));
+  const textTrack = player.getActiveTracks()?.[player.Track.TEXT];
+  player.dispatchEvent(new FakeEvent(ccOn ? EventType.USER_HID_CAPTIONS : EventType.USER_SHOWED_CAPTIONS, { language: textTrack?.language }));
 }
 
 /**
