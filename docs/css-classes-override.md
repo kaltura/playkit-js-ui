@@ -11,6 +11,43 @@ And here are some of the classes you can override:
 >
 > - The namespace for the default skin must be `playkit`.
 > - The Player uses the same font family in **all** of its components. You can override it in the general parent class (`.playkit-player-gui`) or customize each component according to your preferences.
+> -  UI Componets may override your css modifications
+
+
+### Example - Customize UI Classes
+
+##### Modify using style TAG
+``` 
+<style> 
+    #player-gui > div.playkit-gui-area > div.playkit-bottom-bar > div.playkit-right-controls > div.playkit-control-button-container.playkit-control-fullscreen  {
+  background-color: #4CAF50;
+  }
+  
+  #player-gui > div.playkit-gui-area > div.playkit-bottom-bar > div.playkit-right-controls > div.playkit-control-button-container.playkit-control-settings {
+    display: none;
+  }
+</style>
+```
+
+
+#### Configuring UI Elements form external css file
+
+* The css configuration can be also applied via css file that is hosted on your domain
+
+```
+"ui": {
+		"css": "https://path/my.css",
+},
+```
+
+
+* Modifing the elements can be done programmatically in some more ways like querySelctor, gerElemetById and more
+
+#### Example
+```
+document.querySelector("#player-gui > div.playkit-gui-area > div.playkit-bottom-bar > div.playkit-right-controls > div.playkit-control-button-container.playkit-control-fullscreen > div > button").style.display = "none"
+
+```
 
 ## Player Classes List
 
