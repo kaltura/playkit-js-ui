@@ -55,9 +55,12 @@ const COMPONENT_NAME = 'BottomBar';
 class BottomBar extends Component<any, any> {
   private bottomBarContainerRef: RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
   private presetControls: {[controlName: string]: boolean} = {};
-  private currentBarWidth: number = 0;
   private resizeObserver!: ResizeObserver;
-  private _maxControlsWidth = 0;
+
+  private _currBarWidthArr = [0, 0];
+  private _maxControlsWidthArr = [0, 0];
+
+  private _isFullscreenModeChanging = false;
 
   // eslint-disable-next-line require-jsdoc
   constructor(props: any) {
@@ -71,6 +74,24 @@ class BottomBar extends Component<any, any> {
       .forEach(controlName => (this.presetControls[controlName] = true));
     this.state = {fitInControls: this.presetControls, activeControls: this.presetControls};
     props.player.registerService(bottomBarRegistryManager, new BottomBarRegistryManager());
+
+    let fullscreenChangeTimeout: number | null = null;
+    const onFullscreenChange = (): void => {
+      this._isFullscreenModeChanging = true;
+
+      if (fullscreenChangeTimeout) {
+        clearTimeout(fullscreenChangeTimeout);
+      }
+
+      fullscreenChangeTimeout = setTimeout(() => {
+        this._isFullscreenModeChanging = false;
+        this.onBarWidthChange(true);
+        fullscreenChangeTimeout = null;
+      }, 100) as unknown as number;
+    };
+
+    props.eventManager.listen(props.player, props.player.Event.Core.ENTER_FULLSCREEN, onFullscreenChange);
+    props.eventManager.listen(props.player, props.player.Event.Core.EXIT_FULLSCREEN, onFullscreenChange);
   }
 
   /**
@@ -80,39 +101,56 @@ class BottomBar extends Component<any, any> {
    * @memberof BottomBar
    */
   public componentDidMount(): void {
-    this.resizeObserver = new ResizeObserver((entry: ResizeObserverEntry[]) => this.onBarWidthChange(entry[0]));
+    this.resizeObserver = new ResizeObserver(() => this.onBarWidthChange(false));
     this.resizeObserver.observe(this.bottomBarContainerRef.current!);
   }
 
   // eslint-disable-next-line require-jsdoc
   public componentWillUnmount(): void {
     this.resizeObserver.disconnect();
-    this._maxControlsWidth = 0;
+    this._currBarWidthArr = [0, 0];
+    this._maxControlsWidthArr = [0, 0];
+    this._isFullscreenModeChanging = false;
   }
 
-  private _getControlsWidth = (element: HTMLElement): number => {
-    return Array.from(element.childNodes).reduce((total, child: HTMLElement) => total + child.offsetWidth, 0);
+  private _getControlsWidth = (): number => {
+    return Array.from(this.bottomBarContainerRef.current!.childNodes).reduce((total, child: HTMLElement) => total + child.offsetWidth, 0);
   };
 
   // eslint-disable-next-line require-jsdoc
-  private onBarWidthChange(resizeObserverEntry: ResizeObserverEntry): void {
+  private onBarWidthChange(shouldRecalculate: boolean): void {
+    if (this._isFullscreenModeChanging) return;
+
     const {player} = this.props;
 
-    const barWidth = resizeObserverEntry.contentRect.width;
-    const currentControlsWidth = this._getControlsWidth(resizeObserverEntry.target as HTMLElement);
+    const barWidth = this.bottomBarContainerRef.current?.offsetWidth || 0;
+    const currentControlsWidth = this._getControlsWidth();
 
-    const maxControlsWidth = Math.max(this._maxControlsWidth, currentControlsWidth);
-    if (!player.isFullscreen()) {
-      this._maxControlsWidth = maxControlsWidth;
-    }
+    this.setMaxControlsWidth(player.isFullscreen(), Math.max(this.getMaxControlsWidth(player.isFullscreen()), currentControlsWidth));
 
-    if (barWidth !== this.currentBarWidth) {
+    if (shouldRecalculate || barWidth !== this.getCurrentBarWidth(player.isFullscreen())) {
       player.dispatchEvent(new BottomBarClientRectEvent());
-      this.currentBarWidth = barWidth;
+      this.setCurrentBarWidth(player.isFullscreen(), barWidth);
       const currCrlWidth = this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.SMALL ? CRL_WIDTH + CRL_MARGIN / 2 : CRL_WIDTH + CRL_MARGIN;
       const lowerPriorityControls = LOWER_PRIORITY_CONTROLS.filter(c => this.state.activeControls[c[0]]);
-      this.filterControls(barWidth, maxControlsWidth, currCrlWidth, lowerPriorityControls);
+      this.filterControls(barWidth, this.getMaxControlsWidth(player.isFullscreen()), currCrlWidth, lowerPriorityControls);
     }
+  }
+
+  private getMaxControlsWidth(isFullscreen: boolean): number {
+    return this._maxControlsWidthArr[Number(isFullscreen)];
+  }
+
+  private setMaxControlsWidth(isFullscreen: boolean, maxControlsWidth: number): void {
+    this._maxControlsWidthArr[Number(isFullscreen)] = maxControlsWidth;
+  }
+
+  private getCurrentBarWidth(isFullscreen: boolean): number {
+    return this._currBarWidthArr[Number(isFullscreen)];
+  }
+
+  private setCurrentBarWidth(isFullscreen: boolean, barWidth: number): void {
+    this._currBarWidthArr[Number(isFullscreen)] = barWidth;
   }
 
   private onToggleControl = (controlName: string, isActive: boolean): void => {
