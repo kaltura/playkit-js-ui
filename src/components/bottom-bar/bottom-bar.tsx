@@ -189,7 +189,7 @@ class BottomBar extends Component<any, any> {
    */
   public render(props: any): any {
     const styleClass = [style.bottomBar];
-    if (props.isCasting && props.isPlaybackEnded || props.overlayOpen) {
+    if ((props.isCasting && props.isPlaybackEnded) || props.overlayOpen) {
       styleClass.push(style.hide);
     }
 
