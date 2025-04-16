@@ -38,7 +38,7 @@ const SampleCaptionsStyleButton = (props: any) => {
       ref={el => {
         /* @ts-expect-error - Type 'HTMLDivElement | null' is not assignable to type 'Ref<HTMLDivElement>' */
         _sampleCaptionsElRef = el;
-        props.addAccessibleChild(el);
+        props.addAccessibleChild(el, props.isActive);
       }}
       className={props.classNames.join(' ')}
       onClick={props.changeCaptionsStyle}
