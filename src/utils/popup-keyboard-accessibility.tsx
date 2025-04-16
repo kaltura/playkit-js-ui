@@ -1,4 +1,5 @@
 import {h, Component} from 'preact';
+import {withPlayer} from './../components/player';
 import {KeyMap} from './key-map';
 import {focusElement} from './focus-element';
 
@@ -7,7 +8,8 @@ import {focusElement} from './focus-element';
  * @param {Component} WrappedComponent - The popup component to implement keyboard accessibility
  * @returns {Component} - HOC that handles animation
  */
-export const withKeyboardA11y = (WrappedComponent): any =>
+export const withKeyboardA11y = (WrappedComponent): any => {
+  @withPlayer
   class KeyBoardAccessibility extends Component<any, any> {
     _defaultFocusedElement!: HTMLElement;
     _accessibleChildren: Array<HTMLElement> = [];
@@ -23,6 +25,15 @@ export const withKeyboardA11y = (WrappedComponent): any =>
      */
     componentDidMount() {
       this.focusOnDefault();
+    }
+
+    /**
+     * checks if the overlay is open
+     * @returns {boolean} - true if the overlay is open
+     * @memberof HOC
+     */
+    get isOverlayOpen() {
+      return this.props.player.ui.store.getState().overlay.isOpen;
     }
 
     /**
@@ -100,7 +111,7 @@ export const withKeyboardA11y = (WrappedComponent): any =>
      * @memberof HOC
      */
     componentWillUnmount(): void {
-      if (this._previouslyActiveElement && document.contains(this._previouslyActiveElement)) {
+      if (this._previouslyActiveElement && document.contains(this._previouslyActiveElement) && !this.isOverlayOpen) {
         focusElement(this._previouslyActiveElement);
       } else if (this._previouslyActiveElement?.classList.contains('playkit-dropdown-item_kw')) {
         focusElement(this._morePluginButton);
@@ -190,3 +201,5 @@ export const withKeyboardA11y = (WrappedComponent): any =>
       this.morePluginButton = moreButton;
     };
   };
+  return KeyBoardAccessibility;
+}
