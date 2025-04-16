@@ -2,7 +2,7 @@
   position: absolute;
   transition: all #{$default-transition-time}ms;
   transition-property: left, right, bottom, top, opacity;
-  z-index: 0;
+  z-index: 1;
   &.small-size {
     // for small sizes the side panel should be over player controls
     z-index: 2;
