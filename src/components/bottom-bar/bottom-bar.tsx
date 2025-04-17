@@ -36,8 +36,7 @@ const mapStateToProps = state => ({
   isPlaybackEnded: state.engine.isPlaybackEnded,
   guiClientRect: state.shell.guiClientRect,
   playerSize: state.shell.playerSize,
-  playlist: state.engine.playlist,
-  overlayOpen: state.overlay.isOpen
+  playlist: state.engine.playlist
 });
 
 const COMPONENT_NAME = 'BottomBar';
@@ -189,7 +188,7 @@ class BottomBar extends Component<any, any> {
    */
   public render(props: any): any {
     const styleClass = [style.bottomBar];
-    if ((props.isCasting && props.isPlaybackEnded) || props.overlayOpen) {
+    if (props.isCasting && props.isPlaybackEnded) {
       styleClass.push(style.hide);
     }
 
