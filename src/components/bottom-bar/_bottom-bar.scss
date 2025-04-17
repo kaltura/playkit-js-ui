@@ -72,6 +72,12 @@
 }
 
 .player {
+  &.overlay-active {
+    .bottom-bar {
+      display: none;
+    }
+  }
+  
   &.size-ty {
     .controls-container {
       display: block;
