@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.81.3 (2025-04-24)
+
+
+### Bug Fixes
+
+* **FEC-14451:** player v 7 quiz entry loads without bottom bar ([#1011](https://github.com/kaltura/playkit-js-ui/issues/1011)) ([c180f16](https://github.com/kaltura/playkit-js-ui/commit/c180f16))
+
+
+
 ### 0.81.2 (2025-04-02)
 
 
