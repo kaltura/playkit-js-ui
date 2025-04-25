@@ -33,7 +33,9 @@ const errorsMap: Map<number, ErrorDetails> = new Map<number, ErrorDetails>([
   /** SITE RESTRICTION */
   [16, {title: 'media_unavailable_error_title', message: 'site_restricted_error_message'}],
   /** SCHEDULED RESTRICTION */
-  [17, {title: 'media_unavailable_error_title', message: 'scheduled_restricted_error_message'}]
+  [17, {title: 'media_unavailable_error_title', message: 'scheduled_restricted_error_message'}],
+  /** ACCESS CONTROL */
+  [18, {title: 'access_control_error_title', message: 'access_control_error_message'}]
 ]);
 
 const defaultError: ErrorDetails = {
