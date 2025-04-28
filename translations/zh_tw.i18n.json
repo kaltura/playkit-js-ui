@@ -23,7 +23,9 @@
       "logo": "圖標",
       "seekBarSlider": "進行輪播",
       "readLess": "更少",
-      "readMore": "更多"
+      "readMore": "更多",
+      "secondsRewind": "倒退 {{seconds}} 秒尋找",
+      "secondsForward": "前進 {{seconds}} 秒尋找"
     },
     "unmute": {
       "unmute": "終止靜音"

@@ -23,7 +23,9 @@
       "logo": "Logotipo",
       "seekBarSlider": "Buscar control deslizante",
       "readLess": "Menos",
-      "readMore": "Más"
+      "readMore": "Más",
+      "secondsRewind": "Buscar {{seconds}} segundos hacia atrás",
+      "secondsForward": "Buscar {{seconds}} segundos hacia delante"
     },
     "unmute": {
       "unmute": "Dejar de silenciar"
