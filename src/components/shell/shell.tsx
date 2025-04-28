@@ -144,6 +144,12 @@ class Shell extends Component<any, any> {
     }
   }
 
+  enterFullScreen(): void {
+    if (!this.props.player.isFullscreen()) {
+      this.props.player.enterFullscreen();
+    }
+  }
+
   /**
    * on touch end handler
    * @param {TouchEvent} e - touch event
@@ -176,6 +182,9 @@ class Shell extends Component<any, any> {
       this.props.updatePlayerNavState(true);
     }
 
+    if (this.state.nav && (e.keyCode === KeyMap.F)) {
+      this.enterFullScreen();
+    }
     if (this.state.nav && (e.keyCode === KeyMap.ENTER || e.keyCode === KeyMap.SPACE)) {
       this.unMuteFallback();
       // @ts-ignore
