@@ -106,9 +106,7 @@ class Fullscreen extends Component<
           this.toggleFullscreen();
         }
       case KeyMap.F:
-        if (!this.props.player!.isFullscreen()) {
-          this.toggleFullscreen();
-        }
+        this.toggleFullscreen();
         break;
       case KeyMap.ESC:
         if (this.props.player!.isFullscreen()) {

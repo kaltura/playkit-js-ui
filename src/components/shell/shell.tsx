@@ -144,12 +144,8 @@ class Shell extends Component<any, any> {
     }
   }
 
-  toggleFullscreen(): void {
-    if (this.props.player.isFullscreen()) {
-      this.props.player.exitFullscreen();
-    } else {
-      this.props.player.enterFullscreen();
-    }
+  toggleFullscreen(): void { 
+    this.props.player.isFullscreen() ? this.props.player.exitFullscreen() : this.props.player.enterFullscreen();
   }
 
   /**
