@@ -179,12 +179,15 @@ class Shell extends Component<any, any> {
    * @returns {void}
    */
   onKeyDown = (e: KeyboardEvent): void => {
+    const target = e.target as HTMLElement;
+    const isInput = target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable;
+
     if (!this.state.nav && e.keyCode === KeyMap.TAB) {
       this.setState({nav: true});
       this.props.updatePlayerNavState(true);
     }
 
-    if (this.state.nav && (e.keyCode === KeyMap.F)) {
+    if (this.state.nav && (e.keyCode === KeyMap.F) && !isInput) {
       this.toggleFullscreen();
     }
     if (this.state.nav && (e.keyCode === KeyMap.ENTER || e.keyCode === KeyMap.SPACE)) {
