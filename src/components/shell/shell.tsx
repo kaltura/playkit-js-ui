@@ -144,8 +144,10 @@ class Shell extends Component<any, any> {
     }
   }
 
-  enterFullScreen(): void {
-    if (!this.props.player.isFullscreen()) {
+  toggleFullscreen(): void { 
+    if (this.props.player.isFullscreen()) {
+      this.props.player.exitFullscreen();
+    } else {
       this.props.player.enterFullscreen();
     }
   }
@@ -183,7 +185,7 @@ class Shell extends Component<any, any> {
     }
 
     if (this.state.nav && (e.keyCode === KeyMap.F)) {
-      this.enterFullScreen();
+      this.toggleFullscreen();
     }
     if (this.state.nav && (e.keyCode === KeyMap.ENTER || e.keyCode === KeyMap.SPACE)) {
       this.unMuteFallback();
