@@ -143,8 +143,10 @@ class OverlayAction extends Component<any, any> {
    * @returns {void}
    * @memberof OverlayAction
    */
-  onOverlayMouseUp = (event: any): void => {
-    if (!this.isDragging(event)) {
+  private onOverlayMouseUp = (event: any): void => {
+    const isContextMenuToggle = event.button === 2 && this.props.player.debugInfo;
+
+    if (!this.isDragging(event) && !isContextMenuToggle) {
       this.overlayClick();
     }
   };
