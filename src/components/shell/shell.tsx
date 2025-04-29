@@ -190,6 +190,7 @@ class Shell extends Component<any, any> {
     if (this.state.nav && (e.keyCode === KeyMap.F) && !isInput) {
       this.toggleFullscreen();
     }
+    
     if (this.state.nav && (e.keyCode === KeyMap.ENTER || e.keyCode === KeyMap.SPACE)) {
       this.unMuteFallback();
       // @ts-ignore
