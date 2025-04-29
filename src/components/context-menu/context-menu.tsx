@@ -27,7 +27,7 @@ function _ContextMenu({player, eventManager}: ContextMenuProps): VNode {
   useEffect(() => {
     eventManager!.listen(document, 'click', () => setIsVisible(false));
     eventManager!.listen(document, 'contextmenu', e => {
-      if (!player.debugInfo || !document.getElementById(player.config.targetId)?.contains(e.target as Node)) return;
+      if (!(player as any).debugInfo || !document.getElementById(player.config.targetId)?.contains(e.target as Node)) return;
 
       if (isVisible) {
         setIsVisible(false);
@@ -57,7 +57,7 @@ function _ContextMenu({player, eventManager}: ContextMenuProps): VNode {
   }, []);
 
   function handleMenuClick(): void {
-    const debugInfo = player.debugInfo;
+    const debugInfo = (player as any).debugInfo;
     const debugInfoString = JSON.stringify(debugInfo, null, 2);
     navigator.clipboard.writeText(debugInfoString);
   }
