@@ -31,6 +31,7 @@ import {ThemesManager} from './utils/themes-manager';
 import {KPUIAddComponent, KPUIComponent, UIOptionsObject, UIPreset} from './types';
 import {RootState} from './types';
 import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
+import {ContextMenu} from './components/context-menu';
 
 /**
  * API used for building UIs based on state conditions
@@ -197,6 +198,7 @@ class UIManager {
                 <EventDispatcherProvider player={this.player} store={this.store}>
                   <KeyboardEventProvider playerContainer={this.container}>
                     <Shell>
+                      <ContextMenu />
                       {/* @ts-ignore*/}
                       <EngineConnector />
                       <VideoPlayer />

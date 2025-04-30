@@ -9,7 +9,7 @@ import {CopyButton} from '../copy-button';
 import {withLogger} from '../../components/logger';
 import {withPlayer} from '../../components/player';
 import {Button} from '../../components/button';
-import {getErrorDetailsByCategory} from "./error-message-provider";
+import {getErrorDetailsByCategory} from './error-message-provider';
 import {actions as overlayActions} from '../../reducers/overlay';
 
 /**
@@ -35,7 +35,7 @@ const COMPONENT_NAME = 'ErrorOverlay';
 @withPlayer
 @withLogger(COMPONENT_NAME)
 class ErrorOverlay extends Component<any, any> {
-  sessionEl!: HTMLDivElement;
+  private sessionEl!: HTMLDivElement;
 
   /**
    * copy input text based on input element.
@@ -43,13 +43,8 @@ class ErrorOverlay extends Component<any, any> {
    * @returns {void}
    * @memberof ErrorOverlay
    */
-  copyError = (): void => {
-    let selection = window.getSelection()!;
-    let range = document.createRange();
-    range.selectNode(this.sessionEl);
-    selection.removeAllRanges();
-    selection.addRange(range);
-    document.execCommand('copy');
+  private copyError = (): void => {
+    navigator.clipboard.writeText(JSON.stringify(this.props.player.debugInfo));
   };
 
   /**
@@ -58,7 +53,7 @@ class ErrorOverlay extends Component<any, any> {
    * @returns {void}
    * @memberof ErrorOverlay
    */
-  handleClick = (): void => {
+  private handleClick = (): void => {
     const mediaInfo = this.props.player.getMediaInfo();
     this.props.updateOverlay(false);
     this.props.player.loadMedia(mediaInfo);
@@ -70,7 +65,7 @@ class ErrorOverlay extends Component<any, any> {
    * @returns {string | undefined} - custom background URL
    * @memberof ErrorOverlay
    */
-  getBackgroundUrl = (): string | undefined => {
+  private getBackgroundUrl = (): string | undefined => {
     const {errorOverlaConfig} = this.props;
     return errorOverlaConfig?.backgroundUrl;
   };
@@ -81,23 +76,19 @@ class ErrorOverlay extends Component<any, any> {
    * @returns {React$Element} - main state element
    * @memberof ErrorOverlay
    */
-  renderSessionID(): VNode<any> | undefined {
+  private renderSessionID(): VNode<any> | undefined {
     const {player} = this.props;
     const sessionId = player && player.config && player.config.session && player.config.session.id;
-    if (sessionId) {
-      return (
-        <div className={style.linkOptionsContainer}>
-          <div className={style.copyUrlRow}>
-            <div ref={el => (el ? (this.sessionEl = el) : undefined)} className={style.errorSession}>
-              <Text id="error.default_session_text" /> {' ' + sessionId}
-            </div>
-            <CopyButton copy={this.copyError} />
+    return (
+      <div className={style.linkOptionsContainer}>
+        <div className={style.copyUrlRow}>
+          <div>
+            <Text id="error.default_session_text" /> {' ' + sessionId || ''}
           </div>
+          <CopyButton copy={this.copyError} />
         </div>
-      );
-    } else {
-      return undefined;
-    }
+      </div>
+    );
   }
 
   /**
@@ -106,7 +97,7 @@ class ErrorOverlay extends Component<any, any> {
    * @returns {React$Element} - main state element
    * @memberof ErrorOverlay
    */
-  renderRetryButton(): VNode<any> | undefined {
+  private renderRetryButton(): VNode<any> | undefined {
     if (this.props.player.getMediaInfo()) {
       const hasCustomBackground = Boolean(this.getBackgroundUrl());
       return (
@@ -126,7 +117,7 @@ class ErrorOverlay extends Component<any, any> {
    * @returns {React$Element} - main state element
    * @memberof ErrorOverlay
    */
-  renderErrorHead(): VNode<any> | undefined {
+  private renderErrorHead(): VNode<any> | undefined {
     const {errorCategory, errorTitle, errorMessage} = this.props.errorDetails;
     let errorTitleRes: any = '',
       errorMessageRes: any = '';
@@ -155,7 +146,7 @@ class ErrorOverlay extends Component<any, any> {
    * @returns {?React$Element} - main state element
    * @memberof ErrorOverlay
    */
-  render(): VNode<any> | undefined {
+  public render(): VNode<any> | undefined {
     if ((this.props && this.props.hasError) || this.props.permanent) {
       const backgroundUrl = this.getBackgroundUrl();
       const errorOverlayStyles = backgroundUrl ? {backgroundImage: `url(${backgroundUrl})`} : undefined;
