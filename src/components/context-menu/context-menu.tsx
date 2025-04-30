@@ -1,6 +1,7 @@
 import {h, VNode} from 'preact';
 import {useRef, useState, useEffect} from 'preact/hooks';
 import {connect} from 'react-redux';
+import {withText, Text} from 'preact-i18n';
 
 import {withPlayer} from '..';
 import {withEventManager} from '../../event';
@@ -12,7 +13,12 @@ import {EventManager} from '@playkit-js/playkit-js';
 interface ContextMenuProps {
   player: KalturaPlayer;
   eventManager: EventManager;
+  copyDebugInfoLabel: string;
 }
+
+const translations = {
+  copyDebugInfoLabel: <Text id="error.copt_debug_info">Copy debug info</Text>
+};
 
 function mapStateToProps(state): any {
   return {
@@ -20,14 +26,14 @@ function mapStateToProps(state): any {
   };
 }
 
-function _ContextMenu({player, eventManager}: ContextMenuProps): VNode {
+function _ContextMenu({player, eventManager, copyDebugInfoLabel}: ContextMenuProps): VNode {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     eventManager!.listen(document, 'click', () => setIsVisible(false));
     eventManager!.listen(document, 'contextmenu', e => {
-      if (!(player as any).debugInfo || !document.getElementById(player.config.targetId)?.contains(e.target as Node)) return;
+      if (!ref.current || !(player as any).debugInfo || !document.getElementById(player.config.targetId)?.contains(e.target as Node)) return;
 
       if (isVisible) {
         setIsVisible(false);
@@ -65,13 +71,13 @@ function _ContextMenu({player, eventManager}: ContextMenuProps): VNode {
   return (
     <div ref={ref} className={[styles.contextMenu, isVisible ? '' : styles.hidden].join(' ')}>
       <div className={styles.contextMenuItem} onClick={handleMenuClick}>
-        Copy debug info
+        {copyDebugInfoLabel}
       </div>
     </div>
   );
 }
 
-const ContextMenu = connect(mapStateToProps)(withEventManager(withPlayer(_ContextMenu)));
+const ContextMenu = connect(mapStateToProps)(withText(translations)(withEventManager(withPlayer(_ContextMenu))));
 ContextMenu.displayName = 'ContextMenu';
 
 export {ContextMenu};
