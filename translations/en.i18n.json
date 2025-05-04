@@ -99,8 +99,8 @@
       "default_session_text": "Copy for customer care: session ID",
       "retry": "Try again",
       "error_title": "Error",
-      "access_control_error_message": "Blocked by Conditional Access"
-
+      "access_control_error_message": "Blocked by Conditional Access",
+      "copy_debug_info": "Copy debug info"
     },
     "ads": {
       "ad_notice": "Advertisement",
