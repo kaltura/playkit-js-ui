@@ -23,7 +23,9 @@
       "logo": "Logo",
       "seekBarSlider": "Cursore di ricerca",
       "readLess": "Meno",
-      "readMore": "Altro"
+      "readMore": "Altro",
+      "secondsRewind": "Vai indietro di {{seconds}} secondi",
+      "secondsForward": "Vai avanti di {{seconds}} secondi"
     },
     "unmute": {
       "unmute": "Annulla silenziamento"
