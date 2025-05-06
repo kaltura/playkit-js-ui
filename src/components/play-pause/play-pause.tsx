@@ -53,6 +53,10 @@ const COMPONENT_NAME = 'PlayPause';
 class PlayPause extends Component<any, any> {
   private _playPauseButtonRef?: RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
 
+  state = {
+    entryName: ''
+  };
+
   /**
    * component mounted
    *
@@ -68,6 +72,12 @@ class PlayPause extends Component<any, any> {
           this._playPauseButtonRef?.current?.querySelector("button")?.focus();
         }
       });
+    });
+    eventManager.listenOnce(player, player.Event.Core.CHANGE_SOURCE_ENDED, () => {
+      const entryName = player.sources?.metadata?.name;
+      if (entryName) {
+        this.setState({ entryName });
+      }
     });
   }
 
@@ -93,7 +103,7 @@ class PlayPause extends Component<any, any> {
   render(props: any): VNode<any> | undefined {
     const controlButtonClass = this.props.isPlayingAdOrPlayback ? [style.controlButton, style.isPlaying].join(' ') : style.controlButton;
     const isStartOver = props.isPlaybackEnded && !this.props.adBreak;
-    const entryName = `${this.props.title}: ${this.props.player.sources.metadata?.name}`;
+    const entryName = `${this.props.title}: ${this.state.entryName}`;
     const playbackStateText = this.props.isPlayingAdOrPlayback ? this.props.pauseText : this.props.playText;
     const labelText = isStartOver ? this.props.startOverText : playbackStateText;
     return (
