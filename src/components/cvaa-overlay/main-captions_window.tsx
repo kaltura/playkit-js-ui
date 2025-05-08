@@ -78,7 +78,7 @@ class MainCaptionsWindow extends Component<any, any> {
         <h2 className={style.title} id={this.props.captionsTitleId}>
           <Text id={'cvaa.title'} />
         </h2>
-        <div role="group">
+        <div role="radiogroup">
           <SampleCaptionsStyleButton
             addAccessibleChild={props.addAccessibleChild}
             classNames={[style.sample]}
