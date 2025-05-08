@@ -63,6 +63,8 @@ class PrePlaybackPlayOverlay extends Component<any, any> {
    */
   onKeyDown = (e: KeyboardEvent): void => {
     if (e.keyCode === KeyMap.ENTER) {
+      e.preventDefault();
+      e.stopPropagation();
       this.handleClick();
     }
   };
