@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.81.4 (2025-05-11)
+
+
+### Bug Fixes
+
+* (SUP-48028): Player V7 does not display access control message ([#1014](https://github.com/kaltura/playkit-js-ui/issues/1014)) ([3c039cf](https://github.com/kaltura/playkit-js-ui/commit/3c039cf))
+
+
+
 ### 0.81.3 (2025-04-24)
 
 
