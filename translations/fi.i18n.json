@@ -23,7 +23,9 @@
       "logo": "Logo",
       "seekBarSlider": "Hae liukusäädin",
       "readLess": "Vähemmän",
-      "readMore": "Lisää"
+      "readMore": "Lisää",
+      "secondsRewind": "Hae {{seconds}} sekuntia taaksepäin",
+      "secondsForward": "Hae {{seconds}} sekuntia eteenpäin"
     },
     "unmute": {
       "unmute": "Poista mykistys"

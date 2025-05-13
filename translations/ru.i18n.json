@@ -23,7 +23,9 @@
       "logo": "Логотип",
       "seekBarSlider": "Слайдер навигации",
       "readLess": "Меньше",
-      "readMore": "Дополнительно"
+      "readMore": "Дополнительно",
+      "secondsRewind": "Перейти на {{seconds}} секунд назад",
+      "secondsForward": "Перейти на {{seconds}} секунд вперед"
     },
     "unmute": {
       "unmute": "Включить звук"
