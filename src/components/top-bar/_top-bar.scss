@@ -1,4 +1,6 @@
 .player .top-bar {
+  display: flex;
+  justify-content: space-between;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
   color: #fff;
   visibility: hidden;
@@ -41,7 +43,7 @@
     float: left;
     text-align: left;
     min-width: 0;
-    margin: #{$top-bar-top-bottom-gutter}px 0 #{$top-bar-top-bottom-gutter}px #{$gui-gutter}px;
+    margin: #{$top-bar-top-bottom-gutter}px #{$gui-gutter}px;
     pointer-events: none;
     &:empty {
       margin: 0;
@@ -50,7 +52,7 @@
   .right-controls {
     float: right;
     text-align: left;
-    margin: #{$top-bar-top-bottom-gutter}px #{$gui-gutter}px #{$top-bar-top-bottom-gutter}px 0;
+    margin: #{$top-bar-top-bottom-gutter}px #{$gui-gutter}px #{$top-bar-top-bottom-gutter}px 32px;
     pointer-events: none;
     &:empty {
       margin: 0;
