@@ -50,7 +50,8 @@ const translates = (props: any) => ({
   volumeLabel: props.muted ? <Text id="controls.unmute">Unmute</Text> : <Text id="controls.mute">Mute</Text>,
   volumeButtonAriaLabel: <Text id="volume.volume_button_aria_label">Volume</Text>,
   volumeButtonAriaDescription: <Text id="volume.volume_button_description">Click to volume control</Text>,
-  sliderAriaLabel: <Text id="volume.volume_slider_aria_label">Volume control, use the arrows to control the volume</Text>
+  sliderAriaLabel: <Text id="volume.volume_slider_aria_label">Volume control</Text>,
+  sliderDescription: <Text id="volume.volume_slider_description">Use the arrows to control the volume</Text>
 });
 
 /**
@@ -489,6 +490,7 @@ class Volume extends Component<any, any> {
           tabIndex={0}
           aria-orientation="vertical"
           aria-label={this.props.sliderAriaLabel}
+          aria-description={this.props.sliderDescription}
           onKeyDown={this.onProgressBarKeyDown}
           className={style.volumeControlBar}
           onFocus={this.onFocus}
