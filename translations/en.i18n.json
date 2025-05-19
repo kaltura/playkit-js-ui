@@ -47,7 +47,8 @@
       "one_hundred_percent": "one hundred percent",
       "volume_button_aria_label": "Volume",
       "volume_button_description": "Click to volume control",
-      "volume_slider_aria_label": "Volume control, use the arrows to control the volume"
+      "volume_slider_aria_label": "Volume control",
+      "volume_slider_description": "Use the arrows to control the volume"      
     },
     "copy": {
       "button": "Copy URL"
