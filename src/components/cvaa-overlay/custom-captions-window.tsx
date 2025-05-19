@@ -51,6 +51,7 @@ class CustomCaptionsWindow extends Component<any, any> {
    * @returns {void}
    * @memberof CustomCaptionsWindow
    */
+  
   onKeyDown = (e: KeyboardEvent): void => {
     if (e.keyCode === KeyMap.ENTER || e.keyCode === KeyMap.SPACE) {
       e.preventDefault();
