@@ -107,6 +107,7 @@ function onCaptionsStyleSelected(store: any, action: any, player: KalturaPlayer)
     } else if (currentStyles?.[key] !== newStyles?.[key]) {
       player.dispatchEvent(new FakeEvent(eventType, newStyles?.[key]));
     }
+    player.dispatchEvent(new CaptionsStyleSelectedEvent(newStyles))
   });
 }
 
