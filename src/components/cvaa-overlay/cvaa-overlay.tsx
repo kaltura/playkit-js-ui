@@ -129,13 +129,20 @@ class CVAAOverlay extends Component<any, any> {
   };
 
   focusPlayerButtonBadge = (): void => {
+    const player = this.props.player;
+    const playerId = player?._uiWrapper?._uiManager?.container?.id;
+    const containerEl = document.getElementById(playerId);
+    if (!containerEl) {
+      return;
+    }
+    
     const selector = '.playkit-button-badge';
     const delay = 100;
     const maxAttempts = 10;
     let attempts = 0;
   
     const interval = setInterval(() => {
-      const element = document.querySelector<HTMLElement>(selector);
+      const element = containerEl.querySelector(selector) as HTMLElement | null;
       if (element && getComputedStyle(element).visibility !== 'hidden') {
         element.focus();
         clearInterval(interval);
