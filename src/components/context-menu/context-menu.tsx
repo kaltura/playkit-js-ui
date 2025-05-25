@@ -91,7 +91,7 @@ function _ContextMenu({player, eventManager, copyDebugInfoLabel, isFullscreen}: 
       touchStartTime = null;
     };
 
-    if (!Env.isMobile) {
+    if (!Env.isIOS) {
       eventManager!.listen(document, 'contextmenu', showContextMenu);
     } else {
       eventManager!.listen(document, 'touchstart', handleTouchStart);
