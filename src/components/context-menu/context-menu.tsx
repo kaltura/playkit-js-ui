@@ -54,12 +54,18 @@ function _ContextMenu({player, eventManager, copyDebugInfoLabel, isFullscreen}: 
       const container = document.getElementById(player.config.targetId);
       if (!container) return;
 
-      const containerRect = container.getBoundingClientRect();
       const menuWidth = 130;
       const menuHeight = 20;
 
-      const posX = containerRect.left + (containerRect.width - menuWidth) / 2;
-      const posY = containerRect.top + (containerRect.height - menuHeight) / 2;
+      let posX = e.pageX;
+      let posY = e.pageY;
+
+      if (posX + menuWidth > window.innerWidth) {
+        posX = window.innerWidth - menuWidth;
+      }
+      if (posY + menuHeight > window.innerHeight) {
+        posY = window.innerHeight - menuHeight;
+      }
 
       ref.current.style.left = posX + 'px';
       ref.current.style.top = posY + 'px';
@@ -67,19 +73,18 @@ function _ContextMenu({player, eventManager, copyDebugInfoLabel, isFullscreen}: 
       setIsVisible(true);
     };
 
-    const handleTouchStart = () => {
+    const handleTouchStart = (e: any): void => {
       touchStartTime = Date.now();
+      e.preventDefault();
     };
 
-    const handleTouchEnd = e => {
+    const handleTouchEnd = (e: MouseEvent): void => {
       if (touchStartTime === null || (touchStartTime && Date.now() - touchStartTime < 500)) return;
-
-      const touch = e.touches[0];
 
       showContextMenu({
         target: e.target,
-        pageX: touch?.pageX,
-        pageY: touch?.pageY,
+        pageX: e.pageX,
+        pageY: e.pageY,
         preventDefault: e.preventDefault.bind(e)
       } as any as MouseEvent);
 
@@ -99,7 +104,7 @@ function _ContextMenu({player, eventManager, copyDebugInfoLabel, isFullscreen}: 
     isVisibleRef.current = isVisible;
   }, [isVisible]);
 
-  const renderContextMenu = () => {
+  const renderContextMenu = (): VNode => {
     return (
       <div ref={ref} className={[styles.contextMenu, isVisible ? '' : styles.hidden].join(' ')} role="menu">
         <div className={styles.contextMenuItem} onClick={() => ContextMenuUtils.copyDebugInfoToClipboard(player)} role="menuitem">
