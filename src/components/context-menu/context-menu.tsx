@@ -86,10 +86,6 @@ function _ContextMenu({player, eventManager, copyDebugInfoLabel, isFullscreen}: 
       touchStartTime = null;
     };
 
-    const clearTouch = () => {
-      touchStartTime = null;
-    };
-
     if (!Env.isMobile) {
       eventManager!.listen(document, 'contextmenu', showContextMenu);
       return;
@@ -97,8 +93,6 @@ function _ContextMenu({player, eventManager, copyDebugInfoLabel, isFullscreen}: 
 
     eventManager!.listen(document, 'touchstart', handleTouchStart);
     eventManager!.listen(document, 'touchend', handleTouchEnd);
-    eventManager!.listen(document, 'touchmove', clearTouch);
-    eventManager!.listen(document, 'touchcancel', clearTouch);
   }, []);
 
   useEffect(() => {
