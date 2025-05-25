@@ -93,11 +93,10 @@ function _ContextMenu({player, eventManager, copyDebugInfoLabel, isFullscreen}: 
 
     if (!Env.isMobile) {
       eventManager!.listen(document, 'contextmenu', showContextMenu);
-      return;
+    } else {
+      eventManager!.listen(document, 'touchstart', handleTouchStart);
+      eventManager!.listen(document, 'touchend', handleTouchEnd);
     }
-
-    eventManager!.listen(document, 'touchstart', handleTouchStart);
-    eventManager!.listen(document, 'touchend', handleTouchEnd);
   }, []);
 
   useEffect(() => {
