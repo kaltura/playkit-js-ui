@@ -9,7 +9,8 @@ import {withEventManager} from '../../event';
 
 import styles from '../../styles/style.scss';
 import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
-import {EventManager} from '@playkit-js/playkit-js';
+import {Env, EventManager} from '@playkit-js/playkit-js';
+import {ContextMenuUtils} from './context-menu-utils';
 
 interface ContextMenuProps {
   player: KalturaPlayer;
@@ -24,7 +25,7 @@ const translations = {
 
 function mapStateToProps(state): any {
   return {
-    isFullscreen: state.engine.fullscreen,
+    isFullscreen: state.engine.fullscreen
   };
 }
 
@@ -34,62 +35,85 @@ function _ContextMenu({player, eventManager, copyDebugInfoLabel, isFullscreen}: 
   const isVisibleRef = useRef(isVisible);
 
   useEffect(() => {
-    isVisibleRef.current = isVisible;
-  }, [isVisible]);
+    let touchStartTime: number | null = null;
 
-  const closeContextMenu = (): void => {
-    eventManager!.unlisten(document, 'click', closeContextMenu);
-    setIsVisible(false);
-  }
+    const hideContextMenu = (): void => {
+      eventManager!.unlisten(document, 'click', hideContextMenu);
+      setIsVisible(false);
+    };
 
-  const handleContextMenu = (e: MouseEvent): void => {
-    if (!ref.current || !(player as any).debugInfo || !document.getElementById(player.config.targetId)?.contains(e.target as Node)) return;
-    if (isVisibleRef.current) {
-      closeContextMenu();
-      // use native context menu
+    const showContextMenu = (e: MouseEvent): void => {
+      if (!ref.current || !(player as any).debugInfo || !document.getElementById(player.config.targetId)?.contains(e.target as Node)) return;
+      if (isVisibleRef.current) {
+        hideContextMenu();
+        return;
+      }
+
+      e.preventDefault();
+
+      const container = document.getElementById(player.config.targetId);
+      if (!container) return;
+
+      const containerRect = container.getBoundingClientRect();
+      const menuWidth = 130;
+      const menuHeight = 20;
+
+      const posX = containerRect.left + (containerRect.width - menuWidth) / 2;
+      const posY = containerRect.top + (containerRect.height - menuHeight) / 2;
+
+      ref.current.style.left = posX + 'px';
+      ref.current.style.top = posY + 'px';
+      eventManager!.listen(document, 'click', hideContextMenu);
+      setIsVisible(true);
+    };
+
+    const handleTouchStart = () => {
+      touchStartTime = Date.now();
+    };
+
+    const handleTouchEnd = e => {
+      if (touchStartTime === null || (touchStartTime && Date.now() - touchStartTime < 500)) return;
+
+      const touch = e.touches[0];
+
+      showContextMenu({
+        target: e.target,
+        pageX: touch?.pageX,
+        pageY: touch?.pageY,
+        preventDefault: e.preventDefault.bind(e)
+      } as any as MouseEvent);
+
+      touchStartTime = null;
+    };
+
+    const clearTouch = () => {
+      touchStartTime = null;
+    };
+
+    if (!Env.isMobile) {
+      eventManager!.listen(document, 'contextmenu', showContextMenu);
       return;
     }
 
-    e.preventDefault();
-
-    const menuWidth = ref.current.offsetWidth;
-    const menuHeight = ref.current.offsetHeight;
-
-    let posX = e.pageX;
-    let posY = e.pageY;
-
-    if (posX + menuWidth > window.innerWidth) {
-      posX = window.innerWidth - menuWidth;
-    }
-    if (posY + menuHeight > window.innerHeight) {
-      posY = window.innerHeight - menuHeight;
-    }
-
-    ref.current.style.left = posX + 'px';
-    ref.current.style.top = posY + 'px';
-    eventManager!.listen(document, 'click', closeContextMenu);
-    setIsVisible(true);
-  }
-
-  useEffect(() => {
-    eventManager!.listen(document, 'contextmenu', handleContextMenu);
+    eventManager!.listen(document, 'touchstart', handleTouchStart);
+    eventManager!.listen(document, 'touchend', handleTouchEnd);
+    eventManager!.listen(document, 'touchmove', clearTouch);
+    eventManager!.listen(document, 'touchcancel', clearTouch);
   }, []);
 
-  function handleMenuClick(): void {
-    const debugInfo = (player as any).debugInfo;
-    const debugInfoString = JSON.stringify(debugInfo, null, 2);
-    navigator.clipboard.writeText(debugInfoString);
-  }
+  useEffect(() => {
+    isVisibleRef.current = isVisible;
+  }, [isVisible]);
 
   const renderContextMenu = () => {
     return (
       <div ref={ref} className={[styles.contextMenu, isVisible ? '' : styles.hidden].join(' ')} role="menu">
-        <div className={styles.contextMenuItem} onClick={handleMenuClick} role="menuitem">
+        <div className={styles.contextMenuItem} onClick={() => ContextMenuUtils.copyDebugInfoToClipboard(player)} role="menuitem">
           {copyDebugInfoLabel}
         </div>
       </div>
     );
-  }
+  };
 
   return isFullscreen ? renderContextMenu() : createPortal(renderContextMenu(), document.body);
 }
