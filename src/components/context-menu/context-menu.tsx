@@ -12,6 +12,8 @@ import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
 import {Env, EventManager} from '@playkit-js/playkit-js';
 import {ContextMenuUtils} from './context-menu-utils';
 
+import * as globalStyle from '../../styles/style.scss';
+
 interface ContextMenuProps {
   player: KalturaPlayer;
   eventManager: EventManager;
@@ -54,8 +56,8 @@ function _ContextMenu({player, eventManager, copyDebugInfoLabel, isFullscreen}: 
       const container = document.getElementById(player.config.targetId);
       if (!container) return;
 
-      const menuWidth = 130;
-      const menuHeight = 20;
+      const menuWidth = Number((globalStyle as any).contextMenuWidth);
+      const menuHeight = Number((globalStyle as any).contextMenuHeight);
 
       let posX = e.pageX;
       let posY = e.pageY;

@@ -3,8 +3,8 @@
   z-index: 999;
   display: flex;
   align-items: center;
-  height: 40px;
-  width: 260px;
+  height: #{$context-menu-height}px;
+  width: #{$context-menu-width}px;
   padding: 8px 16px;
 
   box-shadow:
