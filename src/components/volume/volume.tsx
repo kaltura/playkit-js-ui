@@ -464,7 +464,6 @@ class Volume extends Component<any, any> {
         <Tooltip label={this.props.volumeLabel} type={this.props.toolTipType ? this.props.toolTipType : ToolTipType.Left}>
           <Button
             tabIndex="0"
-            aria-live="polite"
             aria-label={`${this.props.volumeLabel}`}
             className={style.controlButton}
             onMouseUp={this.toggleMute}
