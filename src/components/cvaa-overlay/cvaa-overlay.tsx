@@ -19,7 +19,8 @@ import { Utils } from '@playkit-js/playkit-js';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  style: state.cvaa.style
+  style: state.cvaa.style,
+    targetId: state.config.targetId
 });
 
 const cvaaOverlayState = {
@@ -130,8 +131,7 @@ class CVAAOverlay extends Component<any, any> {
 
   focusPlayerButtonBadge = (): void => {
     const player = this.props.player;
-    const playerId = player?._uiWrapper?._uiManager?.container?.id;
-    const containerEl = document.getElementById(playerId);
+    const containerEl = document.getElementById(this.props.targetId);
     if (!containerEl) {
       return;
     }
@@ -161,7 +161,7 @@ class CVAAOverlay extends Component<any, any> {
    * @returns {React$Element} - component element
    * @memberof CVAAOverlay
    */
-  render(props: any): VNode<any> {
+  render(props: any): VNode<any> {    
     props.clearAccessibleChildren();
     const isMainOverlay = this.state.activeWindow === cvaaOverlayState.Main;
     const titleId = `captions_title_${Utils.Generator.guid()}`;
