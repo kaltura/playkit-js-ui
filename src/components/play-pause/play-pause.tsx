@@ -7,7 +7,7 @@ import {isPlayingAdOrPlayback} from '../../reducers/getters';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from '../event-dispatcher';
 import {withLogger} from '../logger';
-import {bindActions} from '../../utils';
+import {bindActions, KeyMap} from '../../utils';
 import {actions as settingActions} from '../../reducers/settings';
 import {actions as overlayIconActions} from '../../reducers/overlay-action';
 import {Tooltip} from '../../components/tooltip';
@@ -93,6 +93,14 @@ class PlayPause extends Component<any, any> {
     this.props.notifyClick();
   };
 
+  onKeyDown = (e: KeyboardEvent): void => {      
+    if (e.keyCode === KeyMap.ENTER) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.togglePlayPause();
+    } 
+  };
+
   /**
    * render component
    *
@@ -116,6 +124,7 @@ class PlayPause extends Component<any, any> {
               aria-label={`${labelText}, ${entryName}`}
               className={controlButtonClass}
               onClick={this.togglePlayPause}
+              onKeyDown={this.onKeyDown}
             >
               {isStartOver ? (
                 <Icon type={IconType.StartOver} />
