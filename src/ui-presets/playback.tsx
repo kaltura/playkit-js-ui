@@ -72,7 +72,6 @@ class PlaybackUI extends Component<any, any> {
             <GuiArea>
               <Fragment>
                 <AudioEntryDetails />
-                <UnmuteIndication />
                 <Loading />
                 <OverlayPortal />
                 <PictureInPictureOverlay />
@@ -85,6 +84,7 @@ class PlaybackUI extends Component<any, any> {
                 <Fragment>
                   <TopBar />
                   <InteractiveArea>
+                    <UnmuteIndication />
                     <Watermark />
                     <PlaylistCountdown />
                   </InteractiveArea>
