@@ -1,15 +1,8 @@
 $color: #ffffff;
-.interactive-area {
-  .unmute-button-container {
-    top: 0;
-    left: 0;
-  }
-}
+
 .unmute-button-container {
   display: inline-block;
   position: absolute;
-  top: 16px;
-  left: 16px;
   z-index: 15;
 
   a {
@@ -23,40 +16,53 @@ $color: #ffffff;
       span {
         transform: translateX(10px);
         opacity: 0;
+        margin-left: 0;
+        max-width: 0;
       }
     }
   }
 }
 
 .btn.unmute-button {
-  font-size: 15px;
+  font-size: 14px;
   max-width: 200px;
   transition: max-width 200ms;
-  padding: 0 16px;
+  padding: 8px 12px;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  height: 32px;
+  border-radius: 4px;
+  border: none;
 
   span {
     transform: translateX(0px);
+    max-width: 51px;
     opacity: 1;
     transition:
+      max-width 100ms,
       transform 100ms,
       opacity 100ms;
     display: inline-block;
     color: $color;
+    margin-left: 4px;
   }
 
   &.has-top-bar {
     transition: 100ms transform;
   }
+
+  &:hover {
+    border: none;
+  }
 }
 
 .unmute-icon-container {
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   display: inline-block;
   vertical-align: top;
   position: relative;
-  margin-right: 3px;
 
   i {
     position: absolute;
