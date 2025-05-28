@@ -67,20 +67,6 @@ class PrePlaybackPlayOverlay extends Component<any, any> {
       e.preventDefault();
       e.stopPropagation();
       this.handleClick();
-
-      setTimeout(() => {
-        const { targetId } = this.props;
-        const playerRoot = document.getElementById(targetId);
-
-        if (playerRoot) {
-          const playPauseContainer = playerRoot.querySelector('.playkit-control-play-pause');
-          const playPauseButton = playPauseContainer?.querySelector('button') as HTMLButtonElement;
-
-          if (playPauseButton) {
-            playPauseButton.focus();
-          }
-        }
-      }, 100);
     }
   };
 
@@ -103,8 +89,6 @@ class PrePlaybackPlayOverlay extends Component<any, any> {
    * @memberof PrePlaybackPlayOverlay
    */
   render(props: any): VNode<any> | undefined {
-      console.log('targetId:', props.targetId); // <-- Console log added here
-
     const isStartOver = props.isPlaybackEnded && !props.player.config.playback.loop && !(props.playlist && props.playlist.next);
     if (!(props.prePlayback || isStartOver) || props.loading) {
       return undefined;

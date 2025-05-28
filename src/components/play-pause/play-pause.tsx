@@ -65,12 +65,18 @@ class PlayPause extends Component<any, any> {
    */
   componentDidMount(): void {
     const {eventManager, player} = this.props;
-    const smallSizes = [PLAYER_SIZE.TINY, PLAYER_SIZE.EXTRA_SMALL, PLAYER_SIZE.SMALL];
+
     eventManager.listenOnce(player, player.Event.UI.USER_CLICKED_PLAY, () => {
       eventManager.listenOnce(player, player.Event.Core.FIRST_PLAY, () => {
-        if (!smallSizes.includes(this.props.playerSize)) {
-          this._playPauseButtonRef?.current?.querySelector("button")?.focus();
-        }
+        requestAnimationFrame(() => {
+          const wrapper = this._playPauseButtonRef?.current;
+          if (wrapper) {
+            const button = wrapper.querySelector('button') as HTMLButtonElement | null;
+            if (button) {
+              button.focus();
+            }
+          }
+        });
       });
     });
     eventManager.listenOnce(player, player.Event.Core.CHANGE_SOURCE_ENDED, () => {
@@ -91,14 +97,6 @@ class PlayPause extends Component<any, any> {
     this.props.logger.debug('Toggle play');
     this.props.isPlayingAdOrPlayback ? this.props.player.pause() : this.props.player.play();
     this.props.notifyClick();
-  };
-
-  onKeyDown = (e: KeyboardEvent): void => {      
-    if (e.keyCode === KeyMap.ENTER) {
-      e.preventDefault();
-      e.stopPropagation();
-      this.togglePlayPause();
-    } 
   };
 
   /**
@@ -124,7 +122,6 @@ class PlayPause extends Component<any, any> {
               aria-label={`${labelText}, ${entryName}`}
               className={controlButtonClass}
               onClick={this.togglePlayPause}
-              onKeyDown={this.onKeyDown}
             >
               {isStartOver ? (
                 <Icon type={IconType.StartOver} />
