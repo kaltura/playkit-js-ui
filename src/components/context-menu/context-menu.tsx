@@ -95,7 +95,7 @@ function _ContextMenu({player, eventManager, copyDebugInfoLabel, isFullscreen}: 
     };
 
     const handleKeydown = (e: KeyboardEvent): void => {
-      if (e.code === KeyCode.KeyD) {
+      if (e.code === KeyCode.KeyD && e.altKey && e.ctrlKey && e.shiftKey) {
         ContextMenuUtils.copyDebugInfoToClipboard(player);
       }
     };
