@@ -13,6 +13,7 @@ import {Env, EventManager} from '@playkit-js/playkit-js';
 import {ContextMenuUtils} from './context-menu-utils';
 
 import * as globalStyle from '../../styles/style.scss';
+import {KeyCode} from '../../utils';
 
 interface ContextMenuProps {
   player: KalturaPlayer;
@@ -93,8 +94,15 @@ function _ContextMenu({player, eventManager, copyDebugInfoLabel, isFullscreen}: 
       touchStartTime = null;
     };
 
+    const handleKeydown = (e: KeyboardEvent): void => {
+      if (e.code === KeyCode.KeyD) {
+        ContextMenuUtils.copyDebugInfoToClipboard(player);
+      }
+    };
+
     if (!Env.isIOS) {
       eventManager!.listen(document, 'contextmenu', showContextMenu);
+      eventManager!.listen(document, 'keydown', handleKeydown);
     } else {
       eventManager!.listen(document, 'touchstart', handleTouchStart);
       eventManager!.listen(document, 'touchend', handleTouchEnd);
