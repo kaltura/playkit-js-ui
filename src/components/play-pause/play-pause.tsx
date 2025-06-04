@@ -7,7 +7,7 @@ import {isPlayingAdOrPlayback} from '../../reducers/getters';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from '../event-dispatcher';
 import {withLogger} from '../logger';
-import {bindActions, KeyMap} from '../../utils';
+import {bindActions, focusElement, KeyMap} from '../../utils';
 import {actions as settingActions} from '../../reducers/settings';
 import {actions as overlayIconActions} from '../../reducers/overlay-action';
 import {Tooltip} from '../../components/tooltip';
@@ -68,15 +68,12 @@ class PlayPause extends Component<any, any> {
 
     eventManager.listenOnce(player, player.Event.UI.USER_CLICKED_PLAY, () => {
       eventManager.listenOnce(player, player.Event.Core.FIRST_PLAY, () => {
-        requestAnimationFrame(() => {
-          const wrapper = this._playPauseButtonRef?.current;
-          if (wrapper) {
-            const button = wrapper.querySelector('button') as HTMLButtonElement | null;
-            if (button) {
-              button.focus();
-            }
-          }
-        });
+        const wrapper = this._playPauseButtonRef?.current;
+        if (wrapper) {
+          const button = wrapper.querySelector('button') as HTMLButtonElement | null;
+          focusElement(button);
+        }
+
       });
     });
     eventManager.listenOnce(player, player.Event.Core.CHANGE_SOURCE_ENDED, () => {
