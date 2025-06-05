@@ -59,6 +59,13 @@ const CaptionsControl = connect(mapStateToProps)(
       }
     };
 
+    const onKeyDown = (e: KeyboardEvent): void => {
+      if (e.key === 'Enter' || e.key === ' ' || e.keyCode === 13 || e.keyCode === 32) {
+        e.preventDefault();
+        onControlButtonClick(e, true);
+      }
+    };
+
     const toggleCVAAOverlay = (): void => {
       setCVAAOverlay(cvaaOverlay => !cvaaOverlay);
     };
@@ -97,7 +104,8 @@ const CaptionsControl = connect(mapStateToProps)(
               aria-label={props.captionsLabelText}
               aria-haspopup="true"
               className={[style.controlButton, smartContainerOpen ? style.active : ''].join(' ')}
-              onClick={onControlButtonClick}>
+              onClick={onControlButtonClick}
+              onKeyDown={onKeyDown}>
               <Icon type={ccOn ? IconType.ClosedCaptionsOn : IconType.ClosedCaptionsOff} />
             </Button>
           </Tooltip>
