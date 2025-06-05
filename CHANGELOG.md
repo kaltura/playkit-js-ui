@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.81.6 (2025-06-05)
+
+
+### Bug Fixes
+
+* **FEC-14482:** Unmute button overlaps top bar controls ([#1032](https://github.com/kaltura/playkit-js-ui/issues/1032)) ([be5f7bb](https://github.com/kaltura/playkit-js-ui/commit/be5f7bb))
+
+
+
 ### 0.81.5 (2025-05-22)
 
 
