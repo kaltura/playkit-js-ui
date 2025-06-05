@@ -86,6 +86,13 @@ const ClosedCaptions = connect(mapStateToProps)(
         isCCOn ? player.hideTextTrack() : player.showTextTrack();
       };
 
+      const onKeyDown = (e: KeyboardEvent): void => {
+        if (e.key === 'Enter' || e.key === ' ' || e.keyCode === 13 || e.keyCode === 32) {
+          e.preventDefault();
+          onClick();
+        }
+      };
+
         const shouldRender = !!textTracks?.length && props.showCCButton && !props.openMenuFromCCButton;
         props.onToggle(COMPONENT_NAME, shouldRender);
         if (!shouldRender) return undefined;
@@ -102,6 +109,7 @@ const ClosedCaptions = connect(mapStateToProps)(
                     props.notifyClick(true);
                     player.hideTextTrack();
                   }}
+                  onKeyDown={onKeyDown}
                 >
                   <Icon type={IconType.ClosedCaptionsOn} />
                 </Button>
@@ -116,6 +124,7 @@ const ClosedCaptions = connect(mapStateToProps)(
                     player.showTextTrack();
                     props.notifyClick(false);
                   }}
+                  onKeyDown={onKeyDown}
                 >
                   <Icon type={IconType.ClosedCaptionsOff} />
                 </Button>

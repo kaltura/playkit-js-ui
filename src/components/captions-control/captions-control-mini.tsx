@@ -87,6 +87,13 @@ const CaptionsControlMini = connect(mapStateToProps)((props, context) => {
     });
   };
 
+  const onKeyDown = (e: KeyboardEvent): void => {
+    if (e.key === 'Enter' || e.key === ' ' || e.keyCode === 13 || e.keyCode === 32) {
+      e.preventDefault();
+      onButtonClick();
+    }
+  };
+
   return shouldRender ? (
     <ButtonControl name={COMPONENT_NAME} className={style.upperBarIcon}>
       <Tooltip label={props.captionsLabelText}>
@@ -95,7 +102,8 @@ const CaptionsControlMini = connect(mapStateToProps)((props, context) => {
           aria-label={props.captionsLabelText}
           aria-haspopup="true"
           className={style.controlButton}
-          onClick={onButtonClick}>
+          onClick={onButtonClick}
+          onKeyDown={onKeyDown}>
           <Icon type={isCaptionsEnabled() ? IconType.ClosedCaptionsOn : IconType.ClosedCaptionsOff} />
         </Button>
       </Tooltip>
