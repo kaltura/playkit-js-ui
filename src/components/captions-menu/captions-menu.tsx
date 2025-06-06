@@ -3,6 +3,7 @@ import {withText} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
 import {actions} from '../../reducers/cvaa';
+import {redux} from '../../index';
 import {SmartContainerItem} from '../smart-container/smart-container-item';
 import {IconType} from '../icon';
 import {withPlayer} from '../player';
@@ -58,6 +59,9 @@ class CaptionsMenu extends Component<any, any> {
       return;
     }
     this.props.player.selectTrack(textTrack);
+    // Update the Redux state to reflect the current captions state
+    const isCaptionsEnabled = typeof textTrack === 'object' && textTrack.language !== 'off';
+    redux.useStore().dispatch({type: 'settings/UPDATE_IS_CAPTIONS_ENABLED', isCaptionsEnabled});
     this.props.notifyClick({
       type: this.props.player.Track.TEXT,
       track: textTrack
@@ -109,7 +113,7 @@ class CaptionsMenu extends Component<any, any> {
           }}
           options={textOptions}
           onMenuChosen={textTrack => this.onCaptionsChange(textTrack)}
-          onClose={() => {}} 
+          onClose={() => {}}
         />
       );
     }
