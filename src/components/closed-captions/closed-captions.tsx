@@ -88,7 +88,7 @@ const ClosedCaptions = connect(mapStateToProps)(
       };
 
       const onKeyDown = (e: KeyboardEvent): void => {
-        if (isEnter(e.keyCode) || isSpace(e.keyCode)) {
+        if (isEnter(e) || isSpace(e)) {
           e.preventDefault();
           onClick();
         }

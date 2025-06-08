@@ -37,7 +37,7 @@ export const KeyCode = {
   Pause: 'Pause',
   CapsLock: 'CapsLock',
   Escape: 'Escape',
-  Space: 'Space',
+  Space: ' ',
   PageUp: 'PageUp',
   PageDown: 'PageDown',
   End: 'End',
@@ -85,42 +85,42 @@ export function getKeyName(keyCode: number): string {
 }
 
 /**
- * @param {number} keyCode - key code
+ * @param {KeyboardEvent} e - Keyboard event
  * @returns {boolean} - whether the given key code is a tab key
  */
-export function isTab(keyCode: number): boolean {
-  return isKeyEqual(keyCode, KeyMap.TAB);
+export function isTab(e: KeyboardEvent): boolean {
+  return isKeyEqual(e.key, KeyCode.Tab);
 }
 
 /**
- * @param {number} keyCode - key code
+ * @param {KeyboardEvent} e - Keyboard event
  * @returns {boolean} - whether the given key code is an enter key
  */
-export function isEnter(keyCode: number): boolean {
-  return isKeyEqual(keyCode, KeyMap.ENTER);
+export function isEnter(e: KeyboardEvent): boolean {
+  return isKeyEqual(e.key, KeyCode.Enter);
 }
 
 /**
- * @param {number} keyCode - key code
+ * @param {KeyboardEvent} e - Keyboard event
  * @returns {boolean} - whether the given key code is an enter key
  */
-export function isSpace(keyCode: number): boolean {
-  return isKeyEqual(keyCode, KeyMap.SPACE);
+export function isSpace(e: KeyboardEvent): boolean {
+  return isKeyEqual(e.key, KeyCode.Space);
 }
 
 /**
- * @param {number} keyCode - key code
+ * @param {KeyboardEvent} e - Keyboard event
  * @returns {boolean} - whether the given key code is an esc key
  */
-export function isEsc(keyCode: number): boolean {
-  return isKeyEqual(keyCode, KeyMap.ESC);
+export function isEsc(e: KeyboardEvent): boolean {
+  return isKeyEqual(e.key, KeyCode.Escape);
 }
 
 /**
- * @param {number} inputKeyCode - input key code
- * @param {number} targetKeyCode - target key code
+ * @param {string} inputKey - input key
+ * @param {string} targetKey - target key
  * @returns {boolean} - whether the given key code is equals to the input key
  */
-function isKeyEqual(inputKeyCode: number, targetKeyCode: number): boolean {
-  return inputKeyCode === targetKeyCode;
+function isKeyEqual(inputKey: string, targetKey: string): boolean {
+  return inputKey === targetKey;
 }

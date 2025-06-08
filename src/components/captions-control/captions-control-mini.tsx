@@ -89,7 +89,7 @@ const CaptionsControlMini = connect(mapStateToProps)((props, context) => {
   };
 
   const onKeyDown = (e: KeyboardEvent): void => {
-    if (isEnter(e.keyCode) || isSpace(e.keyCode)) {
+    if (isEnter(e) || isSpace(e)) {
       e.preventDefault();
       onButtonClick();
     }
