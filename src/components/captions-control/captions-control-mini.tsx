@@ -14,6 +14,7 @@ import {CaptionsMenu} from '../captions-menu';
 import {SmartContainer} from '../smart-container';
 import {CaptionsControl} from './captions-control';
 import {getOverlayPortalElement} from '../overlay-portal';
+import { isEnter, isSpace } from "../../utils/key-map";
 
 const mapStateToProps = state => ({
   controlsToMove: state.bottomBar.controlsToMove
@@ -88,7 +89,7 @@ const CaptionsControlMini = connect(mapStateToProps)((props, context) => {
   };
 
   const onKeyDown = (e: KeyboardEvent): void => {
-    if (e.key === 'Enter' || e.key === ' ' || e.keyCode === 13 || e.keyCode === 32) {
+    if (isEnter(e.keyCode) || isSpace(e.keyCode)) {
       e.preventDefault();
       onButtonClick();
     }

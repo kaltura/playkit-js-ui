@@ -11,6 +11,7 @@ import {Button} from '../button';
 import {ButtonControl} from '../button-control';
 import {registerToBottomBar} from '../bottom-bar';
 import {redux} from '../../index';
+import { isEnter, isSpace } from "../../utils/key-map";
 
 /**
  * mapping state to props
@@ -87,7 +88,7 @@ const ClosedCaptions = connect(mapStateToProps)(
       };
 
       const onKeyDown = (e: KeyboardEvent): void => {
-        if (e.key === 'Enter' || e.key === ' ' || e.keyCode === 13 || e.keyCode === 32) {
+        if (isEnter(e.keyCode) || isSpace(e.keyCode)) {
           e.preventDefault();
           onClick();
         }

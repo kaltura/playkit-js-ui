@@ -102,6 +102,14 @@ export function isEnter(keyCode: number): boolean {
 
 /**
  * @param {number} keyCode - key code
+ * @returns {boolean} - whether the given key code is an enter key
+ */
+export function isSpace(keyCode: number): boolean {
+  return isKeyEqual(keyCode, KeyMap.SPACE);
+}
+
+/**
+ * @param {number} keyCode - key code
  * @returns {boolean} - whether the given key code is an esc key
  */
 export function isEsc(keyCode: number): boolean {

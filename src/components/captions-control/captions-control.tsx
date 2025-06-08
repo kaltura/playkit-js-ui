@@ -14,6 +14,7 @@ import {createPortal} from 'preact/compat';
 import {CVAAOverlay} from '../cvaa-overlay';
 import {CaptionsControlMini} from './captions-control-mini';
 import {getOverlayPortalElement} from '../overlay-portal';
+import { isEnter, isSpace } from "../../utils/key-map";
 
 /**
  * mapping state to props
@@ -60,7 +61,7 @@ const CaptionsControl = connect(mapStateToProps)(
     };
 
     const onKeyDown = (e: KeyboardEvent): void => {
-      if (e.key === 'Enter' || e.key === ' ' || e.keyCode === 13 || e.keyCode === 32) {
+      if (isEnter(e.keyCode) || isSpace(e.keyCode)) {
         e.preventDefault();
         onControlButtonClick(e, true);
       }
