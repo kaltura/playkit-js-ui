@@ -13,6 +13,7 @@ import {withEventDispatcher} from '../event-dispatcher';
 import {withKeyboardEvent} from '../../components/keyboard';
 import {KeyboardEventHandlers} from '../../types';
 import {Menu} from '../menu';
+import {types} from '../../reducers/settings';
 
 /**
  * mapping state to props
@@ -61,7 +62,7 @@ class CaptionsMenu extends Component<any, any> {
     this.props.player.selectTrack(textTrack);
     // Update the Redux state to reflect the current captions state
     const isCaptionsEnabled = typeof textTrack === 'object' && textTrack.language !== 'off';
-    redux.useStore().dispatch({type: 'settings/UPDATE_IS_CAPTIONS_ENABLED', isCaptionsEnabled});
+    redux.useStore().dispatch({type: types.UPDATE_IS_CAPTIONS_ENABLED, isCaptionsEnabled});
     this.props.notifyClick({
       type: this.props.player.Track.TEXT,
       track: textTrack

@@ -11,6 +11,7 @@ import {Button} from '../button';
 import {ButtonControl} from '../button-control';
 import {registerToBottomBar} from '../bottom-bar';
 import {redux} from '../../index';
+import {types} from '../../reducers/settings';
 
 /**
  * mapping state to props
@@ -85,10 +86,10 @@ const ClosedCaptions = connect(mapStateToProps)(
         props.notifyClick(isCCOn);
         if (isCCOn) {
           player.hideTextTrack();
-          redux.useStore().dispatch({type: 'settings/UPDATE_IS_CAPTIONS_ENABLED', isCaptionsEnabled: false});
+          redux.useStore().dispatch({type: types.UPDATE_IS_CAPTIONS_ENABLED, isCaptionsEnabled: false});
         } else {
           player.showTextTrack();
-          redux.useStore().dispatch({type: 'settings/UPDATE_IS_CAPTIONS_ENABLED', isCaptionsEnabled: true});
+          redux.useStore().dispatch({type: types.UPDATE_IS_CAPTIONS_ENABLED, isCaptionsEnabled: true});
         }
       };
 
@@ -107,7 +108,7 @@ const ClosedCaptions = connect(mapStateToProps)(
                   onClick={() => {
                     props.notifyClick(true);
                     player.hideTextTrack();
-                    redux.useStore().dispatch({type: 'settings/UPDATE_IS_CAPTIONS_ENABLED', isCaptionsEnabled: false});
+                    redux.useStore().dispatch({type: types.UPDATE_IS_CAPTIONS_ENABLED, isCaptionsEnabled: false});
                   }}
                 >
                   <Icon type={IconType.ClosedCaptionsOn} />
@@ -122,7 +123,7 @@ const ClosedCaptions = connect(mapStateToProps)(
                   onClick={() => {
                     player.showTextTrack();
                     props.notifyClick(false);
-                    redux.useStore().dispatch({type: 'settings/UPDATE_IS_CAPTIONS_ENABLED', isCaptionsEnabled: true});
+                    redux.useStore().dispatch({type: types.UPDATE_IS_CAPTIONS_ENABLED, isCaptionsEnabled: true});
                   }}
                 >
                   <Icon type={IconType.ClosedCaptionsOff} />
