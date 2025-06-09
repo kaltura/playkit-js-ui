@@ -14,7 +14,6 @@ import {createPortal} from 'preact/compat';
 import {CVAAOverlay} from '../cvaa-overlay';
 import {CaptionsControlMini} from './captions-control-mini';
 import {getOverlayPortalElement} from '../overlay-portal';
-import { isEnter, isSpace } from "../../utils/key-map";
 
 /**
  * mapping state to props
@@ -60,13 +59,6 @@ const CaptionsControl = connect(mapStateToProps)(
       }
     };
 
-    const onKeyDown = (e: KeyboardEvent): void => {
-      if (isEnter(e) || isSpace(e)) {
-        e.preventDefault();
-        onControlButtonClick(e, true);
-      }
-    };
-
     const toggleCVAAOverlay = (): void => {
       setCVAAOverlay(cvaaOverlay => !cvaaOverlay);
     };
@@ -105,8 +97,7 @@ const CaptionsControl = connect(mapStateToProps)(
               aria-label={props.captionsLabelText}
               aria-haspopup="true"
               className={[style.controlButton, smartContainerOpen ? style.active : ''].join(' ')}
-              onClick={onControlButtonClick}
-              onKeyDown={onKeyDown}>
+              onClick={onControlButtonClick}>
               <Icon type={ccOn ? IconType.ClosedCaptionsOn : IconType.ClosedCaptionsOff} />
             </Button>
           </Tooltip>
