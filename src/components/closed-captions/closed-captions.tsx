@@ -12,6 +12,7 @@ import {ButtonControl} from '../button-control';
 import {registerToBottomBar} from '../bottom-bar';
 import {redux} from '../../index';
 import {types} from '../../reducers/settings';
+import { isEnter, isSpace } from "../../utils/key-map";
 
 /**
  * mapping state to props
@@ -93,6 +94,13 @@ const ClosedCaptions = connect(mapStateToProps)(
         }
       };
 
+        const onKeyDown = (e: KeyboardEvent): void => {
+          if (isEnter(e) || isSpace(e)) {
+            e.preventDefault();
+            onClick();
+          }
+        };
+
         const shouldRender = !!textTracks?.length && props.showCCButton && !props.openMenuFromCCButton;
         props.onToggle(COMPONENT_NAME, shouldRender);
         if (!shouldRender) return undefined;
@@ -110,6 +118,7 @@ const ClosedCaptions = connect(mapStateToProps)(
                     player.hideTextTrack();
                     redux.useStore().dispatch({type: types.UPDATE_IS_CAPTIONS_ENABLED, isCaptionsEnabled: false});
                   }}
+                  onKeyDown={onKeyDown}
                 >
                   <Icon type={IconType.ClosedCaptionsOn} />
                 </Button>
@@ -125,6 +134,7 @@ const ClosedCaptions = connect(mapStateToProps)(
                     props.notifyClick(false);
                     redux.useStore().dispatch({type: types.UPDATE_IS_CAPTIONS_ENABLED, isCaptionsEnabled: true});
                   }}
+                  onKeyDown={onKeyDown}
                 >
                   <Icon type={IconType.ClosedCaptionsOff} />
                 </Button>
