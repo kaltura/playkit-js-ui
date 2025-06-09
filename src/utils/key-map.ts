@@ -117,8 +117,8 @@ export function isEsc(e: KeyboardEvent): boolean {
 }
 
 /**
- * @param {string} inputKeyCode - input key
- * @param {string} targetKeyCode - target key
+ * @param {string} inputKeyCode - input key code
+ * @param {string} targetKeyCode - target key code
  * @returns {boolean} - whether the given key code is equals to the input key
  */
 function isKeyEqual(inputKeyCode: string, targetKeyCode: string): boolean {
