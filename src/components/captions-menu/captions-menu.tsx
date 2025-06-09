@@ -3,6 +3,7 @@ import {withText} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
 import {actions} from '../../reducers/cvaa';
+import {redux} from '../../index';
 import {SmartContainerItem} from '../smart-container/smart-container-item';
 import {IconType} from '../icon';
 import {withPlayer} from '../player';
@@ -12,6 +13,7 @@ import {withEventDispatcher} from '../event-dispatcher';
 import {withKeyboardEvent} from '../../components/keyboard';
 import {KeyboardEventHandlers} from '../../types';
 import {Menu} from '../menu';
+import {types} from '../../reducers/settings';
 
 /**
  * mapping state to props
@@ -58,6 +60,9 @@ class CaptionsMenu extends Component<any, any> {
       return;
     }
     this.props.player.selectTrack(textTrack);
+    // Update the Redux state to reflect the current captions state
+    const isCaptionsEnabled = typeof textTrack === 'object' && textTrack.language !== 'off';
+    redux.useStore().dispatch({type: types.UPDATE_IS_CAPTIONS_ENABLED, isCaptionsEnabled});
     this.props.notifyClick({
       type: this.props.player.Track.TEXT,
       track: textTrack
@@ -109,7 +114,7 @@ class CaptionsMenu extends Component<any, any> {
           }}
           options={textOptions}
           onMenuChosen={textTrack => this.onCaptionsChange(textTrack)}
-          onClose={() => {}} 
+          onClose={() => {}}
         />
       );
     }
