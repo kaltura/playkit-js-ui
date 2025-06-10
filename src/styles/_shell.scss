@@ -61,6 +61,21 @@
     z-index: 11;
     pointer-events: initial;
   }
+
+  &.no-copy-allowed {
+    :global(.no-copy) {
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      -webkit-touch-callout: none;
+      cursor: default;
+
+      &::selection {
+        background: transparent;
+      }
+    }
+  }
 }
 
 .player.nav {
@@ -78,13 +93,6 @@
     z-index: 1;
   }
   transition: transform 100ms;
-}
-
-.player.no-copy-allowed {
-  :global(.no-copy) {
-    .noselect { user-select: none; }
-    .noselect::selection { background: none; }
-  }
 }
 
 .player:not(.ad-break).metadata-loaded {
