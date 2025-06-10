@@ -8,6 +8,7 @@ import {h, VNode} from 'preact';
  * @returns {React$Element} - component element
  */
 const DropDownCaptionsStyle = (props: any): VNode<any> => {
+  let dropdownRef: HTMLElement | null = null;
   return (
     <div className={props.classNames.join(' ')}>
       <label id={props.styleName}>
@@ -15,7 +16,8 @@ const DropDownCaptionsStyle = (props: any): VNode<any> => {
       </label>
       <DropDown
         name={props.styleName}
-        pushRef={el => {
+        pushRef={(el: HTMLElement) => {
+          dropdownRef = el;
           props.addAccessibleChild(el);
         }}
         tabbable
@@ -23,6 +25,9 @@ const DropDownCaptionsStyle = (props: any): VNode<any> => {
           let changedStyle = {};
           changedStyle[props.styleName] = chosenOption;
           props.changeCustomStyle(changedStyle);
+          if (dropdownRef) {
+            dropdownRef.focus();
+          }
         }}
         options={props.options}
       />
