@@ -80,6 +80,13 @@
   transition: transform 100ms;
 }
 
+.player.no-copy-allowed {
+  :global(.no-copy) {
+    .noselect { user-select: none; }
+    .noselect::selection { background: none; }
+  }
+}
+
 .player:not(.ad-break).metadata-loaded {
   &.hover :global([id^='playkit-ads-container']),
   &.state-paused :global([id^='playkit-ads-container']),
