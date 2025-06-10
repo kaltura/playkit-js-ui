@@ -114,14 +114,6 @@ class SeekBar extends Component<any, any> {
     const clientRect = this._seekBarElement.getBoundingClientRect();
     this.props.updateSeekbarClientRect(clientRect);
 
-    const smallSizes = [PLAYER_SIZE.TINY, PLAYER_SIZE.EXTRA_SMALL, PLAYER_SIZE.SMALL];
-    eventManager.listenOnce(player, player.Event.UI.USER_CLICKED_PLAY, () => {
-      eventManager.listenOnce(player, player.Event.Core.FIRST_PLAY, () => {
-        if (smallSizes.includes(this.props.playerSize)) {
-          this._seekBarElement?.focus();
-        }
-      });
-    });
 
     eventManager.listen(player, EventType.BOTTOM_BAR_CLIENT_RECT_CHANGED, this.handleUpdateSeekBarClientRect);
     document.addEventListener('mouseup', this.onPlayerMouseUp);
@@ -322,6 +314,7 @@ class SeekBar extends Component<any, any> {
       case KeyMap.ENTER:
       case KeyMap.SPACE:
         e.preventDefault();
+        e.stopPropagation();
         this.togglePlayPause();
         break;
     }
