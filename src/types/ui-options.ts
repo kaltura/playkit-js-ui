@@ -24,5 +24,5 @@ export interface UIOptionsObject {
   translations?: {[langKey: string]: any};
   locale?: string;
   userTheme?: UserTheme;
-  isProtected?: boolean;
+  isCopyProtected?: boolean;
 }

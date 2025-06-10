@@ -40,7 +40,7 @@ const mapStateToProps = state => ({
   fallbackToMutedAutoPlay: state.engine.fallbackToMutedAutoPlay,
   playlist: state.engine.playlist,
   tinySizeDisabled: state.config.tinySizeDisabled,
-  isProtected: state.config.isProtected
+  isCopyProtected: state.config.isCopyProtected
 });
 
 const ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY: number = 100;
@@ -418,7 +418,7 @@ class Shell extends Component<any, any> {
 
     if (this.props.prePlayback) playerClasses.push(style.prePlayback);
     if (this.props.isCasting) playerClasses.push(`${__CSS_MODULE_PREFIX__}-casting`);
-    if (this.props.isProtected) playerClasses.push(`protected`);
+    if (this.props.isCopyProtected) playerClasses.push(style.protected);
     if (this.props.isMobile) playerClasses.push(style.touch);
     if (this.props.playerNav) playerClasses.push(style.nav);
     if (this.props.playerHover || this.props.playerNav) playerClasses.push(style.hover);

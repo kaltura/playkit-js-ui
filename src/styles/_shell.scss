@@ -63,8 +63,7 @@
   }
 }
 
-:global(.protected) {
-  :global(.no-copy) {
+:global(.protected .no-copy) {
     user-select: none !important;
     -webkit-user-select: none !important;
     -moz-user-select: none !important;
@@ -75,7 +74,6 @@
     &::selection {
       background: transparent;
     }
-  }
 }
 
 .player.nav {
