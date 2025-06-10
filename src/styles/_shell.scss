@@ -61,19 +61,19 @@
     z-index: 11;
     pointer-events: initial;
   }
+}
 
-  &.no-copy-allowed {
-    :global(.no-copy) {
-      user-select: none;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      -webkit-touch-callout: none;
-      cursor: default;
+:global(.protected) {
+  :global(.no-copy) {
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    -webkit-touch-callout: none !important;
+    cursor: default;
 
-      &::selection {
-        background: transparent;
-      }
+    &::selection {
+      background: transparent;
     }
   }
 }
