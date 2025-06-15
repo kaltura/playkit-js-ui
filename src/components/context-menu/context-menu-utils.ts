@@ -1,4 +1,6 @@
 import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
+import {FakeEvent} from '@playkit-js/playkit-js';
+import {EventType} from '../../event';
 
 class ContextMenuUtils {
   public static copyDebugInfoToClipboard(player: KalturaPlayer): void {
@@ -10,9 +12,14 @@ class ContextMenuUtils {
 
     const debugInfoString = JSON.stringify(debugInfo, null, 2);
 
-    ContextMenuUtils.copyToClipboard(debugInfoString).catch(() => {
-      ContextMenuUtils.copyToClipboardFallback(debugInfoString);
-    });
+    ContextMenuUtils.copyToClipboard(debugInfoString)
+      .then(() => {
+        player.dispatchEvent(new FakeEvent(EventType.USER_COPIED_DEBUG_INFO));
+      })
+      .catch(() => {
+        ContextMenuUtils.copyToClipboardFallback(debugInfoString);
+        player.dispatchEvent(new FakeEvent(EventType.USER_COPIED_DEBUG_INFO));
+      });
   }
 
   private static copyToClipboard(text: string): Promise<void> {
