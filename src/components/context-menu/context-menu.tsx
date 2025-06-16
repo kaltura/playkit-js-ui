@@ -23,7 +23,7 @@ interface ContextMenuProps {
 }
 
 const translations = {
-  copyDebugInfoLabel: <Text id="error.copt_debug_info">Copy debug info</Text>
+  copyDebugInfoLabel: <Text id="error.copy_debug_info">Copy debug info</Text>
 };
 
 function mapStateToProps(state): any {
