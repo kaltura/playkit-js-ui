@@ -23,7 +23,9 @@
       "logo": "ロゴ",
       "seekBarSlider": "シーク スライダー",
       "readLess": "折りたたみ表示",
-      "readMore": "詳細"
+      "readMore": "詳細",
+      "secondsRewind": "{{seconds}}秒後方にシーク",
+      "secondsForward": "{{seconds}}秒前方にシーク"
     },
     "unmute": {
       "unmute": "ミュート解除"

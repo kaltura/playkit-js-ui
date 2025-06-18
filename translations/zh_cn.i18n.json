@@ -23,7 +23,9 @@
       "logo": "标识",
       "seekBarSlider": "搜寻滑块",
       "readLess": "收起",
-      "readMore": "展开"
+      "readMore": "展开",
+      "secondsRewind": "倒退 {{seconds}} 秒",
+      "secondsForward": "前进 {{seconds}} 秒"
     },
     "unmute": {
       "unmute": "取消静音"
