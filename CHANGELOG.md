@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 0.82.0 (2025-06-19)
+
+
+### Features
+
+* **FEC-14520:** Add analytics for Copy Debug Info ([#1041](https://github.com/kaltura/playkit-js-ui/issues/1041)) ([adcc247](https://github.com/kaltura/playkit-js-ui/commit/adcc247))
+
+
+
 ### 0.81.6 (2025-06-05)
 
 
