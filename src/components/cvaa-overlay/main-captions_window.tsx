@@ -106,11 +106,17 @@ class MainCaptionsWindow extends Component<any, any> {
         </div>
         {!this.isAdvancedStyleApplied() ? (
           <a
+            id='setCustom'
             role="button"
             aria-haspopup="true"
             tabIndex={0}
             className={style.buttonSaveCvaa}
             onClick={this.transitionToState}
+            onFocus={(e) => {
+              e.currentTarget.style.outline = '1px solid #2684FF';
+              e.currentTarget.style.boxShadow = '0 0 0 1px white';
+              e.currentTarget.style.outlineOffset = '1px';
+            }}
             ref={el => {
               props.addAccessibleChild(el);
             }}
@@ -127,10 +133,16 @@ class MainCaptionsWindow extends Component<any, any> {
               </div>
             </div>
             <a
+              id='editCaption'
               role="button"
               tabIndex={0}
               aria-haspopup="true"
               onClick={this.transitionToState}
+              onFocus={(e) => {
+                e.currentTarget.style.outline = '1px solid #2684FF';
+                e.currentTarget.style.boxShadow = '0 0 0 1px white';
+                e.currentTarget.style.outlineOffset = '1px';
+              }}
               ref={el => {
                 props.addAccessibleChild(el);
               }}
