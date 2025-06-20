@@ -52,10 +52,26 @@ class CustomCaptionsWindow extends Component<any, any> {
    * @memberof CustomCaptionsWindow
    */
   onKeyDown = (e: KeyboardEvent): void => {
-    if (e.keyCode === KeyMap.ENTER) {
+    if (e.keyCode === KeyMap.ENTER || e.keyCode === KeyMap.SPACE) {
       this.changeCaptionsStyle();
+      this.transitionToState();
     }
   };
+  
+focusCustomOrEdit(): void {
+  setTimeout(() => {
+    const playerContainer = document.getElementById(this.props.player?.config?.ui?.targetId);
+    if (!playerContainer) return;
+
+    const custom = playerContainer.querySelector<HTMLElement>('#setCustom');
+    const edit = playerContainer.querySelector<HTMLElement>('#editCaption');
+
+    const target = custom || edit;
+    if (target) {
+      target.focus();
+    }
+  }, 0);
+}
 
   /**
    * render component
@@ -182,6 +198,7 @@ class CustomCaptionsWindow extends Component<any, any> {
               onClick={() => {
                 this.changeCaptionsStyle();
                 this.transitionToState();
+                this.focusCustomOrEdit();
               }}
               onKeyDown={this.onKeyDown}
               className={[style.btn, style.btnBranded, style.btnBlock].join(' ')}
