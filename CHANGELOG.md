@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 0.82.0 (2025-06-19)
+
+
+### Features
+
+* **FEC-14520:** Add analytics for Copy Debug Info ([#1041](https://github.com/kaltura/playkit-js-ui/issues/1041)) ([adcc247](https://github.com/kaltura/playkit-js-ui/commit/adcc247))
+
+
+
+### 0.81.6 (2025-06-05)
+
+
+### Bug Fixes
+
+* **FEC-14482:** Unmute button overlaps top bar controls ([#1032](https://github.com/kaltura/playkit-js-ui/issues/1032)) ([be5f7bb](https://github.com/kaltura/playkit-js-ui/commit/be5f7bb))
+
+
+
 ### 0.81.5 (2025-05-22)
 
 

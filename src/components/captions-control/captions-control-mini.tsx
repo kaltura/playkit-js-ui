@@ -14,6 +14,7 @@ import {CaptionsMenu} from '../captions-menu';
 import {SmartContainer} from '../smart-container';
 import {CaptionsControl} from './captions-control';
 import {getOverlayPortalElement} from '../overlay-portal';
+import { isEnter, isSpace } from "../../utils/key-map";
 
 const mapStateToProps = state => ({
   controlsToMove: state.bottomBar.controlsToMove
@@ -87,6 +88,13 @@ const CaptionsControlMini = connect(mapStateToProps)((props, context) => {
     });
   };
 
+  const onKeyDown = (e: KeyboardEvent): void => {
+    if (isEnter(e) || isSpace(e)) {
+      e.preventDefault();
+      onButtonClick();
+    }
+  };
+
   return shouldRender ? (
     <ButtonControl name={COMPONENT_NAME} className={style.upperBarIcon}>
       <Tooltip label={props.captionsLabelText}>
@@ -95,7 +103,8 @@ const CaptionsControlMini = connect(mapStateToProps)((props, context) => {
           aria-label={props.captionsLabelText}
           aria-haspopup="true"
           className={style.controlButton}
-          onClick={onButtonClick}>
+          onClick={onButtonClick}
+          onKeyDown={onKeyDown}>
           <Icon type={isCaptionsEnabled() ? IconType.ClosedCaptionsOn : IconType.ClosedCaptionsOff} />
         </Button>
       </Tooltip>

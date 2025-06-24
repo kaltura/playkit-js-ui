@@ -3,10 +3,11 @@ import {h, Component, VNode} from 'preact';
 import {connect} from 'react-redux';
 import {default as Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils';
-import {Localizer, Text} from 'preact-i18n';
+import {Localizer, Text, withText} from 'preact-i18n';
 import {withPlayer} from '../player';
 import {withEventManager} from '../../event';
 import {withLogger} from '../logger';
+import {Button} from '../button';
 
 /**
  * The icon only default timeout
@@ -27,6 +28,15 @@ const mapStateToProps = state => ({
 const COMPONENT_NAME = 'UnmuteIndication';
 
 /**
+ * translates
+ * @returns {Object} - The object translations
+ */
+const translates = {
+  unmuteAriaLabel: <Text id={'controls.unmute'}>Unmute</Text>,
+  unmuteButtonText: <Text id={'unmute.unmute'}>Unmute</Text>
+};
+
+/**
  * UnmuteIndication component
  *
  * @class UnmuteIndication
@@ -37,6 +47,7 @@ const COMPONENT_NAME = 'UnmuteIndication';
 @withPlayer
 @withEventManager
 @withLogger(COMPONENT_NAME)
+@withText(translates)
 class UnmuteIndication extends Component<any, any> {
   _iconTimeout: number | null = null;
 
@@ -134,25 +145,22 @@ class UnmuteIndication extends Component<any, any> {
 
     return (
       <Localizer>
-        <div
-          tabIndex={0}
-          aria-label={(<Text id="controls.unmute" />) as unknown as string}
-          className={styleClass.join(' ')}
-          onMouseOver={this.onMouseOver}
-          onMouseOut={this.onMouseOut}
-          onMouseUp={this.onMouseUp}
-          onTouchEnd={this.onTouchEnd}
-          onKeyDown={this.onKeyDown}
-        >
-          <a className={[style.btn, style.btnDarkTransparent, style.unmuteButton].join(' ')}>
+        <div className={styleClass.join(' ')}>
+          <Button
+            className={[style.btn, style.btnDarkTransparent, style.unmuteButton, style.btnTranslucent].join(' ')}
+            tabIndex={0}
+            aria-label={props.unmuteAriaLabel}
+            onMouseOver={this.onMouseOver}
+            onMouseOut={this.onMouseOut}
+            onMouseUp={this.onMouseUp}
+            onTouchEnd={this.onTouchEnd}
+            onKeyDown={this.onKeyDown}>
             <div className={style.unmuteIconContainer}>
               <Icon type={IconType.VolumeBase} />
               <Icon type={IconType.VolumeMute} />
             </div>
-            <span>
-              <Text id={'unmute.unmute'} />
-            </span>
-          </a>
+            <span>{props.unmuteButtonText}</span>
+          </Button>
         </div>
       </Localizer>
     );

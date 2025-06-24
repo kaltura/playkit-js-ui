@@ -23,7 +23,9 @@
       "logo": "로고",
       "seekBarSlider": "슬라이더",
       "readLess": "간단히 보기",
-      "readMore": "자세히 보기"
+      "readMore": "자세히 보기",
+      "secondsRewind": "{{seconds}}초 뒤 검색",
+      "secondsForward": "{{seconds}}초 전 검색"
     },
     "unmute": {
       "unmute": "음소거 해제"
