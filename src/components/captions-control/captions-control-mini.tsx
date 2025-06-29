@@ -1,6 +1,6 @@
 import {createPortal} from 'preact/compat';
 import {registerToBottomBar} from '../bottom-bar';
-import {redux, ReservedPresetNames, style} from '../../index';
+import {ReservedPresetNames, style} from '../../index';
 import {Icon, IconType} from '../icon';
 import {h, VNode} from 'preact';
 import {ButtonControl} from '../button-control';
@@ -14,10 +14,11 @@ import {CaptionsMenu} from '../captions-menu';
 import {SmartContainer} from '../smart-container';
 import {CaptionsControl} from './captions-control';
 import {getOverlayPortalElement} from '../overlay-portal';
-import { isEnter, isSpace } from "../../utils/key-map";
+import {isEnter, isSpace} from '../../utils/key-map';
 
 const mapStateToProps = state => ({
-  controlsToMove: state.bottomBar.controlsToMove
+  controlsToMove: state.bottomBar.controlsToMove,
+  isCaptionsEnabled: state.settings.isCaptionsEnabled
 });
 
 const COMPONENT_NAME = 'CaptionsControlMini';
@@ -49,10 +50,6 @@ const CaptionsControlMini = connect(mapStateToProps)((props, context) => {
   useEffect(() => {
     setShouldRender(controlsToMove.includes(CaptionsControl.displayName));
   }, [controlsToMove]);
-
-  const isCaptionsEnabled = (): boolean => {
-    return redux.useStore().getState().settings.isCaptionsEnabled;
-  };
 
   const removeCaptionsOverlay = () => {
     if (removeOverlay) {
@@ -105,7 +102,7 @@ const CaptionsControlMini = connect(mapStateToProps)((props, context) => {
           className={style.controlButton}
           onClick={onButtonClick}
           onKeyDown={onKeyDown}>
-          <Icon type={isCaptionsEnabled() ? IconType.ClosedCaptionsOn : IconType.ClosedCaptionsOff} />
+          <Icon type={props.isCaptionsEnabled ? IconType.ClosedCaptionsOn : IconType.ClosedCaptionsOff} />
         </Button>
       </Tooltip>
     </ButtonControl>
