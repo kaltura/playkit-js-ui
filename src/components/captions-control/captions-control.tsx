@@ -88,6 +88,7 @@ const CaptionsControl = connect(mapStateToProps)(
       return () => document.removeEventListener('click', handleClickOutside);
     }, [isSmallSize, isMobile]);
 
+    // TODO if isCaptionsEnabled handles all cases - this code can be removed
     useEffect(() => {
       setCCOn(activeTextTrack?.language !== 'off');
     }, [activeTextTrack]);
