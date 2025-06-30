@@ -65,7 +65,9 @@
       "quality8kLabel": "Quality is 8k",
       "advanced_audio_description": "Extended Audio Description",
       "advanced_audio_description_enabled": "Disable Extended Audio Description",
-      "advanced_audio_description_disabled": "Enable Extended Audio Description"
+      "advanced_audio_description_disabled": "Enable Extended Audio Description",
+      "settingsCollapsed": "collapsed",
+      "settingsExpanded": "expanded"
     },
     "captions": {
       "captions": "Captions",
