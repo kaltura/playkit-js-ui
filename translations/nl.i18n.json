@@ -23,7 +23,9 @@
       "logo": "Logo",
       "seekBarSlider": "Zoekschuifregelaar",
       "readLess": "Minder",
-      "readMore": "Meer"
+      "readMore": "Meer",
+      "secondsRewind": "Zoek {{seconds}} seconden terug",
+      "secondsForward": "Zoek {{seconds}} seconden vooruit"
     },
     "unmute": {
       "unmute": "Dempen ongedaan maken"

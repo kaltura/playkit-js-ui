@@ -14,7 +14,7 @@ import {createPortal} from 'preact/compat';
 import {CVAAOverlay} from '../cvaa-overlay';
 import {CaptionsControlMini} from './captions-control-mini';
 import {getOverlayPortalElement} from '../overlay-portal';
-import { isEnter, isSpace } from "../../utils/key-map";
+import {isEnter, isSpace} from '../../utils/key-map';
 
 /**
  * mapping state to props
@@ -27,7 +27,8 @@ const mapStateToProps = state => ({
   openMenuFromCCButton: state.config.openMenuFromCCButton,
   isMobile: state.shell.isMobile,
   isSmallSize: state.shell.isSmallSize,
-  isCVAAOverlayOpen: state.shell.isCVAAOverlayOpen
+  isCVAAOverlayOpen: state.shell.isCVAAOverlayOpen,
+  isCaptionsEnabled: state.settings.isCaptionsEnabled
 });
 
 const COMPONENT_NAME = 'CaptionsControl';
@@ -87,9 +88,15 @@ const CaptionsControl = connect(mapStateToProps)(
       return () => document.removeEventListener('click', handleClickOutside);
     }, [isSmallSize, isMobile]);
 
+    // TODO if isCaptionsEnabled handles all cases - this code can be removed
     useEffect(() => {
       setCCOn(activeTextTrack?.language !== 'off');
     }, [activeTextTrack]);
+
+    //update local state when Redux state changes
+    useEffect(() => {
+      setCCOn(props.isCaptionsEnabled);
+    }, [props.isCaptionsEnabled]);
 
     const shouldRender = !!textTracks?.length && props.showCCButton && props.openMenuFromCCButton;
     props.onToggle(COMPONENT_NAME, shouldRender);
