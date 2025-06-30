@@ -325,7 +325,6 @@ class Settings extends Component<any, any> {
             aria-label={buttonAriaLabel}
             aria-haspopup="true"
             aria-expanded={this.state.smartContainerOpen}
-            aria-controls="settings-container"
             className={[
               style.controlButton,
               style.buttonBadge,
@@ -337,7 +336,7 @@ class Settings extends Component<any, any> {
           </Button>
         </Tooltip>
         {this.state.smartContainerOpen && !this.state.cvaaOverlay && (
-          <SmartContainer title={<Text id="settings.title" />} onClose={this.onControlButtonClick} id="settings-container">
+          <SmartContainer title={<Text id="settings.title" />} onClose={this.onControlButtonClick}>
             {showAdvancedAudioDescToggle && <AdvancedAudioDescToggle />}
             {showAudioMenu && <AudioMenu />}
             {showCaptionsMenu && <CaptionsMenu asDropdown={true} onAdvancedCaptionsClick={this.toggleCVAAOverlay} />}
