@@ -54,7 +54,9 @@ const translates = () => ({
   buttonLabel: <Text id="controls.settings">Settings</Text>,
   qualityHdLabel: <Text id="settings.qualityHdLabel">Quality is HD</Text>,
   quality4kLabel: <Text id="settings.quality4kLabel">Quality is 4k</Text>,
-  quality8kLabel: <Text id="settings.quality8kLabel">Quality is 8k</Text>
+  quality8kLabel: <Text id="settings.quality8kLabel">Quality is 8k</Text>,
+  settingsExpanded: <Text id="settings.settingsExpanded">expanded</Text>,
+  settingsCollapsed: <Text id="settings.settingsCollapsed">collapsed</Text>
 });
 
 /**
@@ -313,7 +315,7 @@ class Settings extends Component<any, any> {
     if (props.isLive && props.videoTracks.length <= 1 && !showAudioMenu && !showCaptionsMenu) return undefined;
     const buttonBadgeType: string = this.getButtonBadgeType() || '';
 
-    const buttonAriaLabel = props.buttonLabel + ' ' + this.getQualityLabel(buttonBadgeType);
+    const buttonAriaLabel =`${props.buttonLabel} ${this.getQualityLabel(buttonBadgeType)} ` + `${this.state.smartContainerOpen ? props.settingsExpanded : props.settingsCollapsed}`;
     return (
       <ButtonControl name={COMPONENT_NAME} ref={c => (c ? (this._controlSettingsElement = c) : undefined)}>
         <Tooltip label={props.buttonLabel}>
@@ -322,6 +324,7 @@ class Settings extends Component<any, any> {
             tabIndex="0"
             aria-label={buttonAriaLabel}
             aria-haspopup="true"
+            aria-expanded={this.state.smartContainerOpen}
             className={[
               style.controlButton,
               style.buttonBadge,
