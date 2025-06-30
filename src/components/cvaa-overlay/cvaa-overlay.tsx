@@ -54,6 +54,16 @@ class CVAAOverlay extends Component<any, any> {
    * @returns {void}
    * @memberof CVAAOverlay
    */
+  customOrEditRef: HTMLElement | null = null;
+  
+  setCustomOrEditRef = (el: HTMLElement | null) => {
+    this.customOrEditRef = el;
+  };
+
+  focusCustomOrEdit = () => {
+    this.customOrEditRef?.focus();
+  };
+
   componentWillUnmount() {
     this.setState({
       activeWindow: cvaaOverlayState.Main
@@ -187,6 +197,7 @@ class CVAAOverlay extends Component<any, any> {
             changeCaptionsStyle={this.changeCaptionsStyle}
             transitionToState={this.transitionToState}
             customTextStyle={this.state.customTextStyle}
+            setCustomOrEditRef={this.setCustomOrEditRef}
           />
         ) : (
           <CustomCaptionsWindow
@@ -198,6 +209,7 @@ class CVAAOverlay extends Component<any, any> {
             customTextStyle={this.state.customTextStyle}
             transitionToState={this.transitionToState}
             cvaaOverlayState={cvaaOverlayState}
+            focusCustomOrEdit={this.focusCustomOrEdit}
           />
         )}
       </Overlay>

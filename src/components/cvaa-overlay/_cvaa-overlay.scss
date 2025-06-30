@@ -55,6 +55,24 @@
     color: #fff;
     text-decoration: none;
     cursor: pointer;
+
+    &:focus {
+    outline: 1px solid #2684FF;
+    box-shadow: 0 0 0 1px white;
+    outline-offset: 1px;
+    }
+  }
+
+  .button-edit-cvaa {
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:focus {
+      outline: 1px solid #2684FF;
+      box-shadow: 0 0 0 1px white;
+      outline-offset: 1px;
+    }
   }
   .custom-captions-applied {
     margin-top: 50px;

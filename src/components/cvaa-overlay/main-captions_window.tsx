@@ -112,13 +112,9 @@ class MainCaptionsWindow extends Component<any, any> {
             tabIndex={0}
             className={style.buttonSaveCvaa}
             onClick={this.transitionToState}
-            onFocus={(e) => {
-              e.currentTarget.style.outline = '1px solid #2684FF';
-              e.currentTarget.style.boxShadow = '0 0 0 1px white';
-              e.currentTarget.style.outlineOffset = '1px';
-            }}
             ref={el => {
               props.addAccessibleChild(el);
+              props.setCustomOrEditRef?.(el);
             }}
             onKeyDown={this.onKeyDown}
           >
@@ -137,14 +133,11 @@ class MainCaptionsWindow extends Component<any, any> {
               role="button"
               tabIndex={0}
               aria-haspopup="true"
+              className={style.buttonEditCvaa}
               onClick={this.transitionToState}
-              onFocus={(e) => {
-                e.currentTarget.style.outline = '1px solid #2684FF';
-                e.currentTarget.style.boxShadow = '0 0 0 1px white';
-                e.currentTarget.style.outlineOffset = '1px';
-              }}
               ref={el => {
                 props.addAccessibleChild(el);
+                props.setCustomOrEditRef?.(el);
               }}
               onKeyDown={this.onKeyDown}
             >

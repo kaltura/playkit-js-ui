@@ -60,16 +60,7 @@ class CustomCaptionsWindow extends Component<any, any> {
   
 focusCustomOrEdit(): void {
   setTimeout(() => {
-    const playerContainer = document.getElementById(this.props.player?.config?.ui?.targetId);
-    if (!playerContainer) return;
-
-    const custom = playerContainer.querySelector<HTMLElement>('#setCustom');
-    const edit = playerContainer.querySelector<HTMLElement>('#editCaption');
-
-    const target = custom || edit;
-    if (target) {
-      target.focus();
-    }
+  this.props.focusCustomOrEdit?.();
   }, 0);
 }
 
