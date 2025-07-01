@@ -40,9 +40,10 @@ const mapStateToProps = ({config, settings}) => ({
   advancedAudioDescDisabledText: 'settings.advanced_audio_description_disabled'
 })
 class AdvancedAudioDesc extends Component<any, any> implements IconComponent {
-  constructor(props: any) {
-    super();
-    registerToBottomBar(COMPONENT_NAME, props.player, () => this.registerComponent());
+  componentDidUpdate(previousProps): void {
+    if (this.props.showAdvancedAudioDescToggle && !previousProps.showAdvancedAudioDescToggle) {
+      registerToBottomBar(COMPONENT_NAME, this.props.player, () => this.registerComponent());
+    }
   }
 
   get advancedAudioDesc(): boolean {
