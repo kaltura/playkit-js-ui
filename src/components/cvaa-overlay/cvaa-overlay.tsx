@@ -1,6 +1,6 @@
 import {h, Component, VNode} from 'preact';
 import {connect} from 'react-redux';
-import {bindActions} from '../../utils';
+import {bindActions, focusElement} from '../../utils';
 import {actions as cvaaActions} from '../../reducers/cvaa';
 import {actions as shellActions} from '../../reducers/shell';
 import {Overlay} from '../overlay';
@@ -61,9 +61,9 @@ class CVAAOverlay extends Component<any, any> {
     this.customOrEditRef = el;
   };
 
-  focusCustomOrEdit = () => {
-    this.customOrEditRef?.focus();
-  };
+focusCustomOrEdit = () => {
+  focusElement(this.customOrEditRef, 20);
+};
 
   componentWillUnmount() {
     this.setState({

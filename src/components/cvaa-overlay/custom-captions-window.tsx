@@ -57,15 +57,16 @@ class CustomCaptionsWindow extends Component<any, any> {
       e.preventDefault();
       e.stopPropagation();
       this.changeCaptionsStyle();
-      this.transitionToState();      
+      this.transitionToState();
+      this.focusCustomOrEdit();                
     }
   };
   
-focusCustomOrEdit(): void {
-  setTimeout(() => {
-  this.props.focusCustomOrEdit?.();
-  }, 0);
-}
+  focusCustomOrEdit(): void {
+    setTimeout(() => {
+      this.props.focusCustomOrEdit?.();
+    }, 0);
+  }
 
   /**
    * render component
