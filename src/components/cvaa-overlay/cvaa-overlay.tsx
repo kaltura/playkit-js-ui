@@ -56,14 +56,22 @@ class CVAAOverlay extends Component<any, any> {
    * @memberof CVAAOverlay
    */
   customOrEditRef: HTMLElement | null = null;
+  private focusOnNextUpdate = false;
   
   setCustomOrEditRef = (el: HTMLElement | null) => {
     this.customOrEditRef = el;
   };
 
-focusCustomOrEdit = () => {
-  focusElement(this.customOrEditRef, 20);
-};
+  focusCustomOrEdit = () => {
+    this.focusOnNextUpdate = true;
+  };
+
+  componentDidUpdate() {
+    if (this.focusOnNextUpdate) {
+      this.focusOnNextUpdate = false;
+      focusElement(this.customOrEditRef, 20);
+    }
+  }
 
   componentWillUnmount() {
     this.setState({

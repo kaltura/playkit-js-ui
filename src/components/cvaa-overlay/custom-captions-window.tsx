@@ -63,9 +63,7 @@ class CustomCaptionsWindow extends Component<any, any> {
   };
   
   focusCustomOrEdit(): void {
-    setTimeout(() => {
-      this.props.focusCustomOrEdit?.();
-    }, 0);
+    this.props.focusCustomOrEdit?.();
   }
 
   /**
