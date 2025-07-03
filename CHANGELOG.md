@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.82.1 (2025-07-03)
+
+
+### Bug Fixes
+
+* **FEC-14399:** register EAD to bottom-bar manager only if media has EAD captions ([d7d3d1a](https://github.com/kaltura/playkit-js-ui/commit/d7d3d1a))
+
+
+
 ## 0.82.0 (2025-06-19)
 
 
