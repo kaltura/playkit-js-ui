@@ -105,7 +105,8 @@
       "eighty_percent": "tachtig procent",
       "ninety_percent": "negentig procent",
       "one_hundred_percent": "honderd procent",
-      "volume_slider_aria_label": "Volumeregeling, gebruik de pijlen om het volume te regelen"
+      "volume_slider_aria_label": "Volumeregeling",
+      "volume_slider_description": "Gebruik de pijlen om het volume te regelen"
     }
   }
 }
