@@ -105,7 +105,8 @@
       "eighty_percent": "80%",
       "ninety_percent": "90%",
       "one_hundred_percent": "100%",
-      "volume_slider_aria_label": "볼륨 조절, 화살표를 사용해서 볼륨을 조절하세요."
+      "volume_slider_aria_label": "볼륨 조절",
+      "volume_slider_description": "화살표를 사용해서 볼륨을 조절하세요"
     }
   }
 }

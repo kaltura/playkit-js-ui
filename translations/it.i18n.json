@@ -105,7 +105,8 @@
       "eighty_percent": "80%",
       "ninety_percent": "90%",
       "one_hundred_percent": "100%",
-      "volume_slider_aria_label": "Regolazione del volume, utilizzare le frecce per regolare il volume"
+      "volume_slider_aria_label": "Regolazione del volume",
+      "volume_slider_description": "Usa le frecce per regolare il volume"
     }
   }
 }

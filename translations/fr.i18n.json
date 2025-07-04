@@ -105,7 +105,8 @@
       "eighty_percent": "quatre-vingt pour cent",
       "ninety_percent": "quatre-vingt-dix pour cent",
       "one_hundred_percent": "cent pour cent",
-      "volume_slider_aria_label": "Contrôle du volume, utiliser les flèches pour contrôler le volume"
+      "volume_slider_aria_label": "Contrôle du volume",
+      "volume_slider_description": "Utiliser les flèches pour contrôler le volume"
     }
   }
 }
