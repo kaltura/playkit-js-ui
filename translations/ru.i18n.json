@@ -9,6 +9,8 @@
       "fullscreenExit": "Выйти из полноэкранного режима",
       "rewind": "Искать назад",
       "forward": "Искать вперед",
+      "secondsRewind": "Перейти на {{seconds}} секунд назад",
+      "secondsForward": "Перейти на {{seconds}} секунд вперед",
       "vrStereo": "vrStereo",
       "closedCaptionsOn": "Отключить субтитры",
       "closedCaptionsOff": "Включить субтитры",

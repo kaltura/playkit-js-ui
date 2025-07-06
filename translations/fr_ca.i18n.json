@@ -9,6 +9,8 @@
       "fullscreenExit": "Quitter le mode Plein écran",
       "rewind": "Arrière",
       "forward": "Avant",
+      "secondsRewind": "Rechercher {{seconds}} secondes en arrière",
+      "secondsForward": "Rechercher {{seconds}} secondes en avant",
       "vrStereo": "vrStereo",
       "closedCaptionsOn": "Désactiver les sous-titres",
       "closedCaptionsOff": "Activer les sous-titres",

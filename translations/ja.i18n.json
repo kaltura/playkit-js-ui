@@ -9,6 +9,8 @@
       "fullscreenExit": "全画面の終了",
       "rewind": "後方シーク",
       "forward": "前方シーク",
+      "secondsRewind": "{{seconds}}秒後方にシーク",
+      "secondsForward": "{{seconds}}秒前方にシーク",
       "vrStereo": "vrStereo",
       "closedCaptionsOn": "キャプションを無効にする",
       "closedCaptionsOff": "キャプションを有効にする",
