@@ -99,7 +99,7 @@ class Menu extends Component<MenuProps & WithEventManagerProps, any> {
     } else {
       // If we cannot render it on top of the label or below it, we will reduce the height of the menu to be
       // 80% of the player height and put it at the bottom of the player.
-      this._menuElement.style.maxHeight = guiClientRect!.height - style.topBarMaxHeight - style.bottomBarMaxHeight + 'px';
+      this._menuElement.style.maxHeight = guiClientRect!.height - Number(style.topBarMaxHeight) - Number(style.bottomBarMaxHeight) + 'px';
       return [style.stickBottom, style.left];
     }
   }
