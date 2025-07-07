@@ -9,6 +9,8 @@
       "fullscreenExit": "전체화면에서 나가기",
       "rewind": "뒤로 가기",
       "forward": "앞으로 가기",
+      "secondsRewind": "{{seconds}}초 뒤 검색",
+      "secondsForward": "{{seconds}}초 앞 검색",
       "vrStereo": "vr스테레오",
       "closedCaptionsOn": "캡션 비활성화",
       "closedCaptionsOff": "캡션 활성화",

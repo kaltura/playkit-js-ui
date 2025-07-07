@@ -9,6 +9,8 @@
       "fullscreenExit": "Poistu koko näytöltä",
       "rewind": "Siirry taaksepäin",
       "forward": "Siirry eteenpäin",
+      "secondsRewind": "Hae {{seconds}} sekuntia taaksepäin",
+      "secondsForward": "Hae {{seconds}} sekuntia eteenpäin",
       "vrStereo": "vrStereo",
       "closedCaptionsOn": "Poista tekstitykset käytöstä",
       "closedCaptionsOff": "Ota tekstitykset käyttöön",

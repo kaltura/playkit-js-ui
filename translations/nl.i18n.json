@@ -9,6 +9,8 @@
       "fullscreenExit": "Volledig scherm verlaten",
       "rewind": "Achteruit zoeken",
       "forward": "Vooruit zoeken",
+      "secondsRewind": "{{seconds}} seconde terug zoeken",
+      "secondsForward": "{{seconds}} seconde vooruit zoeken",
       "vrStereo": "vrStereo",
       "closedCaptionsOn": "Ondertiteling uitschakelen",
       "closedCaptionsOff": "Ondertiteling inschakelen",

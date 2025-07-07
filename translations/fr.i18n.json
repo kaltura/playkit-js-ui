@@ -9,6 +9,8 @@
       "fullscreenExit": "Quitter le mode Plein écran",
       "rewind": "Reculer",
       "forward": "Avancer",
+      "secondsRewind": "Rechercher {{seconds}} secondes en arrière",
+      "secondsForward": "Rechercher {{seconds}} secondes en avant",
       "vrStereo": "vrStereo",
       "closedCaptionsOn": "Désactiver les légendes",
       "closedCaptionsOff": "Activer les légendes",

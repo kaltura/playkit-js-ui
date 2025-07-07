@@ -9,6 +9,8 @@
       "fullscreenExit": "退出全螢幕",
       "rewind": "進行回放",
       "forward": "進行快轉",
+      "secondsRewind": "向後搜尋 {{seconds}} 秒",
+      "secondsForward": "向前搜尋 {{seconds}} 秒",
       "vrStereo": "vrStereo",
       "closedCaptionsOn": "停用字幕",
       "closedCaptionsOff": "啟用字幕",

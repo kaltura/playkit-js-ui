@@ -9,6 +9,8 @@
       "fullscreenExit": "Sair da tela inteira",
       "rewind": "Buscar para trás",
       "forward": "Buscar para frente",
+      "secondsRewind": "Buscar {{seconds}} segundos para trás",
+      "secondsForward": "Buscar {{seconds}} segundos para a frente",
       "vrStereo": "vrStereo",
       "closedCaptionsOn": "Desabilitar legendas",
       "closedCaptionsOff": "Habilitar legendas",
