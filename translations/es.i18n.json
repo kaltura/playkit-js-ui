@@ -107,7 +107,8 @@
       "eighty_percent": "ochenta por ciento",
       "ninety_percent": "noventa por ciento",
       "one_hundred_percent": "cien por cien",
-      "volume_slider_aria_label": "Control de volumen: usa las flechas para controlar el volumen\n"
+      "volume_slider_aria_label": "Control de volumen",
+      "volume_slider_description": "Use las flechas para controlar el volumen"
     }
   }
 }
