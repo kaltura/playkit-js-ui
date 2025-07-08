@@ -25,9 +25,7 @@
       "logo": "Logo",
       "seekBarSlider": "Controle deslizante",
       "readLess": "Menos",
-      "readMore": "Mais",
-      "secondsRewind": "Buscar {{seconds}} segundos para trás",
-      "secondsForward": "Buscar {{seconds}} segundos para frente"
+      "readMore": "Mais"
     },
     "unmute": {
       "unmute": "Cancelar silenciamento"
