@@ -9,8 +9,6 @@
       "fullscreenExit": "Выйти из полноэкранного режима",
       "rewind": "Искать назад",
       "forward": "Искать вперед",
-      "secondsRewind": "Перейти на {{seconds}} секунд назад",
-      "secondsForward": "Перейти на {{seconds}} секунд вперед",
       "vrStereo": "vrStereo",
       "closedCaptionsOn": "Отключить субтитры",
       "closedCaptionsOff": "Включить субтитры",
@@ -107,7 +105,7 @@
       "eighty_percent": "восемьдесят процентов",
       "ninety_percent": "девяносто процентов",
       "one_hundred_percent": "сто процентов",
-      "volume_slider_aria_label": "Громкость",
+      "volume_slider_aria_label": "Управление Громкость",
       "volume_slider_description": "Для управления громкостью используйте стрелки"
     }
   }
