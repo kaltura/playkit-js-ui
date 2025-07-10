@@ -1,6 +1,6 @@
 import {h, Component, VNode} from 'preact';
 import {connect} from 'react-redux';
-import {bindActions} from '../../utils';
+import {bindActions, focusElement} from '../../utils';
 import {actions as cvaaActions} from '../../reducers/cvaa';
 import {actions as shellActions} from '../../reducers/shell';
 import {Overlay} from '../overlay';
@@ -55,6 +55,24 @@ class CVAAOverlay extends Component<any, any> {
    * @returns {void}
    * @memberof CVAAOverlay
    */
+  customOrEditRef: HTMLElement | null = null;
+  private focusOnNextUpdate = false;
+  
+  setCustomOrEditRef = (el: HTMLElement | null) => {
+    this.customOrEditRef = el;
+  };
+
+  focusCustomOrEdit = () => {
+    this.focusOnNextUpdate = true;
+  };
+
+  componentDidUpdate() {
+    if (this.focusOnNextUpdate) {
+      this.focusOnNextUpdate = false;
+      focusElement(this.customOrEditRef, 20);
+    }
+  }
+
   componentWillUnmount() {
     this.setState({
       activeWindow: cvaaOverlayState.Main
@@ -194,6 +212,7 @@ class CVAAOverlay extends Component<any, any> {
             changeCaptionsStyle={this.changeCaptionsStyle}
             transitionToState={this.transitionToState}
             customTextStyle={this.state.customTextStyle}
+            setCustomOrEditRef={this.setCustomOrEditRef}
           />
         ) : (
           <CustomCaptionsWindow
@@ -205,6 +224,7 @@ class CVAAOverlay extends Component<any, any> {
             customTextStyle={this.state.customTextStyle}
             transitionToState={this.transitionToState}
             cvaaOverlayState={cvaaOverlayState}
+            focusCustomOrEdit={this.focusCustomOrEdit}
           />
         )}
       </Overlay>

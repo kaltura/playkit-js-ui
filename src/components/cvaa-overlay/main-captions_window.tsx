@@ -106,6 +106,7 @@ class MainCaptionsWindow extends Component<any, any> {
         </div>
         {!this.isAdvancedStyleApplied() ? (
           <a
+            id='setCustom'
             role="button"
             aria-haspopup="true"
             tabIndex={0}
@@ -113,6 +114,7 @@ class MainCaptionsWindow extends Component<any, any> {
             onClick={this.transitionToState}
             ref={el => {
               props.addAccessibleChild(el);
+              props.setCustomOrEditRef?.(el);
             }}
             onKeyDown={this.onKeyDown}
           >
@@ -127,12 +129,15 @@ class MainCaptionsWindow extends Component<any, any> {
               </div>
             </div>
             <a
+              id='editCaption'
               role="button"
               tabIndex={0}
               aria-haspopup="true"
+              className={style.buttonEditCvaa}
               onClick={this.transitionToState}
               ref={el => {
                 props.addAccessibleChild(el);
+                props.setCustomOrEditRef?.(el);
               }}
               onKeyDown={this.onKeyDown}
             >
