@@ -106,9 +106,12 @@
     cursor: pointer;
     border-radius: 4px;
 
-    &:hover,
+    &:hover{
+      background-color: $tone-5-color;
+      color: #fff;
+    }
+
     &:focus {
-      background-color: $tone-6-color;
       color: #fff;
     }
 
