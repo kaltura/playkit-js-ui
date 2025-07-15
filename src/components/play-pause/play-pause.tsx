@@ -96,6 +96,14 @@ class PlayPause extends Component<any, any> {
     this.props.notifyClick();
   };
 
+  handleKeyDown = (e: KeyboardEvent): void => {
+    if (e.keyCode === KeyMap.ENTER || e.keyCode === KeyMap.SPACE) {
+      e.preventDefault();
+      e.stopPropagation(); 
+      this.togglePlayPause();
+    }
+  };
+
   /**
    * render component
    *
@@ -119,6 +127,7 @@ class PlayPause extends Component<any, any> {
               aria-label={`${labelText}, ${entryName}`}
               className={controlButtonClass}
               onClick={this.togglePlayPause}
+              onKeyDown={this.handleKeyDown}
             >
               {isStartOver ? (
                 <Icon type={IconType.StartOver} />
