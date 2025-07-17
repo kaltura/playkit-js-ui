@@ -9,7 +9,7 @@
 export function focusElement(element: HTMLElement | null, delay: number = 100): void {
   const interval = setInterval(() => {
     if (element && getComputedStyle(element).visibility !== 'hidden') {
-      element.focus();
+      element.focus({ preventScroll: true });
       clearInterval(interval);
     }
   }, delay);
