@@ -1,7 +1,11 @@
 import style from '../../styles/style.scss';
-import {h, Component, VNode} from 'preact';
+import {h, Component, VNode, createRef, RefObject} from 'preact';
 import {connect} from 'react-redux';
 import {PlayerArea} from '../../components/player-area';
+import {bindActions} from '../../utils';
+import {actions} from '../../reducers/shell';
+import {withPlayer} from '../player';
+import {withEventManager} from '../../event';
 
 /**
  * mapping state to props
@@ -22,8 +26,19 @@ const COMPONENT_NAME = 'TopBar';
  * @example <TopBar>...</TopBar>
  * @extends {Component}
  */
-@connect(mapStateToProps)
+@withPlayer
+@withEventManager
+@connect(mapStateToProps, bindActions(actions))
 class TopBar extends Component<any, any> {
+  topBarRef: RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
+
+  componentDidMount() {
+    const {player, eventManager} = this.props;
+    eventManager.listen(player, player.Event.UI.USER_OPEN_DROPDOWN, () => {
+      this.props.updateTopBarClientRect(this.topBarRef.current?.getBoundingClientRect());
+    });
+  }
+
   /**
    * render component
    *
@@ -43,7 +58,7 @@ class TopBar extends Component<any, any> {
       styleClass.push(style.hide);
     }
     return (
-      <div className={styleClass.join(' ')}>
+      <div className={styleClass.join(' ')} ref={this.topBarRef}>
         <div className={style.topBarArea}>
           <PlayerArea name={'TopBar'} />
         </div>

@@ -106,7 +106,7 @@
     cursor: pointer;
     border-radius: 4px;
 
-    &:hover{
+    &:hover {
       background-color: $tone-5-color;
       color: #fff;
     }
@@ -135,6 +135,16 @@
     & > .label-badge {
       &.badge-icon {
         margin-right: 5px;
+      }
+    }
+  }
+}
+
+.smart-container {
+  & > div:last-child {
+    .dropdown-menu {
+      &.stick-bottom {
+        bottom: -55px !important;
       }
     }
   }

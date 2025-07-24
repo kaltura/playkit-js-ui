@@ -1,5 +1,5 @@
 import style from '../../styles/style.scss';
-import {h, Component, VNode, RefObject} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {BadgeType, default as Icon, IconType} from '../icon';
 import {connect} from 'react-redux';
 import {withKeyboardA11y} from '../../utils';
@@ -17,6 +17,7 @@ type MenuProps = {
   isMobile?: boolean;
   isSmallSize?: boolean;
   guiClientRect?: DOMRect;
+  topBarClientRect?: any;
   options: OptionType[];
   labelledby?: string;
   pushRef?: (HTMLElement) => void;
@@ -34,7 +35,8 @@ type MenuProps = {
 const mapStateToProps = state => ({
   isMobile: state.shell.isMobile,
   isSmallSize: state.shell.isSmallSize,
-  guiClientRect: state.shell.guiClientRect
+  guiClientRect: state.shell.guiClientRect,
+  topBarClientRect: state.shell.topBarClientRect
 });
 
 const COMPONENT_NAME = 'Menu';
@@ -87,11 +89,12 @@ class Menu extends Component<MenuProps & WithEventManagerProps, any> {
   getPosition(): Array<string> {
     const menuElementRect = this._menuElement.getBoundingClientRect();
     const guiClientRect = this.props.guiClientRect;
+    const topBarClientRect = this.props.topBarClientRect;
 
     // The menu is first rendered above its label.
     // top / bottom are determined from the top of the view port, if the menus top edge is lower than the top of the
     // player it means that menu.top is bigger than player.top.
-    if (menuElementRect.top >= guiClientRect!.top) {
+    if (menuElementRect.top >= topBarClientRect.bottom) {
       return [style.top, style.left];
     } else if (menuElementRect.bottom + menuElementRect.height < guiClientRect!.bottom) {
       // menu.bottom + menu.height is the value of the bottom edge of the menu if its rendered below the label.
@@ -99,7 +102,7 @@ class Menu extends Component<MenuProps & WithEventManagerProps, any> {
     } else {
       // If we cannot render it on top of the label or below it, we will reduce the height of the menu to be
       // 80% of the player height and put it at the bottom of the player.
-      this._menuElement.style.maxHeight = guiClientRect!.height - Number(style.topBarMaxHeight) - Number(style.bottomBarMaxHeight) + 'px';
+      this._menuElement.style.maxHeight = guiClientRect!.height - topBarClientRect.height - Number(style.bottomBarMaxHeight) + 'px';
       return [style.stickBottom, style.left];
     }
   }
@@ -198,8 +201,8 @@ class Menu extends Component<MenuProps & WithEventManagerProps, any> {
    */
   render(props: any): VNode<any> {
     props.clearAccessibleChildren();
-    const menuItemRole = "menuitem";
-    const menuItemRadioRole = "menuitemradio";
+    const menuItemRole = 'menuitem';
+    const menuItemRadioRole = 'menuitemradio';
     return props.isMobile || props.isSmallSize ? (
       this.renderNativeSelect(props.labelledby)
     ) : (
@@ -284,7 +287,7 @@ class MenuItem extends Component<any, any> {
         ref={element => {
           this.props.addAccessibleChild(element);
           if (props.isSelected(props.data)) {
-            setTimeout(() => props.setDefaultFocusedElement(element))
+            setTimeout(() => props.setDefaultFocusedElement(element));
           }
         }}
         className={props.isSelected(props.data) ? [style.dropdownMenuItem, style.active].join(' ') : style.dropdownMenuItem}
@@ -293,7 +296,7 @@ class MenuItem extends Component<any, any> {
       >
         <span
           className={badgeType ? [style.labelBadge, badgeType].join(' ') : ''}
-          aria-label={badgeType?.includes("quality-hd") ? `${props.data.label} HD` : props.data.label}
+          aria-label={badgeType?.includes('quality-hd') ? `${props.data.label} HD` : props.data.label}
         >
           {props.data.label}
         </span>

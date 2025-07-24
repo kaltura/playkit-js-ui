@@ -9,6 +9,7 @@ export const types = {
   UPDATE_PLAYER_SIZE: 'shell/UPDATE_PLAYER_SIZE',
   UPDATE_IS_SMALL_SIZE: 'shell/UPDATE_IS_SMALL_SIZE',
   UPDATE_GUI_CLIENT_RECT: 'shell/UPDATE_GUI_CLIENT_RECT',
+  UPDATE_TOP_BAR_CLIENT_RECT: 'shell/UPDATE_TOP_BAR_CLIENT_RECT',
   UPDATE_PLAYER_CLIENT_RECT: 'shell/UPDATE_PLAYER_CLIENT_RECT',
   UPDATE_VIDEO_CLIENT_RECT: 'shell/UPDATE_VIDEO_CLIENT_RECT',
   UPDATE_DOCUMENT_WIDTH: 'shell/UPDATE_DOCUMENT_WIDTH',
@@ -88,6 +89,7 @@ const initialLayoutStyle = {position: 'absolute', left: 0, right: 0, top: 0, bot
 export const initialState = {
   playerClasses: [],
   guiClientRect: initialRect,
+  topBarClientRect: initialRect,
   playerClientRect: initialRect,
   videoClientRect: initialRect,
   layoutStyles: {
@@ -154,6 +156,12 @@ export default (state: ShellState = initialState, action: any) => {
       return {
         ...state,
         guiClientRect: action.guiClientRect
+      };
+
+    case types.UPDATE_TOP_BAR_CLIENT_RECT:
+      return {
+        ...state,
+        topBarClientRect: action.topBarClientRect
       };
 
     case types.UPDATE_PLAYER_CLIENT_RECT:
@@ -271,6 +279,7 @@ export const actions = {
   updatePlayerSize: (playerSize: string) => ({type: types.UPDATE_PLAYER_SIZE, playerSize}),
   updateIsSmallSize: (isSmallSize: boolean) => ({type: types.UPDATE_IS_SMALL_SIZE, isSmallSize}),
   updateGuiClientRect: (guiClientRect: any) => ({type: types.UPDATE_GUI_CLIENT_RECT, guiClientRect}),
+  updateTopBarClientRect: (topBarClientRect: any) => ({type: types.UPDATE_TOP_BAR_CLIENT_RECT, topBarClientRect}),
   updatePlayerClientRect: (playerClientRect: any) => ({type: types.UPDATE_PLAYER_CLIENT_RECT, playerClientRect}),
   updateVideoClientRect: (videoClientRect: any) => ({type: types.UPDATE_VIDEO_CLIENT_RECT, videoClientRect}),
   updateDocumentWidth: (documentWidth: number) => ({type: types.UPDATE_DOCUMENT_WIDTH, documentWidth}),
