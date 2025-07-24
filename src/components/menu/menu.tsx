@@ -201,8 +201,8 @@ class Menu extends Component<MenuProps & WithEventManagerProps, any> {
    */
   render(props: any): VNode<any> {
     props.clearAccessibleChildren();
-    const menuItemRole = 'menuitem';
-    const menuItemRadioRole = 'menuitemradio';
+    const menuItemRole = "menuitem";
+    const menuItemRadioRole = "menuitemradio";
     return props.isMobile || props.isSmallSize ? (
       this.renderNativeSelect(props.labelledby)
     ) : (
@@ -287,7 +287,7 @@ class MenuItem extends Component<any, any> {
         ref={element => {
           this.props.addAccessibleChild(element);
           if (props.isSelected(props.data)) {
-            setTimeout(() => props.setDefaultFocusedElement(element));
+            setTimeout(() => props.setDefaultFocusedElement(element))
           }
         }}
         className={props.isSelected(props.data) ? [style.dropdownMenuItem, style.active].join(' ') : style.dropdownMenuItem}
@@ -296,7 +296,7 @@ class MenuItem extends Component<any, any> {
       >
         <span
           className={badgeType ? [style.labelBadge, badgeType].join(' ') : ''}
-          aria-label={badgeType?.includes('quality-hd') ? `${props.data.label} HD` : props.data.label}
+          aria-label={badgeType?.includes("quality-hd") ? `${props.data.label} HD` : props.data.label}
         >
           {props.data.label}
         </span>

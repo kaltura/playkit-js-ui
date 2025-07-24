@@ -192,7 +192,7 @@ class DropDown extends Component<any, any> {
           <span
             id={activeOptionId}
             className={badgeType ? [style.labelBadge, badgeType].join(' ') : ''}
-            aria-label={badgeType?.includes('quality-hd') ? `${label} HD` : label}
+            aria-label={badgeType?.includes("quality-hd") ? `${label} HD` : label}
           >
             {label}
           </span>
