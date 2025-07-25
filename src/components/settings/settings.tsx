@@ -55,8 +55,6 @@ const translates = () => ({
   qualityHdLabel: <Text id="settings.qualityHdLabel">Quality is HD</Text>,
   quality4kLabel: <Text id="settings.quality4kLabel">Quality is 4k</Text>,
   quality8kLabel: <Text id="settings.quality8kLabel">Quality is 8k</Text>,
-  settingsExpanded: <Text id="settings.settingsExpanded">expanded</Text>,
-  settingsCollapsed: <Text id="settings.settingsCollapsed">collapsed</Text>
 });
 
 /**
@@ -315,7 +313,7 @@ class Settings extends Component<any, any> {
     if (props.isLive && props.videoTracks.length <= 1 && !showAudioMenu && !showCaptionsMenu) return undefined;
     const buttonBadgeType: string = this.getButtonBadgeType() || '';
 
-    const buttonAriaLabel =`${props.buttonLabel} ${this.getQualityLabel(buttonBadgeType)} ` + `${this.state.smartContainerOpen ? props.settingsExpanded : props.settingsCollapsed}`;
+    const buttonAriaLabel =`${props.buttonLabel} ${this.getQualityLabel(buttonBadgeType)} `;
     return (
       <ButtonControl name={COMPONENT_NAME} ref={c => (c ? (this._controlSettingsElement = c) : undefined)}>
         <Tooltip label={props.buttonLabel}>
