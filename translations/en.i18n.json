@@ -48,7 +48,7 @@
       "volume_button_aria_label": "Volume",
       "volume_button_description": "Click to volume control",
       "volume_slider_aria_label": "Volume control",
-      "volume_slider_description": "Use the arrows to control the volume"
+      "volume_slider_description": "Use the arrows to control the volume"      
     },
     "copy": {
       "button": "Copy URL"
@@ -81,8 +81,6 @@
       "network_error_message": "Please check your network connection and try again.",
       "media_unavailable_error_title": "Media unavailable",
       "media_unavailable_error_message": "This media has been restricted. Please obtain relevant permissions to access content.",
-      "moderation_error_title": "Entry is awaiting moderation",
-      "moderation_error_message": "Media is awaiting moderation",
       "text_error_title": "Text stream error",
       "text_error_message": "Text stream error occurred",
       "media_error_title": "Media stream error",
