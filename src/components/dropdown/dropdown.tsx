@@ -4,9 +4,6 @@ import {connect} from 'react-redux';
 import {Menu} from '../menu';
 import {BadgeType, Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
-import {FakeEvent} from '@playkit-js/playkit-js';
-import {EventType} from '../../event';
-import {withPlayer} from '../player';
 
 /**
  * mapping state to props
@@ -27,7 +24,6 @@ const COMPONENT_NAME = 'DropDown';
  * @example <DropDown options={this.videoTrackOptions} />
  * @extends {Component}
  */
-@withPlayer
 @connect(mapStateToProps)
 class DropDown extends Component<any, any> {
   _el!: HTMLDivElement;
@@ -214,7 +210,6 @@ class DropDown extends Component<any, any> {
     this.setState(prevState => {
       return {dropMenuActive: !prevState.dropMenuActive};
     });
-    this.props.player.dispatchEvent(new FakeEvent(EventType.USER_OPEN_DROPDOWN));
   }
 }
 

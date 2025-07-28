@@ -14,7 +14,8 @@ import {withEventManager} from '../../event';
  */
 const mapStateToProps = state => ({
   isCasting: state.engine.isCasting,
-  isPlaybackEnded: state.engine.isPlaybackEnded
+  isPlaybackEnded: state.engine.isPlaybackEnded,
+  isPlaying: state.engine.isPlaying
 });
 
 const COMPONENT_NAME = 'TopBar';
@@ -34,9 +35,15 @@ class TopBar extends Component<any, any> {
 
   componentDidMount() {
     const {player, eventManager} = this.props;
-    eventManager.listen(player, player.Event.UI.USER_OPEN_DROPDOWN, () => {
+    eventManager.listenOnce(player, player.Event.PLAYING, () => {
       this.props.updateTopBarClientRect(this.topBarRef.current?.getBoundingClientRect());
     });
+  }
+
+  componentDidUpdate() {
+    if (this.props.isPlaying) {
+      this.props.updateTopBarClientRect(this.topBarRef.current?.getBoundingClientRect());
+    }
   }
 
   /**
