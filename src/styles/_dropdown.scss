@@ -139,3 +139,13 @@
     }
   }
 }
+
+.smart-container {
+  & > div:last-child {
+    .dropdown-menu {
+      &.stick-bottom {
+        bottom: -55px !important;
+      }
+    }
+  }
+}

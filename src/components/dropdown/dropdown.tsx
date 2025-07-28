@@ -185,7 +185,7 @@ class DropDown extends Component<any, any> {
           onClick={this.onClick}
           onKeyDown={this.onKeyDown}
         >
-          <span 
+          <span
             id={activeOptionId}
             className={badgeType ? [style.labelBadge, badgeType].join(' ') : ''}
             aria-label={badgeType?.includes("quality-hd") ? `${label} HD` : label}
