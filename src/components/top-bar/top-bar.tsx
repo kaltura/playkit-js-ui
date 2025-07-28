@@ -40,12 +40,6 @@ class TopBar extends Component<any, any> {
     });
   }
 
-  componentDidUpdate() {
-    if (this.props.isPlaying) {
-      this.props.updateTopBarClientRect(this.topBarRef.current?.getBoundingClientRect());
-    }
-  }
-
   /**
    * render component
    *
