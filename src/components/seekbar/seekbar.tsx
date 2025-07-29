@@ -41,7 +41,7 @@ const COMPONENT_NAME = 'SeekBar';
  * @type {number}
  * @const
  */
-const KEYBOARD_DEFAULT_SEEK_JUMP: number = 5;
+const KEYBOARD_DEFAULT_SEEK_JUMP: number = 1;
 
 const translates = {
   sliderAriaLabel: <Text id="controls.seekBarSlider">Seek bar</Text>,
