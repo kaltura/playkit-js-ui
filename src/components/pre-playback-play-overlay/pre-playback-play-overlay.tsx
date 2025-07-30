@@ -81,6 +81,21 @@ class PrePlaybackPlayOverlay extends Component<any, any> {
   };
 
   /**
+   * create class name for prePlaybackOverlay element
+   * @returns {string}
+   * @memberof PrePlaybackPlayOverlay
+   */
+  createPrePlaybackClassName = () => {
+    const prePlaybackPlayOverlayClassName = [style.prePlaybackPlayOverlay];
+    const isQuizEntry = this.props.player.sources.capabilities.includes('quiz.quiz');
+
+    if (this.props.player.engineType === this.props.player.EngineType.YOUTUBE && !isQuizEntry) {
+      prePlaybackPlayOverlayClassName.push(style.prePlaybackPlayOverlayYoutube);
+    }
+    return prePlaybackPlayOverlayClassName;
+  };
+
+  /**
    * render component
    *
    * @param {*} props - component props
@@ -94,10 +109,7 @@ class PrePlaybackPlayOverlay extends Component<any, any> {
     }
     const entryName = `${this.props.title}: ${this.props.player.sources.metadata?.name}`;
     const labelText = props.isPlaybackEnded ? props.startOverText : props.playText;
-    const prePlaybackPlayOverlayClassName = [style.prePlaybackPlayOverlay];
-    if (props.player.engineType === props.player.EngineType.YOUTUBE) {
-      prePlaybackPlayOverlayClassName.push(style.prePlaybackPlayOverlayYoutube);
-    }
+    const prePlaybackPlayOverlayClassName = this.createPrePlaybackClassName();
     return (
       <div className={prePlaybackPlayOverlayClassName.join(' ')} onMouseOver={this.onMouseOver} onClick={this.handleClick}>
         <Button className={style.prePlaybackPlayButton} tabIndex="0" aria-label={`${labelText}, ${entryName}`} onKeyDown={this.onKeyDown}>
