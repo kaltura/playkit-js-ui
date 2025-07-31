@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.82.3 (2025-07-31)
+
+
+### Bug Fixes
+
+* **ADA-2854:** Change keyboard jump time ([#1063](https://github.com/kaltura/playkit-js-ui/issues/1063)) ([1f42bed](https://github.com/kaltura/playkit-js-ui/commit/1f42bed))
+
+
+
 ### 0.82.2 (2025-07-17)
 
 
