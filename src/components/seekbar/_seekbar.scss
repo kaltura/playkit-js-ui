@@ -29,8 +29,9 @@
   .progress-bar {
     width: 100%;
     height: $progress-bar-height;
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.4);
     border-radius: $progress-bar-border-radius;
+    border: 1px solid rgba(0, 0, 0, 0.4);
     position: absolute;
     transition:
       height 200ms ease,
