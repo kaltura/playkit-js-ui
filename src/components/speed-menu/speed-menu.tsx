@@ -54,7 +54,6 @@ class SpeedMenu extends Component<any, any> {
     const speedOptions = props.optionsRenderer
       ? props.optionsRenderer(props.player.playbackRates)
       : props.player.playbackRates.reduce((acc, speed) => {
-          const defaultPlaybackRate = props.player.defaultPlaybackRate || 1;
           let speedOption = {
             value: speed,
             label: speed === 1 ? props.speedNormalLabelText : speed,
