@@ -116,8 +116,11 @@ class CustomCaptionsWindow extends Component<any, any> {
 
     return (
       <div className={[style.overlayScreen, style.active].join(' ')}>
-        <form className={[style.form, style.customCaptionForm].join(' ')}>
-          <DropDownCaptionsStyle
+        <h2 className={style.title}>
+          <Text id={'cvaa.set_custom_caption'}/>
+        </h2>
+        <form className={[style.form, style.customCaptionForm].join(' ')}>          
+        <DropDownCaptionsStyle
             addAccessibleChild={props.addAccessibleChild}
             labelId="cvaa.size_label"
             options={fontSizeOptions}
