@@ -21,7 +21,8 @@ const mapStateToProps = state => ({
   prePlayback: state.engine.prePlayback,
   isPlaybackEnded: state.engine.isPlaybackEnded,
   playlist: state.engine.playlist,
-  loading: state.loading.show
+  loading: state.loading.show,
+  targetId: state.config.targetId
 });
 
 const COMPONENT_NAME = 'PrePlaybackPlayOverlay';
