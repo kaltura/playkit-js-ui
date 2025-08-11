@@ -87,7 +87,7 @@ class PrePlaybackPlayOverlay extends Component<any, any> {
    */
   createPrePlaybackClassName = () => {
     const prePlaybackPlayOverlayClassName = [style.prePlaybackPlayOverlay];
-    const isQuizEntry = this.props.player.sources.capabilities.includes('quiz.quiz');
+    const isQuizEntry = this.props.player.sources.capabilities?.includes('quiz.quiz');
 
     if (this.props.player.engineType === this.props.player.EngineType.YOUTUBE && !isQuizEntry) {
       prePlaybackPlayOverlayClassName.push(style.prePlaybackPlayOverlayYoutube);
