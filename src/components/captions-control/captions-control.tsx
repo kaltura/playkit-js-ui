@@ -69,7 +69,6 @@ const CaptionsControl = connect(mapStateToProps)(
     };
 
     const toggleCVAAOverlay = (): void => {
-      props.toggleObserver(!cvaaOverlay);
       setCVAAOverlay(cvaaOverlay => !cvaaOverlay);
     };
 

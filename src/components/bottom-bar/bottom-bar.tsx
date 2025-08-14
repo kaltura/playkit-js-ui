@@ -179,14 +179,6 @@ class BottomBar extends Component<any, any> {
     }
   }
 
-  private toggleObserver = (isActive: boolean): void => {
-    if (isActive) {
-      this.resizeObserver.disconnect();
-    } else {
-      this.resizeObserver.observe(this.bottomBarContainerRef.current!);
-    }
-  };
-
   /**
    * render component
    *
@@ -216,9 +208,7 @@ class BottomBar extends Component<any, any> {
                 props.leftControls.map(
                   Control =>
                     this.presetControls[Control.displayName] &&
-                    this.state.fitInControls[Control.displayName] && (
-                      <Control key={Control.displayName} onToggle={this.onToggleControl} toggleObserver={this.toggleObserver} />
-                    )
+                    this.state.fitInControls[Control.displayName] && <Control key={Control.displayName} onToggle={this.onToggleControl} />
                 )}
             </PlayerArea>
           </div>
@@ -229,9 +219,7 @@ class BottomBar extends Component<any, any> {
                 props.rightControls.map(
                   Control =>
                     this.presetControls[Control.displayName] &&
-                    this.state.fitInControls[Control.displayName] && (
-                      <Control key={Control.displayName} onToggle={this.onToggleControl} toggleObserver={this.toggleObserver} />
-                    )
+                    this.state.fitInControls[Control.displayName] && <Control key={Control.displayName} onToggle={this.onToggleControl} />
                 )}
             </PlayerArea>
           </div>
