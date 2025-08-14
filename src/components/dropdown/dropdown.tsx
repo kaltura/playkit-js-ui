@@ -177,10 +177,10 @@ class DropDown extends Component<any, any> {
               props.pushRef(el);
             }
           }}
-          role="menuitem"
-          aria-haspopup="true"
+          role="combobox"
+          aria-haspopup="listbox"
           aria-expanded={this.state.dropMenuActive ? 'true' : 'false'}
-          aria-labelledby={[props.name, activeOptionId].join(' ')}
+          aria-labelledby={props.name}
           className={style.dropdownButton}
           onClick={this.onClick}
           onKeyDown={this.onKeyDown}
