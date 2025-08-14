@@ -468,7 +468,8 @@ class Volume extends Component<any, any> {
             className={style.controlButton}
             onMouseUp={this.toggleMute}
             onTouchEnd={this.onTouchEnd}
-            onKeyDown={this.onKeyDown}>
+            onKeyDown={this.onKeyDown}
+            aria-describedBy="volumeButtonDescription">
             <Icon type={IconType.VolumeBase} />
             <Icon type={IconType.VolumeWaves} />
             <Icon type={IconType.VolumeMute} />
@@ -482,14 +483,13 @@ class Volume extends Component<any, any> {
           tabIndex={-1}
           onClick={this.handleClickOnVolumeButton}
           aria-label={this.props.volumeButtonAriaLabel}
-          aria-description={this.props.volumeButtonAriaDescription}
         />
         <div
           ref={node => (node ? (this._volumeSliderElement = node) : undefined)}
           tabIndex={0}
           aria-orientation="vertical"
           aria-label={this.props.sliderAriaLabel}
-          aria-description={this.props.sliderDescription}
+          aria-describedBy="sliderDescription"
           onKeyDown={this.onProgressBarKeyDown}
           className={style.volumeControlBar}
           onFocus={this.onFocus}
@@ -505,6 +505,10 @@ class Volume extends Component<any, any> {
             <div className={style.progress} style={{height: this.getVolumeProgressHeight()}} />
           </div>
         </div>
+        <span className={style.srOnly}>
+          <span id="volumeButtonDescription">{this.props.volumeButtonAriaDescription}</span>
+          <span id="sliderDescription">{this.props.sliderDescription}</span>
+        </span>
       </ButtonControl>
     );
   }
