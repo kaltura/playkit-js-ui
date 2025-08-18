@@ -202,13 +202,11 @@ renderNativeSelect(labelledby: string): VNode<any> {
    */
   render(props: any): VNode<any> {
     props.clearAccessibleChildren();
-    const menuItemRole = "menuitem";
-    const menuItemRadioRole = "menuitemradio";
     return props.isMobile || props.isSmallSize ? (
       this.renderNativeSelect(props.labelledby)
     ) : (
       <div
-        role="menu"
+        role="listbox"
         onKeyDown={props.handleKeyDown}
         ref={c => (c ? (this._menuElement = c) : undefined)}
         className={[style.dropdownMenu, ...this.state.position].join(' ')}
@@ -223,7 +221,8 @@ renderNativeSelect(labelledby: string): VNode<any> {
             }}
             key={index}
             data={o}
-            role={o?.isAdvanced ? menuItemRole : menuItemRadioRole}
+            role="option"
+            aria-selected={this.isSelected(o)}
           />
         ))}
       </div>
@@ -284,7 +283,7 @@ class MenuItem extends Component<any, any> {
       <div
         role={props?.role}
         tabIndex={-1}
-        aria-checked={props.isSelected(props.data) ? 'true' : 'false'}
+        aria-selected={props.isSelected(props.data)}
         ref={element => {
           this.props.addAccessibleChild(element);
           if (props.isSelected(props.data)) {
