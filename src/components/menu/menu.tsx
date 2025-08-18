@@ -167,29 +167,30 @@ class Menu extends Component<MenuProps & WithEventManagerProps, any> {
    * @returns {React$Element} - component element
    * @memberof Menu
    */
-  renderNativeSelect(labelledby: string): VNode<any> {
-    let classes = this.props.hideSelect ? style.mobileHiddenSelect : '';
-    classes += ` ${style.dropdown}`;
-    return (
-      <select
-        aria-labelledby={labelledby}
-        role="listbox"
-        ref={el => {
-          if (this.props.pushRef) {
-            this.props.pushRef(el);
-          }
-        }}
-        className={classes}
-        onChange={this.onChange}
-      >
-        {this.props.options.map((o, index) => (
-          <option role="option" aria-selected={this.isSelected(o)} selected={this.isSelected(o)} value={index} key={index}>
-            {o.label}
-          </option>
-        ))}
-      </select>
-    );
-  }
+renderNativeSelect(labelledby: string): VNode<any> {
+  let classes = this.props.hideSelect ? style.mobileHiddenSelect : '';
+  classes += ` ${style.dropdown}`;
+  const selectedValue = this.props.options.findIndex(o => this.isSelected(o));
+  return (
+    <select
+      aria-labelledby={labelledby}
+      ref={el => {
+        if (this.props.pushRef) {
+          this.props.pushRef(el);
+        }
+      }}
+      className={classes}
+      value={selectedValue}
+      onChange={this.onChange}
+    >
+      {this.props.options.map((o, index) => (
+        <option value={index} key={index}>
+          {o.label}
+        </option>
+      ))}
+    </select>
+  );
+}
 
   /**
    * if mobile device detected, renders the native select element.
