@@ -151,6 +151,9 @@
     },
     "spinner": {
       "loading": "Loading"
+    },
+    "videoArea": {
+      "videoLabel": "Video player. Use play button or space bar to start playback."
     }
   }
 }
