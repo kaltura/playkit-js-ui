@@ -20,7 +20,7 @@ const mapStateToProps = state => ({
 });
 
 const translates = {
-  videoLabel: <Text id="videoArea.videoLabel">Video player. Use play button or space bar to start playback.</Text>
+  videoLabel: <Text id="videoArea.videoLabel">Video player. Use the play button or press the space bar to start playback.</Text>
 };
 
 /**

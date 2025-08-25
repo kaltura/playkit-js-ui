@@ -153,7 +153,7 @@
       "loading": "Loading"
     },
     "videoArea": {
-      "videoLabel": "Video player. Use play button or space bar to start playback."
+      "videoLabel": "Video player. Use the play button or press the space bar to start playback."
     }
   }
 }
