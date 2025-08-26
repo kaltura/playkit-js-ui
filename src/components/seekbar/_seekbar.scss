@@ -38,6 +38,7 @@
       transform 200ms ease;
     &.chapters {
       background-color: transparent;
+      border: none;
       .virtual-progress-indicator {
         height: 8px;
         transform: translateY(-2px);
