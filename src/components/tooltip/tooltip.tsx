@@ -249,6 +249,19 @@ class Tooltip extends Component<TooltipProps & WithEventManagerProps, any> {
     }
   }
 
+  handleRef = (el: HTMLButtonElement | null) => {
+    this.setButtonRef(el);
+
+    // Forward the child’s original ref (callback or ref object)
+    // so Tooltip keeps its own ref without breaking the child’s.    
+    const { ref } = (this.props.children as VNode<any>);
+    if (typeof ref === 'function') {
+      ref(el);
+    } else if (ref && typeof ref === 'object') {
+      (ref as any).current = el;
+    }
+  };
+
   /**
    * checks if after the render the tooltip is within boundaries of the player
    * if not it will try to set a new type which will be checked after the next render
@@ -303,7 +316,7 @@ class Tooltip extends Component<TooltipProps & WithEventManagerProps, any> {
     const children = cloneElement(props.children, {
       onFocus: this.handleFocusOnChildren,
       onBlur: this.handleBlurOnChildren,
-      ref: this.setButtonRef
+      ref: this.handleRef
     });
     return (
       <div
