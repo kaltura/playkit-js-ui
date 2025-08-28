@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.82.5 (2025-08-28)
+
+
+### Bug Fixes
+
+* **ADA-2810:** Remove seekbar styling on chapters ([#1077](https://github.com/kaltura/playkit-js-ui/issues/1077)) ([cc8b51e](https://github.com/kaltura/playkit-js-ui/commit/cc8b51e))
+
+
+
 ### 0.82.4 (2025-08-14)
 
 
