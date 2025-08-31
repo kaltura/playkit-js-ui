@@ -20,11 +20,13 @@ import * as Event from './event';
 import {getOverlayPortalElement} from './components/overlay-portal';
 //get time in humanize duration
 import {getDurationAsText} from './utils';
+import {setActivePlayer, getActivePlayer, setDualScreenPlayers} from './utils'
 
 export {EventType, EventType as UIEventType} from './event/event-type';
 export {Event};
 export {getOverlayPortalElement};
 export {getDurationAsText};
+export {setActivePlayer, getActivePlayer, setDualScreenPlayers};
 
 declare const __VERSION__: string;
 declare const __NAME__: string;
