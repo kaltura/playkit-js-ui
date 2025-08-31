@@ -1,8 +1,7 @@
-import { KalturaPlayer } from '@playkit-js/kaltura-player-js';
+import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
 
 let activePlayer: KalturaPlayer | null = null;
 let dualScreenPlayers: KalturaPlayer[] = [];
-
 
 const setActivePlayer = (player: KalturaPlayer): void => {
   activePlayer = player;
@@ -22,6 +21,6 @@ const getPipPlayer = (): KalturaPlayer | undefined => {
       return dualScreenPlayer;
     }
   });
-}
+};
 
-export { setActivePlayer, getActivePlayer, setDualScreenPlayers, getPipPlayer };
+export {setActivePlayer, getActivePlayer, setDualScreenPlayers, getPipPlayer};
