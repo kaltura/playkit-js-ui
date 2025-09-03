@@ -18,8 +18,7 @@ import {registerToBottomBar, IconComponent} from '../bottom-bar';
 import {getActivePlayer, getPipPlayer} from '../../utils';
 import {actions} from '../../reducers/engine';
 import {withEventManager} from '../../event';
-import { KalturaPlayer } from '@playkit-js/kaltura-player-js';
-
+import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
 
 /**
  * mapping state to props
@@ -90,11 +89,11 @@ class PictureInPicture extends Component<any, any> implements IconComponent {
     return {
       type: this.props.player.isInPictureInPicture() ? IconType.PictureInPictureStop : IconType.PictureInPictureStart
     };
-  }
+  };
 
   getComponentText = (): string => {
     return this.props.player.isInPictureInPicture() ? this.props.pictureInPictureExitText : this.props.pictureInPictureText;
-  }
+  };
 
   /**
    * component mounted
@@ -135,7 +134,7 @@ class PictureInPicture extends Component<any, any> implements IconComponent {
    * create listeners for pip envents
    * @param {KalturaPlayer} player - player to listen on
    * @returns {void}
-   * @memberof PictureInPicture 
+   * @memberof PictureInPicture
    */
   createPipListeners = (player: KalturaPlayer): void => {
     this.props.eventManager.listen(player, player.Event.Core.ENTER_PICTURE_IN_PICTURE, () => {
@@ -144,7 +143,7 @@ class PictureInPicture extends Component<any, any> implements IconComponent {
     this.props.eventManager.listen(player, player.Event.Core.LEAVE_PICTURE_IN_PICTURE, () => {
       this.props.player.ui.store.dispatch?.(actions.updateIsInPictureInPicture(false));
     });
-  }
+  };
 
   /**
    * toggle pip
@@ -160,14 +159,18 @@ class PictureInPicture extends Component<any, any> implements IconComponent {
     if (targetPlayer.isInPictureInPicture() || dualScreenInPip) {
       this.props.logger.debug('Exit Picture In Picture');
       this.props.notifyClick();
-      dualScreenInPip? dualScreenInPip.exitPictureInPicture(): this.props.player.exitPictureInPicture();
+      if (dualScreenInPip){
+        dualScreenInPip.exitPictureInPicture() 
+      } else {
+        this.props.player.exitPictureInPicture();
+      }
     } else {
       this.props.logger.debug('Enter Picture In Picture');
       this.props.notifyClick();
-      if (dualScreenPlayer){
+      if (dualScreenPlayer) {
         this.createPipListeners(dualScreenPlayer);
       }
-      targetPlayer.enterPictureInPicture();   
+      targetPlayer.enterPictureInPicture();
     }
   };
 
@@ -181,7 +184,11 @@ class PictureInPicture extends Component<any, any> implements IconComponent {
     if (this._shouldRender()) {
       return (
         <ButtonControl name={COMPONENT_NAME} className={this.props.classNames ? this.props.classNames.join(' ') : ''}>
-          <Tooltip label={this.props.isInPictureInPicture ? this.props.pictureInPictureExitText : this.props.pictureInPictureText} type={this.props.classNames?.includes(style.upperBarIcon) ? 'bottom-left' : 'top'} strictPosition>
+          <Tooltip
+            label={this.props.isInPictureInPicture ? this.props.pictureInPictureExitText : this.props.pictureInPictureText}
+            type={this.props.classNames?.includes(style.upperBarIcon) ? 'bottom-left' : 'top'}
+            strictPosition
+          >
             <Button
               tabIndex="0"
               aria-label={this.props.isInPictureInPicture ? this.props.pictureInPictureExitText : this.props.pictureInPictureText}
@@ -201,7 +208,7 @@ class PictureInPicture extends Component<any, any> implements IconComponent {
 
 const getComponent = (props: any): VNode => {
   return <PictureInPicture {...props} />;
-}
+};
 
 PictureInPicture.displayName = COMPONENT_NAME;
 export {PictureInPicture};
