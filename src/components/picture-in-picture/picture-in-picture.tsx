@@ -160,7 +160,11 @@ class PictureInPicture extends Component<any, any> implements IconComponent {
     if (targetPlayer.isInPictureInPicture() || dualScreenInPip) {
       this.props.logger.debug('Exit Picture In Picture');
       this.props.notifyClick();
-      dualScreenInPip? dualScreenInPip.exitPictureInPicture(): this.props.player.exitPictureInPicture();
+      if (dualScreenInPip){
+        dualScreenInPip.exitPictureInPicture();
+      } else {
+        this.props.player.exitPictureInPicture();
+      }
     } else {
       this.props.logger.debug('Enter Picture In Picture');
       this.props.notifyClick();
