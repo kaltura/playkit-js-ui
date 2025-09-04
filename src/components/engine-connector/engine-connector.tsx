@@ -6,6 +6,7 @@ import {actions as LoadingActions} from '../../reducers/loading';
 import {actions as ShellActions} from '../../reducers/shell';
 import {actions as SeekbarActions} from '../../reducers/seekbar';
 import {actions as SettingsActions} from '../../reducers/settings';
+import {actions as AudioDescriptionActions} from '../../reducers/audio-description';
 import {withPlayer} from '../player';
 import {withEventManager} from '../../event';
 import {withLogger} from '../logger';
@@ -19,13 +20,18 @@ type EngineConnectorProps = {
   eventManager: EventManager;
 } & typeof EngineActions &
   typeof LoadingActions &
-  typeof ShellActions & {seekbarUpdateCurrentTime: typeof SeekbarActions.updateCurrentTime} & {updateIsCaptionsEnabled: typeof SettingsActions.updateIsCaptionsEnabled};
+  typeof AudioDescriptionActions &
+  typeof ShellActions & {seekbarUpdateCurrentTime: typeof SeekbarActions.updateCurrentTime} & {
+    updateIsCaptionsEnabled: typeof SettingsActions.updateIsCaptionsEnabled;
+  };
 
 // Rename so it doesn't clash with the equivalent action in engine state
 const seekbarUpdateCurrentTime = SeekbarActions.updateCurrentTime;
 const updateIsCaptionsEnabled = SettingsActions.updateIsCaptionsEnabled;
 
 const COMPONENT_NAME = 'EngineConnector';
+
+const AUDIO_DESCRIPTION_PREFIX = 'ad';
 
 /**
  * EngineConnector component
@@ -34,7 +40,10 @@ const COMPONENT_NAME = 'EngineConnector';
  * @example <EngineConnector />
  * @extends {Component}
  */
-@connect(reduce, bindActions({...EngineActions, ...LoadingActions, ...ShellActions, seekbarUpdateCurrentTime, updateIsCaptionsEnabled}))
+@connect(
+  reduce,
+  bindActions({...EngineActions, ...LoadingActions, ...ShellActions, ...AudioDescriptionActions, seekbarUpdateCurrentTime, updateIsCaptionsEnabled})
+)
 @withPlayer
 @withEventManager
 @withLogger(COMPONENT_NAME)
@@ -45,7 +54,7 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
    * @returns {void}
    * @memberof EngineConnector
    */
-  componentDidMount() {
+  public componentDidMount(): void {
     const {player, eventManager} = this.props as EngineConnectorProps;
     const TrackType = player.Track;
     this.props.updatePrePlayback(!player.config.playback.autoplay);
@@ -183,28 +192,38 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
     });
 
     eventManager.listen(player, player.Event.Core.TRACKS_CHANGED, () => {
-      let audioTracks = player.getTracks(TrackType.AUDIO);
-      let videoTracks = player.getTracks(TrackType.VIDEO);
-      let textTracks = player.getTracks(TrackType.TEXT);
+      const audioTracks = player.getTracks(TrackType.AUDIO);
+      const videoTracks = player.getTracks(TrackType.VIDEO);
+      const textTracks = player.getTracks(TrackType.TEXT);
 
-      this.props.updateAudioTracks(audioTracks);
+      this.props.updateAudioTracks(audioTracks.filter(t => !t.language?.startsWith(AUDIO_DESCRIPTION_PREFIX)));
       this.props.updateVideoTracks(videoTracks);
       this.props.updateTextTracks(textTracks);
+
+      const audioDescriptionLanguages =
+        audioTracks
+          .filter(t => t.language?.startsWith(AUDIO_DESCRIPTION_PREFIX))
+          .map(t => t.language.substring(AUDIO_DESCRIPTION_PREFIX.length + 1)) || [];
+      this.props.updateAudioDescriptionLanguages(audioDescriptionLanguages);
     });
 
     eventManager.listen(player, player.Event.Core.TEXT_TRACK_CHANGED, () => {
-      let tracks = player.getTracks(TrackType.TEXT);
+      const tracks = player.getTracks(TrackType.TEXT);
       this.props.updateTextTracks(tracks);
       this.props.updateIsCaptionsEnabled(tracks.find(track => track.active)?.language !== 'off');
     });
 
     eventManager.listen(player, player.Event.Core.AUDIO_TRACK_CHANGED, () => {
-      let tracks = player.getTracks(TrackType.AUDIO);
-      this.props.updateAudioTracks(tracks);
+      const tracks = player.getTracks(TrackType.AUDIO);
+      this.props.updateAudioTracks(tracks.filter(t => !t.language?.startsWith(AUDIO_DESCRIPTION_PREFIX)));
+      const audioDescriptionLanguages =
+        tracks.filter(t => t.language?.startsWith(AUDIO_DESCRIPTION_PREFIX)).map(t => t.language.substring(AUDIO_DESCRIPTION_PREFIX.length + 1)) ||
+        [];
+      this.props.updateAudioDescriptionLanguages(audioDescriptionLanguages);
     });
 
     eventManager.listen(player, player.Event.Core.VIDEO_TRACK_CHANGED, () => {
-      let tracks = player.getTracks(TrackType.VIDEO);
+      const tracks = player.getTracks(TrackType.VIDEO);
       this.props.updateVideoTracks(tracks);
     });
 
@@ -222,8 +241,8 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
     });
 
     eventManager.listen(player, player.Event.Core.AD_PROGRESS, e => {
-      let currentTime = e.payload.adProgress.currentTime;
-      let duration = e.payload.adProgress.duration;
+      const currentTime = e.payload.adProgress.currentTime;
+      const duration = e.payload.adProgress.duration;
 
       this.props.updateAdBreakProgress(currentTime, duration);
     });
@@ -331,7 +350,7 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
    * @returns {boolean} - should component update on changes or not
    * @memberof EngineConnector
    */
-  shouldComponentUpdate(): boolean {
+  public shouldComponentUpdate(): boolean {
     return false;
   }
 
@@ -341,7 +360,7 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
    * @returns {React$Element} - component element
    * @memberof EngineConnector
    */
-  render(): VNode<any> {
+  public render(): VNode<any> {
     return <span />;
   }
 }

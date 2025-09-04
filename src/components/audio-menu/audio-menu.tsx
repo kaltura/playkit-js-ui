@@ -1,4 +1,4 @@
-import {h, Component} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {withText} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
@@ -21,7 +21,8 @@ type AudioMenuProps = {
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  audioTracks: state.engine.audioTracks
+  audioTracks: state.engine.audioTracks,
+  audioDescriptionLanguages: state.audioDescription.audioDescriptionLanguages
 });
 
 const COMPONENT_NAME = 'AudioMenu';
@@ -47,7 +48,7 @@ class AudioMenu extends Component<AudioMenuProps & WithPlayerProps & WithEventDi
    * @returns {void}
    * @memberof Settings
    */
-  onAudioChange(audioTrack: any): void {
+  public onAudioChange(audioTrack: any): void {
     // @ts-ignore - store types
     this.props.updateAudio(audioTrack);
     this.props.player!.selectTrack(audioTrack);
@@ -64,14 +65,19 @@ class AudioMenu extends Component<AudioMenuProps & WithPlayerProps & WithEventDi
    * @returns {React$Element} - component
    * @memberof AudioMenu
    */
-  render(props: any) {
+  public render(props: any): VNode<any> | undefined {
     const audioOptions = props.audioTracks
       .filter(t => t.label || t.language)
-      .map(t => ({
-        label: t.label || t.language,
-        active: t.active,
-        value: t
-      }));
+      .map(t => {
+        const hasAudioDescription = !!props.audioDescriptionLanguages.find(l => l === t.language);
+        const label = `${t.label || t.language} ${hasAudioDescription ? '(Audio Description Available)' : ''}`;
+
+        return {
+          label,
+          active: t.active,
+          value: t
+        };
+      });
 
     return (
       <SmartContainerItem

@@ -32,6 +32,7 @@ import {VideoArea} from '../components';
 import {GuiArea} from '../components';
 import {ClosedCaptions} from '../components';
 import {AudioEntryDetails} from '../components/audio-entry-details';
+import {Audio} from '../components';
 
 const PRESET_NAME = 'Playback';
 
@@ -51,7 +52,7 @@ class PlaybackUI extends Component<any, any> {
   /**
    * @returns {void}
    */
-  componentDidMount(): void {
+  public componentDidMount(): void {
     const props = this.props;
     props.updateIsKeyboardEnabled(true);
   }
@@ -62,7 +63,7 @@ class PlaybackUI extends Component<any, any> {
    * @returns {React$Element} - component element
    * @memberof PlaybackUI
    */
-  render() {
+  public render(): VNode<any> {
     return (
       <div className={style.playbackGuiWrapper}>
         <PlayerArea name={'PresetArea'}>
@@ -90,7 +91,19 @@ class PlaybackUI extends Component<any, any> {
                   </InteractiveArea>
                   <BottomBar
                     leftControls={[PlaybackControls, Rewind, Forward, TimeDisplayPlaybackContainer]}
-                    rightControls={[VrStereo, Volume, AdvancedAudioDesc, ClosedCaptions, CaptionsControl, Settings, Cast, PictureInPicture, Fullscreen, Logo]}>
+                    rightControls={[
+                      VrStereo,
+                      Volume,
+                      Audio,
+                      AdvancedAudioDesc,
+                      ClosedCaptions,
+                      CaptionsControl,
+                      Settings,
+                      Cast,
+                      PictureInPicture,
+                      Fullscreen,
+                      Logo
+                    ]}>
                     <SeekBarPlaybackContainer showFramePreview showTimeBubble playerContainer={containerRef} />
                   </BottomBar>
                 </Fragment>

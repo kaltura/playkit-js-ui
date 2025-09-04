@@ -14,16 +14,16 @@ import {Button} from '../button';
 import {ButtonControl} from '../button-control';
 import {IconComponent, registerToBottomBar} from '../bottom-bar';
 import {redux} from '../../index';
-import {AudioMenu, SmartContainer} from '..';
-// /**
-//  * mapping state to props
-//  * @param {*} state - redux store state
-//  * @returns {Object} - mapped state to this component
-//  */
+import {AudioMenu, SmartContainer, SmartContainerItem} from '..';
+
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
 const mapStateToProps = state => ({
-  //   isVr: state.engine.isVr,
-  //   vrStereoMode: state.engine.vrStereoMode,
-  //   config: state.config.components.vrStereo
+  audioTracks: state.engine.audioTracks,
+  audioDescriptionLanguages: state.audioDescription.audioDescriptionLanguages
 });
 
 const COMPONENT_NAME = 'Audio';
@@ -118,6 +118,16 @@ class Audio extends Component<any, any> implements IconComponent {
     }
   };
 
+  public onAudioChange(audioTrack: any): void {
+    // @ts-ignore - store types
+    this.props.updateAudio(audioTrack);
+    this.props.player!.selectTrack(audioTrack);
+    this.props.notifyClick!({
+      type: this.props.player!.Track.AUDIO,
+      track: audioTrack
+    });
+  }
+
   /**
    * render component
    *
@@ -126,7 +136,27 @@ class Audio extends Component<any, any> implements IconComponent {
    * @memberof Audio
    */
   public render(): VNode<any> | undefined {
-    // TODO determine if should render component
+    // TODO determine if should render component using ui settings
+
+    // const audioOptions = props.audioTracks
+    //   .filter(t => (t.label && !t.language) || (t.language && props.audioDescriptionLanguages.indexOf(t.language) === -1))
+    //   .map(t => ({
+    //     label: t.label || t.language,
+    //     active: t.active,
+    //     value: t
+    //   }));
+
+    // return (
+    //   <SmartContainerItem
+    //     pushRef={el => {
+    //       props.pushRef(el);
+    //     }}
+    //     icon={IconType.Audio}
+    //     label={this.props.audioLabelText}
+    //     options={audioOptions}
+    //     onMenuChosen={audioTrack => this.onAudioChange(audioTrack)}
+    //   />
+    // );
 
     const onClick = () => {
       this.setState(prevState => {
