@@ -15,6 +15,11 @@ import {actions as shellActions} from '../../reducers/shell';
 import {ButtonControl} from '../button-control';
 import {KeyboardEventHandlers} from '../../types';
 import {registerToBottomBar, IconComponent} from '../bottom-bar';
+import {getActivePlayer, getPipPlayer} from '../../utils';
+import {actions} from '../../reducers/engine';
+import {withEventManager} from '../../event';
+import { KalturaPlayer } from '@playkit-js/kaltura-player-js';
+
 
 /**
  * mapping state to props
@@ -37,6 +42,7 @@ const COMPONENT_NAME = 'PictureInPicture';
  */
 @connect(mapStateToProps, bindActions(shellActions))
 @withPlayer
+@withEventManager
 @withKeyboardEvent(COMPONENT_NAME)
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
@@ -126,21 +132,51 @@ class PictureInPicture extends Component<any, any> implements IconComponent {
   }
 
   /**
+   * create listeners for pip envents
+   * @param {KalturaPlayer} player - player to listen on
+   * @returns {void}
+   * @memberof PictureInPicture 
+   */
+  createPipListeners = (player: KalturaPlayer): void => {
+    this.props.eventManager.listen(player, player.Event.Core.ENTER_PICTURE_IN_PICTURE, () => {
+      this.props.player.ui.store.dispatch?.(actions.updateIsInPictureInPicture(true));
+    });
+    this.props.eventManager.listen(player, player.Event.Core.LEAVE_PICTURE_IN_PICTURE, () => {
+      this.props.player.ui.store.dispatch?.(actions.updateIsInPictureInPicture(false));
+    });
+  }
+
+  /**
    * toggle pip
    * @returns {void}
    *
    * @memberof PictureInPicture
    */
   togglePip = (): void => {
-    const {player} = this.props;
-    if (player.isInPictureInPicture()) {
+    let activePlayer = this.props.player;
+    let isDualScreen = this.props.player.hasService('dualScreen');
+    let pipPlayer;
+
+    if (isDualScreen) {
+      activePlayer = this.props.player.getService('dualScreen').getActivePlayer();
+      pipPlayer = this.props.player.getService('dualScreen').getPipPlayer();
+    }
+
+    if (activePlayer.isInPictureInPicture() || pipPlayer) {
       this.props.logger.debug('Exit Picture In Picture');
       this.props.notifyClick();
-      player.exitPictureInPicture();
+      if (pipPlayer) {
+        pipPlayer.exitPictureInPicture();
+      } else {
+        activePlayer.exitPictureInPicture();
+      }
     } else {
       this.props.logger.debug('Enter Picture In Picture');
       this.props.notifyClick();
-      player.enterPictureInPicture();
+      if (isDualScreen){
+        this.createPipListeners(activePlayer);
+      }
+      activePlayer.enterPictureInPicture();   
     }
   };
 
