@@ -3,7 +3,7 @@ import {withText} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
 import {actions} from '../../reducers/settings';
-import {SmartContainerItem} from '../../components';
+import {Menu, SmartContainerItem} from '../../components';
 import {IconType} from '../icon';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from '../event-dispatcher';
@@ -13,6 +13,7 @@ import {WithEventDispatcherProps} from '../event-dispatcher';
 type AudioMenuProps = {
   audioTracks?: any[];
   audioLabelText?: string;
+  asDropdown?: boolean;
 };
 
 /**
@@ -22,7 +23,8 @@ type AudioMenuProps = {
  */
 const mapStateToProps = state => ({
   audioTracks: state.engine.audioTracks,
-  audioDescriptionLanguages: state.audioDescription.audioDescriptionLanguages
+  audioDescriptionLanguages: state.audioDescription.audioDescriptionLanguages,
+  advancedAudioDescriptionLanguages: state.audioDescription.advancedAudioDescriptionLanguages
 });
 
 const COMPONENT_NAME = 'AudioMenu';
@@ -70,7 +72,10 @@ class AudioMenu extends Component<AudioMenuProps & WithPlayerProps & WithEventDi
       .filter(t => t.label || t.language)
       .map(t => {
         const hasAudioDescription = !!props.audioDescriptionLanguages.find(l => l === t.language);
-        const label = `${t.label || t.language} ${hasAudioDescription ? '(Audio Description Available)' : ''}`;
+        const hasAdvancedAudioDescription = !!props.advancedAudioDescriptionLanguages.find(l => l === t.language);
+
+        // TODO add i18n
+        const label = `${t.label || t.language} ${hasAudioDescription || hasAdvancedAudioDescription ? '(Audio Description Available)' : ''}`;
 
         return {
           label,
@@ -79,17 +84,32 @@ class AudioMenu extends Component<AudioMenuProps & WithPlayerProps & WithEventDi
         };
       });
 
-    return (
-      <SmartContainerItem
-        pushRef={el => {
-          props.pushRef(el);
-        }}
-        icon={IconType.Audio}
-        label={this.props.audioLabelText}
-        options={audioOptions}
-        onMenuChosen={audioTrack => this.onAudioChange(audioTrack)}
-      />
-    );
+    if (this.props.asDropdown) {
+      return (
+        <SmartContainerItem
+          pushRef={el => {
+            props.pushRef(el);
+          }}
+          icon={IconType.Captions}
+          label={this.props.audioLabelText}
+          options={audioOptions}
+          onMenuChosen={audioTrack => this.onAudioChange(audioTrack)}
+        />
+      );
+    } else {
+      return (
+        <Menu
+          pushRef={el => {
+            // TODO where does this come from ?
+            //this.props.addAccessibleChild(el);
+            props.pushRef(el);
+          }}
+          options={audioOptions}
+          onMenuChosen={audioTrack => this.onAudioChange(audioTrack)}
+          onClose={() => {}}
+        />
+      );
+    }
   }
 }
 
