@@ -153,25 +153,30 @@ class PictureInPicture extends Component<any, any> implements IconComponent {
    * @memberof PictureInPicture
    */
   togglePip = (): void => {
-    const dualScreenPlayer = getActivePlayer();
-    const targetPlayer = dualScreenPlayer || this.props.player;
-    const dualScreenInPip = getPipPlayer();
+    let activePlayer = this.props.player;
+    let isDualScreen = this.props.player.hasService('dualScreen');
+    let pipPlayer;
 
-    if (targetPlayer.isInPictureInPicture() || dualScreenInPip) {
+    if (isDualScreen) {
+      activePlayer = this.props.player.getService('dualScreen').getActivePlayer();
+      pipPlayer = this.props.player.getService('dualScreen').getPipPlayer();
+    }
+
+    if (activePlayer.isInPictureInPicture() || pipPlayer) {
       this.props.logger.debug('Exit Picture In Picture');
       this.props.notifyClick();
-      if (dualScreenInPip){
-        dualScreenInPip.exitPictureInPicture();
+      if (pipPlayer) {
+        pipPlayer.exitPictureInPicture();
       } else {
-        this.props.player.exitPictureInPicture();
+        activePlayer.exitPictureInPicture();
       }
     } else {
       this.props.logger.debug('Enter Picture In Picture');
       this.props.notifyClick();
-      if (dualScreenPlayer){
-        this.createPipListeners(dualScreenPlayer);
+      if (isDualScreen){
+        this.createPipListeners(activePlayer);
       }
-      targetPlayer.enterPictureInPicture();   
+      activePlayer.enterPictureInPicture();   
     }
   };
 
