@@ -15,7 +15,6 @@ import {actions as shellActions} from '../../reducers/shell';
 import {ButtonControl} from '../button-control';
 import {KeyboardEventHandlers} from '../../types';
 import {registerToBottomBar, IconComponent} from '../bottom-bar';
-import {getActivePlayer, getPipPlayer} from '../../utils';
 import {actions} from '../../reducers/engine';
 import {withEventManager} from '../../event';
 import { KalturaPlayer } from '@playkit-js/kaltura-player-js';
