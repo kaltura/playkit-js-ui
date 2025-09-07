@@ -15,10 +15,7 @@ import {actions as shellActions} from '../../reducers/shell';
 import {ButtonControl} from '../button-control';
 import {KeyboardEventHandlers} from '../../types';
 import {registerToBottomBar, IconComponent} from '../bottom-bar';
-import {actions} from '../../reducers/engine';
 import {withEventManager} from '../../event';
-import { KalturaPlayer } from '@playkit-js/kaltura-player-js';
-
 
 /**
  * mapping state to props
@@ -130,20 +127,6 @@ class PictureInPicture extends Component<any, any> implements IconComponent {
     return isActive;
   }
 
-  /**
-   * create listeners for pip envents
-   * @param {KalturaPlayer} player - player to listen on
-   * @returns {void}
-   * @memberof PictureInPicture 
-   */
-  createPipListeners = (player: KalturaPlayer): void => {
-    this.props.eventManager.listen(player, player.Event.Core.ENTER_PICTURE_IN_PICTURE, () => {
-      this.props.player.ui.store.dispatch?.(actions.updateIsInPictureInPicture(true));
-    });
-    this.props.eventManager.listen(player, player.Event.Core.LEAVE_PICTURE_IN_PICTURE, () => {
-      this.props.player.ui.store.dispatch?.(actions.updateIsInPictureInPicture(false));
-    });
-  }
 
   /**
    * toggle pip
@@ -172,9 +155,6 @@ class PictureInPicture extends Component<any, any> implements IconComponent {
     } else {
       this.props.logger.debug('Enter Picture In Picture');
       this.props.notifyClick();
-      if (isDualScreen){
-        this.createPipListeners(activePlayer);
-      }
       activePlayer.enterPictureInPicture();   
     }
   };
