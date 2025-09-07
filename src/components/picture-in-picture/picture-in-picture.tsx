@@ -15,7 +15,6 @@ import {actions as shellActions} from '../../reducers/shell';
 import {ButtonControl} from '../button-control';
 import {KeyboardEventHandlers} from '../../types';
 import {registerToBottomBar, IconComponent} from '../bottom-bar';
-import {withEventManager} from '../../event';
 
 /**
  * mapping state to props
@@ -38,7 +37,6 @@ const COMPONENT_NAME = 'PictureInPicture';
  */
 @connect(mapStateToProps, bindActions(shellActions))
 @withPlayer
-@withEventManager
 @withKeyboardEvent(COMPONENT_NAME)
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
