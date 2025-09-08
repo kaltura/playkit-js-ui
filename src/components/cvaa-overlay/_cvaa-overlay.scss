@@ -97,10 +97,26 @@
       min-width: 200px;
     }
   }
-
-  .button-save-cvaa {
+.custom-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
     margin-top: 36px;
     margin-bottom: 20px;
+  }
+
+  .custom-buttons .sample {
+    margin: 0;
+  }
+
+  .custom-buttons .button-save-cvaa {
+    margin: 0;
+    padding: 0 20px;
+  }
+
+  .button-save-cvaa {
     height: 40px;
     width: 400px;
     max-width: 100%;
@@ -121,20 +137,6 @@
     outline: 2px solid #2684FF;
     box-shadow: 0 0 0 2px white;
     outline-offset: 1px;
-    }
-
-    .active-tick {
-      height: 16px;
-      width: 16px;
-      border-radius: 8px;
-      background-color: $primary-color;
-      position: absolute;
-      top: -5px;
-      right: -5px;
-
-      .icon {
-        vertical-align: top;
-      }
     }
   }
 
