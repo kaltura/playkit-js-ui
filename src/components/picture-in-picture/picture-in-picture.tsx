@@ -125,6 +125,7 @@ class PictureInPicture extends Component<any, any> implements IconComponent {
     return isActive;
   }
 
+
   /**
    * toggle pip
    * @returns {void}
@@ -132,15 +133,27 @@ class PictureInPicture extends Component<any, any> implements IconComponent {
    * @memberof PictureInPicture
    */
   togglePip = (): void => {
-    const {player} = this.props;
-    if (player.isInPictureInPicture()) {
+    let activePlayer = this.props.player;
+    let isDualScreen = this.props.player.hasService('dualScreen');
+    let pipPlayer;
+
+    if (isDualScreen) {
+      activePlayer = this.props.player.getService('dualScreen').getActivePlayer();
+      pipPlayer = this.props.player.getService('dualScreen').getPipPlayer();
+    }
+
+    if (activePlayer.isInPictureInPicture() || pipPlayer) {
       this.props.logger.debug('Exit Picture In Picture');
       this.props.notifyClick();
-      player.exitPictureInPicture();
+      if (pipPlayer) {
+        pipPlayer.exitPictureInPicture();
+      } else {
+        activePlayer.exitPictureInPicture();
+      }
     } else {
       this.props.logger.debug('Enter Picture In Picture');
       this.props.notifyClick();
-      player.enterPictureInPicture();
+      activePlayer.enterPictureInPicture();   
     }
   };
 
