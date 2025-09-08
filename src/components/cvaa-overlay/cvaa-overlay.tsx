@@ -133,10 +133,10 @@ class CVAAOverlay extends Component<any, any> {
    * @private
    */
   getPreviewStyle = (): string => {
-      // style does not compute the font size.
-      const fontSize = this.state.customTextStyle.implicitFontScale * 100 + '%';
-      const style = this.state.customTextStyle.toCSS();
-      return `font-size: ${fontSize}!important; ${style}`;
+    // style does not compute the font size.
+    const fontSize = this.state.customTextStyle.implicitFontScale * 100 + '%';
+    const style = this.state.customTextStyle.toCSS();
+    return `font-size: ${fontSize}!important; ${style}`;
   };
 
   setInitialCustomStyle = (style: any) => {
