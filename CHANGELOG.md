@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.82.6 (2025-09-11)
+
+
+### Bug Fixes
+
+* **SUP-45260:** University of California - Berkeley | v7 player issue when using picture-in-picture ([#1079](https://github.com/kaltura/playkit-js-ui/issues/1079)) ([d746410](https://github.com/kaltura/playkit-js-ui/commit/d746410))
+
+
+
 ### 0.82.5 (2025-08-28)
 
 
