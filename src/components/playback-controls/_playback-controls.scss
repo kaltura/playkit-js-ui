@@ -22,6 +22,12 @@
     &.state-idle .control-playlist-button {
       display: none;
     }
+    
+    &:has(.pre-playback-play-overlay) {
+      .center-playback-controls {
+        display: none !important;
+      }
+    }
 
     &:not(.state-idle) {
       .bottom-bar .playback-controls {
