@@ -183,7 +183,13 @@ export const withKeyboardA11y = (WrappedComponent): any => {
       const defaultElement = this._defaultFocusedElement || (this._accessibleChildren.length && this._accessibleChildren[0]);
       if (defaultElement) {
         this._previouslyActiveElement = document.activeElement as HTMLElement;
-        defaultElement.focus();
+        if (defaultElement.tagName === 'SELECT') {
+          // Focusing a <select> on mount causes browsers to auto-expand the dropdown menu.
+          // Deferring focus to the next animation frame prevents that
+          requestAnimationFrame(() => defaultElement.focus({ preventScroll: true }));
+        } else {
+          defaultElement.focus({ preventScroll: true });
+        }
       }
     };
 
