@@ -54,6 +54,7 @@ export const KeyCode = {
   KeyM: 'KeyM',
   KeyR: 'KeyR',
   KeyD: 'KeyD',
+  KeyQ: 'KeyQ',
   Numpad0: 'Numpad0',
   Semicolon: 'Semicolon',
   Equal: 'Equal',
