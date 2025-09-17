@@ -1,4 +1,4 @@
-import {h, Component, Fragment, VNode} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {withText} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
@@ -11,7 +11,6 @@ import {withEventManager} from '../../event';
 import {withLogger} from '../logger';
 import {withEventDispatcher} from '../event-dispatcher';
 import {withKeyboardEvent} from '../../components/keyboard';
-import {KeyboardEventHandlers} from '../../types';
 import {Menu} from '../menu';
 import {types} from '../../reducers/settings';
 
@@ -89,9 +88,7 @@ class CaptionsMenu extends Component<any, any> {
       }))
       .sort((a, b) => (a.label > b.label || a.label === 'Off' ? 1 : -1));
 
-    if (props.showAdvancedCaptionsMenu) {
-      textOptions.push({label: props.advancedCaptionsSettingsText, value: props.advancedCaptionsSettingsText, active: false, isAdvanced: true});
-    }
+    const additionalOptions = props.showAdvancedCaptionsMenu ? [{ label: props.advancedCaptionsSettingsText, value: props.advancedCaptionsSettingsText, active: false, isAdvanced: true }] : [];
 
     if (this.props.asDropdown) {
       return (
@@ -103,6 +100,7 @@ class CaptionsMenu extends Component<any, any> {
           label={this.props.captionsLabelText}
           options={textOptions}
           onMenuChosen={textTrack => this.onCaptionsChange(textTrack)}
+          additionalOptions={additionalOptions}
         />
       );
     } else {
@@ -115,6 +113,7 @@ class CaptionsMenu extends Component<any, any> {
           options={textOptions}
           onMenuChosen={textTrack => this.onCaptionsChange(textTrack)}
           onClose={() => {}}
+          additionalOptions={additionalOptions}
         />
       );
     }
