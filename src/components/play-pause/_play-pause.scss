@@ -24,4 +24,9 @@
       display: none;
     }
   }
+  &:focus {
+    outline: 2px solid $tab-focus-color !important;
+    box-shadow: 0 0 0 2px white !important;
+    outline-offset: 2px;
+  }
 }
