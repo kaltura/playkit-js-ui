@@ -100,8 +100,17 @@ class Audio extends Component<any, any> implements IconComponent {
    * @returns {void}
    * @memberof VrStereo
    */
-  public onClick = (): void => {
-    // show audio menu
+  private onClick = (): void => {
+    this.setState(prevState => {
+      return {
+        smartContainerOpen: !prevState.smartContainerOpen
+      };
+    });
+  };
+
+  private onClose = (): void => {
+    // TODO
+    //this.setState({smartContainerOpen: false});
   };
 
   /**
@@ -158,28 +167,23 @@ class Audio extends Component<any, any> implements IconComponent {
     //   />
     // );
 
-    const onClick = () => {
-      this.setState(prevState => {
-        return {
-          smartContainerOpen: !prevState.smartContainerOpen
-        };
-      });
-    };
-
-    const onClose = () => {
-      this.setState({smartContainerOpen: false});
-    };
-
+    // TODO add title
+    // TODO set top bar priority
     return !this._shouldRender() ? undefined : (
       <ButtonControl name={COMPONENT_NAME} className={this.props.classNames ? this.props.classNames.join(' ') : ''}>
         <Tooltip label={this.props.vrStereoText} type={this.props.classNames?.includes(style.upperBarIcon) ? 'bottom-left' : 'top'} strictPosition>
-          <Button tabIndex="0" aria-label={this.props.vrStereoText} className={style.controlButton} onClick={onClick} onKeyDown={this.onKeyDown}>
+          <Button
+            tabIndex="0"
+            aria-label={this.props.vrStereoText}
+            className={style.controlButton}
+            onClick={() => this.onClick()}
+            onKeyDown={this.onKeyDown}>
             <Icon type={IconType.Audio} />
           </Button>
         </Tooltip>
         {this.state.smartContainerOpen && (
-          <SmartContainer targetId={this.props.player.config.targetId} onClose={onClose} title={'TODO'}>
-            <AudioMenu />
+          <SmartContainer targetId={this.props.player.config.targetId} onClose={() => this.onClose()} title={'TODO'}>
+            <AudioMenu onClose={() => this.onClose()} />
           </SmartContainer>
         )}
       </ButtonControl>

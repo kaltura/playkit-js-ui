@@ -1,6 +1,6 @@
 import style from '../styles/style.scss';
 import {Fragment, h, Component, VNode} from 'preact';
-import {AdvancedAudioDesc, PlayerArea, withPlayerPreset} from '../components';
+import {AudioDesc, PlayerArea, withPlayerPreset} from '../components';
 import {OverlayAction} from '../components';
 import {PrePlaybackPlayOverlay} from '../components';
 import {Loading} from '../components';
@@ -95,7 +95,7 @@ class PlaybackUI extends Component<any, any> {
                       VrStereo,
                       Volume,
                       Audio,
-                      AdvancedAudioDesc,
+                      AudioDesc,
                       ClosedCaptions,
                       CaptionsControl,
                       Settings,

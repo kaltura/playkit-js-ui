@@ -58,5 +58,6 @@ export const actions = {
   updateSpeed: (speed: string) => ({type: types.UPDATE_SPEED, speed}),
   updateAudio: (audio: string) => ({type: types.UPDATE_AUDIO, audio}),
   updateAdvancedAudioDesc: (isChecked: boolean) => ({type: types.UPDATE_ADVANCED_AUDIO_DESC, isChecked}),
-  updateIsCaptionsEnabled: (isCaptionsEnabled: boolean) => ({type: types.UPDATE_IS_CAPTIONS_ENABLED, isCaptionsEnabled})
+  updateIsCaptionsEnabled: (isCaptionsEnabled: boolean) => ({type: types.UPDATE_IS_CAPTIONS_ENABLED, isCaptionsEnabled}),
+  updateShowAudioDescToggle: (showAudioDescToggle: boolean) => ({type: 'config/UPDATE', config: {settings: {showAudioDescToggle}}})
 };

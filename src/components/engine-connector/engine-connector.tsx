@@ -13,6 +13,7 @@ import {withLogger} from '../logger';
 import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
 import {EventManager} from '@playkit-js/playkit-js';
 import {EngineState} from '../../types/reducers/engine';
+import {getAudioDescriptionLanguageKey, isAudioDescriptionLanguageKey} from '../../utils/audio-description';
 
 type EngineConnectorProps = {
   engine: EngineState;
@@ -30,8 +31,6 @@ const seekbarUpdateCurrentTime = SeekbarActions.updateCurrentTime;
 const updateIsCaptionsEnabled = SettingsActions.updateIsCaptionsEnabled;
 
 const COMPONENT_NAME = 'EngineConnector';
-
-const AUDIO_DESCRIPTION_PREFIX = 'ad';
 
 /**
  * EngineConnector component
@@ -196,14 +195,12 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
       const videoTracks = player.getTracks(TrackType.VIDEO);
       const textTracks = player.getTracks(TrackType.TEXT);
 
-      this.props.updateAudioTracks(audioTracks.filter(t => !t.language?.startsWith(AUDIO_DESCRIPTION_PREFIX)));
+      this.props.updateAudioTracks(audioTracks.filter(t => !isAudioDescriptionLanguageKey(t.language)));
       this.props.updateVideoTracks(videoTracks);
       this.props.updateTextTracks(textTracks);
 
       const audioDescriptionLanguages =
-        audioTracks
-          .filter(t => t.language?.startsWith(AUDIO_DESCRIPTION_PREFIX))
-          .map(t => t.language.substring(AUDIO_DESCRIPTION_PREFIX.length + 1)) || [];
+        audioTracks.filter(t => isAudioDescriptionLanguageKey(t.language)).map(t => getAudioDescriptionLanguageKey(t.language)) || [];
       this.props.updateAudioDescriptionLanguages(audioDescriptionLanguages);
     });
 
@@ -215,10 +212,9 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
 
     eventManager.listen(player, player.Event.Core.AUDIO_TRACK_CHANGED, () => {
       const tracks = player.getTracks(TrackType.AUDIO);
-      this.props.updateAudioTracks(tracks.filter(t => !t.language?.startsWith(AUDIO_DESCRIPTION_PREFIX)));
+      this.props.updateAudioTracks(tracks.filter(t => !isAudioDescriptionLanguageKey(t)));
       const audioDescriptionLanguages =
-        tracks.filter(t => t.language?.startsWith(AUDIO_DESCRIPTION_PREFIX)).map(t => t.language.substring(AUDIO_DESCRIPTION_PREFIX.length + 1)) ||
-        [];
+        tracks.filter(t => isAudioDescriptionLanguageKey(t.language)).map(t => getAudioDescriptionLanguageKey(t.language)) || [];
       this.props.updateAudioDescriptionLanguages(audioDescriptionLanguages);
     });
 

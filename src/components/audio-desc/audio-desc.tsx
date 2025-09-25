@@ -12,6 +12,9 @@ import {actions} from '../../reducers/settings';
 import {IconComponent, registerToBottomBar} from '../bottom-bar';
 import {redux} from '../../index';
 import {withPlayer} from '../player';
+import {AudioDescriptionMenu} from '../audio-description-menu';
+import {SmartContainer} from '..';
+import {AUDIO_DESCRIPTION_ENABLED_STATE} from '../../types/reducers/audio-description';
 
 const COMPONENT_NAME = 'AdvancedAudioDesc';
 
@@ -20,9 +23,12 @@ const COMPONENT_NAME = 'AdvancedAudioDesc';
  * @param {*} state - redux store state
  * @returns {Object} - mapped state to this component
  */
-const mapStateToProps = ({config, settings}) => ({
-  showAdvancedAudioDescToggle: config.settings.showAdvancedAudioDescToggle,
-  advancedAudioDescEnabled: settings.advancedAudioDesc
+const mapStateToProps = ({config, settings, audioDescription}) => ({
+  //showAdvancedAudioDescToggle: config.settings.showAdvancedAudioDescToggle,
+  advancedAudioDescEnabled: settings.advancedAudioDesc,
+  audioDescriptionLanguages: audioDescription.audioDescriptionLanguages,
+  advancedAudioDescriptionLanguages: audioDescription.advancedAudioDescriptionLanguages,
+  audioDescriptionEnabled: audioDescription.audioDescriptionEnabled
 });
 
 /**
@@ -39,15 +45,15 @@ const mapStateToProps = ({config, settings}) => ({
   advancedAudioDescEnabledText: 'settings.advanced_audio_description_enabled',
   advancedAudioDescDisabledText: 'settings.advanced_audio_description_disabled'
 })
-class AdvancedAudioDesc extends Component<any, any> implements IconComponent {
-  componentDidUpdate(previousProps): void {
+class AudioDesc extends Component<any, any> implements IconComponent {
+  public componentDidUpdate(previousProps): void {
     if (this.props.showAdvancedAudioDescToggle && !previousProps.showAdvancedAudioDescToggle) {
       registerToBottomBar(COMPONENT_NAME, this.props.player, () => this.registerComponent());
     }
   }
 
-  get advancedAudioDesc(): boolean {
-    return redux.useStore().getState().settings.advancedAudioDesc;
+  private get audioDescriptionEnabled(): boolean {
+    return redux.useStore().getState().audioDescription.audioDescriptionEnabled !== AUDIO_DESCRIPTION_ENABLED_STATE.DISABLE;
   }
 
   public registerComponent(): any {
@@ -65,12 +71,12 @@ class AdvancedAudioDesc extends Component<any, any> implements IconComponent {
   }
 
   public getComponentText = (): any => {
-    return this.advancedAudioDesc ? this.props.advancedAudioDescEnabledText : this.props.advancedAudioDescDisabledText;
+    return 'TODO '; //this.audioDescriptionEnabled ? this.props.advancedAudioDescEnabledText : this.props.advancedAudioDescDisabledText;
   };
 
   public getSvgIcon = (): any => {
     return {
-      type: redux.useStore().getState().settings.advancedAudioDesc ? IconType.AdvancedAudioDescriptionActive : IconType.AdvancedAudioDescription
+      type: this.audioDescriptionEnabled ? IconType.AdvancedAudioDescriptionActive : IconType.AdvancedAudioDescription
     };
   };
 
@@ -79,7 +85,8 @@ class AdvancedAudioDesc extends Component<any, any> implements IconComponent {
    * @returns {boolean} - whether to render the component
    */
   private _shouldRender(): boolean {
-    return this.props.showAdvancedAudioDescToggle;
+    return this.props.advancedAudioDescriptionLanguages.length > 0 || this.props.audioDescriptionLanguages.length > 0;
+    //return this.props.showAdvancedAudioDescToggle;
   }
   /**
    * AdvancedAudioDesc click handler
@@ -87,11 +94,11 @@ class AdvancedAudioDesc extends Component<any, any> implements IconComponent {
    * @returns {void}
    * @memberof AdvancedAudioDesc
    */
-  private onClick = (): void => {
-    const checked = !this.advancedAudioDesc;
-    this.props.updateAdvancedAudioDesc(checked);
-    this.props.notifyClick({type: 'AdvancedAudioDescription', checked, settings: false});
-  };
+  // private onClick = (): void => {
+  //   const checked = !this.advancedAudioDesc;
+  //   this.props.updateAdvancedAudioDesc(checked);
+  //   this.props.notifyClick({type: 'AdvancedAudioDescription', checked, settings: false});
+  // };
 
   /**
    * on key down handler
@@ -100,12 +107,12 @@ class AdvancedAudioDesc extends Component<any, any> implements IconComponent {
    * @returns {void}
    * @memberof AdvancedAudioDesc
    */
-  onKeyDown = (e: KeyboardEvent): void => {
-    if ([KeyCode.Enter, KeyCode.Space].includes(e.code)) {
-      e.preventDefault();
-      this.onClick();
-    }
-  };
+  // private onKeyDown = (e: KeyboardEvent): void => {
+  //   if ([KeyCode.Enter, KeyCode.Space].includes(e.code)) {
+  //     e.preventDefault();
+  //     this.onClick();
+  //   }
+  // };
 
   /**
    * render component
@@ -115,6 +122,27 @@ class AdvancedAudioDesc extends Component<any, any> implements IconComponent {
    * @memberof AdvancedAudioDesc
    */
   public render({innerRef}: any): VNode<any> | undefined {
+    const onKeyDown = (e: KeyboardEvent): void => {
+      if ([KeyCode.Enter, KeyCode.Space].includes(e.code)) {
+        e.preventDefault();
+        onClick();
+      }
+    };
+
+    const onClick = () => {
+      this.setState(prevState => {
+        return {
+          smartContainerOpen: !prevState.smartContainerOpen
+        };
+      });
+    };
+
+    const onClose = () => {
+      // TODO why is this called on click ?
+      //this.setState({smartContainerOpen: false});
+    };
+
+    // TODO update texts
     return !this._shouldRender() ? undefined : (
       <ButtonControl name={COMPONENT_NAME} className={[style.noIdleControl, this.props.classNames ? this.props.classNames.join(' ') : ''].join(' ')}>
         <Tooltip label={this.getComponentText()} type={this.props.classNames?.includes(style.upperBarIcon) ? 'bottom-left' : 'top'} strictPosition>
@@ -123,19 +151,24 @@ class AdvancedAudioDesc extends Component<any, any> implements IconComponent {
             aria-label={this.getComponentText()}
             className={`${style.controlButton}`}
             ref={innerRef}
-            onClick={this.onClick}
-            onKeyDown={this.onKeyDown}>
+            onClick={onClick}
+            onKeyDown={onKeyDown}>
             <Icon type={this.props.advancedAudioDescEnabled ? IconType.AdvancedAudioDescriptionActive : IconType.AdvancedAudioDescription} />
           </Button>
         </Tooltip>
+        {this.state.smartContainerOpen && (
+          <SmartContainer targetId={this.props.player.config.targetId} onClose={onClose} title={'TODO'}>
+            <AudioDescriptionMenu onClose={onClose} />
+          </SmartContainer>
+        )}
       </ButtonControl>
     );
   }
 }
 
 const getComponent = (props: any): VNode => {
-  return <AdvancedAudioDesc {...props} />;
+  return <AudioDesc {...props} />;
 };
 
-AdvancedAudioDesc.displayName = COMPONENT_NAME;
-export {AdvancedAudioDesc};
+AudioDesc.displayName = COMPONENT_NAME;
+export {AudioDesc};

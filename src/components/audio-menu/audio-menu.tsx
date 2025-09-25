@@ -14,6 +14,7 @@ type AudioMenuProps = {
   audioTracks?: any[];
   audioLabelText?: string;
   asDropdown?: boolean;
+  onClose: () => void;
 };
 
 /**
@@ -58,6 +59,7 @@ class AudioMenu extends Component<AudioMenuProps & WithPlayerProps & WithEventDi
       type: this.props.player!.Track.AUDIO,
       track: audioTrack
     });
+    this.props.onClose();
   }
 
   /**
@@ -94,6 +96,7 @@ class AudioMenu extends Component<AudioMenuProps & WithPlayerProps & WithEventDi
           label={this.props.audioLabelText}
           options={audioOptions}
           onMenuChosen={audioTrack => this.onAudioChange(audioTrack)}
+          onClose={this.props.onClose}
         />
       );
     } else {
@@ -106,7 +109,7 @@ class AudioMenu extends Component<AudioMenuProps & WithPlayerProps & WithEventDi
           }}
           options={audioOptions}
           onMenuChosen={audioTrack => this.onAudioChange(audioTrack)}
-          onClose={() => {}}
+          onClose={this.props.onClose}
         />
       );
     }

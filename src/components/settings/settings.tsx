@@ -4,16 +4,7 @@ import {withText, Text} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {bindActions, KeyMap} from '../../utils';
 import {actions} from '../../reducers/settings';
-import {
-  AdvancedAudioDescToggle,
-  AudioMenu,
-  CaptionsMenu,
-  QualityMenu,
-  SmartContainer,
-  SpeedMenu,
-  CVAAOverlay,
-  getLabelBadgeType
-} from '../../components';
+import {AudioMenu, CaptionsMenu, QualityMenu, SmartContainer, SpeedMenu, CVAAOverlay, getLabelBadgeType} from '../../components';
 import {default as Icon, IconType, BadgeType} from '../icon';
 import {withPlayer} from '../player';
 import {withEventManager} from '../../event';
@@ -45,8 +36,8 @@ const mapStateToProps = state => ({
   showQualityMenu: state.config.settings.showQualityMenu,
   showAudioMenu: state.config.settings.showAudioMenu,
   showCaptionsMenu: state.config.settings.showCaptionsMenu,
-  showSpeedMenu: state.config.settings.showSpeedMenu,
-  showAdvancedAudioDescToggle: state.config.settings.showAdvancedAudioDescToggle
+  showSpeedMenu: state.config.settings.showSpeedMenu
+  //showAdvancedAudioDescToggle: state.config.settings.showAdvancedAudioDescToggle
 });
 const COMPONENT_NAME = 'Settings';
 
@@ -54,7 +45,7 @@ const translates = () => ({
   buttonLabel: <Text id="controls.settings">Settings</Text>,
   qualityHdLabel: <Text id="settings.qualityHdLabel">Quality is HD</Text>,
   quality4kLabel: <Text id="settings.quality4kLabel">Quality is 4k</Text>,
-  quality8kLabel: <Text id="settings.quality8kLabel">Quality is 8k</Text>,
+  quality8kLabel: <Text id="settings.quality8kLabel">Quality is 8k</Text>
 });
 
 /**
@@ -304,7 +295,7 @@ class Settings extends Component<any, any> {
    */
   render(props: any): VNode<any> | undefined {
     const showAudioMenu = props.showAudioMenu && props.audioTracks.length > 1;
-    const showAdvancedAudioDescToggle = props.showAdvancedAudioDescToggle;
+    //const showAdvancedAudioDescToggle = props.showAdvancedAudioDescToggle;
     const showCaptionsMenu = props.showCaptionsMenu && props.textTracks.length > 1;
     const showQualityMenu = props.showQualityMenu && !props.isAudio && props.videoTracks.length > 1;
     const showSpeedMenu = props.showSpeedMenu && props.player.playbackRates.length > 1 && !props.isLive;
@@ -313,7 +304,7 @@ class Settings extends Component<any, any> {
     if (props.isLive && props.videoTracks.length <= 1 && !showAudioMenu && !showCaptionsMenu) return undefined;
     const buttonBadgeType: string = this.getButtonBadgeType() || '';
 
-    const buttonAriaLabel =`${props.buttonLabel} ${this.getQualityLabel(buttonBadgeType)} `;
+    const buttonAriaLabel = `${props.buttonLabel} ${this.getQualityLabel(buttonBadgeType)} `;
     return (
       <ButtonControl name={COMPONENT_NAME} ref={c => (c ? (this._controlSettingsElement = c) : undefined)}>
         <Tooltip label={props.buttonLabel}>
@@ -335,8 +326,7 @@ class Settings extends Component<any, any> {
         </Tooltip>
         {this.state.smartContainerOpen && !this.state.cvaaOverlay && (
           <SmartContainer title={<Text id="settings.title" />} onClose={this.onControlButtonClick}>
-            {showAdvancedAudioDescToggle && <AdvancedAudioDescToggle />}
-            {showAudioMenu && <AudioMenu />}
+            {showAudioMenu && <AudioMenu asDropdown={true} />}
             {showCaptionsMenu && <CaptionsMenu asDropdown={true} onAdvancedCaptionsClick={this.toggleCVAAOverlay} />}
             {showQualityMenu && <QualityMenu />}
             {showSpeedMenu && <SpeedMenu />}

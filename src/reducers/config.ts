@@ -19,7 +19,7 @@ export const initialState = {
     showCaptionsMenu: true,
     showQualityMenu: true,
     showSpeedMenu: true,
-    showAdvancedAudioDescToggle: false,
+    //showAdvancedAudioDescToggle: false,
     showAdvancedCaptionsMenu: true
   },
   hoverTimeout: 3000,

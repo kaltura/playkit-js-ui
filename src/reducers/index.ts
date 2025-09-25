@@ -11,5 +11,6 @@ import * as shell from './shell';
 import * as volume from './volume';
 import * as overlay from './overlay';
 import * as bottomBar from './bottom-bar';
+import * as audioDescription from './audio-description';
 
-export {config, cvaa, engine, getters, loading, overlayAction, playlist, seekbar, setting, shell, volume, overlay, bottomBar};
+export {config, cvaa, engine, getters, loading, overlayAction, playlist, seekbar, setting, shell, volume, overlay, bottomBar, audioDescription};
