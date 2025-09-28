@@ -105,6 +105,13 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
       this.props.updateIsChangingSource(false);
       this.props.updatePlayerPoster(player.poster);
       this.props.updateIsIdle(false);
+
+      // TODO use exported event type from player
+      const audioDescription = window.KalturaPlayer.LocalStorageManager.getItem('audioDescription');
+      if (audioDescription?.enabledState > 0) {
+        // else, default to disabled state
+        this.props.updateAudioDescriptionEnabled?.(audioDescription.enabledState);
+      }
     });
 
     eventManager.listen(player, player.Event.Core.PLAYER_STATE_CHANGED, e => {

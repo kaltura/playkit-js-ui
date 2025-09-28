@@ -11,6 +11,9 @@ import {WithPlayerProps} from '../player/with-player';
 import {WithEventDispatcherProps} from '../event-dispatcher';
 import {AUDIO_DESCRIPTION_ENABLED_STATE} from '../../types/reducers/audio-description';
 import {getAudioDescriptionLanguageKey, getAudioLanguageKey} from '../../utils/audio-description';
+import {EventType} from '../../event';
+
+import {FakeEvent} from '@playkit-js/playkit-js';
 
 type AudioDescriptionMenuProps = {
   audioTracks?: any[];
@@ -70,20 +73,8 @@ class AudioDescriptionMenu extends Component<AudioDescriptionMenuProps & WithPla
       this.props.player?.selectTrack(newAudioTrack);
     }
 
-    // if standard AD was enabled and we disable, change audio tracks
-
-    // if advanced AD was enabled and we disable,
-
-    // if (enabledState === AUDIO_DESCRIPTION_ENABLED_STATE.ENABLE_AUDIO_DESCRIPTION) {
-    // }
-
-    // @ts-ignore - store types
-    // this.props.updateAudio(audioTrack);
-    // this.props.player!.selectTrack(audioTrack);
-    // this.props.notifyClick!({
-    //   type: this.props.player!.Track.AUDIO,
-    //   track: audioTrack
-    // });
+    // TODO use event dispatcher ?
+    this.props.player?.dispatchEvent(new FakeEvent(EventType.USER_CLICKED_AUDIO_DESCRIPTION, {enabledState}));
   }
 
   /**

@@ -88,15 +88,15 @@ function onCaptionsStyleSelected(store: any, action: any, player: KalturaPlayer)
   const currentStyles = player.textStyle;
   const newStyles = action.payload?.textStyle;
   [
-    {key: "fontSize", eventType: EventType.USER_SELECTED_CAPTIONS_SIZE},
-    {key: "textAlign", eventType: EventType.USER_SELECTED_CAPTIONS_ALIGNMENT},
-    {key: "fontFamily", eventType: EventType.USER_SELECTED_CAPTIONS_FONT_FAMILY},
-    {key: "fontOpacity", eventType: EventType.USER_SELECTED_CAPTIONS_FONT_OPACITY},
-    {key: "backgroundOpacity", eventType: EventType.USER_SELECTED_CAPTIONS_BACKGROUND_OPACITY},
-    {key: "backgroundColor", eventType: EventType.USER_SELECTED_CAPTIONS_BACKGROUND_COLOR, collection: player.TextStyle.StandardColors},
-    {key: "fontColor", eventType: EventType.USER_SELECTED_CAPTIONS_FONT_COLOR, collection: player.TextStyle.StandardColors},
-    {key: "fontEdge", eventType: EventType.USER_SELECTED_CAPTIONS_FONT_STYLE, collection: player.TextStyle.EdgeStyles},
-  ].map(({ key, eventType, collection }) => {
+    {key: 'fontSize', eventType: EventType.USER_SELECTED_CAPTIONS_SIZE},
+    {key: 'textAlign', eventType: EventType.USER_SELECTED_CAPTIONS_ALIGNMENT},
+    {key: 'fontFamily', eventType: EventType.USER_SELECTED_CAPTIONS_FONT_FAMILY},
+    {key: 'fontOpacity', eventType: EventType.USER_SELECTED_CAPTIONS_FONT_OPACITY},
+    {key: 'backgroundOpacity', eventType: EventType.USER_SELECTED_CAPTIONS_BACKGROUND_OPACITY},
+    {key: 'backgroundColor', eventType: EventType.USER_SELECTED_CAPTIONS_BACKGROUND_COLOR, collection: player.TextStyle.StandardColors},
+    {key: 'fontColor', eventType: EventType.USER_SELECTED_CAPTIONS_FONT_COLOR, collection: player.TextStyle.StandardColors},
+    {key: 'fontEdge', eventType: EventType.USER_SELECTED_CAPTIONS_FONT_STYLE, collection: player.TextStyle.EdgeStyles}
+  ].map(({key, eventType, collection}) => {
     if (collection && !isEqual(currentStyles?.[key], newStyles?.[key])) {
       Object.keys(collection).some(collectionKey => {
         if (isEqual(collection[collectionKey], newStyles?.[key])) {
@@ -107,7 +107,7 @@ function onCaptionsStyleSelected(store: any, action: any, player: KalturaPlayer)
     } else if (currentStyles?.[key] !== newStyles?.[key]) {
       player.dispatchEvent(new FakeEvent(eventType, newStyles?.[key]));
     }
-    player.dispatchEvent(new CaptionsStyleSelectedEvent(newStyles))
+    player.dispatchEvent(new CaptionsStyleSelectedEvent(newStyles));
   });
 }
 
@@ -182,9 +182,9 @@ function onClickableComponentsHandler(store: any, action: any, player: KalturaPl
       onSpeedClicked(store, action, player);
       break;
 
-    case 'AdvancedAudioDescToggle':
-    case 'AdvancedAudioDesc':
-      onAdvancedAudioDescriptionClicked(store, action, player);
+    case 'AudioDescToggle':
+    case 'AudioDesc':
+      onAudioDescriptionClicked(store, action, player);
       break;
 
     case 'Shell':
@@ -312,15 +312,15 @@ function onSpeedClicked(store: any, action: any, player: KalturaPlayer): void {
 }
 
 /**
- * Handler for AdvancedAudioDescription menu clicked actions.
+ * Handler for AudioDescription menu clicked actions.
  * @param {any} store - The redux store.
  * @param {Object} action - The action object.
  * @param {Object} player - The video player.
  * @returns {void}
  */
-function onAdvancedAudioDescriptionClicked(store: any, action: any, player: KalturaPlayer): void {
-  if (action.payload.type === 'AdvancedAudioDescription') {
-    player.dispatchEvent(new FakeEvent(EventType.USER_CLICKED_ADVANCED_AUDIO_DESCRIPTION, action.payload));
+function onAudioDescriptionClicked(store: any, action: any, player: KalturaPlayer): void {
+  if (action.payload.type === 'audioDescription') {
+    player.dispatchEvent(new FakeEvent(EventType.USER_CLICKED_AUDIO_DESCRIPTION, action.payload));
   }
 }
 
@@ -375,7 +375,7 @@ function onOverlayActionClicked(store: any, action: any, player: KalturaPlayer):
 function onClosedCaptionsClicked(store: any, action: any, player: KalturaPlayer): void {
   const {payload: ccOn} = action;
   const textTrack = player.getActiveTracks()?.[player.Track.TEXT];
-  player.dispatchEvent(new FakeEvent(ccOn ? EventType.USER_HID_CAPTIONS : EventType.USER_SHOWED_CAPTIONS, { language: textTrack?.language }));
+  player.dispatchEvent(new FakeEvent(ccOn ? EventType.USER_HID_CAPTIONS : EventType.USER_SHOWED_CAPTIONS, {language: textTrack?.language}));
 }
 
 /**

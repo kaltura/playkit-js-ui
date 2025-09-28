@@ -178,8 +178,9 @@ function onClickableComponentsHandler(store: any, action: any, player: any): voi
       onSpeedClicked(store, action, player);
       break;
 
-    case 'AdvancedAudioDescToggle':
-      onAdvancedAudioDescriptionClicked(store, action, player);
+    // TODO
+    case 'AudioDescToggle':
+      onAudioDescriptionClicked(store, action, player);
       break;
 
     case 'CVAAOverlay':
@@ -330,15 +331,15 @@ function onSpeedClicked(store: any, action: any, player: any): void {
 }
 
 /**
- * Handler for AdvancedAudioDescription menu clicked actions.
+ * Handler for AudioDescription menu clicked actions.
  * @param {any} store - The redux store.
  * @param {any} action - The action object.
  * @param {any} player - The video player.
  * @returns {void}
  */
-function onAdvancedAudioDescriptionClicked(store: any, action: any, player: any): void {
-  if (action.payload.type === 'AdvancedAudioDescription') {
-    player.dispatchEvent(new FakeEvent(EventType.USER_CLICKED_ADVANCED_AUDIO_DESCRIPTION, action.payload));
+function onAudioDescriptionClicked(store: any, action: any, player: any): void {
+  if (action.payload.type === 'audioDescription') {
+    player.dispatchEvent(new FakeEvent(EventType.USER_CLICKED_AUDIO_DESCRIPTION, action.payload));
   }
 }
 
