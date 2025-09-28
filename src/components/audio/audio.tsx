@@ -15,6 +15,7 @@ import {ButtonControl} from '../button-control';
 import {IconComponent, registerToBottomBar} from '../bottom-bar';
 import {redux} from '../../index';
 import {AudioMenu, SmartContainer, SmartContainerItem} from '..';
+import {withEventManager} from '../../event';
 
 /**
  * mapping state to props
@@ -22,6 +23,8 @@ import {AudioMenu, SmartContainer, SmartContainerItem} from '..';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
+  isMobile: state.shell.isMobile,
+  isSmallSize: state.shell.isSmallSize,
   audioTracks: state.engine.audioTracks,
   audioDescriptionLanguages: state.audioDescription.audioDescriptionLanguages
 });
@@ -37,11 +40,14 @@ const COMPONENT_NAME = 'Audio';
  */
 @connect(mapStateToProps, bindActions({...shellActions, ...engineActions}))
 @withPlayer
+@withEventManager
 @withLogger(COMPONENT_NAME)
 // @withText({
 //   vrStereoText: 'controls.vrStereo'
 // })
 class Audio extends Component<any, any> implements IconComponent {
+  private ref: any;
+
   /**
    * Creates an instance of Audio component.
    * @memberof Audio
@@ -50,6 +56,19 @@ class Audio extends Component<any, any> implements IconComponent {
     super(props);
     this.setState({smartContainerOpen: false});
     registerToBottomBar(COMPONENT_NAME, props.player, () => this.registerComponent());
+  }
+
+  public componentDidMount(): void {
+    function handleClickOutside(e: any): void {
+      const isMobile = this.props.isMobile;
+      const isSmallSize = this.props.isSmallSize;
+      const ref = this.ref;
+      if (!!ref && !ref.contains(e.target) && !isMobile && !isSmallSize) {
+        this.setState({smartContainerOpen: false});
+      }
+    }
+
+    this.props.eventManager.listen(document, 'click', handleClickOutside.bind(this));
   }
 
   /**
@@ -109,8 +128,7 @@ class Audio extends Component<any, any> implements IconComponent {
   };
 
   private onClose = (): void => {
-    // TODO
-    //this.setState({smartContainerOpen: false});
+    this.setState({smartContainerOpen: false});
   };
 
   /**
@@ -170,7 +188,7 @@ class Audio extends Component<any, any> implements IconComponent {
     // TODO add title
     // TODO set top bar priority
     return !this._shouldRender() ? undefined : (
-      <ButtonControl name={COMPONENT_NAME} className={this.props.classNames ? this.props.classNames.join(' ') : ''}>
+      <ButtonControl ref={ref => (this.ref = ref)} name={COMPONENT_NAME} className={this.props.classNames ? this.props.classNames.join(' ') : ''}>
         <Tooltip label={this.props.vrStereoText} type={this.props.classNames?.includes(style.upperBarIcon) ? 'bottom-left' : 'top'} strictPosition>
           <Button
             tabIndex="0"
@@ -183,7 +201,7 @@ class Audio extends Component<any, any> implements IconComponent {
         </Tooltip>
         {this.state.smartContainerOpen && (
           <SmartContainer targetId={this.props.player.config.targetId} onClose={() => this.onClose()} title={'TODO'}>
-            <AudioMenu onClose={() => this.onClose()} />
+            <AudioMenu />
           </SmartContainer>
         )}
       </ButtonControl>

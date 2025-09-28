@@ -1,5 +1,5 @@
 import style from '../../styles/style.scss';
-import {h, Component, VNode} from 'preact';
+import {h, Component, VNode, createRef} from 'preact';
 import {withText} from 'preact-i18n';
 import {Icon, IconType} from '../icon';
 import {withEventDispatcher} from '../event-dispatcher';
@@ -15,6 +15,7 @@ import {withPlayer} from '../player';
 import {AudioDescriptionMenu} from '../audio-description-menu';
 import {SmartContainer} from '..';
 import {AUDIO_DESCRIPTION_ENABLED_STATE} from '../../types/reducers/audio-description';
+import {withEventManager} from '../../event';
 
 const COMPONENT_NAME = 'AdvancedAudioDesc';
 
@@ -23,7 +24,9 @@ const COMPONENT_NAME = 'AdvancedAudioDesc';
  * @param {*} state - redux store state
  * @returns {Object} - mapped state to this component
  */
-const mapStateToProps = ({config, settings, audioDescription}) => ({
+const mapStateToProps = ({config, shell, settings, audioDescription}) => ({
+  isMobile: shell.isMobile,
+  isSmallSize: shell.isSmallSize,
   //showAdvancedAudioDescToggle: config.settings.showAdvancedAudioDescToggle,
   advancedAudioDescEnabled: settings.advancedAudioDesc,
   audioDescriptionLanguages: audioDescription.audioDescriptionLanguages,
@@ -41,19 +44,34 @@ const mapStateToProps = ({config, settings, audioDescription}) => ({
 @connect(mapStateToProps, bindActions(actions))
 @withPlayer
 @withEventDispatcher(COMPONENT_NAME)
+@withEventManager
 @withText({
   advancedAudioDescEnabledText: 'settings.advanced_audio_description_enabled',
   advancedAudioDescDisabledText: 'settings.advanced_audio_description_disabled'
 })
 class AudioDesc extends Component<any, any> implements IconComponent {
+  private ref: any;
   public componentDidUpdate(previousProps): void {
     if (this.props.showAdvancedAudioDescToggle && !previousProps.showAdvancedAudioDescToggle) {
       registerToBottomBar(COMPONENT_NAME, this.props.player, () => this.registerComponent());
     }
   }
 
+  public componentDidMount(): void {
+    function handleClickOutside(e: any): void {
+      const isMobile = this.props.isMobile;
+      const isSmallSize = this.props.isSmallSize;
+      const ref = this.ref;
+      if (!!ref && !ref.contains(e.target) && !isMobile && !isSmallSize) {
+        this.setState({smartContainerOpen: false});
+      }
+    }
+
+    this.props.eventManager.listen(document, 'click', handleClickOutside.bind(this));
+  }
+
   private get audioDescriptionEnabled(): boolean {
-    return redux.useStore().getState().audioDescription.audioDescriptionEnabled !== AUDIO_DESCRIPTION_ENABLED_STATE.DISABLE;
+    return redux.useStore().getState().audioDescription.enabledState !== AUDIO_DESCRIPTION_ENABLED_STATE.DISABLE;
   }
 
   public registerComponent(): any {
@@ -71,6 +89,7 @@ class AudioDesc extends Component<any, any> implements IconComponent {
   }
 
   public getComponentText = (): any => {
+    // TODO tooltip should only work when the button is a toggle
     return 'TODO '; //this.audioDescriptionEnabled ? this.props.advancedAudioDescEnabledText : this.props.advancedAudioDescDisabledText;
   };
 
@@ -138,13 +157,17 @@ class AudioDesc extends Component<any, any> implements IconComponent {
     };
 
     const onClose = () => {
-      // TODO why is this called on click ?
-      //this.setState({smartContainerOpen: false});
+      this.setState({smartContainerOpen: false});
     };
+
+    // const ref = createRef();
 
     // TODO update texts
     return !this._shouldRender() ? undefined : (
-      <ButtonControl name={COMPONENT_NAME} className={[style.noIdleControl, this.props.classNames ? this.props.classNames.join(' ') : ''].join(' ')}>
+      <ButtonControl
+        ref={ref => (this.ref = ref)}
+        name={COMPONENT_NAME}
+        className={[style.noIdleControl, this.props.classNames ? this.props.classNames.join(' ') : ''].join(' ')}>
         <Tooltip label={this.getComponentText()} type={this.props.classNames?.includes(style.upperBarIcon) ? 'bottom-left' : 'top'} strictPosition>
           <Button
             tabIndex="0"
@@ -158,7 +181,7 @@ class AudioDesc extends Component<any, any> implements IconComponent {
         </Tooltip>
         {this.state.smartContainerOpen && (
           <SmartContainer targetId={this.props.player.config.targetId} onClose={onClose} title={'TODO'}>
-            <AudioDescriptionMenu onClose={onClose} />
+            <AudioDescriptionMenu />
           </SmartContainer>
         )}
       </ButtonControl>

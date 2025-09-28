@@ -21,7 +21,6 @@ type AudioDescriptionMenuProps = {
   asDropdown?: boolean;
   audioDescriptionEnabled?: AUDIO_DESCRIPTION_ENABLED_STATE;
   updateAudioDescriptionEnabled?: (enabledState: AUDIO_DESCRIPTION_ENABLED_STATE) => void;
-  onClose: () => void;
 };
 
 /**
@@ -120,7 +119,7 @@ class AudioDescriptionMenu extends Component<AudioDescriptionMenuProps & WithPla
         }}
         options={options}
         onMenuChosen={enabledState => this.onAudioDescriptionChange(enabledState)}
-        onClose={this.props.onClose}
+        onClose={() => {}}
       />
     );
     // }
