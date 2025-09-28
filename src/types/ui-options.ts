@@ -8,16 +8,15 @@ export interface UIOptionsObject {
   debugActions?: boolean;
   forceTouchUI?: boolean;
   showCCButton?: boolean;
+  showAudioDescriptionButton: true;
   openMenuFromCCButton?: boolean;
   openMenuFromAudioDescriptionButton?: boolean;
-  showAudioDescriptionButton?: boolean;
   showAudioButton?: boolean;
   settings?: {
-    showAudioMenu?: boolean; // TODO huh ???????
+    showAudioMenu?: boolean;
     showCaptionsMenu?: boolean;
     showQualityMenu?: boolean;
     showSpeedMenu?: boolean;
-    //showAdvancedAudioDescToggle?: boolean;
     showAdvancedCaptionsMenu?: boolean;
   };
   hoverTimeout?: number;

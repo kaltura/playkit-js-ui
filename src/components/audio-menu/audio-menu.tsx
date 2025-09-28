@@ -58,6 +58,7 @@ class AudioMenu extends Component<AudioMenuProps & WithPlayerProps & WithEventDi
       type: this.props.player!.Track.AUDIO,
       track: audioTrack
     });
+    // TODO
     this.props.onClose();
   }
 

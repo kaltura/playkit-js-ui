@@ -1,5 +1,5 @@
 import style from '../../styles/style.scss';
-import {h, Component, VNode, createRef} from 'preact';
+import {h, Component, VNode} from 'preact';
 import {withText} from 'preact-i18n';
 import {Icon, IconType} from '../icon';
 import {withEventDispatcher} from '../event-dispatcher';
@@ -17,7 +17,7 @@ import {SmartContainer} from '..';
 import {AUDIO_DESCRIPTION_ENABLED_STATE} from '../../types/reducers/audio-description';
 import {withEventManager} from '../../event';
 
-const COMPONENT_NAME = 'AdvancedAudioDesc';
+const COMPONENT_NAME = 'AudioDesc';
 
 /**
  * mapping state to props
@@ -159,8 +159,6 @@ class AudioDesc extends Component<any, any> implements IconComponent {
     const onClose = () => {
       this.setState({smartContainerOpen: false});
     };
-
-    // const ref = createRef();
 
     // TODO update texts
     return !this._shouldRender() ? undefined : (

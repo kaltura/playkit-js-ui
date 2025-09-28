@@ -23,6 +23,7 @@ import {withEventManager} from '../../event';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
+  showAudioButton: state.config.showAudioButton,
   isMobile: state.shell.isMobile,
   isSmallSize: state.shell.isSmallSize,
   audioTracks: state.engine.audioTracks,
@@ -163,27 +164,8 @@ class Audio extends Component<any, any> implements IconComponent {
    * @memberof Audio
    */
   public render(): VNode<any> | undefined {
-    // TODO determine if should render component using ui settings
-
-    // const audioOptions = props.audioTracks
-    //   .filter(t => (t.label && !t.language) || (t.language && props.audioDescriptionLanguages.indexOf(t.language) === -1))
-    //   .map(t => ({
-    //     label: t.label || t.language,
-    //     active: t.active,
-    //     value: t
-    //   }));
-
-    // return (
-    //   <SmartContainerItem
-    //     pushRef={el => {
-    //       props.pushRef(el);
-    //     }}
-    //     icon={IconType.Audio}
-    //     label={this.props.audioLabelText}
-    //     options={audioOptions}
-    //     onMenuChosen={audioTrack => this.onAudioChange(audioTrack)}
-    //   />
-    // );
+    const hasAudioOptions = this.props.audioTracks.filter(t => t.label || t.language).length > 1;
+    if (!this.props.showAudioButton && !hasAudioOptions) return;
 
     // TODO add title
     // TODO set top bar priority

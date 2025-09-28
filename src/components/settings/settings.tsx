@@ -19,6 +19,7 @@ import {KeyboardEventHandlers} from '../../types';
 import {withLogger} from '../logger';
 import {SpeedSelectedEvent} from '../../event/events/speed-selected-event';
 import {getOverlayPortalElement} from '../overlay-portal';
+import {AudioDescriptionMenu} from '../audio-description-menu';
 
 /**
  * mapping state to props
@@ -293,7 +294,7 @@ class Settings extends Component<any, any> {
    * @returns {React$Element} - component element
    * @memberof Settings
    */
-  render(props: any): VNode<any> | undefined {
+  public render(props: any): VNode<any> | undefined {
     const showAudioMenu = props.showAudioMenu && props.audioTracks.length > 1;
     //const showAdvancedAudioDescToggle = props.showAdvancedAudioDescToggle;
     const showCaptionsMenu = props.showCaptionsMenu && props.textTracks.length > 1;
@@ -327,6 +328,7 @@ class Settings extends Component<any, any> {
         {this.state.smartContainerOpen && !this.state.cvaaOverlay && (
           <SmartContainer title={<Text id="settings.title" />} onClose={this.onControlButtonClick}>
             {showAudioMenu && <AudioMenu asDropdown={true} />}
+            {showAudioMenu && <AudioDescriptionMenu asDropdown={true} />}
             {showCaptionsMenu && <CaptionsMenu asDropdown={true} onAdvancedCaptionsClick={this.toggleCVAAOverlay} />}
             {showQualityMenu && <QualityMenu />}
             {showSpeedMenu && <SpeedMenu />}

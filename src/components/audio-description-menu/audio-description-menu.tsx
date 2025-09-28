@@ -16,9 +16,9 @@ import {EventType} from '../../event';
 import {FakeEvent} from '@playkit-js/playkit-js';
 
 type AudioDescriptionMenuProps = {
-  audioTracks?: any[];
-  audioLabelText?: string;
   asDropdown?: boolean;
+  audioTracks?: any[];
+  audioDescriptionLabelText?: string; // TODO add i18n
   audioDescriptionEnabled?: AUDIO_DESCRIPTION_ENABLED_STATE;
   updateAudioDescriptionEnabled?: (enabledState: AUDIO_DESCRIPTION_ENABLED_STATE) => void;
 };
@@ -93,36 +93,32 @@ class AudioDescriptionMenu extends Component<AudioDescriptionMenuProps & WithPla
       };
     });
 
-    //debugger;
-
-    // TODO implement as settings submenu
-    //if (this.props.asDropdown) {
-    // return (
-    //   <SmartContainerItem
-    //     pushRef={el => {
-    //       props.pushRef(el);
-    //     }}
-    //     icon={IconType.Captions}
-    //     label={this.props.audioLabelText}
-    //     options={options}
-    //     onMenuChosen={enabledState => this.onAudioDescriptionChange(enabledState)}
-    //     onClose={this.props.onClose}
-    //   />
-    // );
-    // } else {
-    return (
-      <Menu
-        pushRef={el => {
-          // TODO where does this come from ?
-          //this.props.addAccessibleChild(el);
-          props.pushRef(el);
-        }}
-        options={options}
-        onMenuChosen={enabledState => this.onAudioDescriptionChange(enabledState)}
-        onClose={() => {}}
-      />
-    );
-    // }
+    if (this.props.asDropdown) {
+      return (
+        <SmartContainerItem
+          pushRef={el => {
+            props.pushRef(el);
+          }}
+          icon={IconType.Captions}
+          label={this.props.audioDescriptionLabelText}
+          options={options}
+          onMenuChosen={enabledState => this.onAudioDescriptionChange(enabledState)}
+        />
+      );
+    } else {
+      return (
+        <Menu
+          pushRef={el => {
+            // TODO where does this come from ?
+            //this.props.addAccessibleChild(el);
+            props.pushRef(el);
+          }}
+          options={options}
+          onMenuChosen={enabledState => this.onAudioDescriptionChange(enabledState)}
+          onClose={() => {}}
+        />
+      );
+    }
   }
 }
 
