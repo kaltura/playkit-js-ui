@@ -40,6 +40,7 @@ class SmartContainerItem extends Component<any, any> {
             name={label}
             onMenuChosen={o => props.onMenuChosen(o)}
             options={props.options}
+            additionalOptions={props.additionalOptions}
           />
         ) : (
           <div style={{paddingLeft: '20px'}}>
