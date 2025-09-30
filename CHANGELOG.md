@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.82.7 (2025-09-30)
+
+
+### Bug Fixes
+
+* **FEC-14593:** Add Q to KeyCode ([#1085](https://github.com/kaltura/playkit-js-ui/issues/1085)) ([04a0966](https://github.com/kaltura/playkit-js-ui/commit/04a0966))
+
+
+
 ### 0.82.6 (2025-09-11)
 
 
