@@ -8,13 +8,12 @@ import {Button} from '../button';
 import {connect} from 'react-redux';
 import {ButtonControl} from '../button-control';
 import {bindActions, KeyCode} from '../../utils';
-import {actions} from '../../reducers/settings';
+import {actions} from '../../reducers/audio-description';
 import {IconComponent, registerToBottomBar} from '../bottom-bar';
 import {redux} from '../../index';
 import {withPlayer} from '../player';
 import {AudioDescriptionMenu} from '../audio-description-menu';
 import {SmartContainer} from '..';
-import {AUDIO_DESCRIPTION_ENABLED_STATE} from '../../types/reducers/audio-description';
 import {withEventManager} from '../../event';
 
 const COMPONENT_NAME = 'AudioDesc';
@@ -31,7 +30,8 @@ const mapStateToProps = ({config, shell, settings, audioDescription}) => ({
   advancedAudioDescEnabled: settings.advancedAudioDesc,
   audioDescriptionLanguages: audioDescription.audioDescriptionLanguages,
   advancedAudioDescriptionLanguages: audioDescription.advancedAudioDescriptionLanguages,
-  audioDescriptionEnabled: audioDescription.audioDescriptionEnabled
+  openMenuFromAudioDescriptionButton: config.openMenuFromAudioDescriptionButton,
+  audioDescriptionEnabled: audioDescription.isEnabled
 });
 
 /**
@@ -47,7 +47,8 @@ const mapStateToProps = ({config, shell, settings, audioDescription}) => ({
 @withEventManager
 @withText({
   advancedAudioDescEnabledText: 'settings.advanced_audio_description_enabled',
-  advancedAudioDescDisabledText: 'settings.advanced_audio_description_disabled'
+  advancedAudioDescDisabledText: 'settings.advanced_audio_description_disabled',
+  audioDescriptionLabelText: 'settings.audioDescription'
 })
 class AudioDesc extends Component<any, any> implements IconComponent {
   private ref: any;
@@ -71,7 +72,7 @@ class AudioDesc extends Component<any, any> implements IconComponent {
   }
 
   private get audioDescriptionEnabled(): boolean {
-    return redux.useStore().getState().audioDescription.enabledState !== AUDIO_DESCRIPTION_ENABLED_STATE.DISABLE;
+    return redux.useStore().getState().audioDescription.isEnabled;
   }
 
   public registerComponent(): any {
@@ -149,6 +150,21 @@ class AudioDesc extends Component<any, any> implements IconComponent {
     };
 
     const onClick = () => {
+      const activeAudioLanguage = this.props.player.getActiveTracks()['audio']?.language || '';
+      if (
+        !activeAudioLanguage ||
+        !(
+          this.props.audioDescriptionLanguages.includes(activeAudioLanguage) ||
+          this.props.advancedAudioDescriptionLanguages.includes(activeAudioLanguage)
+        )
+      ) {
+        return;
+      }
+
+      if (!this.props.openMenuFromAudioDescriptionButton) {
+        this.props.updateAudioDescriptionEnabled?.(!this.props.audioDescriptionEnabled);
+      }
+
       this.setState(prevState => {
         return {
           smartContainerOpen: !prevState.smartContainerOpen
@@ -174,11 +190,11 @@ class AudioDesc extends Component<any, any> implements IconComponent {
             ref={innerRef}
             onClick={onClick}
             onKeyDown={onKeyDown}>
-            <Icon type={this.props.advancedAudioDescEnabled ? IconType.AdvancedAudioDescriptionActive : IconType.AdvancedAudioDescription} />
+            <Icon type={this.props.audioDescriptionEnabled ? IconType.AdvancedAudioDescriptionActive : IconType.AdvancedAudioDescription} />
           </Button>
         </Tooltip>
-        {this.state.smartContainerOpen && (
-          <SmartContainer targetId={this.props.player.config.targetId} onClose={onClose} title={'TODO'}>
+        {this.state.smartContainerOpen && this.props.openMenuFromAudioDescriptionButton && (
+          <SmartContainer targetId={this.props.player.config.targetId} onClose={onClose} title={this.props.audioDescriptionLabelText}>
             <AudioDescriptionMenu />
           </SmartContainer>
         )}

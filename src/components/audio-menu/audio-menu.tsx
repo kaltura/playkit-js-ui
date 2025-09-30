@@ -13,6 +13,7 @@ import {WithEventDispatcherProps} from '../event-dispatcher';
 type AudioMenuProps = {
   audioTracks?: any[];
   audioLabelText?: string;
+  audioDescriptionAvailableText?: string;
   asDropdown?: boolean;
 };
 
@@ -40,7 +41,8 @@ const COMPONENT_NAME = 'AudioMenu';
 @withPlayer
 @withEventDispatcher(COMPONENT_NAME)
 @withText({
-  audioLabelText: 'settings.audio'
+  audioLabelText: 'settings.audio',
+  audioDescriptionAvailableText: 'audioDescription.audioDescriptionAvailable'
 })
 class AudioMenu extends Component<AudioMenuProps & WithPlayerProps & WithEventDispatcherProps, any> {
   /**
@@ -76,8 +78,9 @@ class AudioMenu extends Component<AudioMenuProps & WithPlayerProps & WithEventDi
         const hasAudioDescription = !!props.audioDescriptionLanguages.find(l => l === t.language);
         const hasAdvancedAudioDescription = !!props.advancedAudioDescriptionLanguages.find(l => l === t.language);
 
-        // TODO add i18n
-        const label = `${t.label || t.language} ${hasAudioDescription || hasAdvancedAudioDescription ? '(Audio Description Available)' : ''}`;
+        const label = `${t.label || t.language} ${
+          hasAudioDescription || hasAdvancedAudioDescription ? this.props.audioDescriptionAvailableText : ''
+        }`;
 
         return {
           label,

@@ -9,7 +9,7 @@ import {withPlayer} from '../player';
 import {withEventDispatcher} from '../event-dispatcher';
 import {WithPlayerProps} from '../player/with-player';
 import {WithEventDispatcherProps} from '../event-dispatcher';
-import {AUDIO_DESCRIPTION_ENABLED_STATE} from '../../types/reducers/audio-description';
+import {AUDIO_DESCRIPTION_TYPE} from '../../types/reducers/audio-description';
 import {getAudioDescriptionLanguageKey, getAudioLanguageKey} from '../../utils/audio-description';
 import {EventType} from '../../event';
 
@@ -19,8 +19,15 @@ type AudioDescriptionMenuProps = {
   asDropdown?: boolean;
   audioTracks?: any[];
   audioDescriptionLabelText?: string; // TODO add i18n
-  audioDescriptionEnabled?: AUDIO_DESCRIPTION_ENABLED_STATE;
-  updateAudioDescriptionEnabled?: (enabledState: AUDIO_DESCRIPTION_ENABLED_STATE) => void;
+  audioDescriptionEnabled?: boolean;
+  audioDescriptionType?: AUDIO_DESCRIPTION_TYPE;
+  audioDescriptionLanguages?: string[];
+  advancedAudioDescriptionLanguages?: string[];
+  updateAudioDescriptionEnabled?: (isEnabled: boolean) => void;
+  updateAudioDescriptionType?: (selectedType: AUDIO_DESCRIPTION_TYPE) => void;
+  disableLabelText?: string;
+  standardAudioDescriptionLabelText?: string;
+  advancedAudioDescriptionLabelText?: string;
 };
 
 /**
@@ -32,7 +39,8 @@ const mapStateToProps = state => ({
   audioTracks: state.engine.audioTracks,
   audioDescriptionLanguages: state.audioDescription.audioDescriptionLanguages,
   advancedAudioDescriptionLanguages: state.audioDescription.advancedAudioDescriptionLanguages,
-  audioDescriptionEnabled: state.audioDescription.audioDescriptionEnabled
+  audioDescriptionEnabled: state.audioDescription.isEnabled,
+  audioDescriptionType: state.audioDescription.selectedType
 });
 
 const COMPONENT_NAME = 'AudioDescriptionMenu';
@@ -47,9 +55,12 @@ const COMPONENT_NAME = 'AudioDescriptionMenu';
 @connect(mapStateToProps, bindActions(actions))
 @withPlayer
 @withEventDispatcher(COMPONENT_NAME)
-// @withText({
-//   audioDescriptionLabelText: 'settings.audioDescription'
-// })
+@withText({
+  audioDescriptionLabelText: 'settings.audioDescription',
+  disableLabelText: 'audioDescription.disable',
+  standardAudioDescriptionLabelText: 'audioDescription.standardAudioDescription',
+  advancedAudioDescriptionLabelText: 'audioDescription.advancedAudioDescription'
+})
 class AudioDescriptionMenu extends Component<AudioDescriptionMenuProps & WithPlayerProps & WithEventDispatcherProps, any> {
   /**
    * call to player selectTrack method and change audio track
@@ -58,14 +69,34 @@ class AudioDescriptionMenu extends Component<AudioDescriptionMenuProps & WithPla
    * @returns {void}
    * @memberof Settings
    */
-  public onAudioDescriptionChange(enabledState: AUDIO_DESCRIPTION_ENABLED_STATE): void {
-    this.props.updateAudioDescriptionEnabled?.(enabledState);
+  public onAudioDescriptionChange(enabledState: number): void {
+    const activeAudioLanguage = this.props.player?.getActiveTracks()['audio']?.language || '';
+
+    if (enabledState === AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION && !this.props.audioDescriptionLanguages?.includes(activeAudioLanguage)) {
+      this.props.updateAudioDescriptionEnabled?.(this.props.audioDescriptionEnabled ?? false);
+      this.props.updateAudioDescriptionType?.(this.props.audioDescriptionType ?? AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
+      return;
+    }
+
+    if (
+      enabledState === AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION &&
+      !this.props.advancedAudioDescriptionLanguages?.includes(activeAudioLanguage)
+    ) {
+      this.props.updateAudioDescriptionEnabled?.(this.props.audioDescriptionEnabled ?? false);
+      this.props.updateAudioDescriptionType?.(this.props.audioDescriptionType ?? AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
+      return;
+    }
+
+    const isEnabled = enabledState !== 0;
+    const selectedType = enabledState === 0 ? AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION : enabledState;
+
+    this.props.updateAudioDescriptionEnabled?.(isEnabled);
+    this.props.updateAudioDescriptionType?.(selectedType);
 
     const currLanguageKey = this.props.player?.getActiveTracks()['audio'].language;
-    const newLanguageKey =
-      enabledState === AUDIO_DESCRIPTION_ENABLED_STATE.ENABLE_AUDIO_DESCRIPTION
-        ? getAudioDescriptionLanguageKey(currLanguageKey)
-        : getAudioLanguageKey(currLanguageKey);
+    const newLanguageKey = this.props.audioDescriptionEnabled
+      ? getAudioDescriptionLanguageKey(currLanguageKey)
+      : getAudioLanguageKey(currLanguageKey);
 
     const newAudioTrack = this.props.player?.getTracks('audio')?.find(t => t.language === newLanguageKey);
     if (newAudioTrack) {
@@ -73,7 +104,7 @@ class AudioDescriptionMenu extends Component<AudioDescriptionMenuProps & WithPla
     }
 
     // TODO use event dispatcher ?
-    this.props.player?.dispatchEvent(new FakeEvent(EventType.USER_CLICKED_AUDIO_DESCRIPTION, {enabledState}));
+    this.props.player?.dispatchEvent(new FakeEvent(EventType.USER_CLICKED_AUDIO_DESCRIPTION, {isEnabled, selectedType}));
   }
 
   /**
@@ -84,14 +115,21 @@ class AudioDescriptionMenu extends Component<AudioDescriptionMenuProps & WithPla
    * @memberof AudioMenu
    */
   public render(props: any): VNode<any> | undefined {
-    // TODO use i18n
-    const options = ['Disable', 'Standard Audio Description', 'Extended Audio Description'].map((option, index) => {
-      return {
-        label: option,
-        active: this.props.audioDescriptionEnabled === index,
-        value: index
-      };
-    });
+    const options = [this.props.disableLabelText, this.props.standardAudioDescriptionLabelText, this.props.advancedAudioDescriptionLabelText].map(
+      (option, index) => {
+        return {
+          active: false,
+          label: option,
+          value: index
+        };
+      }
+    );
+
+    if (!this.props.audioDescriptionEnabled) {
+      options[0].active = true;
+    } else {
+      options[this.props.audioDescriptionType as number].active = true;
+    }
 
     if (this.props.asDropdown) {
       return (

@@ -43,9 +43,9 @@ const COMPONENT_NAME = 'Audio';
 @withPlayer
 @withEventManager
 @withLogger(COMPONENT_NAME)
-// @withText({
-//   vrStereoText: 'controls.vrStereo'
-// })
+@withText({
+  audioText: 'settings.audio'
+})
 class Audio extends Component<any, any> implements IconComponent {
   private ref: any;
 
@@ -82,12 +82,6 @@ class Audio extends Component<any, any> implements IconComponent {
     // const isActive = this.props.isVr && !(Object.keys(componentConfig).length === 0 && componentConfig.constructor === Object);
     // this.props.onToggle(COMPONENT_NAME, isActive);
     // return isActive;
-  }
-
-  private _getComponentText(): string {
-    return 'Audio';
-    // TODO
-    // return this.props.vrStereoText;
   }
 
   public registerComponent(): any {
@@ -167,8 +161,6 @@ class Audio extends Component<any, any> implements IconComponent {
     const hasAudioOptions = this.props.audioTracks.filter(t => t.label || t.language).length > 1;
     if (!this.props.showAudioButton && !hasAudioOptions) return;
 
-    // TODO add title
-    // TODO set top bar priority
     return !this._shouldRender() ? undefined : (
       <ButtonControl ref={ref => (this.ref = ref)} name={COMPONENT_NAME} className={this.props.classNames ? this.props.classNames.join(' ') : ''}>
         <Tooltip label={this.props.vrStereoText} type={this.props.classNames?.includes(style.upperBarIcon) ? 'bottom-left' : 'top'} strictPosition>
@@ -182,7 +174,7 @@ class Audio extends Component<any, any> implements IconComponent {
           </Button>
         </Tooltip>
         {this.state.smartContainerOpen && (
-          <SmartContainer targetId={this.props.player.config.targetId} onClose={() => this.onClose()} title={'TODO'}>
+          <SmartContainer targetId={this.props.player.config.targetId} onClose={() => this.onClose()} title={this.getComponentText()}>
             <AudioMenu />
           </SmartContainer>
         )}

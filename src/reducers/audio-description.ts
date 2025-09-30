@@ -1,16 +1,18 @@
 /* eslint-disable  @typescript-eslint/explicit-function-return-type */
-import {AUDIO_DESCRIPTION_ENABLED_STATE, AudioDescriptionState} from '../types/reducers/audio-description';
+import {AUDIO_DESCRIPTION_TYPE, AudioDescriptionState} from '../types/reducers/audio-description';
 
 export const types = {
   UPDATE_AUDIO_DESCRIPTION_LANGUAGES: 'audio-description/UPDATE_AUDIO_DESCRIPTION_LANGUAGES',
   UPDATE_EXTENDED_AUDIO_DESCRIPTION_LANGUAGES: 'audio-description/UPDATE_EXTENDED_AUDIO_DESCRIPTION_LANGUAGES',
-  UPDATE_AUDIO_DESCRIPTION_ENABLED: 'audio-description/UPDATE_AUDIO_DESCRIPTION'
+  UPDATE_AUDIO_DESCRIPTION_ENABLED: 'audio-description/UPDATE_AUDIO_DESCRIPTION',
+  UPDATE_AUDIO_DESCRIPTION_TYPE: 'audio-description/UPDATE_AUDIO_DESCRIPTION_TYPE'
 };
 
 export const initialState = {
   audioDescriptionLanguages: [],
   advancedAudioDescriptionLanguages: [],
-  audioDescriptionEnabled: AUDIO_DESCRIPTION_ENABLED_STATE.DISABLE
+  isEnabled: false,
+  selectedType: AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION
 };
 
 export default (state: AudioDescriptionState = initialState, action: any) => {
@@ -28,7 +30,12 @@ export default (state: AudioDescriptionState = initialState, action: any) => {
     case types.UPDATE_AUDIO_DESCRIPTION_ENABLED:
       return {
         ...state,
-        audioDescriptionEnabled: action.audioDescriptionEnabled
+        isEnabled: action.isEnabled
+      };
+    case types.UPDATE_AUDIO_DESCRIPTION_TYPE:
+      return {
+        ...state,
+        selectedType: action.selectedType
       };
     default:
       return state;
@@ -44,8 +51,12 @@ export const actions = {
     type: types.UPDATE_EXTENDED_AUDIO_DESCRIPTION_LANGUAGES,
     advancedAudioDescriptionLanguages
   }),
-  updateAudioDescriptionEnabled: (audioDescriptionEnabled: AUDIO_DESCRIPTION_ENABLED_STATE) => ({
+  updateAudioDescriptionEnabled: (isEnabled: boolean) => ({
     type: types.UPDATE_AUDIO_DESCRIPTION_ENABLED,
-    audioDescriptionEnabled
+    isEnabled
+  }),
+  updateAudioDescriptionType: (selectedType: AUDIO_DESCRIPTION_TYPE) => ({
+    type: types.UPDATE_AUDIO_DESCRIPTION_TYPE,
+    selectedType
   })
 };

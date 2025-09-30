@@ -1,11 +1,11 @@
-export enum AUDIO_DESCRIPTION_ENABLED_STATE {
-  DISABLE,
-  ENABLE_AUDIO_DESCRIPTION,
-  ENABLE_EXTENDED_AUDIO_DESCRIPTION
+export enum AUDIO_DESCRIPTION_TYPE {
+  AUDIO_DESCRIPTION = 1,
+  EXTENDED_AUDIO_DESCRIPTION = 2
 }
 
 export interface AudioDescriptionState {
   audioDescriptionLanguages: string[];
   advancedAudioDescriptionLanguages: string[];
-  audioDescriptionEnabled: AUDIO_DESCRIPTION_ENABLED_STATE;
+  isEnabled: boolean;
+  selectedType: AUDIO_DESCRIPTION_TYPE;
 }

@@ -48,7 +48,7 @@
       "volume_button_aria_label": "Volume",
       "volume_button_description": "Click to volume control",
       "volume_slider_aria_label": "Volume control",
-      "volume_slider_description": "Use the arrows to control the volume"      
+      "volume_slider_description": "Use the arrows to control the volume"
     },
     "copy": {
       "button": "Copy URL"
@@ -56,6 +56,7 @@
     "settings": {
       "title": "Settings",
       "audio": "Audio",
+      "audioDescription": "Audio Description",
       "quality": "Quality",
       "speed": "Speed",
       "speedNormal": "Normal",
@@ -154,6 +155,12 @@
     },
     "videoArea": {
       "videoLabel": "Video player. Use the play button or press the space bar to start playback."
+    },
+    "audioDescription": {
+      "disable": "Disable",
+      "standardAudioDescription": "Standard Audio Description",
+      "advancedAudioDescription": "Extended Audio Description",
+      "audioDescriptionAvailable": "Audio Description available"
     }
   }
 }
