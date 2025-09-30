@@ -118,7 +118,7 @@ class VideoPlayer extends Component<any, any> {
     const {videoStyles, targetId, videoLabel} = this.props;
 
     return (
-      <div aria-label={videoLabel} id={`${targetId}-video`} className={style.videoPlayer} style={videoStyles} ref={this._setRef}>
+      <div role='region' aria-label={videoLabel} id={`${targetId}-video`} className={style.videoPlayer} style={videoStyles} ref={this._setRef}>
         <PlayerArea name={'VideoContainer'} />
       </div>
     );
