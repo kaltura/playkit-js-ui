@@ -171,13 +171,15 @@ class Menu extends Component<MenuProps & WithEventManagerProps, any> {
     if (selectedIndex < this.props.options.length) {
       // Normal options
       const option = this.props.options[selectedIndex];
-      if (option) this.onSelect(option);
+      if (option) {
+        this.onSelect(option);
+      }
     } else {
-        // Additional options
-        const additionalIndex = selectedIndex - this.props.options.length;
-        const additional = this.props.additionalOptions?.[additionalIndex];
-        if (additional) {
-          this.props.onMenuChosen(additional.value);
+      // Additional options
+      const additionalIndex = selectedIndex - this.props.options.length;
+      const additional = this.props.additionalOptions?.[additionalIndex];
+      if (additional) {
+        this.props.onMenuChosen(additional.value);
       }
     }
   };
@@ -322,36 +324,36 @@ class MenuItem extends Component<any, any> {
    * @returns {React$Element<any>} - rendered jsx
    * @memberof MenuItem
    */
-render(props: any): VNode<any> {
-  const isAdditional = props.isAdditional;
-  const selected = !isAdditional && props.isSelected(props.data);
-  const badgeType: string | null =
-    props.data.badgeType && !selected ? BadgeType[props.data.badgeType] : BadgeType[props.data.badgeType + 'Active'];
-  return (
-    <div
-      role={props?.role}
-      tabIndex={-1}
-      aria-selected={props.isSelected(props.data)}
-      ref={element => {
-        this.props.addAccessibleChild(element);
-        if (props.isSelected(props.data)) {
-          setTimeout(() => props.setDefaultFocusedElement(element))
-        }
-      }}
-      className={props.isSelected(props.data) ? [style.dropdownMenuItem, style.active].join(' ') : style.dropdownMenuItem}
-      onClick={this.onClick}
-      onKeyDown={this.onKeyDown}
-    >
-      <span
-        className={badgeType ? [style.labelBadge, badgeType].join(' ') : ''}
-        aria-label={badgeType?.includes("quality-hd") ? `${props.data.label} HD` : props.data.label}
+  render(props: any): VNode<any> {
+    const isAdditional = props.isAdditional;
+    const selected = !isAdditional && props.isSelected(props.data);
+    const badgeType: string | null =
+      props.data.badgeType && !selected ? BadgeType[props.data.badgeType] : BadgeType[props.data.badgeType + 'Active'];
+    return (
+      <div
+        role={props?.role}
+        tabIndex={-1}
+        aria-selected={props.isSelected(props.data)}
+        ref={element => {
+          this.props.addAccessibleChild(element);
+          if (props.isSelected(props.data)) {
+            setTimeout(() => props.setDefaultFocusedElement(element))
+          }
+        }}
+        className={props.isSelected(props.data) ? [style.dropdownMenuItem, style.active].join(' ') : style.dropdownMenuItem}
+        onClick={this.onClick}
+        onKeyDown={this.onKeyDown}
       >
-        {props.data.label}
-      </span>
-      <span className={[style.menuIconContainer, style.active].join(' ')}>
-        <Icon type={IconType.CheckActive} />
-      </span>
-    </div>
-  );
-}
+        <span
+          className={badgeType ? [style.labelBadge, badgeType].join(' ') : ''}
+          aria-label={badgeType?.includes("quality-hd") ? `${props.data.label} HD` : props.data.label}
+        >
+          {props.data.label}
+        </span>
+        <span className={[style.menuIconContainer, style.active].join(' ')}>
+          <Icon type={IconType.CheckActive} />
+        </span>
+      </div>
+    );
+  }
 }
