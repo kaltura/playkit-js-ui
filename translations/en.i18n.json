@@ -157,7 +157,7 @@
       "disable": "Disable",
       "standardAudioDescription": "Standard Audio Description",
       "advancedAudioDescription": "Extended Audio Description",
-      "audioDescriptionAvailable": "{{audioLanguage}} (Audio Description Available)",
+      "audioDescriptionAvailable": "Audio Description Available",
       "enableAudioDescription": "Enable Audio Description",
       "disableAudioDescription": "Disable Audio Description",
       "thereIsAudioDescriptionAvailable": "Audio Description available for the currently selected language, you can choose to enable in the Audio Descriptions",

@@ -1,5 +1,6 @@
 import style from '../../styles/style.scss';
-import {h, Component, VNode} from 'preact';
+import {h, VNode} from 'preact';
+import {useEffect, useRef, useState} from 'preact/hooks';
 import {withText} from 'preact-i18n';
 import {default as Icon, IconType} from '../icon';
 import {KeyCode} from '../../utils';
@@ -9,157 +10,117 @@ import {withLogger} from '../logger';
 import {Tooltip} from '../tooltip';
 import {Button} from '../button';
 import {ButtonControl} from '../button-control';
-import {IconComponent, registerToBottomBar} from '../bottom-bar';
 import {AudioMenu, SmartContainer} from '..';
 import {withEventManager} from '../../event';
+import {registerToBottomBar} from '../bottom-bar';
 
-/**
- * mapping state to props
- * @param {*} state - redux store state
- * @returns {Object} - mapped state to this component
- */
 const mapStateToProps = state => ({
   showAudioButton: state.config.showAudioButton,
   isMobile: state.shell.isMobile,
   isSmallSize: state.shell.isSmallSize,
   audioTracks: state.engine.audioTracks,
-  audioDescriptionLanguages: state.audioDescription.audioDescriptionLanguages
+  audioDescriptionLanguages: state.audioDescription.audioDescriptionLanguages,
+  isPrePlayback: state.engine.prePlayback,
+  overlayOpen: state.shell.overlayOpen
+  //controlsToMove: state.bottomBar.controlsToMove TODO
 });
 
 const COMPONENT_NAME = 'Audio';
 
-/**
- * Audio component
- *
- * @class Audio
- * @example <Audio />
- * @extends {Component}
- */
-@connect(mapStateToProps)
-@withPlayer
-@withEventManager
-@withLogger(COMPONENT_NAME)
-@withText({
-  audioLabelText: 'settings.audio'
-})
-class Audio extends Component<any, any> implements IconComponent {
-  private ref: any;
+const _Audio = (props: any) => {
+  const ref = useRef<any>(null);
+  const [smartContainerOpen, setSmartContainerOpen] = useState(false);
 
-  /**
-   * Creates an instance of Audio component.
-   * @memberof Audio
-   */
-  constructor(props: any) {
-    super(props);
-    this.setState({smartContainerOpen: false});
-    registerToBottomBar(COMPONENT_NAME, props.player, () => this.registerComponent());
-  }
+  useEffect(() => {
+    registerToBottomBar(Audio.displayName, props.player, () => registerComponent());
+  }, []);
 
-  public componentDidMount(): void {
+  useEffect(() => {
     function handleClickOutside(e: any): void {
-      const isMobile = this.props.isMobile;
-      const isSmallSize = this.props.isSmallSize;
-      const ref = this.ref;
-      if (!!ref && !ref.contains(e.target) && !isMobile && !isSmallSize) {
-        this.setState({smartContainerOpen: false});
+      const isMobile = props.isMobile;
+      const isSmallSize = props.isSmallSize;
+      if (!props.overlayOpen && ref.current && !ref.current.contains(e.target) && !isMobile && !isSmallSize) {
+        setSmartContainerOpen(false);
       }
     }
 
-    this.props.eventManager.listen(document, 'click', handleClickOutside.bind(this));
-  }
+    // TODO don't add twice
+    // TODO prevent from activating when overlay is open
+    props.eventManager.listen(document, 'click', handleClickOutside);
+  }, [props.isMobile, props.isSmallSize, props.eventManager, props.overlayOpen]);
 
-  public registerComponent(): any {
+  function registerComponent(): any {
     return {
-      ariaLabel: () => this.getComponentText(),
+      ariaLabel: () => getComponentText(),
       displayName: COMPONENT_NAME,
       order: 5,
-      svgIcon: () => this.getSvgIcon(),
-      onClick: () => this.onClick(),
+      svgIcon: () => getSvgIcon(),
+      onClick: () => onClick(),
       component: () => {
-        return getComponent({...this.props, classNames: [style.upperBarIcon]});
+        return getComponent({...props, classNames: [style.upperBarIcon]});
       },
       shouldHandleOnClick: false
     };
   }
 
-  public getComponentText = (): any => {
-    return this.props.audioLabelText;
-  };
-
-  public getSvgIcon(): any {
+  function getSvgIcon(): any {
     return {
       type: IconType.Audio
     };
   }
 
-  /**
-   * Vr-Stereo click handler
-   *
-   * @returns {void}
-   * @memberof VrStereo
-   */
-  private onClick = (): void => {
-    this.setState(prevState => {
-      return {
-        smartContainerOpen: !prevState.smartContainerOpen
-      };
-    });
-  };
+  function getComponentText(): any {
+    return props.audioLabelText;
+  }
 
-  private onClose = (): void => {
-    this.setState({smartContainerOpen: false});
-  };
+  function onClick(): void {
+    setSmartContainerOpen(prev => !prev);
+  }
 
-  /**
-   * on key down handler
-   *
-   * @param {KeyboardEvent} e - keyboard event
-   * @returns {void}
-   * @memberof VrStereo
-   */
-  public onKeyDown = (e: KeyboardEvent): void => {
+  function onClose(): void {
+    setSmartContainerOpen(false);
+  }
+
+  function onKeyDown(e: KeyboardEvent): void {
     if ([KeyCode.Enter, KeyCode.Space].includes(e.code)) {
       e.preventDefault();
-      this.onClick();
+      onClick();
     }
-  };
-
-  /**
-   * render component
-   *
-   * @param {*} props - component props
-   * @returns {React$Element} - component element
-   * @memberof Audio
-   */
-  public render(): VNode<any> | undefined {
-    const hasAudioOptions = this.props.audioTracks.filter(t => t.label || t.language).length > 1;
-    if (!this.props.showAudioButton || !hasAudioOptions) return;
-
-    return (
-      <ButtonControl ref={ref => (this.ref = ref)} name={COMPONENT_NAME} className={this.props.classNames ? this.props.classNames.join(' ') : ''}>
-        <Tooltip label={this.props.audioLabelText} type={this.props.classNames?.includes(style.upperBarIcon) ? 'bottom-left' : 'top'} strictPosition>
-          <Button
-            tabIndex="0"
-            aria-label={this.props.audioLabelText}
-            className={style.controlButton}
-            onClick={() => this.onClick()}
-            onKeyDown={this.onKeyDown}>
-            <Icon type={IconType.Audio} />
-          </Button>
-        </Tooltip>
-        {this.state.smartContainerOpen && (
-          <SmartContainer targetId={this.props.player.config.targetId} onClose={() => this.onClose()} title={this.getComponentText()}>
-            <AudioMenu />
-          </SmartContainer>
-        )}
-      </ButtonControl>
-    );
   }
-}
 
-const getComponent = (props: any): VNode => {
-  return <Audio {...props} />;
+  const hasAudioOptions = props.audioTracks?.filter(t => t.label || t.language).length > 1;
+  if (!props.showAudioButton || !hasAudioOptions) return null;
+
+  return (
+    <ButtonControl ref={ref} name={COMPONENT_NAME} className={props.classNames ? props.classNames.join(' ') : ''}>
+      <Tooltip label={props.audioLabelText} type={props.classNames?.includes(style.upperBarIcon) ? 'bottom-left' : 'top'} strictPosition>
+        <Button tabIndex="0" aria-label={props.audioLabelText} className={style.controlButton} onClick={onClick} onKeyDown={onKeyDown}>
+          <Icon type={IconType.Audio} />
+        </Button>
+      </Tooltip>
+      {smartContainerOpen && (
+        <SmartContainer targetId={props.player.config.targetId} onClose={onClose} title={getComponentText()}>
+          <AudioMenu />
+        </SmartContainer>
+      )}
+    </ButtonControl>
+  );
 };
 
+const Audio = connect(mapStateToProps)(
+  withPlayer(
+    withEventManager(
+      withLogger(COMPONENT_NAME)(
+        withText({
+          audioLabelText: 'settings.audio'
+        })(_Audio)
+      )
+    )
+  )
+);
+
+const getComponent = (props: any): VNode => <Audio {...props} />;
+
 Audio.displayName = COMPONENT_NAME;
+
 export {Audio};

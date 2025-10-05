@@ -1,5 +1,5 @@
-import {h, Component, VNode} from 'preact';
-import {withText, Text, Localizer} from 'preact-i18n';
+import {h} from 'preact';
+import {withText} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
 import {actions as settingsActions} from '../../reducers/settings';
@@ -8,10 +8,9 @@ import {Menu, SmartContainerItem} from '../../components';
 import {IconType} from '../icon';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from '../event-dispatcher';
-import {WithPlayerProps} from '../player/with-player';
-import {WithEventDispatcherProps} from '../event-dispatcher';
-
 import {AUDIO_DESCRIPTION_TYPE} from '../../types/reducers/audio-description';
+import {getActiveAudioLanguage} from '../../utils/audio-description';
+import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
 
 type AudioMenuProps = {
   audioTracks?: any[];
@@ -26,6 +25,8 @@ type AudioMenuProps = {
   audioDescriptionType?: AUDIO_DESCRIPTION_TYPE;
   updateAudioDescriptionEnabled?: (isEnabled: boolean) => void;
   updateAudioDescriptionType?: (selectedType: AUDIO_DESCRIPTION_TYPE) => void;
+  player?: KalturaPlayer;
+  notifyClick?: (payload: any) => void;
 };
 
 /**
@@ -33,7 +34,7 @@ type AudioMenuProps = {
  * @param {*} state - redux store state
  * @returns {Object} - mapped state to this component
  */
-const mapStateToProps = state => ({
+const mapStateToProps = (state: any): any => ({
   audioTracks: state.engine.audioTracks,
   audioDescriptionLanguages: state.audioDescription.audioDescriptionLanguages,
   advancedAudioDescriptionLanguages: state.audioDescription.advancedAudioDescriptionLanguages,
@@ -42,110 +43,87 @@ const mapStateToProps = state => ({
 
 const COMPONENT_NAME = 'AudioMenu';
 
-/**
- * AudioMenu component
- *
- * @class AudioMenu
- * @example <AudioMenu />
- * @extends {Component}
- */
-@connect(mapStateToProps, bindActions({...settingsActions, ...audioDescriptionActions}))
-@withPlayer
-@withEventDispatcher(COMPONENT_NAME)
-@withText({
-  audioLabelText: 'settings.audio',
-  audioDescriptionAvailableText: 'audioDescription.audioDescriptionAvailable',
-  thereIsAudioDescriptionAvailableText: 'audioDescription.thereIsAudioDescriptionAvailable',
-  thereIsNoAudioDescriptionAvailableText: 'audioDescription.thereIsNoAudioDescriptionAvailable'
-})
-class AudioMenu extends Component<AudioMenuProps & WithPlayerProps & WithEventDispatcherProps, any> {
-  /**
-   * call to player selectTrack method and change audio track
-   *
-   * @param {Object} audioTrack - audio track
-   * @returns {void}
-   * @memberof Settings
-   */
-  public onAudioChange(audioTrack: any): void {
-    const hasAudioDescription = !!this.props.audioDescriptionLanguages?.find(l => l === audioTrack.language);
-    const hasAdvancedAudioDescription = !!this.props.advancedAudioDescriptionLanguages?.find(l => l === audioTrack.language);
+const _AudioMenu = (props: AudioMenuProps) => {
+  const activeAudioLanguage = props.player ? getActiveAudioLanguage(props.player) : undefined;
+  const audioOptions = props.audioTracks?.length
+    ? props.audioTracks
+        .filter((t: any) => t.label || t.language)
+        .map((t: any) => {
+          const hasAudioDescription = !!props.audioDescriptionLanguages?.find((l: string) => l === t.language);
+          const hasAdvancedAudioDescription = !!props.advancedAudioDescriptionLanguages?.find((l: string) => l === t.language);
 
-    if (this.props.audioDescriptionEnabled) {
+          const label = `${t.label || t.language} ${
+            hasAudioDescription || hasAdvancedAudioDescription ? `(${props.audioDescriptionAvailableText})` : ''
+          }`;
+          const ariaLabel = `${t.label || t.language} - ${
+            hasAudioDescription || hasAdvancedAudioDescription
+              ? props.thereIsAudioDescriptionAvailableText
+              : props.thereIsNoAudioDescriptionAvailableText
+          }`;
+
+          return {
+            label,
+            ariaLabel,
+            active: t.language === activeAudioLanguage,
+            value: t
+          };
+        })
+    : [];
+
+  function onAudioChange(audioTrack: any): void {
+    const hasAudioDescription = !!props.audioDescriptionLanguages?.find((l: string) => l === audioTrack.language);
+    const hasAdvancedAudioDescription = !!props.advancedAudioDescriptionLanguages?.find((l: string) => l === audioTrack.language);
+
+    if (props.audioDescriptionEnabled) {
       if (!hasAudioDescription && !hasAdvancedAudioDescription) {
-        this.props.updateAudioDescriptionEnabled?.(false);
+        props.updateAudioDescriptionEnabled?.(false);
       } else if (hasAudioDescription && !hasAdvancedAudioDescription) {
-        this.props.updateAudioDescriptionType?.(AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
+        props.updateAudioDescriptionType?.(AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
       } else if (!hasAudioDescription && hasAdvancedAudioDescription) {
-        this.props.updateAudioDescriptionType?.(AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION);
+        props.updateAudioDescriptionType?.(AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION);
       }
     }
 
-    this.props.player!.selectTrack(audioTrack);
-    this.props.notifyClick!({
-      type: this.props.player!.Track.AUDIO,
-      track: audioTrack
-    });
-  }
-
-  /**
-   * render function
-   *
-   * @param {*} props - component props
-   * @returns {React$Element} - component
-   * @memberof AudioMenu
-   */
-  public render(props: AudioMenuProps): VNode<any> | undefined {
-    const audioOptions = props.audioTracks?.length
-      ? props.audioTracks
-          .filter(t => t.label || t.language)
-          .map(t => {
-            const hasAudioDescription = !!props.audioDescriptionLanguages?.find(l => l === t.language);
-            const hasAdvancedAudioDescription = !!props.advancedAudioDescriptionLanguages?.find(l => l === t.language);
-
-            const label = `${t.label || t.language} ${hasAudioDescription || hasAdvancedAudioDescription ? props.audioDescriptionAvailableText : ''}`;
-            const ariaLabel = `${t.label || t.language} - ${
-              hasAudioDescription || hasAdvancedAudioDescription
-                ? this.props.thereIsAudioDescriptionAvailableText
-                : this.props.thereIsNoAudioDescriptionAvailableText
-            }`;
-            return {
-              label,
-              ariaLabel,
-              active: t.active,
-              value: t
-            };
-          })
-      : [];
-
-    if (this.props.asDropdown) {
-      return (
-        <SmartContainerItem
-          pushRef={el => {
-            //props.pushRef(el);
-          }}
-          icon={IconType.Captions}
-          label={this.props.audioLabelText}
-          options={audioOptions}
-          onMenuChosen={audioTrack => this.onAudioChange(audioTrack)}
-          onClose={() => {}}
-        />
-      );
-    } else {
-      return (
-        <Menu
-          pushRef={el => {
-            // TODO where does this come from ?
-            //this.props.addAccessibleChild(el);
-            //props.pushRef(el);
-          }}
-          options={audioOptions}
-          onMenuChosen={audioTrack => this.onAudioChange(audioTrack)}
-          onClose={() => {}}
-        />
-      );
+    if (props.player) {
+      props.player.selectTrack(audioTrack);
+      if (props.notifyClick) {
+        props.notifyClick({
+          type: props.player.Track.AUDIO,
+          track: audioTrack
+        });
+      }
     }
   }
-}
+
+  if (props.asDropdown) {
+    return (
+      <SmartContainerItem
+        pushRef={() => {}}
+        icon={IconType.Captions}
+        label={props.audioLabelText}
+        options={audioOptions}
+        onMenuChosen={(audioTrack: any) => onAudioChange(audioTrack)}
+        onClose={() => {}}
+      />
+    );
+  } else {
+    return <Menu pushRef={() => {}} options={audioOptions} onMenuChosen={(audioTrack: any) => onAudioChange(audioTrack)} onClose={() => {}} />;
+  }
+};
+
+const AudioMenu = connect(
+  mapStateToProps,
+  bindActions({...settingsActions, ...audioDescriptionActions})
+)(
+  withPlayer(
+    withEventDispatcher(COMPONENT_NAME)(
+      withText({
+        audioLabelText: 'settings.audio'
+      })(_AudioMenu)
+    )
+  )
+);
 
 AudioMenu.displayName = COMPONENT_NAME;
+
 export {AudioMenu};

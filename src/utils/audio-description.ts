@@ -1,3 +1,5 @@
+import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
+
 const AUDIO_DESCRIPTION_PREFIX = 'ad-';
 const AUDIO_DESCRIPTION_STORAGE_KEY = 'audioDescription';
 
@@ -15,6 +17,10 @@ export function getAudioLanguageKey(languageKey: string) {
   }
 
   return languageKey?.substring(AUDIO_DESCRIPTION_PREFIX.length);
+}
+
+export function getActiveAudioLanguage(player: KalturaPlayer) {
+  return getAudioLanguageKey(player.getActiveTracks()['audio']?.language || '');
 }
 
 export function getAudioDescriptionStateFromStorage() {

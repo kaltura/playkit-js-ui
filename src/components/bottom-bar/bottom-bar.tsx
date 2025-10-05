@@ -126,6 +126,10 @@ class BottomBar extends Component<any, any> {
     const {player} = this.props;
 
     const barWidth = this.bottomBarContainerRef.current?.offsetWidth || 0;
+
+    // TODO test
+    if (barWidth === 0) return;
+
     const currentControlsWidth = this._getControlsWidth();
 
     this.setMaxControlsWidth(player.isFullscreen(), Math.max(this.getMaxControlsWidth(player.isFullscreen()), currentControlsWidth));
