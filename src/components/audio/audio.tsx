@@ -3,18 +3,14 @@ import {h, Component, VNode} from 'preact';
 import {withText} from 'preact-i18n';
 import {default as Icon, IconType} from '../icon';
 import {KeyCode} from '../../utils';
-import {actions as engineActions} from '../../reducers/engine';
-import {bindActions} from '../../utils';
 import {connect} from 'react-redux';
-import {actions as shellActions} from '../../reducers/shell';
 import {withPlayer} from '../player';
 import {withLogger} from '../logger';
 import {Tooltip} from '../tooltip';
 import {Button} from '../button';
 import {ButtonControl} from '../button-control';
 import {IconComponent, registerToBottomBar} from '../bottom-bar';
-import {redux} from '../../index';
-import {AudioMenu, SmartContainer, SmartContainerItem} from '..';
+import {AudioMenu, SmartContainer} from '..';
 import {withEventManager} from '../../event';
 
 /**
@@ -39,12 +35,12 @@ const COMPONENT_NAME = 'Audio';
  * @example <Audio />
  * @extends {Component}
  */
-@connect(mapStateToProps, bindActions({...shellActions, ...engineActions}))
+@connect(mapStateToProps)
 @withPlayer
 @withEventManager
 @withLogger(COMPONENT_NAME)
 @withText({
-  audioText: 'settings.audio'
+  audioLabelText: 'settings.audio'
 })
 class Audio extends Component<any, any> implements IconComponent {
   private ref: any;
@@ -72,18 +68,6 @@ class Audio extends Component<any, any> implements IconComponent {
     this.props.eventManager.listen(document, 'click', handleClickOutside.bind(this));
   }
 
-  /**
-   * should render component
-   * @returns {boolean} - whether to render the component
-   */
-  private _shouldRender(): boolean {
-    return true;
-    // const componentConfig = this.props.config;
-    // const isActive = this.props.isVr && !(Object.keys(componentConfig).length === 0 && componentConfig.constructor === Object);
-    // this.props.onToggle(COMPONENT_NAME, isActive);
-    // return isActive;
-  }
-
   public registerComponent(): any {
     return {
       ariaLabel: () => this.getComponentText(),
@@ -99,7 +83,7 @@ class Audio extends Component<any, any> implements IconComponent {
   }
 
   public getComponentText = (): any => {
-    return this.props.audioText;
+    return this.props.audioLabelText;
   };
 
   public getSvgIcon(): any {
@@ -140,16 +124,6 @@ class Audio extends Component<any, any> implements IconComponent {
     }
   };
 
-  public onAudioChange(audioTrack: any): void {
-    // @ts-ignore - store types
-    this.props.updateAudio(audioTrack);
-    this.props.player!.selectTrack(audioTrack);
-    this.props.notifyClick!({
-      type: this.props.player!.Track.AUDIO,
-      track: audioTrack
-    });
-  }
-
   /**
    * render component
    *
@@ -159,14 +133,14 @@ class Audio extends Component<any, any> implements IconComponent {
    */
   public render(): VNode<any> | undefined {
     const hasAudioOptions = this.props.audioTracks.filter(t => t.label || t.language).length > 1;
-    if (!this.props.showAudioButton && !hasAudioOptions) return;
+    if (!this.props.showAudioButton || !hasAudioOptions) return;
 
-    return !this._shouldRender() ? undefined : (
+    return (
       <ButtonControl ref={ref => (this.ref = ref)} name={COMPONENT_NAME} className={this.props.classNames ? this.props.classNames.join(' ') : ''}>
-        <Tooltip label={this.props.vrStereoText} type={this.props.classNames?.includes(style.upperBarIcon) ? 'bottom-left' : 'top'} strictPosition>
+        <Tooltip label={this.props.audioLabelText} type={this.props.classNames?.includes(style.upperBarIcon) ? 'bottom-left' : 'top'} strictPosition>
           <Button
             tabIndex="0"
-            aria-label={this.props.vrStereoText}
+            aria-label={this.props.audioLabelText}
             className={style.controlButton}
             onClick={() => this.onClick()}
             onKeyDown={this.onKeyDown}>

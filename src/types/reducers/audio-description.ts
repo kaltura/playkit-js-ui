@@ -8,4 +8,5 @@ export interface AudioDescriptionState {
   advancedAudioDescriptionLanguages: string[];
   isEnabled: boolean;
   selectedType: AUDIO_DESCRIPTION_TYPE;
+  isUpdated: boolean; // TODO
 }

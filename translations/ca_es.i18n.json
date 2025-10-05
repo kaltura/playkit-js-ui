@@ -58,10 +58,7 @@
       "qualityAuto": "Automàtic",
       "qualityHdLabel": "La qualitat és HD",
       "quality4kLabel": "La qualitat és 4k",
-      "quality8kLabel": "La qualitat és 8k",
-      "advanced_audio_description": "Descripció d'àudio ampliada",
-      "advanced_audio_description_enabled": "Desactivar descripció d'àudio ampliada",
-      "advanced_audio_description_disabled": "Activar descripció d'àudio ampliada"
+      "quality8kLabel": "La qualitat és 8k"
     },
     "captions": {
       "captions": "Subtítols",

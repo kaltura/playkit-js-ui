@@ -10,6 +10,7 @@ import {WithEventManagerProps} from '../../event/with-event-manager';
 type OptionType = {
   value: any;
   label: string;
+  ariaLabel?: string;
   active: boolean;
 };
 
@@ -56,14 +57,14 @@ const COMPONENT_NAME = 'Menu';
 @withEventManager
 @withKeyboardA11y
 class Menu extends Component<MenuProps & WithEventManagerProps, any> {
-  _menuElement!: HTMLDivElement;
+  private _menuElement!: HTMLDivElement;
 
   /**
    * before component mounted, set initial state of the menu position
    * @returns {void}
    * @memberof Menu
    */
-  componentWillMount() {
+  public componentWillMount(): void {
     this.setState({position: [style.top, style.left]});
   }
 
@@ -72,8 +73,9 @@ class Menu extends Component<MenuProps & WithEventManagerProps, any> {
    * @returns {void}
    * @memberof Menu
    */
-  componentDidMount() {
-    this.props.eventManager!.listen(document, 'click', this.handleClickOutside);
+  public componentDidMount(): void {
+    // TODO keep this ?
+    this.props.eventManager!.listen(document, 'click', this.handleClickOutside.bind(this));
 
     if (!this.props.isMobile && !this.props.isSmallSize) {
       this.setState({position: this.getPosition()});
@@ -86,7 +88,7 @@ class Menu extends Component<MenuProps & WithEventManagerProps, any> {
    * @returns {Array} position style classes array
    * @memberof Menu
    */
-  getPosition(): Array<string> {
+  private getPosition(): Array<string> {
     const menuElementRect = this._menuElement.getBoundingClientRect();
     const guiClientRect = this.props.guiClientRect;
     const topBarClientRect = this.props.topBarClientRect;
@@ -115,7 +117,7 @@ class Menu extends Component<MenuProps & WithEventManagerProps, any> {
    * @returns {void}
    * @memberof Menu
    */
-  handleClickOutside = (e: any) => {
+  private handleClickOutside = (e: any): void => {
     if (!this.props.isMobile && !this.props.isSmallSize && this._menuElement && !this._menuElement.contains(e.target)) {
       this.props.onClose();
     }
@@ -128,7 +130,7 @@ class Menu extends Component<MenuProps & WithEventManagerProps, any> {
    * @returns {boolean} is option active boolean
    * @memberof Menu
    */
-  isSelected(option: any): boolean {
+  private isSelected(option: any): boolean {
     return option.active;
   }
 
@@ -140,7 +142,7 @@ class Menu extends Component<MenuProps & WithEventManagerProps, any> {
    * @returns {void}
    * @memberof Menu
    */
-  onSelect(option: OptionType): void {
+  private onSelect(option: OptionType): void {
     this.props.onMenuChosen(option.value);
     // Instant select
     this.props.options
@@ -157,7 +159,7 @@ class Menu extends Component<MenuProps & WithEventManagerProps, any> {
    * @returns {void}
    * @memberof Menu
    */
-  onChange = (e: Event): void => {
+  private onChange = (e: Event): void => {
     this.onSelect(this.props.options[(e.target as HTMLSelectElement).value]);
   };
 
@@ -167,30 +169,29 @@ class Menu extends Component<MenuProps & WithEventManagerProps, any> {
    * @returns {React$Element} - component element
    * @memberof Menu
    */
-renderNativeSelect(labelledby: string): VNode<any> {
-  let classes = this.props.hideSelect ? style.mobileHiddenSelect : '';
-  classes += ` ${style.dropdown}`;
-  const selectedValue = this.props.options.findIndex(o => this.isSelected(o));
-  return (
-    <select
-      aria-labelledby={labelledby}
-      ref={el => {
-        if (this.props.pushRef) {
-          this.props.pushRef(el);
-        }
-      }}
-      className={classes}
-      value={selectedValue}
-      onChange={this.onChange}
-    >
-      {this.props.options.map((o, index) => (
-        <option value={index} key={index}>
-          {o.label}
-        </option>
-      ))}
-    </select>
-  );
-}
+  private renderNativeSelect(labelledby: string): VNode<any> {
+    let classes = this.props.hideSelect ? style.mobileHiddenSelect : '';
+    classes += ` ${style.dropdown}`;
+    const selectedValue = this.props.options.findIndex(o => this.isSelected(o));
+    return (
+      <select
+        aria-labelledby={labelledby}
+        ref={el => {
+          if (this.props.pushRef) {
+            this.props.pushRef(el);
+          }
+        }}
+        className={classes}
+        value={selectedValue}
+        onChange={this.onChange}>
+        {this.props.options.map((o, index) => (
+          <option value={index} key={index} aria-label={o.ariaLabel ? o.ariaLabel : o.label}>
+            {o.label}
+          </option>
+        ))}
+      </select>
+    );
+  }
 
   /**
    * if mobile device detected, renders the native select element.
@@ -200,7 +201,7 @@ renderNativeSelect(labelledby: string): VNode<any> {
    * @returns {React$Element} - component element
    * @memberof Menu
    */
-  render(props: any): VNode<any> {
+  public render(props: any): VNode<any> {
     props.clearAccessibleChildren();
     return props.isMobile || props.isSmallSize ? (
       this.renderNativeSelect(props.labelledby)
@@ -209,8 +210,7 @@ renderNativeSelect(labelledby: string): VNode<any> {
         role="listbox"
         onKeyDown={props.handleKeyDown}
         ref={c => (c ? (this._menuElement = c) : undefined)}
-        className={[style.dropdownMenu, ...this.state.position].join(' ')}
-      >
+        className={[style.dropdownMenu, ...this.state.position].join(' ')}>
         {props.options.map((o, index) => (
           <MenuItem
             setDefaultFocusedElement={props.setDefaultFocusedElement}
@@ -247,7 +247,7 @@ class MenuItem extends Component<any, any> {
    * @returns {void}
    * @memberof MenuItem
    */
-  onClick = (e: Event): void => {
+  private onClick = (e: Event): void => {
     e.stopPropagation();
     this.props.onSelect(this.props.data);
   };
@@ -259,7 +259,7 @@ class MenuItem extends Component<any, any> {
    * @returns {void}
    * @memberof MenuItem
    */
-  onKeyDown = (e: KeyboardEvent): void => {
+  private onKeyDown = (e: KeyboardEvent): void => {
     switch (e.keyCode) {
       case KeyMap.ENTER:
       case KeyMap.SPACE:
@@ -276,9 +276,11 @@ class MenuItem extends Component<any, any> {
    * @returns {React$Element<any>} - rendered jsx
    * @memberof MenuItem
    */
-  render(props: any): VNode<any> {
+  public render(props: any): VNode<any> {
     const badgeType: string | null =
       props.data.badgeType && !props.isSelected(props.data) ? BadgeType[props.data.badgeType] : BadgeType[props.data.badgeType + 'Active'];
+    const ariaLabel = props.data.ariaLabel ? props.data.ariaLabel : props.data.label;
+
     return (
       <div
         role={props?.role}
@@ -287,17 +289,15 @@ class MenuItem extends Component<any, any> {
         ref={element => {
           this.props.addAccessibleChild(element);
           if (props.isSelected(props.data)) {
-            setTimeout(() => props.setDefaultFocusedElement(element))
+            setTimeout(() => props.setDefaultFocusedElement(element));
           }
         }}
         className={props.isSelected(props.data) ? [style.dropdownMenuItem, style.active].join(' ') : style.dropdownMenuItem}
         onClick={this.onClick}
-        onKeyDown={this.onKeyDown}
-      >
+        onKeyDown={this.onKeyDown}>
         <span
           className={badgeType ? [style.labelBadge, badgeType].join(' ') : ''}
-          aria-label={badgeType?.includes("quality-hd") ? `${props.data.label} HD` : props.data.label}
-        >
+          aria-label={badgeType?.includes('quality-hd') ? `${ariaLabel} HD` : ariaLabel}>
           {props.data.label}
         </span>
         <span className={[style.menuIconContainer, style.active].join(' ')}>

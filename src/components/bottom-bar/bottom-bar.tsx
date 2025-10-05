@@ -12,11 +12,13 @@ import {filterControlsByPriority} from './bottom-bar-utils';
 import {BottomBarRegistryManager, bottomBarRegistryManager} from './bottom-bar-registry-manager';
 import {BottomBarClientRectEvent} from '../../event/events/bottom-bar-client-rect-event';
 
+// sorted from least important to most important
 const LOWER_PRIORITY_CONTROLS: string[][] = [
   ['PictureInPicture'],
   ['VrStereo'],
   ['TimeDisplayPlaybackContainer'],
-  ['AdvancedAudioDesc'],
+  ['AudioDesc'],
+  ['Audio'],
   ['ClosedCaptions'],
   ['CaptionsControl'],
   ['Cast']

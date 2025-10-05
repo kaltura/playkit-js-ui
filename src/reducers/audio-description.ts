@@ -5,14 +5,16 @@ export const types = {
   UPDATE_AUDIO_DESCRIPTION_LANGUAGES: 'audio-description/UPDATE_AUDIO_DESCRIPTION_LANGUAGES',
   UPDATE_EXTENDED_AUDIO_DESCRIPTION_LANGUAGES: 'audio-description/UPDATE_EXTENDED_AUDIO_DESCRIPTION_LANGUAGES',
   UPDATE_AUDIO_DESCRIPTION_ENABLED: 'audio-description/UPDATE_AUDIO_DESCRIPTION',
-  UPDATE_AUDIO_DESCRIPTION_TYPE: 'audio-description/UPDATE_AUDIO_DESCRIPTION_TYPE'
+  UPDATE_AUDIO_DESCRIPTION_TYPE: 'audio-description/UPDATE_AUDIO_DESCRIPTION_TYPE',
+  UPDATE_AUDIO_DESCRIPTION_IS_UPDATED: 'audio-description/UPDATE_AUDIO_DESCRIPTION_IS_UPDATED'
 };
 
 export const initialState = {
   audioDescriptionLanguages: [],
   advancedAudioDescriptionLanguages: [],
   isEnabled: false,
-  selectedType: AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION
+  selectedType: AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION,
+  isUpdated: false
 };
 
 export default (state: AudioDescriptionState = initialState, action: any) => {
@@ -58,5 +60,9 @@ export const actions = {
   updateAudioDescriptionType: (selectedType: AUDIO_DESCRIPTION_TYPE) => ({
     type: types.UPDATE_AUDIO_DESCRIPTION_TYPE,
     selectedType
+  }),
+  updateAudioDescriptionIsUpdated: (isUpdated: boolean) => ({
+    type: types.UPDATE_AUDIO_DESCRIPTION_IS_UPDATED,
+    isUpdated
   })
 };

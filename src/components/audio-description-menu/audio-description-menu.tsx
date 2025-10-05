@@ -18,16 +18,20 @@ import {FakeEvent} from '@playkit-js/playkit-js';
 type AudioDescriptionMenuProps = {
   asDropdown?: boolean;
   audioTracks?: any[];
-  audioDescriptionLabelText?: string; // TODO add i18n
+  audioDescriptionText?: string;
   audioDescriptionEnabled?: boolean;
   audioDescriptionType?: AUDIO_DESCRIPTION_TYPE;
   audioDescriptionLanguages?: string[];
   advancedAudioDescriptionLanguages?: string[];
   updateAudioDescriptionEnabled?: (isEnabled: boolean) => void;
   updateAudioDescriptionType?: (selectedType: AUDIO_DESCRIPTION_TYPE) => void;
-  disableLabelText?: string;
-  standardAudioDescriptionLabelText?: string;
-  advancedAudioDescriptionLabelText?: string;
+  disableText?: string;
+  standardAudioDescriptionText?: string;
+  advancedAudioDescriptionText?: string;
+  standardAudioDescriptionAvailableText?: string;
+  noStandardAudioDescriptionAvailableText?: string;
+  noExtendedAudioDescriptionAvailableText?: string;
+  extendedAudioDescriptionAvailableText?: string;
 };
 
 /**
@@ -56,10 +60,14 @@ const COMPONENT_NAME = 'AudioDescriptionMenu';
 @withPlayer
 @withEventDispatcher(COMPONENT_NAME)
 @withText({
-  audioDescriptionLabelText: 'settings.audioDescription',
-  disableLabelText: 'audioDescription.disable',
-  standardAudioDescriptionLabelText: 'audioDescription.standardAudioDescription',
-  advancedAudioDescriptionLabelText: 'audioDescription.advancedAudioDescription'
+  audioDescriptionText: 'settings.audioDescription',
+  disableText: 'audioDescription.disable',
+  standardAudioDescriptionText: 'audioDescription.standardAudioDescription',
+  advancedAudioDescriptionText: 'audioDescription.advancedAudioDescription',
+  noStandardAudioDescriptionAvailableText: 'audioDescription.noStandardAudioDescriptionAvailable',
+  standardAudioDescriptionAvailableText: 'audioDescription.standardAudioDescriptionAvailable',
+  noExtendedAudioDescriptionAvailableText: 'audioDescription.noExtendedAudioDescriptionAvailable',
+  extendedAudioDescriptionAvailableText: 'audioDescription.extendedAudioDescriptionAvailable'
 })
 class AudioDescriptionMenu extends Component<AudioDescriptionMenuProps & WithPlayerProps & WithEventDispatcherProps, any> {
   /**
@@ -70,7 +78,7 @@ class AudioDescriptionMenu extends Component<AudioDescriptionMenuProps & WithPla
    * @memberof Settings
    */
   public onAudioDescriptionChange(enabledState: number): void {
-    const activeAudioLanguage = this.props.player?.getActiveTracks()['audio']?.language || '';
+    const activeAudioLanguage = getAudioLanguageKey(this.props.player?.getActiveTracks()['audio']?.language || '');
 
     if (enabledState === AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION && !this.props.audioDescriptionLanguages?.includes(activeAudioLanguage)) {
       this.props.updateAudioDescriptionEnabled?.(this.props.audioDescriptionEnabled ?? false);
@@ -115,21 +123,31 @@ class AudioDescriptionMenu extends Component<AudioDescriptionMenuProps & WithPla
    * @memberof AudioMenu
    */
   public render(props: any): VNode<any> | undefined {
-    const options = [this.props.disableLabelText, this.props.standardAudioDescriptionLabelText, this.props.advancedAudioDescriptionLabelText].map(
-      (option, index) => {
-        return {
-          active: false,
-          label: option,
-          value: index
-        };
-      }
-    );
+    const audioLanguage = this.props.player?.getActiveTracks()['audio']?.language || '';
+    const hasAudioDescription = !!props.audioDescriptionLanguages?.includes(audioLanguage);
+    const hasAdvancedAudioDescription = !!props.advancedAudioDescriptionLanguages?.includes(audioLanguage);
 
-    if (!this.props.audioDescriptionEnabled) {
-      options[0].active = true;
-    } else {
-      options[this.props.audioDescriptionType as number].active = true;
-    }
+    const options = [
+      {
+        active: !this.props.audioDescriptionEnabled,
+        label: this.props.disableText,
+        value: 0
+      },
+      {
+        active: this.props.audioDescriptionEnabled && this.props.audioDescriptionType === AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION,
+        label: this.props.standardAudioDescriptionText,
+        ariaLabel: hasAudioDescription ? this.props.standardAudioDescriptionAvailableText : this.props.noStandardAudioDescriptionAvailableText,
+        value: AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION
+      },
+      {
+        active: this.props.audioDescriptionEnabled && this.props.audioDescriptionType === AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION,
+        label: this.props.advancedAudioDescriptionText,
+        ariaLabel: hasAdvancedAudioDescription
+          ? this.props.extendedAudioDescriptionAvailableText
+          : this.props.noExtendedAudioDescriptionAvailableText,
+        value: AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION
+      }
+    ];
 
     if (this.props.asDropdown) {
       return (
@@ -138,7 +156,7 @@ class AudioDescriptionMenu extends Component<AudioDescriptionMenuProps & WithPla
             props.pushRef(el);
           }}
           icon={IconType.Captions}
-          label={this.props.audioDescriptionLabelText}
+          label={this.props.audioDescriptionText}
           options={options}
           onMenuChosen={enabledState => this.onAudioDescriptionChange(enabledState)}
         />

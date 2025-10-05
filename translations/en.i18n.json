@@ -63,10 +63,7 @@
       "qualityAuto": "Auto",
       "qualityHdLabel": "Quality is HD",
       "quality4kLabel": "Quality is 4k",
-      "quality8kLabel": "Quality is 8k",
-      "advanced_audio_description": "Extended Audio Description",
-      "advanced_audio_description_enabled": "Disable Extended Audio Description",
-      "advanced_audio_description_disabled": "Enable Extended Audio Description"
+      "quality8kLabel": "Quality is 8k"
     },
     "captions": {
       "captions": "Captions",
@@ -160,7 +157,15 @@
       "disable": "Disable",
       "standardAudioDescription": "Standard Audio Description",
       "advancedAudioDescription": "Extended Audio Description",
-      "audioDescriptionAvailable": "Audio Description available"
+      "audioDescriptionAvailable": "{{audioLanguage}} (Audio Description Available)",
+      "enableAudioDescription": "Enable Audio Description",
+      "disableAudioDescription": "Disable Audio Description",
+      "thereIsAudioDescriptionAvailable": "Audio Description available for the currently selected language, you can choose to enable in the Audio Descriptions",
+      "thereIsNoAudioDescriptionAvailable": "There is no Audio Description available for the currently selected language",
+      "noStandardAudioDescriptionAvailable": "No Standard Audio Description available for the currently selected language",
+      "standardAudioDescriptionAvailable": "A Standard Audio Description is available for the currently selected language",
+      "noExtendedAudioDescriptionAvailable": "No Extended Audio Description available for the currently selected language",
+      "extendedAudioDescriptionAvailable": "An Extended Audio Description is available for the currently selected language"
     }
   }
 }

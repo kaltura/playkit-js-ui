@@ -13,7 +13,7 @@ import {withLogger} from '../logger';
 import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
 import {EventManager} from '@playkit-js/playkit-js';
 import {EngineState} from '../../types/reducers/engine';
-import {getAudioDescriptionLanguageKey, isAudioDescriptionLanguageKey} from '../../utils/audio-description';
+import {getAudioDescriptionStateFromStorage, getAudioLanguageKey, isAudioDescriptionLanguageKey} from '../../utils/audio-description';
 
 type EngineConnectorProps = {
   engine: EngineState;
@@ -106,11 +106,19 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
       this.props.updatePlayerPoster(player.poster);
       this.props.updateIsIdle(false);
 
-      // TODO use exported event type from player
-      const audioDescription = window.KalturaPlayer.LocalStorageManager.getItem('audioDescription');
-      if (audioDescription?.enabledState > 0) {
-        // else, default to disabled state
-        this.props.updateAudioDescriptionEnabled?.(audioDescription.enabledState);
+      const audioDescription = getAudioDescriptionStateFromStorage();
+
+      // TODO AD data is not set yet at this point - listen changes in the arrays and then invoke this code
+      //if (player.config.playback.prioritizeAudioDescription) {
+
+      if (audioDescription) {
+        if (audioDescription.isEnabled) {
+          this.props.updateAudioDescriptionEnabled?.(true);
+        }
+
+        if (audioDescription.selectedType) {
+          this.props.updateAudioDescriptionType?.(audioDescription.selectedType);
+        }
       }
     });
 
@@ -207,8 +215,12 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
       this.props.updateTextTracks(textTracks);
 
       const audioDescriptionLanguages =
-        audioTracks.filter(t => isAudioDescriptionLanguageKey(t.language)).map(t => getAudioDescriptionLanguageKey(t.language)) || [];
+        audioTracks.filter(t => isAudioDescriptionLanguageKey(t.language)).map(t => getAudioLanguageKey(t.language)) || [];
       this.props.updateAudioDescriptionLanguages(audioDescriptionLanguages);
+
+      if (!this.props.audioDescription.isUpdated) {
+        this.props.updateAudioDescriptionIsUpdated?.(true);
+      }
     });
 
     eventManager.listen(player, player.Event.Core.TEXT_TRACK_CHANGED, () => {
@@ -219,10 +231,9 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
 
     eventManager.listen(player, player.Event.Core.AUDIO_TRACK_CHANGED, () => {
       const tracks = player.getTracks(TrackType.AUDIO);
-      this.props.updateAudioTracks(tracks.filter(t => !isAudioDescriptionLanguageKey(t)));
-      const audioDescriptionLanguages =
-        tracks.filter(t => isAudioDescriptionLanguageKey(t.language)).map(t => getAudioDescriptionLanguageKey(t.language)) || [];
-      this.props.updateAudioDescriptionLanguages(audioDescriptionLanguages);
+      this.props.updateAudioTracks(tracks.filter(t => !isAudioDescriptionLanguageKey(t.language)));
+      //const audioDescriptionLanguages = tracks.filter(t => isAudioDescriptionLanguageKey(t.language)).map(t => getAudioLanguageKey(t.language)) || [];
+      //this.props.updateAudioDescriptionLanguages(audioDescriptionLanguages);
     });
 
     eventManager.listen(player, player.Event.Core.VIDEO_TRACK_CHANGED, () => {

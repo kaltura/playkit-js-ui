@@ -1,4 +1,5 @@
 const AUDIO_DESCRIPTION_PREFIX = 'ad-';
+const AUDIO_DESCRIPTION_STORAGE_KEY = 'audioDescription';
 
 export function isAudioDescriptionLanguageKey(languageKey: any) {
   return languageKey?.startsWith(AUDIO_DESCRIPTION_PREFIX);
@@ -14,4 +15,9 @@ export function getAudioLanguageKey(languageKey: string) {
   }
 
   return languageKey?.substring(AUDIO_DESCRIPTION_PREFIX.length);
+}
+
+export function getAudioDescriptionStateFromStorage() {
+  // TODO use exported event type from player
+  return (window as any).KalturaPlayer?.LocalStorageManager?.getItem(AUDIO_DESCRIPTION_STORAGE_KEY) || null;
 }
