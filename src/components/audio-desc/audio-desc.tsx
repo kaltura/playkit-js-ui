@@ -44,10 +44,9 @@ const _AudioDesc = (props: any) => {
         setSmartContainerOpen(false);
       }
     }
+    // TODO don't add twice
+    // TODO how come this is not called in the overlay like in the other menu ?
     props.eventManager.listen(document, 'click', handleClickOutside);
-    return () => {
-      props.eventManager.unlisten(document, 'click', handleClickOutside);
-    };
   }, [props.isMobile, props.isSmallSize, props.eventManager]);
 
   function registerComponent(): any {

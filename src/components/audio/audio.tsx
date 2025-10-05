@@ -22,7 +22,6 @@ const mapStateToProps = state => ({
   audioDescriptionLanguages: state.audioDescription.audioDescriptionLanguages,
   isPrePlayback: state.engine.prePlayback,
   overlayOpen: state.shell.overlayOpen
-  //controlsToMove: state.bottomBar.controlsToMove TODO
 });
 
 const COMPONENT_NAME = 'Audio';

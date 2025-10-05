@@ -118,7 +118,10 @@ const AudioMenu = connect(
   withPlayer(
     withEventDispatcher(COMPONENT_NAME)(
       withText({
-        audioLabelText: 'settings.audio'
+        audioLabelText: 'settings.audio',
+        audioDescriptionAvailableText: 'audioDescription.audioDescriptionAvailable',
+        thereIsAudioDescriptionAvailableText: 'audioDescription.thereIsAudioDescriptionAvailable',
+        thereIsNoAudioDescriptionAvailableText: 'audioDescription.thereIsNoAudioDescriptionAvailable'
       })(_AudioMenu)
     )
   )
