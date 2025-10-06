@@ -1,6 +1,6 @@
 import style from '../../styles/style.scss';
 import {h, VNode} from 'preact';
-import {useEffect, useRef, useState} from 'preact/hooks';
+import {useCallback, useEffect, useRef, useState} from 'preact/hooks';
 import {withText} from 'preact-i18n';
 import {default as Icon, IconType} from '../icon';
 import {KeyCode} from '../../utils';
@@ -14,39 +14,50 @@ import {AudioMenu, SmartContainer} from '..';
 import {withEventManager} from '../../event';
 import {registerToBottomBar} from '../bottom-bar';
 
-const mapStateToProps = state => ({
-  showAudioButton: state.config.showAudioButton,
-  isMobile: state.shell.isMobile,
-  isSmallSize: state.shell.isSmallSize,
-  audioTracks: state.engine.audioTracks,
-  audioDescriptionLanguages: state.audioDescription.audioDescriptionLanguages,
-  isPrePlayback: state.engine.prePlayback,
-  overlayOpen: state.shell.overlayOpen
-});
+const mapStateToProps = state => {
+  return {
+    showAudioButton: state.config.showAudioButton,
+    isMobile: state.shell.isMobile,
+    isSmallSize: state.shell.isSmallSize,
+    audioTracks: state.engine.audioTracks,
+    audioDescriptionLanguages: state.audioDescription.audioDescriptionLanguages,
+    isPrePlayback: state.engine.prePlayback
+  };
+};
 
 const COMPONENT_NAME = 'Audio';
 
 const _Audio = (props: any) => {
   const ref = useRef<any>(null);
   const [smartContainerOpen, setSmartContainerOpen] = useState(false);
+  const [clickHandlerAdded, setClickHandlerAdded] = useState(false);
+  const [isClickOutside, setIsClickOutside] = useState(false);
+
+  const {eventManager, isSmallSize, isMobile} = props;
+
+  useEffect(() => {
+    if (!isClickOutside) return;
+
+    if (!isMobile && !isSmallSize) {
+      setSmartContainerOpen(false);
+    }
+
+    setIsClickOutside(false);
+  }, [isClickOutside, isMobile, isSmallSize]);
 
   useEffect(() => {
     registerToBottomBar(Audio.displayName, props.player, () => registerComponent());
   }, []);
 
   useEffect(() => {
-    function handleClickOutside(e: any): void {
-      const isMobile = props.isMobile;
-      const isSmallSize = props.isSmallSize;
-      if (!props.overlayOpen && ref.current && !ref.current.contains(e.target) && !isMobile && !isSmallSize) {
-        setSmartContainerOpen(false);
+    if (clickHandlerAdded) return;
+    setClickHandlerAdded(true);
+    eventManager.listen(document, 'click', e => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        setIsClickOutside(true);
       }
-    }
-
-    // TODO don't add twice
-    // TODO prevent from activating when overlay is open
-    props.eventManager.listen(document, 'click', handleClickOutside);
-  }, [props.isMobile, props.isSmallSize, props.eventManager, props.overlayOpen]);
+    });
+  }, [eventManager, clickHandlerAdded]);
 
   function registerComponent(): any {
     return {

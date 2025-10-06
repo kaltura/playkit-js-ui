@@ -31,23 +31,34 @@ const mapStateToProps = ({config, shell, audioDescription}) => ({
 const _AudioDesc = (props: any) => {
   const ref = useRef<any>(null);
   const [smartContainerOpen, setSmartContainerOpen] = useState(false);
+  const [clickHandlerAdded, setClickHandlerAdded] = useState(false);
+  const [isClickOutside, setIsClickOutside] = useState(false);
+
+  const {eventManager, isSmallSize, isMobile} = props;
+
+  useEffect(() => {
+    if (!isClickOutside) return;
+
+    if (!isMobile && !isSmallSize) {
+      setSmartContainerOpen(false);
+    }
+
+    setIsClickOutside(false);
+  }, [isClickOutside, isMobile, isSmallSize]);
 
   useEffect(() => {
     registerToBottomBar(COMPONENT_NAME, props.player, () => registerComponent());
   }, [props.player]);
 
   useEffect(() => {
-    function handleClickOutside(e: any): void {
-      const isMobile = props.isMobile;
-      const isSmallSize = props.isSmallSize;
-      if (ref.current && !ref.current.contains(e.target) && !isMobile && !isSmallSize) {
-        setSmartContainerOpen(false);
+    if (clickHandlerAdded) return;
+    setClickHandlerAdded(true);
+    eventManager.listen(document, 'click', e => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        setIsClickOutside(true);
       }
-    }
-    // TODO don't add twice
-    // TODO how come this is not called in the overlay like in the other menu ?
-    props.eventManager.listen(document, 'click', handleClickOutside);
-  }, [props.isMobile, props.isSmallSize, props.eventManager]);
+    });
+  }, [eventManager, clickHandlerAdded]);
 
   function registerComponent(): any {
     return {
