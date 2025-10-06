@@ -2,19 +2,14 @@ import {h} from 'preact';
 import {withText} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
-import audioDescription, {actions} from '../../reducers/audio-description';
+import {actions} from '../../reducers/audio-description';
 import {Menu, SmartContainerItem} from '../../components';
 import {IconType} from '../icon';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from '../event-dispatcher';
 import {AUDIO_DESCRIPTION_TYPE} from '../../types/reducers/audio-description';
 import {getAudioDescriptionLanguageKey, getAudioLanguageKey} from '../../utils/audio-description';
-import {EventType} from '../../event';
-import {FakeEvent} from '@playkit-js/playkit-js';
-
-import {Component, VNode} from 'preact';
-
-// TODO convert into functional component
+import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
 
 type AudioDescriptionMenuProps = {
   asDropdown?: boolean;
@@ -31,8 +26,12 @@ type AudioDescriptionMenuProps = {
   advancedAudioDescriptionText?: string;
   standardAudioDescriptionAvailableText?: string;
   noStandardAudioDescriptionAvailableText?: string;
-  noExtendedAudioDescriptionAvailableText?: string;
-  extendedAudioDescriptionAvailableText?: string;
+  noAdvancedAudioDescriptionAvailableText?: string;
+  advancedAudioDescriptionAvailableText?: string;
+  notifyClick?: (payload: any) => void;
+  addAccessibleChild?: (el: HTMLElement) => void;
+  pushRef?: (el: HTMLElement) => void;
+  player: KalturaPlayer;
 };
 
 /**
@@ -53,7 +52,6 @@ const COMPONENT_NAME = 'AudioDescriptionMenu';
 const _AudioDescriptionMenu = (props: AudioDescriptionMenuProps) => {
   const {
     asDropdown,
-    audioTracks,
     audioDescriptionText,
     audioDescriptionEnabled,
     audioDescriptionType,
@@ -66,44 +64,65 @@ const _AudioDescriptionMenu = (props: AudioDescriptionMenuProps) => {
     advancedAudioDescriptionText,
     standardAudioDescriptionAvailableText,
     noStandardAudioDescriptionAvailableText,
-    noExtendedAudioDescriptionAvailableText,
-    extendedAudioDescriptionAvailableText,
-    player,
-    pushRef
+    noAdvancedAudioDescriptionAvailableText,
+    advancedAudioDescriptionAvailableText,
+    player
   } = props;
 
   const onAudioDescriptionChange = (enabledState: number): void => {
-    const activeAudioLanguage = getAudioLanguageKey(player?.getActiveTracks()['audio']?.language || '');
-
-    if (enabledState === AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION && !audioDescriptionLanguages?.includes(activeAudioLanguage)) {
-      updateAudioDescriptionEnabled?.(audioDescriptionEnabled ?? false);
-      updateAudioDescriptionType?.(audioDescriptionType ?? AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
-      return;
-    }
-
-    if (enabledState === AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION && !advancedAudioDescriptionLanguages?.includes(activeAudioLanguage)) {
-      updateAudioDescriptionEnabled?.(audioDescriptionEnabled ?? false);
-      updateAudioDescriptionType?.(audioDescriptionType ?? AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
-      return;
-    }
-
-    const isEnabled = enabledState !== 0;
     const selectedType = enabledState === 0 ? AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION : enabledState;
 
-    updateAudioDescriptionEnabled?.(isEnabled);
     updateAudioDescriptionType?.(selectedType);
 
     const currLanguageKey = player?.getActiveTracks()['audio'].language;
-    const newLanguageKey = audioDescriptionEnabled ? getAudioDescriptionLanguageKey(currLanguageKey) : getAudioLanguageKey(currLanguageKey);
-
-    const newAudioTrack = player?.getTracks('audio')?.find(t => t.language === newLanguageKey);
-    if (newAudioTrack) {
-      player?.selectTrack(newAudioTrack);
+    if (enabledState === 0) {
+      onDisableSelected(currLanguageKey);
+    } else if (enabledState === AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION) {
+      onAudioDescriptionSelected(currLanguageKey);
+    } else {
+      onAdvancedAudioDescriptionSelected(currLanguageKey);
     }
 
-    // TODO use event dispatcher ?
-    player?.dispatchEvent(new FakeEvent(EventType.USER_CLICKED_AUDIO_DESCRIPTION, {isEnabled, selectedType}));
+    // fire an event notifying that EAD has been turned on or off
+    props.notifyClick?.({
+      type: 'audioDescription'
+    });
   };
+
+  function onDisableSelected(currLanguageKey: string): void {
+    updateAudioDescriptionEnabled?.(false);
+    const newLanguageKey = getAudioLanguageKey(currLanguageKey);
+    // restore audio track to normal if AD audio track was active
+    changeAudioTrack(currLanguageKey, newLanguageKey);
+  }
+
+  function onAudioDescriptionSelected(currLanguageKey: string): void {
+    updateAudioDescriptionEnabled?.(true);
+    updateAudioDescriptionType?.(AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
+    const newLanguageKey = getAudioDescriptionLanguageKey(currLanguageKey);
+    // activate AD audio track
+    changeAudioTrack(currLanguageKey, newLanguageKey);
+  }
+
+  function onAdvancedAudioDescriptionSelected(currLanguageKey: string): void {
+    updateAudioDescriptionEnabled?.(true);
+    updateAudioDescriptionType?.(AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION);
+    // restore audio track to normal if AD audio track was active
+    const newLanguageKey = getAudioLanguageKey(currLanguageKey);
+    changeAudioTrack(currLanguageKey, newLanguageKey);
+  }
+
+  function changeAudioTrack(currLanguageKey: string, newLanguageKey: string): void {
+    const newAudioTrack = player?.getTracks('audio')?.find(t => t.language === newLanguageKey);
+    if (currLanguageKey !== newLanguageKey && newAudioTrack) {
+      player?.selectTrack(newAudioTrack);
+
+      props.notifyClick?.({
+        type: props.player.Track.AUDIO,
+        track: newAudioTrack
+      });
+    }
+  }
 
   const audioLanguage = player?.getActiveTracks()['audio']?.language || '';
   const hasAudioDescription = !!audioDescriptionLanguages?.includes(audioLanguage);
@@ -123,7 +142,7 @@ const _AudioDescriptionMenu = (props: AudioDescriptionMenuProps) => {
     },
     {
       label: advancedAudioDescriptionText,
-      ariaLabel: hasAdvancedAudioDescription ? extendedAudioDescriptionAvailableText : noExtendedAudioDescriptionAvailableText,
+      ariaLabel: hasAdvancedAudioDescription ? advancedAudioDescriptionAvailableText : noAdvancedAudioDescriptionAvailableText,
       value: AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION,
       active: audioDescriptionEnabled && audioDescriptionType === AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION
     }
@@ -133,7 +152,7 @@ const _AudioDescriptionMenu = (props: AudioDescriptionMenuProps) => {
     return (
       <SmartContainerItem
         pushRef={el => {
-          pushRef?.(el);
+          props.pushRef?.(el);
         }}
         icon={IconType.Captions}
         label={audioDescriptionText}
@@ -145,9 +164,8 @@ const _AudioDescriptionMenu = (props: AudioDescriptionMenuProps) => {
     return (
       <Menu
         pushRef={el => {
-          // TODO where does this come from ?
-          //props.addAccessibleChild(el);
-          pushRef?.(el);
+          props.addAccessibleChild?.(el);
+          props.pushRef?.(el);
         }}
         options={options}
         onMenuChosen={enabledState => onAudioDescriptionChange(enabledState)}
@@ -157,7 +175,10 @@ const _AudioDescriptionMenu = (props: AudioDescriptionMenuProps) => {
   }
 };
 
-const AudioDescriptionMenu = connect(mapStateToProps)(
+const AudioDescriptionMenu = connect(
+  mapStateToProps,
+  bindActions(actions)
+)(
   withPlayer(
     withEventDispatcher(COMPONENT_NAME)(
       withText({
@@ -167,8 +188,8 @@ const AudioDescriptionMenu = connect(mapStateToProps)(
         advancedAudioDescriptionText: 'audioDescription.advancedAudioDescription',
         noStandardAudioDescriptionAvailableText: 'audioDescription.noStandardAudioDescriptionAvailable',
         standardAudioDescriptionAvailableText: 'audioDescription.standardAudioDescriptionAvailable',
-        noExtendedAudioDescriptionAvailableText: 'audioDescription.noExtendedAudioDescriptionAvailable',
-        extendedAudioDescriptionAvailableText: 'audioDescription.extendedAudioDescriptionAvailable'
+        noAdvancedAudioDescriptionAvailableText: 'audioDescription.noAdvancedAudioDescriptionAvailable',
+        advancedAudioDescriptionAvailableText: 'audioDescription.advancedAudioDescriptionAvailable'
       })(_AudioDescriptionMenu)
     )
   )

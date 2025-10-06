@@ -27,6 +27,8 @@ type AudioMenuProps = {
   updateAudioDescriptionType?: (selectedType: AUDIO_DESCRIPTION_TYPE) => void;
   player?: KalturaPlayer;
   notifyClick?: (payload: any) => void;
+  pushRef?: (el: HTMLElement) => void;
+  addAccessibleChild?: (el: HTMLElement) => void;
 };
 
 /**
@@ -86,19 +88,18 @@ const _AudioMenu = (props: AudioMenuProps) => {
 
     if (props.player) {
       props.player.selectTrack(audioTrack);
-      if (props.notifyClick) {
-        props.notifyClick({
-          type: props.player.Track.AUDIO,
-          track: audioTrack
-        });
-      }
+
+      props.notifyClick?.({
+        type: props.player.Track.AUDIO,
+        track: audioTrack
+      });
     }
   }
 
   if (props.asDropdown) {
     return (
       <SmartContainerItem
-        pushRef={() => {}}
+        pushRef={el => props.pushRef?.(el)}
         icon={IconType.Captions}
         label={props.audioLabelText}
         options={audioOptions}
@@ -107,7 +108,17 @@ const _AudioMenu = (props: AudioMenuProps) => {
       />
     );
   } else {
-    return <Menu pushRef={() => {}} options={audioOptions} onMenuChosen={(audioTrack: any) => onAudioChange(audioTrack)} onClose={() => {}} />;
+    return (
+      <Menu
+        pushRef={el => {
+          props.addAccessibleChild?.(el);
+          props.pushRef?.(el);
+        }}
+        options={audioOptions}
+        onMenuChosen={(audioTrack: any) => onAudioChange(audioTrack)}
+        onClose={() => {}}
+      />
+    );
   }
 };
 

@@ -182,8 +182,7 @@ function onClickableComponentsHandler(store: any, action: any, player: KalturaPl
       onSpeedClicked(store, action, player);
       break;
 
-    case 'AudioDescToggle':
-    case 'AudioDesc':
+    case 'AudioDescriptionMenu':
       onAudioDescriptionClicked(store, action, player);
       break;
 
@@ -319,8 +318,8 @@ function onSpeedClicked(store: any, action: any, player: KalturaPlayer): void {
  * @returns {void}
  */
 function onAudioDescriptionClicked(store: any, action: any, player: KalturaPlayer): void {
-  if (action.payload.type === 'audioDescription') {
-    player.dispatchEvent(new FakeEvent(EventType.USER_CLICKED_AUDIO_DESCRIPTION, action.payload));
+  if (action.payload.type === 'advancedAudioDescription') {
+    player.dispatchEvent(new FakeEvent(EventType.USER_CLICKED_ADVANCED_AUDIO_DESCRIPTION, action.payload));
   }
 }
 

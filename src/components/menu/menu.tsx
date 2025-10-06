@@ -74,7 +74,6 @@ class Menu extends Component<MenuProps & WithEventManagerProps, any> {
    * @memberof Menu
    */
   public componentDidMount(): void {
-    // TODO keep this ?
     this.props.eventManager!.listen(document, 'click', this.handleClickOutside.bind(this));
 
     if (!this.props.isMobile && !this.props.isSmallSize) {

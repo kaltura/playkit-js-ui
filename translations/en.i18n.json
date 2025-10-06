@@ -164,8 +164,8 @@
       "thereIsNoAudioDescriptionAvailable": "There is no Audio Description available for the currently selected language",
       "noStandardAudioDescriptionAvailable": "No Standard Audio Description available for the currently selected language",
       "standardAudioDescriptionAvailable": "A Standard Audio Description is available for the currently selected language",
-      "noExtendedAudioDescriptionAvailable": "No Extended Audio Description available for the currently selected language",
-      "extendedAudioDescriptionAvailable": "An Extended Audio Description is available for the currently selected language"
+      "noAdvancedAudioDescriptionAvailable": "No Extended Audio Description available for the currently selected language",
+      "advancedAudioDescriptionAvailable": "An Extended Audio Description is available for the currently selected language"
     }
   }
 }

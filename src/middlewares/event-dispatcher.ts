@@ -1,7 +1,6 @@
 /* eslint-disable   @typescript-eslint/no-use-before-define */
 import {FakeEvent} from '@playkit-js/playkit-js';
 import {types as shell} from '../reducers/shell';
-import {AudioSelectedEvent} from '../event/events/audio-selected-event';
 import {CaptionSelectedEvent} from '../event/events/caption-selected-event';
 import {CaptionsStyleSelectedEvent} from '../event/events/captions-style-selected-event';
 import {QualitySelectedEvent} from '../event/events/quality-selected-event';
@@ -166,21 +165,12 @@ function onClickableComponentsHandler(store: any, action: any, player: any): voi
       onCaptionsClick(store, action, player);
       break;
 
-    case 'AudioMenu':
-      onAudioClicked(store, action, player);
-      break;
-
     case 'QualityMenu':
       onQualityClicked(store, action, player);
       break;
 
     case 'SpeedMenu':
       onSpeedClicked(store, action, player);
-      break;
-
-    // TODO
-    case 'AudioDescToggle':
-      onAudioDescriptionClicked(store, action, player);
       break;
 
     case 'CVAAOverlay':
@@ -292,19 +282,6 @@ function onCaptionsClick(store: any, action: any, player: any): void {
 }
 
 /**
- * Handler for audio menu clicked actions.
- * @param {any} store - The redux store.
- * @param {any} action - The action object.
- * @param {any} player - The video player.
- * @returns {void}
- */
-function onAudioClicked(store: any, action: any, player: any): void {
-  if (action.payload.type === player.Track.AUDIO) {
-    player.dispatchEvent(new AudioSelectedEvent(action.payload.track));
-  }
-}
-
-/**
  * Handler for Quality menu clicked actions.
  * @param {any} store - The redux store.
  * @param {any} action - The action object.
@@ -327,19 +304,6 @@ function onQualityClicked(store: any, action: any, player: any): void {
 function onSpeedClicked(store: any, action: any, player: any): void {
   if (action.payload.type === 'speed') {
     player.dispatchEvent(new SpeedSelectedEvent(action.payload.speed));
-  }
-}
-
-/**
- * Handler for AudioDescription menu clicked actions.
- * @param {any} store - The redux store.
- * @param {any} action - The action object.
- * @param {any} player - The video player.
- * @returns {void}
- */
-function onAudioDescriptionClicked(store: any, action: any, player: any): void {
-  if (action.payload.type === 'audioDescription') {
-    player.dispatchEvent(new FakeEvent(EventType.USER_CLICKED_AUDIO_DESCRIPTION, action.payload));
   }
 }
 
