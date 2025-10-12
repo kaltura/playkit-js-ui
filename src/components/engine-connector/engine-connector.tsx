@@ -112,12 +112,14 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
       //if (player.config.playback.prioritizeAudioDescription) {
 
       if (audioDescription) {
-        if (audioDescription.isEnabled) {
+        const {isEnabled, selectedType} = audioDescription;
+
+        if (isEnabled) {
           this.props.updateAudioDescriptionEnabled?.(true);
         }
 
-        if (audioDescription.selectedType) {
-          this.props.updateAudioDescriptionType?.(audioDescription.selectedType);
+        if (selectedType) {
+          this.props.updateAudioDescriptionType?.(selectedType);
         }
       }
     });

@@ -103,6 +103,13 @@ const _AudioDesc = (props: any) => {
     if (!props.openMenuFromAudioDescriptionButton) {
       props.updateAudioDescriptionEnabled?.(!props.audioDescriptionEnabled);
       props.updateSelectionByLanguage(activeAudioLanguage, !props.audioDescriptionEnabled, props.audioDescriptionType);
+
+      props.notifyClick({
+        type: 'advancedAudioDescription',
+        settings: false,
+        isEnabled: !props.audioDescriptionEnabled,
+        selectedType: props.audioDescriptionType
+      });
     }
     setSmartContainerOpen(prev => !prev);
   }

@@ -85,9 +85,12 @@ const _AudioDescriptionMenu = (props: AudioDescriptionMenuProps) => {
       onAdvancedAudioDescriptionSelected(currLanguageKey);
     }
 
-    // fire an event notifying that EAD has been turned on or off
+    // notify the player of a change in audio description settings
     props.notifyClick?.({
-      type: 'advancedAudioDescription'
+      type: 'advancedAudioDescription',
+      settings: true,
+      isEnabled: !props.audioDescriptionEnabled,
+      selectedType: props.audioDescriptionType
     });
   };
 

@@ -12,6 +12,7 @@ type OptionType = {
   label: string;
   ariaLabel?: string;
   active: boolean;
+  disabled: boolean;
 };
 
 type MenuProps = {
@@ -184,7 +185,7 @@ class Menu extends Component<MenuProps & WithEventManagerProps, any> {
         value={selectedValue}
         onChange={this.onChange}>
         {this.props.options.map((o, index) => (
-          <option value={index} key={index} aria-label={o.ariaLabel ? o.ariaLabel : o.label}>
+          <option disabled={o.disabled} value={index} key={index} aria-label={o.ariaLabel ? o.ariaLabel : o.label}>
             {o.label}
           </option>
         ))}
@@ -247,6 +248,8 @@ class MenuItem extends Component<any, any> {
    * @memberof MenuItem
    */
   private onClick = (e: Event): void => {
+    if (this.props.data.disabled) return;
+
     e.stopPropagation();
     this.props.onSelect(this.props.data);
   };
@@ -259,6 +262,8 @@ class MenuItem extends Component<any, any> {
    * @memberof MenuItem
    */
   private onKeyDown = (e: KeyboardEvent): void => {
+    if (this.props.data.disabled) return;
+
     switch (e.keyCode) {
       case KeyMap.ENTER:
       case KeyMap.SPACE:
@@ -285,6 +290,7 @@ class MenuItem extends Component<any, any> {
         role={props?.role}
         tabIndex={-1}
         aria-selected={props.isSelected(props.data)}
+        disabled={props.data.disabled}
         ref={element => {
           this.props.addAccessibleChild(element);
           if (props.isSelected(props.data)) {
