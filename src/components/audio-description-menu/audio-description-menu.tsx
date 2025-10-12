@@ -21,6 +21,7 @@ type AudioDescriptionMenuProps = {
   advancedAudioDescriptionLanguages?: string[];
   updateAudioDescriptionEnabled?: (isEnabled: boolean) => void;
   updateAudioDescriptionType?: (selectedType: AUDIO_DESCRIPTION_TYPE) => void;
+  updateSelectionByLanguage?: (language: string, isEnabled: boolean, selectedType: AUDIO_DESCRIPTION_TYPE) => void;
   disableText?: string;
   standardAudioDescriptionText?: string;
   advancedAudioDescriptionText?: string;
@@ -59,6 +60,7 @@ const _AudioDescriptionMenu = (props: AudioDescriptionMenuProps) => {
     advancedAudioDescriptionLanguages,
     updateAudioDescriptionEnabled,
     updateAudioDescriptionType,
+    updateSelectionByLanguage,
     disableText,
     standardAudioDescriptionText,
     advancedAudioDescriptionText,
@@ -85,12 +87,13 @@ const _AudioDescriptionMenu = (props: AudioDescriptionMenuProps) => {
 
     // fire an event notifying that EAD has been turned on or off
     props.notifyClick?.({
-      type: 'audioDescription'
+      type: 'advancedAudioDescription'
     });
   };
 
   function onDisableSelected(currLanguageKey: string): void {
     updateAudioDescriptionEnabled?.(false);
+    updateSelectionByLanguage?.(currLanguageKey, false, props.audioDescriptionType || AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
     const newLanguageKey = getAudioLanguageKey(currLanguageKey);
     // restore audio track to normal if AD audio track was active
     changeAudioTrack(currLanguageKey, newLanguageKey);
@@ -99,6 +102,7 @@ const _AudioDescriptionMenu = (props: AudioDescriptionMenuProps) => {
   function onAudioDescriptionSelected(currLanguageKey: string): void {
     updateAudioDescriptionEnabled?.(true);
     updateAudioDescriptionType?.(AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
+    updateSelectionByLanguage?.(currLanguageKey, true, AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
     const newLanguageKey = getAudioDescriptionLanguageKey(currLanguageKey);
     // activate AD audio track
     changeAudioTrack(currLanguageKey, newLanguageKey);
@@ -107,6 +111,7 @@ const _AudioDescriptionMenu = (props: AudioDescriptionMenuProps) => {
   function onAdvancedAudioDescriptionSelected(currLanguageKey: string): void {
     updateAudioDescriptionEnabled?.(true);
     updateAudioDescriptionType?.(AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION);
+    updateSelectionByLanguage?.(currLanguageKey, true, AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION);
     // restore audio track to normal if AD audio track was active
     const newLanguageKey = getAudioLanguageKey(currLanguageKey);
     changeAudioTrack(currLanguageKey, newLanguageKey);
@@ -124,23 +129,27 @@ const _AudioDescriptionMenu = (props: AudioDescriptionMenuProps) => {
     }
   }
 
-  const audioLanguage = player?.getActiveTracks()['audio']?.language || '';
-  const hasAudioDescription = !!audioDescriptionLanguages?.includes(audioLanguage);
-  const hasAdvancedAudioDescription = !!advancedAudioDescriptionLanguages?.includes(audioLanguage);
+  const audioLanguage = getAudioLanguageKey(player?.getActiveTracks()['audio']?.language || '');
+
+  const hasAudioDescription = !!audioDescriptionLanguages?.find(lang => lang.startsWith(audioLanguage));
+  const hasAdvancedAudioDescription = !!advancedAudioDescriptionLanguages?.find(lang => lang.startsWith(audioLanguage));
 
   const options = [
     {
+      disabled: false,
       label: disableText,
       value: 0,
       active: !audioDescriptionEnabled
     },
     {
+      disabled: !hasAudioDescription,
       label: standardAudioDescriptionText,
       ariaLabel: hasAudioDescription ? standardAudioDescriptionAvailableText : noStandardAudioDescriptionAvailableText,
       value: AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION,
       active: audioDescriptionEnabled && audioDescriptionType === AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION
     },
     {
+      disabled: !hasAdvancedAudioDescription, // TODO
       label: advancedAudioDescriptionText,
       ariaLabel: hasAdvancedAudioDescription ? advancedAudioDescriptionAvailableText : noAdvancedAudioDescriptionAvailableText,
       value: AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION,

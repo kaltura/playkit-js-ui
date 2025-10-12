@@ -23,8 +23,10 @@ type AudioMenuProps = {
   asDropdown?: boolean;
   audioDescriptionEnabled?: boolean;
   audioDescriptionType?: AUDIO_DESCRIPTION_TYPE;
+  selectionByLanguage?: Map<string, [boolean, AUDIO_DESCRIPTION_TYPE]>;
   updateAudioDescriptionEnabled?: (isEnabled: boolean) => void;
   updateAudioDescriptionType?: (selectedType: AUDIO_DESCRIPTION_TYPE) => void;
+  updateSelectionByLanguage?: (language: string, isEnabled: boolean, selectedType: AUDIO_DESCRIPTION_TYPE) => void;
   player?: KalturaPlayer;
   notifyClick?: (payload: any) => void;
   pushRef?: (el: HTMLElement) => void;
@@ -40,7 +42,8 @@ const mapStateToProps = (state: any): any => ({
   audioTracks: state.engine.audioTracks,
   audioDescriptionLanguages: state.audioDescription.audioDescriptionLanguages,
   advancedAudioDescriptionLanguages: state.audioDescription.advancedAudioDescriptionLanguages,
-  audioDescriptionEnabled: state.audioDescription.isEnabled
+  audioDescriptionEnabled: state.audioDescription.isEnabled,
+  selectionByLanguage: state.audioDescription.selectionByLanguage
 });
 
 const COMPONENT_NAME = 'AudioMenu';
@@ -74,15 +77,22 @@ const _AudioMenu = (props: AudioMenuProps) => {
 
   function onAudioChange(audioTrack: any): void {
     const hasAudioDescription = !!props.audioDescriptionLanguages?.find((l: string) => l === audioTrack.language);
-    const hasAdvancedAudioDescription = !!props.advancedAudioDescriptionLanguages?.find((l: string) => l === audioTrack.language);
+    const hasAdvancedAudioDescription = !!props.advancedAudioDescriptionLanguages?.find((l: string) => l.startsWith(audioTrack.language));
 
-    if (props.audioDescriptionEnabled) {
+    if (props.selectionByLanguage?.has(audioTrack.language)) {
+      const [isEnabled, selectedType] = props.selectionByLanguage.get(audioTrack.language)!;
+      props.updateAudioDescriptionEnabled?.(isEnabled);
+      props.updateAudioDescriptionType?.(selectedType);
+    } else if (props.audioDescriptionEnabled) {
       if (!hasAudioDescription && !hasAdvancedAudioDescription) {
         props.updateAudioDescriptionEnabled?.(false);
+        props.updateSelectionByLanguage?.(audioTrack.language, false, AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
       } else if (hasAudioDescription && !hasAdvancedAudioDescription) {
         props.updateAudioDescriptionType?.(AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
+        props.updateSelectionByLanguage?.(audioTrack.language, true, AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
       } else if (!hasAudioDescription && hasAdvancedAudioDescription) {
         props.updateAudioDescriptionType?.(AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION);
+        props.updateSelectionByLanguage?.(audioTrack.language, true, AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION);
       }
     }
 

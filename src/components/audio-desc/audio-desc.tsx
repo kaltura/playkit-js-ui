@@ -25,7 +25,8 @@ const mapStateToProps = ({config, shell, audioDescription}) => ({
   audioDescriptionLanguages: audioDescription.audioDescriptionLanguages,
   advancedAudioDescriptionLanguages: audioDescription.advancedAudioDescriptionLanguages,
   openMenuFromAudioDescriptionButton: config.openMenuFromAudioDescriptionButton,
-  audioDescriptionEnabled: audioDescription.isEnabled
+  audioDescriptionEnabled: audioDescription.isEnabled,
+  audioDescriptionType: audioDescription.selectedType
 });
 
 const _AudioDesc = (props: any) => {
@@ -92,12 +93,16 @@ const _AudioDesc = (props: any) => {
     const activeAudioLanguage = getAudioLanguageKey(props.player.getActiveTracks()['audio']?.language || '');
     if (
       !activeAudioLanguage ||
-      !(props.audioDescriptionLanguages.includes(activeAudioLanguage) || props.advancedAudioDescriptionLanguages.includes(activeAudioLanguage))
+      !(
+        props.audioDescriptionLanguages.find(lang => lang.startsWith(activeAudioLanguage)) ||
+        props.advancedAudioDescriptionLanguages.find(lang => lang.startsWith(activeAudioLanguage))
+      )
     ) {
       return;
     }
     if (!props.openMenuFromAudioDescriptionButton) {
       props.updateAudioDescriptionEnabled?.(!props.audioDescriptionEnabled);
+      props.updateSelectionByLanguage(activeAudioLanguage, !props.audioDescriptionEnabled, props.audioDescriptionType);
     }
     setSmartContainerOpen(prev => !prev);
   }

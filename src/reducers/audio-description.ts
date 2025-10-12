@@ -6,7 +6,8 @@ export const types = {
   UPDATE_EXTENDED_AUDIO_DESCRIPTION_LANGUAGES: 'audio-description/UPDATE_EXTENDED_AUDIO_DESCRIPTION_LANGUAGES',
   UPDATE_AUDIO_DESCRIPTION_ENABLED: 'audio-description/UPDATE_AUDIO_DESCRIPTION',
   UPDATE_AUDIO_DESCRIPTION_TYPE: 'audio-description/UPDATE_AUDIO_DESCRIPTION_TYPE',
-  UPDATE_AUDIO_DESCRIPTION_IS_UPDATED: 'audio-description/UPDATE_AUDIO_DESCRIPTION_IS_UPDATED'
+  UPDATE_AUDIO_DESCRIPTION_IS_UPDATED: 'audio-description/UPDATE_AUDIO_DESCRIPTION_IS_UPDATED',
+  UPDATE_SELECTION_BY_LANGUAGE: 'audio-description/UPDATE_SELECTION_BY_LANGUAGE'
 };
 
 export const initialState = {
@@ -14,6 +15,7 @@ export const initialState = {
   advancedAudioDescriptionLanguages: [],
   isEnabled: false,
   selectedType: AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION,
+  selectionByLanguage: new Map<string, [boolean, AUDIO_DESCRIPTION_TYPE]>(),
   isUpdated: false
 };
 
@@ -38,6 +40,15 @@ export default (state: AudioDescriptionState = initialState, action: any) => {
       return {
         ...state,
         selectedType: action.selectedType
+      };
+    case types.UPDATE_SELECTION_BY_LANGUAGE:
+      const language = action.language;
+      const isEnabled = action.isEnabled;
+      const selectedType = action.selectedType;
+
+      return {
+        ...state,
+        selectionByLanguage: new Map(state.selectionByLanguage).set(language, [isEnabled, selectedType])
       };
     default:
       return state;
@@ -64,5 +75,11 @@ export const actions = {
   updateAudioDescriptionIsUpdated: (isUpdated: boolean) => ({
     type: types.UPDATE_AUDIO_DESCRIPTION_IS_UPDATED,
     isUpdated
+  }),
+  updateSelectionByLanguage: (language: string, isEnabled: boolean, selectedType: AUDIO_DESCRIPTION_TYPE) => ({
+    type: types.UPDATE_SELECTION_BY_LANGUAGE,
+    language,
+    isEnabled,
+    selectedType
   })
 };
