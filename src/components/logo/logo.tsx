@@ -142,14 +142,14 @@ class Logo extends Component<any, any> {
           rel="noopener noreferrer"
           tabIndex={0}
           >
-          <img className={style.icon} src={props.config.img} />
+          <img className={style.icon} src={props.config.img} alt='' />
         </a>
         ) : (
           <span
             className={style.controlButton}
             aria-label={props.config.text || props.logoText}
           >
-            <img className={style.icon} src={props.config.img} />
+            <img className={style.icon} src={props.config.img} alt='' />
           </span>
         )}
       </div>
