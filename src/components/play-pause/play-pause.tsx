@@ -7,7 +7,7 @@ import {isPlayingAdOrPlayback} from '../../reducers/getters';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from '../event-dispatcher';
 import {withLogger} from '../logger';
-import {bindActions} from '../../utils';
+import {bindActions, focusElement, KeyMap} from '../../utils';
 import {actions as settingActions} from '../../reducers/settings';
 import {actions as overlayIconActions} from '../../reducers/overlay-action';
 import {Tooltip} from '../../components/tooltip';
@@ -65,12 +65,13 @@ class PlayPause extends Component<any, any> {
    */
   componentDidMount(): void {
     const {eventManager, player} = this.props;
-    const smallSizes = [PLAYER_SIZE.TINY, PLAYER_SIZE.EXTRA_SMALL, PLAYER_SIZE.SMALL];
 
     eventManager.listenOnce(player, player.Event.UI.USER_CLICKED_PLAY, () => {
       eventManager.listenOnce(player, player.Event.Core.FIRST_PLAY, () => {
-        if (!smallSizes.includes(this.props.playerSize)) {
-          this._playPauseButtonRef?.current?.querySelector("button")?.focus();
+        const wrapper = this._playPauseButtonRef?.current;
+        if (wrapper) {
+          const button = wrapper.querySelector('button') as HTMLButtonElement | null;
+          focusElement(button);
         }
       });
     });
@@ -94,6 +95,14 @@ class PlayPause extends Component<any, any> {
     this.props.notifyClick();
   };
 
+  handleKeyDown = (e: KeyboardEvent): void => {
+    if (e.keyCode === KeyMap.ENTER || e.keyCode === KeyMap.SPACE) {
+      e.preventDefault();
+      e.stopPropagation(); 
+      this.togglePlayPause();
+    }
+  };
+  
   /**
    * render component
    *
@@ -117,6 +126,7 @@ class PlayPause extends Component<any, any> {
               aria-label={`${labelText}, ${entryName}`}
               className={controlButtonClass}
               onClick={this.togglePlayPause}
+              onKeyDown={this.handleKeyDown}
             >
               {isStartOver ? (
                 <Icon type={IconType.StartOver} />
