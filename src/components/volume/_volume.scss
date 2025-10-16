@@ -2,7 +2,7 @@
   display: block !important;
   opacity: 1;
   height: 112px;
-  padding: 6px;
+  padding: 2px;
   &:before {
     height: 14px;
   }
@@ -87,7 +87,7 @@
   width: 34px;
   border-radius: 4px;
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.3);
-  background-color: #333333;
+  background-color: rgba(255, 255, 255, 0.30);
   padding: 0px;
   opacity: 0;
 
@@ -102,10 +102,11 @@
   }
 
   .bar {
-    background-color: #424242;
+    background-color: #212121;
     height: 100%;
     position: relative;
     cursor: pointer;
+    border-radius: 4px;
   }
 
   .progress {
@@ -115,6 +116,7 @@
     width: 100%;
     border-radius: 0 0 2px 2px;
     background-color: $tone-1-color;
+    border-radius: 4px;
   }
 }
 
