@@ -103,6 +103,13 @@
     "cvaa": {
       "title": "Configuració avançada dels subtítols",
       "sample_caption_tag": "Subtítol exemple {{number}}",
+      "sample_high_contrast": "Alt contrast",
+      "sample_minimalist": "Minimalista",
+      "sample_classic_tv": "Estil TV clàssic",
+      "sample_easy_reading": "Lectura fàcil",
+      "sample_early_readers": "Lectors principiants",
+      "sample_night_mode": "Mode nocturn",
+      "sample_custom": "Personalitzat",
       "sample_custom_caption_tag": "Subtítols personalitzats",
       "set_custom_caption": "Establir subtítol personalitzat",
       "edit_caption": "Editar subtítol",
@@ -138,6 +145,9 @@
     },
     "watermark": {
       "watermark_alt_text": "Filigrana"
+    },
+    "videoArea": {
+      "videoLabel": "Reproductor de vídeo. Utilitzeu el botó de reproducció o premeu la barra espaiadora per començar."
     }
   }
 }

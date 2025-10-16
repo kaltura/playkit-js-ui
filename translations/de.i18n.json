@@ -61,6 +61,13 @@
     "cvaa": {
       "title": "Erweiterte Einstellungen für Untertitel",
       "sample_caption_tag": "Beispiel {{number}}",
+      "sample_high_contrast": "Hoher Kontrast",
+      "sample_minimalist": "Minimalist",
+      "sample_classic_tv": "klassischer TV-Stil",
+      "sample_easy_reading": "leicht zu lesen",
+      "sample_early_readers": "Erstleser",
+      "sample_night_mode": "Nachtmodus",
+      "sample_custom": "Benutzerdefiniert",
       "sample_custom_caption_tag": "Benutzerdefinierte Untertitel",
       "set_custom_caption": "Benutzerdefinierte Untertitel auswählen",
       "edit_caption": "Untertitel bearbeiten",
@@ -108,6 +115,9 @@
       "one_hundred_percent": "hundert Prozent",
       "volume_slider_aria_label": "Lautstärkeregelung",
       "volume_slider_description": "Verwenden Sie die Pfeile, um die Lautstärke zu regulieren"
+    },
+    "videoArea": {
+      "videoLabel": "Video-Player. Mit der Wiedergabetaste oder der Leertaste die Wiedergabe starten."
     }
   }
 }

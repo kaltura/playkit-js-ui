@@ -60,6 +60,13 @@
     "cvaa": {
       "title": "고급 자막 설정",
       "sample_caption_tag": "샘플 {{number}}",
+      "sample_high_contrast": "고대비",
+      "sample_minimalist": "미니멀리스트",
+      "sample_classic_tv": "클래식 TV 스타일",
+      "sample_easy_reading": "가독성 모드",
+      "sample_early_readers": "초급 독자용",
+      "sample_night_mode": "야간 모드",
+      "sample_custom": "사용자 지정",
       "sample_custom_caption_tag": "자막 변경",
       "set_custom_caption": "자막 설정하기",
       "edit_caption": "자막 편집",
@@ -107,6 +114,9 @@
       "one_hundred_percent": "100%",
       "volume_slider_aria_label": "볼륨 조절",
       "volume_slider_description": "화살표를 사용해서 볼륨을 조절하세요"
+    },
+    "videoArea": {
+      "videoLabel": "비디오 플레이어입니다. 재생하려면 재생 버튼을 클릭하거나 스페이스바를 누르세요."
     }
   }
 }

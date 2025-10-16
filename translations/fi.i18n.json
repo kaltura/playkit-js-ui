@@ -60,6 +60,13 @@
     "cvaa": {
       "title": "Tekstityksen lisäasetukset",
       "sample_caption_tag": "Esimerkki {{number}}",
+      "sample_high_contrast": "Suuri kontrasti",
+      "sample_minimalist": "Minimalistinen",
+      "sample_classic_tv": "Klassinen TV-tyyli",
+      "sample_easy_reading": "Helppolukuinen",
+      "sample_early_readers": "Varhain lukemaan oppineet",
+      "sample_night_mode": "Yötila",
+      "sample_custom": "Mukautettu",
       "sample_custom_caption_tag": "Mukautetut tekstitykset",
       "set_custom_caption": "Aseta mukautettu tekstitys",
       "edit_caption": "Muokkaa tekstitystä",
@@ -107,6 +114,9 @@
       "one_hundred_percent": "sata prosenttia",
       "volume_slider_aria_label": "Äänenvoimakkuuden säätö",
       "volume_slider_description": "Säädä äänenvoimakkuutta nuolilla"
+    },
+    "videoArea": {
+      "videoLabel": "Videosoitin. Aloita toisto toistopainikkeella tai painamalla välilyöntinäppäintä."
     }
   }
 }
