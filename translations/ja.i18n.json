@@ -60,6 +60,13 @@
     "cvaa": {
       "title": "キャプションの詳細設定",
       "sample_caption_tag": "サンプル {{number}}",
+      "sample_high_contrast": "ハイコントラスト",
+      "sample_minimalist": "ミニマリスト",
+      "sample_classic_tv": "クラシックなテレビスタイル",
+      "sample_easy_reading": "やさしい内容",
+      "sample_early_readers": "子ども向け",
+      "sample_night_mode": "ナイト モード",
+      "sample_custom": "カスタム",
       "sample_custom_caption_tag": "カスタム キャプション",
       "set_custom_caption": "カスタム キャプションの設定",
       "edit_caption": "キャプションを編集する",
@@ -107,6 +114,9 @@
       "one_hundred_percent": "100パーセント",
       "volume_slider_aria_label": "音量",
       "volume_slider_description": "矢印を使用して音量を制御する"
+    },
+    "videoArea": {
+      "videoLabel": "ビデオプレーヤー。再生を開始するには、再生ボタンを使用するか、スペースバーを押してください。"
     }
   }
 }

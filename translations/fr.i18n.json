@@ -60,6 +60,13 @@
     "cvaa": {
       "title": "Paramètres avancés de sous-titres",
       "sample_caption_tag": "Échantillon {{number}}",
+      "sample_high_contrast": "Contraste élevé",
+      "sample_minimalist": "Minimaliste",
+      "sample_classic_tv": "Style TV classique",
+      "sample_easy_reading": "Lecture facile",
+      "sample_early_readers": "Premiers débutants",
+      "sample_night_mode": "Mode nuit",
+      "sample_custom": "Personnalisé",
       "sample_custom_caption_tag": "Sous-titres personnalisés",
       "set_custom_caption": "Régler les sous-titres personnalisées",
       "edit_caption": "Modifier le sous-titre",
@@ -107,6 +114,9 @@
       "one_hundred_percent": "cent pour cent",
       "volume_slider_aria_label": "Contrôle du volume",
       "volume_slider_description": "Utiliser les flèches pour contrôler le volume"
+    },
+    "videoArea": {
+      "videoLabel": "Lecteur vidéo. Utilisez le bouton de lecture ou appuyez sur la barre d’espace pour lancer la lecture."
     }
   }
 }
