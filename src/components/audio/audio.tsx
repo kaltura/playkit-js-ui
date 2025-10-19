@@ -1,6 +1,6 @@
 import style from '../../styles/style.scss';
 import {h, VNode} from 'preact';
-import {useCallback, useEffect, useRef, useState} from 'preact/hooks';
+import {useEffect, useRef, useState} from 'preact/hooks';
 import {withText} from 'preact-i18n';
 import {default as Icon, IconType} from '../icon';
 import {KeyCode} from '../../utils';
@@ -13,6 +13,7 @@ import {ButtonControl} from '../button-control';
 import {AudioMenu, SmartContainer} from '..';
 import {withEventManager} from '../../event';
 import {registerToBottomBar} from '../bottom-bar';
+import {ReservedPresetNames} from '../../reducers/shell';
 
 const mapStateToProps = state => {
   return {
@@ -61,11 +62,11 @@ const _Audio = (props: any) => {
 
   function registerComponent(): any {
     return {
-      ariaLabel: () => getComponentText(),
+      ariaLabel: getComponentText,
       displayName: COMPONENT_NAME,
       order: 5,
-      svgIcon: () => getSvgIcon(),
-      onClick: () => onClick(),
+      svgIcon: getSvgIcon,
+      onClick,
       component: () => {
         return getComponent({...props, classNames: [style.upperBarIcon]});
       },
@@ -83,8 +84,25 @@ const _Audio = (props: any) => {
     return props.audioLabelText;
   }
 
-  function onClick(): void {
-    setSmartContainerOpen(prev => !prev);
+  function onClick(isComponent = false): void {
+    // this is a full component and not just a dropdown menu icon
+    if (isComponent) {
+      setSmartContainerOpen(prev => !prev);
+      return;
+    }
+
+    const removeOverlay = props.player.ui.addComponent({
+      label: 'audio-overlay',
+      area: 'GuiArea',
+      presets: [ReservedPresetNames.Playback, ReservedPresetNames.Live],
+      get: () => {
+        return (
+          <SmartContainer targetId={props.player.config.targetId} onClose={() => removeOverlay()} title={getComponentText()}>
+            <AudioMenu />
+          </SmartContainer>
+        );
+      }
+    });
   }
 
   function onClose(): void {
@@ -94,7 +112,7 @@ const _Audio = (props: any) => {
   function onKeyDown(e: KeyboardEvent): void {
     if ([KeyCode.Enter, KeyCode.Space].includes(e.code)) {
       e.preventDefault();
-      onClick();
+      onClick(true);
     }
   }
 
@@ -104,7 +122,7 @@ const _Audio = (props: any) => {
   return (
     <ButtonControl ref={ref} name={COMPONENT_NAME} className={props.classNames ? props.classNames.join(' ') : ''}>
       <Tooltip label={props.audioLabelText} type={props.classNames?.includes(style.upperBarIcon) ? 'bottom-left' : 'top'} strictPosition>
-        <Button tabIndex="0" aria-label={props.audioLabelText} className={style.controlButton} onClick={onClick} onKeyDown={onKeyDown}>
+        <Button tabIndex="0" aria-label={props.audioLabelText} className={style.controlButton} onClick={() => onClick(true)} onKeyDown={onKeyDown}>
           <Icon type={IconType.Audio} />
         </Button>
       </Tooltip>
