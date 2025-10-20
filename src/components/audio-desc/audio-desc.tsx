@@ -1,12 +1,12 @@
 import style from '../../styles/style.scss';
-import {h} from 'preact';
+import {Fragment, h} from 'preact';
 import {useEffect, useRef, useState} from 'preact/hooks';
 import {withText} from 'preact-i18n';
 import {Icon, IconType} from '../icon';
 import {withEventDispatcher} from '../event-dispatcher';
 import {Tooltip} from '../tooltip';
 import {Button} from '../button';
-import {connect} from 'react-redux';
+import {connect, useStore} from 'react-redux';
 import {ButtonControl} from '../button-control';
 import {bindActions, KeyCode} from '../../utils';
 import {actions} from '../../reducers/audio-description';
@@ -15,18 +15,22 @@ import {withPlayer} from '../player';
 import {AudioDescriptionMenu} from '../audio-description-menu';
 import {SmartContainer} from '..';
 import {withEventManager} from '../../event';
-import {getAudioLanguageKey} from '../../utils/audio-description';
+import {getAudioDescriptionLanguageKey, getAudioDescriptionStateFromStorage, getAudioLanguageKey} from '../../utils/audio-description';
+import {AUDIO_DESCRIPTION_TYPE} from '../../types/reducers/audio-description';
+import {ReservedPresetNames} from '../../reducers/shell';
 
 const COMPONENT_NAME = 'AudioDesc';
 
-const mapStateToProps = ({config, shell, audioDescription}) => ({
+const mapStateToProps = ({config, shell, audioDescription, engine}) => ({
   isMobile: shell.isMobile,
   isSmallSize: shell.isSmallSize,
   audioDescriptionLanguages: audioDescription.audioDescriptionLanguages,
   advancedAudioDescriptionLanguages: audioDescription.advancedAudioDescriptionLanguages,
   openMenuFromAudioDescriptionButton: config.openMenuFromAudioDescriptionButton,
   audioDescriptionEnabled: audioDescription.isEnabled,
-  audioDescriptionType: audioDescription.selectedType
+  audioDescriptionType: audioDescription.selectedType,
+  isDefaultValueSet: audioDescription.isDefaultValueSet,
+  audioTracks: engine.audioTracks
 });
 
 const _AudioDesc = (props: any) => {
@@ -34,8 +38,82 @@ const _AudioDesc = (props: any) => {
   const [smartContainerOpen, setSmartContainerOpen] = useState(false);
   const [clickHandlerAdded, setClickHandlerAdded] = useState(false);
   const [isClickOutside, setIsClickOutside] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false); // TODO reset on entry change
+  const store = useStore();
 
-  const {eventManager, isSmallSize, isMobile} = props;
+  const {eventManager, isSmallSize, isMobile, audioDescriptionLanguages, advancedAudioDescriptionLanguages, isDefaultValueSet, audioTracks} = props;
+
+  useEffect(() => {
+    if (!audioDescriptionLanguages) return;
+
+    const audioDescription = getAudioDescriptionStateFromStorage();
+
+    let isEnabledInStorage = null;
+    let selectedTypeInStorage = null;
+    if (audioDescription) {
+      const {isEnabled, selectedType} = audioDescription;
+      isEnabledInStorage = isEnabled;
+      selectedTypeInStorage = selectedType;
+    }
+
+    const activeAudioLanguage = getAudioLanguageKey(props.player.getActiveTracks()['audio']?.language || '');
+    if (!isEnabledInStorage && selectedTypeInStorage === AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION) {
+      props.updateAudioDescriptionEnabled?.(false);
+      props.updateAudioDescriptionType(AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
+      props.updateSelectionByLanguage(activeAudioLanguage, false, AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
+      props.updateDefaultValueSet?.(true);
+    } else if (
+      activeAudioLanguage &&
+      !props.isDefaultValueSet &&
+      audioDescriptionLanguages.find(lang => lang.startsWith(activeAudioLanguage)) &&
+      (props.player.config.playback.prioritizeAudioDescription ||
+        (isEnabledInStorage !== null && selectedTypeInStorage === AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION))
+    ) {
+      const isEnabled = isEnabledInStorage !== null ? isEnabledInStorage : true;
+
+      props.updateAudioDescriptionEnabled?.(isEnabled);
+      props.updateAudioDescriptionType(AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
+      props.updateSelectionByLanguage(activeAudioLanguage, isEnabled, AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
+      props.updateDefaultValueSet?.(true);
+
+      const newLanguageKey = getAudioDescriptionLanguageKey(activeAudioLanguage);
+      const newAudioTrack = props.player?.getTracks('audio')?.find(t => t.language === newLanguageKey);
+      if (newAudioTrack) {
+        props.player?.selectTrack(newAudioTrack);
+      }
+    }
+  }, [audioDescriptionLanguages, isDefaultValueSet, audioTracks]);
+
+  useEffect(() => {
+    if (!advancedAudioDescriptionLanguages) return;
+
+    const audioDescription = getAudioDescriptionStateFromStorage();
+
+    let isEnabledInStorage = null;
+    let selectedTypeInStorage = null;
+    if (audioDescription) {
+      const {isEnabled, selectedType} = audioDescription;
+      isEnabledInStorage = isEnabled;
+      selectedTypeInStorage = selectedType;
+    }
+
+    const activeAudioLanguage = getAudioLanguageKey(props.player.getActiveTracks()['audio']?.language || '');
+
+    if (
+      activeAudioLanguage &&
+      !props.isDefaultValueSet &&
+      advancedAudioDescriptionLanguages.find(lang => lang.startsWith(activeAudioLanguage)) &&
+      (props.player.config.playback.prioritizeAudioDescription ||
+        (isEnabledInStorage !== null && selectedTypeInStorage === AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION))
+    ) {
+      const isEnabled = isEnabledInStorage !== null ? isEnabledInStorage : true;
+
+      props.updateAudioDescriptionEnabled?.(isEnabled);
+      props.updateAudioDescriptionType(AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION);
+      props.updateSelectionByLanguage(activeAudioLanguage, isEnabled, AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION);
+      props.updateDefaultValueSet?.(true);
+    }
+  }, [advancedAudioDescriptionLanguages, isDefaultValueSet, audioTracks]);
 
   useEffect(() => {
     if (!isClickOutside) return;
@@ -48,8 +126,11 @@ const _AudioDesc = (props: any) => {
   }, [isClickOutside, isMobile, isSmallSize]);
 
   useEffect(() => {
+    if (!shouldRender() || isRegistered) return;
+
+    setIsRegistered(true);
     registerToBottomBar(COMPONENT_NAME, props.player, () => registerComponent());
-  }, [props.player]);
+  }, [props.player, props.advancedAudioDescriptionLanguages, props.audioDescriptionLanguages]);
 
   useEffect(() => {
     if (clickHandlerAdded) return;
@@ -63,11 +144,11 @@ const _AudioDesc = (props: any) => {
 
   function registerComponent(): any {
     return {
-      ariaLabel: () => getComponentText(),
+      ariaLabel: getComponentText,
       displayName: COMPONENT_NAME,
       order: 5,
-      svgIcon: () => getSvgIcon(),
-      onClick: () => onClick(),
+      svgIcon: getSvgIcon,
+      onClick,
       component: () => {
         return getComponent({...props, classNames: [style.upperBarIcon]});
       },
@@ -76,12 +157,14 @@ const _AudioDesc = (props: any) => {
   }
 
   function getComponentText(): any {
-    return props.audioDescriptionEnabled ? props.enableAudioDescriptionText : props.disableAudioDescriptionText;
+    return props.audioDescriptionEnabled ? props.disableAudioDescriptionText : props.enableAudioDescriptionText;
   }
 
   function getSvgIcon(): any {
+    const {audioDescription} = store.getState();
+
     return {
-      type: props.audioDescriptionEnabled ? IconType.AdvancedAudioDescriptionActive : IconType.AdvancedAudioDescription
+      type: audioDescription.isEnabled ? IconType.AdvancedAudioDescriptionActive : IconType.AdvancedAudioDescription
     };
   }
 
@@ -89,29 +172,47 @@ const _AudioDesc = (props: any) => {
     return props.advancedAudioDescriptionLanguages.length > 0 || props.audioDescriptionLanguages.length > 0;
   }
 
-  function onClick(): void {
+  function onClick(isComponent = false): void {
+    const {audioDescription} = store.getState();
+    const {audioDescriptionLanguages, advancedAudioDescriptionLanguages, isEnabled, selectedType} = audioDescription;
+
     const activeAudioLanguage = getAudioLanguageKey(props.player.getActiveTracks()['audio']?.language || '');
     if (
       !activeAudioLanguage ||
       !(
-        props.audioDescriptionLanguages.find(lang => lang.startsWith(activeAudioLanguage)) ||
-        props.advancedAudioDescriptionLanguages.find(lang => lang.startsWith(activeAudioLanguage))
+        audioDescriptionLanguages.find(lang => lang.startsWith(activeAudioLanguage)) ||
+        advancedAudioDescriptionLanguages.find(lang => lang.startsWith(activeAudioLanguage))
       )
     ) {
       return;
     }
+
     if (!props.openMenuFromAudioDescriptionButton) {
-      props.updateAudioDescriptionEnabled?.(!props.audioDescriptionEnabled);
-      props.updateSelectionByLanguage(activeAudioLanguage, !props.audioDescriptionEnabled, props.audioDescriptionType);
+      props.updateAudioDescriptionEnabled?.(!isEnabled);
+      props.updateSelectionByLanguage(activeAudioLanguage, !isEnabled, selectedType);
 
       props.notifyClick({
         type: 'advancedAudioDescription',
         settings: false,
-        isEnabled: !props.audioDescriptionEnabled,
-        selectedType: props.audioDescriptionType
+        isEnabled: !isEnabled,
+        selectedType
+      });
+    } else if (isComponent) {
+      setSmartContainerOpen(prev => !prev);
+    } else {
+      const removeOverlay = props.player.ui.addComponent({
+        label: 'audio-overlay',
+        area: 'GuiArea',
+        presets: [ReservedPresetNames.Playback, ReservedPresetNames.Live],
+        get: () => {
+          return (
+            <SmartContainer targetId={props.player.config.targetId} onClose={() => removeOverlay()} title={props.audioDescriptionLabelText}>
+              <AudioDescriptionMenu />
+            </SmartContainer>
+          );
+        }
       });
     }
-    setSmartContainerOpen(prev => !prev);
   }
 
   function onKeyDown(e: KeyboardEvent): void {
@@ -138,21 +239,23 @@ const _AudioDesc = (props: any) => {
   );
 
   return (
-    <ButtonControl ref={ref} name={COMPONENT_NAME} className={[style.noIdleControl, props.classNames ? props.classNames.join(' ') : ''].join(' ')}>
-      {innerButtonComponent}
-      {smartContainerOpen && props.openMenuFromAudioDescriptionButton && (
-        <SmartContainer targetId={props.player.config.targetId} onClose={onClose} title={props.audioDescriptionLabelText}>
-          <AudioDescriptionMenu />
-        </SmartContainer>
-      )}
-    </ButtonControl>
+    <Fragment>
+      <ButtonControl ref={ref} name={COMPONENT_NAME} className={[style.noIdleControl, props.classNames ? props.classNames.join(' ') : ''].join(' ')}>
+        {innerButtonComponent}
+        {smartContainerOpen && props.openMenuFromAudioDescriptionButton && (
+          <SmartContainer targetId={props.player.config.targetId} onClose={onClose} title={props.audioDescriptionLabelText}>
+            <AudioDescriptionMenu />
+          </SmartContainer>
+        )}
+      </ButtonControl>
+    </Fragment>
   );
 };
 
 const getButtonComponent = (
   openMenuFromAudioDescriptionButton: boolean,
   innerRef: any,
-  onClick: (e: MouseEvent) => void,
+  onClick: () => void,
   onKeyDown: (e: KeyboardEvent) => void,
   audioDescriptionEnabled: boolean,
   label: string,

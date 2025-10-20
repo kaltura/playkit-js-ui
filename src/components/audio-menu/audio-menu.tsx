@@ -9,7 +9,7 @@ import {IconType} from '../icon';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from '../event-dispatcher';
 import {AUDIO_DESCRIPTION_TYPE} from '../../types/reducers/audio-description';
-import {getActiveAudioLanguage} from '../../utils/audio-description';
+import {getActiveAudioLanguage, getAudioDescriptionLanguageKey} from '../../utils/audio-description';
 import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
 
 type AudioMenuProps = {
@@ -76,8 +76,9 @@ const _AudioMenu = (props: AudioMenuProps) => {
     : [];
 
   function onAudioChange(audioTrack: any): void {
-    const hasAudioDescription = !!props.audioDescriptionLanguages?.find((l: string) => l === audioTrack.language);
-    const hasAdvancedAudioDescription = !!props.advancedAudioDescriptionLanguages?.find((l: string) => l.startsWith(audioTrack.language));
+    const currLanguageKey = audioTrack.language;
+    const hasAudioDescription = !!props.audioDescriptionLanguages?.find((l: string) => l === currLanguageKey);
+    const hasAdvancedAudioDescription = !!props.advancedAudioDescriptionLanguages?.find((l: string) => l.startsWith(currLanguageKey));
 
     if (props.selectionByLanguage?.has(audioTrack.language)) {
       const [isEnabled, selectedType] = props.selectionByLanguage.get(audioTrack.language)!;
@@ -90,6 +91,16 @@ const _AudioMenu = (props: AudioMenuProps) => {
       } else if (hasAudioDescription && !hasAdvancedAudioDescription) {
         props.updateAudioDescriptionType?.(AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
         props.updateSelectionByLanguage?.(audioTrack.language, true, AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
+        const newLanguageKey = getAudioDescriptionLanguageKey(currLanguageKey);
+        const newAudioTrack = props.player?.getTracks('audio')?.find(t => t.language === newLanguageKey);
+        if (currLanguageKey !== newLanguageKey && newAudioTrack) {
+          props.player?.selectTrack(newAudioTrack);
+
+          props.notifyClick?.({
+            type: props.player?.Track.AUDIO,
+            track: newAudioTrack
+          });
+        }
       } else if (!hasAudioDescription && hasAdvancedAudioDescription) {
         props.updateAudioDescriptionType?.(AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION);
         props.updateSelectionByLanguage?.(audioTrack.language, true, AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION);

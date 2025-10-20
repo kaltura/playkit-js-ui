@@ -105,23 +105,6 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
       this.props.updateIsChangingSource(false);
       this.props.updatePlayerPoster(player.poster);
       this.props.updateIsIdle(false);
-
-      const audioDescription = getAudioDescriptionStateFromStorage();
-
-      // TODO AD data is not set yet at this point - listen changes in the arrays and then invoke this code
-      //if (player.config.playback.prioritizeAudioDescription) {
-
-      if (audioDescription) {
-        const {isEnabled, selectedType} = audioDescription;
-
-        if (isEnabled) {
-          this.props.updateAudioDescriptionEnabled?.(true);
-        }
-
-        if (selectedType) {
-          this.props.updateAudioDescriptionType?.(selectedType);
-        }
-      }
     });
 
     eventManager.listen(player, player.Event.Core.PLAYER_STATE_CHANGED, e => {
@@ -219,10 +202,6 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
       const audioDescriptionLanguages =
         audioTracks.filter(t => isAudioDescriptionLanguageKey(t.language)).map(t => getAudioLanguageKey(t.language)) || [];
       this.props.updateAudioDescriptionLanguages(audioDescriptionLanguages);
-
-      if (!this.props.audioDescription.isUpdated) {
-        this.props.updateAudioDescriptionIsUpdated?.(true);
-      }
     });
 
     eventManager.listen(player, player.Event.Core.TEXT_TRACK_CHANGED, () => {
@@ -234,8 +213,8 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
     eventManager.listen(player, player.Event.Core.AUDIO_TRACK_CHANGED, () => {
       const tracks = player.getTracks(TrackType.AUDIO);
       this.props.updateAudioTracks(tracks.filter(t => !isAudioDescriptionLanguageKey(t.language)));
-      //const audioDescriptionLanguages = tracks.filter(t => isAudioDescriptionLanguageKey(t.language)).map(t => getAudioLanguageKey(t.language)) || [];
-      //this.props.updateAudioDescriptionLanguages(audioDescriptionLanguages);
+      const audioDescriptionLanguages = tracks.filter(t => isAudioDescriptionLanguageKey(t.language)).map(t => getAudioLanguageKey(t.language)) || [];
+      this.props.updateAudioDescriptionLanguages(audioDescriptionLanguages);
     });
 
     eventManager.listen(player, player.Event.Core.VIDEO_TRACK_CHANGED, () => {

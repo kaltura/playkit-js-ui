@@ -9,5 +9,5 @@ export interface AudioDescriptionState {
   isEnabled: boolean;
   selectedType: AUDIO_DESCRIPTION_TYPE;
   selectionByLanguage: Map<string, [boolean, AUDIO_DESCRIPTION_TYPE]>;
-  isUpdated: boolean; // TODO
+  isDefaultValueSet: boolean;
 }

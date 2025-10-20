@@ -152,7 +152,7 @@ const _AudioDescriptionMenu = (props: AudioDescriptionMenuProps) => {
       active: audioDescriptionEnabled && audioDescriptionType === AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION
     },
     {
-      disabled: !hasAdvancedAudioDescription, // TODO
+      disabled: !hasAdvancedAudioDescription,
       label: advancedAudioDescriptionText,
       ariaLabel: hasAdvancedAudioDescription ? advancedAudioDescriptionAvailableText : noAdvancedAudioDescriptionAvailableText,
       value: AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION,

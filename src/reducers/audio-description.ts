@@ -7,7 +7,8 @@ export const types = {
   UPDATE_AUDIO_DESCRIPTION_ENABLED: 'audio-description/UPDATE_AUDIO_DESCRIPTION',
   UPDATE_AUDIO_DESCRIPTION_TYPE: 'audio-description/UPDATE_AUDIO_DESCRIPTION_TYPE',
   UPDATE_AUDIO_DESCRIPTION_IS_UPDATED: 'audio-description/UPDATE_AUDIO_DESCRIPTION_IS_UPDATED',
-  UPDATE_SELECTION_BY_LANGUAGE: 'audio-description/UPDATE_SELECTION_BY_LANGUAGE'
+  UPDATE_SELECTION_BY_LANGUAGE: 'audio-description/UPDATE_SELECTION_BY_LANGUAGE',
+  UPDATE_DEFAULT_VALUE_SET: 'audio-description/UPDATE_DEFAULT_VALUE_SET'
 };
 
 export const initialState = {
@@ -16,7 +17,7 @@ export const initialState = {
   isEnabled: false,
   selectedType: AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION,
   selectionByLanguage: new Map<string, [boolean, AUDIO_DESCRIPTION_TYPE]>(),
-  isUpdated: false
+  isDefaultValueSet: false
 };
 
 export default (state: AudioDescriptionState = initialState, action: any) => {
@@ -50,6 +51,11 @@ export default (state: AudioDescriptionState = initialState, action: any) => {
         ...state,
         selectionByLanguage: new Map(state.selectionByLanguage).set(language, [isEnabled, selectedType])
       };
+    case types.UPDATE_DEFAULT_VALUE_SET:
+      return {
+        ...state,
+        isDefaultValueSet: action.isDefaultValueSet
+      };
     default:
       return state;
   }
@@ -81,5 +87,9 @@ export const actions = {
     language,
     isEnabled,
     selectedType
+  }),
+  updateDefaultValueSet: (isDefaultValueSet: boolean) => ({
+    type: types.UPDATE_DEFAULT_VALUE_SET,
+    isDefaultValueSet
   })
 };
