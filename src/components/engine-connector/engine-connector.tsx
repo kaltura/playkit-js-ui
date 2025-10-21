@@ -66,6 +66,12 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
       }
       this.props.updateIsPlaybackStarted(false);
       this.props.updateDataLoadingStatus(false);
+
+      this.props.updateAudioDescriptionLanguages([]);
+      this.props.updateAdvancedAudioDescriptionLanguages([]);
+      this.props.resetSelectionByLanguage();
+      this.props.updateDefaultValueSet(false);
+      this.props.updateIsRegisteredToBottomBar(false);
     });
 
     eventManager.listen(player, player.Event.Core.SOURCE_SELECTED, () => {

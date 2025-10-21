@@ -21,8 +21,7 @@ const mapStateToProps = state => {
     isMobile: state.shell.isMobile,
     isSmallSize: state.shell.isSmallSize,
     audioTracks: state.engine.audioTracks,
-    audioDescriptionLanguages: state.audioDescription.audioDescriptionLanguages,
-    isPrePlayback: state.engine.prePlayback
+    audioDescriptionLanguages: state.audioDescription.audioDescriptionLanguages
   };
 };
 
@@ -66,7 +65,7 @@ const _Audio = (props: any) => {
       displayName: COMPONENT_NAME,
       order: 5,
       svgIcon: getSvgIcon,
-      onClick,
+      onClick: () => handleClick(false),
       component: () => {
         return getComponent({...props, classNames: [style.upperBarIcon]});
       },
@@ -84,7 +83,7 @@ const _Audio = (props: any) => {
     return props.audioLabelText;
   }
 
-  function onClick(isComponent = false): void {
+  function handleClick(isComponent: boolean): void {
     // this is a full component and not just a dropdown menu icon
     if (isComponent) {
       setSmartContainerOpen(prev => !prev);
@@ -112,7 +111,7 @@ const _Audio = (props: any) => {
   function onKeyDown(e: KeyboardEvent): void {
     if ([KeyCode.Enter, KeyCode.Space].includes(e.code)) {
       e.preventDefault();
-      onClick(true);
+      handleClick(true);
     }
   }
 
@@ -122,7 +121,12 @@ const _Audio = (props: any) => {
   return (
     <ButtonControl ref={ref} name={COMPONENT_NAME} className={props.classNames ? props.classNames.join(' ') : ''}>
       <Tooltip label={props.audioLabelText} type={props.classNames?.includes(style.upperBarIcon) ? 'bottom-left' : 'top'} strictPosition>
-        <Button tabIndex="0" aria-label={props.audioLabelText} className={style.controlButton} onClick={() => onClick(true)} onKeyDown={onKeyDown}>
+        <Button
+          tabIndex="0"
+          aria-label={props.audioLabelText}
+          className={style.controlButton}
+          onClick={() => handleClick(true)}
+          onKeyDown={onKeyDown}>
           <Icon type={IconType.Audio} />
         </Button>
       </Tooltip>

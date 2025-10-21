@@ -6,9 +6,10 @@ export const types = {
   UPDATE_EXTENDED_AUDIO_DESCRIPTION_LANGUAGES: 'audio-description/UPDATE_EXTENDED_AUDIO_DESCRIPTION_LANGUAGES',
   UPDATE_AUDIO_DESCRIPTION_ENABLED: 'audio-description/UPDATE_AUDIO_DESCRIPTION',
   UPDATE_AUDIO_DESCRIPTION_TYPE: 'audio-description/UPDATE_AUDIO_DESCRIPTION_TYPE',
-  UPDATE_AUDIO_DESCRIPTION_IS_UPDATED: 'audio-description/UPDATE_AUDIO_DESCRIPTION_IS_UPDATED',
   UPDATE_SELECTION_BY_LANGUAGE: 'audio-description/UPDATE_SELECTION_BY_LANGUAGE',
-  UPDATE_DEFAULT_VALUE_SET: 'audio-description/UPDATE_DEFAULT_VALUE_SET'
+  RESET_SELECTION_BY_LANGUAGE: 'audio-description/RESET_SELECTION_BY_LANGUAGE',
+  UPDATE_DEFAULT_VALUE_SET: 'audio-description/UPDATE_DEFAULT_VALUE_SET',
+  UPDATE_IS_REGISTERED_TO_BOTTOM_BAR: 'audio-description/UPDATE_IS_REGISTERED_TO_BOTTOM_BAR'
 };
 
 export const initialState = {
@@ -17,7 +18,8 @@ export const initialState = {
   isEnabled: false,
   selectedType: AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION,
   selectionByLanguage: new Map<string, [boolean, AUDIO_DESCRIPTION_TYPE]>(),
-  isDefaultValueSet: false
+  isDefaultValueSet: false,
+  isRegisteredToBottomBar: false
 };
 
 export default (state: AudioDescriptionState = initialState, action: any) => {
@@ -51,10 +53,20 @@ export default (state: AudioDescriptionState = initialState, action: any) => {
         ...state,
         selectionByLanguage: new Map(state.selectionByLanguage).set(language, [isEnabled, selectedType])
       };
+    case types.RESET_SELECTION_BY_LANGUAGE:
+      return {
+        ...state,
+        selectionByLanguage: new Map<string, [boolean, AUDIO_DESCRIPTION_TYPE]>()
+      };
     case types.UPDATE_DEFAULT_VALUE_SET:
       return {
         ...state,
         isDefaultValueSet: action.isDefaultValueSet
+      };
+    case types.UPDATE_IS_REGISTERED_TO_BOTTOM_BAR:
+      return {
+        ...state,
+        isRegisteredToBottomBar: action.isRegistered
       };
     default:
       return state;
@@ -78,10 +90,6 @@ export const actions = {
     type: types.UPDATE_AUDIO_DESCRIPTION_TYPE,
     selectedType
   }),
-  updateAudioDescriptionIsUpdated: (isUpdated: boolean) => ({
-    type: types.UPDATE_AUDIO_DESCRIPTION_IS_UPDATED,
-    isUpdated
-  }),
   updateSelectionByLanguage: (language: string, isEnabled: boolean, selectedType: AUDIO_DESCRIPTION_TYPE) => ({
     type: types.UPDATE_SELECTION_BY_LANGUAGE,
     language,
@@ -91,5 +99,12 @@ export const actions = {
   updateDefaultValueSet: (isDefaultValueSet: boolean) => ({
     type: types.UPDATE_DEFAULT_VALUE_SET,
     isDefaultValueSet
+  }),
+  resetSelectionByLanguage: () => ({
+    type: types.RESET_SELECTION_BY_LANGUAGE
+  }),
+  updateIsRegisteredToBottomBar: (isRegistered: boolean) => ({
+    type: types.UPDATE_IS_REGISTERED_TO_BOTTOM_BAR,
+    isRegistered
   })
 };

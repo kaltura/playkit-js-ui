@@ -40,3 +40,10 @@ export const registerToBottomBar = (componentName: string, player: any, getIconD
     bottomBarRegistry.register(componentName, getIconDtoCallback());
   }
 };
+
+export const unregisterFromBottomBar = (componentName: string, player: any): void => {
+  const bottomBarRegistry = (player?.getService(bottomBarRegistryManager) as BottomBarRegistryManager) || undefined;
+  if (bottomBarRegistry && bottomBarRegistry.getComponentItem(componentName)) {
+    bottomBarRegistry.unregister(componentName);
+  }
+};
