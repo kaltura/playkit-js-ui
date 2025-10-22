@@ -47,17 +47,18 @@ const _AudioDesc = (props: any) => {
   const {eventManager, isSmallSize, isMobile, audioDescriptionLanguages, advancedAudioDescriptionLanguages, audioTracks, isRegisteredToBottomBar} =
     props;
 
-  // handle register and unregister to bottom bar
+  // // handle register and unregister to bottom bar
   useEffect(() => {
     if (shouldRender() && !isRegisteredToBottomBar) {
       registerToBottomBar(COMPONENT_NAME, props.player, () => registerComponent());
       props.updateIsRegisteredToBottomBar(true);
     }
+
+    return unregisterFromBottomBar(COMPONENT_NAME, props.player);
   }, [props.player, isRegisteredToBottomBar, props.advancedAudioDescriptionLanguages, props.audioDescriptionLanguages]);
 
   useEffect(() => {
     if (!isRegisteredToBottomBar) {
-      // TODO is this too late ? did the upper bar already register the bottom bar icons ?
       unregisterFromBottomBar(COMPONENT_NAME, props.player);
     }
   }, [isRegisteredToBottomBar]);
