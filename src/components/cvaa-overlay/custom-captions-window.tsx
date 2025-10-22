@@ -31,9 +31,7 @@ class CustomCaptionsWindow extends Component<any, any> {
    * @memberof CustomCaptionsWindow
    */
   changeCaptionsStyle = (): void => {
-    const customStyle = this.props.customTextStyle;
-    this.props.saveCustomPresetStyle(customStyle);
-    this.props.changeCaptionsStyle(customStyle);
+    this.props.changeCaptionsStyle(this.props.customTextStyle);
   };
 
   /**
@@ -93,15 +91,11 @@ class CustomCaptionsWindow extends Component<any, any> {
       active: props.customTextStyle.fontColor.every((value, index) => value === standardColors[key][index])
     }));
 
-    const fontFamilyOptions = Object.keys(fontFamily).map(key => {
-      const fullValue = fontFamily[key];
-      const shortLabel = fullValue.split(",")[0].replace(/['"]/g, "").trim();
-      return {
-        value: fullValue,
-        label: shortLabel,
-        active: props.customTextStyle.fontFamily === fullValue
-      };
-    });
+    const fontFamilyOptions = Object.keys(fontFamily).map(key => ({
+      value: fontFamily[key],
+      label: fontFamily[key],
+      active: props.customTextStyle.fontFamily === fontFamily[key]
+    }));
 
     const fontStyleOptions = Object.keys(edgeStyles).map(key => ({
       value: edgeStyles[key],
