@@ -114,9 +114,6 @@
       "one_hundred_percent": "100%",
       "volume_slider_aria_label": "볼륨 조절",
       "volume_slider_description": "화살표를 사용해서 볼륨을 조절하세요"
-    },
-    "videoArea": {
-      "videoLabel": "비디오 플레이어입니다. 재생하려면 재생 버튼을 클릭하거나 스페이스바를 누르세요."
     }
   }
 }

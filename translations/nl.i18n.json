@@ -114,9 +114,6 @@
       "one_hundred_percent": "honderd procent",
       "volume_slider_aria_label": "Volumeregeling",
       "volume_slider_description": "Gebruik de pijlen om het volume te regelen"
-    },
-    "videoArea": {
-      "videoLabel": "Videospeler. Gebruik de afspeelknop of druk op de spatiebalk om het afspelen te starten."
     }
   }
 }

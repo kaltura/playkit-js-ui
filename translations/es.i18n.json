@@ -114,9 +114,6 @@
       "one_hundred_percent": "cien por cien",
       "volume_slider_aria_label": "Control de volumen",
       "volume_slider_description": "Use las flechas para controlar el volumen"
-    },
-    "videoArea": {
-      "videoLabel": "Reproductor de vídeo. Usa el botón de reproducir o presiona la barra espaciadora para empezar."
     }
   }
 }
