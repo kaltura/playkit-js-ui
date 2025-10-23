@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.82.8 (2025-10-23)
+
+
+### Bug Fixes
+
+* **ADA-2815:** Adjust volume control bar width ([#1092](https://github.com/kaltura/playkit-js-ui/issues/1092)) ([8a94d0d](https://github.com/kaltura/playkit-js-ui/commit/8a94d0d))
+
+
+
 ### 0.82.7 (2025-09-30)
 
 
