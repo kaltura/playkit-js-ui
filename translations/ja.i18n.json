@@ -114,9 +114,6 @@
       "one_hundred_percent": "100パーセント",
       "volume_slider_aria_label": "音量",
       "volume_slider_description": "矢印を使用して音量を制御する"
-    },
-    "videoArea": {
-      "videoLabel": "ビデオプレーヤー。再生を開始するには、再生ボタンを使用するか、スペースバーを押してください。"
     }
   }
 }

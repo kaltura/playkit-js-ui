@@ -114,9 +114,6 @@
       "one_hundred_percent": "百分之一百",
       "volume_slider_aria_label": "音量控制",
       "volume_slider_description": "使用箭頭調整音量"      
-    },
-    "videoArea": {
-      "videoLabel": "影片播放器。使用播放按鈕或按空白鍵開始播放。"
     }
   }
 }

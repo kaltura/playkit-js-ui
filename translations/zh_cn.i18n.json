@@ -102,9 +102,6 @@
     "volume": {
       "volume_slider_aria_label": "音量控制",
       "volume_slider_description": "使用箭头调整音量"
-    },
-    "videoArea": {
-      "videoLabel": "视频播放器。使用播放按钮或按空格键开始播放。"
     }
   }
 }
