@@ -8,8 +8,7 @@ export const types = {
   UPDATE_AUDIO_DESCRIPTION_TYPE: 'audio-description/UPDATE_AUDIO_DESCRIPTION_TYPE',
   UPDATE_SELECTION_BY_LANGUAGE: 'audio-description/UPDATE_SELECTION_BY_LANGUAGE',
   RESET_SELECTION_BY_LANGUAGE: 'audio-description/RESET_SELECTION_BY_LANGUAGE',
-  UPDATE_DEFAULT_VALUE_SET: 'audio-description/UPDATE_DEFAULT_VALUE_SET',
-  UPDATE_IS_REGISTERED_TO_BOTTOM_BAR: 'audio-description/UPDATE_IS_REGISTERED_TO_BOTTOM_BAR'
+  UPDATE_DEFAULT_VALUE_SET: 'audio-description/UPDATE_DEFAULT_VALUE_SET'
 };
 
 export const initialState = {
@@ -17,9 +16,7 @@ export const initialState = {
   advancedAudioDescriptionLanguages: [],
   isEnabled: false,
   selectedType: AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION,
-  selectionByLanguage: new Map<string, [boolean, AUDIO_DESCRIPTION_TYPE]>(),
-  isDefaultValueSet: false,
-  isRegisteredToBottomBar: false
+  selectionByLanguage: new Map<string, [boolean, AUDIO_DESCRIPTION_TYPE]>()
 };
 
 export default (state: AudioDescriptionState = initialState, action: any) => {
@@ -58,16 +55,6 @@ export default (state: AudioDescriptionState = initialState, action: any) => {
         ...state,
         selectionByLanguage: new Map<string, [boolean, AUDIO_DESCRIPTION_TYPE]>()
       };
-    case types.UPDATE_DEFAULT_VALUE_SET:
-      return {
-        ...state,
-        isDefaultValueSet: action.isDefaultValueSet
-      };
-    case types.UPDATE_IS_REGISTERED_TO_BOTTOM_BAR:
-      return {
-        ...state,
-        isRegisteredToBottomBar: action.isRegistered
-      };
     default:
       return state;
   }
@@ -96,15 +83,7 @@ export const actions = {
     isEnabled,
     selectedType
   }),
-  updateDefaultValueSet: (isDefaultValueSet: boolean) => ({
-    type: types.UPDATE_DEFAULT_VALUE_SET,
-    isDefaultValueSet
-  }),
   resetSelectionByLanguage: () => ({
     type: types.RESET_SELECTION_BY_LANGUAGE
-  }),
-  updateIsRegisteredToBottomBar: (isRegistered: boolean) => ({
-    type: types.UPDATE_IS_REGISTERED_TO_BOTTOM_BAR,
-    isRegistered
   })
 };

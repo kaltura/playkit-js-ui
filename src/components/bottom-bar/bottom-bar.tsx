@@ -6,7 +6,7 @@ import {actions as bottomBarActions} from '../../reducers/bottom-bar';
 import {connect} from 'react-redux';
 import {PlayerArea} from '../../components/player-area';
 import {PLAYER_BREAK_POINTS, TimeDisplayPlaybackContainer} from '../../components';
-import {withEventManager} from '../../event';
+import {EventType, withEventManager} from '../../event';
 import {withPlayer} from '../player';
 import {filterControlsByPriority} from './bottom-bar-utils';
 import {BottomBarRegistryManager, bottomBarRegistryManager} from './bottom-bar-registry-manager';
@@ -95,6 +95,9 @@ class BottomBar extends Component<any, any> {
 
     props.eventManager.listen(props.player, props.player.Event.Core.ENTER_FULLSCREEN, onFullscreenChange);
     props.eventManager.listen(props.player, props.player.Event.Core.EXIT_FULLSCREEN, onFullscreenChange);
+    props.eventManager.listen(props.player, EventType.BOTTOM_BAR_NEEDS_RESIZE, () => {
+      this.onBarWidthChange(true);
+    });
   }
 
   /**

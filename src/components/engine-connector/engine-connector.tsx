@@ -70,8 +70,6 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
       this.props.updateAudioDescriptionLanguages([]);
       this.props.updateAdvancedAudioDescriptionLanguages([]);
       this.props.resetSelectionByLanguage();
-      this.props.updateDefaultValueSet(false);
-      this.props.updateIsRegisteredToBottomBar(false);
     });
 
     eventManager.listen(player, player.Event.Core.SOURCE_SELECTED, () => {
@@ -204,10 +202,6 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
       this.props.updateAudioTracks(audioTracks.filter(t => !isAudioDescriptionLanguageKey(t.language)));
       this.props.updateVideoTracks(videoTracks);
       this.props.updateTextTracks(textTracks);
-
-      const audioDescriptionLanguages =
-        audioTracks.filter(t => isAudioDescriptionLanguageKey(t.language)).map(t => getAudioLanguageKey(t.language)) || [];
-      this.props.updateAudioDescriptionLanguages(audioDescriptionLanguages);
     });
 
     eventManager.listen(player, player.Event.Core.TEXT_TRACK_CHANGED, () => {

@@ -33,6 +33,7 @@ import {GuiArea} from '../components';
 import {ClosedCaptions} from '../components';
 import {AudioEntryDetails} from '../components/audio-entry-details';
 import {Audio} from '../components';
+import {AudioDescriptionActivator} from '../components/audio-desc/audio-description-activator';
 
 const PRESET_NAME = 'Playback';
 
@@ -106,6 +107,7 @@ class PlaybackUI extends Component<any, any> {
                     ]}>
                     <SeekBarPlaybackContainer showFramePreview showTimeBubble playerContainer={containerRef} />
                   </BottomBar>
+                  <AudioDescriptionActivator />
                 </Fragment>
               )}
             </GuiArea>
