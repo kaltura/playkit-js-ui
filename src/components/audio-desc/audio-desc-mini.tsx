@@ -1,36 +1,19 @@
 import style from '../../styles/style.scss';
 import {Fragment, h} from 'preact';
 import {useEffect, useRef, useState} from 'preact/hooks';
-import {withText} from 'preact-i18n';
 import {Icon, IconType} from '../icon';
-import {withEventDispatcher} from '../event-dispatcher';
 import {Tooltip} from '../tooltip';
 import {Button} from '../button';
 import {connect} from 'react-redux';
 import {ButtonControl} from '../button-control';
 import {bindActions, KeyCode} from '../../utils';
 import {actions} from '../../reducers/audio-description';
-import {withPlayer} from '../player';
 import {AudioDescriptionMenu} from '../audio-description-menu';
 import {AudioDesc, SmartContainer} from '..';
-import {withEventManager} from '../../event';
 import {getAudioLanguageKey} from '../../utils/audio-description';
 import {ReservedPresetNames} from '../../reducers/shell';
 
 const COMPONENT_NAME = 'AudioDescMini';
-
-const mapStateToProps = ({config, shell, audioDescription, engine}) => ({
-  isMobile: shell.isMobile,
-  isSmallSize: shell.isSmallSize,
-  audioDescriptionLanguages: audioDescription.audioDescriptionLanguages,
-  advancedAudioDescriptionLanguages: audioDescription.advancedAudioDescriptionLanguages,
-  openMenuFromAudioDescriptionButton: config.openMenuFromAudioDescriptionButton,
-  audioDescriptionEnabled: audioDescription.isEnabled,
-  audioDescriptionType: audioDescription.selectedType,
-  audioTracks: engine.audioTracks,
-  isEnabled: audioDescription.isEnabled,
-  selectedType: audioDescription.selectedType
-});
 
 const _AudioDescMini = (props: any) => {
   const ref = useRef<any>(null);
@@ -236,22 +219,7 @@ const getComponent = (props: any) => {
   return <AudioDescMini {...props} />;
 };
 
-const AudioDescMini = connect(
-  mapStateToProps,
-  bindActions(actions)
-)(
-  withPlayer(
-    withEventDispatcher(COMPONENT_NAME)(
-      withEventManager(
-        withText({
-          audioDescriptionLabelText: 'settings.audioDescription',
-          enableAudioDescriptionText: 'audioDescription.enableAudioDescription',
-          disableAudioDescriptionText: 'audioDescription.disableAudioDescription'
-        })(_AudioDescMini)
-      )
-    )
-  )
-);
+const AudioDescMini = connect(bindActions(actions))(_AudioDescMini);
 
 AudioDescMini.displayName = COMPONENT_NAME;
 

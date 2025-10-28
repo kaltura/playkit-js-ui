@@ -1,5 +1,5 @@
 import {h, Component, VNode} from 'preact';
-import {connect} from 'react-redux';
+import {connect, useStore} from 'react-redux';
 import {bindActions} from '../../utils';
 import {default as reduce, actions as EngineActions} from '../../reducers/engine';
 import {actions as LoadingActions} from '../../reducers/loading';
@@ -13,7 +13,8 @@ import {withLogger} from '../logger';
 import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
 import {EventManager} from '@playkit-js/playkit-js';
 import {EngineState} from '../../types/reducers/engine';
-import {getAudioDescriptionStateFromStorage, getAudioLanguageKey, isAudioDescriptionLanguageKey} from '../../utils/audio-description';
+import {getAudioLanguageKey, isAudioDescriptionLanguageKey} from '../../utils/audio-description';
+import {updateDefaultAudioDescription} from '../audio-desc/audio-description-activator';
 
 type EngineConnectorProps = {
   engine: EngineState;
@@ -56,6 +57,8 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
   public componentDidMount(): void {
     const {player, eventManager} = this.props as EngineConnectorProps;
     const TrackType = player.Track;
+    const store = useStore();
+
     this.props.updatePrePlayback(!player.config.playback.autoplay);
 
     eventManager.listen(player, player.Event.Core.PLAYER_RESET, event => {
@@ -70,6 +73,7 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
       this.props.updateAudioDescriptionLanguages([]);
       this.props.updateAdvancedAudioDescriptionLanguages([]);
       this.props.resetSelectionByLanguage();
+      this.props.updateDefaultValueSet(false);
     });
 
     eventManager.listen(player, player.Event.Core.SOURCE_SELECTED, () => {
@@ -215,6 +219,9 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
       this.props.updateAudioTracks(tracks.filter(t => !isAudioDescriptionLanguageKey(t.language)));
       const audioDescriptionLanguages = tracks.filter(t => isAudioDescriptionLanguageKey(t.language)).map(t => getAudioLanguageKey(t.language)) || [];
       this.props.updateAudioDescriptionLanguages(audioDescriptionLanguages);
+
+      const isDefaultValueSet = store.getState().audioDescription.isDefaultValueSet;
+      updateDefaultAudioDescription(this.props, isDefaultValueSet, audioDescriptionLanguages);
     });
 
     eventManager.listen(player, player.Event.Core.VIDEO_TRACK_CHANGED, () => {
