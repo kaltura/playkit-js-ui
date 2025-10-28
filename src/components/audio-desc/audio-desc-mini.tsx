@@ -4,7 +4,7 @@ import {useEffect, useRef, useState} from 'preact/hooks';
 import {Icon, IconType} from '../icon';
 import {Tooltip} from '../tooltip';
 import {Button} from '../button';
-import {connect} from 'react-redux';
+import {connect, useStore} from 'react-redux';
 import {ButtonControl} from '../button-control';
 import {bindActions, KeyCode} from '../../utils';
 import {actions} from '../../reducers/audio-description';
@@ -19,7 +19,11 @@ const _AudioDescMini = (props: any) => {
   const ref = useRef<any>(null);
   const [smartContainerOpen, setSmartContainerOpen] = useState(false);
   const [isClickOutside, setIsClickOutside] = useState(false);
+
+  // TODO take issmallsize and ismobile from store ?
   const {eventManager, isSmallSize, isMobile} = props;
+
+  const store = useStore();
 
   // handle click outside
   useEffect(() => {
@@ -48,7 +52,9 @@ const _AudioDescMini = (props: any) => {
   }
 
   function handleClick(): void {
-    const {isEnabled, selectedType, audioDescriptionLanguages, advancedAudioDescriptionLanguages} = props;
+    const {audioDescriptionLanguages, advancedAudioDescriptionLanguages} = props;
+    const isEnabled = store.getState().audioDescription.isEnabled;
+    const selectedType = store.getState().audioDescription.selectedType;
 
     const activeAudioLanguage = getAudioLanguageKey(props.player.getActiveTracks()['audio']?.language || '');
     if (!shouldActivate(activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages)) {
@@ -84,14 +90,15 @@ const _AudioDescMini = (props: any) => {
   if (!shouldRender()) return null;
 
   const activeAudioLanguage = getAudioLanguageKey(props.player.getActiveTracks()['audio']?.language || '');
+  const isEnabled = store.getState().audioDescription.isEnabled;
 
   const innerButtonComponent = getButtonComponent(
     props.openMenuFromAudioDescriptionButton,
     ref,
     handleClick,
     onKeyDown,
-    props.audioDescriptionEnabled,
-    props.audioDescriptionEnabled ? props.disableAudioDescriptionText : props.enableAudioDescriptionText,
+    isEnabled,
+    isEnabled ? props.disableAudioDescriptionText : props.enableAudioDescriptionText,
     props.classNames?.includes(style.upperBarIcon),
     shouldActivate(activeAudioLanguage, props.audioDescriptionLanguages, props.advancedAudioDescriptionLanguages)
   );
