@@ -148,7 +148,7 @@ const getButtonComponent = (
   );
 };
 
-function getSvgIcon(props, store): any {
+function getSvgIcon(props, store, isDropdown = false): any {
   const {audioDescription} = store.getState();
   const {isEnabled, audioDescriptionLanguages, advancedAudioDescriptionLanguages} = audioDescription;
   const activeAudioLanguage = getAudioLanguageKey(props.player.getActiveTracks()['audio']?.language || '');
@@ -156,7 +156,7 @@ function getSvgIcon(props, store): any {
 
   let type = IconType.AdvancedAudioDescriptionActive;
   if (!isActive) {
-    type = IconType.AdvancedAudioDescriptionDisabled;
+    type = isDropdown ? IconType.AdvancedAudioDescriptionDisabledDropdown : IconType.AdvancedAudioDescriptionDisabled;
   } else if (!isEnabled) {
     type = IconType.AdvancedAudioDescription;
   }
@@ -230,10 +230,15 @@ function registerComponent(props, store): any {
     ariaLabel: () => getComponentText(props, store),
     displayName: AudioDesc.displayName,
     order: 5,
-    svgIcon: () => getSvgIcon(props, store),
+    svgIcon: () => getSvgIcon(props, store, true),
     onClick: () => handleIconClick(props, store),
     component: (): any => {
       return getComponent({...props, classNames: [style.upperBarIcon]});
+    },
+    isDisabled: (): boolean => {
+      const {audioDescriptionLanguages, advancedAudioDescriptionLanguages} = store.getState().audioDescription;
+      const activeAudioLanguage = getAudioLanguageKey(props.player.getActiveTracks()['audio']?.language || '');
+      return !shouldActivate(activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages);
     },
     shouldHandleOnClick: false
   };
