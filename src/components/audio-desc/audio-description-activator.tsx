@@ -141,7 +141,8 @@ const AudioDescriptionActivator = connect(
         withText({
           audioDescriptionLabelText: 'settings.audioDescription',
           enableAudioDescriptionText: 'audioDescription.enableAudioDescription',
-          disableAudioDescriptionText: 'audioDescription.disableAudioDescription'
+          disableAudioDescriptionText: 'audioDescription.disableAudioDescription',
+          thereIsNoAudioDescriptionAvailableText: 'audioDescription.thereIsNoAudioDescriptionAvailable'
         })(_AudioDescriptionActivator)
       )
     )

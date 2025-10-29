@@ -15,7 +15,6 @@ import {AudioDescriptionMenu} from '../audio-description-menu';
 import {SmartContainer} from '..';
 import {withEventManager} from '../../event';
 import {getAudioLanguageKey} from '../../utils/audio-description';
-import {ReservedPresetNames} from '../../reducers/shell';
 import {AudioDescMini} from './audio-desc-mini';
 
 const COMPONENT_NAME = 'AudioDesc';
@@ -26,8 +25,6 @@ const mapStateToProps = ({config, shell, audioDescription, engine}) => ({
   audioDescriptionLanguages: audioDescription.audioDescriptionLanguages,
   advancedAudioDescriptionLanguages: audioDescription.advancedAudioDescriptionLanguages,
   openMenuFromAudioDescriptionButton: config.openMenuFromAudioDescriptionButton,
-  audioDescriptionEnabled: audioDescription.isEnabled,
-  audioDescriptionType: audioDescription.selectedType,
   audioTracks: engine.audioTracks,
   isPlaybackStarted: engine.isPlaybackStarted,
   isEnabled: audioDescription.isEnabled,
@@ -64,7 +61,15 @@ const _AudioDesc = (props: any) => {
   }, [isClickOutside, isMobile, isSmallSize]);
 
   function getComponentText(): any {
-    return props.audioDescriptionEnabled ? props.disableAudioDescriptionText : props.enableAudioDescriptionText;
+    const isActive = shouldActivate();
+
+    if (!isActive) {
+      return props.thereIsNoAudioDescriptionAvailableText;
+    } else if (props.openMenuFromAudioDescriptionButton) {
+      return props.audioDescriptionLabelText;
+    } else {
+      return props.isEnabled ? props.disableAudioDescriptionText : props.enableAudioDescriptionText;
+    }
   }
 
   function shouldRender(): boolean {
@@ -80,7 +85,7 @@ const _AudioDesc = (props: any) => {
     );
   }
 
-  function handleClick(isComponent = false): void {
+  function onClick(): void {
     const activeAudioLanguage = getAudioLanguageKey(props.player.getActiveTracks()['audio']?.language || '');
     if (!shouldActivate()) {
       return;
@@ -96,21 +101,8 @@ const _AudioDesc = (props: any) => {
         isEnabled: !isEnabled,
         selectedType
       });
-    } else if (isComponent) {
-      setSmartContainerOpen(prev => !prev);
     } else {
-      const removeOverlay = props.player.ui.addComponent({
-        label: 'audio-overlay',
-        area: 'GuiArea',
-        presets: [ReservedPresetNames.Playback, ReservedPresetNames.Live],
-        get: () => {
-          return (
-            <SmartContainer targetId={props.player.config.targetId} onClose={() => removeOverlay()} title={props.audioDescriptionLabelText}>
-              <AudioDescriptionMenu />
-            </SmartContainer>
-          );
-        }
-      });
+      setSmartContainerOpen(prev => !prev);
     }
   }
 
@@ -130,9 +122,9 @@ const _AudioDesc = (props: any) => {
   const innerButtonComponent = getButtonComponent(
     props.openMenuFromAudioDescriptionButton,
     ref,
-    () => handleClick(true),
+    onClick,
     onKeyDown,
-    props.audioDescriptionEnabled,
+    props.isEnabled,
     getComponentText(),
     props.classNames?.includes(style.upperBarIcon),
     shouldActivate()
@@ -161,7 +153,7 @@ const getButtonComponent = (
   innerRef: any,
   onClick: () => void,
   onKeyDown: (e: KeyboardEvent) => void,
-  audioDescriptionEnabled: boolean,
+  isEnabled: boolean,
   label: string,
   isUpperBarIcon: boolean,
   isActive: boolean
@@ -169,7 +161,7 @@ const getButtonComponent = (
   let iconType = IconType.AdvancedAudioDescriptionActive;
   if (!isActive) {
     iconType = IconType.AdvancedAudioDescriptionDisabled;
-  } else if (!audioDescriptionEnabled) {
+  } else if (!isEnabled) {
     iconType = IconType.AdvancedAudioDescription;
   }
 
@@ -196,7 +188,8 @@ const AudioDesc = connect(
         withText({
           audioDescriptionLabelText: 'settings.audioDescription',
           enableAudioDescriptionText: 'audioDescription.enableAudioDescription',
-          disableAudioDescriptionText: 'audioDescription.disableAudioDescription'
+          disableAudioDescriptionText: 'audioDescription.disableAudioDescription',
+          thereIsNoAudioDescriptionAvailableText: 'audioDescription.thereIsNoAudioDescriptionAvailable'
         })(_AudioDesc)
       )
     )

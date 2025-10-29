@@ -1,6 +1,10 @@
 .player {
   .audio-desc-disabled {
-    opacity: 0.5;
+    button {
+      opacity: 0.4;
+    }
+
+    filter: drop-shadow(0 0 6px #000) drop-shadow(0 0 2px rgba(0, 0, 0, 0.6));
     pointer-events: none !important;
   }
 }

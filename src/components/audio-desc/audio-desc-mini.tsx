@@ -90,17 +90,17 @@ const _AudioDescMini = (props: any) => {
   if (!shouldRender()) return null;
 
   const activeAudioLanguage = getAudioLanguageKey(props.player.getActiveTracks()['audio']?.language || '');
-  const isEnabled = store.getState().audioDescription.isEnabled;
+  const icon = getSvgIcon(props, store);
 
   const innerButtonComponent = getButtonComponent(
     props.openMenuFromAudioDescriptionButton,
     ref,
     handleClick,
     onKeyDown,
-    isEnabled,
-    isEnabled ? props.disableAudioDescriptionText : props.enableAudioDescriptionText,
+    getComponentText(props, store),
     props.classNames?.includes(style.upperBarIcon),
-    shouldActivate(activeAudioLanguage, props.audioDescriptionLanguages, props.advancedAudioDescriptionLanguages)
+    shouldActivate(activeAudioLanguage, props.audioDescriptionLanguages, props.advancedAudioDescriptionLanguages),
+    icon
   );
 
   return (
@@ -130,36 +130,39 @@ const getButtonComponent = (
   innerRef: any,
   onClick: () => void,
   onKeyDown: (e: KeyboardEvent) => void,
-  audioDescriptionEnabled: boolean,
   label: string,
   isUpperBarIcon: boolean,
-  isActive: boolean
+  isActive: boolean,
+  icon
 ) => {
-  let iconType = IconType.AdvancedAudioDescriptionActive;
-  if (!isActive) {
-    iconType = IconType.AdvancedAudioDescriptionDisabled;
-  } else if (!audioDescriptionEnabled) {
-    iconType = IconType.AdvancedAudioDescription;
-  }
-
   return openMenuFromAudioDescriptionButton ? (
     <Button tabIndex="0" aria-label={label} className={`${style.controlButton}`} ref={innerRef} onClick={onClick} onKeyDown={onKeyDown}>
-      <Icon color={isActive ? '' : '#888'} type={iconType} />
+      <Icon color={isActive ? '' : '#888'} type={icon.type} />
     </Button>
   ) : (
     <Tooltip label={label} type={isUpperBarIcon ? 'bottom-left' : 'top'} strictPosition>
       <Button tabIndex="0" aria-label={label} className={`${style.controlButton}`} ref={innerRef} onClick={onClick} onKeyDown={onKeyDown}>
-        <Icon type={iconType} />
+        <Icon type={icon.type} />
       </Button>
     </Tooltip>
   );
 };
 
-function getSvgIcon(store): any {
+function getSvgIcon(props, store): any {
   const {audioDescription} = store.getState();
+  const {isEnabled, audioDescriptionLanguages, advancedAudioDescriptionLanguages} = audioDescription;
+  const activeAudioLanguage = getAudioLanguageKey(props.player.getActiveTracks()['audio']?.language || '');
+  const isActive = shouldActivate(activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages);
+
+  let type = IconType.AdvancedAudioDescriptionActive;
+  if (!isActive) {
+    type = IconType.AdvancedAudioDescriptionDisabled;
+  } else if (!isEnabled) {
+    type = IconType.AdvancedAudioDescription;
+  }
 
   return {
-    type: audioDescription.isEnabled ? IconType.AdvancedAudioDescriptionActive : IconType.AdvancedAudioDescription
+    type
   };
 }
 
@@ -206,14 +209,28 @@ function handleIconClick(props, store): void {
   }
 }
 
-function registerComponent(props, store): any {
-  const menuButtonLabel = props.isEnabled ? props.disableAudioDescriptionText : props.enableAudioDescriptionText;
+function getComponentText(props, store): any {
+  const {audioDescriptionLanguages, advancedAudioDescriptionLanguages} = store.getState().audioDescription;
+  const activeAudioLanguage = getAudioLanguageKey(props.player.getActiveTracks()['audio']?.language || '');
 
+  const isActive = shouldActivate(activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages);
+
+  if (!isActive) {
+    return props.thereIsNoAudioDescriptionAvailableText;
+  } else if (props.openMenuFromAudioDescriptionButton) {
+    return props.audioDescriptionLabelText;
+  } else {
+    return props.isEnabled ? props.disableAudioDescriptionText : props.enableAudioDescriptionText;
+  }
+}
+
+function registerComponent(props, store): any {
   return {
-    ariaLabel: () => (props.openMenuFromAudioDescriptionButton ? props.audioDescriptionLabelText : menuButtonLabel),
+    label: props.audioDescriptionLabelText,
+    ariaLabel: () => getComponentText(props, store),
     displayName: AudioDesc.displayName,
     order: 5,
-    svgIcon: () => getSvgIcon(store),
+    svgIcon: () => getSvgIcon(props, store),
     onClick: () => handleIconClick(props, store),
     component: (): any => {
       return getComponent({...props, classNames: [style.upperBarIcon]});
