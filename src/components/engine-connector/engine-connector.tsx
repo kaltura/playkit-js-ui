@@ -14,7 +14,7 @@ import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
 import {EventManager} from '@playkit-js/playkit-js';
 import {EngineState} from '../../types/reducers/engine';
 import {getAudioLanguageKey, isAudioDescriptionLanguageKey} from '../../utils/audio-description';
-import {updateDefaultAudioDescription} from '../audio-desc/audio-description-activator';
+import {updateDefaultAudioDescription} from '../audio-desc/audio-description-updater';
 
 type EngineConnectorProps = {
   engine: EngineState;
@@ -220,8 +220,9 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
       const audioDescriptionLanguages = tracks.filter(t => isAudioDescriptionLanguageKey(t.language)).map(t => getAudioLanguageKey(t.language)) || [];
       this.props.updateAudioDescriptionLanguages(audioDescriptionLanguages);
 
-      const isDefaultValueSet = store.getState().audioDescription.isDefaultValueSet;
-      updateDefaultAudioDescription(this.props, isDefaultValueSet, audioDescriptionLanguages);
+      if (!store.getState().audioDescription.isDefaultValueSet) {
+        updateDefaultAudioDescription(this.props, audioDescriptionLanguages);
+      }
     });
 
     eventManager.listen(player, player.Event.Core.VIDEO_TRACK_CHANGED, () => {

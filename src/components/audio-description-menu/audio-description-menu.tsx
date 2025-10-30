@@ -8,7 +8,7 @@ import {IconType} from '../icon';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from '../event-dispatcher';
 import {AUDIO_DESCRIPTION_TYPE} from '../../types/reducers/audio-description';
-import {getAudioDescriptionLanguageKey, getAudioLanguageKey} from '../../utils/audio-description';
+import {getAudioLanguageKey} from '../../utils/audio-description';
 import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
 
 type AudioDescriptionMenuProps = {
@@ -21,7 +21,6 @@ type AudioDescriptionMenuProps = {
   advancedAudioDescriptionLanguages?: string[];
   updateAudioDescriptionEnabled?: (isEnabled: boolean) => void;
   updateAudioDescriptionType?: (selectedType: AUDIO_DESCRIPTION_TYPE) => void;
-  updateSelectionByLanguage?: (language: string, isEnabled: boolean, selectedType: AUDIO_DESCRIPTION_TYPE) => void;
   disableText?: string;
   standardAudioDescriptionText?: string;
   advancedAudioDescriptionText?: string;
@@ -60,7 +59,6 @@ const _AudioDescriptionMenu = (props: AudioDescriptionMenuProps) => {
     advancedAudioDescriptionLanguages,
     updateAudioDescriptionEnabled,
     updateAudioDescriptionType,
-    updateSelectionByLanguage,
     disableText,
     standardAudioDescriptionText,
     advancedAudioDescriptionText,
@@ -72,65 +70,20 @@ const _AudioDescriptionMenu = (props: AudioDescriptionMenuProps) => {
   } = props;
 
   const onAudioDescriptionChange = (enabledState: number): void => {
-    const selectedType = enabledState === 0 ? AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION : enabledState;
+    const isEnabled = enabledState !== 0;
+    const selectedType = isEnabled ? enabledState : audioDescriptionType;
 
-    updateAudioDescriptionType?.(selectedType);
-
-    const currLanguageKey = player?.getActiveTracks()['audio'].language;
-    if (enabledState === 0) {
-      onDisableSelected(currLanguageKey);
-    } else if (enabledState === AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION) {
-      onAudioDescriptionSelected(currLanguageKey);
-    } else {
-      onAdvancedAudioDescriptionSelected(currLanguageKey);
-    }
+    updateAudioDescriptionEnabled!(isEnabled);
+    updateAudioDescriptionType?.(selectedType!);
 
     // notify the player of a change in audio description settings
     props.notifyClick?.({
       type: 'advancedAudioDescription',
       settings: true,
-      isEnabled: !props.audioDescriptionEnabled,
-      selectedType: props.audioDescriptionType
+      isEnabled,
+      selectedType
     });
   };
-
-  function onDisableSelected(currLanguageKey: string): void {
-    updateAudioDescriptionEnabled?.(false);
-    updateSelectionByLanguage?.(currLanguageKey, false, props.audioDescriptionType || AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
-    const newLanguageKey = getAudioLanguageKey(currLanguageKey);
-    // restore audio track to normal if AD audio track was active
-    changeAudioTrack(currLanguageKey, newLanguageKey);
-  }
-
-  function onAudioDescriptionSelected(currLanguageKey: string): void {
-    updateAudioDescriptionEnabled?.(true);
-    updateAudioDescriptionType?.(AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
-    updateSelectionByLanguage?.(currLanguageKey, true, AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
-    const newLanguageKey = getAudioDescriptionLanguageKey(currLanguageKey);
-    // activate AD audio track
-    changeAudioTrack(currLanguageKey, newLanguageKey);
-  }
-
-  function onAdvancedAudioDescriptionSelected(currLanguageKey: string): void {
-    updateAudioDescriptionEnabled?.(true);
-    updateAudioDescriptionType?.(AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION);
-    updateSelectionByLanguage?.(currLanguageKey, true, AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION);
-    // restore audio track to normal if AD audio track was active
-    const newLanguageKey = getAudioLanguageKey(currLanguageKey);
-    changeAudioTrack(currLanguageKey, newLanguageKey);
-  }
-
-  function changeAudioTrack(currLanguageKey: string, newLanguageKey: string): void {
-    const newAudioTrack = player?.getTracks('audio')?.find(t => t.language === newLanguageKey);
-    if (currLanguageKey !== newLanguageKey && newAudioTrack) {
-      player?.selectTrack(newAudioTrack);
-
-      props.notifyClick?.({
-        type: props.player.Track.AUDIO,
-        track: newAudioTrack
-      });
-    }
-  }
 
   const audioLanguage = getAudioLanguageKey(player?.getActiveTracks()['audio']?.language || '');
 

@@ -62,7 +62,6 @@ const _AudioDescMini = (props: any) => {
 
     if (!props.openMenuFromAudioDescriptionButton) {
       props.updateAudioDescriptionEnabled?.(!isEnabled);
-      props.updateSelectionByLanguage(activeAudioLanguage, !isEnabled, selectedType);
 
       props.notifyClick({
         type: 'advancedAudioDescription',
@@ -184,7 +183,6 @@ function handleIconClick(props, store): void {
 
   if (!props.openMenuFromAudioDescriptionButton) {
     props.updateAudioDescriptionEnabled?.(!isEnabled);
-    props.updateSelectionByLanguage(activeAudioLanguage, !isEnabled, selectedType);
 
     props.notifyClick({
       type: 'advancedAudioDescription',
@@ -215,7 +213,7 @@ function getComponentText(props, store): any {
   const isActive = shouldActivate(activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages);
 
   if (!isActive) {
-    return props.thereIsNoAudioDescriptionAvailableText;
+    return props.thereIsNoAudioDescriptionAvailableText + ` (${activeAudioLanguage})`;
   } else if (props.openMenuFromAudioDescriptionButton) {
     return props.audioDescriptionLabelText;
   } else {

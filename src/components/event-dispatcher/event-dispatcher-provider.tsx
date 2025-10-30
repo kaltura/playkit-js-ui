@@ -182,8 +182,10 @@ function onClickableComponentsHandler(store: any, action: any, player: KalturaPl
       onSpeedClicked(store, action, player);
       break;
 
-    case 'AudioDesc':
     case 'AudioDescriptionMenu':
+    case 'AudioDesc':
+    case 'AudioDescMini':
+    case 'AudioDescriptionUpdater':
       onAudioDescriptionClicked(store, action, player);
       break;
 

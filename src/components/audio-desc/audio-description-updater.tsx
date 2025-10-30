@@ -18,15 +18,18 @@ const mapStateToProps = ({audioDescription, engine, config, bottomBar}) => ({
   advancedAudioDescriptionLanguages: audioDescription.advancedAudioDescriptionLanguages,
   openMenuFromAudioDescriptionButton: config.openMenuFromAudioDescriptionButton,
   audioTracks: engine.audioTracks,
-  isDefaultValueSet: audioDescription.isDefaultValueSet
+  isDefaultValueSet: audioDescription.isDefaultValueSet,
+  isEnabled: audioDescription.isEnabled,
+  selectedType: audioDescription.selectedType
 });
 
-// This component is used to update the audio description state on entry change,
-// and to register the audio description in the bottom bar.
-// The button component doesn't always render (depends on configuration and available space),
-// so we need a separate component which will react to every entry change and update the state accordingly.
-const _AudioDescriptionActivator = props => {
-  const {audioDescriptionLanguages, advancedAudioDescriptionLanguages, isDefaultValueSet} = props;
+const COMPONENT_NAME = 'AudioDescriptionUpdater';
+
+// This component is used to update the audio description state.
+// The button components don't always render (depends on configuration and available space),
+// so we need a separate component which can update the state when needed.
+const _AudioDescriptionUpdater = props => {
+  const {audioDescriptionLanguages, advancedAudioDescriptionLanguages, isDefaultValueSet, isEnabled, selectedType} = props;
   const [isRegisteredToBottomBar, setIsRegisteredToBottomBar] = useState(true);
 
   const store = useStore();
@@ -51,13 +54,63 @@ const _AudioDescriptionActivator = props => {
 
   // set default extended audio description on entry changed
   useEffect(() => {
-    updateDefaultExtendedAudioDescription(props, isDefaultValueSet, advancedAudioDescriptionLanguages);
+    if (!isDefaultValueSet) {
+      updateDefaultExtendedAudioDescription(props, advancedAudioDescriptionLanguages);
+    }
   }, [advancedAudioDescriptionLanguages, isDefaultValueSet]);
+
+  // update audio track selection when audio description is turned on or off
+  useEffect(() => {
+    if (!isDefaultValueSet) return;
+
+    const currLanguageKey = props.player.getActiveTracks()['audio']?.language || '';
+
+    if (!isEnabled) {
+      onDisableSelected(currLanguageKey);
+    } else if (selectedType === AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION) {
+      onAudioDescriptionSelected(currLanguageKey);
+    } else {
+      onAdvancedAudioDescriptionSelected(currLanguageKey);
+    }
+  }, [audioDescriptionLanguages, advancedAudioDescriptionLanguages, isEnabled, selectedType, isDefaultValueSet]);
+
+  function onDisableSelected(currLanguageKey: string): void {
+    props.updateSelectionByLanguage?.(currLanguageKey, false, props.audioDescriptionType || AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
+    const newLanguageKey = getAudioLanguageKey(currLanguageKey);
+    // restore audio track to normal if AD audio track was active
+    changeAudioTrack(currLanguageKey, newLanguageKey);
+  }
+
+  function onAudioDescriptionSelected(currLanguageKey: string): void {
+    props.updateSelectionByLanguage?.(currLanguageKey, true, AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
+    const newLanguageKey = getAudioDescriptionLanguageKey(currLanguageKey);
+    // activate AD audio track
+    changeAudioTrack(currLanguageKey, newLanguageKey);
+  }
+
+  function onAdvancedAudioDescriptionSelected(currLanguageKey: string): void {
+    props.updateSelectionByLanguage?.(currLanguageKey, true, AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION);
+    // restore audio track to normal if AD audio track was active
+    const newLanguageKey = getAudioLanguageKey(currLanguageKey);
+    changeAudioTrack(currLanguageKey, newLanguageKey);
+  }
+
+  function changeAudioTrack(currLanguageKey: string, newLanguageKey: string): void {
+    const newAudioTrack = props.player?.getTracks('audio')?.find(t => t.language === newLanguageKey);
+    if (currLanguageKey !== newLanguageKey && newAudioTrack) {
+      props.player?.selectTrack(newAudioTrack);
+
+      props.notifyClick?.({
+        type: props.player.Track.AUDIO,
+        track: newAudioTrack
+      });
+    }
+  }
 
   return null;
 };
 
-function updateDefaultAudioDescription(props, isDefaultValueSet, audioDescriptionLanguages): void {
+function updateDefaultAudioDescription(props, audioDescriptionLanguages): void {
   if (!audioDescriptionLanguages?.length) return;
 
   const audioDescription = getAudioDescriptionStateFromStorage();
@@ -78,7 +131,6 @@ function updateDefaultAudioDescription(props, isDefaultValueSet, audioDescriptio
     props.updateDefaultValueSet(true);
   } else if (
     activeAudioLanguage &&
-    !isDefaultValueSet &&
     audioDescriptionLanguages.find(lang => lang.startsWith(activeAudioLanguage)) &&
     (props.player.config.playback.prioritizeAudioDescription ||
       (isEnabledInStorage !== null && selectedTypeInStorage === AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION))
@@ -98,7 +150,7 @@ function updateDefaultAudioDescription(props, isDefaultValueSet, audioDescriptio
   }
 }
 
-function updateDefaultExtendedAudioDescription(props, isDefaultValueSet, advancedAudioDescriptionLanguages): void {
+function updateDefaultExtendedAudioDescription(props, advancedAudioDescriptionLanguages): void {
   if (!advancedAudioDescriptionLanguages?.length) return;
 
   const audioDescription = getAudioDescriptionStateFromStorage();
@@ -115,7 +167,6 @@ function updateDefaultExtendedAudioDescription(props, isDefaultValueSet, advance
 
   if (
     activeAudioLanguage &&
-    !isDefaultValueSet &&
     advancedAudioDescriptionLanguages.find(lang => lang.startsWith(activeAudioLanguage)) &&
     (props.player.config.playback.prioritizeAudioDescription ||
       (isEnabledInStorage !== null && selectedTypeInStorage === AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION))
@@ -129,22 +180,24 @@ function updateDefaultExtendedAudioDescription(props, isDefaultValueSet, advance
   }
 }
 
-const AudioDescriptionActivator = connect(
+const AudioDescriptionUpdater = connect(
   mapStateToProps,
   bindActions(actions)
 )(
   withEventManager(
-    withEventDispatcher(AudioDesc.displayName)(
+    withEventDispatcher(COMPONENT_NAME)(
       withPlayer(
         withText({
           audioDescriptionLabelText: 'settings.audioDescription',
           enableAudioDescriptionText: 'audioDescription.enableAudioDescription',
           disableAudioDescriptionText: 'audioDescription.disableAudioDescription',
           thereIsNoAudioDescriptionAvailableText: 'audioDescription.thereIsNoAudioDescriptionAvailable'
-        })(_AudioDescriptionActivator)
+        })(_AudioDescriptionUpdater)
       )
     )
   )
 );
 
-export {AudioDescriptionActivator, updateDefaultAudioDescription};
+AudioDescriptionUpdater.displayName = COMPONENT_NAME;
+
+export {AudioDescriptionUpdater, updateDefaultAudioDescription};

@@ -61,10 +61,11 @@ const _AudioDesc = (props: any) => {
   }, [isClickOutside, isMobile, isSmallSize]);
 
   function getComponentText(): any {
+    const activeAudioLanguage = getAudioLanguageKey(props.player.getActiveTracks()['audio']?.language || '');
     const isActive = shouldActivate();
 
     if (!isActive) {
-      return props.thereIsNoAudioDescriptionAvailableText;
+      return props.thereIsNoAudioDescriptionAvailableText + ` (${activeAudioLanguage})`;
     } else if (props.openMenuFromAudioDescriptionButton) {
       return props.audioDescriptionLabelText;
     } else {
@@ -86,14 +87,12 @@ const _AudioDesc = (props: any) => {
   }
 
   function onClick(): void {
-    const activeAudioLanguage = getAudioLanguageKey(props.player.getActiveTracks()['audio']?.language || '');
     if (!shouldActivate()) {
       return;
     }
 
     if (!props.openMenuFromAudioDescriptionButton) {
       props.updateAudioDescriptionEnabled?.(!isEnabled);
-      props.updateSelectionByLanguage(activeAudioLanguage, !isEnabled, selectedType);
 
       props.notifyClick({
         type: 'advancedAudioDescription',
