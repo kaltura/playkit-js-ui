@@ -18,6 +18,7 @@ export interface UIOptionsObject {
     showQualityMenu?: boolean;
     showSpeedMenu?: boolean;
     showAdvancedCaptionsMenu?: boolean;
+    showAudioDescriptionMenu?: boolean;
   };
   hoverTimeout?: number;
   logger?: LoggerType;

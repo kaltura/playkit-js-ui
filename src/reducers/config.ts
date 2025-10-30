@@ -22,7 +22,8 @@ export const initialState = {
     showCaptionsMenu: true,
     showQualityMenu: true,
     showSpeedMenu: true,
-    showAdvancedCaptionsMenu: true
+    showAdvancedCaptionsMenu: true,
+    showAudioDescriptionMenu: true
   },
   hoverTimeout: 3000,
   tinySizeDisabled: false,

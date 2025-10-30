@@ -37,8 +37,10 @@ const mapStateToProps = state => ({
   showQualityMenu: state.config.settings.showQualityMenu,
   showAudioMenu: state.config.settings.showAudioMenu,
   showCaptionsMenu: state.config.settings.showCaptionsMenu,
-  showSpeedMenu: state.config.settings.showSpeedMenu
-  //showAdvancedAudioDescToggle: state.config.settings.showAdvancedAudioDescToggle
+  showSpeedMenu: state.config.settings.showSpeedMenu,
+  showAdvancedAudioDescToggle: state.config.settings.showAudioDescriptionMenu,
+  audioDescriptionLanguages: state.audioDescription.audioDescriptionLanguages,
+  advancedAudioDescriptionLanguages: state.audioDescription.advancedAudioDescriptionLanguages
 });
 const COMPONENT_NAME = 'Settings';
 
@@ -300,8 +302,11 @@ class Settings extends Component<any, any> {
     const showCaptionsMenu = props.showCaptionsMenu && props.textTracks.length > 1;
     const showQualityMenu = props.showQualityMenu && !props.isAudio && props.videoTracks.length > 1;
     const showSpeedMenu = props.showSpeedMenu && props.player.playbackRates.length > 1 && !props.isLive;
+    const showAudioDescriptionMenu =
+      props.showAdvancedAudioDescToggle && (props.audioDescriptionLanguages.length > 0 || props.advancedAudioDescriptionLanguages.length > 0);
 
-    if (!(showAudioMenu || showCaptionsMenu || showQualityMenu || showSpeedMenu)) return undefined;
+    if (!(showAudioMenu || showCaptionsMenu || showQualityMenu || showSpeedMenu || showAudioDescriptionMenu || showAudioDescriptionMenu))
+      return undefined;
     if (props.isLive && props.videoTracks.length <= 1 && !showAudioMenu && !showCaptionsMenu) return undefined;
     const buttonBadgeType: string = this.getButtonBadgeType() || '';
 
@@ -328,7 +333,7 @@ class Settings extends Component<any, any> {
         {this.state.smartContainerOpen && !this.state.cvaaOverlay && (
           <SmartContainer title={<Text id="settings.title" />} onClose={this.onControlButtonClick}>
             {showAudioMenu && <AudioMenu asDropdown={true} />}
-            {showAudioMenu && <AudioDescriptionMenu asDropdown={true} />}
+            {showAudioDescriptionMenu && <AudioDescriptionMenu asDropdown={true} />}
             {showCaptionsMenu && <CaptionsMenu asDropdown={true} onAdvancedCaptionsClick={this.toggleCVAAOverlay} />}
             {showQualityMenu && <QualityMenu />}
             {showSpeedMenu && <SpeedMenu />}
