@@ -111,8 +111,6 @@ function updateDefaultExtendedAudioDescription(props, isDefaultValueSet, advance
     selectedTypeInStorage = selectedType;
   }
 
-  // TODO handle isEnabled false ?
-
   const activeAudioLanguage = getAudioLanguageKey(props.player.getActiveTracks()['audio']?.language || '');
 
   if (

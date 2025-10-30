@@ -20,7 +20,6 @@ const _AudioDescMini = (props: any) => {
   const [smartContainerOpen, setSmartContainerOpen] = useState(false);
   const [isClickOutside, setIsClickOutside] = useState(false);
 
-  // TODO take issmallsize and ismobile from store ?
   const {eventManager, isSmallSize, isMobile} = props;
 
   const store = useStore();
