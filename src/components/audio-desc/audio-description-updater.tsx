@@ -20,7 +20,8 @@ const mapStateToProps = ({audioDescription, engine, config, bottomBar}) => ({
   audioTracks: engine.audioTracks,
   isDefaultValueSet: audioDescription.isDefaultValueSet,
   isEnabled: audioDescription.isEnabled,
-  selectedType: audioDescription.selectedType
+  selectedType: audioDescription.selectedType,
+  showAudioDescriptionButton: config.showAudioDescriptionButton
 });
 
 const COMPONENT_NAME = 'AudioDescriptionUpdater';
@@ -29,7 +30,8 @@ const COMPONENT_NAME = 'AudioDescriptionUpdater';
 // The button components don't always render (depends on configuration and available space),
 // so we need a separate component which can update the state when needed.
 const _AudioDescriptionUpdater = props => {
-  const {audioDescriptionLanguages, advancedAudioDescriptionLanguages, isDefaultValueSet, isEnabled, selectedType} = props;
+  const {audioDescriptionLanguages, advancedAudioDescriptionLanguages, isDefaultValueSet, isEnabled, selectedType, showAudioDescriptionButton} =
+    props;
   const [isRegisteredToBottomBar, setIsRegisteredToBottomBar] = useState(true);
 
   const store = useStore();
@@ -43,14 +45,14 @@ const _AudioDescriptionUpdater = props => {
 
   // handle register and unregister to bottom bar
   useEffect(() => {
-    if (isRegisteredToBottomBar) return;
+    if (isRegisteredToBottomBar || !showAudioDescriptionButton) return;
 
     unregisterFromBottomBar(AudioDesc.displayName, props.player);
     if (props.advancedAudioDescriptionLanguages.length > 0 || props.audioDescriptionLanguages.length > 0) {
       setIsRegisteredToBottomBar(true);
       registerToBottomBar(AudioDesc.displayName, props.player, () => registerComponent(props, store));
     }
-  }, [props.player, advancedAudioDescriptionLanguages, audioDescriptionLanguages, isRegisteredToBottomBar]);
+  }, [props.player, advancedAudioDescriptionLanguages, audioDescriptionLanguages, isRegisteredToBottomBar, showAudioDescriptionButton]);
 
   // set default extended audio description on entry changed
   useEffect(() => {

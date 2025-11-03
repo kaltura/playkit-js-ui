@@ -15,7 +15,6 @@ import {AudioDescriptionMenu} from '../audio-description-menu';
 import {SmartContainer} from '..';
 import {withEventManager} from '../../event';
 import {getAudioLanguageKey} from '../../utils/audio-description';
-import {AudioDescMini} from './audio-desc-mini';
 
 const COMPONENT_NAME = 'AudioDesc';
 
@@ -28,7 +27,8 @@ const mapStateToProps = ({config, shell, audioDescription, engine}) => ({
   audioTracks: engine.audioTracks,
   isPlaybackStarted: engine.isPlaybackStarted,
   isEnabled: audioDescription.isEnabled,
-  selectedType: audioDescription.selectedType
+  selectedType: audioDescription.selectedType,
+  showAudioDescriptionButton: config.showAudioDescriptionButton
 });
 
 const _AudioDesc = (props: any) => {
@@ -74,7 +74,7 @@ const _AudioDesc = (props: any) => {
   }
 
   function shouldRender(): boolean {
-    return props.advancedAudioDescriptionLanguages.length > 0 || props.audioDescriptionLanguages.length > 0;
+    return props.showAudioDescriptionButton && (props.advancedAudioDescriptionLanguages.length > 0 || props.audioDescriptionLanguages.length > 0);
   }
 
   function shouldActivate(): boolean {
@@ -142,7 +142,6 @@ const _AudioDesc = (props: any) => {
           </SmartContainer>
         )}
       </ButtonControl>
-      <AudioDescMini {...props} />
     </Fragment>
   );
 };
