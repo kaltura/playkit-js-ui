@@ -57,7 +57,7 @@ const _AudioDescriptionUpdater = props => {
   // set default extended audio description on entry changed
   useEffect(() => {
     if (!isDefaultValueSet) {
-      updateDefaultExtendedAudioDescription(props, advancedAudioDescriptionLanguages);
+      updateDefaultAdvancedAudioDescription(props, advancedAudioDescriptionLanguages);
     }
   }, [advancedAudioDescriptionLanguages, isDefaultValueSet]);
 
@@ -112,8 +112,8 @@ const _AudioDescriptionUpdater = props => {
   return null;
 };
 
-function updateDefaultAudioDescription(props, audioDescriptionLanguages): void {
-  if (!audioDescriptionLanguages?.length) return;
+function updateDefaultAudioDescription(props, audioDescriptionLanguages): boolean {
+  if (!audioDescriptionLanguages?.length) return false;
 
   const audioDescription = getAudioDescriptionStateFromStorage();
 
@@ -131,13 +131,20 @@ function updateDefaultAudioDescription(props, audioDescriptionLanguages): void {
     props.updateAudioDescriptionType(AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
     props.updateSelectionByLanguage(activeAudioLanguage, false, AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
     props.updateDefaultValueSet(true);
+
+    return true;
   } else if (
     activeAudioLanguage &&
     audioDescriptionLanguages.find(lang => lang.startsWith(activeAudioLanguage)) &&
     (props.player.config.playback.prioritizeAudioDescription ||
       (isEnabledInStorage !== null && selectedTypeInStorage === AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION))
   ) {
-    const isEnabled = isEnabledInStorage !== null ? isEnabledInStorage : true;
+    let isEnabled;
+    if (props.player.config.playback.prioritizeAudioDescription || isEnabledInStorage === null) {
+      isEnabled = true;
+    } else {
+      isEnabled = isEnabledInStorage;
+    }
 
     props.updateAudioDescriptionEnabled?.(isEnabled);
     props.updateAudioDescriptionType(AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
@@ -149,11 +156,15 @@ function updateDefaultAudioDescription(props, audioDescriptionLanguages): void {
     if (newAudioTrack) {
       props.player?.selectTrack(newAudioTrack);
     }
+
+    return true;
   }
+
+  return false;
 }
 
-function updateDefaultExtendedAudioDescription(props, advancedAudioDescriptionLanguages): void {
-  if (!advancedAudioDescriptionLanguages?.length) return;
+function updateDefaultAdvancedAudioDescription(props, advancedAudioDescriptionLanguages): boolean {
+  if (!advancedAudioDescriptionLanguages?.length) return false;
 
   const audioDescription = getAudioDescriptionStateFromStorage();
 
@@ -173,13 +184,22 @@ function updateDefaultExtendedAudioDescription(props, advancedAudioDescriptionLa
     (props.player.config.playback.prioritizeAudioDescription ||
       (isEnabledInStorage !== null && selectedTypeInStorage === AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION))
   ) {
-    const isEnabled = isEnabledInStorage !== null ? isEnabledInStorage : true;
+    let isEnabled;
+    if (props.player.config.playback.prioritizeAudioDescription || isEnabledInStorage === null) {
+      isEnabled = true;
+    } else {
+      isEnabled = isEnabledInStorage;
+    }
 
     props.updateAudioDescriptionEnabled?.(isEnabled);
     props.updateAudioDescriptionType(AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION);
     props.updateSelectionByLanguage(activeAudioLanguage, isEnabled, AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION);
     props.updateDefaultValueSet(true);
+
+    return true;
   }
+
+  return false;
 }
 
 const AudioDescriptionUpdater = connect(
@@ -202,4 +222,4 @@ const AudioDescriptionUpdater = connect(
 
 AudioDescriptionUpdater.displayName = COMPONENT_NAME;
 
-export {AudioDescriptionUpdater, updateDefaultAudioDescription};
+export {AudioDescriptionUpdater, updateDefaultAudioDescription, updateDefaultAdvancedAudioDescription};

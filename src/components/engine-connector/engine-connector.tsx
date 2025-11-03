@@ -14,7 +14,7 @@ import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
 import {EventManager} from '@playkit-js/playkit-js';
 import {EngineState} from '../../types/reducers/engine';
 import {getAudioLanguageKey, isAudioDescriptionLanguageKey} from '../../utils/audio-description';
-import {updateDefaultAudioDescription} from '../audio-desc/audio-description-updater';
+import {updateDefaultAdvancedAudioDescription, updateDefaultAudioDescription} from '../audio-desc/audio-description-updater';
 
 type EngineConnectorProps = {
   engine: EngineState;
@@ -221,7 +221,10 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
       this.props.updateAudioDescriptionLanguages(audioDescriptionLanguages);
 
       if (!store.getState().audioDescription.isDefaultValueSet) {
-        updateDefaultAudioDescription(this.props, audioDescriptionLanguages);
+        const didUpdate = updateDefaultAudioDescription(this.props, audioDescriptionLanguages);
+        if (!didUpdate) {
+          updateDefaultAdvancedAudioDescription(this.props, store.getState().audioDescription.advancedAudioDescriptionLanguages);
+        }
       }
     });
 
