@@ -12,7 +12,7 @@ type OptionType = {
   label: string;
   ariaLabel?: string;
   active: boolean;
-  disabled: boolean;
+  disabled?: boolean;
 };
 
 type MenuProps = {

@@ -90,26 +90,32 @@ const _AudioDescriptionMenu = (props: AudioDescriptionMenuProps) => {
   const hasAudioDescription = !!audioDescriptionLanguages?.find(lang => lang.startsWith(audioLanguage));
   const hasAdvancedAudioDescription = !!advancedAudioDescriptionLanguages?.find(lang => lang.startsWith(audioLanguage));
 
-  const options = [
+  const options: Array<{
+    disabled: boolean;
+    label: string;
+    ariaLabel?: string;
+    value: number;
+    active: boolean;
+  }> = [
     {
       disabled: false,
-      label: disableText,
+      label: disableText as string,
       value: 0,
       active: !audioDescriptionEnabled
     },
     {
       disabled: !hasAudioDescription,
-      label: standardAudioDescriptionText,
+      label: standardAudioDescriptionText as string,
       ariaLabel: hasAudioDescription ? standardAudioDescriptionAvailableText : noStandardAudioDescriptionAvailableText,
       value: AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION,
-      active: audioDescriptionEnabled && audioDescriptionType === AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION
+      active: (audioDescriptionEnabled && audioDescriptionType === AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION) as boolean
     },
     {
       disabled: !hasAdvancedAudioDescription,
-      label: advancedAudioDescriptionText,
+      label: advancedAudioDescriptionText as string,
       ariaLabel: hasAdvancedAudioDescription ? advancedAudioDescriptionAvailableText : noAdvancedAudioDescriptionAvailableText,
       value: AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION,
-      active: audioDescriptionEnabled && audioDescriptionType === AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION
+      active: (audioDescriptionEnabled && audioDescriptionType === AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION) as boolean
     }
   ];
 

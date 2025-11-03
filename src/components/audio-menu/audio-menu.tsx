@@ -68,7 +68,7 @@ const _AudioMenu = (props: AudioMenuProps) => {
           return {
             label,
             ariaLabel,
-            active: t.language === activeAudioLanguage,
+            active: (t.language === activeAudioLanguage) as boolean,
             value: t
           };
         })
