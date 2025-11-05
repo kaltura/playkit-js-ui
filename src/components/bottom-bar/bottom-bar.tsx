@@ -131,6 +131,7 @@ class BottomBar extends Component<any, any> {
 
     const barWidth = this.bottomBarContainerRef.current?.offsetWidth || 0;
 
+    // Avoid calculations when bottom bar is not visible
     if (barWidth === 0) return;
 
     const currentControlsWidth = this._getControlsWidth();
