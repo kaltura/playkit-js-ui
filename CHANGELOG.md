@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.82.8 (2025-10-23)
+
+
+### Bug Fixes
+
+* **ADA-2815:** Adjust volume control bar width ([#1092](https://github.com/kaltura/playkit-js-ui/issues/1092)) ([8a94d0d](https://github.com/kaltura/playkit-js-ui/commit/8a94d0d))
+
+
+
+### 0.82.7 (2025-09-30)
+
+
+### Bug Fixes
+
+* **FEC-14593:** Add Q to KeyCode ([#1085](https://github.com/kaltura/playkit-js-ui/issues/1085)) ([04a0966](https://github.com/kaltura/playkit-js-ui/commit/04a0966))
+
+
+
+### 0.82.6 (2025-09-11)
+
+
+### Bug Fixes
+
+* **SUP-45260:** University of California - Berkeley | v7 player issue when using picture-in-picture ([#1079](https://github.com/kaltura/playkit-js-ui/issues/1079)) ([d746410](https://github.com/kaltura/playkit-js-ui/commit/d746410))
+
+
+
+### 0.82.5 (2025-08-28)
+
+
+### Bug Fixes
+
+* **ADA-2810:** Remove seekbar styling on chapters ([#1077](https://github.com/kaltura/playkit-js-ui/issues/1077)) ([cc8b51e](https://github.com/kaltura/playkit-js-ui/commit/cc8b51e))
+
+
+
 ### 0.82.4 (2025-08-14)
 
 

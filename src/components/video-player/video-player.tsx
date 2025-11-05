@@ -7,7 +7,6 @@ import {bindActions} from '../../utils';
 import {withPlayer} from '../player';
 import {EventType, withEventManager} from '../../event';
 import {PlayerArea} from '../player-area';
-import {Text, withText} from 'preact-i18n';
 
 /**
  * mapping state to props
@@ -19,10 +18,6 @@ const mapStateToProps = state => ({
   targetId: state.config.targetId
 });
 
-const translates = {
-  videoLabel: <Text id="videoArea.videoLabel">Video player. Use the play button or press the space bar to start playback.</Text>
-};
-
 /**
  * VideoPlayer component
  *
@@ -30,7 +25,6 @@ const translates = {
  * @example <VideoPlayer>...</VideoPlayer>
  * @extends {Component}
  */
-@withText(translates)
 @withPlayer
 @withEventManager
 @connect(mapStateToProps, bindActions(actions))
@@ -115,10 +109,10 @@ class VideoPlayer extends Component<any, any> {
    * @memberof VideoPlayer
    */
   render(): VNode<any> {
-    const {videoStyles, targetId, videoLabel} = this.props;
+    const {videoStyles, targetId} = this.props;
 
     return (
-      <div aria-label={videoLabel} id={`${targetId}-video`} className={style.videoPlayer} style={videoStyles} ref={this._setRef}>
+      <div role='region' id={`${targetId}-video`} className={style.videoPlayer} style={videoStyles} ref={this._setRef}>
         <PlayerArea name={'VideoContainer'} />
       </div>
     );

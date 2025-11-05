@@ -60,6 +60,13 @@
     "cvaa": {
       "title": "Configuración avanzada de los subtítulos",
       "sample_caption_tag": "Ejemplo {{number}}",
+      "sample_high_contrast": "Contraste alto",
+      "sample_minimalist": "Minimalista",
+      "sample_classic_tv": "Estilo TV clásico",
+      "sample_easy_reading": "Fácil de leer",
+      "sample_early_readers": "Primeros lectores",
+      "sample_night_mode": "Modo nocturno",
+      "sample_custom": "Personalizado",
       "sample_custom_caption_tag": "Personalizar subtítulos",
       "set_custom_caption": "Configurar subtítulos personalizados",
       "edit_caption": "Editar subtítulo",

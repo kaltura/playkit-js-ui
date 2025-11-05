@@ -122,7 +122,7 @@ class SeekBar extends Component<any, any> {
         }
       });
     });
-
+    
     eventManager.listen(player, EventType.BOTTOM_BAR_CLIENT_RECT_CHANGED, this.handleUpdateSeekBarClientRect);
     document.addEventListener('mouseup', this.onPlayerMouseUp);
     document.addEventListener('mousemove', this.onPlayerMouseMove);

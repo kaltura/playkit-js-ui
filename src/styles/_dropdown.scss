@@ -40,7 +40,7 @@
     line-height: 18px;
     color: #fff;
     cursor: pointer;
-    padding-left: 20px;
+    margin-left: 20px;
     display: flex;
 
     .icon {
@@ -141,6 +141,9 @@
     &[disabled] {
       color: #888;
     }
+  }
+  .dropdown-menu-additional-options {
+    border-top: 1px solid $tone-5-color;
   }
 }
 

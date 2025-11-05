@@ -60,6 +60,13 @@
     "cvaa": {
       "title": "Impostazioni didascalie avanzate",
       "sample_caption_tag": "Campione {{number}}",
+      "sample_high_contrast": "Contrasto elevato",
+      "sample_minimalist": "Minimal",
+      "sample_classic_tv": "Stile TV classico",
+      "sample_easy_reading": "Lettura agevolata",
+      "sample_early_readers": "Primi lettori",
+      "sample_night_mode": "Modalità notte",
+      "sample_custom": "Personalizza",
       "sample_custom_caption_tag": "Didascalie personalizzate",
       "set_custom_caption": "Imposta didascalia personalizzata",
       "edit_caption": "Modifica didascalia",

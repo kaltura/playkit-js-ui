@@ -60,6 +60,13 @@
     "cvaa": {
       "title": "Расширенные настройки субтитров",
       "sample_caption_tag": "Образец {{number}}",
+      "sample_high_contrast": "Высокая контрастность",
+      "sample_minimalist": "Минималистичный дизайн",
+      "sample_classic_tv": "Классический ТВ-стиль",
+      "sample_easy_reading": "Легкое чтение",
+      "sample_early_readers": "Для начинающих читать",
+      "sample_night_mode": "Ночной режим",
+      "sample_custom": "Пользовательская настройка",
       "sample_custom_caption_tag": "Индивидуальные субтитры",
       "set_custom_caption": "Установить индивидуальные субтитры",
       "edit_caption": "Редактировать субтитры",

@@ -27,6 +27,7 @@ type MenuProps = {
   onClose: () => void;
   hideSelect?: boolean;
   parentEl?: HTMLDivElement;
+  additionalOptions?: {value: any; label: string}[];
 };
 
 /**
@@ -159,8 +160,30 @@ class Menu extends Component<MenuProps & WithEventManagerProps, any> {
    * @returns {void}
    * @memberof Menu
    */
+  /**
+   * Handles selection changes for the native <select>.
+   *
+   * The <select> renders both normal options and additional options in a single list.
+   * - If the selected index is within `options.length`, it's a normal option, so we call `onSelect()`.
+   * - Otherwise, it's `additionalOptions`, so we calculate itsrelative index and call `onMenuChosen()` directly
+   */
   private onChange = (e: Event): void => {
-    this.onSelect(this.props.options[(e.target as HTMLSelectElement).value]);
+    const selectedIndex = Number((e.target as HTMLSelectElement).value);
+
+    if (selectedIndex < this.props.options.length) {
+      // Normal options
+      const option = this.props.options[selectedIndex];
+      if (option) {
+        this.onSelect(option);
+      }
+    } else {
+      // Additional options
+      const additionalIndex = selectedIndex - this.props.options.length;
+      const additional = this.props.additionalOptions?.[additionalIndex];
+      if (additional) {
+        this.props.onMenuChosen(additional.value);
+      }
+    }
   };
 
   /**
@@ -169,6 +192,7 @@ class Menu extends Component<MenuProps & WithEventManagerProps, any> {
    * @returns {React$Element} - component element
    * @memberof Menu
    */
+
   private renderNativeSelect(labelledby: string): VNode<any> {
     let classes = this.props.hideSelect ? style.mobileHiddenSelect : '';
     classes += ` ${style.dropdown}`;
@@ -186,6 +210,11 @@ class Menu extends Component<MenuProps & WithEventManagerProps, any> {
         onChange={this.onChange}>
         {this.props.options.map((o, index) => (
           <option disabled={o.disabled} value={index} key={index} aria-label={o.ariaLabel ? o.ariaLabel : o.label}>
+            {o.label}
+          </option>
+        ))}
+        {this.props.additionalOptions?.map((o, index) => (
+          <option value={this.props.options.length + index} key={`additional-${index}`}>
             {o.label}
           </option>
         ))}
@@ -225,6 +254,23 @@ class Menu extends Component<MenuProps & WithEventManagerProps, any> {
             aria-selected={this.isSelected(o)}
           />
         ))}
+
+        {props.additionalOptions?.length > 0 && (
+          <div className={style.dropdownMenuAdditionalOptions}>
+            {props.additionalOptions.map((o, index) => (
+              <MenuItem
+                setDefaultFocusedElement={props.setDefaultFocusedElement}
+                addAccessibleChild={props.addAccessibleChild}
+                isSelected={() => false}
+                onSelect={() => props.onMenuChosen(o.value)}
+                key={`footer-${index}`}
+                data={o}
+                role="menuitem"
+                isFooter
+              />
+            ))}
+          </div>
+        )}
       </div>
     );
   }
@@ -281,10 +327,10 @@ class MenuItem extends Component<any, any> {
    * @memberof MenuItem
    */
   public render(props: any): VNode<any> {
-    const badgeType: string | null =
-      props.data.badgeType && !props.isSelected(props.data) ? BadgeType[props.data.badgeType] : BadgeType[props.data.badgeType + 'Active'];
     const ariaLabel = props.data.ariaLabel || props.data.label;
-
+    const isAdditional = props.isAdditional;
+    const selected = !isAdditional && props.isSelected(props.data);
+    const badgeType: string | null = props.data.badgeType && !selected ? BadgeType[props.data.badgeType] : BadgeType[props.data.badgeType + 'Active'];
     return (
       <div
         role={props?.role}
