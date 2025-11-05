@@ -32,7 +32,6 @@ const _AudioDescMini = (props: any) => {
       }
     }
 
-    eventManager.unlisten(document, 'click', handleClickOutside);
     eventManager.listen(document, 'click', handleClickOutside);
   }, [eventManager]);
 
@@ -52,10 +51,9 @@ const _AudioDescMini = (props: any) => {
 
   function handleClick(): void {
     const {audioDescriptionLanguages, advancedAudioDescriptionLanguages} = props;
-    const isEnabled = store.getState().audioDescription.isEnabled;
-    const selectedType = store.getState().audioDescription.selectedType;
+    const {isEnabled, selectedType} = store.getState().audioDescription;
 
-    const activeAudioLanguage = getAudioLanguageKey(props.player.getActiveTracks()['audio']?.language || '');
+    const activeAudioLanguage = getActiveAudioLanguage(props);
     if (!shouldActivate(activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages)) {
       return;
     }
@@ -87,7 +85,7 @@ const _AudioDescMini = (props: any) => {
 
   if (!shouldRender()) return null;
 
-  const activeAudioLanguage = getAudioLanguageKey(props.player.getActiveTracks()['audio']?.language || '');
+  const activeAudioLanguage = getActiveAudioLanguage(props);
   const icon = getSvgIcon(props, store);
 
   const innerButtonComponent = getButtonComponent(
@@ -140,7 +138,7 @@ const getButtonComponent = (
   ) : (
     <Tooltip label={label} type={isUpperBarIcon ? 'bottom-left' : 'top'} strictPosition>
       <Button tabIndex="0" aria-label={label} className={`${style.controlButton}`} ref={innerRef} onClick={onClick} onKeyDown={onKeyDown}>
-        <Icon type={icon.type} />
+        <Icon color={isActive ? '' : '#888'} type={icon.type} />
       </Button>
     </Tooltip>
   );
@@ -149,7 +147,7 @@ const getButtonComponent = (
 function getSvgIcon(props, store, isDropdown = false): any {
   const {audioDescription} = store.getState();
   const {isEnabled, audioDescriptionLanguages, advancedAudioDescriptionLanguages} = audioDescription;
-  const activeAudioLanguage = getAudioLanguageKey(props.player.getActiveTracks()['audio']?.language || '');
+  const activeAudioLanguage = getActiveAudioLanguage(props);
   const isActive = shouldActivate(activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages);
 
   let type = IconType.AdvancedAudioDescriptionActive;
@@ -176,7 +174,7 @@ function handleIconClick(props, store): void {
   const {audioDescription} = store.getState();
   const {isEnabled, selectedType, audioDescriptionLanguages, advancedAudioDescriptionLanguages} = audioDescription;
 
-  const activeAudioLanguage = getAudioLanguageKey(props.player.getActiveTracks()['audio']?.language || '');
+  const activeAudioLanguage = getActiveAudioLanguage(props);
   if (!shouldActivate(activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages)) {
     return;
   }
@@ -208,12 +206,12 @@ function handleIconClick(props, store): void {
 
 function getComponentText(props, store): any {
   const {audioDescriptionLanguages, advancedAudioDescriptionLanguages} = store.getState().audioDescription;
-  const activeAudioLanguage = getAudioLanguageKey(props.player.getActiveTracks()['audio']?.language || '');
+  const activeAudioLanguage = getActiveAudioLanguage(props);
 
   const isActive = shouldActivate(activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages);
 
   if (!isActive) {
-    return props.thereIsNoAudioDescriptionAvailableText + ` (${activeAudioLanguage})`;
+    return `${props.thereIsNoAudioDescriptionAvailableText} (${activeAudioLanguage})`;
   } else if (props.openMenuFromAudioDescriptionButton) {
     return props.audioDescriptionLabelText;
   } else {
@@ -234,11 +232,15 @@ function registerComponent(props, store): any {
     },
     isDisabled: (): boolean => {
       const {audioDescriptionLanguages, advancedAudioDescriptionLanguages} = store.getState().audioDescription;
-      const activeAudioLanguage = getAudioLanguageKey(props.player.getActiveTracks()['audio']?.language || '');
+      const activeAudioLanguage = getActiveAudioLanguage(props);
       return !shouldActivate(activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages);
     },
     shouldHandleOnClick: false
   };
+}
+
+function getActiveAudioLanguage(props): string {
+  return getAudioLanguageKey(props.player.getActiveTracks()['audio']?.language || '');
 }
 
 const getComponent = (props: any) => {

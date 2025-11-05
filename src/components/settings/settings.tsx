@@ -298,14 +298,13 @@ class Settings extends Component<any, any> {
    */
   public render(props: any): VNode<any> | undefined {
     const showAudioMenu = props.showAudioMenu && props.audioTracks.length > 1;
-    //const showAdvancedAudioDescToggle = props.showAdvancedAudioDescToggle;
     const showCaptionsMenu = props.showCaptionsMenu && props.textTracks.length > 1;
     const showQualityMenu = props.showQualityMenu && !props.isAudio && props.videoTracks.length > 1;
     const showSpeedMenu = props.showSpeedMenu && props.player.playbackRates.length > 1 && !props.isLive;
     const showAudioDescriptionMenu =
       props.showAdvancedAudioDescToggle && (props.audioDescriptionLanguages.length > 0 || props.advancedAudioDescriptionLanguages.length > 0);
 
-    if (!(showAudioMenu || showCaptionsMenu || showQualityMenu || showSpeedMenu || showAudioDescriptionMenu || showAudioDescriptionMenu))
+    if (!(showAudioMenu || showCaptionsMenu || showQualityMenu || showSpeedMenu || showAudioDescriptionMenu))
       return undefined;
     if (props.isLive && props.videoTracks.length <= 1 && !showAudioMenu && !showCaptionsMenu) return undefined;
     const buttonBadgeType: string = this.getButtonBadgeType() || '';

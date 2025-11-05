@@ -81,10 +81,22 @@ class LiveUI extends Component<any, any> {
                   </InteractiveArea>
                   <BottomBar
                     leftControls={[PlaybackControls, Rewind, Forward, LiveTag]}
-                    rightControls={[VrStereo, Volume, ClosedCaptions, CaptionsControl, Settings, Cast, PictureInPicture, Fullscreen, Logo]}
-                  >
+                    rightControls={[
+                      VrStereo,
+                      Volume,
+                      Audio,
+                      AudioDesc,
+                      ClosedCaptions,
+                      CaptionsControl,
+                      Settings,
+                      Cast,
+                      PictureInPicture,
+                      Fullscreen,
+                      Logo
+                    ]}>
                     <SeekBarLivePlaybackContainer showFramePreview showTimeBubble playerContainer={containerRef} />
                   </BottomBar>
+                  <AudioDescriptionUpdater />
                 </Fragment>
               )}
             </GuiArea>

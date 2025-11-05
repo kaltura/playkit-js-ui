@@ -283,7 +283,7 @@ class MenuItem extends Component<any, any> {
   public render(props: any): VNode<any> {
     const badgeType: string | null =
       props.data.badgeType && !props.isSelected(props.data) ? BadgeType[props.data.badgeType] : BadgeType[props.data.badgeType + 'Active'];
-    const ariaLabel = props.data.ariaLabel ? props.data.ariaLabel : props.data.label;
+    const ariaLabel = props.data.ariaLabel || props.data.label;
 
     return (
       <div

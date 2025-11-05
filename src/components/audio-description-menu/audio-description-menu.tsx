@@ -1,6 +1,6 @@
 import {h} from 'preact';
 import {withText} from 'preact-i18n';
-import {connect} from 'react-redux';
+import {connect, useMemo} from 'react-redux';
 import {bindActions} from '../../utils';
 import {actions} from '../../reducers/audio-description';
 import {Menu, SmartContainerItem} from '../../components';
@@ -87,8 +87,13 @@ const _AudioDescriptionMenu = (props: AudioDescriptionMenuProps) => {
 
   const audioLanguage = getAudioLanguageKey(player?.getActiveTracks()['audio']?.language || '');
 
-  const hasAudioDescription = !!audioDescriptionLanguages?.find(lang => lang.startsWith(audioLanguage));
-  const hasAdvancedAudioDescription = !!advancedAudioDescriptionLanguages?.find(lang => lang.startsWith(audioLanguage));
+  const hasAudioDescription = useMemo(() => {
+    return !!audioDescriptionLanguages?.find(lang => lang.startsWith(audioLanguage));
+  }, [audioDescriptionLanguages, audioLanguage]);
+
+  const hasAdvancedAudioDescription = useMemo(() => {
+    return !!advancedAudioDescriptionLanguages?.find(lang => lang.startsWith(audioLanguage));
+  }, [advancedAudioDescriptionLanguages, audioLanguage]);
 
   const options: Array<{
     disabled: boolean;

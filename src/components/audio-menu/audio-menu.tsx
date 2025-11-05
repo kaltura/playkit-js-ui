@@ -1,6 +1,6 @@
 import {h} from 'preact';
 import {withText} from 'preact-i18n';
-import {connect} from 'react-redux';
+import {connect, useMemo} from 'react-redux';
 import {bindActions} from '../../utils';
 import {actions as settingsActions} from '../../reducers/settings';
 import {actions as audioDescriptionActions} from '../../reducers/audio-description';
@@ -49,30 +49,41 @@ const COMPONENT_NAME = 'AudioMenu';
 
 const _AudioMenu = (props: AudioMenuProps) => {
   const activeAudioLanguage = props.player ? getActiveAudioLanguage(props.player) : undefined;
-  const audioOptions = props.audioTracks?.length
-    ? props.audioTracks
-        .filter((t: any) => t.label || t.language)
-        .map((t: any) => {
-          const hasAudioDescription = !!props.audioDescriptionLanguages?.find((l: string) => l === t.language);
-          const hasAdvancedAudioDescription = !!props.advancedAudioDescriptionLanguages?.find((l: string) => l === t.language);
 
-          const label = `${t.label || t.language} ${
-            hasAudioDescription || hasAdvancedAudioDescription ? `(${props.audioDescriptionAvailableText})` : ''
-          }`;
-          const ariaLabel = `${t.label || t.language} - ${
-            hasAudioDescription || hasAdvancedAudioDescription
-              ? props.thereIsAudioDescriptionAvailableText
-              : props.thereIsNoAudioDescriptionAvailableText
-          }`;
+  const audioOptions = useMemo(() => {
+    props.audioTracks?.length
+      ? props.audioTracks
+          .filter((t: any) => t.label || t.language)
+          .map((t: any) => {
+            const hasAudioDescription = !!props.audioDescriptionLanguages?.find((l: string) => l === t.language);
+            const hasAdvancedAudioDescription = !!props.advancedAudioDescriptionLanguages?.find((l: string) => l === t.language);
 
-          return {
-            label,
-            ariaLabel,
-            active: (t.language === activeAudioLanguage) as boolean,
-            value: t
-          };
-        })
-    : [];
+            const label = `${t.label || t.language} ${
+              hasAudioDescription || hasAdvancedAudioDescription ? `(${props.audioDescriptionAvailableText})` : ''
+            }`;
+            const ariaLabel = `${t.label || t.language} - ${
+              hasAudioDescription || hasAdvancedAudioDescription
+                ? props.thereIsAudioDescriptionAvailableText
+                : props.thereIsNoAudioDescriptionAvailableText
+            }`;
+
+            return {
+              label,
+              ariaLabel,
+              active: (t.language === activeAudioLanguage) as boolean,
+              value: t
+            };
+          })
+      : [];
+  }, [
+    props.audioTracks,
+    props.audioDescriptionLanguages,
+    props.advancedAudioDescriptionLanguages,
+    props.audioDescriptionAvailableText,
+    props.thereIsAudioDescriptionAvailableText,
+    props.thereIsNoAudioDescriptionAvailableText,
+    activeAudioLanguage
+  ]);
 
   function onAudioChange(audioTrack: any): void {
     const currLanguageKey = audioTrack.language;
