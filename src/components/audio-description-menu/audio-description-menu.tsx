@@ -1,6 +1,7 @@
 import {h} from 'preact';
 import {withText} from 'preact-i18n';
-import {connect, useMemo} from 'react-redux';
+import {useMemo} from 'preact/hooks';
+import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
 import {actions} from '../../reducers/audio-description';
 import {Menu, SmartContainerItem} from '../../components';

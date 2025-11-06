@@ -28,6 +28,7 @@ import {GuiArea} from '../components';
 import {Rewind} from '../components';
 import {Forward} from '../components';
 import {ClosedCaptions} from '../components';
+import {Audio} from '../components';
 const PRESET_NAME = 'Live';
 
 /**
@@ -81,22 +82,9 @@ class LiveUI extends Component<any, any> {
                   </InteractiveArea>
                   <BottomBar
                     leftControls={[PlaybackControls, Rewind, Forward, LiveTag]}
-                    rightControls={[
-                      VrStereo,
-                      Volume,
-                      Audio,
-                      AudioDesc,
-                      ClosedCaptions,
-                      CaptionsControl,
-                      Settings,
-                      Cast,
-                      PictureInPicture,
-                      Fullscreen,
-                      Logo
-                    ]}>
+                    rightControls={[VrStereo, Volume, Audio, ClosedCaptions, CaptionsControl, Settings, Cast, PictureInPicture, Fullscreen, Logo]}>
                     <SeekBarLivePlaybackContainer showFramePreview showTimeBubble playerContainer={containerRef} />
                   </BottomBar>
-                  <AudioDescriptionUpdater />
                 </Fragment>
               )}
             </GuiArea>

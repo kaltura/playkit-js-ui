@@ -1,6 +1,7 @@
 import {h} from 'preact';
 import {withText} from 'preact-i18n';
-import {connect, useMemo} from 'react-redux';
+import {useMemo} from 'preact/hooks';
+import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
 import {actions as settingsActions} from '../../reducers/settings';
 import {actions as audioDescriptionActions} from '../../reducers/audio-description';
@@ -51,7 +52,7 @@ const _AudioMenu = (props: AudioMenuProps) => {
   const activeAudioLanguage = props.player ? getActiveAudioLanguage(props.player) : undefined;
 
   const audioOptions = useMemo(() => {
-    props.audioTracks?.length
+    return props.audioTracks?.length
       ? props.audioTracks
           .filter((t: any) => t.label || t.language)
           .map((t: any) => {

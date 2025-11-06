@@ -1,6 +1,6 @@
 import style from '../../styles/style.scss';
 import {h, VNode} from 'preact';
-import {useEffect, useRef, useState} from 'preact/hooks';
+import {useEffect, useRef, useState, useMemo} from 'preact/hooks';
 import {withText} from 'preact-i18n';
 import {default as Icon, IconType} from '../icon';
 import {KeyCode} from '../../utils';
@@ -115,7 +115,9 @@ const _Audio = (props: any) => {
     }
   }
 
-  const hasAudioOptions = props.audioTracks?.filter(t => t.label || t.language).length > 1;
+  const hasAudioOptions = useMemo(() => {
+    return props.audioTracks?.filter(t => t.label || t.language).length > 1;
+  }, [props.audioTracks]);
   if (!props.showAudioButton || !hasAudioOptions) return null;
 
   return (
