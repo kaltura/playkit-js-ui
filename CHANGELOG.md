@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.82.9 (2025-11-06)
+
+
+### Bug Fixes
+
+* **ADA-2969:** Remove aria-label from div ([#1093](https://github.com/kaltura/playkit-js-ui/issues/1093)) ([cd24156](https://github.com/kaltura/playkit-js-ui/commit/cd24156))
+
+
+
 ### 0.82.8 (2025-10-23)
 
 
