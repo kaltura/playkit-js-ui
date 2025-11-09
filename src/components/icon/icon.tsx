@@ -7,6 +7,7 @@ const IconType = {
   Minimize: 'minimize',
   Play: 'play',
   Pause: 'pause',
+  Stop: 'stop',
   VolumeBase: 'volume-base',
   VolumeWaves: 'volume-waves',
   VolumeWave: 'volume-wave',
@@ -65,9 +66,9 @@ const IconState: {[state: string]: number} = {
  * @extends {Component}
  */
 class Icon extends Component<any, any> {
-  _defaultColor: string = style.white;
-  _activeColor: string = style.brandColor;
-  _className: string = '';
+  private _defaultColor: string = style.white;
+  private _activeColor: string = style.brandColor;
+  private _className: string = '';
 
   /**
    * @constructor
@@ -94,7 +95,7 @@ class Icon extends Component<any, any> {
    * @returns {void}
    * @memberof Icon
    */
-  createDynamicIconClass = (props: any) => {
+  private createDynamicIconClass = (props: any): void => {
     const {path, state, color, activeColor, width, height, viewBox, fillRule} = props;
     const fillColor = this.getFillColor(state, color, activeColor);
     const pathTag = this.getPathTag(path, fillColor);
@@ -115,7 +116,13 @@ class Icon extends Component<any, any> {
    * @returns {string} - encoded svg url
    * @memberof Icon
    */
-  getSVGUrl = (path: string, width: number = 36, height: number = 36, viewBox: string = '0 0 1024 1024', fillRule: string = 'nonzero'): string => {
+  private getSVGUrl = (
+    path: string,
+    width: number = 36,
+    height: number = 36,
+    viewBox: string = '0 0 1024 1024',
+    fillRule: string = 'nonzero'
+  ): string => {
     const svg = `<svg xmlns="http://www.w3.org/2000/svg"  xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="${viewBox}" width="${width}" height="${height}" fill-rule="${fillRule}">${path}</svg>`;
     const replaces = [
       ['"', "'"],
@@ -149,7 +156,7 @@ class Icon extends Component<any, any> {
    * @returns {string} - svg fill color
    * @memberof Icon
    */
-  getFillColor = (state?: number, color?: string, activeColor?: string): string => {
+  private getFillColor = (state?: number, color?: string, activeColor?: string): string => {
     if (state === IconState.ACTIVE) {
       return activeColor || this._activeColor;
     }
@@ -162,7 +169,7 @@ class Icon extends Component<any, any> {
    * @returns {string} - icon path tag
    * @memberof Icon
    */
-  getPathTag = (pathProps: any | Array<any>, fillColor: string): string => {
+  private getPathTag = (pathProps: any | Array<any>, fillColor: string): string => {
     if (!Array.isArray(pathProps)) {
       pathProps = [pathProps];
     }
@@ -184,7 +191,7 @@ class Icon extends Component<any, any> {
    * @memberof Icon
    * @return {void}
    */
-  componentWillUpdate(nextProps: any) {
+  public componentWillUpdate(nextProps: any): void {
     if (this._className && this.props.state !== nextProps.state) {
       // Override icon class with the new state color
       this.createDynamicIconClass(nextProps);
@@ -198,7 +205,7 @@ class Icon extends Component<any, any> {
    * @returns {React$Element} - component element
    * @memberof Icon
    */
-  render(props: any): VNode<any> | undefined {
+  public render(props: any): VNode<any> | undefined {
     if (this._className) {
       return <i className={[style.icon, this._className].join(' ')} {...(props.hidden ? {'aria-hidden': 'true'} : {})} />;
     } else {
@@ -214,6 +221,9 @@ class Icon extends Component<any, any> {
 
         case IconType.Pause:
           return <i className={[style.icon, style.iconPause].join(' ')} aria-hidden="true" />;
+
+        case IconType.Stop:
+          return <i className={[style.icon, style.iconStop].join(' ')} aria-hidden="true" />;
 
         case IconType.VolumeBase:
           return <i className={[style.icon, style.iconVolumeBase].join(' ')} aria-hidden="true" />;
@@ -314,8 +324,8 @@ class Icon extends Component<any, any> {
         case IconType.AdvancedAudioDescription:
           return <i className={[style.icon, style.iconAdvancedAudioDescription].join(' ')} />;
 
-      case IconType.AdvancedAudioDescriptionActive:
-        return <i className={[style.icon, style.iconAdvancedAudioDescriptionActive].join(' ')} />;
+        case IconType.AdvancedAudioDescriptionActive:
+          return <i className={[style.icon, style.iconAdvancedAudioDescriptionActive].join(' ')} />;
 
         default:
           break;

@@ -3,6 +3,7 @@
     "controls": {
       "play": "Play",
       "pause": "Pause",
+      "stop": "Stop",
       "title": "title",
       "language": "Language",
       "settings": "Settings",
@@ -48,7 +49,7 @@
       "volume_button_aria_label": "Volume",
       "volume_button_description": "Click to volume control",
       "volume_slider_aria_label": "Volume control",
-      "volume_slider_description": "Use the arrows to control the volume"      
+      "volume_slider_description": "Use the arrows to control the volume"
     },
     "copy": {
       "button": "Copy URL"
