@@ -7,6 +7,7 @@ export interface UIOptionsObject {
   targetId: string;
   debugActions?: boolean;
   forceTouchUI?: boolean;
+  showPlayPauseButton?: boolean;
   showCCButton?: boolean;
   openMenuFromCCButton?: boolean;
   settings?: {
