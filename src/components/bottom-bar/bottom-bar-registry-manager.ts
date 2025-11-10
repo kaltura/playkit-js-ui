@@ -1,3 +1,5 @@
+import {BottomBarNeedsResizeEvent} from '../../event/events/bottom-bar-needs-resize-event';
+
 export interface IconComponent {
   registerComponent(): any;
   getSvgIcon(): any;
@@ -38,5 +40,14 @@ export const registerToBottomBar = (componentName: string, player: any, getIconD
   const bottomBarRegistry = (player?.getService(bottomBarRegistryManager) as BottomBarRegistryManager) || undefined;
   if (bottomBarRegistry && !bottomBarRegistry.getComponentItem(componentName)) {
     bottomBarRegistry.register(componentName, getIconDtoCallback());
+    player.dispatchEvent(new BottomBarNeedsResizeEvent());
+  }
+};
+
+export const unregisterFromBottomBar = (componentName: string, player: any): void => {
+  const bottomBarRegistry = (player?.getService(bottomBarRegistryManager) as BottomBarRegistryManager) || undefined;
+  if (bottomBarRegistry && bottomBarRegistry.getComponentItem(componentName)) {
+    bottomBarRegistry.unregister(componentName);
+    player.dispatchEvent(new BottomBarNeedsResizeEvent());
   }
 };

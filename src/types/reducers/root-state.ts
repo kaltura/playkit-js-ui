@@ -10,6 +10,7 @@ import {EngineState} from './engine';
 import {ConfigState} from './config';
 import {PlaylistState} from './playlist';
 import {BottomBarState} from './bottom-bar';
+import {AudioDescriptionState} from './audio-description';
 
 export interface RootState {
   config: ConfigState;
@@ -24,4 +25,5 @@ export interface RootState {
   playlist: PlaylistState;
   overlay: OverlayState;
   bottomBar: BottomBarState;
+  audioDescription: AudioDescriptionState;
 }
