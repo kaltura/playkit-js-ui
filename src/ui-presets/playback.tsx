@@ -34,6 +34,7 @@ import {ClosedCaptions} from '../components';
 import {AudioEntryDetails} from '../components/audio-entry-details';
 import {Audio} from '../components';
 import {AudioDescriptionUpdater} from '../components/audio-desc/audio-description-updater';
+import {Speed} from '../components/speed';
 
 const PRESET_NAME = 'Playback';
 
@@ -95,6 +96,7 @@ class PlaybackUI extends Component<any, any> {
                     rightControls={[
                       VrStereo,
                       Volume,
+                      Speed,
                       Audio,
                       AudioDesc,
                       ClosedCaptions,
