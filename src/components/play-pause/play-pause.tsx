@@ -27,7 +27,8 @@ const mapStateToProps = state => ({
   adBreak: state.engine.adBreak,
   isPlaybackEnded: state.engine.isPlaybackEnded,
   playerSize: state.shell.playerSize,
-  showPlayPauseButton: state.config.showPlayPauseButton
+  showPlayPauseButton: state.config.showPlayPauseButton,
+  showLivePlayPauseButton: state.config.showLivePlayPauseButton
 });
 
 const COMPONENT_NAME = 'PlayPause';
@@ -112,7 +113,7 @@ class PlayPause extends Component<any, any> {
    * @memberof PlayPause
    */
   public render(props: any): VNode<any> | undefined {
-    if (!props.showPlayPauseButton) return undefined;
+    if ((!props.player.isLive() && !props.showPlayPauseButton) || (props.player.isLive() && !props.showLivePlayPauseButton)) return undefined;
 
     const controlButtonClass = this.props.isPlayingAdOrPlayback ? [style.controlButton, style.isPlaying].join(' ') : style.controlButton;
     const isStartOver = props.isPlaybackEnded && !this.props.adBreak;

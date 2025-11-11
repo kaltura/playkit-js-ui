@@ -8,6 +8,7 @@ export interface UIOptionsObject {
   debugActions?: boolean;
   forceTouchUI?: boolean;
   showPlayPauseButton?: boolean;
+  showLivePlayPauseButton?: boolean;
   showCCButton?: boolean;
   openMenuFromCCButton?: boolean;
   settings?: {

@@ -92,9 +92,11 @@ class OverlayAction extends Component<any, any> {
    * @memberof OverlayAction
    */
   togglePlayPause = (): void => {
+    const showPauseButton = !this.props.player.isLive() || this.props.player.isDvr();
+
     if (this.props.isPlayingAdOrPlayback) {
       this.props.player.pause();
-      this.props.updateOverlayActionIcon(IconType.Pause);
+      this.props.updateOverlayActionIcon(showPauseButton ? IconType.Pause : IconType.Stop);
     } else {
       this.props.player.play();
       this.props.updateOverlayActionIcon(IconType.Play);
@@ -304,8 +306,7 @@ class OverlayAction extends Component<any, any> {
         onMouseDown={this.onOverlayPointerDown}
         onTouchStart={this.onOverlayPointerDown}
         onMouseUp={this.onOverlayMouseUp}
-        onTouchEnd={this.onOverlayTouchEnd}
-      >
+        onTouchEnd={this.onOverlayTouchEnd}>
         {this.state.animation ? this.renderIcons() : undefined}
       </div>
     );
