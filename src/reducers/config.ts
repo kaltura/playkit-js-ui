@@ -13,14 +13,17 @@ export const initialState = {
   targetId: undefined as unknown as string,
   forceTouchUI: false,
   showCCButton: true,
+  showAudioButton: true,
+  showAudioDescriptionButton: true,
   openMenuFromCCButton: false,
+  openMenuFromAudioDescriptionButton: true,
   settings: {
-    showAudioMenu: true,
+    showAudioMenu: false,
     showCaptionsMenu: true,
     showQualityMenu: true,
     showSpeedMenu: true,
-    showAdvancedAudioDescToggle: false,
-    showAdvancedCaptionsMenu: true
+    showAdvancedCaptionsMenu: true,
+    showAudioDescriptionMenu: false
   },
   hoverTimeout: 3000,
   tinySizeDisabled: false,

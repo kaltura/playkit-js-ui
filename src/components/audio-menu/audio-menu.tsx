@@ -1,18 +1,36 @@
-import {h, Component} from 'preact';
+import {h} from 'preact';
 import {withText} from 'preact-i18n';
+import {useMemo} from 'preact/hooks';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
-import {actions} from '../../reducers/settings';
-import {SmartContainerItem} from '../../components';
+import {actions as settingsActions} from '../../reducers/settings';
+import {actions as audioDescriptionActions} from '../../reducers/audio-description';
+import {Menu, SmartContainerItem} from '../../components';
 import {IconType} from '../icon';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from '../event-dispatcher';
-import {WithPlayerProps} from '../player/with-player';
-import {WithEventDispatcherProps} from '../event-dispatcher';
+import {AUDIO_DESCRIPTION_TYPE} from '../../types/reducers/audio-description';
+import {getActiveAudioLanguage} from '../../utils/audio-description';
+import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
 
 type AudioMenuProps = {
   audioTracks?: any[];
   audioLabelText?: string;
+  audioDescriptionAvailableText?: string;
+  thereIsAudioDescriptionAvailableText?: string;
+  thereIsNoAudioDescriptionAvailableText?: string;
+  advancedAudioDescriptionLanguages?: string[];
+  audioDescriptionLanguages?: string[];
+  asDropdown?: boolean;
+  audioDescriptionEnabled?: boolean;
+  audioDescriptionType?: AUDIO_DESCRIPTION_TYPE;
+  selectionByLanguage?: Map<string, [boolean, AUDIO_DESCRIPTION_TYPE]>;
+  updateAudioDescriptionEnabled?: (isEnabled: boolean) => void;
+  updateAudioDescriptionType?: (selectedType: AUDIO_DESCRIPTION_TYPE) => void;
+  player?: KalturaPlayer;
+  notifyClick?: (payload: any) => void;
+  pushRef?: (el: HTMLElement) => void;
+  addAccessibleChild?: (el: HTMLElement) => void;
 };
 
 /**
@@ -20,72 +38,125 @@ type AudioMenuProps = {
  * @param {*} state - redux store state
  * @returns {Object} - mapped state to this component
  */
-const mapStateToProps = state => ({
-  audioTracks: state.engine.audioTracks
+const mapStateToProps = (state: any): any => ({
+  audioTracks: state.engine.audioTracks,
+  audioDescriptionLanguages: state.audioDescription.audioDescriptionLanguages,
+  advancedAudioDescriptionLanguages: state.audioDescription.advancedAudioDescriptionLanguages,
+  audioDescriptionEnabled: state.audioDescription.isEnabled,
+  selectionByLanguage: state.audioDescription.selectionByLanguage
 });
 
 const COMPONENT_NAME = 'AudioMenu';
 
-/**
- * AudioMenu component
- *
- * @class AudioMenu
- * @example <AudioMenu />
- * @extends {Component}
- */
-@connect(mapStateToProps, bindActions(actions))
-@withPlayer
-@withEventDispatcher(COMPONENT_NAME)
-@withText({
-  audioLabelText: 'settings.audio'
-})
-class AudioMenu extends Component<AudioMenuProps & WithPlayerProps & WithEventDispatcherProps, any> {
-  /**
-   * call to player selectTrack method and change audio track
-   *
-   * @param {Object} audioTrack - audio track
-   * @returns {void}
-   * @memberof Settings
-   */
-  onAudioChange(audioTrack: any): void {
-    // @ts-ignore - store types
-    this.props.updateAudio(audioTrack);
-    this.props.player!.selectTrack(audioTrack);
-    this.props.notifyClick!({
-      type: this.props.player!.Track.AUDIO,
-      track: audioTrack
-    });
+const _AudioMenu = (props: AudioMenuProps) => {
+  const activeAudioLanguage = props.player ? getActiveAudioLanguage(props.player) : undefined;
+
+  const audioOptions = useMemo(() => {
+    return props.audioTracks?.length
+      ? props.audioTracks
+          .filter((t: any) => t.label || t.language)
+          .map((t: any) => {
+            const hasAudioDescription = !!props.audioDescriptionLanguages?.find((l: string) => l === t.language);
+            const hasAdvancedAudioDescription = !!props.advancedAudioDescriptionLanguages?.find((l: string) => l === t.language);
+
+            const label = `${t.label || t.language} ${
+              hasAudioDescription || hasAdvancedAudioDescription ? `(${props.audioDescriptionAvailableText})` : ''
+            }`;
+            const ariaLabel = `${t.label || t.language} - ${
+              hasAudioDescription || hasAdvancedAudioDescription
+                ? props.thereIsAudioDescriptionAvailableText
+                : props.thereIsNoAudioDescriptionAvailableText
+            }`;
+
+            return {
+              label,
+              ariaLabel,
+              active: (t.language === activeAudioLanguage) as boolean,
+              value: t
+            };
+          })
+      : [];
+  }, [
+    props.audioTracks,
+    props.audioDescriptionLanguages,
+    props.advancedAudioDescriptionLanguages,
+    props.audioDescriptionAvailableText,
+    props.thereIsAudioDescriptionAvailableText,
+    props.thereIsNoAudioDescriptionAvailableText,
+    activeAudioLanguage
+  ]);
+
+  function onAudioChange(audioTrack: any): void {
+    const currLanguageKey = audioTrack.language;
+    const hasAudioDescription = !!props.audioDescriptionLanguages?.find((l: string) => l === currLanguageKey);
+    const hasAdvancedAudioDescription = !!props.advancedAudioDescriptionLanguages?.find((l: string) => l.startsWith(currLanguageKey));
+
+    if (props.selectionByLanguage?.has(audioTrack.language)) {
+      const [isEnabled, selectedType] = props.selectionByLanguage.get(audioTrack.language)!;
+      props.updateAudioDescriptionEnabled?.(isEnabled);
+      props.updateAudioDescriptionType?.(selectedType);
+    } else if (props.audioDescriptionEnabled) {
+      if (!hasAudioDescription && !hasAdvancedAudioDescription) {
+        props.updateAudioDescriptionEnabled?.(false);
+      } else if (hasAudioDescription && !hasAdvancedAudioDescription) {
+        props.updateAudioDescriptionType?.(AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
+      } else if (!hasAudioDescription && hasAdvancedAudioDescription) {
+        props.updateAudioDescriptionType?.(AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION);
+      }
+    }
+
+    if (props.player) {
+      props.player.selectTrack(audioTrack);
+
+      props.notifyClick?.({
+        type: props.player.Track.AUDIO,
+        track: audioTrack
+      });
+    }
   }
 
-  /**
-   * render function
-   *
-   * @param {*} props - component props
-   * @returns {React$Element} - component
-   * @memberof AudioMenu
-   */
-  render(props: any) {
-    const audioOptions = props.audioTracks
-      .filter(t => t.label || t.language)
-      .map(t => ({
-        label: t.label || t.language,
-        active: t.active,
-        value: t
-      }));
-
+  if (props.asDropdown) {
     return (
       <SmartContainerItem
-        pushRef={el => {
-          props.pushRef(el);
-        }}
-        icon={IconType.Audio}
-        label={this.props.audioLabelText}
+        pushRef={el => props.pushRef?.(el)}
+        icon={IconType.Captions}
+        label={props.audioLabelText}
         options={audioOptions}
-        onMenuChosen={audioTrack => this.onAudioChange(audioTrack)}
+        onMenuChosen={(audioTrack: any) => onAudioChange(audioTrack)}
+        onClose={() => {}}
+      />
+    );
+  } else {
+    return (
+      <Menu
+        pushRef={el => {
+          props.addAccessibleChild?.(el);
+          props.pushRef?.(el);
+        }}
+        options={audioOptions}
+        onMenuChosen={(audioTrack: any) => onAudioChange(audioTrack)}
+        onClose={() => {}}
       />
     );
   }
-}
+};
+
+const AudioMenu = connect(
+  mapStateToProps,
+  bindActions({...settingsActions, ...audioDescriptionActions})
+)(
+  withPlayer(
+    withEventDispatcher(COMPONENT_NAME)(
+      withText({
+        audioLabelText: 'settings.audio',
+        audioDescriptionAvailableText: 'audioDescription.audioDescriptionAvailable',
+        thereIsAudioDescriptionAvailableText: 'audioDescription.thereIsAudioDescriptionAvailable',
+        thereIsNoAudioDescriptionAvailableText: 'audioDescription.thereIsNoAudioDescriptionAvailable'
+      })(_AudioMenu)
+    )
+  )
+);
 
 AudioMenu.displayName = COMPONENT_NAME;
+
 export {AudioMenu};

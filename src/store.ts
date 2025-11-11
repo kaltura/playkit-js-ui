@@ -11,6 +11,7 @@ import overlayAction from './reducers/overlay-action';
 import playlist from './reducers/playlist';
 import overlay from './reducers/overlay';
 import bottomBar from './reducers/bottom-bar';
+import audioDescription from './reducers/audio-description';
 import {RootState} from './types';
 
 const reducer = combineReducers<RootState>({
@@ -25,7 +26,8 @@ const reducer = combineReducers<RootState>({
   overlayAction,
   playlist,
   overlay,
-  bottomBar
+  bottomBar,
+  audioDescription
 });
 
 export default reducer;

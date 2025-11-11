@@ -6,17 +6,19 @@ import {actions as bottomBarActions} from '../../reducers/bottom-bar';
 import {connect} from 'react-redux';
 import {PlayerArea} from '../../components/player-area';
 import {PLAYER_BREAK_POINTS, TimeDisplayPlaybackContainer} from '../../components';
-import {withEventManager} from '../../event';
+import {EventType, withEventManager} from '../../event';
 import {withPlayer} from '../player';
 import {filterControlsByPriority} from './bottom-bar-utils';
 import {BottomBarRegistryManager, bottomBarRegistryManager} from './bottom-bar-registry-manager';
 import {BottomBarClientRectEvent} from '../../event/events/bottom-bar-client-rect-event';
 
+// sorted from least important to most important
 const LOWER_PRIORITY_CONTROLS: string[][] = [
   ['PictureInPicture'],
   ['VrStereo'],
   ['TimeDisplayPlaybackContainer'],
-  ['AdvancedAudioDesc'],
+  ['Audio'],
+  ['AudioDesc'],
   ['ClosedCaptions'],
   ['CaptionsControl'],
   ['Cast']
@@ -54,6 +56,7 @@ const COMPONENT_NAME = 'BottomBar';
 @connect(mapStateToProps, bindActions({...actions, ...bottomBarActions}))
 class BottomBar extends Component<any, any> {
   private bottomBarContainerRef: RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
+  private leftControlsRef: RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
   private presetControls: {[controlName: string]: boolean} = {};
   private resizeObserver!: ResizeObserver;
 
@@ -92,6 +95,9 @@ class BottomBar extends Component<any, any> {
 
     props.eventManager.listen(props.player, props.player.Event.Core.ENTER_FULLSCREEN, onFullscreenChange);
     props.eventManager.listen(props.player, props.player.Event.Core.EXIT_FULLSCREEN, onFullscreenChange);
+    props.eventManager.listen(props.player, EventType.BOTTOM_BAR_NEEDS_RESIZE, () => {
+      this.onBarWidthChange(true);
+    });
   }
 
   /**
@@ -124,6 +130,10 @@ class BottomBar extends Component<any, any> {
     const {player} = this.props;
 
     const barWidth = this.bottomBarContainerRef.current?.offsetWidth || 0;
+
+    // Avoid calculations when bottom bar is not visible
+    if (barWidth === 0) return;
+
     const currentControlsWidth = this._getControlsWidth();
 
     this.setMaxControlsWidth(player.isFullscreen(), Math.max(this.getMaxControlsWidth(player.isFullscreen()), currentControlsWidth));
@@ -133,7 +143,9 @@ class BottomBar extends Component<any, any> {
       this.setCurrentBarWidth(player.isFullscreen(), barWidth);
       const currCrlWidth = this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.SMALL ? CRL_WIDTH + CRL_MARGIN / 2 : CRL_WIDTH + CRL_MARGIN;
       const lowerPriorityControls = LOWER_PRIORITY_CONTROLS.filter(c => this.state.activeControls[c[0]]);
-      this.filterControls(barWidth, this.getMaxControlsWidth(player.isFullscreen()), currCrlWidth, lowerPriorityControls);
+      const leftControlsWidth = this.leftControlsRef.current?.offsetWidth || 0;
+      const availableBarWidth = barWidth - leftControlsWidth;
+      this.filterControls(availableBarWidth, this.getMaxControlsWidth(player.isFullscreen()), currCrlWidth, lowerPriorityControls);
     }
   }
 
@@ -210,7 +222,7 @@ class BottomBar extends Component<any, any> {
           </PlayerArea>
         </div>
         <div ref={this.bottomBarContainerRef} className={style.controlsContainer}>
-          <div className={style.leftControls}>
+          <div ref={this.leftControlsRef} className={style.leftControls}>
             <PlayerArea shouldUpdate={true} name={'BottomBarLeftControls'}>
               {props.leftControls &&
                 props.leftControls.map(

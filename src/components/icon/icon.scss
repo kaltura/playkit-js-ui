@@ -302,6 +302,14 @@
   background-image: icon(advancedAudioDescriptionOn, '#fff', '32', '0 0 32 32');
 }
 
+.icon-advanced-audio-description-disabled {
+  background-image: icon(advancedAudioDescriptionOff, '#fff', '32', '0 0 32 32');
+}
+
+.icon-advanced-audio-description-disabled-dropdown {
+  background-image: icon(advancedAudioDescriptionOff, '#c4c4c4', '32', '0 0 32 32');
+}
+
 .icon-quality-hd {
   &:after {
     background-image: icon(qualityHd, '#fff', '16', '0 0 16 16');
