@@ -8,6 +8,7 @@ export interface UIOptionsObject {
   debugActions?: boolean;
   forceTouchUI?: boolean;
   showCCButton?: boolean;
+  showTitleOnUpperBar?: boolean;
   showAudioDescriptionButton?: boolean;
   openMenuFromCCButton?: boolean;
   openMenuFromAudioDescriptionButton?: boolean;
