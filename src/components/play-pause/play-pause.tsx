@@ -48,6 +48,7 @@ const COMPONENT_NAME = 'PlayPause';
 @withText({
   startOverText: 'controls.startOver',
   pauseText: 'controls.pause',
+  stopText: 'controls.stop',
   playText: 'controls.play',
   title: 'controls.title'
 })
@@ -118,9 +119,18 @@ class PlayPause extends Component<any, any> {
     const controlButtonClass = this.props.isPlayingAdOrPlayback ? [style.controlButton, style.isPlaying].join(' ') : style.controlButton;
     const isStartOver = props.isPlaybackEnded && !this.props.adBreak;
     const entryName = `${this.props.title}: ${this.state.entryName}`;
-    const playbackStateText = this.props.isPlayingAdOrPlayback ? this.props.pauseText : this.props.playText;
-    const labelText = isStartOver ? this.props.startOverText : playbackStateText;
     const showPauseButton = !this.props.player.isLive() || this.props.player.isDvr();
+
+    let playbackStateText;
+    if (!this.props.isPlayingAdOrPlayback) {
+      playbackStateText = this.props.playText;
+    } else if (showPauseButton) {
+      playbackStateText = this.props.pauseText;
+    } else {
+      playbackStateText = this.props.stopText;
+    }
+
+    const labelText = isStartOver ? this.props.startOverText : playbackStateText;
 
     return (
       <ButtonControl name={COMPONENT_NAME}>
