@@ -32,6 +32,7 @@ import {VideoArea} from '../components';
 import {GuiArea} from '../components';
 import {ClosedCaptions} from '../components';
 import {AudioEntryDetails} from '../components/audio-entry-details';
+import {Title} from '../components';
 
 const PRESET_NAME = 'Playback';
 
@@ -82,7 +83,7 @@ class PlaybackUI extends Component<any, any> {
               </Fragment>
               {({containerRef}) => (
                 <Fragment>
-                  <TopBar />
+                  <TopBar leftControls={<Title />} />
                   <InteractiveArea>
                     <UnmuteIndication />
                     <Watermark />
