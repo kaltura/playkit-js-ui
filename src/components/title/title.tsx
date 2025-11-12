@@ -1,10 +1,9 @@
-import {h, Fragment, VNode} from 'preact'; // h is needed for JSX transpilation
+import {h, VNode} from 'preact'; // h is needed for JSX transpilation
 import {connect} from 'react-redux';
-import {useRef, useLayoutEffect, useState} from 'preact/hooks';
 import style from './title.scss';
 import {withPlayer} from '../player';
 import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
-import {Tooltip} from '../tooltip';
+import {TextWithTooltip} from '../text-with-tooltip';
 
 /**
  * Mapping state to props
@@ -33,76 +32,17 @@ const TitleComponent = (props: TitleProps): VNode | null => {
     return null;
   }
 
-  const textRef = useRef<HTMLSpanElement | null>(null);
-  const comparisonTextRef = useRef<HTMLSpanElement | null>(null);
-  const [showTooltip, setShowTooltip] = useState(false);
-  const [isFinalized, setIsFinalized] = useState(false);
-  const [width, setWidth] = useState(0);
-
   let title = '';
-  try {
-    const sources = props.player?.sources;
-    if (sources && sources.metadata && sources.metadata.name) {
-      title = sources.metadata.name;
-    }
-  } catch (e) {
-    // Do nothing if accessing sources fails
+  const sources = props.player?.sources;
+  if (sources && sources.metadata && sources.metadata.name) {
+    title = sources.metadata.name;
+  } else {
+    return null;
   }
-
-  useLayoutEffect(() => {
-    const newWidth = textRef.current?.getBoundingClientRect().width || 0;
-
-    //if width got changed, reset finalized state to trigger remeasurement
-    if (newWidth !== width) {
-      setWidth(newWidth);
-      setIsFinalized(false);
-    }
-
-    if (!isFinalized && textRef.current && comparisonTextRef.current) {
-      setWidth(width);
-      setIsFinalized(true);
-
-      const textHeight = textRef.current.getBoundingClientRect().height;
-      const comparisonTextHeight = comparisonTextRef.current.getBoundingClientRect().height;
-
-      // Only show tooltip if text is truncated (heights differ)
-      setShowTooltip(textHeight < comparisonTextHeight);
-    }
-  });
-
-  const textElement = (
-    <span ref={textRef} className={style.title} style={{'-webkit-line-clamp': 1}}>
-      {title}
-    </span>
-  );
-
-  const comparisonTextElement = (
-    <span
-      ref={comparisonTextRef}
-      className={style.comparisonText}
-      style={{'-webkit-line-clamp': 2}}>
-      {title}
-    </span>
-  );
-
-  const content = !isFinalized ? (
-    <>
-      {textElement}
-      {comparisonTextElement}
-    </>
-  ) : (
-    textElement
-  );
 
   return (
     <div className={style.titleContainer}>
-      {showTooltip ? (
-        <Tooltip label={title}>
-          {content}
-        </Tooltip>
-      ) : (
-        content
-      )}
+      <TextWithTooltip text={title} className={style.title} numberOfLines={1} />
     </div>
   );
 };
