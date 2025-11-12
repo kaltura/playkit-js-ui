@@ -3,6 +3,8 @@ import {useRef, useLayoutEffect, useState} from 'preact/hooks';
 import style from './text-with-tooltip.scss';
 import {Tooltip} from '../tooltip';
 
+const COMPONENT_NAME = 'TextWithTooltip';
+
 interface TextWithTooltipProps {
   text: string;
   numberOfLines?: number;
@@ -87,4 +89,5 @@ const TextWithTooltip = (props: TextWithTooltipProps): VNode => {
   );
 };
 
+TextWithTooltip.displayName = COMPONENT_NAME;
 export {TextWithTooltip};

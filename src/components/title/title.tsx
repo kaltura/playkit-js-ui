@@ -5,6 +5,7 @@ import {withPlayer} from '../player';
 import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
 import {TextWithTooltip} from '../text-with-tooltip';
 
+const COMPONENT_NAME = 'Title';
 /**
  * Mapping state to props
  * @param {Object} state - redux store state
@@ -48,4 +49,5 @@ const TitleComponent = (props: TitleProps): VNode | null => {
 };
 
 const Title = connect(mapStateToProps)(withPlayer(TitleComponent));
+Title.displayName = COMPONENT_NAME;
 export {Title};
