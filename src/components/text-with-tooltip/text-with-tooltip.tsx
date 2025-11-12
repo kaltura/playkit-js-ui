@@ -5,7 +5,6 @@ import {Tooltip} from '../tooltip';
 
 interface TextWithTooltipProps {
   text: string;
-  className?: string;
   numberOfLines?: number;
 }
 
@@ -17,7 +16,7 @@ interface TextWithTooltipProps {
  * @returns {VNode | null}
  */
 const TextWithTooltip = (props: TextWithTooltipProps): VNode => {
-  const {text, className = '', numberOfLines = 1} = props;
+  const {text, numberOfLines = 1} = props;
 
   const textRef = useRef<HTMLSpanElement | null>(null);
   const comparisonTextRef = useRef<HTMLSpanElement | null>(null);
@@ -49,7 +48,7 @@ const TextWithTooltip = (props: TextWithTooltipProps): VNode => {
   const textElement = (
     <span
       ref={textRef}
-      className={`${style.text} ${className}`}
+      className={style.text}
       style={{'-webkit-line-clamp': numberOfLines}}
     >
       {text}

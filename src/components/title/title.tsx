@@ -42,7 +42,7 @@ const TitleComponent = (props: TitleProps): VNode | null => {
 
   return (
     <div className={style.titleContainer}>
-      <TextWithTooltip text={title} className={style.title} numberOfLines={1} />
+      <TextWithTooltip text={title} numberOfLines={1} />
     </div>
   );
 };

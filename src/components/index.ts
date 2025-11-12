@@ -86,3 +86,4 @@ export {ClosedCaptions, ClosedCaptions as ClosedCaptionsControl};
 export {CaptionsControl} from './captions-control';
 export {Title} from './title';
 export {Audio} from './audio';
+export {TextWithTooltip} from './text-with-tooltip';
