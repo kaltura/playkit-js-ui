@@ -1,9 +1,36 @@
 .title {
   color: white;
   font-size: 16px;
-  font-family: 'Lato', sans-serif;
   font-weight: 400;
   line-height: 21px;
   margin-bottom: 16px;
   letter-spacing: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  max-width: 100%;
+}
+
+.comparisonText {
+  color: white;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 21px;
+  margin-bottom: 16px;
+  letter-spacing: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  max-width: 100%;
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.titleContainer {
+  display: inline-block;
+  max-width: 100%;
+  position: relative;
 }
