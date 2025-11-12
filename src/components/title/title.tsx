@@ -40,7 +40,6 @@ const TitleComponent = (props: TitleProps): VNode | null => {
   const [width, setWidth] = useState(0);
 
   let title = '';
-  // If no text provided, try to get it from the player sources
   try {
     const sources = props.player?.sources;
     if (sources && sources.metadata && sources.metadata.name) {
@@ -63,8 +62,8 @@ const TitleComponent = (props: TitleProps): VNode | null => {
       setWidth(width);
       setIsFinalized(true);
 
-      const textHeight = textRef.current.getBoundingClientRect().height; //single-line height
-      const comparisonTextHeight = comparisonTextRef.current.getBoundingClientRect().height; //two-line height
+      const textHeight = textRef.current.getBoundingClientRect().height;
+      const comparisonTextHeight = comparisonTextRef.current.getBoundingClientRect().height;
 
       // Only show tooltip if text is truncated (heights differ)
       setShowTooltip(textHeight < comparisonTextHeight);
@@ -108,6 +107,5 @@ const TitleComponent = (props: TitleProps): VNode | null => {
   );
 };
 
-// Connect component to Redux and apply withPlayer HOC
 const Title = connect(mapStateToProps)(withPlayer(TitleComponent));
 export {Title};
