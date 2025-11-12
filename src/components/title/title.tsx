@@ -24,8 +24,8 @@ interface TitleProps {
 
 /**
  * Title component
- * @param {TitleProps} props Component props
- * @returns {VNode|null} Rendered component or null if playback hasn't started
+ * @param {TitleProps} props
+ * @returns {VNode|null}
  */
 const TitleComponent = (props: TitleProps): VNode | null => {
   // Don't render anything if playback hasn't started or if showTitleOnUpperBar is false
