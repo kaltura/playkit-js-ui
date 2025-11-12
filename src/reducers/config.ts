@@ -15,14 +15,17 @@ export const initialState = {
   showPlayPauseButton: true,
   showLivePlayPauseButton: true,
   showCCButton: true,
+  showAudioButton: true,
+  showAudioDescriptionButton: true,
   openMenuFromCCButton: false,
+  openMenuFromAudioDescriptionButton: true,
   settings: {
-    showAudioMenu: true,
+    showAudioMenu: false,
     showCaptionsMenu: true,
     showQualityMenu: true,
     showSpeedMenu: true,
-    showAdvancedAudioDescToggle: false,
-    showAdvancedCaptionsMenu: true
+    showAdvancedCaptionsMenu: true,
+    showAudioDescriptionMenu: false
   },
   hoverTimeout: 3000,
   tinySizeDisabled: false,

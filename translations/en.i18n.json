@@ -57,16 +57,14 @@
     "settings": {
       "title": "Settings",
       "audio": "Audio",
+      "audioDescription": "Audio Description",
       "quality": "Quality",
       "speed": "Speed",
       "speedNormal": "Normal",
       "qualityAuto": "Auto",
       "qualityHdLabel": "Quality is HD",
       "quality4kLabel": "Quality is 4k",
-      "quality8kLabel": "Quality is 8k",
-      "advanced_audio_description": "Extended Audio Description",
-      "advanced_audio_description_enabled": "Disable Extended Audio Description",
-      "advanced_audio_description_disabled": "Enable Extended Audio Description"
+      "quality8kLabel": "Quality is 8k"
     },
     "captions": {
       "captions": "Captions",
@@ -152,6 +150,23 @@
     },
     "spinner": {
       "loading": "Loading"
+    },
+    "videoArea": {
+      "videoLabel": "Video player. Use the play button or press the space bar to start playback."
+    },
+    "audioDescription": {
+      "disable": "Disable",
+      "standardAudioDescription": "Standard Audio Description",
+      "advancedAudioDescription": "Extended Audio Description",
+      "audioDescriptionAvailable": "Audio Description Available",
+      "enableAudioDescription": "Enable Audio Description",
+      "disableAudioDescription": "Disable Audio Description",
+      "thereIsAudioDescriptionAvailable": "Audio Description available for the currently selected language, you can choose to enable in the Audio Descriptions",
+      "thereIsNoAudioDescriptionAvailable": "There is no Audio Description available for the currently selected language",
+      "noStandardAudioDescriptionAvailable": "No Standard Audio Description available for the currently selected language",
+      "standardAudioDescriptionAvailable": "A Standard Audio Description is available for the currently selected language",
+      "noAdvancedAudioDescriptionAvailable": "No Extended Audio Description available for the currently selected language",
+      "advancedAudioDescriptionAvailable": "An Extended Audio Description is available for the currently selected language"
     }
   }
 }

@@ -1,6 +1,6 @@
 import style from '../styles/style.scss';
 import {Fragment, h, Component, VNode} from 'preact';
-import {AdvancedAudioDesc, PlayerArea, withPlayerPreset} from '../components';
+import {AudioDesc, PlayerArea, withPlayerPreset} from '../components';
 import {OverlayAction} from '../components';
 import {PrePlaybackPlayOverlay} from '../components';
 import {Loading} from '../components';
@@ -32,6 +32,8 @@ import {VideoArea} from '../components';
 import {GuiArea} from '../components';
 import {ClosedCaptions} from '../components';
 import {AudioEntryDetails} from '../components/audio-entry-details';
+import {Audio} from '../components';
+import {AudioDescriptionUpdater} from '../components/audio-desc/audio-description-updater';
 
 const PRESET_NAME = 'Playback';
 
@@ -51,7 +53,7 @@ class PlaybackUI extends Component<any, any> {
   /**
    * @returns {void}
    */
-  componentDidMount(): void {
+  public componentDidMount(): void {
     const props = this.props;
     props.updateIsKeyboardEnabled(true);
   }
@@ -62,7 +64,7 @@ class PlaybackUI extends Component<any, any> {
    * @returns {React$Element} - component element
    * @memberof PlaybackUI
    */
-  render() {
+  public render(): VNode<any> {
     return (
       <div className={style.playbackGuiWrapper}>
         <PlayerArea name={'PresetArea'}>
@@ -90,9 +92,22 @@ class PlaybackUI extends Component<any, any> {
                   </InteractiveArea>
                   <BottomBar
                     leftControls={[PlaybackControls, Rewind, Forward, TimeDisplayPlaybackContainer]}
-                    rightControls={[VrStereo, Volume, AdvancedAudioDesc, ClosedCaptions, CaptionsControl, Settings, Cast, PictureInPicture, Fullscreen, Logo]}>
+                    rightControls={[
+                      VrStereo,
+                      Volume,
+                      Audio,
+                      AudioDesc,
+                      ClosedCaptions,
+                      CaptionsControl,
+                      Settings,
+                      Cast,
+                      PictureInPicture,
+                      Fullscreen,
+                      Logo
+                    ]}>
                     <SeekBarPlaybackContainer showFramePreview showTimeBubble playerContainer={containerRef} />
                   </BottomBar>
+                  <AudioDescriptionUpdater />
                 </Fragment>
               )}
             </GuiArea>

@@ -4,16 +4,7 @@ import {withText, Text} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {bindActions, KeyMap} from '../../utils';
 import {actions} from '../../reducers/settings';
-import {
-  AdvancedAudioDescToggle,
-  AudioMenu,
-  CaptionsMenu,
-  QualityMenu,
-  SmartContainer,
-  SpeedMenu,
-  CVAAOverlay,
-  getLabelBadgeType
-} from '../../components';
+import {AudioMenu, CaptionsMenu, QualityMenu, SmartContainer, SpeedMenu, CVAAOverlay, getLabelBadgeType} from '../../components';
 import {default as Icon, IconType, BadgeType} from '../icon';
 import {withPlayer} from '../player';
 import {withEventManager} from '../../event';
@@ -28,6 +19,7 @@ import {KeyboardEventHandlers} from '../../types';
 import {withLogger} from '../logger';
 import {SpeedSelectedEvent} from '../../event/events/speed-selected-event';
 import {getOverlayPortalElement} from '../overlay-portal';
+import {AudioDescriptionMenu} from '../audio-description-menu';
 
 /**
  * mapping state to props
@@ -46,7 +38,9 @@ const mapStateToProps = state => ({
   showAudioMenu: state.config.settings.showAudioMenu,
   showCaptionsMenu: state.config.settings.showCaptionsMenu,
   showSpeedMenu: state.config.settings.showSpeedMenu,
-  showAdvancedAudioDescToggle: state.config.settings.showAdvancedAudioDescToggle
+  showAdvancedAudioDescToggle: state.config.settings.showAudioDescriptionMenu,
+  audioDescriptionLanguages: state.audioDescription.audioDescriptionLanguages,
+  advancedAudioDescriptionLanguages: state.audioDescription.advancedAudioDescriptionLanguages
 });
 const COMPONENT_NAME = 'Settings';
 
@@ -54,7 +48,7 @@ const translates = () => ({
   buttonLabel: <Text id="controls.settings">Settings</Text>,
   qualityHdLabel: <Text id="settings.qualityHdLabel">Quality is HD</Text>,
   quality4kLabel: <Text id="settings.quality4kLabel">Quality is 4k</Text>,
-  quality8kLabel: <Text id="settings.quality8kLabel">Quality is 8k</Text>,
+  quality8kLabel: <Text id="settings.quality8kLabel">Quality is 8k</Text>
 });
 
 /**
@@ -302,18 +296,20 @@ class Settings extends Component<any, any> {
    * @returns {React$Element} - component element
    * @memberof Settings
    */
-  render(props: any): VNode<any> | undefined {
+  public render(props: any): VNode<any> | undefined {
     const showAudioMenu = props.showAudioMenu && props.audioTracks.length > 1;
-    const showAdvancedAudioDescToggle = props.showAdvancedAudioDescToggle;
     const showCaptionsMenu = props.showCaptionsMenu && props.textTracks.length > 1;
     const showQualityMenu = props.showQualityMenu && !props.isAudio && props.videoTracks.length > 1;
     const showSpeedMenu = props.showSpeedMenu && props.player.playbackRates.length > 1 && !props.isLive;
+    const showAudioDescriptionMenu =
+      props.showAdvancedAudioDescToggle && (props.audioDescriptionLanguages.length > 0 || props.advancedAudioDescriptionLanguages.length > 0);
 
-    if (!(showAudioMenu || showCaptionsMenu || showQualityMenu || showSpeedMenu)) return undefined;
+    if (!(showAudioMenu || showCaptionsMenu || showQualityMenu || showSpeedMenu || showAudioDescriptionMenu))
+      return undefined;
     if (props.isLive && props.videoTracks.length <= 1 && !showAudioMenu && !showCaptionsMenu) return undefined;
     const buttonBadgeType: string = this.getButtonBadgeType() || '';
 
-    const buttonAriaLabel =`${props.buttonLabel} ${this.getQualityLabel(buttonBadgeType)} `;
+    const buttonAriaLabel = `${props.buttonLabel} ${this.getQualityLabel(buttonBadgeType)} `;
     return (
       <ButtonControl name={COMPONENT_NAME} ref={c => (c ? (this._controlSettingsElement = c) : undefined)}>
         <Tooltip label={props.buttonLabel}>
@@ -335,8 +331,8 @@ class Settings extends Component<any, any> {
         </Tooltip>
         {this.state.smartContainerOpen && !this.state.cvaaOverlay && (
           <SmartContainer title={<Text id="settings.title" />} onClose={this.onControlButtonClick}>
-            {showAdvancedAudioDescToggle && <AdvancedAudioDescToggle />}
-            {showAudioMenu && <AudioMenu />}
+            {showAudioMenu && <AudioMenu asDropdown={true} />}
+            {showAudioDescriptionMenu && <AudioDescriptionMenu asDropdown={true} />}
             {showCaptionsMenu && <CaptionsMenu asDropdown={true} onAdvancedCaptionsClick={this.toggleCVAAOverlay} />}
             {showQualityMenu && <QualityMenu />}
             {showSpeedMenu && <SpeedMenu />}
