@@ -24,22 +24,6 @@
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-
-    .time-display {
-      width: 48px !important;
-      height: 16px !important;
-      font-family: Lato, sans-serif !important;
-      font-weight: 700 !important;
-      font-size: 16px !important;
-      line-height: 16px !important;
-      letter-spacing: 0 !important;
-      color: rgba(255, 255, 255, 1) !important;
-      text-align: center !important;
-      white-space: nowrap !important;
-      padding: 0 !important;
-      display: block !important;
-      vertical-align: baseline !important;
-    }
   }
 
   .media-info-details {
@@ -84,4 +68,20 @@
       }
     }
   }
+}
+
+.media-info-display .media-info-duration .time-display {
+  width: 48px;
+  height: 16px;
+  font-family: Lato, sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 0;
+  color: rgba(255, 255, 255, 1);
+  text-align: center;
+  white-space: nowrap;
+  padding: 0;
+  display: block;
+  vertical-align: baseline;
 }
