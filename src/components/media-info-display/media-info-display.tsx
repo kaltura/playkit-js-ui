@@ -7,6 +7,8 @@ import {withLogger} from '../logger';
 import {TimeDisplay} from '../time-display';
 import {MediaInfoConfig, MediaInfoDetailsMode, MediaInfoPosition} from '../../types';
 import {getComponentStateFromConfig} from '../../utils/component-config';
+import {EventType} from '../../event';
+import {FakeEvent} from '@playkit-js/playkit-js';
 
 /**
  * mapping state to props
@@ -118,6 +120,9 @@ class MediaInfoDisplay extends Component<MediaInfoDisplayProps, any> {
     if (!shouldShowDetails && !shouldShowDuration) {
       return null;
     }
+
+    // dispatch event when media info is displayed
+    player.dispatchEvent(new FakeEvent(EventType.DISPLAY_INFO_BEFORE_PLAYBACK));
 
     const positionClass = config.position === MediaInfoPosition.Top ? style.mediaInfoTop : style.mediaInfoBottom;
 

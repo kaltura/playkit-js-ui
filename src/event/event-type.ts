@@ -41,7 +41,8 @@ const EventType = {
   BOTTOM_BAR_CLIENT_RECT_CHANGED: `${namespace}-bottombarclientrectchanged`,
   BOTTOM_BAR_NEEDS_RESIZE: `${namespace}-bottombarneedsresize`,
   PLAYER_HOVERED: `${namespace}-playerhovered`,
-  USER_COPIED_DEBUG_INFO: `${namespace}-usercopieddebuginfo`
+  USER_COPIED_DEBUG_INFO: `${namespace}-usercopieddebuginfo`,
+  DISPLAY_INFO_BEFORE_PLAYBACK: `${namespace}-displayinfobeforeplayback`
 } as const;
 
 export {EventType};
