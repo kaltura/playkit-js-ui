@@ -35,7 +35,8 @@ export const initialState = {
     vrStereo: {} as any,
     logo: {} as any,
     fullscreen: {} as any,
-    sidePanels: {} as any
+    sidePanels: {} as any,
+    mediaInfo: {} as any
   }
 };
 

@@ -1,0 +1,84 @@
+@import '../../styles/variables';
+
+.mediaInfoDisplay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: 24px;
+
+  &.mediaInfoTop {
+    top: 0;
+  }
+
+  &.mediaInfoBottom {
+    bottom: 0;
+  }
+
+  .mediaInfoDuration {
+    width: 54px;
+    height: 28px;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.5);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+
+    .time-display {
+      width: 48px;
+      height: 16px;
+      font-family: Lato, sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 16px;
+      letter-spacing: 0;
+      color: rgba(255, 255, 255, 1);
+      text-align: center;
+      white-space: nowrap;
+    }
+  }
+
+  .mediaInfoDetails {
+
+    .mediaInfoTitle {
+      width: 600px;
+      height: 32px;
+      max-width: 600px;
+      //opacity: 1;
+      font-family: Lato, sans-serif;
+      font-weight: 700;
+      font-size: 32px;
+      line-height: 32px;
+      letter-spacing: 0;
+      color: rgba(255, 255, 255, 1);
+      margin-top: 0;
+      margin-bottom: 12px;
+    }
+
+    .mediaInfoDescription {
+      width: 600px;
+      min-height: 42px;
+      max-width: 600px;
+      opacity: 1;
+      font-family: Lato, sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 21px;
+      letter-spacing: 0;
+      color: rgba(255, 255, 255, 1);
+
+      .seeMore {
+        font-family: Lato, sans-serif;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 21px;
+        letter-spacing: 0;
+        color: rgba(255, 255, 255, 1);
+        text-decoration: underline;
+        text-decoration-style: solid;
+        cursor: pointer;
+      }
+    }
+  }
+}
