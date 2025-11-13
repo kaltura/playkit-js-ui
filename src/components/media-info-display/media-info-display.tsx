@@ -17,7 +17,7 @@ const mapStateToProps = (state: any): any => ({
   prePlayback: state.engine.prePlayback,
   loading: state.loading.show,
   duration: state.engine.duration,
-  config: state.config.components.mediaInfo
+  config: state.config.showMediaInfo
 });
 
 const COMPONENT_NAME = 'MediaInfoDisplay';

@@ -29,14 +29,14 @@ export const initialState = {
   },
   hoverTimeout: 3000,
   tinySizeDisabled: false,
+  showMediaInfo: {} as any,
   components: {
     watermark: {} as any,
     seekbar: {} as any,
     vrStereo: {} as any,
     logo: {} as any,
     fullscreen: {} as any,
-    sidePanels: {} as any,
-    mediaInfo: {} as any
+    sidePanels: {} as any
   }
 };
 
