@@ -172,5 +172,5 @@ const WrappedMediaInfoDisplay = withText({
   seeLessText: 'mediaInfo.seeLess'
 })(MediaInfoDisplay);
 
-WrappedMediaInfoDisplay.displayName = COMPONENT_NAME;
+(WrappedMediaInfoDisplay as any).displayName = COMPONENT_NAME;
 export {WrappedMediaInfoDisplay as MediaInfoDisplay};
