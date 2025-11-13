@@ -93,7 +93,7 @@ class MediaInfoDisplay extends Component<MediaInfoDisplayProps, any> {
    * @memberof MediaInfoDisplay
    */
   public render(props: any): any {
-    if (!(props.prePlayback) || props.loading) {
+    if (!props.prePlayback || props.loading) {
       return null;
     }
 
