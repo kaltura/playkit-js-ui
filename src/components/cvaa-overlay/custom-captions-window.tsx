@@ -64,7 +64,7 @@ class CustomCaptionsWindow extends Component<any, any> {
     }
   };
   
-  focusCustomOrEdit(): void {    
+  focusCustomOrEdit(): void {
     this.props.focusCustomOrEdit?.();
   }
 
@@ -85,6 +85,12 @@ class CustomCaptionsWindow extends Component<any, any> {
       value: size.label,
       label: size.name,
       active: props.customTextStyle.fontSize === size.label
+    }));
+
+    const fontWeightOptions = player.TextStyle.StandardFontWeights.map(weight => ({
+      value: weight.value,
+      label: weight.label,
+      active: props.customTextStyle.fontWeight === weight.value
     }));
 
     const fontColorOptions = Object.keys(standardColors).map(key => ({
@@ -132,6 +138,14 @@ class CustomCaptionsWindow extends Component<any, any> {
             options={fontSizeOptions}
             classNames={[style.formGroupRow, style.fontSize]}
             styleName="fontSize"
+            changeCustomStyle={props.changeCustomStyle}
+          />
+          <DropDownCaptionsStyle
+            addAccessibleChild={props.addAccessibleChild}
+            labelId="cvaa.font_weight"
+            options={fontWeightOptions}
+            classNames={[style.formGroupRow, style.fontWeight]}
+            styleName="fontWeight"
             changeCustomStyle={props.changeCustomStyle}
           />
           <DropDownCaptionsStyle

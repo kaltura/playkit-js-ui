@@ -123,6 +123,7 @@
       "set_custom_caption": "Set custom caption",
       "edit_caption": "Edit caption",
       "size_label": "Size",
+      "font_weight": "Font weight",
       "font_color_label": "Font color",
       "font_alignment_label": "Font alignment",
       "font_family_label": "Font family",

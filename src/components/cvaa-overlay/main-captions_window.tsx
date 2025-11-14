@@ -39,7 +39,7 @@ class MainCaptionsWindow extends Component<any, any> {
         source: "Advanced_captions_preset_minimalist",
         style: player.TextStyle.fromJson({
           fontSize: player.TextStyle.FontSizes[0].label,
-          fontWeight: player.TextStyle.StandardFontWeights.NORMAL,
+          fontWeight: player.TextStyle.StandardFontWeights[1].value,
           textAlign: player.TextStyle.FontAlignment[2].value,
           fontColor: player.TextStyle.StandardColors.WHITE,
           fontFamily: "Verdana, Arial",
@@ -55,7 +55,7 @@ class MainCaptionsWindow extends Component<any, any> {
         source: "Advanced_captions_preset_high_contrast",
         style: player.TextStyle.fromJson({
           fontSize: player.TextStyle.FontSizes[1].label,
-          fontWeight: player.TextStyle.StandardFontWeights.BOLD,
+          fontWeight: player.TextStyle.StandardFontWeights[3].value,
           textAlign: player.TextStyle.FontAlignment[2].value,
           fontColor: player.TextStyle.StandardColors.YELLOW,
           fontFamily: "Arial",
@@ -71,7 +71,7 @@ class MainCaptionsWindow extends Component<any, any> {
         source: "Advanced_captions_preset_classic_tv_style",
         style: player.TextStyle.fromJson({
           fontSize: player.TextStyle.FontSizes[0].label,
-          fontWeight: player.TextStyle.StandardFontWeights.NORMAL,
+          fontWeight: player.TextStyle.StandardFontWeights[1].value,
           textAlign: player.TextStyle.FontAlignment[2].value,
           fontColor: player.TextStyle.StandardColors.WHITE,
           fontFamily: "Times New Roman, Verdana",
@@ -87,7 +87,7 @@ class MainCaptionsWindow extends Component<any, any> {
         source: "Advanced_captions_preset_easy_reading",
         style: player.TextStyle.fromJson({
           fontSize: player.TextStyle.FontSizes[2].label,
-          fontWeight: player.TextStyle.StandardFontWeights.BOLD,
+          fontWeight: player.TextStyle.StandardFontWeights[3].value,
           textAlign: player.TextStyle.FontAlignment[1].value,
           fontColor: player.TextStyle.StandardColors.DARK_BLUE,
           fontFamily: "Tahoma, sans-serif",
@@ -103,7 +103,7 @@ class MainCaptionsWindow extends Component<any, any> {
         source: "Advanced_captions_preset_early_readers",
         style: player.TextStyle.fromJson({
           fontSize: player.TextStyle.FontSizes[2].label,
-          fontWeight: player.TextStyle.StandardFontWeights.BOLD,
+          fontWeight: player.TextStyle.StandardFontWeights[3].value,
           textAlign: player.TextStyle.FontAlignment[2].value,
           fontColor: player.TextStyle.StandardColors.BLACK,
           fontFamily: "Trebuchet MS, Arial",
@@ -119,7 +119,7 @@ class MainCaptionsWindow extends Component<any, any> {
         source: "Advanced_captions_preset_night_mode",
         style: player.TextStyle.fromJson({
           fontSize: player.TextStyle.FontSizes[0].label,
-          fontWeight: player.TextStyle.StandardFontWeights.BOLD,
+          fontWeight: player.TextStyle.StandardFontWeights[3].value,
           textAlign: player.TextStyle.FontAlignment[2].value,
           fontColor: player.TextStyle.StandardColors.LIGHT_GRAY,
           fontFamily: "EB Garamond",
@@ -199,8 +199,8 @@ class MainCaptionsWindow extends Component<any, any> {
    */
   render(props: any): VNode<any> {    
     const activePreset = this.presets.find(preset => this.props.player.textStyle.isEqual(preset.style));
-    const isPresetActive = !!activePreset;
-    const isCustomActive = props.customPresetStyle && this.props.player.textStyle.isEqual(props.customPresetStyle) && !isPresetActive;
+    const isCustomEqualToPreset = this.presets.some(preset => props.customPresetStyle && props.customPresetStyle.isEqual(preset.style));
+    const isCustomActive = props.customPresetStyle && this.props.player.textStyle.isEqual(props.customPresetStyle);
     return (
       <div className={[style.overlayScreen, style.active].join(' ')}>
         <h2 className={style.title} id={this.props.captionsTitleId}>
@@ -222,7 +222,7 @@ class MainCaptionsWindow extends Component<any, any> {
           ))}
         </div>
         <div className={style.customButtons}>
-          {props.customPresetStyle && (
+          {props.customPresetStyle && !isCustomEqualToPreset && (
             <SampleCaptionsStyleButton
               addAccessibleChild={props.addAccessibleChild}
               classNames={[style.sample]}

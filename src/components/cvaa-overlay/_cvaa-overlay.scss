@@ -116,7 +116,6 @@
   .custom-buttons .sample {
     flex: 1;
     margin: 0;
-    border: none;
     border-radius: 4px;
     background-color: #000000;
   }
@@ -220,6 +219,7 @@
 }
 
 .font-size,
+.font-weight,
 .font-alignment,
 .font-color,
 .font-family,
