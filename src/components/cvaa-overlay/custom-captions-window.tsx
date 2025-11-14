@@ -64,7 +64,7 @@ class CustomCaptionsWindow extends Component<any, any> {
     }
   };
   
-  focusCustomOrEdit(): void {
+  focusCustomOrEdit(): void {    
     this.props.focusCustomOrEdit?.();
   }
 
@@ -83,7 +83,7 @@ class CustomCaptionsWindow extends Component<any, any> {
 
     const fontSizeOptions = player.TextStyle.FontSizes.map(size => ({
       value: size.label,
-      label: size.label,
+      label: size.name,
       active: props.customTextStyle.fontSize === size.label
     }));
 

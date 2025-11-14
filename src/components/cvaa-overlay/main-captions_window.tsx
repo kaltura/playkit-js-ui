@@ -33,33 +33,35 @@ class MainCaptionsWindow extends Component<any, any> {
 
     this.presets = [
       {
-        key: "highContrast",
-        className: style.highContrast,
-        textId: "cvaa.sample_high_contrast",
-        source: "Advanced_captions_preset_high_contrast",
-        style: player.TextStyle.fromJson({
-          fontSize: player.TextStyle.FontSizes[3].label,
-          textAlign: player.TextStyle.FontAlignment[2].value,
-          fontColor: player.TextStyle.StandardColors.YELLOW,
-          fontFamily: "Helvetica, Arial, sans-serif",
-          fontEdge: player.TextStyle.EdgeStyles.RAISED,
-          backgroundColor: player.TextStyle.StandardColors.BLACK,
-          backgroundOpacity: player.TextStyle.StandardOpacities.OPAQUE
-        })
-      },
-      {
         key: "minimalist",
         className: style.minimalist,
         textId: "cvaa.sample_minimalist",
         source: "Advanced_captions_preset_minimalist",
         style: player.TextStyle.fromJson({
-          fontSize: player.TextStyle.FontSizes[2].label,
+          fontSize: player.TextStyle.FontSizes[0].label,
+          fontWeight: player.TextStyle.StandardFontWeights.NORMAL,
           textAlign: player.TextStyle.FontAlignment[2].value,
           fontColor: player.TextStyle.StandardColors.WHITE,
-          fontFamily: "Roboto, Open Sans, Arial, sans-serif",
+          fontFamily: "Verdana, Arial",
           fontEdge: player.TextStyle.EdgeStyles.UNIFORM,
           backgroundColor: player.TextStyle.StandardColors.BLACK,
           backgroundOpacity: player.TextStyle.StandardOpacities.SEMI_HIGH
+        })
+      },
+      {
+        key: "highContrast",
+        className: style.highContrast,
+        textId: "cvaa.sample_high_contrast",
+        source: "Advanced_captions_preset_high_contrast",
+        style: player.TextStyle.fromJson({
+          fontSize: player.TextStyle.FontSizes[1].label,
+          fontWeight: player.TextStyle.StandardFontWeights.BOLD,
+          textAlign: player.TextStyle.FontAlignment[2].value,
+          fontColor: player.TextStyle.StandardColors.YELLOW,
+          fontFamily: "Arial",
+          fontEdge: player.TextStyle.EdgeStyles.RAISED,
+          backgroundColor: player.TextStyle.StandardColors.BLACK,
+          backgroundOpacity: player.TextStyle.StandardOpacities.OPAQUE
         })
       },
       {
@@ -68,10 +70,11 @@ class MainCaptionsWindow extends Component<any, any> {
         textId: "cvaa.sample_classic_tv",
         source: "Advanced_captions_preset_classic_tv_style",
         style: player.TextStyle.fromJson({
-          fontSize: player.TextStyle.FontSizes[3].label,
+          fontSize: player.TextStyle.FontSizes[0].label,
+          fontWeight: player.TextStyle.StandardFontWeights.NORMAL,
           textAlign: player.TextStyle.FontAlignment[2].value,
           fontColor: player.TextStyle.StandardColors.WHITE,
-          fontFamily: "Courier, Lucida Console, Verdana, monospace",
+          fontFamily: "Times New Roman, Verdana",
           fontEdge: player.TextStyle.EdgeStyles.DEPRESSED,
           backgroundColor: player.TextStyle.StandardColors.BLACK,
           backgroundOpacity: player.TextStyle.StandardOpacities.OPAQUE
@@ -83,10 +86,11 @@ class MainCaptionsWindow extends Component<any, any> {
         textId: "cvaa.sample_easy_reading",
         source: "Advanced_captions_preset_easy_reading",
         style: player.TextStyle.fromJson({
-          fontSize: player.TextStyle.FontSizes[3].label,
+          fontSize: player.TextStyle.FontSizes[2].label,
+          fontWeight: player.TextStyle.StandardFontWeights.BOLD,
           textAlign: player.TextStyle.FontAlignment[1].value,
           fontColor: player.TextStyle.StandardColors.DARK_BLUE,
-          fontFamily: "OpenDyslexic, Lexend, sans-serif",
+          fontFamily: "Tahoma, sans-serif",
           fontEdge: player.TextStyle.EdgeStyles.NONE,
           backgroundColor: player.TextStyle.StandardColors.LIGHT_YELLOW,
           backgroundOpacity: player.TextStyle.StandardOpacities.OPAQUE
@@ -98,10 +102,11 @@ class MainCaptionsWindow extends Component<any, any> {
         textId: "cvaa.sample_early_readers",
         source: "Advanced_captions_preset_early_readers",
         style: player.TextStyle.fromJson({
-          fontSize: player.TextStyle.FontSizes[4].label,
+          fontSize: player.TextStyle.FontSizes[2].label,
+          fontWeight: player.TextStyle.StandardFontWeights.BOLD,
           textAlign: player.TextStyle.FontAlignment[2].value,
           fontColor: player.TextStyle.StandardColors.BLACK,
-          fontFamily: "Comic Sans MS, Century Gothic, Arial, sans-serif",
+          fontFamily: "Trebuchet MS, Arial",
           fontEdge: player.TextStyle.EdgeStyles.RAISED,
           backgroundColor: player.TextStyle.StandardColors.YELLOW,
           backgroundOpacity: player.TextStyle.StandardOpacities.OPAQUE
@@ -113,10 +118,11 @@ class MainCaptionsWindow extends Component<any, any> {
         textId: "cvaa.sample_night_mode",
         source: "Advanced_captions_preset_night_mode",
         style: player.TextStyle.fromJson({
-          fontSize: player.TextStyle.FontSizes[2].label,
+          fontSize: player.TextStyle.FontSizes[0].label,
+          fontWeight: player.TextStyle.StandardFontWeights.BOLD,
           textAlign: player.TextStyle.FontAlignment[2].value,
           fontColor: player.TextStyle.StandardColors.LIGHT_GRAY,
-          fontFamily: "Segoe UI, SF Pro Text, Helvetica, sans-serif",
+          fontFamily: "EB Garamond",
           fontEdge: player.TextStyle.EdgeStyles.DROP,
           backgroundColor: player.TextStyle.StandardColors.BLACK,
           backgroundOpacity: player.TextStyle.StandardOpacities.SEMI_HIGH
@@ -191,7 +197,10 @@ class MainCaptionsWindow extends Component<any, any> {
    * @returns {React$Element} - component element
    * @memberof MainWindow
    */
-  render(props: any): VNode<any> {
+  render(props: any): VNode<any> {    
+    const activePreset = this.presets.find(preset => this.props.player.textStyle.isEqual(preset.style));
+    const isPresetActive = !!activePreset;
+    const isCustomActive = props.customPresetStyle && this.props.player.textStyle.isEqual(props.customPresetStyle) && !isPresetActive;
     return (
       <div className={[style.overlayScreen, style.active].join(' ')}>
         <h2 className={style.title} id={this.props.captionsTitleId}>
@@ -218,10 +227,10 @@ class MainCaptionsWindow extends Component<any, any> {
               addAccessibleChild={props.addAccessibleChild}
               classNames={[style.sample]}
               changeCaptionsStyle={() => props.changeCaptionsStyle(props.customPresetStyle, "Advanced_captions_custom")}
-              isActive={props.player.textStyle.isEqual(props.customPresetStyle)}
+              isActive={isCustomActive}
             >
               <Text id={'cvaa.sample_custom'} />
-              {props.player.textStyle.isEqual(props.customPresetStyle) && (
+              {isCustomActive && (
                 <span className={style.activeTick}>
                   <Icon type={IconType.Check} />
                 </span>
@@ -244,7 +253,7 @@ class MainCaptionsWindow extends Component<any, any> {
             </span>
           </button>
         </div>
-        <div className={style.previewContainer}>
+        <div className={`${style.previewContainer} ${activePreset?.key === "easyReading" ? style.previewEasyReading : ""}`}>
           <span style={this.getActiveStyle().toCSS()}>
             <Text id={'cvaa.caption_preview'} />
           </span>
