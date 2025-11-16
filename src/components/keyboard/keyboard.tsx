@@ -22,7 +22,9 @@ const mapStateToProps = state => ({
   isPlayingAdOrPlayback: isPlayingAdOrPlayback(state.engine),
   playerNav: state.shell.playerNav,
   textTracks: state.engine.textTracks,
-  overlayOpen: state.overlay.isOpen
+  overlayOpen: state.overlay.isOpen,
+  allowPlayPause: state.config.allowPlayPause,
+  allowLivePlayPause: state.config.allowLivePlayPause
 });
 
 /**
@@ -106,8 +108,11 @@ class Keyboard extends Component<any, any> {
    *
    * @memberof Keyboard
    */
-  keyboardHandlers: {[key: number]: (event: KeyboardEvent) => KeyboardEventResult} = {
+  private keyboardHandlers: {[key: number]: (event: KeyboardEvent) => KeyboardEventResult} = {
     [KeyMap.SPACE]: (): KeyboardEventResult => {
+      if ((!this.props.player.isLive() && !this.props.allowPlayPause) || (this.props.player.isLive() && !this.props.allowLivePlayPause))
+        return UNHANDLED_KEYBOARD_EVENT_RESULT;
+
       if (this.props.isPlayingAdOrPlayback) {
         this.props.player.pause();
         this.props.updateOverlayActionIcon(IconType.Pause);

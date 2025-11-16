@@ -23,7 +23,9 @@ const mapStateToProps = state => ({
   guiStyles: state.shell.layoutStyles.gui,
   isSmartContainerOpen: state.shell.smartContainerOpen,
   fullscreenConfig: state.config.components.fullscreen,
-  seekbarDraggingActive: state.seekbar.draggingActive
+  seekbarDraggingActive: state.seekbar.draggingActive,
+  allowPlayPause: state.config.allowPlayPause,
+  allowLivePlayPause: state.config.allowLivePlayPause
 });
 
 /**
@@ -91,8 +93,9 @@ class OverlayAction extends Component<any, any> {
    * @returns {void}
    * @memberof OverlayAction
    */
-  togglePlayPause = (): void => {
+  private togglePlayPause = (): void => {
     const showPauseButton = !this.props.player.isLive() || this.props.player.isDvr();
+    if ((!this.props.player.isLive() && !this.props.allowPlayPause) || (this.props.player.isLive() && !this.props.allowLivePlayPause)) return;
 
     if (this.props.isPlayingAdOrPlayback) {
       this.props.player.pause();
