@@ -12,8 +12,8 @@ export const types = {
 export const initialState = {
   targetId: undefined as unknown as string,
   forceTouchUI: false,
-  showPlayPauseButton: true,
-  showLivePlayPauseButton: true,
+  allowPlayPause: true,
+  allowLivePlayPause: true,
   showCCButton: true,
   showAudioButton: true,
   showAudioDescriptionButton: true,

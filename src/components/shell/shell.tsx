@@ -40,7 +40,9 @@ const mapStateToProps = state => ({
   fallbackToMutedAutoPlay: state.engine.fallbackToMutedAutoPlay,
   playlist: state.engine.playlist,
   tinySizeDisabled: state.config.tinySizeDisabled,
-  isCopyProtected: state.config.isCopyProtected
+  isCopyProtected: state.config.isCopyProtected,
+  allowPlayPause: state.config.allowPlayPause,
+  allowLivePlayPause: state.config.allowLivePlayPause
 });
 
 const ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY: number = 100;
@@ -145,7 +147,7 @@ class Shell extends Component<any, any> {
     }
   }
 
-  toggleFullscreen(): void { 
+  toggleFullscreen(): void {
     if (this.props.player.isFullscreen()) {
       this.props.player.exitFullscreen();
     } else {
@@ -179,18 +181,16 @@ class Shell extends Component<any, any> {
    * @param {KeyboardEvent} e - event object
    * @returns {void}
    */
-  onKeyDown = (e: KeyboardEvent): void => {
+  private onKeyDown = (e: KeyboardEvent): void => {
     const target = e.target as HTMLElement;
-    const isInput = target instanceof HTMLInputElement ||
-                target instanceof HTMLTextAreaElement ||
-                target.isContentEditable;
+    const isInput = target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target.isContentEditable;
 
     if (!this.state.nav && e.keyCode === KeyMap.TAB) {
       this.setState({nav: true});
       this.props.updatePlayerNavState(true);
     }
 
-    if (this.state.nav && (e.keyCode === KeyMap.F) && !isInput) {
+    if (this.state.nav && e.keyCode === KeyMap.F && !isInput) {
       this.toggleFullscreen();
     }
 
@@ -199,6 +199,9 @@ class Shell extends Component<any, any> {
       // @ts-ignore
       if (e.srcElement!.contains(this._playerRef)) {
         e.preventDefault();
+
+        if ((!this.props.player.isLive() && !this.props.allowPlayPause) || (this.props.player.isLive() && !this.props.allowLivePlayPause)) return;
+
         this.props.player.paused ? this.props.player.play() : this.props.player.pause();
       }
     }
