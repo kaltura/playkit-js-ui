@@ -10,7 +10,7 @@ import {bindActions, KeyCode} from '../../utils';
 import {actions} from '../../reducers/audio-description';
 import {AudioDescriptionMenu} from '../audio-description-menu';
 import {AudioDesc, SmartContainer} from '..';
-import {getAudioLanguageKey} from '../../utils/audio-description';
+import {getActiveAudioLanguage} from '../../utils/audio-description';
 import {ReservedPresetNames} from '../../reducers/shell';
 
 const COMPONENT_NAME = 'AudioDescMini';
@@ -53,7 +53,7 @@ const _AudioDescMini = (props: any) => {
     const {audioDescriptionLanguages, advancedAudioDescriptionLanguages} = props;
     const {isEnabled, selectedType} = store.getState().audioDescription;
 
-    const activeAudioLanguage = getActiveAudioLanguage(props);
+    const activeAudioLanguage = getActiveAudioLanguage(props.player);
     if (!shouldActivate(activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages)) {
       return;
     }
@@ -85,7 +85,7 @@ const _AudioDescMini = (props: any) => {
 
   if (!shouldRender()) return null;
 
-  const activeAudioLanguage = getActiveAudioLanguage(props);
+  const activeAudioLanguage = getActiveAudioLanguage(props.player);
   const icon = getSvgIcon(props, store);
 
   const innerButtonComponent = getButtonComponent(
@@ -147,7 +147,7 @@ const getButtonComponent = (
 function getSvgIcon(props, store, isDropdown = false): any {
   const {audioDescription} = store.getState();
   const {isEnabled, audioDescriptionLanguages, advancedAudioDescriptionLanguages} = audioDescription;
-  const activeAudioLanguage = getActiveAudioLanguage(props);
+  const activeAudioLanguage = getActiveAudioLanguage(props.player);
   const isActive = shouldActivate(activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages);
 
   let type = IconType.AdvancedAudioDescriptionActive;
@@ -174,7 +174,7 @@ function handleIconClick(props, store): void {
   const {audioDescription} = store.getState();
   const {isEnabled, selectedType, audioDescriptionLanguages, advancedAudioDescriptionLanguages} = audioDescription;
 
-  const activeAudioLanguage = getActiveAudioLanguage(props);
+  const activeAudioLanguage = getActiveAudioLanguage(props.player);
   if (!shouldActivate(activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages)) {
     return;
   }
@@ -205,8 +205,8 @@ function handleIconClick(props, store): void {
 }
 
 function getComponentText(props, store): any {
-  const {audioDescriptionLanguages, advancedAudioDescriptionLanguages} = store.getState().audioDescription;
-  const activeAudioLanguage = getActiveAudioLanguage(props);
+  const {audioDescriptionLanguages, advancedAudioDescriptionLanguages, isEnabled} = store.getState().audioDescription;
+  const activeAudioLanguage = getActiveAudioLanguage(props.player);
 
   const isActive = shouldActivate(activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages);
 
@@ -215,7 +215,7 @@ function getComponentText(props, store): any {
   } else if (props.openMenuFromAudioDescriptionButton) {
     return props.audioDescriptionLabelText;
   } else {
-    return props.isEnabled ? props.disableAudioDescriptionText : props.enableAudioDescriptionText;
+    return isEnabled ? props.disableAudioDescriptionText : props.enableAudioDescriptionText;
   }
 }
 
@@ -232,22 +232,18 @@ function registerComponent(props, store): any {
     },
     isDisabled: (): boolean => {
       const {audioDescriptionLanguages, advancedAudioDescriptionLanguages} = store.getState().audioDescription;
-      const activeAudioLanguage = getActiveAudioLanguage(props);
+      const activeAudioLanguage = getActiveAudioLanguage(props.player);
       return !shouldActivate(activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages);
     },
     shouldHandleOnClick: false
   };
 }
 
-function getActiveAudioLanguage(props): string {
-  return getAudioLanguageKey(props.player.getActiveTracks()['audio']?.language || '');
-}
-
 const getComponent = (props: any) => {
   return <AudioDescMini {...props} />;
 };
 
-const AudioDescMini = connect(bindActions(actions))(_AudioDescMini);
+const AudioDescMini = connect(null, bindActions(actions))(_AudioDescMini);
 
 AudioDescMini.displayName = COMPONENT_NAME;
 

@@ -9,7 +9,7 @@ import {IconType} from '../icon';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from '../event-dispatcher';
 import {AUDIO_DESCRIPTION_TYPE} from '../../types/reducers/audio-description';
-import {getAudioLanguageKey} from '../../utils/audio-description';
+import {getActiveAudioLanguage} from '../../utils/audio-description';
 import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
 
 type AudioDescriptionMenuProps = {
@@ -22,6 +22,7 @@ type AudioDescriptionMenuProps = {
   advancedAudioDescriptionLanguages?: string[];
   updateAudioDescriptionEnabled?: (isEnabled: boolean) => void;
   updateAudioDescriptionType?: (selectedType: AUDIO_DESCRIPTION_TYPE) => void;
+  updateSelectionByLanguage?: (languageKey: string) => void;
   disableText?: string;
   standardAudioDescriptionText?: string;
   advancedAudioDescriptionText?: string;
@@ -58,8 +59,6 @@ const _AudioDescriptionMenu = (props: AudioDescriptionMenuProps) => {
     audioDescriptionType,
     audioDescriptionLanguages,
     advancedAudioDescriptionLanguages,
-    updateAudioDescriptionEnabled,
-    updateAudioDescriptionType,
     disableText,
     standardAudioDescriptionText,
     advancedAudioDescriptionText,
@@ -74,8 +73,8 @@ const _AudioDescriptionMenu = (props: AudioDescriptionMenuProps) => {
     const isEnabled = enabledState !== 0;
     const selectedType = isEnabled ? enabledState : audioDescriptionType;
 
-    updateAudioDescriptionEnabled!(isEnabled);
-    updateAudioDescriptionType?.(selectedType!);
+    props.updateAudioDescriptionEnabled!(isEnabled);
+    props.updateAudioDescriptionType?.(selectedType!);
 
     // notify the player of a change in audio description settings
     props.notifyClick?.({
@@ -86,7 +85,7 @@ const _AudioDescriptionMenu = (props: AudioDescriptionMenuProps) => {
     });
   };
 
-  const audioLanguage = getAudioLanguageKey(player?.getActiveTracks()['audio']?.language || '');
+  const audioLanguage = getActiveAudioLanguage(player);
 
   const hasAudioDescription = useMemo(() => {
     return !!audioDescriptionLanguages?.find(lang => lang.startsWith(audioLanguage));

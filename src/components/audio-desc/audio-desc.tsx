@@ -14,7 +14,7 @@ import {withPlayer} from '../player';
 import {AudioDescriptionMenu} from '../audio-description-menu';
 import {SmartContainer} from '..';
 import {withEventManager} from '../../event';
-import {getAudioLanguageKey} from '../../utils/audio-description';
+import {getActiveAudioLanguage} from '../../utils/audio-description';
 
 const COMPONENT_NAME = 'AudioDesc';
 
@@ -61,7 +61,7 @@ const _AudioDesc = (props: any) => {
   }, [isClickOutside, isMobile, isSmallSize]);
 
   function getComponentText(): any {
-    const activeAudioLanguage = getAudioLanguageKey(props.player.getActiveTracks()['audio']?.language || '');
+    const activeAudioLanguage = getActiveAudioLanguage(props.player);
     const isActive = shouldActivate();
 
     if (!isActive) {
@@ -78,7 +78,7 @@ const _AudioDesc = (props: any) => {
   }
 
   function shouldActivate(): boolean {
-    const activeAudioLanguage = getAudioLanguageKey(props.player.getActiveTracks()['audio']?.language || '');
+    const activeAudioLanguage = getActiveAudioLanguage(props.player);
     return Boolean(
       activeAudioLanguage &&
         (audioDescriptionLanguages.find(lang => lang.startsWith(activeAudioLanguage)) ||
