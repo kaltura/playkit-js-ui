@@ -143,9 +143,7 @@ class BottomBar extends Component<any, any> {
       this.setCurrentBarWidth(player.isFullscreen(), barWidth);
       const currCrlWidth = this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.SMALL ? CRL_WIDTH + CRL_MARGIN / 2 : CRL_WIDTH + CRL_MARGIN;
       const lowerPriorityControls = LOWER_PRIORITY_CONTROLS.filter(c => this.state.activeControls[c[0]]);
-      const leftControlsWidth = this.leftControlsRef.current?.offsetWidth || 0;
-      const availableBarWidth = barWidth - leftControlsWidth;
-      this.filterControls(availableBarWidth, this.getMaxControlsWidth(player.isFullscreen()), currCrlWidth, lowerPriorityControls);
+      this.filterControls(barWidth, this.getMaxControlsWidth(player.isFullscreen()), currCrlWidth, lowerPriorityControls);
     }
   }
 

@@ -8,7 +8,8 @@ export const types = {
   UPDATE_AUDIO_DESCRIPTION_TYPE: 'audio-description/UPDATE_AUDIO_DESCRIPTION_TYPE',
   UPDATE_SELECTION_BY_LANGUAGE: 'audio-description/UPDATE_SELECTION_BY_LANGUAGE',
   RESET_SELECTION_BY_LANGUAGE: 'audio-description/RESET_SELECTION_BY_LANGUAGE',
-  UPDATE_DEFAULT_VALUE_SET: 'audio-description/UPDATE_DEFAULT_VALUE_SET'
+  UPDATE_DEFAULT_VALUE_SET: 'audio-description/UPDATE_DEFAULT_VALUE_SET',
+  UPDATE_SELECTED_AUDIO_LANGUAGE: 'audio-description/UPDATE_SELECTED_AUDIO_LANGUAGE'
 };
 
 export const initialState = {
@@ -17,7 +18,8 @@ export const initialState = {
   isEnabled: false,
   selectedType: AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION,
   selectionByLanguage: new Map<string, [boolean, AUDIO_DESCRIPTION_TYPE]>(),
-  isDefaultValueSet: false
+  isDefaultValueSet: false,
+  selectedAudioLanguage: null
 };
 
 export default (state: AudioDescriptionState = initialState, action: any) => {
@@ -61,6 +63,11 @@ export default (state: AudioDescriptionState = initialState, action: any) => {
         ...state,
         isDefaultValueSet: action.isDefaultValueSet
       };
+    case types.UPDATE_SELECTED_AUDIO_LANGUAGE:
+      return {
+        ...state,
+        selectedAudioLanguage: action.selectedAudioLanguage
+      };
     default:
       return state;
   }
@@ -95,5 +102,9 @@ export const actions = {
   updateDefaultValueSet: (isDefaultValueSet: boolean) => ({
     type: types.UPDATE_DEFAULT_VALUE_SET,
     isDefaultValueSet
+  }),
+  updateSelectedAudioLanguage: (selectedAudioLanguage: string | null) => ({
+    type: types.UPDATE_SELECTED_AUDIO_LANGUAGE,
+    selectedAudioLanguage
   })
 };
