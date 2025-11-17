@@ -216,9 +216,15 @@ class CVAAOverlay extends Component<any, any> {
         handleKeyDown={this.props.handleKeyDown}
         addAccessibleChild={this.props.addAccessibleChild}
         onClose={() => {
-          props.onClose();
-          this.focusPlayerButtonBadge();
-        }}
+            if (this.state.activeWindow === cvaaOverlayState.CustomCaptions) {
+              // Transition back to the Main component
+              this.setState({ activeWindow: cvaaOverlayState.Main });
+            } else {
+              // Close the entire overlay
+              props.onClose();
+              this.focusPlayerButtonBadge();
+            }
+          }}
         type="cvaa"
         {...ariaProps}
         closeAriaLabel={this.props.cvaaCloseLabel}
