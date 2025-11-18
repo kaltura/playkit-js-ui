@@ -15,6 +15,13 @@ import {ReservedPresetNames} from '../../reducers/shell';
 
 const COMPONENT_NAME = 'AudioDescMini';
 
+// the props that are coming from AudioDescriptionUpdater won't be up-to-date,
+// because they are set at the point of registration to the bottom bar.
+// to trigger re-render when audioDescription state changes, we bind it to a new prop.
+const mapStateToProps = (state: any) => ({
+  audioDescription: state.audioDescription
+});
+
 const _AudioDescMini = (props: any) => {
   const ref = useRef<any>(null);
   const [smartContainerOpen, setSmartContainerOpen] = useState(false);
@@ -243,7 +250,7 @@ const getComponent = (props: any) => {
   return <AudioDescMini {...props} />;
 };
 
-const AudioDescMini = connect(null, bindActions(actions))(_AudioDescMini);
+const AudioDescMini = connect(mapStateToProps, bindActions(actions))(_AudioDescMini);
 
 AudioDescMini.displayName = COMPONENT_NAME;
 
