@@ -116,7 +116,15 @@ const MediaInfoDisplayComponent = (props: MediaInfoDisplayProps): any => {
   const metadata = player.sources?.metadata;
 
   // try to get duration from props or from player sources
-  const duration = props.duration || player.sources?.duration || 0;
+  let duration = props.duration || player.sources?.duration || 0;
+
+  // for live streams - calculate duration from activeLiveStreamTime if available
+  if (player.isLive && player.isLive() && player.sources?.activeLiveStreamTime) {
+    const liveStreamTime = player.sources.activeLiveStreamTime;
+    if (liveStreamTime.startTime !== undefined && liveStreamTime.endTime !== undefined) {
+      duration = liveStreamTime.endTime - liveStreamTime.startTime;
+    }
+  }
 
   if (!metadata && !config.showDuration) {
     return null;
