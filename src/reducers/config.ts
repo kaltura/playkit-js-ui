@@ -2,6 +2,7 @@
 import {mergeDeep} from '../utils/merge-deep';
 import {UIOptionsObject} from '../types';
 import {ConfigState} from '../types/reducers/config';
+import {MediaInfoDetailsMode, MediaInfoPosition} from '../types';
 
 export const types = {
   UPDATE: 'config/UPDATE',
@@ -29,7 +30,11 @@ export const initialState = {
   },
   hoverTimeout: 3000,
   tinySizeDisabled: false,
-  showMediaInfo: {} as any,
+  showMediaInfo: {
+    showDuration: true,
+    detailsMode: MediaInfoDetailsMode.None,
+    position: MediaInfoPosition.Bottom
+  },
   components: {
     watermark: {} as any,
     seekbar: {} as any,

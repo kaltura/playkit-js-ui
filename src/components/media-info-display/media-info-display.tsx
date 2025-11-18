@@ -1,4 +1,5 @@
-import {Component, h, Fragment} from 'preact';
+import {h, Fragment} from 'preact'; // eslint-disable-line @typescript-eslint/no-unused-vars
+import {useState, useEffect} from 'preact/hooks';
 import {withText} from 'preact-i18n';
 import style from '../../styles/style.scss';
 import {connect} from 'react-redux';
@@ -6,7 +7,6 @@ import {withPlayer} from '../player';
 import {withLogger} from '../logger';
 import {TimeDisplay} from '../time-display';
 import {MediaInfoConfig, MediaInfoDetailsMode, MediaInfoPosition} from '../../types';
-import {getComponentStateFromConfig} from '../../utils/component-config';
 import {EventType} from '../../event';
 import {FakeEvent} from '@playkit-js/playkit-js';
 
@@ -34,148 +34,137 @@ interface MediaInfoDisplayProps {
   seeLessText?: string;
 }
 
+const defaultConfig: MediaInfoConfig = {
+  showDuration: true,
+  detailsMode: MediaInfoDetailsMode.None,
+  position: MediaInfoPosition.Bottom
+};
+
 /**
- * MediaInfoDisplay component
+ * MediaTitle component - renders media title
+ */
+const MediaTitle = ({title}: {title: string}): any => <div className={style.mediaInfoTitle}>{title}</div>;
+
+/**
+ * MediaDescription component - renders media description with expand/collapse functionality
+ */
+const MediaDescription = ({
+  description,
+  isExpanded,
+  onToggle,
+  seeMoreText,
+  seeLessText
+}: {
+  description: string;
+  isExpanded: boolean;
+  onToggle: () => void;
+  seeMoreText?: string;
+  seeLessText?: string;
+}): any => (
+  <div className={style.mediaInfoDescription}>
+    {description.length > 100 ? (
+      isExpanded ? (
+        <>
+          {description}{' '}
+          <span className={style.seeMore} onClick={onToggle}>
+            {seeLessText}
+          </span>
+        </>
+      ) : (
+        <>
+          {description.substring(0, 100)}...{' '}
+          <span className={style.seeMore} onClick={onToggle}>
+            {seeMoreText}
+          </span>
+        </>
+      )
+    ) : (
+      description
+    )}
+  </div>
+);
+
+/**
+ * MediaInfoDisplayComponent
  * Shows media information (title, description, duration) before playback
  *
- * @class MediaInfoDisplay
  * @example <MediaInfoDisplay />
- * @extends {Component}
  */
-@connect(mapStateToProps)
-@withPlayer
-@withLogger(COMPONENT_NAME)
-class MediaInfoDisplay extends Component<MediaInfoDisplayProps, any> {
-  public static defaultConfig: MediaInfoConfig = {
-    showDuration: true,
-    detailsMode: MediaInfoDetailsMode.None,
-    position: MediaInfoPosition.Bottom
+const MediaInfoDisplayComponent = (props: MediaInfoDisplayProps): any => {
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+
+  // reset description expansion when component updates with new metadata
+  useEffect(() => {
+    setIsDescriptionExpanded(false);
+  }, [props.player?.sources?.metadata?.description]);
+
+  // toggle description expansion
+  const toggleDescription = (): void => {
+    setIsDescriptionExpanded(!isDescriptionExpanded);
   };
 
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      isDescriptionExpanded: false
-    };
+  if (!props.prePlayback || props.loading) {
+    return null;
   }
 
-  /**
-   * Reset description expansion when component updates with new metadata
-   */
-  public componentDidUpdate(prevProps: any): void {
-    const prevDescription = prevProps.player?.sources?.metadata?.description;
-    const currentDescription = this.props.player?.sources?.metadata?.description;
-
-    if (prevDescription !== currentDescription) {
-      this.setState({isDescriptionExpanded: false});
-    }
-  }
-
-  /**
-   * Toggle description expansion
-   */
-  private toggleDescription = (): void => {
-    this.setState({isDescriptionExpanded: !this.state.isDescriptionExpanded});
+  const config = {
+    ...defaultConfig,
+    ...props.config
   };
 
-  /**
-   * component default config
-   * @returns {MediaInfoConfig}
-   * @static
-   */
-  public static mergeConfig(config: any = {}): MediaInfoConfig {
-    return getComponentStateFromConfig(COMPONENT_NAME, MediaInfoDisplay.defaultConfig, {config});
+  const {player} = props;
+  const metadata = player.sources?.metadata;
+
+  // try to get duration from props or from player sources
+  const duration = props.duration || player.sources?.duration || 0;
+
+  if (!metadata && !config.showDuration) {
+    return null;
   }
 
-  /**
-   * render component
-   *
-   * @param {*} props - component props
-   * @returns {any | null} - component element
-   * @memberof MediaInfoDisplay
-   */
-  public render(props: any): any {
-    if (!props.prePlayback || props.loading) {
-      return null;
-    }
+  const shouldShowDetails = config.detailsMode !== MediaInfoDetailsMode.None && metadata;
+  const shouldShowDuration = config.showDuration && duration > 0;
 
-    const config = {
-      ...MediaInfoDisplay.defaultConfig,
-      ...props.config
-    };
-
-    const {player} = props;
-    const metadata = player.sources?.metadata;
-
-    // try to get duration from props or from player sources
-    const duration = props.duration || player.sources?.duration || 0;
-
-    if (!metadata && !config.showDuration) {
-      return null;
-    }
-
-    const shouldShowDetails = config.detailsMode !== MediaInfoDetailsMode.None && metadata;
-    const shouldShowDuration = config.showDuration && duration > 0;
-
-    if (!shouldShowDetails && !shouldShowDuration) {
-      return null;
-    }
-
-    // dispatch event when media info is displayed
-    player.dispatchEvent(new FakeEvent(EventType.DISPLAY_INFO_BEFORE_PLAYBACK));
-
-    const positionClass = config.position === MediaInfoPosition.Top ? style.mediaInfoTop : style.mediaInfoBottom;
-
-    return (
-      <div className={`${style.mediaInfoDisplay} ${positionClass}`}>
-        {shouldShowDuration && (
-          <div className={style.mediaInfoDuration}>
-            <TimeDisplay currentTime={0} duration={duration} format="total" />
-          </div>
-        )}
-        {shouldShowDetails && (
-          <div className={style.mediaInfoDetails}>
-            {config.detailsMode === MediaInfoDetailsMode.Title && metadata?.name && <h2 className={style.mediaInfoTitle}>{metadata.name}</h2>}
-            {config.detailsMode === MediaInfoDetailsMode.TitleAndDescription && (
-              <>
-                {metadata?.name && <h2 className={style.mediaInfoTitle}>{metadata.name}</h2>}
-                {metadata?.description && (
-                  <div className={style.mediaInfoDescription}>
-                    {metadata.description.length > 100 && !this.state.isDescriptionExpanded ? (
-                      <>
-                        {metadata.description.substring(0, 100)}...{' '}
-                        <span className={style.seeMore} onClick={this.toggleDescription}>
-                          {this.props.seeMoreText}
-                        </span>
-                      </>
-                    ) : (
-                      <>
-                        {metadata.description}
-                        {metadata.description.length > 100 && this.state.isDescriptionExpanded && (
-                          <>
-                            {' '}
-                            <span className={style.seeMore} onClick={this.toggleDescription}>
-                              {this.props.seeLessText}
-                            </span>
-                          </>
-                        )}
-                      </>
-                    )}
-                  </div>
-                )}
-              </>
-            )}
-          </div>
-        )}
-      </div>
-    );
+  if (!shouldShowDetails && !shouldShowDuration) {
+    return null;
   }
-}
 
-const WrappedMediaInfoDisplay = withText({
+  // dispatch event when media info is displayed
+  player.dispatchEvent(new FakeEvent(EventType.DISPLAY_INFO_BEFORE_PLAYBACK));
+
+  const positionClass = config.position === MediaInfoPosition.Top ? style.mediaInfoTop : style.mediaInfoBottom;
+
+  return (
+    <div className={`${style.mediaInfoDisplay} ${positionClass}`}>
+      {shouldShowDuration && (
+        <div className={style.mediaInfoDuration}>
+          <TimeDisplay currentTime={0} duration={duration} format="total" />
+        </div>
+      )}
+      {shouldShowDetails && (
+        <div className={style.mediaInfoDetails}>
+          {config.detailsMode === MediaInfoDetailsMode.Title && metadata?.name && <MediaTitle title={metadata.name} />}
+          {config.detailsMode === MediaInfoDetailsMode.TitleAndDescription && (
+            <>
+              {metadata?.name && <MediaTitle title={metadata.name} />}
+              {metadata?.description && (
+                <MediaDescription
+                  description={metadata.description}
+                  isExpanded={isDescriptionExpanded}
+                  onToggle={toggleDescription}
+                  seeMoreText={props.seeMoreText}
+                  seeLessText={props.seeLessText}
+                />
+              )}
+            </>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export const MediaInfoDisplay = withText({
   seeMoreText: 'mediaInfo.seeMore',
   seeLessText: 'mediaInfo.seeLess'
-})(MediaInfoDisplay);
-
-(WrappedMediaInfoDisplay as any).displayName = COMPONENT_NAME;
-export {WrappedMediaInfoDisplay as MediaInfoDisplay};
+})(withLogger(COMPONENT_NAME)(withPlayer(connect(mapStateToProps)(MediaInfoDisplayComponent))));
