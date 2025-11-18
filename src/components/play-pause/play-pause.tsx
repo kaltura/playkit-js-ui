@@ -78,7 +78,7 @@ class PlayPause extends Component<any, any> {
         }
       });
     });
-    eventManager.listenOnce(player, player.Event.Core.CHANGE_SOURCE_ENDED, () => {
+    eventManager.listen(player, player.Event.Core.CHANGE_SOURCE_ENDED, () => {
       const entryName = player.sources?.metadata?.name;
       if (entryName) {
         this.setState({entryName});
