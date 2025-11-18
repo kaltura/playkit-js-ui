@@ -138,7 +138,7 @@ const _AudioDesc = (props: any) => {
         {innerButtonComponent}
         {smartContainerOpen && props.openMenuFromAudioDescriptionButton && (
           <SmartContainer targetId={props.player.config.targetId} onClose={onClose} title={props.audioDescriptionLabelText}>
-            <AudioDescriptionMenu />
+            <AudioDescriptionMenu onClick={onClose} />
           </SmartContainer>
         )}
       </ButtonControl>

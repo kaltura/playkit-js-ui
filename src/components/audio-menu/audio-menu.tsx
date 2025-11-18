@@ -14,6 +14,7 @@ import {getActiveAudioLanguage} from '../../utils/audio-description';
 import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
 
 type AudioMenuProps = {
+  onClick?: () => void;
   audioTracks?: any[];
   audioLabelText?: string;
   audioDescriptionAvailableText?: string;
@@ -138,7 +139,10 @@ const _AudioMenu = (props: AudioMenuProps) => {
           props.pushRef?.(el);
         }}
         options={audioOptions}
-        onMenuChosen={(audioTrack: any) => onAudioChange(audioTrack)}
+        onMenuChosen={(audioTrack: any) => {
+          onAudioChange(audioTrack);
+          props.onClick?.();
+        }}
         onClose={() => {}}
       />
     );
