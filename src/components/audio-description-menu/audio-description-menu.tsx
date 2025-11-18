@@ -13,6 +13,7 @@ import {getActiveAudioLanguage} from '../../utils/audio-description';
 import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
 
 type AudioDescriptionMenuProps = {
+  onClick?: () => void;
   asDropdown?: boolean;
   audioTracks?: any[];
   audioDescriptionText?: string;
@@ -144,7 +145,10 @@ const _AudioDescriptionMenu = (props: AudioDescriptionMenuProps) => {
           props.pushRef?.(el);
         }}
         options={options}
-        onMenuChosen={enabledState => onAudioDescriptionChange(enabledState)}
+        onMenuChosen={enabledState => {
+          onAudioDescriptionChange(enabledState);
+          props.onClick?.();
+        }}
         onClose={() => {}}
       />
     );

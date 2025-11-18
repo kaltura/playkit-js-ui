@@ -134,7 +134,7 @@ const _Audio = (props: any) => {
       </Tooltip>
       {smartContainerOpen && (
         <SmartContainer targetId={props.player.config.targetId} onClose={onClose} title={getComponentText()}>
-          <AudioMenu />
+          <AudioMenu onClick={onClose} />
         </SmartContainer>
       )}
     </ButtonControl>
