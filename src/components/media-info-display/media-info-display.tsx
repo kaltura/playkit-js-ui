@@ -1,11 +1,12 @@
 import {h, Fragment} from 'preact'; // eslint-disable-line @typescript-eslint/no-unused-vars
-import {useState, useEffect} from 'preact/hooks';
+import {useState, useEffect, useRef, useLayoutEffect} from 'preact/hooks';
 import {withText} from 'preact-i18n';
 import style from '../../styles/style.scss';
 import {connect} from 'react-redux';
 import {withPlayer} from '../player';
 import {withLogger} from '../logger';
 import {TimeDisplay} from '../time-display';
+import {Tooltip} from '../tooltip';
 import {MediaInfoConfig, MediaInfoDetailsMode, MediaInfoPosition} from '../../types';
 import {EventType} from '../../event';
 import {FakeEvent} from '@playkit-js/playkit-js';
@@ -43,7 +44,26 @@ const defaultConfig: MediaInfoConfig = {
 /**
  * MediaTitle component - renders media title
  */
-const MediaTitle = ({title}: {title: string}): any => <div className={style.mediaInfoTitle}>{title}</div>;
+const MediaTitle = ({title}: {title: string}): any => {
+  const textRef = useRef<HTMLDivElement | null>(null);
+  const [showTooltip, setShowTooltip] = useState(false);
+
+  useLayoutEffect(() => {
+    if (textRef.current) {
+      // for text-overflow - check if scrollWidth > clientWidth
+      const isTextTruncated = textRef.current.scrollWidth > textRef.current.clientWidth;
+      setShowTooltip(isTextTruncated);
+    }
+  });
+
+  const textElement = (
+    <div ref={textRef} className={style.mediaInfoTitle}>
+      {title}
+    </div>
+  );
+
+  return showTooltip ? <Tooltip label={title}>{textElement}</Tooltip> : textElement;
+};
 
 /**
  * MediaDescription component - renders media description with expand/collapse functionality

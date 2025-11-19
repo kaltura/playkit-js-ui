@@ -43,6 +43,9 @@
       letter-spacing: 0;
       color: #FFFFFF;
       margin: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .media-info-description {
