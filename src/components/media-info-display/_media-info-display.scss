@@ -51,6 +51,7 @@
     .media-info-description {
       width: 600px;
       min-height: 42px;
+      max-height: 200px;
       max-width: 600px;
       opacity: 1;
       font-family: Lato, sans-serif;
@@ -60,6 +61,30 @@
       letter-spacing: 0;
       color: #FFFFFF;
       margin-top: 12px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-right: 8px;
+      box-sizing: border-box;
+
+      // custom scrollbar styling following scrollable.scss pattern
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      &::-webkit-scrollbar-track {
+        visibility: hidden;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 3px;
+        visibility: hidden;
+      }
+
+      &.scrolling::-webkit-scrollbar-track,
+      &.scrolling::-webkit-scrollbar-thumb {
+        visibility: visible;
+      }
 
       .see-more {
         font-family: Lato, sans-serif;

@@ -65,6 +65,8 @@ const MediaTitle = ({title}: {title: string}): any => {
   return showTooltip ? <Tooltip label={title}>{textElement}</Tooltip> : textElement;
 };
 
+const SCROLL_BAR_TIMEOUT = 250;
+
 /**
  * MediaDescription component - renders media description with expand/collapse functionality
  */
@@ -80,29 +82,47 @@ const MediaDescription = ({
   onToggle: () => void;
   seeMoreText?: string;
   seeLessText?: string;
-}): any => (
-  <div className={style.mediaInfoDescription}>
-    {description.length > 100 ? (
-      isExpanded ? (
-        <>
-          {description}{' '}
-          <span className={style.seeMore} onClick={onToggle}>
-            {seeLessText}
-          </span>
-        </>
+}): any => {
+  const [scrolling, setScrolling] = useState(false);
+  const [scrollTimeoutId, setScrollTimeoutId] = useState<number>(-1);
+
+  const handleScroll = (): void => {
+    clearTimeout(scrollTimeoutId);
+    setScrolling(true);
+    setScrollTimeoutId(
+      window.setTimeout(() => {
+        setScrolling(false);
+      }, SCROLL_BAR_TIMEOUT)
+    );
+  };
+
+  return (
+    <div
+      className={`${style.mediaInfoDescription} ${scrolling ? 'scrolling' : ''}`}
+      onScroll={handleScroll}
+    >
+      {description.length > 100 ? (
+        isExpanded ? (
+          <>
+            {description}{' '}
+            <span className={style.seeMore} onClick={onToggle}>
+              {seeLessText}
+            </span>
+          </>
+        ) : (
+          <>
+            {description.substring(0, 100)}...{' '}
+            <span className={style.seeMore} onClick={onToggle}>
+              {seeMoreText}
+            </span>
+          </>
+        )
       ) : (
-        <>
-          {description.substring(0, 100)}...{' '}
-          <span className={style.seeMore} onClick={onToggle}>
-            {seeMoreText}
-          </span>
-        </>
-      )
-    ) : (
-      description
-    )}
-  </div>
-);
+        description
+      )}
+    </div>
+  );
+};
 
 /**
  * MediaInfoDisplayComponent
