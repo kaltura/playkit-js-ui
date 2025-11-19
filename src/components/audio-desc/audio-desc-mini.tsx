@@ -53,12 +53,12 @@ const _AudioDescMini = (props: any) => {
   }, [isClickOutside, isMobile, isSmallSize]);
 
   function shouldRender(): boolean {
-    return props.advancedAudioDescriptionLanguages.length > 0 || props.audioDescriptionLanguages.length > 0;
+    const {audioDescriptionLanguages, advancedAudioDescriptionLanguages} = store.getState().audioDescription;
+    return advancedAudioDescriptionLanguages.length > 0 || audioDescriptionLanguages.length > 0;
   }
 
   function handleClick(): void {
-    const {audioDescriptionLanguages, advancedAudioDescriptionLanguages} = props;
-    const {isEnabled, selectedType} = store.getState().audioDescription;
+    const {isEnabled, selectedType, audioDescriptionLanguages, advancedAudioDescriptionLanguages} = store.getState().audioDescription;
 
     const activeAudioLanguage = getActiveAudioLanguage(props.player);
     if (!shouldActivate(activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages)) {
@@ -94,6 +94,7 @@ const _AudioDescMini = (props: any) => {
 
   const activeAudioLanguage = getActiveAudioLanguage(props.player);
   const icon = getSvgIcon(props, store);
+  const {audioDescriptionLanguages, advancedAudioDescriptionLanguages} = store.getState().audioDescription;
 
   const innerButtonComponent = getButtonComponent(
     props.openMenuFromAudioDescriptionButton,
@@ -102,7 +103,7 @@ const _AudioDescMini = (props: any) => {
     onKeyDown,
     getComponentText(props, store),
     props.classNames?.includes(style.upperBarIcon),
-    shouldActivate(activeAudioLanguage, props.audioDescriptionLanguages, props.advancedAudioDescriptionLanguages),
+    shouldActivate(activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages),
     icon
   );
 
@@ -112,15 +113,13 @@ const _AudioDescMini = (props: any) => {
         ref={ref}
         name={COMPONENT_NAME}
         className={[
-          !shouldActivate(activeAudioLanguage, props.audioDescriptionLanguages, props.advancedAudioDescriptionLanguages)
-            ? style.audioDescDisabled
-            : '',
+          !shouldActivate(activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages) ? style.audioDescDisabled : '',
           props.classNames ? props.classNames.join(' ') : ''
         ].join(' ')}>
         {innerButtonComponent}
         {smartContainerOpen && props.openMenuFromAudioDescriptionButton && (
           <SmartContainer targetId={props.player.config.targetId} onClose={onClose} title={props.audioDescriptionLabelText}>
-            <AudioDescriptionMenu />
+            <AudioDescriptionMenu onClick={onClose} />
           </SmartContainer>
         )}
       </ButtonControl>
