@@ -20,6 +20,7 @@ const mapStateToProps = (state: any): any => ({
   prePlayback: state.engine.prePlayback,
   loading: state.loading.show,
   duration: state.engine.duration,
+  sourceMetadata: state.engine.sourceMetadata,
   config: state.config.showMediaInfo
 });
 
@@ -29,6 +30,7 @@ interface MediaInfoDisplayProps {
   prePlayback: boolean;
   loading: boolean;
   duration: number;
+  sourceMetadata: any;
   config: MediaInfoConfig;
   player: any;
   seeMoreText?: string;
@@ -97,10 +99,7 @@ const MediaDescription = ({
   };
 
   return (
-    <div
-      className={`${style.mediaInfoDescription} ${scrolling ? 'scrolling' : ''}`}
-      onScroll={handleScroll}
-    >
+    <div className={`${style.mediaInfoDescription} ${scrolling ? 'scrolling' : ''}`} onScroll={handleScroll}>
       {description.length > 100 ? (
         isExpanded ? (
           <>
@@ -136,7 +135,7 @@ const MediaInfoDisplayComponent = (props: MediaInfoDisplayProps): any => {
   // reset description expansion when component updates with new metadata
   useEffect(() => {
     setIsDescriptionExpanded(false);
-  }, [props.player?.sources?.metadata?.description]);
+  }, [props.sourceMetadata?.description]);
 
   // toggle description expansion
   const toggleDescription = (): void => {
@@ -153,7 +152,7 @@ const MediaInfoDisplayComponent = (props: MediaInfoDisplayProps): any => {
   };
 
   const {player} = props;
-  const metadata = player.sources?.metadata;
+  const metadata = props.sourceMetadata;
 
   // try to get duration from props or from player sources
   let duration = props.duration || player.sources?.duration || 0;
