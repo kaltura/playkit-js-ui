@@ -10,6 +10,7 @@ export interface UIOptionsObject {
   allowPlayPause?: boolean;
   allowLivePlayPause?: boolean;
   showCCButton?: boolean;
+  showTitleOnUpperBar?: boolean;
   showAudioDescriptionButton?: boolean;
   openMenuFromCCButton?: boolean;
   openMenuFromAudioDescriptionButton?: boolean;
