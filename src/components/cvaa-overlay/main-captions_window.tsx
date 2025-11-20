@@ -75,7 +75,7 @@ class MainCaptionsWindow extends Component<any, any> {
           textAlign: player.TextStyle.FontAlignment[2].value,
           fontColor: player.TextStyle.StandardColors.WHITE,
           fontFamily: "Times New Roman, Verdana",
-          fontEdge: player.TextStyle.EdgeStyles.DEPRESSED,
+          fontEdge: player.TextStyle.EdgeStyles.NONE,
           backgroundColor: player.TextStyle.StandardColors.BLACK,
           backgroundOpacity: player.TextStyle.StandardOpacities.OPAQUE
         })
@@ -107,7 +107,7 @@ class MainCaptionsWindow extends Component<any, any> {
           textAlign: player.TextStyle.FontAlignment[2].value,
           fontColor: player.TextStyle.StandardColors.BLACK,
           fontFamily: "Trebuchet MS, Arial",
-          fontEdge: player.TextStyle.EdgeStyles.RAISED,
+          fontEdge: player.TextStyle.EdgeStyles.NONE,
           backgroundColor: player.TextStyle.StandardColors.YELLOW,
           backgroundOpacity: player.TextStyle.StandardOpacities.OPAQUE
         })
