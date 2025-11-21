@@ -32,7 +32,7 @@
   .media-info-details {
 
     .media-info-title {
-      width: 600px;
+      width: calc(100%);
       height: 32px;
       max-width: 600px;
       opacity: 1;
@@ -49,7 +49,7 @@
     }
 
     .media-info-description {
-      width: 600px;
+      width: calc(100%);
       min-height: 42px;
       max-height: 200px;
       max-width: 600px;
@@ -115,4 +115,40 @@
   padding: 0;
   display: block;
   vertical-align: baseline;
+}
+
+/* Responsive styles based on the player size breakpoints */
+
+/* TINY (280px) - Nothing displayed */
+.media-info-display[data-player-size="tiny"] {
+  display: none;
+}
+
+/* EXTRA_SMALL (380px) - Duration only */
+.media-info-display[data-player-size="extrasmall"] {
+  .media-info-details {
+    display: none;
+  }
+}
+
+/* SMALL (480px) - Duration and title only */
+.media-info-display[data-player-size="small"] {
+  .media-info-details .media-info-description {
+    display: none;
+  }
+}
+
+/* MEDIUM (768px) - Default styling */
+.media-info-display[data-player-size="medium"] {
+  /* Uses default styles already defined above */
+}
+
+/* LARGE (1024px) - Default styling */
+.media-info-display[data-player-size="large"] {
+  /* Uses default styles already defined above */
+}
+
+/* EXTRA_LARGE (>1024px) - Default styling */
+.media-info-display[data-player-size="extralarge"] {
+  /* Uses default styles already defined above */
 }

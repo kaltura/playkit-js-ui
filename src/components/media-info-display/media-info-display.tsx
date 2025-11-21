@@ -21,7 +21,8 @@ const mapStateToProps = (state: any): any => ({
   loading: state.loading.show,
   duration: state.engine.duration,
   sourceMetadata: state.engine.sourceMetadata,
-  config: state.config.showMediaInfo
+  config: state.config.showMediaInfo,
+  playerSize: state.shell.playerSize
 });
 
 const COMPONENT_NAME = 'MediaInfoDisplay';
@@ -33,6 +34,7 @@ interface MediaInfoDisplayProps {
   sourceMetadata: any;
   config: MediaInfoConfig;
   player: any;
+  playerSize: string;
   seeMoreText?: string;
   seeLessText?: string;
 }
@@ -182,7 +184,7 @@ const MediaInfoDisplayComponent = (props: MediaInfoDisplayProps): any => {
   const positionClass = config.position === MediaInfoPosition.Top ? style.mediaInfoTop : style.mediaInfoBottom;
 
   return (
-    <div className={`${style.mediaInfoDisplay} ${positionClass}`}>
+    <div className={`${style.mediaInfoDisplay} ${positionClass}`} data-player-size={props.playerSize}>
       {shouldShowDuration && (
         <div className={style.mediaInfoDuration}>
           <TimeDisplay currentTime={0} duration={duration} format="total" />
