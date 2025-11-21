@@ -29,6 +29,7 @@ import {Rewind} from '../components';
 import {Forward} from '../components';
 import {ClosedCaptions} from '../components';
 import {Audio} from '../components';
+import {MediaInfoDisplay} from '../components';
 const PRESET_NAME = 'Live';
 
 /**
@@ -71,6 +72,7 @@ class LiveUI extends Component<any, any> {
                 <PictureInPictureOverlay />
                 <PlaybackControls name={'OverlayPlaybackControls'} className={style.centerPlaybackControls} />
                 <PrePlaybackPlayOverlay />
+                <MediaInfoDisplay />
                 <CastBeforePlay />
               </Fragment>
               {({containerRef}) => (

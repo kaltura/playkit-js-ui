@@ -13,3 +13,4 @@ export * from './watermark-config';
 export * from './reducers/root-state';
 export * from './ui-component';
 export * from './ui-component-options';
+export * from './media-info-config';
