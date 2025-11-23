@@ -51,7 +51,7 @@ export const types = {
   UPDATE_CAST_SESSION: `${component}/UPDATE_CAST_SESSION`,
   UPDATE_IS_CAST_AVAILABLE: `${component}/UPDATE_IS_CAST_AVAILABLE`,
   UPDATE_PLAYLIST: `${component}/UPDATE_PLAYLIST`,
-  UPDATE_SOURCE_METADATA: `${component}/UPDATE_SOURCE_METADATA`,
+  UPDATE_SOURCES: `${component}/UPDATE_SOURCES`,
   UPDATE_PICTURE_IN_PICTURE_SUPPORTED: `${component}/UPDATE_PICTURE_IN_PICTURE_SUPPORTED`,
   UPDATE_PICTURE_IN_PICTURE_MODE: `${component}/UPDATE_PICTURE_IN_PICTURE_MODE`,
   UPDATE_FULLSCREEN: `${component}/UPDATE_FULLSCREEN`
@@ -114,7 +114,7 @@ export const initialState = {
   pictureInPictureSupported: false,
   isInPictureInPicture: false,
   playlist: null,
-  sourceMetadata: null,
+  sources: null,
   fullscreen: false
 };
 
@@ -399,10 +399,10 @@ export default (state: EngineState = initialState, action: any) => {
         playlist: action.playlist
       };
 
-    case types.UPDATE_SOURCE_METADATA:
+    case types.UPDATE_SOURCES:
       return {
         ...state,
-        sourceMetadata: action.sourceMetadata
+        sources: action.sources
       };
 
     case types.UPDATE_PICTURE_IN_PICTURE_SUPPORTED:
@@ -492,7 +492,7 @@ export const actions = {
     isChangingSource
   }),
   updatePlaylist: (playlist: any) => ({type: types.UPDATE_PLAYLIST, playlist}),
-  updateSourceMetadata: (sourceMetadata: any) => ({type: types.UPDATE_SOURCE_METADATA, sourceMetadata}),
+  updateSources: (sources: any) => ({type: types.UPDATE_SOURCES, sources}),
   updatePictureInPictureSupport: (isPictureInPictureSupported: boolean) => ({
     type: types.UPDATE_PICTURE_IN_PICTURE_SUPPORTED,
     isPictureInPictureSupported

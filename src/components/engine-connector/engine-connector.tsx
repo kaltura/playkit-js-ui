@@ -85,7 +85,7 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
 
       this.props.updateIsAudio(player.isAudio());
 
-      this.props.updateSourceMetadata(player.sources?.metadata || null);
+      this.props.updateSources(player.sources || null);
 
       this.props.updateIsInPictureInPicture(player.isInPictureInPicture());
       if (player.config.playback.autoplay) {
