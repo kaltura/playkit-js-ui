@@ -11,15 +11,17 @@ const COMPONENT_NAME = 'Title';
  * @param {Object} state - redux store state
  * @returns {Object} - mapped state to this component
  */
-const mapStateToProps = (state: any): {isPlaybackStarted: boolean; showTitleOnUpperBar: boolean} => ({
+const mapStateToProps = (state: any): {isPlaybackStarted: boolean; showTitleOnUpperBar: boolean; playerSize: string} => ({
   isPlaybackStarted: state.engine.isPlaybackStarted,
-  showTitleOnUpperBar: state.config.showTitleOnUpperBar
+  showTitleOnUpperBar: state.config.showTitleOnUpperBar,
+  playerSize: state.shell.playerSize
 });
 
 interface TitleProps {
   player?: KalturaPlayer;
   isPlaybackStarted?: boolean;
   showTitleOnUpperBar?: boolean;
+  playerSize: string;
 }
 
 /**
@@ -42,7 +44,7 @@ const TitleComponent = (props: TitleProps): VNode | null => {
   }
 
   return (
-    <div className={style.titleContainer}>
+    <div className={style.titleContainer} data-player-size={props.playerSize}>
       <TextWithTooltip text={title} numberOfLines={1} />
     </div>
   );
