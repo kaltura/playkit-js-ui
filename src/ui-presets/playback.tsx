@@ -31,9 +31,9 @@ import {withKeyboardEvent} from '../components';
 import {VideoArea} from '../components';
 import {GuiArea} from '../components';
 import {ClosedCaptions} from '../components';
-import {AudioEntryDetails} from '../components/audio-entry-details';
 import {Audio} from '../components';
 import {AudioDescriptionUpdater} from '../components/audio-desc/audio-description-updater';
+import {MediaInfoDisplay} from '../components';
 
 const PRESET_NAME = 'Playback';
 
@@ -73,13 +73,13 @@ class PlaybackUI extends Component<any, any> {
             <VideoArea />
             <GuiArea>
               <Fragment>
-                <AudioEntryDetails />
                 <Loading />
                 <OverlayPortal />
                 <PictureInPictureOverlay />
                 <PlaybackControls name={'OverlayPlaybackControls'} className={style.centerPlaybackControls} />
                 <PlaylistNextScreen />
                 <PrePlaybackPlayOverlay />
+                <MediaInfoDisplay />
                 <CastBeforePlay />
               </Fragment>
               {({containerRef}) => (

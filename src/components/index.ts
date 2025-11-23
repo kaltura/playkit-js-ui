@@ -23,6 +23,7 @@ export * from './keyboard';
 export {Icon, IconType, IconState, BadgeType} from './icon';
 export {LiveTag} from './live-tag';
 export {Loading} from './loading';
+export {MediaInfoDisplay} from './media-info-display';
 export {Menu} from './menu';
 export {Overlay} from './overlay';
 export {OverlayAction} from './overlay-action';

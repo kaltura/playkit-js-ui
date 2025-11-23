@@ -1,0 +1,162 @@
+@import '../../styles/variables';
+
+.media-info-display {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+  min-height: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
+
+  &.media-info-top {
+    top: 0;
+  }
+
+  &.media-info-bottom {
+    bottom: 0;
+  }
+
+  .media-info-duration {
+    width: 54px;
+    height: 28px;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  .media-info-duration + .media-info-details {
+    margin-top: 12px;
+  }
+
+  .media-info-details {
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    min-height: 0;
+
+    .media-info-title {
+      width: calc(100% - 48px);
+      height: 32px;
+      opacity: 1;
+      font-family: Lato, sans-serif;
+      font-weight: 700;
+      font-size: 32px;
+      line-height: 32px;
+      letter-spacing: 0;
+      color: #FFFFFF;
+      margin: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .media-info-description {
+      width: calc(100% - 48px);
+      min-height: 42px;
+      opacity: 1;
+      font-family: Lato, sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 21px;
+      letter-spacing: 0;
+      color: #FFFFFF;
+      margin-top: 12px;
+      margin-bottom: 8px;
+      flex: 1 1 auto;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-right: 8px;
+      box-sizing: border-box;
+
+      // custom scrollbar styling following scrollable.scss pattern
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      &::-webkit-scrollbar-track {
+        visibility: hidden;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 3px;
+        visibility: hidden;
+      }
+
+      &.scrolling::-webkit-scrollbar-track,
+      &.scrolling::-webkit-scrollbar-thumb {
+        visibility: visible;
+      }
+
+      .see-more {
+        font-family: Lato, sans-serif;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 21px;
+        letter-spacing: 0;
+        color: #FFFFFF;
+        text-decoration: underline;
+        text-decoration-style: solid;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.media-info-display .media-info-duration .time-display {
+  width: 48px;
+  height: 16px;
+  font-family: Lato, sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 0;
+  color: #FFFFFF;
+  text-align: center;
+  white-space: nowrap;
+  padding: 0;
+  display: block;
+  vertical-align: baseline;
+}
+
+/* Responsive styles based on the player size breakpoints */
+
+/* TINY (280px) - Nothing displayed */
+.media-info-display[data-player-size="tiny"] {
+  display: none;
+}
+
+/* EXTRA_SMALL (380px) - Duration only */
+.media-info-display[data-player-size="extrasmall"] {
+  .media-info-details {
+    display: none;
+  }
+}
+
+/* SMALL (480px) - Duration and title only */
+.media-info-display[data-player-size="small"] {
+  .media-info-details .media-info-description {
+    display: none;
+  }
+}
+
+/* MEDIUM (768px) - Default styling */
+.media-info-display[data-player-size="medium"] {
+  /* Uses default styles already defined above */
+}
+
+/* LARGE (1024px) - Default styling */
+.media-info-display[data-player-size="large"] {
+  /* Uses default styles already defined above */
+}
+
+/* EXTRA_LARGE (>1024px) - Default styling */
+.media-info-display[data-player-size="extralarge"] {
+  /* Uses default styles already defined above */
+}

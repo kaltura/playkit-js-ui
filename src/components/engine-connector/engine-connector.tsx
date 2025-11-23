@@ -85,6 +85,8 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
 
       this.props.updateIsAudio(player.isAudio());
 
+      this.props.updateSources(player.sources || null);
+
       this.props.updateIsInPictureInPicture(player.isInPictureInPicture());
       if (player.config.playback.autoplay) {
         this.props.updateLoadingSpinnerState(true);
