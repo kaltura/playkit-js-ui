@@ -31,7 +31,6 @@ import {withKeyboardEvent} from '../components';
 import {VideoArea} from '../components';
 import {GuiArea} from '../components';
 import {ClosedCaptions} from '../components';
-import {AudioEntryDetails} from '../components/audio-entry-details';
 import {Audio} from '../components';
 import {AudioDescriptionUpdater} from '../components/audio-desc/audio-description-updater';
 import {MediaInfoDisplay} from '../components';
@@ -74,7 +73,6 @@ class PlaybackUI extends Component<any, any> {
             <VideoArea />
             <GuiArea>
               <Fragment>
-                <AudioEntryDetails />
                 <Loading />
                 <OverlayPortal />
                 <PictureInPictureOverlay />
