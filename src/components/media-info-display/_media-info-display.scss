@@ -1,6 +1,7 @@
 @import '../../styles/variables';
 
 .media-info-display {
+  z-index: 1;
   position: absolute;
   left: 0;
   right: 0;
