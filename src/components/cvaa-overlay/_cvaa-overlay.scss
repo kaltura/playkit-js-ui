@@ -1,71 +1,22 @@
 .overlay.cvaa-overlay {
-  .title{
-    margin-bottom: 40px;
-  }
   .sample {
-    border: 1px solid $tone-3-color;
+    border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 4px;
-    font-size: 14px;
-    height: 32px;
-    line-height: 28px;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 36px;
     text-align: center;
+    padding: 0 31px;
     display: inline-block;
+    margin: 0 12px;
     position: relative;
 
     &:not(.custom) {
       cursor: pointer;
     }
 
-    &.minimalist {
-      background-color: rgba(0, 0, 0, 0.5);
-      color: $tone-1-color;
-      font-size: 16px;
-      font-family: Verdana;
-      font-weight: 400;
-      font-size: 16px;
-    }
-
-    &.high-contrast {
-      background-color: $tone-8-color;
-      color: #ffff00;
-      font-family: 'Arial';
-      font-size: 18px;
-      font-weight: 700;
-    }
-
-    &.classic-tv {
-      background-color: $tone-8-color;
-      color: $tone-1-color;
-      font-family: 'Times New Roman';
-      font-size: 16px;
-      font-weight: 400;
-    }
-
-    &.easy-reading {
-      background-color: #ffffcc;
-      color: #036;
-      font-family: 'Tahoma';
-      font-size: 20px;
-      font-weight: 700;
-    }
-
-    &.early-readers {
-      background-color: #ffff00;
-      color: $tone-8-color;
-      font-family: 'Trebuchet MS';
-      font-weight: 700;
-      font-size: 20px;
-    }
-
-    &.night-mode {
-      background-color: rgba(0, 0, 0, 0.75);
-      color: $tone-2-color;
-      font-family: 'Segoe UI', 'SF Pro Text', Helvetica, sans-serif;
-      font-size: 16px;
-    }
-
     &.black-bg {
-      background-color: $tone-8-color;
+      background-color: #000;
     }
     &.yellow-text {
       color: #faff00;
@@ -89,59 +40,21 @@
       vertical-align: middle;
     }
   }
-  [role="radiogroup"] {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    max-width: 600px;
-    margin: 0 auto;
-    gap:24px;
-
-    .sample {
-      flex: 1 1 calc(33% - 24px);
-      box-sizing: border-box;
-      min-width: 160px;
-    }
-  }
-  .custom-buttons {
-    display: flex;
-    gap: 24px;
-    justify-content: center;
-    justify-self: center;
-    align-items: center;
-    max-width: 600px;
-    width: 100%;
-    height: 32px;
-    margin-top: 48px;
-    padding: 0;
-  }
-
-  .custom-buttons .sample {
-    flex: 1;
-    margin: 0;
-    border-radius: 4px;
-    background-color: #000000;
-  }
-
-  .custom-buttons .button-save-cvaa {
-    flex: 1;
-    margin: 0;
-    padding: 0 20px;
-  }
-
   .button-save-cvaa {
-    height: 32px;
+    margin-top: 50px;
+    height: 40px;
+    width: 400px;
     max-width: 100%;
-    font-size: 14px;
-    font-weight: 700;
-    font-family: 'Lato';
-    line-height: normal;
-    border: none;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 38px;
+    text-align: center;
+    display: inline-block;
     color: #fff;
     text-decoration: none;
     cursor: pointer;
-    position: relative;
-    background-color: transparent;
 
     &:focus {
     outline: 2px solid #2684FF;
@@ -150,6 +63,17 @@
     }
   }
 
+  .button-edit-cvaa {
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:focus {
+      outline: 1px solid #2684FF;
+      box-shadow: 0 0 0 1px white;
+      outline-offset: 1px;
+    }
+  }
   .custom-captions-applied {
     margin-top: 50px;
     a {
@@ -183,46 +107,36 @@
     width: 100%;
     text-align: center;
     font-size: 16px;
-    margin-top: auto;
-    margin-bottom: 24px;
-  }
-  .preview-easy-reading {
-    text-align: left;
   }
 }
 
 .player.size-sm {
   .overlay.cvaa-overlay {
     .sample {
-      max-width: 180px;
-      margin: 0;
+      width: 30%;
+      margin: 2.33%;
       padding: 0;
+
+      &:first-child {
+        margin-left: 0;
+      }
+      &:last-child {
+        margin-right: 0;
+      }
 
       &.custom {
         width: auto;
         padding: 0 10px;
       }
     }
-    .custom-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      width: 100%;
-      max-width: 180px;
-      height: 32px;
-      margin-top: 48px;
-      margin-bottom: 40px;
-    }
-    .custom-buttons .sample,
-    .custom-buttons .button-save-cvaa {
-      flex: none;
-      width: 100%;
+    .button-save-cvaa,
+    .custom-captions-applied {
+      margin-top: 20px;
     }
   }
 }
 
 .font-size,
-.font-weight,
 .font-alignment,
 .font-color,
 .font-family,

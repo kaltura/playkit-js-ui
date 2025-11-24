@@ -31,9 +31,7 @@ class CustomCaptionsWindow extends Component<any, any> {
    * @memberof CustomCaptionsWindow
    */
   changeCaptionsStyle = (): void => {
-    const customStyle = this.props.customTextStyle;
-    this.props.saveCustomPresetStyle(customStyle);
-    this.props.changeCaptionsStyle(customStyle);
+    this.props.changeCaptionsStyle(this.props.customTextStyle);
   };
 
   /**
@@ -83,14 +81,8 @@ class CustomCaptionsWindow extends Component<any, any> {
 
     const fontSizeOptions = player.TextStyle.FontSizes.map(size => ({
       value: size.label,
-      label: size.name,
+      label: size.label,
       active: props.customTextStyle.fontSize === size.label
-    }));
-
-    const fontWeightOptions = player.TextStyle.StandardFontWeights.map(weight => ({
-      value: weight.value,
-      label: weight.label,
-      active: props.customTextStyle.fontWeight === weight.value
     }));
 
     const fontColorOptions = Object.keys(standardColors).map(key => ({
@@ -99,15 +91,11 @@ class CustomCaptionsWindow extends Component<any, any> {
       active: props.customTextStyle.fontColor.every((value, index) => value === standardColors[key][index])
     }));
 
-    const fontFamilyOptions = Object.keys(fontFamily).map(key => {
-      const fullValue = fontFamily[key];
-      const shortLabel = fullValue.split(",")[0].replace(/['"]/g, "").trim();
-      return {
-        value: fullValue,
-        label: shortLabel,
-        active: props.customTextStyle.fontFamily === fullValue
-      };
-    });
+    const fontFamilyOptions = Object.keys(fontFamily).map(key => ({
+      value: fontFamily[key],
+      label: fontFamily[key],
+      active: props.customTextStyle.fontFamily === fontFamily[key]
+    }));
 
     const fontStyleOptions = Object.keys(edgeStyles).map(key => ({
       value: edgeStyles[key],
@@ -138,14 +126,6 @@ class CustomCaptionsWindow extends Component<any, any> {
             options={fontSizeOptions}
             classNames={[style.formGroupRow, style.fontSize]}
             styleName="fontSize"
-            changeCustomStyle={props.changeCustomStyle}
-          />
-          <DropDownCaptionsStyle
-            addAccessibleChild={props.addAccessibleChild}
-            labelId="cvaa.font_weight"
-            options={fontWeightOptions}
-            classNames={[style.formGroupRow, style.fontWeight]}
-            styleName="fontWeight"
             changeCustomStyle={props.changeCustomStyle}
           />
           <DropDownCaptionsStyle

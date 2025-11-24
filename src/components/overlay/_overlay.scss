@@ -59,10 +59,7 @@
     display: none;
 
     &.active {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      height: 100%;    
+      display: block;
     }
   }
 }
