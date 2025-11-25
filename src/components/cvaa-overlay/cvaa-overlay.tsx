@@ -12,7 +12,7 @@ import {MainCaptionsWindow} from './main-captions_window';
 import {CustomCaptionsWindow} from './custom-captions-window';
 import {withText} from 'preact-i18n';
 import { Utils } from '@playkit-js/playkit-js';
-
+import { KeyCode } from '../../utils';
 /**
  * mapping state to props
  * @param {*} state - redux store state
@@ -49,12 +49,29 @@ const COMPONENT_NAME = 'CVAAOverlay';
   cvaaCloseLabel: 'cvaa.close_label'
 })
 class CVAAOverlay extends Component<any, any> {
+
+  state = {
+    activeWindow: cvaaOverlayState.Main,
+    customTextStyle: this.props.player.textStyle,
+    customPresetStyle: null
+  };
+
   /**
    * componentWillUnmount
    *
    * @returns {void}
    * @memberof CVAAOverlay
    */
+  componentWillMount() {
+    const saved = localStorage.getItem("cvaaCustomPreset");
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      // Rebuild TextStyle
+      const custom = this.props.player.TextStyle.fromJson(parsed);
+      this.setState({ customPresetStyle: custom });
+    }
+  }
+
   customOrEditRef: HTMLElement | null = null;
   private focusOnNextUpdate = false;
   
@@ -65,6 +82,10 @@ class CVAAOverlay extends Component<any, any> {
   focusCustomOrEdit = () => {
     this.focusOnNextUpdate = true;
   };
+
+  componentDidMount() {
+    this.props.setIsModal(true);
+  }
 
   componentDidUpdate() {
     if (this.focusOnNextUpdate) {
@@ -77,22 +98,6 @@ class CVAAOverlay extends Component<any, any> {
     this.setState({
       activeWindow: cvaaOverlayState.Main
     });
-  }
-
-  /**
-   * componentWillMount
-   *
-   * @returns {void}
-   * @memberof CVAAOverlay
-   */
-  componentWillMount() {
-    const {player} = this.props;
-    this.setState({
-      activeWindow: cvaaOverlayState.Main,
-      customTextStyle: player.textStyle
-    });
-
-    this.props.setIsModal(true);
   }
 
   /**
@@ -113,9 +118,10 @@ class CVAAOverlay extends Component<any, any> {
    * @returns {void}
    * @memberof CVAAOverlay
    */
-  changeCaptionsStyle = (textStyle: any): void => {
+  changeCaptionsStyle = (textStyle: any, sourceName?: string): void => {
     this.props.notifyClick({
-      textStyle: textStyle
+      textStyle: textStyle,
+      source: sourceName
     });
     this.props.updateCaptionsStyle(textStyle);
     this.props.player.textStyle = textStyle;
@@ -132,6 +138,25 @@ class CVAAOverlay extends Component<any, any> {
     const style = this.state.customTextStyle.toCSS();
     return `font-size: ${fontSize}!important; ${style}`;
   };
+
+  setInitialCustomStyle = (style: any) => {
+    // When opening "Set Custom Captions", preload modal with active preset
+    this.setState({ customTextStyle: style });
+  };
+
+  saveCustomPresetStyle = (style: any) => {
+    const json = style.toObject ? style.toObject() : { ...style };
+
+    // Save the fontSize label because style does not compute the font size.
+    if (style.fontSize) {
+      json.fontSize = style.fontSize;
+    }
+
+    localStorage.setItem("cvaaCustomPreset", JSON.stringify(json));
+    this.setState({ customPresetStyle: style });
+    this.changeCaptionsStyle(style);
+  };
+
 
   /**
    * change one or more properties in customTextStyle object in the internal state
@@ -172,6 +197,21 @@ class CVAAOverlay extends Component<any, any> {
       }
     }, delay);
   };
+
+  onOverlayKeyDown = (e: KeyboardEvent) => {
+    if (e.code === KeyCode.Escape) {
+      if (this.state.activeWindow === cvaaOverlayState.CustomCaptions) {
+        this.setState({ activeWindow: cvaaOverlayState.Main });
+        e.stopPropagation();
+        return;
+      }
+    }
+
+    if (this.props.handleKeyDown) {
+      this.props.handleKeyDown(e);
+    }
+  };
+
   
   /**
    * render component
@@ -188,12 +228,18 @@ class CVAAOverlay extends Component<any, any> {
     return (
       <Overlay
         open
-        handleKeyDown={this.props.handleKeyDown}
+        handleKeyDown={this.onOverlayKeyDown}
         addAccessibleChild={this.props.addAccessibleChild}
         onClose={() => {
-          props.onClose();
-          this.focusPlayerButtonBadge();
-        }}
+            if (this.state.activeWindow === cvaaOverlayState.CustomCaptions) {
+              // Transition back to the Main component
+              this.setState({ activeWindow: cvaaOverlayState.Main });
+            } else {
+              // Close the entire overlay
+              props.onClose();
+              this.focusPlayerButtonBadge();
+            }
+          }}
         type="cvaa"
         {...ariaProps}
         closeAriaLabel={this.props.cvaaCloseLabel}
@@ -203,16 +249,14 @@ class CVAAOverlay extends Component<any, any> {
             captionsTitleId={titleId}
             cvaaOverlayState={cvaaOverlayState}
             addAccessibleChild={props.addAccessibleChild}
-            /*@ts-expect-error - Property 'captionsStyleDefault' does not exist on type 'CVAAOverlay' */
-            captionsStyleDefault={this.captionsStyleDefault}
-            /*@ts-expect-error - Property 'captionsStyleBlackBG' does not exist on type 'CVAAOverlay' */
-            captionsStyleBlackBG={this.captionsStyleBlackBG}
-            /*@ts-expect-error - Property 'captionsStyleYellow' does not exist on type 'CVAAOverlay' */
-            captionsStyleYellow={this.captionsStyleYellow}
             changeCaptionsStyle={this.changeCaptionsStyle}
             transitionToState={this.transitionToState}
             customTextStyle={this.state.customTextStyle}
             setCustomOrEditRef={this.setCustomOrEditRef}
+            getPreviewStyle={this.getPreviewStyle}
+            customPresetStyle={this.state.customPresetStyle}
+            setInitialCustomStyle={this.setInitialCustomStyle}
+            saveCustomPresetStyle={this.saveCustomPresetStyle}
           />
         ) : (
           <CustomCaptionsWindow
@@ -225,6 +269,7 @@ class CVAAOverlay extends Component<any, any> {
             transitionToState={this.transitionToState}
             cvaaOverlayState={cvaaOverlayState}
             focusCustomOrEdit={this.focusCustomOrEdit}
+            saveCustomPresetStyle={this.saveCustomPresetStyle}
           />
         )}
       </Overlay>
