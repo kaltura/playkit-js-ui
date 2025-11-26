@@ -1,12 +1,7 @@
 import {useEffect, useState} from 'preact/hooks';
 import {connect, useStore} from 'react-redux';
 import {withPlayer} from '../player';
-import {
-  getActiveAudioLanguage,
-  getAudioDescriptionLanguageKey,
-  getAudioDescriptionStateFromStorage,
-  getAudioLanguageKey
-} from '../../utils/audio-description';
+import {getActiveAudioLanguage, getAudioDescriptionLanguageKey, getAudioDescriptionStateFromStorage} from '../../utils/audio-description';
 import {AUDIO_DESCRIPTION_TYPE} from '../../types/reducers/audio-description';
 import {registerToBottomBar, unregisterFromBottomBar} from '../bottom-bar';
 import {registerComponent} from './audio-desc-mini';
@@ -88,9 +83,8 @@ const _AudioDescriptionUpdater = props => {
 
   function onDisableSelected(currLanguageKey: string): void {
     props.updateSelectionByLanguage?.(currLanguageKey, false, props.audioDescriptionType || AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
-    const newLanguageKey = getAudioLanguageKey(currLanguageKey);
     // restore audio track to normal if AD audio track was active
-    changeAudioTrack(currLanguageKey, newLanguageKey);
+    changeAudioTrack(props.player.getActiveTracks()['audio']?.language || '', currLanguageKey);
   }
 
   function onAudioDescriptionSelected(currLanguageKey: string): void {
@@ -103,8 +97,7 @@ const _AudioDescriptionUpdater = props => {
   function onAdvancedAudioDescriptionSelected(currLanguageKey: string): void {
     props.updateSelectionByLanguage?.(currLanguageKey, true, AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION);
     // restore audio track to normal if AD audio track was active
-    const newLanguageKey = getAudioLanguageKey(currLanguageKey);
-    changeAudioTrack(currLanguageKey, newLanguageKey);
+    changeAudioTrack(props.player.getActiveTracks()['audio']?.language || '', currLanguageKey);
   }
 
   function changeAudioTrack(currLanguageKey: string, newLanguageKey: string): void {
