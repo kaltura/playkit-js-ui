@@ -43,12 +43,12 @@
 
     .media-info-title {
       width: calc(100% - 48px);
-      height: 32px;
+      min-height: 38px;
       opacity: 1;
       font-family: Lato, sans-serif;
       font-weight: 700;
       font-size: 32px;
-      line-height: 32px;
+      line-height: 38px;
       letter-spacing: 0;
       color: #FFFFFF;
       margin: 0;
