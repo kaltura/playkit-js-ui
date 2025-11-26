@@ -52,5 +52,6 @@ export interface EngineState {
   pictureInPictureSupported: boolean;
   isInPictureInPicture: boolean;
   playlist: any; // Specify a more detailed type if possible
+  sources: any; // Current sources object
   fullscreen: boolean;
 }
