@@ -31,7 +31,7 @@ export const initialState = {
   hoverTimeout: 3000,
   tinySizeDisabled: false,
   showMediaInfo: {
-    showDuration: false,
+    showDuration: true,
     detailsMode: MediaInfoDetailsMode.None,
     position: MediaInfoPosition.Bottom
   },

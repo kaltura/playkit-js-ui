@@ -40,7 +40,7 @@ interface MediaInfoDisplayProps {
 }
 
 const defaultConfig: MediaInfoConfig = {
-  showDuration: false,
+  showDuration: true,
   detailsMode: MediaInfoDetailsMode.None,
   position: MediaInfoPosition.Bottom
 };
