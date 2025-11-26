@@ -1,0 +1,12 @@
+.audio-description-menu-disabled {
+  margin: 16px;
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  color: rgba(244, 244, 244, 0.8);
+
+  .audio-description-menu-disabled-icon {
+    width: 16px;
+    height: 16px;
+  }
+}
