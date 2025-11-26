@@ -1,11 +1,12 @@
 import {h} from 'preact';
+import style from '../../styles/style.scss';
 import {withText} from 'preact-i18n';
 import {useMemo} from 'preact/hooks';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
 import {actions} from '../../reducers/audio-description';
 import {Menu, SmartContainerItem} from '../../components';
-import {IconType} from '../icon';
+import Icon, {IconType} from '../icon';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from '../event-dispatcher';
 import {AUDIO_DESCRIPTION_TYPE} from '../../types/reducers/audio-description';
@@ -89,11 +90,11 @@ const _AudioDescriptionMenu = (props: AudioDescriptionMenuProps) => {
   const audioLanguage = getActiveAudioLanguage(player);
 
   const hasAudioDescription = useMemo(() => {
-    return !!audioDescriptionLanguages?.find(lang => lang.startsWith(audioLanguage));
+    return audioLanguage && !!audioDescriptionLanguages?.find(lang => lang.startsWith(audioLanguage));
   }, [audioDescriptionLanguages, audioLanguage]);
 
   const hasAdvancedAudioDescription = useMemo(() => {
-    return !!advancedAudioDescriptionLanguages?.find(lang => lang.startsWith(audioLanguage));
+    return audioLanguage && !!advancedAudioDescriptionLanguages?.find(lang => lang.startsWith(audioLanguage));
   }, [advancedAudioDescriptionLanguages, audioLanguage]);
 
   const options: Array<{
@@ -126,6 +127,17 @@ const _AudioDescriptionMenu = (props: AudioDescriptionMenuProps) => {
   ];
 
   if (asDropdown) {
+    if (!hasAdvancedAudioDescription && !hasAudioDescription) {
+      return (
+        <div className={style.audioDescriptionMenuDisabled}>
+          <div>{audioDescriptionText}</div>
+          <div className={style.audioDescriptionMenuDisabledIcon}>
+            <Icon type={IconType.ArrowDown} color="rgba(244, 244, 244, 0.8)" />
+          </div>
+        </div>
+      );
+    }
+
     return (
       <SmartContainerItem
         pushRef={el => {
