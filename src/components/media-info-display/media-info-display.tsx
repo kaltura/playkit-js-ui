@@ -172,7 +172,9 @@ const MediaInfoDisplayComponent = (props: MediaInfoDisplayProps): any => {
   }
 
   const shouldShowDetails = config.detailsMode !== MediaInfoDetailsMode.None && metadata;
-  const shouldShowDuration = config.showDuration && duration > 0;
+  // for live players - only show duration if activeLiveStreamTime is available
+  const isLiveWithoutActiveStreamTime = player.isLive && player.isLive() && !player.sources?.activeLiveStreamTime;
+  const shouldShowDuration = config.showDuration && duration > 0 && !isLiveWithoutActiveStreamTime;
 
   if (!shouldShowDetails && !shouldShowDuration) {
     return null;
