@@ -31,7 +31,6 @@ import {withKeyboardEvent} from '../components';
 import {VideoArea} from '../components';
 import {GuiArea} from '../components';
 import {ClosedCaptions} from '../components';
-import {AudioEntryDetails} from '../components/audio-entry-details';
 import {Title} from '../components';
 import {Audio} from '../components';
 import {AudioDescriptionUpdater} from '../components/audio-desc/audio-description-updater';
