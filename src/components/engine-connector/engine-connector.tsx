@@ -13,7 +13,7 @@ import {withLogger} from '../logger';
 import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
 import {EventManager} from '@playkit-js/playkit-js';
 import {EngineState} from '../../types/reducers/engine';
-import {getAudioLanguageKey, isAudioDescriptionLanguageKey} from '../../utils/audio-description';
+import {getActiveAudioLanguage, getAudioLanguageKey, isAudioDescriptionLanguageKey} from '../../utils/audio-description';
 import {updateDefaultAdvancedAudioDescription, updateDefaultAudioDescription} from '../audio-desc/audio-description-updater';
 
 type EngineConnectorProps = {
@@ -84,6 +84,8 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
       this.props.updateIsDocument(player.isUntimedDocument());
 
       this.props.updateIsAudio(player.isAudio());
+
+      this.props.updateSources(player.sources || null);
 
       this.props.updateIsInPictureInPicture(player.isInPictureInPicture());
       if (player.config.playback.autoplay) {
@@ -219,6 +221,7 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
       this.props.updateAudioTracks(tracks.filter(t => !isAudioDescriptionLanguageKey(t.language)));
       const audioDescriptionLanguages = tracks.filter(t => isAudioDescriptionLanguageKey(t.language)).map(t => getAudioLanguageKey(t.language)) || [];
       this.props.updateAudioDescriptionLanguages(audioDescriptionLanguages);
+      this.props.updateSelectedAudioLanguage(getActiveAudioLanguage(player));
 
       if (!store.getState().audioDescription.isDefaultValueSet) {
         const didUpdate = updateDefaultAudioDescription(this.props, audioDescriptionLanguages);

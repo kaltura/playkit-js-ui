@@ -1,7 +1,12 @@
 import {useEffect, useState} from 'preact/hooks';
 import {connect, useStore} from 'react-redux';
 import {withPlayer} from '../player';
-import {getAudioDescriptionLanguageKey, getAudioDescriptionStateFromStorage, getAudioLanguageKey} from '../../utils/audio-description';
+import {
+  getActiveAudioLanguage,
+  getAudioDescriptionLanguageKey,
+  getAudioDescriptionStateFromStorage,
+  getAudioLanguageKey
+} from '../../utils/audio-description';
 import {AUDIO_DESCRIPTION_TYPE} from '../../types/reducers/audio-description';
 import {registerToBottomBar, unregisterFromBottomBar} from '../bottom-bar';
 import {registerComponent} from './audio-desc-mini';
@@ -21,7 +26,8 @@ const mapStateToProps = ({audioDescription, engine, config, bottomBar}) => ({
   isDefaultValueSet: audioDescription.isDefaultValueSet,
   isEnabled: audioDescription.isEnabled,
   selectedType: audioDescription.selectedType,
-  showAudioDescriptionButton: config.showAudioDescriptionButton
+  showAudioDescriptionButton: config.showAudioDescriptionButton,
+  selectedAudioLanguage: audioDescription.selectedAudioLanguage
 });
 
 const COMPONENT_NAME = 'AudioDescriptionUpdater';
@@ -30,8 +36,15 @@ const COMPONENT_NAME = 'AudioDescriptionUpdater';
 // The button components don't always render (depends on configuration and available space),
 // so we need a separate component which can update the state when needed.
 const _AudioDescriptionUpdater = props => {
-  const {audioDescriptionLanguages, advancedAudioDescriptionLanguages, isDefaultValueSet, isEnabled, selectedType, showAudioDescriptionButton} =
-    props;
+  const {
+    audioDescriptionLanguages,
+    advancedAudioDescriptionLanguages,
+    isDefaultValueSet,
+    isEnabled,
+    selectedType,
+    showAudioDescriptionButton,
+    selectedAudioLanguage
+  } = props;
   const [isRegisteredToBottomBar, setIsRegisteredToBottomBar] = useState(true);
 
   const store = useStore();
@@ -64,17 +77,14 @@ const _AudioDescriptionUpdater = props => {
   // update audio track selection when audio description is turned on or off
   useEffect(() => {
     if (!isDefaultValueSet) return;
-
-    const currLanguageKey = props.player.getActiveTracks()['audio']?.language || '';
-
     if (!isEnabled) {
-      onDisableSelected(currLanguageKey);
+      onDisableSelected(selectedAudioLanguage);
     } else if (selectedType === AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION) {
-      onAudioDescriptionSelected(currLanguageKey);
+      onAudioDescriptionSelected(selectedAudioLanguage);
     } else {
-      onAdvancedAudioDescriptionSelected(currLanguageKey);
+      onAdvancedAudioDescriptionSelected(selectedAudioLanguage);
     }
-  }, [audioDescriptionLanguages, advancedAudioDescriptionLanguages, isEnabled, selectedType, isDefaultValueSet]);
+  }, [isDefaultValueSet, isEnabled, selectedType, selectedAudioLanguage]);
 
   function onDisableSelected(currLanguageKey: string): void {
     props.updateSelectionByLanguage?.(currLanguageKey, false, props.audioDescriptionType || AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
@@ -125,7 +135,7 @@ function updateDefaultAudioDescription(props, audioDescriptionLanguages): boolea
     selectedTypeInStorage = selectedType;
   }
 
-  const activeAudioLanguage = getAudioLanguageKey(props.player.getActiveTracks()['audio']?.language || '');
+  const activeAudioLanguage = getActiveAudioLanguage(props.player);
   if (!isEnabledInStorage && selectedTypeInStorage === AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION) {
     props.updateAudioDescriptionEnabled?.(false);
     props.updateAudioDescriptionType(AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
@@ -176,7 +186,7 @@ function updateDefaultAdvancedAudioDescription(props, advancedAudioDescriptionLa
     selectedTypeInStorage = selectedType;
   }
 
-  const activeAudioLanguage = getAudioLanguageKey(props.player.getActiveTracks()['audio']?.language || '');
+  const activeAudioLanguage = getActiveAudioLanguage(props.player);
 
   if (
     activeAudioLanguage &&

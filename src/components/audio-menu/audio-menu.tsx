@@ -14,6 +14,7 @@ import {getActiveAudioLanguage} from '../../utils/audio-description';
 import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
 
 type AudioMenuProps = {
+  onClick?: () => void;
   audioTracks?: any[];
   audioLabelText?: string;
   audioDescriptionAvailableText?: string;
@@ -27,6 +28,7 @@ type AudioMenuProps = {
   selectionByLanguage?: Map<string, [boolean, AUDIO_DESCRIPTION_TYPE]>;
   updateAudioDescriptionEnabled?: (isEnabled: boolean) => void;
   updateAudioDescriptionType?: (selectedType: AUDIO_DESCRIPTION_TYPE) => void;
+  updateSelectedAudioLanguage?: (language: string) => void;
   player?: KalturaPlayer;
   notifyClick?: (payload: any) => void;
   pushRef?: (el: HTMLElement) => void;
@@ -98,14 +100,17 @@ const _AudioMenu = (props: AudioMenuProps) => {
     } else if (props.audioDescriptionEnabled) {
       if (!hasAudioDescription && !hasAdvancedAudioDescription) {
         props.updateAudioDescriptionEnabled?.(false);
-      } else if (hasAudioDescription && !hasAdvancedAudioDescription) {
+      } else if (hasAudioDescription) {
+        // set to standard audio description if available
         props.updateAudioDescriptionType?.(AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
-      } else if (!hasAudioDescription && hasAdvancedAudioDescription) {
+      } else if (hasAdvancedAudioDescription) {
+        // otherwise set to extended audio description if available
         props.updateAudioDescriptionType?.(AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION);
       }
     }
 
     if (props.player) {
+      props.updateSelectedAudioLanguage?.(audioTrack.language);
       props.player.selectTrack(audioTrack);
 
       props.notifyClick?.({
@@ -134,7 +139,10 @@ const _AudioMenu = (props: AudioMenuProps) => {
           props.pushRef?.(el);
         }}
         options={audioOptions}
-        onMenuChosen={(audioTrack: any) => onAudioChange(audioTrack)}
+        onMenuChosen={(audioTrack: any) => {
+          onAudioChange(audioTrack);
+          props.onClick?.();
+        }}
         onClose={() => {}}
       />
     );

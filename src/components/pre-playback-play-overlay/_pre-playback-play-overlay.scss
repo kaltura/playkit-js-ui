@@ -7,6 +7,7 @@
 
   &.prePlaybackPlayOverlayYoutube {
     z-index: 2; // prevent click-through
+    pointer-events: none; // allow clicks to pass through to MediaInfoDisplay
   }
 
   .pre-playback-play-button {
@@ -24,6 +25,7 @@
     border-radius: 54px;
     padding: 20px;
     cursor: pointer;
+    pointer-events: auto; // ensure play button remains clickable
 
     &:hover {
       border: 2px solid rgba(255, 255, 255, 0.4);

@@ -31,7 +31,9 @@ const mapStateToProps = state => ({
   segments: state.seekbar.segments,
   seekbarClasses: state.seekbar.seekbarClasses,
   isPreventSeek: state.seekbar.isPreventSeek,
-  playerSize: state.shell.playerSize
+  playerSize: state.shell.playerSize,
+  allowPlayPause: state.config.allowPlayPause,
+  allowLivePlayPause: state.config.allowLivePlayPause
 });
 
 const COMPONENT_NAME = 'SeekBar';
@@ -122,7 +124,7 @@ class SeekBar extends Component<any, any> {
         }
       });
     });
-    
+
     eventManager.listen(player, EventType.BOTTOM_BAR_CLIENT_RECT_CHANGED, this.handleUpdateSeekBarClientRect);
     document.addEventListener('mouseup', this.onPlayerMouseUp);
     document.addEventListener('mousemove', this.onPlayerMouseMove);
@@ -334,7 +336,8 @@ class SeekBar extends Component<any, any> {
    * @returns {void}
    * @memberof SeekBar
    */
-  togglePlayPause = (): void => {
+  private togglePlayPause = (): void => {
+    if ((!this.props.player.isLive() && !this.props.allowPlayPause) || (this.props.player.isLive() && !this.props.allowLivePlayPause)) return;
     this.props.player.paused ? this.props.player.play() : this.props.player.pause();
   };
 

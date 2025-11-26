@@ -1,7 +1,8 @@
 .control-button-container.control-play-pause .control-button {
   transition: 400ms transform;
 
-  .icon-pause {
+  .icon-pause,
+  .icon-stop {
     transition: 400ms opacity;
     opacity: 0;
     display: none;
@@ -15,7 +16,8 @@
   &.is-playing {
     transform: rotate(360deg);
 
-    .icon-pause {
+    .icon-pause,
+    .icon-stop {
       opacity: 1;
       display: block;
     }

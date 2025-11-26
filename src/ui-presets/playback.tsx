@@ -35,6 +35,7 @@ import {AudioEntryDetails} from '../components/audio-entry-details';
 import {Title} from '../components';
 import {Audio} from '../components';
 import {AudioDescriptionUpdater} from '../components/audio-desc/audio-description-updater';
+import {MediaInfoDisplay} from '../components';
 
 const PRESET_NAME = 'Playback';
 
@@ -74,13 +75,13 @@ class PlaybackUI extends Component<any, any> {
             <VideoArea />
             <GuiArea>
               <Fragment>
-                <AudioEntryDetails />
                 <Loading />
                 <OverlayPortal />
                 <PictureInPictureOverlay />
                 <PlaybackControls name={'OverlayPlaybackControls'} className={style.centerPlaybackControls} />
                 <PlaylistNextScreen />
                 <PrePlaybackPlayOverlay />
+                <MediaInfoDisplay />
                 <CastBeforePlay />
               </Fragment>
               {({containerRef}) => (

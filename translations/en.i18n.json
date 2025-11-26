@@ -3,6 +3,7 @@
     "controls": {
       "play": "Play",
       "pause": "Pause",
+      "stop": "Stop",
       "title": "title",
       "language": "Language",
       "settings": "Settings",
@@ -166,6 +167,10 @@
       "standardAudioDescriptionAvailable": "A Standard Audio Description is available for the currently selected language",
       "noAdvancedAudioDescriptionAvailable": "No Extended Audio Description available for the currently selected language",
       "advancedAudioDescriptionAvailable": "An Extended Audio Description is available for the currently selected language"
+    },
+    "mediaInfo": {
+      "seeMore": "See more",
+      "seeLess": "See less"
     }
   }
 }
