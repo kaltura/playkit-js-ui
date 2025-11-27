@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.82.10 (2025-11-27)
+
+
+### Bug Fixes
+
+* **FEC-14772:** Add display name to MediaInfoDisplay component ([#1114](https://github.com/kaltura/playkit-js-ui/issues/1114)) ([dfc23a7](https://github.com/kaltura/playkit-js-ui/commit/dfc23a7))
+
+
+
 ### 0.82.9 (2025-11-06)
 
 
