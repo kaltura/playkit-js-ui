@@ -215,7 +215,11 @@ const MediaInfoDisplayComponent = (props: MediaInfoDisplayProps): any => {
   );
 };
 
-export const MediaInfoDisplay = withText({
+const MediaInfoDisplay = withText({
   seeMoreText: 'mediaInfo.seeMore',
   seeLessText: 'mediaInfo.seeLess'
 })(withLogger(COMPONENT_NAME)(withPlayer(connect(mapStateToProps)(MediaInfoDisplayComponent))));
+
+(MediaInfoDisplay as any).displayName = COMPONENT_NAME;
+
+export {MediaInfoDisplay};
