@@ -150,12 +150,6 @@ const MediaInfoDisplayComponent = (props: MediaInfoDisplayProps): any => {
 
   const {player} = props;
 
-  // MediaInfoDisplay should not be shown for quiz videos
-  const isQuizEntry = !player.plugins?.ivq?._dataManager?.showWelcomePage && player.config?.plugins?.ivq;
-  if (isQuizEntry) {
-    return null;
-  }
-
   const config = {
     ...defaultConfig,
     ...props.config
@@ -221,7 +215,11 @@ const MediaInfoDisplayComponent = (props: MediaInfoDisplayProps): any => {
   );
 };
 
-export const MediaInfoDisplay = withText({
+const MediaInfoDisplay = withText({
   seeMoreText: 'mediaInfo.seeMore',
   seeLessText: 'mediaInfo.seeLess'
 })(withLogger(COMPONENT_NAME)(withPlayer(connect(mapStateToProps)(MediaInfoDisplayComponent))));
+
+MediaInfoDisplay.displayName = COMPONENT_NAME;
+
+export {MediaInfoDisplay};
