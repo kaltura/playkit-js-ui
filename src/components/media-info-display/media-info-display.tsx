@@ -148,12 +148,18 @@ const MediaInfoDisplayComponent = (props: MediaInfoDisplayProps): any => {
     return null;
   }
 
+  const {player} = props;
+
+  // MediaInfoDisplay should not be shown for quiz videos
+  const isQuizEntry = !player.plugins?.ivq?._dataManager?.showWelcomePage && player.config?.plugins?.ivq;
+  if (isQuizEntry) {
+    return null;
+  }
+
   const config = {
     ...defaultConfig,
     ...props.config
   };
-
-  const {player} = props;
   const metadata = props.sources?.metadata;
 
   // try to get duration from props or from player sources
