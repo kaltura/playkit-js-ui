@@ -148,12 +148,12 @@ const MediaInfoDisplayComponent = (props: MediaInfoDisplayProps): any => {
     return null;
   }
 
-  const {player} = props;
-
   const config = {
     ...defaultConfig,
     ...props.config
   };
+
+  const {player} = props;
   const metadata = props.sources?.metadata;
 
   // try to get duration from props or from player sources
