@@ -33,7 +33,10 @@ class CustomCaptionsWindow extends Component<any, any> {
   changeCaptionsStyle = (): void => {
     const customStyle = this.props.customTextStyle;
     this.props.saveCustomPresetStyle(customStyle);
-    this.props.changeCaptionsStyle(customStyle);
+    this.props.changeCaptionsStyle(
+      customStyle,
+      "Advanced_captions_custom"
+    );
   };
 
   /**
@@ -109,12 +112,6 @@ class CustomCaptionsWindow extends Component<any, any> {
       };
     });
 
-    const fontStyleOptions = Object.keys(edgeStyles).map(key => ({
-      value: edgeStyles[key],
-      label: key.charAt(0).toUpperCase() + key.toLowerCase().slice(1),
-      active: props.customTextStyle.fontEdge === edgeStyles[key]
-    }));
-
     const backgroundColorOptions = Object.keys(standardColors).map(key => ({
       value: standardColors[key],
       label: key.charAt(0).toUpperCase() + key.toLowerCase().slice(1),
@@ -170,14 +167,6 @@ class CustomCaptionsWindow extends Component<any, any> {
             options={fontFamilyOptions}
             classNames={[style.formGroupRow, style.fontFamily]}
             styleName="fontFamily"
-            changeCustomStyle={props.changeCustomStyle}
-          />
-          <DropDownCaptionsStyle
-            addAccessibleChild={props.addAccessibleChild}
-            labelId="cvaa.font_style_label"
-            options={fontStyleOptions}
-            classNames={[style.formGroupRow, style.fontStyle]}
-            styleName="fontEdge"
             changeCustomStyle={props.changeCustomStyle}
           />
           <SliderCaptionsStyle

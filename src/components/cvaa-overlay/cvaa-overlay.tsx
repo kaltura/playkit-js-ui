@@ -173,7 +173,6 @@ class CVAAOverlay extends Component<any, any> {
   };
 
   focusPlayerButtonBadge = (): void => {
-    const player = this.props.player;
     const containerEl = document.getElementById(this.props.targetId);
     if (!containerEl) {
       return;
@@ -209,6 +208,7 @@ class CVAAOverlay extends Component<any, any> {
 
     if (this.props.handleKeyDown) {
       this.props.handleKeyDown(e);
+      this.focusPlayerButtonBadge();
     }
   };
 

@@ -6,29 +6,7 @@ import {Icon, IconType} from '../icon';
 import {SampleCaptionsStyleButton} from './sample-captions-style-button';
 import {h} from 'preact';
 import {withPlayer} from '../player';
-function extractComparable(style: any) {
-  return {
-    fontSizeIndex: style.fontSizeIndex,
-    fontWeightIndex: style._fontWeightIndex,
-    textAlign: style.textAlign,
-    fontFamily: style.fontFamily,
-    fontColor: style.fontColor,
-    backgroundColor: style.backgroundColor,
-    backgroundOpacity: style.backgroundOpacity,
-    fontEdge: style.fontEdge,
-  };
-}
-function getStyleDifferences(a: any, b: any) {
-  const diff: Record<string, { preset: any; custom: any }> = {};
-
-  Object.keys(a).forEach(key => {
-    if (JSON.stringify(a[key]) !== JSON.stringify(b[key])) {
-      diff[key] = { preset: a[key], custom: b[key] };
-    }
-  });
-
-  return diff;
-}
+import { KeyCode } from '../../utils/key-map';
 
 /**
  * MainWindow component
@@ -66,7 +44,6 @@ class MainCaptionsWindow extends Component<any, any> {
           textAlign: player.TextStyle.FontAlignment[2].value,
           fontColor: player.TextStyle.StandardColors.WHITE,
           fontFamily: "Verdana",
-          fontEdge: player.TextStyle.EdgeStyles.UNIFORM,
           backgroundColor: player.TextStyle.StandardColors.BLACK,
           backgroundOpacity: player.TextStyle.StandardOpacities.SEMI_HIGH
         })
@@ -82,7 +59,6 @@ class MainCaptionsWindow extends Component<any, any> {
           textAlign: player.TextStyle.FontAlignment[2].value,
           fontColor: player.TextStyle.StandardColors.YELLOW,
           fontFamily: "Arial",
-          fontEdge: player.TextStyle.EdgeStyles.RAISED,
           backgroundColor: player.TextStyle.StandardColors.BLACK,
           backgroundOpacity: player.TextStyle.StandardOpacities.OPAQUE
         })
@@ -98,7 +74,6 @@ class MainCaptionsWindow extends Component<any, any> {
           textAlign: player.TextStyle.FontAlignment[2].value,
           fontColor: player.TextStyle.StandardColors.WHITE,
           fontFamily: "Times New Roman",
-          fontEdge: player.TextStyle.EdgeStyles.NONE,
           backgroundColor: player.TextStyle.StandardColors.BLACK,
           backgroundOpacity: player.TextStyle.StandardOpacities.OPAQUE
         })
@@ -114,7 +89,6 @@ class MainCaptionsWindow extends Component<any, any> {
           textAlign: player.TextStyle.FontAlignment[1].value,
           fontColor: player.TextStyle.StandardColors.DARK_BLUE,
           fontFamily: "Tahoma",
-          fontEdge: player.TextStyle.EdgeStyles.NONE,
           backgroundColor: player.TextStyle.StandardColors.LIGHT_YELLOW,
           backgroundOpacity: player.TextStyle.StandardOpacities.OPAQUE
         })
@@ -130,7 +104,6 @@ class MainCaptionsWindow extends Component<any, any> {
           textAlign: player.TextStyle.FontAlignment[2].value,
           fontColor: player.TextStyle.StandardColors.BLACK,
           fontFamily: "Trebuchet MS",
-          fontEdge: player.TextStyle.EdgeStyles.NONE,
           backgroundColor: player.TextStyle.StandardColors.YELLOW,
           backgroundOpacity: player.TextStyle.StandardOpacities.OPAQUE
         })
@@ -141,12 +114,11 @@ class MainCaptionsWindow extends Component<any, any> {
         textId: "cvaa.sample_night_mode",
         source: "Advanced_captions_preset_night_mode",
         style: player.TextStyle.fromJson({
-          fontSize: player.TextStyle.FontSizes[0].label,
+          fontSize: player.TextStyle.FontSizes[1].label,
           fontWeight: player.TextStyle.StandardFontWeights[3].value,
           textAlign: player.TextStyle.FontAlignment[2].value,
           fontColor: player.TextStyle.StandardColors.LIGHT_GRAY,
           fontFamily: "EB Garamond",
-          fontEdge: player.TextStyle.EdgeStyles.DROP,
           backgroundColor: player.TextStyle.StandardColors.BLACK,
           backgroundOpacity: player.TextStyle.StandardOpacities.SEMI_HIGH
         })
@@ -166,36 +138,6 @@ class MainCaptionsWindow extends Component<any, any> {
       );
     }
   }
-compareCustomToPresets() {
-  const { customPresetStyle } = this.props;
-
-  if (!customPresetStyle) return;
-
-  const customExtracted = extractComparable(customPresetStyle);
-
-  console.log("==== CUSTOM VS PRESETS ====");
-
-  this.presets.forEach(preset => {
-    const presetExtracted = extractComparable(preset.style);
-    const diff = getStyleDifferences(presetExtracted, customExtracted);
-
-    if (Object.keys(diff).length === 0) {
-      console.log(`Preset: ${preset.key} → This is the issue`);
-    } else {
-      console.log(`Preset: ${preset.key}`, diff);
-    }
-  });
-}
-componentDidUpdate(prevProps) {
-  const { player, customPresetStyle } = this.props;
-
-  if (
-    player.textStyle !== prevProps.player.textStyle ||
-    customPresetStyle !== prevProps.customPresetStyle
-  ) {
-    this.compareCustomToPresets();
-  }
-}
 
   /**
    * transition to state handler
@@ -217,7 +159,7 @@ componentDidUpdate(prevProps) {
    * @memberof MainWindow
    */
   onKeyDown = (e: KeyboardEvent): void => {
-    if (e.keyCode === KeyMap.ENTER) {
+    if (e.code === KeyCode.Enter) {
       this.transitionToState();
     }
   };
@@ -256,7 +198,6 @@ componentDidUpdate(prevProps) {
     const activePreset = this.presets.find(preset => this.props.player.textStyle.isEqual(preset.style));
     const isCustomEqualToPreset = this.presets.some(preset => props.customPresetStyle && props.customPresetStyle.isEqual(preset.style));
     const isCustomActive = props.customPresetStyle && this.props.player.textStyle.isEqual(props.customPresetStyle);
-    console.log("custom", props.customPresetStyle);
     
     return (
       <div className={[style.overlayScreen, style.active].join(' ')}>

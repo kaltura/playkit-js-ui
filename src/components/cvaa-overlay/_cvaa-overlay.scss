@@ -1,8 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&display=swap');
 
 .overlay.cvaa-overlay {
   .title{
     margin-bottom: 40px;
+    font-family: Lato;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
   }
   .sample {
     border: 1px solid $tone-3-color;
@@ -24,7 +29,6 @@
       font-size: 16px;
       font-family: Verdana;
       font-weight: 400;
-      font-size: 16px;
     }
 
     &.high-contrast {
@@ -62,8 +66,9 @@
     &.night-mode {
       background-color: rgba(0, 0, 0, 0.75);
       color: $tone-2-color;
-      font-family: 'Segoe UI', 'SF Pro Text', Helvetica, sans-serif;
-      font-size: 16px;
+      font-family: 'EB Garamond';
+      font-weight: 700;
+      font-size: 18px;
     }
 
     &.black-bg {
@@ -115,24 +120,27 @@
     width: 100%;
     height: 32px;
     margin-top: 48px;
+    margin-bottom: 24px;
     padding: 0;
   }
 
   .custom-buttons .sample {
-    flex: 1;
+    max-width: 180px;
+    width: 100%;
     margin: 0;
     border-radius: 4px;
     background-color: #000000;
-    font-weight: 900;
   }
 
   .custom-buttons .button-save-cvaa {
-    flex: 1;
+    max-width: 180px;
+    width: 100%;
     margin: 0;
-    padding: 0 20px;
+    padding: 0;
   }
 
-  .cutom-button-text{
+  .custom-buttons .custom-button-text{
+    font-size: 14px !important;
     font-weight: 700;
   }
 
@@ -143,7 +151,8 @@
     font-weight: 700;
     font-family: 'Lato';
     line-height: normal;
-    border: none;
+    border: 1px solid $tone-3-color;
+    border-radius: 4px;
     color: #fff;
     text-decoration: none;
     cursor: pointer;
@@ -197,9 +206,13 @@
     text-align: left;
   }
 }
-
-.player.size-sm {
+.player.size-sm,
+.player.size-xs {
   .overlay.cvaa-overlay {
+    .title{
+      font-size: 18px;
+      margin-bottom: 32px;
+    }
     .sample {
       max-width: 180px;
       margin: 0;
@@ -216,14 +229,17 @@
       gap: 16px;
       width: 100%;
       max-width: 180px;
-      height: 32px;
+      height: auto;
       margin-top: 48px;
-      margin-bottom: 40px;
+      margin-bottom: 48px;
     }
     .custom-buttons .sample,
     .custom-buttons .button-save-cvaa {
       flex: none;
       width: 100%;
+    }
+    .preview-container {
+      padding-bottom: 24px;
     }
   }
 }

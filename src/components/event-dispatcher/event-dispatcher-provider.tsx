@@ -87,15 +87,34 @@ function onPlayerHoverStateChangeHandler(store: any, action: any, player: Kaltur
 function onCaptionsStyleSelected(store: any, action: any, player: KalturaPlayer): void {
   const currentStyles = player.textStyle;
   const newStyles = action.payload?.textStyle;
+  if (action.payload?.source) {
+    const presetEventMap = {
+      'Advanced_captions_preset_minimalist': EventType.USER_SELECTED_CAPTIONS_PRESET_MINIMALIST,
+      'Advanced_captions_preset_high_contrast': EventType.USER_SELECTED_CAPTIONS_PRESET_HIGH_CONTRAST,
+      'Advanced_captions_preset_classic_tv_style': EventType.USER_SELECTED_CAPTIONS_PRESET_CLASSIC_TV_STYLE,
+      'Advanced_captions_preset_easy_reading': EventType.USER_SELECTED_CAPTIONS_PRESET_EASY_READING,
+      'Advanced_captions_preset_early_readers': EventType.USER_SELECTED_CAPTIONS_PRESET_EARLY_READERS,
+      'Advanced_captions_preset_night_mode': EventType.USER_SELECTED_CAPTIONS_PRESET_NIGHT_MODE,
+      'Advanced_captions_custom': EventType.USER_SELECTED_CAPTIONS_CUSTOM,
+    };
+
+    const eventType = presetEventMap[action.payload.source];
+
+    if (eventType) {
+      player.dispatchEvent(new FakeEvent(eventType));
+      console.log("Preset beacon fired:", eventType);
+    }
+  }
+
   [
     {key: 'fontSize', eventType: EventType.USER_SELECTED_CAPTIONS_SIZE},
+    {key: 'fontWeight', eventType: EventType.USER_SELECTED_CAPTIONS_WEIGHT},
     {key: 'textAlign', eventType: EventType.USER_SELECTED_CAPTIONS_ALIGNMENT},
     {key: 'fontFamily', eventType: EventType.USER_SELECTED_CAPTIONS_FONT_FAMILY},
     {key: 'fontOpacity', eventType: EventType.USER_SELECTED_CAPTIONS_FONT_OPACITY},
     {key: 'backgroundOpacity', eventType: EventType.USER_SELECTED_CAPTIONS_BACKGROUND_OPACITY},
     {key: 'backgroundColor', eventType: EventType.USER_SELECTED_CAPTIONS_BACKGROUND_COLOR, collection: player.TextStyle.StandardColors},
-    {key: 'fontColor', eventType: EventType.USER_SELECTED_CAPTIONS_FONT_COLOR, collection: player.TextStyle.StandardColors},
-    {key: 'fontEdge', eventType: EventType.USER_SELECTED_CAPTIONS_FONT_STYLE, collection: player.TextStyle.EdgeStyles}
+    {key: 'fontColor', eventType: EventType.USER_SELECTED_CAPTIONS_FONT_COLOR, collection: player.TextStyle.StandardColors}
   ].map(({key, eventType, collection}) => {
     if (collection && !isEqual(currentStyles?.[key], newStyles?.[key])) {
       Object.keys(collection).some(collectionKey => {
