@@ -220,6 +220,6 @@ const MediaInfoDisplay = withText({
   seeLessText: 'mediaInfo.seeLess'
 })(withLogger(COMPONENT_NAME)(withPlayer(connect(mapStateToProps)(MediaInfoDisplayComponent))));
 
-MediaInfoDisplay.displayName = COMPONENT_NAME;
+(MediaInfoDisplay as any).displayName = COMPONENT_NAME;
 
 export {MediaInfoDisplay};
