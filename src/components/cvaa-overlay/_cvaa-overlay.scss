@@ -2,6 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&display=swap');
 
 .overlay.cvaa-overlay {
+  .overlay-contents {
+    padding-bottom: 24px !important;
+  }
   .title{
     margin-bottom: 40px;
     font-family: Lato;
@@ -209,6 +212,9 @@
 .player.size-sm,
 .player.size-xs {
   .overlay.cvaa-overlay {
+    .overlay-contents {
+      padding-bottom: 24px !important;
+    }
     .title{
       font-size: 18px;
       margin-bottom: 32px;
