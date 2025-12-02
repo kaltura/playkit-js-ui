@@ -38,7 +38,8 @@ const _AudioDescriptionUpdater = props => {
     isEnabled,
     selectedType,
     showAudioDescriptionButton,
-    selectedAudioLanguage
+    selectedAudioLanguage,
+    audioTracks
   } = props;
   const [isRegisteredToBottomBar, setIsRegisteredToBottomBar] = useState(true);
 
@@ -65,7 +66,7 @@ const _AudioDescriptionUpdater = props => {
   // set default extended audio description on entry changed
   useEffect(() => {
     if (!isDefaultValueSet) {
-      updateDefaultAdvancedAudioDescription(props, advancedAudioDescriptionLanguages);
+      updateDefaultAdvancedAudioDescription(props, advancedAudioDescriptionLanguages, audioTracks);
     }
   }, [advancedAudioDescriptionLanguages, isDefaultValueSet]);
 
@@ -166,7 +167,7 @@ function updateDefaultAudioDescription(props, audioDescriptionLanguages): boolea
   return false;
 }
 
-function updateDefaultAdvancedAudioDescription(props, advancedAudioDescriptionLanguages): boolean {
+function updateDefaultAdvancedAudioDescription(props, advancedAudioDescriptionLanguages, audioTracks): boolean {
   if (!advancedAudioDescriptionLanguages?.length) return false;
 
   const audioDescription = getAudioDescriptionStateFromStorage();
@@ -181,9 +182,11 @@ function updateDefaultAdvancedAudioDescription(props, advancedAudioDescriptionLa
 
   const activeAudioLanguage = getActiveAudioLanguage(props.player);
 
+  const isActive = activeAudioLanguage && advancedAudioDescriptionLanguages.find(lang => lang.startsWith(activeAudioLanguage));
+  const isNoAudioEAD = audioTracks.length === 0 && advancedAudioDescriptionLanguages.length === 1;
+
   if (
-    activeAudioLanguage &&
-    advancedAudioDescriptionLanguages.find(lang => lang.startsWith(activeAudioLanguage)) &&
+    (isActive || isNoAudioEAD) &&
     (props.player.config.playback.prioritizeAudioDescription ||
       (isEnabledInStorage !== null && selectedTypeInStorage === AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION))
   ) {

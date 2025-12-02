@@ -68,7 +68,8 @@ const _AudioDescriptionMenu = (props: AudioDescriptionMenuProps) => {
     noStandardAudioDescriptionAvailableText,
     noAdvancedAudioDescriptionAvailableText,
     advancedAudioDescriptionAvailableText,
-    player
+    player,
+    audioTracks
   } = props;
 
   const onAudioDescriptionChange = (enabledState: number): void => {
@@ -94,8 +95,11 @@ const _AudioDescriptionMenu = (props: AudioDescriptionMenuProps) => {
   }, [audioDescriptionLanguages, audioLanguage]);
 
   const hasAdvancedAudioDescription = useMemo(() => {
-    return audioLanguage && !!advancedAudioDescriptionLanguages?.find(lang => lang.startsWith(audioLanguage));
-  }, [advancedAudioDescriptionLanguages, audioLanguage]);
+    const isEADWithoutAudioTracks = audioTracks?.length === 0 && advancedAudioDescriptionLanguages?.length === 1;
+    const isActive = audioLanguage && !!advancedAudioDescriptionLanguages?.find(lang => lang.startsWith(audioLanguage));
+
+    return isActive || isEADWithoutAudioTracks;
+  }, [advancedAudioDescriptionLanguages, audioLanguage, audioTracks]);
 
   const options: Array<{
     disabled: boolean;
@@ -127,17 +131,6 @@ const _AudioDescriptionMenu = (props: AudioDescriptionMenuProps) => {
   ];
 
   if (asDropdown) {
-    if (!hasAdvancedAudioDescription && !hasAudioDescription) {
-      return (
-        <div className={style.audioDescriptionMenuDisabled}>
-          <div>{audioDescriptionText}</div>
-          <div className={style.audioDescriptionMenuDisabledIcon}>
-            <Icon type={IconType.ArrowDown} color="rgba(244, 244, 244, 0.8)" />
-          </div>
-        </div>
-      );
-    }
-
     return (
       <SmartContainerItem
         pushRef={el => {
