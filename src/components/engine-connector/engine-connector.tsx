@@ -218,7 +218,9 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
 
     eventManager.listen(player, player.Event.Core.AUDIO_TRACK_CHANGED, () => {
       const tracks = player.getTracks(TrackType.AUDIO);
-      this.props.updateAudioTracks(tracks.filter(t => !isAudioDescriptionLanguageKey(t.language)));
+      const audioTracks = tracks.filter(t => !isAudioDescriptionLanguageKey(t.language));
+      this.props.updateAudioTracks(audioTracks);
+
       const audioDescriptionLanguages = tracks.filter(t => isAudioDescriptionLanguageKey(t.language)).map(t => getAudioLanguageKey(t.language)) || [];
       this.props.updateAudioDescriptionLanguages(audioDescriptionLanguages);
       this.props.updateSelectedAudioLanguage(getActiveAudioLanguage(player));
@@ -226,7 +228,7 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
       if (!store.getState().audioDescription.isDefaultValueSet) {
         const didUpdate = updateDefaultAudioDescription(this.props, audioDescriptionLanguages);
         if (!didUpdate) {
-          updateDefaultAdvancedAudioDescription(this.props, store.getState().audioDescription.advancedAudioDescriptionLanguages);
+          updateDefaultAdvancedAudioDescription(this.props, store.getState().audioDescription.advancedAudioDescriptionLanguages, audioTracks);
         }
       }
     });

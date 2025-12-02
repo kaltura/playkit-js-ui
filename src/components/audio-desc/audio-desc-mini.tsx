@@ -58,10 +58,11 @@ const _AudioDescMini = (props: any) => {
   }
 
   function handleClick(): void {
+    const {engine} = store.getState();
     const {isEnabled, selectedType, audioDescriptionLanguages, advancedAudioDescriptionLanguages} = store.getState().audioDescription;
 
     const activeAudioLanguage = getActiveAudioLanguage(props.player);
-    if (!shouldActivate(activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages)) {
+    if (!shouldActivate(engine.audioTracks, activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages)) {
       return;
     }
 
@@ -92,6 +93,7 @@ const _AudioDescMini = (props: any) => {
 
   if (!shouldRender()) return null;
 
+  const {engine} = store.getState();
   const activeAudioLanguage = getActiveAudioLanguage(props.player);
   const icon = getSvgIcon(props, store);
   const {audioDescriptionLanguages, advancedAudioDescriptionLanguages} = store.getState().audioDescription;
@@ -103,7 +105,7 @@ const _AudioDescMini = (props: any) => {
     onKeyDown,
     getComponentText(props, store),
     props.classNames?.includes(style.upperBarIcon),
-    shouldActivate(activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages),
+    shouldActivate(engine.audioTracks, activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages),
     icon
   );
 
@@ -113,7 +115,9 @@ const _AudioDescMini = (props: any) => {
         ref={ref}
         name={COMPONENT_NAME}
         className={[
-          !shouldActivate(activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages) ? style.audioDescDisabled : '',
+          !shouldActivate(engine.audioTracks, activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages)
+            ? style.audioDescDisabled
+            : '',
           props.classNames ? props.classNames.join(' ') : ''
         ].join(' ')}>
         {innerButtonComponent}
@@ -151,10 +155,10 @@ const getButtonComponent = (
 };
 
 function getSvgIcon(props, store, isDropdown = false): any {
-  const {audioDescription} = store.getState();
+  const {audioDescription, engine} = store.getState();
   const {isEnabled, audioDescriptionLanguages, advancedAudioDescriptionLanguages} = audioDescription;
   const activeAudioLanguage = getActiveAudioLanguage(props.player);
-  const isActive = shouldActivate(activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages);
+  const isActive = shouldActivate(engine.audioTracks, activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages);
 
   let type = IconType.AdvancedAudioDescriptionActive;
   if (!isActive) {
@@ -168,20 +172,24 @@ function getSvgIcon(props, store, isDropdown = false): any {
   };
 }
 
-function shouldActivate(activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages): boolean {
-  return Boolean(
+function shouldActivate(audioTracks, activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages): boolean {
+  const isEADWithoutAudioTracks = audioTracks.length === 0 && advancedAudioDescriptionLanguages.length === 1;
+  const isActive =
     activeAudioLanguage &&
-      (audioDescriptionLanguages.find(lang => lang.startsWith(activeAudioLanguage)) ||
-        advancedAudioDescriptionLanguages.find(lang => lang.startsWith(activeAudioLanguage)))
-  );
+    Boolean(
+      audioDescriptionLanguages.find(lang => lang.startsWith(activeAudioLanguage)) ||
+        advancedAudioDescriptionLanguages.find(lang => lang.startsWith(activeAudioLanguage))
+    );
+
+  return isActive || isEADWithoutAudioTracks;
 }
 
 function handleIconClick(props, store): void {
-  const {audioDescription} = store.getState();
+  const {audioDescription, engine} = store.getState();
   const {isEnabled, selectedType, audioDescriptionLanguages, advancedAudioDescriptionLanguages} = audioDescription;
 
   const activeAudioLanguage = getActiveAudioLanguage(props.player);
-  if (!shouldActivate(activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages)) {
+  if (!shouldActivate(engine.audioTracks, activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages)) {
     return;
   }
 
@@ -211,11 +219,11 @@ function handleIconClick(props, store): void {
 }
 
 function getComponentText(props, store): any {
+  const {engine} = store.getState();
   const {audioDescriptionLanguages, advancedAudioDescriptionLanguages, isEnabled} = store.getState().audioDescription;
   const activeAudioLanguage = getActiveAudioLanguage(props.player);
 
-  const isActive = shouldActivate(activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages);
-
+  const isActive = shouldActivate(engine.audioTracks, activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages);
   if (!isActive) {
     return `${props.thereIsNoAudioDescriptionAvailableText} (${activeAudioLanguage})`;
   } else if (props.openMenuFromAudioDescriptionButton) {
@@ -237,9 +245,10 @@ function registerComponent(props, store): any {
       return getComponent({...props, classNames: [style.upperBarIcon]});
     },
     isDisabled: (): boolean => {
+      const {engine} = store.getState();
       const {audioDescriptionLanguages, advancedAudioDescriptionLanguages} = store.getState().audioDescription;
       const activeAudioLanguage = getActiveAudioLanguage(props.player);
-      return !shouldActivate(activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages);
+      return !shouldActivate(engine.audioTracks, activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages);
     },
     shouldHandleOnClick: false
   };
