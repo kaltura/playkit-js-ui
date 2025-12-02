@@ -88,7 +88,9 @@ class CaptionsMenu extends Component<any, any> {
       }))
       .sort((a, b) => (a.label > b.label || a.label === 'Off' ? 1 : -1));
 
-    const additionalOptions = props.showAdvancedCaptionsMenu ? [{ label: props.advancedCaptionsSettingsText, value: props.advancedCaptionsSettingsText, active: false, isAdvanced: true }] : [];
+    if (props.showAdvancedCaptionsMenu) {
+      textOptions.push({label: props.advancedCaptionsSettingsText, value: props.advancedCaptionsSettingsText, active: false, isAdvanced: true});
+    }
 
     if (this.props.asDropdown) {
       return (
@@ -100,7 +102,6 @@ class CaptionsMenu extends Component<any, any> {
           label={this.props.captionsLabelText}
           options={textOptions}
           onMenuChosen={textTrack => this.onCaptionsChange(textTrack)}
-          additionalOptions={additionalOptions}
         />
       );
     } else {
@@ -113,7 +114,6 @@ class CaptionsMenu extends Component<any, any> {
           options={textOptions}
           onMenuChosen={textTrack => this.onCaptionsChange(textTrack)}
           onClose={() => {}}
-          additionalOptions={additionalOptions}
         />
       );
     }
