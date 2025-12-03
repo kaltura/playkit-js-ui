@@ -25,8 +25,12 @@ class TimeDisplay extends Component<any, any> {
   private timeDisplayRef: RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
 
   componentDidUpdate(prevProps: any) {
-    if (prevProps.timeStyleState !== this.props.timeStyleState && this.props.timeStyleState) {
-      this.timeDisplayRef.current?.classList.add(`${style.paddingStyle}`);
+    if (prevProps.timeStyleState !== this.props.timeStyleState) {
+      if (this.props.timeStyleState){
+          this.timeDisplayRef.current?.classList.add(`${style.paddingStyle}`);
+      } else {
+        this.timeDisplayRef.current?.classList.remove(`${style.paddingStyle}`);
+      }
     }
 }
   /**
