@@ -95,7 +95,8 @@ const _AudioDescriptionMenu = (props: AudioDescriptionMenuProps) => {
   }, [audioDescriptionLanguages, audioLanguage]);
 
   const hasAdvancedAudioDescription = useMemo(() => {
-    const isEADWithoutAudioTracks = audioTracks?.length === 0 && advancedAudioDescriptionLanguages?.length === 1;
+    const isEADWithoutAudioTracks =
+      audioTracks?.filter(t => t.language !== '' || t.label !== '').length === 0 && advancedAudioDescriptionLanguages?.length === 1;
     const isActive = audioLanguage && !!advancedAudioDescriptionLanguages?.find(lang => lang.startsWith(audioLanguage));
 
     return isActive || isEADWithoutAudioTracks;
