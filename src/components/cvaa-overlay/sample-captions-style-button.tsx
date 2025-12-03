@@ -3,6 +3,7 @@ import style from '../../styles/style.scss';
 import {Icon, IconType} from '../icon';
 import {h} from 'preact';
 import {useEffect, useRef} from 'preact/compat';
+import { KeyCode } from '../../utils';
 
 /**
  * renders a default style pick button
@@ -17,7 +18,9 @@ const SampleCaptionsStyleButton = (props: any) => {
    * @returns {void}
    */
   const onKeyDown = (e: KeyboardEvent): void => {
-    if (e.keyCode === KeyMap.ENTER) {
+    if (e.code === KeyCode.Enter || e.code === KeyCode.Space) {
+      e.preventDefault();
+      e.stopPropagation();
       props.changeCaptionsStyle();
     }
   };

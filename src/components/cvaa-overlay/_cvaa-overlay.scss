@@ -1,22 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&display=swap');
+
 .overlay.cvaa-overlay {
+  .overlay-contents {
+    padding-bottom: 24px !important;
+  }
+  .title{
+    margin-bottom: 40px;
+    font-family: Lato;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+  }
   .sample {
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid $tone-3-color;
     border-radius: 4px;
-    font-size: 16px;
-    font-weight: bold;
-    line-height: 36px;
+    font-size: 14px;
+    height: 32px;
+    line-height: 28px;
     text-align: center;
-    padding: 0 31px;
     display: inline-block;
-    margin: 0 12px;
     position: relative;
 
     &:not(.custom) {
       cursor: pointer;
     }
 
+    &.minimalist {
+      background-color: rgba(0, 0, 0, 0.5);
+      color: $tone-1-color;
+      font-size: 16px;
+      font-family: Verdana;
+      font-weight: 400;
+    }
+
+    &.high-contrast {
+      background-color: $tone-8-color;
+      color: #ffff00;
+      font-family: 'Arial';
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    &.classic-tv {
+      background-color: $tone-8-color;
+      color: $tone-1-color;
+      font-family: 'Times New Roman';
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    &.easy-reading {
+      background-color: #ffffcc;
+      color: #036;
+      font-family: 'Tahoma';
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    &.early-readers {
+      background-color: #ffff00;
+      color: $tone-8-color;
+      font-family: 'Trebuchet MS';
+      font-weight: 700;
+      font-size: 20px;
+    }
+
+    &.night-mode {
+      background-color: rgba(0, 0, 0, 0.75);
+      color: $tone-2-color;
+      font-family: 'EB Garamond';
+      font-weight: 700;
+      font-size: 18px;
+    }
+
     &.black-bg {
-      background-color: #000;
+      background-color: $tone-8-color;
     }
     &.yellow-text {
       color: #faff00;
@@ -40,21 +99,68 @@
       vertical-align: middle;
     }
   }
-  .button-save-cvaa {
-    margin-top: 50px;
-    height: 40px;
-    width: 400px;
-    max-width: 100%;
-    border: 2px solid rgba(255, 255, 255, 0.2);
+  [role="radiogroup"] {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 600px;
+    margin: 0 auto;
+    gap:24px;
+
+    .sample {
+      flex: 1 1 calc(33% - 24px);
+      box-sizing: border-box;
+      min-width: 160px;
+    }
+  }
+  .custom-buttons {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    justify-self: center;
+    align-items: center;
+    max-width: 600px;
+    width: 100%;
+    height: 32px;
+    margin-top: 48px;
+    margin-bottom: 24px;
+    padding: 0;
+  }
+
+  .custom-buttons .sample {
+    max-width: 180px;
+    width: 100%;
+    margin: 0;
     border-radius: 4px;
-    font-size: 16px;
-    font-weight: bold;
-    line-height: 38px;
-    text-align: center;
-    display: inline-block;
+    background-color: #000000;
+  }
+
+  .custom-buttons .button-save-cvaa {
+    max-width: 180px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .custom-buttons .custom-button-text{
+    font-size: 14px !important;
+    font-weight: 700;
+  }
+
+  .button-save-cvaa {
+    height: 32px;
+    max-width: 100%;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'Lato';
+    line-height: normal;
+    border: 1px solid $tone-3-color;
+    border-radius: 4px;
     color: #fff;
     text-decoration: none;
     cursor: pointer;
+    position: relative;
+    background-color: transparent;
 
     &:focus {
     outline: 2px solid #2684FF;
@@ -63,17 +169,6 @@
     }
   }
 
-  .button-edit-cvaa {
-    display: inline-block;
-    text-decoration: none;
-    cursor: pointer;
-
-    &:focus {
-      outline: 1px solid #2684FF;
-      box-shadow: 0 0 0 1px white;
-      outline-offset: 1px;
-    }
-  }
   .custom-captions-applied {
     margin-top: 50px;
     a {
@@ -107,36 +202,56 @@
     width: 100%;
     text-align: center;
     font-size: 16px;
+    margin-top: auto;
+    margin-bottom: 0;
+  }
+  .preview-easy-reading {
+    text-align: left;
   }
 }
-
-.player.size-sm {
+.player.size-sm,
+.player.size-xs {
   .overlay.cvaa-overlay {
+    .overlay-contents {
+      padding-bottom: 24px !important;
+    }
+    .title{
+      font-size: 18px;
+      margin-bottom: 32px;
+    }
     .sample {
-      width: 30%;
-      margin: 2.33%;
+      max-width: 180px;
+      margin: 0;
       padding: 0;
-
-      &:first-child {
-        margin-left: 0;
-      }
-      &:last-child {
-        margin-right: 0;
-      }
 
       &.custom {
         width: auto;
         padding: 0 10px;
       }
     }
-    .button-save-cvaa,
-    .custom-captions-applied {
-      margin-top: 20px;
+    .custom-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+      max-width: 180px;
+      height: auto;
+      margin-top: 48px;
+      margin-bottom: 48px;
+    }
+    .custom-buttons .sample,
+    .custom-buttons .button-save-cvaa {
+      flex: none;
+      width: 100%;
+    }
+    .preview-container {
+      padding-bottom: 24px;
     }
   }
 }
 
 .font-size,
+.font-weight,
 .font-alignment,
 .font-color,
 .font-family,
