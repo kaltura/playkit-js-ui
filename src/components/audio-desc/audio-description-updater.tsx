@@ -183,7 +183,7 @@ function updateDefaultAdvancedAudioDescription(props, advancedAudioDescriptionLa
   const activeAudioLanguage = getActiveAudioLanguage(props.player);
 
   const isActive = activeAudioLanguage && advancedAudioDescriptionLanguages.find(lang => lang.startsWith(activeAudioLanguage));
-  const isNoAudioEAD = audioTracks.length === 0 && advancedAudioDescriptionLanguages.length === 1;
+  const isNoAudioEAD = audioTracks?.filter(t => t.language !== '' || t.label !== '').length === 0 && advancedAudioDescriptionLanguages.length === 1;
 
   if (
     (isActive || isNoAudioEAD) &&

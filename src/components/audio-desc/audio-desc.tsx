@@ -80,13 +80,12 @@ const _AudioDesc = (props: any) => {
   function shouldActivate(): boolean {
     const activeAudioLanguage = getActiveAudioLanguage(props.player);
 
-    const isEADWithoutAudioTracks = props.audioTracks.length === 0 && advancedAudioDescriptionLanguages.length === 1;
-    const isActive =
-      activeAudioLanguage &&
-      Boolean(
-        audioDescriptionLanguages.find(lang => lang.startsWith(activeAudioLanguage)) ||
-          advancedAudioDescriptionLanguages.find(lang => lang.startsWith(activeAudioLanguage))
-      );
+    const isEADWithoutAudioTracks =
+      props.audioTracks?.filter(t => t.language !== '' || t.label !== '').length === 0 && advancedAudioDescriptionLanguages.length === 1;
+    const isActive = Boolean(
+      (activeAudioLanguage && audioDescriptionLanguages.find(lang => lang.startsWith(activeAudioLanguage))) ||
+        advancedAudioDescriptionLanguages.find(lang => lang.startsWith(activeAudioLanguage))
+    );
 
     return isActive || isEADWithoutAudioTracks;
   }
