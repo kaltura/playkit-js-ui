@@ -1,8 +1,13 @@
 import style from '../../styles/style.scss';
-import {h, Component, VNode} from 'preact';
+import {h, Component, VNode,  createRef, RefObject} from 'preact';
 import {toHHMMSS} from '../../utils';
+import {connect} from 'react-redux';
 
 const COMPONENT_NAME = 'TimeDisplay';
+
+const mapStateToProps = state => ({
+  timeStyleState: state.shell.timeStyleState
+});
 
 /**
  * TimeDisplay component
@@ -15,7 +20,15 @@ const COMPONENT_NAME = 'TimeDisplay';
  * />
  * @extends {Component}
  */
+@connect(mapStateToProps)
 class TimeDisplay extends Component<any, any> {
+  private timeDisplayRef: RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
+
+  componentDidUpdate(prevProps: any) {
+    if (prevProps.timeStyleState !== this.props.timeStyleState && this.props.timeStyleState) {
+      this.timeDisplayRef.current?.classList.add(`${style.paddingStyle}`);
+    }
+}
   /**
    * get formatted time display based on defined format
    *
@@ -49,7 +62,7 @@ class TimeDisplay extends Component<any, any> {
    */
   render({currentTime, duration, format = 'current / total'}: any): VNode<any> {
     return (
-      <div className={style.timeDisplay}>
+      <div ref={this.timeDisplayRef} className={style.timeDisplay}>
         <span>{this.getTimeDisplay(currentTime, duration, format)}</span>
       </div>
     );
