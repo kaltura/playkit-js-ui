@@ -20,7 +20,8 @@ export const types = {
   UPDATE_SIDE_PANEL_MODE: 'shell/UPDATE_SIDE_PANEL_MODE',
   UPDATE_SIDE_PANEL_SIZE: 'shell/UPDATE_SIDE_PANEL_SIZE',
   UPDATE_PRESET_SETTINGS: 'shell/UPDATE_PRESET_SETTINGS',
-  UPDATE_LAYOUT_STYLES: 'shell/UPDATE_LAYOUT_STYLES'
+  UPDATE_LAYOUT_STYLES: 'shell/UPDATE_LAYOUT_STYLES',
+  UPDATE_TIME_DISPLAY_IS_MINIMIZED: 'shell/UPDATE_TIME_DISPLAY_IS_MINIMIZED'
 };
 
 export const SidePanelOrientation = {
@@ -116,7 +117,8 @@ export const initialState = {
     [SidePanelOrientation.VERTICAL]: {min: 240, max: 480, ratio: 0.33},
     [SidePanelOrientation.HORIZONTAL]: {min: 144, max: 288, ratio: 0.33}
   },
-  presetSettings: createDefaultPresetSettings()
+  presetSettings: createDefaultPresetSettings(),
+  timeDisplayIsMinimized: false
 };
 
 export default (state: ShellState = initialState, action: any) => {
@@ -267,6 +269,12 @@ export default (state: ShellState = initialState, action: any) => {
         }
       };
 
+    case types.UPDATE_TIME_DISPLAY_IS_MINIMIZED:
+      return {
+        ...state,
+        timeDisplayIsMinimized: action.timeDisplayIsMinimized
+      };
+
     default:
       return state;
   }
@@ -301,5 +309,6 @@ export const actions = {
   updateLayoutStyles: (layoutStyles: LayoutStyles) => ({
     type: types.UPDATE_LAYOUT_STYLES,
     layoutStyles
-  })
+  }),
+  updateTimeDisplayIsMinimized: (timeDisplayIsMinimized: boolean) => ({type: types.UPDATE_TIME_DISPLAY_IS_MINIMIZED, timeDisplayIsMinimized})
 } as const;
