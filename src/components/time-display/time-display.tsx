@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 const COMPONENT_NAME = 'TimeDisplay';
 
 const mapStateToProps = state => ({
-  timeStyleState: state.shell.timeStyleState
+  timeDisplayIsMinimized: state.shell.timeDisplayIsMinimized
 });
 
 /**
@@ -25,8 +25,8 @@ class TimeDisplay extends Component<any, any> {
   private timeDisplayRef: RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
 
   componentDidUpdate(prevProps: any) {
-    if (prevProps.timeStyleState !== this.props.timeStyleState) {
-      if (this.props.timeStyleState){
+    if (prevProps.timeDisplayIsMinimized !== this.props.timeDisplayIsMinimized) {
+      if (this.props.timeDisplayIsMinimized){
           this.timeDisplayRef.current?.classList.add(`${style.paddingStyle}`);
       } else {
         this.timeDisplayRef.current?.classList.remove(`${style.paddingStyle}`);
