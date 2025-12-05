@@ -89,10 +89,10 @@ class CaptionsMenu extends Component<any, any> {
       .sort((a, b) => (a.label > b.label || a.label === 'Off' ? 1 : -1));
 
     if (props.showAdvancedCaptionsMenu) {
-      textOptions.push({label: '__separator__', value: null, disabled: true, active: false});
+      textOptions.push({label: '__separator__', value: null, disabled: true, active: false, isSeparator: true});
       textOptions.push({label: props.advancedCaptionsSettingsText, value: props.advancedCaptionsSettingsText, active: false, isAdvanced: true});
     }
-
+  const filteredOptions = props.isMobile || props.isSmallSize ? textOptions.filter(option => !option.isSeparator) : textOptions;
     if (this.props.asDropdown) {
       return (
         <div data-captions-menu>
@@ -102,7 +102,7 @@ class CaptionsMenu extends Component<any, any> {
             }}
             icon={IconType.Captions}
             label={this.props.captionsLabelText}
-            options={textOptions}
+            options={filteredOptions}
             onMenuChosen={textTrack => this.onCaptionsChange(textTrack)}
           />
         </div>
@@ -114,7 +114,7 @@ class CaptionsMenu extends Component<any, any> {
             this.props.addAccessibleChild(el)
             props.pushRef(el);
           }}
-          options={textOptions}
+          options={filteredOptions}
           onMenuChosen={textTrack => this.onCaptionsChange(textTrack)}
           onClose={() => {}}
         />
