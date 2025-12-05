@@ -290,8 +290,12 @@ class MenuItem extends Component<any, any> {
         tabIndex={-1}
         aria-selected={props.isSelected(props.data)}
         disabled={props.data.disabled}
+        aria-hidden={props.data.disabled ? 'true' : 'false'} //stop screen readers from announcing disabled items
         ref={element => {
-          this.props.addAccessibleChild(element);
+          // Prevent disabled from being included in the keyboard navigation list
+          if (!props.data.disabled) {
+            this.props.addAccessibleChild(element);
+          }
           if (props.isSelected(props.data)) {
             setTimeout(() => props.setDefaultFocusedElement(element));
           }

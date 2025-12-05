@@ -106,19 +106,6 @@
     cursor: pointer;
     border-radius: 4px;
 
-  &:last-child {
-    position: relative;
-  }
-
-  &:last-child::before {
-    content: "";
-    position: absolute;
-    top: -4px;
-    left: 0;
-    right: 0;
-    border-top: 1px solid $tone-5-color;
-  }
-
     &:hover {
       background-color: $tone-5-color;
       color: #fff;
@@ -165,4 +152,20 @@
       }
     }
   }
+}
+
+[data-captions-menu] .dropdown-menu-item:nth-last-child(2) {
+  all: unset;
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: var(--Tone-4, #666);
+  margin: 8px 0;
+  padding: 0;
+  pointer-events: none;
+  cursor: default;
+}
+
+[data-captions-menu] span[aria-label="__separator__"] {
+  display: none !important;
 }

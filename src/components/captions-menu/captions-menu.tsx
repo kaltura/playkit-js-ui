@@ -89,20 +89,23 @@ class CaptionsMenu extends Component<any, any> {
       .sort((a, b) => (a.label > b.label || a.label === 'Off' ? 1 : -1));
 
     if (props.showAdvancedCaptionsMenu) {
+      textOptions.push({label: '__separator__', value: null, disabled: true, active: false});
       textOptions.push({label: props.advancedCaptionsSettingsText, value: props.advancedCaptionsSettingsText, active: false, isAdvanced: true});
     }
 
     if (this.props.asDropdown) {
       return (
-        <SmartContainerItem
-          pushRef={el => {
-            props.pushRef(el);
-          }}
-          icon={IconType.Captions}
-          label={this.props.captionsLabelText}
-          options={textOptions}
-          onMenuChosen={textTrack => this.onCaptionsChange(textTrack)}
-        />
+        <div data-captions-menu>
+          <SmartContainerItem
+            pushRef={el => {
+              props.pushRef(el);
+            }}
+            icon={IconType.Captions}
+            label={this.props.captionsLabelText}
+            options={textOptions}
+            onMenuChosen={textTrack => this.onCaptionsChange(textTrack)}
+          />
+        </div>
       );
     } else {
       return (
