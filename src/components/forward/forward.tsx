@@ -27,7 +27,8 @@ export const FORWARD_DEFAULT_STEP = 10;
  */
 const mapStateToProps = state => ({
   isDvr: state.engine.isDvr,
-  isLive: state.engine.isLive
+  isLive: state.engine.isLive,
+  secondsToSeek: state.config.seekSeconds
 });
 
 /**
@@ -36,7 +37,7 @@ const mapStateToProps = state => ({
  * @returns {Object} - The object translations
  */
 const translates = (props: any) => ({
-  forwardText: <Text id={'controls.secondsForward'} fields={{seconds: props.step || FORWARD_DEFAULT_STEP}}></Text>
+  forwardText: <Text id={'controls.secondsForward'} fields={{seconds: props.secondsToSeek}}></Text>
 });
 /**
  * Forward component
@@ -68,19 +69,18 @@ class Forward extends Component<any, any> {
    * @memberof Forward
    */
   onClick = (): void => {
-    const {player} = this.props;
+    const {player, secondsToSeek} = this.props;
     this.props.animate();
     let to;
-    const step = this.props.step || FORWARD_DEFAULT_STEP;
     const from = player.currentTime;
     const duration = player.isLive() ? player.liveDuration : player.duration;
-    if (player.currentTime + step > duration) {
+    if (player.currentTime + secondsToSeek > duration) {
       // if user is already on live edge then dont even attempt to move forward in time
       if (!player.isOnLiveEdge()) {
         to = duration;
       }
     } else {
-      to = player.currentTime + step;
+      to = player.currentTime + secondsToSeek;
     }
     player.currentTime = to;
     this.props.notifyClick({
@@ -96,12 +96,12 @@ class Forward extends Component<any, any> {
    * @returns {React$Element} - component element
    * @memberof Forward
    */
-  render({step, forwardText, innerRef}: any): VNode<any> | undefined {
+  render({secondsToSeek, forwardText, innerRef}: any): VNode<any> | undefined {
     return !this._shouldRender() ? undefined : (
       <ButtonControl name={COMPONENT_NAME} className={style.noIdleControl}>
         <Tooltip label={forwardText}>
           <Button tabIndex="0" aria-label={forwardText} className={`${style.controlButton}`} ref={innerRef} onClick={this.onClick}>
-            <Icon type={!step || step === FORWARD_DEFAULT_STEP ? IconType.Forward10 : IconType.Forward} />
+            <Icon type={secondsToSeek === FORWARD_DEFAULT_STEP ? IconType.Forward10 : IconType.Forward5} />
           </Button>
         </Tooltip>
       </ButtonControl>

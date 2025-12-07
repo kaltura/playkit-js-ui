@@ -24,6 +24,7 @@ export interface UIOptionsObject {
     showAdvancedCaptionsMenu?: boolean;
     showAudioDescriptionMenu?: boolean;
   };
+  seekSeconds?: number;
   hoverTimeout?: number;
   logger?: LoggerType;
   components?: ComponentsConfig;

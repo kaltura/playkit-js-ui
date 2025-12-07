@@ -27,7 +27,8 @@ export const REWIND_DEFAULT_STEP = 10;
  */
 const mapStateToProps = state => ({
   isDvr: state.engine.isDvr,
-  isLive: state.engine.isLive
+  isLive: state.engine.isLive,
+  secondsToSeek: state.config.seekSeconds
 });
 
 /**
@@ -36,7 +37,7 @@ const mapStateToProps = state => ({
  * @returns {Object} - The object translations
  */
 const translates = (props: any) => ({
-  rewindText: <Text id={'controls.secondsRewind'} fields={{seconds: props.step || REWIND_DEFAULT_STEP}}></Text>
+  rewindText: <Text id={'controls.secondsRewind'} fields={{seconds: props.secondsToSeek}}></Text>
 });
 /**
  * Rewind component
@@ -59,19 +60,18 @@ class Rewind extends Component<any, any> {
    * @memberof Rewind
    */
   onClick = (): void => {
-    const {player} = this.props;
+    const {player, secondsToSeek} = this.props;
     this.props.animate();
     let to;
-    const step = this.props.step || REWIND_DEFAULT_STEP;
     const from = player.currentTime;
     const basePosition = player.isLive() ? player.getStartTimeOfDvrWindow() : 0;
-    if (player.currentTime - step < basePosition) {
+    if (player.currentTime - secondsToSeek < basePosition) {
       // In dvr when close to beginning dont rewind
       if (!this.props.isDvr) {
         to = basePosition;
       }
     } else {
-      to = player.currentTime - step;
+      to = player.currentTime - secondsToSeek;
     }
     player.currentTime = to;
     this.props.notifyClick({
@@ -97,12 +97,12 @@ class Rewind extends Component<any, any> {
    * @returns {React$Element} - component element
    * @memberof Rewind
    */
-  render({step, rewindText, innerRef}: any): VNode<any> | undefined {
+  render({secondsToSeek, rewindText, innerRef}: any): VNode<any> | undefined {
     return !this._shouldRender() ? undefined : (
       <ButtonControl name={COMPONENT_NAME} className={style.noIdleControl}>
         <Tooltip label={rewindText}>
           <Button tabIndex="0" aria-label={rewindText} className={`${style.controlButton}`} ref={innerRef} onClick={this.onClick}>
-            <Icon type={!step || step === REWIND_DEFAULT_STEP ? IconType.Rewind10 : IconType.Rewind} />
+            <Icon type={secondsToSeek === REWIND_DEFAULT_STEP ? IconType.Rewind10 : IconType.Rewind5} />
           </Button>
         </Tooltip>
       </ButtonControl>

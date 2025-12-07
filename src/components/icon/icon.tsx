@@ -27,8 +27,10 @@ const IconType = {
   StartOver: 'start-over',
   SeekEnd: 'seek-end',
   Rewind: 'rewind',
+  Rewind5: 'rewind5',
   Rewind10: 'rewind10',
   Forward: 'forward',
+  Forward5: 'forward5',
   Forward10: 'forward10',
   vrStereo: 'vr-stereo',
   vrStereoFull: 'vr-stereo-full',
@@ -283,6 +285,9 @@ class Icon extends Component<any, any> {
 
         case IconType.Rewind:
           return <i className={[style.icon, style.iconRewind].join(' ')} aria-hidden="true" />;
+          
+        case IconType.Rewind5:
+          return <i className={[style.icon, style.iconRewind5].join(' ')} aria-hidden="true" />;
 
         case IconType.Rewind10:
           return <i className={[style.icon, style.iconRewind10].join(' ')} aria-hidden="true" />;
@@ -290,6 +295,9 @@ class Icon extends Component<any, any> {
         case IconType.Forward:
           return <i className={[style.icon, style.iconForward].join(' ')} aria-hidden="true" />;
 
+        case IconType.Forward5:
+          return <i className={[style.icon, style.iconForward5].join(' ')} aria-hidden="true" />;
+  
         case IconType.Forward10:
           return <i className={[style.icon, style.iconForward10].join(' ')} aria-hidden="true" />;
 
