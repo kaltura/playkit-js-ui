@@ -118,14 +118,16 @@ const _AudioDescriptionMenu = (props: AudioDescriptionMenuProps) => {
     {
       disabled: !hasAudioDescription,
       label: standardAudioDescriptionText as string,
-      ariaLabel: hasAudioDescription ? standardAudioDescriptionAvailableText : noStandardAudioDescriptionAvailableText,
+      ariaLabel: `${hasAudioDescription ? standardAudioDescriptionAvailableText : noStandardAudioDescriptionAvailableText} (${audioLanguage})`,
       value: AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION,
       active: (audioDescriptionEnabled && audioDescriptionType === AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION) as boolean
     },
     {
       disabled: !hasAdvancedAudioDescription,
       label: advancedAudioDescriptionText as string,
-      ariaLabel: hasAdvancedAudioDescription ? advancedAudioDescriptionAvailableText : noAdvancedAudioDescriptionAvailableText,
+      ariaLabel: `${
+        hasAdvancedAudioDescription ? advancedAudioDescriptionAvailableText : noAdvancedAudioDescriptionAvailableText
+      } (${audioLanguage})`,
       value: AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION,
       active: (audioDescriptionEnabled && audioDescriptionType === AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION) as boolean
     }
