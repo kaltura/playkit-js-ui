@@ -14,13 +14,6 @@ import {ButtonControl} from '../../components/button-control';
 const COMPONENT_NAME = 'Forward';
 
 /**
- * Default forward step
- * @type {number}
- * @const
- */
-export const FORWARD_DEFAULT_STEP = 10;
-
-/**
  * mapping state to props
  * @param {*} state - redux store state
  * @returns {Object} - mapped state to this component
@@ -89,6 +82,20 @@ class Forward extends Component<any, any> {
     });
   };
 
+    /**
+     * get icon type based on seek seconds
+     * @returns {string} - icon type
+     */
+    _getIconType(): string  {
+      let icon = IconType.Forward;
+      if (this.props.secondsToSeek === 5) {
+        icon = IconType.Forward5;
+      } else if (this.props.secondsToSeek === 10) {
+        icon = IconType.Forward10;
+      }
+      return icon;
+    }ד
+
   /**
    * render component
    *
@@ -96,12 +103,13 @@ class Forward extends Component<any, any> {
    * @returns {React$Element} - component element
    * @memberof Forward
    */
-  render({secondsToSeek, forwardText, innerRef}: any): VNode<any> | undefined {
+  render({forwardText, innerRef}: any): VNode<any> | undefined {
+    const icon = this._getIconType();
     return !this._shouldRender() ? undefined : (
       <ButtonControl name={COMPONENT_NAME} className={style.noIdleControl}>
         <Tooltip label={forwardText}>
           <Button tabIndex="0" aria-label={forwardText} className={`${style.controlButton}`} ref={innerRef} onClick={this.onClick}>
-            <Icon type={secondsToSeek === FORWARD_DEFAULT_STEP ? IconType.Forward10 : IconType.Forward5} />
+            <Icon type={icon} />
           </Button>
         </Tooltip>
       </ButtonControl>

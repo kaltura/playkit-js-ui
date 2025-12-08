@@ -14,13 +14,6 @@ import {ButtonControl} from '../button-control';
 const COMPONENT_NAME = 'Rewind';
 
 /**
- * Default rewind step
- * @type {number}
- * @const
- */
-export const REWIND_DEFAULT_STEP = 10;
-
-/**
  * mapping state to props
  * @param {*} state - redux store state
  * @returns {Object} - mapped state to this component
@@ -90,6 +83,21 @@ class Rewind extends Component<any, any> {
     return isActive;
   }
 
+
+  /**
+   * get icon type based on seek seconds
+   * @returns {string} - icon type
+   */
+  _getIconType(): string  {
+    let icon = IconType.Rewind;
+    if (this.props.secondsToSeek === 5) {
+      icon = IconType.Rewind5;
+    } else if (this.props.secondsToSeek === 10) {
+      icon = IconType.Rewind10;
+    }
+    return icon;
+  }
+
   /**
    * render component
    *
@@ -97,12 +105,13 @@ class Rewind extends Component<any, any> {
    * @returns {React$Element} - component element
    * @memberof Rewind
    */
-  render({secondsToSeek, rewindText, innerRef}: any): VNode<any> | undefined {
+  render({rewindText, innerRef}: any): VNode<any> | undefined {
+    const icon = this._getIconType();
     return !this._shouldRender() ? undefined : (
       <ButtonControl name={COMPONENT_NAME} className={style.noIdleControl}>
         <Tooltip label={rewindText}>
           <Button tabIndex="0" aria-label={rewindText} className={`${style.controlButton}`} ref={innerRef} onClick={this.onClick}>
-            <Icon type={secondsToSeek === REWIND_DEFAULT_STEP ? IconType.Rewind10 : IconType.Rewind5} />
+            <Icon type={icon} />
           </Button>
         </Tooltip>
       </ButtonControl>
