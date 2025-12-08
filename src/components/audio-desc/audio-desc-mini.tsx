@@ -104,6 +104,7 @@ const _AudioDescMini = (props: any) => {
     handleClick,
     onKeyDown,
     getComponentText(props, store),
+    props.audioDescriptionLabelText,
     props.classNames?.includes(style.upperBarIcon),
     shouldActivate(engine.audioTracks, activeAudioLanguage, audioDescriptionLanguages, advancedAudioDescriptionLanguages),
     icon
@@ -137,17 +138,20 @@ const getButtonComponent = (
   onClick: () => void,
   onKeyDown: (e: KeyboardEvent) => void,
   label: string,
+  ariaLabel: string,
   isUpperBarIcon: boolean,
   isActive: boolean,
   icon
 ) => {
   return openMenuFromAudioDescriptionButton ? (
-    <Button tabIndex="0" aria-label={label} className={`${style.controlButton}`} ref={innerRef} onClick={onClick} onKeyDown={onKeyDown}>
-      <Icon color={isActive ? '' : '#888'} type={icon.type} />
-    </Button>
+    <Tooltip label={label} type={isUpperBarIcon ? 'bottom-left' : 'top'} strictPosition>
+      <Button tabIndex="0" aria-label={ariaLabel} className={`${style.controlButton}`} ref={innerRef} onClick={onClick} onKeyDown={onKeyDown}>
+        <Icon color={isActive ? '' : '#888'} type={icon.type} />
+      </Button>
+    </Tooltip>
   ) : (
     <Tooltip label={label} type={isUpperBarIcon ? 'bottom-left' : 'top'} strictPosition>
-      <Button tabIndex="0" aria-label={label} className={`${style.controlButton}`} ref={innerRef} onClick={onClick} onKeyDown={onKeyDown}>
+      <Button tabIndex="0" aria-label={ariaLabel} className={`${style.controlButton}`} ref={innerRef} onClick={onClick} onKeyDown={onKeyDown}>
         <Icon color={isActive ? '' : '#888'} type={icon.type} />
       </Button>
     </Tooltip>
