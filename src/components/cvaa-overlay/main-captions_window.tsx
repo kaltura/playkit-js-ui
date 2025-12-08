@@ -6,6 +6,7 @@ import {Icon, IconType} from '../icon';
 import {SampleCaptionsStyleButton} from './sample-captions-style-button';
 import {h} from 'preact';
 import {withPlayer} from '../player';
+import { KeyCode } from '../../utils/key-map';
 
 /**
  * MainWindow component
@@ -14,9 +15,13 @@ import {withPlayer} from '../player';
  */
 @withPlayer
 class MainCaptionsWindow extends Component<any, any> {
-  captionsStyleDefault: any;
-  captionsStyleYellow: any;
-  captionsStyleBlackBG: any;
+    presets: {
+      key: string;
+      className: string;
+      textId: string;
+      source: string;
+      style: any;
+    }[] = [];
 
   /**
    * componentWillMount
@@ -27,19 +32,111 @@ class MainCaptionsWindow extends Component<any, any> {
   componentWillMount() {
     const {player} = this.props;
 
-    this.captionsStyleDefault = player.TextStyle.fromJson({
-      backgroundOpacity: player.TextStyle.StandardOpacities.TRANSPARENT
-    });
+    this.presets = [
+      {
+        key: "minimalist",
+        className: style.minimalist,
+        textId: "cvaa.sample_minimalist",
+        source: "Advanced_captions_preset_minimalist",
+        style: player.TextStyle.fromJson({
+          fontSize: player.TextStyle.FontSizes[0].label,
+          fontWeight: player.TextStyle.StandardFontWeights[1].value,
+          textAlign: player.TextStyle.FontAlignment[2].value,
+          fontColor: player.TextStyle.StandardColors.WHITE,
+          fontFamily: "Verdana",
+          backgroundColor: player.TextStyle.StandardColors.BLACK,
+          backgroundOpacity: player.TextStyle.StandardOpacities.SEMI_HIGH
+        })
+      },
+      {
+        key: "highContrast",
+        className: style.highContrast,
+        textId: "cvaa.sample_high_contrast",
+        source: "Advanced_captions_preset_high_contrast",
+        style: player.TextStyle.fromJson({
+          fontSize: player.TextStyle.FontSizes[1].label,
+          fontWeight: player.TextStyle.StandardFontWeights[3].value,
+          textAlign: player.TextStyle.FontAlignment[2].value,
+          fontColor: player.TextStyle.StandardColors.YELLOW,
+          fontFamily: "Arial",
+          backgroundColor: player.TextStyle.StandardColors.BLACK,
+          backgroundOpacity: player.TextStyle.StandardOpacities.OPAQUE
+        })
+      },
+      {
+        key: "classicTv",
+        className: style.classicTv,
+        textId: "cvaa.sample_classic_tv",
+        source: "Advanced_captions_preset_classic_tv_style",
+        style: player.TextStyle.fromJson({
+          fontSize: player.TextStyle.FontSizes[0].label,
+          fontWeight: player.TextStyle.StandardFontWeights[1].value,
+          textAlign: player.TextStyle.FontAlignment[2].value,
+          fontColor: player.TextStyle.StandardColors.WHITE,
+          fontFamily: "Times New Roman",
+          backgroundColor: player.TextStyle.StandardColors.BLACK,
+          backgroundOpacity: player.TextStyle.StandardOpacities.OPAQUE
+        })
+      },
+      {
+        key: "easyReading",
+        className: style.easyReading,
+        textId: "cvaa.sample_easy_reading",
+        source: "Advanced_captions_preset_easy_reading",
+        style: player.TextStyle.fromJson({
+          fontSize: player.TextStyle.FontSizes[2].label,
+          fontWeight: player.TextStyle.StandardFontWeights[3].value,
+          textAlign: player.TextStyle.FontAlignment[1].value,
+          fontColor: player.TextStyle.StandardColors.DARK_BLUE,
+          fontFamily: "Tahoma",
+          backgroundColor: player.TextStyle.StandardColors.LIGHT_YELLOW,
+          backgroundOpacity: player.TextStyle.StandardOpacities.OPAQUE
+        })
+      },
+      {
+        key: "earlyReaders",
+        className: style.earlyReaders,
+        textId: "cvaa.sample_early_readers",
+        source: "Advanced_captions_preset_early_readers",
+        style: player.TextStyle.fromJson({
+          fontSize: player.TextStyle.FontSizes[2].label,
+          fontWeight: player.TextStyle.StandardFontWeights[3].value,
+          textAlign: player.TextStyle.FontAlignment[2].value,
+          fontColor: player.TextStyle.StandardColors.BLACK,
+          fontFamily: "Trebuchet MS",
+          backgroundColor: player.TextStyle.StandardColors.YELLOW,
+          backgroundOpacity: player.TextStyle.StandardOpacities.OPAQUE
+        })
+      },
+      {
+        key: "nightMode",
+        className: style.nightMode,
+        textId: "cvaa.sample_night_mode",
+        source: "Advanced_captions_preset_night_mode",
+        style: player.TextStyle.fromJson({
+          fontSize: player.TextStyle.FontSizes[1].label,
+          fontWeight: player.TextStyle.StandardFontWeights[3].value,
+          textAlign: player.TextStyle.FontAlignment[2].value,
+          fontColor: player.TextStyle.StandardColors.LIGHT_GRAY,
+          fontFamily: "EB Garamond",
+          backgroundColor: player.TextStyle.StandardColors.BLACK,
+          backgroundOpacity: player.TextStyle.StandardOpacities.SEMI_HIGH
+        })
+      }
+    ];
+  }
 
-    this.captionsStyleYellow = player.TextStyle.fromJson({
-      backgroundOpacity: player.TextStyle.StandardOpacities.TRANSPARENT,
-      fontColor: player.TextStyle.StandardColors.YELLOW
-    });
-
-    this.captionsStyleBlackBG = player.TextStyle.fromJson({
-      backgroundColor: player.TextStyle.StandardColors.BLACK,
-      fontColor: player.TextStyle.StandardColors.WHITE
-    });
+  componentDidMount() {
+    const { player } = this.props;
+    // If no preset or custom is applied, default to Minimalist
+    const isPreset = this.presets.map(preset => preset.style).some(style => player.textStyle.isEqual(style));
+    const isCustom = this.props.customPresetStyle && player.textStyle.isEqual(this.props.customPresetStyle);
+    
+    if (!isPreset && !isCustom) {
+      this.props.changeCaptionsStyle(
+        this.presets.find(preset => preset.key === "minimalist")?.style
+      );
+    }
   }
 
   /**
@@ -49,6 +146,8 @@ class MainCaptionsWindow extends Component<any, any> {
    * @memberof MainWindow
    */
   transitionToState = (): void => {
+    const activeStyle = this.getActiveStyle();
+    this.props.setInitialCustomStyle(activeStyle);
     this.props.transitionToState(this.props.cvaaOverlayState.CustomCaptions);
   };
 
@@ -60,9 +159,32 @@ class MainCaptionsWindow extends Component<any, any> {
    * @memberof MainWindow
    */
   onKeyDown = (e: KeyboardEvent): void => {
-    if (e.keyCode === KeyMap.ENTER) {
+    if (e.code === KeyCode.Enter) {
       this.transitionToState();
     }
+  };
+
+  
+
+  /**
+   * get the active captions style for preview
+   *
+   * @returns {Object} - active captions style
+   * @memberof MainWindow
+   */
+  getActiveStyle = () => {
+    const { player, customPresetStyle } = this.props;
+
+    // If the current style equals the saved custom preset, use it
+    if (customPresetStyle && player.textStyle.isEqual(customPresetStyle)) {
+      return customPresetStyle;
+    }
+
+    const styles = this.presets.map(preset => preset.style);
+    const activeStyle = styles.find(style => player.textStyle.isEqual(style));
+
+    // Fallback: Minimalist is always the default on first load
+    return activeStyle ? activeStyle : this.presets.find(preset => preset.key === "minimalist")!.style;
   };
 
   /**
@@ -72,44 +194,52 @@ class MainCaptionsWindow extends Component<any, any> {
    * @returns {React$Element} - component element
    * @memberof MainWindow
    */
-  render(props: any): VNode<any> {
+  render(props: any): VNode<any> {    
+    const activePreset = this.presets.find(preset => this.props.player.textStyle.isEqual(preset.style));
+    const isCustomEqualToPreset = this.presets.some(preset => props.customPresetStyle && props.customPresetStyle.isEqual(preset.style));
+    const isCustomActive = props.customPresetStyle && this.props.player.textStyle.isEqual(props.customPresetStyle);
+    
     return (
       <div className={[style.overlayScreen, style.active].join(' ')}>
         <h2 className={style.title} id={this.props.captionsTitleId}>
           <Text id={'cvaa.title'} />
         </h2>
         <div role="radiogroup">
-          <SampleCaptionsStyleButton
-            addAccessibleChild={props.addAccessibleChild}
-            classNames={[style.sample]}
-            changeCaptionsStyle={() => props.changeCaptionsStyle(this.captionsStyleDefault)}
-            isActive={props.player.textStyle.isEqual(this.captionsStyleDefault)}
-          >
-            <Text id={'cvaa.sample_caption_tag'} fields={{number: '1'}} />
-          </SampleCaptionsStyleButton>
-          <SampleCaptionsStyleButton
-            addAccessibleChild={props.addAccessibleChild}
-            classNames={[style.sample, style.blackBg]}
-            changeCaptionsStyle={() => props.changeCaptionsStyle(this.captionsStyleBlackBG)}
-            isActive={props.player.textStyle.isEqual(this.captionsStyleBlackBG)}
-          >
-            <Text id={'cvaa.sample_caption_tag'} fields={{number: '2'}} />
-          </SampleCaptionsStyleButton>
-          <SampleCaptionsStyleButton
-            addAccessibleChild={props.addAccessibleChild}
-            classNames={[style.sample, style.yellowText]}
-            changeCaptionsStyle={() => props.changeCaptionsStyle(this.captionsStyleYellow)}
-            isActive={props.player.textStyle.isEqual(this.captionsStyleYellow)}
-          >
-            <Text id={'cvaa.sample_caption_tag'} fields={{number: '3'}} />
-          </SampleCaptionsStyleButton>
+          {this.presets.map(preset => (
+            <SampleCaptionsStyleButton
+              key={preset.key}
+              addAccessibleChild={props.addAccessibleChild}
+              classNames={[style.sample, preset.className]}
+              changeCaptionsStyle={() =>
+                props.changeCaptionsStyle(preset.style, preset.source)
+              }
+              isActive={props.player.textStyle.isEqual(preset.style)}
+            >
+              <Text id={preset.textId} />
+            </SampleCaptionsStyleButton>
+          ))}
         </div>
-        {!this.isAdvancedStyleApplied() ? (
-          <a
-            id='setCustom'
-            role="button"
-            aria-haspopup="true"
-            tabIndex={0}
+        <div className={style.customButtons}>
+          {props.customPresetStyle && !isCustomEqualToPreset && (
+            <SampleCaptionsStyleButton
+              addAccessibleChild={props.addAccessibleChild}
+              classNames={[style.sample]}
+              changeCaptionsStyle={() => props.changeCaptionsStyle(props.customPresetStyle, "Advanced_captions_custom")}
+              isActive={isCustomActive}
+            >
+              <span className={style.customButtonText}>
+                <Text id={'cvaa.sample_custom'} />
+              </span>
+              {isCustomActive && (
+                <span className={style.activeTick}>
+                  <Icon type={IconType.Check} />
+                </span>
+              )}
+            </SampleCaptionsStyleButton>
+          )}
+          <button
+            id="setCustom"
+            type="button"
             className={style.buttonSaveCvaa}
             onClick={this.transitionToState}
             ref={el => {
@@ -118,49 +248,17 @@ class MainCaptionsWindow extends Component<any, any> {
             }}
             onKeyDown={this.onKeyDown}
           >
-            <Text id={'cvaa.set_custom_caption'} />
-          </a>
-        ) : (
-          <div className={style.customCaptionsApplied}>
-            <div className={[style.sample, style.custom].join(' ')} style={props.customTextStyle.toCSS()}>
-              <Text id={'cvaa.sample_custom_caption_tag'} />
-              <div className={style.activeTick}>
-                <Icon type={IconType.Check} />
-              </div>
-            </div>
-            <a
-              id='editCaption'
-              role="button"
-              tabIndex={0}
-              aria-haspopup="true"
-              className={style.buttonEditCvaa}
-              onClick={this.transitionToState}
-              ref={el => {
-                props.addAccessibleChild(el);
-                props.setCustomOrEditRef?.(el);
-              }}
-              onKeyDown={this.onKeyDown}
-            >
-              <Text id={'cvaa.edit_caption'} />
-            </a>
-          </div>
-        )}
+            <span>
+              <Text id={'cvaa.set_custom_caption'} />
+            </span>
+          </button>
+        </div>
+        <div className={`${style.previewContainer} ${activePreset?.key === "easyReading" ? style.previewEasyReading : ""}`}>
+          <span style={this.getActiveStyle().toCSS()}>
+            <Text id={'cvaa.caption_preview'} />
+          </span>
+        </div>
       </div>
-    );
-  }
-
-  /**
-   * detection if advanced style applied or one of the default presets applied
-   *
-   * @returns {boolean} advanced style applied boolean
-   * @memberof MainWindow
-   */
-  isAdvancedStyleApplied(): boolean {
-    const {player} = this.props;
-    return (
-      !player.textStyle.isEqual(this.captionsStyleDefault) &&
-      !player.textStyle.isEqual(this.captionsStyleBlackBG) &&
-      !player.textStyle.isEqual(this.captionsStyleYellow)
     );
   }
 }
