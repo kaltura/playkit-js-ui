@@ -170,7 +170,7 @@
       "enableAudioDescription": "Enable Audio Description",
       "disableAudioDescription": "Disable Audio Description",
       "thereIsAudioDescriptionAvailable": "Audio Description available for the currently selected language, you can choose to enable in the Audio Descriptions",
-      "thereIsNoAudioDescriptionAvailable": "There is no Audio Description available for the currently selected language",
+      "thereIsNoAudioDescriptionAvailable": "No Audio Description available for the currently selected language",
       "noStandardAudioDescriptionAvailable": "No Standard Audio Description available for the currently selected language",
       "standardAudioDescriptionAvailable": "A Standard Audio Description is available for the currently selected language",
       "noAdvancedAudioDescriptionAvailable": "No Extended Audio Description available for the currently selected language",
