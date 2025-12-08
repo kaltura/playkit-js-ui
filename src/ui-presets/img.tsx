@@ -17,6 +17,7 @@ import {InteractiveArea} from '../components';
 import {withKeyboardEvent} from '../components';
 import {VideoArea} from '../components';
 import {GuiArea} from '../components';
+import {Title} from '../components';
 
 const PRESET_NAME = 'Img';
 
@@ -63,7 +64,7 @@ class ImgUI extends Component<any, any> {
               </Fragment>
               {() => (
                 <Fragment>
-                  <TopBar />
+                  <TopBar leftControls={<Title />} />
                   <InteractiveArea>
                     <Watermark />
                   </InteractiveArea>

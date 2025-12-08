@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.82.11 (2025-12-07)
+
+
+### Bug Fixes
+
+* **FEC-14757:** Player v7 | User is able to upload EAD that doesn't match the regular audio track language, and therefore the EAD will not be available to select on the player. ([#1118](https://github.com/kaltura/playkit-js-ui/issues/1118)) ([cbae1f5](https://github.com/kaltura/playkit-js-ui/commit/cbae1f5))
+
+
+
 ### 0.82.10 (2025-11-27)
 
 

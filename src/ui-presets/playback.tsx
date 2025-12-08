@@ -31,6 +31,7 @@ import {withKeyboardEvent} from '../components';
 import {VideoArea} from '../components';
 import {GuiArea} from '../components';
 import {ClosedCaptions} from '../components';
+import {Title} from '../components';
 import {Audio} from '../components';
 import {AudioDescriptionUpdater} from '../components/audio-desc/audio-description-updater';
 import {MediaInfoDisplay} from '../components';
@@ -84,7 +85,7 @@ class PlaybackUI extends Component<any, any> {
               </Fragment>
               {({containerRef}) => (
                 <Fragment>
-                  <TopBar />
+                  <TopBar leftControls={<Title />} />
                   <InteractiveArea>
                     <UnmuteIndication />
                     <Watermark />

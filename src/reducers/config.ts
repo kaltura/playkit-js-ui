@@ -16,6 +16,7 @@ export const initialState = {
   allowPlayPause: true,
   allowLivePlayPause: true,
   showCCButton: true,
+  showTitleOnUpperBar: false,
   showAudioButton: true,
   showAudioDescriptionButton: true,
   openMenuFromCCButton: false,
