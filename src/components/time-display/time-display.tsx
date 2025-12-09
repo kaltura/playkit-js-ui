@@ -24,15 +24,24 @@ const mapStateToProps = state => ({
 class TimeDisplay extends Component<any, any> {
   private timeDisplayRef: RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
 
-  componentDidUpdate(prevProps: any) {
-    if (prevProps.timeDisplayIsMinimized !== this.props.timeDisplayIsMinimized) {
-      if (this.props.timeDisplayIsMinimized){
-          this.timeDisplayRef.current?.classList.add(`${style.paddingStyle}`);
+  addPaddingStyleClass(){
+    if (this.props.timeDisplayIsMinimized){
+        this.timeDisplayRef.current?.classList.add(`${style.paddingStyle}`);
       } else {
         this.timeDisplayRef.current?.classList.remove(`${style.paddingStyle}`);
       }
+  }
+
+  componentDidUpdate(prevProps: any) {
+    if (prevProps.timeDisplayIsMinimized !== this.props.timeDisplayIsMinimized) {
+      this.addPaddingStyleClass();
     }
-}
+  }
+
+  componentDidMount(){
+    this.addPaddingStyleClass();
+  }
+
   /**
    * get formatted time display based on defined format
    *
