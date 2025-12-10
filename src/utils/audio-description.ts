@@ -26,3 +26,4 @@ export function getActiveAudioLanguage(player: KalturaPlayer) {
 export function getAudioDescriptionStateFromStorage() {
   return (window as any).KalturaPlayer?.LocalStorageManager?.getItem(AUDIO_DESCRIPTION_STORAGE_KEY) || null;
 }
+//dummy
