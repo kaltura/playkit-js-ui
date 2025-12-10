@@ -46,6 +46,26 @@ const translates = (props: any) => ({
 @withAnimation(style.reverseRotate)
 @withText(translates)
 class Forward extends Component<any, any> {
+  private _secondsToSeek: number;
+
+  constructor(props: any) {
+    super(props);
+    this._secondsToSeek = this._getValidSecondsToSeek(props.secondsToSeek);
+  }
+
+  /**
+   * checking if value id valid number
+   * @param {any} value - value to check
+   * @returns {number}
+   * @memberof Forward
+   */
+  _getValidSecondsToSeek(value: any): number {
+    if (typeof value === 'number' && Number.isInteger(value) && value > 0) {
+      return value;
+    } else {
+      return 10;
+    }
+  }
   /**
    * should render component
    * @returns {boolean} - whether to render the component
@@ -62,18 +82,18 @@ class Forward extends Component<any, any> {
    * @memberof Forward
    */
   onClick = (): void => {
-    const {player, secondsToSeek} = this.props;
+    const {player} = this.props;
     this.props.animate();
     let to;
     const from = player.currentTime;
     const duration = player.isLive() ? player.liveDuration : player.duration;
-    if (player.currentTime + secondsToSeek > duration) {
+    if (player.currentTime + this._secondsToSeek > duration) {
       // if user is already on live edge then dont even attempt to move forward in time
       if (!player.isOnLiveEdge()) {
         to = duration;
       }
     } else {
-      to = player.currentTime + secondsToSeek;
+      to = player.currentTime + this._secondsToSeek;
     }
     player.currentTime = to;
     this.props.notifyClick({
@@ -88,9 +108,9 @@ class Forward extends Component<any, any> {
      */
     _getIconType(): string  {
       let icon = IconType.Forward;
-      if (this.props.secondsToSeek === 5) {
+      if (this._secondsToSeek === 5) {
         icon = IconType.Forward5;
-      } else if (this.props.secondsToSeek === 10) {
+      } else if (this._secondsToSeek === 10) {
         icon = IconType.Forward10;
       }
       return icon;

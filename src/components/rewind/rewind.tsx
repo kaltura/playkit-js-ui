@@ -46,6 +46,27 @@ const translates = (props: any) => ({
 @withAnimation(style.rotate)
 @withText(translates)
 class Rewind extends Component<any, any> {
+  private _secondsToSeek: number;
+
+  constructor(props: any) {
+    super(props);
+    this._secondsToSeek = this._getValidSecondsToSeek(props.secondsToSeek);
+  }
+
+  /**
+   * checking if value id valid number
+   * @param {any} value - value to check
+   * @returns {number}
+   * @memberof Rewind
+   */
+  _getValidSecondsToSeek(value: any): number {
+    if (typeof value === 'number' && Number.isInteger(value) && value > 0) {
+      return value;
+    } else {
+      return 10;
+    }
+  }
+
   /**
    * rewind click handler
    *
@@ -53,18 +74,18 @@ class Rewind extends Component<any, any> {
    * @memberof Rewind
    */
   onClick = (): void => {
-    const {player, secondsToSeek} = this.props;
+    const {player} = this.props;
     this.props.animate();
     let to;
     const from = player.currentTime;
     const basePosition = player.isLive() ? player.getStartTimeOfDvrWindow() : 0;
-    if (player.currentTime - secondsToSeek < basePosition) {
+    if (player.currentTime - this._secondsToSeek < basePosition) {
       // In dvr when close to beginning dont rewind
       if (!this.props.isDvr) {
         to = basePosition;
       }
     } else {
-      to = player.currentTime - secondsToSeek;
+      to = player.currentTime - this._secondsToSeek;
     }
     player.currentTime = to;
     this.props.notifyClick({
@@ -90,9 +111,9 @@ class Rewind extends Component<any, any> {
    */
   _getIconType(): string  {
     let icon = IconType.Rewind;
-    if (this.props.secondsToSeek === 5) {
+    if (this._secondsToSeek === 5) {
       icon = IconType.Rewind5;
-    } else if (this.props.secondsToSeek === 10) {
+    } else if (this._secondsToSeek === 10) {
       icon = IconType.Rewind10;
     }
     return icon;
