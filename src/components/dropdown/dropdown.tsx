@@ -146,7 +146,6 @@ class DropDown extends Component<any, any> {
         options={this.props.options}
         onMenuChosen={this.onMenuChosen}
         onClose={this.onClose}
-        additionalOptions={this.props.additionalOptions || []}
       />
     );
   }
@@ -195,7 +194,7 @@ class DropDown extends Component<any, any> {
           </span>
           <Icon type={IconType.ArrowDown} />
           {!this.state.dropMenuActive ? undefined : (
-            <Menu parentEl={this._el} options={props.options} onMenuChosen={this.onMenuChosen} onClose={this.onClose} additionalOptions={props.additionalOptions || []} />
+            <Menu parentEl={this._el} options={props.options} onMenuChosen={this.onMenuChosen} onClose={this.onClose}/>
           )}
         </div>
       </div>

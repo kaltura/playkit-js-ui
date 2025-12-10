@@ -88,20 +88,24 @@ class CaptionsMenu extends Component<any, any> {
       }))
       .sort((a, b) => (a.label > b.label || a.label === 'Off' ? 1 : -1));
 
-    const additionalOptions = props.showAdvancedCaptionsMenu ? [{ label: props.advancedCaptionsSettingsText, value: props.advancedCaptionsSettingsText, active: false, isAdvanced: true }] : [];
-
+    if (props.showAdvancedCaptionsMenu) {
+      textOptions.push({label: '__separator__', value: null, disabled: true, active: false, isSeparator: true});
+      textOptions.push({label: props.advancedCaptionsSettingsText, value: props.advancedCaptionsSettingsText, active: false, isAdvanced: true});
+    }
+  const filteredOptions = props.isMobile || props.isSmallSize ? textOptions.filter(option => !option.isSeparator) : textOptions;
     if (this.props.asDropdown) {
       return (
-        <SmartContainerItem
-          pushRef={el => {
-            props.pushRef(el);
-          }}
-          icon={IconType.Captions}
-          label={this.props.captionsLabelText}
-          options={textOptions}
-          onMenuChosen={textTrack => this.onCaptionsChange(textTrack)}
-          additionalOptions={additionalOptions}
-        />
+        <div data-captions-menu>
+          <SmartContainerItem
+            pushRef={el => {
+              props.pushRef(el);
+            }}
+            icon={IconType.Captions}
+            label={this.props.captionsLabelText}
+            options={filteredOptions}
+            onMenuChosen={textTrack => this.onCaptionsChange(textTrack)}
+          />
+        </div>
       );
     } else {
       return (
@@ -110,10 +114,9 @@ class CaptionsMenu extends Component<any, any> {
             this.props.addAccessibleChild(el)
             props.pushRef(el);
           }}
-          options={textOptions}
+          options={filteredOptions}
           onMenuChosen={textTrack => this.onCaptionsChange(textTrack)}
           onClose={() => {}}
-          additionalOptions={additionalOptions}
         />
       );
     }
