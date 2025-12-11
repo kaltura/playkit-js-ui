@@ -139,7 +139,7 @@ const _AudioDescriptionMenu = (props: AudioDescriptionMenuProps) => {
         pushRef={el => {
           props.pushRef?.(el);
         }}
-        icon={IconType.Captions}
+        icon={IconType.AdvancedAudioDescriptionActive}
         label={audioDescriptionText}
         options={options}
         onMenuChosen={enabledState => onAudioDescriptionChange(enabledState)}

@@ -124,7 +124,7 @@ const _AudioMenu = (props: AudioMenuProps) => {
     return (
       <SmartContainerItem
         pushRef={el => props.pushRef?.(el)}
-        icon={IconType.Captions}
+        icon={IconType.Audio}
         label={props.audioLabelText}
         options={audioOptions}
         onMenuChosen={(audioTrack: any) => onAudioChange(audioTrack)}
