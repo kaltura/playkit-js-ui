@@ -4,7 +4,7 @@ import {withText} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
 import {actions} from '../../reducers/settings';
-import {BadgeType, SmartContainerItem} from '../../components';
+import {BadgeType, SmartContainerItem, Menu} from '../../components';
 import {IconType} from '../icon';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from '../event-dispatcher';
@@ -153,17 +153,33 @@ class QualityMenu extends Component<any, any> {
       });
     }
 
-    return (
-      <SmartContainerItem
-        pushRef={el => {
-          props.pushRef(el);
-        }}
-        icon={IconType.Quality}
-        label={props.qualityLabelText}
-        options={qualityOptions}
-        onMenuChosen={o => this.onQualityChange(o)}
-      />
-    );
+    if (props.asDropdown) {
+      return (
+        <SmartContainerItem
+          pushRef={el => props.pushRef?.(el)}
+          icon={IconType.Quality}
+          label={props.qualityLabelText}
+          options={qualityOptions}
+          onMenuChosen={(qualityOption: any) => this.onQualityChange(qualityOption)}
+          onClose={() => {}}
+        />
+      );
+    } else {
+      return (
+        <Menu
+          pushRef={el => {
+            props.addAccessibleChild?.(el);
+            props.pushRef?.(el);
+          }}
+          options={qualityOptions}
+          onMenuChosen={(qualityOption: any) => {
+            this.onQualityChange(qualityOption);
+            props.onClick?.();
+          }}
+          onClose={() => {}}
+        />
+      );
+    }
   }
 }
 
