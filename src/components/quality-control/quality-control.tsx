@@ -82,7 +82,7 @@ const QualityControl = connect(mapStateToProps)(
         area: 'GuiArea',
         presets: ['Playback', 'Live'],
         get: () => (
-        <SmartContainer targetId={player.config.targetId} onClose={() => removeOverlay()} title={props.qualityLabelText}>
+        <SmartContainer targetId={player.config.targetId} onClose={() => removeOverlay()} title={props.qualityLabelText} label={props.qualityLabelText}>
             <QualityMenu />
         </SmartContainer>
         )
@@ -142,7 +142,7 @@ const QualityControl = connect(mapStateToProps)(
             </Button>
           </Tooltip>
           {smartContainerOpen && (
-            <SmartContainer targetId={player.config.targetId} onClose={onClose} title={props.qualityLabelText}>
+            <SmartContainer targetId={player.config.targetId} onClose={onClose} title={props.qualityLabelText} label={props.qualityLabelText}>
               <QualityMenu onClick={onClose}  />
             </SmartContainer>
           )}
