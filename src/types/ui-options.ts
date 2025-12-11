@@ -17,6 +17,7 @@ export interface UIOptionsObject {
   openMenuFromCCButton?: boolean;
   openMenuFromAudioDescriptionButton?: boolean;
   showAudioButton?: boolean;
+  showQualityButton?: boolean;
   settings?: {
     showAudioMenu?: boolean;
     showCaptionsMenu?: boolean;
