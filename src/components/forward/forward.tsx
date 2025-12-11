@@ -14,20 +14,14 @@ import {ButtonControl} from '../../components/button-control';
 const COMPONENT_NAME = 'Forward';
 
 /**
- * Default forward step
- * @type {number}
- * @const
- */
-export const FORWARD_DEFAULT_STEP = 10;
-
-/**
  * mapping state to props
  * @param {*} state - redux store state
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
   isDvr: state.engine.isDvr,
-  isLive: state.engine.isLive
+  isLive: state.engine.isLive,
+  secondsToSeek: state.config.seekSeconds
 });
 
 /**
@@ -36,7 +30,7 @@ const mapStateToProps = state => ({
  * @returns {Object} - The object translations
  */
 const translates = (props: any) => ({
-  forwardText: <Text id={'controls.secondsForward'} fields={{seconds: props.step || FORWARD_DEFAULT_STEP}}></Text>
+  forwardText: <Text id={'controls.secondsForward'} fields={{seconds: props.secondsToSeek}}></Text>
 });
 /**
  * Forward component
@@ -52,6 +46,26 @@ const translates = (props: any) => ({
 @withAnimation(style.reverseRotate)
 @withText(translates)
 class Forward extends Component<any, any> {
+  private _secondsToSeek: number;
+
+  constructor(props: any) {
+    super(props);
+    this._secondsToSeek = this._getValidSecondsToSeek(props.secondsToSeek);
+  }
+
+  /**
+   * checking if value id valid number
+   * @param {any} value - value to check
+   * @returns {number}
+   * @memberof Forward
+   */
+  _getValidSecondsToSeek(value: any): number {
+    if (typeof value === 'number' && Number.isInteger(value) && value > 0) {
+      return value;
+    } else {
+      return 10;
+    }
+  }
   /**
    * should render component
    * @returns {boolean} - whether to render the component
@@ -71,16 +85,15 @@ class Forward extends Component<any, any> {
     const {player} = this.props;
     this.props.animate();
     let to;
-    const step = this.props.step || FORWARD_DEFAULT_STEP;
     const from = player.currentTime;
     const duration = player.isLive() ? player.liveDuration : player.duration;
-    if (player.currentTime + step > duration) {
+    if (player.currentTime + this._secondsToSeek > duration) {
       // if user is already on live edge then dont even attempt to move forward in time
       if (!player.isOnLiveEdge()) {
         to = duration;
       }
     } else {
-      to = player.currentTime + step;
+      to = player.currentTime + this._secondsToSeek;
     }
     player.currentTime = to;
     this.props.notifyClick({
@@ -89,6 +102,20 @@ class Forward extends Component<any, any> {
     });
   };
 
+    /**
+     * get icon type based on seek seconds
+     * @returns {string} - icon type
+     */
+    _getIconType(): string  {
+      let icon = IconType.Forward;
+      if (this._secondsToSeek === 5) {
+        icon = IconType.Forward5;
+      } else if (this._secondsToSeek === 10) {
+        icon = IconType.Forward10;
+      }
+      return icon;
+    }ד
+
   /**
    * render component
    *
@@ -96,12 +123,13 @@ class Forward extends Component<any, any> {
    * @returns {React$Element} - component element
    * @memberof Forward
    */
-  render({step, forwardText, innerRef}: any): VNode<any> | undefined {
+  render({forwardText, innerRef}: any): VNode<any> | undefined {
+    const icon = this._getIconType();
     return !this._shouldRender() ? undefined : (
       <ButtonControl name={COMPONENT_NAME} className={style.noIdleControl}>
         <Tooltip label={forwardText}>
           <Button tabIndex="0" aria-label={forwardText} className={`${style.controlButton}`} ref={innerRef} onClick={this.onClick}>
-            <Icon type={!step || step === FORWARD_DEFAULT_STEP ? IconType.Forward10 : IconType.Forward} />
+            <Icon type={icon} />
           </Button>
         </Tooltip>
       </ButtonControl>
