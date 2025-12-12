@@ -114,6 +114,10 @@
       "one_hundred_percent": "honderd procent",
       "volume_slider_aria_label": "Volumeregeling",
       "volume_slider_description": "Gebruik de pijlen om het volume te regelen"
+    },
+    "mediaInfo": {
+      "seeMore": "Meer weergeven",
+      "seeLess": "Minder weergeven"
     }
   }
 }
