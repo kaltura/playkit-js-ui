@@ -1,7 +1,13 @@
 import {useEffect, useState} from 'preact/hooks';
 import {connect, useStore} from 'react-redux';
 import {withPlayer} from '../player';
-import {getActiveAudioLanguage, getAudioDescriptionLanguageKey, getAudioDescriptionStateFromStorage} from '../../utils/audio-description';
+import {
+  getActiveAudioLanguage,
+  getAudioDescriptionLanguageKey,
+  getAudioDescriptionStateFromStorage,
+  getAudioLabelByAudioLanguage,
+  isAudioDescriptionLanguageKey
+} from '../../utils/audio-description';
 import {AUDIO_DESCRIPTION_TYPE} from '../../types/reducers/audio-description';
 import {registerToBottomBar, unregisterFromBottomBar} from '../bottom-bar';
 import {registerComponent} from './audio-desc-mini';
@@ -85,7 +91,9 @@ const _AudioDescriptionUpdater = props => {
   function onDisableSelected(currLanguageKey: string): void {
     props.updateSelectionByLanguage?.(currLanguageKey, false, props.audioDescriptionType || AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
     // restore audio track to normal if AD audio track was active
-    changeAudioTrack(props.player.getActiveTracks()['audio']?.language || '', currLanguageKey);
+    if (isAudioDescriptionLanguageKey(props.player.getActiveTracks()['audio']?.language)) {
+      changeAudioTrack(props.player.getActiveTracks()['audio']?.language, currLanguageKey);
+    }
   }
 
   function onAudioDescriptionSelected(currLanguageKey: string): void {
@@ -98,12 +106,21 @@ const _AudioDescriptionUpdater = props => {
   function onAdvancedAudioDescriptionSelected(currLanguageKey: string): void {
     props.updateSelectionByLanguage?.(currLanguageKey, true, AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION);
     // restore audio track to normal if AD audio track was active
-    changeAudioTrack(props.player.getActiveTracks()['audio']?.language || '', currLanguageKey);
+    if (isAudioDescriptionLanguageKey(props.player.getActiveTracks()['audio']?.language)) {
+      changeAudioTrack(props.player.getActiveTracks()['audio']?.language, currLanguageKey);
+    }
   }
 
   function changeAudioTrack(currLanguageKey: string, newLanguageKey: string): void {
-    const newAudioTrack = props.player?.getTracks('audio')?.find(t => t.language === newLanguageKey);
-    if (currLanguageKey !== newLanguageKey && newAudioTrack) {
+    let newAudioTrack = props.player?.getTracks('audio')?.find(t => t.language === newLanguageKey);
+
+    // try to find audio track by label if not found by language key
+    if (!newAudioTrack) {
+      const audioLabel = getAudioLabelByAudioLanguage(newLanguageKey);
+      newAudioTrack = props.player?.getTracks('audio')?.find(t => t.label === audioLabel);
+    }
+
+    if (newAudioTrack && currLanguageKey !== newLanguageKey) {
       props.player?.selectTrack(newAudioTrack);
 
       props.notifyClick?.({
