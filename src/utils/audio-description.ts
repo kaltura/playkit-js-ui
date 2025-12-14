@@ -15,7 +15,7 @@ export function getAudioDescriptionLanguageKey(languageKey: string) {
 
 export function getAudioLanguageKey(audioTrack?: any) {
   if (audioTrack?.language === UNKNOWN_LANGUAGE_KEY) {
-    return audioLanguageMapping[audioTrack?.label] || '';
+    return getAudioLanguageByAudioLabel(audioTrack?.label);
   }
 
   if (audioTrack?.language.indexOf(AUDIO_DESCRIPTION_PREFIX) === -1) {
