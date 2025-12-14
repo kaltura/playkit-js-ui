@@ -10,7 +10,7 @@ import {IconType} from '../icon';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from '../event-dispatcher';
 import {AUDIO_DESCRIPTION_TYPE} from '../../types/reducers/audio-description';
-import {getActiveAudioLanguage} from '../../utils/audio-description';
+import {getActiveAudioLabel, getActiveAudioLanguage} from '../../utils/audio-description';
 import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
 
 type AudioMenuProps = {
@@ -52,6 +52,7 @@ const COMPONENT_NAME = 'AudioMenu';
 
 const _AudioMenu = (props: AudioMenuProps) => {
   const activeAudioLanguage = props.player ? getActiveAudioLanguage(props.player) : undefined;
+  const activeAudioLabel = props.player ? getActiveAudioLabel(props.player) : undefined;
 
   const audioOptions = useMemo(() => {
     return props.audioTracks?.length
@@ -73,7 +74,7 @@ const _AudioMenu = (props: AudioMenuProps) => {
             return {
               label,
               ariaLabel,
-              active: (t.language === activeAudioLanguage) as boolean,
+              active: (t.language === activeAudioLanguage || t.label === activeAudioLabel) as boolean,
               value: t
             };
           })
