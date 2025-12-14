@@ -30,7 +30,7 @@ export function getAudioLanguageByAudioLabel(audioLabel: string) {
 }
 
 export function getAudioLabelByAudioLanguage(audioLanguage: string) {
-  const entry = Object.entries(audioLanguageMapping).find(([label, lang]) => lang === audioLanguage);
+  const entry = Object.entries(audioLanguageMapping).find(([, lang]) => lang === audioLanguage);
   return entry ? entry[0] : '';
 }
 
