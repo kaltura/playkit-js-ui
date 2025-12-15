@@ -62,7 +62,7 @@
       "sample_caption_tag": "Ejemplo {{number}}",
       "sample_high_contrast": "Contraste alto",
       "sample_minimalist": "Minimalista",
-      "sample_classic_tv": "Estilo TV clásico",
+      "sample_classic_tv": "Clásico",
       "sample_easy_reading": "Fácil de leer",
       "sample_early_readers": "Primeros lectores",
       "sample_night_mode": "Modo nocturno",
@@ -78,7 +78,8 @@
       "background_color_label": "Color de fondo",
       "background_opacity_label": "Opacidad del fondo",
       "apply": "Aplicar",
-      "caption_preview": "Esta es la vista previa de su subtítulo"
+      "caption_preview": "Esta es la vista previa de su subtítulo",
+      "close_label": "Cerrar configuración avanzada de los subtítulos"
     },
     "cast": {
       "play_on_tv": "Reproducir en TV",
