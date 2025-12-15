@@ -145,16 +145,17 @@ class CVAAOverlay extends Component<any, any> {
   };
 
   saveCustomPresetStyle = (style: any) => {
-    const json = style.toObject ? style.toObject() : { ...style };
+    const clonedStyle = style.clone();
+    const json = this.props.player.TextStyle.toJson(clonedStyle);
 
     // Save the fontSize label because style does not compute the font size.
-    if (style.fontSize) {
-      json.fontSize = style.fontSize;
+    if (clonedStyle.fontSize) {
+      json.fontSize = clonedStyle.fontSize;
     }
 
     localStorage.setItem("cvaaCustomPreset", JSON.stringify(json));
-    this.setState({ customPresetStyle: style });
-    this.changeCaptionsStyle(style);
+    this.setState({ customPresetStyle: clonedStyle });
+    this.changeCaptionsStyle(clonedStyle);
   };
 
 
