@@ -230,6 +230,7 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
         if (!didUpdate) {
           updateDefaultAdvancedAudioDescription(this.props, store.getState().audioDescription.advancedAudioDescriptionLanguages, audioTracks);
         }
+        this.props.updateDefaultValueSet(true);
       }
     });
 
