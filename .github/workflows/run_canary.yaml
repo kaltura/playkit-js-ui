@@ -5,7 +5,8 @@ run-name: Canary
 on:
   push:
     branches:
-      - ad-patch-12-2025
+      # - ad-patch-12-2025
+      - master
 
 jobs:
   canary:
