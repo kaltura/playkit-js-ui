@@ -118,6 +118,7 @@ const SpeedControl = connect(mapStateToProps)(
               ref={buttonRef}
               tabIndex="0"
               aria-label={props.speedLabelText}
+              aria-haspopup="true"
               className={[
                 style.controlButton, 
                 smartContainerOpen ? style.active : '',
