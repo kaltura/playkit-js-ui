@@ -134,7 +134,6 @@ function updateDefaultAudioDescription(props, audioDescriptionLanguages): boolea
     props.updateAudioDescriptionEnabled?.(false);
     props.updateAudioDescriptionType(AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
     props.updateSelectionByLanguage(activeAudioLanguage, false, AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
-    props.updateDefaultValueSet(true);
 
     return true;
   } else if (
@@ -153,7 +152,6 @@ function updateDefaultAudioDescription(props, audioDescriptionLanguages): boolea
     props.updateAudioDescriptionEnabled?.(isEnabled);
     props.updateAudioDescriptionType(AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
     props.updateSelectionByLanguage(activeAudioLanguage, isEnabled, AUDIO_DESCRIPTION_TYPE.AUDIO_DESCRIPTION);
-    props.updateDefaultValueSet(true);
 
     const newLanguageKey = getAudioDescriptionLanguageKey(activeAudioLanguage);
     const newAudioTrack = props.player?.getTracks('audio')?.find(t => t.language === newLanguageKey);
@@ -200,7 +198,6 @@ function updateDefaultAdvancedAudioDescription(props, advancedAudioDescriptionLa
     props.updateAudioDescriptionEnabled?.(isEnabled);
     props.updateAudioDescriptionType(AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION);
     props.updateSelectionByLanguage(activeAudioLanguage, isEnabled, AUDIO_DESCRIPTION_TYPE.EXTENDED_AUDIO_DESCRIPTION);
-    props.updateDefaultValueSet(true);
 
     return true;
   }
