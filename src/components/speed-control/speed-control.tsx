@@ -20,7 +20,6 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile,
   isSmallSize: state.shell.isSmallSize,
   isLive: state.engine.isLive,
-  metadataLoaded: state.engine.metadataLoaded
 });
 
 const COMPONENT_NAME = 'SpeedControl';
@@ -79,6 +78,10 @@ const SpeedControl = connect(mapStateToProps)(
       }
     }
 
+    const hasPlaybackRates = useMemo(() => {
+      return player.playbackRates?.length > 1;
+    }, [player.playbackRates]);
+
     const registerComponent = () =>  {
       return {
         ariaLabel: props.speedLabelText,
@@ -109,7 +112,7 @@ const SpeedControl = connect(mapStateToProps)(
       });
     };
 
-    if (!props.metadataLoaded || !props.showSpeedButton || player.playbackRates.length <= 1 || props.isLive) { return null};
+    if (!props.showSpeedButton || !hasPlaybackRates || props.isLive) { return null};
 
     return (
         <ButtonControl name={COMPONENT_NAME} ref={controlSpeedElement} className={props.classNames ? props.classNames.join(' ') : ''}>
