@@ -109,15 +109,17 @@ class CaptionsMenu extends Component<any, any> {
       );
     } else {
       return (
-        <Menu
-          pushRef={el => {
-            this.props.addAccessibleChild(el)
-            props.pushRef(el);
-          }}
-          options={filteredOptions}
-          onMenuChosen={textTrack => this.onCaptionsChange(textTrack)}
-          onClose={() => {}}
-        />
+        <div data-captions-menu>
+          <Menu
+            pushRef={el => {
+              this.props.addAccessibleChild(el)
+              props.pushRef(el);
+            }}
+            options={filteredOptions}
+            onMenuChosen={textTrack => this.onCaptionsChange(textTrack)}
+            onClose={() => {}}
+          />
+        </div>
       );
     }
   }
