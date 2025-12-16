@@ -3,7 +3,7 @@ import {withText} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
 import {actions} from '../../reducers/settings';
-import {SmartContainerItem} from '../../components';
+import {SmartContainerItem, Menu} from '../../components';
 import {IconType} from '../icon';
 import {withPlayer} from '../player';
 import {withLogger} from '../logger';
@@ -66,17 +66,34 @@ class SpeedMenu extends Component<any, any> {
           return acc;
         }, []);
 
-    return (
-      <SmartContainerItem
-        pushRef={el => {
-          props.pushRef(el);
-        }}
-        icon={IconType.Speed}
-        label={props.speedLabelText}
-        options={speedOptions}
-        onMenuChosen={this.onSpeedChange}
-      />
-    );
+    if (props.asDropdown) {    
+      return (
+        <SmartContainerItem
+          pushRef={el => {
+            props.pushRef(el);
+          }}
+          icon={IconType.Speed}
+          label={props.speedLabelText}
+          options={speedOptions}
+          onMenuChosen={this.onSpeedChange}
+        />
+      );
+    } else {
+      return (
+        <Menu
+          pushRef={el => {
+            props.addAccessibleChild?.(el);
+            props.pushRef?.(el);
+          }}
+          options={speedOptions}
+          onMenuChosen={(speedOption: any) => {
+            this.onSpeedChange(speedOption);
+            props.onClick?.();
+          }}
+          onClose={() => {}}
+        />
+      );
+    }
   }
 }
 

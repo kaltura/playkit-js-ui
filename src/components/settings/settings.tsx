@@ -335,7 +335,7 @@ class Settings extends Component<any, any> {
             {showAudioDescriptionMenu && <AudioDescriptionMenu asDropdown={true} />}
             {showCaptionsMenu && <CaptionsMenu asDropdown={true} onAdvancedCaptionsClick={this.toggleCVAAOverlay} />}
             {showQualityMenu && <QualityMenu />}
-            {showSpeedMenu && <SpeedMenu />}
+            {showSpeedMenu && <SpeedMenu asDropdown={true}/>}
           </SmartContainer>
         )}
         {this.state.cvaaOverlay ? createPortal(<CVAAOverlay onClose={this.onCVAAOverlayClose} />, getOverlayPortalElement(props.player)!) : <div />}
