@@ -71,8 +71,7 @@
       "background_color_label": "Cor de fundo",
       "background_opacity_label": "Opacidade do fundo",
       "apply": "Aplicar",
-      "caption_preview": "Esta é a pré-visualização da sua legenda",
-      "close_label": "Fechar configurações avançadas de legendas"
+      "caption_preview": "Esta é a pré-visualização da sua legenda"
     },
     "cast": {
       "play_on_tv": "Reproduzir na TV",

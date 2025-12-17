@@ -71,8 +71,7 @@
       "background_color_label": "Color de fondo",
       "background_opacity_label": "Opacidad del fondo",
       "apply": "Aplicar",
-      "caption_preview": "Esta es la vista previa de su subtítulo",
-      "close_label": "Cerrar configuración avanzada de los subtítulos"
+      "caption_preview": "Esta es la vista previa de su subtítulo"
     },
     "cast": {
       "play_on_tv": "Reproducir en TV",

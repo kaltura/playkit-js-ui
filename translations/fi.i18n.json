@@ -71,8 +71,7 @@
       "background_color_label": "Taustaväri",
       "background_opacity_label": "Taustavärin peittävyys",
       "apply": "Käytä",
-      "caption_preview": "Tämä on esikatselu tekstityksestäsi",
-      "close_label": "Sulje tekstityksen lisäasetukset"
+      "caption_preview": "Tämä on esikatselu tekstityksestäsi"
     },
     "cast": {
       "play_on_tv": "Toista TV:ssä",

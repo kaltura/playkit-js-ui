@@ -112,8 +112,7 @@
       "background_color_label": "Color de fons",
       "background_opacity_label": "Opacitat del fons",
       "apply": "Aplicar",
-      "caption_preview": "Aquesta és la previsualització del teu subtítol",
-      "close_label": "Tanca la configuració avançada dels subtítols"
+      "caption_preview": "Aquesta és la previsualització del teu subtítol"
     },
     "cast": {
       "play_on_tv": "Reproduir a la TV",

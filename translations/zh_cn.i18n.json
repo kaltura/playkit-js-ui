@@ -71,8 +71,7 @@
       "background_color_label": "背景颜色",
       "background_opacity_label": "背景透明度",
       "apply": "采用",
-      "caption_preview": "这是您的字幕预览",
-      "close_label": "关闭高级字幕设置"
+      "caption_preview": "这是您的字幕预览"
     },
     "cast": {
       "play_on_tv": "在电视上播放",

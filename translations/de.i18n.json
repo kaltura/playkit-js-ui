@@ -72,8 +72,7 @@
       "background_color_label": "Hintergrundfarbe",
       "background_opacity_label": "Deckkraft Hintergrund",
       "apply": "Übernehmen",
-      "caption_preview": "Untertitelvorschau",
-      "close_label": "Erweiterte Einstellungen für Untertitel schließen"
+      "caption_preview": "Untertitelvorschau"
     },
     "cast": {
       "play_on_tv": "Über Fernseher abspielen",
