@@ -100,13 +100,6 @@
     "cvaa": {
       "title": "Configuració avançada dels subtítols",
       "sample_caption_tag": "Subtítol exemple {{number}}",
-      "sample_high_contrast": "Alt contrast",
-      "sample_minimalist": "Minimalista",
-      "sample_classic_tv": "Clàssic",
-      "sample_easy_reading": "Lectura fàcil",
-      "sample_early_readers": "Lectors principiants",
-      "sample_night_mode": "Mode nocturn",
-      "sample_custom": "Personalitzat",
       "sample_custom_caption_tag": "Subtítols personalitzats",
       "set_custom_caption": "Establir subtítol personalitzat",
       "edit_caption": "Editar subtítol",
