@@ -18,7 +18,8 @@ const mapStateToProps = state => ({
   showQualityButton: state.config.showQualityButton,
   isMobile: state.shell.isMobile,
   isSmallSize: state.shell.isSmallSize,
-  videoTracks: state.engine.videoTracks
+  videoTracks: state.engine.videoTracks,
+  isAudio: state.engine.isAudio
 });
 
 const COMPONENT_NAME = 'QualityControl';
@@ -118,7 +119,7 @@ const QualityControl = connect(mapStateToProps)(
       }
     }
 
-    if (!props.showQualityButton || !hasQualityOptions) return null;
+    if (!props.showQualityButton || !hasQualityOptions || props.isAudio) return null;
 
     const buttonBadgeType: string = getButtonBadgeType() || '';
     const buttonAriaLabel = `${getQualityLabel(buttonBadgeType)}`;
@@ -129,6 +130,7 @@ const QualityControl = connect(mapStateToProps)(
             <Button
               ref={buttonRef}
               tabIndex="0"
+              aria-haspopup="true"
               aria-label={buttonAriaLabel}
               className={[
                 style.controlButton, 
