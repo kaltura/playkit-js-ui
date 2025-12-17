@@ -62,7 +62,7 @@
       "sample_caption_tag": "샘플 {{number}}",
       "sample_high_contrast": "고대비",
       "sample_minimalist": "미니멀리스트",
-      "sample_classic_tv": "클래식",
+      "sample_classic_tv": "클래식 TV 스타일",
       "sample_easy_reading": "가독성 모드",
       "sample_early_readers": "초급 독자용",
       "sample_night_mode": "야간 모드",
@@ -78,8 +78,7 @@
       "background_color_label": "배경색",
       "background_opacity_label": "배경 불투명도",
       "apply": "적용",
-      "caption_preview": "자막 미리 보기입니다",
-      "close_label": "고급 캡션 설정 닫기"
+      "caption_preview": "자막 미리 보기입니다"
     },
     "cast": {
       "play_on_tv": "TV에서 재생",

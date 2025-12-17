@@ -62,7 +62,7 @@
       "sample_caption_tag": "Esimerkki {{number}}",
       "sample_high_contrast": "Suuri kontrasti",
       "sample_minimalist": "Minimalistinen",
-      "sample_classic_tv": "Klassinen",
+      "sample_classic_tv": "Klassinen TV-tyyli",
       "sample_easy_reading": "Helppolukuinen",
       "sample_early_readers": "Varhain lukemaan oppineet",
       "sample_night_mode": "Yötila",
@@ -78,8 +78,7 @@
       "background_color_label": "Taustaväri",
       "background_opacity_label": "Taustavärin peittävyys",
       "apply": "Käytä",
-      "caption_preview": "Tämä on esikatselu tekstityksestäsi",
-      "close_label": "Sulje tekstityksen lisäasetukset"
+      "caption_preview": "Tämä on esikatselu tekstityksestäsi"
     },
     "cast": {
       "play_on_tv": "Toista TV:ssä",

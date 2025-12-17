@@ -62,7 +62,7 @@
       "sample_caption_tag": "Образец {{number}}",
       "sample_high_contrast": "Высокая контрастность",
       "sample_minimalist": "Минималистичный дизайн",
-      "sample_classic_tv": "Классический вариант",
+      "sample_classic_tv": "Классический ТВ-стиль",
       "sample_easy_reading": "Легкое чтение",
       "sample_early_readers": "Для начинающих читать",
       "sample_night_mode": "Ночной режим",
@@ -78,8 +78,7 @@
       "background_color_label": "Цвет фона",
       "background_opacity_label": "Непрозрачность фона",
       "apply": "Применить",
-      "caption_preview": "Это предварительный просмотр ваших субтитров",
-      "close_label": "Закрыть расширенные настройки субтитров"
+      "caption_preview": "Это предварительный просмотр ваших субтитров"
     },
     "cast": {
       "play_on_tv": "Воспроизвести на ТВ",
