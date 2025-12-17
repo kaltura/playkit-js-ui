@@ -60,13 +60,6 @@
     "cvaa": {
       "title": "進階字幕設定",
       "sample_caption_tag": "樣本 {{number}}",
-      "sample_high_contrast": "高對比",
-      "sample_minimalist": "極簡主義",
-      "sample_classic_tv": "經典電視風格",
-      "sample_easy_reading": "輕鬆閱讀",
-      "sample_early_readers": "幼兒讀者",
-      "sample_night_mode": "夜間模式",
-      "sample_custom": "自訂",
       "sample_custom_caption_tag": "自訂字幕",
       "set_custom_caption": "設定自訂字幕",
       "edit_caption": "编辑字幕",

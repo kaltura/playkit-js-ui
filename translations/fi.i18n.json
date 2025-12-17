@@ -60,13 +60,6 @@
     "cvaa": {
       "title": "Tekstityksen lisäasetukset",
       "sample_caption_tag": "Esimerkki {{number}}",
-      "sample_high_contrast": "Suuri kontrasti",
-      "sample_minimalist": "Minimalistinen",
-      "sample_classic_tv": "Klassinen TV-tyyli",
-      "sample_easy_reading": "Helppolukuinen",
-      "sample_early_readers": "Varhain lukemaan oppineet",
-      "sample_night_mode": "Yötila",
-      "sample_custom": "Mukautettu",
       "sample_custom_caption_tag": "Mukautetut tekstitykset",
       "set_custom_caption": "Aseta mukautettu tekstitys",
       "edit_caption": "Muokkaa tekstitystä",

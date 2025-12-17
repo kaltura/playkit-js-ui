@@ -61,13 +61,6 @@
     "cvaa": {
       "title": "Erweiterte Einstellungen für Untertitel",
       "sample_caption_tag": "Beispiel {{number}}",
-      "sample_high_contrast": "Hoher Kontrast",
-      "sample_minimalist": "Minimalist",
-      "sample_classic_tv": "klassischer TV-Stil",
-      "sample_easy_reading": "leicht zu lesen",
-      "sample_early_readers": "Erstleser",
-      "sample_night_mode": "Nachtmodus",
-      "sample_custom": "Benutzerdefiniert",
       "sample_custom_caption_tag": "Benutzerdefinierte Untertitel",
       "set_custom_caption": "Benutzerdefinierte Untertitel auswählen",
       "edit_caption": "Untertitel bearbeiten",

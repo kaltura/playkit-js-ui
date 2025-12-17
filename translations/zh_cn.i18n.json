@@ -60,13 +60,6 @@
     "cvaa": {
       "title": "高级字幕设置",
       "sample_caption_tag": "范例 {{number}}",
-      "sample_high_contrast": "高对比度",
-      "sample_minimalist": "极简主义",
-      "sample_classic_tv": "经典电视",
-      "sample_easy_reading": "轻松阅读",
-      "sample_early_readers": "初学读者",
-      "sample_night_mode": "夜间模式",
-      "sample_custom": "自定义",
       "sample_custom_caption_tag": "自定义字幕",
       "set_custom_caption": "设置自定义字幕",
       "edit_caption": " 编辑字幕",
