@@ -62,7 +62,7 @@
       "sample_caption_tag": "樣本 {{number}}",
       "sample_high_contrast": "高對比",
       "sample_minimalist": "極簡主義",
-      "sample_classic_tv": "經典",
+      "sample_classic_tv": "經典電視風格",
       "sample_easy_reading": "輕鬆閱讀",
       "sample_early_readers": "幼兒讀者",
       "sample_night_mode": "夜間模式",
@@ -78,8 +78,7 @@
       "background_color_label": "背景颜色",
       "background_opacity_label": "背景透明度",
       "apply": "套用",
-      "caption_preview": "這是您的字幕預覽",
-      "close_label": "關閉進階字幕設定"
+      "caption_preview": "這是您的字幕預覽"
     },
     "cast": {
       "play_on_tv": "在電視中播放",

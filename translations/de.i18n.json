@@ -63,7 +63,7 @@
       "sample_caption_tag": "Beispiel {{number}}",
       "sample_high_contrast": "Hoher Kontrast",
       "sample_minimalist": "Minimalist",
-      "sample_classic_tv": "Klassisch",
+      "sample_classic_tv": "klassischer TV-Stil",
       "sample_easy_reading": "leicht zu lesen",
       "sample_early_readers": "Erstleser",
       "sample_night_mode": "Nachtmodus",
@@ -79,8 +79,7 @@
       "background_color_label": "Hintergrundfarbe",
       "background_opacity_label": "Deckkraft Hintergrund",
       "apply": "Übernehmen",
-      "caption_preview": "Untertitelvorschau",
-      "close_label": "Erweiterte Einstellungen für Untertitel schließen"
+      "caption_preview": "Untertitelvorschau"
     },
     "cast": {
       "play_on_tv": "Über Fernseher abspielen",

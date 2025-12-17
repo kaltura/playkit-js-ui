@@ -62,7 +62,7 @@
       "sample_caption_tag": "Amostra {{number}}",
       "sample_high_contrast": "Alto contraste",
       "sample_minimalist": "Minimalista",
-      "sample_classic_tv": "Clássico",
+      "sample_classic_tv": "Estilo clássico TV",
       "sample_easy_reading": "Fácil leitura",
       "sample_early_readers": "Para crianças leitoras",
       "sample_night_mode": "Modo noturno",
@@ -78,8 +78,7 @@
       "background_color_label": "Cor de fundo",
       "background_opacity_label": "Opacidade do fundo",
       "apply": "Aplicar",
-      "caption_preview": "Esta é a pré-visualização da sua legenda",
-      "close_label": "Fechar configurações avançadas de legendas"
+      "caption_preview": "Esta é a pré-visualização da sua legenda"
     },
     "cast": {
       "play_on_tv": "Reproduzir na TV",

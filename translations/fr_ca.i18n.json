@@ -62,7 +62,7 @@
       "sample_caption_tag": "Échantillon {{number}}",
       "sample_high_contrast": "Contraste élevé",
       "sample_minimalist": "Minimaliste",
-      "sample_classic_tv": "Classique",
+      "sample_classic_tv": "Style TV classique",
       "sample_easy_reading": "Lecture facile",
       "sample_early_readers": "Premiers lecteurs",
       "sample_night_mode": "Mode nuit",
@@ -78,8 +78,7 @@
       "background_color_label": "Couleur d’arrière-plan",
       "background_opacity_label": "Opacité de l’arrière-plan",
       "apply": "Appliquer",
-      "caption_preview": "Ceci est un aperçu de vos sous-titres",
-      "close_label": "Fermer les paramètres avancés de sous-titres"
+      "caption_preview": "Ceci est un aperçu de vos sous-titres"
     },
     "cast": {
       "play_on_tv": "Lire sur la TV",
