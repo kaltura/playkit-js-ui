@@ -39,13 +39,13 @@ class MainCaptionsWindow extends Component<any, any> {
         textId: "cvaa.sample_minimalist",
         source: "Advanced_captions_preset_minimalist",
         style: player.TextStyle.fromJson({
-          fontSize: player.TextStyle.FontSizes[0].label,
+          fontSize: player.TextStyle.FontSizes[1].label,
           fontWeight: player.TextStyle.StandardFontWeights[1].value,
           textAlign: player.TextStyle.FontAlignment[2].value,
           fontColor: player.TextStyle.StandardColors.WHITE,
-          fontFamily: "Verdana",
+          fontFamily: "Sans-Serif",
           backgroundColor: player.TextStyle.StandardColors.BLACK,
-          backgroundOpacity: player.TextStyle.StandardOpacities.SEMI_HIGH
+          backgroundOpacity: player.TextStyle.StandardOpacities.OPAQUE
         })
       },
       {
