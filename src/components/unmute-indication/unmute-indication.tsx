@@ -22,7 +22,9 @@ export const MUTED_AUTOPLAY_ICON_ONLY_DEFAULT_TIMEOUT = 3000;
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  fallbackToMutedAutoPlay: state.engine.fallbackToMutedAutoPlay
+  fallbackToMutedAutoPlay: state.engine.fallbackToMutedAutoPlay,
+  unmuteTextSeconds: state.config.unmuteTextSeconds,
+  unmuteButtonSeconds: state.config.unmuteButtonSeconds,
 });
 
 const COMPONENT_NAME = 'UnmuteIndication';
@@ -50,6 +52,15 @@ const translates = {
 @withText(translates)
 class UnmuteIndication extends Component<any, any> {
   _iconTimeout: number | null = null;
+  _buttonTimeout: number | null = null;
+  _iconOnlySecons: number = MUTED_AUTOPLAY_ICON_ONLY_DEFAULT_TIMEOUT;
+  _buttonRemoveSeconds: number = -1;
+
+  constructor(props: any) {
+    super(props);
+    this._updateStateIfZero();
+    this._getValidSeconds();
+  }
 
   /**
    * after component updated, check the fallbackToMutedAutoPlay prop for updating the state of the component
@@ -61,8 +72,8 @@ class UnmuteIndication extends Component<any, any> {
    */
   componentDidUpdate(prevProps: any): void {
     if (!prevProps.fallbackToMutedAutoPlay && this.props.fallbackToMutedAutoPlay) {
-      this.props.eventManager.listenOnce(this.props.player, this.props.player.Event.PLAYING, () => this._iconOnlyTimeout());
-      this.props.eventManager.listenOnce(this.props.player, this.props.player.Event.AD_STARTED, () => this._iconOnlyTimeout());
+      this.props.eventManager.listenOnce(this.props.player, this.props.player.Event.PLAYING, () => this._elementsTimeout());
+      this.props.eventManager.listenOnce(this.props.player, this.props.player.Event.AD_STARTED, () => this._elementsTimeout());
     }
   }
 
@@ -77,19 +88,63 @@ class UnmuteIndication extends Component<any, any> {
       clearTimeout(this._iconTimeout);
       this._iconTimeout = null;
     }
+    if (this._buttonTimeout) {
+      clearTimeout(this._buttonTimeout);
+      this._buttonTimeout = null;
+    }
   }
 
   /**
-   * The icon only timeout handler
+   * Update state if seconds are zero
    * @private
    * @memberof UnmuteIndication
    * @returns {void}
    */
-  _iconOnlyTimeout(): void {
+  _updateStateIfZero(): void {
+    if (this.props.unmuteButtonSeconds === 0) {
+      this.setState({removeButton: true});
+    }
+    if (this.props.unmuteTextSeconds === 0) {
+      this.setState({iconOnly: true});
+    }
+  }
+
+  /**
+   * Set only valid seconds for timeouts
+   * @private
+   * @memberof UnmuteIndication
+   * @returns {void}
+   */
+    _getValidSeconds(): void {
+    const isValid = (value: any): boolean => {
+      return (typeof value === 'number' && Number.isInteger(value) && value > 0);
+    }
+    if (isValid(this.props.unmuteTextSeconds)) {
+        this._iconOnlySecons = this.props.unmuteTextSeconds * 1000;
+    }
+    if (isValid(this.props.unmuteButtonSeconds)) {
+        this._buttonRemoveSeconds = this.props.unmuteButtonSeconds * 1000;
+    }
+  }
+
+  /**
+   * The icon and text timeout handler
+   * @private
+   * @memberof UnmuteIndication
+   * @returns {void}
+   */
+  _elementsTimeout(): void {
     // @ts-expect-error - Type 'Timeout' is not assignable to type 'number'.
     this._iconTimeout = setTimeout(() => {
       this.setState({iconOnly: true});
-    }, MUTED_AUTOPLAY_ICON_ONLY_DEFAULT_TIMEOUT);
+    }, this._iconOnlySecons );
+
+    if (this._buttonRemoveSeconds !== -1){
+      // @ts-expect-error - Type 'Timeout' is not assignable to type 'number'.
+      this._buttonTimeout = setTimeout(() => {
+        this.setState({removeButton: true});
+      }, this._buttonRemoveSeconds );
+    }
   }
 
   /**
@@ -137,7 +192,7 @@ class UnmuteIndication extends Component<any, any> {
    * @memberof UnmuteIndication
    */
   render(props: any): VNode<any> | undefined {
-    if (!this.props.fallbackToMutedAutoPlay) return undefined;
+    if (!this.props.fallbackToMutedAutoPlay || this.state.removeButton) return undefined;
 
     const styleClass = [style.unmuteButtonContainer];
     if (props.hasTopBar) styleClass.push(style.hasTopBar);
