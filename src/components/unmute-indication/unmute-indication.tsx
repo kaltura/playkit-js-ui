@@ -25,6 +25,7 @@ const mapStateToProps = state => ({
   fallbackToMutedAutoPlay: state.engine.fallbackToMutedAutoPlay,
   unmuteTextSeconds: state.config.unmuteTextSeconds,
   unmuteButtonSeconds: state.config.unmuteButtonSeconds,
+  showUnmuteIndicationButton: state.config.showUnmuteIndicationButton
 });
 
 const COMPONENT_NAME = 'UnmuteIndication';
@@ -54,11 +55,10 @@ class UnmuteIndication extends Component<any, any> {
   _iconTimeout: number | null = null;
   _buttonTimeout: number | null = null;
   _iconOnlySecons: number = MUTED_AUTOPLAY_ICON_ONLY_DEFAULT_TIMEOUT;
-  _buttonRemoveSeconds: number = -1;
+  _buttonRemoveSeconds: number = 0;
 
   constructor(props: any) {
     super(props);
-    this._updateStateIfZero();
     this._getValidSeconds();
   }
 
@@ -95,21 +95,6 @@ class UnmuteIndication extends Component<any, any> {
   }
 
   /**
-   * Update state if seconds are zero
-   * @private
-   * @memberof UnmuteIndication
-   * @returns {void}
-   */
-  _updateStateIfZero(): void {
-    if (this.props.unmuteButtonSeconds === 0) {
-      this.setState({removeButton: true});
-    }
-    if (this.props.unmuteTextSeconds === 0) {
-      this.setState({iconOnly: true});
-    }
-  }
-
-  /**
    * Set only valid seconds for timeouts
    * @private
    * @memberof UnmuteIndication
@@ -117,7 +102,7 @@ class UnmuteIndication extends Component<any, any> {
    */
     _getValidSeconds(): void {
     const isValid = (value: any): boolean => {
-      return (typeof value === 'number' && Number.isInteger(value) && value > 0);
+      return (typeof value === 'number' && value >= 0);
     }
     if (isValid(this.props.unmuteTextSeconds)) {
         this._iconOnlySecons = this.props.unmuteTextSeconds * 1000;
@@ -134,12 +119,14 @@ class UnmuteIndication extends Component<any, any> {
    * @returns {void}
    */
   _elementsTimeout(): void {
+    if (this._iconOnlySecons !== 0){
     // @ts-expect-error - Type 'Timeout' is not assignable to type 'number'.
-    this._iconTimeout = setTimeout(() => {
-      this.setState({iconOnly: true});
-    }, this._iconOnlySecons );
+      this._iconTimeout = setTimeout(() => {
+        this.setState({iconOnly: true});
+      }, this._iconOnlySecons );
+    } 
 
-    if (this._buttonRemoveSeconds !== -1){
+    if (this._buttonRemoveSeconds !== 0){
       // @ts-expect-error - Type 'Timeout' is not assignable to type 'number'.
       this._buttonTimeout = setTimeout(() => {
         this.setState({removeButton: true});
@@ -192,7 +179,7 @@ class UnmuteIndication extends Component<any, any> {
    * @memberof UnmuteIndication
    */
   render(props: any): VNode<any> | undefined {
-    if (!this.props.fallbackToMutedAutoPlay || this.state.removeButton) return undefined;
+    if (!this.props.fallbackToMutedAutoPlay || this.state.removeButton || !this.props.showUnmuteIndicationButton) return undefined;
 
     const styleClass = [style.unmuteButtonContainer];
     if (props.hasTopBar) styleClass.push(style.hasTopBar);

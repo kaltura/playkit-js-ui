@@ -25,6 +25,7 @@ export interface UIOptionsObject {
     showAdvancedCaptionsMenu?: boolean;
     showAudioDescriptionMenu?: boolean;
   };
+  showUnmuteIndicationButton?: boolean;
   unmuteTextSeconds?: number;
   unmuteButtonSeconds?: number;
   hoverTimeout?: number;

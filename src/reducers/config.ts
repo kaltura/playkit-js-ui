@@ -21,8 +21,6 @@ export const initialState = {
   showAudioDescriptionButton: true,
   openMenuFromCCButton: false,
   openMenuFromAudioDescriptionButton: true,
-  unmuteTextSeconds: 3,
-  unmuteButtonSeconds: -1,
   settings: {
     showAudioMenu: false,
     showCaptionsMenu: true,
@@ -31,6 +29,9 @@ export const initialState = {
     showAdvancedCaptionsMenu: true,
     showAudioDescriptionMenu: false
   },
+  unmuteTextSeconds: 3,
+  unmuteButtonSeconds: 0,
+  showUnmuteIndicationButton: true,
   hoverTimeout: 3000,
   tinySizeDisabled: false,
   showMediaInfo: {
