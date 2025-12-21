@@ -53,13 +53,13 @@ const translates = {
 @withText(translates)
 class UnmuteIndication extends Component<any, any> {
   _iconTimeout: number | null = null;
-  _buttonTimeout: number | null = null;
-  _iconOnlySecons: number = MUTED_AUTOPLAY_ICON_ONLY_DEFAULT_TIMEOUT;
+  _removeButtonTimeout: number | null = null;
+  _iconOnlySeconds: number = MUTED_AUTOPLAY_ICON_ONLY_DEFAULT_TIMEOUT;
   _buttonRemoveSeconds: number = 0;
 
   constructor(props: any) {
     super(props);
-    this._getValidSeconds();
+    this._setValidSeconds();
   }
 
   /**
@@ -72,8 +72,8 @@ class UnmuteIndication extends Component<any, any> {
    */
   componentDidUpdate(prevProps: any): void {
     if (!prevProps.fallbackToMutedAutoPlay && this.props.fallbackToMutedAutoPlay) {
-      this.props.eventManager.listenOnce(this.props.player, this.props.player.Event.PLAYING, () => this._elementsTimeout());
-      this.props.eventManager.listenOnce(this.props.player, this.props.player.Event.AD_STARTED, () => this._elementsTimeout());
+      this.props.eventManager.listenOnce(this.props.player, this.props.player.Event.PLAYING, () => this._setElementsTimeout());
+      this.props.eventManager.listenOnce(this.props.player, this.props.player.Event.AD_STARTED, () => this._setElementsTimeout());
     }
   }
 
@@ -88,9 +88,9 @@ class UnmuteIndication extends Component<any, any> {
       clearTimeout(this._iconTimeout);
       this._iconTimeout = null;
     }
-    if (this._buttonTimeout) {
-      clearTimeout(this._buttonTimeout);
-      this._buttonTimeout = null;
+    if (this._removeButtonTimeout) {
+      clearTimeout(this._removeButtonTimeout);
+      this._removeButtonTimeout = null;
     }
   }
 
@@ -100,12 +100,12 @@ class UnmuteIndication extends Component<any, any> {
    * @memberof UnmuteIndication
    * @returns {void}
    */
-    _getValidSeconds(): void {
+    _setValidSeconds(): void {
     const isValid = (value: any): boolean => {
       return (typeof value === 'number' && value >= 0);
     }
     if (isValid(this.props.unmuteTextSeconds)) {
-        this._iconOnlySecons = this.props.unmuteTextSeconds * 1000;
+        this._iconOnlySeconds = this.props.unmuteTextSeconds * 1000;
     }
     if (isValid(this.props.unmuteButtonSeconds)) {
         this._buttonRemoveSeconds = this.props.unmuteButtonSeconds * 1000;
@@ -118,17 +118,17 @@ class UnmuteIndication extends Component<any, any> {
    * @memberof UnmuteIndication
    * @returns {void}
    */
-  _elementsTimeout(): void {
-    if (this._iconOnlySecons !== 0){
+  _setElementsTimeout(): void {
+    if (this._iconOnlySeconds !== 0){
     // @ts-expect-error - Type 'Timeout' is not assignable to type 'number'.
       this._iconTimeout = setTimeout(() => {
         this.setState({iconOnly: true});
-      }, this._iconOnlySecons );
+      }, this._iconOnlySeconds );
     } 
 
     if (this._buttonRemoveSeconds !== 0){
       // @ts-expect-error - Type 'Timeout' is not assignable to type 'number'.
-      this._buttonTimeout = setTimeout(() => {
+      this._removeButtonTimeout = setTimeout(() => {
         this.setState({removeButton: true});
       }, this._buttonRemoveSeconds );
     }
