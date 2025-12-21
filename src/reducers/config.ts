@@ -29,9 +29,6 @@ export const initialState = {
     showAdvancedCaptionsMenu: true,
     showAudioDescriptionMenu: false
   },
-  unmuteTextSeconds: 3,
-  unmuteButtonSeconds: 0,
-  showUnmuteIndicationButton: true,
   hoverTimeout: 3000,
   tinySizeDisabled: false,
   showMediaInfo: {
@@ -39,13 +36,20 @@ export const initialState = {
     detailsMode: MediaInfoDetailsMode.None,
     position: MediaInfoPosition.Bottom
   },
+  buttons: {
+    showUnmuteIndicationButton: true
+  },
   components: {
     watermark: {} as any,
     seekbar: {} as any,
     vrStereo: {} as any,
     logo: {} as any,
     fullscreen: {} as any,
-    sidePanels: {} as any
+    sidePanels: {} as any,
+    unmuteIndication: {
+      unmuteTextSeconds: 3,
+      unmuteButtonSeconds: 0
+    } as any
   }
 };
 

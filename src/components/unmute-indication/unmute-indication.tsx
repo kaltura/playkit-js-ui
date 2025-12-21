@@ -23,9 +23,9 @@ export const MUTED_AUTOPLAY_ICON_ONLY_DEFAULT_TIMEOUT = 3000;
  */
 const mapStateToProps = state => ({
   fallbackToMutedAutoPlay: state.engine.fallbackToMutedAutoPlay,
-  unmuteTextSeconds: state.config.unmuteTextSeconds,
-  unmuteButtonSeconds: state.config.unmuteButtonSeconds,
-  showUnmuteIndicationButton: state.config.showUnmuteIndicationButton
+  unmuteTextSeconds: state.config.components.unmuteIndication.unmuteTextSeconds,
+  unmuteButtonSeconds: state.config.components.unmuteIndication.unmuteButtonSeconds,
+  showUnmuteIndicationButton: state.config.buttons.showUnmuteIndicationButton
 });
 
 const COMPONENT_NAME = 'UnmuteIndication';
