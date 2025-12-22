@@ -20,6 +20,7 @@ export const initialState = {
   showAudioButton: true,
   showAudioDescriptionButton: true,
   showSpeedButton: false,
+  showQualityButton: false,
   openMenuFromCCButton: false,
   openMenuFromAudioDescriptionButton: true,
   settings: {
@@ -30,6 +31,7 @@ export const initialState = {
     showAdvancedCaptionsMenu: true,
     showAudioDescriptionMenu: false
   },
+  seekSeconds: 10,
   hoverTimeout: 3000,
   tinySizeDisabled: false,
   showMediaInfo: {

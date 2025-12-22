@@ -60,13 +60,6 @@
     "cvaa": {
       "title": "Paramètres avancés de sous-titres",
       "sample_caption_tag": "Échantillon {{number}}",
-      "sample_high_contrast": "Contraste élevé",
-      "sample_minimalist": "Minimaliste",
-      "sample_classic_tv": "Classique",
-      "sample_easy_reading": "Lecture facile",
-      "sample_early_readers": "Premiers débutants",
-      "sample_night_mode": "Mode nuit",
-      "sample_custom": "Personnalisé",
       "sample_custom_caption_tag": "Sous-titres personnalisés",
       "set_custom_caption": "Régler les sous-titres personnalisées",
       "edit_caption": "Modifier le sous-titre",
@@ -78,8 +71,7 @@
       "background_color_label": "Couleur d’arrière-plan",
       "background_opacity_label": "Opacité d’arrière-plan",
       "apply": "Appliquer",
-      "caption_preview": "Voici l’aperçu de vos sous-titres",
-      "close_label": "Fermer Paramètres avancés des sous-titres"
+      "caption_preview": "Voici l’aperçu de vos sous-titres"
     },
     "cast": {
       "play_on_tv": "Lire sur le TV",
@@ -115,6 +107,10 @@
       "one_hundred_percent": "cent pour cent",
       "volume_slider_aria_label": "Contrôle du volume",
       "volume_slider_description": "Utiliser les flèches pour contrôler le volume"
+    },
+    "mediaInfo": {
+      "seeMore": "Voir plus",
+      "seeLess": "Voir moins"
     }
   }
 }

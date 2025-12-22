@@ -87,6 +87,10 @@
     },
     "pictureInPicture": {
       "overlay_text": "מפעיל במצב תמונה בתוך תמונה"
+    },
+    "mediaInfo": {
+      "seeMore": "הצג עוד",
+      "seeLess": "הצג פחות"
     }
   }
 }

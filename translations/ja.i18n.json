@@ -60,13 +60,6 @@
     "cvaa": {
       "title": "キャプションの詳細設定",
       "sample_caption_tag": "サンプル {{number}}",
-      "sample_high_contrast": "ハイコントラスト",
-      "sample_minimalist": "ミニマリスト",
-      "sample_classic_tv": "クラシック",
-      "sample_easy_reading": "やさしい内容",
-      "sample_early_readers": "子ども向け",
-      "sample_night_mode": "ナイト モード",
-      "sample_custom": "カスタム",
       "sample_custom_caption_tag": "カスタム キャプション",
       "set_custom_caption": "カスタム キャプションの設定",
       "edit_caption": "キャプションを編集する",
@@ -78,8 +71,7 @@
       "background_color_label": "背景色",
       "background_opacity_label": "背景の透明度",
       "apply": "適用する",
-      "caption_preview": "これはキャプションのプレビューです",
-      "close_label": "キャプションの詳細設定を閉じる"
+      "caption_preview": "これはキャプションのプレビューです"
     },
     "cast": {
       "play_on_tv": "TV で再生する",
@@ -115,6 +107,10 @@
       "one_hundred_percent": "100パーセント",
       "volume_slider_aria_label": "音量",
       "volume_slider_description": "矢印を使用して音量を制御する"
+    },
+    "mediaInfo": {
+      "seeMore": "続きを見る",
+      "seeLess": "折りたたみ表示"
     }
   }
 }

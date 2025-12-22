@@ -309,7 +309,7 @@ class Settings extends Component<any, any> {
     if (props.isLive && props.videoTracks.length <= 1 && !showAudioMenu && !showCaptionsMenu) return undefined;
     const buttonBadgeType: string = this.getButtonBadgeType() || '';
 
-    const buttonAriaLabel = `${props.buttonLabel} ${this.getQualityLabel(buttonBadgeType)} `;
+    const buttonAriaLabel = `${props.buttonLabel} ${showQualityMenu ? this.getQualityLabel(buttonBadgeType) : ''} `;
     return (
       <ButtonControl name={COMPONENT_NAME} ref={c => (c ? (this._controlSettingsElement = c) : undefined)}>
         <Tooltip label={props.buttonLabel}>
@@ -321,8 +321,8 @@ class Settings extends Component<any, any> {
             aria-expanded={this.state.smartContainerOpen}
             className={[
               style.controlButton,
-              style.buttonBadge,
-              BadgeType[buttonBadgeType + 'Active'],
+              showQualityMenu? style.buttonBadge : '',
+              showQualityMenu? BadgeType[buttonBadgeType + 'Active'] : '',
               this.state.smartContainerOpen ? style.active : ''
             ].join(' ')}
             onClick={this.onControlButtonClick}>
@@ -334,7 +334,7 @@ class Settings extends Component<any, any> {
             {showAudioMenu && <AudioMenu asDropdown={true} />}
             {showAudioDescriptionMenu && <AudioDescriptionMenu asDropdown={true} />}
             {showCaptionsMenu && <CaptionsMenu asDropdown={true} onAdvancedCaptionsClick={this.toggleCVAAOverlay} />}
-            {showQualityMenu && <QualityMenu />}
+            {showQualityMenu && <QualityMenu asDropdown={true}/>}
             {showSpeedMenu && <SpeedMenu asDropdown={true}/>}
           </SmartContainer>
         )}

@@ -35,6 +35,7 @@ import {Title} from '../components';
 import {Audio} from '../components';
 import {AudioDescriptionUpdater} from '../components/audio-desc/audio-description-updater';
 import {MediaInfoDisplay} from '../components';
+import {QualityControl} from '../components';
 import {SpeedControl} from '../components';
 
 const PRESET_NAME = 'Playback';
@@ -98,6 +99,7 @@ class PlaybackUI extends Component<any, any> {
                       VrStereo,
                       Volume,
                       SpeedControl,
+                      QualityControl,
                       Audio,
                       AudioDesc,
                       ClosedCaptions,

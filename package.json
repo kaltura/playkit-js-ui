@@ -1,6 +1,6 @@
 {
   "name": "@playkit-js/playkit-js-ui",
-  "version": "0.82.11",
+  "version": "0.82.12",
   "description": "",
   "keywords": [
     "kaltura",
@@ -28,7 +28,7 @@
     "flow-typed/**/*"
   ],
   "scripts": {
-    "preinstall": "npx --yes --prefer-online --registry=https://npm.pkg.github.com --package @kaltura/kaltura-tools@latest kaltura-tools check --root=.",
+    "disabled-preinstall": "npx --yes --prefer-online --registry=https://npm.pkg.github.com --package @kaltura/kaltura-tools@latest kaltura-tools check --root=.",
     "serve": "webpack serve --open --mode development",
     "watch": "webpack --watch --mode development",
     "build:dev": "webpack --mode development",

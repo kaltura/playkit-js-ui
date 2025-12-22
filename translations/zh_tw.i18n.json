@@ -60,13 +60,6 @@
     "cvaa": {
       "title": "進階字幕設定",
       "sample_caption_tag": "樣本 {{number}}",
-      "sample_high_contrast": "高對比",
-      "sample_minimalist": "極簡主義",
-      "sample_classic_tv": "經典",
-      "sample_easy_reading": "輕鬆閱讀",
-      "sample_early_readers": "幼兒讀者",
-      "sample_night_mode": "夜間模式",
-      "sample_custom": "自訂",
       "sample_custom_caption_tag": "自訂字幕",
       "set_custom_caption": "設定自訂字幕",
       "edit_caption": "编辑字幕",
@@ -78,8 +71,7 @@
       "background_color_label": "背景颜色",
       "background_opacity_label": "背景透明度",
       "apply": "套用",
-      "caption_preview": "這是您的字幕預覽",
-      "close_label": "關閉進階字幕設定"
+      "caption_preview": "這是您的字幕預覽"
     },
     "cast": {
       "play_on_tv": "在電視中播放",
@@ -114,7 +106,11 @@
       "ninety_percent": "百分之九十",
       "one_hundred_percent": "百分之一百",
       "volume_slider_aria_label": "音量控制",
-      "volume_slider_description": "使用箭頭調整音量"      
+      "volume_slider_description": "使用箭頭調整音量"
+    },
+    "mediaInfo": {
+      "seeMore": "查看更多",
+      "seeLess": "查看更少"
     }
   }
 }

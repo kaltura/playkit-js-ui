@@ -18,6 +18,7 @@ export interface UIOptionsObject {
   openMenuFromCCButton?: boolean;
   openMenuFromAudioDescriptionButton?: boolean;
   showAudioButton?: boolean;
+  showQualityButton?: boolean;
   settings?: {
     showAudioMenu?: boolean;
     showCaptionsMenu?: boolean;
@@ -26,6 +27,7 @@ export interface UIOptionsObject {
     showAdvancedCaptionsMenu?: boolean;
     showAudioDescriptionMenu?: boolean;
   };
+  seekSeconds?: number;
   hoverTimeout?: number;
   logger?: LoggerType;
   components?: ComponentsConfig;
