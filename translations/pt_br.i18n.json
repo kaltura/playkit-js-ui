@@ -107,6 +107,10 @@
       "one_hundred_percent": "cem por cento",
       "volume_slider_aria_label": "Controle de volume",
       "volume_slider_description": "Use as setas para controlar o volume"
+    },
+    "mediaInfo": {
+      "seeMore": "Ver mais",
+      "seeLess": "Ver menos"
     }
   }
 }

@@ -135,6 +135,10 @@
     },
     "watermark": {
       "watermark_alt_text": "Filigrana"
+    },
+    "mediaInfo": {
+      "seeMore": "Mostra més",
+      "seeLess": "Mostra menys"
     }
   }
 }

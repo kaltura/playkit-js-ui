@@ -107,6 +107,10 @@
       "one_hundred_percent": "100パーセント",
       "volume_slider_aria_label": "音量",
       "volume_slider_description": "矢印を使用して音量を制御する"
+    },
+    "mediaInfo": {
+      "seeMore": "続きを見る",
+      "seeLess": "折りたたみ表示"
     }
   }
 }

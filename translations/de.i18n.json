@@ -108,6 +108,10 @@
       "one_hundred_percent": "hundert Prozent",
       "volume_slider_aria_label": "Lautstärkeregelung",
       "volume_slider_description": "Verwenden Sie die Pfeile, um die Lautstärke zu regulieren"
+    },
+    "mediaInfo": {
+      "seeMore": "Mehr anzeigen",
+      "seeLess": "Weniger anzeigen"
     }
   }
 }

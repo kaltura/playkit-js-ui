@@ -107,6 +107,10 @@
       "one_hundred_percent": "sata prosenttia",
       "volume_slider_aria_label": "Äänenvoimakkuuden säätö",
       "volume_slider_description": "Säädä äänenvoimakkuutta nuolilla"
+    },
+    "mediaInfo": {
+      "seeMore": "Näytä lisää",
+      "seeLess": "Näytä vähemmän"
     }
   }
 }
