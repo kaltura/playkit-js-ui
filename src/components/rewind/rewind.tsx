@@ -14,20 +14,14 @@ import {ButtonControl} from '../button-control';
 const COMPONENT_NAME = 'Rewind';
 
 /**
- * Default rewind step
- * @type {number}
- * @const
- */
-export const REWIND_DEFAULT_STEP = 10;
-
-/**
  * mapping state to props
  * @param {*} state - redux store state
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
   isDvr: state.engine.isDvr,
-  isLive: state.engine.isLive
+  isLive: state.engine.isLive,
+  secondsToSeek: state.config.seekSeconds
 });
 
 /**
@@ -36,7 +30,7 @@ const mapStateToProps = state => ({
  * @returns {Object} - The object translations
  */
 const translates = (props: any) => ({
-  rewindText: <Text id={'controls.secondsRewind'} fields={{seconds: props.step || REWIND_DEFAULT_STEP}}></Text>
+  rewindText: <Text id={'controls.secondsRewind'} fields={{seconds: props.secondsToSeek}}></Text>
 });
 /**
  * Rewind component
@@ -52,6 +46,27 @@ const translates = (props: any) => ({
 @withAnimation(style.rotate)
 @withText(translates)
 class Rewind extends Component<any, any> {
+  private _secondsToSeek: number;
+
+  constructor(props: any) {
+    super(props);
+    this._secondsToSeek = this._getValidSecondsToSeek(props.secondsToSeek);
+  }
+
+  /**
+   * checking if value id valid number
+   * @param {any} value - value to check
+   * @returns {number}
+   * @memberof Rewind
+   */
+  _getValidSecondsToSeek(value: any): number {
+    if (typeof value === 'number' && Number.isInteger(value) && value > 0) {
+      return value;
+    } else {
+      return 10;
+    }
+  }
+
   /**
    * rewind click handler
    *
@@ -62,16 +77,15 @@ class Rewind extends Component<any, any> {
     const {player} = this.props;
     this.props.animate();
     let to;
-    const step = this.props.step || REWIND_DEFAULT_STEP;
     const from = player.currentTime;
     const basePosition = player.isLive() ? player.getStartTimeOfDvrWindow() : 0;
-    if (player.currentTime - step < basePosition) {
+    if (player.currentTime - this._secondsToSeek < basePosition) {
       // In dvr when close to beginning dont rewind
       if (!this.props.isDvr) {
         to = basePosition;
       }
     } else {
-      to = player.currentTime - step;
+      to = player.currentTime - this._secondsToSeek;
     }
     player.currentTime = to;
     this.props.notifyClick({
@@ -90,6 +104,21 @@ class Rewind extends Component<any, any> {
     return isActive;
   }
 
+
+  /**
+   * get icon type based on seek seconds
+   * @returns {string} - icon type
+   */
+  _getIconType(): string  {
+    let icon = IconType.Rewind;
+    if (this._secondsToSeek === 5) {
+      icon = IconType.Rewind5;
+    } else if (this._secondsToSeek === 10) {
+      icon = IconType.Rewind10;
+    }
+    return icon;
+  }
+
   /**
    * render component
    *
@@ -97,12 +126,13 @@ class Rewind extends Component<any, any> {
    * @returns {React$Element} - component element
    * @memberof Rewind
    */
-  render({step, rewindText, innerRef}: any): VNode<any> | undefined {
+  render({rewindText, innerRef}: any): VNode<any> | undefined {
+    const icon = this._getIconType();
     return !this._shouldRender() ? undefined : (
       <ButtonControl name={COMPONENT_NAME} className={style.noIdleControl}>
         <Tooltip label={rewindText}>
           <Button tabIndex="0" aria-label={rewindText} className={`${style.controlButton}`} ref={innerRef} onClick={this.onClick}>
-            <Icon type={!step || step === REWIND_DEFAULT_STEP ? IconType.Rewind10 : IconType.Rewind} />
+            <Icon type={icon} />
           </Button>
         </Tooltip>
       </ButtonControl>
