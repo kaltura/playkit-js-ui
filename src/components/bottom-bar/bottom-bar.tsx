@@ -17,6 +17,7 @@ const LOWER_PRIORITY_CONTROLS: string[][] = [
   ['PictureInPicture'],
   ['VrStereo'],
   ['TimeDisplayPlaybackContainer'],
+  ['SpeedControl'],
   ['QualityControl'],
   ['Audio'],
   ['AudioDesc'],

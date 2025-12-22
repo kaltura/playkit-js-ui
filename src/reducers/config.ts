@@ -19,6 +19,7 @@ export const initialState = {
   showTitleOnUpperBar: false,
   showAudioButton: true,
   showAudioDescriptionButton: true,
+  showSpeedButton: false,
   showQualityButton: false,
   openMenuFromCCButton: false,
   openMenuFromAudioDescriptionButton: true,

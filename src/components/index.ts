@@ -89,3 +89,4 @@ export {Title} from './title';
 export {Audio} from './audio';
 export {TextWithTooltip} from './text-with-tooltip';
 export {QualityControl} from './quality-control';
+export {SpeedControl} from './speed-control';
