@@ -20,6 +20,7 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile,
   isSmallSize: state.shell.isSmallSize,
   isLive: state.engine.isLive,
+  metadataLoaded: state.engine.metadataLoaded
 });
 
 const COMPONENT_NAME = 'SpeedControl';
@@ -80,7 +81,7 @@ const SpeedControl = connect(mapStateToProps)(
 
     const hasPlaybackRates = useMemo(() => {
       return player.playbackRates?.length > 1;
-    }, [player.playbackRates]);
+    }, [props.metadataLoaded]);
 
     const registerComponent = () =>  {
       return {
