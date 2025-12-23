@@ -120,17 +120,15 @@ class UnmuteIndication extends Component<any, any> {
    */
   _setElementsTimeout(): void {
     if (this._iconOnlySeconds !== 0){
-    // @ts-expect-error - Type 'Timeout' is not assignable to type 'number'.
       this._iconTimeout = setTimeout(() => {
         this.setState({iconOnly: true});
-      }, this._iconOnlySeconds );
+      }, this._iconOnlySeconds ) as unknown as number;
     } 
 
     if (this._buttonRemoveSeconds !== 0){
-      // @ts-expect-error - Type 'Timeout' is not assignable to type 'number'.
       this._removeButtonTimeout = setTimeout(() => {
         this.setState({removeButton: true});
-      }, this._buttonRemoveSeconds );
+      }, this._buttonRemoveSeconds ) as unknown as number;
     }
   }
 
