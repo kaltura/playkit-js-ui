@@ -25,7 +25,7 @@ const mapStateToProps = state => ({
 });
 
 /**
-* checking if value id valid number
+* checking if value is valid number
 * @param {any} value - value to check
 * @returns {number}
 */
