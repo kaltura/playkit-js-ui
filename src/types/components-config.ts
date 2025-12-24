@@ -3,6 +3,7 @@ import {LogoConfig} from './logo-config';
 import {VrStereoConfig} from './vr-stereo-config';
 import {SidePanelsConfig} from './side-panels-config';
 import {WatermarkConfig} from './watermark-config';
+import {UnmuteIndicationConfig} from './unmute-indication-config';
 
 export type ComponentsConfig = {
   seekbar?: any;
@@ -11,4 +12,5 @@ export type ComponentsConfig = {
   vrStereo?: VrStereoConfig;
   logo?: LogoConfig;
   fullscreen?: FullscreenConfig;
+  unmuteIndication?: UnmuteIndicationConfig;
 };

@@ -22,7 +22,10 @@ export const MUTED_AUTOPLAY_ICON_ONLY_DEFAULT_TIMEOUT = 3000;
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  fallbackToMutedAutoPlay: state.engine.fallbackToMutedAutoPlay
+  fallbackToMutedAutoPlay: state.engine.fallbackToMutedAutoPlay,
+  unmuteTextSeconds: state.config.components.unmuteIndication.unmuteTextSeconds,
+  unmuteButtonSeconds: state.config.components.unmuteIndication.unmuteButtonSeconds,
+  showUnmuteIndicationButton: state.config.buttons.showUnmuteIndicationButton
 });
 
 const COMPONENT_NAME = 'UnmuteIndication';
@@ -50,6 +53,14 @@ const translates = {
 @withText(translates)
 class UnmuteIndication extends Component<any, any> {
   _iconTimeout: number | null = null;
+  _removeButtonTimeout: number | null = null;
+  _iconOnlySeconds: number = MUTED_AUTOPLAY_ICON_ONLY_DEFAULT_TIMEOUT;
+  _buttonRemoveSeconds: number = 0;
+
+  constructor(props: any) {
+    super(props);
+    this._setValidSeconds();
+  }
 
   /**
    * after component updated, check the fallbackToMutedAutoPlay prop for updating the state of the component
@@ -61,8 +72,8 @@ class UnmuteIndication extends Component<any, any> {
    */
   componentDidUpdate(prevProps: any): void {
     if (!prevProps.fallbackToMutedAutoPlay && this.props.fallbackToMutedAutoPlay) {
-      this.props.eventManager.listenOnce(this.props.player, this.props.player.Event.PLAYING, () => this._iconOnlyTimeout());
-      this.props.eventManager.listenOnce(this.props.player, this.props.player.Event.AD_STARTED, () => this._iconOnlyTimeout());
+      this.props.eventManager.listenOnce(this.props.player, this.props.player.Event.PLAYING, () => this._setElementsTimeout());
+      this.props.eventManager.listenOnce(this.props.player, this.props.player.Event.AD_STARTED, () => this._setElementsTimeout());
     }
   }
 
@@ -77,19 +88,48 @@ class UnmuteIndication extends Component<any, any> {
       clearTimeout(this._iconTimeout);
       this._iconTimeout = null;
     }
+    if (this._removeButtonTimeout) {
+      clearTimeout(this._removeButtonTimeout);
+      this._removeButtonTimeout = null;
+    }
   }
 
   /**
-   * The icon only timeout handler
+   * Set only valid seconds for timeouts
    * @private
    * @memberof UnmuteIndication
    * @returns {void}
    */
-  _iconOnlyTimeout(): void {
-    // @ts-expect-error - Type 'Timeout' is not assignable to type 'number'.
-    this._iconTimeout = setTimeout(() => {
-      this.setState({iconOnly: true});
-    }, MUTED_AUTOPLAY_ICON_ONLY_DEFAULT_TIMEOUT);
+    _setValidSeconds(): void {
+    const isValid = (value: any): boolean => {
+      return (typeof value === 'number' && value >= 0);
+    }
+    if (isValid(this.props.unmuteTextSeconds)) {
+        this._iconOnlySeconds = this.props.unmuteTextSeconds * 1000;
+    }
+    if (isValid(this.props.unmuteButtonSeconds)) {
+        this._buttonRemoveSeconds = this.props.unmuteButtonSeconds * 1000;
+    }
+  }
+
+  /**
+   * The icon and text timeout handler
+   * @private
+   * @memberof UnmuteIndication
+   * @returns {void}
+   */
+  _setElementsTimeout(): void {
+    if (this._iconOnlySeconds !== 0){
+      this._iconTimeout = setTimeout(() => {
+        this.setState({iconOnly: true});
+      }, this._iconOnlySeconds ) as unknown as number;
+    } 
+
+    if (this._buttonRemoveSeconds !== 0){
+      this._removeButtonTimeout = setTimeout(() => {
+        this.setState({removeButton: true});
+      }, this._buttonRemoveSeconds ) as unknown as number;
+    }
   }
 
   /**
@@ -137,7 +177,7 @@ class UnmuteIndication extends Component<any, any> {
    * @memberof UnmuteIndication
    */
   render(props: any): VNode<any> | undefined {
-    if (!this.props.fallbackToMutedAutoPlay) return undefined;
+    if (!this.props.fallbackToMutedAutoPlay || this.state.removeButton || !this.props.showUnmuteIndicationButton) return undefined;
 
     const styleClass = [style.unmuteButtonContainer];
     if (props.hasTopBar) styleClass.push(style.hasTopBar);

@@ -3,6 +3,7 @@ import {ComponentsConfig} from './components-config';
 import {UserTheme} from './user-theme';
 import {KPUIComponent} from './ui-component';
 import {MediaInfoConfig} from './media-info-config';
+import {ButtonsConfig} from './buttons-config';
 
 export interface UIOptionsObject {
   targetId: string;
@@ -30,6 +31,7 @@ export interface UIOptionsObject {
   seekSeconds?: number;
   hoverTimeout?: number;
   logger?: LoggerType;
+  buttons?: ButtonsConfig;
   components?: ComponentsConfig;
   uiComponents?: Array<KPUIComponent>;
   translations?: {[langKey: string]: any};
