@@ -284,6 +284,12 @@ class MenuItem extends Component<any, any> {
   public render(props: any): VNode<any> {
     const ariaLabel = props.data.ariaLabel || props.data.label;
     const badgeType: string | null = props.data.badgeType && !props.isSelected(props.data) ? BadgeType[props.data.badgeType] : BadgeType[props.data.badgeType + 'Active'];
+    let badgeText = '';
+    if (badgeType?.includes('quality-hd')) {
+      badgeText = ' HD';
+    } else if (badgeType?.includes('quality-4k')) {
+      badgeText = ' 4K';
+    }
     return (
       <div
         role={props?.role}
@@ -305,7 +311,7 @@ class MenuItem extends Component<any, any> {
         onKeyDown={this.onKeyDown}>
         <span
           className={badgeType ? [style.labelBadge, badgeType].join(' ') : ''}
-          aria-label={badgeType?.includes('quality-hd') ? `${ariaLabel} HD` : ariaLabel}>
+          aria-label={`${ariaLabel}${badgeText}`}>
           {props.data.label}
         </span>
         <span className={[style.menuIconContainer, style.active].join(' ')}>
