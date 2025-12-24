@@ -25,12 +25,25 @@ const mapStateToProps = state => ({
 });
 
 /**
+* checking if value id valid number
+* @param {any} value - value to check
+* @returns {number}
+*/
+const getValidSecondsToSeek = (value: any): number => {
+  if (typeof value === 'number' && Number.isInteger(value) && value > 0) {
+    return value;
+  } else {
+    return 10;
+  }
+}
+
+/**
  * translates
  * @param {any} props - Props
  * @returns {Object} - The object translations
  */
 const translates = (props: any) => ({
-  forwardText: <Text id={'controls.secondsForward'} fields={{seconds: props.secondsToSeek}}></Text>
+  forwardText: <Text id={'controls.secondsForward'} fields={{seconds: getValidSecondsToSeek(props.secondsToSeek)}}></Text>
 });
 /**
  * Forward component
@@ -50,22 +63,9 @@ class Forward extends Component<any, any> {
 
   constructor(props: any) {
     super(props);
-    this._secondsToSeek = this._getValidSecondsToSeek(props.secondsToSeek);
+    this._secondsToSeek = getValidSecondsToSeek(props.secondsToSeek);
   }
 
-  /**
-   * checking if value id valid number
-   * @param {any} value - value to check
-   * @returns {number}
-   * @memberof Forward
-   */
-  _getValidSecondsToSeek(value: any): number {
-    if (typeof value === 'number' && Number.isInteger(value) && value > 0) {
-      return value;
-    } else {
-      return 10;
-    }
-  }
   /**
    * should render component
    * @returns {boolean} - whether to render the component
