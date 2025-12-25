@@ -139,7 +139,7 @@ const MediaInfoDisplayComponent = (props: MediaInfoDisplayProps): any => {
   useEffect(() => {
     setIsDescriptionExpanded(false);
   }, [
-    // if description is an array - need to stringify it for the dependency
+    // if description is an array - stringify it so react detects actual content changes
     Array.isArray(props.sources?.metadata?.description) ? JSON.stringify(props.sources?.metadata?.description) : props.sources?.metadata?.description
   ]);
 
