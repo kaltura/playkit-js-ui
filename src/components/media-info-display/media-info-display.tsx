@@ -10,6 +10,7 @@ import {Tooltip} from '../tooltip';
 import {MediaInfoConfig, MediaInfoDetailsMode, MediaInfoPosition} from '../../types';
 import {EventType} from '../../event';
 import {FakeEvent} from '@playkit-js/playkit-js';
+import {extractMetadataValue} from '../../utils';
 
 /**
  * mapping state to props
@@ -137,7 +138,10 @@ const MediaInfoDisplayComponent = (props: MediaInfoDisplayProps): any => {
   // reset description expansion when component updates with new metadata
   useEffect(() => {
     setIsDescriptionExpanded(false);
-  }, [props.sources?.metadata?.description]);
+  }, [
+    // if description is an array - need to stringify it for the dependency
+    Array.isArray(props.sources?.metadata?.description) ? JSON.stringify(props.sources?.metadata?.description) : props.sources?.metadata?.description
+  ]);
 
   // toggle description expansion
   const toggleDescription = (): void => {
@@ -194,13 +198,13 @@ const MediaInfoDisplayComponent = (props: MediaInfoDisplayProps): any => {
       )}
       {shouldShowDetails && (
         <div className={style.mediaInfoDetails}>
-          {config.detailsMode === MediaInfoDetailsMode.Title && metadata?.name && <MediaTitle title={metadata.name} />}
+          {config.detailsMode === MediaInfoDetailsMode.Title && metadata?.name && <MediaTitle title={extractMetadataValue(metadata.name)} />}
           {config.detailsMode === MediaInfoDetailsMode.TitleAndDescription && (
             <>
-              {metadata?.name && <MediaTitle title={metadata.name} />}
+              {metadata?.name && <MediaTitle title={extractMetadataValue(metadata.name)} />}
               {metadata?.description && (
                 <MediaDescription
-                  description={metadata.description}
+                  description={extractMetadataValue(metadata.description)}
                   isExpanded={isDescriptionExpanded}
                   onToggle={toggleDescription}
                   seeMoreText={props.seeMoreText}

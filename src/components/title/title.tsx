@@ -4,6 +4,7 @@ import style from './title.scss';
 import {withPlayer} from '../player';
 import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
 import {TextWithTooltip} from '../text-with-tooltip';
+import {extractMetadataValue} from '../../utils';
 
 const COMPONENT_NAME = 'Title';
 /**
@@ -38,7 +39,7 @@ const TitleComponent = (props: TitleProps): VNode | null => {
   let title = '';
   const sources = props.player?.sources;
   if (sources && sources.metadata && sources.metadata.name) {
-    title = sources.metadata.name;
+    title = extractMetadataValue(sources.metadata.name);
   } else {
     return null;
   }
