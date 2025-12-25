@@ -25,12 +25,25 @@ const mapStateToProps = state => ({
 });
 
 /**
+* checking if value is valid number
+* @param {any} value - value to check
+* @returns {number}
+*/
+const getValidSecondsToSeek = (value: any): number => {
+  if (typeof value === 'number' && Number.isInteger(value) && value > 0) {
+    return value;
+  } else {
+    return 10;
+  }
+}
+
+/**
  * translates
  * @param {any} props - Props
  * @returns {Object} - The object translations
  */
 const translates = (props: any) => ({
-  rewindText: <Text id={'controls.secondsRewind'} fields={{seconds: props.secondsToSeek}}></Text>
+  rewindText: <Text id={'controls.secondsRewind'} fields={{seconds: getValidSecondsToSeek(props.secondsToSeek)}}></Text>
 });
 /**
  * Rewind component
@@ -50,21 +63,7 @@ class Rewind extends Component<any, any> {
 
   constructor(props: any) {
     super(props);
-    this._secondsToSeek = this._getValidSecondsToSeek(props.secondsToSeek);
-  }
-
-  /**
-   * checking if value id valid number
-   * @param {any} value - value to check
-   * @returns {number}
-   * @memberof Rewind
-   */
-  _getValidSecondsToSeek(value: any): number {
-    if (typeof value === 'number' && Number.isInteger(value) && value > 0) {
-      return value;
-    } else {
-      return 10;
-    }
+    this._secondsToSeek = getValidSecondsToSeek(props.secondsToSeek);
   }
 
   /**
