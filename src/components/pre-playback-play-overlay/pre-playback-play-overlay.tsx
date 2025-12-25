@@ -3,7 +3,7 @@ import {h, Component, VNode} from 'preact';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
 import {default as Icon, IconType} from '../icon';
-import {KeyMap} from '../../utils';
+import {KeyMap, extractMetadataValue} from '../../utils';
 import {actions as loadingActions} from '../../reducers/loading';
 import {withText} from 'preact-i18n';
 import {withPlayer} from '../player';
@@ -108,7 +108,7 @@ class PrePlaybackPlayOverlay extends Component<any, any> {
     if (!(props.prePlayback || isStartOver) || props.loading) {
       return undefined;
     }
-    const entryName = `${this.props.title}: ${this.props.player.sources.metadata?.name}`;
+    const entryName = `${this.props.title}: ${extractMetadataValue(this.props.player.sources.metadata?.name)}`;
     const labelText = props.isPlaybackEnded ? props.startOverText : props.playText;
     const prePlaybackPlayOverlayClassName = this.createPrePlaybackClassName();
     return (

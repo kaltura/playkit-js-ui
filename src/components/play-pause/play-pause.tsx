@@ -7,7 +7,7 @@ import {isPlayingAdOrPlayback} from '../../reducers/getters';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from '../event-dispatcher';
 import {withLogger} from '../logger';
-import {bindActions, focusElement, KeyMap} from '../../utils';
+import {bindActions, focusElement, KeyMap, extractMetadataValue} from '../../utils';
 import {actions as settingActions} from '../../reducers/settings';
 import {actions as overlayIconActions} from '../../reducers/overlay-action';
 import {Tooltip} from '../../components/tooltip';
@@ -79,7 +79,7 @@ class PlayPause extends Component<any, any> {
       });
     });
     eventManager.listen(player, player.Event.Core.CHANGE_SOURCE_ENDED, () => {
-      const entryName = player.sources?.metadata?.name;
+      const entryName = extractMetadataValue(player.sources?.metadata?.name);
       if (entryName) {
         this.setState({entryName});
       }

@@ -5,6 +5,7 @@ import {withText} from 'preact-i18n';
 import {Button} from '../button';
 import {Tooltip} from '../../components/tooltip';
 import {default as Icon, IconType} from '../icon';
+import {extractMetadataValue} from '../../utils';
 
 @withText({
   prevControlsText: 'controls.prev',
@@ -21,7 +22,7 @@ class PrevNext extends Component<any, any> {
     const previewTitle = type === 'prev' ? this.props.playlistPrevText : this.props.playlistUpNextText;
 
     const previewImage = item?.sources?.poster;
-    const previewText = item?.sources?.metadata ? item.sources.metadata.name : '';
+    const previewText = item?.sources?.metadata ? extractMetadataValue(item.sources.metadata.name) : '';
 
     const button = (
       <Button disabled={!item} tabIndex="0" aria-label={tooltipText} className={`${style.controlButton}`} onClick={onClick}>

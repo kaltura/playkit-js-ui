@@ -4,7 +4,7 @@ import {h, Component, VNode} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {default as Icon, IconType} from '../icon';
-import {KeyMap} from '../../utils';
+import {KeyMap, extractMetadataValue} from '../../utils';
 import {withPlayer} from '../player';
 import {withLogger} from '../logger';
 
@@ -126,7 +126,9 @@ class PlaylistNextScreen extends Component<any, any> {
                 <Text id="playlist.next" />
               </div>
             </Localizer>
-            <div className={style.playlistNextScreenTextName}>{`${next.sources.metadata ? next.sources.metadata.name : ''}`}</div>
+            <div className={style.playlistNextScreenTextName}>{`${
+              next.sources.metadata ? extractMetadataValue(next.sources.metadata.name) : ''
+            }`}</div>
           </div>
           <div className={style.playlistNextScreenPosterPlaceholder}>
             <div className={style.playlistNextScreenPosterAspectRatio}>

@@ -2,7 +2,7 @@ import style from '../../styles/style.scss';
 import {h, Component, VNode} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {default as Icon, IconType} from '../icon';
-import {KeyMap} from '../../utils';
+import {KeyMap, extractMetadataValue} from '../../utils';
 import {connect} from 'react-redux';
 import {withPlayer} from '../player';
 import {withLogger} from '../logger';
@@ -280,7 +280,7 @@ class PlaylistCountdown extends Component<any, any> {
                     <div className={style.playlistCountdownTimeLeft}>{durationLeft}</div>
                   </div>
                   <div className={style.playlistCountdownTextName}>{`${
-                    this.nextShown.sources.metadata ? this.nextShown.sources.metadata.name : ''
+                    this.nextShown.sources.metadata ? extractMetadataValue(this.nextShown.sources.metadata.name) : ''
                   }`}</div>
                 </div>
               </Localizer>
