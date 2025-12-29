@@ -162,6 +162,12 @@ class DropDown extends Component<any, any> {
     const activeOption = this.getActiveOption();
     const label = activeOption?.dropdownOptions?.label || activeOption.label;
     const badgeType = BadgeType[activeOption.badgeType || activeOption?.dropdownOptions?.badgeType];
+    let badgeText = '';
+    if (badgeType?.includes('quality-hd')) {
+      badgeText = ' HD';
+    } else if (badgeType?.includes('quality-4k')) {
+      badgeText = ' 4K';
+    }
     return props.isMobile || props.isSmallSize ? (
       this.renderNativeSelect(props.name)
     ) : (
@@ -188,7 +194,7 @@ class DropDown extends Component<any, any> {
           <span
             id={activeOptionId}
             className={badgeType ? [style.labelBadge, badgeType].join(' ') : ''}
-            aria-label={badgeType?.includes("quality-hd") ? `${label} HD` : label}
+            aria-label={`${label}${badgeText}`}
           >
             {label}
           </span>
