@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.82.13 (2025-12-31)
+
+
+### Bug Fixes
+
+* **FEC-14831:** Player v7 | SR announce "4K" quality only on "inline"… ([#1144](https://github.com/kaltura/playkit-js-ui/issues/1144)) ([07d5450](https://github.com/kaltura/playkit-js-ui/commit/07d5450))
+
+
+
 ### 0.82.12 (2025-12-18)
 
 
