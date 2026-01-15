@@ -1,12 +1,11 @@
 import {Component, VNode} from 'preact';
 import style from '../../styles/style.scss';
 import {Text} from 'preact-i18n';
-import {KeyMap} from '../../utils/key-map';
 import {Icon, IconType} from '../icon';
 import {SampleCaptionsStyleButton} from './sample-captions-style-button';
 import {h} from 'preact';
 import {withPlayer} from '../player';
-import { KeyCode } from '../../utils/key-map';
+import { KeyCode } from '../../utils';
 
 /**
  * MainWindow component
@@ -22,6 +21,8 @@ class MainCaptionsWindow extends Component<any, any> {
       source: string;
       style: any;
     }[] = [];
+
+    presetRefs: Array<HTMLDivElement | null> = [];
 
   /**
    * componentWillMount
@@ -164,7 +165,64 @@ class MainCaptionsWindow extends Component<any, any> {
     }
   };
 
-  
+  focusPresets = (index: number): void => {
+    const el = this.presetRefs[index];
+    if (el) {
+      el.focus();
+    }
+  };
+
+  selectPresetByIndex = (index: number): void => {
+    const preset = this.presets[index];
+    if (preset) {
+      this.props.changeCaptionsStyle(preset.style, preset.source);
+    }
+  };
+
+  onPresetsKeyDown = (e: KeyboardEvent, currentIndex: number): void => {
+    switch (e.code) {
+      case KeyCode.ArrowRight:
+      case KeyCode.ArrowDown: {
+        e.preventDefault();
+        e.stopPropagation();
+        const nextIndex = (currentIndex + 1) % this.presets.length;
+        this.selectPresetByIndex(nextIndex);
+        this.focusPresets(nextIndex);
+        break;
+      }
+      case KeyCode.ArrowLeft:
+      case KeyCode.ArrowUp: {
+        e.preventDefault();
+        e.stopPropagation();
+        const prevIndex = (currentIndex - 1 + this.presets.length) % this.presets.length;
+        this.selectPresetByIndex(prevIndex);
+        this.focusPresets(prevIndex);
+        break;
+      }
+      case KeyCode.Space:
+      case KeyCode.Enter: {
+        e.preventDefault();
+        e.stopPropagation();
+        this.selectPresetByIndex(currentIndex);
+        break;
+      }
+      case KeyCode.Home: {
+        e.preventDefault();
+        this.selectPresetByIndex(0);
+        this.focusPresets(0);
+        break;
+      }
+      case KeyCode.End: {
+        e.preventDefault();
+        const last = this.presets.length - 1;
+        this.selectPresetByIndex(last);
+        this.focusPresets(last);
+        break;
+      }
+      default:
+        break;
+    }
+  };
 
   /**
    * get the active captions style for preview
@@ -198,14 +256,17 @@ class MainCaptionsWindow extends Component<any, any> {
     const activePreset = this.presets.find(preset => this.props.player.textStyle.isEqual(preset.style));
     const isCustomEqualToPreset = this.presets.some(preset => props.customPresetStyle && props.customPresetStyle.isEqual(preset.style));
     const isCustomActive = props.customPresetStyle && this.props.player.textStyle.isEqual(props.customPresetStyle);
+    const activePresetIndex = this.presets.findIndex(preset => this.props.player.textStyle.isEqual(preset.style));
+    // If no preset is active, fall back to the first preset
+    const focusIndex = activePresetIndex !== -1 ? activePresetIndex : 0;
     
     return (
       <div className={[style.overlayScreen, style.active].join(' ')}>
         <h2 className={style.title} id={this.props.captionsTitleId}>
           <Text id={'cvaa.title'} />
         </h2>
-        <div role="radiogroup">
-          {this.presets.map(preset => (
+        <div role="radiogroup" aria-labelledby={this.props.captionsTitleId}>
+          {this.presets.map((preset, index) => (
             <SampleCaptionsStyleButton
               key={preset.key}
               addAccessibleChild={props.addAccessibleChild}
@@ -214,6 +275,9 @@ class MainCaptionsWindow extends Component<any, any> {
                 props.changeCaptionsStyle(preset.style, preset.source)
               }
               isActive={props.player.textStyle.isEqual(preset.style)}
+              tabIndex={index === focusIndex ? 0 : -1}
+              onKeyDown={(e: KeyboardEvent) => this.onPresetsKeyDown(e, index)}
+              setRef={(el: HTMLDivElement | null) => {this.presetRefs[index] = el;}}
             >
               <Text id={preset.textId} />
             </SampleCaptionsStyleButton>
@@ -226,6 +290,7 @@ class MainCaptionsWindow extends Component<any, any> {
               classNames={[style.sample]}
               changeCaptionsStyle={() => props.changeCaptionsStyle(props.customPresetStyle, "Advanced_captions_custom")}
               isActive={isCustomActive}
+              tabIndex={0}
             >
               <span className={style.customButtonText}>
                 <Text id={'cvaa.sample_custom'} />

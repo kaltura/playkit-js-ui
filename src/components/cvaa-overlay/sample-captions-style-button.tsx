@@ -1,4 +1,3 @@
-import {KeyMap} from '../../utils';
 import style from '../../styles/style.scss';
 import {Icon, IconType} from '../icon';
 import {h} from 'preact';
@@ -18,6 +17,10 @@ const SampleCaptionsStyleButton = (props: any) => {
    * @returns {void}
    */
   const onKeyDown = (e: KeyboardEvent): void => {
+    if (props.onKeyDown) {
+      props.onKeyDown(e);
+      return;
+    }
     if (e.code === KeyCode.Enter || e.code === KeyCode.Space) {
       e.preventDefault();
       e.stopPropagation();
@@ -35,12 +38,15 @@ const SampleCaptionsStyleButton = (props: any) => {
   return (
     <div
       role="radio"
-      tabIndex={0}
+      tabIndex={typeof props.tabIndex === 'number' ? props.tabIndex : (props.isActive ? 0 : -1)}
       aria-checked={props.isActive ? 'true' : 'false'}
       ref={el => {
         if (el) {
           _sampleCaptionsElRef.current = el;
           props.addAccessibleChild(el);
+        }
+        if (props.setRef) {
+          props.setRef(el);
         }
       }}
       className={props.classNames.join(' ')}

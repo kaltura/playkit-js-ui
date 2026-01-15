@@ -3,7 +3,7 @@ import {h, Component, VNode} from 'preact';
 import style from '../../styles/style.scss';
 import {Localizer, Text} from 'preact-i18n';
 import {connect} from 'react-redux';
-import {bindActions} from '../../utils';
+import {bindActions, KeyCode} from '../../utils';
 import {actions as overlayActions} from '../../reducers/overlay';
 import {actions as shellActions} from '../../reducers/shell';
 import {default as Icon, IconType} from '../icon';
@@ -129,9 +129,30 @@ class Overlay extends Component<OverlayProps, any> {
    * @memberof Overlay
    */
   private onKeyDown = (e: KeyboardEvent): void => {
-    if (this.props.handleKeyDown) {
-      this.props.handleKeyDown(e);
+    if (e.code === KeyCode.Tab) {
+      const container = e.currentTarget as HTMLElement;
+      const focusable = container.querySelectorAll<HTMLElement>('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+
+      if (!focusable.length) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement as HTMLElement;
+
+      if (e.shiftKey && active === first) {
+        e.preventDefault();
+        last.focus();
+        return;
+      }
+
+      if (!e.shiftKey && active === last) {
+        e.preventDefault();
+        first.focus();
+        return;
+      }
     }
+
+    this.props.handleKeyDown?.(e);
   };
 
   /**
@@ -191,7 +212,7 @@ class Overlay extends Component<OverlayProps, any> {
     }
 
     return (
-      <div tabIndex={-1} className={overlayClass.join(' ')} role={role} onKeyDown={this.onKeyDown} {...ariaProps}>
+      <div tabIndex={-1} className={overlayClass.join(' ')} role={role} aria-modal="true" onKeyDownCapture={this.onKeyDown} {...ariaProps}>
         <div className={style.overlayContents}>{this.props.children}</div>
         {this.renderCloseButton(this.props)}
       </div>
