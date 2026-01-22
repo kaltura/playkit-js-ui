@@ -1,5 +1,9 @@
-.player.overlay-active .interactive-area {
-  filter: blur($blur);
+.player.overlay-active .interactive-area {  
+  .filter {
+    filter: blur($blur);
+    height: 100%;
+    width: 100%;
+  }
 }
 .interactive-area {
   pointer-events: none;
