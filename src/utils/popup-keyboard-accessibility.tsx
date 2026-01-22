@@ -2,6 +2,7 @@ import {h, Component} from 'preact';
 import {withPlayer} from './../components/player';
 import {KeyMap} from './key-map';
 import {focusElement} from './focus-element';
+import {KeyCode} from '../utils';
 
 /**
  * wraps a component and handles all key navigation and focus
@@ -61,26 +62,26 @@ export const withKeyboardA11y = (WrappedComponent): any => {
      * @memberof HOC
      */
     onKeyDown = (e: KeyboardEvent): void => {
-      switch (e.keyCode) {
-        case KeyMap.ESC:
+      switch (e.code) {
+        case KeyCode.Escape:          
           if (this.props.onClose) {
             this.props.onClose();
             e.stopPropagation();
           }
           break;
-        case KeyMap.DOWN:
-        case KeyMap.UP:
+        case KeyCode.ArrowDown:
+        case KeyCode.ArrowUp:
           if (document.activeElement && !this._isModal) {
             let activeElementIndex = this._accessibleChildren.indexOf(document.activeElement as HTMLElement);
             activeElementIndex =
-              (activeElementIndex + (e.keyCode == KeyMap.DOWN ? 1 : -1) + this._accessibleChildren.length) % this._accessibleChildren.length;
+              (activeElementIndex + (e.code == KeyCode.ArrowDown ? 1 : -1) + this._accessibleChildren.length) % this._accessibleChildren.length;
             this._accessibleChildren[activeElementIndex].focus();
             e.preventDefault();
             e.stopPropagation();
           }
 
           break;
-        case KeyMap.TAB:
+        case KeyCode.Tab:
           // hijack tab click to enforce accessibility only inside the modal
           if (this._isModal) {
             if (!e.shiftKey && document.activeElement === this._accessibleChildren[this._accessibleChildren.length - 1]) {
