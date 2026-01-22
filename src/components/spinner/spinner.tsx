@@ -25,7 +25,7 @@ class Spinner extends Component<any, any> {
         if (this.loadingSpan.current) {
           this.loadingSpan.current.innerText = this.props.loading;
         }
-      }, 1000);
+      }, 0);
     }
   }
 
@@ -45,7 +45,7 @@ class Spinner extends Component<any, any> {
               <span key={i + 1} />
             ))}
         </div>
-        <span className={style.srOnly} aria-live="assertive" ref={this.loadingSpan}></span>
+        <span className={style.srOnly} aria-live="polite" role='status' ref={this.loadingSpan}></span>
       </div>
     );
   }
