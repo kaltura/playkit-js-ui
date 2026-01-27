@@ -60,6 +60,13 @@
     "cvaa": {
       "title": "Impostazioni didascalie avanzate",
       "sample_caption_tag": "Campione {{number}}",
+      "sample_high_contrast": "Contrasto elevato",
+      "sample_minimalist": "Minimal",
+      "sample_classic_tv": "Classico",
+      "sample_easy_reading": "Lettura agevolata",
+      "sample_early_readers": "Primi lettori",
+      "sample_night_mode": "Modalità notte",
+      "sample_custom": "Personalizza",
       "sample_custom_caption_tag": "Didascalie personalizzate",
       "set_custom_caption": "Imposta didascalia personalizzata",
       "edit_caption": "Modifica didascalia",
@@ -71,7 +78,8 @@
       "background_color_label": "Colore sfondo",
       "background_opacity_label": "Opacità sfondo",
       "apply": "Applica",
-      "caption_preview": "Anteprima didascalia"
+      "caption_preview": "Anteprima didascalia",
+      "close_label": "Chiudi Impostazioni didascalie avanzate"
     },
     "cast": {
       "play_on_tv": "Riproduci su TV",
