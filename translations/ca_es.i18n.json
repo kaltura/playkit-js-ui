@@ -100,6 +100,13 @@
     "cvaa": {
       "title": "Configuració avançada dels subtítols",
       "sample_caption_tag": "Subtítol exemple {{number}}",
+      "sample_high_contrast": "Alt contrast",
+      "sample_minimalist": "Minimalista",
+      "sample_classic_tv": "Clàssic",
+      "sample_easy_reading": "Lectura fàcil",
+      "sample_early_readers": "Lectors principiants",
+      "sample_night_mode": "Mode nocturn",
+      "sample_custom": "Personalitzat",
       "sample_custom_caption_tag": "Subtítols personalitzats",
       "set_custom_caption": "Establir subtítol personalitzat",
       "edit_caption": "Editar subtítol",
@@ -112,7 +119,8 @@
       "background_color_label": "Color de fons",
       "background_opacity_label": "Opacitat del fons",
       "apply": "Aplicar",
-      "caption_preview": "Aquesta és la previsualització del teu subtítol"
+      "caption_preview": "Aquesta és la previsualització del teu subtítol",
+      "close_label": "Tanca la configuració avançada dels subtítols"
     },
     "cast": {
       "play_on_tv": "Reproduir a la TV",

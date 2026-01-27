@@ -60,6 +60,13 @@
     "cvaa": {
       "title": "Geavanceerde instellingen voor onderschriften",
       "sample_caption_tag": "Voorbeeld {{number}}",
+      "sample_high_contrast": "Hoog contrast",
+      "sample_minimalist": "Minimalist",
+      "sample_classic_tv": "Klassiek",
+      "sample_easy_reading": "Gemakkelijk leesbaar",
+      "sample_early_readers": "Beginnende lezers",
+      "sample_night_mode": "Nachtmodus",
+      "sample_custom": "Aangepast",
       "sample_custom_caption_tag": "Aangepaste onderschriften",
       "set_custom_caption": "Aangepast onderschrift instellen",
       "edit_caption": "Onderschrift bewerken",
@@ -71,7 +78,8 @@
       "background_color_label": "Achtergrondkleur",
       "background_opacity_label": "Achtergronddekking",
       "apply": "Toepassen",
-      "caption_preview": "Dit is uw onderschriftvoorbeeld"
+      "caption_preview": "Dit is uw onderschriftvoorbeeld",
+      "close_label": "Geavanceerde ondertitelingsinstellingen sluiten"
     },
     "cast": {
       "play_on_tv": "Afspelen op TV",

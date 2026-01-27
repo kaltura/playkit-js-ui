@@ -1,11 +1,24 @@
 import {Component, VNode} from 'preact';
 import style from '../../styles/style.scss';
-import {Text} from 'preact-i18n';
+import {Text, withText} from 'preact-i18n';
 import {Icon, IconType} from '../icon';
 import {SampleCaptionsStyleButton} from './sample-captions-style-button';
 import {h} from 'preact';
 import {withPlayer} from '../player';
 import { KeyCode } from '../../utils';
+
+const translates = (props: any) => ({ 
+  title: <Text id={'cvaa.title'} />,
+  sampleHighContrast: <Text id={'cvaa.sample_high_contrast'} />,
+  sampleMinimalist: <Text id={'cvaa.sample_minimalist'} />,
+  sampleClassicTv: <Text id={'cvaa.sample_classic_tv'} />,
+  sampleEasyReading: <Text id={'cvaa.sample_easy_reading'} />,
+  sampleEarlyReaders: <Text id={'cvaa.sample_early_readers'} />,
+  sampleNightMode: <Text id={'cvaa.sample_night_mode'} />,
+  sampleCustom: <Text id={'cvaa.sample_custom'} />,
+  setCustomCaption: <Text id={'cvaa.set_custom_caption'} />,
+  captionPreview: <Text id={'cvaa.caption_preview'} />
+});
 
 /**
  * MainWindow component
@@ -13,11 +26,14 @@ import { KeyCode } from '../../utils';
  * @extends {Component}
  */
 @withPlayer
+@withText(translates)
 class MainCaptionsWindow extends Component<any, any> {
     presets: {
       key: string;
       className: string;
       textId: string;
+      label: string;
+      ariaLabel: string;
       source: string;
       style: any;
     }[] = [];
@@ -37,6 +53,8 @@ class MainCaptionsWindow extends Component<any, any> {
       {
         key: "minimalist",
         className: style.minimalist,
+        label: "Minimalist",
+        ariaLabel: this.props.sampleMinimalist,
         textId: "cvaa.sample_minimalist",
         source: "Advanced_captions_preset_minimalist",
         style: player.TextStyle.fromJson({
@@ -52,6 +70,8 @@ class MainCaptionsWindow extends Component<any, any> {
       {
         key: "highContrast",
         className: style.highContrast,
+        label: "High Contrast",
+        ariaLabel: this.props.sampleHighContrast,
         textId: "cvaa.sample_high_contrast",
         source: "Advanced_captions_preset_high_contrast",
         style: player.TextStyle.fromJson({
@@ -67,6 +87,8 @@ class MainCaptionsWindow extends Component<any, any> {
       {
         key: "classicTv",
         className: style.classicTv,
+        label: "Classic",  
+        ariaLabel: this.props.sampleClassicTv,
         textId: "cvaa.sample_classic_tv",
         source: "Advanced_captions_preset_classic_tv_style",
         style: player.TextStyle.fromJson({
@@ -82,6 +104,8 @@ class MainCaptionsWindow extends Component<any, any> {
       {
         key: "easyReading",
         className: style.easyReading,
+        label: "Easy Reading",
+        ariaLabel: this.props.sampleEasyReading,
         textId: "cvaa.sample_easy_reading",
         source: "Advanced_captions_preset_easy_reading",
         style: player.TextStyle.fromJson({
@@ -97,6 +121,8 @@ class MainCaptionsWindow extends Component<any, any> {
       {
         key: "earlyReaders",
         className: style.earlyReaders,
+        label: "Early Readers",
+        ariaLabel: this.props.sampleEarlyReaders,
         textId: "cvaa.sample_early_readers",
         source: "Advanced_captions_preset_early_readers",
         style: player.TextStyle.fromJson({
@@ -112,6 +138,8 @@ class MainCaptionsWindow extends Component<any, any> {
       {
         key: "nightMode",
         className: style.nightMode,
+        label: "Night Mode",
+        ariaLabel: this.props.sampleNightMode,
         textId: "cvaa.sample_night_mode",
         source: "Advanced_captions_preset_night_mode",
         style: player.TextStyle.fromJson({
@@ -263,7 +291,7 @@ class MainCaptionsWindow extends Component<any, any> {
     return (
       <div className={[style.overlayScreen, style.active].join(' ')}>
         <h2 className={style.title} id={this.props.captionsTitleId}>
-          <Text id={'cvaa.title'} />
+          {this.props.title}
         </h2>
         <div role="radiogroup" aria-labelledby={this.props.captionsTitleId}>
           {this.presets.map((preset, index) => (
@@ -278,8 +306,9 @@ class MainCaptionsWindow extends Component<any, any> {
               tabIndex={index === focusIndex ? 0 : -1}
               onKeyDown={(e: KeyboardEvent) => this.onPresetsKeyDown(e, index)}
               setRef={(el: HTMLDivElement | null) => {this.presetRefs[index] = el;}}
+              aria-label={preset.ariaLabel}
             >
-              <Text id={preset.textId} />
+              {preset.label}
             </SampleCaptionsStyleButton>
           ))}
         </div>
@@ -291,9 +320,10 @@ class MainCaptionsWindow extends Component<any, any> {
               changeCaptionsStyle={() => props.changeCaptionsStyle(props.customPresetStyle, "Advanced_captions_custom")}
               isActive={isCustomActive}
               tabIndex={0}
+              aria-label={this.props.sampleCustom}
             >
               <span className={style.customButtonText}>
-                <Text id={'cvaa.sample_custom'} />
+                Custom captions
               </span>
               {isCustomActive && (
                 <span className={style.activeTick}>
@@ -312,15 +342,16 @@ class MainCaptionsWindow extends Component<any, any> {
               props.setCustomOrEditRef?.(el);
             }}
             onKeyDown={this.onKeyDown}
+            aria-label={this.props.setCustomCaption}
           >
             <span>
-              <Text id={'cvaa.set_custom_caption'} />
+              Set custom caption
             </span>
           </button>
         </div>
         <div className={`${style.previewContainer} ${activePreset?.key === "easyReading" ? style.previewEasyReading : ""}`}>
           <span style={this.getActiveStyle().toCSS()}>
-            <Text id={'cvaa.caption_preview'} />
+            {this.props.captionPreview}
           </span>
         </div>
       </div>
