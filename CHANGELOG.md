@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 0.83.0 (2026-01-29)
+
+
+### Features
+
+* **FEC-14834:** Add a "Video has been removed" message to Player V7 ([#1148](https://github.com/kaltura/playkit-js-ui/issues/1148)) ([e6f8925](https://github.com/kaltura/playkit-js-ui/commit/e6f8925)), closes [kaltura/playkit-js-providers#275](https://github.com/kaltura/playkit-js-ui/issues/275) [kaltura/kaltura-player-js#1165](https://github.com/kaltura/playkit-js-ui/issues/1165) [kaltura/playkit-js#855](https://github.com/kaltura/playkit-js-ui/issues/855)
+
+
+
 ### 0.82.13 (2025-12-31)
 
 
