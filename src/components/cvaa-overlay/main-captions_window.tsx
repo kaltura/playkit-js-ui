@@ -306,7 +306,7 @@ class MainCaptionsWindow extends Component<any, any> {
               tabIndex={index === focusIndex ? 0 : -1}
               onKeyDown={(e: KeyboardEvent) => this.onPresetsKeyDown(e, index)}
               setRef={(el: HTMLDivElement | null) => {this.presetRefs[index] = el;}}
-              aria-label={preset.ariaLabel}
+              ariaLabel={preset.ariaLabel}
             >
               {preset.label}
             </SampleCaptionsStyleButton>
@@ -320,7 +320,7 @@ class MainCaptionsWindow extends Component<any, any> {
               changeCaptionsStyle={() => props.changeCaptionsStyle(props.customPresetStyle, "Advanced_captions_custom")}
               isActive={isCustomActive}
               tabIndex={0}
-              aria-label={this.props.sampleCustom}
+              ariaLabel={this.props.sampleCustom}
             >
               <span className={style.customButtonText}>
                 Custom captions
