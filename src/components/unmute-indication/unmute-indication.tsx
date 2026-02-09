@@ -103,12 +103,19 @@ class UnmuteIndication extends Component<any, any> {
     _setValidSeconds(): void {
     const isValid = (value: any): boolean => {
       return (typeof value === 'number' && value >= 0);
+    };
+    const { unmuteTextSeconds, unmuteButtonSeconds } = this.props;
+    const isTextSecondsValid = isValid(unmuteTextSeconds);
+    const isButtonSecondsValid = isValid(unmuteButtonSeconds);
+
+    if (isTextSecondsValid) {
+      this._iconOnlySeconds = unmuteTextSeconds * 1000;
     }
-    if (isValid(this.props.unmuteTextSeconds)) {
-        this._iconOnlySeconds = this.props.unmuteTextSeconds * 1000;
+    if (isButtonSecondsValid) {
+      this._buttonRemoveSeconds = unmuteButtonSeconds * 1000;
     }
-    if (isValid(this.props.unmuteButtonSeconds)) {
-        this._buttonRemoveSeconds = this.props.unmuteButtonSeconds * 1000;
+    if (isButtonSecondsValid && isTextSecondsValid && unmuteTextSeconds > unmuteButtonSeconds) {
+      this._buttonRemoveSeconds = unmuteTextSeconds * 1000;
     }
   }
 
