@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.83.1 (2026-02-12)
+
+
+### Bug Fixes
+
+* **FEC-14882:** Bug on duration control for "Start playback muted" ([#1151](https://github.com/kaltura/playkit-js-ui/issues/1151)) ([ca5a1b8](https://github.com/kaltura/playkit-js-ui/commit/ca5a1b8))
+
+
+
 ## 0.83.0 (2026-01-29)
 
 
