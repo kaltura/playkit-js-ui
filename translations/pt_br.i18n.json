@@ -60,6 +60,13 @@
     "cvaa": {
       "title": "Configurações avançadas de legendas",
       "sample_caption_tag": "Amostra {{number}}",
+      "sample_high_contrast": "Alto contraste",
+      "sample_minimalist": "Minimalista",
+      "sample_classic_tv": "Clássico",
+      "sample_easy_reading": "Fácil leitura",
+      "sample_early_readers": "Para crianças leitoras",
+      "sample_night_mode": "Modo noturno",
+      "sample_custom": "Personalizado",
       "sample_custom_caption_tag": "Legendas personalizadas",
       "set_custom_caption": "Definir legenda personalizada",
       "edit_caption": "Editar legenda",
@@ -71,7 +78,8 @@
       "background_color_label": "Cor de fundo",
       "background_opacity_label": "Opacidade do fundo",
       "apply": "Aplicar",
-      "caption_preview": "Esta é a pré-visualização da sua legenda"
+      "caption_preview": "Esta é a pré-visualização da sua legenda",
+      "close_label": "Fechar configurações avançadas de legendas"
     },
     "cast": {
       "play_on_tv": "Reproduzir na TV",

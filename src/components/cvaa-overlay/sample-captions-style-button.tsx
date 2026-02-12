@@ -40,6 +40,7 @@ const SampleCaptionsStyleButton = (props: any) => {
       role="radio"
       tabIndex={typeof props.tabIndex === 'number' ? props.tabIndex : (props.isActive ? 0 : -1)}
       aria-checked={props.isActive ? 'true' : 'false'}
+      aria-label={props['ariaLabel']}
       ref={el => {
         if (el) {
           _sampleCaptionsElRef.current = el;
