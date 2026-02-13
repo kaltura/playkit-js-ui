@@ -100,7 +100,7 @@ class SmartContainer extends Component<any, any> {
           addAccessibleChild={this.props.addAccessibleChild}
           ariaLabel={props.label ? props.label : props.settingsText}
         >
-          <div className={style.title}>{props.title}</div>
+          <h2 className={style.title}>{props.title}</h2>
           {this.renderChildren(props)}
         </Overlay>,
         getOverlayPortalElement(props.player)!
