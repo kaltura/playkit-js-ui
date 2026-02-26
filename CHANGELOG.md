@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.83.2 (2026-02-26)
+
+
+### Bug Fixes
+
+* **FEC-14644:** Add translation to presets aria-label ([#1149](https://github.com/kaltura/playkit-js-ui/issues/1149)) ([e2f0ab8](https://github.com/kaltura/playkit-js-ui/commit/e2f0ab8))
+
+
+
 ### 0.83.1 (2026-02-12)
 
 
