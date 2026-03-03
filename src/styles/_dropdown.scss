@@ -154,7 +154,7 @@
   }
 }
 
-[data-captions-menu] .dropdown-menu-item:nth-last-child(2) {
+[data-captions-menu] .dropdown-menu-item:has(span[aria-label="__separator__"]) {
   all: unset;
   display: block;
   width: 100%;
