@@ -1,13 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&display=swap');
-
 .overlay.cvaa-overlay {
   .overlay-contents {
     padding-bottom: 24px !important;
   }
   .title{
     margin-bottom: 40px;
-    font-family: Lato;
+    font-family: "Lato", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, "Liberation Sans", sans-serif;
     font-size: 32px;
     font-style: normal;
     font-weight: 700;
@@ -31,14 +28,14 @@
       background-color: rgba(0, 0, 0, 0.5);
       color: $tone-1-color;
       font-size: 16px;
-      font-family: Verdana;
+      font-family: Verdana, Tahoma, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, "Liberation Sans", sans-serif;
       font-weight: 400;
     }
 
     &.high-contrast {
       background-color: $tone-8-color;
       color: #ffff00;
-      font-family: 'Arial';
+      font-family: Arial, "Helvetica Neue", Helvetica, system-ui, -apple-system, BlinkMacSystemFont, "Liberation Sans", sans-serif;
       font-size: 18px;
       font-weight: 700;
     }
@@ -46,7 +43,7 @@
     &.classic-tv {
       background-color: $tone-8-color;
       color: $tone-1-color;
-      font-family: 'Times New Roman';
+      font-family: "Times New Roman", Times, "Nimbus Roman No9 L", "Liberation Serif", serif;
       font-size: 16px;
       font-weight: 400;
     }
@@ -54,7 +51,7 @@
     &.easy-reading {
       background-color: #ffffcc;
       color: #036;
-      font-family: 'Tahoma';
+      font-family: Tahoma, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Liberation Sans", "Helvetica Neue", Arial, sans-serif;
       font-size: 20px;
       font-weight: 700;
     }
@@ -62,7 +59,7 @@
     &.early-readers {
       background-color: #ffff00;
       color: $tone-8-color;
-      font-family: 'Trebuchet MS';
+      font-family: "Trebuchet MS", Tahoma, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Liberation Sans", "Helvetica Neue", Arial, sans-serif;
       font-weight: 700;
       font-size: 20px;
     }
@@ -70,7 +67,7 @@
     &.night-mode {
       background-color: rgba(0, 0, 0, 0.75);
       color: $tone-2-color;
-      font-family: 'EB Garamond';
+      font-family: "EB Garamond", "Garamond", "Palatino Linotype", "Book Antiqua", "Times New Roman", Times, "Nimbus Roman No9 L", "Liberation Serif", serif;
       font-weight: 700;
       font-size: 18px;
     }
@@ -153,7 +150,7 @@
     max-width: 100%;
     font-size: 14px;
     font-weight: 700;
-    font-family: 'Lato';
+    font-family: "Lato", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, "Liberation Sans", sans-serif;
     line-height: normal;
     border: 1px solid $tone-3-color;
     border-radius: 4px;
