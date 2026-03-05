@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.83.3 (2026-03-05)
+
+
+### Bug Fixes
+
+* **SUP-51551:** Captions cannot be turned back on while the Advanced … ([#1153](https://github.com/kaltura/playkit-js-ui/issues/1153)) ([a9ba5e9](https://github.com/kaltura/playkit-js-ui/commit/a9ba5e9))
+
+
+
 ### 0.83.2 (2026-02-26)
 
 
