@@ -502,7 +502,7 @@ class Volume extends Component<any, any> {
             className={style.bar}
             ref={c => (c ? (this._volumeProgressBarElement = c) : undefined)}
             onMouseDown={this.onVolumeProgressBarMouseDown}>
-            <div className={style.progress} style={{height: this.getVolumeProgressHeight()}} />
+            <div className={`${style.progress} ${this.props.volume >= 0.98 ? style.full : ''}`} style={{height: this.getVolumeProgressHeight()}} />
           </div>
         </div>
         <span className={style.srOnly}>
