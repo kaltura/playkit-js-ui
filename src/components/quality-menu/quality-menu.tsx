@@ -10,7 +10,8 @@ import {withPlayer} from '../player';
 import {withEventDispatcher} from '../event-dispatcher';
 
 const HeightResolution = {
-  HD: 1080,
+  HD: 720,
+  QHD: 1440,
   UHD_4K: 2160,
   UHD_8K: 4320
 };
@@ -24,8 +25,11 @@ const DEFAULT_VIDEO_TRACK = 360;
  * @returns {string | null} - the badge icon type or null depends on the resolution height.
  */
 function getLabelBadgeType(videoTrackHeight: number): string | null {
-  const [QHD, , Q4K, , Q8k] = Object.keys(BadgeType);
-  if (videoTrackHeight >= HeightResolution.HD && videoTrackHeight < HeightResolution.UHD_4K) {
+  const [QHD, , , , Q4K, , Q8k] = Object.keys(BadgeType);
+  if (videoTrackHeight >= HeightResolution.HD && videoTrackHeight < HeightResolution.QHD) {
+    return QHD;
+  } else if (videoTrackHeight >= HeightResolution.QHD && videoTrackHeight < HeightResolution.UHD_4K) {
+    // TODO: return quality2k once a matching SVG icon is available from design
     return QHD;
   } else if (videoTrackHeight >= HeightResolution.UHD_4K && videoTrackHeight < HeightResolution.UHD_8K) {
     return Q4K;
