@@ -111,7 +111,7 @@ class Logo extends Component<any, any> {
    * @returns {boolean} - whether to render the component
    */
   private _shouldRender(): boolean {
-    const isActive = !(Object.keys(this.props.config).length === 0 && this.props.config.constructor === Object) && this.props.config.img;
+    const isActive = !(Object.keys(this.props.config).length === 0 && this.props.config.constructor === Object) && (this.props.config.img || this.props.config.entryUrl);
     this.props.onToggle(COMPONENT_NAME, isActive);
     return isActive;
   }

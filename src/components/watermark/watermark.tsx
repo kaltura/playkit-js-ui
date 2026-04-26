@@ -54,7 +54,6 @@ class Watermark extends Component<any, any> {
 
   componentWillMount(): void {
     this._loadPlayerDimension();
-    this._loadImageDimension();
   }
 
   /**
@@ -85,6 +84,16 @@ class Watermark extends Component<any, any> {
       this.onPlayerResize();
     });
     this._handleWatermarkUrl();
+  }
+
+  /**
+   * After component updated, load image dimensions
+   * @method componentDidUpdate
+   * @returns {void}
+   * @memberof Watermark
+   */
+  componentDidUpdate(): void {
+    this._loadImageDimension();
   }
   /**
    * handles the watermark url
