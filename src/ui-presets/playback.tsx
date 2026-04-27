@@ -87,12 +87,6 @@ class PlaybackUI extends Component<any, any> {
               </Fragment>
               {({containerRef}) => (
                 <Fragment>
-                  <TopBar leftControls={<Title />} />
-                  <InteractiveArea>
-                    <UnmuteIndication />
-                    <Watermark />
-                    <PlaylistCountdown />
-                  </InteractiveArea>
                   <BottomBar
                     leftControls={[PlaybackControls, Rewind, Forward, TimeDisplayPlaybackContainer]}
                     rightControls={[
@@ -112,6 +106,12 @@ class PlaybackUI extends Component<any, any> {
                     ]}>
                     <SeekBarPlaybackContainer showFramePreview showTimeBubble playerContainer={containerRef} />
                   </BottomBar>
+                  <InteractiveArea>
+                    <UnmuteIndication />
+                    <Watermark />
+                    <PlaylistCountdown />
+                  </InteractiveArea>
+                  <TopBar leftControls={<Title />} />
                   <AudioDescriptionUpdater />
                 </Fragment>
               )}
