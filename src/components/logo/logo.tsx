@@ -149,7 +149,7 @@ class Logo extends Component<any, any> {
           rel="noopener noreferrer"
           tabIndex={0}
           >
-          <img className={style.icon} src={this.state.entryUrl ||props.config.img} alt='' />
+          <img className={style.icon} src={this.state.entryUrl || props.config.img} alt='' />
         </a>
         ) : (
           <span
