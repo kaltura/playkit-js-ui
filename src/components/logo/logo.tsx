@@ -18,7 +18,8 @@ const COMPONENT_NAME = 'Logo';
 const mapStateToProps = state => ({
   isMobile: state.shell.isMobile,
   playerSize: state.shell.playerSize,
-  config: state.config.components.logo
+  config: state.config.components.logo,
+  componentData: state.engine.componentData
 });
 
 const ENTRY_VAR = '{entryId}';
@@ -32,7 +33,6 @@ const ENTRY_VAR = '{entryId}';
  */
 @connect(mapStateToProps)
 @withPlayer
-@withEventManager
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
 @withText({logoText: 'controls.logo'})
@@ -54,6 +54,13 @@ class Logo extends Component<any, any> {
    */
   public componentDidMount(): void {
     this._handleLogoUrl();
+  }
+
+  public componentDidUpdate(prevProps: any): void {
+    const logoData = this.props.componentData.logo;
+    if (logoData && prevProps.componentData.logo !== logoData) {
+      this.setState({entryUrl: logoData});
+    }
   }
 
   /**
@@ -111,7 +118,7 @@ class Logo extends Component<any, any> {
    * @returns {boolean} - whether to render the component
    */
   private _shouldRender(): boolean {
-    const isActive = !(Object.keys(this.props.config).length === 0 && this.props.config.constructor === Object) && this.props.config.img;
+    const isActive = !(Object.keys(this.props.config).length === 0 && this.props.config.constructor === Object) && (this.props.config.img || this.state.entryUrl);
     this.props.onToggle(COMPONENT_NAME, isActive);
     return isActive;
   }
@@ -142,14 +149,14 @@ class Logo extends Component<any, any> {
           rel="noopener noreferrer"
           tabIndex={0}
           >
-          <img className={style.icon} src={props.config.img} alt='' />
+          <img className={style.icon} src={this.state.entryUrl || props.config.img} alt='' />
         </a>
         ) : (
           <span
             className={style.controlButton}
             aria-label={props.config.text || props.logoText}
           >
-            <img className={style.icon} src={props.config.img} alt='' />
+            <img className={style.icon} src={this.state.entryUrl || props.config.img} alt='' />
           </span>
         )}
       </div>

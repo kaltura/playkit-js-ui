@@ -354,6 +354,10 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
     eventManager.listen(player, player.Event.Core.EXIT_FULLSCREEN, () => {
       this.props.updateFullscreen(false);
     });
+
+    eventManager.listen(player, 'componentdataupdated', event => {
+      this.props.updateComponentData(event.payload.data);
+    });
   }
 
   /**

@@ -54,4 +54,5 @@ export interface EngineState {
   playlist: any; // Specify a more detailed type if possible
   sources: any; // Current sources object
   fullscreen: boolean;
+  componentData: any; // Data for UI components
 }

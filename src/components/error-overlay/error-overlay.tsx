@@ -20,7 +20,8 @@ import {actions as overlayActions} from '../../reducers/overlay';
 const mapStateToProps = state => ({
   hasError: state.engine.hasError,
   errorOverlaConfig: state.config.components?.errorOverlay,
-  errorDetails: state.engine.errorDetails
+  errorDetails: state.engine.errorDetails,
+  componentData: state.engine.componentData
 });
 
 const COMPONENT_NAME = 'ErrorOverlay';
@@ -36,6 +37,13 @@ const COMPONENT_NAME = 'ErrorOverlay';
 @withLogger(COMPONENT_NAME)
 class ErrorOverlay extends Component<any, any> {
   private sessionEl!: HTMLDivElement;
+
+  public componentDidUpdate(prevProps: any): void {
+    const errorOverlayData = this.props.componentData.errorOverlay;
+    if (errorOverlayData && prevProps.componentData.errorOverlay !== errorOverlayData) {
+      this.setState({entryUrl: errorOverlayData});
+    }
+  }
 
   /**
    * copy input text based on input element.
@@ -67,7 +75,7 @@ class ErrorOverlay extends Component<any, any> {
    */
   private getBackgroundUrl = (): string | undefined => {
     const {errorOverlaConfig} = this.props;
-    return errorOverlaConfig?.backgroundUrl;
+    return this.state.entryUrl || errorOverlaConfig?.backgroundUrl;
   };
 
   /**

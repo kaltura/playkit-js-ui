@@ -20,7 +20,8 @@ const mapStateToProps = state => ({
     },
     state.config.components.watermark
   ),
-  targetId: state.config.targetId
+  targetId: state.config.targetId,
+  componentData: state.engine.componentData
 });
 
 const COMPONENT_NAME = 'Watermark';
@@ -54,7 +55,6 @@ class Watermark extends Component<any, any> {
 
   componentWillMount(): void {
     this._loadPlayerDimension();
-    this._loadImageDimension();
   }
 
   /**
@@ -86,6 +86,24 @@ class Watermark extends Component<any, any> {
     });
     this._handleWatermarkUrl();
   }
+
+  /**
+   * After component updated, load image dimensions
+   * @method componentDidUpdate
+   * @returns {void}
+   * @memberof Watermark
+   */
+  componentDidUpdate(prevProps: any): void {
+    const dataProps = this.props.componentData;
+    const prevDataProps = prevProps.componentData;
+    if (prevDataProps !== dataProps) {
+      this.setState({entryUrlResolved: true});
+    }
+    if (dataProps.watermark && prevDataProps.watermark !== dataProps.watermark) {
+      this.setState({entryUrl: dataProps.watermark});
+    }
+    this._loadImageDimension();
+  }
   /**
    * handles the watermark url
    * if the url contains ${entryId}, then replace it with the played entry id
@@ -106,10 +124,12 @@ class Watermark extends Component<any, any> {
   }
 
   private _loadImageDimension(): void {
-    if (!this.props.config.img) return;
+    if (!this.props.config.img && !this.state.entryUrl) return;
+
+    const imgUrl = this.state.entryUrl || this.props.config.img;
 
     const img = new Image();
-    img.src = this.props.config.img;
+    img.src = imgUrl;
     img.onload = () => {
       this._originalImgWidth = img.naturalWidth;
       this._originalImgHeight = img.naturalHeight;
@@ -157,6 +177,14 @@ class Watermark extends Component<any, any> {
     return false;
   }
 
+  private isEntryUrlResolved(): boolean {
+    const shouldResolvedEntryId = this.props.player.config?.uiComponentData?.watermark;
+    if (shouldResolvedEntryId && !this.state.entryUrlResolved){
+      return true;
+    }
+    return false;
+  }
+
   /**
    * componentWillUnmount
    *
@@ -177,7 +205,7 @@ class Watermark extends Component<any, any> {
    * @memberof Watermark
    */
   render(props: any): VNode<any> | undefined {
-    if (!props.config.img) {
+    if ((!props.config.img && !this.state.entryUrl) || this.isEntryUrlResolved()) {
       return undefined;
     }
     const styleClass = [style.watermark];
@@ -196,7 +224,7 @@ class Watermark extends Component<any, any> {
           <Localizer>
             {this.state.imgWidth && this.state.imgHeight && (
               <img
-                src={props.config.img}
+                src={this.state.entryUrl || props.config.img}
                 alt={(<Text id="watermark.watermark_alt_text" />) as unknown as string}
                 style={{
                   width: `${this.state.imgWidth}px`,

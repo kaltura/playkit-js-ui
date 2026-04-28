@@ -54,7 +54,8 @@ export const types = {
   UPDATE_SOURCES: `${component}/UPDATE_SOURCES`,
   UPDATE_PICTURE_IN_PICTURE_SUPPORTED: `${component}/UPDATE_PICTURE_IN_PICTURE_SUPPORTED`,
   UPDATE_PICTURE_IN_PICTURE_MODE: `${component}/UPDATE_PICTURE_IN_PICTURE_MODE`,
-  UPDATE_FULLSCREEN: `${component}/UPDATE_FULLSCREEN`
+  UPDATE_FULLSCREEN: `${component}/UPDATE_FULLSCREEN`,
+  UPDATE_COMPONENT_DATA: `${component}/UPDATE_COMPONENT_DATA`
 };
 
 export const initialState = {
@@ -115,7 +116,8 @@ export const initialState = {
   isInPictureInPicture: false,
   playlist: null,
   sources: null,
-  fullscreen: false
+  fullscreen: false,
+  componentData: {}
 };
 
 export default (state: EngineState = initialState, action: any) => {
@@ -423,6 +425,15 @@ export default (state: EngineState = initialState, action: any) => {
         fullscreen: action.fullscreen
       };
 
+    case types.UPDATE_COMPONENT_DATA:
+      return {
+        ...state,
+        componentData: {
+          ...state.componentData,
+          ...action.componentData
+        }
+      };
+
     default:
       return state;
   }
@@ -498,5 +509,6 @@ export const actions = {
     isPictureInPictureSupported
   }),
   updateIsInPictureInPicture: (isInPictureInPicture: boolean) => ({type: types.UPDATE_PICTURE_IN_PICTURE_MODE, isInPictureInPicture}),
-  updateFullscreen: (fullscreen: boolean) => ({type: types.UPDATE_FULLSCREEN, fullscreen})
+  updateFullscreen: (fullscreen: boolean) => ({type: types.UPDATE_FULLSCREEN, fullscreen}),
+  updateComponentData: (componentData: any) => ({type: types.UPDATE_COMPONENT_DATA, componentData})
 } as const;
