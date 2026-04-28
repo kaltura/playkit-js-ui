@@ -20,7 +20,8 @@ const mapStateToProps = state => ({
     },
     state.config.components.watermark
   ),
-  targetId: state.config.targetId
+  targetId: state.config.targetId,
+  componentData: state.engine.componentData
 });
 
 const COMPONENT_NAME = 'Watermark';
@@ -84,9 +85,6 @@ class Watermark extends Component<any, any> {
       this.onPlayerResize();
     });
     this._handleWatermarkUrl();
-    this.props.eventManager.listen(this.props.player, this.props.player.Event.COMPONENTS_URLS_LOADED, event => {
-      this._updateImgUrl(event.payload.data);
-    });
   }
 
   /**
@@ -95,7 +93,15 @@ class Watermark extends Component<any, any> {
    * @returns {void}
    * @memberof Watermark
    */
-  componentDidUpdate(): void {
+  componentDidUpdate(prevProps: any): void {
+    const dataProps = this.props.componentData;
+    const prevDataProps = prevProps.componentData;
+    if (prevDataProps !== dataProps) {
+      this.setState({entryUrlResolved: true});
+    }
+    if (dataProps.watermark && prevDataProps.watermark !== dataProps.watermark) {
+      this.setState({entryUrl: dataProps.watermark});
+    }
     this._loadImageDimension();
   }
   /**
@@ -115,13 +121,6 @@ class Watermark extends Component<any, any> {
         });
       }
     }
-  }
-
-  private _updateImgUrl(data: any): void {
-    if (data.watermark) {
-      this.setState({entryUrl: data.watermark});
-    }
-    this.setState({entryUrlResolved: true});
   }
 
   private _loadImageDimension(): void {
@@ -179,7 +178,7 @@ class Watermark extends Component<any, any> {
   }
 
   private isEntryUrlResolved(): boolean {
-    const shouldResolvedEntryId = this.props.player.config?.playback?.entriesForUiComponents?.watermark;
+    const shouldResolvedEntryId = this.props.player.config?.uiComponentData?.watermark;
     if (shouldResolvedEntryId && !this.state.entryUrlResolved){
       return true;
     }

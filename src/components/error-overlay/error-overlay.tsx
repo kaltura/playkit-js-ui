@@ -11,7 +11,6 @@ import {withPlayer} from '../../components/player';
 import {Button} from '../../components/button';
 import {getErrorDetailsByCategory} from './error-message-provider';
 import {actions as overlayActions} from '../../reducers/overlay';
-import {withEventManager} from '../../event';
 
 /**
  * mapping state to props
@@ -21,7 +20,8 @@ import {withEventManager} from '../../event';
 const mapStateToProps = state => ({
   hasError: state.engine.hasError,
   errorOverlaConfig: state.config.components?.errorOverlay,
-  errorDetails: state.engine.errorDetails
+  errorDetails: state.engine.errorDetails,
+  componentData: state.engine.componentData
 });
 
 const COMPONENT_NAME = 'ErrorOverlay';
@@ -34,25 +34,14 @@ const COMPONENT_NAME = 'ErrorOverlay';
  */
 @connect(mapStateToProps, bindActions({...actions, ...overlayActions}))
 @withPlayer
-@withEventManager
 @withLogger(COMPONENT_NAME)
 class ErrorOverlay extends Component<any, any> {
   private sessionEl!: HTMLDivElement;
 
-   /**
-   * @constructor
-   * @param {*} props props
-   */
-  constructor(props: any) {
-    super(props);
-    this.props.eventManager.listen(this.props.player, this.props.player.Event.COMPONENTS_URLS_LOADED, event => {
-      this._updateImgUrl(event.payload.data);
-    });
-  }
-
-  private _updateImgUrl(data: any): void {
-    if (data.errorOverlay) {
-      this.setState({entryUrl: data.errorOverlay});
+  public componentDidUpdate(prevProps: any): void {
+    const errorOverlayData = this.props.componentData.errorOverlay;
+    if (errorOverlayData && prevProps.componentData.errorOverlay !== errorOverlayData) {
+      this.setState({entryUrl: errorOverlayData});
     }
   }
 
