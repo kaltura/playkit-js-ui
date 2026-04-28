@@ -84,6 +84,9 @@ class Watermark extends Component<any, any> {
       this.onPlayerResize();
     });
     this._handleWatermarkUrl();
+    this.props.eventManager.listen(this.props.player, this.props.player.Event.COMPONENTS_URLS_LOADED, event => {
+      this._updateImgUrl(event.payload.data);
+    });
   }
 
   /**
@@ -114,11 +117,20 @@ class Watermark extends Component<any, any> {
     }
   }
 
+  private _updateImgUrl(data: any): void {
+    if (data.watermark) {
+      this.setState({entryUrl: data.watermark});
+    }
+    this.setState({entryUrlResolved: true});
+  }
+
   private _loadImageDimension(): void {
-    if (!this.props.config.img) return;
+    if (!this.props.config.img && !this.state.entryUrl) return;
+
+    const imgUrl = this.state.entryUrl || this.props.config.img;
 
     const img = new Image();
-    img.src = this.props.config.img;
+    img.src = imgUrl;
     img.onload = () => {
       this._originalImgWidth = img.naturalWidth;
       this._originalImgHeight = img.naturalHeight;
@@ -166,6 +178,14 @@ class Watermark extends Component<any, any> {
     return false;
   }
 
+  private isEntryUrlResolved(): boolean {
+    const shouldResolvedEntryId = this.props.player.config?.playback?.entriesForUiComponents?.watermark;
+    if (shouldResolvedEntryId && !this.state.entryUrlResolved){
+      return true;
+    }
+    return false;
+  }
+
   /**
    * componentWillUnmount
    *
@@ -186,7 +206,7 @@ class Watermark extends Component<any, any> {
    * @memberof Watermark
    */
   render(props: any): VNode<any> | undefined {
-    if (!props.config.img) {
+    if ((!props.config.img && !this.state.entryUrl) || this.isEntryUrlResolved()) {
       return undefined;
     }
     const styleClass = [style.watermark];
@@ -205,7 +225,7 @@ class Watermark extends Component<any, any> {
           <Localizer>
             {this.state.imgWidth && this.state.imgHeight && (
               <img
-                src={props.config.img}
+                src={this.state.entryUrl || props.config.img}
                 alt={(<Text id="watermark.watermark_alt_text" />) as unknown as string}
                 style={{
                   width: `${this.state.imgWidth}px`,

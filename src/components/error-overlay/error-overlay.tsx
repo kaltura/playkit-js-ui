@@ -11,6 +11,7 @@ import {withPlayer} from '../../components/player';
 import {Button} from '../../components/button';
 import {getErrorDetailsByCategory} from './error-message-provider';
 import {actions as overlayActions} from '../../reducers/overlay';
+import {withEventManager} from '../../event';
 
 /**
  * mapping state to props
@@ -33,9 +34,27 @@ const COMPONENT_NAME = 'ErrorOverlay';
  */
 @connect(mapStateToProps, bindActions({...actions, ...overlayActions}))
 @withPlayer
+@withEventManager
 @withLogger(COMPONENT_NAME)
 class ErrorOverlay extends Component<any, any> {
   private sessionEl!: HTMLDivElement;
+
+   /**
+   * @constructor
+   * @param {*} props props
+   */
+  constructor(props: any) {
+    super(props);
+    this.props.eventManager.listen(this.props.player, this.props.player.Event.COMPONENTS_URLS_LOADED, event => {
+      this._updateImgUrl(event.payload.data);
+    });
+  }
+
+  private _updateImgUrl(data: any): void {
+    if (data.errorOverlay) {
+      this.setState({entryUrl: data.errorOverlay});
+    }
+  }
 
   /**
    * copy input text based on input element.
@@ -67,7 +86,7 @@ class ErrorOverlay extends Component<any, any> {
    */
   private getBackgroundUrl = (): string | undefined => {
     const {errorOverlaConfig} = this.props;
-    return errorOverlaConfig?.backgroundUrl;
+    return this.state.entryUrl || errorOverlaConfig?.backgroundUrl;
   };
 
   /**

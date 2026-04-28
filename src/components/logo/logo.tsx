@@ -44,6 +44,9 @@ class Logo extends Component<any, any> {
   constructor(props: any) {
     super(props);
     this.setState({isUrlClickable: typeof props.config.url === 'string', urlLink: props.config.url});
+    this.props.eventManager.listen(this.props.player, this.props.player.Event.COMPONENTS_URLS_LOADED, event => {
+      this._updateImgUrl(event.payload.data);
+    });
   }
 
   /**
@@ -54,6 +57,12 @@ class Logo extends Component<any, any> {
    */
   public componentDidMount(): void {
     this._handleLogoUrl();
+  }
+
+  private _updateImgUrl(data: any): void {
+    if (data.logo) {
+      this.setState({entryUrl: data.logo});
+    }
   }
 
   /**
@@ -111,7 +120,7 @@ class Logo extends Component<any, any> {
    * @returns {boolean} - whether to render the component
    */
   private _shouldRender(): boolean {
-    const isActive = !(Object.keys(this.props.config).length === 0 && this.props.config.constructor === Object) && (this.props.config.img || this.props.config.entryUrl);
+    const isActive = !(Object.keys(this.props.config).length === 0 && this.props.config.constructor === Object) && (this.props.config.img || this.state.entryUrl);
     this.props.onToggle(COMPONENT_NAME, isActive);
     return isActive;
   }
@@ -142,14 +151,14 @@ class Logo extends Component<any, any> {
           rel="noopener noreferrer"
           tabIndex={0}
           >
-          <img className={style.icon} src={props.config.img} alt='' />
+          <img className={style.icon} src={this.state.entryUrl ||props.config.img} alt='' />
         </a>
         ) : (
           <span
             className={style.controlButton}
             aria-label={props.config.text || props.logoText}
           >
-            <img className={style.icon} src={props.config.img} alt='' />
+            <img className={style.icon} src={this.state.entryUrl || props.config.img} alt='' />
           </span>
         )}
       </div>
