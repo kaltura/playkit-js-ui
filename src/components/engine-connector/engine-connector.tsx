@@ -61,6 +61,24 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
 
     this.props.updatePrePlayback(!player.config.playback.autoplay);
 
+    const updateAudioTracks = (): void => {
+      const tracks = player.getTracks(TrackType.AUDIO);
+      const audioTracks = tracks.filter(t => !isAudioDescriptionLanguageKey(t.language));
+      this.props.updateAudioTracks(audioTracks);
+
+      const audioDescriptionLanguages = tracks.filter(t => isAudioDescriptionLanguageKey(t.language)).map(t => getAudioLanguageKey(t.language)) || [];
+      this.props.updateAudioDescriptionLanguages(audioDescriptionLanguages);
+      this.props.updateSelectedAudioLanguage(getActiveAudioLanguage(player));
+
+      if (!store.getState().audioDescription.isDefaultValueSet) {
+        const didUpdate = updateDefaultAudioDescription(this.props, audioDescriptionLanguages);
+        if (!didUpdate) {
+          updateDefaultAdvancedAudioDescription(this.props, store.getState().audioDescription.advancedAudioDescriptionLanguages, audioTracks);
+        }
+        this.props.updateDefaultValueSet(true);
+      }
+    };
+
     eventManager.listen(player, player.Event.Core.PLAYER_RESET, event => {
       this.props.updateCurrentTime(0);
       this.props.seekbarUpdateCurrentTime(0);
@@ -201,13 +219,12 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
     });
 
     eventManager.listen(player, player.Event.Core.TRACKS_CHANGED, () => {
-      const audioTracks = player.getTracks(TrackType.AUDIO);
       const videoTracks = player.getTracks(TrackType.VIDEO);
       const textTracks = player.getTracks(TrackType.TEXT);
 
-      this.props.updateAudioTracks(audioTracks.filter(t => !isAudioDescriptionLanguageKey(t.language)));
       this.props.updateVideoTracks(videoTracks);
       this.props.updateTextTracks(textTracks);
+      updateAudioTracks();
     });
 
     eventManager.listen(player, player.Event.Core.TEXT_TRACK_CHANGED, () => {
@@ -216,23 +233,7 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
       this.props.updateIsCaptionsEnabled(tracks.find(track => track.active)?.language !== 'off');
     });
 
-    eventManager.listen(player, player.Event.Core.AUDIO_TRACK_CHANGED, () => {
-      const tracks = player.getTracks(TrackType.AUDIO);
-      const audioTracks = tracks.filter(t => !isAudioDescriptionLanguageKey(t.language));
-      this.props.updateAudioTracks(audioTracks);
-
-      const audioDescriptionLanguages = tracks.filter(t => isAudioDescriptionLanguageKey(t.language)).map(t => getAudioLanguageKey(t.language)) || [];
-      this.props.updateAudioDescriptionLanguages(audioDescriptionLanguages);
-      this.props.updateSelectedAudioLanguage(getActiveAudioLanguage(player));
-
-      if (!store.getState().audioDescription.isDefaultValueSet) {
-        const didUpdate = updateDefaultAudioDescription(this.props, audioDescriptionLanguages);
-        if (!didUpdate) {
-          updateDefaultAdvancedAudioDescription(this.props, store.getState().audioDescription.advancedAudioDescriptionLanguages, audioTracks);
-        }
-        this.props.updateDefaultValueSet(true);
-      }
-    });
+    eventManager.listen(player, player.Event.Core.AUDIO_TRACK_CHANGED, updateAudioTracks);
 
     eventManager.listen(player, player.Event.Core.VIDEO_TRACK_CHANGED, () => {
       const tracks = player.getTracks(TrackType.VIDEO);
