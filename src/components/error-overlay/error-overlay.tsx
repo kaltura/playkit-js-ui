@@ -38,6 +38,13 @@ const COMPONENT_NAME = 'ErrorOverlay';
 class ErrorOverlay extends Component<any, any> {
   private sessionEl!: HTMLDivElement;
 
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      entryUrl: props.componentData?.errorOverlay || undefined
+    };
+  }
+
   public componentDidUpdate(prevProps: any): void {
     const errorOverlayData = this.props.componentData.errorOverlay;
     if (errorOverlayData && prevProps.componentData.errorOverlay !== errorOverlayData) {
@@ -63,6 +70,10 @@ class ErrorOverlay extends Component<any, any> {
    */
   private handleClick = (): void => {
     const mediaInfo = this.props.player.getMediaInfo();
+    // Save entryUrl before clearing overlay to prevent state loss
+    if (this.props.componentData.errorOverlay && !this.state.entryUrl) {
+      this.setState({entryUrl: this.props.componentData.errorOverlay});
+    }
     this.props.updateOverlay(false);
     this.props.player.loadMedia(mediaInfo);
   };
@@ -75,6 +86,8 @@ class ErrorOverlay extends Component<any, any> {
    */
   private getBackgroundUrl = (): string | undefined => {
     const {errorOverlaConfig} = this.props;
+    console.log('errorOverlaConfig', errorOverlaConfig?.backgroundUrl);
+    console.log('entryUrl', this.state.entryUrl);
     return this.state.entryUrl || errorOverlaConfig?.backgroundUrl;
   };
 
