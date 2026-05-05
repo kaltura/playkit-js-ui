@@ -38,6 +38,13 @@ const COMPONENT_NAME = 'ErrorOverlay';
 class ErrorOverlay extends Component<any, any> {
   private sessionEl!: HTMLDivElement;
 
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      entryUrl: props.componentData?.errorOverlay || undefined
+    };
+  }
+
   public componentDidUpdate(prevProps: any): void {
     const errorOverlayData = this.props.componentData.errorOverlay;
     if (errorOverlayData && prevProps.componentData.errorOverlay !== errorOverlayData) {
