@@ -233,7 +233,7 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
       this.props.updateIsCaptionsEnabled(tracks.find(track => track.active)?.language !== 'off');
     });
 
-    eventManager.listen(player, player.Event.Core.AUDIO_TRACK_CHANGED, () => updateAudioTracks);
+    eventManager.listen(player, player.Event.Core.AUDIO_TRACK_CHANGED, updateAudioTracks);
 
     eventManager.listen(player, player.Event.Core.VIDEO_TRACK_CHANGED, () => {
       const tracks = player.getTracks(TrackType.VIDEO);
