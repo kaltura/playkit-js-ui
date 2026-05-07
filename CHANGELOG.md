@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.83.5 (2026-05-07)
+
+
+### Bug Fixes
+
+* **SUP-51711:** Audio Description Language selection not working as expected in some browsers ([#1163](https://github.com/kaltura/playkit-js-ui/issues/1163)) ([6ffa50e](https://github.com/kaltura/playkit-js-ui/commit/6ffa50e))
+
+
+
 ### 0.83.4 (2026-04-23)
 
 
