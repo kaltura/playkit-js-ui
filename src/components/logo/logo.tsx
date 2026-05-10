@@ -33,6 +33,7 @@ const ENTRY_VAR = '{entryId}';
  */
 @connect(mapStateToProps)
 @withPlayer
+@withEventManager
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
 @withText({logoText: 'controls.logo'})
