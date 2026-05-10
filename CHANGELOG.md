@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.83.6 (2026-05-10)
+
+
+### Bug Fixes
+
+* **FEC-14973:** Player v7 | There are no controls inside the beta player. ([#1165](https://github.com/kaltura/playkit-js-ui/issues/1165)) ([44f5a68](https://github.com/kaltura/playkit-js-ui/commit/44f5a68))
+
+
+
 ### 0.83.5 (2026-05-07)
 
 
