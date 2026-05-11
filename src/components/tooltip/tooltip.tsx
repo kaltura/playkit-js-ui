@@ -244,16 +244,18 @@ class Tooltip extends Component<TooltipProps & WithEventManagerProps, any> {
    * @memberof Tooltip
    */
   handleClickOutside(e: any) {
-    if (!this.tooltipElement?.contains(e.target) && this.state.showTooltip) {
-      this.hideTooltip();
-    }
+    setTimeout(() => {
+      if (!this.tooltipElement?.contains(e.target) && this.state.showTooltip) {
+        this.hideTooltip();
+      }
+    }, 100);
   }
 
   handleRef = (el: HTMLButtonElement | null) => {
     this.setButtonRef(el);
 
     // Forward the child’s original ref (callback or ref object)
-    // so Tooltip keeps its own ref without breaking the child’s.    
+    // so Tooltip keeps its own ref without breaking the child’s.
     const { ref } = (this.props.children as VNode<any>);
     if (typeof ref === 'function') {
       ref(el);
