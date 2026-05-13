@@ -133,7 +133,7 @@ class Tooltip extends Component<TooltipProps & WithEventManagerProps, any> {
    * @memberof Tooltip
    * @returns {void}
    */
-  handleFocusOnChildren = (event: FocusEvent): void => {
+  handleFocusOnChildren = (event: Event): void => {
     const {onFocus} = (this.props.children as VNode<any>).props;
     // SUP-52316: The A11y HOC (popup-keyboard-accessibility) sets a data attribute on the trigger
     // element synchronously in componentWillUnmount, before the focusElement() setInterval fires.
@@ -141,7 +141,11 @@ class Tooltip extends Component<TooltipProps & WithEventManagerProps, any> {
     // so relatedTarget is document.body — the closest() guard on relatedTarget cannot work.
     // Instead, we consume the data attribute flag here: if it is present, this focus event is a
     // programmatic focus-restore, not a deliberate user navigation, so we skip showing the tooltip.
-    const target = event.target as HTMLElement;
+    const target = event.target as HTMLElement | null;
+    if (!target) {
+      if (onFocus) onFocus(event);
+      return;
+    }
     if (target?.dataset?.kalturaFocusRestore) {
       delete target.dataset.kalturaFocusRestore;
       if (onFocus) onFocus(event);
