@@ -133,11 +133,21 @@ class Tooltip extends Component<TooltipProps & WithEventManagerProps, any> {
    * @memberof Tooltip
    * @returns {void}
    */
-  handleFocusOnChildren = (): void => {
+  handleFocusOnChildren = (event: FocusEvent): void => {
     const {onFocus} = (this.props.children as VNode<any>).props;
+    // Skip showing tooltip for programmatic focus (e.g. button.focus() called from ESC handler).
+    // When focus arrives via keyboard Tab navigation, relatedTarget is the previously-focused element.
+    // When focus arrives programmatically (no preceding user interaction), relatedTarget is null.
+    // SUP-52316: settings ESC closes the panel and calls button.focus(), leaving tooltip stuck open.
+    if (event.relatedTarget === null) {
+      if (onFocus) {
+        onFocus(event);
+      }
+      return;
+    }
     this.showTooltip();
     if (onFocus) {
-      onFocus();
+      onFocus(event);
     }
   };
 
