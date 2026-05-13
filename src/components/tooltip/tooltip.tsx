@@ -135,20 +135,16 @@ class Tooltip extends Component<TooltipProps & WithEventManagerProps, any> {
    */
   handleFocusOnChildren = (event: FocusEvent): void => {
     const {onFocus} = (this.props.children as VNode<any>).props;
-    // SUP-52316: When the settings panel closes (ESC or click-outside), the A11y HOC restores
-    // focus to the gear button. The relatedTarget is the last-focused element inside the panel.
-    // Suppress the tooltip in that case — focus arrived via programmatic restoration, not deliberate
-    // keyboard navigation to this button.
-    // Using closest() instead of relatedTarget === null so that:
-    //   - ESC close (relatedTarget = panel element) → suppressed ✅
-    //   - Click-outside close after Part 1 guard (no focus call, so this path is not reached) ✅
-    //   - Tab into button from another element (relatedTarget = external element, not in settings) → tooltip shows ✅
-    //   - Normal mouse hover → mouseover path, unaffected ✅
-    const fromInsideSettings = (event.relatedTarget as Element)?.closest?.('.playkit-control-settings');
-    if (fromInsideSettings) {
-      if (onFocus) {
-        onFocus(event);
-      }
+    // SUP-52316: The A11y HOC (popup-keyboard-accessibility) sets a data attribute on the trigger
+    // element synchronously in componentWillUnmount, before the focusElement() setInterval fires.
+    // By the time the interval calls .focus() (~100ms later), the settings panel is already unmounted
+    // so relatedTarget is document.body — the closest() guard on relatedTarget cannot work.
+    // Instead, we consume the data attribute flag here: if it is present, this focus event is a
+    // programmatic focus-restore, not a deliberate user navigation, so we skip showing the tooltip.
+    const target = event.target as HTMLElement;
+    if (target?.dataset?.kalturaFocusRestore) {
+      delete target.dataset.kalturaFocusRestore;
+      if (onFocus) onFocus(event);
       return;
     }
     this.showTooltip();
