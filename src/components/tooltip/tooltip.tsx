@@ -135,11 +135,17 @@ class Tooltip extends Component<TooltipProps & WithEventManagerProps, any> {
    */
   handleFocusOnChildren = (event: FocusEvent): void => {
     const {onFocus} = (this.props.children as VNode<any>).props;
-    // Skip showing tooltip for programmatic focus (e.g. button.focus() called from ESC handler).
-    // When focus arrives via keyboard Tab navigation, relatedTarget is the previously-focused element.
-    // When focus arrives programmatically (no preceding user interaction), relatedTarget is null.
-    // SUP-52316: settings ESC closes the panel and calls button.focus(), leaving tooltip stuck open.
-    if (event.relatedTarget === null) {
+    // SUP-52316: When the settings panel closes (ESC or click-outside), the A11y HOC restores
+    // focus to the gear button. The relatedTarget is the last-focused element inside the panel.
+    // Suppress the tooltip in that case — focus arrived via programmatic restoration, not deliberate
+    // keyboard navigation to this button.
+    // Using closest() instead of relatedTarget === null so that:
+    //   - ESC close (relatedTarget = panel element) → suppressed ✅
+    //   - Click-outside close after Part 1 guard (no focus call, so this path is not reached) ✅
+    //   - Tab into button from another element (relatedTarget = external element, not in settings) → tooltip shows ✅
+    //   - Normal mouse hover → mouseover path, unaffected ✅
+    const fromInsideSettings = (event.relatedTarget as Element)?.closest?.('.playkit-control-settings');
+    if (fromInsideSettings) {
       if (onFocus) {
         onFocus(event);
       }

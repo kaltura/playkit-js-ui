@@ -112,6 +112,11 @@ export const withKeyboardA11y = (WrappedComponent): any => {
      * @memberof HOC
      */
     componentWillUnmount(): void {
+      // When the container was closed by a pointer/mouse interaction (skipFocusRestore=true),
+      // the user already moved focus by clicking — do not steal it back to the trigger button.
+      if (this.props.skipFocusRestore) {
+        return;
+      }
       if (this._previouslyActiveElement && document.contains(this._previouslyActiveElement) && !this.isOverlayOpen) {
         focusElement(this._previouslyActiveElement);
       } else if (this._previouslyActiveElement?.classList.contains('playkit-dropdown-item_kw')) {

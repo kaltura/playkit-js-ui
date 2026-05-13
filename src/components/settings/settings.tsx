@@ -105,7 +105,7 @@ class Settings extends Component<any, any> {
    * @memberof Settings
    */
   componentWillMount() {
-    this.setState({smartContainerOpen: false, cvaaOverlay: false});
+    this.setState({smartContainerOpen: false, cvaaOverlay: false, skipFocusRestore: false});
   }
 
   /**
@@ -214,7 +214,12 @@ class Settings extends Component<any, any> {
       !this._controlSettingsElement.contains(e.target) &&
       this.state.smartContainerOpen
     ) {
-      this.setState({smartContainerOpen: false});
+      // When the panel is closed by a pointer/mouse click (detail > 0 for real clicks,
+      // 0 for keyboard-synthesized clicks), the user already moved focus by clicking.
+      // Suppress the A11y HOC's automatic focus restoration to the gear button so it
+      // doesn't trigger a spurious tooltip on the settings button.
+      const isPointerClose = e.detail > 0;
+      this.setState({smartContainerOpen: false, skipFocusRestore: isPointerClose});
     }
   }
 
@@ -228,7 +233,8 @@ class Settings extends Component<any, any> {
    */
   onControlButtonClick = (e?: KeyboardEvent, byKeyboard?: boolean): void => {
     this.setState(prevState => {
-      return {smartContainerOpen: !prevState.smartContainerOpen};
+      // Reset skipFocusRestore whenever the panel state toggles so the next cycle is clean
+      return {smartContainerOpen: !prevState.smartContainerOpen, skipFocusRestore: false};
     });
     if (byKeyboard && this.state.smartContainerOpen) {
       focusElement(this._buttonRef);
@@ -330,7 +336,7 @@ class Settings extends Component<any, any> {
           </Button>
         </Tooltip>
         {this.state.smartContainerOpen && !this.state.cvaaOverlay && (
-          <SmartContainer title={<Text id="settings.title" />} onClose={this.onControlButtonClick}>
+          <SmartContainer title={<Text id="settings.title" />} onClose={this.onControlButtonClick} skipFocusRestore={this.state.skipFocusRestore}>
             {showAudioMenu && <AudioMenu asDropdown={true} />}
             {showAudioDescriptionMenu && <AudioDescriptionMenu asDropdown={true} />}
             {showCaptionsMenu && <CaptionsMenu asDropdown={true} onAdvancedCaptionsClick={this.toggleCVAAOverlay} />}
