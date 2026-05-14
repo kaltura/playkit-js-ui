@@ -113,7 +113,7 @@ export const withKeyboardA11y = (WrappedComponent): any => {
      */
     componentWillUnmount(): void {
       if (this._previouslyActiveElement && document.contains(this._previouslyActiveElement) && !this.isOverlayOpen) {
-        (this._previouslyActiveElement as HTMLElement).dataset.kalturaFocusRestore = true;
+        (this._previouslyActiveElement as HTMLElement).dataset.kalturaFocusRestore = 'true';
         focusElement(this._previouslyActiveElement);
       } else if (this._previouslyActiveElement?.classList.contains('playkit-dropdown-item_kw')) {
         focusElement(this._morePluginButton);
