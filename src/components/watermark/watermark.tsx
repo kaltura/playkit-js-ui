@@ -85,15 +85,16 @@ class Watermark extends Component<any, any> {
       this.onPlayerResize();
     });
     this._handleWatermarkUrl();
+    this._loadImageDimension();
   }
 
   /**
-   * After component updated, load image dimensions
+   * After component updated, reload image dimensions only when the image URL changes
    * @method componentDidUpdate
    * @returns {void}
    * @memberof Watermark
    */
-  componentDidUpdate(prevProps: any): void {
+  componentDidUpdate(prevProps: any, prevState: any): void {
     const dataProps = this.props.componentData;
     const prevDataProps = prevProps.componentData;
     if (prevDataProps !== dataProps) {
@@ -102,7 +103,11 @@ class Watermark extends Component<any, any> {
     if (dataProps.watermark && prevDataProps.watermark !== dataProps.watermark) {
       this.setState({entryUrl: dataProps.watermark});
     }
-    this._loadImageDimension();
+    const prevImgUrl = prevState.entryUrl || prevProps.config.img;
+    const currImgUrl = this.state.entryUrl || this.props.config.img;
+    if (currImgUrl !== prevImgUrl) {
+      this._loadImageDimension();
+    }
   }
   /**
    * handles the watermark url
