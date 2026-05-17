@@ -93,16 +93,27 @@ class Watermark extends Component<any, any> {
    * @returns {void}
    * @memberof Watermark
    */
-  componentDidUpdate(prevProps: any): void {
+  componentDidUpdate(prevProps: any, prevState: any): void {
     const dataProps = this.props.componentData;
     const prevDataProps = prevProps.componentData;
-    if (prevDataProps !== dataProps) {
-      this.setState({entryUrlResolved: true});
+    const nextState: any = {};
+
+    if (prevDataProps !== dataProps && !this.state.entryUrlResolved) {
+      nextState.entryUrlResolved = true;
     }
-    if (dataProps.watermark && prevDataProps.watermark !== dataProps.watermark) {
-      this.setState({entryUrl: dataProps.watermark});
+    if (dataProps.watermark && prevDataProps.watermark !== dataProps.watermark && this.state.entryUrl !== dataProps.watermark) {
+      nextState.entryUrl = dataProps.watermark;
     }
-    this._loadImageDimension();
+    if (Object.keys(nextState).length) {
+      this.setState(nextState);
+      return;
+    }
+
+    const imgUrl = this.state.entryUrl || this.props.config.img;
+    const prevImgUrl = prevState.entryUrl || prevProps.config.img;
+    if (imgUrl && prevImgUrl !== imgUrl) {
+      this._loadImageDimension();
+    }
   }
   /**
    * handles the watermark url
