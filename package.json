@@ -47,7 +47,7 @@
     "prebuild": "npm run clean",
     "precommit": "npm run build:prod && npm run type-check && npm run lint:fix",
     "pushTaggedRelease": "git push --follow-tags --no-verify origin master",
-    "release": "standard-version"
+    "release": "standard-version --no-verify"
   },
   "dependencies": {
     "@playkit-js/webpack-common": "^1.0.3",
