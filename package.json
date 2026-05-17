@@ -1,6 +1,6 @@
 {
   "name": "@playkit-js/playkit-js-ui",
-  "version": "0.83.6.1",
+  "version": "0.83.7",
   "description": "",
   "keywords": [
     "kaltura",
@@ -47,7 +47,7 @@
     "prebuild": "npm run clean",
     "precommit": "npm run build:prod && npm run type-check && npm run lint:fix",
     "pushTaggedRelease": "git push --follow-tags --no-verify origin master",
-    "release": "echo standard-version --no-verify"
+    "release": "standard-version"
   },
   "dependencies": {
     "@playkit-js/webpack-common": "^1.0.3",
