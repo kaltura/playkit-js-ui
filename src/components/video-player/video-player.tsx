@@ -17,7 +17,7 @@ import {PlayerArea} from '../player-area';
 const mapStateToProps = state => ({
   videoStyles: state.shell.layoutStyles.video,
   targetId: state.config.targetId,
-  sources: state.engine.sources
+  entryName: state.engine.sources?.metadata?.name
 });
 
 /**
@@ -45,7 +45,7 @@ class VideoPlayer extends Component<any, any> {
    * @memberof VideoPlayer
    */
   shouldComponentUpdate(nextProps: any): boolean {
-    return nextProps.videoStyles !== this.props.videoStyles || nextProps.sources !== this.props.sources;
+    return nextProps.videoStyles !== this.props.videoStyles || nextProps.entryName !== this.props.entryName;
   }
 
   /**
@@ -114,8 +114,7 @@ class VideoPlayer extends Component<any, any> {
    * @memberof VideoPlayer
    */
   render(): VNode<any> {
-    const {videoStyles, targetId, sources, videoPlayerLabel} = this.props;
-    const entryName = sources?.metadata?.name;
+    const {videoStyles, targetId, entryName, videoPlayerLabel} = this.props;
     const ariaLabel = entryName || videoPlayerLabel;
 
     return (
