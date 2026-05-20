@@ -24,6 +24,7 @@ const mapStateToProps = state => ({
   isSmartContainerOpen: state.shell.smartContainerOpen,
   fullscreenConfig: state.config.components.fullscreen,
   seekbarDraggingActive: state.seekbar.draggingActive,
+  volumeDraggingActive: state.volume.draggingActive,
   allowPlayPause: state.config.allowPlayPause,
   allowLivePlayPause: state.config.allowLivePlayPause
 });
@@ -183,6 +184,7 @@ class OverlayAction extends Component<any, any> {
     };
     return (
       this.props.seekbarDraggingActive ||
+      this.props.volumeDraggingActive ||
       Math.abs(points.clientX - this._pointerDownPosX) > DRAGGING_THRESHOLD ||
       Math.abs(points.clientY - this._pointerDownPosY) > DRAGGING_THRESHOLD
     );
