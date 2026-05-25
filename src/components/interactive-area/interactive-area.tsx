@@ -26,6 +26,7 @@ class InteractiveArea extends Component<any, any> {
     const {children} = this.props;
     return (
       <div className={style.interactiveArea}>
+        <div className={style.filter}></div>
         <div style={{pointerEvents: 'auto'}}>
           <PlayerArea name={'InteractiveArea'}>{children}</PlayerArea>
         </div>
