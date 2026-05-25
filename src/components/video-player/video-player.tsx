@@ -27,9 +27,9 @@ const mapStateToProps = state => ({
  * @example <VideoPlayer>...</VideoPlayer>
  * @extends {Component}
  */
-@connect(mapStateToProps, bindActions(actions))
 @withPlayer
 @withEventManager
+@connect(mapStateToProps, bindActions(actions))
 @withText({
   videoPlayerLabel: 'videoArea.videoPlayer'
 })
