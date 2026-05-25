@@ -52,6 +52,8 @@ const IconType = {
 const BadgeType = {
   qualityHd: `${style.badgeIcon} ${style.iconQualityHd}`,
   qualityHdActive: `${style.badgeIcon} ${style.iconQualityHdActive}`,
+  quality2k: `${style.badgeIcon} ${style.iconQuality2K}`,
+  quality2kActive: `${style.badgeIcon} ${style.iconQuality2KActive}`,
   quality4k: `${style.badgeIcon} ${style.iconQuality4K}`,
   quality4kActive: `${style.badgeIcon} ${style.iconQuality4KActive}`,
   quality8k: `${style.badgeIcon} ${style.iconQuality8K}`,
@@ -286,7 +288,7 @@ class Icon extends Component<any, any> {
 
         case IconType.Rewind:
           return <i className={[style.icon, style.iconRewind].join(' ')} aria-hidden="true" />;
-          
+
         case IconType.Rewind5:
           return <i className={[style.icon, style.iconRewind5].join(' ')} aria-hidden="true" />;
 
@@ -298,7 +300,7 @@ class Icon extends Component<any, any> {
 
         case IconType.Forward5:
           return <i className={[style.icon, style.iconForward5].join(' ')} aria-hidden="true" />;
-  
+
         case IconType.Forward10:
           return <i className={[style.icon, style.iconForward10].join(' ')} aria-hidden="true" />;
 
@@ -343,9 +345,9 @@ class Icon extends Component<any, any> {
 
         case IconType.AdvancedAudioDescriptionDisabledDropdown:
           return <i className={[style.icon, style.iconAdvancedAudioDescriptionDisabledDropdown].join(' ')} />;
-        
+
         case IconType.QualityButton:
-          return <i className={[style.icon, style.iconQualityButton].join(' ')} />;  
+          return <i className={[style.icon, style.iconQualityButton].join(' ')} />;
 
         default:
           break;
