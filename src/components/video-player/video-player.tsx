@@ -1,6 +1,7 @@
 import {ResizeWatcher} from '../../utils/resize-watcher';
 import {h, Component, VNode} from 'preact';
 import {connect} from 'react-redux';
+import {withText} from 'preact-i18n';
 import {actions} from '../../reducers/shell';
 import style from '../../styles/style.scss';
 import {bindActions} from '../../utils';
@@ -15,7 +16,8 @@ import {PlayerArea} from '../player-area';
  */
 const mapStateToProps = state => ({
   videoStyles: state.shell.layoutStyles.video,
-  targetId: state.config.targetId
+  targetId: state.config.targetId,
+  entryName: state.engine.sources?.metadata?.name
 });
 
 /**
@@ -28,6 +30,9 @@ const mapStateToProps = state => ({
 @withPlayer
 @withEventManager
 @connect(mapStateToProps, bindActions(actions))
+@withText({
+  videoPlayerLabel: 'videoArea.videoPlayer'
+})
 class VideoPlayer extends Component<any, any> {
   _el!: HTMLDivElement;
   _videoResizeWatcher!: ResizeWatcher;
@@ -40,7 +45,7 @@ class VideoPlayer extends Component<any, any> {
    * @memberof VideoPlayer
    */
   shouldComponentUpdate(nextProps: any): boolean {
-    return nextProps.videoStyles !== this.props.videoStyles;
+    return nextProps.videoStyles !== this.props.videoStyles || nextProps.entryName !== this.props.entryName;
   }
 
   /**
@@ -109,10 +114,11 @@ class VideoPlayer extends Component<any, any> {
    * @memberof VideoPlayer
    */
   render(): VNode<any> {
-    const {videoStyles, targetId} = this.props;
+    const {videoStyles, targetId, entryName, videoPlayerLabel} = this.props;
+    const ariaLabel = entryName || videoPlayerLabel;
 
     return (
-      <div role='region' id={`${targetId}-video`} className={style.videoPlayer} style={videoStyles} ref={this._setRef}>
+      <div role='region' aria-label={ariaLabel} id={`${targetId}-video`} className={style.videoPlayer} style={videoStyles} ref={this._setRef}>
         <PlayerArea name={'VideoContainer'} />
       </div>
     );
