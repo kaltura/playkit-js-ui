@@ -262,6 +262,10 @@ class Settings extends Component<any, any> {
    */
   onCVAAOverlayClose = (e?: KeyboardEvent, byKeyboard?: boolean): void => {
     this.toggleCVAAOverlay();
+    // Set flag to prevent tooltip from showing when focus is restored
+    if (this._buttonRef) {
+      this._buttonRef.dataset.kalturaFocusRestore = 'true';
+    }
     this.onControlButtonClick(e, byKeyboard);
   };
 
