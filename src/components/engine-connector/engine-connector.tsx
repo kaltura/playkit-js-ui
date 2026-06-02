@@ -64,7 +64,8 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
     const updateAudioTracks = (): void => {
       const tracks = player.getTracks(TrackType.AUDIO);
       const audioTracks = tracks.filter(t => !isAudioDescriptionLanguageKey(t.language));
-      this.props.updateAudioTracks(audioTracks);
+      const namedTracks = audioTracks.filter(t => t.language && t.language !== 'und');
+      this.props.updateAudioTracks(namedTracks.length > 0 ? namedTracks : audioTracks);
 
       const audioDescriptionLanguages = tracks.filter(t => isAudioDescriptionLanguageKey(t.language)).map(t => getAudioLanguageKey(t.language)) || [];
       this.props.updateAudioDescriptionLanguages(audioDescriptionLanguages);
