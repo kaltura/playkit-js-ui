@@ -1,0 +1,151 @@
+{
+  "repositoryName": "playkit-js-ui",
+  "coreResponsibility": {
+    "summary": "UI Application Framework for composing and rendering the Kaltura Player user interface, providing a declarative component library with Redux-based state management and full customization capabilities.",
+    "type": "UI component library"
+  },
+  "domainAndLogicOwnership": {
+    "featureOwnership": [
+      "Player controls (play/pause, volume, fullscreen, picture-in-picture)",
+      "Seekbar with thumbnail preview",
+      "Captions/subtitles display and CVAA accessibility settings",
+      "Audio track selection and audio description support",
+      "Video quality selection menu",
+      "Playback speed controls",
+      "Live playback indicators (live tag, DVR controls)",
+      "Chromecast/casting UI overlay",
+      "Ads UI (ad notice, skip button, learn more, ad timeline)",
+      "Error overlay and loading spinner",
+      "Playlist navigation UI (next/prev buttons, countdown)",
+      "VR stereo mode controls",
+      "Context menu and keyboard navigation",
+      "Side panels (left, right, top, bottom)",
+      "Watermark and logo display",
+      "Internationalization (i18n) with 18 language translations",
+      "UI theming and CSS variable customization",
+      "Responsive layout (mobile, small, and large sizes)"
+    ],
+    "dataHandling": [
+      "Player state machine synchronization (idle, playing, paused, seeking, ended)",
+      "Playback metadata (currentTime, duration, volume, muted)",
+      "Track information (audio, video, text tracks)",
+      "Ad break state and progress",
+      "UI visibility state (hover, navigation, smart container)",
+      "Side panel modes and sizes",
+      "Caption styling preferences (CVAA)",
+      "Fullscreen and picture-in-picture state",
+      "Cast session state",
+      "Playlist state (next/prev availability)",
+      "Error state and error details"
+    ]
+  },
+  "integrationPoints": {
+    "upstream": [
+      "@playkit-js/playkit-js (Core player engine - provides player instance and events)",
+      "@playkit-js/kaltura-player-js (Kaltura Player wrapper - instantiates UIManager)"
+    ],
+    "downstream": [
+      "Player plugins that inject UI components via uiComponents config",
+      "Host applications embedding the Kaltura Player",
+      "Custom UI presets and themes"
+    ],
+    "externalAPIs": [
+      "Chromecast SDK (via player.Event.Cast events)",
+      "IMA SDK (ad events processed through playkit-js-ima plugin)",
+      "Kaltura Thumbnail API (seekbar preview thumbnails)"
+    ]
+  },
+  "technicalStack": {
+    "primaryLanguages": ["TypeScript", "JavaScript"],
+    "frameworks": [
+      "Preact (virtual DOM and JSX components)",
+      "Redux (state management)",
+      "preact-i18n (internationalization)",
+      "SCSS (styling)"
+    ],
+    "entryPoints": [
+      {
+        "file": "src/index.ts",
+        "description": "Main module export - exports UIManager, components, reducers, presets, utils"
+      },
+      {
+        "file": "src/ui-manager.tsx",
+        "description": "UIManager class - core API for building and managing player UI"
+      },
+      {
+        "file": "src/store.ts",
+        "description": "Redux store configuration combining all reducers"
+      },
+      {
+        "file": "src/components/engine-connector/engine-connector.tsx",
+        "description": "Bridge component connecting player events to Redux state"
+      },
+      {
+        "file": "src/ui-presets/",
+        "description": "Default UI presets (playback, live, ads, error, idle, img, doc)"
+      },
+      {
+        "file": "src/reducers/",
+        "description": "Redux reducers for UI state (engine, shell, cvaa, seekbar, settings, etc.)"
+      }
+    ],
+    "buildOutput": "dist/playkit-ui.js"
+  },
+  "triageKeywords": [
+    "UIManager",
+    "playkit-ui",
+    "player controls",
+    "seekbar",
+    "play button",
+    "pause button",
+    "fullscreen button",
+    "volume slider",
+    "captions menu",
+    "settings menu",
+    "quality selector",
+    "speed menu",
+    "live tag",
+    "ad skip",
+    "ad notice",
+    "loading spinner",
+    "error overlay",
+    "CVAA",
+    "closed captions styling",
+    "picture-in-picture button",
+    "cast button",
+    "chromecast overlay",
+    "player hover",
+    "control bar",
+    "bottom bar",
+    "top bar",
+    "side panel",
+    "watermark",
+    "player logo",
+    "UI preset",
+    "buildDefaultUI",
+    "buildCustomUI",
+    "uiComponents",
+    "preact component",
+    "redux action",
+    "shell reducer",
+    "engine reducer",
+    "i18n translation"
+  ],
+  "errorPatterns": [
+    "Cannot read property of undefined in UIManager",
+    "Component not found in preset",
+    "Redux state undefined",
+    "preact render error",
+    "UI not displaying",
+    "Controls not visible",
+    "Seekbar not updating",
+    "Volume control not working",
+    "Fullscreen button missing",
+    "Captions not showing",
+    "Settings menu not opening",
+    "Player stuck on loading spinner",
+    "Cast button not appearing",
+    "Side panel layout issue",
+    "Mobile UI not responsive"
+  ]
+}
