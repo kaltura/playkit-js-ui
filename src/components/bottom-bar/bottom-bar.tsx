@@ -218,7 +218,6 @@ class BottomBar extends Component<any, any> {
         <div className={style.bottomBarArea}>
           <PlayerArea shouldUpdate={true} name={'BottomBar'}>
             {shouldRenderTimeDisplay && <TimeDisplayPlaybackContainer />}
-            {props.children}
           </PlayerArea>
         </div>
         <div ref={this.bottomBarContainerRef} className={style.controlsContainer}>
@@ -234,7 +233,11 @@ class BottomBar extends Component<any, any> {
                 )}
             </PlayerArea>
           </div>
-          <PlayerArea shouldUpdate={true} name={'BottomBarCenterControls'} />
+          <div className={style.centerControls}>
+            <PlayerArea shouldUpdate={true} name={'BottomBarCenterControls'}>
+              {props.children}
+            </PlayerArea>
+          </div>
           <div className={style.rightControls}>
             <PlayerArea shouldUpdate={true} name={'BottomBarRightControls'}>
               {props.rightControls &&
