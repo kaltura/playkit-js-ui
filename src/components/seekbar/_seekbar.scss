@@ -158,3 +158,54 @@
     bottom: $progress-bar-height + 12px;
   }
 }
+
+.player .seekbar-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+
+  .skip-seekbar-button {
+    position: absolute;
+    padding: 4px 8px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+    z-index: 10;
+    cursor: pointer;
+    
+    // Hide button visually but keep it in the tab order
+    opacity: 0;
+    pointer-events: none;
+    
+    // Show on keyboard focus
+    &:focus {
+      opacity: 1;
+      pointer-events: auto;
+      outline: 2px solid $tone-1-color;
+      outline-offset: 2px;
+    }
+    
+    // Position first button (before seekbar)
+    &:first-child {
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    
+    // Position second button (after seekbar)
+    &:last-child {
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+  
+  .seek-bar {
+    flex: 1;
+  }
+}
