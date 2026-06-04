@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.83.11 (2026-06-04)
+
+
+### Bug Fixes
+
+* **FEC-14971:** hide audio menu when only one meaningful audio track … ([#1177](https://github.com/kaltura/playkit-js-ui/issues/1177)) ([f6060b4](https://github.com/kaltura/playkit-js-ui/commit/f6060b4))
+
+
+
 ### 0.83.10 (2026-05-20)
 
 
