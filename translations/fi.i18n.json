@@ -116,6 +116,9 @@
       "volume_slider_aria_label": "Äänenvoimakkuuden säätö",
       "volume_slider_description": "Säädä äänenvoimakkuutta nuolilla"
     },
+    "videoArea": {
+      "videoPlayer": "Videosoitin"
+    },
     "mediaInfo": {
       "seeMore": "Näytä lisää",
       "seeLess": "Näytä vähemmän"

@@ -117,6 +117,9 @@
       "volume_slider_aria_label": "Lautstärkeregelung",
       "volume_slider_description": "Verwenden Sie die Pfeile, um die Lautstärke zu regulieren"
     },
+    "videoArea": {
+      "videoPlayer": "Video-Player"
+    },
     "mediaInfo": {
       "seeMore": "Mehr anzeigen",
       "seeLess": "Weniger anzeigen"

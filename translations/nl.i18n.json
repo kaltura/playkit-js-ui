@@ -116,6 +116,9 @@
       "volume_slider_aria_label": "Volumeregeling",
       "volume_slider_description": "Gebruik de pijlen om het volume te regelen"
     },
+    "videoArea": {
+      "videoPlayer": "Videospeler"
+    },
     "mediaInfo": {
       "seeMore": "Meer weergeven",
       "seeLess": "Minder weergeven"

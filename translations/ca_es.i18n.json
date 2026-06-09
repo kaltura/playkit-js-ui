@@ -144,6 +144,9 @@
     "watermark": {
       "watermark_alt_text": "Filigrana"
     },
+    "videoArea": {
+      "videoPlayer": "Reproductor de vídeo"
+    },
     "mediaInfo": {
       "seeMore": "Mostra més",
       "seeLess": "Mostra menys"

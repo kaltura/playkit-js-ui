@@ -116,6 +116,9 @@
       "volume_slider_aria_label": "Controllo del volume",
       "volume_slider_description": "Usa le frecce per regolare il volume"
     },
+    "videoArea": {
+      "videoPlayer": "Video player"
+    },
     "mediaInfo": {
       "seeMore": "Visualizza altro",
       "seeLess": "Visualizza meno"
