@@ -434,7 +434,8 @@ class SeekBar extends Component<any, any> {
   private getFocusableElements(): HTMLElement[] {
     const focusableSelector = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
     const playerElement = this.props.playerElement;
-    return Array.from(playerElement.querySelectorAll(focusableSelector)) as HTMLElement[];
+    const elements = Array.from(playerElement.querySelectorAll(focusableSelector)) as HTMLElement[];
+    return elements.filter(el => el.offsetWidth > 0 && el.offsetHeight > 0);
   }
 
   /**
@@ -447,13 +448,13 @@ class SeekBar extends Component<any, any> {
   private focusNextElement(currentElement: HTMLElement): void {
     const allFocusableElements = this.getFocusableElements();
     const currentIndex = allFocusableElements.indexOf(currentElement);
-    
+
     if (currentIndex !== -1 && currentIndex < allFocusableElements.length - 1) {
       // Focus the next element after the seekbar
       let nextIndex = currentIndex + 1;
       // Skip over any elements that are still inside the seekbar container
-      while (nextIndex < allFocusableElements.length && 
-             this._seekbarContainerElement && 
+      while (nextIndex < allFocusableElements.length &&
+             this._seekbarContainerElement &&
              this._seekbarContainerElement.contains(allFocusableElements[nextIndex])) {
         nextIndex++;
       }
@@ -722,11 +723,13 @@ class SeekBar extends Component<any, any> {
     if (props.isDraggingActive) seekbarStyleClass.push(style.hover);
     if (state.resizing) seekbarStyleClass.push(style.resizing);
 
+    const showSkipButtons = props.playerSize !== PLAYER_SIZE.TINY;
+
     return (
       <div 
         className={style.seekbarContainer} 
         ref={c => (c ? (this._seekbarContainerElement = c) : undefined)}>
-        {state.showSkipBefore && (
+        {showSkipButtons && state.showSkipBefore && (
           <button
             ref={c => (c ? (this._skipBeforeElement = c) : undefined)}
             className={style.skipSeekbarButton}
@@ -775,7 +778,7 @@ class SeekBar extends Component<any, any> {
             </PlayerArea>
           </div>
         </div>
-        {state.showSkipAfter && (
+        {showSkipButtons && state.showSkipAfter && (
           <button
             ref={c => (c ? (this._skipAfterElement = c) : undefined)}
             className={style.skipSeekbarButton}

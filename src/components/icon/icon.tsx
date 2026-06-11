@@ -281,10 +281,10 @@ class Icon extends Component<any, any> {
           return <i className={[style.icon, style.iconArrowDown].join(' ')} />;
 
         case IconType.ChevronLeft:
-          return <i className={[style.icon, style.iconChevronLeft].join(' ')} aria-hidden="true" />;
+          return <i className={[style.icon, style.iconChevronLeft].join(' ')} />;
 
         case IconType.ChevronRight:
-          return <i className={[style.icon, style.iconChevronRight].join(' ')} aria-hidden="true" />;
+          return <i className={[style.icon, style.iconChevronRight].join(' ')} />;
 
         case IconType.StartOver:
           return <i className={[style.icon, style.iconStartOver].join(' ')} />;
