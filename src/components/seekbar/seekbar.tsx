@@ -8,7 +8,7 @@ import {actions as shellActions} from '../../reducers/shell';
 import {withPlayer} from '../player';
 import {withKeyboardEvent} from '../keyboard';
 import {actions as overlayIconActions} from '../../reducers/overlay-action';
-import {IconType} from '../icon';
+import {Icon, IconType} from '../icon';
 import {Text, withText} from 'preact-i18n';
 import {PlayerArea} from '../player-area';
 import {EventType, withEventManager} from '../../event';
@@ -48,7 +48,7 @@ const KEYBOARD_DEFAULT_SEEK_JUMP: number = 1;
 const translates = {
   sliderAriaLabel: <Text id="controls.seekBarSlider">Seek bar</Text>,
   valuetextLabel: <Text id="controls.valuetextLabel">of</Text>,
-  skipSeekbar: <Text id="controls.skipSeekbar">Skip seekbar</Text>
+  skipSeekbar: <Text id="controls.skipSeekbar">Skip seek-bar</Text>
 };
 
 /**
@@ -473,13 +473,13 @@ class SeekBar extends Component<any, any> {
   private focusPreviousElement(currentElement: HTMLElement): void {
     const allFocusableElements = this.getFocusableElements();
     const currentIndex = allFocusableElements.indexOf(currentElement);
-    
+
     if (currentIndex > 0) {
       // Focus the previous element before the seekbar
       let prevIndex = currentIndex - 1;
       // Skip over any elements that are still inside the seekbar container
-      while (prevIndex >= 0 && 
-             this._seekbarContainerElement && 
+      while (prevIndex >= 0 &&
+             this._seekbarContainerElement &&
              this._seekbarContainerElement.contains(allFocusableElements[prevIndex])) {
         prevIndex--;
       }
@@ -734,6 +734,9 @@ class SeekBar extends Component<any, any> {
             onFocus={this.handleSkipBeforeFocus}
             aria-label={props.skipSeekbar}>
             {props.skipSeekbar}
+            <span className={style.skipButtonIcon}>
+              <Icon type={IconType.ChevronRight} />
+            </span>
           </button>
         )}
         <div
@@ -779,6 +782,9 @@ class SeekBar extends Component<any, any> {
             onClick={this.handleSkipAfter}
             onFocus={this.handleSkipAfterFocus}
             aria-label={props.skipSeekbar}>
+            <span className={style.skipButtonIcon}>
+              <Icon type={IconType.ChevronLeft} />
+            </span>
             {props.skipSeekbar}
           </button>
         )}
