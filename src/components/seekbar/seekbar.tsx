@@ -142,7 +142,7 @@ class SeekBar extends Component<any, any> {
     
     // Add focusout listener to container for detecting when focus leaves
     if (this._seekbarContainerElement) {
-      this._seekbarContainerElement.addEventListener('focusout', this.handleContainerFocusOut as EventListener);
+      this._seekbarContainerElement.addEventListener('focusout', this.handleContainerFocusOut);
     }
   }
 
@@ -158,7 +158,7 @@ class SeekBar extends Component<any, any> {
     
     // Remove focusout listener
     if (this._seekbarContainerElement) {
-      this._seekbarContainerElement.removeEventListener('focusout', this.handleContainerFocusOut as EventListener);
+      this._seekbarContainerElement.removeEventListener('focusout', this.handleContainerFocusOut);
     }
   }
 
