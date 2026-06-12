@@ -116,6 +116,9 @@
       "volume_slider_aria_label": "音量控制",
       "volume_slider_description": "使用箭頭調整音量"
     },
+    "videoArea": {
+      "videoPlayer": "影片播放器"
+    },
     "mediaInfo": {
       "seeMore": "查看更多",
       "seeLess": "查看更少"

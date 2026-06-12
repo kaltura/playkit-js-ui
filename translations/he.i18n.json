@@ -88,6 +88,9 @@
     "pictureInPicture": {
       "overlay_text": "מפעיל במצב תמונה בתוך תמונה"
     },
+    "videoArea": {
+      "videoPlayer": " נגן וידאו"
+    },
     "mediaInfo": {
       "seeMore": "הצג עוד",
       "seeLess": "הצג פחות"

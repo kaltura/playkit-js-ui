@@ -116,6 +116,9 @@
       "volume_slider_aria_label": "Controle de volume",
       "volume_slider_description": "Use as setas para controlar o volume"
     },
+    "videoArea": {
+      "videoPlayer": "Reprodutor de vídeo"
+    },
     "mediaInfo": {
       "seeMore": "Ver mais",
       "seeLess": "Ver menos"

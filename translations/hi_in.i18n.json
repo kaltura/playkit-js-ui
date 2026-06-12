@@ -87,6 +87,9 @@
     },
     "pictureInPicture": {
       "overlay_text": "पिक्चर इन पिक्चर मोड में चला रहा"
+    },
+    "videoArea": {
+      "videoPlayer": "वीडियो प्लेयर"
     }
   }
 }
