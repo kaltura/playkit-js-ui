@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.83.12 (2026-06-17)
+
+
+### Bug Fixes
+
+* **FEC-14921:** Translations ([#1179](https://github.com/kaltura/playkit-js-ui/issues/1179)) ([fdbdecd](https://github.com/kaltura/playkit-js-ui/commit/fdbdecd))
+
+
+
 ### 0.83.11 (2026-06-04)
 
 
