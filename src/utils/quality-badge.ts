@@ -1,12 +1,4 @@
-export type QualityBadgeType =
-  | 'qualityHd'
-  | 'qualityHdActive'
-  | 'quality4k'
-  | 'quality4kActive'
-  | 'quality8k'
-  | 'quality8kActive'
-  | null
-  | undefined;
+export type QualityBadgeType = 'qualityHd' | 'qualityHdActive' | 'quality4k' | 'quality4kActive' | 'quality8k' | 'quality8kActive' | null | undefined;
 
 export const getQualityBadgeText = (badgeType: QualityBadgeType): string => {
   switch (badgeType) {
