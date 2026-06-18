@@ -49,15 +49,6 @@ const IconType = {
   QualityButton: 'quality-button'
 };
 
-const BadgeType = {
-  qualityHd: `${style.badgeIcon} ${style.iconQualityHd}`,
-  qualityHdActive: `${style.badgeIcon} ${style.iconQualityHdActive}`,
-  quality4k: `${style.badgeIcon} ${style.iconQuality4K}`,
-  quality4kActive: `${style.badgeIcon} ${style.iconQuality4KActive}`,
-  quality8k: `${style.badgeIcon} ${style.iconQuality8K}`,
-  quality8kActive: `${style.badgeIcon} ${style.iconQuality8KActive}`
-};
-
 const IconState: {[state: string]: number} = {
   INACTIVE: 0,
   ACTIVE: 1
@@ -355,4 +346,4 @@ class Icon extends Component<any, any> {
 }
 
 export default Icon;
-export {Icon, IconType, BadgeType, IconState};
+export {Icon, IconType, IconState};

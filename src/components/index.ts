@@ -20,7 +20,7 @@ export {EngineConnector} from './engine-connector';
 export {ErrorOverlay} from './error-overlay';
 export * from './event-dispatcher';
 export * from './keyboard';
-export {Icon, IconType, IconState, BadgeType} from './icon';
+export {Icon, IconType, IconState} from './icon';
 export {LiveTag} from './live-tag';
 export {Loading} from './loading';
 export {MediaInfoDisplay} from './media-info-display';
