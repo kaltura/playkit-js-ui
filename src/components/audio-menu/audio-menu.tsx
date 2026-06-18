@@ -54,6 +54,8 @@ const _AudioMenu = (props: AudioMenuProps) => {
   const activeAudioLanguage = props.player ? getActiveAudioLanguage(props.player) : undefined;
 
   const audioOptions = useMemo(() => {
+    const customLabelsAudio = (props.player?.config as any)?.customLabels?.audio;
+
     return props.audioTracks?.length
       ? props.audioTracks
           .filter((t: any) => t.label || t.language)
@@ -61,10 +63,13 @@ const _AudioMenu = (props: AudioMenuProps) => {
             const hasAudioDescription = !!props.audioDescriptionLanguages?.find((l: string) => l === t.language);
             const hasAdvancedAudioDescription = !!props.advancedAudioDescriptionLanguages?.find((l: string) => l === t.language);
 
-            const label = `${t.label || t.language} ${
+            const rawLabel =
+              typeof customLabelsAudio === 'function' ? customLabelsAudio(t) || t.label || t.language : t.label || t.language;
+
+            const label = `${rawLabel} ${
               hasAudioDescription || hasAdvancedAudioDescription ? `(${props.audioDescriptionAvailableText})` : ''
             }`;
-            const ariaLabel = `${t.label || t.language} - ${
+            const ariaLabel = `${rawLabel} - ${
               hasAudioDescription || hasAdvancedAudioDescription
                 ? props.thereIsAudioDescriptionAvailableText
                 : props.thereIsNoAudioDescriptionAvailableText
@@ -85,6 +90,7 @@ const _AudioMenu = (props: AudioMenuProps) => {
     props.audioDescriptionAvailableText,
     props.thereIsAudioDescriptionAvailableText,
     props.thereIsNoAudioDescriptionAvailableText,
+    props.player,
     activeAudioLanguage
   ]);
 
