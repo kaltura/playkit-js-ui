@@ -6,7 +6,7 @@ import {withKeyboardA11y} from '../../utils';
 import {KeyMap} from '../../utils';
 import {withEventManager} from '../../event';
 import {WithEventManagerProps} from '../../event/with-event-manager';
-import {getQualityBadgeText} from '../../utils/quality-badge';
+import {getQualityBadgeText, QualityBadgeType} from '../../utils/quality-badge';
 
 type OptionType = {
   value: any;
@@ -284,7 +284,13 @@ class MenuItem extends Component<any, any> {
    */
   public render(props: any): VNode<any> {
     const ariaLabel = props.data.ariaLabel || props.data.label;
-    const activeBadgeType = props.data.badgeType ? (!props.isSelected(props.data) ? props.data.badgeType : props.data.badgeType + 'Active') : null;
+    let activeBadgeType: QualityBadgeType = null;
+    if (props.data.badgeType) {
+      activeBadgeType = props.data.badgeType;
+      if (props.isSelected(props.data)) {
+        activeBadgeType = `${props.data.badgeType}Active` as QualityBadgeType;
+      }
+    }
     const badgeText = getQualityBadgeText(activeBadgeType);
     return (
       <div

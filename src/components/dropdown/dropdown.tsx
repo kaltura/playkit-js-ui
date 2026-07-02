@@ -192,7 +192,7 @@ class DropDown extends Component<any, any> {
             aria-label={badgeText ? `${label} ${badgeText}` : label}
           >
             {label}
-            {badgeText ? <span className={style.qualityBadge}>{badgeText}</span> : null}
+            {badgeText ? <span className={style.qualityBadge}>{badgeText}</span> : undefined}
           </span>
           <Icon type={IconType.ArrowDown} />
           {!this.state.dropMenuActive ? undefined : (
