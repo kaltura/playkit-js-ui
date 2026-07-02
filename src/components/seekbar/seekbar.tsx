@@ -66,9 +66,9 @@ class SeekBar extends Component<any, any> {
   _seekBarElement!: HTMLDivElement;
   _framePreviewElement!: HTMLDivElement;
   _timeBubbleElement!: HTMLDivElement;
-  _skipBeforeElement!: HTMLButtonElement;
-  _skipAfterElement!: HTMLButtonElement;
-  _seekbarContainerElement!: HTMLDivElement;
+  _skipBeforeElement: HTMLButtonElement | null = null;
+  _skipAfterElement: HTMLButtonElement | null = null;
+  _seekbarContainerElement: HTMLDivElement | null = null;
   
   state = {
     showSkipBefore: true,
@@ -139,11 +139,6 @@ class SeekBar extends Component<any, any> {
     document.addEventListener('mouseup', this.onPlayerMouseUp);
     document.addEventListener('mousemove', this.onPlayerMouseMove);
     this.props.registerKeyboardEvents(this._keyboardEventHandlers);
-    
-    // Add focusout listener to container for detecting when focus leaves
-    if (this._seekbarContainerElement) {
-      this._seekbarContainerElement.addEventListener('focusout', this.handleContainerFocusOut);
-    }
   }
 
   /**
@@ -155,11 +150,6 @@ class SeekBar extends Component<any, any> {
   componentWillUnmount(): void {
     document.removeEventListener('mouseup', this.onPlayerMouseUp);
     document.removeEventListener('mousemove', this.onPlayerMouseMove);
-    
-    // Remove focusout listener
-    if (this._seekbarContainerElement) {
-      this._seekbarContainerElement.removeEventListener('focusout', this.handleContainerFocusOut);
-    }
   }
 
   /**
@@ -728,11 +718,12 @@ class SeekBar extends Component<any, any> {
     return (
       <div 
         className={style.seekbarContainer} 
-        ref={c => (c ? (this._seekbarContainerElement = c) : undefined)}>
+        ref={c => (this._seekbarContainerElement = c)}
+        onBlurCapture={this.handleContainerFocusOut}>
         {showSkipButtons && state.showSkipBefore && (
           <button
             type="button"
-            ref={c => (c ? (this._skipBeforeElement = c) : undefined)}
+            ref={c => (this._skipBeforeElement = c)}
             className={style.skipSeekbarButton}
             onClick={this.handleSkipBefore}
             onFocus={this.handleSkipBeforeFocus}
@@ -782,7 +773,7 @@ class SeekBar extends Component<any, any> {
         {showSkipButtons && state.showSkipAfter && (
           <button
             type="button"
-            ref={c => (c ? (this._skipAfterElement = c) : undefined)}
+            ref={c => (this._skipAfterElement = c)}
             className={style.skipSeekbarButton}
             onClick={this.handleSkipAfter}
             onFocus={this.handleSkipAfterFocus}
