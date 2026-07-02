@@ -731,6 +731,7 @@ class SeekBar extends Component<any, any> {
         ref={c => (c ? (this._seekbarContainerElement = c) : undefined)}>
         {showSkipButtons && state.showSkipBefore && (
           <button
+            type="button"
             ref={c => (c ? (this._skipBeforeElement = c) : undefined)}
             className={style.skipSeekbarButton}
             onClick={this.handleSkipBefore}
@@ -780,6 +781,7 @@ class SeekBar extends Component<any, any> {
         </div>
         {showSkipButtons && state.showSkipAfter && (
           <button
+            type="button"
             ref={c => (c ? (this._skipAfterElement = c) : undefined)}
             className={style.skipSeekbarButton}
             onClick={this.handleSkipAfter}
