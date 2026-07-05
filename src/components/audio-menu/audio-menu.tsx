@@ -52,6 +52,9 @@ const COMPONENT_NAME = 'AudioMenu';
 
 const _AudioMenu = (props: AudioMenuProps) => {
   const activeAudioLanguage = props.player ? getActiveAudioLanguage(props.player) : undefined;
+  // Use track id for active comparison when available — language-based matching breaks when
+  // two tracks share the same language code (e.g. English + English Audio Description).
+  const activeAudioTrackId = props.player ? props.player.getActiveTracks()?.audio?.id : undefined;
 
   const audioOptions = useMemo(() => {
     return props.audioTracks?.length
@@ -70,10 +73,15 @@ const _AudioMenu = (props: AudioMenuProps) => {
                 : props.thereIsNoAudioDescriptionAvailableText
             }`;
 
+            // Prefer id-based comparison; fall back to language when ids are unavailable.
+            const isActive = activeAudioTrackId !== undefined
+              ? t.id === activeAudioTrackId
+              : (t.language === activeAudioLanguage);
+
             return {
               label,
               ariaLabel,
-              active: (t.language === activeAudioLanguage) as boolean,
+              active: isActive as boolean,
               value: t
             };
           })
@@ -85,7 +93,8 @@ const _AudioMenu = (props: AudioMenuProps) => {
     props.audioDescriptionAvailableText,
     props.thereIsAudioDescriptionAvailableText,
     props.thereIsNoAudioDescriptionAvailableText,
-    activeAudioLanguage
+    activeAudioLanguage,
+    activeAudioTrackId
   ]);
 
   function onAudioChange(audioTrack: any): void {
