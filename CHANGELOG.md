@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.83.14 (2026-07-09)
+
+
+### Bug Fixes
+
+* **audio-menu:** use track id for active indicator when tracks share same language (SUP-52840) ([#1181](https://github.com/kaltura/playkit-js-ui/issues/1181)) ([635f7c6](https://github.com/kaltura/playkit-js-ui/commit/635f7c6)), closes [#884](https://github.com/kaltura/playkit-js-ui/issues/884) [#246](https://github.com/kaltura/playkit-js-ui/issues/246)
+
+
+
 ### 0.83.13 (2026-06-18)
 
 
