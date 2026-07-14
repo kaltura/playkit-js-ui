@@ -461,7 +461,6 @@ class Shell extends Component<any, any> {
 
     return (
       <div
-        tabIndex={-1}
         ref={node => (this._playerRef = node)}
         className={joinedPlayerClasses}
         onTouchEnd={this.onTouchEnd}
