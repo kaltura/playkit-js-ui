@@ -2,8 +2,9 @@ import style from '../../styles/style.scss';
 import {h, Component, VNode} from 'preact';
 import {connect} from 'react-redux';
 import {Menu} from '../menu';
-import {BadgeType, Icon, IconType} from '../icon';
+import {Icon, IconType} from '../icon';
 import {KeyMap} from '../../utils/key-map';
+import {getQualityBadgeText} from '../../utils/quality-badge';
 
 /**
  * mapping state to props
@@ -129,7 +130,7 @@ class DropDown extends Component<any, any> {
    */
   getActiveOption(): any {
     const activeOption = this.props.options.find(option => option.active);
-    return activeOption ? activeOption : this.props.options[0] || {label: 'Unlabled'};
+    return activeOption ? activeOption : this.props.options[0] || {label: 'Unlabeled'};
   }
 
   /**
@@ -160,14 +161,8 @@ class DropDown extends Component<any, any> {
   render(props: any): VNode<any> {
     const activeOptionId = props.name + 'Active';
     const activeOption = this.getActiveOption();
-    const label = activeOption?.dropdownOptions?.label || activeOption.label;
-    const badgeType = BadgeType[activeOption.badgeType || activeOption?.dropdownOptions?.badgeType];
-    let badgeText = '';
-    if (badgeType?.includes('quality-hd')) {
-      badgeText = ' HD';
-    } else if (badgeType?.includes('quality-4k')) {
-      badgeText = ' 4K';
-    }
+    const label = activeOption?.dropdownOptions?.label || activeOption?.label;
+    const badgeText = getQualityBadgeText(activeOption?.badgeType || activeOption?.dropdownOptions?.badgeType);
     return props.isMobile || props.isSmallSize ? (
       this.renderNativeSelect(props.name)
     ) : (
@@ -193,10 +188,11 @@ class DropDown extends Component<any, any> {
         >
           <span
             id={activeOptionId}
-            className={badgeType ? [style.labelBadge, badgeType].join(' ') : ''}
-            aria-label={`${label}${badgeText}`}
+            className={badgeText ? style.labelBadge : ''}
+            aria-label={badgeText ? `${label} ${badgeText}` : label}
           >
             {label}
+            {badgeText ? <span className={style.qualityBadge}>{badgeText}</span> : undefined}
           </span>
           <Icon type={IconType.ArrowDown} />
           {!this.state.dropMenuActive ? undefined : (
