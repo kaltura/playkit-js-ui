@@ -53,8 +53,8 @@
     }
 
     & > .label-badge {
-      .quality-badge {
-        margin-left: 3px;
+      &.badge-icon {
+        margin-right: 13px;
       }
     }
   }
@@ -133,8 +133,8 @@
     }
 
     & > .label-badge {
-      .quality-badge {
-        margin-left: 3px;
+      &.badge-icon {
+        margin-right: 5px;
       }
     }
 
@@ -142,24 +142,6 @@
       color: #888;
     }
   }
-}
-
-.quality-badge {
-  display: inline-block;
-  position: relative;
-  top: -8px; 
-  width: 14px;
-  height: 8px;
-  box-sizing: border-box;
-  border-radius: 1px;
-  background: var(--W-100, #fff);
-  color: var(--B-100, #000);
-  text-align: center;
-  font-family: Arial, sans-serif;
-  font-size: 7px;
-  font-style: normal;
-  font-weight: 900;
-  line-height: 8px;
 }
 
 .smart-container {
