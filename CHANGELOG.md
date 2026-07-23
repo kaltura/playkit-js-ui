@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.83.16 (2026-07-23)
+
+
+### Bug Fixes
+
+* **ADA-3041:** Replace text icons with text ([#1180](https://github.com/kaltura/playkit-js-ui/issues/1180)) ([34cc2e9](https://github.com/kaltura/playkit-js-ui/commit/34cc2e9))
+
+
+
 ### 0.83.15 (2026-07-16)
 
 
