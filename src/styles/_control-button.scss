@@ -16,25 +16,6 @@
       top: -4px;
       right: -1px;
     }
-
-    .quality-control-badge {
-      position: absolute;
-      top: 0;
-      right: -1px;
-      display: inline-block;
-      width: 14px;
-      height: 8px;
-      box-sizing: border-box;
-      border-radius: 1px;
-      background: var(--W-100, #fff);
-      color: var(--B-100, #000);
-      text-align: center;
-      font-family: Arial, sans-serif;
-      font-size: 7px;
-      font-style: normal;
-      font-weight: 900;
-      line-height: 8px;
-    }
   }
 
   i {

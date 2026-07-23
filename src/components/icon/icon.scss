@@ -147,10 +147,23 @@
   filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.7));
 }
 
+.badge-icon:after {
+  content: '';
+  position: absolute;
+  height: 16px;
+  width: 16px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
 // Dynamic Colored Icons
 .player {
   --playkit-icon-vr-stereo-full-url: #{icon(vrStereoOn, $brand-color)};
   --playkit-icon-chromecast-url: #{icon(chromecast, $brand-color)};
+  --playkit-icon-quality-HD-active-url: #{icon(qualityHdActive, '#fff', '16', '0 0 16 16')};
+  --playkit-icon-quality-4K-active-url: #{icon(quality4kActive, '#fff', '16', '0 0 16 16')};
+  --playkit-icon-quality-8K-active-url: #{icon(quality8kActive, '#fff', '16', '0 0 16 16')};
 }
 
 .icon-maximize {
@@ -315,6 +328,42 @@
 
 .icon-advanced-audio-description-disabled-dropdown {
   background-image: icon(advancedAudioDescriptionOff, '#c4c4c4', '32', '0 0 32 32');
+}
+
+.icon-quality-hd {
+  &:after {
+    background-image: icon(qualityHd, '#fff', '16', '0 0 16 16');
+  }
+}
+
+.icon-quality-hd-active {
+  &:after {
+    background-image: var(--playkit-icon-quality-HD-active-url);
+  }
+}
+
+.icon-quality-4k {
+  &:after {
+    background-image: icon(quality4k, '#fff', '16', '0 0 16 16');
+  }
+}
+
+.icon-quality-4k-active {
+  &:after {
+    background-image: var(--playkit-icon-quality-4K-active-url);
+  }
+}
+
+.icon-quality-8k {
+  &:after {
+    background-image: icon(quality8k, '#fff', '16', '0 0 16 16');
+  }
+}
+
+.icon-quality-8k-active {
+  &:after {
+    background-image: var(--playkit-icon-quality-8K-active-url);
+  }
 }
 
 .icon-closed-captions-on {
