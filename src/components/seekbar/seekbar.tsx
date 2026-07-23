@@ -8,7 +8,7 @@ import {actions as shellActions} from '../../reducers/shell';
 import {withPlayer} from '../player';
 import {withKeyboardEvent} from '../keyboard';
 import {actions as overlayIconActions} from '../../reducers/overlay-action';
-import {IconType} from '../icon';
+import {Icon, IconType} from '../icon';
 import {Text, withText} from 'preact-i18n';
 import {PlayerArea} from '../player-area';
 import {EventType, withEventManager} from '../../event';
@@ -47,7 +47,8 @@ const KEYBOARD_DEFAULT_SEEK_JUMP: number = 1;
 
 const translates = {
   sliderAriaLabel: <Text id="controls.seekBarSlider">Seek bar</Text>,
-  valuetextLabel: <Text id="controls.valuetextLabel">of</Text>
+  valuetextLabel: <Text id="controls.valuetextLabel">of</Text>,
+  skipSeekbar: <Text id="controls.skipSeekbar">Skip seek-bar</Text>
 };
 
 /**
@@ -65,6 +66,15 @@ class SeekBar extends Component<any, any> {
   _seekBarElement!: HTMLDivElement;
   _framePreviewElement!: HTMLDivElement;
   _timeBubbleElement!: HTMLDivElement;
+  _skipBeforeElement: HTMLButtonElement | null = null;
+  _skipAfterElement: HTMLButtonElement | null = null;
+  _seekbarContainerElement: HTMLDivElement | null = null;
+  
+  state = {
+    showSkipBefore: true,
+    showSkipAfter: true
+  };
+  
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
       key: {
@@ -342,6 +352,135 @@ class SeekBar extends Component<any, any> {
   };
 
   /**
+   * handler for skip before button - skips to first focusable element after seekbar
+   *
+   * @param {Event} e - click event
+   * @returns {void}
+   * @memberof SeekBar
+   */
+  private handleSkipBefore = (e: Event): void => {
+    e.preventDefault();
+    e.stopPropagation();
+    // Find the next focusable element after the seekbar
+    this.focusNextElement(this._seekBarElement);
+  };
+
+  /**
+   * handler for skip before button focus - shows only this button
+   *
+   * @returns {void}
+   * @memberof SeekBar
+   */
+  private handleSkipBeforeFocus = (): void => {
+    this.setState({ showSkipBefore: true, showSkipAfter: false });
+  };
+
+  /**
+   * handler for skip after button - skips to first focusable element before seekbar
+   *
+   * @param {Event} e - click event
+   * @returns {void}
+   * @memberof SeekBar
+   */
+  private handleSkipAfter = (e: Event): void => {
+    e.preventDefault();
+    e.stopPropagation();
+    // Find the previous focusable element before the seekbar
+    this.focusPreviousElement(this._seekBarElement);
+  };
+
+  /**
+   * handler for skip after button focus - shows only this button
+   *
+   * @returns {void}
+   * @memberof SeekBar
+   */
+  private handleSkipAfterFocus = (): void => {
+    this.setState({ showSkipBefore: false, showSkipAfter: true });
+  };
+
+  /**
+   * handler for when focus leaves the seekbar container
+   *
+   * @param {FocusEvent} e - focusout event
+   * @returns {void}
+   * @memberof SeekBar
+   */
+  private handleContainerFocusOut = (e: FocusEvent): void => {
+    const relatedTarget = e.relatedTarget as HTMLElement;
+    
+    // If relatedTarget is null or outside the container, reset buttons
+    if (!relatedTarget || !this._seekbarContainerElement?.contains(relatedTarget)) {
+      this.setState({ showSkipBefore: true, showSkipAfter: true });
+    }
+  };
+
+  /**
+   * get all focusable elements within the player container
+   *
+   * @returns {HTMLElement[]} - array of focusable elements
+   * @memberof SeekBar
+   */
+  private getFocusableElements(): HTMLElement[] {
+    const focusableSelector = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    const playerElement = this.props.playerElement;
+    const elements = Array.from(playerElement.querySelectorAll(focusableSelector)) as HTMLElement[];
+    return elements.filter(el => el.offsetWidth > 0 && el.offsetHeight > 0);
+  }
+
+  /**
+   * focus next focusable element after a given element
+   *
+   * @param {HTMLElement} currentElement - current element to start search from
+   * @returns {void}
+   * @memberof SeekBar
+   */
+  private focusNextElement(currentElement: HTMLElement): void {
+    const allFocusableElements = this.getFocusableElements();
+    const currentIndex = allFocusableElements.indexOf(currentElement);
+
+    if (currentIndex !== -1 && currentIndex < allFocusableElements.length - 1) {
+      // Focus the next element after the seekbar
+      let nextIndex = currentIndex + 1;
+      // Skip over any elements that are still inside the seekbar container
+      while (nextIndex < allFocusableElements.length &&
+             this._seekbarContainerElement &&
+             this._seekbarContainerElement.contains(allFocusableElements[nextIndex])) {
+        nextIndex++;
+      }
+      if (nextIndex < allFocusableElements.length) {
+        allFocusableElements[nextIndex].focus();
+      }
+    }
+  }
+
+  /**
+   * focus previous focusable element before a given element
+   *
+   * @param {HTMLElement} currentElement - current element to start search from
+   * @returns {void}
+   * @memberof SeekBar
+   */
+  private focusPreviousElement(currentElement: HTMLElement): void {
+    const allFocusableElements = this.getFocusableElements();
+    const currentIndex = allFocusableElements.indexOf(currentElement);
+
+    if (currentIndex > 0) {
+      // Focus the previous element before the seekbar
+      let prevIndex = currentIndex - 1;
+      // Skip over any elements that are still inside the seekbar container
+      while (prevIndex >= 0 &&
+             this._seekbarContainerElement &&
+             this._seekbarContainerElement.contains(allFocusableElements[prevIndex])) {
+        prevIndex--;
+      }
+      if (prevIndex >= 0) {
+        allFocusableElements[prevIndex].focus();
+      }
+    }
+  }
+
+  /**
    * seekbar touch end handler
    *
    * @param {Event} e - mouse end event
@@ -574,42 +713,77 @@ class SeekBar extends Component<any, any> {
     if (props.isDraggingActive) seekbarStyleClass.push(style.hover);
     if (state.resizing) seekbarStyleClass.push(style.resizing);
 
+    const showSkipButtons = props.playerSize !== PLAYER_SIZE.TINY;
+
     return (
-      <div
-        tabIndex={0}
-        className={seekbarStyleClass.join(' ')}
-        ref={c => (c ? (this._seekBarElement = c) : undefined)}
-        role="slider"
-        aria-label={props.sliderAriaLabel}
-        aria-valuemin={0}
-        aria-valuemax={Math.round(this.props.duration)}
-        aria-valuenow={Math.round(this.props.currentTime)}
-        aria-valuetext={`${getDurationAsText(props.currentTime, props.player.config.ui.locale, true)} ${
-          this.props.valuetextLabel
-        } ${getDurationAsText(props.duration, props.player.config.ui.locale, true)}`}
-        onMouseOver={this.onSeekbarMouseOver}
-        onMouseLeave={this.onSeekbarMouseLeave}
-        onMouseMove={this.onSeekbarMouseMove}
-        onMouseDown={this.onSeekbarMouseDown}
-        onTouchStart={this.onSeekbarTouchStart}
-        onTouchMove={this.onSeekbarTouchMove}
-        onTouchEnd={this.onSeekbarTouchEnd}
-        onKeyDown={this.onKeyDown}>
-        <div className={style.progressBar}>
-          <PlayerArea name={'SeekBar'} shouldUpdate={true}>
-            {this.renderFramePreview()}
-            {this.renderTimeBubble()}
-            <ProgressIndicator />
-            {props.adBreak ? undefined : (
-              <div id={'scrubber-container'} style={`transform: translateX(${scrubberProgressPosition})`}>
-                <div id={'scrubber'} className={style.scrubber} />
+      <div 
+        className={style.seekbarContainer} 
+        ref={c => (this._seekbarContainerElement = c)}
+        onBlurCapture={this.handleContainerFocusOut}>
+        {showSkipButtons && state.showSkipBefore && (
+          <button
+            type="button"
+            ref={c => (this._skipBeforeElement = c)}
+            className={style.skipSeekbarButton}
+            onClick={this.handleSkipBefore}
+            onFocus={this.handleSkipBeforeFocus}
+            aria-label={props.skipSeekbar}>
+            {props.skipSeekbar}
+            <span className={style.skipButtonIcon}>
+              <Icon type={IconType.ChevronRight} />
+            </span>
+          </button>
+        )}
+        <div
+          tabIndex={0}
+          className={seekbarStyleClass.join(' ')}
+          ref={c => (c ? (this._seekBarElement = c) : undefined)}
+          role="slider"
+          aria-label={props.sliderAriaLabel}
+          aria-valuemin={0}
+          aria-valuemax={Math.round(this.props.duration)}
+          aria-valuenow={Math.round(this.props.currentTime)}
+          aria-valuetext={`${getDurationAsText(props.currentTime, props.player.config.ui.locale, true)} ${
+            this.props.valuetextLabel
+          } ${getDurationAsText(props.duration, props.player.config.ui.locale, true)}`}
+          onMouseOver={this.onSeekbarMouseOver}
+          onMouseLeave={this.onSeekbarMouseLeave}
+          onMouseMove={this.onSeekbarMouseMove}
+          onMouseDown={this.onSeekbarMouseDown}
+          onTouchStart={this.onSeekbarTouchStart}
+          onTouchMove={this.onSeekbarTouchMove}
+          onTouchEnd={this.onSeekbarTouchEnd}
+          onKeyDown={this.onKeyDown}>
+          <div className={style.progressBar}>
+            <PlayerArea name={'SeekBar'} shouldUpdate={true}>
+              {this.renderFramePreview()}
+              {this.renderTimeBubble()}
+              <ProgressIndicator />
+              {props.adBreak ? undefined : (
+                <div id={'scrubber-container'} style={`transform: translateX(${scrubberProgressPosition})`}>
+                  <div id={'scrubber'} className={style.scrubber} />
+                </div>
+              )}
+              <div className={style.virtualProgress} style={{width: virtualProgressWidth}}>
+                <div className={style.virtualProgressIndicator} />
               </div>
-            )}
-            <div className={style.virtualProgress} style={{width: virtualProgressWidth}}>
-              <div className={style.virtualProgressIndicator} />
-            </div>
-          </PlayerArea>
+            </PlayerArea>
+          </div>
         </div>
+        {showSkipButtons && state.showSkipAfter && (
+          <button
+            type="button"
+            ref={c => (this._skipAfterElement = c)}
+            className={style.skipSeekbarButton}
+            onClick={this.handleSkipAfter}
+            onFocus={this.handleSkipAfterFocus}
+            aria-label={props.skipSeekbar}>
+            <span className={style.skipButtonIcon}>
+              <Icon type={IconType.ChevronLeft} />
+            </span>
+            {props.skipSeekbar}
+          </button>
+        )}
       </div>
     );
   }

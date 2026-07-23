@@ -158,3 +158,58 @@
     bottom: $progress-bar-height + 12px;
   }
 }
+
+.player .seekbar-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+
+  .skip-seekbar-button {
+    position: absolute;
+    left: 0;  
+    bottom: 100%;
+    display: flex;
+    height: 36px;
+    padding: 8px;
+    align-items: center;
+    gap: 4px;
+    border: none;
+    border-radius: var(--Roundness-1, 4px);
+    background: var(--B-60, rgba(0, 0, 0, 0.60));
+    color: var(--W-100, #FFF);
+    font-family: Lato, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    white-space: nowrap;
+    z-index: 10;
+    cursor: pointer;
+    
+    // Hide button visually but keep it in the tab order
+    opacity: 0;
+    pointer-events: none;
+    
+    // Show on keyboard focus
+    &:focus {
+      opacity: 1;
+      pointer-events: auto;
+      outline: 2px solid #2684FF;
+      box-shadow: 0 0 0 2px white;
+      outline-offset: 1px;
+    }
+  }
+  
+  .skip-button-icon {
+    display: flex;
+    width: 16px;
+    height: 16px;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .seek-bar {
+    flex: 1;
+  }
+}
