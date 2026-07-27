@@ -5,7 +5,7 @@ import {withText} from 'preact-i18n';
 import {ButtonControl} from '../button-control';
 import {Tooltip} from '../tooltip';
 import {Button} from '../button';
-import {Icon, IconType, BadgeType} from '../icon';
+import {Icon, IconType} from '../icon';
 import {SmartContainer} from '../smart-container';
 import {QualityMenu} from '../quality-menu';
 import {focusElement} from '../../utils';
@@ -13,6 +13,7 @@ import {isEnter, isSpace} from '../../utils/key-map';
 import style from '../../styles/style.scss';
 import {registerToBottomBar} from '../bottom-bar';
 import {getLabelBadgeType} from '../../components';
+import {getQualityBadgeText, QualityBadgeType} from '../../utils/quality-badge';
 
 const mapStateToProps = state => ({
   showQualityButton: state.config.showQualityButton,
@@ -94,7 +95,7 @@ const QualityControl = connect(mapStateToProps)(
       return videoTracks?.length > 1;
     }, [videoTracks]);
 
-    const getButtonBadgeType = (): string | null => {
+    const getButtonBadgeType = (): QualityBadgeType => {
         const activeVideoTrackHeight: number = player.getActiveTracks()?.video?.height;
         return activeVideoTrackHeight ? getLabelBadgeType(activeVideoTrackHeight) : null;
     };
@@ -121,7 +122,8 @@ const QualityControl = connect(mapStateToProps)(
 
     if (!props.showQualityButton || !hasQualityOptions || props.isAudio) return null;
 
-    const buttonBadgeType: string = getButtonBadgeType() || '';
+    const buttonBadgeType = getButtonBadgeType();
+    const badgeText = getQualityBadgeText(buttonBadgeType);
     const buttonAriaLabel = `${getQualityLabel(buttonBadgeType)}`;
 
     return (
@@ -136,11 +138,11 @@ const QualityControl = connect(mapStateToProps)(
                 style.controlButton, 
                 style.buttonBadge,
                 smartContainerOpen ? style.active : '',
-                BadgeType[buttonBadgeType + 'Active'],
               ].join(' ')}
               onClick={(e) => handleClick(true)}
               onKeyDown={onKeyDown}>
               <Icon type={IconType.QualityButton} />
+              {badgeText ? <span className={style.qualityControlBadge}>{badgeText}</span> : undefined}
             </Button>
           </Tooltip>
           {smartContainerOpen && (
