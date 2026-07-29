@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
 import {actions as shellActions} from '../../reducers/shell';
 import {actions as engineActions} from '../../reducers/engine';
+import {isPlayingAdOrPlayback} from '../../reducers/getters';
 import {KeyMap} from '../../utils';
 import {withPlayer} from '../player';
 import {EventType, withEventManager} from '../../event';
@@ -19,6 +20,7 @@ import {debounce} from '../../utils/debounce';
  */
 const mapStateToProps = state => ({
   targetId: state.config.targetId,
+  isPlayingAdOrPlayback: isPlayingAdOrPlayback(state.engine),
   forceTouchUI: state.config.forceTouchUI,
   hoverTimeout: state.config.hoverTimeout,
   metadataLoaded: state.engine.metadataLoaded,
@@ -83,6 +85,48 @@ class Shell extends Component<any, any> {
   _environmentClasses!: string[];
   _playerResizeWatcher!: ResizeWatcher;
   _playerRef: HTMLDivElement | null = null;
+
+  private onDocumentKeyDownCapture = (e: KeyboardEvent): void => {
+    const playerContainer = document.getElementById(this.props.targetId);
+    const target = e.target as Node | null;
+    const activeElement = document.activeElement;
+    const isInsidePlayer = !!playerContainer && ((!!target && playerContainer.contains(target)) || (!!activeElement && playerContainer.contains(activeElement)));
+    const overlayOpen = !!this.props.player?.ui?.store?.getState()?.overlay?.isOpen;
+    if (!isInsidePlayer && !overlayOpen) {
+      return;
+    }
+
+    // Preserve pre-playback overlay keyboard UX by letting its focused button handler own the interaction.
+    if (this.props.prePlayback) {
+      return;
+    }
+
+    const key = typeof e.key === 'string' ? e.key.toLowerCase() : '';
+    const isK = e.keyCode === KeyMap.K || e.code === 'KeyK' || key === 'k';
+    if (!isK) {
+      return;
+    }
+
+    if (e.repeat) {
+      return;
+    }
+
+    const targetElement = e.target as HTMLElement;
+    const isInput = targetElement instanceof HTMLInputElement || targetElement instanceof HTMLTextAreaElement || targetElement instanceof HTMLSelectElement || targetElement.isContentEditable;
+    if (isInput) {
+      return;
+    }
+
+    if ((!this.props.player.isLive() && !this.props.allowPlayPause) || (this.props.player.isLive() && !this.props.allowLivePlayPause)) {
+      return;
+    }
+
+    const engineState = this.props.player?.ui?.store?.getState()?.engine;
+    const isPlayingFromStore = engineState ? (engineState.adBreak ? engineState.adIsPlaying : engineState.isPlaying) : this.props.isPlayingAdOrPlayback;
+    e.preventDefault();
+    e.stopPropagation();
+    isPlayingFromStore ? this.props.player.pause() : this.props.player.play();
+  };
 
   /**
    * on mouse leave, remove the hover class (hide the player gui)
@@ -233,6 +277,7 @@ class Shell extends Component<any, any> {
    */
   componentDidMount() {
     const {player, eventManager} = this.props;
+    document.addEventListener('keydown', this.onDocumentKeyDownCapture, true);
     eventManager.listen(window, 'resize', debounce(this._onWindowResize, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
     eventManager.listen(document, 'scroll', debounce(this._updatePlayerClientRect, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
     eventManager.listen(document, 'click', debounce(this._handleClickOutside, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
@@ -301,6 +346,7 @@ class Shell extends Component<any, any> {
    * @memberof Shell
    */
   componentWillUnmount(): void {
+    document.removeEventListener('keydown', this.onDocumentKeyDownCapture, true);
     this._clearHoverTimeout();
     this._playerResizeWatcher.destroy();
   }
