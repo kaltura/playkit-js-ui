@@ -153,8 +153,11 @@ class UIManager {
         this._translations[locale] = translation;
       });
     }
-    if (config.locale && this._translations[config.locale]) {
-      this._locale = config.locale;
+    if (config.locale) {
+      const normalizedLocale = config.locale.toLowerCase();
+      if (this._translations[normalizedLocale]) {
+        this._locale = normalizedLocale;
+      }
     }
   }
 
