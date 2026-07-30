@@ -89,10 +89,18 @@ class Shell extends Component<any, any> {
   private onDocumentKeyDownCapture = (e: KeyboardEvent): void => {
     const playerContainer = document.getElementById(this.props.targetId);
     const target = e.target as Node | null;
+    const targetElement = e.target instanceof HTMLElement ? e.target : null;
     const activeElement = document.activeElement;
+    const activeHTMLElement = activeElement instanceof HTMLElement ? activeElement : null;
     const isInsidePlayer = !!playerContainer && ((!!target && playerContainer.contains(target)) || (!!activeElement && playerContainer.contains(activeElement)));
     const overlayOpen = !!this.props.player?.ui?.store?.getState()?.overlay?.isOpen;
     if (!isInsidePlayer && !overlayOpen) {
+      return;
+    }
+
+    //Prevents keyboard shortcuts from firing when the user is interacting with the audio description
+    const isInsideAudioDescriptionRoot = (!!targetElement && !!targetElement.closest('.aadRoot')) || (!!activeHTMLElement && !!activeHTMLElement.closest('.aadRoot'));
+    if (isInsideAudioDescriptionRoot) {
       return;
     }
 
@@ -111,8 +119,7 @@ class Shell extends Component<any, any> {
       return;
     }
 
-    const targetElement = e.target as HTMLElement;
-    const isInput = targetElement instanceof HTMLInputElement || targetElement instanceof HTMLTextAreaElement || targetElement instanceof HTMLSelectElement || targetElement.isContentEditable;
+    const isInput = targetElement instanceof HTMLInputElement || targetElement instanceof HTMLTextAreaElement || targetElement instanceof HTMLSelectElement || !!targetElement?.isContentEditable;
     if (isInput) {
       return;
     }
