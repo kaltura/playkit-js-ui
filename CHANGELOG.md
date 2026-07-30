@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.83.18 (2026-07-30)
+
+
+### Bug Fixes
+
+* **SUP-52089:** Player controls language doesn't change while changing the site language in KAF ([#1187](https://github.com/kaltura/playkit-js-ui/issues/1187)) ([dbeaec7](https://github.com/kaltura/playkit-js-ui/commit/dbeaec7))
+
+
+
 ### 0.83.17 (2026-07-26)
 
 
