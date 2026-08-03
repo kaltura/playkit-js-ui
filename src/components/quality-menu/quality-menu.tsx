@@ -4,10 +4,11 @@ import {withText} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
 import {actions} from '../../reducers/settings';
-import {BadgeType, SmartContainerItem, Menu} from '../../components';
+import {SmartContainerItem, Menu} from '../../components';
 import {IconType} from '../icon';
 import {withPlayer} from '../player';
 import {withEventDispatcher} from '../event-dispatcher';
+import {QualityBadgeType} from '../../utils/quality-badge';
 
 const HeightResolution = {
   HD: 1080,
@@ -21,16 +22,15 @@ const DEFAULT_VIDEO_TRACK = 360;
  * Determines the badge icon type of the quality option based on the height of the resolution.
  *
  * @param {number} videoTrackHeight - video track resolution height.
- * @returns {string | null} - the badge icon type or null depends on the resolution height.
+ * @returns {QualityBadgeType} - the badge icon type or null depends on the resolution height.
  */
-function getLabelBadgeType(videoTrackHeight: number): string | null {
-  const [QHD, , Q4K, , Q8k] = Object.keys(BadgeType);
+function getLabelBadgeType(videoTrackHeight: number): QualityBadgeType {
   if (videoTrackHeight >= HeightResolution.HD && videoTrackHeight < HeightResolution.UHD_4K) {
-    return QHD;
+    return 'qualityHd';
   } else if (videoTrackHeight >= HeightResolution.UHD_4K && videoTrackHeight < HeightResolution.UHD_8K) {
-    return Q4K;
+    return 'quality4k';
   } else if (videoTrackHeight >= HeightResolution.UHD_8K) {
-    return Q8k;
+    return 'quality8k';
   }
   return null;
 }

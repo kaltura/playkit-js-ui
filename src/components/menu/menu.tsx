@@ -1,11 +1,12 @@
 import style from '../../styles/style.scss';
 import {h, Component, VNode} from 'preact';
-import {BadgeType, default as Icon, IconType} from '../icon';
+import {default as Icon, IconType} from '../icon';
 import {connect} from 'react-redux';
 import {withKeyboardA11y} from '../../utils';
 import {KeyMap} from '../../utils';
 import {withEventManager} from '../../event';
 import {WithEventManagerProps} from '../../event/with-event-manager';
+import {getQualityBadgeText, QualityBadgeType} from '../../utils/quality-badge';
 
 type OptionType = {
   value: any;
@@ -283,13 +284,14 @@ class MenuItem extends Component<any, any> {
    */
   public render(props: any): VNode<any> {
     const ariaLabel = props.data.ariaLabel || props.data.label;
-    const badgeType: string | null = props.data.badgeType && !props.isSelected(props.data) ? BadgeType[props.data.badgeType] : BadgeType[props.data.badgeType + 'Active'];
-    let badgeText = '';
-    if (badgeType?.includes('quality-hd')) {
-      badgeText = ' HD';
-    } else if (badgeType?.includes('quality-4k')) {
-      badgeText = ' 4K';
+    let activeBadgeType: QualityBadgeType = null;
+    if (props.data.badgeType) {
+      activeBadgeType = props.data.badgeType;
+      if (props.isSelected(props.data)) {
+        activeBadgeType = `${props.data.badgeType}Active` as QualityBadgeType;
+      }
     }
+    const badgeText = getQualityBadgeText(activeBadgeType);
     return (
       <div
         role={props?.role}
@@ -310,9 +312,10 @@ class MenuItem extends Component<any, any> {
         onClick={this.onClick}
         onKeyDown={this.onKeyDown}>
         <span
-          className={badgeType ? [style.labelBadge, badgeType].join(' ') : ''}
-          aria-label={`${ariaLabel}${badgeText}`}>
+          className={badgeText ? style.labelBadge : ''}
+          aria-label={badgeText ? `${ariaLabel} ${badgeText}` : ariaLabel}>
           {props.data.label}
+          {badgeText ? <span className={style.qualityBadge}>{badgeText}</span> : undefined}
         </span>
         <span className={[style.menuIconContainer, style.active].join(' ')}>
           <Icon type={IconType.CheckActive} />

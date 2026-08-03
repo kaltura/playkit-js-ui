@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {bindActions, KeyMap} from '../../utils';
 import {actions} from '../../reducers/settings';
 import {AudioMenu, CaptionsMenu, QualityMenu, SmartContainer, SpeedMenu, CVAAOverlay, getLabelBadgeType} from '../../components';
-import {default as Icon, IconType, BadgeType} from '../icon';
+import {default as Icon, IconType} from '../icon';
 import {withPlayer} from '../player';
 import {withEventManager} from '../../event';
 import {actions as overlayIconActions} from '../../reducers/overlay-action';
@@ -20,6 +20,7 @@ import {withLogger} from '../logger';
 import {SpeedSelectedEvent} from '../../event/events/speed-selected-event';
 import {getOverlayPortalElement} from '../overlay-portal';
 import {AudioDescriptionMenu} from '../audio-description-menu';
+import {getQualityBadgeText, QualityBadgeType} from '../../utils/quality-badge';
 
 /**
  * mapping state to props
@@ -271,7 +272,7 @@ class Settings extends Component<any, any> {
    * @returns {string | null} - the badge icon type or null depends on the resolution height.
    * @memberof Settings
    */
-  getButtonBadgeType(): string | null {
+  getButtonBadgeType(): QualityBadgeType {
     const activeVideoTrackHeight: number = this.props.player.getActiveTracks()?.video?.height;
     return activeVideoTrackHeight ? getLabelBadgeType(activeVideoTrackHeight) : null;
   }
@@ -307,7 +308,8 @@ class Settings extends Component<any, any> {
     if (!(showAudioMenu || showCaptionsMenu || showQualityMenu || showSpeedMenu || showAudioDescriptionMenu))
       return undefined;
     if (props.isLive && props.videoTracks.length <= 1 && !showAudioMenu && !showCaptionsMenu) return undefined;
-    const buttonBadgeType: string = this.getButtonBadgeType() || '';
+    const buttonBadgeType = this.getButtonBadgeType();
+    const badgeText = getQualityBadgeText(buttonBadgeType);
 
     const buttonAriaLabel = `${props.buttonLabel} ${showQualityMenu ? this.getQualityLabel(buttonBadgeType) : ''} `;
     return (
@@ -322,11 +324,11 @@ class Settings extends Component<any, any> {
             className={[
               style.controlButton,
               showQualityMenu? style.buttonBadge : '',
-              showQualityMenu? BadgeType[buttonBadgeType + 'Active'] : '',
               this.state.smartContainerOpen ? style.active : ''
             ].join(' ')}
             onClick={this.onControlButtonClick}>
             <Icon type={IconType.Settings} />
+            {showQualityMenu && badgeText ? <span className={style.qualityControlBadge}>{badgeText}</span> : undefined}
           </Button>
         </Tooltip>
         {this.state.smartContainerOpen && !this.state.cvaaOverlay && (
