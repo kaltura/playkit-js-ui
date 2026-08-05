@@ -4,9 +4,11 @@ import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
 import {actions as shellActions} from '../../reducers/shell';
 import {actions as engineActions} from '../../reducers/engine';
+import {actions as overlayIconActions} from '../../reducers/overlay-action';
 import {isPlayingAdOrPlayback} from '../../reducers/getters';
 import {KeyMap} from '../../utils';
 import {withPlayer} from '../player';
+import {IconType} from '../icon';
 import {FakeEvent} from '@playkit-js/playkit-js';
 import {EventType, withEventManager} from '../../event';
 import {withEventDispatcher} from '../event-dispatcher';
@@ -76,7 +78,7 @@ const COMPONENT_NAME = 'Shell';
  * @example <Shell />
  * @extends {Component}
  */
-@connect(mapStateToProps, bindActions({...shellActions, ...engineActions}))
+@connect(mapStateToProps, bindActions({...shellActions, ...engineActions, ...overlayIconActions}))
 @withPlayer
 @withEventManager
 @withLogger(COMPONENT_NAME)
@@ -135,7 +137,15 @@ class Shell extends Component<any, any> {
     e.stopPropagation();
     // Dispatch USER_CLICKED events to maintain API compatibility with SPACE key and button clicks.
     this.props.player.dispatchEvent(new FakeEvent(isPlayingFromStore ? EventType.USER_CLICKED_PAUSE : EventType.USER_CLICKED_PLAY));
-    isPlayingFromStore ? this.props.player.pause() : this.props.player.play();
+    if (isPlayingFromStore) {
+      this.props.player.pause();
+      const showPauseButton = !this.props.player.isLive() || this.props.player.isDvr();
+      this.props.updateOverlayActionIcon(showPauseButton ? IconType.Pause : IconType.Stop);
+    } else {
+      this.props.player.play();
+      this.props.updateOverlayActionIcon(IconType.Play);
+    }
+    this.props.updatePlayerHoverState(true);
   };
 
   /**
