@@ -129,13 +129,11 @@ class Shell extends Component<any, any> {
       return;
     }
 
-    const engineState = this.props.player?.ui?.store?.getState()?.engine;
-    const isPlayingFromStore = engineState ? (engineState.adBreak ? engineState.adIsPlaying : engineState.isPlaying) : this.props.isPlayingAdOrPlayback;
     e.preventDefault();
     e.stopPropagation();
     // Dispatch USER_CLICKED events to maintain API compatibility with SPACE key and button clicks.
-    this.props.player.dispatchEvent(new FakeEvent(isPlayingFromStore ? EventType.USER_CLICKED_PAUSE : EventType.USER_CLICKED_PLAY));
-    if (isPlayingFromStore) {
+    this.props.player.dispatchEvent(new FakeEvent(this.props.isPlayingAdOrPlayback ? EventType.USER_CLICKED_PAUSE : EventType.USER_CLICKED_PLAY));
+    if (this.props.isPlayingAdOrPlayback) {
       this.props.player.pause();
       const showPauseButton = !this.props.player.isLive() || this.props.player.isDvr();
       this.props.updateOverlayActionIcon(showPauseButton ? IconType.Pause : IconType.Stop);
