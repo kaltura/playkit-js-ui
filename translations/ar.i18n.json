@@ -3,6 +3,7 @@
     "controls": {
       "play": "تشغيل",
       "pause": "إيقاف مؤقت",
+      "title": "العنوان",
       "language": "اللغة",
       "settings": "الإعدادات",
       "fullscreen": "ملء الشاشة",

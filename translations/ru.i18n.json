@@ -3,6 +3,7 @@
     "controls": {
       "play": "Воспроизвести",
       "pause": "Пауза",
+      "title": "Название",
       "language": "Язык",
       "settings": "Настройки",
       "fullscreen": "Полный экран",

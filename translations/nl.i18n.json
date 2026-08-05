@@ -3,6 +3,7 @@
     "controls": {
       "play": "Afspelen",
       "pause": "Pause",
+      "title": "Titel",
       "language": "Taal",
       "settings": "Instellingen",
       "fullscreen": "Volledig scherm",

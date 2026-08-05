@@ -3,6 +3,7 @@
     "controls": {
       "play": "Toista",
       "pause": "Keskeytä",
+      "title": "Otsikko",
       "language": "Kieli",
       "settings": "Asetukset",
       "fullscreen": "Koko näyttö",

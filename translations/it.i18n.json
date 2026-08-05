@@ -3,6 +3,7 @@
     "controls": {
       "play": "Play",
       "pause": "Pausa",
+      "title": "Titolo",
       "language": "Lingua",
       "settings": "Impostazioni",
       "fullscreen": "Schermo intero",
