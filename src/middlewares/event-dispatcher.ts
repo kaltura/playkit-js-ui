@@ -331,9 +331,6 @@ const keyboardHandlers: {[key: number]: Function} = {
   [KeyMap.SPACE]: (store, action, player) => {
     onPlayPauseClicked(store, action, player);
   },
-  [KeyMap.K]: (store, action, player) => {
-    onPlayPauseClicked(store, action, player);
-  },
   [KeyMap.UP]: (store, action, player) => {
     player.dispatchEvent(new VolumeChangedEvent(action.payload.volume));
   },

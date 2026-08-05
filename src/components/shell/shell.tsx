@@ -7,6 +7,7 @@ import {actions as engineActions} from '../../reducers/engine';
 import {isPlayingAdOrPlayback} from '../../reducers/getters';
 import {KeyMap} from '../../utils';
 import {withPlayer} from '../player';
+import {FakeEvent} from '@playkit-js/playkit-js';
 import {EventType, withEventManager} from '../../event';
 import {withEventDispatcher} from '../event-dispatcher';
 import {withLogger} from '../logger';
@@ -104,7 +105,7 @@ class Shell extends Component<any, any> {
       return;
     }
 
-    // Preserve pre-playback overlay keyboard UX by letting its focused button handler own the interaction.
+    // Disable K shortcut during pre-playback state to preserve the pre-playback overlay's own keyboard handling.
     if (this.props.prePlayback) {
       return;
     }
@@ -132,6 +133,8 @@ class Shell extends Component<any, any> {
     const isPlayingFromStore = engineState ? (engineState.adBreak ? engineState.adIsPlaying : engineState.isPlaying) : this.props.isPlayingAdOrPlayback;
     e.preventDefault();
     e.stopPropagation();
+    // Dispatch USER_CLICKED events to maintain API compatibility with SPACE key and button clicks.
+    this.props.player.dispatchEvent(new FakeEvent(isPlayingFromStore ? EventType.USER_CLICKED_PAUSE : EventType.USER_CLICKED_PLAY));
     isPlayingFromStore ? this.props.player.pause() : this.props.player.play();
   };
 
