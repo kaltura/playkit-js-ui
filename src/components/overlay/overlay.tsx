@@ -197,7 +197,7 @@ class Overlay extends Component<OverlayProps, any> {
    * @memberof Overlay
    */
   render({type, open, ariaLabel, ariaLabelledBy}: any): VNode<any> {
-    const role = type === 'error' ? 'alert' : 'dialog';
+    const role = type === 'error' ? 'alertdialog' : 'dialog';
     const ariaLive = type === 'error' ? 'polite' : undefined;
     const ariaProps = ariaLabelledBy ? { 'aria-labelledby': ariaLabelledBy, 'aria-live': ariaLive } : { 'aria-label': ariaLabel, 'aria-live': ariaLive }
     const overlayClass = [style.overlay];

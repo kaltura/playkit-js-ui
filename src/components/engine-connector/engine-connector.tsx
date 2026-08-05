@@ -61,6 +61,13 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
 
     this.props.updatePrePlayback(!player.config.playback.autoplay);
 
+    // // TODO: Remove this - Testing error overlay after 10 seconds
+    // setTimeout(() => {
+    //   console.log('[TEST] Triggering error overlay now');
+    //   this.props.updateHasError(true);
+    //   this.props.updateErrorDetails(1, 'Testing Error Overlay', 'This error was triggered automatically for testing purposes.');
+    // }, 5000);
+
     const updateAudioTracks = (): void => {
       const tracks = player.getTracks(TrackType.AUDIO);
       const audioTracks = tracks.filter(t => !isAudioDescriptionLanguageKey(t.language));

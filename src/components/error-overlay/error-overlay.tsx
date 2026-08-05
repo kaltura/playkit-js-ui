@@ -11,6 +11,38 @@ import {withPlayer} from '../../components/player';
 import {Button} from '../../components/button';
 import {getErrorDetailsByCategory} from './error-message-provider';
 import {actions as overlayActions} from '../../reducers/overlay';
+import {focusElement} from '../../utils';
+
+// Track which player has claimed focus to prevent race conditions when multiple errors appear
+let focusClaimedByPlayer: string | null = null;
+// Track which player had focus before error appeared (captured before DOM changes)
+let playerWithFocusBeforeError: string | null = null;
+// Track the previously active element before error
+let previouslyActiveElement: HTMLElement | null = null;
+
+// Set up global focus tracking to capture state before error overlays render
+if (typeof document !== 'undefined') {
+  document.addEventListener('focusin', (e: FocusEvent) => {
+    const target = e.target as HTMLElement;
+    if (target) {
+      // Ignore focus events from error overlay elements (they're restoring focus, not user interaction)
+      if (target.closest('.playkit-error-overlay')) {
+        return;
+      }
+      
+      // Find which player container this element belongs to (IDs start with underscore)
+      let current = target;
+      while (current && current !== document.body) {
+        if (current.id && current.id.startsWith('_')) {
+          playerWithFocusBeforeError = current.id;
+          previouslyActiveElement = target;
+          break;
+        }
+        current = current.parentElement as HTMLElement;
+      }
+    }
+  }, true);
+}
 
 /**
  * mapping state to props
@@ -21,7 +53,9 @@ const mapStateToProps = state => ({
   hasError: state.engine.hasError,
   errorOverlaConfig: state.config.components?.errorOverlay,
   errorDetails: state.engine.errorDetails,
-  componentData: state.engine.componentData
+  componentData: state.engine.componentData,
+  targetId: state.config.targetId,
+  playerNav: state.shell.playerNav
 });
 
 const COMPONENT_NAME = 'ErrorOverlay';
@@ -37,6 +71,7 @@ const COMPONENT_NAME = 'ErrorOverlay';
 @withLogger(COMPONENT_NAME)
 class ErrorOverlay extends Component<any, any> {
   private sessionEl!: HTMLDivElement;
+  private errorOverlayRef: HTMLDivElement | null = null;
 
   constructor(props: any) {
     super(props);
@@ -45,12 +80,96 @@ class ErrorOverlay extends Component<any, any> {
     };
   }
 
+  public componentDidMount(): void {
+    if (this.props.hasError) {
+      // Wait for next frame to ensure DOM is fully rendered and allow proper priority ordering
+      requestAnimationFrame(() => {
+        this.focusIfPlayerWasFocused();
+      });
+    }
+  }
+
+  public componentWillUnmount(): void {
+    // Only restore focus if THIS player claimed it
+    if (focusClaimedByPlayer === this.props.targetId) {
+      this.cleanupFocusTracking();
+    }
+  }
+
   public componentDidUpdate(prevProps: any): void {
     const errorOverlayData = this.props.componentData.errorOverlay;
     if (errorOverlayData && prevProps.componentData.errorOverlay !== errorOverlayData) {
       this.setState({entryUrl: errorOverlayData});
     }
+
+    // Focus management: focus the first focusable element if error just appeared and player had focus
+    if (!prevProps.hasError && this.props.hasError) {
+      this.focusIfPlayerWasFocused();
+    }
+    
+    // Clean up focus tracking when error is dismissed (hasError becomes false)
+    if (prevProps.hasError && !this.props.hasError && focusClaimedByPlayer === this.props.targetId) {
+      this.cleanupFocusTracking();
+    }
   }
+
+  /**
+   * Focus the first focusable element in the error overlay if the player had focus.
+   * Uses global focus tracking that captures which player had focus BEFORE error overlays render.
+   * This avoids race conditions where focused elements are removed from DOM before we can check.
+   * 
+   * @returns {void}
+   * @memberof ErrorOverlay
+   */
+  private focusIfPlayerWasFocused = (): void => {
+    const {targetId, playerNav} = this.props;
+    if (!this.errorOverlayRef) {
+      return;
+    }
+
+    // If another player already claimed focus, skip
+    if (focusClaimedByPlayer && focusClaimedByPlayer !== targetId) {
+      return;
+    }
+
+    // Determine if we should focus based on:
+    // 1. Global tracking: This player had focus before error (highest priority)
+    // 2. Fallback: playerNav flag if no global tracking available
+    const wasFocusedBeforeError = playerWithFocusBeforeError === targetId;
+    const shouldFocus = wasFocusedBeforeError || (playerNav && !playerWithFocusBeforeError);
+    
+    if (!shouldFocus) {
+      return;
+    }
+
+    const focusableElements = this.errorOverlayRef.querySelectorAll<HTMLElement>(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+
+    if (focusableElements.length > 0) {
+      // Claim focus for this player
+      focusClaimedByPlayer = targetId;
+      focusElement(focusableElements[0]);
+    }
+  };
+
+  /**
+   * Clean up focus tracking state and restore focus if needed.
+   * Called when error is dismissed or component unmounts.
+   * 
+   * @returns {void}
+   * @memberof ErrorOverlay
+   */
+  private cleanupFocusTracking = (): void => {
+    focusClaimedByPlayer = null;
+    playerWithFocusBeforeError = null;
+    
+    // Restore focus to the element that was focused before error appeared
+    if (previouslyActiveElement && document.contains(previouslyActiveElement)) {
+      focusElement(previouslyActiveElement);
+      previouslyActiveElement = null;
+    }
+  };
 
   /**
    * copy input text based on input element.
@@ -168,7 +287,7 @@ class ErrorOverlay extends Component<any, any> {
       return (
         <div className={['overlay-portal', backgroundUrl ? style.customErrorSlate : ''].join(' ')}>
           <Overlay open permanent={true} type="error">
-            <div className={style.errorOverlay} style={errorOverlayStyles}>
+            <div className={style.errorOverlay} style={errorOverlayStyles} ref={el => (this.errorOverlayRef = el)}>
               <p className={style.errorText} />
               {this.renderErrorHead()}
               {this.renderSessionID()}
