@@ -112,9 +112,7 @@ class Shell extends Component<any, any> {
       return;
     }
 
-    const key = typeof e.key === 'string' ? e.key.toLowerCase() : '';
-    const isK = e.keyCode === KeyMap.K || e.code === 'KeyK' || key === 'k';
-    if (!isK) {
+    if (e.keyCode !== KeyMap.K) {
       return;
     }
 
