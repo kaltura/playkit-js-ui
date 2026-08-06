@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.83.19 (2026-08-06)
+
+
+### Bug Fixes
+
+* **ADA-3406:** Change volume control description ([#1189](https://github.com/kaltura/playkit-js-ui/issues/1189)) ([216cb7b](https://github.com/kaltura/playkit-js-ui/commit/216cb7b))
+
+
+
 ### 0.83.18 (2026-07-30)
 
 
