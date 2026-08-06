@@ -17,12 +17,18 @@ import {focusElement} from '../../utils';
 let focusClaimedByPlayer: string | null = null;
 // Track which player had focus before error appeared (captured before DOM changes)
 let playerWithFocusBeforeError: string | null = null;
+// Track if focus is currently inside any player (false means focus is on the page outside players)
+let isFocusInsideAnyPlayer = false;
 // Track the previously active element before error
 let previouslyActiveElement: HTMLElement | null = null;
+// Track the focus listener for cleanup
+let globalFocusListener: ((e: FocusEvent) => void) | null = null;
+// Reference count for active ErrorOverlay instances
+let activeInstanceCount = 0;
 
 // Set up global focus tracking to capture state before error overlays render
 if (typeof document !== 'undefined') {
-  document.addEventListener('focusin', (e: FocusEvent) => {
+  globalFocusListener = (e: FocusEvent) => {
     const target = e.target as HTMLElement;
     if (target) {
       // Ignore focus events from error overlay elements (they're restoring focus, not user interaction)
@@ -32,16 +38,26 @@ if (typeof document !== 'undefined') {
       
       // Find which player container this element belongs to (IDs start with underscore)
       let current = target;
+      let foundPlayer = false;
       while (current && current !== document.body) {
         if (current.id && current.id.startsWith('_')) {
           playerWithFocusBeforeError = current.id;
           previouslyActiveElement = target;
+          isFocusInsideAnyPlayer = true;
+          foundPlayer = true;
           break;
         }
         current = current.parentElement as HTMLElement;
       }
+      
+      // If focus moved outside all players, clear the tracking
+      if (!foundPlayer) {
+        isFocusInsideAnyPlayer = false;
+        previouslyActiveElement = null;
+      }
     }
-  }, true);
+  };
+  document.addEventListener('focusin', globalFocusListener, true);
 }
 
 /**
@@ -81,6 +97,8 @@ class ErrorOverlay extends Component<any, any> {
   }
 
   public componentDidMount(): void {
+    activeInstanceCount++;
+
     if (this.props.hasError) {
       // Wait for next frame to ensure DOM is fully rendered and allow proper priority ordering
       requestAnimationFrame(() => {
@@ -90,9 +108,21 @@ class ErrorOverlay extends Component<any, any> {
   }
 
   public componentWillUnmount(): void {
+    activeInstanceCount--;
+
     // Only restore focus if THIS player claimed it
     if (focusClaimedByPlayer === this.props.targetId) {
       this.cleanupFocusTracking();
+    }
+
+    // Clean up global listener when last instance is destroyed
+    if (activeInstanceCount === 0 && globalFocusListener && typeof document !== 'undefined') {
+      document.removeEventListener('focusin', globalFocusListener, true);
+      globalFocusListener = null;
+      focusClaimedByPlayer = null;
+      playerWithFocusBeforeError = null;
+      isFocusInsideAnyPlayer = false;
+      previouslyActiveElement = null;
     }
   }
 
@@ -132,11 +162,16 @@ class ErrorOverlay extends Component<any, any> {
       return;
     }
 
+    // Don't steal focus if user is focused outside all players
+    if (!isFocusInsideAnyPlayer) {
+      return;
+    }
+
     // Determine if we should focus based on:
-    // 1. Global tracking: This player had focus before error (highest priority)
-    // 2. Fallback: playerNav flag if no global tracking available
+    // 1. This player had focus before error (highest priority)
+    // 2. Fallback: playerNav flag if we don't know which specific player had focus
     const wasFocusedBeforeError = playerWithFocusBeforeError === targetId;
-    const shouldFocus = wasFocusedBeforeError || (playerNav && !playerWithFocusBeforeError);
+    const shouldFocus = wasFocusedBeforeError || (playerNav && playerWithFocusBeforeError === null);
     
     if (!shouldFocus) {
       return;
