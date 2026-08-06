@@ -48,7 +48,7 @@ const KEYBOARD_DEFAULT_SEEK_JUMP: number = 1;
 const translates = {
   sliderAriaLabel: <Text id="controls.seekBarSlider">Seek bar</Text>,
   valuetextLabel: <Text id="controls.valuetextLabel">of</Text>,
-  skipSeekbar: <Text id="controls.skipSeekbar">Skip seek-bar</Text>
+  skipSeekBar: <Text id="controls.skipSeekBar">Skip seek-bar</Text>
 };
 
 /**
@@ -727,8 +727,8 @@ class SeekBar extends Component<any, any> {
             className={style.skipSeekbarButton}
             onClick={this.handleSkipBefore}
             onFocus={this.handleSkipBeforeFocus}
-            aria-label={props.skipSeekbar}>
-            {props.skipSeekbar}
+            aria-label={props.skipSeekBar}>
+            {props.skipSeekBar}
             <span className={style.skipButtonIcon}>
               <Icon type={IconType.ChevronRight} />
             </span>
@@ -777,11 +777,11 @@ class SeekBar extends Component<any, any> {
             className={style.skipSeekbarButton}
             onClick={this.handleSkipAfter}
             onFocus={this.handleSkipAfterFocus}
-            aria-label={props.skipSeekbar}>
+            aria-label={props.skipSeekBar}>
             <span className={style.skipButtonIcon}>
               <Icon type={IconType.ChevronLeft} />
             </span>
-            {props.skipSeekbar}
+            {props.skipSeekBar}
           </button>
         )}
       </div>
