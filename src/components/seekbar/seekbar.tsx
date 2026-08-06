@@ -66,8 +66,6 @@ class SeekBar extends Component<any, any> {
   _seekBarElement!: HTMLDivElement;
   _framePreviewElement!: HTMLDivElement;
   _timeBubbleElement!: HTMLDivElement;
-  _skipBeforeElement: HTMLButtonElement | null = null;
-  _skipAfterElement: HTMLButtonElement | null = null;
   _seekbarContainerElement: HTMLDivElement | null = null;
   
   state = {
@@ -723,7 +721,6 @@ class SeekBar extends Component<any, any> {
         {showSkipButtons && state.showSkipBefore && (
           <button
             type="button"
-            ref={c => (this._skipBeforeElement = c)}
             className={style.skipSeekbarButton}
             onClick={this.handleSkipBefore}
             onFocus={this.handleSkipBeforeFocus}
@@ -773,7 +770,6 @@ class SeekBar extends Component<any, any> {
         {showSkipButtons && state.showSkipAfter && (
           <button
             type="button"
-            ref={c => (this._skipAfterElement = c)}
             className={style.skipSeekbarButton}
             onClick={this.handleSkipAfter}
             onFocus={this.handleSkipAfterFocus}
