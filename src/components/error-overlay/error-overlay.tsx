@@ -36,12 +36,12 @@ if (typeof document !== 'undefined') {
         return;
       }
       
-      // Find which player container this element belongs to (IDs start with underscore)
+      // Find which player container this element belongs to
       let current = target;
       let foundPlayer = false;
       while (current && current !== document.body) {
-        if (current.id && current.id.startsWith('_')) {
-          playerWithFocusBeforeError = current.id;
+        if (current.hasAttribute('data-player-id')) {
+          playerWithFocusBeforeError = current.getAttribute('data-player-id');
           previouslyActiveElement = target;
           isFocusInsideAnyPlayer = true;
           foundPlayer = true;

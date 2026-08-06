@@ -186,6 +186,9 @@ class UIManager {
     if (!this.player) return;
     this.container = document.getElementById(this.targetId) as HTMLDivElement;
     if (this.container) {
+      // Mark the container with a data attribute for reliable player detection
+      this.container.setAttribute('data-player-id', this.targetId);
+      
       // i18n, redux and initial player-to-store connector setup
       const template = (
         <Provider store={this.store}>
