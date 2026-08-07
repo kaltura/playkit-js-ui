@@ -18,6 +18,7 @@ interface OverlayProps {
   open?: boolean;
   ariaLabel?: string;
   ariaLabelledBy?: string;
+  ariaDescribedBy?: string;
   onClose?: (e?: KeyboardEvent, byKeyboard?: true) => void;
   handleKeyDown?: (e: KeyboardEvent) => void;
   addPlayerClass?: (className: string) => void;
@@ -196,10 +197,12 @@ class Overlay extends Component<OverlayProps, any> {
    * @returns {React$Element} - component
    * @memberof Overlay
    */
-  render({type, open, ariaLabel, ariaLabelledBy}: any): VNode<any> {
-    const role = type === 'error' ? 'alert' : 'dialog';
-    const ariaLive = type === 'error' ? 'polite' : undefined;
-    const ariaProps = ariaLabelledBy ? { 'aria-labelledby': ariaLabelledBy, 'aria-live': ariaLive } : { 'aria-label': ariaLabel, 'aria-live': ariaLive }
+  render({type, open, ariaLabel, ariaLabelledBy, ariaDescribedBy}: any): VNode<any> {
+    const role = type === 'error' ? 'alertdialog' : 'dialog';
+    const ariaProps = ariaLabelledBy ? { 'aria-labelledby': ariaLabelledBy } : { 'aria-label': ariaLabel };
+    if (ariaDescribedBy) {
+      ariaProps['aria-describedby'] = ariaDescribedBy;
+    }
     const overlayClass = [style.overlay];
     if (type) {
       const classType = style[type + '-overlay'] ? style[type + '-overlay'] : type + '-overlay';

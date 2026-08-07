@@ -16,6 +16,15 @@ import {EngineState} from '../../types/reducers/engine';
 import {getActiveAudioLanguage, getAudioLanguageKey, isAudioDescriptionLanguageKey} from '../../utils/audio-description';
 import {updateDefaultAdvancedAudioDescription, updateDefaultAudioDescription} from '../audio-desc/audio-description-updater';
 
+// Track which player had focus when error occurred
+const playerFocusOnError = new Map<string, boolean>();
+
+export const getPlayerHadFocusOnError = (playerId: string): boolean => {
+  const hadFocus = playerFocusOnError.get(playerId) || false;
+  playerFocusOnError.delete(playerId); // Clear after reading
+  return hadFocus;
+};
+
 type EngineConnectorProps = {
   engine: EngineState;
   player: KalturaPlayer;
@@ -307,6 +316,13 @@ class EngineConnector extends Component<EngineConnectorProps, any> {
 
     eventManager.listen(player, player.Event.Core.ERROR, e => {
       if (e.payload.severity === player.Error.Severity.CRITICAL) {
+        const targetId = player.config.targetId;
+        const playerContainer = targetId ? document.getElementById(targetId) : null;
+        const activeElement = document.activeElement;
+        const hadFocus = !!(playerContainer && activeElement && playerContainer.contains(activeElement));
+        if (targetId) {
+          playerFocusOnError.set(targetId, hadFocus);
+        }
         this.props.updateIsIdle(false);
         this.props.updateHasError(true);
         this.props.updateErrorDetails(e.payload.category || undefined, e.payload.errorDetails?.errorTitle, e.payload.errorDetails?.errorMessage);

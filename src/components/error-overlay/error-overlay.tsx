@@ -11,6 +11,7 @@ import {withPlayer} from '../../components/player';
 import {Button} from '../../components/button';
 import {getErrorDetailsByCategory} from './error-message-provider';
 import {actions as overlayActions} from '../../reducers/overlay';
+import {getPlayerHadFocusOnError} from '../engine-connector/engine-connector';
 
 /**
  * mapping state to props
@@ -37,12 +38,30 @@ const COMPONENT_NAME = 'ErrorOverlay';
 @withLogger(COMPONENT_NAME)
 class ErrorOverlay extends Component<any, any> {
   private sessionEl!: HTMLDivElement;
+  private overlayContentRef: HTMLDivElement | null = null;
 
   constructor(props: any) {
     super(props);
     this.state = {
       entryUrl: props.componentData?.errorOverlay || undefined
     };
+  }
+
+  public componentDidMount(): void {
+    // Check if THIS player had focus when error occurred
+    const targetId = this.props.player?.config?.targetId;
+    if (targetId) {
+      const hadFocus = getPlayerHadFocusOnError(targetId);
+      if (hadFocus && this.overlayContentRef) {
+        // Try to focus first interactive element, fallback to container
+        const focusable = this.overlayContentRef.querySelector<HTMLElement>('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (focusable) {
+          focusable.focus();
+        } else {
+          this.overlayContentRef.focus();
+        }
+      }
+    }
   }
 
   public componentDidUpdate(prevProps: any): void {
@@ -149,8 +168,8 @@ class ErrorOverlay extends Component<any, any> {
 
     return (
       <div className={style.headline}>
-        <div className={style.errorTitle}>{this.props.errorHead || errorTitleRes}</div>
-        {errorMessageRes ? <div className={style.errorMessage}>{errorMessageRes}</div> : undefined}
+        <div id="error-overlay-title" className={style.errorTitle}>{this.props.errorHead || errorTitleRes}</div>
+        {errorMessageRes ? <div id="error-overlay-message" className={style.errorMessage}>{errorMessageRes}</div> : undefined}
       </div>
     );
   }
@@ -167,8 +186,8 @@ class ErrorOverlay extends Component<any, any> {
       const errorOverlayStyles = backgroundUrl ? {backgroundImage: `url(${backgroundUrl})`} : undefined;
       return (
         <div className={['overlay-portal', backgroundUrl ? style.customErrorSlate : ''].join(' ')}>
-          <Overlay open permanent={true} type="error">
-            <div className={style.errorOverlay} style={errorOverlayStyles}>
+          <Overlay open permanent={true} type="error" ariaLabelledBy="error-overlay-title" ariaDescribedBy="error-overlay-message">
+            <div ref={el => this.overlayContentRef = el} className={style.errorOverlay} style={errorOverlayStyles} tabIndex={-1}>
               <p className={style.errorText} />
               {this.renderErrorHead()}
               {this.renderSessionID()}
