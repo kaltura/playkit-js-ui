@@ -167,7 +167,7 @@ class ErrorOverlay extends Component<any, any> {
       const errorOverlayStyles = backgroundUrl ? {backgroundImage: `url(${backgroundUrl})`} : undefined;
       return (
         <div className={['overlay-portal', backgroundUrl ? style.customErrorSlate : ''].join(' ')}>
-          <Overlay open permanent={true} type="error">
+          <Overlay open permanent={true} type="error" disableFocusTrap={true}>
             <div className={style.errorOverlay} style={errorOverlayStyles}>
               <p className={style.errorText} />
               {this.renderErrorHead()}
