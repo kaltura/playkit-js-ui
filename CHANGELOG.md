@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.83.20 (2026-08-12)
+
+
+### Bug Fixes
+
+* **ADA-3484:** Remove focus trap from error overlay ([#1192](https://github.com/kaltura/playkit-js-ui/issues/1192)) ([db3f25b](https://github.com/kaltura/playkit-js-ui/commit/db3f25b))
+
+
+
 ### 0.83.19 (2026-08-06)
 
 
