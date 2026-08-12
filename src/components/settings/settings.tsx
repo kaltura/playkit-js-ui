@@ -232,6 +232,7 @@ class Settings extends Component<any, any> {
       return {smartContainerOpen: !prevState.smartContainerOpen};
     });
     if (byKeyboard && this.state.smartContainerOpen) {
+      e?.preventDefault();
       focusElement(this._buttonRef);
     }
   };

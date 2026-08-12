@@ -65,7 +65,7 @@ export const withKeyboardA11y = (WrappedComponent): any => {
       switch (e.code) {
         case KeyCode.Escape:          
           if (this.props.onClose) {
-            this.props.onClose();
+            this.props.onClose(e, true);
             e.stopPropagation();
           }
           break;
