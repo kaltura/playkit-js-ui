@@ -31,6 +31,7 @@ interface OverlayProps {
   addAccessibleChild?: (el: HTMLElement) => void;
   pauseOnOpen?: boolean;
   closeAriaLabel?: string;
+  disableFocusTrap?: boolean;
 }
 
 /**
@@ -130,7 +131,7 @@ class Overlay extends Component<OverlayProps, any> {
    * @memberof Overlay
    */
   private onKeyDown = (e: KeyboardEvent): void => {
-    if (e.code === KeyCode.Tab) {
+    if (!this.props.disableFocusTrap && e.code === KeyCode.Tab) {
       const container = e.currentTarget as HTMLElement;
       const focusable = container.querySelectorAll<HTMLElement>('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
 
