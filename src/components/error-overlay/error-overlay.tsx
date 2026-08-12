@@ -151,7 +151,7 @@ class ErrorOverlay extends Component<any, any> {
    * @returns {React$Element} - main state element
    * @memberof ErrorOverlay
    */
-  private renderErrorHead(): VNode<any> | undefined {
+  private renderErrorHead(targetId: string): VNode<any> | undefined {
     const {errorCategory, errorTitle, errorMessage} = this.props.errorDetails;
     let errorTitleRes: any = '',
       errorMessageRes: any = '';
@@ -168,8 +168,8 @@ class ErrorOverlay extends Component<any, any> {
 
     return (
       <div className={style.headline}>
-        <div id="error-overlay-title" className={style.errorTitle}>{this.props.errorHead || errorTitleRes}</div>
-        {errorMessageRes ? <div id="error-overlay-message" className={style.errorMessage}>{errorMessageRes}</div> : undefined}
+        <div id={`${targetId}-error-overlay-title`} className={style.errorTitle}>{this.props.errorHead || errorTitleRes}</div>
+        {errorMessageRes ? <div id={`${targetId}-error-overlay-message`} className={style.errorMessage}>{errorMessageRes}</div> : undefined}
       </div>
     );
   }
@@ -182,14 +182,15 @@ class ErrorOverlay extends Component<any, any> {
    */
   public render(): VNode<any> | undefined {
     if ((this.props && this.props.hasError) || this.props.permanent) {
+      const targetId = this.props.player?.config?.targetId || '';
       const backgroundUrl = this.getBackgroundUrl();
       const errorOverlayStyles = backgroundUrl ? {backgroundImage: `url(${backgroundUrl})`} : undefined;
       return (
         <div className={['overlay-portal', backgroundUrl ? style.customErrorSlate : ''].join(' ')}>
-          <Overlay open permanent={true} type="error" ariaLabelledBy="error-overlay-title" ariaDescribedBy="error-overlay-message">
+          <Overlay open permanent={true} type="error" ariaLabelledBy={`${targetId}-error-overlay-title`} ariaDescribedBy={`${targetId}-error-overlay-message`}>
             <div ref={el => this.overlayContentRef = el} className={style.errorOverlay} style={errorOverlayStyles} tabIndex={-1}>
               <p className={style.errorText} />
-              {this.renderErrorHead()}
+              {this.renderErrorHead(targetId)}
               {this.renderSessionID()}
               {this.renderRetryButton()}
             </div>

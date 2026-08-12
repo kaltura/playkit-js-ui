@@ -215,7 +215,7 @@ class Overlay extends Component<OverlayProps, any> {
     }
 
     return (
-      <div tabIndex={-1} className={overlayClass.join(' ')} role={role} aria-modal="true" onKeyDownCapture={this.onKeyDown} {...ariaProps}>
+      <div tabIndex={-1} className={overlayClass.join(' ')} role={role} onKeyDownCapture={this.onKeyDown} {...ariaProps}>
         <div className={style.overlayContents}>{this.props.children}</div>
         {this.renderCloseButton(this.props)}
       </div>
