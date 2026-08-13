@@ -47,6 +47,7 @@ const COMPONENT_NAME = 'Settings';
 
 const translates = () => ({
   buttonLabel: <Text id="controls.settings">Settings</Text>,
+  settingsText: 'controls.settings',
   qualityHdLabel: <Text id="settings.qualityHdLabel">Quality is HD</Text>,
   quality4kLabel: <Text id="settings.quality4kLabel">Quality is 4k</Text>,
   quality8kLabel: <Text id="settings.quality8kLabel">Quality is 8k</Text>
@@ -332,7 +333,7 @@ class Settings extends Component<any, any> {
           </Button>
         </Tooltip>
         {this.state.smartContainerOpen && !this.state.cvaaOverlay && (
-          <SmartContainer title={<Text id="settings.title" />} onClose={this.onControlButtonClick}>
+          <SmartContainer title={<Text id="settings.title" />} label={this.props.settingsText} onClose={this.onControlButtonClick}>
             {showAudioMenu && <AudioMenu asDropdown={true} />}
             {showAudioDescriptionMenu && <AudioDescriptionMenu asDropdown={true} />}
             {showCaptionsMenu && <CaptionsMenu asDropdown={true} onAdvancedCaptionsClick={this.toggleCVAAOverlay} />}
