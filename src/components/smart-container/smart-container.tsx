@@ -40,7 +40,7 @@ const COMPONENT_NAME = 'SmartContainer';
 @connect(mapStateToProps, bindActions(actions))
 @withKeyboardA11y
 @withPlayer
-@withText({settingsText: 'settings.title'})
+@withText({closeText: 'overlay.close'})
 class SmartContainer extends Component<any, any> {
   /**
    * before component mounted, add player css class
@@ -91,6 +91,8 @@ class SmartContainer extends Component<any, any> {
    */
   render(props: any): VNode<any> {
     props.clearAccessibleChildren();
+    const titleText = typeof props.title === 'string' ? props.title : props.label;
+    const closeAriaLabel = titleText ? `${props.closeText} ${titleText}` : props.closeText;
     return this.isPortal ? (
       createPortal(
         <Overlay
@@ -98,7 +100,8 @@ class SmartContainer extends Component<any, any> {
           onClose={props.onClose}
           handleKeyDown={this.props.handleKeyDown}
           addAccessibleChild={this.props.addAccessibleChild}
-          ariaLabel={props.label ? props.label : props.settingsText}
+          ariaLabel={titleText}
+          closeAriaLabel={closeAriaLabel}
         >
           <h2 className={style.title}>{props.title}</h2>
           {this.renderChildren(props)}
