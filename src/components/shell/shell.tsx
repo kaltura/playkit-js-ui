@@ -4,8 +4,12 @@ import {connect} from 'react-redux';
 import {bindActions} from '../../utils';
 import {actions as shellActions} from '../../reducers/shell';
 import {actions as engineActions} from '../../reducers/engine';
+import {actions as overlayIconActions} from '../../reducers/overlay-action';
+import {isPlayingAdOrPlayback} from '../../reducers/getters';
 import {KeyMap} from '../../utils';
 import {withPlayer} from '../player';
+import {IconType} from '../icon';
+import {FakeEvent} from '@playkit-js/playkit-js';
 import {EventType, withEventManager} from '../../event';
 import {withEventDispatcher} from '../event-dispatcher';
 import {withLogger} from '../logger';
@@ -19,6 +23,7 @@ import {debounce} from '../../utils/debounce';
  */
 const mapStateToProps = state => ({
   targetId: state.config.targetId,
+  isPlayingAdOrPlayback: isPlayingAdOrPlayback(state.engine),
   forceTouchUI: state.config.forceTouchUI,
   hoverTimeout: state.config.hoverTimeout,
   metadataLoaded: state.engine.metadataLoaded,
@@ -73,7 +78,7 @@ const COMPONENT_NAME = 'Shell';
  * @example <Shell />
  * @extends {Component}
  */
-@connect(mapStateToProps, bindActions({...shellActions, ...engineActions}))
+@connect(mapStateToProps, bindActions({...shellActions, ...engineActions, ...overlayIconActions}))
 @withPlayer
 @withEventManager
 @withLogger(COMPONENT_NAME)
@@ -83,6 +88,61 @@ class Shell extends Component<any, any> {
   _environmentClasses!: string[];
   _playerResizeWatcher!: ResizeWatcher;
   _playerRef: HTMLDivElement | null = null;
+
+  private onDocumentKeyDownCapture = (e: KeyboardEvent): void => {
+    const playerContainer = document.getElementById(this.props.targetId);
+    const target = e.target as Node | null;
+    const targetElement = e.target instanceof HTMLElement ? e.target : null;
+    const activeElement = document.activeElement;
+    const activeHTMLElement = activeElement instanceof HTMLElement ? activeElement : null;
+    const isInsidePlayer = !!playerContainer && ((!!target && playerContainer.contains(target)) || (!!activeElement && playerContainer.contains(activeElement)));
+    const overlayOpen = !!this.props.player?.ui?.store?.getState()?.overlay?.isOpen;
+    if (!isInsidePlayer && !overlayOpen) {
+      return;
+    }
+
+    //Prevents keyboard shortcuts from firing when the user is interacting with the audio description
+    const isInsideAudioDescriptionRoot = (!!targetElement && !!targetElement.closest('.aadRoot')) || (!!activeHTMLElement && !!activeHTMLElement.closest('.aadRoot'));
+    if (isInsideAudioDescriptionRoot) {
+      return;
+    }
+
+    // Disable K shortcut during pre-playback state to preserve the pre-playback overlay's own keyboard handling.
+    if (this.props.prePlayback) {
+      return;
+    }
+
+    if (e.keyCode !== KeyMap.K) {
+      return;
+    }
+
+    if (e.repeat) {
+      return;
+    }
+
+    const isInput = targetElement instanceof HTMLInputElement || targetElement instanceof HTMLTextAreaElement || targetElement instanceof HTMLSelectElement || !!targetElement?.isContentEditable;
+    if (isInput) {
+      return;
+    }
+
+    if ((!this.props.player.isLive() && !this.props.allowPlayPause) || (this.props.player.isLive() && !this.props.allowLivePlayPause)) {
+      return;
+    }
+
+    e.preventDefault();
+    e.stopPropagation();
+    // Dispatch USER_CLICKED events to maintain API compatibility with SPACE key and button clicks.
+    this.props.player.dispatchEvent(new FakeEvent(this.props.isPlayingAdOrPlayback ? EventType.USER_CLICKED_PAUSE : EventType.USER_CLICKED_PLAY));
+    if (this.props.isPlayingAdOrPlayback) {
+      this.props.player.pause();
+      const showPauseButton = !this.props.player.isLive() || this.props.player.isDvr();
+      this.props.updateOverlayActionIcon(showPauseButton ? IconType.Pause : IconType.Stop);
+    } else {
+      this.props.player.play();
+      this.props.updateOverlayActionIcon(IconType.Play);
+    }
+    this.props.updatePlayerHoverState(true);
+  };
 
   /**
    * on mouse leave, remove the hover class (hide the player gui)
@@ -233,6 +293,7 @@ class Shell extends Component<any, any> {
    */
   componentDidMount() {
     const {player, eventManager} = this.props;
+    document.addEventListener('keydown', this.onDocumentKeyDownCapture, true);
     eventManager.listen(window, 'resize', debounce(this._onWindowResize, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
     eventManager.listen(document, 'scroll', debounce(this._updatePlayerClientRect, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
     eventManager.listen(document, 'click', debounce(this._handleClickOutside, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
@@ -301,6 +362,7 @@ class Shell extends Component<any, any> {
    * @memberof Shell
    */
   componentWillUnmount(): void {
+    document.removeEventListener('keydown', this.onDocumentKeyDownCapture, true);
     this._clearHoverTimeout();
     this._playerResizeWatcher.destroy();
   }
