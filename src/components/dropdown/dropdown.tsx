@@ -105,6 +105,7 @@ class DropDown extends Component<any, any> {
       case KeyMap.ESC:
         if (this.state.dropMenuActive) {
           this.onClose();
+          e.preventDefault();
           e.stopPropagation();
         }
         break;
