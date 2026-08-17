@@ -79,16 +79,16 @@ class LiveUI extends Component<any, any> {
               </Fragment>
               {({containerRef}) => (
                 <Fragment>
-                  <TopBar />
-                  <InteractiveArea>
-                    <Watermark />
-                    <UnmuteIndication />
-                  </InteractiveArea>
                   <BottomBar
                     leftControls={[PlaybackControls, Rewind, Forward, LiveTag]}
                     rightControls={[VrStereo, Volume, SpeedControl, QualityControl, Audio, ClosedCaptions, CaptionsControl, Settings, Cast, PictureInPicture, Fullscreen, Logo]}>
                     <SeekBarLivePlaybackContainer showFramePreview showTimeBubble playerContainer={containerRef} />
                   </BottomBar>
+                  <InteractiveArea>
+                    <Watermark />
+                    <UnmuteIndication />
+                  </InteractiveArea>
+                  <TopBar />
                 </Fragment>
               )}
             </GuiArea>
