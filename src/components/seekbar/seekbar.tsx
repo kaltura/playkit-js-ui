@@ -357,7 +357,7 @@ class SeekBar extends Component<any, any> {
    */
   private hasInteractiveContent = (): boolean => {
     // Check if there are segments (cuepoints, markers, etc.)
-    if (this.props.segments && this.props.segments.length > 0) {
+    if (this.props.segments?.length > 0) {
       return true;
     }
 
