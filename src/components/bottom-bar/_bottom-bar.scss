@@ -113,16 +113,6 @@
     }
   }
 
-  &.size-xs {
-    .bottom-bar {
-      .controls-container {
-        .right-controls {
-          display: none;
-        }
-      }
-    }
-  }
-
   &.size-xs,
   &.size-sm {
     .control-button-container:not(.upper-bar-icon) {
