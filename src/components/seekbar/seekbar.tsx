@@ -350,27 +350,15 @@ class SeekBar extends Component<any, any> {
   };
 
   /**
-   * Check if seekbar has interactive content (segments/cuepoints or focusable elements)
+   * Check if seekbar has interactive content (visible cuepoints)
    *
-   * @returns {boolean} - true if seekbar has interactive content
+   * @returns {boolean} - true if seekbar has visible interactive cuepoints
    * @memberof SeekBar
    */
   private hasInteractiveContent = (): boolean => {
-    // Check if there are segments (cuepoints, markers, etc.)
-    if (this.props.segments?.length > 0) {
-      return true;
-    }
-
-    // Check if there are focusable elements inside the seekbar
-    if (this._seekBarElement) {
-      const focusableSelector = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"]):not([role="slider"])';
-      const focusableElements = this._seekBarElement.querySelectorAll(focusableSelector);
-      if (focusableElements.length > 0) {
-        return true;
-      }
-    }
-
-    return false;
+    // Check if there's a visible cuepoint container in the DOM
+    const hasCuePointContainer = !!this.props.playerElement?.querySelector('[data-testid="cuePointContainer"]');
+    return hasCuePointContainer;
   };
 
   /**
