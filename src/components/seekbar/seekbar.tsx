@@ -434,6 +434,9 @@ class SeekBar extends Component<any, any> {
   private getFocusableElements(): HTMLElement[] {
     const focusableSelector = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
     const playerElement = this.props.playerElement;
+    if (!playerElement) {
+      return [];
+    }
     const elements = Array.from(playerElement.querySelectorAll(focusableSelector)) as HTMLElement[];
     return elements.filter(el => el.offsetWidth > 0 && el.offsetHeight > 0);
   }
