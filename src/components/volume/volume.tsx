@@ -293,9 +293,42 @@ class Volume extends Component<any, any> {
    * @memberof Volume
    */
   onFocus = (): void => {
+    const nextState: any = {sliderTooltipVisible: !this.props.isMobile};
     if (!this.props.isMobile && !this.state.hover) {
-      this.setState({hover: true});
+      nextState.hover = true;
     }
+    this.setState(nextState);
+  };
+
+  /**
+   * on slider blur handler, hides the slider tooltip
+   *
+   * @returns {void}
+   * @memberof Volume
+   */
+  onSliderBlur = (): void => {
+    this.setState({sliderTooltipVisible: false});
+  };
+
+  /**
+   * on slider mouse enter handler, shows the slider tooltip
+   *
+   * @returns {void}
+   * @memberof Volume
+   */
+  onSliderMouseEnter = (): void => {
+    if (this.props.isMobile) return;
+    this.setState({sliderTooltipVisible: true});
+  };
+
+  /**
+   * on slider mouse leave handler, hides the slider tooltip
+   *
+   * @returns {void}
+   * @memberof Volume
+   */
+  onSliderMouseLeave = (): void => {
+    this.setState({sliderTooltipVisible: false});
   };
 
   /**
@@ -493,11 +526,22 @@ class Volume extends Component<any, any> {
           onKeyDown={this.onProgressBarKeyDown}
           className={style.volumeControlBar}
           onFocus={this.onFocus}
+          onBlur={this.onSliderBlur}
+          onMouseEnter={this.onSliderMouseEnter}
+          onMouseLeave={this.onSliderMouseLeave}
           role="slider"
           aria-valuemin={0}
           aria-valuemax={100}
           aria-valuenow={volumePercentage}
           aria-valuetext={`${volumePercentage}% volume ${player.muted ? 'muted' : ''}`}>
+          {/* self-contained tooltip anchored to the slider's own box so it stays correctly positioned regardless of orientation */}
+          <div className={style.tooltip}>
+            <span
+              aria-hidden="true"
+              className={[style.tooltipLabel, style['tooltip-top'], this.state.sliderTooltipVisible ? style.show : style.hide].join(' ')}>
+              {this.props.sliderAriaLabel}
+            </span>
+          </div>
           <div
             className={style.bar}
             ref={c => (c ? (this._volumeProgressBarElement = c) : undefined)}
