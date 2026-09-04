@@ -293,7 +293,7 @@ class Volume extends Component<any, any> {
    * @memberof Volume
    */
   onFocus = (): void => {
-    const nextState: any = {sliderTooltipVisible: true};
+    const nextState: any = {sliderTooltipVisible: !this.props.isMobile};
     if (!this.props.isMobile && !this.state.hover) {
       nextState.hover = true;
     }
@@ -317,6 +317,7 @@ class Volume extends Component<any, any> {
    * @memberof Volume
    */
   onSliderMouseEnter = (): void => {
+    if (this.props.isMobile) return;
     this.setState({sliderTooltipVisible: true});
   };
 
@@ -526,8 +527,8 @@ class Volume extends Component<any, any> {
           className={style.volumeControlBar}
           onFocus={this.onFocus}
           onBlur={this.onSliderBlur}
-          onMouseOver={this.onSliderMouseEnter}
-          onMouseOut={this.onSliderMouseLeave}
+          onMouseEnter={this.onSliderMouseEnter}
+          onMouseLeave={this.onSliderMouseLeave}
           role="slider"
           aria-valuemin={0}
           aria-valuemax={100}
