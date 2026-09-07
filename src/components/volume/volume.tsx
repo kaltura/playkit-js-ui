@@ -534,14 +534,16 @@ class Volume extends Component<any, any> {
           aria-valuemax={100}
           aria-valuenow={volumePercentage}
           aria-valuetext={`${volumePercentage}% volume ${player.muted ? 'muted' : ''}`}>
-          {/* self-contained tooltip anchored to the slider's own box so it stays correctly positioned regardless of orientation */}
-          <div className={style.tooltip}>
-            <span
-              aria-hidden="true"
-              className={[style.tooltipLabel, style['tooltip-top'], this.state.sliderTooltipVisible ? style.show : style.hide].join(' ')}>
-              {this.props.sliderAriaLabel}
-            </span>
-          </div>
+          {/* self-contained tooltip anchored to the slider's container */}
+          {!this.props.isMobile && (
+            <div className={style.tooltip}>
+              <span
+                aria-hidden="true"
+                className={[style.tooltipLabel, style['tooltip-top'], this.state.sliderTooltipVisible ? style.show : style.hide].join(' ')}>
+                {this.props.sliderAriaLabel}
+              </span>
+            </div>
+          )}
           <div
             className={style.bar}
             ref={c => (c ? (this._volumeProgressBarElement = c) : undefined)}
