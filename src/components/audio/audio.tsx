@@ -116,7 +116,7 @@ const _Audio = (props: any) => {
   }
 
   const hasAudioOptions = useMemo(() => {
-    return props.audioTracks?.filter(t => t.label || t.language).length > 1;
+    return props.audioTracks?.filter(t => t.label || (t.language && t.language !== 'und')).length > 1;
   }, [props.audioTracks]);
   if (!props.showAudioButton || !hasAudioOptions) return null;
 
