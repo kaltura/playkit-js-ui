@@ -121,6 +121,18 @@
       border-radius: 4px;
     }
   }
+
+  // overrides .tooltip's own 100%-of-parent sizing so it overlays this bar's absolute box exactly
+  .player & .tooltip {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: auto;
+    height: auto;
+    pointer-events: none;
+  }
 }
 
 .player {
