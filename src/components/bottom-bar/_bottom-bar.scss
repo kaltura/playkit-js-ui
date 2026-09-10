@@ -11,7 +11,12 @@
   position: absolute;
   padding: 0;
   opacity: 0;
-  max-height: #{$bottom-bar-max-height}px;
+  //the bar must grow when plugins inject rows into the center controls
+  min-height: #{$bottom-bar-max-height}px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  flex-shrink: 0;
   transition:
     #{$hover-animation-time}ms opacity ease-in-out,
     0ms padding linear #{$hover-animation-time}ms;
@@ -43,11 +48,14 @@
     }
 
     .center-controls {
+      display: flex;
+      flex-direction: column;
       width: 100%;
       order: 0;
       pointer-events: none;
       & > * {
         pointer-events: auto;
+        flex-shrink: 0;
       }
     }
 
@@ -95,6 +103,7 @@
 
   &.size-ty {
     .bottom-bar {
+      min-height: 0;
       .controls-container {
         display: block;
         .left-controls {

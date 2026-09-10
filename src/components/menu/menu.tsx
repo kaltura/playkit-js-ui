@@ -21,6 +21,7 @@ type MenuProps = {
   isSmallSize?: boolean;
   guiClientRect?: DOMRect;
   topBarClientRect?: any;
+  bottomBarClientRect?: any;
   options: OptionType[];
   labelledby?: string;
   pushRef?: (HTMLElement) => void;
@@ -39,7 +40,8 @@ const mapStateToProps = state => ({
   isMobile: state.shell.isMobile,
   isSmallSize: state.shell.isSmallSize,
   guiClientRect: state.shell.guiClientRect,
-  topBarClientRect: state.shell.topBarClientRect
+  topBarClientRect: state.shell.topBarClientRect,
+  bottomBarClientRect: state.shell.bottomBarClientRect
 });
 
 const COMPONENT_NAME = 'Menu';
@@ -105,7 +107,9 @@ class Menu extends Component<MenuProps & WithEventManagerProps, any> {
     } else {
       // If we cannot render it on top of the label or below it, we will reduce the height of the menu to be
       // 80% of the player height and put it at the bottom of the player.
-      this._menuElement.style.maxHeight = guiClientRect!.height - topBarClientRect.height - Number(style.bottomBarMaxHeight) + 'px';
+      // a measured height of 0 means the bar isn't rendered, so no space should be reserved for it
+      const bottomBarHeight = this.props.bottomBarClientRect?.height ?? Number(style.bottomBarMaxHeight);
+      this._menuElement.style.maxHeight = guiClientRect!.height - topBarClientRect.height - bottomBarHeight + 'px';
       return [style.stickBottom, style.left];
     }
   }
