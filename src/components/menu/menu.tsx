@@ -86,6 +86,22 @@ class Menu extends Component<MenuProps & WithEventManagerProps, any> {
   }
 
   /**
+   * update the open menu when the bottom bar height changes
+   * @param {MenuProps & WithEventManagerProps} previousProps - previous component props
+   * @returns {void}
+   * @memberof Menu
+   */
+  public componentDidUpdate(previousProps: MenuProps & WithEventManagerProps): void {
+    if (
+      !this.props.isMobile &&
+      !this.props.isSmallSize &&
+      this.props.bottomBarClientRect?.height !== previousProps.bottomBarClientRect?.height
+    ) {
+      this.setState({position: this.getPosition()});
+    }
+  }
+
+  /**
    * get menu position based on document boundaries
    *
    * @returns {Array} position style classes array
