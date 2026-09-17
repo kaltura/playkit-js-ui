@@ -28,7 +28,8 @@ const mapStateToProps = state => ({
   isPlaybackEnded: state.engine.isPlaybackEnded,
   playerSize: state.shell.playerSize,
   allowPlayPause: state.config.allowPlayPause,
-  allowLivePlayPause: state.config.allowLivePlayPause
+  allowLivePlayPause: state.config.allowLivePlayPause,
+  entryName: state.engine.sources?.metadata?.name
 });
 
 const COMPONENT_NAME = 'PlayPause';
@@ -55,11 +56,6 @@ const COMPONENT_NAME = 'PlayPause';
 class PlayPause extends Component<any, any> {
   private _playPauseButtonRef?: RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
 
-  constructor() {
-    super();
-    this.state = {entryName: ''};
-  }
-
   /**
    * component mounted
    *
@@ -77,12 +73,6 @@ class PlayPause extends Component<any, any> {
           focusElement(button);
         }
       });
-    });
-    eventManager.listen(player, player.Event.Core.CHANGE_SOURCE_ENDED, () => {
-      const entryName = player.sources?.metadata?.name;
-      if (entryName) {
-        this.setState({entryName});
-      }
     });
   }
 
@@ -118,7 +108,7 @@ class PlayPause extends Component<any, any> {
 
     const controlButtonClass = this.props.isPlayingAdOrPlayback ? [style.controlButton, style.isPlaying].join(' ') : style.controlButton;
     const isStartOver = props.isPlaybackEnded && !this.props.adBreak;
-    const entryName = `${this.props.title}: ${this.state.entryName}`;
+    const entryName = `${props.title}: ${props.entryName ?? ''}`;
     const showPauseButton = !this.props.player.isLive() || this.props.player.isDvr();
 
     let playbackStateText;
