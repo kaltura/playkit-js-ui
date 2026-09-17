@@ -12,7 +12,7 @@
   padding: 0;
   opacity: 0;
   //the bar must grow when plugins inject rows into the center controls
-  min-height: #{$bottom-bar-max-height}px;
+  min-height: #{$bottom-bar-min-height}px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;

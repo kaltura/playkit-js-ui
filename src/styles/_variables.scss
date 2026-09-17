@@ -22,7 +22,7 @@ $default-hovering-offset: 60px;
 $hover-animation-time: 100;
 $top-bar-max-height: 75;
 $top-bar-top-bottom-gutter: 12;
-$bottom-bar-max-height: 60;
+$bottom-bar-min-height: 60;
 $bottom-bar-bottom-gutter: 4;
 $gui-gutter: 16;
 $gui-small-gutter: 8;
@@ -72,7 +72,7 @@ $new-live-color: #e12437; // - refs in related-plugin
   progressBarHeight: $progress-bar-height;
   progressBarBorderRadius: $progress-bar-border-radius;
   defaultTransitionTime: $default-transition-time;
-  bottomBarMaxHeight: $bottom-bar-max-height;
+  bottomBarMinHeight: $bottom-bar-min-height;
   topBarMaxHeight: $top-bar-max-height;
   contextMenuHeight: $context-menu-height;
   contextMenuWidth: $context-menu-width;

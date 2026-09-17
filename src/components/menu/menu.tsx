@@ -111,6 +111,7 @@ class Menu extends Component<MenuProps & WithEventManagerProps, any> {
     const menuElementRect = this._menuElement.getBoundingClientRect();
     const guiClientRect = this.props.guiClientRect;
     const topBarClientRect = this.props.topBarClientRect;
+    this._menuElement.style.maxHeight = '';
 
     // The menu is first rendered above its label.
     // top / bottom are determined from the top of the view port, if the menus top edge is lower than the top of the
@@ -124,7 +125,7 @@ class Menu extends Component<MenuProps & WithEventManagerProps, any> {
       // If we cannot render it on top of the label or below it, we will reduce the height of the menu to be
       // 80% of the player height and put it at the bottom of the player.
       // a measured height of 0 means the bar isn't rendered, so no space should be reserved for it
-      const bottomBarHeight = this.props.bottomBarClientRect?.height ?? Number(style.bottomBarMaxHeight);
+      const bottomBarHeight = this.props.bottomBarClientRect?.height ?? Number(style.bottomBarMinHeight);
       this._menuElement.style.maxHeight = guiClientRect!.height - topBarClientRect.height - bottomBarHeight + 'px';
       return [style.stickBottom, style.left];
     }
