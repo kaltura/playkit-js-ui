@@ -20,6 +20,7 @@ export interface ShellState {
   playerSize?: string;
   isSmallSize?: boolean;
   guiClientRect: any; // Consider defining a more specific type
+  bottomBarClientRect: any;
   playerClientRect: any; // Consider defining a more specific type
   videoClientRect: any; // Consider defining a more specific type
   layoutStyles: LayoutStyles;

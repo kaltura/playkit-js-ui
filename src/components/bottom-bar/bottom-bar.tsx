@@ -11,6 +11,7 @@ import {withPlayer} from '../player';
 import {filterControlsByPriority} from './bottom-bar-utils';
 import {BottomBarRegistryManager, bottomBarRegistryManager} from './bottom-bar-registry-manager';
 import {BottomBarClientRectEvent} from '../../event/events/bottom-bar-client-rect-event';
+import isEqual from '../../utils/is-equal';
 
 // sorted from least important to most important
 const LOWER_PRIORITY_CONTROLS: string[][] = [
@@ -57,14 +58,17 @@ const COMPONENT_NAME = 'BottomBar';
 @withEventManager
 @connect(mapStateToProps, bindActions({...actions, ...bottomBarActions}))
 class BottomBar extends Component<any, any> {
+  private bottomBarRef: RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
   private bottomBarContainerRef: RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
   private leftControlsRef: RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
   private rightControlsRef: RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
   private presetControls: {[controlName: string]: boolean} = {};
   private resizeObserver!: ResizeObserver;
+  private barHeightObserver!: ResizeObserver;
 
   private _currBarWidthArr = [0, 0];
   private _maxControlsWidthArr = [0, 0];
+  private _lastBarClientRect: {[key: string]: number} | null = null;
 
   private _isFullscreenModeChanging = false;
 
@@ -112,15 +116,38 @@ class BottomBar extends Component<any, any> {
   public componentDidMount(): void {
     this.resizeObserver = new ResizeObserver(() => this.onBarWidthChange(false));
     this.resizeObserver.observe(this.bottomBarContainerRef.current!);
+    this.barHeightObserver = new ResizeObserver(() => this.updateBottomBarClientRect());
+    this.barHeightObserver.observe(this.bottomBarRef.current!);
   }
 
   // eslint-disable-next-line require-jsdoc
   public componentWillUnmount(): void {
     this.resizeObserver.disconnect();
+    this.barHeightObserver.disconnect();
     this._currBarWidthArr = [0, 0];
     this._maxControlsWidthArr = [0, 0];
+    this._lastBarClientRect = null;
     this._isFullscreenModeChanging = false;
   }
+
+  /**
+   * publishes the bar's measured rect to the store so consumers (e.g. Menu) can reserve
+   * the real height, which varies with the rows plugins inject into the center controls.
+   * the rect is spread into a plain object because the shallow isEqual needs own enumerable
+   * keys, and DOMRect has none.
+   *
+   * @returns {void}
+   * @memberof BottomBar
+   */
+  private updateBottomBarClientRect = (): void => {
+    const rect = this.bottomBarRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const {x, y, width, height, top, right, bottom, left} = rect;
+    const clientRect = {x, y, width, height, top, right, bottom, left};
+    if (this._lastBarClientRect && isEqual(this._lastBarClientRect, clientRect)) return;
+    this._lastBarClientRect = clientRect;
+    this.props.updateBottomBarClientRect(clientRect);
+  };
 
   private _getControlsWidth = (): number => {
     const leftControlsWidth = this.leftControlsRef.current?.offsetWidth || 0;
@@ -217,7 +244,7 @@ class BottomBar extends Component<any, any> {
 
     const shouldRenderTimeDisplay: boolean = this.presetControls[TIME_DISPLAY_COMP] && !this.state.fitInControls[TIME_DISPLAY_COMP];
     return (
-      <div className={styleClass.join(' ')}>
+      <div className={styleClass.join(' ')} ref={this.bottomBarRef}>
         <div className={style.bottomBarArea}>
           <PlayerArea shouldUpdate={true} name={'BottomBar'}>
             {shouldRenderTimeDisplay && <TimeDisplayPlaybackContainer />}
