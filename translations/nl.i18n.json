@@ -22,6 +22,7 @@
       "pictureInPictureExit": "Modus Afbeelding in afbeelding verlaten",
       "logo": "Logo",
       "seekBarSlider": "Zoekschuifregelaar",
+      "skipSeekBar": "Zoekbalk overslaan",
       "readLess": "Minder",
       "readMore": "Meer",
       "secondsRewind": "Zoek {{seconds}} seconden terug",
@@ -113,6 +114,7 @@
       "eighty_percent": "tachtig procent",
       "ninety_percent": "negentig procent",
       "one_hundred_percent": "honderd procent",
+      "volume_button_description": "Druk op TAB om de volumeregeling te openen",
       "volume_slider_aria_label": "Volumeregeling",
       "volume_slider_description": "Gebruik de pijlen om het volume te regelen"
     },

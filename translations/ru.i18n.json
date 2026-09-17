@@ -22,6 +22,7 @@
       "pictureInPictureExit": "Выйти из режима «картинка в картинке»",
       "logo": "Логотип",
       "seekBarSlider": "Слайдер навигации",
+      "skipSeekBar": "Пропустить панель навигации",
       "readLess": "Меньше",
       "readMore": "Дополнительно",
       "secondsRewind": "Перейти на {{seconds}} секунд назад",
@@ -113,6 +114,7 @@
       "eighty_percent": "восемьдесят процентов",
       "ninety_percent": "девяносто процентов",
       "one_hundred_percent": "сто процентов",
+      "volume_button_description": "Нажмите TAB, чтобы открыть регулировку громкости",
       "volume_slider_aria_label": "Управление Громкость",
       "volume_slider_description": "Для управления громкостью используйте стрелки"
     },

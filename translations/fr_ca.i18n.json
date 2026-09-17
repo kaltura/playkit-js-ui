@@ -22,6 +22,7 @@
       "pictureInPictureExit": "Quitter fenêtre dans fenêtre",
       "logo": "Logo",
       "seekBarSlider": "Curseur",
+      "skipSeekBar": "Ignorer la barre de progression",
       "readLess": "Moins",
       "readMore": "Plus",
       "secondsRewind": "Reculer de {{seconds}} secondes",
@@ -113,6 +114,7 @@
       "eighty_percent": "quatre-vingt pour cent",
       "ninety_percent": "quatre-vingt-dix pour cent",
       "one_hundred_percent": "cent pour cent",
+      "volume_button_description": "Appuyez sur TAB pour ouvrir le réglage du volume",
       "volume_slider_aria_label": "Contrôle du volume",
       "volume_slider_description": "Utiliser les flèches pour contrôler le volume"
     },
