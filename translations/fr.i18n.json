@@ -22,6 +22,7 @@
       "pictureInPictureExit": "Quitter le mode Image-dans-Image",
       "logo": "Logo",
       "seekBarSlider": "Diapositive",
+      "skipSeekBar": "Appuyez sur TAB pour ouvrir le réglage du volume",
       "readLess": "Moins",
       "readMore": "Plus",
       "secondsRewind": "Reculer de {{seconds}} secondes",
@@ -113,6 +114,7 @@
       "eighty_percent": "quatre-vingt pour cent",
       "ninety_percent": "quatre-vingt-dix pour cent",
       "one_hundred_percent": "cent pour cent",
+      "volume_button_description": "Appuyer sur TAB pour ouvrir le contrôle du volume",
       "volume_slider_aria_label": "Contrôle du volume",
       "volume_slider_description": "Utiliser les flèches pour contrôler le volume"
     },
