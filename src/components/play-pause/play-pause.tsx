@@ -108,7 +108,7 @@ class PlayPause extends Component<any, any> {
 
     const controlButtonClass = this.props.isPlayingAdOrPlayback ? [style.controlButton, style.isPlaying].join(' ') : style.controlButton;
     const isStartOver = props.isPlaybackEnded && !this.props.adBreak;
-    const entryName = `${props.title}: ${props.entryName || ''}`;
+    const entryName = `${props.title}: ${props.entryName ?? ''}`;
     const showPauseButton = !this.props.player.isLive() || this.props.player.isDvr();
 
     let playbackStateText;
