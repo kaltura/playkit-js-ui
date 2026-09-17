@@ -22,7 +22,7 @@
       "pictureInPictureExit": "Quitter le mode Image-dans-Image",
       "logo": "Logo",
       "seekBarSlider": "Diapositive",
-      "skipSeekBar": "Appuyez sur TAB pour ouvrir le réglage du volume",
+      "skipSeekBar": "Ignorer la barre de progression",
       "readLess": "Moins",
       "readMore": "Plus",
       "secondsRewind": "Reculer de {{seconds}} secondes",
