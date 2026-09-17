@@ -3,12 +3,16 @@
     "controls": {
       "play": "تشغيل",
       "pause": "إيقاف مؤقت",
+      "stop": "إيقاف التشغيل",
+      "title": "العنوان",
       "language": "اللغة",
       "settings": "الإعدادات",
       "fullscreen": "ملء الشاشة",
       "fullscreenExit": "إنهاء وضع ملء الشاشة",
       "rewind": "رجوع للخلف",
+      "secondsRewind": "الرجوع للخلف بمقدار {{seconds}} ثانية",
       "forward": "انتقال للأمام",
+      "secondsForward": "التقدم إلى الأمام بمقدار {{seconds}} ثانية",
       "vrStereo": "ستريو واقع افتراضي",
       "closedCaptionsOn": "تعطيل التسميات التوضيحية",
       "closedCaptionsOff": "تمكين التسميات التوضيحية",
@@ -21,10 +25,31 @@
       "pictureInPicture": "صورة داخل صورة",
       "pictureInPictureExit": "خروج من وضع صورة داخل صورة",
       "logo": "الشعار",
-      "seekBarSlider": "شريط تمرير الانتقال"
+      "seekBarSlider": "شريط تمرير الانتقال",
+      "readLess": "أقل",
+      "readMore": "المزيد",
+      "valuetextLabel": "من"
     },
     "unmute": {
       "unmute": "إلغاء كتم"
+    },
+    "volume": {
+      "muted_click_to_unmute": "مكتوم. انقر لإلغاء كتم الصوت",
+      "volume_click_to_mute": "مستوى الصوت {{vol}}%. انقر لكتم الصوت",
+      "ten_percent": "عشرة بالمائة",
+      "twenty_percent": "عشرون بالمائة",
+      "thirty_percent": "ثلاثون بالمائة",
+      "fourty_percent": "أربعون بالمائة",
+      "fifty_percent": "خمسون بالمائة",
+      "sixty_percent": "ستون بالمائة",
+      "seventy_percent": "سبعون بالمائة",
+      "eighty_percent": "ثمانون بالمائة",
+      "ninety_percent": "تسعون بالمائة",
+      "one_hundred_percent": "مائة بالمائة",
+      "volume_button_aria_label": "مستوى الصوت",
+      "volume_button_description": "اضغط على مفتاح \"TAB\" لفتح عنصر التحكم في مستوى الصوت",
+      "volume_slider_aria_label": "التحكم في مستوى الصوت",
+      "volume_slider_description": "استخدم مفاتيح الأسهم للتحكم في مستوى الصوت"
     },
     "copy": {
       "button": "نسخ عنوان URL"
@@ -33,9 +58,13 @@
       "title": "الإعدادات",
       "quality": "الجودة",
       "audio": "الصوت",
+      "audioDescription": "الوصف الصوتي",
       "speed": "السرعة",
       "speedNormal": "عادي",
-      "qualityAuto": "تلقائية"
+      "qualityAuto": "تلقائية",
+      "qualityHdLabel": "الجودة هي جودة بدقة عالية",
+      "quality4kLabel": "الجودة هي جودة بدقة 4k",
+      "quality8kLabel": "الجودة هي جودة بدقة 8k"
     },
     "captions": {
       "captions": "التسميات التوضيحية",
@@ -45,7 +74,35 @@
       "close": "إغلاق"
     },
     "error": {
-      "default_error_title": "حدث خطأ ما"
+      "default_error_title": "حدث خطأ ما",
+      "default_error_message": "حدث خطأ، يُرجى المحاولة مرة أخرى لاحقًا",
+      "network_error_title": "يوجد خلل في اتصال الشبكة لديك",
+      "network_error_message": "يرجى التحقق من اتصالك بالشبكة والمحاولة مرة أخرى",
+      "media_unavailable_error_title": "تعذر تشغيل الوسائط",
+      "media_unavailable_error_message": "تم تقييد هذه الوسائط. يُرجى الحصول على الأذونات المطلوبة للوصول إلى المحتوى",
+      "text_error_title": "خطأ في تدفق النص",
+      "text_error_message": "حدث خطأ في تدفق النص",
+      "media_error_title": "خطأ في تدفق النص",
+      "media_error_message": "تعذر تشغيل تدفق واحد أو أكثر من تدفقات الوسائط",
+      "manifest_error_title": "خطأ في تشغيل ملف البيان",
+      "manifest_error_message": "تعذر معالجة ملف بيان التشغيل",
+      "streaming_error_title": "تعذر تحميل البث",
+      "streaming_error_message": "حدث خطأ في بروتوكول البث",
+      "drm_error_message": "لا تملك صلاحية الوصول إلى هذه الوسائط",
+      "media_not_ready_error_title": "الوسائط قيد المعالجة",
+      "media_not_ready_error_message": "جارٍ معالجة الوسائط، يُرجى التحقق مرة أخرى بعد قليل",
+      "geo_location_error_title": "الموقع الجغرافي غير متاح",
+      "geo_location_error_message": "هذا المحتوى غير متاح في منطقتك",
+      "ip_restricted_error_message": "هذه الوسائط متاحة لعناوين IP محددة فقط",
+      "site_restricted_error_message": "هذا المحتوى غير متاح في هذا النطاق",
+      "scheduled_restricted_error_message": "هذا المحتوى غير متاح حاليًا",
+      "scheduled_restricted_error_title": "خارج نطاق الجدولة",
+      "deleted_entry_error_message": "لقد تمت إزالة الفيديو",
+      "default_session_text": "نسخ معرِّف الجلسة لخدمة العملاء",
+      "retry": "حاول مرة أخرى",
+      "error_title": "الخطأ",
+      "access_control_error_message": "تم حظر الوصول بموجب سياسة الوصول المشروط",
+      "copy_debug_info": "نسخ معلومات تصحيح الأخطاء"
     },
     "ads": {
       "ad_notice": "إعلان",
@@ -56,18 +113,28 @@
     "cvaa": {
       "title": "الإعدادات المتقدمة للتسميات التوضيحية",
       "sample_caption_tag": "{{number}} عينة",
+      "sample_high_contrast": "التباين العالي",
+      "sample_minimalist": "التصميم البسيط",
+      "sample_classic_tv": "كلاسيكي",
+      "sample_easy_reading": "سهولة القراءة",
+      "sample_early_readers": "القراء المبتدئون",
+      "sample_night_mode": "الوضع الليلي",
+      "sample_custom": "التسميات التوضيحية المخصصة",
       "sample_custom_caption_tag": "تسميات توضيحية مخصصة",
       "set_custom_caption": "تعيين تسمية توضيحية مخصصة",
       "edit_caption": "تحرير تسمية توضيحية",
       "size_label": "الحجم",
+      "font_weight": "سمك الخط",
       "font_color_label": "لون الخط",
+      "font_alignment_label": "محاذاة الخط",
       "font_family_label": "عائلة الخطوط",
       "font_style_label": "نمط الخط",
       "font_opacity_label": "تعتيم الخط",
       "background_color_label": "لون الخلفية",
       "background_opacity_label": "تعتيم الخلفية",
       "apply": "تطبيق",
-      "caption_preview": "هذه معاينة التسمية التوضيحية"
+      "caption_preview": "هذه معاينة التسمية التوضيحية",
+      "close_label": "إغلاق إعدادات التسميات التوضيحية المتقدمة"
     },
     "cast": {
       "play_on_tv": "تشغيل على التلفاز",
@@ -87,6 +154,34 @@
     },
     "pictureInPicture": {
       "overlay_text": "تشغيل في وضع صورة داخل صورة"
+    },
+    "watermark": {
+      "watermark_alt_text": "العلامة المائية"
+    },
+    "spinner": {
+      "loading": "جارٍ التحميل"
+    },
+    "videoArea": {
+      "videoLabel": "مشغل الفيديو. استخدم زر التشغيل أو اضغط على مفتاح المسافة لبدء التشغيل",
+      "videoPlayer": "مشغل الفيديو"
+    },
+    "audioDescription": {
+      "disable": "تعطيل",
+      "standardAudioDescription": "الوصف الصوتي القياسي",
+      "advancedAudioDescription": "الوصف الصوتي الموسّع",
+      "audioDescriptionAvailable": "الوصف الصوتي متاح",
+      "enableAudioDescription": "تمكين الوصف الصوتي",
+      "disableAudioDescription": "تعطيل الوصف الصوتي",
+      "thereIsAudioDescriptionAvailable": "الوصف الصوتي متوفر للغة المحددة حاليًا، ويُمكنك تمكينه من إعدادات «الوصف الصوتي»",
+      "thereIsNoAudioDescriptionAvailable": "لا يتوفر وصف صوتي للغة المحددة حاليًا",
+      "noStandardAudioDescriptionAvailable": "لا يتوفر وصف صوتي قياسي للغة المحددة حاليًا",
+      "standardAudioDescriptionAvailable": "يتوفر وصف صوتي قياسي للغة المحددة حاليًا",
+      "noAdvancedAudioDescriptionAvailable": "لا يتوفر وصف صوتي موسّع باللغة المحددة حاليًا",
+      "advancedAudioDescriptionAvailable": "يتوفر وصف صوتي موسع للغة المحددة حاليًا"
+    },
+    "mediaInfo": {
+      "seeMore": "عرض المزيد",
+      "seeLess": "عرض أقل"
     }
   }
 }
