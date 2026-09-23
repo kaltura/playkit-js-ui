@@ -21,10 +21,14 @@
       "pictureInPicture": "صورة داخل صورة",
       "pictureInPictureExit": "خروج من وضع صورة داخل صورة",
       "logo": "الشعار",
-      "seekBarSlider": "شريط تمرير الانتقال"
+      "seekBarSlider": "شريط تمرير الانتقال",
+      "skipSeekBar": "تخطي شريط البحث"
     },
     "unmute": {
       "unmute": "إلغاء كتم"
+    },
+    "volume": {
+      "volume_button_description": "اضغط على مفتاح \"TAB\" لفتح عنصر التحكم في مستوى الصوت"
     },
     "copy": {
       "button": "نسخ عنوان URL"

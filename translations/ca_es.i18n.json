@@ -24,6 +24,7 @@
       "pictureInPictureExit": "Sortir d'Imatge en imatge",
       "logo": "Logotip",
       "seekBarSlider": "Barra de cerca",
+      "skipSeekBar": "Ometre barra de reproducció",
       "readLess": "Menys",
       "readMore": "Més"
     },
@@ -43,6 +44,7 @@
       "eighty_percent": "vuitanta per cent",
       "ninety_percent": "noranta per cent",
       "one_hundred_percent": "cent per cent",
+      "volume_button_description": "Premeu TAB per obrir el control del volum",
       "volume_slider_aria_label": "Volum",
       "volume_slider_description": "Utilitza les fletxes per controlar el volum"
     },
