@@ -20,7 +20,6 @@
   transition:
     #{$hover-animation-time}ms opacity ease-in-out,
     0ms padding linear #{$hover-animation-time}ms;
-  order: 3;
 
   &.hide {
     display: none;
@@ -29,7 +28,7 @@
   .controls-container {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: space-between;
     width: 100%;
     position: relative;
@@ -39,23 +38,9 @@
       flex-shrink: 0;
       text-align: left;
       pointer-events: none;
-      order: 1;
-      z-index: 1;
 
       .control-button-container:first-child {
         margin-left: 0px;
-      }
-    }
-
-    .center-controls {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      order: 0;
-      pointer-events: none;
-      & > * {
-        pointer-events: auto;
-        flex-shrink: 0;
       }
     }
 
@@ -65,9 +50,6 @@
       flex-grow: 0;
       text-align: left;
       pointer-events: none;
-      order: 2;
-      z-index: 1;
-      margin-left: auto;
 
       .control-button-container:last-child {
         margin-right: 0px;
@@ -102,33 +84,26 @@
   }
 
   &.size-ty {
-    .bottom-bar {
-      min-height: 0;
-      .controls-container {
-        display: block;
-        .left-controls {
-          display: none;
-        }
-        .center-controls {
-          width: calc(100% - 50px);
-          float: left;
-        }
-        .right-controls {
-          display: block;
-          float: right;
-        }
-      }
-      .control-button-container {
+    .controls-container {
+      display: block;
+      .left-controls {
         display: none;
-        margin: 0;
       }
+      .right-controls {
+        display: block;
+        float: right;
+      }
+    }
+    .control-button-container {
+      display: none;
+      margin: 0;
     }
   }
 
   &.size-xs,
   &.size-sm {
     .control-button-container:not(.upper-bar-icon) {
-        margin: 0 3px;
+      margin: 0 3px;
     }
   }
 }

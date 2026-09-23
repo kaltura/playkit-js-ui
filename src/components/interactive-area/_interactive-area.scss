@@ -9,7 +9,6 @@
   transition: margin #{$hover-animation-time}ms ease-in-out;
   flex: 1;
   min-height: 0;
-  order: 2;
 }
 .player {
   &.size-sm {
