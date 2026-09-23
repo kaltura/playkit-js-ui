@@ -10,7 +10,6 @@ export const types = {
   UPDATE_IS_SMALL_SIZE: 'shell/UPDATE_IS_SMALL_SIZE',
   UPDATE_GUI_CLIENT_RECT: 'shell/UPDATE_GUI_CLIENT_RECT',
   UPDATE_TOP_BAR_CLIENT_RECT: 'shell/UPDATE_TOP_BAR_CLIENT_RECT',
-  UPDATE_BOTTOM_BAR_CLIENT_RECT: 'shell/UPDATE_BOTTOM_BAR_CLIENT_RECT',
   UPDATE_PLAYER_CLIENT_RECT: 'shell/UPDATE_PLAYER_CLIENT_RECT',
   UPDATE_VIDEO_CLIENT_RECT: 'shell/UPDATE_VIDEO_CLIENT_RECT',
   UPDATE_DOCUMENT_WIDTH: 'shell/UPDATE_DOCUMENT_WIDTH',
@@ -92,8 +91,6 @@ export const initialState = {
   playerClasses: [],
   guiClientRect: initialRect,
   topBarClientRect: initialRect,
-  // null until the bottom bar measures itself
-  bottomBarClientRect: null,
   playerClientRect: initialRect,
   videoClientRect: initialRect,
   layoutStyles: {
@@ -167,13 +164,6 @@ export default (state: ShellState = initialState, action: any) => {
       return {
         ...state,
         topBarClientRect: action.topBarClientRect
-      };
-
-    case types.UPDATE_BOTTOM_BAR_CLIENT_RECT:
-      if (state.bottomBarClientRect && isEqual(state.bottomBarClientRect, action.bottomBarClientRect)) return state;
-      return {
-        ...state,
-        bottomBarClientRect: action.bottomBarClientRect
       };
 
     case types.UPDATE_PLAYER_CLIENT_RECT:
@@ -298,7 +288,6 @@ export const actions = {
   updateIsSmallSize: (isSmallSize: boolean) => ({type: types.UPDATE_IS_SMALL_SIZE, isSmallSize}),
   updateGuiClientRect: (guiClientRect: any) => ({type: types.UPDATE_GUI_CLIENT_RECT, guiClientRect}),
   updateTopBarClientRect: (topBarClientRect: any) => ({type: types.UPDATE_TOP_BAR_CLIENT_RECT, topBarClientRect}),
-  updateBottomBarClientRect: (bottomBarClientRect: any) => ({type: types.UPDATE_BOTTOM_BAR_CLIENT_RECT, bottomBarClientRect}),
   updatePlayerClientRect: (playerClientRect: any) => ({type: types.UPDATE_PLAYER_CLIENT_RECT, playerClientRect}),
   updateVideoClientRect: (videoClientRect: any) => ({type: types.UPDATE_VIDEO_CLIENT_RECT, videoClientRect}),
   updateDocumentWidth: (documentWidth: number) => ({type: types.UPDATE_DOCUMENT_WIDTH, documentWidth}),
