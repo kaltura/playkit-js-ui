@@ -11,12 +11,7 @@
   position: absolute;
   padding: 0;
   opacity: 0;
-  //the bar must grow when plugins inject rows into the center controls
-  min-height: #{$bottom-bar-min-height}px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  flex-shrink: 0;
+  max-height: #{$bottom-bar-max-height}px;
   transition:
     #{$hover-animation-time}ms opacity ease-in-out,
     0ms padding linear #{$hover-animation-time}ms;
