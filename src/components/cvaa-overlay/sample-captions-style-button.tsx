@@ -30,7 +30,7 @@ const SampleCaptionsStyleButton = (props: any) => {
 
   useEffect(() => {
     // force focus to active sample button once mounted
-    if (props.isActive && _sampleCaptionsElRef.current) {
+    if (props.isActive && !props.suppressActiveFocus && _sampleCaptionsElRef.current) {
       _sampleCaptionsElRef.current.focus();
     }
   }, []);
