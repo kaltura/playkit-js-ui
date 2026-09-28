@@ -1,13 +1,13 @@
 import style from '../styles/style.scss';
 
 const FOCUS_GROUPS: string[] = [
-    // only visible on small players, where it replaces the bottom-bar play/pause
-    `.${style.centerPlaybackControls}`,
-    `.${style.bottomBar} .${style.leftControls}`,
-    `.${style.bottomBar} .${style.bottomBarArea}`,
-    `.${style.bottomBar} .${style.rightControls}`,
-    `.${style.interactiveArea}`,
-    `.${style.topBar}`
+  // only visible on small players, where it replaces the bottom-bar play/pause
+  `.${style.centerPlaybackControls}`,
+  `.${style.bottomBar} .${style.leftControls}`,
+  `.${style.bottomBar} .${style.bottomBarArea}`,
+  `.${style.bottomBar} .${style.rightControls}`,
+  `.${style.interactiveArea}`,
+  `.${style.topBar}`
 ];
 const TABBABLE = 'a[href],area[href],button,input,select,textarea,iframe,[tabindex]';
 // popups (menus, overlays) manage their own Tab handling
