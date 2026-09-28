@@ -34,6 +34,7 @@ export const initialState = {
   seekSeconds: 10,
   hoverTimeout: 3000,
   tinySizeDisabled: false,
+  customFocusOrder: true,
   showMediaInfo: {
     showDuration: false,
     detailsMode: MediaInfoDetailsMode.None,
