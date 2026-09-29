@@ -5,6 +5,7 @@ const FOCUS_GROUPS: string[] = [
   `.${style.centerPlaybackControls}`,
   `.${style.bottomBar} .${style.leftControls}`,
   `.${style.bottomBar} .${style.bottomBarArea}`,
+  `.${style.bottomBar} .${style.controlsContainer}`,
   `.${style.bottomBar} .${style.rightControls}`,
   `.${style.interactiveArea}`,
   `.${style.topBar}`
