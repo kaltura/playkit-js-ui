@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.83.23 (2026-10-01)
+
+
+### Bug Fixes
+
+* **ADA-3405:** Fix title not announced to audio player ([#1205](https://github.com/kaltura/playkit-js-ui/issues/1205)) ([292dfaf](https://github.com/kaltura/playkit-js-ui/commit/292dfaf))
+
+
+
 ### 0.83.22 (2026-09-24)
 
 
