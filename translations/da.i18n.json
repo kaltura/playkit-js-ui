@@ -1,0 +1,187 @@
+{
+  "da": {
+    "controls": {
+      "play": "Afspil",
+      "pause": "Pause",
+      "stop": "Stop",
+      "title": "titel",
+      "language": "Sprog",
+      "settings": "Indstillinger",
+      "fullscreen": "Vis fuld skærm",
+      "fullscreenExit": "Afslut fuld skærm",
+      "rewind": "Spol tilbage",
+      "secondsRewind": "Spol {{seconds}} sekunder tilbage",
+      "forward": "Spol frem",
+      "secondsForward": "Spol {{seconds}} sekunder frem",
+      "vrStereo": "vrStereo",
+      "closedCaptionsOn": "Slå undertekster fra",
+      "closedCaptionsOff": "Slå undertekster til",
+      "live": "Live",
+      "mute": "Slå lyden fra",
+      "unmute": "Slå lyden til",
+      "next": "Næste",
+      "prev": "Forrige",
+      "startOver": "Start forfra",
+      "pictureInPicture": "Slå billede-i-billede til",
+      "pictureInPictureExit": "Slå billede-i-billede fra",
+      "logo": "Logo",
+      "seekBarSlider": "Søgelinje",
+      "readLess": "Mindre",
+      "readMore": "Mere",
+      "valuetextLabel": "af"
+    },
+    "unmute": {
+      "unmute": "Slå lyden til"
+    },
+    "volume": {
+      "muted_click_to_unmute": "Lyden er slået fra. Klik for at slå den til",
+      "volume_click_to_mute": "{{vol}}% lydstyrke. Klik for at slå lyden fra",
+      "ten_percent": "ti procent",
+      "twenty_percent": "tyve procent",
+      "thirty_percent": "tredive procent",
+      "fourty_percent": "fyrre procent",
+      "fifty_percent": "halvtreds procent",
+      "sixty_percent": "tres procent",
+      "seventy_percent": "halvfjerds procent",
+      "eighty_percent": "firs procent",
+      "ninety_percent": "halvfems procent",
+      "one_hundred_percent": "hundrede procent",
+      "volume_button_aria_label": "Lydstyrke",
+      "volume_button_description": "Klik for lydstyrkekontrol",
+      "volume_slider_aria_label": "Lydstyrkekontrol",
+      "volume_slider_description": "Brug pilene til at justere lydstyrken"
+    },
+    "copy": {
+      "button": "Kopiér URL"
+    },
+    "settings": {
+      "title": "Indstillinger",
+      "audio": "Lyd",
+      "audioDescription": "Synstolkning",
+      "quality": "Kvalitet",
+      "speed": "Hastighed",
+      "speedNormal": "Normal",
+      "qualityAuto": "Auto",
+      "qualityHdLabel": "Kvaliteten er HD",
+      "quality4kLabel": "Kvaliteten er 4k",
+      "quality8kLabel": "Kvaliteten er 8k"
+    },
+    "captions": {
+      "captions": "Undertekster",
+      "advanced_captions_settings": "Avancerede indstillinger for undertekster"
+    },
+    "overlay": {
+      "close": "Luk"
+    },
+    "error": {
+      "default_error_title": "Noget gik galt",
+      "default_error_message": "Der opstod en fejl. Prøv igen senere.",
+      "network_error_title": "Der er et problem med dit netværk",
+      "network_error_message": "Kontrollér din netværksforbindelse, og prøv igen.",
+      "media_unavailable_error_title": "Medie ikke tilgængeligt",
+      "media_unavailable_error_message": "Dette medie er begrænset. Skaf de relevante tilladelser for at få adgang til indholdet.",
+      "text_error_title": "Fejl i tekststrøm",
+      "text_error_message": "Der opstod en fejl i tekststrømmen",
+      "media_error_title": "Fejl i mediestrøm",
+      "media_error_message": "En eller flere mediestrømme mislykkedes.",
+      "manifest_error_title": "Fejl i afspilningsmanifest",
+      "manifest_error_message": "Der opstod en fejl under behandling af afspilningsmanifestet.",
+      "streaming_error_title": "Kan ikke indlæse stream",
+      "streaming_error_message": "Der opstod en fejl i streamingprotokollen.",
+      "drm_error_message": "Du har ikke tilladelse til at se dette medie.",
+      "media_not_ready_error_title": "Mediet behandles",
+      "media_not_ready_error_message": "Mediet behandles. Prøv igen om lidt.",
+      "geo_location_error_title": "Geografisk placering ikke tilgængelig",
+      "geo_location_error_message": "Dette indhold er ikke tilgængeligt i dit område.",
+      "ip_restricted_error_message": "Dette medie er begrænset til bestemte IP-adresser.",
+      "site_restricted_error_message": "Dette indhold er ikke tilgængeligt på dette domæne.",
+      "scheduled_restricted_error_message": "Dette indhold er ikke tilgængeligt i øjeblikket.",
+      "scheduled_restricted_error_title": "Uden for planlagt tidsrum",
+      "deleted_entry_error_message": "Videoen er blevet fjernet",
+      "default_session_text": "Kopiér til kundeservice: sessions-ID",
+      "retry": "Prøv igen",
+      "error_title": "Fejl",
+      "access_control_error_message": "Blokeret af Conditional Access",
+      "copy_debug_info": "Kopiér fejlfindingsinfo"
+    },
+    "ads": {
+      "ad_notice": "Reklame",
+      "learn_more": "Læs mere",
+      "skip_ad": "Spring reklame over",
+      "skip_in": "Spring over om"
+    },
+    "cvaa": {
+      "title": "Avancerede indstillinger for undertekster",
+      "sample_caption_tag": "Eksempel {{number}}",
+      "sample_high_contrast": "Høj kontrast",
+      "sample_minimalist": "Minimalistisk",
+      "sample_classic_tv": "Klassisk",
+      "sample_easy_reading": "Letlæselig",
+      "sample_early_readers": "Begynderlæsere",
+      "sample_night_mode": "Nattilstand",
+      "sample_custom": "Tilpassede undertekster",
+      "sample_custom_caption_tag": "Tilpassede undertekster",
+      "set_custom_caption": "Angiv tilpasset undertekst",
+      "edit_caption": "Rediger undertekst",
+      "size_label": "Størrelse",
+      "font_weight": "Skrifttykkelse",
+      "font_color_label": "Skriftfarve",
+      "font_alignment_label": "Skriftjustering",
+      "font_family_label": "Skrifttype",
+      "font_style_label": "Skriftstil",
+      "font_opacity_label": "Skriftgennemsigtighed",
+      "background_color_label": "Baggrundsfarve",
+      "background_opacity_label": "Baggrundsgennemsigtighed",
+      "apply": "Anvend",
+      "caption_preview": "Dette er din forhåndsvisning af underteksten",
+      "close_label": "Luk avancerede indstillinger for undertekster"
+    },
+    "cast": {
+      "play_on_tv": "Afspil på TV",
+      "disconnect_from_tv": "Afbryd forbindelse til TV",
+      "status": {
+        "connecting_to": "Opretter forbindelse til",
+        "connected_to": "Forbundet til",
+        "playing_on": "Afspiller på"
+      }
+    },
+    "playlist": {
+      "prev": "Forrige",
+      "next": "Næste",
+      "up_next": "Næste",
+      "up_next_in": "Næste om",
+      "cancel": "Annullér"
+    },
+    "pictureInPicture": {
+      "overlay_text": "Afspiller i billede-i-billede-tilstand"
+    },
+    "watermark": {
+      "watermark_alt_text": "Vandmærke"
+    },
+    "spinner": {
+      "loading": "Indlæser"
+    },
+    "videoArea": {
+      "videoLabel": "Videoafspiller. Brug afspilningsknappen eller tryk på mellemrumstasten for at starte afspilningen.",
+      "videoPlayer": "Videoafspiller"
+    },
+    "audioDescription": {
+      "disable": "Deaktivér",
+      "standardAudioDescription": "Standard synstolkning",
+      "advancedAudioDescription": "Udvidet synstolkning",
+      "audioDescriptionAvailable": "Synstolkning tilgængelig",
+      "enableAudioDescription": "Aktivér synstolkning",
+      "disableAudioDescription": "Deaktivér synstolkning",
+      "thereIsAudioDescriptionAvailable": "Synstolkning er tilgængelig for det valgte sprog. Du kan aktivere den under Synstolkning",
+      "thereIsNoAudioDescriptionAvailable": "Ingen synstolkning tilgængelig for det valgte sprog",
+      "noStandardAudioDescriptionAvailable": "Ingen standard synstolkning tilgængelig for det valgte sprog",
+      "standardAudioDescriptionAvailable": "Standard synstolkning er tilgængelig for det valgte sprog",
+      "noAdvancedAudioDescriptionAvailable": "Ingen udvidet synstolkning tilgængelig for det valgte sprog",
+      "advancedAudioDescriptionAvailable": "Udvidet synstolkning er tilgængelig for det valgte sprog"
+    },
+    "mediaInfo": {
+      "seeMore": "Se mere",
+      "seeLess": "Se mindre"
+    }
+  }
+}
