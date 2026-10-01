@@ -1,5 +1,5 @@
 import style from '../../styles/style.scss';
-import {h, Component, VNode} from 'preact';
+import {h, Component, Fragment, VNode} from 'preact';
 import {toHHMMSS, getDurationAsText} from '../../utils';
 import {KeyMap} from '../../utils';
 import {connect} from 'react-redux';
@@ -8,7 +8,7 @@ import {actions as shellActions} from '../../reducers/shell';
 import {withPlayer} from '../player';
 import {withKeyboardEvent} from '../keyboard';
 import {actions as overlayIconActions} from '../../reducers/overlay-action';
-import {IconType} from '../icon';
+import {Icon, IconType} from '../icon';
 import {Text, withText} from 'preact-i18n';
 import {PlayerArea} from '../player-area';
 import {EventType, withEventManager} from '../../event';
@@ -16,6 +16,7 @@ import {SeekBarPreview} from '../seekbar-preview';
 import {ProgressIndicator} from '../progress-indicator';
 import {KeyboardEventHandlers} from '../../types';
 import {PLAYER_SIZE} from '../shell';
+import {focusBeyond} from '../../utils/focus-order';
 
 /**
  * mapping state to props
@@ -33,7 +34,8 @@ const mapStateToProps = state => ({
   isPreventSeek: state.seekbar.isPreventSeek,
   playerSize: state.shell.playerSize,
   allowPlayPause: state.config.allowPlayPause,
-  allowLivePlayPause: state.config.allowLivePlayPause
+  allowLivePlayPause: state.config.allowLivePlayPause,
+  customFocusOrder: state.config.customFocusOrder
 });
 
 const COMPONENT_NAME = 'SeekBar';
@@ -47,7 +49,8 @@ const KEYBOARD_DEFAULT_SEEK_JUMP: number = 1;
 
 const translates = {
   sliderAriaLabel: <Text id="controls.seekBarSlider">Seek bar</Text>,
-  valuetextLabel: <Text id="controls.valuetextLabel">of</Text>
+  valuetextLabel: <Text id="controls.valuetextLabel">of</Text>,
+  skipSeekBar: <Text id="controls.skipSeekBar">Skip seek-bar</Text>
 };
 
 /**
@@ -65,6 +68,12 @@ class SeekBar extends Component<any, any> {
   _seekBarElement!: HTMLDivElement;
   _framePreviewElement!: HTMLDivElement;
   _timeBubbleElement!: HTMLDivElement;
+  _skipBeforeElement: HTMLButtonElement | null = null;
+  _skipAfterElement: HTMLButtonElement | null = null;
+  state = {
+    showSkipBefore: true,
+    showSkipAfter: true
+  };
   _keyboardEventHandlers: Array<KeyboardEventHandlers> = [
     {
       key: {
@@ -341,6 +350,39 @@ class SeekBar extends Component<any, any> {
     this.props.player.paused ? this.props.player.play() : this.props.player.pause();
   };
 
+  private getGuiArea = (): HTMLElement | null => this._seekBarElement?.closest<HTMLElement>(`.${style.guiArea}`) ?? null;
+
+  // skip buttons are only useful when plugins add focusable cue points to the seekbar
+  private hasInteractiveContent = (): boolean => !!this.getGuiArea()?.querySelector('[data-testid="cuePointContainer"]');
+
+  private isInsideSeekbar = (el: HTMLElement): boolean =>
+    el === this._skipBeforeElement || el === this._skipAfterElement || !!this._seekBarElement?.contains(el);
+
+  private skipSeekbar(e: Event, backwards: boolean): void {
+    e.preventDefault();
+    e.stopPropagation();
+    const root = this.getGuiArea();
+    if (root) {
+      focusBeyond(root, this.isInsideSeekbar, backwards, this.props.customFocusOrder);
+    }
+  }
+
+  private handleSkipBefore = (e: Event): void => this.skipSeekbar(e, false);
+
+  private handleSkipAfter = (e: Event): void => this.skipSeekbar(e, true);
+
+  // only the button matching the entry direction stays, so Tab doesn't hit the other one on the way out
+  private handleSkipBeforeFocus = (): void => this.setState({showSkipBefore: true, showSkipAfter: false});
+
+  private handleSkipAfterFocus = (): void => this.setState({showSkipBefore: false, showSkipAfter: true});
+
+  private handleSeekbarFocusOut = (e: FocusEvent): void => {
+    const next = e.relatedTarget as HTMLElement | null;
+    if (!next || !this.isInsideSeekbar(next)) {
+      this.setState({showSkipBefore: true, showSkipAfter: true});
+    }
+  };
+
   /**
    * seekbar touch end handler
    *
@@ -573,44 +615,76 @@ class SeekBar extends Component<any, any> {
     if (props.isMobile) seekbarStyleClass.push(style.hover);
     if (props.isDraggingActive) seekbarStyleClass.push(style.hover);
     if (state.resizing) seekbarStyleClass.push(style.resizing);
+    const showSkipButtons = props.playerSize !== PLAYER_SIZE.TINY && this.hasInteractiveContent();
 
     return (
-      <div
-        tabIndex={0}
-        className={seekbarStyleClass.join(' ')}
-        ref={c => (c ? (this._seekBarElement = c) : undefined)}
-        role="slider"
-        aria-label={props.sliderAriaLabel}
-        aria-valuemin={0}
-        aria-valuemax={Math.round(this.props.duration)}
-        aria-valuenow={Math.round(this.props.currentTime)}
-        aria-valuetext={`${getDurationAsText(props.currentTime, props.player.config.ui.locale, true)} ${
-          this.props.valuetextLabel
-        } ${getDurationAsText(props.duration, props.player.config.ui.locale, true)}`}
-        onMouseOver={this.onSeekbarMouseOver}
-        onMouseLeave={this.onSeekbarMouseLeave}
-        onMouseMove={this.onSeekbarMouseMove}
-        onMouseDown={this.onSeekbarMouseDown}
-        onTouchStart={this.onSeekbarTouchStart}
-        onTouchMove={this.onSeekbarTouchMove}
-        onTouchEnd={this.onSeekbarTouchEnd}
-        onKeyDown={this.onKeyDown}>
-        <div className={style.progressBar}>
-          <PlayerArea name={'SeekBar'} shouldUpdate={true}>
-            {this.renderFramePreview()}
-            {this.renderTimeBubble()}
-            <ProgressIndicator />
-            {props.adBreak ? undefined : (
-              <div id={'scrubber-container'} style={`transform: translateX(${scrubberProgressPosition})`}>
-                <div id={'scrubber'} className={style.scrubber} />
+      <Fragment>
+        {showSkipButtons && state.showSkipBefore && (
+          <button
+            type="button"
+            className={style.skipSeekbarButton}
+            ref={c => (this._skipBeforeElement = c)}
+            onClick={this.handleSkipBefore}
+            onFocus={this.handleSkipBeforeFocus}
+            onBlur={this.handleSeekbarFocusOut}>
+            {props.skipSeekBar}
+            <span className={style.skipButtonIcon}>
+              <Icon type={IconType.ChevronRight} />
+            </span>
+          </button>
+        )}
+        <div
+          tabIndex={0}
+          className={seekbarStyleClass.join(' ')}
+          ref={c => (c ? (this._seekBarElement = c) : undefined)}
+          role="slider"
+          aria-label={props.sliderAriaLabel}
+          aria-valuemin={0}
+          aria-valuemax={Math.round(this.props.duration)}
+          aria-valuenow={Math.round(this.props.currentTime)}
+          aria-valuetext={`${getDurationAsText(props.currentTime, props.player.config.ui.locale, true)} ${
+            this.props.valuetextLabel
+          } ${getDurationAsText(props.duration, props.player.config.ui.locale, true)}`}
+          onMouseOver={this.onSeekbarMouseOver}
+          onMouseLeave={this.onSeekbarMouseLeave}
+          onMouseMove={this.onSeekbarMouseMove}
+          onMouseDown={this.onSeekbarMouseDown}
+          onTouchStart={this.onSeekbarTouchStart}
+          onTouchMove={this.onSeekbarTouchMove}
+          onTouchEnd={this.onSeekbarTouchEnd}
+          onBlurCapture={this.handleSeekbarFocusOut}
+          onKeyDown={this.onKeyDown}>
+          <div className={style.progressBar}>
+            <PlayerArea name={'SeekBar'} shouldUpdate={true}>
+              {this.renderFramePreview()}
+              {this.renderTimeBubble()}
+              <ProgressIndicator />
+              {props.adBreak ? undefined : (
+                <div id={'scrubber-container'} style={`transform: translateX(${scrubberProgressPosition})`}>
+                  <div id={'scrubber'} className={style.scrubber} />
+                </div>
+              )}
+              <div className={style.virtualProgress} style={{width: virtualProgressWidth}}>
+                <div className={style.virtualProgressIndicator} />
               </div>
-            )}
-            <div className={style.virtualProgress} style={{width: virtualProgressWidth}}>
-              <div className={style.virtualProgressIndicator} />
-            </div>
-          </PlayerArea>
+            </PlayerArea>
+          </div>
         </div>
-      </div>
+        {showSkipButtons && state.showSkipAfter && (
+          <button
+            type="button"
+            className={style.skipSeekbarButton}
+            ref={c => (this._skipAfterElement = c)}
+            onClick={this.handleSkipAfter}
+            onFocus={this.handleSkipAfterFocus}
+            onBlur={this.handleSeekbarFocusOut}>
+            <span className={style.skipButtonIcon}>
+              <Icon type={IconType.ChevronLeft} />
+            </span>
+            {props.skipSeekBar}
+          </button>
+        )}
+      </Fragment>
     );
   }
 }
