@@ -46,7 +46,7 @@
     min-width: 0;
     margin: #{$top-bar-top-bottom-gutter}px #{$gui-gutter}px;
     pointer-events: none;
-    background-color: var(--playkit-pill-background-color);
+    background-color: $pill-background-color;
     border-radius: #{$pill-border-radius}px;
     padding: #{$pill-padding-vertical}px #{$pill-padding-horizontal}px;
     &:empty {
@@ -59,7 +59,7 @@
     text-align: left;
     margin: #{$top-bar-top-bottom-gutter}px #{$gui-gutter}px #{$top-bar-top-bottom-gutter}px 32px;
     pointer-events: none;
-    background-color: var(--playkit-pill-background-color);
+    background-color: $pill-background-color;
     border-radius: #{$pill-border-radius}px;
     padding: #{$pill-padding-vertical}px #{$pill-padding-horizontal}px;
     height: fit-content;

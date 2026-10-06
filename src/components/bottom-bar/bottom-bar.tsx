@@ -23,7 +23,6 @@ const LOWER_PRIORITY_CONTROLS: string[][] = [
   ['AudioDesc'],
   ['ClosedCaptions'],
   ['CaptionsControl'],
-  ['Fullscreen'],
   ['Cast']
 ];
 const CRL_WIDTH = 36;
