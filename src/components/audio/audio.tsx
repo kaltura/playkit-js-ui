@@ -118,7 +118,14 @@ const _Audio = (props: any) => {
   const hasAudioOptions = useMemo(() => {
     return props.audioTracks?.filter(t => t.label || t.language).length > 1;
   }, [props.audioTracks]);
-  if (!props.showAudioButton || !hasAudioOptions) return null;
+
+  const shouldRender = (): boolean => {
+    const isActive = props.showAudioButton && hasAudioOptions;
+    props.onToggle?.(COMPONENT_NAME, isActive);
+    return isActive;
+  };
+
+  if (!shouldRender()) return null;
 
   return (
     <ButtonControl ref={ref} name={COMPONENT_NAME} className={props.classNames ? props.classNames.join(' ') : ''}>

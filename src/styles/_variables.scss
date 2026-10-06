@@ -21,14 +21,17 @@ $default-transition-time: 500;
 $default-hovering-offset: 60px;
 $hover-animation-time: 100;
 $top-bar-max-height: 75;
-$top-bar-top-bottom-gutter: 12;
-$bottom-bar-max-height: 60;
-$bottom-bar-bottom-gutter: 4;
-$gui-gutter: 16;
+$top-bar-top-bottom-gutter: 8;
+$bottom-bar-max-height: 72;
+$bottom-bar-bottom-gutter: 8;
+$gui-gutter: 8;
 $gui-small-gutter: 8;
 $blur: 16px;
 $context-menu-height: 40;
 $context-menu-width: 260;
+$pill-border-radius: 64;
+$pill-padding-vertical: 4;
+$pill-padding-horizontal: 16;
 // ***************  Backward Compatibility - Deprecated  **************
 $brand-color: #006bff; // - refs in playkit-ui and related-plugin
 $white: #ffffff; // - refs in playkit-ui and related-plugin
@@ -76,6 +79,9 @@ $new-live-color: #e12437; // - refs in related-plugin
   topBarMaxHeight: $top-bar-max-height;
   contextMenuHeight: $context-menu-height;
   contextMenuWidth: $context-menu-width;
+  pillBorderRadius: $pill-border-radius;
+  pillPaddingVertical: $pill-padding-vertical;
+  pillPaddingHorizontal: $pill-padding-horizontal;
   // ***************  Backward Compatibility - Deprecated  **************
   brandColor: $brand-color;
   white: $white;

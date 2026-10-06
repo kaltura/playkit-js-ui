@@ -1,10 +1,12 @@
 .player .control-button {
-  width: 32px;
-  height: 32px;
+  position: relative;
+  width: 36px;
+  height: 36px;
   border-radius: 4px;
   background: transparent;
-  display: inline-block;
-  opacity: 0.8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: none;
   padding: 0;
   cursor: pointer;
@@ -61,7 +63,7 @@
 .player:not(.touch) {
   .control-button:not(:disabled) {
     &:hover {
-      opacity: 1;
+      background-color: $tone-4-color;
     }
 
     &.control-button-rounded:hover {

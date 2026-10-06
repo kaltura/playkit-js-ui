@@ -4,6 +4,7 @@ import style from './title.scss';
 import {withPlayer} from '../player';
 import {KalturaPlayer} from '@playkit-js/kaltura-player-js';
 import {TextWithTooltip} from '../text-with-tooltip';
+import {PLAYER_SIZE} from '../shell';
 
 const COMPONENT_NAME = 'Title';
 /**
@@ -30,8 +31,8 @@ interface TitleProps {
  * @returns {VNode|null}
  */
 const TitleComponent = (props: TitleProps): VNode | null => {
-  // Don't render anything if playback hasn't started or if showTitleOnUpperBar is false
-  if (!props.isPlaybackStarted || !props.showTitleOnUpperBar) {
+  // Don't render anything if playback hasn't started, if showTitleOnUpperBar is false or in tiny size
+  if (!props.isPlaybackStarted || !props.showTitleOnUpperBar || props.playerSize === PLAYER_SIZE.TINY) {
     return null;
   }
 
@@ -44,7 +45,7 @@ const TitleComponent = (props: TitleProps): VNode | null => {
   }
 
   return (
-    <div className={style.titleContainer} data-player-size={props.playerSize}>
+    <div className={style.titleContainer}>
       <TextWithTooltip text={title} numberOfLines={1} />
     </div>
   );

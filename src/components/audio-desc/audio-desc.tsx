@@ -74,7 +74,9 @@ const _AudioDesc = (props: any) => {
   }
 
   function shouldRender(): boolean {
-    return props.showAudioDescriptionButton && (props.advancedAudioDescriptionLanguages.length > 0 || props.audioDescriptionLanguages.length > 0);
+    const isActive = props.showAudioDescriptionButton && (props.advancedAudioDescriptionLanguages.length > 0 || props.audioDescriptionLanguages.length > 0);
+    props.onToggle?.(COMPONENT_NAME, isActive);
+    return isActive;
   }
 
   function shouldActivate(): boolean {
