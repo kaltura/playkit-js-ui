@@ -1,7 +1,7 @@
 @use 'sass:math';
 
 .player .seek-bar {
-  padding: 12px 0 12px 0;
+  padding: 10px 0 10px 0;
   cursor: pointer;
   position: relative;
   z-index: 1;
@@ -146,8 +146,7 @@
   padding: 12px 0;
   cursor: pointer;
   position: relative;
-  float: left;
-  width: calc(100% - 45px);
+  width: 100%;
   margin: 1px 0;
 
   .frame-preview {

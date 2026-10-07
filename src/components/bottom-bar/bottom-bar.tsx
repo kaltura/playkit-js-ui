@@ -25,7 +25,7 @@ const LOWER_PRIORITY_CONTROLS: string[][] = [
   ['CaptionsControl'],
   ['Cast']
 ];
-const CRL_WIDTH = 32;
+const CRL_WIDTH = 36;
 const CRL_MARGIN = 12;
 
 const TIME_DISPLAY_COMP: string = 'TimeDisplayPlaybackContainer';
@@ -121,6 +121,14 @@ class BottomBar extends Component<any, any> {
     this._isFullscreenModeChanging = false;
   }
 
+  componentDidUpdate(prevProps: any, prevState: any): void {
+    const controlsChanged = prevState.fitInControls !== this.state.fitInControls || prevState.activeControls !== this.state.activeControls;
+    const layoutChanged = prevProps.guiClientRect !== this.props.guiClientRect || prevProps.playlist !== this.props.playlist;
+    if (controlsChanged || layoutChanged) {
+      this.moveOverflowingControls();
+    }
+  }
+
   private _getControlsWidth = (): number => {
     return Array.from(this.bottomBarContainerRef.current!.childNodes).reduce((total, child: HTMLElement) => total + child.offsetWidth, 0);
   };
@@ -143,10 +151,31 @@ class BottomBar extends Component<any, any> {
     if (shouldRecalculate || barWidth !== this.getCurrentBarWidth(player.isFullscreen())) {
       player.dispatchEvent(new BottomBarClientRectEvent());
       this.setCurrentBarWidth(player.isFullscreen(), barWidth);
-      const currCrlWidth = this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.SMALL ? CRL_WIDTH + CRL_MARGIN / 2 : CRL_WIDTH + CRL_MARGIN;
       const lowerPriorityControls = LOWER_PRIORITY_CONTROLS.filter(c => this.state.activeControls[c[0]]);
-      this.filterControls(barWidth, this.getMaxControlsWidth(player.isFullscreen()), currCrlWidth, lowerPriorityControls);
+      this.filterControls(barWidth, this.getMaxControlsWidth(player.isFullscreen()), this.getControlWidth(), lowerPriorityControls);
     }
+  }
+
+  private getControlWidth(): number {
+    return this.props.guiClientRect.width <= PLAYER_BREAK_POINTS.SMALL ? CRL_WIDTH + CRL_MARGIN / 2 : CRL_WIDTH + CRL_MARGIN;
+  }
+
+  // the estimate in onBarWidthChange can be too low, so after rendering move more controls until the bar really fits
+  private moveOverflowingControls(): void {
+    const container = this.bottomBarContainerRef.current;
+    if (this._isFullscreenModeChanging || !container || container.offsetWidth === 0) return;
+
+    const overflow = this._getControlsWidth() - container.offsetWidth;
+    if (overflow <= 0) return;
+
+    const {activeControls, fitInControls} = this.state;
+    const candidates = LOWER_PRIORITY_CONTROLS.flat().filter(name => activeControls[name] && fitInControls[name]);
+    if (!candidates.length) return;
+
+    const nextFitInControls = {...fitInControls};
+    candidates.slice(0, Math.ceil(overflow / this.getControlWidth())).forEach(name => (nextFitInControls[name] = false));
+    this.props.updateControlsToMove(Object.keys(nextFitInControls).filter(name => !nextFitInControls[name]));
+    this.setState({fitInControls: nextFitInControls});
   }
 
   private getMaxControlsWidth(isFullscreen: boolean): number {
@@ -167,7 +196,10 @@ class BottomBar extends Component<any, any> {
 
   private onToggleControl = (controlName: string, isActive: boolean): void => {
     if (controlName in this.state.activeControls && this.state.activeControls[controlName] !== isActive) {
-      this.setState(state => ({activeControls: {...state.activeControls, ...{[controlName]: isActive}}}));
+      this.setState(
+        state => ({activeControls: {...state.activeControls, ...{[controlName]: isActive}}}),
+        () => this.onBarWidthChange(true)
+      );
     }
   };
 
@@ -186,7 +218,9 @@ class BottomBar extends Component<any, any> {
       this.props.updateControlsToMove(controlsToRemove);
       this.setState({fitInControls: {...this.presetControls, ...removedControls}});
     } else {
-      this.setState({fitInControls: {...this.presetControls}});
+      // restoring removed controls makes the bar wider than the width measured so far, so measure again once they render
+      const hadRemovedControls = Object.values(this.state.fitInControls).some(isFit => !isFit);
+      this.setState({fitInControls: {...this.presetControls}}, hadRemovedControls ? () => this.onBarWidthChange(true) : undefined);
       this.props.updateControlsToMove([]);
     }
   }

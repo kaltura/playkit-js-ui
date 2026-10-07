@@ -44,9 +44,20 @@
             .control-button {
               width: auto;
               height: auto;
-              padding: 0 16px;
+              margin: 0 16px;
               -webkit-filter: drop-shadow(0px 0px 8px rgba(0, 0, 0, 0.5));
               filter: drop-shadow(0px 0px 8px rgba(0, 0, 0, 0.5));
+
+              &:hover {
+                background-color: $pill-background-color;
+                box-shadow:
+                  0px 8px 60px -16px rgba(0, 0, 0, 0.2),
+                  0px 0px 0px 1px rgba(0, 0, 0, 0.2);
+                border-radius: 32px;
+              }
+              &:focus {
+                border-radius: 32px;
+              }
             }
             .icon {
               width: 64px;

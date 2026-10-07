@@ -120,7 +120,13 @@ const QualityControl = connect(mapStateToProps)(
       }
     }
 
-    if (!props.showQualityButton || !hasQualityOptions || props.isAudio) return null;
+    const shouldRender = (): boolean => {
+      const isActive = props.showQualityButton && hasQualityOptions && !props.isAudio;
+      props.onToggle?.(COMPONENT_NAME, isActive);
+      return isActive;
+    };
+
+    if (!shouldRender()) return null;
 
     const buttonBadgeType = getButtonBadgeType();
     const badgeText = getQualityBadgeText(buttonBadgeType);

@@ -1,5 +1,4 @@
 .player .bottom-bar {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
   color: #fff;
   height: auto;
   width: 100%;
@@ -25,6 +24,7 @@
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
+    gap: 8px;
     width: 100%;
     position: relative;
     z-index: 1;
@@ -33,6 +33,12 @@
       flex-shrink: 0;
       text-align: left;
       pointer-events: none;
+      background-color: $pill-background-color;
+      border-radius: #{$pill-border-radius}px;
+      padding: #{$pill-padding-vertical}px #{$pill-padding-horizontal}px;
+      &:empty {
+        padding: 0;
+      }
 
       .control-button-container:first-child {
         margin-left: 0px;
@@ -45,6 +51,14 @@
       flex-grow: 0;
       text-align: left;
       pointer-events: none;
+      margin-left: auto;
+      flex-shrink: 0;
+      background-color: $pill-background-color;
+      border-radius: #{$pill-border-radius}px;
+      padding: #{$pill-padding-vertical}px #{$pill-padding-horizontal}px;
+      &:empty {
+        padding: 0;
+      }
 
       .control-button-container:last-child {
         margin-right: 0px;
@@ -79,14 +93,26 @@
   }
 
   &.size-ty {
+    .bottom-bar-area {
+      flex: 1;
+    }
+    .bottom-bar-area .time-display {
+      display: none;
+    }
     .controls-container {
       display: block;
+      width: auto;
+      & > :not(.left-controls):not(.right-controls) {
+        display: none !important;
+      }
       .left-controls {
         display: none;
       }
       .right-controls {
         display: block;
         float: right;
+        padding: 0;
+        background: none;
       }
     }
     .control-button-container {
@@ -115,6 +141,17 @@
       opacity: 1;
       padding: 0 #{$gui-gutter}px #{$bottom-bar-bottom-gutter}px;
       transition: #{$hover-animation-time}ms opacity ease-in-out;
+    }
+
+    &.size-ty .bottom-bar:not(.hide) {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: auto;
+      margin: 0 #{$gui-gutter}px #{$bottom-bar-bottom-gutter}px;
+      padding: #{$pill-padding-vertical}px #{$pill-padding-horizontal}px;
+      background-color: $pill-background-color;
+      border-radius: #{$pill-border-radius}px;
     }
   }
 }

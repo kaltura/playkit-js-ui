@@ -113,7 +113,13 @@ const SpeedControl = connect(mapStateToProps)(
       });
     };
 
-    if (!props.showSpeedButton || !hasPlaybackRates || props.isLive) { return null};
+    const shouldRender = (): boolean => {
+      const isActive = props.showSpeedButton && hasPlaybackRates && !props.isLive;
+      props.onToggle?.(COMPONENT_NAME, isActive);
+      return isActive;
+    };
+
+    if (!shouldRender()) return null;
 
     return (
         <ButtonControl name={COMPONENT_NAME} ref={controlSpeedElement} className={props.classNames ? props.classNames.join(' ') : ''}>
