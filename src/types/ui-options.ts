@@ -38,4 +38,5 @@ export interface UIOptionsObject {
   locale?: string;
   userTheme?: UserTheme;
   isCopyProtected?: boolean;
+  customFocusOrder?: boolean;
 }
