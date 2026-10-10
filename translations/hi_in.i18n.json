@@ -21,7 +21,8 @@
       "pictureInPicture": "पिक्चर इन पिक्चर",
       "pictureInPictureExit": "पिक्चर इन पिक्चर से बाहर निकलें",
       "logo": "लोगो",
-      "seekBarSlider": "स्लाइडर के लिए प्रयास करें"
+      "seekBarSlider": "स्लाइडर के लिए प्रयास करें",
+      "skipSeekBar": "सीक-बार छोड़ें"
     },
     "unmute": {
       "unmute": "अनम्यूट करें"
@@ -90,6 +91,9 @@
     },
     "videoArea": {
       "videoPlayer": "वीडियो प्लेयर"
+    },
+    "volume": {
+      "volume_button_description": "वॉल्यूम नियंत्रण खोलने के लिए TAB दबाएँ"
     }
   }
 }

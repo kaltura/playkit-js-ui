@@ -22,6 +22,7 @@
       "pictureInPictureExit": "退出画中画",
       "logo": "标识",
       "seekBarSlider": "搜寻滑块",
+      "skipSeekBar": "跳过进度条",
       "readLess": "收起",
       "readMore": "展开",
       "secondsRewind": "倒退 {{seconds}} 秒",
@@ -101,6 +102,7 @@
       "overlay_text": "以画中画模式播放"
     },
     "volume": {
+      "volume_button_description": "按 TAB 键打开音量控制",
       "volume_slider_aria_label": "音量控制",
       "volume_slider_description": "使用箭头调整音量"
     },

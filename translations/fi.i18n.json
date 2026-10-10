@@ -22,6 +22,7 @@
       "pictureInPictureExit": "Poistu kuva-kuvassa-toiminnosta",
       "logo": "Logo",
       "seekBarSlider": "Hae liukusäädin",
+      "skipSeekBar": "Ohita hakemispalkki",
       "readLess": "Vähemmän",
       "readMore": "Lisää",
       "secondsRewind": "Hae {{seconds}} sekuntia taaksepäin",
@@ -113,6 +114,7 @@
       "eighty_percent": "kahdeksankymmentä prosenttia",
       "ninety_percent": "yhdeksänkymmentä prosenttia",
       "one_hundred_percent": "sata prosenttia",
+      "volume_button_description": "Avaa äänenvoimakkuuden säätö painamalla sarkainta",
       "volume_slider_aria_label": "Äänenvoimakkuuden säätö",
       "volume_slider_description": "Säädä äänenvoimakkuutta nuolilla"
     },

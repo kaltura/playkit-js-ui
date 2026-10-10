@@ -24,6 +24,7 @@
       "pictureInPictureExit": "Bild in Bild verlassen",
       "logo": "Logo",
       "seekBarSlider": "Suchleiste",
+      "skipSeekBar": "Suchleiste überspringen",
       "readLess": "Weniger",
       "readMore": "Mehr",
       "valuetextLabel": "von"
@@ -114,6 +115,7 @@
       "eighty_percent": "achtzig Prozent",
       "ninety_percent": "neunzig Prozent",
       "one_hundred_percent": "hundert Prozent",
+      "volume_button_description": "Drücken Sie TAB, um die Lautstärkeregelung zu öffnen",
       "volume_slider_aria_label": "Lautstärkeregelung",
       "volume_slider_description": "Verwenden Sie die Pfeile, um die Lautstärke zu regulieren"
     },

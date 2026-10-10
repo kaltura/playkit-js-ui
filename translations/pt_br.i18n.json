@@ -24,6 +24,7 @@
       "pictureInPictureExit": "Sair do Picture in picture",
       "logo": "Logo",
       "seekBarSlider": "Controle deslizante",
+      "skipSeekBar": "Ignorar barra de busca",
       "readLess": "Menos",
       "readMore": "Mais"
     },
@@ -113,6 +114,7 @@
       "eighty_percent": "oitenta por cento",
       "ninety_percent": "noventa por cento",
       "one_hundred_percent": "cem por cento",
+      "volume_button_description": "Pressione TAB para abrir controle de volume",
       "volume_slider_aria_label": "Controle de volume",
       "volume_slider_description": "Use as setas para controlar o volume"
     },
