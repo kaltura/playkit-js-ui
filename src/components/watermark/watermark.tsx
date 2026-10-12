@@ -6,6 +6,7 @@ import {withPlayer} from '../player';
 import {withEventManager} from '../../event';
 import {withLogger} from '../logger';
 import {EventType} from '@playkit-js/playkit-js';
+import {sanitizeUrl} from '../../utils';
 
 /**
  * mapping state to props
@@ -225,7 +226,7 @@ class Watermark extends Component<any, any> {
     }
     return (
       <div className={styleClass.join(' ')}>
-        <a href={this.state.urlLink} target="_blank" rel="noopener noreferrer">
+        <a href={sanitizeUrl(this.state.urlLink)}target="_blank" rel="noopener noreferrer">
           <Localizer>
             {this.state.imgWidth && this.state.imgHeight && (
               <img

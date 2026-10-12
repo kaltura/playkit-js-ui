@@ -6,7 +6,7 @@ import {withPlayer} from '../player';
 import {withLogger} from '../logger';
 import {withEventManager} from '../../event';
 import {withEventDispatcher} from '../event-dispatcher';
-import {KeyMap} from '../../utils';
+import {KeyMap, sanitizeUrl} from '../../utils';
 
 const COMPONENT_NAME = 'Logo';
 
@@ -85,7 +85,10 @@ class Logo extends Component<any, any> {
 
   _handleKeyDown = (e: KeyboardEvent): void => {
     if (e.keyCode === KeyMap.ENTER || e.keyCode === KeyMap.SPACE) {
-      window.open(this.state.urlLink, '_blank');
+      const safeUrl = sanitizeUrl(this.state.urlLink);
+      if (safeUrl) {
+        window.open(safeUrl, '_blank', 'noopener,noreferrer');
+      }
       e.preventDefault();
       this._handleOnClick();
     }
@@ -144,7 +147,7 @@ class Logo extends Component<any, any> {
           onClick={this._handleOnClick}
           onKeyDown={this._handleKeyDown}
           className={style.controlButton}
-          href={this.state.urlLink}
+          href={sanitizeUrl(this.state.urlLink)}
           aria-label={props.config.text || props.logoText}
           target="_blank"
           rel="noopener noreferrer"
