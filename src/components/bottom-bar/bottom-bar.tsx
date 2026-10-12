@@ -23,7 +23,8 @@ const LOWER_PRIORITY_CONTROLS: string[][] = [
   ['AudioDesc'],
   ['ClosedCaptions'],
   ['CaptionsControl'],
-  ['Cast']
+  ['Cast'],
+  ['Logo']
 ];
 const CRL_WIDTH = 36;
 const CRL_MARGIN = 12;
