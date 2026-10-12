@@ -6,6 +6,7 @@ import {withPlayer} from '../player';
 import {withEventManager} from '../../event';
 import {withLogger} from '../logger';
 import {EventType} from '@playkit-js/playkit-js';
+import {sanitizeUrl} from '../../utils';
 
 /**
  * mapping state to props
@@ -50,7 +51,7 @@ class Watermark extends Component<any, any> {
    */
   constructor(props: any) {
     super();
-    this.setState({show: true, urlLink: props.config.url});
+    this.setState({show: true, urlLink: sanitizeUrl(props.config.url)});
   }
 
   componentWillMount(): void {
@@ -174,7 +175,7 @@ class Watermark extends Component<any, any> {
     const {player} = this.props;
     const entryId = player.sources.id;
     if (typeof entryId === 'string') {
-      this.setState({urlLink: url.replace(ENTRY_VAR, entryId), show: true});
+      this.setState({urlLink: sanitizeUrl(url.replace(ENTRY_VAR, entryId)), show: true});
       return true;
     }
     this.props.logger.debug(`Watermark url was not replaced; entry id was not found.`);
