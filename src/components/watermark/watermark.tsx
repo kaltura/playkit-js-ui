@@ -51,7 +51,7 @@ class Watermark extends Component<any, any> {
    */
   constructor(props: any) {
     super();
-    this.setState({show: true, urlLink: props.config.url});
+    this.setState({show: true, urlLink: sanitizeUrl(props.config.url)});
   }
 
   componentWillMount(): void {
@@ -175,7 +175,7 @@ class Watermark extends Component<any, any> {
     const {player} = this.props;
     const entryId = player.sources.id;
     if (typeof entryId === 'string') {
-      this.setState({urlLink: url.replace(ENTRY_VAR, entryId), show: true});
+      this.setState({urlLink: sanitizeUrl(url.replace(ENTRY_VAR, entryId)), show: true});
       return true;
     }
     this.props.logger.debug(`Watermark url was not replaced; entry id was not found.`);
@@ -226,7 +226,7 @@ class Watermark extends Component<any, any> {
     }
     return (
       <div className={styleClass.join(' ')}>
-        <a href={sanitizeUrl(this.state.urlLink)}target="_blank" rel="noopener noreferrer">
+        <a href={this.state.urlLink} target="_blank" rel="noopener noreferrer">
           <Localizer>
             {this.state.imgWidth && this.state.imgHeight && (
               <img

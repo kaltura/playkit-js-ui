@@ -44,7 +44,7 @@ class Logo extends Component<any, any> {
    */
   constructor(props: any) {
     super(props);
-    this.setState({isUrlClickable: typeof props.config.url === 'string', urlLink: props.config.url});
+    this.setState({isUrlClickable: typeof props.config.url === 'string', urlLink: sanitizeUrl(props.config.url)});
   }
 
   /**
@@ -85,9 +85,8 @@ class Logo extends Component<any, any> {
 
   _handleKeyDown = (e: KeyboardEvent): void => {
     if (e.keyCode === KeyMap.ENTER || e.keyCode === KeyMap.SPACE) {
-      const safeUrl = sanitizeUrl(this.state.urlLink);
-      if (safeUrl) {
-        window.open(safeUrl, '_blank');
+      if (this.state.urlLink) {
+        window.open(this.state.urlLink, '_blank', 'noopener,noreferrer');
       }
       e.preventDefault();
       this._handleOnClick();
@@ -108,7 +107,7 @@ class Logo extends Component<any, any> {
     const {player} = this.props;
     const entryId = player.sources.id;
     if (typeof entryId === 'string') {
-      this.setState({urlLink: url.replace(ENTRY_VAR, entryId), isUrlClickable: true});
+      this.setState({urlLink: sanitizeUrl(url.replace(ENTRY_VAR, entryId)), isUrlClickable: true});
       return true;
     } else {
       this.props.logger.debug(`Logo url was not replaced; entry id was not found.`);
@@ -147,7 +146,7 @@ class Logo extends Component<any, any> {
           onClick={this._handleOnClick}
           onKeyDown={this._handleKeyDown}
           className={style.controlButton}
-          href={sanitizeUrl(this.state.urlLink)}
+          href={this.state.urlLink}
           aria-label={props.config.text || props.logoText}
           target="_blank"
           rel="noopener noreferrer"
