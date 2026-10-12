@@ -87,7 +87,7 @@ class Logo extends Component<any, any> {
     if (e.keyCode === KeyMap.ENTER || e.keyCode === KeyMap.SPACE) {
       const safeUrl = sanitizeUrl(this.state.urlLink);
       if (safeUrl) {
-        window.open(safeUrl, '_blank', 'noopener,noreferrer');
+        window.open(safeUrl, '_blank');
       }
       e.preventDefault();
       this._handleOnClick();

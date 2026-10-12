@@ -2,7 +2,6 @@ const ALLOWED_PROTOCOLS = ['http:', 'https:'];
 
 /**
  * Returns the url only if it resolves to an http/https url, otherwise undefined.
- * Parsing with the URL API normalizes tricks like leading whitespace or embedded tabs/newlines in the scheme.
  * @param {*} url - the url to validate
  * @returns {string | undefined} - the original url if safe, otherwise undefined
  */
