@@ -60,6 +60,7 @@ const COMPONENT_NAME = 'BottomBar';
 class BottomBar extends Component<any, any> {
   private bottomBarContainerRef: RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
   private leftControlsRef: RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
+  private rightControlsRef: RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
   private presetControls: {[controlName: string]: boolean} = {};
   private resizeObserver!: ResizeObserver;
 
@@ -130,8 +131,9 @@ class BottomBar extends Component<any, any> {
     }
   }
 
+  // the center area (BottomBarCenterControls) stretches to fill the free space, so it must not be counted as controls width
   private _getControlsWidth = (): number => {
-    return Array.from(this.bottomBarContainerRef.current!.childNodes).reduce((total, child: HTMLElement) => total + child.offsetWidth, 0);
+    return (this.leftControlsRef.current?.offsetWidth || 0) + (this.rightControlsRef.current?.offsetWidth || 0);
   };
 
   // eslint-disable-next-line require-jsdoc
@@ -270,7 +272,7 @@ class BottomBar extends Component<any, any> {
             </PlayerArea>
           </div>
           <PlayerArea shouldUpdate={true} name={'BottomBarCenterControls'} />
-          <div className={style.rightControls}>
+          <div ref={this.rightControlsRef} className={style.rightControls}>
             <PlayerArea shouldUpdate={true} name={'BottomBarRightControls'}>
               {props.rightControls &&
                 props.rightControls.map(
