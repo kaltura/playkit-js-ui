@@ -131,9 +131,13 @@ class BottomBar extends Component<any, any> {
     }
   }
 
-  // the center area (BottomBarCenterControls) stretches to fill the free space, so it must not be counted as controls width
+  // the center area (BottomBarCenterControls) stretches to fill the free space, so only the side controls and the flex gaps are counted
   private _getControlsWidth = (): number => {
-    return (this.leftControlsRef.current?.offsetWidth || 0) + (this.rightControlsRef.current?.offsetWidth || 0);
+    const container = this.bottomBarContainerRef.current;
+    const sidesWidth = (this.leftControlsRef.current?.offsetWidth || 0) + (this.rightControlsRef.current?.offsetWidth || 0);
+    if (!container) return sidesWidth;
+    const gap = parseFloat(getComputedStyle(container).columnGap) || 0;
+    return sidesWidth + gap * Math.max(container.children.length - 1, 0);
   };
 
   // eslint-disable-next-line require-jsdoc
