@@ -80,7 +80,8 @@
   position: absolute;
   z-index: 2;
   bottom: 38px;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   height: 0px;
   width: 24px;
   border-radius: 4px;
