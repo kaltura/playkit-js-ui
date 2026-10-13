@@ -211,7 +211,7 @@ class BottomBar extends Component<any, any> {
     currentControlWidth: number,
     lowerPriorityControls: string[][]
   ): void {
-    const isBreak = currentMinBreakPointWidth >= currentBarWidth;
+    const isBreak = currentMinBreakPointWidth > currentBarWidth;
     if (isBreak) {
       const controlsToRemove = filterControlsByPriority(currentMinBreakPointWidth, currentBarWidth, currentControlWidth, lowerPriorityControls);
       const removedControls = {};
