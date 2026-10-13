@@ -136,8 +136,12 @@ class BottomBar extends Component<any, any> {
     const container = this.bottomBarContainerRef.current;
     const sidesWidth = (this.leftControlsRef.current?.offsetWidth || 0) + (this.rightControlsRef.current?.offsetWidth || 0);
     if (!container) return sidesWidth;
-    const gap = parseFloat(getComputedStyle(container).columnGap) || 0;
-    return sidesWidth + gap * Math.max(container.children.length - 1, 0);
+    const containerStyle = getComputedStyle(container);
+    // the container is not a flex container in tiny mode, so there are no gaps
+    if (containerStyle.display !== 'flex') return sidesWidth;
+    const gap = parseFloat(containerStyle.columnGap) || 0;
+    const visibleItems = Array.from(container.children).filter(child => getComputedStyle(child).display !== 'none').length;
+    return sidesWidth + gap * Math.max(visibleItems - 1, 0);
   };
 
   // eslint-disable-next-line require-jsdoc
