@@ -24,8 +24,8 @@ const mapStateToProps = state => ({
 });
 
 const cvaaOverlayState = {
-  Main: 'main',
-  CustomCaptions: 'custom-captions'
+  Main: 'main' as const,
+  CustomCaptions: 'custom-captions' as const
 };
 
 type CvaaOverlayStateType = 'main' | 'custom-captions';
@@ -50,10 +50,16 @@ const COMPONENT_NAME = 'CVAAOverlay';
 })
 class CVAAOverlay extends Component<any, any> {
 
-  state = {
+  state: {
+    activeWindow: CvaaOverlayStateType;
+    customTextStyle: any;
+    customPresetStyle: any;
+    restoreCustomCaptionFocus: boolean;
+  } = {
     activeWindow: cvaaOverlayState.Main,
     customTextStyle: this.props.player.textStyle,
-    customPresetStyle: null
+    customPresetStyle: null,
+    restoreCustomCaptionFocus: false
   };
 
   /**
@@ -73,25 +79,13 @@ class CVAAOverlay extends Component<any, any> {
   }
 
   customOrEditRef: HTMLElement | null = null;
-  private focusOnNextUpdate = false;
-  
+
   setCustomOrEditRef = (el: HTMLElement | null) => {
     this.customOrEditRef = el;
   };
 
-  focusCustomOrEdit = () => {
-    this.focusOnNextUpdate = true;
-  };
-
   componentDidMount() {
     this.props.setIsModal(true);
-  }
-
-  componentDidUpdate() {
-    if (this.focusOnNextUpdate) {
-      this.focusOnNextUpdate = false;
-      focusElement(this.customOrEditRef, 20);
-    }
   }
 
   componentWillUnmount() {
@@ -108,7 +102,13 @@ class CVAAOverlay extends Component<any, any> {
    * @memberof CVAAOverlay
    */
   transitionToState = (stateName: CvaaOverlayStateType): void => {
-    this.setState({activeWindow: stateName});
+    const restoreCustomCaptionFocus = stateName === cvaaOverlayState.Main;
+    this.setState({activeWindow: stateName, restoreCustomCaptionFocus}, () => {
+      if (stateName === cvaaOverlayState.Main) {
+        focusElement(this.customOrEditRef, 20);
+        this.setState({restoreCustomCaptionFocus: false});
+      }
+    });
   };
 
   /**
@@ -201,7 +201,7 @@ class CVAAOverlay extends Component<any, any> {
   onOverlayKeyDown = (e: KeyboardEvent) => {
     if (e.code === KeyCode.Escape) {
       if (this.state.activeWindow === cvaaOverlayState.CustomCaptions) {
-        this.setState({ activeWindow: cvaaOverlayState.Main });
+        this.transitionToState(cvaaOverlayState.Main);
         e.stopPropagation();
         return;
       }
@@ -213,14 +213,13 @@ class CVAAOverlay extends Component<any, any> {
     }
   };
 
-  
   /**
    * render component
    * @param {*} props - component props
    * @returns {React$Element} - component element
    * @memberof CVAAOverlay
    */
-  render(props: any): VNode<any> {    
+  render(props: any): VNode<any> {
     props.clearAccessibleChildren();
     const isMainOverlay = this.state.activeWindow === cvaaOverlayState.Main;
     const titleId = `captions_title_${Utils.Generator.guid()}`;
@@ -233,10 +232,10 @@ class CVAAOverlay extends Component<any, any> {
         addAccessibleChild={this.props.addAccessibleChild}
         onClose={() => {
             if (this.state.activeWindow === cvaaOverlayState.CustomCaptions) {
-              // Transition back to the Main component
-              this.setState({ activeWindow: cvaaOverlayState.Main });
+              // Transition back to the Main component and restore focus to Set custom caption button
+              this.transitionToState(cvaaOverlayState.Main);
             } else {
-              // Close the entire overlay
+              // Close the entire overlay and restore focus to player button badge
               props.onClose();
               this.focusPlayerButtonBadge();
             }
@@ -258,6 +257,7 @@ class CVAAOverlay extends Component<any, any> {
             customPresetStyle={this.state.customPresetStyle}
             setInitialCustomStyle={this.setInitialCustomStyle}
             saveCustomPresetStyle={this.saveCustomPresetStyle}
+            suppressActivePresetFocus={this.state.restoreCustomCaptionFocus}
           />
         ) : (
           <CustomCaptionsWindow
@@ -269,7 +269,6 @@ class CVAAOverlay extends Component<any, any> {
             customTextStyle={this.state.customTextStyle}
             transitionToState={this.transitionToState}
             cvaaOverlayState={cvaaOverlayState}
-            focusCustomOrEdit={this.focusCustomOrEdit}
             saveCustomPresetStyle={this.saveCustomPresetStyle}
           />
         )}

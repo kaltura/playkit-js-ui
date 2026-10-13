@@ -307,6 +307,7 @@ class MainCaptionsWindow extends Component<any, any> {
               onKeyDown={(e: KeyboardEvent) => this.onPresetsKeyDown(e, index)}
               setRef={(el: HTMLDivElement | null) => {this.presetRefs[index] = el;}}
               ariaLabel={preset.ariaLabel}
+              suppressActiveFocus={props.suppressActivePresetFocus}
             >
               {preset.label}
             </SampleCaptionsStyleButton>
@@ -321,6 +322,7 @@ class MainCaptionsWindow extends Component<any, any> {
               isActive={isCustomActive}
               tabIndex={0}
               ariaLabel={this.props.sampleCustom}
+              suppressActiveFocus={props.suppressActivePresetFocus}
             >
               <span className={style.customButtonText}>
                 Custom captions

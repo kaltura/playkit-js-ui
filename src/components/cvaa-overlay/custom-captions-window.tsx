@@ -63,13 +63,8 @@ class CustomCaptionsWindow extends Component<any, any> {
       e.stopPropagation();
       this.changeCaptionsStyle();
       this.transitionToState();
-      this.focusCustomOrEdit();                
     }
   };
-  
-  focusCustomOrEdit(): void {
-    this.props.focusCustomOrEdit?.();
-  }
 
   /**
    * render component
@@ -203,7 +198,6 @@ class CustomCaptionsWindow extends Component<any, any> {
               onClick={() => {
                 this.changeCaptionsStyle();
                 this.transitionToState();
-                this.focusCustomOrEdit();
               }}
               onKeyDown={this.onKeyDown}
               className={[style.btn, style.btnBranded, style.btnBlock].join(' ')}
