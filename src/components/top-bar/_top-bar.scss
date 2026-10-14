@@ -121,8 +121,7 @@
 
   .right-controls {
     margin: #{$top-bar-top-bottom-gutter}px #{$gui-small-gutter}px #{$top-bar-top-bottom-gutter}px 0;
-    &:empty,
-    &.empty {
+    &:empty {
       margin: 0;
     }
   }
