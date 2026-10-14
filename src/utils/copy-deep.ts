@@ -1,3 +1,5 @@
+import {isUnsafeKey} from './unsafe-key';
+
 /**
  * @param {any} data - The data to copy.
  * @returns {any} - The copied data.
@@ -12,8 +14,18 @@ function copyDeep(data: any): any {
       }
     });
   } else if (typeof data === 'object') {
-    node = Object.assign({}, data);
-    Object.keys(node).forEach(key => {
+    node = {};
+    const source = data || {};
+    Object.getOwnPropertySymbols(source).forEach(symbol => {
+      if (Object.prototype.propertyIsEnumerable.call(source, symbol)) {
+        node[symbol] = source[symbol];
+      }
+    });
+    Object.keys(source).forEach(key => {
+      if (isUnsafeKey(key)) {
+        return;
+      }
+      node[key] = data[key];
       if (typeof node[key] === 'object' || (Array.isArray(node[key]) && node[key].length > 0)) {
         node[key] = copyDeep(node[key]);
       }

@@ -1,3 +1,5 @@
+import {isUnsafeKey} from './unsafe-key';
+
 /**
  * @param {any} item - The item to check.
  * @returns {boolean} - Whether the item is an object.
@@ -18,6 +20,9 @@ function mergeDeep(target: any, ...sources: any): any {
   const source = sources.shift();
   if (isObject(target) && isObject(source)) {
     for (const key in source) {
+      if (!Object.prototype.hasOwnProperty.call(source, key) || isUnsafeKey(key)) {
+        continue;
+      }
       if (isObject(source[key])) {
         if (!target[key]) Object.assign(target, {[key]: {}});
         mergeDeep(target[key], source[key]);
