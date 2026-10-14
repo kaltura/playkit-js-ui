@@ -15,7 +15,13 @@ function copyDeep(data: any): any {
     });
   } else if (typeof data === 'object') {
     node = {};
-    Object.keys(data || {}).forEach(key => {
+    const source = data || {};
+    Object.getOwnPropertySymbols(source).forEach(symbol => {
+      if (Object.prototype.propertyIsEnumerable.call(source, symbol)) {
+        node[symbol] = source[symbol];
+      }
+    });
+    Object.keys(source).forEach(key => {
       if (isUnsafeKey(key)) {
         return;
       }

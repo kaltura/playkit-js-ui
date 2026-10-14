@@ -32,6 +32,13 @@ describe('prototype pollution protection', () => {
     expect(copy.a).to.equal(1);
   });
 
+  it('copyDeep should preserve own enumerable symbol properties', () => {
+    const sym = Symbol('meta');
+    const copy = copyDeep({a: 1, [sym]: 'value'});
+    expect(copy[sym]).to.equal('value');
+    expect(copy.a).to.equal(1);
+  });
+
   it('mergeDeep should still merge regular nested keys', () => {
     const result = mergeDeep({a: {b: 1}}, {a: {c: 2}, d: 3});
     expect(result).to.deep.equal({a: {b: 1, c: 2}, d: 3});
