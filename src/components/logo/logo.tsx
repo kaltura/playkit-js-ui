@@ -139,7 +139,7 @@ class Logo extends Component<any, any> {
     }
     return (
       <div
-        className={[style.controlButtonContainer, !props.config.url || !this.state.isUrlClickable ? style.emptyUrl : ''].join(' ')}
+        className={[style.controlButtonContainer, style.logoContainer, !props.config.url || !this.state.isUrlClickable ? style.emptyUrl : ''].join(' ')}
         title={props.config.text}>
         {this.state.isUrlClickable ? (
         <a
