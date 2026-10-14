@@ -1,6 +1,7 @@
 import style from '../../styles/style.scss';
 import {h, Component, VNode} from 'preact';
 import {connect} from 'react-redux';
+import {withText} from 'preact-i18n';
 import {KeyMap} from '../../utils/key-map';
 import {Text} from 'preact-i18n';
 import {withPlayer} from '../player';
@@ -32,6 +33,7 @@ const COMPONENT_NAME = 'LiveTag';
 @withPlayer
 @withLogger(COMPONENT_NAME)
 @withEventDispatcher(COMPONENT_NAME)
+@withText({liveText: 'controls.live'})
 class LiveTag extends Component<any, any> {
   /**
    * returns a boolean to detect if player is on live edge
@@ -51,7 +53,8 @@ class LiveTag extends Component<any, any> {
    * @memberof LiveTag
    */
   onKeyDown = (e: KeyboardEvent): void => {
-    if (e.keyCode === KeyMap.ENTER) {
+    if (e.keyCode === KeyMap.ENTER || e.keyCode === KeyMap.SPACE) {
+      e.preventDefault();
       this.onClick();
     }
   };
@@ -85,7 +88,7 @@ class LiveTag extends Component<any, any> {
     if (props.isDvr && !this.isOnLiveEdge()) tagStyleClass.push(style.nonLivePlayhead);
 
     return (
-      <div tabIndex={0} className={tagStyleClass.join(' ')} onClick={this.onClick} onKeyDown={this.onKeyDown}>
+      <div role="button" aria-label={props.liveText} tabIndex={0} className={tagStyleClass.join(' ')} onClick={this.onClick} onKeyDown={this.onKeyDown}>
         <Text id={'controls.live'} />
       </div>
     );
