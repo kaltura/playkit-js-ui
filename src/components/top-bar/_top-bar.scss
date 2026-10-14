@@ -59,9 +59,6 @@
     text-align: left;
     margin: #{$top-bar-top-bottom-gutter}px #{$gui-gutter}px #{$top-bar-top-bottom-gutter}px 32px;
     pointer-events: none;
-    background-color: $pill-background-color;
-    border-radius: #{$pill-border-radius}px;
-    padding: #{$pill-padding-vertical}px #{$pill-padding-horizontal}px;
     height: fit-content;
     &:empty {
       margin: 0;
@@ -72,7 +69,6 @@
       width: 32px;
       height: 32px;
     }
-
 
     .control-button-container:not(.upper-bar-icon) {
       margin: 0 6px;
