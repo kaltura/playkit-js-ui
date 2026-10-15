@@ -2,6 +2,7 @@ import {h, Component, toChildArray, VNode} from 'preact';
 import {connect} from 'react-redux';
 import {PlayerArea} from '../../components/player-area';
 import style from '../../styles/style.scss';
+import {attachFocusOrder} from '../../utils/focus-order';
 
 /**
  * mapping state to props
@@ -9,7 +10,8 @@ import style from '../../styles/style.scss';
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  guiStyles: state.shell.layoutStyles.gui
+  guiStyles: state.shell.layoutStyles.gui,
+  customFocusOrder: state.config.customFocusOrder
 });
 
 /**
@@ -21,6 +23,33 @@ const mapStateToProps = state => ({
 @connect(mapStateToProps)
 class GuiArea extends Component<any, any> {
   _ref!: HTMLDivElement;
+  private _detachFocusOrder?: () => void;
+
+  // eslint-disable-next-line require-jsdoc
+  public componentDidMount(): void {
+    this._syncFocusOrder();
+  }
+
+  // eslint-disable-next-line require-jsdoc
+  public componentDidUpdate(): void {
+    this._syncFocusOrder();
+  }
+
+  // eslint-disable-next-line require-jsdoc
+  public componentWillUnmount(): void {
+    this._detachFocusOrder?.();
+    this._detachFocusOrder = undefined;
+  }
+
+  // eslint-disable-next-line require-jsdoc
+  private _syncFocusOrder(): void {
+    if (this.props.customFocusOrder && this._ref && !this._detachFocusOrder) {
+      this._detachFocusOrder = attachFocusOrder(this._ref);
+    } else if (!this.props.customFocusOrder && this._detachFocusOrder) {
+      this._detachFocusOrder();
+      this._detachFocusOrder = undefined;
+    }
+  }
 
   /**
    * this component should not render itself when player object changes.
@@ -30,7 +59,11 @@ class GuiArea extends Component<any, any> {
    * @returns {void}
    */
   shouldComponentUpdate(nextProps: any, nextState: any): boolean {
-    return nextProps.guiStyles !== this.props.guiStyles || nextState.render !== this.state.render;
+    return (
+      nextProps.guiStyles !== this.props.guiStyles ||
+      nextProps.customFocusOrder !== this.props.customFocusOrder ||
+      nextState.render !== this.state.render
+    );
   }
 
   /**
