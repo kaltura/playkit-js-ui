@@ -49,6 +49,7 @@
     background-color: $pill-background-color;
     border-radius: #{$pill-border-radius}px;
     padding: #{$pill-padding-vertical}px #{$pill-padding-horizontal}px;
+    line-height: normal;
     &:empty {
       margin: 0;
       padding: 0;
