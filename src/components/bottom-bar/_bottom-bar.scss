@@ -28,6 +28,7 @@
     width: 100%;
     position: relative;
     z-index: 1;
+    line-height: normal;
 
     .left-controls {
       flex-shrink: 0;
@@ -102,6 +103,7 @@
     .controls-container {
       display: block;
       width: auto;
+      line-height: normal;
       & > :not(.left-controls):not(.right-controls) {
         display: none !important;
       }
