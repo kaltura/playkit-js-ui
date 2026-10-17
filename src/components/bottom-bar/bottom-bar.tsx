@@ -59,6 +59,7 @@ const COMPONENT_NAME = 'BottomBar';
 class BottomBar extends Component<any, any> {
   private bottomBarContainerRef: RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
   private leftControlsRef: RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
+  private rightControlsRef: RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
   private presetControls: {[controlName: string]: boolean} = {};
   private resizeObserver!: ResizeObserver;
 
@@ -129,8 +130,17 @@ class BottomBar extends Component<any, any> {
     }
   }
 
+  // the center area (BottomBarCenterControls) stretches to fill the free space, so only the side controls and the flex gaps are counted
   private _getControlsWidth = (): number => {
-    return Array.from(this.bottomBarContainerRef.current!.childNodes).reduce((total, child: HTMLElement) => total + child.offsetWidth, 0);
+    const container = this.bottomBarContainerRef.current;
+    const sidesWidth = (this.leftControlsRef.current?.offsetWidth || 0) + (this.rightControlsRef.current?.offsetWidth || 0);
+    if (!container) return sidesWidth;
+    const containerStyle = getComputedStyle(container);
+    // the container is not a flex container in tiny mode, so there are no gaps
+    if (containerStyle.display !== 'flex') return sidesWidth;
+    const gap = parseFloat(containerStyle.columnGap) || 0;
+    const visibleItems = Array.from(container.children).filter(child => getComputedStyle(child).display !== 'none').length;
+    return sidesWidth + gap * Math.max(visibleItems - 1, 0);
   };
 
   // eslint-disable-next-line require-jsdoc
@@ -269,7 +279,7 @@ class BottomBar extends Component<any, any> {
             </PlayerArea>
           </div>
           <PlayerArea shouldUpdate={true} name={'BottomBarCenterControls'} />
-          <div className={style.rightControls}>
+          <div ref={this.rightControlsRef} className={style.rightControls}>
             <PlayerArea shouldUpdate={true} name={'BottomBarRightControls'}>
               {props.rightControls &&
                 props.rightControls.map(
