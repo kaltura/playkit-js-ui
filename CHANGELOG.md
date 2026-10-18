@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.83.24 (2026-10-18)
+
+
+### Bug Fixes
+
+* **FEC-15137:** Player v7 | On mediaspace with theming off, bottom bar buttons are not centered inside the background. ([#1223](https://github.com/kaltura/playkit-js-ui/issues/1223)) ([73e4528](https://github.com/kaltura/playkit-js-ui/commit/73e4528))
+
+
+
 ### 0.83.23 (2026-10-01)
 
 
