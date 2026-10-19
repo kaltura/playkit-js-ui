@@ -72,7 +72,7 @@ export const KeyCode = {
  * @returns {void}
  */
 export function setEnv(env: any): void {
-  KeyMap.SEMI_COLON = env.browser.name.toLowerCase() === 'firefox' ? 59 : 186;
+  KeyMap.SEMI_COLON = (env.browser?.name || '').toLowerCase() === 'firefox' ? 59 : 186;
 }
 
 /**

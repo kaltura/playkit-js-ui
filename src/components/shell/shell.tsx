@@ -276,8 +276,8 @@ class Shell extends Component<any, any> {
   componentWillMount() {
     const {player, forceTouchUI} = this.props;
     this._environmentClasses = [
-      `${__CSS_MODULE_PREFIX__}-${player.env.os.name.replace(/ /g, '-')}`,
-      `${__CSS_MODULE_PREFIX__}-${player.env.browser.name.replace(/ /g, '-')}`
+      `${__CSS_MODULE_PREFIX__}-${(player.env.os?.name || 'unknown').replace(/ /g, '-')}`,
+      `${__CSS_MODULE_PREFIX__}-${(player.env.browser?.name || 'unknown').replace(/ /g, '-')}`
     ];
     const {isIPadOS, isTablet, isMobile} = player.env;
     this.props.updateIsMobile(isIPadOS || isTablet || isMobile || forceTouchUI);
