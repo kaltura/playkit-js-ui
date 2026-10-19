@@ -24,6 +24,8 @@ const IconType = {
   SpeedUp: 'speed-up',
   Audio: 'audio',
   ArrowDown: 'arrow-down',
+  ChevronLeft: 'chevron-left',
+  ChevronRight: 'chevron-right',
   StartOver: 'start-over',
   SeekEnd: 'seek-end',
   Rewind: 'rewind',
@@ -268,6 +270,12 @@ class Icon extends Component<any, any> {
 
         case IconType.ArrowDown:
           return <i className={[style.icon, style.iconArrowDown].join(' ')} />;
+
+        case IconType.ChevronLeft:
+          return <i className={[style.icon, style.iconChevronLeft].join(' ')} />;
+
+        case IconType.ChevronRight:
+          return <i className={[style.icon, style.iconChevronRight].join(' ')} />;
 
         case IconType.StartOver:
           return <i className={[style.icon, style.iconStartOver].join(' ')} />;
