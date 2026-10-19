@@ -50,8 +50,7 @@ const COMPONENT_NAME = 'PlayPause';
   startOverText: 'controls.startOver',
   pauseText: 'controls.pause',
   stopText: 'controls.stop',
-  playText: 'controls.play',
-  title: 'controls.title'
+  playText: 'controls.play'
 })
 class PlayPause extends Component<any, any> {
   private _playPauseButtonRef?: RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
@@ -108,7 +107,7 @@ class PlayPause extends Component<any, any> {
 
     const controlButtonClass = this.props.isPlayingAdOrPlayback ? [style.controlButton, style.isPlaying].join(' ') : style.controlButton;
     const isStartOver = props.isPlaybackEnded && !this.props.adBreak;
-    const entryName = `${props.title}: ${props.entryName ?? ''}`;
+    const entryName = props.entryName;
     const showPauseButton = !this.props.player.isLive() || this.props.player.isDvr();
 
     let playbackStateText;
@@ -121,6 +120,7 @@ class PlayPause extends Component<any, any> {
     }
 
     const labelText = isStartOver ? this.props.startOverText : playbackStateText;
+    const ariaLabel = entryName ? `${labelText}, ${entryName}` : labelText;
 
     return (
       <ButtonControl name={COMPONENT_NAME}>
@@ -128,7 +128,7 @@ class PlayPause extends Component<any, any> {
           <Tooltip label={labelText}>
             <Button
               tabIndex="0"
-              aria-label={`${labelText}, ${entryName}`}
+              aria-label={ariaLabel}
               className={controlButtonClass}
               onClick={this.togglePlayPause}
               onKeyDown={this.handleKeyDown}>
