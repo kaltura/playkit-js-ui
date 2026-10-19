@@ -122,6 +122,15 @@ export function isEsc(e: KeyboardEvent): boolean {
 }
 
 /**
+ * Screen readers (e.g. JAWS) send Alt+ArrowUp instead of Escape to close a popup.
+ * @param {KeyboardEvent} e - Keyboard event
+ * @returns {boolean} - whether the given event is Alt + the arrow up key
+ */
+export function isAltArrowUp(e: KeyboardEvent): boolean {
+  return e.altKey && (isKeyEqual(e.code, KeyCode.ArrowUp) || isKeyEqual(e.key, KeyCode.ArrowUp) || e.keyCode === KeyMap.UP);
+}
+
+/**
  * @param {string} inputKeyCode - input key code
  * @param {string} targetKeyCode - target key code
  * @returns {boolean} - whether the given key code is equals to the input key

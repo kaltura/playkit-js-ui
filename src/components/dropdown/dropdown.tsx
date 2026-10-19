@@ -3,7 +3,7 @@ import {h, Component, VNode} from 'preact';
 import {connect} from 'react-redux';
 import {Menu} from '../menu';
 import {Icon, IconType} from '../icon';
-import {KeyMap} from '../../utils/key-map';
+import {KeyMap, isAltArrowUp} from '../../utils/key-map';
 import {getQualityBadgeText} from '../../utils/quality-badge';
 
 /**
@@ -28,6 +28,7 @@ const COMPONENT_NAME = 'DropDown';
 @connect(mapStateToProps)
 class DropDown extends Component<any, any> {
   _el!: HTMLDivElement;
+  _comboboxEl: HTMLElement | null = null;
 
   /**
    * before component mounted, set initial internal state
@@ -94,6 +95,14 @@ class DropDown extends Component<any, any> {
    * @memberof DropDown
    */
   onKeyDown = (e: KeyboardEvent): void => {
+    if (isAltArrowUp(e)) {
+      if (this.state.dropMenuActive) {
+        this.onClose(e, true);
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      return;
+    }
     switch (e.keyCode) {
       case KeyMap.ENTER:
         this.onClick();
@@ -104,7 +113,7 @@ class DropDown extends Component<any, any> {
         break;
       case KeyMap.ESC:
         if (this.state.dropMenuActive) {
-          this.onClose();
+          this.onClose(e, true);
           e.preventDefault();
           e.stopPropagation();
         }
@@ -116,11 +125,18 @@ class DropDown extends Component<any, any> {
    * listener function from Menu component to close the dropdown menu.
    * set the internal state of dropMenuActive to false.
    *
+   * @param {KeyboardEvent} [e] - the keyboard event that triggered the close
+   * @param {boolean} [byKeyboard] - whether the menu was closed using the keyboard
    * @returns {void}
    * @memberof DropDown
    */
-  onClose = (): void => {
-    this.setState({dropMenuActive: false});
+  onClose = (e?: KeyboardEvent, byKeyboard?: boolean): void => {
+    this.setState({dropMenuActive: false}, () => {
+      // The menu item that had focus is removed, so keep focus on the dropdown instead of losing it
+      if (byKeyboard) {
+        this._comboboxEl?.focus();
+      }
+    });
   };
 
   /**
@@ -175,6 +191,7 @@ class DropDown extends Component<any, any> {
         <div
           tabIndex={props.tabbable ? 0 : -1}
           ref={el => {
+            this._comboboxEl = el;
             if (props.pushRef) {
               props.pushRef(el);
             }
