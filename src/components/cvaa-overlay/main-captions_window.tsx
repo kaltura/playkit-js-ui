@@ -17,7 +17,8 @@ const translates = (props: any) => ({
   sampleNightMode: <Text id={'cvaa.sample_night_mode'} />,
   sampleCustom: <Text id={'cvaa.sample_custom'} />,
   setCustomCaption: <Text id={'cvaa.set_custom_caption'} />,
-  captionPreview: <Text id={'cvaa.caption_preview'} />
+  captionPreview: <Text id={'cvaa.caption_preview'} />,
+  captionsPresets: <Text id={'cvaa.captions_presets'} />
 });
 
 /**
@@ -293,7 +294,7 @@ class MainCaptionsWindow extends Component<any, any> {
         <h2 className={style.title} id={this.props.captionsTitleId}>
           {this.props.title}
         </h2>
-        <div role="radiogroup" aria-labelledby={this.props.captionsTitleId}>
+        <div role="radiogroup" aria-label={this.props.captionsPresets}>
           {this.presets.map((preset, index) => (
             <SampleCaptionsStyleButton
               key={preset.key}
