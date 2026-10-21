@@ -200,6 +200,10 @@ class CVAAOverlay extends Component<any, any> {
 
   onOverlayKeyDown = (e: KeyboardEvent) => {
     if (e.code === KeyCode.Escape) {
+      // The overlay handles keys in the capture phase, so let an open dropdown close itself first
+      if ((e.target as HTMLElement).closest?.('[role="combobox"][aria-expanded="true"]')) {
+        return;
+      }
       if (this.state.activeWindow === cvaaOverlayState.CustomCaptions) {
         this.transitionToState(cvaaOverlayState.Main);
         e.stopPropagation();
