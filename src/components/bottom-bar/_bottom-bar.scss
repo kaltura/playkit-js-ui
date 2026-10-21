@@ -182,4 +182,8 @@
       }
     }
   }
+
+  &.nav .bottom-bar .bottom-bar-area:focus-within {
+    z-index: 2;
+  }
 }
