@@ -3,6 +3,7 @@ import {h, Component, VNode} from 'preact';
 import {withText, Text} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {bindActions, KeyMap} from '../../utils';
+import {isEnter, isSpace} from '../../utils/key-map';
 import {actions} from '../../reducers/settings';
 import {AudioMenu, CaptionsMenu, QualityMenu, SmartContainer, SpeedMenu, CVAAOverlay, getLabelBadgeType} from '../../components';
 import {default as Icon, IconType} from '../icon';
@@ -239,6 +240,20 @@ class Settings extends Component<any, any> {
   };
 
   /**
+   * on button key down handler
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @returns {void}
+   * @memberof Settings
+   */
+  onButtonKeyDown = (e: KeyboardEvent): void => {
+    if (isEnter(e) || isSpace(e)) {
+      e.preventDefault();
+      this.onControlButtonClick(e, true);
+    }
+  };
+
+  /**
    * set button reference
    *
    * @param {HTMLButtonElement} ref - button reference
@@ -328,7 +343,8 @@ class Settings extends Component<any, any> {
               showQualityMenu? style.buttonBadge : '',
               this.state.smartContainerOpen ? style.active : ''
             ].join(' ')}
-            onClick={this.onControlButtonClick}>
+            onClick={this.onControlButtonClick}
+            onKeyDown={this.onButtonKeyDown}>
             <Icon type={IconType.Settings} />
             {showQualityMenu && badgeText ? <span className={style.qualityControlBadge}>{badgeText}</span> : undefined}
           </Button>
