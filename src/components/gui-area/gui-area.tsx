@@ -41,10 +41,15 @@ class GuiArea extends Component<any, any> {
     this._detachFocusOrder = undefined;
   }
 
+  private _getRoot(): HTMLElement {
+    return (this._ref && this._ref.closest<HTMLElement>('#player-gui')) || this._ref;
+  }
+
   // eslint-disable-next-line require-jsdoc
   private _syncFocusOrder(): void {
-    if (this.props.customFocusOrder && this._ref && !this._detachFocusOrder) {
-      this._detachFocusOrder = attachFocusOrder(this._ref);
+    const root = this._getRoot();
+    if (this.props.customFocusOrder && root && !this._detachFocusOrder) {
+      this._detachFocusOrder = attachFocusOrder(root);
     } else if (!this.props.customFocusOrder && this._detachFocusOrder) {
       this._detachFocusOrder();
       this._detachFocusOrder = undefined;
@@ -97,7 +102,7 @@ class GuiArea extends Component<any, any> {
           <PlayerArea name={'GuiArea'}>{guiElements}</PlayerArea>
         </div>
         {/*@ts-expect-error - This expression is not callable. Type 'never' has no call signatures.*/}
-        {typeof barsAndInteractive === 'function' ? barsAndInteractive({containerRef: this._ref}) : barsAndInteractive}
+        {typeof barsAndInteractive === 'function' ? barsAndInteractive({containerRef: this._getRoot()}) : barsAndInteractive}
       </div>
     );
   }
