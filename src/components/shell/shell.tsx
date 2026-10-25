@@ -295,7 +295,7 @@ class Shell extends Component<any, any> {
     const {player, eventManager} = this.props;
     document.addEventListener('keydown', this.onDocumentKeyDownCapture, true);
     eventManager.listen(window, 'resize', debounce(this._onWindowResize, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
-    eventManager.listen(document, 'scroll', debounce(this._updatePlayerClientRect, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
+    eventManager.listen(document, 'scroll', debounce(this._updatePlayerClientRect, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY, false));
     eventManager.listen(document, 'click', debounce(this._handleClickOutside, ON_PLAYER_RECT_CHANGE_DEBOUNCE_DELAY));
     this._playerResizeWatcher = new ResizeWatcher();
     this._playerResizeWatcher.init(document.getElementById(this.props.targetId)!);
