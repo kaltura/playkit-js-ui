@@ -321,7 +321,8 @@ class Settings extends Component<any, any> {
             ref={this.setButtonRef}
             tabIndex="0"
             aria-label={buttonAriaLabel}
-            aria-haspopup="true"
+            // on some host pages iOS VoiceOver could not focus or activate this button while it had aria-haspopup
+            aria-haspopup={props.isMobile ? undefined : 'true'}
             aria-expanded={this.state.smartContainerOpen}
             className={[
               style.controlButton,
