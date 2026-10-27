@@ -7,6 +7,7 @@ const FOCUS_GROUPS: string[] = [
   `.${style.bottomBar} .${style.bottomBarArea}`,
   `.${style.bottomBar} .${style.controlsContainer}`,
   `.${style.bottomBar} .${style.rightControls}`,
+  `.${style.videoArea}`,
   `.${style.interactiveArea}`,
   `.${style.topBar}`
 ];
