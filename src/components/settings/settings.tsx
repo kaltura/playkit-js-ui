@@ -314,6 +314,7 @@ class Settings extends Component<any, any> {
     const badgeText = getQualityBadgeText(buttonBadgeType);
 
     const buttonAriaLabel = `${props.buttonLabel} ${showQualityMenu ? this.getQualityLabel(buttonBadgeType) : ''} `;
+    const hasPopup = props.isMobile || props.isSmallSize ? undefined : 'true';
     return (
       <ButtonControl name={COMPONENT_NAME} ref={c => (c ? (this._controlSettingsElement = c) : undefined)}>
         <Tooltip label={props.buttonLabel}>
@@ -322,7 +323,7 @@ class Settings extends Component<any, any> {
             tabIndex="0"
             aria-label={buttonAriaLabel}
             // on some host pages iOS VoiceOver could not focus or activate this button while it had aria-haspopup
-            aria-haspopup={props.isMobile ? undefined : 'true'}
+            aria-haspopup={hasPopup}
             aria-expanded={this.state.smartContainerOpen}
             className={[
               style.controlButton,
