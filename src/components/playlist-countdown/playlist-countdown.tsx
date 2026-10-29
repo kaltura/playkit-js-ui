@@ -66,6 +66,7 @@ class PlaylistCountdown extends Component<any, any> {
       props.playlist.next &&
       props.playlist.next.sources &&
       props.player.playlist.countdown.showing &&
+      typeof props.player.playlist.countdown.timeToShow === 'number' &&
       (props.player.playlist.options.autoContinue || props.player.playlist.options.loop)
     );
   }
