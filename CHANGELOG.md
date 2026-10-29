@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.83.25 (2026-10-29)
+
+
+### Bug Fixes
+
+* **ADA-3427:** Remove aria-haspopup from Settings button on mobile or small sizes player ([#1233](https://github.com/kaltura/playkit-js-ui/issues/1233)) ([dfe1995](https://github.com/kaltura/playkit-js-ui/commit/dfe1995))
+
+
+
 ### 0.83.24 (2026-10-18)
 
 
