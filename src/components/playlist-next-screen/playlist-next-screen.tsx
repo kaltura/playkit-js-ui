@@ -4,7 +4,7 @@ import {h, Component, VNode} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {connect} from 'react-redux';
 import {default as Icon, IconType} from '../icon';
-import {KeyMap, bindActions} from '../../utils';
+import {KeyMap, bindActions, hasTimeToShow} from '../../utils';
 import {withPlayer} from '../player';
 import {withLogger} from '../logger';
 import {actions} from '../../reducers/playlist';
@@ -55,6 +55,18 @@ class PlaylistNextScreen extends Component<any, any> {
   }
 
   /**
+   * if mounted while the screen should already be shown, then focus for keyboard a11y and start the countdown
+   * @returns {void}
+   * @memberof PlaylistNextScreen
+   */
+  componentDidMount(): void {
+    if (this._shouldRender(this.props)) {
+      this.focusElement && this.focusElement.focus();
+      this._startCountdown();
+    }
+  }
+
+  /**
    * after component updated, if was renderd and now should then focus for keyboard a11y and start the countdown
    * @param {Object} previousProps - previous props
    * @returns {void}
@@ -69,6 +81,11 @@ class PlaylistNextScreen extends Component<any, any> {
     } else if (wasRendered && !isRendered) {
       this._clearCountdownTimer();
     }
+    if (isRendered && !previousProps.countdownCanceled && this.props.countdownCanceled) {
+      // the cancel button is removed on cancel, so give the focus back to the poster
+      this.focusElement && this.focusElement.focus();
+    }
+    // PlaylistCountdown resets this flag while playing, but it stops updating once playback ended, so a cancel lasts until the replay
     if (previousProps.isPlaybackEnded && !this.props.isPlaybackEnded && this.props.countdownCanceled) {
       this.props.updatePlaylistCountdownCanceled(false);
     }
@@ -92,7 +109,7 @@ class PlaylistNextScreen extends Component<any, any> {
    */
   _isCountdownMode(props: any): boolean {
     const {options, countdown} = props.player.playlist;
-    return !!(countdown.showing && typeof countdown.timeToShow !== 'number' && (options.autoContinue || options.loop));
+    return !!(countdown.showing && !hasTimeToShow(countdown.timeToShow) && (options.autoContinue || options.loop));
   }
 
   /**
@@ -174,7 +191,7 @@ class PlaylistNextScreen extends Component<any, any> {
   };
 
   /**
-   * on key down handler
+   * poster key down handler
    *
    * @param {KeyboardEvent} e - keyboard event
    * @returns {void}
@@ -184,7 +201,18 @@ class PlaylistNextScreen extends Component<any, any> {
     if (e.keyCode === KeyMap.ENTER || e.keyCode === KeyMap.SPACE) {
       e.preventDefault();
       this.onPosterClick();
-    } else if (e.keyCode === KeyMap.ESC && this.countdownTimer) {
+    }
+  };
+
+  /**
+   * overlay key down handler, ESC cancels the countdown wherever the focus is on the screen
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @returns {void}
+   * @memberof PlaylistNextScreen
+   */
+  onOverlayKeyDown = (e: KeyboardEvent): void => {
+    if (e.keyCode === KeyMap.ESC && this.countdownTimer) {
       this.cancelNext(e);
     }
   };
@@ -218,7 +246,7 @@ class PlaylistNextScreen extends Component<any, any> {
     const next = props.playlist.next;
     const isCounting = this._isCountdownMode(props) && !props.countdownCanceled;
     return (
-      <div className={style.playlistNextScreenOverlay}>
+      <div className={style.playlistNextScreenOverlay} onKeyDown={this.onOverlayKeyDown}>
         {isCounting && (
           <div className={style.playlistNextScreenCancel}>
             <Localizer>
