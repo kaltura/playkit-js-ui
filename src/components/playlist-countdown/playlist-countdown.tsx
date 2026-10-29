@@ -2,7 +2,7 @@ import style from '../../styles/style.scss';
 import {h, Component, VNode} from 'preact';
 import {Localizer, Text} from 'preact-i18n';
 import {default as Icon, IconType} from '../icon';
-import {KeyMap} from '../../utils';
+import {KeyMap, hasTimeToShow} from '../../utils';
 import {connect} from 'react-redux';
 import {withPlayer} from '../player';
 import {withLogger} from '../logger';
@@ -66,6 +66,7 @@ class PlaylistCountdown extends Component<any, any> {
       props.playlist.next &&
       props.playlist.next.sources &&
       props.player.playlist.countdown.showing &&
+      hasTimeToShow(props.player.playlist.countdown.timeToShow) &&
       (props.player.playlist.options.autoContinue || props.player.playlist.options.loop)
     );
   }

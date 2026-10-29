@@ -5,6 +5,19 @@
     height: 100%;
     background-color: rgba(black, 0.5);
 
+    .playlist-next-screen-cancel {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      z-index: 1;
+      width: 24px;
+      height: 24px;
+      * {
+        width: inherit;
+        height: inherit;
+      }
+    }
+
     .playlist-next-screen-content {
       position: relative;
       top: 50%;
@@ -22,6 +35,11 @@
         .playlist-next-screen-text-title {
           padding: 4px;
           font-weight: 100;
+
+          .playlist-next-screen-time-left {
+            display: inline;
+            margin-left: 4px;
+          }
         }
 
         .playlist-next-screen-text-name {
@@ -98,6 +116,14 @@
   &.size-xs,
   &.size-ty {
     .playlist-next-screen-content {
+      .playlist-next-screen-text {
+        top: -58px;
+
+        .playlist-next-screen-text-name {
+          padding: 0;
+        }
+      }
+
       .playlist-next-screen-poster-placeholder {
         width: 32px;
 

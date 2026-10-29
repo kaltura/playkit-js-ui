@@ -6,3 +6,4 @@ export {withKeyboardA11y} from './popup-keyboard-accessibility';
 export * from './time-format';
 export {getDurationAsText} from './duration-humanizer';
 export {sanitizeUrl} from './sanitize-url';
+export {hasTimeToShow} from './has-time-to-show';
