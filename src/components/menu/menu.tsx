@@ -2,8 +2,7 @@ import style from '../../styles/style.scss';
 import {h, Component, VNode} from 'preact';
 import {default as Icon, IconType} from '../icon';
 import {connect} from 'react-redux';
-import {withKeyboardA11y} from '../../utils';
-import {KeyMap} from '../../utils';
+import {withKeyboardA11y, KeyMap, isAltArrowUp} from '../../utils';
 import {withEventManager} from '../../event';
 import {WithEventManagerProps} from '../../event/with-event-manager';
 import {getQualityBadgeText, QualityBadgeType} from '../../utils/quality-badge';
@@ -25,7 +24,8 @@ type MenuProps = {
   labelledby?: string;
   pushRef?: (HTMLElement) => void;
   onMenuChosen: (value: any) => void;
-  onClose: () => void;
+  onClose: (e?: KeyboardEvent, byKeyboard?: boolean) => void;
+  handleKeyDown?: (e: KeyboardEvent) => void;
   hideSelect?: boolean;
   parentEl?: HTMLDivElement;
 };
@@ -125,6 +125,25 @@ class Menu extends Component<MenuProps & WithEventManagerProps, any> {
   };
 
   /**
+   * handle keydown on the menu.
+   * Screen readers (e.g. JAWS) send Alt+ArrowUp instead of Escape to close a popup, so treat it as a close request
+   * rather than as navigation to the previous option.
+   *
+   * @param {KeyboardEvent} e - keyboard event
+   * @returns {void}
+   * @memberof Menu
+   */
+  private onKeyDown = (e: KeyboardEvent): void => {
+    if (isAltArrowUp(e)) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.props.onClose(e, true);
+      return;
+    }
+    this.props.handleKeyDown?.(e);
+  };
+
+  /**
    * indication if option is active or not
    *
    * @param {Object} option option object
@@ -210,7 +229,7 @@ class Menu extends Component<MenuProps & WithEventManagerProps, any> {
     ) : (
       <div
         role="listbox"
-        onKeyDown={props.handleKeyDown}
+        onKeyDown={this.onKeyDown}
         ref={c => (c ? (this._menuElement = c) : undefined)}
         className={[style.dropdownMenu, ...this.state.position].join(' ')}>
         {props.options.map((o, index) => (
