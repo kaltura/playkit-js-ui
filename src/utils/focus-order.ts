@@ -1,12 +1,15 @@
 import style from '../styles/style.scss';
 
 const FOCUS_GROUPS: string[] = [
+  // big play / start over button, shown before playback starts and after it ends
+  `.${style.prePlaybackPlayOverlay}`,
   // only visible on small players, where it replaces the bottom-bar play/pause
   `.${style.centerPlaybackControls}`,
   `.${style.bottomBar} .${style.leftControls}`,
   `.${style.bottomBar} .${style.bottomBarArea}`,
   `.${style.bottomBar} .${style.controlsContainer}`,
   `.${style.bottomBar} .${style.rightControls}`,
+  `.${style.videoArea}`,
   `.${style.interactiveArea}`,
   `.${style.topBar}`
 ];

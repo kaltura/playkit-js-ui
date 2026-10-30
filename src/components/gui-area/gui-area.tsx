@@ -44,7 +44,8 @@ class GuiArea extends Component<any, any> {
   // eslint-disable-next-line require-jsdoc
   private _syncFocusOrder(): void {
     if (this.props.customFocusOrder && this._ref && !this._detachFocusOrder) {
-      this._detachFocusOrder = attachFocusOrder(this._ref);
+      // #player-gui also holds the video area, so its focusables join the custom order
+      this._detachFocusOrder = attachFocusOrder(this._ref.closest<HTMLElement>('#player-gui') || this._ref);
     } else if (!this.props.customFocusOrder && this._detachFocusOrder) {
       this._detachFocusOrder();
       this._detachFocusOrder = undefined;
